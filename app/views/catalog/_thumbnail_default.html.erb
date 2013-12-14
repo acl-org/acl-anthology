@@ -1,0 +1,5 @@
+<%- if has_thumbnail?(document) && tn = render_thumbnail_tag(document, {}, :counter => document_counter_with_offset(document_counter)) %>
+<div class="document-thumbnail">
+  <%= tn %>
+</div>  
+<%- end %>

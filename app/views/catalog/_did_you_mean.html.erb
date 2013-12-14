@@ -1,0 +1,5 @@
+<% if @response.total <= spell_check_max and @response.spelling.words.size > 0 %>
+  <div id="spell">
+    <h4 class="suggest"><em><%= t('blacklight.did_you_mean', :options =>  @response.spelling.words.map { |word| link_to_query(word) }.join(" #{t('blacklight.or')} ")).html_safe %></em></h4>
+  </div>
+<% end %>

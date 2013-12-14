@@ -1,0 +1,15 @@
+<% if show_sort_and_per_page? and !blacklight_config.per_page.blank? %>
+<div id="per_page-dropdown" class="dropdown pull-right  hidden-phone">
+  <span class="hide-text"><%= t('blacklight.search.per_page.title') %></span>
+  <ul class="css-dropdown">
+    <li class="btn">
+      <%= link_to(t(:'blacklight.search.per_page.button_label', :count => current_per_page), "#") %> <span class="caret"></span>
+      <ul>
+        <%- blacklight_config.per_page.each do |count| %>
+          <li><%= link_to(t(:'blacklight.search.per_page.label', :count => count).html_safe, url_for(params_for_search(:per_page => count))) %></li>
+        <%- end -%>
+      </ul>
+    </li>
+  </ul>
+</div>
+<% end %>

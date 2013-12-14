@@ -1,0 +1,10 @@
+
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h1><%= t('blacklight.search.librarian_view.title') %></h1>
+</div>
+<%- if @document.respond_to?(:to_marc) -%>
+  <%= render "marc_view" %>
+<%- else %>
+  <%= t('blacklight.search.librarian_view.empty') %>
+<%- end -%>

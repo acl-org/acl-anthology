@@ -5,39 +5,29 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:volume_id) %></th>
       <th><%= model_class.human_attribute_name(:paper_id) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:month) %></th>
       <th><%= model_class.human_attribute_name(:year) %></th>
       <th><%= model_class.human_attribute_name(:address) %></th>
-      <th><%= model_class.human_attribute_name(:publisher) %></th>
-      <th><%= model_class.human_attribute_name(:pages) %></th>
       <th><%= model_class.human_attribute_name(:url) %></th>
-      <th><%= model_class.human_attribute_name(:bibtype) %></th>
-      <th><%= model_class.human_attribute_name(:bibkey) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @papers.each do |paper| %>
       <tr>
-        <td><%= link_to paper.id, paper_path(paper) %></td>
         <td><%= paper.volume_id %></td>
         <td><%= paper.paper_id %></td>
         <td><%= paper.title %></td>
         <td><%= paper.month %></td>
         <td><%= paper.year %></td>
         <td><%= paper.address %></td>
-        <td><%= paper.publisher %></td>
-        <td><%= paper.pages %></td>
         <td><%= paper.url %></td>
-        <td><%= paper.bibtype %></td>
-        <td><%= paper.bibkey %></td>
-        <td><%=l paper.created_at %></td>
         <td>
+          <%= link_to t('.view', :default => t("helpers.links.view")),
+                          paper_path(paper), :class => 'btn btn-mini btn-primary' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_paper_path(paper), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

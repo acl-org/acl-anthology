@@ -1,0 +1,10 @@
+    <% # container for a single doc -%>
+    <div class="document <%= render_document_class document %>">
+      <%= render :partial => 'document_header', :locals => { :document => document, :document_counter => document_counter } %>
+
+      <%= render_document_partial document, :thumbnail, :document_counter => document_counter %>
+
+      <% # main container for doc partial view -%>
+      <%= render_document_partial document, :index, :document_counter => document_counter %>
+
+    </div>

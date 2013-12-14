@@ -1,0 +1,16 @@
+<ul>
+  <% display_facet.items.each do |item| -%>
+    <li>
+    <% if facet_in_params?( solr_field, item ) %>              
+        <%= render_selected_facet_value(solr_field, item) %>              
+      <% else %>              
+        <%= render_facet_value(solr_field, item) %>              
+    <% end -%>
+
+    <% unless item.items.blank? %>
+      <%= render :partial => 'facet_pivot', :locals => { :display_facet => item, :solr_field => solr_field } %>
+    <% end %>
+    </li>
+  <% end %>
+
+</ul>

@@ -1,0 +1,15 @@
+     
+      <% # header bar for doc items in index view -%>
+      <div class="documentHeader clearfix">
+        
+        <%- # main title container for doc partial view -%>
+         <h5 class="index_title">
+         <% counter = document_counter_with_offset(document_counter) %>
+         <%= t('blacklight.search.documents.counter', :counter => counter) if counter %>
+         <%= link_to_document document, :label=>document_show_link_field(document), :counter => counter %>
+        </h5>
+
+        <% # bookmark functions for items/docs -%>
+        <%= render_index_doc_actions document, :wrapping_class => "documentFunctions span2" %>
+      </div>
+      

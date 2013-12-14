@@ -5,23 +5,19 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:person_id) %></th>
       <th><%= model_class.human_attribute_name(:first_name) %></th>
       <th><%= model_class.human_attribute_name(:last_name) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @people.each do |person| %>
       <tr>
-        <td><%= link_to person.id, person_path(person) %></td>
-        <td><%= person.person_id %></td>
         <td><%= person.first_name %></td>
         <td><%= person.last_name %></td>
-        <td><%=l person.created_at %></td>
         <td>
+          <%= link_to t('.view', :default => t("helpers.links.view")),
+                          person_path(person), :class => 'btn btn-mini btn-primary' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_person_path(person), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

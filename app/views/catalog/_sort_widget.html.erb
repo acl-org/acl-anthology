@@ -1,0 +1,14 @@
+<% if show_sort_and_per_page? and !blacklight_config.sort_fields.blank? %>
+<div id="sort-dropdown" class="dropdown pull-right hidden-phone">
+  <ul class="css-dropdown">
+    <li class="btn">
+      <%= link_to(t('blacklight.search.sort.label', :field =>current_sort_field.label), "#") %> <span class="caret"></span>
+      <ul>
+        <%- blacklight_config.sort_fields.each do |sort_key, field| %>
+          <li><%= link_to(field.label, url_for(params_for_search(:sort => sort_key))) %></li>
+        <%- end -%>
+      </ul>
+    </li>
+  </ul>
+</div>
+<% end %>

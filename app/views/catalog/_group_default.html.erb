@@ -1,0 +1,12 @@
+<% # container for all groups in index view -%>
+<div id="groups">
+  <%- @response.groups.each do |g| %>
+    <h3 class="group-key"><%= g.key %></h3>
+    <div class="grouped-documents">
+      <%= render_document_index g.docs %>
+    </div>
+    <%- if g.total > @response.group_limit %>
+      <%= link_to t('blacklight.search.group.more'), add_group_facet_params_and_redirect(g), :class => 'more-in-group' %>
+    <%- end %>
+  <%- end %>
+</div>
