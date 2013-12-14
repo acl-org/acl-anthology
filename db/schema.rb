@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131214093027) do
+ActiveRecord::Schema.define(version: 20131214095631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,30 @@ ActiveRecord::Schema.define(version: 20131214093027) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "user_type"
+  end
+
+  create_table "papers", force: true do |t|
+    t.string   "volume_id"
+    t.string   "paper_id"
+    t.string   "title"
+    t.string   "month"
+    t.integer  "year"
+    t.string   "address"
+    t.string   "publisher"
+    t.string   "pages"
+    t.string   "url"
+    t.string   "bibtype"
+    t.string   "bibkey"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "people", force: true do |t|
+    t.integer  "person_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "searches", force: true do |t|
@@ -53,5 +77,19 @@ ActiveRecord::Schema.define(version: 20131214093027) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "volumes", force: true do |t|
+    t.string   "volume_id"
+    t.string   "title"
+    t.string   "month"
+    t.integer  "year"
+    t.string   "address"
+    t.string   "publisher"
+    t.string   "url"
+    t.string   "bibtype"
+    t.string   "bibkey"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

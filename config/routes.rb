@@ -1,4 +1,10 @@
 Acl2::Application.routes.draw do
+  resources :volumes
+
+  resources :papers
+
+  resources :people
+
   root :to => "catalog#index"
   Blacklight.add_routes(self)
   devise_for :users

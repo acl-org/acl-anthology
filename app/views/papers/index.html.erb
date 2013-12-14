@@ -1,0 +1,47 @@
+<h1>Listing papers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Volume</th>
+      <th>Paper</th>
+      <th>Title</th>
+      <th>Month</th>
+      <th>Year</th>
+      <th>Address</th>
+      <th>Publisher</th>
+      <th>Pages</th>
+      <th>Url</th>
+      <th>Bibtype</th>
+      <th>Bibkey</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @papers.each do |paper| %>
+      <tr>
+        <td><%= paper.volume_id %></td>
+        <td><%= paper.paper_id %></td>
+        <td><%= paper.title %></td>
+        <td><%= paper.month %></td>
+        <td><%= paper.year %></td>
+        <td><%= paper.address %></td>
+        <td><%= paper.publisher %></td>
+        <td><%= paper.pages %></td>
+        <td><%= paper.url %></td>
+        <td><%= paper.bibtype %></td>
+        <td><%= paper.bibkey %></td>
+        <td><%= link_to 'Show', paper %></td>
+        <td><%= link_to 'Edit', edit_paper_path(paper) %></td>
+        <td><%= link_to 'Destroy', paper, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Paper', new_paper_path %>

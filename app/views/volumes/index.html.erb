@@ -1,0 +1,43 @@
+<h1>Listing volumes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Volume</th>
+      <th>Title</th>
+      <th>Month</th>
+      <th>Year</th>
+      <th>Address</th>
+      <th>Publisher</th>
+      <th>Url</th>
+      <th>Bibtype</th>
+      <th>Bibkey</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @volumes.each do |volume| %>
+      <tr>
+        <td><%= volume.volume_id %></td>
+        <td><%= volume.title %></td>
+        <td><%= volume.month %></td>
+        <td><%= volume.year %></td>
+        <td><%= volume.address %></td>
+        <td><%= volume.publisher %></td>
+        <td><%= volume.url %></td>
+        <td><%= volume.bibtype %></td>
+        <td><%= volume.bibkey %></td>
+        <td><%= link_to 'Show', volume %></td>
+        <td><%= link_to 'Edit', edit_volume_path(volume) %></td>
+        <td><%= link_to 'Destroy', volume, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Volume', new_volume_path %>
