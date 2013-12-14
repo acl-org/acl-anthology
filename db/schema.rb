@@ -41,12 +41,22 @@ ActiveRecord::Schema.define(version: 20131214101018) do
     t.datetime "updated_at"
   end
 
+  create_table "papers_people", id: false, force: true do |t|
+    t.string  "paper_id"
+    t.integer "person_id"
+  end
+
   create_table "people", force: true do |t|
     t.integer  "person_id"
     t.string   "first_name"
     t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "people_volumes", id: false, force: true do |t|
+    t.integer "person_id"
+    t.string  "volume_id"
   end
 
   create_table "searches", force: true do |t|
