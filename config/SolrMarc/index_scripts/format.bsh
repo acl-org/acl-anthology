@@ -1,0 +1,126 @@
+import org.marc4j.marc.Record;
+import org.solrmarc.tools.Utils;
+
+// define the base level indexer so that its methods can be called from the script.
+// note that the SolrIndexer code will set this value before the script methods are called.
+org.solrmarc.index.SolrIndexer indexer = null;
+
+/**
+ * Determine Record Format(s)
+ *
+ * @param  Record          record
+ * @return Set     format of record
+ */
+
+public Set getFormat(Record record)
+{
+    Set result = new LinkedHashSet();
+
+	// check if there's an h in the 245
+	Set title_245h = indexer.getFieldList(record, "245h");
+	if (Utils.setItemContains(title_245h, "electronic resource"))
+	{
+	    result.add("Electronic");
+	    return result;
+    }
+	boolean field007hasC = false;
+    // check the 007 - this is a repeating field
+    // if we find a matching value there, grab it and return.
+    Set fields007 = indexer.getFieldList(record, "007[0-1]");
+    for (String f_007 : fields007)
+    {
+   	    f_007 = f_007.toUpperCase();
+   	    if (f_007.startsWith("A"))
+   	        if (f_007.equals( "AD")) 		result.add("Atlas");
+   	        else                   			result.add("Map");
+   	    else if (f_007.startsWith("C"))
+   	        if (f_007.equals("CA"))			result.add("TapeCartridge");
+   	        else if (f_007.equals("CB"))	result.add("ChipCartridge");
+   	        else if (f_007.equals("CC"))	result.add("DiscCartridge");
+   	        else if (f_007.equals("CF"))	result.add("TapeCassette");
+   	        else if (f_007.equals("CH"))	result.add("TapeReel");
+   	        else if (f_007.equals("CJ"))	result.add("FloppyDisk");
+   	        else if (f_007.equals("CM"))	result.add("CDROM");
+   	        else if (f_007.equals("C0"))	result.add("CDROM");
+   	        else if (f_007.equals("CR"))	field007hasC = true;  // Do not return - this will cause anything with an 856 field to be labeled as "Electronic"
+   	        else 							result.add("Software");
+	    else if (f_007.startsWith("D"))		result.add("Globe");
+	    else if (f_007.startsWith("F"))		result.add("Braille");
+	    else if (f_007.startsWith("G"))		
+  	        if (f_007.equals("GC")) 		result.add("Filmstrip");
+   	        else if (f_007.equals("GD")) 	result.add("Filmstrip");
+  	        else if (f_007.equals("GT")) 	result.add("Transparency");
+   	        else                 			result.add("Slide");
+        else if (f_007.startsWith("H"))		result.add("Microfilm");
+   	    else if (f_007.startsWith("K"))
+   	        if (f_007.equals("KC"))			result.add("Collage");
+   	        else if (f_007.equals("KD"))	result.add("Drawing");
+   	        else if (f_007.equals("KE"))	result.add("Painting");
+   	        else if (f_007.equals("KF"))	result.add("Print");
+   	        else if (f_007.equals("KG"))	result.add("Photonegative");
+   	        else if (f_007.equals("KJ"))	result.add("Print");
+   	        else if (f_007.equals("KL"))	result.add("Drawing");
+   	        else if (f_007.equals("K0"))	result.add("FlashCard");
+   	        else if (f_007.equals("KN"))	result.add("Chart");
+   	        else 							result.add("Photo");
+        else if (f_007.startsWith("M"))		
+  	        if (f_007.equals("MF")) 		result.add("VideoCassette");
+   	        else if (f_007.equals("MR")) 	result.add("Filmstrip");
+   	        else                 			result.add("MotionPicture");
+        else if (f_007.startsWith("O"))		result.add("Kit");
+        else if (f_007.startsWith("Q"))		result.add("MusicalScore");
+        else if (f_007.startsWith("R"))		result.add("SensorImage");
+        else if (f_007.startsWith("S"))		
+  	        if (f_007.equals("SD")) 		result.add("SoundDisc");
+   	        else if (f_007.equals("SS")) 	result.add("SoundCassette");
+   	        else                 			result.add("SoundRecording");
+	    else if (f_007.startsWith("V"))		
+  	        if (f_007.equals("VC")) 		result.add("VideoCartridge");
+   	        else if (f_007.equals("VD")) 	result.add("VideoDisc");
+  	        else if (f_007.equals("VF")) 	result.add("VideoCassette");
+  	        else if (f_007.equals("VR")) 	result.add("VideoReel");
+   	        else                 			result.add("Video");
+   	    
+   	    // if we found a matching value and return it.
+   	    if (!result.isEmpty())				return result;
+    }
+    // check the Leader - this is NOT a repeating field
+    // if we find a matching value there, grab it and return.
+    String f_000 = indexer.getFirstFieldVal(record, null, "000[6-7]");
+    f_000 = f_000.toUpperCase();
+    if (f_000.startsWith("C"))			result.add("MusicalScore");
+    else if (f_000.startsWith("D"))		result.add("MusicalScore");
+    else if (f_000.startsWith("E"))		result.add("Map");
+    else if (f_000.startsWith("F"))		result.add("Map");
+    else if (f_000.startsWith("G"))		result.add("Slide");
+    else if (f_000.startsWith("I"))		result.add("SoundRecording");
+    else if (f_000.startsWith("J"))		result.add("MusicRecording");
+    else if (f_000.startsWith("K"))		result.add("Photo");
+    else if (f_000.startsWith("M"))		result.add("Electronic");
+    else if (f_000.startsWith("O"))		result.add("Kit");
+    else if (f_000.startsWith("P"))		result.add("Kit");
+    else if (f_000.startsWith("R"))		result.add("PhysicalObject");
+    else if (f_000.startsWith("T"))		result.add("Manuscript");
+    else if (f_000.startsWith("A"))
+    {
+    	if (f_000.equals("AM"))			
+    	{
+    	    if (field007hasC) 			result.add("eBook");
+    		else						result.add("Book");
+    	}
+        else if (f_000.equals("AS"))
+        {
+            // Look in 008 to determine what type of Continuing Resource
+            String formatCode = indexer.getFirstFieldVal(record, null, "008[21]");
+            if (formatCode.equals("N"))			result.add("Newspaper");
+            else if (formatCode.equals("P"))	result.add("Journal");
+            else 								result.add("Serial");
+        }
+    }
+    // Nothing worked!
+	if (result.isEmpty()) {
+        result.add("Unknown");
+    }
+    
+    return result;
+}

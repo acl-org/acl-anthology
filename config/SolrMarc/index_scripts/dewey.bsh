@@ -1,0 +1,47 @@
+import org.marc4j.marc.Record;
+import org.solrmarc.tools.Utils;
+import org.solrmarc.tools.CallNumUtils;
+
+// define the base level indexer so that its methods can be called from the script.
+// note that the SolrIndexer code will set this value before the script methods are called.
+org.solrmarc.index.SolrIndexer indexer = null;
+
+/**
+ * returns the facet value for dewey hundreds digits, and dewey tens digits
+ * @param record
+ * @return Set of Strings containing facet value for dewey hundreds digits, and dewey tens digits
+ */
+Set getDeweyFacet(Record record, String propertiesMapName)
+{
+    LinkedHashSet resultSet = new LinkedHashSet();
+    Set values = indexer.getFieldList(record, "082a");
+    String mapName = indexer.loadTranslationMap(propertiesMapName);
+
+    for (String dewey : values)
+    {
+        if (! CallNumUtils.isValidDewey(dewey))  continue;
+        String hundreds = dewey.substring(0, 1) + "00";
+        String tens = dewey.substring(0,2) + "0";
+        String hundredsMapped = Utils.remap(hundreds, indexer.findMap(mapName), true);
+        String tensMapped = Utils.remap(tens, indexer.findMap(mapName), true);
+        if (hundredsMapped != null) resultSet.add(hundredsMapped);
+        if (tensMapped != null) resultSet.add(tensMapped);
+    }
+
+    return resultSet;
+}
+
+Set getDeweyText(Record record)
+{
+    LinkedHashSet resultSet = new LinkedHashSet();
+    Set values = indexer.getFieldList(record, "082a");
+
+    for (String dewey : values)
+    {
+        if (! CallNumUtils.isValidDewey(dewey))  continue;
+        dewey = dewey.replaceAll("/[.]", ".").replaceAll("/", " ");
+        resultSet.add(dewey);
+    }
+
+    return resultSet;
+}
