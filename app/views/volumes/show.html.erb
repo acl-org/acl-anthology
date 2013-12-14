@@ -1,49 +1,37 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Volume -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Volume:</strong>
-  <%= @volume.volume_id %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:volume_id) %>:</strong></dt>
+  <dd><%= @volume.volume_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @volume.title %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:month) %>:</strong></dt>
+  <dd><%= @volume.month %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
+  <dd><%= @volume.year %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
+  <dd><%= @volume.address %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:publisher) %>:</strong></dt>
+  <dd><%= @volume.publisher %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
+  <dd><%= @volume.url %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bibtype) %>:</strong></dt>
+  <dd><%= @volume.bibtype %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bibkey) %>:</strong></dt>
+  <dd><%= @volume.bibkey %></dd>
+</dl>
 
-<p>
-  <strong>Title:</strong>
-  <%= @volume.title %>
-</p>
-
-<p>
-  <strong>Month:</strong>
-  <%= @volume.month %>
-</p>
-
-<p>
-  <strong>Year:</strong>
-  <%= @volume.year %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @volume.address %>
-</p>
-
-<p>
-  <strong>Publisher:</strong>
-  <%= @volume.publisher %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @volume.url %>
-</p>
-
-<p>
-  <strong>Bibtype:</strong>
-  <%= @volume.bibtype %>
-</p>
-
-<p>
-  <strong>Bibkey:</strong>
-  <%= @volume.bibkey %>
-</p>
-
-<%= link_to 'Edit', edit_volume_path(@volume) %> |
-<%= link_to 'Back', volumes_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              volumes_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_volume_path(@volume), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              volume_path(@volume),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

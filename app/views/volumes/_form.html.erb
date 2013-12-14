@@ -1,53 +1,62 @@
-<%= form_for(@volume) do |f| %>
-  <% if @volume.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@volume.errors.count, "error") %> prohibited this volume from being saved:</h2>
-
-      <ul>
-      <% @volume.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @volume, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :volume_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :volume_id, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :month, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :month, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :year, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :year, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :address, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :address, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :publisher, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :publisher, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :url, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :url, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :bibtype, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :bibtype, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :bibkey, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :bibkey, :class => 'text_field' %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :volume_id %><br>
-    <%= f.text_field :volume_id %>
-  </div>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :month %><br>
-    <%= f.text_field :month %>
-  </div>
-  <div class="field">
-    <%= f.label :year %><br>
-    <%= f.number_field :year %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :publisher %><br>
-    <%= f.text_field :publisher %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
-  </div>
-  <div class="field">
-    <%= f.label :bibtype %><br>
-    <%= f.text_field :bibtype %>
-  </div>
-  <div class="field">
-    <%= f.label :bibkey %><br>
-    <%= f.text_field :bibkey %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                volumes_path, :class => 'btn' %>
   </div>
 <% end %>

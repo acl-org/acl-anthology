@@ -1,59 +1,41 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Paper -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Volume:</strong>
-  <%= @paper.volume_id %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:volume_id) %>:</strong></dt>
+  <dd><%= @paper.volume_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:paper_id) %>:</strong></dt>
+  <dd><%= @paper.paper_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @paper.title %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:month) %>:</strong></dt>
+  <dd><%= @paper.month %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
+  <dd><%= @paper.year %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
+  <dd><%= @paper.address %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:publisher) %>:</strong></dt>
+  <dd><%= @paper.publisher %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:pages) %>:</strong></dt>
+  <dd><%= @paper.pages %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
+  <dd><%= @paper.url %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bibtype) %>:</strong></dt>
+  <dd><%= @paper.bibtype %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bibkey) %>:</strong></dt>
+  <dd><%= @paper.bibkey %></dd>
+</dl>
 
-<p>
-  <strong>Paper:</strong>
-  <%= @paper.paper_id %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @paper.title %>
-</p>
-
-<p>
-  <strong>Month:</strong>
-  <%= @paper.month %>
-</p>
-
-<p>
-  <strong>Year:</strong>
-  <%= @paper.year %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @paper.address %>
-</p>
-
-<p>
-  <strong>Publisher:</strong>
-  <%= @paper.publisher %>
-</p>
-
-<p>
-  <strong>Pages:</strong>
-  <%= @paper.pages %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @paper.url %>
-</p>
-
-<p>
-  <strong>Bibtype:</strong>
-  <%= @paper.bibtype %>
-</p>
-
-<p>
-  <strong>Bibkey:</strong>
-  <%= @paper.bibkey %>
-</p>
-
-<%= link_to 'Edit', edit_paper_path(@paper) %> |
-<%= link_to 'Back', papers_path %>
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              papers_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_paper_path(@paper), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              paper_path(@paper),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
