@@ -22,6 +22,7 @@ require "uri"
 def extract(url)
 	xml_data = Net::HTTP.get_response(URI.parse(url)).body
 	xml_data.gsub!(/&/, '&amp;') # Remove illegal charactes
+	#xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	doc = REXML::Document.new xml_data
 	doc = doc.elements[1] # skipping the highest level tag
 
@@ -124,10 +125,12 @@ codes = ['A', 'C', 'D', 'E', 'H', 'I', 'L', 'M', 'N', 'P', 'S', 'T', 'X']
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
 	years.each do |y|
-		if (c + y) == "C69" || (c + y) == "E03"
+		if (c + y) == "C69" || (c + y) == "E03" || (c + y) == "H01" || (c + y) == "N07" || (c + y) == "P04"
 			next
 		end
 		url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
+		# For single link test
+		# url_string = "http://aclweb.org/anthology/H/H01/H01.xml"
 		url = URI.parse(url_string)
 		request = Net::HTTP.new(url.host, url.port)
 		response = request.request_head(url.path)
@@ -145,3 +148,8 @@ end
 
 
 puts "* * * * * * * * * * Seeding Data End * * * * * * * * * * * * *"
+
+
+
+
+
