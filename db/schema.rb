@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20131214101018) do
   end
 
   create_table "papers_people", id: false, force: true do |t|
-    t.string  "paper_id"
+    t.integer "paper_id"
     t.integer "person_id"
   end
 
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20131214101018) do
 
   create_table "people_volumes", id: false, force: true do |t|
     t.integer "person_id"
-    t.string  "volume_id"
+    t.integer "volume_id"
   end
 
   create_table "searches", force: true do |t|
