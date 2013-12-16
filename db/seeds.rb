@@ -35,8 +35,8 @@ def extract(url)
 		if doc.elements[i].attributes["id"][-3..-1] == "000" # Check if last 2 digits are 00, then it is a volume
 			@volume = Volume.new
 			vol = doc.elements[i] # Short hand for easier reading
-			@volume.volume_id = id + '-' + vol.attributes["id"]
-			vol_id = @volume.volume_id
+			@volume.anthology_id = id + '-' + vol.attributes["id"]
+			vol_id = @volume.anthology_id
 			@volume.title = vol.elements['title'].text
 
 			# Adding editor information
@@ -65,7 +65,7 @@ def extract(url)
 
 			# SAVE VOLUME TO DB
 			if @volume.save! == false
-				puts ("Error saving volume " + @volume.volume_id)
+				puts ("Error saving volume " + @volume.anthology_id)
 			end
 			# SAVE EDITORS TO DB
 			# SAVE RELATION OF THE 2 TO DB
@@ -74,7 +74,7 @@ def extract(url)
 		else # If not, we assume it is a paper
 			@paper = Paper.new
 			p = doc.elements[i] # Short hand for easier reading
-			@paper.volume_id = vol_id
+			@paper.anthology_id = vol_id
 			@paper.paper_id = p.attributes["id"]
 			@paper.title = p.elements['title'].text
 

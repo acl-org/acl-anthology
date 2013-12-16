@@ -7,7 +7,7 @@ class Volume < ActiveRecord::Base
   	validates_associated :people
   	accepts_nested_attributes_for :people
 
-	#validates :volume_id, :title, :month, :year, :address, :publisher, :url, presence: true
+	#validates :anthology_id, :title, :month, :year, :address, :publisher, :url, presence: true
 
-	#validates :volume_id, uniqueness: true
+	#validates :anthology_id, uniqueness: true
 end
