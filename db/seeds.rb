@@ -56,7 +56,12 @@ def extract(url)
 			end
 
 			@volume.month 		= vol.elements['month'].text		if vol.elements['month']
-			@volume.year 		= (vol.elements['year'].text).to_i	if vol.elements['year']
+			if vol.elements['year']
+				@volume.year 	= (vol.elements['year'].text).to_i
+			else
+				@volume.year 	= ("20" + id[1..3]).to_i if id[1..3].to_i < 20
+				@volume.year 	= ("19" + id[1..3]).to_i if id[1..3].to_i > 60
+			end
 			@volume.address 	= vol.elements['address'].text		if vol.elements['address']
 			@volume.publisher 	= vol.elements['publisher'].text	if vol.elements['publisher']
 			@volume.url 		= vol.elements['url'].text			if vol.elements['url']
@@ -94,7 +99,12 @@ def extract(url)
 		    end
 
 	    	@paper.month 		= p.elements['month'].text			if p.elements['month']
-	    	@paper.year 		= (p.elements['year'].text).to_i	if p.elements['year']
+	    	if p.elements['year']
+				@paper.year 	= (p.elements['year'].text).to_i
+			else
+				@paper.year 	= ("20" + id[1..3]).to_i if id[1..3].to_i < 20
+				@paper.year 	= ("19" + id[1..3]).to_i if id[1..3].to_i > 60
+			end
 	    	@paper.address 		= p.elements['address'].text		if p.elements['address']
 	    	@paper.publisher 	= p.elements['publisher'].text		if p.elements['publisher']
 	    	@paper.pages 		= p.elements['pages'].text			if p.elements['pages']
