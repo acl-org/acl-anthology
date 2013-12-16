@@ -57,3 +57,7 @@ gem "twitter-bootstrap-rails"
 
 # For Heroku tools
 gem 'rails_12factor', group: :production
+
+# Paginator 
+gem 'kaminari'
+
