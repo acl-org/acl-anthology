@@ -57,6 +57,17 @@
     <defaultQuery>solr</defaultQuery>
   </admin>
 
+  <!-- DataImportHandler 
+       http://wiki.apache.org/solr/DIHQuickStart
+
+       For indexing directly from relational database to solr
+  -->
+  <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
+    <lst name="defaults">
+      <str name="config">data-config.xml</str>
+    </lst>
+  </requestHandler>
+
   <!-- SearchHandler
 
        http://wiki.apache.org/solr/SearchHandler
@@ -87,30 +98,10 @@
        -->
 
        <str name="qf">
-         title_unstem_search^100000
-         subtitle_unstem_search^50000
-         title_t^25000
-         subtitle_t^10000
-         title_addl_unstem_search^5000
-         title_addl_t^2500
-         title_added_entry_unstem_search^1500
-         title_added_entry_t^1250
-         subject_topic_unstem_search^1000
-         subject_unstem_search^750
-         subject_topic_facet^625
-         subject_t^500
-         author_unstem_search^250
-         author_addl_unstem_search^250
-         author_t^100
-         author_addl_t^50
-         subject_addl_unstem_search^250
-         subject_addl_t^50
-         title_series_unstem_search^25
-         title_series_t^10
-         isbn_t
-         text
+         first_name^1000
+         last_name^500
        </str>
-       <str name="pf">
+       <!-- <str name="pf">
          title_unstem_search^1000000
          subtitle_unstem_search^500000
          title_t^250000
@@ -132,8 +123,8 @@
          title_series_unstem_search^250
          title_series_t^100
          text^10
-       </str>
-       <str name="author_qf">
+       </str> -->
+       <!-- <str name="author_qf">
          author_unstem_search^200
          author_addl_unstem_search^50
          author_t^20
@@ -184,13 +175,13 @@
          subject_topic_facet^500
          subject_addl_unstem_search^100
          subject_addl_t^10
-       </str>
+       </str> -->
        
        <int name="ps">3</int>
        <float name="tie">0.01</float>
 
        <!-- NOT using marc_display because it is large and will slow things down for search results -->
-       <str name="fl">
+       <!-- <str name="fl">
          id, 
          score,
          author_display,
@@ -212,12 +203,23 @@
          subtitle_vern_display,
          url_fulltext_display,
          url_suppl_display,
+       </str> -->
+
+       <str name="fl">
+        *
+      </str>
+
+       <str name="last_name">
+         last_name_unstem_search^2000
+       </str>
+       <str name="first_name">
+         first_name_unstem_search^2000
        </str>
 
        <str name="facet">true</str>
        <str name="facet.mincount">1</str>
        <str name="facet.limit">10</str>
-       <str name="facet.field">format</str>
+       <!-- <str name="facet.field">format</str>
        <str name="facet.field">lc_1letter_facet</str>
        <str name="facet.field">lc_alpha_facet</str>
        <str name="facet.field">lc_b4cutter_facet</str>
@@ -225,7 +227,9 @@
        <str name="facet.field">pub_date</str>
        <str name="facet.field">subject_era_facet</str>
        <str name="facet.field">subject_geo_facet</str>
-       <str name="facet.field">subject_topic_facet</str>
+       <str name="facet.field">subject_topic_facet</str> -->
+       <str name="facet.field">first_name</str>
+       <str name="facet.field">last_name</str>
        
        <str name="spellcheck">true</str>
        <str name="spellcheck.dictionary">default</str>

@@ -1,0 +1,14 @@
+<dataConfig>
+  <dataSource type="JdbcDataSource" 
+              driver="org.postgresql.Driver"
+              url="jdbc:postgresql://localhost/acl2_development" 
+              user="nglinh" 
+              password=""/>
+  <document>
+    <entity name="Person" 
+            query="select * from people">
+            <field column="FIRST_NAME" name="first_name"/>
+            <field column="LAST_NAME" name="last_name"/>
+    </entity>
+  </document>
+</dataConfig>
