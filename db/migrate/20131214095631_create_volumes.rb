@@ -1,7 +1,7 @@
 class CreateVolumes < ActiveRecord::Migration
   def change
     create_table :volumes do |t|
-      t.string :volume_id
+      t.string :anthology_id
       t.string :title
       t.string :month
       t.integer :year

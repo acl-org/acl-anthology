@@ -17,95 +17,149 @@
 # http://www.germane-software.com/software/rexml/docs/tutorial.html
 require "rexml/document"
 require "net/http"
-puts "* * * * * * * * * * * * Deleting Old Data Start * * * * * * * * * * * *"
-if not(Volume.delete_all and Paper.delete_all and Person.delete_all)
-	puts "Error deleting databeses!"
-end
-puts "* * * * * * * * * * * * Deleting Old Data End * * * * * * * * * * * *"
+require "uri"
+
+def extract(url)
+	xml_data = Net::HTTP.get_response(URI.parse(url)).body
+	xml_data.gsub!(/&/, '&amp;') # Remove illegal charactes
+	#xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
+	doc = REXML::Document.new xml_data
+	doc = doc.elements[1] # skipping the highest level tag
 
 
-puts "* * * * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
-# currently for testing funtionality only
-url = "http://aclweb.org/anthology/E/E12/E12.xml"
+	id = doc.attributes["id"] # The document id in the first "volume" tag, eg. E12
+	vol_id = id # temp for Paper
+	num_of_vol = 0 # Number of volumes in the doc
+	num_of_pap = 0
+	(1..doc.size/2).each do |i| # Loop trough all the paper tags in the doc, has to be /2 because each tag is counted twice
+		if doc.elements[i].attributes["id"][-3..-1] == "000" # Check if last 2 digits are 00, then it is a volume
+			@volume = Volume.new
+			vol = doc.elements[i] # Short hand for easier reading
+			@volume.anthology_id = id + '-' + vol.attributes["id"]
+			vol_id = @volume.anthology_id
+			@volume.title = vol.elements['title'].text
 
-xml_data = Net::HTTP.get_response(URI.parse(url)).body
-doc = REXML::Document.new xml_data
-doc = doc.elements[1] # skipping the highest level tag
+			# Adding editor information
+			vol.elements.each('editor') do |editor|
+				first_name = ""
+				last_name = ""
+				if editor.elements['first'] || editor.elements['last'] # Check if there are first,last name tags 
+					first_name = editor.elements['first'].text	if editor.elements['first']
+					last_name = editor.elements['last'].text	if editor.elements['last']				
+				else # If not, manually split the name into first name, last name
+					name = editor.text
+					first_name = name.split[0] # Only the first word in the full name
+					last_name = name.split[1..-1].join(" ") # The rest of the full name			
+				end
+				@editor = Person.find_or_create_by_first_name_and_last_name(first_name, last_name)
+				@volume.people << @editor # Save join person(editor) - volume to database
+			end
 
+			@volume.month 		= vol.elements['month'].text		if vol.elements['month']
+			if vol.elements['year']
+				@volume.year 	= (vol.elements['year'].text).to_i
+			else
+				@volume.year 	= ("20" + id[1..3]).to_i if id[1..3].to_i < 20
+				@volume.year 	= ("19" + id[1..3]).to_i if id[1..3].to_i > 60
+			end
+			@volume.address 	= vol.elements['address'].text		if vol.elements['address']
+			@volume.publisher 	= vol.elements['publisher'].text	if vol.elements['publisher']
+			@volume.url 		= vol.elements['url'].text			if vol.elements['url']
+			@volume.bibtype 	= vol.elements['bibtype'].text		if vol.elements['bibtype']
+			@volume.bibkey 		= vol.elements['bibkey'].text		if vol.elements['bibkey']
 
-id = doc.attributes["id"] # The document id in the first "volume" tag, eg. E12
-vol_id = id # temp for Paper
-V = 0 # Number of volumes in the doc
-(1..doc.size/2).each do |i| # Loop trough all the paper tags in the doc, has to be /2 because each tag is counted twice
-	if doc.elements[i].attributes["id"][-2..-1] == "00" # Check if last 2 digits are 00, then it is a volume
-		volume = Volume.new
-		vol = doc.elements[i] # Short hand for easier reading
-		volume.volume_id = id + '-' + vol.attributes["id"]
-		vol_id = volume.volume_id
-		volume.title = vol.elements[1].text
-		j = 2
-		while vol.elements[j].name == "editor"
-			editor = Person.new
-			# !!!!!!!!!!!!!!!!!Potential error!!!!!!!!!!!!!!!
-			editor.first_name = vol.elements[j].elements[1].text
-			editor.last_name = vol.elements[j].elements[2].text
-			#editor.save # Save editor as person to database
-			volume.people << editor # Save join person(editor) - volume to database
-			j += 1
+			# SAVE VOLUME TO DB
+			if @volume.save! == false
+				puts ("Error saving volume " + @volume.anthology_id)
+			end
+			# SAVE EDITORS TO DB
+			# SAVE RELATION OF THE 2 TO DB
+			num_of_vol += 1 # Increase number of volumes by 1
+			num_of_pap = 0 # Reset number of papers to 0
+		else # If not, we assume it is a paper
+			@paper = Paper.new
+			p = doc.elements[i] # Short hand for easier reading
+			@paper.anthology_id = vol_id
+			@paper.paper_id = p.attributes["id"]
+			@paper.title = p.elements['title'].text
+
+			p.elements.each('author') do |author|
+				first_name = ""
+				last_name = ""
+				if author.elements['first'] || author.elements['last']# Check if there are first,last name tags 
+					first_name = author.elements['first'].text 	if author.elements['first']
+					last_name = author.elements['last'].text	if author.elements['last']
+				else # If not, manually split the name into first name, last name
+					name = author.text
+					first_name = name.split[0] # Only the first word in the full name
+					last_name = name.split[1..-1].join(" ") # The rest of the full name
+				end
+				@author = Person.find_or_create_by_first_name_and_last_name(first_name, last_name)
+		        @paper.people << @author # Save join paper - person(author) to database
+		    end
+
+	    	@paper.month 		= p.elements['month'].text			if p.elements['month']
+	    	if p.elements['year']
+				@paper.year 	= (p.elements['year'].text).to_i
+			else
+				@paper.year 	= ("20" + id[1..3]).to_i if id[1..3].to_i < 20
+				@paper.year 	= ("19" + id[1..3]).to_i if id[1..3].to_i > 60
+			end
+	    	@paper.address 		= p.elements['address'].text		if p.elements['address']
+	    	@paper.publisher 	= p.elements['publisher'].text		if p.elements['publisher']
+	    	@paper.pages 		= p.elements['pages'].text			if p.elements['pages']
+	    	@paper.url 			= p.elements['url'].text			if p.elements['url']
+	    	@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
+	    	@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
+
+	    	if @paper.save(:validate => false) == false
+	    		puts ("Error saving paper " + vol_id + " " + @paper.paper_id)
+	    	end
+			num_of_pap += 1 # Increase papers of volumes by 1
 		end
-
-		volume.month = vol.elements[j].text
-		volume.year = (vol.elements[j+1].text).to_i 
-		volume.address = vol.elements[j+2].text
-		volume.publisher = vol.elements[j+3].text
-		volume.url = vol.elements[j+4].text
-		volume.bibtype = vol.elements[j+5].text
-		volume.bibkey = vol.elements[j+6].text
-		
-		# SAVE VOLUME TO DB
-		if volume.save == false
-			puts ("Error saving volume " + volume.volume_id)
-		end
-
-		# SAVE EDITORS TO DB
-		# SAVE RELATION OF THE 2 TO DB
-
-		V += 1 # Increase number of volumes by 1
-		P = 0 # Reset number of papers to 0
-	else # If not, we assume it is a paper
-		paper = Paper.new
-		p = doc.elements[i]
-		paper.volume_id = vol_id
-		paper.paper_id = p.attributes["id"]
-		paper.title = p.elements[1].text
-		j = 2
-		while p.elements[j].name == "author"
-			author = Person.new
-			# !!!!!!!!!!!!!!!!!Potential error!!!!!!!!!!!!!!!
-			author.first_name = p.elements[j].elements[1].text
-			author.last_name = p.elements[j].elements[2].text
-	        #author.save # Save author as person to database
-	        paper.people << author # Save join paper - person(author) to database
-	    	j += 1    
-	    end
-		j += 1 # Skip the "booktitle" as it is the same as the volume booktitle
-		paper.month = p.elements[j].text
-		paper.year = p.elements[j+1].text
-		paper.address = p.elements[j+2].text
-		paper.publisher = p.elements[j+3].text
-		if p.elements[j+4].name == "pages" # Only if there is a tag "pages" then add it
-			paper.pages = p.elements[j+4].text
-			j += 1
-		end
-		paper.url = p.elements[j+4].text
-		paper.bibtype = p.elements[j+5].text
-		paper.bibkey = p.elements[j+6].text
-
-		if paper.save(:validate => false) == false
-			puts ("Error saving paper " + vol_id + " " + paper.paper_id)
-		end
-		P += 1 # Increase papers of volumes by 1
 	end
 end
 
-puts "* * * * * * * * * * * * Seeding Data End * * * * * * * * * * * *"
+puts "* * * * * * * * * * Deleting Old Data Start  * * * * * * * * *"
+
+if not(Volume.delete_all && Paper.delete_all && Person.delete_all)
+	puts "Error deleting databeses!"
+end
+
+puts "* * * * * * * * * * Deleting Old Data End  * * * * * * * * * *"
+
+
+puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
+
+codes = ['A', 'C', 'D', 'E', 'H', 'I', 'L', 'M', 'N', 'P', 'S', 'T', 'X']
+years = ('00'..'13').to_a + ('65'..'99').to_a
+codes.each do |c|
+	years.each do |y|
+		if (c + y) == "C69" || (c + y) == "E03" || (c + y) == "H01" || (c + y) == "N07" || (c + y) == "P04"
+			next
+		end
+		url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
+		# For single link test
+		# url_string = "http://aclweb.org/anthology/H/H01/H01.xml"
+		url = URI.parse(url_string)
+		request = Net::HTTP.new(url.host, url.port)
+		response = request.request_head(url.path)
+		if response.kind_of?(Net::HTTPOK)
+			puts ("Seeding: " + url_string)
+			extract(url_string)
+		end
+		#test = Net::HTTP.get_response(URI.parse(url))
+		
+	end
+end
+
+# currently for testing funtionality only
+# url = "http://aclweb.org/anthology/C/C65/C65.xml"
+
+
+puts "* * * * * * * * * * Seeding Data End * * * * * * * * * * * * *"
+
+
+
+
+

@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20131214101018) do
   end
 
   create_table "papers", force: true do |t|
-    t.string   "volume_id"
+    t.string   "anthology_id"
     t.string   "paper_id"
     t.string   "title"
     t.string   "month"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20131214101018) do
   end
 
   create_table "papers_people", id: false, force: true do |t|
-    t.string  "paper_id"
+    t.integer "paper_id"
     t.integer "person_id"
   end
 
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20131214101018) do
 
   create_table "people_volumes", id: false, force: true do |t|
     t.integer "person_id"
-    t.string  "volume_id"
+    t.integer "volume_id"
   end
 
   create_table "searches", force: true do |t|
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20131214101018) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "volumes", force: true do |t|
-    t.string   "volume_id"
+    t.string   "anthology_id"
     t.string   "title"
     t.string   "month"
     t.integer  "year"

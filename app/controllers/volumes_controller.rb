@@ -4,7 +4,7 @@ class VolumesController < ApplicationController
   # GET /volumes
   # GET /volumes.json
   def index
-    @volumes = Volume.all
+    @volumes = Volume.all.page(params[:page])
   end
 
   # GET /volumes/1
