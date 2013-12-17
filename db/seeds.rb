@@ -26,14 +26,22 @@ def extract(url)
 	doc = REXML::Document.new xml_data
 	doc = doc.elements[1] # skipping the highest level tag
 
-
 	id = doc.attributes["id"] # The document id in the first "volume" tag, eg. E12
 	vol_id = id # temp for Paper
 	num_of_vol = 0 # Number of volumes in the doc
 	num_of_pap = 0
-	@curr_volume = Volume.new
+	@curr_volume = Volume.new # Will store the current volume so the papers are saved to it
+	# We will check if the xml is of a type workshop. If it is, each worshop ending with 00 will be treated as 1 volume
+	w_check = "000" # default check for volumes
+	w_num = -3 # default number of last chars checked (stands for 3)
+	if id[0] == 'W'
+		w_check = "00"
+		w_num = -2
+	end
+
 	(1..doc.size/2).each do |i| # Loop trough all the paper tags in the doc, has to be /2 because each tag is counted twice
-		if doc.elements[i].attributes["id"][-3..-1] == "000" # Check if last 2 digits are 00, then it is a volume
+		# Check if last 2 digits are 000, then it is a volume. if it is workshop then w_check = "00"
+		if doc.elements[i].attributes["id"][w_num..-1] == w_check 
 			@volume = Volume.new
 			vol = doc.elements[i] # Short hand for easier reading
 			@volume.anthology_id = id + '-' + vol.attributes["id"]
@@ -132,7 +140,7 @@ puts "* * * * * * * * * * Deleting Old Data End  * * * * * * * * * *"
 
 puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
 
-codes = ['A', 'C', 'D', 'E', 'H', 'I', 'L', 'M', 'N', 'P', 'S', 'T', 'X']
+codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
 	years.each do |y|
