@@ -31,6 +31,7 @@ def extract(url)
 	vol_id = id # temp for Paper
 	num_of_vol = 0 # Number of volumes in the doc
 	num_of_pap = 0
+	@curr_volume = Volume.new
 	(1..doc.size/2).each do |i| # Loop trough all the paper tags in the doc, has to be /2 because each tag is counted twice
 		if doc.elements[i].attributes["id"][-3..-1] == "000" # Check if last 2 digits are 00, then it is a volume
 			@volume = Volume.new
@@ -72,6 +73,7 @@ def extract(url)
 			if @volume.save! == false
 				puts ("Error saving volume " + @volume.anthology_id)
 			end
+			@curr_volume = @volume
 			# SAVE EDITORS TO DB
 			# SAVE RELATION OF THE 2 TO DB
 			num_of_vol += 1 # Increase number of volumes by 1
@@ -112,9 +114,8 @@ def extract(url)
 	    	@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
 	    	@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
 
-	    	if @paper.save(:validate => false) == false
-	    		puts ("Error saving paper " + vol_id + " " + @paper.paper_id)
-	    	end
+	    	@curr_volume.papers << @paper
+	    	
 			num_of_pap += 1 # Increase papers of volumes by 1
 		end
 	end

@@ -1,6 +1,7 @@
 class CreatePapers < ActiveRecord::Migration
   def change
     create_table :papers do |t|
+      t.integer :volume_id
       t.string :anthology_id
       t.string :paper_id
       t.string :title

@@ -10,6 +10,10 @@ class VolumesController < ApplicationController
   # GET /volumes/1
   # GET /volumes/1.json
   def show
+    set_volume
+    @papers = @volume.papers.page(params[:page]).per(20)
+    #Kaminari.paginate_array(@volume.papers).page(params[:page]).per(10)
+    #@volume.papers = Paper.all.where(:anthology_id => @volume.anthology_id)
   end
 
   # GET /volumes/new
@@ -25,7 +29,6 @@ class VolumesController < ApplicationController
   # POST /volumes.json
   def create
     @volume = Volume.new(volume_params)
-
     respond_to do |format|
       if @volume.save
         format.html { redirect_to @volume, notice: 'Volume was successfully created.' }
@@ -69,6 +72,6 @@ class VolumesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def volume_params
-      params.require(:volume).permit(:volume_id, :title, :month, :year, :address, :publisher, :url, :bibtype, :bibkey)
+      params.require(:volume).permit(:anthology_id, :title, :month, :year, :address, :publisher, :url, :bibtype, :bibkey)
     end
 end
