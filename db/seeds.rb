@@ -26,13 +26,22 @@ def extract(url)
 	doc = REXML::Document.new xml_data
 	doc = doc.elements[1] # skipping the highest level tag
 
-
 	id = doc.attributes["id"] # The document id in the first "volume" tag, eg. E12
 	vol_id = id # temp for Paper
 	num_of_vol = 0 # Number of volumes in the doc
 	num_of_pap = 0
+	@curr_volume = Volume.new # Will store the current volume so the papers are saved to it
+	# We will check if the xml is of a type workshop. If it is, each worshop ending with 00 will be treated as 1 volume
+	w_check = "000" # default check for volumes
+	w_num = -3 # default number of last chars checked (stands for 3)
+	if id[0] == 'W'
+		w_check = "00"
+		w_num = -2
+	end
+
 	(1..doc.size/2).each do |i| # Loop trough all the paper tags in the doc, has to be /2 because each tag is counted twice
-		if doc.elements[i].attributes["id"][-3..-1] == "000" # Check if last 2 digits are 00, then it is a volume
+		# Check if last 2 digits are 000, then it is a volume. if it is workshop then w_check = "00"
+		if doc.elements[i].attributes["id"][w_num..-1] == w_check 
 			@volume = Volume.new
 			vol = doc.elements[i] # Short hand for easier reading
 			@volume.anthology_id = id + '-' + vol.attributes["id"]
@@ -72,6 +81,7 @@ def extract(url)
 			if @volume.save! == false
 				puts ("Error saving volume " + @volume.anthology_id)
 			end
+			@curr_volume = @volume
 			# SAVE EDITORS TO DB
 			# SAVE RELATION OF THE 2 TO DB
 			num_of_vol += 1 # Increase number of volumes by 1
@@ -83,6 +93,7 @@ def extract(url)
 			@paper.paper_id = p.attributes["id"]
 			@paper.title = p.elements['title'].text
 
+			puts @paper.paper_id
 			p.elements.each('author') do |author|
 				first_name = ""
 				last_name = ""
@@ -112,9 +123,8 @@ def extract(url)
 	    	@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
 	    	@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
 
-	    	if @paper.save(:validate => false) == false
-	    		puts ("Error saving paper " + vol_id + " " + @paper.paper_id)
-	    	end
+	    	@curr_volume.papers << @paper
+	    	
 			num_of_pap += 1 # Increase papers of volumes by 1
 		end
 	end
@@ -131,11 +141,21 @@ puts "* * * * * * * * * * Deleting Old Data End  * * * * * * * * * *"
 
 puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
 
-codes = ['A', 'C', 'D', 'E', 'H', 'I', 'L', 'M', 'N', 'P', 'S', 'T', 'X']
+codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
 	years.each do |y|
-		if (c + y) == "C69" || (c + y) == "E03" || (c + y) == "H01" || (c + y) == "N07" || (c + y) == "P04"
+		# C69: wrong xml structure
+		# E03: wrong xml structure
+		# H01: wrong xml structure
+		# N07: invalid character
+		# P04: invalid character
+		# J02: invalid character, line 36
+		# J87: extra tags  <author> </author>, line 198
+		# O03: multiple xml declarations, line 232, 297
+		# O07: no title, blank tags: <editor><first></first><last></last></editor>, line 280
+
+		if (c + y) == "C69" || (c + y) == "E03" || (c + y) == "H01" || (c + y) == "N07" || (c + y) == "P04" || (c + y) == "J02" || (c + y) == "J87" || (c + y) == "O03" || (c + y) == "O07"
 			next
 		end
 		url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"

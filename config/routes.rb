@@ -1,8 +1,8 @@
 Acl2::Application.routes.draw do
-  resources :volumes
-
-  resources :papers
-
+  resources :volumes do
+    resources :papers, shallow: true
+  end 
+  
   resources :people
 
   root :to => "catalog#index"

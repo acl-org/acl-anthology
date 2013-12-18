@@ -26,9 +26,10 @@ ActiveRecord::Schema.define(version: 20131214101018) do
   end
 
   create_table "papers", force: true do |t|
+    t.integer  "volume_id"
     t.string   "anthology_id"
     t.string   "paper_id"
-    t.string   "title"
+    t.string   "title",        limit: 500
     t.string   "month"
     t.integer  "year"
     t.string   "address"

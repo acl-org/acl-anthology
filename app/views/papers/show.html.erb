@@ -30,7 +30,7 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              papers_path, :class => 'btn'  %>
+              volume_path(@paper.volume_id), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_paper_path(@paper), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
