@@ -4,7 +4,7 @@ class CreatePapers < ActiveRecord::Migration
       t.integer :volume_id
       t.string :anthology_id
       t.string :paper_id
-      t.string :title
+      t.string :title, :limit => 500
       t.string :month
       t.integer :year
       t.string :address
