@@ -97,10 +97,10 @@
             http://wiki.apache.org/solr/LocalParams
        -->
 
-       <str name="qf">
+       <!-- <str name="qf">
          first_name^1000
          last_name^500
-       </str>
+       </str> -->
        <!-- <str name="pf">
          title_unstem_search^1000000
          subtitle_unstem_search^500000
@@ -176,7 +176,10 @@
          subject_addl_unstem_search^100
          subject_addl_t^10
        </str> -->
-       
+       <str name="author_qf">
+         last_name^1000
+         first_name^100
+       </str>
        <int name="ps">3</int>
        <float name="tie">0.01</float>
 
@@ -204,10 +207,6 @@
          url_fulltext_display,
          url_suppl_display,
        </str> -->
-
-       <str name="fl">
-        *
-      </str>
 
        <str name="last_name">
          last_name_unstem_search^2000
@@ -388,7 +387,7 @@
       <str name="pf_keyword">text^10</str>
       
       <!-- NOT using marc_display because it is large and will slow things down for search results -->
-      <str name="fl">
+      <!-- <str name="fl">
         id, 
         score,
         author_display,
@@ -410,7 +409,7 @@
         subtitle_vern_display,
         url_fulltext_display,
         url_suppl_display,
-      </str>
+      </str> -->
       
       <str name="facet">true</str>
       <str name="facet.mincount">1</str>

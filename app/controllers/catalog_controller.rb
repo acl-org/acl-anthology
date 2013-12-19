@@ -11,6 +11,7 @@ class CatalogController < ApplicationController
       :qt => 'search',
       :rows => 10 
     }
+    config.add_field_configuration_to_solr_request!
 
     ## Default parameters to send on single-document requests to Solr. These settings are the Blackligt defaults (see SolrHelper#solr_doc_params) or 
     ## parameters included in the Blacklight-jetty document requestHandler.
@@ -24,13 +25,13 @@ class CatalogController < ApplicationController
     #}
 
     # solr field configuration for search results/index views
-    config.index.show_link = 'title_display'
-    config.index.record_display_type = 'format'
+    config.index.show_link = 'last_name'
+    # config.index.record_display_type = 'format'
 
     # solr field configuration for document/show views
-    config.show.html_title = 'title_display'
-    config.show.heading = 'title_display'
-    config.show.display_type = 'format'
+    config.show.html_title = 'last_name'
+    config.show.heading = 'last_name'
+    # config.show.display_type = 'format'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -130,20 +131,14 @@ class CatalogController < ApplicationController
     
     # config.add_search_field 'all_fields', :label => 'All Fields'
 
-    config.add_search_field('first_name') do |field|
-      field.solr_parameters = { :q => 'first_name' }
+
+
+    config.add_search_field('author') do |field|
+      field.solr_parameters = { :q => 'Person'}
       field.solr_local_parameters = { 
-        :qf => 'first_name'
+        :qf => '$author_qf'
       }
     end
-
-    config.add_search_field('last_name') do |field|
-      field.solr_parameters = { :q => 'last_name' }
-      field.solr_local_parameters = { 
-        :qf => 'last_name'
-      }
-    end
-
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
     # of Solr search fields. 
