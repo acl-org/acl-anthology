@@ -97,10 +97,10 @@
             http://wiki.apache.org/solr/LocalParams
        -->
 
-       <str name="qf">
+       <!-- <str name="qf">
          first_name^1000
          last_name^500
-       </str>
+       </str> -->
        <!-- <str name="pf">
          title_unstem_search^1000000
          subtitle_unstem_search^500000
@@ -176,7 +176,10 @@
          subject_addl_unstem_search^100
          subject_addl_t^10
        </str> -->
-       
+       <str name="author_qf">
+         last_name^1000
+         first_name^100
+       </str>
        <int name="ps">3</int>
        <float name="tie">0.01</float>
 
