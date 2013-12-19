@@ -93,7 +93,6 @@ def extract(url)
 			@paper.paper_id = p.attributes["id"]
 			@paper.title = p.elements['title'].text
 
-			puts @paper.paper_id
 			p.elements.each('author') do |author|
 				first_name = ""
 				last_name = ""
@@ -154,8 +153,9 @@ codes.each do |c|
 		# J87: extra tags  <author> </author>, line 198
 		# O03: multiple xml declarations, line 232, 297
 		# O07: no title, blank tags: <editor><first></first><last></last></editor>, line 280
+		# W06: invalid character, line 4951
 
-		if (c + y) == "C69" || (c + y) == "E03" || (c + y) == "H01" || (c + y) == "N07" || (c + y) == "P04" || (c + y) == "J02" || (c + y) == "J87" || (c + y) == "O03" || (c + y) == "O07"
+		if (c + y) == "C69" || (c + y) == "E03" || (c + y) == "H01" || (c + y) == "N07" || (c + y) == "P04" || (c + y) == "J02" || (c + y) == "J87" || (c + y) == "O03" || (c + y) == "O07" || (c + y) == "W06"
 			next
 		end
 		url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
