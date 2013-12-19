@@ -22,7 +22,7 @@ require "uri"
 def extract(url)
 	xml_data = Net::HTTP.get_response(URI.parse(url)).body
 	xml_data.gsub!(/&/, '&amp;') # Remove illegal charactes
-	#xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
+	xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	doc = REXML::Document.new xml_data
 	doc = doc.elements[1] # skipping the highest level tag
 

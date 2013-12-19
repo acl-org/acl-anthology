@@ -10,6 +10,9 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.json
   def show
+    set_person
+    @papers = @person.papers
+    @volumes = @person.volumes
   end
 
   # GET /people/new

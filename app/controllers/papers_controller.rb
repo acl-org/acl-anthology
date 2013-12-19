@@ -10,6 +10,8 @@ class PapersController < ApplicationController
   # GET /papers/1
   # GET /papers/1.json
   def show
+    set_paper
+    @authors = @paper.people
   end
 
   # GET /papers/new

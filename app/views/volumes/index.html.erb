@@ -6,7 +6,7 @@
 
 <%= paginate @volumes %>
 
-<table class="table table-striped">
+<table class="table table-striped table-bordered">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:anthology_id) %></th>
@@ -15,19 +15,19 @@
       <th><%= model_class.human_attribute_name(:year) %></th>
       <th><%= model_class.human_attribute_name(:address) %></th>
       <th><%= model_class.human_attribute_name(:url) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
     </tr>
   </thead>
   <tbody>
     <% @volumes.each do |volume| %>
       <tr>
         <td><%= volume.anthology_id %></td>
-        <td><%= volume.title %></td>
+        <td><%= link_to volume.title, volume_path(volume) %></td>
         <td><%= volume.month %></td>
         <td><%= volume.year %></td>
         <td><%= volume.address %></td>
         <td><%= volume.url %></td>
-        <td>
+        <!-- <td>
           <%= link_to t('.view', :default => t("helpers.links.view")),
                           volume_path(volume), :class => 'btn btn-mini btn-primary' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -37,7 +37,7 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
-        </td>
+        </td> -->
       </tr>
     <% end %>
   </tbody>
