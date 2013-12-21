@@ -214,6 +214,9 @@
        <str name="first_name">
          first_name_unstem_search^2000
        </str>
+       <str name="title_qf">
+         title^100
+       </str>
 
        <str name="facet">true</str>
        <str name="facet.mincount">1</str>
@@ -229,6 +232,7 @@
        <str name="facet.field">subject_topic_facet</str> -->
        <str name="facet.field">first_name</str>
        <str name="facet.field">last_name</str>
+       <str name="facet.field">title</str>
        
        <str name="spellcheck">true</str>
        <str name="spellcheck.dictionary">default</str>
@@ -336,7 +340,7 @@
       </str>
       
       <!-- for user query terms in title text box -->
-      <str name="qf_title">
+      <!-- <str name="qf_title">
         title_unstem_search^50000
         subtitle_unstem_search^25000
         title_addl_unstem_search^10000
@@ -359,10 +363,10 @@
         title_added_entry_t^100
         title_series_t^50
         title_series_unstem_search^10
-      </str>
+      </str> -->
       
       <!-- for user query terms in subject text box -->
-      <str name="qf_subject">
+      <!-- <str name="qf_subject">
         subject_topic_unstem_search^200
         subject_unstem_search^125
         subject_topic_facet^100
@@ -377,7 +381,8 @@
         subject_topic_facet^500
         subject_addl_unstem_search^100
         subject_addl_t^10
-      </str>
+      </str> -->
+      <str name="qf_title">title</str>
       
       <!-- for user query terms in number text box -->
       <str name="qf_number">isbn_t</str>
@@ -414,7 +419,8 @@
       <str name="facet">true</str>
       <str name="facet.mincount">1</str>
       <str name="facet.limit">10</str>
-      <str name="facet.field">format</str>
+      <str name="facet.field">title</str>
+      <!-- <str name="facet.field">format</str>
       <str name="facet.field">lc_1letter_facet</str>
       <str name="facet.field">lc_alpha_facet</str>
       <str name="facet.field">lc_b4cutter_facet</str>
@@ -422,7 +428,7 @@
       <str name="facet.field">pub_date</str>
       <str name="facet.field">subject_era_facet</str>
       <str name="facet.field">subject_geo_facet</str>
-      <str name="facet.field">subject_topic_facet</str>
+      <str name="facet.field">subject_topic_facet</str> -->
       
       <str name="spellcheck">true</str>
       <str name="spellcheck.dictionary">subject</str>

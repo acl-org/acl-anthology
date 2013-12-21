@@ -59,8 +59,9 @@ class CatalogController < ApplicationController
     # config.add_facet_field 'lc_1letter_facet', :label => 'Call Number' 
     # config.add_facet_field 'subject_geo_facet', :label => 'Region' 
     # config.add_facet_field 'subject_era_facet', :label => 'Era'  
-    config.add_facet_field 'last_name', :label => "Last name"
-    config.add_facet_field 'first_name', :label => "First name"
+    config.add_facet_field 'last_name', :label => 'Last name'
+    config.add_facet_field 'first_name', :label => 'First name'
+    config.add_facet_field 'title', :label => 'Title'
 
     # config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']
 
@@ -80,6 +81,7 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display 
     config.add_index_field 'last_name', :label => 'Last name:'
     config.add_index_field 'first_name', :label => 'First name:'
+    config.add_index_field 'title', :label => 'Title:'
     # config.add_index_field 'title_display', :label => 'Title:' 
     # config.add_index_field 'title_vern_display', :label => 'Title:' 
     # config.add_index_field 'author_display', :label => 'Author:' 
@@ -95,6 +97,7 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display 
     config.add_show_field 'last_name', :label => 'Last name:'
     config.add_show_field 'first_name', :label => 'First name:'
+    config.add_show_field 'title', :label => 'Title:'
     # config.add_show_field 'title_display', :label => 'Title:' 
     # config.add_show_field 'title_vern_display', :label => 'Title:' 
     # config.add_show_field 'subtitle_display', :label => 'Subtitle:' 
@@ -134,9 +137,16 @@ class CatalogController < ApplicationController
 
 
     config.add_search_field('author') do |field|
-      field.solr_parameters = { :q => 'Person'}
+      # field.solr_parameters = { :q => 'Person'}
       field.solr_local_parameters = { 
         :qf => '$author_qf'
+      }
+    end
+
+    config.add_search_field('title') do |field|
+      # field.solr_parameters = { :q => 'title'}
+      field.solr_local_parameters = {
+        :qf => '$title_qf'
       }
     end
     # Now we see how to over-ride Solr request handler defaults, in this

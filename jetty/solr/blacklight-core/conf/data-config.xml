@@ -7,15 +7,16 @@
   <document>
     <entity name="Person" 
             query="select * from people">
+            <field column="FIRST_NAME" name="first_name"/>
+            <field column="LAST_NAME" name="last_name"/>
+
     </entity>
     <entity name="Paper"
             query="select * from papers">
+            <field column="TITLE" name="title"/>
     </entity>
     <entity name="User"
             query="select * from users">
-    </entity>
-    <entity name="Volume"
-            query="select * from volumes">
     </entity>
   </document>
 </dataConfig>
