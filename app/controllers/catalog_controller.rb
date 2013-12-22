@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
 
+
 class CatalogController < ApplicationController  
 
   include Blacklight::Catalog
@@ -25,12 +26,12 @@ class CatalogController < ApplicationController
     #}
 
     # solr field configuration for search results/index views
-    config.index.show_link = 'last_name'
+    config.index.show_link = 'title'
     # config.index.record_display_type = 'format'
 
     # solr field configuration for document/show views
-    config.show.html_title = 'last_name'
-    config.show.heading = 'last_name'
+    config.show.html_title = 'title'
+    config.show.heading = 'title'
     # config.show.display_type = 'format'
 
     # solr fields that will be treated as facets by the blacklight application
@@ -58,10 +59,10 @@ class CatalogController < ApplicationController
     # config.add_facet_field 'language_facet', :label => 'Language', :limit => true 
     # config.add_facet_field 'lc_1letter_facet', :label => 'Call Number' 
     # config.add_facet_field 'subject_geo_facet', :label => 'Region' 
-    # config.add_facet_field 'subject_era_facet', :label => 'Era'  
+    # config.add_facet_field 'subject_era_facet', :label => 'Era'
+    config.add_facet_field 'title', :label => 'Title'
     config.add_facet_field 'last_name', :label => 'Last name'
     config.add_facet_field 'first_name', :label => 'First name'
-    config.add_facet_field 'title', :label => 'Title'
 
     # config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']
 
@@ -79,9 +80,10 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display 
-    config.add_index_field 'last_name', :label => 'Last name:'
-    config.add_index_field 'first_name', :label => 'First name:'
     config.add_index_field 'title', :label => 'Title:'
+    config.add_index_field 'author', :label => 'Author:'
+    # config.add_index_field 'last_name', :label => 'Last name:'
+    # config.add_index_field 'first_name', :label => 'First name:'
     # config.add_index_field 'title_display', :label => 'Title:' 
     # config.add_index_field 'title_vern_display', :label => 'Title:' 
     # config.add_index_field 'author_display', :label => 'Author:' 
@@ -95,9 +97,11 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
-    config.add_show_field 'last_name', :label => 'Last name:'
-    config.add_show_field 'first_name', :label => 'First name:'
     config.add_show_field 'title', :label => 'Title:'
+    config.add_show_field 'author', :label => 'Author:'
+    # config.add_show_field 'last_name', :label => 'Last name:'
+    # config.add_show_field 'first_name', :label => 'First name:'
+    # config.add_show_field 'title', :label => 'Title:'
     # config.add_show_field 'title_display', :label => 'Title:' 
     # config.add_show_field 'title_vern_display', :label => 'Title:' 
     # config.add_show_field 'subtitle_display', :label => 'Subtitle:' 

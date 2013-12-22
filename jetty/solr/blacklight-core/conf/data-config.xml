@@ -4,19 +4,34 @@
               url="jdbc:postgresql://localhost/acl_development" 
               user="nglinh" 
               password=""/>
+  <script>
+    <![CDATA[
+      function appendName(row) {
+        var name = "";
+        name += row.get('first_name') + ' ';
+        name += row.get('last_name');
+        row.put('author', name);
+        return row; 
+      }
+    ]]>
+  </script>
   <document>
-    <entity name="Person" 
+    <!-- <entity name="Person" 
             query="select * from people">
             <field column="FIRST_NAME" name="first_name"/>
             <field column="LAST_NAME" name="last_name"/>
 
-    </entity>
-    <entity name="Paper"
-            query="select * from papers">
+    </entity> -->
+    <entity name="Paper" transformer="script:appendName"
+            query="SELECT * FROM papers P, people A, papers_people PA
+            WHERE P.id = PA.paper_id AND A.id = PA.person_id">
             <field column="TITLE" name="title"/>
+            <field column="FIRST_NAME" name="first_name"/>
+            <field column="LAST_NAME" name="last_name"/>
+            <field column="AUTHOR" name="author"/>
     </entity>
-    <entity name="User"
+    <!-- <entity name="User"
             query="select * from users">
-    </entity>
+    </entity> -->
   </document>
 </dataConfig>
