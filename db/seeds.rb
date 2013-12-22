@@ -52,15 +52,17 @@ def extract(url)
 			vol.elements.each('editor') do |editor|
 				first_name = ""
 				last_name = ""
+				full_name = ""
 				if editor.elements['first'] || editor.elements['last'] # Check if there are first,last name tags 
 					first_name = editor.elements['first'].text	if editor.elements['first']
-					last_name = editor.elements['last'].text	if editor.elements['last']				
+					last_name = editor.elements['last'].text	if editor.elements['last']
+					full_name = first_name + " " + last_name
 				else # If not, manually split the name into first name, last name
-					name = editor.text
-					first_name = name.split[0] # Only the first word in the full name
-					last_name = name.split[1..-1].join(" ") # The rest of the full name			
+					full_name = editor.text
+					first_name = full_name.split[0] # Only the first word in the full name
+					last_name = full_name.split[1..-1].join(" ") # The rest of the full name			
 				end
-				@editor = Person.find_or_create_by_first_name_and_last_name(first_name, last_name)
+				@editor = Person.find_or_create_by_first_name_and_last_name_and_full_name(first_name, last_name, full_name)
 				@volume.people << @editor # Save join person(editor) - volume to database
 			end
 
@@ -96,15 +98,17 @@ def extract(url)
 			p.elements.each('author') do |author|
 				first_name = ""
 				last_name = ""
+				full_name = ""
 				if author.elements['first'] || author.elements['last']# Check if there are first,last name tags 
 					first_name = author.elements['first'].text 	if author.elements['first']
 					last_name = author.elements['last'].text	if author.elements['last']
+					full_name = first_name + " " + last_name
 				else # If not, manually split the name into first name, last name
-					name = author.text
-					first_name = name.split[0] # Only the first word in the full name
-					last_name = name.split[1..-1].join(" ") # The rest of the full name
+					full_name = author.text
+					first_name = full_name.split[0] # Only the first word in the full name
+					last_name = full_name.split[1..-1].join(" ") # The rest of the full name
 				end
-				@author = Person.find_or_create_by_first_name_and_last_name(first_name, last_name)
+				@author = Person.find_or_create_by_first_name_and_last_name_and_full_name(first_name, last_name, full_name)
 		        @paper.people << @author # Save join paper - person(author) to database
 		    end
 
@@ -144,20 +148,6 @@ codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
 	years.each do |y|
-		# C69: wrong xml structure
-		# E03: wrong xml structure
-		# H01: wrong xml structure
-		# N07: invalid character
-		# P04: invalid character
-		# J02: invalid character, line 36
-		# J87: extra tags  <author> </author>, line 198
-		# O03: multiple xml declarations, line 232, 297
-		# O07: no title, blank tags: <editor><first></first><last></last></editor>, line 280
-		# W06: invalid character, line 4951
-
-		if (c + y) == "C69" || (c + y) == "E03" || (c + y) == "H01" || (c + y) == "N07" || (c + y) == "P04" || (c + y) == "J02" || (c + y) == "J87" || (c + y) == "O03" || (c + y) == "O07" || (c + y) == "W06"
-			next
-		end
 		url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
 		# For single link test
 		# url_string = "http://aclweb.org/anthology/H/H01/H01.xml"

@@ -10,6 +10,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:first_name) %></th>
       <th><%= model_class.human_attribute_name(:last_name) %></th>
+      <th><%= model_class.human_attribute_name(:full_name) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
       <tr>
         <td><%= person.first_name %></td>
         <td><%= person.last_name %></td>
+        <td><%= person.full_name %></td>
         <td>
           <%= link_to t('.view', :default => t("helpers.links.view")),
                           person_path(person), :class => 'btn btn-mini btn-primary' %>
