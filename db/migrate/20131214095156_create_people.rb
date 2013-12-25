@@ -4,6 +4,7 @@ class CreatePeople < ActiveRecord::Migration
       t.integer :person_id
       t.string :first_name
       t.string :last_name
+      t.string :full_name
 
       t.timestamps
     end

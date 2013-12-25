@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20131214101018) do
     t.integer  "person_id"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "full_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
