@@ -1,4 +1,6 @@
 Acl2::Application.routes.draw do
+  resources :sigs
+
   resources :volumes do
     resources :papers, shallow: true
   end 

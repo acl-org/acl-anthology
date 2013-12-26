@@ -10,6 +10,7 @@ class CreateVolumes < ActiveRecord::Migration
       t.string :url
       t.string :bibtype
       t.string :bibkey
+      t.integer :sig_id
 
       t.timestamps
     end
