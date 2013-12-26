@@ -516,7 +516,7 @@
 
    <!-- NOTE: this is not a full list of fields in the index; dynamic fields are also used -->
    <field name="id" type="string" indexed="true" stored="true" required="true" />
-   <field name="timestamp" type="date" indexed="true" stored="true" default="NOW" multiValued="false"/>
+   <!-- <field name="timestamp" type="date" indexed="true" stored="true" default="NOW" multiValued="false"/> -->
    <!-- default, catch all search field -->
    <field name="text" type="text" indexed="true" stored="false" multiValued="true"/>
    
@@ -532,9 +532,9 @@
    <!-- <field name="author" type="string" indexed="true" stored="true" multiValued="false"/> -->
    
    <!-- these fields are also used for display, so they must be stored -->
-   <field name="title" type="text" indexed="true" stored="true" multivalued="true"/>
-   <field name="first_name" type="string" indexed="true" stored="true" multiValued="true"/>
-   <field name="last_name" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="title" type="text_en" indexed="true" stored="true" multivalued="true"/>
+   <field name="first_name" type="text_en" indexed="true" stored="true" multiValued="true"/>
+   <field name="last_name" type="text_en" indexed="true" stored="true" multiValued="true"/>
    <field name="author" type="string" indexed="true" stored="true" multivalued="true"/>
    <!-- <field name="isbn_t" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="language_facet" type="string" indexed="true" stored="true" multiValued="true" />
