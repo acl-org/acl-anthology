@@ -2,7 +2,7 @@ module BlacklightHelper
   include Blacklight::BlacklightHelperBehavior
 
   def application_name
-    "Bestest University Search"
+    "ACL anthropoplogy"
   end
 
   def author_helper_method args
