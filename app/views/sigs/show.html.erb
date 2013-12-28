@@ -1,25 +1,74 @@
-<%- model_class = Sig -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
-</div>
+<div class="row">
+  <%- model_class = Sig -%>
+  <div class="span12 page-header">
+    <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+  </div>
+  <div class="span12">
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+      <dd><%= @sig.name %>&nbsp;</dd>
+      <dt><strong><%= model_class.human_attribute_name(:sigid) %>:</strong></dt>
+      <dd><%= @sig.sigid %>&nbsp;</dd>
+      <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
+      <dd><%= @sig.url %>&nbsp;</dd>
+    </dl>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @sig.name %>&nbsp;</dd>
-  <dt><strong><%= model_class.human_attribute_name(:sigid) %>:</strong></dt>
-  <dd><%= @sig.sigid %>&nbsp;</dd>
-  <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
-  <dd><%= @sig.url %>&nbsp;</dd>
-</dl>
+    <div class="form-actions">
+      <%= link_to t('.back', :default => t("helpers.links.back")),
+                  sigs_path, :class => 'btn'  %>
+      <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_sig_path(@sig), :class => 'btn' %>
+      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  sig_path(@sig),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'btn btn-danger' %>
+    </div>
+  </div>
 
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              sigs_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_sig_path(@sig), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              sig_path(@sig),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+  <div  class="span12">
+    <%- volume_class = Volume -%>
+    <h3 style="text-align:center"><%=t '.title', :default => volume_class.model_name.human.pluralize.titleize %></h3  style="text-align:center">
+    
+    <%= paginate @volumes %>
+
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th><%= volume_class.human_attribute_name(:anthology_id) %></th>
+          <th><%= volume_class.human_attribute_name(:title) %></th>
+          <th><%= volume_class.human_attribute_name(:month) %></th>
+          <th><%= volume_class.human_attribute_name(:year) %></th>
+          <th><%= volume_class.human_attribute_name(:address) %></th>
+          <th><%= volume_class.human_attribute_name(:url).upcase %></th>
+          <th><%= volume_class.human_attribute_name(:venue) %></th>
+          <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <% @volumes.each do |volume| %>
+          <tr>
+            <td><%= volume.anthology_id %></td>
+            <td><%= link_to volume.title, volume_path(volume) %></td>
+            <td><%= volume.month %></td>
+            <td><%= volume.year %></td>
+            <td><%= volume.address %></td>
+            <td><%= volume.url %></td>
+            <td><%= volume.venue.venueid %></td>
+            <!-- <td>
+              <%= link_to t('.view', :default => t("helpers.links.view")),
+                              volume_path(volume), :class => 'btn btn-mini btn-primary' %>
+              <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                          edit_volume_path(volume), :class => 'btn btn-mini' %>
+              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                          volume_path(volume),
+                          :method => :delete,
+                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                          :class => 'btn btn-mini btn-danger' %>
+            </td> -->
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

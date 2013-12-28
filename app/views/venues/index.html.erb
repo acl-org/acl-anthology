@@ -5,23 +5,19 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:acronym) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:venueid) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
     </tr>
   </thead>
   <tbody>
     <% @venues.each do |venue| %>
       <tr>
-        <td><%= link_to venue.id, venue_path(venue) %></td>
         <td><%= venue.acronym %></td>
-        <td><%= venue.name %></td>
+        <td><%= link_to venue.name, venue_path(venue) %></td>
         <td><%= venue.venueid %></td>
-        <td><%=l venue.created_at %></td>
-        <td>
+        <!-- <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_venue_path(venue), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
@@ -29,7 +25,7 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
-        </td>
+        </td> -->
       </tr>
     <% end %>
   </tbody>

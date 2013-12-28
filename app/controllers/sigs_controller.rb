@@ -10,6 +10,8 @@ class SigsController < ApplicationController
   # GET /sigs/1
   # GET /sigs/1.json
   def show
+    set_sig
+    @volumes = @sig.volumes.page(params[:page]).per(20)
   end
 
   # GET /sigs/new

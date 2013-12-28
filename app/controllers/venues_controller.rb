@@ -10,6 +10,8 @@ class VenuesController < ApplicationController
   # GET /venues/1
   # GET /venues/1.json
   def show
+    set_venue
+    @volumes = @venue.volumes.page(params[:page]).per(20)
   end
 
   # GET /venues/new
