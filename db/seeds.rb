@@ -20,6 +20,8 @@ require "net/http"
 require "uri"
 
 def extract(url)
+	@sigann = Sig.find_by_sigid('SIGANN') ##########################################################
+
 	xml_data = Net::HTTP.get_response(URI.parse(url)).body
 	xml_data.gsub!(/&/, '&amp;') # Remove illegal charactes
 	xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
@@ -80,9 +82,10 @@ def extract(url)
 			@volume.bibkey 		= vol.elements['bibkey'].text		if vol.elements['bibkey']
 
 			# SAVE VOLUME TO DB
-			if @volume.save! == false
-				puts ("Error saving volume " + @volume.anthology_id)
-			end
+			@sigann.volumes << @volume
+			# if @volume.save! == false
+			# 	puts ("Error saving volume " + @volume.anthology_id)
+			# end
 			@curr_volume = @volume
 			# SAVE EDITORS TO DB
 			# SAVE RELATION OF THE 2 TO DB
@@ -135,7 +138,7 @@ end
 
 puts "* * * * * * * * * * Deleting Old Data Start  * * * * * * * * *"
 
-if not(Volume.delete_all && Paper.delete_all && Person.delete_all)
+if not(Volume.delete_all && Paper.delete_all && Person.delete_all && Sig.delete_all)
 	puts "Error deleting databeses!"
 end
 
@@ -143,6 +146,27 @@ puts "* * * * * * * * * * Deleting Old Data End  * * * * * * * * * *"
 
 
 puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
+
+# Seeding SIGs
+Sig.create(name: 'Special Interest Group for Annotation', sigid: 'SIGANN', url: 'http://www.cs.vassar.edu/sigann/')
+Sig.create(name: 'Special Interest Group on Biomedical Natural Language Processing', sigid: 'SIGBIOMED', url: 'http://aclweb.org/anthology/sigbiomed.html')
+Sig.create(name: 'Special Interest Group on Linguistic data and corpus-based approaches to NLP', sigid: 'SIGDAT', url: 'http://www.sigdat.org/')
+Sig.create(name: 'Special Interest Group on Dialogue', sigid: 'SIGDIAL', url: 'http://www.sigdial.org/')
+Sig.create(name: 'Special Interest Group on Finite-State Methods', sigid: 'SIGFSM', url: 'http://aclweb.org/anthology/sigfsm.html')
+Sig.create(name: 'Special Interest Group on Natural Language Generation', sigid: 'SIGGEN', url: 'http://www.siggen.org/')
+Sig.create(name: 'Special Interest Group on Chinese Language Processing', sigid: 'SIGHAN', url: 'http://www.sighan.org/')
+Sig.create(name: 'Special Interest Group on Language Technologies for the Socio-Economic Sciences and Humanities', sigid: 'SIGHUM', url: 'http://aclweb.org/anthology/sighum.html')
+Sig.create(name: 'Special Interest Group on the Lexicon', sigid: 'SIGLEX', url: 'http://www.clres.com/siglex.html')
+Sig.create(name: 'Special Interest Group on Multimedia Language Processing', sigid: 'SIGMEDIA', url: 'http://mm-werkstatt.informatik.uni-augsburg.de/projects/sigmedia/')
+Sig.create(name: 'Association for Mathematics of Language', sigid: 'SIGMOL', url: 'http://molweb.org/')
+Sig.create(name: 'Special Interest Group for Machine Translation', sigid: 'SIGMT', url: 'http://www.sigmt.org/')
+Sig.create(name: 'Special Interest Group on Natural Language Learning', sigid: 'SIGNLL', url: 'http://aclweb.org/anthology/signll.html')
+Sig.create(name: 'Special Interest Group on Natural Language Parsing', sigid: 'SIGPARSE', url: 'http://www.cs.cmu.edu/~sigparse/')
+Sig.create(name: 'Special Interest Group on Computational Morphology and Phonology', sigid: 'SIGMORPHON', url: 'http://aclweb.org/anthology/sigmorphon.html')
+Sig.create(name: 'Special Interest Group on Computational Semantics', sigid: 'SIGSEM', url: 'http://www.sigsem.org/wiki/Main_Page')
+Sig.create(name: 'Special Interest Group on Computational Approaches to Semitic Languages', sigid: 'SEMITIC', url: 'http://cl.haifa.ac.il/semitic/')
+Sig.create(name: 'Special Interest Group on Speech and Language Processing for Assistive Technologies', sigid: 'SIGSLPAT', url: 'http://www.slpat.org/')
+Sig.create(name: 'Special Interest Group on Web as Corpus', sigid: 'SIGWAC', url: 'http://www.sigwac.org.uk/')
 
 codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 years = ('00'..'13').to_a + ('65'..'99').to_a
@@ -165,6 +189,7 @@ end
 
 # currently for testing funtionality only
 # url = "http://aclweb.org/anthology/C/C65/C65.xml"
+
 
 
 puts "* * * * * * * * * * Seeding Data End * * * * * * * * * * * * *"

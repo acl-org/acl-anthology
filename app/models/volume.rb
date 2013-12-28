@@ -1,4 +1,7 @@
 class Volume < ActiveRecord::Base
+	belongs_to :sig
+	accepts_nested_attributes_for :sig
+
 	has_many :papers
   	validates_associated :papers
   	accepts_nested_attributes_for :papers
