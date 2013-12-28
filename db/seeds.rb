@@ -59,6 +59,8 @@ def extract(url)
 				if editor.elements['first'] || editor.elements['last'] # Check if there are first,last name tags 
 					first_name = editor.elements['first'].text	if editor.elements['first']
 					last_name = editor.elements['last'].text	if editor.elements['last']
+					first_name = "" if first_name == nil
+					last_name = "" if last_name == nil
 					full_name = first_name + " " + last_name
 				else # If not, manually split the name into first name, last name
 					full_name = editor.text
@@ -107,6 +109,8 @@ def extract(url)
 				if author.elements['first'] || author.elements['last']# Check if there are first,last name tags 
 					first_name = author.elements['first'].text 	if author.elements['first']
 					last_name = author.elements['last'].text	if author.elements['last']
+					first_name = "" if first_name == nil
+					last_name = "" if last_name == nil
 					full_name = first_name + " " + last_name
 				else # If not, manually split the name into first name, last name
 					full_name = author.text
@@ -172,7 +176,7 @@ Sig.create(name: 'Special Interest Group on Web as Corpus', sigid: 'SIGWAC', url
 
 Venue.create(acronym: 'ACL', name: 'ACL Annual Meeting', venueid: 'ACL')
 
-codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
+codes = ['O']#['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
 	years.each do |y|
