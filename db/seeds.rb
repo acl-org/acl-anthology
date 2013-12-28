@@ -21,6 +21,7 @@ require "uri"
 
 def extract(url)
 	@sigann = Sig.find_by_sigid('SIGANN') ##########################################################
+	@venueacl = Venue.find_by_venueid('ACL') ##########################################################
 
 	xml_data = Net::HTTP.get_response(URI.parse(url)).body
 	xml_data.gsub!(/&/, '&amp;') # Remove illegal charactes
@@ -82,7 +83,8 @@ def extract(url)
 			@volume.bibkey 		= vol.elements['bibkey'].text		if vol.elements['bibkey']
 
 			# SAVE VOLUME TO DB
-			@sigann.volumes << @volume
+			@sigann.volumes << @volume ##########################################################
+			@venueacl.volumes << @volume ##########################################################
 			# if @volume.save! == false
 			# 	puts ("Error saving volume " + @volume.anthology_id)
 			# end
@@ -167,6 +169,8 @@ Sig.create(name: 'Special Interest Group on Computational Semantics', sigid: 'SI
 Sig.create(name: 'Special Interest Group on Computational Approaches to Semitic Languages', sigid: 'SEMITIC', url: 'http://cl.haifa.ac.il/semitic/')
 Sig.create(name: 'Special Interest Group on Speech and Language Processing for Assistive Technologies', sigid: 'SIGSLPAT', url: 'http://www.slpat.org/')
 Sig.create(name: 'Special Interest Group on Web as Corpus', sigid: 'SIGWAC', url: 'http://www.sigwac.org.uk/')
+
+Venue.create(acronym: 'ACL', name: 'ACL Annual Meeting', venueid: 'ACL')
 
 codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 years = ('00'..'13').to_a + ('65'..'99').to_a

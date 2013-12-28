@@ -1,4 +1,6 @@
 Acl2::Application.routes.draw do
+  resources :venues
+
   resources :sigs
 
   resources :volumes do

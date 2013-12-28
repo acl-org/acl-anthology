@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131226175940) do
+ActiveRecord::Schema.define(version: 20131228064829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20131226175940) do
     t.integer  "volume_id"
     t.string   "anthology_id"
     t.string   "paper_id"
-    t.string   "title",        limit: 600
+    t.string   "title",        limit: 900
     t.string   "month"
     t.integer  "year"
     t.string   "address"
@@ -98,6 +98,14 @@ ActiveRecord::Schema.define(version: 20131226175940) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "venues", force: true do |t|
+    t.string   "acronym"
+    t.string   "name"
+    t.string   "venueid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "volumes", force: true do |t|
     t.string   "anthology_id"
     t.string   "title"
@@ -109,6 +117,7 @@ ActiveRecord::Schema.define(version: 20131226175940) do
     t.string   "bibtype"
     t.string   "bibkey"
     t.integer  "sig_id"
+    t.integer  "venue_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

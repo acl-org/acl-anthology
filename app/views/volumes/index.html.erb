@@ -16,6 +16,7 @@
       <th><%= model_class.human_attribute_name(:address) %></th>
       <th><%= model_class.human_attribute_name(:url).upcase %></th>
       <th><%= model_class.human_attribute_name(:sig).upcase %></th>
+      <th><%= model_class.human_attribute_name(:venue) %></th>
       <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
     </tr>
   </thead>
@@ -29,6 +30,7 @@
         <td><%= volume.address %></td>
         <td><%= volume.url %></td>
         <td><%= volume.sig.sigid %></td>
+        <td><%= volume.venue.venueid %></td>
         <!-- <td>
           <%= link_to t('.view', :default => t("helpers.links.view")),
                           volume_path(volume), :class => 'btn btn-mini btn-primary' %>
