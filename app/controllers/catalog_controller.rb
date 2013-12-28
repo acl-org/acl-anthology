@@ -53,7 +53,7 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the 
     # facet bar
-    config.add_facet_field 'title', :label => 'Title'
+    config.add_facet_field 'title_unstem', :label => 'Title'
     config.add_facet_field 'author', :label => 'Author'
     config.add_facet_field 'publish_date', :label => 'Publish date', :range => true
 
