@@ -49,7 +49,8 @@ def extract(url)
 			vol = doc.elements[i] # Short hand for easier reading
 			@volume.anthology_id = id + '-' + vol.attributes["id"]
 			vol_id = @volume.anthology_id
-			@volume.title = vol.elements['title'].text
+			#puts vol_id ##########################################################
+			@volume.title = vol.elements['title'].text if vol.elements['title']
 
 			# Adding editor information
 			vol.elements.each('editor') do |editor|
@@ -100,6 +101,8 @@ def extract(url)
 			p = doc.elements[i] # Short hand for easier reading
 			@paper.anthology_id = vol_id
 			@paper.paper_id = p.attributes["id"]
+			#puts @paper.paper_id ##########################################################
+
 			@paper.title = p.elements['title'].text
 
 			p.elements.each('author') do |author|
@@ -176,7 +179,7 @@ Sig.create(name: 'Special Interest Group on Web as Corpus', sigid: 'SIGWAC', url
 
 Venue.create(acronym: 'ACL', name: 'ACL Annual Meeting', venueid: 'ACL')
 
-codes = ['O']#['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
+codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
 	years.each do |y|
