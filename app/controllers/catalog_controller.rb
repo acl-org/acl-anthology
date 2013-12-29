@@ -56,6 +56,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'title_unstem', :label => 'Title'
     config.add_facet_field 'author', :label => 'Author'
     config.add_facet_field 'publish_date', :label => 'Publish date', :range => true
+    config.add_facet_field 'sig_name', :label => 'SIG'
+
 
     # config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']
 
@@ -76,6 +78,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'title', :label => 'Title:'
     config.add_index_field 'author', :label => 'Author:', :link_to_search => true
     config.add_index_field 'publish_date', :label => 'Publish date'
+    config.add_index_field 'sig_name', :label => 'Sig name:'
     
     
 
@@ -84,6 +87,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'title', :label => 'Title:'
     config.add_show_field 'author', :label => 'Author:'
     config.add_show_field 'publish_date', :label => 'Publish date'
+    config.add_show_field 'sig_name', :label => 'Sig name:'
     
     
 
@@ -119,6 +123,8 @@ class CatalogController < ApplicationController
         :qf => '$author_qf'
       }
     end
+
+    config.add_search_field 'sig_name', :label => 'Sig Name'
 
     config.add_search_field('publish_date') do |field|
       field.solr_local_parameters = {
