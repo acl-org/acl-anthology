@@ -1,8 +1,8 @@
 class Volume < ActiveRecord::Base
-	belongs_to :sig
-	accepts_nested_attributes_for :sig
-	belongs_to :venue
-	accepts_nested_attributes_for :venue
+	has_and_belongs_to_many :sigs
+	accepts_nested_attributes_for :sigs
+	has_and_belongs_to_many :events
+	accepts_nested_attributes_for :events
 
 	has_many :papers
   	validates_associated :papers
