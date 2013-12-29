@@ -13,6 +13,9 @@ class VolumesController < ApplicationController
     set_volume
     @papers = @volume.papers.page(params[:page]).per(20)
     @editors = @volume.people
+
+    @events = @volume.events
+    @sigs = @volume.sigs
     #Kaminari.paginate_array(@volume.papers).page(params[:page]).per(10)
     #@volume.papers = Paper.all.where(:anthology_id => @volume.anthology_id)
   end

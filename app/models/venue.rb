@@ -1,5 +1,5 @@
 class Venue < ActiveRecord::Base
-	has_many :volumes
-  	#validates_associated :volumes
-  	accepts_nested_attributes_for :volumes
+	has_many :events
+  	validates_associated :events
+  	accepts_nested_attributes_for :events
 end
