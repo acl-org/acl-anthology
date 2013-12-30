@@ -178,7 +178,7 @@ Sig.create(name: 'Special Interest Group on Speech and Language Processing for A
 Sig.create(name: 'Special Interest Group on Web as Corpus', sigid: 'SIGWAC', url: 'http://www.sigwac.org.uk/')
 
 @acl = Venue.create(acronym: 'ACL', name: 'ACL Annual Meeting', venueid: 'ACL')
-Event.create(venue_id: @acl.id, year: '2013', type: 'conference')
+Event.create(venue_id: @acl.id, year: '2013', kind: 'conference')
 
 codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 years = ('00'..'13').to_a + ('65'..'99').to_a

@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20131229164956) do
   create_table "events", force: true do |t|
     t.integer  "year"
     t.integer  "venue_id"
-    t.string   "type"
+    t.string   "kind"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

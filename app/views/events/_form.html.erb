@@ -1,29 +1,26 @@
-<%= form_for(@event) do |f| %>
-  <% if @event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-      <ul>
-      <% @event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @event, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :year, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :year, :class => 'text_field' %>
     </div>
-  <% end %>
+  </div>
+  <div class="control-group">
+    <%= f.label :venue_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :venue_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :type, :class => 'text_field' %>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :year %><br>
-    <%= f.text_field :year %>
-  </div>
-  <div class="field">
-    <%= f.label :venue_id %><br>
-    <%= f.number_field :venue_id %>
-  </div>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= f.text_field :type %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                events_path, :class => 'btn' %>
   </div>
 <% end %>
