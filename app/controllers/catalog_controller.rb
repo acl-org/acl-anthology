@@ -56,7 +56,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'title_unstem', :label => 'Title'
     config.add_facet_field 'author', :label => 'Author'
     config.add_facet_field 'publish_date', :label => 'Publish date', :range => true
-    config.add_facet_field 'sig_name', :label => 'SIG'
+    config.add_facet_field 'sig_iden', :label => 'SIG'
 
 
     # config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']
@@ -76,18 +76,24 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display 
     config.add_index_field 'title', :label => 'Title:'
+    config.add_index_field 'volume_title', :label => 'Volume title:'
     config.add_index_field 'author', :label => 'Author:', :link_to_search => true
-    config.add_index_field 'publish_date', :label => 'Publish date'
-    config.add_index_field 'sig_name', :label => 'Sig name:'
-    
+    config.add_index_field 'publish_date', :label => 'Publish date:'
+    config.add_index_field 'sig_iden', :label => 'Sig ID:', :link_to_search => true
+    config.add_index_field 'event_kind', :label => 'Event kind:'
+    config.add_index_field 'venue_name', :label => 'Venue name:'
     
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
     config.add_show_field 'title', :label => 'Title:'
-    config.add_show_field 'author', :label => 'Author:'
+    config.add_show_field 'volume_title', :label => 'Volume title:'
+    config.add_show_field 'author', :label => 'Author:', :link_to_search => true
     config.add_show_field 'publish_date', :label => 'Publish date'
     config.add_show_field 'sig_name', :label => 'Sig name:'
+    config.add_show_field 'sig_iden', :label => 'Sig ID:', :link_to_search => true
+    config.add_show_field 'event_kind', :label => 'Event kind:'
+    config.add_show_field 'venue_name', :label => 'Venue name:'
     
     
 

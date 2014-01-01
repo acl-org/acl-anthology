@@ -30,16 +30,31 @@
             <field column="title" name="title"/>
             <field column="title" name="title_unstem"/>
             <field column="year" name="publish_date"/>
-            <entity name="person" query="select A.full_name from papers_people PA, people A WHERE PA.person_id = A.id AND PA.paper_id='${paper.id}'">
+            <entity name="person" query="select * from papers_people PA, people A WHERE PA.person_id = A.id AND PA.paper_id='${paper.id}'">
+              <field column="first_name" name="first_name"/>
+              <field column="last_name" name="last_name"/>
               <field column="full_name" name="author"/>
             </entity>
+            <entity name="volume"
+              query="SELECT * FROM volumes where id='${paper.volume_id}'">
+              <field column="title" name="volume_title"/>
+              <entity name="sig"
+                query="select * from sigs_volumes SV, sigs S where SV.sig_id=S.id and SV.volume_id='${volume.id}'">
+                <field column="name" name="sig_name"/>
+                <field column="url" name="sig_url"/>
+                <field column="sigid" name="sig_iden"/>
+              </entity>
+              <entity name="event"
+                query="select * from events_volumes EV, events E where EV.event_id=E.id and EV.volume_id='${volume.id}'">
+                <field column="kind" name="event_kind"/>
+                <entity name="venue"
+                  query="select * from venues where id='${event.id}'">
+                  <field column="name" name="venue_name"/>
+                </entity>
+              </entity>
+            </entity>
     </entity>
-    <entity name="sig"
-            query="SELECT * FROM sigs">
-            <field column="name" name="sig_name"/>
-            <field column="sigid" name="sig_id"/>
-            <field column="url" name="sig_url"/>
-    </entity>
+    
     <!-- <entity name="User"
             query="select * from users">
     </entity> -->
