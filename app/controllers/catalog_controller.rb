@@ -80,8 +80,6 @@ class CatalogController < ApplicationController
     config.add_index_field 'author', :label => 'Author:', :link_to_search => true
     config.add_index_field 'publish_date', :label => 'Publish date:'
     config.add_index_field 'sig_iden', :label => 'Sig ID:', :link_to_search => true
-    config.add_index_field 'event_kind', :label => 'Event kind:'
-    config.add_index_field 'venue_name', :label => 'Venue name:'
     
 
     # solr fields to be displayed in the show (single result) view
@@ -92,6 +90,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'publish_date', :label => 'Publish date'
     config.add_show_field 'sig_name', :label => 'Sig name:'
     config.add_show_field 'sig_iden', :label => 'Sig ID:', :link_to_search => true
+    config.add_show_field 'sig_url', :label => 'Sig url:'
     config.add_show_field 'event_kind', :label => 'Event kind:'
     config.add_show_field 'venue_name', :label => 'Venue name:'
     
