@@ -54,7 +54,12 @@
             <td><%= volume.year %></td>
             <td><%= volume.address %></td>
             <td><%= volume.url %></td>
-            <td><%= volume.venue.venueid %></td>
+            <td>
+             <% volume.events.each do |event| %>
+                <% @venue = Venue.find_by_id(event.venue_id) %>
+                <%= link_to @venue.acronym, venue_path(@venue) %>&nbsp;
+              <% end %>
+            </td>
             <!-- <td>
               <%= link_to t('.view', :default => t("helpers.links.view")),
                               volume_path(volume), :class => 'btn btn-mini btn-primary' %>
