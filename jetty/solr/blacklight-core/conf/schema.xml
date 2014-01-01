@@ -554,9 +554,12 @@
    <field name="title" type="text_en" indexed="true" stored="true" multiValued="true"/>
    <field name="title_unstem" type="textNoStem" indexed="true" stored="true" multiValued="false"/>
 
+   <field name="volume_id" type="string" indexed="false" stored="true" multiValued="false"/>
+   <field name="volume_anthology" type="string" indexed="true" stored="true" multiValued="false"/> 
    <field name="volume_title" type="text" indexed="true" stored="true" multiValued="false"/>
 
    <field name="author" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="author_id" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="first_name" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="last_name" type="text" indexed="true" stored="true" multiValued="true"/>
    
@@ -564,8 +567,11 @@
 
    <field name="event_kind" type="string" indexed="true" stored="true" multiValued="false"/>
 
-   <field name="venue_name" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="venue_id" type="string" indexed="false" stored="true" multiValued="true"/>
+   <field name="venue_name" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="venue_acronym" type="string" indexed="true" stored="true" multiValued="true"/>
 
+   <field name="sig_id" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="sig_name" type="textNoStem" indexed="true" stored="true" multiValued="true"/>
    <field name="sig_iden" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="sig_url" type="string" indexed="false" stored="true" multiValued="true"/>

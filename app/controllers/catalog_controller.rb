@@ -55,6 +55,7 @@ class CatalogController < ApplicationController
     # facet bar
     config.add_facet_field 'title_unstem', :label => 'Title'
     config.add_facet_field 'author', :label => 'Author'
+    config.add_facet_field 'volume_anthology', :label => 'Volume anthology'
     config.add_facet_field 'publish_date', :label => 'Publish date', :range => true
     config.add_facet_field 'sig_iden', :label => 'SIG'
     config.add_facet_field 'venue_name', :label => 'Venue'
@@ -77,8 +78,8 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display 
     config.add_index_field 'title', :label => 'Title:'
-    config.add_index_field 'volume_title', :label => 'Volume title:'
-    config.add_index_field 'author', :label => 'Author:', :link_to_search => true
+    config.add_index_field 'volume_anthology', :label => 'Volume anthology:'
+    config.add_index_field 'author', :label => 'Author:'
     config.add_index_field 'publish_date', :label => 'Publish date:'
     config.add_index_field 'sig_iden', :label => 'Sig ID:', :link_to_search => true
     
@@ -86,14 +87,14 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
     config.add_show_field 'title', :label => 'Title:'
-    config.add_show_field 'volume_title', :label => 'Volume title:'
-    config.add_show_field 'author', :label => 'Author:', :link_to_search => true
+    config.add_show_field 'volume_anthology', :label => 'Volume anthology:', :helper_method => :volume_helper_method
+    config.add_show_field 'author', :label => 'Author:', :helper_method => :author_helper_method
     config.add_show_field 'publish_date', :label => 'Publish date'
     config.add_show_field 'sig_name', :label => 'Sig name:'
-    config.add_show_field 'sig_iden', :label => 'Sig ID:', :link_to_search => true
+    config.add_show_field 'sig_iden', :label => 'Sig ID:', :helper_method => :sig_helper_method
     config.add_show_field 'sig_url', :label => 'Sig url:'
     config.add_show_field 'event_kind', :label => 'Event kind:'
-    config.add_show_field 'venue_name', :label => 'Venue name:'
+    config.add_show_field 'venue_name', :label => 'Venue name:', :helper_method => :venue_helper_method
     
     
 
