@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20131229164956) do
   create_table "papers", force: true do |t|
     t.integer  "volume_id"
     t.string   "anthology_id"
-    t.string   "paper_id"
     t.string   "title",        limit: 900
     t.string   "month"
     t.integer  "year"
@@ -51,6 +50,7 @@ ActiveRecord::Schema.define(version: 20131229164956) do
     t.string   "url"
     t.string   "bibtype"
     t.string   "bibkey"
+    t.string   "attachments"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

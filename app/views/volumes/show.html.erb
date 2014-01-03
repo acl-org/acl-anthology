@@ -84,12 +84,12 @@
       <thead>
         <tr>
           <th><%= paper_class.human_attribute_name(:anthology_id) %></th>
-          <th><%= paper_class.human_attribute_name(:paper_id) %></th>
           <th><%= paper_class.human_attribute_name(:title) %></th>
           <th><%= paper_class.human_attribute_name(:month) %></th>
           <th><%= paper_class.human_attribute_name(:year) %></th>
           <th><%= paper_class.human_attribute_name(:address) %></th>
           <th><%= paper_class.human_attribute_name(:url) %></th>
+          <th><%= paper_class.human_attribute_name(:attachments) %></th>
           <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
         </tr>
       </thead>
@@ -97,12 +97,12 @@
         <% @papers.each do |paper| %>
           <tr>
             <td><%= paper.anthology_id %></td>
-            <td><%= paper.paper_id %></td>
             <td><%= link_to paper.title, paper_path(paper) %></td>
             <td><%= paper.month %></td>
             <td><%= paper.year %></td>
             <td><%= paper.address %></td>
             <td><%= paper.url %></td>
+            <td><%= paper.attachments %></td> <!-- Change this to some kind of icons later to make better look !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
             <!-- <td>
               <%= link_to t('.view', :default => t("helpers.links.view")),
                               paper_path(paper), :class => 'btn btn-mini btn-primary' %>

@@ -19,8 +19,7 @@ require "rexml/document"
 require "net/http"
 require "uri"
 
-def extract(url)
-	@sigann = Sig.find_by_sigid('SIGANN') ##########################################################
+def load_volume_xml(url)
 	@acl_event = Event.find_by_year('2013') ##########################################################
 
 	xml_data = Net::HTTP.get_response(URI.parse(url)).body
@@ -47,9 +46,11 @@ def extract(url)
 		if doc.elements[i].attributes["id"][w_num..-1] == w_check 
 			@volume = Volume.new
 			vol = doc.elements[i] # Short hand for easier reading
-			@volume.anthology_id = id + '-' + vol.attributes["id"]
-			vol_id = @volume.anthology_id
-			#puts vol_id ##########################################################
+			if id[0] == 'W' # If the volume is a wrokshop, then use the first 2 digits of id
+				@volume.anthology_id = id + '-' + vol.attributes["id"][0..1] # W12-01
+			else # If not, only use the first digit
+				@volume.anthology_id = id + '-' + vol.attributes["id"][0] # D13-1
+			end
 			@volume.title = vol.elements['title'].text if vol.elements['title']
 
 			# Adding editor information
@@ -86,7 +87,7 @@ def extract(url)
 			@volume.bibkey 		= vol.elements['bibkey'].text		if vol.elements['bibkey']
 
 			# SAVE VOLUME TO DB
-			@sigann.volumes << @volume ##########################################################
+			@volume.save
 			@acl_event.volumes << @volume ##########################################################
 			# if @volume.save! == false
 			# 	puts ("Error saving volume " + @volume.anthology_id)
@@ -99,10 +100,7 @@ def extract(url)
 		else # If not, we assume it is a paper
 			@paper = Paper.new
 			p = doc.elements[i] # Short hand for easier reading
-			@paper.anthology_id = vol_id
-			@paper.paper_id = p.attributes["id"]
-			#puts @paper.paper_id ##########################################################
-
+			@paper.anthology_id = id + '-' + p.attributes["id"] # D13-1001
 			@paper.title = p.elements['title'].text
 
 			p.elements.each('author') do |author|
@@ -121,26 +119,63 @@ def extract(url)
 					last_name = full_name.split[1..-1].join(" ") # The rest of the full name
 				end
 				@author = Person.find_or_create_by_first_name_and_last_name_and_full_name(first_name, last_name, full_name)
-		        @paper.people << @author # Save join paper - person(author) to database
-		    end
+				@paper.people << @author # Save join paper - person(author) to database
+			end
 
-	    	@paper.month 		= p.elements['month'].text			if p.elements['month']
-	    	if p.elements['year']
+			@paper.month 		= p.elements['month'].text			if p.elements['month']
+			if p.elements['year']
 				@paper.year 	= (p.elements['year'].text).to_i
 			else
 				@paper.year 	= ("20" + id[1..3]).to_i if id[1..3].to_i < 20
 				@paper.year 	= ("19" + id[1..3]).to_i if id[1..3].to_i > 60
 			end
-	    	@paper.address 		= p.elements['address'].text		if p.elements['address']
-	    	@paper.publisher 	= p.elements['publisher'].text		if p.elements['publisher']
-	    	@paper.pages 		= p.elements['pages'].text			if p.elements['pages']
-	    	@paper.url 			= p.elements['url'].text			if p.elements['url']
-	    	@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
-	    	@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
+			@paper.address 		= p.elements['address'].text		if p.elements['address']
+			@paper.publisher 	= p.elements['publisher'].text		if p.elements['publisher']
+			@paper.pages 		= p.elements['pages'].text			if p.elements['pages']
+			@paper.url 			= p.elements['url'].text			if p.elements['url']
+			@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
+			@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
+			@paper.attachments	= 'none' # By default set this to none, for easy indexing
+			@paper.attachments	= p.elements['attachment'].text		if p.elements['attachment']
+			@paper.attachments	= p.elements['dataset'].text		if p.elements['dataset']
+			@paper.attachments	= p.elements['software'].text		if p.elements['software']
 
-	    	@curr_volume.papers << @paper
-	    	
+			@curr_volume.papers << @paper
+			
 			num_of_pap += 1 # Increase papers of volumes by 1
+		end
+	end
+end
+
+def load_sigs(url)
+	yaml_data = Net::HTTP.get_response(URI.parse(url)).body
+	yml = YAML::load(yaml_data)
+	@sig = Sig.new
+	@sig.name	= yml["Name"]
+	@sig.sigid	= yml["ShortName"]
+	@sig.url	= yml["URL"]
+	@sig.save
+	yml["Meetings"].each do |meeting|
+		keys = meeting.keys
+		keys.each do |key|
+			meeting[key].each do |anthology_id|
+				puts anthology_id
+				if anthology_id.is_a? String
+					@vol = Volume.find_by_anthology_id(anthology_id[0..-4])
+					puts anthology_id[0..-4], @vol
+					# anthology_id of volumes with bib_type is stored differently, with last 00 stripped
+					@vol_bib = Volume.find_by_anthology_id(anthology_id[0..-3])
+					puts anthology_id[0..-3], @vol_bib
+					######
+					if @vol
+						puts anthology_id
+						@sig.volumes << @vol
+					elsif @vol_bib
+						puts anthlogy_bib
+						@sig.volumes << @vol_bib
+					end
+				end
+			end
 		end
 	end
 end
@@ -156,30 +191,21 @@ puts "* * * * * * * * * * Deleting Old Data End  * * * * * * * * * *"
 
 puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
 
-# Seeding SIGs
-Sig.create(name: 'Special Interest Group for Annotation', sigid: 'SIGANN', url: 'http://www.cs.vassar.edu/sigann/')
-Sig.create(name: 'Special Interest Group on Biomedical Natural Language Processing', sigid: 'SIGBIOMED', url: 'http://aclweb.org/anthology/sigbiomed.html')
-Sig.create(name: 'Special Interest Group on Linguistic data and corpus-based approaches to NLP', sigid: 'SIGDAT', url: 'http://www.sigdat.org/')
-Sig.create(name: 'Special Interest Group on Dialogue', sigid: 'SIGDIAL', url: 'http://www.sigdial.org/')
-Sig.create(name: 'Special Interest Group on Finite-State Methods', sigid: 'SIGFSM', url: 'http://aclweb.org/anthology/sigfsm.html')
-Sig.create(name: 'Special Interest Group on Natural Language Generation', sigid: 'SIGGEN', url: 'http://www.siggen.org/')
-Sig.create(name: 'Special Interest Group on Chinese Language Processing', sigid: 'SIGHAN', url: 'http://www.sighan.org/')
-Sig.create(name: 'Special Interest Group on Language Technologies for the Socio-Economic Sciences and Humanities', sigid: 'SIGHUM', url: 'http://aclweb.org/anthology/sighum.html')
-Sig.create(name: 'Special Interest Group on the Lexicon', sigid: 'SIGLEX', url: 'http://www.clres.com/siglex.html')
-Sig.create(name: 'Special Interest Group on Multimedia Language Processing', sigid: 'SIGMEDIA', url: 'http://mm-werkstatt.informatik.uni-augsburg.de/projects/sigmedia/')
-Sig.create(name: 'Association for Mathematics of Language', sigid: 'SIGMOL', url: 'http://molweb.org/')
-Sig.create(name: 'Special Interest Group for Machine Translation', sigid: 'SIGMT', url: 'http://www.sigmt.org/')
-Sig.create(name: 'Special Interest Group on Natural Language Learning', sigid: 'SIGNLL', url: 'http://aclweb.org/anthology/signll.html')
-Sig.create(name: 'Special Interest Group on Natural Language Parsing', sigid: 'SIGPARSE', url: 'http://www.cs.cmu.edu/~sigparse/')
-Sig.create(name: 'Special Interest Group on Computational Morphology and Phonology', sigid: 'SIGMORPHON', url: 'http://aclweb.org/anthology/sigmorphon.html')
-Sig.create(name: 'Special Interest Group on Computational Semantics', sigid: 'SIGSEM', url: 'http://www.sigsem.org/wiki/Main_Page')
-Sig.create(name: 'Special Interest Group on Computational Approaches to Semitic Languages', sigid: 'SEMITIC', url: 'http://cl.haifa.ac.il/semitic/')
-Sig.create(name: 'Special Interest Group on Speech and Language Processing for Assistive Technologies', sigid: 'SIGSLPAT', url: 'http://www.slpat.org/')
-Sig.create(name: 'Special Interest Group on Web as Corpus', sigid: 'SIGWAC', url: 'http://www.sigwac.org.uk/')
 
+
+# Seed Venues
+puts "Started seeding Venues"
 @acl = Venue.create(acronym: 'ACL', name: 'ACL Annual Meeting', venueid: 'ACL')
+@biomed = Venue.create(acronym: 'BIOMED', name: 'BIOMED Annual Meeting', venueid: 'BIOMED')
+@han = Venue.create(acronym: 'HAN', name: 'HAN Annual Meeting', venueid: 'HAN')
 Event.create(venue_id: @acl.id, year: '2013', kind: 'conference')
+Event.create(venue_id: @biomed.id, year: '2012', kind: 'workshop')
+Event.create(venue_id: @han.id, year: '2011', kind: 'conference')
+puts "Done seeding Venues"
 
+
+# Seed Volumes + Papers
+puts "Started seeding Volumes"
 codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
@@ -192,21 +218,28 @@ codes.each do |c|
 		response = request.request_head(url.path)
 		if response.kind_of?(Net::HTTPOK)
 			puts ("Seeding: " + url_string)
-			extract(url_string)
+			load_volume_xml(url_string)
 		end
 		#test = Net::HTTP.get_response(URI.parse(url))
 		
 	end
 end
-
-# currently for testing funtionality only
-# url = "http://aclweb.org/anthology/C/C65/C65.xml"
-
-
-
+puts "Done seeding Volumes"
 puts "* * * * * * * * * * Seeding Data End * * * * * * * * * * * * *"
 
 
-
-
-
+# Seed SIGs
+puts "Started seeding SIGs"
+sigs = ['sigann', 'sigbiomed', 'sigdat', 'sigdial', 'sigfsm', 'siggen', 'sighan', 'sighum', 'siglex', 
+	'sigmedia', 'sigmol', 'sigmt', 'signll', 'sigparse', 'sigmorphon', 'sigsem', 'semitic', 'sigslpat', 'sigwac']
+sigs.each do |sig|
+	url_string = "http://aclweb.org/anthology/" + sig + ".yaml"
+	url = URI.parse(url_string)
+	request = Net::HTTP.new(url.host, url.port)
+	response = request.request_head(url.path)
+	if response.kind_of?(Net::HTTPOK)
+		puts ("Seeding: " + url_string)
+		load_sigs(url_string)
+	end
+end
+puts "Done seeding SIGs"

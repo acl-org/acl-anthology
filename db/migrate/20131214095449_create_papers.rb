@@ -3,7 +3,6 @@ class CreatePapers < ActiveRecord::Migration
     create_table :papers do |t|
       t.integer :volume_id
       t.string :anthology_id
-      t.string :paper_id
       t.string :title, :limit => 900
       t.string :month
       t.integer :year
@@ -13,6 +12,7 @@ class CreatePapers < ActiveRecord::Migration
       t.string :url
       t.string :bibtype
       t.string :bibkey
+      t.string :attachments
 
       t.timestamps
     end

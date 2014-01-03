@@ -9,7 +9,6 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:anthology_id) %></th>
-      <th><%= model_class.human_attribute_name(:paper_id) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:month) %></th>
       <th><%= model_class.human_attribute_name(:year) %></th>
@@ -22,8 +21,7 @@
     <% @papers.each do |paper| %>
       <tr>
         <td><%= paper.anthology_id %></td>
-        <td><%= paper.paper_id %></td>
-        <td><%= paper.title %></td>
+        <td><%= link_to paper.title, paper_path(paper) %></td>
         <td><%= paper.month %></td>
         <td><%= paper.year %></td>
         <td><%= paper.address %></td>
