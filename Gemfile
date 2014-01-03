@@ -33,7 +33,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'blacklight'
+gem "blacklight"
+#gem "blacklight_range_limit"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
