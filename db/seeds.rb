@@ -162,16 +162,11 @@ def load_sigs(url)
 				puts anthology_id
 				if anthology_id.is_a? String
 					@vol = Volume.find_by_anthology_id(anthology_id[0..-4])
-					puts anthology_id[0..-4], @vol
-					# anthology_id of volumes with bib_type is stored differently, with last 00 stripped
+					# anthology_id of volumes with bib_type is stored differently, with last 00 stripped (for workshops)
 					@vol_bib = Volume.find_by_anthology_id(anthology_id[0..-3])
-					puts anthology_id[0..-3], @vol_bib
-					######
 					if @vol
-						puts anthology_id
 						@sig.volumes << @vol
 					elsif @vol_bib
-						puts anthlogy_bib
 						@sig.volumes << @vol_bib
 					end
 				end
@@ -206,7 +201,7 @@ puts "Done seeding Venues"
 
 # Seed Volumes + Papers
 puts "Started seeding Volumes"
-codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
+codes = ['D', 'E', 'W']#['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
 	years.each do |y|
