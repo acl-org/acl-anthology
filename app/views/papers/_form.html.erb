@@ -60,12 +60,18 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :attachments, :class => 'control-label' %>
+    <%= f.label :attachment, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :attachments, :class => 'text_field' %>
+      <%= f.text_field :attachment, :class => 'text_field' %>
     </div>
   </div>
-
+  <div class="control-group">
+    <%= f.label :attach_type, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :attach_type, :class => 'text_field' %>
+    </div>
+  </div>
+  
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

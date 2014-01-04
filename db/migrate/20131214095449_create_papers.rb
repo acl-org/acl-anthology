@@ -12,7 +12,8 @@ class CreatePapers < ActiveRecord::Migration
       t.string :url
       t.string :bibtype
       t.string :bibkey
-      t.string :attachments
+      t.string :attachment
+      t.string :attach_type
 
       t.timestamps
     end

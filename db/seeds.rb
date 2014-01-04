@@ -29,10 +29,8 @@ def load_volume_xml(url)
 	doc = doc.elements[1] # skipping the highest level tag
 
 	id = doc.attributes["id"] # The document id in the first "volume" tag, eg. E12
-	vol_id = id # temp for Paper
-	num_of_vol = 0 # Number of volumes in the doc
-	num_of_pap = 0
-	@curr_volume = Volume.new # Will store the current volume so the papers are saved to it
+	@curr_volume = Volume.new # Stores the current volume so the papers are saved to it
+
 	# We will check if the xml is of a type workshop. If it is, each worshop ending with 00 will be treated as 1 volume
 	w_check = "000" # default check for volumes
 	w_num = -3 # default number of last chars checked (stands for 3)
@@ -42,16 +40,20 @@ def load_volume_xml(url)
 	end
 
 	(1..doc.size/2).each do |i| # Loop trough all the paper tags in the doc, has to be /2 because each tag is counted twice
-		# Check if last 2 digits are 000, then it is a volume. if it is workshop then w_check = "00"
 		if doc.elements[i].attributes["id"][w_num..-1] == w_check 
-			@volume = Volume.new
 			vol = doc.elements[i] # Short hand for easier reading
+
+			@volume = Volume.new
 			if id[0] == 'W' # If the volume is a wrokshop, then use the first 2 digits of id
 				@volume.anthology_id = id + '-' + vol.attributes["id"][0..1] # W12-01
 			else # If not, only use the first digit
 				@volume.anthology_id = id + '-' + vol.attributes["id"][0] # D13-1
 			end
 			@volume.title = vol.elements['title'].text if vol.elements['title']
+
+			@front_matter = Paper.new
+			@front_matter.anthology_id = id + '-' + vol.attributes["id"]
+			@front_matter.title = @volume.title
 
 			# Adding editor information
 			vol.elements.each('editor') do |editor|
@@ -71,6 +73,7 @@ def load_volume_xml(url)
 				end
 				@editor = Person.find_or_create_by_first_name_and_last_name_and_full_name(first_name, last_name, full_name)
 				@volume.people << @editor # Save join person(editor) - volume to database
+				@front_matter.people << @editor
 			end
 
 			@volume.month 		= vol.elements['month'].text		if vol.elements['month']
@@ -86,20 +89,26 @@ def load_volume_xml(url)
 			@volume.bibtype 	= vol.elements['bibtype'].text		if vol.elements['bibtype']
 			@volume.bibkey 		= vol.elements['bibkey'].text		if vol.elements['bibkey']
 
-			# SAVE VOLUME TO DB
-			@volume.save
-			@acl_event.volumes << @volume ##########################################################
-			# if @volume.save! == false
-			# 	puts ("Error saving volume " + @volume.anthology_id)
-			# end
+			@volume.save # Save volume
 			@curr_volume = @volume
-			# SAVE EDITORS TO DB
-			# SAVE RELATION OF THE 2 TO DB
-			num_of_vol += 1 # Increase number of volumes by 1
-			num_of_pap = 0 # Reset number of papers to 0
+
+			@front_matter.month		= @volume.month
+			@front_matter.year		= @volume.year
+			@front_matter.address	= @volume.address
+			@front_matter.publisher	= @volume.publisher
+			@front_matter.url		= @volume.url
+			@front_matter.bibtype	= @volume.bibtype
+			@front_matter.bibkey	= @volume.bibkey
+			@curr_volume.papers << @front_matter # Save front_matter
+			
+
+
+			@acl_event.volumes << @volume ##########################################################
+			
 		else # If not, we assume it is a paper
-			@paper = Paper.new
 			p = doc.elements[i] # Short hand for easier reading
+
+			@paper = Paper.new
 			@paper.anthology_id = id + '-' + p.attributes["id"] # D13-1001
 			@paper.title = p.elements['title'].text
 
@@ -135,14 +144,22 @@ def load_volume_xml(url)
 			@paper.url 			= p.elements['url'].text			if p.elements['url']
 			@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
 			@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
-			@paper.attachments	= 'none' # By default set this to none, for easy indexing
-			@paper.attachments	= p.elements['attachment'].text		if p.elements['attachment']
-			@paper.attachments	= p.elements['dataset'].text		if p.elements['dataset']
-			@paper.attachments	= p.elements['software'].text		if p.elements['software']
-
-			@curr_volume.papers << @paper
 			
-			num_of_pap += 1 # Increase papers of volumes by 1
+			@paper.attachment	= "none" # By default set this to none, for easy indexing
+			if p.elements['attachment']
+				@paper.attachment	= p.elements['attachment'].text
+				@paper.attach_type	= "attachment"
+			end
+			if p.elements['dataset']
+				@paper.attachment	= p.elements['dataset'].text
+				@paper.attach_type	= "dataset"
+			end
+			if p.elements['software']
+				@paper.attachment	= p.elements['software'].text
+				@paper.attach_type	= "software"
+			end
+
+			@curr_volume.papers << @paper	
 		end
 	end
 end
@@ -159,7 +176,6 @@ def load_sigs(url)
 		keys = meeting.keys
 		keys.each do |key|
 			meeting[key].each do |anthology_id|
-				puts anthology_id
 				if anthology_id.is_a? String
 					@vol = Volume.find_by_anthology_id(anthology_id[0..-4])
 					# anthology_id of volumes with bib_type is stored differently, with last 00 stripped (for workshops)

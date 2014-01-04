@@ -50,7 +50,8 @@ ActiveRecord::Schema.define(version: 20131229164956) do
     t.string   "url"
     t.string   "bibtype"
     t.string   "bibkey"
-    t.string   "attachments"
+    t.string   "attachment"
+    t.string   "attach_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
