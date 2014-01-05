@@ -92,6 +92,24 @@ namespace :acl do
 									attachment.text = paper.attachment
 								end
 							end
+							# SIG and venue information for each volume will be put in the front matter paper
+							if paper.anthology_id[-3..-1] == "000" || (paper.anthology_id[-2..-1] == "00" && c == 'W')
+								@volume.sigs.each do |sig|
+									s = pap.add_element 'SIG', {'id' => sig.sigid}
+									sig_name = s.add_element 'name'
+									sig_name.text = sig.name
+									sig_url = s.add_element 'url'
+									sig_url.text = sig.url
+								end
+								@volume.events.each do |event|
+									venue = Venue.find_by_id(event.venue_id)
+									ven = pap.add_element 'venue', {'id' => venue.venueid, 'year' => event.year}
+									ven_accronym = ven.add_element 'acronym'
+									ven_accronym.text = venue.acronym
+									ven_name = ven.add_element 'name'
+									ven_name.text = venue.name
+								end
+							end
 						end # Finished all papers in the volume
 					end
 				end # Finished all volumes
