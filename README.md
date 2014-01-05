@@ -2,10 +2,10 @@
 Basic instructions on running the ACL anthology
 
 ## Installation ##
-These are the main steps to getting the ACL anthology running on your local machine. The whole process should take at least an hour or so so be prepared.
+These are the main steps to getting the ACL anthology running on your local machine. The whole process should take at least an hour or so, so be prepared.
 
 ### Prerequisites ###
-The installan of this rails app assumes that you have a running Ruby on Rails installation with the following versions of core services:
+The installation of this rails app assumes that you have a running Ruby on Rails installation with the following versions of core services:
 ```
   * Rails (4.0.1)
   * Ruby (2.0.0)
@@ -13,10 +13,10 @@ The installan of this rails app assumes that you have a running Ruby on Rails in
   * PostgreSQL (9.3.1)
   * Java (1.5 or higher)
 ```
-If you don't have a running copy, we recommend using RVM to install Rails and all it's dependancies. Also, git command line tools or GUI is needed to clone the repository.
+If you don't have a running copy, we recommend using RVM to install Rails and all its dependencies. Also, git command line tools or GUI is needed to clone the repository.
 
 ### Cloning ###
-Browse to your designated repoitory and clone it using this git command (or with a git GUI tool). The process should take a while since the repository is quite big (about 150MB):
+Browse to your designated folder and clone it using this git command (or with a git GUI tool). The process should take a while since the repository is quite big (about 150MB):
 ```
 $ git clone https://github.com/zamakkat/acl
 ```
@@ -27,7 +27,7 @@ $ bundle install
 ```
 
 ### Database ###
-Run the following commands to initialaze the databse and run migrations:
+Run the following commands to initialize the database and run migrations:
 ```
 $ rake db:create
 $ rake db:migrate
