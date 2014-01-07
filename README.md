@@ -2,7 +2,7 @@
 Basic instructions on running the ACL anthology
 
 ## Installation ##
-These are the main steps to getting the ACL anthology running on your local machine. The whole process should take at least an hour or so, so be prepared.
+These are the main steps to getting the ACL anthology running on your local machine. The whole process should take at least an hour or so, so be prepared. This is best done on any Linux based OS (MacOS, Ubuntu, Linux...) for the convience of tools used.
 
 ### Prerequisites ###
 The installation of this rails app assumes that you have a running Ruby on Rails installation with the following versions of core services:
@@ -45,7 +45,11 @@ $ rake db:drop
 After that you can start over with recreating the database.
 
 ### Indexing ###
-Before using the search functionality, we will need to run the Solr server locally and index the data. To start the server:
+Before using the search functionality, we will need to run the Solr server locally and index the data. First, we will need to set the user. Open `jetty/solr/blacklight-core/conf/data-config.xml` (or just use find to find this file) and change line 5 to your current user account:
+```
+user="user_account"
+```
+After saving the file, we can start the Solr server:
 ```
 $ cd jetty; java -jar start.jar &
 ```
