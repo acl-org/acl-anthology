@@ -2,7 +2,7 @@
   <dataSource type="JdbcDataSource" 
               driver="org.postgresql.Driver"
               url="jdbc:postgresql://localhost/acl_development" 
-              user="zamakkat1" 
+              user="nglinh" 
               password=""/>
   <!-- <script>
     <![CDATA[
@@ -30,6 +30,7 @@
             <field column="title" name="title"/>
             <field column="title" name="title_unstem"/>
             <field column="year" name="publish_date"/>
+            <field column="anthology_id" name="paper_anthology"/>
             <entity name="person" query="select * from papers_people PA, people A WHERE PA.person_id = A.id AND PA.paper_id='${paper.id}'">
               <field column="id" name="author_id"/>
               <field column="first_name" name="first_name"/>

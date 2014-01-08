@@ -78,6 +78,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display 
     config.add_index_field 'title', :label => 'Title:'
+    config.add_index_field 'paper_anthology', :label => 'Anthology ID:'
     config.add_index_field 'volume_anthology', :label => 'Volume anthology:', :helper_method => :volume_helper_method
     config.add_index_field 'author', :label => 'Author:', :helper_method => :author_helper_method
     config.add_index_field 'publish_date', :label => 'Publish date:'
@@ -87,6 +88,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
     config.add_show_field 'title', :label => 'Title:'
+    config.add_show_field 'paper_anthology', :label => 'Anthology ID:'
     config.add_show_field 'volume_anthology', :label => 'Volume anthology:', :helper_method => :volume_helper_method
     config.add_show_field 'author', :label => 'Author:', :helper_method => :author_helper_method
     config.add_show_field 'publish_date', :label => 'Publish date'
