@@ -31,7 +31,6 @@ module BlacklightHelper
   opts[:label] ||= blacklight_config.index.show_link.to_sym
   label = render_document_index_label doc, opts
   if (doc[:paper_anthology][0] == "W" and doc[:paper_anthology][-2..-1] == "00") or doc[:paper_anthology][-3..-1] == "000"
-    puts "yolo"
     link_to label + " [VOLUME]", "/volumes/"+ doc[:volume_id]
   else
     link_to label, "/papers/" + doc[:id]
