@@ -63,6 +63,12 @@ class PapersController < ApplicationController
     end
   end
 
+  def bibexport
+    set_paper
+    @authors = @paper.people
+    send_data generate_modsxml(@paper.title, @paper.year, @paper.volume.title, @paper.people), :filename => "paper#{@paper.id}.xml"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_paper
@@ -73,4 +79,46 @@ class PapersController < ApplicationController
     def paper_params
       params.require(:paper).permit(:volume_id, :paper_id, :title, :month, :year, :address, :publisher, :pages, :url, :bibtype, :bibkey)
     end
-end
+
+    def generate_modsxml paper_title,year,volume_title,authors
+      xml = REXML::Document.new "<?xml version='1.0'?>"
+      mods=xml.add_element 'mods'
+      mods.attributes["ID"]='d1ej'
+      title_info = mods.add_element 'titleInfo'
+      title_name = title_info.add_element 'title'
+      title_name.text = paper_title
+      authors.each { |author|
+        name = mods.add_element 'name'
+        name.attributes["type"]="personal"
+        
+        name_part_first = name.add_element 'namePart'
+        name_part_first.attributes["type"]="given"
+        name_part_first.text = author.first_name
+
+        name_part_last = name.add_element 'namePart'
+        name_part_last.attributes["type"]="family"
+        name_part_last.text = author.last_name
+
+        role = name.add_element 'role'
+        roleterm = role.add_element 'roleTerm'
+        roleterm.attributes["authority"]="marcrelator"
+        roleterm.attributes["type"]="text"
+        roleterm.text="author"
+
+      }
+      origin_info = mods.add_element 'originInfo'
+      date_issued = origin_info.add_element 'dateIssued'
+      date_issued.text = year
+
+      genre_type = mods.add_element 'genre'
+      genre_type.text = "conference publication"
+
+      related_item = mods.add_element 'relatedItem'
+      related_item.attributes["type"]="host"
+      volume_info = related_item.add_element 'titleInfo'
+      volume_name = volume_info.add_element 'title'
+      volume_name.text = volume_title
+      puts xml.to_s
+      return xml.to_s
+    end
+  end

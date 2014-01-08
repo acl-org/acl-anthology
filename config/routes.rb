@@ -7,7 +7,16 @@ Acl2::Application.routes.draw do
 
   resources :volumes do
     resources :papers, shallow: true
+    member do
+      get 'bibexport'
+    end
   end 
+
+  resources :papers do
+    member do
+      get 'bibexport'
+    end
+  end
   
   resources :people
 

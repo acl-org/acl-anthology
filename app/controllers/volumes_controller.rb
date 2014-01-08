@@ -68,6 +68,12 @@ class VolumesController < ApplicationController
     end
   end
 
+  def bibexport
+    set_volume
+    @editors = @volume.people
+    send_data generate_volume_modsxml(@volume.title, @volume.year, @editors), :filename => "volume#{@volume.id}.xml"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_volume
@@ -78,4 +84,38 @@ class VolumesController < ApplicationController
     def volume_params
       params.require(:volume).permit(:anthology_id, :title, :month, :year, :address, :publisher, :url, :bibtype, :bibkey)
     end
-end
+
+    def generate_volume_modsxml paper_title,year,authors
+      xml = REXML::Document.new "<?xml version='1.0'?>"
+      mods=xml.add_element 'mods'
+      mods.attributes["ID"]='d1ej'
+      title_info = mods.add_element 'titleInfo'
+      title_name = title_info.add_element 'title'
+      title_name.text = paper_title
+      #add author information
+      authors.each { |author|
+        name = mods.add_element 'name'
+        name.attributes["type"]="personal"
+        
+        name_part_first = name.add_element 'namePart'
+        name_part_first.attributes["type"]="given"
+        name_part_first.text = author.first_name
+
+        name_part_last = name.add_element 'namePart'
+        name_part_last.attributes["type"]="family"
+        name_part_last.text = author.last_name
+
+        role = name.add_element 'role'
+        roleterm = role.add_element 'roleTerm'
+        roleterm.attributes["authority"]="marcrelator"
+        roleterm.attributes["type"]="text"
+        roleterm.text="editor"
+
+      }
+      origin_info = mods.add_element 'originInfo'
+      date_issued = origin_info.add_element 'dateIssued'
+      date_issued.text = year
+
+      return xml.to_s
+    end
+  end
