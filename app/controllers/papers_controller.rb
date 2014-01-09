@@ -66,7 +66,21 @@ class PapersController < ApplicationController
   def bibexport
     set_paper
     @authors = @paper.people
-    send_data generate_modsxml(@paper.title, @paper.year, @paper.volume.title, @paper.people), :filename => "paper#{@paper.id}.xml"
+    mods_xml= generate_modsxml(@paper.title, @paper.year, @paper.volume.title, @paper.people)
+    file = File.new("bibexport/paper#{@paper.id}mods.xml",'w')
+    file.write mods_xml
+    file.close
+    bib=`xml2bib bibexport/paper#{@paper.id}mods.xml`
+    ris=`xml2ris bibexport/paper#{@paper.id}mods.xml`
+    endf =`xml2end bibexport/paper#{@paper.id}mods.xml`
+    word=`xml2wordbib bibexport/paper#{@paper.id}mods.xml`
+    respond_to do |format|
+      format.xml { render xml: mods_xml }
+      format.bib { send_data bib, :filename => "paper#{@paper.id}.bib" }
+      format.ris { send_data ris, :filename => "paper#{@paper.id}.ris" }
+      format.endf { send_data endf, :filename => "paper#{@paper.id}.end" }
+    end
+    
   end
 
   private
@@ -81,6 +95,7 @@ class PapersController < ApplicationController
     end
 
     def generate_modsxml paper_title,year,volume_title,authors
+      require "rexml/document"
       xml = REXML::Document.new "<?xml version='1.0'?>"
       mods=xml.add_element 'mods'
       mods.attributes["ID"]='d1ej'
@@ -118,7 +133,6 @@ class PapersController < ApplicationController
       volume_info = related_item.add_element 'titleInfo'
       volume_name = volume_info.add_element 'title'
       volume_name.text = volume_title
-      puts xml.to_s
       return xml.to_s
     end
   end

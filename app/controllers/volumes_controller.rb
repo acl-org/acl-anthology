@@ -71,7 +71,20 @@ class VolumesController < ApplicationController
   def bibexport
     set_volume
     @editors = @volume.people
-    send_data generate_volume_modsxml(@volume.title, @volume.year, @editors), :filename => "volume#{@volume.id}.xml"
+    mods_xml = generate_volume_modsxml(@volume.title, @volume.year, @editors)
+    file = File.new("bibexport/volume#{@volume.id}mods.xml",'w')
+    file.write mods_xml
+    file.close
+    bib=`xml2bib bibexport/volume#{@volume.id}mods.xml`
+    ris=`xml2ris bibexport/volume#{@volume.id}mods.xml`
+    endf =`xml2end bibexport/volume#{@volume.id}mods.xml`
+    word=`xml2wordbib bibexport/volume#{@volume.id}mods.xml`
+    respond_to do |format|
+      format.xml { render xml: mods_xml }
+      format.bib { send_data bib, :filename => "volume#{@volume.id}.bib" }
+      format.ris { send_data ris, :filename => "volume#{@volume.id}.ris" }
+      format.endf { send_data endf, :filename => "volume#{@volume.id}.end" }
+    end
   end
 
   private
@@ -86,6 +99,7 @@ class VolumesController < ApplicationController
     end
 
     def generate_volume_modsxml paper_title,year,authors
+      require "rexml/document"
       xml = REXML::Document.new "<?xml version='1.0'?>"
       mods=xml.add_element 'mods'
       mods.attributes["ID"]='d1ej'
