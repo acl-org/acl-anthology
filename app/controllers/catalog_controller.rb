@@ -57,6 +57,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'author', :label => 'Author'
     config.add_facet_field 'volume_anthology', :label => 'Volume anthology'
     config.add_facet_field 'publish_date', :label => 'Publish date', :range => true
+    config.add_facet_field 'attach_type', :label => 'Attachment type'
     config.add_facet_field 'sig_iden', :label => 'SIG'
     config.add_facet_field 'venue_name', :label => 'Venue'
 
@@ -83,6 +84,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'author', :label => 'Author:', :helper_method => :author_helper_method
     config.add_index_field 'publish_date', :label => 'Publish date:'
     config.add_index_field 'sig_iden', :label => 'Sig ID:', :helper_method => :sig_helper_method
+    config.add_index_field 'attach_type', :label => 'Attachment type:', :link_to_search => true
     
 
     # solr fields to be displayed in the show (single result) view
