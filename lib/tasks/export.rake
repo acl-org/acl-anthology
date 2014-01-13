@@ -113,6 +113,7 @@ def export_papers_in_volume(volume, vol_tag)
 	end # Finished all papers in the volume
 end
 
+# Export standard xml files
 namespace :acl do
 	desc "Export each anthology to a single xml file in the form E12.xml"
 	task :export => :environment do
@@ -126,10 +127,8 @@ namespace :acl do
 				vol = xml_doc.add_element 'volume', {"id" => c + y} # Level 1 indentation	
 				if c == 'W' # If we have a workshop, the volume series will have 2 digits
 					volume_series = ('01'..'99').to_a
-					paper_series = ('00'..'99').to_a
 				else # else, only count first digit
 					volume_series = ('1'..'9').to_a
-					paper_series = ('000'..'999').to_a
 				end
 
 				volume_series.each do |v|
@@ -170,10 +169,8 @@ namespace :acl do
 				volume_found = false # by default, the anthology is empty
 				if c == 'W' # If we have a workshop, the volume series will have 2 digits
 					volume_series = ('01'..'99').to_a
-					paper_series = ('00'..'99').to_a
 				else # else, only count first digit
 					volume_series = ('1'..'9').to_a
-					paper_series = ('000'..'999').to_a
 				end
 
 				volume_series.each do |v|
@@ -206,4 +203,57 @@ namespace :acl do
 			end # finished exporting one anthology, Eg: "E12"
 		end 
 	end # task export
+end
+
+
+# Export all volumes to one single xml file
+namespace :acl do
+	desc "Export each anthology to a single xml file in the form E12.xml"
+	task :export_all => :environment do
+		
+		codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
+		years = ('00'..'13').to_a + ('65'..'99').to_a
+		xml_doc = REXML::Document.new "<?xml version='1.0'?>"
+		acl = xml_doc.add_element 'aclanthology', {"version" => Time.now}
+
+		codes.each do |c|
+			years.each do |y|
+				if c == 'W' # If we have a workshop, the volume series will have 2 digits
+					volume_series = ('01'..'99').to_a
+					@volume = Volume.find_by_anthology_id(c + y + "-01")
+				else # else, only count first digit
+					volume_series = ('1'..'9').to_a
+					@volume = Volume.find_by_anthology_id(c + y + "-1")
+				end
+
+				# Only puts a tag if a volume does exist
+				if @volume
+					vol = acl.add_element 'volume', {"id" => c + y}
+				else # if it doesn't, skip to next anthology
+					next
+				end
+				
+				volume_series.each do |v|
+					@volume = Volume.find_by_anthology_id(c + y + "-" + v.to_s)
+					if @volume # Check if volume exists
+						puts "Exporting volume " + @volume.anthology_id 	
+						export_papers_in_volume(@volume, vol)	
+					end # Finished one volume
+				end # Finished all volumes
+
+				export_loc = "#{Rails.root}/export/" + c + y + ".xml"
+			end # finished exporting one anthology, Eg: "E12"
+		end 
+
+		# Write xml doc to xml file
+		xml_file = File.new("export/acl_anthology.xml",'w')
+		xml_string = xml_doc.to_s
+		xml_string.gsub!(/amp;/, "") # delete all escape chars, &amp; => &
+		xml_string.gsub!(/&rsquo;/, "'") # delete all escape chars, &amp; => &
+		xml_string.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
+
+		xml_file.write xml_string
+		xml_file.close
+		puts "Saving file acl_anthology.xml"
+	end # task export_all
 end
