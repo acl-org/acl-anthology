@@ -1,5 +1,10 @@
 <% content_for :head do %>
-  <meta content="HelloWorld"></meta>
+  <meta content="<%= @paper.title %>" name="citation_title" >
+  <% @authors.each do |author| %>
+    <meta content="<%= author.full_name %>" name="citation_author" >
+  <% end %>
+
+
 <% end %>
 
 <div class="row">
