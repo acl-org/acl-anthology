@@ -18,13 +18,16 @@
 require "rexml/document"
 require "net/http"
 require "uri"
+require 'htmlentities'
 
 def load_volume_xml(url)
 	@acl_event = Event.find_by_year('2013') ##########################################################
 
 	xml_data = Net::HTTP.get_response(URI.parse(url)).body
-	xml_data.gsub!(/&/, '&amp;') # Remove illegal charactes
 	xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
+	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
+	xml_data.gsub!(/&/, '&amp;') 
+
 	doc = REXML::Document.new xml_data
 	doc = doc.elements[1] # skipping the highest level tag
 
@@ -99,6 +102,9 @@ def load_volume_xml(url)
 			@front_matter.url		= @volume.url
 			@front_matter.bibtype	= @volume.bibtype
 			@front_matter.bibkey	= @volume.bibkey
+			@front_matter.attachment	= "none"
+			@front_matter.attach_type	= "none"
+
 			@curr_volume.papers << @front_matter # Save front_matter
 			
 
@@ -146,6 +152,7 @@ def load_volume_xml(url)
 			@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
 			
 			@paper.attachment	= "none" # By default set this to none, for easy indexing
+			@paper.attach_type	= "none" # By default set this to none, for easy indexing
 			if p.elements['attachment']
 				@paper.attachment	= p.elements['attachment'].text
 				@paper.attach_type	= "attachment"
@@ -217,7 +224,7 @@ puts "Done seeding Venues"
 
 # Seed Volumes + Papers
 puts "Started seeding Volumes"
-codes = ['D', 'E', 'W']#['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
+codes = ['D', 'E', 'P', 'W']#['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
 	years.each do |y|

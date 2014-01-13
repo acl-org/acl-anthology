@@ -62,3 +62,8 @@ gem 'rails_12factor', group: :production
 # Paginator 
 gem 'kaminari'
 
+# Translating html escape chars to unicode chars
+gem "htmlentities", "~> 4.3.1"
+
+# Addming meta tags 
+gem 'metamagic'

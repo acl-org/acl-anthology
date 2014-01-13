@@ -249,7 +249,7 @@ namespace :acl do
 		xml_file = File.new("export/acl_anthology.xml",'w')
 		xml_string = xml_doc.to_s
 		xml_string.gsub!(/amp;/, "") # delete all escape chars, &amp; => &
-		xml_string.gsub!(/&rsquo;/, "'") # delete all escape chars, &amp; => &
+		# xml_string.gsub!(/&rsquo;/, "'") # delete all escape chars
 		xml_string.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 
 		xml_file.write xml_string
