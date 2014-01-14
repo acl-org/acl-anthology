@@ -17,9 +17,11 @@
     <meta content="<%= @paper.anthology_id[-4..-1] %>" name="citation_issue" >
   <% end %>
   
-  <meta content="<%= @paper.pages.split("–")[0] %>" name="citation_firstpage" >
-  <meta content="<%= @paper.pages.split("–")[1] %>" name="citation_lastpage" >
-
+  <% if @paper.pages %>
+    <meta content="<%= @paper.pages.split("–")[0] %>" name="citation_firstpage" >
+    <meta content="<%= @paper.pages.split("–")[1] %>" name="citation_lastpage" >
+  <% end %>
+  
   <meta content="<%= "http://aclweb.org/anthology/" + @paper.anthology_id[0] + '/' + @paper.anthology_id[0..2] + '/' + @paper.anthology_id + ".pdf" %>" name="citation_pdf_url" >
 <% end %>
 

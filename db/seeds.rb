@@ -224,7 +224,7 @@ puts "Done seeding Venues"
 
 # Seed Volumes + Papers
 puts "Started seeding Volumes"
-codes = ['D', 'E', 'P', 'W']#['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
+codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']#['D', 'E', 'P', 'W']
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
 	years.each do |y|
