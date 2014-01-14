@@ -27,6 +27,8 @@ def load_volume_xml(url)
 	xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
 	xml_data.gsub!(/&/, '&amp;') 
+	xml_data.gsub!(/<</, '&lt;&lt;') 
+	xml_data.gsub!(/>>/, '&gt;&gt;') 
 
 	doc = REXML::Document.new xml_data
 	doc = doc.elements[1] # skipping the highest level tag
@@ -224,7 +226,7 @@ puts "Done seeding Venues"
 
 # Seed Volumes + Papers
 puts "Started seeding Volumes"
-codes = ['D', 'E', 'P', 'W']#['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
+codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']#['D', 'E', 'P', 'W']#
 years = ('00'..'13').to_a + ('65'..'99').to_a
 codes.each do |c|
 	years.each do |y|

@@ -2,7 +2,7 @@ module BlacklightHelper
   include Blacklight::BlacklightHelperBehavior
 
   def application_name
-    "ACL anthropoplogy"
+    "ACL Anthology"
   end
 
   def author_helper_method args

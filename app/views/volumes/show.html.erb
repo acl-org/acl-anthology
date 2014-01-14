@@ -89,7 +89,7 @@
           <th><%= paper_class.human_attribute_name(:year) %></th>
           <th><%= paper_class.human_attribute_name(:address) %></th>
           <th><%= paper_class.human_attribute_name(:url) %></th>
-          <th><%= paper_class.human_attribute_name(:attachment) %></th>
+          <!-- <th><%= paper_class.human_attribute_name(:attachment) %></th> -->
           <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
         </tr>
       </thead>
@@ -97,12 +97,21 @@
         <% @papers.each do |paper| %>
           <tr>
             <td><%= paper.anthology_id %></td>
-            <td><%= link_to paper.title, paper_path(paper) %></td>
+            <td>
+              <% if paper.attach_type == "attachment" %>
+                <%= image_tag "attachment.png", size: "16x16", alt: "Attachment" %>
+              <% elsif paper.attach_type == "dataset" %>
+                <%= image_tag "dataset.png", size: "16x16", alt: "Dataset" %>
+              <% elsif paper.attach_type == "software" %>
+                <%= image_tag "software.png", size: "16x16", alt: "Dataset" %>
+              <% end %>
+              <%= link_to paper.title, paper_path(paper) %>
+            </td>
             <td><%= paper.month %></td>
             <td><%= paper.year %></td>
             <td><%= paper.address %></td>
             <td><%= paper.url %></td>
-            <td><%= paper.attachment %></td> <!-- Change this to some kind of icons later to make better look !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+            <!-- <td><%= paper.attachment %></td>  --><!-- Change this to some kind of icons later to make better look !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
             <!-- <td>
               <%= link_to t('.view', :default => t("helpers.links.view")),
                               paper_path(paper), :class => 'btn btn-mini btn-primary' %>

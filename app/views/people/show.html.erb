@@ -85,7 +85,6 @@
       <thead>
         <tr>
           <th><%= paper_class.human_attribute_name(:anthology_id) %></th>
-          <th><%= paper_class.human_attribute_name(:paper_id) %></th>
           <th><%= paper_class.human_attribute_name(:title) %></th>
           <th><%= paper_class.human_attribute_name(:month) %></th>
           <th><%= paper_class.human_attribute_name(:year) %></th>
@@ -98,7 +97,6 @@
         <% @papers.each do |paper| %>
           <tr>
             <td><%= paper.anthology_id %></td>
-            <td><%= paper.paper_id %></td>
             <td><%= link_to paper.title, paper_path(paper) %></td>
             <td><%= paper.month %></td>
             <td><%= paper.year %></td>
