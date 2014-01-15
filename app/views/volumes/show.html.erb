@@ -98,6 +98,7 @@
           <tr>
             <td><%= paper.anthology_id %></td>
             <td>
+              <%= link_to paper.title, paper_path(paper) %>
               <% if paper.attach_type == "attachment" %>
                 <%= image_tag "attachment.png", size: "16x16", alt: "Attachment" %>
               <% elsif paper.attach_type == "dataset" %>
@@ -105,7 +106,6 @@
               <% elsif paper.attach_type == "software" %>
                 <%= image_tag "software.png", size: "16x16", alt: "Dataset" %>
               <% end %>
-              <%= link_to paper.title, paper_path(paper) %>
             </td>
             <td><%= paper.month %></td>
             <td><%= paper.year %></td>

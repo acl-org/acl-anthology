@@ -1,11 +1,38 @@
-<%# default partial to display solr document fields in catalog index view -%>
+<!-- <%# default partial to display solr document fields in catalog index view -%>
 <dl class="document-metadata dl-horizontal dl-invert">
   
   <% index_fields(document).each do |solr_fname, field| -%>
     <% if should_render_index_field? document, field %>
+    	<% puts solr_fname %>
 	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_label document, :field => solr_fname %></dt>
 	    <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_value document, :field => solr_fname %></dd>
+
+	    <% if solr_fname == "paper_anthology" %>
+	    	[<%= render_index_field_value document, :field => solr_fname %>]:
+	    <% end %>
     <% end -%>
   <% end -%>
 
 </dl>
+ -->
+
+<% first_author = true %>
+<% index_fields(document).each do |solr_fname, field| -%>
+    <% if should_render_index_field? document, field %>
+	    <% if solr_fname == "paper_anthology" %>
+	    	[<%= render_index_field_value document, :field => "paper_anthology" %>]:
+	    <% end %>
+
+	    <% if solr_fname == "author" %>
+	    	<% if first_author == false %>
+	    		,
+	    	<% end %>
+	    	<%= render_index_field_value document, :field => "author" %>
+	    	<% first_author = false %>
+	    <% end %>
+	    <% if solr_fname == "volume_anthology" %>
+	    	Volume: <%= render_index_field_value document, :field => "volume_anthology" %>,
+	    <% end %>
+
+    <% end -%>
+<% end -%>
