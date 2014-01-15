@@ -74,11 +74,13 @@ class PapersController < ApplicationController
     ris=`xml2ris bibexport/paper#{@paper.id}mods.xml`
     endf =`xml2end bibexport/paper#{@paper.id}mods.xml`
     word=`xml2wordbib bibexport/paper#{@paper.id}mods.xml`
+    dblp= `ruby bibscript/xml2dblp.rb bibexport/paper#{@paper.id}mods.xml`
     respond_to do |format|
       format.xml { render xml: mods_xml }
       format.bib { send_data bib, :filename => "paper#{@paper.id}.bib" }
       format.ris { send_data ris, :filename => "paper#{@paper.id}.ris" }
       format.endf { send_data endf, :filename => "paper#{@paper.id}.end" }
+      format.text { send_data dblp, :filename => "paper#{@paper.id}.txt" }
     end
     
   end
