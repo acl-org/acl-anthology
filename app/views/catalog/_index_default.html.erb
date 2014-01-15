@@ -21,21 +21,21 @@
 	<% if should_render_index_field? document, field %>
 		<% if solr_fname == "paper_anthology" %>
 			[<%= render_index_field_value document, :field => "paper_anthology" %>]:
-			<% end %>
+		<% end %>
 
-			<% if solr_fname == "author" %>
-				<% if first_author == false %>
-					,
-				<% end %>
+		<% if solr_fname == "author" %>
+			<% if first_author == false %>
+				,
+			<% end %>
 			<%= render_index_field_value document, :field => "author" %>
 			<% first_author = false %>
 		<% end %>
-
 
 	<% end -%>
 <% end -%>
 
 <div id="mini-controls">
 	<%= link_to image_tag("export.png", size: "28x28", alt: "Export"), bibexport_paper_path(Paper.find_by_anthology_id(document[:paper_anthology]))+".bib" %>
+	<%= link_to image_tag("search.png", size: "28x28", alt: "Search"), "https://www.google.com/search?q=" + document[:title][0], :target => "_blank"%>
 </div>
 
