@@ -79,11 +79,13 @@ class VolumesController < ApplicationController
     ris=`xml2ris bibexport/volume#{@volume.id}mods.xml`
     endf =`xml2end bibexport/volume#{@volume.id}mods.xml`
     word=`xml2wordbib bibexport/volume#{@volume.id}mods.xml`
+    dblp= `ruby bibscript/xml2dblp.rb bibexport/paper#{@paper.id}mods.xml`
     respond_to do |format|
       format.xml { render xml: mods_xml }
       format.bib { send_data bib, :filename => "volume#{@volume.id}.bib" }
       format.ris { send_data ris, :filename => "volume#{@volume.id}.ris" }
       format.endf { send_data endf, :filename => "volume#{@volume.id}.end" }
+      format.text { send_data dblp, :filename => "paper#{@paper.id}.txt" }
     end
   end
 
