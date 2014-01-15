@@ -8,6 +8,7 @@
         <%- blacklight_config.per_page.each do |count| %>
           <li><%= link_to(t(:'blacklight.search.per_page.label', :count => count).html_safe, url_for(params_for_search(:per_page => count))) %></li>
         <%- end -%>
+        <!-- <li><%= link_to(t(:'blacklight.search.per_page.label', :count => 500).html_safe, url_for(params_for_search(:per_page => 500))) %></li> -->
       </ul>
     </li>
   </ul>

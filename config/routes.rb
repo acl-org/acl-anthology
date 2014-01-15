@@ -14,7 +14,7 @@ Acl2::Application.routes.draw do
 
   resources :papers do
     member do
-      get 'bibexport'
+      get 'bibexport'   
     end
   end
   

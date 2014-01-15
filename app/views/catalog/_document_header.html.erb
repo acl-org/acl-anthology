@@ -1,30 +1,24 @@
-     
-      <% # header bar for doc items in index view -%>
-      <div class="documentHeader clearfix">
-        
-        <%- # main title container for doc partial view -%>
-        <h5 class="index_title span7">
-          <% counter = document_counter_with_offset(document_counter) %>
-          <%= t('blacklight.search.documents.counter', :counter => counter) if counter %>
-          <%= link_to_document document, :label=>document_show_link_field(document), :counter => counter %>
-          <% index_fields(document).each do |solr_fname, field| -%>
+<% # header bar for doc items in index view -%>
+<div class="documentHeader clearfix">
+  
+  <%- # main title container for doc partial view -%>
+  <h5 class="index_title span7">
+    <% counter = document_counter_with_offset(document_counter) %>
+    <%= t('blacklight.search.documents.counter', :counter => counter) if counter %>
+    <%= link_to_document document, :label=>document_show_link_field(document), :counter => counter %>
+    
+    <% attach_type = document[:attach_type][0] %>
+    <% if attach_type == "attachment" %>
+      <%= image_tag "attachment.png", size: "16x16", alt: "Attachment" %>
+    <% elsif attach_type == "dataset" %>
+      <%= image_tag "dataset.png", size: "16x16", alt: "Dataset" %>
+    <% elsif attach_type == "software" %>
+      <%= image_tag "software.png", size: "16x16", alt: "Dataset" %>
+    <% end %>
+ 
+  </h5>
 
-            <% if solr_fname == "attach_type" %>
-              <% attach_type = document[:attach_type][0] %>
-              <% if attach_type == "attachment" %>
-                <%= image_tag "attachment.png", size: "16x16", alt: "Attachment" %>
-              <% elsif attach_type == "dataset" %>
-                <%= image_tag "dataset.png", size: "16x16", alt: "Dataset" %>
-              <% elsif attach_type == "software" %>
-                <%= image_tag "software.png", size: "16x16", alt: "Dataset" %>
-              <% end %>
-            <% end %>
+  <% # bookmark functions for items/docs -%>
+  <%= render_index_doc_actions document, :wrapping_class => "documentFunctions" %>
+</div>
 
-          
-          <% end -%>
-        </h5>
-
-        <% # bookmark functions for items/docs -%>
-        <%= render_index_doc_actions document, :wrapping_class => "documentFunctions span1.5" %>
-      </div>
-      

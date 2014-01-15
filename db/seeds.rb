@@ -73,8 +73,13 @@ def load_volume_xml(url)
 					full_name = first_name + " " + last_name
 				else # If not, manually split the name into first name, last name
 					full_name = editor.text
-					first_name = full_name.split[0] # Only the first word in the full name
-					last_name = full_name.split[1..-1].join(" ") # The rest of the full name			
+					if full_name.split(',') == 2 # If the format is Last Name, First
+						first_name = full_name.split(',')[1]
+						last_name = full_name.split(',')[0]
+					else # Splits "This Is Name" into "This Is" and "Name"
+						first_name = full_name.split[0..-2].join(" ")
+						last_name = full_name.split[-1]
+					end
 				end
 				@editor = Person.find_or_create_by_first_name_and_last_name_and_full_name(first_name, last_name, full_name)
 				@volume.people << @editor # Save join person(editor) - volume to database
@@ -227,7 +232,7 @@ puts "Done seeding Venues"
 # Seed Volumes + Papers
 puts "Started seeding Volumes"
 codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']#['D', 'E', 'P', 'W']#
-years = ('00'..'13').to_a + ('65'..'99').to_a
+years = ('65'..'99').to_a + ('00'..'13').to_a
 codes.each do |c|
 	years.each do |y|
 		url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
