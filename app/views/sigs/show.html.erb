@@ -10,7 +10,7 @@
       <dt><strong><%= model_class.human_attribute_name(:sigid) %>:</strong></dt>
       <dd><%= @sig.sigid %>&nbsp;</dd>
       <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
-      <dd><%= @sig.url %>&nbsp;</dd>
+      <dd><%= link_to @sig.url, @sig.url, :target => "_blank" if @sig.url %>&nbsp;</dd>
     </dl>
 
     <div class="form-actions">
@@ -53,7 +53,7 @@
             <td><%= volume.month %></td>
             <td><%= volume.year %></td>
             <td><%= volume.address %></td>
-            <td><%= volume.url %></td>
+            <td><%= link_to volume.url, volume.url, :target => "_blank" if volume.url  %></td>
             <td>
              <% volume.events.each do |event| %>
                 <% @venue = Venue.find_by_id(event.venue_id) %>

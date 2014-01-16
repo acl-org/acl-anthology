@@ -11,7 +11,8 @@ class VolumesController < ApplicationController
   # GET /volumes/1.json
   def show
     set_volume
-    @papers = @volume.papers.page(params[:page]).per(20)
+    # @papers = @volume.papers.page(params[:page]).per(20)
+    @papers = @volume.papers
     @editors = @volume.people
 
     @events = @volume.events

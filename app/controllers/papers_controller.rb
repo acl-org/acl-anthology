@@ -11,7 +11,11 @@ class PapersController < ApplicationController
   # GET /papers/1.json
   def show
     set_paper
+    @in_volume = Volume.find(@paper.volume_id)
     @authors = @paper.people
+
+    @events = @in_volume.events
+    @sigs = @in_volume.sigs
   end
 
   # GET /papers/new

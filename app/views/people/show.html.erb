@@ -55,7 +55,7 @@
             <td><%= volume.month %></td>
             <td><%= volume.year %></td>
             <td><%= volume.address %></td>
-            <td><%= volume.url %></td>
+            <td><%= link_to volume.url, volume.url, :target => "_blank" if volume.url  %></td>
             <!-- <td>
               <%= link_to t('.view', :default => t("helpers.links.view")),
                               volume_path(volume), :class => 'btn btn-mini btn-primary' %>
@@ -101,7 +101,7 @@
             <td><%= paper.month %></td>
             <td><%= paper.year %></td>
             <td><%= paper.address %></td>
-            <td><%= paper.url %></td>
+            <td><%= link_to paper.url, paper.url %></td>
             <!-- <td>
               <%= link_to t('.view', :default => t("helpers.links.view")),
                               paper_path(paper), :class => 'btn btn-mini btn-primary' %>

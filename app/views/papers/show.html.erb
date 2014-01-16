@@ -1,3 +1,4 @@
+<!-- Meta tags used by Google Scholar to crawl and index the anthology -->
 <% content_for :head do %>
   <meta content="<%= @paper.title %>" name="citation_title" >
   <% @authors.each do |author| %>
@@ -23,30 +24,72 @@
   <meta content="<%= "http://www.aclweb.org/anthology/" + @paper.anthology_id %>" name="citation_pdf_url" >
 <% end %>
 
+<!-- Main information for the paper -->
 <div class="row">
   <%- model_class = Paper -%>
   <div class="span12 page-header">
-    <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+    <h2><%= @paper.title %></h2>
   </div>
 
-  <div class="span6">
+  <div class="span8">
     <dl class="dl-horizontal">
       <dt><strong><%= model_class.human_attribute_name(:anthology_id) %>:</strong></dt>
       <dd><%= @paper.anthology_id %>&nbsp;</dd>
-      <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
-      <dd><%= @paper.title %>&nbsp;</dd>
+      <dt>Volume:</dt>
+      <dd><%= link_to @in_volume.title, "/volumes/" + @in_volume.id.to_s %>&nbsp;</dd>
+      <dt>Author(s):</dt>
+      <dd>
+        <% first_author = true %>
+        <% @authors.each do |authors| %>
+          <% if first_author == true %>
+            <%= link_to authors.full_name, person_path(authors) %>
+            <% first_author = false %>
+          <% else %>
+            | <%= link_to authors.full_name, person_path(authors) %>
+          <% end %>
+        <% end %>&nbsp;
+      </dd>
+
       <dt><strong><%= model_class.human_attribute_name(:month) %>:</strong></dt>
       <dd><%= @paper.month %>&nbsp;</dd>
       <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
       <dd><%= @paper.year %>&nbsp;</dd>
+
+      <dt><strong>Event(s):</strong></dt>
+      <dd>
+        <% first_event = true %>
+        <% @events.each do |event| %>
+          <% if first_event == true %>
+            <%= link_to Venue.find(event).acronym, event_path(event) %>
+            <% first_event = false %>
+          <% else %>
+            | <%= link_to Venue.find(event).acronym, event_path(event) %>
+          <% end %>
+        <% end %>&nbsp;
+      </dd>
+
       <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
       <dd><%= @paper.address %>&nbsp;</dd>
+
+      <dt><strong>SIG(s):</strong></dt>
+      <dd>
+        <% first_sig = true %>
+        <% @sigs.each do |sig| %>
+          <% if first_sig == true %>
+            <%= link_to sig.sigid, sig_path(sig) %>
+            <% first_sig = false %>
+          <% else %>
+            | <%= link_to sig.sigid, sig_path(sig) %>
+          <% end %>
+        <% end %>&nbsp;
+      </dd>
+
       <dt><strong><%= model_class.human_attribute_name(:publisher) %>:</strong></dt>
       <dd><%= @paper.publisher %>&nbsp;</dd>
       <dt><strong><%= model_class.human_attribute_name(:pages) %>:</strong></dt>
       <dd><%= @paper.pages %>&nbsp;</dd>
       <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
-      <dd><%= @paper.url %>&nbsp;</dd>
+      <dd><%= link_to @paper.url, @paper.url, :target => "_blank" if @paper.url  %>&nbsp;</dd>
       <dt><strong><%= model_class.human_attribute_name(:bibtype) %>:</strong></dt>
       <dd><%= @paper.bibtype %>&nbsp;</dd>
       <dt><strong><%= model_class.human_attribute_name(:bibkey) %>:</strong></dt>
@@ -56,40 +99,6 @@
       <dt><strong><%= model_class.human_attribute_name(:attach_type) %>:</strong></dt>
       <dd><%= @paper.attach_type %>&nbsp;</dd>
     </dl>
-  </div>
-
-  <!-- Authors listing -->
-  <div class="span6">
-    <%- author_class = Person -%>
-    <h3 style="text-align:center">Authors</h3>
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th><%= author_class.human_attribute_name(:first_name) %></th>
-          <th><%= author_class.human_attribute_name(:last_name) %></th>
-          <th><%=t '.actions', :default => t("helpers.actions") %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @authors.each do |person| %>
-          <tr>
-            <td><%= person.first_name %></td>
-            <td><%= person.last_name %></td>
-            <td>
-              <%= link_to t('.view', :default => t("helpers.links.view")),
-                              person_path(person), :class => 'btn btn-mini btn-primary' %>
-              <!-- <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                          edit_person_path(person), :class => 'btn btn-mini' %>
-              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                          person_path(person),
-                          :method => :delete,
-                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                          :class => 'btn btn-mini btn-danger' %> -->
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
   </div>
 
   <!-- Papers actions -->
