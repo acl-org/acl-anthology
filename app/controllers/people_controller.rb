@@ -31,7 +31,7 @@ class PeopleController < ApplicationController
 
       @in_volume = Volume.find(paper.volume_id)
       @in_volume.events.each do |event|
-        @all_venues << Venue.find(event)
+        @all_venues << Venue.find(event.venue_id)
       end
     end
     @years = @years.sort.reverse
@@ -108,6 +108,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:person_id, :first_name, :last_name)
+      params.require(:person).permit(:person_id, :first_name, :last_name, :full_name)
     end
 end

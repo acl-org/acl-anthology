@@ -1,1 +1,1 @@
-json.extract! @venue, :id, :acronym, :name, :venueid, :created_at, :updated_at
+json.extract! @venue, :id, :acronym, :name, :venue_type, :created_at, :updated_at

@@ -20,9 +20,56 @@ require "net/http"
 require "uri"
 require 'htmlentities'
 
-def load_volume_xml(url)
-	@acl_event = Event.find_by_year('2013') ##########################################################
+def load_event(vol_id)
+	case vol_id[0]
+	when 'A'
+		@venue = Venue.find_by_acronym("ANLP") # ACL events
+	when 'C'
+		@venue = Venue.find_by_acronym("COLING") # Non-ACL events
+	when 'D'
+		@venue = Venue.find_by_acronym("EMNLP") # ACL events
+	when 'E'
+		@venue = Venue.find_by_acronym("EACL") # ACL events
+	when 'H'
+		@venue = Venue.find_by_acronym("HLT") # Non-ACL events
+	when 'I'
+		@venue = Venue.find_by_acronym("IJCNLP") # Non-ACL events
+	when 'J'
+		@venue = Venue.find_by_acronym("CL") # ACL events
+	when 'L'
+		@venue = Venue.find_by_acronym("LREC") # Non-ACL events
+	when 'M'
+		@venue = Venue.find_by_acronym("MUC") # Non-ACL events
+	when 'N'
+		@venue = Venue.find_by_acronym("NAACL") # ACL events
+	when 'O'
+		@venue = Venue.find_by_acronym("ROCLING") # Non-ACL events
+	when 'P'
+		@venue = Venue.find_by_acronym("ACL") # ACL events
+	when 'Q'
+		@venue = Venue.find_by_acronym("TACL") # ACL events
+	when 'R'
+		@venue = Venue.find_by_acronym("RANLP") # Non-ACL events
+	when 'S'
+		@venue = Venue.find_by_acronym("SEMEVAL") # ACL events
+	when 'T'
+		@venue = Venue.find_by_acronym("TINLAP") # Non-ACL events
+	when 'U'
+		@venue = Venue.find_by_acronym("ALTA") # Non-ACL events
+	when 'W'
+		@venue = Venue.find_by_acronym("WS") # Workshops
+	when 'X'
+		@venue = Venue.find_by_acronym("TIPSTER") # Non-ACL events
+	when 'Y'
+		@venue = Venue.find_by_acronym("PACLIC") # Non-ACL events
+	end
+	year = ("20" + vol_id[1..2]).to_i if vol_id[1..2].to_i < 20
+	year = ("19" + vol_id[1..2]).to_i if vol_id[1..2].to_i > 60
+	@event = Event.find_or_create_by_venue_id_and_year(@venue.id, year)
+	return @event
+end
 
+def load_volume_xml(url)
 	xml_data = Net::HTTP.get_response(URI.parse(url)).body
 	xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
@@ -90,8 +137,8 @@ def load_volume_xml(url)
 			if vol.elements['year']
 				@volume.year 	= (vol.elements['year'].text).to_i
 			else
-				@volume.year 	= ("20" + id[1..3]).to_i if id[1..3].to_i < 20
-				@volume.year 	= ("19" + id[1..3]).to_i if id[1..3].to_i > 60
+				@volume.year 	= ("20" + id[1..2]).to_i if id[1..2].to_i < 20
+				@volume.year 	= ("19" + id[1..2]).to_i if id[1..2].to_i > 60
 			end
 			@volume.address 	= vol.elements['address'].text		if vol.elements['address']
 			@volume.publisher 	= vol.elements['publisher'].text	if vol.elements['publisher']
@@ -114,9 +161,8 @@ def load_volume_xml(url)
 
 			@curr_volume.papers << @front_matter # Save front_matter
 			
-
-
-			@acl_event.volumes << @volume ##########################################################
+			event = load_event(id)
+			event.volumes << @volume
 			
 		else # If not, we assume it is a paper
 			p = doc.elements[i] # Short hand for easier reading
@@ -205,9 +251,34 @@ def load_sigs(url)
 	end
 end
 
+def load_venues()
+	Venue.create(acronym: 'CL', name: 'Computational Linguistics Journal', venue_type: 'ACL')
+	Venue.create(acronym: 'TACL', name: 'Transactions of the Association of the Computational Linguistics', venue_type: 'ACL')
+	Venue.create(acronym: 'ACL', name: 'ACL Annual Meeting', venue_type: 'ACL')
+	Venue.create(acronym: 'EACL', name: 'European Chapter of ACL', venue_type: 'ACL')
+	Venue.create(acronym: 'NAACL', name: 'North American Chapter of ACL', venue_type: 'ACL')
+	Venue.create(acronym: 'SEMEVAL', name: 'Lexical and Computational Semantics and Semantic Evaluation (formerly Workshop on Sense Evaluation)', venue_type: 'ACL')
+	Venue.create(acronym: 'ANLP', name: 'Applied Natural Language Processing Conference', venue_type: 'ACL')
+	Venue.create(acronym: 'EMNLP', name: 'Conference on Empirical Methods in Natural Language Processing (and forerunners)', venue_type: 'ACL')
+	Venue.create(acronym: 'WS', name: 'Workshops', venue_type: 'ACL')
+
+	Venue.create(acronym: 'COLING', name: 'Int\'l Committee on Computational Linguistics (ICCL) Conf.', venue_type: 'Non ACL')
+	Venue.create(acronym: 'HLT', name: 'Human Language Technology Conf.', venue_type: 'Non ACL')
+	Venue.create(acronym: 'IJCNLP', name: 'Int\'l Joint Conf. on Natural Language Processing (and workshops)', venue_type: 'Non ACL')
+	Venue.create(acronym: 'LREC', name: 'International Conference on Language Resources and Evaluation', venue_type: 'Non ACL')
+	Venue.create(acronym: 'PACLIC', name: 'Pacific Asia Conference on Language, Information and Computation', venue_type: 'Non ACL')
+	Venue.create(acronym: 'ROCLING', name: 'Rocling Computation Linguistics Conference and Journal', venue_type: 'Non ACL')
+	Venue.create(acronym: 'TINLAP', name: 'Theoretical Issues In Natural Language Processing', venue_type: 'Non ACL')
+	Venue.create(acronym: 'ALTA', name: 'Australasian Language Technology Association Workshop', venue_type: 'Non ACL')
+	Venue.create(acronym: 'RANLP', name: 'International Conference Recent Advances in Natural Language Processing', venue_type: 'Non ACL')
+	Venue.create(acronym: 'JEP/TALN/RECITAL', name: 'JEP/TALN/RECITAL', venue_type: 'Non ACL')
+	Venue.create(acronym: 'MUC', name: 'Message Understanding Conf.', venue_type: 'Non ACL')
+	Venue.create(acronym: 'TIPSTER', name: 'NIST\'s TIPSTER Text Program', venue_type: 'Non ACL')
+end
+
 puts "* * * * * * * * * * Deleting Old Data Start  * * * * * * * * *"
 
-if not(Volume.delete_all && Paper.delete_all && Person.delete_all && Sig.delete_all)
+if not(Volume.delete_all && Paper.delete_all && Person.delete_all && Sig.delete_all && Event.delete_all && Venue.delete_all)
 	puts "Error deleting databeses!"
 end
 
@@ -220,18 +291,13 @@ puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
 
 # Seed Venues
 puts "Started seeding Venues"
-@acl = Venue.create(acronym: 'ACL', name: 'ACL Annual Meeting', venueid: 'ACL')
-@biomed = Venue.create(acronym: 'BIOMED', name: 'BIOMED Annual Meeting', venueid: 'BIOMED')
-@han = Venue.create(acronym: 'HAN', name: 'HAN Annual Meeting', venueid: 'HAN')
-Event.create(venue_id: @acl.id, year: '2013', kind: 'conference')
-Event.create(venue_id: @biomed.id, year: '2012', kind: 'workshop')
-Event.create(venue_id: @han.id, year: '2011', kind: 'conference')
+load_venues()
 puts "Done seeding Venues"
 
 
 # Seed Volumes + Papers
 puts "Started seeding Volumes"
-codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']#['D', 'E', 'P', 'W']#
+codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#['D', 'E', 'P', 'W']#
 years = ('65'..'99').to_a + ('00'..'13').to_a
 codes.each do |c|
 	years.each do |y|
@@ -252,6 +318,10 @@ end
 puts "Done seeding Volumes"
 puts "* * * * * * * * * * Seeding Data End * * * * * * * * * * * * *"
 
+# Seed Venues
+puts "Started seeding Venues"
+
+puts "Done seeding Venues"
 
 # Seed SIGs
 puts "Started seeding SIGs"

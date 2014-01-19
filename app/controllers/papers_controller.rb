@@ -97,7 +97,7 @@ class PapersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def paper_params
-      params.require(:paper).permit(:volume_id, :paper_id, :title, :month, :year, :address, :publisher, :pages, :url, :bibtype, :bibkey)
+      params.require(:paper).permit(:volume_id, :anthology_id, :title, :month, :year, :address, :publisher, :pages, :url, :bibtype, :bibkey, :attachment, :attach_type)
     end
 
     def generate_modsxml paper_title,year,volume_title,authors

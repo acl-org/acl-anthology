@@ -102,7 +102,7 @@ def export_papers_in_volume(volume, vol_tag)
 				end
 				@volume.events.each do |event|
 					venue = Venue.find_by_id(event.venue_id)
-					ven = pap.add_element 'venue', {'id' => venue.venueid, 'year' => event.year}
+					ven = pap.add_element 'venue', {'id' => venue.venue_type, 'year' => event.year}
 					ven_accronym = ven.add_element 'acronym'
 					ven_accronym.text = venue.acronym
 					ven_name = ven.add_element 'name'
