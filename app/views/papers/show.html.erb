@@ -40,12 +40,12 @@
       <dt>Author(s):</dt>
       <dd>
         <% first_author = true %>
-        <% @authors.each do |authors| %>
+        <% @authors.each do |author| %>
           <% if first_author == true %>
-            <%= link_to authors.full_name, person_path(authors) %>
+            <%= link_to author.full_name, person_path(author) %>
             <% first_author = false %>
           <% else %>
-            | <%= link_to authors.full_name, person_path(authors) %>
+            | <%= link_to author.full_name, person_path(author) %>
           <% end %>
         <% end %>&nbsp;
       </dd>

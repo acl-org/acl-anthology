@@ -13,6 +13,42 @@ class PeopleController < ApplicationController
     set_person
     @papers = @person.papers
     @volumes = @person.volumes
+
+    # For showing the publications of a person sorted by year
+    @years = []
+    @all_co_authors = []
+    @all_venues = []
+    @papers.each do |paper|
+      unless @years.include?(paper.year)
+        @years << paper.year
+      end
+
+      paper.people.each do |author|
+        unless author == @person
+          @all_co_authors << author
+        end
+      end
+
+      @in_volume = Volume.find(paper.volume_id)
+      @in_volume.events.each do |event|
+        @all_venues << Venue.find(event)
+      end
+    end
+    @years = @years.sort.reverse
+
+    # For showing co-authors of the person
+    @co_authors = Hash.new(0)
+    @all_co_authors.each do |au|
+      @co_authors[au] += 1
+    end
+    @co_authors = @co_authors.sort_by{|au,count| -count}[0..9]
+
+    # For showing co-authors of the person
+    @venues = Hash.new(0)
+    @all_venues.each do |v|
+      @venues[v] += 1
+    end
+    @venues = @venues.sort_by{|v,count| -count}[0..7]
   end
 
   # GET /people/new
