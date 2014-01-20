@@ -66,21 +66,21 @@ class PapersController < ApplicationController
   def bibexport
     set_paper
     @authors = @paper.people
-    mods_xml= generate_modsxml(@paper.title, @paper.year, @paper.volume.title, @paper.people)
-    file = File.new("bibexport/paper#{@paper.id}mods.xml",'w')
+    mods_xml= generate_modsxml(@paper.title, @paper.year, @paper.volume.title, @paper.people, @paper.anthology_id)
+    file = File.new("bibexport/#{@paper.anthology_id}.xml",'w')
     file.write mods_xml
     file.close
-    bib=`xml2bib bibexport/paper#{@paper.id}mods.xml`
-    ris=`xml2ris bibexport/paper#{@paper.id}mods.xml`
-    endf =`xml2end bibexport/paper#{@paper.id}mods.xml`
-    word=`xml2wordbib bibexport/paper#{@paper.id}mods.xml`
-    dblp= `ruby bibscript/xml2dblp.rb bibexport/paper#{@paper.id}mods.xml`
+    bib=`xml2bib bibexport/#{@paper.anthology_id}.xml`
+    ris=`xml2ris bibexport/#{@paper.anthology_id}.xml`
+    endf =`xml2end bibexport/#{@paper.anthology_id}.xml`
+    word=`xml2wordbib bibexport/#{@paper.anthology_id}.xml`
+    # dblp= `ruby lib/bibscript/xml2dblp.rb bibexport/paper#{@paper.id}mods.xml`
     respond_to do |format|
       format.xml { render xml: mods_xml }
-      format.bib { send_data bib, :filename => "paper#{@paper.id}.bib" }
-      format.ris { send_data ris, :filename => "paper#{@paper.id}.ris" }
-      format.endf { send_data endf, :filename => "paper#{@paper.id}.end" }
-      format.text { send_data dblp, :filename => "paper#{@paper.id}.txt" }
+      format.bib { send_data bib, :filename => "#{@paper.anthology_id}.bib" }
+      format.ris { send_data ris, :filename => "#{@paper.anthology_id}.ris" }
+      format.endf { send_data endf, :filename => "#{@paper.anthology_id}.end" }
+      # format.text { send_data dblp, :filename => "paper#{@paper.id}.txt" }
     end
     
   end
@@ -96,11 +96,11 @@ class PapersController < ApplicationController
       params.require(:paper).permit(:volume_id, :paper_id, :title, :month, :year, :address, :publisher, :pages, :url, :bibtype, :bibkey)
     end
 
-    def generate_modsxml paper_title,year,volume_title,authors
+    def generate_modsxml paper_title,year,volume_title,authors,id
       require "rexml/document"
       xml = REXML::Document.new "<?xml version='1.0'?>"
       mods=xml.add_element 'mods'
-      mods.attributes["ID"]='d1ej'
+      mods.attributes["ID"]=id
       title_info = mods.add_element 'titleInfo'
       title_name = title_info.add_element 'title'
       title_name.text = paper_title
