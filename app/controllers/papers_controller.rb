@@ -70,7 +70,7 @@ class PapersController < ApplicationController
   def bibexport
     set_paper
     @authors = @paper.people
-    mods_xml= generate_modsxml(@paper.title, @paper.year, @paper.volume.title, @paper.people, @paper.anthology_id)
+    mods_xml= generate_modsxml(@paper)
     file = File.new("bibexport/#{@paper.anthology_id}.xml",'w')
     file.write mods_xml
     file.close
@@ -78,14 +78,14 @@ class PapersController < ApplicationController
     ris=`xml2ris bibexport/#{@paper.anthology_id}.xml bibexport/#{@paper.anthology_id}.ris`
     endf =`xml2end bibexport/#{@paper.anthology_id}.xml bibexport/#{@paper.anthology_id}.endf`
     word=`xml2wordbib bibexport/#{@paper.anthology_id}.xml bibexport/#{@paper.anthology_id}.word`
-    # dblp= `ruby lib/bibscript/xml2dblp.rb bibexport/paper#{@paper.id}mods.xml`
+    dblp= `ruby lib/bibscript/xml2dblp.rb bibexport/#{@paper.anthology_id}.xml`
     respond_to do |format|
       format.xml { send_data(mods_xml, :type => 'text/xml', :disposition => 'inline')}
       format.bib { send_data(bib, :type => 'text/plain', :disposition => 'inline')}
       format.ris { send_data ris, :type => 'text/plain', :disposition => 'inline' }
       format.endf { send_data endf, :type => 'text/plain', :disposition => 'inline' }
       format.word { send_data word, :type => 'text/plain', :disposition => 'inline'}
-      # format.text { send_data dblp, :filename => "paper#{@paper.id}.txt" }
+      format.html { send_data dblp, :type => 'text/html', :disposition => 'inline' }
     end
     
   end
@@ -101,8 +101,15 @@ class PapersController < ApplicationController
       params.require(:paper).permit(:volume_id, :anthology_id, :title, :month, :year, :address, :publisher, :pages, :url, :bibtype, :bibkey, :attachment, :attach_type)
     end
 
-    def generate_modsxml paper_title,year,volume_title,authors,id
+    def generate_modsxml paper
+      dash = "–"
       require "rexml/document"
+      paper_title = paper.title
+      year = paper.year
+      volume_title = paper.volume.title
+      authors = paper.people
+      id = paper.anthology_id
+      url = paper.url
       xml = REXML::Document.new "<?xml version='1.0'?>"
       mods=xml.add_element 'mods'
       mods.attributes["ID"]=id
@@ -128,12 +135,30 @@ class PapersController < ApplicationController
         roleterm.text="author"
 
       }
+      if (paper.pages)
+        part = mods.add_element 'part'
+        extent = part.add_element 'extent'
+        extent.attributes['unit'] = 'pages'
+        startPage = extent.add_element 'start'
+        startPage.text = paper.pages.split(dash)[0]
+        endPage = extent.add_element 'end'
+        endPage.text = paper.pages.split(dash)[1]
+      end
+      
       origin_info = mods.add_element 'originInfo'
       date_issued = origin_info.add_element 'dateIssued'
       date_issued.text = year
 
+      paper_location = mods.add_element 'location'
+      paper_url = paper_location.add_element 'url'
+      paper_url.text = url
+
       genre_type = mods.add_element 'genre'
-      genre_type.text = "conference publication"
+      if( paper.anthology_id[0] == "W")
+        genre_type.text = "workshop publication"
+      else
+        genre_type.text = "conference publication"
+      end
 
       related_item = mods.add_element 'relatedItem'
       related_item.attributes["type"]="host"

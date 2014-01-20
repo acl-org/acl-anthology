@@ -80,14 +80,14 @@ class VolumesController < ApplicationController
     ris =  `xml2ris bibexport/#{@volume.anthology_id}.xml`
     endf =  `xml2end bibexport/#{@volume.anthology_id}.xml`
     word =  `xml2wordbib bibexport/#{@volume.anthology_id}.xml`
-    # dblp= `ruby lib/bibscript/xml2dblp.rb bibexport/paper#{@paper.id}mods.xml`
+    dblp= `ruby lib/bibscript/xml2dblp.rb bibexport/#{@volume.anthology_id}.xml`
     respond_to do |format|
       format.xml { send_data(mods_xml, :type => 'text/xml', :disposition => 'inline')}
       format.bib { send_data(bib, :type => 'text/plain', :disposition => 'inline')}
       format.ris { send_data ris, :type => 'text/plain', :disposition => 'inline' }
       format.endf { send_data endf, :type => 'text/plain', :disposition => 'inline' }
       format.word { send_data word, :type => 'text/plain', :disposition => 'inline'}
-      # format.text { send_data dblp, :filename => "paper#{@paper.id}.txt" }
+      format.html { send_data dblp, :type => 'text/html', :disposition => 'inline' }
     end
   end
 
@@ -104,6 +104,7 @@ class VolumesController < ApplicationController
 
     def generate_volume_modsxml volume_title,year,authors,papers
       require "rexml/document"
+      dash = "–"
       xml = REXML::Document.new "<?xml version='1.0'?>"
       mods=xml.add_element 'modsCollection'
       title_info = mods.add_element 'titleInfo'
@@ -158,9 +159,24 @@ class VolumesController < ApplicationController
             paper_roleterm.attributes["type"]="text"
             paper_roleterm.text="author"
           }
+          if (paper.pages)
+            part = paper_mods.add_element 'part'
+            extent = part.add_element 'extent'
+            extent.attributes['unit'] = 'pages'
+            startPage = extent.add_element 'start'
+            startPage.text = paper.pages.split(dash)[0]
+            endPage = extent.add_element 'end'
+            endPage.text = paper.pages.split(dash)[1]
+          end
+          
+
           paper_origin_info = paper_mods.add_element 'originInfo'
           paper_date_issued = paper_origin_info.add_element 'dateIssued'
           paper_date_issued.text = paper.year
+
+          paper_location = paper_mods.add_element 'location'
+          paper_url = paper_location.add_element 'url'
+          paper_url.text = paper.url
 
           paper_genre_type = paper_mods.add_element 'genre'
           if( paper.anthology_id[0] == "W")
