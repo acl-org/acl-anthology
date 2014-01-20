@@ -3,7 +3,7 @@ class CreateVenues < ActiveRecord::Migration
     create_table :venues do |t|
       t.string :acronym
       t.string :name
-      t.string :venueid
+      t.string :venue_type
 
       t.timestamps
     end

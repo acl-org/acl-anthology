@@ -14,13 +14,14 @@ Acl2::Application.routes.draw do
 
   resources :papers do
     member do
-      get 'bibexport'
+      get 'bibexport'   
     end
   end
   
   resources :people
 
-  root :to => "catalog#index"
+  root :to => "home#index"
+  #root :to => "catalog#index"
   Blacklight.add_routes(self)
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.

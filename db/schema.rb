@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 20131229164956) do
   create_table "venues", force: true do |t|
     t.string   "acronym"
     t.string   "name"
-    t.string   "venueid"
+    t.string   "venue_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

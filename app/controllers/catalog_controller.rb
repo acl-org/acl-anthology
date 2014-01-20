@@ -53,13 +53,14 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the 
     # facet bar
-    config.add_facet_field 'title_unstem', :label => 'Title', :limit => 15
+
+    #config.add_facet_field 'title_unstem', :label => 'Title', :limit => 15
     config.add_facet_field 'author', :label => 'Author', :limit => 10
     config.add_facet_field 'volume_anthology', :label => 'Volume anthology', :limit => 10
     config.add_facet_field 'publish_date', :label => 'Publish date', :range => true, :limit => 15
     config.add_facet_field 'attach_type', :label => 'Attachment type'
     config.add_facet_field 'sig_iden', :label => 'SIG'
-    config.add_facet_field 'venue_name', :label => 'Venue'
+    config.add_facet_field 'venue_acronym', :label => 'Venue', :limit => 25
 
 
     # config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']

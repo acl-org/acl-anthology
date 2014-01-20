@@ -102,7 +102,7 @@ def export_papers_in_volume(volume, vol_tag)
 				end
 				@volume.events.each do |event|
 					venue = Venue.find_by_id(event.venue_id)
-					ven = pap.add_element 'venue', {'id' => venue.venueid, 'year' => event.year}
+					ven = pap.add_element 'venue', {'id' => venue.venue_type, 'year' => event.year}
 					ven_accronym = ven.add_element 'acronym'
 					ven_accronym.text = venue.acronym
 					ven_name = ven.add_element 'name'
@@ -119,7 +119,7 @@ namespace :acl do
 	task :export => :environment do
 		
 		codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
-		years = ('00'..'13').to_a + ('65'..'99').to_a
+		years = ('65'..'99').to_a + ('00'..'13').to_a
 		codes.each do |c|
 			years.each do |y|
 				volume_found = false # by default, the anthology is empty
@@ -163,7 +163,7 @@ namespace :acl do
 	task :export_single_volume => :environment do
 		
 		codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
-		years = ('00'..'13').to_a + ('65'..'99').to_a
+		years = ('65'..'99').to_a + ('00'..'13').to_a
 		codes.each do |c|
 			years.each do |y|
 				volume_found = false # by default, the anthology is empty
@@ -212,7 +212,7 @@ namespace :acl do
 	task :export_all => :environment do
 		
 		codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
-		years = ('00'..'13').to_a + ('65'..'99').to_a
+		years = ('65'..'99').to_a + ('00'..'13').to_a
 		xml_doc = REXML::Document.new "<?xml version='1.0'?>"
 		acl = xml_doc.add_element 'aclanthology', {"version" => Time.now}
 
