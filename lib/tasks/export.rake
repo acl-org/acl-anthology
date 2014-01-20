@@ -102,11 +102,13 @@ def export_papers_in_volume(volume, vol_tag)
 				end
 				@volume.events.each do |event|
 					venue = Venue.find_by_id(event.venue_id)
-					ven = pap.add_element 'venue', {'id' => venue.venue_type, 'year' => event.year}
+					ven = pap.add_element 'venue', {'year' => event.year}
 					ven_accronym = ven.add_element 'acronym'
 					ven_accronym.text = venue.acronym
 					ven_name = ven.add_element 'name'
 					ven_name.text = venue.name
+					ven_type = ven.add_element 'type'
+					ven_type.text = venue.venue_type
 				end
 			end
 		end # Finished one paper
@@ -147,7 +149,7 @@ namespace :acl do
 					xml_string = xml_doc.to_s
 					xml_string.gsub!(/amp;/, '') # delete all escape chars, &amp; => &
 					xml_string.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
-	
+
 					xml_file.write xml_string
 					xml_file.close
 					puts "Saving file " + c + y + ".xml"
@@ -161,7 +163,6 @@ end
 namespace :acl do
 	desc "Export each anthology to a single xml file in the form E12.xml"
 	task :export_single_volume => :environment do
-		
 		codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
 		years = ('65'..'99').to_a + ('00'..'13').to_a
 		codes.each do |c|
@@ -199,7 +200,6 @@ namespace :acl do
 					end # Finished one volume
 				end # Finished all volumes
 
-				
 			end # finished exporting one anthology, Eg: "E12"
 		end 
 	end # task export

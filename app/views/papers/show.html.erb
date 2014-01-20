@@ -60,10 +60,10 @@
         <% first_event = true %>
         <% @events.each do |event| %>
           <% if first_event == true %>
-            <%= link_to Venue.find(event).acronym, event_path(event) %>
+            <%= link_to Venue.find(event.venue_id).acronym, event_path(event) %>
             <% first_event = false %>
           <% else %>
-            | <%= link_to Venue.find(event).acronym, event_path(event) %>
+            | <%= link_to Venue.find(event.venue_id).acronym, event_path(event) %>
           <% end %>
         <% end %>&nbsp;
       </dd>

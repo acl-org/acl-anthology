@@ -30,6 +30,8 @@ def load_event(vol_id)
 		@venue = Venue.find_by_acronym("EMNLP") # ACL events
 	when 'E'
 		@venue = Venue.find_by_acronym("EACL") # ACL events
+	when 'F'
+		@venue = Venue.find_by_acronym("JEP/TALN/RECITAL") # ACL events
 	when 'H'
 		@venue = Venue.find_by_acronym("HLT") # Non-ACL events
 	when 'I'
@@ -75,7 +77,8 @@ def load_volume_xml(url)
 	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
 	xml_data.gsub!(/&/, '&amp;') 
 	xml_data.gsub!(/<</, '&lt;&lt;') 
-	xml_data.gsub!(/>>/, '&gt;&gt;') 
+	xml_data.gsub!(/>>/, '&gt;&gt;')
+	xml_data.gsub!(/--/, '-') 
 
 	doc = REXML::Document.new xml_data
 	doc = doc.elements[1] # skipping the highest level tag
@@ -297,7 +300,7 @@ puts "Done seeding Venues"
 
 # Seed Volumes + Papers
 puts "Started seeding Volumes"
-codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#['D', 'E', 'P', 'W']#
+codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#['D', 'E', 'P', 'W']#
 years = ('65'..'99').to_a + ('00'..'13').to_a
 codes.each do |c|
 	years.each do |y|
