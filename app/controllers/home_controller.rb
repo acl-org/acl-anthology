@@ -6,7 +6,7 @@ class HomeController < ApplicationController
 	<a href='O/O13/''>Proceedings of the 25th Conference on Computational Linguistics and Speech Processing (ROCLING 2013)</a>
     are available on the ACL Anthology."
   	# flash[:alert] = 'Successfully checked in'
-  	flash[:notice] = message.html_safe
+  	flash.now[:notice] = message.html_safe
 
   	@acronyms_acl = ["CL", "TACL", "ACL", "EACL", "NAACL", "SEMEVAL", "ANLP", "EMNLP", "WS"]
   	@acronyms_nonacl = ["COLING", "HLT", "IJCNLP", "LREC", "PACLIC", "ROCLING", "TINLAP", "ALTA", "RANLP", 

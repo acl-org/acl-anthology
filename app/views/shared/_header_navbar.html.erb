@@ -1,0 +1,25 @@
+<div id="header-navbar-fixed-top" class="navbar navbar-fixed-top">
+ <div class="navbar-inner">
+  <div class="container">
+    <div class="row">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <div class="span4">
+        <%= link_to application_name, root_path, :class => "brand" %>
+      </div>
+      <div class="span6 clearfix" id="searchbar">         
+        <%= render_search_bar  %>
+      </div>
+
+      <div class="span2 nav-collapse">
+        <%= render :partial=>'/user_util_links' %>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>

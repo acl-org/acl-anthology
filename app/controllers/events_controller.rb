@@ -11,7 +11,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     set_event
-    @volumes = @event.volumes.page(params[:page]).per(20)
+    @volumes = @event.volumes
   end
 
   # GET /events/new

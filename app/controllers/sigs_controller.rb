@@ -11,7 +11,8 @@ class SigsController < ApplicationController
   # GET /sigs/1.json
   def show
     set_sig
-    @volumes = @sig.volumes.page(params[:page]).per(20)
+    @volumes = @sig.volumes
+    @volumes = @volumes.order("year DESC")
   end
 
   # GET /sigs/new

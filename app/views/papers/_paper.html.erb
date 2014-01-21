@@ -1,0 +1,24 @@
+<p>
+  <%= link_to image_tag("pdf.png", size: "28x28", alt: "PDF Link"), "http://aclweb.org/anthology/" + paper.anthology_id, :target => "_blank" %>
+  <%= link_to image_tag("export.png", size: "28x28", alt: "Export"), bibexport_paper_path(paper)+".bib" %>
+  <%= link_to image_tag("search.png", size: "28x28", alt: "Search"), "https://www.google.com/search?q=" + paper.title, :target => "_blank"%>
+  <strong><%= link_to paper.title, paper_path(paper) %></strong><br>
+  [<%= paper.anthology_id %>]:
+  <% first_author = true %>
+  <% paper.people.each do |author| %>
+    <% if first_author == true %>
+      <% first_author = false %>
+    <% else %>
+      | <!-- a character for spacing -->
+    <% end %>
+    <% if author %>
+      <% if author == @person %>
+        <%= link_to author.full_name, person_path(author), :style => "text-decoration:underline; font-style:italic;" %>
+      <% else %>
+        <%= link_to author.full_name, person_path(author) %>
+      <% end %>
+    <% else %>
+      <%= link_to author.full_name, person_path(author) %>
+    <% end %>
+  <% end %>
+</p>
