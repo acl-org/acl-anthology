@@ -22,7 +22,7 @@
 				<% @acronyms_acl.each do |acronym| %>
 				<tr>
 					<% @venue = Venue.find_by_acronym(acronym) %>
-					<th><%= acronym %></th>
+					<th><%= link_to acronym, venue_path(@venue) %></th>
 					<% @years_acl.each do |year| %>
 						<% @event = Event.find_by_venue_id_and_year(@venue.id, year.to_i) %>
 						<% if @event %>				

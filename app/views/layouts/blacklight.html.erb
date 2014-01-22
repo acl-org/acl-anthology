@@ -39,14 +39,14 @@
               <%= topbar_items.join('').html_safe %>
             </div>
             <!-- /Top bar -->
-                  <div class="row">
-                      <div class="span12">
-                        <div id="main-flashes">
-                          <%= render :partial=>'/flash_msg' %>
-                        </div>
-                        <%= yield %>
-                      </div>    
-                  </div> 
+            <div id="content" class="row">
+                <div class="span12">
+                  <div id="main-flashes">
+                    <%= render :partial=>'/flash_msg' %>
+                  </div>
+                  <%= yield %>
+                </div>    
+            </div> 
 </div>
 
 <%= render :partial => 'shared/footer' %>
