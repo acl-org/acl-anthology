@@ -51,15 +51,22 @@
                 <field column="sigid" name="sig_iden"/>
               </entity>
               <entity name="event"
+                query="select kind, venue_id, name, acronym from events_volumes EV, events E, venues V where EV.event_id=E.id and EV.volume_id='${volume.id}' and V.id=E.venue_id'">
+                <field column="kind" name="event_kind"/>
+                <field column="venue_id" name="venue_id"/>
+                <field column="name" name="venue_name"/>
+                <field column="acronym" name="venue_acronym"/>
+              </entity>
+              <!-- <entity name="event"
                 query="select * from events_volumes EV, events E where EV.event_id=E.id and EV.volume_id='${volume.id}'">
                 <field column="kind" name="event_kind"/>
                 <entity name="venue"
-                  query="select * from venues where id='${event.id}'">
+                  query="select * from venues where id='${event.venue_id}'">
                   <field column="id" name="venue_id"/>
                   <field column="name" name="venue_name"/>
                   <field column="acronym" name="venue_acronym"/>
                 </entity>
-              </entity>
+              </entity> -->
             </entity>
     </entity>
     

@@ -29,10 +29,11 @@
     <% @volumes.each do |volume| %>
       <br><br>
       <h4><span id="<%= volume.anthology_id %>"> <%= volume.title %> </span></h4><br>
-      <% volume.papers.each do |paper| %>
+      <% @papers = volume.papers %>
+      <% @papers = @papers.sort_by(&:anthology_id) %>
+      <% @papers.each do |paper| %>
         <%= render "papers/paper", :paper => paper %>
       <% end %>
     <% end %>
-    
   </div>
-</div> 
+</div>

@@ -88,23 +88,25 @@
 				<% end %>
 			</tbody>
 		</table>
+		<div id="notes">
+			<h5>Notes</h5>
+			<p>Here we will add some notes</p>
+		</div>
 		<hr>
-		<div class="span6">
+		<div class="span6" style="margin-left: 0px;">
 			<h5>Popular Papers this week</h5>
 			<ul>
-				<li>Title 1</li>
-				<li>Title 1</li>
-				<li>Title 1</li>
-				<li>Title 1</li>
+				<% @popular_papers.each do |paper| %>
+					<li><%= link_to paper.title, paper_path(paper) %></li>
+				<% end %>
 			</ul>
 		</div>
-		<div class="span3">
+		<div class="span3" style="float:right;">
 			<h5>Popular Authors this week</h5>
 			<ul>
-				<li>Author 1</li>
-				<li>Author 1</li>
-				<li>Author 1</li>
-				<li>Author 1</li>
+				<% @popular_authors.each do |author| %>
+					<li><%= link_to author.full_name, person_path(author) %></li>
+				<% end %>
 			</ul>
 		</div>
 	</div>
