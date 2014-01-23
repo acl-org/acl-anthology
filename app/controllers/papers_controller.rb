@@ -79,13 +79,15 @@ class PapersController < ApplicationController
     endf =`xml2end bibexport/#{@paper.anthology_id}.xml bibexport/#{@paper.anthology_id}.endf`
     word=`xml2wordbib bibexport/#{@paper.anthology_id}.xml bibexport/#{@paper.anthology_id}.word`
     dblp= `ruby lib/bibscript/xml2dblp.rb bibexport/#{@paper.anthology_id}.xml`
+    acm   = `ruby lib/bibscript/xml2acm.rb bibexport/#{@paper.anthology_id}.xml`
     respond_to do |format|
       format.xml { send_data(mods_xml, :type => 'text/xml', :disposition => 'inline')}
       format.bib { send_data(bib, :type => 'text/plain', :disposition => 'inline')}
       format.ris { send_data ris, :type => 'text/plain', :disposition => 'inline' }
       format.endf { send_data endf, :type => 'text/plain', :disposition => 'inline' }
       format.word { send_data word, :type => 'text/plain', :disposition => 'inline'}
-      format.html { send_data dblp, :type => 'text/html', :disposition => 'inline' }
+      format.dblp { send_data dblp, :type => 'text/html', :disposition => 'inline' }
+      format.acm { send_data acm, :type => 'text/html', :disposition => 'inline' }
     end
     
   end

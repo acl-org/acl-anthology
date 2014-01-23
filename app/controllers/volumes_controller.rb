@@ -76,18 +76,20 @@ class VolumesController < ApplicationController
     file = File.new("bibexport/#{@volume.anthology_id}.xml",'w')
     file.write mods_xml
     file.close
-    bib =  `xml2bib bibexport/#{@volume.anthology_id}.xml`
-    ris =  `xml2ris bibexport/#{@volume.anthology_id}.xml`
-    endf =  `xml2end bibexport/#{@volume.anthology_id}.xml`
-    word =  `xml2wordbib bibexport/#{@volume.anthology_id}.xml`
-    dblp= `ruby lib/bibscript/xml2dblp.rb bibexport/#{@volume.anthology_id}.xml`
+    bib   =  `xml2bib bibexport/#{@volume.anthology_id}.xml`
+    ris   =  `xml2ris bibexport/#{@volume.anthology_id}.xml`
+    endf  =  `xml2end bibexport/#{@volume.anthology_id}.xml`
+    word  =  `xml2wordbib bibexport/#{@volume.anthology_id}.xml`
+    dblp  = `ruby lib/bibscript/xml2dblp.rb bibexport/#{@volume.anthology_id}.xml`
+    acm   = `ruby lib/bibscript/xml2acm.rb bibexport/#{@volume.anthology_id}.xml`
     respond_to do |format|
       format.xml { send_data(mods_xml, :type => 'text/xml', :disposition => 'inline')}
       format.bib { send_data(bib, :type => 'text/plain', :disposition => 'inline')}
       format.ris { send_data ris, :type => 'text/plain', :disposition => 'inline' }
       format.endf { send_data endf, :type => 'text/plain', :disposition => 'inline' }
       format.word { send_data word, :type => 'text/plain', :disposition => 'inline'}
-      format.html { send_data dblp, :type => 'text/html', :disposition => 'inline' }
+      format.dblp { send_data dblp, :type => 'text/html', :disposition => 'inline' }
+      format.acm { send_data acm, :type => 'text/html', :disposition => 'inline' }
     end
   end
 

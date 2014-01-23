@@ -2,8 +2,8 @@ CC            = cc
 EXEEXT        = 
 LIBTARGET     = libbibutils.a
 LIBEXT        = .a
-CFLAGS        = -D uint=\"unsigned int\" -Wall
-CLIBFLAGS     = -D uint=\"unsigned int\" -Wall
+CFLAGS        =  -D uint=\"unsigned int\" -Wall
+CLIBFLAGS     =  -D uint=\"unsigned int\" -Wall
 RANLIB        = ranlib -s
 POSTFIX       = _osx_x86_64
 INSTALLDIR    = /usr/local/bin
