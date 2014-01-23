@@ -149,11 +149,23 @@ class PapersController < ApplicationController
       
       origin_info = mods.add_element 'originInfo'
       date_issued = origin_info.add_element 'dateIssued'
+      if paper.publisher
+        paper_publisher = origin_info.add_element 'publisher'
+        paper_publisher.text = paper.publisher
+      end
       date_issued.text = year
 
-      paper_location = mods.add_element 'location'
-      paper_url = paper_location.add_element 'url'
-      paper_url.text = url
+      if paper.address or paper.url
+        paper_location = mods.add_element 'location'
+        if paper.url
+          paper_url = paper_location.add_element 'url'
+          paper_url.text = url
+        end
+        if paper.address
+          paper_address = paper_location.add_element 'physicalAddress'
+          paper_address.text = paper.address
+        end
+      end
 
       genre_type = mods.add_element 'genre'
       if( paper.anthology_id[0] == "W")
