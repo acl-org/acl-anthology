@@ -19,6 +19,11 @@
   </h5>
 
   <% # bookmark functions for items/docs -%>
+  <div id="mini-controls">
+    <%= link_to image_tag("export.png", size: "16x16", alt: "Export"), bibexport_paper_path(Paper.find_by_anthology_id(document[:paper_anthology]))+".bib" %>
+    <%= link_to image_tag("search.png", size: "16x16", alt: "Search"), "https://www.google.com/search?q=" + document[:title][0], :target => "_blank"%>
+  </div>
+
   <%= render_index_doc_actions document, :wrapping_class => "documentFunctions" %>
 </div>
 
