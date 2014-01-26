@@ -67,3 +67,6 @@ gem "htmlentities", "~> 4.3.1"
 
 # Addming meta tags 
 gem 'metamagic'
+
+# Create zip file for acm
+gem 'rubyzip'

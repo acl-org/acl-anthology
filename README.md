@@ -72,11 +72,16 @@ http://localhost:3000/venues
 ```
 
 ## Exporting data ##
-We allow to export all information in the ACL database to multiple xml files. To export the data:
+We allow to export all information in the ACL database to xml files in different formats. To export the data:
 ```
-$ rake acl:export
+$ rake export:xml
+$ rake export:xml_single
+$ rake export:xml_all
 ```
-The saved data will be exported to a the folder export. Each file will have a name like this: "E12.xml"
+The saved data will be exported to a the folder export.
+The first command exports the anthology in the standard xml file: E12.xml
+The second one exports each individual volume in a single xml file: E12-1.xml
+The third command exports the full anthology into a single xml file: acl_anthology.xml
 
 ## License ##
 ACL materials are Copyright (C) 1963-2013 ACL; other materials are copyrighted by their respective copyright holders. All materials here are licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License . Permission is granted to make copies for the purposes of teaching and research.
