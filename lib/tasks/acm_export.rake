@@ -68,7 +68,11 @@ def export_zip(volume)
 			if exists_paper_pdf?(paper.anthology_id, tempfiles)
 				puts "Found pdf for " + paper.anthology_id + ". Adding to archive..."
 				if name_files_with_pages?(volume)
-					paper_name = "p" + paper.pages.split("–")[0] + "-" + paper.people[0].last_name + ".pdf"
+					if paper.pages
+						paper_name = "p" + paper.pages.split("–")[0] + "-" + paper.people[0].last_name + ".pdf"
+					else
+						paper_name = "p0-" + paper.people[0].last_name + ".pdf"
+					end
 				else
 					if paper.anthology_id[0] == 'W'
 						paper_name = "a" + ((paper.anthology_id[-2..-1]).to_i).to_s + "-" + paper.people[0].last_name + ".pdf"
