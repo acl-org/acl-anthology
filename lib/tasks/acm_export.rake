@@ -2,19 +2,31 @@
 require 'zip'
 require 'open-uri'
 
-def exists_pdf_at_url?(url_string)
+def create_temp_files(volume)
+	tempfiles = []
+	(0..volume.papers.size).each do |i|
+		tempfiles << Tempfile.new(['paper' + i.to_s, '.pdf'], "#{Rails.root}/tmp")
+	end
+	return tempfiles
+end
+
+def exists_paper_pdf?(anthology_id, tempfiles)
+	url_string = "http://aclweb.org/anthology/" + anthology_id
     url = URI.parse(url_string) # Parses the string to url
     res = Net::HTTP.get_response(url) # Gets the response from the url
     redirect_url_string = res['location'] # Get the redirect url
     redirect_url = URI.parse(redirect_url_string)
 
-    temp_file = File.new("export/acm/.temp_file",'wb')
+    if anthology_id[0] == 'W'
+	    temp_file = File.new(tempfiles[(anthology_id[-2..-1]).to_i].path,'wb')
+	else
+	    temp_file = File.new(tempfiles[(anthology_id[-3..-1]).to_i].path,'wb')
+	end
 
     Net::HTTP.start(redirect_url.host, redirect_url.port) do |http|
     	req = Net::HTTP::Head.new(redirect_url)
     	if http.request(req)['Content-Type'].start_with? 'application/pdf'
     		temp_file.write Net::HTTP.get_response(redirect_url).body
-    		puts "1. " + temp_file.size.to_s
 			return true
     	end
     end
@@ -36,7 +48,11 @@ end
 def name_files_with_pages?(volume)
 	volume.papers.each do |paper|
 		if !paper.pages
-			return false
+			if paper.anthology_id[0] == 'W' && paper.anthology_id[-2..-1] == "00"
+				return false
+			elsif paper.anthology_id[-3..-1] == "000"
+				return false
+			end
 		end
 	end
 	return true
@@ -45,11 +61,11 @@ end
 def export_zip(volume)
 	zip_name = "export/acm/" + volume.anthology_id + ".zip"
 	puts "Creating zip for volume " + @volume.anthology_id + " at location " + zip_name
+	tempfiles = create_temp_files(volume)
 
 	Zip::File.open(zip_name, Zip::File::CREATE) do |acm_zip|
 		volume.papers.each do |paper|
-			file_url = "http://aclweb.org/anthology/" + paper.anthology_id
-			if exists_pdf_at_url?(file_url)
+			if exists_paper_pdf?(paper.anthology_id, tempfiles)
 				puts "Found pdf for " + paper.anthology_id + ". Adding to archive..."
 				if name_files_with_pages?(volume)
 					paper_name = "p" + paper.pages.split("–")[0] + "-" + paper.people[0].last_name + ".pdf"
@@ -60,7 +76,12 @@ def export_zip(volume)
 						paper_name = "a" + ((paper.anthology_id[-3..-1]).to_i).to_s + "-" + paper.people[0].last_name + ".pdf"
 					end
 				end
-				acm_zip.add(paper_name, "export/acm/.temp_file")
+				if paper.anthology_id[0] == 'W'
+					acm_zip.add(paper_name, tempfiles[(paper.anthology_id[-2..-1]).to_i])
+				else
+					acm_zip.add(paper_name, tempfiles[(paper.anthology_id[-3..-1]).to_i])
+				end
+				
 			end
 		end
 	end
