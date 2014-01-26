@@ -48,9 +48,9 @@ end
 def name_files_with_pages?(volume)
 	volume.papers.each do |paper|
 		if !paper.pages
-			if paper.anthology_id[0] == 'W' && paper.anthology_id[-2..-1] == "00"
+			if paper.anthology_id[0] == 'W' && paper.anthology_id[-2..-1] != "00"
 				return false
-			elsif paper.anthology_id[-3..-1] == "000"
+			elsif paper.anthology_id[-3..-1] != "000"
 				return false
 			end
 		end
