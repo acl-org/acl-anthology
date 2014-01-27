@@ -118,7 +118,7 @@ class PapersController < ApplicationController
       title_info = mods.add_element 'titleInfo'
       title_name = title_info.add_element 'title'
       title_name.text = paper_title
-      authors.each { |author|
+      authors.each do |author|
         name = mods.add_element 'name'
         name.attributes["type"]="personal"
         
@@ -135,8 +135,8 @@ class PapersController < ApplicationController
         roleterm.attributes["authority"]="marcrelator"
         roleterm.attributes["type"]="text"
         roleterm.text="author"
-
-      }
+      end
+      
       if (paper.pages)
         part = mods.add_element 'part'
         extent = part.add_element 'extent'
@@ -179,6 +179,6 @@ class PapersController < ApplicationController
       volume_info = related_item.add_element 'titleInfo'
       volume_name = volume_info.add_element 'title'
       volume_name.text = volume_title
-      return xml.to_s
+      xml.to_s
     end
   end

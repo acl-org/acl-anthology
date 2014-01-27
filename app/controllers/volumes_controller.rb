@@ -73,8 +73,6 @@ class VolumesController < ApplicationController
     set_volume
     @editors = @volume.people
     mods_xml = generate_volume_modsxml(@volume)
-    puts mods_xml
-    puts "hey"
     file = File.new("bibexport/#{@volume.anthology_id}.xml",'w')
     file.write mods_xml
     file.close
@@ -119,7 +117,7 @@ class VolumesController < ApplicationController
       title_name = title_info.add_element 'title'
       title_name.text = volume_title
       #add author information
-      authors.each { |author|
+      authors.each do |author|
         name = mods.add_element 'name'
         name.attributes["type"]="personal"
         
@@ -136,8 +134,8 @@ class VolumesController < ApplicationController
         roleterm.attributes["authority"]="marcrelator"
         roleterm.attributes["type"]="text"
         roleterm.text="editor"
+      end
 
-      }
       origin_info = mods.add_element 'originInfo'
       if volume.publisher
         publisher = origin_info.add_element 'publisher'
@@ -156,6 +154,7 @@ class VolumesController < ApplicationController
       end
       date_issued = origin_info.add_element 'dateIssued'
       date_issued.text = year
+
       papers.each do |paper|
         if (!((paper.anthology_id[0] == "W" and paper.anthology_id[-2..-1] == "00") or paper.anthology_id[-3..-1] == "000"))
           paper_mods=mods.add_element 'mods'
@@ -194,12 +193,10 @@ class VolumesController < ApplicationController
 
 
           paper_origin_info = paper_mods.add_element 'originInfo'
-
           if paper.publisher
             paper_publisher = paper_origin_info.add_element 'publisher'
             paper_publisher.text = paper.publisher
           end
-
           paper_date_issued = paper_origin_info.add_element 'dateIssued'
           paper_date_issued.text = paper.year
 
@@ -213,25 +210,24 @@ class VolumesController < ApplicationController
               paper_address = paper_location.add_element 'physicalLocation'
               paper_address.text = paper.address
             end
-
-
-            paper_genre_type = paper_mods.add_element 'genre'
-            if( paper.anthology_id[0] == "W")
-              paper_genre_type.text = "workshop publication"
-            else
-              paper_genre_type.text = "conference publication"
-            end
-
-            paper_related_item = paper_mods.add_element 'relatedItem'
-
-            paper_related_item.attributes["type"]="host"
           end
+
+
+          paper_genre_type = paper_mods.add_element 'genre'
+          if( paper.anthology_id[0] == "W")
+            paper_genre_type.text = "workshop publication"
+          else
+            paper_genre_type.text = "conference publication"
+          end
+
+          paper_related_item = paper_mods.add_element 'relatedItem'
+
+          paper_related_item.attributes["type"]="host"
         end
-        puts "heo"
-        puts xml.to_s
-        return xml.to_s
       end
+      xml.to_s
     end
   end
+
 
 
