@@ -70,3 +70,6 @@ gem 'metamagic'
 
 # Create zip file for acm
 gem 'rubyzip'
+
+# For deploying
+gem 'passenger'
