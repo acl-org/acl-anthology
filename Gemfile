@@ -71,5 +71,8 @@ gem 'metamagic'
 # Create zip file for acm
 gem 'rubyzip'
 
-# For deploying
-gem 'passenger'
+group :production do
+
+	# For deploying
+	gem 'passenger'
+end

@@ -47,6 +47,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     commonjs (0.2.7)
+    daemon_controller (1.1.8)
     devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -92,6 +93,10 @@ GEM
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
+    passenger (4.0.36)
+      daemon_controller (>= 1.1.0)
+      rack
+      rake (>= 0.8.1)
     pg (0.17.0)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -181,6 +186,7 @@ DEPENDENCIES
   kaminari
   less-rails
   metamagic
+  passenger
   pg
   rails (= 4.0.1)
   rails_12factor
