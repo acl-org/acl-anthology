@@ -1,4 +1,3 @@
-require 'tempfile'
 require "rexml/document"
 
 def export_papers_in_volume(volume, vol_tag)
@@ -116,11 +115,11 @@ def export_papers_in_volume(volume, vol_tag)
 end
 
 # Export standard xml files
-namespace :acl do
+namespace :export do
 	desc "Export each anthology to a single xml file in the form E12.xml"
-	task :export => :environment do
+	task :xml => :environment do
 		
-		codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
+		codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
 		years = ('65'..'99').to_a + ('00'..'13').to_a
 		codes.each do |c|
 			years.each do |y|
@@ -160,10 +159,10 @@ namespace :acl do
 end
 
 # Export each volume to an individual xml file
-namespace :acl do
+namespace :export do
 	desc "Export each anthology to a single xml file in the form E12.xml"
-	task :export_single_volume => :environment do
-		codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
+	task :xml_single => :environment do
+		codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
 		years = ('65'..'99').to_a + ('00'..'13').to_a
 		codes.each do |c|
 			years.each do |y|
@@ -207,11 +206,11 @@ end
 
 
 # Export all volumes to one single xml file
-namespace :acl do
+namespace :export do
 	desc "Export each anthology to a single xml file in the form E12.xml"
-	task :export_all => :environment do
+	task :xml_all => :environment do
 		
-		codes = ['A', 'C', 'D', 'E', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R' 'S', 'T', 'U', 'W', 'X', 'Y']
+		codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
 		years = ('65'..'99').to_a + ('00'..'13').to_a
 		xml_doc = REXML::Document.new "<?xml version='1.0'?>"
 		acl = xml_doc.add_element 'aclanthology', {"version" => Time.now}
