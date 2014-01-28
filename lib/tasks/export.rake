@@ -174,10 +174,11 @@ namespace :export do
 				end
 
 				volume_series.each do |v|
-					xml_doc = REXML::Document.new "<?xml version='1.0'?>"			
-					vol = xml_doc.add_element 'volume', {"id" => c + y} # Level 1 indentation
 					@volume = Volume.find_by_anthology_id(c + y + "-" + v.to_s)
 					if @volume # Check if volume exists
+						xml_doc = REXML::Document.new "<?xml version='1.0'?>"			
+						vol = xml_doc.add_element 'volume', {"id" => c + y} # Level 1 indentation
+
 						volume_found = true
 						puts "Exporting volume " + @volume.anthology_id				
 

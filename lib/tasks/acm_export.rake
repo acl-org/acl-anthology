@@ -61,6 +61,7 @@ end
 def export_zip(volume)
 	zip_name = "export/acm/" + volume.anthology_id + ".zip"
 	puts "Creating zip for volume " + @volume.anthology_id + " at location " + zip_name
+
 	tempfiles = create_temp_files(volume)
 
 	Zip::File.open(zip_name, Zip::File::CREATE) do |acm_zip|
@@ -95,10 +96,10 @@ end
 
 def export_csv(volume)
 	csv_file = File.new("export/acm/" + volume.anthology_id + ".csv",'w')
-	
+	puts "Saving csv file for volume " + volume.anthology_id
 	volume.papers.each do |paper|
 		type = "Full Paper"
-		title = paper.title
+		title = "" + paper.title
 		authors = ""
 		paper.people.each do |author|
 			authors += author.full_name + ';'
@@ -106,7 +107,6 @@ def export_csv(volume)
 		lead_author_email = "kanmy@comp.nus.edu.sg" 
 		paper_number = paper.anthology_id[-4..-1]
 		
-
 		acm_csv_string = '"' + type + '","' + title + '","' + authors + '","' + lead_author_email + '","' + paper_number + '"' + "\n"
 		csv_file << acm_csv_string
 	end
@@ -123,10 +123,44 @@ namespace :export do
 end
 
 namespace :export do
-	desc "Export each anthology to acm format, zip file only"
+	desc "Export each anthology to acm format, csv file only"
 	task :acm_volume_csv, [:anthology_id] => :environment do |t, args|
 		@volume = Volume.find_by_anthology_id(args[:anthology_id])
 
 		export_csv(@volume)
+	end
+end
+
+namespace :export do
+	desc "Export each anthology to acm format, the full anthology"
+	task :acm_full, [:export_type] => :environment do |t, args|
+
+		codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
+		years = ('65'..'99').to_a + ('00'..'13').to_a
+		codes.each do |c|
+			years.each do |y|
+				volume_found = false # by default, the anthology is empty
+				if c == 'W' # If we have a workshop, the volume series will have 2 digits
+					volume_series = ('01'..'99').to_a
+				else # else, only count first digit
+					volume_series = ('1'..'9').to_a
+				end
+
+				volume_series.each do |v|
+					@volume = Volume.find_by_anthology_id(c + y + "-" + v.to_s)
+
+					if @volume && @volume.anthology_id != "J79-1" #########################################################
+						if args[:export_type] == "csv"
+							export_csv(@volume)
+						elsif args[:export_type] == "zip"
+							export_zip(@volume)
+						else
+							export_csv(@volume)
+							export_zip(@volume)
+						end
+					end
+				end
+			end
+		end
 	end
 end
