@@ -1,7 +1,7 @@
 require "rexml/document"
-dash = "–"
 
 def export_volume volume
+	dash = "–"
 	papers = volume.papers
 	volume_title = volume.title
 	year = volume.year
@@ -126,6 +126,7 @@ def export_volume volume
 end
 
 def export_paper paper
+	dash = "–"
 	paper_title = paper.title
 	year = paper.year
 	volume_title = paper.volume.title
@@ -208,7 +209,7 @@ end
 namespace :export do
 	desc "Export paper mods xml"
 	task :export_paper_modsxml, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Paper.all.each do |paper|
 				export_paper paper
 			end
@@ -219,7 +220,7 @@ namespace :export do
 
 	desc "Export paper bib"
 	task :export_paper_bib, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Paper.all.each do |paper|
 				`xml2bib export/xml/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib>`
 			end
@@ -231,7 +232,7 @@ namespace :export do
 
 	desc "Export paper ris"
 	task :export_paper_ris, [:anthology_id]=> :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Paper.all.each do |paper|
 				`xml2ris export/xml/#{paper.anthology_id}.xml >export/ris/#{paper.anthology_id}.ris`
 			end
@@ -243,7 +244,7 @@ namespace :export do
 
 	desc "Export paper endf"
 	task :export_paper_endf, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Paper.all.each do |paper|
 				`xml2end export/xml/#{paper.anthology_id}.xml >export/endf/#{paper.anthology_id}.endf`
 			end
@@ -256,7 +257,7 @@ namespace :export do
 
 	desc "Export paper word"
 	task :export_paper_word, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Paper.all.each do |paper|
 				`xml2wordbib export/xml/#{paper.anthology_id}.xml >export/word/#{paper.anthology_id}.word`
 			end
@@ -269,7 +270,7 @@ namespace :export do
 
 	desc "Export paper dblp"
 	task :export_paper_dblp, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Paper.all.each do |paper|
 				`ruby lib/bibscript/xml2dblp.rb export/xml/#{paper.anthology_id}.xml >export/dblp/#{paper.anthology_id}.html`
 			end
@@ -281,7 +282,7 @@ namespace :export do
 
 	desc "Export paper acm"
 	task :export_paper_acm, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Paper.all.each do |paper|
 				`ruby lib/bibscript/xml2acm.rb export/xml/#{paper.anthology_id}.xml >export/acm/#{paper.anthology_id}.csv`
 			end
@@ -295,7 +296,7 @@ namespace :export do
 
 	desc "Export volume mods xml"
 	task :export_volume_modsxml, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args
 			Volume.all.each do |volume|
 				export_volume volume
 			end
@@ -307,7 +308,7 @@ namespace :export do
 
 	desc "Export volume bib"
 	task :export_volume_bib, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Volume.all.each do |volume|
 				`xml2bib export/xml/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
 			end
@@ -318,8 +319,8 @@ namespace :export do
 	end
 
 	desc "Export volume ris"
-	task :export_volume_ris, [anthology_id] => :environment do |t, args|
-		if args.length == 0
+	task :export_volume_ris, [:anthology_id] => :environment do |t, args|
+		if args.length 
 			Volume.all.each do |volume|
 				`xml2ris export/xml/#{volume.anthology_id}.xml >export/ris/#{volume.anthology_id}.ris`
 			end
@@ -331,7 +332,7 @@ namespace :export do
 
 	desc "Export volume endf"
 	task :export_volume_endf, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Volume.all.each do |volume|
 				`xml2end export/xml/#{volume.anthology_id}.xml >export/end/#{volume.anthology_id}.endf`
 			end
@@ -344,7 +345,7 @@ namespace :export do
 
 	desc "Export volume word"
 	task :export_volume_word, [:anthology_id]=> :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Volume.all.each do |volume|
 				`xml2wordbib export/xml/#{volume.anthology_id}.xml >export/word/#{volume.anthology_id}.word`
 			end
@@ -356,7 +357,7 @@ namespace :export do
 
 	desc "Export volume dblp"
 	task :export_volume_dblp, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Volume.all.each do |volume|
 				`ruby lib/bibscript/xml2dblp.rb export/xml/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
 			end
@@ -368,7 +369,7 @@ namespace :export do
 
 	desc "Export volume acm"
 	task :export_volume_acm, [:anthology_id] => :environment do |t, args|
-		if args.length == 0
+		if args.length 
 			Volume.all.each do |volume|
 				`ruby lib/bibscript/xml2acm.rb export/xml/#{volume.anthology_id}.xml >export/csv/#{volume.anthology_id}.csv`
 			end
