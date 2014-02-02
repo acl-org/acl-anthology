@@ -215,7 +215,7 @@ namespace :export do
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
 				puts "exporting paper #{paper.anthology_id}"
-				export_paper paper
+				export_paper_mods paper
 			end
 		else
 			export_paper_mods Paper.find_by_anthology_id(args[:anthology_id])
