@@ -72,7 +72,7 @@ gem 'metamagic'
 gem 'rubyzip'
 
 group :production do
-
+	gem 'rack'
 	# For deploying
 	gem 'passenger'
 end
