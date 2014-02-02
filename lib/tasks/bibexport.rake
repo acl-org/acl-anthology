@@ -227,11 +227,11 @@ namespace :export do
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
 				puts "converting to bib paper #{paper.anthology_id}"
-				`xml2bib export/xml/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
+				`xml2bib export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
 			end
 		else
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
-			`xml2bib export/xml/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
+			`xml2bib export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
 		end
 	end
 
@@ -240,7 +240,7 @@ namespace :export do
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
 				puts "converting to ris paper #{paper.anthology_id}"
-				`xml2ris export/xml/#{paper.anthology_id}.xml >export/ris/#{paper.anthology_id}.ris`
+				`xml2ris export/mods/#{paper.anthology_id}.xml >export/ris/#{paper.anthology_id}.ris`
 			end
 		else
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
@@ -253,7 +253,7 @@ namespace :export do
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
 				puts "converting to endf paper #{paper.anthology_id}"
-				`xml2end export/xml/#{paper.anthology_id}.xml >export/endf/#{paper.anthology_id}.endf`
+				`xml2end export/mods/#{paper.anthology_id}.xml >export/endf/#{paper.anthology_id}.endf`
 			end
 		else
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
@@ -267,7 +267,7 @@ namespace :export do
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
 				puts "converting to word paper #{paper.anthology_id}"
-				`xml2wordbib export/xml/#{paper.anthology_id}.xml >export/word/#{paper.anthology_id}.word`
+				`xml2wordbib export/mods/#{paper.anthology_id}.xml >export/word/#{paper.anthology_id}.word`
 			end
 		else
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
@@ -281,11 +281,11 @@ namespace :export do
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
 				puts "converting to dblp paper #{paper.anthology_id}"
-				`ruby lib/bibscript/xml2dblp.rb export/xml/#{paper.anthology_id}.xml >export/dblp/#{paper.anthology_id}.html`
+				`ruby lib/bibscript/mods2dblp.rb export/mods/#{paper.anthology_id}.xml >export/dblp/#{paper.anthology_id}.html`
 			end
 		else
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
-			`ruby lib/bibscript/xml2dblp.rb export/mods/#{paper.anthology_id}.xml >export/dblp/#{paper.anthology_id}.html`
+			`ruby lib/bibscript/mods2dblp.rb export/mods/#{paper.anthology_id}.xml >export/dblp/#{paper.anthology_id}.html`
 		end
 	end
 
@@ -307,7 +307,7 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "converting to bib volume #{volume.anthology_id}"
-				`xml2bib export/xml/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
+				`xml2bib export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
 			end
 		else
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
@@ -320,7 +320,7 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "converting to ris volume #{volume.anthology_id}"
-				`xml2ris export/xml/#{volume.anthology_id}.xml >export/ris/#{volume.anthology_id}.ris`
+				`xml2ris export/mods/#{volume.anthology_id}.xml >export/ris/#{volume.anthology_id}.ris`
 			end
 		else
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
@@ -333,11 +333,11 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "converting to endf volume #{volume.anthology_id}"
-				`xml2end export/xml/#{volume.anthology_id}.xml >export/endf/#{volume.anthology_id}.endf`
+				`xml2end export/mods/#{volume.anthology_id}.xml >export/endf/#{volume.anthology_id}.endf`
 			end
 		else
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
-			`xml2end export/xml/#{volume.anthology_id}.xml >export/endf/#{volume.anthology_id}.endf`
+			`xml2end export/mods/#{volume.anthology_id}.xml >export/endf/#{volume.anthology_id}.endf`
 		end
 	end
 
@@ -346,7 +346,7 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "converting to word volume #{volume.anthology_id}"
-				`xml2wordbib export/xml/#{volume.anthology_id}.xml >export/word/#{volume.anthology_id}.word`
+				`xml2wordbib export/mods/#{volume.anthology_id}.xml >export/word/#{volume.anthology_id}.word`
 			end
 		else
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
@@ -359,11 +359,11 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "converting to dblp volume #{volume.anthology_id}"
-				`ruby lib/bibscript/xml2dblp.rb export/xml/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
+				`ruby lib/bibscript/mods2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
 			end
 		else
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
-			`ruby lib/bibscript/xml2dblp.rb export/xml/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
+			`ruby lib/bibscript/mods2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
 		end
 	end
 
@@ -372,11 +372,11 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "converting to acm volume #{volume.anthology_id}"
-				`ruby lib/bibscript/xml2acm.rb export/xml/#{volume.anthology_id}.xml >export/csv/#{volume.anthology_id}.csv`
+				`ruby lib/bibscript/mods2acm.rb export/mods/#{volume.anthology_id}.xml >export/csv/#{volume.anthology_id}.csv`
 			end
 		else
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
-			`ruby lib/bibscript/xml2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
+			`ruby lib/bibscript/mods2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
 		end
 	end
 end
