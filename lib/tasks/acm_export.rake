@@ -18,30 +18,30 @@ def exists_paper_pdf?(anthology_id, tempfiles)
     redirect_url = URI.parse(redirect_url_string)
 
     if anthology_id[0] == 'W'
-	    temp_file = File.new(tempfiles[(anthology_id[-2..-1]).to_i].path,'wb')
-	else
-	    temp_file = File.new(tempfiles[(anthology_id[-3..-1]).to_i].path,'wb')
-	end
+    	temp_file = File.new(tempfiles[(anthology_id[-2..-1]).to_i].path,'wb')
+    else
+    	temp_file = File.new(tempfiles[(anthology_id[-3..-1]).to_i].path,'wb')
+    end
 
     Net::HTTP.start(redirect_url.host, redirect_url.port) do |http|
     	req = Net::HTTP::Head.new(redirect_url)
     	if http.request(req)['Content-Type'].start_with? 'application/pdf'
     		temp_file.write Net::HTTP.get_response(redirect_url).body
-			return true
+    		return true
     	end
     end
     # Testing with the redirect url (aka second redirect)
     res2 = Net::HTTP.get_response(redirect_url)
-	redirect_url_string2 = res2['location']
-	redirect_url2 = URI.parse(redirect_url_string2)
-	Net::HTTP.start(redirect_url2.host, redirect_url.port) do |http|
-		req = Net::HTTP::Head.new(redirect_url2)
+    redirect_url_string2 = res2['location']
+    redirect_url2 = URI.parse(redirect_url_string2)
+    Net::HTTP.start(redirect_url2.host, redirect_url.port) do |http|
+    	req = Net::HTTP::Head.new(redirect_url2)
     	if http.request(req)['Content-Type'].start_with? 'application/pdf'
     		temp_file.write Net::HTTP.get_response(redirect_url2).body
-			return true
+    		return true
     	end
     end
-	temp_file.close
+    temp_file.close
     return false
 end
 
@@ -116,17 +116,30 @@ end
 namespace :export do
 	desc "Export each anthology to acm format, zip file only"
 	task :acm_volume_zip, [:anthology_id] => :environment do |t, args|
-		@volume = Volume.find_by_anthology_id(args[:anthology_id])
+		if (args[:anthology_id])
+			@volume = Volume.find_by_anthology_id(args[:anthology_id])
 
-		export_zip(@volume)
+			export_zip(@volume)
+		else
+			Volume.all.each do |volume|
+				export_zip(volume)
+			end
+
+		end
 	end
 end
 
 namespace :export do
 	desc "Export each anthology to acm format, zip file only"
 	task :acm_volume_csv, [:anthology_id] => :environment do |t, args|
-		@volume = Volume.find_by_anthology_id(args[:anthology_id])
+		if (args[:anthology_id])
+			@volume = Volume.find_by_anthology_id(args[:anthology_id])
 
-		export_csv(@volume)
+			export_csv(@volume)
+		else
+			Volume.all.each do |volume|
+				export_csv(volume)
+			end
+		end
 	end
 end
