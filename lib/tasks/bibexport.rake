@@ -295,7 +295,7 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "exporting volume #{volume.anthology_id}"
-				export_volume volume
+				export_volume_mods volume
 			end
 		else
 			export_volume Volume.find_by_anthology_id(args[:anthology_id])
