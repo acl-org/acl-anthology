@@ -24,7 +24,7 @@ if not multiple
 	title = document.elements["mods/titleInfo/title"].text
 	names = []
 	document.elements.each("mods/name") do |element|
-		names.push(element.elements["namePart[@type='given']"].text + " " + element.elements["namePart[@type='family']"].text)
+		names.push(element.elements["namePart[@type='given']"].text|| "" + " " + element.elements["namePart[@type='family']"].text || "")
 	end
 
 	date = document.elements["mods/originInfo/dateIssued"].text
