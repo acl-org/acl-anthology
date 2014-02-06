@@ -68,17 +68,21 @@ def export_zip(volume)
 		volume.papers.each do |paper|
 			if exists_paper_pdf?(paper.anthology_id, tempfiles)
 				puts "Found pdf for " + paper.anthology_id + ". Adding to archive..."
+				if paper.people[0]
+					author_last_name = paper.people[0].last_name
+				else
+					author_last_name = "ACL"
 				if name_files_with_pages?(volume)
 					if paper.pages
-						paper_name = "p" + paper.pages.split("–")[0] + "-" + paper.people[0].last_name + ".pdf"
+						paper_name = "p" + paper.pages.split("–")[0] + "-" + author_last_name + ".pdf"
 					else
-						paper_name = "p0-" + paper.people[0].last_name + ".pdf"
+						paper_name = "p0-" + author_last_name + ".pdf"
 					end
 				else
 					if paper.anthology_id[0] == 'W'
-						paper_name = "a" + ((paper.anthology_id[-2..-1]).to_i).to_s + "-" + paper.people[0].last_name + ".pdf"
+						paper_name = "a" + ((paper.anthology_id[-2..-1]).to_i).to_s + "-" + author_last_name + ".pdf"
 					else
-						paper_name = "a" + ((paper.anthology_id[-3..-1]).to_i).to_s + "-" + paper.people[0].last_name + ".pdf"
+						paper_name = "a" + ((paper.anthology_id[-3..-1]).to_i).to_s + "-" + author_last_name + ".pdf"
 					end
 				end
 				if paper.anthology_id[0] == 'W'
@@ -104,7 +108,8 @@ def export_csv(volume)
 		paper.people.each do |author|
 			authors += author.full_name + ';'
 		end
-		lead_author_email = "kanmy@comp.nus.edu.sg" 
+		authors = "ACL" if authors == ""
+		lead_author_email = "acl@aclweb.org" 
 		paper_number = paper.anthology_id[-4..-1]
 		
 		acm_csv_string = '"' + type + '","' + title + '","' + authors + '","' + lead_author_email + '","' + paper_number + '"' + "\n"

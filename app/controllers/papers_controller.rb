@@ -18,7 +18,7 @@ class PapersController < ApplicationController
       format.endf { send_data(File.read("export/endf/#{@paper.anthology_id}.endf"), :type => 'text/plain', :disposition => 'inline')}
       format.word { send_data(File.read("export/word/#{@paper.anthology_id}.word"), :type => 'text/plain', :disposition => 'inline')}
       format.dblp { send_data(File.read("export/dblp/#{@paper.anthology_id}.html"), :type => 'text/html', :disposition => 'inline')}
-      format.acm { send_data(File.read("export/acm/#{@paper.anthology_id}.acm"), :type => 'text/html', :disposition => 'inline')}
+      # format.acm { send_data(File.read("export/acm/#{@paper.anthology_id}.acm"), :type => 'text/html', :disposition => 'inline')}
       format.all {}
     end
     @in_volume = Volume.find(@paper.volume_id)

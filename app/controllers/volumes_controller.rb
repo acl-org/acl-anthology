@@ -25,7 +25,7 @@ class VolumesController < ApplicationController
       format.endf { send_data(File.read("export/endf/#{@volume.anthology_id}.endf"), :type => 'text/plain', :disposition => 'inline')}
       format.word { send_data(File.read("export/word/#{@volume.anthology_id}.word"), :type => 'text/plain', :disposition => 'inline')}
       format.dblp { send_data(File.read("export/dblp/#{@volume.anthology_id}.html"), :type => 'text/html', :disposition => 'inline')}
-      format.acm { send_data(File.read("export/acm/#{@volume.anthology_id}.acm"), :type => 'text/html', :disposition => 'inline')}
+      format.acm { send_data(File.read("export/acm/#{@volume.anthology_id}.csv"), :type => 'text/html', :disposition => 'inline')}
       format.all {}
     end
     #Kaminari.paginate_array(@volume.papers).page(params[:page]).per(10)
