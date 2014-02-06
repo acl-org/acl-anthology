@@ -19,7 +19,7 @@ class VolumesController < ApplicationController
     @events = @volume.events
     @sigs = @volume.sigs
     respond_to do |format|
-      format.xml { send_data(File.read("export/xml/#{@volume.anthology_id}.xml"), :type => 'text/xml', :disposition => 'inline')}
+      format.xml { send_data(File.read("export/mods/#{@volume.anthology_id}.xml"), :type => 'text/xml', :disposition => 'inline')}
       format.bib { send_data(File.read("export/bib/#{@volume.anthology_id}.bib"), :type => 'text/plain', :disposition => 'inline')}
       format.ris { send_data(File.read("export/ris/#{@volume.anthology_id}.ris"), :type => 'text/plain', :disposition => 'inline')}
       format.endf { send_data(File.read("export/endf/#{@volume.anthology_id}.endf"), :type => 'text/plain', :disposition => 'inline')}

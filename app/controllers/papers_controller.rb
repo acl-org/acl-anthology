@@ -12,7 +12,7 @@ class PapersController < ApplicationController
   def show
     set_paper
     respond_to do |format|
-      format.xml { send_data(File.read("export/xml/#{@paper.anthology_id}.xml"), :type => 'text/xml', :disposition => 'inline')}
+      format.xml { send_data(File.read("export/mods/#{@paper.anthology_id}.xml"), :type => 'text/xml', :disposition => 'inline')}
       format.bib { send_data(File.read("export/bib/#{@paper.anthology_id}.bib"), :type => 'text/plain', :disposition => 'inline')}
       format.ris { send_data(File.read("export/ris/#{@paper.anthology_id}.ris"), :type => 'text/plain', :disposition => 'inline')}
       format.endf { send_data(File.read("export/endf/#{@paper.anthology_id}.endf"), :type => 'text/plain', :disposition => 'inline')}
