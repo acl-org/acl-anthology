@@ -72,6 +72,7 @@ def export_zip(volume)
 					author_last_name = paper.people[0].last_name
 				else
 					author_last_name = "ACL"
+				end
 				if name_files_with_pages?(volume)
 					if paper.pages
 						paper_name = "p" + paper.pages.split("–")[0] + "-" + author_last_name + ".pdf"
