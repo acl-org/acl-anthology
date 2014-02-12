@@ -2,6 +2,7 @@ class CreateVolumes < ActiveRecord::Migration
   def change
     create_table :volumes do |t|
       t.string :anthology_id
+      t.string :acronym
       t.string :title
       t.string :month
       t.integer :year

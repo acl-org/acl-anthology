@@ -145,7 +145,7 @@ def load_volume_xml(url)
 			end
 			@volume.address 	= vol.elements['address'].text		if vol.elements['address']
 			@volume.publisher 	= vol.elements['publisher'].text	if vol.elements['publisher']
-			@volume.url 		= vol.elements['url'].text			if vol.elements['url']
+			@volume.url 		= "http://aclweb.org/anthology/" + @volume.anthology_id
 			@volume.bibtype 	= vol.elements['bibtype'].text		if vol.elements['bibtype']
 			@volume.bibkey 		= vol.elements['bibkey'].text		if vol.elements['bibkey']
 
@@ -156,7 +156,7 @@ def load_volume_xml(url)
 			@front_matter.year		= @volume.year
 			@front_matter.address	= @volume.address
 			@front_matter.publisher	= @volume.publisher
-			@front_matter.url		= @volume.url
+			@front_matter.url		= "http://aclweb.org/anthology/" + @front_matter.anthology_id
 			@front_matter.bibtype	= @volume.bibtype
 			@front_matter.bibkey	= @volume.bibkey
 			@front_matter.attachment	= "none"
@@ -203,7 +203,7 @@ def load_volume_xml(url)
 			@paper.address 		= p.elements['address'].text		if p.elements['address']
 			@paper.publisher 	= p.elements['publisher'].text		if p.elements['publisher']
 			@paper.pages 		= p.elements['pages'].text			if p.elements['pages']
-			@paper.url 			= p.elements['url'].text			if p.elements['url']
+			@paper.url 			= "http://aclweb.org/anthology/" + @paper.anthology_id
 			@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
 			@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
 			

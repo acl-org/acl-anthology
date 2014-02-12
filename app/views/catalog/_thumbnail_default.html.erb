@@ -1,6 +1,18 @@
 <%- if has_thumbnail?(document) && tn = render_thumbnail_tag(document, {}, :counter => document_counter_with_offset(document_counter)) %>
 <div class="document-thumbnail">
-  <%= tn %>
+	<%= tn %>
 </div>  
 <%- end %>
-<%= link_to image_tag("pdf.png", size: "16x16", alt: "PDF Link"), "http://aclweb.org/anthology/" + document[:paper_anthology], :target => "_blank" %>
+
+
+<%= link_to image_tag("pdf.png", size: "16x16", title: "PDF Link"), "http://aclweb.org/anthology/" + document[:paper_anthology], :target => "_blank" %>
+<%= link_to image_tag("export.png", size: "16x16", title: "Export"), paper_path(Paper.find_by_anthology_id(document[:paper_anthology]))+".bib" %>
+<%= link_to image_tag("search.png", size: "16x16", title: "Search"), "https://www.google.com/search?q=" + document[:title][0], :target => "_blank"%>
+<% attach_type = document[:attach_type][0] %>
+<% if attach_type == "attachment" %>
+	<%= link_to image_tag("attachment.png", size: "16x16", title: "Attachment"), "http://aclweb.org/anthology/" + "PUT ATTACHMENT HERE!!!" %>
+<% elsif attach_type == "dataset" %>
+	<%= image_tag("dataset.png", size: "16x16", title: "Dataset") %>
+<% elsif attach_type == "software" %>
+	<%= image_tag("software.png", size: "16x16", title: "Dataset") %>
+<% end %>

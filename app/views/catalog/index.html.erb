@@ -1,0 +1,40 @@
+<div id="sidebar" class="span3">
+ <%= render 'search_sidebar' %>
+</div>
+
+<div id="content" class="span9">
+
+    <% unless has_search_parameters? %>
+	    <%# if there are no input/search related params, display the "home" partial -%>
+	    <%= render 'home' %>
+    <% else %>
+
+      <h2 class="hide-text top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
+
+      <% @page_title = t('blacklight.search.title', :application_name => application_name) %>
+
+
+      <% extra_head_content << render_opensearch_response_metadata.html_safe %>
+
+	    <%= render 'did_you_mean' %>
+
+      <%= render 'constraints' %>
+
+      <%= render 'sort_and_per_page' %>
+
+      <h2 class="hide-text"><%= t('blacklight.search.search_results') %></h2>
+
+      <%- if response_has_no_search_results? %>
+        <%= render "zero_results" %>
+      <%- elsif render_grouped_response? %>
+        <%= render_grouped_document_index %>
+      <%- else %>
+        <%= render_document_index %>
+      <%- end %>
+
+	    <%= render 'results_pagination' %>
+
+
+    <% end %>
+
+</div>

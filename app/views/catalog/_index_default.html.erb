@@ -3,7 +3,6 @@
   
   <% index_fields(document).each do |solr_fname, field| -%>
     <% if should_render_index_field? document, field %>
-    	<% puts solr_fname %>
 	    <dt class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_label document, :field => solr_fname %></dt>
 	    <dd class="blacklight-<%= solr_fname.parameterize %>"><%= render_index_field_value document, :field => solr_fname %></dd>
 
@@ -21,15 +20,16 @@
 	<% if should_render_index_field? document, field %>
 		<span class="">
 			<% if solr_fname == "paper_anthology" %>
-				[<%= render_index_field_value document, :field => "paper_anthology" %>]
+				<!-- [<% render_index_field_value document, :field => "paper_anthology" %>] -->
 			<% end %>
-
 			<% if solr_fname == "author" %>
-				<% if first_author == false %>
-					|
+				<% document[:author].each do |au|%>
+					<% if first_author == false %>
+						|
+					<% end %>
+					<%= au %>
+					<% first_author = false %>
 				<% end %>
-				<%= render_index_field_value document, :field => "author" %>
-				<% first_author = false %>
 			<% end %>
 		</span>
 	<% end -%>

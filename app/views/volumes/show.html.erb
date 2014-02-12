@@ -7,7 +7,11 @@
     <dl class="dl-horizontal">
       <dt><strong><%= model_class.human_attribute_name(:anthology_id) %>:</strong></dt>
       <dd><%= @volume.anthology_id %>&nbsp;</dd>
-      <dt><strong>Editor(s):</strong></dt>
+      <% if @editors.size > 1 %>
+        <dt><strong>Editors:</strong></dt>
+      <% else %>
+        <dt><strong>Editor:</strong></dt>
+      <% end %>  
       <dd>
         <% first_editor = true %>
         <% @editors.each do |editor| %>
@@ -24,7 +28,11 @@
       <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
       <dd><%= @volume.year %>&nbsp;</dd>
 
-      <dt><strong>Event(s):</strong></dt>
+      <% if @events.size > 1 %>
+        <dt><strong>Events:</strong></dt>
+      <% else %>
+        <dt><strong>Event:</strong></dt>
+      <% end %>  
       <dd>
         <% first_event = true %>
         <% @events.each do |event| %>
@@ -40,7 +48,11 @@
       <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
       <dd><%= @volume.address %>&nbsp;</dd>
 
-      <dt><strong>SIG(s):</strong></dt>
+      <% if @sigs.size > 1 %>
+        <dt><strong>SIGs:</strong></dt>
+      <% else %>
+        <dt><strong>SIG:</strong></dt>
+      <% end %>  
       <dd>
         <% first_sig = true %>
         <% @sigs.each do |sig| %>
@@ -65,7 +77,7 @@
   </div>
 
   <!-- Volume controls -->
-  <div class="form-actions span12">
+  <!-- <div class="form-actions span12">
     <%= link_to t('.back', :default => t("helpers.links.back")),
                 volumes_path, :class => 'btn'  %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -75,63 +87,13 @@
                 :method => 'delete',
                 :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                 :class => 'btn btn-danger' %>
-  </div>              
+  </div>    -->           
 
   <!-- Papers listing -->
   <div class="span12">
-    <%- paper_class = Paper -%>
-
-    <h3 style="text-align:center"><%=t '.title', :default => paper_class.model_name.human.pluralize.titleize %></h3>
-    <!-- <paginate @papers %> -->
-    <table class="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <th><%= paper_class.human_attribute_name(:anthology_id) %></th>
-          <th><%= paper_class.human_attribute_name(:title) %></th>
-          <th><%= paper_class.human_attribute_name(:month) %></th>
-          <th><%= paper_class.human_attribute_name(:year) %></th>
-          <th><%= paper_class.human_attribute_name(:address) %></th>
-          <th><%= paper_class.human_attribute_name(:url) %></th>
-          <!-- <th><%= paper_class.human_attribute_name(:attachment) %></th> -->
-          <!-- <th><%=t '.actions', :default => t("helpers.actions") %></th> -->
-        </tr>
-      </thead>
-      <tbody>
-        <% @papers.each do |paper| %>
-          <tr>
-            <td><%= paper.anthology_id %></td>
-            <td>
-              <%= link_to paper.title, paper_path(paper) %>
-              <% if paper.attach_type == "attachment" %>
-                <%= image_tag "attachment.png", size: "16x16", alt: "Attachment" %>
-              <% elsif paper.attach_type == "dataset" %>
-                <%= image_tag "dataset.png", size: "16x16", alt: "Dataset" %>
-              <% elsif paper.attach_type == "software" %>
-                <%= image_tag "software.png", size: "16x16", alt: "Dataset" %>
-              <% end %>
-            </td>
-            <td><%= paper.month %></td>
-            <td><%= paper.year %></td>
-            <td><%= paper.address %></td>
-            <td><%= link_to paper.url, paper.url, :target => "_blank" if paper.url  %></td>
-            <!-- <td>
-              <%= link_to t('.view', :default => t("helpers.links.view")),
-                              paper_path(paper), :class => 'btn btn-mini btn-primary' %>
-              <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                          edit_paper_path(paper), :class => 'btn btn-mini' %>
-              <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                          paper_path(paper),
-                          :method => :delete,
-                          :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                          :class => 'btn btn-mini btn-danger' %>
-            </td> -->
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <%= link_to t('.new', :default => t("helpers.links.new")),
-                new_volume_paper_path(@volume),
-                :class => 'btn btn-primary' %>
+    <h4></h4><br>
+    <% @papers.each do |paper| %>
+      <%= render "papers/paper", :paper => paper %>
+    <% end %>
   </div>
 </div>

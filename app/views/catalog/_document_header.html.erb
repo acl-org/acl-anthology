@@ -4,25 +4,14 @@
   <%- # main title container for doc partial view -%>
   <h5 class="index_title span7">
     <% counter = document_counter_with_offset(document_counter) %>
-    <%= t('blacklight.search.documents.counter', :counter => counter) if counter %>
-    <%= link_to_document document, :label=>document_show_link_field(document), :counter => counter %>
-    
-    <% attach_type = document[:attach_type][0] %>
-    <% if attach_type == "attachment" %>
-      <%= image_tag "attachment.png", size: "16x16", alt: "Attachment" %>
-    <% elsif attach_type == "dataset" %>
-      <%= image_tag "dataset.png", size: "16x16", alt: "Dataset" %>
-    <% elsif attach_type == "software" %>
-      <%= image_tag "software.png", size: "16x16", alt: "Dataset" %>
-    <% end %>
+    <% t('blacklight.search.documents.counter', :counter => counter) if counter %>
+    [<%= document[:paper_anthology] %>]
+    <%= link_to_document document, :label => document_show_link_field(document), :counter => counter %>
  
   </h5>
 
   <% # bookmark functions for items/docs -%>
-  <div id="mini-controls">
-    <%= link_to image_tag("export.png", size: "16x16", alt: "Export"), paper_path(Paper.find_by_anthology_id(document[:paper_anthology]))+".bib" %>
-    <%= link_to image_tag("search.png", size: "16x16", alt: "Search"), "https://www.google.com/search?q=" + document[:title][0], :target => "_blank"%>
-  </div>
+  
 
   <%= render_index_doc_actions document, :wrapping_class => "documentFunctions" %>
 </div>
