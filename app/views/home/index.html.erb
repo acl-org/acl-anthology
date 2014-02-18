@@ -74,7 +74,7 @@
 				<% @acronyms_nonacl.each do |acronym| %>
 				<tr>
 					<% @venue = Venue.find_by_acronym(acronym) %>
-					<th><%= acronym %></th>
+					<th><%= link_to acronym, venue_path(@venue) %></th>
 					<% @years_nonacl.each do |year| %>
 						<% @event = Event.find_by_venue_id_and_year(@venue.id, year.to_i) %>
 						<% if @event %>
@@ -89,8 +89,8 @@
 			</tbody>
 		</table>
 		<div id="notes">
-			<h5>Notes</h5>
-			<p>Here we will add some notes</p>
+			<h5></h5>
+			<p></p>
 		</div>
 		<hr>
 		<div class="span6" style="margin-left: 0px;">

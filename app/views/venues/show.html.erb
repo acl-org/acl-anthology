@@ -9,7 +9,7 @@
     <h3 style="text-align:center"><%=t '.title', :default => event_class.model_name.human.pluralize.titleize %></h3>
     <table class="table table-striped">
       <tbody>
-        <% @events.each do |event| %>
+        <% @events.sort.reverse.each do |event| %>
           <tr>
             <td><%= link_to event.year, event_path(event) %></td>
           </tr>
