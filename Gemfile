@@ -34,7 +34,7 @@ group :doc do
 end
 
 gem "blacklight"
-#gem "blacklight_range_limit"
+gem "blacklight_range_limit"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

@@ -57,9 +57,9 @@ class CatalogController < ApplicationController
     #config.add_facet_field 'title_unstem', :label => 'Title', :limit => 15
     config.add_facet_field 'author', :label => 'Author', :limit => 10
     config.add_facet_field 'volume_anthology', :label => 'Volume', :limit => 10
-    config.add_facet_field 'publish_date', :label => 'Year', :range => true, :limit => 15
+    config.add_facet_field 'publish_date', :label => 'Year', :range => true
     config.add_facet_field 'venue_acronym', :label => 'Venue', :limit => 15
-    config.add_facet_field 'sig_iden', :label => 'SIG', :limit => 15
+    config.add_facet_field 'sig_iden', :label => 'SIG', :limit => 20
     config.add_facet_field 'attach_type', :label => 'Attachment'
 
 
