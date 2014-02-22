@@ -94,6 +94,31 @@
       <dd><%= @paper.bibtype %>&nbsp;</dd>
       <dt><strong><%= model_class.human_attribute_name(:bibkey) %>:</strong></dt>
       <dd><%= @paper.bibkey %>&nbsp;</dd>
+      <dt><strong>Bib Export formats:</strong></dt>
+      <dd>
+        <div id="bib-export" class="form-inline">
+        <%= form_tag paper_path do %>
+          <%= radio_button_tag 'format', :bib %>
+          <%= label_tag :bib %>
+  
+          <%= radio_button_tag 'format', :ris %>
+          <%= label_tag :ris %>
+          
+          <%= radio_button_tag 'format', :endnote %>
+          <%= label_tag :endnote %>
+
+          <%= radio_button_tag 'format', :mods %>
+          <%= label_tag :mods %>
+
+          <%= radio_button_tag 'format', :word %>
+          <%= label_tag :word %>
+
+          <%= radio_button_tag 'format', :dblp %>
+          <%= label_tag :dblp %>
+        <% end %>
+        </div>
+      </dd>
+
       <dt><strong><%= model_class.human_attribute_name(:attachment) %>:</strong></dt>
       <dd><%= @paper.attachment %>&nbsp;</dd>
       <dt><strong><%= model_class.human_attribute_name(:attach_type) %>:</strong></dt>
@@ -102,7 +127,7 @@
   </div>
 
   <!-- Papers actions -->
-  <div class="form-actions span12">
+  <!-- <div class="form-actions span12">
       <%= link_to t('.back', :default => t("helpers.links.back")),
                   volume_path(@paper.volume_id), :class => 'btn'  %>
       <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -112,6 +137,6 @@
                   :method => 'delete',
                   :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                   :class => 'btn btn-danger' %>
-    </div>
+    </div> -->
   </div>
 </div>
