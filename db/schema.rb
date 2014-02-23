@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20131229164956) do
 
   create_table "volumes", force: true do |t|
     t.string   "anthology_id"
+    t.string   "acronym"
     t.string   "title"
     t.string   "month"
     t.integer  "year"

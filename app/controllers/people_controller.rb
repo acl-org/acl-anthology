@@ -11,7 +11,7 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     set_person
-    @papers = @person.papers
+    @papers = @person.papers.includes(:people)
     @volumes = @person.volumes
 
     # For showing the publications of a person sorted by year

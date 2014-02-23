@@ -13,7 +13,7 @@ class VolumesController < ApplicationController
     set_volume
     # @papers = @volume.papers.page(params[:page]).per(20)
 
-    @papers = @volume.papers
+    @papers = @volume.papers.includes(:people)
     @editors = @volume.people
 
     @events = @volume.events

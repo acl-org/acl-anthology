@@ -20,7 +20,7 @@ require "net/http"
 require "uri"
 require 'htmlentities'
 
-def load_events(vol_id)
+def load_events(vol_id, ws_map)
 	venues = []
 	events = []
 	# Default volume - venue mappings
@@ -66,14 +66,14 @@ def load_events(vol_id)
 	when 'Y'
 		@venue = Venue.find_by_acronym("PACLIC") # Non-ACL events
 	end
-	venues << @venue
+	venues << @venue if @venue
 
 	# Joint meeting venues
 
 	# Workshop mappings
 	if (vol_id[0] == 'W')
 		ws_map[vol_id].split.each do |acronym|
-			venues << Venue.find_by_acronym(acronym) 
+			venues << Venue.find_by_acronym(acronym)
 		end
 	end
 
@@ -86,7 +86,7 @@ def load_events(vol_id)
 	return events
 end
 
-def load_volume_xml(url)
+def load_volume_xml(url, ws_map)
 	xml_data = Net::HTTP.get_response(URI.parse(url)).body
 	xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
@@ -179,7 +179,7 @@ def load_volume_xml(url)
 
 			@curr_volume.papers << @front_matter # Save front_matter
 			
-			events = load_events(id)
+			events = load_events(@volume.anthology_id, ws_map)
 			events.each do |event|
 				event.volumes << @volume
 			end
@@ -297,6 +297,7 @@ def load_venues()
 end
 
 def load_workshops_hash()
+	puts "Loading workshop mappings..."
 	String hash = ""
 	File.open("db/ws_map.txt", "r") do |f|
 	  f.each_line do |line|
@@ -320,16 +321,17 @@ puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
 
 
 # Seed Venues
-puts "Started seeding Venues"
-ws_map = load_workshops_hash()
+puts "Seeding Venues..."
 load_venues()
-puts "Done seeding Venues"
+ws_map = load_workshops_hash()
+puts "Done seeding Venues."
 
 
 # Seed Volumes + Papers
-puts "Started seeding Volumes"
-codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#['D', 'E', 'P', 'W']#
+puts "Seeding Volumes..."
+codes = ['W']#['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#
 years = ('65'..'99').to_a + ('00'..'13').to_a
+
 codes.each do |c|
 	years.each do |y|
 		url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
@@ -339,23 +341,17 @@ codes.each do |c|
 		request = Net::HTTP.new(url.host, url.port)
 		response = request.request_head(url.path)
 		if response.kind_of?(Net::HTTPOK)
-			puts ("Seeding: " + url_string)
-			load_volume_xml(url_string)
+			puts "Seeding: " + url_string
+			load_volume_xml(url_string, ws_map)
 		end
 		#test = Net::HTTP.get_response(URI.parse(url))
 		
 	end
 end
-puts "Done seeding Volumes"
-puts "* * * * * * * * * * Seeding Data End * * * * * * * * * * * * *"
-
-# Seed Venues
-puts "Started seeding Venues"
-
-puts "Done seeding Venues"
+puts "Done seeding Volumes."
 
 # Seed SIGs
-puts "Started seeding SIGs"
+puts "Seeding SIGs..."
 sigs = ['sigann', 'sigbiomed', 'sigdat', 'sigdial', 'sigfsm', 'siggen', 'sighan', 'sighum', 'siglex', 
 	'sigmedia', 'sigmol', 'sigmt', 'signll', 'sigparse', 'sigmorphon', 'sigsem', 'semitic', 'sigslpat', 'sigwac']
 sigs.each do |sig|
@@ -368,4 +364,8 @@ sigs.each do |sig|
 		load_sigs(url_string)
 	end
 end
-puts "Done seeding SIGs"
+puts "Done seeding SIGs."
+puts "* * * * * * * * * * Seeding Data End * * * * * * * * * * * * *"
+
+
+

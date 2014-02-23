@@ -41,7 +41,6 @@
     <% @years.each do |year| %>
       <h4><%= year %></h4>
       <% @papers.each do |paper| %>
-      
         <% if paper.year == year %>
           <%= render "papers/paper", :paper => paper %>
         <% end %>
