@@ -20,7 +20,10 @@ require "net/http"
 require "uri"
 require 'htmlentities'
 
-def load_event(vol_id)
+def load_events(vol_id)
+	venues = []
+	events = []
+	# Default volume - venue mappings
 	case vol_id[0]
 	when 'A'
 		@venue = Venue.find_by_acronym("ANLP") # ACL events
@@ -58,17 +61,29 @@ def load_event(vol_id)
 		@venue = Venue.find_by_acronym("TINLAP") # Non-ACL events
 	when 'U'
 		@venue = Venue.find_by_acronym("ALTA") # Non-ACL events
-	when 'W'
-		@venue = Venue.find_by_acronym("WS") # Workshops
 	when 'X'
 		@venue = Venue.find_by_acronym("TIPSTER") # Non-ACL events
 	when 'Y'
 		@venue = Venue.find_by_acronym("PACLIC") # Non-ACL events
 	end
-	year = ("20" + vol_id[1..2]).to_i if vol_id[1..2].to_i < 20
-	year = ("19" + vol_id[1..2]).to_i if vol_id[1..2].to_i > 60
-	@event = Event.find_or_create_by_venue_id_and_year(@venue.id, year)
-	return @event
+	venues << @venue
+
+	# Joint meeting venues
+
+	# Workshop mappings
+	if (vol_id[0] == 'W')
+		ws_map[vol_id].split.each do |acronym|
+			venues << Venue.find_by_acronym(acronym) 
+		end
+	end
+
+	venues.each do |venue|
+		year = ("20" + vol_id[1..2]).to_i if vol_id[1..2].to_i < 20
+		year = ("19" + vol_id[1..2]).to_i if vol_id[1..2].to_i > 60
+		@event = Event.find_or_create_by_venue_id_and_year(venue.id, year)
+		events << @event
+	end
+	return events
 end
 
 def load_volume_xml(url)
@@ -164,8 +179,10 @@ def load_volume_xml(url)
 
 			@curr_volume.papers << @front_matter # Save front_matter
 			
-			event = load_event(id)
-			event.volumes << @volume
+			events = load_events(id)
+			events.each do |event|
+				event.volumes << @volume
+			end
 			
 		else # If not, we assume it is a paper
 			p = doc.elements[i] # Short hand for easier reading
@@ -279,6 +296,16 @@ def load_venues()
 	Venue.create(acronym: 'TIPSTER', name: 'NIST\'s TIPSTER Text Program', venue_type: 'Non ACL')
 end
 
+def load_workshops_hash()
+	String hash = ""
+	File.open("db/ws_map.txt", "r") do |f|
+	  f.each_line do |line|
+	    hash += line
+	  end
+	end
+	return eval("{#{hash}}")
+end
+
 puts "* * * * * * * * * * Deleting Old Data Start  * * * * * * * * *"
 
 if not(Volume.delete_all && Paper.delete_all && Person.delete_all && Sig.delete_all && Event.delete_all && Venue.delete_all)
@@ -294,6 +321,7 @@ puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
 
 # Seed Venues
 puts "Started seeding Venues"
+ws_map = load_workshops_hash()
 load_venues()
 puts "Done seeding Venues"
 
