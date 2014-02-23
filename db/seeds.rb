@@ -69,6 +69,9 @@ def load_events(vol_id, ws_map)
 	venues << @venue if @venue
 
 	# Joint meeting venues
+	joint_map[vol_id].split.each do |acronym|
+		venues << Venue.find_by_acronym(acronym)
+	end
 
 	# Workshop mappings
 	if (vol_id[0] == 'W')
@@ -86,7 +89,7 @@ def load_events(vol_id, ws_map)
 	return events
 end
 
-def load_volume_xml(url, ws_map)
+def load_volume_xml(url, ws_map, joint_map)
 	xml_data = Net::HTTP.get_response(URI.parse(url)).body
 	xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
@@ -179,7 +182,7 @@ def load_volume_xml(url, ws_map)
 
 			@curr_volume.papers << @front_matter # Save front_matter
 			
-			events = load_events(@volume.anthology_id, ws_map)
+			events = load_events(@volume.anthology_id, ws_map, joint_map)
 			events.each do |event|
 				event.volumes << @volume
 			end
@@ -297,13 +300,14 @@ def load_venues()
 end
 
 def load_workshops_hash()
-	puts "Loading workshop mappings..."
-	String hash = ""
-	File.open("db/ws_map.txt", "r") do |f|
-	  f.each_line do |line|
-	    hash += line
-	  end
-	end
+	puts "Loading workshop hash..."
+	String hash = File.read("db/ws_map.txt")	
+	return eval("{#{hash}}")
+end
+
+def load_joint_meetings_hash()
+	puts "Loading joint meetings hash..."
+	String hash = File.read("db/joint_map.txt")	
 	return eval("{#{hash}}")
 end
 
@@ -324,12 +328,13 @@ puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
 puts "Seeding Venues..."
 load_venues()
 ws_map = load_workshops_hash()
+joint_map = load_joint_meetings_hash()
 puts "Done seeding Venues."
 
 
 # Seed Volumes + Papers
 puts "Seeding Volumes..."
-codes = ['W']#['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#
+codes = ['P', 'W']#['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#
 years = ('65'..'99').to_a + ('00'..'13').to_a
 
 codes.each do |c|
@@ -342,7 +347,7 @@ codes.each do |c|
 		response = request.request_head(url.path)
 		if response.kind_of?(Net::HTTPOK)
 			puts "Seeding: " + url_string
-			load_volume_xml(url_string, ws_map)
+			load_volume_xml(url_string, ws_map, joint_map)
 		end
 		#test = Net::HTTP.get_response(URI.parse(url))
 		
