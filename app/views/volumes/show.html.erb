@@ -73,6 +73,33 @@
       <dd><%= @volume.bibtype %>&nbsp;</dd>
       <dt><strong><%= model_class.human_attribute_name(:bibkey) %>:</strong></dt>
       <dd><%= @volume.bibkey %>&nbsp;</dd>
+      <dt><strong>Bib Export formats:</strong></dt>
+      <dd>
+        <div id="bib-export" class="form-inline">
+        <%= form_tag volume_path, method: :get do %>
+          <%= radio_button_tag 'format', :bib, false, :onclick => "this.form.submit();" %>
+          <%= label_tag :bib %>
+  
+          <%= radio_button_tag 'format', :ris, false, :onclick => "this.form.submit();" %>
+          <%= label_tag :ris %>
+          
+          <%= radio_button_tag 'format', :endf, false, :onclick => "this.form.submit();" %>
+          <%= label_tag :endf, "EndNote" %>
+
+          <%= radio_button_tag 'format', :xml, false, :onclick => "this.form.submit();" %>
+          <%= label_tag :xml, "Mods xml" %>
+
+          <%= radio_button_tag 'format', :word, false, :onclick => "this.form.submit();" %>
+          <%= label_tag :word %>
+
+          <%= radio_button_tag 'format', :dblp, false, :onclick => "this.form.submit();" %>
+          <%= label_tag :dblp, "DBLP" %>
+
+          <%= radio_button_tag 'format', :acm, false, :onclick => "this.form.submit();" %>
+          <%= label_tag :acm, "ACM" %>
+        <% end %>
+        </div>
+      </dd>
     </dl>
   </div>
 

@@ -31,7 +31,7 @@
     <h2><%= @paper.title %></h2>
   </div>
 
-  <div class="span8">
+  <div class="span9">
     <dl class="dl-horizontal">
       <dt><strong><%= model_class.human_attribute_name(:anthology_id) %>:</strong></dt>
       <dd><%= @paper.anthology_id %>&nbsp;</dd>
@@ -97,31 +97,32 @@
       <dt><strong>Bib Export formats:</strong></dt>
       <dd>
         <div id="bib-export" class="form-inline">
-        <%= form_tag paper_path do %>
-          <%= radio_button_tag 'format', :bib %>
+        <%= form_tag paper_path, method: :get do %>
+          <%= radio_button_tag 'format', :bib, false, :onclick => "this.form.submit();" %>
           <%= label_tag :bib %>
   
-          <%= radio_button_tag 'format', :ris %>
+          <%= radio_button_tag 'format', :ris, false, :onclick => "this.form.submit();" %>
           <%= label_tag :ris %>
           
-          <%= radio_button_tag 'format', :endnote %>
-          <%= label_tag :endnote %>
+          <%= radio_button_tag 'format', :endf, false, :onclick => "this.form.submit();" %>
+          <%= label_tag :endf, "EndNote" %>
 
-          <%= radio_button_tag 'format', :mods %>
-          <%= label_tag :mods %>
+          <%= radio_button_tag 'format', :xml, false, :onclick => "this.form.submit();" %>
+          <%= label_tag :xml, "Mods xml" %>
 
-          <%= radio_button_tag 'format', :word %>
+          <%= radio_button_tag 'format', :word, false, :onclick => "this.form.submit();" %>
           <%= label_tag :word %>
 
-          <%= radio_button_tag 'format', :dblp %>
-          <%= label_tag :dblp %>
+          <%= radio_button_tag 'format', :dblp, false, :onclick => "this.form.submit();" %>
+          <%= label_tag :dblp, "DBLP" %>
+
         <% end %>
         </div>
       </dd>
 
       <dt><strong><%= model_class.human_attribute_name(:attachment) %>:</strong></dt>
       <dd><%= @paper.attachment %>&nbsp;</dd>
-      <dt><strong><%= model_class.human_attribute_name(:attach_type) %>:</strong></dt>
+      <dt><strong><%= model_class.human_attribute_name(:attachment_type) %>:</strong></dt>
       <dd><%= @paper.attach_type %>&nbsp;</dd>
     </dl>
   </div>
