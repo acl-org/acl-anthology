@@ -21,7 +21,7 @@ def export_papers_in_volume(volume, vol_tag)
 	paper_series.each do |p|
 		@paper = Paper.find_by_anthology_id(volume.anthology_id + p.to_s)
 		if @paper # Check if paper is found
-			pap = vol_tag.add_element 'paper', {"id" => @paper.anthology_id[-4..-1]} # Level 2 indentation
+			pap = vol_tag.add_element 'paper', {"id" => @paper.anthology_id[-4..-1], "version" => Time.now} # Level 2 indentation
 			# Level 3 indentation
 			title = pap.add_element 'title'
 			title.text = @paper.title
@@ -125,7 +125,7 @@ namespace :export do
 			years.each do |y|
 				volume_found = false # by default, the anthology is empty
 				xml_doc = REXML::Document.new "<?xml version='1.0'?>"
-				vol = xml_doc.add_element 'volume', {"id" => c + y} # Level 1 indentation	
+				vol = xml_doc.add_element 'volume', {"id" => c + y, "version" => Time.now} # Level 1 indentation	
 				if c == 'W' # If we have a workshop, the volume series will have 2 digits
 					volume_series = ('01'..'99').to_a
 				else # else, only count first digit
@@ -177,7 +177,7 @@ namespace :export do
 					@volume = Volume.find_by_anthology_id(c + y + "-" + v.to_s)
 					if @volume # Check if volume exists
 						xml_doc = REXML::Document.new "<?xml version='1.0'?>"			
-						vol = xml_doc.add_element 'volume', {"id" => c + y} # Level 1 indentation
+						vol = xml_doc.add_element 'volume', {"id" => c + y, "version" => Time.now} # Level 1 indentation
 
 						volume_found = true
 						puts "Exporting volume " + @volume.anthology_id				

@@ -7,7 +7,7 @@ def export_volume_mods volume
 	year = volume.year
 	authors = volume.people
 	xml = REXML::Document.new "<?xml version='1.0'?>"
-	mods=xml.add_element 'modsCollection'
+	mods=xml.add_element 'modsCollection', {"version" => Time.now}
 	title_info = mods.add_element 'titleInfo'
 	title_name = title_info.add_element 'title'
 	title_name.text = volume_title
@@ -137,7 +137,7 @@ def export_paper_mods paper
 	id = paper.anthology_id
 	url = paper.url
 	xml = REXML::Document.new "<?xml version='1.0'?>"
-	mods=xml.add_element 'mods'
+	mods=xml.add_element 'mods', {"version" => Time.now}
 	mods.attributes["ID"]=id
 	title_info = mods.add_element 'titleInfo'
 	title_name = title_info.add_element 'title'
