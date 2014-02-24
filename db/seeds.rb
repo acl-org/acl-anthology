@@ -76,7 +76,7 @@ def load_events(vol_id, ws_map, joint_map)
 	end
 	
 	# Workshop mappings
-	if (vol_id[0] == 'W')
+	if (vol_id[0] == 'W' && ws_map[vol_id])
 		ws_map[vol_id].split.each do |acronym|
 			venues << Venue.find_by_acronym(acronym)
 		end

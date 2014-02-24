@@ -367,16 +367,16 @@ namespace :export do
 		end
 	end
 
-	desc "Export volume acm"
-	task :export_volume_acm, [:anthology_id] => :environment do |t, args|
-		if not args[:anthology_id]
-			Volume.all.each do |volume|
-				puts "converting to acm volume #{volume.anthology_id}"
-				`ruby lib/bibscript/mods2acm.rb export/mods/#{volume.anthology_id}.xml >export/csv/#{volume.anthology_id}.csv`
-			end
-		else
-			volume = Volume.find_by_anthology_id(args[:anthology_id])
-			`ruby lib/bibscript/xml2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
-		end
-	end
+	# desc "Export volume acm"
+	# task :export_volume_acm, [:anthology_id] => :environment do |t, args|
+	# 	if not args[:anthology_id]
+	# 		Volume.all.each do |volume|
+	# 			puts "converting to acm volume #{volume.anthology_id}"
+	# 			`ruby lib/bibscript/mods2acm.rb export/mods/#{volume.anthology_id}.xml >export/csv/#{volume.anthology_id}.csv`
+	# 		end
+	# 	else
+	# 		volume = Volume.find_by_anthology_id(args[:anthology_id])
+	# 		`ruby lib/bibscript/xml2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
+	# 	end
+	# end
 end
