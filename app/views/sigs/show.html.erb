@@ -31,7 +31,7 @@
       
       <% @volumes.each do |volume| %>
         <br><br>
-        <h4><span id="<%= volume.anthology_id %>"> <%= volume.title %> </span></h4><br>
+        <h4><span id="<%= volume.anthology_id %>" class="volume"> <%= volume.title %></span></h4><br>
         <% @papers = volume.papers.includes(:people) %>
         <% @papers = @papers.sort_by(&:anthology_id) %>
         <% @papers.each do |paper| %>

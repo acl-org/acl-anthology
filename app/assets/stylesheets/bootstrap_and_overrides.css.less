@@ -34,12 +34,18 @@ html, body {
 	padding-top: 0px;
 }
 
-body {
-	
+.flash_messages {
+	position: relative;
+	a.close {
+		position: absolute;
+		top: 5px;
+		right: 10px;
+	}
 }
 
 #main-container {
-	padding-top: 50px + 2em;
+	margin-top: 3em;
+	padding-top: 50px;
 	min-height: 100%;
 }
 
@@ -50,6 +56,14 @@ body {
 // Top navbar
 #header-navbar-fixed-top {
 }
+
+span.volume {
+	padding-top: 80px; 
+	margin-top: -80px; 
+	position:relative; 
+	z-index:-10;
+}
+
 
 // Facets more pane
 #ajax-modal {
@@ -79,14 +93,7 @@ h5.index_title {
 	padding: 0.6em;
 }
 
-.flash_messages {
-	position: relative;
-	a.close {
-		position: absolute;
-		top: 5px;
-		right: 10px;
-	}
-}
+
 
 // Intro text on index page
 #intro {
