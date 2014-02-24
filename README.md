@@ -72,6 +72,40 @@ http://localhost:3000/venues
 ```
 
 ## Exporting data ##
+
+For the export function to work properly, we must first run some rake tasks to generate the exported files. The code can be found in `lib/tasks/bib_export.rake`(As of writing, there MAY be some files that cannot be exported due to some problems with Bibutils). To start the export, this 2 commands should be run first as the other exports rely on them:
+```
+$ rake export:export_paper_modsxml
+$ rake export:export_volume_modsxml
+```
+After that, we can run all of the foloowing commands in any order you prefer:
+```
+$ rake export:export_paper_bib
+$ rake export:export_paper_ris
+$ rake export:export_paper_endf
+$ rake export:export_paper_word
+$ rake export:export_paper_dblp
+$ rake export:export_volume_bib
+$ rake export:export_volume_ris
+$ rake export:export_volume_endf
+$ rake export:export_volume_word
+$ rake export:export_volume_dblp
+```
+For the ACM format, we have a different task in `lib/tasks/acm_export.rake`. The ACM format consist of a zip of the pdf papers and a csv file of all the papers in that volume. There are a few different tasks that could be run:
+```
+# To export only the zip file for E13-1:
+$ rake export:acm_volume_zip["E13-1"]
+# To export only the csv file for E13-1:
+$ rake export:acm_volume_csv["E13-1"]
+# To export zip files for all volumes in the anthology:
+$ rake export:acm_full["zip"]
+# To export csv files for all volumes in the anthology:
+$ rake export:acm_full["csv"]
+# To export everything in one line:
+$ rake export:acm_full
+```
+
+
 We allow to export all information in the ACL database to xml files in different formats. To export the data:
 ```
 $ rake export:xml
