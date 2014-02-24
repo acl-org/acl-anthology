@@ -30,8 +30,8 @@ class HomeController < ApplicationController
     # Getting popular papers
     @popular_papers = []
     @popular_authors = []
-    popular_papers_file =  "app/views/home/popular_papers"
-    popular_authors_file =  "app/views/home/popular_authors"
+    popular_papers_file =  "app/views/home/popular_papers.txt"
+    popular_authors_file =  "app/views/home/popular_authors.txt"
     papers_file = File.open(popular_papers_file,'r')
     authors_file = File.open(popular_authors_file,'r')
     papers_file.each { |line| @popular_papers << Paper.find_by_anthology_id(line.strip) }

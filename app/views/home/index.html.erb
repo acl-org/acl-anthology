@@ -97,7 +97,9 @@
 			<h5>Popular Papers this week</h5>
 			<ul>
 				<% @popular_papers.each do |paper| %>
-					<li><%= link_to paper.title, paper_path(paper) %></li>
+					<% if paper %>
+						<li><%= link_to paper.title, paper_path(paper) %></li>
+					<% end %>
 				<% end %>
 			</ul>
 		</div>
@@ -105,7 +107,9 @@
 			<h5>Popular Authors this week</h5>
 			<ul>
 				<% @popular_authors.each do |author| %>
-					<li><%= link_to author.full_name, person_path(author) %></li>
+					<% if author %>
+						<li><%= link_to author.full_name, person_path(author) %></li>
+					<% end %>
 				<% end %>
 			</ul>
 		</div>

@@ -20,7 +20,7 @@ require "net/http"
 require "uri"
 require 'htmlentities'
 
-def load_events(vol_id, ws_map)
+def load_events(vol_id, ws_map, joint_map)
 	venues = []
 	events = []
 	# Default volume - venue mappings
@@ -69,10 +69,12 @@ def load_events(vol_id, ws_map)
 	venues << @venue if @venue
 
 	# Joint meeting venues
-	joint_map[vol_id].split.each do |acronym|
-		venues << Venue.find_by_acronym(acronym)
+	if joint_map[vol_id]
+		joint_map[vol_id].split.each do |acronym|
+			venues << Venue.find_by_acronym(acronym)
+		end
 	end
-
+	
 	# Workshop mappings
 	if (vol_id[0] == 'W')
 		ws_map[vol_id].split.each do |acronym|
@@ -334,7 +336,7 @@ puts "Done seeding Venues."
 
 # Seed Volumes + Papers
 puts "Seeding Volumes..."
-codes = ['P', 'W']#['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#
+codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#['P', 'W']#
 years = ('65'..'99').to_a + ('00'..'13').to_a
 
 codes.each do |c|

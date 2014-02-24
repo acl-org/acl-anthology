@@ -37,7 +37,11 @@
       <dd><%= @paper.anthology_id %>&nbsp;</dd>
       <dt>Volume:</dt>
       <dd><%= link_to @in_volume.title, "/volumes/" + @in_volume.id.to_s %>&nbsp;</dd>
-      <dt>Author(s):</dt>
+      <% if @authors.size > 1 %>
+        <dt><strong>Authors:</strong></dt>
+      <% else %>
+        <dt><strong>Author:</strong></dt>
+      <% end %>  
       <dd>
         <% first_author = true %>
         <% @authors.each do |author| %>
@@ -55,7 +59,11 @@
       <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
       <dd><%= @paper.year %>&nbsp;</dd>
 
-      <dt><strong>Event(s):</strong></dt>
+      <% if @events.size > 1 %>
+        <dt><strong>Events:</strong></dt>
+      <% else %>
+        <dt><strong>Event:</strong></dt>
+      <% end %>  
       <dd>
         <% first_event = true %>
         <% @events.each do |event| %>
@@ -71,7 +79,11 @@
       <dt><strong><%= model_class.human_attribute_name(:address) %>:</strong></dt>
       <dd><%= @paper.address %>&nbsp;</dd>
 
-      <dt><strong>SIG(s):</strong></dt>
+      <% if @sigs.size > 1 %>
+        <dt><strong>SIGs:</strong></dt>
+      <% else %>
+        <dt><strong>SIG:</strong></dt>
+      <% end %>
       <dd>
         <% first_sig = true %>
         <% @sigs.each do |sig| %>
