@@ -1,20 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-# This file is used to seed all the data from the xml files to the database
-# To run use:
-# $ rake db:seed
-# On Heroku remote server:
-# $ heroku run rake db:seed
-
-
-# External library used to load and work with xml files:
-# http://www.germane-software.com/software/rexml/docs/tutorial.html
 require "rexml/document"
 require "net/http"
 require "uri"
@@ -237,142 +220,153 @@ def read_joint_meetings_hash()
 	return eval("{#{hash}}")
 end
 
-puts "* * * * * * * * * * Deleting Old Data Start  * * * * * * * * *"
+namespace :import do
+	desc "Import a single xml file into the database"
+	task :xml, [:volume_anthology,:local] => :environment do |t, args|
+		# Delete the old records of the volume and the join tables
+		String current_volume = "SELECT id FROM volumes WHERE anthology_id LIKE 'C92%'"
+		conn = ActiveRecord::Base.connection
+		conn.execute("DELETE FROM events_volumes WHERE volume_id IN (#{current_volume});")
+		conn.execute("DELETE FROM sigs_volumes WHERE volume_id IN (#{current_volume});")
+		conn.execute("DELETE FROM people_volumes WHERE volume_id IN (#{current_volume});")
+		conn.execute("DELETE FROM volumes WHERE id IN (#{current_volume});")
 
-if not(Volume.delete_all && Paper.delete_all && Person.delete_all && Sig.delete_all && Event.delete_all && Venue.delete_all)
-	puts "Error deleting databeses!"
-end
-
-conn = ActiveRecord::Base.connection
-# Delete old SIGs table and the sigs_volumes realationship
-conn.execute("TRUNCATE TABLE sigs_volumes;")
-conn.execute("TRUNCATE TABLE sigs RESTART IDENTITY;")
-
-# Delte old Venues and reset count of id
-conn.execute("TRUNCATE TABLE venues RESTART IDENTITY;")
-
-# Delete old Events table and the sigs_volumes realationship
-conn.execute("TRUNCATE TABLE events_volumes;")
-conn.execute("TRUNCATE TABLE events RESTART IDENTITY;")
-
-puts "* * * * * * * * * * Deleting Old Data End  * * * * * * * * * *"
-
-
-puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
-
-
-# Seed Volumes + Papers
-puts "Seeding Volumes..."
-codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#['P', 'W']#
-years = ('65'..'99').to_a + ('00'..'13').to_a
-
-codes.each do |c|
-	years.each do |y|
-		url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
-		url = URI.parse(url_string)
-		request = Net::HTTP.new(url.host, url.port)
-		response = request.request_head(url.path)
-		if response.kind_of?(Net::HTTPOK)
-			puts "Seeding: " + url_string	
-			String xml_data = Net::HTTP.get_response(URI.parse(url_string)).body
-			load_volume_xml(xml_data)
+		# If true passed as args, search for file locally and seed
+		if args[:local] == "true"
+			file_path = "import/" + args[:volume_anthology] + ".xml"
+			if File.exist?(file_path)
+				String xml_data = File.read(file_path)
+				puts "Seeding: #{file_path}"
+				load_volume_xml(xml_data)
+			else
+				puts "No xml found at location: #{file_path}"
+			end
+		# If no args passed, look online for volume
 		else
-			puts "Error connecting to #{url_string}"
+			c = args[:volume_anthology][0]
+			y = args[:volume_anthology][1..2]
+			url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
+			url = URI.parse(url_string)
+			request = Net::HTTP.new(url.host, url.port)
+			response = request.request_head(url.path)
+			if response.kind_of?(Net::HTTPOK)
+				puts "Seeding: " + url_string	
+				String xml_data = Net::HTTP.get_response(URI.parse(url_string)).body
+				load_volume_xml(xml_data)
+			else
+				puts "Error connecting to #{url_string}"
+			end
 		end
 	end
 end
-puts "Done seeding Volumes."
 
+namespace :import do
+	desc "Recreates the sigs"
+	task :sigs => :environment do |t, args|
+		puts "Seeding SIGs..."
+		# Delete old SIGs table and the sigs_volumes realationship
+		conn = ActiveRecord::Base.connection
+		conn.execute("TRUNCATE TABLE sigs_volumes;")
+		conn.execute("TRUNCATE TABLE sigs RESTART IDENTITY;")
 
-# Seed SIGs
-puts "Seeding SIGs..."
-
-sigs = ['sigann', 'sigbiomed', 'sigdat', 'sigdial', 'sigfsm', 'siggen', 'sighan', 'sighum', 'siglex', 
-	'sigmedia', 'sigmol', 'sigmt', 'signll', 'sigparse', 'sigmorphon', 'sigsem', 'semitic', 'sigslpat', 'sigwac']
-sigs.each do |sig|
-	url_string = "http://aclweb.org/anthology/#{sig}.yaml"
-	url = URI.parse(url_string)
-	request = Net::HTTP.new(url.host, url.port)
-	response = request.request_head(url.path)
-	if response.kind_of?(Net::HTTPOK)
-		puts "Seeding: " + url_string
-		String yaml_data = Net::HTTP.get_response(URI.parse(url)).body
-		load_sigs(yaml_data)
-	else
-		puts "Error connecting to #{url_string}"
+		sigs = ['sigann', 'sigbiomed', 'sigdat', 'sigdial', 'sigfsm', 'siggen', 'sighan', 'sighum', 'siglex', 
+			'sigmedia', 'sigmol', 'sigmt', 'signll', 'sigparse', 'sigmorphon', 'sigsem', 'semitic', 'sigslpat', 'sigwac']
+		sigs.each do |sig|
+			url_string = "http://aclweb.org/anthology/#{sig}.yaml"
+			url = URI.parse(url_string)
+			request = Net::HTTP.new(url.host, url.port)
+			response = request.request_head(url.path)
+			if response.kind_of?(Net::HTTPOK)
+				puts "Seeding: " + url_string
+				String yaml_data = Net::HTTP.get_response(URI.parse(url)).body
+				load_sigs(yaml_data)
+			else
+				puts "Error connecting to #{url_string}"
+			end
+		end
+		puts "Done seeding SIGs."
 	end
 end
-puts "Done seeding SIGs."
 
+namespace :import do
+	desc "Recreates the venues"
+	task :venues => :environment do |t, args|
+		puts "Seeding Venues..."
+		# Delte old Venues and reset count of id
+		conn = ActiveRecord::Base.connection
+		conn.execute("TRUNCATE TABLE venues RESTART IDENTITY;")
 
-# Seed Venues
-puts "Seeding Venues..."
-create_venues()
-puts "Done seeding Venues."
-
-
-# Seed Events
-puts "Seeding Events..."
-default_map = { 'A' => "ANLP", # ACL events
-				'C' => "COLING", # Non-ACL events
-				'D' => "EMNLP", # ACL events
-				'E' => "EACL", # ACL events
-				'F' => "JEP/TALN/RECITAL", # ACL events
-				'H' => "HLT", # Non-ACL events
-				'I' => "IJCNLP", # Non-ACL events
-				'J' => "CL", # ACL events
-				'L' => "LREC", # Non-ACL events
-				'M' => "MUC", # Non-ACL events
-				'N' => "NAACL", # ACL events
-				'O' => "ROCLING", # Non-ACL events
-				'P' => "ACL", # ACL events
-				'Q' => "TACL", # ACL events
-				'R' => "RANLP", # Non-ACL events
-				'S' => "SEMEVAL", # ACL events
-				'T' => "TINLAP", # Non-ACL events
-				'U' => "ALTA", # Non-ACL events
-				'X' => "TIPSTER", # Non-ACL events
-				'Y' => "PACLIC", # Non-ACL events
-			}
-ws_map = read_workshops_hash()
-joint_map = read_joint_meetings_hash()
-
-@volumes = Volume.all
-
-@volumes.each do |volume|
-	venues = []
-
-	volume_anthology = volume.anthology_id
-	# Default volume mappings
-	if default_map[volume_anthology[0]]
-		venues << Venue.find_by_acronym(default_map[volume_anthology[0]])
-	end
-
-	# Joint meeting venues
-	if joint_map[volume_anthology]
-		joint_map[volume_anthology].split.each do |acronym|
-			venues << Venue.find_by_acronym(acronym)
-		end
-	end
-
-	# Workshop mappings
-	if (volume_anthology[0] == 'W' && ws_map[volume_anthology])
-		ws_map[volume_anthology].split.each do |acronym|
-			venues << Venue.find_by_acronym(acronym)
-		end
-	end
-
-	venues.each do |venue|
-		year = ("20" + volume_anthology[1..2]).to_i if volume_anthology[1..2].to_i < 20
-		year = ("19" + volume_anthology[1..2]).to_i if volume_anthology[1..2].to_i > 60
-		@event = Event.find_or_create_by_venue_id_and_year(venue.id, year)
-		@event.volumes << volume
-		puts "Saved #{volume.anthology_id} in #{venue.acronym} (#{year}) "
+		create_venues()
+		puts "Done seeding Venues."
 	end
 end
-puts "Done seeding Events."
 
-puts "* * * * * * * * * * Seeding Data End * * * * * * * * * * * * *"
+namespace :import do
+	desc "Recreates the events"
+	task :events => :environment do |t, args|
+		puts "Seeding Events..."
+		# Delete old Events table and the sigs_volumes realationship
+		conn = ActiveRecord::Base.connection
+		conn.execute("TRUNCATE TABLE events_volumes;")
+		conn.execute("TRUNCATE TABLE events RESTART IDENTITY;")
 
+		default_map = { 'A' => "ANLP", # ACL events
+						'C' => "COLING", # Non-ACL events
+						'D' => "EMNLP", # ACL events
+						'E' => "EACL", # ACL events
+						'F' => "JEP/TALN/RECITAL", # ACL events
+						'H' => "HLT", # Non-ACL events
+						'I' => "IJCNLP", # Non-ACL events
+						'J' => "CL", # ACL events
+						'L' => "LREC", # Non-ACL events
+						'M' => "MUC", # Non-ACL events
+						'N' => "NAACL", # ACL events
+						'O' => "ROCLING", # Non-ACL events
+						'P' => "ACL", # ACL events
+						'Q' => "TACL", # ACL events
+						'R' => "RANLP", # Non-ACL events
+						'S' => "SEMEVAL", # ACL events
+						'T' => "TINLAP", # Non-ACL events
+						'U' => "ALTA", # Non-ACL events
+						'X' => "TIPSTER", # Non-ACL events
+						'Y' => "PACLIC", # Non-ACL events
+					}
+		ws_map = read_workshops_hash()
+		joint_map = read_joint_meetings_hash()
 
+		@volumes = Volume.all
 
+		@volumes.each do |volume|
+			venues = []
+
+			volume_anthology = volume.anthology_id
+			# Default volume mappings
+			if default_map[volume_anthology[0]]
+				venues << Venue.find_by_acronym(default_map[volume_anthology[0]])
+			end
+
+			# Joint meeting venues
+			if joint_map[volume_anthology]
+				joint_map[volume_anthology].split.each do |acronym|
+					venues << Venue.find_by_acronym(acronym)
+				end
+			end
+
+			# Workshop mappings
+			if (volume_anthology[0] == 'W' && ws_map[volume_anthology])
+				ws_map[volume_anthology].split.each do |acronym|
+					venues << Venue.find_by_acronym(acronym)
+				end
+			end
+
+			venues.each do |venue|
+				year = ("20" + volume_anthology[1..2]).to_i if volume_anthology[1..2].to_i < 20
+				year = ("19" + volume_anthology[1..2]).to_i if volume_anthology[1..2].to_i > 60
+				@event = Event.find_or_create_by_venue_id_and_year(venue.id, year)
+				@event.volumes << volume
+				puts "Saved #{volume.anthology_id} in #{venue.acronym} (#{year}) "
+			end
+		end
+		puts "Done seeding Events."
+	end
+end

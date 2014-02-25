@@ -42,14 +42,21 @@ If there is any error with the seeding process, most probably there is a problem
 ```
 $ rake db:drop
 ```
-After that you can start over with recreating the database.
+After that you can start over and recreate the database. If you wish to know more about individual file ingesting, [click here.](https://github.com/zamakkat/acl/wiki/Database-Seeding:-Ingesting-the-data#wiki-seeding-individual-volumes)
 
 ### Indexing ###
 Before using the search functionality, we will need to run the Solr server locally and index the data. First, we will need to set the user. Open `jetty/solr/blacklight-core/conf/data-config.xml` (or just use find to find this file) and change line 5 to your current user account:
 ```
 user="user_account"
+password=""
 ```
-After saving the file, we can start the Solr server:
+Then in the `jetty/solr/blacklight-core/conf/solrconfig.xml`, edit line 67 (it is for server only):
+```
+<str name="config">/var/opt/solr/solr/blacklight-core/conf/data-config.xml</str>
+Change to:
+<str name="config">data-config.xml</str>
+```
+After saving all files, we can start the Solr server:
 ```
 $ cd jetty; java -jar start.jar &
 ```
@@ -63,15 +70,9 @@ $ rails server
 ```
 You can go to the ACL rails app by going to http://localhost:3000/ in you browser.
 
-As of writing, the first page you will see is the Blacklight search page. Other pages you can browse through include:
-```
-http://localhost:3000/volumes
-http://localhost:3000/people
-http://localhost:3000/sigs
-http://localhost:3000/venues
-```
-
 ## Exporting data ##
+
+All exports will be saved to the `export` directory. Depending on file types, exports will be saved in different directories.
 
 ### Bib and DBLP Export ###
 
