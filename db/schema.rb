@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131229164956) do
+ActiveRecord::Schema.define(version: 20140302154249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,12 +31,28 @@ ActiveRecord::Schema.define(version: 20131229164956) do
     t.string   "kind"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "events", ["slug"], name: "index_events_on_slug", unique: true, using: :btree
 
   create_table "events_volumes", id: false, force: true do |t|
     t.integer "event_id"
     t.integer "volume_id"
   end
+
+  create_table "friendly_id_slugs", force: true do |t|
+    t.string   "slug",                      null: false
+    t.integer  "sluggable_id",              null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope"
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "papers", force: true do |t|
     t.integer  "volume_id"
@@ -54,7 +70,10 @@ ActiveRecord::Schema.define(version: 20131229164956) do
     t.string   "attach_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "papers", ["slug"], name: "index_papers_on_slug", unique: true, using: :btree
 
   create_table "papers_people", id: false, force: true do |t|
     t.integer "paper_id"
@@ -68,7 +87,10 @@ ActiveRecord::Schema.define(version: 20131229164956) do
     t.string   "full_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "people", ["slug"], name: "index_people_on_slug", unique: true, using: :btree
 
   create_table "people_volumes", id: false, force: true do |t|
     t.integer "person_id"
@@ -123,7 +145,10 @@ ActiveRecord::Schema.define(version: 20131229164956) do
     t.string   "venue_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "venues", ["slug"], name: "index_venues_on_slug", unique: true, using: :btree
 
   create_table "volumes", force: true do |t|
     t.string   "anthology_id"
@@ -138,6 +163,9 @@ ActiveRecord::Schema.define(version: 20131229164956) do
     t.string   "bibkey"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "volumes", ["slug"], name: "index_volumes_on_slug", unique: true, using: :btree
 
 end

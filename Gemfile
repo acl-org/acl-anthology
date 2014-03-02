@@ -61,6 +61,7 @@ gem 'rails_12factor', group: :production
 
 # Paginator 
 gem 'kaminari'
+gem 'friendly_id'
 
 # Translating html escape chars to unicode chars
 gem "htmlentities", "~> 4.3.1"

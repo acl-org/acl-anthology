@@ -11,6 +11,9 @@ class VolumesController < ApplicationController
   # GET /volumes/1.json
   def show
     set_volume
+    if request.path != volume_path(@volume)
+      redirect_to @volume, status: :moved_permanently
+    end
     # @papers = @volume.papers.page(params[:page]).per(20)
 
     @papers = @volume.papers.includes(:people)
@@ -84,7 +87,7 @@ class VolumesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_volume
-      @volume = Volume.find(params[:id])
+      @volume = Volume.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

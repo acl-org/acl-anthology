@@ -7,5 +7,8 @@ class CreateEvents < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_column :events, :slug, :string
+    add_index :events, :slug, unique: true
   end
 end

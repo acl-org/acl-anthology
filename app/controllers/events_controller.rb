@@ -11,6 +11,9 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     set_event
+    if request.path != event_path(@event)
+      redirect_to @event, status: :moved_permanently
+    end
     @volumes = @event.volumes
   end
 
@@ -66,7 +69,7 @@ class EventsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = Event.find(params[:id])
+      @event = Event.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

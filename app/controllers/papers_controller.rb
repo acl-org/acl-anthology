@@ -11,6 +11,9 @@ class PapersController < ApplicationController
   # GET /papers/1.json
   def show
     set_paper
+    if request.path != paper_path(@paper)
+      redirect_to @paper, status: :moved_permanently
+    end
     respond_to do |format|
       format.xml { send_data(File.read("export/mods/#{@paper.anthology_id}.xml"), :type => 'text/xml', :disposition => 'inline')}
       format.bib { send_data(File.read("export/bib/#{@paper.anthology_id}.bib"), :type => 'text/plain', :disposition => 'inline')}
@@ -80,7 +83,7 @@ class PapersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_paper
-      @paper = Paper.find(params[:id])
+      @paper = Paper.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

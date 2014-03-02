@@ -15,4 +15,11 @@ class Volume < ActiveRecord::Base
 	#validates :anthology_id, :title, :month, :year, :address, :publisher, :url, presence: true
 
 	#validates :anthology_id, uniqueness: true
+
+	extend FriendlyId
+	friendly_id :title, use: [:slugged, :history]
+
+	def should_generate_new_friendly_id?
+		title_changed?
+	end
 end

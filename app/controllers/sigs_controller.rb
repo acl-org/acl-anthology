@@ -11,6 +11,10 @@ class SigsController < ApplicationController
   # GET /sigs/1.json
   def show
     set_sig
+    if request.path != sig_path(@sig)
+      redirect_to @sig, status: :moved_permanently
+    end
+
     @volumes = @sig.volumes
     @volumes = @volumes.order("year DESC")
   end
@@ -67,7 +71,7 @@ class SigsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sig
-      @sig = Sig.find(params[:id])
+      @sig = Sig.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

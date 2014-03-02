@@ -11,6 +11,10 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     set_person
+    if request.path != person_path(@person)
+      redirect_to @person, status: :moved_permanently
+    end
+
     @papers = @person.papers.includes(:people)
     @volumes = @person.volumes
 
@@ -103,7 +107,7 @@ class PeopleController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person
-      @person = Person.find(params[:id])
+      @person = Person.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

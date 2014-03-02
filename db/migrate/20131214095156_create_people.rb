@@ -8,5 +8,8 @@ class CreatePeople < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_column :people, :slug, :string
+    add_index :people, :slug, unique: true
   end
 end

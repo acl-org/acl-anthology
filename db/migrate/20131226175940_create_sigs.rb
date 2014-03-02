@@ -7,5 +7,8 @@ class CreateSigs < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_column :sigs, :slug, :string
+    add_index :sigs, :slug, unique: true
   end
 end

@@ -11,6 +11,10 @@ class VenuesController < ApplicationController
   # GET /venues/1.json
   def show
     set_venue
+    if request.path != venue_path(@venue)
+      redirect_to @venue, status: :moved_permanently
+    end
+
     @events = @venue.events.page(params[:page]).per(20)
   end
 
@@ -66,7 +70,7 @@ class VenuesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_venue
-      @venue = Venue.find(params[:id])
+      @venue = Venue.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -17,5 +17,8 @@ class CreatePapers < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_column :papers, :slug, :string
+    add_index :papers, :slug, unique: true
   end
 end

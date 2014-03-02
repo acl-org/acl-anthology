@@ -7,5 +7,8 @@ class CreateVenues < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_column :venues, :slug, :string
+    add_index :venues, :slug, unique: true
   end
 end

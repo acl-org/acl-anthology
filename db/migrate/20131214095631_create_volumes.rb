@@ -14,5 +14,8 @@ class CreateVolumes < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_column :volumes, :slug, :string
+    add_index :volumes, :slug, unique: true
   end
 end
