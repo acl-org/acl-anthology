@@ -274,7 +274,7 @@ codes.each do |c|
 		response = request.request_head(url.path)
 		if response.kind_of?(Net::HTTPOK)
 			puts "Seeding: " + url_string	
-			String xml_data = Net::HTTP.get_response(URI.parse(url_string)).body
+			String xml_data = Net::HTTP.get_response(url).body
 			load_volume_xml(xml_data)
 		else
 			puts "Error connecting to #{url_string}"
@@ -296,7 +296,7 @@ sigs.each do |sig|
 	response = request.request_head(url.path)
 	if response.kind_of?(Net::HTTPOK)
 		puts "Seeding: " + url_string
-		String yaml_data = Net::HTTP.get_response(URI.parse(url)).body
+		String yaml_data = Net::HTTP.get_response(url).body
 		load_sigs(yaml_data)
 	else
 		puts "Error connecting to #{url_string}"
