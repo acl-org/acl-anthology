@@ -113,28 +113,12 @@
       <dd><%= @paper.bibkey %>&nbsp;</dd>
       <dt><strong>Bib Export formats:</strong></dt>
       <dd>
-        <div id="bib-export" class="form-inline">
-        <%= form_tag paper_path, method: :get do %>
-          <%= radio_button_tag 'format', :bib, false, :onclick => "this.form.submit();" %>
-          <%= label_tag :bib %>
-  
-          <%= radio_button_tag 'format', :ris, false, :onclick => "this.form.submit();" %>
-          <%= label_tag :ris %>
-          
-          <%= radio_button_tag 'format', :endf, false, :onclick => "this.form.submit();" %>
-          <%= label_tag :endf, "EndNote" %>
-
-          <%= radio_button_tag 'format', :xml, false, :onclick => "this.form.submit();" %>
-          <%= label_tag :xml, "Mods xml" %>
-
-          <%= radio_button_tag 'format', :word, false, :onclick => "this.form.submit();" %>
-          <%= label_tag :word %>
-
-          <%= radio_button_tag 'format', :dblp, false, :onclick => "this.form.submit();" %>
-          <%= label_tag :dblp, "DBLP" %>
-
-        <% end %>
-        </div>
+        <%= link_to "Bib", paper_path(@paper, format: :bib), :class => "export" %>
+        <%= link_to "Ris", paper_path(@paper, format: :ris), :class => "export" %>
+        <%= link_to "EndNote", paper_path(@paper, format: :endf), :class => "export" %>
+        <%= link_to "Mods xml", paper_path(@paper, format: :xml), :class => "export" %>
+        <%= link_to "Word", paper_path(@paper, format: :word), :class => "export" %>
+        <%= link_to "DBLP", paper_path(@paper, format: :dblp), :class => "export" %>
       </dd>
 
       <dt><strong><%= model_class.human_attribute_name(:attachment) %>:</strong></dt>

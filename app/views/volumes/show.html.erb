@@ -80,7 +80,15 @@
       <dd><%= @volume.bibkey %>&nbsp;</dd>
       <dt><strong>Bib Export formats:</strong></dt>
       <dd>
-        <div id="bib-export" class="form-inline">
+        <%= link_to "Bib", volume_path(@volume, format: :bib), :class => "export" %>
+        <%= link_to "Ris", volume_path(@volume, format: :ris), :class => "export" %>
+        <%= link_to "EndNote", volume_path(@volume, format: :endf), :class => "export" %>
+        <%= link_to "Mods xml", volume_path(@volume, format: :xml), :class => "export" %>
+        <%= link_to "Word", volume_path(@volume, format: :word), :class => "export" %>
+        <%= link_to "DBLP", volume_path(@volume, format: :dblp), :class => "export" %>
+        <%= link_to "ACM", volume_path(@volume, format: :acm), :class => "export" %>
+
+        <!-- <div id="bib-export" class="form-inline">
         <%= form_tag volume_path, method: :get do %>
           <%= radio_button_tag 'format', :bib, false, :onclick => "this.form.submit();" %>
           <%= label_tag :bib %>
@@ -103,7 +111,7 @@
           <%= radio_button_tag 'format', :acm, false, :onclick => "this.form.submit();" %>
           <%= label_tag :acm, "ACM" %>
         <% end %>
-        </div>
+        </div> -->
       </dd>
     </dl>
   </div>
