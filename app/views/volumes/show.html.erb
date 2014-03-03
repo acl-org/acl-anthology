@@ -1,7 +1,12 @@
 <div class="row">
   <%- model_class = Volume -%>
   <div class="span12 page-header">
-    <h3><%= @volume.title %></h3>
+    <h3>
+      <%= link_to image_tag("pdf.png", size: "24x24", title: "Open PDF of '#{@volume.title}'"), "http://aclweb.org/anthology/" + @volume.anthology_id, :target => "_blank" %>
+      <%= link_to image_tag("export.png", size: "24x24", title: "Export '#{@volume.title}' to bib format"), volume_path(@volume, format: :bib) %>
+      <%= link_to image_tag("search.png", size: "24x24", title: "Search for '#{@volume.title}' on Google"), "https://www.google.com/search?q=" + @volume.title, :target => "_blank"%>
+      <%= @volume.title %>
+    </h3>
   </div>
   <div class="span12">
     <dl class="dl-horizontal">
@@ -67,7 +72,7 @@
 
       <dt><strong><%= model_class.human_attribute_name(:publisher) %>:</strong></dt>
       <dd><%= @volume.publisher %>&nbsp;</dd>
-      <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
+      <dt><strong><%= model_class.human_attribute_name(:url).upcase %>:</strong></dt>
       <dd><%= link_to @volume.url, @volume.url, :target => "_blank" if @volume.url  %>&nbsp;</dd>
       <dt><strong><%= model_class.human_attribute_name(:bibtype) %>:</strong></dt>
       <dd><%= @volume.bibtype %>&nbsp;</dd>

@@ -229,6 +229,7 @@ namespace :import do
 		conn.execute("DELETE FROM events_volumes WHERE volume_id IN (#{current_volume});")
 		conn.execute("DELETE FROM sigs_volumes WHERE volume_id IN (#{current_volume});")
 		conn.execute("DELETE FROM people_volumes WHERE volume_id IN (#{current_volume});")
+		conn.execute("DELETE FROM papers WHERE volume_id IN (#{current_volume});")
 		conn.execute("DELETE FROM volumes WHERE id IN (#{current_volume});")
 
 		# If true passed as args, search for file locally and seed
