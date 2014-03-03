@@ -125,7 +125,11 @@ namespace :export do
 		if (args[:anthology_id])
 			@volume = Volume.find_by_anthology_id(args[:anthology_id])
 
-			export_zip(@volume)
+			if @volume
+				export_zip(@volume)
+			else
+				puts "Volume #{args[:anthology_id]} was not found!"
+			end
 		else
 			Volume.all.each do |volume|
 				export_zip(volume)
@@ -141,7 +145,11 @@ namespace :export do
 		if (args[:anthology_id])
 			@volume = Volume.find_by_anthology_id(args[:anthology_id])
 
-			export_csv(@volume)
+			if @volume
+				export_csv(@volume)
+			else
+				puts "Volume #{args[:anthology_id]} was not found!"
+			end
 		else
 			Volume.all.each do |volume|
 				export_csv(volume)

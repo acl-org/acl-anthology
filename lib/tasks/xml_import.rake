@@ -360,11 +360,13 @@ namespace :import do
 			end
 
 			venues.each do |venue|
-				year = ("20" + volume_anthology[1..2]).to_i if volume_anthology[1..2].to_i < 20
-				year = ("19" + volume_anthology[1..2]).to_i if volume_anthology[1..2].to_i > 60
-				@event = Event.find_or_create_by_venue_id_and_year(venue.id, year)
-				@event.volumes << volume
-				puts "Saved #{volume.anthology_id} in #{venue.acronym} (#{year}) "
+				if venue.id
+					year = ("20" + volume_anthology[1..2]).to_i if volume_anthology[1..2].to_i < 20
+					year = ("19" + volume_anthology[1..2]).to_i if volume_anthology[1..2].to_i > 60
+					@event = Event.where(venue_id: venue.id, year: year).first_or_create
+					@event.volumes << volume
+					puts "Saved #{volume.anthology_id} in #{venue.acronym} (#{year}) "
+				end
 			end
 		end
 		puts "Done seeding Events."

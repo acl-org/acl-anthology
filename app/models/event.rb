@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
 	friendly_id :venue_event, use: [:slugged, :history]
 
 	def venue_event
-		"#{Venue.find(:venue_id).acronym} #{year}"
+		"#{Venue.find(venue_id).acronym} #{year}".upcase
 	end
 
 	def should_generate_new_friendly_id?
