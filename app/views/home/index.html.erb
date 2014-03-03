@@ -22,15 +22,15 @@
 				<% @acronyms_acl.each do |acronym| %>
 				<tr>
 					<% @venue = Venue.find_by_acronym(acronym) %>
-					<th><%= link_to acronym, venue_path(@venue) %></th>
+					<th><%= link_to acronym, venue_path(Venue.friendly.find(@venue)) %></th>
 					<% @years_acl.each do |year| %>
 						<% @event = Event.find_by_venue_id_and_year(@venue.id, year.to_i) %>
 						<% if @event %>				
 							<% if acronym == "CL" && year == "1979" %>
-								<td><%= link_to "79-74", event_path(@event) %></td>
+								<td><%= link_to "79-74", event_path(Event.friendly.find(@event)) %></td>
 							<% else %>
 								<td <%= "class=first_col" if year == "2013" || year == "2009" || year == "1999" || year == "1989" %>>
-									<%= link_to year[2..4], event_path(@event) %></td>
+									<%= link_to year[2..4], event_path(Event.friendly.find(@event)) %></td>
 							<% end %>
 						<% else %>
 							<td <%= "class=first_col" if year == "2013" || year == "2009" || year == "1999" || year == "1989" %>></td>
@@ -45,11 +45,11 @@
 					<td colspan="35" class="first_col">
 					<% @sigs.each do |sig| %>
 						<% if sig.sigid == "SEMITIC" %>
-							<%= link_to sig.sigid, sig_path(sig) %> |
+							<%= link_to sig.sigid, sig_path(Sig.friendly.find(sig)) %> |
 						<% elsif sig.sigid == "SIGWAC" %>
-							<%= link_to sig.sigid[3..-1], sig_path(sig) %>
+							<%= link_to sig.sigid[3..-1], sig_path(Sig.friendly.find(sig)) %>
 						<% else %>
-							<%= link_to sig.sigid[3..-1], sig_path(sig) %> |
+							<%= link_to sig.sigid[3..-1], sig_path(Sig.friendly.find(sig)) %> |
 						<% end %>
 					<% end %>
 					</td>
@@ -74,12 +74,12 @@
 				<% @acronyms_nonacl.each do |acronym| %>
 				<tr>
 					<% @venue = Venue.find_by_acronym(acronym) %>
-					<th><%= link_to acronym, venue_path(@venue) %></th>
+					<th><%= link_to acronym, venue_path(Venue.friendly.find(@venue)) %></th>
 					<% @years_nonacl.each do |year| %>
 						<% @event = Event.find_by_venue_id_and_year(@venue.id, year.to_i) %>
 						<% if @event %>
 							<td <%= "class=first_col" if year == "2013" || year == "2009" || year == "1999" || year == "1989" || year == "1978" || year == "1969" %>>
-								<%= link_to year[2..4], event_path(@event) %></td>
+								<%= link_to year[2..4], event_path(Event.friendly.find(@event)) %></td>
 						<% else %>
 							<td <%= "class=first_col" if year == "2013" || year == "2009" || year == "1999" || year == "1989" || year == "1978" || year == "1969" %>></td>
 						<% end %>
@@ -98,7 +98,7 @@
 			<ul>
 				<% @popular_papers.each do |paper| %>
 					<% if paper %>
-						<li><%= link_to paper.title, paper_path(paper) %></li>
+						<li><%= link_to paper.title, paper_path(Paper.friendly.find(paper)) %></li>
 					<% end %>
 				<% end %>
 			</ul>
@@ -108,7 +108,7 @@
 			<ul>
 				<% @popular_authors.each do |author| %>
 					<% if author %>
-						<li><%= link_to author.full_name, person_path(author) %></li>
+						<li><%= link_to author.full_name, person_path(Person.friendly.find(author)) %></li>
 					<% end %>
 				<% end %>
 			</ul>

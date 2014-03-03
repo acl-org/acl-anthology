@@ -1,4 +1,4 @@
-<%= form_for @paper, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for Paper.friendly.find(@paper), :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
     <%= f.label :anthology_id, :class => 'control-label' %>
     <div class="controls">

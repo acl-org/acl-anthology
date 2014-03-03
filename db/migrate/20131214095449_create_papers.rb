@@ -3,7 +3,7 @@ class CreatePapers < ActiveRecord::Migration
     create_table :papers do |t|
       t.integer :volume_id
       t.string :anthology_id
-      t.string :title, :limit => 900
+      t.text :title
       t.string :month
       t.integer :year
       t.string :address
@@ -18,7 +18,7 @@ class CreatePapers < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_column :papers, :slug, :string
+    add_column :papers, :slug, :text
     add_index :papers, :slug, unique: true
   end
 end

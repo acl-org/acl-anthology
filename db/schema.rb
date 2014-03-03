@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20140302154249) do
   end
 
   create_table "friendly_id_slugs", force: true do |t|
-    t.string   "slug",                      null: false
+    t.text     "slug",                      null: false
     t.integer  "sluggable_id",              null: false
     t.string   "sluggable_type", limit: 50
     t.string   "scope"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20140302154249) do
   create_table "papers", force: true do |t|
     t.integer  "volume_id"
     t.string   "anthology_id"
-    t.string   "title",        limit: 900
+    t.text     "title"
     t.string   "month"
     t.integer  "year"
     t.string   "address"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20140302154249) do
     t.string   "attach_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "slug"
+    t.text     "slug"
   end
 
   add_index "papers", ["slug"], name: "index_papers_on_slug", unique: true, using: :btree
@@ -81,7 +81,6 @@ ActiveRecord::Schema.define(version: 20140302154249) do
   end
 
   create_table "people", force: true do |t|
-    t.integer  "person_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "full_name"
