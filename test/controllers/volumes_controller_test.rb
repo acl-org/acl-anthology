@@ -18,7 +18,7 @@ class VolumesControllerTest < ActionController::TestCase
 
   test "should create volume" do
     assert_difference('Volume.count') do
-      post :create, volume: { address: @volume.address, bibkey: @volume.bibkey, bibtype: @volume.bibtype, month: @volume.month, publisher: @volume.publisher, title: @volume.title, url: @volume.url, volume_id: @volume.volume_id, year: @volume.year }
+      post :create, volume: { acronym: @volume.acronym, address: @volume.address, bibkey: @volume.bibkey, bibtype: @volume.bibtype, month: @volume.month, publisher: @volume.publisher, title: @volume.title, url: @volume.url, anthology_id: @volume.anthology_id, year: @volume.year }
     end
 
     assert_redirected_to volume_path(assigns(:volume))
@@ -35,7 +35,7 @@ class VolumesControllerTest < ActionController::TestCase
   end
 
   test "should update volume" do
-    patch :update, id: @volume, volume: { address: @volume.address, bibkey: @volume.bibkey, bibtype: @volume.bibtype, month: @volume.month, publisher: @volume.publisher, title: @volume.title, url: @volume.url, volume_id: @volume.volume_id, year: @volume.year }
+    patch :update, id: @volume, volume: { acronym: @volume.acronym, address: @volume.address, bibkey: @volume.bibkey, bibtype: @volume.bibtype, month: @volume.month, publisher: @volume.publisher, title: @volume.title, url: @volume.url, anthology_id: @volume.anthology_id, year: @volume.year }
     assert_redirected_to volume_path(assigns(:volume))
   end
 

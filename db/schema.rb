@@ -113,7 +113,10 @@ ActiveRecord::Schema.define(version: 20140302154249) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
   end
+
+  add_index "sigs", ["slug"], name: "index_sigs_on_slug", unique: true, using: :btree
 
   create_table "sigs_volumes", id: false, force: true do |t|
     t.integer "sig_id"
