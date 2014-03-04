@@ -11,9 +11,6 @@ class VenuesController < ApplicationController
   # GET /venues/1.json
   def show
     set_venue
-    if request.path != venue_path(@venue)
-      redirect_to @venue, status: :moved_permanently
-    end
 
     @events = @venue.events.page(params[:page]).per(20)
   end

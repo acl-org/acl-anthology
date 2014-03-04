@@ -11,9 +11,7 @@ class PapersController < ApplicationController
   # GET /papers/1.json
   def show
     set_paper
-    if request.path != paper_path(@paper)
-      redirect_to @paper, status: :moved_permanently
-    end
+    
     respond_to do |format|
       format.xml { send_data(File.read("export/mods/#{@paper.anthology_id}.xml"), :type => 'text/xml', :disposition => 'inline')}
       format.bib { send_data(File.read("export/bib/#{@paper.anthology_id}.bib"), :type => 'text/plain', :disposition => 'inline')}

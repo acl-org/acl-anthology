@@ -11,9 +11,6 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     set_person
-    if request.path != person_path(@person)
-      redirect_to @person, status: :moved_permanently
-    end
 
     @papers = @person.papers.includes(:people)
     @volumes = @person.volumes

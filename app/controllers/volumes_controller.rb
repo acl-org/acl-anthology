@@ -11,9 +11,6 @@ class VolumesController < ApplicationController
   # GET /volumes/1.json
   def show
     set_volume
-    if request.path != volume_path(@volume)
-      redirect_to @volume, status: :moved_permanently
-    end
     # @papers = @volume.papers.page(params[:page]).per(20)
 
     @papers = @volume.papers.includes(:people)

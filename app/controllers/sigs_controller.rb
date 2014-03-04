@@ -11,9 +11,6 @@ class SigsController < ApplicationController
   # GET /sigs/1.json
   def show
     set_sig
-    if request.path != sig_path(@sig)
-      redirect_to @sig, status: :moved_permanently
-    end
 
     @volumes = @sig.volumes
     @volumes = @volumes.order("year DESC")

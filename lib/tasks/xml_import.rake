@@ -272,7 +272,7 @@ namespace :import do
 					end
 				end
 			end
-		elsif args[:volume_anthology].lenght == 3 # Ingesting a single volume
+		elsif args[:volume_anthology].length == 3 # Ingesting a single volume
 			puts "Seeding individual volume: #{args[:volume_anthology]}."
 			# Delete the old records of the volume and the join tables
 			String current_volume = "SELECT id FROM volumes WHERE anthology_id LIKE 'C92%'"

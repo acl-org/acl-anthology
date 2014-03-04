@@ -11,9 +11,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     set_event
-    if request.path != event_path(@event)
-      redirect_to @event, status: :moved_permanently
-    end
+    
     @volumes = @event.volumes
   end
 
