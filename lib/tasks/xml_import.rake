@@ -220,43 +220,99 @@ def read_joint_meetings_hash()
 	return eval("{#{hash}}")
 end
 
+def codes
+	['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
+end
+
+def years
+	('65'..'99').to_a + ('00'..'13').to_a
+end
+
 namespace :import do
 	desc "Import a single xml file into the database"
-	task :xml, [:volume_anthology,:local] => :environment do |t, args|
-		# Delete the old records of the volume and the join tables
-		String current_volume = "SELECT id FROM volumes WHERE anthology_id LIKE 'C92%'"
-		conn = ActiveRecord::Base.connection
-		conn.execute("DELETE FROM events_volumes WHERE volume_id IN (#{current_volume});")
-		conn.execute("DELETE FROM sigs_volumes WHERE volume_id IN (#{current_volume});")
-		conn.execute("DELETE FROM people_volumes WHERE volume_id IN (#{current_volume});")
-		conn.execute("DELETE FROM papers WHERE volume_id IN (#{current_volume});")
-		conn.execute("DELETE FROM volumes WHERE id IN (#{current_volume});")
+	task :xml, [:local,:volume_anthology] => :environment do |t, args|
+		if args[:volume_anthology] == nil # Ingesting the full database
+			# Delete everything from the old database
+			conn = ActiveRecord::Base.connection
+			conn.execute("TRUNCATE TABLE people RESTART IDENTITY;")
+			conn.execute("TRUNCATE TABLE people_volumes RESTART IDENTITY;")
+			conn.execute("TRUNCATE TABLE papers RESTART IDENTITY;")
+			conn.execute("TRUNCATE TABLE papers_people RESTART IDENTITY;")
+			conn.execute("TRUNCATE TABLE volumes RESTART IDENTITY;")
 
-		# If true passed as args, search for file locally and seed
-		if args[:local] == "true"
-			file_path = "import/" + args[:volume_anthology] + ".xml"
-			if File.exist?(file_path)
-				String xml_data = File.read(file_path)
-				puts "Seeding: #{file_path}"
-				load_volume_xml(xml_data)
+			# Ingest the new volumes
+			if args[:local] == "true"
+				puts "Seeding all volumes from local directory 'import'. Click Ctrl+C if you want to stop..."
+				codes.each do |c|
+					years.each do |y|
+						file_path = "import/#{c+y}.xml"
+						if File.exist?(file_path)
+							String xml_data = File.read(file_path)
+							puts "Seeding: #{file_path}"
+							load_volume_xml(xml_data)
+						end
+					end
+				end
+
 			else
-				puts "No xml found at location: #{file_path}"
+				puts "Seeding all volumes from anthology website. Click Ctrl+C if you want to stop..."
+				codes.each do |c|
+					years.each do |y|
+						url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
+						url = URI.parse(url_string)
+						request = Net::HTTP.new(url.host, url.port)
+						response = request.request_head(url.path)
+						if response.kind_of?(Net::HTTPOK)
+							puts "Seeding: " + url_string	
+							String xml_data = Net::HTTP.get_response(url).body
+							load_volume_xml(xml_data)
+						else
+							puts "Error connecting to #{url_string}"
+						end
+					end
+				end
 			end
-		# If no args passed, look online for volume
-		else
-			c = args[:volume_anthology][0]
-			y = args[:volume_anthology][1..2]
-			url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
-			url = URI.parse(url_string)
-			request = Net::HTTP.new(url.host, url.port)
-			response = request.request_head(url.path)
-			if response.kind_of?(Net::HTTPOK)
-				puts "Seeding: " + url_string	
-				String xml_data = Net::HTTP.get_response(URI.parse(url_string)).body
-				load_volume_xml(xml_data)
+		elsif args[:volume_anthology].lenght == 3 # Ingesting a single volume
+			puts "Seeding individual volume: #{args[:volume_anthology]}."
+			# Delete the old records of the volume and the join tables
+			String current_volume = "SELECT id FROM volumes WHERE anthology_id LIKE 'C92%'"
+			conn = ActiveRecord::Base.connection
+			conn.execute("DELETE FROM events_volumes WHERE volume_id IN (#{current_volume});")
+			conn.execute("DELETE FROM sigs_volumes WHERE volume_id IN (#{current_volume});")
+			conn.execute("DELETE FROM people_volumes WHERE volume_id IN (#{current_volume});")
+			conn.execute("DELETE FROM papers WHERE volume_id IN (#{current_volume});")
+			conn.execute("DELETE FROM volumes WHERE id IN (#{current_volume});")
+
+			# If true passed as args, search for file locally and seed
+			if args[:local] == "true"
+				file_path = "import/" + args[:volume_anthology] + ".xml"
+				if File.exist?(file_path)
+					String xml_data = File.read(file_path)
+					puts "Seeding: #{file_path}"
+					load_volume_xml(xml_data)
+				else
+					puts "No xml found at location: #{file_path}"
+				end
+			# If no args passed, look online for volume
 			else
-				puts "Error connecting to #{url_string}"
+				c = args[:volume_anthology][0]
+				y = args[:volume_anthology][1..2]
+				url_string = "http://aclweb.org/anthology/" + c + '/' + c + y + '/' + c + y + ".xml"
+				url = URI.parse(url_string)
+				request = Net::HTTP.new(url.host, url.port)
+				response = request.request_head(url.path)
+				if response.kind_of?(Net::HTTPOK)
+					puts "Seeding: " + url_string	
+					String xml_data = Net::HTTP.get_response(URI.parse(url_string)).body
+					load_volume_xml(xml_data)
+				else
+					puts "Error connecting to #{url_string}"
+				end
 			end
+		else # Wrong input from user
+			puts "Invalid rake task! Please read the wiki docs for more info...\n\n"
+			puts "To ingest all xml files from local:\n$ rake import:xml[true]"
+			puts "To ingest a single file, add anthology_id as args:\n$ rake import:xml[true,C92]"
 		end
 	end
 end
