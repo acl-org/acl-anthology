@@ -1,6 +1,7 @@
 class VolumesController < ApplicationController
   before_action :set_volume, only: [:show, :edit, :update, :destroy]
-
+  authorize_resource
+  
   # GET /volumes
   # GET /volumes.json
   def index

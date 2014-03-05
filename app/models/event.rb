@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+	resourcify
+	
 	belongs_to :venue
 
 	has_and_belongs_to_many :volumes

@@ -1,5 +1,6 @@
 class PapersController < ApplicationController
   before_action :set_paper, only: [:show, :edit, :update, :destroy]
+  authorize_resource
 
   # GET /papers
   # GET /papers.json

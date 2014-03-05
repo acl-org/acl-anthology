@@ -1,4 +1,6 @@
 class Venue < ActiveRecord::Base
+	resourcify
+	
 	has_many :events
   	validates_associated :events
   	accepts_nested_attributes_for :events

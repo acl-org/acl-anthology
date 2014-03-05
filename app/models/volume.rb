@@ -1,4 +1,6 @@
 class Volume < ActiveRecord::Base
+	resourcify
+	
 	has_and_belongs_to_many :sigs
 	accepts_nested_attributes_for :sigs
 	has_and_belongs_to_many :events

@@ -1,4 +1,6 @@
 class Paper < ActiveRecord::Base
+	resourcify
+	
 	belongs_to :volume
 
 	has_and_belongs_to_many :people

@@ -1,4 +1,6 @@
 class Person < ActiveRecord::Base
+	resourcify
+	
 	has_and_belongs_to_many :volumes
 
 	has_and_belongs_to_many :papers

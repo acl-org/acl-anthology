@@ -1,6 +1,7 @@
 class SigsController < ApplicationController
   before_action :set_sig, only: [:show, :edit, :update, :destroy]
-
+  authorize_resource
+  
   # GET /sigs
   # GET /sigs.json
   def index
