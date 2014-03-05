@@ -51,6 +51,8 @@ gem "blacklight_range_limit"
 gem "bootstrap-sass"
 gem "devise"
 gem "devise-guests", "~> 0.3"
+gem "cancan" 
+gem "rolify"
 
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
