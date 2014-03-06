@@ -1,5 +1,8 @@
 # ACL Anthology#
-Basic instructions on running the ACL anthology
+Basic instructions on running the ACL anthology. Note: If you are setting up the server and/or working on the server, please set the environment variable RAILS_ENV=production. One way is, each time you ssh to the server, run this once:
+```
+$ export RAILS_ENV=production
+```
 
 ## Installation ##
 These are the main steps to getting the ACL anthology running on your local machine. The whole process should take at least an hour or so, so be prepared. This is best done on any Linux based OS (MacOS, Ubuntu, Linux...) for the convience of tools used.
@@ -42,7 +45,9 @@ If there is any error with the seeding process, most probably there is a problem
 ```
 $ rake db:drop
 ```
-After that you can start over and recreate the database. If you wish to know more about individual file ingesting, [click here.](https://github.com/zamakkat/acl/wiki/Database-Seeding:-Ingesting-the-data#wiki-seeding-individual-volumes)
+After that you can start over and recreate the database.
+
+This is only one of the two methods to create the database. You can [click here](https://github.com/zamakkat/acl/wiki/Seeding-1:-Initial-database-seeding) to learn more about it or alternatively, you can use the second method: [Seeding 2: Individual elements](https://github.com/zamakkat/acl/wiki/Seeding-2:-Individual-elements)
 
 ### Indexing ###
 Before using the search functionality, we will need to run the Solr server locally and index the data. First, we will need to set the user. Open `jetty/solr/blacklight-core/conf/data-config.xml` (or just use find to find this file) and change line 5 to your current user account:
