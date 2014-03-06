@@ -1,8 +1,4 @@
-require 'blacklight/catalog'
-
 class HomeController < ApplicationController
-
-  include Blacklight::Catalog
 
   def index
   	message = "<strong>Dec 2013</strong><br> The
