@@ -75,6 +75,6 @@
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                volume_path(@paper.volume_id), :class => 'btn' %>
+                paper_path(Paper.friendly.find(@paper)), :class => 'btn' %>
   </div>
 <% end %>

@@ -6,6 +6,17 @@
       <%= link_to image_tag("export.png", size: "24x24", title: "Export '#{@volume.title}' to bib format"), volume_path(@volume, format: :bib) %>
       <%= link_to image_tag("search.png", size: "24x24", title: "Search for '#{@volume.title}' on Google"), "https://www.google.com/search?q=" + @volume.title, :target => "_blank"%>
       <%= @volume.title %>
+    
+      <!-- Volume controls -->
+      <% if ((user_signed_in?) && (can? :edit, @volume)) %>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_volume_path(@volume), :class => 'btn' %>
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                    volume_path(@volume),
+                    :method => 'delete',
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                    :class => 'btn btn-danger' %>
+      <% end %>  
     </h3>
   </div>
   <div class="span12">
@@ -115,19 +126,6 @@
       </dd>
     </dl>
   </div>
-
-  <!-- Volume controls -->
-  <!-- <div class="form-actions span12">
-    <%= link_to t('.back', :default => t("helpers.links.back")),
-                volumes_path, :class => 'btn'  %>
-    <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_volume_path(@volume), :class => 'btn' %>
-    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                volume_path(@volume),
-                :method => 'delete',
-                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                :class => 'btn btn-danger' %>
-  </div>    -->           
 
   <!-- Papers listing -->
   <div class="span12">

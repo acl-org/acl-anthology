@@ -6,7 +6,7 @@ class Volume < ActiveRecord::Base
 	has_and_belongs_to_many :events
 	accepts_nested_attributes_for :events
 
-	has_many :papers
+	has_many :papers, :dependent => :destroy
   	validates_associated :papers
   	accepts_nested_attributes_for :papers
 

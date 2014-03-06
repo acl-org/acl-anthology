@@ -1,7 +1,13 @@
 <div class="row">
   <%- model_class = Sig -%>
   <div class="span12 page-header">
-    <h3 style=""><%= @sig.name %></h3>
+    <h3 style="">
+      <%= @sig.name %>
+      <% if ((user_signed_in?) && (can? :edit, @sig)) %>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_sig_path(@sig), :class => 'btn' %>
+      <% end %>
+    </h3>
     <h5><%= link_to @sig.sigid + " homepage", @sig.url, :target => "_blank" if @sig.url %>&nbsp;</h5>
   </div>
 

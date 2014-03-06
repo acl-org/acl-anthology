@@ -129,16 +129,18 @@
   </div>
 
   <!-- Papers actions -->
-  <!-- <div class="form-actions span12">
-      <%= link_to t('.back', :default => t("helpers.links.back")),
-                  volume_path(@paper.volume_id), :class => 'btn'  %>
-      <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                  edit_paper_path(@paper), :class => 'btn' %>
-      <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                  paper_path(@paper),
-                  :method => 'delete',
-                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                  :class => 'btn btn-danger' %>
-    </div> -->
+    <% if ((user_signed_in?) && (can? :edit, @paper)) %>
+      <div class="form-actions span12">
+        <%= link_to "Back to Volume",
+                    volume_path(@paper.volume_id), :class => 'btn'  %>
+        <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                    edit_paper_path(@paper), :class => 'btn' %>
+        <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                    paper_path(@paper),
+                    :method => 'delete',
+                    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                    :class => 'btn btn-danger' %>
+      </div>
+    <% end %>
   </div>
 </div>
