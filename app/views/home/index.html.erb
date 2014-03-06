@@ -1,13 +1,17 @@
 <div class="row">
+	<% cache "intro_text", expires_in: 1.day do %>
 	<div class="span2">
 		<div id="intro">
 			<h4>Welcome to the ACL Anthology</h4>
 			<p>The ACL Anthology currently hosts <%= Paper.count %> papers on the study of computational linguistics and natural language processing. Subscribe to the mailing list to receive announcements and updates to the Anthology.</p>
 		</div>
-		<% render "catalog/search_sidebar" %>
 	</div>
+	<% end %>
 	
 	<div class="span10">
+
+		<% cache "index_tables", expires_in: 1.day do %>
+
 		<!-- ACL Events -->
 		<table class="table-index">
 			<thead>
@@ -96,11 +100,15 @@
 				<% end %>
 			</tbody>
 		</table>
+		<% end %><!--  End cahing -->
+
 		<div id="notes">
 			<h5></h5>
 			<p></p>
 		</div>
 		<hr>
+
+		<% cache "popular_papers", expires_in: 1.day do %>
 		<div class="span6" style="margin-left: 0px;">
 			<h5>Popular Papers this week</h5>
 			<ul>
@@ -112,6 +120,9 @@
 				<% end %>
 			</ul>
 		</div>
+		<% end %>
+
+		<% cache "popular_authors", expires_in: 1.day do %>
 		<div class="span3" style="float:right;">
 			<h5>Popular Authors this week</h5>
 			<ul>
@@ -123,6 +134,8 @@
 				<% end %>
 			</ul>
 		</div>
+		<% end %>
+
 	</div>
 
 </div>
