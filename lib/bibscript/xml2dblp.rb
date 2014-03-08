@@ -114,7 +114,7 @@ else
 		ti = publ.add_element 'title'
 		ti.text = mods.elements["titleInfo/title"].text
 
-		if mods.elements["part/extent/start"] && mods.elements["part/extent/end"]
+		if mods.elements["part/extent/start"] && mods.elements["part/extent/end"] && mods.elements["part/extent/start"].text && mods.elements["part/extent/end"].text
 			pages = publ.add_element 'pages'
 			pages.text = mods.elements["part/extent/start"].text + "-" + mods.elements["part/extent/end"].text
 		end
