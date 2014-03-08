@@ -359,11 +359,11 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "converting to dblp volume #{volume.anthology_id}"
-				`ruby lib/bibscript/xml2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
+				`ruby lib/bibscript/xml2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.xml`
 			end
 		else
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
-			`ruby lib/bibscript/xml2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
+			`ruby lib/bibscript/xml2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.xml`
 		end
 	end
 

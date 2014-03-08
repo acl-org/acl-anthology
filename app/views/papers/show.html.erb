@@ -118,7 +118,7 @@
         <%= link_to "EndNote", paper_path(@paper, format: :endf), :class => "export" %>
         <%= link_to "Mods xml", paper_path(@paper, format: :xml), :class => "export" %>
         <%= link_to "Word", paper_path(@paper, format: :word), :class => "export" %>
-        <%= link_to "DBLP", paper_path(@paper, format: :dblp), :class => "export" %>
+        <% link_to "DBLP", paper_path(@paper, format: :dblp), :class => "export" %>
       </dd>
 
       <dt><strong><%= model_class.human_attribute_name(:attachment) %>:</strong></dt>
