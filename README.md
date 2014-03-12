@@ -69,6 +69,10 @@ Open a new terminal window and index the data:
 ```
 $ rake acl:reindex_solr 
 ```
+You can check the indexing process by going here (this is for the production server, and you have to be connected to SoC network):
+```
+http://acl-anthology-i.comp.nus.edu.sg:8983/solr/#/blacklight-core/dataimport//dataimport
+```
 At this point, your setup is completed and you can run the rails server to test the app:
 ```
 $ rails server
