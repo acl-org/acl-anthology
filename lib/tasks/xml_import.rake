@@ -95,7 +95,9 @@ def load_volume_xml(xml_data)
 			@front_matter.attachment	= "none"
 			@front_matter.attach_type	= "none"
 
-			@curr_volume.papers << @front_matter # Save front_matter
+			if @front_matter.anthology_id[0] != 'J' # Journals don't have front matter
+				@curr_volume.papers << @front_matter # Save front_matter
+			end
 
 		else # If not, we assume it is a paper
 			p = doc.elements[i] # Short hand for easier reading

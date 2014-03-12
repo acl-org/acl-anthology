@@ -83,7 +83,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'paper_anthology', :label => 'Anthology ID:'
     config.add_index_field 'volume_anthology', :label => 'Volume anthology:', :helper_method => :volume_helper_method
     config.add_index_field 'author', :label => 'Author:', :helper_method => :author_helper_method
-    config.add_index_field 'publish_date', :label => 'Publish date:'
+    config.add_index_field 'publish_date', :label => 'Year'
     config.add_index_field 'sig_iden', :label => 'Sig ID:', :helper_method => :sig_helper_method
     config.add_index_field 'attach_type', :label => 'Attachment type:', :link_to_search => true
     
@@ -94,8 +94,8 @@ class CatalogController < ApplicationController
     config.add_show_field 'paper_anthology', :label => 'Anthology ID:'
     config.add_show_field 'volume_anthology', :label => 'Volume anthology:', :helper_method => :volume_helper_method
     config.add_show_field 'author', :label => 'Author:', :helper_method => :author_helper_method
-    config.add_show_field 'publish_date', :label => 'Publish date'
-    config.add_show_field 'sig_name', :label => 'Sig name:'
+    config.add_show_field 'publish_date', :label => 'Year'
+    config.add_show_field 'sig_name', :label => 'SIG'
     config.add_show_field 'sig_iden', :label => 'Sig ID:', :helper_method => :sig_helper_method
     config.add_show_field 'sig_url', :label => 'Sig url:'
     config.add_show_field 'event_kind', :label => 'Event kind:'
@@ -136,9 +136,9 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field 'sig_name', :label => 'Sig Name'
+    config.add_search_field 'sig_name', :label => 'SIG'
 
-    config.add_search_field('publish_date') do |field|
+    config.add_search_field('publish_date', :label => 'Year') do |field|
       field.solr_local_parameters = {
         :qf => '$publish_year_qf'
       }

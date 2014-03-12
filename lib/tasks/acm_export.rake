@@ -60,7 +60,7 @@ end
 
 def export_zip(volume)
 	zip_name = "export/acm/" + volume.anthology_id + ".zip"
-	puts "Creating zip for volume " + @volume.anthology_id + " at location " + zip_name
+	puts "Exporting ACM(zip) for volume " + @volume.anthology_id + " at location " + zip_name
 
 	tempfiles = create_temp_files(volume)
 
@@ -101,7 +101,7 @@ end
 
 def export_csv(volume)
 	csv_file = File.new("export/acm/" + volume.anthology_id + ".csv",'w')
-	puts "Saving csv file for volume " + volume.anthology_id
+	puts "Exporting ACM(csv) file for volume " + volume.anthology_id
 	volume.papers.each do |paper|
 		type = "Full Paper"
 		title = "" + paper.title

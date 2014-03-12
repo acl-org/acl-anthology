@@ -1,24 +1,42 @@
 namespace :export do
 	desc "Export all bibliography formats one by one for papers."
-	task :all_papers => :environment do |t|
-		Rake::Task['export:paper_modsxml'].invoke
-		Rake::Task['export:paper_bib'].invoke
-		Rake::Task['export:paper_ris'].invoke
-		Rake::Task['export:paper_endf'].invoke
-		Rake::Task['export:paper_word'].invoke
+	task :all_papers, [:anthology_id] => :environment do |t,args|
+		if args[:anthology_id]
+			Rake::Task["export:paper_modsxml"].invoke(args[:anthology_id])
+			Rake::Task["export:paper_bib"].invoke(args[:anthology_id])
+			Rake::Task["export:paper_ris"].invoke(args[:anthology_id])
+			Rake::Task["export:paper_endf"].invoke(args[:anthology_id])
+			Rake::Task["export:paper_word"].invoke(args[:anthology_id])
+		else
+			Rake::Task['export:paper_modsxml'].invoke
+			Rake::Task['export:paper_bib'].invoke
+			Rake::Task['export:paper_ris'].invoke
+			Rake::Task['export:paper_endf'].invoke
+			Rake::Task['export:paper_word'].invoke
+		end
 	end
 end
 
 namespace :export do
 	desc "Export all bibliography formats one by one for volumes."
-	task :all_volumes => :environment do |t|
-		Rake::Task['export:volume_modsxml'].invoke
-		Rake::Task['export:volume_bib'].invoke
-		Rake::Task['export:volume_ris'].invoke
-		Rake::Task['export:volume_endf'].invoke
-		Rake::Task['export:volume_word'].invoke
-		Rake::Task['export:volume_dblp'].invoke
-		Rake::Task['export:acm_full["csv"]'].invoke
+	task :all_volumes, [:anthology_id] => :environment do |t,args|
+		if args[:anthology_id]
+			Rake::Task["export:volume_modsxml"].invoke(args[:anthology_id])
+			Rake::Task["export:volume_bib"].invoke(args[:anthology_id])
+			Rake::Task["export:volume_ris"].invoke(args[:anthology_id])
+			Rake::Task["export:volume_endf"].invoke(args[:anthology_id])
+			Rake::Task["export:volume_word"].invoke(args[:anthology_id])
+			Rake::Task["export:volume_dblp"].invoke(args[:anthology_id])
+			Rake::Task["export:acm_volume_csv"].invoke(args[:anthology_id])
+		else
+			Rake::Task['export:volume_modsxml'].invoke
+			Rake::Task['export:volume_bib'].invoke
+			Rake::Task['export:volume_ris'].invoke
+			Rake::Task['export:volume_endf'].invoke
+			Rake::Task['export:volume_word'].invoke
+			Rake::Task['export:volume_dblp'].invoke
+			Rake::Task['export:acm_full["csv"]'].invoke
+		end
 	end
 end
 

@@ -214,10 +214,11 @@ namespace :export do
 	task :paper_modsxml, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
-				puts "exporting paper #{paper.anthology_id}"
+				puts "Exporting modsxml for paper #{paper.anthology_id}"
 				export_paper_mods paper
 			end
 		else
+			puts "Exporting modsxml for paper #{args[:anthology_id]}"
 			export_paper_mods Paper.find_by_anthology_id(args[:anthology_id])
 		end
 	end
@@ -226,10 +227,11 @@ namespace :export do
 	task :paper_bib, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
-				puts "converting to bib paper #{paper.anthology_id}"
+				puts "Exporting bib for paper #{paper.anthology_id}"
 				`xml2bib export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
 			end
 		else
+			puts "Exporting bib for paper #{args[:anthology_id]}"
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
 			`xml2bib export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
 		end
@@ -239,10 +241,11 @@ namespace :export do
 	task :paper_ris, [:anthology_id]=> :environment do |t, args|
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
-				puts "converting to ris paper #{paper.anthology_id}"
+				puts "Exporting ris for paper #{paper.anthology_id}"
 				`xml2ris export/mods/#{paper.anthology_id}.xml >export/ris/#{paper.anthology_id}.ris`
 			end
 		else
+			puts "Exporting ris for paper #{args[:anthology_id]}"
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
 			`xml2ris export/mods/#{paper.anthology_id}.xml >export/ris/#{paper.anthology_id}.ris`
 		end
@@ -252,10 +255,11 @@ namespace :export do
 	task :paper_endf, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
-				puts "converting to endf paper #{paper.anthology_id}"
+				puts "Exporting endf for paper #{paper.anthology_id}"
 				`xml2end export/mods/#{paper.anthology_id}.xml >export/endf/#{paper.anthology_id}.endf`
 			end
 		else
+			puts "Exporting endf for paper #{args[:anthology_id]}"
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
 			`xml2end export/mods/#{paper.anthology_id}.xml >export/endf/#{paper.anthology_id}.endf`
 		end
@@ -266,24 +270,26 @@ namespace :export do
 	task :paper_word, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
-				puts "converting to word paper #{paper.anthology_id}"
+				puts "Exporting word for paper #{paper.anthology_id}"
 				`xml2wordbib export/mods/#{paper.anthology_id}.xml >export/word/#{paper.anthology_id}.word`
 			end
 		else
+			puts "Exporting word for paper #{args[:anthology_id]}"
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
 			`xml2wordbib export/mods/#{paper.anthology_id}.xml >export/word/#{paper.anthology_id}.word`
 		end
 	end
 
 
-	desc "Export paper dblp"
+	desc "Export paper DBLP"
 	task :paper_dblp, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
-				puts "converting to dblp paper #{paper.anthology_id}"
+				puts "Exporting DBLP for paper #{paper.anthology_id}"
 				`ruby lib/bibscript/xml2dblp.rb export/mods/#{paper.anthology_id}.xml >export/dblp/#{paper.anthology_id}.html`
 			end
 		else
+			puts "Exporting DBLP for paper #{args[:anthology_id]}"
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
 			`ruby lib/bibscript/xml2dblp.rb export/mods/#{paper.anthology_id}.xml >export/dblp/#{paper.anthology_id}.html`
 		end
@@ -294,10 +300,11 @@ namespace :export do
 	task :volume_modsxml, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
-				puts "exporting volume #{volume.anthology_id}"
+				puts "Exporting modsxml for volume #{volume.anthology_id}"
 				export_volume_mods volume
 			end
 		else
+			puts "Exporting modsxml for volume #{args[:anthology_id]}"
 			export_volume_mods Volume.find_by_anthology_id(args[:anthology_id])
 		end
 	end
@@ -306,10 +313,11 @@ namespace :export do
 	task :volume_bib, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
-				puts "converting to bib volume #{volume.anthology_id}"
+				puts "Exporting bib for volume #{volume.anthology_id}"
 				`xml2bib export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
 			end
 		else
+			puts "Exporting bib for volume #{args[:anthology_id]}"
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
 			`xml2bib export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
 		end
@@ -319,10 +327,11 @@ namespace :export do
 	task :volume_ris, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
-				puts "converting to ris volume #{volume.anthology_id}"
+				puts "Exporting ris for volume #{volume.anthology_id}"
 				`xml2ris export/mods/#{volume.anthology_id}.xml >export/ris/#{volume.anthology_id}.ris`
 			end
 		else
+			puts "Exporting ris for volume #{args[:anthology_id]}"
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
 			`xml2ris export/mods/#{volume.anthology_id}.xml >export/ris/#{volume.anthology_id}.ris`
 		end
@@ -332,10 +341,11 @@ namespace :export do
 	task :volume_endf, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
-				puts "converting to endf volume #{volume.anthology_id}"
+				puts "Exporting endf for volume #{volume.anthology_id}"
 				`xml2end export/mods/#{volume.anthology_id}.xml >export/endf/#{volume.anthology_id}.endf`
 			end
 		else
+			puts "Exporting endf for volume #{args[:anthology_id]}"
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
 			`xml2end export/mods/#{volume.anthology_id}.xml >export/endf/#{volume.anthology_id}.endf`
 		end
@@ -345,23 +355,25 @@ namespace :export do
 	task :volume_word, [:anthology_id]=> :environment do |t, args|
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
-				puts "converting to word volume #{volume.anthology_id}"
+				puts "Exporting word for volume #{volume.anthology_id}"
 				`xml2wordbib export/mods/#{volume.anthology_id}.xml >export/word/#{volume.anthology_id}.word`
 			end
 		else
+			puts "Exporting word for volume #{args[:anthology_id]}"
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
 			`xml2wordbib export/mods/#{volume.anthology_id}.xml >export/word/#{volume.anthology_id}.word`
 		end
 	end
 
-	desc "Export volume dblp"
+	desc "Export volume DBLP"
 	task :volume_dblp, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
-				puts "converting to dblp volume #{volume.anthology_id}"
+				puts "Exporting DBLP for volume #{volume.anthology_id}"
 				`ruby lib/bibscript/xml2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.xml`
 			end
 		else
+			puts "Exporting DBLP for volume #{args[:anthology_id]}"
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
 			`ruby lib/bibscript/xml2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.xml`
 		end
@@ -371,7 +383,7 @@ namespace :export do
 	# task :export_volume_acm, [:anthology_id] => :environment do |t, args|
 	# 	if not args[:anthology_id]
 	# 		Volume.all.each do |volume|
-	# 			puts "converting to acm volume #{volume.anthology_id}"
+	# 			puts "Exporting acm volume #{volume.anthology_id}"
 	# 			`ruby lib/bibscript/mods2acm.rb export/mods/#{volume.anthology_id}.xml >export/csv/#{volume.anthology_id}.csv`
 	# 		end
 	# 	else
