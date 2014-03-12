@@ -206,6 +206,9 @@ def create_venues()
 	Venue.create(acronym: 'JEP/TALN/RECITAL', name: 'JEP/TALN/RECITAL', venue_type: 'Non ACL')
 	Venue.create(acronym: 'MUC', name: 'Message Understanding Conf.', venue_type: 'Non ACL')
 	Venue.create(acronym: 'TIPSTER', name: 'NIST\'s TIPSTER Text Program', venue_type: 'Non ACL')
+
+	# Added by Min (Wed Mar 12 13:40:55 SGT 2014)
+	Venue.create(acronym: 'INLG', name: 'International Natural Language Generation Conference', venue_type: 'ACL')
 end
 
 def read_workshops_hash()
@@ -225,7 +228,7 @@ def codes
 end
 
 def years
-	('65'..'99').to_a + ('00'..'13').to_a
+	('65'..'99').to_a + ('00'..'14').to_a
 end
 
 namespace :import do
