@@ -184,42 +184,25 @@ def load_sigs(yaml_data)
 end
 
 def create_venues()
-	Venue.create(acronym: 'CL', name: 'Computational Linguistics Journal', venue_type: 'ACL')
-	Venue.create(acronym: 'TACL', name: 'Transactions of the Association of the Computational Linguistics', venue_type: 'ACL')
-	Venue.create(acronym: 'ACL', name: 'ACL Annual Meeting', venue_type: 'ACL')
-	Venue.create(acronym: 'EACL', name: 'European Chapter of ACL', venue_type: 'ACL')
-	Venue.create(acronym: 'NAACL', name: 'North American Chapter of ACL', venue_type: 'ACL')
-	Venue.create(acronym: 'SEMEVAL', name: 'Lexical and Computational Semantics and Semantic Evaluation (formerly Workshop on Sense Evaluation)', venue_type: 'ACL')
-	Venue.create(acronym: 'ANLP', name: 'Applied Natural Language Processing Conference', venue_type: 'ACL')
-	Venue.create(acronym: 'EMNLP', name: 'Conference on Empirical Methods in Natural Language Processing (and forerunners)', venue_type: 'ACL')
-	Venue.create(acronym: 'WS', name: 'Workshops', venue_type: 'ACL')
+	String hash = File.read("db/venues.txt")
+	venues = eval("{#{hash}}")
 
-	Venue.create(acronym: 'COLING', name: 'Int\'l Committee on Computational Linguistics (ICCL) Conf.', venue_type: 'Non ACL')
-	Venue.create(acronym: 'HLT', name: 'Human Language Technology Conf.', venue_type: 'Non ACL')
-	Venue.create(acronym: 'IJCNLP', name: 'Int\'l Joint Conf. on Natural Language Processing (and workshops)', venue_type: 'Non ACL')
-	Venue.create(acronym: 'LREC', name: 'International Conference on Language Resources and Evaluation', venue_type: 'Non ACL')
-	Venue.create(acronym: 'PACLIC', name: 'Pacific Asia Conference on Language, Information and Computation', venue_type: 'Non ACL')
-	Venue.create(acronym: 'ROCLING', name: 'Rocling Computation Linguistics Conference and Journal', venue_type: 'Non ACL')
-	Venue.create(acronym: 'TINLAP', name: 'Theoretical Issues In Natural Language Processing', venue_type: 'Non ACL')
-	Venue.create(acronym: 'ALTA', name: 'Australasian Language Technology Association Workshop', venue_type: 'Non ACL')
-	Venue.create(acronym: 'RANLP', name: 'International Conference Recent Advances in Natural Language Processing', venue_type: 'Non ACL')
-	Venue.create(acronym: 'JEP/TALN/RECITAL', name: 'JEP/TALN/RECITAL', venue_type: 'Non ACL')
-	Venue.create(acronym: 'MUC', name: 'Message Understanding Conf.', venue_type: 'Non ACL')
-	Venue.create(acronym: 'TIPSTER', name: 'NIST\'s TIPSTER Text Program', venue_type: 'Non ACL')
-
-	# Added by Min (Wed Mar 12 13:40:55 SGT 2014)
-	Venue.create(acronym: 'INLG', name: 'International Natural Language Generation Conference', venue_type: 'ACL')
+	venues.each do |acronym, venue|
+		name = venue.split(':')[0]
+		venue_type = venue.split(':')[1]
+		Venue.create(acronym: acronym, name: name, venue_type: venue_type)
+	end
 end
 
 def read_workshops_hash()
 	puts "Loading workshop hash..."
-	String hash = File.read("db/ws_map.txt")	
+	String hash = File.read("db/ws_map.txt")
 	return eval("{#{hash}}")
 end
 
 def read_joint_meetings_hash()
 	puts "Loading joint meetings hash..."
-	String hash = File.read("db/joint_map.txt")	
+	String hash = File.read("db/joint_map.txt")
 	return eval("{#{hash}}")
 end
 
