@@ -12,14 +12,12 @@
 # On Heroku remote server:
 # $ heroku run rake db:seed
 
-
 # External library used to load and work with xml files:
 # http://www.germane-software.com/software/rexml/docs/tutorial.html
 require "rexml/document"
 require "net/http"
 require "uri"
 require 'htmlentities'
-
 
 def load_volume_xml(xml_data)
 
@@ -361,6 +359,3 @@ end
 puts "Done seeding Events."
 
 puts "* * * * * * * * * * Seeding Data End * * * * * * * * * * * * *"
-
-
-
