@@ -5,6 +5,10 @@ class Paper < ActiveRecord::Base
 
 	has_and_belongs_to_many :people
 	accepts_nested_attributes_for :people
+
+	has_many :revisions, :dependent => :destroy
+  	validates_associated :revisions
+  	accepts_nested_attributes_for :revisions
 	
 	#validates :anthology_id, :paper_id, :title, :month, :year, :address, :publisher, :url, presence: true
 

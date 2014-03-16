@@ -154,7 +154,17 @@ def load_volume_xml(xml_data)
 				@paper.attach_type	= "software"
 			end
 
-			@curr_volume.papers << @paper	
+			@curr_volume.papers << @paper
+
+			if p.elements['revision']
+				p.elements.each('revision') do |rev|
+					@rev = Revision.new
+					@rev.ver = rev.attributes["id"]
+					@rev.title = rev.text
+
+					@paper.revisions << @rev
+				end
+			end
 		end
 	end
 end
@@ -217,7 +227,7 @@ def years
 end
 
 namespace :import do
-	desc "Import a single xml file into the database"
+	desc "Import a xml file into the database"
 	task :xml, [:local,:volume_anthology] => :environment do |t, args|
 		if args[:volume_anthology] == nil # Ingesting the full database
 			# Delete everything from the old database
@@ -263,7 +273,7 @@ namespace :import do
 		elsif args[:volume_anthology].length == 3 # Ingesting a single volume
 			puts "Seeding individual volume: #{args[:volume_anthology]}."
 			# Delete the old records of the volume and the join tables
-			String current_volume = "SELECT id FROM volumes WHERE anthology_id LIKE 'C92%'"
+			String current_volume = "SELECT id FROM volumes WHERE anthology_id LIKE '#{args[:volume_anthology]}%'"
 			conn = ActiveRecord::Base.connection
 			conn.execute("DELETE FROM events_volumes WHERE volume_id IN (#{current_volume});")
 			conn.execute("DELETE FROM sigs_volumes WHERE volume_id IN (#{current_volume});")

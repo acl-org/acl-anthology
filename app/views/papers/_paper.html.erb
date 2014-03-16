@@ -1,5 +1,9 @@
 <p>
   <%= link_to image_tag("pdf.png", size: "16x16", title: "Open PDF of '#{paper.title}'"), "http://aclweb.org/anthology/" + paper.anthology_id, :target => "_blank" %>
+  <% if paper.revisions.size > 0 %>
+    <%= link_to '*', paper_path(paper), title: "This papers has been revised. Click here to view revised versions." %>
+  <% end %>
+
   <%= link_to image_tag("export.png", size: "16x16", title: "Export '#{paper.title}' to bib format"), paper_path(paper, format: :bib) %>
   <%= link_to image_tag("search.png", size: "16x16", title: "Search for '#{paper.title}' on Google"), "https://www.google.com/search?q=" + paper.title, :target => "_blank"%>
 
