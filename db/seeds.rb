@@ -25,10 +25,10 @@ def load_volume_xml(xml_data)
 
 	xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
-	xml_data.gsub!(/&/, '&amp;')
-	xml_data.gsub!(/<</, '&lt;&lt;')
+	xml_data.gsub!(/&/, '&amp;') 
+	xml_data.gsub!(/<</, '&lt;&lt;') 
 	xml_data.gsub!(/>>/, '&gt;&gt;')
-	xml_data.gsub!(/--/, '-')
+	xml_data.gsub!(/--/, '-') 
 
 	doc = REXML::Document.new xml_data
 	doc = doc.elements[1] # skipping the highest level tag
@@ -171,7 +171,17 @@ def load_volume_xml(xml_data)
 				@paper.attach_type	= "software"
 			end
 
-			@curr_volume.papers << @paper	
+			@curr_volume.papers << @paper
+
+			if p.elements['revision']
+				p.elements.each('revision') do |rev|
+					@rev = Revision.new
+					@rev.ver = rev.attributes["id"]
+					@rev.title = rev.text
+
+					@paper.revisions << @rev
+				end
+			end
 		end
 	end
 end
