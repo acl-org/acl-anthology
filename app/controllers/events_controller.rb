@@ -12,7 +12,8 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     set_event
-    
+    @page_title = "#{Venue.find(@event.venue_id).acronym} (#{@event.year})"
+
     @volumes = @event.volumes
   end
 
