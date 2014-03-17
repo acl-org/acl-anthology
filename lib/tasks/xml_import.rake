@@ -245,8 +245,8 @@ namespace :import do
 					years.each do |y|
 						file_path = "import/#{c+y}.xml"
 						if File.exist?(file_path)
-							String xml_data = File.read(file_path)
 							puts "Seeding: #{file_path}"
+							String xml_data = File.read(file_path)
 							load_volume_xml(xml_data)
 						end
 					end
@@ -285,8 +285,8 @@ namespace :import do
 			if args[:local] == "true"
 				file_path = "import/" + args[:volume_anthology] + ".xml"
 				if File.exist?(file_path)
-					String xml_data = File.read(file_path)
 					puts "Seeding: #{file_path}"
+					String xml_data = File.read(file_path)
 					load_volume_xml(xml_data)
 				else
 					puts "No xml found at location: #{file_path}"
@@ -317,7 +317,7 @@ end
 
 namespace :import do
 	desc "Recreates the sigs"
-	task :sigs => :environment do |t, args|
+	task :sigs, [:local] => :environment do |t, args|
 		puts "Seeding SIGs..."
 		# Delete old SIGs table and the sigs_volumes realationship
 		conn = ActiveRecord::Base.connection
@@ -326,17 +326,33 @@ namespace :import do
 
 		sigs = ['sigann', 'sigbiomed', 'sigdat', 'sigdial', 'sigfsm', 'siggen', 'sighan', 'sighum', 'siglex', 
 			'sigmedia', 'sigmol', 'sigmt', 'signll', 'sigparse', 'sigmorphon', 'sigsem', 'semitic', 'sigslpat', 'sigwac']
-		sigs.each do |sig|
-			url_string = "http://aclweb.org/anthology/#{sig}.yaml"
-			url = URI.parse(url_string)
-			request = Net::HTTP.new(url.host, url.port)
-			response = request.request_head(url.path)
-			if response.kind_of?(Net::HTTPOK)
-				puts "Seeding: " + url_string
-				String yaml_data = Net::HTTP.get_response(url).body
-				load_sigs(yaml_data)
-			else
-				puts "Error connecting to #{url_string}"
+
+		if args[:local] == "true"
+			puts "Using local import."
+			sigs.each do |sig|
+				file_path = "import/#{sig}.yaml"
+				if File.exist?(file_path)
+					puts "Seeding: #{file_path}"
+					String yaml_data = File.read(file_path)
+					load_sigs(xml_data)
+				else
+					puts "Could not find #{file_path}"
+				end
+			end
+		else
+			puts "Using online import."
+			sigs.each do |sig|
+				url_string = "http://aclweb.org/anthology/#{sig}.yaml"
+				url = URI.parse(url_string)
+				request = Net::HTTP.new(url.host, url.port)
+				response = request.request_head(url.path)
+				if response.kind_of?(Net::HTTPOK)
+					puts "Seeding: " + url_string
+					String yaml_data = Net::HTTP.get_response(url).body
+					load_sigs(yaml_data)
+				else
+					puts "Error connecting to #{url_string}"
+				end
 			end
 		end
 		puts "Done seeding SIGs."

@@ -13,7 +13,11 @@
       <meta http-equiv="cleartype" content="on">
     <![endif]-->
 
-    <title><%= h(@page_title || application_name) %></title>
+    <title>
+      <%= @page_title %>
+      <%= " - " if @page_title %>
+      <%= application_name %>
+    </title>
     <link href="<%= opensearch_catalog_path(:format => 'xml', :only_path => false) %>" title="<%= application_name%>" type="application/opensearchdescription+xml" rel="search"/>
     <%= favicon_link_tag asset_path('aclicon.ico') %>
     <%= stylesheet_link_tag    "application" %>

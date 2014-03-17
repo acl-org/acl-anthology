@@ -12,6 +12,7 @@ class PapersController < ApplicationController
   # GET /papers/1.json
   def show
     set_paper
+    @page_title = @paper.title
     
     respond_to do |format|
       format.xml { send_data(File.read("export/mods/#{@paper.anthology_id}.xml"), :type => 'text/xml', :disposition => 'inline')}

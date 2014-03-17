@@ -12,6 +12,7 @@ class VenuesController < ApplicationController
   # GET /venues/1.json
   def show
     set_venue
+    @page_title = @venue.acronym
 
     @events = @venue.events.page(params[:page]).per(20)
   end

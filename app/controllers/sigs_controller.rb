@@ -12,6 +12,7 @@ class SigsController < ApplicationController
   # GET /sigs/1.json
   def show
     set_sig
+    @page_title = @sig.sigid
 
     @volumes = @sig.volumes
     @volumes = @volumes.order("year DESC")

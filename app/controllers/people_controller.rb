@@ -12,6 +12,7 @@ class PeopleController < ApplicationController
   # GET /people/1.json
   def show
     set_person
+    @page_title = @person.full_name
 
     @papers = @person.papers.includes(:people)
     @volumes = @person.volumes
