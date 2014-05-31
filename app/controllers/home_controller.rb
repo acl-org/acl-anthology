@@ -1,12 +1,8 @@
 class HomeController < ApplicationController
 
   def index
-  	message = "<strong>Dec 2013</strong><br> The
-	<a href='U/U13'>Proceedings of the Australasian Language Technology Association Workshop 2013</a>
-	and the 
-	<a href='O/O13/''>Proceedings of the 25th Conference on Computational Linguistics and Speech Processing (ROCLING 2013)</a>
-    are available on the ACL Anthology."
-  	# flash[:alert] = 'Successfully checked in'
+  	message = File.read("app/views/home/_message.html")
+    # Written in html
   	flash.now[:notice] = message.html_safe
 
   	@acronyms_acl = ["CL", "TACL", "ACL", "EACL", "NAACL", "SEMEVAL", "ANLP", "EMNLP", "WS"]
