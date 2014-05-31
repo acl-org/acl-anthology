@@ -14,7 +14,7 @@ class VenuesController < ApplicationController
     set_venue
     @page_title = @venue.acronym
 
-    @events = @venue.events.page(params[:page]).per(20)
+    @events = @venue.events.order("year DESC")
   end
 
   # GET /venues/new

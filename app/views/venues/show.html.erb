@@ -4,7 +4,7 @@
     <h2><%= @venue.name %> (<%= @venue.acronym %>)</h2>
   </div>
 
-  <div class="span2">
+  <!-- <div class="span2">
     <%- event_class = Event -%>
     <h3 style="text-align:center"><%=t '.title', :default => event_class.model_name.human.pluralize.titleize %></h3>
     <table class="table table-striped">
@@ -25,6 +25,32 @@
       <%= render "venues/intros/" + @venue.acronym.downcase %>
     <% end %>
 
+  </div> -->
+
+  <div class="span12">
+    <% @events.each do |event| %>
+      <h4 style="text-align:center"><%= link_to @venue.acronym + " " + event.year.to_s, event_path(event) %></h4>
+      <% @volumes = event.volumes %>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Anthology</th>
+            <th>Volume</th>
+            <th>Papers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @volumes.each do |volume| %>
+            <tr>
+              <td><%= volume.anthology_id %></td>
+              <td><%= link_to volume.title, volume_path(volume) %></td>
+              <td><%= volume.papers.size %></td>
+            </tr>
+          <% end # of @volumes.each block %>
+        </tbody>
+      </table>
+      <br />
+    <% end # of @events.each block %>
   </div>
 
 </div>

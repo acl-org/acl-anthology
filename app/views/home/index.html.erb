@@ -13,7 +13,7 @@
 		<% cache "index_tables", expires_in: 1.day do %>
 
 		<!-- ACL Events -->
-		<table class="table-index">
+		<table class="table table-index">
 			<thead>
 				<tr>
 					<th>ACL Events</th>
@@ -32,12 +32,17 @@
 					<% @events = Event.order("year DESC").where(venue_id: venue.id, year: @years_acl) %>
 					<% event_count = 0 %>
 					<% @years_acl.each do |year| %>
-						<% if @events[event_count] && @events[event_count].year.to_s == year %>
+						<% event = @events[event_count] %>
+						<% is_new_event = check_new(event) %>
+						<% if event && event.year.to_s == year %>
 							<% if venue.acronym == "CL" && year == "1979" %>
-								<td><%= link_to "79-74", event_path(@events[event_count]) %></td>
+								<td <%= "class=success" if is_new_event %>>
+									<%= link_to "79-74", event_path(event) %>
+								</td>
 							<% else %>
-								<td <%= "class=first_col" if @border_years_acl.index(year) %>>
-									<%= link_to year[2..4], event_path(@events[event_count]) %></td>
+								<td <%= "class=first_col" if @border_years_acl.index(year) %> <%= "class=success" if is_new_event %>>
+									<%= link_to year[2..4], event_path(event) %>
+								</td>
 							<% end %>
 							<% event_count += 1 %>
 						<% else %>
@@ -66,7 +71,7 @@
 		</table>
 
 		<!-- Non-ACL Events -->
-		<table class="table-index">
+		<table class="table table-index">
 			<thead>
 				<tr>
 					<th>Non-ACL Events</th>
@@ -84,12 +89,17 @@
 					<% @events = Event.order("year DESC").where(venue_id: venue.id, year: @years_nonacl) %>
 					<% event_count = 0 %>
 					<% @years_nonacl.each do |year| %>
-						<% if @events[event_count] && @events[event_count].year.to_s == year %>
+						<% event = @events[event_count] %>
+						<% is_new_event = check_new(event) %>
+						<% if event && event.year.to_s == year %>
 							<% if venue.acronym == "CL" && year == "1979" %>
-								<td><%= link_to "79-74", event_path(@events[event_count]) %></td>
+								<td <%= "class=success" if is_new_event %>>
+									<%= link_to "79-74", event_path(event) %>
+								</td>
 							<% else %>
-								<td <%= "class=first_col" if @border_years_nonacl.index(year) %>>
-									<%= link_to year[2..4], event_path(@events[event_count]) %></td>
+								<td <%= "class=first_col" if @border_years_nonacl.index(year) %> <%= "class=success" if is_new_event %>>
+									<%= link_to year[2..4], event_path(event) %>
+								</td>
 							<% end %>
 							<% event_count += 1 %>
 						<% else %>
