@@ -15,7 +15,7 @@ class VolumesController < ApplicationController
     @page_title = @volume.title
     # @papers = @volume.papers.page(params[:page]).per(20)
 
-    @papers = @volume.papers.includes(:people)
+    @papers = @volume.papers.order(:anthology_id).includes(:people)
     @editors = @volume.people
 
     @events = @volume.events
