@@ -52,11 +52,12 @@
                 <field column="sigid" name="sig_iden"/>
               </entity>
               <entity name="event"
-                query="SELECT kind, venue_id, name, acronym FROM events_volumes EV, events E, venues V WHERE EV.event_id=E.id AND V.id=E.venue_id AND EV.volume_id='${volume.id}'">
+                query="SELECT kind, venue_id, name, acronym, venue_type FROM events_volumes EV, events E, venues V WHERE EV.event_id=E.id AND V.id=E.venue_id AND EV.volume_id='${volume.id}'">
                 <field column="kind" name="event_kind"/>
                 <field column="venue_id" name="venue_id"/>
                 <field column="name" name="venue_name"/>
                 <field column="acronym" name="venue_acronym"/>
+                <field column="venue_type" name="venue_type"/>
               </entity>
               <!-- <entity name="event"
                 query="SELECT * FROM events_volumes EV, events E WHERE EV.event_id=E.id AND EV.volume_id='${volume.id}'">

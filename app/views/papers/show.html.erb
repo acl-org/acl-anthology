@@ -29,7 +29,13 @@
   <%- model_class = Paper -%>
   <div class="span12 page-header">
     <h2>
-      <%= link_to image_tag("pdf.png", size: "24x24", title: "Open PDF of '#{@paper.title}'"), "http://aclweb.org/anthology/" + @paper.anthology_id, :target => "_blank" %>
+      <% if @paper.revisions.size > 0 %>
+        <%= link_to image_tag("pdf_rev.png", size: "24x24", title: "Open Revision PDF of '#{@paper.title}'"), "http://aclweb.org/anthology/#{@paper.revisions.last.title}.pdf", :target => "_blank" %>
+        <%= link_to image_tag("pdf.png", size: "24x24", title: "Open PDF of '#{@paper.title}'"), @paper.url, :target => "_blank" %>
+      <% else %>
+        <%= link_to image_tag("pdf.png", size: "24x24", title: "Open PDF of '#{@paper.title}'"), @paper.url, :target => "_blank" %>
+      <% end %>
+
       <%= link_to image_tag("export.png", size: "24x24", title: "Export '#{@paper.title}' to bib format"), paper_path(@paper, format: :bib) %>
       <%= link_to image_tag("search.png", size: "24x24", title: "Search for '#{@paper.title}' on Google"), "https://www.google.com/search?q=" + @paper.title, :target => "_blank" %>
       <%= @paper.title %>
@@ -41,9 +47,13 @@
       <dt><strong><%= model_class.human_attribute_name(:anthology_id) %>:</strong></dt>
       <dd><%= @paper.anthology_id %>&nbsp;</dd>
 
+      <% if @paper.revisions.size > 0 %>
+        <dt><strong>Revision v1:</strong></dt>
+        <dd><%= link_to @paper.anthology_id, @paper.url, :target => "_blank" %>&nbsp;</dd>
+      <% end %>
       <% @paper.revisions.each do |revision| %>
         <dt><strong>Revision v<%= revision.ver %>:</strong></dt>
-        <dd><%= link_to revision.title, "http://aclweb.org/anthology/#{revision.title}.pdf", :target => "_blank" %>&nbsp;</dd>
+        <dd><%= link_to revision.title, "http://aclweb.org/anthology/#{revision.title}", :target => "_blank" %>&nbsp;</dd>
       <% end %>
 
       <dt>Volume:</dt>
