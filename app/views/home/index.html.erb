@@ -36,17 +36,17 @@
 						<% is_new_event = check_new(event) %>
 						<% if event && event.year.to_s == year %>
 							<% if venue.acronym == "CL" && year == "1979" %>
-								<td <%= "class=success" if is_new_event %>>
+								<td <%= "id=new" if is_new_event %>>
 									<%= link_to "79-74", event_path(event) %>
 								</td>
 							<% else %>
-								<td <%= "class=first_col" if @border_years_acl.index(year) %> <%= "class=success" if is_new_event %>>
+								<td <%= "class=first_col" if @border_years_acl.include?(year) %> <%= "id=new" if is_new_event %>>
 									<%= link_to year[2..4], event_path(event) %>
 								</td>
 							<% end %>
 							<% event_count += 1 %>
 						<% else %>
-							<td <%= "class=first_col" if @border_years_acl.index(year) %>></td>
+							<td <%= "class=first_col" if @border_years_acl.include?(year) %>></td>
 						<% end %>
 					<% end %>
 				</tr>
@@ -93,17 +93,17 @@
 						<% is_new_event = check_new(event) %>
 						<% if event && event.year.to_s == year %>
 							<% if venue.acronym == "CL" && year == "1979" %>
-								<td <%= "class=success" if is_new_event %>>
+								<td <%= "id=new" if is_new_event %>>
 									<%= link_to "79-74", event_path(event) %>
 								</td>
 							<% else %>
-								<td <%= "class=first_col" if @border_years_nonacl.index(year) %> <%= "class=success" if is_new_event %>>
+								<td <%= "class=first_col" if @border_years_nonacl.include?(year) %> <%= "id=new" if is_new_event %>>
 									<%= link_to year[2..4], event_path(event) %>
 								</td>
 							<% end %>
 							<% event_count += 1 %>
 						<% else %>
-							<td <%= "class=first_col" if @border_years_nonacl.index(year) %>></td>
+							<td <%= "class=first_col" if @border_years_nonacl.include?(year) %> ></td>
 						<% end %>
 					<% end %>
 				</tr>
