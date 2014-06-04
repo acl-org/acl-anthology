@@ -38,7 +38,7 @@
 
       <%= link_to image_tag("export.png", size: "24x24", title: "Export '#{@paper.title}' to bib format"), paper_path(@paper, format: :bib) %>
       <%= link_to image_tag("search.png", size: "24x24", title: "Search for '#{@paper.title}' on Google"), "https://www.google.com/search?q=" + @paper.title, :target => "_blank" %>
-      <%= @paper.title %>
+      <%= link_to @paper.title, @paper.url, :target => "_blank" %>
     </h2>
   </div>
 
