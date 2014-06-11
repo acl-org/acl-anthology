@@ -6,9 +6,9 @@ class Venue < ActiveRecord::Base
   	accepts_nested_attributes_for :events
 
   	extend FriendlyId
-	friendly_id :acronym, use: [:slugged, :history]
+	friendly_id :acronym, use: :slugged
 
 	def should_generate_new_friendly_id?
-		acronym_changed?
+		new_record? || slug.blank?
 	end
 end

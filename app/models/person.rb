@@ -13,9 +13,13 @@ class Person < ActiveRecord::Base
 	#validates :last_name, uniqueness: {:scope => :first_name}
 
 	extend FriendlyId
-	friendly_id :full_name, use: [:slugged, :history]
+	friendly_id :person_slug, use: [:slugged, :history]
+
+	def person_slug
+		"#{full_name} #{id}"
+	end
 
 	def should_generate_new_friendly_id?
-		full_name_changed?
+		full_name_changed? || slug.blank?
 	end
 end

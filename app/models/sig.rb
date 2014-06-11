@@ -6,9 +6,9 @@ class Sig < ActiveRecord::Base
   	accepts_nested_attributes_for :volumes
   	
   	extend FriendlyId
-	friendly_id :sigid, use: [:slugged, :history]
+	friendly_id :sigid, use: :slugged
 
 	def should_generate_new_friendly_id?
-		sigid_changed?
+		new_record? || slug.blank?
 	end
 end
