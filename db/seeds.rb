@@ -171,6 +171,10 @@ def load_volume_xml(xml_data)
 				@paper.attachment	= p.elements['software'].text
 				@paper.attach_type	= "software"
 			end
+			if p.elements['note']
+				@paper.attachment	= p.elements['note'].text
+				@paper.attach_type	= "note"
+			end
 
 			@curr_volume.papers << @paper
 

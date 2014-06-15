@@ -11,6 +11,8 @@
 <% attach_type = document[:attach_type][0] %>
 <% if attach_type == "attachment" %>
 	<%= link_to image_tag("attachment.png", size: "16x16", title: "Open attachment: #{document[:attachment]}"), "http://aclweb.org/supplementals/#{document[:attachment][0]}/#{document[:attachment][0..2]}/#{document[:attachment]}", :target => "_blank" %>
+<% elsif attach_type == "note" %>
+	<%= link_to image_tag("note.png", size: "16x16", title: "Open note: #{document[:attachment]}"), "http://aclweb.org/supplementals/#{document[:attachment][0]}/#{document[:attachment][0..2]}/#{document[:attachment]}", :target => "_blank" %>
 <% elsif attach_type == "dataset" %>
 	<%= link_to image_tag("dataset.png", size: "16x16", title: "Open dataset: #{document[:attachment]}"), "http://aclweb.org/supplementals/#{document[:attachment][0]}/#{document[:attachment][0..2]}/#{document[:attachment]}", :target => "_blank" %>
 <% elsif attach_type == "software" %>
