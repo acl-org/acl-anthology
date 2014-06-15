@@ -160,8 +160,13 @@ def load_volume_xml(xml_data)
 			@paper.attachment	= "none" # By default set this to none, for easy indexing
 			@paper.attach_type	= "none" # By default set this to none, for easy indexing
 			if p.elements['attachment']
-				@paper.attachment	= p.elements['attachment'].text
-				@paper.attach_type	= "attachment"
+				if p.elements['attachment'].attributes['type'] == "note" # the attachment is a note
+					@paper.attachment	= p.elements['attachment'].text
+					@paper.attach_type	= "note"
+				else
+					@paper.attachment	= p.elements['attachment'].text
+					@paper.attach_type	= "attachment"
+				end
 			end
 			if p.elements['dataset']
 				@paper.attachment	= p.elements['dataset'].text
@@ -170,10 +175,6 @@ def load_volume_xml(xml_data)
 			if p.elements['software']
 				@paper.attachment	= p.elements['software'].text
 				@paper.attach_type	= "software"
-			end
-			if p.elements['note']
-				@paper.attachment	= p.elements['note'].text
-				@paper.attach_type	= "note"
 			end
 
 			@curr_volume.papers << @paper
