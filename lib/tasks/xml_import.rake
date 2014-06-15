@@ -8,7 +8,7 @@ def load_volume_xml(xml_data)
 
 	xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
-	xml_data.gsub!(/&/, '&amp;') 
+	xml_data.gsub!(/&/, '&amp;')
 	xml_data.gsub!(/<</, '&lt;&lt;') 
 	xml_data.gsub!(/>>/, '&gt;&gt;')
 	xml_data.gsub!(/--/, '-') 
@@ -145,8 +145,13 @@ def load_volume_xml(xml_data)
 			@paper.attachment	= "none" # By default set this to none, for easy indexing
 			@paper.attach_type	= "none" # By default set this to none, for easy indexing
 			if p.elements['attachment']
-				@paper.attachment	= p.elements['attachment'].text
-				@paper.attach_type	= "attachment"
+				if p.elements['attachment'].attributes['type'] == "note" # the attachment is a note
+					@paper.attachment	= p.elements['attachment'].text
+					@paper.attach_type	= "note"
+				else
+					@paper.attachment	= p.elements['attachment'].text
+					@paper.attach_type	= "attachment"
+				end
 			end
 			if p.elements['dataset']
 				@paper.attachment	= p.elements['dataset'].text
