@@ -154,6 +154,7 @@ def load_volume_xml(xml_data)
 			if p.attributes["href"] # There is an external link for this paper
 				@paper.url = p.attributes["href"]
 			end
+			@paper.mrf 			= p.elements['mrf'].text			if p.elements['mrf']
 			@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
 			@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
 			
