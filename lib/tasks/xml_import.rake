@@ -351,7 +351,8 @@ namespace :import do
 		else
 			puts "Using online import."
 			sigs.each do |sig|
-				url_string = "http://aclweb.org/anthology/#{sig}.yaml"
+				# Changed URL to temporary staging server
+				url_string = "http://69.195.124.161/~aclwebor/anthology//#{sig}.yaml"
 				url = URI.parse(url_string)
 				request = Net::HTTP.new(url.host, url.port)
 				response = request.request_head(url.path)
