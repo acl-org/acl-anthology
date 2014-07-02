@@ -343,7 +343,7 @@ namespace :import do
 				if File.exist?(file_path)
 					puts "Seeding: #{file_path}"
 					String yaml_data = File.read(file_path)
-					load_sigs(xml_data)
+					load_sigs(yaml_data)
 				else
 					puts "Could not find #{file_path}"
 				end
