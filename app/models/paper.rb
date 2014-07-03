@@ -15,7 +15,14 @@ class Paper < ActiveRecord::Base
 	#validates :paper_id, uniqueness: {:scope => :anthology_id}
 
 	extend FriendlyId
-	friendly_id :title, use: [:slugged, :history]
+	friendly_id :slug_candidates, use: [:slugged, :history]
+
+	def slug_candidates
+		[
+			:title,
+			[:title, :anthology_id]
+		]
+	end
 
 	def should_generate_new_friendly_id?
 		title_changed? || slug.blank?
