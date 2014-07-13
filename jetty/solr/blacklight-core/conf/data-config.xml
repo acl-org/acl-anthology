@@ -33,6 +33,7 @@
             <field column="anthology_id" name="paper_anthology"/>
             <field column="attach_type" name="attach_type"/>
             <field column="attachment" name="attachment"/>
+            <field column="layers" name="layers"/>
             <field column="mrf" name="mrf"/>
             <entity name="person" query="SELECT * FROM papers_people PA, people A WHERE PA.person_id = A.id AND PA.paper_id='${paper.id}'">
               <field column="id" name="author_id"/>
