@@ -149,6 +149,9 @@ def load_volume_xml(xml_data)
 				if p.elements['attachment'].attributes['type'] == "note" # the attachment is a note
 					@paper.attachment	= p.elements['attachment'].text
 					@paper.attach_type	= "note"
+				elsif p.elements['attachment'].attributes['type'] == "presentation" # the attachment is a presentation
+					@paper.attachment	= p.elements['attachment'].text
+					@paper.attach_type	= "presentation"
 				else
 					@paper.attachment	= p.elements['attachment'].text
 					@paper.attach_type	= "attachment"
