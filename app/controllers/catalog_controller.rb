@@ -61,6 +61,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'venue_acronym', :label => 'Venue', :limit => 15
     config.add_facet_field 'sig_iden', :label => 'SIG', :limit => 20
     config.add_facet_field 'attach_type', :label => 'Attachment'
+    config.add_facet_field 'mrf', :label => 'Layers'
 
 
     # config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']

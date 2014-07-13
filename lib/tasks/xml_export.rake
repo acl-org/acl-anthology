@@ -88,6 +88,12 @@ def export_papers_in_volume(volume, vol_tag)
 				elsif @paper.attach_type == "software"
 					attachment = pap.add_element 'software'
 					attachment.text = @paper.attachment
+				elsif @paper.attach_type == "note"
+					attachment = pap.add_element 'note'
+					attachment.text = @paper.attachment
+				elsif @paper.attach_type == "presentation"
+					attachment = pap.add_element 'presentation'
+					attachment.text = @paper.attachment
 				end
 			end
 			# SIG and venue information for each volume will be put in the front matter paper

@@ -17,6 +17,8 @@
     <%= link_to image_tag("software.png", size: "16x16", title: "Open software: #{paper.attachment}"), "http://anthology.aclweb.org/attachments/#{paper.attachment[0]}/#{paper.attachment[0..2]}/#{paper.attachment}", :target => "_blank" %>
   <% elsif paper.attach_type == "note" %>
     <%= link_to image_tag("note.png", size: "16x16", title: "Open note: #{paper.attachment}"), "http://anthology.aclweb.org/attachments/#{paper.attachment[0]}/#{paper.attachment[0..2]}/#{paper.attachment}", :target => "_blank" %>
+  <% elsif paper.attach_type == "presentation" %>
+    <%= link_to image_tag("presentation.png", size: "16x16", title: "Open presentation: #{paper.attachment}"), "http://anthology.aclweb.org/attachments/#{paper.attachment[0]}/#{paper.attachment[0..2]}/#{paper.attachment}", :target => "_blank" %>
   <% end %>
 
   <strong><%= link_to paper.title, paper_path(paper) %></strong><br>
