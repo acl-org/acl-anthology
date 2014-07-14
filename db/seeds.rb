@@ -161,6 +161,8 @@ def load_volume_xml(xml_data)
 			@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
 			@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
 			
+
+			# TODO: TO BE REMOVED LATER
 			@paper.attachment	= "none" # By default set this to none, for easy indexing
 			@paper.attach_type	= "none" # By default set this to none, for easy indexing
 			if p.elements['attachment']

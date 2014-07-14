@@ -9,16 +9,8 @@
   <%= link_to image_tag("export.png", size: "16x16", title: "Export '#{paper.title}' to bib format"), paper_path(paper, format: :bib) %>
   <%= link_to image_tag("search.png", size: "16x16", title: "Search for '#{paper.title}' on Google"), "https://www.google.com/search?q=" + paper.title, :target => "_blank"%>
 
-  <% if paper.attach_type == "attachment" %>
-    <%= link_to image_tag("attachment.png", size: "16x16", title: "Open attachment: #{paper.attachment}"), "http://anthology.aclweb.org/attachments/#{paper.attachment[0]}/#{paper.attachment[0..2]}/#{paper.attachment}", :target => "_blank" %>
-  <% elsif paper.attach_type == "dataset" %>
-    <%= link_to image_tag("dataset.png", size: "16x16", title: "Open dataset: #{paper.attachment}"), "http://anthology.aclweb.org/attachments/#{paper.attachment[0]}/#{paper.attachment[0..2]}/#{paper.attachment}", :target => "_blank" %>
-  <% elsif paper.attach_type == "software" %>
-    <%= link_to image_tag("software.png", size: "16x16", title: "Open software: #{paper.attachment}"), "http://anthology.aclweb.org/attachments/#{paper.attachment[0]}/#{paper.attachment[0..2]}/#{paper.attachment}", :target => "_blank" %>
-  <% elsif paper.attach_type == "note" %>
-    <%= link_to image_tag("note.png", size: "16x16", title: "Open note: #{paper.attachment}"), "http://anthology.aclweb.org/attachments/#{paper.attachment[0]}/#{paper.attachment[0..2]}/#{paper.attachment}", :target => "_blank" %>
-  <% elsif paper.attach_type == "presentation" %>
-    <%= link_to image_tag("presentation.png", size: "16x16", title: "Open presentation: #{paper.attachment}"), "http://anthology.aclweb.org/attachments/#{paper.attachment[0]}/#{paper.attachment[0..2]}/#{paper.attachment}", :target => "_blank" %>
+  <% paper.attachments.each do |attachment| %>
+    <%= link_to image_tag("#{attachment.attach_type}.png", size: "16x16", title: "Open #{attachment.attach_type}: #{attachment.name}"), attachment.url, :target => "_blank" %>
   <% end %>
 
   <strong><%= link_to paper.title, paper_path(paper) %></strong><br>

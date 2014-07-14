@@ -138,11 +138,11 @@
         <%= link_to "Word", paper_path(@paper, format: :word), :class => "export" %>
         <% link_to "DBLP", paper_path(@paper, format: :dblp), :class => "export" %>
       </dd>
-
-      <dt><strong><%= model_class.human_attribute_name(:attachment) %>:</strong></dt>
-      <dd><%= link_to @paper.attachment, "http://anthology.aclweb.org/attachments/#{@paper.attachment[0]}/#{@paper.attachment[0..2]}/#{@paper.attachment}" , :target => "_blank" %>&nbsp;</dd>
-      <dt><strong><%= model_class.human_attribute_name(:attachment_type) %>:</strong></dt>
-      <dd><%= @paper.attach_type %>&nbsp;</dd>
+      <% @paper.attachments.each do |attachment| %>
+        <dt><strong><%= attachment.attach_type.humanize %>:</strong></dt>
+        <dd><%= link_to attachment.name, attachment.url , :target => "_blank" %>&nbsp;</dd>
+      <% end %>
+      
     </dl>
   </div>
 

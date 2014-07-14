@@ -78,6 +78,8 @@ def export_papers_in_volume(volume, vol_tag)
 				bibkey = pap.add_element 'bibkey'
 				bibkey.text = @paper.bibkey
 			end
+
+			# TODO: To be checked for correct export later!
 			if @paper.attachment != "none"
 				if @paper.attach_type == "attachment"
 					attachment = pap.add_element 'attachment'

@@ -18,7 +18,7 @@ class PapersControllerTest < ActionController::TestCase
 
   test "should create paper" do
     assert_difference('Paper.count') do
-      post :create, paper: { address: @paper.address, attach_type: @paper.attach_type, attachment: @paper.attachment, bibkey: @paper.bibkey, bibtype: @paper.bibtype, month: @paper.month, pages: @paper.pages, anthology_id: @paper.anthology_id, publisher: @paper.publisher, title: @paper.title, url: @paper.url, volume_id: @paper.volume_id, year: @paper.year }
+      post :create, paper: { address: @paper.address, bibkey: @paper.bibkey, bibtype: @paper.bibtype, month: @paper.month, pages: @paper.pages, anthology_id: @paper.anthology_id, publisher: @paper.publisher, title: @paper.title, url: @paper.url, volume_id: @paper.volume_id, year: @paper.year }
     end
 
     assert_redirected_to paper_path(assigns(:paper))
@@ -35,7 +35,7 @@ class PapersControllerTest < ActionController::TestCase
   end
 
   test "should update paper" do
-    patch :update, id: @paper, paper: { address: @paper.address, attach_type: @paper.attach_type, attachment: @paper.attachment, bibkey: @paper.bibkey, bibtype: @paper.bibtype, month: @paper.month, pages: @paper.pages, anthology_id: @paper.anthology_id, publisher: @paper.publisher, title: @paper.title, url: @paper.url, volume_id: @paper.volume_id, year: @paper.year }
+    patch :update, id: @paper, paper: { address: @paper.address, bibkey: @paper.bibkey, bibtype: @paper.bibtype, month: @paper.month, pages: @paper.pages, anthology_id: @paper.anthology_id, publisher: @paper.publisher, title: @paper.title, url: @paper.url, volume_id: @paper.volume_id, year: @paper.year }
     assert_redirected_to paper_path(assigns(:paper))
   end
 
