@@ -30,11 +30,17 @@
             <field column="title" name="title"/>
             <field column="title" name="title_unstem"/>
             <field column="year" name="publish_date"/>
-            <field column="anthology_id" name="paper_anthology"/>
+            <field column="anthology_id" name="paper_anthology"/><!-- 
             <field column="attach_type" name="attach_type"/>
-            <field column="attachment" name="attachment"/>
+            <field column="attachment" name="attachment"/> -->
             <field column="layers" name="layers"/>
             <field column="mrf" name="mrf"/>
+            <entity name="attachment" query="SELECT * FROM attachments WHERE paper_id='${paper.id}'">
+              <field column="name" name="attachment"/>
+              <field column="attach_type" name="attach_type"/>
+              <field column="internal" name="attach_internal"/>
+              <field column="url" name="attach_url"/>
+            </entity>
             <entity name="person" query="SELECT * FROM papers_people PA, people A WHERE PA.person_id = A.id AND PA.paper_id='${paper.id}'">
               <field column="id" name="author_id"/>
               <field column="first_name" name="first_name"/>
