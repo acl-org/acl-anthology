@@ -148,22 +148,42 @@ def load_volume_xml(xml_data)
 			
 			@paper.attachment	= "none" # By default set this to none, for easy indexing
 			@paper.attach_type	= "none" # By default set this to none, for easy indexing
+
+			['attachment', 'dataset', 'software'].each do |attach_type|
+				p.elements.each(attach_type) do |at|
+					attachment = Attachment.new
+					attachment.name 		= at.text
+					attachment.attach_type  = at.attributes['type'] || attach_type
+					attachment.url 			= at.attributes['href'] || "http://anthology.aclweb.org/attachments/#{attachment.name[0]}/#{attachment.name[0..2]}/#{attachment.name}"
+					attachment.internal 	= !at.attributes['href'] # convert nil to true and value to false
+					
+					@paper.attachments << attachment
+				end
+			end
+				
+			# DELETE LATER!!!!!!!!!!!!!!!!!!!!!
+			# Keep backwards compatability with current UI and indexing
 			if p.elements['attachment']
-				if p.elements['attachment'].attributes['type'] == "note" # the attachment is a note
+				# There is a note attachment
+				if p.elements['attachment'].attributes['type'] == "note"
 					@paper.attachment	= p.elements['attachment'].text
 					@paper.attach_type	= "note"
-				elsif p.elements['attachment'].attributes['type'] == "presentation" # the attachment is a presentation
+				# There is a presentation attachment
+				elsif p.elements['attachment'].attributes['type'] == "presentation"
 					@paper.attachment	= p.elements['attachment'].text
 					@paper.attach_type	= "presentation"
+				# There is a normal attachment
 				else
 					@paper.attachment	= p.elements['attachment'].text
 					@paper.attach_type	= "attachment"
 				end
 			end
+			# There is a dataset attachment
 			if p.elements['dataset']
 				@paper.attachment	= p.elements['dataset'].text
 				@paper.attach_type	= "dataset"
 			end
+			# There is a software attachment
 			if p.elements['software']
 				@paper.attachment	= p.elements['software'].text
 				@paper.attach_type	= "software"
@@ -250,6 +270,7 @@ namespace :import do
 			conn.execute("TRUNCATE TABLE people RESTART IDENTITY;")
 			conn.execute("TRUNCATE TABLE people_volumes RESTART IDENTITY;")
 			conn.execute("TRUNCATE TABLE papers RESTART IDENTITY;")
+			conn.execute("TRUNCATE TABLE attachments RESTART IDENTITY;")
 			conn.execute("TRUNCATE TABLE papers_people RESTART IDENTITY;")
 			conn.execute("TRUNCATE TABLE volumes RESTART IDENTITY;")
 
@@ -288,11 +309,13 @@ namespace :import do
 		elsif args[:volume_anthology].length == 3 # Ingesting a single volume
 			puts "Seeding individual volume: #{args[:volume_anthology]}."
 			# Delete the old records of the volume and the join tables
-			String current_volume = "SELECT id FROM volumes WHERE anthology_id LIKE '#{args[:volume_anthology]}%'"
+			current_volume = "SELECT id FROM volumes WHERE anthology_id LIKE '#{args[:volume_anthology]}%'"
+			current_papers = "SELECT id FROM papers WHERE volume_id IN (#{current_volume})"
 			conn = ActiveRecord::Base.connection
 			conn.execute("DELETE FROM events_volumes WHERE volume_id IN (#{current_volume});")
 			conn.execute("DELETE FROM sigs_volumes WHERE volume_id IN (#{current_volume});")
 			conn.execute("DELETE FROM people_volumes WHERE volume_id IN (#{current_volume});")
+			conn.execute("DELETE FROM attachments WHERE paper_id IN (#{current_papers});")
 			conn.execute("DELETE FROM papers WHERE volume_id IN (#{current_volume});")
 			conn.execute("DELETE FROM volumes WHERE id IN (#{current_volume});")
 

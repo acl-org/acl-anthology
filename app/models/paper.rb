@@ -10,6 +10,8 @@ class Paper < ActiveRecord::Base
   	validates_associated :revisions
   	accepts_nested_attributes_for :revisions
 	
+  	has_many :attachments, :dependent => :destroy
+
 	#validates :anthology_id, :paper_id, :title, :month, :year, :address, :publisher, :url, presence: true
 
 	#validates :paper_id, uniqueness: {:scope => :anthology_id}
