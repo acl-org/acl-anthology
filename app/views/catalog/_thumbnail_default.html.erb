@@ -8,15 +8,11 @@
 <%= link_to image_tag("pdf.png", size: "16x16", title: "Open PDF of '#{document[:title]}'"), "http://aclweb.org/anthology/" + document[:paper_anthology], :target => "_blank" %>
 <%= link_to image_tag("export.png", size: "16x16", title: "Export '#{document[:title]}' to bib format"), paper_path(Paper.friendly.find(@paper), format: :bib) %>
 <%= link_to image_tag("search.png", size: "16x16", title: "Search for '#{document[:title]}' on Google"), "https://www.google.com/search?q=" + document[:title], :target => "_blank"%>
-<% attach_type = document[:attach_type][0] %>
-<% if attach_type == "attachment" %>
-	<%= link_to image_tag("attachment.png", size: "16x16", title: "Open attachment: #{document[:attachment]}"), "http://anthology.aclweb.org/attachments/#{document[:attachment][0]}/#{document[:attachment][0..2]}/#{document[:attachment]}", :target => "_blank" %>
-<% elsif attach_type == "note" %>
-	<%= link_to image_tag("note.png", size: "16x16", title: "Open note: #{document[:attachment]}"), "http://anthology.aclweb.org/attachments//#{document[:attachment][0]}/#{document[:attachment][0..2]}/#{document[:attachment]}", :target => "_blank" %>
-<% elsif attach_type == "presentation" %>
-	<%= link_to image_tag("presentation.png", size: "16x16", title: "Open presentation: #{document[:attachment]}"), "http://anthology.aclweb.org/attachments//#{document[:attachment][0]}/#{document[:attachment][0..2]}/#{document[:attachment]}", :target => "_blank" %>
-<% elsif attach_type == "dataset" %>
-	<%= link_to image_tag("dataset.png", size: "16x16", title: "Open dataset: #{document[:attachment]}"), "http://anthology.aclweb.org/attachments/#{document[:attachment][0]}/#{document[:attachment][0..2]}/#{document[:attachment]}", :target => "_blank" %>
-<% elsif attach_type == "software" %>
-	<%= link_to image_tag("software.png", size: "16x16", title: "Open software: #{document[:attachment]}"), "http://anthology.aclweb.org/attachments/#{document[:attachment][0]}/#{document[:attachment][0..2]}/#{document[:attachment]}", :target => "_blank" %>
+
+<% attachments = document[:attach_name] %>
+
+<% if attachments %>
+	<% attachments.each_with_index do |attachment, i| %>
+		<%= link_to image_tag("#{document[:attach_type][i]}.png", size: "16x16", title: "Open #{document[:attach_type][i]}: #{attachment}"), document[:attach_url][i], :target => "_blank" %>
+	<% end %>
 <% end %>
