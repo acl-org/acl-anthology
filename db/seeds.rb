@@ -161,29 +161,16 @@ def load_volume_xml(xml_data)
 			@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
 			@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
 			
-
-			# TODO: TO BE REMOVED LATER
-			@paper.attachment	= "none" # By default set this to none, for easy indexing
-			@paper.attach_type	= "none" # By default set this to none, for easy indexing
-			if p.elements['attachment']
-				if p.elements['attachment'].attributes['type'] == "note" # the attachment is a note
-					@paper.attachment	= p.elements['attachment'].text
-					@paper.attach_type	= "note"
-				elsif p.elements['attachment'].attributes['type'] == "presentation" # the attachment is a presentation
-					@paper.attachment	= p.elements['attachment'].text
-					@paper.attach_type	= "presentation"
-				else
-					@paper.attachment	= p.elements['attachment'].text
-					@paper.attach_type	= "attachment"
+			['attachment', 'dataset', 'software'].each do |attach_type|
+				p.elements.each(attach_type) do |at|
+					attachment = Attachment.new
+					attachment.name 		= at.text
+					attachment.attach_type  = at.attributes['type'] || attach_type
+					attachment.url 			= at.attributes['href'] || "http://anthology.aclweb.org/attachments/#{attachment.name[0]}/#{attachment.name[0..2]}/#{attachment.name}"
+					attachment.internal 	= !at.attributes['href'] # convert nil to true and value to false
+					
+					@paper.attachments << attachment
 				end
-			end
-			if p.elements['dataset']
-				@paper.attachment	= p.elements['dataset'].text
-				@paper.attach_type	= "dataset"
-			end
-			if p.elements['software']
-				@paper.attachment	= p.elements['software'].text
-				@paper.attach_type	= "software"
 			end
 
 			@curr_volume.papers << @paper

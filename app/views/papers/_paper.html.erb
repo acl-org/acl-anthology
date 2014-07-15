@@ -7,7 +7,7 @@
   <% end %>
 
   <%= link_to image_tag("export.png", size: "16x16", title: "Export '#{paper.title}' to bib format"), paper_path(paper, format: :bib) %>
-  <%= link_to image_tag("search.png", size: "16x16", title: "Search for '#{paper.title}' on Google"), "https://www.google.com/search?q=" + paper.title, :target => "_blank"%>
+  <%= link_to image_tag("search.png", size: "16x16", title: "Search for '#{paper.title}' on Google"), "https://www.google.com/search?q=#{paper.title}", :target => "_blank"%>
 
   <% paper.attachments.each do |attachment| %>
     <%= link_to image_tag("#{attachment.attach_type}.png", size: "16x16", title: "Open #{attachment.attach_type}: #{attachment.name}"), attachment.url, :target => "_blank" %>

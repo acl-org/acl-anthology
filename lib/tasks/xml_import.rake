@@ -145,10 +145,7 @@ def load_volume_xml(xml_data)
 			end
 			@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
 			@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
-			
-			@paper.attachment	= "none" # By default set this to none, for easy indexing
-			@paper.attach_type	= "none" # By default set this to none, for easy indexing
-
+		
 			['attachment', 'dataset', 'software'].each do |attach_type|
 				p.elements.each(attach_type) do |at|
 					attachment = Attachment.new
@@ -160,35 +157,7 @@ def load_volume_xml(xml_data)
 					@paper.attachments << attachment
 				end
 			end
-				
-			# DELETE LATER!!!!!!!!!!!!!!!!!!!!!
-			# Keep backwards compatability with current UI and indexing
-			if p.elements['attachment']
-				# There is a note attachment
-				if p.elements['attachment'].attributes['type'] == "note"
-					@paper.attachment	= p.elements['attachment'].text
-					@paper.attach_type	= "note"
-				# There is a presentation attachment
-				elsif p.elements['attachment'].attributes['type'] == "presentation"
-					@paper.attachment	= p.elements['attachment'].text
-					@paper.attach_type	= "presentation"
-				# There is a normal attachment
-				else
-					@paper.attachment	= p.elements['attachment'].text
-					@paper.attach_type	= "attachment"
-				end
-			end
-			# There is a dataset attachment
-			if p.elements['dataset']
-				@paper.attachment	= p.elements['dataset'].text
-				@paper.attach_type	= "dataset"
-			end
-			# There is a software attachment
-			if p.elements['software']
-				@paper.attachment	= p.elements['software'].text
-				@paper.attach_type	= "software"
-			end
-
+			
 			@curr_volume.papers << @paper
 
 			if p.elements['revision']
