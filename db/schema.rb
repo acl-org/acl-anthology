@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714152526) do
+ActiveRecord::Schema.define(version: 20140715030337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,8 +78,6 @@ ActiveRecord::Schema.define(version: 20140714152526) do
     t.string   "url"
     t.string   "bibtype"
     t.string   "bibkey"
-    t.string   "attachment"
-    t.string   "attach_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "slug"
