@@ -107,8 +107,6 @@ def load_volume_xml(xml_data)
 			@front_matter.url		= "http://aclweb.org/anthology/" + @front_matter.anthology_id
 			@front_matter.bibtype	= @volume.bibtype
 			@front_matter.bibkey	= @volume.bibkey
-			@front_matter.attachment	= "none"
-			@front_matter.attach_type	= "none"
 
 			if @front_matter.anthology_id[0] != 'J' # Journals don't have front matter
 				@curr_volume.papers << @front_matter # Save front_matter
