@@ -7,14 +7,13 @@
   <meta content="<%= @paper.year %>" name="citation_publication_date" >
 
   <% if @paper.anthology_id[0] == 'W' %>
-    <meta content="<%= Volume.find_by_anthology_id(@paper.anthology_id[0..5]).title %>" name="citation_journal_title" >
-    <!-- <meta content="<%= @paper.anthology_id[0..2] %>" name="citation_volume" >
-    <meta content="<%= @paper.anthology_id[-3..-1] %>" name="citation_issue" > -->
+    <% title = Volume.find_by_anthology_id(@paper.anthology_id[0..5]).title %>
   <% else %>
-    <meta content="<%= Volume.find_by_anthology_id(@paper.anthology_id[0..4]).title %>" name="citation_journal_title" >
-<!--     <meta content="<%= @paper.anthology_id[0..2] %>" name="citation_volume" >
-    <meta content="<%= @paper.anthology_id[-4..-1] %>" name="citation_issue" > -->
+    <% title = Volume.find_by_anthology_id(@paper.anthology_id[0..4]).title %>
   <% end %>
+  <meta content="<%= title %>" name="citation_journal_title" >
+  <meta content="<%= get_citation_volume_from_title(title) %>" name="citation_volume" >
+  <meta content="<%= get_citation_issue_from_title(title) %>" name="citation_issue" >
   
   <% if @paper.pages %>
     <meta content="<%= @paper.pages.split("–")[0] %>" name="citation_firstpage" >
