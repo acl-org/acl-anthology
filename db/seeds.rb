@@ -262,7 +262,7 @@ puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
 # Seed Volumes + Papers
 puts "Seeding Volumes..."
 codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#['P', 'W']#
-years = ('65'..'99').to_a + ('00'..'13').to_a
+years = ('65'..'99').to_a + ('00'..'14').to_a
 
 codes.each do |c|
 	years.each do |y|
@@ -289,7 +289,8 @@ sigs = ['sigann', 'sigbiomed', 'sigdat', 'sigdial', 'sigfsm', 'siggen', 'sighan'
 	'sigmedia', 'sigmol', 'sigmt', 'signll', 'sigparse', 'sigmorphon', 'sigsem', 'semitic', 'sigslpat', 'sigwac']
 sigs.each do |sig|
 	# Changed URL to temporary staging server
-	url_string = "http://69.195.124.161/~aclwebor/anthology//#{sig}.yaml"
+# 	url_string = "http://69.195.124.161/~aclwebor/anthology//#{sig}.yaml"
+	url_string = "http://wing.comp.nus.edu.sg/~antho/#{sig}.yaml"
 	url = URI.parse(url_string)
 	request = Net::HTTP.new(url.host, url.port)
 	response = request.request_head(url.path)
@@ -327,7 +328,7 @@ default_map = { 'A' => "ANLP", # ACL events
 				'P' => "ACL", # ACL events
 				'Q' => "TACL", # ACL events
 				'R' => "RANLP", # Non-ACL events
-				'S' => "SEMEVAL", # ACL events
+				'S' => "*SEMEVAL", # ACL events
 				'T' => "TINLAP", # Non-ACL events
 				'U' => "ALTA", # Non-ACL events
 				'X' => "TIPSTER", # Non-ACL events
