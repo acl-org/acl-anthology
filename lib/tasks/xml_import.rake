@@ -402,7 +402,7 @@ namespace :import do
 						'P' => "ACL", # ACL events
 						'Q' => "TACL", # ACL events
 						'R' => "RANLP", # Non-ACL events
-						'S' => "SEMEVAL", # ACL events
+						'S' => "*SEMEVAL", # ACL events
 						'T' => "TINLAP", # Non-ACL events
 						'U' => "ALTA", # Non-ACL events
 						'X' => "TIPSTER", # Non-ACL events

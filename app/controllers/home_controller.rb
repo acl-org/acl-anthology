@@ -5,7 +5,7 @@ class HomeController < ApplicationController
     # Written in html
   	flash.now[:notice] = message.html_safe
         
-  	@acronyms_acl = ["CL", "TACL", "ACL", "EACL", "NAACL", "SEMEVAL", "ANLP", "EMNLP", "WS"]
+  	@acronyms_acl = ["CL", "TACL", "ACL", "EACL", "NAACL", "*SEMEVAL", "ANLP", "EMNLP", "WS"]
   	@acronyms_nonacl = ["COLING", "HLT", "IJCNLP", "LREC", "PACLIC", "ROCLING", "TINLAP", "ALTA", "RANLP", 
   		"JEP/TALN/RECITAL", "MUC", "TIPSTER"]
 
