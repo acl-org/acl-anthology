@@ -21,7 +21,8 @@ class HomeController < ApplicationController
     @border_years_nonacl = ["2014", "2009", "1999", "1989", "1978"]
 
     # If only a certain list of venues need to showed
-    @acronyms_acl = ["CL", "TACL", "ACL", "EACL", "NAACL", "*SEMEVAL", "ANLP", "EMNLP", "WS"]
+    @acronyms_acl = ["CL", "TACL", "ACL", "EACL", "NAACL", "*SEMEVAL", #"ANLP", 
+                     "EMNLP", "CONLL", "WS"]
     @acronyms_nonacl = ["COLING", "HLT", "IJCNLP", "LREC", "PACLIC", "ROCLING", "TINLAP", "ALTA", "RANLP", 
       "JEP/TALN/RECITAL", "MUC", "TIPSTER"]
     @venues_acl = Venue.where(acronym: @acronyms_acl)
