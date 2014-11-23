@@ -125,11 +125,11 @@
       <dd><%= @paper.bibkey %>&nbsp;</dd>
       <dt><strong>Bib Export formats:</strong></dt>
       <dd>
-        <%= link_to "Bib", paper_path(@paper, format: :bib), :class => "export" %>
-        <%= link_to "Ris", paper_path(@paper, format: :ris), :class => "export" %>
-        <%= link_to "EndNote", paper_path(@paper, format: :endf), :class => "export" %>
-        <%= link_to "Mods xml", paper_path(@paper, format: :xml), :class => "export" %>
-        <%= link_to "Word", paper_path(@paper, format: :word), :class => "export" %>
+        <%= link_to "BibTeX", paper_path(@paper, format: :bib), :class => "export" %>
+        <%= link_to "RIS", paper_path(@paper, format: :ris), :class => "export" %>
+        <%= link_to "Endnote", paper_path(@paper, format: :endf), :class => "export" %>
+        <%= link_to "MODS XML", paper_path(@paper, format: :xml), :class => "export" %>
+        <%= link_to "MS Word '07", paper_path(@paper, format: :word), :class => "export" %>
         <% link_to "DBLP", paper_path(@paper, format: :dblp), :class => "export" %>
       </dd>
       <% @paper.attachments.each do |attachment| %>

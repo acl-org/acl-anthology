@@ -107,8 +107,10 @@ def export_volume_mods volume
 			end
 
 			paper_genre_type = paper_mods.add_element 'genre'
-			if( paper.anthology_id[0] == "W")
+			if (paper.anthology_id[0] == "W")
 				paper_genre_type.text = "workshop publication"
+			elsif (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J") 
+				paper_genre_type.text = "article"
 			else
 				paper_genre_type.text = "conference publication"
 			end
@@ -196,6 +198,8 @@ def export_paper_mods paper
 	genre_type = related_item.add_element 'genre'
 	if( paper.anthology_id[0] == "W")
 		genre_type.text = "workshop publication"
+	elsif (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J") 
+		genre_type.text = "academic journal"
 	else
 		genre_type.text = "conference publication"
 	end

@@ -20,7 +20,7 @@ Acl2::Application.routes.draw do
   devise_for :users
 
   # Added by Min for static (with erb) html pages.  
-  match '/:id' => 'static_pages#show', via: [:get]
+  get ':action' => 'static_pages#:action'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
