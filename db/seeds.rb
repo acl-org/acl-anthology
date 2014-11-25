@@ -12,14 +12,12 @@
 # On Heroku remote server:
 # $ heroku run rake db:seed
 
-
 # External library used to load and work with xml files:
 # http://www.germane-software.com/software/rexml/docs/tutorial.html
 require "rexml/document"
 require "net/http"
 require "uri"
 require 'htmlentities'
-
 
 def load_volume_xml(xml_data)
 
@@ -109,8 +107,6 @@ def load_volume_xml(xml_data)
 			@front_matter.url		= "http://aclweb.org/anthology/" + @front_matter.anthology_id
 			@front_matter.bibtype	= @volume.bibtype
 			@front_matter.bibkey	= @volume.bibkey
-			@front_matter.attachment	= "none"
-			@front_matter.attach_type	= "none"
 
 			if @front_matter.anthology_id[0] != 'J' # Journals don't have front matter
 				@curr_volume.papers << @front_matter # Save front_matter
@@ -153,22 +149,26 @@ def load_volume_xml(xml_data)
 			@paper.publisher 	= p.elements['publisher'].text		if p.elements['publisher']
 			@paper.pages 		= p.elements['pages'].text			if p.elements['pages']
 			@paper.url 			= "http://aclweb.org/anthology/" + @paper.anthology_id
+			if p.attributes["href"] # There is an external link for this paper
+				@paper.url = p.attributes["href"]
+			end
+			if p.elements['mrf']
+				@paper.layers 		= "MRF"
+				@paper.mrf 			= p.elements['mrf'].text
+			end
 			@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
 			@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
 			
-			@paper.attachment	= "none" # By default set this to none, for easy indexing
-			@paper.attach_type	= "none" # By default set this to none, for easy indexing
-			if p.elements['attachment']
-				@paper.attachment	= p.elements['attachment'].text
-				@paper.attach_type	= "attachment"
-			end
-			if p.elements['dataset']
-				@paper.attachment	= p.elements['dataset'].text
-				@paper.attach_type	= "dataset"
-			end
-			if p.elements['software']
-				@paper.attachment	= p.elements['software'].text
-				@paper.attach_type	= "software"
+			['attachment', 'dataset', 'software'].each do |attach_type|
+				p.elements.each(attach_type) do |at|
+					attachment = Attachment.new
+					attachment.name 		= at.text
+					attachment.attach_type  = at.attributes['type'] || attach_type
+					attachment.url 			= at.attributes['href'] || "http://anthology.aclweb.org/attachments/#{attachment.name[0]}/#{attachment.name[0..2]}/#{attachment.name}"
+					attachment.internal 	= !at.attributes['href'] # convert nil to true and value to false
+					
+					@paper.attachments << attachment
+				end
 			end
 
 			@curr_volume.papers << @paper
@@ -262,7 +262,7 @@ puts "* * * * * * * * * * Seeding Data Start * * * * * * * * * * * *"
 # Seed Volumes + Papers
 puts "Seeding Volumes..."
 codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']#['P', 'W']#
-years = ('65'..'99').to_a + ('00'..'13').to_a
+years = ('65'..'99').to_a + ('00'..'14').to_a
 
 codes.each do |c|
 	years.each do |y|
@@ -288,7 +288,9 @@ puts "Seeding SIGs..."
 sigs = ['sigann', 'sigbiomed', 'sigdat', 'sigdial', 'sigfsm', 'siggen', 'sighan', 'sighum', 'siglex', 
 	'sigmedia', 'sigmol', 'sigmt', 'signll', 'sigparse', 'sigmorphon', 'sigsem', 'semitic', 'sigslpat', 'sigwac']
 sigs.each do |sig|
-	url_string = "http://aclweb.org/anthology/#{sig}.yaml"
+	# Changed URL to temporary staging server
+# 	url_string = "http://69.195.124.161/~aclwebor/anthology//#{sig}.yaml"
+	url_string = "http://wing.comp.nus.edu.sg/~antho/#{sig}.yaml"
 	url = URI.parse(url_string)
 	request = Net::HTTP.new(url.host, url.port)
 	response = request.request_head(url.path)
@@ -326,7 +328,7 @@ default_map = { 'A' => "ANLP", # ACL events
 				'P' => "ACL", # ACL events
 				'Q' => "TACL", # ACL events
 				'R' => "RANLP", # Non-ACL events
-				'S' => "SEMEVAL", # ACL events
+				'S' => "*SEMEVAL", # ACL events
 				'T' => "TINLAP", # Non-ACL events
 				'U' => "ALTA", # Non-ACL events
 				'X' => "TIPSTER", # Non-ACL events
@@ -369,8 +371,6 @@ joint_map = read_joint_meetings_hash()
 	end
 end
 puts "Done seeding Events."
-
+# Clears the cache
+Rake::Task["cache:expire"].invoke
 puts "* * * * * * * * * * Seeding Data End * * * * * * * * * * * * *"
-
-
-

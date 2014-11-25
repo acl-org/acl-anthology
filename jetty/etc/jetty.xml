@@ -71,11 +71,19 @@
     <!-- =========================================================== -->
     <Set name="handler">
       <New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
-        <Set name="handlers">
+       <Set name="handlers">
          <Array type="org.eclipse.jetty.server.Handler">
            <Item>
-             <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
-           </Item>
+           	 <!-- Added whitelist IP for bluehost server -->
+     		<New class="org.eclipse.jetty.server.handler.IPAccessHandler">
+           		 <Call name="addWhite">
+                		     <Arg>121.6.198.41</Arg>
+             	         </Call>
+                         <Set name="handler">
+        			 <New id="Contexts" class="org.eclipse.jetty.server.handler.ContextHandlerCollection"/>
+                	</Set>
+                </New>
+	   </Item>
            <Item>
              <New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
            </Item>

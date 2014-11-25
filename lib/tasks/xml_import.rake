@@ -8,7 +8,7 @@ def load_volume_xml(xml_data)
 
 	xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
-	xml_data.gsub!(/&/, '&amp;') 
+	xml_data.gsub!(/&/, '&amp;')
 	xml_data.gsub!(/<</, '&lt;&lt;') 
 	xml_data.gsub!(/>>/, '&gt;&gt;')
 	xml_data.gsub!(/--/, '-') 
@@ -92,8 +92,6 @@ def load_volume_xml(xml_data)
 			@front_matter.url		= "http://aclweb.org/anthology/" + @front_matter.anthology_id
 			@front_matter.bibtype	= @volume.bibtype
 			@front_matter.bibkey	= @volume.bibkey
-			@front_matter.attachment	= "none"
-			@front_matter.attach_type	= "none"
 
 			if @front_matter.anthology_id[0] != 'J' # Journals don't have front matter
 				@curr_volume.papers << @front_matter # Save front_matter
@@ -136,24 +134,28 @@ def load_volume_xml(xml_data)
 			@paper.publisher 	= p.elements['publisher'].text		if p.elements['publisher']
 			@paper.pages 		= p.elements['pages'].text			if p.elements['pages']
 			@paper.url 			= "http://aclweb.org/anthology/" + @paper.anthology_id
+			if p.attributes["href"] # There is an external link for this paper
+				@paper.url = p.attributes["href"]
+			end
+			if p.elements['mrf']
+				@paper.layers 		= "MRF"
+				@paper.mrf 			= p.elements['mrf'].text
+			end
 			@paper.bibtype 		= p.elements['bibtype'].text		if p.elements['bibtype']
 			@paper.bibkey 		= p.elements['bibkey'].text			if p.elements['bibkey']
+		
+			['attachment', 'dataset', 'software'].each do |attach_type|
+				p.elements.each(attach_type) do |at|
+					attachment = Attachment.new
+					attachment.name 		= at.text
+					attachment.attach_type  = at.attributes['type'] || attach_type
+					attachment.url 			= at.attributes['href'] || "http://anthology.aclweb.org/attachments/#{attachment.name[0]}/#{attachment.name[0..2]}/#{attachment.name}"
+					attachment.internal 	= !at.attributes['href'] # convert nil to true and value to false
+					
+					@paper.attachments << attachment
+				end
+			end
 			
-			@paper.attachment	= "none" # By default set this to none, for easy indexing
-			@paper.attach_type	= "none" # By default set this to none, for easy indexing
-			if p.elements['attachment']
-				@paper.attachment	= p.elements['attachment'].text
-				@paper.attach_type	= "attachment"
-			end
-			if p.elements['dataset']
-				@paper.attachment	= p.elements['dataset'].text
-				@paper.attach_type	= "dataset"
-			end
-			if p.elements['software']
-				@paper.attachment	= p.elements['software'].text
-				@paper.attach_type	= "software"
-			end
-
 			@curr_volume.papers << @paper
 
 			if p.elements['revision']
@@ -235,6 +237,7 @@ namespace :import do
 			conn.execute("TRUNCATE TABLE people RESTART IDENTITY;")
 			conn.execute("TRUNCATE TABLE people_volumes RESTART IDENTITY;")
 			conn.execute("TRUNCATE TABLE papers RESTART IDENTITY;")
+			conn.execute("TRUNCATE TABLE attachments RESTART IDENTITY;")
 			conn.execute("TRUNCATE TABLE papers_people RESTART IDENTITY;")
 			conn.execute("TRUNCATE TABLE volumes RESTART IDENTITY;")
 
@@ -273,11 +276,13 @@ namespace :import do
 		elsif args[:volume_anthology].length == 3 # Ingesting a single volume
 			puts "Seeding individual volume: #{args[:volume_anthology]}."
 			# Delete the old records of the volume and the join tables
-			String current_volume = "SELECT id FROM volumes WHERE anthology_id LIKE '#{args[:volume_anthology]}%'"
+			current_volume = "SELECT id FROM volumes WHERE anthology_id LIKE '#{args[:volume_anthology]}%'"
+			current_papers = "SELECT id FROM papers WHERE volume_id IN (#{current_volume})"
 			conn = ActiveRecord::Base.connection
 			conn.execute("DELETE FROM events_volumes WHERE volume_id IN (#{current_volume});")
 			conn.execute("DELETE FROM sigs_volumes WHERE volume_id IN (#{current_volume});")
 			conn.execute("DELETE FROM people_volumes WHERE volume_id IN (#{current_volume});")
+			conn.execute("DELETE FROM attachments WHERE paper_id IN (#{current_papers});")
 			conn.execute("DELETE FROM papers WHERE volume_id IN (#{current_volume});")
 			conn.execute("DELETE FROM volumes WHERE id IN (#{current_volume});")
 
@@ -334,7 +339,7 @@ namespace :import do
 				if File.exist?(file_path)
 					puts "Seeding: #{file_path}"
 					String yaml_data = File.read(file_path)
-					load_sigs(xml_data)
+					load_sigs(yaml_data)
 				else
 					puts "Could not find #{file_path}"
 				end
@@ -342,7 +347,8 @@ namespace :import do
 		else
 			puts "Using online import."
 			sigs.each do |sig|
-				url_string = "http://aclweb.org/anthology/#{sig}.yaml"
+				# Changed URL to temporary staging server
+				url_string = "http://69.195.124.161/~aclwebor/anthology//#{sig}.yaml"
 				url = URI.parse(url_string)
 				request = Net::HTTP.new(url.host, url.port)
 				response = request.request_head(url.path)
@@ -396,7 +402,7 @@ namespace :import do
 						'P' => "ACL", # ACL events
 						'Q' => "TACL", # ACL events
 						'R' => "RANLP", # Non-ACL events
-						'S' => "SEMEVAL", # ACL events
+						'S' => "*SEMEVAL", # ACL events
 						'T' => "TINLAP", # Non-ACL events
 						'U' => "ALTA", # Non-ACL events
 						'X' => "TIPSTER", # Non-ACL events
@@ -441,5 +447,7 @@ namespace :import do
 			end
 		end
 		puts "Done seeding Events."
+		# Clears the cache
+		Rake::Task["cache:expire"].invoke
 	end
 end

@@ -2,13 +2,18 @@
 <div class="container">
 	<hr>
 	<div id ="footer" class="span12">
-		<p>ACL materials are Copyright (C) 1963-2013 ACL; other materials are copyrighted by their respective copyright holders. All materials here are licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. Permission is granted to make copies for the purposes of teaching and research.</p>
+		<p>ACL materials are Copyright &#169; 1963-2014 ACL; other materials are copyrighted by their respective copyright holders. All materials here are licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>. Permission is granted to make copies for the purposes of teaching and research.</p>
 
-		<p>Credits: The institutions and individuals behind the ACL Anthology.</p>
+		<p style="text-align: center"><%= link_to "Credits", controller: "static_pages", action: "credits" %> | 
+		  <%= link_to "Contributors", controller: "static_pages", action: "contributors" %> | 
+		  <%= link_to "Corrections", controller: "static_pages", action: "corrections" %> | 
+		  <%= link_to "Log", controller: "static_pages", action: "log" %> | 
+		  <%= link_to "FAQ", controller: "static_pages", action: "faq" %> 
+		</p>
 		
 		<p><a href="http://www.comp.nus.edu.sg/~kanmy/">Min-Yen Kan</a> (Editor, 2008-) / 
 		<a href="http://stevenbird.me/">Steven Bird</a> (Editor, 2001-2007)</p>
 
-		<a id="cc_icon"rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+		<%= link_to image_tag('88x31.png', alt: "Creative Commons License", border: 0), "http://creativecommons.org/licenses/by-nc-sa/4.0/", rel: "license", id: "cc_icon" %>
 	</div>
 </div>

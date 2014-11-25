@@ -18,6 +18,10 @@ Acl2::Application.routes.draw do
   Blacklight.add_routes(self)
 
   devise_for :users
+
+  # Added by Min for static (with erb) html pages.  
+  get ':action' => 'static_pages#:action'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

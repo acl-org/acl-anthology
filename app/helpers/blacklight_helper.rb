@@ -6,34 +6,35 @@ module BlacklightHelper
   end
 
   def author_helper_method args
-  	args[:document][:author].map!.with_index { |author,i|
-  		link_to(author, "/people/" + args[:document][:author_id][i])
+  	args[:document][:author].map! { |author|
+  		link_to(author, person_path(Person.where(full_name: author).first))
   	}
   end
 
   def volume_helper_method args
-  	link_to(args[:document][:volume_anthology], "/volumes/" + args[:document][:volume_id])
+    vol_id = args[:document][:volume_anthology]
+  	link_to(vol_id, volume_path(Volume.where(anthology_id: vol_id).first))
   end
 
   def sig_helper_method args
-  	args[:document][:sig_iden].map!.with_index { |sig,i|
-  		link_to(sig, "/sigs/" + args[:document][:sig_id][i])
-  	}
+  	# args[:document][:sig_iden].map! { |sig|
+  	# 	link_to(sig, sig_path(Sig.find(sig)))
+  	# }
   end
 
   def venue_helper_method args
-  	args[:document][:venue_name].map!.with_index { |venue,i|
-  		link_to(venue, "/venues/" + args[:document][:venue_id][i])
-  	}
+  	# args[:document][:venue_name].map! { |venue|
+  	# 	link_to(venue, venue_path(Venue.find(venue)))
+  	# }
   end
 
   def link_to_document(doc, opts={:label=>nil, :counter => nil})
   opts[:label] ||= blacklight_config.index.show_link.to_sym
   label = render_document_index_label doc, opts
   if (doc[:paper_anthology][0] == "W" and doc[:paper_anthology][-2..-1] == "00") or doc[:paper_anthology][-3..-1] == "000"
-    link_to label + " [VOLUME]", "/volumes/"+ doc[:volume_id]
+    link_to label + " [VOLUME]", volume_path(Volume.find(doc[:volume_id]))
   else
-    link_to label, "/papers/" + doc[:id]
+    link_to label, paper_path(Paper.find(doc[:id]))
   end
 end
 

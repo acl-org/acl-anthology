@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140316155527) do
+ActiveRecord::Schema.define(version: 20140715030337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attachments", force: true do |t|
+    t.string   "name"
+    t.string   "attach_type"
+    t.boolean  "internal"
+    t.text     "url"
+    t.integer  "paper_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "attachments", ["paper_id"], name: "index_attachments_on_paper_id", using: :btree
 
   create_table "bookmarks", force: true do |t|
     t.integer  "user_id",     null: false
@@ -66,11 +78,11 @@ ActiveRecord::Schema.define(version: 20140316155527) do
     t.string   "url"
     t.string   "bibtype"
     t.string   "bibkey"
-    t.string   "attachment"
-    t.string   "attach_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "slug"
+    t.string   "mrf"
+    t.string   "layers"
   end
 
   add_index "papers", ["slug"], name: "index_papers_on_slug", unique: true, using: :btree

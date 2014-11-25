@@ -61,6 +61,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'venue_acronym', :label => 'Venue', :limit => 15
     config.add_facet_field 'sig_iden', :label => 'SIG', :limit => 20
     config.add_facet_field 'attach_type', :label => 'Attachment'
+    config.add_facet_field 'layers', :label => 'Layers'
 
 
     # config.add_facet_field 'example_pivot_field', :label => 'Pivot Field', :pivot => ['format', 'language_facet']
@@ -123,7 +124,6 @@ class CatalogController < ApplicationController
     
     config.add_search_field 'all_fields', :label => 'All Fields'
 
-
     config.add_search_field('title') do |field|
       field.solr_local_parameters = {
         :qf => '$title_qf'
@@ -136,14 +136,14 @@ class CatalogController < ApplicationController
       }
     end
 
-    config.add_search_field 'sig_name', :label => 'SIG'
-
     config.add_search_field('publish_date', :label => 'Year') do |field|
       field.solr_local_parameters = {
         :qf => '$publish_year_qf'
       }
     end
 
+    config.add_search_field 'venue_name', :label => 'Venue'
+    config.add_search_field 'sig_name', :label => 'SIG'
     
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
@@ -187,8 +187,8 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, publish_date desc, title asc', :label => 'Relevance'
-    config.add_sort_field 'publish_date desc, score asc', :label => 'Year'
+    config.add_sort_field 'score desc, publish_date desc, paper_anthology asc', :label => 'Relevance'
+    config.add_sort_field 'publish_date desc, venue_type asc, paper_anthology asc, score asc', :label => 'Year'
     # config.add_sort_field 'sig_name asc, publish_date desc', :label => 'Venue'
     # config.add_sort_field 'title_sort asc, pub_date_sort desc', :label => 'title'
 
