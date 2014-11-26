@@ -1,0 +1,140 @@
+<div class='container'>
+  <div class='row'>
+
+    <div class='span12'>
+      <div class="page-header">
+	<h1>Requesting Corrections</h1>
+      </div>
+
+
+      <p>General information on ACL Anthology assignments:
+	(<i>Updated as of 18 Jul 2014</i>)</p>
+
+      <p>Currently, we assign each paper in the ACL Anthology a unique
+	8-character identifier, so that we can easily locate papers and
+	reference them.  The identifier is assigned by the current ACL
+	Anthology Editor and is in the form of a letter, two digit year and a
+	4 digit paper ID (e.g., W11-3801).  For large or prominent events
+	related to ACL or its sister organizations that recur on a yearly
+	basis, we use a separate lettered prefix, where all 4 digits of the
+	paper ID can be used (usually accommodating separate volumes in the
+	event, each capable of referencing up to 999 papers).</p>
+
+      <p>For all other smaller events, we use the 'W' prefix.  These events
+	accommodate up to 99 papers.  If there are multiple volumes for a such
+	smaller events, they are assigned as two separate volumes (e.g.,
+	shared tasks, student papers).</p>
+
+      <p>More details:</p>
+
+      <ol>
+	<li><p>URLs for the Anthology (for START as well as the Anthology XML) look like:</p>
+	  
+	  <pre>http://www.aclweb.org/anthology/W11-38xx</pre>
+	  
+	  <p>and not</p>
+	  
+	  <pre>http://www.aclweb.org/anthology/W/W11/W11-38xx.pdf</pre>
+	  
+	  <p>(note, no .pdf and no intermediate path)</p>
+	  
+	  <p>where xx is the paper ID.  00 is used for the frontmatter, 01 for the
+	    first paper, etc., and any author index is listed as the final paper.
+	    In START you may see (and need to provide) this coded using C-like
+	    format strings:</p>
+	  
+	  <pre>http://www.aclweb.org/anthology/W11-38%02d</pre>
+	</li>
+	
+	<li> For copyright transfers, you can use the default forms at:
+	  
+	  <pre>
+	    http://wing.comp.nus.edu.sg/~antho/acl-copyright-form-rev2011.pdf
+	    http://wing.comp.nus.edu.sg/~antho/acl-copyright-form-rev2011.doc
+	  </pre>
+	  
+	  <p>Ask authors to sign the form, scan a B/W copy at 150 to 200 DPI for
+	    you as a .pdf (or .jpg or .png if otherwise not possible).  Name the
+	    forms using the ACL Anthology identifiers, and send me a separate .zip
+	    or .tgz archive as you would for the proceedings of your event (e.g.,
+	    a file in the archive might be copyright-transfers/P11-1001.
+	    pdf).</p>
+	  
+	  <p>Note that if you are using the START system (softconf.com), there is a
+	    digital form of this copyright transfer form, so you may not have to
+	    ask the authors to print, sign and submit to you.  You may be able to
+	    simply download the .zip or .tgz version of the archived forms and
+	    submit them to me.  Please note this when submitting.</p>
+	</li>
+	
+	<li> If you need to assign ISBN numbers, please provide the exact titles
+	  of each volume to be assigned an ISBN and forward this information to
+	  Priscilla Rasmussen, ACL Business Manager.</li>
+	
+	<li> <p>If there are supplemental attachments, software or datasets, also
+	    please let me know about them when they are finalized so that we can
+	    have them published in the Anthology in a timely manner.  You'll need
+	    to provide a zipfile or other filetype (of a three letter extension
+	    only) of each supplement, where the files are named by
+	    their paper's Anthology ID (e.g., W11-1001.Dataset.zip)</p>
+	  
+	  <p>Current types supported by the Anthology are:</p>
+	  
+	  <ul>
+	    <li>Dataset</li>
+	    <li>Note</li>
+	    <li>Software</li>
+	    <li>Presentation</li>
+	    <li>Attachment (this is for generic attachments; best to be specific
+	      and avoid using this when possible)</li>
+	  </ul>
+	  
+	  <p>Videos are also accepted but only as valid hyperlinks.</p>
+	  
+	  <p>Any attachment is limited to 30 MB or a valid hyperlink (which should
+	    be maintained in perpetuity, but reasonably maintained for at least 5
+	    years).  Hyperlinks may lead either to the actual attachment or to a
+	    valid containing &quot;home page&quot; for the resource.</p>
+	  
+	  <p>We prefer actual attachments over hyperlinks as we can serve them from
+	    the Anthology directly, but understand that some materials cannot fit
+	    within this size.  Attachments do not need to be author-anonymized
+	    (although during the review process, program chairs may ask for this
+	    -- authors should try to include provenance information with their
+	    attachments).</p>
+	  
+	<li> <p>If you get requests from authors needing to post errata or
+	    revised versions of the papers, or supplemental attachments after the
+	    publication of the proceedings, please ask them to submit revisions to
+	    the current ACL Anthology editor directly (see <%= Corrections %>).</p>
+	  
+	  <p> If you wish to incorporate edits from your pipeline, we will also
+	    accept revisions
+	    from proceedings chairs of workshops (to replace the original version,
+	    or to create a new version) if the ACL footer (i.e. "Proceedings of
+	    ..." on header page) appears in the PDF with the correct page numbers,
+	    only before the publication date.  After the publication date, the
+	    full volume cannot be replaced or revised.</p></li>
+	  
+	<li> By default, the publication of papers associated with a
+	  current event in the Anthology will be on the first day of the
+	  event (inclusive of workshops or tutorials).  If you prefer to
+	  have it published on a different date, please inform us.</li>
+	
+	<li> Please list the ACL SIGs endorsing or sponsoring each event, and
+	  for each event, where not completely clear, give a short, acronym form
+	  of the event name, for indexing (e.g., "ACL", "NAACL", "SocialNLP").
+	  Acronym forms should be recognizable and consistent through
+	  consecutive (multi-)annual events.  Please check the beta Anthology
+	  (http://aclanthology.info/catalog?utf8=%E2%9C%93&search_field=all_fields&q=#
+	  , see venue facet) to check whether the venue acronym has been used
+	  before).  Please provide this information.</li>
+	
+	<li>Other general information on ACL Anthology assignment is included
+	  on the following page (although outdated).  Please read it.
+	  <a href="http://www.aclweb.org/anthology/importing.html">http://www.aclweb.org/anthology/importing.html</A>
+	</li>
+      </ol>
+    </div>
+  </div>
+</div>
