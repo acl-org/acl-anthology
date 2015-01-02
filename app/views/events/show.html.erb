@@ -16,7 +16,6 @@
         </tr>
       </thead>
       <tbody>
-<!-- @volumes.each do |volume| -->
         <% @volumes.sort_by{ |volume| volume.anthology_id }.each do |volume| %>
           <tr>
             <td><%= volume.anthology_id %></td>
@@ -27,7 +26,7 @@
       </tbody>
     </table>
     
-    <% @volumes.each do |volume| %>
+    <% @volumes.sort_by{ |volume| volume.anthology_id }.each do |volume| %>
       <br><br>
       <h4 id="<%= volume.anthology_id %>" class="volume">
         <%= link_to image_tag("pdf.png", size: "24x24", title: "Open PDF of '#{volume.title}'"), "http://aclweb.org/anthology/" + volume.anthology_id, :target => "_blank"  if volume.anthology_id[0] != 'J' %>
