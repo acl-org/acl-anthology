@@ -16,7 +16,8 @@
         </tr>
       </thead>
       <tbody>
-        <% @volumes.each do |volume| %>
+<!-- @volumes.each do |volume| -->
+        <% @volumes.sort_by{ |volume| volume.anthology_id }.each do |volume| %>
           <tr>
             <td><%= volume.anthology_id %></td>
             <td><%= link_to volume.title, :anchor => volume.anthology_id %></td>
