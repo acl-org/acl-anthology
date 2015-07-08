@@ -9,7 +9,7 @@ DEPOSITOR_EMAIL = "taochen@comp.nus.edu.sg"
 
 
 def export_conference_papers_in_volume(volume, conf_tag)
-	volumeIsWorkshop = (@volume.anthology_id[0] == 'W')
+    volumeIsWorkshop = (@volume.anthology_id[0] == 'W')
 
 	valid_paper_series = []
 	@papers = @volume.papers
@@ -347,7 +347,7 @@ namespace :export do
 		acl_codes = ['P', 'E', 'N', 'D', 'S', 'W']
 		
 		current_year = Date.today.strftime('%y')
-		years = ('14'..current_year).to_a
+		years = ('12'..current_year).to_a
 		volume_count = 1
 		acl_codes.each do |c|
 			years.each do |y|
