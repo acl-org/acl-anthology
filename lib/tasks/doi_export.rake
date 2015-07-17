@@ -4,8 +4,6 @@ require "date"
 require 'fileutils'
 
 DOI_PREFIX="10.3115/v1"
-DEPOSITOR_NAME = "Tao Chen"
-DEPOSITOR_EMAIL = "taochen@comp.nus.edu.sg"
 
 
 def export_conference_papers_in_volume(volume, conf_tag)
@@ -338,11 +336,22 @@ end
 
 =begin
 We assign DOI for conference/workshop/journal papers published by ACL since 2012.
-P: ACL, D: EMNLP, E: EACL, N: NAACL, CoNLL, S: SemEval/Sem, W: Workshops by ACL, Q: TACL
+P: ACL, D: EMNLP, E: EACL, N: NAACL, S: SemEval/Sem, W: Workshops by ACL, Q: TACL
+
+Usage:
+Please pass depositor's name and email as parameters
+E.g., rake export:doi_single['name','namen@email.com']
+
 =end
 namespace :export do
     desc "Export each volume to a single doi"
-	task :doi_single => :environment do
+	task :doi_single, [:name, :email] => :environment do |t, args|
+		unless args.name or args.email
+			abort("PLease pass depositor's name and email as parameters")
+		end
+		doi_depositor_name = args.name
+    doi_depositor_email = args.email
+    
 		#all_codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
 		acl_codes = ['P', 'E', 'N', 'D', 'S', 'W']
 		
@@ -379,9 +388,9 @@ namespace :export do
 					    
 					    depositor = head.add_element "depositor"
 					    depositor_name = depositor.add_element "depositor_name"
-					    depositor_name.text = DEPOSITOR_NAME
+					    depositor_name.text = doi_depositor_name
 					    email = depositor.add_element "email_address"
-					    email.text = DEPOSITOR_EMAIL
+					    email.text = doi_depositor_email
 					    
 					    registrant = head.add_element "registrant"
 					    registrant.text = "Association for Computational Linguistics"
