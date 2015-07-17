@@ -1,0 +1,40 @@
+#
+# bibutils unit tests MAKEFILE
+#
+
+CFLAGS   = -I ../lib $(CFLAGSIN)
+LDFLAGS  = -L ../lib
+LDLIBS   = -lbibutils
+
+PROGS    = entities_test \
+           newstr_test \
+           utf8_test
+
+all: $(PROGS)
+
+entities_test : entities_test.o
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+utf8_test : utf8_test.o
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+newstr_test : newstr_test.o
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+test: $(PROGS) FORCE
+	( LD_LIBRARY_PATH="../lib"; \
+	export LD_LIBRARY_PATH ; \
+	./newstr_test; \
+	./entities_test; \
+	./utf8_test )
+
+clean:
+	rm -f *.o core 
+
+realclean:
+	rm -f *.o core $(PROGS)
+	@for p in ${PROGS}; \
+               do ( rm -f $$p${EXEEXT} ); \
+        done
+
+FORCE:

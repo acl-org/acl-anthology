@@ -1,0 +1,389 @@
+#!/bin/sh
+
+#
+# Defaults
+#
+INPUT_FILE=Makefile_start
+OUTPUT_FILE=Makefile
+LIBTYPE=static
+INSTALLDIR=/usr/local/bin
+LIBINSTALLDIR=/usr/local/lib
+
+#
+# Process command line arguments
+#
+while [ $# -gt 0 ] ; do
+	if [ "$1" = "--install-dir" ] ; then
+		if [ $# -lt 2 ] ; then
+			echo "--install-dir requires a directory"
+			exit
+		else
+			shift
+			INSTALLDIR="$1"
+			shift
+		fi
+	elif [ "$1" = "--install-lib" ] ; then
+		if [ $# -lt 2 ] ; then
+			echo "--install-lib requires a directory"
+			exit
+		else
+			shift
+			LIBINSTALLDIR="$1"
+			shift
+		fi
+	elif [ "$1" = "--dynamic" ] ; then
+		LIBTYPE="dynamic"
+		shift
+	elif [ "$1" = "--static" ] ; then
+		LIBTYPE="static"
+		shift
+	else
+		echo "Unidentified argument $1"
+		exit
+	fi
+done
+
+#
+# Use the correct makefiles for dynamic/static option
+#
+if [ "$LIBTYPE" = "dynamic" ] ; then
+	cp lib/Makefile.dynamic  lib/Makefile
+	cp bin/Makefile.dynamic  bin/Makefile
+	cp test/Makefile.dynamic test/Makefile
+else
+	cp lib/Makefile.static  lib/Makefile
+	cp bin/Makefile.static  bin/Makefile
+	cp test/Makefile.static test/Makefile
+fi
+
+#
+# Determine architecture and architecture-dependent values
+#
+type="Unknown"
+universal_binary="FALSE"
+UNAME=$(uname -a)
+
+if [ $( echo $UNAME | grep Linux | wc | awk '{print $1;}' ) -eq 1 ] ; then
+	if [ $( echo $UNAME | grep 'i[3456]86' | wc | awk '{print $1};') -eq 1 ] ; then
+		type="Linux_x86"
+	elif [ $( echo $UNAME | grep 'x86_64' | wc | awk '{print $1};') -eq 1 ] ; then
+		type="Linux_x86_64"
+	else
+		type="Linux_Unknown"
+	fi
+fi
+if [ $( echo $UNAME | grep Darwin | wc | awk '{print $1;}' ) -eq 1 ] ; then
+	type="MacOSX_Unknown"
+	if [ $( echo $UNAME | grep -E 'powerpc|Power Macintosh' | wc | awk '{print $1};') -eq 1 ] ; then
+		type="MacOSX_ppc"
+	fi
+	if [ $( echo $UNAME | grep 'i386' | wc | awk '{print $1}') -eq 1 ] ; then
+		type="MacOSX_i386"
+	fi
+	if [ $( echo $UNAME | grep 'x86_64' | wc | awk '{print $1}') -eq 1 ] ; then
+		type="MacOSX_x86_64"
+	fi
+fi
+if [ $( echo $UNAME | grep SunOS | wc | awk '{print $1;}' ) -eq 1 ] ; then
+	type="SunOS5"
+fi
+if [ $( echo $UNAME | grep IRIX | wc | awk '{print $1;}' ) -eq 1 ] ; then
+	type="IRIX"
+fi
+if [ $( echo $UNAME | grep NetBSD | wc | awk '{print $1;}' ) -eq 1 ] ; then
+	type="NetBSD"
+fi
+if [ $( echo $UNAME | grep FreeBSD | wc | awk '{print $1;}' ) -eq 1 ] ; then
+	type="FreeBSD"
+fi
+if [ $( echo $UNAME | grep OpenBSD | wc | awk '{print $1;}' ) -eq 1 ] ; then
+	type="OpenBSD"
+fi
+if [ $( echo $UNAME | grep Cygwin | wc | awk '{print $1;}' ) -eq 1 ] ; then
+	type="Cygwin"
+fi
+if [ $( echo $UNAME | grep Msys | wc | awk '{print $1;}' ) -eq 1 ] ; then
+	type="MinGW"
+fi
+
+if [ "$type" = "Linux_x86" ] ; then
+	CC='cc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='ranlib'
+	POSTFIX='_i386'
+elif [ "$type" = "Linux_x86_64" ] ; then
+	CC='cc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='ranlib'
+	POSTFIX='_amd64'
+elif [ "$type" = "Linux_Unknown" ] ; then
+	CC='cc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='ranlib'
+	POSTFIX=''
+elif [ "$type" = "MacOSX_ppc" ] ; then
+	CC='cc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='ranlib -s'
+	POSTFIX='_osx_ppc'
+elif [ "$type" = "MacOSX_i386" ] ; then
+	CC='cc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='ranlib -s'
+	POSTFIX='_osx_i386'
+elif [ "$type" = "MacOSX_x86_64" ] ; then
+	CC='cc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='ranlib -s'
+	POSTFIX='_osx_x86_64'
+elif [ "$type" = "MacOSX_Unknown" ] ; then
+	CC='cc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='ranlib -s'
+	POSTFIX='_osx'
+elif [ "$type" = "SunOS5" ] ; then
+	CC='gcc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='"echo Skipping ranlib"'
+	POSTFIX='_sunos5'
+elif [ "$type" = "IRIX" ] ; then
+	CC='gcc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='"echo Skipping ranlib"'
+	POSTFIX='_irix'
+elif [ "$type" = "NetBSD" ] ; then
+	CC='gcc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='ranlib'
+	POSTFIX='_netbsd'
+elif [ "$type" = "FreeBSD" ] ; then
+	CC='gcc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='ranlib'
+	POSTFIX='_freebsd'
+elif [ "$type" = "OpenBSD" ] ; then
+	CC='gcc'
+	CFLAGS='-Wall'
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='ranlib'
+	POSTFIX='_openbsd'
+elif [ "$type" = "Cygwin" ] ; then
+	CC='cc'
+	CFLAGS='-Wall'
+	CLIBFLAGS='-Wall'
+	EXEEXT='.exe'
+	LIBBASE='bibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.dll'
+	RANLIB='"echo Skipping ranlib"'
+	POSTFIX='_cygwin'
+	LIBINSTALLDIR=${INSTALLDIR}
+elif [ "$type" = "MinGW" ] ; then
+	CC='gcc'
+	CFLAGS='-Wall'
+	CLIBFLAGS='-Wall'
+	EXEEXT='.exe'
+	LIBBASE='bibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.dll'
+	RANLIB='"echo Skipping ranlib"'
+	POSTFIX='_mingw'
+	LIBINSTALLDIR=${INSTALLDIR}
+else
+	# Unknown operating system
+	CC='cc'
+	CFLAGS=''
+	CLIBFLAGS=''
+	if [ "$LIBTYPE" = "dynamic" ] ; then
+		CLIBFLAGS='-Wall -fPIC'
+	else
+		CLIBFLAGS='-Wall'
+	fi
+	EXEEXT=''
+	LIBBASE='libbibutils'
+	STATICLIBEXT='.a'
+	DYNAMICLIBEXT='.so'
+	RANLIB='"echo Skipping ranlib"'
+	POSTFIX=''
+fi
+
+#
+# Set up for dynamic or static libraries
+#
+if [ "$LIBTYPE" = "dynamic" ] ; then
+	cp lib/Makefile.dynamic  lib/Makefile
+	cp bin/Makefile.dynamic  bin/Makefile
+	cp test/Makefile.dynamic test/Makefile
+	LIBEXT=${DYNAMICLIBEXT}
+else
+	cp lib/Makefile.static  lib/Makefile
+	cp bin/Makefile.static  bin/Makefile
+	cp test/Makefile.static test/Makefile
+	LIBEXT=${STATICLIBEXT}
+fi
+
+
+#
+# Generate the upper-level Makefile
+#
+LIBTARGET=${LIBBASE}${LIBEXT}
+
+cat $INPUT_FILE | \
+sed "s/REPLACE_CC/${CC}/" | \
+sed "s/REPLACE_CFLAGS/${CFLAGS}/" | \
+sed "s/REPLACE_CLIBFLAGS/${CLIBFLAGS}/" | \
+sed "s/REPLACE_EXEEXT/${EXEEXT}/" | \
+sed "s/REPLACE_LIBTARGET/${LIBTARGET}/" | \
+sed "s/REPLACE_LIBEXT/${LIBEXT}/" | \
+sed "s/REPLACE_RANLIB/${RANLIB}/" | \
+sed "s|REPLACE_INSTALLDIR|${INSTALLDIR}|" | \
+sed "s|REPLACE_LIBINSTALLDIR|${LIBINSTALLDIR}|" | \
+sed "s/REPLACE_POSTFIX/${POSTFIX}/" > $OUTPUT_FILE
+
+echo
+echo
+echo "Bibutils Configuration"
+echo "----------------------"
+echo
+echo "Operating system:               $type"
+echo "Library and binary type:        $LIBTYPE" 
+echo "Binary installation directory:  $INSTALLDIR"
+echo "Library installation directory: $LIBINSTALLDIR"
+echo
+echo " - If auto-identification of operating system failed, e-mail cdputnam@ucsd.edu"
+echo "   with the output of the command: uname -a"
+echo
+echo " - Use --static or --dynamic to specify library and binary type;"
+echo "   the --static option is the default"
+echo
+echo " - Set binary installation directory with:  --install-dir DIR"
+echo
+echo " - Set library installation directory with: --install-lib DIR"
+echo
+echo
+if [ $OUTPUT_FILE = "Makefile" ] ; then
+  echo "To compile,                  type: make"
+  echo "To install,                  type: make install"
+  echo "To make tgz package,         type: make package"
+  echo "To make deb package,         type: make deb"
+  echo
+  echo "To clean up temporary files, type: make clean"
+  echo "To clean up all files,       type: make realclean"
+else
+  echo "To compile,                  type: make -f $OUTPUT_FILE"
+  echo "To install,                  type: make -f $OUTPUT_FILE install"
+  echo "To make tgz package,         type: make -f $OUTPUT_FILE package"
+  echo "To make deb package,         type: make -f $OUTPUT_FILE deb"
+  echo
+  echo "To clean up temporary files, type: make -f $OUTPUT_FILE clean"
+  echo "To clean up all files,       type: make -f $OUTPUT_FILE realclean"
+fi
+echo
+echo

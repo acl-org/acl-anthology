@@ -1,0 +1,110 @@
+#
+# bibutils converters MAKEFILE
+#
+# dynamic linkage version
+#
+
+CFLAGS     = -I ../lib $(CFLAGSIN)
+LDFLAGS    = -L ../lib
+LDLIBS     = -lbibutils
+
+TOMODS     = bibprog.o tomods.o args.o
+
+BIBTEXIN   = bib2xml.o
+BIBLATEXIN = biblatex2xml.o
+COPACIN    = copac2xml.o
+EBIIN      = ebi2xml.o
+ENDIN      = end2xml.o
+ENDXIN     = endx2xml.o
+ISIIN      = isi2xml.o
+MEDIN      = med2xml.o
+MODSCLEAN  = modsclean.o
+RISIN      = ris2xml.o
+WORDIN     = wordbib2xml.o
+
+FROMMODS   = bibprog.o args.o
+
+ADSOUT     = xml2ads.o
+BIBTEXOUT  = xml2bib.o
+ENDOUT     = xml2end.o
+ISIOUT     = xml2isi.o
+RISOUT     = xml2ris.o
+WORDOUT    = xml2wordbib.o
+
+PROGS      = bib2xml biblatex2xml copac2xml end2xml endx2xml isi2xml med2xml \
+             ris2xml ebi2xml wordbib2xml \
+             xml2ads xml2bib xml2end xml2isi xml2ris xml2wordbib modsclean
+
+all: $(PROGS)
+
+args.o : args.c
+	$(CC) $^ -DCURR_VERSION="\"$(VERSION)\"" -DCURR_DATE="\"$(DATE)\"" $(CFLAGS) -c -o $@
+
+bib2xml : $(TOMODS) $(BIBTEXIN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+biblatex2xml : $(TOMODS) $(BIBLATEXIN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+copac2xml : $(TOMODS) $(COPACIN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+ebi2xml : $(TOMODS) $(EBIIN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+end2xml : $(TOMODS) $(ENDIN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+endx2xml : $(TOMODS) $(ENDXIN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+isi2xml : $(TOMODS) $(ISIIN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+med2xml : $(TOMODS) $(MEDIN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+ris2xml : $(TOMODS) $(RISIN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+wordbib2xml : $(TOMODS) $(WORDIN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+xml2ads : $(FROMMODS) $(ADSOUT)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+xml2bib : $(FROMMODS) $(BIBTEXOUT)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+xml2end : $(FROMMODS) $(ENDOUT)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+xml2isi : $(FROMMODS) $(ISIOUT)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+xml2ris : $(FROMMODS) $(RISOUT)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+xml2wordbib : $(FROMMODS) $(WORDOUT)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+modsclean : $(TOMODS) $(MODSCLEAN)
+	$(CC) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
+
+test:
+
+install:
+	mkdir -p $(INSTALLDIR)
+	@for p in $(PROGS); \
+		do ( cp $$p$(EXEEXT) $(INSTALLDIR)/ ); \
+	done
+
+clean:
+	rm -f *.o core
+
+realclean:
+	rm -f *.o core
+	@for p in $(PROGS); \
+		do ( rm -f $$p$(EXEEXT) ); \
+	done
+

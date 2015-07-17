@@ -1,0 +1,91 @@
+CFLAGS    = $(CFLAGSIN)
+LIBTARGET = $(LIBTARGETIN)
+
+SIMPLE_OBJS   = charsets.o \
+                is_ws.o \
+                strsearch.o
+
+NEWSTR_OBJS   = entities.o \
+                gb18030.o \
+                latex.o \
+                newstr.o \
+                newstr_conv.o \
+                unicode.o \
+                utf8.o
+
+CONTAIN_OBJS  = fields.o \
+                intlist.o \
+                list.o \
+                vplist.o \
+                xml.o \
+                xml_encoding.o
+
+BIBL_OBJS     = bibl.o \
+                doi.o \
+                iso639_2.o \
+                marc.o \
+                name.o \
+                reftypes.o \
+                serialno.o \
+                title.o
+
+INPUT_OBJS    = bibtexin.o bibtextypes.o \
+		biblatexin.o bltypes.o \
+		copacin.o copactypes.o \
+		endin.o endtypes.o \
+		endxmlin.o \
+		isiin.o isitypes.o \
+		medin.o \
+		modsin.o modstypes.o marc.o \
+		risin.o ristypes.o \
+		ebiin.o wordin.o
+
+OUTPUT_OBJS   = adsout.o \
+                bibtexout.o \
+                endout.o \
+                isiout.o \
+                modsout.o \
+                risout.o \
+                wordout.o
+
+BIBCORE_OBJS  = $(SIMPLE_OBJS) \
+                $(NEWSTR_OBJS) \
+                $(CONTAIN_OBJS) \
+                $(BIBL_OBJS) \
+                bibcore.o
+
+BIBUTILS_OBJS = $(INPUT_OBJS) \
+                $(OUTPUT_OBJS) \
+                bibutils.o
+
+SONAME=libbibutils.so.$(MAJORVERSION)
+SOMINOR=$(MINORVERSION)
+SOFULL=$(SONAME).$(SOMINOR)
+
+all: $(LIBTARGET)
+
+.c.o:
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+libbibutils.so: $(BIBCORE_OBJS) $(BIBUTILS_OBJS)
+	$(CC) -shared -Wl,-soname,$(SONAME) -o $(SOFULL) $^
+	ln -sf $(SOFULL) $(SONAME)
+	ln -sf $(SOFULL) libbibutils.so
+
+bibutils.dll: $(BIBCORE_OBJS) $(BIBUTILS_OBJS)
+	$(CC) -shared -Wl,-soname,$(SONAME) -o $@ $^
+	cp $@ ../bin
+	cp $@ ../test
+
+install:
+	echo INSTALLING LIBRARIES TO $(LIBINSTALLDIR)
+	mkdir -p $(LIBINSTALLDIR)
+	cp -P $(SOFULL) $(SONAME) $(LIBTARGET) $(LIBINSTALLDIR)
+
+clean: 
+	rm -f *.o core
+
+realclean:
+	rm -f *.o *.a *.so $(SONAME) $(SOFULL) core
+
+test:
