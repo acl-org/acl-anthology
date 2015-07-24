@@ -149,6 +149,7 @@ def load_volume_xml(xml_data)
 			@paper.publisher 	= p.elements['publisher'].text		if p.elements['publisher']
 			@paper.pages 		= p.elements['pages'].text			if p.elements['pages']
 			@paper.url 			= "http://aclweb.org/anthology/" + @paper.anthology_id
+			@paper.doi      	= p.elements['doi'].text 			if p.elements['doi']
 			if p.attributes["href"] # There is an external link for this paper
 				@paper.url = p.attributes["href"]
 			end
