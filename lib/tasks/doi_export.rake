@@ -333,6 +333,13 @@ def export_tacl_volume(volume, xml_body)
     export_journal_papers_in_volume(@volume, journal)	
 end
 
+# Some workshops should be excluded, although their publishers are ACL. 
+def is_excluded_workshop(anthology_id)
+	return anthology_id=='W15-01' || anthology_id=='W15-02' ||
+				 anthology_id=='W15-03' || anthology_id=='W15-04' ||
+				 anthology_id=='W15-18' || anthology_id=='W15-19' ||
+ 				 anthology_id=='W15-20' || anthology_id=='W15-21' 
+end
 
 =begin
 We assign DOI for conference/workshop/journal papers published by ACL since 2012.
@@ -344,7 +351,7 @@ E.g., rake export:doi_single['name','namen@email.com']
 
 =end
 namespace :export do
-    desc "Export each volume to a single doi"
+  desc "Export each volume to a single doi"
 	task :doi_single, [:name, :email] => :environment do |t, args|
 		unless args.name or args.email
 			abort("PLease pass depositor's name and email as parameters")
@@ -353,7 +360,7 @@ namespace :export do
     doi_depositor_email = args.email
     
 		#all_codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
-		acl_codes = ['P', 'E', 'N', 'D', 'S', 'W']
+		acl_codes = ['P', 'E', 'N', 'D', 'S', 'W', 'Q']
 		
 		current_year = Date.today.strftime('%y')
 		years = ('12'..current_year).to_a
@@ -369,33 +376,34 @@ namespace :export do
 
 				volume_series.each do |v|
 					@volume = Volume.find_by_anthology_id(c + y + "-" + v.to_s)
-					if @volume and @volume.publisher == 'Association for Computational Linguistics'
+					# Note: publisher is missing for some volumes in database.
+					if @volume and @volume.publisher and @volume.publisher.include?('Association for Computational Linguistics') and not is_excluded_workshop(@volume.anthology_id)
 						puts "Exporting volume " + @volume.anthology_id				
 
 						xml_doc = REXML::Document.new  "<?xml version='1.0' encoding='UTF-8'?>"
-					    xml_batch = xml_doc.add_element "doi_batch", {"xmlns"=>"http://www.crossref.org/schema/4.3.5",
+					  xml_batch = xml_doc.add_element "doi_batch", {"xmlns"=>"http://www.crossref.org/schema/4.3.5",
 					                                  "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
 					                                  "xsi:schemaLocation"=>"http://www.crossref.org/schema/4.3.5 http://www.crossref.org/schema/deposit/crossref4.3.5.xsd",
 					                                  "version"=>"4.3.5"}
 					
-					    # head
-					    head = xml_batch.add_element "head"
+				    # head
+				    head = xml_batch.add_element "head"
 					    
-					    doi_batch_id = head.add_element "doi_batch_id"
-					    doi_batch_id.text = volume_count.to_s.rjust(5, "0") # length is required to be at least 4 digits
-					    timestamp = head.add_element "timestamp"
-    					timestamp.text = Time.now.strftime('%Y%m%d%H%M%S')
-					    
-					    depositor = head.add_element "depositor"
-					    depositor_name = depositor.add_element "depositor_name"
-					    depositor_name.text = doi_depositor_name
-					    email = depositor.add_element "email_address"
-					    email.text = doi_depositor_email
-					    
-					    registrant = head.add_element "registrant"
-					    registrant.text = "Association for Computational Linguistics"
-					    
-					    body = xml_batch.add_element "body"
+				    doi_batch_id = head.add_element "doi_batch_id"
+				    doi_batch_id.text = volume_count.to_s.rjust(5, "0") # length is required to be at least 4 digits
+				    timestamp = head.add_element "timestamp"
+  					timestamp.text = Time.now.strftime('%Y%m%d%H%M%S')
+				    
+				    depositor = head.add_element "depositor"
+				    depositor_name = depositor.add_element "depositor_name"
+				    depositor_name.text = doi_depositor_name
+				    email = depositor.add_element "email_address"
+				    email.text = doi_depositor_email
+				    
+				    registrant = head.add_element "registrant"
+				    registrant.text = "Association for Computational Linguistics"
+				    
+				    body = xml_batch.add_element "body"
 
 						
 						if c == "Q"
