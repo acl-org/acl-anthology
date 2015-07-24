@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140715030337) do
+ActiveRecord::Schema.define(version: 20150724032230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20140715030337) do
     t.text     "slug"
     t.string   "mrf"
     t.string   "layers"
+    t.string   "doi"
   end
 
   add_index "papers", ["slug"], name: "index_papers_on_slug", unique: true, using: :btree
