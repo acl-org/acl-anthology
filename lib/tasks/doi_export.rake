@@ -236,7 +236,7 @@ def export_conference_volume(volume, xml_body)
 	# event meta
 	event_metadata = conference.add_element "event_metadata"
     conference_name = event_metadata.add_element "conference_name"
-    conference_name.text = @volume.title #TODO: remove Proceedings of the 
+    conference_name.text = @volume.title
     
     if @volume.address
     	conference_location = event_metadata.add_element "conference_location"
