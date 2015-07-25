@@ -75,18 +75,20 @@
       <dd><%= @paper.year %>&nbsp;</dd>
 
       <% if @events.size > 1 %>
-        <dt><strong>Events:</strong></dt>
+        <dt><strong>Venues:</strong></dt>
       <% else %>
-        <dt><strong>Event:</strong></dt>
+        <dt><strong>Venue:</strong></dt>
       <% end %>  
       <dd>
         <% first_event = true %>
         <% @events.each do |event| %>
           <% if first_event == true %>
-            <%= link_to Venue.find(event.venue_id).acronym, event_path(event) %>
+<!--            <%= link_to Venue.find(event.venue_id).acronym, event_path(event) %> -->
+            <%= link_to Venue.find(event.venue_id).acronym, venue_path(Venue.find(event.venue_id)) %>
             <% first_event = false %>
           <% else %>
-            | <%= link_to Venue.find(event.venue_id).acronym, event_path(event) %>
+<!--            | <%= link_to Venue.find(event.venue_id).acronym, event_path(event) %> -->
+            | <%= link_to Venue.find(event.venue_id).acronym, venue_path(Venue.find(event.venue_id)) %>
           <% end %>
         <% end %>&nbsp;
       </dd>
