@@ -7,7 +7,7 @@ DOI_PREFIX="10.3115/v1"
 
 
 def export_conference_papers_in_volume(volume, conf_tag)
-    volumeIsWorkshop = (@volume.anthology_id[0] == 'W')
+	volumeIsWorkshop = (@volume.anthology_id[0] == 'W')
 
 	valid_paper_series = []
 	@papers = @volume.papers
@@ -57,8 +57,7 @@ def export_conference_papers_in_volume(volume, conf_tag)
 						    surname.text = person.last_name.strip!='' ? person.last_name : person.first_name
 						end
 					    person_count += 1
-						end
-					#end
+					end
 				end
 			else # Normal paper
 				conference_paper = conf_tag.add_element "conference_paper"
@@ -82,13 +81,12 @@ def export_conference_papers_in_volume(volume, conf_tag)
 						surname.text = person.last_name.strip!='' ? person.last_name : person.first_name
 					end
 				    person_count += 1
-					#end
 				end
 				
 				if @paper.title
 					titles = conference_paper.add_element "titles"
-				    title = titles.add_element "title"
-				    title.text = @paper.title.gsub(/&/u, "and")
+			    title = titles.add_element "title"
+			    title.text = @paper.title.gsub(/&/u, "and")
 				end
 			
 			    if @paper.year
@@ -96,7 +94,8 @@ def export_conference_papers_in_volume(volume, conf_tag)
 			    	year = publication_date.add_element "year"
 			    	year.text = @paper.year
 			    end
-			   	if @paper.pages
+		    
+			    if @paper.pages
 			    	first, last = @paper.pages.gsub(/–/u,'-').split("-") 
 			    	if !last
 			    		last = first
@@ -108,7 +107,6 @@ def export_conference_papers_in_volume(volume, conf_tag)
 				    last_page.text = last
 				end
 			
-				#crossmark = conference_paper.add_element "crossmark"
 			    doi_data = conference_paper.add_element "doi_data"
 			    doi = doi_data.add_element "doi"
 			    doi.text = DOI_PREFIX + "/" + @paper.anthology_id
@@ -238,7 +236,7 @@ def export_conference_volume(volume, xml_body)
 	# event meta
 	event_metadata = conference.add_element "event_metadata"
     conference_name = event_metadata.add_element "conference_name"
-    conference_name.text = @volume.title #TODO: remove Proceedings of the 
+    conference_name.text = @volume.title
     
     if @volume.address
     	conference_location = event_metadata.add_element "conference_location"
@@ -305,10 +303,10 @@ def export_tacl_volume(volume, xml_body)
 	
 	# event meta
 	journal_metadata  = journal.add_element "journal_metadata", {"language"=>"en"}
-    full_title = journal_metadata .add_element "full_title"
-    full_title.text  = @volume.title
-    issn = journal_metadata.add_element "issn"
-    issn.text = "2307-387X" # specifically for TACL
+	full_title = journal_metadata .add_element "full_title"
+	full_title.text  = @volume.title
+	issn = journal_metadata.add_element "issn"
+	issn.text = "2307-387X" # specifically for TACL
 
 	journal_issue = journal.add_element "journal_issue"
 	publication_date = journal_issue.add_element "publication_date"
@@ -322,17 +320,24 @@ def export_tacl_volume(volume, xml_body)
 	issue = journal_issue.add_element "issue"
 	issue.text = issue_num
     
-    doi_data = journal_issue.add_element "doi_data"
-    doi = doi_data.add_element "doi"
-    doi.text  = DOI_PREFIX + "/" + @volume.anthology_id
-    timestamp = doi_data.add_element "timestamp"
-    timestamp.text = Time.now.strftime('%Y%m%d%H%M%S')
-    resource = doi_data.add_element "resource"
-    resource.text = @volume.url
-    
-    export_journal_papers_in_volume(@volume, journal)	
+  	doi_data = journal_issue.add_element "doi_data"
+  	doi = doi_data.add_element "doi"
+  	doi.text  = DOI_PREFIX + "/" + @volume.anthology_id
+  	timestamp = doi_data.add_element "timestamp"
+  	timestamp.text = Time.now.strftime('%Y%m%d%H%M%S')
+  	resource = doi_data.add_element "resource"
+  	resource.text = @volume.url
+
+  	export_journal_papers_in_volume(@volume, journal)	
 end
 
+# Some workshops should be excluded, although their publishers are ACL. 
+def is_excluded_workshop(anthology_id)
+	return anthology_id=='W15-01' || anthology_id=='W15-02' ||
+		   anthology_id=='W15-03' || anthology_id=='W15-04' ||
+		   anthology_id=='W15-18' || anthology_id=='W15-19' ||
+		   anthology_id=='W15-20' || anthology_id=='W15-21' 
+end
 
 =begin
 We assign DOI for conference/workshop/journal papers published by ACL since 2012.
@@ -344,16 +349,16 @@ E.g., rake export:doi_single['name','namen@email.com']
 
 =end
 namespace :export do
-    desc "Export each volume to a single doi"
+  desc "Export each volume to a single doi"
 	task :doi_single, [:name, :email] => :environment do |t, args|
 		unless args.name or args.email
 			abort("PLease pass depositor's name and email as parameters")
 		end
 		doi_depositor_name = args.name
-    doi_depositor_email = args.email
+    	doi_depositor_email = args.email
     
 		#all_codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
-		acl_codes = ['P', 'E', 'N', 'D', 'S', 'W']
+		acl_codes = ['P', 'E', 'N', 'D', 'S', 'W', 'Q']
 		
 		current_year = Date.today.strftime('%y')
 		years = ('12'..current_year).to_a
@@ -369,22 +374,23 @@ namespace :export do
 
 				volume_series.each do |v|
 					@volume = Volume.find_by_anthology_id(c + y + "-" + v.to_s)
-					if @volume and @volume.publisher == 'Association for Computational Linguistics'
+					# Note: publisher is missing for some volumes in database.
+					if @volume and @volume.publisher and @volume.publisher.include?('Association for Computational Linguistics') and not is_excluded_workshop(@volume.anthology_id)
 						puts "Exporting volume " + @volume.anthology_id				
 
 						xml_doc = REXML::Document.new  "<?xml version='1.0' encoding='UTF-8'?>"
-					    xml_batch = xml_doc.add_element "doi_batch", {"xmlns"=>"http://www.crossref.org/schema/4.3.5",
+					  	xml_batch = xml_doc.add_element "doi_batch", {"xmlns"=>"http://www.crossref.org/schema/4.3.5",
 					                                  "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
 					                                  "xsi:schemaLocation"=>"http://www.crossref.org/schema/4.3.5 http://www.crossref.org/schema/deposit/crossref4.3.5.xsd",
 					                                  "version"=>"4.3.5"}
 					
 					    # head
 					    head = xml_batch.add_element "head"
-					    
+						    
 					    doi_batch_id = head.add_element "doi_batch_id"
 					    doi_batch_id.text = volume_count.to_s.rjust(5, "0") # length is required to be at least 4 digits
 					    timestamp = head.add_element "timestamp"
-    					timestamp.text = Time.now.strftime('%Y%m%d%H%M%S')
+	  					timestamp.text = Time.now.strftime('%Y%m%d%H%M%S')
 					    
 					    depositor = head.add_element "depositor"
 					    depositor_name = depositor.add_element "depositor_name"
