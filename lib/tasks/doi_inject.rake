@@ -64,12 +64,12 @@ Note:
 
 Usage:
     Please specify the proceeding to be injected in the parameter. E.g.,
-    rake inject:doi_inject[P15] 
+    rake import:doi[P15] 
     
 =end	
-namespace :inject do
+namespace :import do
     desc "Inject doi to import/xml files"
-    task :doi_inject, [:proceeding] => :environment do |t, args|
+    task :doi, [:proceeding] => :environment do |t, args|
         volume = args.proceeding
         file_path = "import/" + volume + ".xml"
         if File.exist?(file_path)
