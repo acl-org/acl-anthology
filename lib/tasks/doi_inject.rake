@@ -56,17 +56,21 @@ end
 Inject the DOI into import/.xml for papers published by ACL after 2012.
 P: ACL, D: EMNLP, E: EACL, N: NAACL, S: SemEval/Sem, W: Workshops by ACL, Q: TACL
 
-Usage:
-    Please specify the volumes to be injected in the code
+Note: 
+1. The presence of DOIs will be checked, and papers with DOIs are skipped.
+2. Papers from non-ACL publishers will be automatically skipped.
+3. Papers from specified workshops (see the list in is_excluded_workshop method) 
+   will be skipped, although their publisher is ACL.
 
+Usage:
+    Please specify the proceedings to be injected in the parameter. E.g.,
+    rake inject:doi_inject['P15 W15 P14 W14 D14 E14 N14 S14'] (separated by a whitespace)
+    
 =end	
 namespace :inject do
     desc "Inject doi to import/xml files"
-    task :doi_inject => :environment do
-        # Please specify the volumes to be injected
-        volumes = ["P15", "W15", 
-                    "P14", "W14", "E14", "N14", "S14"]
-        
+    task :doi_inject, [:proceedings] => :environment do |t, args|
+        volumes = args.proceedings.strip().split(/\s+/)
         volumes.each do |volume|
             file_path = "import/" + volume + ".xml"
             if File.exist?(file_path)
