@@ -63,34 +63,32 @@ Note:
    will be skipped, although their publisher is ACL.
 
 Usage:
-    Please specify the proceedings to be injected in the parameter. E.g.,
-    rake inject:doi_inject['P15 W15 P14 W14 D14 E14 N14 S14'] (separated by a whitespace)
+    Please specify the proceeding to be injected in the parameter. E.g.,
+    rake inject:doi_inject[P15] 
     
 =end	
 namespace :inject do
     desc "Inject doi to import/xml files"
-    task :doi_inject, [:proceedings] => :environment do |t, args|
-        volumes = args.proceedings.strip().split(/\s+/)
-        volumes.each do |volume|
-            file_path = "import/" + volume + ".xml"
-            if File.exist?(file_path)
-                puts "Processing " + file_path
-                String xml_data = File.read(file_path)
-                xml_doc = process_volume_xml(volume, xml_data)
-                
-                xml_file = File.new(file_path, "w:UTF-8")
-                formatter = REXML::Formatters::Pretty.new(2)
-            	formatter.compact = true # pretty-printing
-        		xml_string = ""
-        		formatter.write(xml_doc, xml_string)
-        		xml_string.gsub!(/amp;/, '') # delete all escape chars, &amp; => &
-        		xml_string.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
-        
-        		xml_file.write xml_string
-        		xml_file.close
-        	else
-        	    puts file_path + " does not exist!"
-            end
-    	end # Finished one volume
+    task :doi_inject, [:proceeding] => :environment do |t, args|
+        volume = args.proceeding
+        file_path = "import/" + volume + ".xml"
+        if File.exist?(file_path)
+            puts "Processing " + file_path
+            String xml_data = File.read(file_path)
+            xml_doc = process_volume_xml(volume, xml_data)
+            
+            xml_file = File.new(file_path, "w:UTF-8")
+            formatter = REXML::Formatters::Pretty.new(2)
+        	formatter.compact = true # pretty-printing
+    		xml_string = ""
+    		formatter.write(xml_doc, xml_string)
+    		xml_string.gsub!(/amp;/, '') # delete all escape chars, &amp; => &
+    		xml_string.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
+    
+    		xml_file.write xml_string
+    		xml_file.close
+        else
+    	    puts file_path + " does not exist!"
+        end
     end # Finished task
 end
