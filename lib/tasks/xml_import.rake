@@ -137,6 +137,9 @@ def load_volume_xml(xml_data)
 			if p.attributes["href"] # There is an external link for this paper
 				@paper.url = p.attributes["href"]
 			end
+			if p.elements['doi'] # There is a registered DOI for this paper
+				@paper.doi = p.elements['doi'].text
+			end
 			if p.elements['mrf']
 				@paper.layers 		= "MRF"
 				@paper.mrf 			= p.elements['mrf'].text
