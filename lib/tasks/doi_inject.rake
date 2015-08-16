@@ -53,7 +53,7 @@ Note:
 
 Usage:
     Please specify the proceeding and the workshops that should be skipped in the
-    parameter. Multiple workshops are seperated by a whitespace.
+    parameter. Multiple workshops are separated by a whitespace.
     
     E.g., rake import:doi[W15,'W15-01 W15-02 W15-03 W15-04 W15-18 W15-19 W15-20 W15-21']
     or rake import:doi[P15] 

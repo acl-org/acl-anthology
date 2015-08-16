@@ -342,10 +342,10 @@ Note:
 
 Usage:
 	Please pass depositor's name and email, proceeding, and the workshops to be 
-	ignored as parameter. Multiple workshops are seperated by a whitespace.
+	ignored as parameter. Multiple workshops are separated by a whitespace.
 	
-	E.g., rake export:doi_single[name','name@email.com','W15-01 W15-02 W15-03 W15-04 W15-18 W15-19 W15-20 W15-21']
-	or rake export:doi_single[name','name@email.com','P15']
+	E.g., rake export:doi_single['name','name@email.com','W15','W15-01 W15-02 W15-03 W15-04 W15-18 W15-19 W15-20 W15-21']
+	or rake export:doi_single['name','name@email.com','P15']
 =end
 namespace :export do
   desc "Export each volume to a single doi"
