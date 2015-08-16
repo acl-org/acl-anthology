@@ -9,7 +9,7 @@ def get_doi_from_url(url)
     return DOI_PREFIX + "/" + anthology_id
 end
 
-def process_volume_xml(volume_num, xml_data, excluded_workshops)
+def process_volume_xml(volume_num, xml_data, ignored_workshops)
     xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
 	xml_data.gsub!(/&/, '&amp;') 
@@ -23,7 +23,7 @@ def process_volume_xml(volume_num, xml_data, excluded_workshops)
 	    anthology_id = volume_num + "-" + id
 
         publisher = ""
-        if !excluded_workshops.include?(anthology_id)
+        if !ignored_workshops.include?(anthology_id)
             if !paper.elements["publisher"].nil?
     	        publisher = paper.elements["publisher"].text 
     	    end
@@ -55,24 +55,23 @@ Usage:
     Please specify the proceeding and the workshops that should be skipped in the
     parameter. Multiple workshops are seperated by a whitespace.
     
-    E.g.,
-    rake import:doi[W15,'W15-01 W15-02 W15-03 W15-04 W15-18 W15-19 W15-20 W15-21']
+    E.g., rake import:doi[W15,'W15-01 W15-02 W15-03 W15-04 W15-18 W15-19 W15-20 W15-21']
     or rake import:doi[P15] 
 =end	
 namespace :import do
     desc "Inject doi to import/xml files"
-    task :doi, [:proceeding, :excluded] => :environment do |t, args|
+    task :doi, [:proceeding, :ignored_workshops] => :environment do |t, args|
         volume = args.proceeding
-        if !args.excluded.nil?
-            excluded_workshops = args.excluded.strip.split.to_set
+        if !args.ignored_workshops.nil?
+            ignored_workshops = args.ignored_workshops.strip.split.to_set
         else
-            excluded_workshops = Set.new
+            ignored_workshops = Set.new
         end
         file_path = "import/" + volume + ".xml"
         if File.exist?(file_path)
             puts "Processing " + file_path
             String xml_data = File.read(file_path)
-            xml_doc = process_volume_xml(volume, xml_data, excluded_workshops)
+            xml_doc = process_volume_xml(volume, xml_data, ignored_workshops)
             
             xml_file = File.new(file_path, "w:UTF-8")
             formatter = REXML::Formatters::Pretty.new(2)
