@@ -9,17 +9,7 @@ def get_doi_from_url(url)
     return DOI_PREFIX + "/" + anthology_id
 end
 
-
-# Some workshops should be excluded, although their publishers are ACL. 
-def is_excluded_workshop(anthology_id)
-	return anthology_id=='W15-01' || anthology_id=='W15-02' ||
-		   anthology_id=='W15-03' || anthology_id=='W15-04' ||
-		   anthology_id=='W15-18' || anthology_id=='W15-19' ||
-		   anthology_id=='W15-20' || anthology_id=='W15-21' 
-end
-
-
-def process_volume_xml(volume_num, xml_data)
+def process_volume_xml(volume_num, xml_data, excluded_workshops)
     xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
 	xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
 	xml_data.gsub!(/&/, '&amp;') 
@@ -33,7 +23,7 @@ def process_volume_xml(volume_num, xml_data)
 	    anthology_id = volume_num + "-" + id
 
         publisher = ""
-        if !is_excluded_workshop(anthology_id)
+        if !excluded_workshops.include?(anthology_id)
             if !paper.elements["publisher"].nil?
     	        publisher = paper.elements["publisher"].text 
     	    end
@@ -57,25 +47,32 @@ Inject the DOI into import/.xml for papers published by ACL after 2012.
 P: ACL, D: EMNLP, E: EACL, N: NAACL, S: SemEval/Sem, W: Workshops by ACL, Q: TACL
 
 Note: 
-1. The presence of DOIs will be checked, and papers with DOIs are skipped.
+1. The presence of DOIs will be checked, and thus papers with DOIs will be skipped.
 2. Papers from non-ACL publishers will be automatically skipped.
-3. Papers from specified workshops (see the list in is_excluded_workshop method) 
-   will be skipped, although their publisher is ACL.
+3. Papers from workshops specified in the parameter will be skipped.
 
 Usage:
-    Please specify the proceeding to be injected in the parameter. E.g.,
-    rake import:doi[P15] 
+    Please specify the proceeding and the workshops that should be skipped in the
+    parameter. Multiple workshops are seperated by a whitespace.
     
+    E.g.,
+    rake import:doi[W15,'W15-01 W15-02 W15-03 W15-04 W15-18 W15-19 W15-20 W15-21']
+    or rake import:doi[P15] 
 =end	
 namespace :import do
     desc "Inject doi to import/xml files"
-    task :doi, [:proceeding] => :environment do |t, args|
+    task :doi, [:proceeding, :excluded] => :environment do |t, args|
         volume = args.proceeding
+        if !args.excluded.nil?
+            excluded_workshops = args.excluded.strip.split.to_set
+        else
+            excluded_workshops = Set.new
+        end
         file_path = "import/" + volume + ".xml"
         if File.exist?(file_path)
             puts "Processing " + file_path
             String xml_data = File.read(file_path)
-            xml_doc = process_volume_xml(volume, xml_data)
+            xml_doc = process_volume_xml(volume, xml_data, excluded_workshops)
             
             xml_file = File.new(file_path, "w:UTF-8")
             formatter = REXML::Formatters::Pretty.new(2)
