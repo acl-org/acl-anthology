@@ -395,4 +395,12 @@ namespace :export do
 	# 		`ruby lib/bibscript/xml2dblp.rb export/mods/#{volume.anthology_id}.xml >export/dblp/#{volume.anthology_id}.html`
 	# 	end
 	# end
+
+	desc "Export paper mods xml"
+	task :antho_bib => :environment do
+	    Volume.all.each do |volume|
+                puts "Exporting bib for volume #{volume.anthology_id}"
+       	        `xml2bib export/mods{volume.anthology_id}.xml >> export/bib/antho.bib`
+            end
+        end
 end

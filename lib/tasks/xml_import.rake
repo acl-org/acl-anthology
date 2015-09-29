@@ -224,7 +224,7 @@ def read_joint_meetings_hash()
 end
 
 def codes
-	['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
+	['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
 end
 
 def years
@@ -398,6 +398,7 @@ namespace :import do
 						'H' => "HLT", # Non-ACL events
 						'I' => "IJCNLP", # Non-ACL events
 						'J' => "CL", # ACL events
+						'K' => "CONLL", # ACL events
 						'L' => "LREC", # Non-ACL events
 						'M' => "MUC", # Non-ACL events
 						'N' => "NAACL", # ACL events

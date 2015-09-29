@@ -45,7 +45,26 @@
 	  
 	  <pre>http://www.aclweb.org/anthology/W11-38%02d</pre>
 	</li>
-	
+
+	<li> The data in the ACL Anthology is (almost) completely
+	  derived from the XML form of the paper and volume metadata
+	  that is used to generate it.  If you can create this XML
+	  representation for your event, it will be sufficient
+	  information for us to generate the Anthology representation
+	  (Web pages) for your event.  For events using START version
+	  2 (via softconf.com), which is the default publication /
+	  event manager software for ACL, this will be easy, as we
+	  have transformation scripts to ingest directly from
+	  the <code>proceedings.tgz</code> file that can be one-click
+	  generated from START.  For other events, you will need to
+	  provide this data on your own.  These metadata files are
+	  publicly visible (but not linked) from the current
+	  Anthology.  An example can be found at:<br/>
+
+	  <pre><A HREF="http://www.aclweb.org/anthology/P/P15/P15.xml">http://www.aclweb.org/anthology/P/P15/P15.xml</A></pre> (metadata for ACL 2015)
+
+	  </li>
+
 	<li> For copyright transfers, you can use the default forms at:
 	  
 	  <pre>http://wing.comp.nus.edu.sg/~antho/acl-copyright-form-rev2011.pdf
@@ -79,12 +98,13 @@ http://wing.comp.nus.edu.sg/~antho/acl-copyright-form-rev2011.doc</pre>
 	  <p>Current types supported by the Anthology are:</p>
 	  
 	  <ul>
+	    <li>Attachment (this is for generic attachments; best to be specific
+	      and avoid using this when possible)</li><br/>
 	    <li>Dataset</li>
 	    <li>Note</li>
-	    <li>Software</li>
+	    <li>Poster</li>
 	    <li>Presentation</li>
-	    <li>Attachment (this is for generic attachments; best to be specific
-	      and avoid using this when possible)</li>
+	    <li>Software</li>
 	  </ul>
 	  
 	  <p>Videos are also accepted but only as valid hyperlinks.</p>
@@ -130,10 +150,35 @@ http://wing.comp.nus.edu.sg/~antho/acl-copyright-form-rev2011.doc</pre>
 	  , see venue facet) to check whether the venue acronym has been used
 	  before).  Please provide this information.</li>
 	
+        <li>For ingestion from events managed by Easy Chair, Nils
+	  Blomqvist has created
+	  a <A HREF="https://github.com/nblomqvist/easy2acl"><code>easy2acl</code></A>
+	  script, which should make the transformation to the
+	  aclpub format easier.
+        </li>
+
+	<li>Q: What data from START (softconf.com) does the Anthology
+	  ingestion process actually use?<br/>  A: The Anthology
+	  software uses a transformation script to revise the
+	  distributed <code>.bib</code> files into the appropriate XML
+	  metadata used by the Anthology.  We typically run this on
+	  the full volume <code>.bib</code> file, provided at
+	  the <code>cdrom/</code> directory that is adistributed by
+	  START.  We primarily use three sources of information that
+	  is just renamed from those sources:
+	  <ul>
+  	    <li>the bib files under cdrom/bib</li>
+	    <li>the pdf files under cdrom/pdf</li>
+	    <li>the whole volume bib/pdf files under cdrom</li>
+          </ul>
+	<p>We also use the cdrom/attachments when they are provided (optional)</p></li>
+	</li>
+
 	<li>Other general information on ACL Anthology assignment is included
 	  on the following page (although outdated).  Please read it.
 	  <a href="http://www.aclweb.org/anthology/importing.html">http://www.aclweb.org/anthology/importing.html</A>
 	</li>
+
       </ol>
     </div>
   </div>
