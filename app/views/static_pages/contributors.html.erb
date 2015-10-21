@@ -8,24 +8,152 @@
 
 
       <p>General information on ACL Anthology assignments for event
-	(proceedings) chairs: (<i>Updated as of 18 Jul 2014</i>)</p>
+	(proceedings) chairs: (<i>Updated as of 13 Oct 2015</i>)</p>
+
+      <h2>File naming</h2>
 
       <p>Currently, we assign each paper in the ACL Anthology a unique
-	8-character identifier, so that we can easily locate papers and
-	reference them.  The identifier is assigned by the current ACL
-	Anthology Editor and is in the form of a letter, two digit year and a
-	4 digit paper ID (e.g., W11-3801).  For large or prominent events
-	related to ACL or its sister organizations that recur on a yearly
-	basis, we use a separate lettered prefix, where all 4 digits of the
-	paper ID can be used (usually accommodating separate volumes in the
-	event, each capable of referencing up to 999 papers).</p>
+	8-character identifier, so that we can easily locate papers
+	and reference them.  The identifier is assigned by the current
+	ACL Anthology Editor and is in the form of a letter, two digit
+	year and a 4 digit paper ID (e.g., W11-3801).  For large or
+	prominent events related to ACL or its sister organizations
+	that recur on a yearly basis, we use a separate lettered
+	prefix, where all 4 digits of the paper ID can be used
+	(usually accommodating separate volumes or issue numbers in
+	the event or journal, each capable of referencing up to 999
+	papers).</p>
 
       <p>For all other smaller events, we use the 'W' prefix.  These events
 	accommodate up to 99 papers.  If there are multiple volumes for a such
 	smaller events, they are assigned as two separate volumes (e.g.,
 	shared tasks, student papers).</p>
 
-      <p>More details:</p>
+      <p>The file names fit within the 8.3 DOS naming constraint for
+	maximum portability, as recommended by Adobe. PDF filenames
+	are globally unique, to support subsetting (saving an ad hoc
+	collection of papers to a single directory). The numeric
+	fields within filenames are zero-padded to ensure filenames
+	have fixed width.</p>
+
+      <table class="table table-striped">
+	<tr>
+	  <th>Codes</th><th>Sets</th><th>Filename Example</th><th>Comments</th>
+	</tr>
+	<tr><td>A, C, D, E, H, I, L, M, N, P, S, T,
+	X</td><td>Proceedings<br/>(syy-xnnn)</td><td>P90-1001</td><td>This
+	is the first paper appearing in the first (or only) volume of
+	the P90 proceedings; most proceedings have just one volume; in
+	rare cases a proceedings volume has a supplement which should
+	be numbered as a separate volume; in rare cases multiple
+	proceedings volumes are bound into one (N00/A00) and these
+	should be treated as separate volumes. Each conference
+	proceedings may have up to 999 papers; conferences with more
+	papers than this upper limit should consult the ACL Anthology
+	Editor on how to split the proceedings into separate
+	volumes. Proceedings chairs of conferences may choose at their
+	discretion how they would like to partition volumes, although
+	segmentations involving main/full papers, short papers,
+	demonstrations and tutorial abstracts are most
+	common.</td></tr>
+
+	<tr><td>J,F,Q</td><td>Journal<br/>(jyy-xnnn)</td><td>J90-2001</td><td>This
+	is for the first paper in the second issue of J90; For
+	combined issues, like 3/4, use the first number of the
+	sequence. (E.g. if a journal year consists of combined issues
+	1/2 and 3/4, use J90-1 and J90-3 only). The 'F' prefix is for
+	the Finite String, a newsletter (now obsolete) that used to be
+	part of the Journal.</td></tr>
+
+	<tr><td>W</td><td>Workshops and Smaller
+	    Events<br/>(wyy-xxnn)</td><td>W90-0201</td><td>This is for
+	    the first paper in the second workshop in 1990; there is
+	    space for up to 100 workshops per year, and up to 99
+	    papers per workshop. If a workshop exceeds over 99 papers
+	    in a year, please consult the ACL Anthology Editor
+	    (currently Min-Yen Kan) first. In this case, a separate
+	    set letter code may be established for the
+	    venue.</td></tr>
+</table>
+
+<p>Workshop chairs should contact the ACL Anthology Editor to receive
+their workshop number offset (the 'xx' portion of the ACL Anthology
+ID). If your workshop is attached to a conference as a satellite
+event, please contact the proceedings chair for the main conference to
+receive the offset ID, as it is easiest to allocate offsets as a whole
+block. Conversely, if you are the proceedings chair for a conference
+that has satellite workshops, please contact the ACL Anthology Editor
+with the final list of titles of the workshops (make certain the
+workshops will actually be run) so that the editor can allocate a
+suitable block of offsets to the workshops.</p>
+
+      <h2>Paper numbers</h2>
+
+      <p>A key notion in file naming is the paper number. The general
+	rule is that papers will be numbered consecutively within the
+	bound volume in which they appear. When a proceeding is
+	divided into multiple volumes, paper number will begin from
+	number '1', with each new volume. When multiple proceedings
+	are bound into a single volume (e.g. N00), they will be
+	treated as multiple volumes.</p>
+
+      <p>Any front matter is given the number '0'. Any back matter is
+      given the number one more than the last paper in the
+      volume. Front and back matter that appears internally to a
+      volume (e.g. in N00) will be counted just like an ordinary
+      paper.</p>
+
+	<h2>Metadata</h2>
+
+	<p>Anthology index pages are generated from an XML file
+	containing information about volumes, paper titles and
+	authors. Each publication has an XML file, stored alongside
+	the scanned images. Proceedings chairs using the aclpub
+	publication package have a build target that will build a
+	richer version of the metadata below. Here is a fragment of
+	P/P03/P03.xml, which satisfies these minimal requirements,
+	generated automatically from the conference CD-ROM:</p>
+
+	<pre>
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+ &lt;volume id="P03"&gt;
+   &lt;paper id="1000"&gt;
+        &lt;title&gt;Proceedings of the 41st Annual Meeting of the Association for Computational Linguistics&lt;/title&gt;
+   &lt;/paper&gt;
+
+   &lt;paper id="1001"&gt;
+        &lt;title&gt;Offline Strategies for Online Question Answering: Answering Questions Before They Are Asked&lt;/title&gt;
+        &lt;author&gt;Michael Fleischman&lt;/author&gt;
+        &lt;author&gt;Eduard Hovy&lt;/author&gt;
+        &lt;author&gt;Abdessamad Echihabi&lt;/author&gt;
+   &lt;/paper&gt;
+
+   &lt;paper id="1002"&gt;
+        &lt;title&gt;Using Predicate-Argument Structures for Information Extraction&lt;/title&gt;
+        &lt;author&gt;Mihai Surdeanu&lt;/author&gt;
+        &lt;author&gt;Sanda Harabagiu&lt;/author&gt;
+        &lt;author&gt;John Williams&lt;/author&gt;
+        &lt;author&gt;Paul Aarseth&lt;/author&gt;
+   &lt;/paper&gt;
+
+   &lt;paper id="1003"&gt;
+        &lt;title&gt;A Noisy-Channel Approach to Question Answering&lt;/title&gt;
+        &lt;author&gt;Abdessamad Echihabi&lt;/author&gt;
+        &lt;author&gt;Daniel Marcu&lt;/author&gt;
+   &lt;/paper&gt;
+
+   ...
+
+ &lt;/volume&gt;
+</pre>
+
+      <p>A more comprehensive example can be found at:<br/>
+	<pre><A HREF="http://www.aclweb.org/anthology/P/P15/P15.xml">http://www.aclweb.org/anthology/P/P15/P15.xml</A></pre> (metadata for ACL 2015)</p>
+      
+      <p>These metadata files are publicly visible (but not linked)
+	from the current Anthology.</p>
+
+      <p>Other details:</p>
 
       <ol>
 	<li><p>URLs for the Anthology (for START as well as the Anthology XML) look like:</p>
@@ -46,7 +174,7 @@
 	  <pre>http://www.aclweb.org/anthology/W11-38%02d</pre>
 	</li>
 
-	<li> The data in the ACL Anthology is (almost) completely
+	<li>The data in the ACL Anthology is (almost) completely
 	  derived from the XML form of the paper and volume metadata
 	  that is used to generate it.  If you can create this XML
 	  representation for your event, it will be sufficient
@@ -57,12 +185,7 @@
 	  have transformation scripts to ingest directly from
 	  the <code>proceedings.tgz</code> file that can be one-click
 	  generated from START.  For other events, you will need to
-	  provide this data on your own.  These metadata files are
-	  publicly visible (but not linked) from the current
-	  Anthology.  An example can be found at:<br/>
-
-	  <pre><A HREF="http://www.aclweb.org/anthology/P/P15/P15.xml">http://www.aclweb.org/anthology/P/P15/P15.xml</A></pre> (metadata for ACL 2015)
-
+	  provide this data on your own (see the Metadata section above).  
 	  </li>
 
 	<li> For copyright transfers, you can use the default forms at:
@@ -82,6 +205,11 @@ http://wing.comp.nus.edu.sg/~antho/acl-copyright-form-rev2011.doc</pre>
 	    ask the authors to print, sign and submit to you.  You may be able to
 	    simply download the .zip or .tgz version of the archived forms and
 	    submit them to me.  Please note this when submitting.</p>
+
+	  <p>For both current and legacy events, it is good practice
+	  for the organizers to attempt to obtain copyright transfers
+	  for their materials, but we will ingest materials even if no
+	  copyright transfers are on file.</p>
 	</li>
 	
 	<li> If you need to assign ISBN numbers, please provide the exact titles
