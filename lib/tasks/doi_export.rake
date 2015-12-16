@@ -3,8 +3,7 @@ require "rexml/document"
 require "date"
 require 'fileutils'
 
-DOI_PREFIX="10.3115/v1"
-
+DOI_PREFIX="10.18653/v1"
 
 def export_conference_papers_in_volume(volume, conf_tag)
 	volumeIsWorkshop = (@volume.anthology_id[0] == 'W')

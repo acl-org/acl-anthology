@@ -333,7 +333,7 @@ namespace :import do
 		conn.execute("TRUNCATE TABLE sigs RESTART IDENTITY;")
 
 		sigs = ['sigann', 'sigbiomed', 'sigdat', 'sigdial', 'sigfsm', 'siggen', 'sighan', 'sighum', 'siglex', 
-			'sigmedia', 'sigmol', 'sigmt', 'signll', 'sigparse', 'sigmorphon', 'sigsem', 'semitic', 'sigslpat', 'sigwac']
+			'sigmedia', 'sigmol', 'sigmt', 'signll', 'sigparse', 'sigmorphon', 'sigslav', 'sigsem', 'semitic', 'sigslpat', 'sigwac']
 
 		if args[:local] == "true"
 			puts "Using local import."

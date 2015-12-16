@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require "rexml/document"
 
-DOI_PREFIX="10.3115/v1"
+DOI_PREFIX="10.18653/v1"
 
 def get_doi_from_url(url)
     start = url.rindex("/") + 1
