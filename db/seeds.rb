@@ -325,7 +325,7 @@ default_map = { 'A' => "ANLP", # ACL events
 				'L' => "LREC", # Non-ACL events
 				'M' => "MUC", # Non-ACL events
 				'N' => "NAACL", # ACL events
-				'O' => "ROCLING", # Non-ACL events
+				'O' => "ROCLING/IJCLCLP", # Non-ACL events
 				'P' => "ACL", # ACL events
 				'Q' => "TACL", # ACL events
 				'R' => "RANLP", # Non-ACL events

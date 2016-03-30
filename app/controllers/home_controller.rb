@@ -23,7 +23,7 @@ class HomeController < ApplicationController
     # If only a certain list of venues need to showed
     @acronyms_acl = ["CL", "TACL", "ACL", "EACL", "NAACL", "*SEMEVAL", 
                      "EMNLP", "CONLL", "ANLP", "WS"]
-    @acronyms_nonacl = ["COLING", "HLT", "IJCNLP", "LREC", "PACLIC", "ROCLING", "ALTA", "RANLP", 
+    @acronyms_nonacl = ["COLING", "HLT", "IJCNLP", "LREC", "PACLIC", "ROCLING/IJCLCLP", "ALTA", "RANLP", 
       "JEP/TALN/RECITAL", "MUC", "TIPSTER", "TINLAP"]
     @venues_acl = Venue.where(acronym: @acronyms_acl)
     @venues_nonacl = Venue.where(acronym: @acronyms_nonacl)
