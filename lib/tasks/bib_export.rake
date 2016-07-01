@@ -230,8 +230,11 @@ namespace :export do
 	desc "Export paper bib"
 	task :paper_bib, [:anthology_id] => :environment do |t, args|
 		if not args[:anthology_id]
+			all = Paper.all.count
+			i = 0
 			Paper.all.each do |paper|
-				puts "Exporting bib for paper #{paper.anthology_id}"
+				i += 1
+				puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
 				`xml2bib export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
 			end
 		else

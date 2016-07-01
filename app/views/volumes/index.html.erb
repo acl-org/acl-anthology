@@ -28,7 +28,8 @@
         <td><%= volume.month %></td>
         <td><%= volume.year %></td>
         <td><%= volume.address %></td>
-        <td><%= link_to volume.url, volume.url, :target => "_blank" if volume.url  %></td>
+        <td><%= link_to volume.url, volume.url if volume.url  %></td>
+<!-- , :target => "_blank" -->
         <!--  -->
         <!-- <td>
           <%= link_to t('.view', :default => t("helpers.links.view")),

@@ -1,16 +1,21 @@
 <p>
   <% if paper.revisions.size > 0 %>
-    <%= link_to image_tag("pdf_rev.png", size: "16x16", title: "Open Revision PDF of '#{paper.title}'"), "http://aclweb.org/anthology/#{paper.revisions.last.title}", :target => "_blank" %>
-    <%= link_to image_tag("pdf.png", size: "16x16", title: "Open PDF of '#{paper.title}'"), paper.url, :target => "_blank" %>
+    <%= link_to image_tag("pdf_rev.png", size: "16x16", title: "Open Revision PDF of '#{paper.title}'"), "http://aclweb.org/anthology/#{paper.revisions.last.title}" %> 
+<!-- , :target => "_blank" %> -->
+    <%= link_to image_tag("pdf.png", size: "16x16", title: "Open PDF of '#{paper.title}'"), paper.url %> 
+<!-- , :target => "_blank" %> -->
   <% else %>
-    <%= link_to image_tag("pdf.png", size: "16x16", title: "Open PDF of '#{paper.title}'"), paper.url, :target => "_blank" %>
+    <%= link_to image_tag("pdf.png", size: "16x16", title: "Open PDF of '#{paper.title}'"), paper.url %>
+<!-- :target => "_blank" %> -->
   <% end %>
 
   <%= link_to image_tag("export.png", size: "16x16", title: "Export '#{paper.title}' to bib format"), paper_path(paper, format: :bib) %>
-  <%= link_to image_tag("search.png", size: "16x16", title: "Search for '#{paper.title}' on Google"), "https://www.google.com/search?q=#{paper.title}", :target => "_blank"%>
+  <%= link_to image_tag("search.png", size: "16x16", title: "Search for '#{paper.title}' on Google"), "https://www.google.com/search?q=#{paper.title}" %> 
+<!-- , :target => "_blank"%> -->
 
   <% paper.attachments.each do |attachment| %>
-    <%= link_to image_tag("#{attachment.attach_type}.png", size: "16x16", title: "Open #{attachment.attach_type}: #{attachment.name}"), attachment.url, :target => "_blank" %>
+    <%= link_to image_tag("#{attachment.attach_type}.png", size: "16x16", title: "Open #{attachment.attach_type}: #{attachment.name}"), attachment.url %>
+<!-- , :target => "_blank" %> -->
   <% end %>
 
   <strong><%= link_to paper.title, paper_path(paper) %></strong><br>

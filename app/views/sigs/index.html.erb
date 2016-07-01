@@ -16,7 +16,8 @@
       <tr>
         <td><%= link_to sig.name, sig_path(sig) %></td>
         <td><%= sig.sigid %></td>
-        <td><%= link_to sig.url, sig.url, :target => "_blank" if sig.url %></td>
+        <td><%= link_to sig.url, sig.url if sig.url %></td>
+<!-- , :target => "_blank" if sig.url %></td> -->
         <!-- <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_sig_path(sig), :class => 'btn btn-mini' %>

@@ -128,7 +128,7 @@ namespace :export do
 	task :xml => :environment do
 		
 		codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
-		years = ('65'..'99').to_a + ('00'..'13').to_a
+		years = ('65'..'99').to_a + ('00'..'16').to_a
 		codes.each do |c|
 			years.each do |y|
 				volume_found = false # by default, the anthology is empty
@@ -168,10 +168,10 @@ end
 
 # Export each volume to an individual xml file
 namespace :export do
-	desc "Export each anthology to a single xml file in the form E12.xml"
+	desc "Export each volume to an individual xml file"
 	task :xml_single => :environment do
 		codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
-		years = ('65'..'99').to_a + ('00'..'13').to_a
+		years = ('65'..'99').to_a + ('00'..'16').to_a
 		codes.each do |c|
 			years.each do |y|
 				volume_found = false # by default, the anthology is empty
@@ -216,11 +216,11 @@ end
 
 # Export all volumes to one single xml file
 namespace :export do
-	desc "Export each anthology to a single xml file in the form E12.xml"
+	desc "Export all volumes to one single xml file"
 	task :xml_all => :environment do
 		
 		codes = ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X', 'Y']
-		years = ('65'..'99').to_a + ('00'..'13').to_a
+		years = ('65'..'99').to_a + ('00'..'16').to_a
 		xml_doc = REXML::Document.new "<?xml version='1.0'?>"
 		acl = xml_doc.add_element 'aclanthology', {"version" => Time.now}
 

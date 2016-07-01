@@ -8,7 +8,8 @@
                     edit_sig_path(@sig), :class => 'btn' %>
       <% end %>
     </h3>
-    <h5><%= link_to @sig.sigid + " homepage", @sig.url, :target => "_blank" if @sig.url %>&nbsp;</h5>
+    <h5><%= link_to @sig.sigid + " homepage", @sig.url if @sig.url %>&nbsp;</h5>
+<!-- %:target => "_blank" if @sig.url %> -->
   </div>
 
   <div class="span12">
@@ -37,9 +38,11 @@
     <% @volumes.each do |volume| %>
       <br><br>
       <h4 id="<%= volume.anthology_id %>" class="volume">
-        <%= link_to image_tag("pdf.png", size: "24x24", title: "Open PDF of '#{volume.title}'"), "http://aclweb.org/anthology/" + volume.anthology_id, :target => "_blank"  if volume.anthology_id[0] != 'J' %>
+        <%= link_to image_tag("pdf.png", size: "24x24", title: "Open PDF of '#{volume.title}'"), "http://aclweb.org/anthology/" + volume.anthology_id if volume.anthology_id[0] != 'J' %>
+<!-- , :target => "_blank"  if volume.anthology_id[0] != 'J' %> -->
         <%= link_to image_tag("export.png", size: "24x24", title: "Export '#{volume.title}' to bib format"), volume_path(volume, format: :bib) %>
-        <%= link_to image_tag("search.png", size: "24x24", title: "Search for '#{volume.title}' on Google"), "https://www.google.com/search?q=" + volume.title, :target => "_blank"%>
+        <%= link_to image_tag("search.png", size: "24x24", title: "Search for '#{volume.title}' on Google"), "https://www.google.com/search?q=" + volume.title %>
+<!-- , :target => "_blank"%> -->
         <%= link_to volume.title, volume_path(volume) %>
       </h4><br>
       <% @papers = volume.papers.includes(:people) %>
