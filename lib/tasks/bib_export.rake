@@ -234,13 +234,29 @@ namespace :export do
 			i = 0
 			Paper.all.each do |paper|
 				i += 1
-				puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
-				`xml2bib export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
+				if i % 100 == 0
+			       	        puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
+				`xml2bib -nb -w export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
 			end
 		else
-			puts "Exporting bib for paper #{args[:anthology_id]}"
+			if i % 100 == 0
+		       	        puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
-			`xml2bib export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
+			`xml2bib -nb -w export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
+		end
+	end
+
+	desc "Export paper bib into single file"
+	task :paper_bib_single => :environment do |t, args|
+		all = Paper.all.count
+		i = 0
+		`rm -f export/bib/anthology.bib`
+		Paper.all.sort { |a,b| a.anthology_id <=> b.anthology_id }.each do |paper|
+			i += 1
+			if i % 100 == 0
+			       puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
+                        end
+			`xml2bib -nb -w export/mods/#{paper.anthology_id}.xml >> export/bib/anthology.bib 2> /dev/null`
 		end
 	end
 
