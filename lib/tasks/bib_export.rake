@@ -75,6 +75,13 @@ def export_volume_mods volume
 				paper_roleterm.attributes["type"]="text"
 				paper_roleterm.text="author"
 			}
+
+			if (paper.doi) 
+			   	identifier = mods.add_element 'identifier'
+				identifier.attributes["type"] = "DOI"
+				identifier.text = paper.doi
+			end
+
 			if (paper.pages)
 				part = paper_mods.add_element 'part'
 				extent = part.add_element 'extent'
@@ -162,6 +169,13 @@ def export_paper_mods paper
 		roleterm.text="author"
 
 	}
+
+	if (paper.doi) 
+	   	identifier = mods.add_element 'identifier'
+		identifier.attributes["type"] = "DOI"
+		identifier.text = paper.doi
+	end
+
 	if (paper.pages)
 		part = mods.add_element 'part'
 		extent = part.add_element 'extent'
@@ -236,13 +250,12 @@ namespace :export do
 				i += 1
 				if i % 100 == 0
 			       	        puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
-				`xml2bib -nb -w export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
+				end
+				`xml2bib -nb -w export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib 2>/dev/null`
 			end
 		else
-			if i % 100 == 0
-		       	        puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
-			`xml2bib -nb -w export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib`
+			`xml2bib -nb -w export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib 2>/dev/null`
 		end
 	end
 
