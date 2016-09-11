@@ -139,6 +139,35 @@ def load_volume_xml(xml_data)
       if p.elements['doi'] # There is a registered DOI for this paper
         @paper.doi = p.elements['doi'].text
       end
+
+      # volume numbers for journal articles
+      if (p.elements["volume"])
+        # <volume> tag in xml file takes precedence
+        @paper.journal_volume = p.elements["volume"].text
+      elsif @volume.anthology_id[0] == 'J' && @volume.year > 1979
+        # if <volume> tag not found, convert year to volume number for CL
+        @paper.journal_volume = ( @volume.year - 1974 ).to_s
+        # replace "Computational Linguistics, Volume 18, Issue 1"
+        # with    "Computational Linguistics"
+        @volume.title = @volume.title.gsub(/[-–, ]*Volume .*/, '')
+        @volume.save
+      elsif @volume.anthology_id[0] == 'Q'
+        # convert year to volume number for TACL
+        @paper.journal_volume = ( @volume.year - 2012 ).to_s
+        @volume.title = @volume.title.gsub(/[-–, ]*Volume .*/, '')
+        @volume.save
+      end
+
+      # issue numbers for journal articles
+      if (p.elements["issue"])
+        # <issue> tag in xml file takes precedence
+        @paper.issue = p.elements["issue"].text
+      elsif @volume.anthology_id[0] == 'J'
+        # otherwise, the thousands place in the paper id is the issue number for CL
+        @paper.issue = ( p.attributes["id"].to_i / 1000 ).to_s
+        # TACL has no issue number
+      end
+
       #			if p.elements['mrf'] # There is a machine readable layer for this paper
       #				@paper.layers 		= "MRF"
       #				@paper.mrf 			= p.elements['mrf'].text
