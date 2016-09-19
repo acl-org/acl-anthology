@@ -1,7 +1,7 @@
 require "rexml/document"
 
 def export_volume_mods volume
-	dash = "–"
+	dash = /[–-]+/
 	papers = volume.papers
 	volume_title = volume.title
 	year = volume.year
@@ -137,7 +137,7 @@ def export_volume_mods volume
 end
 
 def export_paper_mods paper
-	dash = "–"
+	dash = /[–-]+/
 	paper_title = paper.title
 	year = paper.year
 	volume_title = paper.volume.title
@@ -214,6 +214,25 @@ def export_paper_mods paper
 		genre_type.text = "workshop publication"
 	elsif (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J") 
 		genre_type.text = "academic journal"
+                if (paper.journal_volume)
+                  if (!part)
+                    part = mods.add_element 'part'
+                  end
+                  part_detail_volume = part.add_element 'detail'
+                  part_detail_volume.attributes['type'] = 'volume'
+                  part_detail_volume_number = part_detail_volume.add_element 'number'
+                  part_detail_volume_number.text = paper.journal_volume
+                end
+                if (paper.issue)
+                  if (!part)
+                    part = mods.add_element 'part'
+                  end
+                  part_detail_issue = part.add_element 'detail'
+                  part_detail_issue.attributes['type'] = 'issue'
+                  part_detail_issue_number = part_detail_issue.add_element 'number'
+                  part_detail_issue_number.text = paper.issue
+                end
+
 	else
 		genre_type.text = "conference publication"
 	end
