@@ -3,6 +3,17 @@ require "net/http"
 require "uri"
 require 'htmlentities'
 
+def parse_name(full_name)
+  if full_name.split(',') == 2 # If the format is Last Name, First
+    first_name = full_name.split(',')[1]
+    last_name = full_name.split(',')[0]
+  else # Splits "This Is Name" into "This Is" and "Name"
+    first_name = full_name.split[0..-2].join(" ")
+    last_name = full_name.split[-1]
+  end
+  return first_name, last_name
+end
+
 def load_volume_xml(xml_data)
   
   xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
@@ -55,13 +66,7 @@ def load_volume_xml(xml_data)
           full_name = first_name + " " + last_name
         else # If not, manually split the name into first name, last name
           full_name = editor.text
-          if full_name.split(',') == 2 # If the format is Last Name, First
-            first_name = full_name.split(',')[1]
-            last_name = full_name.split(',')[0]
-          else # Splits "This Is Name" into "This Is" and "Name"
-            first_name = full_name.split[0..-2].join(" ")
-            last_name = full_name.split[-1]
-          end
+          first_name, last_name = parse_name(full_name)
         end
         @editor = Person.find_or_create_by_first_name_and_last_name_and_full_name(first_name, last_name, full_name)
         @volume.people << @editor # Save join person(editor) - volume to database
@@ -115,8 +120,7 @@ def load_volume_xml(xml_data)
           full_name = first_name + " " + last_name
         else # If not, manually split the name into first name, last name
           full_name = author.text
-          first_name = full_name.split[0] # Only the first word in the full name
-          last_name = full_name.split[1..-1].join(" ") # The rest of the full name
+          first_name, last_name = parse_name(full_name)
         end
         @author = Person.find_or_create_by_first_name_and_last_name_and_full_name(first_name, last_name, full_name)
         @paper.people << @author # Save join paper - person(author) to database
