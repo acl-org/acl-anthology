@@ -1,5 +1,14 @@
 require "rexml/document"
 
+# runs command, prints stdout only if command fails
+def run_cmd_quietly cmd
+  output = `#{cmd}`
+  if (!$?.success?)
+    print "#{cmd}\n"
+    print output
+  end
+end
+
 def export_volume_mods volume
 	dash = /[–-]+/
 	papers = volume.papers
@@ -270,11 +279,11 @@ namespace :export do
 				if i % 100 == 0
 			       	        puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
 				end
-				`xml2bib -nb -w export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib 2>/dev/null`
+				run_cmd_quietly "xml2bib -nb -w export/mods/#{paper.anthology_id}.xml 2>&1 >export/bib/#{paper.anthology_id}.bib"
 			end
 		else
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
-			`xml2bib -nb -w export/mods/#{paper.anthology_id}.xml >export/bib/#{paper.anthology_id}.bib 2>/dev/null`
+			run_cmd_quietly "xml2bib -nb -w export/mods/#{paper.anthology_id}.xml 2>&1 >export/bib/#{paper.anthology_id}.bib"
 		end
 	end
 
@@ -288,7 +297,7 @@ namespace :export do
 			if i % 100 == 0
 			       puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
                         end
-			`xml2bib -nb -w export/mods/#{paper.anthology_id}.xml >> export/bib/anthology.bib 2> /dev/null`
+			run_cmd_quietly "xml2bib -nb -w export/mods/#{paper.anthology_id}.xml 2>&1 >>export/bib/anthology.bib"
 		end
 	end
 
