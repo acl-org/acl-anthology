@@ -21,7 +21,7 @@ If you don't have a running copy, we recommend using RVM to install Rails and al
 ### Cloning ###
 Browse to your designated folder and clone it using this git command (or with a git GUI tool). The process should take a while since the repository is quite big (about 150MB):
 ```
-$ git clone https://github.com/zamakkat/acl
+$ git clone https://github.com/WING-NUS/acl
 ```
 After the cloning is done, go to the ACL directory and install all gems:
 ```
@@ -47,7 +47,7 @@ $ rake db:drop
 ```
 After that you can start over and recreate the database.
 
-This is only one of the two methods to create the database. You can [click here](https://github.com/zamakkat/acl/wiki/Seeding-1:-Initial-database-seeding) to learn more about it or alternatively, you can use the second method: [Seeding 2: Individual elements](https://github.com/zamakkat/acl/wiki/Seeding-2:-Individual-elements)
+This is only one of the two methods to create the database. You can [click here](https://github.com/WING-NUS/acl/wiki/Seeding-1:-Initial-database-seeding) to learn more about it or alternatively, you can use the second method: [Seeding 2: Individual elements](https://github.com/WING-NUS/acl/wiki/Seeding-2:-Individual-elements)
 
 ### Indexing ###
 Before using the search functionality, we will need to run the Solr server locally and index the data. First, we will need to set the user. Open `jetty/solr/blacklight-core/conf/data-config.xml` (or just use find to find this file) and change line 5 to your current user account:
@@ -81,7 +81,7 @@ You can go to the ACL rails app by going to http://localhost:3000/ in you browse
 
 ## Exporting data ##
 
-For the export functions to work properly, we must first run some rake tasks to pre-generate the exported files. [Click here](https://github.com/zamakkat/acl/wiki/Exporting) to read more about exporting.
+For the export functions to work properly, we must first run some rake tasks to pre-generate the exported files. [Click here](https://github.com/WING-NUS/acl/wiki/Exporting) to read more about exporting.
 
 ## License ##
 ACL materials are Copyright (C) 1963-2013 ACL; other materials are copyrighted by their respective copyright holders. All materials here are licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License . Permission is granted to make copies for the purposes of teaching and research.
