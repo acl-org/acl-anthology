@@ -223,23 +223,23 @@ def export_paper_mods paper
 		genre_type.text = "workshop publication"
 	elsif (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J") 
 		genre_type.text = "academic journal"
-                if (paper.journal_volume)
+                if (paper.volume.journal_volume)
                   if (!part)
                     part = mods.add_element 'part'
                   end
                   part_detail_volume = part.add_element 'detail'
                   part_detail_volume.attributes['type'] = 'volume'
                   part_detail_volume_number = part_detail_volume.add_element 'number'
-                  part_detail_volume_number.text = paper.journal_volume
+                  part_detail_volume_number.text = paper.volume.journal_volume
                 end
-                if (paper.issue)
+                if (paper.volume.journal_issue)
                   if (!part)
                     part = mods.add_element 'part'
                   end
                   part_detail_issue = part.add_element 'detail'
                   part_detail_issue.attributes['type'] = 'issue'
                   part_detail_issue_number = part_detail_issue.add_element 'number'
-                  part_detail_issue_number.text = paper.issue
+                  part_detail_issue_number.text = paper.volume.journal_issue
                 end
 
 	else
@@ -248,7 +248,11 @@ def export_paper_mods paper
 
 	volume_info = related_item.add_element 'titleInfo'
 	volume_name = volume_info.add_element 'title'
-	volume_name.text = volume_title
+        if (paper.volume.journal_name)
+	  volume_name.text = paper.volume.journal_name
+        else
+	  volume_name.text = volume_title
+        end
 	file = File.new("export/mods/#{paper.anthology_id}.xml",'w')
 	file.write xml.to_s
 	file.close			
