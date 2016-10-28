@@ -1,6 +1,10 @@
 # ACL Anthology#
 
-These are basic instructions on running the ACL Anthology Rails Application which drives http://aclanthology.info. Note: If you are setting up the server and/or working on the server, please set the environment variable RAILS_ENV=production. One way is, each time you ssh to the server, run this once:
+These are basic instructions on running the ACL Anthology Rails Application which drives http://aclanthology.info. 
+
+Aside from the documentation present in this codebase, usage of the software once installed is documented mostly on the [GitHub ACL Wiki](https://github.com/WING-NUS/acl/wiki)
+
+Note: If you are setting up the server and/or working on the server, please set the environment variable RAILS_ENV=production. One way is, each time you ssh to the server, run this once:
 ```
 $ export RAILS_ENV=production
 ```
