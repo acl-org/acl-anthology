@@ -1,5 +1,5 @@
 namespace :export do
-	desc "Export all bibliography formats one by one for papers."
+	desc "Export all bibliography formats for papers (runs paper_modsxml, bib, ris, endf, word)."
 	task :all_papers, [:anthology_id] => :environment do |t,args|
 		if args[:anthology_id]
 			Rake::Task["export:paper_modsxml"].invoke(args[:anthology_id])
@@ -18,7 +18,7 @@ namespace :export do
 end
 
 namespace :export do
-	desc "Export all bibliography formats one by one for volumes."
+	desc "Export all bibliography formats one by one for volumes (runs volume_modsxml, bib, ris, endf, word, acm_full)."
 	task :all_volumes, [:anthology_id] => :environment do |t,args|
 		if args[:anthology_id]
 			Rake::Task["export:volume_modsxml"].invoke(args[:anthology_id])
@@ -41,7 +41,7 @@ namespace :export do
 end
 
 namespace :export do
-	desc "Export all xml formats one by one."
+	desc "Export all xml formats (runs xml, xml_single, xml_all)."
 	task :all_xmls => :environment do |t|
 		Rake::Task['export:xml'].invoke
 		Rake::Task['export:xml_single'].invoke
