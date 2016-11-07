@@ -48,6 +48,7 @@ def load_volume_xml(xml_data)
         @volume.anthology_id = id + '-' + vol.attributes["id"][0] # D13-1
       end
       @volume.title = vol.elements['title'].text if vol.elements['title']
+      @volume.journal_name = vol.elements['journal_name'].text if vol.elements['journal_name']
       
       @front_matter = Paper.new
       @front_matter.anthology_id = id + '-' + vol.attributes["id"]
@@ -86,6 +87,32 @@ def load_volume_xml(xml_data)
       @volume.bibtype 	= vol.elements['bibtype'].text		if vol.elements['bibtype']
       @volume.bibkey 		= vol.elements['bibkey'].text		if vol.elements['bibkey']
       
+      # volume numbers for journal articles
+      if (vol.elements["volume"])
+        # <volume> tag in xml file takes precedence
+        @volume.journal_volume = vol.elements["volume"].text
+      elsif @volume.anthology_id[0] == 'J' && @volume.year > 1979
+        # if <volume> tag not found, convert year to volume number for CL
+        @volume.journal_volume = ( @volume.year - 1974 ).to_s
+        # replace "Computational Linguistics, Volume 18, Issue 1"
+        # with    "Computational Linguistics"
+        @volume.journal_name = @volume.title.sub(/[-–, ]*Volume .*/, '')
+      elsif @volume.anthology_id[0] == 'Q'
+        # convert year to volume number for TACL
+        @volume.journal_volume = ( @volume.year - 2012 ).to_s
+        @volume.journal_name = @volume.title.sub(/[-–, ]*Volume .*/, '')
+      end
+
+      # issue numbers for journal articles
+      if (vol.elements["issue"])
+        # <issue> tag in xml file takes precedence
+        @volume.journal_issue = vol.elements["issue"].text
+      elsif @volume.anthology_id[0] == 'J'
+        # otherwise, the thousands place in the paper id is the issue number for CL
+        @volume.journal_issue = ( vol.attributes["id"].to_i / 1000 ).to_s
+        # TACL has no issue number
+      end
+
       @volume.save # Save volume
       @curr_volume = @volume
       
@@ -144,33 +171,6 @@ def load_volume_xml(xml_data)
         @paper.doi = p.elements['doi'].text
       end
 
-      # volume numbers for journal articles
-      if (p.elements["volume"])
-        # <volume> tag in xml file takes precedence
-        @paper.journal_volume = p.elements["volume"].text
-      elsif @volume.anthology_id[0] == 'J' && @volume.year > 1979
-        # if <volume> tag not found, convert year to volume number for CL
-        @paper.journal_volume = ( @volume.year - 1974 ).to_s
-        # replace "Computational Linguistics, Volume 18, Issue 1"
-        # with    "Computational Linguistics"
-        @volume.title = @volume.title.gsub(/[-–, ]*Volume .*/, '')
-        @volume.save
-      elsif @volume.anthology_id[0] == 'Q'
-        # convert year to volume number for TACL
-        @paper.journal_volume = ( @volume.year - 2012 ).to_s
-        @volume.title = @volume.title.gsub(/[-–, ]*Volume .*/, '')
-        @volume.save
-      end
-
-      # issue numbers for journal articles
-      if (p.elements["issue"])
-        # <issue> tag in xml file takes precedence
-        @paper.issue = p.elements["issue"].text
-      elsif @volume.anthology_id[0] == 'J'
-        # otherwise, the thousands place in the paper id is the issue number for CL
-        @paper.issue = ( p.attributes["id"].to_i / 1000 ).to_s
-        # TACL has no issue number
-      end
 
       #			if p.elements['mrf'] # There is a machine readable layer for this paper
       #				@paper.layers 		= "MRF"
