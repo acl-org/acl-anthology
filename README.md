@@ -91,7 +91,7 @@ $ rake acl:reindex_solr
 ```
 You can check the indexing process by going here (this is for the production server, and you have to be connected to SoC network):
 ```
-http://acl-anthology-i.comp.nus.edu.sg:8983/solr/#/blacklight-core/dataimport//dataimport
+<your server>:8983/solr/#/blacklight-core/dataimport//dataimport
 ```
 At this point, your setup is completed. You can run the Rails server to test the app. If you are not using a webserver, you can serve all request directly via Ruby. In order to do that, change line 23 in the file ``` config/environments/production.rb``` to ``` config.serve_static_assets = true ```. To run the Rails server call:
 ```
