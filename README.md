@@ -38,8 +38,8 @@ $ bundle install
 If you don't have any other PostgreSQL database already running you need to create a username and grant the user writing access to the database. To do this open (in Debian) ``` /etc/postgresql/<version>/main/pg_hba.conf ``` in your editor and add the following line:
 
 ```
-# TYPE  DATABASE        USER                    METHOD
-local	  all		            <database-username>				md5
+# TYPE  DATABASE  USER                    METHOD
+  local all      <database-username>      md5
 ```
 
 and then re-start the database. You also need to edit the section "production" of the file ``` acl/config/database.yml ``` so that it uses the right database username and password.
