@@ -21,7 +21,7 @@ The installation of this rails app assumes that you have a running Ruby on Rails
   * PostgreSQL (9.3.1)
   * Java (1.5 or higher)
 ```
-If you don't have a running copy, we recommend using RVM to install Rails and all its dependencies. Also, git command line tools or GUI is needed to clone the repository.  However, if you are using Debian, apparently using RVM causes all sorts of chaos, so you may want to skip this step.  **However, please take particular care about versions of Solr (farther down).**
+If you don't have a running copy, we strongly recommend using RVM to install Ruby, Rails and all its dependencies otherwise the process might change files and make your Rails install unusable. Also, the git command line tools or GUI are needed to clone the repository.  However, if you are using Debian, apparently using RVM causes all sorts of chaos, so you may want to skip this step.  **However, please take particular care about versions of Solr (farther down).**
 
 ### Cloning ###
 Browse to your designated folder and clone it using this git command (or with a git GUI tool). The process should take a while since the repository is quite big (about 150MB):
@@ -35,6 +35,15 @@ $ bundle install
 ```
 
 ### Database ###
+If you don't have any other PostgreSQL database already running you need to create a username and grant the user writing access to the database. To do this open (in Debian) ``` /etc/postgresql/<version>/main/pg_hba.conf ``` in your editor and add the following line:
+
+```
+# TYPE  DATABASE        USER                    METHOD
+local	  all		            <database-username>				md5
+```
+
+and then re-start the database. You also need to edit the section "production" of the file ``` acl/config/database.yml ``` so that it uses the right database username and password.
+
 Run the following commands to initialize the database and run migrations:
 ```
 $ rake db:create
@@ -70,6 +79,8 @@ Then in the `jetty/solr/blacklight-core/conf/solrconfig.xml`, edit line 67 (it i
 Change to:
 <str name="config">data-config.xml</str>
 ```
+Finally edit ``` jetty/etc/jetty.xml ``` line 80 and replace the given IP address with either your own (if you are running jetty from a different computer than the server) or ``` 127.0.0.1 ```.
+
 After saving all files, we can start the Solr server:
 ```
 $ cd jetty; java -jar start.jar &
@@ -82,8 +93,9 @@ You can check the indexing process by going here (this is for the production ser
 ```
 http://acl-anthology-i.comp.nus.edu.sg:8983/solr/#/blacklight-core/dataimport//dataimport
 ```
-At this point, your setup is completed and you can run the rails server to test the app:
+At this point, your setup is completed. You can run the Rails server to test the app. If you are not using a webserver, you can serve all request directly via Ruby. In order to do that, change line 23 in the file ``` config/environments/production.rb``` to ``` config.serve_static_assets = true ```. To run the Rails server call:
 ```
+$ rake assets:precompile
 $ rails server
 ```
 You can go to the ACL rails app by going to http://localhost:3000/ in you browser.
