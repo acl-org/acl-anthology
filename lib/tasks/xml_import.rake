@@ -36,7 +36,8 @@ def load_volume_xml(xml_data)
     w_check = "00"
     w_num = -2
   end
-  
+
+  counter = 0  
   (1..doc.size/2).each do |i| # Loop trough all the paper tags in the doc, has to be /2 because each tag is counted twice
     if doc.elements[i].attributes["id"][w_num..-1] == w_check 
       vol = doc.elements[i] # Short hand for easier reading
@@ -52,6 +53,10 @@ def load_volume_xml(xml_data)
       
       @front_matter = Paper.new
       @front_matter.anthology_id = id + '-' + vol.attributes["id"]
+
+      if counter % 10 == 0
+        print "[#{@front_matter.anthology_id}]"
+      end
       @front_matter.title = @volume.title
       
       # Adding editor information
@@ -206,6 +211,7 @@ def load_volume_xml(xml_data)
         end
       end
     end
+    counter += 1
   end
 end
 
