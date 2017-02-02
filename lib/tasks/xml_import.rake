@@ -29,7 +29,7 @@ def load_volume_xml(xml_data)
   id = doc.attributes["id"] # The document id in the first "volume" tag, eg. E12
   @curr_volume = Volume.new # Stores the current volume so the papers are saved to it
   
-  # We will check if the xml is of a type workshop. If it is, each worshop ending with 00 will be treated as 1 volume
+  # We will check if the xml is of a type workshop. If it is, each workshop ending with 00 will be treated as 1 volume
   w_check = "000" # default check for volumes
   w_num = -3 # default number of last chars checked (stands for 3)
   if id[0] == 'W'
@@ -43,7 +43,7 @@ def load_volume_xml(xml_data)
       vol = doc.elements[i] # Short hand for easier reading
       
       @volume = Volume.new
-      if id[0] == 'W' # If the volume is a workshop, then use the first 2 digits of id
+      if id[0] == 'W' # If the volume is a workshop, then use the first 2 digits of the ID
         @volume.anthology_id = id + '-' + vol.attributes["id"][0..1] # W12-01
       else # If not, only use the first digit
         @volume.anthology_id = id + '-' + vol.attributes["id"][0] # D13-1

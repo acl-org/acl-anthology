@@ -244,8 +244,9 @@ def export_paper_mods paper
                   part_detail_issue_number = part_detail_issue.add_element 'number'
                   part_detail_issue_number.text = paper.volume.journal_issue
                 end
-                if (paper.volume.journal_title)
-	          volume_name.text = paper.volume.journal_title
+# 2 Feb 2017 - Min - Fix 'title' to 'name'
+                if (paper.volume.journal_name)
+	          volume_name.text = paper.volume.journal_name
                 end
 	else
 		genre_type.text = "conference publication"
@@ -380,12 +381,12 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "Exporting bib for volume #{volume.anthology_id}"
-				`xml2bib export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
+				`xml2bib -nb -w export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
 			end
 		else
 			puts "Exporting bib for volume #{args[:anthology_id]}"
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
-			`xml2bib export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
+			`xml2bib -nb -w export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
 		end
 	end
 
@@ -462,7 +463,7 @@ namespace :export do
 	task :antho_bib => :environment do
 	    Volume.all.each do |volume|
                 puts "Exporting bib for volume #{volume.anthology_id}"
-       	        `xml2bib export/mods{volume.anthology_id}.xml >> export/bib/antho.bib`
+       	        `xml2bib -nb -w export/mods{volume.anthology_id}.xml >> export/bib/antho.bib`
             end
         end
 end
