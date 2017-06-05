@@ -61,7 +61,7 @@ Once you are done, you want to reload your environment variables, either by logg
 /home/acl_user/.rvm/scripts/rvm
 ```
 
-## Installing dependencies ##
+## Installing dependencies ##
 
 For the current installation, you'll need 
 
