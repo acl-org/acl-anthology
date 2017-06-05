@@ -39,12 +39,74 @@
     <author><first>Asad</first><last>Sayeed</last></author>
     <author><first>Manfred</first><last>Pinkal</last></author>
     <year>2017</year>
-    <abstract></abstract>
+    <abstract>Recent research in psycholinguistics has provided increasing evidence that humans predict upcoming content. Prediction also affects perception and might be a key to robustness in human language processing. In this paper, we investigate the factors that affect human prediction by building a computational model that can predict upcoming discourse referents based on linguistic knowledge alone vs. linguistic knowledge jointly with common-sense knowledge in the form of scripts. We find that script knowledge significantly improves model estimates of human predictions. In a second study, we test the highly controversial hypothesis that predictability influences referring expression type but do not find evidence for such an effect.</abstract>
     <href>https://transacl.org/ojs/index.php/tacl/article/download/968/224</href>
     <pages>31--44</pages>
     <url>http://www.aclweb.org/anthology/Q17-1003</url>
   </paper>
 
+  <paper id='1004'>
+    <title>Shift-Reduce Constituent Parsing with Neural Lookahead Features</title>
+    <author><first>Jiangming</first><last>Liu</last></author>
+    <author><first>Yue</first><last>Zhang</last></author>
+    <year>2017</year>
+    <abstract>Transition-based models can be fast and accurate for constituent parsing. Compared with chart-based models, they leverage richer features by extracting history information from a parser stack, which consists of a sequence of non-local constituents. On the other hand, during incremental parsing, constituent information on the right hand side of the current word is not utilized, which is a relative weakness of shift-reduce parsing. To address this limitation, we leverage a fast neural model to extract lookahead features. In particular, we build a bidirectional LSTM model, which leverages full sentence information to predict the hierarchy of constituents that each word starts and ends. The results are then passed to a strong transition-based constituent parser as lookahead features. The resulting parser gives 1.3% absolute improvement in WSJ and 2.3% in CTB compared to the baseline, giving the highest reported accuracies for fully-supervised parsing.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/927/225</href>
+    <pages>45--58</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1004</url>
+  </paper>
+
+  <paper id='1005'>
+    <title>A Polynomial-Time Dynamic Programming Algorithm for Phrase-Based Decoding with a Fixed Distortion Limit</title>
+    <author><first>Yin-Wen</first><last>Chang</last></author>
+    <author><first>Michael</first><last>Collins</last></author>
+    <year>2017</year>
+    <abstract>Decoding of phrase-based translation models in the general case is known to be NP-complete, by a reduction from the traveling salesman problem (Knight, 1999). In practice, phrase-based systems often impose a hard distortion limit that limits the movement of phrases during translation. However, the impact on complexity after imposing such a constraint is not well studied. In this paper, we describe a dynamic programming algorithm for phrase-based decoding with a fixed distortion limit. The runtime of the algorithm is O(nd!lh^{d+1}) where n is the sentence length, d is the distortion limit, l is a bound on the number of phrases starting at any position in the sentence, and h is related to the maximum number of target language translations for any source word. The algorithm makes use of a novel representation that gives a new perspective on decoding of phrase-based models.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1020/226</href>
+    <pages>59--71</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1005</url>
+  </paper>
+
+  <paper id='1006'>
+    <title>A Generative Model of Phonotactics</title>
+    <author><first>Richard</first><last>Futrell</last></author>
+    <author><first>Adam</first><last>Albright</last></author>
+    <author><first>Peter</first><last>Graff</last></author>
+    <author><first>Timothy J.</first><last>O'Donnell</last></author>
+    <year>2017</year>
+    <abstract>We present a probabilistic model of phonotactics, the set of well-formed phoneme sequences in a language. Unlike most computational models of phonotactics (Hayes and Wilson, 2008; Goldsmith and Riggle, 2012), we take a fully generative approach, modeling a process where forms are built up out of subparts by phonologically-informed structure building operations. We learn an inventory of subparts by applying stochastic memoization (Johnson et al., 2006; Goodman et al., 2008) to a generative process for phonemes structured as an and-or graph, based on concepts of feature hierarchy from generative phonology (Clements, 1985; Dresher, 2009). Subparts are combined in a way that allows tier-based feature interactions. We evaluate our models’ ability to capture phonotactic distributions in the lexicons of 14 languages drawn from the WOLEX corpus (Graff, 2012). Our full model robustly assigns higher probabilities to held-out forms than a sophisticated N-gram model for all languages. We also present novel analyses that probe model behavior in more detail.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/971/227</href>
+    <pages>73--86</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1006</url>
+  </paper>
+
+  <paper id='1007'>
+    <title>Context Gates for Neural Machine Translation</title>
+    <author><first>Zhaopeng</first><last>Tu</last></author>
+    <author><first>Yang</first><last>Liu</last></author>
+    <author><first>Zhengdong</first><last>Lu</last></author>
+    <author><first>Xiaohua</first><last>Liu</last></author>
+    <author><first>Hang</first><last>Li</last></author>
+    <year>2017</year>
+    <abstract>In neural machine translation (NMT), generation of a target word depends on both source and target contexts. We find that source contexts have a direct impact on the adequacy of a translation while target contexts affect the fluency. Intuitively, generation of a content word should rely more on the source context and generation of a functional word should rely more on the target context. Due to the lack of effective control over the influence from source and target contexts, conventional NMT tends to yield fluent but inadequate translations. To address this problem, we propose context gates which dynamically control the ratios at which source and target contexts contribute to the generation of target words. In this way, we can enhance both the adequacy and fluency of NMT with more careful control of the information flow from contexts. Experiments show that our approach significantly improves upon a standard attention-based NMT system by +2.3 BLEU points.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/948/228</href>
+    <pages>87-99</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1007</url>
+  </paper>
+
+  <paper id='1008'>
+    <title>Cross-Sentence N-ary Relation Extraction with Graph LSTMs</title>
+    <author><first>Nanyun</first><last>Peng</last></author>
+    <author><first>Hoifung</first><last>Poon</last></author>
+    <author><first>Chris</first><last>Quirk</last></author>
+    <author><first>Kristina</first><last>Toutanova</last></author>
+    <author><first>Wen-tau</first><last>Yih</last></author>
+    <year>2017</year>
+    <abstract>Past work in relation extraction focuses on binary relations in single sentences. Recent NLP inroads in high-valued domains have kindled strong interest in the more general setting of extracting n-ary relations that span multiple sentences. In this paper, we explore a general relation extraction framework based on graph long short-term memory (graph LSTM), which can be easily extended to cross-sentence n-ary relation extraction. The graph formulation provides a unifying way to explore different LSTM approaches and incorporate various intra-sentential and inter-sentential dependencies, such as sequential, syntactic, and discourse relations. A robust contextual representation is learned for the entities, which serves as input to the relation classifier, making it easy for scaling to arbitrary relation arity n, as well as for multi-task learning with related relations. We evaluated this framework in two important domains in precision medicine and demonstrated its effectiveness with both supervised learning and distant supervision. Cross-sentence extraction produced far more knowledge, and multi-task learning significantly improved extraction accuracy. A thorough analysis comparing various LSTM approaches yielded interesting insight on how linguistic analysis impacts the performance.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1028/229</href>
+    <pages>101--115</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1008</url>
+  </paper>
 
 </volume>
   
