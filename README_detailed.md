@@ -96,7 +96,7 @@ gem install rails -v 4.0.1
 gem install bundler -v 1.3.5
 ```
 
-## PostgreSQL ##
+### PostgreSQL ###
 
 PostgreSQL can be installed with the following command:
 
@@ -154,7 +154,7 @@ update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_131/bin/jav
 exit
 ```
 
-## Cloning the source code ##
+## Cloning the source code ##
 
 To clone the source code for the Anthology, you need these commands
 
@@ -177,7 +177,7 @@ rake db:create
 rake db:migrate
 ```
 
-## Seeding the database ##
+## Seeding the database ##
 
 You can now seed the database. This will take a long time, so be prepared.
 
@@ -217,7 +217,8 @@ password=<the password you created above after installing PostgreSQL>
 Then, edit line 67 of `jetty/solr/blacklight-core/conf/solrconfig.xml` and change
 
 ```
-<str name="config">/var/opt/solr/solr/blacklight-core/conf/data-config.xml</str>```
+<str name="config">/var/opt/solr/solr/blacklight-core/conf/data-config.xml</str>
+```
 
 to
 
