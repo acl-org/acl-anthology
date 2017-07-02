@@ -108,5 +108,62 @@
     <url>http://www.aclweb.org/anthology/Q17-1008</url>
   </paper>
 
+  <paper id='1009'>
+    <title>Automatically Tagging Constructions of Causation and Their Slot-Fillers</title>
+    <author><first>Jesse</first><last>Dunietz</last></author>
+    <author><first>Lori</first><last>Levin</last></author>
+    <author><first>Jaime</first><last>Carbonell</last></author>
+    <year>2017</year>
+    <abstract>This paper explores extending shallow semantic parsing beyond lexical-unit triggers, using causal relations as a test case. Semantic parsing becomes difficult in the face of the wide variety of linguistic realizations that causation can take on. We therefore base our approach on the concept of constructions from the linguistic paradigm known as construction grammar (CxG). In CxG, a construction is a form/function pairing that can rely on arbitrary linguistic and semantic features. Rather than codifying all aspects of each construction’s form, as some attempts to employ CxG in NLP have done, we propose methods that offload that problem to machine learning. We describe two supervised approaches for tagging causal constructions and their arguments. Both approaches combine automatically induced pattern-matching rules with statistical classifiers that learn the subtler parameters of the constructions. Our results show that these approaches are promising: they significantly outperform naive baselines for both construction recognition and cause and effect head matches.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/</href>
+    <pages>117--133</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1009</url>
+  </paper>
+
+  <paper id='1010'>
+    <title>Enriching Word Vectors with Subword Information</title>
+    <author><first>Piotr</first><last>Bojanowski</last></author>
+    <author><first>Edouard</first><last>Grave</last></author>
+    <author><first>Armand</first><last>Joulin</last></author>
+    <author><first>Tomas</first><last>Mikolov</last></author>
+    <year>2017</year>
+    <abstract>Continuous word representations, trained on large unlabeled corpora are useful for many natural language processing tasks. Popular models to learn such representations  ignore the morphology of words, by assigning a distinct vector to each word. This is a limitation, especially for languages with large vocabularies and many rare words. In this paper, we propose a new approach based on the skipgram model, where each word is represented as a bag of character n-grams. A vector representation is associated to each character n-gram, words being represented as the sum of these representations. Our method is fast, allowing to train models on large corpora quickly and allows to compute word representations for words that did not appear in the training data. We evaluate our word representations on nine different languages, both on word similarity and analogy tasks. By comparing to recently proposed morphological word representations, we show that our vectors achieve state-of-the-art performance on these tasks.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/</href>
+    <pages>135--146</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1010</url>
+  </paper>
+
+  <paper id='1011'>
+    <title>Fine-Grained Prediction of Syntactic Typology: Discovering Latent Structure with Supervised Learning</title>
+    <author><first>Dingquan</first><last>Wang</last></author>
+    <author><first>Jason</first><last>Eisner</last></author>
+    <year>2017</year>
+    <abstract>We show how to predict the basic word-order facts of a novel language given only a corpus of part-of-speech (POS) sequences. We predict how often direct objects follow their verbs, how often adjectives follow their nouns, and in general the directionalities of all dependency relations. Such typological properties could be helpful in grammar induction. While such a problem is usually regarded as unsupervised learning, our innovation is to treat it as supervised learning, using a large collection of realistic synthetic languages as training data. The supervised learner must identify surface features of a language’s POS sequence (hand-engineered or neural features) that correlate with the language’s deeper structure (latent trees). In the experiment, we show: 1) Given a small set of real languages, it helps to add many synthetic languages to the training data. 2) Our system is robust even when the POS sequences include noise. 3) Our system on this task outperforms a grammar induction baseline by a large margin.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1060/232</href>
+    <pages>147--161</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1011</url>
+  </paper>
+
+   <paper id='1012'>
+    <title>Head-Lexicalized Bidirectional Tree LSTMs</title>
+    <author><first>Zhiyang</first><last>Teng</last></author>
+    <author><first>Yue</first><last>Zhang</last></author>
+    <year>2017</year>
+    <abstract>Sequential LSTMs have been extended to model tree structures, giving competitive results for a number of tasks. Existing methods model constituent trees by bottom-up combinations of constituent nodes, making direct use of input word information only for leaf nodes. This is different from sequential LSTMs, which contain references to input words for each node. In this paper, we propose a method for automatic head-lexicalization for tree-structure LSTMs, propagating head words from leaf nodes to every constituent node.  In addition, enabled by head lexicalization, we build a tree LSTM in the top-down direction, which corresponds to bidirectional sequential LSTMs in structure. Experiments show that both extensions give better representations of tree structures. Our final model gives the best results on the Stanford Sentiment Treebank and highly competitive results on the TREC question type classification task.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/925/233</href>
+    <pages>163--177</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1012</url>
+  </paper>
+
+  <paper id='1013'>
+    <title>Nonparametric Bayesian Semi-supervised Word Segmentation</title>
+    <author><first>Ryo</first><last>Fujii</last></author>
+    <author><first>Ryo</first><last>Domoto</last></author>
+    <author><first>Daichi</first><last>Mochihashi</last></author>
+    <year>2017</year>
+    <abstract>This paper presents a novel hybrid generative/discriminative model of word segmentation based on nonparametric Bayesian methods.  Unlike ordinary discriminative word segmentation which relies only on labeled data, our semi-supervised model also leverages a huge amounts of unlabeled text to automatically learn new "words", and further constrains them by using a labeled data to segment non-standard texts such as those found in social networking services.Specifically, our hybrid model combines a discriminative classifier (CRF; Lafferty et al. (2001)) and unsupervised word segmentation (NPYLM; Mochihashi et al. (2009)) with a transparent exchange of information between these two model structures within the semi-supervised framework (JESS-CM; Suzuki et al. (2008)).  We confirmed that it can appropriately segment non-standard texts like those in Twitter and Weibo and has nearly state-of-the-art accuracy on standard datasets in Japanese, Chinese, and Thai.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1037/235</href>
+    <pages>179--189</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1013</url>
+  </paper>
 </volume>
-  
