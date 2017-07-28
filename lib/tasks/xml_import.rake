@@ -482,6 +482,8 @@ namespace :import do
       end
       
       venues.each do |venue|
+        print "volume/venue #{volume.anthology_id} "
+	print "#{venue.id}"
         if venue.id
           year = ("20" + volume_anthology[1..2]).to_i if volume_anthology[1..2].to_i < 20
           year = ("19" + volume_anthology[1..2]).to_i if volume_anthology[1..2].to_i > 60
