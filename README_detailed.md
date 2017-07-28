@@ -207,14 +207,14 @@ rake import:events[true]
 ```
 
 ## Indexing ##
-First, we edit the file `acl/jetty/solr/blacklight-core/conf/data-config.xml` to enter the proper username and password for the PotsgreSQL database. In line 5, write:
+First, we edit the file `acl-anthology/jetty/solr/blacklight-core/conf/data-config.xml` to enter the proper username and password for the PotsgreSQL database. In line 5, write:
 
 ```
 user=pg_acl_user
 password=<the password you created above after installing PostgreSQL>
 ```
 
-Then, edit line 67 of `jetty/solr/blacklight-core/conf/solrconfig.xml` and change
+Then, edit line 67 of `acl_anthology/jetty/solr/blacklight-core/conf/solrconfig.xml` and change
 
 ```
 <str name="config">/var/opt/solr/solr/blacklight-core/conf/data-config.xml</str>
@@ -226,7 +226,7 @@ to
 <str name="config">data-config.xml</str>
 ```
 
-And finally, change line 80 of `acl/jetty/etc/jetty.xml` to `127.0.0.1`.
+And finally, change line 80 of `acl_anthology/jetty/etc/jetty.xml` to `127.0.0.1`.
 
 At this point, we can start running jetty with the following commands:
 
