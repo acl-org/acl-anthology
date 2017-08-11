@@ -1,5 +1,11 @@
 require "rexml/document"
 
+# check whether xml2bib executable has been compiled
+if (!File.exist?("lib/tasks/bibutils_5.9/bin/xml2bib"))
+    sh "cd lib/tasks/bibutils_5.9; ./configure; make"
+end
+bibutils_path = "./lib/tasks/bibutils_5.9/bin"
+
 # runs command, prints stdout only if command fails
 def run_cmd_quietly cmd
   output = `#{cmd}`
@@ -282,11 +288,11 @@ namespace :export do
 				if i % 100 == 0
 			       	        puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
 				end
-				run_cmd_quietly "xml2bib -nb -w export/mods/#{paper.anthology_id}.xml 2>&1 >export/bib/#{paper.anthology_id}.bib"
+				run_cmd_quietly "#{bibutils_path}/xml2bib -nb -w export/mods/#{paper.anthology_id}.xml 2>&1 >export/bib/#{paper.anthology_id}.bib"
 			end
 		else
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
-			run_cmd_quietly "xml2bib -nb -w export/mods/#{paper.anthology_id}.xml 2>&1 >export/bib/#{paper.anthology_id}.bib"
+			run_cmd_quietly "#{bibutils_path}/xml2bib -nb -w export/mods/#{paper.anthology_id}.xml 2>&1 >export/bib/#{paper.anthology_id}.bib"
 		end
 	end
 
@@ -300,7 +306,7 @@ namespace :export do
 			if i % 100 == 0
 			       puts "#{i}/#{all} Exporting bib for paper #{paper.anthology_id}"
                         end
-			run_cmd_quietly "xml2bib -nb -w export/mods/#{paper.anthology_id}.xml 2>&1 >>export/bib/anthology.bib"
+			run_cmd_quietly "#{bibutils_path}/xml2bib -nb -w export/mods/#{paper.anthology_id}.xml 2>&1 >>export/bib/anthology.bib"
 		end
 	end
 
@@ -309,12 +315,12 @@ namespace :export do
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
 				puts "Exporting ris for paper #{paper.anthology_id}"
-				`xml2ris export/mods/#{paper.anthology_id}.xml >export/ris/#{paper.anthology_id}.ris`
+				`#{bibutils_path}/xml2ris export/mods/#{paper.anthology_id}.xml >export/ris/#{paper.anthology_id}.ris`
 			end
 		else
 			puts "Exporting ris for paper #{args[:anthology_id]}"
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
-			`xml2ris export/mods/#{paper.anthology_id}.xml >export/ris/#{paper.anthology_id}.ris`
+			`#{bibutils_path}/xml2ris export/mods/#{paper.anthology_id}.xml >export/ris/#{paper.anthology_id}.ris`
 		end
 	end
 
@@ -323,12 +329,12 @@ namespace :export do
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
 				puts "Exporting endf for paper #{paper.anthology_id}"
-				`xml2end export/mods/#{paper.anthology_id}.xml >export/endf/#{paper.anthology_id}.endf`
+				`#{bibutils_path}/xml2end export/mods/#{paper.anthology_id}.xml >export/endf/#{paper.anthology_id}.endf`
 			end
 		else
 			puts "Exporting endf for paper #{args[:anthology_id]}"
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
-			`xml2end export/mods/#{paper.anthology_id}.xml >export/endf/#{paper.anthology_id}.endf`
+			`#{bibutils_path}/xml2end export/mods/#{paper.anthology_id}.xml >export/endf/#{paper.anthology_id}.endf`
 		end
 	end
 
@@ -338,12 +344,12 @@ namespace :export do
 		if not args[:anthology_id]
 			Paper.all.each do |paper|
 				puts "Exporting word for paper #{paper.anthology_id}"
-				`xml2wordbib export/mods/#{paper.anthology_id}.xml >export/word/#{paper.anthology_id}.word`
+				`#{bibutils_path}/xml2wordbib export/mods/#{paper.anthology_id}.xml >export/word/#{paper.anthology_id}.word`
 			end
 		else
 			puts "Exporting word for paper #{args[:anthology_id]}"
 			paper = Paper.find_by_anthology_id(args[:anthology_id])
-			`xml2wordbib export/mods/#{paper.anthology_id}.xml >export/word/#{paper.anthology_id}.word`
+			`#{bibutils_path}/xml2wordbib export/mods/#{paper.anthology_id}.xml >export/word/#{paper.anthology_id}.word`
 		end
 	end
 
@@ -381,12 +387,12 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "Exporting bib for volume #{volume.anthology_id}"
-				`xml2bib -nb -w export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
+				`#{bibutils_path}/xml2bib -nb -w export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
 			end
 		else
 			puts "Exporting bib for volume #{args[:anthology_id]}"
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
-			`xml2bib -nb -w export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
+			`#{bibutils_path}/xml2bib -nb -w export/mods/#{volume.anthology_id}.xml >export/bib/#{volume.anthology_id}.bib`
 		end
 	end
 
@@ -395,12 +401,12 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "Exporting ris for volume #{volume.anthology_id}"
-				`xml2ris export/mods/#{volume.anthology_id}.xml >export/ris/#{volume.anthology_id}.ris`
+				`#{bibutils_path}/xml2ris export/mods/#{volume.anthology_id}.xml >export/ris/#{volume.anthology_id}.ris`
 			end
 		else
 			puts "Exporting ris for volume #{args[:anthology_id]}"
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
-			`xml2ris export/mods/#{volume.anthology_id}.xml >export/ris/#{volume.anthology_id}.ris`
+			`#{bibutils_path}/xml2ris export/mods/#{volume.anthology_id}.xml >export/ris/#{volume.anthology_id}.ris`
 		end
 	end
 
@@ -409,12 +415,12 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "Exporting endf for volume #{volume.anthology_id}"
-				`xml2end export/mods/#{volume.anthology_id}.xml >export/endf/#{volume.anthology_id}.endf`
+				`#{bibutils_path}/xml2end export/mods/#{volume.anthology_id}.xml >export/endf/#{volume.anthology_id}.endf`
 			end
 		else
 			puts "Exporting endf for volume #{args[:anthology_id]}"
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
-			`xml2end export/mods/#{volume.anthology_id}.xml >export/endf/#{volume.anthology_id}.endf`
+			`#{bibutils_path}/xml2end export/mods/#{volume.anthology_id}.xml >export/endf/#{volume.anthology_id}.endf`
 		end
 	end
 
@@ -423,12 +429,12 @@ namespace :export do
 		if not args[:anthology_id]
 			Volume.all.each do |volume|
 				puts "Exporting word for volume #{volume.anthology_id}"
-				`xml2wordbib export/mods/#{volume.anthology_id}.xml >export/word/#{volume.anthology_id}.word`
+				`#{bibutils_path}/xml2wordbib export/mods/#{volume.anthology_id}.xml >export/word/#{volume.anthology_id}.word`
 			end
 		else
 			puts "Exporting word for volume #{args[:anthology_id]}"
 			volume = Volume.find_by_anthology_id(args[:anthology_id])
-			`xml2wordbib export/mods/#{volume.anthology_id}.xml >export/word/#{volume.anthology_id}.word`
+			`#{bibutils_path}/xml2wordbib export/mods/#{volume.anthology_id}.xml >export/word/#{volume.anthology_id}.word`
 		end
 	end
 
@@ -463,7 +469,7 @@ namespace :export do
 	task :antho_bib => :environment do
 	    Volume.all.each do |volume|
                 puts "Exporting bib for volume #{volume.anthology_id}"
-       	        `xml2bib -nb -w export/mods{volume.anthology_id}.xml >> export/bib/antho.bib`
+                `#{bibutils_path}/xml2bib -nb -w export/mods{volume.anthology_id}.xml >> export/bib/antho.bib`
             end
         end
 end
