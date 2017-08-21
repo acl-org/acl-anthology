@@ -22,6 +22,9 @@ Acl2::Application.routes.draw do
   # Added by Min for static (with erb) html pages.  
   get ':action' => 'static_pages#:action'
 
+  # Added by Martin to support URLs of the type "papers/<ID>/<title>
+  get 'papers/:shortid/:id', to: 'papers#show'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
