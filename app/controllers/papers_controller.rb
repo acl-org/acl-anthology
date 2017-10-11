@@ -1,4 +1,5 @@
 class PapersController < ApplicationController
+  before_filter :set_default_response_format
   before_action :set_paper, only: [:show, :edit, :update, :destroy]
   authorize_resource
 
@@ -79,6 +80,11 @@ class PapersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  protected
+    def set_default_response_format
+      request.format = 'html'.to_sym if params[:format].nil?
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.
