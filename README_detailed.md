@@ -87,6 +87,15 @@ Then, we add the following line to our /home/acl_user/.profile file in our home 
 rvm use ruby-2.0.0-p353 --default
 ```
 
+In recent versions, OpenSSL does no longer work with ruby 2.0, and won't
+compile. To solve this problem, you can replace the install command with the
+following commands. This will install an older version of OpenSSL:
+
+```
+rvm pkg install openssl
+rvm reinstall 2.0.0-p353 -C --with-openssl-dir=$HOME/.rvm/usr
+```
+
 ### Rails and Bundle ###
 
 Rails and Bundle can be installed with the following commands:
@@ -160,7 +169,7 @@ To clone the source code for the Anthology, you need these commands
 
 ```
 sudo apt-get install git
-git clone https://github.com/WING-NUS/acl
+git clone https://github.com/acl-org/acl-anthology
 ```
 
 Once the cloning is done, go to the ACL directory and install all gems

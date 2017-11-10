@@ -327,6 +327,7 @@ namespace :import do
       conn.execute("DELETE FROM sigs_volumes WHERE volume_id IN (#{current_volume});")
       conn.execute("DELETE FROM people_volumes WHERE volume_id IN (#{current_volume});")
       conn.execute("DELETE FROM attachments WHERE paper_id IN (#{current_papers});")
+      conn.execute("DELETE FROM papers_people WHERE paper_id IN (#{current_papers});")
       conn.execute("DELETE FROM papers WHERE volume_id IN (#{current_volume});")
       conn.execute("DELETE FROM volumes WHERE id IN (#{current_volume});")
       
