@@ -61,10 +61,11 @@
     <author><first>Yin-Wen</first><last>Chang</last></author>
     <author><first>Michael</first><last>Collins</last></author>
     <year>2017</year>
-    <abstract>Decoding of phrase-based translation models in the general case is known to be NP-complete, by a reduction from the traveling salesman problem (Knight, 1999). In practice, phrase-based systems often impose a hard distortion limit that limits the movement of phrases during translation. However, the impact on complexity after imposing such a constraint is not well studied. In this paper, we describe a dynamic programming algorithm for phrase-based decoding with a fixed distortion limit. The runtime of the algorithm is O(nd!lh^{d+1}) where n is the sentence length, d is the distortion limit, l is a bound on the number of phrases starting at any position in the sentence, and h is related to the maximum number of target language translations for any source word. The algorithm makes use of a novel representation that gives a new perspective on decoding of phrase-based models.</abstract>
+    <abstract>Decoding of phrase-based translation models in the general case is known to be NP-complete, by a reduction from the traveling salesman problem (Knight, 1999). In practice, phrase-based systems often impose a hard distortion limit that limits the movement of phrases during translation. However, the impact on complexity after imposing such a constraint is not well studied. In this paper, we describe a dynamic programming algorithm for phrase-based decoding with a fixed distortion limit. The runtime of the algorithm is O(nd!lh^(d+1)) where n is the sentence length, d is the distortion limit, l is a bound on the number of phrases starting at any position in the sentence, and h is related to the maximum number of target language translations for any source word. The algorithm makes use of a novel representation that gives a new perspective on decoding of phrase-based models.</abstract>
     <href>https://transacl.org/ojs/index.php/tacl/article/download/1020/226</href>
     <pages>59--71</pages>
     <url>http://www.aclweb.org/anthology/Q17-1005</url>
+    <attachment type="presentation">Q17-1005.Presentation.pdf</attachment>
   </paper>
 
   <paper id='1006'>
@@ -227,6 +228,7 @@
     <href>https://transacl.org/ojs/index.php/tacl/article/download/1063/241</href>
     <pages>247--261</pages>
     <url>http://www.aclweb.org/anthology/Q17-1018</url>
+    <attachment type="presentation">Q17-1018.Presentation.pdf</attachment>
   </paper>
 
   <paper id='1019'>
@@ -301,7 +303,7 @@
     <author><first>Yonghui</first><last>Wu</last></author>
     <author><first>Zhifeng</first><last>Chen</last></author>
     <author><first>Nikhil</first><last>Thorat</last></author>
-    <author><first> Fernanda</first><last>Viégas</last></author>
+    <author><first>Fernanda</first><last>Viégas</last></author>
     <author><first>Martin</first><last>Wattenberg</last></author>
     <author><first>Greg</first><last>Corrado</last></author>
     <author><first>Macduff</first><last>Hughes</last></author>
@@ -311,6 +313,164 @@
     <href>https://transacl.org/ojs/index.php/tacl/article/download/1081/248</href>
     <pages>339--351</pages>
     <url>http://www.aclweb.org/anthology/Q17-1024</url>
+  </paper>
+
+  <paper id='1025'>
+    <title>Unsupervised Learning of Morphological Forests</title>
+    <author><first>Jiaming</first><last>Luo</last></author>
+    <author><first>Karthik</first><last>Narasimhan</last></author>
+    <author><first>Regina</first><last>Barzilay</last></author>
+    <year>2017</year>
+    <abstract>This paper focuses on unsupervised modeling of morphological families, collectively comprising a forest over the language vocabulary. This formulation enables us to capture edgewise properties reflecting single-step morphological derivations, along with global distributional properties of the entire forest. These global properties constrain the size of the affix set and encourage formation of tight morphological families. The resulting objective is solved using Integer Linear Programming (ILP) paired with contrastive estimation. We train the model by alternating between optimizing the local log-linear model and the global ILP objective. We evaluate our system on three tasks: root detection, clustering of morphological families and segmentation. Our experiments demonstrate that our model yields consistent gains in all three tasks compared with the best published results.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1039/249</href>
+    <pages>353--364</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1025</url>
+  </paper>
+
+  <paper id='1026'>
+    <title>Fully Character-Level Neural Machine Translation without Explicit Segmentation</title>
+    <author><first>Jason</first><last>Lee</last></author>
+    <author><first>Kyunghyun</first><last>Cho</last></author>
+    <author><first>Thomas</first><last>Hofmann</last></author>
+    <year>2017</year>
+    <abstract>Most existing machine translation systems operate at the level of words, relying on explicit segmentation to extract tokens. We introduce a neural machine translation (NMT) model that maps a source character sequence to a target character sequence without any segmentation. We employ a character-level convolutional network with max-pooling at the encoder to reduce the length of source representation, allowing the model to be trained at a speed comparable to subword-level models while capturing local regularities. Our character-to-character model outperforms a recently proposed baseline with a subword-level encoder on WMT'15 DE-EN and CS-EN, and gives comparable performance on FI-EN and RU-EN. We then demonstrate that it is possible to share a single character-level encoder across multiple languages by training a model on a many-to-one translation task. In this multilingual setting, the character-level encoder significantly outperforms the subword-level encoder on all the language pairs. We observe that on CS-EN, FI-EN and RU-EN, the quality of the multilingual character-level translation even surpasses the models specifically trained on that language pair alone, both in terms of BLEU score and human judgment.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1051/253</href>
+    <pages>365--378</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1026</url>
+  </paper>
+
+  <paper id='1027'>
+    <title>Ordinal Common-sense Inference</title>
+    <author><first>Sheng</first><last>Zhang</last></author>
+    <author><first>Rachel</first><last>Rudinger</last></author>
+    <author><first>Kevin</first><last>Duh</last></author>
+    <author><first>Benjamin</first><last>Van Durme</last></author>
+    <year>2017</year>
+    <abstract>Humans have the capacity to draw common-sense inferences from natural language: various things that are likely but not certain to hold based on established discourse, and are rarely stated explicitly. We propose an evaluation of automated common-sense inference based on an extension of recognizing textual entailment: predicting ordinal human responses on the subjective likelihood of an inference holding in a given context. We describe a framework for extracting common-sense knowledge from corpora, which is then used to construct a dataset for this ordinal entailment task. We train a neural sequence-to-sequence model on this dataset, which we use to score and generate possible inferences. Further, we annotate subsets of previously established datasets via our ordinal annotation protocol in order to then analyze the distinctions between these and what we have constructed.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1082/255</href>
+    <pages>379--395</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1027</url>
+  </paper>
+
+  <paper id='1028'>
+    <title>Learning Distributed Representations of Texts and Entities from Knowledge Base</title>
+    <author><first>Ikuya</first><last>Yamada</last></author>
+    <author><first>Hiroyuki</first><last>Shindo</last></author>
+    <author><first>Hideaki</first><last>Takeda</last></author>
+    <author><first>Yoshiyasu</first><last>Takefuji</last></author>
+    <year>2017</year>
+    <abstract>We describe a neural network model that jointly learns distributed representations of texts and knowledge base (KB) entities. Given a text in the KB, we train our proposed model to predict entities that are relevant to the text. Our model is designed to be generic with the ability to address various NLP tasks with ease. We train the model using a large corpus of texts and their entity annotations extracted from Wikipedia. We evaluated the model on three important NLP tasks (i.e., sentence textual similarity, entity linking, and factoid question answering) involving both unsupervised and supervised settings. As a result, we achieved state-of-the-art results on all three of these tasks. Our code and trained models are publicly available for further academic research.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1065/257</href>
+    <pages>397--411</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1028</url>
+  </paper>
+
+  <paper id='1029'>
+    <title>In-Order Transition-based Constituent Parsing</title>
+    <author><first>Jiangming</first><last>Liu</last></author>
+    <author><first>Yue</first><last>Zhang</last></author>
+    <year>2017</year>
+    <abstract>Both bottom-up and top-down strategies have been used for neural transition-based constituent parsing. The parsing strategies differ in terms of the order in which they recognize productions in the derivation tree, where bottom-up strategies and top-down strategies take post-order and pre-order traversal over trees, respectively. Bottom-up parsers benefit from rich features from readily built partial parses, but lack lookahead guidance in the parsing process; top-down parsers benefit from non-local guidance for local decisions, but rely on a strong encoder over the input to predict a constituent hierarchy before its construction. To mitigate both issues, we propose a novel parsing system based on in-order traversal over syntactic trees, designing a set of transition actions to find a compromise between bottom-up constituent information and top-down lookahead information. Based on stack-LSTM, our psycholinguistically motivated constituent parsing system achieves 91.8 F1 on WSJ benchmark. Furthermore, the system achieves 93.6 F1 with supervised reranking and 94.2 F1 with semi-supervised reranking, which are the best results on the WSJ benchmark.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1199/258</href>
+    <pages>413--424</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1029</url>
+  </paper>
+
+  <paper id='1030'>
+    <title>Evaluating Low-Level Speech Features Against Human Perceptual Data</title>
+    <author><first>Caitlin</first><last>Richter</last></author>
+    <author><first>Naomi H</first><last>Feldman</last></author>
+    <author><first>Harini</first><last>Salgado</last></author>
+    <author><first>Aren</first><last>Jansen</last></author>
+    <year>2017</year>
+    <abstract>We introduce a method for measuring the correspondence between low-level speech features and human perception, using a cognitive model of speech perception implemented directly on speech recordings.  We evaluate two speaker normalization techniques using this method and find that in both cases, speech features that are normalized across speakers predict human data better than unnormalized speech features, consistent with previous research.  Results further reveal differences across normalization methods in how well each predicts human data.  This work provides a new framework for evaluating low-level representations of speech on their match to human perception, and lays the groundwork for creating more ecologically valid models of speech perception.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1055/259</href>
+    <pages>425--440</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1030</url>
+  </paper>
+
+  <paper id='1031'>
+    <title>Parsing with Traces: An O(n^4) Algorithm and a Structural Representation</title>
+    <author><first>Jonathan K.</first><last>Kummerfeld</last></author>
+    <author><first>Dan</first><last>Klein</last></author>
+    <year>2017</year>
+    <abstract>General treebank analyses are graph structured, but parsers are typically restricted to tree structures for efficiency and modeling reasons. We propose a new representation and algorithm for a class of graph structures that is flexible enough to cover almost all treebank structures, while still admitting efficient learning and inference. In particular, we consider directed, acyclic, one-endpoint-crossing graph structures, which cover most long-distance dislocation, shared argumentation, and similar tree-violating linguistic phenomena. We describe how to convert phrase structure parses, including traces, to our new representation in a reversible manner. Our dynamic program uniquely decomposes structures, is sound and complete, and covers 97.3% of the Penn English Treebank. We also implement a proof-of-concept parser that recovers a range of null elements and trace types.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1170/267</href>
+    <pages>441--454</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1031</url>
+  </paper>
+
+  <paper id='1032'>
+    <title>Unsupervised Acquisition of Comprehensive Multiword Lexicons using Competition in an n-gram Lattice</title>
+    <author><first>Julian</first><last>Brooke</last></author>
+    <author><first>Jan</first><last>Snajder</last></author>
+    <author><first>Timothy</first><last>Baldwin</last></author>
+    <year>2017</year>
+    <abstract>We present a new model for acquiring comprehensive multiword lexicons from large corpora based on competition among n-gram candidates. In contrast to the standard approach of simple ranking by association measure, in our model n-grams are arranged in a lattice structure based on subsumption and overlap relationships, with nodes inhibiting other nodes in their vicinity when they are selected as a lexical item. We show how the configuration of such a lattice can be optimized tractably, and demonstrate using annotations of sampled n-grams that our method consistently outperforms alternatives by at least 0.05 F-score across several corpora and languages.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1186/268</href>
+    <pages>455--47032</pages>
+    <url>http://www.aclweb.org/anthology/Q17-10</url>
+  </paper>
+
+  <paper id='1033'>
+    <title>Replicability Analysis for Natural Language Processing: Testing Significance with Multiple Datasets</title>
+    <author><first>Rotem</first><last>Dror</last></author>
+    <author><first>Gili</first><last>Baumer</last></author>
+    <author><first>Marina</first><last>Bogomolov</last></author>
+    <author><first>Roi</first><last>Reichart</last></author>
+    <year>2017</year>
+    <abstract>With the ever growing amount of textual data from a large variety of languages, domains, and genres, it has become standard to evaluate NLP algorithms on multiple datasets in order to ensure a consistent performance across heterogeneous setups. However, such multiple comparisons pose significant challenges to traditional statistical analysis methods in NLP and can lead to erroneous conclusions.  In this paper we propose a Replicability Analysis framework for a statistically sound analysis of multiple comparisons between algorithms for NLP tasks. We discuss the theoretical advantages of this framework over the current, statistically unjustified, practice in the NLP literature, and demonstrate its empirical value across four applications: multi-domain dependency parsing, multilingual POS tagging,  cross-domain sentiment classification and word similarity prediction.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1241/269</href>
+    <pages>471--486</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1033</url>
+  </paper>
+
+  <paper id='1034'>
+    <title>Phrase Table Induction Using In-Domain Monolingual Data for Domain Adaptation in Statistical Machine Translation</title>
+    <author><first>Benjamin</first><last>Marie</last></author>
+    <author><first>Atsushi</first><last>Fujita</last></author>
+    <year>2017</year>
+    <abstract>We present a new framework to induce an in-domain phrase table from in-domain monolingual data that can be used to adapt a general-domain statistical machine translation system to the targeted domain.Our method first compiles sets of phrases in source and target languages separately and generates candidate phrase pairs by taking the Cartesian product of the two phrase sets.  It then computes inexpensive features for each candidate phrase pair and filters them using a supervised classifier in order to induce an in-domain phrase table. We experimented on the language pair English-French, both translation directions, in two domains and obtained consistently better results than a strong baseline system that uses an in-domain bilingual lexicon. We also conducted an error analysis that showed the induced phrase tables proposed useful translations, especially for words and phrases unseen in the parallel data used to train the general-domain baseline system.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1166/270</href>
+    <pages>487--500</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1034</url>
+  </paper>
+
+  <paper id='1035'>
+    <title>Joint Prediction of Word Alignment with Alignment Types</title>
+    <author><first>Anahita</first><last>Mansouri Bigvand</last></author>
+    <author><first>Te</first><last>Bu</last></author>
+    <author><first>Anoop</first><last>Sarkar</last></author>
+    <year>2017</year>
+    <abstract>Current word alignment models do not distinguish between different types of alignment links. In this paper, we provide a new probabilistic model for word alignment where word alignments are associated with linguistically motivated alignment types. We propose a novel task of joint prediction of word alignment and alignment types and propose novel semi-supervised learning algorithms for this task. We also solve a sub-task of predicting the alignment type given an aligned word pair. In our experimental results, the generative models we introduce to model alignment types significantly outperform the models without alignment types.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1040/273</href>
+    <pages>501--514</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1035</url>
+  </paper>
+
+  <paper id='1036'>
+    <title>Aspect-augmented Adversarial Networks for Domain Adaptation</title>
+    <author><first>Yuan</first><last>Zhang</last></author>
+    <author><first>Regina</first><last>Barzilay</last></author>
+    <author><first>Tommi</first><last>Jaakkola</last></author>
+    <year>2017</year>
+    <abstract>We introduce a neural method for transfer learning between two (source and target) classification tasks or aspects over the same domain. Rather than training on target labels, we use a few keywords pertaining to source and target aspects indicating sentence relevance instead of document class labels. Documents are encoded by learning to embed and softly select relevant sentences in an aspect-dependent manner. A shared classifier is trained on the source encoded documents and labels, and applied to target encoded documents. We ensure transfer through aspect-adversarial training so that encoded documents are, as sets, aspect-invariant.  Experimental results demonstrate that our approach outperforms different baselines and model variants on two datasets, yielding an improvement of 27% on a pathology dataset and 5% on a review dataset.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1116/274</href>
+    <pages>515--528</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1036</url>
+  </paper>
+
+  <paper id='1037'>
+    <title>Anchored Correlation Explanation: Topic Modeling with Minimal Domain Knowledge</title>
+    <author><first>Ryan J.</first><last>Gallagher</last></author>
+    <author><first>Kyle</first><last>Reing</last></author>
+    <author><first>David</first><last>Kale</last></author>
+    <author><first>Greg</first><last>Ver Steeg</last></author>
+    <year>2017</year>
+    <abstract>While generative models such as Latent Dirichlet Allocation (LDA) have proven fruitful in topic modeling, they often require detailed assumptions and careful specification of hyperparameters. Such model complexity issues only compound when trying to generalize generative models to incorporate human input. We introduce Correlation Explanation (CorEx), an alternative approach to topic modeling that does not assume an underlying generative model, and instead learns maximally informative topics through an information-theoretic framework. This framework naturally generalizes to hierarchical and semi-supervised extensions with no additional modeling assumptions. In particular, word-level domain knowledge can be flexibly incorporated within CorEx through anchor words, allowing topic separability and representation to be promoted with minimal human intervention. Across a variety of datasets, metrics, and experiments, we demonstrate that CorEx produces topics that are comparable in quality to those produced by unsupervised and semi-supervised variants of LDA.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1244/275</href>
+    <pages>529--542</pages>
+    <url>http://www.aclweb.org/anthology/Q17-1037</url>
   </paper>
 
 </volume>
