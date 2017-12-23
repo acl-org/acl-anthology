@@ -1,3 +1,4 @@
+# coding: utf-8
 require "rexml/document"
 
 # check whether xml2bib executable has been compiled
@@ -129,9 +130,7 @@ def export_volume_mods volume
 			end
 
 			paper_genre_type = paper_mods.add_element 'genre'
-			if (paper.anthology_id[0] == "W")
-				paper_genre_type.text = "workshop publication"
-			elsif (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J") 
+                        if (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J")
 				paper_genre_type.text = "article"
 			else
 				paper_genre_type.text = "conference publication"
@@ -228,9 +227,7 @@ def export_paper_mods paper
 	volume_info = related_item.add_element 'titleInfo'
 	volume_name = volume_info.add_element 'title'
         volume_name.text = volume_title # as default
-	if( paper.anthology_id[0] == "W")
-		genre_type.text = "workshop publication"
-	elsif (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J") 
+	if (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J")
 		genre_type.text = "academic journal"
                 if (paper.volume.journal_volume)
                   if (!part)
