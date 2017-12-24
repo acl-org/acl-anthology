@@ -93,7 +93,7 @@ def export_volume_mods volume
 			}
 
 			if (paper.doi) 
-			   	identifier = mods.add_element 'identifier'
+			   	identifier = paper_mods.add_element 'identifier'
 				identifier.attributes["type"] = "DOI"
 				identifier.text = paper.doi
 			end
@@ -129,14 +129,14 @@ def export_volume_mods volume
 				end
 			end
 
-			paper_genre_type = paper_mods.add_element 'genre'
+			paper_related_item = paper_mods.add_element 'relatedItem'
+
+			paper_genre_type = paper_related_item.add_element 'genre'
                         if (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J")
-				paper_genre_type.text = "article"
+				paper_genre_type.text = "academic journal"
 			else
 				paper_genre_type.text = "conference publication"
 			end
-
-			paper_related_item = paper_mods.add_element 'relatedItem'
 
 			paper_related_item.attributes["type"]="host"
 			volume_info = paper_related_item.add_element 'titleInfo'
