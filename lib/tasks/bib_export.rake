@@ -465,7 +465,7 @@ namespace :export do
 	# 	end
 	# end
 
-	desc "Export paper mods xml"
+	desc "Export the anthology into a single antho.bib file, requires mods export of each volume first (volume_modsxml)"
 	task :antho_bib => :environment do
 	    Volume.all.each do |volume|
                 puts "Exporting bib for volume #{volume.anthology_id}"

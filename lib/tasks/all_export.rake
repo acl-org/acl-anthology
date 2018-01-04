@@ -35,7 +35,7 @@ namespace :export do
 			Rake::Task['export:volume_endf'].invoke
 			Rake::Task['export:volume_word'].invoke
 			Rake::Task['export:volume_dblp'].invoke
-			Rake::Task['export:acm_full["csv"]'].invoke
+			Rake::Task['export:acm_full"]'].invoke(args["csv"])
 		end
 	end
 end
