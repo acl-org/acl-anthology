@@ -11,7 +11,8 @@ def create_temp_files(volume)
 end
 
 def exists_paper_pdf?(anthology_id, tempfiles)
-	url_string = "http://aclweb.org/anthology/" + anthology_id
+    url_string = "http://aclweb.org/anthology/" + anthology_id
+#    puts url_string
     url = URI.parse(url_string) # Parses the string to url
     res = Net::HTTP.get_response(url) # Gets the response from the url
     redirect_url_string = res['location'] # Get the redirect url

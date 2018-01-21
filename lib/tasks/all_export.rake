@@ -27,7 +27,7 @@ namespace :export do
 			Rake::Task["export:volume_endf"].invoke(args[:anthology_id])
 			Rake::Task["export:volume_word"].invoke(args[:anthology_id])
 			Rake::Task["export:volume_dblp"].invoke(args[:anthology_id])
-			Rake::Task["export:acm_volume_csv"].invoke(args[:anthology_id])
+#			Rake::Task["export:acm_volume_csv"].invoke(args[:anthology_id])
 		else
 			Rake::Task['export:volume_modsxml'].invoke
 			Rake::Task['export:volume_bib'].invoke
@@ -35,7 +35,7 @@ namespace :export do
 			Rake::Task['export:volume_endf'].invoke
 			Rake::Task['export:volume_word'].invoke
 			Rake::Task['export:volume_dblp'].invoke
-			Rake::Task['export:acm_full"]'].invoke(args["csv"])
+#			Rake::Task['export:acm_full'].invoke(args["csv"])
 		end
 	end
 end

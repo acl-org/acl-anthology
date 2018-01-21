@@ -1,3 +1,4 @@
+# coding: utf-8
 require "rexml/document"
 
 # check whether xml2bib executable has been compiled
@@ -92,7 +93,7 @@ def export_volume_mods volume
 			}
 
 			if (paper.doi) 
-			   	identifier = mods.add_element 'identifier'
+			   	identifier = paper_mods.add_element 'identifier'
 				identifier.attributes["type"] = "DOI"
 				identifier.text = paper.doi
 			end
@@ -128,16 +129,14 @@ def export_volume_mods volume
 				end
 			end
 
-			paper_genre_type = paper_mods.add_element 'genre'
-			if (paper.anthology_id[0] == "W")
-				paper_genre_type.text = "workshop publication"
-			elsif (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J") 
-				paper_genre_type.text = "article"
+			paper_related_item = paper_mods.add_element 'relatedItem'
+
+			paper_genre_type = paper_related_item.add_element 'genre'
+                        if (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J")
+				paper_genre_type.text = "academic journal"
 			else
 				paper_genre_type.text = "conference publication"
 			end
-
-			paper_related_item = paper_mods.add_element 'relatedItem'
 
 			paper_related_item.attributes["type"]="host"
 			volume_info = paper_related_item.add_element 'titleInfo'
@@ -228,9 +227,7 @@ def export_paper_mods paper
 	volume_info = related_item.add_element 'titleInfo'
 	volume_name = volume_info.add_element 'title'
         volume_name.text = volume_title # as default
-	if( paper.anthology_id[0] == "W")
-		genre_type.text = "workshop publication"
-	elsif (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J") 
+	if (paper.anthology_id[0] == "Q" || paper.anthology_id[0] == "J")
 		genre_type.text = "academic journal"
                 if (paper.volume.journal_volume)
                   if (!part)
@@ -465,11 +462,11 @@ namespace :export do
 	# 	end
 	# end
 
-	desc "Export the anthology into a single antho.bib file, requires mods export of each volume first (volume_modsxml)"
+	desc "Export paper mods xml"
 	task :antho_bib => :environment do
 	    Volume.all.each do |volume|
                 puts "Exporting bib for volume #{volume.anthology_id}"
-                `#{bibutils_path}/xml2bib -nb -w export/mods{volume.anthology_id}.xml >> export/bib/antho.bib`
+                `#{bibutils_path}/xml2bib -nb -w export/mods/#{volume.anthology_id}.xml >> export/bib/antho.bib`
             end
         end
 end
