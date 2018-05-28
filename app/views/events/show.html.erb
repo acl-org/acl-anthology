@@ -36,10 +36,11 @@
 <!-- :target => "_blank"%> -->
         <%= link_to volume.title, volume_path(volume) %>
       </h4><br>
-      <% @papers = volume.papers.includes(:people) %>
+<!-- @papers = volume.papers.includes(:people) -->
+      <% @papers = volume.papers %>
       <% @papers = @papers.sort_by(&:anthology_id) %>
       <% @papers.each do |paper| %>
-        <%= render "papers/paper", :paper => paper %>
+        <%= render "papers/paper", :paper => paper %> 
       <% end %>
     <% end %>
   </div>
