@@ -293,7 +293,7 @@ namespace :export do
 		end
 	end
 
-	desc "Export paper bib into single file"
+	desc "Export paper bib into single file, create anthology.bib"
 	task :paper_bib_single => :environment do |t, args|
 		all = Paper.all.count
 		i = 0
@@ -462,11 +462,11 @@ namespace :export do
 	# 	end
 	# end
 
-	desc "Export paper mods xml"
-	task :antho_bib => :environment do
-	    Volume.all.each do |volume|
-                puts "Exporting bib for volume #{volume.anthology_id}"
-                `#{bibutils_path}/xml2bib -nb -w export/mods/#{volume.anthology_id}.xml >> export/bib/antho.bib`
-            end
-        end
+#	desc "Export paper mods xml"
+#	task :antho_bib => :environment do
+#	    Volume.all.each do |volume|
+#                puts "Exporting bib for volume #{volume.anthology_id}"
+#                `#{bibutils_path}/xml2bib -nb -w export/mods/#{volume.anthology_id}.xml >> export/bib/antho.bib`
+#            end
+#        end
 end

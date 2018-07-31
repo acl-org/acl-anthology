@@ -306,7 +306,110 @@
     <abstract>This paper presents the first model for time normalization trained on the SCATE corpus. In the SCATE schema, time expressions are annotated as a semantic composition of time entities. This novel schema favors machine learning approaches, as it can be viewed as a semantic parsing task. In this work, we propose a character level multi-output neural network that outperforms previous state-of-the-art built on the TimeML schema. To compare predictions of systems that follow both SCATE and TimeML, we present a new scoring metric for time intervals. We also apply this new metric to carry out a comparative analysis of the annotations of both schemes in the same corpus.</abstract>
     <href>https://transacl.org/ojs/index.php/tacl/article/download/1318/304</href>
     <pages>343-356</pages>
-    <url>http://www.aclweb.org/anthology/Q18-125</url>
+    <url>http://www.aclweb.org/anthology/Q18-1025</url>
   </paper>
 
+  <paper id="1026">
+    <title>Finding Convincing Arguments Using Scalable Bayesian Preference Learning</title>
+    <author><first>Edwin D</first><last>Simpson</last></author>
+    <author><first>Iryna</first><last>Gurevych</last></author>
+    <year>2018</year>
+    <abstract>We introduce a scalable Bayesian preference learning method for identifying convincing arguments in the absence of gold-standard ratings or rankings. In contrast to previous work, we avoid the need for separate methods to perform quality control on training data, predict rankings and perform pairwise classification. Bayesian approaches are an effective solution when faced with sparse or noisy training data, but have not previously been used to identify convincing arguments. One issue is scalability, which we address by developing a stochastic variational inference method for Gaussian process (GP) preference learning. We show how our method can be applied to predict argument convincingness from crowdsourced data, outperforming the previous state-of-the-art, particularly when trained with small amounts of unreliable data. We demonstrate how the Bayesian approach enables more effective active learning, thereby reducing the amount of data required to identify convincing arguments for new users and domains. While word embeddings are principally used with neural networks, our results show that word embeddings in combination with linguistic features also benefit GPs when predicting argument convincingness.</abstract>
+    <pages>357-371</pages>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1304/309</href>
+    <url>http://www.aclweb.org/anthology/Q18-1026</url>
+  </paper>
+
+  <paper id="1027">
+    <title>Polite Dialogue Generation Without Parallel Data</title>
+    <author><first>Tong</first><last>Niu</last></author>
+    <author><first>Mohit</first><last>Bansal</last></author>
+    <year>2018</year>
+    <abstract>Stylistic dialogue response generation, with valuable applications in personality-based conversational agents, is a challenging task because the response needs to be fluent, contextually-relevant, as well as paralinguistically accurate. Moreover, parallel datasets for regular-to-stylistic pairs are usually unavailable. We present three weakly-supervised models that can generate diverse, polite (or rude) dialogue responses without parallel data. Our late fusion model (Fusion) merges the decoder of an encoder-attention-decoder dialogue model with a language model trained on stand-alone polite utterances. Our label-fine-tuning (LFT) model prepends to each source sequence a politeness-score scaled label (predicted by our state-of-the-art politeness classifier) during training, and at test time is able to generate polite, neutral, and rude responses by simply scaling the label embedding by the corresponding score. Our reinforcement learning model (Polite-RL) encourages politeness generation by assigning rewards proportional to the politeness classifier score of the sampled response. We also present two retrieval-based, polite dialogue model baselines. Human evaluation validates that while the Fusion and the retrieval-based models achieve politeness with poorer context-relevance, the LFT and Polite-RL models can produce significantly more polite responses without sacrificing dialogue quality.</abstract>
+    <pages>373-389</pages>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1424/310</href>
+    <url>http://www.aclweb.org/anthology/Q18-1027</url>
+  </paper>
+
+  <paper id="1028">
+    <title>Measuring the Evolution of a Scientific Field through Citation Frames</title>
+    <author><first>David</first><last>Jurgens</last></author>
+    <author><first>Srijan</first><last>Kumar</last></author>
+    <author><first>Raine</first><last>Hoover</last></author>
+    <author><first>Dan</first><last>McFarland</last></author>
+    <author><first>Dan</first><last>Jurafsky</last></author>
+    <year>2018</year>
+    <abstract>Citations have long been used to characterize the state of a scientific field and to identify influential works. However, writers use citations for different purposes, and this varied purpose influences uptake by future scholars.  Unfortunately, our understanding of how scholars use and frame citations has been limited to small-scale manual citation analysis of individual papers.  We perform the largest behavioral study of citations to date, analyzing how scientific works frame their contributions through different types of citations and how this framing affects the field as a whole. We introduce a new dataset of nearly 2,000 citations annotated for their function, and use it to develop a state-of-the-art classifier and label the papers of an entire field: Natural Language Processing.  We then show how differences in framing affect scientific uptake and reveal the evolution of the publication venues and the field as a whole. We demonstrate that authors are sensitive to discourse structure and publication venue when citing, and that how a paper frames its work through citations is predictive of the citation count it will receive. Finally, we use changes in citation framing to show that the field of NLP is undergoing a significant increase in consensus.</abstract>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1266/313</href>
+    <url>http://www.aclweb.org/anthology/Q18-1028</url>
+    <pages>391-406</pages>
+  </paper>
+  <paper id="1029">
+    <title>Learning to Remember Translation History with a Continuous Cache</title>
+    <author><first>Zhaopeng</first><last>Tu</last></author>
+    <author><first>Yang</first><last>Liu</last></author>
+    <author><first>Shuming</first><last>Shi</last></author>
+    <author><first>Tong</first><last>Zhang</last></author>
+    <year>2018</year>
+    <abstract>Existing neural machine translation (NMT) models generally translate sentences in isolation, missing the opportunity to take advantage of document-level information. In this work, we propose to augment NMT models with a very light-weight cache-like memory network, which stores recent hidden representations as translation history. The probability distribution over generated words is updated online depending on the translation history retrieved from the memory, endowing NMT models with the capability to dynamically adapt over time. Experiments on multiple domains with different topics and styles show the effectiveness of the proposed approach with negligible impact on the computational cost.</abstract>
+    <pages>407-420</pages>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1247/314</href>
+    <url>http://www.aclweb.org/anthology/Q18-1029</url>
+  </paper>
+
+  <paper id="1030">
+    <title>Universal Word Segmentation: Implementation and Interpretation</title>
+    <author><first>Yan</first><last>Shao</last></author>
+    <author><first>Christian</first><last>Hardmeier</last></author>
+    <author><first>Joakim</first><last>Nivre</last></author>
+    <year>2018</year>
+    <abstract>Word segmentation is a low-level NLP task that is non-trivial for a considerable number of languages. In this paper, we present a sequence tagging framework and apply it to word segmentation for a wide range of languages with different writing systems and typological characteristics. Additionally, we investigate the correlations between various typological factors and word segmentation accuracy. The experimental results indicate that segmentation accuracy is positively related to word boundary markers and negatively to the number of unique non-segmental terms. Based on the analysis, we design a small set of language-specific settings and extensively evaluate the segmentation system on the Universal Dependencies datasets. Our model obtains state-of-the-art accuracies on all the UD languages.  It performs substantially better on languages that are non-trivial to segment, such as Chinese, Japanese, Arabic and Hebrew, when compared to previous work.</abstract>
+    <pages>421-435</pages>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1446/315</href>
+    <url>http://www.aclweb.org/anthology/Q18-1030</url>
+  </paper>
+
+  <paper id="1031">
+    <title>Generating Sentences by Editing Prototypes</title>
+    <author><first>Kelvin</first><last>Guu</last></author>
+    <author><first>Tatsunori B.</first><last>Hashimoto</last></author>
+    <author><first>Yonatan</first><last>Oren</last></author>
+    <author><first>Percy</first><last>Liang</last></author>
+    <year>2018</year>
+    <abstract>We propose a new generative language model for sentences that first samples a prototype sentence from the training corpus and then edits it into a new sentence. Compared to traditional language models that generate from scratch either left-to-right or by first sampling a latent sentence vector, our prototype-then-edit model improves perplexity on language modeling and generates higher quality outputs according to human evaluation. Furthermore, the model gives rise to a latent edit vector that captures interpretable semantics such as sentence similarity and sentence-level analogies.</abstract>
+    <pages>437-450</pages>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1296/316</href>
+    <url>http://www.aclweb.org/anthology/Q18-1031</url>
+  </paper>
+
+  <paper id="1032">
+    <title>Language Modeling for Morphologically Rich Languages: Character-Aware Modeling for Word-Level Prediction</title>
+    <author><first>Daniela</first><last>Gerz</last></author>
+    <author><first>Ivan</first><last>Vulić</last></author>
+    <author><first>Edoardo Maria</first><last>Ponti</last></author>
+    <author><first>Jason</first><last>Naradowsky</last></author>
+    <author><first>Roi</first><last>Reichart</last></author>
+    <author><first>Anna</first><last>Korhonen</last></author>
+    <year>2018</year>
+    <abstract>Neural architectures are prominent in the construction of language models (LMs). However, word-level prediction is typically agnostic of subword-level information (characters and character sequences) and operates over a closed vocabulary, consisting of a limited word set. Indeed, while subword-aware models boost performance across a variety of NLP tasks, previous work did not evaluate the ability of these models to assist next-word prediction in language modeling tasks. Such subword-level informed models should be particularly effective for morphologically-rich languages (MRLs) that exhibit high type-to-token ratios. In this work, we present a large-scale LM study on 50 typologically diverse languages covering a wide variety of morphological systems, and offer new LM benchmarks to the community, while considering subword-level information. The main technical contribution of our work is a novel method for injecting subword-level information into semantic word vectors, integrated into the neural language modeling training, to facilitate word-level prediction. We conduct experiments in the LM setting where the number of infrequent words is large, and demonstrate strong perplexity gains across our 50 languages, especially for morphologically-rich languages. Our code and data sets are publicly available.</abstract>
+    <pages>451-465</pages>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1379/317</href>
+    <url>http://www.aclweb.org/anthology/Q18-1032</url>
+  </paper>
+
+  <paper id="1033">
+    <title>Detecting Institutional Dialog Acts in Police Traffic Stops</title>
+    <author><first>Vinodkumar</first><last>Prabhakaran</last></author>
+    <author><first>Camilla</first><last>Griffiths</last></author>
+    <author><first>Hang</first><last>Su</last></author>
+    <author><first>Prateek</first><last>Verma</last></author>
+    <author><first>Nelson</first><last>Morgan</last></author>
+    <author><first>Jennifer</first><last>Eberhardt</last></author>
+    <author><first>Dan</first><last>Jurafsky</last></author>
+    <year>2018</year>
+    <abstract>We apply computational dialog methods to police body-worn camera footage to model conversations between police officers and community members in traffic stops. Relying on the theory of institutional talk, we develop a  labeling scheme for police speech during traffic stops, and  a  tagger to  detect  institutional dialog acts (Reasons, Searches, Offering Help) from transcribed text at the turn (78 F-score) and stop (89 F-score) level. We then develop speech recognition and segmentation algorithms to detect these acts at the stop level from raw camera audio  (81 F-score,  with even higher accuracy for crucial acts like conveying the reason for the stop). We demonstrate that the dialog structures produced by our tagger could reveal whether officers follow law enforcement norms like introducing themselves, explaining the reason for the stop, and asking permission for searches. This work may therefore inform and aid efforts to ensure the procedural justice of police-community interactions.</abstract>
+    <pages>467-481</pages>
+    <href>https://transacl.org/ojs/index.php/tacl/article/download/1349/319</href>
+    <url>http://www.aclweb.org/anthology/Q18-1033</url>
+  </paper>
 </volume>
