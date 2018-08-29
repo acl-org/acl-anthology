@@ -32,15 +32,20 @@ foreach $fn (@thefilelist) {
   # reference: https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
   $thecontent =~ s/&rsquo;/&#x2019;/g;
   $thecontent =~ s/&lsquo;/&#x2018;/g;
+  $thecontent =~ s/&rdquo;/&#x201D;/g;
+  $thecontent =~ s/&ldquo;/&#x201C;/g;
   $thecontent =~ s/&agrave;/&#x00E0;/g;
   $thecontent =~ s/&aacute;/&#x00E1;/g;
+  $thecontent =~ s/&Aacute;/&#x00C1;/g;
   $thecontent =~ s/&ccedil;/&#x00E7;/g;
+  $thecontent =~ s/&Ccedil;/&#x00C7;/g;
   $thecontent =~ s/&egrave;/&#x00E8;/g;
   $thecontent =~ s/&eacute;/&#x00E9;/g;
   $thecontent =~ s/&oacute;/&#x00F3;/g;
   $thecontent =~ s/&uuml;/&#x00FC;/g;
   $thecontent =~ s/&ouml;/&#x00F6;/g;
   $thecontent =~ s/&auml;/&#x00E4;/g;
+  $thecontent =~ s/&euml;/&#x00EB;/g;
   $thecontent =~ s/&iuml;/&#x00EF;/g;
   $thecontent =~ s/&iacute;/&#x00ED;/g;
   $thecontent =~ s/&ntilde;/&#x00F1;/g;
@@ -48,6 +53,11 @@ foreach $fn (@thefilelist) {
   $thecontent =~ s/&atilde;/&#x00E3;/g;
   $thecontent =~ s/&Ouml;/&#x00D6;/g;
   $thecontent =~ s/&uacute;/&#x00FA;/g;
+  $thecontent =~ s/&Oslash;/&#x00D8;/g;
+  $thecontent =~ s/&oslash;/&#x00F8;/g;
+  $thecontent =~ s/&aring;/&#x00E5;/g;
+  $thecontent =~ s/&ecirc;/&#x00EA;/g;
+  $thecontent =~ s/ & / &amp; /g;
   # $thecontent =~ s/&;/&#x/g;
   # $thecontent =~ s/&;/&#x/g;
   # $thecontent =~ s/&;/&#x/g;
