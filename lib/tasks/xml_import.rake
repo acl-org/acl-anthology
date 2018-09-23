@@ -17,12 +17,6 @@ end
 def load_volume_xml(xml_data)
   
   xml_data.force_encoding('UTF-8').encode('UTF-8', :invalid => :replace, :undef => :replace, :replace => '')
-  xml_data.gsub!(/&amp;/, '&amp;amp;')	# three chars that need to stay
-  xml_data.gsub!(/&gt;/, '&amp;gt;')	#  escaped in xml
-  xml_data.gsub!(/&lt;/, '&amp;lt;')	# will go back to &amp; &gt; &lt;
-
-  xml_data = HTMLEntities.new.decode xml_data # Change all escape characters to Unicode
-  # handles html entities such as &eacute; that are not known in xml
 
   xml_data.gsub!(/<</, '&lt;&lt;') 
   xml_data.gsub!(/>>/, '&gt;&gt;')

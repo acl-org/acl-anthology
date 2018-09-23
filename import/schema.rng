@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <!-- default namespace = "" -->
+  <define name="b">
+    <element name="b">
+      <text/>
+    </element>
+  </define>
+  <define name="i">
+    <element name="i">
+      <text/>
+    </element>
+  </define>
+  <define name="first">
+    <element name="first">
+      <text/>
+    </element>
+  </define>
+  <define name="last">
+    <element name="last">
+      <text/>
+    </element>
+  </define>
+  <define name="von">
+    <element name="von">
+      <text/>
+    </element>
+  </define>
+  <define name="jr">
+    <element name="jr">
+      <text/>
+    </element>
+  </define>
+  <define name="Person">
+    <oneOrMore>
+      <choice>
+        <text/>
+        <ref name="first"/>
+        <ref name="jr"/>
+        <ref name="last"/>
+        <ref name="von"/>
+      </choice>
+    </oneOrMore>
+  </define>
+  <define name="Paper">
+    <element name="paper">
+      <attribute name="id">
+        <data type="integer"/>
+      </attribute>
+      <optional>
+        <attribute name="href">
+          <data type="anyURI"/>
+        </attribute>
+      </optional>
+      <oneOrMore>
+        <choice>
+          <element name="abstract">
+            <oneOrMore>
+              <choice>
+                <text/>
+                <ref name="b"/>
+                <ref name="i"/>
+              </choice>
+            </oneOrMore>
+          </element>
+          <element name="address">
+            <text/>
+          </element>
+          <element name="attachment">
+            <optional>
+              <attribute name="type">
+                <data type="NCName"/>
+              </attribute>
+            </optional>
+            <data type="NCName"/>
+          </element>
+          <element name="author">
+            <ref name="Person"/>
+          </element>
+          <element name="bibkey">
+            <text/>
+          </element>
+          <element name="bibtype">
+            <data type="NCName"/>
+          </element>
+          <element name="booktitle">
+            <text/>
+          </element>
+          <element name="dataset">
+            <data type="NCName"/>
+          </element>
+          <element name="doi">
+            <data type="anyURI"/>
+          </element>
+          <element name="editor">
+            <oneOrMore>
+              <choice>
+                <text/>
+                <ref name="first"/>
+                <ref name="jr"/>
+                <ref name="last"/>
+                <ref name="von"/>
+              </choice>
+            </oneOrMore>
+          </element>
+          <element name="erratum">
+            <attribute name="id">
+              <data type="integer"/>
+            </attribute>
+            <data type="NCName"/>
+          </element>
+          <element name="href">
+            <data type="anyURI"/>
+          </element>
+          <element name="ISBN">
+            <data type="NMTOKEN"/>
+          </element>
+          <element name="isbn">
+            <data type="NMTOKEN"/>
+          </element>
+          <element name="issue">
+            <data type="integer"/>
+          </element>
+          <element name="journal">
+            <text/>
+          </element>
+          <element name="month">
+            <text/>
+          </element>
+          <element name="mrf">
+            <attribute name="src">
+              <data type="NCName"/>
+            </attribute>
+            <data type="NCName"/>
+          </element>
+          <element name="pages">
+            <text/>
+          </element>
+          <element name="presentation">
+            <data type="NCName"/>
+          </element>
+          <element name="publisher">
+            <text/>
+          </element>
+          <element name="revision">
+            <attribute name="id">
+              <data type="integer"/>
+            </attribute>
+            <data type="NCName"/>
+          </element>
+          <element name="software">
+            <data type="NCName"/>
+          </element>
+          <element name="title">
+            <oneOrMore>
+              <choice>
+                <text/>
+                <ref name="b"/>
+                <ref name="i"/>
+                <element name="SUP">
+                  <data type="NCName"/>
+                </element>
+              </choice>
+            </oneOrMore>
+          </element>
+          <element name="url">
+            <data type="anyURI"/>
+          </element>
+          <element name="video">
+            <attribute name="href">
+              <data type="anyURI"/>
+            </attribute>
+            <attribute name="tag"/>
+          </element>
+          <element name="volume">
+            <data type="integer"/>
+          </element>
+          <element name="year">
+            <data type="integer"/>
+          </element>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="Volume">
+    <element name="volume">
+      <attribute name="id">
+        <data type="NCName"/>
+      </attribute>
+      <oneOrMore>
+        <ref name="Paper"/>
+      </oneOrMore>
+    </element>
+  </define>
+  <start>
+    <ref name="Volume"/>
+  </start>
+</grammar>
