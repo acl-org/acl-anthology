@@ -79,5 +79,5 @@ group :production do
 	# For deploying
 	gem 'passenger'
 	# Re-enables full-page caching, removed in Ruby 4
-	gem "actionpack-page_caching", "<=1.1.1"
+	gem "actionpack-page_caching"
 end
