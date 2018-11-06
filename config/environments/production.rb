@@ -77,4 +77,8 @@ Acl2::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Decide where to store the cache
+  config.action_controller.page_cache_directory = Rails.root.join "public/page_cache"
+
 end
