@@ -1,7 +1,12 @@
 ---
-title: 'Correction'
+name: correction
+about: correction
+title: Correction
 labels: correction
+assignees: ''
+
 ---
+
 Use this template to request corrections to a paper in the ACL Anthology.
 
 Please make use of this checklist:
