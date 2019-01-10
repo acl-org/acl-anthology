@@ -16,11 +16,35 @@ def run_cmd_quietly cmd
   end
 end
 
+# Converts a year and month into its proper date representation yyyy-mm.
+# For months, there is a special case "7-8 June" which is mapped to June.
+# For other wrong input, we only keep the year.
+def date_formatter(year, month_str)
+	if month_str == nil
+		year.to_s	
+	elsif month_str.is_a? Integer
+		year.to_s + "-" + month_str.to_s
+	else
+		all_months = Hash["jan", 1, "feb", 2, "mar", 3, "apr", 4,
+				"may", 5, "jun", 6, "jul", 7, "aug", 8,
+				"sep", 9, "oct", 10, "nov", 11, "dec", 12,
+				"7-8", 6]
+		all_months.default = 13
+		month_str = all_months[month_str[0,3].downcase]
+		if month_str != 13
+			year.to_s + "-" + month_str.to_s
+		else
+			year.to_s
+		end
+	end
+end
+
 def export_volume_mods volume
 	dash = /[–-]+/
 	papers = volume.papers
 	volume_title = volume.title
 	year = volume.year
+	month = volume.month
 	authors = volume.people
 	xml = REXML::Document.new "<?xml version='1.0'?>"
 	mods=xml.add_element 'modsCollection', {"version" => Time.now}
@@ -63,7 +87,7 @@ def export_volume_mods volume
 		end
 	end
 	date_issued = origin_info.add_element 'dateIssued'
-	date_issued.text = year
+	date_issued.text = date_formatter(year, month)
 
 	papers.each do |paper|
 		if (!((paper.anthology_id[0] == "W" and paper.anthology_id[-2..-1] == "00") or paper.anthology_id[-3..-1] == "000"))
@@ -115,7 +139,7 @@ def export_volume_mods volume
 				paper_publisher.text = paper.publisher
 			end
 			paper_date_issued = paper_origin_info.add_element 'dateIssued'
-			paper_date_issued.text = paper.year
+			paper_date_issued.text = date_formatter(paper.year, paper.month)
 
 			if paper.address or paper.url
 				paper_location = paper_mods.add_element 'location'
@@ -154,6 +178,7 @@ def export_paper_mods paper
 	dash = /[–-]+/
 	paper_title = paper.title
 	year = paper.year
+	month = paper.month
 	volume_title = paper.volume.title
 	authors = paper.people
 	id = paper.anthology_id
@@ -206,7 +231,7 @@ def export_paper_mods paper
 		paper_publisher = origin_info.add_element 'publisher'
 		paper_publisher.text = paper.publisher
 	end
-	date_issued.text = year
+	date_issued.text = date_formatter(year, month)
 
 	if paper.address or paper.url
 		paper_location = mods.add_element 'location'
