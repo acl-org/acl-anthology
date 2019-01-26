@@ -27,20 +27,10 @@ class HomeController < ApplicationController
       "JEP/TALN/RECITAL", "MUC", "TIPSTER", "TINLAP"]
     @venues_acl = Venue.where(acronym: @acronyms_acl)
     @venues_nonacl = Venue.where(acronym: @acronyms_nonacl)
-    
+
     # If all venues need to be shown on the index page
     # @venues_acl = Venue.where(venue_type: "ACL")
     # @venues_nonacl = Venue.where(venue_type: "Non ACL")
     @sigs = Sig.all
-
-    # Getting popular papers
-    @popular_papers = []
-    @popular_authors = []
-    popular_papers_file =  "db/popular_papers.txt"
-    popular_authors_file =  "db/popular_authors.txt"
-    papers_file = File.open(popular_papers_file,'r')
-    authors_file = File.open(popular_authors_file,'r')
-    papers_file.each { |line| @popular_papers << line.strip }
-    authors_file.each { |line| @popular_authors << line.strip }
   end
 end

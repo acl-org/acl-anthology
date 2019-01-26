@@ -113,41 +113,6 @@
 			</tbody>
 		</table>
 		<% end %><!--  End caching -->
-
-		<div id="notes">
-			<h5></h5>
-			<p></p>
-		</div>
-		<hr>
-
-		<% cache "popular_papers", expires_in: 1.day do %>
-		<div class="span6" style="margin-left: 0px;">
-			<h5>(beta) Popular Papers this week</h5>
-			<ul>
-				<% @popular_papers.each do |anthology_id| %>
-					<% @paper = Paper.find_by_anthology_id(anthology_id) %>
-					<% if @paper %>
-						<li><%= link_to @paper.title, paper_path(@paper) %></li>
-					<% end %>
-				<% end %>
-			</ul>
-		</div>
-		<% end # of cache %>
-
-		<% cache "popular_authors", expires_in: 1.day do %>
-		<div class="span3" style="float:right;">
-			<h5>(beta) Popular Authors this week</h5>
-			<ul>
-				<% @popular_authors.each do |full_name| %>
-					<% @author = Person.find_by_full_name(full_name) %>
-					<% if @author %>
-						<li><%= link_to @author.full_name, person_path(@author) %></li>
-					<% end %>
-				<% end %>
-			</ul>
-		</div>
-		<% end # of cache %>
 	</div>
-
 </div>
 
