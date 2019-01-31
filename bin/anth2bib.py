@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 # ../bin/anth2bib.py > all.bib
@@ -16,9 +16,6 @@ import latex
 # register latex as a codec
 latex.register()
 
-UTF8Writer = codecs.getwriter('utf8')
-sys.stdout = UTF8Writer(sys.stdout)
-
 # convert xml entry to string
 def author_string(author):
   author_s = ""
@@ -31,7 +28,7 @@ def author_string(author):
     sys.stderr.write("warning: quotes in name: " + author_s + "\n")
     author_s = re.sub(r"\"", "''", author_s) 
   # convert accents to latex escapes
-  author_str = author_s.encode("latex")
+  author_str = codecs.encode(author_s, "latex")
   return author_str
 
 # takes references to <paper> and <volume> xml entries
@@ -139,4 +136,4 @@ for f in os.listdir('.'):
     volume_id = root.get("id")
     for item in root.findall('paper'): 
       printbib(item, root)
-      print "\n", 
+      print ()

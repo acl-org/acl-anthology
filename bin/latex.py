@@ -20,7 +20,6 @@ D. Eppstein, October 2003.
 from __future__ import generators
 import codecs
 import re
-from sets import Set
 
 def register():
     """Enable encodings of the form 'latex+x' where x describes another encoding.
@@ -84,7 +83,7 @@ def _tokenize(tex):
     start = 0
     try:
         # skip quickly across boring stuff
-        pos = _stoppers.finditer(tex).next().span()[0]
+        pos = next(_stoppers.finditer(tex)).span()[0]
     except StopIteration:
         yield tex
         return
@@ -474,12 +473,12 @@ for _i in range(0x0020,0x007f):
         latex_equivalents[_i] = chr(_i)
 
 # Characters that should be ignored and not output in tokenization
-_ignore = Set([chr(i) for i in range(32)+[127]]) - Set('\t\n\r')
+_ignore = set([chr(i) for i in list(range(32))+[127]]) - set('\t\n\r')
 
 # Regexp of chars not in blacklist, for quick start of tokenize
 _stoppers = re.compile('[\x00-\x1f!$\\-?\\{~\\\\`\']')
 
-_blacklist = Set(' \n\r')
+_blacklist = set(' \n\r')
 _blacklist.add(None)    # shortcut candidate generation at end of data
 
 # Construction of inverse translation table
