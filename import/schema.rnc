@@ -5,8 +5,7 @@ i = element i { text }
 sup = element SUP { xsd:NCName }
 first = element first { text }
 last = element last { text }
-jr = element jr { text }
-Person = (first?, last, jr?)
+Person = (first?, last)
 MarkupText = (text | b | i | sup)+
 Paper = element paper {
   attribute id { xsd:integer },
