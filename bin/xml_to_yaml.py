@@ -15,12 +15,14 @@ from docopt import docopt
 import logging as log
 import os
 import yaml
+
 try:
     from yaml import CDumper as Dumper
 except ImportError:
     from yaml import Dumper
 
 from anthology import Anthology, PersonIndex
+
 
 def export_anthology(anthology, outdir):
     # Create directories
@@ -34,12 +36,16 @@ def export_anthology(anthology, outdir):
         papers = {}
         for id_ in ids:
             paper = anthology.papers[id_]
-            data  = paper.attrib
+            data = paper.attrib
             # Index personal names while we're going through the papers
-            if 'author' in data:
-                data['author'] = [pidx.register(person, id_, 'author') for person in data['author']]
-            if 'editor' in data:
-                data['editor'] = [pidx.register(person, id_, 'editor') for person in data['editor']]
+            if "author" in data:
+                data["author"] = [
+                    pidx.register(person, id_, "author") for person in data["author"]
+                ]
+            if "editor" in data:
+                data["editor"] = [
+                    pidx.register(person, id_, "editor") for person in data["editor"]
+                ]
             papers[paper.paper_id] = data
 
         # Dump all papers of a volume into a single file (as with the XML)
@@ -59,12 +65,14 @@ def export_anthology(anthology, outdir):
 if __name__ == "__main__":
     args = docopt(__doc__)
     scriptdir = os.path.dirname(os.path.abspath(__file__))
-    if "{scriptdir}" in args['--importdir']:
-        args['--importdir'] = os.path.abspath(
-            args['--importdir'].format(scriptdir=scriptdir))
-    if "{scriptdir}" in args['--exportdir']:
-        args['--exportdir'] = os.path.abspath(
-            args['--exportdir'].format(scriptdir=scriptdir))
+    if "{scriptdir}" in args["--importdir"]:
+        args["--importdir"] = os.path.abspath(
+            args["--importdir"].format(scriptdir=scriptdir)
+        )
+    if "{scriptdir}" in args["--exportdir"]:
+        args["--exportdir"] = os.path.abspath(
+            args["--exportdir"].format(scriptdir=scriptdir)
+        )
 
-    anthology = Anthology(importdir=args['--importdir'])
-    export_anthology(anthology, args['--exportdir'])
+    anthology = Anthology(importdir=args["--importdir"])
+    export_anthology(anthology, args["--exportdir"])

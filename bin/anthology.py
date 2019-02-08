@@ -7,12 +7,13 @@ import itertools as it
 import logging as log
 import os
 
+
 class Anthology:
     schema = None
 
     def __init__(self, importdir=None):
         self.volumes = defaultdict(list)  # maps volume IDs to lists of paper IDs
-        self.papers  = {}                 # maps paper IDs to Paper objects
+        self.papers = {}  # maps paper IDs to Paper objects
         if importdir is not None:
             self.import_directory(importdir)
 
@@ -46,13 +47,24 @@ def _stringify_children(node):
     """Returns the full content of a node, including tags.
 
     Used for nodes that can have mixed text and HTML elements (like <b> and <i>)."""
-    return ''.join(
-        chunk for chunk in it.chain(
+    return "".join(
+        chunk
+        for chunk in it.chain(
             (node.text,),
-            it.chain(*((etree.tostring(child, with_tail=False, encoding=str), child.tail) for child in node.getchildren())),
-            (node.tail,)) if chunk).strip()
+            it.chain(
+                *(
+                    (etree.tostring(child, with_tail=False, encoding=str), child.tail)
+                    for child in node.getchildren()
+                )
+            ),
+            (node.tail,),
+        )
+        if chunk
+    ).strip()
 
-_LIST_ELEMENTS = ('attachment', 'author', 'editor', 'video')
+
+_LIST_ELEMENTS = ("attachment", "author", "editor", "video")
+
 
 class Paper:
     def __init__(self, paper_element, volume_id):
@@ -61,32 +73,28 @@ class Paper:
         self.parent_volume = volume_id
         self.attrib = {}
         self._parse_element(paper_element)
-        if 'year' not in self.attrib:
+        if "year" not in self.attrib:
             self._infer_year()
 
     def _parse_element(self, paper_element):
         # read & store values
-        if 'href' in paper_element.attrib:
-            self.attrib['attrib_href'] = paper_element.get('href')
+        if "href" in paper_element.attrib:
+            self.attrib["attrib_href"] = paper_element.get("href")
         for element in paper_element:
             # parse value
             tag = element.tag.lower()
             if tag in ("abstract", "title"):
                 value = _stringify_children(element)
             elif tag == "attachment":
-                value = {'filename': element.text,
-                         'type': element.get('type', None)}
+                value = {"filename": element.text, "type": element.get("type", None)}
             elif tag in ("author", "editor"):
                 value = PersonName.from_element(element)
             elif tag in ("erratum", "revision"):
-                value = {'value': element.text,
-                         'id': element.get('id')}
+                value = {"value": element.text, "id": element.get("id")}
             elif tag == "mrf":
-                value = {'filename': element.text,
-                         'src': element.get('src')}
+                value = {"filename": element.text, "src": element.get("src")}
             elif tag == "video":
-                value = {'href': element.get('href'),
-                         'tag': element.get('tag')}
+                value = {"href": element.get("href"), "tag": element.get("tag")}
             else:
                 value = element.text
             # store value
@@ -97,7 +105,11 @@ class Paper:
                     self.attrib[tag] = [value]
             else:
                 if tag in self.attrib:
-                    log.warning("{}: Unexpected multiple occurrence of '{}' element".format(self.full_id, tag))
+                    log.warning(
+                        "{}: Unexpected multiple occurrence of '{}' element".format(
+                            self.full_id, tag
+                        )
+                    )
                 self.attrib[tag] = value
 
     def _infer_year(self):
@@ -107,13 +119,15 @@ class Paper:
         that the paper's volume identifier follows the format 'xyy', where L is
         some letter and yy are the last two digits of the year of publication.
         """
-        assert len(self.parent_volume) == 3, "Couldn't infer year: unknown volume ID format"
+        assert (
+            len(self.parent_volume) == 3
+        ), "Couldn't infer year: unknown volume ID format"
         digits = int(self.parent_volume[1:])
         if digits >= 60:
             year = "19{}".format(digits)
         else:
             year = "20{}".format(digits)
-        self.attrib['year'] = year
+        self.attrib["year"] = year
 
     @property
     def full_id(self):
@@ -155,10 +169,14 @@ class PersonName:
         return "{} {}{}".format(self.first, self.last, self.jr).strip()
 
     def as_dict(self):
-        return {'first': self.first, 'last': self.last, 'jr': self.jr}
+        return {"first": self.first, "last": self.last, "jr": self.jr}
 
     def __eq__(self, other):
-        return (self.first == other.first) and (self.last == other.last) and (self.jr == other.jr)
+        return (
+            (self.first == other.first)
+            and (self.last == other.last)
+            and (self.jr == other.jr)
+        )
 
     def __str__(self):
         return self.full
@@ -177,8 +195,9 @@ class PersonName:
 
 class PersonIndex:
     """Keeps an index of persons and their associated papers."""
+
     def __init__(self):
-        self.names  = {}  # maps name strings to PersonName objects
+        self.names = {}  # maps name strings to PersonName objects
         self.papers = defaultdict(lambda: defaultdict(list))
 
     def register(self, name: PersonName, paper_id, role):
