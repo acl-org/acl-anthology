@@ -25,17 +25,17 @@ def protect(node, words):
         append_text(newnode, text[i:])
     process(node.text)
     for child in node:
-        newnode.append(protect(child, w))
+        newnode.append(protect(child, words))
         process(child.tail)
     newnode.tail = node.tail
     return newnode
 
 if __name__ == "__main__":
-    truelist = []
+    truelist = set()
     for line in open("truelist"):
         line = line.split('#')[0].strip()
         if line == "": continue
-        truelist.append(line)
+        truelist.add(line)
     
     infile, outfile = sys.argv[1:]
     
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     for paper in tree.getroot().findall('paper'):
         for title in paper.findall('title'):
             titletext = tokenize(get_text(title))
-            fixed = fixedcase_title(titletext)
+            fixed = fixedcase_title(titletext, truelist=truelist, falselist=falselist)
             if any(fixed):
                 print("old:", ET.tostring(title).decode('ascii').rstrip())
                 words = [w for w, b in zip(titletext, fixed) if b]

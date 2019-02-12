@@ -11,6 +11,7 @@ Fixed-caseness is determined by these rules:
 - If a word appears in `truelist`, it is fixed-case.
 - Any word with a capital letter in a non-initial position (e.g.,
   `TextTiling`) is fixed-case.
+- If a title is in all caps, the above rule does not apply.
 - If a title starts with a single word set off by a colon or dash, the
   first word is fixed-case.
 

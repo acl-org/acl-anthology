@@ -24,17 +24,19 @@ def tokenize(s):
         tokens.extend([t for t in re.split(r'[-–/]', tok) if t != ''])
     return tokens
     
-def fixedcase_word(w):
+def fixedcase_word(w, truelist=None, falselist=None, allcaps=False):
     """Returns True if w should be fixed-case, False if not, None if unsure."""
-    if w.islower(): return False
-    if any(c.isupper() for c in w[1:]): return True
+    if not allcaps and any(c.isupper() for c in w[1:]): return True
+    if truelist is not None and w in truelist: return True
+    if falselist is not None and w in falselist: return False
 
-def fixedcase_title(ws):
+def fixedcase_title(ws, truelist=None, falselist=None):
     """Returns a list of bools: True if w should be fixed-case, False if
     not, None if unsure."""
+    allcaps = not any(w.islower() for w in ws)
     bs = []
     for i, w in enumerate(ws):
-        b = fixedcase_word(w)
+        b = fixedcase_word(w, truelist=truelist, falselist=falselist, allcaps=allcaps)
         if b is None:
             # In titles of the form "BLEU: a Method for Automatic Evaluation of Machine Translation,"
             # where the first part is a single word, mark it as fixed-case
