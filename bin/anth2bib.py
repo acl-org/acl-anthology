@@ -41,7 +41,8 @@ def printbib(item, volume):
     print ( "@InProceedings{" + volume_id + '-' + item.get("id") + "," )
   for title in item.findall('title'):
     if title.text:
-      title = title.text.strip()
+      # this removes any xml markup within the title string, but keeps all text
+      title = "".join(title.itertext()).strip()
       title = re.sub(r"\"\b", "``", title)
       title = re.sub(r"\"", "''", title)
       print ( "  title = \"" + title + "\"," )
@@ -125,6 +126,14 @@ def printbib(item, volume):
   for i in item.findall('doi'):
     print ( "  doi = \"" + i.text + "\"," )
 
+  for i in item.findall('abstract'):
+    abstract = "".join(i.itertext()).strip()
+    abstract = re.sub(r"\"\b", "``", abstract)
+    abstract = re.sub(r"\"", "''", abstract)
+    if len(re.findall(r"\{", abstract)) != len(re.findall(r"\}", abstract)):
+      sys.stderr.write("warning: unbalanced braces in abstract: " + volume_id + " " + item.get("id") + "\n")
+      sys.stderr.write("  " + "".join(re.findall(r"\{", abstract)) + " " + "".join(re.findall(r"\}", abstract)) + "\n")
+    print ( "  abstract = \"" + abstract + "\"," )
 
   print( "}")
                         
