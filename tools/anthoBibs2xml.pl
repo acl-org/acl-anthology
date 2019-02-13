@@ -527,7 +527,9 @@ print "<volume id=\"$volume\">\n";
 
 my %h = ();
 my $inAbstract = 0;
+my $line = 0;
 while (<$fh>) {
+  $line++;
   if (/^\#/) { next; }			# skip comments
   elsif (/^\s+$/) { next; }		# skip blank lines
   else {
@@ -552,6 +554,8 @@ while (<$fh>) {
       process(\%h,2,$volume,$id);
     } elsif (/\btitle\s+=\s+\{(.+)\}/) {
       $h{"title"} = treatLatex($1);
+    } elsif (/\babstract\s+=\s+\{(.+)\}/) {
+      $h{"abstract"} = treatLatex($1);
     } elsif (/\babstract\s+=\s+\{(.+)/) {
       $h{"abstract"} = treatLatex($1) . "\n";
       $inAbstract = 1;
@@ -622,7 +626,7 @@ sub process {
 
     if (defined $h{$k}) {
       if ($k eq "editor" || $k eq "author") { 
-	my @elts = split(/  and  /,$h{$k}); # split to individual author
+	my @elts = split(/ +and +/,$h{$k}); # split to individual author
 	for (my $i = 0; $i <= $#elts; $i++) {
 	  $s .= "  " . " " x $indent;
 	  $s .= "<" . $k . ">";
@@ -652,7 +656,7 @@ sub treatLatex {
   foreach my $entity (keys %entities) {
     s/$entity/$entities{$entity}/g;
   }
-  if ($_ =~ /\\/) { print STDERR "XXXX" . $_ . "\n"; }
+  if ($_ =~ /\\/) { print STDERR "XXXX $line " . $_ . "\n"; }
   while ($_ =~ /\{([A-Za-z]+)\}/) {
     s/\{([A-Za-z]+)\}/$1/;
   }
