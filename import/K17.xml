@@ -378,7 +378,7 @@
       a new way of initializing word and entity embeddings that significantly
       improves performance. Our model significantly outperforms existing
       state-of-the-art methods on WikilinksNED while achieving comparable
-      performance on a smaller newswire dataset. Author{3}Affiliation
+      performance on a smaller newswire dataset.
     </abstract>
     <bibtype>inproceedings</bibtype>
     <bibkey>eshel-EtAl:2017:CoNLL</bibkey>
@@ -2083,7 +2083,7 @@
       <last>Sylak-Glassman</last>
     </author>
     <author>
-      <first>Gėraldine</first>
+      <first>Géraldine</first>
       <last>Walther</last>
     </author>
     <author>
@@ -2912,7 +2912,19 @@
     <doi>10.18653/v1/K17-3005</doi>
     <abstract>
       This paper describes our system (HIT-SCIR) for the CoNLL 2017 shared task:
-      Multilingual Parsing from Raw Text to Universal Dependencies. 
+      Multilingual Parsing from Raw Text to Universal Dependencies.
+      Our system includes three pipelined components: <i>tokenization</i>,
+      <i>Part-of-Speech</i> (POS) <i>tagging</i> and <i>dependency parsing</i>.
+      We use character-based bidirectional long short-term memory (LSTM) networks for
+      both tokenization and POS tagging.
+      Afterwards, we employ a list-based transition-based algorithm for general
+      non-projective parsing and present an improved Stack-LSTM-based architecture
+      for representing each transition state and making predictions.
+      Furthermore, to parse low/zero-resource languages and cross-domain data, we use
+      a model transfer approach to make effective use of existing resources.
+      We demonstrate substantial gains against the UDPipe baseline, with an average
+      improvement of 3.76% in LAS of all languages. And finally, we rank the 4th
+      place on the official test sets.
     </abstract>
     <bibtype>inproceedings</bibtype>
     <bibkey>che-EtAl:2017:K17-3</bibkey>
@@ -3554,15 +3566,15 @@
     <url>http://www.aclweb.org/anthology/K17-3021</url>
     <doi>10.18653/v1/K17-3021</doi>
     <abstract>
-      This paper describes UALing's approach to the udst using corpus selection
+      This paper describes UALing's approach to the <i>CoNLL 2017 UD Shared Task</i> using corpus selection
       techniques to reduce training data size. The methodology is simple: we use
       similarity measures to select a corpus from available training data (even
       from multiple corpora for surprise languages) and use the resulting corpus
       to complete the parsing task. The training and parsing is done with the
-      baseline UDPipe system. While our approach reduces the size of training
+      baseline UDPipe system (Straka et al., 2016). While our approach reduces the size of training
       data significantly, it retains performance within 0.5% of the baseline
       system. Due to the reduction in training data size, our system performs
-      faster than the naive, complete corpus method. Specifically, our system
+      faster than the naïve, complete corpus method. Specifically, our system
       runs in less than 10 minutes, ranking it among the fastest entries for
       this task. Our system is available at
       https://github.com/CoNLL-UD-2017/UALING.
