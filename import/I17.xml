@@ -95,7 +95,7 @@
     <abstract>Sequence to Sequence Neural Machine Translation has achieved significant
 	performance in recent years.  Yet, there are some existing issues that Neural
 	Machine Translation still does not solve completely. Two of them are
-	translation for long sentences and the over-translation. To address
+	translation for long sentences and the “over-translation”. To address
 	these two problems, we propose an approach that utilize more grammatical
 	information such as syntactic dependencies, so that the output can be generated
 	based on more abundant information. In our approach, syntactic dependencies is
@@ -373,9 +373,9 @@
     <url>http://www.aclweb.org/anthology/I17-1013</url>
     <abstract>In this work, we explore multiple neural architectures adapted for the task of
 	automatic post-editing of machine translation output.  We focus on neural
-	end-to-end models that combine both inputs mt (raw MT output) and rc
-	(source language input) in a single neural architecture, modeling mt,
-	src -> e directly. Apart from that, we investigate the influence
+	end-to-end models that combine both inputs $mt$ (raw MT output) and rc
+	(source language input) in a single neural architecture, modeling $\{mt,
+	src\} \rightarrow pe$ directly. Apart from that, we investigate the influence
 	of hard-attention models which seem to be well-suited for monolingual tasks, as
 	well as combinations of both ideas.
 	We report results on data sets provided during the WMT-2016 shared task on
@@ -391,7 +391,7 @@
   <paper id="1014">
     <title>Imagination Improves Multimodal Translation</title>
     <author><first>Desmond</first><last>Elliott</last></author>
-    <author><first>&#192;kos</first><last>K&#225;d&#225;r</last></author>
+    <author><first>Ákos</first><last>Kádár</last></author>
     <booktitle>Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 1: Long Papers)</booktitle>
     <month>November</month>
     <year>2017</year>
@@ -488,16 +488,16 @@
 	Recently, many character-based neural models have been applied to CWS. While
 	they obtain good performance, they have two obvious weaknesses. The first is
 	that they heavily rely on manually designed bigram feature, i.e. they are not
-	good at capturing n-gram features automatically. The second is that they
+	good at capturing $n$-gram features automatically. The second is that they
 	make no use of full word information. For the first weakness, we propose a
 	convolutional neural model, which is able to capture rich $n$-gram features
 	without any feature engineering.
 	For the second one, we propose an effective approach to integrate the proposed
 	model with word embeddings.
 	We evaluate the model on two benchmark datasets: PKU and MSR. Without any
-	feature engineering, the model obtains competitive performance &#8211;- 95.7% on
+	feature engineering, the model obtains competitive performance — 95.7% on
 	PKU and 97.3% on MSR. Armed with word embeddings, the model achieves
-	state-of-the-art performance on both datasets &#8211;- 96.5% on PKU and 98.0% on
+	state-of-the-art performance on both datasets — 96.5% on PKU and 98.0% on
 	MSR, without using any external labeled resource.</abstract>
     <bibtype>inproceedings</bibtype>
     <bibkey>wang-xu:2017:I17-1</bibkey>
@@ -1293,7 +1293,7 @@
 	sized RNN-LMs. We also show that an "attentive" RNN-LM needs less contextual
 	information to achieve similar results to the state-of-the-art on the wikitext2
 	dataset.
-	Author{2}Affiliation</abstract>
+    </abstract>
     <bibtype>inproceedings</bibtype>
     <bibkey>salton-ross-kelleher:2017:I17-1</bibkey>
   </paper>
@@ -1410,7 +1410,7 @@
 	been proposed for this task recently, but most of them suffer from the shortage
 	of labeled data. In this paper, we address this problem by procuring additional
 	training data from parallel corpora: When humans translate a text, they
-	sometimes add connectives (a process known as ėxtitexplicitation). We
+	sometimes add connectives (a process known as <i>explicitation</i>). We
 	automatically back-translate it into an English connective and use it to infer
 	a label with high confidence. We show that a training set several times larger
 	than the original training set can be generated this way. With the extra
@@ -1591,9 +1591,9 @@
 	class. To combine the strengths of the two models, we fuse them together by
 	using MNB to automatically enrich the constraints for GE training. We also
 	explore ensemble method to combine classifiers. On a corpus of webpages from
-	real-time bidding requests, the proposed GE1 MNB1 model achieves the highest
+	real-time bidding requests, the proposed model achieves the highest
 	average F1 of 0.69 and closes more than half of the gap between previous
-	stateof- the-art lightly-supervised models to a fully-supervised MaxEnt model.</abstract>
+	state-of-the-art lightly-supervised models to a fully-supervised MaxEnt model.</abstract>
     <bibtype>inproceedings</bibtype>
     <bibkey>jin-wanvarie-le:2017:I17-1</bibkey>
   </paper>
@@ -1645,6 +1645,8 @@
 
   <paper id="1058">
     <title>Neuramanteau: A Neural Network Ensemble Model for Lexical Blends</title>
+    <author><first>Kollol</first><last>Das</last></author>
+    <author><first>Shaona</first><last>Ghosh</last></author>
     <booktitle>Proceedings of the Eighth International Joint Conference on Natural Language Processing (Volume 1: Long Papers)</booktitle>
     <month>November</month>
     <year>2017</year>
@@ -2697,7 +2699,7 @@
 	experimental results show that our method can extract widely covered variants
 	from large Twitter data and improve the recall of normalization without
 	degrading the overall accuracy of Japanese morphological analysis.
-	Author{1}Affiliation</abstract>
+    </abstract>
     <bibtype>inproceedings</bibtype>
     <bibkey>saito-EtAl:2017:I17-1</bibkey>
   </paper>
@@ -2823,7 +2825,7 @@
     <pages>986&#8211;995</pages>
     <url>http://www.aclweb.org/anthology/I17-1099</url>
     <dataset>I17-1099.Datasets.zip</dataset>
-    <abstract>We develop a high-quality multi-turn dialog dataset, ėxtbfDailyDialog,
+    <abstract>We develop a high-quality multi-turn dialog dataset, <b>DailyDialog</b>,
 	which is intriguing in several aspects. The language is human-written and less
 	noisy. The dialogues in the dataset reflect our daily communication way and
 	cover various topics about our daily life. We also manually label the developed
@@ -4115,7 +4117,7 @@
 	outperforms the state-of-the-art method by 14.5% in accuracy using a benchmark
 	fake news detection dataset. This proves that speaker profiles provide valuable
 	information to validate the credibility of news articles.
-	Author{4}Affiliation</abstract>
+    </abstract>
     <bibtype>inproceedings</bibtype>
     <bibkey>long-EtAl:2017:I17-2</bibkey>
   </paper>
@@ -4149,7 +4151,7 @@
 	model and achieve higher BLEU score than that of baselines. We also
 	investigated the oracle performance and revealed that there is 
 	sufficient room for improving an encoder-decoder model.
-	Author{1}Affiliation</abstract>
+    </abstract>
     <bibtype>inproceedings</bibtype>
     <bibkey>saito-EtAl:2017:I17-2</bibkey>
   </paper>
@@ -5069,29 +5071,12 @@
     <pages>5&#8211;8</pages>
     <url>http://www.aclweb.org/anthology/I17-3002</url>
     <abstract>Computer Assisted Discovery Extraction and Translation (CADET) is a workbench
-	for helping knowledge workers find, la- bel, and translate documents of
+	for helping knowledge workers find, label, and translate documents of
 	interest. It combines a multitude of analytics together with a flexible
 	environment for customizing the workflow for different users. This open-source
 	framework allows for easy development of new research prototypes using a
 	micro-service architecture based atop Docker and Apache Thrift.
-	Author{4}Affiliation
-	Author{7}Affiliation
-	Author{8}Affiliation
-	Author{9}Affiliation
-	Author{10}Affiliation
-	Author{11}Affiliation
-	Author{12}Affiliation
-	Author{13}Affiliation
-	Author{14}Affiliation
-	Author{16}Affiliation
-	Author{17}Affiliation
-	Author{18}Affiliation
-	Author{20}Affiliation
-	Author{21}Affiliation
-	Author{22}Affiliation
-	Author{24}Affiliation
-	Author{26}Affiliation
-	Author{27}Affiliation</abstract>
+    </abstract>
     <bibtype>inproceedings</bibtype>
     <bibkey>vandurme-EtAl:2017:I17-3</bibkey>
   </paper>
@@ -6213,9 +6198,9 @@
 	classifying customer feedback into one of a predefined set of categories or
 	classes. In this paper, we describe our approach to this problem and the
 	results on four languages, i.e. English, French, Japanese and Spanish. Our
-	system implemented a bidirectional LSTM using
-	pre-trained glove and fastText
-	embeddings, and SVM  with TF-IDF vectors for
+	system implemented a bidirectional LSTM(Graves and Schmidhuber, 2005) using
+	pre-trained glove(Pennington et al., 2014) and fastText(Joulin et al., 2016)
+	embeddings, and SVM (Cortes and Vapnik, 1995) with TF-IDF vectors for
 	classifying the feedback data which is described in the later sections. We also
 	tried different machine learning techniques and compared the results in this
 	paper. Out of the 12 participating teams, our systems obtained 0.65, 0.86, 0.70
