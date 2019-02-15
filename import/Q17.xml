@@ -61,7 +61,7 @@
     <author><first>Yin-Wen</first><last>Chang</last></author>
     <author><first>Michael</first><last>Collins</last></author>
     <year>2017</year>
-    <abstract>Decoding of phrase-based translation models in the general case is known to be NP-complete, by a reduction from the traveling salesman problem (Knight, 1999). In practice, phrase-based systems often impose a hard distortion limit that limits the movement of phrases during translation. However, the impact on complexity after imposing such a constraint is not well studied. In this paper, we describe a dynamic programming algorithm for phrase-based decoding with a fixed distortion limit. The runtime of the algorithm is O(nd!lh^(d+1)) where n is the sentence length, d is the distortion limit, l is a bound on the number of phrases starting at any position in the sentence, and h is related to the maximum number of target language translations for any source word. The algorithm makes use of a novel representation that gives a new perspective on decoding of phrase-based models.</abstract>
+    <abstract>Decoding of phrase-based translation models in the general case is known to be NP-complete, by a reduction from the traveling salesman problem (Knight, 1999). In practice, phrase-based systems often impose a hard distortion limit that limits the movement of phrases during translation. However, the impact on complexity after imposing such a constraint is not well studied. In this paper, we describe a dynamic programming algorithm for phrase-based decoding with a fixed distortion limit. The runtime of the algorithm is $O(nd!lh^{d+1})$ where $n$ is the sentence length, $d$ is the distortion limit, $l$ is a bound on the number of phrases starting at any position in the sentence, and $h$ is related to the maximum number of target language translations for any source word. The algorithm makes use of a novel representation that gives a new perspective on decoding of phrase-based models.</abstract>
     <href>https://transacl.org/ojs/index.php/tacl/article/download/1020/226</href>
     <pages>59--71</pages>
     <url>http://www.aclweb.org/anthology/Q17-1005</url>
@@ -162,7 +162,7 @@
     <author><first>Ryo</first><last>Domoto</last></author>
     <author><first>Daichi</first><last>Mochihashi</last></author>
     <year>2017</year>
-    <abstract>This paper presents a novel hybrid generative/discriminative model of word segmentation based on nonparametric Bayesian methods.  Unlike ordinary discriminative word segmentation which relies only on labeled data, our semi-supervised model also leverages a huge amounts of unlabeled text to automatically learn new "words", and further constrains them by using a labeled data to segment non-standard texts such as those found in social networking services.Specifically, our hybrid model combines a discriminative classifier (CRF; Lafferty et al. (2001)) and unsupervised word segmentation (NPYLM; Mochihashi et al. (2009)) with a transparent exchange of information between these two model structures within the semi-supervised framework (JESS-CM; Suzuki et al. (2008)).  We confirmed that it can appropriately segment non-standard texts like those in Twitter and Weibo and has nearly state-of-the-art accuracy on standard datasets in Japanese, Chinese, and Thai.</abstract>
+    <abstract>This paper presents a novel hybrid generative/discriminative model of word segmentation based on nonparametric Bayesian methods.  Unlike ordinary discriminative word segmentation which relies only on labeled data, our semi-supervised model also leverages a huge amounts of unlabeled text to automatically learn new “words”, and further constrains them by using a labeled data to segment non-standard texts such as those found in social networking services.Specifically, our hybrid model combines a discriminative classifier (CRF; Lafferty et al. (2001)) and unsupervised word segmentation (NPYLM; Mochihashi et al. (2009)) with a transparent exchange of information between these two model structures within the semi-supervised framework (JESS-CM; Suzuki et al. (2008)).  We confirmed that it can appropriately segment non-standard texts like those in Twitter and Weibo and has nearly state-of-the-art accuracy on standard datasets in Japanese, Chinese, and Thai.</abstract>
     <href>https://transacl.org/ojs/index.php/tacl/article/download/1037/235</href>
     <pages>179--189</pages>
     <url>http://www.aclweb.org/anthology/Q17-1013</url>
@@ -210,11 +210,11 @@
 
   <paper id='1017'>
     <title>Domain-Targeted, High Precision Knowledge Extraction</title>
-    <author><first>Bhavana Dalvi</first><last>Mishra</last></author>
+    <author><first>Bhavana</first><last>Dalvi Mishra</last></author>
     <author><first> Niket</first><last>Tandon</last></author>
     <author><first>Peter</first><last>Clark</last></author>
     <year>2017</year>
-    <abstract>Our goal is to construct a domain-targeted, high precision knowledge base (KB), containing general (subject,predicate,object) statements about the world, in support of a downstream question-answering (QA) application. Despite recent advances in information extraction (IE) techniques, no suitable resource for our task already exists; existing resources are either too noisy, too named-entity centric, or too incomplete, and typically have not been constructed with a clear scope or purpose. To address these, we have created a domain-targeted, high precision knowledge extraction pipeline, leveraging Open IE, crowdsourcing, and a novel canonical schema learning algorithm (called CASI), that produces high precision knowledge targeted to a particular domain - in our case, elementary science. To measure the KB’s coverage of the target domain’s knowledge (it’s "comprehensiveness" with respect to science) we measure recall with respect to an independent corpus of domain text, and show that our pipeline produces output with over 80% precision and 23% recall with respect to that target, a substantially higher coverage of tuple-expressible science knowledge than other comparable resources. We have made the KB publicly available at http://data.allenai.org/tuple-kb.</abstract>
+    <abstract>Our goal is to construct a domain-targeted, high precision knowledge base (KB), containing general (subject,predicate,object) statements about the world, in support of a downstream question-answering (QA) application. Despite recent advances in information extraction (IE) techniques, no suitable resource for our task already exists; existing resources are either too noisy, too named-entity centric, or too incomplete, and typically have not been constructed with a clear scope or purpose. To address these, we have created a domain-targeted, high precision knowledge extraction pipeline, leveraging Open IE, crowdsourcing, and a novel canonical schema learning algorithm (called CASI), that produces high precision knowledge targeted to a particular domain - in our case, elementary science. To measure the KB’s coverage of the target domain’s knowledge (it’s “comprehensiveness” with respect to science) we measure recall with respect to an independent corpus of domain text, and show that our pipeline produces output with over 80% precision and 23% recall with respect to that target, a substantially higher coverage of tuple-expressible science knowledge than other comparable resources. We have made the KB publicly available at http://data.allenai.org/tuple-kb.</abstract>
     <href>https://transacl.org/ojs/index.php/tacl/article/download/1064/242</href>
     <pages>233--246</pages>
     <url>http://www.aclweb.org/anthology/Q17-1017</url>
@@ -258,7 +258,7 @@
     <author><first>Yi</first><last>Yang</last></author>
     <author><first>Jacob</first><last>Eisenstein</last></author>
     <year>2017</year>
-    <abstract>Variation in language is ubiquitous, particularly in newer forms of writing such as social media. Fortunately, variation is not random; it is often linked to social properties of the author. In this paper, we show how to exploit social networks to make sentiment analysis more robust to social language variation. The key idea is linguistic homophily: the tendency of socially linked individuals to use language in similar ways. We formalize this idea in a novel attention-based neural network architecture, in which attention is divided among several basis models, depending on the author's position in the social network. This has the effect of smoothing the classification function across the social network, and makes it possible to induce personalized classifiers even for authors for whom there is no labeled data or demographic metadata. This model significantly improves the accuracies of sentiment analysis on Twitter and review data.</abstract>
+    <abstract>Variation in language is ubiquitous, particularly in newer forms of writing such as social media. Fortunately, variation is not random; it is often linked to social properties of the author. In this paper, we show how to exploit social networks to make sentiment analysis more robust to social language variation. The key idea is <i>linguistic homophily</i>: the tendency of socially linked individuals to use language in similar ways. We formalize this idea in a novel attention-based neural network architecture, in which attention is divided among several basis models, depending on the author's position in the social network. This has the effect of smoothing the classification function across the social network, and makes it possible to induce personalized classifiers even for authors for whom there is no labeled data or demographic metadata. This model significantly improves the accuracies of sentiment analysis on Twitter and review data.</abstract>
     <href>https://transacl.org/ojs/index.php/tacl/article/download/1024/245</href>
     <pages>295--307</pages>
     <url>http://www.aclweb.org/anthology/Q17-1021</url>
@@ -268,7 +268,7 @@
     <title>Semantic Specialization of Distributional Word Vector Spaces using Monolingual and Cross-Lingual Constraints</title>
     <author><first>Nikola</first><last>Mrkšić</last></author>
     <author><first>Ivan</first><last>Vulić</last></author>
-    <author><first>Diarmuid Ó</first><last>Séaghdha</last></author>
+    <author><first>Diarmuid</first><last>Ó Séaghdha</last></author>
     <author><first>Ira</first><last>Leviant</last></author>
     <author><first>Roi</first><last>Reichart</last></author>
     <author><first>Milica</first><last>Gašić</last></author>
@@ -379,7 +379,7 @@
   <paper id='1030'>
     <title>Evaluating Low-Level Speech Features Against Human Perceptual Data</title>
     <author><first>Caitlin</first><last>Richter</last></author>
-    <author><first>Naomi H</first><last>Feldman</last></author>
+    <author><first>Naomi H.</first><last>Feldman</last></author>
     <author><first>Harini</first><last>Salgado</last></author>
     <author><first>Aren</first><last>Jansen</last></author>
     <year>2017</year>
@@ -390,7 +390,7 @@
   </paper>
 
   <paper id='1031'>
-    <title>Parsing with Traces: An O(n^4) Algorithm and a Structural Representation</title>
+    <title>Parsing with Traces: An $O(n^4)$ Algorithm and a Structural Representation</title>
     <author><first>Jonathan K.</first><last>Kummerfeld</last></author>
     <author><first>Dan</first><last>Klein</last></author>
     <year>2017</year>
