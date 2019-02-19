@@ -6,6 +6,7 @@ from lxml import etree
 import itertools as it
 import logging as log
 import os
+import re
 
 
 class Anthology:
@@ -71,6 +72,10 @@ def _stringify_children(node):
     ).strip()
 
 
+def _remove_extra_whitespace(text):
+    return re.sub(" +", " ", text.replace("\n", "").strip())
+
+
 _LIST_ELEMENTS = ("attachment", "author", "editor", "video")
 
 
@@ -106,6 +111,8 @@ class Paper:
             else:
                 value = element.text
             # store value
+            if tag in ("title", "booktitle"):
+                value = _remove_extra_whitespace(value)
             if tag in _LIST_ELEMENTS:
                 try:
                     self.attrib[tag].append(value)
