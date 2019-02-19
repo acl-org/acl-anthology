@@ -15,6 +15,7 @@ class Anthology:
     def __init__(self, importdir=None):
         self.volumes = {}  # maps volume IDs to Volume objects
         self.papers = {}  # maps paper IDs to Paper objects
+        self.people = PersonIndex()
         if importdir is not None:
             self.import_directory(importdir)
 
@@ -45,6 +46,7 @@ class Anthology:
         current_volume = None
         for paper in volume:
             parsed_paper = Paper.from_xml(paper, top_level_id)
+            self._register_people(parsed_paper)
             full_id = parsed_paper.full_id
             if full_id in self.papers:
                 log.critical(
@@ -66,6 +68,11 @@ class Anthology:
             self.papers[full_id] = parsed_paper
         if current_volume is not None:
             self.volumes[current_volume.full_id] = current_volume
+
+    def _register_people(self, paper):
+        for role in ("author", "editor"):
+            for name in paper.get(role, []):
+                self.people.register(name, paper.full_id, role)
 
 
 def _stringify_children(node):
@@ -203,7 +210,7 @@ class Volume:
         self.top_level_id = front_matter.top_level_id
         self.attrib = front_matter.attrib.copy()
         self.attrib["url"] = _ANTHOLOGY_URL.format(self.full_id)
-        if self.top_level_id[0] in ('J', 'Q'):
+        if self.top_level_id[0] in ("J", "Q"):
             # J and Q don't have front matter
             self.content = []
         else:
@@ -226,7 +233,11 @@ class Volume:
     def append(self, paper):
         self.content.append(paper)
         if paper.parent_volume_id is not None:
-            log.error("Trying to append paper '{}' to volume '{}', but it already belongs to '{}'".format(paper.full_id, self.full_id, paper.parent_volume_id))
+            log.error(
+                "Trying to append paper '{}' to volume '{}', but it already belongs to '{}'".format(
+                    paper.full_id, self.full_id, paper.parent_volume_id
+                )
+            )
         paper.parent_volume_id = self.full_id
 
 
@@ -255,8 +266,17 @@ class PersonName:
     def full(self):
         return "{} {}{}".format(self.first, self.last, self.jr).strip()
 
+    @property
+    def id_(self):
+        return repr(self)
+
     def as_dict(self):
-        return {"first": self.first, "last": self.last, "jr": self.jr, "full": self.full}
+        return {
+            "first": self.first,
+            "last": self.last,
+            "jr": self.jr,
+            "full": self.full,
+        }
 
     def __eq__(self, other):
         return (

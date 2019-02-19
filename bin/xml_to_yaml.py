@@ -22,7 +22,7 @@ try:
 except ImportError:
     from yaml import Dumper
 
-from anthology import Anthology, PersonIndex
+from anthology import Anthology
 
 
 def export_anthology(anthology, outdir):
@@ -32,24 +32,17 @@ def export_anthology(anthology, outdir):
         if not os.path.isdir(target_dir):
             os.mkdir(target_dir)
 
-    # Dump paper index (and index personal names)
-    pidx = PersonIndex()
+    # Dump paper index
     papers = {}
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.attrib
         data["paper_id"] = paper.paper_id
         data["parent_volume_id"] = paper.parent_volume_id
-        # Index personal names while we're going through the papers
-        # TODO: Maybe this should be done in anthology.py?
         if "author" in data:
-            data["author"] = [
-                pidx.register(person, id_, "author") for person in data["author"]
-            ]
+            data["author"] = [name.id_ for name in data["author"]]
         if "editor" in data:
-            data["editor"] = [
-                pidx.register(person, id_, "editor") for person in data["editor"]
-            ]
+            data["editor"] = [name.id_ for name in data["editor"]]
         papers[paper.full_id] = data
     with open("{}/papers.yaml".format(outdir), "w") as f:
         print(yaml.dump(papers, Dumper=Dumper), file=f)
@@ -66,7 +59,7 @@ def export_anthology(anthology, outdir):
 
     # Dump author index
     people = {}
-    for name_repr, name, papers in pidx.items():
+    for name_repr, name, papers in anthology.people.items():
         data = name.as_dict()
         data.update(papers)
         people[name_repr] = data
