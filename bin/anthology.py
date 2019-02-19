@@ -13,7 +13,7 @@ class Anthology:
     schema = None
 
     def __init__(self, importdir=None):
-        self.volumes = defaultdict(list)  # maps volume IDs to lists of paper IDs
+        self.volumes = {}  # maps volume IDs to Volume objects
         self.papers = {}  # maps paper IDs to Paper objects
         if importdir is not None:
             self.import_directory(importdir)
@@ -36,20 +36,36 @@ class Anthology:
             if not self.schema(tree):
                 log.error("RelaxNG validation failed for {}".format(filename))
         volume = tree.getroot()
-        volume_id = volume.get("id")
-        if volume_id in self.volumes:
-            log.critical("Attempted to import volume '{}' twice".format(volume_id))
+        top_level_id = volume.get("id")
+        if top_level_id in self.volumes:
+            log.critical(
+                "Attempted to import top-level ID '{}' twice".format(top_level_id)
+            )
             log.critical("Triggered by file: {}".format(filename))
+        current_volume = None
         for paper in volume:
-            paper_id = paper.get("id")
-            full_id = "{}-{}".format(volume_id, paper_id)
+            parsed_paper = Paper.from_xml(paper, top_level_id)
+            full_id = parsed_paper.full_id
             if full_id in self.papers:
                 log.critical(
                     "Attempted to import paper '{}' twice -- skipping".format(full_id)
                 )
                 continue
-            self.papers[full_id] = Paper(paper, volume_id)
-            self.volumes[volume_id].append(full_id)
+            if parsed_paper.is_volume:
+                if current_volume is not None:
+                    self.volumes[current_volume.full_id] = current_volume
+                current_volume = Volume(parsed_paper)
+            else:
+                if current_volume is None:
+                    log.critical(
+                        "First paper of XML should be volume entry, but '{}' is not interpreted as one".format(
+                            full_id
+                        )
+                    )
+                current_volume.append(parsed_paper)
+            self.papers[full_id] = parsed_paper
+        if current_volume is not None:
+            self.volumes[current_volume.full_id] = current_volume
 
 
 def _stringify_children(node):
@@ -77,18 +93,22 @@ def _remove_extra_whitespace(text):
 
 
 _LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
-_REVISION_URL = "http://www.aclweb.org/anthology/{}"
+_ANTHOLOGY_URL = "http://www.aclweb.org/anthology/{}"
 
 
 class Paper:
-    def __init__(self, paper_element, volume_id):
-        # initialize
-        self.paper_id = paper_element.get("id")
-        self.parent_volume = volume_id
+    def __init__(self, paper_id, top_level_id):
+        self.parent_volume_id = None
+        self.paper_id = paper_id
+        self.top_level_id = top_level_id
         self.attrib = {}
-        self._parse_element(paper_element)
-        if "year" not in self.attrib:
-            self._infer_year()
+
+    def from_xml(xml_element, top_level_id):
+        paper = Paper(xml_element.get("id"), top_level_id)
+        paper._parse_element(xml_element)
+        if "year" not in paper.attrib:
+            paper._infer_year()
+        return paper
 
     def _parse_element(self, paper_element):
         # read & store values
@@ -107,7 +127,7 @@ class Paper:
                 value = {
                     "value": element.text,
                     "id": element.get("id"),
-                    "url": _REVISION_URL.format(element.text),
+                    "url": _ANTHOLOGY_URL.format(element.text),
                 }
             elif tag == "mrf":
                 value = {"filename": element.text, "src": element.get("src")}
@@ -140,9 +160,9 @@ class Paper:
         some letter and yy are the last two digits of the year of publication.
         """
         assert (
-            len(self.parent_volume) == 3
+            len(self.top_level_id) == 3
         ), "Couldn't infer year: unknown volume ID format"
-        digits = int(self.parent_volume[1:])
+        digits = int(self.top_level_id[1:])
         if digits >= 60:
             year = "19{}".format(digits)
         else:
@@ -150,8 +170,22 @@ class Paper:
         self.attrib["year"] = year
 
     @property
+    def is_volume(self):
+        """Determines if this paper is a regular paper or a proceedings volume.
+
+        By default, each paper ID of format 'x000' will be treated as (the front
+        matter of) a proceedings volume, unless the XML is of type workshop,
+        where each paper ID of format 'xx00' is treated as one volume.
+        """
+        return (
+            self.paper_id[-3:] == "000"
+            or (self.top_level_id[0] == "W" and self.paper_id[-2:] == "00")
+            or (self.top_level_id == "C69" and self.paper_id[-2:] == "00")
+        )
+
+    @property
     def full_id(self):
-        return "{}-{}".format(self.parent_volume, self.paper_id)
+        return "{}-{}".format(self.top_level_id, self.paper_id)
 
     def get(self, name, default=None):
         try:
@@ -161,6 +195,39 @@ class Paper:
 
     def items(self):
         return self.attrib.items()
+
+
+class Volume:
+    def __init__(self, front_matter):
+        self.front_matter_id = front_matter.paper_id
+        self.top_level_id = front_matter.top_level_id
+        self.attrib = front_matter.attrib.copy()
+        self.attrib["url"] = _ANTHOLOGY_URL.format(self.full_id)
+        if self.top_level_id[0] in ('J', 'Q'):
+            # J and Q don't have front matter
+            self.content = []
+        else:
+            self.content = [front_matter]
+
+    @property
+    def full_id(self):
+        if self.top_level_id[0] == "W":
+            # If volume is a workshop, use the first two digits of ID, e.g. W15-01
+            _id = "{}-{}".format(self.top_level_id, self.front_matter_id[:2])
+        else:
+            # If not, only use the first digit, e.g. Q15-1
+            _id = "{}-{}".format(self.top_level_id, self.front_matter_id[0])
+        return _id
+
+    @property
+    def paper_ids(self):
+        return [paper.full_id for paper in self.content]
+
+    def append(self, paper):
+        self.content.append(paper)
+        if paper.parent_volume_id is not None:
+            log.error("Trying to append paper '{}' to volume '{}', but it already belongs to '{}'".format(paper.full_id, self.full_id, paper.parent_volume_id))
+        paper.parent_volume_id = self.full_id
 
 
 class PersonName:
@@ -189,7 +256,7 @@ class PersonName:
         return "{} {}{}".format(self.first, self.last, self.jr).strip()
 
     def as_dict(self):
-        return {"first": self.first, "last": self.last, "jr": self.jr}
+        return {"first": self.first, "last": self.last, "jr": self.jr, "full": self.full}
 
     def __eq__(self, other):
         return (

@@ -27,32 +27,42 @@ from anthology import Anthology, PersonIndex
 
 def export_anthology(anthology, outdir):
     # Create directories
-    for subdir in ("", "volumes"):
+    for subdir in ("",):
         target_dir = "{}/{}".format(outdir, subdir)
         if not os.path.isdir(target_dir):
             os.mkdir(target_dir)
 
+    # Dump paper index (and index personal names)
     pidx = PersonIndex()
-    for volume, ids in anthology.volumes.items():
-        papers = {}
-        for id_ in ids:
-            log.debug("export_anthology: processing paper '{}'".format(id_))
-            paper = anthology.papers[id_]
-            data = paper.attrib
-            # Index personal names while we're going through the papers
-            if "author" in data:
-                data["author"] = [
-                    pidx.register(person, id_, "author") for person in data["author"]
-                ]
-            if "editor" in data:
-                data["editor"] = [
-                    pidx.register(person, id_, "editor") for person in data["editor"]
-                ]
-            papers[paper.paper_id] = data
+    papers = {}
+    for id_, paper in anthology.papers.items():
+        log.debug("export_anthology: processing paper '{}'".format(id_))
+        data = paper.attrib
+        data["paper_id"] = paper.paper_id
+        data["parent_volume_id"] = paper.parent_volume_id
+        # Index personal names while we're going through the papers
+        # TODO: Maybe this should be done in anthology.py?
+        if "author" in data:
+            data["author"] = [
+                pidx.register(person, id_, "author") for person in data["author"]
+            ]
+        if "editor" in data:
+            data["editor"] = [
+                pidx.register(person, id_, "editor") for person in data["editor"]
+            ]
+        papers[paper.full_id] = data
+    with open("{}/papers.yaml".format(outdir), "w") as f:
+        print(yaml.dump(papers, Dumper=Dumper), file=f)
 
-        # Dump all papers of a volume into a single file (as with the XML)
-        with open("{}/volumes/{}.yaml".format(outdir, volume), "w") as f:
-            print(yaml.dump(papers, Dumper=Dumper), file=f)
+    # Dump volume index
+    volumes = {}
+    for id_, volume in anthology.volumes.items():
+        log.debug("export_anthology: processing volume '{}'".format(id_))
+        data = volume.attrib
+        data["papers"] = volume.paper_ids
+        volumes[volume.full_id] = data
+    with open("{}/volumes.yaml".format(outdir), "w") as f:
+        print(yaml.dump(volumes, Dumper=Dumper), file=f)
 
     # Dump author index
     people = {}
