@@ -77,6 +77,7 @@ def _remove_extra_whitespace(text):
 
 
 _LIST_ELEMENTS = ("attachment", "author", "editor", "video")
+_REVISION_URL = "http://www.aclweb.org/anthology/{}"
 
 
 class Paper:
@@ -103,7 +104,11 @@ class Paper:
             elif tag in ("author", "editor"):
                 value = PersonName.from_element(element)
             elif tag in ("erratum", "revision"):
-                value = {"value": element.text, "id": element.get("id")}
+                value = {
+                    "value": element.text,
+                    "id": element.get("id"),
+                    "url": _REVISION_URL.format(element.text),
+                }
             elif tag == "mrf":
                 value = {"filename": element.text, "src": element.get("src")}
             elif tag == "video":
