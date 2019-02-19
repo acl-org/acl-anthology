@@ -36,9 +36,17 @@ class Anthology:
                 log.error("RelaxNG validation failed for {}".format(filename))
         volume = tree.getroot()
         volume_id = volume.get("id")
+        if volume_id in self.volumes:
+            log.critical("Attempted to import volume '{}' twice".format(volume_id))
+            log.critical("Triggered by file: {}".format(filename))
         for paper in volume:
             paper_id = paper.get("id")
             full_id = "{}-{}".format(volume_id, paper_id)
+            if full_id in self.papers:
+                log.critical(
+                    "Attempted to import paper '{}' twice -- skipping".format(full_id)
+                )
+                continue
             self.papers[full_id] = Paper(paper, volume_id)
             self.volumes[volume_id].append(full_id)
 
@@ -116,7 +124,7 @@ class Paper:
         """Infer the year from the volume ID.
 
         Many paper entries do not explicitly contain their year.  This function assumes
-        that the paper's volume identifier follows the format 'xyy', where L is
+        that the paper's volume identifier follows the format 'xyy', where x is
         some letter and yy are the last two digits of the year of publication.
         """
         assert (
@@ -202,6 +210,9 @@ class PersonIndex:
 
     def register(self, name: PersonName, paper_id, role):
         """Adds a name to the index, associates it with the given paper ID and role, and returns the name's unique representation."""
+        assert isinstance(name, PersonName), "Expected PersonName, got {} ({})".format(
+            type(name), repr(name)
+        )
         if repr(name) not in self.names:
             self.names[repr(name)] = name
         self.papers[name][role].append(paper_id)

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 # Marcel Bollmann <marcel@bollmann.me>, 2019
 
-"""Usage: xml_to_yaml.py [--importdir=DIR] [--exportdir=DIR]
+"""Usage: xml_to_yaml.py [--importdir=DIR] [--exportdir=DIR] [--debug]
 
 Work in progress.
 
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../import/]
   --exportdir=DIR          Directory to write YAML files to.   [default: {scriptdir}/../hugo/data/]
+  --debug                  Output debug-level log messages.
   -h, --help               Display this helpful text.
 """
 
@@ -35,6 +36,7 @@ def export_anthology(anthology, outdir):
     for volume, ids in anthology.volumes.items():
         papers = {}
         for id_ in ids:
+            log.debug("export_anthology: processing paper '{}'".format(id_))
             paper = anthology.papers[id_]
             data = paper.attrib
             # Index personal names while we're going through the papers
@@ -73,6 +75,9 @@ if __name__ == "__main__":
         args["--exportdir"] = os.path.abspath(
             args["--exportdir"].format(scriptdir=scriptdir)
         )
+
+    log_level = log.DEBUG if args["--debug"] else log.INFO
+    log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
 
     anthology = Anthology(importdir=args["--importdir"])
     export_anthology(anthology, args["--exportdir"])
