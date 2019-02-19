@@ -2,11 +2,12 @@
 
 b = element b { text }
 i = element i { text }
+u = element u { text }
 sup = element SUP { xsd:NCName }
 first = element first { text }
 last = element last { text }
 Person = (first?, last)
-MarkupText = (text | b | i | sup)+
+MarkupText = (text | b | i | u | sup)+
 Paper = element paper {
   attribute id { xsd:integer },
   attribute href { xsd:anyURI }?,
