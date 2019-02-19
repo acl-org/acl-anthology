@@ -76,7 +76,7 @@ def _remove_extra_whitespace(text):
     return re.sub(" +", " ", text.replace("\n", "").strip())
 
 
-_LIST_ELEMENTS = ("attachment", "author", "editor", "video")
+_LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
 _REVISION_URL = "http://www.aclweb.org/anthology/{}"
 
 

@@ -114,14 +114,14 @@
             <ref name="Person"/>
           </element>
         </zeroOrMore>
-        <optional>
+        <zeroOrMore>
           <element name="erratum">
             <attribute name="id">
               <data type="integer"/>
             </attribute>
             <data type="NCName"/>
           </element>
-        </optional>
+        </zeroOrMore>
         <optional>
           <element name="href">
             <data type="anyURI"/>
@@ -175,14 +175,14 @@
             <text/>
           </element>
         </optional>
-        <optional>
+        <zeroOrMore>
           <element name="revision">
             <attribute name="id">
               <data type="integer"/>
             </attribute>
             <data type="NCName"/>
           </element>
-        </optional>
+        </zeroOrMore>
         <optional>
           <element name="software">
             <data type="NCName"/>
