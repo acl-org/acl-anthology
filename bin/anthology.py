@@ -3,6 +3,7 @@
 from collections import defaultdict
 from glob import glob
 from lxml import etree
+from urllib.parse import urlparse
 import itertools as it
 import logging as log
 import os
@@ -99,6 +100,15 @@ def _remove_extra_whitespace(text):
     return re.sub(" +", " ", text.replace("\n", "").strip())
 
 
+def _infer_attachment_url(filename):
+    # If filename has a network location, it's interpreted as a complete URL
+    if urlparse(filename).netloc:
+        return filename
+    # Otherwise, treat it as an internal filename
+    URL = "http://anthology.aclweb.org/attachments/{}/{}/{}"
+    return URL.format(filename[0], filename[:3], filename)
+
+
 _LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
 _ANTHOLOGY_URL = "http://www.aclweb.org/anthology/{}"
 
@@ -127,7 +137,11 @@ class Paper:
             if tag in ("abstract", "title"):
                 value = _stringify_children(element)
             elif tag == "attachment":
-                value = {"filename": element.text, "type": element.get("type", None)}
+                value = {
+                    "filename": element.text,
+                    "type": element.get("type", "attachment"),
+                    "url": _infer_attachment_url(element.text),
+                }
             elif tag in ("author", "editor"):
                 value = PersonName.from_element(element)
             elif tag in ("erratum", "revision"):
@@ -139,7 +153,13 @@ class Paper:
             elif tag == "mrf":
                 value = {"filename": element.text, "src": element.get("src")}
             elif tag == "video":
-                value = {"href": element.get("href"), "tag": element.get("tag")}
+                # Treat videos the same way as other attachments
+                tag = "attachment"
+                value = {
+                    "filename": element.get("href"),
+                    "type": element.get("tag", "video"),
+                    "url": _infer_attachment_url(element.get("href")),
+                }
             else:
                 value = element.text
             # store value
