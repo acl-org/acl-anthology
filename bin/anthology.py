@@ -210,11 +210,10 @@ class Volume:
         self.top_level_id = front_matter.top_level_id
         self.attrib = front_matter.attrib.copy()
         self.attrib["url"] = _ANTHOLOGY_URL.format(self.full_id)
-        if self.top_level_id[0] in ("J", "Q"):
-            # J and Q don't have front matter
-            self.content = []
-        else:
-            self.content = [front_matter]
+        self.content = []
+        if self.top_level_id[0] not in ("J", "Q"):
+            # J and Q don't have front matter, but others do
+            self.append(front_matter)
 
     @property
     def full_id(self):
