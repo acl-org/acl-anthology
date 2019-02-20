@@ -169,8 +169,8 @@ class Paper:
         assert (
             len(self.top_level_id) == 3
         ), "Couldn't infer year: unknown volume ID format"
-        digits = int(self.top_level_id[1:])
-        if digits >= 60:
+        digits = self.top_level_id[1:]
+        if int(digits) >= 60:
             year = "19{}".format(digits)
         else:
             year = "20{}".format(digits)
