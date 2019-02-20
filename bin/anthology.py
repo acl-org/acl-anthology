@@ -125,6 +125,8 @@ class Paper:
         paper._parse_element(xml_element)
         if "year" not in paper.attrib:
             paper._infer_year()
+        if "pages" in paper.attrib and paper.attrib["pages"] is not None:
+            paper._interpret_pages()
         return paper
 
     def _parse_element(self, paper_element):
@@ -195,6 +197,15 @@ class Paper:
         else:
             year = "20{}".format(digits)
         self.attrib["year"] = year
+
+    def _interpret_pages(self):
+        """Splits up 'pages' field into first and last page, if possible.
+
+        This is used for metadata in the generated HTML."""
+        for s in ('--', '-', '–'):
+            if self.attrib["pages"].count(s) == 1:
+                self.attrib["page_first"], self.attrib["page_last"] = self.attrib["pages"].split(s)
+                return
 
     @property
     def is_volume(self):
