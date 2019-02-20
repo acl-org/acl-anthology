@@ -202,9 +202,11 @@ class Paper:
         """Splits up 'pages' field into first and last page, if possible.
 
         This is used for metadata in the generated HTML."""
-        for s in ('--', '-', '–'):
+        for s in ("--", "-", "–"):
             if self.attrib["pages"].count(s) == 1:
-                self.attrib["page_first"], self.attrib["page_last"] = self.attrib["pages"].split(s)
+                self.attrib["page_first"], self.attrib["page_last"] = self.attrib[
+                    "pages"
+                ].split(s)
                 return
 
     @property
@@ -241,10 +243,34 @@ class Volume:
         self.top_level_id = front_matter.top_level_id
         self.attrib = front_matter.attrib.copy()
         self.attrib["url"] = _ANTHOLOGY_URL.format(self.full_id)
+        self._set_meta_info()
         self.content = []
         if self.top_level_id[0] not in ("J", "Q"):
             # J and Q don't have front matter, but others do
             self.append(front_matter)
+
+    def _set_meta_info(self):
+        """Derive journal title, volume, and issue no. used in metadata.
+
+        This function replicates functionality that was previously hardcoded in
+        'app/helpers/papers_helper.rb' of the Rails app."""
+        if self.top_level_id[0] == "J":
+            title = "Computational Linguistics"
+        elif self.top_level_id[0] == "Q":
+            title = "Transactions of the Association for Computational Linguistics"
+        else:
+            title = self.attrib["title"]
+        self.attrib["meta_journal_title"] = title
+        volume_no = re.search(
+            r"Volume\s*(\d+)", self.attrib["title"], flags=re.IGNORECASE
+        )
+        if volume_no is not None:
+            self.attrib["meta_volume"] = volume_no.group(1)
+        issue_no = re.search(
+            r"(Number|Issue)\s*(\d+-?\d*)", self.attrib["title"], flags=re.IGNORECASE
+        )
+        if issue_no is not None:
+            self.attrib["meta_issue"] = issue_no.group(2)
 
     @property
     def full_id(self):
