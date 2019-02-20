@@ -13,6 +13,7 @@ Options:
 """
 
 from docopt import docopt
+from collections import defaultdict
 import logging as log
 import os
 import yaml
@@ -27,13 +28,13 @@ from anthology import Anthology
 
 def export_anthology(anthology, outdir):
     # Create directories
-    for subdir in ("",):
+    for subdir in ("", "papers"):
         target_dir = "{}/{}".format(outdir, subdir)
         if not os.path.isdir(target_dir):
             os.mkdir(target_dir)
 
     # Dump paper index
-    papers = {}
+    papers = defaultdict(dict)
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.attrib
@@ -43,9 +44,10 @@ def export_anthology(anthology, outdir):
             data["author"] = [name.id_ for name in data["author"]]
         if "editor" in data:
             data["editor"] = [name.id_ for name in data["editor"]]
-        papers[paper.full_id] = data
-    with open("{}/papers.yaml".format(outdir), "w") as f:
-        print(yaml.dump(papers, Dumper=Dumper), file=f)
+        papers[paper.top_level_id][paper.full_id] = data
+    for top_level_id, paper_list in papers.items():
+        with open("{}/papers/{}.yaml".format(outdir, top_level_id), "w") as f:
+            print(yaml.dump(paper_list, Dumper=Dumper), file=f)
 
     # Dump volume index
     volumes = {}
