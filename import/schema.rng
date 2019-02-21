@@ -11,6 +11,11 @@
       <text/>
     </element>
   </define>
+  <define name="u">
+    <element name="u">
+      <text/>
+    </element>
+  </define>
   <define name="sup">
     <element name="SUP">
       <data type="NCName"/>
@@ -38,6 +43,7 @@
         <text/>
         <ref name="b"/>
         <ref name="i"/>
+        <ref name="u"/>
         <ref name="sup"/>
       </choice>
     </oneOrMore>
@@ -108,14 +114,14 @@
             <ref name="Person"/>
           </element>
         </zeroOrMore>
-        <optional>
+        <zeroOrMore>
           <element name="erratum">
             <attribute name="id">
               <data type="integer"/>
             </attribute>
             <data type="NCName"/>
           </element>
-        </optional>
+        </zeroOrMore>
         <optional>
           <element name="href">
             <data type="anyURI"/>
@@ -169,14 +175,14 @@
             <text/>
           </element>
         </optional>
-        <optional>
+        <zeroOrMore>
           <element name="revision">
             <attribute name="id">
               <data type="integer"/>
             </attribute>
             <data type="NCName"/>
           </element>
-        </optional>
+        </zeroOrMore>
         <optional>
           <element name="software">
             <data type="NCName"/>

@@ -2,11 +2,12 @@
 
 b = element b { text }
 i = element i { text }
+u = element u { text }
 sup = element SUP { xsd:NCName }
 first = element first { text }
 last = element last { text }
 Person = (first?, last)
-MarkupText = (text | b | i | sup)+
+MarkupText = (text | b | i | u | sup)+
 Paper = element paper {
   attribute id { xsd:integer },
   attribute href { xsd:anyURI }?,
@@ -26,7 +27,7 @@ Paper = element paper {
    & element erratum {
        attribute id { xsd:integer },
        xsd:NCName
-     }?
+     }*
    & element href { xsd:anyURI }?
    & (element ISBN { xsd:NMTOKEN } | element isbn { xsd:NMTOKEN })?
    & element issue { xsd:integer }?
@@ -42,7 +43,7 @@ Paper = element paper {
    & element revision {
        attribute id { xsd:integer },
        xsd:NCName
-     }?
+     }*
    & element software { xsd:NCName }?
    & element title { MarkupText }
    & element url { xsd:anyURI }?
