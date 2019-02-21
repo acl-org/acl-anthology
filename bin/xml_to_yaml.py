@@ -57,6 +57,10 @@ def export_anthology(anthology, outdir, dryrun=False):
         log.debug("export_anthology: processing volume '{}'".format(id_))
         data = volume.attrib
         data["papers"] = volume.paper_ids
+        if "author" in data:
+            data["author"] = [name.id_ for name in data["author"]]
+        if "editor" in data:
+            data["editor"] = [name.id_ for name in data["editor"]]
         volumes[volume.full_id] = data
     if not dryrun:
         with open("{}/volumes.yaml".format(outdir), "w") as f:
