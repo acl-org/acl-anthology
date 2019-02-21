@@ -5,11 +5,12 @@ from . import data
 
 
 class Volume:
-    def __init__(self, front_matter):
+    def __init__(self, front_matter, venue_index):
         self.front_matter_id = front_matter.paper_id
         self.top_level_id = front_matter.top_level_id
         self.attrib = front_matter.attrib.copy()
         self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
+        self.attrib["venues"] = venue_index.get_associated_venues(self.full_id)
         self._set_meta_info()
         self.content = []
         if self.top_level_id[0] not in ("J", "Q"):
