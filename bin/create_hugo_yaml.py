@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # Marcel Bollmann <marcel@bollmann.me>, 2019
 
-"""Usage: xml_to_yaml.py [--importdir=DIR] [--exportdir=DIR] [--debug] [--dry-run]
+"""Usage: create_hugo_yaml.py [--importdir=DIR] [--exportdir=DIR] [--debug] [--dry-run]
 
-Work in progress.
+Creates YAML files containing all necessary Anthology data for the static website generator.
 
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../import/]
