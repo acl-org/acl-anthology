@@ -31,7 +31,9 @@ class VenueIndex:
             return self.letters[letter]
         except KeyError:
             log.critical("Unknown venue letter: {}".format(letter))
-            log.critical("Maybe '{}' needs to be defined in venues_letters.yaml?".format(letter))
+            log.critical(
+                "Maybe '{}' needs to be defined in venues_letters.yaml?".format(letter)
+            )
 
     def get_associated_venues(self, anthology_id):
         """Get a list of all venue acronyms for a given (volume) anthology ID."""

@@ -9,11 +9,13 @@ from .papers import Paper
 from .people import PersonIndex
 from .venues import VenueIndex
 from .volumes import Volume
+from .sigs import SIGIndex
 
 
 class Anthology:
     schema = None
     venues = None
+    sigs = None
 
     def __init__(self, importdir=None):
         self.volumes = {}  # maps volume IDs to Volume objects
@@ -31,6 +33,7 @@ class Anthology:
     def import_directory(self, importdir):
         assert os.path.isdir(importdir), "Directory not found: {}".format(importdir)
         self.venues = VenueIndex(importdir)
+        self.sigs = SIGIndex(importdir)
         self.load_schema(importdir + "/schema.rng")
         for xmlfile in glob(importdir + "/*.xml"):
             self.import_file(xmlfile)
@@ -60,7 +63,7 @@ class Anthology:
             if parsed_paper.is_volume:
                 if current_volume is not None:
                     self.volumes[current_volume.full_id] = current_volume
-                current_volume = Volume(parsed_paper, self.venues)
+                current_volume = Volume(parsed_paper, self.venues, self.sigs)
             else:
                 if current_volume is None:
                     log.critical(
