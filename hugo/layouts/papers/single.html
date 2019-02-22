@@ -1,0 +1,159 @@
+{{ define "title" }}
+{{ $volume := slicestr .Params.anthology_id 0 3 }}
+{{ $paper := index (index .Site.Data.papers $volume) .Params.anthology_id }}
+{{ $paper.title }} - {{ .Site.Title }}
+{{ end }}
+
+{{ define "meta" }}
+{{ $people := .Site.Data.people }}
+{{ $volumes := .Site.Data.volumes }}
+{{ $volume := slicestr .Params.anthology_id 0 3 }}
+{{ $paper := index (index .Site.Data.papers $volume) .Params.anthology_id }}
+<meta content="{{ $paper.title }}" name="citation_title" >
+{{ range $paper.author }}
+  <meta content="{{ (index $people .).full }}" name="citation_author" >
+{{ end }}
+{{ with $paper.parent_volume_id }}
+{{ $volume := index $volumes . }}
+  <meta content="{{ $volume.meta_journal_title }}" name="citation_journal_title" >
+  {{ with $volume.meta_volume }}<meta content="{{ . }}" name="citation_volume" >{{ end }}
+  {{ with $volume.meta_issue }}<meta content="{{ . }}" name="citation_issue" >{{ end }}
+{{ end }}
+<meta content="{{ $paper.url }}" name="citation_pdf_url" >
+{{ with $paper.page_first }}<meta content="{{ . }}" name="citation_firstpage" >{{ end }}
+{{ with $paper.page_last }}<meta content="{{ . }}" name="citation_lastpage" >{{ end }}
+{{ with $paper.doi }}<meta content="{{ . }}" name="citation_doi" >{{ end }}
+{{ end }}
+
+{{ define "main" }}
+{{ $anthology_id := .Params.anthology_id }}
+{{ $people := .Site.Data.people }}
+{{ $volumes := .Site.Data.volumes }}
+{{ $volume := slicestr .Params.anthology_id 0 3 }}
+{{ $paper := index (index .Site.Data.papers $volume) .Params.anthology_id }}
+<section id="main">
+  <h2>
+    {{ with $paper.revision }}
+      {{ range last 1 . }}
+        <a href="{{ .url }}">
+          <img src="{{ "images/pdf_rev.png" | relURL }}" width="24" height="24" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'" />
+        </a>
+      {{ end }}
+    {{ end }}
+    <a href="{{ $paper.url }}">
+      <img src="{{ "images/pdf.png" | relURL }}" width="24" height="24" title="Open PDF of '{{ $paper.title | htmlEscape }}'" />
+    </a>
+    <!-- TODO: bib export link -->
+    <a href="#">
+      <img src="{{ "images/export.png" | relURL }}" width="24" height="24" title="Export '{{ $paper.title | htmlEscape }}' to bib format" />
+    </a>
+    <a href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}">
+      <img src="{{ "images/search.png" | relURL }}" width="24" height="24" title="Search for '{{ $paper.title | htmlEscape }}' on Google" />
+    </a>
+    <span id="title"><a href="{{ $paper.url }}">{{ $paper.title }}</a></span>
+  </h2>
+
+  <div>
+    <dl>
+      <dt>Anthology:</dt>
+      <dd>{{ $anthology_id }}</dd>
+
+      {{ with $paper.revision }}
+        <dt>Revision v1:</dt>
+        <dd><a href="{{ $paper.url }}">{{ $anthology_id }}</a></dd>
+        {{ range . }}
+          <dt>Revision v{{ .id }}:</dt>
+          <dd><a href="{{ .url }}">{{ .value }}</a></dd>
+        {{ end }}
+      {{ end }}
+      {{ range $paper.erratum }}
+        <dt>Erratum e{{ .id }}:</dt>
+        <dd><a href="{{ .url }}">{{ .value }}</a></dd>
+      {{ end }}
+
+      <!-- TODO: link to volume overview page instead of PDF -->
+      <dt>Volume:</dt>
+      <dd>
+        {{ with $paper.parent_volume_id }}
+        {{ $volume := index $volumes . }}
+        <a href="{{ $volume.url }}">{{ $volume.title }}</a>
+        {{ end }}
+      </dd>
+
+      {{ if isset $paper "author" }}
+      <dt>{{ if gt (len $paper.author) 1 }}Authors:{{ else }}Author:{{ end }}</dt>
+      <dd>
+        {{ $len := (len $paper.author) }}
+        {{ range $index, $person := $paper.author }}
+          <!-- TODO: link to author page -->
+          <a href="#">{{ (index $people $person).full }}</a>
+          {{ if ne (add $index 1) $len }} | {{ end }}
+        {{ end }}
+      </dd>
+      {{ else }}
+      <dt>Author:</dt><dd></dd>
+      {{ end }}
+
+      <dt>Month:</dt>
+      <dd>{{ with $paper.month }}{{ . }}{{ end }}</dd>
+      <dt>Year:</dt>
+      <dd>{{ with $paper.year }}{{ . }}{{ end }}</dd>
+
+      {{ with $paper.parent_volume_id }}
+      {{ $volume := index $volumes . }}
+      <dt>{{ if gt (len $volume.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
+      <dd>
+        {{ $len := (len $volume.venues) }}
+        {{ range $index, $venue := $volume.venues }}
+          <!-- TODO: link to venue page -->
+          <a href="#">{{ $venue }}</a>
+          {{ if ne (add $index 1) $len }} | {{ end }}
+        {{ end }}
+      </dd>
+      {{ end }}
+
+      <dt>Address:</dt>
+      <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
+
+      {{ with $paper.parent_volume_id }}
+      {{ $volume := index $volumes . }}
+      <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
+      <dd>
+        {{ $len := (len $volume.sigs) }}
+        {{ range $index, $sig := $volume.sigs }}
+          <!-- TODO: link to SIG page -->
+          <a href="#">{{ $sig }}</a>
+          {{ if ne (add $index 1) $len }} | {{ end }}
+        {{ end }}
+      </dd>
+      {{ end }}
+
+      <dt>Publisher:</dt>
+      <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
+      <dt>Pages:</dt>
+      <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
+      <dt>URL:</dt>
+      <dd>{{ with $paper.url }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
+      <dt>DOI:</dt>
+      <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      <dt>Bibtype:</dt>
+      <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
+      <dt>Bibkey:</dt>
+      <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
+      <dt>Bib Export formats:</dt>
+      <dd>TODO</dd>
+
+      {{ range $paper.attachment }}
+      <dt>{{ humanize .type }}:</dt>
+      <dd><a href="{{ .url }}">{{ .filename }}</a></dd>
+      {{ end }}
+    </dl>
+  </div>
+
+  <div>
+        <article id="content">
+          {{ .Content }}
+        </article>
+  </div>
+</section>
+{{ end }}

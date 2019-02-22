@@ -1,0 +1,12 @@
+{{ define "main" }}
+<main>
+  <p>This is the default <b>section</b> template.</p>
+      {{ .Content }}
+          <ul class="contents">
+          {{ range .Paginator.Pages }}
+              <li>{{.Title}}
+              </li>
+          {{ end }}
+          </ul>
+  </main>
+{{ end }}
