@@ -33,10 +33,15 @@ def initialize_directory(trgdir, clean=False):
             if clean:
                 log.debug("Cleaning up directory: {}".format(trgdir))
                 import shutil
+
                 shutil.rmtree(trgdir)
             else:
-                log.critical("Directory already exists and is not empty: {}".format(trgdir))
-                log.info("Call this script with the -c/--clean flag to automatically delete existing directories")
+                log.critical(
+                    "Directory already exists and is not empty: {}".format(trgdir)
+                )
+                log.info(
+                    "Call this script with the -c/--clean flag to automatically delete existing directories"
+                )
                 exit(1)
     else:
         os.mkdir(trgdir)
@@ -51,7 +56,9 @@ def create_papers(srcdir, clean=False):
                 shutil.rmtree(entry)
             else:
                 log.critical("Directory already exists: {}".format(entry))
-                log.info("Call this script with the -c/--clean flag to automatically DELETE existing subdirectories")
+                log.info(
+                    "Call this script with the -c/--clean flag to automatically DELETE existing subdirectories"
+                )
                 return
 
     # Go through all paper volumes
@@ -73,9 +80,7 @@ if __name__ == "__main__":
     args = docopt(__doc__)
     scriptdir = os.path.dirname(os.path.abspath(__file__))
     if "{scriptdir}" in args["--dir"]:
-        args["--dir"] = os.path.abspath(
-            args["--dir"].format(scriptdir=scriptdir)
-        )
+        args["--dir"] = os.path.abspath(args["--dir"].format(scriptdir=scriptdir))
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
     log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
