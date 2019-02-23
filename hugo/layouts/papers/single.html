@@ -32,28 +32,15 @@
 {{ $volume := slicestr .Params.anthology_id 0 3 }}
 {{ $paper := index (index .Site.Data.papers $volume) .Params.anthology_id }}
 <section id="main">
-  <h2>
-    {{ with $paper.revision }}
-      {{ range last 1 . }}
-        <a href="{{ .url }}">
-          <img src="{{ "images/pdf_rev.png" | relURL }}" width="24" height="24" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'" />
-        </a>
-      {{ end }}
-    {{ end }}
-    <a href="{{ $paper.url }}">
-      <img src="{{ "images/pdf.png" | relURL }}" width="24" height="24" title="Open PDF of '{{ $paper.title | htmlEscape }}'" />
-    </a>
-    <!-- TODO: bib export link -->
-    <a href="#">
-      <img src="{{ "images/export.png" | relURL }}" width="24" height="24" title="Export '{{ $paper.title | htmlEscape }}' to bib format" />
-    </a>
-    <a href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}">
-      <img src="{{ "images/search.png" | relURL }}" width="24" height="24" title="Search for '{{ $paper.title | htmlEscape }}' on Google" />
-    </a>
-    <span id="title"><a href="{{ $paper.url }}">{{ $paper.title }}</a></span>
+  <h2 id="title">
+    <a href="{{ $paper.url }}">{{ $paper.title }}</a></span>
   </h2>
+  <hr />
 
-  <div>
+  <div class="row acl-paper-details">
+    <div class="col col-lg-10 order-2">
+    <!-- To avoid cluttering this template with Bootstrap classes, the styling
+    for this list is defined in assets/css/_papers.scss -->
     <dl>
       <dt>Anthology:</dt>
       <dd>{{ $anthology_id }}</dd>
@@ -74,10 +61,10 @@
       <!-- TODO: link to volume overview page instead of PDF -->
       <dt>Volume:</dt>
       <dd>
-        {{ with $paper.parent_volume_id }}
+        {{- with $paper.parent_volume_id -}}
         {{ $volume := index $volumes . }}
         <a href="{{ $volume.url }}">{{ $volume.title }}</a>
-        {{ end }}
+        {{- end -}}
       </dd>
 
       {{ if isset $paper "author" }}
@@ -103,12 +90,12 @@
       {{ $volume := index $volumes . }}
       <dt>{{ if gt (len $volume.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
       <dd>
-        {{ $len := (len $volume.venues) }}
-        {{ range $index, $venue := $volume.venues }}
+        {{- $len := (len $volume.venues) -}}
+        {{- range $index, $venue := $volume.venues -}}
           <!-- TODO: link to venue page -->
           <a href="#">{{ $venue }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
-        {{ end }}
+        {{- end -}}
       </dd>
       {{ end }}
 
@@ -119,12 +106,12 @@
       {{ $volume := index $volumes . }}
       <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
       <dd>
-        {{ $len := (len $volume.sigs) }}
-        {{ range $index, $sig := $volume.sigs }}
+        {{- $len := (len $volume.sigs) -}}
+        {{- range $index, $sig := $volume.sigs -}}
           <!-- TODO: link to SIG page -->
           <a href="#">{{ $sig }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
-        {{ end }}
+        {{- end -}}
       </dd>
       {{ end }}
 
@@ -148,12 +135,32 @@
       <dd><a href="{{ .url }}">{{ .filename }}</a></dd>
       {{ end }}
     </dl>
-  </div>
+    </div>
 
-  <div>
-        <article id="content">
-          {{ .Content }}
-        </article>
+    <!-- Bootstrap classes explanation:
+         * By default, show this block first and use flexbox to space out buttons
+         * On large displays, show this block as a third column in the layout
+           and disable flexbox to make buttons full-width instead
+     -->
+    <div class="col-lg-2 order-1 order-lg-last mb-3 mb-lg-0 d-flex d-lg-block flex-wrap justify-content-around">
+      {{ with $paper.revision }}
+        {{ range last 1 . }}
+        <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mb-2" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
+          <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
+        </a>
+        {{ end }}
+      {{ end }}
+        <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mb-2" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+          <i class="far fa-file-pdf"></i><span class="pl-2">PDF{{ with $paper.revision }}&nbsp;<small>(v1)</small>{{ end }}</span>
+      </a>
+      <!-- TODO: bib export link -->
+      <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mb-2" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+        <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span>
+      </a>
+      <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mb-2" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
+        <i class="fas fa-search"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
+      </a>
+    </div>
   </div>
 </section>
 {{ end }}
