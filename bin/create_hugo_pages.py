@@ -27,39 +27,31 @@ except ImportError:
     from yaml import Loader
 
 
-def initialize_directory(trgdir, clean=False):
-    if os.path.exists(trgdir):
-        if os.listdir(trgdir):
-            if clean:
-                log.debug("Cleaning up directory: {}".format(trgdir))
-                import shutil
-
-                shutil.rmtree(trgdir)
-            else:
-                log.critical(
-                    "Directory already exists and is not empty: {}".format(trgdir)
-                )
-                log.info(
-                    "Call this script with the -c/--clean flag to automatically delete existing directories"
-                )
-                exit(1)
-    else:
-        os.mkdir(trgdir)
+def check_directory(cdir, clean=False):
+    if not os.path.isdir(cdir) and not os.path.exists(cdir):
+        os.mkdir(cdir)
+        return True
+    entries = os.listdir(cdir)
+    if "_index.md" in entries:
+        entries.remove("_index.md")
+    if entries and not clean:
+        log.critical("Directory already exists and has content files: {}".format(cdir))
+        log.info("Call this script with the -c/--clean flag to automatically DELETE existing files")
+        return False
+    for entry in entries:
+        entry = "{}/{}".format(cdir, entry)
+        if os.path.isdir(entry):
+            shutil.rmtree(entry)
+        else:
+            os.remove(entry)
+    return True
 
 
 def create_papers(srcdir, clean=False):
     """Creates page stubs for all papers in the Anthology."""
-    # Make sure we start from a clean slate
-    for entry in glob("{}/content/papers/*".format(srcdir)):
-        if os.path.isdir(entry):
-            if clean:
-                shutil.rmtree(entry)
-            else:
-                log.critical("Directory already exists: {}".format(entry))
-                log.info(
-                    "Call this script with the -c/--clean flag to automatically DELETE existing subdirectories"
-                )
-                return
+    log.info("Creating stubs for papers...")
+    if not check_directory("{}/content/papers".format(srcdir), clean=clean):
+        return
 
     # Go through all paper volumes
     for yamlfile in glob("{}/data/papers/*.yaml".format(srcdir)):
@@ -67,12 +59,13 @@ def create_papers(srcdir, clean=False):
         with open(yamlfile, "r") as f:
             data = yaml.load(f, Loader=Loader)
         # Create a paper stub for each entry in the volume
-        for anthology_id in data:
-            paper_dir = "{}/content/papers/{}".format(srcdir, anthology_id)
-            os.mkdir(paper_dir)
-            with open("{}/{}.md".format(paper_dir, anthology_id.lower()), "w") as f:
+        for anthology_id, entry in data.items():
+            paper_dir = "{}/content/papers/{}/{}".format(srcdir, anthology_id[0], anthology_id[:3])
+            if not os.path.exists(paper_dir):
+                os.makedirs(paper_dir)
+            with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
                 print("---", file=f)
-                print("anthology_id: {}".format(anthology_id), file=f)
+                print(yaml.dump({'anthology_id': anthology_id, 'title': entry['title']}, default_flow_style=False), file=f)
                 print("---", file=f)
 
 
