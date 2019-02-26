@@ -1,0 +1,103 @@
+{{ define "meta" }}
+{{ end }}
+
+{{ define "main" }}
+{{ $anthology_id := .Params.anthology_id }}
+{{ $people := .Site.Data.people }}
+{{/* "$paper" here refers to a full proceedings volume */}}
+{{ $paper := index .Site.Data.volumes .Params.anthology_id }}
+<section id="main">
+  <h2 id="title">
+    <a href="{{ $paper.url }}">{{ $paper.title }}</a></span>
+  </h2>
+  <hr />
+
+  <div class="row acl-paper-details">
+    <div class="col col-lg-10 order-2">
+    <!-- To avoid cluttering this template with Bootstrap classes, the styling
+    for this list is defined in assets/css/_papers.scss -->
+    <dl>
+      <dt>Anthology:</dt>
+      <dd>{{ $anthology_id }}</dd>
+
+      {{ if isset $paper "editor" }}
+      <dt>{{ if gt (len $paper.editor) 1 }}Editors:{{ else }}Editor:{{ end }}</dt>
+      <dd>
+        {{ $len := (len $paper.editor) }}
+        {{ range $index, $person := $paper.editor }}
+          <!-- TODO: link to author page -->
+          <a href="#">{{ (index $people $person).full }}</a>
+          {{ if ne (add $index 1) $len }} | {{ end }}
+        {{ end }}
+      </dd>
+      {{ else }}
+      <dt>Editor:</dt><dd></dd>
+      {{ end }}
+
+      <dt>Month:</dt>
+      <dd>{{ with $paper.month }}{{ . }}{{ end }}</dd>
+      <dt>Year:</dt>
+      <dd>{{ with $paper.year }}{{ . }}{{ end }}</dd>
+
+      {{ if isset $paper "venues" }}
+      <dt>{{ if gt (len $paper.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
+      <dd>
+        {{- $len := (len $paper.venues) -}}
+        {{- range $index, $venue := $paper.venues -}}
+          <!-- TODO: link to venue page -->
+          <a href="#">{{ $venue }}</a>
+          {{ if ne (add $index 1) $len }} | {{ end }}
+        {{- end -}}
+      </dd>
+      {{ end }}
+
+      <dt>Address:</dt>
+      <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
+
+      {{ if isset $paper "sigs" }}
+      <dt>{{ if gt (len $paper.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
+      <dd>
+        {{- $len := (len $paper.sigs) -}}
+        {{- range $index, $sig := $paper.sigs -}}
+          <!-- TODO: link to SIG page -->
+          <a href="#">{{ $sig }}</a>
+          {{ if ne (add $index 1) $len }} | {{ end }}
+        {{- end -}}
+      </dd>
+      {{ end }}
+
+      <dt>Publisher:</dt>
+      <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
+      <dt>URL:</dt>
+      <dd>{{ with $paper.url }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
+      <dt>DOI:</dt>
+      <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      <dt>Bibtype:</dt>
+      <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
+      <dt>Bibkey:</dt>
+      <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
+      <dt>Bib Export formats:</dt>
+      <dd>TODO</dd>
+    </dl>
+    </div>
+
+    <!-- Bootstrap classes explanation:
+         * By default, show this block first and use flexbox to space out buttons
+         * On large displays, show this block as a third column in the layout
+           and disable flexbox to make buttons full-width instead
+     -->
+    <div class="col-lg-2 order-1 order-lg-last mb-3 mb-lg-0 d-flex d-lg-block flex-wrap justify-content-around">
+        <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mb-2" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+          <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(full)</small></span>
+      </a>
+      <!-- TODO: bib export link -->
+      <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mb-2" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+        <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span>
+      </a>
+      <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mb-2" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
+        <i class="fas fa-search"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
+      </a>
+    </div>
+  </div>
+</section>
+{{ end }}

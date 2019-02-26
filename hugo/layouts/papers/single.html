@@ -58,12 +58,12 @@
         <dd><a href="{{ .url }}">{{ .value }}</a></dd>
       {{ end }}
 
-      <!-- TODO: link to volume overview page instead of PDF -->
       <dt>Volume:</dt>
       <dd>
         {{- with $paper.parent_volume_id -}}
         {{ $volume := index $volumes . }}
-        <a href="{{ $volume.url }}">{{ $volume.title }}</a>
+        {{ $volume_page := delimit (slice "/volumes/" . ".md") "" }}
+        <a href="{{ relref $ $volume_page }}">{{ $volume.title }}</a>
         {{- end -}}
       </dd>
 
