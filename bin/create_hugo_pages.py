@@ -16,6 +16,8 @@ Options:
 
 from docopt import docopt
 from glob import glob
+from slugify import slugify
+from tqdm import tqdm
 import logging as log
 import os
 import shutil
@@ -36,7 +38,9 @@ def check_directory(cdir, clean=False):
         entries.remove("_index.md")
     if entries and not clean:
         log.critical("Directory already exists and has content files: {}".format(cdir))
-        log.info("Call this script with the -c/--clean flag to automatically DELETE existing files")
+        log.info(
+            "Call this script with the -c/--clean flag to automatically DELETE existing files"
+        )
         return False
     for entry in entries:
         entry = "{}/{}".format(cdir, entry)
@@ -54,28 +58,66 @@ def create_papers(srcdir, clean=False):
         return
 
     # Go through all paper volumes
-    for yamlfile in glob("{}/data/papers/*.yaml".format(srcdir)):
+    for yamlfile in tqdm(glob("{}/data/papers/*.yaml".format(srcdir))):
         log.debug("Processing volume {}".format(yamlfile))
         with open(yamlfile, "r") as f:
             data = yaml.load(f, Loader=Loader)
         # Create a paper stub for each entry in the volume
         for anthology_id, entry in data.items():
-            paper_dir = "{}/content/papers/{}/{}".format(srcdir, anthology_id[0], anthology_id[:3])
+            paper_dir = "{}/content/papers/{}/{}".format(
+                srcdir, anthology_id[0], anthology_id[:3]
+            )
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
                 print("---", file=f)
-                print(yaml.dump({'anthology_id': anthology_id, 'title': entry['title']}, default_flow_style=False), file=f)
+                print(
+                    yaml.dump(
+                        {"anthology_id": anthology_id, "title": entry["title"]},
+                        default_flow_style=False,
+                    ),
+                    file=f,
+                )
                 print("---", file=f)
+
+
+def create_volumes(srcdir, clean=False):
+    """Creates page stubs for all proceedings volumes in the Anthology."""
+    log.info("Creating stubs for volumes...")
+    if not check_directory("{}/content/volumes".format(srcdir), clean=clean):
+        return
+
+    yamlfile = "{}/data/volumes.yaml".format(srcdir)
+    log.debug("Processing {}".format(yamlfile))
+    with open(yamlfile, "r") as f:
+        data = yaml.load(f, Loader=Loader)
+    # Create a paper stub for each proceedings volume
+    for anthology_id, entry in data.items():
+        with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "w") as f:
+            print("---", file=f)
+            print(
+                yaml.dump(
+                    {
+                        "anthology_id": anthology_id,
+                        "title": entry["title"],
+                        "slug": slugify(entry["title"]),
+                    },
+                    default_flow_style=False,
+                ),
+                file=f,
+            )
+            print("---", file=f)
 
 
 if __name__ == "__main__":
     args = docopt(__doc__)
     scriptdir = os.path.dirname(os.path.abspath(__file__))
     if "{scriptdir}" in args["--dir"]:
-        args["--dir"] = os.path.abspath(args["--dir"].format(scriptdir=scriptdir))
+        args["--dir"] = args["--dir"].format(scriptdir=scriptdir)
+    dir_ = os.path.abspath(args["--dir"])
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
     log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
 
-    create_papers(args["--dir"], clean=args["--clean"])
+    create_papers(dir_, clean=args["--clean"])
+    create_volumes(dir_, clean=args["--clean"])

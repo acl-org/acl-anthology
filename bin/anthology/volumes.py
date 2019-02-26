@@ -19,6 +19,10 @@ class Volume:
         self.front_matter_id = front_matter.paper_id
         self.top_level_id = front_matter.top_level_id
         self.attrib = front_matter.attrib.copy()
+        for attrib in ("revision", "erratum", "pages"):
+            # these fields should not be copied from the front matter
+            if attrib in self.attrib:
+                del self.attrib[attrib]
         self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
         self.attrib["venues"] = venue_index.get_associated_venues(self.full_id)
         self.attrib["sigs"] = sig_index.get_associated_sigs(front_matter.full_id)

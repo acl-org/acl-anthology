@@ -82,3 +82,6 @@ class PersonIndex:
     def items(self):
         for name_repr, name in self.names.items():
             yield name_repr, name, self.papers[name]
+
+    def __len__(self):
+        return len(self.names)

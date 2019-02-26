@@ -15,6 +15,7 @@ Options:
 
 from docopt import docopt
 from collections import defaultdict
+from tqdm import tqdm
 import logging as log
 import os
 import yaml
@@ -47,9 +48,11 @@ def export_anthology(anthology, outdir, dryrun=False):
             data["editor"] = [name.id_ for name in data["editor"]]
         papers[paper.top_level_id][paper.full_id] = data
     if not dryrun:
+        progress = tqdm(total=len(papers) + 30)
         for top_level_id, paper_list in papers.items():
             with open("{}/papers/{}.yaml".format(outdir, top_level_id), "w") as f:
                 print(yaml.dump(paper_list, Dumper=Dumper), file=f)
+            progress.update()
 
     # Dump volume index
     volumes = {}
@@ -65,6 +68,7 @@ def export_anthology(anthology, outdir, dryrun=False):
     if not dryrun:
         with open("{}/volumes.yaml".format(outdir), "w") as f:
             print(yaml.dump(volumes, Dumper=Dumper), file=f)
+        progress.update(10)
 
     # Dump author index
     people = {}
@@ -75,6 +79,9 @@ def export_anthology(anthology, outdir, dryrun=False):
     if not dryrun:
         with open("{}/people.yaml".format(outdir), "w") as f:
             print(yaml.dump(people, Dumper=Dumper), file=f)
+        progress.update(20)
+
+    progress.close()
 
 
 if __name__ == "__main__":
@@ -92,5 +99,7 @@ if __name__ == "__main__":
     log_level = log.DEBUG if args["--debug"] else log.INFO
     log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
 
+    log.info("Reading the Anthology data...")
     anthology = Anthology(importdir=args["--importdir"])
+    log.info("Exporting to YAML...")
     export_anthology(anthology, args["--exportdir"], dryrun=args["--dry-run"])
