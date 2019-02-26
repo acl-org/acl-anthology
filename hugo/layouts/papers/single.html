@@ -1,20 +1,12 @@
-{{ define "title" }}
-{{ $volume := slicestr .Params.anthology_id 0 3 }}
-{{ $paper := index (index .Site.Data.papers $volume) .Params.anthology_id }}
-{{ $paper.title }} - {{ .Site.Title }}
-{{ end }}
-
 {{ define "meta" }}
-{{ $people := .Site.Data.people }}
-{{ $volumes := .Site.Data.volumes }}
 {{ $volume := slicestr .Params.anthology_id 0 3 }}
 {{ $paper := index (index .Site.Data.papers $volume) .Params.anthology_id }}
 <meta content="{{ $paper.title }}" name="citation_title" >
 {{ range $paper.author }}
-  <meta content="{{ (index $people .).full }}" name="citation_author" >
+  <meta content="{{ (index $.Site.Data.people .).full }}" name="citation_author" >
 {{ end }}
 {{ with $paper.parent_volume_id }}
-{{ $volume := index $volumes . }}
+{{ $volume := index $.Site.Data.volumes . }}
   <meta content="{{ $volume.meta_journal_title }}" name="citation_journal_title" >
   {{ with $volume.meta_volume }}<meta content="{{ . }}" name="citation_volume" >{{ end }}
   {{ with $volume.meta_issue }}<meta content="{{ . }}" name="citation_issue" >{{ end }}
@@ -27,8 +19,6 @@
 
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
-{{ $people := .Site.Data.people }}
-{{ $volumes := .Site.Data.volumes }}
 {{ $volume := slicestr .Params.anthology_id 0 3 }}
 {{ $paper := index (index .Site.Data.papers $volume) .Params.anthology_id }}
 <section id="main">
@@ -61,7 +51,7 @@
       <dt>Volume:</dt>
       <dd>
         {{- with $paper.parent_volume_id -}}
-        {{ $volume := index $volumes . }}
+        {{ $volume := index $.Site.Data.volumes . }}
         {{ $volume_page := delimit (slice "/volumes/" . ".md") "" }}
         <a href="{{ relref $ $volume_page }}">{{ $volume.title }}</a>
         {{- end -}}
@@ -73,7 +63,7 @@
         {{ $len := (len $paper.author) }}
         {{ range $index, $person := $paper.author }}
           <!-- TODO: link to author page -->
-          <a href="#">{{ (index $people $person).full }}</a>
+          <a href="#">{{ (index $.Site.Data.people $person).full }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{ end }}
       </dd>
@@ -87,7 +77,7 @@
       <dd>{{ with $paper.year }}{{ . }}{{ end }}</dd>
 
       {{ with $paper.parent_volume_id }}
-      {{ $volume := index $volumes . }}
+      {{ $volume := index $.Site.Data.volumes . }}
       <dt>{{ if gt (len $volume.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
       <dd>
         {{- $len := (len $volume.venues) -}}
@@ -103,7 +93,7 @@
       <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
 
       {{ with $paper.parent_volume_id }}
-      {{ $volume := index $volumes . }}
+      {{ $volume := index $.Site.Data.volumes . }}
       <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
       <dd>
         {{- $len := (len $volume.sigs) -}}

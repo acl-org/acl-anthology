@@ -3,7 +3,6 @@
 
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
-{{ $people := .Site.Data.people }}
 {{/* "$paper" here refers to a full proceedings volume */}}
 {{ $paper := index .Site.Data.volumes .Params.anthology_id }}
 <section id="main">
@@ -26,7 +25,7 @@
         {{ $len := (len $paper.editor) }}
         {{ range $index, $person := $paper.editor }}
           <!-- TODO: link to author page -->
-          <a href="#">{{ (index $people $person).full }}</a>
+          <a href="#">{{ (index $.Site.Data.people $person).full }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{ end }}
       </dd>
