@@ -3,6 +3,7 @@
 
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
+{{ $volume_id := slicestr .Params.anthology_id 0 3 }}
 {{/* "$paper" here refers to a full proceedings volume */}}
 {{ $paper := index .Site.Data.volumes .Params.anthology_id }}
 <section id="main">
@@ -97,6 +98,14 @@
         <i class="fas fa-search"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
     </div>
+  </div>
+  <hr />
+
+  <div>
+    {{ range $paper.papers }}
+      {{ $entry := index (index $.Site.Data.papers $volume_id) . }}
+      {{ partial "paper-list-entry.html" (dict "context" $ "paper_id" .) }}
+    {{ end }}
   </div>
 </section>
 {{ end }}

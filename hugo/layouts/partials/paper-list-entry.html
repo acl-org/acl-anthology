@@ -1,0 +1,32 @@
+{{ $paper := index (index .context.Site.Data.papers (slicestr .paper_id 0 3)) .paper_id }}
+{{ $paper_link := printf "/papers/%s/%s/%s.md" (slicestr .paper_id 0 1) (slicestr .paper_id 0 3) .paper_id }}
+<p>
+  {{ with $paper.revision }}
+    {{ range last 1 . }}
+    <a class="badge badge-primary" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
+      pdf&nbsp;(v{{ .id }})
+    </a>
+    {{ end }}
+  {{ end }}
+    <a class="badge badge-{{if isset $paper "revision"}}secondary{{else}}primary{{end}}" href="{{ $paper.url }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+      pdf{{ with $paper.revision }}&nbsp;(v1){{ end }}
+    </a>
+    <!-- TODO: bib export link -->
+    <a class="badge badge-secondary" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+      bib
+    </a>
+    <a class="badge badge-secondary" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
+      <i class="fas fa-search"></i>
+    </a>
+    <strong><a href="{{ ref .context $paper_link }}">{{ $paper.title }}</a></strong>
+    <br />
+    <span>[{{ .paper_id }}]:</span>
+    {{ with $paper.author }}
+      {{ $len := (len $paper.author) }}
+      {{ range $index, $person := $paper.author }}
+      <!-- TODO: link to author page -->
+        <a href="#">{{ (index $.context.Site.Data.people $person).full }}</a>
+        {{ if ne (add $index 1) $len }} | {{ end }}
+      {{ end }}
+    {{ end }}
+</p>

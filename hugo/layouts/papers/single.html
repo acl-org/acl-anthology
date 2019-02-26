@@ -1,6 +1,6 @@
 {{ define "meta" }}
-{{ $volume := slicestr .Params.anthology_id 0 3 }}
-{{ $paper := index (index .Site.Data.papers $volume) .Params.anthology_id }}
+{{ $volume_id := slicestr .Params.anthology_id 0 3 }}
+{{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <meta content="{{ $paper.title }}" name="citation_title" >
 {{ range $paper.author }}
   <meta content="{{ (index $.Site.Data.people .).full }}" name="citation_author" >
@@ -19,8 +19,8 @@
 
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
-{{ $volume := slicestr .Params.anthology_id 0 3 }}
-{{ $paper := index (index .Site.Data.papers $volume) .Params.anthology_id }}
+{{ $volume_id := slicestr .Params.anthology_id 0 3 }}
+{{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <section id="main">
   <h2 id="title">
     <a href="{{ $paper.url }}">{{ $paper.title }}</a></span>
@@ -52,7 +52,7 @@
       <dd>
         {{- with $paper.parent_volume_id -}}
         {{ $volume := index $.Site.Data.volumes . }}
-        {{ $volume_page := delimit (slice "/volumes/" . ".md") "" }}
+        {{ $volume_page := printf "/volumes/%s.md" . }}
         <a href="{{ relref $ $volume_page }}">{{ $volume.title }}</a>
         {{- end -}}
       </dd>
@@ -152,5 +152,6 @@
       </a>
     </div>
   </div>
+  <hr />
 </section>
 {{ end }}
