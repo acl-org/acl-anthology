@@ -3,6 +3,7 @@
 from lxml import etree
 from urllib.parse import urlparse
 import itertools as it
+import logging
 import re
 
 from . import data
@@ -38,3 +39,13 @@ def infer_attachment_url(filename):
         return filename
     # Otherwise, treat it as an internal filename
     return data.ATTACHMENT_URL.format(filename[0], filename[:3], filename)
+
+
+class SeverityTracker(logging.Handler):
+    def __init__(self, level=logging.NOTSET):
+        super().__init__(level=level)
+        self.highest = logging.NOTSET
+
+    def emit(self, record):
+        if record.levelno > self.highest:
+            self.highest = record.levelno

@@ -26,6 +26,7 @@ except ImportError:
     from yaml import Dumper
 
 from anthology import Anthology
+from anthology.utils import SeverityTracker
 
 
 def export_anthology(anthology, outdir, dryrun=False):
@@ -108,8 +109,13 @@ if __name__ == "__main__":
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
     log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
+    tracker = SeverityTracker()
+    log.getLogger().addHandler(tracker)
 
     log.info("Reading the Anthology data...")
     anthology = Anthology(importdir=args["--importdir"])
     log.info("Exporting to YAML...")
     export_anthology(anthology, args["--exportdir"], dryrun=args["--dry-run"])
+
+    if tracker.highest >= log.ERROR:
+        exit(1)

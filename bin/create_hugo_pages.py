@@ -28,6 +28,8 @@ try:
 except ImportError:
     from yaml import Loader
 
+from anthology.utils import SeverityTracker
+
 
 def check_directory(cdir, clean=False):
     if not os.path.isdir(cdir) and not os.path.exists(cdir):
@@ -118,6 +120,11 @@ if __name__ == "__main__":
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
     log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
+    tracker = SeverityTracker()
+    log.getLogger().addHandler(tracker)
 
     create_papers(dir_, clean=args["--clean"])
     create_volumes(dir_, clean=args["--clean"])
+
+    if tracker.highest >= log.ERROR:
+        exit(1)

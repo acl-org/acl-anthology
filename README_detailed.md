@@ -56,7 +56,7 @@ $ hugo --minify
 ```
 
 Generating the website is quite a resource-hungry process, but should be
-reasonably fast (*On my laptop, it uses about 4 GB of RAM and takes 25 seconds,
+reasonably fast (*On my laptop, it uses about 4 GB of RAM and takes 35 seconds,
 running on 4 CPU cores. --MB*).  The fully generated website will be in
 `hugo/public/` afterwards.
 
