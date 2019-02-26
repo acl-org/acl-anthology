@@ -80,8 +80,7 @@ def export_anthology(anthology, outdir, dryrun=False):
         with open("{}/people.yaml".format(outdir), "w") as f:
             print(yaml.dump(people, Dumper=Dumper), file=f)
         progress.update(20)
-
-    progress.close()
+        progress.close()
 
 
 if __name__ == "__main__":

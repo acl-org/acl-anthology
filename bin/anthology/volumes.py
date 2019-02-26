@@ -19,8 +19,12 @@ class Volume:
         self.front_matter_id = front_matter.paper_id
         self.top_level_id = front_matter.top_level_id
         self.attrib = front_matter.attrib.copy()
+        if "author" in self.attrib:
+            # Authors of the front matter are the volume's editors
+            self.attrib["editor"] = self.attrib["author"]
+            del self.attrib["author"]
+        # Some fields should not be copied from the front matter
         for attrib in ("revision", "erratum", "pages"):
-            # these fields should not be copied from the front matter
             if attrib in self.attrib:
                 del self.attrib[attrib]
         self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
