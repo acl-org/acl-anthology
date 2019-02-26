@@ -75,7 +75,12 @@ def export_anthology(anthology, outdir, dryrun=False):
     venues = {}
     for acronym, data in anthology.venues.items():
         data = data.copy()
-        data["years"] = sorted(data["years"])
+        data["volumes_by_year"] = {
+            year: list(filter(lambda k: volumes[k]["year"] == year, data["volumes"]))
+            for year in sorted(data["years"])
+        }
+        del data["volumes"]
+        del data["years"]
         venues[acronym] = data
     if not dryrun:
         with open("{}/venues.yaml".format(outdir), "w") as f:

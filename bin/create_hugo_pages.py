@@ -110,6 +110,50 @@ def create_volumes(srcdir, clean=False):
             )
             print("---", file=f)
 
+    return data
+
+
+def create_venues_and_events(srcdir, volumes, clean=False):
+    """Creates page stubs for all venues and events in the Anthology."""
+    yamlfile = "{}/data/venues.yaml".format(srcdir)
+    log.debug("Processing {}".format(yamlfile))
+    with open(yamlfile, "r") as f:
+        data = yaml.load(f, Loader=Loader)
+
+    log.info("Creating stubs for venues...")
+    if not check_directory("{}/content/venues".format(srcdir), clean=clean):
+        return
+    # Create a paper stub for each venue (e.g. ACL)
+    for venue, venue_data in data.items():
+        venue_str = slugify(venue)
+        with open("{}/content/venues/{}.md".format(srcdir, venue_str), "w") as f:
+            print("---", file=f)
+            print(yaml.dump({"venue": venue, "title": venue_data["name"]}), file=f)
+            print("---", file=f)
+
+    log.info("Creating stubs for events...")
+    if not check_directory("{}/content/events".format(srcdir), clean=clean):
+        return
+    # Create a paper stub for each event (= venue + year, e.g. ACL 2018)
+    for venue, venue_data in data.items():
+        venue_str = slugify(venue)
+        for year in venue_data["volumes_by_year"]:
+            with open(
+                "{}/content/events/{}-{}.md".format(srcdir, venue_str, year), "w"
+            ) as f:
+                print("---", file=f)
+                print(
+                    yaml.dump(
+                        {
+                            "venue": venue,
+                            "year": year,
+                            "title": "{} ({})".format(venue_data["name"], year),
+                        }
+                    ),
+                    file=f,
+                )
+                print("---", file=f)
+
 
 if __name__ == "__main__":
     args = docopt(__doc__)
@@ -124,7 +168,8 @@ if __name__ == "__main__":
     log.getLogger().addHandler(tracker)
 
     create_papers(dir_, clean=args["--clean"])
-    create_volumes(dir_, clean=args["--clean"])
+    volume_data = create_volumes(dir_, clean=args["--clean"])
+    create_venues_and_events(dir_, volume_data, clean=args["--clean"])
 
     if tracker.highest >= log.ERROR:
         exit(1)

@@ -18,6 +18,7 @@
     <a class="badge badge-secondary" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
       <i class="fas fa-search"></i>
     </a>
+    <!-- TODO: attachment links -->
     <strong><a href="{{ ref .context $paper_link }}">{{ $paper.title }}</a></strong>
     <br />
     <span>[{{ .paper_id }}]:</span>
