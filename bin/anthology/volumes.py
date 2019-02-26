@@ -28,7 +28,7 @@ class Volume:
             if attrib in self.attrib:
                 del self.attrib[attrib]
         self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
-        self.attrib["venues"] = venue_index.get_associated_venues(self.full_id)
+        self.attrib["venues"] = venue_index.register(self)
         self.attrib["sigs"] = sig_index.get_associated_sigs(front_matter.full_id)
         self._set_meta_info()
         self.content = []
@@ -78,3 +78,9 @@ class Volume:
                 )
             )
         paper.parent_volume_id = self.full_id
+
+    def get(self, name, default=None):
+        try:
+            return self.attrib[name]
+        except KeyError:
+            return default

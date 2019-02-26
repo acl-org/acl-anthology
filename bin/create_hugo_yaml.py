@@ -48,7 +48,7 @@ def export_anthology(anthology, outdir, dryrun=False):
             data["editor"] = [name.id_ for name in data["editor"]]
         papers[paper.top_level_id][paper.full_id] = data
     if not dryrun:
-        progress = tqdm(total=len(papers) + 30)
+        progress = tqdm(total=len(papers) + 31)
         for top_level_id, paper_list in papers.items():
             with open("{}/papers/{}.yaml".format(outdir, top_level_id), "w") as f:
                 print(yaml.dump(paper_list, Dumper=Dumper), file=f)
@@ -69,6 +69,17 @@ def export_anthology(anthology, outdir, dryrun=False):
         with open("{}/volumes.yaml".format(outdir), "w") as f:
             print(yaml.dump(volumes, Dumper=Dumper), file=f)
         progress.update(10)
+
+    # Dump venue index
+    venues = {}
+    for acronym, data in anthology.venues.items():
+        data = data.copy()
+        data["years"] = sorted(data["years"])
+        venues[acronym] = data
+    if not dryrun:
+        with open("{}/venues.yaml".format(outdir), "w") as f:
+            print(yaml.dump(venues, Dumper=Dumper), file=f)
+        progress.update()
 
     # Dump author index
     people = {}
