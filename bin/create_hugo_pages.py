@@ -113,7 +113,7 @@ def create_volumes(srcdir, clean=False):
     return data
 
 
-def create_venues_and_events(srcdir, volumes, clean=False):
+def create_venues_and_events(srcdir, clean=False):
     """Creates page stubs for all venues and events in the Anthology."""
     yamlfile = "{}/data/venues.yaml".format(srcdir)
     log.debug("Processing {}".format(yamlfile))
@@ -155,6 +155,25 @@ def create_venues_and_events(srcdir, volumes, clean=False):
                 print("---", file=f)
 
 
+def create_sigs(srcdir, clean=False):
+    """Creates page stubs for all SIGs in the Anthology."""
+    yamlfile = "{}/data/sigs.yaml".format(srcdir)
+    log.debug("Processing {}".format(yamlfile))
+    with open(yamlfile, "r") as f:
+        data = yaml.load(f, Loader=Loader)
+
+    log.info("Creating stubs for SIGs...")
+    if not check_directory("{}/content/sigs".format(srcdir), clean=clean):
+        return
+    # Create a paper stub for each SIGS (e.g. SIGMORPHON)
+    for sig, sig_data in data.items():
+        sig_str = sig_data["slug"]
+        with open("{}/content/sigs/{}.md".format(srcdir, sig_str), "w") as f:
+            print("---", file=f)
+            print(yaml.dump({"acronym": sig, "title": sig_data["name"]}), file=f)
+            print("---", file=f)
+
+
 if __name__ == "__main__":
     args = docopt(__doc__)
     scriptdir = os.path.dirname(os.path.abspath(__file__))
@@ -168,8 +187,9 @@ if __name__ == "__main__":
     log.getLogger().addHandler(tracker)
 
     create_papers(dir_, clean=args["--clean"])
-    volume_data = create_volumes(dir_, clean=args["--clean"])
-    create_venues_and_events(dir_, volume_data, clean=args["--clean"])
+    create_volumes(dir_, clean=args["--clean"])
+    create_venues_and_events(dir_, clean=args["--clean"])
+    create_sigs(dir_, clean=args["--clean"])
 
     if tracker.highest >= log.ERROR:
         exit(1)

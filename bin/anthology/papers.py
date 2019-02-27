@@ -9,6 +9,20 @@ from . import data
 _LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
 
 
+def is_volume_id(anthology_id):
+    return (
+        anthology_id[-3:] == "000"
+        or (anthology_id[0] == "W" and anthology_id[-2:] == "00")
+        or (anthology_id[:3] == "C69" and anthology_id[-2:] == "00")
+    )
+
+
+def to_volume_id(anthology_id):
+    if anthology_id[0] == "W":
+        return anthology_id[:6]
+    return anthology_id[:5]
+
+
 class Paper:
     def __init__(self, paper_id, top_level_id):
         self.parent_volume_id = None
@@ -131,11 +145,7 @@ class Paper:
         matter of) a proceedings volume, unless the XML is of type workshop,
         where each paper ID of format 'xx00' is treated as one volume.
         """
-        return (
-            self.paper_id[-3:] == "000"
-            or (self.top_level_id[0] == "W" and self.paper_id[-2:] == "00")
-            or (self.top_level_id == "C69" and self.paper_id[-2:] == "00")
-        )
+        return is_volume_id(self.full_id)
 
     @property
     def full_id(self):

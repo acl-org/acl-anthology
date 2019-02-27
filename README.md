@@ -16,13 +16,13 @@ These are basic instructions on generating the ACL Anthology website as seen on
 
 To build the Anthology website, you will need:
 
-+ Python 3.5 or higher, along with the packages listed in
++ **Python 3.5** or higher, along with the packages listed in
   [bin/requirements.txt](bin/requirements.txt)
   + *Note:* [Installing the PyYAML package with C
     bindings](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/)
     will speed up the generation process.
-+ [Hugo 0.53](https://gohugo.io) or higher (can be [downloaded directly from
-  their repo](https://github.com/gohugoio/hugo/releases))
++ [**Hugo 0.54**](https://gohugo.io) or higher (can be [downloaded directly from
+  their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
 
 
 ### Cloning

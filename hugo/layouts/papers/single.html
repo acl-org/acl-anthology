@@ -99,8 +99,8 @@
       <dd>
         {{- $len := (len $volume.sigs) -}}
         {{- range $index, $sig := $volume.sigs -}}
-          <!-- TODO: link to SIG page -->
-          <a href="#">{{ $sig }}</a>
+          {{ $slug := index $.Site.Data.sigs $sig "slug" }}
+          <a href="{{ ref $ (printf "/sigs/%s.md" $slug) }}">{{ $sig }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>
