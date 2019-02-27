@@ -21,7 +21,7 @@
     <!-- TODO: attachment links -->
     <strong><a href="{{ ref .context $paper_link }}">{{ $paper.title }}</a></strong>
     <br />
-    <span>[{{ .paper_id }}]:</span>
+    <span class="text-muted">[{{ .paper_id }}]:</span>
     {{ with $paper.author }}
       {{ $len := (len $paper.author) }}
       {{ range $index, $person := $paper.author }}
