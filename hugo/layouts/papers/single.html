@@ -82,8 +82,9 @@
       <dd>
         {{- $len := (len $volume.venues) -}}
         {{- range $index, $venue := $volume.venues -}}
-          <!-- TODO: link to venue page -->
-          <a href="#">{{ $venue }}</a>
+          <a href="{{ ref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">
+            {{- $venue -}}
+          </a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>

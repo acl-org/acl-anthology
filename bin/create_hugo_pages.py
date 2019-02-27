@@ -125,7 +125,7 @@ def create_venues_and_events(srcdir, volumes, clean=False):
         return
     # Create a paper stub for each venue (e.g. ACL)
     for venue, venue_data in data.items():
-        venue_str = slugify(venue)
+        venue_str = venue_data["slug"]
         with open("{}/content/venues/{}.md".format(srcdir, venue_str), "w") as f:
             print("---", file=f)
             print(yaml.dump({"venue": venue, "title": venue_data["name"]}), file=f)
@@ -136,7 +136,7 @@ def create_venues_and_events(srcdir, volumes, clean=False):
         return
     # Create a paper stub for each event (= venue + year, e.g. ACL 2018)
     for venue, venue_data in data.items():
-        venue_str = slugify(venue)
+        venue_str = venue_data["slug"]
         for year in venue_data["volumes_by_year"]:
             with open(
                 "{}/content/events/{}-{}.md".format(srcdir, venue_str, year), "w"

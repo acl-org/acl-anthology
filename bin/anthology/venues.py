@@ -1,5 +1,6 @@
 # Marcel Bollmann <marcel@bollmann.me>, 2019
 
+from slugify import slugify
 import logging as log
 import yaml
 
@@ -23,6 +24,7 @@ class VenueIndex:
                 self.venues[acronym] = {
                     "name": name,
                     "is_acl": (venue_type == "ACL"),
+                    "slug": slugify(acronym),
                     "type": venue_type,
                     "years": set(),
                     "volumes": [],
