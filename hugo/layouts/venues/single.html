@@ -11,7 +11,7 @@
     {{ $volumes := index $venue "volumes_by_year" $year }}
     <div class="row">
       <div class="col-auto">
-        <h4><a href="{{ ref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ $year }}</a></h4>
+        <h4><a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ $year }}</a></h4>
       </div>
       <div class="col">
         <ul class="list-unstyled">
@@ -19,7 +19,7 @@
           {{ $volume := index $.Site.Data.volumes . }}
           <li>
             <span class="text-muted">[{{ . }}]:&nbsp;</span>
-            <a href="{{ ref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a>
+            <a href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a>
             <span class="badge badge-info">{{ len $volume.papers }}&nbsp;papers</span>
           </li>
           {{ end }}

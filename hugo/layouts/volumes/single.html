@@ -44,7 +44,7 @@
       <dd>
         {{- $len := (len $paper.venues) -}}
         {{- range $index, $venue := $paper.venues -}}
-          <a href="{{ ref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">
+          <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">
             {{- $venue -}}
           </a>
           {{ if ne (add $index 1) $len }} | {{ end }}
@@ -61,7 +61,7 @@
         {{- $len := (len $paper.sigs) -}}
         {{- range $index, $sig := $paper.sigs -}}
           {{ $slug := index $.Site.Data.sigs $sig "slug" }}
-          <a href="{{ ref $ (printf "/sigs/%s.md" $slug) }}">{{ $sig }}</a>
+          <a href="{{ relref $ (printf "/sigs/%s.md" $slug) }}">{{ $sig }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>

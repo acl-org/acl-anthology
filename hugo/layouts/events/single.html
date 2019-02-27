@@ -35,7 +35,7 @@
     <a class="badge badge-secondary" href="https://www.google.com/search?{{ (querify "q" $volume.title) | safeURL }}" title="Search for '{{ $volume.title | htmlEscape }}' on Google">
       <i class="fas fa-search"></i>
     </a>
-    <a href="{{ ref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
+    <a href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
 
     {{ range $volume.papers }}
       {{ $entry := index (index $.Site.Data.papers $volume_id) . }}

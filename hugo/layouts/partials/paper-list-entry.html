@@ -19,7 +19,7 @@
       <i class="fas fa-search"></i>
     </a>
     <!-- TODO: attachment links -->
-    <strong><a href="{{ ref .context $paper_link }}">{{ $paper.title }}</a></strong>
+    <strong><a href="{{ relref .context $paper_link }}">{{ $paper.title }}</a></strong>
     <br />
     <span class="text-muted">[{{ .paper_id }}]:</span>
     {{ with $paper.author }}

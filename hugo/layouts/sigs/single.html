@@ -31,7 +31,7 @@
               {{ $volume := index $.Site.Data.volumes $volume_id }}
               <li>
                 <span class="text-muted">[{{ $volume_id }}]:&nbsp;</span>
-                <a href="{{ ref $ (printf "/volumes/%s.md" $volume_id) }}">{{ $volume.title }}</a>
+                <a href="{{ relref $ (printf "/volumes/%s.md" $volume_id) }}">{{ $volume.title }}</a>
                 <span class="badge badge-info">{{ len $volume.papers }}&nbsp;papers</span>
               </li>
             {{ end }}
