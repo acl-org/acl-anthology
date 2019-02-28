@@ -25,9 +25,8 @@
       <dd>
         {{ $len := (len $paper.editor) }}
         {{ range $index, $person := $paper.editor }}
-          <!-- TODO: link to author page -->
           {{ $first_letter := slicestr $person 0 1 }}
-          <a href="#">{{ (index $.Site.Data.people $first_letter $person).full }}</a>
+          <a href="{{ relref $ (printf "/people/%s/%s.md" $first_letter $person) }}">{{ (index $.Site.Data.people $first_letter $person).full }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{ end }}
       </dd>
@@ -105,7 +104,6 @@
 
   <div>
     {{ range $paper.papers }}
-      {{ $entry := index (index $.Site.Data.papers $volume_id) . }}
       {{ partial "paper-list-entry.html" (dict "context" $ "paper_id" .) }}
     {{ end }}
   </div>

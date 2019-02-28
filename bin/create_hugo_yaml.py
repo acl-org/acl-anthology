@@ -55,7 +55,11 @@ def export_anthology(anthology, outdir, dryrun=False):
         data = name.as_dict()
         slug = anthology.people.slugs[name]
         data["slug"] = slug
-        data.update(anthology.people.papers[name])
+        data["papers"] = sorted(
+            [p for l in anthology.people.papers[name].values() for p in l],
+            key=lambda p: anthology.papers.get(p).get("year"),
+            reverse=True,
+        )
         people[slug[0]][slug] = data
 
     # Prepare volume index

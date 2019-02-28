@@ -27,9 +27,8 @@
     {{ with $paper.author }}
       {{ $len := (len $paper.author) }}
       {{ range $index, $person := $paper.author }}
-        <!-- TODO: link to author page -->
         {{ $first_letter := slicestr $person 0 1 }}
-        <a href="#">{{ (index $.context.Site.Data.people $first_letter $person).full }}</a>
+        <a href="{{ relref $.context (printf "/people/%s/%s.md" $first_letter $person) }}">{{ (index $.context.Site.Data.people $first_letter $person).full }}</a>
         {{ if ne (add $index 1) $len }} | {{ end }}
       {{ end }}
     {{ end }}

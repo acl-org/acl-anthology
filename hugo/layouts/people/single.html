@@ -1,0 +1,33 @@
+{{ define "main" }}
+{{ $first_letter := slicestr .Params.name 0 1 }}
+{{ $person := index .Site.Data.people $first_letter .Params.name }}
+<section id="main">
+  <h2 id="title">
+    {{ .Title }}
+  </h2>
+  <hr />
+
+  <div class="row">
+    <div class="col-lg-9">
+      {{ .Scratch.Set "current_year" "" }}
+      {{ range $person.papers }}
+        {{/* Generate a heading per year -- assumes that papers are already sorted by year, which the YAML exporter should take care of */}}
+        {{ $paper := index (index $.Site.Data.papers (slicestr . 0 3)) . }}
+        {{ if ne $paper.year ($.Scratch.Get "current_year") }}
+          <h4>{{ $paper.year }}</h4>
+          {{ $.Scratch.Set "current_year" $paper.year }}
+        {{ end }}
+
+        {{ partial "paper-list-entry.html" (dict "context" $ "paper_id" .) }}
+      {{ end }}
+    </div>
+
+    <div class="col-lg-3">
+      <a class="btn btn-lg btn-secondary btn-block mx-1 mb-2" href="https://scholar.google.com/citations?{{ (querify "view_op" "search_authors" "mauthors" $person.full) | safeURL }}" title="Search for '{{ $person.full | htmlEscape }}' on Google Scholar">
+        <i class="fas fa-search"></i><span class="pl-sm-2">Search</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+{{ end }}

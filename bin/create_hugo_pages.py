@@ -61,7 +61,7 @@ def create_papers(srcdir, clean=False):
 
     # Go through all paper volumes
     for yamlfile in tqdm(glob("{}/data/papers/*.yaml".format(srcdir))):
-        log.debug("Processing volume {}".format(yamlfile))
+        log.debug("Processing {}".format(yamlfile))
         with open(yamlfile, "r") as f:
             data = yaml.load(f, Loader=Loader)
         # Create a paper stub for each entry in the volume
@@ -73,12 +73,10 @@ def create_papers(srcdir, clean=False):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
                 print("---", file=f)
-                print(
-                    yaml.dump(
-                        {"anthology_id": anthology_id, "title": entry["title"]},
-                        default_flow_style=False,
-                    ),
-                    file=f,
+                yaml.dump(
+                    {"anthology_id": anthology_id, "title": entry["title"]},
+                    default_flow_style=False,
+                    stream=f,
                 )
                 print("---", file=f)
 
@@ -97,18 +95,43 @@ def create_volumes(srcdir, clean=False):
     for anthology_id, entry in data.items():
         with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "w") as f:
             print("---", file=f)
-            print(
-                yaml.dump(
-                    {
-                        "anthology_id": anthology_id,
-                        "title": entry["title"],
-                        "slug": slugify(entry["title"]),
-                    },
-                    default_flow_style=False,
-                ),
-                file=f,
+            yaml.dump(
+                {
+                    "anthology_id": anthology_id,
+                    "title": entry["title"],
+                    "slug": slugify(entry["title"]),
+                },
+                default_flow_style=False,
+                stream=f,
             )
             print("---", file=f)
+
+    return data
+
+
+def create_people(srcdir, clean=False):
+    """Creates page stubs for all authors/editors in the Anthology."""
+    log.info("Creating stubs for people...")
+    if not check_directory("{}/content/people".format(srcdir), clean=clean):
+        return
+
+    for yamlfile in tqdm(glob("{}/data/people/*.yaml".format(srcdir))):
+        log.debug("Processing {}".format(yamlfile))
+        with open(yamlfile, "r") as f:
+            data = yaml.load(f, Loader=Loader)
+        # Create a paper stub for each person
+        for name, entry in data.items():
+            person_dir = "{}/content/people/{}".format(srcdir, name[0])
+            if not os.path.exists(person_dir):
+                os.makedirs(person_dir)
+            with open("{}/{}.md".format(person_dir, name), "w") as f:
+                print("---", file=f)
+                yaml.dump(
+                    {"name": name, "title": entry["full"]},
+                    default_flow_style=False,
+                    stream=f,
+                )
+                print("---", file=f)
 
     return data
 
@@ -128,7 +151,11 @@ def create_venues_and_events(srcdir, clean=False):
         venue_str = venue_data["slug"]
         with open("{}/content/venues/{}.md".format(srcdir, venue_str), "w") as f:
             print("---", file=f)
-            print(yaml.dump({"venue": venue, "title": venue_data["name"]}), file=f)
+            yaml.dump(
+                {"venue": venue, "title": venue_data["name"]},
+                default_flow_style=False,
+                stream=f,
+            )
             print("---", file=f)
 
     log.info("Creating stubs for events...")
@@ -142,15 +169,14 @@ def create_venues_and_events(srcdir, clean=False):
                 "{}/content/events/{}-{}.md".format(srcdir, venue_str, year), "w"
             ) as f:
                 print("---", file=f)
-                print(
-                    yaml.dump(
-                        {
-                            "venue": venue,
-                            "year": year,
-                            "title": "{} ({})".format(venue_data["name"], year),
-                        }
-                    ),
-                    file=f,
+                yaml.dump(
+                    {
+                        "venue": venue,
+                        "year": year,
+                        "title": "{} ({})".format(venue_data["name"], year),
+                    },
+                    default_flow_style=False,
+                    stream=f,
                 )
                 print("---", file=f)
 
@@ -170,7 +196,11 @@ def create_sigs(srcdir, clean=False):
         sig_str = sig_data["slug"]
         with open("{}/content/sigs/{}.md".format(srcdir, sig_str), "w") as f:
             print("---", file=f)
-            print(yaml.dump({"acronym": sig, "title": sig_data["name"]}), file=f)
+            yaml.dump(
+                {"acronym": sig, "title": sig_data["name"]},
+                default_flow_style=False,
+                stream=f,
+            )
             print("---", file=f)
 
 
@@ -188,6 +218,7 @@ if __name__ == "__main__":
 
     create_papers(dir_, clean=args["--clean"])
     create_volumes(dir_, clean=args["--clean"])
+    create_people(dir_, clean=args["--clean"])
     create_venues_and_events(dir_, clean=args["--clean"])
     create_sigs(dir_, clean=args["--clean"])
 
