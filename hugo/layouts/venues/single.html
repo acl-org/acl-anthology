@@ -10,7 +10,7 @@
     {{ range $year := sort (index $venue "years") "value" "desc" }}
     {{ $volumes := index $venue "volumes_by_year" $year }}
     <div class="row">
-      <div class="col-auto">
+      <div class="col-1">
         <h4><a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ $year }}</a></h4>
       </div>
       <div class="col">
@@ -18,9 +18,9 @@
           {{ range $volumes }}
           {{ $volume := index $.Site.Data.volumes . }}
           <li>
-            <span class="text-muted">[{{ . }}]:&nbsp;</span>
-            <a href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a>
-            <span class="badge badge-info">{{ len $volume.papers }}&nbsp;papers</span>
+            <span class="text-muted align-middle">[{{ . }}]:&nbsp;</span>
+            <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a>
+            <span class="badge badge-info align-middle ml-1">{{ len $volume.papers }}&nbsp;papers</span>
           </li>
           {{ end }}
         </ul>

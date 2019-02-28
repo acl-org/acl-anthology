@@ -1,9 +1,36 @@
 
 $enable-gradients: true;
 
-@import 'vendor/bootstrap/scss/bootstrap';
-@import 'papers';
+$blue: #446E9B;
+$red: #d9534f;
+$orange: #f47c3c;
+$green: #93C54B;
+$cyan: #29ABE0;
 
+$secondary: #dee2e6;
+$yiq-contrasted-threshold: 200;
+
+/* Required Bootstrap components */
+@import 'vendor/bootstrap/scss/functions';
+@import 'vendor/bootstrap/scss/variables';
+@import 'vendor/bootstrap/scss/mixins';
+
+/* Optional Bootstrap components */
+@import 'vendor/bootstrap/scss/root';
+@import 'vendor/bootstrap/scss/reboot';
+@import 'vendor/bootstrap/scss/type';
+@import 'vendor/bootstrap/scss/images';
+@import 'vendor/bootstrap/scss/grid';
+@import 'vendor/bootstrap/scss/forms';
+@import 'vendor/bootstrap/scss/buttons';
+@import 'vendor/bootstrap/scss/nav';
+@import 'vendor/bootstrap/scss/navbar';
+@import 'vendor/bootstrap/scss/card';
+@import 'vendor/bootstrap/scss/badge';
+@import 'vendor/bootstrap/scss/utilities';
+@import 'vendor/bootstrap/scss/print';
+
+@import 'papers';
 
 /* A responsive variant of Bootstrap's .btn-block */
 @include media-breakpoint-up(lg) {

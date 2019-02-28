@@ -1,25 +1,27 @@
 {{ $paper := index (index .context.Site.Data.papers (slicestr .paper_id 0 3)) .paper_id }}
 {{ $paper_link := printf "/papers/%s/%s/%s.md" (slicestr .paper_id 0 1) (slicestr .paper_id 0 3) .paper_id }}
 <p>
+  <span class="mr-2">
   {{ with $paper.revision }}
     {{ range last 1 . }}
-    <a class="badge badge-primary" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
+    <a class="badge badge-primary align-middle" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
       pdf&nbsp;(v{{ .id }})
     </a>
     {{ end }}
   {{ end }}
-    <a class="badge badge-{{if isset $paper "revision"}}secondary{{else}}primary{{end}}" href="{{ $paper.url }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+    <a class="badge badge-{{ cond (isset $paper "revision") "secondary" "primary" }} align-middle" href="{{ $paper.url }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
       pdf{{ with $paper.revision }}&nbsp;(v1){{ end }}
     </a>
     <!-- TODO: bib export link -->
-    <a class="badge badge-secondary" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+    <a class="badge badge-secondary align-middle" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
       bib
     </a>
-    <a class="badge badge-secondary" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
+    <a class="badge badge-secondary align-middle" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
       <i class="fas fa-search"></i>
     </a>
     <!-- TODO: attachment links -->
-    <strong><a href="{{ relref .context $paper_link }}">{{ $paper.title }}</a></strong>
+  </span>
+    <strong><a class="align-middle" href="{{ relref .context $paper_link }}">{{ $paper.title }}</a></strong>
     <br />
     <span class="text-muted">[{{ .paper_id }}]:</span>
     {{ with $paper.author }}

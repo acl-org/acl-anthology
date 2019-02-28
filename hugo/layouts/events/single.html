@@ -14,9 +14,9 @@
         {{ range $volumes }}
         {{ $volume := index $.Site.Data.volumes . }}
         <li>
-          <span class="text-muted">[{{ . }}]:&nbsp;</span>
-          <a href="#{{ . | anchorize }}">{{ $volume.title }}</a>
-          <span class="badge badge-info">{{ len $volume.papers }}&nbsp;papers</span>
+          <span class="text-muted align-middle">[{{ . }}]:&nbsp;</span>
+          <a class="align-middle" href="#{{ . | anchorize }}">{{ $volume.title }}</a>
+          <span class="badge badge-info align-middle ml-1">{{ len $volume.papers }}&nbsp;papers</span>
         </li>
         {{ end }}
       </ul>
@@ -29,13 +29,15 @@
   <div id="{{ . | anchorize }}">
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
     <h4 class="pb-2">
-      <a class="badge badge-primary" href="{{ $volume.url }}" title="Open full PDF of '{{ $volume.title | htmlEscape }}'">pdf (full)</a>
+      <span class="mr-2">
+      <a class="badge badge-primary align-middle" href="{{ $volume.url }}" title="Open full PDF of '{{ $volume.title | htmlEscape }}'">pdf (full)</a>
       <!-- TODO: bib export link -->
-      <a class="badge badge-secondary" href="#" title="Export '{{ $volume.title | htmlEscape }}' to bib format">bib</a>
-    <a class="badge badge-secondary" href="https://www.google.com/search?{{ (querify "q" $volume.title) | safeURL }}" title="Search for '{{ $volume.title | htmlEscape }}' on Google">
-      <i class="fas fa-search"></i>
-    </a>
-    <a href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
+      <a class="badge badge-secondary align-middle" href="#" title="Export '{{ $volume.title | htmlEscape }}' to bib format">bib</a>
+      <a class="badge badge-secondary align-middle" href="https://www.google.com/search?{{ (querify "q" $volume.title) | safeURL }}" title="Search for '{{ $volume.title | htmlEscape }}' on Google">
+        <i class="fas fa-search"></i>
+      </a>
+      </span>
+    <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
 
     {{ range $volume.papers }}
       {{ $entry := index (index $.Site.Data.papers $volume_id) . }}
