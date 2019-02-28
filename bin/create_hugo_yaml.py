@@ -21,9 +21,9 @@ import os
 import yaml
 
 try:
-    from yaml import CDumper as Dumper
+    from yaml import CSafeDumper as Dumper
 except ImportError:
-    from yaml import Dumper
+    from yaml import SafeDumper as Dumper
 
 from anthology import Anthology
 from anthology.utils import SeverityTracker
@@ -31,12 +31,12 @@ from anthology.utils import SeverityTracker
 
 def export_anthology(anthology, outdir, dryrun=False):
     # Create directories
-    for subdir in ("", "papers"):
+    for subdir in ("", "papers", "people"):
         target_dir = "{}/{}".format(outdir, subdir)
         if not os.path.isdir(target_dir):
             os.mkdir(target_dir)
 
-    # Dump paper index
+    # Prepare paper index
     papers = defaultdict(dict)
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
@@ -44,34 +44,33 @@ def export_anthology(anthology, outdir, dryrun=False):
         data["paper_id"] = paper.paper_id
         data["parent_volume_id"] = paper.parent_volume_id
         if "author" in data:
-            data["author"] = [name.id_ for name in data["author"]]
+            data["author"] = [anthology.people.slugs[name] for name in data["author"]]
         if "editor" in data:
-            data["editor"] = [name.id_ for name in data["editor"]]
+            data["editor"] = [anthology.people.slugs[name] for name in data["editor"]]
         papers[paper.top_level_id][paper.full_id] = data
-    if not dryrun:
-        progress = tqdm(total=len(papers) + 32)
-        for top_level_id, paper_list in papers.items():
-            with open("{}/papers/{}.yaml".format(outdir, top_level_id), "w") as f:
-                print(yaml.dump(paper_list, Dumper=Dumper), file=f)
-            progress.update()
 
-    # Dump volume index
+    # Prepare people index
+    people = defaultdict(dict)
+    for name_repr, name in anthology.people.items():
+        data = name.as_dict()
+        slug = anthology.people.slugs[name]
+        data["slug"] = slug
+        data.update(anthology.people.papers[name])
+        people[slug[0]][slug] = data
+
+    # Prepare volume index
     volumes = {}
     for id_, volume in anthology.volumes.items():
         log.debug("export_anthology: processing volume '{}'".format(id_))
         data = volume.attrib
         data["papers"] = volume.paper_ids
         if "author" in data:
-            data["author"] = [name.id_ for name in data["author"]]
+            data["author"] = [anthology.people.slugs[name] for name in data["author"]]
         if "editor" in data:
-            data["editor"] = [name.id_ for name in data["editor"]]
+            data["editor"] = [anthology.people.slugs[name] for name in data["editor"]]
         volumes[volume.full_id] = data
-    if not dryrun:
-        with open("{}/volumes.yaml".format(outdir), "w") as f:
-            print(yaml.dump(volumes, Dumper=Dumper), file=f)
-        progress.update(10)
 
-    # Dump venue index
+    # Prepare venue index
     venues = {}
     for acronym, data in anthology.venues.items():
         data = data.copy()
@@ -82,12 +81,8 @@ def export_anthology(anthology, outdir, dryrun=False):
         data["years"] = sorted(list(data["years"]))
         del data["volumes"]
         venues[acronym] = data
-    if not dryrun:
-        with open("{}/venues.yaml".format(outdir), "w") as f:
-            print(yaml.dump(venues, Dumper=Dumper), file=f)
-        progress.update()
 
-    # Dump SIG index
+    # Prepare SIG index
     sigs = {}
     for acronym, sig in anthology.sigs.items():
         data = {
@@ -98,21 +93,31 @@ def export_anthology(anthology, outdir, dryrun=False):
             "years": sorted([str(year) for year in sig.years]),
         }
         sigs[acronym] = data
+
+    # Dump all
     if not dryrun:
-        with open("{}/sigs.yaml".format(outdir), "w") as f:
-            print(yaml.dump(sigs, Dumper=Dumper), file=f)
+        progress = tqdm(total=len(papers) + len(people) + 7)
+        for top_level_id, paper_list in papers.items():
+            with open("{}/papers/{}.yaml".format(outdir, top_level_id), "w") as f:
+                yaml.dump(paper_list, Dumper=Dumper, stream=f)
+            progress.update()
+
+        with open("{}/volumes.yaml".format(outdir), "w") as f:
+            yaml.dump(volumes, Dumper=Dumper, stream=f)
+        progress.update(5)
+
+        with open("{}/venues.yaml".format(outdir), "w") as f:
+            yaml.dump(venues, Dumper=Dumper, stream=f)
         progress.update()
 
-    # Dump author index
-    people = {}
-    for name_repr, name, papers in anthology.people.items():
-        data = name.as_dict()
-        data.update(papers)
-        people[name_repr] = data
-    if not dryrun:
-        with open("{}/people.yaml".format(outdir), "w") as f:
-            print(yaml.dump(people, Dumper=Dumper), file=f)
-        progress.update(20)
+        with open("{}/sigs.yaml".format(outdir), "w") as f:
+            yaml.dump(sigs, Dumper=Dumper, stream=f)
+        progress.update()
+
+        for first_letter, people_list in people.items():
+            with open("{}/people/{}.yaml".format(outdir, first_letter), "w") as f:
+                yaml.dump(people_list, Dumper=Dumper, stream=f)
+            progress.update()
         progress.close()
 
 

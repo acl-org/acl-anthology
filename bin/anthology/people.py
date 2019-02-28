@@ -1,6 +1,7 @@
 # Marcel Bollmann <marcel@bollmann.me>, 2019
 
-from collections import defaultdict
+from collections import defaultdict, Counter
+from slugify import slugify
 
 
 class PersonName:
@@ -67,21 +68,38 @@ class PersonIndex:
 
     def __init__(self):
         self.names = {}  # maps name strings to PersonName objects
+        self._all_slugs = set([""])
+        self.slugs = {}  # maps name strings to unique slugs
+        self.coauthors = defaultdict(
+            Counter
+        )  # maps name strings to co-author name strings
         self.papers = defaultdict(lambda: defaultdict(list))
 
-    def register(self, name: PersonName, paper_id, role):
+    def register(self, name: PersonName, paper, role):
         """Adds a name to the index, associates it with the given paper ID and role, and returns the name's unique representation."""
         assert isinstance(name, PersonName), "Expected PersonName, got {} ({})".format(
             type(name), repr(name)
         )
-        if repr(name) not in self.names:
-            self.names[repr(name)] = name
-        self.papers[name][role].append(paper_id)
-        return repr(name)
+        name_repr = repr(name)
+        if name_repr not in self.names:
+            self.names[name_repr] = name
+            slug, i = slugify(name_repr), 0
+            while slug in self._all_slugs:
+                i += 1
+                slug = "{}{}".format(slugify(name_repr), i)
+            self._all_slugs.add(slug)
+            self.slugs[name] = slug
+        # Register paper
+        self.papers[name][role].append(paper.full_id)
+        # Register co-author(s)
+        for author in paper.get(role):
+            if author != name:
+                self.coauthors[name][author] += 1
+        # Return string representation
+        return name_repr
 
     def items(self):
-        for name_repr, name in self.names.items():
-            yield name_repr, name, self.papers[name]
+        return self.names.items()
 
     def __len__(self):
         return len(self.names)

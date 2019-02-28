@@ -3,7 +3,8 @@
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <meta content="{{ $paper.title }}" name="citation_title" >
 {{ range $paper.author }}
-  <meta content="{{ (index $.Site.Data.people .).full }}" name="citation_author" >
+  {{ $first_letter := slicestr . 0 1 }}
+  <meta content="{{ (index $.Site.Data.people $first_letter .).full }}" name="citation_author" >
 {{ end }}
 {{ with $paper.parent_volume_id }}
 {{ $volume := index $.Site.Data.volumes . }}
@@ -63,7 +64,8 @@
         {{ $len := (len $paper.author) }}
         {{ range $index, $person := $paper.author }}
           <!-- TODO: link to author page -->
-          <a href="#">{{ (index $.Site.Data.people $person).full }}</a>
+          {{ $first_letter := slicestr $person 0 1 }}
+          <a href="#">{{ (index $.Site.Data.people $first_letter $person).full }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{ end }}
       </dd>

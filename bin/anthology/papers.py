@@ -92,13 +92,13 @@ class Paper:
                     "type": element.get("tag", "video"),
                     "url": infer_attachment_url(element.get("href")),
                 }
-            elif tag == "url":
-                tag = "__url"  # We basically have to ignore this for now
             else:
                 value = element.text
             # store value
             if tag in ("title", "booktitle"):
                 value = remove_extra_whitespace(value)
+            if tag == "url":
+                continue  # We basically have to ignore this for now
             if tag in _LIST_ELEMENTS:
                 try:
                     self.attrib[tag].append(value)

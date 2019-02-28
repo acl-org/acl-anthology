@@ -79,4 +79,4 @@ class Anthology:
     def _register_people(self, paper):
         for role in ("author", "editor"):
             for name in paper.get(role, []):
-                self.people.register(name, paper.full_id, role)
+                self.people.register(name, paper, role)

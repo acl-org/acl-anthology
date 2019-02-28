@@ -26,7 +26,8 @@
         {{ $len := (len $paper.editor) }}
         {{ range $index, $person := $paper.editor }}
           <!-- TODO: link to author page -->
-          <a href="#">{{ (index $.Site.Data.people $person).full }}</a>
+          {{ $first_letter := slicestr $person 0 1 }}
+          <a href="#">{{ (index $.Site.Data.people $first_letter $person).full }}</a>
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{ end }}
       </dd>
