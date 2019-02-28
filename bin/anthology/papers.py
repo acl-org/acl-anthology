@@ -60,6 +60,9 @@ class Paper:
         # read & store values
         if "href" in paper_element.attrib:
             self.attrib["attrib_href"] = paper_element.get("href")
+            self.attrib["url"] = paper_element.get("href")
+        else:
+            self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
         for element in paper_element:
             # parse value
             tag = element.tag.lower()
@@ -89,6 +92,8 @@ class Paper:
                     "type": element.get("tag", "video"),
                     "url": infer_attachment_url(element.get("href")),
                 }
+            elif tag == "url":
+                tag = "__url"  # We basically have to ignore this for now
             else:
                 value = element.text
             # store value
