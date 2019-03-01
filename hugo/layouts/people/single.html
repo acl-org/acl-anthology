@@ -3,7 +3,7 @@
 {{ $person := index .Site.Data.people $first_letter .Params.name }}
 <section id="main">
   <h2 id="title">
-    {{ .Title }}
+    {{- .Title -}}
   </h2>
   <hr />
 
@@ -11,7 +11,8 @@
     <div class="col-lg-9">
       {{ .Scratch.Set "current_year" "" }}
       {{ range $person.papers }}
-        {{/* Generate a heading per year -- assumes that papers are already sorted by year, which the YAML exporter should take care of */}}
+        {{/* Generate a heading per year -- assumes that papers are already sorted by year,
+             which the YAML exporter should take care of */}}
         {{ $paper := index (index $.Site.Data.papers (slicestr . 0 3)) . }}
         {{ if ne $paper.year ($.Scratch.Get "current_year") }}
           <h4>{{ $paper.year }}</h4>
@@ -23,11 +24,48 @@
     </div>
 
     <div class="col-lg-3">
-      <a class="btn btn-lg btn-secondary btn-block mx-1 mb-2" href="https://scholar.google.com/citations?{{ (querify "view_op" "search_authors" "mauthors" $person.full) | safeURL }}" title="Search for '{{ $person.full | htmlEscape }}' on Google Scholar">
+      <a class="btn btn-lg btn-secondary btn-block mb-2" href="https://scholar.google.com/citations?{{ (querify "view_op" "search_authors" "mauthors" $person.full) | safeURL }}" title="Search for '{{ $person.full | htmlEscape }}' on Google Scholar">
         <i class="fas fa-search"></i><span class="pl-sm-2">Search</span>
       </a>
-    </div>
 
+      {{/* Basic idea of this layout: on tiny displays, these cards are stacked
+           (col-12), on medium-sized displays we display them side-by-side
+           (col-md-6), while on larger displays, they are stacked again (col-lg-12)
+           since they parent div becomes its own column then */}}
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-12">
+          <div class="card">
+            <h5 class="card-header">Frequent co-authors</h5>
+            <ul class="list-group list-group-flush">
+              {{ range first 5 $person.coauthors }}
+              <li class="list-group-item">
+                {{ $co_id := index . 0 }}
+                {{ $co_author := index $.Site.Data.people (slicestr $co_id 0 1) $co_id }}
+                <a href="{{ relref $ (printf "/people/%s/%s.md" (slicestr $co_id 0 1) $co_id) }}" class="align-middle">
+                  {{- index $co_author "full" -}}
+                </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-12">
+          <div class="card my-2 my-md-0 my-lg-2">
+            <h5 class="card-header">Frequent venues</h5>
+            <ul class="list-group list-group-flush">
+              {{ range first 5 $person.venues }}
+              <li class="list-group-item">
+                {{ $venue := index . 0 }}
+                <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
+                  {{- $venue -}}
+                </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 {{ end }}

@@ -2,6 +2,7 @@
 
 from collections import defaultdict, Counter
 from slugify import slugify
+from .venues import VenueIndex
 
 
 class PersonName:
@@ -103,3 +104,16 @@ class PersonIndex:
 
     def __len__(self):
         return len(self.names)
+
+    def get_papers(self, name, role=None):
+        if role is None:
+            return [p for p_list in self.papers[name].values() for p in p_list]
+        return self.papers[name][role]
+
+    def get_venues(self, vidx: VenueIndex, name):
+        """Get a list of venues a person has published in, with counts."""
+        venues = Counter()
+        for paper in self.get_papers(name):
+            for venue in vidx.get_associated_venues(paper):
+                venues[venue] += 1
+        return venues

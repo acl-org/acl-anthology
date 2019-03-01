@@ -137,19 +137,19 @@
     <div class="col-lg-2 order-1 order-lg-last mb-3 mb-lg-0 d-flex d-lg-block flex-wrap justify-content-around">
       {{ with $paper.revision }}
         {{ range last 1 . }}
-        <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mb-2" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
+        <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mx-lg-0 mb-2" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
         </a>
         {{ end }}
       {{ end }}
-        <a class="flex-fill btn btn-lg btn-{{ cond (isset $paper "revision") "secondary" "primary" }} btn-lg-block mx-1 mb-2" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+        <a class="flex-fill btn btn-lg btn-{{ cond (isset $paper "revision") "secondary" "primary" }} btn-lg-block mx-1 mx-lg-0 mb-2" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF{{ with $paper.revision }}&nbsp;<small>(v1)</small>{{ end }}</span>
       </a>
       <!-- TODO: bib export link -->
-      <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mb-2" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+      <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mx-lg-0 mb-2" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span>
       </a>
-      <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mb-2" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
+      <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mx-lg-0 mb-2" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
         <i class="fas fa-search"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
     </div>

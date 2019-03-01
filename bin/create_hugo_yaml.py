@@ -56,8 +56,26 @@ def export_anthology(anthology, outdir, dryrun=False):
         slug = anthology.people.slugs[name]
         data["slug"] = slug
         data["papers"] = sorted(
-            [p for l in anthology.people.papers[name].values() for p in l],
+            anthology.people.get_papers(name),
             key=lambda p: anthology.papers.get(p).get("year"),
+            reverse=True,
+        )
+        data["coauthors"] = sorted(
+            [
+                [anthology.people.slugs[co_name], count]
+                for (co_name, count) in anthology.people.coauthors[name].items()
+            ],
+            key=lambda p: p[1],
+            reverse=True,
+        )
+        data["venues"] = sorted(
+            [
+                [venue, count]
+                for (venue, count) in anthology.people.get_venues(
+                    anthology.venues, name
+                ).items()
+            ],
+            key=lambda p: p[1],
             reverse=True,
         )
         people[slug[0]][slug] = data
