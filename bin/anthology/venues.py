@@ -24,6 +24,7 @@ class VenueIndex:
                 self.venues[acronym] = {
                     "name": name,
                     "is_acl": (venue_type == "ACL"),
+                    "is_toplevel": False,
                     "slug": slugify(acronym),
                     "type": venue_type,
                     "years": set(),
@@ -31,6 +32,8 @@ class VenueIndex:
                 }
         with open("{}/venues_letters.yaml".format(directory), "r") as f:
             self.letters = yaml.load(f, Loader=Loader)
+            for letter, acronym in self.letters.items():
+                self.venues[acronym]["is_toplevel"] = True
         with open("{}/venues_ws_map.yaml".format(directory), "r") as f:
             map_dict = yaml.load(f, Loader=Loader)
             for id_, joint in map_dict.items():
