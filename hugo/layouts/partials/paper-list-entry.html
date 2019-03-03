@@ -2,16 +2,22 @@
 {{ $paper_link := printf "/papers/%s/%s/%s.md" (slicestr .paper_id 0 1) (slicestr .paper_id 0 3) .paper_id }}
 <p>
   <span class="mr-2">
-  {{ with $paper.revision }}
-    {{ range last 1 . }}
+  {{ if isset $paper "revision" }}
+    {{ range last 1 $paper.revision }}
     <a class="badge badge-primary align-middle" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
       pdf&nbsp;(v{{ .id }})
     </a>
     {{ end }}
-  {{ end }}
-    <a class="badge badge-{{ cond (isset $paper "revision") "secondary" "primary" }} align-middle" href="{{ $paper.url }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
-      pdf{{ with $paper.revision }}&nbsp;(v1){{ end }}
+    {{ range first 1 $paper.revision }}
+    <a class="badge badge-secondary align-middle" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
+      pdf&nbsp;(v{{ .id }})
     </a>
+    {{ end }}
+  {{ else }}
+    <a class="badge badge-primary align-middle" href="{{ $paper.url }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+      pdf
+    </a>
+  {{ end }}
     <!-- TODO: bib export link -->
     <a class="badge badge-secondary align-middle" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
       bib

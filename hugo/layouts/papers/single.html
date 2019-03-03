@@ -36,13 +36,9 @@
       <dt>Anthology:</dt>
       <dd>{{ $anthology_id }}</dd>
 
-      {{ with $paper.revision }}
-        <dt>Revision v1:</dt>
-        <dd><a href="{{ $paper.url }}">{{ $anthology_id }}</a></dd>
-        {{ range . }}
-          <dt>Revision v{{ .id }}:</dt>
-          <dd><a href="{{ .url }}">{{ .value }}</a></dd>
-        {{ end }}
+      {{ range $paper.revision }}
+        <dt>Revision v{{ .id }}:</dt>
+        <dd><a href="{{ .url }}">{{ .value }}</a></dd>
       {{ end }}
       {{ range $paper.erratum }}
         <dt>Erratum e{{ .id }}:</dt>
@@ -135,16 +131,22 @@
            and disable flexbox to make buttons full-width instead
      -->
     <div class="col-lg-2 order-1 order-lg-last mb-3 mb-lg-0 d-flex d-lg-block flex-wrap justify-content-around">
-      {{ with $paper.revision }}
-        {{ range last 1 . }}
+      {{ if isset $paper "revision" }}
+        {{ range last 1 $paper.revision }}
         <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mx-lg-0 mb-2" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
         </a>
         {{ end }}
+        {{ range first 1 $paper.revision }}
+        <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mx-lg-0 mb-2" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
+          <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
+        </a>
+        {{ end }}
+      {{ else }}
+        <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mx-lg-0 mb-2" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+          <i class="far fa-file-pdf"></i><span class="pl-2">PDF</span>
+        </a>
       {{ end }}
-        <a class="flex-fill btn btn-lg btn-{{ cond (isset $paper "revision") "secondary" "primary" }} btn-lg-block mx-1 mx-lg-0 mb-2" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
-          <i class="far fa-file-pdf"></i><span class="pl-2">PDF{{ with $paper.revision }}&nbsp;<small>(v1)</small>{{ end }}</span>
-      </a>
       <!-- TODO: bib export link -->
       <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mx-lg-0 mb-2" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span>

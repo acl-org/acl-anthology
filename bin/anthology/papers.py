@@ -79,6 +79,19 @@ class Paper:
             elif tag in ("author", "editor"):
                 value = PersonName.from_element(element)
             elif tag in ("erratum", "revision"):
+                if tag == "revision" and "revision" not in self.attrib:
+                    # Explicitly construct URL of original version of the paper
+                    # -- this is a bit hacky, but it's not given in the XML
+                    # explicitly
+                    self.attrib["revision"] = [
+                        {
+                            "value": "{}v1".format(self.full_id),
+                            "id": "1",
+                            "url": data.ANTHOLOGY_URL.format(
+                                "{}v1".format(self.full_id)
+                            ),
+                        }
+                    ]
                 value = {
                     "value": element.text,
                     "id": element.get("id"),
