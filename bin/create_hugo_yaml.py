@@ -41,6 +41,11 @@ def export_anthology(anthology, outdir, dryrun=False):
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.attrib
+        data["title_html"] = paper.get_title("html")
+        del data["xml_title"]
+        if "xml_abstract" in data:
+            data["abstract_html"] = paper.get_abstract("html")
+            del data["xml_abstract"]
         data["paper_id"] = paper.paper_id
         data["parent_volume_id"] = paper.parent_volume_id
         if "author" in data:
@@ -85,6 +90,10 @@ def export_anthology(anthology, outdir, dryrun=False):
     for id_, volume in anthology.volumes.items():
         log.debug("export_anthology: processing volume '{}'".format(id_))
         data = volume.attrib
+        data["title_html"] = volume.get_title("html")
+        del data["xml_title"]
+        if "xml_abstract" in data:
+            del data["xml_abstract"]
         data["papers"] = volume.paper_ids
         if "author" in data:
             data["author"] = [anthology.people.slugs[name] for name in data["author"]]

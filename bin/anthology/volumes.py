@@ -5,6 +5,7 @@ from . import data
 from .papers import Paper
 from .venues import VenueIndex
 from .sigs import SIGIndex
+from .utils import format_markup_element
 
 
 class Volume:
@@ -84,3 +85,13 @@ class Volume:
             return self.attrib[name]
         except KeyError:
             return default
+
+    def get_title(self, form="xml"):
+        """Returns the paper title, optionally formatting it.
+
+        Accepted formats:
+          - xml:   Include any contained XML tags unchanged
+          - plain: Strip all XML tags, returning only plain text
+          - html:  Convert XML tags into valid HTML tags
+        """
+        return format_markup_element(self.get("xml_title"), form)

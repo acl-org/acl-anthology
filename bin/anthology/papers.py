@@ -2,7 +2,7 @@
 
 import logging as log
 from .people import PersonName
-from .utils import stringify_children, infer_attachment_url, remove_extra_whitespace
+from .utils import infer_attachment_url, remove_extra_whitespace, format_markup_element
 from . import data
 
 # Names of XML elements that may appear multiple times
@@ -33,6 +33,7 @@ class Paper:
     def from_xml(xml_element, top_level_id):
         paper = Paper(xml_element.get("id"), top_level_id)
         paper._parse_element(xml_element)
+        paper.attrib["title"] = paper.get_title("plain")
         if "editor" in paper.attrib:
             if paper.is_volume:
                 if "author" in paper.attrib:
@@ -67,7 +68,8 @@ class Paper:
             # parse value
             tag = element.tag.lower()
             if tag in ("abstract", "title"):
-                value = stringify_children(element)
+                tag = "xml_{}".format(tag)
+                value = element
             elif tag == "attachment":
                 value = {
                     "filename": element.text,
@@ -95,7 +97,7 @@ class Paper:
             else:
                 value = element.text
             # store value
-            if tag in ("title", "booktitle"):
+            if tag in ("booktitle",):
                 value = remove_extra_whitespace(value)
             if tag == "url":
                 continue  # We basically have to ignore this for now
@@ -161,6 +163,23 @@ class Paper:
             return self.attrib[name]
         except KeyError:
             return default
+
+    def get_title(self, form="xml"):
+        """Returns the paper title, optionally formatting it.
+
+        Accepted formats:
+          - xml:   Include any contained XML tags unchanged
+          - plain: Strip all XML tags, returning only plain text
+          - html:  Convert XML tags into valid HTML tags
+        """
+        return format_markup_element(self.get("xml_title"), form)
+
+    def get_abstract(self, form="xml"):
+        """Returns the abstract, optionally formatting it.
+
+        See `get_title()` for details.
+        """
+        return format_markup_element(self.get("xml_abstract"), form)
 
     def items(self):
         return self.attrib.items()

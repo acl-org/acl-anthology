@@ -8,7 +8,7 @@
 {{ $paper := index .Site.Data.volumes .Params.anthology_id }}
 <section id="main">
   <h2 id="title">
-    <a href="{{ $paper.url }}">{{ $paper.title }}</a>
+    <a href="{{ $paper.url }}">{{ $paper.title_html | safeHTML }}</a>
   </h2>
   <hr />
 

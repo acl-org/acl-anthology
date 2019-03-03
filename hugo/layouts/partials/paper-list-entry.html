@@ -21,7 +21,7 @@
     </a>
     <!-- TODO: attachment links -->
   </span>
-    <strong><a class="align-middle" href="{{ relref .context $paper_link }}">{{ $paper.title }}</a></strong>
+    <strong><a class="align-middle" href="{{ relref .context $paper_link }}">{{ $paper.title_html | safeHTML }}</a></strong>
     <br />
     <span class="text-muted">[{{ .paper_id }}]:</span>
     {{ with $paper.author }}
