@@ -41,7 +41,9 @@ if __name__ == "__main__":
                 if field not in entry.fields: continue
 
                 boldvalue = entry.fields[field]
-                bnewvalue = bibtex.find_fixed_case(boldvalue, conservative=True)
+                bnewvalue = tex_unicode.parse_latex(boldvalue)
+                bibtex.find_fixed_case(bnewvalue, conservative=True)
+                bnewvalue = tex_unicode.unparse_latex(bnewvalue, delete_root=True)
                 if bnewvalue != boldvalue:
                     xnode = xpaper.find(field)
                     if xnode is None:

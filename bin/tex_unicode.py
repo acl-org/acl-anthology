@@ -18,6 +18,7 @@ table = [Entry('{', '}', None, 'bracket'),
          Entry(r'\textbf', None, 'b', 'unary'),
          Entry(r'\bf', None, 'b', 'setter'),
          Entry(r'\url', None, 'url', 'unary', True),
+         Entry(r'\fixedcase', None, 'fixed-case', 'unary'),
          Entry(r'root', None, 'root', None),
 ]
 openers = {e.open:e for e in table}
@@ -30,7 +31,7 @@ def parse_latex(s):
     """Parse LaTeX into a list of lists."""
     toks = token_re.findall(s)
     toks = collections.deque(toks)
-    stack = [['root']]
+    stack = [[r'root']]
 
     def close_implicit():
         # Implicitly close setters

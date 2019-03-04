@@ -76,4 +76,4 @@ if __name__ == "__main__":
                         logging.info('{}{}{}{}{}'.format(oldstring[max(0,oi-ws):oi], red, oldstring[oi:oj], off, oldstring[oj:oj+ws]))
                         logging.info('{}{}{}{}{}'.format(newstring[max(0,ni-ws):ni], green, newstring[ni:nj], off, newstring[nj:nj+ws]))
                     
-    tree.write(args.outfile, encoding="UTF-8")
+    tree.write(args.outfile, encoding="UTF-8", xml_declaration=True)
