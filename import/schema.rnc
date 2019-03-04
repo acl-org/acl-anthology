@@ -2,11 +2,10 @@
 
 b = element b { MarkupText }
 i = element i { MarkupText }
-u = element u { MarkupText }
 url = element url { xsd:anyURI }
 fixed-case = element fixed-case { MarkupText }
 tex-math = element tex-math { text }
-MarkupText = (text | b | i | u | url | fixed-case | tex-math )+
+MarkupText = (text | b | i | url | fixed-case | tex-math )+
 
 first = element first { text }
 last = element last { text }

@@ -9,6 +9,7 @@ import logging
 import re
 
 from . import data
+from .texmath import TexMath
 
 
 xml_escape_or_none = lambda t: None if t is None else xml_escape(t)
@@ -43,7 +44,7 @@ def remove_extra_whitespace(text):
 
 class MarkupFormatter:
     def __init__(self):
-        pass
+        self.texmath = TexMath()
 
     def __call__(self, element, form, allow_url=False):
         if element is None:
@@ -51,7 +52,10 @@ class MarkupFormatter:
         if form == "xml":
             retval = stringify_children(element)
         elif form == "plain":
-            retval = "".join(element.itertext())
+            element = deepcopy(element)
+            for sub in element.iterfind("tex-math"):
+                sub.text = self.texmath.to_unicode(sub)
+            retval = etree.tostring(element, encoding="unicode", method="text")
         elif form == "html":
             element = deepcopy(element)
             # Transform elements to valid HTML
@@ -65,8 +69,9 @@ class MarkupFormatter:
             for sub in element.iterfind("fixed-case"):
                 sub.tag = "span"
             for sub in element.iterfind("tex-math"):
-                sub.tag = "pre"
-                sub.attrib["class"] = "acl-tex-math"
+                parsed_elem = self.texmath.to_html(sub)
+                parsed_elem.tail = sub.tail
+                sub.getparent().replace(sub, parsed_elem)
             retval = stringify_children(element)
         else:
             raise ValueError("Unknown format: {}".format(form))
