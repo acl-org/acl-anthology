@@ -5,7 +5,6 @@ from . import data
 from .papers import Paper
 from .venues import VenueIndex
 from .sigs import SIGIndex
-from .utils import format_markup_element
 
 
 class Volume:
@@ -17,6 +16,7 @@ class Volume:
         `venue_index` and `sig_index` are used to find venues and SIGs
         associated with this proceedings volume.
         """
+        self.formatter = front_matter.formatter
         self.front_matter_id = front_matter.paper_id
         self.top_level_id = front_matter.top_level_id
         self.attrib = front_matter.attrib.copy()
@@ -25,7 +25,7 @@ class Volume:
             self.attrib["editor"] = self.attrib["author"]
             del self.attrib["author"]
         # Some fields should not be copied from the front matter
-        for attrib in ("revision", "erratum", "pages"):
+        for attrib in ("revision", "erratum", "pages", "xml_booktitle"):
             if attrib in self.attrib:
                 del self.attrib[attrib]
         self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
@@ -94,4 +94,4 @@ class Volume:
           - plain: Strip all XML tags, returning only plain text
           - html:  Convert XML tags into valid HTML tags
         """
-        return format_markup_element(self.get("xml_title"), form)
+        return self.formatter(self.get("xml_title"), form)

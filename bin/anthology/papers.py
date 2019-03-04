@@ -2,7 +2,7 @@
 
 import logging as log
 from .people import PersonName
-from .utils import infer_attachment_url, remove_extra_whitespace, format_markup_element
+from .utils import infer_attachment_url, remove_extra_whitespace
 from . import data
 
 # Names of XML elements that may appear multiple times
@@ -24,16 +24,19 @@ def to_volume_id(anthology_id):
 
 
 class Paper:
-    def __init__(self, paper_id, top_level_id):
+    def __init__(self, paper_id, top_level_id, formatter):
+        self.formatter = formatter
         self.parent_volume_id = None
         self.paper_id = paper_id
         self.top_level_id = top_level_id
         self.attrib = {}
 
-    def from_xml(xml_element, top_level_id):
-        paper = Paper(xml_element.get("id"), top_level_id)
+    def from_xml(xml_element, *args):
+        paper = Paper(xml_element.get("id"), *args)
         paper._parse_element(xml_element)
         paper.attrib["title"] = paper.get_title("plain")
+        if "booktitle" in paper.attrib:
+            paper.attrib["booktitle"] = paper.get_booktitle("plain")
         if "editor" in paper.attrib:
             if paper.is_volume:
                 if "author" in paper.attrib:
@@ -67,7 +70,7 @@ class Paper:
         for element in paper_element:
             # parse value
             tag = element.tag.lower()
-            if tag in ("abstract", "title"):
+            if tag in ("abstract", "title", "booktitle"):
                 tag = "xml_{}".format(tag)
                 value = element
             elif tag == "attachment":
@@ -110,8 +113,6 @@ class Paper:
             else:
                 value = element.text
             # store value
-            if tag in ("booktitle",):
-                value = remove_extra_whitespace(value)
             if tag == "url":
                 continue  # We basically have to ignore this for now
             if tag in _LIST_ELEMENTS:
@@ -185,14 +186,21 @@ class Paper:
           - plain: Strip all XML tags, returning only plain text
           - html:  Convert XML tags into valid HTML tags
         """
-        return format_markup_element(self.get("xml_title"), form)
+        return self.formatter(self.get("xml_title"), form)
 
     def get_abstract(self, form="xml"):
         """Returns the abstract, optionally formatting it.
 
         See `get_title()` for details.
         """
-        return format_markup_element(self.get("xml_abstract"), form)
+        return self.formatter(self.get("xml_abstract"), form, allow_url=True)
+
+    def get_booktitle(self, form="xml"):
+        """Returns the booktitle, optionally formatting it.
+
+        See `get_title()` for details.
+        """
+        return self.formatter(self.get("xml_booktitle"), form)
 
     def items(self):
         return self.attrib.items()

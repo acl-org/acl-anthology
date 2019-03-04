@@ -10,14 +10,17 @@ from .people import PersonIndex
 from .venues import VenueIndex
 from .volumes import Volume
 from .sigs import SIGIndex
+from .utils import MarkupFormatter
 
 
 class Anthology:
     schema = None
     venues = None
     sigs = None
+    formatter = None
 
     def __init__(self, importdir=None):
+        self.formatter = MarkupFormatter()
         self.volumes = {}  # maps volume IDs to Volume objects
         self.papers = {}  # maps paper IDs to Paper objects
         self.people = PersonIndex()
@@ -52,7 +55,7 @@ class Anthology:
             log.critical("Triggered by file: {}".format(filename))
         current_volume = None
         for paper in volume:
-            parsed_paper = Paper.from_xml(paper, top_level_id)
+            parsed_paper = Paper.from_xml(paper, top_level_id, self.formatter)
             self._register_people(parsed_paper)
             full_id = parsed_paper.full_id
             if full_id in self.papers:

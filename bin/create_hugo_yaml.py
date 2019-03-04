@@ -43,6 +43,9 @@ def export_anthology(anthology, outdir, dryrun=False):
         data = paper.attrib
         data["title_html"] = paper.get_title("html")
         del data["xml_title"]
+        if "xml_booktitle" in data:
+            data["booktitle_html"] = paper.get_booktitle("html")
+            del data["xml_booktitle"]
         if "xml_abstract" in data:
             data["abstract_html"] = paper.get_abstract("html")
             del data["xml_abstract"]

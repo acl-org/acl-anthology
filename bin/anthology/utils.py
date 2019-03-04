@@ -41,26 +41,36 @@ def remove_extra_whitespace(text):
     return re.sub(" +", " ", text.replace("\n", "").strip())
 
 
-def format_markup_element(value, form):
-    if value is None:
-        return ""
-    if form == "xml":
-        retval = stringify_children(value)
-    elif form == "plain":
-        retval = "".join(value.itertext())
-    elif form == "html":
-        value = deepcopy(value)
-        for sub_element in value:
-            if sub_element.tag == "url":
-                # Not sure yet if it's safe to convert to actual <a href=...> tags
-                sub_element.tag = "span"
-                sub_element.attrib["class"] = "acl-markup-url"
-            elif sub_element.tag == "fixed-case":
-                sub_element.tag = "span"
-        retval = stringify_children(value)
-    else:
-        raise ValueError("Unknown format: {}".format(form))
-    return remove_extra_whitespace(retval)
+class MarkupFormatter:
+    def __init__(self):
+        pass
+
+    def __call__(self, element, form, allow_url=False):
+        if element is None:
+            return ""
+        if form == "xml":
+            retval = stringify_children(element)
+        elif form == "plain":
+            retval = "".join(element.itertext())
+        elif form == "html":
+            element = deepcopy(element)
+            # Transform elements to valid HTML
+            for sub in element.iterfind("url"):
+                if allow_url:
+                    sub.tag = "a"
+                    sub.attrib["href"] = sub.text
+                else:
+                    sub.tag = "span"
+                sub.attrib["class"] = "acl-markup-url"
+            for sub in element.iterfind("fixed-case"):
+                sub.tag = "span"
+            for sub in element.iterfind("tex-math"):
+                sub.tag = "pre"
+                sub.attrib["class"] = "acl-tex-math"
+            retval = stringify_children(element)
+        else:
+            raise ValueError("Unknown format: {}".format(form))
+        return remove_extra_whitespace(retval)
 
 
 def infer_attachment_url(filename):
