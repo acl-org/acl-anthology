@@ -3,23 +3,46 @@
   <!-- default namespace = "" -->
   <define name="b">
     <element name="b">
-      <text/>
+      <ref name="MarkupText"/>
     </element>
   </define>
   <define name="i">
     <element name="i">
-      <text/>
+      <ref name="MarkupText"/>
     </element>
   </define>
   <define name="u">
     <element name="u">
+      <ref name="MarkupText"/>
+    </element>
+  </define>
+  <define name="url">
+    <element name="url">
+      <data type="anyURI"/>
+    </element>
+  </define>
+  <define name="fixed-case">
+    <element name="fixed-case">
+      <ref name="MarkupText"/>
+    </element>
+  </define>
+  <define name="tex-math">
+    <element name="tex-math">
       <text/>
     </element>
   </define>
-  <define name="sup">
-    <element name="SUP">
-      <data type="NCName"/>
-    </element>
+  <define name="MarkupText">
+    <oneOrMore>
+      <choice>
+        <text/>
+        <ref name="b"/>
+        <ref name="i"/>
+        <ref name="u"/>
+        <ref name="url"/>
+        <ref name="fixed-case"/>
+        <ref name="tex-math"/>
+      </choice>
+    </oneOrMore>
   </define>
   <define name="first">
     <element name="first">
@@ -36,17 +59,6 @@
       <ref name="first"/>
     </optional>
     <ref name="last"/>
-  </define>
-  <define name="MarkupText">
-    <oneOrMore>
-      <choice>
-        <text/>
-        <ref name="b"/>
-        <ref name="i"/>
-        <ref name="u"/>
-        <ref name="sup"/>
-      </choice>
-    </oneOrMore>
   </define>
   <define name="Paper">
     <element name="paper">
@@ -96,7 +108,7 @@
         </optional>
         <optional>
           <element name="booktitle">
-            <text/>
+            <ref name="MarkupText"/>
           </element>
         </optional>
         <optional>

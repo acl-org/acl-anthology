@@ -1,13 +1,17 @@
 # default namespace = ""
 
-b = element b { text }
-i = element i { text }
-u = element u { text }
-sup = element SUP { xsd:NCName }
+b = element b { MarkupText }
+i = element i { MarkupText }
+u = element u { MarkupText }
+url = element url { xsd:anyURI }
+fixed-case = element fixed-case { MarkupText }
+tex-math = element tex-math { text }
+MarkupText = (text | b | i | u | url | fixed-case | tex-math )+
+
 first = element first { text }
 last = element last { text }
 Person = (first?, last)
-MarkupText = (text | b | i | u | sup)+
+
 Paper = element paper {
   attribute id { xsd:integer },
   attribute href { xsd:anyURI }?,
@@ -20,7 +24,7 @@ Paper = element paper {
    & element author { Person }*
    & element bibkey { text }?
    & element bibtype { xsd:NCName }?
-   & element booktitle { text }?
+   & element booktitle { MarkupText }?
    & element dataset { xsd:NCName }?
    & element doi { xsd:anyURI }?
    & element editor { Person }*
