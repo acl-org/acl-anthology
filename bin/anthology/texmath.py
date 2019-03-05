@@ -53,6 +53,11 @@ class TexMath:
                 char, cmd = row[1], row[2]
                 if cmd.startswith("\\"):
                     self.cmd_map[cmd[1:]] = char
+                if row[-1].startswith("= ") and ", " in row[-1]:
+                    # last column sometimes contains alternative command
+                    cmd = row[-1][2:].split(", ")[0]
+                    if cmd.startswith("\\"):
+                        self.cmd_map[cmd[1:]] = char
 
     def _parse(self, everything, trg):
         """Parses a list of TeX constituents into an lxml.etree._Element.
@@ -90,23 +95,27 @@ class TexMath:
     def _parse_command(self, code, trg):
         args = list(code.arguments)
         name = str(code.name)
+        # TexSoup doesn't parse curly brackets correctly
+        if name[0] in ("{", "}"):
+            args = list(TexSoup.TexSoup(name[1:]).expr.everything) + args
+            name = name[0]
         # Check if the command is in the list of known Unicode mappings
-        if code.name in self.cmd_map:
-            _append_text(self.cmd_map[code.name], trg)
+        if name in self.cmd_map:
+            _append_text(self.cmd_map[name], trg)
             self._parse(args, trg)
         # Check if command + arguments is in the list of known Unicode mappings
         # (this covers commands like "\mathcal{A}", which have their own entries)
         elif str(code)[1:] in self.cmd_map:
             _append_text(self.cmd_map[str(code)[1:]], trg)
         # Check if command is a known function name (e.g. "log")
-        elif code.name in FUNCTION_NAMES:
+        elif name in FUNCTION_NAMES:
             sx = etree.Element("span")
             sx.attrib["class"] = "tex-math-function"
-            sx.text = str(code.name)
+            sx.text = str(name)
             trg.append(sx)
             self._parse(args, trg)
         # Handle fractions
-        elif code.name == "frac":
+        elif name == "frac":
             self._parse_fraction(args, trg)
         # Give up, but preserve element
         else:
@@ -135,6 +144,12 @@ class TexMath:
 
     def _parse_text(self, code, trg):
         text = code.text
+        # TexSoup doesn't parse curly brackets correctly, so we replace them
+        # with a valid alternative command and repeat the parse
+        if "\\{" in text or "\\}" in text:
+            text = text.replace("\\{", "\\lbrace{}").replace("\\}", "\\rbrace{}")
+            self._parse(TexSoup.TexSoup(text).expr.everything, trg)
+            return
         # parse ^ and _ (won't get recognized as separate nodes by TexSoup)
         sxscript = False
         if "^" in text or "_" in text:
