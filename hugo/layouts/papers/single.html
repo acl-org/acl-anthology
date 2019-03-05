@@ -122,6 +122,11 @@
       <dt>{{ humanize .type }}:</dt>
       <dd><a href="{{ .url }}">{{ .filename }}</a></dd>
       {{ end }}
+
+      {{ with $paper.abstract_html }}
+      <dt>Abstract:</dt>
+      <dd><p>{{ . | safeHTML }}</p></dd>
+      {{ end }}
     </dl>
     </div>
 
