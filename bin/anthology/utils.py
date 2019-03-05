@@ -53,22 +53,23 @@ class MarkupFormatter:
             retval = stringify_children(element)
         elif form == "plain":
             element = deepcopy(element)
-            for sub in element.iterfind("tex-math"):
+            for sub in element.iterfind(".//tex-math"):
                 sub.text = self.texmath.to_unicode(sub)
             retval = etree.tostring(element, encoding="unicode", method="text")
         elif form == "html":
             element = deepcopy(element)
             # Transform elements to valid HTML
-            for sub in element.iterfind("url"):
+            for sub in element.iterfind(".//url"):
                 if allow_url:
                     sub.tag = "a"
                     sub.attrib["href"] = sub.text
                 else:
                     sub.tag = "span"
                 sub.attrib["class"] = "acl-markup-url"
-            for sub in element.iterfind("fixed-case"):
+            for sub in element.iterfind(".//fixed-case"):
                 sub.tag = "span"
-            for sub in element.iterfind("tex-math"):
+                sub.attrib["class"] = "acl-fixed-case"
+            for sub in element.iterfind(".//tex-math"):
                 parsed_elem = self.texmath.to_html(sub)
                 parsed_elem.tail = sub.tail
                 sub.getparent().replace(sub, parsed_elem)
