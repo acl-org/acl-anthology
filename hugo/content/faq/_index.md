@@ -1,8 +1,6 @@
 ---
 Title: Frequently Asked Questions
 linktitle: FAQ
-date: "2019-02-01"
+subtitle: Everything else about your ACL Anthology
 menu: footer
 ---
-
-TODO

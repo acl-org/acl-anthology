@@ -15,22 +15,39 @@ $yiq-contrasted-threshold: 200;
 @import 'vendor/bootstrap/scss/variables';
 @import 'vendor/bootstrap/scss/mixins';
 
-/* Optional Bootstrap components */
+/* Optional Bootstrap components -- we only include those we need */
 @import 'vendor/bootstrap/scss/root';
 @import 'vendor/bootstrap/scss/reboot';
 @import 'vendor/bootstrap/scss/type';
 @import 'vendor/bootstrap/scss/images';
+@import 'vendor/bootstrap/scss/code';
 @import 'vendor/bootstrap/scss/grid';
 @import 'vendor/bootstrap/scss/tables';
 @import 'vendor/bootstrap/scss/forms';
 @import 'vendor/bootstrap/scss/buttons';
+// @import 'vendor/bootstrap/scss/transitions';
+// @import 'vendor/bootstrap/scss/dropdown';
+// @import 'vendor/bootstrap/scss/button-group';
+// @import 'vendor/bootstrap/scss/input-group';
+// @import 'vendor/bootstrap/scss/custom-forms';
 @import 'vendor/bootstrap/scss/nav';
 @import 'vendor/bootstrap/scss/navbar';
 @import 'vendor/bootstrap/scss/card';
+// @import 'vendor/bootstrap/scss/breadcrumb';
+// @import 'vendor/bootstrap/scss/pagination';
 @import 'vendor/bootstrap/scss/badge';
+// @import 'vendor/bootstrap/scss/jumbotron';
 @import 'vendor/bootstrap/scss/alert';
+// @import 'vendor/bootstrap/scss/progress';
+// @import 'vendor/bootstrap/scss/media';
 @import 'vendor/bootstrap/scss/list-group';
 @import 'vendor/bootstrap/scss/close';
+// @import 'vendor/bootstrap/scss/toasts';
+// @import 'vendor/bootstrap/scss/modal';
+// @import 'vendor/bootstrap/scss/tooltip';
+// @import 'vendor/bootstrap/scss/popover';
+// @import 'vendor/bootstrap/scss/carousel';
+// @import 'vendor/bootstrap/scss/spinners';
 @import 'vendor/bootstrap/scss/utilities';
 @import 'vendor/bootstrap/scss/print';
 
@@ -58,5 +75,12 @@ $yiq-contrasted-threshold: 200;
 @include media-breakpoint-up(xl) {
   .list-pl-responsive {
     padding-left: 40px; // CSS default
+  }
+}
+
+/* Fix spacing issues in nested lists */
+ul ul, ul ol, ol ul, ol ol {
+  & + p {
+    margin-top: 1rem !important;
   }
 }
