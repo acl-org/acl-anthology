@@ -31,6 +31,34 @@ def author_string(author):
   author_str = codecs.encode(author_s, "latex")
   return author_str
 
+# takes an xml element
+# converts tags specified in schema.rnc
+#  <fixed-case> to curly braces
+#  <b> to \textbf
+#  <i> to \textit
+#  <tex-math> to $ $
+#  <url> to \url
+# returns a latex-format string or None if there is no text
+def convert_xml_text_markup(title):
+  for elem in title.findall(".//fixed-case"):
+    elem.text = "{" + elem.text + "}"
+  for elem in title.findall(".//b"):
+    elem.text = "\\textbf{" + elem.text + "}"
+  for elem in title.findall(".//i"):
+    elem.text = "\\textit{" + elem.text + "}"
+  for elem in title.findall(".//tex-math"):
+    elem.text = "$" + elem.text + "$"
+  for elem in title.findall(".//url"):
+    elem.text = "\\url{" + elem.text + "}"
+  if title.text:
+    # this removes any xml markup within the title string, but keeps all text
+    title = "".join(title.itertext()).strip()
+    title = re.sub(r"\"\b", "``", title)
+    title = re.sub(r"\"", "''", title)
+    return title
+  else:
+    return None
+
 # takes references to <paper> and <volume> xml entries
 # prints bibtex entry
 def printbib(item, volume):
@@ -40,12 +68,9 @@ def printbib(item, volume):
   else:
     print ( "@InProceedings{" + volume_id + '-' + item.get("id") + "," )
   for title in item.findall('title'):
-    if title.text:
-      # this removes any xml markup within the title string, but keeps all text
-      title = "".join(title.itertext()).strip()
-      title = re.sub(r"\"\b", "``", title)
-      title = re.sub(r"\"", "''", title)
-      print ( "  title = \"" + title + "\"," )
+    title = convert_xml_text_markup(title)
+    if title:
+      print ( u"  title = \"" + title + u"\"," )
   sys.stdout.write( "  author = \"" )
   s=' and\n            '
   print( s.join(map(author_string, item.findall("author"))) +
@@ -98,11 +123,13 @@ def printbib(item, volume):
     # this is a proceedings, not a journal 
     if item.findall('booktitle'):
       for i in item.findall('booktitle'):
-        print ( "  booktitle = \"" + i.text.strip() + "\"," )
+        if i.text:
+          print ( "  booktitle = \"" + i.text.strip() + "\"," )
     else:
       # fall back to <title> in first paper in <volume>
       for i in volume.find('paper').findall('title'):
-        print ( "  booktitle = \"" + i.text.strip() + "\"," )
+        if i.text:
+          print ( "  booktitle = \"" + i.text.strip() + "\"," )
 
   for i in item.findall('month'):
     print ( "  month = \"" + i.text + "\"," )
@@ -127,9 +154,9 @@ def printbib(item, volume):
     print ( "  doi = \"" + i.text + "\"," )
 
   for i in item.findall('abstract'):
-    abstract = "".join(i.itertext()).strip()
-    abstract = re.sub(r"\"\b", "``", abstract)
-    abstract = re.sub(r"\"", "''", abstract)
+    abstract = convert_xml_text_markup(i)
+    if (abstract == None):
+      continue
     if len(re.findall(r"\{", abstract)) != len(re.findall(r"\}", abstract)):
       sys.stderr.write("warning: unbalanced braces in abstract: " + volume_id + " " + item.get("id") + "\n")
       sys.stderr.write("  " + "".join(re.findall(r"\{", abstract)) + " " + "".join(re.findall(r"\}", abstract)) + "\n")
