@@ -24,7 +24,9 @@
     <a class="badge badge-secondary align-middle" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
       <i class="fas fa-search"></i>
     </a>
-    <!-- TODO: attachment links -->
+    {{ range $paper.attachment }}
+      <a class="badge badge-info align-middle" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">{{ partial "attachment_repr.html" . }}</a>
+    {{ end }}
   </span>
     <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
     <br />
