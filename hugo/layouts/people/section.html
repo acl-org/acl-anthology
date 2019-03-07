@@ -1,0 +1,16 @@
+{{ define "main" }}
+<main aria-role="main">
+  <h2 id="title">{{ .Title }}</h2>
+  <hr />
+
+  <p>TODO: This is not working properly yet.</p>
+
+  {{ $paginator := .Paginate (.Pages.ByParam "lastname") 50 }}
+  {{ template "_internal/pagination.html" . }}
+  <ul>
+  {{ range $paginator.Pages }}
+    <li>{{ .Title }}</li>
+  {{ end }}
+  </ul>
+</main>
+{{ end }}

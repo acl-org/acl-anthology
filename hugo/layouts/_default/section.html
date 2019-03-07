@@ -1,6 +1,18 @@
+{{ define "meta" }}
+<meta name="robots" content="noindex, nofollow">
+{{ end }}
+
 {{ define "main" }}
-<main>
-  <p>This is the default <b>section</b> template.</p>
-      {{ .Content }}
-  </main>
+<main aria-role="main">
+  {{/* This template isn't very important, it mainly exists to show something
+  reasonable if a user happens to manually navigate to /events/ or /venues/ */}}
+  <h2 id="title">{{ .Title }}</h2>
+  <hr />
+
+  <ul>
+  {{ range .Pages }}
+  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  {{ end }}
+  </ul>
+</main>
 {{ end }}

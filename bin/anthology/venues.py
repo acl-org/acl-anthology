@@ -34,6 +34,7 @@ class VenueIndex:
             self.letters = yaml.load(f, Loader=Loader)
             for letter, acronym in self.letters.items():
                 self.venues[acronym]["is_toplevel"] = True
+                self.venues[acronym]["main_letter"] = letter
         with open("{}/venues_ws_map.yaml".format(directory), "r") as f:
             map_dict = yaml.load(f, Loader=Loader)
             for id_, joint in map_dict.items():

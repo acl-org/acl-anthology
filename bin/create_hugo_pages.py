@@ -126,8 +126,9 @@ def create_people(srcdir, clean=False):
                 os.makedirs(person_dir)
             with open("{}/{}.md".format(person_dir, name), "w") as f:
                 print("---", file=f)
+                # "lastname" is dumped to allow sorting by it in Hugo
                 yaml.dump(
-                    {"name": name, "title": entry["full"]},
+                    {"name": name, "title": entry["full"], "lastname": entry["last"]},
                     default_flow_style=False,
                     stream=f,
                 )
@@ -151,11 +152,11 @@ def create_venues_and_events(srcdir, clean=False):
         venue_str = venue_data["slug"]
         with open("{}/content/venues/{}.md".format(srcdir, venue_str), "w") as f:
             print("---", file=f)
-            yaml.dump(
-                {"venue": venue, "title": venue_data["name"]},
-                default_flow_style=False,
-                stream=f,
-            )
+            yaml_data = {"venue": venue, "title": venue_data["name"]}
+            if venue_data["is_toplevel"]:
+                main_letter = venue_data["main_letter"]
+                yaml_data["aliases"] = ["/papers/{}/".format(main_letter)]
+            yaml.dump(yaml_data, default_flow_style=False, stream=f)
             print("---", file=f)
 
     log.info("Creating stubs for events...")
@@ -169,15 +170,18 @@ def create_venues_and_events(srcdir, clean=False):
                 "{}/content/events/{}-{}.md".format(srcdir, venue_str, year), "w"
             ) as f:
                 print("---", file=f)
-                yaml.dump(
-                    {
-                        "venue": venue,
-                        "year": year,
-                        "title": "{} ({})".format(venue_data["name"], year),
-                    },
-                    default_flow_style=False,
-                    stream=f,
-                )
+                yaml_data = {
+                    "venue": venue,
+                    "year": year,
+                    "title": "{} ({})".format(venue_data["name"], year),
+                }
+                if venue_data["is_toplevel"]:
+                    main_letter = venue_data["main_letter"]
+                    main_prefix = main_letter + year[-2:]  # e.g., P05
+                    yaml_data["aliases"] = [
+                        "/papers/{}/{}/".format(main_letter, main_prefix)
+                    ]
+                yaml.dump(yaml_data, default_flow_style=False, stream=f)
                 print("---", file=f)
 
 
