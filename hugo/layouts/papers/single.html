@@ -26,14 +26,31 @@
   <h2 id="title">
     <a href="{{ $paper.url }}">{{ $paper.title_html | safeHTML }}</a>
   </h2>
+  {{ with $paper.author }}
+  <p class="lead">
+    {{ $len := (len .) }}
+    {{ range $index, $person := . }}
+      {{ $first_letter := slicestr $person 0 1 }}
+      <a href="{{ relref $ (printf "/people/%s/%s.md" $first_letter $person) }}">{{ (index $.Site.Data.people $first_letter $person).full }}</a>{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ end }}
+  {{ end }}
   <hr />
 
   <div class="row acl-paper-details">
     <div class="col col-lg-10 order-2">
+      {{ with $paper.abstract_html }}
+      <div class="card bg-light mb-2 mb-lg-3">
+        <div class="card-body">
+          <h5 class="card-title">Abstract</h5>
+          {{ . | safeHTML }}
+        </div>
+      </div>
+      {{ end }}
+
     <!-- To avoid cluttering this template with Bootstrap classes, the styling
     for this list is defined in assets/css/_papers.scss -->
     <dl>
-      <dt>Anthology:</dt>
+      <dt>Anthology ID:</dt>
       <dd>{{ $anthology_id }}</dd>
 
       {{ range $paper.revision }}
@@ -54,24 +71,12 @@
         {{- end -}}
       </dd>
 
-      {{ if isset $paper "author" }}
-      <dt>{{ if gt (len $paper.author) 1 }}Authors:{{ else }}Author:{{ end }}</dt>
-      <dd>
-        {{ $len := (len $paper.author) }}
-        {{ range $index, $person := $paper.author }}
-          {{ $first_letter := slicestr $person 0 1 }}
-          <a href="{{ relref $ (printf "/people/%s/%s.md" $first_letter $person) }}">{{ (index $.Site.Data.people $first_letter $person).full }}</a>
-          {{ if ne (add $index 1) $len }} | {{ end }}
-        {{ end }}
-      </dd>
-      {{ else }}
-      <dt>Author:</dt><dd></dd>
-      {{ end }}
-
       <dt>Month:</dt>
       <dd>{{ with $paper.month }}{{ . }}{{ end }}</dd>
       <dt>Year:</dt>
       <dd>{{ with $paper.year }}{{ . }}{{ end }}</dd>
+      <dt>Address:</dt>
+      <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
 
       {{ with $paper.parent_volume_id }}
       {{ $volume := index $.Site.Data.volumes . }}
@@ -85,13 +90,6 @@
           {{ if ne (add $index 1) $len }} | {{ end }}
         {{- end -}}
       </dd>
-      {{ end }}
-
-      <dt>Address:</dt>
-      <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
-
-      {{ with $paper.parent_volume_id }}
-      {{ $volume := index $.Site.Data.volumes . }}
       <dt>{{ if gt (len $volume.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
       <dd>
         {{- $len := (len $volume.sigs) -}}
@@ -120,12 +118,7 @@
 
       {{ range $paper.attachment }}
       <dt>{{ humanize .type }}:</dt>
-      <dd><a href="{{ .url }}">{{ .filename }}</a></dd>
-      {{ end }}
-
-      {{ with $paper.abstract_html }}
-      <dt>Abstract:</dt>
-      <dd><p>{{ . | safeHTML }}</p></dd>
+      <dd>{{ partial "attachment_repr.html" . }}&nbsp;<a href="{{ .url }}">{{ .filename }}</a></dd>
       {{ end }}
     </dl>
     </div>
@@ -150,11 +143,17 @@
       {{ end }}
       <!-- TODO: bib export link -->
       <a class="btn btn-secondary" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
-        <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span>
+        <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span><span class="pl-2 pl-sm-0 d-inline d-sm-none">bib</span>
       </a>
       <a class="btn btn-secondary" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
         <i class="fas fa-search"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
+      {{ range $paper.attachment }}
+      <a class="btn btn-attachment" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
+        {{ partial "attachment_repr.html" . }}
+        {{ humanize .type }}
+      </a>
+      {{ end }}
     </div>
   </div>
   <hr />

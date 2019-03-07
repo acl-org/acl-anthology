@@ -25,7 +25,7 @@
       <i class="fas fa-search"></i>
     </a>
     {{ range $paper.attachment }}
-      <a class="badge badge-info align-middle" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">{{ partial "attachment_repr.html" . }}</a>
+      <a class="badge badge-attachment align-middle" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">{{ partial "attachment_repr.html" . }}</a>
     {{ end }}
   </span>
     <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>

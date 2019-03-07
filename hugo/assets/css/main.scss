@@ -15,6 +15,14 @@ $yiq-contrasted-threshold: 200;
 @import 'vendor/bootstrap/scss/variables';
 @import 'vendor/bootstrap/scss/mixins';
 
+$attachment_color: $green;
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    "attachment":  $attachment_color
+  )
+);
+
 /* Optional Bootstrap components -- we only include those we need */
 @import 'vendor/bootstrap/scss/root';
 @import 'vendor/bootstrap/scss/reboot';

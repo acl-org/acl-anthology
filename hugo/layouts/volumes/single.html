@@ -10,6 +10,16 @@
   <h2 id="title">
     <a href="{{ $paper.url }}">{{ $paper.title_html | safeHTML }}</a>
   </h2>
+  {{ with $paper.editor }}
+  <p class="lead">
+    {{ $len := (len .) }}
+    {{ range $index, $person := . }}
+      {{ $first_letter := slicestr $person 0 1 }}
+      <a href="{{ relref $ (printf "/people/%s/%s.md" $first_letter $person) }}">{{ (index $.Site.Data.people $first_letter $person).full }}</a>{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ end }}
+    <span class="text-muted">({{ cond (eq (len .) 1) "Editor" "Editors" }})</span>
+  {{ end }}
+
   <hr />
 
   <div class="row acl-paper-details">
@@ -17,27 +27,15 @@
     <!-- To avoid cluttering this template with Bootstrap classes, the styling
     for this list is defined in assets/css/_papers.scss -->
     <dl>
-      <dt>Anthology:</dt>
+      <dt>Anthology ID:</dt>
       <dd>{{ $anthology_id }}</dd>
-
-      {{ if isset $paper "editor" }}
-      <dt>{{ if gt (len $paper.editor) 1 }}Editors:{{ else }}Editor:{{ end }}</dt>
-      <dd>
-        {{ $len := (len $paper.editor) }}
-        {{ range $index, $person := $paper.editor }}
-          {{ $first_letter := slicestr $person 0 1 }}
-          <a href="{{ relref $ (printf "/people/%s/%s.md" $first_letter $person) }}">{{ (index $.Site.Data.people $first_letter $person).full }}</a>
-          {{ if ne (add $index 1) $len }} | {{ end }}
-        {{ end }}
-      </dd>
-      {{ else }}
-      <dt>Editor:</dt><dd></dd>
-      {{ end }}
 
       <dt>Month:</dt>
       <dd>{{ with $paper.month }}{{ . }}{{ end }}</dd>
       <dt>Year:</dt>
       <dd>{{ with $paper.year }}{{ . }}{{ end }}</dd>
+      <dt>Address:</dt>
+      <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
 
       {{ if isset $paper "venues" }}
       <dt>{{ if gt (len $paper.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
@@ -51,9 +49,6 @@
         {{- end -}}
       </dd>
       {{ end }}
-
-      <dt>Address:</dt>
-      <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
 
       {{ if isset $paper "sigs" }}
       <dt>{{ if gt (len $paper.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
