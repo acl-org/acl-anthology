@@ -82,20 +82,16 @@
     </dl>
     </div>
 
-    <!-- Bootstrap classes explanation:
-         * By default, show this block first and use flexbox to space out buttons
-         * On large displays, show this block as a third column in the layout
-           and disable flexbox to make buttons full-width instead
-     -->
-    <div class="col-lg-2 order-1 order-lg-last mb-3 mb-lg-0 d-flex d-lg-block flex-wrap justify-content-around">
-        <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mb-2" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
-          <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(full)</small></span>
+    <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
+    <div class="acl-paper-link-block">
+      <a class="btn btn-primary" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+        <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(full)</small></span>
       </a>
       <!-- TODO: bib export link -->
-      <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mb-2" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+      <a class="btn btn-secondary" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span>
       </a>
-      <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mb-2" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
+      <a class="btn btn-secondary" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
         <i class="fas fa-search"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
     </div>
@@ -104,7 +100,8 @@
 
   <div>
     {{ range $paper.papers }}
-      {{ partial "paper-list-entry.html" (dict "context" $ "paper_id" .) }}
+      {{ $page := printf "/papers/%s/%s/%s.md" (slicestr . 0 1) (slicestr . 0 3) . }}
+      {{ ($.Site.GetPage $page).Render "list-entry" }}
     {{ end }}
   </div>
 </section>

@@ -40,7 +40,8 @@
     <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
 
     {{ range $volume.papers }}
-      {{ partial "paper-list-entry.html" (dict "context" $ "paper_id" .) }}
+      {{ $page := printf "/papers/%s/%s/%s.md" (slicestr . 0 1) (slicestr . 0 3) . }}
+      {{ ($.Site.GetPage $page).Render "list-entry" }}
     {{ end }}
   </div>
   <hr />

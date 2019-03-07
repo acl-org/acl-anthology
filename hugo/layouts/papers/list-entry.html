@@ -1,5 +1,4 @@
-{{ $paper := index (index .context.Site.Data.papers (slicestr .paper_id 0 3)) .paper_id }}
-{{ $paper_link := printf "/papers/%s/%s/%s.md" (slicestr .paper_id 0 1) (slicestr .paper_id 0 3) .paper_id }}
+{{ $paper := index (index $.Site.Data.papers (slicestr .Params.anthology_id 0 3)) .Params.anthology_id }}
 <p>
   <span class="mr-2">
   {{ if isset $paper "revision" }}
@@ -27,14 +26,14 @@
     </a>
     <!-- TODO: attachment links -->
   </span>
-    <strong><a class="align-middle" href="{{ relref .context $paper_link }}">{{ $paper.title_html | safeHTML }}</a></strong>
+    <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
     <br />
-    <span class="text-muted">[{{ .paper_id }}]:</span>
+    <span class="text-muted">[{{ .Params.anthology_id }}]:</span>
     {{ with $paper.author }}
       {{ $len := (len $paper.author) }}
       {{ range $index, $person := $paper.author }}
         {{ $first_letter := slicestr $person 0 1 }}
-        <a href="{{ relref $.context (printf "/people/%s/%s.md" $first_letter $person) }}">{{ (index $.context.Site.Data.people $first_letter $person).full }}</a>
+        <a href="{{ relref $ (printf "/people/%s/%s.md" $first_letter $person) }}">{{ (index $.Site.Data.people $first_letter $person).full }}</a>
         {{ if ne (add $index 1) $len }} | {{ end }}
       {{ end }}
     {{ end }}

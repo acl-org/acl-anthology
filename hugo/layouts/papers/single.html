@@ -130,33 +130,29 @@
     </dl>
     </div>
 
-    <!-- Bootstrap classes explanation:
-         * By default, show this block first and use flexbox to space out buttons
-         * On large displays, show this block as a third column in the layout
-           and disable flexbox to make buttons full-width instead
-     -->
-    <div class="col-lg-2 order-1 order-lg-last mb-3 mb-lg-0 d-flex d-lg-block flex-wrap justify-content-around">
+    <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
+    <div class="acl-paper-link-block">
       {{ if isset $paper "revision" }}
         {{ range last 1 $paper.revision }}
-        <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mx-lg-0 mb-2" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
+        <a class="btn btn-primary" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
         </a>
         {{ end }}
         {{ range first 1 $paper.revision }}
-        <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mx-lg-0 mb-2" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
+        <a class="btn btn-secondary" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
         </a>
         {{ end }}
       {{ else }}
-        <a class="flex-fill btn btn-lg btn-primary btn-lg-block mx-1 mx-lg-0 mb-2" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+        <a class="btn btn-primary" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF</span>
         </a>
       {{ end }}
       <!-- TODO: bib export link -->
-      <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mx-lg-0 mb-2" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+      <a class="btn btn-secondary" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span>
       </a>
-      <a class="flex-fill btn btn-lg btn-secondary btn-lg-block mx-1 mx-lg-0 mb-2" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
+      <a class="btn btn-secondary" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
         <i class="fas fa-search"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
     </div>
