@@ -61,20 +61,20 @@ def convert_xml_text_markup(title):
 
 # takes references to <paper> and <volume> xml entries
 # prints bibtex entry
-def printbib(item, volume):
+def printbib(item, volume, file=sys.stdout):
   volume_id = volume.get("id")
   if (volume_id[0] == "Q" or volume_id[0] == "J"):
-    print ( "@Article{" + volume_id + '-' + item.get("id") + "," )
+    print ( "@Article{" + volume_id + '-' + item.get("id") + ",", file=file )
   else:
-    print ( "@InProceedings{" + volume_id + '-' + item.get("id") + "," )
+    print ( "@InProceedings{" + volume_id + '-' + item.get("id") + ",", file=file )
   for title in item.findall('title'):
     title = convert_xml_text_markup(title)
     if title:
-      print ( u"  title = \"" + title + u"\"," )
-  sys.stdout.write( "  author = \"" )
+      print ( u"  title = \"" + title + u"\",", file=file )
+  file.write( "  author = \"" )
   s=' and\n            '
   print( s.join(map(author_string, item.findall("author"))) +
-         "\"," )
+         "\",", file=file )
 
   if (volume_id[0] == "Q" or volume_id[0] == "J"):
     # journals
@@ -114,44 +114,44 @@ def printbib(item, volume):
       # TACL has no issue number
 
     if journal_name:
-      print ( "  journal = \"" + journal_name + "\"," )
+      print ( "  journal = \"" + journal_name + "\",", file=file )
     if journal_volume:
-      print ( "  volume = \"" + journal_volume + "\"," )
+      print ( "  volume = \"" + journal_volume + "\",", file=file )
     if journal_issue:
-      print ( "  number = \"" + journal_issue + "\"," )
+      print ( "  number = \"" + journal_issue + "\",", file=file )
   else:
     # this is a proceedings, not a journal 
     if item.findall('booktitle'):
       for i in item.findall('booktitle'):
         if i.text:
-          print ( "  booktitle = \"" + i.text.strip() + "\"," )
+          print ( "  booktitle = \"" + i.text.strip() + "\",", file=file )
     else:
       # fall back to <title> in first paper in <volume>
       for i in volume.find('paper').findall('title'):
         if i.text:
-          print ( "  booktitle = \"" + i.text.strip() + "\"," )
+          print ( "  booktitle = \"" + i.text.strip() + "\",", file=file )
 
   for i in item.findall('month'):
-    print ( "  month = \"" + i.text + "\"," )
+    print ( "  month = \"" + i.text + "\",", file=file )
   for i in item.findall('year'):
-    print ( "  year = \"" + i.text + "\"," )
+    print ( "  year = \"" + i.text + "\",", file=file )
 
   for i in item.findall('address'):
-    print ( "  location = \"" + i.text + "\"," )
+    print ( "  location = \"" + i.text + "\",", file=file )
 
   for i in item.findall('publisher'):
-    print ( "  publisher = \"" + i.text + "\"," )
+    print ( "  publisher = \"" + i.text + "\",", file=file )
 
   for i in item.findall('pages'):
     if i.text:
       pagerange = re.sub(u"[–-]+", "--", i.text)
-      print ( u"  pages = \"" + pagerange + "\"," )
+      print ( u"  pages = \"" + pagerange + "\",", file=file )
 
   for i in item.findall('url'):
-    print ( "  url = \"" + i.text + "\"," )
+    print ( "  url = \"" + i.text + "\",", file=file )
     
   for i in item.findall('doi'):
-    print ( "  doi = \"" + i.text + "\"," )
+    print ( "  doi = \"" + i.text + "\",", file=file )
 
   for i in item.findall('abstract'):
     abstract = convert_xml_text_markup(i)
@@ -160,9 +160,9 @@ def printbib(item, volume):
     if len(re.findall(r"\{", abstract)) != len(re.findall(r"\}", abstract)):
       sys.stderr.write("warning: unbalanced braces in abstract: " + volume_id + " " + item.get("id") + "\n")
       sys.stderr.write("  " + "".join(re.findall(r"\{", abstract)) + " " + "".join(re.findall(r"\}", abstract)) + "\n")
-    print ( "  abstract = \"" + abstract + "\"," )
+    print ( "  abstract = \"" + abstract + "\",", file=file )
 
-  print( "}")
+  print( "}", file=file)
                         
 count = 0
 for f in os.listdir('.'):
