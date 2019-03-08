@@ -24,9 +24,9 @@ This is achieved by calling:
 $ python3 bin/create_hugo_yaml.py
 ```
 
-This process can take between 20-30 seconds (when [C bindings for
-PyYAML](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/)
-are installed) and a couple of minutes (without the C bindings).
+This process should not take longer than a few minutes and can be sped up
+considerably by [installing PyYAML with C
+bindings](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/).
 
 ### Step 2: Create page stubs for site generation
 
@@ -42,23 +42,34 @@ $ python3 bin/create_hugo_pages.py
 ```
 
 This script will produce *a lot* of files in the `hugo/content/` subdirectory
-(at least one for each paper in the Anthology), and shouldn't take longer to run
-than the script in Step 1.
+(most prominently, one for each paper in the Anthology).
 
-### Step 3: Run Hugo
+### Step 3: Create bibliography export files for papers
 
-After the YAML data files and page stubs have been created, the website can be
-built by simply invoking Hugo from the `hugo/` subdirectory.  Optionally, the
-`--minify` flag can be used to create minified HTML output:
+In this step, we create `.bib` files for each paper and proceedings volume in
+the Anthology.  This is achieved by calling:
+
+```bash
+$ python3 bin/create_export_formats.py
+```
+
+The exported files will be written to the `hugo/data-export/` subdirectory.
+
+### Step 4: Run Hugo
+
+After all necessary files have been created, the website can be built by simply
+invoking Hugo from the `hugo/` subdirectory.  Optionally, the `--minify` flag
+can be used to create minified HTML output:
 
 ```bash
 $ hugo --minify
 ```
 
-Generating the website is quite a resource-hungry process, but should be
-reasonably fast (*On my laptop, it uses about 4 GB of RAM and takes 35 seconds,
-running on 4 CPU cores. --MB*).  The fully generated website will be in
-`hugo/public/` afterwards.
+Generating the website is quite a resource-hungry process, but should not take
+longer than a few minutes.  Due to the high memory usage, it is possible that it
+will cause swapping and consequently slow down your system for a while.
+
+The fully generated website will be in `hugo/public/` afterwards.
 
 
 ## Making changes to the Anthology

@@ -68,12 +68,19 @@
       <dd>{{ with $paper.url }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
       <dt>DOI:</dt>
       <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      <!--
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
+      -->
       <dt>Bib Export formats:</dt>
-      <dd>TODO</dd>
+      <dd>
+      {{ $bibfile := printf "/volumes/%s.bib" $volume_id }}
+      {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
+        <a class="badge badge-secondary align-middle" href="{{ $bibfile | relURL }}">BibTeX</a>
+      {{ end }}
+      </dd>
     </dl>
     </div>
 
@@ -82,10 +89,12 @@
       <a class="btn btn-primary" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
         <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(full)</small></span>
       </a>
-      <!-- TODO: bib export link -->
-      <a class="btn btn-secondary" href="#" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+      {{ $bibfile := printf "/volumes/%s.bib" $volume_id }}
+      {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
+      <a class="btn btn-secondary" href="{{ $bibfile | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span>
       </a>
+      {{ end }}
       <a class="btn btn-secondary" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
         <i class="fas fa-search"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>

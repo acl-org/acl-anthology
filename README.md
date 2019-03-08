@@ -46,34 +46,14 @@ you cloned the repo:
 $ bin/build_hugo
 ```
 
-If all goes well, the output of this command should look similar to this:
-
-```
-INFO     Reading the Anthology data...
-INFO     Exporting to YAML...
-100%|███████████████████████████████████████████████████████████████████| 345/345 [00:15<00:00, 10.12it/s]
-INFO     Creating stubs for papers...
-100%|███████████████████████████████████████████████████████████████████| 314/314 [00:24<00:00, 17.04it/s]
-INFO     Creating stubs for volumes...
-
-                   |  EN
-+------------------+-------+
-  Pages            | 49809
-  Paginator pages  |  4979
-  Non-page files   |     0
-  Static files     |     6
-  Processed images |     0
-  Aliases          |     2
-  Sitemaps         |     1
-  Cleaned          |     0
-
-Total in 31869 ms
-```
-
 The fully generated website will be in `hugo/public/` afterwards.  If any errors
 occur during this step, you can consult the [detailed
 README](README_detailed.md) for more information on the individual steps
 performed to build the site.
+
+Note that building the website is quite a resource-intensive process;
+particularly the last step, invoking Hugo, requires a considerable amount of
+memory.
 
 
 ## Contributing

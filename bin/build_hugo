@@ -6,5 +6,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 python3 $DIR/create_hugo_yaml.py
 python3 $DIR/create_hugo_pages.py --clean
+python3 $DIR/create_export_formats.py --clean
 cd $DIR/../hugo
 hugo --cleanDestinationDir --minify
