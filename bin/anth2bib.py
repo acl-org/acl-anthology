@@ -63,18 +63,35 @@ def convert_xml_text_markup(title):
 # prints bibtex entry
 def printbib(item, volume, file=sys.stdout):
   volume_id = volume.get("id")
+  paper_id = item.get("id")
   if (volume_id[0] == "Q" or volume_id[0] == "J"):
+    bibtype = "@Article"
     print ( "@Article{" + volume_id + '-' + item.get("id") + ",", file=file )
   else:
-    print ( "@InProceedings{" + volume_id + '-' + item.get("id") + ",", file=file )
+    if (paper_id[-3:] == "000" or
+        (volume_id[0] == "W" and paper_id[-2:] == "00")):
+      bibtype = "@Proceedings"
+      print ( "@Proceedings{" + volume_id + '-' + item.get("id") + ",", file=file )
+    else:
+       bibtype = "@InProceedings"
+       print ( "@InProceedings{" + volume_id + '-' + item.get("id") + ",", file=file )
   for title in item.findall('title'):
     title = convert_xml_text_markup(title)
     if title:
       print ( u"  title = \"" + title + u"\",", file=file )
-  file.write( "  author = \"" )
-  s=' and\n            '
-  print( s.join(map(author_string, item.findall("author"))) +
-         "\",", file=file )
+
+      
+  if item.find("author"):
+    file.write( "  author = \"" )
+    s=' and\n            '
+    print( s.join(map(author_string, item.findall("author"))) +
+           "\",", file=file )
+
+  if item.find("editor"):
+    file.write( "  editor = \"" )
+    s=' and\n            '
+    print( s.join(map(author_string, item.findall("editor"))) +
+           "\",", file=file )
 
   if (volume_id[0] == "Q" or volume_id[0] == "J"):
     # journals
@@ -125,7 +142,7 @@ def printbib(item, volume, file=sys.stdout):
       for i in item.findall('booktitle'):
         if i.text:
           print ( "  booktitle = \"" + i.text.strip() + "\",", file=file )
-    else:
+    elif not bibtype == "@Proceedings":
       # fall back to <title> in first paper in <volume>
       for i in volume.find('paper').findall('title'):
         if i.text:
