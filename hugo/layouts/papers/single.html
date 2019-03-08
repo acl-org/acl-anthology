@@ -18,10 +18,24 @@
 {{ with $paper.doi }}<meta content="{{ . }}" name="citation_doi" >{{ end }}
 {{ end }}
 
+{{ define "javascript" }}
+<script src="{{ "/js/clipboard.min.js" | relURL }}"></script>
+<script>
+  $( document ).ready(function() {
+      if (ClipboardJS.isSupported()) {
+          new ClipboardJS(".btn-clipboard");
+      } else {
+          $(".btn-clipboard").hide();
+      }
+  });
+</script>
+{{ end }}
+
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := slicestr .Params.anthology_id 0 3 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
+{{ $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
 <section id="main">
   <h2 id="title">
     <a href="{{ $paper.url }}">{{ $paper.title_html | safeHTML }}</a>
@@ -117,7 +131,6 @@
       -->
       <dt>Bib Export formats:</dt>
       <dd>
-      {{ $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
         <a class="badge badge-secondary align-middle" href="{{ $bibfile | relURL }}">BibTeX</a>
       {{ end }}
@@ -148,7 +161,6 @@
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF</span>
         </a>
       {{ end }}
-      {{ $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
       <a class="btn btn-secondary" href="{{ $bibfile | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span><span class="pl-2 pl-sm-0 d-inline d-sm-none">bib</span>
@@ -165,6 +177,17 @@
       {{ end }}
     </div>
   </div>
+
+  {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
+  <div class="card bg-light acl-inline-export">
+    <div class="card-body mb-0">
+      <button type="button" class="btn btn-clipboard btn-outline-primary" data-clipboard-target="#bibtex"><i class="far fa-clipboard pr-2"></i>Copy</button>
+      <h6 class="text-muted">BibTeX</h6>
+      <pre id="bibtex"><code>{{ readFile (printf "/data-export/%s" $bibfile) }}</code></pre>
+    </div>
+  </div>
+  {{ end }}
+
   <hr />
 </section>
 {{ end }}
