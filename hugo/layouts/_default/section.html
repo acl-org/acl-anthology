@@ -9,10 +9,14 @@
   <h2 id="title">{{ .Title }}</h2>
   <hr />
 
+  {{ .Content }}
+
+  {{ with .Params.render_pagelist }}
   <ul>
-  {{ range .Pages }}
+  {{ range $.Pages }}
   <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
   {{ end }}
   </ul>
+  {{ end }}
 </main>
 {{ end }}
