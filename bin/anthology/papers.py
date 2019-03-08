@@ -110,6 +110,13 @@ class Paper:
                     "type": element.get("tag", "video"),
                     "url": infer_attachment_url(element.get("href")),
                 }
+            elif tag in ("dataset", "software"):
+                value = {
+                    "filename": element.text,
+                    "type": tag,
+                    "url": infer_attachment_url(element.text),
+                }
+                tag = "attachment"
             else:
                 value = element.text
             # store value
