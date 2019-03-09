@@ -26,7 +26,7 @@
 
   <body>
     {{ block "header" . }}{{ partialCached "header_navbar.html" .}}{{ end }}
-    <div class="container">
+    <div class="{{ default "container" (index .Params "css_container") }}">
       {{ block "main" . }}{{ end }}
     </div>
     {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
