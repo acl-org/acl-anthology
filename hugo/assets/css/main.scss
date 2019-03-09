@@ -15,7 +15,7 @@ $yiq-contrasted-threshold: 200;
 @import 'vendor/bootstrap/scss/variables';
 @import 'vendor/bootstrap/scss/mixins';
 
-$attachment_color: $green;
+$attachment_color: darken( $green, 10% );
 $theme-colors: map-merge(
   $theme-colors,
   (
@@ -52,7 +52,7 @@ $theme-colors: map-merge(
 @import 'vendor/bootstrap/scss/close';
 // @import 'vendor/bootstrap/scss/toasts';
 // @import 'vendor/bootstrap/scss/modal';
-// @import 'vendor/bootstrap/scss/tooltip';
+@import 'vendor/bootstrap/scss/tooltip';
 // @import 'vendor/bootstrap/scss/popover';
 // @import 'vendor/bootstrap/scss/carousel';
 // @import 'vendor/bootstrap/scss/spinners';
@@ -64,25 +64,10 @@ $theme-colors: map-merge(
 @import 'papers';
 @import 'texmath';
 
-/* A responsive variant of Bootstrap's .btn-block */
-@include media-breakpoint-up(lg) {
-  .btn-lg-block {
-    display: block;
-    width: 100%;
-  }
-}
-
-.list-pl-responsive {
-  padding-left: 24px;
-}
-@include media-breakpoint-up(md) {
-  .list-pl-responsive {
-    padding-left: 32px;
-  }
-}
-@include media-breakpoint-up(xl) {
-  .list-pl-responsive {
-    padding-left: 40px; // CSS default
+/* Some space improvements on smaller displays */
+@include media-breakpoint-down(sm) {
+  h2#title {
+    font-size: $h3-font-size !important;
   }
 }
 

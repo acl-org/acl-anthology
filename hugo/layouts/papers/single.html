@@ -53,7 +53,7 @@
     <div class="col col-lg-10 order-2">
       {{ with $paper.abstract_html }}
       <div class="card bg-light mb-2 mb-lg-3">
-        <div class="card-body">
+        <div class="card-body acl-abstract">
           <h5 class="card-title">Abstract</h5>
           {{ . | safeHTML }}
         </div>
@@ -128,8 +128,8 @@
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
-      <dt>Bib Export formats:</dt>
-      <dd>
+      <dt class="acl-button-row">Bib Export formats:</dt>
+      <dd class="acl-button-row">
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $bibfile | relURL }}">BibTeX</a>
 
@@ -138,8 +138,8 @@
       </dd>
 
       {{ range $paper.attachment }}
-      <dt>{{ humanize .type }}:</dt>
-      <dd>{{ partial "attachment_repr.html" . }}&nbsp;<a href="{{ .url }}">{{ .filename }}</a></dd>
+      <dt class="acl-button-row">{{ humanize .type }}:</dt>
+      <dd class="acl-button-row"><a href="{{ .url }}" class="btn btn-attachment btn-sm">{{ partial "attachment_repr.html" . }}&nbsp;{{ .filename }}</a></dd>
       {{ end }}
     </dl>
     </div>

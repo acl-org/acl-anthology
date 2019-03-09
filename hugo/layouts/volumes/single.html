@@ -74,11 +74,11 @@
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
-      <dt>Bib Export formats:</dt>
-      <dd>
+      <dt class="acl-button-row">Bib Export formats:</dt>
+      <dd class="acl-button-row">
       {{ $bibfile := printf "/volumes/%s.bib" $volume_id }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-        <a class="badge badge-secondary align-middle" href="{{ $bibfile | relURL }}">BibTeX</a>
+        <a class="btn btn-secondary btn-sm" href="{{ $bibfile | relURL }}">BibTeX</a>
       {{ end }}
       </dd>
     </dl>
@@ -86,7 +86,7 @@
 
     <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
     <div class="acl-paper-link-block">
-      <a class="btn btn-primary" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+      <a class="btn btn-primary" href="{{ $paper.url }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
         <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(full)</small></span>
       </a>
       {{ $bibfile := printf "/volumes/%s.bib" $volume_id }}

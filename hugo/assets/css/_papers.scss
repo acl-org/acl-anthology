@@ -1,27 +1,32 @@
 /* Custom styles for pages in papers/ */
 
 .acl-paper-details {
+  /* This essentially reimplements the old Bootstrap dl-horizontal class */
   dl {
-    @extend .row;
+    &:before, &:after {
+      display: table;
+      content: "";
+      line-height: 0;
+    }
 
     dt {
-      /* Display as table except on tiny displays */
-      @extend .col-sm-3;
+      clear: left;
+      text-align: left;
     }
     @include media-breakpoint-up(sm) {
       dt {
+        float: left;
+        width: 10rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         text-align: right;
       }
     }
 
     dd {
-      @extend .col-sm-9;
-      /* Set margins (& indentation) for tiny displays */
-      @extend .mb-1;
-      @extend .ml-3;
-      /* No margins when displayed as table */
-      @extend .mb-sm-0;
-      @extend .ml-sm-0;
+      margin-left: 1rem;
+      margin-bottom: .25rem;
 
       &:empty {
         @extend .text-muted;
@@ -30,6 +35,26 @@
         content: '–';
       }
     }
+
+    @include media-breakpoint-up(sm) {
+      dd {
+        margin-left: 11rem;
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}
+
+dt.acl-button-row {
+  padding-top: .4rem;
+}
+dd.acl-button-row {
+  @extend .my-1;
+}
+
+@include media-breakpoint-down(sm) {
+  .acl-abstract {
+    padding: .75rem !important;
   }
 }
 
@@ -56,5 +81,27 @@
     @extend .mx-1;
     @extend .mx-lg-0;
     @extend .mb-2;
+  }
+}
+
+/* A responsive variant of Bootstrap's .btn-block */
+@include media-breakpoint-up(lg) {
+  .btn-lg-block {
+    display: block;
+    width: 100%;
+  }
+}
+
+.list-pl-responsive {
+  padding-left: 24px;
+}
+@include media-breakpoint-up(md) {
+  .list-pl-responsive {
+    padding-left: 32px;
+  }
+}
+@include media-breakpoint-up(xl) {
+  .list-pl-responsive {
+    padding-left: 40px; // CSS default
   }
 }

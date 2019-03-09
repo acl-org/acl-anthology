@@ -30,12 +30,12 @@
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
     <h4 class="pb-2">
       <span class="mr-2">
-      <a class="badge badge-primary align-middle" href="{{ $volume.url }}" title="Open full PDF of '{{ $volume.title | htmlEscape }}'">pdf (full)</a>
+      <a class="badge badge-primary align-middle" href="{{ $volume.url }}" data-toggle="tooltip" data-placement="top" title="Open full proceedings volume as PDF">pdf (full)</a>
       {{ $bibfile := printf "/volumes/%s.bib" $volume_id }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-      <a class="badge badge-secondary align-middle" href="{{ $bibfile | relURL }}" title="Export '{{ $volume.title | htmlEscape }}' to bib format">bib</a>
+      <a class="badge badge-secondary align-middle" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib</a>
       {{ end }}
-      <a class="badge badge-secondary align-middle" href="https://www.google.com/search?{{ (querify "q" $volume.title) | safeURL }}" title="Search for '{{ $volume.title | htmlEscape }}' on Google">
+      <a class="badge badge-secondary align-middle" href="https://www.google.com/search?{{ (querify "q" $volume.title) | safeURL }}" data-toggle="tooltip" data-placement="top" title="Search on Google">
         <i class="fas fa-search"></i>
       </a>
       </span>

@@ -1,9 +1,8 @@
 <footer class="bg-gradient-light py-2 py-xl-3 mt-3 mt-md-4 mt-xl-5">
   <div class="container">
-    {{ $current_page := . }}
     <nav role="navigation" class="nav w-100 justify-content-center">
       {{ range .Site.Menus.footer.ByName }}
-      <a class="nav-link {{ if $current_page.IsMenuCurrent "footer" . }}active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
+      <a class="nav-link" href="{{ .URL }}">{{ .Name }}</a>
       {{ end }}
     </nav>
     <hr class="mt-2" />

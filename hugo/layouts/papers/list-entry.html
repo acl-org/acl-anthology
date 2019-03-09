@@ -4,31 +4,31 @@
   <span class="mr-2">
   {{ if isset $paper "revision" }}
     {{ range last 1 $paper.revision }}
-    <a class="badge badge-primary align-middle" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
+    <a class="badge badge-primary align-middle" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="Latest revision PDF">
       pdf&nbsp;(v{{ .id }})
     </a>
     {{ end }}
     {{ range first 1 $paper.revision }}
-    <a class="badge badge-secondary align-middle" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
+    <a class="badge badge-secondary align-middle" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="Original PDF">
       pdf&nbsp;(v{{ .id }})
     </a>
     {{ end }}
   {{ else }}
-    <a class="badge badge-primary align-middle" href="{{ $paper.url }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+    <a class="badge badge-primary align-middle" href="{{ $paper.url }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
       pdf
     </a>
   {{ end }}
     {{ $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id .Params.anthology_id }}
     {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-    <a class="badge badge-secondary align-middle" href="{{ $bibfile | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+    <a class="badge badge-secondary align-middle" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
       bib
     </a>
     {{ end }}
-    <a class="badge badge-secondary align-middle" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
+    <a class="badge badge-secondary align-middle" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" data-toggle="tooltip" data-placement="top" title="Search on Google">
       <i class="fas fa-search"></i>
     </a>
     {{ range $paper.attachment }}
-      <a class="badge badge-attachment align-middle" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">{{ partial "attachment_repr.html" . }}</a>
+      <a class="badge badge-attachment align-middle" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
     {{ end }}
   </span>
     <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
