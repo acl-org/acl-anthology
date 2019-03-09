@@ -23,7 +23,10 @@ To build the Anthology website, you will need:
     will speed up the generation process.
 + [**Hugo 0.54**](https://gohugo.io) or higher (can be [downloaded directly from
   their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
-
++ [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
+  non-BibTeX citation formats (not strictly required to build the website, but
+  without them you need to invoke the build steps manually as laid out in the
+  [detailed README](README_detailed.md))
 
 ### Cloning
 

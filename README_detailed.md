@@ -50,10 +50,21 @@ In this step, we create `.bib` files for each paper and proceedings volume in
 the Anthology.  This is achieved by calling:
 
 ```bash
-$ python3 bin/create_export_formats.py
+$ python3 bin/create_bibtex.py
 ```
 
 The exported files will be written to the `hugo/data-export/` subdirectory.
+
+For other export formats, we rely on the
+[`bibutils`](https://sourceforge.net/p/bibutils/home/Bibutils/) suite by
+first converting the generated `.bib` files to MODS XML:
+
+```bash
+$ find hugo/data-export -name '*.bib' -exec bin/bib2xml_wrapper {} \; >/dev/null
+```
+
+This creates a corresponding `.xml` file in MODS format for every `.bib` file
+generated previously.
 
 ### Step 4: Run Hugo
 

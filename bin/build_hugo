@@ -4,8 +4,26 @@ set -o errexit
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+# Some sanity checks
+if ! [ -x "$(command -v bib2xml)" ]; then
+    >&2 echo "ERROR    Couldn't find bib2xml -- did you install bibutils?"
+    exit 1
+fi
+if ! [ -x "$(command -v hugo)" ]; then
+    >&2 echo "ERROR    Couldn't find hugo"
+    exit 1
+fi
+
 python3 $DIR/create_hugo_yaml.py
 python3 $DIR/create_hugo_pages.py --clean
-python3 $DIR/create_export_formats.py --clean
+python3 $DIR/create_bibtex.py --clean
 cd $DIR/../hugo
+>&2 echo "INFO     Converting BibTeX files to MODS XML..."
+if ! [ -x "$(command -v tqdm)" ]; then
+    find data-export -name '*.bib' -print0 | xargs -0 -n 1 -P 8 $DIR/bib2xml_wrapper >/dev/null
+else
+    find data-export -name '*.bib' -print0 | xargs -0 -n 1 -P 8 $DIR/bib2xml_wrapper | tqdm --total $(find data-export -name '*.bib' | wc -l) --unit files >/dev/null
+fi
+
+>&2 echo "INFO     Running Hugo... this may take a while."
 hugo --cleanDestinationDir --minify

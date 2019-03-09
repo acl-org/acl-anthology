@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # Marcel Bollmann <marcel@bollmann.me>, 2019
 
-"""Usage: create_export_formats.py  [--importdir=DIR] [--exportdir=DIR] [-c] [--debug]
+"""Usage: create_bibtex.py [--importdir=DIR] [--exportdir=DIR] [-c] [--debug]
 
-Creates files for all papers and export formats in the Hugo directory.
+Creates .bib files for all papers in the Hugo directory.
 
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../import/]

@@ -80,6 +80,10 @@
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $bibfile | relURL }}">BibTeX</a>
       {{ end }}
+      {{ $expfile := printf "/volumes/%s.xml" $volume_id }}
+      {{ if (fileExists (printf "/data-export/%s" $expfile)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ $expfile | relURL }}">MODS XML</a>
+      {{ end }}
       </dd>
     </dl>
     </div>
