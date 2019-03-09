@@ -24,8 +24,7 @@
   $( document ).ready(function() {
       if (ClipboardJS.isSupported()) {
           new ClipboardJS(".btn-clipboard");
-      } else {
-          $(".btn-clipboard").hide();
+          $(".btn-clipboard").removeClass("d-none");
       }
   });
 </script>
@@ -132,8 +131,10 @@
       <dt>Bib Export formats:</dt>
       <dd>
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-        <a class="badge badge-secondary align-middle" href="{{ $bibfile | relURL }}">BibTeX</a>
-      {{ end }}
+        <a class="btn btn-secondary btn-sm" href="{{ $bibfile | relURL }}">BibTeX</a>
+
+        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s" $bibfile) | safeHTMLAttr }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
+        {{ end }}
       </dd>
 
       {{ range $paper.attachment }}
@@ -177,17 +178,6 @@
       {{ end }}
     </div>
   </div>
-
-  {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-  <div class="card bg-light acl-inline-export">
-    <div class="card-body mb-0">
-      <button type="button" class="btn btn-clipboard btn-outline-primary" data-clipboard-target="#bibtex"><i class="far fa-clipboard pr-2"></i>Copy</button>
-      <h6 class="text-muted">BibTeX</h6>
-      <pre id="bibtex"><code>{{ readFile (printf "/data-export/%s" $bibfile) }}</code></pre>
-    </div>
-  </div>
-  {{ end }}
-
   <hr />
 </section>
 {{ end }}
