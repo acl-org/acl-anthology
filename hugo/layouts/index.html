@@ -1,39 +1,32 @@
 {{ define "main" }}
-<div>
-  <aside class="alert alert-info alert-dismissible acl-news" role="alert">
-    <!-- Note that the content for index.html, as a sort of list page, will pull from content/_index.md -->
-    <div class="acl-news-date">{{ .PublishDate.Format "January 2006" }}</div>
-    {{ .Content }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-  </aside>
-
+<div class="row justify-content-center">
   {{ $.Scratch.Set "paper_count" 0 }}
   {{ range $.Site.Data.papers }}
     {{ $.Scratch.Add "paper_count" (len .) }}
   {{ end }}
-  <h2>Welcome to the ACL Anthology</h2>
 
-  <aside class="card-group pb-3 font-weight-light">
-    <div class="card">
+  <div class="col-12 col-xl-2">
+    <h2 class="pl-2 pb-2">Welcome to the ACL Anthology!</h2>
+
+    <aside class="card acl-greeting font-weight-light mb-3">
       <div class="card-body">
         The ACL Anthology currently hosts {{ $.Scratch.Get "paper_count" }} papers on the study of computational linguistics and natural language processing.
       </div>
-    </div>
-    <div class="card">
       <div class="card-body">
         <a href="http://groups.google.com/group/acl-anthology?hl=en">Subscribe to the mailing list</a> to receive announcements and updates to the Anthology.
       </div>
-    </div>
-    <div class="card">
       <div class="card-body">
         Do you love the Anthology? Not an ACL member yet? Please <a href="http://www.aclweb.org/portal/user/register">join as an ACL member</a> to help keep the Anthology open for all to use.
       </div>
-    </div>
-  </aside>
+    </aside>
 
-  <main aria-role="main">
+    <aside class="alert alert-info acl-news mb-3" role="alert">
+      <!-- The news message pulls from content/_index.md -->
+      <div class="acl-news-date">{{ .PublishDate.Format "January 2006" }}</div>
+      {{ .Content }}
+    </aside>
+  </div><div class="col-12 col-xl-10 col-xl-width-auto">
+    <main aria-role="main">
     <h6>ACL Events</h6>
     {{/* ACL EVENTS */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
@@ -41,17 +34,17 @@
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive-xl small border text-nowrap">
+    <table class="table table-hover table-sm table-responsive small text-nowrap">
       <thead>
         <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col">Venue</th>
+          <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
           <th class="border-left" scope="col" colspan="10">Present &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
           <th class="border-left" scope="col" colspan="11">1989 and older</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="border-bottom">
         {{ range $acronym, $venue := $.Site.Data.venues }}
         {{ if (and $venue.is_toplevel $venue.is_acl) }}
         <tr class="border-left border-right">
@@ -83,17 +76,17 @@
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2019" "2009" "1999" "1989" }}
 
-    <table class="table table-hover table-sm table-responsive-xl small border text-nowrap">
+    <table class="table table-hover table-sm table-responsive small text-nowrap">
       <thead>
         <tr class="text-center border-left border-right">
-          <th class="border-left" scope="col">Venue</th>
+          <th class="border-left" scope="col" style="width: 8rem;">Venue</th>
           <th class="border-left" scope="col" colspan="10">Present &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
           <th class="border-left" scope="col" colspan="12">1989 and older</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="border-bottom">
         {{ range $acronym, $venue := $.Site.Data.venues }}
         {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
         <tr class="border-left border-right">
@@ -113,5 +106,6 @@
       </tbody>
     </table>
   </main>
+  </div>
 </div>
 {{ end }}
