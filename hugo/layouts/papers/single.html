@@ -178,8 +178,8 @@
       </a>
       {{ range $paper.attachment }}
       <a class="btn btn-attachment" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
-        {{ partial "attachment_repr.html" . }}
-        {{ humanize .type }}
+        {{ partial "attachment_repr.html" . -}}
+        <span class="pl-2">{{ humanize .type }}</span>
       </a>
       {{ end }}
     </div>
