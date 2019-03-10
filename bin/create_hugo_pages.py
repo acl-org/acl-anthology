@@ -201,7 +201,11 @@ def create_sigs(srcdir, clean=False):
         with open("{}/content/sigs/{}.md".format(srcdir, sig_str), "w") as f:
             print("---", file=f)
             yaml.dump(
-                {"acronym": sig, "title": sig_data["name"]},
+                {
+                    "acronym": sig,
+                    "short_acronym": sig[3:] if sig.startswith("SIG") else sig,
+                    "title": sig_data["name"],
+                },
                 default_flow_style=False,
                 stream=f,
             )

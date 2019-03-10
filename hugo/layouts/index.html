@@ -45,10 +45,12 @@
         </tr>
       </thead>
       <tbody class="border-bottom">
-        {{ range $acronym, $venue := $.Site.Data.venues }}
+        {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
         {{ if (and $venue.is_toplevel $venue.is_acl) }}
         <tr class="border-left border-right">
-          <th scope="row" class="text-center"><a href="{{ relref $ (printf "/venues/%s.md" $venue.slug) }}">{{ $acronym }}</a></td>
+          {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
+          {{ $acronym := index $venue_page.Params "venue" }}
+          <th scope="row" class="text-center"><a href="{{ $venue_page.RelPermalink }}">{{ $acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
           <td class="{{ cond (in $border_years $year) "border-left" "" }}">
@@ -65,7 +67,18 @@
           {{ end }}
         </tr>
         {{ end }}
-      {{ end }}
+        {{ end }}
+        {{/* SIGs */}}
+        <tr class="border-left border-right">
+          <th scope="row" class="text-center">SIGs</th>
+          <td class="border-left text-center" colspan="{{ len $all_years }}">
+          {{ $sig_pages := (where $.Site.RegularPages "Section" "sigs").ByParam "short_acronym" }}
+          {{ $len := len $sig_pages }}
+          {{ range $index, $page := $sig_pages}}
+            <a href="{{ $page.RelPermalink }}">{{ $page.Params.short_acronym }}</a>{{ if ne (add $index 1) $len }} | {{ end }}
+          {{ end }}
+          </td>
+        </tr>
       </tbody>
     </table>
 
@@ -87,10 +100,12 @@
         </tr>
       </thead>
       <tbody class="border-bottom">
-        {{ range $acronym, $venue := $.Site.Data.venues }}
+        {{ range $venue := sort $.Site.Data.venues "slug" "asc" }}
         {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
         <tr class="border-left border-right">
-          <th scope="row" class="text-center"><a href="{{ relref $ (printf "/venues/%s.md" $venue.slug) }}">{{ $acronym }}</a></td>
+          {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
+          {{ $acronym := index $venue_page.Params "venue" }}
+          <th scope="row" class="text-center"><a href="{{ $venue_page.RelPermalink }}">{{ $acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
           <td class="{{ cond (in $border_years $year) "border-left" "" }}">
