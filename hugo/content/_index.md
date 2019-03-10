@@ -8,4 +8,5 @@ This is the static rewrite of the Anthology!
 
 - - -
 
-The [Australasian Language Technology Association Workshop (2017)]({{< ref "/events/alta-2017" >}}) proceedings were added.
+If you wish to submit your presentations or posters of your papers to be
+archived, please do so by [emailing us a copy](http://is.gd/fxDHDp).

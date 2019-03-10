@@ -11,7 +11,7 @@
     {{ "<![endif]-->" | safeHTML }}
 
     {{/* NOTE: the Site's title, and if there is a page title, that is set too */}}
-    <title>{{ block "title" . }}[dev] {{ with .Params.Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <title>{{ block "title" . }}{{ with .Params.Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
 
     {{ .Hugo.Generator }}
     <link href="{{ "aclicon.ico" | relURL }}" rel="shortcut icon" type="image/x-icon" />
@@ -26,6 +26,15 @@
 
   <body>
     {{ block "header" . }}{{ partialCached "header_navbar.html" .}}{{ end }}
+
+    <!-- Draft alert -->
+    <div class="container">
+      <aside class="alert alert-warning text-center py-1 mt-n3 mt-md-n4 mt-xl-n5" role="alert">
+        You're viewing a draft of the upcoming ACL Anthology.
+        <a class="btn btn-warning mx-2" href="https://github.com/acl-org/acl-anthology/issues/170">Give feedback</a>
+      </aside>
+    </div>
+
     <div class="{{ default "container" (index .Params "css_container") }}">
       {{ block "main" . }}{{ end }}
     </div>

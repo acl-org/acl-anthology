@@ -35,7 +35,9 @@ def create_bibtex(srcdir, trgdir, clean=False):
         return
 
     log.info("Creating BibTeX files for all papers...")
-    with gzip.open("{}/anthology.bib.gz".format(trgdir), "wt", encoding="utf-8") as file_full:
+    with gzip.open(
+        "{}/anthology.bib.gz".format(trgdir), "wt", encoding="utf-8"
+    ) as file_full:
         for xmlfile in tqdm(glob("{}/*.xml".format(srcdir))):
             with open(xmlfile, "r") as f:
                 tree = etree.parse(f)
