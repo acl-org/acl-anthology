@@ -19,6 +19,9 @@ import os
 import sys
 
 
+SITEMAP_NAMESPACE = "http://www.sitemaps.org/schemas/sitemap/0.9"
+
+
 if __name__ == "__main__":
     args = docopt(__doc__)
 
@@ -38,17 +41,23 @@ if __name__ == "__main__":
         if i >= chunk_size:
             if new_root:
                 all_roots.append(new_root)
-            new_root = etree.Element(root.tag, **dict(root.attrib))
+            new_root = etree.Element(root.tag, nsmap={None: SITEMAP_NAMESPACE})
             i = 0
-        new_root.append( deepcopy(url) )
+        new_root.append(deepcopy(url))
         i += 1
 
     if new_root:
         all_roots.append(new_root)
 
-    print("Split {} entries into {} chunks.".format(chunk_size * (len(all_roots) - 1) + i, len(all_roots)), file=sys.stderr)
+    print(
+        "Split {} entries into {} chunks.".format(
+            chunk_size * (len(all_roots) - 1) + i, len(all_roots)
+        ),
+        file=sys.stderr,
+    )
 
     basename = os.path.splitext(args["SITEMAP"])[0]
     for n, root in enumerate(all_roots):
-        with open("{}_{}.xml".format(basename, n+1), "w") as f:
-            print(etree.tostring(root, xml_declaration=True, pretty_print=True), file=f)
+        with open("{}_{}.xml".format(basename, n + 1), "w") as f:
+            print('<?xml version="1.0" encoding="utf-8" standalone="yes" ?>', file=f)
+            print(etree.tostring(root, encoding="unicode", pretty_print=True), file=f)
