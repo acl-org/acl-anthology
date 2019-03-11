@@ -4,9 +4,9 @@
       <img src="{{ "images/acl-logo.svg" | relURL }}" width="56" alt="ACL Logo" />
       <span class="d-none d-md-inline pl-md-2">ACL Anthology</span>
     </a>
-    <form class="form-inline ml-auto my-1 my-sm-2">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search... (non-functional)" aria-label="Search" disabled="disabled">
-      <button class="btn btn-outline-primary" type="submit" disabled="disabled">Search</button>
+    <form class="form-inline ml-auto my-1 my-sm-2" action="{{ "/search/?" | relURL }}" method="GET">
+      <input class="form-control mr-sm-2" name="q" type="search" placeholder="Search..." aria-label="Search">
+      <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
     </form>
   </div>
 </nav>
