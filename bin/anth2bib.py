@@ -55,6 +55,8 @@ def convert_xml_text_markup(title):
     title = "".join(title.itertext()).strip()
     title = re.sub(r"\"\b", "``", title)
     title = re.sub(r"\"", "''", title)
+    # convert accents to latex escapes
+    title = codecs.encode(title, "latex")
     return title
   else:
     return None
@@ -93,13 +95,13 @@ def printbib(item, volume, file=sys.stdout):
     print( s.join(map(author_string, item.findall("editor"))) +
            "\",", file=file )
 
+  year = int(volume_id[1:3])
+  if year > 60:
+    year += 1900
+  else:
+    year += 2000
   if (volume_id[0] == "Q" or volume_id[0] == "J"):
     # journals
-    year = int(volume_id[1:3])
-    if year > 60:
-      year += 1900
-    else:
-      year += 2000
     volume_title = volume.find('paper').find('title').text
     journal_name = volume_title
     # volume numbers for journal articles
@@ -150,8 +152,12 @@ def printbib(item, volume, file=sys.stdout):
 
   for i in item.findall('month'):
     print ( "  month = \"" + i.text + "\",", file=file )
-  for i in item.findall('year'):
-    print ( "  year = \"" + i.text + "\",", file=file )
+
+  if item.find("year"):
+    for i in item.findall('year'):
+      print ( "  year = \"" + i.text + "\",", file=file )
+  else:
+    print ( "  year = \"" + str(year) + "\",", file=file )	# year from volume id
 
   for i in item.findall('address'):
     print ( "  location = \"" + i.text + "\",", file=file )

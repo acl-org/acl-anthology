@@ -192,7 +192,7 @@ class _unlatex:
             yield 1, t
 
 latex_equivalents = {
-    0x0009: ' ',
+    0x0009: '\t',
     0x000a: '\n',
     0x0023: '{\#}',
     0x0026: '{\&}',
