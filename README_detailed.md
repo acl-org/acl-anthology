@@ -77,8 +77,9 @@ $ hugo --minify
 ```
 
 Generating the website is quite a resource-hungry process, but should not take
-longer than a few minutes.  Due to the high memory usage, it is possible that it
-will cause swapping and consequently slow down your system for a while.
+longer than a few minutes.  Due to the high memory usage (approx. 18 GB
+according to the output of `hugo --stepAnalysis`), it is possible that it will
+cause swapping and consequently slow down your system for a while.
 
 The fully generated website will be in `hugo/public/` afterwards.
 

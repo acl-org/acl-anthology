@@ -55,8 +55,12 @@ README](README_detailed.md) for more information on the individual steps
 performed to build the site.
 
 Note that building the website is quite a resource-intensive process;
-particularly the last step, invoking Hugo, requires a considerable amount of
-memory.
+particularly the last step, invoking Hugo, uses about 18~GB of system memory.
+
+(**Note:** This does *not* mean you need this amount of RAM in your system; in
+fact, the website builds fine on a laptop with 8 GB of RAM.  The system might
+temporarily slow down due to swapping, however.  The figure of approx. 18 GB is
+the maximum RAM usage reported when running `hugo --minify --stepAnalysis`.)
 
 
 ## Contributing
