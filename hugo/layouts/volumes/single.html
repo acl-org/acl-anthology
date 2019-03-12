@@ -96,7 +96,7 @@
       {{ $bibfile := printf "/volumes/%s.bib" $volume_id }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
       <a class="btn btn-secondary" href="{{ $bibfile | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
-        <i class="fas fa-file-export"></i><span class="pl-sm-2 d-none d-sm-inline">BibTeX</span>
+        <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
       </a>
       {{ end }}
       <a class="btn btn-secondary" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">

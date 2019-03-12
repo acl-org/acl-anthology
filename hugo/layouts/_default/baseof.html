@@ -35,7 +35,7 @@
       </aside>
     </div>
 
-    <div class="{{ default "container" (index .Params "css_container") }}">
+    <div id="main-container" class="{{ default "container" (index .Params "css_container") }}">
       {{ block "main" . }}{{ end }}
     </div>
     {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
