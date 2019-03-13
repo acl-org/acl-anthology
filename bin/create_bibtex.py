@@ -14,7 +14,6 @@ Options:
 """
 
 from docopt import docopt
-from glob import glob
 from lxml import etree
 from tqdm import tqdm
 import gzip
@@ -22,12 +21,12 @@ import logging as log
 import io
 import os
 
+from anthology import Anthology
 from anthology.utils import SeverityTracker
-from anth2bib import printbib
 from create_hugo_pages import check_directory
 
 
-def create_bibtex(srcdir, trgdir, clean=False):
+def create_bibtex(anthology, trgdir, clean=False):
     """Creates .bib files for all papers."""
     if not check_directory("{}/papers".format(trgdir), clean=clean):
         return
@@ -38,28 +37,18 @@ def create_bibtex(srcdir, trgdir, clean=False):
     with gzip.open(
         "{}/anthology.bib.gz".format(trgdir), "wt", encoding="utf-8"
     ) as file_full:
-        for xmlfile in tqdm(glob("{}/*.xml".format(srcdir))):
-            with open(xmlfile, "r") as f:
-                tree = etree.parse(f)
-            root = tree.getroot()
-            volume_id = root.get("id")
+        for volume_id, volume in tqdm(anthology.volumes.items()):
             volume_dir = "{}/papers/{}/{}".format(trgdir, volume_id[0], volume_id[:3])
             if not os.path.exists(volume_dir):
                 os.makedirs(volume_dir)
             with open(
                 "{}/volumes/{}.bib".format(trgdir, volume_id), "w"
             ) as file_volume:
-                for item in root.findall("paper"):
-                    full_id = "{}-{}".format(volume_id, item.get("id"))
+                for paper in volume:
                     with open(
-                        "{}/{}.bib".format(volume_dir, full_id), "w"
+                        "{}/{}.bib".format(volume_dir, paper.full_id), "w"
                     ) as file_paper:
-                        # To avoid calling printbib multiple times, print into a
-                        # StringIO buffer and output its contents to all {paper,
-                        # volume, full} bibliography files
-                        contents = io.StringIO()
-                        printbib(item, root, file=contents)
-                        contents = contents.getvalue()
+                        contents = paper.as_bibtex()
                         file_paper.write(contents)
                         file_volume.write(contents)
                         file_volume.write("\n")
@@ -84,7 +73,8 @@ if __name__ == "__main__":
     tracker = SeverityTracker()
     log.getLogger().addHandler(tracker)
 
-    create_bibtex(args["--importdir"], args["--exportdir"], clean=args["--clean"])
+    anthology = Anthology(importdir=args["--importdir"])
+    create_bibtex(anthology, args["--exportdir"], clean=args["--clean"])
 
     if tracker.highest >= log.ERROR:
         exit(1)

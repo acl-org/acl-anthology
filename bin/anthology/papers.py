@@ -5,8 +5,16 @@ from .people import PersonName
 from .utils import infer_attachment_url, remove_extra_whitespace
 from . import data
 
+# For BibTeX export
+from .formatter import bibtex_encode
+from pybtex.database import Entry, BibliographyData as BibData
+
 # Names of XML elements that may appear multiple times
 _LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
+
+
+def is_journal(anthology_id):
+    return anthology_id[0] in ("J", "Q")
 
 
 def is_volume_id(anthology_id):
@@ -26,7 +34,7 @@ def to_volume_id(anthology_id):
 class Paper:
     def __init__(self, paper_id, top_level_id, formatter):
         self.formatter = formatter
-        self.parent_volume_id = None
+        self.parent_volume = None
         self.paper_id = paper_id
         self.top_level_id = top_level_id
         self.attrib = {}
@@ -56,8 +64,11 @@ class Paper:
                 )
         if "year" not in paper.attrib:
             paper._infer_year()
-        if "pages" in paper.attrib and paper.attrib["pages"] is not None:
-            paper._interpret_pages()
+        if "pages" in paper.attrib:
+            if paper.attrib["pages"] is not None:
+                paper._interpret_pages()
+            else:
+                del paper.attrib["pages"]
         return paper
 
     def _parse_element(self, paper_element):
@@ -179,6 +190,21 @@ class Paper:
     def full_id(self):
         return "{}-{}".format(self.top_level_id, self.paper_id)
 
+    @property
+    def bibtype(self):
+        if is_journal(self.full_id):
+            return "article"
+        elif self.is_volume:
+            return "proceedings"
+        else:
+            return "inproceedings"
+
+    @property
+    def parent_volume_id(self):
+        if self.parent_volume is not None:
+            return self.parent_volume.full_id
+        return None
+
     def get(self, name, default=None):
         try:
             return self.attrib[name]
@@ -192,6 +218,7 @@ class Paper:
           - xml:   Include any contained XML tags unchanged
           - plain: Strip all XML tags, returning only plain text
           - html:  Convert XML tags into valid HTML tags
+          - latex: Convert XML tags into LaTeX commands
         """
         return self.formatter(self.get("xml_title"), form)
 
@@ -208,6 +235,51 @@ class Paper:
         See `get_title()` for details.
         """
         return self.formatter(self.get("xml_booktitle"), form)
+
+    def as_bibtex(self):
+        """Return the BibTeX entry for this paper."""
+        # Build BibTeX entry
+        bibkey = self.full_id  # TODO
+        bibtype = self.bibtype
+        entries = [("title", self.get_title(form="latex"))]
+        for people in ("author", "editor"):
+            if people in self.attrib:
+                entries.append(
+                    (people, "  and  ".join(p.as_bibtex() for p in self.get(people)))
+                )
+        if is_journal(self.full_id):
+            entries.append(
+                ("journal", bibtex_encode(self.parent_volume.get("meta_journal_title")))
+            )
+            journal_volume = self.parent_volume.get(
+                "meta_volume", self.parent_volume.get("volume")
+            )
+            if journal_volume:
+                entries.append(("volume", journal_volume))
+            journal_issue = self.parent_volume.get(
+                "meta_issue", self.parent_volume.get("issue")
+            )
+            if journal_issue:
+                entries.append(("issue", journal_issue))
+        else:
+            # not is_journal(self.full_id)
+            if "xml_booktitle" in self.attrib:
+                entries.append(("booktitle", self.get_booktitle(form="latex")))
+            elif bibtype != "proceedings":
+                entries.append(
+                    ("booktitle", self.parent_volume.get_title(form="latex"))
+                )
+        for entry in ("month", "year", "address", "publisher", "url", "doi"):
+            if entry in self.attrib:
+                entries.append((entry, bibtex_encode(self.get(entry))))
+        if "pages" in self.attrib:
+            entries.append(("pages", self.get("pages").replace("–", "--")))
+        if "xml_abstract" in self.attrib:
+            entries.append(("abstract", self.get_abstract(form="latex")))
+
+        # Serialize it
+        data = BibData({bibkey: Entry(bibtype, entries)})
+        return data.to_string("bibtex")
 
     def items(self):
         return self.attrib.items()

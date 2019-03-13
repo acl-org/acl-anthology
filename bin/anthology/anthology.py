@@ -5,12 +5,12 @@ from lxml import etree
 import logging as log
 import os
 
+from .formatter import MarkupFormatter
 from .papers import Paper
 from .people import PersonIndex
 from .venues import VenueIndex
 from .volumes import Volume
 from .sigs import SIGIndex
-from .utils import MarkupFormatter
 
 
 class Anthology:

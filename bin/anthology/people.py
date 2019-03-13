@@ -2,6 +2,7 @@
 
 from collections import defaultdict, Counter
 from slugify import slugify
+from .formatter import bibtex_encode
 from .venues import VenueIndex
 
 
@@ -33,6 +34,9 @@ class PersonName:
     @property
     def id_(self):
         return repr(self)
+
+    def as_bibtex(self):
+        return bibtex_encode("{}{}, {}".format(self.last, self.jr, self.first))
 
     def as_dict(self):
         return {

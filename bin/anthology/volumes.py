@@ -50,6 +50,11 @@ class Volume:
         )
         if volume_no is not None:
             self.attrib["meta_volume"] = volume_no.group(1)
+            # TODO: find out if this logic is needed
+            # if self.top_level_id[0] == 'J' and year > 1979:
+            #     volume_no = str( self.get("year") - 1974 )
+            # if self.top_level_id[0] == 'Q':
+            #     volume_no = str( self.get("year") - 2012 )
         issue_no = re.search(
             r"(Number|Issue)\s*(\d+-?\d*)", self.attrib["title"], flags=re.IGNORECASE
         )
@@ -72,13 +77,13 @@ class Volume:
 
     def append(self, paper):
         self.content.append(paper)
-        if paper.parent_volume_id is not None:
+        if paper.parent_volume is not None:
             log.error(
                 "Trying to append paper '{}' to volume '{}', but it already belongs to '{}'".format(
                     paper.full_id, self.full_id, paper.parent_volume_id
                 )
             )
-        paper.parent_volume_id = self.full_id
+        paper.parent_volume = self
 
     def get(self, name, default=None):
         try:
@@ -95,3 +100,9 @@ class Volume:
           - html:  Convert XML tags into valid HTML tags
         """
         return self.formatter(self.get("xml_title"), form)
+
+    def __len__(self):
+        return len(self.content)
+
+    def __iter__(self):
+        return self.content.__iter__()
