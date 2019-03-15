@@ -314,6 +314,8 @@ latex_equivalents = {
     0x010D: "{\\v{c}}",
     0x010E: "{\\v{D}}",
     0x010F: "{\\v{d}}",
+    0x0110: "{\DJ}",               # Vietnamese, Serbian and Croatian
+    0x0111: "{\dj}",               # Vietnamese, Serbian and Croatian
     0x0112: "{\\=E}",
     0x0113: "{\\=e}",
     0x0114: "{\\u{E}}",
@@ -446,6 +448,10 @@ latex_equivalents = {
     0x01FD: "{\\'\\ae}",
     0x01FE: "{\\'\\O}",
     0x01FF: "{\\'\\o}",
+    0x0218: "{\textcommabelow S}", # Romanian
+    0x0219: "{\textcommabelow s}", # Romanian
+    0x021A: "{\textcommabelow T}", # Romanian
+    0x021B: "{\textcommabelow t}", # Romanian
     0x02C6: "{\\^{}}",
     0x02DC: "{\\~{}}",
     0x02D8: "{\\u{}}",
