@@ -6,8 +6,7 @@ from .utils import infer_attachment_url, remove_extra_whitespace
 from . import data
 
 # For BibTeX export
-from .formatter import bibtex_encode
-from pybtex.database import Entry, BibliographyData as BibData
+from .formatter import bibtex_encode, bibtex_make_entry
 
 # Names of XML elements that may appear multiple times
 _LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
@@ -278,8 +277,7 @@ class Paper:
             entries.append(("abstract", self.get_abstract(form="latex")))
 
         # Serialize it
-        data = BibData({bibkey: Entry(bibtype, entries)})
-        return data.to_string("bibtex")
+        return bibtex_make_entry(bibkey, bibtype, entries)
 
     def items(self):
         return self.attrib.items()
