@@ -52,9 +52,9 @@ def export_anthology(anthology, outdir, dryrun=False):
         data["paper_id"] = paper.paper_id
         data["parent_volume_id"] = paper.parent_volume_id
         if "author" in data:
-            data["author"] = [anthology.people.slugs[name] for name in data["author"]]
+            data["author"] = [anthology.people.get_slug(name) for name in data["author"]]
         if "editor" in data:
-            data["editor"] = [anthology.people.slugs[name] for name in data["editor"]]
+            data["editor"] = [anthology.people.get_slug(name) for name in data["editor"]]
         papers[paper.top_level_id][paper.full_id] = data
 
     # Prepare people index
@@ -70,8 +70,8 @@ def export_anthology(anthology, outdir, dryrun=False):
         )
         data["coauthors"] = sorted(
             [
-                [anthology.people.slugs[co_name], count]
-                for (co_name, count) in anthology.people.coauthors[name].items()
+                [anthology.people.get_slug(co_name), count]
+                for (co_name, count) in anthology.people.get_coauthors(name)
             ],
             key=lambda p: p[1],
             reverse=True,
@@ -99,9 +99,9 @@ def export_anthology(anthology, outdir, dryrun=False):
             del data["xml_abstract"]
         data["papers"] = volume.paper_ids
         if "author" in data:
-            data["author"] = [anthology.people.slugs[name] for name in data["author"]]
+            data["author"] = [anthology.people.get_slug(name) for name in data["author"]]
         if "editor" in data:
-            data["editor"] = [anthology.people.slugs[name] for name in data["editor"]]
+            data["editor"] = [anthology.people.get_slug(name) for name in data["editor"]]
         volumes[volume.full_id] = data
 
     # Prepare venue index

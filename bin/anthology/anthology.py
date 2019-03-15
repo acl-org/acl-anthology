@@ -15,6 +15,7 @@ from .sigs import SIGIndex
 
 class Anthology:
     schema = None
+    people = None
     venues = None
     sigs = None
     formatter = None
@@ -23,7 +24,6 @@ class Anthology:
         self.formatter = MarkupFormatter()
         self.volumes = {}  # maps volume IDs to Volume objects
         self.papers = {}  # maps paper IDs to Paper objects
-        self.people = PersonIndex()
         if importdir is not None:
             self.import_directory(importdir)
 
@@ -35,6 +35,7 @@ class Anthology:
 
     def import_directory(self, importdir):
         assert os.path.isdir(importdir), "Directory not found: {}".format(importdir)
+        self.people = PersonIndex(importdir)
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
         self.load_schema(importdir + "/schema.rng")
