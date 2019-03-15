@@ -13,6 +13,24 @@ from . import data
 xml_escape_or_none = lambda t: None if t is None else xml_escape(t)
 
 
+def is_journal(anthology_id):
+    return anthology_id[0] in ("J", "Q")
+
+
+def is_volume_id(anthology_id):
+    return (
+        anthology_id[-3:] == "000"
+        or (anthology_id[0] == "W" and anthology_id[-2:] == "00")
+        or (anthology_id[:3] == "C69" and anthology_id[-2:] == "00")
+    )
+
+
+def to_volume_id(anthology_id):
+    if anthology_id[0] == "W":
+        return anthology_id[:6]
+    return anthology_id[:5]
+
+
 def stringify_children(node):
     """Returns the full content of a node, including tags.
 
@@ -46,6 +64,32 @@ def infer_attachment_url(filename):
         return filename
     # Otherwise, treat it as an internal filename
     return data.ATTACHMENT_URL.format(filename[0], filename[:3], filename)
+
+
+_MONTH_TO_NUM = {
+    "january": 1,
+    "february": 2,
+    "march": 3,
+    "april": 4,
+    "may": 5,
+    "june": 6,
+    "july": 7,
+    "august": 8,
+    "september": 9,
+    "october": 10,
+    "november": 11,
+    "december": 12,
+}
+
+
+def month_str2num(text):
+    """Convert a month string to a number, e.g. February -> 2
+
+    Returns None if the string doesn't correspond to a month.
+
+    Not using Python's datetime here since its behaviour depends on the system
+    locale."""
+    return _MONTH_TO_NUM.get(text.lower(), None)
 
 
 class SeverityTracker(logging.Handler):

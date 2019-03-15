@@ -2,7 +2,13 @@
 
 import logging as log
 from .people import PersonName
-from .utils import infer_attachment_url, remove_extra_whitespace
+from .utils import (
+    infer_attachment_url,
+    remove_extra_whitespace,
+    is_journal,
+    is_volume_id,
+    to_volume_id,
+)
 from . import data
 
 # For BibTeX export
@@ -10,24 +16,6 @@ from .formatter import bibtex_encode, bibtex_make_entry
 
 # Names of XML elements that may appear multiple times
 _LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
-
-
-def is_journal(anthology_id):
-    return anthology_id[0] in ("J", "Q")
-
-
-def is_volume_id(anthology_id):
-    return (
-        anthology_id[-3:] == "000"
-        or (anthology_id[0] == "W" and anthology_id[-2:] == "00")
-        or (anthology_id[:3] == "C69" and anthology_id[-2:] == "00")
-    )
-
-
-def to_volume_id(anthology_id):
-    if anthology_id[0] == "W":
-        return anthology_id[:6]
-    return anthology_id[:5]
 
 
 class Paper:
