@@ -43,8 +43,8 @@ def bibtex_encode(text):
 
 
 def bibtex_convert_quotes(text):
-    text = re.sub(r"\"\b", "``", text)
-    text = re.sub(r"\"", "''", text)
+    text = re.sub(r"(?<!\\)\"\b", "``", text)
+    text = re.sub(r"(?<!\\)\"", "''", text)
     return text
 
 
