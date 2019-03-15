@@ -32,6 +32,22 @@ def bibtex_convert_quotes(text):
     return text
 
 
+def bibtex_make_entry(bibkey, bibtype, fields):
+    lines = ["@{}{{{},".format(bibtype, bibkey)]
+    for key, value in fields:
+        if key in ("author", "editor") and "  and  " in value:
+            # Print each author on a separate line
+            value = "  and\n      ".join(value.split("  and  "))
+        if '"' in value:
+            # Make sure not to use "" to quote values when they contain "
+            value = "{{{}}}".format(value)
+        else:
+            value = '"{}"'.format(value)
+        lines.append("    {} = {},".format(key, value))
+    lines.append("}")
+    return "\n".join(lines)
+
+
 class MarkupFormatter:
     def __init__(self):
         self.texmath = TexMath()
@@ -82,7 +98,8 @@ class MarkupFormatter:
             text = "${}$".format(text)
         elif element.tag == "url":
             text = "\\url{{{}}}".format(text)
-        return bibtex_convert_quotes(text)
+        text = bibtex_convert_quotes(text)
+        return remove_extra_whitespace(text)
 
     def __call__(self, element, form, **kwargs):
         if element is None:
