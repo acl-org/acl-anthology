@@ -1,11 +1,12 @@
 language: python
+python: 3.6
 
 before_install:
   - sudo apt-get update
 
 install:
   - wget https://github.com/gohugoio/hugo/releases/download/v0.54.0/hugo_extended_0.54.0_Linux-64bit.deb && sudo dpkg -i hugo_extended*.deb
-  - sudo pip install -r bin/requirements.txt
+  - pip install -r bin/requirements.txt
 
 script:
   - python bin/create_hugo_yaml.py
