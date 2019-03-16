@@ -100,6 +100,15 @@ class PersonIndex:
                 canonical = PersonName.from_dict(canonical)
                 for variant in variants:
                     variant = PersonName.from_dict(variant)
+                    if variant in self.variants:
+                        log.error(
+                            "Tried to add '{}' as variant of '{}', but is already a variant of '{}'".format(
+                                repr(variant),
+                                repr(canonical),
+                                repr(self.variants[variant]),
+                            )
+                        )
+                        continue
                     self.variants[variant] = canonical
                     self.canonical[canonical].append(variant)
 
