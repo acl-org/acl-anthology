@@ -13,15 +13,14 @@ except ImportError:
 
 
 class PersonName:
-    first, last, jr = "", "", ""
+    first, last = "", ""
 
-    def __init__(self, first, last, jr):
+    def __init__(self, first, last):
         self.first = first.strip()
         self.last = last.strip()
-        self.jr = jr.strip()
 
     def from_element(person_element):
-        first, last, jr = "", "", ""
+        first, last = "", ""
         for element in person_element:
             tag = element.tag
             # These are guaranteed to occur at most once by the schema
@@ -29,33 +28,29 @@ class PersonName:
                 first = element.text or ""
             elif tag == "last":
                 last = element.text or ""
-            elif tag == "jr":
-                jr = element.text or ""
-        return PersonName(first, last, jr)
+        return PersonName(first, last)
 
     def from_repr(repr_):
         parts = repr_.split(" || ")
         first = parts[0]
         last  = parts[1] if len(parts) > 1 else ""
-        jr    = parts[2] if len(parts) > 2 else ""
-        return PersonName(first, last, jr)
+        return PersonName(first, last)
 
     @property
     def full(self):
-        return "{} {}{}".format(self.first, self.last, self.jr).strip()
+        return "{} {}".format(self.first, self.last).strip()
 
     @property
     def id_(self):
         return repr(self)
 
     def as_bibtex(self):
-        return bibtex_encode("{}{}, {}".format(self.last, self.jr, self.first))
+        return bibtex_encode("{}, {}".format(self.last, self.first))
 
     def as_dict(self):
         return {
             "first": self.first,
             "last": self.last,
-            "jr": self.jr,
             "full": self.full,
         }
 
@@ -63,16 +58,13 @@ class PersonName:
         return (
             (self.first == other.first)
             and (self.last == other.last)
-            and (self.jr == other.jr)
         )
 
     def __str__(self):
         return self.full
 
     def __repr__(self):
-        if self.jr:
-            return "{} || {} || {}".format(self.first, self.last, self.jr)
-        elif self.first:
+        if self.first:
             return "{} || {}".format(self.first, self.last)
         else:
             return self.last
