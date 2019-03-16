@@ -1,5 +1,5 @@
 language: python
-python: 3.6
+python: 3.7
 
 before_install:
   - sudo apt-get update
@@ -7,6 +7,9 @@ before_install:
 install:
   - wget https://github.com/gohugoio/hugo/releases/download/v0.54.0/hugo_extended_0.54.0_Linux-64bit.deb && sudo dpkg -i hugo_extended*.deb
   - pip install -r bin/requirements.txt
+  - sudo apt-get install -y jing
 
 script:
+  - jing -c import/schema.rnc import/*.xml
+  - jing import/schema.rng import/*.xml
   - python bin/create_hugo_yaml.py
