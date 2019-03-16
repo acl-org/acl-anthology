@@ -15,6 +15,7 @@ To build the Anthology website, you will need:
 
 + **Python 3.7** or higher, along with the packages listed in
   [bin/requirements.txt](bin/requirements.txt)
+  + *Note:* You can install all needed dependencies using the command `pip install -r bin/requirements.txt`
   + *Note:* [Installing the PyYAML package with C
     bindings](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/)
     will speed up the generation process.
