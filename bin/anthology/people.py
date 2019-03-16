@@ -2,6 +2,7 @@
 
 from collections import defaultdict, Counter
 from slugify import slugify
+import logging as log
 import yaml
 from .formatter import bibtex_encode
 from .venues import VenueIndex
@@ -32,8 +33,15 @@ class PersonName:
 
     def from_repr(repr_):
         parts = repr_.split(" || ")
-        first = parts[0]
-        last  = parts[1] if len(parts) > 1 else ""
+        if len(parts) > 1:
+            first, last = parts[0], parts[1]
+        else:
+            first, last = "", parts[0]
+        return PersonName(first, last)
+
+    def from_dict(dict_):
+        first = dict_.get("first", "")
+        last = dict_["last"]
         return PersonName(first, last)
 
     @property
@@ -89,11 +97,17 @@ class PersonIndex:
 
     def load_variant_list(self, directory):
         with open("{}/name_variants.yaml".format(directory), "r") as f:
-            name_dict = yaml.load(f, Loader=Loader)
-            for canonical, variants in name_dict.items():
-                canonical = PersonName.from_repr(canonical)
+            name_list = yaml.load(f, Loader=Loader)
+            for entry in name_list:
+                try:
+                    canonical = entry["canonical"]
+                    variants = entry["variants"]
+                except (KeyError, TypeError):
+                    log.error("Couldn't parse name variant entry: {}".format(entry))
+                    continue
+                canonical = PersonName.from_dict(canonical)
                 for variant in variants:
-                    variant = PersonName.from_repr(variant)
+                    variant = PersonName.from_dict(variant)
                     self.variants[variant] = canonical
 
     def register(self, name: PersonName, paper, role):
