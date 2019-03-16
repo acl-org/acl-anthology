@@ -1,0 +1,18 @@
+{{/* This partial creates a link to an author page. Its main purpose is to
+     resolve variant spellings to canonical entries (as only canonical entries
+     have author pages), while preserving the variant spelling in the link
+     text.
+
+     This partial expects a dictionary with the following entries:
+        - ctx: The page context
+        - person: The ID of the person to link to (e.g., "hector-martinez-alonso")
+        - class (optional): CSS classes for the link
+*/}}
+{{ $first_letter := slicestr .person 0 1 }}
+{{ $entry := index .ctx.Site.Data.people $first_letter .person }}
+{{ $link_to := printf "/people/%s/%s.md" $first_letter .person }}
+{{ with $entry.canonical_entry }}{{/* if name has a canonical variant, we rewrite the link here */}}
+{{ $first_letter_canon := slicestr . 0 1 }}
+{{ $link_to = printf "/people/%s/%s.md" $first_letter_canon . }}
+{{ end }}
+<a href="{{ relref .ctx $link_to }}"{{ with .class }} class="{{ . }}"{{ end }}>{{ $entry.full }}</a>

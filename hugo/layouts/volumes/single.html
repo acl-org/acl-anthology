@@ -14,8 +14,7 @@
   <p class="lead">
     {{ $len := (len .) }}
     {{ range $index, $person := . }}
-      {{ $first_letter := slicestr $person 0 1 }}
-      <a href="{{ relref $ (printf "/people/%s/%s.md" $first_letter $person) }}">{{ (index $.Site.Data.people $first_letter $person).full }}</a>{{ if ne (add $index 1) $len }}, {{ end }}
+      {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
     <span class="text-muted">({{ cond (eq (len .) 1) "Editor" "Editors" }})</span>
   {{ end }}

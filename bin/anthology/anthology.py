@@ -57,7 +57,7 @@ class Anthology:
         current_volume = None
         for paper in volume:
             parsed_paper = Paper.from_xml(paper, top_level_id, self.formatter)
-            self._register_people(parsed_paper)
+            self.people.register(parsed_paper)
             full_id = parsed_paper.full_id
             if full_id in self.papers:
                 log.critical(
@@ -79,8 +79,3 @@ class Anthology:
             self.papers[full_id] = parsed_paper
         if current_volume is not None:
             self.volumes[current_volume.full_id] = current_volume
-
-    def _register_people(self, paper):
-        for role in ("author", "editor"):
-            for name in paper.get(role, []):
-                self.people.register(name, paper, role)

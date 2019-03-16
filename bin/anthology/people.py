@@ -56,17 +56,10 @@ class PersonName:
         return bibtex_encode("{}, {}".format(self.last, self.first))
 
     def as_dict(self):
-        return {
-            "first": self.first,
-            "last": self.last,
-            "full": self.full,
-        }
+        return {"first": self.first, "last": self.last, "full": self.full}
 
     def __eq__(self, other):
-        return (
-            (self.first == other.first)
-            and (self.last == other.last)
-        )
+        return (self.first == other.first) and (self.last == other.last)
 
     def __str__(self):
         return self.full
@@ -85,12 +78,11 @@ class PersonIndex:
     """Keeps an index of persons and their associated papers."""
 
     def __init__(self, srcdir=None):
-        self.variants = {}  # maps names to canonical names
+        self.canonical = defaultdict(list)  # maps canonical names to variants
+        self.variants = {}  # maps variant names to canonical names
         self._all_slugs = set([""])
         self.slugs = {}  # maps names to unique slugs
-        self.coauthors = defaultdict(
-            Counter
-        )  # maps names to co-author names
+        self.coauthors = defaultdict(Counter)  # maps names to co-author names
         self.papers = defaultdict(lambda: defaultdict(list))
         if srcdir is not None:
             self.load_variant_list(srcdir)
@@ -109,18 +101,26 @@ class PersonIndex:
                 for variant in variants:
                     variant = PersonName.from_dict(variant)
                     self.variants[variant] = canonical
+                    self.canonical[canonical].append(variant)
 
-    def register(self, name: PersonName, paper, role):
-        """Register a name associated with the given paper ID and role."""
-        assert isinstance(name, PersonName), "Expected PersonName, got {} ({})".format(
-            type(name), repr(name)
+    def register(self, paper):
+        """Register all names associated with the given paper."""
+        from .papers import Paper
+
+        assert isinstance(paper, Paper), "Expected Paper, got {} ({})".format(
+            type(paper), repr(paper)
         )
-        # Register paper
-        self.papers[name][role].append(paper.full_id)
-        # Register co-author(s)
-        for author in paper.get(role):
-            if author != name:
-                self.coauthors[name][author] += 1
+        for role in ("author", "editor"):
+            for name in paper.get(role, []):
+                # Register paper
+                self.papers[name][role].append(paper.full_id)
+                # Make sure canonical names are prioritized for slugs
+                if self.is_canonical(name):
+                    self.get_slug(name)
+                # Register co-author(s)
+                for author in paper.get(role):
+                    if author != name:
+                        self.coauthors[name][author] += 1
 
     def names(self):
         return self.papers.keys()
@@ -128,9 +128,17 @@ class PersonIndex:
     def __len__(self):
         return len(self.papers)
 
+    def is_canonical(self, name):
+        return name not in self.variants
+
     def get_canonical_variant(self, name):
         """Maps a name to its canonical variant."""
         return self.variants.get(name, name)
+
+    def get_all_variants(self, name):
+        if not self.is_canonical(name):
+            name = self.get_canonical_variant(name)
+        return self.canonical[name] + [name]
 
     def get_slug(self, name):
         if name in self.slugs:
@@ -143,18 +151,32 @@ class PersonIndex:
         self.slugs[name] = slug
         return slug
 
-    def get_papers(self, name, role=None):
+    def get_papers(self, name, role=None, include_variants=False):
+        if include_variants:
+            return [
+                p
+                for n in self.get_all_variants(name)
+                for p in self.get_papers(n, role=role)
+            ]
         if role is None:
             return [p for p_list in self.papers[name].values() for p in p_list]
         return self.papers[name][role]
 
-    def get_coauthors(self, name):
+    def get_coauthors(self, name, include_variants=False):
+        if include_variants:
+            return [
+                p for n in self.get_all_variants(name) for p in self.get_coauthors(n)
+            ]
         return self.coauthors[name].items()
 
-    def get_venues(self, vidx: VenueIndex, name):
+    def get_venues(self, vidx: VenueIndex, name, include_variants=False):
         """Get a list of venues a person has published in, with counts."""
         venues = Counter()
-        for paper in self.get_papers(name):
-            for venue in vidx.get_associated_venues(paper):
-                venues[venue] += 1
+        if include_variants:
+            for n in self.get_all_variants(name):
+                venues.update(self.get_venues(vidx, n))
+        else:
+            for paper in self.get_papers(name):
+                for venue in vidx.get_associated_venues(paper):
+                    venues[venue] += 1
         return venues

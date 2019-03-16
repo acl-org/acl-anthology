@@ -37,8 +37,7 @@
     {{ with $paper.author }}
       {{ $len := (len $paper.author) }}
       {{ range $index, $person := $paper.author }}
-        {{ $first_letter := slicestr $person 0 1 }}
-        <a href="{{ relref $ (printf "/people/%s/%s.md" $first_letter $person) }}">{{ (index $.Site.Data.people $first_letter $person).full }}</a>
+        {{ partial "author_link.html" (dict "ctx" $ "person" $person) }}
         {{ if ne (add $index 1) $len }} | {{ end }}
       {{ end }}
     {{ end }}

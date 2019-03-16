@@ -5,6 +5,15 @@
   <h2 id="title">
     {{- .Title -}}
   </h2>
+  {{ with $person.variant_entries }}
+  <p class="font-weight-light text-muted">
+    <span class="font-italic">Published also as:</span>
+    {{ $len := (len .) }}
+    {{ range $index, $var := . }}
+    {{ index (index $.Site.Data.people (slicestr $var 0 1) $var) "full" }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ end }}
+  </p>
+  {{ end }}
   <hr />
 
   <div class="row">
@@ -41,10 +50,8 @@
               {{ range first 5 $person.coauthors }}
               <li class="list-group-item">
                 {{ $co_id := index . 0 }}
-                {{ $co_author := index $.Site.Data.people (slicestr $co_id 0 1) $co_id }}
-                <a href="{{ relref $ (printf "/people/%s/%s.md" (slicestr $co_id 0 1) $co_id) }}" class="align-middle">
-                  {{- index $co_author "full" -}}
-                </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                {{ partial "author_link.html" (dict "ctx" $ "person" $co_id "class" "align-middle") }}
+                <span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
             </ul>
