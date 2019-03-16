@@ -59,9 +59,9 @@ def export_anthology(anthology, outdir, dryrun=False):
 
     # Prepare people index
     people = defaultdict(dict)
-    for name_repr, name in anthology.people.items():
+    for name in anthology.people.names():
         data = name.as_dict()
-        slug = anthology.people.slugs[name]
+        slug = anthology.people.get_slug(name)
         data["slug"] = slug
         data["papers"] = sorted(
             anthology.people.get_papers(name),
