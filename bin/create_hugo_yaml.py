@@ -68,11 +68,6 @@ def export_anthology(anthology, outdir, dryrun=False):
         data = name.as_dict()
         slug = anthology.people.get_slug(name)
         data["slug"] = slug
-        # log.debug("name:  {}".format(repr(name)))
-        # log.debug("include_variants=False:")
-        # log.debug(anthology.people.get_papers(name, include_variants=False))
-        # log.debug("include_variants=True:")
-        # log.debug(anthology.people.get_papers(name, include_variants=True))
         if anthology.people.is_canonical(name):
             data["papers"] = sorted(
                 anthology.people.get_papers(name, include_variants=True),

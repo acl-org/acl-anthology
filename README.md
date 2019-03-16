@@ -3,11 +3,8 @@
 (This repo was originally wing-nus/acl and has been transferred over to acl-org
 as of 5 Jun 2017.  Please update accordingly.)
 
-:warning: **This branch contains the static rewrite of the Anthology.  It is
-*WORK IN PROGRESS* and still missing substantial functionality.** :warning:
-
 These are basic instructions on generating the ACL Anthology website as seen on
-<https://aclanthology.info>.
+<https://aclweb.org/anthology/>.
 
 
 ## Generating the Anthology
@@ -16,7 +13,7 @@ These are basic instructions on generating the ACL Anthology website as seen on
 
 To build the Anthology website, you will need:
 
-+ **Python 3.5** or higher, along with the packages listed in
++ **Python 3.7** or higher, along with the packages listed in
   [bin/requirements.txt](bin/requirements.txt)
   + *Note:* [Installing the PyYAML package with C
     bindings](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/)
@@ -30,14 +27,11 @@ To build the Anthology website, you will need:
 
 ### Cloning
 
-Browse to your designated folder and clone the Anthology repo using this git
-command (or with a git GUI tool). The process should take a while since the
-repository is quite big (about 150MB):
+Clone the Anthology repo to your local machine:
 
 ```bash
 $ git clone https://github.com/acl-org/acl-anthology
 ```
-
 
 ### Generating
 
