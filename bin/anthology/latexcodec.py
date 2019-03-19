@@ -1,5 +1,4 @@
-"""
-Translates unicode to bibtex-friendly encoding.
+"""Translates unicode to bibtex-friendly encoding.
 
 bibtex-friendly features:
 
@@ -22,8 +21,12 @@ even though alphabetization will be wrong:
 
 Dan Gildea 2019
 
+Bugs: 
 
-adapted from latex.py by D. Esppstein:
+- Doesn't convert "{" to "{\\{}" and "}" to "{\\}}" (which do
+  occasionally appear in titles)
+
+adapted from latex.py by D. Eppstein:
 
 Character translation utilities for LaTeX-formatted text.
 
@@ -40,6 +43,7 @@ We also make public a dictionary latex_equivalents,
 mapping ord(unicode char) to LaTeX code.
 
 D. Eppstein, October 2003.
+
 """
 
 from __future__ import generators
@@ -234,13 +238,19 @@ class _unlatex:
 
 
 latex_equivalents = {
-    0x0009: "\t",
-    0x000A: "\n",
-    0x0023: "{\#}",
-    0x0026: "{\&}",
-    0x00A0: "{~}",
-    0x00A1: "{!`}",
-    0x00A2: "{\\not{c}}",
+    0x0023: "{\\#}",
+    0x0024: "{\\$}",
+    0x0025: "{\\%}",
+    0x0026: "{\\&}",
+    0x003C: "{\\textless}",
+    0x003E: "{\\textgreater}",
+    0x005C: "{\\textbackslash}",
+    0x005E: "{\\textasciicircum}",
+    0x005F: "{\\_}",
+    0x007E: "{\\textasciitilde}",
+    0x00A0: "~",
+    0x00A1: "!`",
+    0x00A2: "{\\textcent}",
     0x00A3: "{\\pounds}",
     0x00A7: "{\\S}",
     0x00A8: '{\\"{}}',
@@ -258,7 +268,7 @@ latex_equivalents = {
     0x00B7: "{\\mbox{$\\cdot$}}",
     0x00B8: "{\\c{}}",
     0x00B9: "{\\mbox{$^1$}}",
-    0x00BF: "{?`}",
+    0x00BF: "?`",
     0x00C0: "{\\`A}",
     0x00C1: "{\\'A}",
     0x00C2: "{\\^A}",
@@ -568,3 +578,9 @@ for candidate in _l2u:
     else:
         firstchar = candidate[0]
     _blacklist.discard(firstchar)
+
+if __name__ == "__main__":
+    import fileinput
+    register()
+    for line in fileinput.input():
+        print(codecs.encode(line.rstrip(), 'latex'))

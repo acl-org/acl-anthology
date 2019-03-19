@@ -36,8 +36,6 @@ def bibtex_encode(text):
     """
     if text is None:
         return ""
-    if "$" in text:
-        text = text.replace("$", "\\$")
     text = codecs.encode(text, "latex")
     return text
 
