@@ -247,7 +247,7 @@ class Paper:
                 "meta_issue", self.parent_volume.get("issue")
             )
             if journal_issue:
-                entries.append(("issue", journal_issue))
+                entries.append(("number", journal_issue))
         else:
             # not is_journal(self.full_id)
             if "xml_booktitle" in self.attrib:
