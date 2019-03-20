@@ -38,8 +38,8 @@ class Anthology:
         self.people = PersonIndex(importdir)
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
-        self.load_schema(importdir + "/schema.rng")
-        for xmlfile in glob(importdir + "/*.xml"):
+        self.load_schema(importdir + "/xml/schema.rng")
+        for xmlfile in glob(importdir + "/xml/*.xml"):
             self.import_file(xmlfile)
 
     def import_file(self, filename):

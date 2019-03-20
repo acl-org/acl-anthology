@@ -88,7 +88,7 @@ class PersonIndex:
             self.load_variant_list(srcdir)
 
     def load_variant_list(self, directory):
-        with open("{}/name_variants.yaml".format(directory), "r") as f:
+        with open("{}/yaml/name_variants.yaml".format(directory), "r") as f:
             name_list = yaml.load(f, Loader=Loader)
             for entry in name_list:
                 try:

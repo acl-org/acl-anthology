@@ -12,7 +12,7 @@ the contents of the website.
 
 ### Step 1: Prepare the data for site generation
 
-The data sources for the Anthology currently reside in the [`import/`](import/)
+The data sources for the Anthology currently reside in the [`data/`](data/)
 directory.  XML files contain the authoritative paper metadata, and additional
 YAML files document information about venues and special interest groups (SIGs).
 Before the Anthology website can be generated, all this information needs to be
@@ -91,35 +91,33 @@ presentation.* If you need to make changes to the Anthology, the first step is
 to figure out *where* to make these changes.
 
 Changes in **content** (paper metadata, information about SIGs, etc.) should
-always be made in the data files under `import/` or in the scripts that
+always be made in the data files under `data/` or in the scripts that
 interpret them; changes that only affect the **presentation** on the website can
 be made within the Hugo templates.
 
 ### Content (Data Files)
 
-The data sources of the Anthology are currently stored under `import/`.  They
+The data sources of the Anthology are currently stored under `data/`.  They
 comprise:
 
-+ The authoritative XML files (`*.xml`); these contain all paper metadata.
-  Their format is defined in RelaxNG schemas
-  [`schema.rnc`](import/schema.rnc)/[`schema.rng`](import/schema.rng) in the
++ The authoritative XML files (in [`xml/`](data/xml)); these contain all paper
+  metadata.  Their format is defined in RelaxNG schemas
+  [`schema.rnc`](data/xml/schema.rnc)/[`schema.rng`](data/xml/schema.rng) in the
   same directory.
 
-+ YAML files for SIGs (`sig*.yaml` and `semitic.yaml`); these contain names,
-  URLs, and associated venues for all special interest groups.  (**Note:** To
-  add a new SIG, it also needs to be included in
-  [`bin/anthology/data.py`](bin/anthology/data.py)!)
++ YAML files for SIGs (in [`yaml/sigs/`](data/yaml/sigs)); these contain names,
+  URLs, and associated venues for all special interest groups.
 
 + YAML files that define venues.  These are currently:
-    + [`venues.yaml`](import/venues.yaml): Maps venue acronyms to full names
-    + [`venues_letters.yaml`](import/venues_letters.yaml): Maps top-level
+    + [`venues.yaml`](data/yaml/venues.yaml): Maps venue acronyms to full names
+    + [`venues_letters.yaml`](data/yaml/venues_letters.yaml): Maps top-level
       letters to venue acronyms (e.g. P ⟶ ACL)
-    + [`venues_joint_map.yaml`](import/venues_joint_map.yaml): Maps proceedings
-      volumes to additional venues (*Note:* volumes will always be associated
-      with the venue corresponding to their first letter; this file defines
-      *additional* ones in case of joint events etc.)
+    + [`venues_joint_map.yaml`](data/yaml/venues_joint_map.yaml): Maps
+      proceedings volumes to additional venues (*Note:* volumes will always be
+      associated with the venue corresponding to their first letter; this file
+      defines *additional* ones in case of joint events etc.)
 
-+ A name variant list ([`name_variants.yaml`](import/name_variants.yaml)) that
++ A name variant list ([`name_variants.yaml`](data/yaml/name_variants.yaml)) that
   defines which author names should be treated as identical for purposes of
   generating "author" pages.
 

@@ -17,7 +17,7 @@ class VenueIndex:
             self.load_from_dir(srcdir)
 
     def load_from_dir(self, directory):
-        with open("{}/venues.yaml".format(directory), "r") as f:
+        with open("{}/yaml/venues.yaml".format(directory), "r") as f:
             venue_dict = yaml.load(f, Loader=Loader)
             for acronym, name_str in venue_dict.items():
                 name, venue_type = name_str.split(":")
@@ -30,12 +30,12 @@ class VenueIndex:
                     "years": set(),
                     "volumes": [],
                 }
-        with open("{}/venues_letters.yaml".format(directory), "r") as f:
+        with open("{}/yaml/venues_letters.yaml".format(directory), "r") as f:
             self.letters = yaml.load(f, Loader=Loader)
             for letter, acronym in self.letters.items():
                 self.venues[acronym]["is_toplevel"] = True
                 self.venues[acronym]["main_letter"] = letter
-        with open("{}/venues_joint_map.yaml".format(directory), "r") as f:
+        with open("{}/yaml/venues_joint_map.yaml".format(directory), "r") as f:
             map_dict = yaml.load(f, Loader=Loader)
             for id_, joint in map_dict.items():
                 if isinstance(joint, str):
