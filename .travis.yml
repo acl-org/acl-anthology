@@ -1,0 +1,17 @@
+dist: xenial
+language: python
+python: 3.7
+sudo: true
+
+before_install:
+  - sudo apt-get update
+
+install:
+  - wget https://github.com/gohugoio/hugo/releases/download/v0.54.0/hugo_extended_0.54.0_Linux-64bit.deb && sudo dpkg -i hugo_extended*.deb
+  - pip install -r bin/requirements.txt
+  - sudo apt-get install -y jing bibutils
+
+script:
+  - jing -c data/xml/schema.rnc data/xml/*.xml
+  - jing data/xml/schema.rng data/xml/*.xml
+  - bin/build_hugo

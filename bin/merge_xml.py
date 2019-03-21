@@ -1,3 +1,12 @@
+#!/usr/bin/env python3
+
+"""
+Used to merge in missing information to many papers in commit 24ab9efd2ec05b9dcc80337695e5b33219aab679.
+(See issue #173).
+
+Author: David Chiang
+"""
+
 import logging
 import difflib
 import lxml.etree as etree

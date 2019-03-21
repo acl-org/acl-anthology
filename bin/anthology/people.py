@@ -2,20 +2,26 @@
 
 from collections import defaultdict, Counter
 from slugify import slugify
+import logging as log
+import yaml
 from .formatter import bibtex_encode
 from .venues import VenueIndex
 
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
+
 
 class PersonName:
-    first, last, jr = "", "", ""
+    first, last = "", ""
 
-    def __init__(self, first, last, jr):
+    def __init__(self, first, last):
         self.first = first.strip()
         self.last = last.strip()
-        self.jr = jr.strip()
 
     def from_element(person_element):
-        first, last, jr = "", "", ""
+        first, last = "", ""
         for element in person_element:
             tag = element.tag
             # These are guaranteed to occur at most once by the schema
@@ -23,43 +29,43 @@ class PersonName:
                 first = element.text or ""
             elif tag == "last":
                 last = element.text or ""
-            elif tag == "jr":
-                jr = element.text or ""
-        return PersonName(first, last, jr)
+        return PersonName(first, last)
+
+    def from_repr(repr_):
+        parts = repr_.split(" || ")
+        if len(parts) > 1:
+            first, last = parts[0], parts[1]
+        else:
+            first, last = "", parts[0]
+        return PersonName(first, last)
+
+    def from_dict(dict_):
+        first = dict_.get("first", "")
+        last = dict_["last"]
+        return PersonName(first, last)
 
     @property
     def full(self):
-        return "{} {}{}".format(self.first, self.last, self.jr).strip()
+        return "{} {}".format(self.first, self.last).strip()
 
     @property
     def id_(self):
         return repr(self)
 
     def as_bibtex(self):
-        return bibtex_encode("{}{}, {}".format(self.last, self.jr, self.first))
+        return bibtex_encode("{}, {}".format(self.last, self.first))
 
     def as_dict(self):
-        return {
-            "first": self.first,
-            "last": self.last,
-            "jr": self.jr,
-            "full": self.full,
-        }
+        return {"first": self.first, "last": self.last, "full": self.full}
 
     def __eq__(self, other):
-        return (
-            (self.first == other.first)
-            and (self.last == other.last)
-            and (self.jr == other.jr)
-        )
+        return (self.first == other.first) and (self.last == other.last)
 
     def __str__(self):
         return self.full
 
     def __repr__(self):
-        if self.jr:
-            return "{} || {} || {}".format(self.first, self.last, self.jr)
-        elif self.first:
+        if self.first:
             return "{} || {}".format(self.first, self.last)
         else:
             return self.last
@@ -71,53 +77,115 @@ class PersonName:
 class PersonIndex:
     """Keeps an index of persons and their associated papers."""
 
-    def __init__(self):
-        self.names = {}  # maps name strings to PersonName objects
+    def __init__(self, srcdir=None):
+        self.canonical = defaultdict(list)  # maps canonical names to variants
+        self.variants = {}  # maps variant names to canonical names
         self._all_slugs = set([""])
-        self.slugs = {}  # maps name strings to unique slugs
-        self.coauthors = defaultdict(
-            Counter
-        )  # maps name strings to co-author name strings
+        self.slugs = {}  # maps names to unique slugs
+        self.coauthors = defaultdict(Counter)  # maps names to co-author names
         self.papers = defaultdict(lambda: defaultdict(list))
+        if srcdir is not None:
+            self.load_variant_list(srcdir)
 
-    def register(self, name: PersonName, paper, role):
-        """Adds a name to the index, associates it with the given paper ID and role, and returns the name's unique representation."""
-        assert isinstance(name, PersonName), "Expected PersonName, got {} ({})".format(
-            type(name), repr(name)
+    def load_variant_list(self, directory):
+        with open("{}/yaml/name_variants.yaml".format(directory), "r") as f:
+            name_list = yaml.load(f, Loader=Loader)
+            for entry in name_list:
+                try:
+                    canonical = entry["canonical"]
+                    variants = entry["variants"]
+                except (KeyError, TypeError):
+                    log.error("Couldn't parse name variant entry: {}".format(entry))
+                    continue
+                canonical = PersonName.from_dict(canonical)
+                for variant in variants:
+                    variant = PersonName.from_dict(variant)
+                    if variant in self.variants:
+                        log.error(
+                            "Tried to add '{}' as variant of '{}', but is already a variant of '{}'".format(
+                                repr(variant),
+                                repr(canonical),
+                                repr(self.variants[variant]),
+                            )
+                        )
+                        continue
+                    self.variants[variant] = canonical
+                    self.canonical[canonical].append(variant)
+
+    def register(self, paper):
+        """Register all names associated with the given paper."""
+        from .papers import Paper
+
+        assert isinstance(paper, Paper), "Expected Paper, got {} ({})".format(
+            type(paper), repr(paper)
         )
-        name_repr = repr(name)
-        if name_repr not in self.names:
-            self.names[name_repr] = name
-            slug, i = slugify(name_repr), 0
-            while slug in self._all_slugs:
-                i += 1
-                slug = "{}{}".format(slugify(name_repr), i)
-            self._all_slugs.add(slug)
-            self.slugs[name] = slug
-        # Register paper
-        self.papers[name][role].append(paper.full_id)
-        # Register co-author(s)
-        for author in paper.get(role):
-            if author != name:
-                self.coauthors[name][author] += 1
-        # Return string representation
-        return name_repr
+        for role in ("author", "editor"):
+            for name in paper.get(role, []):
+                # Register paper
+                self.papers[name][role].append(paper.full_id)
+                # Make sure canonical names are prioritized for slugs
+                if self.is_canonical(name):
+                    self.get_slug(name)
+                # Register co-author(s)
+                for author in paper.get(role):
+                    if author != name:
+                        self.coauthors[name][author] += 1
 
-    def items(self):
-        return self.names.items()
+    def names(self):
+        return self.papers.keys()
 
     def __len__(self):
-        return len(self.names)
+        return len(self.papers)
 
-    def get_papers(self, name, role=None):
+    def is_canonical(self, name):
+        return name not in self.variants
+
+    def get_canonical_variant(self, name):
+        """Maps a name to its canonical variant."""
+        return self.variants.get(name, name)
+
+    def get_all_variants(self, name):
+        if not self.is_canonical(name):
+            name = self.get_canonical_variant(name)
+        return self.canonical[name] + [name]
+
+    def get_slug(self, name):
+        if name in self.slugs:
+            return self.slugs[name]
+        slug, i = slugify(repr(name)), 0
+        while slug in self._all_slugs:
+            i += 1
+            slug = "{}{}".format(slugify(repr(name)), i)
+        self._all_slugs.add(slug)
+        self.slugs[name] = slug
+        return slug
+
+    def get_papers(self, name, role=None, include_variants=False):
+        if include_variants:
+            return [
+                p
+                for n in self.get_all_variants(name)
+                for p in self.get_papers(n, role=role)
+            ]
         if role is None:
             return [p for p_list in self.papers[name].values() for p in p_list]
         return self.papers[name][role]
 
-    def get_venues(self, vidx: VenueIndex, name):
+    def get_coauthors(self, name, include_variants=False):
+        if include_variants:
+            return [
+                p for n in self.get_all_variants(name) for p in self.get_coauthors(n)
+            ]
+        return self.coauthors[name].items()
+
+    def get_venues(self, vidx: VenueIndex, name, include_variants=False):
         """Get a list of venues a person has published in, with counts."""
         venues = Counter()
-        for paper in self.get_papers(name):
-            for venue in vidx.get_associated_venues(paper):
-                venues[venue] += 1
+        if include_variants:
+            for n in self.get_all_variants(name):
+                venues.update(self.get_venues(vidx, n))
+        else:
+            for paper in self.get_papers(name):
+                for venue in vidx.get_associated_venues(paper):
+                    venues[venue] += 1
         return venues

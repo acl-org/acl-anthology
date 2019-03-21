@@ -6,7 +6,7 @@
 Creates YAML files containing all necessary Anthology data for the static website generator.
 
 Options:
-  --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../import/]
+  --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
   --exportdir=DIR          Directory to write YAML files to.   [default: {scriptdir}/../hugo/data/]
   --debug                  Output debug-level log messages.
   -n, --dry-run            Do not write YAML files (useful for debugging).
@@ -52,40 +52,57 @@ def export_anthology(anthology, outdir, dryrun=False):
         data["paper_id"] = paper.paper_id
         data["parent_volume_id"] = paper.parent_volume_id
         if "author" in data:
-            data["author"] = [anthology.people.slugs[name] for name in data["author"]]
+            data["author"] = [
+                anthology.people.get_slug(name) for name in data["author"]
+            ]
         if "editor" in data:
-            data["editor"] = [anthology.people.slugs[name] for name in data["editor"]]
+            data["editor"] = [
+                anthology.people.get_slug(name) for name in data["editor"]
+            ]
         papers[paper.top_level_id][paper.full_id] = data
 
     # Prepare people index
     people = defaultdict(dict)
-    for name_repr, name in anthology.people.items():
+    for name in anthology.people.names():
+        log.debug("export_anthology: processing person '{}'".format(repr(name)))
         data = name.as_dict()
-        slug = anthology.people.slugs[name]
+        slug = anthology.people.get_slug(name)
         data["slug"] = slug
-        data["papers"] = sorted(
-            anthology.people.get_papers(name),
-            key=lambda p: anthology.papers.get(p).get("year"),
-            reverse=True,
-        )
-        data["coauthors"] = sorted(
-            [
-                [anthology.people.slugs[co_name], count]
-                for (co_name, count) in anthology.people.coauthors[name].items()
-            ],
-            key=lambda p: p[1],
-            reverse=True,
-        )
-        data["venues"] = sorted(
-            [
-                [venue, count]
-                for (venue, count) in anthology.people.get_venues(
-                    anthology.venues, name
-                ).items()
-            ],
-            key=lambda p: p[1],
-            reverse=True,
-        )
+        if anthology.people.is_canonical(name):
+            data["papers"] = sorted(
+                anthology.people.get_papers(name, include_variants=True),
+                key=lambda p: anthology.papers.get(p).get("year"),
+                reverse=True,
+            )
+            data["coauthors"] = sorted(
+                [
+                    [anthology.people.get_slug(co_name), count]
+                    for (co_name, count) in anthology.people.get_coauthors(
+                        name, include_variants=True
+                    )
+                ],
+                key=lambda p: p[1],
+                reverse=True,
+            )
+            data["venues"] = sorted(
+                [
+                    [venue, count]
+                    for (venue, count) in anthology.people.get_venues(
+                        anthology.venues, name, include_variants=True
+                    ).items()
+                ],
+                key=lambda p: p[1],
+                reverse=True,
+            )
+            if name in anthology.people.canonical:  # name has variants
+                data["variant_entries"] = [
+                    anthology.people.get_slug(var)
+                    for var in anthology.people.canonical[name]
+                ]
+        else:
+            data["canonical_entry"] = anthology.people.get_slug(
+                anthology.people.get_canonical_variant(name)
+            )
         people[slug[0]][slug] = data
 
     # Prepare volume index
@@ -99,9 +116,13 @@ def export_anthology(anthology, outdir, dryrun=False):
             del data["xml_abstract"]
         data["papers"] = volume.paper_ids
         if "author" in data:
-            data["author"] = [anthology.people.slugs[name] for name in data["author"]]
+            data["author"] = [
+                anthology.people.get_slug(name) for name in data["author"]
+            ]
         if "editor" in data:
-            data["editor"] = [anthology.people.slugs[name] for name in data["editor"]]
+            data["editor"] = [
+                anthology.people.get_slug(name) for name in data["editor"]
+            ]
         volumes[volume.full_id] = data
 
     # Prepare venue index

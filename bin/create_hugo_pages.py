@@ -119,19 +119,23 @@ def create_people(srcdir, clean=False):
         log.debug("Processing {}".format(yamlfile))
         with open(yamlfile, "r") as f:
             data = yaml.load(f, Loader=Loader)
-        # Create a paper stub for each person
+        # Create a page stub for each person
         for name, entry in data.items():
+            # Only create page stub when name doesn't link to a canonical entry
+            if "canonical_entry" in entry:
+                continue
             person_dir = "{}/content/people/{}".format(srcdir, name[0])
             if not os.path.exists(person_dir):
                 os.makedirs(person_dir)
+            yaml_data = {
+                "name": name,
+                "title": entry["full"],
+                "lastname": entry["last"],
+            }
             with open("{}/{}.md".format(person_dir, name), "w") as f:
                 print("---", file=f)
                 # "lastname" is dumped to allow sorting by it in Hugo
-                yaml.dump(
-                    {"name": name, "title": entry["full"], "lastname": entry["last"]},
-                    default_flow_style=False,
-                    stream=f,
-                )
+                yaml.dump(yaml_data, default_flow_style=False, stream=f)
                 print("---", file=f)
 
     return data

@@ -9,29 +9,6 @@
 
 ANTHOLOGY_URL = "http://www.aclweb.org/anthology/{}"
 ATTACHMENT_URL = "http://anthology.aclweb.org/attachments/{}/{}/{}"
-SIG_FILES = [
-    "sigann.yaml",
-    "sigbiomed.yaml",
-    "sigdat.yaml",
-    "sigdial.yaml",
-    "sigfsm.yaml",
-    "siggen.yaml",
-    "sighan.yaml",
-    "sighum.yaml",
-    "siglex.yaml",
-    "sigmedia.yaml",
-    "sigmol.yaml",
-    "sigmt.yaml",
-    "signll.yaml",
-    "sigparse.yaml",
-    "sigmorphon.yaml",
-    "sigsem.yaml",
-    "semitic.yaml",
-    "sigslav.yaml",
-    "sigslpat.yaml",
-    "sigur.yaml",
-    "sigwac.yaml",
-]
 
 
 def get_journal_title(top_level_id, volume_title):

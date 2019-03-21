@@ -5,6 +5,7 @@ from . import data
 from .papers import Paper
 from .venues import VenueIndex
 from .sigs import SIGIndex
+from .utils import is_journal, month_str2num
 
 
 class Volume:
@@ -33,8 +34,8 @@ class Volume:
         self.attrib["sigs"] = sig_index.get_associated_sigs(front_matter.full_id)
         self._set_meta_info()
         self.content = []
-        if self.top_level_id[0] not in ("J", "Q"):
-            # J and Q don't have front matter, but others do
+        if is_journal(self.top_level_id):
+            # journals don't have front matter, but others do
             self.append(front_matter)
 
     def _set_meta_info(self):
@@ -42,24 +43,27 @@ class Volume:
 
         This function replicates functionality that was previously hardcoded in
         'app/helpers/papers_helper.rb' of the Rails app."""
-        self.attrib["meta_journal_title"] = data.get_journal_title(
-            self.top_level_id, self.attrib["title"]
-        )
-        volume_no = re.search(
-            r"Volume\s*(\d+)", self.attrib["title"], flags=re.IGNORECASE
-        )
-        if volume_no is not None:
-            self.attrib["meta_volume"] = volume_no.group(1)
-            # TODO: find out if this logic is needed
-            # if self.top_level_id[0] == 'J' and year > 1979:
-            #     volume_no = str( self.get("year") - 1974 )
-            # if self.top_level_id[0] == 'Q':
-            #     volume_no = str( self.get("year") - 2012 )
-        issue_no = re.search(
-            r"(Number|Issue)\s*(\d+-?\d*)", self.attrib["title"], flags=re.IGNORECASE
-        )
-        if issue_no is not None:
-            self.attrib["meta_issue"] = issue_no.group(2)
+        self.attrib["meta_date"] = self.get("year")
+        if "month" in self.attrib:
+            month = month_str2num(self.get("month"))
+            if month is not None:
+                self.attrib["meta_date"] = "{}/{}".format(self.get("year"), month)
+        if is_journal(self.top_level_id):
+            self.attrib["meta_journal_title"] = data.get_journal_title(
+                self.top_level_id, self.attrib["title"]
+            )
+            volume_no = re.search(
+                r"Volume\s*(\d+)", self.attrib["title"], flags=re.IGNORECASE
+            )
+            if volume_no is not None:
+                self.attrib["meta_volume"] = volume_no.group(1)
+            issue_no = re.search(
+                r"(Number|Issue)\s*(\d+-?\d*)",
+                self.attrib["title"],
+                flags=re.IGNORECASE,
+            )
+            if issue_no is not None:
+                self.attrib["meta_issue"] = issue_no.group(2)
 
     @property
     def full_id(self):

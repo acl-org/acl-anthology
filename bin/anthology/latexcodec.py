@@ -1,4 +1,32 @@
-"""latex.py
+"""Translates unicode to bibtex-friendly encoding.
+
+bibtex-friendly features:
+
+1) outputs "{\v{s}}" rather than "\v s" because bibtex
+turns space into ~
+
+2) wraps special chars in braces, for example "{\l}",
+to prevent "\l" from eating the following space after 
+names are re-arranged by bibtex.
+
+3) outputs the following commands recognized by bibtex's
+purify$ command for alphabetization:
+\i, \j, \oe, \OE, \ae, \AE, \aa, \AA, \o, \O, \l, \L, \ss
+
+4) also outputs the following commands *not* recognized by purify$
+ \th \TH \dh \DH \dj \DJ
+in the interest of getting the char to show up in output pdf,
+even though alphabetization will be wrong:
+ "{\DJ}inh" will be alphabetized under "inh"
+
+Dan Gildea 2019
+
+Bugs: 
+
+- Doesn't convert "{" to "{\\{}" and "}" to "{\\}}" (which do
+  occasionally appear in titles)
+
+adapted from latex.py by D. Eppstein:
 
 Character translation utilities for LaTeX-formatted text.
 
@@ -15,6 +43,7 @@ We also make public a dictionary latex_equivalents,
 mapping ord(unicode char) to LaTeX code.
 
 D. Eppstein, October 2003.
+
 """
 
 from __future__ import generators
@@ -57,7 +86,12 @@ def _registry(encoding):
                 if ord(c) in latex_equivalents:
                     output.append(latex_equivalents[ord(c)])
                 else:
-                    output += ["{\\char", str(ord(c)), "}"]
+                    # pass unicode character straight through
+                    # this will be ok in latex if your latex is post-2018
+                    # of if you say "\usepackage[utf8]{inputenc}"
+                    output += c
+                    ## old version used \charXXX in latex
+                    ## output += ["{\\char", str(ord(c)), "}"]
             return "".join(output), len(input)
 
         def decode(self, input, errors="strict"):
@@ -204,13 +238,19 @@ class _unlatex:
 
 
 latex_equivalents = {
-    0x0009: "\t",
-    0x000A: "\n",
-    0x0023: "{\#}",
-    0x0026: "{\&}",
-    0x00A0: "{~}",
-    0x00A1: "{!`}",
-    0x00A2: "{\\not{c}}",
+    0x0023: "{\\#}",
+    0x0024: "{\\$}",
+    0x0025: "{\\%}",
+    0x0026: "{\\&}",
+    0x003C: "{\\textless}",
+    0x003E: "{\\textgreater}",
+    0x005C: "{\\textbackslash}",
+    0x005E: "{\\textasciicircum}",
+    0x005F: "{\\_}",
+    0x007E: "{\\textasciitilde}",
+    0x00A0: "~",
+    0x00A1: "!`",
+    0x00A2: "{\\textcent}",
     0x00A3: "{\\pounds}",
     0x00A7: "{\\S}",
     0x00A8: '{\\"{}}',
@@ -228,7 +268,7 @@ latex_equivalents = {
     0x00B7: "{\\mbox{$\\cdot$}}",
     0x00B8: "{\\c{}}",
     0x00B9: "{\\mbox{$^1$}}",
-    0x00BF: "{?`}",
+    0x00BF: "?`",
     0x00C0: "{\\`A}",
     0x00C1: "{\\'A}",
     0x00C2: "{\\^A}",
@@ -245,6 +285,7 @@ latex_equivalents = {
     0x00CD: "{\\'I}",
     0x00CE: "{\\^I}",
     0x00CF: '{\\"I}',
+    0x00D0: "{\\DH}",	# not recognized by purify$
     0x00D1: "{\\~N}",
     0x00D2: "{\\`O}",
     0x00D3: "{\\'O}",
@@ -258,6 +299,7 @@ latex_equivalents = {
     0x00DB: "{\\^U}",
     0x00DC: '{\\"U}',
     0x00DD: "{\\'Y}",
+    0x00DE: "{\\TH}",	# not recognized by purify$
     0x00DF: "{\\ss}",
     0x00E0: "{\\`a}",
     0x00E1: "{\\'a}",
@@ -275,6 +317,7 @@ latex_equivalents = {
     0x00ED: "{\\'\\i}",
     0x00EE: "{\\^\\i}",
     0x00EF: '{\\"\\i}',
+    0x00F0: "{\\dh}",	# not recognized by purify$
     0x00F1: "{\\~n}",
     0x00F2: "{\\`o}",
     0x00F3: "{\\'o}",
@@ -288,13 +331,14 @@ latex_equivalents = {
     0x00FB: "{\\^u}",
     0x00FC: '{\\"u}',
     0x00FD: "{\\'y}",
+    0x00FE: "{\\th}",	# not recognized by purify$
     0x00FF: '{\\"y}',
     0x0100: "{\\=A}",
     0x0101: "{\\=a}",
     0x0102: "{\\u{A}}",
     0x0103: "{\\u{a}}",
-    0x0104: "{\\c{A}}",
-    0x0105: "{\\c{a}}",
+    0x0104: "{\\k{A}}",
+    0x0105: "{\\k{a}}",
     0x0106: "{\\'C}",
     0x0107: "{\\'c}",
     0x0108: "{\\^C}",
@@ -305,14 +349,16 @@ latex_equivalents = {
     0x010D: "{\\v{c}}",
     0x010E: "{\\v{D}}",
     0x010F: "{\\v{d}}",
+    0x0110: "{\\DJ}",  # not recognized by purify$ (Vietnamese, Serb, Croat)
+    0x0111: "{\\dj}",  # not recognized by purify$ (Vietnamese, Serb, Croat)
     0x0112: "{\\=E}",
     0x0113: "{\\=e}",
     0x0114: "{\\u{E}}",
     0x0115: "{\\u{e}}",
     0x0116: "{\\.E}",
     0x0117: "{\\.e}",
-    0x0118: "{\\c{E}}",
-    0x0119: "{\\c{e}}",
+    0x0118: "{\\k{E}}",
+    0x0119: "{\\k{e}}",
     0x011A: "{\\v{E}}",
     0x011B: "{\\v{e}}",
     0x011C: "{\\^G}",
@@ -331,8 +377,8 @@ latex_equivalents = {
     0x012B: "{\\=\\i}",
     0x012C: "{\\u{I}}",
     0x012D: "{\\u\\i}",
-    0x012E: "{\\c{I}}",
-    0x012F: "{\\c{i}}",
+    0x012E: "{\\k{I}}",
+    0x012F: "{\\k{i}}",
     0x0130: "{\\.I}",
     0x0131: "{\\i}",
     0x0132: "{IJ}",
@@ -391,17 +437,17 @@ latex_equivalents = {
     0x016F: "{\\r{u}}",
     0x0170: "{\\H{U}}",
     0x0171: "{\\H{u}}",
-    0x0172: "{\\c{U}}",
-    0x0173: "{\\c{u}}",
+    0x0172: "{\\k{U}}",
+    0x0173: "{\\k{u}}",
     0x0174: "{\\^W}",
     0x0175: "{\\^w}",
     0x0176: "{\\^Y}",
     0x0177: "{\\^y}",
     0x0178: '{\\"Y}',
     0x0179: "{\\'Z}",
-    0x017A: "{\\'Z}",
+    0x017A: "{\\'z}",
     0x017B: "{\\.Z}",
-    0x017C: "{\\.Z}",
+    0x017C: "{\\.z}",
     0x017D: "{\\v{Z}}",
     0x017E: "{\\v{z}}",
     0x01C4: "{D\\v{Z}}",
@@ -425,8 +471,8 @@ latex_equivalents = {
     0x01E7: "{\\v{g}}",
     0x01E8: "{\\v{K}}",
     0x01E9: "{\\v{k}}",
-    0x01EA: "{\\c{O}}",
-    0x01EB: "{\\c{o}}",
+    0x01EA: "{\\k{O}}",
+    0x01EB: "{\\k{o}}",
     0x01F0: "{\\v\\j}",
     0x01F1: "{DZ}",
     0x01F2: "{Dz}",
@@ -437,13 +483,17 @@ latex_equivalents = {
     0x01FD: "{\\'\\ae}",
     0x01FE: "{\\'\\O}",
     0x01FF: "{\\'\\o}",
+    0x0218: "{\\textcommabelow{S}}",  # Romanian
+    0x0219: "{\\textcommabelow{s}}",  # Romanian
+    0x021A: "{\\textcommabelow{T}}",  # Romanian
+    0x021B: "{\\textcommabelow{t}}",  # Romanian
     0x02C6: "{\\^{}}",
     0x02DC: "{\\~{}}",
     0x02D8: "{\\u{}}",
     0x02D9: "{\\.{}}",
     0x02DA: "{\\r{}}",
     0x02DD: "{\\H{}}",
-    0x02DB: "{\\c{}}",
+    0x02DB: "{\\k{}}",
     0x02C7: "{\\v{}}",
     0x03C0: "{\\mbox{$\\pi$}}",
     # consider adding more Greek here
@@ -528,3 +578,9 @@ for candidate in _l2u:
     else:
         firstchar = candidate[0]
     _blacklist.discard(firstchar)
+
+if __name__ == "__main__":
+    import fileinput
+    register()
+    for line in fileinput.input():
+        print(codecs.encode(line.rstrip(), 'latex'))

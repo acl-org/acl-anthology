@@ -13,6 +13,22 @@ from .utils import stringify_children, remove_extra_whitespace
 latexcodec.register()
 
 
+_BIBTEX_MONTHS = {
+    "january": "jan",
+    "february": "feb",
+    "march": "mar",
+    "april": "apr",
+    "may": "may",
+    "june": "jun",
+    "july": "jul",
+    "august": "aug",
+    "september": "sep",
+    "october": "oct",
+    "november": "nov",
+    "december": "dec",
+}
+
+
 def bibtex_encode(text):
     """Encodes a text string for use in BibTeX.
 
@@ -20,16 +36,53 @@ def bibtex_encode(text):
     """
     if text is None:
         return ""
-    if "$" in text:
-        text = text.replace("$", "\\$")
     text = codecs.encode(text, "latex")
     return text
 
 
 def bibtex_convert_quotes(text):
-    text = re.sub(r"\"\b", "``", text)
-    text = re.sub(r"\"", "''", text)
+    text = re.sub(r"(?<!\\)\"\b", "``", text)
+    text = re.sub(r"(?<!\\)\"", "''", text)
     return text
+
+
+def bibtex_convert_month(text):
+    """Converts a month string to BibTeX macros.
+
+    If the string contains digits or is otherwise not parseable, it is returned
+    unchanged with quotes around it.
+    """
+    text = text.lower()
+    if text in _BIBTEX_MONTHS:  # most common case; map e.g. march -> mar
+        return _BIBTEX_MONTHS[text]
+    if text in _BIBTEX_MONTHS.values():  # already a month spec
+        return text
+    # Find embedded month strings
+    text = '"{}"'.format(text)
+    for month, macro in _BIBTEX_MONTHS.items():
+        if month in text:
+            text = text.replace(month, '" # {} # "'.format(macro))
+            text = " # ".join(filter(lambda k: k != '""', text.split(" # ")))
+    return text
+
+
+def bibtex_make_entry(bibkey, bibtype, fields):
+    lines = ["@{}{{{},".format(bibtype, bibkey)]
+    for key, value in fields:
+        if key in ("author", "editor") and "  and  " in value:
+            # Print each author on a separate line
+            value = "  and\n      ".join(value.split("  and  "))
+        if key == "month":
+            value = bibtex_convert_month(value)
+        elif '"' in value:
+            # Make sure not to use "" to quote values when they contain "
+            value = "{{{}}}".format(value)
+        else:
+            # quote value
+            value = '"{}"'.format(value)
+        lines.append("    {} = {},".format(key, value))
+    lines.append("}")
+    return "\n".join(lines)
 
 
 class MarkupFormatter:
@@ -82,7 +135,8 @@ class MarkupFormatter:
             text = "${}$".format(text)
         elif element.tag == "url":
             text = "\\url{{{}}}".format(text)
-        return bibtex_convert_quotes(text)
+        text = bibtex_convert_quotes(text)
+        return remove_extra_whitespace(text)
 
     def __call__(self, element, form, **kwargs):
         if element is None:

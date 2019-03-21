@@ -12,12 +12,12 @@ except ImportError:
 
 class VenueIndex:
     def __init__(self, srcdir=None):
-        self.venues, self.letters, self.ws_map, self.joint_map = {}, {}, {}, {}
+        self.venues, self.letters, self.joint_map = {}, {}, {}
         if srcdir is not None:
             self.load_from_dir(srcdir)
 
     def load_from_dir(self, directory):
-        with open("{}/venues.yaml".format(directory), "r") as f:
+        with open("{}/yaml/venues.yaml".format(directory), "r") as f:
             venue_dict = yaml.load(f, Loader=Loader)
             for acronym, name_str in venue_dict.items():
                 name, venue_type = name_str.split(":")
@@ -30,22 +30,16 @@ class VenueIndex:
                     "years": set(),
                     "volumes": [],
                 }
-        with open("{}/venues_letters.yaml".format(directory), "r") as f:
+        with open("{}/yaml/venues_letters.yaml".format(directory), "r") as f:
             self.letters = yaml.load(f, Loader=Loader)
             for letter, acronym in self.letters.items():
                 self.venues[acronym]["is_toplevel"] = True
                 self.venues[acronym]["main_letter"] = letter
-        with open("{}/venues_ws_map.yaml".format(directory), "r") as f:
+        with open("{}/yaml/venues_joint_map.yaml".format(directory), "r") as f:
             map_dict = yaml.load(f, Loader=Loader)
             for id_, joint in map_dict.items():
                 if isinstance(joint, str):
-                    joint = joint.split(" ") if " " in joint else [joint]
-                self.ws_map[id_] = joint
-        with open("{}/venues_joint_map.yaml".format(directory), "r") as f:
-            map_dict = yaml.load(f, Loader=Loader)
-            for id_, joint in map_dict.items():
-                if isinstance(joint, str):
-                    joint = joint.split(" ") if " " in joint else [joint]
+                    joint = [joint]
                 self.joint_map[id_] = joint
 
     def get_by_letter(self, letter):
@@ -63,8 +57,6 @@ class VenueIndex:
         venues = [self.get_by_letter(anthology_id[0])]
         if anthology_id in self.joint_map:
             venues += self.joint_map[anthology_id]
-        if anthology_id[0] == "W" and anthology_id in self.ws_map:
-            venues += self.ws_map[anthology_id]
         return sorted(set(venues))
 
     def register(self, volume):

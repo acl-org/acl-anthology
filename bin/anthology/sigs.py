@@ -1,10 +1,10 @@
 # Marcel Bollmann <marcel@bollmann.me>, 2019
 
 from collections import defaultdict, namedtuple
+from glob import glob
 from slugify import slugify
 import logging as log
 import yaml
-from .data import SIG_FILES
 from .papers import to_volume_id
 
 try:
@@ -35,9 +35,9 @@ class SIGIndex:
             self.load_from_dir(srcdir)
 
     def load_from_dir(self, directory):
-        for filename in SIG_FILES:
+        for filename in glob("{}/yaml/sigs/*.yaml".format(directory)):
             log.debug("Instantiating SIG from {}...".format(filename))
-            with open("{}/{}".format(directory, filename), "r") as f:
+            with open(filename, "r") as f:
                 data = yaml.load(f, Loader=Loader)
                 sig = SIG.from_dict(data)
                 self.sigs[sig.acronym] = sig

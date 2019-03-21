@@ -1,48 +1,4 @@
 #######################################
-# RAILS
-*.rbc
-*.sassc
-.sass-cache
-capybara-*.html
-.rspec
-/log
-/tmp
-/db/*.sqlite3
-/public/system
-/coverage/
-/spec/tmp
-**.orig
-rerun.txt
-pickle-email-*.html
-
-## Environment normalisation:
-/.bundle
-/vendor/bundle
-
-# these should all be checked in to normalise the environment:
-# Gemfile.lock, .ruby-version, .ruby-gemset
-
-# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-.rvmrc
-#######################################
-#xml folder for testing only
-xml/
-#######################################
-#data folder is for indexing, should not be included
-jetty/solr/blacklight-core/data
-#######################################
-#data import properties change every time indexing
-dataimport.properties
-#######################################
-# SUBLIME TEXT
-# workspace files are user-specific
-*.sublime-workspace
-
-# project files should be checked into the repository, unless a significant
-# proportion of contributors will probably not be using SublimeText
-# *.sublime-project
-
-#######################################
 # MAC OS X
 .DS_Store
 .AppleDouble
@@ -58,39 +14,10 @@ Icon
 .Spotlight-V100
 .Trashes
 
-/jetty/solr/blacklight-core/data/
+# logfiles
+.philog.LOGFILE
 
 #######################################
-# Don't commit bib files
-bibexport/*.xml
-
-# Public assets
-public/assets/
-
-#export files
-export/acm/*.zip
-export/acm/*.csv
-export/single/*.xml
-export/xml/*.xml
-export/bib/*.bib
-export/endf/*.endf
-export/ris/*.ris
-export/word/*.word
-export/dblp/*.html
-export/dblp/*.xml
-export/mods/*.xml
-
-# import files
-# import/*.xml
-# import/*.yaml
-
-# Ignore compiled files
-*.o
-
-# Even though we'll bring our own version of bibutils, we don't need it
-# inside the repository
-lib/tasks/bibutils_5.9
-
 **/__pycache__
 
 # Hugo
