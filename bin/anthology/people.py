@@ -140,14 +140,31 @@ class PersonIndex:
     def is_canonical(self, name):
         return name not in self.variants
 
+    def has_variants(self, name):
+        return name in self.canonical
+
     def get_canonical_variant(self, name):
         """Maps a name to its canonical variant."""
         return self.variants.get(name, name)
 
     def get_all_variants(self, name):
+        """Return a list of all variants for a given name.
+
+        Includes the supplied name itself.
+        """
         if not self.is_canonical(name):
             name = self.get_canonical_variant(name)
         return self.canonical[name] + [name]
+
+    def get_registered_variants(self, name):
+        """Return a list of variants for a given name that are actually
+        associated with papers.
+
+        Will only return true variants, not including the canonical name.
+        """
+        if not self.is_canonical(name):
+            name = self.get_canonical_variant(name)
+        return [n for n in self.canonical[name] if n in self.papers]
 
     def get_slug(self, name):
         if name in self.slugs:

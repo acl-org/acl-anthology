@@ -94,10 +94,10 @@ def export_anthology(anthology, outdir, dryrun=False):
                 key=lambda p: p[1],
                 reverse=True,
             )
-            if name in anthology.people.canonical:  # name has variants
+            if anthology.people.has_variants(name):
                 data["variant_entries"] = [
                     anthology.people.get_slug(var)
-                    for var in anthology.people.canonical[name]
+                    for var in anthology.people.get_registered_variants(name)
                 ]
         else:
             data["canonical_entry"] = anthology.people.get_slug(
