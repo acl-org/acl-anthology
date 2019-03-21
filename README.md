@@ -1,113 +1,80 @@
 # ACL Anthology
 
-(This repo was originally wing-nus/acl and has been transferred over to acl-org as of 5 Jun 2017.  Please update accordingly.)
+(This repo was originally wing-nus/acl and has been transferred over to acl-org
+as of 5 Jun 2017.  Please update accordingly.)
 
-These are basic instructions on running the ACL Anthology Rails Application which drives http://aclanthology.info. 
+These are basic instructions on generating the ACL Anthology website as seen on
+<https://aclweb.org/anthology/>.
 
-Aside from the documentation present in this codebase, usage of the software once installed is documented mostly on the [GitHub ACL Wiki](https://github.com/WING-NUS/acl/wiki)
 
-Note: If you are setting up the server and/or working on the server, please set the environment variable RAILS_ENV=production. One way is, each time you ssh to the server, run this once:
-```
-$ export RAILS_ENV=production
-```
-
-## Installation
-These are the main steps to getting the ACL anthology running on your local machine. The whole process should take at least an hour or so, so be prepared. This is best done on any Linux based OS (MacOS, Ubuntu, Linux...) for the convience of tools used.
+## Generating the Anthology
 
 ### Prerequisites
-The installation of this rails app assumes that you have a running Ruby on Rails installation with the following versions of core services:
-```
-  * Rails (4.0.1)
-  * Ruby (2.0.0)
-  * Bundle (1.3.5)
-  * PostgreSQL (9.3.1)
-  * Java (1.5 or higher)
-```
-If you don't have a running copy, we strongly recommend using RVM to install Ruby, Rails and all its dependencies otherwise the process might change files and make your Rails install unusable. Also, the git command line tools or GUI are needed to clone the repository.  However, if you are using Debian, apparently using RVM causes all sorts of chaos, so you may want to skip this step.  **However, please take particular care about versions of Solr (farther down).**
+
+To build the Anthology website, you will need:
+
++ **Python 3.7** or higher, along with the packages listed in
+  [bin/requirements.txt](bin/requirements.txt)
+  + *Note:* You can install all needed dependencies using the command `pip install -r bin/requirements.txt`
+  + *Note:* [Installing the PyYAML package with C
+    bindings](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/)
+    will speed up the generation process.
++ [**Hugo 0.54**](https://gohugo.io) or higher (can be [downloaded directly from
+  their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
++ [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
+  non-BibTeX citation formats (not strictly required to build the website, but
+  without them you need to invoke the build steps manually as laid out in the
+  [detailed README](README_detailed.md))
 
 ### Cloning
-Browse to your designated folder and clone it using this git command (or with a git GUI tool). The process should take a while since the repository is quite big (about 150MB):
-```
-$ git clone https://github.com/WING-NUS/acl
-```
-After the cloning is done, go to the ACL directory and install all gems:
-```
-$ cd acl
-$ bundle install
+
+Clone the Anthology repo to your local machine:
+
+```bash
+$ git clone https://github.com/acl-org/acl-anthology
 ```
 
-### Database 
-If you don't have any other PostgreSQL database already running you need to create a username and grant the user writing access to the database. To do this open (in Debian) ``` /etc/postgresql/<version>/main/pg_hba.conf ``` in your editor and add the following line:
+### Generating
 
-```
-# TYPE  DATABASE  USER                    METHOD
-  local all      <database-username>      md5
+Provided you have correctly installed all requirements, building the website
+should be as simple as calling the following command from the directory to which
+you cloned the repo:
+
+```bash
+$ bin/build_hugo
 ```
 
-and then re-start the database. You also need to edit the section "production" of the file ``` acl/config/database.yml ``` so that it uses the right database username and password.
+The fully generated website will be in `hugo/public/` afterwards.  If any errors
+occur during this step, you can consult the [detailed
+README](README_detailed.md) for more information on the individual steps
+performed to build the site.
 
-Run the following commands to initialize the database and run migrations:
-```
-$ rake db:create
-$ rake db:migrate
-```
-Ingest the database with the ACL anthology information using this command:
-```
-$ rake db:seed
-```
-This command requires Internet connectivity as it gets the data directly from the ACL website. To fully ingest the data, it will take a very long time, at least 30 mins. So you can go grab a coffie or a meal or something :) 
+Note that building the website is quite a resource-intensive process;
+particularly the last step, invoking Hugo, uses about 18~GB of system memory.
 
-If there is any error with the seeding process, most probably there is a problem with some of the xml files. Go to db/seeds.rb, ignore those files for the time being and inform the ACL editor to edit those xml files. In this case, or if for any reason you want to recreate and reseed the database, please use the drop command:
-```
-$ rake db:drop
-```
-After that you can start over and recreate the database.
+(**Note:** This does *not* mean you need this amount of RAM in your system; in
+fact, the website builds fine on a laptop with 8 GB of RAM.  The system might
+temporarily slow down due to swapping, however.  The figure of approx. 18 GB is
+the maximum RAM usage reported when running `hugo --minify --stepAnalysis`.)
 
-This is only one of the two methods to create the database. You can [click here](https://github.com/WING-NUS/acl/wiki/Seeding-1:-Initial-database-seeding) to learn more about it or alternatively, you can use the second method: [Seeding 2: Individual elements](https://github.com/WING-NUS/acl/wiki/Seeding-2:-Individual-elements)
 
-### Indexing 
-(*Indexing is a major feature in the Anthology software but requires a separate package, Solr.  The version that is currently (2016 Oct) used on the production server is Solr 3.5 which is pretty dated.  Recent versions of Solr have significantly changed architecture so it is recommended that you use 3.5 for the time being.*
+## Contributing
 
-*We have been able to replicate Ruby on Rails install application at a number of sites, but currently (2016 Oct) not the Solr search part.  Without Solr, the search functionality will be broken and you can only use hyperlinks generated by the Rails app to find papers.*)
+If you'd like to contribute to the ACL Anthology, please take a look at our
+[information on volunteering](https://aclanthology.info/volunteer) and the
+[detailed README](README_detailed.md) containing more in-depth information about
+generating and modifying the website.
 
-Before using the search functionality, we will need to run the Solr server locally and index the data. First, we will need to set the user. Open `jetty/solr/blacklight-core/conf/data-config.xml` (or just use find to find this file) and change line 5 to your current user account:
-```
-user="user_account"
-password=""
-```
-Then in the `jetty/solr/blacklight-core/conf/solrconfig.xml`, edit line 67 (it is for server only):
-```
-<str name="config">/var/opt/solr/solr/blacklight-core/conf/data-config.xml</str>
-Change to:
-<str name="config">data-config.xml</str>
-```
-Finally edit ``` jetty/etc/jetty.xml ``` line 80 and replace the given IP address with either your own (if you are running jetty from a different computer than the server) or ``` 127.0.0.1 ```.
 
-After saving all files, we can start the Solr server:
-```
-$ cd jetty; java -jar start.jar &
-```
-Open a new terminal window and index the data:
-```
-$ rake acl:reindex_solr 
-```
-You can check the indexing process by going here (this is for the production server, and you have to be connected to SoC network):
-```
-<your server>:8983/solr/#/blacklight-core/dataimport//dataimport
-```
-At this point, your setup is completed. You can run the Rails server to test the app. If you are not using a webserver, you can serve all request directly via Ruby. In order to do that, change line 23 in the file ``` config/environments/production.rb``` to ``` config.serve_static_assets = true ```. To run the Rails server call:
-```
-$ rake assets:precompile
-$ rails server
-```
-You can go to the ACL rails app by going to http://localhost:3000/ in you browser.
+## License
 
-## Exporting data 
+Materials prior to 2016 here are licensed under the [Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 International
+License](https://creativecommons.org/licenses/by-nc-sa/3.0/).  Permission is
+granted to make copies for the purposes of teaching and research.  Materials
+published in or after 2016 are licensed on a [Creative Commons Attribution 4.0
+License](https://creativecommons.org/licenses/by/4.0/).
 
-For the export functions to work properly, we must first run some rake tasks to pre-generate the exported files. [Click here](https://github.com/WING-NUS/acl/wiki/Exporting) to read more about exporting.
+Matt Post (Editor, 2019-) / Min-Yen Kan (Editor, 2008-2018) / Steven Bird (Editor, 2001-2007)
 
-## License 
-Materials prior to 2016 here are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 International License. Permission is granted to make copies for the purposes of teaching and research. Materials published in or after 2016 are licensed on a Creative Commons Attribution 4.0 License.
-
-Min-Yen Kan (Editor, 2008-) / Steven Bird (Editor, 2001-2007) 
 Developer team: Linh Hien Ng (linhhienng at gmail dot com), Duong Ho Tuan zamakkat at gmail dot com)

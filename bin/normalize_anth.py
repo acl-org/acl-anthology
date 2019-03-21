@@ -17,7 +17,7 @@ import lxml.etree as etree
 import re
 import difflib
 import logging
-from tex_unicode import unicodify_node
+from tex_unicode import convert_node
 
 logging.basicConfig(format='%(levelname)s:%(location)s %(message)s', level=logging.INFO)
 def filter(r):
@@ -55,7 +55,7 @@ if __name__ == "__main__":
                 continue
             
             try:
-                newnode = unicodify_node(oldnode)
+                newnode = convert_node(oldnode)
             except ValueError as e:
                 logging.error("unicodify raised exception {}".format(e))
                 continue
@@ -76,4 +76,4 @@ if __name__ == "__main__":
                         logging.info('{}{}{}{}{}'.format(oldstring[max(0,oi-ws):oi], red, oldstring[oi:oj], off, oldstring[oj:oj+ws]))
                         logging.info('{}{}{}{}{}'.format(newstring[max(0,ni-ws):ni], green, newstring[ni:nj], off, newstring[nj:nj+ws]))
                     
-    tree.write(args.outfile, encoding="UTF-8")
+    tree.write(args.outfile, encoding="UTF-8", xml_declaration=True)

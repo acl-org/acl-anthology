@@ -1,0 +1,115 @@
+{{ define "meta" }}
+{{ end }}
+
+{{ define "main" }}
+{{ $anthology_id := .Params.anthology_id }}
+{{ $volume_id := slicestr .Params.anthology_id 0 3 }}
+{{/* "$paper" here refers to a full proceedings volume */}}
+{{ $paper := index .Site.Data.volumes .Params.anthology_id }}
+<section id="main">
+  <h2 id="title">
+    <a href="{{ $paper.url }}">{{ $paper.title_html | safeHTML }}</a>
+  </h2>
+  {{ with $paper.editor }}
+  <p class="lead">
+    {{ $len := (len .) }}
+    {{ range $index, $person := . }}
+      {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ end }}
+    <span class="text-muted">({{ cond (eq (len .) 1) "Editor" "Editors" }})</span>
+  {{ end }}
+
+  <hr />
+
+  <div class="row acl-paper-details">
+    <div class="col col-lg-10 order-2">
+    <!-- To avoid cluttering this template with Bootstrap classes, the styling
+    for this list is defined in assets/css/_papers.scss -->
+    <dl>
+      <dt>Anthology ID:</dt>
+      <dd>{{ $anthology_id }}</dd>
+
+      <dt>Month:</dt>
+      <dd>{{ with $paper.month }}{{ . }}{{ end }}</dd>
+      <dt>Year:</dt>
+      <dd>{{ with $paper.year }}{{ . }}{{ end }}</dd>
+      <dt>Address:</dt>
+      <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
+
+      {{ if isset $paper "venues" }}
+      <dt>{{ if gt (len $paper.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
+      <dd>
+        {{- $len := (len $paper.venues) -}}
+        {{- range $index, $venue := $paper.venues -}}
+          <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}">
+            {{- $venue -}}
+          </a>
+          {{ if ne (add $index 1) $len }} | {{ end }}
+        {{- end -}}
+      </dd>
+      {{ end }}
+
+      {{ if isset $paper "sigs" }}
+      <dt>{{ if gt (len $paper.sigs) 1 }}SIGs:{{ else }}SIG:{{ end }}</dt>
+      <dd>
+        {{- $len := (len $paper.sigs) -}}
+        {{- range $index, $sig := $paper.sigs -}}
+          {{ $slug := index $.Site.Data.sigs $sig "slug" }}
+          <a href="{{ relref $ (printf "/sigs/%s.md" $slug) }}">{{ $sig }}</a>
+          {{ if ne (add $index 1) $len }} | {{ end }}
+        {{- end -}}
+      </dd>
+      {{ end }}
+
+      <dt>Publisher:</dt>
+      <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
+      <dt>URL:</dt>
+      <dd>{{ with $paper.url }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
+      <dt>DOI:</dt>
+      <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      <!--
+      <dt>Bibtype:</dt>
+      <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
+      <dt>Bibkey:</dt>
+      <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
+      -->
+      <dt class="acl-button-row">Bib Export formats:</dt>
+      <dd class="acl-button-row">
+      {{ $bibfile := printf "/volumes/%s.bib" $volume_id }}
+      {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ $bibfile | relURL }}">BibTeX</a>
+      {{ end }}
+      {{ $expfile := printf "/volumes/%s.xml" $volume_id }}
+      {{ if (fileExists (printf "/data-export/%s" $expfile)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ $expfile | relURL }}">MODS XML</a>
+      {{ end }}
+      </dd>
+    </dl>
+    </div>
+
+    <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
+    <div class="acl-paper-link-block">
+      <a class="btn btn-primary" href="{{ $paper.url }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+        <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(full)</small></span>
+      </a>
+      {{ $bibfile := printf "/volumes/%s.bib" $volume_id }}
+      {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
+      <a class="btn btn-secondary" href="{{ $bibfile | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+        <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
+      </a>
+      {{ end }}
+      <a class="btn btn-secondary" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
+        <i class="fas fa-search"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
+      </a>
+    </div>
+  </div>
+  <hr />
+
+  <div>
+    {{ range $paper.papers }}
+      {{ $page := printf "/papers/%s/%s/%s.md" (slicestr . 0 1) (slicestr . 0 3) . }}
+      {{ ($.Site.GetPage $page).Render "list-entry" }}
+    {{ end }}
+  </div>
+</section>
+{{ end }}

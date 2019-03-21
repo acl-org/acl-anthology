@@ -1,0 +1,44 @@
+{{ $volume_id := slicestr .Params.anthology_id 0 3 }}
+{{ $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id }}
+<p>
+  <span class="mr-2">
+  {{- if isset $paper "revision" -}}
+    {{- range last 1 $paper.revision -}}
+    <a class="badge badge-primary align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="Latest revision PDF">
+      pdf&nbsp;(v{{ .id }})
+    </a>
+    {{- end -}}
+    {{- range first 1 $paper.revision -}}
+    <a class="badge badge-secondary align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="Original PDF">
+      pdf&nbsp;(v{{ .id }})
+    </a>
+    {{- end -}}
+  {{- else -}}
+    <a class="badge badge-primary align-middle mr-1" href="{{ $paper.url }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
+      pdf
+    </a>
+  {{- end -}}
+    {{- $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id .Params.anthology_id -}}
+    {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
+    <a class="badge badge-secondary align-middle mr-1" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
+      bib
+    </a>
+    {{- end -}}
+    <a class="badge badge-secondary align-middle mr-1" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" data-toggle="tooltip" data-placement="top" title="Search on Google">
+      <i class="fas fa-search"></i>
+    </a>
+    {{- range $paper.attachment -}}
+      <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
+    {{- end -}}
+  </span>
+    <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
+    <br />
+    <span class="text-muted">[{{ .Params.anthology_id }}]:</span>
+    {{ with $paper.author }}
+      {{ $len := (len $paper.author) }}
+      {{ range $index, $person := $paper.author }}
+        {{ partial "author_link.html" (dict "ctx" $ "person" $person) }}
+        {{ if ne (add $index 1) $len }} | {{ end }}
+      {{ end }}
+    {{ end }}
+</p>

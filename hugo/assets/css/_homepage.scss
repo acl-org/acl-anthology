@@ -1,0 +1,85 @@
+/* Custom styles for main homepage */
+
+.acl-news {
+  .acl-news-date {
+    @extend .mb-2;
+    @extend .font-weight-light;
+    font-style: italic;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0 !important;
+  }
+
+  a {
+    @extend .alert-link;
+  }
+}
+
+.acl-greeting {
+  .card-body:not(:last-of-type) {
+    border-bottom: $border-width solid $border-color;
+
+    @include media-breakpoint-down(lg) {
+      border-bottom: none !important;
+      padding-bottom: 0 !important;
+      margin-bottom: -.5rem !important;
+    }
+  }
+}
+
+
+/* Event table */
+
+$acl-row-th-width: 8rem;  /* Width for the "venue" column */
+$acl-td-width: 1.5rem;    /* Width for each "year" cell   */
+$et-border-width: ($border-width / 2);
+
+.acl-event-table {
+  border: $et-border-width solid $border-color;
+  font-size: .8rem;
+}
+
+.acl-row-block {
+  border: $et-border-width solid $border-color;
+
+  &:last-of-type {
+    flex-grow: 1 !important;
+  }
+}
+
+.acl-col-th,
+.acl-row-th {
+  border: $et-border-width solid $border-color;
+  text-align: center;
+  font-weight: 700;
+}
+
+.acl-col-th {
+  padding: .25rem 0rem;
+
+  &:last-of-type {
+    flex-grow: 1 !important;
+  }
+}
+
+.acl-row-th {
+  box-sizing: content-box !important;
+  padding: .25rem .5rem;
+  max-width: $acl-row-th-width;
+}
+
+.acl-td {
+  box-sizing: content-box !important;
+  display: inline-block;
+  width: $acl-td-width;
+  padding: .25rem 0rem;
+  text-align: center;
+}
+
+@for $i from 1 through 15 {
+  .acl-colspan-#{$i} {
+    box-sizing: content-box !important;
+    width: ($i * $acl-td-width)  !important;
+  }
+}

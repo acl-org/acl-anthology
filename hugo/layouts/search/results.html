@@ -1,0 +1,25 @@
+{{ define "meta" }}
+<meta name="robots" content="noindex, nofollow">
+{{ end }}
+
+{{ define "main" }}
+<main aria-role="main">
+  <h2 id="title">{{ .Title }}</h2>
+  <hr />
+
+  <div>
+    <script>
+      (function() {
+          var cx = '000299513257099441687:fkkgoogvtaw';
+          var gcse = document.createElement('script');
+          gcse.type = 'text/javascript';
+          gcse.async = true;
+          gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(gcse, s);
+      })();
+    </script>
+    <gcse:searchresults-only personalizedAds="false"></gcse:searchresults-only>
+  </div>
+</main>
+{{ end }}

@@ -1,293 +1,163 @@
-# ACL Anthology - Detailed instructions #
+# ACL Anthology - Detailed Instructions
 
-These are the detailed instructions on running the ACL Anthology Rails application which currently drives http://aclanthology.info
+These are the detailed instructions on generating the ACL Anthology website as
+seen on <https://aclweb.org/anthology/>.
 
-These instructions were tested on Debian Wheezy. Througout this document, we'll always assume that your local username is `acl_user`, and that your home directory is `/home/acl_user`.
 
-## Before we start ##
+## Generating the Anthology
 
-Your first step will be adding some environment variables. This will save typing in the future and prevent some common mistakes.
+The Anthology website is generated using the [Hugo](https://gohugo.io) static
+site generator.  However, before we can actually invoke Hugo, we need to prepare
+the contents of the website.
 
-Open the file `/home/acl_user/.profile` with your favorite editor (if you don't have one, `nano` is a good starting point), and add the following line at the end:
+### Step 1: Prepare the data for site generation
 
-```
-export RAILS_ENV=production
-```
+The data sources for the Anthology currently reside in the [`data/`](data/)
+directory.  XML files contain the authoritative paper metadata, and additional
+YAML files document information about venues and special interest groups (SIGs).
+Before the Anthology website can be generated, all this information needs to be
+converted and preprocessed for the static site generator.
 
-This variable will be set every time you log in. At this point, you can either log out and log in again for the change to take effect, or you can run the command `source /home/acl_user/.profile`.
+This is achieved by calling:
 
-You can test your new variable by typing the following command:
-
-```
-echo $RAILS_ENV
-```
-
-and making sure it prints `production`.
-
-## Installing RVM ##
-
-Follow the instructions in https://rvm.io/rvm/install. As of today (May 2017), those instructions read:
-
-```
-gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-\curl -sSL https://get.rvm.io | bash -s stable --ruby
+```bash
+$ python3 bin/create_hugo_yaml.py
 ```
 
-Note that the second step requires curl. If you don't have it on your system, install it (in Debian) with the command:
+This process should not take longer than a few minutes and can be sped up
+considerably by [installing PyYAML with C
+bindings](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/).
 
-```
-apt-get install curl
-```
+### Step 2: Create page stubs for site generation
 
-You need to have root access to run `apt-get`. The recommended way is through the `sudo` command, like so:
+The YAML files created in Step 1 are used by Hugo to pull in information about
+venues/papers/etc., but they cannot be used to define what actual *pages* the
+website should have.  Therefore, another script takes the YAML files generated
+in Step 1 and produce stubs of pages for each individual paper, venue, etc.
 
-```
-sudo apt-get install curl
-```
+This is achieved by calling:
 
-If `sudo` is not properly installed and/or configured in your system, you can use the `su` command instead, like so:
-
-```
-# The following command will ask for the root password
-su
-apt-get install curl
-# The following command will take you back to your regular user
-exit
+```bash
+$ python3 bin/create_hugo_pages.py
 ```
 
-Once you are done, you want to reload your environment variables, either by logging out and in again, or by writing the following command in all open terminals
+This script will produce *a lot* of files in the `hugo/content/` subdirectory
+(most prominently, one for each paper in the Anthology).
 
-```
-/home/acl_user/.rvm/scripts/rvm
-```
+### Step 3: Create bibliography export files for papers
 
-## Installing dependencies ##
+In this step, we create `.bib` files for each paper and proceedings volume in
+the Anthology.  This is achieved by calling:
 
-For the current installation, you'll need 
-
-  * Rails (4.0.1)
-  * Ruby (2.0.0)
-  * Bundle (1.3.5)
-  * PostgreSQL (9.3.1 or higher)
-  * Java (1.5 or higher)
-
-The Anthology is *extremely* dependent on the proper version of each item, so this section will walk you through each step.
-
-### Ruby ###
-
-Ruby can be installed with the following commands.
-
-```
-rvm install 2.0.0-p353
+```bash
+$ python3 bin/create_bibtex.py
 ```
 
-Then, we add the following line to our /home/acl_user/.profile file in our home directory:
+The exported files will be written to the `hugo/data-export/` subdirectory.
 
-```
-rvm use ruby-2.0.0-p353 --default
-```
+For other export formats, we rely on the
+[`bibutils`](https://sourceforge.net/p/bibutils/home/Bibutils/) suite by
+first converting the generated `.bib` files to MODS XML:
 
-In recent versions, OpenSSL does no longer work with ruby 2.0, and won't
-compile. To solve this problem, you can replace the install command with the
-following commands. This will install an older version of OpenSSL:
-
-```
-rvm pkg install openssl
-rvm reinstall 2.0.0-p353 -C --with-openssl-dir=$HOME/.rvm/usr
+```bash
+$ find hugo/data-export -name '*.bib' -exec bin/bib2xml_wrapper {} \; >/dev/null
 ```
 
-### Rails and Bundle ###
+This creates a corresponding `.xml` file in MODS format for every `.bib` file
+generated previously.
 
-Rails and Bundle can be installed with the following commands:
+### Step 4: Run Hugo
 
-```
-gem install rails -v 4.0.1
-gem install bundler -v 1.3.5
-```
+After all necessary files have been created, the website can be built by simply
+invoking Hugo from the `hugo/` subdirectory.  Optionally, the `--minify` flag
+can be used to create minified HTML output:
 
-### PostgreSQL ###
-
-PostgreSQL can be installed with the following command:
-
-```
-sudo apt-get install postgresql
+```bash
+$ hugo --minify
 ```
 
-In our current version of Debian (May 2017) this command installs version 9.1 of PostgreSQL. Knowing that, we install the following dependency:
+Generating the website is quite a resource-hungry process, but should not take
+longer than a few minutes.  Due to the high memory usage (approx. 18 GB
+according to the output of `hugo --stepAnalysis`), it is possible that it will
+cause swapping and consequently slow down your system for a while.
 
-```
-sudo apt-get install postgresql-server-dev-9.1
-```
+The fully generated website will be in `hugo/public/` afterwards.
 
-This will install the latest version of PostgreSQL available in your version of Debian, which probably won't be exactly 9.3.1. Luckily for us, this has not caused any problems with our install.
 
-By default, Debian creates neither a user nor a database when installing PostgreSQL. Therefore, we are going to do that now.  First, we'll create the user `pg_acl_user`, with permissions to write to databases, and a database named `db_acl`.
+## Making changes to the Anthology
 
-```
-sudo su
-su postgres
-# The following command will ask for a password
-createuser -d -P -R -S pg_acl_user
-createdb -O pg_acl_user db_acl
-exit
-exit
-```
+The static site tries to follow a strict *separation of content and
+presentation.* If you need to make changes to the Anthology, the first step is
+to figure out *where* to make these changes.
 
-Then, we need to grant the user access to the database. We have to edit as superusers the file `/etc/postgresql/9.1/main/pg_hba.conf` (for instance, using `sudo nano ...`), and add the following line right below `# TYPE  DATABASE ...`
+Changes in **content** (paper metadata, information about SIGs, etc.) should
+always be made in the data files under `data/` or in the scripts that
+interpret them; changes that only affect the **presentation** on the website can
+be made within the Hugo templates.
 
-```
-# TYPE  DATABASE  USER  ADDRESS  METHOD
-local   all  pg_acl_user     md5
-```
+### Content (Data Files)
 
-Finally, pick up the new configuration by restarting the database server with the following command:
+The data sources of the Anthology are currently stored under `data/`.  They
+comprise:
 
-```
-sudo /etc/init.d/postgresql restart
-```
++ The authoritative XML files (in [`xml/`](data/xml)); these contain all paper
+  metadata.  Their format is defined in RelaxNG schemas
+  [`schema.rnc`](data/xml/schema.rnc)/[`schema.rng`](data/xml/schema.rng) in the
+  same directory.
 
-### Java ###
++ YAML files for SIGs (in [`yaml/sigs/`](data/yaml/sigs)); these contain names,
+  URLs, and associated venues for all special interest groups.
 
-While Debian provides a Java implementation, we want to use the official one.
++ YAML files that define venues.  These are currently:
+    + [`venues.yaml`](data/yaml/venues.yaml): Maps venue acronyms to full names
+    + [`venues_letters.yaml`](data/yaml/venues_letters.yaml): Maps top-level
+      letters to venue acronyms (e.g. P ⟶ ACL)
+    + [`venues_joint_map.yaml`](data/yaml/venues_joint_map.yaml): Maps
+      proceedings volumes to additional venues (*Note:* volumes will always be
+      associated with the venue corresponding to their first letter; this file
+      defines *additional* ones in case of joint events etc.)
 
-Following the instructions laid out in [this website](https://www.digitalocean.com/community/tutorials/how-to-manually-install-oracle-java-on-a-debian-or-ubuntu-vps), first you need to download Java from the official Oracle website. In our case, the file is called `jdk-8u131-linux-x64.tar.gz`.
++ A name variant list ([`name_variants.yaml`](data/yaml/name_variants.yaml)) that
+  defines which author names should be treated as identical for purposes of
+  generating "author" pages.
 
-Once you have your file, these are the required commands:
+The "anthology" module under [`bin/anthology/`](bin/anthology/) is responsible
+for parsing and interpreting all these data files.  Some information that is not
+explicitly stored in any of these files is *derived automatically* by this
+module during Step 1 of building the website.  (For example, if a publication
+year is not explicitly given in the XML, it is derived from the volume ID in
+[`Paper._infer_year()`](bin/anthology/papers.py).)
 
-```
-sudo su
-mkdir /opt/jdk
-tar -zxvf jdk-8u131-linux-x64.tar.gz -C /opt/jdk/
-update-alternatives --install /usr/bin/java java /opt/jdk/jdk1.8.0_131/bin/java 100
-update-alternatives --install /usr/bin/javac javac /opt/jdk/jdk1.8.0_131/bin/javac 100
-exit
-```
+### Presentation (Templates)
 
-## Cloning the source code ##
+HTML templates for the website are found under [`hugo/layouts/`](hugo/layouts/).
 
-To clone the source code for the Anthology, you need these commands
++ The main skeleton for all HTML files is
+  [`_default/baseof.html`](hugo/layouts/_default/baseof.html).
 
-```
-sudo apt-get install git
-git clone https://github.com/acl-org/acl-anthology
-```
++ The front page is [`index.html`](hugo/layouts/index.html).
 
-Once the cloning is done, go to the ACL directory and install all gems
++ Most other pages are defined as `**/single.html` (e.g.,
+  [`papers/single.html`](hugo/layouts/papers/single.html) defines the paper
+  pages).
 
-```
-cd acl
-bundle install
-```
++ The appearance of paper entries in lists (on proceedings pages, author pages,
+  etc.) is defined in
+  [`papers/list-entry.html`](hugo/layouts/papers/list-entry.html).
 
-Then, edit the file `acl/config/database.yml` and, under "production" (end of the file), change username and password to the user `pg_acl_user` and the password you chose when setting up the user. Once that's done, you can create the database with the following commands:
+CSS styling for the website is based on [Bootstrap
+4.3](https://getbootstrap.com/docs/4.3/).  The final CSS is compiled from
+[`hugo/assets/css/main.scss`](hugo/assets/css/main.scss), which defines
 
-```
-rake db:create
-rake db:migrate
-```
+1. which Bootstrap components to include,
+2. which Bootstrap variables to customize (e.g. colors), and
+3. additional style definitions on top of that.
 
-## Seeding the database ##
 
-You can now seed the database. This will take a long time, so be prepared.
+### Adding new years to the Anthology
 
-In theory, it should be enough with a single command:
-
-```
-rake db:seed
-```
-
-If your system has some policy controls regarding use of memory and/or CPU, this command will fail. If that's your case, you can seed individual elements.
-
-The following script will seed all elements, one at the time:
-
-```
-cd acl/import
-for file in *xml; do name=`basename -s .xml $file`; rake import:xml[true,$name]; done > debug.log
-```
-
-This method is considerably slower (it took more than a full day in our previous VM, and around 3hs in the current one), but if there's an error with a specific file it will just store the error message in `debug.log` and move on to the next one.
-
-The other import commands work without any issues:
-
-```
-rake import:sigs[true]
-rake import:venues[true]
-rake import:events[true]
-```
-
-## Indexing ##
-First, we edit the file `acl-anthology/jetty/solr/blacklight-core/conf/data-config.xml` to enter the proper username and password for the PotsgreSQL database. In line 5, write:
-
-```
-user=pg_acl_user
-password=<the password you created above after installing PostgreSQL>
-```
-
-Then, edit line 67 of `acl_anthology/jetty/solr/blacklight-core/conf/solrconfig.xml` and change
-
-```
-<str name="config">/var/opt/solr/solr/blacklight-core/conf/data-config.xml</str>
-```
-
-to
-
-```
-<str name="config">data-config.xml</str>
-```
-
-And finally, change line 80 of `acl_anthology/jetty/etc/jetty.xml` to `127.0.0.1`.
-
-At this point, we can start running jetty with the following commands:
-
-```
-cd acl/jetty
-java -jar start.jar &
-rake acl:reindex_solr
-```
-
-TIP: you might want to use [GNU Screen](https://www.linux.com/learn/taking-command-terminal-gnu-screen) to keep the task running in the background. You can use the following commands instead:
-
-```
-sudo aptitude install screen
-cd acl/jetty
-# The following command will start a new console
-screen
-java -jar start.jar
-# Press and hold the Ctrl key, and type 'ad' to go back to your previous console
-rake acl:reindex_solr
-```
-
-Please refer to the official GNU Screen documentation for more details.
-
-In either case, the last line will start the indexing process. There's a way to check how is the task going, but this is work in progress. Please get in contact with us for an update on this.
-
-## Exporting ##
-
-We need to export all papers to the proper formats (bib, endf, and so on).
-
-First, we need to install some auxiliary utilities and create a missing directory:
-
-```
-sudo install bibutils
-mkdir acl/export/endf
-```
-
-We are now ready to export. There's a command to do this all at once, namely
-
-```
-rake export:all papers
-```
-
-The problem, however, is that this task takes too long and it can be killed by the OS. You can find a way to fix that, or if that fails, you can run the following script. The script will be slower, but it will start and stop for each paper, so it won't run out of resources.
-
-```
-cd acl
-for file in import/*xml
-do
-      volume=`grep '<volume id' $file | sed 's/.*volume id=.\(.*\).>.*/\1/'`
-      for paper in `grep "paper id" $file | sed 's/.*id=.\([0-9]\+\).*/\1/'`
-      do
-              rake export:all_papers[${volume}-${paper}]
-      done
-done
-```
+If a new year is added to the Anthology, make sure the [front page
+template](hugo/layouts/index.html) is updated to include this new year.  Make
+sure to adjust the variable `$all_years` (and `$border_years`, if needed) and
+don't forget to **update the table headers** as well!  (Their `colspan`
+attributes need to match the number of years subsumed under the header.)

@@ -1,0 +1,65 @@
+# default namespace = ""
+
+b = element b { MarkupText }
+i = element i { MarkupText }
+url = element url { xsd:anyURI }
+fixed-case = element fixed-case { MarkupText }
+tex-math = element tex-math { text }
+MarkupText = (text | b | i | url | fixed-case | tex-math )+
+
+first = element first { text }
+last = element last { text }
+Person = (first?, last)
+
+Paper = element paper {
+  attribute id { xsd:integer },
+  attribute href { xsd:anyURI }?,
+  (element abstract { MarkupText }?
+   & element address { text }?
+   & element attachment {
+       attribute type { xsd:NCName }?,
+       xsd:NCName
+     }*
+   & element author { Person }*
+   & element bibkey { text }?
+   & element bibtype { xsd:NCName }?
+   & element booktitle { MarkupText }?
+   & element dataset { xsd:NCName }?
+   & element doi { xsd:anyURI }?
+   & element editor { Person }*
+   & element erratum {
+       attribute id { xsd:integer },
+       xsd:NCName
+     }*
+   & element href { xsd:anyURI }?
+   & (element ISBN { xsd:NMTOKEN } | element isbn { xsd:NMTOKEN })?
+   & element issue { xsd:integer }?
+   & element journal { text }?
+   & element month { text }?
+   & element mrf {
+       attribute src { xsd:NCName },
+       xsd:NCName
+     }?
+   & element pages { text }?
+   & element presentation { xsd:NCName }?
+   & element publisher { text }?
+   & element revision {
+       attribute id { xsd:integer },
+       xsd:NCName
+     }*
+   & element software { xsd:NCName }?
+   & element title { MarkupText }
+   & element url { xsd:anyURI }?
+   & element video {
+       attribute href { xsd:anyURI },
+       attribute tag { text }
+     }*
+   & element volume { xsd:integer }?
+   & element year { xsd:integer }?
+   )
+}
+Volume = element volume {
+  attribute id { xsd:NCName },
+  Paper+
+}
+start = Volume

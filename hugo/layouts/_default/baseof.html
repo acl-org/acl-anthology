@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="{{ $.Site.LanguageCode | default "en" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
+    {{ "<!--[if IEMobile]>" | safeHTML }}
+      <meta http-equiv="cleartype" content="on">
+    {{ "<![endif]-->" | safeHTML }}
+
+    {{/* NOTE: the Site's title, and if there is a page title, that is set too */}}
+    <title>{{ block "title" . }}{{ with .Params.Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
+
+    {{ .Hugo.Generator }}
+    <link href="{{ "aclicon.ico" | relURL }}" rel="shortcut icon" type="image/x-icon" />
+
+    {{ $sass_options := (dict "includePaths" (slice "assets/css" "assets/css/vendor/bootstrap/scss")) }}
+    {{ $style := resources.Get "css/main.scss" | toCSS $sass_options | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $style.RelPermalink }}" media="screen" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    {{ block "meta" . }}{{ end }}
+  </head>
+
+  <body>
+    {{ block "header" . }}{{ partialCached "header_navbar.html" .}}{{ end }}
+
+    <!-- Draft alert -->
+    <div class="container">
+      <aside class="alert alert-warning text-center py-1 mt-n3 mt-md-n4 mt-xl-n5" role="alert">
+        You're viewing the latest version of the ACL Anthology.
+        <a class="btn btn-warning mx-2" href="https://github.com/acl-org/acl-anthology/issues/170">Give feedback</a>
+      </aside>
+    </div>
+
+    <div id="main-container" class="{{ default "container" (index .Params "css_container") }}">
+      {{ block "main" . }}{{ end }}
+    </div>
+    {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
+
+    <!-- JavaScript used by Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script>
+      $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+      })
+    </script>
+    {{ block "javascript" . }}{{ end }}
+  </body>
+</html>

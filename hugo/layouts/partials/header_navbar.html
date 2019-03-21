@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand navbar-light bg-gradient-light shadow-sm py-0 mb-3 mb-md-4 mb-xl-5">
+  <div id="navbar-container" class="container">
+    <a class="navbar-brand" href="{{ "/" | relURL }}">
+      <img src="{{ "images/acl-logo.svg" | relURL }}" width="56" alt="ACL Logo" />
+      <span class="d-none d-md-inline pl-md-2">ACL Anthology</span>
+    </a>
+    <form class="form-inline flex-nowrap ml-auto my-1 my-sm-2" action="{{ "/search/?" | relURL }}" method="GET">
+      <input class="form-control mr-1 mr-sm-2" name="q" type="search" placeholder="Search..." aria-label="Search">
+      <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
+</nav>
