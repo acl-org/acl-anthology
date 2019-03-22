@@ -3,14 +3,16 @@
 {{ $person := index .Site.Data.people $first_letter .Params.name }}
 <section id="main">
   <h2 id="title">
-    {{- .Title -}}
+    <!-- {{- .Title -}} -->
+    <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ $person.last }}</span>
   </h2>
   {{ with $person.variant_entries }}
   <p class="font-weight-light text-muted">
     <span class="font-italic">Published also as:</span>
     {{ $len := (len .) }}
     {{ range $index, $var := . }}
-    {{ index (index $.Site.Data.people (slicestr $var 0 1) $var) "full" }}{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ $name := index $.Site.Data.people (slicestr $var 0 1) $var }}
+    {{ $name.first }} <span class="font-weight-normal">{{ $name.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}
