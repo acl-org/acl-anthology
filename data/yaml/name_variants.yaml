@@ -1,22 +1,42 @@
 ---
-- canonical:
-    first: Héctor
-    last: Martínez Alonso
-  variants:
-  - first: Héctor Martínez
-    last: Alonso
-  - first: Hector Martinez
-    last: Alonso
-  - first: Hector
-    last: Martinez Alonso
-  - first: Héctor
-    last: Martínez
-  - first: Hector
-    last: Martinez
+# Currently allowed fields are: `canonical`, `variants`, `website`,
+# `ipa`.
+
+# The `canonical` and `variants` fields should be dictionaries
+# with `first` and `last` fields (in either order).
+
+# The `ipa` field should use the International Phonetic Alphabet,
+# encoded in UTF-8.
+
+# This list is sorted alphabetically by last name.
+
 - canonical: {first: Ondřej, last: Bojar}
   variants:
   - {first: Ondrej, last: Bojar}
+  
+- canonical: {first: David, last: Chiang}
+  website: http://www.nd.edu/~dchiang
+  ipa: /ˈdeɪvɪd ʧæŋ/
+  
+- canonical: {first: Grzegorz, last: Chrupała}
+  variants:
+  - {first: Grzegorz, last: Chrupala}
+  website: http://grzegorz.chrupala.me
+  ipa: /ˈɡʐɛɡɔʂ ˈxrupawa/
+
 - canonical: {first: Marti, last: Hearst}
   variants: 
   - {first: Marti A., last: Hearst}
-
+  ipa: /ˈmɑrti hɜrst/
+  
+- canonical: {first: Héctor, last: Martínez Alonso}
+  variants:
+  - {first: Héctor Martínez, last: Alonso}
+  - {first: Hector Martinez, last: Alonso}
+  - {first: Hector, last: Martinez Alonso}
+  - {first: Héctor, last: Martínez}
+  - {first: Hector, last: Martinez}
+    
+- canonical: {first: Matt, last: Post}
+  website: mjpost.github.io
+  ipa: /mæt pɔəst/
