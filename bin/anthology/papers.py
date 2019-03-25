@@ -270,9 +270,14 @@ class Paper:
                 entries.append(
                     ("booktitle", self.parent_volume.get_title(form="latex"))
                 )
-        for entry in ("month", "year", "address", "publisher", "url", "doi"):
+        for entry in ("month", "year", "address", "publisher"):
             if entry in self.attrib:
                 entries.append((entry, bibtex_encode(self.get(entry))))
+        for entry in ("url", "doi"):
+            if entry in self.attrib:
+                # don't want latex escapes such as
+                # doi = "10.1162/coli{\_}a{\_}00008",
+                entries.append((entry, self.get(entry)))
         if "pages" in self.attrib:
             entries.append(("pages", self.get("pages").replace("–", "--")))
         if "xml_abstract" in self.attrib:
