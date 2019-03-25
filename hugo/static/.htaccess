@@ -1,38 +1,48 @@
+# See here for flags: https://httpd.apache.org/docs/2.4/rewrite/flags.html
+#
+# These rewrite rules attempt to redirect a number of supported URLs
+# to the canonical location at https://www.aclweb.org/anthology/. The
+# supported URLs are http[s]?://(www.)?anthology.aclweb.org/.
+#
+# In addition, we support a number of convenience shortcuts for PDF
+# files and attachments, paper pages, and authors.
+
 # This is important for returning the proper encoding for BibTeX files
 AddDefaultCharset utf-8
 
-# Use Anthology-themed error document(s)
+# Use the Anthology-themed error document
 ErrorDocument 404 /anthology/404.html
 
-# Only runs for files or directories that are not found
 RewriteEngine On
 
-# Canonical URL prefix is https://aclweb.org/anthology/
+# Redirect non-canonical URL bases to https://aclweb.org/anthology/
 RewriteCond %{HTTP_HOST} ^anthology\.aclweb\.org$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.anthology\.aclweb\.org$
 RewriteRule ^/?(.*) https://www.aclweb.org/anthology/$1 [R=301,L]
 
-# Redirect to HTTPS, leaving a 301 on the HTTP page
+# Now we know we are at the canonical URL.
+# Now make sure that we redirect from non-HTTPS to HTTPS.
+# **Note**: at this point, paths are relative to /anthology, that is, they *do not include* the /anthology/ text.
 RewriteCond %{HTTPS} !=on
-RewriteRule ^/?(.*) https://%{SERVER_NAME}/anthology/$1 [R=301,L]
+RewriteRule ^(.*)$ https://%{SERVER_NAME}/anthology/$1 [R=301,L]
 
-# Normal papers (nothing at the end: the canonical URL)
+# Canonical URL (a plain ACL ID with no file extension, e.g., P17-1069)
 #RewriteRule ^(E)([0-9][0-9])\-([0-9][0-9][0-9][0-9])$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])$ $1/$1$2/$1$2-$3.pdf [L,NC]
-# PDF link
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ $1/$1$2/$1$2-$3.pdf [L,NC]
-# Added by Min (18 Aug 2014) to cater for revisions/errata
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])([ve][0-9]+)$ $1/$1$2/$1$2-$3$4.pdf [L,NC]
-# Added for attachments
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ $1/$1$2/$1$2-$3$4 [L,NC]
-# Added for volumes (by Min, 25 Sep 2014)
+# Volume URLs
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9]{1,2})$ $1/$1$2/$1$2-$3.pdf [L,NC]
+# PDF link (e.g., P17-1069.pdf)
+RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ $1/$1$2/$1$2-$3.pdf [L,NC]
+# Revisions and errata (e.g., P17-1069v2)
+RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])([ve][0-9]+)$ $1/$1$2/$1$2-$3$4.pdf [L,NC]
+# Attachments (e.g., P17-1069.Poster.pdf)
+RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ $1/$1$2/$1$2-$3$4 [L,NC]
 
-# Paper metadata pages (put / at end)
+# The Paper metadata page (e.g., P17-1069/)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])\/$ papers/$1/$1$2/$1$2-$3/ [L,NC]
 
-# BibTeX
+# BibTeX file (e.g., P17-1069.bib)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])\.([a-z]+)$ papers/$1/$1$2/$1$2-$3.$4 [L,NC]
 
-# Author pages
+# Author pages (e.g., people/arya-d-mccarthy)
 RewriteRule ^people/([a-z])([a-z\-]*)$ people/$1/$1$2/ [L,NC]
