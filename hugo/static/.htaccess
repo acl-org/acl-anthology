@@ -1,3 +1,5 @@
+# RewriteBase /anthology/
+
 # This is important for returning the proper encoding for BibTeX files
 AddDefaultCharset utf-8
 
@@ -7,14 +9,9 @@ ErrorDocument 404 /anthology/404.html
 # Only runs for files or directories that are not found
 RewriteEngine On
 RewriteCond %{HTTPS} !=on
-RewriteRule ^/?(.*) https://%{SERVER_NAME}/anthology/$1 [R=301,L]
 
 # Canonical URL prefix is https://aclweb.org/anthology/
-RewriteCond %{HTTP_HOST} ^anthology\.aclweb\.org$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.anthology\.aclweb\.org$
-# RewriteRule ^(.*)$ https://aclweb.org/anthology/$1 [R=301,L]
-
-# RewriteBase /anthology/
+RewriteRule ^/?(.*) https://%{SERVER_NAME}/anthology/$1 [R=301,L]
 
 # Normal papers (nothing at the end: the canonical URL)
 #RewriteRule ^(E)([0-9][0-9])\-([0-9][0-9][0-9][0-9])$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
