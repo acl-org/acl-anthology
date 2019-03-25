@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright 2003 D. Eppstein
+# Copyright 2019 Daniel Gildea
+# Copyright 2019 David Wei Chiang
+#
+# The software is licensed according to the terms of the
+# PSF (Python Software Foundation) license found here:
+# http://www.python.org/psf/license/
+
 """Translates unicode to bibtex-friendly encoding.
 
 bibtex-friendly features:
