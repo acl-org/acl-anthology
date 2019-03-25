@@ -3,6 +3,12 @@ AddDefaultCharset utf-8
 
 # Only runs for files or directories that are not found
 RewriteEngine On
+
+# Canonical URL prefix is https://aclweb.org/anthology/
+RewriteCond %{HTTP_HOST} ^anthology\.aclweb\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.anthology\.aclweb\.org$
+RewriteRule ^(.*)$ https://aclweb.org/anthology/$1 [R=301,L]
+
 # RewriteBase /anthology/
 
 # Normal papers (nothing at the end: the canonical URL)
@@ -50,6 +56,3 @@ RewriteRule ^people/([a-z])([a-z\-]*)$ people/$1/$1$2/ [L,NC]
 # http://www.aclweb.org/anthology/w/w10/W10-2410.pdf
 # http://www.aclweb.org/anthology/W/w10/W10-2410.pdf - > http://www.aclweb.org//W/W10/W10-2410.pdf/W10-2410.pdf
 # http://www.aclweb.org/anthology/w/W10/W10-2410.pdf - > http://www.aclweb.org//W/W10/W10-2410.pdf/W10/W10-2410.pdf
-RewriteCond %{HTTP_HOST} ^anthology\.aclweb\.org$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.anthology\.aclweb\.org$
-RewriteRule ^/?$ "http\:\/\/aclanthology\.info" [R=301,L]
