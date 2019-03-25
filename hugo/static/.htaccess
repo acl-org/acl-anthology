@@ -3,6 +3,8 @@ AddDefaultCharset utf-8
 
 # Only runs for files or directories that are not found
 RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
 
 # Canonical URL prefix is https://aclweb.org/anthology/
 RewriteCond %{HTTP_HOST} ^anthology\.aclweb\.org$ [OR]
