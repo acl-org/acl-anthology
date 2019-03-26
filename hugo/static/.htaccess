@@ -34,7 +34,9 @@ RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9]{1,2})$ $1/$1$2/$1$2-$3.pdf [L,NC]
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ $1/$1$2/$1$2-$3.pdf [L,NC]
 # Revisions and errata (e.g., P17-1069v2)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])([ve][0-9]+)$ $1/$1$2/$1$2-$3$4.pdf [L,NC]
-# Attachments (e.g., P17-1069.Poster.pdf); I (MJP) am actually not sure this is used, since attachments are hosted under attachments/
+# Attachments (e.g., P17-1069.Poster.pdf -> /anthology-files/attachments/P/P17/P17-1069.Poster.pdf)
+RewriteRule ^attachments/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ /anthology-files/attachments/$1/$1$2/$1$2-$3$4 [L,NC]
+# Old rule matching files with additional annotations on the canonical URL; I (MJP) am actually not sure whether every actually fires
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ $1/$1$2/$1$2-$3$4 [L,NC]
 
 # The Paper metadata page (e.g., P17-1069/ -> papers/P/P17/P17-1069/index.html)

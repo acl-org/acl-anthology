@@ -21,8 +21,8 @@
 # changed.
 ################################################################################
 
-ANTHOLOGY_URL = "http://www.aclweb.org/anthology/{}"
-ATTACHMENT_URL = "http://anthology.aclweb.org/attachments/{}/{}/{}"
+ANTHOLOGY_URL = "https://www.aclweb.org/anthology/{}"
+ATTACHMENT_URL = "https://www.aclweb.org/anthology/attachments/{}"
 
 
 def get_journal_title(top_level_id, volume_title):
