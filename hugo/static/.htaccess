@@ -27,8 +27,7 @@ RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{SERVER_NAME}/anthology/$1 [R=301,L]
 
 # Canonical URL (a plain ACL ID with no file extension, e.g., P17-1069)
-#RewriteRule ^(E)([0-9][0-9])\-([0-9][0-9][0-9][0-9])$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])$ $1/$1$2/$1$2-$3.pdf [L,NC]
+RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
 # Volume URLs
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9]{1,2})$ $1/$1$2/$1$2-$3.pdf [L,NC]
 # PDF link (e.g., P17-1069.pdf)
