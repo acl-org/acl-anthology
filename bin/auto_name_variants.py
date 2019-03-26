@@ -4,8 +4,9 @@ import re
 import collections
 import operator
 import unicodedata
+import yaml
 
-threshold = 0.1
+threshold = 1
 print_singletons = False
 print_papers = True
 
@@ -19,8 +20,8 @@ def normalize(s):
     # Split before caps
     s = re.sub(r'([a-z])([A-Z])', r'\1 \2', s)
     
-    # Split on hyphens and periods
-    s = re.sub(r'[\-.]', ' ', s)
+    # Split on punctuation
+    s = ''.join(' ' if unicodedata.category(c).startswith('P') else c for c in s)
 
     # Remove accents
     s = unicodedata.normalize('NFKD', s)
@@ -28,6 +29,8 @@ def normalize(s):
 
     # Lowercase
     s = s.lower()
+
+    s = ' '.join(s.split())
     
     return s
 
@@ -40,9 +43,10 @@ def distance(x, y):
     c_insert = 1
     c_delete = 1
     c_subst = 1
-    c_insert_suffix = c_delete_suffix = 1
-    c_insert_word = c_delete_word = 1
-    c_insert_space = c_delete_space = 1
+    c_delete_suffix = 1
+    c_delete_word = 1
+    c_insert_space = 1
+    c_delete_space = 1
     
     x = x.split() + ['']
     y = y.split() + ['']
@@ -72,7 +76,7 @@ def distance(x, y):
                         d[i,ii,j,jj] = min(d[i,ii,j,jj], d[i-1,len(x[i-1]),j,jj] + c_delete_space)
                     if j > 0 and jj == 0:
                         d[i,ii,j,jj] = min(d[i,ii,j,jj], d[i,ii,j-1,0] + len(y[j-1]))
-                        d[i,ii,j,jj] = min(d[i,ii,j,jj], d[i,ii,j-1,len(y[j])] + c_insert_space)
+                        d[i,ii,j,jj] = min(d[i,ii,j,jj], d[i,ii,j-1,len(y[j-1])] + c_insert_space)
                         
     return d[len(x)-1,0,len(y)-1,0]
 
@@ -139,14 +143,15 @@ if __name__ == "__main__":
     prevkey = None            
     for key, names in sorted(keys.items()):
         if prevkey is not None:
-            d = min(distance(prevkey, key) / len(prevkey),
-                    distance(key, prevkey) / len(key))
+            d = min(distance(prevkey, key),
+                    distance(key, prevkey))
         else:
             d = float('inf')
 
-        if d < threshold:
+        if d <= threshold:
             union(parent, names[0], keys[prevkey][0])
-            print("unify {} = {} (score {})".format(names[0], keys[prevkey][0], d), file=sys.stderr)
+        if prevkey is not None:
+            print("{}\t{} ({})\t{} ({})".format(d, ' '.join(keys[prevkey][0]), prevkey, ' '.join(names[0]), key), file=sys.stderr)
 
         prevkey = key
 
@@ -162,24 +167,26 @@ if __name__ == "__main__":
         newclusters[cname] = names
     clusters = newclusters
 
-    def paperlist(p):
-        p = sorted(p)
-        if len(p) > 5:
-            return ' '.join(p[:5] + ['...'])
-        else:
-            return ' '.join(p)
+    def makename(first, last):
+        d = {'first': first, 'last': last}
+        if print_papers:
+            p = sorted(papers[first, last])
+            if len(p) > 5:
+                p = p[:5]
+                p.append('...')
+            d['papers'] = ' '.join(p)
+        return d
 
+    doc = []
     for (cfirst, clast), names in sorted(clusters.items(), key=lambda i: (normalize(i[0][1]), normalize(i[0][0]))):
         if len(names) > 1 or print_singletons:
-            if print_papers:
-                comment = ' # ' + paperlist(papers[cfirst, clast])
-            print()
-            print('- canonical: {{first: {}, last: {}}}{}'.format(cfirst, clast, comment))
-        if len(names) > 1:
-            print('- variants:')
-            for first, last in names:
-                if (first, last) == (cfirst, clast): continue
-                if print_papers:
-                    comment = ' # ' + paperlist(papers[first, last])
-                print('  - {{first: {}, last: {}}}{}'.format(first, last, comment))
+            person = {}
+            person['canonical'] = makename(cfirst, clast)
+            doc.append(person)
+            if len(names) > 1:
+                person['variants'] = []
+                for first, last in names:
+                    if (first, last) == (cfirst, clast): continue
+                    person['variants'].append(makename(first, last))
 
+    print(yaml.dump(doc, allow_unicode=True), end='')
