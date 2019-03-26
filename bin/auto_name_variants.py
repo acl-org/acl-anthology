@@ -169,7 +169,7 @@ if __name__ == "__main__":
         else:
             return ' '.join(p)
 
-    for (cfirst, clast), names in sorted(clusters.items(), key=lambda i: (i[0][1], i[0][0])):
+    for (cfirst, clast), names in sorted(clusters.items(), key=lambda i: (normalize(i[0][1]), normalize(i[0][0]))):
         if len(names) > 1 or print_singletons:
             if print_papers:
                 comment = ' # ' + paperlist(papers[cfirst, clast])
