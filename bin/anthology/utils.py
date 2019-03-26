@@ -77,7 +77,7 @@ def infer_attachment_url(filename):
     if urlparse(filename).netloc:
         return filename
     # Otherwise, treat it as an internal filename
-    return data.ATTACHMENT_URL.format(filename[0], filename[:3], filename)
+    return data.ATTACHMENT_URL.format(filename)
 
 
 _MONTH_TO_NUM = {
