@@ -3,7 +3,6 @@
 
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
-{{ $volume_id := slicestr .Params.anthology_id 0 3 }}
 {{/* "$paper" here refers to a full proceedings volume */}}
 {{ $paper := index .Site.Data.volumes .Params.anthology_id }}
 <section id="main">
@@ -75,11 +74,11 @@
       -->
       <dt class="acl-button-row">Bib Export formats:</dt>
       <dd class="acl-button-row">
-      {{ $bibfile := printf "/volumes/%s.bib" $volume_id }}
+      {{ $bibfile := printf "/volumes/%s.bib" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $bibfile | relURL }}">BibTeX</a>
       {{ end }}
-      {{ $expfile := printf "/volumes/%s.xml" $volume_id }}
+      {{ $expfile := printf "/volumes/%s.xml" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $expfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $expfile | relURL }}">MODS XML</a>
       {{ end }}
@@ -92,7 +91,7 @@
       <a class="btn btn-primary" href="{{ $paper.url }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
         <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(full)</small></span>
       </a>
-      {{ $bibfile := printf "/volumes/%s.bib" $volume_id }}
+      {{ $bibfile := printf "/volumes/%s.bib" $anthology_id }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
       <a class="btn btn-secondary" href="{{ $bibfile | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
