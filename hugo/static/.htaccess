@@ -26,6 +26,12 @@ RewriteRule ^/?(.*) https://www.aclweb.org/anthology/$1 [R=301,L]
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{SERVER_NAME}/anthology/$1 [R=301,L]
 
+## Old paths
+# Redirect old canonical paths (e.g., P/P17/P17-1069.pdf -> https://www.aclweb.org/anthology/P17-1069)
+# Note that since capture patterns can't be reused in the capture portion of the string, this is a leaky match
+# that will also redirect X/Z19/P17-1069.pdf -> /anthology-files/pdf/P/P17/1-69.pdf
+RewriteRule ^[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(.pdf)?$ https://www.aclweb.org/anthology/$1$2-$3 [R=301]
+
 ## PDF redirection
 # Canonical URL (a plain ACL ID with no file extension, e.g., P17-1069 -> P/P17/P17-1069.pdf)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
@@ -35,11 +41,6 @@ RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9]{1,2})$ /anthology-files/pdf/$1/$1$2/
 
 # PDF link (e.g., P17-1069.pdf -> P/P17/P17-1069.pdf)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
-
-# Old canonical link to flat canonical link (e.g., P/P17/P17-1069.pdf -> /anthology-files/pdf/P/P17/P17-1069.pdf)
-# Note that since capture patterns can't be reused in the capture portion of the string, this is a leaky match
-# that will also redirect X/Z19/P17-1069.pdf -> /anthology-files/pdf/P/P17/1-69.pdf
-RewriteRule ^[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
 
 # Revisions and errata (e.g., P17-1069v2)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])([ve][0-9]+)$ /anthology-files/pdf/$1/$1$2/$1$2-$3$4.pdf [L,NC]
