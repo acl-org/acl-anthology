@@ -49,10 +49,12 @@
     </element>
   </define>
   <define name="Person">
-    <optional>
-      <ref name="first"/>
-    </optional>
-    <ref name="last"/>
+    <interleave>
+      <optional>
+        <ref name="first"/>
+      </optional>
+      <ref name="last"/>
+    </interleave>
   </define>
   <define name="Paper">
     <element name="paper">
