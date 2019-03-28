@@ -1,5 +1,6 @@
 """
-Try to automatically fill in author first names.
+Try to automatically fill in author first names by downloading and scraping the PDFs.
+Reads and writes Anthology XML files.
 
 Bugs:
 
@@ -76,6 +77,6 @@ for paper in tree.findall('paper'):
             print("warning: {}: trailing string after last name: {}".format(xnametext, afterlast))
         print("{} {} -> {} {}".format(xfirst.text, xlast.text, newfirst, xlast.text))
         xfirst.text = newfirst
-    
+
     print()
 tree.write(sys.argv[2], xml_declaration=True, encoding='UTF-8', with_tail=True)
