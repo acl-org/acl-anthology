@@ -9,7 +9,7 @@ MarkupText = (text | b | i | url | fixed-case | tex-math )+
 
 first = element first { text }
 last = element last { text }
-Person = (first?, last)
+Person = (first? & last)
 
 Paper = element paper {
   attribute id { xsd:integer },
