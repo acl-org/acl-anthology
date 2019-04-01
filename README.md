@@ -51,12 +51,16 @@ performed to build the site.
 
 Note that building the website is quite a resource-intensive process;
 particularly the last step, invoking Hugo, uses about 18~GB of system memory.
+Building the anthology takes about 10 minutes on a laptop with an SSD.
 
 (**Note:** This does *not* mean you need this amount of RAM in your system; in
 fact, the website builds fine on a laptop with 8 GB of RAM.  The system might
 temporarily slow down due to swapping, however.  The figure of approx. 18 GB is
 the maximum RAM usage reported when running `hugo --minify --stepAnalysis`.)
 
+The anthology can be viewed locally by running `hugo server` in the
+`hugo/` directory.  Note that it rebuilds the site and therefore takes
+about a minute to start.
 
 ## Contributing
 
