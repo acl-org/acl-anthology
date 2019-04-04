@@ -48,7 +48,7 @@ class Volume:
         self.attrib["sigs"] = sig_index.get_associated_sigs(front_matter.full_id)
         self._set_meta_info()
         self.content = []
-        if is_journal(self.top_level_id):
+        if not is_journal(self.top_level_id):
             # journals don't have front matter, but others do
             self.append(front_matter)
 
