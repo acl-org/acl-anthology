@@ -112,6 +112,7 @@ class PersonIndex:
                     log.error("Couldn't parse name variant entry: {}".format(entry))
                     continue
                 canonical = PersonName.from_dict(canonical)
+                _ = self.papers[canonical] # insert empty entry for canonical if not present
                 for variant in variants:
                     variant = PersonName.from_dict(variant)
                     if variant in self.variants:
