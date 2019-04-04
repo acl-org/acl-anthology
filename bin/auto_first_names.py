@@ -73,7 +73,7 @@ for paper in tree.findall('paper'):
         xlastnode = xauthornode.find('last')
         assert(len(xfirstnode) == len(xlastnode) == 0)
         
-        xfirst = xfirstnode.text.strip()
+        xfirst = (xfirstnode.text or "").strip()
         xlast = xlastnode.text.strip()
         xname = '{} {}'.format(xfirst, xlast) # just used for logging
         
