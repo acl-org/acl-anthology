@@ -6,10 +6,8 @@ Bugs:
 
 - If two authors on the same paper have same last name, one of them will get the wrong 
   first name. This could be remedied somewhat by using the first initial as a clue. 
-  Otherwise, we should check for duplicate names.
 - If name is broken across two lines, there is no first name.
 - Strip punctuation from XML names too
-- Strip "and" from beginning
 """
 
 import tika.parser
@@ -23,18 +21,33 @@ import os.path
 if len(sys.argv) != 3:
     sys.exit("usage: auto_first_names.py <input-xml> <output-xml>")
 
+initial_re = re.compile(r'[A-Z]\.?')
+
 tree = etree.parse(sys.argv[1])
 for paper in tree.findall('paper'):
+
+    # Skip downloading paper if there are no first initials
+    skip = True
+    for xauthornode in paper.xpath('./author|./editor'):
+        xfirstnode = xauthornode.find('first')
+        assert(len(xfirstnode) == 0)
+        xfirst = (xfirstnode.text or "").strip()
+        if initial_re.fullmatch(xfirst):
+            skip = False
+            break
+    if skip:
+        continue
+    
     print("paper", paper.attrib['id'])
-    url = paper.find('url') and paper.find('url').text
-    if url is None: url = paper.find('href') and paper.find('href').text
-    if url is None: url = paper.attrib.get('href', None)
-    if url is None:
+    url = paper.find('url') is not None and paper.find('url').text
+    if not url: url = paper.find('href') and paper.find('href').text
+    if not url: url = paper.attrib.get('href', None)
+    if not url:
         filename = os.path.basename(sys.argv[1])
         assert filename.endswith('.xml')
         filename = filename[:-4]
         url = "http://www.aclweb.org/anthology/{}-{}".format(filename, paper.attrib['id'])
-    if url is None:
+    if not url:
         print('no url found; skipping')
         print()
         continue
@@ -52,10 +65,10 @@ for paper in tree.findall('paper'):
 
     index = {}
     for line in text[:20]:
-        if line.strip() == 'Abstract': break
+        if ''.join(line.split()) == 'Abstract': break
         line = unicodedata.normalize('NFKC', line)
         print('> '+line)
-        names = re.split(r',\s*|\s+and\s+|,\s*and\s+|&', line)
+        names = re.split(r',\s*|\band\s+|,\s*and\s+|&', line)
         for name in names:
             # strip leading and trailing numbers, punctuation, symbols, whitespace
             # bugs: can a name end in an apostrophe?
@@ -68,12 +81,14 @@ for paper in tree.findall('paper'):
                     index[part.lower()] = name
 
     allnames = set()
-    for xauthornode in paper.findall('author'):
+    for xauthornode in paper.xpath('./author|./editor'):
         xfirstnode = xauthornode.find('first')
         xlastnode = xauthornode.find('last')
         assert(len(xfirstnode) == len(xlastnode) == 0)
         
-        xfirst = xfirstnode.text.strip()
+        xfirst = (xfirstnode.text or "").strip()
+        if not initial_re.fullmatch(xfirst):
+            continue
         xlast = xlastnode.text.strip()
         xname = '{} {}'.format(xfirst, xlast) # just used for logging
         
@@ -88,10 +103,14 @@ for paper in tree.findall('paper'):
         if afterlast:
             print("warning: {}: trailing string after last name: {}".format(xname, afterlast))
         if (newfirst, xlast) in allnames:
-            print("warning: {}: duplicate new first name: {}".format(xname, newfirst))
+            print("warning: {}: duplicate new first name (this usually requires manual correction): {}".format(xname, newfirst))
+        if newfirst == "":
+            print("warning: {}: empty first name; skipping".format(xname))
+            continue
         allnames.add((newfirst, xlast))
-        print("{} {} -> {} {}".format(xfirst, xlast, newfirst, xlast))
-        xfirstnode.text = newfirst
+        if newfirst != xfirst:
+            print("changing: {} {} -> {} {}".format(xfirst, xlast, newfirst, xlast))
+            xfirstnode.text = newfirst
 
     print()
 tree.write(sys.argv[2], xml_declaration=True, encoding='UTF-8', with_tail=True)
