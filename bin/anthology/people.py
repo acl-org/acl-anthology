@@ -115,6 +115,7 @@ class PersonIndex:
                 _ = self.papers[canonical] # insert empty entry for canonical if not present
                 for variant in variants:
                     variant = PersonName.from_dict(variant)
+                    _ = self.papers[variant] # insert empty entry if not present
                     if variant in self.variants:
                         log.error(
                             "Tried to add '{}' as variant of '{}', but is already a variant of '{}'".format(
