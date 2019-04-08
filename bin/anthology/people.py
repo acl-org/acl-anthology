@@ -14,25 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from collections import defaultdict, Counter
-from slugify import slugify
-from stop_words import get_stop_words
 import logging as log
-import yaml
 from .formatter import bibtex_encode
-from .venues import VenueIndex
-
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
-
-
-BIBKEY_MAX_NAMES = 2
-
-
-def load_stopwords(language):
-    return [t for w in get_stop_words(language) for t in slugify(w).split("-")]
 
 
 class PersonName:

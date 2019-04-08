@@ -41,6 +41,11 @@ class Anthology:
         if importdir is not None:
             self.import_directory(importdir)
 
+    @property
+    def people(self):
+        # compatibility, since this was renamed internally
+        return self.pindex
+
     def load_schema(self, schemafile):
         if os.path.exists(schemafile):
             self.schema = etree.RelaxNG(file=schemafile)

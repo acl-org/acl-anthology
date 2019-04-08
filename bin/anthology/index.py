@@ -14,6 +14,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging as log
+import yaml
+from collections import defaultdict, Counter
+from slugify import slugify
+from stop_words import get_stop_words
+from .formatter import bibtex_encode
+from .people import PersonName
+from .venues import VenueIndex
+
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
+
+
+BIBKEY_MAX_NAMES = 2
+
+
+def load_stopwords(language):
+    return [t for w in get_stop_words(language) for t in slugify(w).split("-")]
+
+
 class AnthologyIndex:
     """Keeps an index of persons, their associated papers, paper bibliography
     keys, etc.."""
@@ -41,7 +63,9 @@ class AnthologyIndex:
                     log.error("Couldn't parse name variant entry: {}".format(entry))
                     continue
                 canonical = PersonName.from_dict(canonical)
-                _ = self.papers[canonical]  # insert empty entry for canonical if not present
+                _ = self.papers[
+                    canonical
+                ]  # insert empty entry for canonical if not present
                 for variant in variants:
                     variant = PersonName.from_dict(variant)
                     _ = self.papers[variant]  # insert empty entry if not present
@@ -81,8 +105,6 @@ class AnthologyIndex:
             else:
                 bibkey += "-i"
         self.bibkeys.add(bibkey)
-        if len(bibkey) > 60:
-            log.warn("Generated long bibkey: {}".format(bibkey))
         return bibkey
 
     def register(self, paper):
