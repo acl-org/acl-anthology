@@ -16,6 +16,7 @@
 
 from collections import defaultdict, Counter
 from slugify import slugify
+from stop_words import get_stop_words
 import logging as log
 import yaml
 from .formatter import bibtex_encode
@@ -25,6 +26,13 @@ try:
     from yaml import CLoader as Loader
 except ImportError:
     from yaml import Loader
+
+
+BIBKEY_MAX_NAMES = 2
+
+
+def load_stopwords(language):
+    return [t for w in get_stop_words(language) for t in slugify(w).split("-")]
 
 
 class PersonName:
@@ -92,6 +100,8 @@ class PersonIndex:
     """Keeps an index of persons and their associated papers."""
 
     def __init__(self, srcdir=None):
+        self.bibkeys = set()
+        self.stopwords = load_stopwords("en")
         self.canonical = defaultdict(list)  # maps canonical names to variants
         self.variants = {}  # maps variant names to canonical names
         self._all_slugs = set([""])
@@ -126,6 +136,30 @@ class PersonIndex:
                     self.variants[variant] = canonical
                     self.canonical[canonical].append(variant)
 
+    def create_bibkey(self, paper):
+        """Create a unique bibliography key for the given paper."""
+        names = paper.get("author")
+        if not names:
+            names = paper.get("editor", [])
+        if names:
+            if len(names) > BIBKEY_MAX_NAMES:
+                bibnames = "{}-etal".format(slugify(names[0].last))
+            else:
+                bibnames = "-".join(slugify(n.last) for n in names)
+        else:
+            bibnames = "nn"
+        title = [w for w in slugify(paper.get_title("plain")).split("-") if w not in self.stopwords]
+        bibkey = "{}:{}:{}".format(bibnames, str(paper.get("year")), title.pop(0))
+        while bibkey in self.bibkeys:  # guarantee uniqueness
+            if title:
+                bibkey += "-{}".format(title.pop(0))
+            else:
+                bibkey += "-i"
+        self.bibkeys.add(bibkey)
+        if len(bibkey) > 60:
+            log.warn("Generated long bibkey: {}".format(bibkey))
+        return bibkey
+
     def register(self, paper):
         """Register all names associated with the given paper."""
         from .papers import Paper
@@ -133,6 +167,7 @@ class PersonIndex:
         assert isinstance(paper, Paper), "Expected Paper, got {} ({})".format(
             type(paper), repr(paper)
         )
+        paper.bibkey = self.create_bibkey(paper)
         for role in ("author", "editor"):
             for name in paper.get(role, []):
                 # Register paper

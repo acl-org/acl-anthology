@@ -39,6 +39,7 @@ class Paper:
         self.paper_id = paper_id
         self.top_level_id = top_level_id
         self.attrib = {}
+        self._bibkey = False
 
     def from_xml(xml_element, *args):
         paper = Paper(xml_element.get("id"), *args)
@@ -192,6 +193,16 @@ class Paper:
         return "{}-{}".format(self.top_level_id, self.paper_id)
 
     @property
+    def bibkey(self):
+        if not self._bibkey:
+            self._bibkey = self.full_id  # fallback
+        return self._bibkey
+
+    @bibkey.setter
+    def bibkey(self, value):
+        self._bibkey = value
+
+    @property
     def bibtype(self):
         if is_journal(self.full_id):
             return "article"
@@ -240,7 +251,7 @@ class Paper:
     def as_bibtex(self):
         """Return the BibTeX entry for this paper."""
         # Build BibTeX entry
-        bibkey = self.full_id  # TODO
+        bibkey = self.bibkey
         bibtype = self.bibtype
         entries = [("title", self.get_title(form="latex"))]
         for people in ("author", "editor"):
@@ -285,6 +296,14 @@ class Paper:
 
         # Serialize it
         return bibtex_make_entry(bibkey, bibtype, entries)
+
+    def as_dict(self):
+        value = self.attrib
+        value["paper_id"] = self.paper_id
+        value["parent_volume_id"] = self.parent_volume_id
+        value["bibkey"] = self.bibkey
+        value["bibtype"] = self.bibtype
+        return value
 
     def items(self):
         return self.attrib.items()
