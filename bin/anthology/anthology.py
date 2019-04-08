@@ -20,8 +20,8 @@ import logging as log
 import os
 
 from .formatter import MarkupFormatter
+from .index import AnthologyIndex
 from .papers import Paper
-from .people import PersonIndex
 from .venues import VenueIndex
 from .volumes import Volume
 from .sigs import SIGIndex
@@ -29,7 +29,7 @@ from .sigs import SIGIndex
 
 class Anthology:
     schema = None
-    people = None
+    pindex = None
     venues = None
     sigs = None
     formatter = None
@@ -49,7 +49,7 @@ class Anthology:
 
     def import_directory(self, importdir):
         assert os.path.isdir(importdir), "Directory not found: {}".format(importdir)
-        self.people = PersonIndex(importdir)
+        self.pindex = AnthologyIndex(importdir)
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
         self.load_schema(importdir + "/xml/schema.rng")
@@ -71,7 +71,7 @@ class Anthology:
         current_volume = None
         for paper in volume:
             parsed_paper = Paper.from_xml(paper, top_level_id, self.formatter)
-            self.people.register(parsed_paper)
+            self.pindex.register(parsed_paper)
             full_id = parsed_paper.full_id
             if full_id in self.papers:
                 log.critical(
