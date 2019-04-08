@@ -39,7 +39,7 @@ class PersonName:
     first, last = "", ""
 
     def __init__(self, first, last):
-        self.first = first.strip()
+        self.first = first.strip() if first is not None else ""
         self.last = last.strip()
 
     def from_element(person_element):
@@ -75,6 +75,8 @@ class PersonName:
         return repr(self)
 
     def as_bibtex(self):
+        if not self.first:
+            return "{{{}}}".format(bibtex_encode(self.last))
         return bibtex_encode("{}, {}".format(self.last, self.first))
 
     def as_dict(self):
@@ -87,10 +89,9 @@ class PersonName:
         return self.full
 
     def __repr__(self):
-        if self.first:
-            return "{} || {}".format(self.first, self.last)
-        else:
+        if not self.first:
             return self.last
+        return "{} || {}".format(self.first, self.last)
 
     def __hash__(self):
         return hash(repr(self))
