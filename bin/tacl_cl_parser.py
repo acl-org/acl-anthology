@@ -112,7 +112,12 @@ def get_authors(xml_front_node: etree.Element) -> List[Tuple[str, str]]:
         except AttributeError:
             given_names = ""  # Special case for Mausam, and potentially Madonna.
         surname = string_name.find('surname').text
-        authors.append((given_names, surname))
+        try:
+            suffix = string_name.find('suffix').text
+            surname = surname + " " + suffix
+        except AttributeError:
+            pass
+authors.append((given_names, surname))
     return authors
 
 def get_pages(xml_front_node: etree.Element) -> Tuple[str, str]:
