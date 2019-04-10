@@ -20,6 +20,8 @@ log = logging.getLogger(__name__ if __name__ != '__main__ '
 TACL = "Q"
 CL = "J"
 
+STANDARD_URL = "https://www.aclweb.org/anthology/{volume}-{paper}"
+
 def parse_args():
     """Parse command line arguments."""
     import argparse
@@ -117,7 +119,7 @@ def get_authors(xml_front_node: etree.Element) -> List[Tuple[str, str]]:
             surname = surname + " " + suffix
         except AttributeError:
             pass
-authors.append((given_names, surname))
+        authors.append((given_names, surname))
     return authors
 
 def get_pages(xml_front_node: etree.Element) -> Tuple[str, str]:
@@ -312,7 +314,7 @@ if __name__ == '__main__':
             destination = write_to_here / "{}-{}.pdf".format(volume_id, paper_id)
             shutil.copyfile(pdf, destination)
 
-        url_text = "http://www.aclweb.org/anthology/{}-{}".format(volume_id, paper_id)
+        url_text = STANDARD_URL.format(volume=volume_id, paper=paper_id)
         url = etree.Element('url')
         url.text = url_text
         papernode.append(url)
