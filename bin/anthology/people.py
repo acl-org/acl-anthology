@@ -55,6 +55,7 @@ class PersonName:
 
     def from_dict(dict_):
         first = dict_.get("first", "")
+        if first is None: first = ""
         last = dict_["last"]
         return PersonName(first, last)
 
@@ -67,7 +68,10 @@ class PersonName:
         return repr(self)
 
     def as_bibtex(self):
-        return bibtex_encode("{}, {}".format(self.last, self.first))
+        if self.first:
+            return bibtex_encode("{}, {}".format(self.last, self.first))
+        else:
+            return bibtex_encode(self.last)
 
     def as_dict(self):
         return {"first": self.first, "last": self.last, "full": self.full}
