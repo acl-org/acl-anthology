@@ -45,6 +45,9 @@ def parse_args():
     # args.outfile = argparse.FileType(mode='w')(args.outfile)
     return args
 
+def collapse_spaces(text: str) -> str:
+    return ' '.join(text.split())
+
 def get_volume_info(xml: Path) -> str:
     log.info("Getting volume info from {}".format(xml))
     # So far, their XML for the volume doesn't play nicely with xml.etree. Thus, we hack.
@@ -76,7 +79,8 @@ def get_paperid(xml: Path, count: int, issue_count: int) -> str:
 def get_title(xml_front_node: etree.Element) -> str:
     article_meta = xml_front_node.find('article-meta')
     title_group = article_meta.find('title-group')
-    title_text = title_group.find('article-title').text
+    title = title_group.find('article-title')
+    title_text = collapse_spaces("".join(title.itertext()))
     return title_text
 
 def get_year(xml_front_node: etree.Element) -> str:
@@ -100,7 +104,7 @@ def get_month(xml_front_node: etree.Element) -> str:
 def get_abstract(xml_front_node: etree.Element) -> str:
     article_meta = xml_front_node.find('article-meta')
     abstract = article_meta.find('abstract')
-    abstract_text = "".join(abstract.itertext()).strip()
+    abstract_text = collapse_spaces("".join(abstract.itertext()))
     return abstract_text
 
 def get_authors(xml_front_node: etree.Element) -> List[Tuple[str, str]]:
@@ -329,10 +333,19 @@ if __name__ == '__main__':
                 if old_video is not None:
                     log.info("Had old video!")
                     old_video_href = old_video.attrib['href']
+                    old_video_href_https = old_video_href.replace("http://", "https://")  # Fix for techtalkx.tv links
+                    old_video.attrib['href'] = old_video_href_https
                     log.info(old_video_href)
                     papernode.append(old_video)
 
-                old_errata = old_paper.findall('erratum')
+                old_attachment = old_paper.find('attachment')
+                log.info(old_attachment)
+                if old_attachment is not None:
+                    log.info("Had an old attachment!")
+                    old_attachment_type = old_attachment.attrib['type']
+                    log.info(old_attachment_type)
+                    papernode.append(old_attachment)
+
                 
         volume.append(papernode)
         i += 1
