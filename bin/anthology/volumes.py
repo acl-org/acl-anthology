@@ -82,7 +82,7 @@ class Volume:
 
     @property
     def full_id(self):
-        if self.top_level_id[0] == "W":
+        if self.top_level_id[0] == "W" or self.top_level_id == "C69":
             # If volume is a workshop, use the first two digits of ID, e.g. W15-01
             _id = "{}-{}".format(self.top_level_id, self.front_matter_id[:2])
         else:
