@@ -15,6 +15,7 @@
 # limitations under the License.
 
 import logging as log
+import re
 import yaml
 from collections import defaultdict, Counter
 from slugify import slugify
@@ -98,12 +99,18 @@ class AnthologyIndex:
             for w in slugify(paper.get_title("plain")).split("-")
             if w not in self.stopwords
         ]
-        bibkey = "{}:{}:{}".format(bibnames, str(paper.get("year")), title.pop(0))
+        bibkey = "{}-{}-{}".format(bibnames, str(paper.get("year")), title.pop(0))
         while bibkey in self.bibkeys:  # guarantee uniqueness
             if title:
                 bibkey += "-{}".format(title.pop(0))
             else:
-                bibkey += "-i"
+                match = re.search(r"-([0-9]+)$", bibkey)
+                if match is not None:
+                    num = int(match.group(1)) + 1
+                    bibkey = bibkey[:-len(match.group(1))] + "{}".format(num)
+                else:
+                    bibkey += "-2"
+                log.warn("New bibkey: {}".format(bibkey))
         self.bibkeys.add(bibkey)
         return bibkey
 
