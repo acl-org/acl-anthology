@@ -295,7 +295,7 @@ latex_equivalents = {
     0x00CD: "{\\'I}",
     0x00CE: "{\\^I}",
     0x00CF: '{\\"I}',
-    0x00D0: "{\\DH}",	# not recognized by purify$
+    0x00D0: "{\\DH}",  # not recognized by purify$
     0x00D1: "{\\~N}",
     0x00D2: "{\\`O}",
     0x00D3: "{\\'O}",
@@ -309,7 +309,7 @@ latex_equivalents = {
     0x00DB: "{\\^U}",
     0x00DC: '{\\"U}',
     0x00DD: "{\\'Y}",
-    0x00DE: "{\\TH}",	# not recognized by purify$
+    0x00DE: "{\\TH}",  # not recognized by purify$
     0x00DF: "{\\ss}",
     0x00E0: "{\\`a}",
     0x00E1: "{\\'a}",
@@ -327,7 +327,7 @@ latex_equivalents = {
     0x00ED: "{\\'\\i}",
     0x00EE: "{\\^\\i}",
     0x00EF: '{\\"\\i}',
-    0x00F0: "{\\dh}",	# not recognized by purify$
+    0x00F0: "{\\dh}",  # not recognized by purify$
     0x00F1: "{\\~n}",
     0x00F2: "{\\`o}",
     0x00F3: "{\\'o}",
@@ -341,7 +341,7 @@ latex_equivalents = {
     0x00FB: "{\\^u}",
     0x00FC: '{\\"u}',
     0x00FD: "{\\'y}",
-    0x00FE: "{\\th}",	# not recognized by purify$
+    0x00FE: "{\\th}",  # not recognized by purify$
     0x00FF: '{\\"y}',
     0x0100: "{\\=A}",
     0x0101: "{\\=a}",
@@ -591,6 +591,7 @@ for candidate in _l2u:
 
 if __name__ == "__main__":
     import fileinput
+
     register()
     for line in fileinput.input():
-        print(codecs.encode(line.rstrip(), 'latex'))
+        print(codecs.encode(line.rstrip(), "latex"))
