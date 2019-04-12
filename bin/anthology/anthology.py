@@ -54,7 +54,7 @@ class Anthology:
 
     def import_directory(self, importdir):
         assert os.path.isdir(importdir), "Directory not found: {}".format(importdir)
-        self.pindex = AnthologyIndex(importdir)
+        self.pindex = AnthologyIndex(self, importdir)
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
         self.load_schema(importdir + "/xml/schema.rng")

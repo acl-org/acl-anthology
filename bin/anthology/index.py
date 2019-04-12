@@ -41,7 +41,8 @@ class AnthologyIndex:
     """Keeps an index of persons, their associated papers, paper bibliography
     keys, etc.."""
 
-    def __init__(self, srcdir=None):
+    def __init__(self, parent, srcdir=None):
+        self._parent = parent
         self.bibkeys = set()
         self.stopwords = load_stopwords("en")
         self.canonical = defaultdict(list)  # maps canonical names to variants
@@ -82,35 +83,82 @@ class AnthologyIndex:
                     self.variants[variant] = canonical
                     self.canonical[canonical].append(variant)
 
+    def _is_stopword(self, word, paper):
+        """Determines if a given word should be considered a stopword for
+        the purpose of generating BibTeX keys."""
+        if word in self.stopwords:
+            return True
+        if paper.is_volume:
+            # Some simple heuristics to exclude probably uninformative words
+            # -- these are not perfect
+            if word in (
+                "proceedings",
+                "volume",
+                "conference",
+                "workshop",
+                "annual",
+                "meeting",
+                "computational",
+            ):
+                return True
+            elif (
+                re.match(r"[0-9]+(st|nd|rd|th)", word)
+                or word.endswith("ieth")
+                or word.endswith("enth")
+                or word
+                in (
+                    "first",
+                    "second",
+                    "third",
+                    "fourth",
+                    "fifth",
+                    "sixth",
+                    "eighth",
+                    "ninth",
+                    "twelfth",
+                )
+            ):
+                return True
+        return False
+
     def create_bibkey(self, paper):
         """Create a unique bibliography key for the given paper."""
-        names = paper.get("author")
-        if not names:
-            names = paper.get("editor", [])
-        if names:
-            if len(names) > BIBKEY_MAX_NAMES:
-                bibnames = "{}-etal".format(slugify(names[0].last))
-            else:
-                bibnames = "-".join(slugify(n.last) for n in names)
+        if paper.is_volume:
+            # Proceedings volumes use venue acronym instead of authors/editors
+            bibnames = slugify(self._parent.venues.get_by_letter(paper.full_id[0]))
         else:
-            bibnames = "nn"
+            # Regular papers use author/editor names
+            names = paper.get("author")
+            if not names:
+                names = paper.get("editor", [])
+            if names:
+                if len(names) > BIBKEY_MAX_NAMES:
+                    bibnames = "{}-etal".format(slugify(names[0].last))
+                else:
+                    bibnames = "-".join(slugify(n.last) for n in names)
+            else:
+                bibnames = "nn"
         title = [
             w
             for w in slugify(paper.get_title("plain")).split("-")
-            if w not in self.stopwords
+            if not self._is_stopword(w, paper)
         ]
         bibkey = "{}-{}-{}".format(bibnames, str(paper.get("year")), title.pop(0))
         while bibkey in self.bibkeys:  # guarantee uniqueness
             if title:
                 bibkey += "-{}".format(title.pop(0))
             else:
-                match = re.search(r"-([0-9]+)$", bibkey)
+                match = re.search(r"-([0-9][0-9]?)$", bibkey)
                 if match is not None:
                     num = int(match.group(1)) + 1
-                    bibkey = bibkey[:-len(match.group(1))] + "{}".format(num)
+                    bibkey = bibkey[: -len(match.group(1))] + "{}".format(num)
                 else:
                     bibkey += "-2"
-                log.warn("New bibkey: {}".format(bibkey))
+                log.debug(
+                    "New bibkey for clash that can't be resolved by adding title words: {}".format(
+                        bibkey
+                    )
+                )
         self.bibkeys.add(bibkey)
         return bibkey
 
