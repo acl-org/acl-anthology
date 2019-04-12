@@ -46,6 +46,7 @@ class PersonName:
 
     def from_dict(dict_):
         first = dict_.get("first", "")
+        if first is None: first = ""
         last = dict_["last"]
         return PersonName(first, last)
 
