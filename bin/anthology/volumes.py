@@ -43,7 +43,8 @@ class Volume:
         for attrib in ("revision", "erratum", "pages", "xml_booktitle"):
             if attrib in self.attrib:
                 del self.attrib[attrib]
-        self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
+        if not is_journal(self.top_level_id):
+            self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
         self.attrib["venues"] = venue_index.register(self)
         self.attrib["sigs"] = sig_index.get_associated_sigs(front_matter.full_id)
         self._set_meta_info()
