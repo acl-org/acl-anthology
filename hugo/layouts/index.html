@@ -39,6 +39,10 @@
       <div class="acl-news-date">{{ .PublishDate.Format "January 2006" }}</div>
       {{ .Content }}
     </aside>
+
+    {{ if (fileExists "/data-export/anthology.bib.gz") }}
+    <a class="btn btn-block btn-info" href="{{ "/anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
+    {{ end }}
   </div><div class="col-12 col-xl-10 col-xl-width-auto">
     <main aria-role="main">
     <h6>ACL Events</h6>
