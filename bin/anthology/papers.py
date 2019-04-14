@@ -78,7 +78,8 @@ class Paper:
         if "href" in paper_element.attrib:
             self.attrib["attrib_href"] = paper_element.get("href")
             self.attrib["url"] = paper_element.get("href")
-        else:
+        elif not (self.is_volume and is_journal(self.full_id)):
+            # Generate a URL, except for top-level journal entries
             self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
         for element in paper_element:
             # parse value
