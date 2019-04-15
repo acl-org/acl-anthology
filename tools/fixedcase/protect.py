@@ -9,7 +9,11 @@ def find_any(text, words, i=0):
             return j, j+len(w)
     return None
 
-def protect(node, words):
+# recursive helper called by protect
+# protect text of "node", including children, and tails of children
+def protect_recurse(node, words):
+    if node.tag == 'fixed-case':	# already protected, do nothing
+        return node
     newnode = ET.Element(node.tag, node.attrib)
     def process(text):
         if text is None: return
@@ -25,9 +29,13 @@ def protect(node, words):
         append_text(newnode, text[i:])
     process(node.text)
     for child in node:
-        newnode.append(protect(child, words))
+        newnode.append(protect_recurse(child, words))
         process(child.tail)
-    newnode.tail = node.tail
+    return newnode
+
+def protect(node, words):
+    newnode = protect_recurse(node, words)
+    newnode.tail = node.tail		# tail of top level is not protected
     return newnode
 
 if __name__ == "__main__":
@@ -49,5 +57,8 @@ if __name__ == "__main__":
                 words = [w for w, b in zip(titletext, fixed) if b]
                 replace_node(title, protect(title, words))
                 print("new:", ET.tostring(title).decode('ascii').rstrip())
+    tree.write(outfile, encoding="UTF-8", xml_declaration=True)
+    with open(outfile, "a") as outfilehandle:
+        outfilehandle.write("\n")
 
-    tree.write(outfile, encoding="UTF-8")
+

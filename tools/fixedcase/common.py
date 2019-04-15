@@ -33,7 +33,7 @@ def fixedcase_word(w, truelist=None, falselist=None, allcaps=False):
 def fixedcase_title(ws, truelist=None, falselist=None):
     """Returns a list of bools: True if w should be fixed-case, False if
     not, None if unsure."""
-    allcaps = not any(w.islower() for w in ws)
+    allcaps = all(w == w.upper() for w in ws)	# non-alpha tokens are considered upper case
     bs = []
     for i, w in enumerate(ws):
         b = fixedcase_word(w, truelist=truelist, falselist=falselist, allcaps=allcaps)
