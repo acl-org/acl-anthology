@@ -1,5 +1,13 @@
+# protect.py <infile> <outfile>
+# looks for file "truelist" in current dir
+
+# cd data/xml
+# for i in *xml ; do (cd ../../tools/fixedcase/ ; python3 ./protect.py ../../data/xml/$i /tmp/$i ; echo $i ); done > log
+
+
 import xml.etree.ElementTree as ET
 import sys
+import copy
 from common import *
 
 def find_any(text, words, i=0):
@@ -12,8 +20,10 @@ def find_any(text, words, i=0):
 # recursive helper called by protect
 # protect text of "node", including children, and tails of children
 def protect_recurse(node, words):
-    if node.tag == 'fixed-case':	# already protected, do nothing
-        return node
+    if node.tag == 'fixed-case':	# already protected
+        newnode = copy.deepcopy(node)	# don't need to modify descendents
+        newnode.tail = None		# tail will be protected by caller
+        return newnode
     newnode = ET.Element(node.tag, node.attrib)
     def process(text):
         if text is None: return
