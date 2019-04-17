@@ -38,6 +38,12 @@ if ! [ -x "$(command -v tqdm)" ]; then
 else
     find data-export -name '*.bib' -print0 | xargs -0 -n 1 -P 8 $DIR/bib2xml_wrapper | tqdm --total $(find data-export -name '*.bib' | wc -l) --unit files >/dev/null
 fi
+>&2 echo "INFO     Converting MODS XML files to EndNote..."
+if ! [ -x "$(command -v tqdm)" ]; then
+    find data-export -name '*.xml' -print0 | xargs -0 -n 1 -P 8 $DIR/xml2end_wrapper >/dev/null
+else
+    find data-export -name '*.xml' -print0 | xargs -0 -n 1 -P 8 $DIR/xml2end_wrapper | tqdm --total $(find data-export -name '*.xml' | wc -l) --unit files >/dev/null
+fi
 
 >&2 echo "INFO     Running Hugo... this may take a while."
 hugo --cleanDestinationDir --minify
