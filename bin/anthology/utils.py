@@ -40,7 +40,7 @@ def is_volume_id(anthology_id):
 
 
 def to_volume_id(anthology_id):
-    if anthology_id[0] == "W":
+    if anthology_id[0] == "W" or anthology_id[:3] == "C69":
         return anthology_id[:6]
     return anthology_id[:5]
 

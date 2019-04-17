@@ -7,8 +7,14 @@ fixed-case = element fixed-case { MarkupText }
 tex-math = element tex-math { text }
 MarkupText = (text | b | i | url | fixed-case | tex-math )+
 
-first = element first { text }
-last = element last { text }
+first = element first {
+  attribute complete { string }?,
+  text
+}
+last = element last {
+  attribute complete { string }?,
+  text
+}
 Person = (first? & last)
 
 Paper = element paper {

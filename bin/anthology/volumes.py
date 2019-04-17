@@ -43,7 +43,8 @@ class Volume:
         for attrib in ("revision", "erratum", "pages", "xml_booktitle"):
             if attrib in self.attrib:
                 del self.attrib[attrib]
-        self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
+        if not is_journal(self.top_level_id):
+            self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
         self.attrib["venues"] = venue_index.register(self)
         self.attrib["sigs"] = sig_index.get_associated_sigs(front_matter.full_id)
         self._set_meta_info()
@@ -81,7 +82,7 @@ class Volume:
 
     @property
     def full_id(self):
-        if self.top_level_id[0] == "W":
+        if self.top_level_id[0] == "W" or self.top_level_id == "C69":
             # If volume is a workshop, use the first two digits of ID, e.g. W15-01
             _id = "{}-{}".format(self.top_level_id, self.front_matter_id[:2])
         else:

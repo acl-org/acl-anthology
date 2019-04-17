@@ -54,7 +54,7 @@ def export_anthology(anthology, outdir, dryrun=False):
     papers = defaultdict(dict)
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
-        data = paper.attrib
+        data = paper.as_dict()
         data["title_html"] = paper.get_title("html")
         del data["xml_title"]
         if "xml_booktitle" in data:
@@ -63,8 +63,6 @@ def export_anthology(anthology, outdir, dryrun=False):
         if "xml_abstract" in data:
             data["abstract_html"] = paper.get_abstract("html")
             del data["xml_abstract"]
-        data["paper_id"] = paper.paper_id
-        data["parent_volume_id"] = paper.parent_volume_id
         if "author" in data:
             data["author"] = [
                 anthology.people.get_slug(name) for name in data["author"]
