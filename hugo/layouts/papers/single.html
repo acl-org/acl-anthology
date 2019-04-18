@@ -141,6 +141,10 @@
       {{ if (fileExists (printf "/data-export/%s" $expfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $expfile | relURL }}">MODS XML</a>
       {{ end }}
+      {{ $endfile := printf "/papers/%s/%s/%s.endf" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
+      {{ if (fileExists (printf "/data-export/%s" $endfile)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ $endfile | relURL }}">EndNote</a>
+      {{ end }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
         <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s" $bibfile) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
       {{ end }}
