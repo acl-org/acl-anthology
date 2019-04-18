@@ -36,6 +36,7 @@ else:
     names = None
 
 doc = yaml.load(open(sys.argv[1]))
+new_doc = []
 
 assert isinstance(doc, list)
 for person in doc:
@@ -45,15 +46,21 @@ for person in doc:
     assert isinstance(person['canonical'], dict), person
     assert set(person['canonical']).issubset(name_fields), person
     if names is not None and name(person['canonical']) not in names:
-        logging.warning('unused name: {}'.format(person['canonical']))
+        logging.warning('please remove unused canonical name: {}'.format(person['canonical']))
     dupes = {name(person['canonical'])}
     assert 'variants' in person, person
     assert isinstance(person['variants'], list), person
+    new_variants = []
     for variant in person['variants']:
         assert set(variant).issubset(name_fields), person
         if names is not None and name(variant) not in names:
-            logging.warning('unused name: {}'.format(variant))
+            logging.warning('removing unused variant: {}'.format(variant))
+        else:
+            new_variants.append(variant)
         assert name(variant) not in dupes, variant
         dupes.add(name(variant))
+    if len(new_variants) > 0:
+        person['variants'] = new_variants
+        new_doc.append(person)
         
-print(yaml.dump(doc, allow_unicode=True))
+print(yaml.dump(new_doc, allow_unicode=True))

@@ -31,9 +31,15 @@ class PersonName:
             tag = element.tag
             # These are guaranteed to occur at most once by the schema
             if tag == "first":
-                first = element.text or ""
+                if "complete" in element.attrib:
+                    first = element.attrib["complete"]
+                else:
+                    first = element.text or ""
             elif tag == "last":
-                last = element.text or ""
+                if "complete" in element.attrib:
+                    last = element.attrib["complete"]
+                else:
+                    last = element.text or ""
         return PersonName(first, last)
 
     def from_repr(repr_):
