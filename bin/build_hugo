@@ -23,6 +23,10 @@ if ! [ -x "$(command -v bib2xml)" ]; then
     >&2 echo "ERROR    Couldn't find bib2xml -- did you install bibutils?"
     exit 1
 fi
+if ! [ -x "$(command -v xml2end)" ]; then
+    >&2 echo "ERROR    Couldn't find xml2end -- did you install bibutils?"
+    exit 1
+fi
 if ! [ -x "$(command -v hugo)" ]; then
     >&2 echo "ERROR    Couldn't find hugo"
     exit 1
