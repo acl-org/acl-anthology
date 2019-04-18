@@ -14,7 +14,10 @@ def find_any(text, words, i=0):
     for w in words:
         j = text.find(w, i)
         if j >= 0:
-            return j, j+len(w)
+            if j+len(w) < len(text) and text[j+len(w)].isalpha():
+                i = j+len(w)	# skip if part of longer word
+            else:
+                return j, j+len(w)
     return None
 
 # recursive helper called by protect
@@ -30,6 +33,7 @@ def protect_recurse(node, words):
         i = 0
         span = find_any(text, words)
         while span is not None:
+            words.pop(0)		# move on to next target word
             append_text(newnode, text[i:span[0]])
             p = ET.Element('fixed-case')
             p.text = text[span[0]:span[1]]

@@ -36,7 +36,7 @@ def fixedcase_title(ws, truelist=None, falselist=None):
     
     # Consider a title to be "all caps" if at least 50% of letters
     # are capitals. Non-alpha tokens are considered upper case.    
-    allcaps = len([w == w.upper() for w in ws])/len(w) >= 0.5
+    allcaps = len([w for w in ws if w == w.upper()])/len(ws) > 0.5
     bs = []
     for i, w in enumerate(ws):
         b = fixedcase_word(w, truelist=truelist, falselist=falselist, allcaps=allcaps)
