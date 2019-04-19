@@ -1,5 +1,5 @@
 """
-Try to automatically fill in author first names by downloading and scraping the PDFs.
+Try to automatically fill in author first names by downloading and scraping the PDFs, or from name_variants.yaml.
 Reads and writes Anthology XML files.
 
 Bugs:
@@ -17,57 +17,55 @@ import lxml.etree as etree
 import re
 import unicodedata
 import os.path
+import yaml
 
-if len(sys.argv) != 3:
-    sys.exit("usage: auto_first_names.py <input-xml> <output-xml>")
+initial_re = re.compile(r'([A-Z])\b\.?\s*')
+def find_initials(s):
+    # Doesn't recognize "JRR" as initials; how would we distinguish
+    # from a name in all-caps?
+    s = s.lstrip()
+    initials = []
+    i = 0
+    while i < len(s):
+        m = initial_re.match(s, i)
+        if not m: return None
+        initials.append(m.group(1))
+        i = m.end()
+    return ''.join(initials)
 
-initial_re = re.compile(r'[A-Z]\.?')
-
-tree = etree.parse(sys.argv[1])
-for paper in tree.findall('paper'):
-
-    # Skip downloading paper if there are no first initials
-    skip = True
-    for xauthornode in paper.xpath('./author|./editor'):
-        xfirstnode = xauthornode.find('first')
-        assert(len(xfirstnode) == 0)
-        xfirst = (xfirstnode.text or "").strip()
-        if initial_re.fullmatch(xfirst):
-            skip = False
-            break
-    if skip:
-        continue
-    
-    print("paper", paper.attrib['id'])
+def guess_url(paper):
     url = paper.find('url') is not None and paper.find('url').text
     if not url: url = paper.find('href') and paper.find('href').text
     if not url: url = paper.attrib.get('href', None)
     if not url:
-        filename = os.path.basename(sys.argv[1])
-        assert filename.endswith('.xml')
-        filename = filename[:-4]
-        url = "http://www.aclweb.org/anthology/{}-{}".format(filename, paper.attrib['id'])
-    if not url:
-        print('no url found; skipping')
-        print()
-        continue
+        volume = paper.getparent()
+        url = "http://www.aclweb.org/anthology/{}-{}".format(volume.attrib['id'], paper.attrib['id'])
+    return url
 
-    print("getting", url)
+def scrape_authors(url):
+    logger.info("getting {}".format(url))
     try:
         req = requests.get(url)
         raw = tika.parser.from_buffer(req.content)
-        text = [line for line in raw['content'].splitlines() if line.strip() != ""]
+        text = raw['content']
     except KeyboardInterrupt:
         raise
     except Exception as e:
-        print("error: {}".format(e))
-        continue
-
+        logger.error(str(e))
+        return {}
+    
     index = {}
-    for line in text[:20]:
-        if ''.join(line.split()) == 'Abstract': break
+    n = 0
+    for line in text.splitlines():
+        nospace = ''.join(line.split())
+        if nospace == 'Abstract': break
+        if nospace == '': continue
+
+        n += 1
+        if n > 20: break
+
         line = unicodedata.normalize('NFKC', line)
-        print('> '+line)
+        logger.info('> '+line)
         names = re.split(r',\s*|\band\s+|,\s*and\s+|&', line)
         for name in names:
             # strip leading and trailing numbers, punctuation, symbols, whitespace
@@ -76,41 +74,121 @@ for paper in tree.findall('paper'):
                 name = name[1:]
             while len(name) > 0 and unicodedata.category(name[-1])[0] in "NPSZ":
                 name = name[:-1]
-            for part in name.split():
-                if part not in index: # ignore subsequent mentions, which may be from text
-                    index[part.lower()] = name
+            parts = name.split()
+            for i in range(1, len(parts)-1):
+                first = ' '.join(parts[:i])
+                last = ' '.join(parts[i:])
+                flast = first[0], last
+                if flast not in index: # ignore subsequent mentions, which may be from text
+                    index[flast] = (first, last)
+    return index
 
-    allnames = set()
-    for xauthornode in paper.xpath('./author|./editor'):
-        xfirstnode = xauthornode.find('first')
-        xlastnode = xauthornode.find('last')
-        assert(len(xfirstnode) == len(xlastnode) == 0)
-        
-        xfirst = (xfirstnode.text or "").strip()
-        if not initial_re.fullmatch(xfirst):
-            continue
-        xlast = xlastnode.text.strip()
-        xname = '{} {}'.format(xfirst, xlast) # just used for logging
-        
-        if xlast.lower() not in index:
-            print("warning: {} not found; skipping".format(xname))
-            continue
-        
-        pname = index[xlast.lower()]
-        i = pname.lower().find(xlast.lower())
-        newfirst = pname[:i].strip()
-        afterlast = pname[i+len(xlast):].strip()
-        if afterlast:
-            print("warning: {}: trailing string after last name: {}".format(xname, afterlast))
-        if (newfirst, xlast) in allnames:
-            print("warning: {}: duplicate new first name (this usually requires manual correction): {}".format(xname, newfirst))
-        if newfirst == "":
-            print("warning: {}: empty first name; skipping".format(xname))
-            continue
-        allnames.add((newfirst, xlast))
-        if newfirst != xfirst:
-            print("changing: {} {} -> {} {}".format(xfirst, xlast, newfirst, xlast))
-            xfirstnode.text = newfirst
+if __name__ == "__main__":
+    import argparse
+    import logging
+    
+    # Set up logging
+    logger = logging.getLogger("auto_first_names")
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter('%(levelname)s:%(location)s %(message)s'))
+    location = ""
+    def filter(r):
+        r.location = location
+        return True
+    handler.addFilter(filter)
+    logger.setLevel(logging.INFO)
+    logger.addHandler(handler)
+    logger.propagate = False
+    
+    ap = argparse.ArgumentParser(description='Try to automatically expand first initials into first names.')
+    ap.add_argument('infile', help="input XML file")
+    ap.add_argument('outfile', help="output XML file")
+    ap.add_argument('-s', '--scrape', action="store_true", help="try to scrape first names from PDF")
+    ap.add_argument('-y', '--variants', help="try to get first names from name_variants.yaml")
+    args = ap.parse_args()
 
-    print()
-tree.write(sys.argv[2], xml_declaration=True, encoding='UTF-8', with_tail=True)
+    scriptdir = os.path.dirname(os.path.abspath(__file__))
+
+    if args.variants:
+        variants = {}
+        for person in yaml.load(open(args.variants)):
+            for name in person['variants']:
+                initials = find_initials(name['first'])
+                if initials:
+                    flast = (''.join(initials), name['last'])
+                    canonical = person['canonical']['first'], person['canonical']['last'] 
+                    if flast in variants and variants[flast] != canonical:
+                        logging.warning("ambiguous variant: {} -> {} and {}".format(flast, variants[flast], canonical))
+                    variants[flast] = canonical
+                    # to do: sometimes the canonical name isn't the best way to expand an initial
+        
+    tree = etree.parse(args.infile)
+    volume = tree.getroot()
+    for paper in volume.findall('paper'):
+        paperid = '{}-{}'.format(volume.attrib['id'], paper.attrib['id'])
+        location = paperid + ":"
+
+        # Skip if there are no first initials
+        for xauthornode in paper.xpath('./author|./editor'):
+            xfirstnode = xauthornode.find('first')
+            if xfirstnode is None: continue
+            assert(len(xfirstnode) == 0)
+            xfirst = (xfirstnode.text or "").strip()
+            if find_initials(xfirst):
+                break
+        else:
+            continue
+
+        if args.scrape:
+            url = guess_url(paper)
+            index = scrape_authors(url)
+            
+        allnames = set()
+        for xauthornode in paper.xpath('./author|./editor'):
+            xfirstnode = xauthornode.find('first')
+            xlastnode = xauthornode.find('last')
+            assert(len(xfirstnode) == len(xlastnode) == 0)
+
+            xfirst = (xfirstnode.text or "").strip()
+            xinitials = find_initials(xfirst)
+            if not xinitials:
+                continue
+            xlast = xlastnode.text.strip()
+            location = '{} {} {} {}:'.format(paperid, xauthornode.tag, xfirst, xlast)
+
+            if args.scrape:
+                # currently broken
+                if xlast.lower() not in index:
+                    logger.warning("not found; skipping")
+                    continue
+
+                pname = index[xlast.lower()]
+                i = pname.lower().find(xlast.lower())
+                newfirst = pname[:i].strip()
+                afterlast = pname[i+len(xlast):].strip()
+                if afterlast:
+                    logger.warning("trailing string after last name: {}".format(afterlast))
+                if (newfirst, xlast) in allnames:
+                    logger.warning("duplicate new first name (this usually requires manual correction): {}".format(newfirst))
+                if newfirst == "":
+                    logger.warning("empty first name; skipping")
+                    continue
+                allnames.add((newfirst, xlast))
+                if newfirst != xfirst:
+                    logger.info("changing: {} {} -> {} {}".format(xfirst, xlast, newfirst, xlast))
+                    xfirstnode.text = newfirst
+
+            if args.variants:
+                if 'complete' in xfirstnode.attrib:
+                    logger.debug('already has completion: {}'.format(xfirstnode.attrib['complete']))
+                    continue
+                xflast = (xinitials, xlast)
+                if xflast in variants:
+                    newfirst, newlast = variants[xflast]
+                    if newlast == xlast and newfirst != xfirst:
+                        logger.info("adding completion: {}".format(newfirst))
+                        xfirstnode.attrib['complete'] = newfirst
+                        continue
+                logger.info("couldn't find among name variants")
+                    
+    tree.write(args.outfile, xml_declaration=True, encoding='UTF-8', with_tail=True)
