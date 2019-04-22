@@ -32,12 +32,10 @@ from collections import defaultdict
 from tqdm import tqdm
 import logging as log
 import os
-import yaml
+import ruamel.yaml
 
-try:
-    from yaml import CSafeDumper as Dumper
-except ImportError:
-    from yaml import SafeDumper as Dumper
+yaml = ruamel.yaml.YAML()
+yaml.version = "1.1"
 
 from anthology import Anthology
 from anthology.utils import SeverityTracker
@@ -166,24 +164,24 @@ def export_anthology(anthology, outdir, dryrun=False):
         progress = tqdm(total=len(papers) + len(people) + 7)
         for top_level_id, paper_list in papers.items():
             with open("{}/papers/{}.yaml".format(outdir, top_level_id), "w") as f:
-                yaml.dump(paper_list, Dumper=Dumper, stream=f)
+                yaml.dump(paper_list, stream=f)
             progress.update()
 
         with open("{}/volumes.yaml".format(outdir), "w") as f:
-            yaml.dump(volumes, Dumper=Dumper, stream=f)
+            yaml.dump(volumes, stream=f)
         progress.update(5)
 
         with open("{}/venues.yaml".format(outdir), "w") as f:
-            yaml.dump(venues, Dumper=Dumper, stream=f)
+            yaml.dump(venues, stream=f)
         progress.update()
 
         with open("{}/sigs.yaml".format(outdir), "w") as f:
-            yaml.dump(sigs, Dumper=Dumper, stream=f)
+            yaml.dump(sigs, stream=f)
         progress.update()
 
         for first_letter, people_list in people.items():
             with open("{}/people/{}.yaml".format(outdir, first_letter), "w") as f:
-                yaml.dump(people_list, Dumper=Dumper, stream=f)
+                yaml.dump(people_list, stream=f)
             progress.update()
         progress.close()
 

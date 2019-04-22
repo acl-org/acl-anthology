@@ -32,17 +32,25 @@ from docopt import docopt
 from glob import glob
 from slugify import slugify
 from tqdm import tqdm
+import io
 import logging as log
 import os
 import shutil
-import yaml
+import ruamel.yaml
 
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
+yaml = ruamel.yaml.YAML()
+yaml.version = "1.1"
+yaml.default_flow_style = False
 
 from anthology.utils import SeverityTracker
+
+
+def yaml_dump(data, stream=None):
+    tmp = io.StringIO()
+    yaml.dump(data, stream=tmp)
+    stream.write("---\n")
+    stream.write(tmp.getvalue().replace("%YAML 1.1\n---\n", ""))
+    stream.write("---\n")
 
 
 def check_directory(cdir, clean=False):
@@ -77,7 +85,7 @@ def create_papers(srcdir, clean=False):
     for yamlfile in tqdm(glob("{}/data/papers/*.yaml".format(srcdir))):
         log.debug("Processing {}".format(yamlfile))
         with open(yamlfile, "r") as f:
-            data = yaml.load(f, Loader=Loader)
+            data = yaml.load(f)
         # Create a paper stub for each entry in the volume
         for anthology_id, entry in data.items():
             paper_dir = "{}/content/papers/{}/{}".format(
@@ -86,13 +94,9 @@ def create_papers(srcdir, clean=False):
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
-                print("---", file=f)
-                yaml.dump(
-                    {"anthology_id": anthology_id, "title": entry["title"]},
-                    default_flow_style=False,
-                    stream=f,
+                yaml_dump(
+                    {"anthology_id": anthology_id, "title": entry["title"]}, stream=f
                 )
-                print("---", file=f)
 
 
 def create_volumes(srcdir, clean=False):
@@ -104,21 +108,18 @@ def create_volumes(srcdir, clean=False):
     yamlfile = "{}/data/volumes.yaml".format(srcdir)
     log.debug("Processing {}".format(yamlfile))
     with open(yamlfile, "r") as f:
-        data = yaml.load(f, Loader=Loader)
+        data = yaml.load(f)
     # Create a paper stub for each proceedings volume
     for anthology_id, entry in data.items():
         with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "w") as f:
-            print("---", file=f)
-            yaml.dump(
+            yaml_dump(
                 {
                     "anthology_id": anthology_id,
                     "title": entry["title"],
                     "slug": slugify(entry["title"]),
                 },
-                default_flow_style=False,
                 stream=f,
             )
-            print("---", file=f)
 
     return data
 
@@ -132,7 +133,7 @@ def create_people(srcdir, clean=False):
     for yamlfile in tqdm(glob("{}/data/people/*.yaml".format(srcdir))):
         log.debug("Processing {}".format(yamlfile))
         with open(yamlfile, "r") as f:
-            data = yaml.load(f, Loader=Loader)
+            data = yaml.load(f)
         # Create a page stub for each person
         for name, entry in data.items():
             # Only create page stub when name doesn't link to a canonical entry
@@ -147,10 +148,8 @@ def create_people(srcdir, clean=False):
                 "lastname": entry["last"],
             }
             with open("{}/{}.md".format(person_dir, name), "w") as f:
-                print("---", file=f)
                 # "lastname" is dumped to allow sorting by it in Hugo
-                yaml.dump(yaml_data, default_flow_style=False, stream=f)
-                print("---", file=f)
+                yaml_dump(yaml_data, stream=f)
 
     return data
 
@@ -160,7 +159,7 @@ def create_venues_and_events(srcdir, clean=False):
     yamlfile = "{}/data/venues.yaml".format(srcdir)
     log.debug("Processing {}".format(yamlfile))
     with open(yamlfile, "r") as f:
-        data = yaml.load(f, Loader=Loader)
+        data = yaml.load(f)
 
     log.info("Creating stubs for venues...")
     if not check_directory("{}/content/venues".format(srcdir), clean=clean):
@@ -169,13 +168,11 @@ def create_venues_and_events(srcdir, clean=False):
     for venue, venue_data in data.items():
         venue_str = venue_data["slug"]
         with open("{}/content/venues/{}.md".format(srcdir, venue_str), "w") as f:
-            print("---", file=f)
             yaml_data = {"venue": venue, "title": venue_data["name"]}
             if venue_data["is_toplevel"]:
                 main_letter = venue_data["main_letter"]
                 yaml_data["aliases"] = ["/papers/{}/".format(main_letter)]
-            yaml.dump(yaml_data, default_flow_style=False, stream=f)
-            print("---", file=f)
+            yaml_dump(yaml_data, stream=f)
 
     log.info("Creating stubs for events...")
     if not check_directory("{}/content/events".format(srcdir), clean=clean):
@@ -187,7 +184,6 @@ def create_venues_and_events(srcdir, clean=False):
             with open(
                 "{}/content/events/{}-{}.md".format(srcdir, venue_str, year), "w"
             ) as f:
-                print("---", file=f)
                 yaml_data = {
                     "venue": venue,
                     "year": year,
@@ -199,8 +195,7 @@ def create_venues_and_events(srcdir, clean=False):
                     yaml_data["aliases"] = [
                         "/papers/{}/{}/".format(main_letter, main_prefix)
                     ]
-                yaml.dump(yaml_data, default_flow_style=False, stream=f)
-                print("---", file=f)
+                yaml_dump(yaml_data, stream=f)
 
 
 def create_sigs(srcdir, clean=False):
@@ -208,7 +203,7 @@ def create_sigs(srcdir, clean=False):
     yamlfile = "{}/data/sigs.yaml".format(srcdir)
     log.debug("Processing {}".format(yamlfile))
     with open(yamlfile, "r") as f:
-        data = yaml.load(f, Loader=Loader)
+        data = yaml.load(f)
 
     log.info("Creating stubs for SIGs...")
     if not check_directory("{}/content/sigs".format(srcdir), clean=clean):
@@ -217,17 +212,14 @@ def create_sigs(srcdir, clean=False):
     for sig, sig_data in data.items():
         sig_str = sig_data["slug"]
         with open("{}/content/sigs/{}.md".format(srcdir, sig_str), "w") as f:
-            print("---", file=f)
-            yaml.dump(
+            yaml_dump(
                 {
                     "acronym": sig,
                     "short_acronym": sig[3:] if sig.startswith("SIG") else sig,
                     "title": sig_data["name"],
                 },
-                default_flow_style=False,
                 stream=f,
             )
-            print("---", file=f)
 
 
 if __name__ == "__main__":
