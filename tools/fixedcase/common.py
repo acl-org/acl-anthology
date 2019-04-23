@@ -51,7 +51,7 @@ def fixedcase_title(ws, truelist=None, falselist=None):
 def replace_node(old, new):
     old.clear()
     old.tag = new.tag
-    old.attrib = new.attrib
+    old.attrib.update(new.attrib)
     old.text = new.text
     old.extend(new)
     old.tail = new.tail

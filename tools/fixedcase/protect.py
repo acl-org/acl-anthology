@@ -5,9 +5,10 @@
 # for i in *xml ; do (cd ../../tools/fixedcase/ ; python3 ./protect.py ../../data/xml/$i /tmp/$i ; echo $i ); done > log
 
 
-import xml.etree.ElementTree as ET
+import lxml.etree as ET
 import sys
 import copy
+import itertools
 from common import *
 
 def find_any(text, words, i=0):
@@ -33,11 +34,14 @@ def protect_recurse(node, words):
         i = 0
         span = find_any(text, words)
         while span is not None:
-            words.pop(0)		# move on to next target word
             append_text(newnode, text[i:span[0]])
-            p = ET.Element('fixed-case')
-            p.text = text[span[0]:span[1]]
-            newnode.append(p)
+            for upper, chars in itertools.groupby(text[span[0]:span[1]], lambda c: c.isupper()):
+                if upper:
+                    p = ET.Element('fixed-case')
+                    p.text = ''.join(chars)
+                    newnode.append(p)
+                else:
+                    append_text(newnode, ''.join(chars))
             i = span[1]
             span = find_any(text, words, i)
         append_text(newnode, text[i:])
@@ -63,7 +67,7 @@ if __name__ == "__main__":
     
     tree = ET.parse(infile)
     for paper in tree.getroot().findall('paper'):
-        for title in paper.findall('title'):
+        for title in paper.xpath('./title|./booktitle'):
             titletext = tokenize(get_text(title))
             fixed = fixedcase_title(titletext, truelist=truelist, falselist=falselist)
             if any(fixed):
