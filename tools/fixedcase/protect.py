@@ -66,6 +66,8 @@ if __name__ == "__main__":
     infile, outfile = sys.argv[1:]
     
     tree = ET.parse(infile)
+    if not tree.getroot().tail: tree.getroot().tail = '\n'
+    
     for paper in tree.getroot().findall('paper'):
         for title in paper.xpath('./title|./booktitle'):
             titletext = tokenize(get_text(title))
@@ -76,7 +78,5 @@ if __name__ == "__main__":
                 replace_node(title, protect(title, words))
                 print("new:", ET.tostring(title).decode('ascii').rstrip())
     tree.write(outfile, encoding="UTF-8", xml_declaration=True)
-    with open(outfile, "a") as outfilehandle:
-        outfilehandle.write("\n")
 
 
