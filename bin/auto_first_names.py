@@ -17,7 +17,7 @@ import lxml.etree as etree
 import re
 import unicodedata
 import os.path
-import yaml
+import yaml, yamlfix
 
 initial_re = re.compile(r'([A-Z])\b\.?\s*')
 def find_initials(s):

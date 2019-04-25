@@ -32,7 +32,7 @@ from collections import defaultdict
 from tqdm import tqdm
 import logging as log
 import os
-import yaml
+import yaml, yamlfix
 
 try:
     from yaml import CSafeDumper as Dumper
