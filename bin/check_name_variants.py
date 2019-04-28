@@ -1,4 +1,4 @@
-import yaml
+import yaml, yamlfix
 import sys
 import lxml.etree as etree
 import logging

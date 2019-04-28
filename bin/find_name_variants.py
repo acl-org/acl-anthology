@@ -15,7 +15,7 @@ from docopt import docopt
 from slugify import slugify
 import re
 import os
-import yaml
+import yaml, yamlfix
 
 from anthology import Anthology
 from anthology.people import PersonName

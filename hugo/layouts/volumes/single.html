@@ -82,6 +82,10 @@
       {{ if (fileExists (printf "/data-export/%s" $expfile)) }}
         <a class="btn btn-secondary btn-sm" href="{{ $expfile | relURL }}">MODS XML</a>
       {{ end }}
+      {{ $endfile := printf "/volumes/%s.endf" $anthology_id }}
+      {{ if (fileExists (printf "/data-export/%s" $endfile)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ $endfile | relURL }}">EndNote</a>
+      {{ end }}
       </dd>
     </dl>
     </div>
