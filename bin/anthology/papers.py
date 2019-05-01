@@ -282,7 +282,7 @@ class Paper:
                 entries.append(
                     ("booktitle", self.parent_volume.get_title(form="latex"))
                 )
-        for entry in ("month", "year", "address", "publisher"):
+        for entry in ("month", "year", "address", "publisher", "note"):
             if entry in self.attrib:
                 entries.append((entry, bibtex_encode(self.get(entry))))
         for entry in ("url", "doi"):
