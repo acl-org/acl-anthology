@@ -48,7 +48,7 @@
     <h6>ACL Events</h6>
     {{/* ACL EVENTS */}}
     {{/* Hardcoded range of years because the table layout depends on it */}}
-    {{ $all_years := seq 2019 -1 1979 | append (slice 1977) }}
+    {{ $all_years := seq 2019 -1 1974 }}
     {{/* Years that should have a border on their left-hand side */}}
     {{ $border_years := slice "2019" "2009" "1999" "1989" }}
 
@@ -59,7 +59,7 @@
           <th class="border-left" scope="col" colspan="10">Present &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-left" scope="col" colspan="12">1989 and older</th>
+          <th class="border-left" scope="col" colspan="15">1989 and older</th>
         </tr>
       </thead>
       <tbody class="border-bottom">
@@ -71,22 +71,12 @@
           <th scope="row" class="text-center"><a href="{{ $venue_page.RelPermalink }}">{{ $acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
-          {{ if (and (eq $acronym "CL") (eq $year "1979")) }}
-          {{/* hard-coded exception for the '79 CL volume, which actually goes back to '74 */}}
-          <td class="{{ cond (in $border_years $year) "border-left" "" }}" colspan="2">
-            {{- with index $venue "volumes_by_year" $year -}}
-            <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">79&ndash;74</a>
-            {{- end -}}
-          </td>
-          {{ else if (and (eq $acronym "CL") (eq $year "1977")) }}{{/* do nothing */}}
-          {{ else }}
           {{/* this is the actual default case */}}
           <td class="{{ cond (in $border_years $year) "border-left" "" }}">
             {{- with index $venue "volumes_by_year" $year -}}
             <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
             {{- end -}}
           </td>
-          {{ end }}
           {{ end }}
         </tr>
         {{ end }}
