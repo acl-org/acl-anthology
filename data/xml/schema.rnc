@@ -7,15 +7,9 @@ fixed-case = element fixed-case { MarkupText }
 tex-math = element tex-math { text }
 MarkupText = (text | b | i | url | fixed-case | tex-math )+
 
-first = element first {
-  attribute complete { string }?,
-  text
-}
-last = element last {
-  attribute complete { string }?,
-  text
-}
-Person = (first? & last)
+first = element first { text }
+last = element last { text }
+Person = attribute id { xsd:NCName }?, (first? & last)
 
 Paper = element paper {
   attribute id { xsd:integer },
