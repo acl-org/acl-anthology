@@ -60,7 +60,7 @@ class AnthologyIndex:
             for entry in name_list:
                 try:
                     canonical = entry["canonical"]
-                    variants = entry["variants"]
+                    variants = entry.get("variants", [])
                 except (KeyError, TypeError):
                     log.error("Couldn't parse name variant entry: {}".format(entry))
                     continue
