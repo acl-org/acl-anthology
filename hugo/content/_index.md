@@ -1,12 +1,10 @@
 ---
 Title: ACL Anthology
-date: "2019-03-09"
+date: "2019-05-05"
 css_container: container-fluid
 ---
 
-This is the static rewrite of the Anthology!
+We have recently added hundreds of videos, and expanded the early years of the Computational Linguistics Journal.
 
-- - -
-
-If you wish to submit your presentations or posters of your papers to be
-archived, please do so by [emailing us a copy](http://is.gd/fxDHDp).
+The Anthology can archive your poster or presentation!
+Please submit them in PDF format by [filing an issue against the Github repo](https://github.com/acl-org/acl-anthology/issues/new?assignees=&labels=ingestion&template=addition.md&title=Addition).
