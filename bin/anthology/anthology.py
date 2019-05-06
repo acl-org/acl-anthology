@@ -60,7 +60,8 @@ class Anthology:
         self.load_schema(importdir + "/xml/schema.rng")
         for xmlfile in glob(importdir + "/xml/*.xml"):
             self.import_file(xmlfile)
-
+        self.pindex.verify()
+        
     def import_file(self, filename):
         tree = etree.parse(filename)
         if self.schema is not None:

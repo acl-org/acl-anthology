@@ -179,6 +179,13 @@ class AnthologyIndex:
                     if author != name:
                         self.coauthors[name][author] += 1
 
+    def verify(self):
+        for cname, vnames in self.canonical.items():
+            for vname in vnames:
+                count = sum(len(l) for l in self.papers[vname].values())
+                if count == 0:
+                    log.warning("Name variant '{}' of '{}' is not used".format(repr(vname), repr(cname)))
+
     def names(self):
         return self.papers.keys()
 
