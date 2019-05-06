@@ -65,54 +65,55 @@ def export_anthology(anthology, outdir, dryrun=False):
             del data["xml_abstract"]
         if "author" in data:
             data["author"] = [
-                anthology.people.resolve_name(name)
+                anthology.people.resolve_name(name, id_)
                 for name, id_ in data["author"]
             ]
         if "editor" in data:
             data["editor"] = [
-                anthology.people.resolve_name(name)
+                anthology.people.resolve_name(name, id_)
                 for name, id_ in data["editor"]
             ]
         papers[paper.top_level_id][paper.full_id] = data
 
     # Prepare people index
     people = defaultdict(dict)
-    for name in anthology.people.names():
-        if anthology.people.is_canonical(name):
-            log.debug("export_anthology: processing person '{}'".format(repr(name)))
-            data = name.as_dict()
-            slug = anthology.people.get_slug(name)
-            data["slug"] = slug
-            data["papers"] = sorted(
-                anthology.people.get_papers(name, include_variants=True),
-                key=lambda p: anthology.papers.get(p).get("year"),
-                reverse=True,
-            )
-            data["coauthors"] = sorted(
-                [
-                    [anthology.people.resolve_name(co_name)["id"], count]
-                    for (co_name, count) in anthology.people.get_coauthors(
-                        name, include_variants=True
-                    )
-                ],
-                key=lambda p: p[1],
-                reverse=True,
-            )
-            data["venues"] = sorted(
-                [
-                    [venue, count]
-                    for (venue, count) in anthology.people.get_venues(
-                        anthology.venues, name, include_variants=True
-                    ).items()
-                ],
-                key=lambda p: p[1],
-                reverse=True,
-            )
-            if anthology.people.has_variants(name):
-                data["variant_entries"] = [
-                    name.as_dict()
-                    for name in anthology.people.get_registered_variants(name)]
-            people[slug[0]][slug] = data
+    for id_ in anthology.people.personids():
+        name = anthology.people.get_canonical_name(id_)
+        log.debug("export_anthology: processing person '{}'".format(repr(name)))
+        data = name.as_dict()
+        data["slug"] = id_
+        data["papers"] = sorted(
+            anthology.people.get_papers(id_),
+            key=lambda p: anthology.papers.get(p).get("year"),
+            reverse=True,
+        )
+        data["coauthors"] = sorted(
+            [
+                [co_id, count]
+                for (co_id, count) in anthology.people.get_coauthors(
+                    id_
+                )
+            ],
+            key=lambda p: p[1],
+            reverse=True,
+        )
+        data["venues"] = sorted(
+            [
+                [venue, count]
+                for (venue, count) in anthology.people.get_venues(
+                    anthology.venues, id_
+                ).items()
+            ],
+            key=lambda p: p[1],
+            reverse=True,
+        )
+        variants = anthology.people.get_variant_names(id_, only_used=True)
+        if len(variants) > 0:
+            data["variant_entries"] = [
+                name.as_dict()
+                for name in variants
+            ]
+        people[id_[0]][id_] = data
 
     # Prepare volume index
     volumes = {}
@@ -126,12 +127,12 @@ def export_anthology(anthology, outdir, dryrun=False):
         data["papers"] = volume.paper_ids
         if "author" in data:
             data["author"] = [
-                anthology.people.resolve_name(name)
+                anthology.people.resolve_name(name, id_)
                 for name, id_ in data["author"]
             ]
         if "editor" in data:
             data["editor"] = [
-                anthology.people.resolve_name(name)
+                anthology.people.resolve_name(name, id_)
                 for name, id_ in data["editor"]
             ]
         volumes[volume.full_id] = data

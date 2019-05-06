@@ -45,43 +45,52 @@ class AnthologyIndex:
         self._parent = parent
         self.bibkeys = set()
         self.stopwords = load_stopwords("en")
-        self.canonical = defaultdict(list)  # maps canonical names to variants
-        self.variants = {}  # maps variant names to canonical names
-        self._all_slugs = set([""])
-        self.slugs = {}  # maps names to unique slugs
-        self.coauthors = defaultdict(Counter)  # maps names to co-author names
-        self.papers = defaultdict(lambda: defaultdict(list))
+        self.id_to_canonical = {}  # maps ids to canonical names
+        self.id_to_variants = defaultdict(list)  # maps ids to variant names
+        self.name_to_ids = defaultdict(list)  # maps names to ids
+        self.coauthors = defaultdict(Counter)  # maps ids to co-author ids
+        self.papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
+        self.used_names = set()
         if srcdir is not None:
             self.load_variant_list(srcdir)
 
     def load_variant_list(self, directory):
         with open("{}/yaml/name_variants.yaml".format(directory), "r") as f:
             name_list = yaml.load(f, Loader=Loader)
+
+            # Reserve ids for people with explicit ids in variant list
+            for entry in name_list:
+                if "id" in entry:
+                    id_ = entry["id"]
+                    canonical = entry["canonical"]
+                    canonical = PersonName.from_dict(canonical)
+                    self.set_canonical_name(id_, canonical)
             for entry in name_list:
                 try:
                     canonical = entry["canonical"]
                     variants = entry.get("variants", [])
+                    id_ = entry.get("id", None)
                 except (KeyError, TypeError):
                     log.error("Couldn't parse name variant entry: {}".format(entry))
                     continue
                 canonical = PersonName.from_dict(canonical)
-                _ = self.papers[
-                    canonical
-                ]  # insert empty entry for canonical if not present
+                if id_ is None:
+                    id_ = self.fresh_id(canonical)
+                    self.set_canonical_name(id_, canonical)
                 for variant in variants:
                     variant = PersonName.from_dict(variant)
-                    _ = self.papers[variant]  # insert empty entry if not present
-                    if variant in self.variants:
+                    if variant in self.name_to_ids:
                         log.error(
                             "Tried to add '{}' as variant of '{}', but is already a variant of '{}'".format(
                                 repr(variant),
                                 repr(canonical),
-                                repr(self.variants[variant]),
+                                repr(self.id_to_canonical[
+                                    self.name_to_ids[variant][0]
+                                ]),
                             )
                         )
                         continue
-                    self.variants[variant] = canonical
-                    self.canonical[canonical].append(variant)
+                    self.add_variant_name(id_, variant)
 
     def _is_stopword(self, word, paper):
         """Determines if a given word should be considered a stopword for
@@ -172,97 +181,92 @@ class AnthologyIndex:
         paper.bibkey = self.create_bibkey(paper)
         for role in ("author", "editor"):
             for name, id_ in paper.get(role, []):
+                if id_ is None:
+                    id_ = self.resolve_name(name)["id"]
+                    self.used_names.add(name)
                 # Register paper
-                self.papers[name][role].append(paper.full_id)
+                self.papers[id_][role].append(paper.full_id)
                 # Register co-author(s)
-                for author, author_id in paper.get(role):
-                    if author != name:
-                        self.coauthors[name][author] += 1
+                for co_name, co_id in paper.get(role):
+                    if co_id is None:
+                        co_id = self.resolve_name(co_name)["id"]
+                    if co_id != id_:
+                        self.coauthors[id_][co_id] += 1
 
     def verify(self):
-        for cname, vnames in self.canonical.items():
-            for vname in vnames:
-                count = sum(len(l) for l in self.papers[vname].values())
-                if count == 0:
-                    log.warning("Name variant '{}' of '{}' is not used".format(repr(vname), repr(cname)))
+        for id_ in self.personids():
+            for vname in self.id_to_variants[id_]:
+                if vname not in self.used_names:
+                    log.warning(
+                        "Name variant '{}' of '{}' is not used".format(
+                            repr(vname),
+                            repr(self.id_to_canonical[id_])
+                        )
+                    )
 
-    def names(self):
-        return self.papers.keys()
+    def personids(self):
+        return self.id_to_canonical.keys()
 
-    def __len__(self):
-        return len(self.papers)
+    def get_canonical_name(self, id_):
+        return self.id_to_canonical[id_]
 
-    def is_canonical(self, name):
-        return name not in self.variants
+    def set_canonical_name(self, id_, name):
+        if id_ in self.id_to_canonical:
+            log.error("Person id '{}' is used by both '{}' and '{}'".format(id_, name, self.id_to_canonical[id_]))
+        self.id_to_canonical[id_] = name
+        self.name_to_ids[name].append(id_)
 
-    def has_variants(self, name):
-        return name in self.canonical
+    def get_variant_names(self, id_, only_used=False):
+        """Return a list of all variants for a given person."""
+        variants = self.id_to_variants[id_]
+        if only_used:
+            variants = [v for v in variants if v in self.used_names]
+        return variants
 
-    def get_canonical_variant(self, name):
-        """Maps a name to its canonical variant."""
-        return self.variants.get(name, name)
+    def add_variant_name(self, id_, name):
+        self.name_to_ids[name].append(id_)
+        self.id_to_variants[id_].append(name)
 
-    def get_all_variants(self, name):
-        """Return a list of all variants for a given name.
-
-        Includes the supplied name itself.
-        """
-        if not self.is_canonical(name):
-            name = self.get_canonical_variant(name)
-        return self.canonical[name] + [name]
-
-    def get_registered_variants(self, name):
-        """Return a list of variants for a given name that are actually
-        associated with papers.
-
-        Will only return true variants, not including the canonical name.
-        """
-        if not self.is_canonical(name):
-            name = self.get_canonical_variant(name)
-        return [n for n in self.canonical[name] if n in self.papers]
-
-    def get_slug(self, name):
-        if name in self.slugs:
-            return self.slugs[name]
-        slug, i = slugify(repr(name)), 0
-        while slug in self._all_slugs:
-            i += 1
-            slug = "{}{}".format(slugify(repr(name)), i)
-        self._all_slugs.add(slug)
-        self.slugs[name] = slug
-        return slug
-
-    def resolve_name(self, name):
+    def resolve_name(self, name, id_=None):
+        """Find person named 'name' and return a dict with fields 
+        'first', 'last', 'id'"""
+        if id_ is None:
+            if name not in self.name_to_ids:
+                id_ = self.fresh_id(name)
+                self.set_canonical_name(id_, name)
+            else:
+                ids = self.name_to_ids[name]
+                assert len(ids) > 0
+                if len(ids) > 1:
+                    log.error("Name '{}' is ambiguous between {}".format(
+                        repr(name),
+                        ', '.join("'{}'".format(i) for i in ids)
+                    ))
+                id_ = ids[0]
         d = name.as_dict()
-        d["id"] = self.get_slug(self.get_canonical_variant(name))
+        d["id"] = id_
         return d
 
-    def get_papers(self, name, role=None, include_variants=False):
-        if include_variants:
-            return [
-                p
-                for n in self.get_all_variants(name)
-                for p in self.get_papers(n, role=role)
-            ]
+    def fresh_id(self, name):
+        assert name not in self.name_to_ids, name
+        slug, i = slugify(repr(name)), 0
+        while slug == "" or slug in self.id_to_canonical:
+            i += 1
+            slug = "{}{}".format(slugify(repr(name)), i)
+        return slug
+
+    def get_papers(self, id_, role=None):
         if role is None:
-            return [p for p_list in self.papers[name].values() for p in p_list]
-        return self.papers[name][role]
+            return [p for p_list in self.papers[id_].values() for p in p_list]
+        return self.papers[id_][role]
 
-    def get_coauthors(self, name, include_variants=False):
-        if include_variants:
-            return [
-                p for n in self.get_all_variants(name) for p in self.get_coauthors(n)
-            ]
-        return self.coauthors[name].items()
+    def get_coauthors(self, id_):
+        return self.coauthors[id_].items()
 
-    def get_venues(self, vidx: VenueIndex, name, include_variants=False):
+    def get_venues(self, vidx: VenueIndex, id_):
         """Get a list of venues a person has published in, with counts."""
         venues = Counter()
-        if include_variants:
-            for n in self.get_all_variants(name):
-                venues.update(self.get_venues(vidx, n))
-        else:
-            for paper in self.get_papers(name):
-                for venue in vidx.get_associated_venues(paper):
-                    venues[venue] += 1
+        for paper in self.get_papers(id_):
+            for venue in vidx.get_associated_venues(paper):
+                venues[venue] += 1
         return venues
