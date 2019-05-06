@@ -65,22 +65,24 @@ def export_anthology(anthology, outdir, dryrun=False):
             del data["xml_abstract"]
         if "author" in data:
             data["author"] = [
-                anthology.people.get_slug(name) for name in data["author"]
+                anthology.people.resolve_name(name)
+                for name, id_ in data["author"]
             ]
         if "editor" in data:
             data["editor"] = [
-                anthology.people.get_slug(name) for name in data["editor"]
+                anthology.people.resolve_name(name)
+                for name, id_ in data["editor"]
             ]
         papers[paper.top_level_id][paper.full_id] = data
 
     # Prepare people index
     people = defaultdict(dict)
     for name in anthology.people.names():
-        log.debug("export_anthology: processing person '{}'".format(repr(name)))
-        data = name.as_dict()
-        slug = anthology.people.get_slug(name)
-        data["slug"] = slug
         if anthology.people.is_canonical(name):
+            log.debug("export_anthology: processing person '{}'".format(repr(name)))
+            data = name.as_dict()
+            slug = anthology.people.get_slug(name)
+            data["slug"] = slug
             data["papers"] = sorted(
                 anthology.people.get_papers(name, include_variants=True),
                 key=lambda p: anthology.papers.get(p).get("year"),
@@ -88,7 +90,7 @@ def export_anthology(anthology, outdir, dryrun=False):
             )
             data["coauthors"] = sorted(
                 [
-                    [anthology.people.get_slug(co_name), count]
+                    [anthology.people.resolve_name(co_name)["id"], count]
                     for (co_name, count) in anthology.people.get_coauthors(
                         name, include_variants=True
                     )
@@ -108,14 +110,9 @@ def export_anthology(anthology, outdir, dryrun=False):
             )
             if anthology.people.has_variants(name):
                 data["variant_entries"] = [
-                    anthology.people.get_slug(var)
-                    for var in anthology.people.get_registered_variants(name)
-                ]
-        else:
-            data["canonical_entry"] = anthology.people.get_slug(
-                anthology.people.get_canonical_variant(name)
-            )
-        people[slug[0]][slug] = data
+                    name.as_dict()
+                    for name in anthology.people.get_registered_variants(name)]
+            people[slug[0]][slug] = data
 
     # Prepare volume index
     volumes = {}
@@ -129,11 +126,13 @@ def export_anthology(anthology, outdir, dryrun=False):
         data["papers"] = volume.paper_ids
         if "author" in data:
             data["author"] = [
-                anthology.people.get_slug(name) for name in data["author"]
+                anthology.people.resolve_name(name)
+                for name, id_ in data["author"]
             ]
         if "editor" in data:
             data["editor"] = [
-                anthology.people.get_slug(name) for name in data["editor"]
+                anthology.people.resolve_name(name)
+                for name, id_ in data["editor"]
             ]
         volumes[volume.full_id] = data
 

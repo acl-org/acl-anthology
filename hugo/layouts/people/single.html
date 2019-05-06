@@ -11,8 +11,7 @@
     <span class="font-italic">Published also as:</span>
     {{ $len := (len .) }}
     {{ range $index, $var := . }}
-    {{ $name := index $.Site.Data.people (slicestr $var 0 1) $var }}
-    {{ $name.first }} <span class="font-weight-normal">{{ $name.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ $var.first }} <span class="font-weight-normal">{{ $var.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}
@@ -52,7 +51,7 @@
               {{ range first 5 $person.coauthors }}
               <li class="list-group-item">
                 {{ $co_id := index . 0 }}
-                {{ partial "author_link.html" (dict "ctx" $ "person" $co_id "class" "align-middle") }}
+                {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
                 <span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
               </li>
               {{ end }}

@@ -133,9 +133,9 @@ class AnthologyIndex:
                 names = paper.get("editor", [])
             if names:
                 if len(names) > BIBKEY_MAX_NAMES:
-                    bibnames = "{}-etal".format(slugify(names[0].last))
+                    bibnames = "{}-etal".format(slugify(names[0][0].last))
                 else:
-                    bibnames = "-".join(slugify(n.last) for n in names)
+                    bibnames = "-".join(slugify(n.last) for n, _ in names)
             else:
                 bibnames = "nn"
         title = [
@@ -171,14 +171,11 @@ class AnthologyIndex:
         )
         paper.bibkey = self.create_bibkey(paper)
         for role in ("author", "editor"):
-            for name in paper.get(role, []):
+            for name, id_ in paper.get(role, []):
                 # Register paper
                 self.papers[name][role].append(paper.full_id)
-                # Make sure canonical names are prioritized for slugs
-                if self.is_canonical(name):
-                    self.get_slug(name)
                 # Register co-author(s)
-                for author in paper.get(role):
+                for author, author_id in paper.get(role):
                     if author != name:
                         self.coauthors[name][author] += 1
 
@@ -227,6 +224,11 @@ class AnthologyIndex:
         self._all_slugs.add(slug)
         self.slugs[name] = slug
         return slug
+
+    def resolve_name(self, name):
+        d = name.as_dict()
+        d["id"] = self.get_slug(self.get_canonical_variant(name))
+        return d
 
     def get_papers(self, name, role=None, include_variants=False):
         if include_variants:
