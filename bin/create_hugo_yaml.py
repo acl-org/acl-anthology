@@ -107,7 +107,11 @@ def export_anthology(anthology, outdir, dryrun=False):
             key=lambda p: p[1],
             reverse=True,
         )
-        variants = anthology.people.get_variant_names(id_, only_used=True)
+        variants = [
+            n
+            for n in anthology.people.get_used_names(id_)
+            if n != name
+        ]
         if len(variants) > 0:
             data["variant_entries"] = [
                 name.as_dict()
