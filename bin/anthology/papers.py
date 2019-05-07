@@ -293,8 +293,6 @@ class Paper:
                 entries.append((entry, self.get(entry)))
         if "pages" in self.attrib:
             entries.append(("pages", self.get("pages").replace("–", "--")))
-        if "note" in self.attrib:
-            entries.append(("note", self.get("note")))
         if "xml_abstract" in self.attrib:
             entries.append(("abstract", self.get_abstract(form="latex")))
 
