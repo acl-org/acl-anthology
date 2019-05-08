@@ -91,7 +91,7 @@ class Paper:
                 value = {
                     "filename": element.text,
                     "type": element.get("type", "attachment"),
-                    "url": infer_attachment_url(element.text),
+                    "url": infer_attachment_url(element.text, self.full_id),
                 }
             elif tag in ("author", "editor"):
                 value = PersonName.from_element(element)
@@ -109,6 +109,12 @@ class Paper:
                             ),
                         }
                     ]
+                if not element.text.startswith(self.full_id):
+                    log.error(
+                        "{} must begin with paper ID '{}', but is '{}'".format(
+                            tag, self.full_id, element.text
+                        )
+                    )
                 value = {
                     "value": element.text,
                     "id": element.get("id"),
@@ -122,13 +128,13 @@ class Paper:
                 value = {
                     "filename": element.get("href"),
                     "type": element.get("tag", "video"),
-                    "url": infer_attachment_url(element.get("href")),
+                    "url": infer_attachment_url(element.get("href"), self.full_id),
                 }
             elif tag in ("dataset", "software"):
                 value = {
                     "filename": element.text,
                     "type": tag,
-                    "url": infer_attachment_url(element.text),
+                    "url": infer_attachment_url(element.text, self.full_id),
                 }
                 tag = "attachment"
             else:

@@ -72,11 +72,17 @@ def remove_extra_whitespace(text):
     return re.sub(" +", " ", text.replace("\n", "").strip())
 
 
-def infer_attachment_url(filename):
+def infer_attachment_url(filename, parent_id=None):
     # If filename has a network location, it's interpreted as a complete URL
     if urlparse(filename).netloc:
         return filename
     # Otherwise, treat it as an internal filename
+    if parent_id is not None and not filename.startswith(parent_id):
+        logging.error(
+            "attachment must begin with paper ID '{}', but is '{}'".format(
+                parent_id, filename
+            )
+        )
     return data.ATTACHMENT_URL.format(filename)
 
 
