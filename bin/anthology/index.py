@@ -46,11 +46,11 @@ class AnthologyIndex:
         self.bibkeys = set()
         self.stopwords = load_stopwords("en")
         self.id_to_canonical = {}  # maps ids to canonical names
-        self.id_to_variants = defaultdict(list)  # maps ids to variant names
         self.id_to_used = defaultdict(set)  # maps ids to all names actually used
-        self.name_to_ids = defaultdict(list)  # maps names to ids
+        self.name_to_ids = defaultdict(list)  # maps canonical/variant names to ids
         self.coauthors = defaultdict(Counter)  # maps ids to co-author ids
-        self.papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
+        self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
+        self.name_to_papers = defaultdict(lambda: defaultdict(list))  # id -> (explicit id?) -> paoers; used only for error checking
         if srcdir is not None:
             self.load_variant_list(srcdir)
 
@@ -186,6 +186,7 @@ class AnthologyIndex:
                         log.error("Paper {} uses ambiguous name '{}' without id".format(paper.full_id, name))
                         log.error("  Please add an id, for example: {}".format(" ".join(self.name_to_ids[name])))
                     id_ = self.resolve_name(name)["id"]
+                    explicit = False
                 else:
                     if id_ not in self.id_to_canonical:
                         log.error("Paper {} uses name '{}' with id '{}' that does not exist".format(paper.full_id, name, id_))
@@ -197,9 +198,12 @@ class AnthologyIndex:
                             ", ".join(self.get_papers(i))
                             )
                         )
+                    explicit = True
+                    
                 self.id_to_used[id_].add(name)
                 # Register paper
-                self.papers[id_][role].append(paper.full_id)
+                self.id_to_papers[id_][role].append(paper.full_id)
+                self.name_to_papers[name][explicit].append(paper.full_id)
                 # Register co-author(s)
                 for co_name, co_id in paper.get(role):
                     if co_id is None:
@@ -208,16 +212,28 @@ class AnthologyIndex:
                         self.coauthors[id_][co_id] += 1
 
     def verify(self):
-        for id_ in self.personids():
-            for vname in self.id_to_variants[id_]:
-                if vname not in self.id_to_used[id_]:
+        for name, ids in self.name_to_ids.items():
+            for id_ in ids:
+                cname = self.id_to_canonical[id_]
+                if name != cname and name not in self.id_to_used[id_]:
                     log.warning(
-                        "Name variant '{}' of '{}' is not used".format(
-                            repr(vname),
-                            repr(self.id_to_canonical[id_])
-                        )
+                        "Variant name '{}' of '{}' is not used".format(
+                            repr(name),
+                            repr(cname)))
+        for name, d in self.name_to_papers.items():
+            if len(d[False]) > 0 and len(d[True]) > 0:
+                log.error("Name '{}' is used both with and without explicit id".format(repr(name)))
+                log.error(
+                    "  Please add an id to paper(s):   {}".format(
+                        " ".join(d[False])
                     )
-
+                )
+                log.error(
+                    "  Or remove the id from paper(s): {}".format(
+                        " ".join(d[True])
+                    )
+                )
+        
     def personids(self):
         return self.id_to_canonical.keys()
 
@@ -232,7 +248,6 @@ class AnthologyIndex:
 
     def add_variant_name(self, id_, name):
         self.name_to_ids[name].append(id_)
-        self.id_to_variants[id_].append(name)
 
     def get_used_names(self, id_):
         """Return a list of all names used for a given person."""
@@ -268,8 +283,8 @@ class AnthologyIndex:
 
     def get_papers(self, id_, role=None):
         if role is None:
-            return [p for p_list in self.papers[id_].values() for p in p_list]
-        return self.papers[id_][role]
+            return [p for p_list in self.id_to_papers[id_].values() for p in p_list]
+        return self.id_to_papers[id_][role]
 
     def get_coauthors(self, id_):
         return self.coauthors[id_].items()
