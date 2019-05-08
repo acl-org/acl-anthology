@@ -131,8 +131,6 @@ def latex_to_unicode(s):
     # Use a heuristic to decide whether ~ means "approximately" or is a tie
     s = re.sub(r'(?<=[ (])~(?=\d)', r'\\textasciitilde ', s)
     s = re.sub(r'^~(?=\d)', r'\\textasciitilde ', s)
-    # Replace other ties due to a bug in latexcodec
-    s = re.sub(r'(?<!\\)~', ' ', s)
 
     # An old bug in our system converted --- to –-; this undoes it
     s = s.replace('–', '--')
@@ -154,25 +152,12 @@ def latex_to_unicode(s):
     s = codecs.decode(s, "ulatex+utf8")
     if leading_space: s = " " + s
 
-    ### Missed due to bugs in latexcodec
-    s = s.replace("---", '—')
-    s = s.replace("--", '–')
-    s = s.replace("``", '“')
-    s = s.replace("''", '”')
-    
-    ### Missing from latexcodec (as of version 1.0.5)
-    s = re.sub(r'\\r ([AaUu])', '\\1\N{COMBINING RING ABOVE}', s)
-    s = re.sub(r'\\d ([tdrnlsm])', '\\1\N{COMBINING DOT BELOW}', s)
+    ### Missing from latexcodec (as of version 1.0.7)
     s = re.sub(r'\\textcommabelow ([SsTt])', '\\1\N{COMBINING COMMA BELOW}', s)
-    s = s.replace(r'\dh ', 'ð')
-    s = s.replace(r'\DH ', 'Ð')
-    s = s.replace(r'\th ', 'þ')
-    s = s.replace(r'\TH ', 'Þ')
     s = s.replace(r'\dj ', 'đ')
     s = s.replace(r'\DJ ', 'Đ')
     s = s.replace(r'\hwithstroke ', 'ħ')
     s = s.replace(r'\Hwithstroke ', 'Ħ')
-    s = s.replace(r'\textregistered ', '®')
     s = s.replace(r'\textquotesingle ', "'")
     s = s.replace(r'\textquotedblleft ', "“")
     s = s.replace(r'\textquotedblright ', "”")
