@@ -94,7 +94,8 @@ class Paper:
                     "url": infer_attachment_url(element.text, self.full_id),
                 }
             elif tag in ("author", "editor"):
-                value = PersonName.from_element(element)
+                id_ = element.attrib.get("id", None)
+                value = (PersonName.from_element(element), id_)
             elif tag in ("erratum", "revision"):
                 if tag == "revision" and "revision" not in self.attrib:
                     # Explicitly construct URL of original version of the paper
@@ -264,7 +265,7 @@ class Paper:
         for people in ("author", "editor"):
             if people in self.attrib:
                 entries.append(
-                    (people, "  and  ".join(p.as_bibtex() for p in self.get(people)))
+                    (people, "  and  ".join(p.as_bibtex() for p, _ in self.get(people)))
                 )
         if is_journal(self.full_id):
             entries.append(

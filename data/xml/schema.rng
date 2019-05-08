@@ -40,25 +40,20 @@
   </define>
   <define name="first">
     <element name="first">
-      <optional>
-        <attribute name="complete">
-          <data type="string"/>
-        </attribute>
-      </optional>
       <text/>
     </element>
   </define>
   <define name="last">
     <element name="last">
-      <optional>
-        <attribute name="complete">
-          <data type="string"/>
-        </attribute>
-      </optional>
       <text/>
     </element>
   </define>
   <define name="Person">
+    <optional>
+      <attribute name="id">
+        <data type="NCName"/>
+      </attribute>
+    </optional>
     <interleave>
       <optional>
         <ref name="first"/>
