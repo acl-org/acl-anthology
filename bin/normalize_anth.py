@@ -17,11 +17,15 @@
 
 """Try to convert ACL Anthology XML format to a standard form, in
 which:
+- All single and double quotes are curly
+- Some characters (e.g., fullwidth chars) are mapped to standard equivalents
+- Combining accents and characters are composed into single characters
+- Letters that are capital "by nature" are protected with <fixed-case>
+- With the `-t` option:
+  - Outside of formulas, no LaTeX is used; only Unicode
+  - Formulas are tagged as <tex-math> and use LaTeX
 
-- Outside of formulas, no LaTeX is used; only Unicode
-- Formulas are tagged as <tex-math> and use LaTeX
-
-Usage: python3 normalize_anth.py <infile> <outfile>
+Usage: python3 normalize_anth.py [-t] <infile> <outfile>
 
 Bugs: 
 
@@ -32,6 +36,8 @@ import lxml.etree as etree
 import re
 import difflib
 import logging
+import unicodedata
+import html
 from latex_to_unicode import latex_to_xml
 from fixedcase.protect import protect
 
@@ -50,6 +56,53 @@ def replace_node(old, new):
     old.extend(new)
     old.tail = save_tail
 
+def maptext(node, f):
+    if node.tag in ['tex-math', 'url']:
+        return
+    if node.text is not None:
+        node.text = f(node.text)
+    for child in node:
+        maptext(child, f)
+        child.tail = f(child.tail)
+
+def curly_quotes(s):
+    # Straight double quote: If preceded by a word (possibly with
+    # intervening punctuation), it's a right quote.
+    s = re.sub(r'(\w[^\s"]*)"', r'\1”', s)
+    # Else, if followed by a word, it's a left quote
+    s = re.sub(r'"(\w)', r'“\1', s)
+    if '"' in s: logging.warning("couldn't convert straight double quote")
+
+    # Straight single quote
+    # Exceptions for words that start with apostrophe
+    s = re.sub(r"'(em|round|n|tis|twas|til|cause|scuse|\d0)\b", r'’\1', s, flags=re.IGNORECASE)
+    # Otherwise, treat the same as straight double quote
+    s = re.sub(r"(\w[^\s']*)'", r'\1’', s)
+    s = re.sub(r"'(\w)", r'‘\1', s)
+    if "'" in s: logging.warning("couldn't convert straight single quote")
+    
+    return s
+
+def clean_unicode(s):
+    s = s.replace('\u00ad', '') # soft hyphen
+
+    # Selectively apply compatibility decomposition.
+    # This converts, e.g., ﬁ to fi and ： to :, but not ² to 2.
+    # Unsure: … to ...
+    # More classes could be added here.
+    def decompose(c):
+        d = unicodedata.decomposition(c)
+        if d and d.split(None, 1)[0] in ['<compat>', '<wide>', '<narrow>', '<noBreak>']:
+            return unicodedata.normalize('NFKD', c)
+        else:
+            return c
+    s = ''.join(map(decompose, s))
+
+    # Convert combining characters when possible
+    s = unicodedata.normalize('NFC', s)
+
+    return s
+
 def process(oldnode, informat):
     if oldnode.tag in ['url', 'href', 'mrf', 'doi', 'bibtype', 'bibkey',
                        'revision', 'erratum', 'attachment', 'paper',
@@ -67,9 +120,12 @@ def process(oldnode, informat):
             newnode.tag = oldnode.tag
             newnode.attrib.update(oldnode.attrib)
             replace_node(oldnode, newnode)
-
-    if oldnode.tag in ['title', 'booktitle']:
-        protect(oldnode)
+            
+        maptext(oldnode, html.unescape)
+        maptext(oldnode, curly_quotes)
+        maptext(oldnode, clean_unicode)
+        if oldnode.tag in ['title', 'booktitle']:
+            protect(oldnode)
 
 if __name__ == "__main__":
     import sys

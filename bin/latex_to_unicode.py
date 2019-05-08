@@ -4,9 +4,8 @@ import sys
 import logging
 import collections, copy
 import re
-import latexcodec, codecs, unicodedata
+import latexcodec, codecs
 import lxml.etree as etree
-import html
 
 Entry = collections.namedtuple('Entry', ['open', 'close', 'tag', 'type', 'verbatim'])
 table = [Entry('{', '}', None, 'bracket', False),
@@ -119,9 +118,6 @@ def flatten(l):
 
 def latex_to_unicode(s):
     """Convert (La)TeX control sequences in string s to their Unicode equivalents."""
-    
-    # Our BibTeX entries sometimes have HTML escapes
-    s = html.unescape(s)
 
     # Convert \\ to newline; this also ensures that remaining
     # backslashes really introduce control sequences.
@@ -185,42 +181,6 @@ def latex_to_unicode(s):
     s = s.replace(r'\$', '$')
     s = s.replace(r'\&', '&')
     s = s.replace("`", '‘')
-
-    ### Curly quotes
-    
-    # Straight double quote: If preceded by a word (possibly with
-    # intervening punctuation), it's a right quote.
-    s = re.sub(r'(\w[^\s"]*)"', r'\1”', s)
-    # Else, if followed by a word, it's a left quote
-    s = re.sub(r'"(\w)', r'“\1', s)
-    if '"' in s: logging.warning("couldn't convert straight double quote")
-
-    # Straight single quote
-    # Exceptions for words that start with apostrophe
-    s = re.sub(r"'(em|round|n|tis|twas|til|cause|scuse|\d0)\b", r'’\1', s, flags=re.IGNORECASE)
-    # Otherwise, treat the same as straight double quote
-    s = re.sub(r"(\w[^\s']*)'", r'\1’', s)
-    s = re.sub(r"'(\w)", r'‘\1', s)
-    if "'" in s: logging.warning("couldn't convert straight single quote")
-    
-    ### Unicode->Unicode conversions
-    
-    s = s.replace('\u00ad', '') # soft hyphen
-
-    # Selectively apply compatibility decomposition.
-    # This converts, e.g., ﬁ to fi and ： to :, but not ² to 2.
-    # Unsure: … to ...
-    # More classes could be added here.
-    def decompose(c):
-        d = unicodedata.decomposition(c)
-        if d and d.split(None, 1)[0] in ['<compat>', '<wide>', '<narrow>', '<noBreak>']:
-            return unicodedata.normalize('NFKD', c)
-        else:
-            return c
-    s = ''.join(map(decompose, s))
-
-    # Convert combining characters when possible
-    s = unicodedata.normalize('NFC', s)
 
     # Clean up
     s = re.sub(r'(?<!\\)[{}]', '', s) # unescaped curly braces
