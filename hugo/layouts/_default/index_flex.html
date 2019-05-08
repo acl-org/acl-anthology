@@ -31,7 +31,7 @@
         <h6>ACL Events</h6>
         {{/* ACL EVENTS */}}
         {{/* Hardcoded range of years because the table layout depends on it */}}
-        {{ $all_years := seq 2019 -1 1979 }}
+        {{ $all_years := seq 2019 -1 1974 }}
         {{/* Years after which a non-wrapping block should end (usually decades) */}}
         {{ $border_years := slice "2010" "2000" "1990" }}
 
@@ -42,7 +42,7 @@
               <span class="acl-col-th acl-colspan-10">Present &ndash; 2010</span>
               <span class="acl-col-th acl-colspan-10">2009 &ndash; 2000</span>
               <span class="acl-col-th acl-colspan-10">1999 &ndash; 1990</span>
-              <span class="acl-col-th acl-colspan-11">1989 and older</span>
+              <span class="acl-col-th acl-colspan-15">1989 and older</span>
             </div>
           </div>
           {{ range $acronym, $venue := $.Site.Data.venues }}
@@ -55,12 +55,6 @@
               <div class="acl-row-block">
                 {{- range $all_years -}}
                 {{- $year := string . -}}
-                {{/* hard-coded exception for the '79 CL volume, which actually goes back to '74 */}}
-                {{- if (and (eq $acronym "CL") (eq $year "1979")) -}}
-                <span class="acl-td acl-colspan-2">
-                  <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">79&ndash;74</a>
-                </span>
-                {{- else -}}
                 <span class="acl-td">
                   {{ with index $venue "volumes_by_year" $year }}
                   <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">
@@ -68,7 +62,6 @@
                   </a>
                   {{ end }}
                 </span>
-                {{- end -}}
                 {{- if (in $border_years $year) -}}
                   </div><div class="acl-row-block"> {{/* start a new block */}}
                 {{- end -}}

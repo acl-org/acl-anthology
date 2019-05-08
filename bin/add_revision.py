@@ -19,6 +19,7 @@
 Used to add revisions to the Anthology.
 Assumes all files have a base format like ANTHOLOGY_ROOT/P/P18/P18-1234.pdf format.
 The revision process is as follows.
+
 - The original paper is named as above.
 - When a first revision is created, the original paper is archived to PYY-XXXXv1.pdf.
 - The new revision is copied to PYY-XXXXvN, where N is the next revision ID (usually 2).
@@ -27,7 +28,7 @@ The revision process is as follows.
 
 Usage:
 
-  add_revision.py paper_id /path/to/new/revision.pdf "Short explanation".
+  add_revision.py paper_id URL_OR_PATH.pdf "Short explanation".
 
 By default, a dry run happens.
 When you are ready, add `--do`.
@@ -35,7 +36,6 @@ When you are ready, add `--do`.
 TODO: add the <revision> tag to the XML automatically.
 (The script has all the info it needs).
 """
-
 
 import argparse
 import os
@@ -50,19 +50,11 @@ def maybe_copy(file_from, file_to, do=False):
     if do:
         print('Copying from {} -> {}'.format(file_from, file_to), file=sys.stderr)
         shutil.copy(file_from, file_to)
+        os.chmod(file_to, 0644)
     else:
         print('DRY RUN: Copying from {} -> {}'.format(file_from, file_to), file=sys.stderr)
 
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('paper_id', help='The paper ID to revise (e.g., P18-1001)')
-    parser.add_argument('path', type=str, help='Path to the revised paper ID (can be URL)')
-    parser.add_argument('explanation', help='Brief description of the changes.')
-    parser.add_argument('--do', action='store_true', default=False, help='Actually do the copying')
-    parser.add_argument('--anthology-dir', default=os.path.join(os.environ['HOME'], 'old_anthology'),
-                        help='Anthology web directory root.')
-    args = parser.parse_args()
+def main(args):
 
     # TODO: make sure path exists, or download URL to temp file
     if args.path.startswith('http'):
@@ -88,22 +80,38 @@ if __name__ == '__main__':
         print('No such directory "{}"'.format(output_dir), file=sys.stderr)
         sys.exit(1)
 
-    # Look for existing versions (note the 'v': we're looking for pattern {paper_id}v{num})
-    existing_revisions = list(filter(lambda f: f.startswith('{}v'.format(args.paper_id)), os.listdir(output_dir)))
+    # Look for existing versions (looking for pattern {paper_id}{letter}{num})
+    letter = 'e' if args.erratum else 'v'
+
+    existing_revisions = list(filter(lambda f: f.startswith('{}{}'.format(args.paper_id, letter)), os.listdir(output_dir)))
     new_version = len(existing_revisions) + 1
 
     revised_file_generic_path = '{}.pdf'.format(file_prefix, new_version)
 
-    # There are no versioned files the first time around, so create the first one
-    if new_version == 1:
-        revised_file_v1_path = '{}v1.pdf'.format(file_prefix)
+    if not args.erratum and new_version == 1:
+        # There are no versioned files the first time around, so create the first one
+        revised_file_v1_path = '{}{}1.pdf'.format(file_prefix, letter)
         maybe_copy(revised_file_generic_path, revised_file_v1_path, args.do)
+        maybe_copy(input_file_path, revised_file_generic_path, args.do)
         new_version = 2
 
-    revised_file_versioned_path = '{}v{}.pdf'.format(file_prefix, new_version)
+    revised_file_versioned_path = '{}{}{}.pdf'.format(file_prefix, letter, new_version)
 
     maybe_copy(input_file_path, revised_file_versioned_path, args.do)
-    maybe_copy(input_file_path, revised_file_generic_path, args.do)
 
     if args.path.startswith('http'):
         os.remove(input_file_path)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('paper_id', help='The paper ID to revise (e.g., P18-1001)')
+    parser.add_argument('path', type=str, help='Path to the revised paper ID (can be URL)')
+    parser.add_argument('explanation', help='Brief description of the changes.')
+    parser.add_argument('--erratum', '-e', action='store_true', help='This is an erratum instead of a revision.')
+    parser.add_argument('--do', '-x', action='store_true', default=False, help='Actually do the copying')
+    parser.add_argument('--anthology-dir', default=os.path.join(os.environ['HOME'], 'anthology-files/pdf'),
+                        help='Anthology web directory root.')
+    args = parser.parse_args()
+
+    main(args)

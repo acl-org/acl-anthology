@@ -27,7 +27,10 @@ ATTACHMENT_URL = "https://www.aclweb.org/anthology/attachments/{}"
 
 def get_journal_title(top_level_id, volume_title):
     if top_level_id[0] == "J":
-        return "Computational Linguistics"
+        if int(top_level_id[1:3]) <= 83:
+            return "American Journal of Computational Linguistics"
+        else:
+            return "Computational Linguistics"
     elif top_level_id[0] == "Q":
         return "Transactions of the Association for Computational Linguistics"
     else:

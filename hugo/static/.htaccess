@@ -30,7 +30,7 @@ RewriteRule ^(.*)$ https://%{SERVER_NAME}/anthology/$1 [R=301,L]
 # Redirect old canonical paths (e.g., P/P17/P17-1069.pdf -> https://www.aclweb.org/anthology/P17-1069)
 # Note that since capture patterns can't be reused in the capture portion of the string, this is a leaky match
 # that will also redirect X/Z19/P17-1069.pdf -> /anthology-files/pdf/P/P17/1-69.pdf
-RewriteRule ^[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(.pdf)?$ https://www.aclweb.org/anthology/$1$2-$3 [R=301]
+RewriteRule ^[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(.pdf)?$ https://www.aclweb.org/anthology/$1$2-$3 [R=301,L]
 
 ## PDF redirection
 # Canonical URL (a plain ACL ID with no file extension, e.g., P17-1069 -> P/P17/P17-1069.pdf)

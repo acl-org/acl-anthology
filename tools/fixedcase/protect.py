@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # protect.py <infile> <outfile>
 # looks for file "truelist" in current dir
 
@@ -6,6 +8,7 @@
 
 
 import lxml.etree as ET
+import os
 import sys
 import copy
 import itertools
@@ -52,16 +55,18 @@ def protect(node, words):
 
 if __name__ == "__main__":
     truelist = set()
-    for line in open("truelist"):
+
+    truelist_file = os.path.join(sys.path[0], 'truelist')
+    for line in open(truelist_file):
         line = line.split('#')[0].strip()
         if line == "": continue
         truelist.add(line)
-    
+
     infile, outfile = sys.argv[1:]
-    
+
     tree = ET.parse(infile)
     if not tree.getroot().tail: tree.getroot().tail = '\n'
-    
+
     for paper in tree.getroot().findall('paper'):
         for title in paper.xpath('./title|./booktitle'):
             titletext = tokenize(get_text(title))
