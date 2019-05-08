@@ -32,7 +32,7 @@ import lxml.etree as etree
 import re
 import difflib
 import logging
-from latex_to_unicode import convert_node
+from latex_to_unicode import latex_to_xml
 from fixedcase.protect import protect
 
 logging.basicConfig(format='%(levelname)s:%(location)s %(message)s', level=logging.INFO)
@@ -50,13 +50,40 @@ def replace_node(old, new):
     old.extend(new)
     old.tail = save_tail
 
+def process(oldnode, informat):
+    if oldnode.tag in ['url', 'href', 'mrf', 'doi', 'bibtype', 'bibkey',
+                       'revision', 'erratum', 'attachment', 'paper',
+                       'presentation', 'dataset', 'software', 'video']:
+        return
+    elif oldnode.tag in ['author', 'editor']:
+        for oldchild in oldnode:
+            process(oldchild, informat=informat)
+    else:
+        if informat == "latex":
+            if len(oldnode) > 0:
+                logging.error("field has child elements {}".format(', '.join(child.tag for child in oldnode)))
+            oldtext = ''.join(oldnode.itertext())
+            newnode = latex_to_xml(oldtext, trivial_math=True, fixed_case=True)
+            newnode.tag = oldnode.tag
+            newnode.attrib.update(oldnode.attrib)
+            replace_node(oldnode, newnode)
+
+    if oldnode.tag in ['title', 'booktitle']:
+        protect(oldnode)
+
 if __name__ == "__main__":
     import sys
     import argparse
     ap = argparse.ArgumentParser(description='Convert Anthology XML to standard format.')
     ap.add_argument('infile', help="XML file to read")
     ap.add_argument('outfile', help="XML file to write")
+    ap.add_argument('-t', '--latex', action="store_true", help="Assume input fields are in LaTeX (not idempotent")
     args = ap.parse_args()
+
+    if args.latex:
+        informat = "latex"
+    else:
+        informat = "xml"
 
     tree = etree.parse(args.infile)
     root = tree.getroot()
@@ -67,20 +94,6 @@ if __name__ == "__main__":
         fullid = "{}-{}".format(root.attrib['id'], paper.attrib['id'])
         for oldnode in paper:
             location = "{}:{}".format(fullid, oldnode.tag)
-            
-            if oldnode.tag in ['url', 'href', 'mrf', 'doi', 'bibtype', 'bibkey',
-                               'revision', 'erratum', 'attachment', 'paper',
-                               'presentation', 'dataset', 'software', 'video']:
-                continue
-            
-            try:
-                newnode = convert_node(oldnode)
-            except ValueError as e:
-                logging.error("convert_node raised exception {}".format(e))
-                continue
-            replace_node(oldnode, newnode)
-
-            for title in paper.xpath('./title|./booktitle'):
-                protect(title)
+            process(oldnode, informat=informat)
                 
     tree.write(args.outfile, encoding="UTF-8", xml_declaration=True)
