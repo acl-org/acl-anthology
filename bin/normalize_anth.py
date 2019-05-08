@@ -25,14 +25,15 @@ Usage: python3 normalize_anth.py <infile> <outfile>
 
 Bugs: 
 
-- Doesn't preserve line breaks and indentation.
+- Doesn't preserve line breaks and indentation within text fields.
 """
 
 import lxml.etree as etree
 import re
 import difflib
 import logging
-from tex_unicode import convert_node
+from latex_to_unicode import convert_node
+from fixedcase.protect import protect
 
 logging.basicConfig(format='%(levelname)s:%(location)s %(message)s', level=logging.INFO)
 def filter(r):
@@ -52,13 +53,16 @@ def replace_node(old, new):
 if __name__ == "__main__":
     import sys
     import argparse
-    ap = argparse.ArgumentParser(description='Convert LaTeX commands and special characters.')
+    ap = argparse.ArgumentParser(description='Convert Anthology XML to standard format.')
     ap.add_argument('infile', help="XML file to read")
     ap.add_argument('outfile', help="XML file to write")
     args = ap.parse_args()
 
     tree = etree.parse(args.infile)
     root = tree.getroot()
+    if not root.tail:
+        # lxml drops trailing newline
+        root.tail = "\n"
     for paper in root.findall('paper'):
         fullid = "{}-{}".format(root.attrib['id'], paper.attrib['id'])
         for oldnode in paper:
@@ -72,23 +76,11 @@ if __name__ == "__main__":
             try:
                 newnode = convert_node(oldnode)
             except ValueError as e:
-                logging.error("unicodify raised exception {}".format(e))
+                logging.error("convert_node raised exception {}".format(e))
                 continue
-            
-            oldstring = etree.tostring(oldnode, with_tail=False, encoding='utf8').decode('utf8')
-            oldstring = " ".join(oldstring.split())
-            newstring = etree.tostring(newnode, with_tail=False, encoding='utf8').decode('utf8')
-            newstring = " ".join(newstring.split())
-            
-            if newstring != oldstring:
-                replace_node(oldnode, newnode)
-                for op, oi, oj, ni, nj in difflib.SequenceMatcher("", oldstring, newstring).get_opcodes():
-                    if op != 'equal':
-                        ws = 20
-                        red = '\033[91m'
-                        green = '\033[92m'
-                        off = '\033[0m'
-                        logging.info('{}{}{}{}{}'.format(oldstring[max(0,oi-ws):oi], red, oldstring[oi:oj], off, oldstring[oj:oj+ws]))
-                        logging.info('{}{}{}{}{}'.format(newstring[max(0,ni-ws):ni], green, newstring[ni:nj], off, newstring[nj:nj+ws]))
-                    
+            replace_node(oldnode, newnode)
+
+            for title in paper.xpath('./title|./booktitle'):
+                protect(title)
+                
     tree.write(args.outfile, encoding="UTF-8", xml_declaration=True)
