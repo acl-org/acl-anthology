@@ -50,7 +50,7 @@ class AnthologyIndex:
         self.name_to_ids = defaultdict(list)  # maps canonical/variant names to ids
         self.coauthors = defaultdict(Counter)  # maps ids to co-author ids
         self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
-        self.name_to_papers = defaultdict(lambda: defaultdict(list))  # id -> (explicit id?) -> paoers; used only for error checking
+        self.name_to_papers = defaultdict(lambda: defaultdict(list))  # name -> (explicit id?) -> papers; used only for error checking
         if srcdir is not None:
             self.load_variant_list(srcdir)
 
@@ -190,14 +190,6 @@ class AnthologyIndex:
                 else:
                     if id_ not in self.id_to_canonical:
                         log.error("Paper {} uses name '{}' with id '{}' that does not exist".format(paper.full_id, name, id_))
-                    if len(self.name_to_ids.get(name, [])) == 1:
-                        i = self.name_to_ids[name][0]
-                        log.error("Paper {} uses unambiguous name '{}' with id '{}'".format(paper.full_id, name, id_))
-                        log.error("  Please either remove the id,")
-                        log.error("  or add an id to paper(s) {}".format(
-                            ", ".join(self.get_papers(i))
-                            )
-                        )
                     explicit = True
                     
                 self.id_to_used[id_].add(name)
