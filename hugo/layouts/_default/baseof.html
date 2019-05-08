@@ -13,7 +13,7 @@
     {{/* NOTE: the Site's title, and if there is a page title, that is set too */}}
     <title>{{ block "title" . }}{{ with .Params.Title }}{{ . }} - {{ end }}{{ .Site.Title }}{{ end }}</title>
 
-    {{ .Hugo.Generator }}
+    {{ hugo.Generator }}
     <link href="{{ "aclicon.ico" | relURL }}" rel="shortcut icon" type="image/x-icon" />
 
     {{ $sass_options := (dict "includePaths" (slice "assets/css" "assets/css/vendor/bootstrap/scss")) }}
