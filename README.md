@@ -1,11 +1,7 @@
 # ACL Anthology
 
-(This repo was originally wing-nus/acl and has been transferred over to acl-org
-as of 5 Jun 2017.  Please update accordingly.)
-
-These are basic instructions on generating the ACL Anthology website as seen on
-<https://aclweb.org/anthology/>.
-
+These are basic instructions on generating the ACL Anthology website as seen on <https://aclweb.org/anthology/>.
+The offical home of this repository is <https://github.com/acl-org/acl-anthology>.
 
 ## Generating the Anthology
 
@@ -64,21 +60,18 @@ about a minute to start.
 
 ## Contributing
 
-If you'd like to contribute to the ACL Anthology, please take a look at our
-[information on volunteering](https://aclanthology.info/volunteer) and the
-[detailed README](README_detailed.md) containing more in-depth information about
-generating and modifying the website.
+If you'd like to contribute to the ACL Anthology, please take a look at:
 
+- our [Github issues page](https://github.com/acl-org/acl-anthology/issues)
+- our [call for volunteers](https://aclanthology.info/volunteer)
+- the [detailed README](README_detailed.md) which contains more in-depth information about generating and modifying the website.
+
+## History
+
+This repo was originally wing-nus/acl and has been transferred over to acl-org as of 5 June 2017.
 
 ## License
 
-Materials prior to 2016 here are licensed under the [Creative Commons
-Attribution-NonCommercial-ShareAlike 3.0 International
-License](https://creativecommons.org/licenses/by-nc-sa/3.0/).  Permission is
-granted to make copies for the purposes of teaching and research.  Materials
-published in or after 2016 are licensed on a [Creative Commons Attribution 4.0
-License](https://creativecommons.org/licenses/by/4.0/).
-
-Matt Post (Editor, 2019-) / Min-Yen Kan (Editor, 2008-2018) / Steven Bird (Editor, 2001-2007)
-
-Developer team: Linh Hien Ng (linhhienng at gmail dot com), Duong Ho Tuan zamakkat at gmail dot com)
+Materials prior to 2016 here are licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 International License](https://creativecommons.org/licenses/by-nc-sa/3.0/).
+Permission is granted to make copies for the purposes of teaching and research.
+Materials published in or after 2016 are licensed on a [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/).
