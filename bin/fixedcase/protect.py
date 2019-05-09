@@ -12,7 +12,11 @@ import os
 import sys
 import copy
 import itertools
-from common import *
+import inspect
+if __name__ == "__main__":
+    from common import *
+else:
+    from .common import *
 
 # recursive helper called by protect
 # protect text of "node", including children, and tails of children
@@ -48,20 +52,28 @@ def protect_recurse(node, words):
         process(child.tail)
     return newnode
 
-def protect(node, words):
-    newnode = protect_recurse(node, words)
-    newnode.tail = node.tail		# tail of top level is not protected
-    return newnode
+def protect(node):
+    text = tokenize(get_text(node))
+    fixed = fixedcase_title(text, truelist=truelist, falselist=falselist)
+    if any(fixed):
+        words = [w for w, b in zip(text, fixed) if b]
+        newnode = protect_recurse(node, words)
+        newnode.tail = node.tail		# tail of top level is not protected
+        replace_node(node, newnode)
 
+        
+# Read in the truelist (list of words that should always be protected)
+truelist = set()
+module_file = inspect.getfile(inspect.currentframe())
+module_dir = os.path.dirname(os.path.abspath(module_file))
+truelist_file = os.path.join(module_dir, 'truelist')
+for line in open(truelist_file):
+    line = line.split('#')[0].strip()
+    if line == "": continue
+    truelist.add(line)
+
+    
 if __name__ == "__main__":
-    truelist = set()
-
-    truelist_file = os.path.join(sys.path[0], 'truelist')
-    for line in open(truelist_file):
-        line = line.split('#')[0].strip()
-        if line == "": continue
-        truelist.add(line)
-
     infile, outfile = sys.argv[1:]
 
     tree = ET.parse(infile)
@@ -69,13 +81,7 @@ if __name__ == "__main__":
 
     for paper in tree.getroot().findall('paper'):
         for title in paper.xpath('./title|./booktitle'):
-            titletext = tokenize(get_text(title))
-            fixed = fixedcase_title(titletext, truelist=truelist, falselist=falselist)
-            if any(fixed):
-                print("old:", ET.tostring(title).decode('ascii').rstrip())
-                words = [w for w, b in zip(titletext, fixed) if b]
-                replace_node(title, protect(title, words))
-                print("new:", ET.tostring(title).decode('ascii').rstrip())
+            protect(title)
     tree.write(outfile, encoding="UTF-8", xml_declaration=True)
 
 
