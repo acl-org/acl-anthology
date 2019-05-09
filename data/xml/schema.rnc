@@ -13,7 +13,6 @@ Person = attribute id { xsd:NCName }?, (first? & last)
 
 Paper = element paper {
   attribute id { xsd:integer },
-  attribute href { xsd:anyURI }?,
   (element abstract { MarkupText }?
    & element address { text }?
    & element attachment {
@@ -31,7 +30,6 @@ Paper = element paper {
        attribute id { xsd:integer },
        xsd:NCName
      }*
-   & element href { xsd:anyURI }?
    & (element ISBN { xsd:NMTOKEN } | element isbn { xsd:NMTOKEN })?
    & element issue { xsd:integer }?
    & element journal { text }?
