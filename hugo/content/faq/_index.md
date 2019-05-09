@@ -1,6 +1,6 @@
 ---
 Title: Frequently Asked Questions
 linktitle: FAQ
-subtitle: Everything else about your ACL Anthology
+subtitle: Other information about the ACL Anthology
 menu: footer
 ---

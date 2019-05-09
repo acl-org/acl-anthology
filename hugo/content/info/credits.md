@@ -3,10 +3,38 @@ Title: Credits
 menu: footer
 ---
 
-The staff of the ACL Anthology would like to acknowledge all of the contributors
-and institutions that make this collection of scholarly papers freely available
-to all. The Anthology is only maintained by volunteers and the community's help
-is what continues to make this resource the landmark that it is.
+The staff of the ACL Anthology would like to acknowledge all of the contributors and institutions that make this collection of scholarly papers freely available to all.
+The Anthology is only maintained by volunteers and the community's help is what continues to make this resource the landmark that it is.
+
+### Volunteers
+
++ [Animesh Prasad](http://wing.comp.nus.edu.sg/~animesh/) (National University of Singapore)
++ [Anoop Sarkar](https://www.cs.sfu.ca/~anoop/) (Simon Fraser University)
++ [Christian Federmann](https://www.microsoft.com/en-us/research/people/chrife/) (Microsoft Research)
++ [Christoph Teichmann](https://www.cteichmann.com/) (Bloomberg LLC)
++ [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
++ [Hien Linh Nguyen](https://sg.linkedin.com/in/linhhienng) (Facebook Singapore)
++ [Nitin Madnani](https://desilinguist.org/) (Educational Testing Services)
++ [Simone Teufel](https://www.cl.cam.ac.uk/~sht25/) (Cambridge)
++ [Tao Chen](http://www.cs.jhu.edu/~taochen/) (Google)
++ Authors of anthology introductions: John Nerbonne, Julia Hirschberg, Donia Scott, Diane Litman, Sergei Nirenburg, Karen Spärck Jones, and Aravind Joshi.
+
+### Leads
+
++ **System Administrator**: [Martín Villalba](http://www.coli.uni-saarland.de/~villalba/) (Saarland University)
++ **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (University of Copenhagen)
++ **MIT Press Ingestion Lead**: [Arya McCarthy](https://aryamccarthy.github.io/) (Johns Hopkins University)
++ **Journal Indexing Lead**: [Chenliang Li](http://www.lichenliang.net/) (Wuhan University)
+
+### Donors
+
+We are indebted to the following individuals who generously supplied copies of out-of-print volumes for destructive scanning. Thank you!
+
++ **Donors of multiple volumes:** Steven Bird, Nicoletta Calzolari, Kenneth Church, Helen Gigley, Eva Hajicova, Eduard Hovy, Jussi Karlgren, David Lewis, Elliott Macklovitch, Jane Robinson, Petr Sgall, Karen Spärck Jones, Beth Sundheim, Betty Walker, Antonio Zampolli.
+
++ **Donors of single volumes:** Elizabeth Andre, Sabine Bergler, Jason Eisner, Andy Kehler, Guy Lapalme, Alberto Lavelli, Winfried Lenders, Bente Maegaard, Mark Maybury, Kathleen McCoy, David McDonald, Ruslan Mitkov, Johanna Moore, John Nerbonne, Yael Netzer, Miles Osborne, Hannes Pirker, James Pustejovsky, Mike Rosner, Donia Scott, Evelyne Viegas, Bonnie Webber, Yorick Wilks.
+
++ **Donors of financial support:** We are also indebted to the following individuals who have provided financial support: Sumali Conlon, Barbara Di Eugenio, Margaret Fleck, Mary Harper, Woody Haynes, Lillian Lee, Edward Loper, Grace Ngai, Pierre Nugues, 1 anonymous donor.
 
 ### Sponsors
 
@@ -55,34 +83,19 @@ is what continues to make this resource the landmark that it is.
 + **Silver level:** Information Sciences Institute (USC), Linguistic Data Consortium (UPenn), MITRE Corporation, Netherlands Organization for Scientific Research, Xerox Research Centre Europe, ELSNET
 + **Bronze level:** Center for Language and Speech Processing (JHU), City University of Hong Kong, Columbia University, Information Technology Research Institute (Brighton), Macquarie University, School of Behavioral and Cognitive Neurosciences (Groningen)
 
-### Donors
-
-We are indebted to the following individuals who generously supplied copies of out-of-print volumes for destructive scanning. Thank you!
-
-+ **Donors of multiple volumes:** Steven Bird, Nicoletta Calzolari, Kenneth Church, Helen Gigley, Eva Hajicova, Eduard Hovy, Jussi Karlgren, David Lewis, Elliott Macklovitch, Jane Robinson, Petr Sgall, Karen Spärck Jones, Beth Sundheim, Betty Walker, Antonio Zampolli.
-
-+ **Donors of single volumes:** Elizabeth Andre, Sabine Bergler, Jason Eisner, Andy Kehler, Guy Lapalme, Alberto Lavelli, Winfried Lenders, Bente Maegaard, Mark Maybury, Kathleen McCoy, David McDonald, Ruslan Mitkov, Johanna Moore, John Nerbonne, Yael Netzer, Miles Osborne, Hannes Pirker, James Pustejovsky, Mike Rosner, Donia Scott, Evelyne Viegas, Bonnie Webber, Yorick Wilks.
-
-+ **Donors of financial support:** We are also indebted to the following individuals who have provided financial support: Sumali Conlon, Barbara Di Eugenio, Margaret Fleck, Mary Harper, Woody Haynes, Lillian Lee, Edward Loper, Grace Ngai, Pierre Nugues, 1 anonymous donor.
-
 ### Further Thanks
 
-Other organizations that have supported the Anthology (e.g. with copyright transfer agreements):
+Other organizations that have supported the Anthology (e.g., with copyright transfer agreements):
 
 <p class="text-center">
 {{< link_sponsor "U. Chicago Press" "ucp-logo.jpg" "https://www.press.uchicago.edu/" >}}
 </p>
 
-Thanks to the European Language Resources Association (ELRA) for allowing us to
-link to the International Conference on Language Resources and Evaluation
-proceedings series (LREC).
+Thanks to the European Language Resources Association (ELRA) for allowing us to link to the International Conference on Language Resources and Evaluation proceedings series (LREC).
 
-Thanks to the Machine Translation Archive for allowing us to link to their
-scanned copies of the *Mechanical Translation and Computational Linguistics*
-journal, the precursor to the current *Computational Linguistics* journal.
+Thanks to the Machine Translation Archive for allowing us to link to their scanned copies of the *Mechanical Translation and Computational Linguistics* journal, the precursor to the current *Computational Linguistics* journal.
 
-Thanks to Robert Amsler for his generous help and support of compiling the
-listing of the Finite String newsletter.
+Thanks to Robert Amsler for his generous help and support of compiling the listing of the Finite String newsletter, and to David Chiang for undertaking the labor of splitting it up into readable articles.
 
 ### Editors
 
@@ -91,21 +104,3 @@ listing of the Finite String newsletter.
 + [Steven Bird](http://stevenbird.net/) (Editor, 2001&ndash;2007)
 + Eduard Hovy, John Nerbonne, Mike Rosner, Nicoletta Calzolari and Doug Arnold (Associate Editors)
 
-### Leads
-
-+ **System Administrator:** [Martín Villalba](http://www.coli.uni-saarland.de/~villalba/) (Saarland University)
-+ **Site Development Lead:** [Marcel Bollmann](https://marcel.bollmann.me/) (University of Copenhagen)
-+ **Journal Indexing Lead:** [Chenliang Li](http://www.lichenliang.net/) (Wuhan University)
-
-### Volunteers
-
-+ [Animesh Prasad](http://wing.comp.nus.edu.sg/~animesh/) (National University of Singapore)
-+ [Anoop Sarkar](https://www.cs.sfu.ca/~anoop/) (Simon Fraser University)
-+ [Christian Federmann](https://www.microsoft.com/en-us/research/people/chrife/) (Microsoft Research)
-+ [Christoph Teichmann](https://www.cteichmann.com/) (Bloomberg LLC)
-+ [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
-+ [Hien Linh Nguyen](https://sg.linkedin.com/in/linhhienng) (Facebook Singapore)
-+ [Nitin Madnani](https://desilinguist.org/) (Educational Testing Services)
-+ [Simone Teufel](https://www.cl.cam.ac.uk/~sht25/) (Cambridge)
-+ [Tao Chen](http://www.cs.jhu.edu/~taochen/) (Google)
-+ Authors of anthology introductions: John Nerbonne, Julia Hirschberg, Donia Scott, Diane Litman, Sergei Nirenburg, Karen Spärck Jones, and Aravind Joshi.
