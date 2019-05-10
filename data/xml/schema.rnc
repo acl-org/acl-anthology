@@ -59,7 +59,7 @@ Paper = element paper {
 }
 Volume = element volume {
   attribute id { xsd:NCName },
-  & element url { xsd: anyURI }
+  element url { xsd:anyURI }?,
   Paper+
 }
 start = Volume
