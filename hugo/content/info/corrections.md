@@ -1,6 +1,6 @@
 ---
 Title: Requesting Corrections
-linktitle: Request Corrections
+linktitle: Corrections
 menu: footer
 ---
 
