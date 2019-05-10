@@ -74,13 +74,6 @@ class Paper:
         return paper
 
     def _parse_element(self, paper_element):
-        # read & store values
-        if "href" in paper_element.attrib:
-            self.attrib["attrib_href"] = paper_element.get("href")
-            self.attrib["url"] = paper_element.get("href")
-        elif not (self.is_volume and is_journal(self.full_id)):
-            # Generate a URL, except for top-level journal entries
-            self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
         for element in paper_element:
             # parse value
             tag = element.tag.lower()
@@ -140,9 +133,11 @@ class Paper:
                 tag = "attachment"
             else:
                 value = element.text
-            # store value
+
             if tag == "url":
-                continue  # We basically have to ignore this for now
+                # Convert relative URLs to canonical ones
+                value = element.text if element.text.startswith('http') else data.ANTHOLOGY_URL.format(element.text)
+
             if tag in _LIST_ELEMENTS:
                 try:
                     self.attrib[tag].append(value)
