@@ -3,8 +3,16 @@ Title: Credits
 menu: footer
 ---
 
-The staff of the ACL Anthology would like to acknowledge all of the contributors and institutions that make this collection of scholarly papers freely available to all.
-The Anthology is only maintained by volunteers and the community's help is what continues to make this resource the landmark that it is.
+The ACL Anthology is run entirely by contributions from volunteers.
+We are grateful to all our contributors whose work makes this collection of scholarly papers freely available to all.
+
+### Leads
+
++ **Data Lead**: [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame)
++ **Journal Indexing Lead**: [Chenliang Li](http://www.lichenliang.net/) (Wuhan University)
++ **MIT Press Ingestion Lead**: [Arya McCarthy](https://aryamccarthy.github.io/) (Johns Hopkins University)
++ **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (University of Copenhagen)
++ **System Administrator**: [Martín Villalba](http://www.coli.uni-saarland.de/~villalba/) (Saarland University)
 
 ### Volunteers
 
@@ -19,12 +27,12 @@ The Anthology is only maintained by volunteers and the community's help is what 
 + [Tao Chen](http://www.cs.jhu.edu/~taochen/) (Google)
 + Authors of anthology introductions: John Nerbonne, Julia Hirschberg, Donia Scott, Diane Litman, Sergei Nirenburg, Karen Spärck Jones, and Aravind Joshi.
 
-### Leads
+### Directors
 
-+ **System Administrator**: [Martín Villalba](http://www.coli.uni-saarland.de/~villalba/) (Saarland University)
-+ **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (University of Copenhagen)
-+ **MIT Press Ingestion Lead**: [Arya McCarthy](https://aryamccarthy.github.io/) (Johns Hopkins University)
-+ **Journal Indexing Lead**: [Chenliang Li](http://www.lichenliang.net/) (Wuhan University)
++ [Matt Post](http://mjpost.github.io/) (2019&ndash;)
++ [Min-Yen Kan](http://www.comp.nus.edu.sg/~kanmy/) (2008&ndash;2018)
++ [Steven Bird](http://stevenbird.net/) (2001&ndash;2007)
++ Eduard Hovy, John Nerbonne, Mike Rosner, Nicoletta Calzolari and Doug Arnold (Past Associate Editors)
 
 ### Donors
 
@@ -96,11 +104,3 @@ Thanks to the European Language Resources Association (ELRA) for allowing us to 
 Thanks to the Machine Translation Archive for allowing us to link to their scanned copies of the *Mechanical Translation and Computational Linguistics* journal, the precursor to the current *Computational Linguistics* journal.
 
 Thanks to Robert Amsler for his generous help and support of compiling the listing of the Finite String newsletter, and to David Chiang for undertaking the labor of splitting it up into readable articles.
-
-### Editors
-
-+ [Matt Post](http://mjpost.github.io/) (Editor, 2019&ndash;)
-+ [Min-Yen Kan](http://www.comp.nus.edu.sg/~kanmy/) (Editor, 2008&ndash;2018)
-+ [Steven Bird](http://stevenbird.net/) (Editor, 2001&ndash;2007)
-+ Eduard Hovy, John Nerbonne, Mike Rosner, Nicoletta Calzolari and Doug Arnold (Associate Editors)
-
