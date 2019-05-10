@@ -75,6 +75,9 @@ class AnthologyIndex:
                     continue
                 canonical = PersonName.from_dict(canonical)
                 if id_ is None:
+                    if canonical in self.name_to_ids:
+                        log.error(
+                            "Canonical name '{}' is ambiguous but doesn't have an id; please add one". format(canonical))
                     id_ = self.fresh_id(canonical)
                     self.set_canonical_name(id_, canonical)
                 for variant in variants:
