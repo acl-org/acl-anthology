@@ -14,4 +14,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-bib2xml -nt $1 2>&1 > ${1%.bib}.xml
+bib2xml -nt $1 2>/dev/null > ${1%.bib}.xml
+echo 1
