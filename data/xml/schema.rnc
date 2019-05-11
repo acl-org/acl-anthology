@@ -58,8 +58,12 @@ Paper = element paper {
    )
 }
 Volume = element volume {
-  attribute id { xsd:NCName },
+  attribute id { xsd:integer },
   element url { xsd:anyURI }?,
   Paper+
 }
-start = Volume
+Root = element root {
+  attribute id { xsd:NCName },
+  Volume+
+}
+start = Root

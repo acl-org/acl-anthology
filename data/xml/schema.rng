@@ -228,19 +228,29 @@
   <define name="Volume">
     <element name="volume">
       <attribute name="id">
-        <data type="NCName"/>
+        <data type="integer"/>
       </attribute>
-        <optional>
-          <element name="url">
-            <data type="anyURI"/>
-          </element>
-        </optional>
+      <optional>
+        <element name="url">
+          <data type="anyURI"/>
+        </element>
+      </optional>
       <oneOrMore>
         <ref name="Paper"/>
       </oneOrMore>
     </element>
   </define>
+  <define name="Root">
+    <element name="root">
+      <attribute name="id">
+        <data type="NCName"/>
+      </attribute>
+      <oneOrMore>
+        <ref name="Volume"/>
+      </oneOrMore>
+    </element>
+  </define>
   <start>
-    <ref name="Volume"/>
+    <ref name="Root"/>
   </start>
 </grammar>
