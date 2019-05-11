@@ -256,7 +256,7 @@ class Paper:
         """
         return self.formatter(self.get("xml_booktitle"), form)
 
-    def as_bibtex(self):
+    def as_bibtex(self, with_abstract=True):
         """Return the BibTeX entry for this paper."""
         # Build BibTeX entry
         bibkey = self.bibkey
@@ -299,7 +299,7 @@ class Paper:
                 entries.append((entry, self.get(entry)))
         if "pages" in self.attrib:
             entries.append(("pages", self.get("pages").replace("–", "--")))
-        if "xml_abstract" in self.attrib:
+        if with_abstract and "xml_abstract" in self.attrib:
             entries.append(("abstract", self.get_abstract(form="latex")))
 
         # Serialize it
