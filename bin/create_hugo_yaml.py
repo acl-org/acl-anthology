@@ -76,6 +76,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         log.debug("export_anthology: processing person '{}'".format(repr(name)))
         data = name.as_dict()
         data["slug"] = id_
+        if id_ in anthology.people.comments:
+            data["comment"] = anthology.people.comments[id_]
         data["papers"] = sorted(
             anthology.people.get_papers(id_),
             key=lambda p: anthology.papers.get(p).get("year"),

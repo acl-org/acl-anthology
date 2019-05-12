@@ -49,6 +49,7 @@ class AnthologyIndex:
         self.id_to_used = defaultdict(set)  # maps ids to all names actually used
         self.name_to_ids = defaultdict(list)  # maps canonical/variant names to ids
         self.coauthors = defaultdict(Counter)  # maps ids to co-author ids
+        self.comments = {}  # maps ids to comments (used for distinguishing authors with same name)
         self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
         self.name_to_papers = defaultdict(lambda: defaultdict(list))  # name -> (explicit id?) -> papers; used only for error checking
         if srcdir is not None:
@@ -94,6 +95,8 @@ class AnthologyIndex:
                         )
                         continue
                     self.add_variant_name(id_, variant)
+                if "comment" in entry:
+                    self.comments[id_] = entry["comment"]
 
     def _is_stopword(self, word, paper):
         """Determines if a given word should be considered a stopword for
