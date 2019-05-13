@@ -6,21 +6,23 @@ menu: footer
 The ACL Anthology is run entirely by contributions from volunteers.
 We are grateful to all our contributors whose work makes this collection of scholarly papers freely available to all.
 
-### Leads
+### Active Volunteers
 
-+ **Data Lead**: [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame)
-+ **Journal Indexing Lead**: [Chenliang Li](http://www.lichenliang.net/) (Wuhan University)
-+ **MIT Press Ingestion Lead**: [Arya McCarthy](https://aryamccarthy.github.io/) (Johns Hopkins University)
-+ **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (University of Copenhagen)
-+ **System Administrator**: [Martín Villalba](http://www.coli.uni-saarland.de/~villalba/) (Saarland University)
++ [Arya McCarthy](https://aryamccarthy.github.io/) (Johns Hopkins University) --- **MIT Press Ingestion Lead**
++ [Arni Köhn](https://github.com/akoehn) (Universität des Saarlandes)
++ [Chenliang Li](http://www.lichenliang.net/) (Wuhan University) --- **Journal Indexing Lead**
++ [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
++ [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame) --- **Data Lead**
++ [Kilian Gebhardt](https://wwwtcs.inf.tu-dresden.de/~kilian/) (TU Dresden)
++ [Marcel Bollmann](https://marcel.bollmann.me/) (University of Copenhagen) --- **Site Development Lead**
++ [Martín Villalba](http://www.coli.uni-saarland.de/~villalba/) (Saarland University) --- **System Administrator**
 
-### Volunteers
+### Past Volunteers
 
 + [Animesh Prasad](http://wing.comp.nus.edu.sg/~animesh/) (National University of Singapore)
 + [Anoop Sarkar](https://www.cs.sfu.ca/~anoop/) (Simon Fraser University)
 + [Christian Federmann](https://www.microsoft.com/en-us/research/people/chrife/) (Microsoft Research)
 + [Christoph Teichmann](https://www.cteichmann.com/) (Bloomberg LLC)
-+ [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
 + [Hien Linh Nguyen](https://sg.linkedin.com/in/linhhienng) (Facebook Singapore)
 + [Nitin Madnani](https://desilinguist.org/) (Educational Testing Services)
 + [Simone Teufel](https://www.cl.cam.ac.uk/~sht25/) (Cambridge)
