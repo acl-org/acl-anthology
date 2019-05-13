@@ -78,6 +78,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         data["slug"] = id_
         if id_ in anthology.people.comments:
             data["comment"] = anthology.people.comments[id_]
+        if id_ in anthology.people.similar:
+            data["similar"] = sorted(anthology.people.similar[id_])
         data["papers"] = sorted(
             anthology.people.get_papers(id_),
             key=lambda p: anthology.papers.get(p).get("year"),
