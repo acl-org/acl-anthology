@@ -72,6 +72,4 @@ This repo was originally wing-nus/acl and has been transferred over to acl-org a
 
 ## License
 
-Materials prior to 2016 here are licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 International License](https://creativecommons.org/licenses/by-nc-sa/3.0/).
-Permission is granted to make copies for the purposes of teaching and research.
-Materials published in or after 2016 are licensed on a [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/).
+The code for building the ACL Anthology is distributed under the [Apache License, v2.0](https://www.apache.org/licenses/LICENSE-2.0).
