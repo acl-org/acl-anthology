@@ -9,7 +9,7 @@ We are grateful to all our contributors whose work makes this collection of scho
 ### Active Volunteers
 
 + [Arya McCarthy](https://aryamccarthy.github.io/) (Johns Hopkins University) --- **MIT Press Ingestion Lead**
-+ [Arni Köhn](https://github.com/akoehn) (Universität des Saarlandes)
++ [Arne Köhn](https://arne.chark.eu) (Universität des Saarlandes)
 + [Chenliang Li](http://www.lichenliang.net/) (Wuhan University) --- **Journal Indexing Lead**
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
 + [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame) --- **Data Lead**
