@@ -63,7 +63,8 @@ def maptext(node, f):
         node.text = f(node.text)
     for child in node:
         maptext(child, f)
-        child.tail = f(child.tail)
+        if child.tail is not None:
+            child.tail = f(child.tail)
 
 def curly_quotes(s):
     # Straight double quote: If preceded by a word (possibly with
@@ -85,6 +86,16 @@ def curly_quotes(s):
 
 def clean_unicode(s):
     s = s.replace('\u00ad', '') # soft hyphen
+
+    # Some sources encode an i with an accent above using dotless i,
+    # which must be converted to normal i
+    s = list(s)
+    for i in range(len(s)-1):
+        # bug: we should only be looking for accents above, not
+        # below
+        if s[i] == 'ı' and unicodedata.category(s[i+1]) == 'Mn':
+            s[i] = 'i'
+    s = ''.join(s)
 
     # Selectively apply compatibility decomposition.
     # This converts, e.g., ﬁ to fi and ： to :, but not ² to 2.
