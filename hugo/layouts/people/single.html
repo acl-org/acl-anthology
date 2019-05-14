@@ -11,7 +11,7 @@
   {{ end }}
   {{ with $person.variant_entries }}
   <p class="font-weight-light text-muted">
-    <span class="font-italic">Published also as:</span>
+    <span class="font-italic">Also published as:</span>
     {{ $len := (len .) }}
     {{ range $index, $var := . }}
     {{ $var.first }} <span class="font-weight-normal">{{ $var.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
