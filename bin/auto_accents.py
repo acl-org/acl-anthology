@@ -126,6 +126,7 @@ if __name__ == "__main__":
     volume = tree.getroot()
     if not volume.tail: volume.tail = "\n"
     for paper in volume.findall('paper'):
+        if paper.attrib['id'].endswith('000') or volume.attrib['id'].startswith('W') and paper.attrib['id'].endswith('00'): continue
         paperid = '{}-{}'.format(volume.attrib['id'], paper.attrib['id'])
         location = paperid + ":"
 
