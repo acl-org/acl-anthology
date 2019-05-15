@@ -86,6 +86,7 @@ def curly_quotes(s):
 
 def clean_unicode(s):
     s = s.replace('\u00ad', '') # soft hyphen
+    s = s.replace('\u2010', '-') # hyphen
 
     # Some sources encode an i with an accent above using dotless i,
     # which must be converted to normal i
