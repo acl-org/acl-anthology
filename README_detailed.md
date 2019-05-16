@@ -8,7 +8,8 @@ seen on <https://aclweb.org/anthology/>.
 
 The Anthology website is generated using the [Hugo](https://gohugo.io) static
 site generator.  However, before we can actually invoke Hugo, we need to prepare
-the contents of the website.
+the contents of the website.  The following steps describe what happens
+behind the scenes.  All the steps have a corresponding `make` target as well.
 
 ### Step 1: Prepare the data for site generation
 
