@@ -28,27 +28,31 @@ all: clean check site
 # and creates empty directories as needed.
 .PHONY: static
 static:
-	mkdir -p build
-	cp -r hugo/* build
-	mkdir -p build/data-export
-	perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
+	@echo "INFO     Creating and populating build directory..."
+	@mkdir -p build
+	@cp -r hugo/* build
+	@mkdir -p build/data-export
+	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
 
 .PHONY: yaml
 yaml:
-	python3 bin/create_hugo_yaml.py --clean
+	@echo "INFO     Generating YAML files for Hugo..."
+	@python3 bin/create_hugo_yaml.py --clean
 
 .PHONY: hugo_pages
 hugo_pages:
-	python3 bin/create_hugo_pages.py --clean
+	@echo "INFO     Creating page templates for Hugo..."
+	@python3 bin/create_hugo_pages.py --clean
 
 .PHONY: bibtex
 bibtex:
+	@echo "INFO     Creating BibTeX files..."
 	python3 bin/create_bibtex.py --clean
 
 .PHONY: mods
 mods:
 	@echo "INFO     Converting BibTeX files to MODS XML..."
-	if ! [ -x "`command -v tqdm`" ]; then \
+	@if ! [ -x "`command -v tqdm`" ]; then \
 	  find build/data-export -name '*.bib' -print0 | \
 	      xargs -0 -n 1 -P 8 bin/bib2xml_wrapper >/dev/null; \
 	else \
@@ -61,7 +65,7 @@ mods:
 .PHONY: endnote
 endnote:
 	@echo "INFO     Converting MODS XML files to EndNote..."
-	if ! [ -x "`command -v tqdm`" ]; then \
+	@if ! [ -x "`command -v tqdm`" ]; then \
 	  find build/data-export -name '*.xml' -print0 | \
 	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null; \
 	else \
@@ -74,7 +78,7 @@ endnote:
 .PHONY: hugo
 hugo:
 	@echo "INFO     Running Hugo... this may take a while."
-	cd build && \
+	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
 	         -d $(ANTHOLOGYDIR) \
 	         --cleanDestinationDir \
@@ -90,10 +94,17 @@ check:
 
 .PHONY: serve
 serve:
-	 cd build && python3 -m http.server 8000
+	 @echo "INFO     Starting a server at http://localhost:8000/"
+	 @cd build && python3 -m http.server 8000
 
 # this target does not use ANTHOLOGYDIR because the official website
 # only works if ANTHOLOGYDIR == anthology.
 .PHONY: upload
 upload:
-	rsync -azve ssh --delete build/anthology/ aclweb:anthology-static
+	@if [[ $(ANTHOLOGYDIR) != "anthology" ]]; then \
+            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of 'anthology'"; \
+            exit 1; \
+        fi
+  
+	@echo "INFO     Running rsync..."
+	@rsync -azve ssh --delete build/anthology/ aclweb:anthology-static
