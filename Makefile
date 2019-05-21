@@ -31,7 +31,7 @@ static:
 	mkdir -p build
 	cp -r hugo/* build
 	mkdir -p build/data-export
-	sed -i "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
+	perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
 
 .PHONY: yaml
 yaml:
