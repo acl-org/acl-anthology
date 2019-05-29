@@ -43,7 +43,7 @@ yaml: build/.yaml
 build/.yaml: build/.static
 	@echo "INFO     Generating YAML files for Hugo..."
 	@python3 bin/create_hugo_yaml.py --clean
-	@touch build/.static
+	@touch build/.yaml
 
 .PHONY: hugo_pages
 hugo_pages: build/.pages
@@ -51,6 +51,7 @@ hugo_pages: build/.pages
 build/.pages: build/.static build/.yaml
 	@echo "INFO     Creating page templates for Hugo..."
 	@python3 bin/create_hugo_pages.py --clean
+	@touch build/.pages
 
 .PHONY: bibtex
 bibtex:	build/.bibtex
@@ -58,6 +59,7 @@ bibtex:	build/.bibtex
 build/.bibtex: build/.static
 	@echo "INFO     Creating BibTeX files..."
 	python3 bin/create_bibtex.py --clean
+	@touch build/.bibtex
 
 .PHONY: mods
 mods: build/.mods
@@ -65,7 +67,8 @@ mods: build/.mods
 build/.mods: build/.static
 	@echo "INFO     Converting BibTeX files to MODS XML..."
 	find build/data-export -name '*.bib' -print0 | \
-	      xargs -0 -n 1 -P 8 bin/bib2xml_wrapper >/dev/null; \
+	      xargs -0 -n 1 -P 8 bin/bib2xml_wrapper >/dev/null
+	@touch build/.mods
 
 .PHONY: endnote
 endnote: build/.endnote
@@ -73,7 +76,8 @@ endnote: build/.endnote
 build/.endnote: build/.mods
 	@echo "INFO     Converting MODS XML files to EndNote..."
 	find build/data-export -name '*.xml' -print0 | \
-	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null; \
+	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null
+	@touch build/.endnote
 
 %.endf: %.xml
 	xml2end $< 2>&1 > $@
@@ -81,13 +85,14 @@ build/.endnote: build/.mods
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.pages
+build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
 	         -d $(ANTHOLOGYDIR) \
 	         --cleanDestinationDir \
 	         --minify
+	@touch build/.hugo
 
 .PHONY: clean
 clean:
@@ -110,6 +115,5 @@ upload:
             echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of 'anthology'"; \
             exit 1; \
         fi
-  
 	@echo "INFO     Running rsync..."
 	@rsync -azve ssh --delete build/anthology/ aclweb:anthology-static
