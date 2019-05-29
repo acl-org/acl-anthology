@@ -79,7 +79,7 @@ def main(args):
             attachment = ET.Element('attachment')
             attachment.attrib['type'] = args.type
             attachment.text = file_name
-            attachment.tail = '\n'
+            attachment.tail = '\n  '  # newline and one level of indent
             paper.append(attachment)
             print('Adding attachment node to XML', file=sys.stderr)
 
