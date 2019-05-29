@@ -46,27 +46,17 @@ class Anthology:
         # compatibility, since this was renamed internally
         return self.pindex
 
-    def load_schema(self, schemafile):
-        if os.path.exists(schemafile):
-            self.schema = etree.RelaxNG(file=schemafile)
-        else:
-            log.error("RelaxNG schema not found: {}".format(schemafile))
-
     def import_directory(self, importdir):
         assert os.path.isdir(importdir), "Directory not found: {}".format(importdir)
         self.pindex = AnthologyIndex(self, importdir)
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
-        self.load_schema(importdir + "/xml/schema.rng")
         for xmlfile in glob(importdir + "/xml/*.xml"):
             self.import_file(xmlfile)
         self.pindex.verify()
         
     def import_file(self, filename):
         tree = etree.parse(filename)
-        if self.schema is not None:
-            if not self.schema(tree):
-                log.error("RelaxNG validation failed for {}".format(filename))
         volume = tree.getroot()
         top_level_id = volume.get("id")
         if top_level_id in self.volumes:
