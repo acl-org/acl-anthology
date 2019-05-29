@@ -17,24 +17,15 @@
 
 """
 Used to add attachments to the Anthology.
-Assumes all files have a base format like ANTHOLOGY_ROOT/P/P18/P18-1234.pdf format.
-The revision process is as follows.
-
-- The original paper is named as above.
-- When a first revision is created, the original paper is archived to PYY-XXXXv1.pdf.
-- The new revision is copied to PYY-XXXXvN, where N is the next revision ID (usually 2).
-  The new revision is also copied to PYY-XXXX.pdf.
-  This causes it to be returned by the anthology when the base paper format is queried.
-
 Usage:
 
-  add_revision.py paper_id URL_OR_PATH.pdf "Short explanation".
+  add_attachment.py paper_id URL_OR_PATH TYPE
 
-By default, a dry run happens.
-When you are ready, add `--do`.
+- The ACL ID of the paper (e.g., P17-1012)
+- The path to the attachment (can be a URL)
+- The attachment type (poster, slides, software)
 
-TODO: add the <revision> tag to the XML automatically.
-(The script has all the info it needs).
+Puts the file in place and modifies the XML.
 """
 
 import argparse
@@ -51,7 +42,6 @@ import urllib.request
 
 def main(args):
 
-    # TODO: make sure path exists, or download URL to temp file
     if args.path.startswith('http'):
         _, input_file_path = tempfile.mkstemp()
         try:
