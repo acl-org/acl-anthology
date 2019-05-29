@@ -58,15 +58,15 @@ bibtex:	build/.bibtex
 
 build/.bibtex: build/.static
 	@echo "INFO     Creating BibTeX files..."
-	python3 bin/create_bibtex.py --clean
+	@python3 bin/create_bibtex.py --clean
 	@touch build/.bibtex
 
 .PHONY: mods
 mods: build/.mods
 
-build/.mods: build/.static
+build/.mods: build/.bibtex
 	@echo "INFO     Converting BibTeX files to MODS XML..."
-	find build/data-export -name '*.bib' -print0 | \
+	@find build/data-export -name '*.bib' -print0 | \
 	      xargs -0 -n 1 -P 8 bin/bib2xml_wrapper >/dev/null
 	@touch build/.mods
 
@@ -75,7 +75,7 @@ endnote: build/.endnote
 
 build/.endnote: build/.mods
 	@echo "INFO     Converting MODS XML files to EndNote..."
-	find build/data-export -name '*.xml' -print0 | \
+	@find build/data-export -name '*.xml' -print0 | \
 	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null
 	@touch build/.endnote
 
