@@ -23,7 +23,7 @@ Usage:
 
 - The ACL ID of the paper (e.g., P17-1012)
 - The path to the attachment (can be a URL)
-- The attachment type (poster, slides, software)
+- The attachment type (poster, presentation, note, software)
 
 Puts the file in place and modifies the XML.
 """
@@ -54,6 +54,25 @@ def main(args):
     else:
         input_file_path = args.path
 
+    # Update XML
+    xml_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{volume_id}.xml')
+    tree = ET.parse(xml_file)
+    if not tree.getroot().tail: tree.getroot().tail = '\n'
+    for paper in tree.getroot().findall('paper'):
+        if paper.attrib['id'] == paper_num:
+            attachment = ET.Element('attachment')
+            attachment.attrib['type'] = args.type
+            attachment.text = file_name
+            attachment.tail = '\n  '  # newline and one level of indent
+            paper.append(attachment)
+            print('Adding attachment node to XML', file=sys.stderr)
+
+            tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
+            break
+    else:
+        print(f'Fatal: paper ID {paper_id} not found in the Anthology', file=sys.stderr)
+        sys.exit(1)
+
     volume_letter, year, paper_num = [args.paper_id[0], args.paper_id[1:3], args.paper_id[4:]]
     volume_id = '{}{}'.format(volume_letter, year)
     ext = args.path.split('.')[-1]
@@ -70,22 +89,6 @@ def main(args):
     dest_path = os.path.join(output_dir, file_name)
     maybe_copy(input_file_path, dest_path, do=True)
 
-    # Update XML
-    xml_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{volume_id}.xml')
-    tree = ET.parse(xml_file)
-    if not tree.getroot().tail: tree.getroot().tail = '\n'
-    for paper in tree.getroot().findall('paper'):
-        if paper.attrib['id'] == paper_num:
-            attachment = ET.Element('attachment')
-            attachment.attrib['type'] = args.type
-            attachment.text = file_name
-            attachment.tail = '\n  '  # newline and one level of indent
-            paper.append(attachment)
-            print('Adding attachment node to XML', file=sys.stderr)
-
-            tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
-            break
-
     # Clean up
     if args.path.startswith('http'):
         os.remove(input_file_path)
@@ -95,7 +98,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('paper_id', help='The Antholgoy paper ID (e.g., P18-1001)')
     parser.add_argument('path', type=str, help='Path to the attachment (can be URL)')
-    parser.add_argument('type', type=str, choices='poster slides software'.split(), help='Attachment type')
+    parser.add_argument('type', type=str, choices='poster presentation note software'.split(), help='Attachment type')
     parser.add_argument('--attachment-root', '-d', default=os.path.join(os.environ['HOME'], 'anthology-files/attachments'),
                         help='Anthology web directory root.')
     args = parser.parse_args()
