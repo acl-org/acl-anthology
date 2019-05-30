@@ -102,8 +102,8 @@ The data sources of the Anthology are currently stored under `data/`.  They
 comprise:
 
 + The authoritative XML files (in [`xml/`](data/xml)); these contain all paper
-  metadata.  Their format is defined in RelaxNG schemas
-  [`schema.rnc`](data/xml/schema.rnc)/[`schema.rng`](data/xml/schema.rng) in the
+  metadata.  Their format is defined in an RelaxNG schema
+  [`schema.rnc`](data/xml/schema.rnc) in the
   same directory.
 
 + YAML files for SIGs (in [`yaml/sigs/`](data/yaml/sigs)); these contain names,
