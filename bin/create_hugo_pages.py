@@ -22,7 +22,7 @@ Creates page stubs for the full anthology based on the YAML data files.
 This script can only be run after create_hugo_yaml.py!
 
 Options:
-  --dir=DIR                Hugo project directory. [default: {scriptdir}/../hugo/]
+  --dir=DIR                Hugo project directory. [default: {scriptdir}/../build/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -h, --help               Display this helpful text.

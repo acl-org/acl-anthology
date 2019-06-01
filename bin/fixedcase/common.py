@@ -3,7 +3,7 @@
 import re
 import nltk.tokenize, nltk.corpus
 
-falselist = [w for w in nltk.corpus.words.words() if w.islower()]
+falselist = set([w for w in nltk.corpus.words.words() if w.islower()])
 separators = [':', '-', '--', '\u2013', '---', '\u2014', '\u2015']
 
 def get_text(node):

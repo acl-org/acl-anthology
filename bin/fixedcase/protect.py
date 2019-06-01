@@ -83,5 +83,3 @@ if __name__ == "__main__":
         for title in paper.xpath('./title|./booktitle'):
             protect(title)
     tree.write(outfile, encoding="UTF-8", xml_declaration=True)
-
-

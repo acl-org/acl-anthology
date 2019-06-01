@@ -33,17 +33,14 @@ $ git clone https://github.com/acl-org/acl-anthology
 ### Generating
 
 Provided you have correctly installed all requirements, building the website
-should be as simple as calling the following command from the directory to which
-you cloned the repo:
+should be as simple running `make` from the directory to which
+you cloned the repo.
 
-```bash
-$ bin/build_hugo
-```
-
-The fully generated website will be in `hugo/public/` afterwards.  If any errors
+The fully generated website will be in `build/anthology` afterwards.  If any errors
 occur during this step, you can consult the [detailed
 README](README_detailed.md) for more information on the individual steps
-performed to build the site.
+performed to build the site.  You can see the resulting website by launching
+a local webserver with `make serve`, which will serve it at http://localhost:8000.
 
 Note that building the website is quite a resource-intensive process;
 particularly the last step, invoking Hugo, uses about 18~GB of system memory.
@@ -72,6 +69,4 @@ This repo was originally wing-nus/acl and has been transferred over to acl-org a
 
 ## License
 
-Materials prior to 2016 here are licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 International License](https://creativecommons.org/licenses/by-nc-sa/3.0/).
-Permission is granted to make copies for the purposes of teaching and research.
-Materials published in or after 2016 are licensed on a [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/).
+The code for building the ACL Anthology is distributed under the [Apache License, v2.0](https://www.apache.org/licenses/LICENSE-2.0).

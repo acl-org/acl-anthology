@@ -49,6 +49,8 @@ class AnthologyIndex:
         self.id_to_used = defaultdict(set)  # maps ids to all names actually used
         self.name_to_ids = defaultdict(list)  # maps canonical/variant names to ids
         self.coauthors = defaultdict(Counter)  # maps ids to co-author ids
+        self.comments = {}  # maps ids to comments (used for distinguishing authors with same name)
+        self.similar = defaultdict(set)
         self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
         self.name_to_papers = defaultdict(lambda: defaultdict(list))  # name -> (explicit id?) -> papers; used only for error checking
         if srcdir is not None:
@@ -65,6 +67,13 @@ class AnthologyIndex:
                     canonical = entry["canonical"]
                     canonical = PersonName.from_dict(canonical)
                     self.set_canonical_name(id_, canonical)
+            # Automatically add people with same canonical name to similar list
+            for name, ids in self.name_to_ids.items():
+                if len(ids) > 1:
+                    for id1 in ids:
+                        for id2 in ids:
+                            if id2 != id1:
+                                self.similar[id1].add(id2)
             for entry in name_list:
                 try:
                     canonical = entry["canonical"]
@@ -94,6 +103,10 @@ class AnthologyIndex:
                         )
                         continue
                     self.add_variant_name(id_, variant)
+                if "comment" in entry:
+                    self.comments[id_] = entry["comment"]
+                if "similar" in entry:
+                    self.similar[id_].update(entry["similar"])
 
     def _is_stopword(self, word, paper):
         """Determines if a given word should be considered a stopword for

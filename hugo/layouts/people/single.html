@@ -6,12 +6,25 @@
     <!-- {{- .Title -}} -->
     <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ $person.last }}</span>
   </h2>
+  {{ with $person.comment }}
+  <p class="font-weight-light text-muted">{{.}}</p>
+  {{ end }}
   {{ with $person.variant_entries }}
   <p class="font-weight-light text-muted">
-    <span class="font-italic">Published also as:</span>
+    <span class="font-italic">Also published as:</span>
     {{ $len := (len .) }}
     {{ range $index, $var := . }}
     {{ $var.first }} <span class="font-weight-normal">{{ $var.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ end }}
+  </p>
+  {{ end }}
+  {{ with $person.similar }}
+  <p class="font-weight-light text-muted">
+    <span class="font-italic">Other people with similar names:</span>
+    {{ $len := (len .) }}
+    {{ range $index, $sim_id := . }}
+    {{ trim (partial "author_link.html" (dict "ctx" $ "person" (dict "id" $sim_id))) " \n" | safeHTML }}
+    {{ $sim_person := index $.Site.Data.people (slicestr $sim_id 0 1) $sim_id }}{{ with $sim_person.comment }}({{.}}){{ end }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}

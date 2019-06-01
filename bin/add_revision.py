@@ -50,7 +50,7 @@ def maybe_copy(file_from, file_to, do=False):
     if do:
         print('Copying from {} -> {}'.format(file_from, file_to), file=sys.stderr)
         shutil.copy(file_from, file_to)
-        os.chmod(file_to, 0644)
+        os.chmod(file_to, 0o644)
     else:
         print('DRY RUN: Copying from {} -> {}'.format(file_from, file_to), file=sys.stderr)
 
