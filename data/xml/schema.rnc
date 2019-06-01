@@ -57,13 +57,13 @@ Paper = element paper {
    & element year { xsd:integer }?
    )
 }
-Volume = element volume {
+Proceedings = element proceedings {
   attribute id { xsd:integer },
   element url { xsd:anyURI }?,
   Paper+
 }
-Root = element root {
+Collection = element collection {
   attribute id { xsd:NCName },
-  Volume+
+  Proceedings+
 }
 start = Root

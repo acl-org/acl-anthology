@@ -14,11 +14,11 @@ OLD:
 
 NEW:
 
-    <root id="P18">
-      <volume id="1">
+    <collection id="P18">
+      <proceedings id="1">
         <paper id="1">
         ...
-      </volume>
+      </proceedings>
     </root>
 
 Usage: convert_to_hierarchical.py <infilename> <outfilename>
@@ -36,7 +36,7 @@ tree = etree.parse(filename)
 root = tree.getroot()
 root_id = root.attrib['id']
 
-new_root = etree.Element('root')
+new_root = etree.Element('collection')
 new_root.attrib['id'] = root_id
 tree._setroot(new_root)
 
@@ -52,7 +52,7 @@ for paper in root.findall("paper"):
 
     paper.attrib['id'] = '{}'.format(paper_id)
     if prev_volume_id is None or prev_volume_id != volume_id:
-        volume = etree.Element('volume')
+        volume = etree.Element('proceedings')
         volume.attrib['id'] = volume_id
         prev_volume_id = volume_id
         new_root.append(volume)
