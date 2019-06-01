@@ -61,7 +61,7 @@ for paper in volume.findall("paper"):
     else:
         anth_url = '{}-{:04d}'.format(volume_id, paper_id)
 
-    anth_url = re.sub(r'^https?://(www\.)?aclweb.org./anthology/', '', anth_url)
+    anth_url = re.sub(r'^https?://(www\.)?aclweb.org/anthology/', '', anth_url)
 
     url = paper.find("url")
     if url is not None:
