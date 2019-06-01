@@ -42,38 +42,41 @@ for paper in volume.findall("paper"):
         del paper.attrib['href']
 
     if href and paper.find('href'):
-        print('{}: WARNING: found "href" attribute AND <href> tag'.format(paper_id), file=sys.stderr)
+        print(f'{acl_id}: WARNING: found "href" attribute AND <href> tag', file=sys.stderr)
         sys.exit(1)
 
     if paper.find('href'):
         assert len(href) == 0
         if not test_url(href.text):
             href = paper.find('href').text
-            print('{}: removing href element: {}'.format(acl_id, text), file=sys.stderr)
+            print(f'{acl_id}: removing href element: {text}', file=sys.stderr)
             paper.remove(paper.find('href'))
 
-    if href and paper.find('url'):
-        print('{}: WARNING: found "href" attribute AND <url> tag'.format(paper_id), file=sys.stderr)
+    url = paper.find("url")
+    if href and url:
+        print(f'{paper_id}: WARNING: found "href" attribute AND <url> tag', file=sys.stderr)
         sys.exit(1)
 
-    if href and href.startswith('http'):
+    if url is not None:
+        anth_url = url.text
+    elif href and href.startswith('http'):
         anth_url = href
     else:
         anth_url = '{}-{:04d}'.format(volume_id, paper_id)
 
-    anth_url = re.sub(r'^https?://(www\.)?aclweb.org/anthology/', '', anth_url)
-
-    url = paper.find("url")
-    if url is not None:
-        if url.text != anth_url:
-            print("{}: rewriting url: {} -> {}".format(acl_id, url.text, anth_url), file=sys.stderr)
-            url.text = anth_url
-    else:
-        # For this initial conversion, we add the canonical URL
+    # Create the node if missing
+    if url is None:
+        print(f"{acl_id}: inserting new url element", file=sys.stderr)
         url = etree.Element('url')
-        url.text = anth_url
-        print("{}: inserting url element: {}".format(acl_id, anth_url), file=sys.stderr)
+        url.tail = '\n    '
         paper.append(url)
+
+    new_anth_url = re.sub(r'^https?://(www\.)?aclweb.org/anthology/', '', anth_url)
+    if new_anth_url != anth_url:
+        print(f"{acl_id}: rewriting url: {anth_url} -> {new_anth_url}", file=sys.stderr)
+        anth_url = new_anth_url
+
+    url.text = anth_url
 
 # Now look for volumes -- (postponed until after hierarchical change)
 # for id_ in sorted(volumes):
