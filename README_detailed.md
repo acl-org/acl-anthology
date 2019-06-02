@@ -8,7 +8,8 @@ seen on <https://aclweb.org/anthology/>.
 
 The Anthology website is generated using the [Hugo](https://gohugo.io) static
 site generator.  However, before we can actually invoke Hugo, we need to prepare
-the contents of the website.
+the contents of the website.  The following steps describe what happens
+behind the scenes.  All the steps have a corresponding `make` target as well.
 
 ### Step 1: Prepare the data for site generation
 
@@ -101,8 +102,8 @@ The data sources of the Anthology are currently stored under `data/`.  They
 comprise:
 
 + The authoritative XML files (in [`xml/`](data/xml)); these contain all paper
-  metadata.  Their format is defined in RelaxNG schemas
-  [`schema.rnc`](data/xml/schema.rnc)/[`schema.rng`](data/xml/schema.rng) in the
+  metadata.  Their format is defined in an RelaxNG schema
+  [`schema.rnc`](data/xml/schema.rnc) in the
   same directory.
 
 + YAML files for SIGs (in [`yaml/sigs/`](data/yaml/sigs)); these contain names,

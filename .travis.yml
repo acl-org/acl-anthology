@@ -12,6 +12,4 @@ install:
   - sudo apt-get install -y jing bibutils
 
 script:
-  - jing -c data/xml/schema.rnc data/xml/*.xml
-  - jing data/xml/schema.rng data/xml/*.xml
-  - bin/build_hugo
+  - make check site

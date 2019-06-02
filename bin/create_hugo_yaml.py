@@ -21,7 +21,7 @@ Creates YAML files containing all necessary Anthology data for the static websit
 
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
-  --exportdir=DIR          Directory to write YAML files to.   [default: {scriptdir}/../hugo/data/]
+  --exportdir=DIR          Directory to write YAML files to.   [default: {scriptdir}/../build/data/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -n, --dry-run            Do not write YAML files (useful for debugging).

@@ -33,17 +33,14 @@ $ git clone https://github.com/acl-org/acl-anthology
 ### Generating
 
 Provided you have correctly installed all requirements, building the website
-should be as simple as calling the following command from the directory to which
-you cloned the repo:
+should be as simple running `make` from the directory to which
+you cloned the repo.
 
-```bash
-$ bin/build_hugo
-```
-
-The fully generated website will be in `hugo/public/` afterwards.  If any errors
+The fully generated website will be in `build/anthology` afterwards.  If any errors
 occur during this step, you can consult the [detailed
 README](README_detailed.md) for more information on the individual steps
-performed to build the site.
+performed to build the site.  You can see the resulting website by launching
+a local webserver with `make serve`, which will serve it at http://localhost:8000.
 
 Note that building the website is quite a resource-intensive process;
 particularly the last step, invoking Hugo, uses about 18~GB of system memory.
