@@ -178,10 +178,10 @@ def merge_people(variants, can1, can2):
         i = i2
         new = can1
     else:
-        # arbitrarily choose one to be canonical
-        variants.append({'canonical': can1})
+        # choose can2 to be canonical, since it is the new and hopefully more correct name.
+        variants.append({'canonical': {'first': can2.first, 'last': can2.last}})
         i = len(variants)-1
-        new = can2
+        new = can1
     for v in variants[i].get('variants', []):
         var = anthology.people.PersonName.from_dict(v)
         if var == new:
@@ -275,5 +275,7 @@ if __name__ == "__main__":
         outfile = os.path.join(args.outdir, 'data', 'xml', os.path.basename(infile))
         tree.write(outfile, xml_declaration=True, encoding='UTF-8')
 
+    variants.sort(key=lambda v: (v['canonical']['last'], v['canonical']['first']))
+        
     with open(os.path.join(args.outdir, 'data', 'yaml', 'name_variants.yaml'), "w") as outfile:
         outfile.write(yaml.dump(variants, allow_unicode=True, default_flow_style=None))
