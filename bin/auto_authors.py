@@ -1,9 +1,11 @@
 """
 Try to automatically restore accents in author names by downloading and scraping the PDFs.
 Reads and writes Anthology XML files.
-"""
 
-# to do: automatically update name_variants.yaml
+To do:
+- check for u -> umlaut
+- dotless i, other letters that NFKD doesn't get?
+"""
 
 import tika.parser
 import requests
@@ -15,7 +17,8 @@ import os.path, glob
 import anthology
 import copy
 import collections
-from normalize_anth import clean_unicode
+import time
+from normalize_anth import clean_unicode, curly_quotes
 import yaml, yamlfix
 
 def guess_url(paper):
@@ -31,26 +34,45 @@ def guess_url(paper):
     return url
 
 def slugify(s):
+    # Bug: Foobar and Foo Bar have different slugs.
+    # We could remove spaces,
+    # but there are many PDFs that have extra spaces, and we don't want those.
+    
+    # Split on camelCase
+    s = re.sub(r'([a-z])([A-Z])', r'\1 \2', s)
+
+    # Split on hyphens
+    s = s.replace('-', ' ')
+    
     # Remove accents and symbols
     s = unicodedata.normalize('NFKD', s)
-    s = ''.join(c for c in s if c.isalpha())
+    s = ''.join(c for c in s if c.isalpha() or c.isspace())
 
     s = s.lower()
+    s = '-'.join(s.split())
 
     return s
 
 def is_namechar(c):
-    return (c in '.-’' or
+    # hyphen can occur in names, but not at beginning or end,
+    # so we don't include it her
+    return (c in '.’' or
             unicodedata.category(c)[0] not in "CNPSZ" and
             not (0x370 <= ord(c) < 0x400) # Greek letters used as symbols
     )
 
-email_re = r'(\{(\S+,\s*)*(\S+)\}|\S+)\@\S+\.\S+'
+email_re = r'(\{.*\}|\S+)\@\S+\.\S+'
+delay = 0.
 
-def scrape_authors(url):
+def scrape_authors(url, retries=10):
+    global delay
+    if retries == 0:
+        logger.error("max retries exceeded; skipping")
+        return {}
     logger.info("getting {}".format(url))
     try:
-        r = requests.get(url)
+        time.sleep(delay)
+        r = requests.get(url, timeout=10)
         if not r:
             logger.error("could not download PDF")
             return None
@@ -58,10 +80,15 @@ def scrape_authors(url):
         text = raw['content']
     except KeyboardInterrupt:
         raise
+    except requests.exceptions.Timeout:
+        delay += 1.
+        logger.warning("connection timed out; increasing delay to {} s".format(delay))
+        return scrape_authors(url, retries-1)
     except Exception as e:
         logger.error(str(e))
-        return {}
-    
+        return scrape_authors(url, retries-1)
+
+    if text is None: return {}
     index = collections.defaultdict(list)
     li = 0
     for line in text.splitlines():
@@ -74,6 +101,8 @@ def scrape_authors(url):
         if li > 50: break
 
         line = clean_unicode(line)
+        line = curly_quotes(line)
+        line = unicodedata.normalize('NFKC', line) # more aggressive normalization than clean_unicode; for example, in an author name, 𝐦 (mathematical bold small m) is presumably a PDF bug
         logger.info('line:  '+line)
 
         # delete email addresses, so that they are not mistaken for names
@@ -102,8 +131,8 @@ def scrape_authors(url):
         # Index up to 4-grams
         for g in range(1, 5):
             for i in range(len(words)-g+1):
-                index["".join(slugs[i:i+g])].append(" ".join(words[i:i+g]))
-                  
+                index["-".join(slugs[i:i+g])].append(" ".join(words[i:i+g]))
+
     return index
 
 def change(index, name):
@@ -113,8 +142,13 @@ def change(index, name):
         if len(set(index[slug])) > 1:
             logger.warning("name collision: {}".format(", ".join(index[slug])))
         newname = index[slug][0]
-        if newname.isupper():
+        if not name.isupper() and newname.isupper():
+            # this could backfire for initials, like Abc -> ABC
             logger.info("not uppercasing: {} -> {}".format(name, newname))
+            return name
+        if not name.islower() and newname.islower():
+            # an all-lowercase name is likely to be an email address
+            logger.info("not lowercasing: {} -> {}".format(name, newname))
             return name
         if newname != name:
             logger.info("changing: {} -> {}".format(name, newname))
@@ -183,7 +217,7 @@ if __name__ == "__main__":
         ap.print_usage(sys.stderr)
         sys.exit("error: the -a and infiles options cannot be used together")
     elif args.all:
-        infiles = glob.glob(os.path.join(datadir, 'xml', '*'))
+        infiles = sorted(glob.glob(os.path.join(datadir, 'xml', '*.xml')))
     elif args.infiles:
         infiles = args.infiles
     else:
@@ -214,10 +248,12 @@ if __name__ == "__main__":
             for authornode in paper.xpath('./author|./editor'):
                 firstnode = authornode.find('first')
                 lastnode = authornode.find('last')
-                assert(len(firstnode) == len(lastnode) == 0)
+                if firstnode is None or firstnode.text is None:
+                    first = ""
+                else:
+                    first = firstnode.text
+                last = lastnode.text or ""
 
-                first = (firstnode.text or "").strip()
-                last = lastnode.text.strip()
                 location = '{} {} {} {}:'.format(paperid, authornode.tag, first, last)
 
                 newfirst = change(index, first)
@@ -230,7 +266,7 @@ if __name__ == "__main__":
                              anth.people.get_canonical_name(person),
                              anth.people.get_canonical_name(newperson))
 
-                firstnode.text = newfirst
+                if firstnode is not None: firstnode.text = newfirst
                 lastnode.text = newlast
 
         outfile = os.path.join(args.outdir, 'data', 'xml', os.path.basename(infile))

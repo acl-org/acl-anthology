@@ -41,6 +41,7 @@ import html
 from latex_to_unicode import latex_to_xml
 from fixedcase.protect import protect
 
+location = ""
 logging.basicConfig(format='%(levelname)s:%(location)s %(message)s', level=logging.INFO)
 def filter(r):
     r.location = location
