@@ -178,7 +178,10 @@ def merge_people(variants, can1, can2):
         i = i2
         new = can1
     else:
-        return
+        # arbitrarily choose one to be canonical
+        variants.append({'canonical': can1})
+        i = len(variants)-1
+        new = can2
     for v in variants[i].get('variants', []):
         var = anthology.people.PersonName.from_dict(v)
         if var == new:
