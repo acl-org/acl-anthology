@@ -15,11 +15,28 @@ OLD:
 NEW:
 
     <collection id="P18">
-      <proceedings id="1">
+      <volume id="1">
+        <meta>
+          <booktitle>...</booktitle>
+          <year>...</year>
+          <month>...</month>
+          <publish>...</publisher>
+          <address>...</address>
+        </meta>
         <paper id="1">
         ...
-      </proceedings>
+      </volume>
     </root>
+
+Also removes many keys from papers, since they are more properly
+inherited from their volumes:
+
+- booktitle
+- editor
+- year
+- month
+- publisher
+- address
 
 Usage: convert_to_hierarchical.py <infilename> <outfilename>
 """
@@ -41,6 +58,7 @@ new_root.attrib['id'] = root_id
 tree._setroot(new_root)
 
 volume = None
+meta = None
 prev_volume_id = None
 
 for paper in root.findall("paper"):
@@ -51,21 +69,54 @@ for paper in root.findall("paper"):
         volume_id, paper_id = paper_id[0:1], int(paper_id[1:])
 
     paper.attrib['id'] = '{}'.format(paper_id)
+
+    # new volume
     if prev_volume_id is None or prev_volume_id != volume_id:
-        volume = etree.Element('proceedings')
+        meta = etree.Element('meta')
+        volume = etree.Element('volume')
+        volume.append(meta)
         volume.attrib['id'] = volume_id
         prev_volume_id = volume_id
         new_root.append(volume)
 
-        # Now look for volumes -- (postponed until after hierarchical change)
-        # for id_ in sorted(volumes):
+        # Add volume-level <url> tag if PDF is present
         volume_url = get_anth_url(root_id, int(volume_id), width=len(volume_id))
         if test_url(volume_url):
             url = etree.Element('url')
             url.tail
             url.text = volume_url
             print("{}: inserting volume URL: {}".format(root_id, url.text), file=sys.stderr)
-            volume.insert(0, url)
+            meta.append(url)
+
+    # Transfer editor keys (once)
+    if volume.find('editor') is None:
+        editors = paper.findall('editor')
+        if editors is not None:
+            for editor in editors:
+                meta.append(editor)
+
+    # Remove bibtype and bibkey
+    for key_name in 'bibtype bibkey'.split():
+        node = paper.find(key_name)
+        if node is not None:
+            paper.remove(node)
+
+    # Move to metadata
+    for key_name in 'booktitle publisher address month year'.split():
+        # Move the key to the volume if not present in the volume
+        node_paper = paper.find(key_name)
+        if node_paper is not None:
+            node_meta = meta.find(key_name)
+            # If not found in the volume, move it
+            if node_meta is None:
+                node_meta = node_paper
+                if key_name == 'booktitle':
+                    meta.insert(0, node_paper)
+                else:
+                    meta.append(node_paper)
+            # If found in the volume, move only if it's redundant
+            elif node_paper.text == node_meta.text:
+                paper.remove(node_paper)
 
     volume.append(paper)
 

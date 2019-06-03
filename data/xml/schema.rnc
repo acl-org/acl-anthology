@@ -14,15 +14,11 @@ Person = attribute id { xsd:NCName }?, (first? & last)
 Paper = element paper {
   attribute id { xsd:integer },
   (element abstract { MarkupText }?
-   & element address { text }?
    & element attachment {
        attribute type { xsd:NCName }?,
        xsd:NCName
      }*
    & element author { Person }*
-   & element bibkey { text }?
-   & element bibtype { xsd:NCName }?
-   & element booktitle { MarkupText }?
    & element dataset { xsd:NCName }?
    & element doi { xsd:anyURI }?
    & element editor { Person }*
@@ -33,7 +29,6 @@ Paper = element paper {
    & (element ISBN { xsd:NMTOKEN } | element isbn { xsd:NMTOKEN })?
    & element issue { xsd:integer }?
    & element journal { text }?
-   & element month { text }?
    & element mrf {
        attribute src { xsd:NCName },
        xsd:NCName
@@ -41,7 +36,6 @@ Paper = element paper {
    & element note { text }?
    & element pages { text }?
    & element presentation { xsd:NCName }?
-   & element publisher { text }?
    & element revision {
        attribute id { xsd:integer },
        xsd:NCName
@@ -54,16 +48,25 @@ Paper = element paper {
        attribute tag { text }
      }*
    & element volume { xsd:integer }?
-   & element year { xsd:integer }?
    )
 }
-Proceedings = element proceedings {
+Meta = element meta {
+  (element booktitle { MarkupText }?
+   & element editor { Person }*
+   & element publisher { text }?
+   & element address { text }?
+   & element month { text }?
+   & element year { xsd:integer }?
+   & element url { xsd:anyURI }?
+  )
+}
+Volume = element volume {
   attribute id { xsd:integer },
-  element url { xsd:anyURI }?,
+  Meta,
   Paper+
 }
 Collection = element collection {
   attribute id { xsd:NCName },
-  Proceedings+
+  Volume+
 }
 start = Collection
