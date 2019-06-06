@@ -60,9 +60,14 @@ Meta = element meta {
    & element url { xsd:anyURI }?
   )
 }
+Frontmatter = element frontmatter {
+  (element url { xsd:anyURI }?
+  )
+}
 Volume = element volume {
   attribute id { xsd:integer },
   Meta,
+  Frontmatter?,
   Paper+
 }
 Collection = element collection {

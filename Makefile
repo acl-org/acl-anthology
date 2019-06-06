@@ -18,6 +18,8 @@ SHELL = /bin/sh
 ANTHOLOGYHOST := "https://aclweb.org"
 ANTHOLOGYDIR := anthology
 
+sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
+
 .PHONY: site
 site: bibtex mods endnote hugo
 
@@ -29,7 +31,7 @@ all: clean check site
 .PHONY: static
 static: build/.static
 
-build/.static:
+build/.static: $(shell find hugo -type f)
 	@echo "INFO     Creating and populating build directory..."
 	@mkdir -p build
 	@cp -r hugo/* build
@@ -40,7 +42,7 @@ build/.static:
 .PHONY: yaml
 yaml: build/.yaml
 
-build/.yaml: build/.static
+build/.yaml: build/.static $(sourcefiles)
 	@echo "INFO     Generating YAML files for Hugo..."
 	@python3 bin/create_hugo_yaml.py --clean
 	@touch build/.yaml
@@ -56,7 +58,7 @@ build/.pages: build/.static build/.yaml
 .PHONY: bibtex
 bibtex:	build/.bibtex
 
-build/.bibtex: build/.static
+build/.bibtex: build/.static $(sourcefiles)
 	@echo "INFO     Creating BibTeX files..."
 	@python3 bin/create_bibtex.py --clean
 	@touch build/.bibtex

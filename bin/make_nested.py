@@ -46,6 +46,7 @@ import re
 import sys
 
 from repair_url import test_url, get_anth_url
+from anthology.utils import is_journal
 
 filename = sys.argv[1]
 outfilename = sys.argv[2]
@@ -64,9 +65,13 @@ prev_volume_id = None
 for paper in root.findall("paper"):
     paper_id = paper.attrib['id']
     if root_id.startswith('W'):
-        volume_id, paper_id = paper_id[0:2], int(paper_id[2:])
+        volume_width = 2
+        paper_width = 2
     else:
-        volume_id, paper_id = paper_id[0:1], int(paper_id[1:])
+        volume_width = 1
+        paper_width = 3
+
+    volume_id, paper_id = int(paper_id[0:volume_width]), int(paper_id[volume_width:])
 
     paper.attrib['id'] = '{}'.format(paper_id)
 
@@ -75,18 +80,28 @@ for paper in root.findall("paper"):
         meta = etree.Element('meta')
         volume = etree.Element('volume')
         volume.append(meta)
-        volume.attrib['id'] = volume_id
+        volume.attrib['id'] = str(volume_id)
         prev_volume_id = volume_id
         new_root.append(volume)
 
         # Add volume-level <url> tag if PDF is present
-        volume_url = get_anth_url(root_id, int(volume_id), width=len(volume_id))
+        volume_url = get_anth_url(root_id, int(volume_id), width=volume_width)
         if test_url(volume_url):
             url = etree.Element('url')
             url.tail
-            url.text = volume_url
+            url.text = volume_url.split('/')[-1]
             print("{}: inserting volume URL: {}".format(root_id, url.text), file=sys.stderr)
             meta.append(url)
+
+    # Transform paper 0 to explicit frontmatter
+    if paper_id == 0:
+        paper.tag = 'frontmatter'
+        del paper.attrib['id']
+        paper.remove(paper.find('title'))
+        url = paper.find('url')
+        frontmatter_url = get_anth_url(root_id, int(volume_id), width=volume_width)
+        if url is not None and test_url(volume_url):
+            url.text = f'{root_id}-{volume_id:0{volume_width}d}{paper_id:0{paper_width}d}'
 
     # Transfer editor keys (once)
     if volume.find('editor') is None:
