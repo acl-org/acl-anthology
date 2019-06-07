@@ -17,6 +17,7 @@
 import logging as log
 from .people import PersonName
 from .utils import (
+    parse_element,
     infer_attachment_url,
     remove_extra_whitespace,
     is_journal,
@@ -28,24 +29,48 @@ from . import data
 # For BibTeX export
 from .formatter import bibtex_encode, bibtex_make_entry
 
-# Names of XML elements that may appear multiple times
-_LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
-
-
 class Paper:
-    def __init__(self, paper_id, top_level_id, formatter):
+    def __init__(self, paper_id, volume, formatter):
+        self.parent_volume = volume
         self.formatter = formatter
-        self.parent_volume = None
         self.paper_id = paper_id
-        self.top_level_id = top_level_id
+        self.top_level_id = volume.top_level_id
         self.attrib = {}
         self._bibkey = False
+        self.is_volume = False
 
     def from_xml(xml_element, *args):
         paper = Paper(xml_element.get("id"), *args)
-        paper._parse_element(xml_element)
+        paper.attrib = utils.parse_element(xml_element)
+
+        # Expand URLs with paper ID
+        for tag in ('revision', 'erratum'):
+            if tag in paper.attrib:
+                for item in paper.attrib[tag]:
+                    if item['url'].startswith(paper.full_id):
+                        log.error(
+                            "{} must begin with paper ID '{}', but is '{}'".format(
+                                tag, self.full_id, item['value']
+                            )
+                        )
+                    item['url'] = data.ANTHOLOGY_URL.format(item['url'])
+
+        if 'attachment' in paper.attrib:
+            for item in paper.attrib['attachment']:
+                item['url'] = utils.infer_attachment_url(item['url'], self.full_id),
+
+        # Explicitly construct URL of original version of the paper
+        # -- this is a bit hacky, but it's not given in the XML
+        # explicitly
+        if 'revision' in paper.attrib:
+            paper.attrib['revision'].insert(0, {
+                "value": "{}v1".format(self.full_id),
+                "id": "1",
+                "url": data.ANTHOLOGY_URL.format( "{}v1".format(self.full_id)) } )
+
+
         paper.attrib["title"] = paper.get_title("plain")
-        if "booktitle" in paper.attrib:
+        if paper.get("booktitle"):
             paper.attrib["booktitle"] = paper.get_booktitle("plain")
         if "editor" in paper.attrib:
             if paper.is_volume:
@@ -72,85 +97,6 @@ class Paper:
             else:
                 del paper.attrib["pages"]
         return paper
-
-    def _parse_element(self, paper_element):
-        for element in paper_element:
-            # parse value
-            tag = element.tag.lower()
-            if tag in ("abstract", "title", "booktitle"):
-                tag = "xml_{}".format(tag)
-                value = element
-            elif tag == "attachment":
-                value = {
-                    "filename": element.text,
-                    "type": element.get("type", "attachment"),
-                    "url": infer_attachment_url(element.text, self.full_id),
-                }
-            elif tag in ("author", "editor"):
-                id_ = element.attrib.get("id", None)
-                value = (PersonName.from_element(element), id_)
-            elif tag in ("erratum", "revision"):
-                if tag == "revision" and "revision" not in self.attrib:
-                    # Explicitly construct URL of original version of the paper
-                    # -- this is a bit hacky, but it's not given in the XML
-                    # explicitly
-                    self.attrib["revision"] = [
-                        {
-                            "value": "{}v1".format(self.full_id),
-                            "id": "1",
-                            "url": data.ANTHOLOGY_URL.format(
-                                "{}v1".format(self.full_id)
-                            ),
-                        }
-                    ]
-                if not element.text.startswith(self.full_id):
-                    log.error(
-                        "{} must begin with paper ID '{}', but is '{}'".format(
-                            tag, self.full_id, element.text
-                        )
-                    )
-                value = {
-                    "value": element.text,
-                    "id": element.get("id"),
-                    "url": data.ANTHOLOGY_URL.format(element.text),
-                }
-            elif tag == "mrf":
-                value = {"filename": element.text, "src": element.get("src")}
-            elif tag == "video":
-                # Treat videos the same way as other attachments
-                tag = "attachment"
-                value = {
-                    "filename": element.get("href"),
-                    "type": element.get("tag", "video"),
-                    "url": infer_attachment_url(element.get("href"), self.full_id),
-                }
-            elif tag in ("dataset", "software"):
-                value = {
-                    "filename": element.text,
-                    "type": tag,
-                    "url": infer_attachment_url(element.text, self.full_id),
-                }
-                tag = "attachment"
-            else:
-                value = element.text
-
-            if tag == "url":
-                # Convert relative URLs to canonical ones
-                value = element.text if element.text.startswith('http') else data.ANTHOLOGY_URL.format(element.text)
-
-            if tag in _LIST_ELEMENTS:
-                try:
-                    self.attrib[tag].append(value)
-                except KeyError:
-                    self.attrib[tag] = [value]
-            else:
-                if tag in self.attrib:
-                    log.warning(
-                        "{}: Unexpected multiple occurrence of '{}' element".format(
-                            self.full_id, tag
-                        )
-                    )
-                self.attrib[tag] = value
 
     def _infer_year(self):
         """Infer the year from the volume ID.
@@ -182,16 +128,6 @@ class Paper:
                 return
 
     @property
-    def is_volume(self):
-        """Determines if this paper is a regular paper or a proceedings volume.
-
-        By default, each paper ID of format 'x000' will be treated as (the front
-        matter of) a proceedings volume, unless the XML is of type workshop,
-        where each paper ID of format 'xx00' is treated as one volume.
-        """
-        return is_volume_id(self.full_id)
-
-    @property
     def full_id(self):
         return "{}-{}".format(self.top_level_id, self.paper_id)
 
@@ -221,10 +157,10 @@ class Paper:
         return None
 
     def get(self, name, default=None):
-        try:
+        if name in self.attrib:
             return self.attrib[name]
-        except KeyError:
-            return default
+        else:
+            return self.parent_volume.get(name, default)
 
     def get_title(self, form="xml"):
         """Returns the paper title, optionally formatting it.
@@ -285,7 +221,7 @@ class Paper:
                     ("booktitle", self.parent_volume.get_title(form="latex"))
                 )
         for entry in ("month", "year", "address", "publisher", "note"):
-            if entry in self.attrib:
+            if self.get(entry) is not None:
                 entries.append((entry, bibtex_encode(self.get(entry))))
         for entry in ("url", "doi"):
             if entry in self.attrib:
@@ -310,3 +246,12 @@ class Paper:
 
     def items(self):
         return self.attrib.items()
+
+class FrontMatter(Paper):
+    def __init__(self, volume, formatter):
+        super.__init__(self, 0, volume, formatter)
+        self.is_volume = True
+
+    def from_xml(xml_element, *args):
+        front_matter = FrontMatter(*args)
+        front_matter.attrib = utils.parse_element(xml_element)
