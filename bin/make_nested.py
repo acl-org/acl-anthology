@@ -46,7 +46,7 @@ import re
 import sys
 
 from repair_url import test_url, get_anth_url
-from anthology.utils import is_journal
+from anthology.utils import indent
 
 filename = sys.argv[1]
 outfilename = sys.argv[2]
@@ -97,7 +97,11 @@ for paper in root.findall("paper"):
     if paper_id == 0:
         paper.tag = 'frontmatter'
         del paper.attrib['id']
-        paper.remove(paper.find('title'))
+        title = paper.find('title')
+        if title is not None:
+            title.tag = 'booktitle'
+            meta.insert(0, title)
+
         url = paper.find('url')
         frontmatter_url = get_anth_url(root_id, int(volume_id), width=volume_width)
         if url is not None and test_url(volume_url):
@@ -134,28 +138,6 @@ for paper in root.findall("paper"):
                 paper.remove(node_paper)
 
     volume.append(paper)
-
-# Adapted from https://stackoverflow.com/a/33956544
-def indent(elem, level=0):
-    i = "\n" + level*"  "
-
-    # Keep authors and editors on a single line
-    if elem.tag in ['author', 'editor']:
-        elem.tail = i
-        return
-
-    if len(elem):
-        if not elem.text or not elem.text.strip():
-            elem.text = i + "  "
-        if not elem.tail or not elem.tail.strip():
-            elem.tail = i
-        for elem in elem:
-            indent(elem, level+1)
-        if not elem.tail or not elem.tail.strip():
-            elem.tail = i
-    else:
-        if level and (not elem.tail or not elem.tail.strip()):
-            elem.tail = i
 
 indent(new_root)
 

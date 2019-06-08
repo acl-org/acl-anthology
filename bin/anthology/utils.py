@@ -120,3 +120,26 @@ class SeverityTracker(logging.Handler):
     def emit(self, record):
         if record.levelno > self.highest:
             self.highest = record.levelno
+
+
+# Adapted from https://stackoverflow.com/a/33956544
+def indent(elem, level=0):
+    i = "\n" + level * "  "
+
+    # Keep authors and editors on a single line
+    if elem.tag in ['author', 'editor']:
+        elem.tail = i
+        return
+
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "  "
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+        for elem in elem:
+            indent(elem, level+1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
