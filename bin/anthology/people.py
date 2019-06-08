@@ -15,7 +15,7 @@
 # limitations under the License.
 
 import logging as log
-from .formatter import bibtex_encode
+import formatter
 
 
 class PersonName:

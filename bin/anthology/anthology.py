@@ -54,38 +54,29 @@ class Anthology:
         for xmlfile in glob(importdir + "/xml/*.xml"):
             self.import_file(xmlfile)
         self.pindex.verify()
-        
+
     def import_file(self, filename):
         tree = etree.parse(filename)
-        volume = tree.getroot()
-        top_level_id = volume.get("id")
-        if top_level_id in self.volumes:
-            log.critical(
-                "Attempted to import top-level ID '{}' twice".format(top_level_id)
-            )
-            log.critical("Triggered by file: {}".format(filename))
-        current_volume = None
-        for paper in volume:
-            parsed_paper = Paper.from_xml(paper, top_level_id, self.formatter)
-            self.pindex.register(parsed_paper)
-            full_id = parsed_paper.full_id
-            if full_id in self.papers:
+        collection = tree.getroot()
+        top_level_id = collection.get("id")
+        for volume_xml in collection:
+            volume = Volume.from_xml(volume_xml, top_level_id, self.venues, self.sigs, self.formatter)
+
+            if volume.full_id in self.volumes:
                 log.critical(
-                    "Attempted to import paper '{}' twice -- skipping".format(full_id)
+                    "Attempted to import volume ID '{}' twice".format(volume.full_id)
                 )
-                continue
-            if parsed_paper.is_volume:
-                if current_volume is not None:
-                    self.volumes[current_volume.full_id] = current_volume
-                current_volume = Volume(parsed_paper, self.venues, self.sigs)
-            else:
-                if current_volume is None:
+                log.critical("Triggered by file: {}".format(filename))
+
+            self.volumes[volume.full_id] = volume
+            for paper in volume_xml.findall('paper'):
+                parsed_paper = Paper.from_xml(paper, volume, self.formatter)
+                self.pindex.register(parsed_paper)
+                full_id = parsed_paper.full_id
+                if full_id in self.papers:
                     log.critical(
-                        "First paper of XML should be volume entry, but '{}' is not interpreted as one".format(
-                            full_id
-                        )
+                        "Attempted to import paper '{}' twice -- skipping".format(full_id)
                     )
-                current_volume.append(parsed_paper)
-            self.papers[full_id] = parsed_paper
-        if current_volume is not None:
-            self.volumes[current_volume.full_id] = current_volume
+                    continue
+                volume.append(parsed_paper)
+                self.papers[full_id] = parsed_paper

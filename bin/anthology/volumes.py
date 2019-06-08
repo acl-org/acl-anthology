@@ -15,16 +15,21 @@
 # limitations under the License.
 
 import re
+import logging as log
+
 from . import data
-from .papers import Paper
+from .papers import Paper, FrontMatter
 from .venues import VenueIndex
 from .sigs import SIGIndex
-from .utils import is_journal, month_str2num
+from .utils import parse_element, is_journal, month_str2num
 
 
 class Volume:
-    def __init__(
-        self, front_matter: Paper, venue_index: VenueIndex, sig_index: SIGIndex
+    def __init__(self,
+                 meta_data,
+                 front_matter: Paper,
+                 venue_index: VenueIndex,
+                 sig_index: SIGIndex
     ):
         """Instantiate a proceedings volume.
 
@@ -32,26 +37,36 @@ class Volume:
         associated with this proceedings volume.
         """
         self.formatter = front_matter.formatter
-        self.front_matter_id = front_matter.paper_id
-        self.top_level_id = front_matter.top_level_id
-        self.attrib = front_matter.attrib.copy()
+        self.top_level_id = meta_data['top_level_id']
+        self.attrib = meta_data
         if "author" in self.attrib:
             # Authors of the front matter are the volume's editors
             self.attrib["editor"] = self.attrib["author"]
             del self.attrib["author"]
-        # Some fields should not be copied from the front matter
-        for attrib in ("revision", "erratum", "pages", "xml_booktitle"):
-            if attrib in self.attrib:
-                del self.attrib[attrib]
         if not is_journal(self.top_level_id):
             self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
         self.attrib["venues"] = venue_index.register(self)
-        self.attrib["sigs"] = sig_index.get_associated_sigs(front_matter.full_id)
+        self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
         self._set_meta_info()
         self.content = []
         if not is_journal(self.top_level_id):
             # journals don't have front matter, but others do
             self.append(front_matter)
+
+    @staticmethod
+    def from_xml(volume_xml,
+                 top_level_id,
+                 venue_index: VenueIndex,
+                 sig_index: SIGIndex,
+                 formatter):
+
+        meta_data = parse_element(volume_xml.find('meta'))
+        print('META', top_level_id, meta_data)
+        meta_data['top_level_id'] = top_level_id
+        meta_data['id'] = volume_xml.attrib['id']
+        meta_data['booktitle'] = formatter(meta_data['xml_booktitle'], 'plain')
+        front_matter = FrontMatter.from_xml(volume_xml.find('frontmatter'), None, formatter)
+        return Volume(meta_data, front_matter, venue_index, sig_index)
 
     def _set_meta_info(self):
         """Derive journal title, volume, and issue no. used in metadata.
@@ -64,30 +79,35 @@ class Volume:
             if month is not None:
                 self.attrib["meta_date"] = "{}/{}".format(self.get("year"), month)
         if is_journal(self.top_level_id):
+            print('** ATTRIB', self.attrib)
             self.attrib["meta_journal_title"] = data.get_journal_title(
-                self.top_level_id, self.attrib["title"]
+                self.top_level_id, self.attrib["booktitle"]
             )
             volume_no = re.search(
-                r"Volume\s*(\d+)", self.attrib["title"], flags=re.IGNORECASE
+                r"Volume\s*(\d+)", self.attrib["booktitle"], flags=re.IGNORECASE
             )
             if volume_no is not None:
                 self.attrib["meta_volume"] = volume_no.group(1)
             issue_no = re.search(
                 r"(Number|Issue)\s*(\d+-?\d*)",
-                self.attrib["title"],
+                self.attrib["booktitle"],
                 flags=re.IGNORECASE,
             )
             if issue_no is not None:
                 self.attrib["meta_issue"] = issue_no.group(2)
 
     @property
+    def volume_number(self):
+        return int(self.attrib['id'])
+
+    @property
     def full_id(self):
         if self.top_level_id[0] == "W" or self.top_level_id == "C69":
             # If volume is a workshop, use the first two digits of ID, e.g. W15-01
-            _id = "{}-{}".format(self.top_level_id, self.front_matter_id[:2])
+            _id = "{}-{:02d}".format(self.top_level_id, self.volume_number)
         else:
             # If not, only use the first digit, e.g. Q15-1
-            _id = "{}-{}".format(self.top_level_id, self.front_matter_id[0])
+            _id = "{}-{:01d}".format(self.top_level_id, self.volume_number)
         return _id
 
     @property

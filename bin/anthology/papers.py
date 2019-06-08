@@ -15,7 +15,6 @@
 # limitations under the License.
 
 import logging as log
-from .people import PersonName
 from .utils import (
     parse_element,
     infer_attachment_url,
@@ -34,14 +33,13 @@ class Paper:
         self.parent_volume = volume
         self.formatter = formatter
         self.paper_id = paper_id
-        self.top_level_id = volume.top_level_id
         self.attrib = {}
         self._bibkey = False
         self.is_volume = False
 
     def from_xml(xml_element, *args):
         paper = Paper(xml_element.get("id"), *args)
-        paper.attrib = utils.parse_element(xml_element)
+        paper.attrib = parse_element(xml_element)
 
         # Expand URLs with paper ID
         for tag in ('revision', 'erratum'):
@@ -50,27 +48,27 @@ class Paper:
                     if item['url'].startswith(paper.full_id):
                         log.error(
                             "{} must begin with paper ID '{}', but is '{}'".format(
-                                tag, self.full_id, item['value']
+                                tag, paper.full_id, item['value']
                             )
                         )
                     item['url'] = data.ANTHOLOGY_URL.format(item['url'])
 
         if 'attachment' in paper.attrib:
             for item in paper.attrib['attachment']:
-                item['url'] = utils.infer_attachment_url(item['url'], self.full_id),
+                item['url'] = infer_attachment_url(item['url'], paper.full_id),
 
         # Explicitly construct URL of original version of the paper
         # -- this is a bit hacky, but it's not given in the XML
         # explicitly
         if 'revision' in paper.attrib:
             paper.attrib['revision'].insert(0, {
-                "value": "{}v1".format(self.full_id),
+                "value": "{}v1".format(paper.full_id),
                 "id": "1",
-                "url": data.ANTHOLOGY_URL.format( "{}v1".format(self.full_id)) } )
+                "url": data.ANTHOLOGY_URL.format( "{}v1".format(self.paper_id)) } )
 
 
         paper.attrib["title"] = paper.get_title("plain")
-        if paper.get("booktitle"):
+        if "booktitle" in paper.attrib:
             paper.attrib["booktitle"] = paper.get_booktitle("plain")
         if "editor" in paper.attrib:
             if paper.is_volume:
@@ -126,6 +124,10 @@ class Paper:
                 ].split(s)
                 self.attrib["pages"] = self.attrib["pages"].replace(s, "–")
                 return
+
+    @property
+    def top_level_id(self):
+        return self.parent_volume.top_level_id
 
     @property
     def full_id(self):
@@ -249,9 +251,10 @@ class Paper:
 
 class FrontMatter(Paper):
     def __init__(self, volume, formatter):
-        super.__init__(self, 0, volume, formatter)
+        super().__init__(0, volume, formatter)
         self.is_volume = True
 
     def from_xml(xml_element, *args):
         front_matter = FrontMatter(*args)
-        front_matter.attrib = utils.parse_element(xml_element)
+        front_matter.attrib = parse_element(xml_element)
+        return front_matter

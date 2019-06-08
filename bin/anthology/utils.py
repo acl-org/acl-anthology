@@ -21,6 +21,7 @@ import itertools as it
 import logging
 import re
 
+from .people import PersonName
 from . import data
 
 
@@ -143,3 +144,64 @@ def indent(elem, level=0):
     else:
         if level and (not elem.tail or not elem.tail.strip()):
             elem.tail = i
+
+
+def parse_element(xml_element):
+    attrib = {}
+    if xml_element is None:
+        return attrib
+
+    for element in xml_element:
+        # parse value
+        tag = element.tag.lower()
+        if tag in ("abstract", "title", "booktitle"):
+            tag = "xml_{}".format(tag)
+            value = element
+        elif tag == "attachment":
+            value = {
+                "filename": element.text,
+                "type": element.get("type", "attachment"),
+                "url": element.text,
+            }
+        elif tag in ("author", "editor"):
+            id_ = element.attrib.get("id", None)
+            value = (PersonName.from_element(element), id_)
+        elif tag in ("erratum", "revision"):
+            value = {
+                "value": element.text,
+                "id": element.get("id"),
+                "url": element.text,
+            }
+        elif tag == "mrf":
+            value = {"filename": element.text, "src": element.get("src")}
+        elif tag == "video":
+            # Treat videos the same way as other attachments
+            tag = "attachment"
+            value = {
+                "filename": element.get("href"),
+                "type": element.get("tag", "video"),
+                "url": element.get("href"),
+            }
+        elif tag in ("dataset", "software"):
+            value = {
+                "filename": element.text,
+                "type": tag,
+                "url": element.text,
+            }
+            tag = "attachment"
+        else:
+            value = element.text
+
+        if tag == "url":
+            # Convert relative URLs to canonical ones
+            value = element.text if element.text.startswith('http') else data.ANTHOLOGY_URL.format(element.text)
+
+        if tag in data.LIST_ELEMENTS:
+            try:
+                attrib[tag].append(value)
+            except KeyError:
+                attrib[tag] = [value]
+        else:
+            attrib[tag] = value
+
+    return attrib

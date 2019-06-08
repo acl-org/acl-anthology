@@ -24,6 +24,8 @@
 ANTHOLOGY_URL = "https://www.aclweb.org/anthology/{}"
 ATTACHMENT_URL = "https://www.aclweb.org/anthology/attachments/{}"
 
+# Names of XML elements that may appear multiple times
+LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
 
 def get_journal_title(top_level_id, volume_title):
     if top_level_id[0] == "J":
