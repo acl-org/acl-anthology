@@ -124,26 +124,35 @@ class SeverityTracker(logging.Handler):
 
 
 # Adapted from https://stackoverflow.com/a/33956544
-def indent(elem, level=0):
-    i = "\n" + level * "  "
+def indent(elem, level=0, internal=False):
+    # tags that have no internal linebreaks (including children)
+    oneline = elem.tag in ('author', 'editor', 'title', 'booktitle')
 
-    # Keep authors and editors on a single line
-    if elem.tag in ['author', 'editor']:
-        elem.tail = i
-        return
+    tail = '' if internal else "\n" + level * "  "
+
+    if oneline and elem.text:
+        elem.text = elem.text.replace('\n', ' ')
+        elem.text = re.sub(r'\s+', ' ', elem.text)
+        elem.text = elem.text.strip()
+    if internal and elem.tail:
+        elem.tail = elem.tail.replace('\n', ' ').strip()
 
     if len(elem):
-        if not elem.text or not elem.text.strip():
-            elem.text = i + "  "
-        if not elem.tail or not elem.tail.strip():
-            elem.tail = i
-        for elem in elem:
-            indent(elem, level+1)
-        if not elem.tail or not elem.tail.strip():
-            elem.tail = i
+        # after opening tag
+        if not oneline and (not elem.text or not elem.text.strip()):
+            elem.text = tail + "  "
+        # after closing tag
+        if (not elem.tail or not elem.tail.strip()):
+            elem.tail = tail
+        # children
+        for child in elem:
+            indent(child, level + 1, internal=oneline)
+        # last child
+        if not oneline and (not child.tail or not child.tail.strip()):
+            child.tail = tail
     else:
         if level and (not elem.tail or not elem.tail.strip()):
-            elem.tail = i
+            elem.tail = tail
 
 
 def parse_element(xml_element):
