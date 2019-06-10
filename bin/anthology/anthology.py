@@ -58,15 +58,21 @@ class Anthology:
     def import_file(self, filename):
         tree = etree.parse(filename)
         collection = tree.getroot()
-        top_level_id = collection.get("id")
+        collection_id = collection.get("id")
         for volume_xml in collection:
-            volume = Volume.from_xml(volume_xml, top_level_id, self.venues, self.sigs, self.formatter)
+            volume = Volume.from_xml(volume_xml, collection_id, self.venues, self.sigs, self.formatter)
 
             if volume.full_id in self.volumes:
                 log.critical(
                     "Attempted to import volume ID '{}' twice".format(volume.full_id)
                 )
                 log.critical("Triggered by file: {}".format(filename))
+
+            # front matter
+            if len(volume.content):
+                front_matter = volume.content[0]
+                self.pindex.register(front_matter)
+                self.papers[front_matter.full_id] = front_matter
 
             self.volumes[volume.full_id] = volume
             for paper in volume_xml.findall('paper'):

@@ -32,14 +32,24 @@ class Paper:
     def __init__(self, paper_id, volume, formatter):
         self.parent_volume = volume
         self.formatter = formatter
-        self.paper_id = paper_id
-        self.attrib = {}
+        self._id = paper_id
         self._bibkey = False
-        self.is_volume = False
+        self.is_volume = paper_id == '0'
+
+        self.attrib = {}
+        for key, value in volume.attrib.items():
+            if key not in ('collection_id', 'booktitle', 'id', 'meta_data', 'sigs', 'venues', 'meta_date'):
+                self.attrib[key] = value
 
     def from_xml(xml_element, *args):
-        paper = Paper(xml_element.get("id"), *args)
-        paper.attrib = parse_element(xml_element)
+        # default to paper ID "0" (for front matter)
+        paper = Paper(xml_element.get("id", '0'), *args)
+        for key, value in parse_element(xml_element).items():
+            if key == 'author' and 'editor' in paper.attrib:
+                del paper.attrib['editor']
+            elif key == 'title':
+                del paper.attrib['booktitle']
+            paper.attrib[key] = value
 
         # Expand URLs with paper ID
         for tag in ('revision', 'erratum'):
@@ -64,7 +74,7 @@ class Paper:
             paper.attrib['revision'].insert(0, {
                 "value": "{}v1".format(paper.full_id),
                 "id": "1",
-                "url": data.ANTHOLOGY_URL.format( "{}v1".format(self.paper_id)) } )
+                "url": data.ANTHOLOGY_URL.format( "{}v1".format(self.full_id)) } )
 
 
         paper.attrib["title"] = paper.get_title("plain")
@@ -104,9 +114,9 @@ class Paper:
         some letter and yy are the last two digits of the year of publication.
         """
         assert (
-            len(self.top_level_id) == 3
+            len(self.collection_id) == 3
         ), "Couldn't infer year: unknown volume ID format"
-        digits = self.top_level_id[1:]
+        digits = self.collection_id[1:]
         if int(digits) >= 60:
             year = "19{}".format(digits)
         else:
@@ -126,12 +136,26 @@ class Paper:
                 return
 
     @property
-    def top_level_id(self):
-        return self.parent_volume.top_level_id
+    def collection_id(self):
+        return self.parent_volume.collection_id
+
+    @property
+    def volume_id(self):
+        return self.parent_volume.volume_id
+
+    @property
+    def paper_id(self):
+        if self.collection_id[0] == "W" or self.collection_id == "C69":
+            # If volume is a workshop, use the last two digits of ID
+            _id = "{}{:02d}".format(self.volume_id, int(self._id))
+        else:
+            # If not, only the last three
+            _id = "{}{:03d}".format(self.volume_id, int(self._id))
+        return _id
 
     @property
     def full_id(self):
-        return "{}-{}".format(self.top_level_id, self.paper_id)
+        return "{}-{}".format(self.collection_id, self.paper_id)
 
     @property
     def bibkey(self):
@@ -173,7 +197,10 @@ class Paper:
           - html:  Convert XML tags into valid HTML tags
           - latex: Convert XML tags into LaTeX commands
         """
-        return self.formatter(self.get("xml_title"), form)
+        if self.is_volume:
+            return self.formatter(self.get("xml_booktitle"), form)
+        else:
+            return self.formatter(self.get("xml_title"), form)
 
     def get_abstract(self, form="xml"):
         """Returns the abstract, optionally formatting it.
@@ -248,13 +275,3 @@ class Paper:
 
     def items(self):
         return self.attrib.items()
-
-class FrontMatter(Paper):
-    def __init__(self, volume, formatter):
-        super().__init__(0, volume, formatter)
-        self.is_volume = True
-
-    def from_xml(xml_element, *args):
-        front_matter = FrontMatter(*args)
-        front_matter.attrib = parse_element(xml_element)
-        return front_matter

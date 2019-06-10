@@ -52,7 +52,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
         data["title_html"] = paper.get_title("html")
-        del data["xml_title"]
+        if 'xml_title' in data:
+            del data["xml_title"]
         if "xml_booktitle" in data:
             data["booktitle_html"] = paper.get_booktitle("html")
             del data["xml_booktitle"]
@@ -67,7 +68,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             data["editor"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["editor"]
             ]
-        papers[paper.top_level_id][paper.full_id] = data
+        papers[paper.collection_id][paper.full_id] = data
 
     # Prepare people index
     people = defaultdict(dict)
@@ -158,8 +159,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                 return
 
         progress = tqdm(total=len(papers) + len(people) + 7)
-        for top_level_id, paper_list in papers.items():
-            with open("{}/papers/{}.yaml".format(outdir, top_level_id), "w") as f:
+        for collection_id, paper_list in papers.items():
+            with open("{}/papers/{}.yaml".format(outdir, collection_id), "w") as f:
                 yaml.dump(paper_list, Dumper=Dumper, stream=f)
             progress.update()
 
