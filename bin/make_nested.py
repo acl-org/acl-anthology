@@ -107,6 +107,20 @@ for paper in root.findall("paper"):
         if url is not None and test_url(volume_url):
             url.text = f'{root_id}-{volume_id:0{volume_width}d}{paper_id:0{paper_width}d}'
 
+        # Change authors of frontmatter to editors
+        authors = paper.findall('author')
+        if authors is not None:
+            for author in authors:
+                author.tag = 'editor'
+
+        # Remove empty abstracts (corner case)
+        abstract = paper.find('abstract')
+        if abstract is not None:
+            if abstract.text != None:
+                print('* WARNING: non-empty abstract for', paper.full_id)
+            else:
+                paper.remove(abstract)
+
     # Transfer editor keys (once)
     if volume.find('editor') is None:
         editors = paper.findall('editor')
@@ -121,7 +135,7 @@ for paper in root.findall("paper"):
             paper.remove(node)
 
     # Move to metadata
-    for key_name in 'booktitle publisher address month year'.split():
+    for key_name in 'booktitle publisher volume address month year ISBN isbn doi'.split():
         # Move the key to the volume if not present in the volume
         node_paper = paper.find(key_name)
         if node_paper is not None:
@@ -134,7 +148,7 @@ for paper in root.findall("paper"):
                 else:
                     meta.append(node_paper)
             # If found in the volume, move only if it's redundant
-            elif node_paper.text == node_meta.text:
+            elif node_paper.tag == node_meta.tag:
                 paper.remove(node_paper)
 
     volume.append(paper)

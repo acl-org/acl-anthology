@@ -26,7 +26,6 @@ Paper = element paper {
        attribute id { xsd:integer },
        xsd:NCName
      }*
-   & (element ISBN { xsd:NMTOKEN } | element isbn { xsd:NMTOKEN })?
    & element issue { xsd:integer }?
    & element journal { text }?
    & element mrf {
@@ -57,18 +56,26 @@ Meta = element meta {
    & element address { text }?
    & element month { text }?
    & element year { xsd:integer }?
+   & element volume { xsd:integer }?
+   & (element ISBN { xsd:NMTOKEN } | element isbn { xsd:NMTOKEN })?
    & element url { xsd:anyURI }?
+   & element doi { xsd:anyURI }?
   )
 }
 Frontmatter = element frontmatter {
   (element url { xsd:anyURI }?
+   & element pages { text }?
+   & element revision {
+       attribute id { xsd:integer },
+       xsd:NCName
+     }*
   )
 }
 Volume = element volume {
   attribute id { xsd:integer },
   Meta,
   Frontmatter?,
-  Paper+
+  Paper*
 }
 Collection = element collection {
   attribute id { xsd:NCName },
