@@ -1,10 +1,6 @@
 """
 Try to automatically restore accents in author names by downloading and scraping the PDFs.
 Reads and writes Anthology XML files.
-
-To do:
-- check for u -> umlaut
-- dotless i, other letters that NFKD doesn't get?
 """
 
 import tika.parser
@@ -65,7 +61,7 @@ def slugify(s):
 def is_namechar(c):
     # hyphen can occur in names, but not at beginning or end,
     # so we don't include it her
-    return (c in '.’' or
+    return (c in '.“”‘’«»„' or
             unicodedata.category(c)[0] not in "CNPSZ" and
             not (0x370 <= ord(c) < 0x400) # Greek letters used as symbols
     )
@@ -108,13 +104,13 @@ def get_url(url, retries=10):
 def scrape_authors(content, retries=10):
     try:
         raw = tika.parser.from_buffer(content)
-        text = raw['content']
     except KeyboardInterrupt:
         raise
     except Exception as e:
         logger.error(str(e))
         return scrape_authors(content, retries-1)
-            
+    
+    text = raw.get('content', None)
     if text is None: return {}
     index = collections.defaultdict(list)
     li = 0
