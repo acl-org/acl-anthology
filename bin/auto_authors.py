@@ -1,10 +1,6 @@
 """
 Try to automatically restore accents in author names by downloading and scraping the PDFs.
 Reads and writes Anthology XML files.
-
-To do:
-- check for u -> umlaut
-- dotless i, other letters that NFKD doesn't get?
 """
 
 import tika.parser
@@ -23,14 +19,23 @@ import yaml, yamlfix
 
 def guess_url(paper):
     volume = paper.getparent()
+    
     if (paper.attrib['id'].endswith('000') or
         volume.attrib['id'].startswith('W') and paper.attrib['id'].endswith('00')):
         return None
+    
+    if args.pdfdir:
+        path = os.path.join(args.pdfdir, volume.attrib['id'][0], volume.attrib['id'], "{}-{}.pdf".format(volume.attrib['id'], paper.attrib['id']))
+        print(path)
+        if os.path.exists(path):
+            return "file:"+path
+
     url = paper.find('url') is not None and paper.find('url').text
     if not url: url = paper.find('href') and paper.find('href').text
     if not url: url = paper.attrib.get('href', None)
     if not url:
         url = "http://www.aclweb.org/anthology/{}-{}".format(volume.attrib['id'], paper.attrib['id'])
+        
     return url
 
 def slugify(s):
@@ -56,38 +61,56 @@ def slugify(s):
 def is_namechar(c):
     # hyphen can occur in names, but not at beginning or end,
     # so we don't include it her
-    return (c in '.’' or
+    return (c in '.“”‘’«»„' or
             unicodedata.category(c)[0] not in "CNPSZ" and
             not (0x370 <= ord(c) < 0x400) # Greek letters used as symbols
     )
 
 email_re = r'(\{.*\}|\S+)\@\S+\.\S+'
-delay = 0.
 
-def scrape_authors(url, retries=10):
+delay = 0.
+def get_url(url, retries=10):
     global delay
-    if retries == 0:
-        logger.error("max retries exceeded; skipping")
-        return {}
-    logger.info("getting {}".format(url))
+    if url.startswith('http:') or url.startswith('https:'):
+        if retries == 0:
+            logger.error("max retries exceeded; skipping")
+            return {}
+        logger.info("getting {}".format(url))
+        try:
+            time.sleep(delay)
+            r = requests.get(url, timeout=10)
+            if not r:
+                logger.error("could not download PDF")
+                return None
+            content = r.content
+        except KeyboardInterrupt:
+            raise
+        except requests.exceptions.Timeout:
+            delay += 1.
+            logger.warning("connection timed out; increasing delay to {} s".format(delay))
+            return get_url(url, retries-1)
+        except Exception as e:
+            logger.error(str(e))
+            return get_url(url, retries-1)
+    elif url.startswith('file:'):
+        file = url[5:]
+        logger.info("reading file {}".format(file))
+        content = open(file, "rb").read()
+    else:
+        assert False
+
+    return content
+
+def scrape_authors(content, retries=10):
     try:
-        time.sleep(delay)
-        r = requests.get(url, timeout=10)
-        if not r:
-            logger.error("could not download PDF")
-            return None
-        raw = tika.parser.from_buffer(r.content)
-        text = raw['content']
+        raw = tika.parser.from_buffer(content)
     except KeyboardInterrupt:
         raise
-    except requests.exceptions.Timeout:
-        delay += 1.
-        logger.warning("connection timed out; increasing delay to {} s".format(delay))
-        return scrape_authors(url, retries-1)
     except Exception as e:
         logger.error(str(e))
-        return scrape_authors(url, retries-1)
-
+        return scrape_authors(content, retries-1)
+    
+    text = raw.get('content', None)
     if text is None: return {}
     index = collections.defaultdict(list)
     li = 0
@@ -212,6 +235,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description='Try to automatically restore accents in author names.')
     ap.add_argument('infiles', metavar="xml", nargs='*', help="input XML files")
     ap.add_argument('-a', '--all', action="store_true", help="process all XML files in input directory")
+    ap.add_argument('-p', '--pdfdir', metavar="dir", help="directory with PDFs")
     ap.add_argument('-i', '--indir', metavar="dir", help="input directory", default=datadir)
     ap.add_argument('-o', '--outdir', metavar="dir", help="output directory", required=True)
     args = ap.parse_args()
@@ -245,7 +269,8 @@ if __name__ == "__main__":
 
             url = guess_url(paper)
             if url is None: continue
-            index = scrape_authors(url)
+            content = get_url(url)
+            index = scrape_authors(content)
             if index is None: continue
 
             for authornode in paper.xpath('./author|./editor'):
