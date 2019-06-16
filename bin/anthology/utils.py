@@ -123,37 +123,52 @@ class SeverityTracker(logging.Handler):
             self.highest = record.levelno
 
 
+def clean_whitespace(text, strip='left'):
+    old_text = text
+    if text is not None:
+        text = text.replace('\n', '')
+        text = re.sub(r'\s+', ' ', text)
+        if strip == 'left' or strip == 'both':
+            text = text.lstrip()
+        if strip == 'right' or strip == 'both':
+            text = text.rstrip()
+    return text
+
+
 # Adapted from https://stackoverflow.com/a/33956544
 def indent(elem, level=0, internal=False):
     # tags that have no internal linebreaks (including children)
     oneline = elem.tag in ('author', 'editor', 'title', 'booktitle')
 
-    tail = '' if internal else "\n" + level * "  "
+    elem.text = clean_whitespace(elem.text)
 
-    if oneline and elem.text:
-        elem.text = elem.text.replace('\n', ' ')
-        elem.text = re.sub(r'\s+', ' ', elem.text)
-        elem.text = elem.text.strip()
-    if internal and elem.tail:
-        elem.tail = elem.tail.replace('\n', ' ').strip()
-
-    if len(elem):
-        # after opening tag
+    if len(elem): # children
+        # Set indent of first child for tags with no text
         if not oneline and (not elem.text or not elem.text.strip()):
-            elem.text = tail + "  "
-        # after closing tag
-        if (not elem.tail or not elem.tail.strip()):
-            elem.tail = tail
-        # children
+            elem.text = '\n' + (level + 1) * '  '
+
+        if not elem.tail or not elem.tail.strip():
+            if level:
+                elem.tail = '\n' + level * '  '
+            else:
+                elem.tail = ''
+
+        # recurse
         for child in elem:
             indent(child, level + 1, internal=oneline)
-        # last child
-        if not oneline and (not child.tail or not child.tail.strip()):
-            child.tail = tail
-    else:
-        if level and (not elem.tail or not elem.tail.strip()):
-            elem.tail = tail
 
+        # Clean up the last child
+        if oneline:
+            child.tail = clean_whitespace(child.tail, strip='right')
+        elif (not child.tail or not child.tail.strip()):
+            child.tail = '\n' + level * '  '
+    else:
+        elem.text = clean_whitespace(elem.text, strip='both')
+
+        if internal:
+            elem.tail = clean_whitespace(elem.tail)
+        elif not elem.tail or not elem.tail.strip():
+            elem.tail = '\n' + level * '  '
 
 def parse_element(xml_element):
     attrib = {}
