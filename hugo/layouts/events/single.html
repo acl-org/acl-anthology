@@ -30,7 +30,7 @@
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
     <h4 class="pb-2">
       <span class="mr-2">
-      {{- with $volume.url -}}
+      {{- if $volume.url -}}
       <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open full proceedings volume as PDF">pdf (full)</a>
       {{- end -}}
       {{- $bibfile := printf "/volumes/%s.bib" . -}}

@@ -40,7 +40,7 @@ class Paper:
         self.attrib = {}
         for key, value in volume.attrib.items():
             # Only inherit 'editor' for frontmatter
-            if (key == 'editor' and not self.is_volume) or key in ('collection_id', 'booktitle', 'id', 'meta_data', 'sigs', 'venues', 'meta_date'):
+            if (key == 'editor' and not self.is_volume) or key in ('collection_id', 'booktitle', 'id', 'meta_data', 'sigs', 'venues', 'meta_date', 'url'):
                 continue
             self.attrib[key] = value
 

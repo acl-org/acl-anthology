@@ -73,8 +73,15 @@ def remove_extra_whitespace(text):
     return re.sub(" +", " ", text.replace("\n", "").strip())
 
 
+def infer_url(filename, prefix=data.ANTHOLOGY_URL):
+    """If URL is relative, return the full Anthology URL.
+    """
+    if urlparse(filename).netloc:
+        return filename
+    return prefix.format(filename)
+
+
 def infer_attachment_url(filename, parent_id=None):
-    # If filename has a network location, it's interpreted as a complete URL
     if urlparse(filename).netloc:
         return filename
     # Otherwise, treat it as an internal filename
@@ -84,7 +91,7 @@ def infer_attachment_url(filename, parent_id=None):
                 parent_id, filename
             )
         )
-    return data.ATTACHMENT_URL.format(filename)
+    return infer_url(filename, data.ATTACHMENT_URL)
 
 
 _MONTH_TO_NUM = {

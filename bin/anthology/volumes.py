@@ -21,7 +21,7 @@ from . import data
 from .papers import Paper
 from .venues import VenueIndex
 from .sigs import SIGIndex
-from .utils import parse_element, is_journal, month_str2num
+from .utils import parse_element, is_journal, month_str2num, infer_url
 
 
 class Volume:
@@ -55,7 +55,8 @@ class Volume:
 
         volume_id = volume_xml.attrib['id']
         meta_data = parse_element(volume_xml.find('meta'))
-        meta_data['booktitle'] = formatter(meta_data['xml_booktitle'], 'plain')
+        # Though metadata uses "booktitle", switch to "title" for compatibility with downstream scripts
+        meta_data['title'] = formatter(meta_data['xml_booktitle'], 'plain')
 
         volume = Volume(collection_id, volume_id, meta_data, venue_index, sig_index, formatter)
 
@@ -78,8 +79,10 @@ class Volume:
             # Authors of the front matter are the volume's editors
             self.attrib["editor"] = self.attrib["author"]
             del self.attrib["author"]
-#        if not is_journal(self.collection_id):
-        self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
+
+        # Expand URL if present
+        if 'url' in self.attrib:
+            self.attrib["url"] = infer_url(self.attrib['url'])
 
         # Some volumes don't set this---but they should!
         if 'year' not in self.attrib:
@@ -91,16 +94,16 @@ class Volume:
                 self.attrib["meta_date"] = "{}/{}".format(self.get("year"), month)
         if is_journal(self.collection_id):
             self.attrib["meta_journal_title"] = data.get_journal_title(
-                self.collection_id, self.attrib["booktitle"]
+                self.collection_id, self.attrib["title"]
             )
             volume_no = re.search(
-                r"Volume\s*(\d+)", self.attrib["booktitle"], flags=re.IGNORECASE
+                r"Volume\s*(\d+)", self.attrib["title"], flags=re.IGNORECASE
             )
             if volume_no is not None:
                 self.attrib["meta_volume"] = volume_no.group(1)
             issue_no = re.search(
                 r"(Number|Issue)\s*(\d+-?\d*)",
-                self.attrib["booktitle"],
+                self.attrib["title"],
                 flags=re.IGNORECASE,
             )
             if issue_no is not None:
@@ -158,7 +161,7 @@ class Volume:
           - plain: Strip all XML tags, returning only plain text
           - html:  Convert XML tags into valid HTML tags
         """
-        return self.formatter(self.get("xml_title"), form)
+        return self.formatter(self.get("xml_booktitle"), form)
 
     def __len__(self):
         return len(self.content)
