@@ -18,8 +18,10 @@ def test_url(url):
     #sys.stderr.write("{}\n".format(r.status_code))
     return r.status_code == requests.codes.ok
 
+
 def get_anth_url(volume_id, paper_id=None, width=4):
     return 'https://www.aclweb.org/anthology/{volume_id}-{paper_id:0{width}d}'.format(volume_id=volume_id, paper_id=paper_id, width=width)
+
 
 if __name__ == '__main__':
     filename = sys.argv[1]

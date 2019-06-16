@@ -45,8 +45,8 @@ import lxml.etree as etree
 import re
 import sys
 
-from repair_url import test_url, get_anth_url
-from anthology.utils import indent
+from repair_url import test_url
+from anthology.utils import infer_url, indent
 
 filename = sys.argv[1]
 outfilename = sys.argv[2]
@@ -99,12 +99,11 @@ for paper in root.findall("paper"):
         new_root.append(volume)
 
         # Add volume-level <url> tag if PDF is present
-        volume_url = get_anth_url(collection_id, int(volume_id), width=volume_width)
+        full_volume_id = f'{collection_id}-{volume_id:0{volume_width}d}'
+        volume_url = infer_url(full_volume_id)
         if test_url(volume_url):
-            url = etree.Element('url')
-            url.tail
-            url.text = volume_url.split('/')[-1]
-            print("{}: inserting volume URL: {}".format(collection_id, url.text), file=sys.stderr)
+            url = make_simple_element('url', full_volume_id)
+            print(f"{collection_id}: inserting volume URL: {full_volume_id}")
             meta.append(url)
 
     # Transform paper 0 to explicit frontmatter
@@ -116,10 +115,20 @@ for paper in root.findall("paper"):
             title.tag = 'booktitle'
             meta.insert(0, title)
 
-        url = paper.find('url')
-        frontmatter_url = get_anth_url(collection_id, int(volume_id), width=volume_width)
-        if url is not None and test_url(volume_url):
-            url.text = f'{collection_id}-{volume_id:0{volume_width}d}{paper_id:0{paper_width}d}'
+        full_paper_id = f'{collection_id}-{volume_id}{paper_id:0{paper_width}d}'
+        frontmatter_url = infer_url(full_paper_id)
+        if test_url(frontmatter_url):
+            url = paper.find('url')
+            if url is not None:
+                url.text = f'{full_paper_id}'
+            else:
+                url = make_simple_element('url', full_paper_id)
+                paper.append(url)
+            print(f"{collection_id}: inserting frontmatter URL: {full_paper_id}")
+        else:
+            if paper.find('url') is not None:
+                paper.remove(paper.find('url'))
+                print(f"{collection_id}: removing missing frontmatter PDF: {full_paper_id}")
 
         # Change authors of frontmatter to editors
         authors = paper.findall('author')
@@ -135,12 +144,12 @@ for paper in root.findall("paper"):
             else:
                 paper.remove(abstract)
 
-    # Transfer editor keys (once)
-    if volume.find('editor') is None:
-        editors = paper.findall('editor')
-        if editors is not None:
-            for editor in editors:
-                meta.append(editor)
+        # Transfer editor keys (once)
+        if volume.find('editor') is None:
+            editors = paper.findall('editor')
+            if editors is not None:
+                for editor in editors:
+                    meta.append(editor)
 
     # Remove bibtype and bibkey
     for key_name in 'bibtype bibkey'.split():
