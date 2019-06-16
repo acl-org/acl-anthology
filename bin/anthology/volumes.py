@@ -41,16 +41,9 @@ class Volume:
         self.collection_id = collection_id
         self._id = volume_id
         self.formatter = formatter
-        self.attrib = meta_data
-        if "author" in self.attrib:
-            # Authors of the front matter are the volume's editors
-            self.attrib["editor"] = self.attrib["author"]
-            del self.attrib["author"]
-        if not is_journal(self.collection_id):
-            self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
+        self._set_meta_info(meta_data)
         self.attrib["venues"] = venue_index.register(self)
         self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
-        self._set_meta_info()
         self.content = []
 
     @staticmethod
@@ -63,7 +56,6 @@ class Volume:
         volume_id = volume_xml.attrib['id']
         meta_data = parse_element(volume_xml.find('meta'))
         meta_data['booktitle'] = formatter(meta_data['xml_booktitle'], 'plain')
-#        print('META', collection_id, meta_data)
 
         volume = Volume(collection_id, volume_id, meta_data, venue_index, sig_index, formatter)
 
@@ -76,18 +68,28 @@ class Volume:
 
         return volume
 
-    def _set_meta_info(self):
+    def _set_meta_info(self, meta_data):
         """Derive journal title, volume, and issue no. used in metadata.
 
         This function replicates functionality that was previously hardcoded in
         'app/helpers/papers_helper.rb' of the Rails app."""
+        self.attrib = meta_data
+        if "author" in self.attrib:
+            # Authors of the front matter are the volume's editors
+            self.attrib["editor"] = self.attrib["author"]
+            del self.attrib["author"]
+#        if not is_journal(self.collection_id):
+        self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
+
+        # Some volumes don't set this---but they should!
+        if 'year' not in self.attrib:
+            self._infer_year()
         self.attrib["meta_date"] = self.get("year")
         if "month" in self.attrib:
             month = month_str2num(self.get("month"))
             if month is not None:
                 self.attrib["meta_date"] = "{}/{}".format(self.get("year"), month)
         if is_journal(self.collection_id):
-            print('** ATTRIB', self.attrib)
             self.attrib["meta_journal_title"] = data.get_journal_title(
                 self.collection_id, self.attrib["booktitle"]
             )
@@ -103,6 +105,23 @@ class Volume:
             )
             if issue_no is not None:
                 self.attrib["meta_issue"] = issue_no.group(2)
+
+    def _infer_year(self):
+        """Infer the year from the volume ID.
+
+        Many paper entries do not explicitly contain their year.  This function assumes
+        that the paper's volume identifier follows the format 'xyy', where x is
+        some letter and yy are the last two digits of the year of publication.
+        """
+        assert (
+            len(self.collection_id) == 3
+        ), "Couldn't infer year: unknown volume ID format"
+        digits = self.collection_id[1:]
+        if int(digits) >= 60:
+            year = "19{}".format(digits)
+        else:
+            year = "20{}".format(digits)
+        self.attrib["year"] = year
 
     @property
     def volume_id(self):

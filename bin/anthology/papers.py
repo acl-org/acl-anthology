@@ -36,10 +36,13 @@ class Paper:
         self._bibkey = False
         self.is_volume = paper_id == '0'
 
+        # initialize metadata with keys inherited from volume
         self.attrib = {}
         for key, value in volume.attrib.items():
-            if key not in ('collection_id', 'booktitle', 'id', 'meta_data', 'sigs', 'venues', 'meta_date'):
-                self.attrib[key] = value
+            # Only inherit 'editor' for frontmatter
+            if (key == 'editor' and not self.is_volume) or key in ('collection_id', 'booktitle', 'id', 'meta_data', 'sigs', 'venues', 'meta_date'):
+                continue
+            self.attrib[key] = value
 
     def from_xml(xml_element, *args):
         # default to paper ID "0" (for front matter)
@@ -55,17 +58,17 @@ class Paper:
         for tag in ('revision', 'erratum'):
             if tag in paper.attrib:
                 for item in paper.attrib[tag]:
-                    if item['url'].startswith(paper.full_id):
+                    if not item['url'].startswith(paper.full_id):
                         log.error(
                             "{} must begin with paper ID '{}', but is '{}'".format(
-                                tag, paper.full_id, item['value']
+                                tag, paper.full_id, item['url']
                             )
                         )
                     item['url'] = data.ANTHOLOGY_URL.format(item['url'])
 
         if 'attachment' in paper.attrib:
             for item in paper.attrib['attachment']:
-                item['url'] = infer_attachment_url(item['url'], paper.full_id),
+                item['url'] = infer_attachment_url(item['url'], paper.full_id)
 
         # Explicitly construct URL of original version of the paper
         # -- this is a bit hacky, but it's not given in the XML
@@ -74,7 +77,7 @@ class Paper:
             paper.attrib['revision'].insert(0, {
                 "value": "{}v1".format(paper.full_id),
                 "id": "1",
-                "url": data.ANTHOLOGY_URL.format( "{}v1".format(self.full_id)) } )
+                "url": data.ANTHOLOGY_URL.format( "{}v1".format(paper.full_id)) } )
 
 
         paper.attrib["title"] = paper.get_title("plain")
@@ -97,31 +100,12 @@ class Paper:
                         paper.full_id
                     )
                 )
-        if "year" not in paper.attrib:
-            paper._infer_year()
         if "pages" in paper.attrib:
             if paper.attrib["pages"] is not None:
                 paper._interpret_pages()
             else:
                 del paper.attrib["pages"]
         return paper
-
-    def _infer_year(self):
-        """Infer the year from the volume ID.
-
-        Many paper entries do not explicitly contain their year.  This function assumes
-        that the paper's volume identifier follows the format 'xyy', where x is
-        some letter and yy are the last two digits of the year of publication.
-        """
-        assert (
-            len(self.collection_id) == 3
-        ), "Couldn't infer year: unknown volume ID format"
-        digits = self.collection_id[1:]
-        if int(digits) >= 60:
-            year = "19{}".format(digits)
-        else:
-            year = "20{}".format(digits)
-        self.attrib["year"] = year
 
     def _interpret_pages(self):
         """Splits up 'pages' field into first and last page, if possible.
@@ -183,10 +167,10 @@ class Paper:
         return None
 
     def get(self, name, default=None):
-        if name in self.attrib:
+        try:
             return self.attrib[name]
-        else:
-            return self.parent_volume.get(name, default)
+        except KeyError:
+            return default
 
     def get_title(self, form="xml"):
         """Returns the paper title, optionally formatting it.
