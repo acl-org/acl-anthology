@@ -52,11 +52,20 @@ filename = sys.argv[1]
 outfilename = sys.argv[2]
 tree = etree.parse(filename)
 root = tree.getroot()
-root_id = root.attrib['id']
+collection_id = root.attrib['id']
+
+if root.tag == 'collection':
+    print(f'{filename} is already nested!')
+    sys.exit(1)
 
 new_root = etree.Element('collection')
-new_root.attrib['id'] = root_id
+new_root.attrib['id'] = collection_id
 tree._setroot(new_root)
+
+def make_simple_element(tag, text):
+    el = etree.Element(tag)
+    el.text = text
+    return el
 
 volume = None
 meta = None
@@ -64,7 +73,7 @@ prev_volume_id = None
 
 for paper in root.findall("paper"):
     paper_id = paper.attrib['id']
-    if root_id.startswith('W'):
+    if collection_id.startswith('W') or collection_id == 'C69':
         volume_width = 2
         paper_width = 2
     else:
@@ -78,6 +87,11 @@ for paper in root.findall("paper"):
     # new volume
     if prev_volume_id is None or prev_volume_id != volume_id:
         meta = etree.Element('meta')
+        if collection_id == 'C69':
+            meta.append(make_simple_element('month', 'September'))
+            meta.append(make_simple_element('year', '1969'))
+            meta.append(make_simple_element('address', 'Sånga Säby, Sweden'))
+
         volume = etree.Element('volume')
         volume.append(meta)
         volume.attrib['id'] = str(volume_id)
@@ -85,12 +99,12 @@ for paper in root.findall("paper"):
         new_root.append(volume)
 
         # Add volume-level <url> tag if PDF is present
-        volume_url = get_anth_url(root_id, int(volume_id), width=volume_width)
+        volume_url = get_anth_url(collection_id, int(volume_id), width=volume_width)
         if test_url(volume_url):
             url = etree.Element('url')
             url.tail
             url.text = volume_url.split('/')[-1]
-            print("{}: inserting volume URL: {}".format(root_id, url.text), file=sys.stderr)
+            print("{}: inserting volume URL: {}".format(collection_id, url.text), file=sys.stderr)
             meta.append(url)
 
     # Transform paper 0 to explicit frontmatter
@@ -103,9 +117,9 @@ for paper in root.findall("paper"):
             meta.insert(0, title)
 
         url = paper.find('url')
-        frontmatter_url = get_anth_url(root_id, int(volume_id), width=volume_width)
+        frontmatter_url = get_anth_url(collection_id, int(volume_id), width=volume_width)
         if url is not None and test_url(volume_url):
-            url.text = f'{root_id}-{volume_id:0{volume_width}d}{paper_id:0{paper_width}d}'
+            url.text = f'{collection_id}-{volume_id:0{volume_width}d}{paper_id:0{paper_width}d}'
 
         # Change authors of frontmatter to editors
         authors = paper.findall('author')
@@ -150,6 +164,11 @@ for paper in root.findall("paper"):
             # If found in the volume, move only if it's redundant
             elif node_paper.tag == node_meta.tag:
                 paper.remove(node_paper)
+
+    # Take volume booktitle from first paper title if it wasn't found in the
+    # frontmatter paper (some volumes have no front matter)
+    if collection_id == 'C69' and meta.find('booktitle') is None and paper.find('title') is not None:
+        meta.insert(0, make_simple_element('booktitle', paper.find('title').text))
 
     volume.append(paper)
 
