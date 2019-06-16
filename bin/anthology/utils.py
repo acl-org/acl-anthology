@@ -166,7 +166,7 @@ def indent(elem, level=0, internal=False):
         elem.text = clean_whitespace(elem.text, strip='both')
 
         if internal:
-            elem.tail = clean_whitespace(elem.tail)
+            elem.tail = clean_whitespace(elem.tail, strip='none')
         elif not elem.tail or not elem.tail.strip():
             elem.tail = '\n' + level * '  '
 
