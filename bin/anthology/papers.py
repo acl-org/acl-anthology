@@ -135,6 +135,8 @@ class Paper:
         else:
             # If not, only the last three
             _id = "{}{:03d}".format(self.volume_id, int(self._id))
+        # Just to be sure
+        assert len(_id) == 4
         return _id
 
     @property
