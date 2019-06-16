@@ -82,7 +82,7 @@ for paper in root.findall("paper"):
 
     volume_id, paper_id = int(paper_id[0:volume_width]), int(paper_id[volume_width:])
     full_volume_id = f'{collection_id}-{volume_id:0{volume_width}d}'
-    full_paper_id = f'{collection_id}-{volume_id}{paper_id:0{paper_width}d}'
+    full_paper_id = f'{full_volume_id}{paper_id:0{paper_width}d}'
 
     paper.attrib['id'] = '{}'.format(paper_id)
 
