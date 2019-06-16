@@ -81,6 +81,8 @@ for paper in root.findall("paper"):
         paper_width = 3
 
     volume_id, paper_id = int(paper_id[0:volume_width]), int(paper_id[volume_width:])
+    full_volume_id = f'{collection_id}-{volume_id:0{volume_width}d}'
+    full_paper_id = f'{collection_id}-{volume_id}{paper_id:0{paper_width}d}'
 
     paper.attrib['id'] = '{}'.format(paper_id)
 
@@ -99,7 +101,6 @@ for paper in root.findall("paper"):
         new_root.append(volume)
 
         # Add volume-level <url> tag if PDF is present
-        full_volume_id = f'{collection_id}-{volume_id:0{volume_width}d}'
         volume_url = infer_url(full_volume_id)
         if test_url(volume_url):
             url = make_simple_element('url', full_volume_id)
@@ -115,7 +116,6 @@ for paper in root.findall("paper"):
             title.tag = 'booktitle'
             meta.insert(0, title)
 
-        full_paper_id = f'{collection_id}-{volume_id}{paper_id:0{paper_width}d}'
         frontmatter_url = infer_url(full_paper_id)
         if test_url(frontmatter_url):
             url = paper.find('url')
@@ -151,6 +151,13 @@ for paper in root.findall("paper"):
                 for editor in editors:
                     meta.append(editor)
 
+        # Transfer the DOI key if it's a volume entry
+        doi = paper.find('doi')
+        if doi is not None:
+            if doi.text.endswith(full_volume_id):
+                print(f'* Moving DOI entry {doi.text} from frontmatter to metadata')
+                meta.append(doi)
+
     # Remove bibtype and bibkey
     for key_name in 'bibtype bibkey'.split():
         node = paper.find(key_name)
@@ -158,7 +165,7 @@ for paper in root.findall("paper"):
             paper.remove(node)
 
     # Move to metadata
-    for key_name in 'booktitle publisher volume address month year ISBN isbn doi'.split():
+    for key_name in 'booktitle publisher volume address month year ISBN isbn'.split():
         # Move the key to the volume if not present in the volume
         node_paper = paper.find(key_name)
         if node_paper is not None:
