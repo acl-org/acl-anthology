@@ -40,19 +40,30 @@ class Paper:
         self.attrib = {}
         for key, value in volume.attrib.items():
             # Only inherit 'editor' for frontmatter
-            if (key == 'editor' and not self.is_volume) or key in ('collection_id', 'booktitle', 'id', 'meta_data', 'sigs', 'venues', 'meta_date', 'url'):
+            if (key == 'editor' and not self.is_volume) or key in ('collection_id', 'booktitle', 'id', 'meta_data', 'meta_journal_title', 'meta_volume', 'meta_issue', 'sigs', 'venues', 'meta_date', 'url'):
                 continue
+
             self.attrib[key] = value
 
     def from_xml(xml_element, *args):
-        # default to paper ID "0" (for front matter)
+        # Default to paper ID "0" (for front matter)
         paper = Paper(xml_element.get("id", '0'), *args)
+
+        # Set values from parsing the XML element (overwriting
+        # and changing some initialized from the volume metadata)
         for key, value in parse_element(xml_element).items():
             if key == 'author' and 'editor' in paper.attrib:
                 del paper.attrib['editor']
-            elif key == 'title':
-                del paper.attrib['booktitle']
             paper.attrib[key] = value
+
+        # Frontmatter title is the volume 'booktitle'
+        if paper.is_volume:
+            paper.attrib['xml_title'] = paper.attrib['xml_booktitle']
+            paper.attrib['xml_title'].tag = 'title'
+
+        # Remove booktitle for frontmatter and journals
+        if paper.is_volume or is_journal(paper.full_id):
+            del paper.attrib['xml_booktitle']
 
         # Expand URLs with paper ID
         for tag in ('revision', 'erratum'):
@@ -83,6 +94,7 @@ class Paper:
         paper.attrib["title"] = paper.get_title("plain")
         if "booktitle" in paper.attrib:
             paper.attrib["booktitle"] = paper.get_booktitle("plain")
+
         if "editor" in paper.attrib:
             if paper.is_volume:
                 if "author" in paper.attrib:
@@ -183,10 +195,7 @@ class Paper:
           - html:  Convert XML tags into valid HTML tags
           - latex: Convert XML tags into LaTeX commands
         """
-        if self.is_volume:
-            return self.formatter(self.get("xml_booktitle"), form)
-        else:
-            return self.formatter(self.get("xml_title"), form)
+        return self.formatter(self.get("xml_title"), form)
 
     def get_abstract(self, form="xml"):
         """Returns the abstract, optionally formatting it.

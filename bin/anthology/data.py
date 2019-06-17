@@ -28,6 +28,8 @@ ATTACHMENT_URL = "https://www.aclweb.org/anthology/attachments/{}"
 LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
 
 def get_journal_title(top_level_id, volume_title):
+    # TODO: consider moving this from code to data (perhaps
+    # under <booktitle> in the volume metadata
     if top_level_id[0] == "J":
         year = int(top_level_id[1:3])
         if year >= 65 and year <= 83:
