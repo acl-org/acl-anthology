@@ -69,7 +69,7 @@ class Anthology:
                 log.critical("Triggered by file: {}".format(filename))
 
             # front matter
-            if len(volume.content):
+            if volume.has_frontmatter:
                 front_matter = volume.content[0]
                 self.pindex.register(front_matter)
                 self.papers[front_matter.full_id] = front_matter

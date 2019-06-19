@@ -45,6 +45,7 @@ class Volume:
         self.attrib["venues"] = venue_index.register(self)
         self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
         self.content = []
+        self.has_frontmatter = False
 
     @staticmethod
     def from_xml(volume_xml,
@@ -65,7 +66,7 @@ class Volume:
             front_matter = Paper.from_xml(front_matter_xml, volume, formatter)
             front_matter._id = '0'
             front_matter.is_volume = True
-            volume.append(front_matter)
+            volume.add_frontmatter(front_matter)
 
         return volume
 
@@ -143,6 +144,10 @@ class Volume:
     @property
     def paper_ids(self):
         return [paper.full_id for paper in self.content]
+
+    def add_frontmatter(self, frontmatter):
+        self.has_frontmatter = True
+        self.append(frontmatter)
 
     def append(self, paper):
         self.content.append(paper)
