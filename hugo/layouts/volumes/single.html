@@ -92,7 +92,7 @@
 
     <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
     <div class="acl-paper-link-block">
-      {{ if $paper.url }}
+      {{ with $paper.url }}
       <a class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
         <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(full)</small></span>
       </a>
