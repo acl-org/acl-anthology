@@ -175,8 +175,8 @@
         </a>
         {{ end }}
       {{ else }}
-        {{ if isset $paper "url" }}
-        <a class="btn btn-primary" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+        {{ with $paper.url }}
+        <a class="btn btn-primary" href="{{ . }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF</span>
         </a>
         {{ end }}
