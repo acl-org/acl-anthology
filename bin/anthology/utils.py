@@ -21,6 +21,7 @@ import itertools as it
 import logging
 import re
 
+from .people import PersonName
 from . import data
 
 
@@ -72,8 +73,15 @@ def remove_extra_whitespace(text):
     return re.sub(" +", " ", text.replace("\n", "").strip())
 
 
+def infer_url(filename, prefix=data.ANTHOLOGY_URL):
+    """If URL is relative, return the full Anthology URL.
+    """
+    if urlparse(filename).netloc:
+        return filename
+    return prefix.format(filename)
+
+
 def infer_attachment_url(filename, parent_id=None):
-    # If filename has a network location, it's interpreted as a complete URL
     if urlparse(filename).netloc:
         return filename
     # Otherwise, treat it as an internal filename
@@ -83,7 +91,7 @@ def infer_attachment_url(filename, parent_id=None):
                 parent_id, filename
             )
         )
-    return data.ATTACHMENT_URL.format(filename)
+    return infer_url(filename, data.ATTACHMENT_URL)
 
 
 _MONTH_TO_NUM = {
@@ -120,3 +128,111 @@ class SeverityTracker(logging.Handler):
     def emit(self, record):
         if record.levelno > self.highest:
             self.highest = record.levelno
+
+
+def clean_whitespace(text, strip='left'):
+    old_text = text
+    if text is not None:
+        text = text.replace('\n', '')
+        text = re.sub(r'\s+', ' ', text)
+        if strip == 'left' or strip == 'both':
+            text = text.lstrip()
+        if strip == 'right' or strip == 'both':
+            text = text.rstrip()
+    return text
+
+
+# Adapted from https://stackoverflow.com/a/33956544
+def indent(elem, level=0, internal=False):
+    # tags that have no internal linebreaks (including children)
+    oneline = elem.tag in ('author', 'editor', 'title', 'booktitle')
+
+    elem.text = clean_whitespace(elem.text)
+
+    if len(elem): # children
+        # Set indent of first child for tags with no text
+        if not oneline and (not elem.text or not elem.text.strip()):
+            elem.text = '\n' + (level + 1) * '  '
+
+        if not elem.tail or not elem.tail.strip():
+            if level:
+                elem.tail = '\n' + level * '  '
+            else:
+                elem.tail = ''
+
+        # recurse
+        for child in elem:
+            indent(child, level + 1, internal=oneline)
+
+        # Clean up the last child
+        if oneline:
+            child.tail = clean_whitespace(child.tail, strip='right')
+        elif (not child.tail or not child.tail.strip()):
+            child.tail = '\n' + level * '  '
+    else:
+        elem.text = clean_whitespace(elem.text, strip='both')
+
+        if internal:
+            elem.tail = clean_whitespace(elem.tail, strip='none')
+        elif not elem.tail or not elem.tail.strip():
+            elem.tail = '\n' + level * '  '
+
+def parse_element(xml_element):
+    attrib = {}
+    if xml_element is None:
+        return attrib
+
+    for element in xml_element:
+        # parse value
+        tag = element.tag.lower()
+        if tag in ("abstract", "title", "booktitle"):
+            tag = "xml_{}".format(tag)
+            value = element
+        elif tag == "attachment":
+            value = {
+                "filename": element.text,
+                "type": element.get("type", "attachment"),
+                "url": element.text,
+            }
+        elif tag in ("author", "editor"):
+            id_ = element.attrib.get("id", None)
+            value = (PersonName.from_element(element), id_)
+        elif tag in ("erratum", "revision"):
+            value = {
+                "value": element.text,
+                "id": element.get("id"),
+                "url": element.text,
+            }
+        elif tag == "mrf":
+            value = {"filename": element.text, "src": element.get("src")}
+        elif tag == "video":
+            # Treat videos the same way as other attachments
+            tag = "attachment"
+            value = {
+                "filename": element.get("href"),
+                "type": element.get("tag", "video"),
+                "url": element.get("href"),
+            }
+        elif tag in ("dataset", "software"):
+            value = {
+                "filename": element.text,
+                "type": tag,
+                "url": element.text,
+            }
+            tag = "attachment"
+        else:
+            value = element.text
+
+        if tag == "url":
+            # Convert relative URLs to canonical ones
+            value = element.text if element.text.startswith('http') else data.ANTHOLOGY_URL.format(element.text)
+
+        if tag in data.LIST_ELEMENTS:
+            try:
+                attrib[tag].append(value)
+            except KeyError:
+                attrib[tag] = [value]
+        else:
+            attrib[tag] = value
+
+    return attrib

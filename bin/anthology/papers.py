@@ -15,8 +15,8 @@
 # limitations under the License.
 
 import logging as log
-from .people import PersonName
 from .utils import (
+    parse_element,
     infer_attachment_url,
     remove_extra_whitespace,
     is_journal,
@@ -28,25 +28,73 @@ from . import data
 # For BibTeX export
 from .formatter import bibtex_encode, bibtex_make_entry
 
-# Names of XML elements that may appear multiple times
-_LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
-
-
 class Paper:
-    def __init__(self, paper_id, top_level_id, formatter):
+    def __init__(self, paper_id, volume, formatter):
+        self.parent_volume = volume
         self.formatter = formatter
-        self.parent_volume = None
-        self.paper_id = paper_id
-        self.top_level_id = top_level_id
-        self.attrib = {}
+        self._id = paper_id
         self._bibkey = False
+        self.is_volume = paper_id == '0'
+
+        # initialize metadata with keys inherited from volume
+        self.attrib = {}
+        for key, value in volume.attrib.items():
+            # Only inherit 'editor' for frontmatter
+            if (key == 'editor' and not self.is_volume) or key in ('collection_id', 'booktitle', 'id', 'meta_data', 'meta_journal_title', 'meta_volume', 'meta_issue', 'sigs', 'venues', 'meta_date', 'url'):
+                continue
+
+            self.attrib[key] = value
 
     def from_xml(xml_element, *args):
-        paper = Paper(xml_element.get("id"), *args)
-        paper._parse_element(xml_element)
+        # Default to paper ID "0" (for front matter)
+        paper = Paper(xml_element.get("id", '0'), *args)
+
+        # Set values from parsing the XML element (overwriting
+        # and changing some initialized from the volume metadata)
+        for key, value in parse_element(xml_element).items():
+            if key == 'author' and 'editor' in paper.attrib:
+                del paper.attrib['editor']
+            paper.attrib[key] = value
+
+        # Frontmatter title is the volume 'booktitle'
+        if paper.is_volume:
+            paper.attrib['xml_title'] = paper.attrib['xml_booktitle']
+            paper.attrib['xml_title'].tag = 'title'
+
+        # Remove booktitle for frontmatter and journals
+        if paper.is_volume or is_journal(paper.full_id):
+            del paper.attrib['xml_booktitle']
+
+        # Expand URLs with paper ID
+        for tag in ('revision', 'erratum'):
+            if tag in paper.attrib:
+                for item in paper.attrib[tag]:
+                    if not item['url'].startswith(paper.full_id):
+                        log.error(
+                            "{} must begin with paper ID '{}', but is '{}'".format(
+                                tag, paper.full_id, item['url']
+                            )
+                        )
+                    item['url'] = data.ANTHOLOGY_URL.format(item['url'])
+
+        if 'attachment' in paper.attrib:
+            for item in paper.attrib['attachment']:
+                item['url'] = infer_attachment_url(item['url'], paper.full_id)
+
+        # Explicitly construct URL of original version of the paper
+        # -- this is a bit hacky, but it's not given in the XML
+        # explicitly
+        if 'revision' in paper.attrib:
+            paper.attrib['revision'].insert(0, {
+                "value": "{}v1".format(paper.full_id),
+                "id": "1",
+                "url": data.ANTHOLOGY_URL.format( "{}v1".format(paper.full_id)) } )
+
+
         paper.attrib["title"] = paper.get_title("plain")
         if "booktitle" in paper.attrib:
             paper.attrib["booktitle"] = paper.get_booktitle("plain")
+
         if "editor" in paper.attrib:
             if paper.is_volume:
                 if "author" in paper.attrib:
@@ -64,115 +112,12 @@ class Paper:
                         paper.full_id
                     )
                 )
-        if "year" not in paper.attrib:
-            paper._infer_year()
         if "pages" in paper.attrib:
             if paper.attrib["pages"] is not None:
                 paper._interpret_pages()
             else:
                 del paper.attrib["pages"]
         return paper
-
-    def _parse_element(self, paper_element):
-        # read & store values
-        if "href" in paper_element.attrib:
-            self.attrib["attrib_href"] = paper_element.get("href")
-            self.attrib["url"] = paper_element.get("href")
-        elif not (self.is_volume and is_journal(self.full_id)):
-            # Generate a URL, except for top-level journal entries
-            self.attrib["url"] = data.ANTHOLOGY_URL.format(self.full_id)
-        for element in paper_element:
-            # parse value
-            tag = element.tag.lower()
-            if tag in ("abstract", "title", "booktitle"):
-                tag = "xml_{}".format(tag)
-                value = element
-            elif tag == "attachment":
-                value = {
-                    "filename": element.text,
-                    "type": element.get("type", "attachment"),
-                    "url": infer_attachment_url(element.text, self.full_id),
-                }
-            elif tag in ("author", "editor"):
-                id_ = element.attrib.get("id", None)
-                value = (PersonName.from_element(element), id_)
-            elif tag in ("erratum", "revision"):
-                if tag == "revision" and "revision" not in self.attrib:
-                    # Explicitly construct URL of original version of the paper
-                    # -- this is a bit hacky, but it's not given in the XML
-                    # explicitly
-                    self.attrib["revision"] = [
-                        {
-                            "value": "{}v1".format(self.full_id),
-                            "id": "1",
-                            "url": data.ANTHOLOGY_URL.format(
-                                "{}v1".format(self.full_id)
-                            ),
-                        }
-                    ]
-                if not element.text.startswith(self.full_id):
-                    log.error(
-                        "{} must begin with paper ID '{}', but is '{}'".format(
-                            tag, self.full_id, element.text
-                        )
-                    )
-                value = {
-                    "value": element.text,
-                    "id": element.get("id"),
-                    "url": data.ANTHOLOGY_URL.format(element.text),
-                }
-            elif tag == "mrf":
-                value = {"filename": element.text, "src": element.get("src")}
-            elif tag == "video":
-                # Treat videos the same way as other attachments
-                tag = "attachment"
-                value = {
-                    "filename": element.get("href"),
-                    "type": element.get("tag", "video"),
-                    "url": infer_attachment_url(element.get("href"), self.full_id),
-                }
-            elif tag in ("dataset", "software"):
-                value = {
-                    "filename": element.text,
-                    "type": tag,
-                    "url": infer_attachment_url(element.text, self.full_id),
-                }
-                tag = "attachment"
-            else:
-                value = element.text
-            # store value
-            if tag == "url":
-                continue  # We basically have to ignore this for now
-            if tag in _LIST_ELEMENTS:
-                try:
-                    self.attrib[tag].append(value)
-                except KeyError:
-                    self.attrib[tag] = [value]
-            else:
-                if tag in self.attrib:
-                    log.warning(
-                        "{}: Unexpected multiple occurrence of '{}' element".format(
-                            self.full_id, tag
-                        )
-                    )
-                self.attrib[tag] = value
-
-    def _infer_year(self):
-        """Infer the year from the volume ID.
-
-        Many paper entries do not explicitly contain their year.  This function assumes
-        that the paper's volume identifier follows the format 'xyy', where x is
-        some letter and yy are the last two digits of the year of publication.
-        """
-        assert (
-            len(self.top_level_id) == 3
-        ), "Couldn't infer year: unknown volume ID format"
-        digits = self.top_level_id[1:]
-        if int(digits) >= 60:
-            year = "19{}".format(digits)
-        else:
-            year = "20{}".format(digits)
-        self.attrib["year"] = year
 
     def _interpret_pages(self):
         """Splits up 'pages' field into first and last page, if possible.
@@ -187,18 +132,28 @@ class Paper:
                 return
 
     @property
-    def is_volume(self):
-        """Determines if this paper is a regular paper or a proceedings volume.
+    def collection_id(self):
+        return self.parent_volume.collection_id
 
-        By default, each paper ID of format 'x000' will be treated as (the front
-        matter of) a proceedings volume, unless the XML is of type workshop,
-        where each paper ID of format 'xx00' is treated as one volume.
-        """
-        return is_volume_id(self.full_id)
+    @property
+    def volume_id(self):
+        return self.parent_volume.volume_id
+
+    @property
+    def paper_id(self):
+        if self.collection_id[0] == "W" or self.collection_id == "C69":
+            # If volume is a workshop, use the last two digits of ID
+            _id = "{}{:02d}".format(self.volume_id, int(self._id))
+        else:
+            # If not, only the last three
+            _id = "{}{:03d}".format(self.volume_id, int(self._id))
+        # Just to be sure
+        assert len(_id) == 4
+        return _id
 
     @property
     def full_id(self):
-        return "{}-{}".format(self.top_level_id, self.paper_id)
+        return "{}-{}".format(self.collection_id, self.paper_id)
 
     @property
     def bibkey(self):
@@ -290,7 +245,7 @@ class Paper:
                     ("booktitle", self.parent_volume.get_title(form="latex"))
                 )
         for entry in ("month", "year", "address", "publisher", "note"):
-            if entry in self.attrib:
+            if self.get(entry) is not None:
                 entries.append((entry, bibtex_encode(self.get(entry))))
         for entry in ("url", "doi"):
             if entry in self.attrib:

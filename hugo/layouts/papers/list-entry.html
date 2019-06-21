@@ -14,9 +14,11 @@
     </a>
     {{- end -}}
   {{- else -}}
-    <a class="badge badge-primary align-middle mr-1" href="{{ $paper.url }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
+    {{- with $paper.url -}}
+    <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
       pdf
     </a>
+    {{- end -}}
   {{- end -}}
     {{- $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id .Params.anthology_id -}}
     {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
