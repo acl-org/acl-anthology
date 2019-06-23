@@ -159,7 +159,7 @@ if __name__ == "__main__":
     if not root.tail:
         # lxml drops trailing newline
         root.tail = "\n"
-    for paper in root.findall('paper'):
+    for paper in root.findall('.//paper'):
         fullid = "{}-{}".format(root.attrib['id'], paper.attrib['id'])
         for oldnode in paper:
             location = "{}:{}".format(fullid, oldnode.tag)
