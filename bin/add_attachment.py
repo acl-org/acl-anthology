@@ -47,17 +47,21 @@ def main(args):
     if args.path.startswith('http'):
         _, input_file_path = tempfile.mkstemp()
         try:
-            print('Downloading file from {}'.format(args.path), file=sys.stderr)
+            print('-> Downloading file from {}'.format(args.path), file=sys.stderr)
             with urllib.request.urlopen(args.path) as url, open(input_file_path, mode='wb') as input_file_fh:
                 input_file_fh.write(url.read())
         except ssl.SSLError:
-            print('An SSL error was encountered in downloading the files.', file=sys.stderr)
+            print('-> FATAL: An SSL error was encountered in downloading the files.', file=sys.stderr)
             sys.exit(1)
     else:
         input_file_path = args.path
 
     collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
     paper_extension = args.path.split('.')[-1]
+
+    if paper_extension not in ['pdf', 'pptx']:
+        print('-> FATAL: unknown file extension {paper_extension}', file=sys.stderr)
+        sys.exit(1)
 
     attachment_file_name = f'{args.anthology_id}.{args.type.capitalize()}.{paper_extension}'
 
@@ -93,7 +97,7 @@ def main(args):
     # Make sure directory exists
     output_dir = os.path.join(args.attachment_root, collection_id[0], collection_id)
     if not os.path.exists(output_dir):
-        print(f'Creating {output_dir}', file=sys.stderr)
+        print(f'-> Creating directory {output_dir}', file=sys.stderr)
         os.makedirs(output_dir)
 
     # Copy file
