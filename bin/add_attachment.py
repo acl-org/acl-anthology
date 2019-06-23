@@ -36,6 +36,7 @@ import sys
 import tempfile
 
 from add_revision import maybe_copy
+from anthology.utils import build_anthology_id, deconstruct_anthology_id
 
 import lxml.etree as ET
 import urllib.request
@@ -54,39 +55,42 @@ def main(args):
     else:
         input_file_path = args.path
 
+    collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
+    paper_extension = args.path.split('.')[-1]
+
+    attachment_file_name = f'{args.anthology_id}.{args.type.capitalize()}.{paper_extension}'
+
     # Update XML
-    xml_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{volume_id}.xml')
+    xml_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{collection_id}.xml')
     tree = ET.parse(xml_file)
+    # add newline to end-of-file if not present
     if not tree.getroot().tail: tree.getroot().tail = '\n'
-    for paper in tree.getroot().findall('paper'):
-        if paper.attrib['id'] == paper_num:
-            attachment = ET.Element('attachment')
-            attachment.attrib['type'] = args.type
-            attachment.text = file_name
-            attachment.tail = '\n  '  # newline and one level of indent
-            paper.append(attachment)
-            print('Adding attachment node to XML', file=sys.stderr)
+    paper = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
+    if paper is not None:
+        attachment = ET.Element('attachment')
+        attachment.attrib['type'] = args.type
+        attachment.text = attachment_file_name
 
-            tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
-            break
+        # Set tails to maintain proper indentation
+        paper[-1].tail += '  '
+        attachment.tail = '\n    '  # newline and two levels of indent
+
+        paper.append(attachment)
+        tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
+        print('Added attachment node to XML', file=sys.stderr)
+
     else:
-        print(f'Fatal: paper ID {paper_id} not found in the Anthology', file=sys.stderr)
+        print(f'Fatal: paper ID {args.anthology_id} not found in the Anthology', file=sys.stderr)
         sys.exit(1)
-
-    volume_letter, year, paper_num = [args.paper_id[0], args.paper_id[1:3], args.paper_id[4:]]
-    volume_id = '{}{}'.format(volume_letter, year)
-    ext = args.path.split('.')[-1]
-
-    file_name = f'{args.paper_id}.{args.type.capitalize()}.{ext}'
-    output_dir = os.path.join(args.attachment_root, volume_letter, volume_id)
 
     # Make sure directory exists
+    output_dir = os.path.join(args.attachment_root, collection_id[0], collection_id)
     if not os.path.exists(output_dir):
-        print('No such directory "{}"'.format(output_dir), file=sys.stderr)
-        sys.exit(1)
+        print(f'Creating {output_dir}', file=sys.stderr)
+        os.makedirs(output_dir)
 
     # Copy file
-    dest_path = os.path.join(output_dir, file_name)
+    dest_path = os.path.join(output_dir, attachment_file_name)
     maybe_copy(input_file_path, dest_path, do=True)
 
     # Clean up
@@ -96,7 +100,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('paper_id', help='The Antholgoy paper ID (e.g., P18-1001)')
+    parser.add_argument('anthology_id', help='The Anthology ID (e.g., P18-1001)')
     parser.add_argument('path', type=str, help='Path to the attachment (can be URL)')
     parser.add_argument('type', type=str, choices='poster presentation note software'.split(), help='Attachment type')
     parser.add_argument('--attachment-root', '-d', default=os.path.join(os.environ['HOME'], 'anthology-files/attachments'),
