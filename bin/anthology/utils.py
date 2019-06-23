@@ -67,9 +67,9 @@ def deconstruct_anthology_id(anthology_id):
     """
     collection_id, rest = anthology_id.split('-')
     if collection_id.startswith('W') or collection_id.startswith('C69'):
-        return (collection_id, rest[0:2], rest[2:])
+        return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
     else:
-        return (collection_id, rest[0:1], rest[1:])
+        return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
 
 
 def stringify_children(node):
