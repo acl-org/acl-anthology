@@ -12,7 +12,7 @@ last = element last { text }
 Person = attribute id { xsd:NCName }?, (first? & last)
 
 Paper = element paper {
-  attribute id { xsd:integer },
+  attribute id { xsd:positiveInteger },
   (element abstract { MarkupText }?
    & element attachment {
        attribute type { xsd:NCName }?,
@@ -23,10 +23,10 @@ Paper = element paper {
    & element doi { xsd:anyURI }?
    & element editor { Person }*
    & element erratum {
-       attribute id { xsd:integer },
+       attribute id { xsd:positiveInteger },
        xsd:NCName
      }*
-   & element issue { xsd:integer }?
+   & element issue { xsd:positiveInteger }?
    & element journal { text }?
    & element mrf {
        attribute src { xsd:NCName },
@@ -36,7 +36,7 @@ Paper = element paper {
    & element pages { text }?
    & element presentation { xsd:NCName }?
    & element revision {
-       attribute id { xsd:integer },
+       attribute id { xsd:positiveInteger },
        xsd:NCName
      }*
    & element software { xsd:NCName }?
@@ -46,7 +46,7 @@ Paper = element paper {
        attribute href { xsd:anyURI },
        attribute tag { text }
      }*
-   & element volume { xsd:integer }?
+   & element volume { xsd:positiveInteger }?
    )
 }
 Meta = element meta {
@@ -55,8 +55,8 @@ Meta = element meta {
    & element publisher { text }?
    & element address { text }?
    & element month { text }?
-   & element year { xsd:integer }?
-   & element volume { xsd:integer }?
+   & element year { xsd:gYear }?
+   & element volume { xsd:positiveInteger }?
    & (element ISBN { xsd:NMTOKEN } | element isbn { xsd:NMTOKEN })?
    & element url { xsd:anyURI }?
    & element doi { xsd:anyURI }?
@@ -66,14 +66,14 @@ Frontmatter = element frontmatter {
   (element url { xsd:anyURI }?
    & element pages { text }?
    & element revision {
-       attribute id { xsd:integer },
+       attribute id { xsd:positiveInteger },
        xsd:NCName
      }*
    & element doi { xsd:anyURI }?
   )
 }
 Volume = element volume {
-  attribute id { xsd:integer },
+  attribute id { xsd:positiveInteger },
   Meta,
   Frontmatter?,
   Paper*
