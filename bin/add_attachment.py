@@ -114,7 +114,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('anthology_id', help='The Anthology ID (e.g., P18-1001)')
     parser.add_argument('path', type=str, help='Path to the attachment (can be URL)')
-    parser.add_argument('type', type=str, choices='poster presentation note software'.split(), help='Attachment type')
+    parser.add_argument('type', type=str, choices='poster presentation note software supplementary'.split(), help='Attachment type')
     parser.add_argument('--attachment-root', '-d', default=os.path.join(os.environ['HOME'], 'anthology-files/attachments'),
                         help='Anthology web directory root.')
     args = parser.parse_args()
