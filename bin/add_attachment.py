@@ -35,13 +35,14 @@ import ssl
 import sys
 import tempfile
 
-from add_revision import maybe_copy
 from anthology.utils import build_anthology_id, deconstruct_anthology_id
 
 import lxml.etree as ET
 import urllib.request
 
 def main(args):
+
+    print(f'Processing attachment for {args.anthology_id}', file=sys.stderr)
 
     if args.path.startswith('http'):
         _, input_file_path = tempfile.mkstemp()
@@ -67,20 +68,26 @@ def main(args):
     if not tree.getroot().tail: tree.getroot().tail = '\n'
     paper = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
     if paper is not None:
-        attachment = ET.Element('attachment')
-        attachment.attrib['type'] = args.type
-        attachment.text = attachment_file_name
+        # Check if attachment already exists
+        for attachment in paper.findall('attachment'):
+            if attachment.text == attachment_file_name:
+                print(f'-> attachment {attachment_file_name} already exists in the XML', file=sys.stderr)
+                break
+        else:
+            attachment = ET.Element('attachment')
+            attachment.attrib['type'] = args.type
+            attachment.text = attachment_file_name
 
-        # Set tails to maintain proper indentation
-        paper[-1].tail += '  '
-        attachment.tail = '\n    '  # newline and two levels of indent
+            # Set tails to maintain proper indentation
+            paper[-1].tail += '  '
+            attachment.tail = '\n    '  # newline and two levels of indent
 
-        paper.append(attachment)
-        tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
-        print('Added attachment node to XML', file=sys.stderr)
+            paper.append(attachment)
+            tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
+            print(f'-> added attachment {attachment_file_name} to the XML', file=sys.stderr)
 
     else:
-        print(f'Fatal: paper ID {args.anthology_id} not found in the Anthology', file=sys.stderr)
+        print(f'-> FATAL: paper not found in the Anthology', file=sys.stderr)
         sys.exit(1)
 
     # Make sure directory exists
@@ -91,7 +98,12 @@ def main(args):
 
     # Copy file
     dest_path = os.path.join(output_dir, attachment_file_name)
-    maybe_copy(input_file_path, dest_path, do=True)
+    if os.path.exists(dest_path):
+        print(f'-> target file {dest_path} already in place, refusing to overwrite', file=sys.stderr)
+    else:
+        shutil.copy(input_file_path, dest_path)
+        os.chmod(dest_path, 0o644)
+        print(f'-> copied {input_file_path} to {dest_path} and fixed perms', file=sys.stderr)
 
     # Clean up
     if args.path.startswith('http'):
