@@ -160,9 +160,11 @@ if __name__ == "__main__":
         # lxml drops trailing newline
         root.tail = "\n"
     for paper in root.findall('.//paper'):
-        fullid = "{}-{}".format(root.attrib['id'], paper.attrib['id'])
+        papernum = "{} vol {} paper {}".format(root.attrib['id'],
+                                               paper.getparent().attrib['id'],
+                                               paper.attrib['id'])
         for oldnode in paper:
-            location = "{}:{}".format(fullid, oldnode.tag)
+            location = "{}:{}".format(papernum, oldnode.tag)
             process(oldnode, informat=informat)
                 
     tree.write(args.outfile, encoding="UTF-8", xml_declaration=True)
