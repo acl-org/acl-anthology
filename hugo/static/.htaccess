@@ -15,6 +15,12 @@ ErrorDocument 404 /anthology/404.html
 
 RewriteEngine On
 
+#
+# EXTERNAL REDIRECTIONS
+#
+# These rules contain external redirections: to HTTPS, to the canonical URLs, and others.
+#
+
 # Redirect non-canonical URL bases to https://aclweb.org/anthology/
 RewriteCond %{HTTP_HOST} ^anthology\.aclweb\.org$ [OR]
 RewriteCond %{HTTP_HOST} ^www\.anthology\.aclweb\.org$
@@ -26,11 +32,21 @@ RewriteRule ^/?(.*) https://www.aclweb.org/anthology/$1 [R=301,L]
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{SERVER_NAME}/anthology/$1 [R=301,L]
 
-## Old paths
+## PDF paths
 # Redirect old canonical paths (e.g., P/P17/P17-1069.pdf -> https://www.aclweb.org/anthology/P17-1069)
 # Note that since capture patterns can't be reused in the capture portion of the string, this is a leaky match
 # that will also redirect X/Z19/P17-1069.pdf -> /anthology-files/pdf/P/P17/1-69.pdf
 RewriteRule ^[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(.pdf)?$ https://www.aclweb.org/anthology/$1$2-$3 [R=301,L]
+
+# Redirect URLS with an explicit ".pdf" to the bare canonical version
+RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ https://www.aclweb.org/anthology/$1$2-$3 [R=301,L]
+
+#
+# INTERNAL REDIRECTIONS
+#
+# These rules take valid external URLS (which are often virtual targets) and retrieve their target.
+# They are invisible to the outside.
+#
 
 ## PDF redirection
 # Canonical URL (a plain ACL ID with no file extension, e.g., P17-1069 -> P/P17/P17-1069.pdf)
