@@ -18,6 +18,9 @@
     <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
       pdf
     </a>
+      {{- if and (hasPrefix . $.Site.Params.baseURL) (eq . (strings.TrimSuffix ".pdf" .)) -}}
+    <a style="display: none" href="{{ . }}.pdf" title="Hidden link to PDF with extension">pdf</a>
+      {{- end -}}
     {{- end -}}
   {{- end -}}
     {{- $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id .Params.anthology_id -}}

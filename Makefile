@@ -15,7 +15,7 @@
 # limitations under the License.
 
 SHELL = /bin/sh
-ANTHOLOGYHOST := "https://aclweb.org"
+ANTHOLOGYHOST := "https://www.aclweb.org"
 ANTHOLOGYDIR := anthology
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
