@@ -46,6 +46,32 @@ def to_volume_id(anthology_id):
     return anthology_id[:5]
 
 
+def build_anthology_id(collection_id, volume_id, paper_id):
+    """
+    Transforms collection id, volume id, and paper id to a width-padded
+    Anthology ID. e.g., ('P18', '1', '1') -> P18-1001.
+    """
+    if collection_id.startswith('W') or collection_id == 'C69':
+        return '{}-{:02d}{:02d}'.format(collection_id, int(volume_id), int(paper_id))
+    else:
+        return '{}-{:02d}{:02d}'.format(collection_id, int(volume_id), int(paper_id))
+
+
+def deconstruct_anthology_id(anthology_id):
+    """
+    Transforms an Anthology id into its constituent collection id, voulume id, and paper id
+    parts. e.g,
+
+        P18-1007 -> ('P18', '1', '7')
+        W18-6310 -> ('W18', '63', '10')
+    """
+    collection_id, rest = anthology_id.split('-')
+    if collection_id.startswith('W') or collection_id.startswith('C69'):
+        return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
+    else:
+        return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
+
+
 def stringify_children(node):
     """Returns the full content of a node, including tags.
 

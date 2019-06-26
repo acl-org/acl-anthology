@@ -1352,6 +1352,7 @@
       <pages>1–6</pages>
       <abstract>Stack Long Short-Term Memory (StackLSTM) is useful for various applications such as parsing and string-to-tree neural machine translation, but it is also known to be notoriously difficult to parallelize for GPU training due to the fact that the computations are dependent on discrete operations. In this paper, we tackle this problem by utilizing state access patterns of StackLSTM to homogenize computations with regard to different discrete operations. Our parsing experiments show that the method scales up almost linearly with increasing batch size, and our parallelized PyTorch implementation trains significantly faster compared to the Dynet C++ implementation.</abstract>
       <url>W19-1501</url>
+      <attachment type="presentation">W19-1501.Presentation.pdf</attachment>
     </paper>
     <paper id="2">
       <title>Tracking Discrete and Continuous Entity State for Process Understanding</title>
@@ -1740,9 +1741,11 @@
       <title>A Novel System for Extractive Clinical Note Summarization using <fixed-case>EHR</fixed-case> Data</title>
       <author><first>Jennifer</first><last>Liang</last></author>
       <author><first>Ching-Huei</first><last>Tsou</last></author>
+      <author><first>Ananya</first><last>Poddar</last></author>
       <pages>46–54</pages>
       <abstract>While much data within a patient’s electronic health record (EHR) is coded, crucial information concerning the patient’s care and management remain buried in unstructured clinical notes, making it difficult and time-consuming for physicians to review during their usual clinical workflow. In this paper, we present our clinical note processing pipeline, which extends beyond basic medical natural language processing (NLP) with concept recognition and relation detection to also include components specific to EHR data, such as structured data associated with the encounter, sentence-level clinical aspects, and structures of the clinical notes. We report on the use of this pipeline in a disease-specific extractive text summarization task on clinical notes, focusing primarily on progress notes by physicians and nurse practitioners. We show how the addition of EHR-specific components to the pipeline resulted in an improvement in our overall system performance and discuss the potential impact of EHR-specific components on other higher-level clinical NLP tasks.</abstract>
       <url>W19-1906</url>
+      <revision id="2">W19-1906v2</revision>
     </paper>
     <paper id="7">
       <title>Study of lexical aspect in the <fixed-case>F</fixed-case>rench medical language. Development of a lexical resource</title>
@@ -1913,6 +1916,7 @@
       <abstract>Analysis of word embedding properties to inform their use in downstream NLP tasks has largely been studied by assessing nearest neighbors. However, geometric properties of the continuous feature space contribute directly to the use of embedding features in downstream models, and are largely unexplored. We consider four properties of word embedding geometry, namely: position relative to the origin, distribution of features in the vector space, global pairwise distances, and local pairwise distances. We define a sequence of transformations to generate new embeddings that expose subsets of these properties to downstream models and evaluate change in task performance to understand the contribution of each property to NLP models. We transform publicly available pretrained embeddings from three popular toolkits (word2vec, GloVe, and FastText) and evaluate on a variety of intrinsic tasks, which model linguistic information in the vector space, and extrinsic tasks, which use vectors as input to machine learning models. We find that intrinsic evaluations are highly sensitive to absolute position, while extrinsic tasks rely primarily on local similarity. Our findings suggest that future embedding models and post-processing techniques should focus primarily on similarity to nearby points in vector space.</abstract>
       <url>W19-2002</url>
       <attachment type="supplementary">W19-2002.Supplementary.zip</attachment>
+      <attachment type="presentation">W19-2002.Presentation.pdf</attachment>
     </paper>
     <paper id="3">
       <title>The Influence of Down-Sampling Strategies on <fixed-case>SVD</fixed-case> Word Embedding Stability</title>
@@ -1949,6 +1953,7 @@
       <pages>43–51</pages>
       <abstract>Downstream evaluation of pretrained word embeddings is expensive, more so for tasks where current state of the art models are very large architectures. Intrinsic evaluation using word similarity or analogy datasets, on the other hand, suffers from several disadvantages. We propose a novel intrinsic evaluation task employing large word association datasets (particularly the Small World of Words dataset). We observe correlations not just between performances on SWOW-8500 and previously proposed intrinsic tasks of word similarity prediction, but also with downstream tasks (eg. Text Classification and Natural Language Inference). Most importantly, we report better confidence intervals for scores on our word association task, with no fall in correlation with downstream performance.</abstract>
       <url>W19-2006</url>
+      <attachment type="poster">W19-2006.Poster.pdf</attachment>
     </paper>
     <paper id="7">
       <title>Classification of Semantic Paraphasias: Optimization of a Word Embedding Model</title>
@@ -1979,6 +1984,7 @@
       <abstract>Nearest neighbors in word embedding models are commonly observed to be semantically similar, but the relations between them can vary greatly. We investigate the extent to which word embedding models preserve syntactic interchangeability, as reflected by distances between word vectors, and the effect of hyper-parameters—context window size in particular. We use part of speech (POS) as a proxy for syntactic interchangeability, as generally speaking, words with the same POS are syntactically valid in the same contexts. We also investigate the relationship between interchangeability and similarity as judged by commonly-used word similarity benchmarks, and correlate the result with the performance of word embedding models on these benchmarks. Our results will inform future research and applications in the selection of word embedding model, suggesting a principle for an appropriate selection of the context window size parameter depending on the use-case.</abstract>
       <url>W19-2009</url>
       <software>W19-2009.Software.zip</software>
+      <attachment type="poster">W19-2009.Poster.pdf</attachment>
     </paper>
     <paper id="10">
       <title>Evaluation of Morphological Embeddings for <fixed-case>E</fixed-case>nglish and <fixed-case>R</fixed-case>ussian Languages</title>
@@ -2176,6 +2182,7 @@
       <pages>1–11</pages>
       <abstract>Unilateral legal contracts, such as terms of service, play a substantial role in modern digital life. However, few read these documents before accepting the terms within, as they are too long and the language too complicated. We propose the task of summarizing such legal documents in plain English, which would enable users to have a better understanding of the terms they are accepting. We propose an initial dataset of legal text snippets paired with summaries written in plain English. We verify the quality of these summaries manually, and show that they involve heavy abstraction, compression, and simplification. Initial experiments show that unsupervised extractive summarization methods do not perform well on this task due to the level of abstraction and style differences. We conclude with a call for resource and technique development for simplification and style transfer for legal language.</abstract>
       <url>W19-2201</url>
+      <attachment type="supplementary">W19-2201.Supplementary.pdf</attachment>
     </paper>
     <paper id="2">
       <title>Scalable Methods for Annotating Legal-Decision Corpora</title>
@@ -2817,6 +2824,7 @@
       <pages>22–29</pages>
       <abstract>The first step in discourse analysis involves di- viding a text into segments. We annotate the first high-quality small-scale medical corpus in English with discourse segments and analyze how well news-trained segmenters perform on this domain. While we expectedly find a drop in performance, the nature of the segmentation errors suggests some problems can be addressed earlier in the pipeline, while others would require expanding the corpus to a trainable size to learn the nuances of the medical domain.</abstract>
       <url>W19-2704</url>
+      <attachment type="presentation">W19-2704.Presentation.pdf</attachment>
     </paper>
     <paper id="5">
       <title>Nuclearity in <fixed-case>RST</fixed-case> and signals of coherence relations</title>
@@ -2831,6 +2839,7 @@
       <pages>38–49</pages>
       <abstract>The relational status of Attribution in Rhetorical Structure Theory has been a matter of ongoing debate. Although several researchers have weighed in on the topic, and although numerous studies have relied upon attributional structures for their analyses, nothing approaching consensus has emerged. This paper identifies three basic issues that must be resolved to determine the relational status of attributions. These are identified as the Discourse Units Issue, the Nuclearity Issue, and the Relation Identification Issue. These three issues are analyzed from the perspective of classical RST. A finding of this analysis is that the nuclearity and the relational identification of attribution structures are shown to depend on the writer’s intended effect, such that attributional relations cannot be considered as a single relation, but rather as attributional instances of other RST relations.</abstract>
       <url>W19-2706</url>
+      <attachment type="presentation">W19-2706.Presentation.pptx</attachment>
     </paper>
     <paper id="7">
       <title>Annotating Shallow Discourse Relations in Twitter Conversations</title>
@@ -2877,6 +2886,7 @@
       <pages>82–87</pages>
       <abstract>Results of the first experimental evaluation of machine learning models trained on Ru-RSTreebank – first Russian corpus annotated within RST framework – are presented. Various lexical, quantitative, morphological, and semantic features were used. In rhetorical relation classification, ensemble of CatBoost model with selected features and a linear SVM model provides the best score (macro F1 = 54.67 ± 0.38). We discover that most of the important features for rhetorical relation classification are related to discourse connectives derived from the connectives lexicon for Russian and from other sources.</abstract>
       <url>W19-2711</url>
+      <attachment type="poster">W19-2711.Poster.pdf</attachment>
     </paper>
     <paper id="12">
       <title><fixed-case>RST</fixed-case>-Tace A tool for automatic comparison and evaluation of <fixed-case>RST</fixed-case> trees</title>
@@ -2915,6 +2925,7 @@
       <pages>115–124</pages>
       <abstract>Segmentation is the first step in building practical discourse parsers, and is often neglected in discourse parsing studies. The goal is to identify the minimal spans of text to be linked by discourse relations, or to isolate explicit marking of discourse relations. Existing systems on English report F1 scores as high as 95%, but they generally assume gold sentence boundaries and are restricted to English newswire texts annotated within the RST framework. This article presents a generic approach and a system, ToNy, a discourse segmenter developed for the DisRPT shared task where multiple discourse representation schemes, languages and domains are represented. In our experiments, we found that a straightforward sequence prediction architecture with pretrained contextual embeddings is sufficient to reach performance levels comparable to existing systems, when separately trained on each corpus. We report performance between 81% and 96% in F1 score. We also observed that discourse segmentation models only display a moderate generalization capability, even within the same language and discourse representation scheme.</abstract>
       <url>W19-2715</url>
+      <attachment type="poster">W19-2715.Poster.pdf</attachment>
     </paper>
     <paper id="16">
       <title>Multilingual segmentation based on neural networks and pre-trained word embeddings</title>
@@ -2948,6 +2959,7 @@
       <pages>144–152</pages>
       <abstract>Discourse information is crucial for a better understanding of the text structure and it is also necessary to describe which part of an opinionated text is more relevant or to decide how a text span can change the polarity (strengthen or weaken) of other span by means of coherence relations. This work presents the first results on the annotation of the Basque Opinion Corpus using Rhetorical Structure Theory (RST). Our evaluation results and analysis show us the main avenues to improve on a future annotation process. We have also extracted the subjectivity of several rhetorical relations and the results show the effect of sentiment words in relations and the influence of each relation in the semantic orientation value.</abstract>
       <url>W19-2718</url>
+      <attachment type="presentation">W19-2718.Presentation.pdf</attachment>
     </paper>
     <paper id="19">
       <title>Using Rhetorical Structure Theory to Assess Discourse Coherence for Non-native Spontaneous Speech</title>
@@ -2960,6 +2972,7 @@
       <pages>153–162</pages>
       <abstract>This study aims to model the discourse structure of spontaneous spoken responses within the context of an assessment of English speaking proficiency for non-native speakers. Rhetorical Structure Theory (RST) has been commonly used in the analysis of discourse organization of written texts; however, limited research has been conducted to date on RST annotation and parsing of spoken language, in particular, non-native spontaneous speech. Due to the fact that the measurement of discourse coherence is typically a key metric in human scoring rubrics for assessments of spoken language, we conducted research to obtain RST annotations on non-native spoken responses from a standardized assessment of academic English proficiency. Subsequently, automatic parsers were trained on these annotations to process non-native spontaneous speech. Finally, a set of features were extracted from automatically generated RST trees to evaluate the discourse structure of non-native spontaneous speech, which were then employed to further improve the validity of an automated speech scoring system.</abstract>
       <url>W19-2719</url>
+      <attachment type="presentation">W19-2719.Presentation.pptx</attachment>
     </paper>
     <paper id="20">
       <title>Applying Rhetorical Structure Theory to Student Essays for Providing Automated Writing Feedback</title>
@@ -2972,6 +2985,7 @@
       <pages>163–168</pages>
       <abstract>We present a package of annotation resources, including annotation guideline, flowchart, and an Intelligent Tutoring System for training human annotators. These resources can be used to apply Rhetorical Structure Theory (RST) to essays written by students in K-12 schools. Furthermore, we highlight the great potential of using RST to provide automated feedback for improving writing quality across genres.</abstract>
       <url>W19-2720</url>
+      <attachment type="presentation">W19-2720.Presentation.pdf</attachment>
     </paper>
   </volume>
   <volume id="28">
