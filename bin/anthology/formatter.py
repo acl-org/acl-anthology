@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging as log
 from copy import deepcopy
 from lxml import etree
 import codecs
@@ -55,6 +56,8 @@ def bibtex_encode(text):
 
 
 def bibtex_convert_quotes(text):
+    if re.match(r"(?<!\\)\"", text):
+        log.warning("Straight quote (\") found in text field; converting automatically, but please fix in XML")
     text = re.sub(r"(?<!\\)\"\b", "``", text)
     text = re.sub(r"(?<!\\)\"", "''", text)
     return text
@@ -135,7 +138,12 @@ class MarkupFormatter:
 
     def as_latex(self, element):
         # following convert_xml_text_markup in anth2bib.py
-        text = bibtex_encode(element.text)
+        if element.tag in ["tex-math", "url"]:
+            if len(element) > 0:
+                log.warning("<{}> element has children".format(element.tag))
+            text = element.text
+        else:
+            text = bibtex_encode(element.text)
         for nested_element in element:
             text += self.as_latex(nested_element)
             text += bibtex_encode(nested_element.tail)

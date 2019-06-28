@@ -3,9 +3,8 @@ Title: How do I cite publications in the ACL Anthology?
 weight: 1
 ---
 
-Please do not publish the actual links to this site in print publications, as
-these may change over time. Instead, use Digital Object Identifiers (DOIs) for
-newer materials (post-2015), or the persistent URL for older materials
-(pre-2015) e.g., https://www.aclweb.org/anthology/E91-1001 (thanks to Dragomir
-Radev and Haejoong Lee for the latter). Both the DOIs and the persistent URLs
-embed the 8-character ACL Anthology Identifier.
+If available, you can you use Digital Object Identifiers (DOIs).
+The canonical URL for papers is given by appending the ACL ID to the Anthology URL, e.g., https://www.aclweb.org/anthology/E91-1001
+Both the DOIs and the persistent URLs embed the 8-character ACL Anthology Identifier.
+
+You can use variations on the canonical URL to access [the paper page](https://www.aclweb.org/anthology/E91-1001) (by appending a `/`) or [the BibTeX file](https://www.aclweb.org/anthology/E91-1001.bib) (by appending `.bib`).

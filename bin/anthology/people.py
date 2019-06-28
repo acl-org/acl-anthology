@@ -15,7 +15,7 @@
 # limitations under the License.
 
 import logging as log
-from .formatter import bibtex_encode
+import anthology.formatter as my_formatter
 
 
 class PersonName:
@@ -60,8 +60,8 @@ class PersonName:
 
     def as_bibtex(self):
         if not self.first:
-            return "{{{}}}".format(bibtex_encode(self.last))
-        return bibtex_encode("{}, {}".format(self.last, self.first))
+            return "{{{}}}".format(my_formatter.bibtex_encode(self.last))
+        return my_formatter.bibtex_encode("{}, {}".format(self.last, self.first))
 
     def as_dict(self):
         return {"first": self.first, "last": self.last, "full": self.full}

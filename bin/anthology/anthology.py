@@ -46,55 +46,43 @@ class Anthology:
         # compatibility, since this was renamed internally
         return self.pindex
 
-    def load_schema(self, schemafile):
-        if os.path.exists(schemafile):
-            self.schema = etree.RelaxNG(file=schemafile)
-        else:
-            log.error("RelaxNG schema not found: {}".format(schemafile))
-
     def import_directory(self, importdir):
         assert os.path.isdir(importdir), "Directory not found: {}".format(importdir)
         self.pindex = AnthologyIndex(self, importdir)
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
-        self.load_schema(importdir + "/xml/schema.rng")
         for xmlfile in glob(importdir + "/xml/*.xml"):
             self.import_file(xmlfile)
+        self.pindex.verify()
 
     def import_file(self, filename):
         tree = etree.parse(filename)
-        if self.schema is not None:
-            if not self.schema(tree):
-                log.error("RelaxNG validation failed for {}".format(filename))
-        volume = tree.getroot()
-        top_level_id = volume.get("id")
-        if top_level_id in self.volumes:
-            log.critical(
-                "Attempted to import top-level ID '{}' twice".format(top_level_id)
-            )
-            log.critical("Triggered by file: {}".format(filename))
-        current_volume = None
-        for paper in volume:
-            parsed_paper = Paper.from_xml(paper, top_level_id, self.formatter)
-            self.pindex.register(parsed_paper)
-            full_id = parsed_paper.full_id
-            if full_id in self.papers:
+        collection = tree.getroot()
+        collection_id = collection.get("id")
+        for volume_xml in collection:
+            volume = Volume.from_xml(volume_xml, collection_id, self.venues, self.sigs, self.formatter)
+
+            if volume.full_id in self.volumes:
                 log.critical(
-                    "Attempted to import paper '{}' twice -- skipping".format(full_id)
+                    "Attempted to import volume ID '{}' twice".format(volume.full_id)
                 )
-                continue
-            if parsed_paper.is_volume:
-                if current_volume is not None:
-                    self.volumes[current_volume.full_id] = current_volume
-                current_volume = Volume(parsed_paper, self.venues, self.sigs)
-            else:
-                if current_volume is None:
+                log.critical("Triggered by file: {}".format(filename))
+
+            # front matter
+            if volume.has_frontmatter:
+                front_matter = volume.content[0]
+                self.pindex.register(front_matter)
+                self.papers[front_matter.full_id] = front_matter
+
+            self.volumes[volume.full_id] = volume
+            for paper in volume_xml.findall('paper'):
+                parsed_paper = Paper.from_xml(paper, volume, self.formatter)
+                self.pindex.register(parsed_paper)
+                full_id = parsed_paper.full_id
+                if full_id in self.papers:
                     log.critical(
-                        "First paper of XML should be volume entry, but '{}' is not interpreted as one".format(
-                            full_id
-                        )
+                        "Attempted to import paper '{}' twice -- skipping".format(full_id)
                     )
-                current_volume.append(parsed_paper)
-            self.papers[full_id] = parsed_paper
-        if current_volume is not None:
-            self.volumes[current_volume.full_id] = current_volume
+                    continue
+                volume.append(parsed_paper)
+                self.papers[full_id] = parsed_paper

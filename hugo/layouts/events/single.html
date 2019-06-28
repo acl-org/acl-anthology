@@ -33,7 +33,7 @@
       {{- with $volume.url -}}
       <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open full proceedings volume as PDF">pdf (full)</a>
       {{- end -}}
-      {{- $bibfile := printf "/volumes/%s.bib" $volume_id -}}
+      {{- $bibfile := printf "/volumes/%s.bib" . -}}
       {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
       <a class="badge badge-secondary align-middle mr-1" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib</a>
       {{- end -}}

@@ -3,8 +3,8 @@
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <meta content="{{ $paper.title }}" name="citation_title" >
 {{ range $paper.author }}
-  {{ $first_letter := slicestr . 0 1 }}
-  <meta content="{{ (index $.Site.Data.people $first_letter .).full }}" name="citation_author" >
+  {{ $first_letter := slicestr .id 0 1 }}
+  <meta content="{{ (index $.Site.Data.people $first_letter .id).full }}" name="citation_author" >
 {{ end }}
 {{ with $paper.parent_volume_id }}
   {{ $volume := index $.Site.Data.volumes . }}
@@ -17,7 +17,9 @@
   {{ with $volume.meta_issue }}<meta content="{{ . }}" name="citation_issue" >{{ end }}
   {{ with $volume.meta_date }}<meta content="{{ . }}" name="citation_publication_date" >{{ end }}
 {{ end }}
-<meta content="{{ $paper.url }}" name="citation_pdf_url" >
+{{ with $paper.url }}
+  <meta content="{{ . }}" name="citation_pdf_url" >
+{{ end }}
 {{ with $paper.page_first }}<meta content="{{ . }}" name="citation_firstpage" >{{ end }}
 {{ with $paper.page_last }}<meta content="{{ . }}" name="citation_lastpage" >{{ end }}
 {{ with $paper.doi }}<meta content="{{ . }}" name="citation_doi" >{{ end }}
@@ -173,9 +175,11 @@
         </a>
         {{ end }}
       {{ else }}
-        <a class="btn btn-primary" href="{{ $paper.url }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+        {{ with $paper.url }}
+        <a class="btn btn-primary" href="{{ . }}"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF</span>
         </a>
+        {{ end }}
       {{ end }}
       {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
       <a class="btn btn-secondary" href="{{ $bibfile | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">

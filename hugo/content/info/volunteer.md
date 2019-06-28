@@ -1,6 +1,6 @@
 ---
 Title: Help Shape the ACL Anthology!
-linktitle: Volunteer!
+linktitle: Volunteering
 menu: footer
 ---
 

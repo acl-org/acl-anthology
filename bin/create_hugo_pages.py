@@ -22,7 +22,7 @@ Creates page stubs for the full anthology based on the YAML data files.
 This script can only be run after create_hugo_yaml.py!
 
 Options:
-  --dir=DIR                Hugo project directory. [default: {scriptdir}/../hugo/]
+  --dir=DIR                Hugo project directory. [default: {scriptdir}/../build/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
   -h, --help               Display this helpful text.
@@ -135,9 +135,6 @@ def create_people(srcdir, clean=False):
             data = yaml.load(f, Loader=Loader)
         # Create a page stub for each person
         for name, entry in data.items():
-            # Only create page stub when name doesn't link to a canonical entry
-            if "canonical_entry" in entry:
-                continue
             person_dir = "{}/content/people/{}".format(srcdir, name[0])
             if not os.path.exists(person_dir):
                 os.makedirs(person_dir)

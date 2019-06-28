@@ -15,14 +15,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: create_hugo_yaml.py [--importdir=DIR] [--exportdir=DIR] [--debug] [--dry-run]
+"""Usage: create_hugo_yaml.py [--importdir=DIR] [--exportdir=DIR] [-c] [--debug] [--dry-run]
 
 Creates YAML files containing all necessary Anthology data for the static website generator.
 
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
-  --exportdir=DIR          Directory to write YAML files to.   [default: {scriptdir}/../hugo/data/]
+  --exportdir=DIR          Directory to write YAML files to.   [default: {scriptdir}/../build/data/]
   --debug                  Output debug-level log messages.
+  -c, --clean              Delete existing files in target directory before generation.
   -n, --dry-run            Do not write YAML files (useful for debugging).
   -h, --help               Display this helpful text.
 """
@@ -41,22 +42,18 @@ except ImportError:
 
 from anthology import Anthology
 from anthology.utils import SeverityTracker
+from create_hugo_pages import check_directory
 
 
-def export_anthology(anthology, outdir, dryrun=False):
-    # Create directories
-    for subdir in ("", "papers", "people"):
-        target_dir = "{}/{}".format(outdir, subdir)
-        if not os.path.isdir(target_dir):
-            os.mkdir(target_dir)
-
+def export_anthology(anthology, outdir, clean=False, dryrun=False):
     # Prepare paper index
     papers = defaultdict(dict)
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
         data["title_html"] = paper.get_title("html")
-        del data["xml_title"]
+        if 'xml_title' in data:
+            del data["xml_title"]
         if "xml_booktitle" in data:
             data["booktitle_html"] = paper.get_booktitle("html")
             del data["xml_booktitle"]
@@ -65,57 +62,49 @@ def export_anthology(anthology, outdir, dryrun=False):
             del data["xml_abstract"]
         if "author" in data:
             data["author"] = [
-                anthology.people.get_slug(name) for name in data["author"]
+                anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
             ]
         if "editor" in data:
             data["editor"] = [
-                anthology.people.get_slug(name) for name in data["editor"]
+                anthology.people.resolve_name(name, id_) for name, id_ in data["editor"]
             ]
-        papers[paper.top_level_id][paper.full_id] = data
+        papers[paper.collection_id][paper.full_id] = data
 
     # Prepare people index
     people = defaultdict(dict)
-    for name in anthology.people.names():
+    for id_ in anthology.people.personids():
+        name = anthology.people.get_canonical_name(id_)
         log.debug("export_anthology: processing person '{}'".format(repr(name)))
         data = name.as_dict()
-        slug = anthology.people.get_slug(name)
-        data["slug"] = slug
-        if anthology.people.is_canonical(name):
-            data["papers"] = sorted(
-                anthology.people.get_papers(name, include_variants=True),
-                key=lambda p: anthology.papers.get(p).get("year"),
-                reverse=True,
-            )
-            data["coauthors"] = sorted(
-                [
-                    [anthology.people.get_slug(co_name), count]
-                    for (co_name, count) in anthology.people.get_coauthors(
-                        name, include_variants=True
-                    )
-                ],
-                key=lambda p: p[1],
-                reverse=True,
-            )
-            data["venues"] = sorted(
-                [
-                    [venue, count]
-                    for (venue, count) in anthology.people.get_venues(
-                        anthology.venues, name, include_variants=True
-                    ).items()
-                ],
-                key=lambda p: p[1],
-                reverse=True,
-            )
-            if anthology.people.has_variants(name):
-                data["variant_entries"] = [
-                    anthology.people.get_slug(var)
-                    for var in anthology.people.get_registered_variants(name)
-                ]
-        else:
-            data["canonical_entry"] = anthology.people.get_slug(
-                anthology.people.get_canonical_variant(name)
-            )
-        people[slug[0]][slug] = data
+        data["slug"] = id_
+        if id_ in anthology.people.comments:
+            data["comment"] = anthology.people.comments[id_]
+        if id_ in anthology.people.similar:
+            data["similar"] = sorted(anthology.people.similar[id_])
+        data["papers"] = sorted(
+            anthology.people.get_papers(id_),
+            key=lambda p: anthology.papers.get(p).get("year"),
+            reverse=True,
+        )
+        data["coauthors"] = sorted(
+            [[co_id, count] for (co_id, count) in anthology.people.get_coauthors(id_)],
+            key=lambda p: p[1],
+            reverse=True,
+        )
+        data["venues"] = sorted(
+            [
+                [venue, count]
+                for (venue, count) in anthology.people.get_venues(
+                    anthology.venues, id_
+                ).items()
+            ],
+            key=lambda p: p[1],
+            reverse=True,
+        )
+        variants = [n for n in anthology.people.get_used_names(id_) if n != name]
+        if len(variants) > 0:
+            data["variant_entries"] = [name.as_dict() for name in variants]
+        people[id_[0]][id_] = data
 
     # Prepare volume index
     volumes = {}
@@ -123,17 +112,17 @@ def export_anthology(anthology, outdir, dryrun=False):
         log.debug("export_anthology: processing volume '{}'".format(id_))
         data = volume.attrib
         data["title_html"] = volume.get_title("html")
-        del data["xml_title"]
+        del data["xml_booktitle"]
         if "xml_abstract" in data:
             del data["xml_abstract"]
         data["papers"] = volume.paper_ids
         if "author" in data:
             data["author"] = [
-                anthology.people.get_slug(name) for name in data["author"]
+                anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
             ]
         if "editor" in data:
             data["editor"] = [
-                anthology.people.get_slug(name) for name in data["editor"]
+                anthology.people.resolve_name(name, id_) for name, id_ in data["editor"]
             ]
         volumes[volume.full_id] = data
 
@@ -163,9 +152,15 @@ def export_anthology(anthology, outdir, dryrun=False):
 
     # Dump all
     if not dryrun:
+        # Create directories
+        for subdir in ("", "papers", "people"):
+            target_dir = "{}/{}".format(outdir, subdir)
+            if not check_directory(target_dir, clean=clean):
+                return
+
         progress = tqdm(total=len(papers) + len(people) + 7)
-        for top_level_id, paper_list in papers.items():
-            with open("{}/papers/{}.yaml".format(outdir, top_level_id), "w") as f:
+        for collection_id, paper_list in papers.items():
+            with open("{}/papers/{}.yaml".format(outdir, collection_id), "w") as f:
                 yaml.dump(paper_list, Dumper=Dumper, stream=f)
             progress.update()
 
@@ -208,7 +203,9 @@ if __name__ == "__main__":
     log.info("Reading the Anthology data...")
     anthology = Anthology(importdir=args["--importdir"])
     log.info("Exporting to YAML...")
-    export_anthology(anthology, args["--exportdir"], dryrun=args["--dry-run"])
+    export_anthology(
+        anthology, args["--exportdir"], clean=args["--clean"], dryrun=args["--dry-run"]
+    )
 
     if tracker.highest >= log.ERROR:
         exit(1)
