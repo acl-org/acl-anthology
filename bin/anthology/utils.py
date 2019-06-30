@@ -184,7 +184,7 @@ def indent(elem, level=0, internal=False):
             if level:
                 elem.tail = '\n' + level * '  '
             else:
-                elem.tail = ''
+                elem.tail = '\n'
 
         # recurse
         for child in elem:
@@ -223,11 +223,18 @@ def parse_element(xml_element):
         elif tag in ("author", "editor"):
             id_ = element.attrib.get("id", None)
             value = (PersonName.from_element(element), id_)
-        elif tag in ("erratum", "revision"):
+        elif tag == "erratum":
             value = {
                 "value": element.text,
                 "id": element.get("id"),
-                "url": element.text,
+                "url": element.text
+            }
+        elif tag == "revision":
+            value = {
+                "value": element.get("href"),
+                "id": element.get("id"),
+                "url": element.get("href"),
+                "explanation": element.text
             }
         elif tag == "mrf":
             value = {"filename": element.text, "src": element.get("src")}

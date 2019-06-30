@@ -73,8 +73,15 @@
       <dd>{{ $anthology_id }}</dd>
 
       {{ range $paper.revision }}
-        <dt>Revision v{{ .id }}:</dt>
+        {{ if eq .id "1" }}
+        <dt>Original:</dt>
         <dd><a href="{{ .url }}">{{ .value }}</a></dd>
+        {{ else }}
+        <dt>Version {{ .id }}:</dt>
+        <dd><a href="{{ .url }}">{{ .value }}</a>
+          <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="{{ .explanation }}">Explanation</button>
+        </dd>
+        {{ end }}
       {{ end }}
       {{ range $paper.erratum }}
         <dt>Erratum e{{ .id }}:</dt>

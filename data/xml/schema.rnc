@@ -37,7 +37,8 @@ Paper = element paper {
    & element presentation { xsd:NCName }?
    & element revision {
        attribute id { xsd:positiveInteger },
-       xsd:NCName
+       attribute href { xsd:anyURI },
+       text
      }*
    & element software { xsd:NCName }?
    & element title { MarkupText }
@@ -67,7 +68,8 @@ Frontmatter = element frontmatter {
    & element pages { text }?
    & element revision {
        attribute id { xsd:positiveInteger },
-       xsd:NCName
+       attribute href { xsd:anyURI },
+       text
      }*
    & element doi { xsd:anyURI }?
   )
