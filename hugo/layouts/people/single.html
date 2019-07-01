@@ -59,8 +59,8 @@
       <div class="row">
         <div class="col-12 col-md-6 col-lg-12">
           <div class="card">
-            <h5 class="card-header">Frequent co-authors</h5>
-            <ul class="list-group list-group-flush">
+            <h5 class="card-header">Co-authors</h5>
+            <ul class="list-group list-group-flush list-group-compact">
               {{ range first 5 $person.coauthors }}
               <li class="list-group-item">
                 {{ $co_id := index . 0 }}
@@ -68,13 +68,27 @@
                 <span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
+              {{ if gt (len $person.coauthors) 5 }}
+              <li class="list-group-item list-group-toggle-btn py-1" data-toggle="collapse" data-target="#more-coauthors" aria-expanded="false" aria-controls="more-coauthors">
+                show all...
+              </li>
+              <div class="collapse border-top" id="more-coauthors">
+              {{ range after 5 $person.coauthors }}
+              <li class="list-group-item">
+                {{ $co_id := index . 0 }}
+                {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
+                <span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+              </li>
+              {{ end }}
+              </div>
+              {{ end }}
             </ul>
           </div>
         </div>
         <div class="col-12 col-md-6 col-lg-12">
           <div class="card my-2 my-md-0 my-lg-2">
-            <h5 class="card-header">Frequent venues</h5>
-            <ul class="list-group list-group-flush">
+            <h5 class="card-header">Venues</h5>
+            <ul class="list-group list-group-flush list-group-compact">
               {{ range first 5 $person.venues }}
               <li class="list-group-item">
                 {{ $venue := index . 0 }}
@@ -82,6 +96,21 @@
                   {{- $venue -}}
                 </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
               </li>
+              {{ end }}
+              {{ if gt (len $person.venues) 5 }}
+              <li class="list-group-item list-group-toggle-btn py-1" data-toggle="collapse" data-target="#more-venues" aria-expanded="false" aria-controls="more-venues">
+                show all...
+              </li>
+              <div class="collapse border-top" id="more-venues">
+              {{ range after 5 $person.venues }}
+              <li class="list-group-item">
+                {{ $venue := index . 0 }}
+                <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
+                  {{- $venue -}}
+                </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+              </li>
+              {{ end }}
+              </div>
               {{ end }}
             </ul>
           </div>
