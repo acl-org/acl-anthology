@@ -19,7 +19,7 @@
       pdf
     </a>
       {{- if and (hasPrefix . $.Site.Params.baseURL) (eq . (strings.TrimSuffix ".pdf" .)) -}}
-    <a style="display: none" href="{{ . }}.pdf" title="Hidden link to PDF with extension">pdf</a>
+    <a class="d-none" href="{{ . }}.pdf" title="Hidden link to PDF with extension">pdf</a>
       {{- end -}}
     {{- end -}}
   {{- end -}}
@@ -41,7 +41,9 @@
   </span>
     <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
     <br />
-    <span class="text-muted">[{{ .Params.anthology_id }}]:</span>
+    <span class="mr-1 d-none d-md-inline text-muted">
+      [{{ .Params.anthology_id }}]:
+    </span>
     {{ with $paper.author }}
       {{ $len := (len $paper.author) }}
       {{ range $index, $person := $paper.author }}
@@ -50,7 +52,7 @@
       {{ end }}
     {{ end }}
     {{ with $paper.abstract_html }}
-    <div class="card bg-light mb-2 mb-lg-3 collapse" id="abstract-{{ $.Params.anthology_id }}">
+    <div class="card bg-light mb-2 mb-lg-3 collapse abstract-collapse" id="abstract-{{ $.Params.anthology_id }}">
       <div class="card-body p-3 small">
         {{ . | safeHTML }}
       </div>

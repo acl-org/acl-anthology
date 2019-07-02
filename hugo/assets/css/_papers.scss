@@ -105,3 +105,13 @@ dd.acl-button-row .btn {
     padding-left: 40px; // CSS default
   }
 }
+
+/* Abstracts toggling on list pages */
+#toggle-all-abstracts {
+  &[data-toggle-state="hide"] .on-toggle-state-show {
+    display: none;
+  }
+  &[data-toggle-state="show"] .on-toggle-state-hide {
+    display: none;
+  }
+}
