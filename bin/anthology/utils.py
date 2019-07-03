@@ -59,7 +59,7 @@ def build_anthology_id(collection_id, volume_id, paper_id):
 
 def deconstruct_anthology_id(anthology_id):
     """
-    Transforms an Anthology id into its constituent collection id, voulume id, and paper id
+    Transforms an Anthology id into its constituent collection id, volume id, and paper id
     parts. e.g,
 
         P18-1007 -> ('P18', '1', '7')
@@ -71,6 +71,21 @@ def deconstruct_anthology_id(anthology_id):
     else:
         return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
 
+def deconstruct_anthology_volume(anthology_volume):
+    """
+    Transforms an Anthology volume into its constituent collection id and volume id
+    parts. e.g,
+
+        P18-1 -> ('P18', '1')
+        W18-63 -> ('W18', '63')
+    """
+    collection_id, volume_id = anthology_volume.split('-')
+    assert len(collection_id) == 3, "Collection IDs should be 1 letter prefix + 2 digit year"
+    if collection_id.startswith('W') or collection_id.startswith('C69'):
+        assert len(volume_id) == 2, "Workshops and C69 should have a two-digit volume ID"
+    else:
+        assert len(volume_id) == 1, "Non-workshops should have one-digit volume IDs"
+    return (collection_id, volume_id)
 
 def stringify_children(node):
     """Returns the full content of a node, including tags.
