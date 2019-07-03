@@ -114,7 +114,7 @@ def create_volumes(srcdir, clean=False):
                     "anthology_id": anthology_id,
                     "title": entry["title"],
                     "aliases": [
-                        slugify(entry["title"]),
+                        "/volumes/{}/".format(slugify(entry["title"])),
                         "/papers/{}/{}/{}/".format(
                             anthology_id[0], anthology_id[:3], anthology_id
                         ),
