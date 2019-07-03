@@ -30,18 +30,18 @@ Modifies the XML.  Warns if DOIs already present.  Use -f to force
 
 import argparse
 import sys
+import os
 import tempfile
+import anthology.data as data
 
-DOI_PREFIX = "10.18653/v1/"
-
-from anthology.utils import build_anthology_id, deconstruct_anthology_volume, stringify_children
+from anthology.utils import build_anthology_id, deconstruct_anthology_id, stringify_children
 
 import lxml.etree as ET
 import urllib.request
 
 def main(args):
 
-    collection_id, volume_id = deconstruct_anthology_volume(args.anthology_volume)
+    collection_id, volume_id, paper_id_discard = deconstruct_anthology_id(args.anthology_volume)
 
     print(f'Attempting to add DOIs for {args.anthology_volume}', file=sys.stderr)
 
@@ -85,7 +85,9 @@ def main(args):
             doi.tail = '\n    '  # newline and two levels of indent
             frontmatter.append(doi)
             n += 1
-        
+        if (has_doi and not args.force):
+            print(f'Cowardly refusing to overwrite existing DOIs.  Use --force', file=sys.stderr)
+            
         # Iterate through all papers
         for paper in volume.findall('paper'):
             has_doi = False
@@ -125,7 +127,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('anthology_volume', help='The Anthology Volume (e.g., P17-1, W18-02)')
-    parser.add_argument('--prefix', '-p', default= DOI_PREFIX, help="The DOI prefix to use (default: " + DOI_PREFIX + ")")
+    parser.add_argument('--prefix', '-p', default=data.DOI_PREFIX, help="The DOI prefix to use (default: " + data.DOI_PREFIX + ")")
     parser.add_argument('--force', '-f', help="Force overwrite of existing DOI information", action="store_true")
     args = parser.parse_args()
 
