@@ -33,6 +33,7 @@ import sys
 import os
 import tempfile
 import anthology.data as data
+import copy
 
 from anthology.utils import build_anthology_id, deconstruct_anthology_id, stringify_children
 
@@ -54,43 +55,47 @@ def main(args):
     volume = tree.getroot().find(f"./volume[@id='{volume_sequence}']")
     if volume is not None:
         n = 0
-        volume_title = volume.find(f"./meta/booktitle")
-        print (stringify_children(volume_title))
+        volume_booktitle = volume.find(f"./meta/booktitle")
+        volume_copy = copy.deepcopy(volume_booktitle)
+        ET.strip_tags(volume_copy, "*")
+        volume_title = volume_copy.text
         print(f'Identified as {volume_title}', file=sys.stderr)
 
         # Process frontmatter
         frontmatter = volume.find('frontmatter')
         has_doi = False
-        old_doi_text = ""
-
-        for doi in frontmatter.findall('doi'):
-            has_doi = True
-            old_doi_text = doi.text
-
-        if (not has_doi or args.force): # need to assign DOI
-            new_doi_text = args.prefix + collection_id + "-" + volume_id
-            doi = ""
+        if frontmatter is not None:
+            old_doi_text = ""
             
-            if (args.force and has_doi):
-                print(f'Overwritting existing booktitle DOI {old_doi_text} with {new_doi_text}', file=sys.stderr)
-                doi = frontmatter.find('doi')
-            else:
-                print(f'Writing booktitle DOI {new_doi_text}', file=sys.stderr)
-                doi = ET.Element('doi')
+            for doi in frontmatter.findall('doi'):
+                has_doi = True
+                old_doi_text = doi.text
 
-            doi.text = new_doi_text
-
-            # Set tails to maintain proper indentation
-            frontmatter[-1].tail += '  '
-            doi.tail = '\n    '  # newline and two levels of indent
-            frontmatter.append(doi)
-            n += 1
+                if (not has_doi or args.force): # need to assign DOI
+                    new_doi_text = args.prefix + collection_id + "-" + volume_id
+                    doi = ""
+                    
+                    if (args.force and has_doi):
+                        print(f'Overwritting existing booktitle DOI {old_doi_text} with {new_doi_text}', file=sys.stderr)
+                        doi = frontmatter.find('doi')
+                    else:
+                        print(f'Writing booktitle DOI {new_doi_text}', file=sys.stderr)
+                        doi = ET.Element('doi')
+                        
+                        doi.text = new_doi_text
+                        
+                        # Set tails to maintain proper indentation
+                        frontmatter[-1].tail += '  '
+                        doi.tail = '\n    ' # newline and two levels of indent
+                        frontmatter.append(doi)
+                        n += 1
+                        
         if (has_doi and not args.force):
-            print(f'Cowardly refusing to overwrite existing DOIs.  Use --force', file=sys.stderr)
+            print(f'Cowardly refusing to overwrite existing booktitle DOI.  Use --force', file=sys.stderr)
             
+        has_doi = False
         # Iterate through all papers
         for paper in volume.findall('paper'):
-            has_doi = False
             old_doi_text = ""
 
             # check if DOI exists
@@ -116,6 +121,9 @@ def main(args):
                 doi.tail = '\n    '  # newline and two levels of indent
                 paper.append(doi)
                 n += 1
+        if (has_doi and not args.force):
+            print(f'Cowardly refusing to overwrite existing paper DOIs.  Use --force', file=sys.stderr)
+
         tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
         print(f'-> added {n} DOIs to to the XML for collection {collection_id}', file=sys.stderr)
 
