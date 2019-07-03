@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Matt Post <post@cs.jhu.edu>
+# Copyright 2019 Min-Yen Kan
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,9 +29,6 @@ Modifies the XML.  Warns if DOIs already present.  Use -f to force
 """
 
 import argparse
-import os
-import shutil
-import ssl
 import sys
 import tempfile
 
@@ -70,11 +67,11 @@ def main(args):
             has_doi = True
             old_doi_text = doi.text
 
-        if (has_doi == False or args.force == True): # need to assign DOI
+        if (not has_doi or args.force): # need to assign DOI
             new_doi_text = args.prefix + collection_id + "-" + volume_id
             doi = ""
             
-            if (args.force == True and has_doi == True):
+            if (args.force and has_doi):
                 print(f'Overwritting existing booktitle DOI {old_doi_text} with {new_doi_text}', file=sys.stderr)
                 doi = frontmatter.find('doi')
             else:
@@ -99,11 +96,11 @@ def main(args):
                 has_doi = True
                 old_doi_text = doi.text
 
-            if (has_doi == False or args.force == True): # need to assign DOIs
+            if (not has_doi or args.force): # need to assign DOIs
                 new_doi_text = args.prefix + build_anthology_id(collection_id, volume_id, paper.get('id'))
                 doi = ""
 
-                if (args.force == True and has_doi == True):
+                if (args.force and has_doi):
                     print(f'Overwritting existing DOI {old_doi_text} with {new_doi_text}', file=sys.stderr)
                     doi = paper.find('doi')
                 else:
