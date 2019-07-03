@@ -79,7 +79,12 @@
         {{ else }}
         <dt>Version {{ .id }}:</dt>
         <dd><a href="{{ .url }}">{{ .value }}</a>
-          <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="{{ .explanation }}">Explanation</button>
+          <a class="btn btn-secondary btn-sm" data-toggle="collapse" href="#revision{{ .id }}" role="button" aria-expanded="false" aria-controls="collapseExample">Explanation</a>
+         <div class="collapse" id="revision{{ .id }}">
+            <div class="card card-body">
+              {{ .explanation }}
+            </div>
+          </div>
         </dd>
         {{ end }}
       {{ end }}
