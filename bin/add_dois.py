@@ -131,7 +131,6 @@ def main(args):
         print(f'-> FATAL: volume {volume} not found in the Anthology', file=sys.stderr)
         sys.exit(1)
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('anthology_volume', help='The Anthology Volume (e.g., P17-1, W18-02)')
