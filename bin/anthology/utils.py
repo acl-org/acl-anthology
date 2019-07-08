@@ -79,7 +79,7 @@ def deconstruct_anthology_id(anthology_id):
         else:                   # Possible Volume only identifier
             return (collection_id, str(int(rest[0:2])), None)
     else:
-        if (len<rest) >= 1):
+        if (len(rest) >= 1):
             return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
         else:                   # Possible Volume only identifier
             return (collection_id, str(int(rest[0:1])), None)
