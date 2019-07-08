@@ -74,12 +74,12 @@ def deconstruct_anthology_id(anthology_id):
     collection_id, rest = anthology_id.split('-')
     assert len(collection_id) == 3, "Collection IDs should be 1 letter prefix + 2 digit year"
     if collection_id.startswith('W') or collection_id.startswith('C69'):
-        if rest[2:]:
+        if (len(rest) >= 2):
             return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
         else:                   # Possible Volume only identifier
             return (collection_id, str(int(rest[0:2])), None)
     else:
-        if rest[1:]:
+        if (len<rest) >= 1):
             return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
         else:                   # Possible Volume only identifier
             return (collection_id, str(int(rest[0:1])), None)
