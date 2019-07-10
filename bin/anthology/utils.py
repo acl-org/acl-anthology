@@ -54,7 +54,7 @@ def build_anthology_id(collection_id, volume_id, paper_id):
     if collection_id.startswith('W') or collection_id == 'C69':
         return '{}-{:02d}{:02d}'.format(collection_id, int(volume_id), int(paper_id))
     else:
-        return '{}-{:02d}{:02d}'.format(collection_id, int(volume_id), int(paper_id))
+        return '{}-{:01d}{:03d}'.format(collection_id, int(volume_id), int(paper_id))
 
 
 def deconstruct_anthology_id(anthology_id):
