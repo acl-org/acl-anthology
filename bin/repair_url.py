@@ -12,11 +12,7 @@ import lxml.etree as etree
 import requests
 import sys
 
-def test_url(url):
-    #sys.stderr.write("retrieving {}: ".format(url))
-    r = requests.head(url, allow_redirects=True)
-    #sys.stderr.write("{}\n".format(r.status_code))
-    return r.status_code == requests.codes.ok
+from anthology.util import test_url
 
 
 def get_anth_url(volume_id, paper_id=None, width=4):
