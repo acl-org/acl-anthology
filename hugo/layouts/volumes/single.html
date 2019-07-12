@@ -110,18 +110,7 @@
   </div>
   <hr />
 
-  {{/* This loops through all papers to find if they have abstracts; seems like
-  a pretty wasteful way to do this. Since Hugo has no "break" statement for loops,
-  the better alternative might be to indicate this in volumes.yaml */}}
-  {{ $volume_id := slicestr .Params.anthology_id 0 3 }}
-  {{ $with_abstracts := 0 }}
-  {{ range $paper.papers }}
-    {{ $paper := index (index $.Site.Data.papers $volume_id) . }}
-    {{ if (isset $paper "abstract_html") }}
-      {{ $with_abstracts = add $with_abstracts 1 }}
-    {{ end }}
-  {{ end }}
-  {{ if (gt $with_abstracts 0) }}
+  {{ if $paper.has_abstracts }}
   <button class="btn btn-sm btn-info d-block mb-3" id="toggle-all-abstracts" data-toggle-state="hide" disabled>
     <span class="on-toggle-state-hide">Show all abstracts<i class="ml-2 fas fa-angle-double-down"></i></span><span class="on-toggle-state-show">Hide all abstracts<i class="ml-2 fas fa-angle-double-up"></i></span></button>
   {{ end }}

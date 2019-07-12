@@ -23,19 +23,13 @@
     </div>
   </div>
 
-  {{/* This loops through all papers to find if they have abstracts; seems like
-  a pretty wasteful way to do this. Since Hugo has no "break" statement for loops,
-  the better alternative might be to indicate this in volumes.yaml */}}
+  {{/* Check if any of the volumes associated with this event have abstracts */}}
   {{ $with_abstracts := 0 }}
   {{ range $volumes }}
-  {{ $volume_id := slicestr . 0 3 }}
-  {{ $volume := index $.Site.Data.volumes . }}
-  {{ range $volume.papers }}
-    {{ $paper := index (index $.Site.Data.papers $volume_id) . }}
-    {{ if (isset $paper "abstract_html") }}
+    {{ $volume := index $.Site.Data.volumes . }}
+    {{ if $volume.has_abstracts }}
       {{ $with_abstracts = add $with_abstracts 1 }}
     {{ end }}
-  {{ end }}
   {{ end }}
   {{ if (gt $with_abstracts 0) }}
   <button class="btn btn-sm btn-info d-block mb-3" id="toggle-all-abstracts" data-toggle-state="hide" disabled>
