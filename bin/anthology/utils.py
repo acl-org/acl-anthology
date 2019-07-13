@@ -395,6 +395,11 @@ def make_nested(root):
                     print(f'* Moving DOI entry {doi.text} from frontmatter to metadata')
                     meta.append(doi)
 
+        # Canonicalize URL
+        url = paper.find('url')
+        if url is not None:
+            url.text = re.sub(r'https?://(www.)?aclweb.org/anthology/', '', url.text)
+
         # Remove bibtype and bibkey
         for key_name in 'bibtype bibkey'.split():
             node = paper.find(key_name)
