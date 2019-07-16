@@ -99,7 +99,8 @@ def main(args):
         if args.do:
             revision = ET.Element(change_type)
             revision.attrib['id'] = str(revno)
-            revision.text = f'{args.anthology_id}{change_letter}{revno}'
+            revision.attrib['href'] = f'{args.anthology_id}{change_letter}{revno}'
+            revision.text = args.explanation
 
             # Set tails to maintain proper indentation
             paper[-1].tail += '  '

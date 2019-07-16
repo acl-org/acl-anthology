@@ -14,8 +14,7 @@ import lxml.etree as etree
 import re
 import sys
 
-from repair_url import test_url
-from anthology.utils import infer_url, indent
+from anthology.utils import infer_url, test_url, indent
 
 filename = sys.argv[1]
 outfilename = sys.argv[2]
