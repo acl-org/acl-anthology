@@ -31,11 +31,12 @@ import sys
 import lxml.etree as etree
 
 from normalize_anth import process
-from anthology.utils import make_nested, indent
+from anthology.utils import make_nested, make_simple_element, indent
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('infile')
+    parser.add_argument('--append', '-a', action='store_true', help='Append to existing volume instead of quitting.')
     args = parser.parse_args()
 
     tree = etree.parse(args.infile)
@@ -53,17 +54,30 @@ if __name__ == '__main__':
             location = "{}:{}".format(papernum, oldnode.tag)
             process(oldnode, informat='xml')
 
-    # Ingest each volume
+    # Ingest each volume.
+    # First, find the XML file.
     collection_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{collection_id}.xml')
-    tree = etree.parse(collection_file)
-    for volume in root.findall('volume'):
-        # TODO: find correct insertion point using volume ID
-        volume_id = volume.attrib['id']
-        if tree.getroot().find(f"./volume[@id='{volume_id}']") is not None:
-            print(f'Volume {volume_id} has already been inserted into {collection_file}')
-            sys.exit(1)
+    tree = etree.parse(collection_file) if os.path.exists(collection_file) else etree.ElementTree(make_simple_element('collection', attrib={'id': collection_id}))
 
-        tree.getroot().append(volume)
+    for new_volume in root.findall('volume'):
+        volume_id = new_volume.attrib['id']
+        existing_volume = tree.getroot().find(f"./volume[@id='{volume_id}']")
+        if existing_volume is not None:
+            if args.append:
+                for paper in new_volume.findall('./paper'):
+                    print(f'Appending {paper.attrib["id"]}')
+                    existing_volume.append(paper)
+            else:
+                print(f'Volume {volume_id} has already been inserted into {collection_file}.')
+                print(f'You can append to this volume by passing `--append` (or `-a`) to this script.')
+                print(f'Quitting, since you didn\'t.')
+                sys.exit(1)
+
+            break
+    else:
+        # If no existing volume was found, append the volume
+        # TODO: find correct insertion point in the sequence of existing volumes, instead of appending
+        tree.getroot().append(new_volume)
 
     indent(tree.getroot())
     tree.write(collection_file, encoding='UTF-8', xml_declaration=True, with_tail=True)
