@@ -25,6 +25,9 @@
       {{- end -}}
   </span>
   <span class="d-block">
+    {{ if eq hugo.Environment "development" }}
+      <span class="badge badge-light align-middle">{{ .Params.anthology_id }}</span>
+    {{ end }}
     <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
     <br />
     {{ with $paper.author }}
