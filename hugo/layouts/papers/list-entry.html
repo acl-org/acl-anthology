@@ -1,19 +1,7 @@
 {{ $volume_id := slicestr .Params.anthology_id 0 3 }}
 {{ $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id }}
-<p class="d-flex align-items-stretch">
-  <span class="mr-2 text-nowrap">
-  {{- if isset $paper "revision" -}}
-    {{- range last 1 $paper.revision -}}
-    <a class="badge badge-primary align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="Latest revision PDF">
-      pdf&nbsp;(v{{ .id }})
-    </a>
-    {{- end -}}
-    {{- range first 1 $paper.revision -}}
-    <a class="badge badge-secondary align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="Original PDF">
-      pdf&nbsp;(v{{ .id }})
-    </a>
-    {{- end -}}
-  {{- else -}}
+<p class="d-sm-flex align-items-stretch">
+  <span class="d-block mr-2 text-nowrap list-button-row">
     {{- with $paper.url -}}
     <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
       pdf
@@ -22,25 +10,21 @@
     <a class="d-none" href="{{ . }}.pdf" title="Hidden link to PDF with extension">pdf</a>
       {{- end -}}
     {{- end -}}
-  {{- end -}}
     {{- $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id .Params.anthology_id -}}
     {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
     <a class="badge badge-secondary align-middle mr-1" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
       bib
     </a>
     {{- end -}}
-    <a class="badge badge-secondary align-middle mr-1" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" data-toggle="tooltip" data-placement="top" title="Search on Google">
-      <i class="fas fa-search"></i>
-    </a>
     {{- with $paper.abstract_html -}}
     <a class="badge badge-info align-middle mr-1" href="#abstract-{{ $.Params.anthology_id }}" data-toggle="collapse" aria-expanded="false" aria-controls="abstract-{{ $.Params.anthology_id }}" title="Show Abstract">abs</a>
     {{- end -}}
-    <br />
+    <br class="d-none d-sm-inline-block" />
       {{- range $paper.attachment -}}
         <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
       {{- end -}}
   </span>
-  <span class="">
+  <span class="d-block">
     <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
     <br />
     {{ with $paper.author }}
