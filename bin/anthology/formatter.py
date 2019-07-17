@@ -57,7 +57,7 @@ def bibtex_encode(text):
 
 def bibtex_convert_quotes(text):
     if re.match(r"(?<!\\)\"", text):
-        log.warning("Straight quote (\") found in text field; converting automatically, but please fix in XML")
+        log.warning(f"Straight quote (\") found in text field ({text}); converting automatically, but please fix in XML")
     text = re.sub(r"(?<!\\)\"\b", "``", text)
     text = re.sub(r"(?<!\\)\"", "''", text)
     return text
