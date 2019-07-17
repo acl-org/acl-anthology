@@ -2690,4 +2690,76 @@
       <video href="https://vimeo.com/239243926" tag="video"/>
     </paper>
   </volume>
+  <volume id="2">
+    <meta>
+      <booktitle>Proceedings of <fixed-case>EMNLP</fixed-case> 2016, Tutorial Abstracts</booktitle>
+      <editor><first>Bishan</first><last>Yang</last></editor>
+      <editor><first>Rebecca</first><last>Hwa</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Austin, Texas</address>
+      <month>November</month>
+      <year>2016</year>
+    </meta>
+    <paper id="1">
+      <title>Practical Neural Networks for NLP: From Theory to Code</title>
+      <author><first>Chris</first><last>Dyer</last></author>
+      <author><first>Yoav</first><last>Goldberg</last></author>
+      <author><first>Graham</first><last>Neubig</last></author>
+      <abstract>This tutorial aims to bring NLP researchers up to speed with the current techniques in deep learning and neural networks, and show them how they can turn their ideas into practical implementations. We will start with simple classification models (logistic regression and multilayer perceptrons) and cover more advanced patterns that come up in NLP such as recurrent networks for sequence tagging and prediction problems, structured networks (e.g., compositional architectures based on syntax trees), structured output spaces (sequences and trees), attention for sequence-to-sequence transduction, and feature induction for complex algorithm states. A particular emphasis will be on learning to represent complex objects as recursive compositions of simpler objects. This representation will reflect characterize standard objects in NLP, such as the composition of characters and morphemes into words, and words into sentences and documents. In addition, new opportunities such as learning to embed "algorithm states" such as those used in transition-based parsing and other sequential structured prediction models (for which effective features may be difficult to engineer by hand) will be covered.
+
+Everything in the tutorial will be grounded in code — we will show how to program seemingly complex neural-net models using toolkits based on the computation-graph formalism. Computation graphs decompose complex computations into a DAG, with nodes representing inputs, target outputs, parameters, or (sub)differentiable functions (e.g., "tanh", "matrix multiply", and "softmax"), and edges represent data dependencies. These graphs can be run "forward" to make predictions and compute errors (e.g., log loss, squared error) and then "backward" to compute derivatives with respect to model parameters. In particular we'll cover the Python bindings of the CNN library. CNN has been designed from the ground up for NLP applications, dynamically structured NNs, rapid prototyping, and a transparent data and execution model.</abstract>
+    </paper>
+    <paper id="2">
+      <title>Advanced Markov Logic Techniques for Scalable Joint Inference in NLP</title>
+      <author><first>Deepak</first><last>Venugopal</last></author>
+      <author><first>Vibhav</first><last>Gogate</last></author>
+      <author><first>Vincent</first><last>Ng</last></author>
+      <abstract>In the early days of the statistical NLP era, many language processing tasks were tackled using the so-called pipeline architecture: the given task is broken into a series of sub-tasks such that the output of one sub-task is an input to the next sub-task in the sequence. The pipeline architecture is appealing for various reasons, including modularity, modeling convenience, and manageable computational complexity. However, it suffers from the error propagation problem: errors made in one sub-task are propagated to the next sub-task in the sequence, leading to poor accuracy on that sub-task, which in turn leads to more errors downstream. Another disadvantage associated with it is lack of feedback: errors made in a sub-task are often not corrected using knowledge uncovered while solving another sub-task down the pipeline.
+
+Realizing these weaknesses, researchers have turned to joint inference approaches in recent years. One such approach involves the use of Markov logic, which is defined as a set of weighted first-order logic formulas and, at a high level, unifies first-order logic with probabilistic graphical models. It is an ideal modeling language (knowledge representation) for compactly representing relational and uncertain knowledge in NLP. In a typical use case of MLNs in NLP, the application designer describes the background knowledge using a few first-order logic sentences and then uses software packages such as Alchemy, Tuffy, and Markov the beast to perform learning and inference (prediction) over the MLN. However, despite its obvious advantages, over the years, researchers and practitioners have found it difficult to use MLNs effectively in many NLP applications. The main reason for this is that it is hard to scale inference and learning algorithms for MLNs to large datasets and complex models, that are typical in NLP.
+
+In this tutorial, we will introduce the audience to recent advances in scaling up inference and learning in MLNs as well as new approaches to make MLNs a "black-box" for NLP applications (with only minor tuning required on the part of the user). Specifically, we will introduce attendees to a key idea that has emerged in the MLN research community over the last few years, lifted inference , which refers to inference techniques that take advantage of symmetries (e.g., synonyms), both exact and approximate, in the MLN . We will describe how these next-generation inference techniques can be used to perform effective joint inference. We will also present our new software package for inference and learning in MLNs, Alchemy 2.0, which is based on lifted inference, focusing primarily on how it can be used to scale up inference and learning in large models and datasets for applications such as semantic similarity determination, information extraction and question answering.</abstract>
+    </paper>
+    <paper id="3"> 
+      <title>Lifelong Machine Learning for Natural Language Processing</title>
+      <author><first>Zhiyuan</first><last>Chen</last></author>
+      <author><first>Bing</first><last>Liu</last></author>
+      <abstract>Machine learning (ML) has been successfully used as a prevalent approach to solving numerous NLP problems. However, the classic ML paradigm learns in isolation. That is, given a dataset, an ML algorithm is executed on the dataset to produce a model without using any related or prior knowledge. Although this type of isolated learning is very useful, it also has serious limitations as it does not accumulate knowledge learned in the past and use the knowledge to help future learning, which is the hallmark of human learning and human intelligence. Lifelong machine learning (LML) aims to achieve this capability. Specifically, it aims to design and develop computational learning systems and algorithms that learn as humans do, i.e., retaining the results learned in the past, abstracting knowledge from them, and using the knowledge to help future learning. In this tutorial, we will introduce the existing research of LML and to show that LML is very suitable for NLP tasks and has potential to help NLP make major progresses.</abstract>
+    </paper>
+    <paper id="4">
+      <title>Neural Networks for Sentiment Analysis</title>
+      <author><first>Yue</first><last>Zhang</last></author>
+      <author><first>Duy Tin</first><last>Vo</last></author>
+      <abstract>Sentiment analysis has been a major research topic in natural language processing (NLP). Traditionally, the problem has been attacked using discrete models and manually-defined sparse features. Over the past few years, neural network models have received increased research efforts in most sub areas of sentiment analysis, giving highly promising results. A main reason is the capability of neural models to automatically learn dense features that capture subtle semantic information over words, sentences and documents, which are difficult to model using traditional discrete features based on words and ngram patterns. This tutorial gives an introduction to neural network models for sentiment analysis, discussing the mathematics of word embeddings, sequence models and tree structured models and their use in sentiment analysis on the word, sentence and document levels, and fine-grained sentiment analysis. The tutorial covers a range of neural network models (e.g. CNN, RNN, RecNN, LSTM) and their extensions, which are employed in four main subtasks of sentiment analysis:
+Sentiment-oriented embeddings; 
+Sentence-level sentiment;
+Document-level sentiment;
+Fine-grained sentiment.
+
+The content of the tutorial is divided into 3 sections of 1 hour each. We assume that the audience is familiar with linear algebra and basic neural network structures, introduce the mathematical details of the most typical models. First, we will introduce the sentiment analysis task, basic concepts related to neural network models for sentiment analysis, and show detail approaches to integrate sentiment information into embeddings. Sentence-level models will be described in the second section. Finally, we will discuss neural network models use for document-level and fine-grained sentiment.</abstract>
+    </paper>
+    <paper id="5">
+      <title>Continuous Vector Spaces for Cross-language NLP Applications</title>
+      <author><first>Rafael E.</first><last>Banchs</last></author>
+      <abstract>The mathematical metaphor offered by the geometric concept of distance in vector spaces with respect to semantics and meaning has been proven to be useful in many monolingual natural language processing applications. There is also some recent and strong evidence that this paradigm can also be useful in the cross-language setting. In this tutorial, we present and discuss some of the most recent advances on exploiting the vector space model paradigm in specific cross-language natural language processing applications, along with a comprehensive review of the theoretical background behind them.
+
+First, the tutorial introduces some fundamental concepts of distributional semantics and vector space models. More specifically, the concepts of distributional hypothesis and term-document matrices are revised, followed by a brief discussion on linear and non-linear dimensionality reduction techniques and their implications to the parallel distributed approach to semantic cognition. Next, some classical examples of using vector space models in monolingual natural language processing applications are presented. Specific examples in the areas of information retrieval, related term identification and semantic compositionality are described.
+
+Then, the tutorial focuses its attention on the use of the vector space model paradigm in cross-language applications. To this end, some recent examples are presented and discussed in detail, addressing the specific problems of cross-language information retrieval, cross-language sentence matching, and machine translation. Some of the most recent developments in the area of Neural Machine Translation are also discussed.
+
+Finally, the tutorial concludes with a discussion about current and future research problems related to the use of vector space models in cross-language settings. Future avenues for scientific research are described, with major emphasis on the extension from vector and matrix representations to tensors, as well as the problem of encoding word position information into the vector-based representations.</abstract>
+    </paper>
+    <paper id="6">
+      <title>Methods and Theories for Large-scale Structured Prediction</title>
+      <author><first>Xu</first><last>Sun</last></author>
+      <author><first>Yansong</first><last>Feng</last></author>
+      <abstract>Many important NLP tasks are casted as structured prediction problems, and try to predict certain forms of structured output from the input. Examples of structured prediction include POS tagging, named entity recognition, PCFG parsing, dependency parsing, machine translation, and many others. When apply structured prediction to a specific NLP task, there are the following challenges:
+
+1. Model selection: Among various models/algorithms with different characteristics, which one should we choose for a specific NLP task?
+2. Training: How to train the model parameters effectively and efficiently?
+3. Overfitting: To achieve good accuracy on test data, it is important to control the overfitting from the training data. How to control the overfitting risk for structured prediction?
+
+This tutorial will provide a clear overview of recent advances in structured prediction methods and theories, and address the above issues when we apply structured prediction to NLP tasks. We will introduce large margin methods (e.g., perceptrons, MIRA), graphical models (e.g., CRFs), and deep learning methods (e.g., RNN, LSTM), and show the respective advantages and disadvantages for NLP applications. For the training algorithms, we will introduce online/ stochastic training methods, and we will introduce parallel online/stochastic learning algorithms and theories to speed up the training (e.g., the Hogwild algorithm). For controlling the overfitting from training data, we will introduce the weight regularization methods, structure regularization, and implicit regularization methods.</abstract>
+    </paper>
+  </volume>
 </collection>
