@@ -75,18 +75,10 @@
       {{ range $paper.revision }}
         {{ if eq .id "1" }}
         <dt>Original:</dt>
-        <dd><a href="{{ .url }}">{{ .value }}</a></dd>
         {{ else }}
         <dt>Version {{ .id }}:</dt>
-        <dd><a href="{{ .url }}">{{ .value }}</a>
-          <a class="btn btn-secondary btn-sm" data-toggle="collapse" href="#revision{{ .id }}" role="button" aria-expanded="false" aria-controls="collapseExample">Explanation</a>
-         <div class="collapse" id="revision{{ .id }}">
-            <div class="card card-body">
-              {{ .explanation }}
-            </div>
-          </div>
-        </dd>
         {{ end }}
+        <dd><a href="{{ .url }}">{{ .value }}</a></dd>
       {{ end }}
       {{ range $paper.erratum }}
         <dt>Erratum e{{ .id }}:</dt>
