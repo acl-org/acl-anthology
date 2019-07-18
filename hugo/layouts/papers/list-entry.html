@@ -2,25 +2,12 @@
 {{ $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id }}
 <p>
   <span class="mr-2">
-  {{- if isset $paper "revision" -}}
-    {{- range last 1 $paper.revision -}}
-    <a class="badge badge-primary align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="Latest revision PDF">
-      pdf&nbsp;(v{{ .id }})
-    </a>
-    {{- end -}}
-    {{- range first 1 $paper.revision -}}
-    <a class="badge badge-secondary align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="Original PDF">
-      pdf&nbsp;(v{{ .id }})
-    </a>
-    {{- end -}}
-  {{- else -}}
-    {{- with $paper.url -}}
+  {{- with $paper.url -}}
     <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
       pdf
     </a>
-      {{- if and (hasPrefix . $.Site.Params.baseURL) (eq . (strings.TrimSuffix ".pdf" .)) -}}
+    {{- if and (hasPrefix . $.Site.Params.baseURL) (eq . (strings.TrimSuffix ".pdf" .)) -}}
     <a style="display: none" href="{{ . }}.pdf" title="Hidden link to PDF with extension">pdf</a>
-      {{- end -}}
     {{- end -}}
   {{- end -}}
     {{- $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id .Params.anthology_id -}}
