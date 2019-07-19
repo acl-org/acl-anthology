@@ -44,7 +44,7 @@ import ssl
 import sys
 import tempfile
 
-from anthology.utils import deconstruct_anthology_id
+from anthology.utils import deconstruct_anthology_id, indent
 from anthology.data import ANTHOLOGY_URL
 
 import lxml.etree as ET
@@ -107,6 +107,8 @@ def main(args):
             revision.tail = '\n    '  # newline and two levels of indent
 
             paper.append(revision)
+
+            indent(tree.getroot())
 
             tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
             print(f'-> Added {change_type} node "{revision.text}" to XML', file=sys.stderr)
