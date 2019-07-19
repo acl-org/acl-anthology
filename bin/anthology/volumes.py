@@ -45,6 +45,7 @@ class Volume:
         self.attrib["venues"] = venue_index.register(self)
         self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
         self.content = []
+        self.has_abstracts = False
         self.has_frontmatter = False
 
     @staticmethod
@@ -151,6 +152,8 @@ class Volume:
 
     def append(self, paper):
         self.content.append(paper)
+        if paper.has_abstract:
+            self.has_abstracts = True
 
     def get(self, name, default=None):
         try:

@@ -20,6 +20,7 @@
     {{ $style := resources.Get "css/main.scss" | toCSS $sass_options | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" media="screen" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ "/css/academicons.min.css" | relURL }}">
 
     {{ block "meta" . }}{{ end }}
   </head>
@@ -46,7 +47,27 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script>
       $(function () {
-          $('[data-toggle="tooltip"]').tooltip()
+          // tooltips
+          $('[data-toggle="tooltip"]').tooltip();
+
+          // abstract toggling -- used on multiple pages, so defined here
+          if ($("#toggle-all-abstracts")) {
+              $("#toggle-all-abstracts").click(
+                  function() {
+                      var target = $("#toggle-all-abstracts");
+                      target.attr("disabled", true);
+                      if (target.attr("data-toggle-state") == "hide") {
+                          $(".abstract-collapse").collapse('show');
+                          target.attr("data-toggle-state", "show");
+                      } else {
+                          $(".abstract-collapse").collapse('hide');
+                          target.attr("data-toggle-state", "hide");
+                      }
+                      target.attr("disabled", false);
+                  }
+              );
+              $("#toggle-all-abstracts").attr("disabled", false);
+          }
       })
     </script>
     {{ block "javascript" . }}{{ end }}
