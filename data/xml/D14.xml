@@ -2129,4 +2129,97 @@
       <doi>10.3115/v1/D14-1226</doi>
     </paper>
   </volume>
+  <volume id="2">
+    <meta>
+      <booktitle>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing: Tutorial Abstracts</booktitle>
+      <editor><first>Lucia</first><last>Specia</last></editor>
+      <editor><first>Xavier</first><last>Carreras</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Doha, Qatar</address>
+      <month>October</month>
+      <year>2014</year>
+    </meta>
+    <paper id="1">
+      <title>Sentiment Analysis of Social Media Texts</title>
+      <author><first>Saif M.</first><last>Mohammad</last></author>
+      <author><first>Xiaodan</first><last>Zhu</last></author>
+      <abstract>Automatically detecting sentiment of product reviews, blogs, tweets, and SMS messages has attracted extensive interest from both the academia and industry. It has a number of applications, including: tracking sentiment towards products, movies, politicians, etc.; improving customer relation models; detecting happiness and well-being; and improving automatic dialogue systems. In this tutorial, we will describe how you can create a state-of-the-art sentiment analysis system, with a focus on social media posts.
+
+We begin with an introduction to sentiment analysis and its various forms: term level, message level, document level, and aspect level. We will describe how sentiment analysis systems are evaluated, especially through recent SemEval shared tasks: Sentiment Analysis of Twitter (SemEval-2013 Task 2, SemEval 2014-Task 9) and Aspect Based Sentiment Analysis (SemEval-2014 Task 4).
+
+We will give an overview of the best sentiment analysis systems at this point of time, including those that are conventional statistical systems as well as those using deep learning approaches. We will describe in detail the NRC-Canada systems, which were the overall best performing systems in all three SemEval competitions listed above. These are simple lexical- and sentiment-lexicon features based systems, which are relatively easy to re-implement.
+
+We will discuss features that had the most impact (those derived from sentiment lexicons and negation handling). We will present how large tweet-specific sentiment lexicons can be automatically generated and evaluated. We will also show how negation impacts sentiment differently depending on whether the scope of the negation is positive or negative. Finally, we will flesh out limitations of current approaches and promising future directions.</abstract>
+    </paper>
+    <paper id="2">
+      <title>Spectral Learning Techniques for Weighted Automata, Transducers, and Grammars</title>
+      <author><first>Borja</first><last>Balle</last></author>
+      <author><first>Ariadna</first><last>Quattoni</last></author>
+      <author><first>Xavier</first><last>Carreras</last></author>
+      <abstract>In recent years we have seen the development of efficient and provably correct algorithms for learning weighted automata and closely related function classes such as weighted transducers and weighted context-free grammars. The common denominator of all these algorithms is the so-called spectral method, which gives an efficient and robust way to estimate recursively defined functions from empirical estimations of observable statistics. These algorithms are appealing because of the existence of theoretical guarantees (e.g. they are not susceptible to local minima) and because of their efficiency. However, despite their simplicity and wide applicability to real problems, their impact in NLP applications is still moderate. One of the goals of this tutorial is to remedy this situation.
+
+The contents that will be presented in this tutorial will offer a complementary perspective with respect to previous tutorials on spectral methods presented at ICML-2012, ICML-2013 and NAACL-2013. Rather than using the language of graphical models and signal processing, we tell the story from the perspective of formal languages and automata theory (without assuming a background in formal algebraic methods). Our presentation highlights the common intuitions lying behind different spectral algorithms by presenting them in a unified framework based on the concepts of low-rank factorizations and completions of Hankel matrices. In addition, we provide an interpretation of the method in terms of forward and backward recursions for automata and grammars. This provides extra intuitions about the method and stresses the importance of matrix factorization for learning automata and grammars. We believe that this complementary perspective might be appealing for an NLP audience and serve to put spectral learning in a wider and, perhaps for some, more familiar context. Our hope is that this will broaden the understanding of these methods by the NLP community and empower many researchers to apply these techniques to novel problems.
+
+The content of the tutorial will be divided into four blocks of 45 minutes each, as follows. The first block will introduce the basic definitions of weighted automata and Hankel matrices, and present a key connection between the fundamental theorem of weighted automata and learning. In the second block we will discuss the case of probabilistic automata in detail, touching upon all aspects from the underlying theory to the tricks required to achieve accurate and scalable learning algorithms. The third block will present extensions to related models, including sequence tagging models, finite-state transducers and weighted context-free grammars. The last block will describe a general framework for using spectral techniques in more general situations where a matrix completion pre-processing step is required; several applications of this approach will be described.</abstract>
+    </paper>
+    <paper id="3">
+      <title>Semantic Parsing with Combinatory Categorial Grammars</title>
+      <author><first>Yoav</first><last>Artzi</last></author>
+      <author><first>Nicholas</first><last>Fitzgerald</last></author>
+      <author><first>Luke</first><last>Zettlemoyer</last></author>
+      <abstract>Semantic parsers map natural language sentences to formal representations of their underlying meaning. Building accurate semantic parsers without prohibitive engineering costs is a long-standing, open research problem.
+
+The tutorial will describe general principles for building semantic parsers. The presentation will be divided into two main parts: learning and modeling. In the learning part, we will describe a unified approach for learning Combinatory Categorial Grammar (CCG) semantic parsers, that induces both a CCG lexicon and the parameters of a parsing model. The approach learns from data with labeled meaning representations, as well as from more easily gathered weak supervision. It also enables grounded learning where the semantic parser is used in an interactive environment, for example to read and execute instructions. The modeling section will include best practices for grammar design and choice of semantic representation. We will motivate our use of lambda calculus as a language for building and representing meaning with examples from several domains.
+
+The ideas we will discuss are widely applicable. The semantic modeling approach, while implemented in lambda calculus, could be applied to many other formal languages. Similarly, the algorithms for inducing CCG focus on tasks that are formalism independent, learning the meaning of words and estimating parsing parameters. No prior knowledge of CCG is required. The tutorial will be backed by implementation and experiments in the University of Washington Semantic Parsing Framework (UW SPF, http://yoavartzi.com/spf).</abstract>
+    </paper>
+    <paper id="4">
+      <title>Linear Programming Decoders in Natural Language Processing: From Integer Programming to Message Passing and Dual Decomposition</title>
+      <author><first>André F. T.</first><last>Martins</last></author>
+      <abstract>This tutorial will cover the theory and practice of linear programming decoders. This class of decoders encompasses a variety of techniques that have enjoyed great success in devising structured models for natural language processing (NLP). Along the tutorial, we provide a unified view of different algorithms and modeling techniques, including belief propagation, dual decomposition, integer linear programming, Markov logic, and constrained conditional models. Various applications in NLP will serve as a motivation.
+
+There is a long string of work using integer linear programming (ILP) formulations in NLP, for example in semantic role labeling, machine translation, summarization, dependency parsing, coreference resolution, and opinion mining, to name just a few. At the heart of these approaches is the ability to encode logic and budget constraints (common in NLP and information retrieval) as linear inequalities. Thanks to general purpose solvers (such as Gurobi, CPLEX, or GLPK), the practitioner can abstract away from the decoding algorithm and focus on developing a powerful model. A disadvantage, however, is that general solvers do not scale well to large problem instances, since they fail to exploit the structure of the problem.
+
+This is where graphical models come into play. In this tutorial, we show that most logic and budget constraints that arise in NLP can be cast in this framework. This opens the door for the use of message-passing algorithms, such as belief propagation and variants thereof. An alternative are algorithms based on dual decomposition, such as the subgradient method or AD3. These algorithms have achieved great success in a variety of applications, such as parsing, corpus-wide tagging, machine translation, summarization, joint coreference resolution and quotation attribution, and semantic role labeling. Interestingly, most decoders used in these works can be regarded as structure-aware solvers for addressing relaxations of integer linear programs. All these algorithms have a similar consensus-based architecture: they repeatedly perform certain "local" operations in the graph, until some form of local agreement is achieved. The local operations are performed at each factor, and they range between computing marginals, max-marginals, an optimal configuration, or a small quadratic problem, all of which are commonly tractable and efficient in a wide range of problems.
+
+As a companion of this tutorial, we provide an open-source implementation of some of the algorithms described above, available at http://www.ark.cs.cmu.edu/AD3.</abstract>
+    </paper>
+    <paper id="5">
+      <title>Syntax-Based Statistical Machine Translation</title>
+      <author><first>Philip</first><last>Williams</last></author>
+      <author><first>Philipp</first><last>Koehn</last></author>
+      <abstract>The tutorial explains in detail syntax-based statistical machine translation with synchronous context free grammars (SCFG). It is aimed at researchers who have little background in this area, and gives a comprehensive overview about the main models and methods.
+
+While syntax-based models in statistical machine translation have a long history, spanning back almost 20 years, they have only recently shown superior translation quality over the more commonly used phrase-based models, and are now considered state of the art for some language pairs, such as Chinese-English (since ISI's submission to NIST 2006), and English-German (since Edinburgh's submission to WMT 2012).
+
+While the field is very dynamic, there is a core set of methods that have become dominant. Such SCFG models are implemented in the open source machine translation toolkit Moses, and the tutors draw from the practical experience of its development.
+
+The tutorial focuses on explaining core established concepts in SCFG-based approaches, which are the most popular in this area. The main goal of the tutorial is for the audience to understand how these systems work end-to-end. We review as much relevant literature as necessary, but the tutorial is not a primarily research survey.
+
+The tutorial is rounded up with open problems and advanced topics, such as computational challenges, different formalisms for syntax-based models and inclusion of semantics.</abstract>
+    </paper>
+    <paper id="6">
+      <title>Embedding Methods for Natural Language Processing</title>
+      <author><first>Antoine</first><last>Bordes</last></author>
+      <author><first>Jason</first><last>Weston</last></author>
+      <abstract>Embedding-based models are popular tools in Natural Language Processing these days. In this tutorial, our goal is to provide an overview of the main advances in this domain. These methods learn latent representations of words, as well as database entries that can then be used to do semantic search, automatic knowledge base construction, natural language understanding, etc. Our current plan is to split the tutorial into 2 sessions of 90 minutes, with a 30 minutes coffee break in the middle, so that we can cover in a first session the basics of learning embeddings and advanced models in the second session. This is detailed in the following.
+
+Part 1: Unsupervised and Supervised Embeddings
+We introduce models that embed tokens (words, database entries) by representing them as low dimensional embedding vectors. Unsupervised and supervised methods will be discussed, including SVD, Word2Vec, Paragraph Vectors, SSI, Wsabie and others. A comparison between methods will be made in terms of applicability, type of loss function (ranking loss, reconstruction loss, classification loss), regularization, etc. The use of these models in several NLP tasks will be discussed, including question answering, frame identification, knowledge extraction and document retrieval.
+
+Part 2: Embeddings for Multi-relational Data
+This second part will focus mostly on the construction of embeddings for multi-relational data, that is when tokens can be interconnected in different ways in the data such as in knowledge bases for instance. Several methods based on tensor factorization, collective matrix factorization, stochastic block models or energy-based learning will be presented. The task of link prediction in a knowledge base will be used as an application example. Multiple empirical results on the use of embedding models to align textual information to knowledge bases will also be presented, together with some demos if time permits.</abstract>
+    </paper>
+    <paper id="7">
+      <title>Natural Language Processing of Arabic and its Dialects</title>
+      <author><first>Mona</first><last>Diab</last></author>
+      <author><first>Nizar</first><last>Habash</last></author>
+      <abstract>This tutorial introduces the different challenges and current solutions to the automatic processing of Arabic and its dialects. The tutorial has two parts: First, we present a discussion of generic issues relevant to Arabic NLP and detail dialectal linguistic issues and the challenges they pose for NLP. In the second part, we review the state-of-the-art in Arabic processing covering several enabling technologies and applications, e.g., dialect identification, morphological processing (analysis, disambiguation, tokenization, POS tagging), parsing, and machine translation.</abstract>
+    </paper>
+    <paper id="8">
+      <title>Text Quantification</title>
+      <author><first>Fabrizio</first><last>Sebastiani</last></author>
+      <abstract>In recent years it has been pointed out that, in a number of applications involving (text) classification, the final goal is not determining which class (or classes) individual unlabelled data items belong to, but determining the prevalence (or "relative frequency") of each class in the unlabelled data. The latter task is known as quantification. Assume a market research agency runs a poll in which they ask the question "What do you think of the recent ad campaign for product X?" Once the poll is complete, they may want to classify the resulting textual answers according to whether they belong or not to the class LovedTheCampaign. The agency is likely not interested in whether a specific individual belongs to the class LovedTheCampaign, but in knowing how many respondents belong to it, i.e., in knowing the prevalence of the class. In other words, the agency is interested not in classification, but in quantification. Essentially, quantification is classification tackled at the aggregate (rather than at the individual) level. The research community has recently shown a growing interest in tackling quantification as a task in its own right. One of the reasons is that, since the goal of quantification is different than that of classification, quantification requires evaluation measures different than for classification. A second, related reason is that using a method optimized for classification accuracy is suboptimal when quantification accuracy is the real goal. A third reason is the growing awareness that quantification is going to be more and more important; with the advent of big data, more and more application contexts are going to spring up in which we will simply be happy with analyzing data at the aggregate (rather than at the individual) level. The goal of this tutorial is to introduce the audience to the problem of quantification, to the techniques that have been proposed for solving it, to the metrics used to evaluate them, and to the problems that are still open in the area.</abstract>
+    </paper>
+  </volume>
 </collection>

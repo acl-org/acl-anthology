@@ -2746,4 +2746,92 @@
       <abstract>Feature design and selection is a crucial aspect when treating terminology extraction as a machine learning classification problem. We designed feature classes which characterize different properties of terms based on distributions, and propose a new feature class for components of term candidates. By using random forests, we infer optimal features which are later used to build decision tree classifiers. We evaluate our method using the ACL RD-TEC dataset. We demonstrate the importance of the novel feature class for downgrading termhood which exploits properties of term components. Furthermore, our classification suggests that the identification of reliable term candidates should be performed successively, rather than just once.</abstract>
     </paper>
   </volume>
+  <volume id="5">
+    <meta>
+      <booktitle>Proceedings of the 15th Conference of the <fixed-case>E</fixed-case>uropean Chapter of the Association for Computational Linguistics: Tutorial Abstracts</booktitle>
+      <editor><first>Alexandre</first><last>Klementiev</last></editor>
+      <editor><first>Lucia</first><last>Specia</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Valencia, Spain</address>
+      <month>April</month>
+      <year>2017</year>
+    </meta>
+    <paper id="1">
+      <title>Universal Dependencies</title>
+      <author><first>Joakim</first><last>Nivre</last></author>
+      <author><first>Daniel</first><last>Zeman</last></author>
+      <author><first>Filip</first><last>Ginter</last></author>
+      <author><first>Francis</first><last>Tyers</last></author>
+      <url>E17-5001</url>
+      <abstract>Universal Dependencies (UD) is a project that seeks to develop cross-linguistically consistent treebank annotation for many languages. This tutorial gives an introduction to the UD framework and resources, from basic design principles to annotation guidelines and existing treebanks. We also discuss tools for developing and exploiting UD treebanks and survey applications of UD in NLP and linguistics.</abstract>
+    </paper>
+    <paper id="2">
+      <title>Practical Neural Machine Translation</title>
+      <author><first>Rico</first><last>Sennrich</last></author>
+      <author><first>Barry</first><last>Haddow</last></author>
+      <url>E17-5002</url>
+      <abstract>Neural Machine Translation (NMT) has achieved new breakthroughs in machine translation in recent years. It has dominated recent shared translation tasks in machine translation research, and is also being quickly adopted in industry. The technical differences between NMT and the previously dominant phrase-based statistical approach require that practictioners learn new best practices for building MT systems, ranging from different hardware requirements, new techniques for handling rare words and monolingual data, to new opportunities in continued learning and domain adaptation.
+
+This tutorial is aimed at researchers and users of machine translation interested in working with NMT. The tutorial will cover a basic theoretical introduction to NMT, discuss the components of state-of-the-art systems, and provide practical advice for building NMT systems.</abstract>
+    </paper>
+    <paper id="3">
+      <title>Imitation learning for structured prediction in natural language processing</title>
+      <author><first>Andreas</first><last>Vlachos</last></author>
+      <author><first>Gerasimos</first><last>Lampouras</last></author>
+      <author><first>Sebastian</first><last>Riedel</last></author>
+      <url>E17-5003</url>
+      <abstract>Imitation learning is a learning paradigm originally developed to learn robotic controllers from demonstrations by humans, e.g. autonomous flight from pilot demonstrations. Recently, algorithms for structured prediction were proposed under this paradigm and have been applied successfully to a number of tasks including syntactic dependency parsing, information extraction, coreference resolution, dynamic feature selection, semantic parsing and natural language generation. Key advantages are the ability to handle large output search spaces and to learn with non-decomposable loss functions. Our aim in this tutorial is to have a unified presentation of the various imitation algorithms for structure prediction, and show how they can be applied to a variety of NLP tasks.
+
+All material associated with the tutorial will be made available through https://sheffieldnlp.github.io/ImitationLearningTutorialEACL2017/.</abstract>
+    </paper>
+    <paper id="4">
+      <title>Word Vector Space Specialisation</title>
+      <author><first>Ivan</first><last>Vulić</last></author>
+      <author><first>Nikola</first><last>Mrkšić</last></author>
+      <author><first>Mohammad Taher</first><last>Pilehvar</last></author>
+      <url>E17-5004</url>
+      <abstract>Specialising vector spaces to maximise their content with respect to one key property of vector space models (e.g. semantic similarity vs. relatedness or lexical entailment) while mitigating others has become an active and attractive research topic in representation learning. Such specialised vector spaces support different classes of NLP problems. Proposed approaches fall into two broad categories: a) Unsupervised methods which learn from raw textual corpora in more sophisticated ways (e.g. using context selection, extracting co-occurrence information from word patterns, attending over contexts); and b) Knowledge-base driven approaches which exploit available resources to encode external information into distributional vector spaces, injecting knowledge from semantic lexicons (e.g., WordNet, FrameNet, PPDB). In this tutorial, we will introduce researchers to state-of-the-art methods for constructing vector spaces specialised for a broad range of downstream NLP applications. We will deliver a detailed survey of the proposed methods and discuss best practices for intrinsic and application-oriented evaluation of such vector spaces.
+
+Throughout the tutorial, we will provide running examples reaching beyond English as the only (and probably the easiest) use-case language, in order to demonstrate the applicability and modelling challenges of current representation learning architectures in other languages.</abstract>
+    </paper>
+    <paper id="5">
+      <title>Integer Linear Programming formulations in Natural Language Processing</title>
+      <author><first>Dan</first><last>Roth</last></author>
+      <author><first>Vivek</first><last>Srikumar</last></author>
+      <url>E17-5005</url>
+      <abstract>Making decisions in natural language processing problems often involves assigning values to sets of interdependent variables where the expressive dependency structure can influence, or even dictate what assignments are possible. This setting includes a broad range of structured prediction problems such as semantic role labeling, named entity and relation recognition, co-reference resolution, dependency parsing and semantic parsing. The setting is also appropriate for cases that may require making global decisions that involve multiple components, possibly pre-designed or pre-learned, as in event recognition and analysis, summarization, paraphrasing, textual entailment and question answering. In all these cases, it is natural to formulate the decision problem as a constrained optimization problem, with an objective function that is composed of learned models, subject to domain or problem specific constraints.
+
+Over the last few years, starting with a couple of papers written by (Roth &amp; Yih, 2004, 2005), dozens of papers have been using the Integer linear programming (ILP) formulation developed there, including several award-winning papers (e.g., (Martins, Smith, &amp; Xing, 2009; Koo, Rush, Collins, Jaakkola, &amp; Sontag., 2010; Berant, Dagan, &amp; Goldberger, 2011)).
+
+This tutorial will present the key ingredients of ILP formulations of natural language processing problems, aiming at guiding readers through the key modeling steps, explaining the learning and inference paradigms and exemplifying these by providing examples from the literature. We will cover a range of topics, from the theoretical foundations of learning and inference with ILP models, to practical modeling guides, to software packages and applications.
+
+The goal of this tutorial is to introduce the computational framework to broader ACL community, motivate it as a generic framework for learning and inference in global NLP decision problems, present some of the key theoretical and practical issues involved and survey some of the existing applications of it as a way to promote further development of the framework and additional applications. We will also make connections with some of the “hot” topics in current NLP research and show how they can be used within the general framework proposed here. The tutorial will thus be useful for many of the senior and junior researchers that have interest in global decision problems in NLP, providing a concise overview of recent perspectives and research results.</abstract>
+    </paper>
+    <paper id="6">
+      <title>Building Multimodal Simulations for Natural Language</title>
+      <author><first>James</first><last>Pustejovsky</last></author>
+      <author><first>Nikhil</first><last>Krishnaswamy</last></author>
+      <url>E17-5006</url>
+      <abstract>In this tutorial, we introduce a computational framework and modeling language (VoxML) for composing multimodal simulations of natural language expressions within a 3D simulation environment (VoxSim).  We demonstrate how to construct voxemes, which are visual object representations of linguistic entities.  We also show how to compose events and actions over these objects, within a restricted domain of dynamics. This gives us the building blocks to simulate narratives of multiple events or participate in a multimodal dialogue with synthetic agents in the simulation environment. To our knowledge, this is the first time such material has been presented as a tutorial within the CL community.
+
+This will be of relevance to students and researchers interested in modeling actionable language, natural language communication with agents and robots, spatial and temporal constraint solving through language, referring expression generation, embodied cognition, as well as minimal model creation.
+
+Multimodal simulation of language, particularly motion expressions, brings together a number of existing lines of research from the computational linguistic, semantics, robotics, and formal logic communities, including action and event representation (Di Eugenio, 1991), modeling gestural correlates to NL expressions (Kipp et al., 2007; Neff et al., 2008), and action event modeling (Kipper and Palmer, 2000; Yang et al., 2015). We combine an approach to event modeling with a scene generation approach akin to those found in work by (Coyne and Sproat, 2001; Siskind, 2011; Chang et al., 2015). Mapping natural language expressions through a formal model and a dynamic logic interpretation into a visualization of the event described provides an environment for grounding concepts and referring expressions that is interpretable by both a computer and a human user. This opens a variety of avenues for humans to communicate with computerized agents and robots, as in (Matuszek et al., 2013; Lauria et al., 2001), (Forbes et al., 2015), and (Deits et al., 2013; Walter et al., 2013; Tellex et al., 2014). Simulation and automatic visualization of events from natural language descriptions and supplementary modalities, such as gestures, allows humans to use their native capabilities as linguistic and visual interpreters to collaborate on tasks with an artificial agent or to put semantic intuitions to the test in an environment where user and agent share a common context.
+
+In previous work (Pustejovsky and Krishnaswamy, 2014; Pustejovsky, 2013a), we introduced a method for modeling natural language expressions within a 3D simulation environment built on top of the game development platform Unity (Goldstone, 2009). The goal of that work was to evaluate, through explicit visualizations of linguistic input, the semantic presuppositions inherent in the different lexical choices of an utterance. This work led to two additional lines of research: an explicit encoding for how an object is itself situated relative to its environment; and an operational characterization of how an object changes its location or how an agent acts on an object over time, e.g., its affordance structure. The former has developed into a semantic notion of situational context, called a habitat (Pustejovsky, 2013a; McDonald and Pustejovsky, 2014), while the latter is addressed by dynamic interpretations of event structure (Pustejovsky and Moszkowicz, 2011; Pustejovsky and Krishnaswamy, 2016b; Pustejovsky, 2013b).
+
+The requirements on building a visual simulation from language include several components. We require a rich type system for lexical items and their composition, as well as a language for modeling the dynamics of events, based on Generative Lexicon (GL). Further, a minimal embedding space (MES) for the simulation must be determined. This is the 3D region within which the state is configured or the event unfolds. Object-based attributes for participants in a situation or event also need to be specified; e.g., orientation, relative size, default position or pose, etc. The simulation establishes an epistemic condition on the object and event rendering, imposing an implicit point of view (POV). Finally, there must be some sort of agent-dependent embodiment; this determines the relative scaling of an agent and its event participants and their surroundings, as it engages in the environment.
+In order to construct a robust simulation from linguistic input, an event and its participants must be embedded within an appropriate minimal embedding space. This must sufficiently enclose the event localization, while optionally including space enough for a frame of reference for the event (the viewerâ€™s perspective).
+
+We first describe the formal multimodal foundations for the modeling language, VoxML, which creates a minimal simulation from the linguistic input interpreted by the multimodal language, DITL. We then describe VoxSim, the compositional modeling and simulation environment, which maps the minimal VoxML model of the linguistic utterance to a simulation in Unity. This knowledge includes specification of object affordances, e.g., what actions are possible or enabled by use an object.
+
+VoxML (Pustejovsky and Krishnaswamy, 2016b; Pustejovsky and Krishnaswamy, 2016a) encodes semantic knowledge of real-world objects represented as 3D models, and of events and attributes related to and enacted over these objects. VoxML goes beyond the limitations of existing 3D visual markup languages by allowing for the encoding of a broad range of semantic knowledge that can be exploited by a simulation platform such as VoxSim.
+
+VoxSim (Krishnaswamy and Pustejovsky, 2016a; Krishnaswamy and Pustejovsky, 2016b) uses object and event semantic knowledge to generate animated scenes in real time without a complex animation interface. It uses the Unity game engine for graphics and I/O processing and takes as input a simple natural language utterance. The parsed utterance is semantically interpreted and transformed into a hybrid dynamic logic representation (DITL), and used to generate a minimal simulation of the event when composed with VoxML knowledge. 3D assets and VoxML-modeled nominal objects and events are created with other Unity-based tools, and VoxSim uses the entirety of the composed information to render a visualization of the described event.
+
+The tutorial participants will learn how to build simulatable objects, compose dynamic event structures, and simulate the events running over the objects. The toolkit consists of object and program (event) composers and the runtime environment, which allows for the user to directly manipulate the objects, or interact with synthetic agents in VoxSim. As a result of this tutorial, the student will acquire the following skill set: take a novel object geometry from a library and model it in VoxML; apply existing library behaviors (actions or events) to the new VoxML object; model attributes of new objects as well as introduce novel attributes; model novel behaviors over objects.
+
+The tutorial modules will be conducted within a build image of the software. Access to libraries will be provided by the instructors. No knowledge of 3D modeling or the Unity platform will be required.</abstract>
+    </paper>
+  </volume>
 </collection>
