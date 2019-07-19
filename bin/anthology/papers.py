@@ -180,6 +180,10 @@ class Paper:
             return self.parent_volume.full_id
         return None
 
+    @property
+    def has_abstract(self):
+        return "xml_abstract" in self.attrib
+
     def get(self, name, default=None):
         try:
             return self.attrib[name]

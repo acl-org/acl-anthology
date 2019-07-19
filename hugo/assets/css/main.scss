@@ -91,3 +91,22 @@ ul ul, ul ol, ol ul, ol ol {
     text-transform: unset !important;
   }
 }
+
+/* For co-author/venue info on people/ pages */
+.list-group-compact {
+  .list-group-item {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+  }
+}
+
+.list-group-toggle-btn {
+  @extend .btn;
+
+  &[aria-expanded=false] {
+    @extend .btn-info;
+  }
+  &[aria-expanded=true] {
+    display: none;
+  }
+}

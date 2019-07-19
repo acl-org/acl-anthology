@@ -1769,6 +1769,7 @@ and the code is available at <url>https://github.com/qizhex/RACE_AR_baselines</u
       <url>D17-1160</url>
       <doi>10.18653/v1/D17-1160</doi>
       <abstract>We present a new semantic parsing model for answering compositional questions on semi-structured Wikipedia tables. Our parser is an encoder-decoder neural network with two key technical innovations: (1) a grammar for the decoder that only generates well-typed logical forms; and (2) an entity embedding and linking module that identifies entity mentions while generalizing across tables. We also introduce a novel method for training our neural model with question-answer supervision. On the WikiTableQuestions data set, our parser achieves a state-of-the-art accuracy of 43.3% for a single model and 45.9% for a 5-model ensemble, improving on the best prior score of 38.7% set by a 15-model ensemble. These results suggest that type constraints and entity linking are valuable components to incorporate in neural semantic parsers.</abstract>
+      <video href="https://vimeo.com/238234920" tag="video"/>
     </paper>
     <paper id="161">
       <title>Joint Concept Learning and Semantic Parsing from Natural Language Explanations</title>
@@ -3865,6 +3866,98 @@ and <i>efficiency</i> of on-line policy optimization compared to other companion
       <url>D17-2021</url>
       <doi>10.18653/v1/D17-2021</doi>
       <abstract>While neural machine translation (NMT) provides high-quality translation, it is still hard to interpret and analyze its behavior. We present an interactive interface for visualizing and intervening behavior of NMT, specifically concentrating on the behavior of beam search mechanism and attention component. The tool (1) visualizes search tree and attention and (2) provides interface to adjust search tree and attention weight (manually or automatically) at real-time. We show the tool gives various methods to understand NMT.</abstract>
+    </paper>
+  </volume>
+  <volume id="3">
+    <meta>
+      <booktitle>Proceedings of the 2017 Conference on Empirical Methods in Natural Language Processing: Tutorial Abstracts</booktitle>
+      <editor><first>Alexandra</first><last>Birch</last></editor>
+      <editor><first>Nathan</first><last>Schneider</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Copenhagen, Denmark</address>
+      <month>September</month>
+      <year>2017</year>
+    </meta>
+    <paper id="1">
+      <title>Acquisition, Representation and Usage of Conceptual Hierarchies</title>
+      <author><first>Marius</first><last>Pasca</last></author>
+      <url>D17-3001</url>
+      <abstract>Through subsumption and instantiation, individual instances (“artificial intelligence”, “the spotted pig”) otherwise spanning a wide range of domains can be brought together and organized under conceptual hierarchies. The hierarchies connect more specific concepts (“computer science subfields”, “gastropubs”) to more general concepts (“academic disciplines”, “restaurants”) through IsA relations. Explicit or implicit properties applicable to, and defining, more general concepts are inherited by their more specific concepts, down to the instances connected to the lower parts of the hierarchies. Subsumption represents a crisp, universally-applicable principle towards consistently representing IsA relations in any knowledge resource. Yet knowledge resources often exhibit significant differences in their scope, representation choices and intended usage, to cause significant differences in their expected usage and impact on various tasks.
+
+      This tutorial examines the theoretical foundations of subsumption, and its practical embodiment through IsA relations compiled manually or extracted automatically. It addresses IsA relations from their formal definition; through practical choices made in their representation within the larger and more widely-used of the available knowledge resources; to their automatic acquisition from document repositories, as opposed to their manual compilation by human contributors; to their impact in text analysis and information retrieval. As search engines move away from returning a set of links and closer to returning results that more directly answer queries, IsA relations play an increasingly important role towards a better understanding of documents and queries. The tutorial teaches the audience about definitions, assumptions and practical choices related to modeling and representing IsA relations in existing, human-compiled resources of instances, concepts and resulting conceptual hierarchies; methods for automatically extracting sets of instances within unlabeled or labeled concepts, where the concepts may be considered as a flat set or organized hierarchically; and applications of IsA relations in information retrieval.</abstract>
+    </paper>
+    <paper id="2">
+      <title>Computational Sarcasm</title>
+      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <author><first>Aditya</first><last>Joshi</last></author>
+      <url>D17-3002</url>
+      <abstract>Sarcasm is a form of verbal irony that is intended to express contempt or ridicule. Motivated by challenges posed by sarcastic text to sentiment analysis, computational approaches to sarcasm have witnessed a growing interest at NLP forums in the past decade. Computational sarcasm refers to automatic approaches pertaining to sarcasm. The tutorial will provide a bird’s-eye view of the research in computational sarcasm for text, while focusing on significant milestones.
+
+The tutorial begins with linguistic theories of sarcasm, with a focus on incongruity: a useful notion that underlies sarcasm and other forms of figurative language. Since the most significant work in computational sarcasm is sarcasm detection: predicting whether a given piece of text is sarcastic or not, sarcasm detection forms the focus hereafter. We begin our discussion on sarcasm detection with datasets, touching on strategies, challenges and nature of datasets. Then, we describe algorithms for sarcasm detection: rule-based (where a specific evidence of sarcasm is utilised as a rule), statistical classifier-based (where features are designed for a statistical classifier), a topic model-based technique, and deep learning-based algorithms for sarcasm detection. In case of each of these algorithms, we refer to our work on sarcasm detection and share our learnings. Since information beyond the text to be classified, contextual information is useful for sarcasm detection, we then describe approaches that use such information through conversational context or author-specific context.
+
+We then follow it by novel areas in computational sarcasm such as sarcasm generation, sarcasm v/s irony classification, etc. We then summarise the tutorial and describe future directions based on errors reported in past work. The tutorial will end with a demonstration of our work on sarcasm detection.
+
+This tutorial will be of interest to researchers investigating computational sarcasm and related areas such as computational humour, figurative language understanding, emotion and sentiment sentiment analysis, etc. The tutorial is motivated by our continually evolving survey paper of sarcasm detection, that is available on arXiv at: Joshi, Aditya, Pushpak Bhattacharyya, and Mark James Carman. “Automatic Sarcasm Detection: A Survey.” arXiv preprint arXiv:1602.03426 (2016).</abstract>
+    </paper>
+    <paper id="3">
+      <title>Graph-based Text Representations: Boosting Text Mining, NLP and Information Retrieval with Graphs</title>
+      <author><first>Fragkiskos D.</first><last>Malliaros</last></author>
+      <author><first>Michalis</first><last>Vazirgiannis</last></author>
+      <abstract>Graphs or networks have been widely used as modeling tools in Natural Language Processing (NLP), Text Mining (TM) and Information Retrieval (IR). Traditionally, the unigram bag-of-words representation is applied; that way, a document is represented as a multiset of its terms, disregarding dependencies between the terms. Although several variants and extensions of this modeling approach have been proposed (e.g., the n-gram model), the main weakness comes from the underlying term independence assumption. The order of the terms within a document is completely disregarded and any relationship between terms is not taken into account in the final task (e.g., text categorization). Nevertheless, as the heterogeneity of text collections is increasing (especially with respect to document length and vocabulary), the research community has started exploring different document representations aiming to capture more fine-grained contexts of co-occurrence between different terms, challenging the well-established unigram bag-of-words model. To this direction, graphs constitute a well-developed model that has been adopted for text representation. The goal of this tutorial is to offer a comprehensive presentation of recent methods that rely on graph-based text representations to deal with various tasks in NLP and IR. We will describe basic as well as novel graph theoretic concepts and we will examine how they can be applied in a wide range of text-related application domains.
+
+All the material associated to the tutorial will be available at: http://fragkiskosm.github.io/projects/graph_text_tutorial</abstract>
+    </paper>
+    <paper id="4">
+      <title>Semantic Role Labeling</title>
+      <author><first>Diego</first><last>Marcheggiani</last></author>
+      <author><first>Michael</first><last>Roth</last></author>
+      <author><first>Ivan</first><last>Titov</last></author>
+      <author><first>Benjamin</first><last>Van Durme</last></author>
+      <url>D17-3004</url>
+      <abstract>This tutorial describes semantic role labelling (SRL), the task of mapping text to shallow semantic representations of eventualities and their participants. The tutorial introduces the SRL task and discusses recent research directions related to the task. The audience of this tutorial will learn about the linguistic background and motivation for semantic roles, and also about a range of computational models for this task, from early approaches to the current state-of-the-art. We will further discuss recently proposed variations to the traditional SRL task, including topics such as semantic proto-role labeling.
+
+We also cover techniques for reducing required annotation effort, such as methods exploiting unlabeled corpora (semi-supervised and unsupervised techniques), model adaptation across languages and domains, and methods for crowdsourcing semantic role annotation (e.g., question-answer driven SRL). Methods based on different machine learning paradigms, including neural networks, generative Bayesian models, graph-based algorithms and bootstrapping style techniques.
+
+Beyond sentence-level SRL, we discuss work that involves semantic roles in discourse. In particular, we cover data sets and models related to the task of identifying implicit roles and linking them to discourse antecedents. We introduce different approaches to this task from the literature, including models based on coreference resolution, centering, and selectional preferences. We also review how new insights gained through them can be useful for the traditional SRL task.</abstract>
+    </paper>
+    <paper id="5">
+      <title>Memory Augmented Neural Networks for Natural Language Processing</title>
+      <author><first>Caglar</first><last>Gulcehre</last></author>
+      <author><first>Sarath</first><last>Chandar</last></author>
+      <url>D17-3005</url>
+      <abstract>Designing of general-purpose learning algorithms is a long-standing goal of artificial intelligence. A general purpose AI agent should be able to have a memory that it can store and retrieve information from. Despite the success of deep learning in particular with the introduction of LSTMs and GRUs to this area, there are still a set of complex tasks that can be challenging for conventional neural networks. Those tasks often require a neural network to be equipped with an explicit, external memory in which a larger, potentially unbounded, set of facts need to be stored. They include but are not limited to, reasoning, planning, episodic question-answering and learning compact algorithms. Recently two promising approaches based on neural networks to this type of tasks have been proposed: Memory Networks and Neural Turing Machines.
+
+In this tutorial, we will give an overview of this new paradigm of “neural networks with memory”. We will present a unified architecture for Memory Augmented Neural Networks (MANN) and discuss the ways in which one can address the external memory and hence read/write from it. Then we will introduce Neural Turing Machines and Memory Networks as specific instantiations of this general architecture. In the second half of the tutorial, we will focus on recent advances in MANN which focus on the following questions: How can we read/write from an extremely large memory in a scalable way? How can we design efficient non-linear addressing schemes? How can we do efficient reasoning using large scale memory and an episodic memory? The answer to any one of these questions introduces a variant of MANN. We will conclude the tutorial with several open challenges in MANN and its applications to NLP.
+
+We will introduce several applications of MANN in NLP throughout the tutorial. Few examples include language modeling, question answering, visual question answering, and dialogue systems.
+
+For updated information and material, please refer to our tutorial website: https://sites.google.com/view/mann-emnlp2017/.</abstract>
+    </paper>
+    <paper id="6">
+      <title>A Unified Framework for Structured Prediction: From Theory to Practice</title>
+      <author><first>Wei</first><last>Lu</last></author>
+      <url>D17-3006</url>
+      <abstract>Structured prediction is one of the most important topics in various fields, including machine learning, computer vision, natural language processing (NLP) and bioinformatics. In this tutorial, we present a novel framework that unifies various structured prediction models.
+
+The hidden Markov model (HMM) and the probabilistic context-free grammars (PCFGs) are two classic generative models used for predicting outputs with linear-chain and tree structures, respectively. As HMM’s discriminative counterpart, the linear-chain conditional random fields (CRFs) (Lafferty et al., 2001) model was later proposed. Such a model was shown to yield good performance on standard NLP tasks such as information extraction. Several extensions to such a model were then proposed afterward, including the semi-Markov CRFs (Sarawagi and Cohen, 2004), tree CRFs (Cohn and Blunsom, 2005), as well as discriminative parsing models and their latent variable variants (Petrov and Klein, 2007). On the other hand, utilizing a slightly different loss function, one could arrive at the structured support vector machines (Tsochantaridis et al., 2004) and its latent variable variant (Yu and Joachims, 2009) as well. Furthermore, new models that integrate neural networks and graphical models, such as neural CRFs (Do et al., 2010) were also proposed.
+
+In this tutorial, we will be discussing how such a wide spectrum of existing structured prediction models can all be implemented under a unified framework (available at here) that involves some basic building blocks. Based on such a framework, we show how some seemingly complicated structured prediction models such as a semantic parsing model (Lu et al., 2008; Lu, 2014) can be implemented conveniently and quickly. Furthermore, we also show that the framework can be used to solve certain structured prediction problems that otherwise cannot be easily handled by conventional structured prediction models. Specifically, we show how to use such a framework to construct models that are capable of predicting non-conventional structures, such as overlapping structures (Lu and Roth, 2015; Muis and Lu, 2016a). We will also discuss how to make use of the framework to build other related models such as topic models and highlight its potential applications in some recent popular tasks (e.g., AMR parsing (Flanigan et al., 2014)).
+
+The framework has been extensively used by our research group for developing various structured prediction models, including models for information extraction (Lu and Roth, 2015; Muis and Lu, 2016a; Jie et al., 2017), noun phrase chunking (Muis and Lu, 2016b), semantic parsing (Lu, 2015; Susanto and Lu, 2017), and sentiment analysis (Li and Lu, 2017). It is our hope that this tutorial will be helpful for many natural language processing researchers who are interested in designing their own structured prediction models rapidly. We also hope this tutorial allows researchers to strengthen their understandings on the connections between various structured prediction models, and that the open release of the framework will bring value to the NLP research community and enhance its overall productivity.
+
+The material associated with this tutorial will be available at the tutorial web site: https://web.archive.org/web/20180427113151/http://statnlp.org/tutorials/.</abstract>
+    </paper>
+    <paper id="7">
+      <title>Cross-Lingual Word Representations: Induction and Evaluation</title>
+      <author><first>Manaal</first><last>Faruqui</last></author>
+      <author><first>Anders</first><last>Søgaard</last></author>
+      <author><first>Ivan</first><last>Vulić</last></author>
+      <url>D17-3007</url>
+      <abstract>In recent past, NLP as a field has seen tremendous utility of distributional word vector representations as features in downstream tasks. The fact that these word vectors can be trained on unlabeled monolingual corpora of a language makes them an inexpensive resource in NLP. With the increasing use of monolingual word vectors, there is a need for word vectors that can be used as efficiently across multiple languages as monolingually. Therefore, learning bilingual and multilingual word embeddings/vectors is currently an important research topic. These vectors offer an elegant and language-pair independent way to represent content across different languages.
+
+This tutorial aims to bring NLP researchers up to speed with the current techniques in cross-lingual word representation learning. We will first discuss how to induce cross-lingual word representations (covering both bilingual and multilingual ones) from various data types and resources (e.g., parallel data, comparable data, non-aligned monolingual data in different languages, dictionaries and theasuri, or, even, images, eye-tracking data). We will then discuss how to evaluate such representations, intrinsically and extrinsically. We will introduce researchers to state-of-the-art methods for constructing cross-lingual word representations and discuss their applicability in a broad range of downstream NLP applications.
+
+We will deliver a detailed survey of the current methods, discuss best training and evaluation practices and use-cases, and provide links to publicly available implementations, datasets, and pre-trained models.</abstract>
     </paper>
   </volume>
 </collection>
