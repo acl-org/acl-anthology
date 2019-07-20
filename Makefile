@@ -17,6 +17,7 @@
 SHELL = /bin/sh
 ANTHOLOGYHOST := "https://www.aclweb.org"
 ANTHOLOGYDIR := anthology
+HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
 
@@ -92,6 +93,7 @@ build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
 	         -d $(ANTHOLOGYDIR) \
+		 -e $(HUGO_ENV) \
 	         --cleanDestinationDir \
 	         --minify
 	@touch build/.hugo
