@@ -90,7 +90,6 @@ class Paper:
                 "id": "1",
                 "url": data.ANTHOLOGY_URL.format( "{}v1".format(paper.full_id)) } )
 
-
         paper.attrib["title"] = paper.get_title("plain")
         if "booktitle" in paper.attrib:
             paper.attrib["booktitle"] = paper.get_booktitle("plain")
