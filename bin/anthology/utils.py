@@ -282,11 +282,14 @@ def parse_element(xml_element):
     return attrib
 
 
-def make_simple_element(tag, text=None):
+def make_simple_element(tag, attrib=None, text=None):
     """Convenience function to create an LXML node"""
     el = etree.Element(tag)
     if text:
         el.text = text
+    if attrib:
+        for key, value in attrib.items():
+            el.attrib[key] = value
     return el
 
 
