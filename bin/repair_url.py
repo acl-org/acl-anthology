@@ -12,7 +12,7 @@ import lxml.etree as etree
 import requests
 import sys
 
-from anthology.util import test_url
+from anthology.utils import test_url
 
 
 def get_anth_url(volume_id, paper_id=None, width=4):

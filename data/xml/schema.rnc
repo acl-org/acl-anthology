@@ -22,6 +22,11 @@ Paper = element paper {
    & element dataset { xsd:NCName }?
    & element doi { xsd:anyURI }?
    & element editor { Person }*
+   & element revision {
+       attribute id { xsd:positiveInteger },
+       attribute href { xsd:anyURI },
+       text
+     }*
    & element erratum {
        attribute id { xsd:positiveInteger },
        xsd:NCName
@@ -35,10 +40,6 @@ Paper = element paper {
    & element note { text }?
    & element pages { text }?
    & element presentation { xsd:NCName }?
-   & element revision {
-       attribute id { xsd:positiveInteger },
-       xsd:NCName
-     }*
    & element software { xsd:NCName }?
    & element title { MarkupText }
    & element url { xsd:anyURI }?
@@ -67,7 +68,8 @@ Frontmatter = element frontmatter {
    & element pages { text }?
    & element revision {
        attribute id { xsd:positiveInteger },
-       xsd:NCName
+       attribute href { xsd:anyURI },
+       text
      }*
    & element doi { xsd:anyURI }?
   )

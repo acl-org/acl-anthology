@@ -71,17 +71,28 @@ def test_url(url):
 
 def deconstruct_anthology_id(anthology_id):
     """
-    Transforms an Anthology id into its constituent collection id, voulume id, and paper id
+    Transforms an Anthology ID into its constituent collection id, volume id, and paper id
     parts. e.g,
 
         P18-1007 -> ('P18', '1', '7')
         W18-6310 -> ('W18', '63', '10')
+
+    Also can deconstruct Anthology volumes:
+
+        P18-1 -> ('P18', '1', None)
+        W18-63 -> ('W18', '63', None)
     """
     collection_id, rest = anthology_id.split('-')
     if collection_id.startswith('W') or collection_id.startswith('C69'):
-        return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
+        if (len(rest) >= 2):
+            return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
+        else:                   # Possible Volume only identifier
+            return (collection_id, str(int(rest[0:2])), None)
     else:
-        return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
+        if (len(rest) >= 2):
+            return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
+        else:                   # Possible Volume only identifier
+            return (collection_id, str(int(rest[0:1])), None)
 
 
 def stringify_children(node):
@@ -241,11 +252,18 @@ def parse_element(xml_element):
         elif tag in ("author", "editor"):
             id_ = element.attrib.get("id", None)
             value = (PersonName.from_element(element), id_)
-        elif tag in ("erratum", "revision"):
+        elif tag == "erratum":
             value = {
                 "value": element.text,
                 "id": element.get("id"),
-                "url": element.text,
+                "url": element.text
+            }
+        elif tag == "revision":
+            value = {
+                "value": element.get("href"),
+                "id": element.get("id"),
+                "url": element.get("href"),
+                "explanation": element.text
             }
         elif tag == "mrf":
             value = {"filename": element.text, "src": element.get("src")}
