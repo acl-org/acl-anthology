@@ -71,18 +71,30 @@ def test_url(url):
 
 def deconstruct_anthology_id(anthology_id):
     """
-    Transforms an Anthology id into its constituent collection id, voulume id, and paper id
+    Transforms an Anthology id into its constituent collection id, volume id, and paper id
     parts. e.g,
 
         P18-1007 -> ('P18', '1', '7')
         W18-6310 -> ('W18', '63', '10')
-    """
-    collection_id, rest = anthology_id.split('-')
-    if collection_id.startswith('W') or collection_id.startswith('C69'):
-        return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
-    else:
-        return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
 
+    Also can deconstruct Anthology volumes 
+
+        P18-1 -> ('P18', '1', None)
+        W18-63 -> ('W18', '63', None)
+    """
+
+    collection_id, rest = anthology_id.split('-')
+    assert len(collection_id) == 3, "Collection IDs should be 1 letter prefix + 2 digit year"
+    if collection_id.startswith('W') or collection_id.startswith('C69'):
+        if (len(rest) >= 2):
+            return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
+        else:                   # Possible Volume only identifier
+            return (collection_id, str(int(rest[0:2])), None)
+    else:
+        if (len(rest) >= 2):
+            return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
+        else:                   # Possible Volume only identifier
+            return (collection_id, str(int(rest[0:1])), None)
 
 def stringify_children(node):
     """Returns the full content of a node, including tags.
