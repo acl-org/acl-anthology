@@ -16,8 +16,9 @@
 # limitations under the License.
 
 """
-Used to add ingested DOIs into the Anthology.  
-Does not actually assign DOIs (separate script to manufacture XML to submit to Crossref)
+Used to add ingested DOIs into the Anthology XML.
+Does not actually assign DOIs (separate script to manufacture XML to submit to Crossref), but
+simply adds to the XML, after checking that the URL exists.
 
 Usage:
 
@@ -25,7 +26,7 @@ Usage:
 
 - The ACL Volume ID to add DOIs to (e.g., P17-1, W18-02)
 
-Modifies the XML.  Warns if DOIs already present.  Use -f to force
+Modifies the XML.  Warns if DOIs already present.  Use -f to force.
 """
 
 import argparse
@@ -35,97 +36,68 @@ import tempfile
 import anthology.data as data
 import copy
 
-from anthology.utils import build_anthology_id, deconstruct_anthology_id, stringify_children
+from anthology.utils import build_anthology_id, deconstruct_anthology_id, stringify_children, test_url, indent, make_simple_element
+from anthology.formatter import MarkupFormatter
+from itertools import chain
 
 import lxml.etree as ET
 import urllib.request
 
+def add_doi(xml_node, collection_id, volume_id, force=False):
+    if 'id' in xml_node.attrib:
+        # normal paper
+        paper_id = int(xml_node.attrib['id'])
+    else:
+        # frontmatter
+        paper_id = 0
+
+    anth_id = build_anthology_id(collection_id, volume_id, paper_id)
+    new_doi_text = f'{data.DOI_PREFIX}{anth_id}'
+    doi_url = f'{data.DOI_URL_PREFIX}{data.DOI_PREFIX}{anth_id}'
+    if not test_url(doi_url):
+        print(f"-> [{anth_id}] Skipping since DOI {doi_url} doesn't exist")
+        return False
+
+    doi = xml_node.find('doi')
+    if doi is not None:
+        print(f'-> [{anth_id}] Cowardly refusing to overwrite existing DOI {doi.text} (use --force)', file=sys.stderr)
+        return False
+
+    else:
+        doi = make_simple_element('doi', text=new_doi_text)
+        print(f'Adding DOI {new_doi_text}', file=sys.stderr)
+        xml_node.append(doi)
+        return True
+
+
 def main(args):
 
-    collection_id, volume_id, paper_id_discard = deconstruct_anthology_id(args.anthology_volume)
+    collection_id, volume_id, _ = deconstruct_anthology_id(args.anthology_volume)
 
     print(f'Attempting to add DOIs for {args.anthology_volume}', file=sys.stderr)
 
     # Update XML
     xml_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{collection_id}.xml')
     tree = ET.parse(xml_file)
-    # add newline to end-of-file if not present
-    if not tree.getroot().tail: tree.getroot().tail = '\n'
-    volume_sequence = str(int(volume_id))
-    volume = tree.getroot().find(f"./volume[@id='{volume_sequence}']")
+
+    formatter = MarkupFormatter()
+
+    num_added = 0
+
+    volume = tree.getroot().find(f"./volume[@id='{volume_id}']")
     if volume is not None:
-        n = 0
         volume_booktitle = volume.find(f"./meta/booktitle")
-        volume_copy = copy.deepcopy(volume_booktitle)
-        ET.strip_tags(volume_copy, "*")
-        volume_title = volume_copy.text
+        volume_title = formatter.as_text(volume_booktitle)
         print(f'Identified as {volume_title}', file=sys.stderr)
 
-        # Process frontmatter
-        frontmatter = volume.find('frontmatter')
-        has_doi = False
-        if frontmatter is not None:
-            old_doi_text = ""
-            
-            for doi in frontmatter.findall('doi'):
-                has_doi = True
-                old_doi_text = doi.text
-
-                if (not has_doi or args.force): # need to assign DOI
-                    new_doi_text = args.prefix + collection_id + "-" + volume_id
-                    doi = ""
-                    
-                    if (args.force and has_doi):
-                        print(f'Overwritting existing booktitle DOI {old_doi_text} with {new_doi_text}', file=sys.stderr)
-                        doi = frontmatter.find('doi')
-                    else:
-                        print(f'Writing booktitle DOI {new_doi_text}', file=sys.stderr)
-                        doi = ET.Element('doi')
-                        
-                        doi.text = new_doi_text
-                        
-                        # Set tails to maintain proper indentation
-                        frontmatter[-1].tail += '  '
-                        doi.tail = '\n    ' # newline and two levels of indent
-                        frontmatter.append(doi)
-                        n += 1
-                        
-        if (has_doi and not args.force):
-            print(f'Cowardly refusing to overwrite existing booktitle DOI.  Use --force', file=sys.stderr)
-            
-        has_doi = False
         # Iterate through all papers
-        for paper in volume.findall('paper'):
-            old_doi_text = ""
+        for paper in chain(volume.find('frontmatter'), volume.findall('paper')):
+            num_added += add_doi(paper, collection_id, volume_id, force=args.force)
 
-            # check if DOI exists
-            for doi in paper.findall('doi'):
-                has_doi = True
-                old_doi_text = doi.text
-
-            if (not has_doi or args.force): # need to assign DOIs
-                new_doi_text = args.prefix + build_anthology_id(collection_id, volume_id, paper.get('id'))
-                doi = ""
-
-                if (args.force and has_doi):
-                    print(f'Overwritting existing DOI {old_doi_text} with {new_doi_text}', file=sys.stderr)
-                    doi = paper.find('doi')
-                else:
-                    print(f'Writing DOI {new_doi_text}', file=sys.stderr)
-                    doi = ET.Element('doi')
-
-                doi.text = new_doi_text
-
-                # Set tails to maintain proper indentation
-                paper[-1].tail += '  '
-                doi.tail = '\n    '  # newline and two levels of indent
-                paper.append(doi)
-                n += 1
-        if (has_doi and not args.force):
-            print(f'Cowardly refusing to overwrite existing paper DOIs.  Use --force', file=sys.stderr)
+        indent(tree.getroot())
 
         tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
-        print(f'-> added {n} DOIs to to the XML for collection {collection_id}', file=sys.stderr)
+        print(f'-> added {num_added} DOIs to to the XML for collection {collection_id}', file=sys.stderr)
 
     else:
         print(f'-> FATAL: volume {volume} not found in the Anthology', file=sys.stderr)

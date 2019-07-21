@@ -28,6 +28,7 @@ ATTACHMENT_URL = "https://www.aclweb.org/anthology/attachments/{}"
 LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
 
 # Constants associated with DOI assignation
+DOI_URL_PREFIX = 'http://dx.doi.org/'
 DOI_PREFIX = "10.18653/v1/"
 
 def get_journal_title(top_level_id, volume_title):
