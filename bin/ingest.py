@@ -69,9 +69,11 @@ if __name__ == '__main__':
         existing_volume = existing_tree.getroot().find(f"./volume[@id='{new_volume_id}']")
         if existing_volume is None:
             # Find the insertion point among the other volumes
-            for insertion_point, volume in enumerate(existing_tree.getroot()):
+            insertion_point = 0
+            for i, volume in enumerate(existing_tree.getroot()):
                 if new_volume_id < int(volume.attrib['id']):
                     break
+                insertion_point = i + 1
             print(f"Inserting volume {new_volume_id} at collection position {insertion_point}")
             existing_tree.getroot().insert(insertion_point, new_volume)
         else:
