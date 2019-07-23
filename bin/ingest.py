@@ -72,7 +72,7 @@ if __name__ == '__main__':
             for insertion_point, volume in enumerate(existing_tree.getroot()):
                 if new_volume_id < int(volume.attrib['id']):
                     break
-            print(f"Inserting volume {new_volume_id} at {insertion_point}")
+            print(f"Inserting volume {new_volume_id} at collection position {insertion_point}")
             existing_tree.getroot().insert(insertion_point, new_volume)
         else:
             # Append to existing volume (useful for TACL, which has a single volume each year) if requested
