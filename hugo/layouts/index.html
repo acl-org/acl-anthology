@@ -36,7 +36,9 @@
 
     <aside class="alert alert-info acl-news mb-3" role="alert">
       <!-- The news message pulls from content/_index.md -->
+      {{ if (gt (time .PublishDate).Year 2018) }}
       <div class="acl-news-date">{{ .PublishDate.Format "January 2006" }}</div>
+      {{ end }}
       {{ .Content }}
     </aside>
 
