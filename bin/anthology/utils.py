@@ -82,17 +82,17 @@ def deconstruct_anthology_id(anthology_id):
         P18-1 -> ('P18', '1', None)
         W18-63 -> ('W18', '63', None)
     """
-    collection_id, rest = anthology_id.split('-')
-    if collection_id.startswith('W') or collection_id.startswith('C69'):
-        if (len(rest) >= 2):
-            return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
+    tokens = anthology_id.split('-')
+    if anthology_id.startswith('W') or anthology_id.startswith('C69'):
+        if len(tokens) == 3:
+            return (tokens[0], str(int(tokens[1])), str(int(tokens[2])))
         else:                   # Possible Volume only identifier
-            return (collection_id, str(int(rest[0:2])), None)
+            return (tokens[0], str(int(tokens[1])), None)
     else:
-        if (len(rest) >= 2):
-            return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
+        if len(tokens) == 3:
+            return (tokens[0], str(int(tokens[1])), str(int(tokens[2])))
         else:                   # Possible Volume only identifier
-            return (collection_id, str(int(rest[0:1])), None)
+            return (tokens[0], str(int(tokens[1])), None)
 
 
 def stringify_children(node):
