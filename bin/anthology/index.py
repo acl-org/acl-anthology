@@ -24,6 +24,8 @@ from .formatter import bibtex_encode
 from .people import PersonName
 from .venues import VenueIndex
 
+from typing import List
+
 try:
     from yaml import CLoader as Loader
 except ImportError:
@@ -261,22 +263,32 @@ class AnthologyIndex:
         """Return a list of all names used for a given person."""
         return self.id_to_used[id_]
 
+    def get_ids(self, name: PersonName) -> List[str]:
+        """
+        Returns a list of distinct IDs (people) associated with a surface form.
+
+        :param name: The name (surface form) of the person being searched (id field ignored).
+        :return: A list of name ID strings.
+        """
+        if name not in self.name_to_ids:
+            id_ = self.fresh_id(name)
+            self.set_canonical_name(id_, name)
+
+        return sorted(self.name_to_ids[name])
+
     def resolve_name(self, name, id_=None):
-        """Find person named 'name' and return a dict with fields 
+        """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
         if id_ is None:
-            if name not in self.name_to_ids:
-                id_ = self.fresh_id(name)
-                self.set_canonical_name(id_, name)
-            else:
-                ids = self.name_to_ids[name]
-                assert len(ids) > 0
-                if len(ids) > 1:
-                    log.debug("Name '{}' is ambiguous between {}".format(
-                        repr(name),
-                        ', '.join("'{}'".format(i) for i in ids)
-                    ))
-                id_ = ids[0]
+            ids = self.get_ids(name)
+            assert len(ids) > 0
+            if len(ids) > 1:
+                log.debug("Name '{}' is ambiguous between {}".format(
+                    repr(name),
+                    ', '.join("'{}'".format(i) for i in ids)
+                ))
+            # Just return the first
+            id_ = ids[0]
         d = name.as_dict()
         d["id"] = id_
         return d
