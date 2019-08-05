@@ -47,11 +47,7 @@ Please take note of the following before requesting either service:
 
 ### Filing Corrections
 
-To request a correction, [file an issue on our Github
-repository](https://github.com/acl-org/acl-anthology/issues/new?assignees=&labels=correction&template=correction.md&title=Correction). Please
-be sure to follow the instructions in [the issue
-template](https://github.com/acl-org/acl-anthology/issues/new?assignees=&labels=correction&template=correction.md&title=Correction). In
-particular, it is important to include the ACL Anthology ID (e.g., P00-1001) of
-the work you are referring to. If you are posting a revised PDF or erratum, you
-can attach it to the issue. Anthology staff will respond to your request in due
-time.
+To request a correction, [please use this form](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u). 
+If you are submitting a revision, you will need to provide a paragraph-form summary of all the changes in the revision.
+**Please ensure** that the link you provide is *directly* to a downloadable PDF that works with `wget`.
+Anthology staff will respond to your request in due time.
