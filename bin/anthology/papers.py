@@ -29,10 +29,11 @@ from . import data
 from .formatter import bibtex_encode, bibtex_make_entry
 
 class Paper:
-    def __init__(self, paper_id, volume, formatter):
+    def __init__(self, paper_id, pub_date, volume, formatter):
         self.parent_volume = volume
         self.formatter = formatter
         self._id = paper_id
+        self._pub_date = pub_date
         self._bibkey = False
         self.is_volume = paper_id == '0'
 
@@ -46,8 +47,10 @@ class Paper:
             self.attrib[key] = value
 
     def from_xml(xml_element, *args):
+        pub_date = xml_element.get('pub-date', data.UNKNOWN_PUB_DATE)
+
         # Default to paper ID "0" (for front matter)
-        paper = Paper(xml_element.get("id", '0'), *args)
+        paper = Paper(xml_element.get("id", '0'), pub_date, *args)
 
         # Set values from parsing the XML element (overwriting
         # and changing some initialized from the volume metadata)
@@ -129,6 +132,15 @@ class Paper:
                 ].split(s)
                 self.attrib["pages"] = self.attrib["pages"].replace(s, "–")
                 return
+
+    @property
+    def pub_date(self):
+        """Inherit publication date from parent, but self overrides. May be undefined."""
+        if self._pub_date:
+            return self._pub_date
+        if self.parent_volume:
+            return self.parent_volume.pub_date
+        return data.UNKNOWN_PUB_DATE
 
     @property
     def collection_id(self):
