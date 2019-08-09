@@ -28,7 +28,7 @@ class Volume:
     def __init__(self,
                  collection_id,
                  volume_id,
-                 pub_date,
+                 ingest_date,
                  meta_data,
                  venue_index: VenueIndex,
                  sig_index: SIGIndex,
@@ -41,7 +41,7 @@ class Volume:
         """
         self.collection_id = collection_id
         self._id = volume_id
-        self.pub_date = pub_date
+        self.ingest_date = ingest_date
         self.formatter = formatter
         self._set_meta_info(meta_data)
         self.attrib["venues"] = venue_index.get_associated_venues(self.full_id)
@@ -59,12 +59,12 @@ class Volume:
 
         volume_id = volume_xml.attrib['id']
         # The date of publication, defaulting to earlier than anything we'll encounter
-        pub_date = volume_xml.attrib.get('pub-date', data.UNKNOWN_PUB_DATE)
+        ingest_date = volume_xml.attrib.get('ingest-date', data.UNKNOWN_INGEST_DATE)
         meta_data = parse_element(volume_xml.find('meta'))
         # Though metadata uses "booktitle", switch to "title" for compatibility with downstream scripts
         meta_data['title'] = formatter(meta_data['xml_booktitle'], 'plain')
 
-        volume = Volume(collection_id, volume_id, pub_date, meta_data, venue_index, sig_index, formatter)
+        volume = Volume(collection_id, volume_id, ingest_date, meta_data, venue_index, sig_index, formatter)
 
         front_matter_xml = volume_xml.find('frontmatter')
         if front_matter_xml is not None:

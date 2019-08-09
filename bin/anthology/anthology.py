@@ -64,9 +64,9 @@ class Anthology:
         for volume_xml in collection:
             volume = Volume.from_xml(volume_xml, collection_id, self.venues, self.sigs, self.formatter)
 
-            # skip volumes that have a publication date in the future
-            if datetime.strptime(volume.pub_date, '%Y-%m-%d') > datetime.now():
-                log.info(f'Skipping volume {volume.full_id} with publication date {volume.pub_date} in the future.')
+            # skip volumes that have an ingestion date in the future
+            if datetime.strptime(volume.ingest_date, '%Y-%m-%d') > datetime.now():
+                log.info(f'Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future.')
                 continue
 
             # Register the volume since we're not skipping it
@@ -88,9 +88,9 @@ class Anthology:
             for paper_xml in volume_xml.findall('paper'):
                 parsed_paper = Paper.from_xml(paper_xml, volume, self.formatter)
 
-                # skip papers that have a publication date in the future
-                if datetime.strptime(parsed_paper.pub_date, '%Y-%m-%d') > datetime.now():
-                    log.info(f'Skipping paper {parsed_paper.full_id} with publication date {parsed_paper.pub_date} in the future.')
+                # skip papers that have an ingestion date in the future
+                if datetime.strptime(parsed_paper.ingest_date, '%Y-%m-%d') > datetime.now():
+                    log.info(f'Skipping paper {parsed_paper.full_id} with ingestion date {parsed_paper.ingest_date} in the future.')
                     continue
 
                 self.pindex.register(parsed_paper)

@@ -31,8 +31,8 @@ LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum
 DOI_URL_PREFIX = 'http://dx.doi.org/'
 DOI_PREFIX = "10.18653/v1/"
 
-# Default publication date (= unknown)
-UNKNOWN_PUB_DATE = '1900-01-01'
+# Default ingestion date (= unknown)
+UNKNOWN_INGEST_DATE = '1900-01-01'
 
 def get_journal_title(top_level_id, volume_title):
     # TODO: consider moving this from code to data (perhaps
