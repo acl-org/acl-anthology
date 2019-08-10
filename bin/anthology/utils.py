@@ -71,30 +71,29 @@ def test_url(url):
 
 def deconstruct_anthology_id(anthology_id):
     """
-    Transforms an Anthology id into its constituent collection id, volume id, and paper id
+    Transforms an Anthology ID into its constituent collection id, volume id, and paper id
     parts. e.g,
 
         P18-1007 -> ('P18', '1', '7')
         W18-6310 -> ('W18', '63', '10')
 
-    Also can deconstruct Anthology volumes 
+    Also can deconstruct Anthology volumes:
 
         P18-1 -> ('P18', '1', None)
         W18-63 -> ('W18', '63', None)
     """
-
-    collection_id, rest = anthology_id.split('-')
-    assert len(collection_id) == 3, "Collection IDs should be 1 letter prefix + 2 digit year"
-    if collection_id.startswith('W') or collection_id.startswith('C69'):
-        if (len(rest) >= 2):
-            return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
+    tokens = anthology_id.split('-')
+    if anthology_id.startswith('W') or anthology_id.startswith('C69'):
+        if len(tokens) == 3:
+            return (tokens[0], str(int(tokens[1])), str(int(tokens[2])))
         else:                   # Possible Volume only identifier
-            return (collection_id, str(int(rest[0:2])), None)
+            return (tokens[0], str(int(tokens[1])), None)
     else:
-        if (len(rest) >= 2):
-            return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
+        if len(tokens) == 3:
+            return (tokens[0], str(int(tokens[1])), str(int(tokens[2])))
         else:                   # Possible Volume only identifier
-            return (collection_id, str(int(rest[0:1])), None)
+            return (tokens[0], str(int(tokens[1])), None)
+
 
 def stringify_children(node):
     """Returns the full content of a node, including tags.
@@ -301,7 +300,7 @@ def parse_element(xml_element):
     return attrib
 
 
-def make_simple_element(tag, attrib=None, text=None):
+def make_simple_element(tag, text=None, attrib=None):
     """Convenience function to create an LXML node"""
     el = etree.Element(tag)
     if text:
@@ -349,9 +348,9 @@ def make_nested(root):
         if prev_volume_id is None or prev_volume_id != volume_id:
             meta = make_simple_element('meta')
             if collection_id == 'C69':
-                meta.append(make_simple_element('month', 'September'))
-                meta.append(make_simple_element('year', '1969'))
-                meta.append(make_simple_element('address', 'Sånga Säby, Sweden'))
+                meta.append(make_simple_element('month', text='September'))
+                meta.append(make_simple_element('year', text='1969'))
+                meta.append(make_simple_element('address', text='Sånga Säby, Sweden'))
 
             volume = make_simple_element('volume')
             volume.append(meta)
@@ -362,7 +361,7 @@ def make_nested(root):
             # Add volume-level <url> tag if PDF is present
             volume_url = infer_url(full_volume_id)
             if test_url(volume_url):
-                url = make_simple_element('url', full_volume_id)
+                url = make_simple_element('url', text=full_volume_id)
                 print(f"{collection_id}: inserting volume URL: {full_volume_id}")
                 meta.append(url)
 
@@ -381,7 +380,7 @@ def make_nested(root):
                 if url is not None:
                     url.text = f'{full_paper_id}'
                 else:
-                    url = make_simple_element('url', full_paper_id)
+                    url = make_simple_element('url', text=full_paper_id)
                     paper.append(url)
                 print(f"{collection_id}: inserting frontmatter URL: {full_paper_id}")
             else:
@@ -448,7 +447,7 @@ def make_nested(root):
         # Take volume booktitle from first paper title if it wasn't found in the
         # frontmatter paper (some volumes have no front matter)
         if collection_id == 'C69' and meta.find('booktitle') is None and paper.find('title') is not None:
-            meta.insert(0, make_simple_element('booktitle', paper.find('title').text))
+            meta.insert(0, make_simple_element('booktitle', text=paper.find('title').text))
 
         volume.append(paper)
 
