@@ -13,6 +13,7 @@ Person = attribute id { xsd:NCName }?, (first? & last)
 
 Paper = element paper {
   attribute id { xsd:positiveInteger },
+  attribute ingest-date { xsd:date }?,
   (element abstract { MarkupText }?
    & element attachment {
        attribute type { xsd:NCName }?,
@@ -76,6 +77,7 @@ Frontmatter = element frontmatter {
 }
 Volume = element volume {
   attribute id { xsd:positiveInteger },
+  attribute ingest-date { xsd:date }?,
   Meta,
   Frontmatter?,
   Paper*
