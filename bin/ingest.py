@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('infile')
-    parser.add_argument('--ingest-date', '-d', type='str', default=today, help='Ingestion date as YYYY-MM-DD. Default: %(default)s.')
+    parser.add_argument('--ingest-date', '-d', type=str, default=today, help='Ingestion date as YYYY-MM-DD. Default: %(default)s.')
     parser.add_argument('--append', '-a', action='store_true', help='Append to existing volume instead of quitting.')
     args = parser.parse_args()
 
