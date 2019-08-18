@@ -41,6 +41,9 @@ RewriteRule ^[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9
 # Redirect URLS with an explicit ".pdf" to the bare canonical version
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ https://www.aclweb.org/anthology/$1$2-$3 [R=301,L]
 
+# Redirect nested page URLs to the / version so there is only one paper page
+RewriteRule ^papers/[A-Za-z]/[A-Za-z][1-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])/?$ https://www.aclweb.org/anthology/$1$2-$3/ [R=301,L]
+
 #
 # INTERNAL REDIRECTIONS
 #
@@ -69,7 +72,7 @@ RewriteRule ^attachments/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ 
 
 ## Paper and author pages and bibtex
 # The Paper metadata page (e.g., P17-1069/ -> papers/P/P17/P17-1069/index.html)
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])\/$ papers/$1/$1$2/$1$2-$3/ [L,NC]
+RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])\/$ papers/$1/$1$2/$1$2-$3/index.html [L,NC]
 
 # BibTeX file (e.g., P17-1069.bib -> papers/P/P17/P17-1069.bib)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])\.([a-z]+)$ papers/$1/$1$2/$1$2-$3.$4 [L,NC]
