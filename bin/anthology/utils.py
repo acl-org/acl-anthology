@@ -182,8 +182,7 @@ class SeverityTracker(logging.Handler):
 def clean_whitespace(text, strip='left'):
     old_text = text
     if text is not None:
-        text = text.replace('\n', '')
-        text = re.sub(r'\s+', ' ', text)
+        text = re.sub(r' +', ' ', text)
         if strip == 'left' or strip == 'both':
             text = text.lstrip()
         if strip == 'right' or strip == 'both':
