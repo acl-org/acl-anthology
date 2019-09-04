@@ -35,10 +35,13 @@ import ssl
 import sys
 import tempfile
 
-from anthology.utils import build_anthology_id, deconstruct_anthology_id
+from anthology.utils import build_anthology_id, deconstruct_anthology_id, indent
 
 import lxml.etree as ET
 import urllib.request
+
+ALLOWED_TYPES = ['pdf', 'pptx', 'zip']
+ATTACHMENT_TYPES = 'Poster Presentation Note Software Supplementary'.split()
 
 def main(args):
 
@@ -59,17 +62,16 @@ def main(args):
     collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
     paper_extension = args.path.split('.')[-1]
 
-    if paper_extension not in ['pdf', 'pptx']:
-        print('-> FATAL: unknown file extension {paper_extension}', file=sys.stderr)
+    if paper_extension not in ALLOWED_TYPES:
+        print(f'-> FATAL: {args.anthology_id} unknown file extension {paper_extension}', file=sys.stderr)
         sys.exit(1)
 
-    attachment_file_name = f'{args.anthology_id}.{args.type.capitalize()}.{paper_extension}'
+    attachment_file_name = f'{args.anthology_id}.{args.type}.{paper_extension}'
 
     # Update XML
     xml_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{collection_id}.xml')
     tree = ET.parse(xml_file)
-    # add newline to end-of-file if not present
-    if not tree.getroot().tail: tree.getroot().tail = '\n'
+
     paper = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
     if paper is not None:
         # Check if attachment already exists
@@ -79,19 +81,16 @@ def main(args):
                 break
         else:
             attachment = ET.Element('attachment')
-            attachment.attrib['type'] = args.type
+            attachment.attrib['type'] = args.type.lower()
             attachment.text = attachment_file_name
 
-            # Set tails to maintain proper indentation
-            paper[-1].tail += '  '
-            attachment.tail = '\n    '  # newline and two levels of indent
-
             paper.append(attachment)
+            indent(tree.getroot())
             tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
             print(f'-> added attachment {attachment_file_name} to the XML', file=sys.stderr)
 
     else:
-        print(f'-> FATAL: paper not found in the Anthology', file=sys.stderr)
+        print(f'-> FATAL: paper (volume={volume_id}, paper={paper_id}) not found in the Anthology', file=sys.stderr)
         sys.exit(1)
 
     # Make sure directory exists
@@ -118,7 +117,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('anthology_id', help='The Anthology ID (e.g., P18-1001)')
     parser.add_argument('path', type=str, help='Path to the attachment (can be URL)')
-    parser.add_argument('type', type=str, choices='poster presentation note software supplementary'.split(), help='Attachment type')
+    parser.add_argument('type', type=str, choices=ATTACHMENT_TYPES, help='Attachment type')
     parser.add_argument('--attachment-root', '-d', default=os.path.join(os.environ['HOME'], 'anthology-files/attachments'),
                         help='Anthology web directory root.')
     args = parser.parse_args()
