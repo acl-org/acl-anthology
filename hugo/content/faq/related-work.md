@@ -16,8 +16,6 @@ A 2018 paper gave a technical description of the Anthology at the time:
 > Daniel Gildea, Min-Yen Kan, Nitin Madnani, Christoph Teichmann, Martin Villalba
 > Proceedings of Workshop for NLP Open Source Software (NLP-OSS)
 
-It is not out of date, but helped direct changes to the Anthology that occurred in 2019.
+It is now out of date, but helped direct changes to the Anthology that occurred in 2019.
 
 Many other [publications based on the ACL Anthology](https://scholar.google.de/scholar?q=acl+anthology) exist.
-
-
