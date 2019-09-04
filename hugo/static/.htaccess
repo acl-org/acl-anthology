@@ -38,8 +38,12 @@ RewriteRule ^(.*)$ https://%{SERVER_NAME}/anthology/$1 [R=301,L]
 # that will also redirect X/Z19/P17-1069.pdf -> /anthology-files/pdf/P/P17/1-69.pdf
 RewriteRule ^[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(.pdf)?$ https://www.aclweb.org/anthology/$1$2-$3 [R=301,L]
 
-# Redirect URLS with an explicit ".pdf" to the bare canonical version
+# Redirect URLs with an explicit ".pdf" to the bare canonical version
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ https://www.aclweb.org/anthology/$1$2-$3 [R=301,L]
+
+# Redirect nested paper pages to the / version (e.g., papers/P/P19/P19-1001/ -> P19-1001/)
+# This way there is only one page. Should maintain for backward compatibility for some time after August 2019.
+RewriteRule ^papers/[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])/?$ https://www.aclweb.org/anthology/$1$2-$3/ [R=301,L]
 
 #
 # INTERNAL REDIRECTIONS
@@ -49,30 +53,27 @@ RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ https://www.acl
 #
 
 ## PDF redirection
-# Canonical URL (a plain ACL ID with no file extension, e.g., P17-1069 -> P/P17/P17-1069.pdf)
+# Canonical URL (a plain ACL ID with no file extension, e.g., P17-1069 loads P/P17/P17-1069.pdf)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
 
-# Volume URLs (e.g., P17-1 -> P/P17/P17-1.pdf)
+# Volume URLs (e.g., P17-1 loads P/P17/P17-1.pdf)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9]{1,2})$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
 
-# PDF link (e.g., P17-1069.pdf -> P/P17/P17-1069.pdf)
+# PDF link (e.g., P17-1069.pdf loads P/P17/P17-1069.pdf)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
 
 # Revisions and errata (e.g., P17-1069v2)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])([ve][0-9]+)$ /anthology-files/pdf/$1/$1$2/$1$2-$3$4.pdf [L,NC]
 
-# Attachments (e.g., P17-1069.Poster.pdf -> /anthology-files/attachments/P/P17/P17-1069.Poster.pdf)
+# Attachments (e.g., P17-1069.Poster.pdf loads /anthology-files/attachments/P/P17/P17-1069.Poster.pdf)
 RewriteRule ^attachments/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ /anthology-files/attachments/$1/$1$2/$1$2-$3$4 [L,NC]
 
-# Old rule matching files with additional annotations on the canonical URL; I (MJP) am actually not sure whether every actually fires
-#RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ $1/$1$2/$1$2-$3$4 [L,NC]
-
 ## Paper and author pages and bibtex
-# The Paper metadata page (e.g., P17-1069/ -> papers/P/P17/P17-1069/index.html)
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])\/$ papers/$1/$1$2/$1$2-$3/ [L,NC]
+# The Paper metadata page (e.g., P17-1069/ loads papers/P/P17/P17-1069/index.html)
+RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])\/$ papers/$1/$1$2/$1$2-$3/index.html [L,NC]
 
-# BibTeX file (e.g., P17-1069.bib -> papers/P/P17/P17-1069.bib)
+# Redirects for bib, MODS XML, Endnote (e.g., /P17-1069.bib loads papers/P/P17/P17-1069.bib)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])\.([a-z]+)$ papers/$1/$1$2/$1$2-$3.$4 [L,NC]
 
-# Author pages (e.g., people/arya-d-mccarthy -> people/a/arya-d-mccarthy)
+# Author pages (e.g., people/arya-d-mccarthy loads people/a/arya-d-mccarthy)
 RewriteRule ^people/([a-z])([\-a-z0-9]*)$ people/$1/$1$2/ [L,NC]
