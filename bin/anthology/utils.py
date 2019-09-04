@@ -82,17 +82,17 @@ def deconstruct_anthology_id(anthology_id):
         P18-1 -> ('P18', '1', None)
         W18-63 -> ('W18', '63', None)
     """
-    tokens = anthology_id.split('-')
+    collection_id, rest = anthology_id.split('-')
     if anthology_id.startswith('W') or anthology_id.startswith('C69'):
-        if len(tokens) == 3:
-            return (tokens[0], str(int(tokens[1])), str(int(tokens[2])))
+        if len(rest) == 4:
+            return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
         else:                   # Possible Volume only identifier
-            return (tokens[0], str(int(tokens[1])), None)
+            return (collection_id, str(int(rest)), None)
     else:
-        if len(tokens) == 3:
-            return (tokens[0], str(int(tokens[1])), str(int(tokens[2])))
+        if len(rest) == 4:
+            return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
         else:                   # Possible Volume only identifier
-            return (tokens[0], str(int(tokens[1])), None)
+            return (collection_id, str(int(rest)), None)
 
 
 def stringify_children(node):
@@ -182,8 +182,7 @@ class SeverityTracker(logging.Handler):
 def clean_whitespace(text, strip='left'):
     old_text = text
     if text is not None:
-        text = text.replace('\n', '')
-        text = re.sub(r'\s+', ' ', text)
+        text = re.sub(r' +', ' ', text)
         if strip == 'left' or strip == 'both':
             text = text.lstrip()
         if strip == 'right' or strip == 'both':
