@@ -30,6 +30,8 @@ import sys
 
 import lxml.etree as etree
 
+from datetime import datetime
+
 from normalize_anth import process
 from anthology.utils import make_nested, make_simple_element, build_anthology_id, indent
 from anthology.index import AnthologyIndex
@@ -39,8 +41,12 @@ from itertools import chain
 
 
 if __name__ == '__main__':
+    now = datetime.now()
+    today = f'{now.year}-{now.month:02d}-{now.day:02d}'
+
     parser = argparse.ArgumentParser()
     parser.add_argument('infile')
+    parser.add_argument('--ingest-date', '-d', type=str, default=today, help='Ingestion date as YYYY-MM-DD. Default: %(default)s.')
     parser.add_argument('--append', '-a', action='store_true', help='Append to existing volume instead of quitting.')
     args = parser.parse_args()
 
@@ -87,6 +93,8 @@ if __name__ == '__main__':
         new_volume_id = int(new_volume.attrib['id'])
         existing_volume = existing_tree.getroot().find(f"./volume[@id='{new_volume_id}']")
         if existing_volume is None:
+            new_volume.attrib['ingest-date'] = args.ingest_date
+
             # Find the insertion point among the other volumes
             insertion_point = 0
             for i, volume in enumerate(existing_tree.getroot()):
@@ -100,6 +108,7 @@ if __name__ == '__main__':
             if args.append:
                 for paper in new_volume.findall('./paper'):
                     print(f'Appending {paper.attrib["id"]}')
+                    paper.attrib['ingest-date'] = args.ingest_date
                     existing_volume.append(paper)
             else:
                 print(f'Volume {new_volume_id} has already been inserted into {collection_file}.')
