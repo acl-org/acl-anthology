@@ -40,12 +40,6 @@ def is_volume_id(anthology_id):
     )
 
 
-def to_volume_id(anthology_id):
-    if anthology_id[0] == "W" or anthology_id[:3] == "C69":
-        return anthology_id[:6]
-    return anthology_id[:5]
-
-
 def build_anthology_id(collection_id, volume_id, paper_id):
     """
     Transforms collection id, volume id, and paper id to a width-padded
@@ -453,3 +447,22 @@ def make_nested(root):
     indent(new_root)
 
     return new_root
+
+    def infer_year(collection_id):
+        """Infer the year from the collection ID.
+
+        Many paper entries do not explicitly contain their year.  This function assumes
+        that the paper's collection identifier follows the format 'xyy', where x is
+        some letter and yy are the last two digits of the year of publication.
+        """
+        assert (
+            len(collection_id) == 3
+        ), "Couldn't infer year: unknown volume ID format"
+        digits = collection_id[1:]
+        if int(digits) >= 60:
+            year = "19{}".format(digits)
+        else:
+            year = "20{}".format(digits)
+
+        return year
+

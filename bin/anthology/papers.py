@@ -21,7 +21,6 @@ from .utils import (
     remove_extra_whitespace,
     is_journal,
     is_volume_id,
-    to_volume_id,
 )
 from . import data
 
