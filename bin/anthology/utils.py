@@ -137,6 +137,25 @@ def infer_attachment_url(filename, parent_id=None):
     return infer_url(filename, data.ATTACHMENT_URL)
 
 
+def infer_year(collection_id):
+    """Infer the year from the collection ID.
+
+    Many paper entries do not explicitly contain their year.  This function assumes
+    that the paper's collection identifier follows the format 'xyy', where x is
+    some letter and yy are the last two digits of the year of publication.
+    """
+    assert (
+        len(collection_id) == 3
+    ), "Couldn't infer year: unknown volume ID format"
+    digits = collection_id[1:]
+    if int(digits) >= 60:
+        year = "19{}".format(digits)
+    else:
+        year = "20{}".format(digits)
+
+    return year
+
+
 _MONTH_TO_NUM = {
     "january": 1,
     "february": 2,
@@ -307,6 +326,20 @@ def make_simple_element(tag, text=None, attrib=None):
 def make_nested(root):
     """
     Converts an XML tree root to the nested format (if not already converted).
+
+    The original format was:
+
+        <volume id="P19">
+          <paper id="1000"> <!-- new volume -->
+
+    The nested format is:
+
+        <collection id="P19">
+          <volume id="1">
+            <frontmatter>
+              ...
+            </frontmatter>
+            <paper id="1">
     """
 
     collection_id = root.attrib['id']
@@ -447,22 +480,3 @@ def make_nested(root):
     indent(new_root)
 
     return new_root
-
-    def infer_year(collection_id):
-        """Infer the year from the collection ID.
-
-        Many paper entries do not explicitly contain their year.  This function assumes
-        that the paper's collection identifier follows the format 'xyy', where x is
-        some letter and yy are the last two digits of the year of publication.
-        """
-        assert (
-            len(collection_id) == 3
-        ), "Couldn't infer year: unknown volume ID format"
-        digits = collection_id[1:]
-        if int(digits) >= 60:
-            year = "19{}".format(digits)
-        else:
-            year = "20{}".format(digits)
-
-        return year
-

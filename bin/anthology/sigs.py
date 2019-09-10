@@ -20,7 +20,7 @@ from slugify import slugify
 import logging as log
 import yaml
 
-from .utils import deconstruct_anthology_id, infer_year
+from anthology.utils import deconstruct_anthology_id, infer_year
 
 try:
     from yaml import CLoader as Loader
