@@ -91,23 +91,10 @@ class SIG:
 
         `full_volume_id` looks like `P19-1` or `W19-31`
         """
-        print(f'**** REMOVE_VOLUME({full_volume_id})')
         collection_id, _, _ = deconstruct_anthology_id(full_volume_id)
         year = int(infer_year(collection_id))
-        print(f'-> {year} found?')
         if year in self.events_by_year:
-            print(f'-> yes')
-            print(f'-> {full_volume_id} found?')
-            to_delete = -1
-            for i, event in enumerate(self.events_by_year[year]):
-                if event[0] == full_volume_id:
-                    print(f'-> yes')
-                    to_delete = i
-                    break
-            if to_delete != -1:
-                del self.events_by_year[year][to_delete]
-        import json
-        print(json.dumps(self.events_by_year, ensure_ascii=False), flush=True)
+            self.events_by_year[year] = [event for event in self.events_by_year[year] if not event[0] == full_volume_id]
 
     @property
     def associated_events(self):
