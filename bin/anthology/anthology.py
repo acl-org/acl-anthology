@@ -69,7 +69,7 @@ class Anthology:
                 log.info(f'Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future.')
 
                 # Remove any SIG entries with this volume
-                
+                self.sigs.remove_volume(volume.full_id)
                 continue
 
             # Register the volume since we're not skipping it
