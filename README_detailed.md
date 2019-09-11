@@ -11,6 +11,17 @@ site generator.  However, before we can actually invoke Hugo, we need to prepare
 the contents of the website.  The following steps describe what happens
 behind the scenes.  All the steps have a corresponding `make` target as well.
 
+### Step 0: Install required Python packages
+To build the anthology, the packages listed in
+  [bin/requirements.txt](bin/requirements.txt) are needed (they are installed and updated by make automatically).
+  + *Note:* You can install all needed dependencies using the command `pip install -r bin/requirements.txt`
+  + *Note:* [Installing the PyYAML package with C
+    bindings](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/)
+    will speed up the generation process.  On Debian-based systems, you have to do
+	the following if `libyaml-dev` was not installed before running make the first time:
+	`sudo apt install libyaml-dev`, enable virtualenv: `source venv/bin/activate` and
+	rebuild pyyaml with libyaml backend: `pip3 install pyyaml --upgrade --force`
+
 ### Step 1: Prepare the data for site generation
 
 The data sources for the Anthology currently reside in the [`data/`](data/)

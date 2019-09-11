@@ -14,6 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Instructions:
+# - if you edit the a command running python, make sure to
+#   run . $(VENV) && python3 -- this sets up the virtual environment.
+# - all targets running python somewhere should have venv as a dependency.
+#   this makes sure that all required packages are installed.
+
 SHELL = /bin/sh
 ANTHOLOGYHOST := "https://www.aclweb.org"
 ANTHOLOGYDIR := anthology
@@ -21,8 +27,35 @@ HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
 
+#######################################################
+# check whether the correct python version is available
+ifeq (, $(shell which python3 ))
+  $(error "python3 not found in $(PATH)")
+endif
+
+PYTHON_VERSION_MIN=3.7
+PYTHON_VERSION=$(shell python3 -c 'import sys; print("%d.%d"% sys.version_info[0:2])' )
+PYTHON_VERSION_OK=$(shell python3 -c 'import sys; print(int(float("%d.%d"% sys.version_info[0:2]) >= $(PYTHON_VERSION_MIN)))' )
+
+ifeq ($(PYTHON_VERSION_OK),0)
+  $(error "Need python $(PYTHON_VERSION_MIN), but only found python $(PYTHON_VERSION)!")
+endif
+# end python check
+#######################################################
+VENV := "venv/bin/activate"
+
 .PHONY: site
 site: bibtex mods endnote hugo
+
+
+.PHONY: venv
+venv: venv/bin/activate
+
+# installs dependencies if requirements.txt have been updated.
+venv/bin/activate: bin/requirements.txt
+	test -d venv || python3 -m venv venv
+	. $(VENV) && pip3 install -Ur bin/requirements.txt
+	touch venv/bin/activate
 
 .PHONY: all
 all: clean check site
@@ -43,25 +76,25 @@ build/.static: $(shell find hugo -type f)
 .PHONY: yaml
 yaml: build/.yaml
 
-build/.yaml: build/.static $(sourcefiles)
+build/.yaml: build/.static $(sourcefiles) venv
 	@echo "INFO     Generating YAML files for Hugo..."
-	@python3 bin/create_hugo_yaml.py --clean
+	. $(VENV) && python3 bin/create_hugo_yaml.py --clean
 	@touch build/.yaml
 
 .PHONY: hugo_pages
 hugo_pages: build/.pages
 
-build/.pages: build/.static build/.yaml
+build/.pages: build/.static build/.yaml venv
 	@echo "INFO     Creating page templates for Hugo..."
-	@python3 bin/create_hugo_pages.py --clean
+	. $(VENV) && python3 bin/create_hugo_pages.py --clean
 	@touch build/.pages
 
 .PHONY: bibtex
 bibtex:	build/.bibtex
 
-build/.bibtex: build/.static $(sourcefiles)
+build/.bibtex: build/.static $(sourcefiles) venv
 	@echo "INFO     Creating BibTeX files..."
-	@python3 bin/create_bibtex.py --clean
+	. $(VENV) && python3 bin/create_bibtex.py --clean
 	@touch build/.bibtex
 
 .PHONY: mods
