@@ -18,15 +18,20 @@
 """
 Used to add ingested DOIs into the Anthology XML.
 Does not actually assign DOIs (separate script to manufacture XML to submit to Crossref), but
-simply adds to the XML, after checking that the URL exists.
+simply adds to the XML, after checking that the DOI URL exists and resolves.
 
 Usage:
 
-  add_dois.py VOLUME_ID
+    add_dois.py [list of volume IDs]
 
-- The ACL Volume ID to add DOIs to (e.g., P17-1, W18-02)
+e.g.,
+
+    python3 add_dois.py P19-1 P19-2 P19-3 P19-4 W19-32
 
 Modifies the XML.  Warns if DOIs already present.  Use -f to force.
+
+Limitations:
+- Doesn't current add the entire proceedings volume itself.
 """
 
 import sys
