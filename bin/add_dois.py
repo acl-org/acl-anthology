@@ -18,18 +18,22 @@
 """
 Used to add ingested DOIs into the Anthology XML.
 Does not actually assign DOIs (separate script to manufacture XML to submit to Crossref), but
-simply adds to the XML, after checking that the URL exists.
+simply adds to the XML, after checking that the DOI URL exists and resolves.
 
 Usage:
 
-  add_dois.py VOLUME_ID
+    add_dois.py [list of volume IDs]
 
-- The ACL Volume ID to add DOIs to (e.g., P17-1, W18-02)
+e.g.,
+
+    python3 add_dois.py P19-1 P19-2 P19-3 P19-4 W19-32
 
 Modifies the XML.  Warns if DOIs already present.  Use -f to force.
+
+Limitations:
+- Doesn't current add the entire proceedings volume itself.
 """
 
-import argparse
 import sys
 import os
 import tempfile
@@ -70,11 +74,11 @@ def add_doi(xml_node, collection_id, volume_id, force=False):
         return True
 
 
-def main(args):
+def process_volume(anthology_volume):
 
-    collection_id, volume_id, _ = deconstruct_anthology_id(args.anthology_volume)
+    collection_id, volume_id, _ = deconstruct_anthology_id(anthology_volume)
 
-    print(f'Attempting to add DOIs for {args.anthology_volume}', file=sys.stderr)
+    print(f'Attempting to add DOIs for {anthology_volume}', file=sys.stderr)
 
     # Update XML
     xml_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{collection_id}.xml')
@@ -103,9 +107,17 @@ def main(args):
         print(f'-> FATAL: volume {volume} not found in the Anthology', file=sys.stderr)
         sys.exit(1)
 
+
+def main(args):
+    for volume in args.anthology_volumes:
+        process_volume(volume)
+
+
 if __name__ == '__main__':
+    import argparse
+
     parser = argparse.ArgumentParser()
-    parser.add_argument('anthology_volume', help='The Anthology Volume (e.g., P17-1, W18-02)')
+    parser.add_argument('anthology_volumes', nargs='+', help='One or more Anthology volumes (e.g., P17-1, W18-02)')
     parser.add_argument('--prefix', '-p', default=data.DOI_PREFIX, help="The DOI prefix to use (default: " + data.DOI_PREFIX + ")")
     parser.add_argument('--force', '-f', help="Force overwrite of existing DOI information", action="store_true")
     args = parser.parse_args()

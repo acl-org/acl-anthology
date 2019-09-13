@@ -21,8 +21,10 @@
 # changed.
 ################################################################################
 
-ANTHOLOGY_URL = "https://www.aclweb.org/anthology/{}"
-ATTACHMENT_URL = "https://www.aclweb.org/anthology/attachments/{}"
+ANTHOLOGY_PREFIX = "https://www.aclweb.org/anthology"
+
+ANTHOLOGY_URL = ANTHOLOGY_PREFIX + '/{}'
+ATTACHMENT_URL = ANTHOLOGY_PREFIX + '/attachments/{}'
 
 # Names of XML elements that may appear multiple times
 LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
