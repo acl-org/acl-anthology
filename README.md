@@ -1,7 +1,7 @@
 # ACL Anthology
 
 These are basic instructions on generating the ACL Anthology website as seen on <https://aclweb.org/anthology/>.
-The offical home of this repository is <https://github.com/acl-org/acl-anthology>.
+The official home of this repository is <https://github.com/acl-org/acl-anthology>.
 
 ## Generating the Anthology
 
