@@ -18,231 +18,225 @@
 """Creates the Crossref metadata submission XML for the current (30
 Jun 2019) Anthology XML data.  Needs to be uploaded to Crossref via
 the ACL organization credentials.  Note that each DOI assigned costs
-ACL USD 1.  
+the ACL $1 USD.
 
 - Only assign DOIs to ACL venues (i.e., those run by ACL or
-  (co-)sponsored by an ACL chapter or SIG) 
+  (co-)sponsored by an ACL chapter or SIG)
 - Do not assign DOIs to journals that assign their own DOIs (as of
   current, both CL and TACL should be assigning their own DOIs)
 
 See also https://github.com/acl-org/acl-anthology/wiki/DOI
 
-Usage: python3 generate_crossref_doi_metadata.py <Anthology XML file> <volume ID>
+Usage: python3 generate_crossref_doi_metadata.py <list of volume IDs>
+e.g.,
 
-Bugs: 
-- Should change DEPOSITOR_NAME / EMAIL_ADDRESS soon
-- Can't handle current (30 Jun 2019) ACL Anthology XML with
-  <fixed-case> tags.  Need to strip those out first.
+    python3 generate_crossref_doi_metadata.py P19-1 P19-2 P19-3 P19-4 > acl2019_dois.xml
 
 Limitations:
 - This script does not inject the DOI data into the Anthology XML.
-  There (will be) another script for this.
+  For this, use `bin/add_dois.py <list of volume IDs>`.
 - Doesn't properly handle existing ISBN information.
+- Doesn't currently submit the frontmatter.
 
 Tested:
 - against 2018 workshop and conference data (working)
 """
-import xml.etree.ElementTree as ET  
-from xml.dom import minidom
+import os
+import re
 import sys
 import time
-import re
+
+from lxml import etree
+
+from anthology.utils import deconstruct_anthology_id, make_simple_element
+from anthology.data import ANTHOLOGY_URL, DOI_PREFIX
+from anthology.formatter import MarkupFormatter
 
 # CONSTANTS
 PUBLISHER_PLACE = "Stroudsburg, PA, USA"
-DOI_PREFIX = "10.18653/v1/"
-DEPOSITOR_NAME = "Min-Yen Kan"
-EMAIL_ADDRESS = "kanmy@comp.nus.edu.sg"
+DEPOSITOR_NAME = "Matt Post"
+EMAIL_ADDRESS = "anthology@aclweb.org"
 REGISTRANT = "Association for Computational Linguistics"
 PUBLISHER  = "Association for Computational Linguistics"
-RESOURCE_PREFIX = 'http://aclweb.org/anthology/'
-MONTH_HASH = {"January":"1","February":"2","March":"3","April":"4","May":"5","June":"6",
-              "July":"7","August":"8","September":"9","October":"10","November":"11","December":"12"}
+MONTH_HASH = {"January": "1", "February": "2", "March": "3", "April": "4",
+              "May": "5", "June": "6", "July": "7", "August": "8",
+              "September": "9", "October": "10", "November": "11", "December": "12"}
 
 # FUNCTION DEFINITIONS
 def prettify(elem):
     """Return a pretty-printed XML string for the Element.
     """
-    rough_string = ET.tostring(elem, 'utf-8')
+    rough_string = etree.tostring(elem, 'utf-8')
     reparsed = minidom.parseString(rough_string)
     return reparsed.toprettyxml(indent="  ")
 
-tree = ET.parse(sys.argv[1])
-vol = sys.argv[2]
+def main(volumes):
 
-##################################################
-# MAIN FUNCTION
+    formatter = MarkupFormatter()
 
-## Assemble container
-new_volume = ET.Element('doi_batch',
-                        {'xmlns':'http://www.crossref.org/schema/4.4.1',
-                         'xmlns:xsi':'http://www.w3.org/2001/XMLSchema-instance',
-                         'xsi:schemaLocation':'http://www.crossref.org/schema/4.4.1 http://www.crossref.org/schema/deposit/crossref4.4.1.xsd',
-                         'version':'4.4.1'})
+    ## Assemble container
+    doi_batch = make_simple_element('doi_batch',
+                                    attrib={'xmlns': 'http://www.crossref.org/schema/4.4.1',
+                                            '{http://www.w3.org/2001/XMLSchema-instance}schemaLocation': 'http://www.crossref.org/schema/4.4.1 http://www.crossref.org/schema/deposit/crossref4.4.1.xsd',
+                                            'version': '4.4.1'},
+                                    namespaces={'xsi': 'http://www.w3.org/2001/XMLSchema-instance'})
+    new_volume = etree.ElementTree(doi_batch)
 
-## Assemble head
-head = ET.SubElement(new_volume,'head')
-dbi = ET.SubElement(head,'doi_batch_id')
-dbi.text = str(int(time.time()))
+    ## Assemble head
+    head = make_simple_element('head', parent=new_volume.getroot())
+    dbi = make_simple_element('doi_batch_id', text=str(int(time.time())), parent=head)
 
-timestamp = ET.SubElement(head,'timestamp')
-timestamp.text = str(int(time.time()))
+    timestamp = make_simple_element('timestamp', text=str(int(time.time())), parent=head)
 
-depositor = ET.SubElement(head,'depositor')
-depositor_name = ET.SubElement(depositor,'depositor_name')
-depositor_name.text = DEPOSITOR_NAME
-email_address = ET.SubElement(depositor,'email_address')
-email_address.text = EMAIL_ADDRESS
+    depositor = make_simple_element('depositor', parent=head)
+    depositor_name = make_simple_element('depositor_name', text=DEPOSITOR_NAME, parent=depositor)
+    email_address = make_simple_element('email_address', text=EMAIL_ADDRESS, parent=depositor)
 
-registrant = ET.SubElement(head,'registrant')
-registrant.text = REGISTRANT
+    registrant = make_simple_element('registrant', text=REGISTRANT, parent=head)
 
-## Assemble body
-body = ET.SubElement(new_volume,'body')
+    ## Assemble body
+    body = make_simple_element('body', parent=new_volume.getroot())
 
-year = ""
-start_month = ""
-end_month = ""
+    year = ""
+    start_month = ""
+    end_month = ""
 
-for v in tree.iterfind("volume[@id='"+vol+"']"):
-    # Volume constant data
+    for full_volume_id in sorted(volumes):
+        collection_id, volume_id, _ = deconstruct_anthology_id(full_volume_id)
 
-    ## Assemble frontmatter
-    c = ET.SubElement(body,'conference')
-    contribs = ET.SubElement(c,'contributors')
-    editor_index = 0;
+        collection_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{collection_id}.xml')
+        tree = etree.parse(collection_file)
 
-    for meta in v.iter(tag='meta'):
-        for y in meta.iter(tag='year'):
-            year = y.text
-        for m in meta.iter(tag='month'):
-            try:
-                start_month = MONTH_HASH[re.split('[-–]',m.text)[0]]
-                end_month = MONTH_HASH[re.split('[-–]',m.text)[1]]
-            except IndexError as e: # only one month
-                start_month = MONTH_HASH[m.text]
-                end_month = MONTH_HASH[m.text]
-        # Capture the URL to construct the deposit ID
-        for u in meta.iter(tag='url'): 
-            url = u.text
-        for bt in meta.iter(tag='booktitle'): 
-            booktitle = bt.text
-        for addr in meta.iter(tag='address'): 
-            address = addr.text
-        for pub in meta.iter(tag='publisher'): 
-            publisher = pub.text
+        v = tree.getroot().find(f"./volume[@id='{volume_id}']")
+        if v is None:
+            print(f"* Can't find volume {full_volume_id}", file=sys.stderr)
+            continue
 
-        for editor in meta.iter(tag='editor'):
-            pn = ET.SubElement(contribs,'person_name',
-                               {'contributor_role':'chair'})
-            if (editor_index == 0):
-                pn.attrib['sequence'] = 'first'
+        ## Assemble frontmatter
+        c = make_simple_element('conference', parent=body)
+        contribs = make_simple_element('contributors', parent=c)
+        editor_index = 0;
+
+        meta = v.find('./meta')
+        for tag in meta:
+            if tag.tag == 'year':
+                year = tag.text
+            elif tag.tag == 'month':
+                month = tag.text
+                try:
+                    start_month = MONTH_HASH[re.split('[-–]', month)[0]]
+                    end_month = MONTH_HASH[re.split('[-–]', month)[1]]
+                except IndexError as e: # only one month
+                    start_month = MONTH_HASH[month]
+                    end_month = MONTH_HASH[month]
+            elif tag.tag == 'url':
+                url = tag.text
+            elif tag.tag == 'booktitle':
+                booktitle = tag.text
+            elif tag.tag == 'address':
+                address = tag.text
+            elif tag.tag == 'publisher':
+                publisher = tag.text
+            elif tag.tag == 'editor':
+                pn = make_simple_element('person_name', parent=contribs,
+                                         attrib={'contributor_role': 'chair',
+                                                 'sequence': 'first' if editor_index == 0 else 'additional'
+                                         })
                 editor_index += 1
-            else:
-                pn.attrib['sequence'] = 'additional'
-                editor_index += 1
 
-            for first in editor.iter(tag='first'):
-                if (not (first.text is None)):
-                    gn = ET.SubElement(pn,'given_name')
-                    gn.text = first.text
-            for last in editor.iter(tag='last'):
-                sn = ET.SubElement(pn,'surname')
-                sn.text = last.text
+                for name_part in tag:
+                    if name_part.tag == 'first':
+                        gn = make_simple_element('given_name', parent=pn, text=name_part.text)
+                    elif name_part.tag == 'last':
+                        sn = make_simple_element('surname', text=name_part.text, parent=pn)
 
         # Assemble Event Metadata
-        em = ET.SubElement(c,'event_metadata')
-        cn = ET.SubElement(em,'conference_name')
-        cn.text = booktitle
-        cl = ET.SubElement(em,'conference_location')
-        cl.text = address
-        cd = ET.SubElement(em,'conference_date',
-                           {'start_year':year,
-                            'end_year':year,
-                            'start_month':start_month,
-                            'end_month':end_month})
-        
+        em = make_simple_element('event_metadata', parent=c)
+        cn = make_simple_element('conference_name', parent=em, text=booktitle)
+        cl = make_simple_element('conference_location', parent=em, text=address)
+        cd = make_simple_element('conference_date', parent=em,
+                                 attrib={'start_year':year,
+                                         'end_year':year,
+                                         'start_month':start_month,
+                                         'end_month':end_month})
+
         # Assemble Proceedings Metadata
-        pm = ET.SubElement(c,'proceedings_metadata',
-                           {'language':'en'})
-        pt = ET.SubElement(pm,'proceedings_title')
-        pt.text = booktitle
-        p = ET.SubElement(pm,'publisher')
-        pn = ET.SubElement(p,'publisher_name')
-        pn.text = publisher
-        pp = ET.SubElement(p,'publisher_place')
-        pp.text = PUBLISHER_PLACE
-        pd = ET.SubElement(pm,'publication_date')
-        y = ET.SubElement(pd,'year')
-        y.text = year
-        noisbn  = ET.SubElement(pm,'noisbn',
-                                {'reason':'simple_series'})
+        pm = make_simple_element('proceedings_metadata', parent=c,
+                                 attrib={'language':'en'})
+        pt = make_simple_element('proceedings_title', parent=pm, text=booktitle)
+        p = make_simple_element('publisher', parent=pm)
+        pn = make_simple_element('publisher_name', parent=p, text=publisher)
+        pp = make_simple_element('publisher_place', parent=p, text=PUBLISHER_PLACE)
+        pd = make_simple_element('publication_date', parent=pm)
+        y = make_simple_element('year', parent=pd, text=year)
+        noisbn = make_simple_element('noisbn', parent=pm,
+                                     attrib={'reason':'simple_series'})
 
         # DOI assignation data
-        dd = ET.SubElement(pm,'doi_data')
-        doi = ET.SubElement(dd,'doi')
-        doi.text = DOI_PREFIX + url 
-        resource = ET.SubElement(dd,'resource')
-        resource.text = RESOURCE_PREFIX + url
+        dd = make_simple_element('doi_data', parent=pm)
+        doi = make_simple_element('doi', parent=dd, text=DOI_PREFIX + url)
+        resource = make_simple_element('resource', parent=dd, text=ANTHOLOGY_URL.format(url))
 
-    for paper in v.iter(tag='paper'):
-        ## Individual Paper Data
+        for paper in v.findall('./paper'):
+            ## Individual Paper Data
 
-        aa_id = ""
-        if (len(url) == 6):
-            aa_id = '{:02d}'.format(int(paper.attrib['id']))
-        else:
-            if (len(url) == 5):
-                aa_id = '{:03d}'.format(int(paper.attrib['id']))
-
-        cp = ET.SubElement(c,'conference_paper')
-
-        # contributors
-        contribs = ET.SubElement(cp,'contributors')
-        author_index = 0;
-        for author in paper.iter(tag='author'):
-            pn = ET.SubElement(contribs,'person_name',
-                               {'contributor_role':'author'})
-            if (author_index == 0):
-                pn.attrib['sequence'] = 'first'
-                author_index += 1
+            # TODO: this is not future-proof, should use anthology.util library functions
+            aa_id = ""
+            if (len(url) == 6):
+                aa_id = '{:02d}'.format(int(paper.attrib['id']))
             else:
-                pn.attrib['sequence'] = 'additional'
+                if (len(url) == 5):
+                    aa_id = '{:03d}'.format(int(paper.attrib['id']))
+
+            cp = make_simple_element('conference_paper', parent=c)
+
+            # contributors
+            contribs = make_simple_element('contributors', parent=cp)
+            author_index = 0;
+            for author in paper.findall('./author'):
+                pn = make_simple_element('person_name', parent=contribs,
+                                   attrib={'contributor_role': 'author',
+                                           'sequence': 'first' if author_index == 0 else 'additional'
+                                   })
                 author_index += 1
 
-            for first in author.iter(tag='first'):
-                if (not (first.text is None)):
-                    gn = ET.SubElement(pn,'given_name')
-                    gn.text = first.text
-            for last in author.iter(tag='last'):
-                sn = ET.SubElement(pn,'surname')
-                sn.text = last.text
-                        
-        for title in paper.iter(tag='title'):
-            o_titles = ET.SubElement(cp,'titles')
-            o_title = ET.SubElement(o_titles,'title')
-            o_title.text = title.text
+                for name_part in author:
+                    if name_part.tag == 'first':
+                        gn = make_simple_element('given_name', parent=pn, text=name_part.text)
+                    elif name_part.tag == 'last':
+                        sn = make_simple_element('surname', text=name_part.text, parent=pn)
 
-        pd = ET.SubElement(cp,'publication_date')
-        o_year = ET.SubElement(pd,'year')
-        o_year.text = year
+            for title in paper.iter(tag='title'):
+                o_titles = make_simple_element('titles', parent=cp)
+                o_title = make_simple_element('title', parent=o_titles,
+                                        text=formatter.as_text(title))
 
-        for pages in paper.iter(tag='pages'):
-            o_pages = ET.SubElement(cp,'pages')
-            fp = ET.SubElement(o_pages,'first_page')
-            lp = ET.SubElement(o_pages,'last_page')
-            try:
-                fp.text = re.split('[-–]',pages.text)[0]
-                lp.text = re.split('[-–]',pages.text)[1]
-            except IndexError as e: # only one page
-                fp.text = pages.text
-                lp.text = pages.text
+            pd = make_simple_element('publication_date', parent=cp)
+            o_year = make_simple_element('year', parent=pd)
+            o_year.text = year
 
-        # DOI assignation data
-        dd = ET.SubElement(cp,'doi_data')
-        doi = ET.SubElement(dd,'doi')
-        doi.text = DOI_PREFIX + url + aa_id
-        resource = ET.SubElement(dd,'resource')
-        resource.text = RESOURCE_PREFIX + url + aa_id
-        
-print (prettify(new_volume))
+            for pages in paper.iter(tag='pages'):
+                o_pages = make_simple_element('pages', parent=cp)
+                fp = make_simple_element('first_page', parent=o_pages)
+                lp = make_simple_element('last_page', parent=o_pages)
+                try:
+                    fp.text = re.split('[-–]',pages.text)[0]
+                    lp.text = re.split('[-–]',pages.text)[1]
+                except IndexError as e: # only one page
+                    fp.text = pages.text
+                    lp.text = pages.text
+
+            # DOI assignation data
+            dd = make_simple_element('doi_data', parent=cp)
+            doi = make_simple_element('doi', parent=dd, text=DOI_PREFIX + url + aa_id)
+            resource = make_simple_element('resource', parent=dd, text=ANTHOLOGY_URL.format(url + aa_id))
+
+    print(etree.tostring(new_volume, pretty_print=True, encoding='UTF-8', xml_declaration=True, with_tail=True).decode('utf-8'))
+
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('volumes', nargs='+', help='Volumes to add DOIs to')
+    args = parser.parse_args()
+
+    main(args.volumes)

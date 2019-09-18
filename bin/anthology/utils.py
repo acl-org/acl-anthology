@@ -312,9 +312,13 @@ def parse_element(xml_element):
     return attrib
 
 
-def make_simple_element(tag, text=None, attrib=None):
+def make_simple_element(tag,
+                        text=None,
+                        attrib=None,
+                        parent=None,
+                        namespaces=None):
     """Convenience function to create an LXML node"""
-    el = etree.Element(tag)
+    el = etree.Element(tag, nsmap=namespaces) if parent is None else etree.SubElement(parent, tag)
     if text:
         el.text = text
     if attrib:
