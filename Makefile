@@ -81,6 +81,7 @@ build/.static: $(shell find hugo -type f)
 	@mkdir -p build/data-export
 	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
 	@touch build/.static
+	cat build/config.toml
 
 .PHONY: yaml
 yaml: build/.yaml
