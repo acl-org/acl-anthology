@@ -27,6 +27,10 @@ HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
 
+timestamp=$(shell date +"%d %B %Y at %H:%M %Z")
+githash=$(shell git rev-parse HEAD)
+githashshort=$(shell git rev-parse --short HEAD)
+
 #######################################################
 # check whether the correct python version is available
 ifeq (, $(shell which python3 ))
@@ -69,6 +73,11 @@ build/.static: $(shell find hugo -type f)
 	@echo "INFO     Creating and populating build directory..."
 	@mkdir -p build
 	@cp -r hugo/* build
+	@echo >> build/config.toml
+	@echo "[params]" >> build/config.toml
+	@echo "  githash = \"${githash}\"" >> build/config.toml
+	@echo "  githashshort = \"${githashshort}\"" >> build/config.toml
+	@echo "  timestamp = \"${timestamp}\"" >> build/config.toml
 	@mkdir -p build/data-export
 	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
 	@touch build/.static
@@ -121,7 +130,7 @@ build/.endnote: build/.mods
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
+build/.hugo: build/layouts/partials/footer.html
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
