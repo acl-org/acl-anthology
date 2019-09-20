@@ -40,12 +40,6 @@ def is_volume_id(anthology_id):
     )
 
 
-def to_volume_id(anthology_id):
-    if anthology_id[0] == "W" or anthology_id[:3] == "C69":
-        return anthology_id[:6]
-    return anthology_id[:5]
-
-
 def build_anthology_id(collection_id, volume_id, paper_id):
     """
     Transforms collection id, volume id, and paper id to a width-padded
@@ -141,6 +135,25 @@ def infer_attachment_url(filename, parent_id=None):
             )
         )
     return infer_url(filename, data.ATTACHMENT_URL)
+
+
+def infer_year(collection_id):
+    """Infer the year from the collection ID.
+
+    Many paper entries do not explicitly contain their year.  This function assumes
+    that the paper's collection identifier follows the format 'xyy', where x is
+    some letter and yy are the last two digits of the year of publication.
+    """
+    assert (
+        len(collection_id) == 3
+    ), "Couldn't infer year: unknown volume ID format"
+    digits = collection_id[1:]
+    if int(digits) >= 60:
+        year = "19{}".format(digits)
+    else:
+        year = "20{}".format(digits)
+
+    return year
 
 
 _MONTH_TO_NUM = {
@@ -317,6 +330,20 @@ def make_simple_element(tag,
 def make_nested(root):
     """
     Converts an XML tree root to the nested format (if not already converted).
+
+    The original format was:
+
+        <volume id="P19">
+          <paper id="1000"> <!-- new volume -->
+
+    The nested format is:
+
+        <collection id="P19">
+          <volume id="1">
+            <frontmatter>
+              ...
+            </frontmatter>
+            <paper id="1">
     """
 
     collection_id = root.attrib['id']

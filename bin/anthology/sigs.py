@@ -19,7 +19,8 @@ from glob import glob
 from slugify import slugify
 import logging as log
 import yaml
-from .papers import to_volume_id
+
+from anthology.utils import deconstruct_anthology_id, infer_year
 
 try:
     from yaml import CLoader as Loader
@@ -36,9 +37,7 @@ SIGEvent = namedtuple(
 
 def _sigevent_to_repr(event):
     if event.anthology_id is not None:
-        # For some reason, SIG files point to the front matter, not to the
-        # containing proceedings volume -- change that here
-        return to_volume_id(event.anthology_id)
+        return event.anthology_id
     return {"name": event.name, "url": event.url}
 
 
@@ -55,6 +54,10 @@ class SIGIndex:
                 data = yaml.load(f, Loader=Loader)
                 sig = SIG.from_dict(data)
                 self.sigs[sig.acronym] = sig
+
+    def remove_volume(self, full_volume_id):
+        for acronym, sig in self.sigs.items():
+            sig.remove_volume(full_volume_id)
 
     def get_associated_sigs(self, anthology_id):
         return [
@@ -80,6 +83,17 @@ class SIG:
         sig = SIG(dict_["ShortName"], dict_["Name"], dict_.get("URL", None))
         sig.data = dict_
         return sig
+
+    def remove_volume(self, full_volume_id):
+        """
+        Volumes with future ingestion dates are not built and may need to be removed from a SIG's listing.
+
+        `full_volume_id` looks like `P19-1` or `W19-31`
+        """
+        collection_id, _, _ = deconstruct_anthology_id(full_volume_id)
+        year = int(infer_year(collection_id))
+        if year in self.events_by_year:
+            self.events_by_year[year] = [event for event in self.events_by_year[year] if not event[0] == full_volume_id]
 
     @property
     def associated_events(self):
