@@ -57,7 +57,6 @@ class SIGIndex:
 
     def remove_volume(self, full_volume_id):
         for acronym, sig in self.sigs.items():
-            # print(f'Removing {full_volume_id} from {acronym}')
             sig.remove_volume(full_volume_id)
 
     def get_associated_sigs(self, anthology_id):
