@@ -131,7 +131,7 @@ build/.endnote: build/.mods
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/layouts/partials/footer.html
+build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
