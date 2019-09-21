@@ -21,8 +21,10 @@
 # changed.
 ################################################################################
 
-ANTHOLOGY_URL = "https://www.aclweb.org/anthology/{}"
-ATTACHMENT_URL = "https://www.aclweb.org/anthology/attachments/{}"
+ANTHOLOGY_PREFIX = "https://www.aclweb.org/anthology"
+
+ANTHOLOGY_URL = ANTHOLOGY_PREFIX + '/{}'
+ATTACHMENT_URL = ANTHOLOGY_PREFIX + '/attachments/{}'
 
 # Names of XML elements that may appear multiple times
 LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
@@ -30,6 +32,9 @@ LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum
 # Constants associated with DOI assignation
 DOI_URL_PREFIX = 'http://dx.doi.org/'
 DOI_PREFIX = "10.18653/v1/"
+
+# Default ingestion date (= unknown)
+UNKNOWN_INGEST_DATE = '1900-01-01'
 
 def get_journal_title(top_level_id, volume_title):
     # TODO: consider moving this from code to data (perhaps

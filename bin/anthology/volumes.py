@@ -21,13 +21,14 @@ from . import data
 from .papers import Paper
 from .venues import VenueIndex
 from .sigs import SIGIndex
-from .utils import parse_element, is_journal, month_str2num, infer_url
+from anthology.utils import parse_element, is_journal, month_str2num, infer_url, infer_year
 
 
 class Volume:
     def __init__(self,
                  collection_id,
                  volume_id,
+                 ingest_date,
                  meta_data,
                  venue_index: VenueIndex,
                  sig_index: SIGIndex,
@@ -40,9 +41,10 @@ class Volume:
         """
         self.collection_id = collection_id
         self._id = volume_id
+        self.ingest_date = ingest_date
         self.formatter = formatter
         self._set_meta_info(meta_data)
-        self.attrib["venues"] = venue_index.register(self)
+        self.attrib["venues"] = venue_index.get_associated_venues(self.full_id)
         self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
         self.content = []
         self.has_abstracts = False
@@ -56,11 +58,13 @@ class Volume:
                  formatter):
 
         volume_id = volume_xml.attrib['id']
+        # The date of publication, defaulting to earlier than anything we'll encounter
+        ingest_date = volume_xml.attrib.get('ingest-date', data.UNKNOWN_INGEST_DATE)
         meta_data = parse_element(volume_xml.find('meta'))
         # Though metadata uses "booktitle", switch to "title" for compatibility with downstream scripts
         meta_data['title'] = formatter(meta_data['xml_booktitle'], 'plain')
 
-        volume = Volume(collection_id, volume_id, meta_data, venue_index, sig_index, formatter)
+        volume = Volume(collection_id, volume_id, ingest_date, meta_data, venue_index, sig_index, formatter)
 
         front_matter_xml = volume_xml.find('frontmatter')
         if front_matter_xml is not None:
@@ -88,7 +92,8 @@ class Volume:
 
         # Some volumes don't set this---but they should!
         if 'year' not in self.attrib:
-            self._infer_year()
+            self.attrib['year'] = infer_year(self.collection_id)
+
         self.attrib["meta_date"] = self.get("year")
         if "month" in self.attrib:
             month = month_str2num(self.get("month"))
@@ -110,23 +115,6 @@ class Volume:
             )
             if issue_no is not None:
                 self.attrib["meta_issue"] = issue_no.group(2)
-
-    def _infer_year(self):
-        """Infer the year from the volume ID.
-
-        Many paper entries do not explicitly contain their year.  This function assumes
-        that the paper's volume identifier follows the format 'xyy', where x is
-        some letter and yy are the last two digits of the year of publication.
-        """
-        assert (
-            len(self.collection_id) == 3
-        ), "Couldn't infer year: unknown volume ID format"
-        digits = self.collection_id[1:]
-        if int(digits) >= 60:
-            year = "19{}".format(digits)
-        else:
-            year = "20{}".format(digits)
-        self.attrib["year"] = year
 
     @property
     def volume_id(self):
