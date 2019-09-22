@@ -2,14 +2,14 @@
 {{ $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id }}
 <p class="d-sm-flex align-items-stretch">
   <span class="d-block mr-2 text-nowrap list-button-row">
-    {{- with $paper.url -}}
-    <a class="badge badge-primary align-middle mr-1" href="{{ . }}.pdf" data-toggle="tooltip" data-placement="top" title="Open PDF">
+    {{- with $paper.pdf -}}
+    <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
       pdf
     </a>
     {{- end -}}
     {{- $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id .Params.anthology_id -}}
     {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
-    <a class="badge badge-secondary align-middle mr-1" href="{{ $paper.url }}.bib" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
+    <a class="badge badge-secondary align-middle mr-1" href="{{ $paper.bib }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
       bib
     </a>
     {{- end -}}

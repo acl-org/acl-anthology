@@ -298,8 +298,11 @@ def parse_element(xml_element):
             value = element.text
 
         if tag == "url":
+            # Use the tag 'pdf' instead of 'url'
+            tag = 'pdf'
+
             # Convert relative URLs to canonical ones
-            value = element.text if element.text.startswith('http') else data.ANTHOLOGY_URL.format(element.text)
+            value = element.text if element.text.startswith('http') else data.ANTHOLOGY_PDF.format(element.text)
 
         if tag in data.LIST_ELEMENTS:
             try:
