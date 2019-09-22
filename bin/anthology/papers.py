@@ -54,7 +54,7 @@ class Paper:
         # The landing page URL inside the Anthology. The XML file contains <url> tags
         # for papers that have a PDF, but the XML reading code swaps this to 'pdf',
         # so we can safely use 'url' here for the landing page.
-        page_url = data.ANTHOLOGY_PREFIX.format(paper.full_id)
+        page_url = data.ANTHOLOGY_URL.format(paper.full_id)
         paper.attrib['url'] = page_url
 
         # Set values from parsing the XML element (overwriting
