@@ -72,6 +72,10 @@ Frontmatter = element frontmatter {
        attribute href { xsd:anyURI },
        text
      }*
+   & element attachment {
+       attribute type { xsd:NCName }?,
+       xsd:NCName
+     }*
    & element doi { xsd:anyURI }?
   )
 }
