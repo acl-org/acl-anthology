@@ -27,7 +27,7 @@ HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
 
-timestamp=$(shell date +"%d %B %Y at %H:%M %Z")
+timestamp=$(shell date -u +"%d %B %Y at %H:%M %Z")
 githash=$(shell git rev-parse HEAD)
 githashshort=$(shell git rev-parse --short HEAD)
 
