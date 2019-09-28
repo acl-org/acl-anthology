@@ -118,6 +118,12 @@ class Paper:
                 paper._interpret_pages()
             else:
                 del paper.attrib["pages"]
+
+        if 'author' in paper.attrib:
+            # for x in paper.attrib['author']:
+            #     print('X', x[0].full)
+            paper.attrib["author_string"] = ', '.join([x[0].full for x in paper.attrib["author"]])
+
         return paper
 
     def _interpret_pages(self):
