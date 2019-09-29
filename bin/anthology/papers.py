@@ -67,6 +67,8 @@ class Paper:
         if paper.is_volume or is_journal(paper.full_id):
             del paper.attrib['xml_booktitle']
 
+        paper.attrib['booktitle'] = paper.get('booktitle')
+
         # Expand URLs with paper ID
         for tag in ('revision', 'erratum'):
             if tag in paper.attrib:
@@ -229,7 +231,10 @@ class Paper:
 
         See `get_title()` for details.
         """
-        return self.formatter(self.get("xml_booktitle"), form)
+        if 'xml_booktitle' in self.attrib:
+            return self.formatter(self.get("xml_booktitle"), form)
+        elif self.parent_volume is not None:
+            return self.parent_volume.get('title')
 
     def as_bibtex(self):
         """Return the BibTeX entry for this paper."""
