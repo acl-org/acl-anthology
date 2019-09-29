@@ -23,10 +23,10 @@
 {{ with $paper.page_first }}<meta content="{{ . }}" name="citation_firstpage" >{{ end }}
 {{ with $paper.page_last }}<meta content="{{ . }}" name="citation_lastpage" >{{ end }}
 {{ with $paper.doi }}<meta content="{{ . }}" name="citation_doi" >{{ end }}
-
   <meta property="og:title" content="{{ $paper.title }}" />
-  <!-- would be cool to set this as a generated image of the paper's first page -->
-  <meta property="og:image" content="https://www.aclweb.org/anthology/images/acl-logo.svg" />
+  {{ with $paper.thumbnail }}
+  <meta property="og:image" content="{{ . }}"
+  {{ end }}
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="ACL Anthology" />
   <meta property="og:url" content="{{ $paper.url }}" />
