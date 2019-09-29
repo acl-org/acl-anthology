@@ -23,6 +23,14 @@
 {{ with $paper.page_first }}<meta content="{{ . }}" name="citation_firstpage" >{{ end }}
 {{ with $paper.page_last }}<meta content="{{ . }}" name="citation_lastpage" >{{ end }}
 {{ with $paper.doi }}<meta content="{{ . }}" name="citation_doi" >{{ end }}
+  <meta property="og:title" content="{{ $paper.title }}" />
+  {{ with $paper.thumbnail }}
+  <meta property="og:image" content="{{ . }}" />
+  {{ end }}
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="ACL Anthology" />
+  <meta property="og:url" content="{{ $paper.url }}" />
+  <meta property="og:description" content="{{ $paper.author_string }}. {{ $paper.booktitle }}. {{ $paper.year }}" />
 {{ end }}
 
 {{ define "javascript" }}
