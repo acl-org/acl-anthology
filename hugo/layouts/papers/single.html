@@ -44,7 +44,11 @@
 {{ $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
 <section id="main">
   <h2 id="title">
-    <a href="{{ $paper.url }}">{{ $paper.title_html | safeHTML }}</a>
+    {{ with $paper.pdf }}
+    <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
+    {{ else }}
+      {{ $paper.title_html | safeHTML }}
+    {{ end }}
   </h2>
   {{ with $paper.author }}
   <p class="lead">
