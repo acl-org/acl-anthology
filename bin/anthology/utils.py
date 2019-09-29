@@ -116,12 +116,12 @@ def remove_extra_whitespace(text):
     return re.sub(" +", " ", text.replace("\n", "").strip())
 
 
-def infer_url(filename, prefix=data.ANTHOLOGY_URL):
+def infer_url(filename, prefix=data.ANTHOLOGY_PREFIX):
     """If URL is relative, return the full Anthology URL.
     """
     if urlparse(filename).netloc:
         return filename
-    return prefix.format(filename)
+    return f"{prefix}/{filename}"
 
 
 def infer_attachment_url(filename, parent_id=None):

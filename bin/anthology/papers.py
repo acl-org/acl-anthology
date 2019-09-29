@@ -51,12 +51,6 @@ class Paper:
         # Default to paper ID "0" (for front matter)
         paper = Paper(xml_element.get("id", '0'), ingest_date, *args)
 
-        # The landing page URL inside the Anthology. The XML file contains <url> tags
-        # for papers that have a PDF, but the XML reading code swaps this to 'pdf',
-        # so we can safely use 'url' here for the landing page.
-        page_url = data.ANTHOLOGY_URL.format(paper.full_id)
-        paper.attrib['url'] = page_url
-
         # Set values from parsing the XML element (overwriting
         # and changing some initialized from the volume metadata)
         for key, value in parse_element(xml_element).items():
@@ -101,7 +95,7 @@ class Paper:
             paper.attrib['revision'].insert(0, {
                 "value": "{}v1".format(paper.full_id),
                 "id": "1",
-                "url": data.ANTHOLOGY_URL.format( "{}v1.pdf".format(paper.full_id)) } )
+                "url": data.ANTHOLOGY_PDF.format( "{}v1".format(paper.full_id)) } )
 
         paper.attrib["title"] = paper.get_title("plain")
         if "booktitle" in paper.attrib:
