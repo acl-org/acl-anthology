@@ -79,11 +79,6 @@ class Paper:
                         )
                     item['url'] = data.ANTHOLOGY_PDF.format(item['url'])
 
-        # Add explicit links to bib, mods XML, and Endnote
-        paper.attrib['bib'] = data.ANTHOLOGY_BIB.format(paper.full_id)
-        paper.attrib['endf'] = data.ANTHOLOGY_ENDNOTE.format(paper.full_id)
-        paper.attrib['mods'] = data.ANTHOLOGY_MODS.format(paper.full_id)
-
         if 'attachment' in paper.attrib:
             for item in paper.attrib['attachment']:
                 item['url'] = infer_attachment_url(item['url'], paper.full_id)

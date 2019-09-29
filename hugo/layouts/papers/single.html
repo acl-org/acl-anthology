@@ -41,7 +41,6 @@
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := slicestr .Params.anthology_id 0 3 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
-{{ $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
 <section id="main">
   <h2 id="title">
     {{ with $paper.pdf }}
@@ -146,19 +145,17 @@
       -->
       <dt class="acl-button-row">Bib Export formats:</dt>
       <dd class="acl-button-row">
-      {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-        <a class="btn btn-secondary btn-sm" href="{{ $paper.bib }}">BibTeX</a>
+      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}">BibTeX</a>
       {{ end }}
-      {{ $expfile := printf "/papers/%s/%s/%s.xml" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
-      {{ if (fileExists (printf "/data-export/%s" $expfile)) }}
-        <a class="btn btn-secondary btn-sm" href="{{ $paper.mods }}">MODS XML</a>
+      {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
       {{ end }}
-      {{ $endfile := printf "/papers/%s/%s/%s.endf" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
-      {{ if (fileExists (printf "/data-export/%s" $endfile)) }}
-        <a class="btn btn-secondary btn-sm" href="{{ $paper.endf }}">EndNote</a>
+      {{ if (fileExists (printf "/data-export/%s.endf" $anthology_id)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}">EndNote</a>
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s" $bibfile) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
+      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
+        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s.bib" $anthology_id) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
       {{ end }}
       </dd>
 
@@ -189,8 +186,8 @@
         </a>
         {{ end }}
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-      <a class="btn btn-secondary" href="{{ $paper.bib }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
+      <a class="btn btn-secondary" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
       </a>
       {{ end }}

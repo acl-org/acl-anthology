@@ -7,9 +7,8 @@
       pdf
     </a>
     {{- end -}}
-    {{- $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id .Params.anthology_id -}}
-    {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
-    <a class="badge badge-secondary align-middle mr-1" href="{{ $paper.bib }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
+    {{- if (fileExists (printf "/data-export/%s.bib" .Params.anthology_id)) -}}
+    <a class="badge badge-secondary align-middle mr-1" href="{{ (printf "/%s.bib" .Params.anthology_id) | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
       bib
     </a>
     {{- end -}}
