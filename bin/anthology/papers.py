@@ -67,8 +67,6 @@ class Paper:
         if paper.is_volume or is_journal(paper.full_id):
             del paper.attrib['xml_booktitle']
 
-        paper.attrib['booktitle'] = paper.get('booktitle')
-
         # Expand URLs with paper ID
         for tag in ('revision', 'erratum'):
             if tag in paper.attrib:
@@ -95,8 +93,7 @@ class Paper:
                 "url": data.ANTHOLOGY_URL.format( "{}v1".format(paper.full_id)) } )
 
         paper.attrib["title"] = paper.get_title("plain")
-        if "booktitle" in paper.attrib:
-            paper.attrib["booktitle"] = paper.get_booktitle("plain")
+        paper.attrib["booktitle"] = paper.get_booktitle("plain")
 
         if "editor" in paper.attrib:
             if paper.is_volume:
@@ -226,7 +223,7 @@ class Paper:
         """
         return self.formatter(self.get("xml_abstract"), form, allow_url=True)
 
-    def get_booktitle(self, form="xml"):
+    def get_booktitle(self, form="xml", default=''):
         """Returns the booktitle, optionally formatting it.
 
         See `get_title()` for details.
@@ -235,6 +232,8 @@ class Paper:
             return self.formatter(self.get("xml_booktitle"), form)
         elif self.parent_volume is not None:
             return self.parent_volume.get('title')
+        else:
+            return default
 
     def as_bibtex(self):
         """Return the BibTeX entry for this paper."""
