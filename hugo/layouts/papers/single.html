@@ -17,7 +17,7 @@
   {{ with $volume.meta_issue }}<meta content="{{ . }}" name="citation_issue" >{{ end }}
   {{ with $volume.meta_date }}<meta content="{{ . }}" name="citation_publication_date" >{{ end }}
 {{ end }}
-{{ with $paper.url }}
+{{ with $paper.pdf }}
   <meta content="{{ . }}" name="citation_pdf_url" >
 {{ end }}
 {{ with $paper.page_first }}<meta content="{{ . }}" name="citation_firstpage" >{{ end }}
@@ -135,7 +135,7 @@
       <dt>Pages:</dt>
       <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
       <dt>URL:</dt>
-      <dd>{{ with $paper.url }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
+      <dd>{{ with $paper.pdf }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
       <dt>DOI:</dt>
       <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
       <!--
