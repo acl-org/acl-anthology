@@ -21,7 +21,6 @@ from .utils import (
     remove_extra_whitespace,
     is_journal,
     is_volume_id,
-    to_volume_id,
 )
 from . import data
 
@@ -78,7 +77,7 @@ class Paper:
                                 tag, paper.full_id, item['url']
                             )
                         )
-                    item['url'] = data.ANTHOLOGY_URL.format(item['url'])
+                    item['url'] = data.ANTHOLOGY_PDF.format(item['url'])
 
         if 'attachment' in paper.attrib:
             for item in paper.attrib['attachment']:
@@ -91,11 +90,10 @@ class Paper:
             paper.attrib['revision'].insert(0, {
                 "value": "{}v1".format(paper.full_id),
                 "id": "1",
-                "url": data.ANTHOLOGY_URL.format( "{}v1".format(paper.full_id)) } )
+                "url": data.ANTHOLOGY_PDF.format( "{}v1".format(paper.full_id)) } )
 
         paper.attrib["title"] = paper.get_title("plain")
-        if "booktitle" in paper.attrib:
-            paper.attrib["booktitle"] = paper.get_booktitle("plain")
+        paper.attrib["booktitle"] = paper.get_booktitle("plain")
 
         if "editor" in paper.attrib:
             if paper.is_volume:
@@ -119,6 +117,12 @@ class Paper:
                 paper._interpret_pages()
             else:
                 del paper.attrib["pages"]
+
+        if 'author' in paper.attrib:
+            # for x in paper.attrib['author']:
+            #     print('X', x[0].full)
+            paper.attrib["author_string"] = ', '.join([x[0].full for x in paper.attrib["author"]])
+
         return paper
 
     def _interpret_pages(self):
@@ -219,12 +223,17 @@ class Paper:
         """
         return self.formatter(self.get("xml_abstract"), form, allow_url=True)
 
-    def get_booktitle(self, form="xml"):
+    def get_booktitle(self, form="xml", default=''):
         """Returns the booktitle, optionally formatting it.
 
         See `get_title()` for details.
         """
-        return self.formatter(self.get("xml_booktitle"), form)
+        if 'xml_booktitle' in self.attrib:
+            return self.formatter(self.get("xml_booktitle"), form)
+        elif self.parent_volume is not None:
+            return self.parent_volume.get('title')
+        else:
+            return default
 
     def as_bibtex(self):
         """Return the BibTeX entry for this paper."""

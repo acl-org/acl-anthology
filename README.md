@@ -1,7 +1,7 @@
 # ACL Anthology
 
 These are basic instructions on generating the ACL Anthology website as seen on <https://aclweb.org/anthology/>.
-The offical home of this repository is <https://github.com/acl-org/acl-anthology>.
+The official home of this repository is <https://github.com/acl-org/acl-anthology>.
 
 ## Generating the Anthology
 
@@ -9,18 +9,16 @@ The offical home of this repository is <https://github.com/acl-org/acl-anthology
 
 To build the Anthology website, you will need:
 
-+ **Python 3.7** or higher, along with the packages listed in
-  [bin/requirements.txt](bin/requirements.txt)
-  + *Note:* You can install all needed dependencies using the command `pip install -r bin/requirements.txt`
-  + *Note:* [Installing the PyYAML package with C
-    bindings](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/)
-    will speed up the generation process.
++ **Python 3.7** or higher
 + [**Hugo 0.54**](https://gohugo.io) or higher (can be [downloaded directly from
   their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
 + [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
   non-BibTeX citation formats (not strictly required to build the website, but
   without them you need to invoke the build steps manually as laid out in the
   [detailed README](README_detailed.md))
++ *optional*: If you install `libyaml-dev` before running `make` the first time,
+   the libyaml C library will be used instead of a python implementation, speeding up
+   the build.
 
 ### Cloning
 

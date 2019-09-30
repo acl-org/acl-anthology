@@ -21,7 +21,7 @@ from . import data
 from .papers import Paper
 from .venues import VenueIndex
 from .sigs import SIGIndex
-from .utils import parse_element, is_journal, month_str2num, infer_url
+from anthology.utils import parse_element, is_journal, month_str2num, infer_url, infer_year
 
 
 class Volume:
@@ -92,7 +92,8 @@ class Volume:
 
         # Some volumes don't set this---but they should!
         if 'year' not in self.attrib:
-            self._infer_year()
+            self.attrib['year'] = infer_year(self.collection_id)
+
         self.attrib["meta_date"] = self.get("year")
         if "month" in self.attrib:
             month = month_str2num(self.get("month"))
@@ -114,23 +115,6 @@ class Volume:
             )
             if issue_no is not None:
                 self.attrib["meta_issue"] = issue_no.group(2)
-
-    def _infer_year(self):
-        """Infer the year from the volume ID.
-
-        Many paper entries do not explicitly contain their year.  This function assumes
-        that the paper's volume identifier follows the format 'xyy', where x is
-        some letter and yy are the last two digits of the year of publication.
-        """
-        assert (
-            len(self.collection_id) == 3
-        ), "Couldn't infer year: unknown volume ID format"
-        digits = self.collection_id[1:]
-        if int(digits) >= 60:
-            year = "19{}".format(digits)
-        else:
-            year = "20{}".format(digits)
-        self.attrib["year"] = year
 
     @property
     def volume_id(self):

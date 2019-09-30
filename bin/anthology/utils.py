@@ -40,12 +40,6 @@ def is_volume_id(anthology_id):
     )
 
 
-def to_volume_id(anthology_id):
-    if anthology_id[0] == "W" or anthology_id[:3] == "C69":
-        return anthology_id[:6]
-    return anthology_id[:5]
-
-
 def build_anthology_id(collection_id, volume_id, paper_id):
     """
     Transforms collection id, volume id, and paper id to a width-padded
@@ -122,12 +116,12 @@ def remove_extra_whitespace(text):
     return re.sub(" +", " ", text.replace("\n", "").strip())
 
 
-def infer_url(filename, prefix=data.ANTHOLOGY_URL):
+def infer_url(filename, prefix=data.ANTHOLOGY_PREFIX):
     """If URL is relative, return the full Anthology URL.
     """
     if urlparse(filename).netloc:
         return filename
-    return prefix.format(filename)
+    return f"{prefix}/{filename}"
 
 
 def infer_attachment_url(filename, parent_id=None):
@@ -141,6 +135,25 @@ def infer_attachment_url(filename, parent_id=None):
             )
         )
     return infer_url(filename, data.ATTACHMENT_URL)
+
+
+def infer_year(collection_id):
+    """Infer the year from the collection ID.
+
+    Many paper entries do not explicitly contain their year.  This function assumes
+    that the paper's collection identifier follows the format 'xyy', where x is
+    some letter and yy are the last two digits of the year of publication.
+    """
+    assert (
+        len(collection_id) == 3
+    ), "Couldn't infer year: unknown volume ID format"
+    digits = collection_id[1:]
+    if int(digits) >= 60:
+        year = "19{}".format(digits)
+    else:
+        year = "20{}".format(digits)
+
+    return year
 
 
 _MONTH_TO_NUM = {
@@ -285,8 +298,11 @@ def parse_element(xml_element):
             value = element.text
 
         if tag == "url":
+            # Use the tag 'pdf' instead of 'url'
+            tag = 'pdf'
+
             # Convert relative URLs to canonical ones
-            value = element.text if element.text.startswith('http') else data.ANTHOLOGY_URL.format(element.text)
+            value = element.text if element.text.startswith('http') else data.ANTHOLOGY_PDF.format(element.text)
 
         if tag in data.LIST_ELEMENTS:
             try:
@@ -299,9 +315,13 @@ def parse_element(xml_element):
     return attrib
 
 
-def make_simple_element(tag, text=None, attrib=None):
+def make_simple_element(tag,
+                        text=None,
+                        attrib=None,
+                        parent=None,
+                        namespaces=None):
     """Convenience function to create an LXML node"""
-    el = etree.Element(tag)
+    el = etree.Element(tag, nsmap=namespaces) if parent is None else etree.SubElement(parent, tag)
     if text:
         el.text = text
     if attrib:
@@ -313,6 +333,20 @@ def make_simple_element(tag, text=None, attrib=None):
 def make_nested(root):
     """
     Converts an XML tree root to the nested format (if not already converted).
+
+    The original format was:
+
+        <volume id="P19">
+          <paper id="1000"> <!-- new volume -->
+
+    The nested format is:
+
+        <collection id="P19">
+          <volume id="1">
+            <frontmatter>
+              ...
+            </frontmatter>
+            <paper id="1">
     """
 
     collection_id = root.attrib['id']

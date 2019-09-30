@@ -11,8 +11,8 @@ If you are a chair whose job it is to submit your conference proceedings, this p
 
 ### Overview of the Submission Process
 
-Please contact the Anthology Director as soon as possible to register your intention to submit your proceedings.
-We will work with you to
+Please [contact the Anthology Director](mailto:anthology@aclweb.org) as soon as possible to register your intention to submit your proceedings.
+We will work with you to:
 
 - assign workshop or conference IDs,
 - determine a publication date,
@@ -21,20 +21,46 @@ We will work with you to
 
 Early notification will help us with our planning.
 
-The actual ingestion is a two-step process:
+Ingestion is a multi-step process:
 
-1. The volume data is laid out in our ingestion format, with BibTeX files, PDFs, and other data.
-   It is then transformed into our authoritative XML format.
-2. We apply tools that perform services such as adding case protection and resolving ambiguous author names.
+1. You arrange your data (PDFs, BibTeX files, and metadata) according to the instructions below.
+   You will run a script to lay it out into a single directory, and then send in your tarball.
+2. We ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
+3. This becomes a pull request on [our pull requests page](https://github.com/acl-org/acl-anthology/pulls).
+4. Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
 
 Step 1 is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output is a minimally compliant XML file that can be ingested into [the Anthology's authoritative XML format](#authoritative-xml-format).
-Step 2 is handled by Anthology staff and uses [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/tools/).
+Additionally, if you are using EasyChair, you will also want to use our easychair scripts.
+The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/).
 
 You are responsible only for the first step: producting a minimally compliant XML file along with the associated PDFs and optionally other data (such as software).
+**Instructions for this can be found [in the ACLPUB package](https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md)**.
 
-If you are using Softconf's STARTv2 system to manage your conference, you are in luck, because it incorporates the ACLPUB package, and directly exports to the Anthology ingestion format.
-(In May of 2019, it will also support Easychair).
-For other conference management soures, the ingestion format is described in the ACLPUB package, and should not be too difficult to generate.
+#### Notes about Softconf's START
+
+If you are using START, the process is easier for you.
+You need only supply the proceedings tarball (named `proceedings.tgz`) for each of the volumes and workshops that are part of your conference.
+You can download this from START and send it directly to your publication chair.
+If you are the publication chair, you can collect these and coordinate with the Anthology Director.
+
+Please be aware of the following:
+
+- *Workshop identifiers*.
+  START uses a formatted string to identify the volume ID.
+  For main conference proceedings (e.g., NAACL long papers), for each volume, this looks like
+
+     http://www.aclweb.org/anthology/N19-1%03d
+
+  since the volume ID has one digit and the paper three.
+  For workshops, it is
+
+     http://www.aclweb.org/anthology/W19-38%02d
+
+  since there are only two digits for the paper ID.
+  Note again that the (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
+
+- *Special Interest Groups*.
+  For workshops, your conference publication chair should have noted special interest group affiliations and endorsements for workshops.
 
 The ingestion process is manual and requires time to execute and proofcheck, and as such, it's very helpful to ensure that your proceedings are in good order before sending the link.
 Redoing the ingestion costs approximately the same time as the original ingestion and thus incurs significant additional expense for the volunteer staff.
@@ -159,38 +185,6 @@ The full file contains much more information.
 ```
 
 You need not necessarily concern yourself with this format, but it may be useful to know.
-This format is generated from
-
-### Submitting to the Anthology
-
-To submit to the Anthology, please use the [ACLPUB](https://github.com/acl-org/ACLPUB) package.
-The top-level README there includes a pointer  information about the required data formats.
-
-#### Notes about Softconf's START
-
-If you are using START, the process is easier for you.
-You need only supply the proceedings tarball (named `proceedings.tgz`) for each of the volumes and workshops that are part of your conference.
-You can download this from START and send it directly to your publication chair.
-If you are the publication chair, you can collect these and coordinate with the Anthology Director.
-
-Please be aware of the following:
-
-- *Workshop identifiers*.
-  START uses a formatted string to identify the volume ID.
-  For main conference proceedings (e.g., NAACL long papers), for each volume, this looks like
-
-     http://www.aclweb.org/anthology/N19-1%03d
-
-  since the volume ID has one digit and the paper three.
-  For workshops, it is
-
-     http://www.aclweb.org/anthology/W19-38%02d
-
-  since there are only two digits for the paper ID.
-  Note again that the (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
-
-- *Special Interest Groups*.
-  For workshops, your conference publication chair should have noted special interest group affiliations and endorsements for workshops.
 
 ### Copyright
 
