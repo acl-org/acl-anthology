@@ -17,7 +17,7 @@
   {{ with $volume.meta_issue }}<meta content="{{ . }}" name="citation_issue" >{{ end }}
   {{ with $volume.meta_date }}<meta content="{{ . }}" name="citation_publication_date" >{{ end }}
 {{ end }}
-{{ with $paper.url }}
+{{ with $paper.pdf }}
   <meta content="{{ . }}" name="citation_pdf_url" >
 {{ end }}
 {{ with $paper.page_first }}<meta content="{{ . }}" name="citation_firstpage" >{{ end }}
@@ -49,10 +49,13 @@
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := slicestr .Params.anthology_id 0 3 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
-{{ $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
 <section id="main">
   <h2 id="title">
-    <a href="{{ $paper.url }}/">{{ $paper.title_html | safeHTML }}</a>
+    {{ with $paper.pdf }}
+    <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
+    {{ else }}
+      {{ $paper.title_html | safeHTML }}
+    {{ end }}
   </h2>
   {{ with $paper.author }}
   <p class="lead">
@@ -139,7 +142,7 @@
       <dt>Pages:</dt>
       <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
       <dt>URL:</dt>
-      <dd>{{ with $paper.url }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
+      <dd>{{ with $paper.pdf }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
       <dt>DOI:</dt>
       <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
       <!--
@@ -150,19 +153,17 @@
       -->
       <dt class="acl-button-row">Bib Export formats:</dt>
       <dd class="acl-button-row">
-      {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-        <a class="btn btn-secondary btn-sm" href="{{ $paper.url }}.bib">BibTeX</a>
+      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}">BibTeX</a>
       {{ end }}
-      {{ $expfile := printf "/papers/%s/%s/%s.xml" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
-      {{ if (fileExists (printf "/data-export/%s" $expfile)) }}
-        <a class="btn btn-secondary btn-sm" href="{{ $paper.url }}.xml">MODS XML</a>
+      {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
       {{ end }}
-      {{ $endfile := printf "/papers/%s/%s/%s.endf" (slicestr $volume_id 0 1) $volume_id $anthology_id }}
-      {{ if (fileExists (printf "/data-export/%s" $endfile)) }}
-        <a class="btn btn-secondary btn-sm" href="{{ $paper.url}}.endf">EndNote</a>
+      {{ if (fileExists (printf "/data-export/%s.endf" $anthology_id)) }}
+        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}">EndNote</a>
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s" $bibfile) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
+      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
+        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s.bib" $anthology_id) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
       {{ end }}
       </dd>
 
@@ -177,24 +178,24 @@
     <div class="acl-paper-link-block">
       {{ if isset $paper "revision" }}
         {{ range last 1 $paper.revision }}
-        <a class="btn btn-primary" href="{{ .url }}.pdf" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
+        <a class="btn btn-primary" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
         </a>
         {{ end }}
         {{ range first 1 $paper.revision }}
-        <a class="btn btn-secondary" href="{{ .url }}.pdf" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
+        <a class="btn btn-secondary" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
         </a>
         {{ end }}
       {{ else }}
-        {{ with $paper.url }}
-        <a class="btn btn-primary" href="{{ . }}.pdf"  title="Open PDF of '{{ $paper.title | htmlEscape }}'">
+        {{ with $paper.pdf }}
+        <a class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
           <i class="far fa-file-pdf"></i><span class="pl-2">PDF</span>
         </a>
         {{ end }}
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s" $bibfile)) }}
-      <a class="btn btn-secondary" href="{{ $paper.url }}.bib" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
+      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
+      <a class="btn btn-secondary" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
       </a>
       {{ end }}
