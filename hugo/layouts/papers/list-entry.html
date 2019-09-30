@@ -3,16 +3,13 @@
 <p class="d-sm-flex align-items-stretch">
   <span class="d-block mr-2 text-nowrap list-button-row">
     {{- with $paper.url -}}
-    <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
+    <a class="badge badge-primary align-middle mr-1" href="{{ . }}.pdf" data-toggle="tooltip" data-placement="top" title="Open PDF">
       pdf
     </a>
-      {{- if and (hasPrefix . $.Site.Params.baseURL) (eq . (strings.TrimSuffix ".pdf" .)) -}}
-    <a class="d-none" href="{{ . }}.pdf" title="Hidden link to PDF with extension">pdf</a>
-      {{- end -}}
     {{- end -}}
     {{- $bibfile := printf "/papers/%s/%s/%s.bib" (slicestr $volume_id 0 1) $volume_id .Params.anthology_id -}}
     {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
-    <a class="badge badge-secondary align-middle mr-1" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
+    <a class="badge badge-secondary align-middle mr-1" href="{{ $paper.url }}.bib" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
       bib
     </a>
     {{- end -}}
@@ -28,7 +25,7 @@
     {{ if eq hugo.Environment "development" }}
       <span class="badge badge-light align-middle">{{ .Params.anthology_id }}</span>
     {{ end }}
-    <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
+    <strong><a class="align-middle" href="{{ $paper.url }}/">{{ $paper.title_html | safeHTML }}</a></strong>
     <br />
     {{ with $paper.author }}
       {{ $len := (len $paper.author) }}
