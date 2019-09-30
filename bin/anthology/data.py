@@ -25,6 +25,7 @@ ANTHOLOGY_PREFIX = "https://www.aclweb.org/anthology"
 
 ANTHOLOGY_URL = ANTHOLOGY_PREFIX + '/{}'
 ANTHOLOGY_PDF = ANTHOLOGY_PREFIX + '/{}.pdf'
+ANTHOLOGY_THUMBNAIL = ANTHOLOGY_PREFIX + '/thumb/{}.jpg'
 
 ATTACHMENT_URL = ANTHOLOGY_PREFIX + '/attachments/{}'
 

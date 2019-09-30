@@ -119,9 +119,9 @@ class Paper:
                 del paper.attrib["pages"]
 
         if 'author' in paper.attrib:
-            # for x in paper.attrib['author']:
-            #     print('X', x[0].full)
             paper.attrib["author_string"] = ', '.join([x[0].full for x in paper.attrib["author"]])
+
+        paper.attrib["thumbnail"] = data.ANTHOLOGY_THUMBNAIL.format(paper.full_id)
 
         return paper
 
