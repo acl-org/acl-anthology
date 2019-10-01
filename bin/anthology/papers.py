@@ -77,7 +77,7 @@ class Paper:
                                 tag, paper.full_id, item['url']
                             )
                         )
-                    item['url'] = data.ANTHOLOGY_URL.format(item['url'])
+                    item['url'] = data.ANTHOLOGY_PDF.format(item['url'])
 
         if 'attachment' in paper.attrib:
             for item in paper.attrib['attachment']:
@@ -90,7 +90,7 @@ class Paper:
             paper.attrib['revision'].insert(0, {
                 "value": "{}v1".format(paper.full_id),
                 "id": "1",
-                "url": data.ANTHOLOGY_URL.format( "{}v1".format(paper.full_id)) } )
+                "url": data.ANTHOLOGY_PDF.format( "{}v1".format(paper.full_id)) } )
 
         paper.attrib["title"] = paper.get_title("plain")
         paper.attrib["booktitle"] = paper.get_booktitle("plain")
