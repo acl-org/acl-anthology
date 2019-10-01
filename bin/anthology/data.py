@@ -24,6 +24,8 @@
 ANTHOLOGY_PREFIX = "https://www.aclweb.org/anthology"
 
 ANTHOLOGY_URL = ANTHOLOGY_PREFIX + '/{}'
+ANTHOLOGY_PDF = ANTHOLOGY_PREFIX + '/{}.pdf'
+
 ATTACHMENT_URL = ANTHOLOGY_PREFIX + '/attachments/{}'
 
 # Names of XML elements that may appear multiple times
