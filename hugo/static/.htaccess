@@ -61,5 +61,8 @@ RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])([ve][0-9]+)$ /anthol
 # Attachments (e.g., P17-1069.Poster.pdf loads /anthology-files/attachments/P/P17/P17-1069.Poster.pdf)
 RewriteRule ^attachments/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ /anthology-files/attachments/$1/$1$2/$1$2-$3$4 [L,NC]
 
+# Thumbnails (e.g., /thumb/P17-1069.jpg loads /anthology-files/thumb/P17-1069.jpg)
+RewriteRule ^thumb/([A-Za-z][0-9][0-9]\-[0-9][0-9][0-9][0-9]\..*)?$ /anthology-files/thumb/$1 [L,NC]
+
 # Author pages (e.g., people/arya-d-mccarthy loads people/a/arya-d-mccarthy)
 RewriteRule ^people/([a-z])([\-a-z0-9]*)$ people/$1/$1$2/ [L,NC]
