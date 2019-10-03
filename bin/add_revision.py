@@ -44,8 +44,8 @@ import ssl
 import sys
 import tempfile
 
-from anthology.utils import deconstruct_anthology_id
-from anthology.data import ANTHOLOGY_URL
+from anthology.utils import deconstruct_anthology_id, indent
+from anthology.data import ANTHOLOGY_PDF
 
 import lxml.etree as ET
 import urllib.request
@@ -99,13 +99,16 @@ def main(args):
         if args.do:
             revision = ET.Element(change_type)
             revision.attrib['id'] = str(revno)
-            revision.text = f'{args.anthology_id}{change_letter}{revno}'
+            revision.attrib['href'] = f'{args.anthology_id}{change_letter}{revno}'
+            revision.text = args.explanation
 
             # Set tails to maintain proper indentation
             paper[-1].tail += '  '
             revision.tail = '\n    '  # newline and two levels of indent
 
             paper.append(revision)
+
+            indent(tree.getroot())
 
             tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
             print(f'-> Added {change_type} node "{revision.text}" to XML', file=sys.stderr)
@@ -128,7 +131,7 @@ def main(args):
         # (essentially backing up the original version)
         revised_file_v1_path = os.path.join(output_dir, f'{args.anthology_id}{change_letter}1.pdf')
 
-        current_version = ANTHOLOGY_URL.format(args.anthology_id)
+        current_version = ANTHOLOGY_PDF.format(args.anthology_id)
         if args.do:
             try:
                 print(f'-> Downloading file from {args.path} to {revised_file_v1_path}', file=sys.stderr)

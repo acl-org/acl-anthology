@@ -115,6 +115,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         del data["xml_booktitle"]
         if "xml_abstract" in data:
             del data["xml_abstract"]
+        data["has_abstracts"] = volume.has_abstracts
         data["papers"] = volume.paper_ids
         if "author" in data:
             data["author"] = [

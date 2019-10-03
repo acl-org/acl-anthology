@@ -7,7 +7,11 @@
 {{ $paper := index .Site.Data.volumes .Params.anthology_id }}
 <section id="main">
   <h2 id="title">
-    <a href="{{ $paper.url }}">{{ $paper.title_html | safeHTML }}</a>
+    {{ with $paper.pdf }}
+      <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
+    {{ else }}
+      {{ $paper.title_html | safeHTML }}
+    {{ end }}
   </h2>
   {{ with $paper.editor }}
   <p class="lead">
@@ -63,7 +67,7 @@
       <dt>Publisher:</dt>
       <dd>{{ with $paper.publisher }}{{ . }}{{ end }}</dd>
       <dt>URL:</dt>
-      <dd>{{ with $paper.url }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
+      <dd>{{ with $paper.pdf }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
       <dt>DOI:</dt>
       <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
       <!--
@@ -92,7 +96,7 @@
 
     <!-- Most of the styling for this block is set in _papers.scss to avoid clutter -->
     <div class="acl-paper-link-block">
-      {{ with $paper.url }}
+      {{ with $paper.pdf }}
       <a class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
         <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(full)</small></span>
       </a>
@@ -103,12 +107,17 @@
         <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
       </a>
       {{ end }}
-      <a class="btn btn-secondary" href="https://www.google.com/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google">
-        <i class="fas fa-search"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
+      <a class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
+        <i class="ai ai-google-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
     </div>
   </div>
   <hr />
+
+  {{ if $paper.has_abstracts }}
+  <button class="btn btn-sm btn-info d-block mb-3" id="toggle-all-abstracts" data-toggle-state="hide" disabled>
+    <span class="on-toggle-state-hide">Show all abstracts<i class="ml-2 fas fa-angle-double-down"></i></span><span class="on-toggle-state-show">Hide all abstracts<i class="ml-2 fas fa-angle-double-up"></i></span></button>
+  {{ end }}
 
   <div>
     {{ range $paper.papers }}

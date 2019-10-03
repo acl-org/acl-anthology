@@ -36,15 +36,24 @@
 
     <aside class="alert alert-info acl-news mb-3" role="alert">
       <!-- The news message pulls from content/_index.md -->
+      {{ if (gt (time .PublishDate).Year 2018) }}
       <div class="acl-news-date">{{ .PublishDate.Format "January 2006" }}</div>
+      {{ end }}
       {{ .Content }}
     </aside>
 
-    {{ if (fileExists "/data-export/anthology.bib.gz") }}
-    <a class="btn btn-block btn-info" href="{{ "/anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
-    {{ end }}
-  </div>
-  <div class="col-12 col-xl-10 col-xl-width-auto">
+    <div class="row mb-3">
+      {{ if (fileExists "/data-export/anthology.bib.gz") }}
+      <div class="col-6 col-xl-12 mb-2">
+        <a class="btn btn-block btn-info" href="{{ "/anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
+      </div>
+      {{ end }}
+      <div class="col-6 col-xl-12 mb-2">
+        <a class="btn btn-block btn-warning" href="https://github.com/acl-org/acl-anthology/issues/170">Give feedback
+        </a>
+      </div>
+    </div>
+  </div><div class="col-12 col-xl-10 col-xl-width-auto">
     <main aria-role="main">
     <div>
     <h4>ACL Events</h4>

@@ -6,7 +6,7 @@
       <year>2019</year>
       <month>March</month>
     </meta>
-    <frontmatter></frontmatter>
+    <frontmatter/>
     <paper id="1">
       <title>Grammar Error Correction in Morphologically Rich Languages: The Case of <fixed-case>R</fixed-case>ussian</title>
       <author><first>Alla</first><last>Rozovskaya</last></author>
@@ -120,6 +120,7 @@
       <abstract>When searching for information, a human reader first glances over a document, spots relevant sections, and then focuses on a few sentences for resolving her intention. However, the high variance of document structure complicates the identification of the salient topic of a given section at a glance. To tackle this challenge, we present SECTOR, a model to support machine reading systems by segmenting documents into coherent sections and assigning topic labels to each section. Our deep neural network architecture learns a latent topic embedding over the course of a document. This can be leveraged to classify local topics from plain text and segment a document at topic shifts. In addition, we contribute WikiSection, a publicly available data set with 242k labeled sections in English and German from two distinct domains: diseases and cities. From our extensive evaluation of 20 architectures, we report a highest score of 71.6% F1 for the segmentation and classification of 30 topics from the English city domain, scored by our SECTOR long short-term memory model with Bloom filter embeddings and bidirectional segmentation. This is a significant improvement of 29.5 points F1 over state-of-the-art CNN classifiers with baseline segmentation.</abstract>
       <pages>169–184</pages>
       <url>Q19-1011</url>
+      <attachment type="presentation">Q19-1011.Presentation.pdf</attachment>
     </paper>
     <paper id="12">
       <title>Complex Program Induction for Querying Knowledge Bases in the Absence of Gold Programs</title>
@@ -160,14 +161,14 @@
       <url>Q19-1014</url>
     </paper>
     <paper id="15">
-      <title>Neural Sequence-to-Sequence Models from Weak Feedback with Bipolar Ramp Loss</title>
+      <title>Learning Neural Sequence-to-Sequence Models from Weak Feedback with Bipolar Ramp Loss</title>
       <author><first>Laura</first><last>Jehl</last></author>
       <author><first>Carolin</first><last>Lawrence</last></author>
       <author><first>Stefan</first><last>Riezler</last></author>
       <doi>10.1162/tacl_a_00265</doi>
       <abstract>In many machine learning scenarios, supervision by gold labels is not available and conse quently neural models cannot be trained directly by maximum likelihood estimation. In a weak supervision scenario, metric-augmented objectives can be employed to assign feedback to model outputs, which can be used to extract a supervision signal for training. We present several objectives for two separate weakly supervised tasks, machine translation and semantic parsing. We show that objectives should actively discourage negative outputs in addition to promoting a surrogate gold structure. This notion of bipolarity is naturally present in ramp loss objectives, which we adapt to neural models. We show that bipolar ramp loss objectives outperform other non-bipolar ramp loss objectives and minimum risk training on both weakly supervised tasks, as well as on a supervised machine translation task. Additionally, we introduce a novel token-level ramp loss objective, which is able to outperform even the best sequence-level ramp loss on both weakly supervised tasks.</abstract>
       <pages>233–248</pages>
-      <url>https://www.aclweb.org/anthology/Q19-1015</url>
+      <url>Q19-1015</url>
     </paper>
     <paper id="16">
       <title><fixed-case>C</fixed-case>o<fixed-case>QA</fixed-case>: A Conversational Question Answering Challenge</title>
@@ -177,7 +178,7 @@
       <doi>10.1162/tacl_a_00266</doi>
       <abstract>Humans gather information through conversations involving a series of interconnected questions and answers. For machines to assist in information gathering, it is therefore essential to enable them to answer conversational questions. We introduce CoQA, a novel dataset for building Conversational Question Answering systems. Our dataset contains 127k questions with answers, obtained from 8k conversations about text passages from seven diverse domains. The questions are conversational, and the answers are free-form text with their corresponding evidence highlighted in the passage. We analyze CoQA in depth and show that conversational questions have challenging phenomena not present in existing reading comprehension datasets (e.g., coreference and pragmatic reasoning). We evaluate strong dialogue and reading comprehension models on CoQA. The best system obtains an F1 score of 65.4%, which is 23.4 points behind human performance (88.8%), indicating that there is ample room for improvement. We present CoQA as a challenge to the community at https://stanfordnlp.github.io/coqa.</abstract>
       <pages>249–266</pages>
-      <url>https://www.aclweb.org/anthology/Q19-1016</url>
+      <url>Q19-1016</url>
     </paper>
     <paper id="17">
       <title>What You Say and How You Say it: Joint Modeling of Topics and Discourse in Microblog Conversations</title>
@@ -190,7 +191,7 @@
       <doi>10.1162/tacl_a_00267</doi>
       <abstract>This paper presents an unsupervised framework for jointly modeling topic content and discourse behavior in microblog conversations. Concretely, we propose a neural model to discover word clusters indicating what a conversation concerns (i.e., topics) and those reflecting how participants voice their opinions (i.e., discourse).1 Extensive experiments show that our model can yield both coherent topics and meaningful discourse behavior. Further study shows that our topic and discourse representations can benefit the classification of microblog messages, especially when they are jointly trained with the classifier.Our data sets and code are available at: http://github.com/zengjichuan/Topic_Disc.</abstract>
       <pages>267–281</pages>
-      <url>https://www.aclweb.org/anthology/Q19-1017</url>
+      <url>Q19-1017</url>
     </paper>
     <paper id="18">
       <title>Calculating the Optimal Step in Shift-Reduce Dependency Parsing: From Cubic to Linear Time</title>
@@ -198,7 +199,135 @@
       <doi>10.1162/tacl_a_00268</doi>
       <abstract>We present a new cubic-time algorithm to calculate the optimal next step in shift-reduce dependency parsing, relative to ground truth, commonly referred to as dynamic oracle. Unlike existing algorithms, it is applicable if the training corpus contains non-projective structures. We then show that for a projective training corpus, the time complexity can be improved from cubic to linear.</abstract>
       <pages>283–296</pages>
-      <url>https://www.aclweb.org/anthology/Q19-1018</url>
+      <url>Q19-1018</url>
+    </paper>
+    <paper id="19">
+      <title>Densely Connected Graph Convolutional Networks for Graph-to-Sequence Learning</title>
+      <author><first>Zhijiang</first><last>Guo</last></author>
+      <author><first>Yan</first><last>Zhang</last></author>
+      <author><first>Zhiyang</first><last>Teng</last></author>
+      <author><first>Wei</first><last>Lu</last></author>
+      <doi>10.1162/tacl_a_00269</doi>
+      <abstract>We focus on graph-to-sequence learning, which can be framed as transducing graph structures to sequences for text generation. To capture structural information associated with graphs, we investigate the problem of encoding graphs using graph convolutional networks (GCNs). Unlike various existing approaches where shallow architectures were used for capturing local structural information only, we introduce a dense connection strategy, proposing a novel Densely Connected Graph Convolutional Network (DCGCN). Such a deep architecture is able to integrate both local and non-local features to learn a better structural representation of a graph. Our model outperforms the state-of-the-art neural models significantly on AMR-to-text generation and syntax-based neural machine translation.</abstract>
+      <pages>297–312</pages>
+      <url>Q19-1019</url>
+    </paper>
+    <paper id="20">
+      <title>Attention-Passing Models for Robust and Data-Efficient End-to-End Speech Translation</title>
+      <author><first>Matthias</first><last>Sperber</last></author>
+      <author><first>Graham</first><last>Neubig</last></author>
+      <author><first>Jan</first><last>Niehues</last></author>
+      <author><first>Alex</first><last>Waibel</last></author>
+      <doi>10.1162/tacl_a_00270</doi>
+      <abstract>Speech translation has traditionally been approached through cascaded models consisting of a speech recognizer trained on a corpus of transcribed speech, and a machine translation system trained on parallel texts. Several recent works have shown the feasibility of collapsing the cascade into a single, direct model that can be trained in an end-to-end fashion on a corpus of translated speech. However, experiments are inconclusive on whether the cascade or the direct model is stronger, and have only been conducted under the unrealistic assumption that both are trained on equal amounts of data, ignoring other available speech recognition and machine translation corpora. In this paper, we demonstrate that direct speech translation models require more data to perform well than cascaded models, and although they allow including auxiliary data through multi-task training, they are poor at exploiting such data, putting them at a severe disadvantage. As a remedy, we propose the use of end- to-end trainable models with two attention mechanisms, the first establishing source speech to source text alignments, the second modeling source to target text alignment. We show that such models naturally decompose into multi-task–trainable recognition and translation tasks and propose an attention-passing technique that alleviates error propagation issues in a previous formulation of a model with two attention stages. Our proposed model outperforms all examined baselines and is able to exploit auxiliary training data much more effectively than direct attentional models.</abstract>
+      <pages>313–325</pages>
+      <url>Q19-1020</url>
+    </paper>
+    <paper id="21">
+      <title>On the Complexity and Typology of Inflectional Morphological Systems</title>
+      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author><first>Christo</first><last>Kirov</last></author>
+      <author><first>Mans</first><last>Hulden</last></author>
+      <author><first>Jason</first><last>Eisner</last></author>
+      <doi>10.1162/tacl_a_00271</doi>
+      <abstract>We quantify the linguistic complexity of different languages’ morphological systems. We verify that there is a statistically significant empirical trade-off between paradigm size and irregularity: A language’s inflectional paradigms may be either large in size or highly irregular, but never both. We define a new measure of paradigm irregularity based on the conditional entropy of the surface realization of a paradigm— how hard it is to jointly predict all the word forms in a paradigm from the lemma. We estimate irregularity by training a predictive model. Our measurements are taken on large morphological paradigms from 36 typologically diverse languages.</abstract>
+      <pages>327–342</pages>
+      <url>Q19-1021</url>
+    </paper>
+    <paper id="22">
+      <title>Syntax-aware Semantic Role Labeling without Parsing</title>
+      <author><first>Rui</first><last>Cai</last></author>
+      <author><first>Mirella</first><last>Lapata</last></author>
+      <doi>10.1162/tacl_a_00272</doi>
+      <abstract>In this paper we focus on learning dependency aware representations for semantic role labeling without recourse to an external parser. The backbone of our model is an LSTM-based semantic role labeler jointly trained with two auxiliary tasks: predicting the dependency label of a word and whether there exists an arc linking it to the predicate. The auxiliary tasks provide syntactic information that is specific to semantic role labeling and are learned from training data (dependency annotations) without relying on existing dependency parsers, which can be noisy (e.g., on out-of-domain data or infrequent constructions). Experimental results on the CoNLL-2009 benchmark dataset show that our model outperforms the state of the art in English, and consistently improves performance in other languages, including Chinese, German, and Spanish.</abstract>
+      <pages>343–356</pages>
+      <url>Q19-1022</url>
+    </paper>
+    <paper id="23">
+      <title>A Generative Model for Punctuation in Dependency Trees</title>
+      <author><first>Xiang Lisa</first><last>Li</last></author>
+      <author><first>Dingquan</first><last>Wang</last></author>
+      <author><first>Jason</first><last>Eisner</last></author>
+      <doi>10.1162/tacl_a_00273</doi>
+      <abstract>Treebanks traditionally treat punctuation marks as ordinary words, but linguists have suggested that a tree’s “true” punctuation marks are not observed (Nunberg, 1990). These latent “underlying” marks serve to delimit or separate constituents in the syntax tree. When the tree’s yield is rendered as a written sentence, a string rewriting mechanism transduces the underlying marks into “surface” marks, which are part of the observed (surface) string but should not be regarded as part of the tree. We formalize this idea in a generative model of punctuation that admits efficient dynamic programming. We train it without observing the underlying marks, by locally maximizing the incomplete data likelihood (similarly to the EM algorithm). When we use the trained model to reconstruct the tree’s underlying punctuation, the results appear plausible across 5 languages, and in particular are consistent with Nunberg’s analysis of English. We show that our generative model can be used to beat baselines on punctuation restoration. Also, our reconstruction of a sentence’s underlying punctuation lets us appropriately render the surface punctuation (via our trained underlying-to-surface mechanism) when we syntactically transform the sentence.</abstract>
+      <pages>357–373</pages>
+      <url>Q19-1023</url>
+    </paper>
+    <paper id="24">
+      <title>Learning End-to-End Goal-Oriented Dialog with Maximal User Task Success and Minimal Human Agent Use</title>
+      <author><first>Janarthanan</first><last>Rajendran</last></author>
+      <author><first>Jatin</first><last>Ganhotra</last></author>
+      <author><first>Lazaros C.</first><last>Polymenakos</last></author>
+      <doi>10.1162/tacl_a_00274</doi>
+      <abstract>Neural end-to-end goal-oriented dialog systems showed promise to reduce the workload of human agents for customer service, as well as reduce wait time for users. However, their inability to handle new user behavior at deployment has limited their usage in real world. In this work, we propose an end-to-end trainable method for neural goal-oriented dialog systems that handles new user behaviors at deployment by transferring the dialog to a human agent intelligently. The proposed method has three goals: 1) maximize user’s task success by transferring to human agents, 2) minimize the load on the human agents by transferring to them only when it is essential, and 3) learn online from the human agent’s responses to reduce human agents’ load further. We evaluate our proposed method on a modified-bAbI dialog task, which simulates the scenario of new user behaviors occurring at test time. Experimental results show that our proposed method is effective in achieving the desired goals.</abstract>
+      <pages>375–386</pages>
+      <url>Q19-1024</url>
+    </paper>
+    <paper id="25">
+      <title>No Word is an Island—A Transformation Weighting Model for Semantic Composition</title>
+      <author><first>Corina</first><last>Dima</last></author>
+      <author><first>Daniël</first><last>de Kok</last></author>
+      <author><first>Neele</first><last>Witte</last></author>
+      <author><first>Erhard</first><last>Hinrichs</last></author>
+      <doi>10.1162/tacl_a_00275</doi>
+      <abstract>Composition models of distributional semantics are used to construct phrase representations from the representations of their words. Composition models are typically situated on two ends of a spectrum. They either have a small number of parameters but compose all phrases in the same way, or they perform word-specific compositions at the cost of a far larger number of parameters. In this paper we propose transformation weighting (TransWeight), a composition model that consistently outperforms existing models on nominal compounds, adjective-noun phrases, and adverb-adjective phrases in English, German, and Dutch. TransWeight drastically reduces the number of parameters needed compared with the best model in the literature by composing similar words in the same way.</abstract>
+      <pages>437–451</pages>
+      <url>Q19-1025</url>
+    </paper>
+    <paper id="26">
+      <title>Natural Questions: A Benchmark for Question Answering Research</title>
+      <author><first>Tom</first><last>Kwiatkowski</last></author>
+      <author><first>Jennimaria</first><last>Palomaki</last></author>
+      <author><first>Olivia</first><last>Redfield</last></author>
+      <author><first>Michael</first><last>Collins</last></author>
+      <author><first>Ankur</first><last>Parikh</last></author>
+      <author><first>Chris</first><last>Alberti</last></author>
+      <author><first>Danielle</first><last>Epstein</last></author>
+      <author><first>Illia</first><last>Polosukhin</last></author>
+      <author><first>Jacob</first><last>Devlin</last></author>
+      <author><first>Kenton</first><last>Lee</last></author>
+      <author><first>Kristina</first><last>Toutanova</last></author>
+      <author><first>Llion</first><last>Jones</last></author>
+      <author><first>Matthew</first><last>Kelcey</last></author>
+      <author><first>Ming-Wei</first><last>Chang</last></author>
+      <author><first>Andrew M.</first><last>Dai</last></author>
+      <author><first>Jakob</first><last>Uszkoreit</last></author>
+      <author><first>Quoc</first><last>Le</last></author>
+      <author><first>Slav</first><last>Petrov</last></author>
+      <doi>10.1162/tacl_a_00276</doi>
+      <abstract>We present the Natural Questions corpus, a question answering data set. Questions consist of real anonymized, aggregated queries issued to the Google search engine. An annotator is presented with a question along with a Wikipedia page from the top 5 search results, and annotates a long answer (typically a paragraph) and a short answer (one or more entities) if present on the page, or marks null if no long/short answer is present. The public release consists of 307,373 training examples with single annotations; 7,830 examples with 5-way annotations for development data; and a further 7,842 examples with 5-way annotated sequestered as test data. We present experiments validating quality of the data. We also describe analysis of 25-way annotations on 302 examples, giving insights into human variability on the annotation task. We introduce robust metrics for the purposes of evaluating question answering systems; demonstrate high human upper bounds on these metrics; and establish baseline results using competitive methods drawn from related literature.</abstract>
+      <pages>453–466</pages>
+      <url>Q19-1026</url>
+    </paper>
+    <paper id="27">
+      <title>Still a Pain in the Neck: Evaluating Text Representations on Lexical Composition</title>
+      <author><first>Vered</first><last>Shwartz</last></author>
+      <author><first>Ido</first><last>Dagan</last></author>
+      <doi>10.1162/tacl_a_00277</doi>
+      <abstract>Building meaningful phrase representations is challenging because phrase meanings are not simply the sum of their constituent meanings. Lexical composition can shift the meanings of the constituent words and introduce implicit information. We tested a broad range of textual representations for their capacity to address these issues. We found that, as expected, contextualized word representations perform better than static word embeddings, more so on detecting meaning shift than in recovering implicit information, in which their performance is still far from that of humans. Our evaluation suite, consisting of six tasks related to lexical composition effects, can serve future research aiming to improve representations.</abstract>
+      <pages>403–419</pages>
+      <url>Q19-1027</url>
+    </paper>
+    <paper id="28">
+      <title>Multiattentive Recurrent Neural Network Architecture for Multilingual Readability Assessment</title>
+      <author><first>Ion Madrazo</first><last>Azpiazu</last></author>
+      <author><first>Maria Soledad</first><last>Pera</last></author>
+      <doi>10.1162/tacl_a_00278</doi>
+      <abstract>We present a multiattentive recurrent neural network architecture for automatic multilingual readability assessment. This architecture considers raw words as its main input, but internally captures text structure and informs its word attention process using other syntax- and morphology-related datapoints, known to be of great importance to readability. This is achieved by a multiattentive strategy that allows the neural network to focus on specific parts of a text for predicting its reading level. We conducted an exhaustive evaluation using data sets targeting multiple languages and prediction task types, to compare the proposed model with traditional, state-of-the-art, and other neural network strategies.</abstract>
+      <pages>421–436</pages>
+      <url>Q19-1028</url>
+    </paper>
+    <paper id="29">
+      <title>Trick Me If You Can: Human-in-the-Loop Generation of Adversarial Examples for Question Answering</title>
+      <author><first>Eric</first><last>Wallace</last></author>
+      <author><first>Pedro</first><last>Rodriguez</last></author>
+      <author><first>Shi</first><last>Feng</last></author>
+      <author><first>Ikuya</first><last>Yamada</last></author>
+      <author><first>Jordan</first><last>Boyd-Graber</last></author>
+      <doi>10.1162/tacl_a_00279</doi>
+      <abstract>Adversarial evaluation stress-tests a model’s understanding of natural language. Because past approaches expose superficial patterns, the resulting adversarial examples are limited in complexity and diversity. We propose human- in-the-loop adversarial generation, where human authors are guided to break models. We aid the authors with interpretations of model predictions through an interactive user interface. We apply this generation framework to a question answering task called Quizbowl, where trivia enthusiasts craft adversarial questions. The resulting questions are validated via live human–computer matches: Although the questions appear ordinary to humans, they systematically stump neural and information retrieval models. The adversarial questions cover diverse phenomena from multi-hop reasoning to entity type distractors, exposing open challenges in robust question answering.</abstract>
+      <pages>387–401</pages>
+      <url>Q19-1029</url>
     </paper>
   </volume>
 </collection>
