@@ -20,7 +20,6 @@ Paper = element paper {
        xsd:NCName
      }*
    & element author { Person }*
-   & element dataset { xsd:NCName }?
    & element doi { xsd:anyURI }?
    & element editor { Person }*
    & element revision {
@@ -40,8 +39,6 @@ Paper = element paper {
      }?
    & element note { text }?
    & element pages { text }?
-   & element presentation { xsd:NCName }?
-   & element software { xsd:NCName }?
    & element title { MarkupText }
    & element url { xsd:anyURI }?
    & element video {
@@ -71,6 +68,10 @@ Frontmatter = element frontmatter {
        attribute id { xsd:positiveInteger },
        attribute href { xsd:anyURI },
        text
+     }*
+   & element attachment {
+       attribute type { xsd:NCName }?,
+       xsd:NCName
      }*
    & element doi { xsd:anyURI }?
   )
