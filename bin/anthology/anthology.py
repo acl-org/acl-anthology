@@ -65,7 +65,7 @@ class Anthology:
             volume = Volume.from_xml(volume_xml, collection_id, self.venues, self.sigs, self.formatter)
 
             # skip volumes that have an ingestion date in the future
-            if datetime.strptime(volume.ingest_date, '%Y-%m-%d') > datetime.now():
+            if datetime.strptime(volume.ingest_date, '%Y-%m-%d') > datetime.utcnow():
                 log.info(f'Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future.')
 
                 # Remove any SIG entries with this volume

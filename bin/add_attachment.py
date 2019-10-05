@@ -41,7 +41,7 @@ import lxml.etree as ET
 import urllib.request
 
 ALLOWED_TYPES = ['pdf', 'pptx', 'zip']
-ATTACHMENT_TYPES = 'Poster Presentation Note Software Supplementary'.split()
+ATTACHMENT_TYPES = 'Poster Presentation Note Software Supplementary Dataset'.split()
 
 def main(args):
 
