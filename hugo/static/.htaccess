@@ -53,7 +53,7 @@ RewriteRule ^papers/[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9]{1,2})$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
 
 # PDF link (e.g., P17-1069.pdf loads P/P17/P17-1069.pdf)
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9]).pdf$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
+RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(v[0-9])?.pdf$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
 
 # Revisions and errata (e.g., P17-1069v2)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])([ve][0-9]+)$ /anthology-files/pdf/$1/$1$2/$1$2-$3$4.pdf [L,NC]
