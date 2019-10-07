@@ -64,9 +64,10 @@ def create_bibtex(anthology, trgdir, clean=False):
                     ) as file_paper:
                         contents = paper.as_bibtex()
                         file_paper.write(contents)
-                        file_volume.write(contents)
+                        concise_contents = paper.as_bibtex(concise=True)
+                        file_volume.write(concise_contents)
                         file_volume.write("\n")
-                        file_full.write(contents)
+                        file_full.write(concise_contents)
                         file_full.write("\n")
 
 
