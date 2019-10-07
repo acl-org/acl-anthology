@@ -1,7 +1,6 @@
 ---
 Title: Requesting Corrections
 linktitle: Corrections
-menu: footer
 ---
 
 ### Types of corrections
