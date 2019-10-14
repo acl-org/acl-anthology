@@ -145,7 +145,7 @@ build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
 	         --minify
 	@touch build/.hugo
 
-.PHONY: hugo
+.PHONY: test
 test:
 	diff -u build/anthology/P19-1007.bib test/data/P19-1007.bib
 	diff -u build/anthology/P19-1007.endf test/data/P19-1007.endf
@@ -156,7 +156,7 @@ clean:
 	rm -rf build
 
 .PHONY: check
-check: 
+check:
 	jing -c data/xml/schema.rnc data/xml/*xml
 
 .PHONY: serve
