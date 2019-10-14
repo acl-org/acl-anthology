@@ -49,7 +49,7 @@ endif
 VENV := "venv/bin/activate"
 
 .PHONY: site
-site: bibtex mods endnote hugo split-sitemap
+site: bibtex mods endnote hugo split-sitemap test
 
 
 .PHONY: split-sitemap
