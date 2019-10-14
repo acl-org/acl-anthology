@@ -55,7 +55,6 @@ site: bibtex mods endnote hugo split-sitemap test
 .PHONY: split-sitemap
 split-sitemap: venv/bin/activate
 	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
-	rm build/anthology/sitemap.xml
 
 .PHONY: venv
 venv: venv/bin/activate
