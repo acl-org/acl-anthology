@@ -149,8 +149,12 @@ build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
 clean:
 	rm -rf build
 
+.PHONY: test
+test:
+	diff -u build/anthology/P19-1007.bib test/data/P19-1007.bib
+
 .PHONY: check
-check:
+check: test
 	jing -c data/xml/schema.rnc data/xml/*xml
 
 .PHONY: serve
