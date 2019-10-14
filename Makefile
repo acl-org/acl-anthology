@@ -49,14 +49,14 @@ endif
 VENV := "venv/bin/activate"
 
 .PHONY: site
-site: bibtex mods endnote hugo split-sitemap
+site: bibtex mods endnote hugo sitemap
 
 
 # Split the file sitemap into Google-ingestible chunks.
 # Also build the PDF sitemap, and split it.
 .PHONY: sitemap
 sitemap: venv/bin/activate
-  . $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
+	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
 	. $(VENV) && python3 bin/build_pdf_sitemap.py > build/anthology/sitemap_pdf.xml
 	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap_pdf.xml
 
