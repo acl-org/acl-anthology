@@ -132,10 +132,16 @@ build/.endnote: build/.mods
 %.endf: %.xml
 	xml2end $< 2>&1 > $@
 
+.PHONY: test
+test:
+	diff -u build/anthology/P19-1007.bib test/data/P19-1007.bib
+	diff -u build/anthology/P19-1007.endf test/data/P19-1007.endf
+	diff -u build/anthology/P19-1007.xml test/data/P19-1007.xml
+
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
+build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote test
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
@@ -149,12 +155,8 @@ build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
 clean:
 	rm -rf build
 
-.PHONY: test
-test:
-	diff -u build/anthology/P19-1007.bib test/data/P19-1007.bib
-
 .PHONY: check
-check: test
+check: 
 	jing -c data/xml/schema.rnc data/xml/*xml
 
 .PHONY: serve
