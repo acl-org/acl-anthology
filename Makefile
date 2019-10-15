@@ -151,6 +151,11 @@ build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
 	         --minify
 	@touch build/.hugo
 
+.PHONY: test
+test: hugo
+	diff -u build/anthology/P19-1007.bib test/data/P19-1007.bib
+	diff -u build/anthology/P19-1007.xml test/data/P19-1007.xml
+
 .PHONY: clean
 clean:
 	rm -rf build
