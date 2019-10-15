@@ -49,13 +49,12 @@ endif
 VENV := "venv/bin/activate"
 
 .PHONY: site
-site: bibtex mods endnote hugo split-sitemap
+site: bibtex mods endnote hugo split-sitemap test
 
 
 .PHONY: split-sitemap
 split-sitemap: venv/bin/activate
 	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
-	rm build/anthology/sitemap.xml
 
 .PHONY: venv
 venv: venv/bin/activate
@@ -144,6 +143,11 @@ build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
 	         --cleanDestinationDir \
 	         --minify
 	@touch build/.hugo
+
+.PHONY: test
+test: hugo
+	diff -u build/anthology/P19-1007.bib test/data/P19-1007.bib
+	diff -u build/anthology/P19-1007.xml test/data/P19-1007.xml
 
 .PHONY: clean
 clean:
