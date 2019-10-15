@@ -49,11 +49,11 @@ if __name__ == "__main__":
     root = sitemap.getroot()
     chunk_size = 50000
     i = chunk_size
-    all_roots, new_root = [], False
+    all_roots, new_root = [], None
 
     for url in root:
         if i >= chunk_size:
-            if new_root:
+            if new_root is not None:
                 all_roots.append(new_root)
             new_root = etree.Element(root.tag, nsmap={None: SITEMAP_NAMESPACE})
             i = 0
