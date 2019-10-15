@@ -1,7 +1,7 @@
 {{ define "meta" }}
 {{ $volume_id := slicestr .Params.anthology_id 0 3 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
-<meta content="{{ $paper.title }}" name="citation_title" >
+  <meta content="{{ $paper.title }}" name="citation_title" >
 {{ range $paper.author }}
   {{ $first_letter := slicestr .id 0 1 }}
   <meta content="{{ (index $.Site.Data.people $first_letter .id).full }}" name="citation_author" >
@@ -19,6 +19,7 @@
 {{ end }}
 {{ with $paper.pdf }}
   <meta content="{{ . }}" name="citation_pdf_url" >
+  <link rel="canonical" href="{{ . }}" />
 {{ end }}
 {{ with $paper.page_first }}<meta content="{{ . }}" name="citation_firstpage" >{{ end }}
 {{ with $paper.page_last }}<meta content="{{ . }}" name="citation_lastpage" >{{ end }}
