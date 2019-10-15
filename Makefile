@@ -55,10 +55,15 @@ site: bibtex mods endnote hugo sitemap
 # Split the file sitemap into Google-ingestible chunks.
 # Also build the PDF sitemap, and split it.
 .PHONY: sitemap
-sitemap: venv/bin/activate
+sitemap: build/.sitemap
+
+build/.sitemap: venv/bin/activate $(sourcefiles)
 	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
 	. $(VENV) && python3 bin/build_pdf_sitemap.py > build/anthology/sitemap_pdf.xml
 	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap_pdf.xml
+	for i in build/anthology/sitemap_*.xml; do echo gzip $$i; done
+	bin/create_sitemapindex.sh `ls build/anthology/sitemap_*.xml.gz` > build/anthology/sitemapindex.xml
+	@touch build/.sitemap
 
 .PHONY: venv
 venv: venv/bin/activate
