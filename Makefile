@@ -49,8 +49,12 @@ endif
 VENV := "venv/bin/activate"
 
 .PHONY: site
-site: bibtex mods endnote hugo
+site: bibtex mods endnote hugo split-sitemap test
 
+
+.PHONY: split-sitemap
+split-sitemap: venv/bin/activate
+	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
 
 .PHONY: venv
 venv: venv/bin/activate
@@ -85,7 +89,7 @@ build/.static: $(shell find hugo -type f)
 .PHONY: yaml
 yaml: build/.yaml
 
-build/.yaml: build/.static $(sourcefiles) venv
+build/.yaml: build/.static $(sourcefiles) venv/bin/activate
 	@echo "INFO     Generating YAML files for Hugo..."
 	. $(VENV) && python3 bin/create_hugo_yaml.py --clean
 	@touch build/.yaml
@@ -93,7 +97,7 @@ build/.yaml: build/.static $(sourcefiles) venv
 .PHONY: hugo_pages
 hugo_pages: build/.pages
 
-build/.pages: build/.static build/.yaml venv
+build/.pages: build/.static build/.yaml venv/bin/activate
 	@echo "INFO     Creating page templates for Hugo..."
 	. $(VENV) && python3 bin/create_hugo_pages.py --clean
 	@touch build/.pages
@@ -101,7 +105,7 @@ build/.pages: build/.static build/.yaml venv
 .PHONY: bibtex
 bibtex:	build/.bibtex
 
-build/.bibtex: build/.static $(sourcefiles) venv
+build/.bibtex: build/.static $(sourcefiles) venv/bin/activate
 	@echo "INFO     Creating BibTeX files..."
 	. $(VENV) && python3 bin/create_bibtex.py --clean
 	@touch build/.bibtex
@@ -139,6 +143,11 @@ build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
 	         --cleanDestinationDir \
 	         --minify
 	@touch build/.hugo
+
+.PHONY: test
+test: hugo
+	diff -u build/anthology/P19-1007.bib test/data/P19-1007.bib
+	diff -u build/anthology/P19-1007.xml test/data/P19-1007.xml
 
 .PHONY: clean
 clean:

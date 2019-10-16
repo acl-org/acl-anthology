@@ -22,18 +22,18 @@ Early notification will help us with our planning.
 
 Ingestion is a multi-step process:
 
-1. You arrange your data (PDFs, BibTeX files, and metadata) according to the instructions below.
-   You will run a script to lay it out into a single directory, and then send in your tarball.
-2. We ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
+1. **You** arrange your data (PDFs, BibTeX files, and metadata) using ACLPUB by following the instructions below.
+   You will run a script to lay it out into a single directory, and then send a link to your tarball.
+2. **We** ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
 3. This becomes a pull request on [our pull requests page](https://github.com/acl-org/acl-anthology/pulls).
 4. Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
 
-Step 1 is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output is a minimally compliant XML file that can be ingested into [the Anthology's authoritative XML format](#authoritative-xml-format).
-Additionally, if you are using EasyChair, you will also want to use our easychair scripts.
-The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/).
-
-You are responsible only for the first step: producting a minimally compliant XML file along with the associated PDFs and optionally other data (such as software).
+You are responsible only for the Step 1: producting a minimally compliant XML file along with the associated PDFs and optionally other data (such as software).
+This is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output is a minimally compliant XML file that can be ingested into [the Anthology's authoritative XML format](#authoritative-xml-format).
 **Instructions for this can be found [in the ACLPUB package](https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md)**.
+(Additionally, if you are using EasyChair, you will also want to use [our easychair scripts](https://github.com/acl-org/easy2acl), but please start with the ACLPUB documentation).
+
+The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/).
 
 #### Notes about Softconf's START
 

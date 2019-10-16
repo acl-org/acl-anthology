@@ -298,11 +298,11 @@ def parse_element(xml_element):
             value = element.text
 
         if tag == "url":
-            # Use the tag 'pdf' instead of 'url'
-            tag = 'pdf'
+            # Set the URL (canonical / landing page for Anthology)
+            value = infer_url(element.text)
 
-            # Convert relative URLs to canonical ones
-            value = element.text if element.text.startswith('http') else data.ANTHOLOGY_PDF.format(element.text)
+            # Add a PDF link with, converting relative URLs to canonical ones
+            attrib['pdf'] = element.text if urlparse(element.text).netloc else data.ANTHOLOGY_PDF.format(element.text)
 
         if tag in data.LIST_ELEMENTS:
             try:
@@ -392,7 +392,7 @@ def make_nested(root):
             new_root.append(volume)
 
             # Add volume-level <url> tag if PDF is present
-            volume_url = infer_url(full_volume_id)
+            volume_url = infer_url(data.ANTHOLOGY_PDF.format(full_volume_id))
             if test_url(volume_url):
                 url = make_simple_element('url', text=full_volume_id)
                 print(f"{collection_id}: inserting volume URL: {full_volume_id}")
@@ -407,7 +407,7 @@ def make_nested(root):
                 title.tag = 'booktitle'
                 meta.insert(0, title)
 
-            frontmatter_url = infer_url(full_paper_id)
+            frontmatter_url = infer_url(data.ANTHOLOGY_PDF.format(full_paper_id))
             if test_url(frontmatter_url):
                 url = paper.find('url')
                 if url is not None:
