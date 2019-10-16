@@ -9,11 +9,35 @@
     <priority>{{ .Sitemap.Priority }}</priority>{{ end }}
   </url>
   {{ end }}
+  {{ range .Site.Data.volumes }}
+    {{ with .pdf }}
+      {{ if (hasPrefix . "https://www.aclweb.org/anthology") }}
+  <url><loc>{{ . }}</loc></url>
+      {{ end }}
+    {{ end }}
+  {{ end }}
   {{ range .Site.Data.papers }}
     {{ range . }}
       {{ with .pdf }}
         {{ if (hasPrefix . "https://www.aclweb.org/anthology") }}
   <url><loc>{{ . }}</loc></url>
+        {{ end }}
+      {{ end }}
+      {{ with .attachment }}
+        {{ range . }}
+          {{ if (hasPrefix .url "https://www.aclweb.org/anthology") }}
+  <url><loc>{{ .url }}</loc></url>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      {{ with .revision }}
+        {{ range . }}
+  <url><loc>{{ .url }}</loc></url>
+        {{ end }}
+      {{ end }}
+      {{ with .erratum }}
+        {{ range . }}
+  <url><loc>{{ .url }}</loc></url>
         {{ end }}
       {{ end }}
     {{ end }}
