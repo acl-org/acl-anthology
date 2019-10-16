@@ -59,8 +59,9 @@ sitemap: build/.sitemap
 
 build/.sitemap: venv/bin/activate $(sourcefiles)
 	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
+	@rm -f build/anthology/sitemap_*.xml.gz
 	@gzip -9n build/anthology/sitemap_*.xml
-	@bin/create_sitemapindex.sh `ls build/anthology/sitemap_*.xml.gz` > build/anthology/sitemapindex.xml
+	@bin/create_sitemapindex.sh `ls build/anthology/ | grep 'sitemap_.*xml.gz'` > build/anthology/sitemapindex.xml
 	@touch build/.sitemap
 
 .PHONY: venv
