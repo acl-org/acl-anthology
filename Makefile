@@ -58,7 +58,6 @@ site: bibtex mods endnote hugo sitemap
 sitemap: build/.sitemap
 
 build/.sitemap: venv/bin/activate $(sourcefiles)
-	head -c 200 build/anthology/sitemap.xml
 	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
 	@gzip -9n build/anthology/sitemap_*.xml
 	@bin/create_sitemapindex.sh `ls build/anthology/sitemap_*.xml.gz` > build/anthology/sitemapindex.xml
