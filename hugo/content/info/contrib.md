@@ -37,6 +37,9 @@ The remaining steps are handled by Anthology staff and use [Anthology tools](htt
 
 #### Notes about Softconf's START
 
+The ingestion process is manual and requires time to execute and proofcheck, and as such, it's very helpful to ensure that your proceedings are in good order before sending the link.
+Redoing the ingestion costs approximately the same time as the original ingestion and thus incurs significant additional expense for the volunteer staff.
+
 If you are using START, the process is easier for you.
 You need only supply the proceedings tarball (named `proceedings.tgz`) for each of the volumes and workshops that are part of your conference.
 You can download this from START and send it directly to your publication chair.
@@ -44,25 +47,27 @@ If you are the publication chair, you can collect these and coordinate with the 
 
 Please be aware of the following:
 
-- *Workshop identifiers*.
-  START uses a formatted string to identify the volume ID.
-  For main conference proceedings (e.g., NAACL long papers), for each volume, this looks like
+**Workshop identifiers**
 
-     http://www.aclweb.org/anthology/N19-1%03d
+START uses a formatted string to identify the volume ID.
+The Anthology Director will assign templates to you for each volume your are submitting.
+For main conference proceedings (e.g., NAACL long papers), for each volume, this looks like
 
-  since the volume ID has one digit and the paper three.
-  For workshops, it is
+> http://www.aclweb.org/anthology/N19-1%03d
 
-     http://www.aclweb.org/anthology/W19-38%02d
+since the volume ID has one digit and the paper three.
+For workshops, it is
 
-  since there are only two digits for the paper ID.
-  Note again that the (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
+> http://www.aclweb.org/anthology/W19-38%02d
 
-- *Special Interest Groups*.
-  For workshops, your conference publication chair should have noted special interest group affiliations and endorsements for workshops.
+since there are only two digits for the paper ID.
+Note again that the (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
+(Note that this format will change in 2020 to allow for Anthology growth).
 
-The ingestion process is manual and requires time to execute and proofcheck, and as such, it's very helpful to ensure that your proceedings are in good order before sending the link.
-Redoing the ingestion costs approximately the same time as the original ingestion and thus incurs significant additional expense for the volunteer staff.
+**Special Interest Groups**
+
+For workshops, your conference publication chair should have noted special interest group affiliations and endorsements for workshops.
+If you are using START, this information can be entered in the "meta" file.
 
 ### Canonical IDs and URLs
 
@@ -124,7 +129,7 @@ This format will likely be generalized in 2019 or 2020.
 The canonical URLs for the Anthology are formed by appending the ACL ID to the Anthology URL.
 For example,
 
-    http://www.aclweb.org/anthology/P18-1023
+> http://www.aclweb.org/anthology/P18-1023
 
 will return the PDF of this paper.
 Note that the canonical URL does *not* include the `.pdf` extension (though that URL will also resolve).
