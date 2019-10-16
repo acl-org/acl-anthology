@@ -21,8 +21,10 @@
   {{ end }}
   {{ range .Site.Data.papers }}
     {{ range . }}
-      {{ if (and (.pdf) (hasPrefix .pdf "https://www.aclweb.org/anthology")) }}
-  <url><loc>{{ .pdf }}</loc></url>
+      {{ with .pdf }}
+        {{ if (hasPrefix . "https://www.aclweb.org/anthology") }}
+  <url><loc>{{ . }}</loc></url>
+        {{ end }}
       {{ end }}
     {{ end }}
   {{ end }}

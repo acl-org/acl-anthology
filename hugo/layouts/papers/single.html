@@ -19,7 +19,6 @@
 {{ end }}
 {{ with $paper.pdf }}
   <meta content="{{ . }}" name="citation_pdf_url" >
-  <link rel="canonical" href="{{ . }}" />
 {{ end }}
 {{ with $paper.page_first }}<meta content="{{ . }}" name="citation_firstpage" >{{ end }}
 {{ with $paper.page_last }}<meta content="{{ . }}" name="citation_lastpage" >{{ end }}
@@ -33,6 +32,7 @@
   <meta property="og:site_name" content="ACL Anthology" />
   <meta property="og:url" content="{{ $paper.url }}" />
   <meta property="og:description" content="{{ $paper.author_string }}. {{ $paper.booktitle }}. {{ $paper.year }}." />
+  <link rel="canonical" href="{{ .Params.anthology_id }}" />
 {{ end }}
 
 {{ define "javascript" }}
