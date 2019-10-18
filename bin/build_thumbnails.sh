@@ -29,7 +29,9 @@ DIM=600
 if [[ -z $2 ]]; then
     [[ ! -e $THUMBDIR ]] && mkdir -p $THUMBDIR
 
-    for pdf in $(find $ANTHOLOGYFILES/pdf/ -type f -name '*.pdf'); do
+    inputdir=${1:-$ANTHOLOGYFILES/pdf/}
+    echo "Looking for PDFs in $inputdir..."
+    for pdf in $(find $inputdir -type f -name '*.pdf'); do
         outfile=$THUMBDIR/$(basename $pdf .pdf).jpg
         if [[ ! -s $outfile ]]; then
           echo "$pdf -> $outfile"
@@ -40,5 +42,7 @@ else
     pdffile=$1
     outfile=$2
 
-    convert $pdffile[0] -background "#FFFFFF" -flatten -resize x${DIM}^ -gravity North -crop ${DIM}x${DIM}+0+10 -colorspace Gray $outfile
+    cmd="convert $pdffile[0] -background white -flatten -resize x${DIM}^ -gravity North -crop ${DIM}x${DIM}+0+10 -colorspace Gray $outfile"
+#    echo $cmd
+    $cmd
 fi

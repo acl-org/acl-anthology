@@ -10,7 +10,7 @@ The official home of this repository is <https://github.com/acl-org/acl-antholog
 To build the Anthology website, you will need:
 
 + **Python 3.7** or higher
-+ [**Hugo 0.54**](https://gohugo.io) or higher (can be [downloaded directly from
++ [**Hugo 0.58.3**](https://gohugo.io) or higher (can be [downloaded directly from
   their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
 + [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
   non-BibTeX citation formats (not strictly required to build the website, but

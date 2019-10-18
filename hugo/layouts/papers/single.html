@@ -1,7 +1,7 @@
 {{ define "meta" }}
 {{ $volume_id := slicestr .Params.anthology_id 0 3 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
-<meta content="{{ $paper.title }}" name="citation_title" >
+  <meta content="{{ $paper.title }}" name="citation_title" >
 {{ range $paper.author }}
   {{ $first_letter := slicestr .id 0 1 }}
   <meta content="{{ (index $.Site.Data.people $first_letter .id).full }}" name="citation_author" >
@@ -32,6 +32,7 @@
   <meta property="og:site_name" content="ACL Anthology" />
   <meta property="og:url" content="{{ $paper.url }}" />
   <meta property="og:description" content="{{ $paper.author_string }}. {{ $paper.booktitle }}. {{ $paper.year }}." />
+  <link rel="canonical" href="{{ $paper.url }}" />
 {{ end }}
 
 {{ define "javascript" }}
