@@ -44,7 +44,7 @@ RewriteRule ^[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9
 RewriteRule ^papers/[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])/?$ https://www.aclweb.org/anthology/$1$2-$3/ [R=301,L]
 
 # Volume pages (e.g., redirect /W19-75 to /volumes/W19-75)
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9])$ https://www.aclweb.org/anthology/volumes/$1$2-$3/ [R=301,L]
+RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9])/?$ https://www.aclweb.org/anthology/volumes/$1$2-$3/ [R=301,L]
 
 #
 # INTERNAL REDIRECTIONS
