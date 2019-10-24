@@ -29,8 +29,9 @@ RewriteRule ^/?(.*) https://www.aclweb.org/anthology/$1 [R=301,L]
 # Now we know we are at the canonical URL.
 # Now make sure that we redirect from non-HTTPS to HTTPS.
 # **Note**: at this point, paths are relative to /anthology, that is, they *do not include* the /anthology/ text.
-RewriteCond %{HTTPS} !=on
-RewriteRule ^(.*)$ https://%{SERVER_NAME}/anthology/$1 [R=301,L]
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^www\. [NC]
+RewriteRule ^(.*)$ https://www.aclweb.org/anthology/$1 [R=301,L]
 
 ## PDF paths
 # Redirect old canonical paths (e.g., P/P17/P17-1069.pdf -> https://www.aclweb.org/anthology/P17-1069)
@@ -41,6 +42,9 @@ RewriteRule ^[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9
 # Redirect nested paper pages to the / version (e.g., papers/P/P19/P19-1001/ -> P19-1001/)
 # This way there is only one page. Should maintain for backward compatibility for some time after August 2019.
 RewriteRule ^papers/[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])/?$ https://www.aclweb.org/anthology/$1$2-$3/ [R=301,L]
+
+# Volume pages (e.g., redirect /W19-75 to /volumes/W19-75)
+RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9])/?$ https://www.aclweb.org/anthology/volumes/$1$2-$3/ [R=301,L]
 
 #
 # INTERNAL REDIRECTIONS
