@@ -6,19 +6,27 @@ date: "2019-05-08"
 ---
 
 This page contains general information about how to submit proceedings to the ACL Anthology.
-If you are a chair whose job it is to submit your conference proceedings, this page should be helpful to you.
+If you are a workshop or publication chair whose job it is to submit your conference proceedings, this page should be helpful to you.
+Please read through it so that you have an understanding of the ingestion process.
 
 ### Overview of the Submission Process
 
 Please [contact the Anthology Director](mailto:anthology@aclweb.org) as soon as possible to register your intention to submit your proceedings.
-We will work with you to:
+**If you are a workshop chair attached to a main conference (e.g., ACL or EMNLP), the main conference publication chair should handle this for you.**
+Conference-level publication chairs should assemble the following information for all volumes and workshops in their conference and send it to the director in a single email.
+We need the following information from you:
 
-- assign workshop or conference IDs,
-- determine a publication date,
-- come up with a timeline for draft and final ingestion, and
-- help you to understand the ingestion process.
+-  **The full titles of all volumes** that you need identifiers for; and
+-  **the date** you would like your volumes to be available to the world.
 
-Early notification will help us with our planning.
+The full titles should not contain abbreviations, except parenthetically.
+For example, "Proceedings of EMNLP 2019" is not a good title, but "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)" is a great one.
+(We have plans in the works to collect short titles in the near future, for more concise display in various settings.}
+If you have sub-volumes (e.g., long papers, short papers, demonstrations, tutorial abstracts), we suggest you append them after the full volume name.
+For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
+You should also seek consistency with the names of your volumes from prior years.
+
+With this information in hand, we will assign you a [list of Anthology identifiers](https://docs.google.com/spreadsheets/d/166W-eIJX2rzCACbjpQYOaruJda7bTZrY7MBw_oa7B2E/edit?usp=sharing) for use with ACLPUB.
 
 Ingestion is a multi-step process:
 
