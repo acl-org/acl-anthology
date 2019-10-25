@@ -1,6 +1,5 @@
 ---
 Title: Credits
-menu: footer
 ---
 
 The ACL Anthology is run entirely by contributions from volunteers.
