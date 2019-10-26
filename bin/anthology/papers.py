@@ -119,9 +119,9 @@ class Paper:
                 del paper.attrib["pages"]
 
         if 'author' in paper.attrib:
-            # for x in paper.attrib['author']:
-            #     print('X', x[0].full)
             paper.attrib["author_string"] = ', '.join([x[0].full for x in paper.attrib["author"]])
+
+        paper.attrib["thumbnail"] = data.ANTHOLOGY_THUMBNAIL.format(paper.full_id)
 
         return paper
 
@@ -235,7 +235,7 @@ class Paper:
         else:
             return default
 
-    def as_bibtex(self):
+    def as_bibtex(self, concise=False):
         """Return the BibTeX entry for this paper."""
         # Build BibTeX entry
         bibkey = self.bibkey
@@ -278,7 +278,7 @@ class Paper:
                 entries.append((entry, self.get(entry)))
         if "pages" in self.attrib:
             entries.append(("pages", self.get("pages").replace("–", "--")))
-        if "xml_abstract" in self.attrib:
+        if "xml_abstract" in self.attrib and not concise:
             entries.append(("abstract", self.get_abstract(form="latex")))
 
         # Serialize it

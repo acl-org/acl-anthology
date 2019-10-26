@@ -22,11 +22,12 @@
 ################################################################################
 
 ANTHOLOGY_PREFIX = "https://www.aclweb.org/anthology"
+ATTACHMENT_PREFIX = ANTHOLOGY_PREFIX + '/attachments'
 
+# These should be renamed as "templates" so it's clear how they should be used
 ANTHOLOGY_URL = ANTHOLOGY_PREFIX + '/{}'
 ANTHOLOGY_PDF = ANTHOLOGY_PREFIX + '/{}.pdf'
-
-ATTACHMENT_URL = ANTHOLOGY_PREFIX + '/attachments/{}'
+ANTHOLOGY_THUMBNAIL = ANTHOLOGY_PREFIX + '/thumb/{}.jpg'
 
 # Names of XML elements that may appear multiple times
 LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")

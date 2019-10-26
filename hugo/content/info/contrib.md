@@ -2,41 +2,51 @@
 Title: Information for Submitters
 linktitle: Submitting
 subtitle: General information on submitting proceedings to the ACL Anthology (for event chairs)
-date: "2019-05-08"
-menu: footer
+date: "2019-10-25"
 ---
 
 This page contains general information about how to submit proceedings to the ACL Anthology.
-If you are a chair whose job it is to submit your conference proceedings, this page should be helpful to you.
+If you are a workshop or publication chair whose job it is to submit your conference proceedings, this page should be helpful to you.
+Please read through it so that you have an understanding of the ingestion process.
 
 ### Overview of the Submission Process
 
 Please [contact the Anthology Director](mailto:anthology@aclweb.org) as soon as possible to register your intention to submit your proceedings.
-We will work with you to:
+**If you are a workshop chair attached to a main conference (e.g., ACL or EMNLP), the main conference publication chair should handle this for you.**
+Conference-level publication chairs should assemble the following information for all volumes and workshops in their conference and send it to the director in a single email.
+We need the following information from you:
 
-- assign workshop or conference IDs,
-- determine a publication date,
-- come up with a timeline for draft and final ingestion, and
-- help you to understand the ingestion process.
+-  **The full titles of all volumes** that you need identifiers for; and
+-  **the date** you would like your volumes to be available to the world.
 
-Early notification will help us with our planning.
+The full titles should not contain abbreviations, except parenthetically.
+For example, "Proceedings of EMNLP 2019" is not a good title, but "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)" is a great one.
+(We have plans in the works to collect short titles in the near future, for more concise display in various settings.}
+If you have sub-volumes (e.g., long papers, short papers, demonstrations, tutorial abstracts), we suggest you append them after the full volume name.
+For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
+You should also seek consistency with the names of your volumes from prior years.
+
+With this information in hand, we will assign you a [list of Anthology identifiers](https://docs.google.com/spreadsheets/d/166W-eIJX2rzCACbjpQYOaruJda7bTZrY7MBw_oa7B2E/edit?usp=sharing) for use with ACLPUB.
 
 Ingestion is a multi-step process:
 
-1. You arrange your data (PDFs, BibTeX files, and metadata) according to the instructions below.
-   You will run a script to lay it out into a single directory, and then send in your tarball.
-2. We ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
+1. **You** arrange your data (PDFs, BibTeX files, and metadata) using ACLPUB by following the instructions below.
+   You will run a script to lay it out into a single directory, and then send a link to your tarball.
+2. **We** ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
 3. This becomes a pull request on [our pull requests page](https://github.com/acl-org/acl-anthology/pulls).
 4. Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
 
-Step 1 is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output is a minimally compliant XML file that can be ingested into [the Anthology's authoritative XML format](#authoritative-xml-format).
-Additionally, if you are using EasyChair, you will also want to use our easychair scripts.
+You are responsible only for the Step 1: producting a minimally compliant XML file along with the associated PDFs and optionally other data (such as software).
+This is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output is a minimally compliant XML file that can be ingested into [the Anthology's authoritative XML format](#authoritative-xml-format).
+**Instructions for this can be found [in the ACLPUB package](https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md)**.
+(Additionally, if you are using EasyChair, you will also want to use [our easychair scripts](https://github.com/acl-org/easy2acl), but please start with the ACLPUB documentation).
+
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/).
 
-You are responsible only for the first step: producting a minimally compliant XML file along with the associated PDFs and optionally other data (such as software).
-**Instructions for this can be found [in the ACLPUB package](https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md)**.
-
 #### Notes about Softconf's START
+
+The ingestion process is manual and requires time to execute and proofcheck, and as such, it's very helpful to ensure that your proceedings are in good order before sending the link.
+Redoing the ingestion costs approximately the same time as the original ingestion and thus incurs significant additional expense for the volunteer staff.
 
 If you are using START, the process is easier for you.
 You need only supply the proceedings tarball (named `proceedings.tgz`) for each of the volumes and workshops that are part of your conference.
@@ -45,25 +55,27 @@ If you are the publication chair, you can collect these and coordinate with the 
 
 Please be aware of the following:
 
-- *Workshop identifiers*.
-  START uses a formatted string to identify the volume ID.
-  For main conference proceedings (e.g., NAACL long papers), for each volume, this looks like
+**Workshop identifiers**
 
-     http://www.aclweb.org/anthology/N19-1%03d
+START uses a formatted string to identify the volume ID.
+The Anthology Director will assign templates to you for each volume your are submitting.
+For main conference proceedings (e.g., NAACL long papers), for each volume, this looks like
 
-  since the volume ID has one digit and the paper three.
-  For workshops, it is
+> http://www.aclweb.org/anthology/N19-1%03d
 
-     http://www.aclweb.org/anthology/W19-38%02d
+since the volume ID has one digit and the paper three.
+For workshops, it is
 
-  since there are only two digits for the paper ID.
-  Note again that the (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
+> http://www.aclweb.org/anthology/W19-38%02d
 
-- *Special Interest Groups*.
-  For workshops, your conference publication chair should have noted special interest group affiliations and endorsements for workshops.
+since there are only two digits for the paper ID.
+Note again that the (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
+(Note that this format will change in 2020 to allow for Anthology growth).
 
-The ingestion process is manual and requires time to execute and proofcheck, and as such, it's very helpful to ensure that your proceedings are in good order before sending the link.
-Redoing the ingestion costs approximately the same time as the original ingestion and thus incurs significant additional expense for the volunteer staff.
+**Special Interest Groups**
+
+For workshops, your conference publication chair should have noted special interest group affiliations and endorsements for workshops.
+If you are using START, this information can be entered in the "meta" file.
 
 ### Canonical IDs and URLs
 
@@ -125,7 +137,7 @@ This format will likely be generalized in 2019 or 2020.
 The canonical URLs for the Anthology are formed by appending the ACL ID to the Anthology URL.
 For example,
 
-    http://www.aclweb.org/anthology/P18-1023
+> http://www.aclweb.org/anthology/P18-1023
 
 will return the PDF of this paper.
 Note that the canonical URL does *not* include the `.pdf` extension (though that URL will also resolve).

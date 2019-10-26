@@ -43,7 +43,7 @@
         {{ end }}
 
         {{ $page := printf "/papers/%s/%s/%s.md" (slicestr . 0 1) (slicestr . 0 3) . }}
-        {{ ($.Site.GetPage $page).Render "list-entry" }}
+        {{ ($.Site.GetPage $page).Render "list-entry-author" }}
       {{ end }}
     </div>
 
