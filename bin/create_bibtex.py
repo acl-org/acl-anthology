@@ -36,8 +36,20 @@ import io
 import os
 
 from anthology import Anthology
-from anthology.utils import SeverityTracker
+from anthology.utils import SeverityTracker, deconstruct_anthology_id, infer_year
 from create_hugo_pages import check_directory
+from operator import itemgetter
+
+
+def volume_sorter(volume_tuple):
+    """
+    Extracts the year so that we can sort by the year and then
+    the collection ID.
+    """
+    volume_id = volume_tuple[0]
+    collection_id, year, _ = deconstruct_anthology_id(volume_id)
+    year = infer_year(collection_id)
+    return year, volume_id
 
 
 def create_bibtex(anthology, trgdir, clean=False):
@@ -51,7 +63,7 @@ def create_bibtex(anthology, trgdir, clean=False):
     with gzip.open(
         "{}/anthology.bib.gz".format(trgdir), "wt", encoding="utf-8"
     ) as file_full:
-        for volume_id, volume in tqdm(anthology.volumes.items()):
+        for volume_id, volume in tqdm(sorted(anthology.volumes.items(), key=volume_sorter, reverse=True)):
             volume_dir = trgdir
             if not os.path.exists(volume_dir):
                 os.makedirs(volume_dir)
