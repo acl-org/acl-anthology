@@ -146,7 +146,7 @@ def infer_year(collection_id):
     """
     assert (
         len(collection_id) == 3
-    ), "Couldn't infer year: unknown volume ID format"
+    ), f"Couldn't infer year: unknown volume ID format '{collection_id}' ({type(collection_id)})"
     digits = collection_id[1:]
     if int(digits) >= 60:
         year = "19{}".format(digits)
