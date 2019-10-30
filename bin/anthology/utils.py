@@ -39,6 +39,7 @@ def is_volume_id(anthology_id):
         anthology_id[-3:] == "000"
         or (anthology_id[0] == "W" and anthology_id[-2:] == "00")
         or (anthology_id[:3] == "C69" and anthology_id[-2:] == "00")
+        or (anthology_id[:3] == 'D19' and anthology_id[-2:] == '00')
     )
 
 
@@ -47,7 +48,7 @@ def build_anthology_id(collection_id, volume_id, paper_id):
     Transforms collection id, volume id, and paper id to a width-padded
     Anthology ID. e.g., ('P18', '1', '1') -> P18-1001.
     """
-    if collection_id.startswith('W') or collection_id == 'C69':
+    if collection_id.startswith('W') or collection_id == 'C69' or (collection_id == 'D19' and int(volume_id) >= 5):
         return '{}-{:02d}{:02d}'.format(collection_id, int(volume_id), int(paper_id))
     else:
         return '{}-{:01d}{:03d}'.format(collection_id, int(volume_id), int(paper_id))
