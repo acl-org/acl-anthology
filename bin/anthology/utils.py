@@ -14,15 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import itertools as it
+import logging
+import os
+import re
+
 from lxml import etree
 from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
-import itertools as it
-import logging
-import re
 
-from .people import PersonName
-from . import data
+from anthology.people import PersonName
+from anthology import data
 
 
 xml_escape_or_none = lambda t: None if t is None else xml_escape(t)
@@ -68,16 +70,25 @@ def deconstruct_anthology_id(anthology_id):
     Transforms an Anthology ID into its constituent collection id, volume id, and paper id
     parts. e.g,
 
-        P18-1007 -> ('P18', '1', '7')
+        P18-1007 -> ('P18', '1',  '7')
         W18-6310 -> ('W18', '63', '10')
+        D19-1001 -> ('D19', '1',  '1')
+        D19-5702 -> ('D19', '57', '2')
 
     Also can deconstruct Anthology volumes:
 
         P18-1 -> ('P18', '1', None)
         W18-63 -> ('W18', '63', None)
+
+    For Anthology IDs prior to 2020, the volume ID is the first digit after the hyphen, except
+    for the following situations, where it is the first two digits:
+
+    - All collections starting with 'W'
+    - The collection "C69"
+    - All collections in "D19" where the first digit is >= 5
     """
     collection_id, rest = anthology_id.split('-')
-    if anthology_id.startswith('W') or anthology_id.startswith('C69'):
+    if collection_id.startswith('W') or collection_id == 'C69' or (collection_id == 'D19' and int(rest[0]) >= 5):
         if len(rest) == 4:
             return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
         else:                   # Possible Volume only identifier
@@ -330,7 +341,7 @@ def make_simple_element(tag,
     return el
 
 
-def make_nested(root):
+def make_nested(root, pdf_path: str):
     """
     Converts an XML tree root to the nested format (if not already converted).
 
@@ -364,7 +375,12 @@ def make_nested(root):
 
     for paper in root.findall("paper"):
         paper_id = paper.attrib['id']
-        if collection_id.startswith('W') or collection_id == 'C69':
+        if len(paper_id) != 4:
+            logging.warning(f'skipping invalide paper ID {paper_id}')
+            continue
+
+        first_volume_digit = int(paper_id[0])
+        if collection_id.startswith('W') or collection_id == 'C69' or (collection_id == 'D19' and first_volume_digit >= 5):
             volume_width = 2
             paper_width = 2
         else:
