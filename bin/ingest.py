@@ -55,7 +55,7 @@ if __name__ == '__main__':
     tree_being_added = etree.parse(args.infile)
 
     # Ensure nested format
-    root_being_added = make_nested(tree_being_added.getroot())
+    root_being_added = make_nested(tree_being_added.getroot(), pdf_path=os.path.dirname(args.infile))
     collection_id = root_being_added.attrib['id']
 
     # Ensure names are properly identified

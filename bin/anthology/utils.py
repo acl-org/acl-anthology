@@ -392,8 +392,8 @@ def make_nested(root):
             new_root.append(volume)
 
             # Add volume-level <url> tag if PDF is present
-            volume_url = infer_url(data.ANTHOLOGY_PDF.format(full_volume_id))
-            if test_url(volume_url):
+            volume_path = os.path.join(pdf_path, f'{full_volume_id}.pdf')
+            if os.path.exists(volume_path):
                 url = make_simple_element('url', text=full_volume_id)
                 print(f"{collection_id}: inserting volume URL: {full_volume_id}")
                 meta.append(url)
@@ -407,8 +407,8 @@ def make_nested(root):
                 title.tag = 'booktitle'
                 meta.insert(0, title)
 
-            frontmatter_url = infer_url(data.ANTHOLOGY_PDF.format(full_paper_id))
-            if test_url(frontmatter_url):
+            frontmatter_path = os.path.join(pdf_path, f'{full_paper_id}.pdf')
+            if os.path.exists(frontmatter_path):
                 url = paper.find('url')
                 if url is not None:
                     url.text = f'{full_paper_id}'
