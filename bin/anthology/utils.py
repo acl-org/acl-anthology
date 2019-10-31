@@ -22,6 +22,7 @@ import re
 from lxml import etree
 from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
+from typing import Tuple
 
 from anthology.people import PersonName
 from anthology import data
@@ -35,12 +36,8 @@ def is_journal(anthology_id):
 
 
 def is_volume_id(anthology_id):
-    return (
-        anthology_id[-3:] == "000"
-        or (anthology_id[0] == "W" and anthology_id[-2:] == "00")
-        or (anthology_id[:3] == "C69" and anthology_id[-2:] == "00")
-        or (anthology_id[:3] == 'D19' and anthology_id[-2:] == '00')
-    )
+    collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
+    return paper_id == '0'
 
 
 def build_anthology_id(collection_id, volume_id, paper_id):
@@ -66,7 +63,7 @@ def test_url(url):
     return r.status_code == requests.codes.ok
 
 
-def deconstruct_anthology_id(anthology_id):
+def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     """
     Transforms an Anthology ID into its constituent collection id, volume id, and paper id
     parts. e.g,
