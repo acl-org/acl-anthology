@@ -161,7 +161,11 @@ class Paper:
 
     @property
     def full_id(self):
-        return build_anthology_id(self.collection_id, self.volume_id, self._id)
+        return self.anthology_id
+
+    @property
+    def anthology_id(self):
+        return build_anthology_id(self.collection_id, self.volume_id, self.paper_id)
 
     @property
     def bibkey(self):
