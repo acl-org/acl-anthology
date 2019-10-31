@@ -21,7 +21,7 @@ from . import data
 from .papers import Paper
 from .venues import VenueIndex
 from .sigs import SIGIndex
-from anthology.utils import parse_element, is_journal, month_str2num, infer_url, infer_year
+from anthology.utils import build_anthology_id, parse_element, is_journal, month_str2num, infer_url, infer_year
 
 
 class Volume:
@@ -118,17 +118,11 @@ class Volume:
 
     @property
     def volume_id(self):
-        if self.collection_id[0] == "W" or self.collection_id == "C69":
-            # If volume is a workshop, use the first two digits of ID, e.g. W15-01
-            _id = "{:02d}".format(int(self._id))
-        else:
-            # If not, only use the first digit, e.g. Q15-1
-            _id = "{:01d}".format(int(self._id))
-        return _id
+        return self._id
 
     @property
     def full_id(self):
-        return "{}-{}".format(self.collection_id, self.volume_id)
+        return build_anthology_id(self.collection_id, self.volume_id)
 
     @property
     def paper_ids(self):

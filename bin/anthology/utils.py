@@ -22,7 +22,7 @@ import re
 from lxml import etree
 from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
-from typing import Tuple
+from typing import Tuple, Optional
 
 from anthology.people import PersonName
 from anthology import data
@@ -40,15 +40,21 @@ def is_volume_id(anthology_id):
     return paper_id == '0'
 
 
-def build_anthology_id(collection_id, volume_id, paper_id):
+def build_anthology_id(collection_id: str, volume_id: str, paper_id: Optional[str] = None) -> str:
     """
     Transforms collection id, volume id, and paper id to a width-padded
     Anthology ID. e.g., ('P18', '1', '1') -> P18-1001.
     """
     if collection_id.startswith('W') or collection_id == 'C69' or (collection_id == 'D19' and int(volume_id) >= 5):
-        return '{}-{:02d}{:02d}'.format(collection_id, int(volume_id), int(paper_id))
+        anthology_id = f'{collection_id}-{int(volume_id):02d}'
+        if paper_id is not None:
+            anthology_id += f'{int(paper_id):02d}'
     else:
-        return '{}-{:01d}{:03d}'.format(collection_id, int(volume_id), int(paper_id))
+        anthology_id = f'{collection_id}-{int(volume_id):01d}'
+        if paper_id is not None:
+            anthology_id += f'{int(paper_id):03d}'
+
+    return anthology_id
 
 
 def test_url(url):
