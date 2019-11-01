@@ -24,8 +24,8 @@ from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 from typing import Tuple, Optional
 
-from anthology.people import PersonName
-from anthology import data
+from .people import PersonName
+from . import data
 
 
 xml_escape_or_none = lambda t: None if t is None else xml_escape(t)

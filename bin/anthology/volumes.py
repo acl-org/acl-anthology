@@ -21,7 +21,7 @@ from . import data
 from .papers import Paper
 from .venues import VenueIndex
 from .sigs import SIGIndex
-from anthology.utils import build_anthology_id, parse_element, is_journal, month_str2num, infer_url, infer_year
+from .utils import build_anthology_id, parse_element, is_journal, month_str2num, infer_url, infer_year
 
 
 class Volume:
