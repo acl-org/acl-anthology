@@ -380,7 +380,7 @@ def make_nested(root, pdf_path: str):
     for paper in root.findall("paper"):
         paper_id = paper.attrib['id']
         if len(paper_id) != 4:
-            logging.warning(f'skipping invalide paper ID {paper_id}')
+            logging.warning(f'skipping invalid paper ID {paper_id}')
             continue
 
         first_volume_digit = int(paper_id[0])

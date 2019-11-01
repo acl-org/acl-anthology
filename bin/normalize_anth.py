@@ -68,12 +68,17 @@ def maptext(node, f):
             child.tail = f(child.tail)
 
 def curly_quotes(s):
+    # Two single quotes after a word: LaTeX for a right curly quote.
+    s = re.sub(r'(\w[^\s"]*)\'\'', r'\1”', s)
+    # Two single quotes (or backticks) before a word: LaTeX for a left curly quote.
+    s = re.sub(r'(``|\'\')(\w)', r'“\2', s)
+
     # Straight double quote: If preceded by a word (possibly with
     # intervening punctuation), it's a right quote.
     s = re.sub(r'(\w[^\s"]*)"', r'\1”', s)
     # Else, if followed by a word, it's a left quote
     s = re.sub(r'"(\w)', r'“\1', s)
-    if '"' in s: logging.warning("couldn't convert straight double quote")
+    if '"' in s: logging.warning(f"couldn't convert straight double quote in [{s}]")
 
     # Straight single quote
     # Exceptions for words that start with apostrophe
@@ -81,8 +86,8 @@ def curly_quotes(s):
     # Otherwise, treat the same as straight double quote
     s = re.sub(r"(\w[^\s']*)'", r'\1’', s)
     s = re.sub(r"'(\w)", r'‘\1', s)
-    if "'" in s: logging.warning("couldn't convert straight single quote")
-    
+    if "'" in s: logging.warning(f"couldn't convert straight single quote in [{s}]")
+
     return s
 
 def clean_unicode(s):
