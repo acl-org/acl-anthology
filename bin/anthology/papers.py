@@ -16,6 +16,7 @@
 
 import logging as log
 from .utils import (
+    build_anthology_id,
     parse_element,
     infer_attachment_url,
     remove_extra_whitespace,
@@ -156,19 +157,15 @@ class Paper:
 
     @property
     def paper_id(self):
-        if self.collection_id[0] == "W" or self.collection_id == "C69":
-            # If volume is a workshop, use the last two digits of ID
-            _id = "{}{:02d}".format(self.volume_id, int(self._id))
-        else:
-            # If not, only the last three
-            _id = "{}{:03d}".format(self.volume_id, int(self._id))
-        # Just to be sure
-        assert len(_id) == 4
-        return _id
+        return self._id
 
     @property
     def full_id(self):
-        return "{}-{}".format(self.collection_id, self.paper_id)
+        return self.anthology_id
+
+    @property
+    def anthology_id(self):
+        return build_anthology_id(self.collection_id, self.volume_id, self.paper_id)
 
     @property
     def bibkey(self):

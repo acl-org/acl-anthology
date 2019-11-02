@@ -14,12 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import itertools as it
+import logging
+import os
+import re
+
 from lxml import etree
 from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
-import itertools as it
-import logging
-import re
+from typing import Tuple, Optional
 
 from .people import PersonName
 from . import data
@@ -33,22 +36,25 @@ def is_journal(anthology_id):
 
 
 def is_volume_id(anthology_id):
-    return (
-        anthology_id[-3:] == "000"
-        or (anthology_id[0] == "W" and anthology_id[-2:] == "00")
-        or (anthology_id[:3] == "C69" and anthology_id[-2:] == "00")
-    )
+    collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
+    return paper_id == '0'
 
 
-def build_anthology_id(collection_id, volume_id, paper_id):
+def build_anthology_id(collection_id: str, volume_id: str, paper_id: Optional[str] = None) -> str:
     """
     Transforms collection id, volume id, and paper id to a width-padded
     Anthology ID. e.g., ('P18', '1', '1') -> P18-1001.
     """
-    if collection_id.startswith('W') or collection_id == 'C69':
-        return '{}-{:02d}{:02d}'.format(collection_id, int(volume_id), int(paper_id))
+    if collection_id.startswith('W') or collection_id == 'C69' or (collection_id == 'D19' and int(volume_id) >= 5):
+        anthology_id = f'{collection_id}-{int(volume_id):02d}'
+        if paper_id is not None:
+            anthology_id += f'{int(paper_id):02d}'
     else:
-        return '{}-{:01d}{:03d}'.format(collection_id, int(volume_id), int(paper_id))
+        anthology_id = f'{collection_id}-{int(volume_id):01d}'
+        if paper_id is not None:
+            anthology_id += f'{int(paper_id):03d}'
+
+    return anthology_id
 
 
 def test_url(url):
@@ -63,21 +69,30 @@ def test_url(url):
     return r.status_code == requests.codes.ok
 
 
-def deconstruct_anthology_id(anthology_id):
+def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     """
     Transforms an Anthology ID into its constituent collection id, volume id, and paper id
     parts. e.g,
 
-        P18-1007 -> ('P18', '1', '7')
+        P18-1007 -> ('P18', '1',  '7')
         W18-6310 -> ('W18', '63', '10')
+        D19-1001 -> ('D19', '1',  '1')
+        D19-5702 -> ('D19', '57', '2')
 
     Also can deconstruct Anthology volumes:
 
         P18-1 -> ('P18', '1', None)
         W18-63 -> ('W18', '63', None)
+
+    For Anthology IDs prior to 2020, the volume ID is the first digit after the hyphen, except
+    for the following situations, where it is the first two digits:
+
+    - All collections starting with 'W'
+    - The collection "C69"
+    - All collections in "D19" where the first digit is >= 5
     """
     collection_id, rest = anthology_id.split('-')
-    if anthology_id.startswith('W') or anthology_id.startswith('C69'):
+    if collection_id.startswith('W') or collection_id == 'C69' or (collection_id == 'D19' and int(rest[0]) >= 5):
         if len(rest) == 4:
             return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
         else:                   # Possible Volume only identifier
@@ -330,7 +345,7 @@ def make_simple_element(tag,
     return el
 
 
-def make_nested(root):
+def make_nested(root, pdf_path: str):
     """
     Converts an XML tree root to the nested format (if not already converted).
 
@@ -364,7 +379,12 @@ def make_nested(root):
 
     for paper in root.findall("paper"):
         paper_id = paper.attrib['id']
-        if collection_id.startswith('W') or collection_id == 'C69':
+        if len(paper_id) != 4:
+            logging.warning(f'skipping invalid paper ID {paper_id}')
+            continue
+
+        first_volume_digit = int(paper_id[0])
+        if collection_id.startswith('W') or collection_id == 'C69' or (collection_id == 'D19' and first_volume_digit >= 5):
             volume_width = 2
             paper_width = 2
         else:
@@ -392,8 +412,8 @@ def make_nested(root):
             new_root.append(volume)
 
             # Add volume-level <url> tag if PDF is present
-            volume_url = infer_url(data.ANTHOLOGY_PDF.format(full_volume_id))
-            if test_url(volume_url):
+            volume_path = os.path.join(pdf_path, f'{full_volume_id}.pdf')
+            if os.path.exists(volume_path):
                 url = make_simple_element('url', text=full_volume_id)
                 print(f"{collection_id}: inserting volume URL: {full_volume_id}")
                 meta.append(url)
@@ -407,8 +427,8 @@ def make_nested(root):
                 title.tag = 'booktitle'
                 meta.insert(0, title)
 
-            frontmatter_url = infer_url(data.ANTHOLOGY_PDF.format(full_paper_id))
-            if test_url(frontmatter_url):
+            frontmatter_path = os.path.join(pdf_path, f'{full_paper_id}.pdf')
+            if os.path.exists(frontmatter_path):
                 url = paper.find('url')
                 if url is not None:
                     url.text = f'{full_paper_id}'
