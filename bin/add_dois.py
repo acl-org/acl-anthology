@@ -43,6 +43,7 @@ import copy
 from anthology.utils import build_anthology_id, deconstruct_anthology_id, stringify_children, test_url, indent, make_simple_element
 from anthology.formatter import MarkupFormatter
 from itertools import chain
+from time import sleep
 
 import lxml.etree as ET
 import urllib.request
@@ -57,14 +58,15 @@ def add_doi(xml_node, collection_id, volume_id, force=False):
 
     anth_id = build_anthology_id(collection_id, volume_id, paper_id)
     new_doi_text = f'{data.DOI_PREFIX}{anth_id}'
-    doi_url = f'{data.DOI_URL_PREFIX}{data.DOI_PREFIX}{anth_id}'
-    if not test_url(doi_url):
-        print(f"-> [{anth_id}] Skipping since DOI {doi_url} doesn't exist")
-        return False
 
     doi = xml_node.find('doi')
     if doi is not None:
         print(f'-> [{anth_id}] Cowardly refusing to overwrite existing DOI {doi.text} (use --force)', file=sys.stderr)
+        return False
+
+    doi_url = f'{data.DOI_URL_PREFIX}{data.DOI_PREFIX}{anth_id}'
+    if not test_url(doi_url):
+        print(f"-> [{anth_id}] Skipping since DOI {doi_url} doesn't exist")
         return False
 
     else:
@@ -96,7 +98,10 @@ def process_volume(anthology_volume):
 
         # Iterate through all papers
         for paper in chain(volume.find('frontmatter'), volume.findall('paper')):
-            num_added += add_doi(paper, collection_id, volume_id, force=args.force)
+            added = add_doi(paper, collection_id, volume_id, force=args.force)
+            if added:
+                num_added += added
+                sleep(1)
 
         indent(tree.getroot())
 
