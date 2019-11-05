@@ -38,9 +38,8 @@ import sys
 import os
 import tempfile
 import anthology.data as data
-import copy
 
-from anthology.utils import build_anthology_id, deconstruct_anthology_id, stringify_children, test_url, indent, make_simple_element
+from anthology.utils import build_anthology_id, deconstruct_anthology_id, stringify_children, test_url_code, indent, make_simple_element
 from anthology.formatter import MarkupFormatter
 from itertools import chain
 from time import sleep
@@ -65,15 +64,22 @@ def add_doi(xml_node, collection_id, volume_id, force=False):
         return False
 
     doi_url = f'{data.DOI_URL_PREFIX}{data.DOI_PREFIX}{anth_id}'
-    if not test_url(doi_url):
-        print(f"-> [{anth_id}] Skipping since DOI {doi_url} doesn't exist")
-        return False
+    for tries in [1, 2, 3]:  # lots of random failures
+        result = test_url_code(doi_url)
+        if result.status_code == 200:
+            doi = make_simple_element('doi', text=new_doi_text)
+            print(f'-> Adding DOI {new_doi_text}', file=sys.stderr)
+            xml_node.append(doi)
+            return True
+        elif result.status_code == 429:  # too many requests
+            pause_for = int(result.headers['Retry-After'])
+            print(f'--> Got 429, pausing for {pause_for} seconds', file=sys.stderr)
+            sleep(pause_for + 1)
+        elif result.status_code == 404:  # not found
+            break
 
-    else:
-        doi = make_simple_element('doi', text=new_doi_text)
-        print(f'Adding DOI {new_doi_text}', file=sys.stderr)
-        xml_node.append(doi)
-        return True
+    print(f"-> Couldn't add DOI {doi_url}", file=sys.stderr)
+    return False
 
 
 def process_volume(anthology_volume):
@@ -94,13 +100,13 @@ def process_volume(anthology_volume):
     if volume is not None:
         volume_booktitle = volume.find(f"./meta/booktitle")
         volume_title = formatter.as_text(volume_booktitle)
-        print(f'Identified as {volume_title}', file=sys.stderr)
+        print(f'-> found existing volume "{volume_title}"', file=sys.stderr)
 
         # Iterate through all papers
         for paper in chain(volume.find('frontmatter'), volume.findall('paper')):
             added = add_doi(paper, collection_id, volume_id, force=args.force)
             if added:
-                num_added += added
+                num_added += 1
                 sleep(1)
 
         indent(tree.getroot())

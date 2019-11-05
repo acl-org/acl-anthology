@@ -18,6 +18,7 @@ import itertools as it
 import logging
 import os
 import re
+import requests
 
 from lxml import etree
 from urllib.parse import urlparse
@@ -57,16 +58,19 @@ def build_anthology_id(collection_id: str, volume_id: str, paper_id: Optional[st
     return anthology_id
 
 
+def test_url_code(url):
+    """
+    Test a URL, returning the result.
+    """
+    r = requests.head(url, allow_redirects=True)
+    return r
+
+
 def test_url(url):
     """
     Tests a URL, returning True if the URL exists, and False otherwise.
     """
-    import requests
-
-    #sys.stderr.write("retrieving {}: ".format(url))
-    r = requests.head(url, allow_redirects=True)
-    #sys.stderr.write("{}\n".format(r.status_code))
-    return r.status_code == requests.codes.ok
+    return test_url_code(url).status_code == requests.codes.ok
 
 
 def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
