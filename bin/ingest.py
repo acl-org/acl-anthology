@@ -52,6 +52,7 @@ if __name__ == '__main__':
 
     people = AnthologyIndex(None, srcdir=os.path.join(os.path.dirname(sys.argv[0]), '..', 'data'))
 
+    pdf_directory = os.path.dirname(args.infile)
     tree_being_added = etree.parse(args.infile)
 
     # Ensure nested format
@@ -73,6 +74,12 @@ if __name__ == '__main__':
                 ambiguous[anth_id] = (name, ids)
 
                 node.attrib['id'] = ids[0]
+
+        # Ensure PDF exists. PDF should be in the same directory as the XML file being ingested.
+        pdf_path = os.path.join(pdf_directory, f'{anth_id}.pdf')
+        if not os.path.exists(pdf_path):
+            print(f'FATAL: cannot file PDF {pdf_path}!')
+            sys.exit(1)
 
     # Normalize
     for paper in root_being_added.findall('.//paper'):
