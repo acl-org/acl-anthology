@@ -121,14 +121,24 @@ def clean_unicode(s):
 
     return s
 
-def process(oldnode, informat):
+
+def normalize(oldnode, informat):
+    """
+    Receives an XML 'paper' node and normalizes many of its fields, including:
+    - Unescaping HTML
+    - Normalizing quotes and other punctuation
+    - Mapping many characters to unicode
+    In addition, if the 'informat' is "latex", it will convert many LaTeX characters
+    to unicode equivalents. Note that these latter LaTeX operations are not idempotent.
+    """
+
     if oldnode.tag in ['url', 'href', 'mrf', 'doi', 'bibtype', 'bibkey',
                        'revision', 'erratum', 'attachment', 'paper',
                        'presentation', 'dataset', 'software', 'video']:
         return
     elif oldnode.tag in ['author', 'editor']:
         for oldchild in oldnode:
-            process(oldchild, informat=informat)
+            normalize(oldchild, informat=informat)
     else:
         if informat == "latex":
             if len(oldnode) > 0:
@@ -138,7 +148,7 @@ def process(oldnode, informat):
             newnode.tag = oldnode.tag
             newnode.attrib.update(oldnode.attrib)
             replace_node(oldnode, newnode)
-            
+
         maptext(oldnode, html.unescape)
         maptext(oldnode, curly_quotes)
         maptext(oldnode, clean_unicode)
@@ -170,6 +180,6 @@ if __name__ == "__main__":
                                                paper.attrib['id'])
         for oldnode in paper:
             location = "{}:{}".format(papernum, oldnode.tag)
-            process(oldnode, informat=informat)
-                
+            normalize(oldnode, informat=informat)
+
     tree.write(args.outfile, encoding="UTF-8", xml_declaration=True)
