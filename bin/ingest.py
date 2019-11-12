@@ -32,7 +32,7 @@ import lxml.etree as etree
 
 from datetime import datetime
 
-from normalize_anth import process
+from normalize_anth import normalize
 from anthology.utils import make_nested, make_simple_element, build_anthology_id, indent
 from anthology.index import AnthologyIndex
 from anthology.people import PersonName
@@ -52,6 +52,7 @@ if __name__ == '__main__':
 
     people = AnthologyIndex(None, srcdir=os.path.join(os.path.dirname(sys.argv[0]), '..', 'data'))
 
+    pdf_directory = os.path.dirname(args.infile)
     tree_being_added = etree.parse(args.infile)
 
     # Ensure nested format
@@ -74,10 +75,16 @@ if __name__ == '__main__':
 
                 node.attrib['id'] = ids[0]
 
+        # Ensure PDF exists. PDF should be in the same directory as the XML file being ingested.
+        pdf_path = os.path.join(pdf_directory, f'{anth_id}.pdf')
+        if not os.path.exists(pdf_path):
+            print(f'FATAL: cannot file PDF {pdf_path}!')
+            sys.exit(1)
+
     # Normalize
     for paper in root_being_added.findall('.//paper'):
         for oldnode in paper:
-            process(oldnode, informat='xml')
+            normalize(oldnode, informat='latex')
 
     # Ingest each volume.
     # First, find the XML file.
