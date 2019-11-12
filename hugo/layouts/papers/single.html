@@ -146,9 +146,8 @@
       <dt>URL:</dt>
       <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
       <dt>DOI:</dt>
-      <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      <dd class="border-bottom">{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
 
-      <dt></dt><dd><hr/></dd>
       {{ with $paper.pdf }}
       <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
       {{ end }}
