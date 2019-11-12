@@ -32,7 +32,7 @@ import lxml.etree as etree
 
 from datetime import datetime
 
-from normalize_anth import process
+from normalize_anth import normalize
 from anthology.utils import make_nested, make_simple_element, build_anthology_id, indent
 from anthology.index import AnthologyIndex
 from anthology.people import PersonName
@@ -84,7 +84,7 @@ if __name__ == '__main__':
     # Normalize
     for paper in root_being_added.findall('.//paper'):
         for oldnode in paper:
-            process(oldnode, informat='xml')
+            normalize(oldnode, informat='latex')
 
     # Ingest each volume.
     # First, find the XML file.
