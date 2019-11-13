@@ -18,6 +18,7 @@ We need the following information from you:
 
 -  **The full titles of all volumes** that you need identifiers for; and
 -  **the date** you would like your volumes to be available to the world.
+   (Your proceedings will be due **two weeks** prior to this negotiated date).
 
 The full titles should not contain abbreviations, except parenthetically.
 For example, "Proceedings of EMNLP 2019" is not a good title, but "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)" is a great one.
@@ -32,6 +33,7 @@ Ingestion is a multi-step process:
 
 1. **You** arrange your data (PDFs, BibTeX files, and metadata) using ACLPUB by following the instructions below.
    You will run a script to lay it out into a single directory, and then send a link to your tarball.
+   **This tarball must be delivered to the Anthology director two weeks prior to your desired publication date**, which was negotiated when you first contacted us.
 2. **We** ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
 3. This becomes a pull request on [our pull requests page](https://github.com/acl-org/acl-anthology/pulls).
 4. Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
