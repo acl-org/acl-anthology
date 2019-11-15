@@ -11,9 +11,26 @@ Please read through it so that you have an understanding of the ingestion proces
 
 ### Overview of the Submission Process
 
-Please [contact the Anthology Director](mailto:anthology@aclweb.org) as soon as possible to register your intention to submit your proceedings.
-**If you are a workshop chair attached to a main conference (e.g., ACL or EMNLP), the main conference publication chair should handle this for you.**
-Conference-level publication chairs should assemble the following information for all volumes and workshops in their conference and send it to the director in a single email.
+| Deadline                   | Step                                            |
+|----------------------------|-------------------------------------------------|
+| ASAP                       | [Register your meeting](#register-your-meeting) |
+| 2 weeks before publication | [Submit your data](#submit-your-data)           |
+| 2 weeks before publication | [Submit copyright transfer forms](#copyright)   |
+|                            | [Request ISBNs](#isbn-numbers)                  |
+| After publication          | [Making corrections](#errata-and-corrections)   |
+
+#### Publication Date
+
+By default, the publication of papers associated with a current event in the Anthology will be on the first day of the event (inclusive of workshops or tutorials).
+If you prefer to have it published on a different date, please inform us.
+
+### Register your meeting
+
+All publications chairs need to obtain a volume ID, of the form `X99-9` for conferences and `W99-99` for workshops. See [Volume and Paper IDs](#volume-and-paper-ids) for more information.
+
+If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please contact the publications chair for the main conference to receive 
+
+If you are a conference publications chair, you must register your intention to submit your proceedings. Assemble the following information for all volumes and workshops in their conference and send it to [the Anthology Director](mailto:anthology@aclweb.org) in a single email.
 We need the following information from you:
 
 -  **The full titles of all volumes** that you need identifiers for; and
@@ -27,23 +44,25 @@ If you have sub-volumes (e.g., long papers, short papers, demonstrations, tutori
 For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
 You should also seek consistency with the names of your volumes from prior years.
 
+If your conference has satellite workshops, please make certain the workshops will actually be run.
+
 With this information in hand, we will assign you a [list of Anthology identifiers](https://docs.google.com/spreadsheets/d/166W-eIJX2rzCACbjpQYOaruJda7bTZrY7MBw_oa7B2E/edit?usp=sharing) for use with ACLPUB.
 
-Ingestion is a multi-step process:
+### Prepare your data
 
-1. **You** arrange your data (PDFs, BibTeX files, and metadata) using ACLPUB by following the instructions below.
+Prepare your data (PDFs, BibTeX files, and metadata) using ACLPUB by following the instructions below.
    You will run a script to lay it out into a single directory, and then send a link to your tarball.
    **This tarball must be delivered to the Anthology director two weeks prior to your desired publication date**, which was negotiated when you first contacted us.
-2. **We** ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
-3. This becomes a pull request on [our pull requests page](https://github.com/acl-org/acl-anthology/pulls).
-4. Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
 
-You are responsible only for the Step 1: producting a minimally compliant XML file along with the associated PDFs and optionally other data (such as software).
 This is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output is a minimally compliant XML file that can be ingested into [the Anthology's authoritative XML format](#authoritative-xml-format).
 **Instructions for this can be found [in the ACLPUB package](https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md)**.
 (Additionally, if you are using EasyChair, you will also want to use [our easychair scripts](https://github.com/acl-org/easy2acl), but please start with the ACLPUB documentation).
 
-The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/).
+The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
+
+- We ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
+- This becomes a pull request on [our pull requests page](https://github.com/acl-org/acl-anthology/pulls).
+- Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
 
 #### Notes about Softconf's START
 
@@ -55,12 +74,10 @@ You need only supply the proceedings tarball (named `proceedings.tgz`) for each 
 You can download this from START and send it directly to your publication chair.
 If you are the publication chair, you can collect these and coordinate with the Anthology Director.
 
-Please be aware of the following:
+### Volume and Paper IDs
 
-**Workshop identifiers**
-
-START uses a formatted string to identify the volume ID.
-The Anthology Director will assign templates to you for each volume your are submitting.
+START uses a formatted string to identify each volume.
+The Anthology Director will assign templates to you for each volume you are submitting.
 For main conference proceedings (e.g., NAACL long papers), for each volume, this looks like
 
 > http://www.aclweb.org/anthology/N19-1%03d
@@ -71,15 +88,15 @@ For workshops, it is
 > http://www.aclweb.org/anthology/W19-38%02d
 
 since there are only two digits for the paper ID.
-Note again that the (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
-(Note that this format will change in 2020 to allow for Anthology growth).
+The (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
+(This format will change in 2020 to allow for Anthology growth).
 
 **Special Interest Groups**
 
 For workshops, your conference publication chair should have noted special interest group affiliations and endorsements for workshops.
 If you are using START, this information can be entered in the "meta" file.
 
-### Canonical IDs and URLs
+#### Canonical IDs and URLs
 
 Currently, we assign each paper in the ACL Anthology a unique 8-character identifier, so that we can easily locate papers and reference them.
 The identifier is assigned by the current is in the form of a letter, a two digit year, and a 4 digit paper ID (e.g., P18-1024).
@@ -144,12 +161,7 @@ For example,
 will return the PDF of this paper.
 Note that the canonical URL does *not* include the `.pdf` extension (though that URL will also resolve).
 
-Workshop chairs should contact the ACL Anthology Editor to receive their workshop number offset (the 'xx' portion of the ACL Anthology ID).
-If your workshop is attached to a conference as a satellite event, please contact the proceedings chair for the main conference to receive the offset ID, as it is easiest to allocate offsets as a whole block.
-Conversely, if you are the proceedings chair for a conference that has satellite workshops, please contact the ACL Anthology Editor with the final list of titles of the workshops (make certain the workshops will actually be run) so that the editor can allocate a suitable block of offsets to the workshops.
-The current list of ingestion prefixes is [publicly visible](https://docs.google.com/spreadsheets/d/166W-eIJX2rzCACbjpQYOaruJda7bTZrY7MBw_oa7B2E/edit?usp=sharing) (but read-only).
-
-### Paper numbering
+#### Paper numbering
 
 A key notion in file naming is the paper number.
 The general rule is that papers will be numbered consecutively within the bound volume in which they appear.
@@ -226,11 +238,6 @@ ingest materials even if no copyright transfers are on file.
 ### ISBN Numbers
 
 If you need to assign ISBN numbers, please provide the exact titles of each volume to be assigned an ISBN and forward this information to Priscilla Rasmussen, ACL Business Manager.
-
-### Publication Date
-
-By default, the publication of papers associated with a current event in the Anthology will be on the first day of the event (inclusive of workshops or tutorials).
-If you prefer to have it published on a different date, please inform us.
 
 ### Errata and Corrections
 
