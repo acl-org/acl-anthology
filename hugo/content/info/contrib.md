@@ -11,13 +11,36 @@ Please read through it so that you have an understanding of the ingestion proces
 
 ### Overview of the Submission Process
 
-| Deadline                    | Step                                            |
-|-----------------------------|-------------------------------------------------|
-| Before submission deadline  | [Register your meeting](#register-your-meeting) |
-| Before submission deadline  | [Request ISBNs](#isbn-numbers)                  |
-| 2 weeks before publication  | [Submit your data](#submit-your-data)           |
-| 2 weeks before publication  | [Submit copyright transfer forms](#copyright)   |
-| After publication           | [Making corrections](#errata-and-corrections)   |
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Deadline</th>
+      <th scope="col">Step</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Before paper submission deadline</td>
+      <td><a href="#register-your-meeting"">Register your meeting</a></td>
+    </tr>
+    <tr>
+      <td>Before paper submission deadline</td>
+      <td><a href="#isbn-numbers">Request ISBNs</a></td>
+    </tr>
+    <tr>
+      <td>2 weeks before publication</td>
+      <td><a href="#submit-your-data">Submit your data</a></td>
+    </tr>
+    <tr>
+      <td>2 weeks before publication</td>
+      <td><a href="#copyright">Submit copyright transfer forms</a></td>
+    </tr>
+    <tr>
+      <td>After publication</td>
+      <td><a href="#errata-and-corrections">Making corrections</a></td>
+    </tr>
+  </tbody>
+</table>
 
 ### Register your meeting
 
