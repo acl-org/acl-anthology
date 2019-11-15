@@ -11,13 +11,13 @@ Please read through it so that you have an understanding of the ingestion proces
 
 ### Overview of the Submission Process
 
-| Deadline                   | Step                                            |
-|----------------------------|-------------------------------------------------|
-| ASAP                       | [Register your meeting](#register-your-meeting) |
-| 2 weeks before publication | [Submit your data](#submit-your-data)           |
-| 2 weeks before publication | [Submit copyright transfer forms](#copyright)   |
-|                            | [Request ISBNs](#isbn-numbers)                  |
-| After publication          | [Making corrections](#errata-and-corrections)   |
+| Deadline                    | Step                                            |
+|-----------------------------|-------------------------------------------------|
+| Before submission deadline  | [Register your meeting](#register-your-meeting) |
+| Before submission deadline  | [Request ISBNs](#isbn-numbers)                  |
+| 2 weeks before publication  | [Submit your data](#submit-your-data)           |
+| 2 weeks before publication  | [Submit copyright transfer forms](#copyright)   |
+| After publication           | [Making corrections](#errata-and-corrections)   |
 
 #### Publication Date
 
@@ -27,6 +27,7 @@ If you prefer to have it published on a different date, please inform us.
 ### Register your meeting
 
 All publications chairs need to obtain a volume ID, of the form `X99-9` for conferences and `W99-99` for workshops. See [Volume and Paper IDs](#volume-and-paper-ids) for more information.
+This should be done before the paper submission deadline for your conference.
 
 If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair to receive your volume ID.
 
