@@ -21,7 +21,7 @@ Please read through it so that you have an understanding of the ingestion proces
 
 ### Register your meeting
 
-All publications chairs need to obtain a volume ID, of the form `X99-9` for conferences and `W99-99` for workshops. See [Anthology Identifiers]({{< relref "ids.md" >>}}) for more information.
+All publications chairs need to obtain a volume ID, of the form `X99-9` for conferences and `W99-99` for workshops. See [Anthology Identifiers]({{< relref "ids.md" >}}) for more information.
 This should be done before the paper submission deadline for your conference.
 
 If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair to receive your volume ID.
