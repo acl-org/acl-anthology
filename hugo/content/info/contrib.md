@@ -21,7 +21,7 @@ Please read through it so that you have an understanding of the ingestion proces
 
 ### Register your meeting
 
-All publications chairs need to obtain a volume ID, of the form `X99-9` for conferences and `W99-99` for workshops. See [Volume and Paper IDs](#volume-and-paper-ids) for more information.
+All publications chairs need to obtain a volume ID, of the form `X99-9` for conferences and `W99-99` for workshops. See [Anthology Identifiers]({{< relref "ids.md" >>}}) for more information.
 This should be done before the paper submission deadline for your conference.
 
 If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair to receive your volume ID.
@@ -48,35 +48,20 @@ With this information in hand, we will assign you a [list of Anthology identifie
 
 ### Prepare your data
 
-Prepare your data (PDFs, BibTeX files, attachments, and metadata) by following the instructions below. You will end up with a tarball; this tarball (or a link to it) must be delivered to the Anthology director two weeks prior to your desired publication date**, which was negotiated when you first contacted us.
+Prepare your data (PDFs, BibTeX files, attachments, and metadata) by following the instructions below. You will end up with a tarball; this tarball (or a link to it) must be delivered to the Anthology director **two weeks prior to your desired publication date**, which was negotiated when you first contacted us.
 
 For meetings using [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26), data preparation is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output can be ingested into the Anthology.
-**Instructions for this can be found [here](https://github.com/acl-org/acl-pub)**.
 
-For meetings using EasyChair, you will also want to use [our easy2acl scripts](https://github.com/acl-org/easy2acl), which convert EasyChair proceedings into a format that ACLPUB can use.
+- [How to generate proceedings from START](https://github.com/acl-org/acl-pub) (for all publications chairs)
+- [How to compile the proceedings into Anthology format](https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md) (for conference-level publications chairs only)
+
+For meetings using EasyChair, you will first want to use [our easy2acl scripts](https://github.com/acl-org/easy2acl), which convert EasyChair proceedings into the same format that START generates.
 
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
 
 - We ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
 - This becomes a pull request on [our pull requests page](https://github.com/acl-org/acl-anthology/pulls).
 - Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
-
-### Volume and Paper IDs
-
-START uses a formatted string to identify each volume.
-The Anthology Director will assign templates to you for each volume you are submitting.
-For main conference proceedings (e.g., NAACL long papers), for each volume, this looks like
-
-> https://www.aclweb.org/anthology/N19-1%03d
-
-since the volume ID has one digit and the paper three.
-For workshops, it is
-
-> https://www.aclweb.org/anthology/W19-38%02d
-
-since there are only two digits for the paper ID.
-The (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
-(This format will change in 2020 to allow for Anthology growth).
 
 **Special Interest Groups**
 
