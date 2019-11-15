@@ -28,18 +28,17 @@ If you prefer to have it published on a different date, please inform us.
 
 All publications chairs need to obtain a volume ID, of the form `X99-9` for conferences and `W99-99` for workshops. See [Volume and Paper IDs](#volume-and-paper-ids) for more information.
 
-If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please contact the publications chair for the main conference to receive 
+If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair to receive your volume ID.
 
 If you are a conference publications chair, you must register your intention to submit your proceedings. Assemble the following information for all volumes and workshops in their conference and send it to [the Anthology Director](mailto:anthology@aclweb.org) in a single email.
 We need the following information from you:
 
--  **The full titles of all volumes** that you need identifiers for; and
+-  **The full titles of all volumes** (main conference and workshop) that you need identifiers for ([excellent example](https://docs.google.com/spreadsheets/d/13F1XhnT4PsiN-ZXcpv6QUp5A2qlr6-W9MoDgCkBOw9w/edit#gid=0)); and
 -  **the date** you would like your volumes to be available to the world.
    (Your proceedings will be due **two weeks** prior to this negotiated date).
 
 The full titles should not contain abbreviations, except parenthetically.
 For example, "Proceedings of EMNLP 2019" is not a good title, but "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)" is a great one.
-(We have plans in the works to collect short titles in the near future, for more concise display in various settings.}
 If you have sub-volumes (e.g., long papers, short papers, demonstrations, tutorial abstracts), we suggest you append them after the full volume name.
 For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
 You should also seek consistency with the names of your volumes from prior years.
@@ -80,12 +79,12 @@ START uses a formatted string to identify each volume.
 The Anthology Director will assign templates to you for each volume you are submitting.
 For main conference proceedings (e.g., NAACL long papers), for each volume, this looks like
 
-> http://www.aclweb.org/anthology/N19-1%03d
+> https://www.aclweb.org/anthology/N19-1%03d
 
 since the volume ID has one digit and the paper three.
 For workshops, it is
 
-> http://www.aclweb.org/anthology/W19-38%02d
+> https://www.aclweb.org/anthology/W19-38%02d
 
 since there are only two digits for the paper ID.
 The (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
