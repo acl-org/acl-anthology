@@ -54,25 +54,16 @@ Prepare your data (PDFs, BibTeX files, and metadata) using ACLPUB by following t
    You will run a script to lay it out into a single directory, and then send a link to your tarball.
    **This tarball must be delivered to the Anthology director two weeks prior to your desired publication date**, which was negotiated when you first contacted us.
 
-This is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output is a minimally compliant XML file that can be ingested into [the Anthology's authoritative XML format](#authoritative-xml-format).
+This is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output is a minimally compliant XML file that can be ingested into the Anthology.
 **Instructions for this can be found [in the ACLPUB package](https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md)**.
-(Additionally, if you are using EasyChair, you will also want to use [our easychair scripts](https://github.com/acl-org/easy2acl), but please start with the ACLPUB documentation).
+(These instructions are directed at users of [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26).
+If you are using EasyChair, you will also want to use [our easychair scripts](https://github.com/acl-org/easy2acl), but please start with the ACLPUB documentation).
 
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
 
 - We ingest that data by running additional scripts that convert it into our authoritative format and commit it to [our Github repository](https://github.com/acl-org/acl-anthology/).
 - This becomes a pull request on [our pull requests page](https://github.com/acl-org/acl-anthology/pulls).
 - Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
-
-#### Notes about Softconf's START
-
-The ingestion process is manual and requires time to execute and proofcheck, and as such, it's very helpful to ensure that your proceedings are in good order before sending the link.
-Redoing the ingestion costs approximately the same time as the original ingestion and thus incurs significant additional expense for the volunteer staff.
-
-If you are using START, the process is easier for you.
-You need only supply the proceedings tarball (named `proceedings.tgz`) for each of the volumes and workshops that are part of your conference.
-You can download this from START and send it directly to your publication chair.
-If you are the publication chair, you can collect these and coordinate with the Anthology Director.
 
 ### Volume and Paper IDs
 
