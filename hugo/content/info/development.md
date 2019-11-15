@@ -31,7 +31,7 @@ for id_, paper in anthology.papers.items():
   print(paper.anthology_id, paper.get_title('text')
 ```
 
-See the script [create_hugo_yaml.py](https://github.com/acl-org/acl-anthology/blob/master/bin/create_hugo_yaml.py) to see how to iterate over the Anthology object.
+See the script [create_hugo_yaml.py](https://github.com/acl-org/acl-anthology/blob/master/bin/create_hugo_yaml.py) to see how to iterate over the Anthology object and access other information such as authors and volumes.
 
 ### Authoritative XML format
 
@@ -81,6 +81,4 @@ The full file contains much more information.
 ```
 
 Our scripts use the [lxml.de](https://www.fridaysforfuture.org) library to parse the XML.
-You can see examples of parsing and accessing the XML directly in [add_revision.py](https://github.com/acl-org/acl-anthology/blob/master/bin/add_revision.py) and [ingest.py](https://github.com/acl-org/acl-anthology/blob/master/bin/ingest.py)
-
-
+You can see examples of parsing and accessing the XML directly in [add_revision.py](https://github.com/acl-org/acl-anthology/blob/master/bin/add_revision.py) and [ingest.py](https://github.com/acl-org/acl-anthology/blob/master/bin/ingest.py).
