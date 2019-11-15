@@ -48,12 +48,11 @@ With this information in hand, we will assign you a [list of Anthology identifie
 
 ### Prepare your data
 
-Prepare your data (PDFs, BibTeX files, attachments, and metadata) by following the instructions below. You will end up with a tarball; this tarball (or a link to it) must be delivered to the Anthology director two weeks prior to your desired publication date**, which was negotiated when you first contacted us.
-
-For meetings using [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26), data preparation is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output can be ingested into the Anthology.
-**Instructions for this can be found [here](https://github.com/acl-org/acl-pub)**.
-
-For meetings using EasyChair, you will also want to use [our easy2acl scripts](https://github.com/acl-org/easy2acl), which convert EasyChair proceedings into a format that ACLPUB can use.
+After your conference management software has collected all the camera-ready papers and associated attachments, you will prepare data for the Anthology as described here.
+(For information about the complete conference management process, particularly for *ACL publications chairs, [see this document](https://github.com/acl-org/acl-pub)**.)
+If you used [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26), this data preparation is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package.
+For meetings using EasyChair, you will need to first convert to ACLPUB format using [our easy2acl scripts](https://github.com/acl-org/easy2acl).
+The end result in either case is a tarball, a link to which should be sent to the Anthology Director **two weeks prior to your desired publication date** (which was negotiated when you first contacted us).
 
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
 
@@ -77,11 +76,6 @@ For workshops, it is
 since there are only two digits for the paper ID.
 The (zero-padded) paper ID '0' is used for front matter, '1' for the first paper, and so on.
 (This format will change in 2020 to allow for Anthology growth).
-
-**Special Interest Groups**
-
-For workshops, your conference publication chair should have noted special interest group affiliations and endorsements for workshops.
-If you are using START, this information can be entered in the "meta" file.
 
 ### Copyright
 
