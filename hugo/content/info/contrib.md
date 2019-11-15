@@ -19,11 +19,6 @@ Please read through it so that you have an understanding of the ingestion proces
 | 2 weeks before publication  | [Submit copyright transfer forms](#copyright)   |
 | After publication           | [Making corrections](#errata-and-corrections)   |
 
-#### Publication Date
-
-By default, the publication of papers associated with a current event in the Anthology will be on the first day of the event (inclusive of workshops or tutorials).
-If you prefer to have it published on a different date, please inform us.
-
 ### Register your meeting
 
 All publications chairs need to obtain a volume ID, of the form `X99-9` for conferences and `W99-99` for workshops. See [Volume and Paper IDs](#volume-and-paper-ids) for more information.
@@ -35,7 +30,7 @@ If you are a conference publications chair, you must register your intention to 
 We need the following information from you:
 
 -  **The full titles of all volumes** (main conference and workshop) that you need identifiers for ([excellent example](https://docs.google.com/spreadsheets/d/13F1XhnT4PsiN-ZXcpv6QUp5A2qlr6-W9MoDgCkBOw9w/edit#gid=0)); and
--  **the date** you would like your volumes to be available to the world.
+-  **The date** you would like your volumes to be available to the world.
    (Your proceedings will be due **two weeks** prior to this negotiated date).
 
 The full titles should not contain abbreviations, except parenthetically.
@@ -46,18 +41,19 @@ You should also seek consistency with the names of your volumes from prior years
 
 If your conference has satellite workshops, please make certain the workshops will actually be run.
 
+By default, the publication of papers associated with an event in the Anthology will be on the first day of the event (inclusive of workshops or tutorials).
+If you prefer to have it published on a different date, please inform us when you register.
+
 With this information in hand, we will assign you a [list of Anthology identifiers](https://docs.google.com/spreadsheets/d/166W-eIJX2rzCACbjpQYOaruJda7bTZrY7MBw_oa7B2E/edit?usp=sharing) for use with ACLPUB.
 
 ### Prepare your data
 
-Prepare your data (PDFs, BibTeX files, and metadata) using ACLPUB by following the instructions below.
-   You will run a script to lay it out into a single directory, and then send a link to your tarball.
-   **This tarball must be delivered to the Anthology director two weeks prior to your desired publication date**, which was negotiated when you first contacted us.
+Prepare your data (PDFs, BibTeX files, attachments, and metadata) by following the instructions below. You will end up with a tarball; this tarball (or a link to it) must be delivered to the Anthology director two weeks prior to your desired publication date**, which was negotiated when you first contacted us.
 
-This is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output is a minimally compliant XML file that can be ingested into the Anthology.
-**Instructions for this can be found [in the ACLPUB package](https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md)**.
-(These instructions are directed at users of [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26).
-If you are using EasyChair, you will also want to use [our easychair scripts](https://github.com/acl-org/easy2acl), but please start with the ACLPUB documentation).
+For meetings using [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26), data preparation is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package, whose output can be ingested into the Anthology.
+**Instructions for this can be found [here](https://github.com/acl-org/acl-pub)**.
+
+For meetings using EasyChair, you will also want to use [our easy2acl scripts](https://github.com/acl-org/easy2acl), which convert EasyChair proceedings into a format that ACLPUB can use.
 
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
 
