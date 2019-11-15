@@ -26,7 +26,7 @@ If there are more than 99 papers, they need to be broken out into two separate v
 Both paper and volume IDs are zero-padded to ensure that filenames have a fixed width.
 
 <table class="table table-bordered">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th scope="col">Codes</th>
       <th scope="col">Sets</th>

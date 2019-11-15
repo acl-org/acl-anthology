@@ -12,7 +12,7 @@ Please read through it so that you have an understanding of the ingestion proces
 ### Overview of the Submission Process
 
 <table class="table table-bordered">
-  <thead>
+  <thead class="thead-dark">
     <tr>
       <th scope="col">Deadline</th>
       <th scope="col">Step</th>
