@@ -69,10 +69,10 @@ If you prefer to have it published on a different date, please inform us when yo
 
 With this information in hand, we will assign you a [list of Anthology identifiers](https://docs.google.com/spreadsheets/d/166W-eIJX2rzCACbjpQYOaruJda7bTZrY7MBw_oa7B2E/edit?usp=sharing) for use with ACLPUB.
 
-### Prepare your data
+### Submit your data
 
 After your conference management software has collected all the camera-ready papers and associated attachments, you will prepare data for the Anthology as described here.
-(For information about the complete conference management process, particularly for *ACL publications chairs, [see this document](https://github.com/acl-org/acl-pub)**.)
+(For information about the complete conference management process, particularly for ACL publications chairs, [see this document](https://github.com/acl-org/acl-pub).)
 If you used [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26), this data preparation is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package.
 For meetings using EasyChair, you will need to first convert to ACLPUB format using [our easy2acl scripts](https://github.com/acl-org/easy2acl).
 The end result in either case is a tarball, a link to which should be sent to the Anthology Director **two weeks prior to your desired publication date** (which was negotiated when you first contacted us).
