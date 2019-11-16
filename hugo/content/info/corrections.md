@@ -1,6 +1,7 @@
 ---
 Title: Requesting Corrections
 linktitle: Corrections
+date: "2019-11-16"
 ---
 
 ### Types of corrections
@@ -9,33 +10,23 @@ The staff of the ACL Anthology can process requests for both many types of corre
 These include correcting *metadata* and posting *errata* and *revisions* for scholarly works that are already published.
 While this service can help correct post-publication problems, due to certain difficulties and liabilities, the corrections have certain limitations, which we describe here.
 
-+ Corrections to **Metadata** do not require the submission of a new PDF.
-+ An ***Erratum*** clarifies errors made in the original scholarly work. Usually
-  these are just short notes, correcting statements, equations or other problems
-  in the original, and needs to be read with the original work.
-+ A ***Revision*** is a replacement to the original scholarly work (take note of
-  the caveat below). This format allows a correction to be read independently of
-  the original scholarly work, but does not call highlight where the original
-  has errors.
++ Corrections to **metadata** do not require the submission of a new PDF.
+  These kinds of corrections are typically made to bring the metadata in line with what is on the PDF, which is taken to be authoritative.
+  If the metadata changes impact the work's physical form (e.g., adding an additional author), a revision must also be supplied.
++ An **erratum** clarifies errors made in the original scholarly work.
+  Usually these are just short notes, correcting statements, or changes to equations or other problems in the original, which need to be read alongside the original work.
++ A **revision** is a replacement to the original scholarly work.
+  This format allows a corrected paper to be read independently of the original scholarly work, and typically does not highlight the original's errors.
 
-Please take note of the following before requesting either service:
+Please take note of the following regarding errata and revisions:
 
-+ The **original published version is not invalidated** by either service. The
-  original will still stand as published and cannot be withdrawn, and both the
-  original version and its revision will remain available and linked on the
-  website.
-+ The metadata page for the work and any indexing listing or search result will
-  indicate the availability of an erratum or a revision.
-+ Any accompanying full volumes will not be retrofitted with either revisions or
-  errata.
-+ If possible, when generating your revision, it would be good to add the proper proceedings header and footer stamps, as well as the page numbering.
++ The original published PDF is not invalidated.
+  The original will still stand as published and cannot be withdrawn, and both will remain available and linked on the website.
++ The landing page for the work will indicate the availability of the erratum or revision.
++ We cannot retrofit any accompanying full volumes with either revisions or errata.
++ If possible, when generating your revision, it would be good to add the proper proceedings header and footer stamps, as well as the correct page numbering.
   Unfortunately, we cannot provide any assistance with this task.
-+ Requests to change the metadata of a work can be accommodated. If the metadata
-  changes impact the work's physical form (e.g., adding an additional author), a
-  revision must also be supplied.
-+ Downstream consumers of the Anthology are typically notified of the change in
-  your work's manifestation, but there are no guarantees that those services
-  (e.g., search engines) will update their information.
++ Downstream consumers of the Anthology (e.g., search engines) should notice the changes in your work, but there are no guarantees of this.
 
 ### Filing Corrections
 
@@ -48,4 +39,5 @@ To request a revision or erratum, [please use this form](https://forms.office.co
 For revisions, you will need to provide a paragraph-form summary of all the changes in the revision.
 This description will be published together with your revision and should be written in a neutral scientific tone.
 **Please ensure** that the link you provide is *directly* to a downloadable PDF that works with `wget`.
+If the metadata also needs to change, follow the instructions in the above paragraph for that as well.
 Anthology staff will respond to your request as time permits.
