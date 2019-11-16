@@ -1,6 +1,7 @@
 ---
 Title: Requesting Corrections
 linktitle: Corrections
+subtitle: How to submit corrections to the Anthology
 date: "2019-11-16"
 ---
 
