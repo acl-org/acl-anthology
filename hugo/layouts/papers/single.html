@@ -144,9 +144,10 @@
       <dt>Pages:</dt>
       <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
       <dt>URL:</dt>
-      <dd>{{ with $paper.pdf }}<a href="{{ . }}">{{ . }}</a>{{ end }}</dd>
+      <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
       <dt>DOI:</dt>
       <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+
       <!--
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
@@ -168,6 +169,10 @@
         <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s.bib" $anthology_id) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
       {{ end }}
       </dd>
+
+      {{ with $paper.pdf }}
+      <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
+      {{ end }}
 
       {{ range $paper.attachment }}
       <dt class="acl-button-row">{{ humanize .type }}:</dt>
