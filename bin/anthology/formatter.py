@@ -86,6 +86,8 @@ def bibtex_convert_month(text):
 def bibtex_make_entry(bibkey, bibtype, fields):
     lines = ["@{}{{{},".format(bibtype, bibkey)]
     for key, value in fields:
+        if key == "author" and bibtype == "proceedings":
+            key = "editor"
         if key in ("author", "editor") and "  and  " in value:
             # Print each author on a separate line
             value = "  and\n      ".join(value.split("  and  "))

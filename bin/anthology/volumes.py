@@ -69,8 +69,6 @@ class Volume:
         front_matter_xml = volume_xml.find('frontmatter')
         if front_matter_xml is not None:
             front_matter = Paper.from_xml(front_matter_xml, volume, formatter)
-            front_matter._id = '0'
-            front_matter.is_volume = True
             volume.add_frontmatter(front_matter)
 
         return volume
