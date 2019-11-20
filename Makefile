@@ -175,6 +175,12 @@ clean:
 check:
 	jing -c data/xml/schema.rnc data/xml/*xml
 
+.PHONY: install_hooks
+install_hooks: .pre-commit-config.yaml venv/bin/activate
+	. $(VENV) && pip3 install -U pre-commit
+	pre-commit install
+	pre-commit run --all-files
+
 .PHONY: serve
 serve:
 	 @echo "INFO     Starting a server at http://localhost:8000/"
