@@ -62,11 +62,15 @@ class Anthology:
         collection = tree.getroot()
         collection_id = collection.get("id")
         for volume_xml in collection:
-            volume = Volume.from_xml(volume_xml, collection_id, self.venues, self.sigs, self.formatter)
+            volume = Volume.from_xml(
+                volume_xml, collection_id, self.venues, self.sigs, self.formatter
+            )
 
             # skip volumes that have an ingestion date in the future
-            if datetime.strptime(volume.ingest_date, '%Y-%m-%d') > datetime.utcnow():
-                log.info(f'Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future.')
+            if datetime.strptime(volume.ingest_date, "%Y-%m-%d") > datetime.utcnow():
+                log.info(
+                    f"Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future."
+                )
 
                 # Remove any SIG entries with this volume
                 self.sigs.remove_volume(volume.full_id)
@@ -88,19 +92,26 @@ class Anthology:
                 self.papers[front_matter.full_id] = front_matter
 
             self.volumes[volume.full_id] = volume
-            for paper_xml in volume_xml.findall('paper'):
+            for paper_xml in volume_xml.findall("paper"):
                 parsed_paper = Paper.from_xml(paper_xml, volume, self.formatter)
 
                 # skip papers that have an ingestion date in the future
-                if datetime.strptime(parsed_paper.ingest_date, '%Y-%m-%d') > datetime.now():
-                    log.info(f'Skipping paper {parsed_paper.full_id} with ingestion date {parsed_paper.ingest_date} in the future.')
+                if (
+                    datetime.strptime(parsed_paper.ingest_date, "%Y-%m-%d")
+                    > datetime.now()
+                ):
+                    log.info(
+                        f"Skipping paper {parsed_paper.full_id} with ingestion date {parsed_paper.ingest_date} in the future."
+                    )
                     continue
 
                 self.pindex.register(parsed_paper)
                 full_id = parsed_paper.full_id
                 if full_id in self.papers:
                     log.critical(
-                        "Attempted to import paper '{}' twice -- skipping".format(full_id)
+                        "Attempted to import paper '{}' twice -- skipping".format(
+                            full_id
+                        )
                     )
                     continue
                 volume.append(parsed_paper)

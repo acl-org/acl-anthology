@@ -44,10 +44,10 @@ from anthology.utils import deconstruct_anthology_id
 
 
 # Name for the SSH alias in ~/.ssh/config.
-SSH_CONFIG_TARGET = 'aclweb'
+SSH_CONFIG_TARGET = "aclweb"
 
 # The root directory for files, currently containing pdf/ and attachments/
-ACLWEB_FILE_ROOT = '/home3/aclwebor/anthology-files'
+ACLWEB_FILE_ROOT = "/home3/aclwebor/anthology-files"
 
 
 def upload_file(filepath: str):
@@ -55,24 +55,24 @@ def upload_file(filepath: str):
     Uploads regular PDFs or attachments to their correct place on the aclweb server.
     """
 
-    relative_dest_path = ''
+    relative_dest_path = ""
 
     os.chmod(filepath, 0o644)
 
     filename = os.path.basename(filepath)
-    fileparts = filename.split('.')
+    fileparts = filename.split(".")
     if len(fileparts) == 2:
         # e.g., P19-1001.pdf
         collection_id, volume_id, _ = deconstruct_anthology_id(fileparts[0])
         collection = collection_id[0]
-        relative_dest_path = f'pdf/{collection}/{collection_id}/{filename}'
+        relative_dest_path = f"pdf/{collection}/{collection_id}/{filename}"
 
     elif len(fileparts) == 3:
         # e.g., P19-1001.Attachment.pdf
         collection_id, volume_id, _ = deconstruct_anthology_id(fileparts[0])
-        relative_dest_path = f'attachments/{collection}/{collection_id}/{filename}'
+        relative_dest_path = f"attachments/{collection}/{collection_id}/{filename}"
 
-    command = f'scp -q {filepath} aclweb:{ACLWEB_FILE_ROOT}/{relative_dest_path}'
+    command = f"scp -q {filepath} aclweb:{ACLWEB_FILE_ROOT}/{relative_dest_path}"
 
     attempts = 1
     retcode = 1
@@ -80,8 +80,8 @@ def upload_file(filepath: str):
         # This fails sometimes for no reason, so try a couple of times
         retcode = subprocess.call(command, shell=True)
         if attempts > 1:
-            print(f'-> Failed for some reason, attempt #{attempts}', file=sys.stderr)
-        print(f'{command} -> {retcode}', file=sys.stderr)
+            print(f"-> Failed for some reason, attempt #{attempts}", file=sys.stderr)
+        print(f"{command} -> {retcode}", file=sys.stderr)
         attempts += 1
 
 
@@ -90,9 +90,9 @@ def main(args):
         upload_file(file)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('files', nargs='+')
+    parser.add_argument("files", nargs="+")
     args = parser.parse_args()
 
     main(args)

@@ -53,4 +53,4 @@ tree = etree.parse(filename)
 
 tree._setroot(make_nested(tree.getroot()))
 
-tree.write(outfilename, encoding='UTF-8', xml_declaration=True, with_tail=True)
+tree.write(outfilename, encoding="UTF-8", xml_declaration=True, with_tail=True)

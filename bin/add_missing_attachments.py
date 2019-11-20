@@ -39,17 +39,18 @@ from anthology.utils import build_anthology_id, deconstruct_anthology_id, indent
 import lxml.etree as ET
 import urllib.request
 
-ALLOWED_TYPES = ['pdf', 'pptx', 'zip']
-ATTACHMENT_TYPES = 'Poster Presentation Note Software Supplementary'.split()
+ALLOWED_TYPES = ["pdf", "pptx", "zip"]
+ATTACHMENT_TYPES = "Poster Presentation Note Software Supplementary".split()
+
 
 def main(args):
 
     for lineno, line in enumerate(sys.stdin, 1):
         # attachments/D/D15/D15-1272.Attachment.pdf
-        tokens = line.rstrip().split('/')
+        tokens = line.rstrip().split("/")
         attachment_file_name = tokens[-1]
         try:
-            anth_id, kind, *rest = attachment_file_name.split('.')
+            anth_id, kind, *rest = attachment_file_name.split(".")
         except:
             print(f"Couldn't parse file {attachment_file_name} into 3 pieces")
             continue
@@ -57,37 +58,48 @@ def main(args):
         try:
             collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
         except:
-            print(f'[{lineno}] BAD LINE {line.rstrip()}')
+            print(f"[{lineno}] BAD LINE {line.rstrip()}")
 
         # Update XML
-        xml_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{collection_id}.xml')
+        xml_file = os.path.join(
+            os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
+        )
         tree = ET.parse(xml_file)
 
         if int(paper_id) == 0:
             paper = tree.getroot().find(f"./volume[@id='{volume_id}']/frontmatter")
         else:
-            paper = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
+            paper = tree.getroot().find(
+                f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
+            )
         if paper is not None:
             # Check if attachment already exists
-            for attachment in paper.findall('attachment'):
+            for attachment in paper.findall("attachment"):
                 if attachment.text == attachment_file_name:
-#                    print(f'-> attachment {attachment_file_name} already exists in the XML', file=sys.stderr)
+                    #                    print(f'-> attachment {attachment_file_name} already exists in the XML', file=sys.stderr)
                     break
             else:
-                attachment = ET.Element('attachment')
-                attachment.attrib['type'] = kind.lower()
+                attachment = ET.Element("attachment")
+                attachment.attrib["type"] = kind.lower()
                 attachment.text = attachment_file_name
 
                 paper.append(attachment)
                 indent(tree.getroot())
                 tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
-                print(f'-> [{lineno}] added attachment {attachment_file_name} to the XML', file=sys.stderr)
+                print(
+                    f"-> [{lineno}] added attachment {attachment_file_name} to the XML",
+                    file=sys.stderr,
+                )
 
         else:
-            print(f'-> FATAL: [{lineno}] paper ({anth_id}) not found in the Anthology', file=sys.stderr)
+            print(
+                f"-> FATAL: [{lineno}] paper ({anth_id}) not found in the Anthology",
+                file=sys.stderr,
+            )
             sys.exit(1)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     args = parser.parse_args()
 

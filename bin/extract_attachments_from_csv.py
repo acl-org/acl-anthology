@@ -38,6 +38,6 @@ header = list(next(reader))
 
 for row in reader:
     anthology_id, url, attach_type = row[5:8]
-    if not (url.endswith('.pdf') or url.endswith('.pptx')):
-        print(f'{anthology_id} bad {attach_type} {url}', file=sys.stderr)
-    print(anthology_id, url, attach_type, sep='\t')
+    if not (url.endswith(".pdf") or url.endswith(".pptx")):
+        print(f"{anthology_id} bad {attach_type} {url}", file=sys.stderr)
+    print(anthology_id, url, attach_type, sep="\t")

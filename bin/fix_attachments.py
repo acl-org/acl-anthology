@@ -34,19 +34,20 @@ from anthology.utils import indent
 import lxml.etree as ET
 import urllib.request
 
+
 def main(args):
 
     for xml_file in args.files:
         # Update XML
         tree = ET.parse(xml_file)
-        tree.getroot().tail = '\n'
+        tree.getroot().tail = "\n"
 
-        for paper in tree.getroot().findall('.//paper'):
+        for paper in tree.getroot().findall(".//paper"):
             tail = paper.tail
             seen = []
-            for attachment in paper.findall('./attachment'):
+            for attachment in paper.findall("./attachment"):
                 if attachment.text in seen:
-                    print(f'Removing: {attachment.text}')
+                    print(f"Removing: {attachment.text}")
                     paper.remove(attachment)
                 seen.append(attachment.text)
 
@@ -55,9 +56,10 @@ def main(args):
 
         tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('files', nargs='+')
+    parser.add_argument("files", nargs="+")
     args = parser.parse_args()
 
     main(args)

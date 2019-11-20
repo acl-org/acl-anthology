@@ -21,7 +21,7 @@ filename = sys.argv[1]
 outfilename = sys.argv[2]
 tree = etree.parse(filename)
 volume = tree.getroot()
-volume_id = volume.attrib['id']
+volume_id = volume.attrib["id"]
 
 # Build list of volumes observed
 volumes = set()
@@ -29,49 +29,54 @@ volumes = set()
 for paper in volume.findall("paper"):
     href = None
 
-    if volume_id.startswith('W'):
-        volumes.add(paper.attrib['id'][0:2])
+    if volume_id.startswith("W"):
+        volumes.add(paper.attrib["id"][0:2])
     else:
-        volumes.add(paper.attrib['id'][0:1])
+        volumes.add(paper.attrib["id"][0:1])
 
-    paper_id = int(paper.attrib['id'])
-    acl_id = '{}-{}'.format(volume_id, paper_id)
-    if 'href' in paper.attrib:
-        href = paper.attrib['href']
-        print('{}: removing href attribute {}'.format(acl_id, href), file=sys.stderr)
-        del paper.attrib['href']
+    paper_id = int(paper.attrib["id"])
+    acl_id = "{}-{}".format(volume_id, paper_id)
+    if "href" in paper.attrib:
+        href = paper.attrib["href"]
+        print("{}: removing href attribute {}".format(acl_id, href), file=sys.stderr)
+        del paper.attrib["href"]
 
-    if href and paper.find('href'):
-        print(f'{acl_id}: WARNING: found "href" attribute AND <href> tag', file=sys.stderr)
+    if href and paper.find("href"):
+        print(
+            f'{acl_id}: WARNING: found "href" attribute AND <href> tag', file=sys.stderr
+        )
         sys.exit(1)
 
-    if paper.find('href'):
+    if paper.find("href"):
         assert len(href) == 0
         if not test_url(href.text):
-            href = paper.find('href').text
-            print(f'{acl_id}: removing href element: {text}', file=sys.stderr)
-            paper.remove(paper.find('href'))
+            href = paper.find("href").text
+            print(f"{acl_id}: removing href element: {text}", file=sys.stderr)
+            paper.remove(paper.find("href"))
 
     url = paper.find("url")
     if href and url:
-        print(f'{paper_id}: WARNING: found "href" attribute AND <url> tag', file=sys.stderr)
+        print(
+            f'{paper_id}: WARNING: found "href" attribute AND <url> tag',
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     if url is not None:
         anth_url = url.text
-    elif href and href.startswith('http'):
+    elif href and href.startswith("http"):
         anth_url = href
     else:
-        anth_url = '{}-{:04d}'.format(volume_id, paper_id)
+        anth_url = "{}-{:04d}".format(volume_id, paper_id)
 
     # Create the node if missing
     if url is None:
         print(f"{acl_id}: inserting new url element", file=sys.stderr)
-        url = etree.Element('url')
-        url.tail = '\n    '
+        url = etree.Element("url")
+        url.tail = "\n    "
         paper.append(url)
 
-    new_anth_url = re.sub(r'^https?://(www\.)?aclweb.org/anthology/', '', anth_url)
+    new_anth_url = re.sub(r"^https?://(www\.)?aclweb.org/anthology/", "", anth_url)
     if new_anth_url != anth_url:
         print(f"{acl_id}: rewriting url: {anth_url} -> {new_anth_url}", file=sys.stderr)
         anth_url = new_anth_url
@@ -105,4 +110,4 @@ for paper in volume.findall("paper"):
 
 # indent(volume)
 
-tree.write(outfilename, encoding='UTF-8', xml_declaration=True, with_tail=True)
+tree.write(outfilename, encoding="UTF-8", xml_declaration=True, with_tail=True)

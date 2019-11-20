@@ -63,7 +63,9 @@ def create_bibtex(anthology, trgdir, clean=False):
     with gzip.open(
         "{}/anthology.bib.gz".format(trgdir), "wt", encoding="utf-8"
     ) as file_full:
-        for volume_id, volume in tqdm(sorted(anthology.volumes.items(), key=volume_sorter, reverse=True)):
+        for volume_id, volume in tqdm(
+            sorted(anthology.volumes.items(), key=volume_sorter, reverse=True)
+        ):
             volume_dir = trgdir
             if not os.path.exists(volume_dir):
                 os.makedirs(volume_dir)
