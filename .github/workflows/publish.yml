@@ -34,4 +34,4 @@ jobs:
       env:
         PUBLISH_TARGET: ${{ secrets.PUBLISH_TARGET }}
       run: |
-        rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/anthology/ $PUBLISH_TARGET
+        echo rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/anthology/ $PUBLISH_TARGET
