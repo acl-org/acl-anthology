@@ -2,7 +2,7 @@ name: publish
 
 on:
   push:
-    branch:
+    branches:
       - master
 
 jobs:
@@ -34,4 +34,4 @@ jobs:
       env:
         PUBLISH_TARGET: ${{ secrets.PUBLISH_TARGET }}
       run: |
-        echo rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/anthology/ $PUBLISH_TARGET
+        rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/anthology/ $PUBLISH_TARGET
