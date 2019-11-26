@@ -40,6 +40,7 @@ import yaml
 try:
     from yaml import CLoader as Loader
 except ImportError:
+    log.info("Can't load yaml C bindings, reverting to slow pure Python version")
     from yaml import Loader
 
 from anthology.utils import SeverityTracker
