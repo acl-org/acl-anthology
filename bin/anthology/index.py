@@ -109,6 +109,22 @@ class AnthologyIndex:
                     self.comments[id_] = entry["comment"]
                 if "similar" in entry:
                     self.similar[id_].update(entry["similar"])
+                    for other in entry["similar"]:
+                        if id_ not in self.similar[other]:
+                            log.debug('inferring similar name {} -> {}'.format(other, id_))
+                        self.similar[other].add(id_)
+                        
+        # form transitive closure of self.similar
+        again = True
+        while again:
+            again = False
+            for x in list(self.similar):
+                for y in list(self.similar[x]):
+                    for z in list(self.similar[y]):
+                        if z != x and z not in self.similar[x]:
+                            self.similar[x].add(z)
+                            log.debug('inferring similar name {} -> {}'.format(x, z))
+                            again = True
 
     def _is_stopword(self, word, paper):
         """Determines if a given word should be considered a stopword for
