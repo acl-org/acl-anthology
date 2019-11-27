@@ -80,7 +80,7 @@ The end result in either case is a tarball, a link to which should be sent to th
 <div class="alert alert-warning">
   <strong>Warning!</strong> A common mistake is to send the <code>proceedings/</code> directory.
   This is only the first step.
-  You need to convert this to an <code>anthology/<code> directory using ACLPUB tools, as <a href="https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md">described here</a>.
+  You need to convert this to an <code>anthology/</code> directory using ACLPUB tools, as <a href="https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md">described here</a>.
   This directory should contain all volumes for your event, including main conference volumes, workshops, and co-located events.
 </div>
 
