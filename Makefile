@@ -26,6 +26,7 @@ ANTHOLOGYDIR := anthology
 HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
+xmlstaged=$(shell git diff --staged --name-only data/xml/*)
 
 timestamp=$(shell date -u +"%d %B %Y at %H:%M %Z")
 githash=$(shell git rev-parse HEAD)
@@ -172,14 +173,16 @@ clean:
 	rm -rf build
 
 .PHONY: check
-check:
+check: venv/bin/activate
 	jing -c data/xml/schema.rnc data/xml/*xml
+	SKIP=no-commit-to-branch . $(VENV) && pre-commit run --all-files
 
-.PHONY: install_hooks
-install_hooks: .pre-commit-config.yaml venv/bin/activate
-	. $(VENV) && pip3 install -U pre-commit
-	pre-commit install
-	pre-commit run --all-files
+.PHONY: check_commit
+check_commit: venv/bin/activate
+	@if [ ! -z $(xmlstaged) ]; then \
+	     jing -c data/xml/schema.rnc $(xmlstaged) ;\
+         fi
+	@. $(VENV) && pre-commit run
 
 .PHONY: serve
 serve:
