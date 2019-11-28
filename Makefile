@@ -26,7 +26,8 @@ ANTHOLOGYDIR := anthology
 HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
-xmlstaged=$(shell git diff --staged --name-only data/xml/*)
+xmlstaged=$(shell git diff --staged --name-only --diff-filter=d data/xml/*)
+pystaged=$(shell git diff --staged --name-only  --diff-filter=d bin/ | egrep "\.pyi?$$")
 
 timestamp=$(shell date -u +"%d %B %Y at %H:%M %Z")
 githash=$(shell git rev-parse HEAD)
@@ -173,16 +174,32 @@ clean:
 	rm -rf build
 
 .PHONY: check
-check: venv/bin/activate
+check: venv
 	jing -c data/xml/schema.rnc data/xml/*xml
-	SKIP=no-commit-to-branch . $(VENV) && pre-commit run --all-files
+	SKIP=no-commit-to-branch . $(VENV) \
+	  && pre-commit run --all-files \
+	  && black --check bin/
 
 .PHONY: check_commit
-check_commit: venv/bin/activate
-	@if [ ! -z $(xmlstaged) ]; then \
+check_commit: venv
+	@if [ ! -z "$(xmlstaged)" ]; then \
 	     jing -c data/xml/schema.rnc $(xmlstaged) ;\
-         fi
+	 fi
 	@. $(VENV) && pre-commit run
+	@if [ ! -z "$(pystaged)" ]; then \
+	    . $(VENV) && black --check $(pystaged) ;\
+	 fi
+
+.PHONY: autofix
+autofix: venv
+	@. $(VENV) && \
+	 EXIT_STATUS=0 ;\
+	 pre-commit run || EXIT_STATUS=$$? ;\
+	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
+	 black bin/ || EXIT_STATUS=$$? ;\
+	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
+	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
+	 [ $${EXIT_STATUS} -eq 0 ]
 
 .PHONY: serve
 serve:
