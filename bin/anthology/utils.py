@@ -509,9 +509,7 @@ def make_nested(root, pdf_path: str):
                 paper.remove(node)
 
         # Move to metadata
-        for (
-            key_name
-        ) in "booktitle publisher volume address month year ISBN isbn".split():
+        for key_name in "booktitle publisher volume address month year ISBN isbn".split():
             # Move the key to the volume if not present in the volume
             node_paper = paper.find(key_name)
             if node_paper is not None:

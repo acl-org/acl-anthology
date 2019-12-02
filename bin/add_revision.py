@@ -81,8 +81,7 @@ def main(args):
                 input_file_fh.write(url.read())
         except ssl.SSLError:
             print(
-                "An SSL error was encountered in downloading the files.",
-                file=sys.stderr,
+                "An SSL error was encountered in downloading the files.", file=sys.stderr,
             )
             sys.exit(1)
     else:
@@ -132,9 +131,7 @@ def main(args):
         )
         sys.exit(1)
 
-    output_dir = os.path.join(
-        args.anthology_dir, "pdf", collection_id[0], collection_id
-    )
+    output_dir = os.path.join(args.anthology_dir, "pdf", collection_id[0], collection_id)
 
     # Make sure directory exists
     if not os.path.exists(output_dir):

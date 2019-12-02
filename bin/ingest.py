@@ -119,9 +119,7 @@ if __name__ == "__main__":
     # Insert each volume
     for i, new_volume in enumerate(root_being_added.findall("volume")):
         new_volume_id = int(new_volume.attrib["id"])
-        existing_volume = existing_tree.getroot().find(
-            f"./volume[@id='{new_volume_id}']"
-        )
+        existing_volume = existing_tree.getroot().find(f"./volume[@id='{new_volume_id}']")
         if existing_volume is None:
             new_volume.attrib["ingest-date"] = args.ingest_date
 

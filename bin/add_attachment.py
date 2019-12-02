@@ -102,8 +102,7 @@ def main(args):
             indent(tree.getroot())
             tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
             print(
-                f"-> added attachment {attachment_file_name} to the XML",
-                file=sys.stderr,
+                f"-> added attachment {attachment_file_name} to the XML", file=sys.stderr,
             )
 
     else:

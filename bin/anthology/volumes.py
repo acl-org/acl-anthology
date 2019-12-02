@@ -127,9 +127,7 @@ class Volume:
             if volume_no is not None:
                 self.attrib["meta_volume"] = volume_no.group(1)
             issue_no = re.search(
-                r"(Number|Issue)\s*(\d+-?\d*)",
-                self.attrib["title"],
-                flags=re.IGNORECASE,
+                r"(Number|Issue)\s*(\d+-?\d*)", self.attrib["title"], flags=re.IGNORECASE,
             )
             if issue_no is not None:
                 self.attrib["meta_issue"] = issue_no.group(2)

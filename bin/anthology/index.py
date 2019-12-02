@@ -55,9 +55,7 @@ class AnthologyIndex:
             {}
         )  # maps ids to comments (used for distinguishing authors with same name)
         self.similar = defaultdict(set)
-        self.id_to_papers = defaultdict(
-            lambda: defaultdict(list)
-        )  # id -> role -> papers
+        self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
         self.name_to_papers = defaultdict(
             lambda: defaultdict(list)
         )  # name -> (explicit id?) -> papers; used only for error checking
@@ -107,9 +105,7 @@ class AnthologyIndex:
                             "Tried to add '{}' as variant of '{}', but is already a variant of '{}'".format(
                                 repr(variant),
                                 repr(canonical),
-                                repr(
-                                    self.id_to_canonical[self.name_to_ids[variant][0]]
-                                ),
+                                repr(self.id_to_canonical[self.name_to_ids[variant][0]]),
                             )
                         )
                         continue

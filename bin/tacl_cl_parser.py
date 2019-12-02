@@ -49,9 +49,7 @@ def parse_args():
         "-q", "--quiet", dest="verbose", action="store_const", const=logging.WARNING
     )
 
-    parser.add_argument(
-        "--version", action="version", version=f"%(prog)s v{__version__}"
-    )
+    parser.add_argument("--version", action="version", version=f"%(prog)s v{__version__}")
 
     args = parser.parse_args()
     args.year_root = args.year_root.resolve()  # Get absolute path.

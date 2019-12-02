@@ -102,9 +102,7 @@ def main(volumes):
     head = make_simple_element("head", parent=new_volume.getroot())
     dbi = make_simple_element("doi_batch_id", text=str(int(time.time())), parent=head)
 
-    timestamp = make_simple_element(
-        "timestamp", text=str(int(time.time())), parent=head
-    )
+    timestamp = make_simple_element("timestamp", text=str(int(time.time())), parent=head)
 
     depositor = make_simple_element("depositor", parent=head)
     depositor_name = make_simple_element(
