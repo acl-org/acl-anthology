@@ -16,9 +16,9 @@ To build the Anthology website, you will need:
   non-BibTeX citation formats (not strictly required to build the website, but
   without them you need to invoke the build steps manually as laid out in the
   [detailed README](README_detailed.md))
-+ *optional*: If you install `libyaml-dev` before running `make` the first time,
-   the libyaml C library will be used instead of a python implementation, speeding up
-   the build.
++ *optional*: If you install `libyaml-dev` and `Cython` before running `make`
+   the first time, the libyaml C library will be used instead of a python
+   implementation, speeding up the build.
 
 ### Building and deployment with GitHub
 
@@ -69,7 +69,6 @@ about a minute to start.
 If you'd like to contribute to the ACL Anthology, please take a look at:
 
 - our [Github issues page](https://github.com/acl-org/acl-anthology/issues)
-- our [call for volunteers](https://aclanthology.info/volunteer)
 - the [detailed README](README_detailed.md) which contains more in-depth information about generating and modifying the website.
 
 ## History
