@@ -116,9 +116,11 @@ class AnthologyIndex:
                     self.similar[id_].update(entry["similar"])
                     for other in entry["similar"]:
                         if id_ not in self.similar[other]:
-                            log.debug('inferring similar name {} -> {}'.format(other, id_))
+                            log.debug(
+                                'inferring similar name {} -> {}'.format(other, id_)
+                            )
                         self.similar[other].add(id_)
-                        
+
         # form transitive closure of self.similar
         again = True
         while again:
