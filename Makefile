@@ -185,23 +185,26 @@ check: venv
 	  && pre-commit run --all-files \
 	  && black --check $(pysources)
 
-.PHONY: check_commit
-check_commit: venv
+.PHONY: check_staged_xml
+check_staged_xml:
 	@if [ ! -z "$(xmlstaged)" ]; then \
 	     jing -c data/xml/schema.rnc $(xmlstaged) ;\
 	 fi
+
+.PHONY: check_commit
+check_commit: check_staged_xml venv
 	@. $(VENV) && pre-commit run
 	@if [ ! -z "$(pystaged)" ]; then \
 	    . $(VENV) && black --check $(pystaged) ;\
 	 fi
 
 .PHONY: autofix
-autofix: venv
+autofix: check_staged_xml venv
 	@. $(VENV) && \
 	 EXIT_STATUS=0 ;\
 	 pre-commit run || EXIT_STATUS=$$? ;\
 	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
-	 black bin/ || EXIT_STATUS=$$? ;\
+	 black $(pysources) || EXIT_STATUS=$$? ;\
 	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
 	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
 	 [ $${EXIT_STATUS} -eq 0 ]
