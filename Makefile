@@ -27,7 +27,8 @@ HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
 xmlstaged=$(shell git diff --staged --name-only --diff-filter=d data/xml/*)
-pystaged=$(shell git diff --staged --name-only  --diff-filter=d bin/ | egrep "\.pyi?$$")
+pysources=$(shell git ls-files | egrep "\.pyi?$$")
+pystaged=$(shell git diff --staged --name-only  --diff-filter=d | egrep "\.pyi?$$")
 
 timestamp=$(shell date -u +"%d %B %Y at %H:%M %Z")
 githash=$(shell git rev-parse HEAD)
@@ -178,7 +179,7 @@ check: venv
 	jing -c data/xml/schema.rnc data/xml/*xml
 	SKIP=no-commit-to-branch . $(VENV) \
 	  && pre-commit run --all-files \
-	  && black --check bin/
+	  && black --check $(pysources)
 
 .PHONY: check_commit
 check_commit: venv
