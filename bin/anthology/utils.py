@@ -38,22 +38,28 @@ def is_journal(anthology_id):
 
 def is_volume_id(anthology_id):
     collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
-    return paper_id == '0'
+    return paper_id == "0"
 
 
-def build_anthology_id(collection_id: str, volume_id: str, paper_id: Optional[str] = None) -> str:
+def build_anthology_id(
+    collection_id: str, volume_id: str, paper_id: Optional[str] = None
+) -> str:
     """
     Transforms collection id, volume id, and paper id to a width-padded
     Anthology ID. e.g., ('P18', '1', '1') -> P18-1001.
     """
-    if collection_id.startswith('W') or collection_id == 'C69' or (collection_id == 'D19' and int(volume_id) >= 5):
-        anthology_id = f'{collection_id}-{int(volume_id):02d}'
+    if (
+        collection_id.startswith("W")
+        or collection_id == "C69"
+        or (collection_id == "D19" and int(volume_id) >= 5)
+    ):
+        anthology_id = f"{collection_id}-{int(volume_id):02d}"
         if paper_id is not None:
-            anthology_id += f'{int(paper_id):02d}'
+            anthology_id += f"{int(paper_id):02d}"
     else:
-        anthology_id = f'{collection_id}-{int(volume_id):01d}'
+        anthology_id = f"{collection_id}-{int(volume_id):01d}"
         if paper_id is not None:
-            anthology_id += f'{int(paper_id):03d}'
+            anthology_id += f"{int(paper_id):03d}"
 
     return anthology_id
 
@@ -95,16 +101,20 @@ def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     - The collection "C69"
     - All collections in "D19" where the first digit is >= 5
     """
-    collection_id, rest = anthology_id.split('-')
-    if collection_id.startswith('W') or collection_id == 'C69' or (collection_id == 'D19' and int(rest[0]) >= 5):
+    collection_id, rest = anthology_id.split("-")
+    if (
+        collection_id.startswith("W")
+        or collection_id == "C69"
+        or (collection_id == "D19" and int(rest[0]) >= 5)
+    ):
         if len(rest) == 4:
             return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
-        else:                   # Possible Volume only identifier
+        else:  # Possible Volume only identifier
             return (collection_id, str(int(rest)), None)
     else:
         if len(rest) == 4:
             return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
-        else:                   # Possible Volume only identifier
+        else:  # Possible Volume only identifier
             return (collection_id, str(int(rest)), None)
 
 
@@ -211,13 +221,13 @@ class SeverityTracker(logging.Handler):
             self.highest = record.levelno
 
 
-def clean_whitespace(text, strip='left'):
+def clean_whitespace(text, strip="left"):
     old_text = text
     if text is not None:
-        text = re.sub(r' +', ' ', text)
-        if strip == 'left' or strip == 'both':
+        text = re.sub(r" +", " ", text)
+        if strip == "left" or strip == "both":
             text = text.lstrip()
-        if strip == 'right' or strip == 'both':
+        if strip == "right" or strip == "both":
             text = text.rstrip()
     return text
 
@@ -231,20 +241,20 @@ def indent(elem, level=0, internal=False):
     Adapted from https://stackoverflow.com/a/33956544 .
     """
     # tags that have no internal linebreaks (including children)
-    oneline = elem.tag in ('author', 'editor', 'title', 'booktitle')
+    oneline = elem.tag in ("author", "editor", "title", "booktitle")
 
     elem.text = clean_whitespace(elem.text)
 
-    if len(elem): # children
+    if len(elem):  # children
         # Set indent of first child for tags with no text
         if not oneline and (not elem.text or not elem.text.strip()):
-            elem.text = '\n' + (level + 1) * '  '
+            elem.text = "\n" + (level + 1) * "  "
 
         if not elem.tail or not elem.tail.strip():
             if level:
-                elem.tail = '\n' + level * '  '
+                elem.tail = "\n" + level * "  "
             else:
-                elem.tail = '\n'
+                elem.tail = "\n"
 
         # recurse
         for child in elem:
@@ -252,16 +262,17 @@ def indent(elem, level=0, internal=False):
 
         # Clean up the last child
         if oneline:
-            child.tail = clean_whitespace(child.tail, strip='right')
-        elif (not child.tail or not child.tail.strip()):
-            child.tail = '\n' + level * '  '
+            child.tail = clean_whitespace(child.tail, strip="right")
+        elif not child.tail or not child.tail.strip():
+            child.tail = "\n" + level * "  "
     else:
-        elem.text = clean_whitespace(elem.text, strip='both')
+        elem.text = clean_whitespace(elem.text, strip="both")
 
         if internal:
-            elem.tail = clean_whitespace(elem.tail, strip='none')
+            elem.tail = clean_whitespace(elem.tail, strip="none")
         elif not elem.tail or not elem.tail.strip():
-            elem.tail = '\n' + level * '  '
+            elem.tail = "\n" + level * "  "
+
 
 def parse_element(xml_element):
     attrib = {}
@@ -287,14 +298,14 @@ def parse_element(xml_element):
             value = {
                 "value": element.text,
                 "id": element.get("id"),
-                "url": element.text
+                "url": element.text,
             }
         elif tag == "revision":
             value = {
                 "value": element.get("href"),
                 "id": element.get("id"),
                 "url": element.get("href"),
-                "explanation": element.text
+                "explanation": element.text,
             }
         elif tag == "mrf":
             value = {"filename": element.text, "src": element.get("src")}
@@ -321,7 +332,11 @@ def parse_element(xml_element):
             value = infer_url(element.text)
 
             # Add a PDF link with, converting relative URLs to canonical ones
-            attrib['pdf'] = element.text if urlparse(element.text).netloc else data.ANTHOLOGY_PDF.format(element.text)
+            attrib["pdf"] = (
+                element.text
+                if urlparse(element.text).netloc
+                else data.ANTHOLOGY_PDF.format(element.text)
+            )
 
         if tag in data.LIST_ELEMENTS:
             try:
@@ -334,13 +349,13 @@ def parse_element(xml_element):
     return attrib
 
 
-def make_simple_element(tag,
-                        text=None,
-                        attrib=None,
-                        parent=None,
-                        namespaces=None):
+def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=None):
     """Convenience function to create an LXML node"""
-    el = etree.Element(tag, nsmap=namespaces) if parent is None else etree.SubElement(parent, tag)
+    el = (
+        etree.Element(tag, nsmap=namespaces)
+        if parent is None
+        else etree.SubElement(parent, tag)
+    )
     if text:
         el.text = text
     if attrib:
@@ -368,124 +383,133 @@ def make_nested(root, pdf_path: str):
             <paper id="1">
     """
 
-    collection_id = root.attrib['id']
+    collection_id = root.attrib["id"]
 
-    if root.tag == 'collection':
+    if root.tag == "collection":
         return root
 
-    new_root = make_simple_element('collection')
-    new_root.attrib['id'] = collection_id
-    new_root.tail = '\n'
+    new_root = make_simple_element("collection")
+    new_root.attrib["id"] = collection_id
+    new_root.tail = "\n"
 
     volume = None
     meta = None
     prev_volume_id = None
 
     for paper in root.findall("paper"):
-        paper_id = paper.attrib['id']
+        paper_id = paper.attrib["id"]
         if len(paper_id) != 4:
-            logging.warning(f'skipping invalid paper ID {paper_id}')
+            logging.warning(f"skipping invalid paper ID {paper_id}")
             continue
 
         first_volume_digit = int(paper_id[0])
-        if collection_id.startswith('W') or collection_id == 'C69' or (collection_id == 'D19' and first_volume_digit >= 5):
+        if (
+            collection_id.startswith("W")
+            or collection_id == "C69"
+            or (collection_id == "D19" and first_volume_digit >= 5)
+        ):
             volume_width = 2
             paper_width = 2
         else:
             volume_width = 1
             paper_width = 3
 
-        volume_id, paper_id = int(paper_id[0:volume_width]), int(paper_id[volume_width:])
-        full_volume_id = f'{collection_id}-{volume_id:0{volume_width}d}'
-        full_paper_id = f'{full_volume_id}{paper_id:0{paper_width}d}'
+        volume_id, paper_id = (
+            int(paper_id[0:volume_width]),
+            int(paper_id[volume_width:]),
+        )
+        full_volume_id = f"{collection_id}-{volume_id:0{volume_width}d}"
+        full_paper_id = f"{full_volume_id}{paper_id:0{paper_width}d}"
 
-        paper.attrib['id'] = '{}'.format(paper_id)
+        paper.attrib["id"] = "{}".format(paper_id)
 
         # new volume
         if prev_volume_id is None or prev_volume_id != volume_id:
-            meta = make_simple_element('meta')
-            if collection_id == 'C69':
-                meta.append(make_simple_element('month', text='September'))
-                meta.append(make_simple_element('year', text='1969'))
-                meta.append(make_simple_element('address', text='Sånga Säby, Sweden'))
+            meta = make_simple_element("meta")
+            if collection_id == "C69":
+                meta.append(make_simple_element("month", text="September"))
+                meta.append(make_simple_element("year", text="1969"))
+                meta.append(make_simple_element("address", text="Sånga Säby, Sweden"))
 
-            volume = make_simple_element('volume')
+            volume = make_simple_element("volume")
             volume.append(meta)
-            volume.attrib['id'] = str(volume_id)
+            volume.attrib["id"] = str(volume_id)
             prev_volume_id = volume_id
             new_root.append(volume)
 
             # Add volume-level <url> tag if PDF is present
-            volume_path = os.path.join(pdf_path, f'{full_volume_id}.pdf')
+            volume_path = os.path.join(pdf_path, f"{full_volume_id}.pdf")
             if os.path.exists(volume_path):
-                url = make_simple_element('url', text=full_volume_id)
+                url = make_simple_element("url", text=full_volume_id)
                 print(f"{collection_id}: inserting volume URL: {full_volume_id}")
                 meta.append(url)
 
         # Transform paper 0 to explicit frontmatter
         if paper_id == 0:
-            paper.tag = 'frontmatter'
-            del paper.attrib['id']
-            title = paper.find('title')
+            paper.tag = "frontmatter"
+            del paper.attrib["id"]
+            title = paper.find("title")
             if title is not None:
-                title.tag = 'booktitle'
+                title.tag = "booktitle"
                 meta.insert(0, title)
 
-            frontmatter_path = os.path.join(pdf_path, f'{full_paper_id}.pdf')
+            frontmatter_path = os.path.join(pdf_path, f"{full_paper_id}.pdf")
             if os.path.exists(frontmatter_path):
-                url = paper.find('url')
+                url = paper.find("url")
                 if url is not None:
-                    url.text = f'{full_paper_id}'
+                    url.text = f"{full_paper_id}"
                 else:
-                    url = make_simple_element('url', text=full_paper_id)
+                    url = make_simple_element("url", text=full_paper_id)
                     paper.append(url)
                 print(f"{collection_id}: inserting frontmatter URL: {full_paper_id}")
             else:
-                if paper.find('url') is not None:
-                    paper.remove(paper.find('url'))
-                    print(f"{collection_id}: removing missing frontmatter PDF: {full_paper_id}")
+                if paper.find("url") is not None:
+                    paper.remove(paper.find("url"))
+                    print(
+                        f"{collection_id}: removing missing frontmatter PDF: {full_paper_id}"
+                    )
 
             # Change authors of frontmatter to editors
-            authors = paper.findall('author')
+            authors = paper.findall("author")
             if authors is not None:
                 for author in authors:
-                    author.tag = 'editor'
+                    author.tag = "editor"
 
             # Remove empty abstracts (corner case)
-            abstract = paper.find('abstract')
+            abstract = paper.find("abstract")
             if abstract is not None:
                 if abstract.text != None:
-                    print('* WARNING: non-empty abstract for', paper.full_id)
+                    print("* WARNING: non-empty abstract for", paper.full_id)
                 else:
                     paper.remove(abstract)
 
             # Transfer editor keys (once)
-            if volume.find('editor') is None:
-                editors = paper.findall('editor')
+            if volume.find("editor") is None:
+                editors = paper.findall("editor")
                 if editors is not None:
                     for editor in editors:
                         meta.append(editor)
 
             # Transfer the DOI key if it's a volume entry
-            doi = paper.find('doi')
+            doi = paper.find("doi")
             if doi is not None:
                 if doi.text.endswith(full_volume_id):
-                    print(f'* Moving DOI entry {doi.text} from frontmatter to metadata')
+                    print(f"* Moving DOI entry {doi.text} from frontmatter to metadata")
                     meta.append(doi)
 
         # Canonicalize URL
-        url = paper.find('url')
+        url = paper.find("url")
         if url is not None:
-            url.text = re.sub(r'https?://(www.)?aclweb.org/anthology/', '', url.text)
+            url.text = re.sub(r"https?://(www.)?aclweb.org/anthology/", "", url.text)
 
         # Remove bibtype and bibkey
-        for key_name in 'bibtype bibkey'.split():
+        for key_name in "bibtype bibkey".split():
             node = paper.find(key_name)
             if node is not None:
                 paper.remove(node)
 
         # Move to metadata
-        for key_name in 'booktitle publisher volume address month year ISBN isbn'.split():
+        for key_name in "booktitle publisher volume address month year ISBN isbn".split():
             # Move the key to the volume if not present in the volume
             node_paper = paper.find(key_name)
             if node_paper is not None:
@@ -493,7 +517,7 @@ def make_nested(root, pdf_path: str):
                 # If not found in the volume, move it
                 if node_meta is None:
                     node_meta = node_paper
-                    if key_name == 'booktitle':
+                    if key_name == "booktitle":
                         meta.insert(0, node_paper)
                     else:
                         meta.append(node_paper)
@@ -503,8 +527,14 @@ def make_nested(root, pdf_path: str):
 
         # Take volume booktitle from first paper title if it wasn't found in the
         # frontmatter paper (some volumes have no front matter)
-        if collection_id == 'C69' and meta.find('booktitle') is None and paper.find('title') is not None:
-            meta.insert(0, make_simple_element('booktitle', text=paper.find('title').text))
+        if (
+            collection_id == "C69"
+            and meta.find("booktitle") is None
+            and paper.find("title") is not None
+        ):
+            meta.insert(
+                0, make_simple_element("booktitle", text=paper.find("title").text)
+            )
 
         volume.append(paper)
 

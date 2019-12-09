@@ -4,4 +4,3 @@ weight: 2
 ---
 
 Please see our [submission guide]({{< relref "/info/contrib.md" >}}).
-

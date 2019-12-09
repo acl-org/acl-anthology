@@ -53,115 +53,157 @@ import urllib.request
 
 def maybe_copy(file_from, file_to, do=False):
     if do:
-        print('-> Copying from {} -> {}'.format(file_from, file_to), file=sys.stderr)
+        print("-> Copying from {} -> {}".format(file_from, file_to), file=sys.stderr)
         shutil.copy(file_from, file_to)
         os.chmod(file_to, 0o644)
     else:
-        print('-> DRY RUN: Copying from {} -> {}'.format(file_from, file_to), file=sys.stderr)
+        print(
+            "-> DRY RUN: Copying from {} -> {}".format(file_from, file_to),
+            file=sys.stderr,
+        )
 
 
 def main(args):
 
-    change_type = 'erratum' if args.erratum else 'revision'
-    change_letter = 'e' if args.erratum else 'v'
+    change_type = "erratum" if args.erratum else "revision"
+    change_letter = "e" if args.erratum else "v"
 
-    print(f'Processing {change_type} to {args.anthology_id}...')
+    print(f"Processing {change_type} to {args.anthology_id}...")
 
     # TODO: make sure path exists, or download URL to temp file
-    if args.path.startswith('http'):
+    if args.path.startswith("http"):
         _, input_file_path = tempfile.mkstemp()
         try:
-            print(f'-> Downloading file from {args.path}', file=sys.stderr)
-            with urllib.request.urlopen(args.path) as url, open(input_file_path, mode='wb') as input_file_fh:
+            print(f"-> Downloading file from {args.path}", file=sys.stderr)
+            with urllib.request.urlopen(args.path) as url, open(
+                input_file_path, mode="wb"
+            ) as input_file_fh:
                 input_file_fh.write(url.read())
         except ssl.SSLError:
-            print('An SSL error was encountered in downloading the files.', file=sys.stderr)
+            print(
+                "An SSL error was encountered in downloading the files.", file=sys.stderr,
+            )
             sys.exit(1)
     else:
         input_file_path = args.path
 
     collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
-    paper_extension = args.path.split('.')[-1]
+    paper_extension = args.path.split(".")[-1]
 
     # The new version
     revno = None
 
     # Update XML
-    xml_file = os.path.join(os.path.dirname(sys.argv[0]), '..', 'data', 'xml', f'{collection_id}.xml')
+    xml_file = os.path.join(
+        os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
+    )
     tree = ET.parse(xml_file)
     paper = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
     if paper is not None:
         revisions = paper.findall(change_type)
         revno = 1 if args.erratum else 2
         for revision in revisions:
-            revno = int(revision.attrib['id']) + 1
+            revno = int(revision.attrib["id"]) + 1
 
         if args.do:
             revision = ET.Element(change_type)
-            revision.attrib['id'] = str(revno)
-            revision.attrib['href'] = f'{args.anthology_id}{change_letter}{revno}'
+            revision.attrib["id"] = str(revno)
+            revision.attrib["href"] = f"{args.anthology_id}{change_letter}{revno}"
             revision.text = args.explanation
 
             # Set tails to maintain proper indentation
-            paper[-1].tail += '  '
-            revision.tail = '\n    '  # newline and two levels of indent
+            paper[-1].tail += "  "
+            revision.tail = "\n    "  # newline and two levels of indent
 
             paper.append(revision)
 
             indent(tree.getroot())
 
             tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
-            print(f'-> Added {change_type} node "{revision.text}" to XML', file=sys.stderr)
+            print(
+                f'-> Added {change_type} node "{revision.text}" to XML', file=sys.stderr
+            )
 
     else:
-        print(f'-> FATAL: paper ID {args.anthology_id} not found in the Anthology', file=sys.stderr)
+        print(
+            f"-> FATAL: paper ID {args.anthology_id} not found in the Anthology",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
-    output_dir = os.path.join(args.anthology_dir, 'pdf', collection_id[0], collection_id)
+    output_dir = os.path.join(args.anthology_dir, "pdf", collection_id[0], collection_id)
 
     # Make sure directory exists
     if not os.path.exists(output_dir):
-        print(f'-> Creating directory {output_dir}', file=sys.stderr)
+        print(f"-> Creating directory {output_dir}", file=sys.stderr)
         os.makedirs(output_dir)
 
-    canonical_path = os.path.join(output_dir, f'{args.anthology_id}.pdf')
+    canonical_path = os.path.join(output_dir, f"{args.anthology_id}.pdf")
 
     if not args.erratum and revno == 2:
         # There are no versioned files the first time around, so create the first one
         # (essentially backing up the original version)
-        revised_file_v1_path = os.path.join(output_dir, f'{args.anthology_id}{change_letter}1.pdf')
+        revised_file_v1_path = os.path.join(
+            output_dir, f"{args.anthology_id}{change_letter}1.pdf"
+        )
 
         current_version = ANTHOLOGY_PDF.format(args.anthology_id)
         if args.do:
             try:
-                print(f'-> Downloading file from {args.path} to {revised_file_v1_path}', file=sys.stderr)
-                with urllib.request.urlopen(current_version) as url, open(revised_file_v1_path, mode='wb') as fh:
+                print(
+                    f"-> Downloading file from {args.path} to {revised_file_v1_path}",
+                    file=sys.stderr,
+                )
+                with urllib.request.urlopen(current_version) as url, open(
+                    revised_file_v1_path, mode="wb"
+                ) as fh:
                     fh.write(url.read())
             except ssl.SSLError:
-                print(f'-> FATAL: An SSL error was encountered in downloading {args.path}.', file=sys.stderr)
+                print(
+                    f"-> FATAL: An SSL error was encountered in downloading {args.path}.",
+                    file=sys.stderr,
+                )
                 sys.exit(1)
         else:
-            print(f'-> DRY RUN: Downlading file from {args.path} to {revised_file_v1_path}', file=sys.stderr)
+            print(
+                f"-> DRY RUN: Downlading file from {args.path} to {revised_file_v1_path}",
+                file=sys.stderr,
+            )
 
-
-    revised_file_versioned_path = os.path.join(output_dir, f'{args.anthology_id}{change_letter}{revno}.pdf')
+    revised_file_versioned_path = os.path.join(
+        output_dir, f"{args.anthology_id}{change_letter}{revno}.pdf"
+    )
 
     maybe_copy(input_file_path, revised_file_versioned_path, args.do)
     maybe_copy(input_file_path, canonical_path, args.do)
 
-    if args.path.startswith('http'):
+    if args.path.startswith("http"):
         os.remove(input_file_path)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('anthology_id', help='The Anthology paper ID to revise (e.g., P18-1001)')
-    parser.add_argument('path', type=str, help='Path to the revised paper ID (can be URL)')
-    parser.add_argument('explanation', help='Brief description of the changes.')
-    parser.add_argument('--erratum', '-e', action='store_true', help='This is an erratum instead of a revision.')
-    parser.add_argument('--do', '-x', action='store_true', default=False, help='Actually do the copying')
-    parser.add_argument('--anthology-dir', default=os.path.join(os.environ['HOME'], 'anthology-files'),
-                        help='Anthology web directory root.')
+    parser.add_argument(
+        "anthology_id", help="The Anthology paper ID to revise (e.g., P18-1001)"
+    )
+    parser.add_argument(
+        "path", type=str, help="Path to the revised paper ID (can be URL)"
+    )
+    parser.add_argument("explanation", help="Brief description of the changes.")
+    parser.add_argument(
+        "--erratum",
+        "-e",
+        action="store_true",
+        help="This is an erratum instead of a revision.",
+    )
+    parser.add_argument(
+        "--do", "-x", action="store_true", default=False, help="Actually do the copying"
+    )
+    parser.add_argument(
+        "--anthology-dir",
+        default=os.path.join(os.environ["HOME"], "anthology-files"),
+        help="Anthology web directory root.",
+    )
     args = parser.parse_args()
 
     main(args)

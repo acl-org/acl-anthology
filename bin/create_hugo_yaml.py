@@ -52,7 +52,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
         data["title_html"] = paper.get_title("html")
-        if 'xml_title' in data:
+        if "xml_title" in data:
             del data["xml_title"]
         if "xml_booktitle" in data:
             data["booktitle_html"] = paper.get_booktitle("html")

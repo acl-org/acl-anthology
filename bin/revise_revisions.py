@@ -20,14 +20,14 @@ filename = sys.argv[1]
 outfilename = sys.argv[2]
 tree = etree.parse(filename)
 root = tree.getroot()
-collection_id = root.attrib['id']
+collection_id = root.attrib["id"]
 
 papers = list(root.findall(".//paper")) + list(root.findall(".//frontmatter"))
 
 for paper in papers:
-    for revision in paper.findall('revision'):
-        revision.attrib['href'] = revision.text
-        revision.text = 'No description of the changes were recorded.'
+    for revision in paper.findall("revision"):
+        revision.attrib["href"] = revision.text
+        revision.text = "No description of the changes were recorded."
 
 indent(root)
-tree.write(outfilename, encoding='UTF-8', xml_declaration=True, with_tail=True)
+tree.write(outfilename, encoding="UTF-8", xml_declaration=True, with_tail=True)
