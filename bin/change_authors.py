@@ -23,6 +23,7 @@ import lxml.etree as etree
 import argparse
 import logging
 
+
 def merge_people(variants, can1, can2):
     if can1 == can2:
         return
@@ -58,6 +59,7 @@ def merge_people(variants, can1, can2):
         {"first": new.first, "last": new.last}
     )  # don't use to_dict because that adds extra fields
 
+
 if __name__ == "__main__":
     scriptdir = os.path.dirname(os.path.abspath(__file__))
     datadir = os.path.join(scriptdir, "..", "data")
@@ -66,29 +68,27 @@ if __name__ == "__main__":
     logger.setLevel(logging.INFO)
     logger.propagate = False
 
-    ap = argparse.ArgumentParser(
-        description="Apply changes to author names."
-    )
+    ap = argparse.ArgumentParser(description="Apply changes to author names.")
     ap.add_argument("changefile", help="list of changes")
     ap.add_argument(
         "-o", "--outdir", metavar="dir", help="output directory", required=True
     )
     args = ap.parse_args()
-    
+
     changes = {}
     for line in open(args.changefile):
         paperid, role, oldname, newname = line.rstrip().split('\t')
         oldfirst, oldlast = oldname.split(' || ')
         newfirst, newlast = newname.split(' || ')
         changes[paperid, oldfirst, oldlast] = newfirst, newlast
-    
+
     anth = anthology.Anthology(importdir=datadir)
     variants = yaml.safe_load(open(os.path.join(datadir, "yaml", "name_variants.yaml")))
     infiles = sorted(glob.glob(os.path.join(datadir, "xml", "*.xml")))
 
     os.makedirs(os.path.join(args.outdir, "data", "xml"), exist_ok=True)
     os.makedirs(os.path.join(args.outdir, "data", "yaml"), exist_ok=True)
-    
+
     for infile in infiles:
         tree = etree.parse(infile)
         root = tree.getroot()
@@ -96,9 +96,9 @@ if __name__ == "__main__":
             root.tail = "\n"
         for volume in root.findall("volume"):
             for paper in volume.findall("paper"):
-                paperid = anthology.utils.build_anthology_id(root.attrib["id"],
-                                                             volume.attrib["id"],
-                                                             paper.attrib["id"])
+                paperid = anthology.utils.build_anthology_id(
+                    root.attrib["id"], volume.attrib["id"], paper.attrib["id"]
+                )
                 for authornode in paper.xpath("./author|./editor"):
                     firstnode = authornode.find("first")
                     lastnode = authornode.find("last")
@@ -134,10 +134,10 @@ if __name__ == "__main__":
                         if firstnode is not None:
                             authornode.remove(firstnode)
                     lastnode.text = newlast
-                    
+
         outfile = os.path.join(args.outdir, "data", "xml", os.path.basename(infile))
         tree.write(outfile, xml_declaration=True, encoding="UTF-8")
-        
+
     variants.sort(key=lambda v: (v["canonical"]["last"], v["canonical"]["first"]))
 
     with open(
