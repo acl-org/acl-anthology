@@ -1,4 +1,5 @@
-"""
+"""author_case.py
+
 Try to correct author names that are written in all uppercase or all lowercase.
 
 Produces a list of changes that can be read by change_authors.py.

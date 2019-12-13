@@ -8,10 +8,13 @@ For example:
 
 Z99-9999 \t author \t ARAVIND K. || JOSHI \t Aravind K. Joshi
 
-This script will try to modify data/yaml/name_variants.yaml as well. However, sometimes it will ask you to manually merge two entries.
+This script will try to modify data/yaml/name_variants.yaml as
+well. However, sometimes it will ask you to manually merge two
+entries.
 
 To do:
 - Remove entry from name_variants.yaml if it becomes unused
+
 """
 
 import sys
