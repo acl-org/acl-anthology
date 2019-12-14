@@ -11,10 +11,6 @@ Z99-9999 \t author \t ARAVIND K. || JOSHI \t Aravind K. Joshi
 This script will try to modify data/yaml/name_variants.yaml as
 well. However, sometimes it will ask you to manually merge two
 entries.
-
-To do:
-- Remove entry from name_variants.yaml if it becomes unused
-
 """
 
 import sys
@@ -23,6 +19,7 @@ import glob
 import anthology
 import yaml, yamlfix
 import lxml.etree as etree
+import collections
 import argparse
 import logging
 
@@ -39,7 +36,7 @@ def merge_people(variants, can1, can2):
         if can == can2:
             i2 = i
     if i1 is not None and i2 is not None:
-        logger.error(
+        logging.error(
             "Please manually merge '{}' and '{}' in name_variants.yaml".format(can1, can2)
         )
         return
@@ -67,9 +64,7 @@ if __name__ == "__main__":
     scriptdir = os.path.dirname(os.path.abspath(__file__))
     datadir = os.path.join(scriptdir, "..", "data")
 
-    logger = logging.getLogger("change_authors")
-    logger.setLevel(logging.INFO)
-    logger.propagate = False
+    logging.basicConfig(level=logging.INFO)
 
     ap = argparse.ArgumentParser(description="Apply changes to author names.")
     ap.add_argument("changefile", help="list of changes")
@@ -91,6 +86,8 @@ if __name__ == "__main__":
 
     os.makedirs(os.path.join(args.outdir, "data", "xml"), exist_ok=True)
     os.makedirs(os.path.join(args.outdir, "data", "yaml"), exist_ok=True)
+
+    oldnames = collections.defaultdict(list)
 
     for infile in infiles:
         tree = etree.parse(infile)
@@ -138,8 +135,39 @@ if __name__ == "__main__":
                             authornode.remove(firstnode)
                     lastnode.text = newlast
 
+                    oldnames[anthology.people.PersonName(oldfirst, oldlast)].append(
+                        paperid
+                    )
+
         outfile = os.path.join(args.outdir, "data", "xml", os.path.basename(infile))
         tree.write(outfile, xml_declaration=True, encoding="UTF-8")
+
+    # If a name variant is no longer used, delete it
+    deleted_names = set()
+    for name, papers in oldnames.items():
+        if set(papers) == set(anth.pindex.name_to_papers[name][False]):
+            deleted_names.add(name)
+
+    newvariants = []
+    for d in variants:
+        name = anthology.people.PersonName.from_dict(d["canonical"])
+        if name in deleted_names:
+            logging.error(
+                "canonical name '{}' is no longer used; please delete manually".format(
+                    name
+                )
+            )
+        for var in list(d.get("variants", [])):
+            name = anthology.people.PersonName.from_dict(var)
+            if name in deleted_names:
+                logging.info("variant name '{}' is no longer used; deleting".format(name))
+                d["variants"].remove(var)
+        if "variants" in d and len(d["variants"]) == 0:
+            del d["variants"]
+        if list(d.keys()) == ["canonical"]:
+            continue
+        newvariants.append(d)
+    variants = newvariants
 
     variants.sort(key=lambda v: (v["canonical"]["last"], v["canonical"]["first"]))
 
