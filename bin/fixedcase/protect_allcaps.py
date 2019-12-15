@@ -33,8 +33,7 @@ def protect(node):
         for token in tokens:
             if token == token.upper() and token in truelist:
                 print(token, file=sys.stderr)
-                for upper, chars in itertools.groupby(truelist[token],
-                                                      str.isupper):
+                for upper, chars in itertools.groupby(truelist[token], str.isupper):
                     if upper:
                         p = ET.Element("fixed-case")
                         p.text = "".join(chars).upper()
@@ -43,14 +42,14 @@ def protect(node):
                         append_text(newnode, "".join(chars).upper())
             else:
                 append_text(newnode, token)
-                
+
     process(node.text)
     for child in node:
         newnode.append(protect(child))
         process(child.tail)
     return newnode
 
-    
+
 # Read in the truelist (list of words that should always be protected)
 truelist = {}
 module_file = inspect.getfile(inspect.currentframe())
@@ -68,7 +67,7 @@ for line in open(truelist_file):
 
 for word in "ACL ATIS ATN BBN CCG CMU COLING GPSG MT NIST NLP SRI TIPSTER TREC".split():
     truelist[word.upper()] = word
-    
+
 if __name__ == "__main__":
     infile, outfile = sys.argv[1:]
 
