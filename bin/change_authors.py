@@ -1,16 +1,25 @@
 """Apply changes to author names.
 
-The input file should have the format:
+usage: change_authors.py <xml-file>+ -o <out-dir>
+
+Reads from stdin a list of changes (produced, e.g., by author_case.py)
+in the following format:
 
 paperid \t role \t oldfirst || oldlast \t newfirst || newlast
 
 For example:
 
-Z99-9999 \t author \t ARAVIND K. || JOSHI \t Aravind K. Joshi
+Z99-9999 \t author \t ARAVIND K. || JOSHI \t Aravind K. || Joshi
 
-This script will try to modify data/yaml/name_variants.yaml as
-well. However, sometimes it will ask you to manually merge two
-entries.
+means, for paper Z99-999, change author name "ARAVIND K. JOSHI" to
+"Aravind K. Joshi".
+
+The script will apply these changes to all of the .xml files given on
+the command line and write modified copies in <out-dir>/data/xml.
+
+It will also try to modify data/yaml/name_variants.yaml and write it
+to <out-dir>/data/yaml/name_variants.yaml. However, sometimes this is
+not possible, so it will ask you to manually merge two entries.
 """
 
 import sys

@@ -2,8 +2,11 @@
 
 Try to correct author names that are written in all uppercase or all lowercase.
 
-Produces a list of changes that can be read by change_authors.py.
+usage: author_case.py
 
+Writes to stdout a list of changes that can be read by
+change_authors.py. The user can edit this list before giving it to
+change_authors.py to actually apply the changes.
 """
 
 import sys
