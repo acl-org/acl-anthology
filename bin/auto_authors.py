@@ -1,6 +1,10 @@
 """
 Try to automatically restore accents in author names by downloading and scraping the PDFs.
 Reads and writes Anthology XML files.
+
+To do:
+- Update for new hierarchical XML structure
+- Instead of making changes, output a list of changes that can be read by change_authors.py.
 """
 
 import tika.parser
