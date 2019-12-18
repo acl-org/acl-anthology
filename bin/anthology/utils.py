@@ -479,7 +479,7 @@ def make_nested(root, pdf_path: str):
             abstract = paper.find("abstract")
             if abstract is not None:
                 if abstract.text != None:
-                    print("* WARNING: non-empty abstract for", paper.full_id)
+                    print("* WARNING: non-empty abstract for", full_paper_id)
                 else:
                     paper.remove(abstract)
 
