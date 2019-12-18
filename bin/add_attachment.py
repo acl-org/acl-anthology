@@ -102,7 +102,7 @@ def main(args):
             indent(tree.getroot())
             tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
             print(
-                f"-> added attachment {attachment_file_name} to the XML", file=sys.stderr,
+                f"-> added attachment {attachment_file_name} to the XML", file=sys.stderr
             )
 
     else:
@@ -129,8 +129,7 @@ def main(args):
         shutil.copy(input_file_path, dest_path)
         os.chmod(dest_path, 0o644)
         print(
-            f"-> copied {input_file_path} to {dest_path} and fixed perms",
-            file=sys.stderr,
+            f"-> copied {input_file_path} to {dest_path} and fixed perms", file=sys.stderr
         )
 
     # Clean up

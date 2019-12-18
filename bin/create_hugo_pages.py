@@ -144,11 +144,7 @@ def create_people(srcdir, clean=False):
             person_dir = "{}/content/people/{}".format(srcdir, name[0])
             if not os.path.exists(person_dir):
                 os.makedirs(person_dir)
-            yaml_data = {
-                "name": name,
-                "title": entry["full"],
-                "lastname": entry["last"],
-            }
+            yaml_data = {"name": name, "title": entry["full"], "lastname": entry["last"]}
             with open("{}/{}.md".format(person_dir, name), "w") as f:
                 print("---", file=f)
                 # "lastname" is dumped to allow sorting by it in Hugo
