@@ -27,11 +27,13 @@ def titlecase(s):
         ret.append(word)
         if any(c.isalpha() for c in word):
             first = False
-        if word in ':(':
+        if word in [':', '(']:
             first = True
             
     ret = ''.join(ret)
     return ret
+
+print(titlecase("A, B, AND C"))
 
 def replace_text(node, text):
     def visit(node, skip):
