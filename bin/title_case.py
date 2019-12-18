@@ -14,12 +14,18 @@ import logging
 import re
 from fixedcase.common import get_text
 
+
 def titlecase(s):
-    if s is None: return None
+    if s is None:
+        return None
     ret = []
     first = True
     for word in re.split(r"([^A-Za-z'’])", s):
-        if first or word.lower() not in "and or nor but a an the as at by for in of on per to".split():
+        if (
+            first
+            or word.lower()
+            not in "and or nor but a an the as at by for in of on per to".split()
+        ):
             if len(word) > 0:
                 word = word[0].upper() + word[1:].lower()
         else:
@@ -29,11 +35,13 @@ def titlecase(s):
             first = False
         if word in [':', '(']:
             first = True
-            
+
     ret = ''.join(ret)
     return ret
 
+
 print(titlecase("A, B, AND C"))
+
 
 def replace_text(node, text):
     def visit(node, skip):
@@ -42,32 +50,36 @@ def replace_text(node, text):
             skip = True
         if node.text:
             n = len(node.text)
-            if not skip: node.text = text[:n]
+            if not skip:
+                node.text = text[:n]
             text = text[n:]
         for child in node:
             visit(child, skip)
             if child.tail:
                 n = len(child.tail)
-                if not skip: child.tail = text[:n]
+                if not skip:
+                    child.tail = text[:n]
                 text = text[n:]
+
     visit(node, False)
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
 
     scriptdir = os.path.dirname(os.path.abspath(__file__))
     datadir = os.path.join(scriptdir, '..', 'data')
-    
+
     ap = argparse.ArgumentParser(description="Correct titles.")
     ap.add_argument(
         "-o", "--outdir", metavar="dir", help="output directory", required=True
     )
     args = ap.parse_args()
-    
+
     infiles = sorted(glob.glob(os.path.join(datadir, "xml", "*.xml")))
-    
+
     os.makedirs(os.path.join(args.outdir, "data", "xml"), exist_ok=True)
-    
+
     for infile in infiles:
         tree = etree.parse(infile)
         root = tree.getroot()
@@ -77,7 +89,9 @@ if __name__ == "__main__":
             for paper in volume.findall("paper"):
                 for title in paper.findall("title"):
                     title_text = get_text(title)
-                    ratio = len([c for c in title_text if c == c.lower()]) / len(title_text)
+                    ratio = len([c for c in title_text if c == c.lower()]) / len(
+                        title_text
+                    )
                     if ratio < 0.5:
                         replace_text(title, titlecase(title_text))
         outfile = os.path.join(args.outdir, "data", "xml", os.path.basename(infile))
