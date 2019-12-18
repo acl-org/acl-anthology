@@ -59,7 +59,7 @@ ifeq ($(HUGO_VERSION_TOO_LOW),true)
 endif
 
 
-VENV := "dummy"
+VENV := "venv/bin/activate"
 
 .PHONY: site
 site: bibtex mods endnote hugo sitemap
@@ -199,7 +199,7 @@ check_commit: check_staged_xml venv
 	 fi
 
 .PHONY: autofix
-autofix: check_staged_xml # venv
+autofix: check_staged_xml venv
 	#@. $(VENV) && \
 	 EXIT_STATUS=0 ;\
 	 pre-commit run || EXIT_STATUS=$$? ;\
