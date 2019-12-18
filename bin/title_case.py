@@ -40,9 +40,6 @@ def titlecase(s):
     return ret
 
 
-print(titlecase("A, B, AND C"))
-
-
 def replace_text(node, text):
     def visit(node, skip):
         nonlocal text
@@ -85,14 +82,10 @@ if __name__ == "__main__":
         root = tree.getroot()
         if not root.tail:
             root.tail = "\n"
-        for volume in root.findall("volume"):
-            for paper in volume.findall("paper"):
-                for title in paper.findall("title"):
-                    title_text = get_text(title)
-                    ratio = len([c for c in title_text if c == c.lower()]) / len(
-                        title_text
-                    )
-                    if ratio < 0.5:
-                        replace_text(title, titlecase(title_text))
+        for title in root.xpath(".//title|.//booktitle"):
+            title_text = get_text(title)
+            ratio = len([c for c in title_text if c == c.lower()]) / len(title_text)
+            if ratio < 0.5:
+                replace_text(title, titlecase(title_text))
         outfile = os.path.join(args.outdir, "data", "xml", os.path.basename(infile))
         tree.write(outfile, xml_declaration=True, encoding="UTF-8")
