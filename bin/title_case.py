@@ -24,7 +24,7 @@ def titlecase(s):
         if (
             first
             or word.lower()
-            not in "and or nor but a an the as at by for in of on per to".split()
+            not in "and or nor but a an the as at by for in of on per to vs".split()
         ):
             if len(word) > 0:
                 word = word[0].upper() + word[1:].lower()

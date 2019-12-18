@@ -295,11 +295,7 @@ def parse_element(xml_element):
             id_ = element.attrib.get("id", None)
             value = (PersonName.from_element(element), id_)
         elif tag == "erratum":
-            value = {
-                "value": element.text,
-                "id": element.get("id"),
-                "url": element.text,
-            }
+            value = {"value": element.text, "id": element.get("id"), "url": element.text}
         elif tag == "revision":
             value = {
                 "value": element.get("href"),
@@ -318,11 +314,7 @@ def parse_element(xml_element):
                 "url": element.get("href"),
             }
         elif tag in ("dataset", "software"):
-            value = {
-                "filename": element.text,
-                "type": tag,
-                "url": element.text,
-            }
+            value = {"filename": element.text, "type": tag, "url": element.text}
             tag = "attachment"
         else:
             value = element.text

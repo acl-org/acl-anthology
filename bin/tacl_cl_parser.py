@@ -39,11 +39,7 @@ def parse_args():
 
     verbosity = parser.add_mutually_exclusive_group()
     verbosity.add_argument(
-        "-v",
-        "--verbose",
-        action="store_const",
-        const=logging.DEBUG,
-        default=logging.INFO,
+        "-v", "--verbose", action="store_const", const=logging.DEBUG, default=logging.INFO
     )
     verbosity.add_argument(
         "-q", "--quiet", dest="verbose", action="store_const", const=logging.WARNING
@@ -351,7 +347,9 @@ if __name__ == "__main__":
 
     previous_issue_info, issue_count = None, 0
 
-    i = 1  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
+    i = (
+        1
+    )  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
     for xml in sorted(args.year_root.glob("*_a_*/*.xml")):
         # print(xml)
 
