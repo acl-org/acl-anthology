@@ -62,7 +62,8 @@ def main(args):
         if not os.path.exists(outdir):
             os.makedirs(outdir)
         with open(os.path.join(outdir, f"{anthology_id}.txt"), "w") as out:
-            print(f'{anthology_id} "{download_path}" "{explanation}"', file=out)
+            erratum = '' if attachment_type == 'Correction' else '-e '
+            print(f'{erratum}{anthology_id} "{download_path}" "{explanation}"', file=out)
 
 
 if __name__ == '__main__':
