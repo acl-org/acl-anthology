@@ -151,10 +151,13 @@ def main(volumes):
                 except IndexError as e:  # only one month
                     start_month = MONTH_HASH[month]
                     end_month = MONTH_HASH[month]
+                except Exception as e:
+                    print(f"FATAL: can't parse month {month} in {full_volume_id}", file=sys.stderr)
+                    sys.exit(1)
             elif tag.tag == "url":
                 url = tag.text
             elif tag.tag == "booktitle":
-                booktitle = tag.text
+                booktitle = formatter.as_text(tag)
             elif tag.tag == "address":
                 address = tag.text
             elif tag.tag == "publisher":
