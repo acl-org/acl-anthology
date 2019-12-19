@@ -1776,6 +1776,15 @@
       <url>P19-1155</url>
       <attachment type="software">P19-1155.Software.zip</attachment>
       <doi>10.18653/v1/P19-1155</doi>
+      <erratum id="1" href="P19-1155e1">The subset of the CELEX2 database that used for the experiment reported in the paper contained repeated wordforms. The training, test, and validation sets, therefore, were not non-overlapping. We have repeated our analyses using non-overlapping data sets; although the argumentation of the paper remains identical, we note the following quantitative differences:
+
+1.) In Experiment 1, all 38,882 unique wordforms from the CELEX2 lemma database were used to train and test the model. 23,330 (60%) of these lemmas were used to train the model, and the remaining 40% were randomly divided into validation and test sets of 7776 lemmas each. (The original analysis used 50,000 wordforms from CELEX2, dividing them up into training, validation, and test sets of 60%, 20%, and 20%, respectively.)
+
+2.) The effect size for Experiment 1 is W = 1.90 x 10^10; p &lt; .05, in contrast to the original effect size of W = 2.43 x 10^10; p &lt; .001. On average, the feature-aware models assigned a log likelihood of -21.27 to the words in the test set, and the feature-naive models assigned an average log likelihood of -21.21, in contrast to the originally reported results of -20.98 and -20.07, respectively.
+
+3.) The correlations with human-derived data in Experiment 2 ranged from 0.46 to 0.81, and the effect size of the difference according to the Wilcoxon rank sum test was W = 365; p = 0.32. (The original analysis yielded correlations with human-derived data from 0.50 to 0.79, with an effect size of W = 282; p = 0.56.)
+
+Corrected figures are included in the PDF attachment.</erratum>
     </paper>
     <paper id="156">
       <title>Better Character Language Modeling through Morphology</title>
@@ -2096,6 +2105,7 @@
       <abstract>This paper introduces the PhotoBook dataset, a large-scale collection of visually-grounded, task-oriented dialogues in English designed to investigate shared dialogue history accumulating during conversation. Taking inspiration from seminal work on dialogue analysis, we propose a data-collection task formulated as a collaborative game prompting two online participants to refer to images utilising both their visual context as well as previously established referring expressions. We provide a detailed description of the task setup and a thorough analysis of the 2,500 dialogues collected. To further illustrate the novel features of the dataset, we propose a baseline model for reference resolution which uses a simple method to take into account shared information accumulated in a reference chain. Our results show that this information is particularly important to resolve later descriptions and underline the need to develop more sophisticated models of common ground in dialogue interaction.</abstract>
       <url>P19-1184</url>
       <doi>10.18653/v1/P19-1184</doi>
+      <revision id="2" href="P19-1184v2">The acknowledgements of the paper have been updated to reflect the first author's primary source of funding at the time of writing.</revision>
     </paper>
     <paper id="185">
       <title>Continual and Multi-Task Architecture Search</title>
