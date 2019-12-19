@@ -74,9 +74,11 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
     if path.startswith("http"):
         _, input_file_path = tempfile.mkstemp()
         try:
-            print(f"-> Downloading file from {path} to {input_file_path}", file=sys.stderr)
+            print(
+                f"-> Downloading file from {path} to {input_file_path}", file=sys.stderr
+            )
             with urllib.request.urlopen(path) as url, open(
-                    input_file_path, mode="wb"
+                input_file_path, mode="wb"
             ) as input_file_fh:
                 input_file_fh.write(url.read())
         except ssl.SSLError:
@@ -125,15 +127,13 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
 
     # Make sure directory exists
     if not os.path.exists(output_dir):
-#        print(f"-> Creating directory {output_dir}", file=sys.stderr)
+        #        print(f"-> Creating directory {output_dir}", file=sys.stderr)
         os.makedirs(output_dir)
 
     # Copy file
     shutil.copy(input_file_path, dest_path)
     os.chmod(dest_path, 0o644)
-    print(
-        f"-> copied {input_file_path} to {dest_path} and fixed perms", file=sys.stderr
-    )
+    print(f"-> copied {input_file_path} to {dest_path} and fixed perms", file=sys.stderr)
 
     # Clean up
     if path.startswith("http"):
@@ -146,7 +146,7 @@ def main(args):
     attachments = {}
     with open(args.csv_file) as csv_file:
         for row in csv.DictReader(csv_file):
-            #ID,Start time,Completion time,Email,Name,Anthology ID,URL where we can download the attachment,Attachment type,"For corrections or errata, please explain in detailed prose what has changed.",Your name,Your email address,I agree to the Anthology's CC-BY-4.0 distribution license
+            # ID,Start time,Completion time,Email,Name,Anthology ID,URL where we can download the attachment,Attachment type,"For corrections or errata, please explain in detailed prose what has changed.",Your name,Your email address,I agree to the Anthology's CC-BY-4.0 distribution license
             anthology_id = row["Anthology ID"].strip()
             download_path = row["URL where we can download the attachment"]
             attachment_type = row["Attachment type"]
@@ -155,13 +155,25 @@ def main(args):
             submitted = row["Completion time"]
 
             if attachment_type not in ATTACHMENT_TYPES:
-                print(f"Skipping unknown type {attachment_type}[{anthology_id}]: {download_path}", file=sys.stderr)
+                print(
+                    f"Skipping unknown type {attachment_type}[{anthology_id}]: {download_path}",
+                    file=sys.stderr,
+                )
                 continue
 
             if anthology_id in attachments:
-                print(f"Replacing earlier entry for {anthology_id}[{attachment_type}: {download_path}", file=sys.stderr)
+                print(
+                    f"Replacing earlier entry for {anthology_id}[{attachment_type}: {download_path}",
+                    file=sys.stderr,
+                )
 
-            attachments[anthology_id] = (download_path, attachment_type, submitter_name, submitter_email, submitted)
+            attachments[anthology_id] = (
+                download_path,
+                attachment_type,
+                submitter_name,
+                submitter_email,
+                submitted,
+            )
 
     succeeded = 0
     failed = 0
@@ -169,7 +181,9 @@ def main(args):
         for anthology_id, (path, attach_type, name, email, date) in attachments.items():
             try:
                 print(f"Processing attachment for {anthology_id}", file=sys.stderr)
-                success = add_attachment(anthology_id, path, attach_type, overwrite=args.overwrite)
+                success = add_attachment(
+                    anthology_id, path, attach_type, overwrite=args.overwrite
+                )
                 if success:
                     succeeded += 1
                     print(f"{anthology_id}: SUCCESS.", file=log)
@@ -179,31 +193,35 @@ def main(args):
                 failed += 1
                 print(f"{anthology_id}: FAILURE", file=log)
                 with open(f"{args.logfile}.{anthology_id}.txt", "w") as email_log:
-                    print(f"{email}\n"
-                          f"ACL Anthology: failed to add attachment for {anthology_id}\n"
-                          f"Dear {name},\n"
-                          f"\n"
-                          f"On {date} you submitted the following attachment to the ACL Anthology\n"
-                          f"\n"
-                          f"  paper ID: {anthology_id}\n"
-                          f"      link: {path}\n"
-                          f"\n"
-                          f"Adding this attachment failed. The reason reported was:\n"
-                          f"\n"
-                          f"  {reason}\n"
-                          f"\n"
-                          f"If you like, please resubmit using this link:\n"
-                          f"\n"
-                          f"  https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u\n",
-                          f"\n"
-                          f"There is no need to respond to this email.\n"
-                          f"\n"
-                          f"Sincerely,\n"
-                          f"Matt Post\n"
-                          f"Anthology Director\n",
-                          file=email_log)
+                    print(
+                        f"{email}\n"
+                        f"ACL Anthology: failed to add attachment for {anthology_id}\n"
+                        f"Dear {name},\n"
+                        f"\n"
+                        f"On {date} you submitted the following attachment to the ACL Anthology\n"
+                        f"\n"
+                        f"  paper ID: {anthology_id}\n"
+                        f"      link: {path}\n"
+                        f"\n"
+                        f"Adding this attachment failed. The reason reported was:\n"
+                        f"\n"
+                        f"  {reason}\n"
+                        f"\n"
+                        f"If you like, please resubmit using this link:\n"
+                        f"\n"
+                        f"  https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u\n",
+                        f"\n"
+                        f"There is no need to respond to this email.\n"
+                        f"\n"
+                        f"Sincerely,\n"
+                        f"Matt Post\n"
+                        f"Anthology Director\n",
+                        file=email_log,
+                    )
 
-    print(f"Processed {len(attachments)} attachments ({succeeded} succeeded, {failed} failed).")
+    print(
+        f"Processed {len(attachments)} attachments ({succeeded} succeeded, {failed} failed)."
+    )
     print(f"Wrote logfile to {args.logfile}.")
 
 
@@ -211,12 +229,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("csv_file", help="The CSV file from the Microsoft form")
     parser.add_argument(
-        "--overwrite", "-o", action="store_true",
-        help="Overwrite attachments"
+        "--overwrite", "-o", action="store_true", help="Overwrite attachments"
     )
     parser.add_argument(
-        "--logfile", "-l", default="add_attachments.log",
-        help="Logfile to write to"
+        "--logfile", "-l", default="add_attachments.log", help="Logfile to write to"
     )
     parser.add_argument(
         "--attachment-root",
