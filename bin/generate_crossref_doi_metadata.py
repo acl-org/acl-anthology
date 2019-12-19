@@ -152,7 +152,10 @@ def main(volumes):
                     start_month = MONTH_HASH[month]
                     end_month = MONTH_HASH[month]
                 except Exception as e:
-                    print(f"FATAL: can't parse month {month} in {full_volume_id}", file=sys.stderr)
+                    print(
+                        f"FATAL: can't parse month {month} in {full_volume_id}",
+                        file=sys.stderr,
+                    )
                     sys.exit(1)
             elif tag.tag == "url":
                 url = tag.text
