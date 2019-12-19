@@ -36,10 +36,11 @@ import sys
 
 from anthology.utils import is_valid_id
 
+
 def main(args):
 
     for row in csv.DictReader(args.csv_file):
-#    ID,Start time,Completion time,Email,Name,Anthology ID,URL,Type,Explanation,Name,Email,License
+        #    ID,Start time,Completion time,Email,Name,Anthology ID,URL,Type,Explanation,Name,Email,License
 
         anthology_id = row["Anthology ID"].strip()
         download_path = row["URL where we can download the attachment"]
@@ -47,7 +48,9 @@ def main(args):
         submitter_name = row["Your name"]
         submitter_email = row["Your email address"]
         submitted = row["Completion time"]
-        explanation = row["For corrections or errata, please explain in detailed prose what has changed."]
+        explanation = row[
+            "For corrections or errata, please explain in detailed prose what has changed."
+        ]
 
         if attachment_type not in ["Correction", "Erratum"]:
             continue
@@ -61,8 +64,10 @@ def main(args):
         with open(os.path.join(outdir, f"{anthology_id}.txt"), "w") as out:
             print(f'{anthology_id} "{download_path}" "{explanation}"', file=out)
 
+
 if __name__ == '__main__':
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument("csv_file", type=argparse.FileType("r"))
     args = parser.parse_args()

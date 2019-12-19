@@ -52,7 +52,11 @@ def is_valid_id(id_):
     first, rest = match.groups()
 
     if len(rest) != 4:
-        if first.startswith("W") or first == "C69" or (first == "D19" and int(rest[0]) >= 5):
+        if (
+            first.startswith("W")
+            or first == "C69"
+            or (first == "D19" and int(rest[0]) >= 5)
+        ):
             return len(rest) == 2
         else:
             return len(rest) == 1

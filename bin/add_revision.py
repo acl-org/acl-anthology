@@ -91,7 +91,10 @@ def main(args):
     detected = filetype.guess(input_file_path)
     if detected is None or not detected.mime.endswith(detected.extension):
         mime_type = 'UNKNOWN' if detected is None else detected.mime
-        print(f"FATAL: {args.anthology_id} file {args.path} has MIME type {mime_type}", file=sys.stderr)
+        print(
+            f"FATAL: {args.anthology_id} file {args.path} has MIME type {mime_type}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
