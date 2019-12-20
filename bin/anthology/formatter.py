@@ -95,6 +95,9 @@ def bibtex_make_entry(bibkey, bibtype, fields):
             value = "  and\n      ".join(value.split("  and  "))
         if key == "month":
             value = bibtex_convert_month(value)
+        elif value is None:
+            log.warning(f"Skipping empty value for {bibkey}/{key}")
+            continue
         elif '"' in value:
             # Make sure not to use "" to quote values when they contain "
             value = "{{{}}}".format(value)
