@@ -37,6 +37,7 @@ from anthology.data import ANTHOLOGY_ID_REGEX, ANTHOLOGY_URL
 
 from collections import defaultdict
 
+
 def main(args):
     scriptdir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data')
     anthology = Anthology(importdir=scriptdir)
@@ -58,8 +59,10 @@ def main(args):
                 print(f"* Couldn't match '{match_str}' to '{line}'", file=sys.stderr)
 
             attachments[attach_type].append(
-                (anthology.papers[anthology_id].get_title('plain'),
-                 ANTHOLOGY_URL.format(anthology_id))
+                (
+                    anthology.papers[anthology_id].get_title('plain'),
+                    ANTHOLOGY_URL.format(anthology_id),
+                )
             )
 
         elif line.startswith("<revision"):
@@ -74,9 +77,11 @@ def main(args):
             explanation = paper.attrib["revision"][-1]["explanation"]
 
             revisions.append(
-                (paper.get_title("plain"),
-                 ANTHOLOGY_URL.format(anthology_id),
-                 explanation)
+                (
+                    paper.get_title("plain"),
+                    ANTHOLOGY_URL.format(anthology_id),
+                    explanation,
+                )
             )
 
         elif line.startswith("<errat"):
@@ -88,8 +93,10 @@ def main(args):
                 print(f"* Couldn't match '{match_str}' to '{line}'", file=sys.stderr)
 
             errata.append(
-                (anthology.papers[anthology_id].get_title('plain'),
-                 ANTHOLOGY_URL.format(anthology_id))
+                (
+                    anthology.papers[anthology_id].get_title('plain'),
+                    ANTHOLOGY_URL.format(anthology_id),
+                )
             )
 
     inflector = inflect.engine()
