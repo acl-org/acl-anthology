@@ -112,7 +112,7 @@ def main(args):
             print("-", title, "\n ", url, "\n ", explanation, "\n")
 
     if len(errata):
-        print(f"\Errata:")
+        print(f"\nErrata:")
         for title, url in errata:
             print("-", title, "\n ", url, "\n")
 
