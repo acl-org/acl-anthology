@@ -39,9 +39,9 @@ import re
 import subprocess
 import sys
 
-
+from collections import defaultdict
 from anthology.utils import deconstruct_anthology_id
-
+from typing import List
 
 # Name for the SSH alias in ~/.ssh/config.
 SSH_CONFIG_TARGET = "aclweb"
@@ -49,15 +49,15 @@ SSH_CONFIG_TARGET = "aclweb"
 # The root directory for files, currently containing pdf/ and attachments/
 ACLWEB_FILE_ROOT = "/home3/aclwebor/anthology-files"
 
+# The ssh shortcut or full hostname
+ACLWEB_HOST = "aclweb"
 
-def upload_file(filepath: str):
+
+def get_dest_path(filepath: str):
     """
-    Uploads regular PDFs or attachments to their correct place on the aclweb server.
+    Returns the destination path on the remote server for the file.
     """
-
-    relative_dest_path = ""
-
-    os.chmod(filepath, 0o644)
+    dest_path = ""
 
     filename = os.path.basename(filepath)
     fileparts = filename.split(".")
@@ -65,14 +65,30 @@ def upload_file(filepath: str):
         # e.g., P19-1001.pdf
         collection_id, volume_id, _ = deconstruct_anthology_id(fileparts[0])
         collection = collection_id[0]
-        relative_dest_path = f"pdf/{collection}/{collection_id}/{filename}"
+        dest_path = f"pdf/{collection}/{collection_id}"
 
     elif len(fileparts) == 3:
         # e.g., P19-1001.Attachment.pdf
         collection_id, volume_id, _ = deconstruct_anthology_id(fileparts[0])
-        relative_dest_path = f"attachments/{collection}/{collection_id}/{filename}"
+        collection = collection_id[0]
+        dest_path = f"attachments/{collection}/{collection_id}"
 
-    command = f"scp -q {filepath} aclweb:{ACLWEB_FILE_ROOT}/{relative_dest_path}"
+    else:
+        raise Exception(f"Can't determine target destination from {filepath}")
+
+    return f"{ACLWEB_HOST}:{ACLWEB_FILE_ROOT}/{dest_path}"
+
+
+def upload_files(target_uri: str, files: List[str]):
+    """
+    Uploads regular PDFs or attachments to their correct place on the aclweb server.
+    """
+
+    for file in files:
+        os.chmod(file, 0o644)
+
+    file_list = " ".join(files)
+    command = f"scp -q {file_list} {target_uri}"
 
     attempts = 1
     retcode = 1
@@ -84,10 +100,17 @@ def upload_file(filepath: str):
         print(f"{command} -> {retcode}", file=sys.stderr)
         attempts += 1
 
+    return retcode
+
 
 def main(args):
+    locations = defaultdict(list)
     for file in args.files:
-        upload_file(file)
+        dest_path = get_dest_path(file)
+        locations[dest_path].append(file)
+
+    for location, files in locations.items():
+        upload_files(location, files)
 
 
 if __name__ == "__main__":
