@@ -12,6 +12,7 @@ These include correcting *metadata* and posting *errata* and *revisions* for sch
 While this service can help correct post-publication problems, due to certain difficulties and liabilities, the corrections have certain limitations, which we describe here.
 
 + Corrections to **metadata** do not require the submission of a new PDF.
+  Examples include correcting the spelling of a name or the title.
   These kinds of corrections are typically made to bring the metadata in line with what is on the PDF, which is taken to be authoritative.
   If the metadata changes impact the work's physical form (e.g., adding an additional author), a revision must also be supplied.
 + An **erratum** clarifies errors made in the original scholarly work.
