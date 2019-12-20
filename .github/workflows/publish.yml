@@ -15,6 +15,8 @@ jobs:
         python-version: 3.7
     - name: install hugo
       run: wget https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_extended_0.58.3_Linux-64bit.deb && sudo dpkg -i hugo_extended*.deb
+    - name: update
+      run: sudo apt-get update
     - name: install other deps
       run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.7-dev
     - name: dump secret key
