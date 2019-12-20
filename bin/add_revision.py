@@ -38,6 +38,7 @@ TODO: add the <revision> tag to the XML automatically.
 """
 
 import argparse
+import filetype
 import os
 import shutil
 import ssl
@@ -87,6 +88,15 @@ def main(args):
     else:
         input_file_path = args.path
 
+    detected = filetype.guess(input_file_path)
+    if detected is None or not detected.mime.endswith(detected.extension):
+        mime_type = 'UNKNOWN' if detected is None else detected.mime
+        print(
+            f"FATAL: {args.anthology_id} file {args.path} has MIME type {mime_type}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
     paper_extension = args.path.split(".")[-1]
 
@@ -105,7 +115,7 @@ def main(args):
         for revision in revisions:
             revno = int(revision.attrib["id"]) + 1
 
-        if args.do:
+        if not args.dry_run:
             revision = ET.Element(change_type)
             revision.attrib["id"] = str(revno)
             revision.attrib["href"] = f"{args.anthology_id}{change_letter}{revno}"
@@ -148,7 +158,7 @@ def main(args):
         )
 
         current_version = ANTHOLOGY_PDF.format(args.anthology_id)
-        if args.do:
+        if not args.dry_run:
             try:
                 print(
                     f"-> Downloading file from {args.path} to {revised_file_v1_path}",
@@ -174,8 +184,8 @@ def main(args):
         output_dir, f"{args.anthology_id}{change_letter}{revno}.pdf"
     )
 
-    maybe_copy(input_file_path, revised_file_versioned_path, args.do)
-    maybe_copy(input_file_path, canonical_path, args.do)
+    maybe_copy(input_file_path, revised_file_versioned_path, not args.dry_run)
+    maybe_copy(input_file_path, canonical_path, not args.dry_run)
 
     if args.path.startswith("http"):
         os.remove(input_file_path)
@@ -197,7 +207,7 @@ if __name__ == "__main__":
         help="This is an erratum instead of a revision.",
     )
     parser.add_argument(
-        "--do", "-x", action="store_true", default=False, help="Actually do the copying"
+        "--dry-run", "-n", action="store_true", default=False, help="Just a dry run."
     )
     parser.add_argument(
         "--anthology-dir",

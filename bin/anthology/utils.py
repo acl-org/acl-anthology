@@ -41,6 +41,29 @@ def is_volume_id(anthology_id):
     return paper_id == "0"
 
 
+def is_valid_id(id_):
+    """
+    Determines whether the identifier has a valid Anthology identifier format (paper or volume).
+    """
+    match = re.match(r"([A-Z]\d{2})-(\d{1,4})", id_)
+    if not re.match(r"[A-Z]\d{2}-\d{1,3}", id_):
+        return False
+
+    first, rest = match.groups()
+
+    if len(rest) != 4:
+        if (
+            first.startswith("W")
+            or first == "C69"
+            or (first == "D19" and int(rest[0]) >= 5)
+        ):
+            return len(rest) == 2
+        else:
+            return len(rest) == 1
+
+    return True
+
+
 def build_anthology_id(
     collection_id: str, volume_id: str, paper_id: Optional[str] = None
 ) -> str:
