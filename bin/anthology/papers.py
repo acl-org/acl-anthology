@@ -54,6 +54,7 @@ class Paper:
                 "venues",
                 "meta_date",
                 "url",
+                "pdf",
             ):
                 continue
 
