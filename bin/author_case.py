@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """author_case.py
 
 Try to correct author names that are written in all uppercase or all lowercase.
