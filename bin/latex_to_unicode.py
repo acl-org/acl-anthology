@@ -179,16 +179,19 @@ def latex_to_unicode(s):
     s = s.replace(r"\&", "&")
     s = s.replace("`", "‘")
 
-    # Clean up
-    s = re.sub(r"(?<!\\)[{}]", "", s)  # unescaped curly braces
-    s = s.replace(r"\{", "{")
-    s = s.replace(r"\}", "}")
-
     def repl(s):
-        logging.warning("discarding control sequence {}".format(s.group(0)))
+        logging.warning(f"discarding control sequence '{s.group(0)}' from '{s.string}'")
         return ""
 
-    s = re.sub(r"\\[A-Za-z]+ |\\.", repl, s)
+    ### \cite
+    s = re.sub(r'\\cite \{[a-zA-Z0-9:]+\}', repl, s)
+
+    # Clean up
+    # s = re.sub(r"(?<!\\)[{}]", "", s)  # unescaped curly braces
+    # s = s.replace(r"\{", "{")
+    # s = s.replace(r"\}", "}")
+
+    # s = re.sub(r"\\[A-Za-z]+ |\\.", repl, s)
 
     return s
 
