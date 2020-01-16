@@ -183,15 +183,8 @@ def latex_to_unicode(s):
         logging.warning(f"discarding control sequence '{s.group(0)}' from '{s.string}'")
         return ""
 
-    ### \cite
-    s = re.sub(r'\\cite \{[a-zA-Z0-9:]+\}', repl, s)
-
-    # Clean up
-    # s = re.sub(r"(?<!\\)[{}]", "", s)  # unescaped curly braces
-    # s = s.replace(r"\{", "{")
-    # s = s.replace(r"\}", "}")
-
-    # s = re.sub(r"\\[A-Za-z]+ |\\.", repl, s)
+    # Remove inserted space for remaining codes ("\code {...}" -> "\code{...}")
+    s = re.sub(r"(\\[A-Za-z]+) \{", r"\1{", s)
 
     return s
 
