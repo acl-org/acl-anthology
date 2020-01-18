@@ -32,8 +32,19 @@ from . import data
 xml_escape_or_none = lambda t: None if t is None else xml_escape(t)
 
 
+def is_newstyle_id(anthology_id):
+    return anthology_id[0].isdigit()  # New-style IDs are year-first
+
+
 def is_journal(anthology_id):
-    return anthology_id[0] in ("J", "Q")
+    if is_newstyle_id(anthology_id):
+        # TODO: this function is sometimes called with "full_id", sometimes with
+        # "collection_id", so we're not using `deconstruct_anthology_id` here at
+        # the moment
+        venue = anthology_id.split("-")[0].split(".")[-1]
+        return venue in data.JOURNAL_IDS
+    else:
+        return anthology_id[0] in ("J", "Q")
 
 
 def is_volume_id(anthology_id):
@@ -48,6 +59,12 @@ def build_anthology_id(
     Transforms collection id, volume id, and paper id to a width-padded
     Anthology ID. e.g., ('P18', '1', '1') -> P18-1001.
     """
+    if is_newstyle_id(collection_id):
+        if paper_id is not None:
+            return f"{collection_id}-{volume_id}.{paper_id}"
+        else:
+            return f"{collection_id}-{volume_id}"
+    # pre-2020 IDs
     if (
         collection_id.startswith("W")
         or collection_id == "C69"
@@ -102,6 +119,13 @@ def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     - All collections in "D19" where the first digit is >= 5
     """
     collection_id, rest = anthology_id.split("-")
+    if is_newstyle_id(anthology_id):
+        if "." in rest:
+            volume_id, paper_id = rest.split(".")
+        else:
+            volume_id, paper_id = rest, None
+        return (collection_id, volume_id, paper_id)
+    # pre-2020 IDs
     if (
         collection_id.startswith("W")
         or collection_id == "C69"
@@ -173,6 +197,9 @@ def infer_year(collection_id):
     that the paper's collection identifier follows the format 'xyy', where x is
     some letter and yy are the last two digits of the year of publication.
     """
+    if is_newstyle_id(collection_id):
+        return collection_id.split(".")[0]
+
     assert (
         len(collection_id) == 3
     ), f"Couldn't infer year: unknown volume ID format '{collection_id}' ({type(collection_id)})"
