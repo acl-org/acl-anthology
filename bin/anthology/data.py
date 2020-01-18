@@ -29,6 +29,9 @@ ANTHOLOGY_URL = ANTHOLOGY_PREFIX + "/{}"
 ANTHOLOGY_PDF = ANTHOLOGY_PREFIX + "/{}.pdf"
 ANTHOLOGY_THUMBNAIL = ANTHOLOGY_PREFIX + "/thumb/{}.jpg"
 
+# Regular expression matching full Anthology IDs
+ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"
+
 # Names of XML elements that may appear multiple times
 LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
 

@@ -12,6 +12,7 @@ These include correcting *metadata* and posting *errata* and *revisions* for sch
 While this service can help correct post-publication problems, due to certain difficulties and liabilities, the corrections have certain limitations, which we describe here.
 
 + Corrections to **metadata** do not require the submission of a new PDF.
+  Examples include correcting the spelling of a name or the title.
   These kinds of corrections are typically made to bring the metadata in line with what is on the PDF, which is taken to be authoritative.
   If the metadata changes impact the work's physical form (e.g., adding an additional author), a revision must also be supplied.
 + An **erratum** clarifies errors made in the original scholarly work.
@@ -29,14 +30,21 @@ Please take note of the following regarding errata and revisions:
   Unfortunately, we cannot provide any assistance with this task.
 + Downstream consumers of the Anthology (e.g., search engines) should notice the changes in your work, but there are no guarantees of this.
 
-### Filing Corrections
+### Correcting Metadata
 
 For requests to change paper *metadata* (that do not require any PDF changes), please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new).
-**Be sure to indicate the Anthology ID of the paper** (e.g., P19-1017).
-If you are savvy, you could correct the data yourself in our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml) and issue a pull request.
-This will expedite the processing of your request.
+**Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017`).
 
-To request a revision or erratum, [please use this form](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u).
+The Anthology team will attend to the correction as we find time.
+If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a pull request (PR).
+To do this, first locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
+As an example, if the Anthology ID of your paper is `P19-10171`, then the file you will need to edit is [data/xml/P19.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P19.xml).
+Find your entry from some identifying information, make the correction, and issue a PR against our `master` branch.
+For smaller XML files, this can be done [directly in the browser](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
+
+### Requesting revisions or errata
+
+To request a revision or an erratum, [please use this form](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u).
 For revisions, you will need to provide a paragraph-form summary of all the changes in the revision.
 This description will be published together with your revision and should be written in a neutral scientific tone.
 **Please ensure** that the link you provide is *directly* to a downloadable PDF that works with `wget`.

@@ -39,11 +39,7 @@ def parse_args():
 
     verbosity = parser.add_mutually_exclusive_group()
     verbosity.add_argument(
-        "-v",
-        "--verbose",
-        action="store_const",
-        const=logging.DEBUG,
-        default=logging.INFO,
+        "-v", "--verbose", action="store_const", const=logging.DEBUG, default=logging.INFO
     )
     verbosity.add_argument(
         "-q", "--quiet", dest="verbose", action="store_const", const=logging.WARNING

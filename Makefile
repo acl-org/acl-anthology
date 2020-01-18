@@ -200,7 +200,7 @@ check_commit: check_staged_xml venv
 
 .PHONY: autofix
 autofix: check_staged_xml venv
-	@. $(VENV) && \
+	 @. $(VENV) && \
 	 EXIT_STATUS=0 ;\
 	 pre-commit run || EXIT_STATUS=$$? ;\
 	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\

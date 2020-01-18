@@ -52,6 +52,29 @@ def is_volume_id(anthology_id):
     return paper_id == "0"
 
 
+def is_valid_id(id_):
+    """
+    Determines whether the identifier has a valid Anthology identifier format (paper or volume).
+    """
+    match = re.match(r"([A-Z]\d{2})-(\d{1,4})", id_)
+    if not re.match(r"[A-Z]\d{2}-\d{1,3}", id_):
+        return False
+
+    first, rest = match.groups()
+
+    if len(rest) != 4:
+        if (
+            first.startswith("W")
+            or first == "C69"
+            or (first == "D19" and int(rest[0]) >= 5)
+        ):
+            return len(rest) == 2
+        else:
+            return len(rest) == 1
+
+    return True
+
+
 def build_anthology_id(
     collection_id: str, volume_id: str, paper_id: Optional[str] = None
 ) -> str:
@@ -322,11 +345,7 @@ def parse_element(xml_element):
             id_ = element.attrib.get("id", None)
             value = (PersonName.from_element(element), id_)
         elif tag == "erratum":
-            value = {
-                "value": element.text,
-                "id": element.get("id"),
-                "url": element.text,
-            }
+            value = {"value": element.text, "id": element.get("id"), "url": element.text}
         elif tag == "revision":
             value = {
                 "value": element.get("href"),
@@ -345,11 +364,7 @@ def parse_element(xml_element):
                 "url": element.get("href"),
             }
         elif tag in ("dataset", "software"):
-            value = {
-                "filename": element.text,
-                "type": tag,
-                "url": element.text,
-            }
+            value = {"filename": element.text, "type": tag, "url": element.text}
             tag = "attachment"
         else:
             value = element.text
@@ -506,7 +521,7 @@ def make_nested(root, pdf_path: str):
             abstract = paper.find("abstract")
             if abstract is not None:
                 if abstract.text != None:
-                    print("* WARNING: non-empty abstract for", paper.full_id)
+                    print("* WARNING: non-empty abstract for", full_paper_id)
                 else:
                     paper.remove(abstract)
 

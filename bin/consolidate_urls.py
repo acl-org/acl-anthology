@@ -57,7 +57,7 @@ for paper in volume.findall("paper"):
     url = paper.find("url")
     if href and url:
         print(
-            f'{paper_id}: WARNING: found "href" attribute AND <url> tag', file=sys.stderr,
+            f'{paper_id}: WARNING: found "href" attribute AND <url> tag', file=sys.stderr
         )
         sys.exit(1)
 

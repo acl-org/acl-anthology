@@ -142,13 +142,10 @@ if __name__ == "__main__":
                     existing_volume.append(paper)
             else:
                 print(
-                    f"Volume {new_volume_id} has already been inserted into {collection_file}."
+                    f"Skipping volume {new_volume_id}, which has already been inserted into {collection_file}.\n"
+                    "You can append to this volume by passing `--append` (or `-a`) to this script.\n"
                 )
-                print(
-                    f"You can append to this volume by passing `--append` (or `-a`) to this script."
-                )
-                print(f"Quitting, since you didn't.")
-                sys.exit(1)
+                continue
 
     indent(existing_tree.getroot())
     existing_tree.write(
