@@ -174,17 +174,24 @@ def latex_to_unicode(s):
     s = s.replace(r"\textquotedblleft ", "“")
     s = s.replace(r"\textquotedblright ", "”")
 
+    # Transform errant citations into "(CITATION)"
+    s = re.sub(r"\\(new)?cite.? ?\{([\w:-]+?)\}", r"(CITATION)", s)
+
     ### Intentionally missing from latexcodec
     s = s.replace(r"\$", "$")
     s = s.replace(r"\&", "&")
     s = s.replace("`", "‘")
 
+    # Clean up
+    s = re.sub(r"(?<!\\)[{}]", "", s)  # unescaped curly braces
+    s = s.replace(r"\{", "{")
+    s = s.replace(r"\}", "}")
+
     def repl(s):
         logging.warning(f"discarding control sequence '{s.group(0)}' from '{s.string}'")
         return ""
 
-    # Remove inserted space for remaining codes ("\code {...}" -> "\code{...}")
-    s = re.sub(r"(\\[A-Za-z]+) \{", r"\1{", s)
+    s = re.sub(r"\\[A-Za-z]+ |\\.", repl, s)
 
     return s
 
