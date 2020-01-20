@@ -177,6 +177,9 @@ def latex_to_unicode(s):
     # Transform errant citations into "(CITATION)"
     s = re.sub(r"\\(new)?cite.? ?\{([\w:-]+?)\}", r"(CITATION)", s)
 
+    # Remove errant \footnotes
+    s = re.sub(r"\\footnote ?\{.*?\}", "", s)
+
     ### Intentionally missing from latexcodec
     s = s.replace(r"\$", "$")
     s = s.replace(r"\&", "&")
