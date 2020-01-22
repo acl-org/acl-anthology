@@ -174,6 +174,12 @@ def latex_to_unicode(s):
     s = s.replace(r"\textquotedblleft ", "“")
     s = s.replace(r"\textquotedblright ", "”")
 
+    # Transform errant citations into "(CITATION)"
+    s = re.sub(r"\\(new)?cite.? ?\{([\w:-]+?)\}", r"(CITATION)", s)
+
+    # Remove errant \footnotes
+    s = re.sub(r"\\footnote ?\{.*?\}", "", s)
+
     ### Intentionally missing from latexcodec
     s = s.replace(r"\$", "$")
     s = s.replace(r"\&", "&")
@@ -185,7 +191,7 @@ def latex_to_unicode(s):
     s = s.replace(r"\}", "}")
 
     def repl(s):
-        logging.warning("discarding control sequence {}".format(s.group(0)))
+        logging.warning(f"discarding control sequence '{s.group(0)}' from '{s.string}'")
         return ""
 
     s = re.sub(r"\\[A-Za-z]+ |\\.", repl, s)
