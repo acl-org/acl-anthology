@@ -174,7 +174,7 @@ def normalize(oldnode, informat):
                     )
                 )
             oldtext = "".join(oldnode.itertext())
-            newnode = latex_to_xml(oldtext, trivial_math=True, fixed_case=True)
+            newnode = latex_to_xml(oldtext, trivial_math=True, fixed_case=oldnode.tag in ["title", "booktitle"])
             newnode.tag = oldnode.tag
             newnode.attrib.update(oldnode.attrib)
             replace_node(oldnode, newnode)
