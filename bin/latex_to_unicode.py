@@ -24,6 +24,7 @@ table = [
     # Entry(r'\sc', None, 'sc', 'setter', False),
     Entry(r"\url", None, "url", "unary", True),
     Entry(r"\footnote", None, "fn", "unary", False),
+    Entry(r"\href", None, "delete", "unary", False),
     # \cite and friends. There are a lot more, but these are the most common.
     Entry(r"\cite", None, "cite", "unary", False),
     Entry(r"\newcite", None, "cite", "unary", False),
@@ -234,7 +235,7 @@ def remove_notes(node):
         if isinstance(node, str):
             outparent.append(node)
         elif isinstance(node, list):
-            if openers[node[0].rstrip()].tag == "fn":
+            if openers[node[0].rstrip()].tag in ["fn", "delete"]:
                 return  # without copying
             elif openers[node[0].rstrip()].tag == "cite":
                 outparent.append("(CITATION)")
