@@ -32,20 +32,21 @@ Please take note of the following regarding errata and revisions:
 
 ### Correcting Metadata
 
-For requests to change paper *metadata* (that do not require any PDF changes), please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new).[^1]
-**Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017`).
-Metadata changes are generally accepted if they comport with the PDF, which we take as authoritative.
+A request to change paper metadata (that does not require any PDF changes) can be submitted in several ways.
 
-[^1]: We prefer to work through Github issues since it simplifies our workflow.
-   However, if your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
+-  (Preferred) Please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new).
+   **Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017`).
+-  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org. 
+   Again, please be sure to include the Anthology ID of the paper in your email.
+-  If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
+   To do this, first fork our repository so that you can make edits to your local copy.
+   Then, locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
+   As an example, if the Anthology ID of your paper is `P19-10171`, then the file you will need to edit is [data/xml/P19.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P19.xml).
+   Find your entry from some identifying information, make the correction, and issue a PR against our `master` branch.
+   For smaller XML files, you can avoid having to clone the repository by [editing directly in the browser](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
 
 The Anthology team will attend to the correction as we find time.
-If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-To do this, first fork our repository so that you can make edits to your local copy.
-Then, locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
-As an example, if the Anthology ID of your paper is `P19-10171`, then the file you will need to edit is [data/xml/P19.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P19.xml).
-Find your entry from some identifying information, make the correction, and issue a PR against our `master` branch.
-For smaller XML files, you can avoid having to clone the repository by [editing directly in the browser](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
+Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
 
 ### Requesting revisions or errata
 
