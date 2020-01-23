@@ -23,6 +23,12 @@ table = [
     # Entry(r'\textsc', None, 'sc', 'unary', False),
     # Entry(r'\sc', None, 'sc', 'setter', False),
     Entry(r"\url", None, "url", "unary", True),
+    Entry(r"\footnote", None, "fn", "unary", False),
+    # \cite and friends. There are a lot more, but these are the most common.
+    Entry(r"\cite", None, "cite", "unary", False),
+    Entry(r"\newcite", None, "cite", "unary", False),
+    Entry(r"\citet", None, "cite", "unary", False),
+    Entry(r"\citep", None, "cite", "unary", False),
     Entry(r"\fixedcase", None, "fixed-case", "unary", False),  # for our internal use
     Entry(r"", None, None, "trivial", False),
 ]
@@ -174,12 +180,6 @@ def latex_to_unicode(s):
     s = s.replace(r"\textquotedblleft ", "“")
     s = s.replace(r"\textquotedblright ", "”")
 
-    # Transform errant citations into "(CITATION)"
-    s = re.sub(r"\\(new)?cite.? ?\{([\w:-]+?)\}", r"(CITATION)", s)
-
-    # Remove errant \footnotes
-    s = re.sub(r"\\footnote ?\{.*?\}", "", s)
-
     ### Intentionally missing from latexcodec
     s = s.replace(r"\$", "$")
     s = s.replace(r"\&", "&")
@@ -227,6 +227,27 @@ def flatten_trivial_math(node):
     node = copy.deepcopy(node)
     visit(node)
     return node
+
+
+def remove_notes(node):
+    def visit(node, outparent):
+        if isinstance(node, str):
+            outparent.append(node)
+        elif isinstance(node, list):
+            if openers[node[0].rstrip()].tag == "fn":
+                return  # without copying
+            elif openers[node[0].rstrip()].tag == "cite":
+                outparent.append("(CITATION)")
+            else:
+                outnode = []
+                for child in node:
+                    visit(child, outnode)
+                outparent.append(outnode)
+
+    outroot = []
+    visit(node, outroot)
+    assert len(outroot) == 1
+    return outroot[0]
 
 
 def append_text(xnode, text):
@@ -299,6 +320,7 @@ def latex_to_xml(s, fixed_case=False, trivial_math=False):
         tree = find_fixed_case(tree, conservative=True)
     if trivial_math:
         tree = flatten_trivial_math(tree)
+    tree = remove_notes(tree)
     tree = latextree_to_xml(tree)
     tree = xml_to_unicode(tree)
     return tree
