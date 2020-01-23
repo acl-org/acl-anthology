@@ -2,7 +2,7 @@
 Title: Requesting Corrections
 linktitle: Corrections
 subtitle: How to submit corrections to the Anthology
-date: "2019-11-16"
+date: "2020-01-22"
 ---
 
 ### Types of corrections
@@ -32,21 +32,32 @@ Please take note of the following regarding errata and revisions:
 
 ### Correcting Metadata
 
-For requests to change paper *metadata* (that do not require any PDF changes), please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new).
+For requests to change paper *metadata* (that do not require any PDF changes), please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new).[^1]
 **Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017`).
+Metadata changes are generally accepted if they comport with the PDF, which we take as authoritative.
+
+[^1]: We prefer to work through Github issues since it simplifies our workflow.
+   However, if your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
 
 The Anthology team will attend to the correction as we find time.
-If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a pull request (PR).
-To do this, first locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
+If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
+To do this, first fork our repository so that you can make edits to your local copy.
+Then, locate your file amongst our [authoritative XML files](https://github.com/acl-org/acl-anthology/tree/master/data/xml).
 As an example, if the Anthology ID of your paper is `P19-10171`, then the file you will need to edit is [data/xml/P19.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/P19.xml).
 Find your entry from some identifying information, make the correction, and issue a PR against our `master` branch.
-For smaller XML files, this can be done [directly in the browser](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
+For smaller XML files, you can avoid having to clone the repository by [editing directly in the browser](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
 
 ### Requesting revisions or errata
 
-To request a revision or an erratum, [please use this form](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u).
-For revisions, you will need to provide a paragraph-form summary of all the changes in the revision.
-This description will be published together with your revision and should be written in a neutral scientific tone.
-**Please ensure** that the link you provide is *directly* to a downloadable PDF that works with `wget`.
-If the metadata also needs to change, follow the instructions in the above paragraph for that as well.
-Anthology staff will respond to your request as time permits.
+For requests to change paper *content* (either a revision or an erratum), [please use this form](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u).
+**Please note the following**:
+
+- The PDF you submit needs to be retrievable via `wget` (please test this!)
+- You need to provide a summary of the changes.
+  This summary will be included in the Anthology, and should be written from a neutral,  scientific perspective.
+
+If the metadata also needs to change, please also follow the instructions in the above section.
+
+These conditions help us to process corrections more quickly.
+We will do our best to process revisions or errata within six weeks, but do not make guarantees as to the processing time.
+Submissions not meeting these standards will be rejected, potentially without notice.
