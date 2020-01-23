@@ -36,7 +36,7 @@ A request to change paper metadata (that does not require any PDF changes) can b
 
 -  (Preferred) Please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new).
    **Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017`).
--  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org. 
+-  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
    Again, please be sure to include the Anthology ID of the paper in your email.
 -  If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
    To do this, first fork our repository so that you can make edits to your local copy.
