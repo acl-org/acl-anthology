@@ -331,6 +331,8 @@ def parse_element(xml_element):
         elif tag == "video":
             # Treat videos the same way as other attachments
             tag = "attachment"
+            if element.get("permission", "yes") == "no":
+                continue
             value = {
                 "filename": element.get("href"),
                 "type": element.get("tag", "video"),
