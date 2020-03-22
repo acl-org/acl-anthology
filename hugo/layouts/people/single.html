@@ -36,13 +36,13 @@
       {{ range $person.papers }}
         {{/* Generate a heading per year -- assumes that papers are already sorted by year,
              which the YAML exporter should take care of */}}
-        {{ $paper := index (index $.Site.Data.papers (slicestr . 0 3)) . }}
+        {{ $paper := index (index $.Site.Data.papers (index (split . "-") 0)) . }}
         {{ if ne $paper.year ($.Scratch.Get "current_year") }}
           <h4>{{ $paper.year }}</h4>
           {{ $.Scratch.Set "current_year" $paper.year }}
         {{ end }}
 
-        {{ $page := printf "/papers/%s/%s/%s.md" (slicestr . 0 1) (slicestr . 0 3) . }}
+        {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
         {{ ($.Site.GetPage $page).Render "list-entry-author" }}
       {{ end }}
     </div>

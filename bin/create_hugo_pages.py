@@ -81,9 +81,7 @@ def create_papers(srcdir, clean=False):
             data = yaml.load(f, Loader=Loader)
         # Create a paper stub for each entry in the volume
         for anthology_id, entry in data.items():
-            paper_dir = "{}/content/papers/{}/{}".format(
-                srcdir, anthology_id[0], anthology_id[:3]
-            )
+            paper_dir = "{}/content/papers/{}".format(srcdir, anthology_id.split("-")[0])
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
@@ -110,15 +108,14 @@ def create_volumes(srcdir, clean=False):
     for anthology_id, entry in data.items():
         with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "w") as f:
             print("---", file=f)
+            paper_dir = "/papers/{}/{}/".format(anthology_id.split("-")[0], anthology_id)
             yaml.dump(
                 {
                     "anthology_id": anthology_id,
                     "title": entry["title"],
                     "aliases": [
                         "/volumes/{}/".format(slugify(entry["title"])),
-                        "/papers/{}/{}/{}/".format(
-                            anthology_id[0], anthology_id[:3], anthology_id
-                        ),
+                        paper_dir,
                     ],
                 },
                 default_flow_style=False,
