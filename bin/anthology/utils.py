@@ -409,9 +409,10 @@ def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=Non
     return el
 
 
-def make_nested(root, pdf_path: str):
+def make_nested(root, pdf_path: str, venue: str):
     """
     Converts an XML tree root to the nested format (if not already converted).
+    Also converts from old to new ID format.
 
     The original format was:
 
@@ -420,7 +421,7 @@ def make_nested(root, pdf_path: str):
 
     The nested format is:
 
-        <collection id="P19">
+        <collection id="2019.venue_id">
           <volume id="1">
             <frontmatter>
               ...
@@ -429,12 +430,13 @@ def make_nested(root, pdf_path: str):
     """
 
     collection_id = root.attrib["id"]
+    new_collection_id = f"{infer_year(collection_id)}.{venue}"
 
     if root.tag == "collection":
         return root
 
     new_root = make_simple_element("collection")
-    new_root.attrib["id"] = collection_id
+    new_root.attrib["id"] = new_collection_id
     new_root.tail = "\n"
 
     volume = None
@@ -464,7 +466,8 @@ def make_nested(root, pdf_path: str):
             int(paper_id[volume_width:]),
         )
         full_volume_id = f"{collection_id}-{volume_id:0{volume_width}d}"
-        full_paper_id = f"{full_volume_id}{paper_id:0{paper_width}d}"
+        # full_paper_id = f"{full_volume_id}{paper_id:0{paper_width}d}"
+        full_paper_id = f"{new_collection_id}-{volume_id}.{paper_id}"
 
         paper.attrib["id"] = "{}".format(paper_id)
 

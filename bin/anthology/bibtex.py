@@ -17,68 +17,6 @@ import re
 import logging
 import pybtex, pybtex.database.input.bibtex
 
-def fake_parse(s):
-    """Regexp-based parsing of possibly malformed BibTeX."""
-
-    # Bugs:
-    # - author and editor are stored as fields, not persons.
-
-    entries = {}
-    fields = {}
-    bibtype = bibkey = field = None
-    value = ""
-
-    def flush_field():
-        nonlocal field, value
-        value = value.strip()
-        if field is not None:
-            # Comma after value optional
-            if value.endswith(","): value = value[:-1]
-            # Enclosing braces or quotes optional
-            value = value.strip()
-            if value.startswith("{") and value.endswith("}"): value = value[1:-1]
-            elif value.startswith('"') and value.endswith('"'): value = value[1:-1]
-            fields[field] = value
-        elif value != "":
-            logging.warning("discarded text: {}".format(value))
-        field = None
-        value = ""
-
-    def flush_entry():
-        nonlocal fields
-        flush_field()
-        if len(fields) > 0:
-            entry = pybtex.database.Entry(bibtype, fields)
-            if bibkey in entries:
-                logging.warning("duplicate key: {}".format(bibkey))
-            logging.info(str(entry))
-            entries[bibkey] = entry
-            fields = {}
-
-    for line in s.splitlines():
-        logging.info(line)
-        # Comma after bibkey is optional
-        m = re.fullmatch('\s*@([A-Za-z]+)\s*\{\s*([^\s,]*),?\s*', line)
-        if m:
-            flush_entry() # Closing brace optional
-            bibtype = m.group(1)
-            bibkey = m.group(2)
-            continue
-
-        m = re.fullmatch('\s*([A-Za-z]+)\s*=\s*(.*)', line)
-        if m:
-            flush_field()
-            field = m.group(1)
-            value = m.group(2)
-            continue
-
-        if line.strip() == '}':
-            flush_entry()
-        else: # Continuation of previous line
-            value += '\n' + line
-
-    flush_entry() # Closing brace optional
-    return pybtex.database.BibliographyData(entries)
 
 def read_bibtex(bibfilename):
     # Guess encoding. BibTeX is theoretically always in ASCII
@@ -100,8 +38,9 @@ def read_bibtex(bibfilename):
 
     if bibstring.startswith('\uFEFF'): bibstring = bibstring[1:] # Unicode BOM
 
-    for parser in [lambda s: pybtex.database.parse_string(s, 'bibtex'),
-                   fake_parse]:
+    # for parser in [lambda s: pybtex.database.parse_string(s, 'bibtex'),
+    #                fake_parse]:
+    for parser in [lambda s: pybtex.database.parse_string(s, 'bibtex')]:
         try:
             bibdata = parser(bibstring)
         except KeyboardInterrupt:
