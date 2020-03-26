@@ -36,7 +36,8 @@ def read_bibtex(bibfilename):
         logging.warning("couldn't figure out encoding; using ascii with escapes")
         bibstring = bibbytes.decode('ascii', 'backslashreplace')
 
-    if bibstring.startswith('\uFEFF'): bibstring = bibstring[1:] # Unicode BOM
+    if bibstring.startswith('\uFEFF'):
+        bibstring = bibstring[1:]  # Unicode BOM
 
     # for parser in [lambda s: pybtex.database.parse_string(s, 'bibtex'),
     #                fake_parse]:
@@ -46,7 +47,9 @@ def read_bibtex(bibfilename):
         except KeyboardInterrupt:
             raise
         except Exception as e:
-            logging.warning("BibTeX parser raised exception '{}'; trying alternate parser".format(e))
+            logging.warning(
+                "BibTeX parser raised exception '{}'; trying alternate parser".format(e)
+            )
         else:
             break
     else:

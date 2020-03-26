@@ -42,7 +42,13 @@ from collections import defaultdict, OrderedDict
 from datetime import datetime
 
 from normalize_anth import normalize
-from anthology.utils import make_nested, make_simple_element, build_anthology_id, deconstruct_anthology_id, indent
+from anthology.utils import (
+    make_nested,
+    make_simple_element,
+    build_anthology_id,
+    deconstruct_anthology_id,
+    indent,
+)
 from anthology.index import AnthologyIndex
 from anthology.people import PersonName
 from anthology.bibtex import read_bibtex
@@ -57,7 +63,7 @@ def log(text: str, fake: bool = False):
 
 
 def read_meta(path: str) -> Dict[str, Any]:
-    meta = { "chairs": [] }
+    meta = {"chairs": []}
     with open(path) as instream:
         for line in instream:
             key, value = line.rstrip().split(" ", maxsplit=1)
@@ -73,13 +79,25 @@ def bib2xml(bibfilename, anthology_id):
     Moved here from ACLPUB's anthology_xml.py script.
     """
 
-    fields = ['title', 'author', 'editor', 'booktitle',
-              'month', 'year', 'address', 'publisher',
-              'pages', 'abstract', 'url', 'doi']
+    fields = [
+        'title',
+        'author',
+        'editor',
+        'booktitle',
+        'month',
+        'year',
+        'address',
+        'publisher',
+        'pages',
+        'abstract',
+        'url',
+        'doi',
+    ]
 
     # log(f"Reading {bibfilename}")
     collection_id, volume_name, paper_no = deconstruct_anthology_id(anthology_id)
-    if paper_no == '': return # skip the master bib file; we only process the individual files
+    if paper_no == '':
+        return  # skip the master bib file; we only process the individual files
 
     bibdata = read_bibtex(bibfilename)
     if len(bibdata.entries) != 1:
@@ -96,14 +114,16 @@ def bib2xml(bibfilename, anthology_id):
             if field in bibentry.persons:
                 for person in bibentry.persons[field]:
                     first_text = ' '.join(person.bibtex_first_names)
-                    last_text = ' '.join(person.prelast_names +
-                                         person.last_names)
+                    last_text = ' '.join(person.prelast_names + person.last_names)
                     if person.lineage_names:
                         last_text += ', ' + ' '.join(person.lineage_names)
 
                     # Don't distinguish between authors that have only a first name
                     # vs. authors that have only a last name; always make it a last name.
-                    if last_text.strip() in ['', '-']: # Some START users have '-' for null
+                    if last_text.strip() in [
+                        '',
+                        '-',
+                    ]:  # Some START users have '-' for null
                         last_text = first_text
                         first_text = ''
 
@@ -138,7 +158,9 @@ def main(args):
         meta = read_meta(os.path.join(proceedings, "meta"))
         meta["path"] = proceedings
 
-        meta["collection_id"] = collection_id = meta["year"] + "." + meta["abbrev"].lower()
+        meta["collection_id"] = collection_id = (
+            meta["year"] + "." + meta["abbrev"].lower()
+        )
         volume_name = meta["volume_name"]
         volume_full_id = f"{collection_id}-{volume_name}"
 
@@ -165,7 +187,9 @@ def main(args):
         book_src_path = os.path.join(root_path, book_src_filename) + ".pdf"
         book_dest_path = None
         if os.path.exists(book_src_path):
-            book_dest_path = os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
+            book_dest_path = (
+                os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
+            )
 
             log(f"Copying {book_src_path} -> {book_dest_path}", args.dry_run)
             if not args.dry_run:
@@ -182,11 +206,20 @@ def main(args):
                 paper_num = int(match[1])
                 paper_id_full = f"{collection_id}-{volume_name}.{paper_num}"
 
-                bib_path = os.path.join(root_path, "bib", pdf_file.replace("/pdf", "/bib/").replace(".pdf", ".bib"))
+                bib_path = os.path.join(
+                    root_path,
+                    "bib",
+                    pdf_file.replace("/pdf", "/bib/").replace(".pdf", ".bib"),
+                )
 
                 pdf_src_path = os.path.join(pdf_src_dir, pdf_file)
-                pdf_dest_path = os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf")
-                log(f"Copying [{paper_id_full}] {pdf_src_path} -> {pdf_dest_path}", args.dry_run)
+                pdf_dest_path = os.path.join(
+                    pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
+                )
+                log(
+                    f"Copying [{paper_id_full}] {pdf_src_path} -> {pdf_dest_path}",
+                    args.dry_run,
+                )
                 if not args.dry_run:
                     shutil.copyfile(pdf_src_path, pdf_dest_path)
 
@@ -214,18 +247,24 @@ def main(args):
                     if not args.dry_run:
                         shutil.copyfile(attachment_file, dest_path)
 
-                    collections[collection_id][volume_name][paper_num]["attachments"].append(dest_path)
+                    collections[collection_id][volume_name][paper_num][
+                        "attachments"
+                    ].append(dest_path)
 
     people = AnthologyIndex(
         None, srcdir=os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
     )
 
     for collection_id, collection in collections.items():
-        collection_file = os.path.join(args.anthology_dir, "data", "xml", f"{collection_id}.xml")
-        root_node = make_simple_element("collection", attrib={ "id": collection_id })
+        collection_file = os.path.join(
+            args.anthology_dir, "data", "xml", f"{collection_id}.xml"
+        )
+        root_node = make_simple_element("collection", attrib={"id": collection_id})
 
         for volume_id, volume in collection.items():
-            volume_node = make_simple_element("volume", attrib={"id": volume_id}, parent=root_node)
+            volume_node = make_simple_element(
+                "volume", attrib={"id": volume_id}, parent=root_node
+            )
             meta = None
 
             for paper_num, paper in sorted(volume.items()):
@@ -247,7 +286,9 @@ def main(args):
                     meta.append(paper_node.find("month"))
                     meta.append(paper_node.find("year"))
                     if book_dest_path is not None:
-                        make_simple_element("url", text=f"{collection_id}-{volume_name}", parent=meta)
+                        make_simple_element(
+                            "url", text=f"{collection_id}-{volume_name}", parent=meta
+                        )
 
                     # modify frontmatter tag
                     paper_node.tag = "frontmatter"
@@ -255,16 +296,21 @@ def main(args):
                 else:
                     # remove unneeded fields
                     for child in paper_node:
-                        if child.tag in ["editor", "address", "booktitle", "publisher", "year", "month"]:
+                        if child.tag in [
+                            "editor",
+                            "address",
+                            "booktitle",
+                            "publisher",
+                            "year",
+                            "month",
+                        ]:
                             paper_node.remove(child)
 
                 for attachment in paper["attachments"]:
                     make_simple_element(
                         "attachment",
                         text=attachment.path,
-                        attrib={
-                            "type": attachment.type,
-                        },
+                        attrib={"type": attachment.type,},
                         parent=paper_node,
                     )
 
@@ -275,7 +321,6 @@ def main(args):
         for paper in root_node.findall(".//paper"):
             for oldnode in paper:
                 normalize(oldnode, informat="latex")
-
 
         # Ensure names are properly identified
         ambiguous = {}
@@ -308,9 +353,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "proceedings",
-        nargs="+",
-        help="List of paths to ACLPUB proceedings/ directories."
+        "proceedings", nargs="+", help="List of paths to ACLPUB proceedings/ directories."
     )
     parser.add_argument(
         "--ingest-date",
@@ -328,23 +371,17 @@ if __name__ == "__main__":
     )
     pdfs_path = os.path.join(os.environ["HOME"], "anthology-files", "pdf")
     parser.add_argument(
-        "--pdfs-dir",
-        "-p",
-        default=pdfs_path,
-        help="Root path for placement of PDF files"
+        "--pdfs-dir", "-p", default=pdfs_path, help="Root path for placement of PDF files"
     )
     attachments_path = os.path.join(os.environ["HOME"], "anthology-files", "attachments")
     parser.add_argument(
         "--attachments-dir",
         "-a",
         default=attachments_path,
-        help="Root path for placement of PDF files"
+        help="Root path for placement of PDF files",
     )
     parser.add_argument(
-        "--dry-run",
-        "-n",
-        action="store_true",
-        help="Don't actually copy anything."
+        "--dry-run", "-n", action="store_true", help="Don't actually copy anything."
     )
     args = parser.parse_args()
 
