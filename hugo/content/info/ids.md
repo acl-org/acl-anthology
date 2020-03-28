@@ -10,6 +10,7 @@ Every item in the anthology is assigned an Anthology ID and a canonical URL so t
 ## Identifier format
 
 We introduced a new identifier scheme in 2020 in order to accommodate growth in the Anthology.
+Everything ingested in 2020 and afterwards will have these IDs (including volumes from years prior to 2020).
 The new identifiers are of the form `YEAR.VENUE-VOLUME.NUMBER`, where
 
 - YEAR is the 4-digit year (e.g., "2020)
@@ -57,7 +58,7 @@ This works for other provided files such as BibTeX (.bib) and MODS XML (.xml).
 
 ## Anthology IDs prior to 2020
 
-Anthology IDs prior to 2020 had a unique 8-character identifier, comprising a letter, a two digit year, and a 4 digit volume and paper ID (e.g., P18-1024).
+Anthology IDs from volumes ingested prior to 2020 had a unique 8-character identifier, comprising a letter, a two digit year, and a 4 digit volume and paper ID (e.g., P18-1024).
 The paper ID decomposes into a volume ID and a paper ID.
 For large or prominent events related to ACL or its sister organizations that recur on a yearly basis, we used a separate lettered prefix (e.g., ACL, which is "P").
 With only two exceptions (see the table below), in such cases, the volume ID is 1 digit and the paper ID is 3 digits.
