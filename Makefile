@@ -26,7 +26,7 @@ ANTHOLOGYDIR := anthology
 HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
-xmlstaged=$(shell git diff --staged --name-only --diff-filter=d data/xml/*)
+xmlstaged=$(shell git diff --staged --name-only --diff-filter=d data/xml/*.xml)
 pysources=$(shell git ls-files | egrep "\.pyi?$$")
 pystaged=$(shell git diff --staged --name-only  --diff-filter=d | egrep "\.pyi?$$")
 

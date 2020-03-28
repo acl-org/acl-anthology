@@ -175,7 +175,7 @@ class AnthologyIndex:
         """Create a unique bibliography key for the given paper."""
         if paper.is_volume:
             # Proceedings volumes use venue acronym instead of authors/editors
-            bibnames = slugify(self._parent.venues.get_by_letter(paper.full_id[0]))
+            bibnames = slugify(self._parent.venues.get_main_venue(paper.full_id))
         else:
             # Regular papers use author/editor names
             names = paper.get("author")
