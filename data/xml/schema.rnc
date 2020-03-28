@@ -79,14 +79,14 @@ Frontmatter = element frontmatter {
   )
 }
 Volume = element volume {
-  attribute id { xsd:positiveInteger },
+  attribute id { xsd:string },
   attribute ingest-date { xsd:date }?,
   Meta,
   Frontmatter?,
   Paper*
 }
 Collection = element collection {
-  attribute id { xsd:NCName },
+  attribute id { xsd:string },
   Volume+
 }
 start = Collection

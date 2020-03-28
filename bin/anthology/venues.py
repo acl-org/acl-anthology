@@ -23,10 +23,13 @@ try:
 except ImportError:
     from yaml import Loader
 
+from .utils import is_newstyle_id, deconstruct_anthology_id
+
 
 class VenueIndex:
     def __init__(self, srcdir=None):
         self.venues, self.letters, self.joint_map = {}, {}, {}
+        self.mapping = {}  # map new-style IDs to venues
         if srcdir is not None:
             self.load_from_dir(srcdir)
 
@@ -55,6 +58,16 @@ class VenueIndex:
                 if isinstance(joint, str):
                     joint = [joint]
                 self.joint_map[id_] = joint
+        with open("{}/yaml/venues_mapping.yaml".format(directory), "r") as f:
+            map_dict = yaml.load(f, Loader=Loader)
+            for id_, data in map_dict.items():
+                if data["venue"] not in self.venues:
+                    log.critical(f"Venue '{data['venue']}' not defined in venues.yaml")
+                self.mapping[id_] = data["venue"]
+                for volume_id, joint in data.get("joint", {}).items():
+                    if isinstance(joint, str):
+                        joint = [joint]
+                    self.joint_map[volume_id] = joint
 
     def get_by_letter(self, letter):
         """Get a venue acronym by first letter (e.g., Q -> TACL)."""
@@ -66,9 +79,17 @@ class VenueIndex:
                 "Maybe '{}' needs to be defined in venues_letters.yaml?".format(letter)
             )
 
+    def get_main_venue(self, anthology_id):
+        """Get a venue acronym by anthology ID (e.g., acl -> ACL)."""
+        collection_id, *_ = deconstruct_anthology_id(anthology_id)
+        if is_newstyle_id(collection_id):
+            return self.mapping[collection_id.split(".")[-1]]
+        else:
+            return self.get_by_letter(collection_id[0])
+
     def get_associated_venues(self, anthology_id):
         """Get a list of all venue acronyms for a given (volume) anthology ID."""
-        venues = [self.get_by_letter(anthology_id[0])]
+        venues = [self.get_main_venue(anthology_id)]
         if anthology_id in self.joint_map:
             venues += self.joint_map[anthology_id]
         return sorted(set(venues))

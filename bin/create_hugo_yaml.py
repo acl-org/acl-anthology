@@ -132,7 +132,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     for acronym, data in anthology.venues.items():
         data = data.copy()
         data["volumes_by_year"] = {
-            year: sorted(filter(lambda k: volumes[k]["year"] == year, data["volumes"]))
+            year: list(filter(lambda k: volumes[k]["year"] == year, data["volumes"]))
             for year in sorted(data["years"])
         }
         data["years"] = sorted(list(data["years"]))

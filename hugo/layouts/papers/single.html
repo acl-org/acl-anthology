@@ -1,5 +1,5 @@
 {{ define "meta" }}
-{{ $volume_id := slicestr .Params.anthology_id 0 3 }}
+{{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
   <meta content="{{ $paper.title }}" name="citation_title" >
 {{ range $paper.author }}
@@ -49,7 +49,7 @@
 
 {{ define "main" }}
 {{ $anthology_id := .Params.anthology_id }}
-{{ $volume_id := slicestr .Params.anthology_id 0 3 }}
+{{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <section id="main">
   <h2 id="title">
