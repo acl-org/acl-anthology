@@ -19,10 +19,10 @@ import pybtex, pybtex.database.input.bibtex
 
 
 def read_bibtex(bibfilename):
-    # Guess encoding. BibTeX is theoretically always in ASCII
+    """
+    Reads bibtex data from a file into pybtex data structures.
+    """
 
-    global location
-    location = bibfilename
     bibbytes = open(bibfilename, "rb").read()
     bibstring = None
     for encoding in ['ascii', 'utf8', 'cp1252']:
@@ -41,19 +41,15 @@ def read_bibtex(bibfilename):
 
     # for parser in [lambda s: pybtex.database.parse_string(s, 'bibtex'),
     #                fake_parse]:
-    for parser in [lambda s: pybtex.database.parse_string(s, 'bibtex')]:
-        try:
-            bibdata = parser(bibstring)
-        except KeyboardInterrupt:
-            raise
-        except Exception as e:
-            logging.warning(
-                "BibTeX parser raised exception '{}'; trying alternate parser".format(e)
-            )
-        else:
-            break
-    else:
-        logging.error('No more parsers; giving up.')
-        return pybtex.database.BibliographyData(dict())
+    parser = pybtex.database.parse_string(s, 'bibtex')
+    try:
+        bibdata = parser(bibstring)
+    except KeyboardInterrupt:
+        raise
+    except Exception as e:
+        logging.warning(
+            "BibTeX parser raised exception '{}'; trying alternate parser".format(e)
+        )
+        bibdata = pybtex.database.BibliographyData(dict())
 
     return bibdata

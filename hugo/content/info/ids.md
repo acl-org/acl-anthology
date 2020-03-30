@@ -37,7 +37,7 @@ A key notion in file naming is the paper number.
 The general rule is that papers will be numbered consecutively within the bound volume in which they appear.
 When a proceedings is divided into multiple volumes, paper numbers will begin from number '1', with each new volume.
 
-By convention, any front matter is given the paper number '0', padded to the ACL ID length (e.g., 2020.acl-srw.0, 2020.emnlp-1.0).
+By convention, any front matter is given the paper number '0' (e.g., 2020.acl-srw.0, 2020.emnlp-1.0).
 Any back matter is assigned the last paper number in the volume.
 Front and back matter that appears internally to a volume will be counted just like an ordinary paper.
 
