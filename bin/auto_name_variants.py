@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
     for filename in sys.argv[1:]:
         volume = etree.parse(filename).getroot()
-        for paper in volume.findall("paper"):
+        for paper in volume.findall(".//paper"):
             for person in paper.xpath("./author|./editor"):
                 first = text(person.find("first"))
                 last = text(person.find("last"))
