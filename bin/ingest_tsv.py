@@ -32,7 +32,7 @@ import subprocess
 import sys
 import urllib.request
 
-from anthology.utils import make_nested, make_simple_element, build_anthology_id, indent
+from anthology.utils import make_simple_element, indent
 from normalize_anth import normalize
 
 
@@ -82,9 +82,9 @@ def extract_pages(source_path, page_range, local_path):
 
 
 def main(args):
-    code, year, _ = os.path.basename(args.tsv_file.name).split(".")
+    venue, year, _ = os.path.basename(args.tsv_file.name).split(".")
 
-    collection_id = f"{year}.{code}"
+    collection_id = f"{year}.{venue}"
 
     tree = etree.ElementTree(
         make_simple_element("collection", attrib={"id": collection_id})
@@ -167,7 +167,9 @@ def main(args):
                 make_simple_element("pages", pages, parent=frontmatter)
 
             url = f"{collection_id}-{volume_id}.{paperid}"
-            pdf_local_path = os.path.join(collection_id, f"{url}.pdf")
+            pdf_local_path = os.path.join(
+                args.anthology_files_path, venue, f"{url}.pdf"
+            )
             make_simple_element("url", url, parent=frontmatter)
             if not pdf is None:
                 if not download(pdf, pdf_local_path):
@@ -204,7 +206,7 @@ def main(args):
 
         url = f"{collection_id}-{volume_id}.{paperid}"
         pdf_local_path = os.path.join(
-            args.anthology_files_path, collection_id, f"{url}.pdf"
+            args.anthology_files_path, venue, f"{url}.pdf"
         )
         if not pdf is None:
             if not download(pdf, pdf_local_path):
