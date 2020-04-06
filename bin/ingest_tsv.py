@@ -161,7 +161,6 @@ def main(args):
                 pdf = row["Pdf"]
             except KeyError:
                 pdf = None
-            paper = make_simple_element("frontmatter", parent=volume)
             frontmatter = make_simple_element("frontmatter", parent=volume)
             if pages is not None:
                 make_simple_element("pages", pages, parent=frontmatter)
