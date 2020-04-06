@@ -166,9 +166,7 @@ def main(args):
                 make_simple_element("pages", pages, parent=frontmatter)
 
             url = f"{collection_id}-{volume_id}.{paperid}"
-            pdf_local_path = os.path.join(
-                args.anthology_files_path, venue, f"{url}.pdf"
-            )
+            pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{url}.pdf")
             make_simple_element("url", url, parent=frontmatter)
             if not pdf is None:
                 if not download(pdf, pdf_local_path):
@@ -204,9 +202,7 @@ def main(args):
             make_simple_element("pages", pages, parent=paper)
 
         url = f"{collection_id}-{volume_id}.{paperid}"
-        pdf_local_path = os.path.join(
-            args.anthology_files_path, venue, f"{url}.pdf"
-        )
+        pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{url}.pdf")
         if not pdf is None:
             if not download(pdf, pdf_local_path):
                 url = None
