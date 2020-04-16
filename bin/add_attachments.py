@@ -59,17 +59,6 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
     """
 
     collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
-    paper_extension = path.replace("?dl=1", "").split(".")[-1]
-
-    output_dir = os.path.join(args.attachment_root, collection_id[0], collection_id)
-    attachment_file_name = f"{anthology_id}.{attach_type}.{paper_extension}"
-    dest_path = os.path.join(output_dir, attachment_file_name)
-    if os.path.exists(dest_path) and not overwrite:
-        print(
-            f"-> target file {dest_path} already in place, refusing to overwrite",
-            file=sys.stderr,
-        )
-        return None
 
     if path.startswith("http"):
         _, input_file_path = tempfile.mkstemp()
@@ -77,28 +66,35 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
             print(
                 f"-> Downloading file from {path} to {input_file_path}", file=sys.stderr
             )
-            with urllib.request.urlopen(path) as url, open(
+            request = urllib.request.Request(path, headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(request) as url, open(
                 input_file_path, mode="wb"
             ) as input_file_fh:
                 input_file_fh.write(url.read())
         except ssl.SSLError:
             raise Exception(f"Could not download {path}")
+        except Exception as e:
+            raise e
     else:
         input_file_path = path
 
-    detected = filetype.guess(input_file_path)
-    if detected is None or not detected.mime.endswith(detected.extension):
-        mime_type = 'UNKNOWN' if detected is None else detected.mime
-        raise Exception(f"{anthology_id} file {path} has MIME type {mime_type}")
-
-    if paper_extension not in ALLOWED_TYPES:
-        raise Exception(f"-> Unknown file extension {paper_extension} for {path}")
+    file_extension = path.replace("?dl=1", "").split(".")[-1]
+    # Many links from file sharing services are not informative and don't have
+    # extensions, so we could try to guess.
+    if file_extension not in ALLOWED_TYPES:
+        detected = filetype.guess(input_file_path)
+        if detected is not None:
+            file_extension = detected.mime.split("/")[-1]
+            if file_extension not in ALLOWED_TYPES:
+                print(f"Could not determine file extension for {anthology_id} at {path}", file=sys.stderr)
 
     # Update XML
     xml_file = os.path.join(
         os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
     )
     tree = ET.parse(xml_file)
+
+    attachment_file_name = f"{anthology_id}.{attach_type}.{file_extension}"
 
     paper = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
     if paper is not None:
@@ -123,14 +119,23 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
             )
 
     else:
-        raise Exception(f"Paper {anthology_id} not found in the Anthology")
+        print(f"Paper {anthology_id} not found in the Anthology", file=sys.stderr)
 
     # Make sure directory exists
+    output_dir = os.path.join(args.attachment_root, collection_id[0], collection_id)
     if not os.path.exists(output_dir):
         #        print(f"-> Creating directory {output_dir}", file=sys.stderr)
         os.makedirs(output_dir)
 
     # Copy file
+    dest_path = os.path.join(output_dir, attachment_file_name)
+    if os.path.exists(dest_path) and not overwrite:
+        print(
+            f"-> target file {dest_path} already in place, refusing to overwrite",
+            file=sys.stderr,
+        )
+        return None
+
     shutil.copy(input_file_path, dest_path)
     os.chmod(dest_path, 0o644)
     print(f"-> copied {input_file_path} to {dest_path} and fixed perms", file=sys.stderr)
@@ -148,7 +153,7 @@ def main(args):
         for row in csv.DictReader(csv_file):
             # ID,Start time,Completion time,Email,Name,Anthology ID,URL where we can download the attachment,Attachment type,"For corrections or errata, please explain in detailed prose what has changed.",Your name,Your email address,I agree to the Anthology's CC-BY-4.0 distribution license
             anthology_id = row["Anthology ID"].strip()
-            download_path = row["URL where we can download the attachment"]
+            download_path = row["URL"]
             attachment_type = row["Attachment type"]
             submitter_name = row["Your name"]
             submitter_email = row["Your email address"]
@@ -156,14 +161,14 @@ def main(args):
 
             if attachment_type not in ATTACHMENT_TYPES:
                 print(
-                    f"Skipping unknown type {attachment_type}[{anthology_id}]: {download_path}",
+                    f"{anthology_id}: Skipping unknown type {attachment_type}: {download_path}",
                     file=sys.stderr,
                 )
                 continue
 
             if anthology_id in attachments:
                 print(
-                    f"Replacing earlier entry for {anthology_id}[{attachment_type}: {download_path}",
+                    f"{anthology_id}: Received multiple entries, only processing the last one ({attachment_type}): {download_path}",
                     file=sys.stderr,
                 )
 
@@ -207,9 +212,9 @@ def main(args):
                         f"\n"
                         f"  {reason}\n"
                         f"\n"
-                        f"If you like, please resubmit using this link:\n"
+                        f"To resubmit, follow the instructions here:\n"
                         f"\n"
-                        f"  https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u\n",
+                        f"  https://www.aclweb.org/anthology/info/corrections/\n",
                         f"\n"
                         f"There is no need to respond to this email.\n"
                         f"\n"
