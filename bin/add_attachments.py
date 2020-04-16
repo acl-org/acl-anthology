@@ -86,7 +86,10 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
         if detected is not None:
             file_extension = detected.mime.split("/")[-1]
             if file_extension not in ALLOWED_TYPES:
-                print(f"Could not determine file extension for {anthology_id} at {path}", file=sys.stderr)
+                print(
+                    f"Could not determine file extension for {anthology_id} at {path}",
+                    file=sys.stderr,
+                )
 
     # Update XML
     xml_file = os.path.join(
