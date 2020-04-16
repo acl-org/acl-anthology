@@ -1,6 +1,6 @@
 ---
 name: File a Correction
-about: Correction paper data in the Anthology
+about: Correcting paper data in the Anthology
 title: Correction to Anthology ID XXX
 labels: correction
 assignees: mjpost
@@ -16,7 +16,7 @@ assignees: mjpost
 
 ## Revision or erratum: please add the following information**
 
-- [ ] I have described attached the revised PDF or erratum to this issue
+- [ ] I have attached the revised PDF or erratum to this issue
 - [ ] I have written a brief description of the changes below
 
 The brief description of the changes will be displayed on your paper page, and should be written in a neutral (third-person) fashion with complete sentences. For example:
