@@ -45,7 +45,7 @@ import ssl
 import sys
 import tempfile
 
-from anthology.utils import deconstruct_anthology_id, indent
+from anthology.utils import deconstruct_anthology_id, make_simple_element, indent
 from anthology.data import ANTHOLOGY_PDF
 
 import lxml.etree as ET
@@ -116,17 +116,15 @@ def main(args):
             revno = int(revision.attrib["id"]) + 1
 
         if not args.dry_run:
-            revision = ET.Element(change_type)
-            revision.attrib["id"] = str(revno)
-            revision.attrib["href"] = f"{args.anthology_id}{change_letter}{revno}"
-            revision.text = args.explanation
-
-            # Set tails to maintain proper indentation
-            paper[-1].tail += "  "
-            revision.tail = "\n    "  # newline and two levels of indent
-
-            paper.append(revision)
-
+            revision = make_simple_element(
+                change_type,
+                args.explanation,
+                attrib = { "id": str(revno),
+                           "href": f"{args.anthology_id}{change_letter}{revno}",
+                           "date": args.date,
+                           },
+                parent=paper
+            )
             indent(tree.getroot())
 
             tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
@@ -205,6 +203,12 @@ if __name__ == "__main__":
         "-e",
         action="store_true",
         help="This is an erratum instead of a revision.",
+    )
+    parser.add_argument(
+        "--date",
+        "-d",
+        type=str,
+        help="The date of the revision (ISO 8601 format)"
     )
     parser.add_argument(
         "--dry-run", "-n", action="store_true", default=False, help="Just a dry run."
