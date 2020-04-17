@@ -37,6 +37,7 @@ import sys
 from anthology.utils import is_valid_id
 from datetime import datetime
 
+
 def main(args):
 
     for row in csv.DictReader(args.csv_file):
@@ -64,12 +65,18 @@ def main(args):
             os.makedirs(outdir)
         outfile = os.path.join(outdir, f"{anthology_id}.txt")
         if os.path.exists(outfile):
-            print(f"* Refusing to overwrite existing file {outfile}, skipping", file=sys.stderr)
+            print(
+                f"* Refusing to overwrite existing file {outfile}, skipping",
+                file=sys.stderr,
+            )
             continue
         else:
             with open(outfile, "w") as out:
                 erratum_flag = '' if attachment_type == 'Correction' else '-e '
-                print(f'{erratum_flag}{anthology_id} -d {date} "{download_path}" "{explanation}"', file=out)
+                print(
+                    f'{erratum_flag}{anthology_id} -d {date} "{download_path}" "{explanation}"',
+                    file=out,
+                )
                 print(f"Wrote line for {anthology_id} to {outfile}", file=sys.stderr)
 
 
