@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import re
+import re, sys
 import nltk.tokenize, nltk.corpus
 
 falselist = set([w for w in nltk.corpus.words.words() if w.islower()])
@@ -90,7 +90,7 @@ def fixedcase_title(ws, truelist=None, phrase_truelist=None, amodifiers=None, nd
             bs[-1] = True
         elif b[0] and is_hyphen(ws[i-1]) and amodifiers and ws[i-2] in amodifiers:
             bs[-2] = True
-        elif not b[0] and bs[-1] and ndescriptors and ws[0] in ndescriptors:
+        elif not b[0] and bs[-1] and ndescriptors and ws[i-1] in ndescriptors:
             # "<name> <ndescriptor>", e.g. Columbia University
             b[0] = True
         elif b[0] and ndescriptors and i>=2 and ws[i-1]=="of" and ws[i-2] in ndescriptors:

@@ -55,7 +55,6 @@ def protect_recurse(node, recased):
             process(child.tail, recased)
             recased = recased[len(child.tail):]
 
-    assert len(recased)==0
     return newnode
 
 
