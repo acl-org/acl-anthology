@@ -59,11 +59,11 @@ RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9]{1,2})\.pdf$ /anthology-files/pdf/$1/
 # PDF link, revisions, and errata (P17-1069[v2].pdf loads P/P17/P17-1069[v2].pdf --- with "v2" optional)
 # TODO: decide on a new format for revisions and errata
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])([ve][0-9]+)?\.pdf$ /anthology-files/pdf/$1/$1$2/$1$2-$3$4.pdf [L,NC]
-RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-(\d+\.\d+)\.pdf$ /anthology-files/pdf/$2/$1.$2-$3.pdf [L,NC]
+RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+\.\d+)\.pdf$ /anthology-files/pdf/$2/$1.$2-$3.pdf [L,NC]
 
 # Attachments (e.g., P17-1069.Poster.pdf loads /anthology-files/attachments/P/P17/P17-1069.Poster.pdf)
 RewriteRule ^attachments/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ /anthology-files/attachments/$1/$1$2/$1$2-$3$4 [L,NC]
-RewriteRule ^(\d{4}\.[a-zA-Z0-9]+)(\-\d+\.\d+)\.pdf$ /anthology-files/pdf/$1/$1$2.pdf [L,NC]
+RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+\.\d+)\.(.*)$ /anthology-files/attachments/$2/$1.$2-$3.$4 [L,NC]
 
 # Thumbnails (e.g., /thumb/P17-1069.jpg loads /anthology-files/thumb/P17-1069.jpg)
 RewriteRule ^thumb/(.*)$ /anthology-files/thumb/$1 [L,NC]
