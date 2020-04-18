@@ -14,6 +14,8 @@ import copy
 import itertools
 import inspect
 
+from collections import defaultdict
+
 if __name__ == "__main__":
     from common import *
 else:
@@ -69,14 +71,23 @@ def protect(node):
 
 # Read in the truelist (list of words that should always be protected)
 truelist = set()
+phrase_truelist = defaultdict(list)
 module_file = inspect.getfile(inspect.currentframe())
 module_dir = os.path.dirname(os.path.abspath(module_file))
 truelist_file = os.path.join(module_dir, "truelist")
+phrase_truelist_file = os.path.join(module_dir, "truelist-phrases")
 for line in open(truelist_file):
     line = line.split("#")[0].strip()
     if line == "":
         continue
     truelist.add(line)
+for line in open(phrase_truelist_file):
+    line = line.split("#")[0].strip()
+    if line == "":
+        continue
+    toks = tokenize(line)
+    phrase_truelist[len(toks)].add(toks)    # group phrases by number of tokens
+phrase_truelist = sorted(phrase_truelist.items(), reverse=True) # bins sorted by phrase length
 
 
 if __name__ == "__main__":
