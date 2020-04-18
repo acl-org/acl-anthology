@@ -23,44 +23,6 @@ else:
 
 # recursive helper called by protect
 # protect text of "node", including children, and tails of children
-def protect_wordtypes_recurse(node, words):
-    if node.tag == "fixed-case":  # already protected
-        newnode = copy.deepcopy(node)  # don't need to modify descendents
-        newnode.tail = None  # tail will be protected by caller
-        return newnode
-    newnode = ET.Element(node.tag, node.attrib)
-
-    def process(text):
-        if text is None:
-            return
-        i = 0
-        while i < len(text):
-            for w in words:
-                if text[i:].startswith(w) and not (
-                    i + len(w) < len(text) and text[i + len(w)].isalpha()
-                ):
-                    for upper, chars in itertools.groupby(w, lambda c: c.isupper()):
-                        if upper:
-                            p = ET.Element("fixed-case")
-                            p.text = "".join(chars)
-                            newnode.append(p)
-                        else:
-                            append_text(newnode, "".join(chars))
-                    i += len(w)
-                    break
-            else:
-                append_text(newnode, text[i])
-                i += 1
-
-    process(node.text)
-    for child in node:
-        newnode.append(protect_wordtypes_recurse(child, words))
-        process(child.tail)
-    return newnode
-
-
-# recursive helper called by protect
-# protect text of "node", including children, and tails of children
 def protect_recurse(node, recased):
     if node.tag == "fixed-case":  # already protected
         newnode = copy.deepcopy(node)  # don't need to modify descendents
