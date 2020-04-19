@@ -6,7 +6,7 @@
 
 Fixed-caseness is determined by these rules:
 
-1. If a phrase (ignoring hyphens) appears in `truelist-phrases`,
+1. If a multiword phrase (ignoring hyphens) appears in `truelist`,
    it is fixed-case. Phrases are matched greedily from left to right.
 2. If a word appears in `truelist`, it is fixed-case.
 3. Unless the title is in all caps (i.e. >50% of the words are all-uppercase),
@@ -34,10 +34,8 @@ Examples:
 The `truelist` contains words from past abstracts whose most-frequent
 version is not all-lowercase. To reduce the size of this list, if a
 word would be marked fixed-case or not by the above rules, it is
-excluded from the list.
-
-The `truelist` in this repository has manual corrections and additions,
+excluded from the list. The file has manual corrections and additions,
 so please don't regenerate it.
 
-The file `truelist-phrases` contains a manually identified selection of
+The `truelist` also contains a manually identified selection of
 multiword phrases that should be fixed-case.

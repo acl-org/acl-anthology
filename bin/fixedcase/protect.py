@@ -92,21 +92,18 @@ phrase_truelist = defaultdict(set)
 module_file = inspect.getfile(inspect.currentframe())
 module_dir = os.path.dirname(os.path.abspath(module_file))
 truelist_file = os.path.join(module_dir, "truelist")
-phrase_truelist_file = os.path.join(module_dir, "truelist-phrases")
 for line in open(truelist_file):
     line = line.split("#")[0].strip()
     if line == "":
         continue
-    truelist.add(line)
-for line in open(phrase_truelist_file):
-    line = line.split("#")[0].strip()
-    if line == "":
-        continue
-    toks = tuple(tokenize(line))
-    assert (
-        no_hyphens(toks) == toks
-    ), f'Phrasal truelist entries should not contain hyphens: {line}'
-    phrase_truelist[len(toks)].add(toks)  # group phrases by number of tokens
+    assert not any(
+        is_hyphen(c) for c in line
+    ), f'Truelist entries should not contain hyphens: {line}'
+    if ' ' not in line:
+        truelist.add(line)
+    else:
+        toks = tuple(tokenize(line))
+        phrase_truelist[len(toks)].add(toks)  # group phrases by number of tokens
 phrase_truelist = sorted(
     phrase_truelist.items(), reverse=True
 )  # bins sorted by phrase length
