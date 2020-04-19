@@ -3,6 +3,8 @@
 import re, sys
 import nltk.tokenize, nltk.corpus
 
+from nltk.tokenize.treebank import TreebankWordDetokenizer
+
 falselist = set([w for w in nltk.corpus.words.words() if w.islower()])
 separators = [":", "--", "\u2013", "---", "\u2014", "\u2015"]
 
@@ -36,7 +38,7 @@ def tokenize(s):
     tokens = []
     # NLTK tokenizer uses PTB standard, which doesn't split on hyphens or slashes
     for tok in nltk.tokenize.word_tokenize(s):
-        # TODO: replaces quote " with '' (W14)
+        # tokenizer normalizes quotes etc., so we need to detokenize later
         tokens.extend([t for t in re.split(r"([-–/])", tok) if t != ""])
     return tokens
 
