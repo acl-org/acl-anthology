@@ -82,16 +82,16 @@ def protect(node):
         # so we need to manually detokenize them. Also, colons etc.
         # Assuming the only edits that need to be made are adding/deleting
         # spaces, the following will work:
-        for i in range(len(recased)-2, -1, -1):
+        for i in range(len(recased) - 2, -1, -1):
             c = recased[i]
             if not rawtext.lower().endswith(recased[i:].lower()):
                 # either rawtext or recased has an extra space
-                if c==' ':  # remove space from recased
-                    recased = recased[:i] + recased[i+1:]
-                elif rawtext[-len(recased[i:])]==' ': # add space to recased
-                    recased = recased[:i+1] + ' ' + recased[i+1:]
+                if c == ' ':  # remove space from recased
+                    recased = recased[:i] + recased[i + 1 :]
+                elif rawtext[-len(recased[i:])] == ' ':  # add space to recased
+                    recased = recased[: i + 1] + ' ' + recased[i + 1 :]
                 else:
-                    assert False,(rawtext, recased)
+                    assert False, (rawtext, recased)
         assert rawtext.lower() == recased.lower(), (rawtext, recased)
         newnode = protect_recurse(node, recased)
         newnode.tail = node.tail  # tail of top level is not protected
