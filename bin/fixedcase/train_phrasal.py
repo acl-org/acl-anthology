@@ -16,25 +16,25 @@ if __name__ == "__main__":
         for paper in tree.getroot().findall(".//paper"):
             for abstract in paper.findall("abstract"):
                 toks = tokenize(get_text(abstract).replace('-', ' '))
-                for i,w in enumerate(toks[:-1]):
+                for i, w in enumerate(toks[:-1]):
                     if w[0].isupper():
                         queue = []
-                        if toks[i+1][0].isupper():
-                            queue.append(tuple(toks[i:i+2])) # bigram
-                        if i+2<len(toks) and toks[i+2][0].isupper():
-                            queue.append(tuple(toks[i:i+3])) # trigram
-                        if i+3<len(toks) and toks[i+3][0].isupper():
-                            queue.append(tuple(toks[i:i+4])) # 4-gram
-                        if i+4<len(toks) and toks[i+4][0].isupper():
-                            queue.append(tuple(toks[i:i+5])) # 5-gram
+                        if toks[i + 1][0].isupper():
+                            queue.append(tuple(toks[i : i + 2]))  # bigram
+                        if i + 2 < len(toks) and toks[i + 2][0].isupper():
+                            queue.append(tuple(toks[i : i + 3]))  # trigram
+                        if i + 3 < len(toks) and toks[i + 3][0].isupper():
+                            queue.append(tuple(toks[i : i + 4]))  # 4-gram
+                        if i + 4 < len(toks) and toks[i + 4][0].isupper():
+                            queue.append(tuple(toks[i : i + 5]))  # 5-gram
                         for phr in queue:
                             if '.' in phr or ',' in phr or '(' in phr or ')' in phr:
                                 continue
                             c[phr] += 1
 
     print(f'{len(c)} entries before filtering')
-    for k,v in c.copy().items():
-        if v<3:
+    for k, v in c.copy().items():
+        if v < 3:
             del c[k]
     print(f'{len(c)} entries after min 3 threshold')
 
@@ -57,8 +57,8 @@ if __name__ == "__main__":
                 s_lower = s.lower()
                 for q in d:
                     i = s_lower.find(q)
-                    if i>-1:
-                        d[q][s[i:i+len(q)]] += 1
+                    if i > -1:
+                        d[q][s[i : i + len(q)]] += 1
             for title in paper.findall("title") + paper.findall("booktitle"):
                 titleS = ' '.join(tokenize(get_text(title).replace('-', ' ').lower()))
                 for q in d:
@@ -79,19 +79,20 @@ if __name__ == "__main__":
     #         del intitles[q]
     # print(f'{len(d)} unique entries after normalizing hyphens')
 
-
-
-
     old_uni_truelist, old_phrase_truelist, amodifiers, ndescriptors = load_lists()
-
 
     newC = Counter()
     filterLater = set()
     for q in d:
-        if intitles[q]>0 and d[q][q]/sum(d[q].values()) <= .25:   # no more than 25% instances of the phrase are all-lowercase
+        if (
+            intitles[q] > 0 and d[q][q] / sum(d[q].values()) <= 0.25
+        ):  # no more than 25% instances of the phrase are all-lowercase
             top_spelling = d[q].most_common(1)[0][0]
             # this is a spelling where the first and last word are capitalized
-            if top_spelling[0].isupper() and top_spelling[top_spelling.rindex(' ')+1].isupper():
+            if (
+                top_spelling[0].isupper()
+                and top_spelling[top_spelling.rindex(' ') + 1].isupper()
+            ):
                 # store the most frequent capitalization
                 # with # of times the phrase occurred non-lowercased
                 newC[top_spelling] = sum(d[q].values()) - d[q][q]
@@ -100,19 +101,25 @@ if __name__ == "__main__":
                 toks = top_spelling.split()
                 # all-caps title heuristic can be unfair on short n-grams,
                 # so append some dummy words
-                bs = fixedcase_title(toks + ['The','the','The','the','The'],
-                                    truelist=old_uni_truelist,
-                                    phrase_truelist=old_phrase_truelist,
-                                    amodifiers=amodifiers,
-                                    ndescriptors=ndescriptors,
-                                    falselist=falselist)
+                bs = fixedcase_title(
+                    toks + ['The', 'the', 'The', 'the', 'The'],
+                    truelist=old_uni_truelist,
+                    phrase_truelist=old_phrase_truelist,
+                    amodifiers=amodifiers,
+                    ndescriptors=ndescriptors,
+                    falselist=falselist,
+                )
 
                 # does this spelling meet all the criteria for a truelist phrase?
                 # if not, count it for now (to apply inclusion-exclusion)
                 # but mark it for removal later
                 keep = False
-                for tok,b in zip(toks,bs):
-                    if not b and tok[0].isupper() and not any(c.isupper() for c in tok[1:]):
+                for tok, b in zip(toks, bs):
+                    if (
+                        not b
+                        and tok[0].isupper()
+                        and not any(c.isupper() for c in tok[1:])
+                    ):
                         keep = True
                         break
                 if not keep:
@@ -120,31 +127,27 @@ if __name__ == "__main__":
 
     print(f'{len(newC)} usually capitalized phrases that occur in titles')
 
-    #print(newC)
+    # print(newC)
     newC1 = newC.copy()
 
     # For 3-, 4-, and 5-grams, subtract counts for subsumed (n-1)-grams
-    for phr,n in sorted(newC.copy().items(), key=lambda s: s.count(' '), reverse=True):
-        if phr.count(' ')>1:
+    for phr, n in sorted(newC.copy().items(), key=lambda s: s.count(' '), reverse=True):
+        if phr.count(' ') > 1:
             toks = tuple(phr.split())
             newC[' '.join(toks[:-1])] -= n
             newC[' '.join(toks[1:])] -= n
-            if len(toks)>3: # inclusion-exclusion
+            if len(toks) > 3:  # inclusion-exclusion
                 # correct for double-counting of overlap between 2 spans just decremented
                 newC[' '.join(toks[1:-1])] += n
 
-                if len(toks)>4:
+                if len(toks) > 4:
                     newC[' '.join(toks[2:-1])] -= n
                     newC[' '.join(toks[1:-2])] -= n
 
-    #print(newC)
+    # print(newC)
 
-    new_truelist = [phr for phr in newC1 if newC[phr]>=3 and phr not in filterLater]
+    new_truelist = [phr for phr in newC1 if newC[phr] >= 3 and phr not in filterLater]
     new_truelist.sort()
-
-
-
-
 
     # truelist = []
     # for w_lower in c:

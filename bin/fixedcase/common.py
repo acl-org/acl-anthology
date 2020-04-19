@@ -151,6 +151,7 @@ def append_text(node, text):
             node[-1].tail = ""
         node[-1].tail += text
 
+
 def load_lists():
     truelist = set()
     phrase_truelist = defaultdict(set)
