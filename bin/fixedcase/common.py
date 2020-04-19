@@ -36,6 +36,7 @@ def tokenize(s):
     tokens = []
     # NLTK tokenizer uses PTB standard, which doesn't split on hyphens or slashes
     for tok in nltk.tokenize.word_tokenize(s):
+        # TODO: replaces quote " with '' (W14)
         tokens.extend([t for t in re.split(r"([-–/])", tok) if t != ""])
     return tokens
 
@@ -115,15 +116,13 @@ def fixedcase_title(
         elif not b[0] and bs[-1] and ndescriptors and ws[i - 1] in ndescriptors:
             # "<name> <ndescriptor>", e.g. Columbia University
             b[0] = True
-        elif (
-            b[0]
-            and ndescriptors
-            and i >= 2
-            and ws[i - 1] == "of"
-            and ws[i - 2] in ndescriptors
-        ):
+        elif ndescriptors and i >= 2 and ws[i - 1] == "of" and ws[i - 2] in ndescriptors:
             # "<ndescriptor> of <name>", e.g. University of Edinburgh
-            bs[-2] = True
+            if b[0]:
+                bs[-2] = True
+            else:
+                print(ws[i - 2 :], file=sys.stderr)
+                # mainly: University of X where X is not in the truelist
         bs.extend(b)
         i += len(b)
     return bs
