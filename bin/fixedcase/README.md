@@ -1,7 +1,9 @@
 # Scripts for marking fixed-case words in BibTeX entries
 
-1. Generate `truelist` by running `train.py import/*.xml`.
-2. For each XML file, run `protect.py <infile> <outfile>`. This marks
+1. Generate `truelist-auto` by running `train.py import/*.xml`.
+2. Generate `truelist-phrasal-auto` by running `train_phrasal.py import/*.xml`.
+3. Create `truelist` by curating the two lists above.
+4. For each XML file, run `protect.py <infile> <outfile>`. This marks
    every fixed-case title word with the tag `<fixed-case>`.
 
 Fixed-caseness is determined by these rules:
