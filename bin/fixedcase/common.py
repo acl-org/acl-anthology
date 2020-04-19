@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
-import re, sys
+import re, sys, os
+import inspect
 import nltk.tokenize, nltk.corpus
+from collections import defaultdict
 
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 
@@ -115,7 +117,7 @@ def fixedcase_title(
             bs[-1] = True
         elif b[0] and is_hyphen(ws[i - 1]) and amodifiers and ws[i - 2] in amodifiers:
             bs[-2] = True
-        elif not b[0] and bs[-1] and ndescriptors and ws[i - 1] in ndescriptors:
+        elif not b[0] and bs[-1] and ndescriptors and ws[i] in ndescriptors:
             # "<name> <ndescriptor>", e.g. Columbia University
             b[0] = True
         elif ndescriptors and i >= 2 and ws[i - 1] == "of" and ws[i - 2] in ndescriptors:
@@ -148,3 +150,58 @@ def append_text(node, text):
         if node[-1].tail is None:
             node[-1].tail = ""
         node[-1].tail += text
+
+def load_lists():
+    truelist = set()
+    phrase_truelist = defaultdict(set)
+    module_file = inspect.getfile(inspect.currentframe())
+    module_dir = os.path.dirname(os.path.abspath(module_file))
+    truelist_file = os.path.join(module_dir, "truelist")
+    for line in open(truelist_file):
+        line = line.split("#")[0].strip()
+        if line == "":
+            continue
+        assert not any(
+            is_hyphen(c) for c in line
+        ), f'Truelist entries should not contain hyphens: {line}'
+        if ' ' not in line:
+            truelist.add(line)
+        else:
+            toks = tuple(tokenize(line))
+            phrase_truelist[len(toks)].add(toks)  # group phrases by number of tokens
+    phrase_truelist = sorted(
+        phrase_truelist.items(), reverse=True
+    )  # bins sorted by phrase length
+    amodifiers = (
+        'North',
+        'South',
+        'East',
+        'West',
+        'Northeast',
+        'Northwest',
+        'Southeast',
+        'Southwest',
+        'Central',
+        'Northern',
+        'Southern',
+        'Eastern',
+        'Western',
+        'Northeastern',
+        'Northwestern',
+        'Southeastern',
+        'Southwestern',
+        'Modern',
+        'Ancient',
+    )  # use subsequent word to determine fixed-case. will miss hyphenated modifiers (e.g. South-East)
+    ndescriptors = (
+        'Bay',
+        'Coast',
+        'Gulf',
+        'Island',
+        'Isle',
+        'Lake',
+        'Republic',
+        'University',
+    )  # use preceding word to determine fixed-case
+
+    return truelist, phrase_truelist, amodifiers, ndescriptors

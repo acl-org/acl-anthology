@@ -99,57 +99,7 @@ def protect(node):
 
 
 # Read in the truelist (list of words that should always be protected)
-truelist = set()
-phrase_truelist = defaultdict(set)
-module_file = inspect.getfile(inspect.currentframe())
-module_dir = os.path.dirname(os.path.abspath(module_file))
-truelist_file = os.path.join(module_dir, "truelist")
-for line in open(truelist_file):
-    line = line.split("#")[0].strip()
-    if line == "":
-        continue
-    assert not any(
-        is_hyphen(c) for c in line
-    ), f'Truelist entries should not contain hyphens: {line}'
-    if ' ' not in line:
-        truelist.add(line)
-    else:
-        toks = tuple(tokenize(line))
-        phrase_truelist[len(toks)].add(toks)  # group phrases by number of tokens
-phrase_truelist = sorted(
-    phrase_truelist.items(), reverse=True
-)  # bins sorted by phrase length
-amodifiers = (
-    'North',
-    'South',
-    'East',
-    'West',
-    'Northeast',
-    'Northwest',
-    'Southeast',
-    'Southwest',
-    'Central',
-    'Northern',
-    'Southern',
-    'Eastern',
-    'Western',
-    'Northeastern',
-    'Northwestern',
-    'Southeastern',
-    'Southwestern',
-    'Modern',
-    'Ancient',
-)  # use subsequent word to determine fixed-case. will miss hyphenated modifiers (e.g. South-East)
-ndescriptors = (
-    'Bay',
-    'Coast',
-    'Gulf',
-    'Island',
-    'Isle',
-    'Lake',
-    'Republic',
-    'University',
-)  # use preceding word to determine fixed-case
+truelist, phrase_truelist, amodifiers, ndescriptors = load_lists()
 
 if __name__ == "__main__":
     infile, outfile = sys.argv[1:]
