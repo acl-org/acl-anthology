@@ -53,7 +53,7 @@ def protect_recurse(node, recased):
         recased = recased[len(node.text) :]
     for child in node:
         protected_child = protect_recurse(child, recased)
-        recased = recased[len(protected_child.text) :]
+        recased = recased[len(get_text(protected_child)) :]
         newnode.append(protected_child)
         if child.tail:
             process(child.tail, recased)
@@ -79,19 +79,32 @@ def protect(node):
         recasedtoks = [(w if b else w.lower()) for w, b in zip(text, fixed)]
         recased = TreebankWordDetokenizer().detokenize(recasedtoks)
         # PTB (de)tokenizer doesn't think of hyphens as separate tokens,
-        # so we need to manually detokenize them. Also, colons etc.
+        # so we need to manually detokenize them.
         # Assuming the only edits that need to be made are adding/deleting
         # spaces, the following will work:
-        for i in range(len(recased) - 2, -1, -1):
+        i = 0
+        while i<len(rawtext):
+            # scan rawtext from left to right and adjust recased by adding/removing
+            # spaces until it matches
+            t = rawtext[i]
+            assert i<len(recased), ((i,t), rawtext, recased)
             c = recased[i]
-            if not rawtext.lower().endswith(recased[i:].lower()):
-                # either rawtext or recased has an extra space
-                if c == ' ':  # remove space from recased
-                    recased = recased[:i] + recased[i + 1 :]
-                elif rawtext[-len(recased[i:])] == ' ':  # add space to recased
-                    recased = recased[: i + 1] + ' ' + recased[i + 1 :]
-                else:
-                    assert False, (rawtext, recased)
+            if t.isspace() and not c.isspace(): # may be ' ' or '\n'
+                # add space to recased
+                recased = recased[:i] + t + recased[i:]
+                i += 1
+            elif c.isspace() and not t.isspace():
+                # remove space from recased
+                recased = recased[:i] + recased[i+1:]
+                # don't increment i
+            elif t!=c and t.isspace() and c.isspace():
+                recased = recased[:i] + t + recased[i+1:]
+                i += 1
+            else:
+                assert t==c or t.lower()==c.lower(), ((i,t,c), rawtext, recased, text)
+                i += 1
+        if len(recased)>len(rawtext):
+            recased = recased[:len(rawtext)]
         assert rawtext.lower() == recased.lower(), (rawtext, recased)
         newnode = protect_recurse(node, recased)
         newnode.tail = node.tail  # tail of top level is not protected
