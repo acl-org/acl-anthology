@@ -11,6 +11,11 @@ falselist = set([w for w in nltk.corpus.words.words() if w.islower()])
 separators = [":", "--", "\u2013", "---", "\u2014", "\u2015"]
 
 
+def is_punct(s):
+    """String contains no alphabetic characters or digits"""
+    return s.lower()==s.upper() and not any(lambda x: x.isdigit(), s)
+
+
 def is_hyphen(s):
     return s in ("-", "–")
 
@@ -50,6 +55,9 @@ def fixedcase_word(w, truelist=None, falselist=None, allcaps=False):
     if not allcaps and any(c.isupper() for c in w[1:]):
         return True
     if truelist is not None and w in truelist:
+        return True
+    if len(w)==2 and w[1]=='.' and w[0].isupper():
+        # initial with period
         return True
     if falselist is not None and w in falselist:
         return False
@@ -94,9 +102,49 @@ def fixedcase_title(
     """Returns a list of bools: True if w should be fixed-case, False if
     not, None if unsure."""
 
-    # Consider a title to be "all caps" if at least 50% of letters
-    # are capitals. Non-alpha tokens are considered upper case.
+    # Old heuristic for detecting titles with stylistic all-caps.
+    # Note that it counts tokens which would not change if uppercased;
+    # this includes numbers and punctuation.
     allcaps = len([w for w in ws if w == w.upper()]) / len(ws) > 0.5
+
+    '''
+    # Heuristics for detecting stylistic all-caps sequences
+    # Used to generate stylistic-allcaps.txt
+
+    allcaps_range = slice(0,0)
+    h = None    # (h,k) will be an all-caps range candidate (may be filtered out with heuristics)
+    for i,w in enumerate(ws + ['xxx']):
+        if w == w.upper():
+            if h is None and w.isupper() and (i==0 or ws[i-1] in (':', '/')):
+                h = i
+        else:
+            if h is not None:
+                k = i # end of range starting at h
+                if k - h >= 3:
+                    if ws[k-1] == 'A' and ws[k-2] in (':', '.', ',', '-'):
+                        k -= 1  # include the trailing punctuation in the span
+                    if (k == len(ws) or h==0 and ws[k-1] in (':', '/')) and k - h > allcaps_range.stop - allcaps_range.start:
+                        # ignore if fewer than 3 actual cased words
+                        if sum(1 for w in ws[h:k] if w.lower()!=w.upper()) >= 3:
+                            allcaps_range = slice(h, k)
+                        elif ws[h:k][:2] in ('THE LEXICON'.split(), 'GRICE INCORPORATED'.split(), 'PROGRESS REPORT'.split(), 'INVITED TALK'.split(), 'SINICA CORPUS'.split()):
+                            allcaps_range = slice(h, k)
+                        elif 'VOLUMES' in ws[h:k]: # 'Title Index : VOLUMES 6 - 14'
+                            allcaps_range = slice(h, k)
+                        else:
+                            pass    # probably a system name, so it should be protected
+                h = None
+    if allcaps_range.start>0 and allcaps_range.stop<len(ws):
+        # all-caps ranges in the middle of the title are actually system names
+        allcaps_range = None
+    elif allcaps_range.start==0 and allcaps_range.stop==0:
+        allcaps_range = None
+    else:
+        print(' '.join(ws[:allcaps_range.start]),
+              ' <ac>' + ' '.join(ws[allcaps_range]) + '</ac>',
+              ' '.join(ws[allcaps_range.stop:]))
+    '''
+
     bs = []
     ws = tuple(ws)
     i = 0
