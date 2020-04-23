@@ -51,7 +51,6 @@ import urllib.request
 
 
 def main(args):
-
     def maybe_copy(file_from, file_to):
         if not args.dry_run:
             print("-> Copying from {} -> {}".format(file_from, file_to), file=sys.stderr)
