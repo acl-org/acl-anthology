@@ -86,26 +86,16 @@ The remaining steps are handled by Anthology staff and use [Anthology tools](htt
 
 ### Copyright
 
-For copyright transfers, you can use the default form at:
+If you are using the START system (softconf.com), this process is handled as part of the camera-ready submission process.
+
+Otherwise, for copyright transfers, please use the form at:
 
 + https://github.com/acl-org/ACLPUB/blob/master/doc/authors/ACL-copyright-form.pdf
 
-Ask authors to sign the form, scan a B/W copy at 150 to 200 DPI for you as a
-`.pdf` (or `.jpg` or `.png` if otherwise not possible). Name the forms using
-the ACL Anthology identifiers, and send me a separate `.zip` or `.tgz`
-archive as you would for the proceedings of your event (e.g., a file in the
-archive might be `copyright-transfers/P11-1001.pdf`).
-These copyrights should be delivered in bulk to the Anthology Editor when submitting the proceedings.
+Forms should be signed by authors and saved using the ACL Anthology identifiers.
+Please these into a folder (e.g., `copyright-transfers/P11-1001.pdf`) and then deliver them in bulk to the Anthology Editor when submitting the proceedings.
 
-Note that if you are using the START system (softconf.com), there is a
-digital form of this copyright transfer form, so you may not have to ask the
-authors to print, sign and submit to you. You may be able to simply download
-the `.zip` or `.tgz` version of the archived forms and submit them to
-me. Please note this when submitting.
-
-For both current and legacy events, it is good practice for the organizers
-to attempt to obtain copyright transfers for their materials, but we will
-ingest materials even if no copyright transfers are on file.
+For both current and legacy events, it is good practice for the organizers to attempt to obtain copyright transfers for their materials, but we will ingest materials even if no copyright transfers are on file.
 
 ### ISBN Numbers
 
