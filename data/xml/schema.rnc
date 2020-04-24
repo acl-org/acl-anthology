@@ -25,10 +25,12 @@ Paper = element paper {
    & element revision {
        attribute id { xsd:positiveInteger },
        attribute href { xsd:anyURI },
+       attribute date { xsd:date }?,
        text
      }*
    & element erratum {
        attribute id { xsd:positiveInteger },
+       attribute date { xsd:date }?,
        xsd:NCName
      }*
    & element issue { xsd:positiveInteger }?
