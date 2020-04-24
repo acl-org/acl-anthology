@@ -50,9 +50,9 @@ def tokenize(s):
     return tokens
 
 
-def fixedcase_word(w, truelist=None, falselist=None, allcaps=False):
+def fixedcase_word(w, truelist=None, falselist=None):
     """Returns True if w should be fixed-case, False if not, None if unsure."""
-    if not allcaps and any(c.isupper() for c in w[1:]):
+    if any(c.isupper() for c in w[1:]):
         return True
     if len(w)==1 and w.isupper() and w!='A':
         return True
@@ -68,7 +68,7 @@ def fixedcase_word(w, truelist=None, falselist=None, allcaps=False):
 
 
 def fixedcase_prefix(
-    ws, truelist=None, phrase_truelist=None, falselist=None, allcaps=False
+    ws, truelist=None, phrase_truelist=None, falselist=None
 ):
     """Returns a list of 1 or more bools: True if some prefix of the tuple 'ws' should be fixed-case,
     False if not, None if unsure."""
@@ -91,10 +91,10 @@ def fixedcase_prefix(
                             break
                 return bs
     if ws[0] in {'L', 'D'} and len(ws)>=2 and ws[1]=='’':
-        # French clitics: don't apply fixed-case
+        # French contractions: don't apply fixed-case
         return [False, False]
     return [
-        fixedcase_word(ws[0], truelist=truelist, falselist=falselist, allcaps=allcaps)
+        fixedcase_word(ws[0], truelist=truelist, falselist=falselist)
     ]
 
 
@@ -117,14 +117,16 @@ def fixedcase_title(
             ws[i:],
             truelist=truelist,
             phrase_truelist=phrase_truelist,
-            falselist=falselist,
-            allcaps=False,
+            falselist=falselist
         )
         if i == 0:
             if b[0] is None and len(ws) >= 2 and ws[1] in separators:
-                # In titles of the form "BLEU: a Method for Automatic Evaluation of Machine Translation,"
+                # In titles of the form "context2vec: Learning Generic Context Embedding with Bidirectional LSTM"
+                # or "Elissa: A Dialectal to Standard Arabic Machine Translation System"
                 # where the first part is a single word, mark it as fixed-case
+                # (Note: if a noninitial character is capitalized, e.g. "BLEU", that is handled elsewhere.)
                 b[0] = True
+                print(' '.join(ws))
         elif b[0] and amodifiers and ws[i - 1] in amodifiers:  # e.g. North America
             bs[-1] = True
         elif b[0] and is_hyphen(ws[i - 1]) and amodifiers and ws[i - 2] in amodifiers:

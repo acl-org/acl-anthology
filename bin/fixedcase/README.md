@@ -4,26 +4,32 @@
 2. Generate `truelist-phrasal-auto` by running `train_phrasal.py import/*.xml`.
 3. Create `truelist` by curating the two lists above.
 4. For each XML file, run `protect.py <infile> <outfile>`. This marks
-   every fixed-case title word with the tag `<fixed-case>`.
+   every fixed-case uppercase sequences in title words with the tag `<fixed-case>`.
+   Any existing `<fixed-case>` tags are retained.
 
-Fixed-caseness is determined by these rules:
+Fixed-caseness is determined by this decision list:
 
-1. If a multiword phrase (ignoring hyphens) appears in `truelist`,
+1. If a full title has a case-insensitive match in `special-case-titles`, only
+   the capitalized characters in the `special-case-titles` entry are fixed-case.
+   This handles titles which contain stylistic all-caps in the XML.
+2. If a multiword phrase (ignoring hyphens) appears in `truelist`,
    it is fixed-case. Phrases are matched greedily from left to right.
-2. If a word appears in `truelist`, it is fixed-case.
-3. Unless the title is in all caps (i.e. >50% of the words are all-uppercase),
-   any word with a capital letter in a non-initial position (e.g.,
+3. If a word appears in `truelist`, it is fixed-case.
+4. Any word with a capital letter in a non-initial position (e.g.,
    "TextTiling", "QA") is fixed-case.
-4. If one of a short list of adjectival modifiers including "North" and "Modern"
+5. The French contracted forms "L’" and "D’" are not fixed-case.
+6. Any tokenized word consisting of a single uppercase letter other than "A",
+   or a single uppercase letter plus ".", is fixed-case.
+7. If one of a short list of adjectival modifiers including "North" and "Modern"
    precedes a fixed-case word, optionally separated by a hyphen,
-   the modifier is also fixed-case. (See `amodifiers` in `protect.py`.)
-5. If one of a short list of noun descriptors including "Island" and "University"
+   the modifier is also fixed-case. (See `amodifiers` in `common.py`.)
+8. If one of a short list of noun descriptors including "Island" and "University"
    immediately follows a fixed-case word, or precedes it separated by "of",
-   the descriptor is also fixed-case. (See `ndescriptors` in `protect.py`.)
-5. If a title starts with a single word set off by a colon or dash, the
+   the descriptor is also fixed-case. (See `ndescriptors` in `common.py`.)
+9. If a title starts with a single word set off by a colon or dash, the
    first word is fixed-case unless the word appears in an English lexicon as
-   all-lowercase.
-6. Otherwise, the word is not fixed-case.
+   an all-lowercase lemma.
+10. Otherwise, the word is not fixed-case.
 
 Examples:
 

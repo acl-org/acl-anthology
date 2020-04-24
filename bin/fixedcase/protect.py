@@ -67,7 +67,6 @@ def protect(node):
     recased = None
     if rawtext.lower() in special_titles:
         recased = special_titles[rawtext.lower()]
-        print(recased)
     else:
         text = tokenize(rawtext)
         fixed = fixedcase_title(
@@ -116,8 +115,6 @@ def protect(node):
         newnode = protect_recurse(node, recased)
         newnode.tail = node.tail  # tail of top level is not protected
         replace_node(node, newnode)
-        if rawtext.lower() in special_titles:
-            print(ET.tostring(node), file=sys.stderr)
 
 
 # Read in the truelist (list of words that should always be protected)
