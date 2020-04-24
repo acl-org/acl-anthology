@@ -54,6 +54,10 @@ def fixedcase_word(w, truelist=None, falselist=None, allcaps=False):
     """Returns True if w should be fixed-case, False if not, None if unsure."""
     if not allcaps and any(c.isupper() for c in w[1:]):
         return True
+    if len(w)==1 and w.isupper() and w!='A':
+        return True
+    if len(w)==2 and w[1]=='.' and w[0].isupper():
+        return True
     if truelist is not None and w in truelist:
         return True
     if len(w)==2 and w[1]=='.' and w[0].isupper():
@@ -86,6 +90,9 @@ def fixedcase_prefix(
                         if i == n:
                             break
                 return bs
+    if ws[0] in {'L', 'D'} and len(ws)>=2 and ws[1]=='’':
+        # French clitics: don't apply fixed-case
+        return [False, False]
     return [
         fixedcase_word(ws[0], truelist=truelist, falselist=falselist, allcaps=allcaps)
     ]
@@ -102,49 +109,6 @@ def fixedcase_title(
     """Returns a list of bools: True if w should be fixed-case, False if
     not, None if unsure."""
 
-    # Old heuristic for detecting titles with stylistic all-caps.
-    # Note that it counts tokens which would not change if uppercased;
-    # this includes numbers and punctuation.
-    allcaps = len([w for w in ws if w == w.upper()]) / len(ws) > 0.5
-
-    '''
-    # Heuristics for detecting stylistic all-caps sequences
-    # Used to generate stylistic-allcaps.txt
-
-    allcaps_range = slice(0,0)
-    h = None    # (h,k) will be an all-caps range candidate (may be filtered out with heuristics)
-    for i,w in enumerate(ws + ['xxx']):
-        if w == w.upper():
-            if h is None and w.isupper() and (i==0 or ws[i-1] in (':', '/')):
-                h = i
-        else:
-            if h is not None:
-                k = i # end of range starting at h
-                if k - h >= 3:
-                    if ws[k-1] == 'A' and ws[k-2] in (':', '.', ',', '-'):
-                        k -= 1  # include the trailing punctuation in the span
-                    if (k == len(ws) or h==0 and ws[k-1] in (':', '/')) and k - h > allcaps_range.stop - allcaps_range.start:
-                        # ignore if fewer than 3 actual cased words
-                        if sum(1 for w in ws[h:k] if w.lower()!=w.upper()) >= 3:
-                            allcaps_range = slice(h, k)
-                        elif ws[h:k][:2] in ('THE LEXICON'.split(), 'GRICE INCORPORATED'.split(), 'PROGRESS REPORT'.split(), 'INVITED TALK'.split(), 'SINICA CORPUS'.split()):
-                            allcaps_range = slice(h, k)
-                        elif 'VOLUMES' in ws[h:k]: # 'Title Index : VOLUMES 6 - 14'
-                            allcaps_range = slice(h, k)
-                        else:
-                            pass    # probably a system name, so it should be protected
-                h = None
-    if allcaps_range.start>0 and allcaps_range.stop<len(ws):
-        # all-caps ranges in the middle of the title are actually system names
-        allcaps_range = None
-    elif allcaps_range.start==0 and allcaps_range.stop==0:
-        allcaps_range = None
-    else:
-        print(' '.join(ws[:allcaps_range.start]),
-              ' <ac>' + ' '.join(ws[allcaps_range]) + '</ac>',
-              ' '.join(ws[allcaps_range.stop:]))
-    '''
-
     bs = []
     ws = tuple(ws)
     i = 0
@@ -154,7 +118,7 @@ def fixedcase_title(
             truelist=truelist,
             phrase_truelist=phrase_truelist,
             falselist=falselist,
-            allcaps=allcaps,
+            allcaps=False,
         )
         if i == 0:
             if b[0] is None and len(ws) >= 2 and ws[1] in separators:
@@ -221,6 +185,9 @@ def load_lists():
     phrase_truelist = sorted(
         phrase_truelist.items(), reverse=True
     )  # bins sorted by phrase length
+    special_file = os.path.join(module_dir, "special-case-titles")
+    with open(special_file) as inF:
+        special_titles = {line.strip().lower(): line.strip() for line in inF if line.strip()}
     amodifiers = (
         'North',
         'South',
@@ -253,4 +220,4 @@ def load_lists():
         'University',
     )  # use preceding word to determine fixed-case
 
-    return truelist, phrase_truelist, amodifiers, ndescriptors
+    return truelist, phrase_truelist, special_titles, amodifiers, ndescriptors
