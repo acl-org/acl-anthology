@@ -86,14 +86,14 @@ The remaining steps are handled by Anthology staff and use [Anthology tools](htt
 
 ### Copyright
 
-If you are using the START system (softconf.com), this process is handled as part of the camera-ready submission process.
+If you are using the START system, this process is handled as part of the camera-ready submission process.
 
 Otherwise, for copyright transfers, please use the form at:
 
 + https://github.com/acl-org/ACLPUB/blob/master/doc/authors/ACL-copyright-form.pdf
 
-Forms should be signed by authors and saved using the ACL Anthology identifiers.
-Please these into a folder (e.g., `copyright-transfers/P11-1001.pdf`) and then deliver them in bulk to the Anthology Editor when submitting the proceedings.
+Forms should be signed by authors and saved using the ACL Anthology identifiers as names.
+Please place these into a folder (e.g., `copyright-transfers/P11-1001.pdf`) and then deliver them in bulk to the Anthology Editor when submitting the proceedings.
 
 For both current and legacy events, it is good practice for the organizers to attempt to obtain copyright transfers for their materials, but we will ingest materials even if no copyright transfers are on file.
 
@@ -103,5 +103,5 @@ If you need to assign ISBN numbers, please provide the exact titles of each volu
 
 ### Errata and Corrections
 
-If you get requests from authors needing to post errata or revised versions of the papers, or supplemental attachments after the publication of the proceedings, please ask them to submit revisions to the current ACL Anthology editor directly (see [Corrections]({{< relref "corrections.md" >}})).
+If you get requests from authors needing to post errata or revised versions of the papers, or supplemental attachments after the publication of the proceedings, please refer them to [our documentation on the matter]({{< relref "corrections.md" >}}).
 Note that after the publiation date, corrections can only be applied to individual papers; the full proceedings volumes will not be replaced or revised.
