@@ -28,13 +28,11 @@ The revision process is as follows.
 
 Usage:
 
-  add_revision.py paper_id URL_OR_PATH.pdf "Short explanation".
+  add_revision.py [-e] paper_id URL_OR_PATH.pdf "Short explanation".
 
+`-e` denotes erratum instead of revision.
 By default, a dry run happens.
 When you are ready, add `--do`.
-
-TODO: add the <revision> tag to the XML automatically.
-(The script has all the info it needs).
 """
 
 import argparse
@@ -52,19 +50,17 @@ import lxml.etree as ET
 import urllib.request
 
 
-def maybe_copy(file_from, file_to, do=False):
-    if do:
-        print("-> Copying from {} -> {}".format(file_from, file_to), file=sys.stderr)
-        shutil.copy(file_from, file_to)
-        os.chmod(file_to, 0o644)
-    else:
-        print(
-            "-> DRY RUN: Copying from {} -> {}".format(file_from, file_to),
-            file=sys.stderr,
-        )
-
-
 def main(args):
+    def maybe_copy(file_from, file_to):
+        if not args.dry_run:
+            print("-> Copying from {} -> {}".format(file_from, file_to), file=sys.stderr)
+            shutil.copy(file_from, file_to)
+            os.chmod(file_to, 0o644)
+        else:
+            print(
+                "-> DRY RUN: Copying from {} -> {}".format(file_from, file_to),
+                file=sys.stderr,
+            )
 
     change_type = "erratum" if args.erratum else "revision"
     change_letter = "e" if args.erratum else "v"
@@ -183,8 +179,12 @@ def main(args):
         output_dir, f"{args.anthology_id}{change_letter}{revno}.pdf"
     )
 
-    maybe_copy(input_file_path, revised_file_versioned_path, not args.dry_run)
-    maybe_copy(input_file_path, canonical_path, not args.dry_run)
+    # Copy the file to the versioned path
+    maybe_copy(input_file_path, revised_file_versioned_path)
+
+    # Copy it over the canonical path
+    if not args.erratum:
+        maybe_copy(input_file_path, canonical_path)
 
     if args.path.startswith("http"):
         os.remove(input_file_path)
