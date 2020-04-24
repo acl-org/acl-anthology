@@ -174,9 +174,10 @@ def main(args):
     for volume, meta in volumes.items():
         root_path = os.path.join(meta["path"], "cdrom")
         collection_id = meta["collection_id"]
+        venue_name = meta["abbrev"].lower()
         volume_name = meta["volume_name"]
 
-        pdfs_dest_dir = os.path.join(args.pdfs_dir, collection_id)
+        pdfs_dest_dir = os.path.join(args.pdfs_dir, venue_name)
         if not os.path.exists(pdfs_dest_dir):
             os.makedirs(pdfs_dest_dir)
 
