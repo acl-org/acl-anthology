@@ -28,7 +28,9 @@ Fixed-caseness is determined by this decision list:
    the descriptor is also fixed-case. (See `ndescriptors` in `common.py`.)
 9. If a title starts with a single word set off by a colon or dash, the
    first word is fixed-case unless the word appears in an English lexicon as
-   an all-lowercase lemma.
+   an all-lowercase lemma. (In principle this applies to both lowercase words
+   and uppercase words, but in practice protect.py never protects lowercase
+   characters, even title-initially.)
 10. Otherwise, the word is not fixed-case.
 
 Examples:

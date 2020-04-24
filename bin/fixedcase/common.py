@@ -8,6 +8,8 @@ from collections import defaultdict
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 
 falselist = set([w for w in nltk.corpus.words.words() if w.islower()])
+# Note: this is only a list of lemmas, so words like "frames" don't appear
+
 separators = [":", "--", "\u2013", "---", "\u2014", "\u2015"]
 
 
@@ -52,13 +54,13 @@ def tokenize(s):
 
 def fixedcase_word(w, truelist=None, falselist=None):
     """Returns True if w should be fixed-case, False if not, None if unsure."""
+    if truelist is not None and w in truelist:
+        return True
     if any(c.isupper() for c in w[1:]):
+        # tokenized word with noninitial uppercase
         return True
     if len(w)==1 and w.isupper() and w!='A':
-        return True
-    if len(w)==2 and w[1]=='.' and w[0].isupper():
-        return True
-    if truelist is not None and w in truelist:
+        # single uppercase letter
         return True
     if len(w)==2 and w[1]=='.' and w[0].isupper():
         # initial with period
