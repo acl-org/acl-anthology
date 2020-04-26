@@ -167,9 +167,6 @@ def create_venues_and_events(srcdir, clean=False):
         with open("{}/content/venues/{}.md".format(srcdir, venue_str), "w") as f:
             print("---", file=f)
             yaml_data = {"venue": venue, "title": venue_data["name"]}
-            if venue_data["is_toplevel"]:
-                main_letter = venue_data["main_letter"]
-                yaml_data["aliases"] = ["/papers/{}/".format(main_letter)]
             yaml.dump(yaml_data, default_flow_style=False, stream=f)
             print("---", file=f)
 
@@ -189,12 +186,6 @@ def create_venues_and_events(srcdir, clean=False):
                     "year": year,
                     "title": "{} ({})".format(venue_data["name"], year),
                 }
-                if venue_data["is_toplevel"]:
-                    main_letter = venue_data["main_letter"]
-                    main_prefix = main_letter + year[-2:]  # e.g., P05
-                    yaml_data["aliases"] = [
-                        "/papers/{}/{}/".format(main_letter, main_prefix)
-                    ]
                 yaml.dump(yaml_data, default_flow_style=False, stream=f)
                 print("---", file=f)
 
