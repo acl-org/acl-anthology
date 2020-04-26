@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from collections import defaultdict
 from slugify import slugify
 import logging as log
 import yaml
@@ -28,7 +29,7 @@ from .utils import is_newstyle_id, deconstruct_anthology_id
 
 class VenueIndex:
     def __init__(self, srcdir=None):
-        self.venues, self.letters, self.joint_map = {}, {}, {}
+        self.venues, self.letters, self.joint_map = {}, {}, defaultdict(list)
         self.acronyms_by_key = {}
         if srcdir is not None:
             self.load_from_dir(srcdir)
@@ -70,14 +71,20 @@ class VenueIndex:
                         )
                     self.letters[val["oldstyle_letter"]] = val["acronym"]
 
-        with open("{}/yaml/events.yaml".format(directory), "r") as f:
+        with open("{}/yaml/joint.yaml".format(directory), "r") as f:
             map_dict = yaml.load(f, Loader=Loader)
-            for id_, data in map_dict.items():
-                if "joint" in data:
-                    joint = data["joint"]
-                    if isinstance(joint, str):
-                        joint = [joint]
-                    self.joint_map[id_] = joint
+            for venue, data in map_dict.items():
+                acronym = self.acronyms_by_key[venue]
+                if isinstance(data, dict):
+                    idlist = [id_ for ids in data.values() for id_ in ids]
+                elif isinstance(data, list):
+                    idlist = data
+                else:
+                    log.exception(
+                        f"Values in joint.yaml must be dict or list, found: {type(data)}"
+                    )
+                for id_ in idlist:
+                    self.joint_map[id_].append(venue)
 
     def get_by_letter(self, letter):
         """Get a venue acronym by first letter (e.g., Q -> TACL)."""
