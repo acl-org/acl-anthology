@@ -84,7 +84,7 @@ class VenueIndex:
                         f"Values in joint.yaml must be dict or list, found: {type(data)}"
                     )
                 for id_ in idlist:
-                    self.joint_map[id_].append(venue)
+                    self.joint_map[id_].append(acronym)
 
     def get_by_letter(self, letter):
         """Get a venue acronym by first letter (e.g., Q -> TACL)."""
