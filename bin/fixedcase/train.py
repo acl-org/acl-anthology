@@ -5,6 +5,9 @@ import collections
 import sys
 from common import *
 
+falselist = set([w for w in nltk.corpus.words.words() if w.islower()])
+# Note: this is only a list of lemmas, so words like "frames" don't appear
+
 if __name__ == "__main__":
     c = collections.defaultdict(collections.Counter)
     for xmlfile in sys.argv[1:]:

@@ -26,12 +26,7 @@ Fixed-caseness is determined by this decision list:
 8. If one of a short list of noun descriptors including "Island" and "University"
    immediately follows a fixed-case word, or precedes it separated by "of",
    the descriptor is also fixed-case. (See `ndescriptors` in `common.py`.)
-9. If a title starts with a single word set off by a colon or dash, the
-   first word is fixed-case unless the word appears in an English lexicon as
-   an all-lowercase lemma. (In principle this applies to both lowercase words
-   and uppercase words, but in practice protect.py never protects lowercase
-   characters, even title-initially.)
-10. Otherwise, the word is not fixed-case.
+9. Otherwise, the word is not fixed-case.
 
 Examples:
 
