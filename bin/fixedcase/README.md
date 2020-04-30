@@ -36,6 +36,9 @@ Examples:
    - "New Mexico" will be fixed-case by rule 1, and "University of New Mexico"
      by rule 5
 
+Note that the first word of the title is not treated specially by the rules,
+so its first character will not necessarily be fixed-case.
+
 The `truelist` contains words from past abstracts whose most-frequent
 version is not all-lowercase. To reduce the size of this list, if a
 word would be marked fixed-case or not by the above rules, it is
