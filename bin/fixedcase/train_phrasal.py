@@ -106,7 +106,7 @@ if __name__ == "__main__":
                     truelist=old_uni_truelist,
                     phrase_truelist=old_phrase_truelist,
                     amodifiers=amodifiers,
-                    ndescriptors=ndescriptors
+                    ndescriptors=ndescriptors,
                 )
 
                 # does this spelling meet all the criteria for a truelist phrase?

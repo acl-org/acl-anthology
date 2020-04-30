@@ -74,7 +74,7 @@ def protect(node):
             truelist=truelist,
             phrase_truelist=phrase_truelist,
             amodifiers=amodifiers,
-            ndescriptors=ndescriptors
+            ndescriptors=ndescriptors,
         )
         if any(fixed):
             # Generate the recased string so we know where to look in the XML
@@ -86,28 +86,33 @@ def protect(node):
             # Assuming the only edits that need to be made are adding/deleting
             # spaces, the following will work:
             i = 0
-            while i<len(rawtext):
+            while i < len(rawtext):
                 # scan rawtext from left to right and adjust recased by adding/removing
                 # spaces until it matches
                 t = rawtext[i]
-                assert i<len(recased), ((i,t), rawtext, recased)
+                assert i < len(recased), ((i, t), rawtext, recased)
                 c = recased[i]
-                if t.isspace() and not c.isspace(): # may be ' ' or '\n'
+                if t.isspace() and not c.isspace():  # may be ' ' or '\n'
                     # add space to recased
                     recased = recased[:i] + t + recased[i:]
                     i += 1
                 elif c.isspace() and not t.isspace():
                     # remove space from recased
-                    recased = recased[:i] + recased[i+1:]
+                    recased = recased[:i] + recased[i + 1 :]
                     # don't increment i
-                elif t!=c and t.isspace() and c.isspace():
-                    recased = recased[:i] + t + recased[i+1:]
+                elif t != c and t.isspace() and c.isspace():
+                    recased = recased[:i] + t + recased[i + 1 :]
                     i += 1
                 else:
-                    assert t==c or t.lower()==c.lower(), ((i,t,c), rawtext, recased, text)
+                    assert t == c or t.lower() == c.lower(), (
+                        (i, t, c),
+                        rawtext,
+                        recased,
+                        text,
+                    )
                     i += 1
-            if len(recased)>len(rawtext):
-                recased = recased[:len(rawtext)]
+            if len(recased) > len(rawtext):
+                recased = recased[: len(rawtext)]
             assert rawtext.lower() == recased.lower(), (rawtext, recased)
 
     if recased:

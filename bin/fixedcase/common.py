@@ -49,17 +49,15 @@ def fixedcase_word(w, truelist=None):
     if any(c.isupper() for c in w[1:]):
         # tokenized word with noninitial uppercase
         return True
-    if len(w)==1 and w.isupper() and w!='A':
+    if len(w) == 1 and w.isupper() and w != 'A':
         # single uppercase letter
         return True
-    if len(w)==2 and w[1]=='.' and w[0].isupper():
+    if len(w) == 2 and w[1] == '.' and w[0].isupper():
         # initial with period
         return True
 
 
-def fixedcase_prefix(
-    ws, truelist=None, phrase_truelist=None
-):
+def fixedcase_prefix(ws, truelist=None, phrase_truelist=None):
     """Returns a list of 1 or more bools: True if some prefix of the tuple 'ws' should be fixed-case,
     False if not, None if unsure."""
     # phrase_truelist is sorted in descending order by phrase length
@@ -80,20 +78,14 @@ def fixedcase_prefix(
                         if i == n:
                             break
                 return bs
-    if ws[0] in {'L', 'D'} and len(ws)>=2 and ws[1]=='’':
+    if ws[0] in {'L', 'D'} and len(ws) >= 2 and ws[1] == '’':
         # French contractions: don't apply fixed-case
         return [False, False]
-    return [
-        fixedcase_word(ws[0], truelist=truelist)
-    ]
+    return [fixedcase_word(ws[0], truelist=truelist)]
 
 
 def fixedcase_title(
-    ws,
-    truelist=None,
-    phrase_truelist=None,
-    amodifiers=None,
-    ndescriptors=None
+    ws, truelist=None, phrase_truelist=None, amodifiers=None, ndescriptors=None
 ):
     """Returns a list of bools: True if w should be fixed-case, False if
     not, None if unsure."""
@@ -102,11 +94,7 @@ def fixedcase_title(
     ws = tuple(ws)
     i = 0
     while i < len(ws):
-        b = fixedcase_prefix(
-            ws[i:],
-            truelist=truelist,
-            phrase_truelist=phrase_truelist
-        )
+        b = fixedcase_prefix(ws[i:], truelist=truelist, phrase_truelist=phrase_truelist)
         if i == 0:
             pass
         elif b[0] and amodifiers and ws[i - 1] in amodifiers:  # e.g. North America
@@ -171,7 +159,9 @@ def load_lists():
     )  # bins sorted by phrase length
     special_file = os.path.join(module_dir, "special-case-titles")
     with open(special_file) as inF:
-        special_titles = {line.strip().lower(): line.strip() for line in inF if line.strip()}
+        special_titles = {
+            line.strip().lower(): line.strip() for line in inF if line.strip()
+        }
     amodifiers = (
         'North',
         'South',
