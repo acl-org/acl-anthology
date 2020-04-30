@@ -7,16 +7,6 @@ from collections import defaultdict
 
 from nltk.tokenize.treebank import TreebankWordDetokenizer
 
-falselist = set([w for w in nltk.corpus.words.words() if w.islower()])
-# Note: this is only a list of lemmas, so words like "frames" don't appear
-
-separators = [":", "--", "\u2013", "---", "\u2014", "\u2015"]
-
-
-def is_punct(s):
-    """String contains no alphabetic characters or digits"""
-    return s.lower()==s.upper() and not any(lambda x: x.isdigit(), s)
-
 
 def is_hyphen(s):
     return s in ("-", "–")
@@ -52,8 +42,8 @@ def tokenize(s):
     return tokens
 
 
-def fixedcase_word(w, truelist=None, falselist=None):
-    """Returns True if w should be fixed-case, False if not, None if unsure."""
+def fixedcase_word(w, truelist=None):
+    """Returns True if w should be fixed-case, None if unsure."""
     if truelist is not None and w in truelist:
         return True
     if any(c.isupper() for c in w[1:]):
@@ -65,12 +55,10 @@ def fixedcase_word(w, truelist=None, falselist=None):
     if len(w)==2 and w[1]=='.' and w[0].isupper():
         # initial with period
         return True
-    if falselist is not None and w in falselist:
-        return False
 
 
 def fixedcase_prefix(
-    ws, truelist=None, phrase_truelist=None, falselist=None
+    ws, truelist=None, phrase_truelist=None
 ):
     """Returns a list of 1 or more bools: True if some prefix of the tuple 'ws' should be fixed-case,
     False if not, None if unsure."""
@@ -96,7 +84,7 @@ def fixedcase_prefix(
         # French contractions: don't apply fixed-case
         return [False, False]
     return [
-        fixedcase_word(ws[0], truelist=truelist, falselist=falselist)
+        fixedcase_word(ws[0], truelist=truelist)
     ]
 
 
@@ -105,8 +93,7 @@ def fixedcase_title(
     truelist=None,
     phrase_truelist=None,
     amodifiers=None,
-    ndescriptors=None,
-    falselist=None,
+    ndescriptors=None
 ):
     """Returns a list of bools: True if w should be fixed-case, False if
     not, None if unsure."""
@@ -118,17 +105,10 @@ def fixedcase_title(
         b = fixedcase_prefix(
             ws[i:],
             truelist=truelist,
-            phrase_truelist=phrase_truelist,
-            falselist=falselist
+            phrase_truelist=phrase_truelist
         )
         if i == 0:
-            if b[0] is None and len(ws) >= 2 and ws[1] in separators:
-                # In titles of the form "context2vec: Learning Generic Context Embedding with Bidirectional LSTM"
-                # or "Elissa: A Dialectal to Standard Arabic Machine Translation System"
-                # where the first part is a single word, mark it as fixed-case
-                # (Note: if a noninitial character is capitalized, e.g. "BLEU", that is handled elsewhere.)
-                b[0] = True
-                print(' '.join(ws))
+            pass
         elif b[0] and amodifiers and ws[i - 1] in amodifiers:  # e.g. North America
             bs[-1] = True
         elif b[0] and is_hyphen(ws[i - 1]) and amodifiers and ws[i - 2] in amodifiers:
