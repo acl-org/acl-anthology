@@ -1,0 +1,60 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Created by Edoardo M. Ponti on 08/05/2020
+
+% Disclaimer: there is no guarantee that the footer will appear as in ACL conference proceedings, as the commands below are reverse-engineered from the originals.
+
+% Usage: Please follow these 2 steps:
+% 1) Set the VARIABLES in the section below of the current file (up to "Do not modify anything beyond this point");
+% 2) Insert the current file in your main LaTeX file by using \input{aclrevision} just before \begin{document}.
+
+% Note: for 3-line footers, provide a value for \FirstLine; for 2-line footers, leave \FirstLine empty.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[pages=some]{background}
+\usepackage{datetime}
+\usepackage{etoolbox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Modify the following VARIABLES
+\newcommand{\FirstPage}{2900}
+\newcommand{\LastPage}{2910}
+\newcommand{\Pages}[2]{\ifthenelse{\equal{#1}{#2}}{page #1}{pages #1--#2}}
+
+% Leave \FirstLine empty for 2-line footers
+\newcommand{\FirstLine}{Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing}
+\newcommand{\SecondLine}{and the 9th International Joint Conference on Natural Language Processing,}
+\newcommand{\ThirdLine}{Hong Kong, China, November 3--7, 2019. \textcopyright 2019 Association for Computational Linguistics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Do not modify anything beyond this point
+
+\setcounter{page}{\FirstPage}
+\thispagestyle{plain}
+\pagestyle{plain}
+\setlength\footskip{0.8cm}
+
+\newcounter{Yloc}
+\setcounter{Yloc}{15}
+
+\newcommand{\citeinfo}[2]{
+  \AddToShipoutPicture*{%
+    \setlength{\unitlength}{1mm}
+    \ifdefempty{\FirstLine}{}{
+    \put(105,\value{Yloc}){\makebox(0,0){\footnotesize {\em \FirstLine}}} %
+    \addtocounter{Yloc}{-4}
+    }
+    \put(105,\value{Yloc}){\makebox(0,0){\footnotesize {\em \SecondLine}~\Pages{\FirstPage}{\LastPage}}}
+    \addtocounter{Yloc}{-4}
+    \put(105,\value{Yloc}){\makebox(0,0){\footnotesize \ThirdLine}}
+  }
+}
+
+\citeinfo{\FirstPage}{\LastPage}
+
+\BgThispage
+\SetBgColor{gray}
+\SetBgContents{\huge ACL Anthology [revision] \the\day ~\shortmonthname[\the\month]~\the\year}% Set contents
+\SetBgPosition{-0.9\marginparwidth,-0.5\textheight} % Select location
+\SetBgOpacity{1.0}% Select opacity
+\SetBgAngle{90.0}% Select rotation
+\SetBgScale{1.}% Select scale factor
