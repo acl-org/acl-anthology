@@ -112,6 +112,15 @@ def main(args):
             revno = int(revision.attrib["id"]) + 1
 
         if not args.dry_run:
+            if not args.erratum and revno == 2:
+                # First revision requires making the original version explicit
+                revision = make_simple_element(
+                    change_type,
+                    None,
+                    attrib={"id": "1", "href": f"{args.anthology_id}{change_letter}1",},
+                    parent=paper,
+                )
+
             revision = make_simple_element(
                 change_type,
                 args.explanation,

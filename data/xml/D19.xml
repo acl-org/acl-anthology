@@ -1173,6 +1173,7 @@
       <abstract>Although over 100 languages are supported by strong off-the-shelf machine translation systems, only a subset of them possess large annotated corpora for named entity recognition. Motivated by this fact, we leverage machine translation to improve annotation-projection approaches to cross-lingual named entity recognition. We propose a system that improves over prior entity-projection methods by: (a) leveraging machine translation systems twice: first for translating sentences and subsequently for translating entities; (b) matching entities based on orthographic and phonetic similarity; and (c) identifying matches based on distributional statistics derived from the dataset. Our approach improves upon current state-of-the-art methods for cross-lingual named entity recognition on 5 diverse languages by an average of 4.1 points. Further, our method achieves state-of-the-art F_1 scores for Armenian, outperforming even a monolingual model trained on Armenian source data.</abstract>
       <url>D19-1100</url>
       <doi>10.18653/v1/D19-1100</doi>
+      <revision id="1" href="D19-1100v1"/>
       <revision id="2" href="D19-1100v2">Added missing reference section.</revision>
     </paper>
     <paper id="101">
@@ -1377,6 +1378,7 @@
       <abstract>Unresolved coreference is a bottleneck for relation extraction, and high-quality coreference resolvers may produce an output that makes it a lot easier to extract knowledge triples. We show how to improve coreference resolvers by forwarding their input to a relation extraction system and reward the resolvers for producing triples that are found in knowledge bases. Since relation extraction systems can rely on different forms of supervision and be biased in different ways, we obtain the best performance, improving over the state of the art, using multi-task reinforcement learning.</abstract>
       <url>D19-1118</url>
       <doi>10.18653/v1/D19-1118</doi>
+      <revision id="1" href="D19-1118v1"/>
       <revision id="2" href="D19-1118v2">Corrected an error in Figure 2 that incorrectly portrayed the data collection process for training the reward models.</revision>
     </paper>
     <paper id="119">
@@ -1652,6 +1654,7 @@
       <abstract>Bilingual lexicons are valuable resources used by professional human translators. While these resources can be easily incorporated in statistical machine translation, it is unclear how to best do so in the neural framework. In this work, we present the HABLex dataset, designed to test methods for bilingual lexicon integration into neural machine translation. Our data consists of human generated alignments of words and phrases in machine translation test sets in three language pairs (Russian-English, Chinese-English, and Korean-English), resulting in clean bilingual lexicons which are well matched to the reference. We also present two simple baselines - constrained decoding and continued training - and an improvement to continued training to address overfitting.</abstract>
       <url>D19-1142</url>
       <doi>10.18653/v1/D19-1142</doi>
+      <revision id="1" href="D19-1142v1"/>
       <revision id="2" href="D19-1142v2">This revision corrects data size entries in Table 2 (where the original submission had incorrect values for Chinese and had switched development and test sizes for Russian and Korean) and corrects an error regarding discontiguous alignments in Section 3.3 (some, but not all, discontiguous alignments were removed from the data).</revision>
     </paper>
     <paper id="143">
@@ -2821,6 +2824,7 @@
       <abstract>User-generated textual data is rich in content and has been used in many user behavioral modeling tasks. However, it could also leak user private-attribute information that they may not want to disclose such as age and location. User’s privacy concerns mandate data publishers to protect privacy. One effective way is to anonymize the textual data. In this paper, we study the problem of textual data anonymization and propose a novel Reinforcement Learning-based Text Anonymizor, RLTA, which addresses the problem of private-attribute leakage while preserving the utility of textual data. Our approach first extracts a latent representation of the original text w.r.t. a given task, then leverages deep reinforcement learning to automatically learn an optimal strategy for manipulating text representations w.r.t. the received privacy and utility feedback. Experiments show the effectiveness of this approach in terms of preserving both privacy and utility.</abstract>
       <url>D19-1240</url>
       <doi>10.18653/v1/D19-1240</doi>
+      <revision id="1" href="D19-1240v1"/>
       <revision id="2" href="D19-1240v2" date="2020-02-24">The Eq. 4 was wrong for a multi-class classifier and we should use the 'max' function instead of 'min' on other outputs. The formula was correct for a binary classifier, hence the results would be the same.</revision>
     </paper>
     <paper id="241">
@@ -8659,6 +8663,7 @@ A plethora of methods have been proposed to emphasize specific lexico-semantic r
       <abstract>The blurry line between nefarious fake news and protected-speech satire has been a notorious struggle for social media platforms. Further to the efforts of reducing exposure to misinformation on social media, purveyors of fake news have begun to masquerade as satire sites to avoid being demoted. In this work, we address the challenge of automatically classifying fake news versus satire. Previous work have studied whether fake news and satire can be distinguished based on language differences. Contrary to fake news, satire stories are usually humorous and carry some political or social message. We hypothesize that these nuances could be identified using semantic and linguistic cues. Consequently, we train a machine learning method using semantic representation, with a state-of-the-art contextual language model, and with linguistic features based on textual coherence metrics. Empirical evaluation attests to the merits of our approach compared to the language-based baseline and sheds light on the nuances between fake news and satire. As avenues for future work, we consider studying additional linguistic features related to the humor aspect, and enriching the data with current news events, to help identify a political or social message.</abstract>
       <url>D19-5004</url>
       <doi>10.18653/v1/D19-5004</doi>
+      <revision id="1" href="D19-5004v1"/>
       <revision id="2" href="D19-5004v2">We corrected a few citations' bibtex entry and made sure they're based on the standard format of the official template.
 - We added a short footnote (#2) just to clarify how we calculated the baseline in our paper (this was already available in our GitHub but we thought it may be better to be also in our paper)
 - We paraphrased a few sentences in the related work section in one of the paragraphs to make sure they are distinguishable from the original paper.
@@ -8808,6 +8813,7 @@ A plethora of methods have been proposed to emphasize specific lexico-semantic r
       <abstract>The automatic identification of propaganda has gained significance in recent years due to technological and social changes in the way news is generated and consumed. That this task can be addressed effectively using BERT, a powerful new architecture which can be fine-tuned for text classification tasks, is not surprising. However, propaganda detection, like other tasks that deal with news documents and other forms of decontextualized social communication (e.g. sentiment analysis), inherently deals with data whose categories are simultaneously imbalanced and dissimilar. We show that BERT, while capable of handling imbalanced classes with no additional data augmentation, does not generalise well when the training and test data are sufficiently dissimilar (as is often the case with news sources, whose topics evolve over time). We show how to address this problem by providing a statistical measure of similarity between datasets and a method of incorporating cost-weighting into BERT when the training and test sets are dissimilar. We test these methods on the Propaganda Techniques Corpus (PTC) and achieve the second highest score on sentence-level propaganda classification.</abstract>
       <url>D19-5018</url>
       <doi>10.18653/v1/D19-5018</doi>
+      <revision id="1" href="D19-5018v1"/>
       <revision id="2" href="D19-5018v2" date="2020-01-14">Typo in Table 3 fixed to reflect correct F1 score of Propaganda.
 Typo in Table 4 fixed to reflect correct recall of presented system.</revision>
     </paper>
@@ -9673,6 +9679,7 @@ Typo in Table 4 fixed to reflect correct recall of presented system.</revision>
       <abstract>Automatic summarization methods have been studied on a variety of domains, including news and scientific articles. Yet, legislation has not previously been considered for this task, despite US Congress and state governments releasing tens of thousands of bills every year. In this paper, we introduce BillSum, the first dataset for summarization of US Congressional and California state bills. We explain the properties of the dataset that make it more challenging to process than other domains. Then, we benchmark extractive methods that consider neural sentence representations and traditional contextual features. Finally, we demonstrate that models built on Congressional bills can be used to summarize California billa, thus, showing that methods developed on this dataset can transfer to states without human-written summaries.</abstract>
       <url>D19-5406</url>
       <doi>10.18653/v1/D19-5406</doi>
+      <revision id="1" href="D19-5406v1"/>
       <revision id="2" href="D19-5406v2" date="2020-01-05">The BillSum dataset was updated to remove duplicate documents (bills). The dataset statistics and and results table were updated to reflect the updated dataset that is available through the link in the paper. The problem is the original dataset occurred due to bills being introduced across sessions with new bill numbers. In the update, the duplicates were identified by running a similarity metric between all dataset documents. None of the summarization methods tested were changed.</revision>
     </paper>
     <paper id="7">
@@ -12392,6 +12399,7 @@ Typo in Table 4 fixed to reflect correct recall of presented system.</revision>
       <abstract>We report results from the SR’19 Shared Task, the second edition of a multilingual surface realisation task organised as part of the EMNLP’19 Workshop on Multilingual Surface Realisation. As in SR’18, the shared task comprised two tracks with different levels of complexity: (a) a shallow track where the inputs were full UD structures with word order information removed and tokens lemmatised; and (b) a deep track where additionally, functional words and morphological information were removed. The shallow track was offered in eleven, and the deep track in three languages. Systems were evaluated (a) automatically, using a range of intrinsic metrics, and (b) by human judges in terms of readability and meaning similarity. This report presents the evaluation results, along with descriptions of the SR’19 tracks, data and evaluation methods. For full descriptions of the participating systems, please see the separate system reports elsewhere in this volume.</abstract>
       <url>D19-6301</url>
       <doi>10.18653/v1/D19-6301</doi>
+      <revision id="1" href="D19-6301v1"/>
       <revision id="2" href="D19-6301v2" date="2020-01-30">One of the project numbers in the acknowledgements were wrong (the last one); it was changed to 825079-STARTS.</revision>
     </paper>
     <paper id="2">
