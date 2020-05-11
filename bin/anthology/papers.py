@@ -98,19 +98,6 @@ class Paper:
             for item in paper.attrib["attachment"]:
                 item["url"] = infer_attachment_url(item["url"], paper.full_id)
 
-        # Explicitly construct URL of original version of the paper
-        # -- this is a bit hacky, but it's not given in the XML
-        # explicitly
-        if "revision" in paper.attrib:
-            paper.attrib["revision"].insert(
-                0,
-                {
-                    "value": "{}v1".format(paper.full_id),
-                    "id": "1",
-                    "url": data.ANTHOLOGY_PDF.format("{}v1".format(paper.full_id)),
-                },
-            )
-
         paper.attrib["title"] = paper.get_title("plain")
         paper.attrib["booktitle"] = paper.get_booktitle("plain")
 
