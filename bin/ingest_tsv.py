@@ -55,6 +55,9 @@ def download(remote_path, local_path):
     except urllib.error.HTTPError:
         print(f"-> FAILED to download {remote_path}", file=sys.stderr)
         return False
+    except urllib.error.URLError:
+        print(f"-> FAILED to download {remote_path}", file=sys.stderr)
+        return False
 
     return True
 
@@ -82,7 +85,15 @@ def extract_pages(source_path, page_range, local_path):
 
 
 def main(args):
-    venue, year, _ = os.path.basename(args.tsv_file.name).split(".")
+    year, venue, _ = os.path.basename(args.tsv_file.name).split(".")
+
+    # Set the volume name from the collection file, or default to 1
+    # The file name is either "2012.eamt.tsv" or "2012.eamt-main.tsv".
+    # The default volume name is "1".
+    if "-" in venue:
+        venue, volume_id = venue.split("-")
+    else:
+        volume_id = "1"
 
     collection_id = f"{year}.{venue}"
 
@@ -90,28 +101,14 @@ def main(args):
         make_simple_element("collection", attrib={"id": collection_id})
     )
 
-    volume_id = "1"
     volume = make_simple_element("volume", attrib={"id": volume_id})
     tree.getroot().insert(0, volume)
 
     # Create the metadata for the paper
     meta = None
-    for row in csv.DictReader(args.meta_file, delimiter=","):
+    for row in csv.DictReader(args.meta_file, delimiter="\t"):
         current_collection_id = f"{row['Year']}.{row['Conference code']}"
         if current_collection_id == collection_id:
-            if row["Completed"] == "FALSE":
-                if args.force:
-                    print(
-                        "Warning: Conference {collection_id} is not marked as completed.",
-                        file=sys.stderr,
-                    )
-                else:
-                    print(
-                        "Warning: Conference {collection_id} is not marked as completed and no -f, can't ingest.",
-                        file=sys.stderr,
-                    )
-                    sys.exit(1)
-
             meta = make_simple_element("meta", parent=volume)
             make_simple_element("booktitle", row["Conference title"], parent=meta)
             make_simple_element("publisher", row["Publisher"], parent=meta)
