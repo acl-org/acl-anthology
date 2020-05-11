@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
 Takes a conference TSV file and, optionally, a conference metadata
-file, and creates the Anthology XML in the ACL Anthology repository.o
+file, and creates the Anthology XML in the ACL Anthology repository.
 This file can then be added to the repo and committed.
+This version also cuts big pdf into pdfs for individual papers using pdftk.
 
 Example usage:
 
@@ -12,7 +13,7 @@ Example usage:
 
 Then run it as
 
-    scripts/ingest_tsv.py --anthology /path/to/anthology eamt/eamt.1997.tsv conference-metadata.tsv
+    scripts/ingest_tsv.py --anthology /path/to/anthology --proceedings allpapers.pdf eamt/eamt.1997.tsv conference-metadata.tsv
 
 this will create a file `/path/to/anthology/data/xml/1997.eamt.xml`.
 You can then commit this to your Anthology repo, push to your Github, and create a PR.
