@@ -70,7 +70,7 @@ def extract_pages(source_path, page_range, local_path):
         print(f"{source_path} does not exists", file=sys.stderr)
         raise Exception(f"Could not extract pdf")
     try:
-        page_range = ' A'.join(page_range.split(','))
+        page_range = ' A'.join(page_range.split('--'))
         print(
             f"-> Extracting pages {page_range} from {source_path} to {local_path}",
             file=sys.stderr,
@@ -104,6 +104,9 @@ def main(args):
     volume = make_simple_element("volume", attrib={"id": volume_id})
     tree.getroot().insert(0, volume)
 
+    # Location of entire-proceedings PDF
+    proceedings_pdf = args.proceedings
+
     # Create the metadata for the paper
     meta = None
     for row in csv.DictReader(args.meta_file, delimiter="\t"):
@@ -115,6 +118,22 @@ def main(args):
             make_simple_element("address", row["Location"], parent=meta)
             make_simple_element("month", row["Dates held"], parent=meta)
             make_simple_element("year", row["Year"], parent=meta)
+
+            url = row["URL"]
+
+            if url.endswith(".pdf"):
+                if proceedings_pdf:
+                    print("Overriding --proceedings with proceedings PDF found in conference list", file=sys.stderr)
+                proceedings_pdf = url
+
+            # volume PDF
+            if proceedings_pdf is not None:
+                volume_anth_id = f"{collection_id}-{volume_id}"
+                pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{volume_anth_id}.pdf")
+                download(proceedings_pdf, pdf_local_path)
+                make_simple_element("url", volume_anth_id)
+                proceedings_pdf = pdf_local_path
+
             if row["Editors"] != "" and "?" not in row["Editors"]:
                 editors = row["Editors"].split(" and ")
                 for editor_name in editors:
@@ -140,48 +159,23 @@ def main(args):
         print(f"Creating {collection_id}", file=sys.stderr)
         os.makedirs(collection_id)
 
-    if args.frontmatter:
-        start_id = 0
-    else:
-        start_id = 1
-
+    paperid = 0
     # Create entries for all the papers
-    for paperid, row in enumerate(
-        csv.DictReader(args.tsv_file, delimiter='\t'), start_id
-    ):
+    for row in csv.DictReader(args.tsv_file, delimiter='\t'):
         pages = row.get("Pagenumbers", None)
 
-        if paperid == 0:
+        title_text = row["Title"]
 
-            title_text = row["Title"]
-            try:
-                pdf = row["Pdf"]
-            except KeyError:
-                pdf = None
-            frontmatter = make_simple_element("frontmatter", parent=volume)
-            if pages is not None:
-                make_simple_element("pages", pages, parent=frontmatter)
+        # The first row might be front matter (needs a special name)
+        if title_text == "Frontmatter" and paperid == 0:
+            paper = make_simple_element("frontmatter", parent=volume)
 
-            url = f"{collection_id}-{volume_id}.{paperid}"
-            pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{url}.pdf")
-            make_simple_element("url", url, parent=frontmatter)
-            if not pdf is None:
-                if not download(pdf, pdf_local_path):
-                    pdf = None
-            else:
-                pdf_pages = row["pages in pdf"]
-                extract_pages(args.proceedings, pdf_pages, pdf_local_path)
-            continue
+        else:
+            paperid += 1
+            paper = make_simple_element("paper", attrib={"id": str(paperid)}, parent=volume)
 
         title_text = row["Title"]
         author_list = row["Authors"].split(" and ")
-
-        try:
-            pdf = row["Pdf"]
-        except KeyError:
-            pdf = None
-
-        paper = make_simple_element("paper", attrib={"id": str(paperid)}, parent=volume)
 
         make_simple_element("title", title_text, parent=paper)
         for author_name in author_list:
@@ -198,18 +192,18 @@ def main(args):
         if pages is not None:
             make_simple_element("pages", pages, parent=paper)
 
-        url = f"{collection_id}-{volume_id}.{paperid}"
-        pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{url}.pdf")
-        if not pdf is None:
-            if not download(pdf, pdf_local_path):
-                url = None
+        # Find the PDF, either listed directly, or extracted from the proceedings PDF
+        anth_id = f"{collection_id}-{volume_id}.{paperid}"
+        pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{anth_id}.pdf")
+        url = None
+        if "Pdf" in row:
+            if download(row["Pdf"], pdf_local_path):
+                url = anth_id
 
         elif "pages in pdf" in row:
             pdf_pages = row["pages in pdf"]
-            extract_pages(args.proceedings, pdf_pages, pdf_local_path)
-
-        else:
-            url = None
+            extract_pages(proceedings_pdf, pdf_pages, pdf_local_path)
+            url = anth_id
 
         if url is not None:
             make_simple_element("url", url, parent=paper)
