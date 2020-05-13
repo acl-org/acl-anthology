@@ -220,11 +220,20 @@ def main(args):
         if "Abstract" in row:
             make_simple_element("abstract", row["Abstract"], parent=paper)
 
-        if "Presentation" in row and row["Presentation"] != "":
-            extension = row["Presentation"].split(".")[-1]
-            filename = f"{collection_id}-{volume_id}.{paperid}.Presentation.{extension}"
-            make_simple_element("attachment", filename, attrib={"type": "presentation"})
-            download(row["Presentation"], os.path.join(collection_id, filename))
+        if "Presentation" in row:
+            url = row["Presentation"]
+            if url is not None and url != "" and url != "None":
+                extension = row["Presentation"].split(".")[-1]
+                name = f"{anth_id}.Presentation.{extension}"
+                local_path = os.path.join(
+                    args.anthology_files_path,
+                    "..",
+                    "attachments",
+                    venue,
+                    name,
+                )
+                if download(row["Presentation"], local_path):
+                    make_simple_element("attachment", name, attrib={"type": "presentation"}, parent=paper)
 
         # Normalize
         for node in paper:
