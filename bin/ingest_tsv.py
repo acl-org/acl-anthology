@@ -196,7 +196,7 @@ def main(args):
         anth_id = f"{collection_id}-{volume_id}.{paperid}"
         pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{anth_id}.pdf")
         url = None
-        if "Pdf" in row:
+        if "Pdf" in row and row["Pdf"] != "":
             if download(row["Pdf"], pdf_local_path):
                 url = anth_id
 
