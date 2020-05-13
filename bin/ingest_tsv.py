@@ -70,7 +70,9 @@ def extract_pages(source_path, page_range, local_path):
         print(f"{source_path} does not exists", file=sys.stderr)
         raise Exception(f"Could not extract pdf")
     try:
-        page_range = ' A'.join(page_range.split('--'))
+        if "--" in page_range:
+            page_range = page_range.replace("--", "-")
+        page_range = ' A'.join(page_range.split(','))
         print(
             f"-> Extracting pages {page_range} from {source_path} to {local_path}",
             file=sys.stderr,
@@ -173,11 +175,11 @@ def main(args):
         else:
             paperid += 1
             paper = make_simple_element("paper", attrib={"id": str(paperid)}, parent=volume)
+            # Only make the title for not-the-frontmatter
+            make_simple_element("title", title_text, parent=paper)
 
-        title_text = row["Title"]
         author_list = row["Authors"].split(" and ")
 
-        make_simple_element("title", title_text, parent=paper)
         for author_name in author_list:
             if author_name == "":
                 continue
