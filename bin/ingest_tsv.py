@@ -125,13 +125,18 @@ def main(args):
 
             if url.endswith(".pdf"):
                 if proceedings_pdf:
-                    print("Overriding --proceedings with proceedings PDF found in conference list", file=sys.stderr)
+                    print(
+                        "Overriding --proceedings with proceedings PDF found in conference list",
+                        file=sys.stderr,
+                    )
                 proceedings_pdf = url
 
             # volume PDF
             if proceedings_pdf is not None:
                 volume_anth_id = f"{collection_id}-{volume_id}"
-                pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{volume_anth_id}.pdf")
+                pdf_local_path = os.path.join(
+                    args.anthology_files_path, venue, f"{volume_anth_id}.pdf"
+                )
                 download(proceedings_pdf, pdf_local_path)
                 make_simple_element("url", volume_anth_id)
                 proceedings_pdf = pdf_local_path
@@ -174,7 +179,9 @@ def main(args):
 
         else:
             paperid += 1
-            paper = make_simple_element("paper", attrib={"id": str(paperid)}, parent=volume)
+            paper = make_simple_element(
+                "paper", attrib={"id": str(paperid)}, parent=volume
+            )
             # Only make the title for not-the-frontmatter
             make_simple_element("title", title_text, parent=paper)
 
