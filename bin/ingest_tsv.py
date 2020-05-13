@@ -131,6 +131,9 @@ def main(args):
                     )
                 proceedings_pdf = url
 
+            elif "Complete PDF" in row:
+                proceedings_pdf = row["Complete PDF"]
+
             # volume PDF
             if proceedings_pdf is not None:
                 volume_anth_id = f"{collection_id}-{volume_id}"
