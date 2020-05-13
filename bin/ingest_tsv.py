@@ -23,7 +23,6 @@ Author: Matt Post
 March 2020
 """
 
-
 import csv
 import lxml.etree as etree
 import os
@@ -33,6 +32,7 @@ import sys
 import urllib.request
 
 from anthology.utils import make_simple_element, indent
+from datetime import datetime
 from normalize_anth import normalize
 
 
@@ -103,7 +103,10 @@ def main(args):
         make_simple_element("collection", attrib={"id": collection_id})
     )
 
-    volume = make_simple_element("volume", attrib={"id": volume_id})
+    now = datetime.now()
+    today = f"{now.year}-{now.month:02d}-{now.day:02d}"
+
+    volume = make_simple_element("volume", attrib={"id": volume_id, "ingest-date": today})
     tree.getroot().insert(0, volume)
 
     # Location of entire-proceedings PDF
@@ -229,14 +232,12 @@ def main(args):
                 extension = row["Presentation"].split(".")[-1]
                 name = f"{anth_id}.Presentation.{extension}"
                 local_path = os.path.join(
-                    args.anthology_files_path,
-                    "..",
-                    "attachments",
-                    venue,
-                    name,
+                    args.anthology_files_path, "..", "attachments", venue, name,
                 )
                 if download(row["Presentation"], local_path):
-                    make_simple_element("attachment", name, attrib={"type": "presentation"}, parent=paper)
+                    make_simple_element(
+                        "attachment", name, attrib={"type": "presentation"}, parent=paper
+                    )
 
         # Normalize
         for node in paper:
