@@ -1,0 +1,241 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="1991.iwpt">
+  <volume id="1" ingest-date="2020-05-11">
+    <meta>
+      <booktitle>Second International Workshop on Parsing Technologies</booktitle>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Cancun, Mexico</address>
+      <month>February 13-25</month>
+      <year>1991</year>
+      <editor><first>Masaru</first><last>Tomita</last></editor>
+      <editor><first>Martin</first><last>Kay</last></editor>
+      <editor><first>Robert</first><last>Berwick</last></editor>
+      <editor><first>Eva</first><last>Hajicova</last></editor>
+      <editor><first>Aravind</first><last>Joshi</last></editor>
+      <editor><first>Ronald</first><last>Kaplan</last></editor>
+      <editor><first>Makoto</first><last>Nagao</last></editor>
+      <editor><first>Yorick</first><last>Wilks</last></editor>
+    </meta>
+    <paper id="1">
+      <title>Proceedings of the Second International Workshop on Parsing Technologies (<fixed-case>IWPT</fixed-case> ’91)</title>
+      <author><first>Masaru</first><last>Tomita</last></author>
+      <author><first>Martin</first><last>Kay</last></author>
+      <author><first>Robert</first><last>Berwick</last></author>
+      <author><first>Eva</first><last>Hajicova</last></author>
+      <author><first>Aravind</first><last>Joshi</last></author>
+      <author><first>Ronald</first><last>Kaplan</last></author>
+      <author><first>Makoto</first><last>Nagao</last></author>
+      <author><first>Yorick</first><last>Wilks</last></author>
+      <pages>i-viii</pages>
+      <url>1991.iwpt-1.1</url>
+      <abstract>February 13-25, 1991</abstract>
+    </paper>
+    <paper id="2">
+      <title>Parsing without Parser</title>
+      <author><first>Koîti</first><last>Hasida</last></author>
+      <author><first>Hiroshi</first><last>Tsuda</last></author>
+      <pages>1-10</pages>
+      <url>1991.iwpt-1.2</url>
+      <abstract>In the domain of artificial intelligence, the pattern of information flow varies drastically from one context to another. To capture this diversity of information flow, a natural-language processing (NLP) system should consist of modules of constraints and one general constraint solver to process all of them; there should be no specialized procedure module such as a parser and a generator. This paper presents how to implement such a constraint-based approach to NLP. Dependency Propagation (DP) is a constraint solver which transforms the program (=constraint) represented in terms of logic programs. Constraint Unification (CU) is a unification method incorporating DP. cu-Prolog is an extended Prolog which employs CU instead of the standard unification. cu-Prolog can treat some lexical and grammatical knowledge as constraints on the structure of grammatical categories, enabling a very straightforward implementation of a parser using constraint-based grammars. By extending DP, one can deal efficiently with phrase structures in terms of constraints. Computation on category structures and phrase structures are naturally integrated in an extended DP. The computation strategies to do all this are totally attributed to a very abstract, task-independent principle: prefer computation using denser information. Efficient parsing is hence possible without any parser.</abstract>
+    </paper>
+    <paper id="3">
+      <title>Parsing = Parsimonious Covering?</title>
+      <author><first>Venu</first><last>Dasigi</last></author>
+      <pages>11-20</pages>
+      <url>1991.iwpt-1.3</url>
+      <abstract>Many researchers believe that certain aspects of natural language processing, such as word sense disambiguation and plan recognition in stories, constitute abductive inferences. We have been working with a specific model of abduction, called <i>parsimonious covering</i>, applied in diagnostic problem solving, word sense disambiguation and logical form generation in some restricted settings. Diagnostic parsimonious covering has been extended into a dual-route model to account for syntactic and semantic aspects of natural language. The two routes of covering are integrated by defining “open class” linguistic concepts, aiding each other. The diagnostic model has dealt with sets, while the extended version, where syntactic considerations dictate word order, deals with sequences of linguistic concepts. Here we briefly describe the original model and the extended version, and briefly characterize the notions of covering and different criteria of parsimony. Finally we examine the question of whether parsimonious covering can serve as a general framework for parsing.</abstract>
+    </paper>
+    <paper id="4">
+      <title>The Valid Prefix Property and Left to Right Parsing of Tree-Adjoining Grammar</title>
+      <author><first>Yves</first><last>Schabes</last></author>
+      <pages>21-30</pages>
+      <url>1991.iwpt-1.4</url>
+      <abstract>The valid prefix property (VPP), the capability of a left to right parser to detect errors as soon as possible, often goes unnoticed in parsing CFGs. Earley’s parser for CFGs (Earley, 1968; Earley, 1970) maintains the valid prefix property and obtains an <tex-math>O(n^3)</tex-math>-time worst case complexity, as good as parsers that do not maintain such as the CKY parser (Younger, 1967; Kasami, 1965). Contrary to CFGs, maintaining the valid prefix property for TAGs is costly. In 1988, Schabes and Joshi proposed an Earley-type parser for TAGs. It maintains the valid prefix property at the expense of its worst case complexity (<tex-math>O(n^9)</tex-math>-time). To our knowledge, it is the only known polynomial time parser for TAGs that maintains the valid prefix property. In this paper, we explain why the valid prefix property is expensive to maintain for TAGs and we introduce a predictive left to right parser for TAGs that does not maintain the valid prefix property but that achieves an <tex-math>O(n^6)</tex-math>-time worst case behavior, <tex-math>O(n^4)</tex-math>-time for unambiguous grammars and linear time for a large class of grammars.</abstract>
+    </paper>
+    <paper id="5">
+      <title>Preprocessing and lexicon design for parsing technical text</title>
+      <author><first>Robert P.</first><last>Futrelle</last></author>
+      <author><first>Christopher E.</first><last>Dunn</last></author>
+      <author><first>Debra S.</first><last>Ellis</last></author>
+      <author><first>Maurice J.</first><last>Pescitelli, Jr.</last></author>
+      <pages>31-40</pages>
+      <url>1991.iwpt-1.5</url>
+      <abstract>Technical documents with complex structures and orthography present special difficulties for current parsing technology. These include technical notation such as subscripts, superscripts and numeric and algebraic expressions as well as Greek letters, italics, small capitals, brackets and punctuation marks. Structural elements such as references to figures, tables and bibliographic items also cause problems. We first hand-code documents in Standard Generalized Markup Language (SGML) to specify the document’s logical structure (paragraphs, sentences, etc.) and capture significant orthography. Next, a regular expression analyzer produced by LEX is used to tokenize the SGML text. Then a token-based phrasal lexicon is used to identify the longest token sequences in the input that represent single lexical items. This lookup is efficient because limits on lookahead are precomputed for every item. After this, the Alvey Tools parser with specialized subgrammars is used to discover items such as floating-point numbers. The product of these preprocessing stages is a text that is acceptable to a full natural language parser. This work is directed towards automating the building of knowledge bases from research articles in the field of bacterial chemotaxis, but the techniques should be of wide applicability.</abstract>
+    </paper>
+    <paper id="6">
+      <title>Incremental <fixed-case>LL</fixed-case>(1) Parsing in Language-Based Editors</title>
+      <author><first>John J.</first><last>Shilling</last></author>
+      <pages>41-51</pages>
+      <url>1991.iwpt-1.6</url>
+      <abstract>This paper introduces an efficient incremental LL(1) parsing algorithm for use in language-based editors that use the structure recognition approach. It features very fine grained analysis and a unique approach to parse control and error recovery. It also presents incomplete LL(1) grammars as a way of dealing with the complexity of full language grammars and as a mechanism for providing structured editor support for task languages that are only partially structured. The semantics of incomplete grammars are presented and it is shown how incomplete LL(1) grammars can be transformed into complete LL(1) grammars. The algorithms presented have been implemented in the fred language-based editor</abstract>
+    </paper>
+    <paper id="7">
+      <title>Linguistic Information in the Databases as a Basis for Linguistic Parsing Algorithms</title>
+      <author><first>Tatiana A.</first><last>Apollonskaya</last></author>
+      <author><first>Larissa N.</first><last>Beliaeva</last></author>
+      <author><first>Raimund G.</first><last>Piotrowski</last></author>
+      <pages>52-58</pages>
+      <url>1991.iwpt-1.7</url>
+      <abstract>The focus of this paper is investigation of linguistic data base design in conjugation with parsing algorithms. The structure of linguistic data base in natural language processing systems, the structure of lexicon items and the structure and the volume of linguistic information in automatic dictionary is the base for linguistic parsing organization.</abstract>
+    </paper>
+    <paper id="8">
+      <title>Binding Pronominals with an <fixed-case>LFG</fixed-case> Parser</title>
+      <author><first>Radolfo</first><last>Delmonte</last></author>
+      <author><first>Dario</first><last>Bianchi</last></author>
+      <pages>59-72</pages>
+      <url>1991.iwpt-1.8</url>
+      <abstract>This paper describes an implemented algorithm for handling pronominal reference and anaphoric control within an LFG framework. At first there is a brief description of the grammar implemented in Prolog using XGs (extraposition grammars) introduced by Pereira (1981;1983). Then the algorithm mapping binding equations is discussed at length. In particular the algorithm makes use of f-command together with the obviation principle, rather than c-command which is shown to be insufficient to explain the facts of binding of both English and Italian. Previous work (Ingria,1989;Hobbs,1978) was based on English and the classes of pronominals to account for were two: personal and possessive pronouns and anaphors - reflexives and reciprocals. In Italian, and in other languages of the world, the classes are many more. We dealt with four: a.pronouns - personal and independent pronouns, epithets, possessive pronouns; b.clitic pronouns and Morphologically Unexpressed PRO/pros; c.long distance anaphors; short distance anaphors. Binding of anaphors and coreference of pronouns is extensively shown to depend on structural properties of f-structures, on thematic roles and grammatical functions associated with the antecedents or controller, on definiteness of NPs and mood of clausal f-structures. The algorithm uses feature matrixes to tell pronominal classes apart and scores to determine the ranking of candidates for antecedenthood, as well as for restricting the behaviour of proforms and anaphors.</abstract>
+    </paper>
+    <paper id="9">
+      <title>A Hybrid Model of Human Sentence Processing: Parsing Right-Branching, Center-Embedded and Cross-Serial Dependencies</title>
+      <author><first>Theo</first><last>Vosse</last></author>
+      <author><first>Gerard</first><last>Kempen</last></author>
+      <pages>73-78</pages>
+      <url>1991.iwpt-1.9</url>
+      <abstract>A new cognitive architecture for the syntactic aspects of human sentence processing (called Unification Space) is tested against experimental data from human subjects. The data, originally collected by Bach, Brown and Marslen-Wilson (1986), concern the comprehensibility of verb dependency constructions in Dutch and German: right-branching, center-embedded, and cross-serial dependencies of one to four levels deep. A satisfactory fit is obtained between comprehensibility data and parsability scores in the model.</abstract>
+    </paper>
+    <paper id="10">
+      <title>Using Inheritance in <fixed-case>O</fixed-case>bject-<fixed-case>O</fixed-case>riented <fixed-case>P</fixed-case>rogramming to Combine Syntactic Rules and Lexical Idiosyncrasies</title>
+      <author><first>Benoît</first><last>Habert</last></author>
+      <pages>79-88</pages>
+      <url>1991.iwpt-1.10</url>
+      <abstract>In parsing idioms and frozen expressions in French, one needs to combine general syntactic rules and idiosyncratic constraints. The inheritance structure provided by Object-Oriented Programming languages, and more specifically the combination of methods present in CLOS, Common Lisp Object System, appears as an elegant and efficient approach to deal with such a complex interaction.</abstract>
+    </paper>
+    <paper id="11">
+      <title>An <fixed-case>LR</fixed-case>(k) Error Diagnosis and Recovery Method</title>
+      <author><first>Philippe</first><last>Charles</last></author>
+      <pages>89-99</pages>
+      <url>1991.iwpt-1.11</url>
+      <abstract>In this paper, a new practical, efficient and language-independent syntactic error recovery method for LR(<i>k</i>) parsers is presented. This method is similar to and builds upon the three-level approach of Burke-Fisher. However, it is more time- and space-efficient and fully automatic.</abstract>
+    </paper>
+    <paper id="12">
+      <title>Adaptive Probabilistic Generalized <fixed-case>LR</fixed-case> Parsing</title>
+      <author><first>Jerry</first><last>Wright</last></author>
+      <author><first>Ave</first><last>Wrigley</last></author>
+      <author><first>Richard</first><last>Sharman</last></author>
+      <pages>100-109</pages>
+      <url>1991.iwpt-1.12</url>
+      <abstract>Various issues in the implementation of generalized LR parsing with probability are discussed. A method for preventing the generation of infinite numbers of states is described and the space requirements of the parsing tables are assessed for a substantial natural-language grammar. Because of a high degree of ambiguity in the grammar, there are many multiple entries and the tables are rather large. A new method for grammar adaptation is introduced which may help to reduce this problem. A probabilistic version of the Tomita parse forest is also described.</abstract>
+    </paper>
+    <paper id="13">
+      <title>Phonological Analysis and Opaque Rule Orders</title>
+      <author><first>Michael</first><last>Maxwell</last></author>
+      <pages>110-116</pages>
+      <url>1991.iwpt-1.13</url>
+      <abstract>General morphological/phonological analysis using ordered phonological rules has appeared to be computationally expensive, because ambiguities in feature values arising when phonological rules are “un-applied” multiply with additional rules. But in fact those ambiguities can be largely ignored until lexical lookup, since the underlying values of altered features are needed only in the case of rare opaque rule orderings, and not always then.</abstract>
+    </paper>
+    <paper id="14">
+      <title>An Efficient Connectionist Context-Free Parser</title>
+      <author><first>Klaas</first><last>Sikkel</last></author>
+      <author><first>Anton</first><last>Nijholt</last></author>
+      <pages>117-126</pages>
+      <url>1991.iwpt-1.14</url>
+      <abstract>A connectionist network is defined that parses a grammar in Chomsky Normal Form in logarithmic time, based on a modification of Rytter’s recognition algorithm. A similar parsing network can be defined for an arbitrary context-free grammar. Such networks can be integrated into a connectionist parsing environment for interactive distributed processing of syntactic, semantic and pragmatic information.</abstract>
+    </paper>
+    <paper id="15">
+      <title>Slow and Fast Parallel Recognition</title>
+      <author><first>Hans</first><last>de Vreught</last></author>
+      <author><first>Job</first><last>Honig</last></author>
+      <pages>127-135</pages>
+      <url>1991.iwpt-1.15</url>
+      <abstract>In the first part of this paper a slow parallel recognizer is described for general CFG’s. The recognizer runs in <tex-math>\Theta(n^3/p(n))</tex-math> time with <tex-math>p(n) = O(n^2)</tex-math> processors. It generalizes the items of the Earley algorithm to double dotted items, which are more suited to parallel parsing. In the second part a fast parallel recognizer is given for general CFG’s. The recognizer runs in <tex-math>O(log n)</tex-math> time using <tex-math>O(n^6)</tex-math> processors. It is a generalisation of the Gibbons and Rytter algorithm for grammars in CNF.</abstract>
+    </paper>
+    <paper id="16">
+      <title>Processing Unknown Words in Continuous Speech Recognition</title>
+      <author><first>Kenji</first><last>Kita</last></author>
+      <author><first>Terumasa</first><last>Ehara</last></author>
+      <author><first>Tsuyoshi</first><last>Morimoto</last></author>
+      <pages>136-142</pages>
+      <url>1991.iwpt-1.16</url>
+      <abstract>Current continuous speech recognition systems essentially ignore unknown words. Systems are designed to recognize words in the lexicon. However, for using speech recognition systems in real applications of spoken-language processing, it is very important to process unknown words. This paper proposes a continuous speech recognition method which accepts any utterance that might include unknown words. In this method, words not in the lexicon are transcribed as phone sequences, while words in the lexicon are recognized correctly. The HMM-LR speech recognition system, which is an integration of Hidden Markov Models and generalized LR parsing, is used as the baseline system, and enhanced with the trigram model of syllables to take into account the stochastic characteristics of a language. Preliminary results indicate that our approach is very promising.</abstract>
+    </paper>
+    <paper id="17">
+      <title>The Specification and Implementation of Constraint-Based Unification Grammars</title>
+      <author><first>Robert</first><last>Carpenter</last></author>
+      <author><first>Carl</first><last>Pollard</last></author>
+      <author><first>Alex</first><last>Franz</last></author>
+      <pages>143-153</pages>
+      <url>1991.iwpt-1.17</url>
+      <abstract>Our aim is to motivate and provide a specification for a unification-based natural language processing system where grammars are expressed in terms of principles which constrain linguistic representations. Using typed feature structures with multiple inheritance for our linguistic representations and definite attribute-value logic clauses to express constraints, we will develop the bare essentials required for an implementation of a parser and generator for the Head-driven Phrase Structure Grammar (HPSG) formalism of Pollard and Sag (1987).</abstract>
+    </paper>
+    <paper id="18">
+      <title>Probabilistic <fixed-case>LR</fixed-case> Parsing for General Context-Free Grammars</title>
+      <author><first>See-Kiong</first><last>Ng</last></author>
+      <author><first>Masaru</first><last>Tomita</last></author>
+      <pages>154-163</pages>
+      <url>1991.iwpt-1.18</url>
+      <abstract>To combine the advantages of probabilistic grammars and generalized LR parsing, an algorithm for constructing a probabilistic LR parser given a probabilistic context-free grammar is needed. In this paper, implementation issues in adapting Tomita’s generalized LR parser with graph-structured stack to perform probabilistic parsing are discussed. Wright and Wrigley (1989) has proposed a probabilistic LR-table construction algorithm for non-left-recursive context-free grammars. To account for left recursions, a method for computing item probabilities using the generation of systems of linear equations is presented. The notion of deferred probabilities is proposed as a means for dealing with similar item sets with differing probability assignments.</abstract>
+    </paper>
+    <paper id="19">
+      <title>Quasi-Destructive Graph Unification</title>
+      <author><first>Hideto</first><last>Tomabechi</last></author>
+      <pages>164-171</pages>
+      <url>1991.iwpt-1.19</url>
+      <abstract>Graph unification is the most expensive part of unification-based grammar parsing. It often takes over 90% of the total parsing time of a sentence. We focus on two speed-up elements in the design of unification algorithms: 1) elimination of excessive copying by only copying successful unifications, 2) Finding unification failures as soon as possible. We have developed a scheme to attain these two criteria without expensive overhead through temporarily modifying graphs during unification to eliminate copying during unification. The temporary modification is invalidated in constant time and therefore, unification can continue looking for a failure without the overhead associated with copying. After a successful unification because the nodes are temporarily prepared for copying, a fast copying can be performed without overhead for handling reentrancy, loops and variables. We found that parsing relatively long sentences (requiring about 500 unifications during a parse) using our algorithm is 100 to 200 percent faster than parsing the same sentences using Wroblewski’s algorithm.</abstract>
+    </paper>
+    <paper id="20">
+      <title>Unification Algorithms for Massively Parallel Computers</title>
+      <author><first>Hiroaki</first><last>Kitano</last></author>
+      <pages>172-181</pages>
+      <url>1991.iwpt-1.20</url>
+      <abstract>This paper describes unification algorithms for fine-grained massively parallel computers. The algorithms are based on a parallel marker-passing scheme. The marker-passing scheme in our algorithms carry only bit-vectors, address pointers and values. Because of their simplicity, our algorithms can be implemented on various architectures of massively parallel machines without loosing the inherent benefits of parallel computation. Also, we describe two augmentations of unification algorithms such as multiple unification and fuzzy unification. Experimental results indicate that our algorithm attaines more than 500 unification per seconds (for DAGs of average depth of 4) and has a linear time-complexity. This leads to possible implementations of massively parallel natural language parsing with full linguistic analysis.</abstract>
+    </paper>
+    <paper id="21">
+      <title>Unification-Based Dependency Parsing of Governor-Final Languages</title>
+      <author><first>Hyuk-Chul</first><last>Kwon</last></author>
+      <author><first>Aesun</first><last>Yoon</last></author>
+      <pages>182-192</pages>
+      <url>1991.iwpt-1.21</url>
+      <abstract>This paper describes a unification-based dependency parsing method for governor-final languages. Our method can parse not only projective sentences but also non-projective sentences. The feature structures in the tradition of the unification-based formalism are used for writing dependency relations. We use a structure sharing and a local ambiguity packing to save storage.</abstract>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>P</fixed-case>earl: A Probabilistic Chart Parser</title>
+      <author><first>David M.</first><last>Magerman</last></author>
+      <author><first>Mitchell P.</first><last>Marcus</last></author>
+      <pages>193-199</pages>
+      <url>1991.iwpt-1.22</url>
+      <abstract>This paper describes a natural language parsing algorithm for unrestricted text which uses a probability-based scoring function to select the “best” parse of a sentence. The parser, Pearl, is a time-asynchronous bottom-up chart parser with Earley-type top-down prediction which pursues the highest-scoring theory in the chart, where the score of a theory represents the extent to which the context of the sentence predicts that interpretation. This parser differs from previous attempts at stochastic parsers in that it uses a richer form of conditional probabilities based on context to predict likelihood. Pearl also provides a framework for incorporating the results of previous work in part-of-speech assignment, unknown word models, and other probabilistic models of linguistic features into one parsing tool, interleaving these techniques instead of using the traditional pipeline architecture. In preliminary tests, Pearl has been successful at resolving part-of-speech and word (in speech processing) ambiguity, determining categories for unknown words, and selecting correct parses first using a very loosely fitting covering grammar.</abstract>
+    </paper>
+    <paper id="23">
+      <title>Local Syntactic Constraints</title>
+      <author><first>Jacky</first><last>Herz</last></author>
+      <author><first>Mori</first><last>Rimon</last></author>
+      <pages>200-209</pages>
+      <url>1991.iwpt-1.23</url>
+      <abstract>A method to reduce ambiguity at the level of word tagging, on the basis of local syntactic constraints, is described. Such “short context” constraints are easy to process and can remove most of the ambiguity at that level, which is otherwise a source of great difficulty for parsers and other applications in certain natural languages. The use of local constraints is also very effective for quick invalidation of a large set of ill-formed inputs. While in some approaches local constraints are defined manually or discovered by processing of large corpora, we extract them directly from a grammar (typically context free) of the given language. We focus on deterministic constraints, but later extend the method for a probabilistic language model.</abstract>
+    </paper>
+    <paper id="24">
+      <title>Stochastic Context-Free Grammars for Island-Driven Probabilistic Parsing</title>
+      <author><first>Anna</first><last>Corazza</last></author>
+      <author><first>Renato</first><last>De Mori</last></author>
+      <author><first>Roberto</first><last>Gretter</last></author>
+      <author><first>Giorgio</first><last>Satta</last></author>
+      <pages>210-217</pages>
+      <url>1991.iwpt-1.24</url>
+      <abstract>In automatic speech recognition the use of language models improves performance. Stochastic language models fit rather well the uncertainty created by the acoustic pattern matching. These models are used to score <i>theories</i> corresponding to partial interpretations of sentences. Algorithms have been developed to compute probabilities for theories that grow in a strictly left-to-right fashion. In this paper we consider new relations to compute probabilities of partial interpretations of sentences. We introduce theories containing a gap corresponding to an uninterpreted signal segment. Algorithms can be easily obtained from these relations. Computational complexity of these algorithms is also derived.</abstract>
+    </paper>
+    <paper id="25">
+      <title>Substring Parsing for Arbitrary Context-Free Grammars</title>
+      <author><first>Jan</first><last>Rekers</last></author>
+      <author><first>Wilco</first><last>Koorn</last></author>
+      <pages>218-224</pages>
+      <url>1991.iwpt-1.25</url>
+      <abstract>A substring recognizer for a language <tex-math>L</tex-math> determines whether a string <tex-math>s</tex-math> is a substring of a sentence in <tex-math>L</tex-math>, i.e., <i>substring-recognize(s)</i> succeeds if and only if <tex-math>\exists v,w: vsw \in L</tex-math>. The algorithm for substring recognition presented here accepts general context-free grammars and uses the same parse tables as the parsing algorithm from which it was derived. Substring recognition is useful for <i>non-correcting</i> syntax error recovery and for incremental parsing. By extending the substring <i>recognizer</i> with the ability to generate trees for the possible contextual completions of the substring, we obtain a substring <i>parser</i>, which can be used in a syntax-directed editor to complete fragments of sentences.</abstract>
+    </paper>
+    <paper id="26">
+      <title>Parsing with Relational Unification Grammars</title>
+      <author><first>Kent</first><last>Wittenburg</last></author>
+      <pages>225-234</pages>
+      <url>1991.iwpt-1.26</url>
+      <abstract>In this paper we present a unification-based grammar formalism and parsing algorithm for the purposes of defining and processing non-concatenative languages. In order to encompass languages that are characterized by relations beyond simple string concatenation, we introduce relational constraints into a linguistically-based unification grammar formalism and extend bottom-up chart parsing methods. This work is currently being applied in the interpretation of hand-sketched mathematical expressions and structured flowcharts on notebook computers and interactive worksurfaces.</abstract>
+    </paper>
+    <paper id="27">
+      <title>Parsing 2-<fixed-case>D</fixed-case> Languages with Positional Grammars</title>
+      <author><first>Gennaro</first><last>Costagliola</last></author>
+      <author><first>Shi-Kuo</first><last>Chang</last></author>
+      <pages>235-243</pages>
+      <url>1991.iwpt-1.27</url>
+      <abstract>In this paper we will present a way to parse two-dimensional languages using LR parsing tables. To do this we describe two-dimensional (positional) grammars as a generalization of the context-free string grammars. The main idea behind this is to allow a traditional LR parser to choose the next symbol to parse from a two-dimensional space. Cases of ambiguity are analyzed and some ways to avoid them are presented. Finally, we construct a parser for the two-dimensional arithmetic expression language and implement it by using the tool Yacc.</abstract>
+    </paper>
+  </volume>
+</collection>
