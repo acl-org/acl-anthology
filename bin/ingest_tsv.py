@@ -134,7 +134,7 @@ def main(args):
                     )
                 proceedings_pdf = url
 
-            elif "Complete PDF" in row:
+            elif "Complete PDF" in row and row["Complete PDF"] != "":
                 proceedings_pdf = row["Complete PDF"]
 
             # volume PDF
