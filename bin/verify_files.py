@@ -35,9 +35,8 @@ from glob import glob
 from lxml import etree
 import logging as log
 import os
-import zlib
 
-from anthology.utils import SeverityTracker
+from anthology.utils import SeverityTracker, compute_hash
 
 
 def main(datadir, filelist):
@@ -47,8 +46,7 @@ def main(datadir, filelist):
         basename = os.path.basename(filename)
         collection_id = basename.split("-")[0]
         with open(filename, "rb") as f:
-            checksum = zlib.crc32(f.read()) & 0xFFFFFFFF
-            checksum = f"{checksum:08x}"  # convert to hex string
+            checksum = compute_hash(f.read())
 
         to_check[collection_id].append((basename, checksum))
 

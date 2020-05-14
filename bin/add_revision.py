@@ -43,7 +43,12 @@ import ssl
 import sys
 import tempfile
 
-from anthology.utils import deconstruct_anthology_id, make_simple_element, indent
+from anthology.utils import (
+    deconstruct_anthology_id,
+    make_simple_element,
+    indent,
+    compute_hash,
+)
 from anthology.data import ANTHOLOGY_PDF
 
 import lxml.etree as ET
@@ -99,6 +104,9 @@ def main(args):
     # The new version
     revno = None
 
+    with open(input_file_path, "rb") as f:
+        checksum = compute_hash(f.read())
+
     # Update XML
     xml_file = os.path.join(
         os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
@@ -117,7 +125,11 @@ def main(args):
                 revision = make_simple_element(
                     change_type,
                     None,
-                    attrib={"id": "1", "href": f"{args.anthology_id}{change_letter}1",},
+                    attrib={
+                        "id": "1",
+                        "href": f"{args.anthology_id}{change_letter}1",
+                        "hash": checksum,
+                    },
                     parent=paper,
                 )
 
@@ -127,6 +139,7 @@ def main(args):
                 attrib={
                     "id": str(revno),
                     "href": f"{args.anthology_id}{change_letter}{revno}",
+                    "hash": checksum,
                     "date": args.date,
                 },
                 parent=paper,
