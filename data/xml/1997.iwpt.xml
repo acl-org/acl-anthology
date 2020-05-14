@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="1997.iwpt">
+  <volume id="1" ingest-date="2020-05-11">
+    <meta>
+      <booktitle>Proceedings of the Fifth International Workshop on Parsing Technologies</booktitle>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Boston/Cambridge, Massachusetts, USA</address>
+      <month>September 17-20</month>
+      <year>1997</year>
+      <editor><first>Anton</first><last>Nijholt</last></editor>
+      <editor><first>Robert C.</first><last>Berwick</last></editor>
+      <editor><first>Harry C.</first><last>Bunt</last></editor>
+      <editor><first>Bob</first><last>Carpenter</last></editor>
+      <editor><first>Eva</first><last>Hajicova</last></editor>
+      <editor><first>Mark</first><last>Johnson</last></editor>
+      <editor><first>Aravind</first><last>Joshi</last></editor>
+      <editor><first>Ronald</first><last>Kaplan</last></editor>
+      <editor><first>Martin</first><last>Kay</last></editor>
+      <editor><first>Bernard</first><last>Lang</last></editor>
+      <editor><first>Alon</first><last>Lavie</last></editor>
+      <editor><first>Makoto</first><last>Nagao</last></editor>
+      <editor><first>Mark</first><last>Steedman</last></editor>
+      <editor><first>Masaru</first><last>Tomita</last></editor>
+      <editor><first>K.</first><last>Vijay-Shanker</last></editor>
+      <editor><first>David</first><last>Weir</last></editor>
+      <editor><first>Kent</first><last>Wittenburg</last></editor>
+      <editor><first>Mats</first><last>Wiren</last></editor>
+      <url>1997.iwpt-1</url>
+    </meta>
+    <paper id="1">
+      <title>The Computation of Movement</title>
+      <author><first>Sandiway</first><last>Fong</last></author>
+      <pages>xiii-xiv</pages>
+      <url>1997.iwpt-1.1</url>
+      <abstract>A central goal of parsing is to recover linguistic structure for interpretation. One property of language that seems to be prevalent is the so-called displacement property. That is, syntactic items commonly appear in places other than where we would normally expect for interpretation. Some examples of phenomena involving displacement include Wh-movement, raising, passivization, scrambling, topicalization and focus. As Chomsky (1995) points out, displacement is an irreducible fact about human language that every contemporary theory of language has to address. In the principles-and-parameters framework, it is customary to posit a general movement operation, Move-α, that in concert with conditions on its application serve to link displaced elements with their base positions. In terms of parsing, the task is to decode or unravel the effects of Move-α from the surface order. More specifically, for each element, we have to determine whether that element has been displaced or not, and, if so, determine the original position it was displaced from and reconstruct the path it took – including any intermediate positions or landing sites. In general, each displaced element is said to head a (non-trivial) chain with one or more empty categories known as traces occupying the positions that it passed through. Note that in such theories, empty categories are not just simple placeholders, but elements with much of the same type and range of syntactic properties displayed by their overt counterparts. For example, empty categories in argument positions, like anaphors and pronouns, participate in binding theory and theta role discharge. Hence, the well-formedness of a given sentence will depend, in general, in recovering both the visible and non-visible parts of syntactic structure. In this talk, we will describe how PAPPI, a multi-lingual parser for theories in the principles-and-parameters frameworks, deals with the computation of movement chains and empty categories in general. Drawing from implemented examples across a variety of languages, we will discuss the mechanism used to handle standard cases of phrasal movement commonly discussed in the literature such as Wh-movement, passivization, raising and verb second (V2) phemomena. We will also describe how this mechanism is adapted to handle instances of argument scrambling in languages like Korean and Japanese. We will also focus our attention on head movement. Here, following Pollock (1989), we will discuss the mechanism used to handle the surface differences in the behaviour of verbal inflection in English and French. Following Pesetsky (1995), we will also discuss the implementation of a theory of double object constructions involving the incorporation of both overt and non-overt prepositions into verbal heads. Finally, we will describe two recent additions to the movement mechanism in the PAPPI system. Moving towards a theory of goal-driven movement - as opposed to the free movement system implied by Move-α, we will discuss an implementation of Case-driven movement within the VP-shell to handle examples involving focus, backgrounding and topicalization in Turkish. Finally, using examples from English and Turkish, we will discuss the necessity of a mechanism of reconstruction that optionally “undoes” or reverses the effects of movement to handle facts involving binding and scope.</abstract>
+    </paper>
+    <paper id="2">
+      <title>Parsing Technology and <fixed-case>RNA</fixed-case> Folding: a Promising Start</title>
+      <author><first>Fabrice</first><last>Lefebvre</last></author>
+      <pages>xv-xvi</pages>
+      <url>1997.iwpt-1.2</url>
+      <abstract>The determination of the secondary structure of RNAs is a problem which has been tackled by distantly related methods ranging from comparative analysis to thermodynamic energy optimization or stochastic context-free grammars (SCFGs). Because of its very nature (properly nested pairs of bases of a single stranded sequence) the secondary structure of RNAs is well modeled by context-free grammars (CFGs). This fact has been recognized several years ago by people who used context-free grammars as a tool to discover some combinatorial properties of secondary structures. More recently SCFGs were used by several teams (esp. David Haussler’s team at UC Santa Cruz) as an effective tool to fold RNAs through Cocke-Younger-Kasami-like parsers. Until 1996, and in the context of RNA folding, CFGs and their derivatives where still considered the oretical tools, barely usable outside the computer scientist lab. The exception of SCFGs seemed promising, with all the hype around Hidden Markov Models and other stochastic methods, but it remained to be confirmed for RNAs longer than 200 bases. The main obstacle to the use of context-free grammars and parsing technology for RNA folding and other closely related problems is the following: suitable grammars are exponentially ambiguous, and sentences to parse (i.e. RNA or DNA sequences) typically have more than 200 words, and sometimes more than 4000 words. These figures are rather unusual for ordinary parsers or parser generators, because they are mostly used in the context of natural language parsing, and thus do not have to face the same computation problems. Fact is, most people dealing with RNA folding problems were manually writing dynamic programming based tools. This was the case for folding models popularized by Michael Zuker, and based on free energy minimization. This was also the case for folding models based on SCFGs. This was in effect the case for just about every computer method available to fold or align sequences. Parsing sequences was not an issue because it simply seemed too slow, too memory hungry and even unrelated. In 1995, I showed that S-attribute grammars were perfectly able to handle both the thermodynamic model and the stochastic model of RNA folding. I then introduced a parser generator which was able, given a proper S-attribute grammar, to automatically write an efficient parser based on suitable optimizations of Earley’s parsing algorithm. All generated parsers turned out to be faster and less memory hungry than other available parsers for the same exponentially ambiguous grammars and the same sequences. More surprisingly, these parsers also turned out to be faster than hand-written programs based on dynamic programming equations. This was the first proof that improvements in parsing technology may certainly be put to good use in biocomputing problems, and that they shall lead to better algorithms and tools. While trying to overcome some limitations of SCFGs, I generalized S-attribute grammars to multi-tape S-attribute grammars (MTSAGs). The automata theory counterpart of a MTSAG would be a non-deterministic push-down automaton with several one-way reading heads, instead of a single one-way reading head as it is the case for CFG. Given these MTSAGs, a generalization of the previous single-tape parser generator was the obvious way forward. Thanks to this new parser generator, I was able to show that most biocomputing models previously based on dynamic programming equations were unified by MTSAGs, and that they were better handled by automatically generated parsers than by handwritten programs. It did not matter whether these models were trying to align sequences, fold RNAs, align folded RNAs, align folded and unfolded RNAs, simultaneously align and fold RNAs, etc. It also turned out that the way SCFGs and HMMs are currently used may be better pictured, thanks to 2-tape MTSAGs, as the simultaneous alignment and folding of a first special tape, representing the target model, against a second tape, containing the actual sequence. This representation may lead to algorithms which will efficiently learn SCFGs from initially unaligned sequences. While the current parser generator for MTSAGs-is a usable proof of concept, which nevertheless required several months of work, I am quite convinced that there should be better ways than the current algorithm to parse several tapes. There should also exist other generalizations of CFGs which may reveal themselves fruitful. Current results are only promising starting points. The irony of the story is that HMMs and SCFGs were borrowed by biocomputing people from other fields such as signal or speech analysis. It may very well be the time for these fields to retrofit their own models with current advances in biocomputing such as MTSAGs.</abstract>
+    </paper>
+    <paper id="3">
+      <title>Intelligent Multimedia Information Access</title>
+      <author><first>Mark T.</first><last>Maybury</last></author>
+      <pages>xvii-xviii</pages>
+      <url>1997.iwpt-1.3</url>
+      <abstract>The expansion of the information highway has generated requirements for more effective access to global and corporate information repositories. These repositories are increasingly multimedia, including text, audio (e.g., spoken language, music), graphics, imagery, and video. The advent of large, multimedia digital libraries has turned attention toward the problem of processing and managing multiple and heterogeneous media in a principled manner, including their creation, storage, indexing, browsing, search, visualization, and summarization. Intelligent multimedia information access is a multidisciplinary area that lies at the intersection of artificial intelligence, information retrieval, human computer interaction, and multimedia computing. Intelligent multimedia information access includes those systems which go beyond traditional hypermedia or hypertext environments and analyze media, generate media, or support intelligent interaction with or via multiple media using knowledge of the user, discourse, domain, world, or the media itself. Providing machines with the ability to interpret, generate, and support interaction with multimedia artifacts (e.g., documents, broadcasts, hypermedia) will be a valuable facility for a number of key applications such as videoteleconference archiving, custom on-line news, and briefing assistants. These media facilities, in turn, may support a variety of tasks ranging from training to information analysis to decision support. In this talk I will describe our group’s efforts to provide content based access to broadcast news sources, including our use of corpus-based processing techniques to the problems of video indexing, segmentation, and summarization. In addition to better access to content, we also need to concern ourselves with enabling more effective, efficient and natural human computer or computer mediated human-human interaction. This will require automated understanding and generation of multimedia and demand explicit representation of and reasoning about the user, discourse, task and context (Maybury 1993). To this end, I will describe our work in progress that aims to fully instrument the interface and build ( automatically and semi-automatically) annotated corpora of human-machine interaction. We believe this will yield deeper and more comprehensive models of interaction which should ultimately enable more principled interface design.</abstract>
+    </paper>
+    <paper id="4">
+      <title>Making Use of Intonation in Interactive Dialogue Translation</title>
+      <author><first>Mark</first><last>Steedman</last></author>
+      <pages>xix</pages>
+      <url>1997.iwpt-1.4</url>
+      <abstract>Intonational information is frequently discarded in speech recognition, and assigned by default heuristics in text-to-speech generation. However, in many applications involving dialogue and interactive discourse, intonation conveys significant information, and we ignore it at our peril. Translating telephones and personal assistants are an interesting test case, in which the salience of rapidly shifting discourse topics and the fact that sentences are machine-generated, rather than written by humans, combine to make the application particularly vulnerable to our poor theoretical grasp of intonation and its functions. I will discuss a number of approaches to the problem for such applications, ranging from cheap tricks to a combinatory grammar-based theory of the semantics involved and a syntax-phonology interface for building and generating from interpretations.</abstract>
+    </paper>
+    <paper id="5">
+      <title>Disambiguating with Controlled Disjunctions</title>
+      <author><first>Philippe</first><last>Blache</last></author>
+      <pages>1-7</pages>
+      <url>1997.iwpt-1.5</url>
+      <abstract>In this paper, we propose a disambiguating technique called controlled disjunctions. This extension of the so-called named disjunctions relies on the relations existing between feature values (covariation, control, etc.). We show that controlled disjunctions can implement different kind of ambiguities in a consistent and homogeneous way. We describe the integration of controlled disjunctions into a HPSG feature structure representation. Finally, we present a direct implementation by means of delayed evaluation and we develop an example within the functional programming paradigm.</abstract>
+    </paper>
+    <paper id="6">
+      <title>Encoding Frequency Information in Lexicalized Grammars</title>
+      <author><first>John</first><last>Carroll</last></author>
+      <author><first>David</first><last>Weir</last></author>
+      <pages>8-17</pages>
+      <url>1997.iwpt-1.6</url>
+      <abstract>We address the issue of how to associate frequency information with lexicalized grammar formalisms, using Lexicalized Tree Adjoining Grammar as a representative framework. We consider systematically a number of alternative probabilistic frameworks, evaluating their adequacy from both a theoretical and empirical perspective using data from existing large treebanks. We also propose three orthogonal approaches fo r backing off probability estimates to cope with the large number of parameters involved.</abstract>
+    </paper>
+    <paper id="7">
+      <title>Towards a Reduced Commitment, <fixed-case>D</fixed-case>-Theory Style <fixed-case>TAG</fixed-case> Parser</title>
+      <author><first>John</first><last>Chen</last></author>
+      <author><first>K.</first><last>Vijay-Shankar</last></author>
+      <pages>18-29</pages>
+      <url>1997.iwpt-1.7</url>
+      <abstract>Many traditional TAG parsers handle ambiguity by considering all of the possible choices as they unfold during parsing. In contrast , D-theory parsers cope with ambiguity by using underspecified descriptions of trees. This paper introduces a novel approach to parsing TAG, namely one that explores how D-theoretic notions may be applied to TAG parsing. Combining the D-theoretic approach to TAG parsing as we do here raises new issues and problems. D-theoretic underspecification is used as a novel approach in the context of TAG parsing for delaying attachment decisions. Conversely, the use of TAG reveals the need for additional types of underspecification that have not been considered so far in the D-theoretic framework. These include combining sets of trees into their underspecified equivalents as well as underspecifying combinations of trees. In this paper, we examine various issues that arise in this new approach to TAG parsing and present solutions to some of the problems. We also describe other issues which need to be resolved for this method of parsing to be implemented.</abstract>
+    </paper>
+    <paper id="8">
+      <title>Controlling Bottom-Up Chart Parsers through Text Chunking</title>
+      <author><first>Fabio</first><last>Ciravegna</last></author>
+      <author><first>Alberto</first><last>Lavelli</last></author>
+      <pages>30-41</pages>
+      <url>1997.iwpt-1.8</url>
+      <abstract>In this paper we propose to use text chunking for controlling a bottom-up parser. As it is well known, during analysis such parsers produce many constituents not contributing to the final solution(s). Most of these constituents are introduced due to t he parser inability of checking the input context around them. Preliminary text chunking allows to focus directly on the constituents that seem more likely and to prune the search space in the case some satisfactory solutions are found. Preliminary experiments show that a CYK-like parser controlled through chunking is definitely more efficient than a traditional parser without significantly losing in correctness. Moreover the quality of possible partial results produced by the controlled parser is high. The strategy is particularly suited for tasks like Information Extraction from text (IE) where sentences are often long and complex and it is very difficult to have a complete coverage. Hence, there is a strong necessity of focusing on the most likely solutions; furthermore, in IE the quality of partial results is important .</abstract>
+    </paper>
+    <paper id="9">
+      <title>Pruning Search Space for Parsing Free Coordination in Categorial Grammar</title>
+      <author><first>Crit</first><last>Cremers</last></author>
+      <pages>42-53</pages>
+      <url>1997.iwpt-1.9</url>
+      <abstract>The standard resource sensitive invariants of categorial grammar are not suited to prune search space in the presence of coordination. We propose a weaker variant of count invariancy in order to prune the search space for parsing coordinated sentences at a stage prior to proper parsing. This Coordinative Count Invariant is argued to be the strongest possible instrument to prune search space for parsing coordination in categorial grammar. Its mode of operation is explained, and its effect at pruning search space is exemplified.</abstract>
+    </paper>
+    <paper id="10">
+      <title>Bilexical Grammars and a Cubic-time Probabilistic Parser</title>
+      <author><first>Jason</first><last>Eisner</last></author>
+      <pages>54-65</pages>
+      <url>1997.iwpt-1.10</url>
+      <abstract></abstract>
+    </paper>
+    <paper id="11">
+      <title>Automaton-based Parsing for Lexicalised Grammars</title>
+      <author><first>Roger</first><last>Evans</last></author>
+      <author><first>David</first><last>Weir</last></author>
+      <pages>66-76</pages>
+      <url>1997.iwpt-1.11</url>
+      <abstract>In wide-coverage lexicalized grammars many of the elementary structures have substructures in common. This means that during parsing some of the computation associated with different structures is duplicated. This paper explores ways in which the grammar can be precompiled into finite state automata so that some of this shared structure results in shared computation at run-time.</abstract>
+    </paper>
+    <paper id="12">
+      <title>From Part of Speech Tagging to Memory-based Deep Syntactic Analysis</title>
+      <author><first>Emmanuel</first><last>Giguet</last></author>
+      <author><first>Jacques</first><last>Vergne</last></author>
+      <pages>77-88</pages>
+      <url>1997.iwpt-1.12</url>
+      <abstract>This paper presents a robust system for deep syntactic parsing of unrestricted French. This system uses techniques from Part-of-Speech tagging in order to build a constituent structure and uses other techniques from dependency grammar in an original framework of memories in order to build a functional structure. The two structures are build simultaneously by two interacting processes. The processes share the same aim, that is, to recover efficiently and reliably syntactic information with no explicit expectation on text structure.</abstract>
+    </paper>
+    <paper id="13">
+      <title>Probabilistic Feature Grammars</title>
+      <author><first>Joshua</first><last>Goodman</last></author>
+      <pages>89-100</pages>
+      <url>1997.iwpt-1.13</url>
+      <abstract>We present a new formalism, probabilistic feature grammar (PFG). PFGs combine most of the best properties of several other formalisms, including those of Collins, Magerman, and Charniak, and in experiments have comparable or better performance. PFGs generate features one at a time, probabilistically, conditioning the probabilities of each feature on other features in a local context. Because the conditioning is local, efficient polynomial time parsing algorithms exist for computing inside, outside, and Viterbi parses. PFGs can produce probabilities of strings, making them potentially useful for language modeling. Precision and recall results are comparable to the state of the art with words, and the best reported without words.</abstract>
+    </paper>
+    <paper id="14">
+      <title>Message-passing Protocols for Real-world Parsing - An Object-oriented Model and its Preliminary Evaluation</title>
+      <author><first>Udo</first><last>Hahn</last></author>
+      <author><first>Peter</first><last>Neuhaus</last></author>
+      <author><first>Norbert</first><last>Broeker</last></author>
+      <pages>101-112</pages>
+      <url>1997.iwpt-1.14</url>
+      <abstract>We argue for a performance-based design of natural language grammars and their associated parsers in order to meet the constraints imposed by real-world NLP. Our approach incorporates declarative and procedural knowledge about language and language use within an object-oriented specification framework. We discuss several message-passing protocols for parsing and provide reasons for sacrificing completeness of the parse in favor of efficiency based on a preliminary empirical evaluation.</abstract>
+    </paper>
+    <paper id="15">
+      <title>Probabilistic Parse Selection based on Semantic Cooccurrences</title>
+      <author><first>Eirik</first><last>Hektoen</last></author>
+      <pages>113-122</pages>
+      <url>1997.iwpt-1.15</url>
+      <abstract>This paper presents a new technique for selecting the correct parse of ambiguous sentences based on a probabilistic analysis, of lexical cooccurrences in semantic forms. The method is called “Semco” (for semantic cooccurrence analysis) and is specifically targeted at the differential distribution of such cooccurrences in correct and incorrect parses. It uses Bayesian Estimation for the cooccurrence probabilities to achieve higher accuracy for sparse data than the more common Maximum Likelihood Estimation would. It has been tested on the Wall Street Journal corpus (in the PENN Treebank) and shown to find the correct parse of 60.9% of parseable sentences of 6-20 words.</abstract>
+    </paper>
+    <paper id="16">
+      <title>A New Formalization of Probabilistic <fixed-case>GLR</fixed-case> Parsing</title>
+      <author><first>Kentaro</first><last>Unui</last></author>
+      <author><first>Virach</first><last>Sornlertlamvanich</last></author>
+      <author><first>Hozumi</first><last>Tanaka</last></author>
+      <author><first>Takenobu</first><last>Tokunaga</last></author>
+      <pages>123-134</pages>
+      <url>1997.iwpt-1.16</url>
+      <abstract>This paper presents a new formalization of probabilistic GLR language modeling for statistical parsing. Our model inherits its essential features from Briscoe and Carroll’s generalized probabilistic LR model, which obtains context-sensitivity by assigning a probability to each LR parsing action according to its left and right context. Briscoe and Carroll’s model, however, has a drawback in that it is not formalized in any probabilistically well-founded way, which may degrade its parsing performance. Our formulation overcomes this drawback with a few significant refinements, while maintaining all the advantages of Briscoe and Carroll’s modeling.</abstract>
+    </paper>
+    <paper id="17">
+      <title>Efficient Parsing for <fixed-case>CCG</fixed-case>s with Generalized Type-raised Categories</title>
+      <author><first>Nobo</first><last>Komagata</last></author>
+      <pages>135-146</pages>
+      <url>1997.iwpt-1.17</url>
+      <abstract>A type of ‘non-traditional constituents’ motivates an extended class of Combinatory Categorial Grammars, CCGs with Generalized Type-Raised Categories (CCG-GTRC) involving variables. Although the class of standard CCGs is known to be polynomially parsable, unrestricted use of variables can destroy this essential requirement for a practical parser. This paper argues for polynomial parsability of CCG-GTRC from practical and theoretical points of view. First, we show that an experimental parser runs polynomially in practice on a realistic fragment of Japanese by eliminating spurious ambiguity and excluding genuine ambiguities. Then, we present a worst-case polynomial recognition algorithm for CCG-GTRC by extending the polynomial algorithm for the standard CCGs.</abstract>
+    </paper>
+    <paper id="18">
+      <title>Probabilistic Parsing using Left Corner Language Models</title>
+      <author><first>Christopher D.</first><last>Manning</last></author>
+      <author><first>Bob</first><last>Carpenter</last></author>
+      <pages>147-158</pages>
+      <url>1997.iwpt-1.18</url>
+      <abstract>We introduce a novel parser based on a probabilistic version of a left-corner parser. The left-corner strategy is attractive because rule probabilities can be conditioned on both top-down goals and bottom-up derivations. We develop the underlying theory and explain how a grammar can be induced from analyzed data. We show that the left-corner approach provides an advantage over simple top-down probabilistic context-free grammars in parsing the Wall Street Journal using a grammar induced from the Penn Treebank. We also conclude that the Penn Treebank provides a fairly weak tes bed due to the flatness of its bracketings and to the obvious overgeneration and undergeneration of its induced grammar.</abstract>
+    </paper>
+    <paper id="19">
+      <title>Regular Approximations of <fixed-case>CFL</fixed-case>s: A Grammatical View</title>
+      <author><first>Mark-Jan</first><last>Nederhof</last></author>
+      <pages>159-170</pages>
+      <url>1997.iwpt-1.19</url>
+      <abstract>We show that for each context-free grammar a new grammar can be constructed that generates a regular language. This construction differs from existing methods of approximation in that use of a pushdown automaton is avoided . This allows better insight into how the generated language is affected. The new method is also more attractive from a computational viewpoint.</abstract>
+    </paper>
+    <paper id="20">
+      <title>A Left-to-right Tagger for Word Graphs</title>
+      <author><first>Christer</first><last>Samuelsson</last></author>
+      <pages>171-176</pages>
+      <url>1997.iwpt-1.20</url>
+      <abstract>An algorithm is presented for tagging input word graphs and producing output tag graphs that are to be subjected to further syntactic processing. It is based on an extension of the basic HMM equations for tagging an input word string that allows it to handle word-graph input, where each arc has been assigned a probability. The scenario is that of some word-graph source, e.g., an acoustic speech recognizer, producing the arcs of a word graph, and the tagger will in turn produce output arcs, labelled with tags and assigned probabilities. The processing as done entirely left-to-right, and the output tag graph is constructed using a minimum of lookahead, facilitating real-time processing.</abstract>
+    </paper>
+    <paper id="21">
+      <title>Parsing by Successive Approximation</title>
+      <author><first>Helmut</first><last>Schmid</last></author>
+      <pages>177-186</pages>
+      <url>1997.iwpt-1.21</url>
+      <abstract>It is proposed to parse feature structure-based grammars in several steps. Each step is aimed to eliminate as many invalid analyses as possible as efficiently as possible. To this end the set of feature constraints is divided into three subsets, a set of context-free constraints, a set of filtering constraints and a set of structure-building constraints, which are solved in that order. The best processing strategy differs: Context-free constraints are solved efficiently with one of the well-known algorithms for context-free parsing. Filtering constraints can be solved using unification algorithms for non-disjunctive feature structures whereas structure-building constraints require special techniques to represent feature structures with embedded disjunctions efficiently. A compilation method and an efficient processing strategy for filtering constraints are presented.</abstract>
+    </paper>
+    <paper id="22">
+      <title>Performance Evaluation of Supertagging for Partial Parsing</title>
+      <author><first>B.</first><last>Srinivas</last></author>
+      <pages>187-198</pages>
+      <url>1997.iwpt-1.22</url>
+      <abstract>In previous work we introduced the idea of supertagging as a means of improving the efficiency of a lexicalized grammar parser. In this paper, we present supertagging in conjunction with a lightweight dependency analyzer as a robust and efficient partial parser. The present work is significant for two reasons. First, we have vastly improved our results; 92% accurate for supertag disambiguation using lexical information, larger training corpus and smoothing techniques. Second, we show how supertagging can be used for partial parsing and provide detailed evaluation results for detecting noun chunks, verb chunks, preposition phrase attachment and a variety of other linguistic constructions. Using supertag representation, we achieve a recall rate of 93.0% and a precision rate of 91.8% for noun chunking, improving on the best known result for noun chunking.</abstract>
+    </paper>
+    <paper id="23">
+      <title>An Earley Algorithm for Generic Attribute Augmented Grammars and Applications</title>
+      <author><first>Frederic</first><last>Tendeau</last></author>
+      <pages>199-209</pages>
+      <url>1997.iwpt-1.23</url>
+      <abstract>We describe an extension of Earley’s algorithm which computes the decoration of a shared forest in a generic domain. At tribute computations are defined by a morphism from leftmost derivations to the generic domain, which leaves the computations independent from (even if guided by) the parsing strategy. The approach is illustrated by the example of a definite clause grammar, seen as CF-grammars decorated by attributes.</abstract>
+    </paper>
+    <paper id="24">
+      <title>A Case Study in Optimizing Parsing Schemata by Disambiguation Filters</title>
+      <author><first>Eelco</first><last>Visser</last></author>
+      <pages>210-224</pages>
+      <url>1997.iwpt-1.24</url>
+      <abstract>Disambiguation methods for context-free grammars enable concise specification of programming languages by ambiguous grammars. A disambiguation filter is a function that selects a subset from a set of parse trees the possible parse trees for an ambiguous sentence. The framework of filters provides a declarative description of disambiguation methods independent of parsing. Although filters can be implemented straightforwardly as functions that prune the parse forest produced by some generalized parser, this can be too inefficient for practical applications. In this paper the optimization of parsing schemata, a framework for high-level description of parsing algorithms, by disambiguation filters is considered in order to find efficient parsing algorithms for declaratively specified disambiguation methods. As a case study the optimization of the parsing schema of Earley’s parsing algorithm by two filters is investigated. The main result is a technique for generation of efficient LR-like parsers for ambiguous grammars disambiguated by means of priorities.</abstract>
+    </paper>
+    <paper id="25">
+      <title>New Parsing Method using Global Association Table</title>
+      <author><first>Juntae</first><last>Yoon</last></author>
+      <author><first>Seonho</first><last>Kim</last></author>
+      <author><first>Mansuk</first><last>Song</last></author>
+      <pages>225-236</pages>
+      <url>1997.iwpt-1.25</url>
+      <abstract>This paper presents a new parsing method using statistical information extracted from corpus, especially for Korean. The structural ambiguities are occurred in deciding the dependency relation between words in Korean. While figuring out the correct dependency, the lexical associations play an important role in resolving the ambiguities. Our parser uses statistical cooccurrence data to compute the lexical associations. In addition, it can be shown that sentences are parsed deterministically by the global management of the association. In this paper, the global association table (GAT) is defined and the association between words is recorded in the GAT. The system is the hybrid semi-deterministic parser and is controlled not by the condition-action rule. but by the association value between phrases. Whenever the expectation of the parser fails, it chooses the alternatives using a chart to remove the backtracking.</abstract>
+    </paper>
+    <paper id="26">
+      <title>Constraint-driven Concurrent Parsing Applied to <fixed-case>R</fixed-case>omanian <fixed-case>VP</fixed-case></title>
+      <author><first>Liviu</first><last>Ciortuz</last></author>
+      <pages>239-240</pages>
+      <url>1997.iwpt-1.26</url>
+      <abstract>We show that LP constraints (together with language specific constraints) could be interpreted as meta-rules in (an extended) head-corner parsing algorithm using weakened ID rule schemata from the theory of HPSG [Pollard and Sag, 1994].</abstract>
+    </paper>
+    <paper id="27">
+      <title>Robustness and Efficiency in <fixed-case>AGFL</fixed-case></title>
+      <author><first>Caspar</first><last>Derksen</last></author>
+      <author><first>Cornelis H. A.</first><last>Koster</last></author>
+      <author><first>Erik</first><last>Oltmans</last></author>
+      <pages>241-242</pages>
+      <url>1997.iwpt-1.27</url>
+      <abstract></abstract>
+    </paper>
+    <paper id="28">
+      <title>Language Analysis in <fixed-case>SCHISMA</fixed-case></title>
+      <author><first>Danny</first><last>Lie</last></author>
+      <author><first>Joris</first><last>Hulstijn</last></author>
+      <author><first>Hugo</first><last>ter Doest</last></author>
+      <author><first>Anton</first><last>Nijholt</last></author>
+      <pages>243-244</pages>
+      <url>1997.iwpt-1.28</url>
+      <abstract></abstract>
+    </paper>
+    <paper id="29">
+      <title>Reducing the Complexity of Parsing by a Method of Decomposition</title>
+      <author><first>Caroline</first><last>Lyon</last></author>
+      <author><first>Bob</first><last>Dickerson</last></author>
+      <pages>245-246</pages>
+      <url>1997.iwpt-1.29</url>
+      <abstract></abstract>
+    </paper>
+    <paper id="30">
+      <title>Formal Tools for Separating Syntactically Correct and Incorrect Structures</title>
+      <author><first>Martin</first><last>Plátek</last></author>
+      <author><first>Vladislav</first><last>Kuboň</last></author>
+      <author><first>Tomáš</first><last>Holan</last></author>
+      <pages>247-248</pages>
+      <url>1997.iwpt-1.30</url>
+      <abstract>In this paper we introduce a class of formal grammars with special measures capable to describe typical syntactic inconsistencies in free word order languages. By means of these measures it is possible to characterize more precisely the problems connected with the task of building a robust parser or a grammar checker of Czech.</abstract>
+    </paper>
+    <paper id="31">
+      <title>Parsers Optimization for Wide-coverage Unification-based Grammars using the Restriction Technique</title>
+      <author><first>Nora</first><last>La Serna</last></author>
+      <author><first>Arantxa</first><last>Díaz</last></author>
+      <author><first>Horacio</first><last>Rodríguez</last></author>
+      <pages>249-250</pages>
+      <url>1997.iwpt-1.31</url>
+      <abstract>This article describes the methodology we have followed in order to improve the efficiency of a parsing algorithm for wide coverage unification-based grammars. The technique used is the restriction technique (Shieber 85), which has been recognized as an important operation to obtain efficient parsers for unification-based grammars. The main objective of the research is how to choose appropriate restrictors for using the restriction technique. We have developed a statistical model for selecting restrictors. Several experiments have been done in order to characterise those restrictors.</abstract>
+    </paper>
+  </volume>
+</collection>
