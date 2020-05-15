@@ -30,11 +30,11 @@ Fixed-caseness is determined by this decision list:
 
 Examples:
 
-   - "Hebrew" will be fixed-case by rule 2, and "Modern Hebrew" by rule 4
-   - "Carnegie" and "Mellon" will both be fixed-case by rule 2, and
-     "Carnegie Mellon University" by rule 5
-   - "New Mexico" will be fixed-case by rule 1, and "University of New Mexico"
-     by rule 5
+   - "Hebrew" will be fixed-case by rule 3, and "Modern Hebrew" by rule 7
+   - "Carnegie" and "Mellon" will both be fixed-case by rule 3, and
+     "Carnegie Mellon University" by rule 8
+   - "New Mexico" will be fixed-case by rule 2, and "University of New Mexico"
+     by rule 8
 
 Note that the first word of the title is not treated specially by the rules,
 so its first character will not necessarily be fixed-case.
