@@ -11,15 +11,16 @@ first = element first { text }
 last = element last { text }
 Person = attribute id { xsd:NCName }?, (first? & last)
 
+local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
 checksum = attribute hash { xsd:string {minLength="8" maxLength="8" pattern="[0-9a-f]*"} }
 url-with-checksum = element url {
     xsd:anyURI {pattern="https?://.*"} |
-    (xsd:anyURI {pattern=".*"}, checksum)
+    (local-filename, checksum)
 }
 attachment = element attachment {
     attribute type { xsd:NCName }?,
     checksum,
-    xsd:anyURI
+    local-filename
 }
 
 Paper = element paper {
@@ -32,7 +33,7 @@ Paper = element paper {
    & element editor { Person }*
    & element revision {
        attribute id { xsd:positiveInteger },
-       attribute href { xsd:anyURI },
+       attribute href { local-filename },
        attribute date { xsd:date }?,
        checksum,
        text
@@ -41,7 +42,7 @@ Paper = element paper {
        attribute id { xsd:positiveInteger },
        attribute date { xsd:date }?,
        checksum,
-       xsd:NCName
+       local-filename
      }*
    & element issue { xsd:positiveInteger }?
    & element journal { text }?
@@ -80,7 +81,7 @@ Frontmatter = element frontmatter {
    & element pages { text }?
    & element revision {
        attribute id { xsd:positiveInteger },
-       attribute href { xsd:anyURI },
+       attribute href { local-filename },
        checksum,
        text
      }*
