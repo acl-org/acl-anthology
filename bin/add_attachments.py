@@ -38,7 +38,12 @@ import ssl
 import sys
 import tempfile
 
-from anthology.utils import build_anthology_id, deconstruct_anthology_id, indent
+from anthology.utils import (
+    build_anthology_id,
+    deconstruct_anthology_id,
+    indent,
+    compute_hash,
+)
 
 import lxml.etree as ET
 import urllib.request
@@ -91,6 +96,9 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
                     file=sys.stderr,
                 )
 
+    with open(input_file_path, "rb") as f:
+        checksum = compute_hash(f.read())
+
     # Update XML
     xml_file = os.path.join(
         os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
@@ -112,6 +120,7 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
         else:
             attachment = ET.Element("attachment")
             attachment.attrib["type"] = attach_type.lower()
+            attachment.attrib["hash"] = checksum
             attachment.text = attachment_file_name
 
             paper.append(attachment)
