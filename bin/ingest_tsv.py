@@ -31,7 +31,7 @@ import subprocess
 import sys
 import urllib.request
 
-from anthology.utils import make_simple_element, indent
+from anthology.utils import make_simple_element, indent, compute_hash
 from datetime import datetime
 from normalize_anth import normalize
 
@@ -144,7 +144,11 @@ def main(args):
                     args.anthology_files_path, venue, f"{volume_anth_id}.pdf"
                 )
                 download(proceedings_pdf, pdf_local_path)
-                make_simple_element("url", volume_anth_id)
+                with open(pdf_local_path, "rb") as f:
+                    checksum = compute_hash(f.read())
+                make_simple_element(
+                    "url", volume_anth_id, attrib={"hash": checksum}, parent=meta
+                )
                 proceedings_pdf = pdf_local_path
 
             if row["Editors"] != "" and "?" not in row["Editors"]:
@@ -221,7 +225,10 @@ def main(args):
             url = anth_id
 
         if url is not None:
-            make_simple_element("url", url, parent=paper)
+            with open(pdf_local_path, "rb") as f:
+                checksum = compute_hash(f.read())
+
+            make_simple_element("url", url, attrib={"hash": checksum}, parent=paper)
 
         if "Abstract" in row:
             make_simple_element("abstract", row["Abstract"], parent=paper)
