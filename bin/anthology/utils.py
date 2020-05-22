@@ -413,3 +413,8 @@ def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=Non
 def compute_hash(value: bytes) -> str:
     checksum = crc32(value) & 0xFFFFFFFF
     return f"{checksum:08x}"
+
+
+def compute_hash_from_file(path: str) -> str:
+    with open(path, "rb") as f:
+        return compute_hash(f.read())
