@@ -43,11 +43,11 @@ from datetime import datetime
 
 from normalize_anth import normalize
 from anthology.utils import (
-    make_nested,
     make_simple_element,
     build_anthology_id,
     deconstruct_anthology_id,
     indent,
+    compute_hash_from_file,
 )
 from anthology.index import AnthologyIndex
 from anthology.people import PersonName
@@ -103,6 +103,10 @@ def bib2xml(bibfilename, anthology_id):
     if len(bibdata.entries) != 1:
         log(f"more than one entry in {bibfilename}")
     bibkey, bibentry = bibdata.entries.items()[0]
+    if len(bibentry.fields) == 0:
+        # print(paper_no, bibentry.fields)
+        log(f"parsing bib of paper {paper_no} failed")
+        sys.exit(1)
 
     paper = make_simple_element("paper", attrib={"id": paper_no})
     for field in list(bibentry.fields) + list(bibentry.persons):
@@ -161,7 +165,7 @@ def main(args):
         meta["collection_id"] = collection_id = (
             meta["year"] + "." + meta["abbrev"].lower()
         )
-        volume_name = meta["volume_name"]
+        volume_name = meta["volume"]
         volume_full_id = f"{collection_id}-{volume_name}"
 
         if volume_full_id in volumes:
@@ -175,7 +179,7 @@ def main(args):
         root_path = os.path.join(meta["path"], "cdrom")
         collection_id = meta["collection_id"]
         venue_name = meta["abbrev"].lower()
-        volume_name = meta["volume_name"]
+        volume_name = meta["volume"]
 
         pdfs_dest_dir = os.path.join(args.pdfs_dir, venue_name)
         if not os.path.exists(pdfs_dest_dir):
@@ -200,9 +204,10 @@ def main(args):
         pdf_src_dir = os.path.join(root_path, "pdf")
         for pdf_file in os.listdir(pdf_src_dir):
             # names are {abbrev}{number}.pdf
-            abbrev = meta["abbrev"]
-            match = re.match(rf"{abbrev}(\d+)\.pdf", pdf_file)
+            match = re.match(rf".*\.(\d+)\.pdf", pdf_file)
 
+            if match is None:
+                print("whoa", abbrev)
             if match is not None:
                 paper_num = int(match[1])
                 paper_id_full = f"{collection_id}-{volume_name}.{paper_num}"
@@ -218,7 +223,7 @@ def main(args):
                     pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
                 )
                 log(
-                    f"Copying [{paper_id_full}] {pdf_src_path} -> {pdf_dest_path}",
+                    f"Copying [{paper_id_full}] from {pdf_src_path} -> {pdf_dest_path}",
                     args.dry_run,
                 )
                 if not args.dry_run:
@@ -288,7 +293,10 @@ def main(args):
                     meta.append(paper_node.find("year"))
                     if book_dest_path is not None:
                         make_simple_element(
-                            "url", text=f"{collection_id}-{volume_name}", parent=meta
+                            "url",
+                            text=f"{collection_id}-{volume_name}",
+                            attrib={"hash": compute_hash_from_file(book_dest_path)},
+                            parent=meta,
                         )
 
                     # modify frontmatter tag
@@ -307,11 +315,18 @@ def main(args):
                         ]:
                             paper_node.remove(child)
 
+                url = paper_node.find("./url")
+                if url is not None:
+                    url.attrib["hash"] = compute_hash_from_file(paper["pdf"])
+
                 for attachment in paper["attachments"]:
                     make_simple_element(
                         "attachment",
                         text=attachment.path,
-                        attrib={"type": attachment.type,},
+                        attrib={
+                            "type": attachment.type,
+                            "hash": compute_hash_from_file(attachment.path),
+                        },
                         parent=paper_node,
                     )
 
@@ -323,23 +338,22 @@ def main(args):
             for oldnode in paper:
                 normalize(oldnode, informat="latex")
 
-        # Ensure names are properly identified
-        ambiguous = {}
-        for paper in root_node.findall(".//paper"):
+            # Ensure names are properly identified
+            ambiguous = {}
             anth_id = build_anthology_id(
                 collection_id, paper.getparent().attrib["id"], paper.attrib["id"]
             )
 
-        for node in chain(paper.findall("author"), paper.findall("editor")):
-            name = PersonName.from_element(node)
-            ids = people.get_ids(name)
-            if len(ids) > 1:
-                print(
-                    f"WARNING ({anth_id}): ambiguous author {name}, defaulting to first of {ids}"
-                )
-                ambiguous[anth_id] = (name, ids)
+            for node in chain(paper.findall("author"), paper.findall("editor")):
+                name = PersonName.from_element(node)
+                ids = people.get_ids(name)
+                if len(ids) > 1:
+                    print(
+                        f"WARNING ({anth_id}): ambiguous author {name}, defaulting to first of {ids}"
+                    )
+                    ambiguous[anth_id] = (name, ids)
 
-                node.attrib["id"] = ids[0]
+                    node.attrib["id"] = ids[0]
 
         indent(root_node)
         tree = etree.ElementTree(root_node)
