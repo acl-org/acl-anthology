@@ -203,6 +203,11 @@ class Paper:
     def has_abstract(self):
         return "xml_abstract" in self.attrib
 
+    @property
+    def language(self):
+        """Returns the ISO-639 language code, if present"""
+        return self.attrib.get("language", None)
+
     def get(self, name, default=None):
         try:
             return self.attrib[name]
@@ -282,6 +287,8 @@ class Paper:
             entries.append(("pages", self.get("pages").replace("–", "--")))
         if "xml_abstract" in self.attrib and not concise:
             entries.append(("abstract", self.get_abstract(form="latex")))
+        if self.language:
+            entries.append(("language", iso630.languages.get(part3=self.language).name))
 
         # Serialize it
         return bibtex_make_entry(bibkey, bibtype, entries)
