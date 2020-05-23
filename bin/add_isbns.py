@@ -40,15 +40,17 @@ def main(args):
     for line in args.isbn_file:
         venue, isbn = line.rstrip().split()
 
-        xml_file = os.path.join(os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{venue}.xml")
+        xml_file = os.path.join(
+            os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{venue}.xml"
+        )
         if not os.path.exists(xml_file):
             print(f"Can't find {xml_file}")
             continue
         tree = ET.parse(xml_file)
-        volume = tree.getroot().find(f".//volume[@id='1']")
-        if volume is not None and volume.find("./isbn") is None:
-            print(f"Adding {isbn} to {venue}")
-            make_simple_element("isbn", isbn, parent=volume)
+        meta = tree.getroot().find(f".//volume[@id='1']/meta")
+        if meta is not None and meta.find("./isbn") is None:
+            print(f"Adding {isbn} to {venue} meta block")
+            make_simple_element("isbn", isbn, parent=meta)
         elif volume.find("./isbn") is not None:
             print(f"{venue} already done")
 
