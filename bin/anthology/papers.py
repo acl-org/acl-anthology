@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import iso639
 import logging as log
 from .utils import (
     build_anthology_id,
@@ -288,7 +289,7 @@ class Paper:
         if "xml_abstract" in self.attrib and not concise:
             entries.append(("abstract", self.get_abstract(form="latex")))
         if self.language:
-            entries.append(("language", iso630.languages.get(part3=self.language).name))
+            entries.append(("language", iso639.languages.get(part3=self.language).name))
 
         # Serialize it
         return bibtex_make_entry(bibkey, bibtype, entries)
