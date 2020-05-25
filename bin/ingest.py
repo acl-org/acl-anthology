@@ -271,7 +271,7 @@ def main(args):
             volume_node = make_simple_element(
                 "volume", attrib={"id": volume_id}, parent=root_node
             )
-            meta = None
+            meta_node = None
 
             for paper_num, paper in sorted(volume.items()):
                 paper_id_full = paper["anthology_id"]
@@ -281,22 +281,22 @@ def main(args):
 
                 if paper_node.attrib["id"] == "0":
                     # create metadata subtree
-                    meta = make_simple_element("meta", parent=volume_node)
+                    meta_node = make_simple_element("meta", parent=volume_node)
                     title_node = paper_node.find("title")
                     title_node.tag = "booktitle"
-                    meta.append(title_node)
+                    meta_node.append(title_node)
                     for editor in paper_node.findall("editor"):
-                        meta.append(editor)
-                    meta.append(paper_node.find("publisher"))
-                    meta.append(paper_node.find("address"))
-                    meta.append(paper_node.find("month"))
-                    meta.append(paper_node.find("year"))
+                        meta_node.append(editor)
+                    meta_node.append(paper_node.find("publisher"))
+                    meta_node.append(paper_node.find("address"))
+                    meta_node.append(paper_node.find("month"))
+                    meta_node.append(paper_node.find("year"))
                     if book_dest_path is not None:
                         make_simple_element(
                             "url",
                             text=f"{collection_id}-{volume_name}",
                             attrib={"hash": compute_hash_from_file(book_dest_path)},
-                            parent=meta,
+                            parent=meta_node,
                         )
 
                     # modify frontmatter tag
@@ -332,6 +332,10 @@ def main(args):
 
                 if len(paper_node) > 0:
                     volume_node.append(paper_node)
+
+        # Other data from the meta file
+        if "isbn" in meta:
+            make_simple_element("isbn", meta["isbn"], parent=meta_node)
 
         # Normalize
         for paper in root_node.findall(".//paper"):
