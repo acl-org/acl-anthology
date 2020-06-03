@@ -104,4 +104,4 @@ If you need to assign ISBN numbers, please provide the exact titles of each volu
 ### Errata and Corrections
 
 If you get requests from authors needing to post errata or revised versions of the papers, or supplemental attachments after the publication of the proceedings, please refer them to [our documentation on the matter]({{< relref "corrections.md" >}}).
-Note that after the publiation date, corrections can only be applied to individual papers; the full proceedings volumes will not be replaced or revised.
+Note that after the publication date, corrections can only be applied to individual papers; the full proceedings volumes will not be replaced or revised.
