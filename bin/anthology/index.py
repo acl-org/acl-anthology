@@ -357,3 +357,50 @@ class AnthologyIndex:
             for venue in vidx.get_associated_venues(paper):
                 venues[venue] += 1
         return venues
+
+    def serialize(self):
+        return {
+            "__class__": "AnthologyIndex",
+            "bibkeys": list(self.bibkeys),
+            "stopwords": self.stopwords,
+            "id_to_canonical": {k: repr(v) for k, v in self.id_to_canonical.items()},
+            "id_to_used": {
+                k: list(repr(e) for e in v) for k, v in self.id_to_used.items()
+            },
+            "name_to_ids": {repr(k): v for k, v in self.name_to_ids.items()},
+            "coauthors": {k: dict(v) for k, v in self.coauthors.items()},
+            "comments": self.comments,
+            "similar": {k: list(v) for k, v in self.similar.items()},
+            "id_to_papers": {k: dict(v) for k, v in self.id_to_papers.items()},
+            "name_to_papers": {
+                repr(k): {"1" if a else "": b for a, b in v.items()}
+                for k, v in self.name_to_papers.items()
+            },
+        }
+
+    @classmethod
+    def from_serialized(cls, data, parent=None):
+        obj = cls(parent)
+        obj.bibkeys = set(data["bibkeys"])
+        obj.id_to_canonical = {
+            k: PersonName.from_repr(v) for k, v in data["id_to_canonical"].items()
+        }
+        obj.id_to_used = {
+            k: set(PersonName.from_repr(e) for e in v)
+            for k, v in data["id_to_used"].items()
+        }
+        obj.name_to_ids.update(
+            {PersonName.from_repr(k): v for k, v in data["name_to_ids"].items()}
+        )
+        obj.coauthors.update({k: Counter(v) for k, v in data["coauthors"].items()})
+        obj.comments = data["comments"]
+        obj.similar.update({k: set(v) for k, v in data["similar"].items()})
+        obj.id_to_papers.update(data["id_to_papers"])
+        obj.name_to_papers.update(
+            {
+                PersonName.from_repr(k): {bool(a): b for a, b in v.items()}
+                for k, v in data["name_to_papers"].items()
+            }
+        )
+
+        return obj

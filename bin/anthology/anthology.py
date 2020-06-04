@@ -114,3 +114,29 @@ class Anthology:
                     continue
                 volume.append(parsed_paper)
                 self.papers[full_id] = parsed_paper
+
+    def serialize(self):
+        return {
+            "__class__": "Anthology",
+            "pindex": self.pindex.serialize(),
+            "venues": self.venues.serialize(),
+            "sigs": self.sigs.serialize(),
+            "volumes": {k: v.serialize() for k, v in self.volumes.items()},
+            "papers": {k: v.serialize() for k, v in self.papers.items()},
+        }
+
+    @classmethod
+    def from_serialized(cls, data):
+        obj = cls()
+        obj.pindex = AnthologyIndex.from_serialized(data["pindex"], parent=obj)
+        obj.venues = VenueIndex.from_serialized(data["venues"])
+        obj.sigs = SIGIndex.from_serialized(data["sigs"])
+        obj.volumes = {
+            k: Volume.from_serialized(v, obj.venues, obj.sigs, obj.formatter)
+            for k, v in data["volumes"].items()
+        }
+        for k, v in data["papers"].items():
+            paper = Paper.from_serialized(v, obj.volumes, obj.formatter)
+            obj.volumes[paper.parent_volume_id].content.append(paper)
+            obj.papers[k] = paper
+        return obj

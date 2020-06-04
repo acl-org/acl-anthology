@@ -22,6 +22,8 @@ from .utils import (
     remove_extra_whitespace,
     is_journal,
     is_volume_id,
+    serialize_attrib,
+    deserialize_attrib,
 )
 from . import data
 
@@ -296,3 +298,20 @@ class Paper:
 
     def items(self):
         return self.attrib.items()
+
+    def serialize(self):
+        return {
+            "__class__": "Paper",
+            "attrib": serialize_attrib(self.attrib),
+            "paper_id": self.paper_id,
+            "parent_volume_id": self.parent_volume_id,
+            "bibkey": self._bibkey,
+            "ingest_date": self._ingest_date,
+        }
+
+    @classmethod
+    def from_serialized(cls, data, volume_index, formatter):
+        volume = volume_index.get(data["parent_volume_id"])
+        obj = cls(data["paper_id"], data["ingest_date"], volume, formatter,)
+        obj.attrib.update(deserialize_attrib(data["attrib"]))
+        return obj

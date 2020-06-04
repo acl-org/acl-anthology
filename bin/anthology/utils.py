@@ -418,3 +418,27 @@ def compute_hash(value: bytes) -> str:
 def compute_hash_from_file(path: str) -> str:
     with open(path, "rb") as f:
         return compute_hash(f.read())
+
+
+def serialize_attrib(attrib):
+    d = {}
+    for k, v in attrib.items():
+        if k.startswith("xml_"):
+            d[k] = etree.tostring(v)
+        elif k in ("author", "editor"):
+            d[k] = [(repr(pn), id_) for (pn, id_) in v]
+        else:
+            d[k] = v
+    return d
+
+
+def deserialize_attrib(data):
+    d = {}
+    for k, v in data.items():
+        if k.startswith("xml_"):
+            d[k] = etree.fromstring(v)
+        elif k in ("author", "editor"):
+            d[k] = [(PersonName.from_repr(pn), id_) for (pn, id_) in v]
+        else:
+            d[k] = v
+    return d

@@ -121,3 +121,27 @@ class VenueIndex:
 
     def items(self):
         return self.venues.items()
+
+    def serialize(self):
+        return {
+            "__class__": "VenueIndex",
+            "venues": {
+                k: {a: (list(b) if isinstance(b, set) else b) for a, b in v.items()}
+                for k, v in self.venues.items()
+            },
+            "letters": self.letters,
+            "joint_map": self.joint_map,
+            "acronyms_by_key": self.acronyms_by_key,
+        }
+
+    @classmethod
+    def from_serialized(cls, data):
+        obj = cls()
+        obj.venues = data["venues"]
+        for k, v in obj.venues.items():
+            if "years" in v:
+                v["years"] = set(v["years"])
+        obj.letters = data["letters"]
+        obj.joint_map = data["joint_map"]
+        obj.acronyms_by_key = data["acronyms_by_key"]
+        return obj

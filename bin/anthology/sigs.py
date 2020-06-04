@@ -67,6 +67,18 @@ class SIGIndex:
     def items(self):
         return self.sigs.items()
 
+    def serialize(self):
+        return {
+            "__class__": "SIGIndex",
+            "sigs": {k: v.serialize() for k, v in self.sigs.items()},
+        }
+
+    @classmethod
+    def from_serialized(cls, data):
+        obj = cls()
+        obj.sigs = {k: SIG.from_serialized(v) for k, v in data["sigs"].items()}
+        return obj
+
 
 class SIG:
     def __init__(self, acronym, name, url):
@@ -144,3 +156,22 @@ class SIG:
 
     def is_associated_with(self, anthology_id):
         return any(ev.anthology_id == anthology_id for ev in self._associated_events)
+
+    def serialize(self):
+        map_meetings = lambda m: [{str(y): e for y, e in ed.items()} for ed in m]
+        return {
+            "__class__": "SIG",
+            "acronym": self.acronym,
+            "name": self.name,
+            "url": self.url,
+            "data": {
+                k: (map_meetings(v) if k == "Meetings" else v)
+                for k, v in self.data.items()
+            },
+        }
+
+    @classmethod
+    def from_serialized(cls, data):
+        obj = cls(data["acronym"], data["name"], data["url"])
+        obj.data = data["data"]
+        return obj

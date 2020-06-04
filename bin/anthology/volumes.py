@@ -28,6 +28,8 @@ from .utils import (
     month_str2num,
     infer_url,
     infer_year,
+    serialize_attrib,
+    deserialize_attrib,
 )
 
 
@@ -51,7 +53,10 @@ class Volume:
         self._id = volume_id
         self.ingest_date = ingest_date
         self.formatter = formatter
-        self._set_meta_info(meta_data)
+        if meta_data:
+            self._set_meta_info(meta_data)
+        else:
+            self.attrib = {}
         self.attrib["venues"] = venue_index.get_associated_venues(self.full_id)
         self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
         self.content = []
@@ -168,3 +173,34 @@ class Volume:
 
     def __iter__(self):
         return self.content.__iter__()
+
+    def serialize(self):
+        return {
+            "__class__": "Volume",
+            "_id": self._id,
+            "collection_id": self.collection_id,
+            "ingest_date": self.ingest_date,
+            "attrib": {
+                k: v
+                for k, v in serialize_attrib(self.attrib).items()
+                if k not in ("venues", "sigs")
+            },
+            "has_abstracts": self.has_abstracts,
+            "has_frontmatter": self.has_frontmatter,
+        }
+
+    @classmethod
+    def from_serialized(cls, data, venue_index, sig_index, formatter):
+        obj = cls(
+            data["collection_id"],
+            data["_id"],
+            data["ingest_date"],
+            None,
+            venue_index,
+            sig_index,
+            formatter,
+        )
+        obj.attrib.update(deserialize_attrib(data["attrib"]))
+        obj.has_abstract = data["has_abstracts"]
+        obj.has_frontmatter = data["has_frontmatter"]
+        return obj
