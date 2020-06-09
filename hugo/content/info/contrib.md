@@ -48,7 +48,7 @@ Please read through it so that you have an understanding of the ingestion proces
 All publications chairs need to obtain or verify [the venue identifiers]({{< relref "ids.md" >}}) for proceedings submitted to the Anthology.
 This should be done before the paper submission deadline for your conference.
 If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair to receive your identifiers.
-(If you are an established venue, you can also look yours up [here](https://github.com/acl-org/acl-anthology/blob/new-id-format/data/yaml/venues_mapping.yaml).)
+(If you are an established venue, you can also look yours up [here](https://github.com/acl-org/acl-anthology/blob/master/data/yaml/venues.yaml).)
 
 If you are a conference publications chair, you must register your intention to submit your proceedings.
 Assemble the following information for all volumes and workshops in their conference and send it to [the Anthology Director](mailto:anthology@aclweb.org) in a single email.
