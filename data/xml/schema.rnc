@@ -17,7 +17,7 @@ Paper = element paper {
   (element abstract { MarkupText }?
    & element attachment {
        attribute type { xsd:NCName }?,
-       xsd:anyURI
+       xsd:NCName
      }*
    & element author { Person }*
    & element doi { xsd:anyURI }?
@@ -75,7 +75,7 @@ Frontmatter = element frontmatter {
      }*
    & element attachment {
        attribute type { xsd:NCName }?,
-       xsd:anyURI
+       xsd:NCName
      }*
    & element doi { xsd:anyURI }?
   )

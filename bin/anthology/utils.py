@@ -24,6 +24,7 @@ from lxml import etree
 from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 from typing import Tuple, Optional
+from zlib import crc32
 
 from .people import PersonName
 from . import data
@@ -407,3 +408,13 @@ def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=Non
         for key, value in attrib.items():
             el.attrib[key] = value
     return el
+
+
+def compute_hash(value: bytes) -> str:
+    checksum = crc32(value) & 0xFFFFFFFF
+    return f"{checksum:08x}"
+
+
+def compute_hash_from_file(path: str) -> str:
+    with open(path, "rb") as f:
+        return compute_hash(f.read())

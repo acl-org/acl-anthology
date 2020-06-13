@@ -41,15 +41,5 @@ def read_bibtex(bibfilename):
 
     # for parser in [lambda s: pybtex.database.parse_string(s, 'bibtex'),
     #                fake_parse]:
-    parser = pybtex.database.parse_string(s, 'bibtex')
-    try:
-        bibdata = parser(bibstring)
-    except KeyboardInterrupt:
-        raise
-    except Exception as e:
-        logging.warning(
-            "BibTeX parser raised exception '{}'; trying alternate parser".format(e)
-        )
-        bibdata = pybtex.database.BibliographyData(dict())
-
+    bibdata = pybtex.database.parse_string(bibstring, "bibtex")
     return bibdata
