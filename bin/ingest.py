@@ -33,6 +33,7 @@ Updated in March 2020, this script replaces:
 import argparse
 import os
 import re
+import readline
 import shutil
 import sys
 
@@ -357,12 +358,18 @@ def main(args):
                 name = PersonName.from_element(node)
                 ids = people.get_ids(name)
                 if len(ids) > 1:
-                    print(
-                        f"WARNING ({anth_id}): ambiguous author {name}, defaulting to first of {ids}"
-                    )
+                    choice = -1
+                    while choice < 0 or choice >= len(ids):
+                        print(
+                            f"({anth_id}): ambiguous author {name}; Please choose from the following:"
+                        )
+                        for i, id_ in enumerate(ids):
+                            print(f"[{i}] {id_} ({people.get_comment(id_)})")
+                        choice = int(input("--> "))
+
                     ambiguous[anth_id] = (name, ids)
 
-                    node.attrib["id"] = ids[0]
+                    node.attrib["id"] = ids[choice]
 
         indent(root_node)
         tree = etree.ElementTree(root_node)
