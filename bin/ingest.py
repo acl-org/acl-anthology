@@ -275,7 +275,7 @@ def main(args):
 
         for volume_id, volume in collection.items():
             volume_node = make_simple_element(
-                "volume", attrib={"id": volume_id}, parent=root_node
+                "volume", attrib={"id": volume_id, "ingest-date": args.ingest_date}, parent=root_node
             )
             meta_node = None
 
