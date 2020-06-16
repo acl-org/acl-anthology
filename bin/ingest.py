@@ -137,8 +137,8 @@ def bib2xml(bibfilename, anthology_id):
         else:
             if field == 'url':
                 value = f"{anthology_id}"
-                if 'url' in bibentry.fields and bibentry.fields['url'] != value:
-                    log(f"rewriting url {bibentry.fields['url']} -> {value}")
+                # if 'url' in bibentry.fields and bibentry.fields['url'] != value:
+                #     log(f"rewriting url {bibentry.fields['url']} -> {value}")
             elif field in bibentry.fields:
                 value = bibentry.fields[field]
             elif field == 'bibtype':
@@ -180,6 +180,7 @@ def main(args):
         collection_id = meta["collection_id"]
         venue_name = meta["abbrev"].lower()
         volume_name = meta["volume"]
+        year = meta["year"]
 
         pdfs_dest_dir = os.path.join(args.pdfs_dir, venue_name)
         if not os.path.exists(pdfs_dest_dir):
@@ -188,7 +189,7 @@ def main(args):
         print(f"VOLUME: {volume}")
 
         # copy the book
-        book_src_filename = meta["abbrev"] + "-" + meta["year"]
+        book_src_filename = meta["abbrev"] + "-" + year
         book_src_path = os.path.join(root_path, book_src_filename) + ".pdf"
         book_dest_path = None
         if os.path.exists(book_src_path):
@@ -196,7 +197,7 @@ def main(args):
                 os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
             )
 
-            log(f"Copying {book_src_path} -> {book_dest_path}", args.dry_run)
+            # log(f"Copying {book_src_path} -> {book_dest_path}", args.dry_run)
             if not args.dry_run:
                 shutil.copyfile(book_src_path, book_dest_path)
 
@@ -222,10 +223,10 @@ def main(args):
                 pdf_dest_path = os.path.join(
                     pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
                 )
-                log(
-                    f"Copying [{paper_id_full}] from {pdf_src_path} -> {pdf_dest_path}",
-                    args.dry_run,
-                )
+                # log(
+                #     f"Copying [{paper_id_full}] from {pdf_src_path} -> {pdf_dest_path}",
+                #     args.dry_run,
+                # )
                 if not args.dry_run:
                     shutil.copyfile(pdf_src_path, pdf_dest_path)
 
@@ -242,20 +243,24 @@ def main(args):
             if not os.path.exists(attachments_dest_dir):
                 os.makedirs(attachments_dest_dir)
             for attachment_file in os.listdir(os.path.join(root_path, "additional")):
-                match = re.match(rf"{abbrev}(\d+)_(\w+)\.(\w+)")
-                if match is not None:
-                    paper_num, type_, ext = match.groups()
-                    paper_num = int(paper_num)
+                attachment_file_path = os.path.join(root_path, "additional", attachment_file)
+                match = re.match(rf"{year}\.{venue_name}-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file)
+                if match is None:
+                    print(f"* Warning: no attachment match for {attachment_file}", file=sys.stderr)
+                    sys.exit(2)
 
-                    file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{ext}"
-                    dest_path = os.path.join(attachments_dest_dir, file_name)
-                    log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
-                    if not args.dry_run:
-                        shutil.copyfile(attachment_file, dest_path)
+                paper_num, type_, ext = match.groups()
+                paper_num = int(paper_num)
 
-                    collections[collection_id][volume_name][paper_num][
-                        "attachments"
-                    ].append(dest_path)
+                file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{ext}"
+                dest_path = os.path.join(attachments_dest_dir, file_name)
+                # log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
+                if not args.dry_run:
+                    shutil.copyfile(attachment_file_path, dest_path)
+
+                collections[collection_id][volume_name][paper_num][
+                    "attachments"
+                ].append((dest_path, type_))
 
     people = AnthologyIndex(
         None, srcdir=os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
@@ -319,13 +324,13 @@ def main(args):
                 if url is not None:
                     url.attrib["hash"] = compute_hash_from_file(paper["pdf"])
 
-                for attachment in paper["attachments"]:
+                for path, type_ in paper["attachments"]:
                     make_simple_element(
                         "attachment",
-                        text=attachment.path,
+                        text=os.path.basename(path),
                         attrib={
-                            "type": attachment.type,
-                            "hash": compute_hash_from_file(attachment.path),
+                            "type": type_,
+                            "hash": compute_hash_from_file(path),
                         },
                         parent=paper_node,
                     )
