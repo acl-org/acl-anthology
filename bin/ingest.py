@@ -53,6 +53,7 @@ from anthology.utils import (
 from anthology.index import AnthologyIndex
 from anthology.people import PersonName
 from anthology.bibtex import read_bibtex
+from anthology.venues import VenueIndex
 
 from itertools import chain
 from typing import Dict, Any
@@ -158,9 +159,21 @@ def main(args):
     collections = defaultdict(OrderedDict)
     volumes = {}
 
+    anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
+    venue_keys = [
+        venue["slug"].lower() for _, venue in VenueIndex(srcdir=anthology_datadir).items()
+    ]
+
     # Build list of volumes, confirm uniqueness
+    unseen_venues = []
     for proceedings in args.proceedings:
         meta = read_meta(os.path.join(proceedings, "meta"))
+
+        venue_name = meta["abbrev"].lower()
+
+        if venue_name not in venue_keys:
+            unseen_venues.append(meta["abbrev"])
+
         meta["path"] = proceedings
 
         meta["collection_id"] = collection_id = (
@@ -174,6 +187,14 @@ def main(args):
 
         collections[collection_id][volume_name] = {}
         volumes[volume_full_id] = meta
+
+    # Make sure all venues exist
+    if len(unseen_venues) > 0:
+        print("FATAL: The following venue(s) don't exist in venues.yaml")
+        for venue in unseen_venues:
+            print(f"- {venue}")
+        print("Please create entries for them and re-ingest.")
+        sys.exit(1)
 
     # Copy over the PDFs and attachments
     for volume, meta in volumes.items():
@@ -270,9 +291,7 @@ def main(args):
                     (dest_path, type_)
                 )
 
-    people = AnthologyIndex(
-        None, srcdir=os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
-    )
+    people = AnthologyIndex(None, srcdir=anthology_datadir)
 
     for collection_id, collection in collections.items():
         collection_file = os.path.join(
