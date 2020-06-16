@@ -244,10 +244,17 @@ def main(args):
             if not os.path.exists(attachments_dest_dir):
                 os.makedirs(attachments_dest_dir)
             for attachment_file in os.listdir(os.path.join(root_path, "additional")):
-                attachment_file_path = os.path.join(root_path, "additional", attachment_file)
-                match = re.match(rf"{year}\.{venue_name}-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file)
+                attachment_file_path = os.path.join(
+                    root_path, "additional", attachment_file
+                )
+                match = re.match(
+                    rf"{year}\.{venue_name}-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file
+                )
                 if match is None:
-                    print(f"* Warning: no attachment match for {attachment_file}", file=sys.stderr)
+                    print(
+                        f"* Warning: no attachment match for {attachment_file}",
+                        file=sys.stderr,
+                    )
                     sys.exit(2)
 
                 paper_num, type_, ext = match.groups()
@@ -259,9 +266,9 @@ def main(args):
                 if not args.dry_run:
                     shutil.copyfile(attachment_file_path, dest_path)
 
-                collections[collection_id][volume_name][paper_num][
-                    "attachments"
-                ].append((dest_path, type_))
+                collections[collection_id][volume_name][paper_num]["attachments"].append(
+                    (dest_path, type_)
+                )
 
     people = AnthologyIndex(
         None, srcdir=os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
@@ -275,7 +282,9 @@ def main(args):
 
         for volume_id, volume in collection.items():
             volume_node = make_simple_element(
-                "volume", attrib={"id": volume_id, "ingest-date": args.ingest_date}, parent=root_node
+                "volume",
+                attrib={"id": volume_id, "ingest-date": args.ingest_date},
+                parent=root_node,
             )
             meta_node = None
 
@@ -329,10 +338,7 @@ def main(args):
                     make_simple_element(
                         "attachment",
                         text=os.path.basename(path),
-                        attrib={
-                            "type": type_,
-                            "hash": compute_hash_from_file(path),
-                        },
+                        attrib={"type": type_, "hash": compute_hash_from_file(path),},
                         parent=paper_node,
                     )
 
