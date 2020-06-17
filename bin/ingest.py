@@ -383,10 +383,12 @@ def main(args):
                 anth_id = build_anthology_id(
                     collection_id, node.getparent().getparent().attrib["id"]
                 )
-            else: # node.tag == "author":
+            else:  # node.tag == "author":
                 # paper, get full ID
                 anth_id = build_anthology_id(
-                    collection_id, node.getparent().getparent().attrib["id"], node.getparent().attrib["id"]
+                    collection_id,
+                    node.getparent().getparent().attrib["id"],
+                    node.getparent().attrib["id"],
                 )
 
             if len(ids) > 1:
