@@ -1,11 +1,11 @@
 # Scripts for marking fixed-case words in BibTeX entries
 
-1. Generate `truelist-auto` by running `train.py import/*.xml`.
-2. Generate `truelist-phrasal-auto` by running `train_phrasal.py import/*.xml`.
-3. Create `truelist` by curating the two lists above.
-4. For each XML file, run `protect.py <infile> <outfile>`. This marks
-   every fixed-case uppercase sequences in title words with the tag `<fixed-case>`.
-   Any existing `<fixed-case>` tags are retained.
+The code and lists in this directory provide functionality to mark
+every fixed-case uppercase sequences in title words with the tag `<fixed-case>`.
+Any existing `<fixed-case>` tags are retained.
+
+
+## Heuristics
 
 Fixed-caseness is determined by this decision list:
 
@@ -47,3 +47,48 @@ so please don't regenerate it.
 
 The `truelist` also contains a manually identified selection of
 multiword phrases that should be fixed-case.
+
+
+## How to run
+
+The main entry point is the function `protect()` in protect.py,
+called on a title or booktitle node in the XML.
+This updates the XML node if necessary by marking
+every fixed-case uppercase sequences in title words with the tag `<fixed-case>`.
+Any existing `<fixed-case>` tags are retained.
+
+### Curating truelists
+
+The algorithm relies on two files: `truelist` to find words/phrases
+that should always include fixed-case but may not be identified by the general heuristics,
+and `special-case-titles` for exceptions to the heuristics.
+These lists should be augmented from time to time as new proper names arise.
+
+1. Generate `truelist-auto` suggestions by running `train.py import/*.xml`.
+2. Generate `truelist-phrasal-auto` suggestions by running `train_phrasal.py import/*.xml`.
+3. Update `truelist` by curating the two lists above.
+4. If there are false positives after running protect.py, add exceptions to `special-case-titles`.
+
+### Running directly on XML files
+
+For each XML file, run `protect.py <infile> <outfile>`.
+
+### During ingestion process
+
+Ingestion of a new meeting is performed by the ingest.py script in the parent directory.
+It calls `normalize()` (in normalize_anth.py), which calls `protect()`
+on every `"title"` and `"booktitle"` field.
+
+When ingesting a new meeting, it is recommended to run the caser via ingest.py and then
+correct any errors as follows:
+
+* False Negatives: If a word or phrase should always have fixed-case capitals,
+  add it to truelist. Otherwise, manually add `<fixed-case>` in the XML.
+
+* False Positives: If the heuristics for fixed-case produce a false positive for a title,
+  add it to special-case-titles (lowercasing all but the fixed-case capitals).
+  Simply removing `<fixed-case>` from the XML runs the risk that the change
+  will be overridden on a subsequent run.
+
+Then rerun the caser (protect.py directly) on the full anthology if truelist has been modified,
+or just the newly ingested meeting otherwise. Repeat if further errors are found.
