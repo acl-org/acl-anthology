@@ -373,28 +373,33 @@ def main(args):
             for oldnode in paper:
                 normalize(oldnode, informat="latex")
 
-            # Ensure names are properly identified
-            ambiguous = {}
-            anth_id = build_anthology_id(
-                collection_id, paper.getparent().attrib["id"], paper.attrib["id"]
-            )
+        # Name disambiguation
+        for node in chain(root_node.findall(".//author"), root_node.findall(".//editor")):
+            name = PersonName.from_element(node)
+            ids = people.get_ids(name)
 
-            for node in chain(paper.findall("author"), paper.findall("editor")):
-                name = PersonName.from_element(node)
-                ids = people.get_ids(name)
-                if len(ids) > 1:
-                    choice = -1
-                    while choice < 0 or choice >= len(ids):
-                        print(
-                            f"({anth_id}): ambiguous author {name}; Please choose from the following:"
-                        )
-                        for i, id_ in enumerate(ids):
-                            print(f"[{i}] {id_} ({people.get_comment(id_)})")
-                        choice = int(input("--> "))
+            if node.tag == "editor":
+                # meta block, get volume
+                anth_id = build_anthology_id(
+                    collection_id, node.getparent().getparent().attrib["id"]
+                )
+            else: # node.tag == "author":
+                # paper, get full ID
+                anth_id = build_anthology_id(
+                    collection_id, node.getparent().getparent().attrib["id"], node.getparent().attrib["id"]
+                )
 
-                    ambiguous[anth_id] = (name, ids)
+            if len(ids) > 1:
+                choice = -1
+                while choice < 0 or choice >= len(ids):
+                    print(
+                        f"({anth_id}): ambiguous author {name}; Please choose from the following:"
+                    )
+                    for i, id_ in enumerate(ids):
+                        print(f"[{i}] {id_} ({people.get_comment(id_)})")
+                    choice = int(input("--> "))
 
-                    node.attrib["id"] = ids[choice]
+                node.attrib["id"] = ids[choice]
 
         indent(root_node)
         tree = etree.ElementTree(root_node)
