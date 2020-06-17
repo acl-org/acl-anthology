@@ -1,7 +1,7 @@
 # Scripts for marking fixed-case words in BibTeX entries
 
 The code and lists in this directory provide functionality to mark
-every fixed-case uppercase sequences in title words with the tag `<fixed-case>`.
+every fixed-case uppercase sequence in title words with the tag `<fixed-case>`.
 Any existing `<fixed-case>` tags are retained.
 
 
@@ -54,7 +54,7 @@ multiword phrases that should be fixed-case.
 The main entry point is the function `protect()` in protect.py,
 called on a title or booktitle node in the XML.
 This updates the XML node if necessary by marking
-every fixed-case uppercase sequences in title words with the tag `<fixed-case>`.
+every fixed-case uppercase sequence in title words with the tag `<fixed-case>`.
 Any existing `<fixed-case>` tags are retained.
 
 ### Curating truelists
@@ -83,10 +83,10 @@ When ingesting a new meeting, it is recommended to run the caser via ingest.py a
 correct any errors as follows:
 
 * False Negatives: If a word or phrase should always have fixed-case capitals,
-  add it to truelist. Otherwise, manually add `<fixed-case>` in the XML.
+  add it to `truelist`. Otherwise, manually add `<fixed-case>` in the XML.
 
 * False Positives: If the heuristics for fixed-case produce a false positive for a title,
-  add it to special-case-titles (lowercasing all but the fixed-case capitals).
+  add it to `special-case-titles` (lowercasing all but the fixed-case capitals).
   Simply removing `<fixed-case>` from the XML runs the risk that the change
   will be overridden on a subsequent run.
 
