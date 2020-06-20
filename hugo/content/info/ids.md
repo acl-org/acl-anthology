@@ -5,7 +5,7 @@ subtitle: Information on how the Anthology assigns identifiers
 date: "2019-11-15"
 ---
 
-Every item in the anthology is assigned an Anthology ID and a canonical URL so that they can be easily located and referenced.
+Every item in the anthology is assigned an Anthology ID and a canonical URL so that it can be easily located and referenced.
 
 ## Identifier format
 
@@ -14,7 +14,7 @@ Everything ingested in 2020 and afterwards will have these IDs (including volume
 The new identifiers are of the form `YEAR.VENUE-VOLUME.NUMBER`, where
 
 - YEAR is the 4-digit year (e.g., "2020)
-- VENUE is an alphanumeric identifier (e.g., "acl")
+- VENUE is a lowercased, alphanumeric ([a-z0-9]+) identifier (e.g., "acl" or "repl4nlp")
 - VOLUME is a volume name (e.g., "1" or "long")
 - NUMBER is a paper number
 
@@ -39,7 +39,7 @@ When a proceedings is divided into multiple volumes, paper numbers will begin fr
 
 By convention, any front matter is given the paper number '0' (e.g., 2020.acl-srw.0, 2020.emnlp-1.0).
 Any back matter is assigned the last paper number in the volume.
-Front and back matter that appears internally to a volume will be counted just like an ordinary paper.
+Front and back matter that appears internally to a volume will be treated just like an ordinary paper.
 
 ## Canonical URLs
 
