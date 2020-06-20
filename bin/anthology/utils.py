@@ -14,12 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import itertools as it
+import logging
+import os
+import re
+import requests
+
 from lxml import etree
 from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
-import itertools as it
-import logging
-import re
+from typing import Tuple, Optional
+from zlib import crc32
 
 from .people import PersonName
 from . import data
@@ -28,48 +33,137 @@ from . import data
 xml_escape_or_none = lambda t: None if t is None else xml_escape(t)
 
 
+def is_newstyle_id(anthology_id):
+    return anthology_id[0].isdigit()  # New-style IDs are year-first
+
+
 def is_journal(anthology_id):
-    return anthology_id[0] in ("J", "Q")
+    if is_newstyle_id(anthology_id):
+        # TODO: this function is sometimes called with "full_id", sometimes with
+        # "collection_id", so we're not using `deconstruct_anthology_id` here at
+        # the moment
+        venue = anthology_id.split("-")[0].split(".")[-1]
+        return venue in data.JOURNAL_IDS
+    else:
+        return anthology_id[0] in ("J", "Q")
 
 
 def is_volume_id(anthology_id):
-    return (
-        anthology_id[-3:] == "000"
-        or (anthology_id[0] == "W" and anthology_id[-2:] == "00")
-        or (anthology_id[:3] == "C69" and anthology_id[-2:] == "00")
-    )
+    collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
+    return paper_id == "0"
 
 
-def to_volume_id(anthology_id):
-    if anthology_id[0] == "W" or anthology_id[:3] == "C69":
-        return anthology_id[:6]
-    return anthology_id[:5]
+def is_valid_id(id_):
+    """
+    Determines whether the identifier has a valid Anthology identifier format (paper or volume).
+    """
+    match = re.match(r"([A-Z]\d{2})-(\d{1,4})", id_)
+    if not re.match(r"[A-Z]\d{2}-\d{1,3}", id_):
+        return False
+
+    first, rest = match.groups()
+
+    if len(rest) != 4:
+        if (
+            first.startswith("W")
+            or first == "C69"
+            or (first == "D19" and int(rest[0]) >= 5)
+        ):
+            return len(rest) == 2
+        else:
+            return len(rest) == 1
+
+    return True
 
 
-def build_anthology_id(collection_id, volume_id, paper_id):
+def build_anthology_id(
+    collection_id: str, volume_id: str, paper_id: Optional[str] = None
+) -> str:
     """
     Transforms collection id, volume id, and paper id to a width-padded
     Anthology ID. e.g., ('P18', '1', '1') -> P18-1001.
     """
-    if collection_id.startswith('W') or collection_id == 'C69':
-        return '{}-{:02d}{:02d}'.format(collection_id, int(volume_id), int(paper_id))
+    if is_newstyle_id(collection_id):
+        if paper_id is not None:
+            return f"{collection_id}-{volume_id}.{paper_id}"
+        else:
+            return f"{collection_id}-{volume_id}"
+    # pre-2020 IDs
+    if (
+        collection_id.startswith("W")
+        or collection_id == "C69"
+        or (collection_id == "D19" and int(volume_id) >= 5)
+    ):
+        anthology_id = f"{collection_id}-{int(volume_id):02d}"
+        if paper_id is not None:
+            anthology_id += f"{int(paper_id):02d}"
     else:
-        return '{}-{:02d}{:02d}'.format(collection_id, int(volume_id), int(paper_id))
+        anthology_id = f"{collection_id}-{int(volume_id):01d}"
+        if paper_id is not None:
+            anthology_id += f"{int(paper_id):03d}"
+
+    return anthology_id
 
 
-def deconstruct_anthology_id(anthology_id):
+def test_url_code(url):
     """
-    Transforms an Anthology id into its constituent collection id, voulume id, and paper id
+    Test a URL, returning the result.
+    """
+    r = requests.head(url, allow_redirects=True)
+    return r
+
+
+def test_url(url):
+    """
+    Tests a URL, returning True if the URL exists, and False otherwise.
+    """
+    return test_url_code(url).status_code == requests.codes.ok
+
+
+def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
+    """
+    Transforms an Anthology ID into its constituent collection id, volume id, and paper id
     parts. e.g,
 
-        P18-1007 -> ('P18', '1', '7')
+        P18-1007 -> ('P18', '1',  '7')
         W18-6310 -> ('W18', '63', '10')
+        D19-1001 -> ('D19', '1',  '1')
+        D19-5702 -> ('D19', '57', '2')
+
+    Also can deconstruct Anthology volumes:
+
+        P18-1 -> ('P18', '1', None)
+        W18-63 -> ('W18', '63', None)
+
+    For Anthology IDs prior to 2020, the volume ID is the first digit after the hyphen, except
+    for the following situations, where it is the first two digits:
+
+    - All collections starting with 'W'
+    - The collection "C69"
+    - All collections in "D19" where the first digit is >= 5
     """
-    collection_id, rest = anthology_id.split('-')
-    if collection_id.startswith('W') or collection_id.startswith('C69'):
-        return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
+    collection_id, rest = anthology_id.split("-")
+    if is_newstyle_id(anthology_id):
+        if "." in rest:
+            volume_id, paper_id = rest.split(".")
+        else:
+            volume_id, paper_id = rest, None
+        return (collection_id, volume_id, paper_id)
+    # pre-2020 IDs
+    if (
+        collection_id.startswith("W")
+        or collection_id == "C69"
+        or (collection_id == "D19" and int(rest[0]) >= 5)
+    ):
+        if len(rest) == 4:
+            return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
+        else:  # Possible Volume only identifier
+            return (collection_id, str(int(rest)), None)
     else:
-        return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
+        if len(rest) == 4:
+            return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
+        else:  # Possible Volume only identifier
+            return (collection_id, str(int(rest)), None)
 
 
 def stringify_children(node):
@@ -99,12 +193,12 @@ def remove_extra_whitespace(text):
     return re.sub(" +", " ", text.replace("\n", "").strip())
 
 
-def infer_url(filename, prefix=data.ANTHOLOGY_URL):
+def infer_url(filename, prefix=data.ANTHOLOGY_PREFIX):
     """If URL is relative, return the full Anthology URL.
     """
     if urlparse(filename).netloc:
         return filename
-    return prefix.format(filename)
+    return f"{prefix}/{filename}"
 
 
 def infer_attachment_url(filename, parent_id=None):
@@ -117,7 +211,29 @@ def infer_attachment_url(filename, parent_id=None):
                 parent_id, filename
             )
         )
-    return infer_url(filename, data.ATTACHMENT_URL)
+    return infer_url(filename, data.ATTACHMENT_PREFIX)
+
+
+def infer_year(collection_id):
+    """Infer the year from the collection ID.
+
+    Many paper entries do not explicitly contain their year.  This function assumes
+    that the paper's collection identifier follows the format 'xyy', where x is
+    some letter and yy are the last two digits of the year of publication.
+    """
+    if is_newstyle_id(collection_id):
+        return collection_id.split(".")[0]
+
+    assert (
+        len(collection_id) == 3
+    ), f"Couldn't infer year: unknown volume ID format '{collection_id}' ({type(collection_id)})"
+    digits = collection_id[1:]
+    if int(digits) >= 60:
+        year = "19{}".format(digits)
+    else:
+        year = "20{}".format(digits)
+
+    return year
 
 
 _MONTH_TO_NUM = {
@@ -156,35 +272,40 @@ class SeverityTracker(logging.Handler):
             self.highest = record.levelno
 
 
-def clean_whitespace(text, strip='left'):
+def clean_whitespace(text, strip="left"):
     old_text = text
     if text is not None:
-        text = text.replace('\n', '')
-        text = re.sub(r'\s+', ' ', text)
-        if strip == 'left' or strip == 'both':
+        text = re.sub(r" +", " ", text)
+        if strip == "left" or strip == "both":
             text = text.lstrip()
-        if strip == 'right' or strip == 'both':
+        if strip == "right" or strip == "both":
             text = text.rstrip()
     return text
 
 
-# Adapted from https://stackoverflow.com/a/33956544
 def indent(elem, level=0, internal=False):
+    """
+    Enforces canonical indentation: two spaces,
+    with each tag on a new line, except that 'author', 'editor',
+    'title', and 'booktitle' tags are placed on a single line.
+
+    Adapted from https://stackoverflow.com/a/33956544 .
+    """
     # tags that have no internal linebreaks (including children)
-    oneline = elem.tag in ('author', 'editor', 'title', 'booktitle')
+    oneline = elem.tag in ("author", "editor", "title", "booktitle")
 
     elem.text = clean_whitespace(elem.text)
 
-    if len(elem): # children
+    if len(elem):  # children
         # Set indent of first child for tags with no text
         if not oneline and (not elem.text or not elem.text.strip()):
-            elem.text = '\n' + (level + 1) * '  '
+            elem.text = "\n" + (level + 1) * "  "
 
         if not elem.tail or not elem.tail.strip():
             if level:
-                elem.tail = '\n' + level * '  '
+                elem.tail = "\n" + level * "  "
             else:
-                elem.tail = ''
+                elem.tail = "\n"
 
         # recurse
         for child in elem:
@@ -192,16 +313,17 @@ def indent(elem, level=0, internal=False):
 
         # Clean up the last child
         if oneline:
-            child.tail = clean_whitespace(child.tail, strip='right')
-        elif (not child.tail or not child.tail.strip()):
-            child.tail = '\n' + level * '  '
+            child.tail = clean_whitespace(child.tail, strip="right")
+        elif not child.tail or not child.tail.strip():
+            child.tail = "\n" + level * "  "
     else:
-        elem.text = clean_whitespace(elem.text, strip='both')
+        elem.text = clean_whitespace(elem.text, strip="both")
 
         if internal:
-            elem.tail = clean_whitespace(elem.tail, strip='none')
+            elem.tail = clean_whitespace(elem.tail, strip="none")
         elif not elem.tail or not elem.tail.strip():
-            elem.tail = '\n' + level * '  '
+            elem.tail = "\n" + level * "  "
+
 
 def parse_element(xml_element):
     attrib = {}
@@ -223,35 +345,44 @@ def parse_element(xml_element):
         elif tag in ("author", "editor"):
             id_ = element.attrib.get("id", None)
             value = (PersonName.from_element(element), id_)
-        elif tag in ("erratum", "revision"):
+        elif tag == "erratum":
+            value = {"value": element.text, "id": element.get("id"), "url": element.text}
+        elif tag == "revision":
             value = {
-                "value": element.text,
+                "value": element.get("href"),
                 "id": element.get("id"),
-                "url": element.text,
+                "url": element.get("href"),
+                "explanation": element.text,
             }
         elif tag == "mrf":
             value = {"filename": element.text, "src": element.get("src")}
         elif tag == "video":
             # Treat videos the same way as other attachments
             tag = "attachment"
+            # Skip videos where permission was not granted (these should be marked as private anyway in Vimeo)
+            if element.get("permission", "true") == "false":
+                continue
             value = {
                 "filename": element.get("href"),
                 "type": element.get("tag", "video"),
                 "url": element.get("href"),
             }
         elif tag in ("dataset", "software"):
-            value = {
-                "filename": element.text,
-                "type": tag,
-                "url": element.text,
-            }
+            value = {"filename": element.text, "type": tag, "url": element.text}
             tag = "attachment"
         else:
             value = element.text
 
         if tag == "url":
-            # Convert relative URLs to canonical ones
-            value = element.text if element.text.startswith('http') else data.ANTHOLOGY_URL.format(element.text)
+            # Set the URL (canonical / landing page for Anthology)
+            value = infer_url(element.text)
+
+            # Add a PDF link with, converting relative URLs to canonical ones
+            attrib["pdf"] = (
+                element.text
+                if urlparse(element.text).netloc
+                else data.ANTHOLOGY_PDF.format(element.text)
+            )
 
         if tag in data.LIST_ELEMENTS:
             try:
@@ -262,3 +393,28 @@ def parse_element(xml_element):
             attrib[tag] = value
 
     return attrib
+
+
+def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=None):
+    """Convenience function to create an LXML node"""
+    el = (
+        etree.Element(tag, nsmap=namespaces)
+        if parent is None
+        else etree.SubElement(parent, tag)
+    )
+    if text:
+        el.text = text
+    if attrib:
+        for key, value in attrib.items():
+            el.attrib[key] = value
+    return el
+
+
+def compute_hash(value: bytes) -> str:
+    checksum = crc32(value) & 0xFFFFFFFF
+    return f"{checksum:08x}"
+
+
+def compute_hash_from_file(path: str) -> str:
+    with open(path, "rb") as f:
+        return compute_hash(f.read())

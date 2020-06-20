@@ -1,0 +1,51 @@
+{{ $volume_id := index (split .Params.anthology_id "-") 0 }}
+{{ $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id }}
+<p class="d-sm-flex align-items-stretch">
+  <span class="d-block mr-2 text-nowrap list-button-row">
+    {{- with $paper.pdf -}}
+    <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open PDF">
+      pdf
+    </a>
+    {{- end -}}
+    {{- if (fileExists (printf "/data-export/%s.bib" .Params.anthology_id)) -}}
+    <a class="badge badge-secondary align-middle mr-1" href="{{ (printf "/%s.bib" .Params.anthology_id) | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">
+      bib
+    </a>
+    {{- end -}}
+    {{- with $paper.abstract_html -}}
+    <a class="badge badge-info align-middle mr-1" href="#abstract-{{ replace $.Params.anthology_id "." "--" }}" data-toggle="collapse" aria-expanded="false" aria-controls="abstract-{{ $.Params.anthology_id }}" title="Show Abstract">abs</a>
+    {{- end -}}
+    <br class="d-none d-sm-inline-block" />
+      {{- range $paper.attachment -}}
+        <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
+      {{- end -}}
+  </span>
+  <span class="d-block">
+    {{ if eq hugo.Environment "development" }}
+      <span class="badge badge-light align-middle">{{ .Params.anthology_id }}</span>
+    {{ end }}
+    <strong><a class="align-middle" href="{{ .RelPermalink }}">{{ $paper.title_html | safeHTML }}</a></strong>
+    <br />
+    {{ with $paper.author }}
+      {{ $len := (len $paper.author) }}
+      {{ range $index, $person := $paper.author }}
+        {{ partial "author_link.html" (dict "ctx" $ "person" $person) }}
+        {{ if ne (add $index 1) $len }} | {{ end }}
+      {{ end }}
+    {{ end }}
+    <br />
+    {{- with $paper.parent_volume_id -}}
+    {{ $volume := index $.Site.Data.volumes . }}
+    {{ $volume_page := printf "/volumes/%s.md" . }}
+    <a href="{{ relref $ $volume_page }}" class="text-muted">{{ $volume.title }}</a>
+    {{- end -}}
+  </span>
+</p>
+
+{{ with $paper.abstract_html }}
+<div class="card bg-light mb-2 mb-lg-3 collapse abstract-collapse" id="abstract-{{ replace $.Params.anthology_id "." "--" }}">
+  <div class="card-body p-3 small">
+    {{ . | safeHTML }}
+  </div>
+</div>
+{{ end }}

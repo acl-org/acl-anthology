@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # usage:
-# parsenames.pl *xml 
+# parsenames.pl *xml
 
 # processes files in place and and leaves .bak files
 
@@ -35,9 +35,9 @@ while (<>) {
 }
 
 # takes Text::BibTeX::Name object
-# prints name in format <first>Ludwig</first><last>van Beethoven</last>        
-# bibtex has fields for fist, von, last, and jr                                 
-# but anthology database only has fields for first and last.                    
+# prints name in format <first>Ludwig</first><last>van Beethoven</last>
+# bibtex has fields for fist, von, last, and jr
+# but anthology database only has fields for first and last.
 sub formatname {
   my($name) = @_;
   my @tokens = $name->part('first');

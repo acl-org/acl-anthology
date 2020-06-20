@@ -41,7 +41,7 @@ except ImportError:
     from yaml import SafeDumper as Dumper
 
 from anthology import Anthology
-from anthology.utils import SeverityTracker
+from anthology.utils import SeverityTracker, deconstruct_anthology_id, is_newstyle_id
 from create_hugo_pages import check_directory
 
 
@@ -52,7 +52,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
         data["title_html"] = paper.get_title("html")
-        if 'xml_title' in data:
+        if "xml_title" in data:
             del data["xml_title"]
         if "xml_booktitle" in data:
             data["booktitle_html"] = paper.get_booktitle("html")
@@ -115,6 +115,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         del data["xml_booktitle"]
         if "xml_abstract" in data:
             del data["xml_abstract"]
+        data["has_abstracts"] = volume.has_abstracts
         data["papers"] = volume.paper_ids
         if "author" in data:
             data["author"] = [
@@ -126,12 +127,59 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             ]
         volumes[volume.full_id] = data
 
+    class SortedVolume:
+        """Keys for sorting volumes so they appear in a more reasonable order.
+        Takes the parent venue being sorted under, along with its letter,
+        and the Anthology ID of the current volume. For example, LREC 2020
+        has the following joint events, which get sorted in the following manner:
+
+        ['2020.lrec-1', '2020.aespen -1', '2020.ai4hi-1',
+        '2020.bucc-1', '2020.calcs-1', '2020.cllrd-1', '2020.clssts-1',
+        '2020.cmlc-1', '2020.computerm-1', '2020.framenet-1', '2020.gamnlp-1',
+        '2020.globalex-1', '2020.isa-1', '2020.iwltp-1',
+        '2020.ldl-1', '2020.lincr-1', '2020.lr4sshoc-1', '2020.lt4gov-1',
+        '2020.lt4hala-1 ', '2020.multilingualbio-1', '2020.onion-1',
+        '2020.osact-1', '2020.parlaclarin-1', '2020.rail-1', '2020.readi-1',
+        '2020.restup-1', '2020.sltu-1 ', '2020.stoc-1', '2020.trac-1',
+        '2020.wac-1', '2020.wildre-1']
+        """
+
+        def __init__(self, acronym, letter, anth_id):
+            self.parent_venue = acronym.lower()
+            self.anth_id = anth_id
+
+            collection_id, self.volume_id, _ = deconstruct_anthology_id(anth_id)
+            if is_newstyle_id(collection_id):
+                self.venue = collection_id.split(".")[1]
+                self.is_parent_venue = self.venue == self.parent_venue
+            else:
+                self.venue = collection_id[0]
+                self.is_parent_venue = self.venue == letter
+
+        def __str__(self):
+            return self.anth_id
+
+        def __eq__(self, other):
+            return self.anth_id == other.anth_id
+
+        def __lt__(self, other):
+            """First parent volumes, then sort by venue name"""
+            if self.is_parent_venue == other.is_parent_venue:
+                if self.venue == other.venue:
+                    return self.volume_id < other.volume_id
+                return self.venue < other.venue
+            return self.is_parent_venue and not other.is_parent_venue
+
     # Prepare venue index
     venues = {}
     for acronym, data in anthology.venues.items():
+        letter = data.get("oldstyle_letter", "W")
         data = data.copy()
         data["volumes_by_year"] = {
-            year: sorted(filter(lambda k: volumes[k]["year"] == year, data["volumes"]))
+            year: sorted(
+                filter(lambda k: volumes[k]["year"] == year, data["volumes"]),
+                key=lambda x: SortedVolume(acronym, letter, x),
+            )
             for year in sorted(data["years"])
         }
         data["years"] = sorted(list(data["years"]))

@@ -1,7 +1,7 @@
 # ACL Anthology
 
 These are basic instructions on generating the ACL Anthology website as seen on <https://aclweb.org/anthology/>.
-The offical home of this repository is <https://github.com/acl-org/acl-anthology>.
+The official home of this repository is <https://github.com/acl-org/acl-anthology>.
 
 ## Generating the Anthology
 
@@ -9,18 +9,27 @@ The offical home of this repository is <https://github.com/acl-org/acl-anthology
 
 To build the Anthology website, you will need:
 
-+ **Python 3.7** or higher, along with the packages listed in
-  [bin/requirements.txt](bin/requirements.txt)
-  + *Note:* You can install all needed dependencies using the command `pip install -r bin/requirements.txt`
-  + *Note:* [Installing the PyYAML package with C
-    bindings](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/)
-    will speed up the generation process.
-+ [**Hugo 0.54**](https://gohugo.io) or higher (can be [downloaded directly from
++ **Python 3.7** or higher
++ [**Hugo 0.58.3**](https://gohugo.io) or higher (can be [downloaded directly from
   their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
 + [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
   non-BibTeX citation formats (not strictly required to build the website, but
   without them you need to invoke the build steps manually as laid out in the
   [detailed README](README_detailed.md))
++ *optional*: If you install `libyaml-dev` and `Cython` before running `make`
+   the first time, the libyaml C library will be used instead of a python
+   implementation, speeding up the build.
+
+### Building and deployment with GitHub
+
+There is a GitHub actions action performing deployment directly from GitHub.  To use this, you need to
+define these variables in your repository settings (web interface: settings -> secrets):
+
++ `PUBLISH_TARGET`: rsync will push the anthology to this target (e.g. `user@aclweb.org:anthology-static`)
++ `PUBLISH_SSH_KEY`: the secret key in standard pem format for authentication (without a passphrase)
++ `PUBLISH_ANTHOLOGYHOST`: The host which will serve the anthology later on (e.g. `https://www.aclweb.org`)
+
+GitHub will then automatically build and deploy the current master whenever the master branch changes.
 
 ### Cloning
 
@@ -60,7 +69,6 @@ about a minute to start.
 If you'd like to contribute to the ACL Anthology, please take a look at:
 
 - our [Github issues page](https://github.com/acl-org/acl-anthology/issues)
-- our [call for volunteers](https://aclanthology.info/volunteer)
 - the [detailed README](README_detailed.md) which contains more in-depth information about generating and modifying the website.
 
 ## History

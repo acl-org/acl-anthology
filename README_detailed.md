@@ -1,7 +1,7 @@
 # ACL Anthology - Detailed Instructions
 
 These are the detailed instructions on generating the ACL Anthology website as
-seen on <https://aclweb.org/anthology/>.
+seen on <https://aclweb.org/anthology/> and contributing to it.
 
 
 ## Generating the Anthology
@@ -10,6 +10,19 @@ The Anthology website is generated using the [Hugo](https://gohugo.io) static
 site generator.  However, before we can actually invoke Hugo, we need to prepare
 the contents of the website.  The following steps describe what happens
 behind the scenes.  All the steps have a corresponding `make` target as well.
+
+### Step 0: Install required Python packages
+To build the anthology, the packages listed in
+  [bin/requirements.txt](bin/requirements.txt) are needed (they are installed and updated by make automatically).
+  + *Note:* You can install all needed dependencies using the command `pip install -r bin/requirements.txt`
+  + *Note:* [Installing the PyYAML package with C
+    bindings](http://rmcgibbo.github.io/blog/2013/05/23/faster-yaml-parsing-with-libyaml/)
+    will speed up the generation process.  On Debian-based systems, you have to do
+	the following if `libyaml-dev` was not installed before running make the first time:
+	`sudo apt install libyaml-dev`, enable virtualenv: `source venv/bin/activate` and
+	rebuild pyyaml with libyaml backend: `pip3 install pyyaml --upgrade --force`.
+    If this doesn't enable the C bindings, make sure you have Cython installed,
+    then try rebuilding pyyaml again.
 
 ### Step 1: Prepare the data for site generation
 
@@ -162,3 +175,35 @@ template](hugo/layouts/index.html) is updated to include this new year.  Make
 sure to adjust the variable `$all_years` (and `$border_years`, if needed) and
 don't forget to **update the table headers** as well!  (Their `colspan`
 attributes need to match the number of years subsumed under the header.)
+
+
+## Testing & coding style
+
+The following criteria are checked automatically (via Travis CI) and enforced
+for all changes pushed to the Anthology:
+
+1. YAML files need to be syntactically well-formed, and XML files need to follow
+   the schema definition in [`schema.rnc`](data/xml/schema.rnc).
+2. Files should end in exactly one newline, and lines should not have trailing
+   whitespace.
+3. Python files should have a maximum line length of 90 and follow the
+   formatting guidelines defined by the [`black`](https://black.readthedocs.io/)
+   tool.
+
+There are three `make` targets that help you check (and fix) your commits:
+
++ `make check` will check *all files in the repository.*
++ `make check_commit` will only check files *currently staged for commit.* This
+  is best used as a pre-commit hook in order to help you identify problems
+  early.
++ `make autofix` works like `check_commit`, except that it will also run the
+  [`black`](https://black.readthedocs.io/) code formatter to automatically make
+  your Python files style-compliant.  This can also be used as a pre-commit
+  hook, or run manually when you find that `make check_commit` complains about
+  your files.
+
+To easily make any of these targets work as a pre-commit hook, you can create a
+symlink to one of the predefined scripts as follows:
+
++ `ln -s ../../.git-hooks/check_commit .git/hooks/pre-commit` (for check target)
++ `ln -s ../../.git-hooks/autofix .git/hooks/pre-commit` (for autofix target)

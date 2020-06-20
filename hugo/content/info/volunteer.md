@@ -1,7 +1,6 @@
 ---
 Title: Help Shape the ACL Anthology!
 linktitle: Volunteering
-menu: footer
 ---
 
 The ACL Anthology is a treasure. It is the repository of our community's

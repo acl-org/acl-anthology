@@ -23,4 +23,5 @@ excluded from the list.
 The `truelist` in this repository has manual corrections, so please
 don't regenerate it.
 
-
+`protect.py` currently only supports single words.
+`truelist-phrases` contains multiword phrases that have been manually true-cased.

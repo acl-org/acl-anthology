@@ -14,86 +14,93 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import iso639
 import logging as log
 from .utils import (
+    build_anthology_id,
     parse_element,
     infer_attachment_url,
     remove_extra_whitespace,
     is_journal,
     is_volume_id,
-    to_volume_id,
 )
 from . import data
 
 # For BibTeX export
 from .formatter import bibtex_encode, bibtex_make_entry
 
+
 class Paper:
-    def __init__(self, paper_id, volume, formatter):
+    def __init__(self, paper_id, ingest_date, volume, formatter):
         self.parent_volume = volume
         self.formatter = formatter
         self._id = paper_id
+        self._ingest_date = ingest_date
         self._bibkey = False
-        self.is_volume = paper_id == '0'
+        self.is_volume = paper_id == "0"
 
         # initialize metadata with keys inherited from volume
         self.attrib = {}
         for key, value in volume.attrib.items():
             # Only inherit 'editor' for frontmatter
-            if (key == 'editor' and not self.is_volume) or key in ('collection_id', 'booktitle', 'id', 'meta_data', 'meta_journal_title', 'meta_volume', 'meta_issue', 'sigs', 'venues', 'meta_date', 'url'):
+            if (key == "editor" and not self.is_volume) or key in (
+                "collection_id",
+                "booktitle",
+                "id",
+                "meta_data",
+                "meta_journal_title",
+                "meta_volume",
+                "meta_issue",
+                "sigs",
+                "venues",
+                "meta_date",
+                "url",
+                "pdf",
+            ):
                 continue
 
             self.attrib[key] = value
 
     def from_xml(xml_element, *args):
+        ingest_date = xml_element.get("ingest-date", data.UNKNOWN_INGEST_DATE)
+
         # Default to paper ID "0" (for front matter)
-        paper = Paper(xml_element.get("id", '0'), *args)
+        paper = Paper(xml_element.get("id", "0"), ingest_date, *args)
 
         # Set values from parsing the XML element (overwriting
         # and changing some initialized from the volume metadata)
         for key, value in parse_element(xml_element).items():
-            if key == 'author' and 'editor' in paper.attrib:
-                del paper.attrib['editor']
+            if key == "author" and "editor" in paper.attrib:
+                del paper.attrib["editor"]
             paper.attrib[key] = value
 
         # Frontmatter title is the volume 'booktitle'
         if paper.is_volume:
-            paper.attrib['xml_title'] = paper.attrib['xml_booktitle']
-            paper.attrib['xml_title'].tag = 'title'
+            paper.attrib["xml_title"] = paper.attrib["xml_booktitle"]
+            paper.attrib["xml_title"].tag = "title"
 
         # Remove booktitle for frontmatter and journals
         if paper.is_volume or is_journal(paper.full_id):
-            del paper.attrib['xml_booktitle']
+            del paper.attrib["xml_booktitle"]
 
         # Expand URLs with paper ID
-        for tag in ('revision', 'erratum'):
+        for tag in ("revision", "erratum"):
             if tag in paper.attrib:
                 for item in paper.attrib[tag]:
-                    if not item['url'].startswith(paper.full_id):
+                    if not item["url"].startswith(paper.full_id):
                         log.error(
                             "{} must begin with paper ID '{}', but is '{}'".format(
-                                tag, paper.full_id, item['url']
+                                tag, paper.full_id, item["url"]
                             )
                         )
-                    item['url'] = data.ANTHOLOGY_URL.format(item['url'])
+                    item["url"] = data.ANTHOLOGY_PDF.format(item["url"])
 
-        if 'attachment' in paper.attrib:
-            for item in paper.attrib['attachment']:
-                item['url'] = infer_attachment_url(item['url'], paper.full_id)
-
-        # Explicitly construct URL of original version of the paper
-        # -- this is a bit hacky, but it's not given in the XML
-        # explicitly
-        if 'revision' in paper.attrib:
-            paper.attrib['revision'].insert(0, {
-                "value": "{}v1".format(paper.full_id),
-                "id": "1",
-                "url": data.ANTHOLOGY_URL.format( "{}v1".format(paper.full_id)) } )
-
+        if "attachment" in paper.attrib:
+            for item in paper.attrib["attachment"]:
+                item["url"] = infer_attachment_url(item["url"], paper.full_id)
 
         paper.attrib["title"] = paper.get_title("plain")
-        if "booktitle" in paper.attrib:
-            paper.attrib["booktitle"] = paper.get_booktitle("plain")
+        paper.attrib["booktitle"] = paper.get_booktitle("plain")
 
         if "editor" in paper.attrib:
             if paper.is_volume:
@@ -117,6 +124,14 @@ class Paper:
                 paper._interpret_pages()
             else:
                 del paper.attrib["pages"]
+
+        if "author" in paper.attrib:
+            paper.attrib["author_string"] = ", ".join(
+                [x[0].full for x in paper.attrib["author"]]
+            )
+
+        paper.attrib["thumbnail"] = data.ANTHOLOGY_THUMBNAIL.format(paper.full_id)
+
         return paper
 
     def _interpret_pages(self):
@@ -132,6 +147,15 @@ class Paper:
                 return
 
     @property
+    def ingest_date(self):
+        """Inherit publication date from parent, but self overrides. May be undefined."""
+        if self._ingest_date:
+            return self._ingest_date
+        if self.parent_volume:
+            return self.parent_volume.ingest_date
+        return data.UNKNOWN_INGEST_DATE
+
+    @property
     def collection_id(self):
         return self.parent_volume.collection_id
 
@@ -141,19 +165,15 @@ class Paper:
 
     @property
     def paper_id(self):
-        if self.collection_id[0] == "W" or self.collection_id == "C69":
-            # If volume is a workshop, use the last two digits of ID
-            _id = "{}{:02d}".format(self.volume_id, int(self._id))
-        else:
-            # If not, only the last three
-            _id = "{}{:03d}".format(self.volume_id, int(self._id))
-        # Just to be sure
-        assert len(_id) == 4
-        return _id
+        return self._id
 
     @property
     def full_id(self):
-        return "{}-{}".format(self.collection_id, self.paper_id)
+        return self.anthology_id
+
+    @property
+    def anthology_id(self):
+        return build_anthology_id(self.collection_id, self.volume_id, self.paper_id)
 
     @property
     def bibkey(self):
@@ -180,6 +200,19 @@ class Paper:
             return self.parent_volume.full_id
         return None
 
+    @property
+    def has_abstract(self):
+        return "xml_abstract" in self.attrib
+
+    @property
+    def isbn(self):
+        return self.attrib.get("isbn", None)
+
+    @property
+    def language(self):
+        """Returns the ISO-639 language code, if present"""
+        return self.attrib.get("language", None)
+
     def get(self, name, default=None):
         try:
             return self.attrib[name]
@@ -204,14 +237,19 @@ class Paper:
         """
         return self.formatter(self.get("xml_abstract"), form, allow_url=True)
 
-    def get_booktitle(self, form="xml"):
+    def get_booktitle(self, form="xml", default=""):
         """Returns the booktitle, optionally formatting it.
 
         See `get_title()` for details.
         """
-        return self.formatter(self.get("xml_booktitle"), form)
+        if "xml_booktitle" in self.attrib:
+            return self.formatter(self.get("xml_booktitle"), form)
+        elif self.parent_volume is not None:
+            return self.parent_volume.get("title")
+        else:
+            return default
 
-    def as_bibtex(self):
+    def as_bibtex(self, concise=False):
         """Return the BibTeX entry for this paper."""
         # Build BibTeX entry
         bibkey = self.bibkey
@@ -241,9 +279,7 @@ class Paper:
             if "xml_booktitle" in self.attrib:
                 entries.append(("booktitle", self.get_booktitle(form="latex")))
             elif bibtype != "proceedings":
-                entries.append(
-                    ("booktitle", self.parent_volume.get_title(form="latex"))
-                )
+                entries.append(("booktitle", self.parent_volume.get_title(form="latex")))
         for entry in ("month", "year", "address", "publisher", "note"):
             if self.get(entry) is not None:
                 entries.append((entry, bibtex_encode(self.get(entry))))
@@ -254,8 +290,12 @@ class Paper:
                 entries.append((entry, self.get(entry)))
         if "pages" in self.attrib:
             entries.append(("pages", self.get("pages").replace("–", "--")))
-        if "xml_abstract" in self.attrib:
+        if "xml_abstract" in self.attrib and not concise:
             entries.append(("abstract", self.get_abstract(form="latex")))
+        if self.language:
+            entries.append(("language", iso639.languages.get(part3=self.language).name))
+        if self.isbn:
+            entries.append(("ISBN", self.isbn))
 
         # Serialize it
         return bibtex_make_entry(bibkey, bibtype, entries)

@@ -40,6 +40,7 @@ import yaml
 try:
     from yaml import CLoader as Loader
 except ImportError:
+    log.info("Can't load yaml C bindings, reverting to slow pure Python version")
     from yaml import Loader
 
 from anthology.utils import SeverityTracker
@@ -80,9 +81,7 @@ def create_papers(srcdir, clean=False):
             data = yaml.load(f, Loader=Loader)
         # Create a paper stub for each entry in the volume
         for anthology_id, entry in data.items():
-            paper_dir = "{}/content/papers/{}/{}".format(
-                srcdir, anthology_id[0], anthology_id[:3]
-            )
+            paper_dir = "{}/content/papers/{}".format(srcdir, anthology_id.split("-")[0])
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
@@ -109,15 +108,14 @@ def create_volumes(srcdir, clean=False):
     for anthology_id, entry in data.items():
         with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "w") as f:
             print("---", file=f)
+            paper_dir = "/papers/{}/{}/".format(anthology_id.split("-")[0], anthology_id)
             yaml.dump(
                 {
                     "anthology_id": anthology_id,
                     "title": entry["title"],
                     "aliases": [
-                        slugify(entry["title"]),
-                        "/papers/{}/{}/{}/".format(
-                            anthology_id[0], anthology_id[:3], anthology_id
-                        ),
+                        "/volumes/{}/".format(slugify(entry["title"])),
+                        paper_dir,
                     ],
                 },
                 default_flow_style=False,
@@ -143,11 +141,7 @@ def create_people(srcdir, clean=False):
             person_dir = "{}/content/people/{}".format(srcdir, name[0])
             if not os.path.exists(person_dir):
                 os.makedirs(person_dir)
-            yaml_data = {
-                "name": name,
-                "title": entry["full"],
-                "lastname": entry["last"],
-            }
+            yaml_data = {"name": name, "title": entry["full"], "lastname": entry["last"]}
             with open("{}/{}.md".format(person_dir, name), "w") as f:
                 print("---", file=f)
                 # "lastname" is dumped to allow sorting by it in Hugo
@@ -173,9 +167,6 @@ def create_venues_and_events(srcdir, clean=False):
         with open("{}/content/venues/{}.md".format(srcdir, venue_str), "w") as f:
             print("---", file=f)
             yaml_data = {"venue": venue, "title": venue_data["name"]}
-            if venue_data["is_toplevel"]:
-                main_letter = venue_data["main_letter"]
-                yaml_data["aliases"] = ["/papers/{}/".format(main_letter)]
             yaml.dump(yaml_data, default_flow_style=False, stream=f)
             print("---", file=f)
 
@@ -195,12 +186,6 @@ def create_venues_and_events(srcdir, clean=False):
                     "year": year,
                     "title": "{} ({})".format(venue_data["name"], year),
                 }
-                if venue_data["is_toplevel"]:
-                    main_letter = venue_data["main_letter"]
-                    main_prefix = main_letter + year[-2:]  # e.g., P05
-                    yaml_data["aliases"] = [
-                        "/papers/{}/{}/".format(main_letter, main_prefix)
-                    ]
                 yaml.dump(yaml_data, default_flow_style=False, stream=f)
                 print("---", file=f)
 
