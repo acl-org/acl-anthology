@@ -208,8 +208,6 @@ def main(args):
         if not os.path.exists(pdfs_dest_dir):
             os.makedirs(pdfs_dest_dir)
 
-        print(f"VOLUME: {volume}")
-
         # copy the book
         book_src_filename = meta["abbrev"] + "-" + year
         book_src_path = os.path.join(root_path, book_src_filename) + ".pdf"
@@ -293,18 +291,61 @@ def main(args):
 
     people = AnthologyIndex(None, srcdir=anthology_datadir)
 
+    def disambiguate_name(node):
+        name = PersonName.from_element(node)
+        ids = people.get_ids(name)
+
+        if node.tag == "editor":
+            # meta block, get volume
+            anth_id = build_anthology_id(
+                collection_id, node.getparent().getparent().attrib["id"]
+            )
+        elif node.tag == "author":
+            # paper, get full ID
+            anth_id = build_anthology_id(
+                collection_id,
+                node.getparent().getparent().attrib["id"],
+                node.getparent().attrib["id"],
+            )
+
+        if len(ids) > 1:
+            choice = -1
+            while choice < 0 or choice >= len(ids):
+                print(
+                    f"({anth_id}): ambiguous author {name}; Please choose from the following:"
+                )
+                for i, id_ in enumerate(ids):
+                    print(f"[{i}] {id_} ({people.get_comment(id_)})")
+                choice = int(input("--> "))
+
+            node.attrib["id"] = ids[choice]
+
     for collection_id, collection in collections.items():
+        # Newly added volumes, so we can normalize and name-disambig later
+        newly_added_volumes = []
+
         collection_file = os.path.join(
             args.anthology_dir, "data", "xml", f"{collection_id}.xml"
         )
-        root_node = make_simple_element("collection", attrib={"id": collection_id})
+        if os.path.exists(collection_file):
+            root_node = etree.parse(collection_file).getroot()
+        else:
+            root_node = make_simple_element("collection", attrib={"id": collection_id})
 
         for volume_id, volume in collection.items():
             volume_node = make_simple_element(
-                "volume",
-                attrib={"id": volume_id, "ingest-date": args.ingest_date},
-                parent=root_node,
+                "volume", attrib={"id": volume_id, "ingest-date": args.ingest_date},
             )
+
+            # Replace the existing one if present
+            existing_volume_node = root_node.find(f"./volume[@id='{volume_id}']")
+            for i, child in enumerate(root_node):
+                if child.attrib["id"] == volume_id:
+                    root_node[i] = volume_node
+                    break
+            else:
+                root_node.append(volume_node)
+
             meta_node = None
 
             for paper_num, paper in sorted(volume.items()):
@@ -319,8 +360,7 @@ def main(args):
                     title_node = paper_node.find("title")
                     title_node.tag = "booktitle"
                     meta_node.append(title_node)
-                    for editor in paper_node.findall("author"):
-                        editor.tag = "editor"
+                    for editor in paper_node.findall("editor"):
                         meta_node.append(editor)
                     meta_node.append(paper_node.find("publisher"))
                     meta_node.append(paper_node.find("address"))
@@ -365,44 +405,18 @@ def main(args):
                 if len(paper_node) > 0:
                     volume_node.append(paper_node)
 
+                # Normalize
+                for oldnode in paper_node:
+                    normalize(oldnode, informat="latex")
+
+                for name_node in chain(
+                    paper_node.findall("./author"), paper_node.findall("./editor")
+                ):
+                    disambiguate_name(name_node)
+
         # Other data from the meta file
         if "isbn" in meta:
             make_simple_element("isbn", meta["isbn"], parent=meta_node)
-
-        # Normalize
-        for paper in root_node.findall(".//paper"):
-            for oldnode in paper:
-                normalize(oldnode, informat="latex")
-
-        # Name disambiguation
-        for node in chain(root_node.findall(".//author"), root_node.findall(".//editor")):
-            name = PersonName.from_element(node)
-            ids = people.get_ids(name)
-
-            if node.tag == "editor":
-                # meta block, get volume
-                anth_id = build_anthology_id(
-                    collection_id, node.getparent().getparent().attrib["id"]
-                )
-            else:  # node.tag == "author":
-                # paper, get full ID
-                anth_id = build_anthology_id(
-                    collection_id,
-                    node.getparent().getparent().attrib["id"],
-                    node.getparent().attrib["id"],
-                )
-
-            if len(ids) > 1:
-                choice = -1
-                while choice < 0 or choice >= len(ids):
-                    print(
-                        f"({anth_id}): ambiguous author {name}; Please choose from the following:"
-                    )
-                    for i, id_ in enumerate(ids):
-                        print(f"[{i}] {id_} ({people.get_comment(id_)})")
-                    choice = int(input("--> "))
-
-                node.attrib["id"] = ids[choice]
 
         indent(root_node)
         tree = etree.ElementTree(root_node)
