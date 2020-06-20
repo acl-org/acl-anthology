@@ -15,6 +15,7 @@ We are grateful to all our contributors whose work makes this collection of scho
 + [Kilian Gebhardt](https://wwwtcs.inf.tu-dresden.de/~kilian/) (TU Dresden)
 + [Marcel Bollmann](https://marcel.bollmann.me/) (University of Copenhagen) --- **Site Development Lead**
 + [Martín Villalba](http://www.coli.uni-saarland.de/~villalba/) (Saarland University) --- **System Administrator**
++ [Nathan Schneider](http://people.cs.georgetown.edu/nschneid/) (Georgetown University)
 
 ### Past Volunteers
 
