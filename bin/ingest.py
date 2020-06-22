@@ -96,7 +96,6 @@ def bib2xml(bibfilename, anthology_id):
         'doi',
     ]
 
-    # log(f"Reading {bibfilename}")
     collection_id, volume_name, paper_no = deconstruct_anthology_id(anthology_id)
     if paper_no == '':
         return  # skip the master bib file; we only process the individual files
@@ -106,7 +105,6 @@ def bib2xml(bibfilename, anthology_id):
         log(f"more than one entry in {bibfilename}")
     bibkey, bibentry = bibdata.entries.items()[0]
     if len(bibentry.fields) == 0:
-        # print(paper_no, bibentry.fields)
         log(f"parsing bib of paper {paper_no} failed")
         sys.exit(1)
 
@@ -139,8 +137,6 @@ def bib2xml(bibfilename, anthology_id):
         else:
             if field == 'url':
                 value = f"{anthology_id}"
-                # if 'url' in bibentry.fields and bibentry.fields['url'] != value:
-                #     log(f"rewriting url {bibentry.fields['url']} -> {value}")
             elif field in bibentry.fields:
                 value = bibentry.fields[field]
             elif field == 'bibtype':
@@ -243,10 +239,6 @@ def main(args):
                 pdf_dest_path = os.path.join(
                     pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
                 )
-                # log(
-                #     f"Copying [{paper_id_full}] from {pdf_src_path} -> {pdf_dest_path}",
-                #     args.dry_run,
-                # )
                 if not args.dry_run:
                     shutil.copyfile(pdf_src_path, pdf_dest_path)
 
