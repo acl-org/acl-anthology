@@ -133,7 +133,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         and the Anthology ID of the current volume. For example, LREC 2020
         has the following joint events, which get sorted in the following manner:
 
-        ['2020.lrec-1', '2020.aespen -1', '2020.ai4hi-1',
+        ['2020.lrec-1', '2020.aespen-1', '2020.ai4hi-1',
         '2020.bucc-1', '2020.calcs-1', '2020.cllrd-1', '2020.clssts-1',
         '2020.cmlc-1', '2020.computerm-1', '2020.framenet-1', '2020.gamnlp-1',
         '2020.globalex-1', '2020.isa-1', '2020.iwltp-1',
@@ -160,13 +160,13 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             return self.anth_id
 
         def __eq__(self, other):
-            return self.anth_id == other.anth_id
+            """We define equivalence at the venue (not volume) level in order
+            to preserve the sort order found in the XML"""
+            return self.venue == other.venue
 
         def __lt__(self, other):
             """First parent volumes, then sort by venue name"""
             if self.is_parent_venue == other.is_parent_venue:
-                if self.venue == other.venue:
-                    return self.volume_id < other.volume_id
                 return self.venue < other.venue
             return self.is_parent_venue and not other.is_parent_venue
 

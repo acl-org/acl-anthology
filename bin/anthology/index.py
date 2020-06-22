@@ -316,6 +316,15 @@ class AnthologyIndex:
 
         return sorted(self.name_to_ids[name])
 
+    def get_comment(self, id_: str) -> str:
+        """
+        Returns the comment associated with the name ID.
+
+        :param id_: The name ID (e.g., "fei-liu-ftdallas")
+        :return: The comment (e.g., "UT Dallas, Bosch, CMU, University of Central Florida")
+        """
+        return self.comments.get(id_, None)
+
     def resolve_name(self, name, id_=None):
         """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
