@@ -45,8 +45,8 @@
     <div class="row mb-3">
       {{ if (fileExists "/data-export/anthology.bib.gz") }}
       <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-block btn-info" href="{{ "/anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a><br/>
-        <a class="btn btn-block btn-info" href="{{ "/anthology+abstracts.bib.gz" | relURL }}">(with abstracts) ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology+abstracts.bib.gz").Size 1000000.0) }})</a>
+        <a class="btn btn-block btn-info" href="{{ "/anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
+        <a class="btn btn-block btn-info" href="{{ "/anthology+abstracts.bib.gz" | relURL }}">…with abstracts ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology+abstracts.bib.gz").Size 1000000.0) }})</a>
       </div>
       {{ end }}
       <div class="col-6 col-xl-12 mb-2">
@@ -122,7 +122,7 @@
           <th class="border-left" scope="col" colspan="10">2019 &ndash; 2010</th>
           <th class="border-left" scope="col" colspan="10">2009 &ndash; 2000</th>
           <th class="border-left" scope="col" colspan="10">1999 &ndash; 1990</th>
-          <th class="border-left" scope="col" colspan="12">1989 and older</th>
+          <th class="border-left" scope="col" colspan="13">1989 and older</th>
         </tr>
       </thead>
       <tbody class="border-bottom">
