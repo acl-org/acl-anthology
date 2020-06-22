@@ -251,7 +251,7 @@ def main(args):
 
         # copy the attachments
         if os.path.exists(os.path.join(root_path, "additional")):
-            attachments_dest_dir = os.path.join(args.attachments_dir, collection_id)
+            attachments_dest_dir = os.path.join(args.attachments_dir, venue_name)
             if not os.path.exists(attachments_dest_dir):
                 os.makedirs(attachments_dest_dir)
             for attachment_file in os.listdir(os.path.join(root_path, "additional")):
