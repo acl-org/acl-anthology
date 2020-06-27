@@ -224,7 +224,7 @@ def main(args):
             match = re.match(rf".*\.(\d+)\.pdf", pdf_file)
 
             if match is None:
-                print("whoa", abbrev)
+                print("whoa", pdf_file, venue_name)
             if match is not None:
                 paper_num = int(match[1])
                 paper_id_full = f"{collection_id}-{volume_name}.{paper_num}"
@@ -283,22 +283,9 @@ def main(args):
 
     people = AnthologyIndex(None, srcdir=anthology_datadir)
 
-    def disambiguate_name(node):
+    def disambiguate_name(node, anth_id):
         name = PersonName.from_element(node)
         ids = people.get_ids(name)
-
-        if node.tag == "editor":
-            # meta block, get volume
-            anth_id = build_anthology_id(
-                collection_id, node.getparent().getparent().attrib["id"]
-            )
-        elif node.tag == "author":
-            # paper, get full ID
-            anth_id = build_anthology_id(
-                collection_id,
-                node.getparent().getparent().attrib["id"],
-                node.getparent().attrib["id"],
-            )
 
         if len(ids) > 1:
             choice = -1
@@ -404,7 +391,7 @@ def main(args):
                 for name_node in chain(
                     paper_node.findall("./author"), paper_node.findall("./editor")
                 ):
-                    disambiguate_name(name_node)
+                    disambiguate_name(name_node, paper_id_full)
 
         # Other data from the meta file
         if "isbn" in meta:
