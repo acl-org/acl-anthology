@@ -339,8 +339,11 @@ def main(args):
                     title_node = paper_node.find("title")
                     title_node.tag = "booktitle"
                     meta_node.append(title_node)
-                    for editor in paper_node.findall("editor"):
-                        meta_node.append(editor)
+                    for author_or_editor in chain(
+                        paper_node.findall("./author"), paper_node.findall("./editor")
+                    ):
+                        meta_node.append(author_or_editor)
+                        author_or_editor.tag = "editor"
                     meta_node.append(paper_node.find("publisher"))
                     meta_node.append(paper_node.find("address"))
                     meta_node.append(paper_node.find("month"))
