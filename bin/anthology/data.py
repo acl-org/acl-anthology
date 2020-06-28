@@ -35,6 +35,9 @@ ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"
 # Names of XML elements that may appear multiple times
 LIST_ELEMENTS = ("attachment", "author", "editor", "video", "revision", "erratum")
 
+# New-style IDs that should be handled as journals
+JOURNAL_IDS = ("cl", "tacl")
+
 # Constants associated with DOI assignation
 DOI_URL_PREFIX = "http://dx.doi.org/"
 DOI_PREFIX = "10.18653/v1/"
@@ -46,13 +49,18 @@ UNKNOWN_INGEST_DATE = "1900-01-01"
 def get_journal_title(top_level_id, volume_title):
     # TODO: consider moving this from code to data (perhaps
     # under <booktitle> in the volume metadata
+
+    top_level_id = top_level_id.split(".")[-1]  # for new-style IDs; is a no-op otherwise
+
+    if top_level_id == "cl":
+        return "Computational Linguistics"
     if top_level_id[0] == "J":
         year = int(top_level_id[1:3])
         if year >= 65 and year <= 83:
             return "American Journal of Computational Linguistics"
         else:
             return "Computational Linguistics"
-    elif top_level_id[0] == "Q":
+    elif top_level_id[0] == "Q" or top_level_id == "tacl":
         return "Transactions of the Association for Computational Linguistics"
     else:
         return volume_title

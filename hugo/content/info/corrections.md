@@ -34,8 +34,8 @@ Please take note of the following regarding errata and revisions:
 
 A request to change paper metadata (that does not require any PDF changes) can be submitted in several ways.
 
--  (Preferred) Please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new).
-   **Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017`).
+-  (Preferred) Please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new?labels=correction&template=file-a-correction.md&title=Correction+to+Anthology+ID+XXX).
+   **Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017` or `2020.acl-1.17`).
 -  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
    Again, please be sure to include the Anthology ID of the paper in your email.
 -  If you would like to expedite the process and are familiar with [git](https://git-scm.com), you can make the correction yourself and file a [pull request (PR)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
@@ -50,15 +50,15 @@ Metadata changes are generally accepted if they are consistent with the PDF, whi
 
 ### Requesting revisions or errata
 
-For requests to change paper *content* (either a revision or an erratum), [please use this form](https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u).
+For requests to change paper *content* (either a revision or an erratum), again, please [file a Github issue](https://github.com/acl-org/acl-anthology/issues/new?labels=correction&template=file-a-correction.md&title=Correction+to+Anthology+ID+XXX).
 **Please note the following**:
 
-- The PDF you submit needs to be retrievable via `wget` (please test this!)
-- You need to provide a summary of the changes.
-  This summary will be included in the Anthology, and should be written from a neutral,  scientific perspective.
+- Be sure to attach the revised PDF to the issue.
+- Provide a brief summary of the changes.
+  This summary will be included in the Anthology, and should be written from a neutral, scientific perspective.
 
-If the metadata also needs to change, please also follow the instructions in the above section.
+If the metadata also needs to change, please also follow the instructions in the previous section.
 
-These conditions help us to process corrections more quickly.
-We will do our best to process revisions or errata within six weeks, but do not make guarantees as to the processing time.
+Following these instructions will help us to process corrections more quickly.
+We will do our best to process revisions or errata within four weeks, but make no guarantees as to the processing time.
 Submissions not meeting these standards will be rejected, potentially without notice.

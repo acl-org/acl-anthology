@@ -2,10 +2,11 @@
 Title: Information for Submitters
 linktitle: Submitting
 subtitle: General information on submitting proceedings to the ACL Anthology (for event chairs)
-date: "2019-11-15"
+date: "2020-03-25"
 ---
 
-This page contains general information about how to submit proceedings to the ACL Anthology.
+This page contains general information about how to send your proceedings to the ACL Anthology.
+(For information about the complete conference management process, particularly for ACL publications chairs, [see this document](https://github.com/acl-org/acl-pub).)
 If you are a workshop or publication chair whose job it is to submit your conference proceedings, this page should be helpful to you.
 Please read through it so that you have an understanding of the ingestion process.
 
@@ -44,15 +45,16 @@ Please read through it so that you have an understanding of the ingestion proces
 
 ### Register your meeting
 
-All publications chairs need to obtain a volume ID, of the form `X99-9` for conferences and `W99-99` for workshops. See [Anthology Identifiers]({{< relref "ids.md" >}}) for more information.
+All publications chairs need to obtain or verify [the venue identifiers]({{< relref "ids.md" >}}) for proceedings submitted to the Anthology.
 This should be done before the paper submission deadline for your conference.
+If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair to receive your identifiers.
+(If you are an established venue, you can also look yours up [here](https://github.com/acl-org/acl-anthology/blob/master/data/yaml/venues.yaml).)
 
-If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair to receive your volume ID.
-
-If you are a conference publications chair, you must register your intention to submit your proceedings. Assemble the following information for all volumes and workshops in their conference and send it to [the Anthology Director](mailto:anthology@aclweb.org) in a single email.
+If you are a conference publications chair, you must register your intention to submit your proceedings.
+Assemble the following information for all volumes and workshops in their conference and send it to [the Anthology Director](mailto:anthology@aclweb.org) in a single email.
 We need the following information from you:
 
--  **The full titles of all volumes** (main conference and workshop) that you need identifiers for ([excellent example](https://docs.google.com/spreadsheets/d/13F1XhnT4PsiN-ZXcpv6QUp5A2qlr6-W9MoDgCkBOw9w/edit#gid=0)); and
+-  **The full titles of all volumes** (main conference and workshop) that you need venue codes for for ([excellent example](https://docs.google.com/spreadsheets/d/13F1XhnT4PsiN-ZXcpv6QUp5A2qlr6-W9MoDgCkBOw9w/edit#gid=0)); and
 -  **The date** you would like your volumes to be available to the world.
    (Your proceedings will be due **two weeks** prior to this negotiated date).
 
@@ -67,22 +69,14 @@ If your conference has satellite workshops, please make certain the workshops wi
 By default, the publication of papers associated with an event in the Anthology will be on the first day of the event (inclusive of workshops or tutorials).
 If you prefer to have it published on a different date, please inform us when you register.
 
-With this information in hand, we will assign you a [list of Anthology identifiers](https://docs.google.com/spreadsheets/d/166W-eIJX2rzCACbjpQYOaruJda7bTZrY7MBw_oa7B2E/edit?usp=sharing) for use with ACLPUB.
-
 ### Submit your data
 
-After your conference management software has collected all the camera-ready papers and associated attachments, you will prepare data for the Anthology as described here.
-(For information about the complete conference management process, particularly for ACL publications chairs, [see this document](https://github.com/acl-org/acl-pub).)
-If you used [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26), this data preparation is handled by the [ACLPUB](https://github.com/acl-org/ACLPUB/) package.
-For meetings using EasyChair, you will need to first convert to ACLPUB format using [our easy2acl scripts](https://github.com/acl-org/easy2acl).
-The end result in either case is a tarball, a link to which should be sent to the Anthology Director **two weeks prior to your desired publication date** (which was negotiated when you first contacted us).
+After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange all the volumes of your proceedings into [ACLPUB](https://github.com/acl-org/ACLPUB) format, as described in the [ACLPUB → Anthology documentation](https://github.com/acl-org/ACLPUB/tree/master/anthology).
 
-<div class="alert alert-warning">
-  <strong>Warning!</strong> A common mistake is to send the <code>proceedings/</code> directory.
-  This is only the first step.
-  You need to convert this to an <code>anthology/</code> directory using ACLPUB tools, as <a href="https://github.com/acl-org/ACLPUB/blob/master/anthologize/README.md">described here</a>.
-  This directory should contain all volumes for your event, including main conference volumes, workshops, and co-located events.
-</div>
+If you used [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26), the situation is easy for you, since ACLPUB is integrated.
+For meetings using EasyChair, you will need to first convert to ACLPUB format using [our easy2acl scripts](https://github.com/acl-org/easy2acl).
+The end result in either case is a `data` directory containing ACLPUB proceedings, one for each conference (again, see [the ACLPUB -> Anthology instructions](https://github.com/acl-org/ACLPUB/tree/master/anthology)).
+A link to this directory (preferably via a file sharing service, such as Dropbox or Google Drive) should be sent to the Anthology Director **two weeks prior to your desired publication date** (which was negotiated when you first contacted us).
 
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
 
@@ -92,26 +86,16 @@ The remaining steps are handled by Anthology staff and use [Anthology tools](htt
 
 ### Copyright
 
-For copyright transfers, you can use the default form at:
+If you are using the START system, this process is handled as part of the camera-ready submission process.
+
+Otherwise, for copyright transfers, please use the form at:
 
 + https://github.com/acl-org/ACLPUB/blob/master/doc/authors/ACL-copyright-form.pdf
 
-Ask authors to sign the form, scan a B/W copy at 150 to 200 DPI for you as a
-`.pdf` (or `.jpg` or `.png` if otherwise not possible). Name the forms using
-the ACL Anthology identifiers, and send me a separate `.zip` or `.tgz`
-archive as you would for the proceedings of your event (e.g., a file in the
-archive might be `copyright-transfers/P11-1001.pdf`).
-These copyrights should be delivered in bulk to the Anthology Editor when submitting the proceedings.
+Forms should be signed by authors and saved using the ACL Anthology identifiers as names.
+Please place these into a folder (e.g., `copyright-transfers/P11-1001.pdf`) and then deliver them in bulk to the Anthology Editor when submitting the proceedings.
 
-Note that if you are using the START system (softconf.com), there is a
-digital form of this copyright transfer form, so you may not have to ask the
-authors to print, sign and submit to you. You may be able to simply download
-the `.zip` or `.tgz` version of the archived forms and submit them to
-me. Please note this when submitting.
-
-For both current and legacy events, it is good practice for the organizers
-to attempt to obtain copyright transfers for their materials, but we will
-ingest materials even if no copyright transfers are on file.
+For both current and legacy events, it is good practice for the organizers to attempt to obtain copyright transfers for their materials, but we will ingest materials even if no copyright transfers are on file.
 
 ### ISBN Numbers
 
@@ -119,5 +103,5 @@ If you need to assign ISBN numbers, please provide the exact titles of each volu
 
 ### Errata and Corrections
 
-If you get requests from authors needing to post errata or revised versions of the papers, or supplemental attachments after the publication of the proceedings, please ask them to submit revisions to the current ACL Anthology editor directly (see [Corrections]({{< relref "corrections.md" >}})).
-Note that after the publiation date, corrections can only be applied to individual papers; the full proceedings volumes will not be replaced or revised.
+If you get requests from authors needing to post errata or revised versions of the papers, or supplemental attachments after the publication of the proceedings, please refer them to [our documentation on the matter]({{< relref "corrections.md" >}}).
+Note that after the publication date, corrections can only be applied to individual papers; the full proceedings volumes will not be replaced or revised.

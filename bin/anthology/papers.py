@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import iso639
 import logging as log
 from .utils import (
     build_anthology_id,
@@ -97,19 +98,6 @@ class Paper:
         if "attachment" in paper.attrib:
             for item in paper.attrib["attachment"]:
                 item["url"] = infer_attachment_url(item["url"], paper.full_id)
-
-        # Explicitly construct URL of original version of the paper
-        # -- this is a bit hacky, but it's not given in the XML
-        # explicitly
-        if "revision" in paper.attrib:
-            paper.attrib["revision"].insert(
-                0,
-                {
-                    "value": "{}v1".format(paper.full_id),
-                    "id": "1",
-                    "url": data.ANTHOLOGY_PDF.format("{}v1".format(paper.full_id)),
-                },
-            )
 
         paper.attrib["title"] = paper.get_title("plain")
         paper.attrib["booktitle"] = paper.get_booktitle("plain")
@@ -216,6 +204,15 @@ class Paper:
     def has_abstract(self):
         return "xml_abstract" in self.attrib
 
+    @property
+    def isbn(self):
+        return self.attrib.get("isbn", None)
+
+    @property
+    def language(self):
+        """Returns the ISO-639 language code, if present"""
+        return self.attrib.get("language", None)
+
     def get(self, name, default=None):
         try:
             return self.attrib[name]
@@ -295,6 +292,10 @@ class Paper:
             entries.append(("pages", self.get("pages").replace("–", "--")))
         if "xml_abstract" in self.attrib and not concise:
             entries.append(("abstract", self.get_abstract(form="latex")))
+        if self.language:
+            entries.append(("language", iso639.languages.get(part3=self.language).name))
+        if self.isbn:
+            entries.append(("ISBN", self.isbn))
 
         # Serialize it
         return bibtex_make_entry(bibkey, bibtype, entries)

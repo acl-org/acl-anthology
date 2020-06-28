@@ -24,6 +24,7 @@ from lxml import etree
 from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 from typing import Tuple, Optional
+from zlib import crc32
 
 from .people import PersonName
 from . import data
@@ -32,8 +33,19 @@ from . import data
 xml_escape_or_none = lambda t: None if t is None else xml_escape(t)
 
 
+def is_newstyle_id(anthology_id):
+    return anthology_id[0].isdigit()  # New-style IDs are year-first
+
+
 def is_journal(anthology_id):
-    return anthology_id[0] in ("J", "Q")
+    if is_newstyle_id(anthology_id):
+        # TODO: this function is sometimes called with "full_id", sometimes with
+        # "collection_id", so we're not using `deconstruct_anthology_id` here at
+        # the moment
+        venue = anthology_id.split("-")[0].split(".")[-1]
+        return venue in data.JOURNAL_IDS
+    else:
+        return anthology_id[0] in ("J", "Q")
 
 
 def is_volume_id(anthology_id):
@@ -71,6 +83,12 @@ def build_anthology_id(
     Transforms collection id, volume id, and paper id to a width-padded
     Anthology ID. e.g., ('P18', '1', '1') -> P18-1001.
     """
+    if is_newstyle_id(collection_id):
+        if paper_id is not None:
+            return f"{collection_id}-{volume_id}.{paper_id}"
+        else:
+            return f"{collection_id}-{volume_id}"
+    # pre-2020 IDs
     if (
         collection_id.startswith("W")
         or collection_id == "C69"
@@ -125,6 +143,13 @@ def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     - All collections in "D19" where the first digit is >= 5
     """
     collection_id, rest = anthology_id.split("-")
+    if is_newstyle_id(anthology_id):
+        if "." in rest:
+            volume_id, paper_id = rest.split(".")
+        else:
+            volume_id, paper_id = rest, None
+        return (collection_id, volume_id, paper_id)
+    # pre-2020 IDs
     if (
         collection_id.startswith("W")
         or collection_id == "C69"
@@ -196,6 +221,9 @@ def infer_year(collection_id):
     that the paper's collection identifier follows the format 'xyy', where x is
     some letter and yy are the last two digits of the year of publication.
     """
+    if is_newstyle_id(collection_id):
+        return collection_id.split(".")[0]
+
     assert (
         len(collection_id) == 3
     ), f"Couldn't infer year: unknown volume ID format '{collection_id}' ({type(collection_id)})"
@@ -331,6 +359,9 @@ def parse_element(xml_element):
         elif tag == "video":
             # Treat videos the same way as other attachments
             tag = "attachment"
+            # Skip videos where permission was not granted (these should be marked as private anyway in Vimeo)
+            if element.get("permission", "true") == "false":
+                continue
             value = {
                 "filename": element.get("href"),
                 "type": element.get("tag", "video"),
@@ -379,180 +410,11 @@ def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=Non
     return el
 
 
-def make_nested(root, pdf_path: str):
-    """
-    Converts an XML tree root to the nested format (if not already converted).
+def compute_hash(value: bytes) -> str:
+    checksum = crc32(value) & 0xFFFFFFFF
+    return f"{checksum:08x}"
 
-    The original format was:
 
-        <volume id="P19">
-          <paper id="1000"> <!-- new volume -->
-
-    The nested format is:
-
-        <collection id="P19">
-          <volume id="1">
-            <frontmatter>
-              ...
-            </frontmatter>
-            <paper id="1">
-    """
-
-    collection_id = root.attrib["id"]
-
-    if root.tag == "collection":
-        return root
-
-    new_root = make_simple_element("collection")
-    new_root.attrib["id"] = collection_id
-    new_root.tail = "\n"
-
-    volume = None
-    meta = None
-    prev_volume_id = None
-
-    for paper in root.findall("paper"):
-        paper_id = paper.attrib["id"]
-        if len(paper_id) != 4:
-            logging.warning(f"skipping invalid paper ID {paper_id}")
-            continue
-
-        first_volume_digit = int(paper_id[0])
-        if (
-            collection_id.startswith("W")
-            or collection_id == "C69"
-            or (collection_id == "D19" and first_volume_digit >= 5)
-        ):
-            volume_width = 2
-            paper_width = 2
-        else:
-            volume_width = 1
-            paper_width = 3
-
-        volume_id, paper_id = (
-            int(paper_id[0:volume_width]),
-            int(paper_id[volume_width:]),
-        )
-        full_volume_id = f"{collection_id}-{volume_id:0{volume_width}d}"
-        full_paper_id = f"{full_volume_id}{paper_id:0{paper_width}d}"
-
-        paper.attrib["id"] = "{}".format(paper_id)
-
-        # new volume
-        if prev_volume_id is None or prev_volume_id != volume_id:
-            meta = make_simple_element("meta")
-            if collection_id == "C69":
-                meta.append(make_simple_element("month", text="September"))
-                meta.append(make_simple_element("year", text="1969"))
-                meta.append(make_simple_element("address", text="Sånga Säby, Sweden"))
-
-            volume = make_simple_element("volume")
-            volume.append(meta)
-            volume.attrib["id"] = str(volume_id)
-            prev_volume_id = volume_id
-            new_root.append(volume)
-
-            # Add volume-level <url> tag if PDF is present
-            volume_path = os.path.join(pdf_path, f"{full_volume_id}.pdf")
-            if os.path.exists(volume_path):
-                url = make_simple_element("url", text=full_volume_id)
-                print(f"{collection_id}: inserting volume URL: {full_volume_id}")
-                meta.append(url)
-
-        # Transform paper 0 to explicit frontmatter
-        if paper_id == 0:
-            paper.tag = "frontmatter"
-            del paper.attrib["id"]
-            title = paper.find("title")
-            if title is not None:
-                title.tag = "booktitle"
-                meta.insert(0, title)
-
-            frontmatter_path = os.path.join(pdf_path, f"{full_paper_id}.pdf")
-            if os.path.exists(frontmatter_path):
-                url = paper.find("url")
-                if url is not None:
-                    url.text = f"{full_paper_id}"
-                else:
-                    url = make_simple_element("url", text=full_paper_id)
-                    paper.append(url)
-                print(f"{collection_id}: inserting frontmatter URL: {full_paper_id}")
-            else:
-                if paper.find("url") is not None:
-                    paper.remove(paper.find("url"))
-                    print(
-                        f"{collection_id}: removing missing frontmatter PDF: {full_paper_id}"
-                    )
-
-            # Change authors of frontmatter to editors
-            authors = paper.findall("author")
-            if authors is not None:
-                for author in authors:
-                    author.tag = "editor"
-
-            # Remove empty abstracts (corner case)
-            abstract = paper.find("abstract")
-            if abstract is not None:
-                if abstract.text != None:
-                    print("* WARNING: non-empty abstract for", full_paper_id)
-                else:
-                    paper.remove(abstract)
-
-            # Transfer editor keys (once)
-            if volume.find("editor") is None:
-                editors = paper.findall("editor")
-                if editors is not None:
-                    for editor in editors:
-                        meta.append(editor)
-
-            # Transfer the DOI key if it's a volume entry
-            doi = paper.find("doi")
-            if doi is not None:
-                if doi.text.endswith(full_volume_id):
-                    print(f"* Moving DOI entry {doi.text} from frontmatter to metadata")
-                    meta.append(doi)
-
-        # Canonicalize URL
-        url = paper.find("url")
-        if url is not None:
-            url.text = re.sub(r"https?://(www.)?aclweb.org/anthology/", "", url.text)
-
-        # Remove bibtype and bibkey
-        for key_name in "bibtype bibkey".split():
-            node = paper.find(key_name)
-            if node is not None:
-                paper.remove(node)
-
-        # Move to metadata
-        for key_name in "booktitle publisher volume address month year ISBN isbn".split():
-            # Move the key to the volume if not present in the volume
-            node_paper = paper.find(key_name)
-            if node_paper is not None:
-                node_meta = meta.find(key_name)
-                # If not found in the volume, move it
-                if node_meta is None:
-                    node_meta = node_paper
-                    if key_name == "booktitle":
-                        meta.insert(0, node_paper)
-                    else:
-                        meta.append(node_paper)
-                # If found in the volume, move only if it's redundant
-                elif node_paper.tag == node_meta.tag:
-                    paper.remove(node_paper)
-
-        # Take volume booktitle from first paper title if it wasn't found in the
-        # frontmatter paper (some volumes have no front matter)
-        if (
-            collection_id == "C69"
-            and meta.find("booktitle") is None
-            and paper.find("title") is not None
-        ):
-            meta.insert(
-                0, make_simple_element("booktitle", text=paper.find("title").text)
-            )
-
-        volume.append(paper)
-
-    indent(new_root)
-
-    return new_root
+def compute_hash_from_file(path: str) -> str:
+    with open(path, "rb") as f:
+        return compute_hash(f.read())

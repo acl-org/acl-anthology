@@ -62,7 +62,9 @@ def create_bibtex(anthology, trgdir, clean=False):
     log.info("Creating BibTeX files for all papers...")
     with gzip.open(
         "{}/anthology.bib.gz".format(trgdir), "wt", encoding="utf-8"
-    ) as file_full:
+    ) as file_anthology, gzip.open(
+        "{}/anthology+abstracts.bib.gz".format(trgdir), "wt", encoding="utf-8"
+    ) as file_anthology_with_abstracts:
         for volume_id, volume in tqdm(
             sorted(anthology.volumes.items(), key=volume_sorter, reverse=True)
         ):
@@ -75,13 +77,12 @@ def create_bibtex(anthology, trgdir, clean=False):
                         "{}/{}.bib".format(volume_dir, paper.full_id), "w"
                     ) as file_paper:
                         contents = paper.as_bibtex()
-                        file_paper.write(contents)
-                        file_paper.write("\n")
+                        print(contents, file=file_paper)
+                        print(contents, file=file_anthology_with_abstracts)
+
                         concise_contents = paper.as_bibtex(concise=True)
-                        file_volume.write(concise_contents)
-                        file_volume.write("\n")
-                        file_full.write(concise_contents)
-                        file_full.write("\n")
+                        print(concise_contents, file=file_volume)
+                        print(concise_contents, file=file_anthology)
 
 
 if __name__ == "__main__":

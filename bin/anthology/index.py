@@ -175,7 +175,7 @@ class AnthologyIndex:
         """Create a unique bibliography key for the given paper."""
         if paper.is_volume:
             # Proceedings volumes use venue acronym instead of authors/editors
-            bibnames = slugify(self._parent.venues.get_by_letter(paper.full_id[0]))
+            bibnames = slugify(self._parent.venues.get_main_venue(paper.full_id))
         else:
             # Regular papers use author/editor names
             names = paper.get("author")
@@ -315,6 +315,15 @@ class AnthologyIndex:
             self.set_canonical_name(id_, name)
 
         return sorted(self.name_to_ids[name])
+
+    def get_comment(self, id_: str) -> str:
+        """
+        Returns the comment associated with the name ID.
+
+        :param id_: The name ID (e.g., "fei-liu-ftdallas")
+        :return: The comment (e.g., "UT Dallas, Bosch, CMU, University of Central Florida")
+        """
+        return self.comments.get(id_, None)
 
     def resolve_name(self, name, id_=None):
         """Find person named 'name' and return a dict with fields
