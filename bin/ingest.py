@@ -223,8 +223,6 @@ def main(args):
             # names are {abbrev}{number}.pdf
             match = re.match(rf".*\.(\d+)\.pdf", pdf_file)
 
-            if match is None:
-                print("whoa", pdf_file, venue_name)
             if match is not None:
                 paper_num = int(match[1])
                 paper_id_full = f"{collection_id}-{volume_name}.{paper_num}"
