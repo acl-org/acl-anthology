@@ -2,15 +2,17 @@
 Title: Information for Submitters
 linktitle: Submitting
 subtitle: General information on submitting proceedings to the ACL Anthology (for event chairs)
-date: "2020-03-25"
+date: "2020-06-29"
 ---
 
-This page contains general information about how to send your proceedings to the ACL Anthology, i.e., the ingestion process.
-It is mostly intended for main conference publication chairs, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
-If you are a workshop chair attached to a larger conference (i.e., not at a standalone event), you should also read this page, but please work through your main conference publication chair instead of directly with the Anthology.
-(For information about the complete conference management process, particularly for *ACL conference publications chairs, [see this document](https://github.com/acl-org/acl-pub).)
+This page contains general information about submitting the proceedings of a conference to the ACL Anthology.
+(For information about the complete conference management process, particularly for ACL conference publications chairs, [see this document](https://github.com/acl-org/acl-pub).)
+It is intended for  publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
+Chairs of workshops attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
 
 ### Overview of the Submission Process
+
+Please note the following important dates.
 
 <table class="table table-bordered">
   <thead class="thead-dark">
@@ -67,8 +69,6 @@ The following information in the spreadsheet is especially important:
    For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
    You should also seek consistency with the names of your volumes from prior years.
    You may find [this naming guide](https://docs.google.com/document/d/1-4I8w-ckyy3oF2XMbkjAaq14EOyWSoSUW0dpCTtprm8/edit?usp=sharing) helpful.
-
-If your conference has satellite workshops, please make certain the workshops will actually be run.
 
 By default, the publication of papers associated with an event in the Anthology will be on the first day of the event (inclusive of workshops or tutorials).
 If you prefer to have it published on a different date, please inform us when you register.
