@@ -45,6 +45,9 @@ Please note the following important dates.
   </tbody>
 </table>
 
+
+
+
 ### Register your meeting
 
 If you are a conference publications chair, you must register your intention to submit your proceedings.
@@ -84,7 +87,7 @@ A link to this directory (preferably via a file sharing service, such as Dropbox
 
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
 
-- We ingest that data by running additional scripts that convert it into our authoritative format, apply title-case protection, and disambigutate author names.
+- We ingest that data by running additional scripts that convert it into our authoritative format, apply title-case protection, and disambiguate author names.
 - This becomes a pull request on [our Github repository](https://github.com/acl-org/acl-anthology/).
 - Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
 
