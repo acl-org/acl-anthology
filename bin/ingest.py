@@ -213,8 +213,8 @@ def main(args):
                 os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
             )
 
-            # log(f"Copying {book_src_path} -> {book_dest_path}", args.dry_run)
-            if not args.dry_run:
+            if not args.dry_run and not os.path.exists(book_dest_path):
+                log(f"Copying {book_src_path} -> {book_dest_path}", args.dry_run)
                 shutil.copyfile(book_src_path, book_dest_path)
 
         # copy the paper PDFs
@@ -237,7 +237,8 @@ def main(args):
                 pdf_dest_path = os.path.join(
                     pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
                 )
-                if not args.dry_run:
+                if not args.dry_run and not os.path.exists(pdf_dest_path):
+                    log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
                     shutil.copyfile(pdf_src_path, pdf_dest_path)
 
                 collections[collection_id][volume_name][paper_num] = {
@@ -271,8 +272,8 @@ def main(args):
 
                 file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{ext}"
                 dest_path = os.path.join(attachments_dest_dir, file_name)
-                # log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
-                if not args.dry_run:
+                if not args.dry_run and not os.path.exists(dest_path):
+                    log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
                     shutil.copyfile(attachment_file_path, dest_path)
 
                 collections[collection_id][volume_name][paper_num]["attachments"].append(
