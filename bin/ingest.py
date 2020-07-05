@@ -213,8 +213,8 @@ def main(args):
                 os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
             )
 
-            # log(f"Copying {book_src_path} -> {book_dest_path}", args.dry_run)
-            if not args.dry_run:
+            if not args.dry_run and not os.path.exists(book_dest_path):
+                log(f"Copying {book_src_path} -> {book_dest_path}", args.dry_run)
                 shutil.copyfile(book_src_path, book_dest_path)
 
         # copy the paper PDFs
@@ -223,8 +223,6 @@ def main(args):
             # names are {abbrev}{number}.pdf
             match = re.match(rf".*\.(\d+)\.pdf", pdf_file)
 
-            if match is None:
-                print("whoa", abbrev)
             if match is not None:
                 paper_num = int(match[1])
                 paper_id_full = f"{collection_id}-{volume_name}.{paper_num}"
@@ -239,7 +237,8 @@ def main(args):
                 pdf_dest_path = os.path.join(
                     pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
                 )
-                if not args.dry_run:
+                if not args.dry_run and not os.path.exists(pdf_dest_path):
+                    log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
                     shutil.copyfile(pdf_src_path, pdf_dest_path)
 
                 collections[collection_id][volume_name][paper_num] = {
@@ -273,8 +272,8 @@ def main(args):
 
                 file_name = f"{collection_id}-{volume_name}.{paper_num}.{type_}.{ext}"
                 dest_path = os.path.join(attachments_dest_dir, file_name)
-                # log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
-                if not args.dry_run:
+                if not args.dry_run and not os.path.exists(dest_path):
+                    log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
                     shutil.copyfile(attachment_file_path, dest_path)
 
                 collections[collection_id][volume_name][paper_num]["attachments"].append(
@@ -283,22 +282,9 @@ def main(args):
 
     people = AnthologyIndex(None, srcdir=anthology_datadir)
 
-    def disambiguate_name(node):
+    def disambiguate_name(node, anth_id):
         name = PersonName.from_element(node)
         ids = people.get_ids(name)
-
-        if node.tag == "editor":
-            # meta block, get volume
-            anth_id = build_anthology_id(
-                collection_id, node.getparent().getparent().attrib["id"]
-            )
-        elif node.tag == "author":
-            # paper, get full ID
-            anth_id = build_anthology_id(
-                collection_id,
-                node.getparent().getparent().attrib["id"],
-                node.getparent().attrib["id"],
-            )
 
         if len(ids) > 1:
             choice = -1
@@ -352,8 +338,11 @@ def main(args):
                     title_node = paper_node.find("title")
                     title_node.tag = "booktitle"
                     meta_node.append(title_node)
-                    for editor in paper_node.findall("editor"):
-                        meta_node.append(editor)
+                    for author_or_editor in chain(
+                        paper_node.findall("./author"), paper_node.findall("./editor")
+                    ):
+                        meta_node.append(author_or_editor)
+                        author_or_editor.tag = "editor"
                     meta_node.append(paper_node.find("publisher"))
                     meta_node.append(paper_node.find("address"))
                     meta_node.append(paper_node.find("month"))
@@ -404,7 +393,7 @@ def main(args):
                 for name_node in chain(
                     paper_node.findall("./author"), paper_node.findall("./editor")
                 ):
-                    disambiguate_name(name_node)
+                    disambiguate_name(name_node, paper_id_full)
 
         # Other data from the meta file
         if "isbn" in meta:
