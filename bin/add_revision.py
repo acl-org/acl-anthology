@@ -54,6 +54,8 @@ from anthology.data import ANTHOLOGY_PDF
 import lxml.etree as ET
 import urllib.request
 
+from datetime import datetime
+
 
 def main(args):
     def maybe_copy(file_from, file_to):
@@ -178,7 +180,7 @@ def main(args):
         if not args.dry_run:
             try:
                 print(
-                    f"-> Downloading file from {args.path} to {revised_file_v1_path}",
+                    f"-> Downloading file from {current_version} to {revised_file_v1_path}",
                     file=sys.stderr,
                 )
                 with urllib.request.urlopen(current_version) as url, open(
@@ -227,8 +229,11 @@ if __name__ == "__main__":
         action="store_true",
         help="This is an erratum instead of a revision.",
     )
+    now = datetime.now()
+    today = f"{now.year}-{now.month:02d}-{now.day:02d}"
     parser.add_argument(
-        "--date", "-d", type=str, help="The date of the revision (ISO 8601 format)"
+        "--date", "-d", type=str, default=today,
+        help="The date of the revision (ISO 8601 format)",
     )
     parser.add_argument(
         "--dry-run", "-n", action="store_true", default=False, help="Just a dry run."
