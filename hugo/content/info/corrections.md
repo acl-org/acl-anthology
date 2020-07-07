@@ -15,12 +15,12 @@ While this service can help correct post-publication problems, due to certain di
   Examples include correcting the spelling of a name or the title.
   These kinds of corrections are typically made to bring the metadata in line with what is on the PDF, which is taken to be authoritative.
   If the metadata changes impact the work's physical form (e.g., adding an additional author), a revision must also be supplied.
-+ An **erratum** clarifies errors made in the original scholarly work.
-  Usually these are just short notes, correcting statements, or changes to equations or other problems in the original, which need to be read alongside the original work.
 + A **revision** is a replacement to the original scholarly work.
   This format allows a corrected paper to be read independently of the original scholarly work, and typically does not highlight the original's errors.
++ An **erratum** clarifies errors made in the original scholarly work.
+  Usually these are just short notes, correcting statements, or changes to equations or other problems in the original, which need to be read alongside the original work.
 
-Please take note of the following regarding errata and revisions:
+Please take note of the following regarding revisions and errata:
 
 + The original published PDF is not invalidated.
   The original will still stand as published and cannot be withdrawn, and both will remain available and linked on the website.
@@ -34,7 +34,7 @@ Please take note of the following regarding errata and revisions:
 
 A request to change paper metadata (that does not require any PDF changes) can be submitted in several ways.
 
--  (Preferred) Please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new).
+-  (Preferred) Please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new?labels=correction&template=file-a-correction.md&title=Correction+to+Anthology+ID+XXX).
    **Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017` or `2020.acl-1.17`).
 -  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
    Again, please be sure to include the Anthology ID of the paper in your email.
@@ -48,18 +48,24 @@ A request to change paper metadata (that does not require any PDF changes) can b
 The Anthology team will attend to the correction as we find time.
 Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
 
-### Requesting revisions or errata
+### Revisions and errata
 
-For requests to change paper *content* (either a revision or an erratum), again, please [file a Github issue](https://github.com/acl-org/acl-anthology/issues/new).
+For requests to change paper *content* (either a revision or an erratum), again, please [file a Github issue](https://github.com/acl-org/acl-anthology/issues/new?labels=correction&template=file-a-correction.md&title=Correction+to+Anthology+ID+XXX).
 **Please note the following**:
 
 - Be sure to attach the revised PDF to the issue.
-- You need to provide a brief summary of the changes.
+- For revisions, provide a brief summary of the changes.
+  This summary will be included in the Anthology.
+	Its intended audience is users of the Anthology, and should therefore be written from a neutral, scientific perspective.
+- If the metadata also needs to change, please also follow the instructions in the previous section.
 
-  This summary will be included in the Anthology, and should be written from a neutral, scientific perspective.
+For revisions, the brief summary should allow readers to find the changed parts, but need not be too detailed.
+Here are some good examples:
 
-If the metadata also needs to change, please also follow the instructions in the above section.
+- *A sponsor was added to the Acknowledgments section.*
+- *Added a footnote to page 8 describing data processing.*
+- *Corrected a few citations; added Footnote 2 clarifying the baseline calculation; expanded the caption of Table 3; added a paragraph to the Related Works section.*
 
-These conditions help us to process corrections more quickly.
-We will do our best to process revisions or errata within a week, but do not make guarantees as to the processing time.
+Following these instructions will help us to process corrections more quickly.
+We will do our best to process revisions or errata within four weeks, but make no guarantees as to the processing time.
 Submissions not meeting these standards will be rejected, potentially without notice.
