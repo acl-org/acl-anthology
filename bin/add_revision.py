@@ -48,6 +48,7 @@ from anthology.utils import (
     make_simple_element,
     indent,
     compute_hash,
+    infer_url,
 )
 from anthology.data import ANTHOLOGY_PDF
 
@@ -109,6 +110,18 @@ def main(args):
     with open(input_file_path, "rb") as f:
         checksum = compute_hash(f.read())
 
+    output_dir = os.path.join(args.anthology_dir, "pdf", collection_id[0], collection_id)
+
+    # Make sure directory exists
+    if not os.path.exists(output_dir):
+        print(f"-> Creating directory {output_dir}", file=sys.stderr)
+        os.makedirs(output_dir)
+
+    canonical_path = os.path.join(output_dir, f"{args.anthology_id}.pdf")
+
+    # Download original file
+
+
     # Update XML
     xml_file = os.path.join(
         os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
@@ -123,6 +136,34 @@ def main(args):
 
         if not args.dry_run:
             if not args.erratum and revno == 2:
+                if paper.find("./url") is not None:
+                    current_version_url = infer_url(paper.find("./url").text)
+
+                # There are no versioned files the first time around, so create the first one
+                # (essentially backing up the original version)
+                revised_file_v1_path = os.path.join(
+                    output_dir, f"{args.anthology_id}{change_letter}1.pdf"
+                )
+
+                try:
+                    print(
+                        f"-> Downloading file from {current_version_url} to {revised_file_v1_path}",
+                        file=sys.stderr,
+                    )
+                    with urllib.request.urlopen(current_version_url) as url, open(
+                        revised_file_v1_path, mode="wb"
+                    ) as fh:
+                        fh.write(url.read())
+                except ssl.SSLError:
+                    print(
+                        f"-> FATAL: An SSL error was encountered in downloading {args.path}.",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
+
+                with open(revised_file_v1_path, "rb") as f:
+                    old_checksum = compute_hash(f.read())
+
                 # First revision requires making the original version explicit
                 revision = make_simple_element(
                     change_type,
@@ -130,7 +171,7 @@ def main(args):
                     attrib={
                         "id": "1",
                         "href": f"{args.anthology_id}{change_letter}1",
-                        "hash": checksum,
+                        "hash": old_checksum,
                     },
                     parent=paper,
                 )
@@ -159,45 +200,6 @@ def main(args):
             file=sys.stderr,
         )
         sys.exit(1)
-
-    output_dir = os.path.join(args.anthology_dir, "pdf", collection_id[0], collection_id)
-
-    # Make sure directory exists
-    if not os.path.exists(output_dir):
-        print(f"-> Creating directory {output_dir}", file=sys.stderr)
-        os.makedirs(output_dir)
-
-    canonical_path = os.path.join(output_dir, f"{args.anthology_id}.pdf")
-
-    if not args.erratum and revno == 2:
-        # There are no versioned files the first time around, so create the first one
-        # (essentially backing up the original version)
-        revised_file_v1_path = os.path.join(
-            output_dir, f"{args.anthology_id}{change_letter}1.pdf"
-        )
-
-        current_version = ANTHOLOGY_PDF.format(args.anthology_id)
-        if not args.dry_run:
-            try:
-                print(
-                    f"-> Downloading file from {current_version} to {revised_file_v1_path}",
-                    file=sys.stderr,
-                )
-                with urllib.request.urlopen(current_version) as url, open(
-                    revised_file_v1_path, mode="wb"
-                ) as fh:
-                    fh.write(url.read())
-            except ssl.SSLError:
-                print(
-                    f"-> FATAL: An SSL error was encountered in downloading {args.path}.",
-                    file=sys.stderr,
-                )
-                sys.exit(1)
-        else:
-            print(
-                f"-> DRY RUN: Downlading file from {args.path} to {revised_file_v1_path}",
-                file=sys.stderr,
-            )
 
     revised_file_versioned_path = os.path.join(
         output_dir, f"{args.anthology_id}{change_letter}{revno}.pdf"
