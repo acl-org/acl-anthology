@@ -121,7 +121,6 @@ def main(args):
 
     # Download original file
 
-
     # Update XML
     xml_file = os.path.join(
         os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
@@ -234,7 +233,10 @@ if __name__ == "__main__":
     now = datetime.now()
     today = f"{now.year}-{now.month:02d}-{now.day:02d}"
     parser.add_argument(
-        "--date", "-d", type=str, default=today,
+        "--date",
+        "-d",
+        type=str,
+        default=today,
         help="The date of the revision (ISO 8601 format)",
     )
     parser.add_argument(
