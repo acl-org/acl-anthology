@@ -73,8 +73,7 @@ def validate_file_type(path):
 def download_file(source, dest):
     try:
         print(
-            f"-> Downloading file from {source} to {dest}",
-            file=sys.stderr,
+            f"-> Downloading file from {source} to {dest}", file=sys.stderr,
         )
         with urllib.request.urlopen(source) as url, open(dest, mode="wb") as fh:
             fh.write(url.read())
@@ -151,6 +150,10 @@ def main(args):
             revno = int(revision.attrib["id"]) + 1
 
         if not args.dry_run:
+            # Update the URL hash on the <url> tag
+            if paper.find("./url") is not None:
+                url.attrib["hash"] = checksum
+
             if not args.erratum and revno == 2:
                 if paper.find("./url") is not None:
                     current_version_url = infer_url(paper.find("./url").text) + ".pdf"
