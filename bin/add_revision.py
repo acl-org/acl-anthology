@@ -102,6 +102,7 @@ def main(args):
         sys.exit(1)
 
     collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
+    venue_name = collection_id.split(".")[1]
     paper_extension = args.path.split(".")[-1]
 
     # The new version
@@ -110,7 +111,14 @@ def main(args):
     with open(input_file_path, "rb") as f:
         checksum = compute_hash(f.read())
 
-    output_dir = os.path.join(args.anthology_dir, "pdf", collection_id[0], collection_id)
+    # Files for old-style IDs are stored under anthology-files/pdf/P/P19/*
+    # Files for new-style IDs are stored under anthology-files/pdf/2020.acl/*
+    if is_newstyle_id(args.anthology_id):
+        output_dir = os.path.join(args.anthology_dir, "pdf", venue_name)
+    else:
+        output_dir = os.path.join(
+            args.anthology_dir, "pdf", collection_id[0], collection_id
+        )
 
     # Make sure directory exists
     if not os.path.exists(output_dir):
@@ -118,8 +126,6 @@ def main(args):
         os.makedirs(output_dir)
 
     canonical_path = os.path.join(output_dir, f"{args.anthology_id}.pdf")
-
-    # Download original file
 
     # Update XML
     xml_file = os.path.join(
@@ -138,6 +144,7 @@ def main(args):
                 if paper.find("./url") is not None:
                     current_version_url = infer_url(paper.find("./url").text)
 
+                # Download original file
                 # There are no versioned files the first time around, so create the first one
                 # (essentially backing up the original version)
                 revised_file_v1_path = os.path.join(
