@@ -238,7 +238,7 @@ def main(args):
                     pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
                 )
                 if not args.dry_run and not os.path.exists(pdf_dest_path):
-                    log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
+                    log(f"Copying {pdf_src_path} -> {pdf_dest_path}", args.dry_run)
                     shutil.copyfile(pdf_src_path, pdf_dest_path)
 
                 collections[collection_id][volume_name][paper_num] = {
