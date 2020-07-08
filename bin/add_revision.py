@@ -58,6 +58,34 @@ import urllib.request
 from datetime import datetime
 
 
+def validate_file_type(path):
+    """Ensure downloaded file mime type matches its extension (e.g., PDF)"""
+    detected = filetype.guess(input_file_path)
+    if detected is None or not detected.mime.endswith(detected.extension):
+        mime_type = 'UNKNOWN' if detected is None else detected.mime
+        print(
+            f"FATAL: {args.anthology_id} file {path} has MIME type {mime_type}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+
+def download_file(source, dest):
+    try:
+        print(
+            f"-> Downloading file from {source} to {dest}",
+            file=sys.stderr,
+        )
+        with urllib.request.urlopen(source) as url, open(dest, mode="wb") as fh:
+            fh.write(url.read())
+    except ssl.SSLError:
+        print(
+            f"-> FATAL: An SSL error was encountered in downloading {source}.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+
 def main(args):
     def maybe_copy(file_from, file_to):
         if not args.dry_run:
@@ -78,28 +106,11 @@ def main(args):
     # TODO: make sure path exists, or download URL to temp file
     if args.path.startswith("http"):
         _, input_file_path = tempfile.mkstemp()
-        try:
-            print(f"-> Downloading file from {args.path}", file=sys.stderr)
-            with urllib.request.urlopen(args.path) as url, open(
-                input_file_path, mode="wb"
-            ) as input_file_fh:
-                input_file_fh.write(url.read())
-        except ssl.SSLError:
-            print(
-                "An SSL error was encountered in downloading the files.", file=sys.stderr
-            )
-            sys.exit(1)
+        download_file(args.path, input_file_path)
     else:
         input_file_path = args.path
 
-    detected = filetype.guess(input_file_path)
-    if detected is None or not detected.mime.endswith(detected.extension):
-        mime_type = 'UNKNOWN' if detected is None else detected.mime
-        print(
-            f"FATAL: {args.anthology_id} file {args.path} has MIME type {mime_type}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    validate_file_type(input_file_path)
 
     collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
     venue_name = collection_id.split(".")[1]
@@ -142,7 +153,7 @@ def main(args):
         if not args.dry_run:
             if not args.erratum and revno == 2:
                 if paper.find("./url") is not None:
-                    current_version_url = infer_url(paper.find("./url").text)
+                    current_version_url = infer_url(paper.find("./url").text) + ".pdf"
 
                 # Download original file
                 # There are no versioned files the first time around, so create the first one
@@ -151,21 +162,8 @@ def main(args):
                     output_dir, f"{args.anthology_id}{change_letter}1.pdf"
                 )
 
-                try:
-                    print(
-                        f"-> Downloading file from {current_version_url} to {revised_file_v1_path}",
-                        file=sys.stderr,
-                    )
-                    with urllib.request.urlopen(current_version_url) as url, open(
-                        revised_file_v1_path, mode="wb"
-                    ) as fh:
-                        fh.write(url.read())
-                except ssl.SSLError:
-                    print(
-                        f"-> FATAL: An SSL error was encountered in downloading {args.path}.",
-                        file=sys.stderr,
-                    )
-                    sys.exit(1)
+                download_file(current_version_url, revised_file_v1_path)
+                validate_file_type(current_version_url)
 
                 with open(revised_file_v1_path, "rb") as f:
                     old_checksum = compute_hash(f.read())
