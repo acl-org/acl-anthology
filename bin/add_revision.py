@@ -49,6 +49,7 @@ from anthology.utils import (
     indent,
     compute_hash,
     infer_url,
+    is_newstyle_id,
 )
 from anthology.data import ANTHOLOGY_PDF
 
@@ -60,7 +61,7 @@ from datetime import datetime
 
 def validate_file_type(path):
     """Ensure downloaded file mime type matches its extension (e.g., PDF)"""
-    detected = filetype.guess(input_file_path)
+    detected = filetype.guess(path)
     if detected is None or not detected.mime.endswith(detected.extension):
         mime_type = 'UNKNOWN' if detected is None else detected.mime
         print(
@@ -151,7 +152,8 @@ def main(args):
 
         if not args.dry_run:
             # Update the URL hash on the <url> tag
-            if paper.find("./url") is not None:
+            url = paper.find("./url")
+            if url is not None:
                 url.attrib["hash"] = checksum
 
             if not args.erratum and revno == 2:
@@ -166,7 +168,7 @@ def main(args):
                 )
 
                 download_file(current_version_url, revised_file_v1_path)
-                validate_file_type(current_version_url)
+                validate_file_type(revised_file_v1_path)
 
                 with open(revised_file_v1_path, "rb") as f:
                     old_checksum = compute_hash(f.read())
