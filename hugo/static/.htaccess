@@ -53,13 +53,14 @@ RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9])/?$ https://www.aclweb.org/anth
 # They are invisible to the outside.
 #
 
-# Volume URLs (e.g., P17-1.pdf loads P/P17/P17-1.pdf)
+# Volume URLs (e.g., P17-1.pdf loads P/P17/P17-1.pdf, 2020.acl-main loads acl/2020.acl-main.pdf)
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9]{1,2})\.pdf$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
+RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.pdf$ /anthology-files/pdf/$2/$1.$2-$3.pdf [L,NC]
 
 # PDF link, revisions, and errata (P17-1069[v2].pdf loads P/P17/P17-1069[v2].pdf --- with "v2" optional)
 # TODO: decide on a new format for revisions and errata
 RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])([ve][0-9]+)?\.pdf$ /anthology-files/pdf/$1/$1$2/$1$2-$3$4.pdf [L,NC]
-RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+(\.\d+)?)\.pdf$ /anthology-files/pdf/$2/$1.$2-$3.pdf [L,NC]
+RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.(\d+([ve]\d+)?)\.pdf$ /anthology-files/pdf/$2/$1.$2-$3.$4.pdf [L,NC]
 
 # Attachments (e.g., P17-1069.Poster.pdf loads /anthology-files/attachments/P/P17/P17-1069.Poster.pdf)
 RewriteRule ^attachments/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ /anthology-files/attachments/$1/$1$2/$1$2-$3$4 [L,NC]
@@ -70,3 +71,4 @@ RewriteRule ^thumb/(.*)$ /anthology-files/thumb/$1 [L,NC]
 
 # Author pages (e.g., people/arya-d-mccarthy loads people/a/arya-d-mccarthy)
 RewriteRule ^people/([a-z])([\-a-z0-9]*)$ people/$1/$1$2/ [L,NC]
+
