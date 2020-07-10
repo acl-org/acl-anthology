@@ -22,7 +22,26 @@ attachment = element attachment {
     checksum,
     local-filename
 }
+video = element video {
+    attribute href { xsd:anyURI },
+    attribute tag { text },
+    attribute permission { xsd:boolean }?
+}
 
+Presentation = element presentation {
+  attribute id { xsd:positiveInteger },
+  attribute ingest-date { xsd:date }?,
+  (element abstract { MarkupText }?
+   & attachment*
+   & element title { MarkupText }
+   & element author { Person }*
+   & element doi { xsd:anyURI }?
+   & element note { text }?
+   & url-with-checksum?
+   & video*
+   & element language { xsd:language }?
+   )
+}
 Paper = element paper {
   attribute id { xsd:positiveInteger },
   attribute ingest-date { xsd:date }?,
@@ -54,11 +73,7 @@ Paper = element paper {
    & element pages { text }?
    & element title { MarkupText }
    & url-with-checksum?
-   & element video {
-       attribute href { xsd:anyURI },
-       attribute tag { text },
-       attribute permission { xsd:boolean }?
-     }*
+   & video*
    & element volume { xsd:positiveInteger }?
    & element language { xsd:language }?
    )
@@ -95,7 +110,8 @@ Volume = element volume {
   attribute ingest-date { xsd:date }?,
   Meta,
   Frontmatter?,
-  Paper*
+  Paper*,
+  Presentation*
 }
 Collection = element collection {
   attribute id { xsd:string },
