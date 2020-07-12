@@ -70,14 +70,14 @@ def best_split(name):
                        for x in words[i:] ]
         last_score = max ( log((last_full_count[last]+0.000001)/last_total),
                            sum(last_probs) )
-        
+
         if first_score + last_score > best_score:
             best_score = first_score + last_score
             best = (last, first)
         # end of loop over split points
     return best
 
-        
+
 if __name__ == "__main__":
     args = docopt(__doc__)
     scriptdir = os.path.dirname(os.path.abspath(__file__))
