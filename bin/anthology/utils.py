@@ -120,6 +120,29 @@ def test_url(url):
     return test_url_code(url).status_code == requests.codes.ok
 
 
+def retrieve_url(remote_url: str, local_path: str):
+    """
+    Saves a URL to a local path. Can handle cookies, e.g., those
+    used downloading PDFs from MIT Press (TACL, CL).
+
+    :param remote_url: The URL to download from. Currently supports http only.
+    :param local_path: Where to save the file to.
+    """
+    if remote_url.startswith("http"):
+        import ssl
+        import urllib.request
+
+        cookieProcessor = urllib.request.HTTPCookieProcessor()
+        opener = urllib.request.build_opener(cookieProcessor)
+        request = urllib.request.Request(
+            remote_url, headers={'User-Agent': 'Mozilla/5.0'}
+        )
+        with opener.open(request, timeout=1000) as url, open(
+            local_path, mode="wb"
+        ) as input_file_fh:
+            input_file_fh.write(url.read())
+
+
 def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     """
     Transforms an Anthology ID into its constituent collection id, volume id, and paper id
