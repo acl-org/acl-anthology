@@ -66,9 +66,9 @@ def process_volume(anthology_volume):
             if not os.path.exists(os.path.dirname(local_path)):
                 os.makedirs(os.path.dirname(local_path))
 
-            if retrieve_url(doi_pdf, local_path):
-                print(f"Saved {doi_pdf} to {local_path}")
-                sleep(1)
+            retrieve_url(doi_pdf, local_path)
+            print(f"Saved {doi_pdf} to {local_path}")
+            sleep(1)
 
 
 def main(args):
