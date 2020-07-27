@@ -30,7 +30,7 @@ from anthology.utils import (
     infer_url,
     test_url_code,
     is_newstyle_id,
-    download_url,
+    retrieve_url,
 )
 from time import sleep
 
@@ -65,8 +65,9 @@ def process_volume(anthology_volume):
             )
             if not os.path.exists(os.path.dirname(local_path)):
                 os.makedirs(os.path.dirname(local_path))
-            if download_url(doi_pdf, local_path):
-                print(f"Downloaded {doi_pdf} to {local_path}")
+
+            if retrieve_url(doi_pdf, local_path):
+                print(f"Saved {doi_pdf} to {local_path}")
                 sleep(1)
 
 
