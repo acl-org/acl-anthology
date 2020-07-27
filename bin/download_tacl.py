@@ -36,6 +36,7 @@ from time import sleep
 
 import lxml.etree as ET
 
+
 def process_volume(anthology_volume):
 
     collection_id, volume_id, _ = deconstruct_anthology_id(anthology_volume)
@@ -59,12 +60,15 @@ def process_volume(anthology_volume):
         if not test_url_code(infer_url(anthid)):
             doi = paper.find("./doi").text
             doi_pdf = f"https://www.mitpressjournals.org/doi/pdf/{doi}"
-            local_path = os.path.join(args.anthology_files_dir, venue_path, f"{anthid}.pdf")
+            local_path = os.path.join(
+                args.anthology_files_dir, venue_path, f"{anthid}.pdf"
+            )
             if not os.path.exists(os.path.dirname(local_path)):
                 os.makedirs(os.path.dirname(local_path))
             if download_url(doi_pdf, local_path):
                 print(f"Downloaded {doi_pdf} to {local_path}")
                 sleep(1)
+
 
 def main(args):
     for volume in args.anthology_volumes:

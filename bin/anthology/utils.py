@@ -128,10 +128,13 @@ def download_url(remote_url, local_path):
     if remote_url.startswith("http"):
         import ssl
         import urllib.request
+
         try:
             cookieProcessor = urllib.request.HTTPCookieProcessor()
             opener = urllib.request.build_opener(cookieProcessor)
-            request = urllib.request.Request(remote_url, headers={'User-Agent': 'Mozilla/5.0'})
+            request = urllib.request.Request(
+                remote_url, headers={'User-Agent': 'Mozilla/5.0'}
+            )
             with opener.open(request, timeout=1000) as url, open(
                 local_path, mode="wb"
             ) as input_file_fh:
