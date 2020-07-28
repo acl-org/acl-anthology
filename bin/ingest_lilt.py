@@ -73,7 +73,7 @@ def main(args):
 
         make_simple_element("abstract", row.get("abstract"), parent=paper)
 
-        dest_dir = "{args.anthology_files_path}/lilt"
+        dest_dir = f"{args.anthology_files_path}/lilt"
         if not os.path.exists(dest_dir):
             os.makedirs(dest_dir)
 
@@ -85,6 +85,7 @@ def main(args):
                 dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
             )
             shutil.copy(source_path, dest_path)
+            print(f"Copying {source_path} to {dest_path}", file=sys.stderr)
             os.chmod(dest_path, 0o644)
             checksum = compute_hash_from_file(dest_path)
             make_simple_element("url", paper_id, attrib={"hash": checksum}, parent=paper)
