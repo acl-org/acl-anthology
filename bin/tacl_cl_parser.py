@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 """
-Convert MIT Press XML files for TACL to Anthology XML.
+Convert MIT Press XML files for CL and TACL to Anthology XML.
 
 Author: Arya D. McCarthy
 """
@@ -11,7 +11,7 @@ import xml.etree.ElementTree as etree
 from pathlib import Path
 from typing import List, Optional, Tuple
 
-__version__ = "0.1"
+__version__ = "0.2"
 
 log = logging.getLogger(__name__ if __name__ != "__main__ " else Path(__file__).stem)
 
@@ -19,7 +19,7 @@ log = logging.getLogger(__name__ if __name__ != "__main__ " else Path(__file__).
 TACL = "Q"
 CL = "J"
 
-STANDARD_URL = "https://www.aclweb.org/anthology/{volume}-{paper}"
+STANDARD_URL = "{volume}-{paper}"
 
 
 def parse_args():
@@ -80,7 +80,7 @@ def get_volume_info(xml: Path) -> str:
 
 def get_paperid(xml: Path, count: int, issue_count: int) -> str:
     basename = xml.stem
-    assert issue_count < 10
+    assert int(issue_count) < 10
     assert 0 < count < 1000
     # for i in range(1, 4+1):
     #     assert basename[-i] in [str(x) for x in range(10)], basename
@@ -131,9 +131,11 @@ def get_month(xml_front_node: etree.Element) -> str:
 def get_abstract(xml_front_node: etree.Element) -> str:
     article_meta = xml_front_node.find("article-meta")
     abstract = article_meta.find("abstract")
-    abstract_text = collapse_spaces("".join(abstract.itertext()))
-    return abstract_text
-
+    if abstract:
+        abstract_text = collapse_spaces("".join(abstract.itertext()))
+        return abstract_text
+    else:
+        return None
 
 def get_authors(xml_front_node: etree.Element) -> List[Tuple[str, str]]:
     article_meta = xml_front_node.find("article-meta")
@@ -166,7 +168,6 @@ def get_doi(xml_front_node: etree.Element) -> str:
     article_meta = xml_front_node.find("article-meta")
     doi_ = article_meta.find("*[@pub-id-type='doi']")
     return doi_.text
-
 
 def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> str:
     journal_meta = xml_front_node.find("journal-meta")
@@ -210,7 +211,7 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
         date=string_date_text,
     )
     log.debug(format_string.format(**data))
-    return format_string.format(**data)
+    return format_string.format(**data), issue_text
 
 
 def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
@@ -220,7 +221,7 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
     root = tree.getroot()
     front = root.find("front")
 
-    info = get_article_journal_info(front, is_tacl)
+    info, issue = get_article_journal_info(front, is_tacl)
 
     paper = etree.Element("paper")
 
@@ -260,28 +261,28 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
     paper.append(doi)
 
     abstract_text = get_abstract(front)
-    abstract = etree.Element("abstract")
-    abstract.text = abstract_text
-    paper.append(abstract)
+    if abstract_text:
+        abstract = etree.Element("abstract")
+        abstract.text = abstract_text
+        paper.append(abstract)
 
     pages_tuple = get_pages(front)
     pages = etree.Element("pages")
     pages.text = "–".join(pages_tuple)  # en-dash, not hyphen!
     paper.append(pages)
 
-    return paper, info
+    return paper, info, issue
 
 
 def issue_info_to_node(
     issue_info: str, year_: str, volume_id: str, issue_counter: int, is_tacl: bool
 ) -> etree.Element:
-    node = etree.Element("paper")
-    node.attrib["id"] = f"{issue_counter}000"
+    node = etree.Element("meta")
 
     assert int(year_)
 
     title_text = issue_info
-    title = etree.Element("title")
+    title = etree.Element("booktitle")
     title.text = title_text
     node.append(title)
 
@@ -329,8 +330,8 @@ if __name__ == "__main__":
     year_suffix = year[-2:]  # Feels hacky, too.
     volume_id = prefix + year_suffix
 
-    volume = etree.Element("volume")
-    volume.attrib["id"] = volume_id
+    collection = etree.Element("collection")
+    collection.attrib["id"] = volume_id
 
     tacl_glob = "tacl.20*.*/tacl.20*.*.xml"
     # volume_info = get_volume_info(list(args.year_root.glob("*.*.*/*.*.*.xml"))[0])
@@ -351,7 +352,7 @@ if __name__ == "__main__":
     for xml in sorted(args.year_root.glob("*_a_*/*.xml")):
         # print(xml)
 
-        papernode, issue_info = process_xml(xml, is_tacl)
+        papernode, issue_info, issue = process_xml(xml, is_tacl)
         if papernode is None or papernode.find("title").text.startswith("Erratum: “"):
             continue
 
@@ -360,10 +361,16 @@ if __name__ == "__main__":
             log.info(f"New issue; will number it {issue_count + 1}")
             log.info(f"{issue_info} vs. {previous_issue_info}")
             previous_issue_info, issue_count = issue_info, issue_count + 1
+            volume = etree.Element("volume") # xml volume = journal issue
+            issue_count = issue or "1"
+            volume.attrib["id"] = issue_count
+            volume.text = "\n    "
+            collection.append(volume)	# xml collection = journal volume
             volume.append(
                 issue_info_to_node(issue_info, year, volume_id, issue_count, is_tacl)
             )
-        paper_id = papernode.attrib["id"] = get_paperid(xml, i, issue_count)
+        papernode.attrib["id"] = f"{i}"
+        paper_id = get_paperid(xml, i, issue_count)
 
         pdf = xml.with_suffix(".pdf")
         if not pdf.is_file():
@@ -409,15 +416,16 @@ if __name__ == "__main__":
 
     for paper in volume:
         for field in paper:
-            field.tail = "\n    "
+            field.tail = "\n      "
         if len(paper):
-            paper.text = "\n    "
-            paper[-1].tail = "\n  "
-        paper.tail = "\n\n  "
-    if len(volume):
-        volume.text = "\n  "
-        volume[-1].tail = "\n"
-    volume.tail = "\n"
+            paper.text = "\n      "
+            paper[-1].tail = "\n    "
+        paper.tail = "\n\n    "
+    volume[-1].tail = "\n  "
+    if len(collection):
+        collection.text = "\n  "
+        collection[-1].tail = "\n"
+    collection.tail = "\n"
 
-    et = etree.ElementTree(volume)
+    et = etree.ElementTree(collection)
     et.write(args.outfile, encoding="UTF-8", xml_declaration=True)
