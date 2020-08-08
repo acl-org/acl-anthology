@@ -246,17 +246,6 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
 
         paper.append(author)
 
-    year_text = get_year(front)
-    year = etree.Element("year")
-    year.text = year_text
-    paper.append(year)
-
-    month_text = get_month(front)
-    if month_text is not None:
-        month = etree.Element("month")
-        month.text = month_text
-        paper.append(month)
-
     doi_text = get_doi(front)
     doi = etree.Element("doi")
     doi.text = doi_text
