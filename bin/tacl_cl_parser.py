@@ -11,6 +11,8 @@ import xml.etree.ElementTree as etree
 from pathlib import Path
 from typing import List, Optional, Tuple
 
+from anthology.utils import make_simple_element, indent, compute_hash
+
 __version__ = "0.2"
 
 log = logging.getLogger(__name__ if __name__ != "__main__ " else Path(__file__).stem)
@@ -378,9 +380,12 @@ if __name__ == "__main__":
         elif args.pdf_save_destination:
             destination = write_to_here / "{}-{}.pdf".format(volume_id, paper_id)
             shutil.copyfile(pdf, destination)
+        with open(pdf, "rb") as f:
+            checksum = compute_hash(f.read())
 
         url_text = STANDARD_URL.format(volume=volume_id, paper=paper_id)
         url = etree.Element("url")
+        url.attrib["hash"] = checksum
         url.text = url_text
         papernode.append(url)
 
