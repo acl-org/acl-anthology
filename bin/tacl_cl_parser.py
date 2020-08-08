@@ -139,6 +139,7 @@ def get_abstract(xml_front_node: etree.Element) -> str:
     else:
         return None
 
+
 def get_authors(xml_front_node: etree.Element) -> List[Tuple[str, str]]:
     article_meta = xml_front_node.find("article-meta")
     contrib_group = article_meta.find("contrib-group")
@@ -170,6 +171,7 @@ def get_doi(xml_front_node: etree.Element) -> str:
     article_meta = xml_front_node.find("article-meta")
     doi_ = article_meta.find("*[@pub-id-type='doi']")
     return doi_.text
+
 
 def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> str:
     journal_meta = xml_front_node.find("journal-meta")
@@ -352,11 +354,11 @@ if __name__ == "__main__":
             log.info(f"New issue; will number it {issue_count + 1}")
             log.info(f"{issue_info} vs. {previous_issue_info}")
             previous_issue_info, issue_count = issue_info, issue_count + 1
-            volume = etree.Element("volume") # xml volume = journal issue
+            volume = etree.Element("volume")  # xml volume = journal issue
             issue_count = issue or "1"
             volume.attrib["id"] = issue_count
             volume.text = "\n    "
-            collection.append(volume)	# xml collection = journal volume
+            collection.append(volume)  # xml collection = journal volume
             volume.append(
                 issue_info_to_node(issue_info, year, volume_id, issue_count, is_tacl)
             )
