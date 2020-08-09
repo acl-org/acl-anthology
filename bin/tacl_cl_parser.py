@@ -2,6 +2,8 @@
 """
 Convert MIT Press XML files for CL and TACL to Anthology XML.
 
+version 0.3 - produces anthology ID in new format 2020.cl-1.1
+
 Author: Arya D. McCarthy
 """
 import logging
@@ -13,7 +15,7 @@ from typing import List, Optional, Tuple
 
 from anthology.utils import make_simple_element, indent, compute_hash
 
-__version__ = "0.2"
+__version__ = "0.3"
 
 log = logging.getLogger(__name__ if __name__ != "__main__ " else Path(__file__).stem)
 
@@ -86,7 +88,7 @@ def get_paperid(xml: Path, count: int, issue_count: int) -> str:
     assert 0 < count < 1000
     # for i in range(1, 4+1):
     #     assert basename[-i] in [str(x) for x in range(10)], basename
-    return f"{issue_count}{count:03}"  # TACL is always QXX-1YYY.
+    return f"{issue_count}.{count}"  # after dash in new anth id
 
 
 def get_title(xml_front_node: etree.Element) -> str:
@@ -281,7 +283,7 @@ def issue_info_to_node(
 
     if not is_tacl:
         month_text = issue_info.split()[-2]  # blah blah blah month year
-        assert month_text in {
+        if not month_text in {
             "January",
             "February",
             "March",
@@ -294,7 +296,8 @@ def issue_info_to_node(
             "October",
             "November",
             "December",
-        }
+        }:
+            log.error("Unknown month: " + month_text)
         month = etree.Element("month")
         month.text = month_text
         node.append(month)
@@ -321,7 +324,7 @@ if __name__ == "__main__":
     prefix = TACL if is_tacl else CL  # J for CL, Q for TACL.
     year = args.year_root.stem.split(".")[1]
     year_suffix = year[-2:]  # Feels hacky, too.
-    volume_id = prefix + year_suffix
+    volume_id = year + "." + ("tacl" if is_tacl else "cl")
 
     collection = etree.Element("collection")
     collection.attrib["id"] = volume_id
@@ -332,14 +335,14 @@ if __name__ == "__main__":
 
     if args.pdf_save_destination:
         save_destination = args.pdf_save_destination
-        write_to_here = save_destination / "pdf" / prefix / volume_id
+        write_to_here = save_destination / "pdf" / volume_id
         write_to_here.mkdir(parents=True, exist_ok=True)  # destination / Q / Q18
 
     if args.old_version:
         old_version = etree.parse(args.old_version)
         old_root = old_version.getroot()
 
-    previous_issue_info, issue_count = None, 0
+    previous_issue_info = None
 
     i = 1  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
     for xml in sorted(args.year_root.glob("*_a_*/*.xml")):
@@ -351,13 +354,12 @@ if __name__ == "__main__":
 
         if issue_info != previous_issue_info:
             # Emit the new volume info before the paper.
-            log.info(f"New issue; will number it {issue_count + 1}")
+            log.info(f"New issue")
             log.info(f"{issue_info} vs. {previous_issue_info}")
-            previous_issue_info, issue_count = issue_info, issue_count + 1
+            previous_issue_info = issue_info
             volume = etree.Element("volume")  # xml volume = journal issue
             issue_count = issue or "1"
             volume.attrib["id"] = issue_count
-            volume.text = "\n    "
             collection.append(volume)  # xml collection = journal volume
             volume.append(
                 issue_info_to_node(issue_info, year, volume_id, issue_count, is_tacl)
@@ -410,14 +412,16 @@ if __name__ == "__main__":
         volume.append(papernode)
         i += 1
 
-    for paper in volume:
-        for field in paper:
-            field.tail = "\n      "
-        if len(paper):
-            paper.text = "\n      "
-            paper[-1].tail = "\n    "
-        paper.tail = "\n\n    "
-    volume[-1].tail = "\n  "
+    for volume in collection:
+        for paper in volume:
+            for field in paper:
+                field.tail = "\n      "
+            if len(paper):
+                paper.text = "\n      "
+                paper[-1].tail = "\n    "
+            paper.tail = "\n\n    "
+        volume.text = "\n    "
+        volume[-1].tail = "\n  "
     if len(collection):
         collection.text = "\n  "
         collection[-1].tail = "\n"
