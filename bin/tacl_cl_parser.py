@@ -413,4 +413,4 @@ if __name__ == "__main__":
 
     indent(collection)  # from anthology.utils
     et = etree.ElementTree(collection)
-    et.write(args.outfile, encoding="UTF-8", xml_declaration=True , with_tail=True)
+    et.write(args.outfile, encoding="UTF-8", xml_declaration=True, with_tail=True)
