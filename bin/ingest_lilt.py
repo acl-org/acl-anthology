@@ -30,11 +30,15 @@ def main(args):
     anth = anthology.Anthology(importdir=os.path.join(args.anthology, "data"))
     splitter = NameSplitter(anth)
 
+    paper_nums = {}
     venue = "lilt"
     prev_year = None
     prev_volume = None
     for row in csv.DictReader(args.tsv_file, delimiter='\t'):
         year = row.get("year")
+        month = row.get("month")
+        issue = row.get("issue#", "")
+        abstract = row.get("abstract")
         collection_id = f"{year}.lilt"
         if year != prev_year:
             if prev_year is not None:
@@ -54,15 +58,19 @@ def main(args):
             volume = make_simple_element(
                 "volume", attrib={"id": volume_name}, parent=root
             )
-            paper_num = 1
             meta = make_simple_element("meta", parent=volume)
             make_simple_element("booktitle", row.get("Booktitle"), parent=meta)
+            make_simple_element("publisher", "CSLI Publications", parent=meta)
             make_simple_element("year", year, parent=meta)
+            if month:
+                make_simple_element("month", month, parent=meta)
+
+        paper_num = paper_nums[volume_name] = paper_nums.get(volume_name, 0) + 1
+
         prev_volume = volume_name
 
         paper = make_simple_element("paper", attrib={"id": str(paper_num)}, parent=volume)
         paper_id = f"{collection_id}-{volume_name}.{paper_num}"
-        paper_num += 1
         make_simple_element("title", row.get("title"), parent=paper)
         authors = row.get("authors")
         for author_name in authors.split(" and "):
@@ -71,7 +79,10 @@ def main(args):
             make_simple_element("first", givenname, parent=author)
             make_simple_element("last", surname, parent=author)
 
-        make_simple_element("abstract", row.get("abstract"), parent=paper)
+        if abstract != "":
+            make_simple_element("abstract", abstract, parent=paper)
+        if issue != "":
+            make_simple_element("issue", issue, parent=paper)
 
         dest_dir = f"{args.anthology_files_path}/lilt"
         if not os.path.exists(dest_dir):
