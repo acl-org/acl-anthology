@@ -8,20 +8,18 @@ Author: Arya D. McCarthy
 """
 import logging
 import shutil
-import xml.etree.ElementTree as etree
+import lxml.etree as etree
 
 from pathlib import Path
 from typing import List, Optional, Tuple
 
+from normalize_anth import normalize
 from anthology.utils import make_simple_element, indent, compute_hash
 
 __version__ = "0.3"
 
-log = logging.getLogger(__name__ if __name__ != "__main__ " else Path(__file__).stem)
-
-
-TACL = "Q"
-CL = "J"
+TACL = "tacl"
+CL = "cl"
 
 STANDARD_URL = "{volume}-{paper}"
 
@@ -62,7 +60,7 @@ def collapse_spaces(text: str) -> str:
 
 
 def get_volume_info(xml: Path) -> str:
-    log.info("Getting volume info from {}".format(xml))
+    logging.info("Getting volume info from {}".format(xml))
     # So far, their XML for the volume doesn't play nicely with xml.etree. Thus, we hack.
     paper = etree.Element("paper")
     paper.attrib["id"] = "1000"  # hard-code because there's only one collection.
@@ -135,7 +133,7 @@ def get_month(xml_front_node: etree.Element) -> str:
 def get_abstract(xml_front_node: etree.Element) -> str:
     article_meta = xml_front_node.find("article-meta")
     abstract = article_meta.find("abstract")
-    if abstract:
+    if abstract is not None:
         abstract_text = collapse_spaces("".join(abstract.itertext()))
         return abstract_text
     else:
@@ -216,14 +214,14 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
         issue=issue_text,
         date=string_date_text,
     )
-    log.debug(format_string.format(**data))
+    logging.debug(format_string.format(**data))
     return format_string.format(**data), issue_text
 
 
 def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
     logging.info("Reading {}".format(xml))
 
-    tree = etree.parse(xml)
+    tree = etree.parse(str(xml))
     root = tree.getroot()
     front = root.find("front")
 
@@ -257,9 +255,7 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
 
     abstract_text = get_abstract(front)
     if abstract_text:
-        abstract = etree.Element("abstract")
-        abstract.text = abstract_text
-        paper.append(abstract)
+        make_simple_element("abstract", abstract_text, parent=paper)
 
     pages_tuple = get_pages(front)
     pages = etree.Element("pages")
@@ -297,7 +293,7 @@ def issue_info_to_node(
             "November",
             "December",
         }:
-            log.error("Unknown month: " + month_text)
+            logging.error("Unknown month: " + month_text)
         month = etree.Element("month")
         month.text = month_text
         node.append(month)
@@ -321,10 +317,10 @@ if __name__ == "__main__":
 
     is_tacl = "tacl" in args.year_root.stem
 
-    prefix = TACL if is_tacl else CL  # J for CL, Q for TACL.
+    venue = TACL if is_tacl else CL  # J for CL, Q for TACL.
     year = args.year_root.stem.split(".")[1]
     year_suffix = year[-2:]  # Feels hacky, too.
-    volume_id = year + "." + ("tacl" if is_tacl else "cl")
+    volume_id = year + "." + venue
 
     collection = etree.Element("collection")
     collection.attrib["id"] = volume_id
@@ -335,7 +331,7 @@ if __name__ == "__main__":
 
     if args.pdf_save_destination:
         save_destination = args.pdf_save_destination
-        write_to_here = save_destination / "pdf" / volume_id
+        write_to_here = save_destination / "pdf" / venue
         write_to_here.mkdir(parents=True, exist_ok=True)  # destination / Q / Q18
 
     if args.old_version:
@@ -354,8 +350,8 @@ if __name__ == "__main__":
 
         if issue_info != previous_issue_info:
             # Emit the new volume info before the paper.
-            log.info(f"New issue")
-            log.info(f"{issue_info} vs. {previous_issue_info}")
+            logging.info(f"New issue")
+            logging.info(f"{issue_info} vs. {previous_issue_info}")
             previous_issue_info = issue_info
             volume = etree.Element("volume")  # xml volume = journal issue
             issue_count = issue or "1"
@@ -369,7 +365,7 @@ if __name__ == "__main__":
 
         pdf = xml.with_suffix(".pdf")
         if not pdf.is_file():
-            log.error("Missing pdf for " + xml.name)
+            logging.error("Missing pdf for " + xml.name)
         elif args.pdf_save_destination:
             destination = write_to_here / "{}-{}.pdf".format(volume_id, paper_id)
             shutil.copyfile(pdf, destination)
@@ -385,47 +381,36 @@ if __name__ == "__main__":
         if args.old_version:
             old_paper = old_root.find(f"*[@id='{paper_id}']")
             if old_paper is None:
-                log.error(
+                logging.error(
                     f"No old version for {paper_id} with title {papernode.find('title').text}"
                 )
             else:
                 old_video = old_paper.find("video")
-                log.info(old_video)
+                logging.info(old_video)
                 if old_video is not None:
-                    log.info("Had old video!")
+                    logging.info("Had old video!")
                     old_video_href = old_video.attrib["href"]
                     old_video_href_https = old_video_href.replace(
                         "http://", "https://"
                     )  # Fix for techtalkx.tv links
                     old_video.attrib["href"] = old_video_href_https
-                    log.info(old_video_href)
+                    logging.info(old_video_href)
                     papernode.append(old_video)
 
                 old_attachment = old_paper.find("attachment")
-                log.info(old_attachment)
+                logging.info(old_attachment)
                 if old_attachment is not None:
-                    log.info("Had an old attachment!")
+                    logging.info("Had an old attachment!")
                     old_attachment_type = old_attachment.attrib["type"]
-                    log.info(old_attachment_type)
+                    logging.info(old_attachment_type)
                     papernode.append(old_attachment)
 
+        # Normalize
+        for oldnode in papernode:
+            normalize(oldnode, informat="latex")
         volume.append(papernode)
         i += 1
 
-    for volume in collection:
-        for paper in volume:
-            for field in paper:
-                field.tail = "\n      "
-            if len(paper):
-                paper.text = "\n      "
-                paper[-1].tail = "\n    "
-            paper.tail = "\n\n    "
-        volume.text = "\n    "
-        volume[-1].tail = "\n  "
-    if len(collection):
-        collection.text = "\n  "
-        collection[-1].tail = "\n"
-    collection.tail = "\n"
-
+    indent(collection)  # from anthology.utils
     et = etree.ElementTree(collection)
-    et.write(args.outfile, encoding="UTF-8", xml_declaration=True)
+    et.write(args.outfile, encoding="UTF-8", xml_declaration=True , with_tail=True)
