@@ -84,6 +84,9 @@ def main(args):
         if issue != "":
             make_simple_element("issue", issue, parent=paper)
 
+        for node in paper:
+            normalize(node, "latex")
+
         dest_dir = f"{args.anthology_files_path}/lilt"
         if not os.path.exists(dest_dir):
             os.makedirs(dest_dir)
