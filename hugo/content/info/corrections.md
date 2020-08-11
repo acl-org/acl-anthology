@@ -47,6 +47,7 @@ A request to change paper metadata (that does not require any PDF changes) can b
 
 The Anthology team will attend to the correction as we find time.
 Metadata changes are generally accepted if they are consistent with the PDF, which we take as authoritative.
+However, please see the [note below about author changes](#note-on-author-changes).
 
 ### Revisions and errata
 
@@ -69,3 +70,12 @@ Here are some good examples:
 Following these instructions will help us to process corrections more quickly.
 We will do our best to process revisions or errata within four weeks, but make no guarantees as to the processing time.
 Submissions not meeting these standards will be rejected, potentially without notice.
+
+A revision that changes the author list needs permission (see below).
+
+### Note on author changes
+
+Some conferences and workshops have a policy of disallowing authorship changes after the initial submission.
+Because it is beyond our ability to track this, changes to the list of authors, whether in the PDF or in the metadata, require permission from the associated conference program chair or workshop/tutorial chair.
+You are responsible for arranging for this permission to be conveyed to us, either via email or on your Github issue.
+Permission is not required for the correction of obvious spelling errors or other typos or for changes to an author's name.
