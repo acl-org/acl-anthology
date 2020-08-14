@@ -257,15 +257,18 @@ class AnthologyIndex:
                         self.coauthors[id_][co_id] += 1
 
     def verify(self):
-        for name, ids in self.name_to_ids.items():
-            for id_ in ids:
-                cname = self.id_to_canonical[id_]
-                if name != cname and name not in self.id_to_used[id_]:
-                    log.warning(
-                        "Variant name '{}' of '{}' is not used".format(
-                            repr(name), repr(cname)
-                        )
-                    )
+        ## no longer issuing a warning for unused variants
+        ## it is generally a good idea to keep them around in case they pop up again
+        ## if you want to prune them, try clean_name_variants.py
+        # for name, ids in self.name_to_ids.items():
+        #    for id_ in ids:
+        #        cname = self.id_to_canonical[id_]
+        #        if name != cname and name not in self.id_to_used[id_]:
+        #            log.warning(
+        #                "Variant name '{}' of '{}' is not used".format(
+        #                    repr(name), repr(cname)
+        #                )
+        #            )
         for name, d in self.name_to_papers.items():
             if len(d[False]) > 0 and len(d[True]) > 0:
                 log.error(
