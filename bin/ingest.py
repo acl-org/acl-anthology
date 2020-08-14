@@ -94,6 +94,7 @@ def bib2xml(bibfilename, anthology_id):
         'abstract',
         'url',
         'doi',
+        'language',
     ]
 
     collection_id, volume_name, paper_no = deconstruct_anthology_id(anthology_id)
@@ -175,7 +176,7 @@ def main(args):
         meta["collection_id"] = collection_id = (
             meta["year"] + "." + meta["abbrev"].lower()
         )
-        volume_name = meta["volume"]
+        volume_name = meta["volume"].lower()
         volume_full_id = f"{collection_id}-{volume_name}"
 
         if volume_full_id in volumes:
@@ -197,7 +198,7 @@ def main(args):
         root_path = os.path.join(meta["path"], "cdrom")
         collection_id = meta["collection_id"]
         venue_name = meta["abbrev"].lower()
-        volume_name = meta["volume"]
+        volume_name = meta["volume"].lower()
         year = meta["year"]
 
         pdfs_dest_dir = os.path.join(args.pdfs_dir, venue_name)
