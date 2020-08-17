@@ -17,7 +17,7 @@
     {{- end -}}
     <br class="d-none d-sm-inline-block" />
     {{- with $paper.award -}}
-    <span data-toggle=tooltip data-placement=bottom title="{{ . }}">🏆</span>
+    <span data-toggle=tooltip data-placement=bottom title="{{ . }}"><i class="fas fa-award"></i></span>
     {{- end -}}
       {{- range $paper.attachment -}}
         <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
