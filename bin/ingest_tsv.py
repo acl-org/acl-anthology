@@ -124,6 +124,9 @@ def main(args):
             make_simple_element("month", row["Dates held"], parent=meta)
             make_simple_element("year", row["Year"], parent=meta)
 
+            if "isbn" in row and row["isbn"] != "":
+                make_simple_element("isbn", row["isbn"], parent=meta)
+
             url = row["URL"]
 
             if url.endswith(".pdf"):
@@ -179,7 +182,7 @@ def main(args):
     paperid = 0
     # Create entries for all the papers
     for row in csv.DictReader(args.tsv_file, delimiter='\t'):
-        pages = row.get("Pagenumbers", None)
+        pages = row.get("Pages", row.get("Pagenumbers", None))
 
         title_text = row["Title"]
 
