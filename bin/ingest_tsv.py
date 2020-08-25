@@ -31,7 +31,7 @@ import subprocess
 import sys
 import urllib.request
 
-from anthology.utils import make_simple_element, indent, compute_hash
+from anthology.utils import make_simple_element, indent, compute_hash_from_file
 from datetime import datetime
 from normalize_anth import normalize
 
@@ -147,8 +147,7 @@ def main(args):
                     args.anthology_files_path, venue, f"{volume_anth_id}.pdf"
                 )
                 download(proceedings_pdf, pdf_local_path)
-                with open(pdf_local_path, "rb") as f:
-                    checksum = compute_hash(f.read())
+                checksum = compute_hash(pdf_local_path)
                 make_simple_element(
                     "url", volume_anth_id, attrib={"hash": checksum}, parent=meta
                 )
@@ -245,8 +244,12 @@ def main(args):
                     args.anthology_files_path, "..", "attachments", venue, name,
                 )
                 if download(row["Presentation"], local_path):
+                    checksum = compute_hash_from_file(local_path)
                     make_simple_element(
-                        "attachment", name, attrib={"type": "presentation"}, parent=paper
+                        "attachment",
+                        name,
+                        attrib={"type": "presentation", "hash": checksum},
+                        parent=paper,
                     )
 
         # Normalize
