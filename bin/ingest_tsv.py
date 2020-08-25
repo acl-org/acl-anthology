@@ -147,7 +147,7 @@ def main(args):
                     args.anthology_files_path, venue, f"{volume_anth_id}.pdf"
                 )
                 download(proceedings_pdf, pdf_local_path)
-                checksum = compute_hash(pdf_local_path)
+                checksum = compute_hash_from_file(pdf_local_path)
                 make_simple_element(
                     "url", volume_anth_id, attrib={"hash": checksum}, parent=meta
                 )
@@ -227,8 +227,7 @@ def main(args):
             url = anth_id
 
         if url is not None:
-            with open(pdf_local_path, "rb") as f:
-                checksum = compute_hash(f.read())
+            checksum = compute_hash_from_file(pdf_local_path)
 
             make_simple_element("url", url, attrib={"hash": checksum}, parent=paper)
 
