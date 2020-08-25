@@ -218,7 +218,7 @@ def main(args):
         anth_id = f"{collection_id}-{volume_id}.{paperid}"
         pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{anth_id}.pdf")
         url = None
-        if "Pdf" in row and row["Pdf"] != "":
+        if "Pdf" in row and row["Pdf"] != "" and row["Pdf"] is not None:
             if download(row["Pdf"], pdf_local_path):
                 url = anth_id
 
@@ -238,7 +238,7 @@ def main(args):
 
         if "Presentation" in row:
             url = row["Presentation"]
-            if url is not None and url != "" and url != "None":
+            if url is not None and url != "" and url is not None:
                 extension = row["Presentation"].split(".")[-1]
                 name = f"{anth_id}.Presentation.{extension}"
                 local_path = os.path.join(
