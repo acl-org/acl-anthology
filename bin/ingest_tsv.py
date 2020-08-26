@@ -204,7 +204,11 @@ def main(args):
                 continue
             author = make_simple_element("author", parent=paper)
             if ", " in author_name:
-                last, first = author_name.split(", ")
+                try:
+                    last, first = author_name.split(", ")
+                except:
+                    print(f"Couldn't split {author_name}")
+                    sys.exit(1)
             else:
                 first, last = ' '.join(author_name.split()[:-1]), author_name.split()[-1]
             make_simple_element("first", first, parent=author)
