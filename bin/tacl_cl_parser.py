@@ -4,6 +4,31 @@ Convert MIT Press XML files for CL and TACL to Anthology XML.
 
 version 0.3 - produces anthology ID in new format 2020.cl-1.1
 
+Example usage: unpack all the ZIP files from MIT Press. You'll have
+a directory like this:
+
+    ./tacl_a_00296
+    |-- tacl_a_00296.pdf
+    |-- tacl_a_00296.xml
+    ./tacl_a_00297
+    |-- tacl_a_00297.pdf
+    |-- tacl_a_00297.xml
+    ./tacl_a_00298
+    |-- tacl_a_00298.pdf
+    |-- tacl_a_00298.xml
+    ...
+
+Then, run
+
+    /path/to/anthology/tacl_cl_parser.py \
+      --old_version ~/code/acl-anthology/data/xml/2020.tacl.xml \
+      --pdf_save_destination ~/anthology-files \
+      --outfile ~/code/acl-anthology/data/xml/2020.tacl.xml \
+      .
+
+This will (a) generate a new XML file, skipping existing files and
+(b) copy the PDFs where they can be bundled up or rsynced over.
+
 Author: Arya D. McCarthy
 """
 import logging
@@ -14,7 +39,7 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 
 from normalize_anth import normalize
-from anthology.utils import make_simple_element, indent, compute_hash
+from anthology.utils import make_simple_element, indent, compute_hash_from_file
 
 __version__ = "0.3"
 
@@ -37,7 +62,7 @@ def parse_args():
         help="Output XML file (default stdout)",
     )
     parser.add_argument("--pdf_save_destination", default=None, type=Path)
-    parser.add_argument("--old_version", default=None, type=Path, metavar="XML")
+    parser.add_argument("--old_version", default=None, metavar="XML")
 
     verbosity = parser.add_mutually_exclusive_group()
     verbosity.add_argument(
@@ -340,7 +365,7 @@ if __name__ == "__main__":
 
     previous_issue_info = None
 
-    i = 1  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
+    papers = []
     for xml in sorted(args.year_root.glob("*_a_*/*.xml")):
         # print(xml)
 
@@ -348,6 +373,14 @@ if __name__ == "__main__":
         if papernode is None or papernode.find("title").text.startswith("Erratum: “"):
             continue
 
+        papers.append((papernode, issue_info, issue))
+
+    # MIT Press does assign its IDs in page order, so we have to sort by page
+    def sort_papers_by_page(paper_tuple):
+        return int(papernode.find("./pages").text.split("–")[0])
+
+    i = 1  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
+    for papernode, issue_info, issue in sorted(papers, key=sort_papers_by_page):
         if issue_info != previous_issue_info:
             # Emit the new volume info before the paper.
             logging.info(f"New issue")
@@ -369,8 +402,7 @@ if __name__ == "__main__":
         elif args.pdf_save_destination:
             destination = write_to_here / "{}-{}.pdf".format(volume_id, paper_id)
             shutil.copyfile(pdf, destination)
-        with open(pdf, "rb") as f:
-            checksum = compute_hash(f.read())
+        checksum = compute_hash_from_file(pdf)
 
         url_text = STANDARD_URL.format(volume=volume_id, paper=paper_id)
         url = etree.Element("url")
@@ -379,14 +411,17 @@ if __name__ == "__main__":
         papernode.append(url)
 
         if args.old_version:
-            old_paper = old_root.find(f"*[@id='{paper_id}']")
+            doi_text = papernode.find("./doi").text
+            doi_node = old_root.xpath(f'.//doi[text()="{doi_text}"]')
+            old_paper = None
+            if len(doi_node):
+                old_paper = doi_node[0].getparent()
             if old_paper is None:
                 logging.error(
                     f"No old version for {paper_id} with title {papernode.find('title').text}"
                 )
             else:
                 old_video = old_paper.find("video")
-                logging.info(old_video)
                 if old_video is not None:
                     logging.info("Had old video!")
                     old_video_href = old_video.attrib["href"]
@@ -398,7 +433,6 @@ if __name__ == "__main__":
                     papernode.append(old_video)
 
                 old_attachment = old_paper.find("attachment")
-                logging.info(old_attachment)
                 if old_attachment is not None:
                     logging.info("Had an old attachment!")
                     old_attachment_type = old_attachment.attrib["type"]
