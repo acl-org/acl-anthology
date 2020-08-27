@@ -396,7 +396,6 @@ if __name__ == "__main__":
 
         anth_id = f"{volume_id}-{issue_count}.{paper_id}"
 
-
         if not pdf_path.is_file():
             logging.error("Missing pdf for " + pdf_path)
         elif args.pdf_save_destination:
