@@ -49,7 +49,7 @@ def fixedcase_word(w, truelist=None):
     if any(c.isupper() for c in w[1:]):
         # tokenized word with noninitial uppercase
         return True
-    if len(w) == 1 and w.isupper() and w != 'A':
+    if len(w) == 1 and w.isupper() and w not in {'A', 'K', 'N'}:
         # single uppercase letter
         return True
     if len(w) == 2 and w[1] == '.' and w[0].isupper():
