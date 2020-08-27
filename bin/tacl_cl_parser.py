@@ -407,9 +407,13 @@ if __name__ == "__main__":
             volume = collection.find(f'./volume[@id="{issue}"]')
             if volume is None:
                 # xml volume = journal issue
-                volume = make_simple_element("volume", attrib={"id": issue}, parent=collection)
+                volume = make_simple_element(
+                    "volume", attrib={"id": issue}, parent=collection
+                )
                 volume.append(
-                    issue_info_to_node(issue_info, year, collection_id, issue_count, is_tacl)
+                    issue_info_to_node(
+                        issue_info, year, collection_id, issue_count, is_tacl
+                    )
                 )
             else:
                 for paper in volume.findall(".//paper"):
