@@ -2,6 +2,7 @@
 """
 Convert MIT Press XML files for CL and TACL to Anthology XML.
 
+version 0.4 - now updates XML directly, skips existing papers, sorts by page number
 version 0.3 - produces anthology ID in new format 2020.cl-1.1
 
 Example usage: unpack all the ZIP files from MIT Press. You'll have
@@ -18,20 +19,24 @@ a directory like this:
     |-- tacl_a_00298.xml
     ...
 
-Then, run
+Then, in that directory, run:
 
-    /path/to/anthology/tacl_cl_parser.py \
-      --old_version ~/code/acl-anthology/data/xml/2020.tacl.xml \
-      --pdf_save_destination ~/anthology-files \
-      --outfile ~/code/acl-anthology/data/xml/2020.tacl.xml \
-      .
+    /path/to/anthology/tacl_cl_parser.py .
 
-This will (a) generate a new XML file, skipping existing files and
-(b) copy the PDFs where they can be bundled up or rsynced over.
+This will
 
-Author: Arya D. McCarthy
+* infer the path of, then update or create the XML file, skipping existing papers
+* copy new PDFs where they can be bundled up or rsynced over.
+
+It assumes that you are working within a single collection (e.g., a single XML
+file), but there can be multiple volumes (like for CL).
+
+Warning (August 2020): not yet tested with CL, but should work!
+
+Authors: Arya D. McCarthy, Matt Post
 """
 import logging
+import os
 import shutil
 import lxml.etree as etree
 
@@ -41,7 +46,7 @@ from typing import List, Optional, Tuple
 from normalize_anth import normalize
 from anthology.utils import make_simple_element, indent, compute_hash_from_file
 
-__version__ = "0.3"
+__version__ = "0.4"
 
 TACL = "tacl"
 CL = "cl"
@@ -53,14 +58,17 @@ def parse_args():
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("year_root", metavar="FOLDER", type=Path)
+    anthology_path = os.path.join(os.path.dirname(sys.argv[0]), "..")
     parser.add_argument(
-        "--outfile",
-        "-o",
-        default=sys.stdout.buffer,
-        help="Output XML file (default stdout)",
+        "--anthology-dir",
+        "-r",
+        default=anthology_path,
+        help="Root path of ACL Anthology Github repo. Default: %(default)s.",
     )
-    parser.add_argument("--pdf_save_destination", default=None, type=Path)
-    parser.add_argument("--old_version", default=None, metavar="XML")
+    pdfs_path = os.path.join(os.environ["HOME"], "anthology-files")
+    parser.add_argument(
+        "--pdfs-dir", "-p", default=pdfs_path, help="Root path for placement of PDF files"
+    )
 
     verbosity = parser.add_mutually_exclusive_group()
     verbosity.add_argument(
@@ -291,6 +299,7 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
 def issue_info_to_node(
     issue_info: str, year_: str, volume_id: str, issue_counter: int, is_tacl: bool
 ) -> etree.Element:
+    """Creates the meta block for a new issue / volume"""
     node = etree.Element("meta")
 
     assert int(year_)
@@ -343,23 +352,24 @@ if __name__ == "__main__":
     venue = TACL if is_tacl else CL  # J for CL, Q for TACL.
     year = args.year_root.stem.split(".")[1]
     year_suffix = year[-2:]  # Feels hacky, too.
-    volume_id = year + "." + venue
 
-    collection = etree.Element("collection")
-    collection.attrib["id"] = volume_id
+    collection_id = year + "." + venue
+
+    collection_file = os.path.join(
+        args.anthology_dir, "data", "xml", f"{collection_id}.xml"
+    )
+    if os.path.exists(collection_file):
+        collection = etree.parse(collection_file).getroot()
+    else:
+        collection = make_simple_element("collection", attrib={"id": collection_id})
 
     tacl_glob = "tacl.20*.*/tacl.20*.*.xml"
     # volume_info = get_volume_info(list(args.year_root.glob("*.*.*/*.*.*.xml"))[0])
     # volume.append(volume_info)
 
-    if args.pdf_save_destination:
-        save_destination = args.pdf_save_destination
-        write_to_here = save_destination / "pdf" / venue
-        write_to_here.mkdir(parents=True, exist_ok=True)  # destination / Q / Q18
-
-    if args.old_version:
-        old_version = etree.parse(args.old_version)
-        old_root = old_version.getroot()
+    pdf_destination = Path(args.pdfs_dir)
+    pdf_destination = pdf_destination / "pdf" / venue
+    pdf_destination.mkdir(parents=True, exist_ok=True)
 
     previous_issue_info = None
 
@@ -372,36 +382,57 @@ if __name__ == "__main__":
             continue
 
         pdf_path = xml.with_suffix(".pdf")
+        if not pdf_path.is_file():
+            logging.error("Missing pdf for " + pdf_path)
+            sys.exit(1)
+
         papers.append((papernode, pdf_path, issue_info, issue))
 
     # MIT Press does assign its IDs in page order, so we have to sort by page
     def sort_papers_by_page(paper_tuple):
-        return int(papernode.find("./pages").text.split("–")[0])
+        papernode = paper_tuple[0]
+        startpage = int(papernode.find("./pages").text.split("–")[0])
+        return startpage
 
     paper_id = 1  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
     for papernode, pdf_path, issue_info, issue in sorted(papers, key=sort_papers_by_page):
+        issue = issue or "1"
         if issue_info != previous_issue_info:
             # Emit the new volume info before the paper.
             logging.info(f"New issue")
             logging.info(f"{issue_info} vs. {previous_issue_info}")
             previous_issue_info = issue_info
-            volume = etree.Element("volume")  # xml volume = journal issue
-            issue_count = issue or "1"
-            volume.attrib["id"] = issue_count
-            collection.append(volume)  # xml collection = journal volume
-            volume.append(
-                issue_info_to_node(issue_info, year, volume_id, issue_count, is_tacl)
+
+            # Look for node in tree, else create it
+            volume = collection.find(f'./volume[@id="{issue}"]')
+            if volume is None:
+                # xml volume = journal issue
+                volume = make_simple_element("volume", attrib={"id": issue}, parent=collection)
+                volume.append(
+                    issue_info_to_node(issue_info, year, collection_id, issue_count, is_tacl)
+                )
+            else:
+                for paper in volume.findall(".//paper"):
+                    paper_id = max(paper_id, int(paper.attrib["id"]))
+                    print(f"Setting paper_id to {paper_id}")
+                paper_id += 1
+
+        anth_id = f"{collection_id}-{issue}.{paper_id}"
+
+        # Check if the paper is already present in the volume
+        doi_text = papernode.find("./doi").text
+        doi_node = collection.xpath(f'.//doi[text()="{doi_text}"]')
+        if len(doi_node):
+            logging.info(
+                f"Skipping existing paper {anth_id}/{doi_text} with title {papernode.find('title').text}"
             )
+            continue
+
         papernode.attrib["id"] = f"{paper_id}"
 
-        anth_id = f"{volume_id}-{issue_count}.{paper_id}"
-
-        if not pdf_path.is_file():
-            logging.error("Missing pdf for " + pdf_path)
-        elif args.pdf_save_destination:
-            destination = write_to_here / f"{anth_id}.pdf"
-            print(f"Copying {pdf_path} to {destination}")
-            shutil.copyfile(pdf_path, destination)
+        destination = pdf_destination / f"{anth_id}.pdf"
+        print(f"Copying {pdf_path} to {destination}")
+        shutil.copyfile(pdf_path, destination)
         checksum = compute_hash_from_file(pdf_path)
 
         url_text = anth_id
@@ -410,41 +441,13 @@ if __name__ == "__main__":
         url.text = url_text
         papernode.append(url)
 
-        if args.old_version:
-            doi_text = papernode.find("./doi").text
-            doi_node = old_root.xpath(f'.//doi[text()="{doi_text}"]')
-            old_paper = None
-            if len(doi_node):
-                old_paper = doi_node[0].getparent()
-            if old_paper is None:
-                logging.error(
-                    f"No old version for {paper_id} with title {papernode.find('title').text}"
-                )
-            else:
-                old_video = old_paper.find("video")
-                if old_video is not None:
-                    logging.info("Had old video!")
-                    old_video_href = old_video.attrib["href"]
-                    old_video_href_https = old_video_href.replace(
-                        "http://", "https://"
-                    )  # Fix for techtalkx.tv links
-                    old_video.attrib["href"] = old_video_href_https
-                    logging.info(old_video_href)
-                    papernode.append(old_video)
-
-                old_attachment = old_paper.find("attachment")
-                if old_attachment is not None:
-                    logging.info("Had an old attachment!")
-                    old_attachment_type = old_attachment.attrib["type"]
-                    logging.info(old_attachment_type)
-                    papernode.append(old_attachment)
-
         # Normalize
         for oldnode in papernode:
             normalize(oldnode, informat="latex")
         volume.append(papernode)
+
         paper_id += 1
 
     indent(collection)  # from anthology.utils
     et = etree.ElementTree(collection)
-    et.write(args.outfile, encoding="UTF-8", xml_declaration=True, with_tail=True)
+    et.write(collection_file, encoding="UTF-8", xml_declaration=True, with_tail=True)
