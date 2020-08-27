@@ -46,8 +46,6 @@ __version__ = "0.3"
 TACL = "tacl"
 CL = "cl"
 
-STANDARD_URL = "{volume}-{paper}"
-
 
 def parse_args():
     """Parse command line arguments."""
@@ -373,14 +371,15 @@ if __name__ == "__main__":
         if papernode is None or papernode.find("title").text.startswith("Erratum: “"):
             continue
 
-        papers.append((papernode, issue_info, issue))
+        pdf_path = xml.with_suffix(".pdf")
+        papers.append((papernode, pdf_path, issue_info, issue))
 
     # MIT Press does assign its IDs in page order, so we have to sort by page
     def sort_papers_by_page(paper_tuple):
         return int(papernode.find("./pages").text.split("–")[0])
 
-    i = 1  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
-    for papernode, issue_info, issue in sorted(papers, key=sort_papers_by_page):
+    paper_id = 1  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
+    for papernode, pdf_path, issue_info, issue in sorted(papers, key=sort_papers_by_page):
         if issue_info != previous_issue_info:
             # Emit the new volume info before the paper.
             logging.info(f"New issue")
@@ -393,18 +392,20 @@ if __name__ == "__main__":
             volume.append(
                 issue_info_to_node(issue_info, year, volume_id, issue_count, is_tacl)
             )
-        papernode.attrib["id"] = f"{i}"
-        paper_id = get_paperid(xml, i, issue_count)
+        papernode.attrib["id"] = f"{paper_id}"
 
-        pdf = xml.with_suffix(".pdf")
-        if not pdf.is_file():
-            logging.error("Missing pdf for " + xml.name)
+        anth_id = f"{volume_id}-{issue_count}.{paper_id}"
+
+
+        if not pdf_path.is_file():
+            logging.error("Missing pdf for " + pdf_path)
         elif args.pdf_save_destination:
-            destination = write_to_here / "{}-{}.pdf".format(volume_id, paper_id)
-            shutil.copyfile(pdf, destination)
-        checksum = compute_hash_from_file(pdf)
+            destination = write_to_here / f"{anth_id}.pdf"
+            print(f"Copying {pdf_path} to {destination}")
+            shutil.copyfile(pdf_path, destination)
+        checksum = compute_hash_from_file(pdf_path)
 
-        url_text = STANDARD_URL.format(volume=volume_id, paper=paper_id)
+        url_text = anth_id
         url = etree.Element("url")
         url.attrib["hash"] = checksum
         url.text = url_text
@@ -443,7 +444,7 @@ if __name__ == "__main__":
         for oldnode in papernode:
             normalize(oldnode, informat="latex")
         volume.append(papernode)
-        i += 1
+        paper_id += 1
 
     indent(collection)  # from anthology.utils
     et = etree.ElementTree(collection)
