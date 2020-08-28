@@ -81,7 +81,9 @@ def create_papers(srcdir, clean=False):
             data = yaml.load(f, Loader=Loader)
         # Create a paper stub for each entry in the volume
         for anthology_id, entry in data.items():
-            paper_dir = "{}/content/papers/{}".format(srcdir, anthology_id.split("-")[0])
+            paper_dir = "{}/content/papers/{}".format(
+                srcdir, anthology_id.split("-")[0]
+            )
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
@@ -108,7 +110,9 @@ def create_volumes(srcdir, clean=False):
     for anthology_id, entry in data.items():
         with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "w") as f:
             print("---", file=f)
-            paper_dir = "/papers/{}/{}/".format(anthology_id.split("-")[0], anthology_id)
+            paper_dir = "/papers/{}/{}/".format(
+                anthology_id.split("-")[0], anthology_id
+            )
             yaml.dump(
                 {
                     "anthology_id": anthology_id,
@@ -141,7 +145,11 @@ def create_people(srcdir, clean=False):
             person_dir = "{}/content/people/{}".format(srcdir, name[0])
             if not os.path.exists(person_dir):
                 os.makedirs(person_dir)
-            yaml_data = {"name": name, "title": entry["full"], "lastname": entry["last"]}
+            yaml_data = {
+                "name": name,
+                "title": entry["full"],
+                "lastname": entry["last"],
+            }
             with open("{}/{}.md".format(person_dir, name), "w") as f:
                 print("---", file=f)
                 # "lastname" is dumped to allow sorting by it in Hugo
