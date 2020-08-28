@@ -63,7 +63,7 @@ def validate_file_type(path):
     """Ensure downloaded file mime type matches its extension (e.g., PDF)"""
     detected = filetype.guess(path)
     if detected is None or not detected.mime.endswith(detected.extension):
-        mime_type = 'UNKNOWN' if detected is None else detected.mime
+        mime_type = "UNKNOWN" if detected is None else detected.mime
         print(
             f"FATAL: {args.anthology_id} file {path} has MIME type {mime_type}",
             file=sys.stderr,
@@ -74,7 +74,8 @@ def validate_file_type(path):
 def download_file(source, dest):
     try:
         print(
-            f"-> Downloading file from {source} to {dest}", file=sys.stderr,
+            f"-> Downloading file from {source} to {dest}",
+            file=sys.stderr,
         )
         with urllib.request.urlopen(source) as url, open(dest, mode="wb") as fh:
             fh.write(url.read())
@@ -89,7 +90,9 @@ def download_file(source, dest):
 def main(args):
     def maybe_copy(file_from, file_to):
         if not args.dry_run:
-            print("-> Copying from {} -> {}".format(file_from, file_to), file=sys.stderr)
+            print(
+                "-> Copying from {} -> {}".format(file_from, file_to), file=sys.stderr
+            )
             shutil.copy(file_from, file_to)
             os.chmod(file_to, 0o644)
         else:

@@ -34,7 +34,7 @@ def main(args):
     venue = "lilt"
     prev_year = None
     prev_volume = None
-    for row in csv.DictReader(args.tsv_file, delimiter='\t'):
+    for row in csv.DictReader(args.tsv_file, delimiter="\t"):
         year = row.get("year")
         month = row.get("month")
         issue = row.get("issue#", "")
@@ -44,7 +44,9 @@ def main(args):
             if prev_year is not None:
                 dump_collection(
                     tree,
-                    os.path.join(args.anthology, "data", "xml", f"{prev_year}.lilt.xml"),
+                    os.path.join(
+                        args.anthology, "data", "xml", f"{prev_year}.lilt.xml"
+                    ),
                 )
 
             tree = etree.ElementTree(
@@ -69,7 +71,9 @@ def main(args):
 
         prev_volume = volume_name
 
-        paper = make_simple_element("paper", attrib={"id": str(paper_num)}, parent=volume)
+        paper = make_simple_element(
+            "paper", attrib={"id": str(paper_num)}, parent=volume
+        )
         paper_id = f"{collection_id}-{volume_name}.{paper_num}"
         make_simple_element("title", row.get("title"), parent=paper)
         authors = row.get("authors")
@@ -102,25 +106,27 @@ def main(args):
             print(f"Copying {source_path} to {dest_path}", file=sys.stderr)
             os.chmod(dest_path, 0o644)
             checksum = compute_hash_from_file(dest_path)
-            make_simple_element("url", paper_id, attrib={"hash": checksum}, parent=paper)
+            make_simple_element(
+                "url", paper_id, attrib={"hash": checksum}, parent=paper
+            )
 
     dump_collection(
         tree, os.path.join(args.anthology, "data", "xml", f"{collection_id}.xml")
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('tsv_file', type=argparse.FileType("r"))
+    parser.add_argument("tsv_file", type=argparse.FileType("r"))
     parser.add_argument(
-        '--anthology',
+        "--anthology",
         default=f"{os.environ.get('HOME')}/code/acl-anthology",
         help="Path to Anthology repo (cloned from https://github.com/acl-org/acl-anthology)",
     )
     parser.add_argument(
-        '--anthology-files-path',
+        "--anthology-files-path",
         default=f"{os.environ.get('HOME')}/anthology-files/pdf",
         help="Path to Anthology files (Default: ~/anthology-files",
     )

@@ -25,7 +25,7 @@ def read_bibtex(bibfilename):
 
     bibbytes = open(bibfilename, "rb").read()
     bibstring = None
-    for encoding in ['ascii', 'utf8', 'cp1252']:
+    for encoding in ["ascii", "utf8", "cp1252"]:
         try:
             bibstring = bibbytes.decode(encoding)
         except UnicodeDecodeError:
@@ -34,9 +34,9 @@ def read_bibtex(bibfilename):
         break
     else:
         logging.warning("couldn't figure out encoding; using ascii with escapes")
-        bibstring = bibbytes.decode('ascii', 'backslashreplace')
+        bibstring = bibbytes.decode("ascii", "backslashreplace")
 
-    if bibstring.startswith('\uFEFF'):
+    if bibstring.startswith("\uFEFF"):
         bibstring = bibstring[1:]  # Unicode BOM
 
     # for parser in [lambda s: pybtex.database.parse_string(s, 'bibtex'),

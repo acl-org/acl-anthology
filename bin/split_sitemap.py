@@ -74,7 +74,11 @@ if __name__ == "__main__":
         basename = os.path.splitext(args["SITEMAP"])[0]
         for n, root in enumerate(all_roots):
             with open("{}_{}.xml".format(basename, n + 1), "w") as f:
-                print('<?xml version="1.0" encoding="utf-8" standalone="yes" ?>', file=f)
-                print(etree.tostring(root, encoding="unicode", pretty_print=True), file=f)
+                print(
+                    '<?xml version="1.0" encoding="utf-8" standalone="yes" ?>', file=f
+                )
+                print(
+                    etree.tostring(root, encoding="unicode", pretty_print=True), file=f
+                )
     else:
         print(f"Only found {i} entries, no need to split.", file=sys.stderr)

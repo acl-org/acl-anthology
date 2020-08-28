@@ -71,7 +71,9 @@ def create_bibtex(anthology, trgdir, clean=False):
             volume_dir = trgdir
             if not os.path.exists(volume_dir):
                 os.makedirs(volume_dir)
-            with open("{}/volumes/{}.bib".format(trgdir, volume_id), "w") as file_volume:
+            with open(
+                "{}/volumes/{}.bib".format(trgdir, volume_id), "w"
+            ) as file_volume:
                 for paper in volume:
                     with open(
                         "{}/{}.bib".format(volume_dir, paper.full_id), "w"
