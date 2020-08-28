@@ -40,6 +40,7 @@ def download(remote_path, local_path):
     if os.path.exists(local_path):
         print(f"{local_path} already exists, not re-downloading", file=sys.stderr)
         return True
+
     local_dir = os.path.dirname(local_path)
     if not os.path.exists(local_dir):
         print(f"Creating directory {local_dir}", file=sys.stderr)
@@ -264,11 +265,7 @@ def main(args):
                     make_simple_element(
                         "attachment",
                         name,
-<<<<<<< HEAD
                         attrib={"type": "presentation", "hash": checksum},
-=======
-                        attrib={"type": "presentation"},
->>>>>>> master
                         parent=paper,
                     )
 
