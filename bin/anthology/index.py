@@ -55,7 +55,9 @@ class AnthologyIndex:
             {}
         )  # maps ids to comments (used for distinguishing authors with same name)
         self.similar = defaultdict(set)
-        self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
+        self.id_to_papers = defaultdict(
+            lambda: defaultdict(list)
+        )  # id -> role -> papers
         self.name_to_papers = defaultdict(
             lambda: defaultdict(list)
         )  # name -> (explicit id?) -> papers; used only for error checking
@@ -105,7 +107,9 @@ class AnthologyIndex:
                             "Tried to add '{}' as variant of '{}', but is already a variant of '{}'".format(
                                 repr(variant),
                                 repr(canonical),
-                                repr(self.id_to_canonical[self.name_to_ids[variant][0]]),
+                                repr(
+                                    self.id_to_canonical[self.name_to_ids[variant][0]]
+                                ),
                             )
                         )
                         continue
@@ -117,7 +121,7 @@ class AnthologyIndex:
                     for other in entry["similar"]:
                         if id_ not in self.similar[other]:
                             log.debug(
-                                'inferring similar name {} -> {}'.format(other, id_)
+                                "inferring similar name {} -> {}".format(other, id_)
                             )
                         self.similar[other].add(id_)
 
@@ -130,7 +134,7 @@ class AnthologyIndex:
                     for z in list(self.similar[y]):
                         if z != x and z not in self.similar[x]:
                             self.similar[x].add(z)
-                            log.debug('inferring similar name {} -> {}'.format(x, z))
+                            log.debug("inferring similar name {} -> {}".format(x, z))
                             again = True
 
     def _is_stopword(self, word, paper):
