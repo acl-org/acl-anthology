@@ -48,7 +48,11 @@ import time
 
 from lxml import etree
 
-from anthology.utils import deconstruct_anthology_id, make_simple_element, is_newstyle_id
+from anthology.utils import (
+    deconstruct_anthology_id,
+    make_simple_element,
+    is_newstyle_id,
+)
 from anthology.data import ANTHOLOGY_URL, DOI_PREFIX
 from anthology.formatter import MarkupFormatter
 
@@ -75,8 +79,7 @@ MONTH_HASH = {
 
 # FUNCTION DEFINITIONS
 def prettify(elem):
-    """Return a pretty-printed XML string for the Element.
-    """
+    """Return a pretty-printed XML string for the Element."""
     rough_string = etree.tostring(elem, "utf-8")
     reparsed = minidom.parseString(rough_string)
     return reparsed.toprettyxml(indent="  ")
@@ -102,7 +105,9 @@ def main(volumes):
     head = make_simple_element("head", parent=new_volume.getroot())
     dbi = make_simple_element("doi_batch_id", text=str(int(time.time())), parent=head)
 
-    timestamp = make_simple_element("timestamp", text=str(int(time.time())), parent=head)
+    timestamp = make_simple_element(
+        "timestamp", text=str(int(time.time())), parent=head
+    )
 
     depositor = make_simple_element("depositor", parent=head)
     depositor_name = make_simple_element(

@@ -71,7 +71,9 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
             print(
                 f"-> Downloading file from {path} to {input_file_path}", file=sys.stderr
             )
-            request = urllib.request.Request(path, headers={'User-Agent': 'Mozilla/5.0'})
+            request = urllib.request.Request(
+                path, headers={"User-Agent": "Mozilla/5.0"}
+            )
             with urllib.request.urlopen(request) as url, open(
                 input_file_path, mode="wb"
             ) as input_file_fh:
@@ -127,7 +129,8 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
             indent(tree.getroot())
             tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
             print(
-                f"-> added attachment {attachment_file_name} to the XML", file=sys.stderr
+                f"-> added attachment {attachment_file_name} to the XML",
+                file=sys.stderr,
             )
 
     else:
@@ -150,7 +153,9 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
 
     shutil.copy(input_file_path, dest_path)
     os.chmod(dest_path, 0o644)
-    print(f"-> copied {input_file_path} to {dest_path} and fixed perms", file=sys.stderr)
+    print(
+        f"-> copied {input_file_path} to {dest_path} and fixed perms", file=sys.stderr
+    )
 
     # Clean up
     if path.startswith("http"):

@@ -45,7 +45,9 @@ def download(remote_path, local_path):
         print(f"Creating directory {local_dir}", file=sys.stderr)
         os.makedirs(local_dir)
     try:
-        print(f"-> Downloading file from {remote_path} to {local_path}", file=sys.stderr)
+        print(
+            f"-> Downloading file from {remote_path} to {local_path}", file=sys.stderr
+        )
         with urllib.request.urlopen(remote_path) as url, open(
             local_path, mode="wb"
         ) as input_file_fh:
@@ -72,7 +74,7 @@ def extract_pages(source_path, page_range, local_path):
     try:
         if "--" in page_range:
             page_range = page_range.replace("--", "-")
-        page_range = ' A'.join(page_range.split(','))
+        page_range = " A".join(page_range.split(","))
         print(
             f"-> Extracting pages {page_range} from {source_path} to {local_path}",
             file=sys.stderr,
@@ -106,7 +108,9 @@ def main(args):
     now = datetime.now()
     today = f"{now.year}-{now.month:02d}-{now.day:02d}"
 
-    volume = make_simple_element("volume", attrib={"id": volume_id, "ingest-date": today})
+    volume = make_simple_element(
+        "volume", attrib={"id": volume_id, "ingest-date": today}
+    )
     tree.getroot().insert(0, volume)
 
     # Location of entire-proceedings PDF
@@ -161,7 +165,7 @@ def main(args):
                         last, first = editor_name.split(", ")
                     else:
                         first, last = (
-                            ' '.join(editor_name.split()[:-1]),
+                            " ".join(editor_name.split()[:-1]),
                             editor_name.split()[-1],
                         )
                     make_simple_element("first", first, parent=editor)
@@ -180,7 +184,7 @@ def main(args):
 
     paperid = 0
     # Create entries for all the papers
-    for row in csv.DictReader(args.tsv_file, delimiter='\t'):
+    for row in csv.DictReader(args.tsv_file, delimiter="\t"):
         pages = row.get("Pages", row.get("Pagenumbers", None))
 
         title_text = row["Title"]
@@ -210,7 +214,10 @@ def main(args):
                     print(f"Couldn't split {author_name}")
                     sys.exit(1)
             else:
-                first, last = ' '.join(author_name.split()[:-1]), author_name.split()[-1]
+                first, last = (
+                    " ".join(author_name.split()[:-1]),
+                    author_name.split()[-1],
+                )
             make_simple_element("first", first, parent=author)
             make_simple_element("last", last, parent=author)
 
@@ -219,7 +226,9 @@ def main(args):
 
         # Find the PDF, either listed directly, or extracted from the proceedings PDF
         anth_id = f"{collection_id}-{volume_id}.{paperid}"
-        pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{anth_id}.pdf")
+        pdf_local_path = os.path.join(
+            args.anthology_files_path, venue, f"{anth_id}.pdf"
+        )
         url = None
         if "Pdf" in row and row["Pdf"] != "" and row["Pdf"] is not None:
             if download(row["Pdf"], pdf_local_path):
@@ -244,14 +253,22 @@ def main(args):
                 extension = row["Presentation"].split(".")[-1]
                 name = f"{anth_id}.Presentation.{extension}"
                 local_path = os.path.join(
-                    args.anthology_files_path, "..", "attachments", venue, name,
+                    args.anthology_files_path,
+                    "..",
+                    "attachments",
+                    venue,
+                    name,
                 )
                 if download(row["Presentation"], local_path):
                     checksum = compute_hash_from_file(local_path)
                     make_simple_element(
                         "attachment",
                         name,
+<<<<<<< HEAD
                         attrib={"type": "presentation", "hash": checksum},
+=======
+                        attrib={"type": "presentation"},
+>>>>>>> master
                         parent=paper,
                     )
 
@@ -262,31 +279,35 @@ def main(args):
     indent(tree.getroot())
 
     # Write the file to disk: acl-anthology/data/xml/{collection_id}.xml
-    collection_file = os.path.join(args.anthology, "data", "xml", f"{collection_id}.xml")
+    collection_file = os.path.join(
+        args.anthology, "data", "xml", f"{collection_id}.xml"
+    )
     tree.write(collection_file, encoding="UTF-8", xml_declaration=True, with_tail=True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('tsv_file', type=argparse.FileType("r"))
+    parser.add_argument("tsv_file", type=argparse.FileType("r"))
     parser.add_argument(
-        'meta_file', type=argparse.FileType("r"), help="Path to conference metadata file"
+        "meta_file",
+        type=argparse.FileType("r"),
+        help="Path to conference metadata file",
     )
     parser.add_argument(
-        '--anthology',
+        "--anthology",
         default=f"{os.environ.get('HOME')}/code/acl-anthology",
         help="Path to Anthology repo (cloned from https://github.com/acl-org/acl-anthology)",
     )
     parser.add_argument(
-        '--anthology-files-path',
+        "--anthology-files-path",
         default=f"{os.environ.get('HOME')}/anthology-files/pdf",
         help="Path to Anthology files (Default: ~/anthology-files",
     )
 
-    parser.add_argument('--proceedings', help="Path to PDF with conference proceedings")
-    parser.add_argument('--frontmatter', action="store_true")
+    parser.add_argument("--proceedings", help="Path to PDF with conference proceedings")
+    parser.add_argument("--frontmatter", action="store_true")
     parser.add_argument("--force", "-f", action="store_true")
     args = parser.parse_args()
 
