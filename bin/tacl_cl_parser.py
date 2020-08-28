@@ -41,13 +41,19 @@ def parse_args():
 
     verbosity = parser.add_mutually_exclusive_group()
     verbosity.add_argument(
-        "-v", "--verbose", action="store_const", const=logging.DEBUG, default=logging.INFO
+        "-v",
+        "--verbose",
+        action="store_const",
+        const=logging.DEBUG,
+        default=logging.INFO,
     )
     verbosity.add_argument(
         "-q", "--quiet", dest="verbose", action="store_const", const=logging.WARNING
     )
 
-    parser.add_argument("--version", action="version", version=f"%(prog)s v{__version__}")
+    parser.add_argument(
+        "--version", action="version", version=f"%(prog)s v{__version__}"
+    )
 
     args = parser.parse_args()
     args.year_root = args.year_root.resolve()  # Get absolute path.
@@ -186,9 +192,11 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
     journal_title_text = " ".join(
         journal_title_text.split()
     )  # Sometimes it's split onto two lines...
-    journal_title_text = journal_title_text.replace(  # Somebody in 2018 didn't know our name?
-        "Association of Computational Linguistics",
-        "Association for Computational Linguistics",
+    journal_title_text = (
+        journal_title_text.replace(  # Somebody in 2018 didn't know our name?
+            "Association of Computational Linguistics",
+            "Association for Computational Linguistics",
+        )
     )
     volume_text = volume.text.lstrip(
         "0"

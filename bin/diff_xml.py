@@ -204,7 +204,9 @@ def unified_diff(oldtree, newtree):
                             "{:5d} {:5s} - {}".format(
                                 oldchildren[k].sourceline,
                                 "",
-                                oldcolor + tostring(oldchildren[k], max_length) + nocolor,
+                                oldcolor
+                                + tostring(oldchildren[k], max_length)
+                                + nocolor,
                             )
                         )
                     for k in range(ni, nj):
@@ -212,7 +214,9 @@ def unified_diff(oldtree, newtree):
                             "{:5s} {:5d} + {}".format(
                                 "",
                                 newchildren[k].sourceline,
-                                newcolor + tostring(newchildren[k], max_length) + nocolor,
+                                newcolor
+                                + tostring(newchildren[k], max_length)
+                                + nocolor,
                             )
                         )
                 else:

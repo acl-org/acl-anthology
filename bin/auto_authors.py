@@ -110,7 +110,9 @@ def get_url(url, retries=10):
             raise
         except requests.exceptions.Timeout:
             delay += 1.0
-            logger.warning("connection timed out; increasing delay to {} s".format(delay))
+            logger.warning(
+                "connection timed out; increasing delay to {} s".format(delay)
+            )
             return get_url(url, retries - 1)
         except Exception as e:
             logger.error(str(e))
@@ -227,7 +229,9 @@ def merge_people(variants, can1, can2):
             i2 = i
     if i1 is not None and i2 is not None:
         logger.error(
-            "Please manually merge '{}' and '{}' in name_variants.yaml".format(can1, can2)
+            "Please manually merge '{}' and '{}' in name_variants.yaml".format(
+                can1, can2
+            )
         )
         return
     elif i1 is not None:

@@ -146,7 +146,9 @@ if __name__ == "__main__":
     tracker = SeverityTracker()
     log.getLogger().addHandler(tracker)
 
-    opts = dict(list_remaining=bool(args["--list-remaining"]),)
+    opts = dict(
+        list_remaining=bool(args["--list-remaining"]),
+    )
     main(args["--importdir"], args["FILELIST"], opts)
 
     if tracker.highest >= log.ERROR:
