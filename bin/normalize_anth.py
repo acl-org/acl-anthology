@@ -194,7 +194,9 @@ if __name__ == "__main__":
     import sys
     import argparse
 
-    ap = argparse.ArgumentParser(description="Convert Anthology XML to standard format.")
+    ap = argparse.ArgumentParser(
+        description="Convert Anthology XML to standard format."
+    )
     ap.add_argument("infile", help="XML file to read")
     ap.add_argument("outfile", help="XML file to write")
     ap.add_argument(

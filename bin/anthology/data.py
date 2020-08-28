@@ -50,7 +50,9 @@ def get_journal_title(top_level_id, volume_title):
     # TODO: consider moving this from code to data (perhaps
     # under <booktitle> in the volume metadata
 
-    top_level_id = top_level_id.split(".")[-1]  # for new-style IDs; is a no-op otherwise
+    top_level_id = top_level_id.split(".")[
+        -1
+    ]  # for new-style IDs; is a no-op otherwise
 
     if top_level_id == "cl":
         return "Computational Linguistics"

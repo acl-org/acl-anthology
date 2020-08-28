@@ -80,7 +80,8 @@ def distance(x, y):
 
                     if i > 0 and ii == 0 and j > 0 and jj == 0:
                         d[i, ii, j, jj] = min(
-                            d[i, ii, j, jj], d[i - 1, len(x[i - 1]), j - 1, len(y[j - 1])]
+                            d[i, ii, j, jj],
+                            d[i - 1, len(x[i - 1]), j - 1, len(y[j - 1])],
                         )  # no change (space)
                         for kk in range(1, len(x[i - 1])):
                             d[i, ii, j, jj] = min(
