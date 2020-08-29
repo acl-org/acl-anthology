@@ -39,9 +39,7 @@ class VenueIndex:
             venue_dict = yaml.load(f, Loader=Loader)
             for key, val in venue_dict.items():
                 if "acronym" not in val:
-                    log.critical(
-                        f"Venues must have 'acronym' - none defined for '{key}'"
-                    )
+                    log.critical(f"Venues must have 'acronym' - none defined for '{key}'")
                 if "name" not in val:
                     log.error(f"Venues must have 'name' - none defined for '{key}'")
                 if val["acronym"] in self.venues:

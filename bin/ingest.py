@@ -82,22 +82,22 @@ def bib2xml(bibfilename, anthology_id):
     """
 
     fields = [
-        "title",
-        "author",
-        "editor",
-        "booktitle",
-        "month",
-        "year",
-        "address",
-        "publisher",
-        "pages",
-        "abstract",
-        "url",
-        "doi",
+        'title',
+        'author',
+        'editor',
+        'booktitle',
+        'month',
+        'year',
+        'address',
+        'publisher',
+        'pages',
+        'abstract',
+        'url',
+        'doi',
     ]
 
     collection_id, volume_name, paper_no = deconstruct_anthology_id(anthology_id)
-    if paper_no == "":
+    if paper_no == '':
         return  # skip the master bib file; we only process the individual files
 
     bibdata = read_bibtex(bibfilename)
@@ -114,34 +114,34 @@ def bib2xml(bibfilename, anthology_id):
             log(f"unknown field {field}")
 
     for field in fields:
-        if field in ["author", "editor"]:
+        if field in ['author', 'editor']:
             if field in bibentry.persons:
                 for person in bibentry.persons[field]:
-                    first_text = " ".join(person.bibtex_first_names)
-                    last_text = " ".join(person.prelast_names + person.last_names)
+                    first_text = ' '.join(person.bibtex_first_names)
+                    last_text = ' '.join(person.prelast_names + person.last_names)
                     if person.lineage_names:
-                        last_text += ", " + " ".join(person.lineage_names)
+                        last_text += ', ' + ' '.join(person.lineage_names)
 
                     # Don't distinguish between authors that have only a first name
                     # vs. authors that have only a last name; always make it a last name.
                     if last_text.strip() in [
-                        "",
-                        "-",
+                        '',
+                        '-',
                     ]:  # Some START users have '-' for null
                         last_text = first_text
-                        first_text = ""
+                        first_text = ''
 
                     name_node = make_simple_element(field, parent=paper)
                     make_simple_element("first", first_text, parent=name_node)
                     make_simple_element("last", last_text, parent=name_node)
         else:
-            if field == "url":
+            if field == 'url':
                 value = f"{anthology_id}"
             elif field in bibentry.fields:
                 value = bibentry.fields[field]
-            elif field == "bibtype":
+            elif field == 'bibtype':
                 value = bibentry.type
-            elif field == "bibkey":
+            elif field == 'bibkey':
                 value = bibkey
             else:
                 continue
@@ -157,8 +157,7 @@ def main(args):
 
     anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
     venue_keys = [
-        venue["slug"].lower()
-        for _, venue in VenueIndex(srcdir=anthology_datadir).items()
+        venue["slug"].lower() for _, venue in VenueIndex(srcdir=anthology_datadir).items()
     ]
 
     # Build list of volumes, confirm uniqueness
@@ -277,9 +276,9 @@ def main(args):
                     log(f"Copying {attachment_file} -> {dest_path}", args.dry_run)
                     shutil.copyfile(attachment_file_path, dest_path)
 
-                collections[collection_id][volume_name][paper_num][
-                    "attachments"
-                ].append((dest_path, type_))
+                collections[collection_id][volume_name][paper_num]["attachments"].append(
+                    (dest_path, type_)
+                )
 
     people = AnthologyIndex(None, srcdir=anthology_datadir)
 
@@ -417,9 +416,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "proceedings",
-        nargs="+",
-        help="List of paths to ACLPUB proceedings/ directories.",
+        "proceedings", nargs="+", help="List of paths to ACLPUB proceedings/ directories."
     )
     parser.add_argument(
         "--ingest-date",
@@ -437,14 +434,9 @@ if __name__ == "__main__":
     )
     pdfs_path = os.path.join(os.environ["HOME"], "anthology-files", "pdf")
     parser.add_argument(
-        "--pdfs-dir",
-        "-p",
-        default=pdfs_path,
-        help="Root path for placement of PDF files",
+        "--pdfs-dir", "-p", default=pdfs_path, help="Root path for placement of PDF files"
     )
-    attachments_path = os.path.join(
-        os.environ["HOME"], "anthology-files", "attachments"
-    )
+    attachments_path = os.path.join(os.environ["HOME"], "anthology-files", "attachments")
     parser.add_argument(
         "--attachments-dir",
         "-a",

@@ -102,9 +102,7 @@ class TexMath:
                 else:
                     self._parse(TexSoup.TexSoup(code.value).expr.everything, trg)
             else:
-                log.error(
-                    "TeX-math parser got unhandled element: {}".format(type(code))
-                )
+                log.error("TeX-math parser got unhandled element: {}".format(type(code)))
 
     def _parse_command(self, code, trg):
         args = list(code.arguments)
