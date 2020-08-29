@@ -29,9 +29,7 @@ except ImportError:
 
 
 SIGEvent = namedtuple(
-    "SIGEvent",
-    ["anthology_id", "name", "url", "year"],
-    defaults=[None, None, None, None],
+    "SIGEvent", ["anthology_id", "name", "url", "year"], defaults=[None, None, None, None]
 )
 
 
