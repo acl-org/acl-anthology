@@ -14,12 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import itertools as it
+import logging
+import os
+import re
+import requests
+
 from lxml import etree
 from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
-import itertools as it
-import logging
-import re
+from typing import Tuple, Optional
+from zlib import crc32
 
 from .people import PersonName
 from . import data
@@ -28,64 +33,159 @@ from . import data
 xml_escape_or_none = lambda t: None if t is None else xml_escape(t)
 
 
+def is_newstyle_id(anthology_id):
+    return anthology_id[0].isdigit()  # New-style IDs are year-first
+
+
 def is_journal(anthology_id):
-    return anthology_id[0] in ("J", "Q")
+    if is_newstyle_id(anthology_id):
+        # TODO: this function is sometimes called with "full_id", sometimes with
+        # "collection_id", so we're not using `deconstruct_anthology_id` here at
+        # the moment
+        venue = anthology_id.split("-")[0].split(".")[-1]
+        return venue in data.JOURNAL_IDS
+    else:
+        return anthology_id[0] in ("J", "Q")
 
 
 def is_volume_id(anthology_id):
-    return (
-        anthology_id[-3:] == "000"
-        or (anthology_id[0] == "W" and anthology_id[-2:] == "00")
-        or (anthology_id[:3] == "C69" and anthology_id[-2:] == "00")
-    )
+    collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
+    return paper_id == "0"
 
 
-def build_anthology_id(collection_id, volume_id, paper_id):
+def is_valid_id(id_):
+    """
+    Determines whether the identifier has a valid Anthology identifier format (paper or volume).
+    """
+    match = re.match(r"([A-Z]\d{2})-(\d{1,4})", id_)
+    if not re.match(r"[A-Z]\d{2}-\d{1,3}", id_):
+        return False
+
+    first, rest = match.groups()
+
+    if len(rest) != 4:
+        if (
+            first.startswith("W")
+            or first == "C69"
+            or (first == "D19" and int(rest[0]) >= 5)
+        ):
+            return len(rest) == 2
+        else:
+            return len(rest) == 1
+
+    return True
+
+
+def build_anthology_id(
+    collection_id: str, volume_id: str, paper_id: Optional[str] = None
+) -> str:
     """
     Transforms collection id, volume id, and paper id to a width-padded
     Anthology ID. e.g., ('P18', '1', '1') -> P18-1001.
     """
-    if collection_id.startswith('W') or collection_id == 'C69':
-        return '{}-{:02d}{:02d}'.format(collection_id, int(volume_id), int(paper_id))
+    if is_newstyle_id(collection_id):
+        if paper_id is not None:
+            return f"{collection_id}-{volume_id}.{paper_id}"
+        else:
+            return f"{collection_id}-{volume_id}"
+    # pre-2020 IDs
+    if (
+        collection_id.startswith("W")
+        or collection_id == "C69"
+        or (collection_id == "D19" and int(volume_id) >= 5)
+    ):
+        anthology_id = f"{collection_id}-{int(volume_id):02d}"
+        if paper_id is not None:
+            anthology_id += f"{int(paper_id):02d}"
     else:
-        return '{}-{:01d}{:03d}'.format(collection_id, int(volume_id), int(paper_id))
+        anthology_id = f"{collection_id}-{int(volume_id):01d}"
+        if paper_id is not None:
+            anthology_id += f"{int(paper_id):03d}"
+
+    return anthology_id
+
+
+def test_url_code(url):
+    """
+    Test a URL, returning the result.
+    """
+    r = requests.head(url, allow_redirects=True)
+    return r
 
 
 def test_url(url):
     """
     Tests a URL, returning True if the URL exists, and False otherwise.
     """
-    import requests
-
-    #sys.stderr.write("retrieving {}: ".format(url))
-    r = requests.head(url, allow_redirects=True)
-    #sys.stderr.write("{}\n".format(r.status_code))
-    return r.status_code == requests.codes.ok
+    return test_url_code(url).status_code == requests.codes.ok
 
 
-def deconstruct_anthology_id(anthology_id):
+def retrieve_url(remote_url: str, local_path: str):
+    """
+    Saves a URL to a local path. Can handle cookies, e.g., those
+    used downloading PDFs from MIT Press (TACL, CL).
+
+    :param remote_url: The URL to download from. Currently supports http only.
+    :param local_path: Where to save the file to.
+    """
+    if remote_url.startswith("http"):
+        import ssl
+        import urllib.request
+
+        cookieProcessor = urllib.request.HTTPCookieProcessor()
+        opener = urllib.request.build_opener(cookieProcessor)
+        request = urllib.request.Request(
+            remote_url, headers={'User-Agent': 'Mozilla/5.0'}
+        )
+        with opener.open(request, timeout=1000) as url, open(
+            local_path, mode="wb"
+        ) as input_file_fh:
+            input_file_fh.write(url.read())
+
+
+def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     """
     Transforms an Anthology ID into its constituent collection id, volume id, and paper id
     parts. e.g,
 
-        P18-1007 -> ('P18', '1', '7')
+        P18-1007 -> ('P18', '1',  '7')
         W18-6310 -> ('W18', '63', '10')
+        D19-1001 -> ('D19', '1',  '1')
+        D19-5702 -> ('D19', '57', '2')
 
     Also can deconstruct Anthology volumes:
 
         P18-1 -> ('P18', '1', None)
         W18-63 -> ('W18', '63', None)
+
+    For Anthology IDs prior to 2020, the volume ID is the first digit after the hyphen, except
+    for the following situations, where it is the first two digits:
+
+    - All collections starting with 'W'
+    - The collection "C69"
+    - All collections in "D19" where the first digit is >= 5
     """
-    collection_id, rest = anthology_id.split('-')
-    if anthology_id.startswith('W') or anthology_id.startswith('C69'):
+    collection_id, rest = anthology_id.split("-")
+    if is_newstyle_id(anthology_id):
+        if "." in rest:
+            volume_id, paper_id = rest.split(".")
+        else:
+            volume_id, paper_id = rest, None
+        return (collection_id, volume_id, paper_id)
+    # pre-2020 IDs
+    if (
+        collection_id.startswith("W")
+        or collection_id == "C69"
+        or (collection_id == "D19" and int(rest[0]) >= 5)
+    ):
         if len(rest) == 4:
             return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
-        else:                   # Possible Volume only identifier
+        else:  # Possible Volume only identifier
             return (collection_id, str(int(rest)), None)
     else:
         if len(rest) == 4:
             return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
-        else:                   # Possible Volume only identifier
+        else:  # Possible Volume only identifier
             return (collection_id, str(int(rest)), None)
 
 
@@ -117,8 +217,7 @@ def remove_extra_whitespace(text):
 
 
 def infer_url(filename, prefix=data.ANTHOLOGY_PREFIX):
-    """If URL is relative, return the full Anthology URL.
-    """
+    """If URL is relative, return the full Anthology URL."""
     if urlparse(filename).netloc:
         return filename
     return f"{prefix}/{filename}"
@@ -144,9 +243,12 @@ def infer_year(collection_id):
     that the paper's collection identifier follows the format 'xyy', where x is
     some letter and yy are the last two digits of the year of publication.
     """
+    if is_newstyle_id(collection_id):
+        return collection_id.split(".")[0]
+
     assert (
         len(collection_id) == 3
-    ), "Couldn't infer year: unknown volume ID format"
+    ), f"Couldn't infer year: unknown volume ID format '{collection_id}' ({type(collection_id)})"
     digits = collection_id[1:]
     if int(digits) >= 60:
         year = "19{}".format(digits)
@@ -192,13 +294,13 @@ class SeverityTracker(logging.Handler):
             self.highest = record.levelno
 
 
-def clean_whitespace(text, strip='left'):
+def clean_whitespace(text, strip="left"):
     old_text = text
     if text is not None:
-        text = re.sub(r' +', ' ', text)
-        if strip == 'left' or strip == 'both':
+        text = re.sub(r" +", " ", text)
+        if strip == "left" or strip == "both":
             text = text.lstrip()
-        if strip == 'right' or strip == 'both':
+        if strip == "right" or strip == "both":
             text = text.rstrip()
     return text
 
@@ -212,20 +314,20 @@ def indent(elem, level=0, internal=False):
     Adapted from https://stackoverflow.com/a/33956544 .
     """
     # tags that have no internal linebreaks (including children)
-    oneline = elem.tag in ('author', 'editor', 'title', 'booktitle')
+    oneline = elem.tag in ("author", "editor", "title", "booktitle")
 
     elem.text = clean_whitespace(elem.text)
 
-    if len(elem): # children
+    if len(elem):  # children
         # Set indent of first child for tags with no text
         if not oneline and (not elem.text or not elem.text.strip()):
-            elem.text = '\n' + (level + 1) * '  '
+            elem.text = "\n" + (level + 1) * "  "
 
         if not elem.tail or not elem.tail.strip():
             if level:
-                elem.tail = '\n' + level * '  '
+                elem.tail = "\n" + level * "  "
             else:
-                elem.tail = '\n'
+                elem.tail = "\n"
 
         # recurse
         for child in elem:
@@ -233,16 +335,17 @@ def indent(elem, level=0, internal=False):
 
         # Clean up the last child
         if oneline:
-            child.tail = clean_whitespace(child.tail, strip='right')
-        elif (not child.tail or not child.tail.strip()):
-            child.tail = '\n' + level * '  '
+            child.tail = clean_whitespace(child.tail, strip="right")
+        elif not child.tail or not child.tail.strip():
+            child.tail = "\n" + level * "  "
     else:
-        elem.text = clean_whitespace(elem.text, strip='both')
+        elem.text = clean_whitespace(elem.text, strip="both")
 
         if internal:
-            elem.tail = clean_whitespace(elem.tail, strip='none')
+            elem.tail = clean_whitespace(elem.tail, strip="none")
         elif not elem.tail or not elem.tail.strip():
-            elem.tail = '\n' + level * '  '
+            elem.tail = "\n" + level * "  "
+
 
 def parse_element(xml_element):
     attrib = {}
@@ -265,34 +368,29 @@ def parse_element(xml_element):
             id_ = element.attrib.get("id", None)
             value = (PersonName.from_element(element), id_)
         elif tag == "erratum":
-            value = {
-                "value": element.text,
-                "id": element.get("id"),
-                "url": element.text
-            }
+            value = {"value": element.text, "id": element.get("id"), "url": element.text}
         elif tag == "revision":
             value = {
                 "value": element.get("href"),
                 "id": element.get("id"),
                 "url": element.get("href"),
-                "explanation": element.text
+                "explanation": element.text,
             }
         elif tag == "mrf":
             value = {"filename": element.text, "src": element.get("src")}
         elif tag == "video":
             # Treat videos the same way as other attachments
             tag = "attachment"
+            # Skip videos where permission was not granted (these should be marked as private anyway in Vimeo)
+            if element.get("permission", "true") == "false":
+                continue
             value = {
                 "filename": element.get("href"),
                 "type": element.get("tag", "video"),
                 "url": element.get("href"),
             }
         elif tag in ("dataset", "software"):
-            value = {
-                "filename": element.text,
-                "type": tag,
-                "url": element.text,
-            }
+            value = {"filename": element.text, "type": tag, "url": element.text}
             tag = "attachment"
         else:
             value = element.text
@@ -302,7 +400,11 @@ def parse_element(xml_element):
             value = infer_url(element.text)
 
             # Add a PDF link with, converting relative URLs to canonical ones
-            attrib['pdf'] = element.text if urlparse(element.text).netloc else data.ANTHOLOGY_PDF.format(element.text)
+            attrib["pdf"] = (
+                element.text
+                if urlparse(element.text).netloc
+                else data.ANTHOLOGY_PDF.format(element.text)
+            )
 
         if tag in data.LIST_ELEMENTS:
             try:
@@ -315,13 +417,13 @@ def parse_element(xml_element):
     return attrib
 
 
-def make_simple_element(tag,
-                        text=None,
-                        attrib=None,
-                        parent=None,
-                        namespaces=None):
+def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=None):
     """Convenience function to create an LXML node"""
-    el = etree.Element(tag, nsmap=namespaces) if parent is None else etree.SubElement(parent, tag)
+    el = (
+        etree.Element(tag, nsmap=namespaces)
+        if parent is None
+        else etree.SubElement(parent, tag)
+    )
     if text:
         el.text = text
     if attrib:
@@ -330,160 +432,11 @@ def make_simple_element(tag,
     return el
 
 
-def make_nested(root):
-    """
-    Converts an XML tree root to the nested format (if not already converted).
+def compute_hash(value: bytes) -> str:
+    checksum = crc32(value) & 0xFFFFFFFF
+    return f"{checksum:08x}"
 
-    The original format was:
 
-        <volume id="P19">
-          <paper id="1000"> <!-- new volume -->
-
-    The nested format is:
-
-        <collection id="P19">
-          <volume id="1">
-            <frontmatter>
-              ...
-            </frontmatter>
-            <paper id="1">
-    """
-
-    collection_id = root.attrib['id']
-
-    if root.tag == 'collection':
-        return root
-
-    new_root = make_simple_element('collection')
-    new_root.attrib['id'] = collection_id
-    new_root.tail = '\n'
-
-    volume = None
-    meta = None
-    prev_volume_id = None
-
-    for paper in root.findall("paper"):
-        paper_id = paper.attrib['id']
-        if collection_id.startswith('W') or collection_id == 'C69':
-            volume_width = 2
-            paper_width = 2
-        else:
-            volume_width = 1
-            paper_width = 3
-
-        volume_id, paper_id = int(paper_id[0:volume_width]), int(paper_id[volume_width:])
-        full_volume_id = f'{collection_id}-{volume_id:0{volume_width}d}'
-        full_paper_id = f'{full_volume_id}{paper_id:0{paper_width}d}'
-
-        paper.attrib['id'] = '{}'.format(paper_id)
-
-        # new volume
-        if prev_volume_id is None or prev_volume_id != volume_id:
-            meta = make_simple_element('meta')
-            if collection_id == 'C69':
-                meta.append(make_simple_element('month', text='September'))
-                meta.append(make_simple_element('year', text='1969'))
-                meta.append(make_simple_element('address', text='Sånga Säby, Sweden'))
-
-            volume = make_simple_element('volume')
-            volume.append(meta)
-            volume.attrib['id'] = str(volume_id)
-            prev_volume_id = volume_id
-            new_root.append(volume)
-
-            # Add volume-level <url> tag if PDF is present
-            volume_url = infer_url(data.ANTHOLOGY_PDF.format(full_volume_id))
-            if test_url(volume_url):
-                url = make_simple_element('url', text=full_volume_id)
-                print(f"{collection_id}: inserting volume URL: {full_volume_id}")
-                meta.append(url)
-
-        # Transform paper 0 to explicit frontmatter
-        if paper_id == 0:
-            paper.tag = 'frontmatter'
-            del paper.attrib['id']
-            title = paper.find('title')
-            if title is not None:
-                title.tag = 'booktitle'
-                meta.insert(0, title)
-
-            frontmatter_url = infer_url(data.ANTHOLOGY_PDF.format(full_paper_id))
-            if test_url(frontmatter_url):
-                url = paper.find('url')
-                if url is not None:
-                    url.text = f'{full_paper_id}'
-                else:
-                    url = make_simple_element('url', text=full_paper_id)
-                    paper.append(url)
-                print(f"{collection_id}: inserting frontmatter URL: {full_paper_id}")
-            else:
-                if paper.find('url') is not None:
-                    paper.remove(paper.find('url'))
-                    print(f"{collection_id}: removing missing frontmatter PDF: {full_paper_id}")
-
-            # Change authors of frontmatter to editors
-            authors = paper.findall('author')
-            if authors is not None:
-                for author in authors:
-                    author.tag = 'editor'
-
-            # Remove empty abstracts (corner case)
-            abstract = paper.find('abstract')
-            if abstract is not None:
-                if abstract.text != None:
-                    print('* WARNING: non-empty abstract for', paper.full_id)
-                else:
-                    paper.remove(abstract)
-
-            # Transfer editor keys (once)
-            if volume.find('editor') is None:
-                editors = paper.findall('editor')
-                if editors is not None:
-                    for editor in editors:
-                        meta.append(editor)
-
-            # Transfer the DOI key if it's a volume entry
-            doi = paper.find('doi')
-            if doi is not None:
-                if doi.text.endswith(full_volume_id):
-                    print(f'* Moving DOI entry {doi.text} from frontmatter to metadata')
-                    meta.append(doi)
-
-        # Canonicalize URL
-        url = paper.find('url')
-        if url is not None:
-            url.text = re.sub(r'https?://(www.)?aclweb.org/anthology/', '', url.text)
-
-        # Remove bibtype and bibkey
-        for key_name in 'bibtype bibkey'.split():
-            node = paper.find(key_name)
-            if node is not None:
-                paper.remove(node)
-
-        # Move to metadata
-        for key_name in 'booktitle publisher volume address month year ISBN isbn'.split():
-            # Move the key to the volume if not present in the volume
-            node_paper = paper.find(key_name)
-            if node_paper is not None:
-                node_meta = meta.find(key_name)
-                # If not found in the volume, move it
-                if node_meta is None:
-                    node_meta = node_paper
-                    if key_name == 'booktitle':
-                        meta.insert(0, node_paper)
-                    else:
-                        meta.append(node_paper)
-                # If found in the volume, move only if it's redundant
-                elif node_paper.tag == node_meta.tag:
-                    paper.remove(node_paper)
-
-        # Take volume booktitle from first paper title if it wasn't found in the
-        # frontmatter paper (some volumes have no front matter)
-        if collection_id == 'C69' and meta.find('booktitle') is None and paper.find('title') is not None:
-            meta.insert(0, make_simple_element('booktitle', text=paper.find('title').text))
-
-        volume.append(paper)
-
-    indent(new_root)
-
-    return new_root
+def compute_hash_from_file(path: str) -> str:
+    with open(path, "rb") as f:
+        return compute_hash(f.read())

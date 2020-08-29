@@ -21,18 +21,26 @@ from . import data
 from .papers import Paper
 from .venues import VenueIndex
 from .sigs import SIGIndex
-from anthology.utils import parse_element, is_journal, month_str2num, infer_url, infer_year
+from .utils import (
+    build_anthology_id,
+    parse_element,
+    is_journal,
+    month_str2num,
+    infer_url,
+    infer_year,
+)
 
 
 class Volume:
-    def __init__(self,
-                 collection_id,
-                 volume_id,
-                 ingest_date,
-                 meta_data,
-                 venue_index: VenueIndex,
-                 sig_index: SIGIndex,
-                 formatter
+    def __init__(
+        self,
+        collection_id,
+        volume_id,
+        ingest_date,
+        meta_data,
+        venue_index: VenueIndex,
+        sig_index: SIGIndex,
+        formatter,
     ):
         """Instantiate a proceedings volume.
 
@@ -51,26 +59,30 @@ class Volume:
         self.has_frontmatter = False
 
     @staticmethod
-    def from_xml(volume_xml,
-                 collection_id,
-                 venue_index: VenueIndex,
-                 sig_index: SIGIndex,
-                 formatter):
+    def from_xml(
+        volume_xml, collection_id, venue_index: VenueIndex, sig_index: SIGIndex, formatter
+    ):
 
-        volume_id = volume_xml.attrib['id']
+        volume_id = volume_xml.attrib["id"]
         # The date of publication, defaulting to earlier than anything we'll encounter
-        ingest_date = volume_xml.attrib.get('ingest-date', data.UNKNOWN_INGEST_DATE)
-        meta_data = parse_element(volume_xml.find('meta'))
+        ingest_date = volume_xml.attrib.get("ingest-date", data.UNKNOWN_INGEST_DATE)
+        meta_data = parse_element(volume_xml.find("meta"))
         # Though metadata uses "booktitle", switch to "title" for compatibility with downstream scripts
-        meta_data['title'] = formatter(meta_data['xml_booktitle'], 'plain')
+        meta_data["title"] = formatter(meta_data["xml_booktitle"], "plain")
 
-        volume = Volume(collection_id, volume_id, ingest_date, meta_data, venue_index, sig_index, formatter)
+        volume = Volume(
+            collection_id,
+            volume_id,
+            ingest_date,
+            meta_data,
+            venue_index,
+            sig_index,
+            formatter,
+        )
 
-        front_matter_xml = volume_xml.find('frontmatter')
+        front_matter_xml = volume_xml.find("frontmatter")
         if front_matter_xml is not None:
             front_matter = Paper.from_xml(front_matter_xml, volume, formatter)
-            front_matter._id = '0'
-            front_matter.is_volume = True
             volume.add_frontmatter(front_matter)
 
         return volume
@@ -87,12 +99,12 @@ class Volume:
             del self.attrib["author"]
 
         # Expand URL if present
-        if 'url' in self.attrib:
-            self.attrib["url"] = infer_url(self.attrib['url'])
+        if "url" in self.attrib:
+            self.attrib["url"] = infer_url(self.attrib["url"])
 
         # Some volumes don't set this---but they should!
-        if 'year' not in self.attrib:
-            self.attrib['year'] = infer_year(self.collection_id)
+        if "year" not in self.attrib:
+            self.attrib["year"] = infer_year(self.collection_id)
 
         self.attrib["meta_date"] = self.get("year")
         if "month" in self.attrib:
@@ -109,26 +121,18 @@ class Volume:
             if volume_no is not None:
                 self.attrib["meta_volume"] = volume_no.group(1)
             issue_no = re.search(
-                r"(Number|Issue)\s*(\d+-?\d*)",
-                self.attrib["title"],
-                flags=re.IGNORECASE,
+                r"(Number|Issue)\s*(\d+-?\d*)", self.attrib["title"], flags=re.IGNORECASE
             )
             if issue_no is not None:
                 self.attrib["meta_issue"] = issue_no.group(2)
 
     @property
     def volume_id(self):
-        if self.collection_id[0] == "W" or self.collection_id == "C69":
-            # If volume is a workshop, use the first two digits of ID, e.g. W15-01
-            _id = "{:02d}".format(int(self._id))
-        else:
-            # If not, only use the first digit, e.g. Q15-1
-            _id = "{:01d}".format(int(self._id))
-        return _id
+        return self._id
 
     @property
     def full_id(self):
-        return "{}-{}".format(self.collection_id, self.volume_id)
+        return build_anthology_id(self.collection_id, self.volume_id)
 
     @property
     def paper_ids(self):

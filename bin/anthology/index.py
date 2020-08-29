@@ -51,10 +51,14 @@ class AnthologyIndex:
         self.id_to_used = defaultdict(set)  # maps ids to all names actually used
         self.name_to_ids = defaultdict(list)  # maps canonical/variant names to ids
         self.coauthors = defaultdict(Counter)  # maps ids to co-author ids
-        self.comments = {}  # maps ids to comments (used for distinguishing authors with same name)
+        self.comments = (
+            {}
+        )  # maps ids to comments (used for distinguishing authors with same name)
         self.similar = defaultdict(set)
         self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
-        self.name_to_papers = defaultdict(lambda: defaultdict(list))  # name -> (explicit id?) -> papers; used only for error checking
+        self.name_to_papers = defaultdict(
+            lambda: defaultdict(list)
+        )  # name -> (explicit id?) -> papers; used only for error checking
         if srcdir is not None:
             self.load_variant_list(srcdir)
 
@@ -88,7 +92,10 @@ class AnthologyIndex:
                 if id_ is None:
                     if canonical in self.name_to_ids:
                         log.error(
-                            "Canonical name '{}' is ambiguous but doesn't have an id; please add one". format(canonical))
+                            "Canonical name '{}' is ambiguous but doesn't have an id; please add one".format(
+                                canonical
+                            )
+                        )
                     id_ = self.fresh_id(canonical)
                     self.set_canonical_name(id_, canonical)
                 for variant in variants:
@@ -98,9 +105,7 @@ class AnthologyIndex:
                             "Tried to add '{}' as variant of '{}', but is already a variant of '{}'".format(
                                 repr(variant),
                                 repr(canonical),
-                                repr(self.id_to_canonical[
-                                    self.name_to_ids[variant][0]
-                                ]),
+                                repr(self.id_to_canonical[self.name_to_ids[variant][0]]),
                             )
                         )
                         continue
@@ -109,6 +114,24 @@ class AnthologyIndex:
                     self.comments[id_] = entry["comment"]
                 if "similar" in entry:
                     self.similar[id_].update(entry["similar"])
+                    for other in entry["similar"]:
+                        if id_ not in self.similar[other]:
+                            log.debug(
+                                'inferring similar name {} -> {}'.format(other, id_)
+                            )
+                        self.similar[other].add(id_)
+
+        # form transitive closure of self.similar
+        again = True
+        while again:
+            again = False
+            for x in list(self.similar):
+                for y in list(self.similar[x]):
+                    for z in list(self.similar[y]):
+                        if z != x and z not in self.similar[x]:
+                            self.similar[x].add(z)
+                            log.debug('inferring similar name {} -> {}'.format(x, z))
+                            again = True
 
     def _is_stopword(self, word, paper):
         """Determines if a given word should be considered a stopword for
@@ -152,7 +175,7 @@ class AnthologyIndex:
         """Create a unique bibliography key for the given paper."""
         if paper.is_volume:
             # Proceedings volumes use venue acronym instead of authors/editors
-            bibnames = slugify(self._parent.venues.get_by_letter(paper.full_id[0]))
+            bibnames = slugify(self._parent.venues.get_main_venue(paper.full_id))
         else:
             # Regular papers use author/editor names
             names = paper.get("author")
@@ -201,15 +224,27 @@ class AnthologyIndex:
             for name, id_ in paper.get(role, []):
                 if id_ is None:
                     if len(self.name_to_ids.get(name, [])) > 1:
-                        log.error("Paper {} uses ambiguous name '{}' without id".format(paper.full_id, name))
-                        log.error("  Please add an id, for example: {}".format(" ".join(self.name_to_ids[name])))
+                        log.error(
+                            "Paper {} uses ambiguous name '{}' without id".format(
+                                paper.full_id, name
+                            )
+                        )
+                        log.error(
+                            "  Please add an id, for example: {}".format(
+                                " ".join(self.name_to_ids[name])
+                            )
+                        )
                     id_ = self.resolve_name(name)["id"]
                     explicit = False
                 else:
                     if id_ not in self.id_to_canonical:
-                        log.error("Paper {} uses name '{}' with id '{}' that does not exist".format(paper.full_id, name, id_))
+                        log.error(
+                            "Paper {} uses name '{}' with id '{}' that does not exist".format(
+                                paper.full_id, name, id_
+                            )
+                        )
                     explicit = True
-                    
+
                 self.id_to_used[id_].add(name)
                 # Register paper
                 self.id_to_papers[id_][role].append(paper.full_id)
@@ -222,28 +257,32 @@ class AnthologyIndex:
                         self.coauthors[id_][co_id] += 1
 
     def verify(self):
-        for name, ids in self.name_to_ids.items():
-            for id_ in ids:
-                cname = self.id_to_canonical[id_]
-                if name != cname and name not in self.id_to_used[id_]:
-                    log.warning(
-                        "Variant name '{}' of '{}' is not used".format(
-                            repr(name),
-                            repr(cname)))
+        ## no longer issuing a warning for unused variants
+        ## it is generally a good idea to keep them around in case they pop up again
+        ## if you want to prune them, try clean_name_variants.py
+        # for name, ids in self.name_to_ids.items():
+        #    for id_ in ids:
+        #        cname = self.id_to_canonical[id_]
+        #        if name != cname and name not in self.id_to_used[id_]:
+        #            log.warning(
+        #                "Variant name '{}' of '{}' is not used".format(
+        #                    repr(name), repr(cname)
+        #                )
+        #            )
         for name, d in self.name_to_papers.items():
             if len(d[False]) > 0 and len(d[True]) > 0:
-                log.error("Name '{}' is used both with and without explicit id".format(repr(name)))
                 log.error(
-                    "  Please add an id to paper(s):   {}".format(
-                        " ".join(d[False])
+                    "Name '{}' is used both with and without explicit id".format(
+                        repr(name)
                     )
                 )
                 log.error(
-                    "  Or remove the id from paper(s): {}".format(
-                        " ".join(d[True])
-                    )
+                    "  Please add an id to paper(s):   {}".format(" ".join(d[False]))
                 )
-        
+                log.error(
+                    "  Or remove the id from paper(s): {}".format(" ".join(d[True]))
+                )
+
     def personids(self):
         return self.id_to_canonical.keys()
 
@@ -252,7 +291,11 @@ class AnthologyIndex:
 
     def set_canonical_name(self, id_, name):
         if id_ in self.id_to_canonical:
-            log.error("Person id '{}' is used by both '{}' and '{}'".format(id_, name, self.id_to_canonical[id_]))
+            log.error(
+                "Person id '{}' is used by both '{}' and '{}'".format(
+                    id_, name, self.id_to_canonical[id_]
+                )
+            )
         self.id_to_canonical[id_] = name
         self.name_to_ids[name].append(id_)
 
@@ -276,6 +319,15 @@ class AnthologyIndex:
 
         return sorted(self.name_to_ids[name])
 
+    def get_comment(self, id_: str) -> str:
+        """
+        Returns the comment associated with the name ID.
+
+        :param id_: The name ID (e.g., "fei-liu-ftdallas")
+        :return: The comment (e.g., "UT Dallas, Bosch, CMU, University of Central Florida")
+        """
+        return self.comments.get(id_, None)
+
     def resolve_name(self, name, id_=None):
         """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
@@ -283,10 +335,11 @@ class AnthologyIndex:
             ids = self.get_ids(name)
             assert len(ids) > 0
             if len(ids) > 1:
-                log.debug("Name '{}' is ambiguous between {}".format(
-                    repr(name),
-                    ', '.join("'{}'".format(i) for i in ids)
-                ))
+                log.debug(
+                    "Name '{}' is ambiguous between {}".format(
+                        repr(name), ", ".join("'{}'".format(i) for i in ids)
+                    )
+                )
             # Just return the first
             id_ = ids[0]
         d = name.as_dict()

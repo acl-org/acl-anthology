@@ -26,6 +26,9 @@ ANTHOLOGYDIR := anthology
 HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
+xmlstaged=$(shell git diff --staged --name-only --diff-filter=d data/xml/*.xml)
+pysources=$(shell git ls-files | egrep "\.pyi?$$")
+pystaged=$(shell git diff --staged --name-only  --diff-filter=d | egrep "\.pyi?$$")
 
 timestamp=$(shell date -u +"%d %B %Y at %H:%M %Z")
 githash=$(shell git rev-parse HEAD)
@@ -46,23 +49,45 @@ ifeq ($(PYTHON_VERSION_OK),0)
 endif
 # end python check
 #######################################################
+
+# hugo version check
+HUGO_VERSION_MIN=58
+HUGO_VERSION=$(shell hugo version | sed 's/.*Generator v0.\(..\).*/\1/')
+HUGO_VERSION_TOO_LOW:=$(shell [ $(HUGO_VERSION_MIN) -gt $(HUGO_VERSION) ] && echo true)
+ifeq ($(HUGO_VERSION_TOO_LOW),true)
+  $(error "incorrect hugo version installed! Need hugo 0.$(HUGO_VERSION_MIN), but only found hugo 0.$(HUGO_VERSION)!")
+endif
+
+
 VENV := "venv/bin/activate"
 
 .PHONY: site
-site: bibtex mods endnote hugo split-sitemap test
+site: bibtex mods endnote hugo sitemap
 
 
-.PHONY: split-sitemap
-split-sitemap: venv/bin/activate
+# Split the file sitemap into Google-ingestible chunks.
+# Also build the PDF sitemap, and split it.
+.PHONY: sitemap
+sitemap: build/.sitemap
+
+build/.sitemap: venv/bin/activate build/.hugo
 	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
+	@rm -f build/anthology/sitemap_*.xml.gz
+	@gzip -9n build/anthology/sitemap_*.xml
+	@bin/create_sitemapindex.sh `ls build/anthology/ | grep 'sitemap_.*xml.gz'` > build/anthology/sitemapindex.xml
+	@touch build/.sitemap
 
 .PHONY: venv
 venv: venv/bin/activate
 
 # installs dependencies if requirements.txt have been updated.
+# checks whether libyaml is enabled to ensure fast build times.
 venv/bin/activate: bin/requirements.txt
 	test -d venv || python3 -m venv venv
 	. $(VENV) && pip3 install -Ur bin/requirements.txt
+	@python3 -c "from yaml import CLoader" 2> /dev/null || ( \
+	    echo "WARNING     No libyaml bindings enabled for pyyaml, your build will be several times slower than needed";\
+	    echo "            see the README on GitHub for more information")
 	touch venv/bin/activate
 
 .PHONY: all
@@ -154,8 +179,35 @@ clean:
 	rm -rf build
 
 .PHONY: check
-check:
+check: venv
 	jing -c data/xml/schema.rnc data/xml/*xml
+	SKIP=no-commit-to-branch . $(VENV) \
+	  && pre-commit run --all-files \
+	  && black --check $(pysources)
+
+.PHONY: check_staged_xml
+check_staged_xml:
+	@if [ ! -z "$(xmlstaged)" ]; then \
+	     jing -c data/xml/schema.rnc $(xmlstaged) ;\
+	 fi
+
+.PHONY: check_commit
+check_commit: check_staged_xml venv
+	@. $(VENV) && pre-commit run
+	@if [ ! -z "$(pystaged)" ]; then \
+	    . $(VENV) && black --check $(pystaged) ;\
+	 fi
+
+.PHONY: autofix
+autofix: check_staged_xml venv
+	 @. $(VENV) && \
+	 EXIT_STATUS=0 ;\
+	 pre-commit run || EXIT_STATUS=$$? ;\
+	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
+	 black $(pysources) || EXIT_STATUS=$$? ;\
+	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
+	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
+	 [ $${EXIT_STATUS} -eq 0 ]
 
 .PHONY: serve
 serve:

@@ -57,7 +57,9 @@ def bibtex_encode(text):
 
 def bibtex_convert_quotes(text):
     if re.match(r"(?<!\\)\"", text):
-        log.warning(f"Straight quote (\") found in text field ({text}); converting automatically, but please fix in XML")
+        log.warning(
+            f'Straight quote (") found in text field ({text}); converting automatically, but please fix in XML'
+        )
     text = re.sub(r"(?<!\\)\"\b", "``", text)
     text = re.sub(r"(?<!\\)\"", "''", text)
     return text
@@ -86,11 +88,16 @@ def bibtex_convert_month(text):
 def bibtex_make_entry(bibkey, bibtype, fields):
     lines = ["@{}{{{},".format(bibtype, bibkey)]
     for key, value in fields:
+        if key == "author" and bibtype == "proceedings":
+            key = "editor"
         if key in ("author", "editor") and "  and  " in value:
             # Print each author on a separate line
             value = "  and\n      ".join(value.split("  and  "))
         if key == "month":
             value = bibtex_convert_month(value)
+        elif value is None:
+            log.warning(f"Skipping empty value for {bibkey}/{key}")
+            continue
         elif '"' in value:
             # Make sure not to use "" to quote values when they contain "
             value = "{{{}}}".format(value)

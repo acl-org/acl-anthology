@@ -32,7 +32,7 @@ import sys
 
 from anthology.utils import indent
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     infilename = sys.argv[1]
     outfilename = sys.argv[2]
@@ -41,4 +41,4 @@ if __name__ == '__main__':
     root = tree.getroot()
     indent(root)
 
-    tree.write(outfilename, encoding='UTF-8', xml_declaration=True, with_tail=True)
+    tree.write(outfilename, encoding="UTF-8", xml_declaration=True, with_tail=True)

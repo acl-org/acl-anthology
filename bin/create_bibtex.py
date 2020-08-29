@@ -36,8 +36,20 @@ import io
 import os
 
 from anthology import Anthology
-from anthology.utils import SeverityTracker
+from anthology.utils import SeverityTracker, deconstruct_anthology_id, infer_year
 from create_hugo_pages import check_directory
+from operator import itemgetter
+
+
+def volume_sorter(volume_tuple):
+    """
+    Extracts the year so that we can sort by the year and then
+    the collection ID.
+    """
+    volume_id = volume_tuple[0]
+    collection_id, year, _ = deconstruct_anthology_id(volume_id)
+    year = infer_year(collection_id)
+    return year, volume_id
 
 
 def create_bibtex(anthology, trgdir, clean=False):
@@ -50,26 +62,27 @@ def create_bibtex(anthology, trgdir, clean=False):
     log.info("Creating BibTeX files for all papers...")
     with gzip.open(
         "{}/anthology.bib.gz".format(trgdir), "wt", encoding="utf-8"
-    ) as file_full:
-        for volume_id, volume in tqdm(anthology.volumes.items()):
+    ) as file_anthology, gzip.open(
+        "{}/anthology+abstracts.bib.gz".format(trgdir), "wt", encoding="utf-8"
+    ) as file_anthology_with_abstracts:
+        for volume_id, volume in tqdm(
+            sorted(anthology.volumes.items(), key=volume_sorter, reverse=True)
+        ):
             volume_dir = trgdir
             if not os.path.exists(volume_dir):
                 os.makedirs(volume_dir)
-            with open(
-                "{}/volumes/{}.bib".format(trgdir, volume_id), "w"
-            ) as file_volume:
+            with open("{}/volumes/{}.bib".format(trgdir, volume_id), "w") as file_volume:
                 for paper in volume:
                     with open(
                         "{}/{}.bib".format(volume_dir, paper.full_id), "w"
                     ) as file_paper:
                         contents = paper.as_bibtex()
-                        file_paper.write(contents)
-                        file_paper.write("\n")
+                        print(contents, file=file_paper)
+                        print(contents, file=file_anthology_with_abstracts)
+
                         concise_contents = paper.as_bibtex(concise=True)
-                        file_volume.write(concise_contents)
-                        file_volume.write("\n")
-                        file_full.write(concise_contents)
-                        file_full.write("\n")
+                        print(concise_contents, file=file_volume)
+                        print(concise_contents, file=file_anthology)
 
 
 if __name__ == "__main__":

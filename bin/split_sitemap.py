@@ -49,29 +49,32 @@ if __name__ == "__main__":
     root = sitemap.getroot()
     chunk_size = 50000
     i = chunk_size
-    all_roots, new_root = [], False
+    all_roots, new_root = [], None
 
     for url in root:
         if i >= chunk_size:
-            if new_root:
+            if new_root is not None:
                 all_roots.append(new_root)
             new_root = etree.Element(root.tag, nsmap={None: SITEMAP_NAMESPACE})
             i = 0
         new_root.append(deepcopy(url))
         i += 1
 
-    if new_root:
+    if new_root is not None:
         all_roots.append(new_root)
 
-    print(
-        "Split {} entries into {} chunks.".format(
-            chunk_size * (len(all_roots) - 1) + i, len(all_roots)
-        ),
-        file=sys.stderr,
-    )
+    if len(all_roots) > 1:
+        print(
+            "Split {} entries into {} chunks.".format(
+                chunk_size * (len(all_roots) - 1) + i, len(all_roots)
+            ),
+            file=sys.stderr,
+        )
 
-    basename = os.path.splitext(args["SITEMAP"])[0]
-    for n, root in enumerate(all_roots):
-        with open("{}_{}.xml".format(basename, n + 1), "w") as f:
-            print('<?xml version="1.0" encoding="utf-8" standalone="yes" ?>', file=f)
-            print(etree.tostring(root, encoding="unicode", pretty_print=True), file=f)
+        basename = os.path.splitext(args["SITEMAP"])[0]
+        for n, root in enumerate(all_roots):
+            with open("{}_{}.xml".format(basename, n + 1), "w") as f:
+                print('<?xml version="1.0" encoding="utf-8" standalone="yes" ?>', file=f)
+                print(etree.tostring(root, encoding="unicode", pretty_print=True), file=f)
+    else:
+        print(f"Only found {i} entries, no need to split.", file=sys.stderr)

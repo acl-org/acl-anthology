@@ -16,7 +16,7 @@ bibtex-friendly features:
 turns space into ~
 
 2) wraps special chars in braces, for example "{\l}",
-to prevent "\l" from eating the following space after 
+to prevent "\l" from eating the following space after
 names are re-arranged by bibtex.
 
 3) outputs the following commands recognized by bibtex's
@@ -31,7 +31,7 @@ even though alphabetization will be wrong:
 
 Dan Gildea 2019
 
-Bugs: 
+Bugs:
 
 - Doesn't convert "{" to "{\\{}" and "}" to "{\\}}" (which do
   occasionally appear in titles)

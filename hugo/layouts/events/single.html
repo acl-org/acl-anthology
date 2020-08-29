@@ -39,14 +39,13 @@
   {{ end }}
 
   {{ range $volumes }}
-  {{ $volume_id := slicestr . 0 3 }}
   {{ $volume := index $.Site.Data.volumes . }}
   <div id="{{ . | anchorize }}">
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
 
     <h4 class="d-sm-flex pb-2 border-bottom">
       <span class="d-block mr-2 list-button-row">
-      {{- with $volume.url -}}
+      {{- with $volume.pdf -}}
       <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
       <br class="d-none d-sm-inline-block" />
       {{- end -}}
@@ -58,7 +57,7 @@
     <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
 
     {{ range $volume.papers }}
-      {{ $page := printf "/papers/%s/%s/%s.md" (slicestr . 0 1) (slicestr . 0 3) . }}
+      {{ $page := printf "/papers/%s/%s.md" (index (split . "-") 0) . }}
       {{ ($.Site.GetPage $page).Render "list-entry" }}
     {{ end }}
   </div>

@@ -29,9 +29,7 @@ except ImportError:
 
 
 SIGEvent = namedtuple(
-    "SIGEvent",
-    ["anthology_id", "name", "url", "year"],
-    defaults=[None, None, None, None],
+    "SIGEvent", ["anthology_id", "name", "url", "year"], defaults=[None, None, None, None]
 )
 
 
@@ -93,7 +91,11 @@ class SIG:
         collection_id, _, _ = deconstruct_anthology_id(full_volume_id)
         year = int(infer_year(collection_id))
         if year in self.events_by_year:
-            self.events_by_year[year] = [event for event in self.events_by_year[year] if not event[0] == full_volume_id]
+            self.events_by_year[year] = [
+                event
+                for event in self.events_by_year[year]
+                if not event[0] == full_volume_id
+            ]
 
     @property
     def associated_events(self):
