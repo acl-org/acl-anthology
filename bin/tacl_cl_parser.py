@@ -186,9 +186,11 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
     journal_title_text = " ".join(
         journal_title_text.split()
     )  # Sometimes it's split onto two lines...
-    journal_title_text = journal_title_text.replace(  # Somebody in 2018 didn't know our name?
-        "Association of Computational Linguistics",
-        "Association for Computational Linguistics",
+    journal_title_text = (
+        journal_title_text.replace(  # Somebody in 2018 didn't know our name?
+            "Association of Computational Linguistics",
+            "Association for Computational Linguistics",
+        )
     )
     volume_text = volume.text.lstrip(
         "0"

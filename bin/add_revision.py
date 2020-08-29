@@ -74,7 +74,8 @@ def validate_file_type(path):
 def download_file(source, dest):
     try:
         print(
-            f"-> Downloading file from {source} to {dest}", file=sys.stderr,
+            f"-> Downloading file from {source} to {dest}",
+            file=sys.stderr,
         )
         with urllib.request.urlopen(source) as url, open(dest, mode="wb") as fh:
             fh.write(url.read())

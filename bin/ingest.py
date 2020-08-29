@@ -312,7 +312,8 @@ def main(args):
 
         for volume_id, volume in collection.items():
             volume_node = make_simple_element(
-                "volume", attrib={"id": volume_id, "ingest-date": args.ingest_date},
+                "volume",
+                attrib={"id": volume_id, "ingest-date": args.ingest_date},
             )
 
             # Replace the existing one if present
@@ -379,7 +380,10 @@ def main(args):
                     make_simple_element(
                         "attachment",
                         text=os.path.basename(path),
-                        attrib={"type": type_, "hash": compute_hash_from_file(path),},
+                        attrib={
+                            "type": type_,
+                            "hash": compute_hash_from_file(path),
+                        },
                         parent=paper_node,
                     )
 

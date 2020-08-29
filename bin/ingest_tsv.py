@@ -239,7 +239,11 @@ def main(args):
                 extension = row["Presentation"].split(".")[-1]
                 name = f"{anth_id}.Presentation.{extension}"
                 local_path = os.path.join(
-                    args.anthology_files_path, "..", "attachments", venue, name,
+                    args.anthology_files_path,
+                    "..",
+                    "attachments",
+                    venue,
+                    name,
                 )
                 if download(row["Presentation"], local_path):
                     make_simple_element(
