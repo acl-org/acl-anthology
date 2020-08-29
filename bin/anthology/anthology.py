@@ -109,9 +109,7 @@ class Anthology:
                 full_id = parsed_paper.full_id
                 if full_id in self.papers:
                     log.critical(
-                        "Attempted to import paper '{}' twice -- skipping".format(
-                            full_id
-                        )
+                        "Attempted to import paper '{}' twice -- skipping".format(full_id)
                     )
                     continue
                 volume.append(parsed_paper)

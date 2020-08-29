@@ -135,7 +135,7 @@ def retrieve_url(remote_url: str, local_path: str):
         cookieProcessor = urllib.request.HTTPCookieProcessor()
         opener = urllib.request.build_opener(cookieProcessor)
         request = urllib.request.Request(
-            remote_url, headers={"User-Agent": "Mozilla/5.0"}
+            remote_url, headers={'User-Agent': 'Mozilla/5.0'}
         )
         with opener.open(request, timeout=1000) as url, open(
             local_path, mode="wb"
@@ -217,7 +217,8 @@ def remove_extra_whitespace(text):
 
 
 def infer_url(filename, prefix=data.ANTHOLOGY_PREFIX):
-    """If URL is relative, return the full Anthology URL."""
+    """If URL is relative, return the full Anthology URL.
+    """
     if urlparse(filename).netloc:
         return filename
     return f"{prefix}/{filename}"
@@ -368,11 +369,7 @@ def parse_element(xml_element):
             id_ = element.attrib.get("id", None)
             value = (PersonName.from_element(element), id_)
         elif tag == "erratum":
-            value = {
-                "value": element.text,
-                "id": element.get("id"),
-                "url": element.text,
-            }
+            value = {"value": element.text, "id": element.get("id"), "url": element.text}
         elif tag == "revision":
             value = {
                 "value": element.get("href"),
