@@ -400,9 +400,7 @@ if __name__ == "__main__":
         return startpage
 
     paper_id = 1  # Stupid non-enumerate counter because of "Erratum: " papers interleaved with real ones.
-    for papernode, pdf_path, issue_info, issue in sorted(
-        papers, key=sort_papers_by_page
-    ):
+    for papernode, pdf_path, issue_info, issue in sorted(papers, key=sort_papers_by_page):
         issue = issue or "1"
         if issue_info != previous_issue_info:
             # Emit the new volume info before the paper.
