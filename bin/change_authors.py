@@ -46,9 +46,7 @@ def merge_people(variants, can1, can2):
             i2 = i
     if i1 is not None and i2 is not None:
         logging.error(
-            "Please manually merge '{}' and '{}' in name_variants.yaml".format(
-                can1, can2
-            )
+            "Please manually merge '{}' and '{}' in name_variants.yaml".format(can1, can2)
         )
         return
     elif i1 is not None:
@@ -86,9 +84,9 @@ if __name__ == "__main__":
 
     changes = {}
     for line in open(args.changefile):
-        paperid, role, oldname, newname = line.rstrip().split("\t")
-        oldfirst, oldlast = oldname.split(" || ")
-        newfirst, newlast = newname.split(" || ")
+        paperid, role, oldname, newname = line.rstrip().split('\t')
+        oldfirst, oldlast = oldname.split(' || ')
+        newfirst, newlast = newname.split(' || ')
         changes[paperid, oldfirst, oldlast] = newfirst, newlast
 
     anth = anthology.Anthology(importdir=datadir)
@@ -139,7 +137,7 @@ if __name__ == "__main__":
                     # Update XML file
                     if newfirst != "":
                         if firstnode is None:
-                            firstnode = etree.SubElement(authornode, "first")
+                            firstnode = etree.SubElement(authornode, 'first')
                         firstnode.text = newfirst
                     else:
                         if firstnode is not None:
@@ -171,9 +169,7 @@ if __name__ == "__main__":
         for var in list(d.get("variants", [])):
             name = anthology.people.PersonName.from_dict(var)
             if name in deleted_names:
-                logging.info(
-                    "variant name '{}' is no longer used; deleting".format(name)
-                )
+                logging.info("variant name '{}' is no longer used; deleting".format(name))
                 d["variants"].remove(var)
         if "variants" in d and len(d["variants"]) == 0:
             del d["variants"]

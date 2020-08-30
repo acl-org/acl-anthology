@@ -279,9 +279,7 @@ class Paper:
             if "xml_booktitle" in self.attrib:
                 entries.append(("booktitle", self.get_booktitle(form="latex")))
             elif bibtype != "proceedings":
-                entries.append(
-                    ("booktitle", self.parent_volume.get_title(form="latex"))
-                )
+                entries.append(("booktitle", self.parent_volume.get_title(form="latex")))
         for entry in ("month", "year", "address", "publisher", "note"):
             if self.get(entry) is not None:
                 entries.append((entry, bibtex_encode(self.get(entry))))

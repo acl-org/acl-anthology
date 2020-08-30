@@ -90,9 +90,7 @@ if __name__ == "__main__":
                         bnewvalue = bnewvalue.replace(
                             r"\begin{fixedcase}", "<fixed-case>"
                         )
-                        bnewvalue = bnewvalue.replace(
-                            r"\end{fixedcase}", "</fixed-case>"
-                        )
+                        bnewvalue = bnewvalue.replace(r"\end{fixedcase}", "</fixed-case>")
                         xnewnode = tex_unicode.convert_node(
                             etree.fromstring(
                                 "<{}>{}</{}>".format(xnode.tag, bnewvalue, xnode.tag)

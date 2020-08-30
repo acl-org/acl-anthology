@@ -49,10 +49,10 @@ def fixedcase_word(w, truelist=None):
     if any(c.isupper() for c in w[1:]):
         # tokenized word with noninitial uppercase
         return True
-    if len(w) == 1 and w.isupper() and w not in {"A", "K", "N"}:
+    if len(w) == 1 and w.isupper() and w not in {'A', 'K', 'N'}:
         # single uppercase letter
         return True
-    if len(w) == 2 and w[1] == "." and w[0].isupper():
+    if len(w) == 2 and w[1] == '.' and w[0].isupper():
         # initial with period
         return True
 
@@ -78,7 +78,7 @@ def fixedcase_prefix(ws, truelist=None, phrase_truelist=None):
                         if i == n:
                             break
                 return bs
-    if ws[0] in {"L", "D"} and len(ws) >= 2 and ws[1] == "’":
+    if ws[0] in {'L', 'D'} and len(ws) >= 2 and ws[1] == '’':
         # French contractions: don't apply fixed-case
         return [False, False]
     return [fixedcase_word(ws[0], truelist=truelist)]
@@ -104,9 +104,7 @@ def fixedcase_title(
         elif not b[0] and bs[-1] and ndescriptors and ws[i] in ndescriptors:
             # "<name> <ndescriptor>", e.g. Columbia University
             b[0] = True
-        elif (
-            ndescriptors and i >= 2 and ws[i - 1] == "of" and ws[i - 2] in ndescriptors
-        ):
+        elif ndescriptors and i >= 2 and ws[i - 1] == "of" and ws[i - 2] in ndescriptors:
             # "<ndescriptor> of <name>", e.g. University of Edinburgh
             if b[0]:
                 bs[-2] = True
@@ -150,8 +148,8 @@ def load_lists():
             continue
         assert not any(
             is_hyphen(c) for c in line
-        ), f"Truelist entries should not contain hyphens: {line}"
-        if " " not in line:
+        ), f'Truelist entries should not contain hyphens: {line}'
+        if ' ' not in line:
             truelist.add(line)
         else:
             toks = tuple(tokenize(line))
@@ -165,35 +163,35 @@ def load_lists():
             line.strip().lower(): line.strip() for line in inF if line.strip()
         }
     amodifiers = (
-        "North",
-        "South",
-        "East",
-        "West",
-        "Northeast",
-        "Northwest",
-        "Southeast",
-        "Southwest",
-        "Central",
-        "Northern",
-        "Southern",
-        "Eastern",
-        "Western",
-        "Northeastern",
-        "Northwestern",
-        "Southeastern",
-        "Southwestern",
-        "Modern",
-        "Ancient",
+        'North',
+        'South',
+        'East',
+        'West',
+        'Northeast',
+        'Northwest',
+        'Southeast',
+        'Southwest',
+        'Central',
+        'Northern',
+        'Southern',
+        'Eastern',
+        'Western',
+        'Northeastern',
+        'Northwestern',
+        'Southeastern',
+        'Southwestern',
+        'Modern',
+        'Ancient',
     )  # use subsequent word to determine fixed-case. will miss hyphenated modifiers (e.g. South-East)
     ndescriptors = (
-        "Bay",
-        "Coast",
-        "Gulf",
-        "Island",
-        "Isle",
-        "Lake",
-        "Republic",
-        "University",
+        'Bay',
+        'Coast',
+        'Gulf',
+        'Island',
+        'Isle',
+        'Lake',
+        'Republic',
+        'University',
     )  # use preceding word to determine fixed-case
 
     return truelist, phrase_truelist, special_titles, amodifiers, ndescriptors

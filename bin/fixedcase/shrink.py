@@ -18,9 +18,7 @@ for paper in tree.getroot().findall("paper"):
         for child in old:
             if child.tag == "fixed-case":
                 assert len(child) == 0
-                for upper, chars in itertools.groupby(
-                    child.text, lambda c: c.isupper()
-                ):
+                for upper, chars in itertools.groupby(child.text, lambda c: c.isupper()):
                     if upper:
                         newchild = etree.Element("fixed-case")
                         newchild.text = "".join(chars)
