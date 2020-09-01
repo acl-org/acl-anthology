@@ -130,6 +130,9 @@ class Paper:
                 [x[0].full for x in paper.attrib["author"]]
             )
 
+        if "retracted" in paper.attrib:
+            paper.attrib["retracted"] = True
+
         paper.attrib["thumbnail"] = data.ANTHOLOGY_THUMBNAIL.format(paper.full_id)
 
         return paper
@@ -203,6 +206,10 @@ class Paper:
     @property
     def has_abstract(self):
         return "xml_abstract" in self.attrib
+
+    @property
+    def is_retracted(self) -> bool:
+        return "retracted" in self.attrib
 
     @property
     def isbn(self):

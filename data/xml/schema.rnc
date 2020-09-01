@@ -44,6 +44,9 @@ Paper = element paper {
        checksum,
        local-filename
      }*
+   & element retracted {
+       attribute date { xsd:date }
+     }?
    & element issue { xsd:nonNegativeInteger }?
    & element journal { text }?
    & element mrf {

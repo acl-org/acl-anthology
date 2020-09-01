@@ -52,7 +52,7 @@
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <section id="main">
-  <h2 id="title">
+  <h2 id="title" {{ with $paper.retracted }} style="text-decoration: line-through" {{ end }}>
     {{ with $paper.pdf }}
     <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
     {{ else }}
@@ -70,6 +70,12 @@
 
   <div class="row acl-paper-details">
     <div class="col col-lg-10 order-2">
+      {{ with $paper.retracted }}
+      <div class="alert alert-danger" role="alert">
+        This paper has been retracted. The original version remains available. More information can be found <a href="{{ $paper.pdf }}">here</a>.
+      </div>
+      {{ end }}
+
       {{ with $paper.abstract_html }}
       <div class="card bg-light mb-2 mb-lg-3">
         <div class="card-body acl-abstract">

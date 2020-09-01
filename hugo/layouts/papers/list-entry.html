@@ -20,7 +20,7 @@
         <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
       {{- end -}}
   </span>
-  <span class="d-block">
+  <span class="d-block" {{ with $paper.retracted }} style="text-decoration: line-through" {{ end }}>
     {{ if eq hugo.Environment "development" }}
       <span class="badge badge-light align-middle">{{ .Params.anthology_id }}</span>
     {{ end }}
