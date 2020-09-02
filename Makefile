@@ -98,7 +98,7 @@ basedirs:
 	build/.basedirs
 
 build/.basedirs:
-	@mkdir -p build
+	@mkdir -p build/data-export/papers
 	@touch build/.basedirs
 
 # copies all files that are not automatically generated
