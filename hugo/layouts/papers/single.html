@@ -166,6 +166,7 @@
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
       <dt class="acl-button-row">Bib Export formats:</dt>
+      {{ if not $paper.retracted }}
       <dd class="acl-button-row">
       {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
         <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}">BibTeX</a>
@@ -180,6 +181,7 @@
         <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s.bib" $anthology_id) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
       {{ end }}
       </dd>
+      {{ end }}
 
       {{ with $paper.pdf }}
       <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
@@ -212,7 +214,7 @@
         </a>
         {{ end }}
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
+      {{ if and (not $paper.retracted) (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
       <a class="btn btn-secondary" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
       </a>
