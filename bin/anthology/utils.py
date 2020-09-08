@@ -217,8 +217,7 @@ def remove_extra_whitespace(text):
 
 
 def infer_url(filename, prefix=data.ANTHOLOGY_PREFIX):
-    """If URL is relative, return the full Anthology URL.
-    """
+    """If URL is relative, return the full Anthology URL."""
     if urlparse(filename).netloc:
         return filename
     return f"{prefix}/{filename}"

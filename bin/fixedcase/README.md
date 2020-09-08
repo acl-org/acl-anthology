@@ -18,7 +18,7 @@ Fixed-caseness is determined by this decision list:
 4. Any word with a capital letter in a non-initial position (e.g.,
    "TextTiling", "QA") is fixed-case.
 5. The French contracted forms "L’" and "D’" are not fixed-case.
-6. Any tokenized word consisting of a single uppercase letter other than "A",
+6. Any tokenized word consisting of a single uppercase letter other than "A", "K" or "N",
    or a single uppercase letter plus ".", is fixed-case.
 7. If one of a short list of adjectival modifiers including "North" and "Modern"
    precedes a fixed-case word, optionally separated by a hyphen,

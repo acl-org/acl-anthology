@@ -74,7 +74,8 @@ def validate_file_type(path):
 def download_file(source, dest):
     try:
         print(
-            f"-> Downloading file from {source} to {dest}", file=sys.stderr,
+            f"-> Downloading file from {source} to {dest}",
+            file=sys.stderr,
         )
         with urllib.request.urlopen(source) as url, open(dest, mode="wb") as fh:
             fh.write(url.read())
@@ -113,7 +114,6 @@ def main(args):
     validate_file_type(input_file_path)
 
     collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
-    venue_name = collection_id.split(".")[1]
     paper_extension = args.path.split(".")[-1]
 
     # The new version
@@ -125,6 +125,7 @@ def main(args):
     # Files for old-style IDs are stored under anthology-files/pdf/P/P19/*
     # Files for new-style IDs are stored under anthology-files/pdf/2020.acl/*
     if is_newstyle_id(args.anthology_id):
+        venue_name = collection_id.split(".")[1]
         output_dir = os.path.join(args.anthology_dir, "pdf", venue_name)
     else:
         output_dir = os.path.join(
