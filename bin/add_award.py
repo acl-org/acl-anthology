@@ -61,7 +61,9 @@ def main(args):
 
     existing_award = paper.find("./award")
     if existing_award is not None and award.text.lower() == args.award:
-        print(f"Error: Award {args.award} already exists for {args.anthology_id}, quitting")
+        print(
+            f"Error: Award {args.award} already exists for {args.anthology_id}, quitting"
+        )
 
     make_simple_element("award", args.award, parent=paper)
     indent(tree.getroot())
