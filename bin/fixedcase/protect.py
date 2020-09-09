@@ -24,7 +24,7 @@ else:
 # recursive helper called by protect
 # protect text of "node", including children, and tails of children
 def protect_recurse(node, recased):
-    if node.tag == "fixed-case":  # already protected
+    if node.tag in ("fixed-case", "tex-math"):  # already protected text, or math
         newnode = copy.deepcopy(node)  # don't need to modify descendents
         newnode.tail = None  # tail will be protected by caller
         return newnode

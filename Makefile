@@ -93,21 +93,27 @@ venv/bin/activate: bin/requirements.txt
 .PHONY: all
 all: clean check site
 
+.PHONY: basedirs
+basedirs:
+	build/.basedirs
+
+build/.basedirs:
+	@mkdir -p build/data-export/papers
+	@touch build/.basedirs
+
 # copies all files that are not automatically generated
 # and creates empty directories as needed.
 .PHONY: static
 static: build/.static
 
-build/.static: $(shell find hugo -type f)
+build/.static: build/.basedirs $(shell find hugo -type f)
 	@echo "INFO     Creating and populating build directory..."
-	@mkdir -p build
 	@cp -r hugo/* build
 	@echo >> build/config.toml
 	@echo "[params]" >> build/config.toml
 	@echo "  githash = \"${githash}\"" >> build/config.toml
 	@echo "  githashshort = \"${githashshort}\"" >> build/config.toml
 	@echo "  timestamp = \"${timestamp}\"" >> build/config.toml
-	@mkdir -p build/data-export
 	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
 	@touch build/.static
 
@@ -130,7 +136,7 @@ build/.pages: build/.static build/.yaml venv/bin/activate
 .PHONY: bibtex
 bibtex:	build/.bibtex
 
-build/.bibtex: build/.static $(sourcefiles) venv/bin/activate
+build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
 	@echo "INFO     Creating BibTeX files..."
 	. $(VENV) && python3 bin/create_bibtex.py --clean
 	@touch build/.bibtex
@@ -180,6 +186,10 @@ clean:
 
 .PHONY: check
 check: venv
+	@if grep -rl '	' data/xml; then \
+	    echo "check error: found a tab character in the above XML files!"; \
+	    exit 1; \
+	fi
 	jing -c data/xml/schema.rnc data/xml/*xml
 	SKIP=no-commit-to-branch . $(VENV) \
 	  && pre-commit run --all-files \
