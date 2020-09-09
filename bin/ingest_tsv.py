@@ -211,7 +211,10 @@ def main(args):
                         print(f"Couldn't split {author_name}")
                         sys.exit(1)
                 else:
-                    first, last = ' '.join(author_name.split()[:-1]), author_name.split()[-1]
+                    first, last = (
+                        ' '.join(author_name.split()[:-1]),
+                        author_name.split()[-1],
+                    )
                 make_simple_element("first", first, parent=author)
                 make_simple_element("last", last, parent=author)
 
