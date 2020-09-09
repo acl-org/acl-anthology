@@ -199,20 +199,21 @@ def main(args):
 
         author_list = row["Authors"].split(" and ")
 
-        for author_name in author_list:
-            if author_name == "":
-                continue
-            author = make_simple_element("author", parent=paper)
-            if ", " in author_name:
-                try:
-                    last, first = author_name.split(", ")
-                except:
-                    print(f"Couldn't split {author_name}")
-                    sys.exit(1)
-            else:
-                first, last = ' '.join(author_name.split()[:-1]), author_name.split()[-1]
-            make_simple_element("first", first, parent=author)
-            make_simple_element("last", last, parent=author)
+        if paper.tag != "frontmatter":
+            for author_name in author_list:
+                if author_name == "":
+                    continue
+                author = make_simple_element("author", parent=paper)
+                if ", " in author_name:
+                    try:
+                        last, first = author_name.split(", ")
+                    except:
+                        print(f"Couldn't split {author_name}")
+                        sys.exit(1)
+                else:
+                    first, last = ' '.join(author_name.split()[:-1]), author_name.split()[-1]
+                make_simple_element("first", first, parent=author)
+                make_simple_element("last", last, parent=author)
 
         if pages is not None:
             make_simple_element("pages", pages, parent=paper)
