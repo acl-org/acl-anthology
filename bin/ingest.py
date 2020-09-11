@@ -77,6 +77,7 @@ def read_meta(path: str) -> Dict[str, Any]:
 
 
 def maybe_copy(source_path, dest_path):
+    """Copies the file if it's different from the target."""
     if not os.path.exists(dest_path) or compute_hash_from_file(
         source_path
     ) != compute_hash_from_file(dest_path):
