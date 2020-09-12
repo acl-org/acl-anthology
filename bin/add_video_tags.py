@@ -27,8 +27,8 @@ Usage:
 """
 
 import pandas as pd
-import os, glob
-import lxml.etree as ET
+import os
+import lxml.etree as et
 import argparse
 
 from anthology.utils import (
@@ -37,27 +37,26 @@ from anthology.utils import (
     indent
 )
 
-script_root = os.path.dirname(os.path.abspath(__file__))
-data_dir = os.path.join(script_root, "../data/xml")
+root = os.path.dirname(os.path.abspath(__file__))
+data_dir = os.path.join(root, "../data/xml")
+
 
 def combine_tsv(files):
-    combined_df = pd.concat([pd.read_csv(os.path.join(script_root, fname), sep="\t") for fname in files])
+    combined_df = pd.concat([pd.read_csv(os.path.join(root, fname), sep="\t") for fname in files])
     return combined_df
 
-def split_anth_id(id):
-    coll_id, _, _ = deconstruct_anthology_id(id)
+
+def split_anth_id(anth_id):
+    coll_id, _, _ = deconstruct_anthology_id(anth_id)
     return coll_id
 
-def add_video_tag(anth_paper, xml_file):
-    coll_id, vol_id, paper_id = deconstruct_anthology_id(anth_paper.anthology_id)
-    tree = ET.parse(os.path.join(data_dir, xml_file))
 
-    paper = tree.getroot().find(f'./volume[@id="{vol_id}"]/paper[@id="{paper_id}"]')
+def add_video_tag(anth_paper, xml_parse):
+    coll_id, vol_id, paper_id = deconstruct_anthology_id(anth_paper.anthology_id)
+    paper = xml_parse.find(f'./volume[@id="{vol_id}"]/paper[@id="{paper_id}"]')
+
     video_url = "http://slideslive.com/{}".format(anth_paper.presentation_id)
     make_simple_element("video", attrib={"tag": "video", "href": video_url}, parent=paper)
-
-    with open(os.path.join(data_dir, coll_id + ".xml"), 'wb') as f:
-        tree.write(f, encoding="UTF-8", xml_declaration=True)
 
 
 def main(args):
@@ -67,16 +66,22 @@ def main(args):
     for xml in os.listdir(data_dir):
         fname, ext = os.path.splitext(xml)
         if fname in combo_df_uniques.tolist() or fname == "2020.acl":
+            tree = et.parse(os.path.join(data_dir, xml))
+
             df_subset = combo_df[combo_df['anthology_id'].str.startswith(fname)]
-            df_subset.apply(add_video_tag, axis=1, xml_file=xml)
+            df_subset.apply(add_video_tag, axis=1, xml_parse=tree)
+
+            with open(os.path.join(data_dir, fname + ".xml"), 'wb') as f:
+                indent(tree.getroot())
+                tree.write(f, encoding="UTF-8", xml_declaration=True)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Adds video tags to the anthology XML.')
-    parser.add_argument('tsv_files', nargs='+',  help='Two-column TSV containing (anthology_id, presentation_id)')
+    parser.add_argument('tsv_files', nargs='+', help='Two-column TSV containing (anthology_id, presentation_id)')
 
-    args = parser.parse_args()
-    if args == 0:
+    cl_args = parser.parse_args()
+    if cl_args == 0:
         parser.print_help()
     else:
-        main(vars(args))        # vars converts the argparse's Namespace object to a dictionary
+        main(vars(cl_args))  # vars converts the argparse's Namespace object to a dictionary
