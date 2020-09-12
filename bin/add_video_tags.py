@@ -31,18 +31,16 @@ import os
 import lxml.etree as et
 import argparse
 
-from anthology.utils import (
-    deconstruct_anthology_id,
-    make_simple_element,
-    indent
-)
+from anthology.utils import deconstruct_anthology_id, make_simple_element, indent
 
 root = os.path.dirname(os.path.abspath(__file__))
 data_dir = os.path.join(root, "../data/xml")
 
 
 def combine_tsv(files):
-    combined_df = pd.concat([pd.read_csv(os.path.join(root, fname), sep="\t") for fname in files])
+    combined_df = pd.concat(
+        [pd.read_csv(os.path.join(root, fname), sep="\t") for fname in files]
+    )
     return combined_df
 
 
@@ -78,10 +76,16 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Adds video tags to the anthology XML.')
-    parser.add_argument('tsv_files', nargs='+', help='Two-column TSV containing (anthology_id, presentation_id)')
+    parser.add_argument(
+        'tsv_files',
+        nargs='+',
+        help='Two-column TSV containing (anthology_id, presentation_id)',
+    )
 
     cl_args = parser.parse_args()
     if cl_args == 0:
         parser.print_help()
     else:
-        main(vars(cl_args))  # vars converts the argparse's Namespace object to a dictionary
+        main(
+            vars(cl_args)
+        )  # vars converts the argparse's Namespace object to a dictionary
