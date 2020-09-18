@@ -76,6 +76,15 @@ def read_meta(path: str) -> Dict[str, Any]:
     return meta
 
 
+def maybe_copy(source_path, dest_path):
+    """Copies the file if it's different from the target."""
+    if not os.path.exists(dest_path) or compute_hash_from_file(
+        source_path
+    ) != compute_hash_from_file(dest_path):
+        log(f"Copying {source_path} -> {dest_path}", args.dry_run)
+        shutil.copyfile(source_path, dest_path)
+
+
 def bib2xml(bibfilename, anthology_id):
     """
     Moved here from ACLPUB's anthology_xml.py script.
@@ -214,9 +223,8 @@ def main(args):
                 os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
             )
 
-            if not args.dry_run and not os.path.exists(book_dest_path):
-                log(f"Copying {book_src_path} -> {book_dest_path}", args.dry_run)
-                shutil.copyfile(book_src_path, book_dest_path)
+            if not args.dry_run:
+                maybe_copy(book_src_path, book_dest_path)
 
         # copy the paper PDFs
         pdf_src_dir = os.path.join(root_path, "pdf")
@@ -238,9 +246,8 @@ def main(args):
                 pdf_dest_path = os.path.join(
                     pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
                 )
-                if not args.dry_run and not os.path.exists(pdf_dest_path):
-                    log(f"Copying {pdf_src_path} -> {pdf_dest_path}", args.dry_run)
-                    shutil.copyfile(pdf_src_path, pdf_dest_path)
+                if not args.dry_run:
+                    maybe_copy(pdf_src_path, pdf_dest_path)
 
                 collections[collection_id][volume_name][paper_num] = {
                     "anthology_id": paper_id_full,
