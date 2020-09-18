@@ -1,3 +1,10 @@
+---
+name: Bug report
+about: File a bug report with the Anthology
+title: Bug report
+labels: bug
+---
+
 *Use this issue template to help file your issue. Please delete portions that are not relevant, and feel free to change it or add sections.*
 
 #### Issue description
