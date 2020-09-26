@@ -74,9 +74,14 @@ class Paper:
                 del paper.attrib["editor"]
             paper.attrib[key] = value
 
+        # Frontmatter title is the volume 'booktitle'
+        if paper.is_volume:
+            paper.attrib["xml_title"] = paper.attrib["xml_booktitle"]
+            paper.attrib["xml_title"].tag = "title"
+
         # Create URL field if not present. But see https://github.com/acl-org/acl-anthology/issues/997.
         if "url" not in paper.attrib:
-            paper.attrib["url"] = data.ANTHOLOGY_URL.format(paper.full_id)
+            paper.attrib["url"] = infer_url(paper.full_id)
 
         # Remove booktitle for frontmatter and journals
         if paper.is_volume or is_journal(paper.full_id):
