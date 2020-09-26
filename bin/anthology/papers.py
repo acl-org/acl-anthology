@@ -19,6 +19,7 @@ import logging as log
 from .utils import (
     build_anthology_id,
     parse_element,
+    infer_url,
     infer_attachment_url,
     remove_extra_whitespace,
     is_journal,
