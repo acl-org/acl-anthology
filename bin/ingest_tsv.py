@@ -26,6 +26,7 @@ March 2020
 import csv
 import lxml.etree as etree
 import os
+import shutil
 import ssl
 import subprocess
 import sys
@@ -44,20 +45,26 @@ def download(remote_path, local_path):
     if not os.path.exists(local_dir):
         print(f"Creating directory {local_dir}", file=sys.stderr)
         os.makedirs(local_dir)
-    try:
-        print(f"-> Downloading file from {remote_path} to {local_path}", file=sys.stderr)
-        with urllib.request.urlopen(remote_path) as url, open(
-            local_path, mode="wb"
-        ) as input_file_fh:
-            input_file_fh.write(url.read())
-    except ssl.SSLError:
-        raise Exception(f"Could not download {remote_path} to {local_path}")
-    except urllib.error.HTTPError:
-        print(f"-> FAILED to download {remote_path}", file=sys.stderr)
-        return False
-    except urllib.error.URLError:
-        print(f"-> FAILED to download {remote_path}", file=sys.stderr)
-        return False
+
+    if remote_path.startswith("http"):
+        try:
+            print(
+                f"-> Downloading file from {remote_path} to {local_path}", file=sys.stderr
+            )
+            with urllib.request.urlopen(remote_path) as url, open(
+                local_path, mode="wb"
+            ) as input_file_fh:
+                input_file_fh.write(url.read())
+        except ssl.SSLError:
+            raise Exception(f"Could not download {remote_path} to {local_path}")
+        except urllib.error.HTTPError:
+            print(f"-> FAILED to download {remote_path}", file=sys.stderr)
+            return False
+        except urllib.error.URLError:
+            print(f"-> FAILED to download {remote_path}", file=sys.stderr)
+            return False
+    else:
+        shutil.copyfile(remote_path, local_path)
 
     return True
 
@@ -114,7 +121,7 @@ def main(args):
 
     # Create the metadata for the paper
     meta = None
-    for row in csv.DictReader(args.meta_file, delimiter="\t"):
+    for row in csv.DictReader(args.meta_file, delimiter=args.delimiter):
         current_collection_id = f"{row['Year']}.{row['Conference code']}"
         if current_collection_id == collection_id:
             meta = make_simple_element("meta", parent=volume)
@@ -178,7 +185,7 @@ def main(args):
 
     paperid = 0
     # Create entries for all the papers
-    for row in csv.DictReader(args.tsv_file, delimiter='\t'):
+    for row in csv.DictReader(args.tsv_file, delimiter=args.delimiter):
         pages = row.get("Pagenumbers", None)
 
         title_text = row["Title"]
@@ -279,7 +286,9 @@ if __name__ == '__main__':
         default=f"{os.environ.get('HOME')}/anthology-files/pdf",
         help="Path to Anthology files (Default: ~/anthology-files",
     )
-
+    parser.add_argument(
+        "--delimiter", "-d", default="\t", help="CSV file delimiter (default: TAB)"
+    )
     parser.add_argument('--proceedings', help="Path to PDF with conference proceedings")
     parser.add_argument('--frontmatter', action="store_true")
     parser.add_argument("--force", "-f", action="store_true")
