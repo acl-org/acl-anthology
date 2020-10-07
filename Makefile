@@ -98,7 +98,8 @@ basedirs:
 	build/.basedirs
 
 build/.basedirs:
-	@mkdir -p build/data-export/papers
+	@mkdir -p build/data-export
+	@mkdir -p build/content/papers
 	@touch build/.basedirs
 
 # copies all files that are not automatically generated
@@ -120,7 +121,7 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 .PHONY: yaml
 yaml: build/.yaml
 
-build/.yaml: build/.static $(sourcefiles) venv/bin/activate
+build/.yaml: build/.basedirs $(sourcefiles) venv/bin/activate
 	@echo "INFO     Generating YAML files for Hugo..."
 	. $(VENV) && python3 bin/create_hugo_yaml.py --clean
 	@touch build/.yaml
@@ -128,7 +129,7 @@ build/.yaml: build/.static $(sourcefiles) venv/bin/activate
 .PHONY: hugo_pages
 hugo_pages: build/.pages
 
-build/.pages: build/.static build/.yaml venv/bin/activate
+build/.pages: build/.basedirs build/.yaml venv/bin/activate
 	@echo "INFO     Creating page templates for Hugo..."
 	. $(VENV) && python3 bin/create_hugo_pages.py --clean
 	@touch build/.pages
@@ -165,7 +166,7 @@ build/.endnote: build/.mods
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
+build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
