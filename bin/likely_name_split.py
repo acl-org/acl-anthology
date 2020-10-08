@@ -57,8 +57,9 @@ class NameSplitter:
     # returns ("Lopez Gonzalez", "Maria Victoria")
     # uses counts of words in first and last names in current database
     def best_split(self, name):
-        if "," in name:
+        if "," in name and not "Jr." in name:
             # Short-circuit names that are already split
+            # comma in "William Baumgartner, Jr." does not count as a split
             surname, given_names = name.split(",")
             return (surname.strip(), given_names.strip())
 
