@@ -147,6 +147,7 @@ def retrieve_url(remote_url: str, local_path: str):
 
     return True
 
+
 def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     """
     Transforms an Anthology ID into its constituent collection id, volume id, and paper id

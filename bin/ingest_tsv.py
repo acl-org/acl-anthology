@@ -38,6 +38,7 @@ from normalize_anth import normalize
 from likely_name_split import NameSplitter
 from ingest import maybe_copy
 
+
 def extract_pages(source_path, page_range, local_path):
     if os.path.exists(local_path):
         print(f"{local_path} already exists, not re-extracting", file=sys.stderr)
