@@ -3,23 +3,27 @@
 Takes a conference TSV file and creates the Anthology XML in the ACL Anthology repository.
 This file can then be added to the repo and committed.
 
+Expects fields name like BibTeX files.
+
 Example usage:
 
-- First, fork [the ACL Anthology](https://github.com/acl-org/acl-anthology) to your Github account, and clone it to your drive
-- Grab one of the [conference TSV files](https://drive.google.com/drive/u/0/folders/1hC7FDlsXWVM2HSYgdluz01yotdEd0zW8)
-- Export the [conference list file](https://docs.google.com/spreadsheets/d/1fpxmdV_BPwR6BQHyU9VJQxXeSOmy4__5nQCHBEviyAw/edit#gid=0) to conference-meta.tsv
+    cat data.tsv \
+    | ./ingest_tsv.py --venue amta --year 2020 --volume user --proceedings-pdf 2020.amta-user.pdf
 
-Then run it as
+where data.tsv has TSV fields:
 
-    scripts/ingest_tsv.py [--anthology /path/to/anthology] eamt/eamt.1997.tsv
-
-this will create a file `/path/to/anthology/data/xml/1997.eamt.xml`.
-You can then commit this to your Anthology repo, push to your Github, and create a PR.
-
-This was used for ingesting many of the conferences in the MT Archive.
+* author
+* title
+* booktitle
+* month
+* year
+* address
+* publisher
+* pages
+* pdf
 
 Author: Matt Post
-March 2020
+October 2020
 """
 
 import anthology
@@ -37,31 +41,7 @@ from datetime import datetime
 from normalize_anth import normalize
 from likely_name_split import NameSplitter
 from ingest import maybe_copy
-
-
-def extract_pages(source_path, page_range, local_path):
-    if os.path.exists(local_path):
-        print(f"{local_path} already exists, not re-extracting", file=sys.stderr)
-        return True
-    if not os.path.exists(source_path):
-        print(f"{source_path} does not exists", file=sys.stderr)
-        raise Exception(f"Could not extract pdf")
-    try:
-        if "--" in page_range:
-            page_range = page_range.replace("--", "-")
-        page_range = ' A'.join(page_range.split(','))
-        print(
-            f"-> Extracting pages {page_range} from {source_path} to {local_path}",
-            file=sys.stderr,
-        )
-        command = [f"pdftk A={source_path} cat {page_range} output {local_path}"]
-        print(command, file=sys.stderr)
-        subprocess.check_call(command, shell=True)
-    except ssl.SSLError:
-        raise Exception(f"Could not extract pdf")
-
-    return True
-
+from ingest_mtarchive import extract_pages
 
 def main(args):
     year = args.year
