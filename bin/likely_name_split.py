@@ -14,6 +14,8 @@ Options:
 
 from collections import defaultdict
 from docopt import docopt
+import pickle, json
+import sys
 import re
 import os
 from math import *
@@ -23,7 +25,7 @@ from anthology.people import PersonName
 
 
 class NameSplitter:
-    def __init__(self, anthology):
+    def __init__(self, anthology=None):
         # counts of how often each name appears
         self.first_count = defaultdict(lambda: 0)  # "Maria" "Victoria"
         self.first_full_count = defaultdict(lambda: 0)  # "Maria Victoria"
@@ -32,7 +34,39 @@ class NameSplitter:
         self.first_total = 0
         self.last_total = 0
 
-        self.count_names(anthology)
+        if os.path.exists("names.cache"):
+            self.load_cache()
+        else:
+            if anthology is None:
+                anthology = anthology.Anthology(
+                    importdir=os.path.join(args.anthology, "data")
+                )
+            self.count_names(anthology)
+            self.dump_cache()
+
+    def load_cache(self):
+        with open("names.cache", "r") as cache:
+            p = json.load(cache)
+            self.first_count = defaultdict(int, p["first_count"])
+            self.first_full_count = defaultdict(int, p["first_full_count"])
+            self.first_total = p["first_total"]
+            self.last_count = defaultdict(int, p["last_count"])
+            self.last_full_count = defaultdict(int, p["last_full_count"])
+            self.last_total = p["last_total"]
+        print(f"Loaded cache from names.cache", file=sys.stderr)
+
+    def dump_cache(self):
+        with open("names.cache", "w") as cache:
+            p = {
+                "first_count": self.first_count,
+                "first_full_count": self.first_full_count,
+                "first_total": self.first_total,
+                "last_count": self.last_count,
+                "last_full_count": self.last_full_count,
+                "last_total": self.last_total,
+            }
+            print(json.dumps(p), file=cache)
+        print(f"Dumped counts to names.cache", file=sys.stderr)
 
     # counts names in anthology database into global vars
     # first_count last_count (dicts)
