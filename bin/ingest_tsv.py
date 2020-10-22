@@ -63,6 +63,10 @@ def main(args):
     now = datetime.now()
     today = f"{now.year}-{now.month:02d}-{now.day:02d}"
 
+    volume_node = tree.getroot().find(f"./volume[@id='{volume_id}']")
+    if volume_node is not None:
+        tree.getroot().remove(volume_node)
+
     volume = make_simple_element(
         "volume", attrib={"id": volume_id, "ingest-date": today}, parent=tree.getroot()
     )
