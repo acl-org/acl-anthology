@@ -19,6 +19,7 @@ import logging
 import os
 import re
 import requests
+import shutil
 
 from lxml import etree
 from urllib.parse import urlparse
@@ -141,7 +142,10 @@ def retrieve_url(remote_url: str, local_path: str):
             local_path, mode="wb"
         ) as input_file_fh:
             input_file_fh.write(url.read())
+    else:
+        shutil.copyfile(remote_url, local_path)
 
+    return True
 
 def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     """
