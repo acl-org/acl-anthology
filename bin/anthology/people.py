@@ -21,12 +21,19 @@ import anthology.formatter as my_formatter
 class PersonName:
     first, last = "", ""
 
-    def __init__(self, first, last):
+    def __init__(self, first, last, variant: "PersonName" = None):
         self.first = first.strip() if first is not None else ""
         self.last = last.strip()
+        self.variant = variant
 
     def from_element(person_element):
+        """
+        Reads from the XML, which includes an optional first name, a last name,
+        and an optional variant (itself containing an optional first name, and a
+        last name).
+        """
         first, last = "", ""
+        variant = None
         for element in person_element:
             tag = element.tag
             # These are guaranteed to occur at most once by the schema
@@ -34,7 +41,9 @@ class PersonName:
                 first = element.text or ""
             elif tag == "last":
                 last = element.text or ""
-        return PersonName(first, last)
+            elif tag == "variant":
+                variant = PersonName.from_element(element)
+        return PersonName(first, last, variant)
 
     def from_repr(repr_):
         parts = repr_.split(" || ")
@@ -53,7 +62,10 @@ class PersonName:
 
     @property
     def full(self):
-        return "{} {}".format(self.first, self.last).strip()
+        if self.variant is not None:
+            return "{} {} ({})".format(self.first, self.last, self.variant.full).strip()
+        else:
+            return "{} {}".format(self.first, self.last).strip()
 
     @property
     def id_(self):
