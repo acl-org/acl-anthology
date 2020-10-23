@@ -45,7 +45,6 @@ def read_bibtex(bibfilename):
         bibdata = pybtex.database.parse_string(bibstring, "bibtex")
     except:
         import sys
-
         print(f"Failed to parse {bibfilename}", file=sys.stderr)
         sys.exit(1)
     return bibdata

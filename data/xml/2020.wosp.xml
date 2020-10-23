@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.wosp">
+  <volume id="1" ingest-date="2020-10-23">
+    <meta>
+      <booktitle>Proceedings of the 8th International Workshop on Mining Scientific Publications</booktitle>
+      <editor><first>Petr</first><last>Knoth</last></editor>
+      <editor><first>Christopher</first><last>Stahl</last></editor>
+      <editor><first>Bikash</first><last>Gyawali</last></editor>
+      <editor><first>David</first><last>Pride</last></editor>
+      <editor><first>Suchetha N.</first><last>Kunnath</last></editor>
+      <editor><first>Drahomira</first><last>Herrmannova</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Wuhan, China</address>
+      <month>05 August</month>
+      <year>2020</year>
+      <url hash="dc00149a">2020.wosp-1</url>
+    </meta>
+    <frontmatter>
+      <url hash="337783c9">2020.wosp-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Virtual Citation Proximity (<fixed-case>VCP</fixed-case>): Empowering Document Recommender Systems by Learning a Hypothetical In-Text Citation-Proximity Metric for Uncited Documents</title>
+      <author><first>Paul</first><last>Molloy</last></author>
+      <author><first>Joeran</first><last>Beel</last></author>
+      <author><first>Akiko</first><last>Aizawa</last></author>
+      <pages>1–8</pages>
+      <abstract>The relatedness of research articles, patents, court rulings, web pages, and other document types is often calculated with citation or hyperlink-based approaches like co-citation (proximity) analysis. The main limitation of citation-based approaches is that they cannot be used for documents that receive little or no citations. We propose Virtual Citation Proximity (VCP), a Siamese Neural Network architecture, which combines the advantages of co-citation proximity analysis (diverse notions of relatedness / high recommendation performance), with the advantage of content-based filtering (high coverage). VCP is trained on a corpus of documents with textual features, and with real citation proximity as ground truth. VCP then predicts for any two documents, based on their title and abstract, in what proximity the two documents would be co-cited, if they were indeed co-cited. The prediction can be used in the same way as real citation proximity to calculate document relatedness, even for uncited documents. In our evaluation with 2 million co-citations from Wikipedia articles, VCP achieves an MAE of 0.0055, i.e. an improvement of 20% over the baseline, though the learning curve suggests that more work is needed.</abstract>
+      <url hash="2f9def55">2020.wosp-1.1</url>
+    </paper>
+    <paper id="2">
+      <title>Citations Beyond Self Citations: Identifying Authors, Affiliations, and Nationalities in Scientific Papers</title>
+      <author><first>Yoshitomo</first><last>Matsubara</last></author>
+      <author><first>Sameer</first><last>Singh</last></author>
+      <pages>9–20</pages>
+      <abstract>The question of the utility of the blind peer-review system is fundamental to scientific research. Some studies investigate exactly how “blind” the papers are in the double-blind review system by manually or automatically identifying the true authors, mainly suggesting the number of self-citations in the submitted manuscripts as the primary signal for identity. However, related work on the automated approaches are limited by the sizes of their datasets and the restricted experimental setup, thus they lack practical insights into the blind review process. In this work, we train models that identify the authors, their affiliations, and their nationalities through real-world, large-scale experiments on the Microsoft Academic Graph, including the cold start scenario. Our models are accurate; we identify at least one of authors, affiliations, and nationalities of held-out papers with 40.3%, 47.9% and 86.0% accuracy respectively, from the top-10 guesses of our models. However, through insights from the model, we demonstrate that these entities are identifiable with a small number of guesses primarily by using a combination of self-citations, social, and common citations. Moreover, our further analysis on the results leads to interesting findings, such as that prominent affiliations are easily identifiable (e.g. 93.8% of test papers written by Microsoft are identified with top-10 guesses). The experimental results show, against conventional belief, that the self-citations are no more informative than looking at the common citations, thus suggesting that removing self-citations is not sufficient for authors to maintain their anonymity.</abstract>
+      <url hash="faf1dad4">2020.wosp-1.2</url>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>S</fixed-case>mart<fixed-case>C</fixed-case>ite<fixed-case>C</fixed-case>on: Implicit Citation Context Extraction from Academic Literature Using Supervised Learning</title>
+      <author><first>Chenrui</first><last>Guo</last></author>
+      <author><first>Haoran</first><last>Cui</last></author>
+      <author><first>Li</first><last>Zhang</last></author>
+      <author><first>Jiamin</first><last>Wang</last></author>
+      <author><first>Wei</first><last>Lu</last></author>
+      <author><first>Jian</first><last>Wu</last></author>
+      <pages>21–26</pages>
+      <abstract>We introduce SmartCiteCon (SCC), a Java API for extracting both explicit and implicit citation context from academic literature in English. The tool is built on a Support Vector Machine (SVM) model trained on a set of 7,058 manually annotated citation context sentences, curated from 34,000 papers from the ACL Anthology. The model with 19 features achieves F1=85.6%. SCC supports PDF, XML, and JSON files out-of-box, provided that they are conformed to certain schemas. The API supports single document processing and batch processing in parallel. It takes about 12–45 seconds on average depending on the format to process a document on a dedicated server with 6 multithreaded cores. Using SCC, we extracted 11.8 million citation context sentences from ~33.3k PMC papers in the CORD-19 dataset, released on June 13, 2020. We will provide continuous supplementary data contribution to the CORD-19 and other datasets. The source code is released at https://gitee.com/irlab/SmartCiteCon.</abstract>
+      <url hash="c05fe221">2020.wosp-1.3</url>
+    </paper>
+    <paper id="4">
+      <title>Synthetic vs. Real Reference Strings for Citation Parsing, and the Importance of Re-training and Out-Of-Sample Data for Meaningful Evaluations: Experiments with <fixed-case>GROBID</fixed-case>, <fixed-case>GIANT</fixed-case> and <fixed-case>CORA</fixed-case></title>
+      <author><first>Mark</first><last>Grennan</last></author>
+      <author><first>Joeran</first><last>Beel</last></author>
+      <pages>27–35</pages>
+      <abstract>Citation parsing, particularly with deep neural networks, suffers from a lack of training data as available datasets typically contain only a few thousand training instances. Manually labelling citation strings is very time-consuming, hence synthetically created training data could be a solution. However, as of now, it is unknown if synthetically created reference-strings are suitable to train machine learning algorithms for citation parsing. To find out, we train Grobid, which uses Conditional Random Fields, with a) human-labelled reference strings from ‘real’ bibliographies and b) synthetically created reference strings from the GIANT dataset. We find that both synthetic and organic reference strings are equally suited for training Grobid (F1 = 0.74). We additionally find that retraining Grobid has a notable impact on its performance, for both synthetic and real data (+30% in F1). Having as many types of labelled fields as possible during training also improves effectiveness, even if these fields are not available in the evaluation data (+13.5% F1). We conclude that synthetic data is suitable for training (deep) citation parsing models. We further suggest that in future evaluations of reference parsers both evaluation data similar and dissimilar to the training data should be used for more meaningful evaluations.</abstract>
+      <url hash="c34ddadb">2020.wosp-1.4</url>
+    </paper>
+    <paper id="5">
+      <title>Term-Recency for <fixed-case>TF</fixed-case>-<fixed-case>IDF</fixed-case>, <fixed-case>BM</fixed-case>25 and <fixed-case>USE</fixed-case> Term Weighting</title>
+      <author><first>Divyanshu</first><last>Marwah</last></author>
+      <author><first>Joeran</first><last>Beel</last></author>
+      <pages>36–41</pages>
+      <abstract>Effectiveness of a recommendation in an Information Retrieval (IR) system is determined by relevancy scores of retrieved results. Term weighting is responsible for computing the relevance scores and consequently differentiating between the terms in a document. However, the current term weighting formula (TF-IDF, for instance), weighs terms only based on term frequency and inverse document frequency irrespective of other important factors. This results in ambiguity in cases when both TF and IDF values the same for more than one document, hence resulting in same TF-IDF values. In this paper, we propose a modification of TF-IDF and other term-weighting schemes that weighs the terms based on the recency and the usage in the corpus. We have tested the performance of our algorithm with existing term weighting schemes; TF-IDF, BM25 and USE text embedding model. We have indexed three different datasets with different domains to validate the premises for our algorithm. On evaluating the algorithms using Precision, Recall, F1 score, and NDCG, we found that time normalized TF-IDF outperformed the classic TF-IDF with a significant difference in all the metrics and datasets. Time-based USE model performed better than the standard USE model in two out of three datasets. But the time-based BM25 model did not perform well in some of the input queries as compared to standard BM25 model.</abstract>
+      <url hash="9cadc110">2020.wosp-1.5</url>
+    </paper>
+    <paper id="6">
+      <title>The Normalized Impact Index for Keywords in Scholarly Papers to Detect Subtle Research Topics</title>
+      <author><first>Daisuke</first><last>Ikeda</last></author>
+      <author><first>Yuta</first><last>Taniguchi</last></author>
+      <author><first>Kazunori</first><last>Koga</last></author>
+      <pages>42–47</pages>
+      <abstract>Mainly due to the open access movement, the number of scholarly papers we can freely access is drastically increasing. A huge amount of papers is a promising resource for text mining and machine learning. Given a set of papers, for example, we can grasp past or current trends in a research community. Compared to the trend detection, it is more difficult to forecast trends in the near future, since the number of occurrences of some features, which are major cues for automatic detection, such as the word frequency, is quite small before such a trend will emerge. As a first step toward trend forecasting, this paper is devoted to finding subtle trends. To do this, the authors propose an index for keywords, called normalized impact index, and visualize keywords and their indices as a heat map. The authors have conducted case studies using some keywords already known as popular, and we found some keywords whose frequencies are not so large but whose indices are large.</abstract>
+      <url hash="01f43ada">2020.wosp-1.6</url>
+    </paper>
+    <paper id="7">
+      <title>Representing and Reconstructing <fixed-case>P</fixed-case>hy<fixed-case>SH</fixed-case>: Which Embedding Competent?</title>
+      <author><first>Xiaoli</first><last>Chen</last></author>
+      <author><first>Zhixiong</first><last>Zhang</last></author>
+      <pages>48–53</pages>
+      <abstract>Recent advances in natural language processing make embedding representations dominate the computing language world. Though it is taken for granted, we actually have limited knowledge of how these embeddings perform in representing the complex hierarchy of domain scientific knowledge. In this paper, we conduct a comprehensive comparison of well-known embeddings’ capability in capturing the hierarchical Physics knowledge. Several key findings are: i, Poincaré embeddings do outperform if trained on PhySH taxonomy, but it fails if trained on co-occurrence pairs which are extracted from raw text. ii, No algorithm can properly learn hierarchies from the more realistic case of co-occurrence pairs, which contains more noisy relations other than hierarchical relations. iii, Our statistic analysis of Poincaré embedding’s representation of PhySH shows successful hierarchical representation share two characteristics: firstly, upper-level terms have a smaller semantic distance to root; secondly, upper-level hypernym-hyponym pairs should be further apart than lower-level hypernym-hyponym pairs.</abstract>
+      <url hash="f0c69aa2">2020.wosp-1.7</url>
+    </paper>
+    <paper id="8">
+      <title>Combining Representations For Effective Citation Classification</title>
+      <author><first>Claudio Moisés Valiense</first><last>de Andrade</last></author>
+      <author><first>Marcos André</first><last>Gonçalves</last></author>
+      <pages>54–58</pages>
+      <abstract>In this paper, we describe our participation in two tasks organized by WOSP 2020, consisting of classifying the context of a citation (e.g., background, motivational, extension) and whether a citation is influential in the work (or not). Classifying the context of an article citation or its influence/importance in an automated way presents a challenge for machine learning algorithms due to the shortage of information and inherently ambiguity of the task. Its solution, on the other hand, may allow enhanced bibliometric studies. Several text representations have already been proposed in the literature, but their combination has been underexploited in the two tasks described above. Our solution relies exactly on combining different, potentially complementary, text representations in order to enhance the final obtained results. We evaluate the combination of various strategies for text representation, achieving the best results with a combination of TF-IDF (capturing statistical information), LDA (capturing topical information) and Glove word embeddings (capturing contextual information) for the task of classifying the context of the citation. Our solution ranked first in the task of classifying the citation context and third in classifying its influence.</abstract>
+      <url hash="1b34cf2b">2020.wosp-1.8</url>
+    </paper>
+    <paper id="9">
+      <title>Scubed at 3<fixed-case>C</fixed-case> task A - A simple baseline for citation context purpose classification</title>
+      <author><first>Shubhanshu</first><last>Mishra</last></author>
+      <author><first>Sudhanshu</first><last>Mishra</last></author>
+      <pages>59–64</pages>
+      <abstract>We present our team Scubed’s approach in the ‘3C’ Citation Context Classification Task, Subtask A, citation context purpose classification. Our approach relies on text based features transformed via tf-idf features followed by training a variety of models which are capable of capturing non-linear features. Our best model on the leaderboard is a multi-layer perceptron which also performs best during our rerun. Our submission code for replicating experiments is at: https://github.com/napsternxg/Citation_Context_Classification.</abstract>
+      <url hash="17a8f207">2020.wosp-1.9</url>
+    </paper>
+    <paper id="10">
+      <title>Scubed at 3<fixed-case>C</fixed-case> task <fixed-case>B</fixed-case> - A simple baseline for citation context influence classification</title>
+      <author><first>Shubhanshu</first><last>Mishra</last></author>
+      <author><first>Sudhanshu</first><last>Mishra</last></author>
+      <pages>65–70</pages>
+      <abstract>We present our team Scubed’s approach in the 3C Citation Context Classification Task, Subtask B, citation context influence classification. Our approach relies on text based features transformed via tf-idf features followed by training a variety of simple models resulting in a strong baseline. Our best model on the leaderboard is a random forest classifier using only the citation context text. A replication of our analysis finds logistic regression and gradient boosted tree classifier to be the best performing model. Our submission code can be found at: https://github.com/napsternxg/Citation_Context_Classification.</abstract>
+      <url hash="466bb438">2020.wosp-1.10</url>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>A</fixed-case>mrita_<fixed-case>CEN</fixed-case>_<fixed-case>NLP</fixed-case> @ <fixed-case>WOSP</fixed-case> 3<fixed-case>C</fixed-case> Citation Context Classification Task</title>
+      <author><first>Premjith</first><last>B</last></author>
+      <author><first>Soman</first><last>KP</last></author>
+      <pages>71–74</pages>
+      <abstract>Identification of the purpose and influence of citation is significant in assessing the impact of a publication. ‘3C’ Citation Context Classification Task in Workshop on Mining Scientific Publication is a shared task to address the abovementioned problems. This working note describes the submissions of Amrita_CEN_NLP team to the shared task. We used Random Forest with cost-sensitive learning for classification of sentences encoded into a vector of dimension 300.</abstract>
+      <url hash="b15ef541">2020.wosp-1.11</url>
+    </paper>
+    <paper id="12">
+      <title>Overview of the 2020 <fixed-case>WOSP</fixed-case> 3<fixed-case>C</fixed-case> Citation Context Classification Task</title>
+      <author><first>Suchetha Nambanoor</first><last>Kunnath</last></author>
+      <author><first>David</first><last>Pride</last></author>
+      <author><first>Bikash</first><last>Gyawali</last></author>
+      <author><first>Petr</first><last>Knoth</last></author>
+      <pages>75–83</pages>
+      <abstract>The 3C Citation Context Classification task is the first shared task addressing citation context classification. The two subtasks, A and B, associated with this shared task, involves the classification of citations based on their purpose and influence, respectively. Both tasks use a portion of the new ACT dataset, developed by the researchers at The Open University, UK. The tasks were hosted on Kaggle, and the participated systems were evaluated using the macro f-score. Three teams participated in subtask A and four teams participated in subtask B. The best performing systems obtained an overall score of 0.2056 for subtask A and 0.5556 for subtask B, outperforming the simple majority class baseline models, which scored 0.11489 and 0.32249, respectively. In this paper we provide a report specifying the shared task, the dataset used, a short description of the participating systems and the final results obtained by the teams based on the evaluation criteria. The shared task has been organised as part of the 8th International Workshop on Mining Scientific Publications (WOSP 2020) workshop.</abstract>
+      <url hash="554eb6c5">2020.wosp-1.12</url>
+    </paper>
+  </volume>
+</collection>
