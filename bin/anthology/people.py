@@ -21,9 +21,10 @@ import anthology.formatter as my_formatter
 class PersonName:
     first, last = "", ""
 
-    def __init__(self, first, last, variant: "PersonName" = None):
+    def __init__(self, first, last, script="roman", variant: "PersonName" = None):
         self.first = first.strip() if first is not None else ""
         self.last = last.strip()
+        self.script = script
         self.variant = variant
 
     def from_element(person_element):
@@ -36,6 +37,10 @@ class PersonName:
         variant = None
         for element in person_element:
             tag = element.tag
+
+            # The name variant script, defaults to roman
+            script = element.attrib.get("script", "roman")
+
             # These are guaranteed to occur at most once by the schema
             if tag == "first":
                 first = element.text or ""
@@ -43,7 +48,8 @@ class PersonName:
                 last = element.text or ""
             elif tag == "variant":
                 variant = PersonName.from_element(element)
-        return PersonName(first, last, variant)
+
+        return PersonName(first, last, script=script, variant=variant)
 
     def from_repr(repr_):
         parts = repr_.split(" || ")
@@ -62,10 +68,20 @@ class PersonName:
 
     @property
     def full(self):
+        """
+        Return the full rendering of the name.
+        This includes any name variant in parentheses.
+        Currently handles both Roman and Han scripts.
+        """
+        if self.script.startswith("han"):
+            form = f"{self.last}{self.first}"
+        else:  # default to "roman"
+            form = f"{self.first} {self.last}"
+
         if self.variant is not None:
-            return "{} {} ({})".format(self.first, self.last, self.variant.full).strip()
+            return f"{form} ({self.variant.full})"
         else:
-            return "{} {}".format(self.first, self.last).strip()
+            return form
 
     @property
     def id_(self):
