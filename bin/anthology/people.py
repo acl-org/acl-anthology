@@ -34,12 +34,11 @@ class PersonName:
         last name).
         """
         first, last = "", ""
+        # The name variant script, defaults to roman
+        script = person_element.attrib.get("script", "roman")
         variant = None
         for element in person_element:
             tag = element.tag
-
-            # The name variant script, defaults to roman
-            script = element.attrib.get("script", "roman")
 
             # These are guaranteed to occur at most once by the schema
             if tag == "first":
