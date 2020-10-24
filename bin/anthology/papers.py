@@ -314,6 +314,7 @@ class Paper:
         value["parent_volume_id"] = self.parent_volume_id
         value["bibkey"] = self.bibkey
         value["bibtype"] = self.bibtype
+        value["language"] = self.language
         return value
 
     def items(self):
