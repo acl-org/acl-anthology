@@ -209,9 +209,17 @@ class Paper:
         return self.attrib.get("isbn", None)
 
     @property
-    def language(self):
+    def langcode(self):
         """Returns the ISO-639 language code, if present"""
         return self.attrib.get("language", None)
+
+    @property
+    def language(self):
+        """Returns the language name, if present"""
+        lang = None
+        if self.langcode:
+            lang = iso639.languages.get(part3=self.langcode).name
+        return lang
 
     def get(self, name, default=None):
         try:
@@ -293,7 +301,7 @@ class Paper:
         if "xml_abstract" in self.attrib and not concise:
             entries.append(("abstract", self.get_abstract(form="latex")))
         if self.language:
-            entries.append(("language", iso639.languages.get(part3=self.language).name))
+            entries.append(("language", self.language))
         if self.isbn:
             entries.append(("ISBN", self.isbn))
 
