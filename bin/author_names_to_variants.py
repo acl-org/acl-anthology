@@ -19,7 +19,10 @@ def guess_script(s):
 
 
 def process(names):
-    scripts = [guess_script(''.join(part.text for part in name)) for name in names]
+    scripts = [
+        guess_script(''.join(part.text for part in name if part.tag in ['first', 'last']))
+        for name in names
+    ]
     variants = None
     if len(scripts) % 2 == 0:
         n = len(scripts) // 2
@@ -51,6 +54,6 @@ def process(names):
 for paper in root.findall(".//paper"):
     process(list(paper.findall("author")))
 for meta in root.findall(".//meta"):
-    process(list(paper.findall("editor")))
+    process(list(meta.findall("editor")))
 
 tree.write(sys.argv[2], encoding='UTF-8', xml_declaration=True)
