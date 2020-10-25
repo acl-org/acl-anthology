@@ -14,7 +14,6 @@
 
 import copy
 import re
-import sys
 import logging
 import pybtex, pybtex.database.input.bibtex
 
@@ -45,6 +44,8 @@ def read_bibtex(bibfilename):
     try:
         bibdata = pybtex.database.parse_string(bibstring, "bibtex")
     except:
-        print("Couldn't read", bibfilename)
+        import sys
+
+        print(f"Failed to parse {bibfilename}", file=sys.stderr)
         sys.exit(1)
     return bibdata
