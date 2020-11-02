@@ -151,10 +151,6 @@ def main(args):
         )
         sys.exit(1)
 
-    if not os.path.exists(collection_id):
-        print(f"Creating {collection_id}", file=sys.stderr)
-        os.makedirs(collection_id)
-
     paperid = 0
     # Create entries for all the papers
     for row in csv.DictReader(args.tsv_file, delimiter=args.delimiter):
