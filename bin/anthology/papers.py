@@ -19,6 +19,7 @@ import logging as log
 from .utils import (
     build_anthology_id,
     parse_element,
+    infer_url,
     infer_attachment_url,
     remove_extra_whitespace,
     is_journal,
@@ -78,6 +79,10 @@ class Paper:
         if paper.is_volume:
             paper.attrib["xml_title"] = paper.attrib["xml_booktitle"]
             paper.attrib["xml_title"].tag = "title"
+
+        # Create URL field if not present. But see https://github.com/acl-org/acl-anthology/issues/997.
+        if "url" not in paper.attrib:
+            paper.attrib["url"] = infer_url(paper.full_id)
 
         # Remove booktitle for frontmatter and journals
         if paper.is_volume or is_journal(paper.full_id):
