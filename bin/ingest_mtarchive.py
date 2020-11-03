@@ -32,41 +32,14 @@ import subprocess
 import sys
 import urllib.request
 
-from anthology.utils import make_simple_element, indent, compute_hash
+from anthology.utils import (
+    make_simple_element,
+    indent,
+    compute_hash_from_file,
+    retrieve_url,
+)
 from datetime import datetime
 from normalize_anth import normalize
-
-
-def download(remote_path, local_path):
-    if os.path.exists(local_path):
-        print(f"{local_path} already exists, not re-downloading", file=sys.stderr)
-        return True
-    local_dir = os.path.dirname(local_path)
-    if not os.path.exists(local_dir):
-        print(f"Creating directory {local_dir}", file=sys.stderr)
-        os.makedirs(local_dir)
-
-    if remote_path.startswith("http"):
-        try:
-            print(
-                f"-> Downloading file from {remote_path} to {local_path}", file=sys.stderr
-            )
-            with urllib.request.urlopen(remote_path) as url, open(
-                local_path, mode="wb"
-            ) as input_file_fh:
-                input_file_fh.write(url.read())
-        except ssl.SSLError:
-            raise Exception(f"Could not download {remote_path} to {local_path}")
-        except urllib.error.HTTPError:
-            print(f"-> FAILED to download {remote_path}", file=sys.stderr)
-            return False
-        except urllib.error.URLError:
-            print(f"-> FAILED to download {remote_path}", file=sys.stderr)
-            return False
-    else:
-        shutil.copyfile(remote_path, local_path)
-
-    return True
 
 
 def extract_pages(source_path, page_range, local_path):
@@ -150,9 +123,8 @@ def main(args):
                 pdf_local_path = os.path.join(
                     args.anthology_files_path, venue, f"{volume_anth_id}.pdf"
                 )
-                download(proceedings_pdf, pdf_local_path)
-                with open(pdf_local_path, "rb") as f:
-                    checksum = compute_hash(f.read())
+                retrieve_url(proceedings_pdf, pdf_local_path)
+                checksum = compute_hash_from_file(pdf_local_path)
                 make_simple_element(
                     "url", volume_anth_id, attrib={"hash": checksum}, parent=meta
                 )
@@ -179,10 +151,6 @@ def main(args):
         )
         sys.exit(1)
 
-    if not os.path.exists(collection_id):
-        print(f"Creating {collection_id}", file=sys.stderr)
-        os.makedirs(collection_id)
-
     paperid = 0
     # Create entries for all the papers
     for row in csv.DictReader(args.tsv_file, delimiter=args.delimiter):
@@ -202,18 +170,20 @@ def main(args):
             # Only make the title for not-the-frontmatter
             make_simple_element("title", title_text, parent=paper)
 
-        author_list = row["Authors"].split(" and ")
-
-        for author_name in author_list:
-            if author_name == "":
-                continue
-            author = make_simple_element("author", parent=paper)
-            if ", " in author_name:
-                last, first = author_name.split(", ")
-            else:
-                first, last = ' '.join(author_name.split()[:-1]), author_name.split()[-1]
-            make_simple_element("first", first, parent=author)
-            make_simple_element("last", last, parent=author)
+            author_list = row["Authors"].split(" and ")
+            for author_name in author_list:
+                if author_name == "":
+                    continue
+                author = make_simple_element("author", parent=paper)
+                if ", " in author_name:
+                    last, first = author_name.split(", ")
+                else:
+                    first, last = (
+                        ' '.join(author_name.split()[:-1]),
+                        author_name.split()[-1],
+                    )
+                make_simple_element("first", first, parent=author)
+                make_simple_element("last", last, parent=author)
 
         if pages is not None:
             make_simple_element("pages", pages, parent=paper)
@@ -223,7 +193,7 @@ def main(args):
         pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{anth_id}.pdf")
         url = None
         if "Pdf" in row and row["Pdf"] != "":
-            if download(row["Pdf"], pdf_local_path):
+            if retrieve_url(row["Pdf"], pdf_local_path):
                 url = anth_id
 
         elif "pages in pdf" in row:
@@ -232,8 +202,7 @@ def main(args):
             url = anth_id
 
         if url is not None:
-            with open(pdf_local_path, "rb") as f:
-                checksum = compute_hash(f.read())
+            checksum = compute_hash_from_file(pdf_local_path)
 
             make_simple_element("url", url, attrib={"hash": checksum}, parent=paper)
 
@@ -252,9 +221,13 @@ def main(args):
                     venue,
                     name,
                 )
-                if download(row["Presentation"], local_path):
+                if retrieve_url(row["Presentation"], local_path):
+                    checksum = compute_hash_from_file(local_path)
                     make_simple_element(
-                        "attachment", name, attrib={"type": "presentation"}, parent=paper
+                        "attachment",
+                        name,
+                        attrib={"type": "presentation", "hash": checksum},
+                        parent=paper,
                     )
 
         # Normalize
