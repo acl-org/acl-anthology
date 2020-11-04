@@ -2,12 +2,12 @@
 Title: Information for Submitters
 linktitle: Submitting
 subtitle: General information on submitting proceedings to the ACL Anthology (for event chairs)
-date: "2020-06-29"
+date: "2020-10-30"
 ---
 
 This page contains general information about submitting the proceedings of a conference to the ACL Anthology.
-(For information about the complete conference management process, particularly for ACL conference publications chairs, [see this document](https://github.com/acl-org/acl-pub).)
-It is intended for  publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
+(For information about the complete conference management process, particularly for ACL conference publications chairs, please refer to [the official documentation](https://acl-org.github.io/ACLPUB/).)
+It is intended for publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
 Chairs of workshops attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
 
 ### Overview of the Submission Process
@@ -78,11 +78,11 @@ If you prefer to have it published on a different date, please inform us when yo
 
 ### Submit your data
 
-After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange all the volumes of your proceedings into [ACLPUB](https://github.com/acl-org/ACLPUB) format, as described in the [ACLPUB → Anthology documentation](https://github.com/acl-org/ACLPUB/tree/master/anthology).
+After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange all the volumes of your proceedings into [ACLPUB](https://github.com/acl-org/ACLPUB) format, as described in the [ACLPUB → Anthology documentation](https://acl-org.github.io/ACLPUB/anthology.html).
 
 If you used [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26), the situation is easy for you, since ACLPUB is integrated.
 For meetings using EasyChair, you will need to first convert to ACLPUB format using [our easy2acl scripts](https://github.com/acl-org/easy2acl).
-The end result in either case is a `data` directory containing ACLPUB proceedings, one for each conference (again, see [the ACLPUB -> Anthology instructions](https://github.com/acl-org/ACLPUB/tree/master/anthology)).
+The end result in either case is a `data` directory containing ACLPUB proceedings, one for each conference (again, see [the ACLPUB -> Anthology instructions](https://acl-org.github.io/ACLPUB/anthology.html)).
 A link to this directory (preferably via a file sharing service, such as Dropbox or Google Drive) should be sent to the Anthology Director **two weeks prior to your desired publication date** (which was negotiated when you first contacted us).
 
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):
