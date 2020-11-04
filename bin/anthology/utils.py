@@ -129,6 +129,10 @@ def retrieve_url(remote_url: str, local_path: str):
     :param remote_url: The URL to download from. Currently supports http only.
     :param local_path: Where to save the file to.
     """
+    outdir = os.path.dirname(local_path)
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
+
     if remote_url.startswith("http"):
         import ssl
         import urllib.request
@@ -138,6 +142,7 @@ def retrieve_url(remote_url: str, local_path: str):
         request = urllib.request.Request(
             remote_url, headers={'User-Agent': 'Mozilla/5.0'}
         )
+
         with opener.open(request, timeout=1000) as url, open(
             local_path, mode="wb"
         ) as input_file_fh:
