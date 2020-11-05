@@ -292,6 +292,20 @@ def main(args):
 
     people = AnthologyIndex(None, srcdir=anthology_datadir)
 
+    def correct_caps(person, name_node, anth_id):
+        """
+        Many people submit their names in "ALL CAPS" or "all lowercase".
+        Correct this with heuristics.
+        """
+        name = name_node.text
+        if name.islower() or name.isupper():
+            # capitalize all parts
+            corrected = " ".join(list(map(lambda x: x.capitalize(), name.split())))
+            choice = input(f"({anth_id}): Author '{person}': Change '{name}' to '{corrected}'?\n(Return for yes, any text for no): ")
+            if choice == "":
+                print(f"-> Correcting {name} to {corrected}")
+                name_node.text = corrected
+
     def disambiguate_name(node, anth_id):
         name = PersonName.from_element(node)
         ids = people.get_ids(name)
@@ -412,6 +426,9 @@ def main(args):
                     paper_node.findall("./author"), paper_node.findall("./editor")
                 ):
                     disambiguate_name(name_node, paper_id_full)
+                    person = PersonName.from_element(name_node)
+                    for name_part in name_node:
+                        correct_caps(person, name_part, paper_id_full)
 
         # Other data from the meta file
         if "isbn" in meta:
