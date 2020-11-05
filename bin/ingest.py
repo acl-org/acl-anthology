@@ -340,7 +340,11 @@ def main(args):
             for paper_num, paper in sorted(volume.items()):
                 paper_id_full = paper["anthology_id"]
                 bibfile = paper["bib"]
-                paper_node = bib2xml(bibfile, paper_id_full)
+                try:
+                    paper_node = bib2xml(bibfile, paper_id_full)
+                except:
+                    print(f"Failed to parse {bibfile}")
+                    sys.exit(1)
                 # print(etree.tostring(paper_node, pretty_print=True))
 
                 if paper_node.attrib["id"] == "0":
