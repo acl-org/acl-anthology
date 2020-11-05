@@ -262,6 +262,8 @@ def main(args):
             if not os.path.exists(attachments_dest_dir):
                 os.makedirs(attachments_dest_dir)
             for attachment_file in os.listdir(os.path.join(root_path, "additional")):
+                if attachment_file.startswith("."):
+                    continue
                 attachment_file_path = os.path.join(
                     root_path, "additional", attachment_file
                 )
