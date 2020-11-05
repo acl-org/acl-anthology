@@ -301,7 +301,9 @@ def main(args):
         if name.islower() or name.isupper():
             # capitalize all parts
             corrected = " ".join(list(map(lambda x: x.capitalize(), name.split())))
-            choice = input(f"({anth_id}): Author '{person}': Change '{name}' to '{corrected}'?\n(Return for yes, any text for no): ")
+            choice = input(
+                f"({anth_id}): Author '{person}': Change '{name}' to '{corrected}'?\n(Return for yes, any text for no): "
+            )
             if choice == "":
                 print(f"-> Correcting {name} to {corrected}")
                 name_node.text = corrected
