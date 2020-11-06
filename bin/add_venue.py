@@ -43,7 +43,10 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("acronym", help="Venue acronym (e.g., BlackboxNLP)")
-    parser.add_argument("name", help="Venue name (e.g., Workshop on analyzing and interpreting neural networks for NLP)")
+    parser.add_argument(
+        "name",
+        help="Venue name (e.g., Workshop on analyzing and interpreting neural networks for NLP)",
+    )
     parser.add_argument("--acl", action="store_true", help="Venue is an ACL venue")
     parser.add_argument("--url", help="Venue URL")
     args = parser.parse_args()

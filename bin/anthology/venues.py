@@ -29,6 +29,7 @@ except ImportError:
 from .utils import is_newstyle_id, deconstruct_anthology_id
 from anthology.data import VENUE_FORMAT
 
+
 class VenueIndex:
     def __init__(self, srcdir=None):
         self.venues, self.letters, self.joint_map = {}, {}, defaultdict(list)
@@ -39,10 +40,11 @@ class VenueIndex:
 
     @staticmethod
     def get_slug(acronym):
-        """The acronym can contain a hyphen, whereas the slug must match VENUE_FORMAT.
-        """
+        """The acronym can contain a hyphen, whereas the slug must match VENUE_FORMAT."""
         slug = slugify(acronym.replace("-", ""))
-        assert re.match(VENUE_FORMAT, slug) is not None, f"Proposed slug '{slug}' of venue '{acronym}' doesn't match {VENUE_FORMAT}"
+        assert (
+            re.match(VENUE_FORMAT, slug) is not None
+        ), f"Proposed slug '{slug}' of venue '{acronym}' doesn't match {VENUE_FORMAT}"
         return slug
 
     def add_venue(self, acronym, title, is_acl=False, url=None):
@@ -51,10 +53,7 @@ class VenueIndex:
         """
         slug = VenueIndex.get_slug(acronym)
 
-        self.venue_dict[slug] = {
-            "acronym": acronym,
-            "name": title
-        }
+        self.venue_dict[slug] = {"acronym": acronym, "name": title}
         if is_acl:
             self.venue_dict[slug]["is_acl"] = True
         if url is not None:

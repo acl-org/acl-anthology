@@ -60,6 +60,7 @@ from typing import Dict, Any
 
 from slugify import slugify
 
+
 def log(text: str, fake: bool = False):
     message = "[DRY RUN] " if fake else ""
     print(f"{message}{text}", file=sys.stderr)
@@ -172,9 +173,7 @@ def main(args):
 
     anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
     venue_index = VenueIndex(srcdir=anthology_datadir)
-    venue_keys = [
-        venue["slug"].lower() for _, venue in venue_index.items()
-    ]
+    venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
 
     # Build list of volumes, confirm uniqueness
     unseen_venues = []
@@ -189,9 +188,7 @@ def main(args):
 
         meta["path"] = proceedings
 
-        meta["collection_id"] = collection_id = (
-            meta["year"] + "." + venue_slug
-        )
+        meta["collection_id"] = collection_id = meta["year"] + "." + venue_slug
         volume_name = meta["volume"].lower()
         volume_full_id = f"{collection_id}-{volume_name}"
 

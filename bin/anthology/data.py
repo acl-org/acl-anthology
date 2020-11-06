@@ -48,6 +48,7 @@ UNKNOWN_INGEST_DATE = "1900-01-01"
 # The venue format must match this pattern
 VENUE_FORMAT = r"^[A-Za-z\d]+$"
 
+
 def get_journal_title(top_level_id, volume_title):
     # TODO: consider moving this from code to data (perhaps
     # under <booktitle> in the volume metadata
