@@ -15,6 +15,7 @@
 # limitations under the License.
 
 from collections import defaultdict
+from copy import deepcopy
 from slugify import slugify
 import logging as log
 import yaml
@@ -31,12 +32,35 @@ class VenueIndex:
     def __init__(self, srcdir=None):
         self.venues, self.letters, self.joint_map = {}, {}, defaultdict(list)
         self.acronyms_by_key = {}
+        self.venue_dict = None
         if srcdir is not None:
             self.load_from_dir(srcdir)
 
+    def add_venue(self, acronym, title, is_acl=False, url=None):
+        """
+        Adds a new venue.
+        """
+        slug = slugify(acronym)
+        self.venue_dict[slug] = {
+            "acronym": acronym,
+            "title": title
+        }
+        if is_acl:
+            self.venue_dict[slug]["is_acl"] = True
+        if url is not None:
+            self.venue_dict[slug]["url"] = url
+
+    def dump(self, directory):
+        """
+        Dumps the venue database to file.
+        """
+        with open("{}/yaml/venues.yaml".format(directory), "wt") as f:
+            print(yaml.dump(self.venue_dict, allow_unicode=True), file=f)
+
     def load_from_dir(self, directory):
         with open("{}/yaml/venues.yaml".format(directory), "r") as f:
-            venue_dict = yaml.load(f, Loader=Loader)
+            self.venue_dict = yaml.load(f, Loader=Loader)
+            venue_dict = deepcopy(self.venue_dict)
             for key, val in venue_dict.items():
                 if "acronym" not in val:
                     log.critical(f"Venues must have 'acronym' - none defined for '{key}'")
