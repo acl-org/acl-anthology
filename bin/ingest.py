@@ -58,6 +58,7 @@ from anthology.venues import VenueIndex
 from itertools import chain
 from typing import Dict, Any
 
+from slugify import slugify
 
 def log(text: str, fake: bool = False):
     message = "[DRY RUN] " if fake else ""
@@ -106,7 +107,11 @@ def bib2xml(bibfilename, anthology_id):
         'language',
     ]
 
-    collection_id, volume_name, paper_no = deconstruct_anthology_id(anthology_id)
+    try:
+        collection_id, volume_name, paper_no = deconstruct_anthology_id(anthology_id)
+    except ValueError:
+        print(f"Couldn't split {anthology_id}", file=sys.stderr)
+        sys.exit(1)
     if paper_no == '':
         return  # skip the master bib file; we only process the individual files
 
@@ -166,8 +171,9 @@ def main(args):
     volumes = {}
 
     anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
+    venue_index = VenueIndex(srcdir=anthology_datadir)
     venue_keys = [
-        venue["slug"].lower() for _, venue in VenueIndex(srcdir=anthology_datadir).items()
+        venue["slug"].lower() for _, venue in venue_index.items()
     ]
 
     # Build list of volumes, confirm uniqueness
@@ -175,15 +181,16 @@ def main(args):
     for proceedings in args.proceedings:
         meta = read_meta(os.path.join(proceedings, "meta"))
 
-        venue_name = meta["abbrev"].lower()
+        venue_abbrev = meta["abbrev"]
+        venue_slug = venue_index.get_slug(venue_abbrev)
 
-        if venue_name not in venue_keys:
-            unseen_venues.append(meta["abbrev"])
+        if venue_slug not in venue_keys:
+            unseen_venues.append((venue_slug, venue_abbrev, meta["title"]))
 
         meta["path"] = proceedings
 
         meta["collection_id"] = collection_id = (
-            meta["year"] + "." + meta["abbrev"].lower()
+            meta["year"] + "." + venue_slug
         )
         volume_name = meta["volume"].lower()
         volume_full_id = f"{collection_id}-{volume_name}"
@@ -196,11 +203,11 @@ def main(args):
 
     # Make sure all venues exist
     if len(unseen_venues) > 0:
-        print("FATAL: The following venue(s) don't exist in venues.yaml")
         for venue in unseen_venues:
-            print(f"- {venue}")
-        print("Please create entries for them and re-ingest.")
-        sys.exit(1)
+            slug, abbrev, title = venue
+            print(f"Creating venue '{abbrev}' ({title})")
+            venue_index.add_venue(abbrev, title)
+        venue_index.dump(directory=anthology_datadir)
 
     # Copy over the PDFs and attachments
     for volume, meta in volumes.items():
@@ -229,6 +236,10 @@ def main(args):
         # copy the paper PDFs
         pdf_src_dir = os.path.join(root_path, "pdf")
         for pdf_file in os.listdir(pdf_src_dir):
+            # Skip . files
+            if os.path.basename(pdf_file).startswith("."):
+                continue
+
             # names are {abbrev}{number}.pdf
             match = re.match(rf".*\.(\d+)\.pdf", pdf_file)
 
@@ -262,7 +273,7 @@ def main(args):
             if not os.path.exists(attachments_dest_dir):
                 os.makedirs(attachments_dest_dir)
             for attachment_file in os.listdir(os.path.join(root_path, "additional")):
-                if attachment_file.startswith("."):
+                if os.path.basename(attachment_file).startswith("."):
                     continue
                 attachment_file_path = os.path.join(
                     root_path, "additional", attachment_file
@@ -356,12 +367,7 @@ def main(args):
             for paper_num, paper in sorted(volume.items()):
                 paper_id_full = paper["anthology_id"]
                 bibfile = paper["bib"]
-                try:
-                    paper_node = bib2xml(bibfile, paper_id_full)
-                except:
-                    print(f"Failed to parse {bibfile}")
-                    sys.exit(1)
-                # print(etree.tostring(paper_node, pretty_print=True))
+                paper_node = bib2xml(bibfile, paper_id_full)
 
                 if paper_node.attrib["id"] == "0":
                     # create metadata subtree

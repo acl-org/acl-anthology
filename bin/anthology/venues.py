@@ -18,6 +18,7 @@ from collections import defaultdict
 from copy import deepcopy
 from slugify import slugify
 import logging as log
+import re
 import yaml
 
 try:
@@ -26,7 +27,7 @@ except ImportError:
     from yaml import Loader
 
 from .utils import is_newstyle_id, deconstruct_anthology_id
-
+from anthology.data import VENUE_FORMAT
 
 class VenueIndex:
     def __init__(self, srcdir=None):
@@ -36,14 +37,23 @@ class VenueIndex:
         if srcdir is not None:
             self.load_from_dir(srcdir)
 
+    @staticmethod
+    def get_slug(acronym):
+        """The acronym can contain a hyphen, whereas the slug must match VENUE_FORMAT.
+        """
+        slug = slugify(acronym.replace("-", ""))
+        assert re.match(VENUE_FORMAT, slug) is not None, f"Proposed slug '{slug}' of venue '{acronym}' doesn't match {VENUE_FORMAT}"
+        return slug
+
     def add_venue(self, acronym, title, is_acl=False, url=None):
         """
         Adds a new venue.
         """
-        slug = slugify(acronym)
+        slug = VenueIndex.get_slug(acronym)
+
         self.venue_dict[slug] = {
             "acronym": acronym,
-            "title": title
+            "name": title
         }
         if is_acl:
             self.venue_dict[slug]["is_acl"] = True
