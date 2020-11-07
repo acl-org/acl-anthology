@@ -45,7 +45,8 @@ def to_dict(pn):
 def main(anthology):
     variants = defaultdict(list)
     slugs = {}
-    for name in anthology.people.names():
+    for person in anthology.people.personids():
+        name = anthology.people.get_canonical_name(person)
         name_slug = slugify(repr(name))
         if name_slug in slugs:
             variants[slugs[name_slug]].append(repr(name))
