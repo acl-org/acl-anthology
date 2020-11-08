@@ -70,7 +70,7 @@ def main(anthology):
             }
         )
 
-    canonical_variants.sort(key = lambda x: x["canonical"]["last"])
+    canonical_variants.sort(key=lambda x: x["canonical"]["last"])
     print(yaml.dump(canonical_variants, allow_unicode=True))
 
 
