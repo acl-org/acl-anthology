@@ -73,7 +73,9 @@ def main(anthology):
             }
         )
 
-    canonical_variants.sort(key=lambda x: (x["canonical"]["last"], x["canonical"]["first"]))
+    canonical_variants.sort(
+        key=lambda x: (x["canonical"]["last"], x["canonical"]["first"])
+    )
     # flow style to match format of file name_variants.yaml
     print(yaml.dump(canonical_variants, allow_unicode=True, default_flow_style=None))
 
