@@ -4,6 +4,9 @@
 """Usage: find_name_variants.py [--importdir=DIR]
 
 Heuristically try to find variants of names not yet covered by name_variants.yaml
+Finds names that slugify to the same thing.  Handles missing accents and
+mistakes in first/last split, but not things like Tom/Thomas.  Prints output
+that can be pasted into name_variants.yaml.
 
 Options:
   --importdir=DIR          Directory to import XML files from. [default: {scriptdir}/../data/]
@@ -70,8 +73,9 @@ def main(anthology):
             }
         )
 
-    canonical_variants.sort(key=lambda x: x["canonical"]["last"])
-    print(yaml.dump(canonical_variants, allow_unicode=True))
+    canonical_variants.sort(key=lambda x: (x["canonical"]["last"], x["canonical"]["first"]))
+    # flow style to match format of file name_variants.yaml
+    print(yaml.dump(canonical_variants, allow_unicode=True, default_flow_style=None))
 
 
 if __name__ == "__main__":
