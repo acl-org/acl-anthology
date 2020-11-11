@@ -165,7 +165,9 @@ def bib2xml(bibfilename, anthology_id):
             try:
                 make_simple_element(field, text=value, parent=paper)
             except:
-                print(f"Couldn't process {bibfilename} for {anthology_id}", file=sys.stderr)
+                print(
+                    f"Couldn't process {bibfilename} for {anthology_id}", file=sys.stderr
+                )
                 sys.exit(2)
 
     return paper
@@ -313,7 +315,10 @@ def main(args):
         if name.islower() or name.isupper():
             # capitalize all parts
             corrected = " ".join(list(map(lambda x: x.capitalize(), name.split())))
-            print(f"-> Correcting capitalization of '{name}' to '{corrected}'", file=sys.stderr)
+            print(
+                f"-> Correcting capitalization of '{name}' to '{corrected}'",
+                file=sys.stderr,
+            )
             name_node.text = corrected
 
     def disambiguate_name(node, anth_id):
