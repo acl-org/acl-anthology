@@ -36,7 +36,7 @@ from anthology.utils import (
     retrieve_url,
     is_newstyle_id,
 )
-from anthology.data import ANTHOLOGY_PDF
+from anthology.data import ANTHOLOGY_PDF, ANTHOLOGY_URL
 
 from datetime import datetime
 
@@ -79,13 +79,14 @@ template = Template(
 
 
 def main(args):
+    page = ANTHOLOGY_URL.format(args.anthology_id)
     url = ANTHOLOGY_PDF.format(args.anthology_id)
     _, pdf_file = tempfile.mkstemp(suffix=".pdf")
     retrieve_url(url, pdf_file)
 
     tex_file = f"{args.anthology_id}v2.tex"
     with open(tex_file, "w") as f:
-        print(template.substitute(file=pdf_file, url=url), file=f)
+        print(template.substitute(file=pdf_file, url=page), file=f)
 
     command = f"pdflatex {tex_file}"
     retcode = subprocess.call(command, shell=True)
