@@ -19,6 +19,11 @@
 Takes an Anthology ID, downloads the PDF, and produces a revision PDF
 with a "WITHDRAWN" watermark, as well as a note at the top pointing
 to the paper page.
+
+TODO:
+* assumes no existing revision, should check if existing ones
+* update XML automatically
+* rename as retract_paper.py or something
 """
 
 import argparse
