@@ -40,7 +40,8 @@ from anthology.data import ANTHOLOGY_PDF
 
 from datetime import datetime
 
-template = Template(r"""\documentclass{article}
+template = Template(
+    r"""\documentclass{article}
 \usepackage[printwatermark]{xwatermark}
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -73,7 +74,8 @@ template = Template(r"""\documentclass{article}
 
 \includepdf[pages={1}]{$file}
 
-\end{document}""")
+\end{document}"""
+)
 
 
 def main(args):
@@ -95,7 +97,9 @@ def main(args):
     orig_hash = compute_hash_from_file(pdf_file)
     new_hash = compute_hash_from_file(new_pdf)
     print(f'<revision id="1" href="{args.anthology_id}v1" hash="{orig_hash}" />')
-    print(f'<revision id="2" href="{args.anthology_id}v2" hash="{new_hash}" date="{date}">Paper withdrawn.</revision>')
+    print(
+        f'<revision id="2" href="{args.anthology_id}v2" hash="{new_hash}" date="{date}">Paper withdrawn.</revision>'
+    )
 
     collection_id, venue_name, paper_id = deconstruct_anthology_id(args.anthology_id)
 
