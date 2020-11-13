@@ -93,28 +93,35 @@ venv/bin/activate: bin/requirements.txt
 .PHONY: all
 all: clean check site
 
+.PHONY: basedirs
+basedirs:
+	build/.basedirs
+
+build/.basedirs:
+	@mkdir -p build/data-export
+	@mkdir -p build/content/papers
+	@touch build/.basedirs
+
 # copies all files that are not automatically generated
 # and creates empty directories as needed.
 .PHONY: static
 static: build/.static
 
-build/.static: $(shell find hugo -type f)
+build/.static: build/.basedirs $(shell find hugo -type f)
 	@echo "INFO     Creating and populating build directory..."
-	@mkdir -p build
 	@cp -r hugo/* build
 	@echo >> build/config.toml
 	@echo "[params]" >> build/config.toml
 	@echo "  githash = \"${githash}\"" >> build/config.toml
 	@echo "  githashshort = \"${githashshort}\"" >> build/config.toml
 	@echo "  timestamp = \"${timestamp}\"" >> build/config.toml
-	@mkdir -p build/data-export
 	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
 	@touch build/.static
 
 .PHONY: yaml
 yaml: build/.yaml
 
-build/.yaml: build/.static $(sourcefiles) venv/bin/activate
+build/.yaml: build/.basedirs $(sourcefiles) venv/bin/activate
 	@echo "INFO     Generating YAML files for Hugo..."
 	. $(VENV) && python3 bin/create_hugo_yaml.py --clean
 	@touch build/.yaml
@@ -122,7 +129,7 @@ build/.yaml: build/.static $(sourcefiles) venv/bin/activate
 .PHONY: hugo_pages
 hugo_pages: build/.pages
 
-build/.pages: build/.static build/.yaml venv/bin/activate
+build/.pages: build/.basedirs build/.yaml venv/bin/activate
 	@echo "INFO     Creating page templates for Hugo..."
 	. $(VENV) && python3 bin/create_hugo_pages.py --clean
 	@touch build/.pages
@@ -130,7 +137,7 @@ build/.pages: build/.static build/.yaml venv/bin/activate
 .PHONY: bibtex
 bibtex:	build/.bibtex
 
-build/.bibtex: build/.static $(sourcefiles) venv/bin/activate
+build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
 	@echo "INFO     Creating BibTeX files..."
 	. $(VENV) && python3 bin/create_bibtex.py --clean
 	@touch build/.bibtex
@@ -159,7 +166,7 @@ build/.endnote: build/.mods
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.pages build/.bibtex build/.mods build/.endnote
+build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
@@ -180,6 +187,10 @@ clean:
 
 .PHONY: check
 check: venv
+	@if grep -rl '	' data/xml; then \
+	    echo "check error: found a tab character in the above XML files!"; \
+	    exit 1; \
+	fi
 	jing -c data/xml/schema.rnc data/xml/*xml
 	SKIP=no-commit-to-branch . $(VENV) \
 	  && pre-commit run --all-files \
