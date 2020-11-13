@@ -52,7 +52,7 @@
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
 <section id="main">
-  <div {{ with $paper.retracted }} style="text-decoration: line-through" {{ end }}>
+  <div {{ with $paper.withdrawn }} style="text-decoration: line-through" {{ end }}>
   <h2 id="title">
     {{ with $paper.pdf }}
     <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
@@ -73,9 +73,10 @@
 
   <div class="row acl-paper-details">
     <div class="col col-lg-10 order-2">
-      {{ with $paper.retracted }}
+      {{ with $paper.withdrawn }}
       <div class="alert alert-danger" role="alert">
-        This paper has been retracted. More information can be found <a href="{{ $paper.pdf }}">here</a>.
+        <h4>This paper has been withdrawn</h4>
+        <p>{{ . }}</p>
       </div>
       {{ end }}
 
@@ -83,7 +84,7 @@
       <div class="card bg-light mb-2 mb-lg-3">
         <div class="card-body acl-abstract">
           <h5 class="card-title">Abstract</h5>
-          <span {{ with $paper.retracted }} style="text-decoration: line-through" {{ end }}>
+          <span {{ with $paper.withdrawn }} style="text-decoration: line-through" {{ end }}>
           {{ . | safeHTML }}
           </span>
         </div>
@@ -167,8 +168,8 @@
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
+      {{ if not $paper.withdrawn }}
       <dt class="acl-button-row">Bib Export formats:</dt>
-      {{ if not $paper.retracted }}
       <dd class="acl-button-row">
       {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
         <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}">BibTeX</a>
@@ -216,7 +217,7 @@
         </a>
         {{ end }}
       {{ end }}
-      {{ if and (not $paper.retracted) (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
+      {{ if and (not $paper.withdrawn) (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
       <a class="btn btn-secondary" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
         <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
       </a>
