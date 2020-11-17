@@ -25,7 +25,7 @@ from anthology.people import PersonName
 
 
 class NameSplitter:
-    def __init__(self, anthology=None):
+    def __init__(self, anthology=None, anthology_dir=None):
         # counts of how often each name appears
         self.first_count = defaultdict(lambda: 0)  # "Maria" "Victoria"
         self.first_full_count = defaultdict(lambda: 0)  # "Maria Victoria"
@@ -37,10 +37,8 @@ class NameSplitter:
         if os.path.exists("names.cache"):
             self.load_cache()
         else:
-            if anthology is None:
-                anthology = anthology.Anthology(
-                    importdir=os.path.join(args.anthology, "data")
-                )
+            if anthology is None and args.anthology_dir is not None:
+                anthology = Anthology(os.path.join(args.anthology_dir, "data"))
             self.count_names(anthology)
             self.dump_cache()
 
