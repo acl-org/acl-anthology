@@ -53,7 +53,9 @@ def main(args):
 
     splitter = NameSplitter(anthology_dir=args.anthology_dir)
 
-    collection_file = os.path.join(args.anthology_dir, "data", "xml", f"{collection_id}.xml")
+    collection_file = os.path.join(
+        args.anthology_dir, "data", "xml", f"{collection_id}.xml"
+    )
     if os.path.exists(collection_file):
         tree = etree.parse(collection_file)
     else:
