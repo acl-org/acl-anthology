@@ -36,6 +36,7 @@ import subprocess
 import sys
 import urllib.request
 
+from anthology import Anthology
 from anthology.utils import make_simple_element, indent, compute_hash, retrieve_url
 from datetime import datetime
 from normalize_anth import normalize
@@ -50,9 +51,9 @@ def main(args):
     volume_id = args.volume
     collection_id = f"{year}.{venue}"
 
-    splitter = NameSplitter()
+    splitter = NameSplitter(anthology_dir=args.anthology_dir)
 
-    collection_file = os.path.join(args.anthology, "data", "xml", f"{collection_id}.xml")
+    collection_file = os.path.join(args.anthology_dir, "data", "xml", f"{collection_id}.xml")
     if os.path.exists(collection_file):
         tree = etree.parse(collection_file)
     else:
@@ -114,10 +115,9 @@ def main(args):
 
         title_text = row["title"]
 
-        if paperid == 0:
-            # The first row might be front matter (needs a special name)
-            if title_text.lower() in ["frontmatter", "front matter"]:
-                paper = make_simple_element("frontmatter", parent=volume)
+        # The first row might be front matter (needs a special name)
+        if paperid == 0 and title_text.lower() in ["frontmatter", "front matter"]:
+            paper = make_simple_element("frontmatter", parent=volume)
         else:
             if paperid == 0:
                 # Not frontmatter, so paper 1
@@ -161,7 +161,7 @@ def main(args):
 
             make_simple_element("url", url, attrib={"hash": checksum}, parent=paper)
 
-        if "abstract" in row:
+        if "abstract" in row and row["abstract"] != "":
             make_simple_element("abstract", row["abstract"], parent=paper)
 
         if "presentation" in row:
@@ -199,7 +199,7 @@ if __name__ == '__main__':
         'tsv_file', nargs="?", default=sys.stdin, type=argparse.FileType("r")
     )
     parser.add_argument(
-        '--anthology',
+        '--anthology-dir',
         default=f"{os.environ.get('HOME')}/code/acl-anthology",
         help="Path to Anthology repo (cloned from https://github.com/acl-org/acl-anthology)",
     )
@@ -214,11 +214,9 @@ if __name__ == '__main__':
     parser.add_argument(
         '--proceedings-pdf', help="Path to PDF with conference proceedings"
     )
-    parser.add_argument('--frontmatter', action="store_true")
-    parser.add_argument("--force", "-f", action="store_true")
-    parser.add_argument("--venue", help="Venue code, e.g., acl")
-    parser.add_argument("--volume", help="Volume name, e.g., main or 1")
-    parser.add_argument("--year", help="Full year, e.g., 2020")
+    parser.add_argument("--venue", required=True, help="Venue code, e.g., acl")
+    parser.add_argument("--volume", required=True, help="Volume name, e.g., main or 1")
+    parser.add_argument("--year", required=True, help="Full year, e.g., 2020")
     args = parser.parse_args()
 
     main(args)
