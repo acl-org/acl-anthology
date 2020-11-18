@@ -65,6 +65,16 @@ The anthology can be viewed locally by running `hugo server` in the
 `hugo/` directory.  Note that it rebuilds the site and therefore takes
 about a minute to start.
 
+## Mirroring
+
+Once built (with `make`), the Anthology can be hosted anywhere.
+However, PDFs will link to the canonical Anthology location
+(https://www.aclweb.org/anthology/). If you wish to mirror the PDFs as
+well, you need to adjust `ANTHOLOGY_PREFIX` in
+`bin/anthology/data.py`. For example:
+
+    ANTHOLOGY_PREFIX = "https://mirror.aclweb.org/anthology"
+
 ## Contributing
 
 If you'd like to contribute to the ACL Anthology, please take a look at:
