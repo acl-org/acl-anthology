@@ -41,5 +41,11 @@ def read_bibtex(bibfilename):
 
     # for parser in [lambda s: pybtex.database.parse_string(s, 'bibtex'),
     #                fake_parse]:
-    bibdata = pybtex.database.parse_string(bibstring, "bibtex")
+    try:
+        bibdata = pybtex.database.parse_string(bibstring, "bibtex")
+    except:
+        import sys
+
+        print(f"Failed to parse {bibfilename}", file=sys.stderr)
+        sys.exit(1)
     return bibdata

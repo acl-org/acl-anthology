@@ -19,6 +19,7 @@ import logging as log
 from .utils import (
     build_anthology_id,
     parse_element,
+    infer_url,
     infer_attachment_url,
     remove_extra_whitespace,
     is_journal,
@@ -78,6 +79,10 @@ class Paper:
         if paper.is_volume:
             paper.attrib["xml_title"] = paper.attrib["xml_booktitle"]
             paper.attrib["xml_title"].tag = "title"
+
+        # Create URL field if not present. But see https://github.com/acl-org/acl-anthology/issues/997.
+        if "url" not in paper.attrib:
+            paper.attrib["url"] = infer_url(paper.full_id)
 
         # Remove booktitle for frontmatter and journals
         if paper.is_volume or is_journal(paper.full_id):
@@ -209,9 +214,17 @@ class Paper:
         return self.attrib.get("isbn", None)
 
     @property
-    def language(self):
+    def langcode(self):
         """Returns the ISO-639 language code, if present"""
         return self.attrib.get("language", None)
+
+    @property
+    def language(self):
+        """Returns the language name, if present"""
+        lang = None
+        if self.langcode:
+            lang = iso639.languages.get(part3=self.langcode).name
+        return lang
 
     def get(self, name, default=None):
         try:
@@ -293,7 +306,7 @@ class Paper:
         if "xml_abstract" in self.attrib and not concise:
             entries.append(("abstract", self.get_abstract(form="latex")))
         if self.language:
-            entries.append(("language", iso639.languages.get(part3=self.language).name))
+            entries.append(("language", self.language))
         if self.isbn:
             entries.append(("ISBN", self.isbn))
 
@@ -306,6 +319,7 @@ class Paper:
         value["parent_volume_id"] = self.parent_volume_id
         value["bibkey"] = self.bibkey
         value["bibtype"] = self.bibtype
+        value["language"] = self.language
         return value
 
     def items(self):

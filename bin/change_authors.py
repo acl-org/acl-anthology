@@ -1,8 +1,10 @@
+#!/usr/bin/env python3
+
 """Apply changes to author names.
 
-usage: change_authors.py <xml-file>+ -o <out-dir>
+usage: change_authors.py -o <out-dir> <change-file>
 
-Reads from stdin a list of changes (produced, e.g., by author_case.py)
+Reads a list of changes (produced, e.g., by author_case.py)
 in the following format:
 
 paperid \t role \t oldfirst || oldlast \t newfirst || newlast
