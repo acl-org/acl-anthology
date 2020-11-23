@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Arne Köhn <arne@chark.eu>
+# Copyright 2019-2020 Arne Köhn <arne@chark.eu>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,6 +30,8 @@ xmlstaged=$(shell git diff --staged --name-only --diff-filter=d data/xml/*.xml)
 pysources=$(shell git ls-files | egrep "\.pyi?$$")
 pystaged=$(shell git diff --staged --name-only  --diff-filter=d | egrep "\.pyi?$$")
 
+# these are shown in the generated html so everyone knows when the data
+# was generated.
 timestamp=$(shell date -u +"%d %B %Y at %H:%M %Z")
 githash=$(shell git rev-parse HEAD)
 githashshort=$(shell git rev-parse --short HEAD)
@@ -62,7 +64,7 @@ endif
 VENV := "venv/bin/activate"
 
 .PHONY: site
-site: bibtex mods endnote hugo sitemap
+site: hugo sitemap
 
 
 # Split the file sitemap into Google-ingestible chunks.
