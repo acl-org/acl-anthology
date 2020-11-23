@@ -15,14 +15,41 @@
 # limitations under the License.
 
 # Instructions:
-# - if you edit the a command running python, make sure to
-#   run . $(VENV) && python3 -- this sets up the virtual environment.
-# - all targets running python somewhere should have venv as a dependency.
+# - if you edit a command running python, make sure to
+#   write . $(VENV) && python3 -- this sets up the virtual environment.
+#   if you just write "python3 foo.py" without the ". $(VENV) && " before,
+#   the libraries will not be loaded during run time.
+# - all targets running python somewhere should have venv/bin/activate as a dependency.
 #   this makes sure that all required packages are installed.
 
 SHELL = /bin/sh
-ANTHOLOGYHOST := "https://www.aclweb.org"
-ANTHOLOGYDIR := anthology
+
+# if you want to host the anthology on your own, set ANTHOLOGY_PREFIX
+# in your call to make to your prefix, e.g.
+# ANTHOLOGY_PREFIX="https://example.com" make
+# no need to change the value here.
+# make sure the value is exported as environment variable
+# for all sub-processes
+
+export ANTHOLOGY_PREFIX ?= https://www.aclweb.org/anthology
+
+ifeq (${SLASHATEND},0)
+  $(error "ANTHOLOGY_PREFIX is not allowed to have a slash at the end")
+endif
+
+# hugo wants to know the host and base dir on its own, so
+# we sed the prefix into those parts.
+ANTHOLOGYHOST := $(shell echo "${ANTHOLOGY_PREFIX}" | sed 's|\(https*://[^/]*\).*|\1|')
+ANTHOLOGYDIR := $(shell echo "${ANTHOLOGY_PREFIX}" | sed 's|https*://[^/]*/\(.*\)|\1|')
+
+# the regexp above only matches if we actually have a subdirectory.
+# make the dir empty if only a tld was provided as the prefix.
+ifeq ($(ANTHOLOGY_PREFIX),$(ANTHOLOGYDIR))
+  ANTHOLOGYDIR := ""
+endif
+
+ANTHOLOGYFILES ?= /var/www/html/anthology-files
+
 HUGO_ENV ?= production
 
 sourcefiles=$(shell find data -type f '(' -name "*.yaml" -o -name "*.xml" ')')
@@ -64,7 +91,7 @@ endif
 VENV := "venv/bin/activate"
 
 .PHONY: site
-site: hugo sitemap
+site: build/.hugo build/.sitemap
 
 
 # Split the file sitemap into Google-ingestible chunks.
@@ -73,10 +100,10 @@ site: hugo sitemap
 sitemap: build/.sitemap
 
 build/.sitemap: venv/bin/activate build/.hugo
-	. $(VENV) && python3 bin/split_sitemap.py build/anthology/sitemap.xml
-	@rm -f build/anthology/sitemap_*.xml.gz
-	@gzip -9n build/anthology/sitemap_*.xml
-	@bin/create_sitemapindex.sh `ls build/anthology/ | grep 'sitemap_.*xml.gz'` > build/anthology/sitemapindex.xml
+	. $(VENV) && python3 bin/split_sitemap.py build/website/$(ANTHOLOGYDIR)/sitemap.xml
+	@rm -f build/website/$(ANTHOLOGYDIR)/sitemap_*.xml.gz
+	@gzip -9n build/website/$(ANTHOLOGYDIR)/sitemap_*.xml
+	@bin/create_sitemapindex.sh `ls build/website/$(ANTHOLOGYDIR)/ | grep 'sitemap_.*xml.gz'` > build/website/$(ANTHOLOGYDIR)/sitemapindex.xml
 	@touch build/.sitemap
 
 .PHONY: venv
@@ -117,7 +144,7 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 	@echo "  githash = \"${githash}\"" >> build/config.toml
 	@echo "  githashshort = \"${githashshort}\"" >> build/config.toml
 	@echo "  timestamp = \"${timestamp}\"" >> build/config.toml
-	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/index.html
+	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/website/index.html
 	@touch build/.static
 
 .PHONY: yaml
@@ -172,16 +199,19 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
-	         -d $(ANTHOLOGYDIR) \
+	         -d website/$(ANTHOLOGYDIR) \
 		 -e $(HUGO_ENV) \
 	         --cleanDestinationDir \
 	         --minify
+	@cd build/website/$(ANTHOLOGYDIR) \
+	    && sed -i 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess \
+	@cd build/website/$(ANTHOLOGYDIR) && ln -s $(ANTHOLOGYFILES) anthology-files
 	@touch build/.hugo
 
 .PHONY: test
 test: hugo
-	diff -u build/anthology/P19-1007.bib test/data/P19-1007.bib
-	diff -u build/anthology/P19-1007.xml test/data/P19-1007.xml
+	diff -u build/website/$(ANTHOLOGYDIR)/P19-1007.bib test/data/P19-1007.bib
+	diff -u build/website/$(ANTHOLOGYDIR)/P19-1007.xml test/data/P19-1007.xml
 
 .PHONY: clean
 clean:
@@ -205,14 +235,14 @@ check_staged_xml:
 	 fi
 
 .PHONY: check_commit
-check_commit: check_staged_xml venv
+check_commit: check_staged_xml venv/bin/activate
 	@. $(VENV) && pre-commit run
 	@if [ ! -z "$(pystaged)" ]; then \
 	    . $(VENV) && black --check $(pystaged) ;\
 	 fi
 
 .PHONY: autofix
-autofix: check_staged_xml venv
+autofix: check_staged_xml venv/bin/activate
 	 @. $(VENV) && \
 	 EXIT_STATUS=0 ;\
 	 pre-commit run || EXIT_STATUS=$$? ;\
@@ -225,7 +255,7 @@ autofix: check_staged_xml venv
 .PHONY: serve
 serve:
 	 @echo "INFO     Starting a server at http://localhost:8000/"
-	 @cd build && python3 -m http.server 8000
+	 @cd build/website && python3 -m http.server 8000
 
 # this target does not use ANTHOLOGYDIR because the official website
 # only works if ANTHOLOGYDIR == anthology.

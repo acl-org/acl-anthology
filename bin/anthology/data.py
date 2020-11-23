@@ -21,13 +21,25 @@
 # changed.
 ################################################################################
 
-ANTHOLOGY_PREFIX = "https://www.aclweb.org/anthology"
+import os
+
+# this is the canonical URL.  In contrast to all other
+# URL templates, it always links to the official anthology.
+CANONICAL_URL_TEMPLATE = "https://www.aclweb.org/anthology/{}"
+
+# the prefix is used in different programs and we need to set it everywhere
+# We use a environment variable to set this and not have to forward the value
+# through all the programs. If this does not look like the best idea, keep in mind
+# that the structure is historically grown -- from 2019 to 2020 :-)
+try:
+    ANTHOLOGY_PREFIX = os.environ["ANTHOLOGY_PREFIX"]
+except:
+    ANTHOLOGY_PREFIX = "https://www.aclweb.org/anthology"
+
 ATTACHMENT_PREFIX = ANTHOLOGY_PREFIX + "/attachments"
 
-# These should be renamed as "templates" so it's clear how they should be used
-ANTHOLOGY_URL = ANTHOLOGY_PREFIX + "/{}"
-ANTHOLOGY_PDF = ANTHOLOGY_PREFIX + "/{}.pdf"
-ANTHOLOGY_THUMBNAIL = ANTHOLOGY_PREFIX + "/thumb/{}.jpg"
+PDF_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}.pdf"
+PDF_THUMBNAIL_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/thumb/{}.jpg"
 
 # Regular expression matching full Anthology IDs
 ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"

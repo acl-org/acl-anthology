@@ -33,7 +33,7 @@ import re
 import sys
 
 from anthology import Anthology
-from anthology.data import ANTHOLOGY_ID_REGEX, ANTHOLOGY_URL
+from anthology.data import ANTHOLOGY_ID_REGEX, CANONICAL_URL_TEMPLATE
 
 from collections import defaultdict
 
@@ -61,7 +61,7 @@ def main(args):
             attachments[attach_type].append(
                 (
                     anthology.papers[anthology_id].get_title('plain'),
-                    ANTHOLOGY_URL.format(anthology_id),
+                    CANONICAL_URL_TEMPLATE.format(anthology_id),
                 )
             )
 
@@ -79,7 +79,7 @@ def main(args):
             revisions.append(
                 (
                     paper.get_title("plain"),
-                    ANTHOLOGY_URL.format(anthology_id),
+                    CANONICAL_URL_TEMPLATE.format(anthology_id),
                     explanation,
                 )
             )
@@ -95,7 +95,7 @@ def main(args):
             errata.append(
                 (
                     anthology.papers[anthology_id].get_title('plain'),
-                    ANTHOLOGY_URL.format(anthology_id),
+                    CANONICAL_URL_TEMPLATE.format(anthology_id),
                 )
             )
 

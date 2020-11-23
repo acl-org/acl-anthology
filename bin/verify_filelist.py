@@ -38,7 +38,6 @@ import logging as log
 import os
 from urllib.parse import urlparse
 
-from anthology.data import ANTHOLOGY_PREFIX, ATTACHMENT_PREFIX
 from anthology.utils import is_newstyle_id, build_anthology_id, SeverityTracker
 
 
