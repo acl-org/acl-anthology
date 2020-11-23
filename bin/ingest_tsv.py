@@ -37,7 +37,12 @@ import sys
 import urllib.request
 
 from anthology import Anthology
-from anthology.utils import make_simple_element, indent, compute_hash_from_file, retrieve_url
+from anthology.utils import (
+    make_simple_element,
+    indent,
+    compute_hash_from_file,
+    retrieve_url,
+)
 from datetime import datetime
 from normalize_anth import normalize
 from likely_name_split import NameSplitter
@@ -180,10 +185,13 @@ def main(args):
                 )
                 if retrieve_url(row["presentation"], local_path):
                     make_simple_element(
-                        "attachment", name, attrib={
+                        "attachment",
+                        name,
+                        attrib={
                             "type": "presentation",
                             "hash": compute_hash_from_file(local_path),
-                        }, parent=paper
+                        },
+                        parent=paper,
                     )
 
         # Normalize
