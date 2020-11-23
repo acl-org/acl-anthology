@@ -37,8 +37,8 @@ class NameSplitter:
         if os.path.exists("names.cache"):
             self.load_cache()
         else:
-            if anthology is None and args.anthology_dir is not None:
-                anthology = Anthology(os.path.join(args.anthology_dir, "data"))
+            if anthology is None and anthology_dir is not None:
+                anthology = Anthology(os.path.join(anthology_dir, "data"))
             self.count_names(anthology)
             self.dump_cache()
 
