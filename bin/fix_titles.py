@@ -42,7 +42,9 @@ def main(args):
 
         collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
 
-        xml_file = os.path.join(os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml")
+        xml_file = os.path.join(
+            os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
+        )
 
         if prev_xml_file is not None and xml_file != prev_xml_file:
             print(f"-> Dumping to file {prev_xml_file}")
@@ -78,9 +80,12 @@ def main(args):
     tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
     print(f"-> Dumping to file {xml_file}")
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("tsv_file", nargs="?", default=sys.stdin, help="Where to read TSV file from")
+    parser.add_argument(
+        "tsv_file", nargs="?", default=sys.stdin, help="Where to read TSV file from"
+    )
     args = parser.parse_args()
 
     main(args)
