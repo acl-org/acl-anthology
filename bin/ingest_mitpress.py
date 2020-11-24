@@ -416,9 +416,7 @@ if __name__ == "__main__":
                     "volume", attrib={"id": issue}, parent=collection
                 )
                 volume.append(
-                    issue_info_to_node(
-                        issue_info, year, collection_id, is_tacl
-                    )
+                    issue_info_to_node(issue_info, year, collection_id, is_tacl)
                 )
             else:
                 for paper in volume.findall(".//paper"):
