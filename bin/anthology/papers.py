@@ -32,9 +32,10 @@ from .formatter import bibtex_encode, bibtex_make_entry
 
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter):
+    def __init__(self, paper_id, ingest_date, volume, formatter, venue_index=None):
         self.parent_volume = volume
         self.formatter = formatter
+        self.venue_index = venue_index
         self._id = paper_id
         self._ingest_date = ingest_date
         self._bibkey = False
@@ -333,12 +334,10 @@ class Paper:
                     authors = f"{people[0].last} et al."
 
         year = self.get("year")
-        if int(year) >= 2020:
-            # TODO: define the venue
-            venue = ""
+        venue = self.venue_index.get_main_venue(self.parent_volume_id)
 
         url = self.get("url")
-        return f"[{title}]({url}) ({authors}, {year})"
+        return f"[{title}]({url}) ({authors}, {venue} {year})"
 
     def as_dict(self):
         value = self.attrib

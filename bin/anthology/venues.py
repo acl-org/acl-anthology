@@ -33,7 +33,8 @@ from anthology.data import VENUE_FORMAT
 class VenueIndex:
     def __init__(self, srcdir=None):
         self.venues, self.letters, self.joint_map = {}, {}, defaultdict(list)
-        self.acronyms_by_key = {}
+        self.acronyms = {}  # acronym -> venue
+        self.acronyms_by_key = {}  # slug -> acronym
         self.venue_dict = None
         if srcdir is not None:
             self.load_from_dir(srcdir)
@@ -96,6 +97,7 @@ class VenueIndex:
                 # encapsulation --MB)
                 self.venues[val["acronym"]] = val
                 self.acronyms_by_key[key] = val["acronym"]
+                self.acronyms[val["acronym"]] = val
 
                 if "oldstyle_letter" in val:
                     if not val["is_toplevel"]:
@@ -126,13 +128,40 @@ class VenueIndex:
         except KeyError:
             log.critical("Unknown venue letter: {}".format(letter))
 
+    def get_by_acronym(self, acronym):
+        """Get a venue object by its acronym (assumes acronyms are unique)."""
+        try:
+            return self.acronyms[acronym]
+        except KeyError:
+            log.critical(f"Unknown venue acronym: {acronym}")
+
     def get_main_venue(self, anthology_id):
-        """Get a venue acronym by anthology ID (e.g., acl -> ACL)."""
+        """Get a venue acronym by anthology ID (e.g., acl -> ACL).
+
+        For old-style IDs, some large venues were assigned a letter
+        code (e.g., P -> ACL, L -> LREC), with "W" was used as a
+        catchall. Many of these have since been attached to a venue
+        ID. For example, W19-52 was WMT, held at ACL 2019. It is
+        listed as joint with both of these events. For such "W"
+        events, if we find a joint venue that does not have an
+        "oldstyle_letter" property, we use that venue, instead of
+        "WS".
+        """
         collection_id, *_ = deconstruct_anthology_id(anthology_id)
         if is_newstyle_id(collection_id):
             return self.acronyms_by_key[collection_id.split(".")[-1]]
         else:
-            return self.get_by_letter(collection_id[0])
+            if collection_id[0] == "W":
+                # Look through all joint events, try to find one without
+                # an old-style letter, return "WS" if none found
+                for acronym in self.joint_map.get(anthology_id, []):
+                    if not "oldstyle_letter" in self.get_by_acronym(acronym):
+                        return acronym
+                else:
+                    return self.get_by_letter(collection_id[0])
+
+            else:
+                return self.get_by_letter(collection_id[0])
 
     def get_associated_venues(self, anthology_id):
         """Get a list of all venue acronyms for a given (volume) anthology ID."""
