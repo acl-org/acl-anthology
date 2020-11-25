@@ -302,7 +302,7 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
 
 
 def issue_info_to_node(
-    issue_info: str, year_: str, volume_id: str, issue_counter: int, is_tacl: bool
+    issue_info: str, year_: str, volume_id: str, is_tacl: bool
 ) -> etree.Element:
     """Creates the meta block for a new issue / volume"""
     node = etree.Element("meta")
@@ -416,9 +416,7 @@ if __name__ == "__main__":
                     "volume", attrib={"id": issue}, parent=collection
                 )
                 volume.append(
-                    issue_info_to_node(
-                        issue_info, year, collection_id, issue_count, is_tacl
-                    )
+                    issue_info_to_node(issue_info, year, collection_id, is_tacl)
                 )
             else:
                 for paper in volume.findall(".//paper"):

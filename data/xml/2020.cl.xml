@@ -32,8 +32,7 @@
     <paper id="3">
       <title>An Empirical Study on Crosslingual Transfer in Probabilistic Topic Models</title>
       <author><first>Shudong</first><last>Hao</last></author>
-      <author><first>Michael
-                            J.</first><last>Paul</last></author>
+      <author><first>Michael J.</first><last>Paul</last></author>
       <doi>10.1162/coli_a_00369</doi>
       <abstract>Probabilistic topic modeling is a common first step in crosslingual tasks to enable knowledge transfer and extract multilingual features. Although many multilingual topic models have been developed, their assumptions about the training corpus are quite varied, and it is not clear how well the different models can be utilized under various training conditions. In this article, the knowledge transfer mechanisms behind different multilingual topic models are systematically studied, and through a broad set of experiments with four models on ten languages, we provide empirical insights that can inform the selection and future development of multilingual topic models.</abstract>
       <pages>95–134</pages>
@@ -150,6 +149,51 @@
       <abstract>Recent developments in neural language models (LMs) have raised concerns about their potential misuse for automatically spreading misinformation. In light of these concerns, several studies have proposed to detect machine-generated fake news by capturing their stylistic differences from human-written text. These approaches, broadly termed stylometry, have found success in source attribution and misinformation detection in human-written texts. However, in this work, we show that stylometry is limited against machine-generated misinformation. Whereas humans speak differently when trying to deceive, LMs generate stylistically consistent text, regardless of underlying motive. Thus, though stylometry can successfully prevent impersonation by identifying text provenance, it fails to distinguish legitimate LM applications from those that introduce false information. We create two benchmarks demonstrating the stylistic similarity between malicious and legitimate uses of LMs, utilized in auto-completion and editing-assistance settings.1 Our findings highlight the need for non-stylometry approaches in detecting machine-generated misinformation, and open up the discussion on the desired evaluation benchmarks.</abstract>
       <pages>499–510</pages>
       <url hash="fb11029c">2020.cl-2.8</url>
+    </paper>
+  </volume>
+  <volume id="3">
+    <meta>
+      <booktitle>Computational Linguistics, Volume 46, Issue 3 - September 2020</booktitle>
+      <month>September</month>
+      <year>2020</year>
+    </meta>
+    <paper id="1">
+      <title>Tractable <fixed-case>L</fixed-case>exical-<fixed-case>F</fixed-case>unctional <fixed-case>G</fixed-case>rammar</title>
+      <author><first>Jürgen</first><last>Wedekind</last></author>
+      <author><first>Ronald M.</first><last>Kaplan</last></author>
+      <doi>10.1162/coli_a_00384</doi>
+      <abstract>The formalism for Lexical-Functional Grammar (LFG) was introduced in the 1980s as one of the first constraint-based grammatical formalisms for natural language. It has led to substantial contributions to the linguistic literature and to the construction of large-scale descriptions of particular languages. Investigations of its mathematical properties have shown that, without further restrictions, the recognition, emptiness, and generation problems are undecidable, and that they are intractable in the worst case even with commonly applied restrictions. However, grammars of real languages appear not to invoke the full expressive power of the formalism, as indicated by the fact that algorithms and implementations for recognition and generation have been developed that run—even for broad-coverage grammars—in typically polynomial time. This article formalizes some restrictions on the notation and its interpretation that are compatible with conventions and principles that have been implicit or informally stated in linguistic theory. We show that LFG grammars that respect these restrictions, while still suitable for the description of natural languages, are equivalent to linear context-free rewriting systems and allow for tractable computation.</abstract>
+      <pages>515–569</pages>
+      <url hash="080de4be">2020.cl-3.1</url>
+    </paper>
+    <paper id="2">
+      <title>Semantic Drift in Multilingual Representations</title>
+      <author><first>Lisa</first><last>Beinborn</last></author>
+      <author><first>Rochelle</first><last>Choenni</last></author>
+      <doi>10.1162/coli_a_00382</doi>
+      <abstract>Multilingual representations have mostly been evaluated based on their performance on specific tasks. In this article, we look beyond engineering goals and analyze the relations between languages in computational representations. We introduce a methodology for comparing languages based on their organization of semantic concepts. We propose to conduct an adapted version of representational similarity analysis of a selected set of concepts in computational multilingual representations. Using this analysis method, we can reconstruct a phylogenetic tree that closely resembles those assumed by linguistic experts. These results indicate that multilingual distributional representations that are only trained on monolingual text and bilingual dictionaries preserve relations between languages without the need for any etymological information. In addition, we propose a measure to identify semantic drift between language families. We perform experiments on word-based and sentence-based multilingual models and provide both quantitative results and qualitative examples. Analyses of semantic drift in multilingual representations can serve two purposes: They can indicate unwanted characteristics of the computational models and they provide a quantitative means to study linguistic phenomena across languages.</abstract>
+      <pages>571–603</pages>
+      <url hash="67f25819">2020.cl-3.2</url>
+    </paper>
+    <paper id="3">
+      <title>Sentence Meaning Representations Across Languages: What Can We Learn from Existing Frameworks?</title>
+      <author><first>Zdeněk</first><last>Žabokrtský</last></author>
+      <author><first>Daniel</first><last>Zeman</last></author>
+      <author><first>Magda</first><last>Ševčíková</last></author>
+      <doi>10.1162/coli_a_00385</doi>
+      <abstract>This article gives an overview of how sentence meaning is represented in eleven deep-syntactic frameworks, ranging from those based on linguistic theories elaborated for decades to rather lightweight NLP-motivated approaches. We outline the most important characteristics of each framework and then discuss how particular language phenomena are treated across those frameworks, while trying to shed light on commonalities as well as differences.</abstract>
+      <pages>605–665</pages>
+      <url hash="03083893">2020.cl-3.3</url>
+    </paper>
+    <paper id="4">
+      <title>Predicting In-Game Actions from Interviews of <fixed-case>NBA</fixed-case> Players</title>
+      <author><first>Nadav</first><last>Oved</last></author>
+      <author><first>Amir</first><last>Feder</last></author>
+      <author><first>Roi</first><last>Reichart</last></author>
+      <doi>10.1162/coli_a_00383</doi>
+      <abstract>Sports competitions are widely researched in computer and social science, with the goal of understanding how players act under uncertainty. Although there is an abundance of computational work on player metrics prediction based on past performance, very few attempts to incorporate out-of-game signals have been made. Specifically, it was previously unclear whether linguistic signals gathered from players’ interviews can add information that does not appear in performance metrics. To bridge that gap, we define text classification tasks of predicting deviations from mean in NBA players’ in-game actions, which are associated with strategic choices, player behavior, and risk, using their choice of language prior to the game. We collected a data set of transcripts from key NBA players’ pre-game interviews and their in-game performance metrics, totalling 5,226 interview-metric pairs. We design neural models for players’ action prediction based on increasingly more complex aspects of the language signals in their open-ended interviews. Our models can make their predictions based on the textual signal alone, or on a combination of that signal with signals from past-performance metrics. Our text-based models outperform strong baselines trained on performance metrics only, demonstrating the importance of language usage for action prediction. Moreover, the models that utilize both textual input and past-performance metrics produced the best results. Finally, as neural networks are notoriously difficult to interpret, we propose a method for gaining further insight into what our models have learned. Particularly, we present a latent Dirichlet allocation–based analysis, where we interpret model predictions in terms of correlated topics. We find that our best performing textual model is most associated with topics that are intuitively related to each prediction task and that better models yield higher correlation with more informative topics.1</abstract>
+      <pages>667–712</pages>
+      <url hash="4bd67c7a">2020.cl-3.4</url>
     </paper>
   </volume>
 </collection>
