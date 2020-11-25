@@ -173,6 +173,9 @@
       {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
         <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s.bib" $anthology_id) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
       {{ end }}
+      {{ with $paper.citation }}
+        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ . }}"><i class="far fa-clipboard pr-2"></i>Copy Citation</button>
+      {{ end }}
       </dd>
 
       {{ with $paper.pdf }}
