@@ -234,5 +234,5 @@ upload:
             exit 1; \
         fi
 	@echo "INFO     Running rsync..."
-#	@rsync -azve ssh --delete build/anthology/ aclweb:anthology-static
+	@rsync -azve ssh --delete build/anthology/ aclweb:anthology-static
 	@rsync -azve ssh --delete build/anthology/ anth:/var/www/html
