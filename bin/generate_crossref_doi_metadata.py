@@ -175,7 +175,11 @@ def main(volumes):
 
                 for name_part in tag:
                     # Check if empty (e.g., "Mausam")
-                    if name_part.tag == "first" and name_part.text != "":
+                    if (
+                        name_part.tag == "first"
+                        and name_part.text is not None
+                        and name_part.text != ""
+                    ):
                         gn = make_simple_element(
                             "given_name", parent=pn, text=name_part.text
                         )
@@ -250,7 +254,11 @@ def main(volumes):
                 author_index += 1
 
                 for name_part in author:
-                    if name_part.tag == "first" and name_part.text is not None and name_part.text != "":
+                    if (
+                        name_part.tag == "first"
+                        and name_part.text is not None
+                        and name_part.text != ""
+                    ):
                         gn = make_simple_element(
                             "given_name", parent=pn, text=name_part.text
                         )
