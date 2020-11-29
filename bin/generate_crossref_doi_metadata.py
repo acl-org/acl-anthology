@@ -156,8 +156,6 @@ def main(volumes):
                         file=sys.stderr,
                     )
                     sys.exit(1)
-            elif tag.tag == "url":
-                url = tag.text
             elif tag.tag == "booktitle":
                 booktitle = formatter.as_text(tag)
             elif tag.tag == "address":
@@ -217,9 +215,9 @@ def main(volumes):
 
         # DOI assignation data
         dd = make_simple_element("doi_data", parent=pm)
-        doi = make_simple_element("doi", parent=dd, text=DOI_PREFIX + url)
+        doi = make_simple_element("doi", parent=dd, text=DOI_PREFIX + full_volume_id)
         resource = make_simple_element(
-            "resource", parent=dd, text=ANTHOLOGY_URL.format(url)
+            "resource", parent=dd, text=ANTHOLOGY_URL.format(full_volume_id)
         )
 
         for paper in v.findall("./paper"):
@@ -252,7 +250,7 @@ def main(volumes):
                 author_index += 1
 
                 for name_part in author:
-                    if name_part.tag == "first" and name_part.text != "":
+                    if name_part.tag == "first" and name_part.text is not None and name_part.text != "":
                         gn = make_simple_element(
                             "given_name", parent=pn, text=name_part.text
                         )
