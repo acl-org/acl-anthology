@@ -189,6 +189,10 @@ def main(args):
         venue_abbrev = meta["abbrev"]
         venue_slug = venue_index.get_slug(venue_abbrev)
 
+        if str(datetime.now().year) in venue_abbrev:
+            print(f"Fatal: Venue assembler put year in acronym: '{venue_abbrev}'")
+            sys.exit(1)
+
         if venue_slug not in venue_keys:
             unseen_venues.append((venue_slug, venue_abbrev, meta["title"]))
 
