@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.msr">
+  <volume id="1" ingest-date="2020-11-29">
+    <meta>
+      <booktitle>Proceedings of the Third Workshop on Multilingual Surface Realisation</booktitle>
+      <editor><first>Anya</first><last>Belz</last></editor>
+      <editor><first>Bernd</first><last>Bohnet</last></editor>
+      <editor><first>Thiago Castro</first><last>Ferreira</last></editor>
+      <editor><first>Yvette</first><last>Graham</last></editor>
+      <editor><first>Simon</first><last>Mille</last></editor>
+      <editor><first>Leo</first><last>Wanner</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Barcelona, Spain (Online)</address>
+      <month>December</month>
+      <year>2020</year>
+    </meta>
+    <frontmatter>
+      <url hash="2a8fdccc">2020.msr-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>The Third Multilingual Surface Realisation Shared Task (<fixed-case>SR</fixed-case>’20): Overview and Evaluation Results</title>
+      <author><first>Simon</first><last>Mille</last></author>
+      <author><first>Anya</first><last>Belz</last></author>
+      <author><first>Bernd</first><last>Bohnet</last></author>
+      <author><first>Thiago</first><last>Castro Ferreira</last></author>
+      <author><first>Yvette</first><last>Graham</last></author>
+      <author><first>Leo</first><last>Wanner</last></author>
+      <pages>1–20</pages>
+      <abstract>This paper presents results from the Third Shared Task on Multilingual Surface Realisation (SR’20) which was organised as part of the COLING’20 Workshop on Multilingual Surface Realisation. As in SR’18 and SR’19, the shared task comprised two tracks: (1) a Shallow Track where the inputs were full UD structures with word order information removed and tokens lemmatised; and (2) a Deep Track where additionally, functional words and morphological information were removed. Moreover, each track had two subtracks: (a) restricted-resource, where only the data provided or approved as part of a track could be used for training models, and (b) open-resource, where any data could be used. The Shallow Track was offered in 11 languages, whereas the Deep Track in 3 ones. Systems were evaluated using both automatic metrics and direct assessment by human evaluators in terms of Readability and Meaning Similarity to reference outputs. We present the evaluation results, along with descriptions of the SR’19 tracks, data and evaluation methods, as well as brief summaries of the participating systems. For full descriptions of the participating systems, please see the separate system reports elsewhere in this volume.</abstract>
+      <url hash="dbf411db">2020.msr-1.1</url>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>BME</fixed-case>-<fixed-case>TUW</fixed-case> at <fixed-case>SR</fixed-case>’20: Lexical grammar induction for surface realization</title>
+      <author><first>Gábor</first><last>Recski</last></author>
+      <author><first>Ádám</first><last>Kovács</last></author>
+      <author><first>Kinga</first><last>Gémes</last></author>
+      <author><first>Judit</first><last>Ács</last></author>
+      <author><first>Andras</first><last>Kornai</last></author>
+      <pages>21–29</pages>
+      <abstract>We present a system for mapping Universal Dependency structures to raw text which learns to restore word order by training an Interpreted Regular Tree Grammar (IRTG) that establishes a mapping between string and graph operations. The reinflection step is handled by a standard sequence-to-sequence architecture with a biLSTM encoder and an LSTM decoder with attention. We modify our 2019 system (Kovács et al., 2019) with a new grammar induction mechanism that allows IRTG rules to operate on lemmata in addition to part-of-speech tags and ensures that each word and its dependents are reordered using the most specific set of learned patterns. We also introduce a hierarchical approach to word order restoration that independently determines the word order of each clause in a sentence before arranging them with respect to the main clause, thereby improving overall readability and also making the IRTG parsing task tractable. We participated in the 2020 Surface Realization Shared task, subtrack T1a (shallow, closed). Human evaluation shows we achieve significant improvements on two of the three out-of-domain datasets compared to the 2019 system we modified. Both components of our system are available on GitHub under an MIT license.</abstract>
+      <url hash="96eab5d3">2020.msr-1.2</url>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>ADAPT</fixed-case> at <fixed-case>SR</fixed-case>’20: How Preprocessing and Data Augmentation Help to Improve Surface Realization</title>
+      <author><first>Henry</first><last>Elder</last></author>
+      <pages>30–34</pages>
+      <abstract>In this paper, we describe the ADAPT submission to the Surface Realization Shared Task 2020. We present a neural-based system trained on the English Web Treebank and an augmented dataset, automatically created from existing text corpora.</abstract>
+      <url hash="2d5a12da">2020.msr-1.3</url>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>IMS</fixed-case>ur<fixed-case>R</fixed-case>eal Too: <fixed-case>IMS</fixed-case> in the Surface Realization Shared Task 2020</title>
+      <author><first>Xiang</first><last>Yu</last></author>
+      <author><first>Simon</first><last>Tannert</last></author>
+      <author><first>Ngoc Thang</first><last>Vu</last></author>
+      <author><first>Jonas</first><last>Kuhn</last></author>
+      <pages>35–41</pages>
+      <abstract>We introduce the IMS contribution to the Surface Realization Shared Task 2020. The new system achieves substantial improvement over the state-of-the-art system from last year, mainly due to a better token representation and a better linearizer, as well as a simple ensembling approach. We also experiment with data augmentation, which brings some additional performance gain. The system is available at https://github.com/EggplantElf/IMSurReal.</abstract>
+      <url hash="286fea24">2020.msr-1.4</url>
+    </paper>
+    <paper id="5">
+      <title>Lexical Induction of Morphological and Orthographic Forms for Low-Resourced Languages</title>
+      <author><first>Taha</first><last>Tobaili</last></author>
+      <pages>42–49</pages>
+      <abstract>In this work we address the issue of high-degree lexical sparsity for non-standard languages under severe circumstance of small resources that are considered insufficient to train recent powerful language models. We proposed a new rule-based approach and utilised word embeddings to connect words with their inflectional and orthographic forms from a given corpus. Our case example is the low-resourced Lebanese dialect Arabizi. Arabizi is the name given to a new social transcription of the spoken Arabic in Latin script. The term comes from the portmanteau of Araby (Arabic) and Englizi (English). It is an informal written language where Arabs transcribe their dialectal mother tongue in text using Latin alphanumeral instead of Arabic script. For example حبيبي Ḥabībī my-love could be transcribed as 7abibi in Arabizi. We induced 175K forms from a list of 1.7K sentiment words. We evaluated this induction extrinsically on a sentiment-annotated dataset pushing its coverage by 13% over the previous version. We named the new lexicon SenZi-Large and released it publicly.</abstract>
+      <url hash="888aa773">2020.msr-1.5</url>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>NILC</fixed-case> at <fixed-case>SR</fixed-case>’20: Exploring Pre-Trained Models in Surface Realisation</title>
+      <author><first>Marco Antonio</first><last>Sobrevilla Cabezudo</last></author>
+      <author><first>Thiago</first><last>Pardo</last></author>
+      <pages>50–56</pages>
+      <abstract>This paper describes the submission by the NILC Computational Linguistics research group of the University of S ̃ao Paulo/Brazil to the English Track 2 (closed sub-track) at the Surface Realisation Shared Task 2020. The success of the current pre-trained models like BERT or GPT-2 in several tasks is well-known, however, this is not the case for data-to-text generation tasks and just recently some initiatives focused on it. This way, we explore how a pre-trained model (GPT-2) performs on the UD-to-text generation task. In general, the achieved results were poor, but there are some interesting ideas to explore. Among the learned lessons we may note that it is necessary to study strategies to represent UD inputs and to introduce structural knowledge into these pre-trained models.</abstract>
+      <url hash="0f5f5699">2020.msr-1.6</url>
+    </paper>
+    <paper id="7">
+      <title>Surface Realization Using Pretrained Language Models</title>
+      <author><first>Farhood</first><last>Farahnak</last></author>
+      <author><first>Laya</first><last>Rafiee</last></author>
+      <author><first>Leila</first><last>Kosseim</last></author>
+      <author><first>Thomas</first><last>Fevens</last></author>
+      <pages>57–63</pages>
+      <abstract>In the context of Natural Language Generation, surface realization is the task of generating the linear form of a text following a given grammar. Surface realization models usually consist of a cascade of complex sub-modules, either rule-based or neural network-based, each responsible for a specific sub-task. In this work, we show that a single encoder-decoder language model can be used in an end-to-end fashion for all sub-tasks of surface realization. The model is designed based on the BART language model that receives a linear representation of unordered and non-inflected tokens in a sentence along with their corresponding Universal Dependency information and produces the linear sequence of inflected tokens along with the missing words. The model was evaluated on the shallow and deep tracks of the 2020 Surface Realization Shared Task (SR’20) using both human and automatic evaluation. The results indicate that despite its simplicity, our model achieves competitive results among all participants in the shared task.</abstract>
+      <url hash="33be05e0">2020.msr-1.7</url>
+    </paper>
+  </volume>
+</collection>

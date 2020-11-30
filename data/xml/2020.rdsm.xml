@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.rdsm">
+  <volume id="1" ingest-date="2020-11-29">
+    <meta>
+      <booktitle>Proceedings of the 3rd International Workshop on Rumours and Deception in Social Media (RDSM)</booktitle>
+      <editor><first>Ahmet</first><last>Aker</last></editor>
+      <editor><first>Arkaitz</first><last>Zubiaga</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Barcelona, Spain (Online)</address>
+      <month>December</month>
+      <year>2020</year>
+    </meta>
+    <frontmatter>
+      <url hash="feee157f">2020.rdsm-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Towards Trustworthy Deception Detection: Benchmarking Model Robustness across Domains, Modalities, and Languages</title>
+      <author><first>Maria</first><last>Glenski</last></author>
+      <author><first>Ellyn</first><last>Ayton</last></author>
+      <author><first>Robin</first><last>Cosbey</last></author>
+      <author><first>Dustin</first><last>Arendt</last></author>
+      <author><first>Svitlana</first><last>Volkova</last></author>
+      <pages>1–13</pages>
+      <abstract>Evaluating model robustness is critical when developing trustworthy models not only to gain deeper understanding of model behavior, strengths, and weaknesses, but also to develop future models that are generalizable and robust across expected environments a model may encounter in deployment. In this paper, we present a framework for measuring model robustness for an important but difficult text classification task – deceptive news detection. We evaluate model robustness to out-of-domain data, modality-specific features, and languages other than English. Our investigation focuses on three type of models: LSTM models trained on multiple datasets (Cross-Domain), several fusion LSTM models trained with images and text and evaluated with three state-of-the-art embeddings, BERT ELMo, and GloVe (Cross-Modality), and character-level CNN models trained on multiple languages (Cross-Language). Our analyses reveal a significant drop in performance when testing neural models on out-of-domain data and non-English languages that may be mitigated using diverse training data. We find that with additional image content as input, ELMo embeddings yield significantly fewer errors compared to BERT or GLoVe. Most importantly, this work not only carefully analyzes deception model robustness but also provides a framework of these analyses that can be applied to new models or extended datasets in the future.</abstract>
+      <url hash="bd3b0b72">2020.rdsm-1.1</url>
+    </paper>
+    <paper id="2">
+      <title>A Language-Based Approach to Fake News Detection Through Interpretable Features and <fixed-case>BRNN</fixed-case></title>
+      <author><first>Yu</first><last>Qiao</last></author>
+      <author><first>Daniel</first><last>Wiechmann</last></author>
+      <author><first>Elma</first><last>Kerz</last></author>
+      <pages>14–31</pages>
+      <abstract>‘Fake news’ – succinctly defined as false or misleading information masquerading as legitimate news – is a ubiquitous phenomenon and its dissemination weakens the fact-based reporting of the established news industry, making it harder for political actors, authorities, media and citizens to obtain a reliable picture. State-of-the art language-based approaches to fake news detection that reach high classification accuracy typically rely on black box models based on word embeddings. At the same time, there are increasing calls for moving away from black-box models towards white-box (explainable) models for critical industries such as healthcare, finances, military and news industry. In this paper we performed a series of experiments where bi-directional recurrent neural network classification models were trained on interpretable features derived from multi-disciplinary integrated approaches to language. We apply our approach to two benchmark datasets. We demonstrate that our approach is promising as it achieves similar results on these two datasets as the best performing black box models reported in the literature. In a second step we report on ablation experiments geared towards assessing the relative importance of the human-interpretable features in distinguishing fake news from real news.</abstract>
+      <url hash="fdffdbdd">2020.rdsm-1.2</url>
+    </paper>
+    <paper id="3">
+      <title>Covid or not Covid? Topic Shift in Information Cascades on <fixed-case>T</fixed-case>witter</title>
+      <author><first>Liana</first><last>Ermakova</last></author>
+      <author><first>Diana</first><last>Nurbakova</last></author>
+      <author><first>Irina</first><last>Ovchinnikova</last></author>
+      <pages>32–37</pages>
+      <abstract>Social media have become a valuable source of information. However, its power to shape public opinion can be dangerous, especially in the case of misinformation. The existing studies on misinformation detection hypothesise that the initial message is fake. In contrast, we focus on information distortion occurring in cascades as the initial message is quoted or receives a reply. We show a significant topic shift in information cascades on Twitter during the Covid-19 pandemic providing valuable insights for the automatic analysis of information distortion.</abstract>
+      <url hash="bf0cfef3">2020.rdsm-1.3</url>
+    </paper>
+    <paper id="4">
+      <title>Revisiting Rumour Stance Classification: Dealing with Imbalanced Data</title>
+      <author><first>Yue</first><last>Li</last></author>
+      <author><first>Carolina</first><last>Scarton</last></author>
+      <pages>38–44</pages>
+      <abstract>Correctly classifying stances of replies can be significantly helpful for the automatic detection and classification of online rumours. One major challenge is that there are considerably more non-relevant replies (comments) than informative ones (supports and denies), making the task highly imbalanced. In this paper we revisit the task of rumour stance classification, aiming to improve the performance over the informative minority classes. We experiment with traditional methods for imbalanced data treatment with feature- and BERT-based classifiers. Our models outperform all systems in RumourEval 2017 shared task and rank second in RumourEval 2019.</abstract>
+      <url hash="dd22f230">2020.rdsm-1.4</url>
+    </paper>
+    <paper id="5">
+      <title>Fake news detection for the <fixed-case>R</fixed-case>ussian language</title>
+      <author><first>Gleb</first><last>Kuzmin</last></author>
+      <author><first>Daniil</first><last>Larionov</last></author>
+      <author><first>Dina</first><last>Pisarevskaya</last></author>
+      <author><first>Ivan</first><last>Smirnov</last></author>
+      <pages>45–57</pages>
+      <abstract>In this paper, we trained and compared different models for fake news detection in Russian. For this task, we used such language features as bag-of-n-grams and bag of Rhetorical Structure Theory features, and BERT embeddings. We also compared the score of our models with the human score on this task and showed that our models deal with fake news detection better. We investigated the nature of fake news by dividing it into two non-overlapping classes: satire and fake news. As a result, we obtained the set of models for fake news detection; the best of these models achieved 0.889 F1-score on the test set for 2 classes and 0.9076 F1-score on 3 classes task.</abstract>
+      <url hash="deba39a8">2020.rdsm-1.5</url>
+    </paper>
+    <paper id="6">
+      <title>Automatic Detection of <fixed-case>H</fixed-case>ungarian Clickbait and Entertaining Fake News</title>
+      <author><first>Veronika</first><last>Vincze</last></author>
+      <author><first>Martina Katalin</first><last>Szabó</last></author>
+      <pages>58–69</pages>
+      <abstract>Online news do not always come from reliable sources and they are not always even realistic. The constantly growing number of online textual data has raised the need for detecting deception and bias in texts from different domains recently. In this paper, we identify different types of unrealistic news (clickbait and fake news written for entertainment purposes) written in Hungarian on the basis of a rich feature set and with the help of machine learning methods. Our tool achieves competitive scores: it is able to classify clickbait, fake news written for entertainment purposes and real news with an accuracy of over 80%. It is also highlighted that morphological features perform the best in this classification task.</abstract>
+      <url hash="a3b39f5e">2020.rdsm-1.6</url>
+    </paper>
+    <paper id="7">
+      <title>Fake or Real? A Study of <fixed-case>A</fixed-case>rabic Satirical Fake News</title>
+      <author><first>Hadeel</first><last>Saadany</last></author>
+      <author><first>Constantin</first><last>Orasan</last></author>
+      <author><first>Emad</first><last>Mohamed</last></author>
+      <pages>70–80</pages>
+      <abstract>One very common type of fake news is satire which comes in a form of a news website or an online platform that parodies reputable real news agencies to create a sarcastic version of reality. This type of fake news is often disseminated by individuals on their online platforms as it has a much stronger effect in delivering criticism than through a straightforward message. However, when the satirical text is disseminated via social media without mention of its source, it can be mistaken for real news. This study conducts several exploratory analyses to identify the linguistic properties of Arabic fake news with satirical content. It shows that although it parodies real news, Arabic satirical news has distinguishing features on the lexico-grammatical level. We exploit these features to build a number of machine learning models capable of identifying satirical fake news with an accuracy of up to 98.6%. The study introduces a new dataset (3185 articles) scraped from two Arabic satirical news websites (‘Al-Hudood’ and ‘Al-Ahram Al-Mexici’) which consists of fake news. The real news dataset consists of 3710 articles collected from three official news sites: the ‘BBC-Arabic’, the ‘CNN-Arabic’ and ‘Al-Jazeera news’. Both datasets are concerned with political issues related to the Middle East.</abstract>
+      <url hash="9ce73187">2020.rdsm-1.7</url>
+    </paper>
+  </volume>
+</collection>
