@@ -43,6 +43,10 @@ from collections import defaultdict, OrderedDict
 from datetime import datetime
 
 from normalize_anth import normalize
+from anthology.bibtex import read_bibtex
+from anthology.index import AnthologyIndex
+from anthology.people import PersonName
+from anthology.sigs import SIGIndex
 from anthology.utils import (
     make_simple_element,
     build_anthology_id,
@@ -50,9 +54,6 @@ from anthology.utils import (
     indent,
     compute_hash_from_file,
 )
-from anthology.index import AnthologyIndex
-from anthology.people import PersonName
-from anthology.bibtex import read_bibtex
 from anthology.venues import VenueIndex
 
 from itertools import chain
@@ -181,6 +182,8 @@ def main(args):
     venue_index = VenueIndex(srcdir=anthology_datadir)
     venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
 
+    sig_index = SIGIndex(srcdir=anthology_datadir)
+
     # Build list of volumes, confirm uniqueness
     unseen_venues = []
     for proceedings in args.proceedings:
@@ -188,6 +191,10 @@ def main(args):
 
         venue_abbrev = meta["abbrev"]
         venue_slug = venue_index.get_slug(venue_abbrev)
+
+        if str(datetime.now().year) in venue_abbrev:
+            print(f"Fatal: Venue assembler put year in acronym: '{venue_abbrev}'")
+            sys.exit(1)
 
         if venue_slug not in venue_keys:
             unseen_venues.append((venue_slug, venue_abbrev, meta["title"]))
@@ -203,6 +210,13 @@ def main(args):
 
         collections[collection_id][volume_name] = {}
         volumes[volume_full_id] = meta
+
+        if "sig" in meta:
+            print(
+                f"Add this line to {anthology_datadir}/sigs/{meta['sig'].lower()}.yaml:"
+            )
+            print(f"  - {meta['year']}")
+            print(f"    - {volume_full_id} # {meta['booktitle']}")
 
     # Make sure all venues exist
     if len(unseen_venues) > 0:

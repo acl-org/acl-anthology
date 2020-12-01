@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.vardial">
+  <volume id="1" ingest-date="2020-11-29">
+    <meta>
+      <booktitle>Proceedings of the 7th Workshop on NLP for Similar Languages, Varieties and Dialects</booktitle>
+      <editor><first>Marcos</first><last>Zampieri</last></editor>
+      <editor><first>Preslav</first><last>Nakov</last></editor>
+      <editor><first>Nikola</first><last>Ljubešić</last></editor>
+      <editor><first>Jörg</first><last>Tiedemann</last></editor>
+      <editor><first>Yves</first><last>Scherrer</last></editor>
+      <publisher>International Committee on Computational Linguistics (ICCL)</publisher>
+      <address>Barcelona, Spain (Online)</address>
+      <month>December</month>
+      <year>2020</year>
+    </meta>
+    <frontmatter>
+      <url hash="3484dcef">2020.vardial-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>A Report on the <fixed-case>V</fixed-case>ar<fixed-case>D</fixed-case>ial Evaluation Campaign 2020</title>
+      <author><first>Mihaela</first><last>Gaman</last></author>
+      <author><first>Dirk</first><last>Hovy</last></author>
+      <author><first>Radu Tudor</first><last>Ionescu</last></author>
+      <author><first>Heidi</first><last>Jauhiainen</last></author>
+      <author><first>Tommi</first><last>Jauhiainen</last></author>
+      <author><first>Krister</first><last>Lindén</last></author>
+      <author><first>Nikola</first><last>Ljubešić</last></author>
+      <author><first>Niko</first><last>Partanen</last></author>
+      <author><first>Christoph</first><last>Purschke</last></author>
+      <author><first>Yves</first><last>Scherrer</last></author>
+      <author><first>Marcos</first><last>Zampieri</last></author>
+      <pages>1–14</pages>
+      <abstract>This paper presents the results of the VarDial Evaluation Campaign 2020 organized as part of the seventh workshop on Natural Language Processing (NLP) for Similar Languages, Varieties and Dialects (VarDial), co-located with COLING 2020. The campaign included three shared tasks each focusing on a different challenge of language and dialect identification: Romanian Dialect Identification (RDI), Social Media Variety Geolocation (SMG), and Uralic Language Identification (ULI). The campaign attracted 30 teams who enrolled to participate in one or multiple shared tasks and 14 of them submitted runs across the three shared tasks. Finally, 11 papers describing participating systems are published in the VarDial proceedings and referred to in this report.</abstract>
+      <url hash="883dc234">2020.vardial-1.1</url>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>ASR</fixed-case> for Non-standardised Languages with Dialectal Variation: the case of <fixed-case>S</fixed-case>wiss <fixed-case>G</fixed-case>erman</title>
+      <author><first>Iuliia</first><last>Nigmatulina</last></author>
+      <author><first>Tannon</first><last>Kew</last></author>
+      <author><first>Tanja</first><last>Samardzic</last></author>
+      <pages>15–24</pages>
+      <abstract>Strong regional variation, together with the lack of standard orthography, makes Swiss German automatic speech recognition (ASR) particularly difficult in a multi-dialectal setting. This paper focuses on one of the many challenges, namely, the choice of the output text to represent non-standardised Swiss German. We investigate two potential options: a) dialectal writing – approximate phonemic transcriptions that provide close correspondence between grapheme labels and the acoustic signal but are highly inconsistent and b) normalised writing – transcriptions resembling standard German that are relatively consistent but distant from the acoustic signal. To find out which writing facilitates Swiss German ASR, we build several systems using the Kaldi toolkit and a dataset covering 14 regional varieties. A formal comparison shows that the system trained on the normalised transcriptions achieves better results in word error rate (WER) (29.39%) but underperforms at the character level, suggesting dialectal transcriptions offer a viable solution for downstream applications where dialectal differences are important. To better assess word-level performance for dialectal transcriptions, we use a flexible WER measure (FlexWER). When evaluated with this metric, the system trained on dialectal transcriptions outperforms that trained on the normalised writing. Besides establishing a benchmark for Swiss German multi-dialectal ASR, our findings can be helpful in designing ASR systems for other languages without standard orthography.</abstract>
+      <url hash="7bab8437">2020.vardial-1.2</url>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>LSDC</fixed-case> - A comprehensive dataset for Low <fixed-case>S</fixed-case>axon Dialect Classification</title>
+      <author><first>Janine</first><last>Siewert</last></author>
+      <author><first>Yves</first><last>Scherrer</last></author>
+      <author><first>Martijn</first><last>Wieling</last></author>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <pages>25–35</pages>
+      <abstract>We present a new comprehensive dataset for the unstandardised West-Germanic language Low Saxon covering the last two centuries, the majority of modern dialects and various genres, which will be made openly available in connection with the final version of this paper. Since so far no such comprehensive dataset of contemporary Low Saxon exists, this provides a great contribution to NLP research on this language. We also test the use of this dataset for dialect classification by training a few baseline models comparing statistical and neural approaches. The performance of these models shows that in spite of an imbalance in the amount of data per dialect, enough features can be learned for a relatively high classification accuracy.</abstract>
+      <url hash="91257d4d">2020.vardial-1.3</url>
+    </paper>
+    <paper id="4">
+      <title>Machine-oriented <fixed-case>NMT</fixed-case> Adaptation for Zero-shot <fixed-case>NLP</fixed-case> tasks: Comparing the Usefulness of Close and Distant Languages</title>
+      <author><first>Amirhossein</first><last>Tebbifakhr</last></author>
+      <author><first>Matteo</first><last>Negri</last></author>
+      <author><first>Marco</first><last>Turchi</last></author>
+      <pages>36–46</pages>
+      <abstract>Neural Machine Translation (NMT) models are typically trained by considering humans as end-users and maximizing human-oriented objectives. However, in some scenarios, their output is consumed by automatic NLP components rather than by humans. In these scenarios, translations’ quality is measured in terms of their “fitness for purpose” (i.e. maximizing performance of external NLP tools) rather than in terms of standard human fluency/adequacy criteria. Recently, reinforcement learning techniques exploiting the feedback from downstream NLP tools have been proposed for “machine-oriented” NMT adaptation. In this work, we tackle the problem in a multilingual setting where a single NMT model translates from multiple languages for downstream automatic processing in the target language. Knowledge sharing across close and distant languages allows to apply our machine-oriented approach in the zero-shot setting where no labeled data for the test language is seen at training time. Moreover, we incorporate multi-lingual BERT in the source side of our NMT system to benefit from the knowledge embedded in this model. Our experiments show coherent performance gains, for different language directions over both i) “generic” NMT models (trained for human consumption), and ii) fine-tuned multilingual BERT. This gain for zero-shot language directions (e.g. Spanish–English) is higher when the models are fine-tuned on a closely-related source language (Italian) than a distant one (German).</abstract>
+      <url hash="935d1a6a">2020.vardial-1.4</url>
+    </paper>
+    <paper id="5">
+      <title>Character Alignment in Morphologically Complex Translation Sets for Related Languages</title>
+      <author><first>Michael</first><last>Gasser</last></author>
+      <author><first>Binyam Ephrem</first><last>Seyoum</last></author>
+      <author><first>Nazareth Amlesom</first><last>Kifle</last></author>
+      <pages>47–56</pages>
+      <abstract>For languages with complex morphology, word-to-word translation is a task with various potential applications, for example, in information retrieval, language instruction, and dictionary creation, as well as in machine translation. In this paper, we confine ourselves to the subtask of character alignment for the particular case of families of related languages with very few resources for most or all members. There are many such families; we focus on the subgroup of Semitic languages spoken in Ethiopia and Eritrea. We begin with an adaptation of the familiar alignment algorithms behind statistical machine translation, modifying them as appropriate for our task. We show how character alignment can reveal morphological, phonological, and orthographic correspondences among related languages.</abstract>
+      <url hash="637f0829">2020.vardial-1.5</url>
+    </paper>
+    <paper id="6">
+      <title>Bilingual Lexicon Induction across Orthographically-distinct Under-Resourced <fixed-case>D</fixed-case>ravidian Languages</title>
+      <author><first>Bharathi Raja</first><last>Chakravarthi</last></author>
+      <author><first>Navaneethan</first><last>Rajasekaran</last></author>
+      <author><first>Mihael</first><last>Arcan</last></author>
+      <author><first>Kevin</first><last>McGuinness</last></author>
+      <author><first>Noel</first><last>E. O’Connor</last></author>
+      <author><first>John P.</first><last>McCrae</last></author>
+      <pages>57–69</pages>
+      <abstract>Bilingual lexicons are a vital tool for under-resourced languages and recent state-of-the-art approaches to this leverage pretrained monolingual word embeddings using supervised or semi-supervised approaches. However, these approaches require cross-lingual information such as seed dictionaries to train the model and find a linear transformation between the word embedding spaces. Especially in the case of low-resourced languages, seed dictionaries are not readily available, and as such, these methods produce extremely weak results on these languages. In this work, we focus on the Dravidian languages, namely Tamil, Telugu, Kannada, and Malayalam, which are even more challenging as they are written in unique scripts. To take advantage of orthographic information and cognates in these languages, we bring the related languages into a single script. Previous approaches have used linguistically sub-optimal measures such as the Levenshtein edit distance to detect cognates, whereby we demonstrate that the longest common sub-sequence is linguistically more sound and improves the performance of bilingual lexicon induction. We show that our approach can increase the accuracy of bilingual lexicon induction methods on these languages many times, making bilingual lexicon induction approaches feasible for such under-resourced languages.</abstract>
+      <url hash="99a051cf">2020.vardial-1.6</url>
+    </paper>
+    <paper id="7">
+      <title>Building a Corpus for the <fixed-case>Z</fixed-case>aza–Gorani Language Family</title>
+      <author><first>Sina</first><last>Ahmadi</last></author>
+      <pages>70–78</pages>
+      <abstract>Thanks to the growth of local communities and various news websites along with the increasing accessibility of the Web, some of the endangered and less-resourced languages have a chance to revive in the information era. Therefore, the Web is considered a huge resource that can be used to extract language corpora which enable researchers to carry out various studies in linguistics and language technology. The Zaza–Gorani language family is a linguistic subgroup of the Northwestern Iranian languages for which there is no significant corpus available. Motivated to create one, in this paper we present our endeavour to collect a corpus in Zazaki and Gorani languages containing over 1.6M and 194k word tokens, respectively. This corpus is publicly available.</abstract>
+      <url hash="8ad3ef8f">2020.vardial-1.7</url>
+    </paper>
+    <paper id="8">
+      <title>Dealing with dialectal variation in the construction of the <fixed-case>B</fixed-case>asque historical corpus</title>
+      <author><first>Ainara</first><last>Estarrona</last></author>
+      <author><first>Izaskun</first><last>Etxeberria</last></author>
+      <author><first>Ricardo</first><last>Etxepare</last></author>
+      <author><first>Manuel</first><last>Padilla-Moyano</last></author>
+      <author><first>Ander</first><last>Soraluze</last></author>
+      <pages>79–89</pages>
+      <abstract>This paper analyses the challenge of working with dialectal variation when semi-automatically normalising and analysing historical Basque texts. This work is part of a more general ongoing project for the construction of a morphosyntactically annotated historical corpus of Basque called Basque in the Making (BIM): A Historical Look at a European Language Isolate, whose main objective is the systematic and diachronic study of a number of grammatical features. This will be not only the first tagged corpus of historical Basque, but also a means to improve language processing tools by analysing historical Basque varieties more or less distant from present-day standard Basque.</abstract>
+      <url hash="10d9d19e">2020.vardial-1.8</url>
+    </paper>
+    <paper id="9">
+      <title>Recycling and Comparing Morphological Annotation Models for <fixed-case>A</fixed-case>rmenian Diachronic-Variational Corpus Processing</title>
+      <author><first>Chahan</first><last>Vidal-Gorène</last></author>
+      <author><first>Victoria</first><last>Khurshudyan</last></author>
+      <author><first>Anaïd</first><last>Donabédian-Demopoulos</last></author>
+      <pages>90–101</pages>
+      <abstract>Armenian is a language with significant variation and unevenly distributed NLP resources for different varieties. An attempt is made to process an RNN model for morphological annotation on the basis of different Armenian data (provided or not with morphologically annotated corpora), and to compare the annotation results of RNN and rule-based models. Different tests were carried out to evaluate the reuse of an unspecialized model of lemmatization and POS-tagging for under-resourced language varieties. The research focused on three dialects and further extended to Western Armenian with a mean accuracy of 94,00 % in lemmatization and 97,02% in POS-tagging, as well as a possible reusability of models to cover different other Armenian varieties. Interestingly, the comparison of an RNN model trained on Eastern Armenian with the Eastern Armenian National Corpus rule-based model applied to Western Armenian showed an enhancement of 19% in parsing. This model covers 88,79% of a short heterogeneous dataset in Western Armenian, and could be a baseline for a massive corpus annotation in that standard. It is argued that an RNN-based model can be a valid alternative to a rule-based one giving consideration to such factors as time-consumption, reusability for different varieties of a target language and significant qualitative results in morphological annotation.</abstract>
+      <url hash="167087bd">2020.vardial-1.9</url>
+    </paper>
+    <paper id="10">
+      <title>Neural Machine Translation for translating into <fixed-case>C</fixed-case>roatian and <fixed-case>S</fixed-case>erbian</title>
+      <author><first>Maja</first><last>Popović</last></author>
+      <author><first>Alberto</first><last>Poncelas</last></author>
+      <author><first>Marija</first><last>Brkic</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>102–113</pages>
+      <abstract>In this work, we systematically investigate different set-ups for training of neural machine translation (NMT) systems for translation into Croatian and Serbian, two closely related South Slavic languages. We explore English and German as source languages, different sizes and types of training corpora, as well as bilingual and multilingual systems. We also explore translation of English IMDb user movie reviews, a domain/genre where only monolingual data are available. First, our results confirm that multilingual systems with joint target languages perform better. Furthermore, translation performance from English is much better than from German, partly because German is morphologically more complex and partly because the corpus consists mostly of parallel human translations instead of original text and its human translation. The translation from German should be further investigated systematically. For translating user reviews, creating synthetic in-domain parallel data through back- and forward-translation and adding them to a small out-of-domain parallel corpus can yield performance comparable with a system trained on a full out-of-domain corpus. However, it is still not clear what is the optimal size of synthetic in-domain data, especially for forward-translated data where the target language is machine translated. More detailed research including manual evaluation and analysis is needed in this direction.</abstract>
+      <url hash="a4dea0fd">2020.vardial-1.10</url>
+    </paper>
+    <paper id="11">
+      <title>A Tokenization System for the <fixed-case>K</fixed-case>urdish Language</title>
+      <author><first>Sina</first><last>Ahmadi</last></author>
+      <pages>114–127</pages>
+      <abstract>Tokenization is one of the essential and fundamental tasks in natural language processing. Despite the recent advances in applying unsupervised statistical methods for this task, every language with its writing system and orthography represents specific challenges that should be addressed individually. In this paper, as a preliminary study of its kind, we propose an approach for the tokenization of the Sorani and Kurmanji dialects of Kurdish using a lexicon and a morphological analyzer. We demonstrate how the morphological complexity of the language along with the lack of a unified orthography can be efficiently addressed in tokenization. We also develop an annotated dataset for which our approach outperforms the performance of unsupervised methods.</abstract>
+      <url hash="b916c073">2020.vardial-1.11</url>
+    </paper>
+    <paper id="12">
+      <title>Rediscovering the <fixed-case>S</fixed-case>lavic Continuum in Representations Emerging from Neural Models of Spoken Language Identification</title>
+      <author><first>Badr M.</first><last>Abdullah</last></author>
+      <author><first>Jacek</first><last>Kudera</last></author>
+      <author><first>Tania</first><last>Avgustinova</last></author>
+      <author><first>Bernd</first><last>Möbius</last></author>
+      <author><first>Dietrich</first><last>Klakow</last></author>
+      <pages>128–139</pages>
+      <abstract>Deep neural networks have been employed for various spoken language recognition tasks, including tasks that are multilingual by definition such as spoken language identification (LID). In this paper, we present a neural model for Slavic language identification in speech signals and analyze its emergent representations to investigate whether they reflect objective measures of language relatedness or non-linguists’ perception of language similarity. While our analysis shows that the language representation space indeed captures language relatedness to a great extent, we find perceptual confusability to be the best predictor of the language representation similarity.</abstract>
+      <url hash="a5529c7d">2020.vardial-1.12</url>
+    </paper>
+    <paper id="13">
+      <title>A Four-Dialect Treebank for <fixed-case>O</fixed-case>ccitan: Building Process and Parsing Experiments</title>
+      <author><first>Aleksandra</first><last>Miletic</last></author>
+      <author><first>Myriam</first><last>Bras</last></author>
+      <author><first>Marianne</first><last>Vergez-Couret</last></author>
+      <author><first>Louise</first><last>Esher</last></author>
+      <author><first>Clamença</first><last>Poujade</last></author>
+      <author><first>Jean</first><last>Sibille</last></author>
+      <pages>140–149</pages>
+      <abstract>Occitan is a Romance language spoken mainly in the south of France. It has no official status in the country, it is not standardized and displays important diatopic variation resulting in a rich system of dialects. Recently, a first treebank for this language was created. However, this corpus is based exclusively on texts in the Lengadocian dialect. Our paper describes the work aimed at extending the existing corpus with content in three new dialects, namely Gascon, Provençau and Lemosin. We describe both the annotation of initial content in these new varieties of Occitan and experiments allowing us to identify the most efficient method for further enrichment of the corpus. We observe that parsing models trained on Occitan dialects achieve better results than a delexicalized model trained on other Romance languages despite the latter training corpus being much larger (20K vs 900K tokens). The results of the native Occitan models show an important impact of cross-dialectal lexical variation, whereas syntactic variation seems to affect the systems less. We hope that the resulting corpus, incorporating several Occitan varieties, will facilitate the training of robust NLP tools, capable of processing all kinds of Occitan texts.</abstract>
+      <url hash="42d168d1">2020.vardial-1.13</url>
+    </paper>
+    <paper id="14">
+      <title>Vulgaris: Analysis of a Corpus for Middle-Age Varieties of <fixed-case>I</fixed-case>talian Language</title>
+      <author><first>Andrea</first><last>Zugarini</last></author>
+      <author><first>Matteo</first><last>Tiezzi</last></author>
+      <author><first>Marco</first><last>Maggini</last></author>
+      <pages>150–159</pages>
+      <abstract>Italian is a Romance language that has its roots in Vulgar Latin. The birth of the modern Italian started in Tuscany around the 14th century, and it is mainly attributed to the works of Dante Alighieri, Francesco Petrarca and Giovanni Boccaccio, who are among the most acclaimed authors of the medieval age in Tuscany. However, Italy has been characterized by a high variety of dialects, which are often loosely related to each other, due to the past fragmentation of the territory. Italian has absorbed influences from many of these dialects, as also from other languages due to dominion of portions of the country by other nations, such as Spain and France. In this work we present Vulgaris, a project aimed at studying a corpus of Italian textual resources from authors of different regions, ranging in a time period between 1200 and 1600. Each composition is associated to its author, and authors are also grouped in families, i.e. sharing similar stylistic/chronological characteristics. Hence, the dataset is not only a valuable resource for studying the diachronic evolution of Italian and the differences between its dialects, but it is also useful to investigate stylistic aspects between single authors. We provide a detailed statistical analysis of the data, and a corpus-driven study in dialectology and diachronic varieties.</abstract>
+      <url hash="3e6810be">2020.vardial-1.14</url>
+    </paper>
+    <paper id="15">
+      <title>Towards Augmenting Lexical Resources for Slang and <fixed-case>A</fixed-case>frican <fixed-case>A</fixed-case>merican <fixed-case>E</fixed-case>nglish</title>
+      <author><first>Alyssa</first><last>Hwang</last></author>
+      <author><first>William R.</first><last>Frey</last></author>
+      <author><first>Kathleen</first><last>McKeown</last></author>
+      <pages>160–172</pages>
+      <abstract>Researchers in natural language processing have developed large, robust resources for understanding formal Standard American English (SAE), but we lack similar resources for variations of English, such as slang and African American English (AAE). In this work, we use word embeddings and clustering algorithms to group semantically similar words in three datasets, two of which contain high incidence of slang and AAE. Since high-quality clusters would contain related words, we could also infer the meaning of an unfamiliar word based on the meanings of words clustered with it. After clustering, we compute precision and recall scores using WordNet and ConceptNet as gold standards and show that these scores are unimportant when the given resources do not fully represent slang and AAE. Amazon Mechanical Turk and expert evaluations show that clusters with low precision can still be considered high quality, and we propose the new Cluster Split Score as a metric for machine-generated clusters. These contributions emphasize the gap in natural language processing research for variations of English and motivate further work to close it.</abstract>
+      <url hash="cca9582d">2020.vardial-1.15</url>
+    </paper>
+    <paper id="16">
+      <title>Uralic Language Identification (<fixed-case>ULI</fixed-case>) 2020 shared task dataset and the Wanca 2017 corpora</title>
+      <author><first>Tommi</first><last>Jauhiainen</last></author>
+      <author><first>Heidi</first><last>Jauhiainen</last></author>
+      <author><first>Niko</first><last>Partanen</last></author>
+      <author><first>Krister</first><last>Lindén</last></author>
+      <pages>173–185</pages>
+      <abstract>This article introduces the Wanca 2017 web corpora from which the sentences written in minor Uralic languages were collected for the test set of the Uralic Language Identification (ULI) 2020 shared task. We describe the ULI shared task and how the test set was constructed using the Wanca 2017 corpora and texts in different languages from the Leipzig corpora collection. We also provide the results of a baseline language identification experiment conducted using the ULI 2020 dataset.</abstract>
+      <url hash="c77a4cfd">2020.vardial-1.16</url>
+    </paper>
+    <paper id="17">
+      <title>Dialect Identification under Domain Shift: Experiments with Discriminating <fixed-case>R</fixed-case>omanian and <fixed-case>M</fixed-case>oldavian</title>
+      <author><first>Çağrı</first><last>Çöltekin</last></author>
+      <pages>186–192</pages>
+      <abstract>This paper describes a set of experiments for discriminating between two closely related language varieties, Moldavian and Romanian, under a substantial domain shift. The experiments were conducted as part of the Romanian dialect identification task in the VarDial 2020 evaluation campaign. Our best system based on linear SVM classifier obtained the first position in the shared task with an F1 score of 0.79, supporting the earlier results showing (unexpected) success of machine learning systems in this task. The additional experiments reported in this paper also show that adapting to the test set is useful when the training data comes from another domain. However, the benefit of adaptation becomes doubtful even when a small amount of data from the target domain is available.</abstract>
+      <url hash="2e17d6b4">2020.vardial-1.17</url>
+    </paper>
+    <paper id="18">
+      <title>Applying Multilingual and Monolingual Transformer-Based Models for Dialect Identification</title>
+      <author><first>Cristian</first><last>Popa</last></author>
+      <author><first>Vlad</first><last>Ștefănescu</last></author>
+      <pages>193–201</pages>
+      <abstract>We study the ability of large fine-tuned transformer models to solve a binary classification task of dialect identification, with a special interest in comparing the performance of multilingual to monolingual ones. The corpus analyzed contains Romanian and Moldavian samples from the news domain, as well as tweets for assessing the performance. We find that the monolingual models are superior to the multilingual ones and the best results are obtained using an SVM ensemble of 5 different transformer-based models. We provide our experimental results and an analysis of the attention mechanisms of the best-performing individual classifiers to explain their decisions. The code we used was released under an open-source license.</abstract>
+      <url hash="66ec9ecb">2020.vardial-1.18</url>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>H</fixed-case>e<fixed-case>L</fixed-case>ju@<fixed-case>V</fixed-case>ar<fixed-case>D</fixed-case>ial 2020: Social Media Variety Geolocation with <fixed-case>BERT</fixed-case> Models</title>
+      <author><first>Yves</first><last>Scherrer</last></author>
+      <author><first>Nikola</first><last>Ljubešić</last></author>
+      <pages>202–211</pages>
+      <abstract>This paper describes the Helsinki-Ljubljana contribution to the VarDial shared task on social media variety geolocation. Our solutions are based on the BERT Transformer models, the constrained versions of our models reaching 1st place in two subtasks and 3rd place in one subtask, while our unconstrained models outperform all the constrained systems by a large margin. We show in our analyses that Transformer-based models outperform traditional models by far, and that improvements obtained by pre-training models on large quantities of (mostly standard) text are significant, but not drastic, with single-language models also outperforming multilingual models. Our manual analysis shows that two types of signals are the most crucial for a (mis)prediction: named entities and dialectal features, both of which are handled well by our models.</abstract>
+      <url hash="8f99a4bf">2020.vardial-1.19</url>
+    </paper>
+    <paper id="20">
+      <title>A dual-encoding system for dialect classification</title>
+      <author><first>Petru</first><last>Rebeja</last></author>
+      <author><first>Dan</first><last>Cristea</last></author>
+      <pages>212–219</pages>
+      <abstract>In this paper we present the architecture, processing pipeline and results of the ensemble model developed for Romanian Dialect Identification task. The ensemble model consists of two TF-IDF encoders and a deep learning model aimed together at classifying input samples based on the writing patterns which are specific to each of the two dialects. Although the model performs well on the training set, its performance degrades heavily on the evaluation set. The drop in performance is due to the design decision which makes the model put too much weight on presence/lack of textual marks when determining the sample label.</abstract>
+      <url hash="104cbc5f">2020.vardial-1.20</url>
+    </paper>
+    <paper id="21">
+      <title>Experiments in Language Variety Geolocation and Dialect Identification</title>
+      <author><first>Tommi</first><last>Jauhiainen</last></author>
+      <author><first>Heidi</first><last>Jauhiainen</last></author>
+      <author><first>Krister</first><last>Lindén</last></author>
+      <pages>220–231</pages>
+      <abstract>In this paper we describe the systems we used when participating in the VarDial Evaluation Campaign organized as part of the 7th workshop on NLP for similar languages, varieties and dialects. The shared tasks we participated in were the second edition of the Romanian Dialect Identification (RDI) and the first edition of the Social Media Variety Geolocation (SMG). The submissions of our SUKI team used generative language models based on Naive Bayes and character n-grams.</abstract>
+      <url hash="3c7daedc">2020.vardial-1.21</url>
+    </paper>
+    <paper id="22">
+      <title>Exploring the Power of <fixed-case>R</fixed-case>omanian <fixed-case>BERT</fixed-case> for Dialect Identification</title>
+      <author><first>George-Eduard</first><last>Zaharia</last></author>
+      <author><first>Andrei-Marius</first><last>Avram</last></author>
+      <author><first>Dumitru-Clementin</first><last>Cercel</last></author>
+      <author><first>Traian</first><last>Rebedea</last></author>
+      <pages>232–241</pages>
+      <abstract>Dialect identification represents a key aspect for improving a series of tasks, for example, opinion mining, considering that the location of the speaker can greatly influence the attitude towards a subject. In this work, we describe the systems developed by our team for VarDial 2020: Romanian Dialect Identification, a task specifically created for challenging participants to solve the previously mentioned issue. More specifically, we introduce a series of neural systems based on Transformers, that combine a BERT model exclusively pre-trained on the Romanian language with techniques such as adversarial training or character-level embeddings. By using these approaches, we were able to obtain a 0.6475 macro F1 score on the test dataset, thus allowing us to be ranked 5th out of 8 participant teams.</abstract>
+      <url hash="ba7812fd">2020.vardial-1.22</url>
+    </paper>
+    <paper id="23">
+      <title>Combining Deep Learning and String Kernels for the Localization of <fixed-case>S</fixed-case>wiss <fixed-case>G</fixed-case>erman Tweets</title>
+      <author><first>Mihaela</first><last>Gaman</last></author>
+      <author><first>Radu Tudor</first><last>Ionescu</last></author>
+      <pages>242–253</pages>
+      <abstract>In this work, we introduce the methods proposed by the UnibucKernel team in solving the Social Media Variety Geolocation task featured in the 2020 VarDial Evaluation Campaign. We address only the second subtask, which targets a data set composed of nearly 30 thousand Swiss German Jodels. The dialect identification task is about accurately predicting the latitude and longitude of test samples. We frame the task as a double regression problem, employing a variety of machine learning approaches to predict both latitude and longitude. From simple models for regression, such as Support Vector Regression, to deep neural networks, such as Long Short-Term Memory networks and character-level convolutional neural networks, and, finally, to ensemble models based on meta-learners, such as XGBoost, our interest is focused on approaching the problem from a few different perspectives, in an attempt to minimize the prediction error. With the same goal in mind, we also considered many types of features, from high-level features, such as BERT embeddings, to low-level features, such as characters n-grams, which are known to provide good results in dialect identification. Our empirical results indicate that the handcrafted model based on string kernels outperforms the deep learning approaches. Nevertheless, our best performance is given by the ensemble model that combines both handcrafted and deep learning models.</abstract>
+      <url hash="4cade512">2020.vardial-1.23</url>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>ZHAW</fixed-case>-<fixed-case>I</fixed-case>n<fixed-case>IT</fixed-case> - Social Media Geolocation at <fixed-case>V</fixed-case>ar<fixed-case>D</fixed-case>ial 2020</title>
+      <author><first>Fernando</first><last>Benites</last></author>
+      <author><first>Manuela</first><last>Hürlimann</last></author>
+      <author><first>Pius</first><last>von Däniken</last></author>
+      <author><first>Mark</first><last>Cieliebak</last></author>
+      <pages>254–264</pages>
+      <abstract>We describe our approaches for the Social Media Geolocation (SMG) task at the VarDial Evaluation Campaign 2020. The goal was to predict geographical location (latitudes and longitudes) given an input text. There were three subtasks corresponding to German-speaking Switzerland (CH), Germany and Austria (DE-AT), and Croatia, Bosnia and Herzegovina, Montenegro and Serbia (BCMS). We submitted solutions to all subtasks but focused our development efforts on the CH subtask, where we achieved third place out of 16 submissions with a median distance of 15.93 km and had the best result of 14 unconstrained systems. In the DE-AT subtask, we ranked sixth out of ten submissions (fourth of 8 unconstrained systems) and for BCMS we achieved fourth place out of 13 submissions (second of 11 unconstrained systems).</abstract>
+      <url hash="3badd43f">2020.vardial-1.24</url>
+    </paper>
+    <paper id="25">
+      <title>Discriminating between standard <fixed-case>R</fixed-case>omanian and <fixed-case>M</fixed-case>oldavian tweets using filtered character ngrams</title>
+      <author><first>Andrea</first><last>Ceolin</last></author>
+      <author><first>Hong</first><last>Zhang</last></author>
+      <pages>265–272</pages>
+      <abstract>We applied word unigram models, character ngram models, and CNNs to the task of distinguishing tweets of two related dialects of Romanian (standard Romanian and Moldavian) for the VarDial 2020 RDI shared task (Gaman et al. 2020). The main challenge of the task was to perform cross-genre text classification: specifically, the models must be trained using text from news articles, and be used to predict tweets. Our best model was a Naive Bayes model trained on character ngrams, with the most common ngrams filtered out. We also applied SVMs and CNNs, but while they yielded the best performance on an evaluation dataset of news article, their accuracy significantly dropped when they were used to predict tweets. Our best model reached an F1 score of 0.715 on the evaluation dataset of tweets, and 0.667 on the held-out test dataset. The model ended up in the third place in the shared task.</abstract>
+      <url hash="c9ac2beb">2020.vardial-1.25</url>
+    </paper>
+    <paper id="26">
+      <title>Challenges in Neural Language Identification: <fixed-case>NRC</fixed-case> at <fixed-case>V</fixed-case>ar<fixed-case>D</fixed-case>ial 2020</title>
+      <author><first>Gabriel</first><last>Bernier-Colborne</last></author>
+      <author><first>Cyril</first><last>Goutte</last></author>
+      <pages>273–282</pages>
+      <abstract>We describe the systems developed by the National Research Council Canada for the Uralic language identification shared task at the 2020 VarDial evaluation campaign. Although our official results were well below the baseline, we show in this paper that this was not due to the neural approach to language identification in general, but to a flaw in the function we used to sample data for training and evaluation purposes. Preliminary experiments conducted after the evaluation period suggest that our neural approach to language identification can achieve state-of-the-art results on this task, although further experimentation is required.</abstract>
+      <url hash="5f40a823">2020.vardial-1.26</url>
+    </paper>
+    <paper id="27">
+      <title>Geolocation of Tweets with a <fixed-case>B</fixed-case>i<fixed-case>LSTM</fixed-case> Regression Model</title>
+      <author><first>Piyush</first><last>Mishra</last></author>
+      <pages>283–289</pages>
+      <abstract>Identifying a user’s location can be useful for recommendation systems, demographic analyses, and disaster outbreak monitoring. Although Twitter allows users to voluntarily reveal their location, such information isn’t universally available. Analyzing a tweet can provide a general estimation of a tweet location while giving insight into the dialect of the user and other linguistic markers. Such linguistic attributes can be used to provide a regional approximation of tweet origins. In this paper, we present a neural regression model that can identify the linguistic intricacies of a tweet to predict the location of the user. The final model identifies the dialect embedded in the tweet and predicts the location of the tweet.</abstract>
+      <url hash="e9990a78">2020.vardial-1.27</url>
+    </paper>
+  </volume>
+</collection>
