@@ -32,9 +32,10 @@ from .formatter import bibtex_encode, bibtex_make_entry
 
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter):
+    def __init__(self, paper_id, ingest_date, volume, formatter, venue_index=None):
         self.parent_volume = volume
         self.formatter = formatter
+        self.venue_index = venue_index
         self._id = paper_id
         self._ingest_date = ingest_date
         self._bibkey = False
@@ -136,6 +137,7 @@ class Paper:
             )
 
         paper.attrib["thumbnail"] = data.ANTHOLOGY_THUMBNAIL.format(paper.full_id)
+        paper.attrib["citation"] = paper.as_markdown()
 
         return paper
 
@@ -312,6 +314,30 @@ class Paper:
 
         # Serialize it
         return bibtex_make_entry(bibkey, bibtype, entries)
+
+    def as_markdown(self, concise=False):
+        """Return a Markdown-formatted entry."""
+        title = self.get_title(form="text")
+
+        authors = ""
+        for field in ("author", "editor"):
+            if field in self.attrib:
+                people = [person[0] for person in self.get(field)]
+                num_people = len(people)
+                if num_people == 1:
+                    authors = people[0].last
+                elif num_people == 2:
+                    authors = f"{people[0].last} & {people[1].last}"
+                elif num_people == 3:
+                    authors = f"{people[0].last}, {people[1].last}, & {people[2].last}"
+                elif num_people >= 4:
+                    authors = f"{people[0].last} et al."
+
+        year = self.get("year")
+        venue = self.venue_index.get_main_venue(self.parent_volume_id)
+
+        url = self.get("url")
+        return f"[{title}]({url}) ({authors}, {venue} {year})"
 
     def as_dict(self):
         value = self.attrib
