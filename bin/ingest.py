@@ -212,7 +212,9 @@ def main(args):
         volumes[volume_full_id] = meta
 
         if "sig" in meta:
-            print(f"Add this line to {anthology_datadir}/sigs/{meta['sig'].lower()}.yaml:")
+            print(
+                f"Add this line to {anthology_datadir}/sigs/{meta['sig'].lower()}.yaml:"
+            )
             print(f"  - {meta['year']}")
             print(f"    - {volume_full_id} # {meta['booktitle']}")
 
