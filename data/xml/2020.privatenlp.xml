@@ -24,6 +24,7 @@
       <pages>1–6</pages>
       <abstract>A common metric for assessing the performance of binary classifiers is the Log-Loss score, which is a real number indicating the cross entropy distance between the predicted distribution over the labels and the true distribution (a point distribution defined by the ground truth labels). In this paper, we show that a malicious modeler, upon obtaining access to the Log-Loss scores on its predictions, can exploit this information to infer all the ground truth labels of arbitrary test datasets with full accuracy. We provide an efficient algorithm to perform this inference. A particularly interesting application where this attack can be exploited is to breach privacy in the setting of Membership Inference Attacks. These attacks exploit the vulnerabilities of exposing models trained on customer data to queries made by an adversary. Privacy auditing tools for measuring leakage from sensitive datasets assess the total privacy leakage based on the adversary’s predictions for datapoint membership. An instance of the proposed attack can hence, cause complete membership privacy breach, obviating any attack model training or access to side knowledge with the adversary. Moreover, our algorithm is agnostic to the model under attack and hence, enables perfect membership inference even for models that do not memorize or overfit. In particular, our observations provide insight into the extent of information leakage from statistical aggregates and how they can be exploited.</abstract>
       <url hash="771b1cee">2020.privatenlp-1.1</url>
+      <doi>10.18653/v1/2020.privatenlp-1.1</doi>
     </paper>
     <paper id="2">
       <title>A Differentially Private Text Perturbation Method Using Regularized Mahalanobis Metric</title>
@@ -34,6 +35,7 @@
       <pages>7–17</pages>
       <abstract>Balancing the privacy-utility tradeoff is a crucial requirement of many practical machine learning systems that deal with sensitive customer data. A popular approach for privacy- preserving text analysis is noise injection, in which text data is first mapped into a continuous embedding space, perturbed by sampling a spherical noise from an appropriate distribution, and then projected back to the discrete vocabulary space. While this allows the perturbation to admit the required metric differential privacy, often the utility of downstream tasks modeled on this perturbed data is low because the spherical noise does not account for the variability in the density around different words in the embedding space. In particular, words in a sparse region are likely unchanged even when the noise scale is large. In this paper, we propose a text perturbation mechanism based on a carefully designed regularized variant of the Mahalanobis metric to overcome this problem. For any given noise scale, this metric adds an elliptical noise to account for the covariance structure in the embedding space. This heterogeneity in the noise scale along different directions helps ensure that the words in the sparse region have sufficient likelihood of replacement without sacrificing the overall utility. We provide a text-perturbation algorithm based on this metric and formally prove its privacy guarantees. Additionally, we empirically show that our mechanism improves the privacy statistics to achieve the same level of utility as compared to the state-of-the-art Laplace mechanism.</abstract>
       <url hash="f6b56d28">2020.privatenlp-1.2</url>
+      <doi>10.18653/v1/2020.privatenlp-1.2</doi>
     </paper>
     <paper id="3">
       <title>Identifying and Classifying Third-party Entities in Natural Language Privacy Policies</title>
@@ -44,6 +46,7 @@
       <pages>18–27</pages>
       <abstract>App developers often raise revenue by contracting with third party ad networks, which serve targeted ads to end-users. To this end, a free app may collect data about its users and share it with advertising companies for targeting purposes. Regulations such as General Data Protection Regulation (GDPR) require transparency with respect to the recipients (or categories of recipients) of user data. These regulations call for app developers to have privacy policies that disclose those third party recipients of user data. Privacy policies provide users transparency into what data an app will access, collect, shared, and retain. Given the size of app marketplaces, verifying compliance with such regulations is a tedious task. This paper aims to develop an automated approach to extract and categorize third party data recipients (i.e., entities) declared in privacy policies. We analyze 100 privacy policies associated with most downloaded apps in the Google Play Store. We crowdsource the collection and annotation of app privacy policies to establish the ground truth with respect to third party entities. From this, we train various models to extract third party entities automatically. Our best model achieves average F1 score of 66% when compared to crowdsourced annotations.</abstract>
       <url hash="0ecac6bf">2020.privatenlp-1.3</url>
+      <doi>10.18653/v1/2020.privatenlp-1.3</doi>
     </paper>
     <paper id="4">
       <title>Surfacing Privacy Settings Using Semantic Matching</title>
@@ -54,6 +57,7 @@
       <pages>28–38</pages>
       <abstract>Online services utilize privacy settings to provide users with control over their data. However, these privacy settings are often hard to locate, causing the user to rely on provider-chosen default values. In this work, we train privacy-settings-centric encoders and leverage them to create an interface that allows users to search for privacy settings using free-form queries. In order to achieve this goal, we create a custom Semantic Similarity dataset, which consists of real user queries covering various privacy settings. We then use this dataset to fine-tune a state of the art encoder. Using this fine-tuned encoder, we perform semantic matching between the user queries and the privacy settings to retrieve the most relevant setting. Finally, we also use the encoder to generate embeddings of privacy settings from the top 100 websites and perform unsupervised clustering to learn about the online privacy settings types. We find that the most common type of privacy settings are ‘Personalization’ and ‘Notifications’, with coverage of 35.8% and 34.4%, respectively, in our dataset.</abstract>
       <url hash="af9252e1">2020.privatenlp-1.4</url>
+      <doi>10.18653/v1/2020.privatenlp-1.4</doi>
     </paper>
     <paper id="5">
       <title>Differentially Private Language Models Benefit from Public Pre-training</title>
@@ -63,6 +67,7 @@
       <pages>39–45</pages>
       <abstract>Language modeling is a keystone task in natural language processing. When training a language model on sensitive information, differential privacy (DP) allows us to quantify the degree to which our private data is protected. However, training algorithms which enforce differential privacy often lead to degradation in model quality. We study the feasibility of learning a language model which is simultaneously high-quality and privacy preserving by tuning a public base model on a private corpus. We find that DP fine-tuning boosts the performance of language models in the private domain, making the training of such models possible.</abstract>
       <url hash="85aa5c44">2020.privatenlp-1.5</url>
+      <doi>10.18653/v1/2020.privatenlp-1.5</doi>
     </paper>
   </volume>
 </collection>
