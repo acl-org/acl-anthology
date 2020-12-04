@@ -15,7 +15,7 @@ We are grateful to all our contributors whose work makes this collection of scho
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
 + [Kilian Gebhardt](https://wwwtcs.inf.tu-dresden.de/~kilian/) (TU Dresden)
 + [Nathan Schneider](http://people.cs.georgetown.edu/nschneid/) (Georgetown University)
-+ [Mark Schulder](https://marc.schulder.info/en/) (Institute for German Sign Language, Hamburg University)
++ [Marc Schulder](https://marc.schulder.info/) (Institute for German Sign Language, Hamburg University)
 + Namratha Urs (University of North Texas)
 
 ### Past Volunteers
