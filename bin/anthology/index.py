@@ -288,17 +288,16 @@ class AnthologyIndex:
         #                )
         #            )
         for name, d in self.name_to_papers.items():
-            if len(d[False]) > 0 and len(d[True]) > 0:
+            # name appears with more than one explicit id and also
+            # appears without id at least once
+            if len(d[False]) > 0 and len(d[True]) > 1:
                 log.error(
-                    "Name '{}' is used both with and without explicit id".format(
+                    "Name '{}' is ambiguous and is used without explicit id".format(
                         repr(name)
                     )
                 )
                 log.error(
                     "  Please add an id to paper(s):   {}".format(" ".join(d[False]))
-                )
-                log.error(
-                    "  Or remove the id from paper(s): {}".format(" ".join(d[True]))
                 )
 
     def personids(self):
