@@ -82,4 +82,3 @@ The full file contains much more information.
 
 Our scripts use the [lxml.de](http://lxml.de) library to parse the XML.
 You can see examples of parsing and accessing the XML directly in [add_revision.py](https://github.com/acl-org/acl-anthology/blob/master/bin/add_revision.py) and [ingest.py](https://github.com/acl-org/acl-anthology/blob/master/bin/ingest.py).
-
