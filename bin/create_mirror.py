@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: create_mirror.py [--source=SRC] [--to=DIR] [--debug] [--dry-run] XMLFILE...
+"""Usage: create_mirror.py [--source=SRC] [--to=DIR] [--debug] [--dry-run] [--only-papers] XMLFILE...
 
 Creates YAML files containing all necessary Anthology data for the static website generator.
 XMLFILE: data file from the anthology data dir to fetch data for. Use data/xml/*.xml to
@@ -24,15 +24,19 @@ fetch everything.
 Options:
   --source=SRC               where to fetch the files from [default: https://www.aclweb.org/anthology]
   --to=DIR                 Directory to write files to [default: {scriptdir}/../build/website/anthology-files]
+  --only-papers            Do not mirror attachments, only papers.
   --debug                  Output debug-level log messages.
   -n, --dry-run            Do not actually download, use with --debug to see what would happen
   -h, --help               Display this helpful text.
 """
 
+import anthology.utils as anthology_utils
+from anthology.utils import SeverityTracker
 from docopt import docopt
 import logging as log
 import os
 import re
+import shutil
 import sys
 import tempfile
 
@@ -67,6 +71,7 @@ class ACLMirrorer:
         self.source = args["--source"]
         self.to = args["--to"]
         self.is_dry_run = args["--dry-run"]
+        self.only_papers = args["--only-papers"]
 
     def download_file(self, fname: str, hash: str, type: str) -> None:
         if type == "pdf":
@@ -77,7 +82,9 @@ class ACLMirrorer:
             log.error("unrecognized type: " + type)
             exit(1)
         local_target = ""
-        tmp_target = tempfile.mkstemp(prefix="aclmirrorer_", suffix=".pdf")[1]
+        # mkstemp opens the file but we only need the file name, so close it again.
+        tmpfd, tmp_target = tempfile.mkstemp(prefix="aclmirrorer_", suffix=".pdf")
+        os.close(tmpfd)
         match = NEW_ID_RE.match(fname)
         if match:
             local_target = os.path.join(self.to, type, match.groups()[1], fname)
@@ -121,10 +128,10 @@ class ACLMirrorer:
             self.not_downloadable.append(remote_url)
             os.remove(tmp_target)
             return
-        new_hash = anthology_utils.compute_hash_from_file(local_target)
+        new_hash = anthology_utils.compute_hash_from_file(tmp_target)
         if new_hash == hash:
             # all good, store downloaded file in the proper place
-            os.rename(tmp_target, local_target)
+            shutil.move(tmp_target, local_target)
         else:
             log.error(
                 "Hash mismatch for file {}, downloaded from {}. was {} should be {}".format(
@@ -142,7 +149,7 @@ class ACLMirrorer:
         attachments = xml.findall("//paper/attachment[@hash]")
         revisions = xml.findall("//paper/revision[@hash]")
         errata = xml.findall("//paper/erratum[@hash]")
-        log.info("downloading {} papers from {} ...".format(len(papers), xmlfname))
+        log.info("processing {} papers from {} ...".format(len(papers), xmlfname))
         for collection in [proceedings, frontmatter, papers, revisions, errata]:
             for entry in collection:
                 hash = entry.attrib["hash"]
@@ -152,10 +159,11 @@ class ACLMirrorer:
                 else:
                     fname = entry.text
                 self.download_file(fname + ".pdf", hash, "pdf")
-        for entry in attachments:
-            hash = entry.attrib["hash"]
-            fname = entry.text
-            self.download_file(fname, hash, "attachment")
+        if self.only_papers:
+            for entry in attachments:
+                hash = entry.attrib["hash"]
+                fname = entry.text
+                self.download_file(fname, hash, "attachment")
 
 
 def main():

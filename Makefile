@@ -204,7 +204,7 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         --cleanDestinationDir \
 	         --minify
 	@cd build/website/$(ANTHOLOGYDIR) \
-	    && sed -i 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess \
+	    && sed -i 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
 	@cd build/website/$(ANTHOLOGYDIR) && ln -s $(ANTHOLOGYFILES) anthology-files
 	@touch build/.hugo
 
