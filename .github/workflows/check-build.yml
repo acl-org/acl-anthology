@@ -1,0 +1,22 @@
+name: check-build
+
+on:
+  pull_request
+
+jobs:
+  check-build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: install hugo
+      run: wget https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_extended_0.58.3_Linux-64bit.deb && sudo dpkg -i hugo_extended*.deb
+    - name: update
+      run: sudo apt-get update
+    - name: install other deps
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.7-dev
+    - uses: actions/checkout@v1
+    - name: build
+      run: make check site
