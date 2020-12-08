@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019-2020 Arne Köhn <arne@chark.eu>
+# Copyright 2019-2021 Arne Köhn <arne@chark.eu>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -45,9 +45,12 @@ ANTHOLOGYDIR := $(shell echo "${ANTHOLOGY_PREFIX}" | sed 's|https*://[^/]*/\(.*\
 # the regexp above only matches if we actually have a subdirectory.
 # make the dir empty if only a tld was provided as the prefix.
 ifeq ($(ANTHOLOGY_PREFIX),$(ANTHOLOGYDIR))
-  ANTHOLOGYDIR := ""
+  ANTHOLOGYDIR :=
 endif
 
+# We create a symlink from  $ANTHOLOGYDIR/anthology-files to this dir
+# to always have the same internal link to PDFs etc.
+# This is the directory where you have to put all the papers and attachments.
 ANTHOLOGYFILES ?= /var/www/html/anthology-files
 
 HUGO_ENV ?= production
@@ -207,6 +210,14 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	    && sed -i 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
 	@cd build/website/$(ANTHOLOGYDIR) && ln -s $(ANTHOLOGYFILES) anthology-files
 	@touch build/.hugo
+
+.PHONY: mirror
+mirror: venv/bin/activate
+	. $(VENV) && bin/create_mirror.py data/xml/*xml
+
+.PHONY: mirror-no-attachments
+mirror-no-attachments: venv/bin/activate
+	. $(VENV) && bin/create_mirror.py --only-papers data/xml/*xml
 
 .PHONY: test
 test: hugo

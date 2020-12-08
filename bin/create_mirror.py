@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2020 Arne Köhn <arne@chark.eu>
+# Copyright 2020-2021 Arne Köhn <arne@chark.eu>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ fetch everything.
 
 Options:
   --source=SRC               where to fetch the files from [default: https://www.aclweb.org/anthology]
-  --to=DIR                 Directory to write files to [default: {scriptdir}/../build/website/anthology-files]
+  --to=DIR                 Directory to write files to [default: {scriptdir}/../build/anthology-files]
   --only-papers            Do not mirror attachments, only papers.
   --debug                  Output debug-level log messages.
   -n, --dry-run            Do not actually download, use with --debug to see what would happen
@@ -168,6 +168,9 @@ class ACLMirrorer:
 
 def main():
     args = docopt(__doc__)
+    scriptdir = os.path.dirname(os.path.abspath(__file__))
+    if "{scriptdir}" in args["--to"]:
+        args["--to"] = args["--to"].format(scriptdir=scriptdir)
     log_level = log.DEBUG if args["--debug"] else log.INFO
     log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
     tracker = SeverityTracker()

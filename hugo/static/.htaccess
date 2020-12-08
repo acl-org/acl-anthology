@@ -9,10 +9,9 @@
 
 # Notes regarding mirrors:
 # we try to keep the rules compatible with mirrors.
-# there are two variables we need to fill in:
+# there is one variable we need to fill in:
 # ANTHOLOGYDIR is the base directory of the anthology
-# ANTHOLOGYFILES is the directory under which all the files are stored (papers etc)
-# both are replaced in this file during build time.
+# and is replaced in this file during build time.
 
 # This is important for returning the proper encoding for BibTeX files
 AddDefaultCharset utf-8
@@ -73,7 +72,7 @@ RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.pdf$ /ANTHOLOGYDIR/anthology
 # PDF link, revisions, and errata (P17-1069[v2].pdf loads P/P17/P17-1069[v2].pdf --- with "v2" optional)
 # TODO: decide on a new format for revisions and errata
 RewriteRule ^([A-Za-z])(\d{2})\-(\d{4})([ve]\d+)?\.pdf$ /ANTHOLOGYDIR/anthology-files/pdf/$1/$1$2/$1$2-$3$4.pdf [L,NC]
-RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.(\d+([ve]\d+)?)\.pdf$ /ANTHOLOGYFILES/anthology-files/pdf/$2/$1.$2-$3.$4.pdf [L,NC]
+RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.(\d+([ve]\d+)?)\.pdf$ /ANTHOLOGYDIR/anthology-files/pdf/$2/$1.$2-$3.$4.pdf [L,NC]
 
 # Attachments (e.g., P17-1069.Poster.pdf loads /ANTHOLOGYDIR/anthology-files/attachments/P/P17/P17-1069.Poster.pdf)
 RewriteRule ^attachments/([A-Za-z])(\d{2})\-(\d{4})(\..*)?$ /ANTHOLOGYDIR/anthology-files/attachments/$1/$1$2/$1$2-$3$4 [L,NC]
