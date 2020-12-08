@@ -79,3 +79,4 @@ This repo was originally wing-nus/acl and has been transferred over to acl-org a
 ## License
 
 The code for building the ACL Anthology is distributed under the [Apache License, v2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
