@@ -39,8 +39,9 @@ data_dir = os.path.join(root, "../data/xml")
 
 def combine_tsv(files):
     combined_df = pd.concat(
-        [pd.read_csv(os.path.join(root, fname), sep="\t") for fname in files]
+        [pd.read_csv(fname, keep_default_na=False, sep="\t") for fname in files]
     )
+    combined_df = combined_df[(combined_df.anthology_id != "") & (combined_df.anthology_id != "nan")]
     return combined_df
 
 
@@ -53,7 +54,11 @@ def add_video_tag(anth_paper, xml_parse):
     coll_id, vol_id, paper_id = deconstruct_anthology_id(anth_paper.anthology_id)
     paper = xml_parse.find(f'./volume[@id="{vol_id}"]/paper[@id="{paper_id}"]')
 
-    video_url = "http://slideslive.com/{}".format(anth_paper.presentation_id)
+    if anth_paper.presentation_id.startswith("http"):
+        video_url = anth_paper.presentation_id
+    else:
+        video_url = "https://slideslive.com/{}".format(anth_paper.presentation_id)
+
     make_simple_element("video", attrib={"tag": "video", "href": video_url}, parent=paper)
 
 
