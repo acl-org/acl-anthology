@@ -215,7 +215,7 @@ def main(args):
             print(
                 f"Add this line to {anthology_datadir}/sigs/{meta['sig'].lower()}.yaml:"
             )
-            print(f"  - {meta['year']}")
+            print(f"  - {meta['year']}:")
             print(f"    - {volume_full_id} # {meta['booktitle']}")
 
     # Make sure all venues exist
