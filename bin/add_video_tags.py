@@ -41,7 +41,9 @@ def combine_tsv(files):
     combined_df = pd.concat(
         [pd.read_csv(fname, keep_default_na=False, sep="\t") for fname in files]
     )
-    combined_df = combined_df[(combined_df.anthology_id != "") & (combined_df.anthology_id != "nan")]
+    combined_df = combined_df[
+        (combined_df.anthology_id != "") & (combined_df.anthology_id != "nan")
+    ]
     return combined_df
 
 
