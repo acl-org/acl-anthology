@@ -137,7 +137,9 @@ def create_people(srcdir, clean=False):
             data = yaml.load(f, Loader=Loader)
         # Create a page stub for each person
         for name, entry in data.items():
-            person_dir = "{}/content/people/{}/{}".format(srcdir, entry["slug"][0], entry["slug"])
+            person_dir = "{}/content/people/{}/{}".format(
+                srcdir, entry["slug"][0], entry["slug"]
+            )
             if not os.path.exists(person_dir):
                 os.makedirs(person_dir)
             yaml_data = {"name": name, "title": entry["full"], "lastname": entry["last"]}
