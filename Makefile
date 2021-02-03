@@ -33,8 +33,10 @@ SHELL = /bin/sh
 
 export ANTHOLOGY_PREFIX ?= https://www.aclweb.org/anthology
 
+SLASHATEND:=$(shell echo ${ANTHOLOGY_PREFIX} | grep -q '/$$'; echo $$?)
+
 ifeq (${SLASHATEND},0)
-  $(error "ANTHOLOGY_PREFIX is not allowed to have a slash at the end")
+  $(error ANTHOLOGY_PREFIX is not allowed to have a slash at the end.)
 endif
 
 # hugo wants to know the host and base dir on its own, so
