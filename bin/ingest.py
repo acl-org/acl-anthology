@@ -31,6 +31,7 @@ Updated in March 2020, this script replaces:
 """
 
 import argparse
+import iso639
 import os
 import re
 import readline
@@ -451,6 +452,17 @@ def main(args):
                 for oldnode in paper_node:
                     normalize(oldnode, informat="latex")
 
+                # Adjust the language tag
+                language_node = paper_node.find("./language")
+                if language_node is not None:
+                    try:
+                        lang = iso639.languages.get(name=language_node.text)
+                    except KeyError:
+                        raise Exception(f"Can't find language '{language_node.text}'")
+                    language_node.text = lang.part3
+                    print(language_node.text)
+
+                # Fix author names
                 for name_node in chain(
                     paper_node.findall("./author"), paper_node.findall("./editor")
                 ):
