@@ -71,6 +71,8 @@ def read_meta(path: str) -> Dict[str, Any]:
     meta = {"chairs": []}
     with open(path) as instream:
         for line in instream:
+            if re.match(r"^\s*$", line):
+                continue
             key, value = line.rstrip().split(" ", maxsplit=1)
             if key.startswith("chair"):
                 meta["chairs"].append(value)
