@@ -83,7 +83,7 @@ generated previously.
 ### Step 4: Run Hugo
 
 After all necessary files have been created, the website can be built by simply
-invoking Hugo from the `hugo/` subdirectory.  Optionally, the `--minify` flag
+invoking Hugo from the `build/` subdirectory.  Optionally, the `--minify` flag
 can be used to create minified HTML output:
 
 ```bash
@@ -95,7 +95,7 @@ longer than a few minutes.  Due to the high memory usage (approx. 18 GB
 according to the output of `hugo --stepAnalysis`), it is possible that it will
 cause swapping and consequently slow down your system for a while.
 
-The fully generated website will be in `hugo/public/` afterwards.
+The fully generated website will be in `build/anthology/` afterwards.
 
 
 ## Making changes to the Anthology
