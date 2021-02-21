@@ -24,11 +24,13 @@
 
 SHELL = /bin/sh
 
-# if you want to host the anthology on your own, set ANTHOLOGY_PREFIX
+# If you want to host the anthology on your own, set ANTHOLOGY_PREFIX
 # in your call to make to your prefix, e.g.
-# ANTHOLOGY_PREFIX="https://example.com" make
-# no need to change the value here.
-# make sure the value is exported as environment variable
+#
+#     ANTHOLOGY_PREFIX="https://example.com" make
+#
+# (There is no need to change the value here.)
+# The following line ensures that it is exported as an environment variable
 # for all sub-processes
 
 export ANTHOLOGY_PREFIX ?= https://www.aclweb.org/anthology
@@ -209,7 +211,7 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         --cleanDestinationDir \
 	         --minify
 	@cd build/website/$(ANTHOLOGYDIR) \
-	    && sed -i 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
+	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
 	@cd build/website/$(ANTHOLOGYDIR) && ln -s $(ANTHOLOGYFILES) anthology-files
 	@touch build/.hugo
 
