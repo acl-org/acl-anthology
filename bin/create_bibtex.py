@@ -74,7 +74,7 @@ def create_bibtex(anthology, trgdir, clean=False):
             with open("{}/volumes/{}.bib".format(trgdir, volume_id), "w") as file_volume:
                 for paper in volume:
                     with open(
-                        "{}/{}.bib".format(volume_dir, paper.full_id), "w"
+                        "{}/papers/{}.bib".format(volume_dir, paper.full_id), "w"
                     ) as file_paper:
                         contents = paper.as_bibtex()
                         print(contents, file=file_paper)
