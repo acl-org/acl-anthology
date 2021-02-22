@@ -48,7 +48,11 @@ from anthology.utils import SeverityTracker
 
 def check_directory(cdir, clean=False):
     if not os.path.isdir(cdir) and not os.path.exists(cdir):
-        os.mkdir(cdir)
+        os.m(Please replace this text with a description of the changes effected by this pull request.
+Include a link to the corresponding Github Issue, if there is one.
+Details on how to do this ([can be found here](https://help.github.com/articles/basic-writing-and-formatting-syntax/#referencing-issues-and-pull-requests)).)(Please replace this text with a description of the changes effected by this pull request.
+Include a link to the corresponding Github Issue, if there is one.
+Details on how to do this ([can be found here](https://help.github.com/articles/basic-writing-and-formatting-syntax/#referencing-issues-and-pull-requests)).)akedirs(cdir)
         return True
     entries = os.listdir(cdir)
     if "_index.md" in entries:
