@@ -370,7 +370,7 @@ class AnthologyIndex:
         assert name not in self.name_to_ids, name
         slug = slugify(repr(name))
         if slug == "":
-            slug = "NONE"
+            slug = "none"
         return slug
 
     def get_papers(self, id_, role=None):
