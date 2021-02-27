@@ -58,6 +58,10 @@ ifeq ($(HUGO_VERSION_TOO_LOW),true)
   $(error "incorrect hugo version installed! Need hugo 0.$(HUGO_VERSION_MIN), but only found hugo 0.$(HUGO_VERSION)!")
 endif
 
+# check whether bibtools are installed; used by the endnote and mods targets.
+HAS_XML2END=$(shell which xml2end > /dev/null && echo true || echo false)
+HAS_BIB2XML=$(shell which bib2xml > /dev/null && echo true || echo false)
+
 
 VENV := "venv/bin/activate"
 
@@ -146,6 +150,11 @@ build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
 mods: build/.mods
 
 build/.mods: build/.bibtex
+	@if [ $(HAS_BIB2XML) = false ]; then \
+	    echo "bib2xml not found, please install bibtools"; \
+            echo "alternatively, build the site without endnote files by running make hugo"; \
+	    exit 1; \
+	fi
 	@echo "INFO     Converting BibTeX files to MODS XML..."
 	@find build/data-export -name '*.bib' -print0 | \
 	      xargs -0 -n 1 -P 8 bin/bib2xml_wrapper >/dev/null
@@ -155,6 +164,11 @@ build/.mods: build/.bibtex
 endnote: build/.endnote
 
 build/.endnote: build/.mods
+	@if [ $(HAS_XML2END) = false ]; then \
+	    echo "xml2end not found, please install bibtools"; \
+            echo "alternatively, build the site without endnote files by running make hugo"; \
+	    exit 1; \
+	fi
 	@echo "INFO     Converting MODS XML files to EndNote..."
 	@find build/data-export -name '*.xml' -print0 | \
 	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null
@@ -166,7 +180,7 @@ build/.endnote: build/.mods
 .PHONY: hugo
 hugo: build/.hugo
 
-build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
+build/.hugo: build/.static build/.pages
 	@echo "INFO     Running Hugo... this may take a while."
 	@cd build && \
 	    hugo -b $(ANTHOLOGYHOST)/$(ANTHOLOGYDIR) \
