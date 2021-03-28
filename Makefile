@@ -19,6 +19,7 @@
 #   run . $(VENV) && python3 -- this sets up the virtual environment.
 # - all targets running python somewhere should have venv as a dependency.
 #   this makes sure that all required packages are installed.
+# - Disable bibtex etc. targets by setting NOBIB=true (for debugging etc.)
 
 SHELL = /bin/sh
 ANTHOLOGYHOST := "https://www.aclweb.org"
@@ -137,13 +138,28 @@ build/.pages: build/.basedirs build/.yaml venv/bin/activate
 .PHONY: bibtex
 bibtex:	build/.bibtex
 
+.PHONY: mods
+mods: build/.mods
+
+.PHONY: endnote
+endnote: build/.endnote
+
+#######################################################
+# Disable bibtex etc. targets by setting NOBIB=true
+ifeq (true, $(NOBIB))
+$(info WARNING: not creating bib files, this is not suitable for release!)
+build/.bibtex: build/.basedirs
+	touch build/.bibtex
+build/.mods: build/.bibtex
+	touch build/.mods
+build/.endnote: build/.bibtex
+	touch build/.endnote
+else
+
 build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
 	@echo "INFO     Creating BibTeX files..."
 	. $(VENV) && python3 bin/create_bibtex.py --clean
 	@touch build/.bibtex
-
-.PHONY: mods
-mods: build/.mods
 
 build/.mods: build/.bibtex
 	@echo "INFO     Converting BibTeX files to MODS XML..."
@@ -151,14 +167,15 @@ build/.mods: build/.bibtex
 	      xargs -0 -n 1 -P 8 bin/bib2xml_wrapper >/dev/null
 	@touch build/.mods
 
-.PHONY: endnote
-endnote: build/.endnote
-
 build/.endnote: build/.mods
 	@echo "INFO     Converting MODS XML files to EndNote..."
 	@find build/data-export -name '*.xml' -print0 | \
 	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null
 	@touch build/.endnote
+endif
+# end if block to conditionally disable bibtex generation 
+#######################################################
+
 
 %.endf: %.xml
 	xml2end $< 2>&1 > $@
