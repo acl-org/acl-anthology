@@ -187,7 +187,7 @@ build/.endnote: build/.mods
 	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null
 	@touch build/.endnote
 endif
-# end if block to conditionally disable bibtex generation 
+# end if block to conditionally disable bibtex generation
 #######################################################
 
 
