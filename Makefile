@@ -20,6 +20,7 @@
 # - all targets running python somewhere should have venv as a dependency.
 #   this makes sure that all required packages are installed.
 # - Disable bibtex etc. targets by setting NOBIB=true (for debugging etc.)
+#   (e.g., make -j4 NOBIB=true)
 
 SHELL = /bin/sh
 ANTHOLOGYHOST := "https://www.aclweb.org"
