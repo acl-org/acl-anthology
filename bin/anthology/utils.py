@@ -325,7 +325,7 @@ def indent(elem, level=0, internal=False):
     Adapted from https://stackoverflow.com/a/33956544 .
     """
     # tags that have no internal linebreaks (including children)
-    oneline = elem.tag in ("author", "editor", "title", "booktitle")
+    oneline = elem.tag in ("author", "editor", "title", "booktitle", "variant")
 
     elem.text = clean_whitespace(elem.text)
 
