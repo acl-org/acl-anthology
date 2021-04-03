@@ -316,6 +316,6 @@ upload:
         fi
 	@echo "INFO     Running rsync..."
   # main site
-	@rsync -azve ssh --delete build/anthology/ aclwebor@50.87.169.12:anthology-static
+	@rsync -azve ssh --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static
   # aclanthology.org
-#	@rsync -azve ssh --delete build/anthology/ anthologizer@aclanthology.org:/var/www/html
+#	@rsync -azve ssh --delete build/website/anthology/ anthologizer@aclanthology.org:/var/www/aclanthology.org
