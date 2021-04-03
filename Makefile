@@ -21,6 +21,8 @@
 #   the libraries will not be loaded during run time.
 # - all targets running python somewhere should have venv/bin/activate as a dependency.
 #   this makes sure that all required packages are installed.
+# - Disable bibtex etc. targets by setting NOBIB=true (for debugging etc.)
+#   (e.g., make -j4 NOBIB=true)
 
 SHELL = /bin/sh
 
@@ -94,6 +96,10 @@ HUGO_VERSION_TOO_LOW:=$(shell [ $(HUGO_VERSION_MIN) -gt $(HUGO_VERSION) ] && ech
 ifeq ($(HUGO_VERSION_TOO_LOW),true)
   $(error "incorrect hugo version installed! Need hugo 0.$(HUGO_VERSION_MIN), but only found hugo 0.$(HUGO_VERSION)!")
 endif
+
+# check whether bibtools are installed; used by the endnote and mods targets.
+HAS_XML2END=$(shell which xml2end > /dev/null && echo true || echo false)
+HAS_BIB2XML=$(shell which bib2xml > /dev/null && echo true || echo false)
 
 
 VENV := "venv/bin/activate"
@@ -174,28 +180,54 @@ build/.pages: build/.basedirs build/.yaml venv/bin/activate
 .PHONY: bibtex
 bibtex:	build/.bibtex
 
+.PHONY: mods
+mods: build/.mods
+
+.PHONY: endnote
+endnote: build/.endnote
+
+#######################################################
+# Disable bibtex etc. targets by setting NOBIB=true
+ifeq (true, $(NOBIB))
+$(info WARNING: not creating bib files, this is not suitable for release!)
+build/.bibtex: build/.basedirs
+	touch build/.bibtex
+build/.mods: build/.bibtex
+	touch build/.mods
+build/.endnote: build/.bibtex
+	touch build/.endnote
+else
+
 build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
 	@echo "INFO     Creating BibTeX files..."
 	. $(VENV) && python3 bin/create_bibtex.py --clean
 	@touch build/.bibtex
 
-.PHONY: mods
-mods: build/.mods
-
 build/.mods: build/.bibtex
+	@if [ $(HAS_BIB2XML) = false ]; then \
+	    echo "bib2xml not found, please install bibtools"; \
+            echo "alternatively, build the site without endnote files by running make hugo"; \
+	    exit 1; \
+	fi
 	@echo "INFO     Converting BibTeX files to MODS XML..."
 	@find build/data-export -name '*.bib' -print0 | \
 	      xargs -0 -n 1 -P 8 bin/bib2xml_wrapper >/dev/null
 	@touch build/.mods
 
-.PHONY: endnote
-endnote: build/.endnote
-
 build/.endnote: build/.mods
+	@if [ $(HAS_XML2END) = false ]; then \
+	    echo "xml2end not found, please install bibtools"; \
+            echo "alternatively, build the site without endnote files by running make hugo"; \
+	    exit 1; \
+	fi
 	@echo "INFO     Converting MODS XML files to EndNote..."
 	@find build/data-export -name '*.xml' -print0 | \
 	      xargs -0 -n 1 -P 8 bin/xml2end_wrapper >/dev/null
 	@touch build/.endnote
+endif
+# end if block to conditionally disable bibtex generation
+#######################################################
+
 
 %.endf: %.xml
 	xml2end $< 2>&1 > $@
@@ -282,5 +314,7 @@ upload:
             exit 1; \
         fi
 	@echo "INFO     Running rsync..."
-#	@rsync -azve ssh --delete build/anthology/ aclweb:anthology-static
-	@rsync -azve ssh --delete build/anthology/ anth:/var/www/html
+  # main site
+	@rsync -azve ssh --delete build/anthology/ aclwebor@50.87.169.12:anthology-static
+  # aclanthology.org
+#	@rsync -azve ssh --delete build/anthology/ anthologizer@aclanthology.org:/var/www/html
