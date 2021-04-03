@@ -39,4 +39,9 @@ jobs:
         PUBLISH_TARGET: aclwebor@50.87.169.12:anthology-static/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
         echo "Mirroring branch to $PUBLISH_TARGET"
-        rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/anthology/ $PUBLISH_TARGET
+        pwd
+        ls
+        ls /home/runner/work/acl-anthology/
+        ls /home/runner/work/acl-anthology/acl-anthology
+        ls /home/runner/work/acl-anthology/acl-anthology/build
+        echo "Command: rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/anthology/ $PUBLISH_TARGET"
