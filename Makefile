@@ -152,6 +152,7 @@ static: build/.static
 
 build/.static: build/.basedirs $(shell find hugo -type f)
 	@echo "INFO     Creating and populating build directory..."
+	@echo "INFO     Using ANTHOLOGYDIR=$ANTHOLOGYDIR"
 	@cp -r hugo/* build
 	@echo >> build/config.toml
 	@echo "[params]" >> build/config.toml
