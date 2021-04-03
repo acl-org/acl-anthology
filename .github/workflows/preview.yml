@@ -32,6 +32,6 @@ jobs:
     - name: preview
       env:
         PUBLISH_TARGET: ${{ secrets.PUBLISH_TARGET }}/previews/${GITHUB_REF##*/}
-      run: echo Mirroring branch to ${GITHUB_REF##*/}
       run: |
+        echo "Mirroring branch to $PUBLISH_TARGET"
         rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/anthology/ $PUBLISH_TARGET
