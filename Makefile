@@ -29,7 +29,8 @@ SHELL = /bin/sh
 #
 #     ANTHOLOGY_PREFIX="https://example.com" make
 #
-# (There is no need to change the value here.)
+# (There is no need to change the value here.). PLEASE NOTE that the prefix
+# cannot contain any '#' character, or a Perl regex below will fail.
 # The following line ensures that it is exported as an environment variable
 # for all sub-processes
 
@@ -151,7 +152,7 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 	@echo "  githash = \"${githash}\"" >> build/config.toml
 	@echo "  githashshort = \"${githashshort}\"" >> build/config.toml
 	@echo "  timestamp = \"${timestamp}\"" >> build/config.toml
-	@perl -pi -e "s/ANTHOLOGYDIR/$(ANTHOLOGYDIR)/g" build/website/index.html
+	@perl -pi -e "s#ANTHOLOGYDIR#$(ANTHOLOGYDIR)#g" build/website/index.html
 	@touch build/.static
 
 .PHONY: yaml
