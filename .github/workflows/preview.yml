@@ -33,12 +33,13 @@ jobs:
       env:
         ANTHOLOGY_PREFIX: https://www.aclweb.org/anthology/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
-        echo "Running make ANTHOLOGY_PREFIX=$ANTHOLOGY_PREFIX NOBIB=true check site"
+        echo "Running make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site"
         make ANTHOLOGY_PREFIX=$ANTHOLOGY_PREFIX NOBIB=true check site
     - name: preview
       env:
         PUBLISH_SOURCE: build/website/anthology/previews/${{ steps.extract_branch.outputs.branch }}/
-        PUBLISH_TARGET: aclwebor@50.87.169.12:anthology-static/previews/${{ steps.extract_branch.outputs.branch }}
+        #PUBLISH_TARGET: aclwebor@50.87.169.12:anthology-static/previews/${{ steps.extract_branch.outputs.branch }}
+        PUBLISH_TARGET: anthologizer@aclanthology.org:/var/www/aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
-        echo "Mirroring branch from $PUBLISH_SOURCE to $PUBLISH_TARGET"
+        echo "Mirroring branch from ${PUBLISH_SOURCE} to ${PUBLISH_TARGET}"
         rsync -aze "ssh -o StrictHostKeyChecking=accept-new" $PUBLISH_SOURCE $PUBLISH_TARGET
