@@ -20,15 +20,20 @@ jobs:
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
     - uses: actions/checkout@v1
+    - name: extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
     - name: build
+      shell: bash
       env:
-        ANTHOLOGYHOST: ${{ secrets.PUBLISH_ANTHOLOGYHOST }}/previews/${GITHUB_REF##/}
-        ANTHOLOGY_PREFIX: $ANTHOLOGYHOST/previews/${GITHUB_REF##/}
+        ANTHOLOGY_PREFIX: ${{ secrets.PUBLISH_ANTHOLOGYHOST }}/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
-        make ANTHOLOGY_PREFIX=$ANTHOLOGY_PREFIX NOBIB=true check site
+        echo "Build command: make ANTHOLOGY_PREFIX=$ANTHOLOGY_PREFIX NOBIB=true check site"
     - name: preview
+      shell: bash
       env:
-        PUBLISH_TARGET: ${{ secrets.PUBLISH_TARGET }}/previews/${GITHUB_REF##*/}
+        PUBLISH_TARGET: ${{ secrets.PUBLISH_TARGET }}/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
         echo "Mirroring branch to $PUBLISH_TARGET"
-        rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/anthology/ $PUBLISH_TARGET
+        echo "Sync command: rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/anthology/ $PUBLISH_TARGET"
