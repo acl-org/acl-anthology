@@ -32,4 +32,4 @@ jobs:
       env:
         PUBLISH_TARGET: 50.87.169.12:anthology-static
       run: |
-        rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/anthology/ $PUBLISH_TARGET
+        rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ $PUBLISH_TARGET
