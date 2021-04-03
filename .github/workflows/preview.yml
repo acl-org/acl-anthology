@@ -31,13 +31,12 @@ jobs:
     - name: build
       shell: bash
       env:
-        ANTHOLOGY_PREFIX: ${{ secrets.PUBLISH_ANTHOLOGYHOST }}/previews/${{ steps.extract_branch.outputs.branch }}
+        ANTHOLOGY_PREFIX: ${{ secrets.PUBLISH_ANTHOLOGYHOST }}previews/${{ steps.extract_branch.outputs.branch }}
       run: |
         make ANTHOLOGY_PREFIX=$ANTHOLOGY_PREFIX NOBIB=true check site
     - name: preview
-      shell: bash
       env:
-        PUBLISH_TARGET: ${{ secrets.PUBLISH_TARGET }}/previews/${{ steps.extract_branch.outputs.branch }}
+        PUBLISH_TARGET: ${{ secrets.PUBLISH_TARGET }}previews/${{ steps.extract_branch.outputs.branch }}/
       run: |
         echo "Mirroring branch to $PUBLISH_TARGET"
         rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/anthology/ $PUBLISH_TARGET
