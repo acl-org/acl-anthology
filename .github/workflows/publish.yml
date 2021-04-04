@@ -27,9 +27,10 @@ jobs:
       env:
         ANTHOLOGY_PREFIX: https://www.aclweb.org/anthology
       run: |
-        make ANTHOLOGY_PREFIX=$ANTHOLOGY_PREFIX check site
+        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site
     - name: publish
       env:
         PUBLISH_TARGET: 50.87.169.12:anthology-static
+        ANTHOLOGY_PREFIX: https://www.aclweb.org/anthology
       run: |
-        rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ $PUBLISH_TARGET
+        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} upload
