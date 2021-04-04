@@ -324,4 +324,4 @@ upload:
 .PHONY: preview
 preview:
 	@echo "INFO     Running rsync for the '${ANTHOLOGYDIR}' branch preview..."
-	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
+	@rsync -avze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
