@@ -1,20 +1,40 @@
-# Runs after check-build completes, and pushes out a preview to the mirror server
-
 name: preview
 
 on:
-  workflow_run:
-    workflows: ['check-build']
-    # Should be unnecessary, but here for explicitness
-    branches-ignore: ['master']
-    types:
-    - completed
+  push:
+    branches:
+    - '*'
+    - '!master'
 
 jobs:
-  on-success:
+  preview:
     runs-on: ubuntu-20.04
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
+    - name: install hugo
+      run: wget https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_extended_0.58.3_Linux-64bit.deb && sudo dpkg -i hugo_extended*.deb
+    - name: update
+      run: sudo apt-get update
+    - name: install other deps
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.8-dev
+    - name: dump secret key
+      env:
+        SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
+      run: |
+        mkdir -p $HOME/.ssh/
+        echo "$SSH_KEY" > $HOME/.ssh/id_rsa
+        chmod 600 $HOME/.ssh/id_rsa
+    - uses: actions/checkout@v1
+    - name: extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - name: build
+      shell: bash
+      env:
+        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
+      run: |
+        echo "Running make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site"
+        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site
     - name: preview
       env:
         ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
