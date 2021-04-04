@@ -314,8 +314,18 @@ upload:
             echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of 'anthology'"; \
             exit 1; \
         fi
-	@echo "INFO     Running rsync..."
+	@echo "INFO     Running rsync for main site and mirror..."
   # main site
-	@rsync -azve ssh --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static
-  # aclanthology.org
-#	@rsync -azve ssh --delete build/website/anthology/ anthologizer@aclanthology.org:/var/www/aclanthology.org
+	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static
+  # mirror
+	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ anthologizer@aclanthology.org:/var/www/aclanthology.org
+
+# Push a preview to the mirror
+.PHONY: preview
+preview:
+	@if [[ $(ANTHOLOGYDIR) = "anthology" ]]; then \
+            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to 'anthology' instead of 'previews/BRANCHNAME'"; \
+            exit 1; \
+        fi
+	@echo "INFO     Running rsync for the branch preview..."
+	@rsync -aze ssh --delete build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
