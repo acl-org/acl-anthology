@@ -49,7 +49,7 @@ import time
 from lxml import etree
 
 from anthology.utils import deconstruct_anthology_id, make_simple_element, is_newstyle_id
-from anthology.data import ANTHOLOGY_URL, DOI_PREFIX
+from anthology.data import CANONICAL_URL_TEMPLATE, DOI_PREFIX
 from anthology.formatter import MarkupFormatter
 
 # CONSTANTS
@@ -221,7 +221,7 @@ def main(volumes):
         dd = make_simple_element("doi_data", parent=pm)
         doi = make_simple_element("doi", parent=dd, text=DOI_PREFIX + full_volume_id)
         resource = make_simple_element(
-            "resource", parent=dd, text=ANTHOLOGY_URL.format(full_volume_id)
+            "resource", parent=dd, text=CANONICAL_URL_TEMPLATE.format(full_volume_id)
         )
 
         for paper in v.findall("./paper"):
@@ -292,7 +292,7 @@ def main(volumes):
             dd = make_simple_element("doi_data", parent=cp)
             doi = make_simple_element("doi", parent=dd, text=DOI_PREFIX + url)
             resource = make_simple_element(
-                "resource", parent=dd, text=ANTHOLOGY_URL.format(url)
+                "resource", parent=dd, text=CANONICAL_URL_TEMPLATE.format(url)
             )
 
     print(
