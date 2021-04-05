@@ -1,12 +1,13 @@
-name: publish
+name: preview
 
 on:
   push:
     branches:
-      - master
+    - '*'
+    - '!master'
 
 jobs:
-  publish:
+  preview:
     runs-on: ubuntu-20.04
     steps:
     - name: install hugo
@@ -23,14 +24,19 @@ jobs:
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
     - uses: actions/checkout@v1
+    - name: extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
     - name: build
+      shell: bash
       env:
-        ANTHOLOGY_PREFIX: https://www.aclweb.org/anthology
+        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
-        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site
-    - name: publish
+        echo "Running make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site"
+        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site
+    - name: preview
       env:
-        PUBLISH_TARGET: 50.87.169.12:anthology-static
-        ANTHOLOGY_PREFIX: https://www.aclweb.org/anthology
+        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
-        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} upload
+        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true preview

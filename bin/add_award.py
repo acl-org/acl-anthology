@@ -40,7 +40,7 @@ from anthology.utils import (
     infer_url,
     is_newstyle_id,
 )
-from anthology.data import ANTHOLOGY_PDF
+from anthology.data import PDF_LOCATION_TEMPLATE
 
 import lxml.etree as ET
 
