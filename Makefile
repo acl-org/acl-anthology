@@ -308,13 +308,21 @@ serve:
 # only works if ANTHOLOGYDIR == anthology.
 .PHONY: upload
 upload:
-	@if [[ $(ANTHOLOGYDIR) != "anthology" ]]; then \
+	@if [ $(ANTHOLOGYDIR) != "anthology" ]; then \
             echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of 'anthology'"; \
             exit 1; \
         fi
 	@echo "INFO     Running rsync for main site and mirror..."
 	# main site
 	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static
+
+# The mirror requires a separate build, becasue ANTHOLOGYDIR must be empty
+.PHONY: mirror
+mirror:
+	@if [ $(ANTHOLOGYDIR) != "" ]; then \
+            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of empty ('')"; \
+            exit 1; \
+        fi
 	# mirror
 	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ anthologizer@aclanthology.org:/var/www/aclanthology.org
 
@@ -322,4 +330,4 @@ upload:
 .PHONY: preview
 preview:
 	@echo "INFO     Running rsync for the '${ANTHOLOGYDIR}' branch preview..."
-	@rsync -avze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
+	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
