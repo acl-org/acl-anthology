@@ -55,10 +55,9 @@ ifeq ($(ANTHOLOGY_PREFIX),$(ANTHOLOGYDIR))
   ANTHOLOGYDIR :=
 endif
 
-# We create a symlink from  $ANTHOLOGYDIR/anthology-files to this dir
-# to always have the same internal link to PDFs etc.
+# The root location of Anthology files (PDFs, etc)
 # This is the directory where you have to put all the papers and attachments.
-ANTHOLOGYFILES ?= /var/www/html/anthology-files
+ANTHOLOGYFILES ?= /anthology-files
 
 HUGO_ENV ?= production
 
@@ -246,7 +245,6 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         --minify
 	@cd build/website/$(ANTHOLOGYDIR) \
 	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
-	@cd build/website/$(ANTHOLOGYDIR) && ln -s $(ANTHOLOGYFILES) anthology-files
 	@touch build/.hugo
 
 .PHONY: mirror
@@ -310,13 +308,21 @@ serve:
 # only works if ANTHOLOGYDIR == anthology.
 .PHONY: upload
 upload:
-	@if [[ $(ANTHOLOGYDIR) != "anthology" ]]; then \
+	@if [ $(ANTHOLOGYDIR) != "anthology" ]; then \
             echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of 'anthology'"; \
             exit 1; \
         fi
 	@echo "INFO     Running rsync for main site and mirror..."
 	# main site
 	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static
+
+# The mirror requires a separate build, becasue ANTHOLOGYDIR must be empty
+.PHONY: mirror
+mirror:
+	@if [ $(ANTHOLOGYDIR) != "" ]; then \
+            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of empty ('')"; \
+            exit 1; \
+        fi
 	# mirror
 	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ anthologizer@aclanthology.org:/var/www/aclanthology.org
 
@@ -324,4 +330,4 @@ upload:
 .PHONY: preview
 preview:
 	@echo "INFO     Running rsync for the '${ANTHOLOGYDIR}' branch preview..."
-	@rsync -avze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
+	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
