@@ -55,10 +55,9 @@ ifeq ($(ANTHOLOGY_PREFIX),$(ANTHOLOGYDIR))
   ANTHOLOGYDIR :=
 endif
 
-# We create a symlink from  $ANTHOLOGYDIR/anthology-files to this dir
-# to always have the same internal link to PDFs etc.
+# The root location of Anthology files (PDFs, etc)
 # This is the directory where you have to put all the papers and attachments.
-ANTHOLOGYFILES ?= /var/www/html/anthology-files
+ANTHOLOGYFILES ?= /anthology-files
 
 HUGO_ENV ?= production
 
@@ -246,7 +245,6 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         --minify
 	@cd build/website/$(ANTHOLOGYDIR) \
 	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
-	@cd build/website/$(ANTHOLOGYDIR) && ln -s $(ANTHOLOGYFILES) anthology-files
 	@touch build/.hugo
 
 .PHONY: mirror
