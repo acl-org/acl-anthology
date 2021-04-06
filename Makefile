@@ -318,16 +318,6 @@ upload:
 	# main site
 	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static
 
-# The mirror requires a separate build, becasue ANTHOLOGYDIR must be empty
-.PHONY: mirror
-mirror:
-	@if [ $(ANTHOLOGYDIR) != "" ]; then \
-            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of empty ('')"; \
-            exit 1; \
-        fi
-	# mirror
-	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ anthologizer@aclanthology.org:/var/www/aclanthology.org
-
 # Push a preview to the mirror
 .PHONY: preview
 preview:
