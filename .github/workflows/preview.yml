@@ -19,7 +19,6 @@ jobs:
     - name: dump secret key
       env:
         SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
-        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
         mkdir -p $HOME/.ssh/
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
@@ -31,6 +30,8 @@ jobs:
       id: extract_branch
     - name: build
       shell: bash
+      env:
+        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
         echo "Running make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site"
         make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site
@@ -39,6 +40,8 @@ jobs:
         make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true preview
     - uses: mshick/add-pr-comment@v1
       with:
+        env:
+          ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
         message: |
           Build successful. You can preview it here: https://aclanthology.org/previews/${ANTHOLOGY_PREFIX}
         repo-token: ${{ secrets.GITHUB_TOKEN }}
