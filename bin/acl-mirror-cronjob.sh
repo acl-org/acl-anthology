@@ -27,11 +27,11 @@ export ANTHOLOGY_PREFIX="https://example.com/aclmirror"
 export ANTHOLOGY_HTML_ROOT="/var/www/aclmirror"
 
 # this is the directory under which the additional files
-# will be stored.  This directory will be symlinked
-# into the ANTHOLOGY_HTML_ROOT and needs to be accessible
-# by the webserver (depending on your configuration, it
-# might not need to be under the www document root).
-export ANTHOLOGYFILES="/var/www/html/anthology-files"
+# (PDFs, attachments, etc) will be stored.  This directory
+# needs to be accessible by the webserver (depending on your
+# configuration, it might not need to be under the www
+# document root).
+export ANTHOLOGYFILES="/anthology-files"
 
 # This is the directory where the anthology git will be cloned
 # to and the website will be built.
