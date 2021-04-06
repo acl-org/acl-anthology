@@ -9,6 +9,8 @@ on:
 jobs:
   preview:
     runs-on: ubuntu-20.04
+    env:
+      ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
     steps:
     - name: install hugo
       run: wget https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_extended_0.58.3_Linux-64bit.deb && sudo dpkg -i hugo_extended*.deb
@@ -30,24 +32,16 @@ jobs:
       id: extract_branch
     - name: build
       shell: bash
-      env:
-        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
         echo "Running make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site"
         make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site
     - name: preview
-      env:
-        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
         make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true preview
-
-  post-link:
-    runs-on: ubuntu-latest
-    steps:
     - uses: mshick/add-pr-comment@v1
       with:
         message: |
-          Build successful. You can preview it here: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
+          Build successful. You can preview it here: https://aclanthology.org/previews/${ANTHOLOGY_PREFIX}
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
-        allow-repeats: false
+        allow-repeats: true
