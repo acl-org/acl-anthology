@@ -251,7 +251,7 @@ def infer_attachment_url(filename, parent_id=None):
                 parent_id, filename
             )
         )
-    return infer_url(filename, data.ATTACHMENT_PREFIX)
+    return infer_url(filename, data.ATTACHMENT_TEMPLATE)
 
 
 def infer_year(collection_id):
