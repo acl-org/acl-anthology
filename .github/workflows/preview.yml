@@ -9,8 +9,6 @@ on:
 jobs:
   preview:
     runs-on: ubuntu-20.04
-    env:
-      ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
     steps:
     - name: install hugo
       run: wget https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_extended_0.58.3_Linux-64bit.deb && sudo dpkg -i hugo_extended*.deb
@@ -21,6 +19,7 @@ jobs:
     - name: dump secret key
       env:
         SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
+        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
         mkdir -p $HOME/.ssh/
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
