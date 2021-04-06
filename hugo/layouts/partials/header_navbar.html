@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light bg-gradient-light shadow-sm py-0 mb-3 mb-md-4 mb-xl-5">
   <div id="navbar-container" class="container">
-  <a class="navbar-brand" href=/anthology/>
-    <img src="/anthology/images/acl-logo.svg" width=56 alt="ACL Logo">
+  <a class="navbar-brand" href={{ "/" | relURL}}>
+    <img src={{ "/images/acl-logo.svg" | relURL}} width=56 alt="ACL Logo">
     <span class="d-none d-md-inline pl-md-2">ACL Anthology</span>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +20,7 @@
         <a class="nav-link" href={{ relref . "/info/contrib.md" }}>Submissions<span class="sr-only">(current)</span></a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" action=/anthology/search/? method=get>
+    <form class="form-inline my-2 my-lg-0" action={{"/search/?" | relURL}} method=get>
       <input id=acl-search-box class="form-control mr-sm-2" name=q type=search placeholder=Search... aria-label=Search>
       <button class="btn btn-outline-primary" type=submit><i class="fas fa-search"></i></button>
     </form>

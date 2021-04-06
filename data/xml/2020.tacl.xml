@@ -547,5 +547,97 @@
       <pages>710–725</pages>
       <url hash="c072ee41">2020.tacl-1.46</url>
     </paper>
+    <paper id="47">
+      <title>Multilingual Denoising Pre-training for Neural Machine Translation</title>
+      <author><first>Yinhan</first><last>Liu</last></author>
+      <author><first>Jiatao</first><last>Gu</last></author>
+      <author><first>Naman</first><last>Goyal</last></author>
+      <author><first>Xian</first><last>Li</last></author>
+      <author><first>Sergey</first><last>Edunov</last></author>
+      <author><first>Marjan</first><last>Ghazvininejad</last></author>
+      <author><first>Mike</first><last>Lewis</last></author>
+      <author><first>Luke</first><last>Zettlemoyer</last></author>
+      <doi>10.1162/tacl_a_00343</doi>
+      <abstract>This paper demonstrates that multilingual denoising pre-training produces significant performance gains across a wide variety of machine translation (MT) tasks. We present mBART—a sequence-to-sequence denoising auto-encoder pre-trained on large-scale monolingual corpora in many languages using the BART objective (Lewis et al., 2019). mBART is the first method for pre-training a complete sequence-to-sequence model by denoising full texts in multiple languages, whereas previous approaches have focused only on the encoder, decoder, or reconstructing parts of the text. Pre-training a complete model allows it to be directly fine-tuned for supervised (both sentence-level and document-level) and unsupervised machine translation, with no task- specific modifications. We demonstrate that adding mBART initialization produces performance gains in all but the highest-resource settings, including up to 12 BLEU points for low resource MT and over 5 BLEU points for many document-level and unsupervised models. We also show that it enables transfer to language pairs with no bi-text or that were not in the pre-training corpus, and present extensive analysis of which factors contribute the most to effective pre-training.1</abstract>
+      <pages>726–742</pages>
+      <url hash="839acaff">2020.tacl-1.47</url>
+    </paper>
+    <paper id="48">
+      <title>o<fixed-case>LM</fixed-case>pics-On What Language Model Pre-training Captures</title>
+      <author><first>Alon</first><last>Talmor</last></author>
+      <author><first>Yanai</first><last>Elazar</last></author>
+      <author><first>Yoav</first><last>Goldberg</last></author>
+      <author><first>Jonathan</first><last>Berant</last></author>
+      <doi>10.1162/tacl_a_00342</doi>
+      <abstract>Recent success of pre-trained language models (LMs) has spurred widespread interest in the language capabilities that they possess. However, efforts to understand whether LM representations are useful for symbolic reasoning tasks have been limited and scattered. In this work, we propose eight reasoning tasks, which conceptually require operations such as comparison, conjunction, and composition. A fundamental challenge is to understand whether the performance of a LM on a task should be attributed to the pre-trained representations or to the process of fine-tuning on the task data. To address this, we propose an evaluation protocol that includes both zero-shot evaluation (no fine-tuning), as well as comparing the learning curve of a fine-tuned LM to the learning curve of multiple controls, which paints a rich picture of the LM capabilities. Our main findings are that: (a) different LMs exhibit qualitatively different reasoning abilities, e.g., RoBERTa succeeds in reasoning tasks where BERT fails completely; (b) LMs do not reason in an abstract manner and are context-dependent, e.g., while RoBERTa can compare ages, it can do so only when the ages are in the typical range of human ages; (c) On half of our reasoning tasks all models fail completely. Our findings and infrastructure can help future work on designing new datasets, models, and objective functions for pre-training.</abstract>
+      <pages>743–758</pages>
+      <url hash="6180f35c">2020.tacl-1.48</url>
+    </paper>
+    <paper id="49">
+      <title>Interactive Text Ranking with <fixed-case>B</fixed-case>ayesian Optimization: A Case Study on Community <fixed-case>QA</fixed-case> and Summarization</title>
+      <author><first>Edwin</first><last>Simpson</last></author>
+      <author><first>Yang</first><last>Gao</last></author>
+      <author><first>Iryna</first><last>Gurevych</last></author>
+      <doi>10.1162/tacl_a_00344</doi>
+      <abstract>For many NLP applications, such as question answering and summarization, the goal is to select the best solution from a large space of candidates to meet a particular user’s needs. To address the lack of user or task-specific training data, we propose an interactive text ranking approach that actively selects pairs of candidates, from which the user selects the best. Unlike previous strategies, which attempt to learn a ranking across the whole candidate space, our method uses Bayesian optimization to focus the user’s labeling effort on high quality candidates and integrate prior knowledge to cope better with small data scenarios. We apply our method to community question answering (cQA) and extractive multidocument summarization, finding that it significantly outperforms existing interactive approaches. We also show that the ranking function learned by our method is an effective reward function for reinforcement learning, which improves the state of the art for interactive summarization.</abstract>
+      <pages>759–775</pages>
+      <url hash="a7ccdc1e">2020.tacl-1.49</url>
+    </paper>
+    <paper id="50">
+      <title>Syntactic Structure Distillation Pretraining for Bidirectional Encoders</title>
+      <author><first>Adhiguna</first><last>Kuncoro</last></author>
+      <author><first>Lingpeng</first><last>Kong</last></author>
+      <author><first>Daniel</first><last>Fried</last></author>
+      <author><first>Dani</first><last>Yogatama</last></author>
+      <author><first>Laura</first><last>Rimell</last></author>
+      <author><first>Chris</first><last>Dyer</last></author>
+      <author><first>Phil</first><last>Blunsom</last></author>
+      <doi>10.1162/tacl_a_00345</doi>
+      <abstract>Textual representation learners trained on large amounts of data have achieved notable success on downstream tasks; intriguingly, they have also performed well on challenging tests of syntactic competence. Hence, it remains an open question whether scalable learners like BERT can become fully proficient in the syntax of natural language by virtue of data scale alone, or whether they still benefit from more explicit syntactic biases. To answer this question, we introduce a knowledge distillation strategy for injecting syntactic biases into BERT pretraining, by distilling the syntactically informative predictions of a hierarchical—albeit harder to scale—syntactic language model. Since BERT models masked words in bidirectional context, we propose to distill the approximate marginal distribution over words in context from the syntactic LM. Our approach reduces relative error by 2–21% on a diverse set of structured prediction tasks, although we obtain mixed results on the GLUE benchmark. Our findings demonstrate the benefits of syntactic biases, even for representation learners that exploit large amounts of data, and contribute to a better understanding of where syntactic biases are helpful in benchmarks of natural language understanding.</abstract>
+      <pages>776–794</pages>
+      <url hash="32f9643b">2020.tacl-1.50</url>
+    </paper>
+    <paper id="51">
+      <title>Best-First Beam Search</title>
+      <author><first>Clara</first><last>Meister</last></author>
+      <author><first>Tim</first><last>Vieira</last></author>
+      <author><first>Ryan</first><last>Cotterell</last></author>
+      <doi>10.1162/tacl_a_00346</doi>
+      <abstract>Decoding for many NLP tasks requires an effective heuristic algorithm for approximating exact search because the problem of searching the full output space is often intractable, or impractical in many settings. The default algorithm for this job is beam search—a pruned version of breadth-first search. Quite surprisingly, beam search often returns better results than exact inference due to beneficial search bias for NLP tasks. In this work, we show that the standard implementation of beam search can be made up to 10x faster in practice. Our method assumes that the scoring function is monotonic in the sequence length, which allows us to safely prune hypotheses that cannot be in the final set of hypotheses early on. We devise effective monotonic approximations to popular nonmonontic scoring functions, including length normalization and mutual information decoding. Lastly, we propose a memory-reduced variant of best-first beam search, which has a similar beneficial search bias in terms of downstream performance, but runs in a fraction of the time.</abstract>
+      <pages>795–809</pages>
+      <url hash="7bfa4de9">2020.tacl-1.51</url>
+    </paper>
+    <paper id="52">
+      <title>Improving Dialog Evaluation with a Multi-reference Adversarial Dataset and Large Scale Pretraining</title>
+      <author><first>Ananya B.</first><last>Sai</last></author>
+      <author><first>Akash Kumar</first><last>Mohankumar</last></author>
+      <author><first>Siddhartha</first><last>Arora</last></author>
+      <author><first>Mitesh M.</first><last>Khapra</last></author>
+      <doi>10.1162/tacl_a_00347</doi>
+      <abstract>There is an increasing focus on model-based dialog evaluation metrics such as ADEM, RUBER, and the more recent BERT-based metrics. These models aim to assign a high score to all relevant responses and a low score to all irrelevant responses. Ideally, such models should be trained using multiple relevant and irrelevant responses for any given context. However, no such data is publicly available, and hence existing models are usually trained using a single relevant response and multiple randomly selected responses from other contexts (random negatives). To allow for better training and robust evaluation of model-based metrics, we introduce the DailyDialog++ dataset, consisting of (i) five relevant responses for each context and (ii) five adversarially crafted irrelevant responses for each context. Using this dataset, we first show that even in the presence of multiple correct references, n-gram based metrics and embedding based metrics do not perform well at separating relevant responses from even random negatives. While model-based metrics perform better than n-gram and embedding based metrics on random negatives, their performance drops substantially when evaluated on adversarial examples. To check if large scale pretraining could help, we propose a new BERT-based evaluation metric called DEB, which is pretrained on 727M Reddit conversations and then finetuned on our dataset. DEB significantly outperforms existing models, showing better correlation with human judgments and better performance on random negatives (88.27% accuracy). However, its performance again drops substantially when evaluated on adversarial responses, thereby highlighting that even large-scale pretrained evaluation models are not robust to the adversarial examples in our dataset. The dataset1 and code2 are publicly available.</abstract>
+      <pages>810–827</pages>
+      <url hash="140e8f7d">2020.tacl-1.52</url>
+    </paper>
+    <paper id="53">
+      <title>Unsupervised Bitext Mining and Translation via Self-Trained Contextual Embeddings</title>
+      <author><first>Phillip</first><last>Keung</last></author>
+      <author><first>Julian</first><last>Salazar</last></author>
+      <author><first>Yichao</first><last>Lu</last></author>
+      <author><first>Noah A.</first><last>Smith</last></author>
+      <doi>10.1162/tacl_a_00348</doi>
+      <abstract>We describe an unsupervised method to create pseudo-parallel corpora for machine translation (MT) from unaligned text. We use multilingual BERT to create source and target sentence embeddings for nearest-neighbor search and adapt the model via self-training. We validate our technique by extracting parallel sentence pairs on the BUCC 2017 bitext mining task and observe up to a 24.5 point increase (absolute) in F1 scores over previous unsupervised methods. We then improve an XLM-based unsupervised neural MT system pre-trained on Wikipedia by supplementing it with pseudo-parallel text mined from the same corpus, boosting unsupervised translation performance by up to 3.5 BLEU on the WMT’14 French-English and WMT’16 German-English tasks and outperforming the previous state-of-the-art. Finally, we enrich the IWSLT’15 English-Vietnamese corpus with pseudo-parallel Wikipedia sentence pairs, yielding a 1.2 BLEU improvement on the low-resource MT task. We demonstrate that unsupervised bitext mining is an effective way of augmenting MT datasets and complements existing techniques like initializing with pre-trained contextual embeddings.</abstract>
+      <pages>828–841</pages>
+      <url hash="f46699e4">2020.tacl-1.53</url>
+    </paper>
+    <paper id="54">
+      <title>A Primer in <fixed-case>BERT</fixed-case>ology: What We Know About How <fixed-case>BERT</fixed-case> Works</title>
+      <author><first>Anna</first><last>Rogers</last></author>
+      <author><first>Olga</first><last>Kovaleva</last></author>
+      <author><first>Anna</first><last>Rumshisky</last></author>
+      <doi>10.1162/tacl_a_00349</doi>
+      <abstract>Transformer-based models have pushed state of the art in many areas of NLP, but our understanding of what is behind their success is still limited. This paper is the first survey of over 150 studies of the popular BERT model. We review the current state of knowledge about how BERT works, what kind of information it learns and how it is represented, common modifications to its training objectives and architecture, the overparameterization issue, and approaches to compression. We then outline directions for future research.</abstract>
+      <pages>842–866</pages>
+      <url hash="ae061e03">2020.tacl-1.54</url>
+    </paper>
   </volume>
 </collection>
