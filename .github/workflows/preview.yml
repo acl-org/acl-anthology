@@ -36,7 +36,12 @@ jobs:
         echo "Running make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site"
         make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site
     - name: preview
-      env:
-        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
         make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true preview
+    - uses: mshick/add-pr-comment@v1
+      with:
+        message: |
+          Build successful. You can preview it here: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+        allow-repeats: false

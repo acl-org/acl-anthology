@@ -231,6 +231,11 @@ def infer_url(filename, template=data.CANONICAL_URL_TEMPLATE):
     """If URL is relative, return the full Anthology URL.
     Returns the canonical URL by default, unless a different
     template is provided."""
+
+    assert (
+        "{}" in template or "%s" in template
+    ), "template has no substitution text; did you pass a prefix by mistake?"
+
     if urlparse(filename).netloc:
         return filename
     return template.format(filename)
@@ -246,7 +251,7 @@ def infer_attachment_url(filename, parent_id=None):
                 parent_id, filename
             )
         )
-    return infer_url(filename, data.ATTACHMENT_PREFIX)
+    return infer_url(filename, data.ATTACHMENT_TEMPLATE)
 
 
 def infer_year(collection_id):

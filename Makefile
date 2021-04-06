@@ -55,8 +55,9 @@ ifeq ($(ANTHOLOGY_PREFIX),$(ANTHOLOGYDIR))
   ANTHOLOGYDIR :=
 endif
 
-# The root location of Anthology files (PDFs, etc)
+# Root location for PDF and attachment hierarchy.
 # This is the directory where you have to put all the papers and attachments.
+# Easiest if the server can just serve them from /anthology-files.
 ANTHOLOGYFILES ?= /anthology-files
 
 HUGO_ENV ?= production
@@ -158,7 +159,7 @@ build/.static: build/.basedirs $(shell find hugo -type f)
 	@echo "  githash = \"${githash}\"" >> build/config.toml
 	@echo "  githashshort = \"${githashshort}\"" >> build/config.toml
 	@echo "  timestamp = \"${timestamp}\"" >> build/config.toml
-	@perl -pi -e "s#ANTHOLOGYDIR#$(ANTHOLOGYDIR)#g" build/website/index.html
+	@perl -pi -e "s|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g" build/website/index.html
 	@touch build/.static
 
 .PHONY: yaml
@@ -244,7 +245,8 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         --cleanDestinationDir \
 	         --minify
 	@cd build/website/$(ANTHOLOGYDIR) \
-	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
+	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess \
+	    && perl -i -pe 's|ANTHOLOGYFILES|$(ANTHOLOGYFILES)|g' .htaccess
 	@touch build/.hugo
 
 .PHONY: mirror
