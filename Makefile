@@ -247,7 +247,7 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	@cd build/website/$(ANTHOLOGYDIR) \
 	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess \
 	    && perl -i -pe 's|ANTHOLOGYFILES|$(ANTHOLOGYFILES)|g' .htaccess
-@touch build/.hugo
+	@touch build/.hugo
 
 .PHONY: mirror
 mirror: venv/bin/activate
