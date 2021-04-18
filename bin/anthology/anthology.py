@@ -59,6 +59,9 @@ class Anthology:
         self.pindex.verify()
 
     def import_file(self, filename):
+        # furthest east!
+        date_in_kiritimati = datetime.now(pytz.timezone("Pacific/Kiritimati")).date()
+
         tree = etree.parse(filename)
         collection = tree.getroot()
         collection_id = collection.get("id")
@@ -68,9 +71,9 @@ class Anthology:
             )
 
             # skip volumes that have an ingestion date in the future
-            if datetime.strptime(volume.ingest_date, "%Y-%m-%d") > datetime.now(
-                # furthest east!
-                pytz.timezone("Pacific/Kiritimati")
+            if (
+                datetime.strptime(volume.ingest_date, "%Y-%m-%d").date()
+                > date_in_kiritimati
             ):
                 log.info(
                     f"Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future."
@@ -101,8 +104,8 @@ class Anthology:
 
                 # skip papers that have an ingestion date in the future
                 if (
-                    datetime.strptime(parsed_paper.ingest_date, "%Y-%m-%d")
-                    > datetime.now()
+                    datetime.strptime(parsed_paper.ingest_date, "%Y-%m-%d").date()
+                    > date_in_kiritimati
                 ):
                     log.info(
                         f"Skipping paper {parsed_paper.full_id} with ingestion date {parsed_paper.ingest_date} in the future."
