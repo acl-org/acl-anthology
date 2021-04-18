@@ -29,12 +29,12 @@ SHELL = /bin/sh
 # If you want to host the anthology on your own, set ANTHOLOGY_PREFIX
 # in your call to make to your prefix, e.g.
 #
-#     ANTHOLOGY_PREFIX="https://example.com" make
+#     ANTHOLOGY_PREFIX="https://aclanthology.org" make
 #
-# (There is no need to change the value here.). PLEASE NOTE that the prefix
-# cannot contain any '#' character, or a Perl regex below will fail.
+# PLEASE NOTE that the prefix cannot contain any '#' character, or a Perl regex
+# below will fail.
 # The following line ensures that it is exported as an environment variable
-# for all sub-processes
+# for all sub-processes:
 
 export ANTHOLOGY_PREFIX ?= https://www.aclweb.org/anthology
 
@@ -314,12 +314,16 @@ upload:
             echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of 'anthology'"; \
             exit 1; \
         fi
-	@echo "INFO     Running rsync for main site and mirror..."
-	# main site
+	@echo "INFO     Running rsync for main site..."
 	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static
+
+.PHONY: upload-mirror
+upload-mirror:
+	@echo "INFO     Running rsync for aclanthology.org mirror..."
+	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/ anthologizer@aclanthology.org:/var/www/aclanthology.org
 
 # Push a preview to the mirror
 .PHONY: preview
 preview:
 	@echo "INFO     Running rsync for the '${ANTHOLOGYDIR}' branch preview..."
-	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
+	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
