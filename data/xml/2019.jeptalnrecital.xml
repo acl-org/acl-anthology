@@ -1,0 +1,820 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2019.jeptalnrecital">
+  <volume id="long" ingest-date="2020-08-14">
+    <meta>
+      <booktitle>Actes de la Conférence sur le Traitement Automatique des Langues Naturelles (TALN) PFIA 2019. Volume I : Articles longs</booktitle>
+      <editor><first>Emmanuel</first><last>Morin</last></editor>
+      <editor><first>Sophie</first><last>Rosset</last></editor>
+      <editor><first>Pierre</first><last>Zweigenbaum</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Toulouse, France</address>
+      <month>7</month>
+      <year>2019</year>
+    </meta>
+    <frontmatter>
+      <url hash="c6bca06e">2019.jeptalnrecital-long.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Apprentissage de plongements de mots dynamiques avec régularisation de la dérive (Learning dynamic word embeddings with drift regularisation)</title>
+      <author><first>Syrielle</first><last>Montariol</last></author>
+      <author><first>Alexandre</first><last>Allauzen</last></author>
+      <pages>13–26</pages>
+      <abstract>L’usage, le sens et la connotation des mots peuvent changer au cours du temps. Les plongements lexicaux diachroniques permettent de modéliser ces changements de manière non supervisée. Dans cet article nous étudions l’impact de plusieurs fonctions de coût sur l’apprentissage de plongements dynamiques, en comparant les comportements de variantes du modèle Dynamic Bernoulli Embeddings. Les plongements dynamiques sont estimés sur deux corpus couvrant les mêmes deux décennies, le New York Times Annotated Corpus en anglais et une sélection d’articles du journal Le Monde en français, ce qui nous permet de mettre en place un processus d’analyse bilingue de l’évolution de l’usage des mots.</abstract>
+      <url hash="3f08c50b">2019.jeptalnrecital-long.1</url>
+      <language>fra</language>
+    </paper>
+    <paper id="2">
+      <title>Apprentissage de plongements lexicaux par une approche réseaux complexes (Complex networks based word embeddings)</title>
+      <author><first>Victor</first><last>Connes</last></author>
+      <author><first>Nicolas</first><last>Dugué</last></author>
+      <pages>27–38</pages>
+      <abstract>La littérature des réseaux complexes a montré la pertinence de l’étude de la langue sous forme de réseau pour différentes applications : désambiguïsation, résumé automatique, classification des langues, etc. Cette même littérature a démontré que les réseaux de co-occurrences de mots possèdent une structure de communautés latente. Nous formulons l’hypothèse que cette structuration du réseau sous forme de communautés est utile pour travailler sur la sémantique d’une langue et introduisons donc dans cet article une méthode d’apprentissage de plongements originale basée sur cette hypothèse. Cette hypothèse est cohérente avec la proximité qui existe entre la détection de communautés sur un réseau de co-occurrences et la factorisation d’une matrice de co-occurrences, méthode couramment utilisée pour l’apprentissage de plongements lexicaux. Nous décrivons notre méthode structurée en trois étapes : construction et pré-traitement du réseau, détection de la structure de communautés, construction des plongements de mots à partir de cette structure. Après avoir décrit cette nouvelle méthodologie, nous montrons la pertinence de notre approche avec des premiers résultats d’évaluation sur les tâches de catégorisation et de similarité. Enfin, nous discutons des perspectives importantes d’un tel modèle issu des réseaux complexes : les dimensions du modèle (les communautés) semblent interprétables, l’apprentissage est rapide, la construction d’un nouveau plongement est presque instantanée, et il est envisageable d’en expérimenter une version incrémentale pour travailler sur des corpus textuels temporels.</abstract>
+      <url hash="157ca8aa">2019.jeptalnrecital-long.2</url>
+      <language>fra</language>
+    </paper>
+    <paper id="3">
+      <title>Comparaison qualitative et extrinsèque d’analyseurs syntaxiques du français : confrontation de modèles distributionnels sur un corpus spécialisé (Extrinsic evaluation of <fixed-case>F</fixed-case>rench dependency parsers on a specialised corpus : comparison of distributional thesauri )</title>
+      <author><first>Ludovic</first><last>Tanguy</last></author>
+      <author><first>Pauline</first><last>Brunet</last></author>
+      <author><first>Olivier</first><last>Ferret</last></author>
+      <pages>39–54</pages>
+      <abstract>Nous présentons une étude visant à comparer 11 différents analyseurs en dépendances du français sur un corpus spécialisé (constitué des archives des articles de la conférence TALN). En l’absence de gold standard, nous utilisons chacune des sorties de ces analyseurs pour construire des thésaurus distributionnels en utilisant une méthode à base de fréquence. Nous comparons ces 11 thésaurus afin de proposer un premier aperçu de l’impact du choix d’un analyseur par rapport à un autre.</abstract>
+      <url hash="3f287f21">2019.jeptalnrecital-long.3</url>
+      <language>fra</language>
+    </paper>
+    <paper id="4">
+      <title>Compression de vocabulaire de sens grâce aux relations sémantiques pour la désambiguïsation lexicale (Sense Vocabulary Compression through Semantic Knowledge for Word Sense Disambiguation)</title>
+      <author><first>Loïc</first><last>Vial</last></author>
+      <author><first>Benjamin</first><last>Lecouteux</last></author>
+      <author><first>Didier</first><last>Schwab</last></author>
+      <pages>55–70</pages>
+      <abstract>En Désambiguïsation Lexicale (DL), les systèmes supervisés dominent largement les campagnes d’évaluation. La performance et la couverture de ces systèmes sont cependant rapidement limités par la faible quantité de corpus annotés en sens disponibles. Dans cet article, nous présentons deux nouvelles méthodes qui visent à résoudre ce problème en exploitant les relations sémantiques entre les sens tels que la synonymie, l’hyperonymie et l’hyponymie, afin de compresser le vocabulaire de sens de WordNet, et ainsi réduire le nombre d’étiquettes différentes nécessaires pour pouvoir désambiguïser tous les mots de la base lexicale. Nos méthodes permettent de réduire considérablement la taille des modèles de DL neuronaux, avec l’avantage d’améliorer leur couverture sans données supplémentaires, et sans impacter leur précision. En plus de nos méthodes, nous présentons un système de DL qui tire parti des récents travaux sur les représentations vectorielles de mots contextualisées, afin d’obtenir des résultats qui surpassent largement l’état de l’art sur toutes les tâches d’évaluation de la DL.</abstract>
+      <url hash="72ca7cdb">2019.jeptalnrecital-long.4</url>
+      <language>fra</language>
+    </paper>
+    <paper id="5">
+      <title>Corpus annoté de cas cliniques en français (Annotated corpus with clinical cases in <fixed-case>F</fixed-case>rench)</title>
+      <author><first>Natalia</first><last>Grabar</last></author>
+      <author><first>Cyril</first><last>Grouin</last></author>
+      <author><first>Thierry</first><last>Hamon</last></author>
+      <author><first>Vincent</first><last>Claveau</last></author>
+      <pages>71–84</pages>
+      <abstract>Les corpus textuels sont utiles pour diverses applications de traitement automatique des langues (TAL) en fournissant les données nécessaires pour leur création, adaptation ou évaluation. Cependant, dans certains domaines comme le domaine médical, l’accès aux données est rendu compliqué, voire impossible, pour des raisons de confidentialité et d’éthique. Il existe néanmoins de réels besoins en corpus cliniques pour l’enseignement et la recherche. Pour répondre à ce défi, nous présentons dans cet article le corpus CAS contenant des cas cliniques de patients, réels ou fictifs, que nous avons compilés. Ces cas cliniques en français couvrent plusieurs spécialités médicales et focalisent donc sur différentes situations cliniques. Actuellement, le corpus contient 4 300 cas (environ 1,5M d’occurrences de mots). Il est accompagné d’informations (discussions des cas cliniques, mots-clés, etc.) et d’annotations que nous avons effectuées au regard des besoins de la recherche en TAL dans ce domaine. Nous présentons également les résultats de premières expériences de recherche et d’extraction d’information qui ont été effectuées avec ce corpus annoté. Ces expériences peuvent fournir une baseline à d’autres chercheurs souhaitant travailler avec les données.</abstract>
+      <url hash="d2e400dd">2019.jeptalnrecital-long.5</url>
+      <language>fra</language>
+    </paper>
+    <paper id="6">
+      <title>Curriculum d’apprentissage : reconnaissance d’entités nommées pour l’extraction de concepts sémantiques (Curriculum learning : named entity recognition for semantic concept extraction)</title>
+      <author><first>Antoine</first><last>Caubrière</last></author>
+      <author><first>Natalia</first><last>Tomashenko</last></author>
+      <author><first>Yannick</first><last>Estève</last></author>
+      <author><first>Antoine</first><last>Laurent</last></author>
+      <author><first>Emmanuel</first><last>Morin</last></author>
+      <pages>85–98</pages>
+      <abstract>Dans cet article, nous présentons une approche de bout en bout d’extraction de concepts sémantiques de la parole. En particulier, nous mettons en avant l’apport d’une chaîne d’apprentissage successif pilotée par une stratégie de curriculum d’apprentissage. Dans la chaîne d’apprentissage mise en place, nous exploitons des données françaises annotées en entités nommées que nous supposons être des concepts plus génériques que les concepts sémantiques liés à une application informatique spécifique. Dans cette étude, il s’agit d’extraire des concepts sémantiques dans le cadre de la tâche MEDIA. Pour renforcer le système proposé, nous exploitons aussi des stratégies d’augmentation de données, un modèle de langage 5-gramme, ainsi qu’un mode étoile aidant le système à se concentrer sur les concepts et leurs valeurs lors de l’apprentissage. Les résultats montrent un intérêt à l’utilisation des données d’entités nommées, permettant un gain relatif allant jusqu’à 6,5 %.</abstract>
+      <url hash="70cdb1ac">2019.jeptalnrecital-long.6</url>
+      <language>fra</language>
+    </paper>
+    <paper id="7">
+      <title>Détection des ellipses dans des corpus de sous-titres en anglais (Ellipsis Detection in <fixed-case>E</fixed-case>nglish Subtitles Corpora )</title>
+      <author><first>Anissa</first><last>Hamza</last></author>
+      <author><first>Delphine</first><last>Bernhard</last></author>
+      <pages>99–112</pages>
+      <abstract>Cet article présente une méthodologie de détection des ellipses en anglais qui repose sur des patrons combinant des informations sur les tokens, leur étiquette morphosyntaxique et leur lemme. Les patrons sont évalués sur deux corpus de sous-titres. Ces travaux constituent une étape préalable à une étude contrastive et multi-genres de l’ellipse.</abstract>
+      <url hash="3016047c">2019.jeptalnrecital-long.7</url>
+      <language>fra</language>
+    </paper>
+    <paper id="8">
+      <title>La génération automatique de poésie en français (Automatic Poetry Generation in <fixed-case>F</fixed-case>rench)</title>
+      <author><first>Tim</first><last>Van de Cruys</last></author>
+      <pages>113–126</pages>
+      <abstract>La génération automatique de poésie est une tâche ardue pour un système informatique. Pour qu’un poème ait du sens, il est important de prendre en compte à la fois des aspects linguistiques et littéraires. Ces dernières années, un certain nombre d’approches fructueuses sont apparues, capables de modéliser de manière adéquate divers aspects du langage naturel. En particulier, les modèles de langue basés sur les réseaux de neurones ont amélioré l’état de l’art par rapport à la modélisation prédictive de langage, tandis que les topic models sont capables de capturer une certaine cohérence thématique. Dans cet article, on explorera comment ces approches peuvent être adaptées et combinées afin de modéliser les aspects linguistiques et littéraires nécessaires pour la génération de poésie. Le système est exclusivement entraîné sur des textes génériques, et sa sortie est contrainte afin de conférer un caractère poétique au vers généré. Le cadre présenté est appliqué à la génération de poèmes en français, et évalué à l’aide d’une évaluation humaine.</abstract>
+      <url hash="a4242b45">2019.jeptalnrecital-long.8</url>
+      <language>fra</language>
+    </paper>
+    <paper id="9">
+      <title>Modèles neuronaux hybrides pour la modélisation de séquences : le meilleur de trois mondes ()</title>
+      <author><first>Marco</first><last>Dinarelli</last></author>
+      <author><first>Loïc</first><last>Grobol</last></author>
+      <pages>127–142</pages>
+      <abstract>Nous proposons une architecture neuronale avec les caractéristiques principales des modèles neuronaux de ces dernières années : les réseaux neuronaux récurrents bidirectionnels, les modèles encodeur-décodeur, et le modèle Transformer. Nous évaluons nos modèles sur trois tâches d’étiquetage de séquence, avec des résultats aux environs de l’état de l’art et souvent meilleurs, montrant ainsi l’intérêt de cette architecture hybride pour ce type de tâches.</abstract>
+      <url hash="b79bff01">2019.jeptalnrecital-long.9</url>
+      <language>fra</language>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>P</fixed-case>olylex<fixed-case>FLE</fixed-case> : une base de données d’expressions polylexicales pour le <fixed-case>FLE</fixed-case> (<fixed-case>P</fixed-case>olylex<fixed-case>FLE</fixed-case> : a database of multiword expressions for <fixed-case>F</fixed-case>rench <fixed-case>L</fixed-case>2 language learning)</title>
+      <author><first>Amalia</first><last>Todirascu</last></author>
+      <author><first>Marion</first><last>Cargill</last></author>
+      <author><first>Thomas</first><last>Francois</last></author>
+      <pages>143–156</pages>
+      <abstract>Nous présentons la base PolylexFLE, contenant 4295 expressions polylexicales. Elle est integrée dans une plateforme d’apprentissage du FLE, SimpleApprenant, destinée à l’apprentissage des expressions polylexicales verbales (idiomatiques, collocations ou expressions figées). Afin de proposer des exercices adaptés au niveau du Cadre européen de référence pour les langues (CECR), nous avons utilisé une procédure mixte (manuelle et automatique) pour annoter 1098 expressions selon les niveaux de compétence du CECR. L’article se concentre sur la procédure automatique qui identifie, dans un premier temps, les expressions de la base PolylexFLE dans un corpus à l’aide d’un système à base d’expressions régulières. Dans un second temps, leur distribution au sein de corpus, annoté selon l’échelle du CECR, est estimée et transformée en un niveau CECR unique.</abstract>
+      <url hash="1fa2e59c">2019.jeptalnrecital-long.10</url>
+      <language>fra</language>
+    </paper>
+  </volume>
+  <volume id="court" ingest-date="2020-08-14">
+    <meta>
+      <booktitle>Actes de la Conférence sur le Traitement Automatique des Langues Naturelles (TALN) PFIA 2019. Volume II : Articles courts</booktitle>
+      <editor><first>Emmanuel</first><last>Morin</last></editor>
+      <editor><first>Sophie</first><last>Rosset</last></editor>
+      <editor><first>Pierre</first><last>Zweigenbaum</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Toulouse, France</address>
+      <month>7</month>
+      <year>2019</year>
+    </meta>
+    <frontmatter>
+      <url hash="885aa8a1">2019.jeptalnrecital-court.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Analyse faiblement supervisée de conversation en actes de dialogue (Weakly supervised dialog act analysis)</title>
+      <author><first>Catherine</first><last>Thompson</last></author>
+      <author><first>Nicholas</first><last>Asher</last></author>
+      <author><first>Philippe</first><last>Muller</last></author>
+      <author><first>Jérémy</first><last>Auguste</last></author>
+      <pages>159–166</pages>
+      <abstract>Nous nous intéressons ici à l’analyse de conversation par chat dans un contexte orienté-tâche avec un conseiller technique s’adressant à un client, où l’objectif est d’étiqueter les énoncés en actes de dialogue, pour alimenter des analyses des conversations en aval. Nous proposons une méthode légèrement supervisée à partir d’heuristiques simples, de quelques annotations de développement, et une méthode d’ensemble sur ces règles qui sert à annoter automatiquement un corpus plus large de façon bruitée qui peut servir d’entrainement à un modèle supervisé. Nous comparons cette approche à une approche supervisée classique et montrons qu’elle atteint des résultats très proches, à un coût moindre et tout en étant plus facile à adapter à de nouvelles données.</abstract>
+      <url hash="df097e3d">2019.jeptalnrecital-court.1</url>
+      <language>fra</language>
+    </paper>
+    <paper id="2">
+      <title>Apport de l’adaptation automatique des modèles de langage pour la reconnaissance de la parole: évaluation qualitative extrinsèque dans un contexte de traitement de cours magistraux (Contribution of automatic adaptation of language models for speech recognition : extrinsic qualitative evaluation in a context of educational courses)</title>
+      <author><first>Salima</first><last>Mdhaffar</last></author>
+      <author><first>Yannick</first><last>Estève</last></author>
+      <author><first>Nicolas</first><last>Hernandez</last></author>
+      <author><first>Antoine</first><last>Laurent</last></author>
+      <author><first>Solen</first><last>Quiniou</last></author>
+      <pages>167–174</pages>
+      <abstract>Malgré les faiblesses connues de cette métrique, les performances de différents systèmes de reconnaissance automatique de la parole sont généralement comparées à l’aide du taux d’erreur sur les mots. Les transcriptions automatiques de ces systèmes sont de plus en plus exploitables et utilisées dans des systèmes complexes de traitement automatique du langage naturel, par exemple pour la traduction automatique, l’indexation, la recherche documentaire... Des études récentes ont proposé des métriques permettant de comparer la qualité des transcriptions automatiques de différents systèmes en fonction de la tâche visée. Dans cette étude nous souhaitons mesurer, qualitativement, l’apport de l’adaptation automatique des modèles de langage au domaine visé par un cours magistral. Les transcriptions du discours de l’enseignant peuvent servir de support à la navigation dans le document vidéo du cours magistral ou permettre l’enrichissement de son contenu pédagogique. C’est à-travers le prisme de ces deux tâches que nous évaluons l’apport de l’adaptation du modèle de langage. Les expériences ont été menées sur un corpus de cours magistraux et montrent combien le taux d’erreur sur les mots est une métrique insuffisante qui masque les apports effectifs de l’adaptation des modèles de langage.</abstract>
+      <url hash="aeadc7ec">2019.jeptalnrecital-court.2</url>
+      <language>fra</language>
+    </paper>
+    <paper id="3">
+      <title>Apprentissage faiblement supervisé de la structure discursive (Learning discourse structure using weak supervision )</title>
+      <author><first>Sonia</first><last>Badene</last></author>
+      <author><first>Catherine</first><last>Thompson</last></author>
+      <author><first>Nicholas</first><last>Asher</last></author>
+      <author><first>Jean-Pierre</first><last>Lorré</last></author>
+      <pages>175–184</pages>
+      <abstract>L’avènement des techniques d’apprentissage automatique profond a fait naître un besoin énorme de données d’entraînement. De telles données d’entraînement sont extrêmement coûteuses à créer, surtout lorsqu’une expertise dans le domaine est requise. L’une de ces tâches est l’apprentissage de la structure sémantique du discours, tâche très complexe avec des structures récursives avec des données éparses, mais qui est essentielle pour extraire des informations sémantiques profondes du texte. Nous décrivons nos expérimentations sur l’attachement des unités discursives pour former une structure, en utilisant le paradigme du data programming dans lequel peu ou pas d’annotations sont utilisées pour construire un ensemble de données d’entraînement “bruité”. Le corpus de dialogues utilisé illustre des contraintes à la fois linguistiques et non-linguistiques intéressantes qui doivent être apprises. Nous nous concentrons sur la structure des règles utilisées pour construire un modèle génératif et montrons la compétitivité de notre approche par rapport à l’apprentissage supervisé classique.</abstract>
+      <url hash="5e92ad99">2019.jeptalnrecital-court.3</url>
+      <language>fra</language>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>CALOR</fixed-case>-<fixed-case>QUEST</fixed-case> : un corpus d’entraînement et d’évaluation pour la compréhension automatique de textes (Machine reading comprehension is a task related to Question-Answering where questions are not generic in scope but are related to a particular document)</title>
+      <author><first>Frederic</first><last>Bechet</last></author>
+      <author><first>Cindy</first><last>Aloui</last></author>
+      <author><first>Delphine</first><last>Charlet</last></author>
+      <author><first>Geraldine</first><last>Damnati</last></author>
+      <author><first>Johannes</first><last>Heinecke</last></author>
+      <author><first>Alexis</first><last>Nasr</last></author>
+      <author><first>Frederic</first><last>Herledan</last></author>
+      <pages>185–194</pages>
+      <abstract>La compréhension automatique de texte est une tâche faisant partie de la famille des systèmes de Question/Réponse où les questions ne sont pas à portée générale mais sont liées à un document particulier. Récemment de très grand corpus (SQuAD, MS MARCO) contenant des triplets (document, question, réponse) ont été mis à la disposition de la communauté scientifique afin de développer des méthodes supervisées à base de réseaux de neurones profonds en obtenant des résultats prometteurs. Ces méthodes sont cependant très gourmandes en données d’apprentissage, données qui n’existent pour le moment que pour la langue anglaise. Le but de cette étude est de permettre le développement de telles ressources pour d’autres langues à moindre coût en proposant une méthode générant de manière semi-automatique des questions à partir d’une analyse sémantique d’un grand corpus. La collecte de questions naturelle est réduite à un ensemble de validation/test. L’application de cette méthode sur le corpus CALOR-Frame a permis de développer la ressource CALOR-QUEST présentée dans cet article.</abstract>
+      <url hash="e8bf2b42">2019.jeptalnrecital-court.4</url>
+      <language>fra</language>
+    </paper>
+    <paper id="5">
+      <title>Chunker différents types de discours oraux : défis pour l’apprentissage automatique (Chunking different spoken speech types : challenges for machine learning)</title>
+      <author><first>Iris</first><last>Eshkol-Taravella</last></author>
+      <author><first>Mariame</first><last>Maarouf</last></author>
+      <author><first>Marie</first><last>Skrovec</last></author>
+      <author><first>Flora</first><last>Badin</last></author>
+      <pages>195–204</pages>
+      <abstract>Le travail décrit le développement d’un chunker pour l’oral par apprentissage supervisé avec les CRFs, à partir d’un corpus de référence de petite taille et composé de productions de nature différente : monologue préparé vs discussion spontanée. La méthodologie respecte les spécificités des données traitées. L’apprentissage tient compte des résultats proposés par différents étiqueteurs morpho-syntaxiques disponibles sans correction manuelle de leurs résultats. Les expériences montrent que le genre de discours (monologue vs discussion), la nature de discours (spontané vs préparé) et la taille du corpus peuvent influencer les résultats de l’apprentissage, ce qui confirme que la nature des données traitées est à prendre en considération dans l’interprétation des résultats.</abstract>
+      <url hash="557597bf">2019.jeptalnrecital-court.5</url>
+      <language>fra</language>
+    </paper>
+    <paper id="6">
+      <title>Classification automatique des procédés de traduction (Automatic Classification of Translation Processes)</title>
+      <author><first>Yuming</first><last>Zhai</last></author>
+      <author><first>Gabriel</first><last>Illouz</last></author>
+      <author><first>Anne</first><last>Vilnat</last></author>
+      <pages>205–214</pages>
+      <abstract>En vue de distinguer la traduction littérale des autres procédés de traduction, des traducteurs et linguistes ont proposé plusieurs typologies pour caractériser les différents procédés de traduction, tels que l’équivalence idiomatique, la généralisation, la particularisation, la modulation sémantique, etc. En revanche, les techniques d’extraction de paraphrases à partir de corpus parallèles bilingues n’ont pas exploité ces informations. Dans ce travail, nous proposons une classification automatique des procédés de traduction en nous basant sur des exemples annotés manuellement dans un corpus parallèle (anglais-français) de TED Talks. Même si le jeu de données est petit, les résultats expérimentaux sont encourageants, et les expériences montrent la direction à suivre dans les futurs travaux.</abstract>
+      <url hash="55ab4ace">2019.jeptalnrecital-court.6</url>
+      <language>fra</language>
+    </paper>
+    <paper id="7">
+      <title>Combien d’exemples de tests sont-ils nécessaires à une évaluation fiable ? Quelques observations sur l’évaluation de l’analyse morphosyntaxique du français. (Some observations on the evaluation of <fixed-case>P</fixed-case>o<fixed-case>S</fixed-case> taggers)</title>
+      <author><first>Guillaume</first><last>Wisniewski</last></author>
+      <pages>215–222</pages>
+      <abstract>L’objectif de ce travail est de présenter plusieurs observations, sur l’évaluation des analyseurs morphosyntaxique en français, visant à remettre en cause le cadre habituel de l’apprentissage statistique dans lequel les ensembles de test et d’apprentissage sont fixés arbitrairement et indépendemment du modèle considéré. Nous montrons qu’il est possible de considérer des ensembles de test plus petits que ceux généralement utilisés sans conséquences sur la qualité de l’évaluation. Les exemples ainsi « économisés » peuvent être utilisés en apprentissage pour améliorer les performances des systèmes notamment dans des tâches d’adaptation au domaine.</abstract>
+      <url hash="748d0e00">2019.jeptalnrecital-court.7</url>
+      <language>fra</language>
+    </paper>
+    <paper id="8">
+      <title>De l’extraction des interactions médicament-médicament vers les interactions aliment-médicament à partir de textes biomédicaux: Adaptation de domaine (From the extraction of drug-drug interactions to the food-drug interactions in biomedical texts : domain adaptation)</title>
+      <author><first>Tsanta</first><last>Randriatsitohaina</last></author>
+      <author><first>Thierry</first><last>Hamon</last></author>
+      <pages>223–232</pages>
+      <abstract>Les interactions aliments-médicaments (FDI) se produisent lorsque des aliments et des médicaments sont pris simultanément et provoquent un effet inattendu. Nous considérons l’extraction de ces interactions dans les textes comme une tâche d’extraction de relation pouvant être résolue par des méthodes de classification. Toutefois, étant donné que ces interactions sont décrites de manière très fine, nous sommes confrontés au manque de données et au manque d’exemples par type de relation. Pour résoudre ce problème, nous proposons d’appliquer une adaptation de domaine à partir des interactions médicament-médicament (DDI) qui est une tâche similaire, afin d’établir une correspondance entre les types de relations et d’étiqueter les instances FDI selon les types DDI. Notre approche confirme une cohérence entre les 2 domaines et fournit une base pour la spécification des relations et la pré-annotation de nouvelles données. Les performances des modèles de classification appuie également l’efficacité de l’adaptation de domaine sur notre tâche.</abstract>
+      <url hash="cab3772b">2019.jeptalnrecital-court.8</url>
+      <language>fra</language>
+    </paper>
+    <paper id="9">
+      <title>Demonette2 - Une base de données dérivationnelle du français à grande échelle : premiers résultats (Demonette2 – A large scale derivational database for <fixed-case>F</fixed-case>rench: first results)</title>
+      <author><first>Fiammetta</first><last>Namer</last></author>
+      <author><first>Lucie</first><last>Barque</last></author>
+      <author><first>Olivier</first><last>Bonami</last></author>
+      <author><first>Pauline</first><last>Haas</last></author>
+      <author><first>Nabil</first><last>Hathout</last></author>
+      <author><first>Delphine</first><last>Tribout</last></author>
+      <pages>233–244</pages>
+      <abstract>Cet article présente la conception et le développement de Demonette2, une base de données dérivationnelle à grande échelle du français, développée dans le cadre du projet ANR Démonext (ANR-17-CE23-0005). L’article décrit les objectifs du projet, la structure de la base et expose les premiers résultats du projet, en mettant l’accent sur un enjeu crucial : la question du codage sémantique des entrées et des relations.</abstract>
+      <url hash="e5240f68">2019.jeptalnrecital-court.9</url>
+      <language>fra</language>
+    </paper>
+    <paper id="10">
+      <title>Détecter la non-adhérence médicamenteuse dans les forums de discussion avec les méthodes de recherche d’information (Detect drug non-compliance in <fixed-case>I</fixed-case>nternet fora using Information Retrieval methods )</title>
+      <author><first>Elise</first><last>Bigeard</last></author>
+      <author><first>Natalia</first><last>Grabar</last></author>
+      <pages>245–254</pages>
+      <abstract>Les méthodes de recherche d’information permettent d’explorer les données textuelles. Nous les exploitons pour la détection de messages avec la non-adhérence médicamenteuse dans les forums de discussion. La non-adhérence médicamenteuse correspond aux cas lorsqu’un patient ne respecte pas les indications de son médecin et modifie les prises de médicaments (augmente ou diminue les doses, par exemple). Le moteur de recherche exploité montre 0,9 de précision sur les 10 premiers résultats avec un corpus équilibré, et 0,4 avec un corpus respectant la distribution naturelle des messages, qui est très déséquilibrée en défaveur de la catégorie recherchée. La précision diminue avec l’augmentation du nombre de résultats considérés alors que le rappel augmente. Nous exploitons également le moteur de recherche sur de nouvelles données et avec des types précis de non-adhérence.</abstract>
+      <url hash="f3b2d5df">2019.jeptalnrecital-court.10</url>
+      <language>fra</language>
+    </paper>
+    <paper id="11">
+      <title>Détection automatique de phrases parallèles dans un corpus biomédical comparable technique / simplifié (Automatic detection of parallel sentences in comparable biomedical corpora)</title>
+      <author><first>Remi</first><last>Cardon</last></author>
+      <author><first>Natalia</first><last>Grabar</last></author>
+      <pages>255–264</pages>
+      <abstract>Les phrases parallèles contiennent des informations identiques ou très proches sémantiquement et offrent des indications importantes sur le fonctionnement de la langue. Lorsque les phrases sont différenciées par leur registre (comme expert vs. non-expert), elles peuvent être exploitées pour la simplification automatique de textes. Le but de la simplification automatique est d’améliorer la compréhension de textes. Par exemple, dans le domaine biomédical, la simplification peut permettre aux patients de mieux comprendre les textes relatifs à leur santé. Il existe cependant très peu de ressources pour la simplification en français. Nous proposons donc d’exploiter des corpus comparables, différenciés par leur technicité, pour y détecter des phrases parallèles et les aligner. Les données de référence sont créées manuellement et montrent un accord inter-annotateur de 0,76. Nous expérimentons sur des données équilibrées et déséquilibrées. La F-mesure sur les données équilibrées atteint jusqu’à 0,94. Sur les données déséquilibrées, les résultats sont plus faibles (jusqu’à 0,92 de F-mesure) mais restent compétitifs lorsque les modèles sont entraînés sur les données équilibrées.</abstract>
+      <url hash="aaa724f7">2019.jeptalnrecital-court.11</url>
+      <language>fra</language>
+    </paper>
+    <paper id="12">
+      <title>Développement d’un lexique morphologique et syntaxique de l’ancien français (Development of a morphological and syntactic lexicon of <fixed-case>O</fixed-case>ld <fixed-case>F</fixed-case>rench)</title>
+      <author><first>Benoît</first><last>Sagot</last></author>
+      <pages>265–274</pages>
+      <abstract>Nous décrivons dans cet article notre travail de développement d’un lexique morphologique et syntaxique à grande échelle de l’ancien français pour le traitement automatique des langues. Nous nous sommes appuyés sur des ressources dictionnairiques et lexicales dans lesquelles l’extraction d’informations structurées et exploitables a nécessité des développements spécifiques. De plus, la mise en correspondance d’informations provenant de ces différentes sources a soulevé des difficultés. Nous donnons quelques indications quantitatives sur le lexique obtenu, et discutons de sa fiabilité dans sa version actuelle et des perspectives d’amélioration permises par l’existence d’une première version, notamment au travers de l’analyse automatique de données textuelles.</abstract>
+      <url hash="2a17ab2d">2019.jeptalnrecital-court.12</url>
+      <language>fra</language>
+    </paper>
+    <paper id="13">
+      <title>Étude de l’apprentissage par transfert de systèmes de traduction automatique neuronaux (Study on transfer learning in neural machine translation )</title>
+      <author><first>Adrien</first><last>Bardet</last></author>
+      <author><first>Fethi</first><last>Bougares</last></author>
+      <author><first>Loïc</first><last>Barrault</last></author>
+      <pages>275–284</pages>
+      <abstract>L’apprentissage par transfert est une solution au problème de l’apprentissage de systèmes de traduction automatique neuronaux pour des paires de langues peu dotées. Dans cet article, nous proposons une analyse de cette méthode. Nous souhaitons évaluer l’impact de la quantité de données et celui de la proximité des langues impliquées pour obtenir le meilleur transfert possible. Nous prenons en compte ces deux paramètres non seulement pour une tâche de traduction “classique” mais également lorsque les corpus de données font défaut. Enfin, il s’agit de proposer une approche où volume de données et proximité des langues sont combinées afin de ne plus avoir à trancher entre ces deux éléments.</abstract>
+      <url hash="51097ee7">2019.jeptalnrecital-court.13</url>
+      <language>fra</language>
+    </paper>
+    <paper id="14">
+      <title>Évaluation objective de plongements pour la synthèse de parole guidée par réseaux de neurones (Objective evaluation of embeddings for speech synthesis guided by neural networks)</title>
+      <author><first>Antoine</first><last>Perquin</last></author>
+      <author><first>Gwénolé</first><last>Lecorvé</last></author>
+      <author><first>Damien</first><last>Lolive</last></author>
+      <author><first>Laurent</first><last>Amsaleg</last></author>
+      <pages>285–292</pages>
+      <abstract>L’évaluation de plongements issus de réseaux de neurones est un procédé complexe. La qualité des plongements est liée à la tâche spécifique pour laquelle ils ont été entraînés et l’évaluation de cette tâche peut être un procédé long et onéreux s’il y a besoin d’annotateurs humains. Il peut donc être préférable d’estimer leur qualité grâce à des mesures objectives rapides et reproductibles sur des tâches annexes. Cet article propose une méthode générique pour estimer la qualité d’un plongement. Appliquée à la synthèse de parole par sélection d’unités guidée par réseaux de neurones, cette méthode permet de comparer deux systèmes distincts.</abstract>
+      <url hash="0484cd82">2019.jeptalnrecital-court.14</url>
+      <language>fra</language>
+    </paper>
+    <paper id="15">
+      <title>Exploration de l’apprentissage par transfert pour l’analyse de textes des réseaux sociaux (Exploring neural transfer learning for social media text analysis )</title>
+      <author><first>Sara</first><last>Meftah</last></author>
+      <author><first>Nasredine</first><last>Semmar</last></author>
+      <author><first>Youssef</first><last>Tamaazousti</last></author>
+      <author><first>Hassane</first><last>Essafi</last></author>
+      <author><first>Fatiha</first><last>Sadat</last></author>
+      <pages>293–302</pages>
+      <abstract>L’apprentissage par transfert représente la capacité qu’un modèle neuronal entraîné sur une tâche à généraliser suffisamment et correctement pour produire des résultats pertinents sur une autre tâche proche mais différente. Nous présentons dans cet article une approche fondée sur l’apprentissage par transfert pour construire automatiquement des outils d’analyse de textes des réseaux sociaux en exploitant les similarités entre les textes d’une langue bien dotée (forme standard d’une langue) et les textes d’une langue peu dotée (langue utilisée en réseaux sociaux). Nous avons expérimenté notre approche sur plusieurs langues ainsi que sur trois tâches d’annotation linguistique (étiquetage morpho-syntaxique, annotation en parties du discours et reconnaissance d’entités nommées). Les résultats obtenus sont très satisfaisants et montrent l’intérêt de l’apprentissage par transfert pour tirer profit des modèles neuronaux profonds sans la contrainte d’avoir à disposition une quantité de données importante nécessaire pour avoir une performance acceptable.</abstract>
+      <url hash="fddd3a61">2019.jeptalnrecital-court.15</url>
+      <language>fra</language>
+    </paper>
+    <paper id="16">
+      <title>Exploring sentence informativeness</title>
+      <author><first>Syrielle</first><last>Montariol</last></author>
+      <author><first>Aina</first><last>Garí Soler</last></author>
+      <author><first>Alexandre</first><last>Allauzen</last></author>
+      <pages>303–312</pages>
+      <abstract>This study is a preliminary exploration of the concept of informativeness –how much information a sentence gives about a word it contains– and its potential benefits to building quality word representations from scarce data. We propose several sentence-level classifiers to predict informativeness, and we perform a manual annotation on a set of sentences. We conclude that these two measures correspond to different notions of informativeness. However, our experiments show that using the classifiers’ predictions to train word embeddings has an impact on embedding quality.</abstract>
+      <url hash="5646eec7">2019.jeptalnrecital-court.16</url>
+    </paper>
+    <paper id="17">
+      <title>Hybridation d’un agent conversationnel avec des plongements lexicaux pour la formation au diagnostic médical (Hybridization of a conversational agent with word embeddings for medical diagnostic training)</title>
+      <author><first>Fréjus A. A.</first><last>Laleye</last></author>
+      <author><first>Gaël</first><last>de Chalendar</last></author>
+      <author><first>Antoine</first><last>Brouquet</last></author>
+      <author><first>Antonia</first><last>Blanié</last></author>
+      <author><first>Dan</first><last>Benhamou</last></author>
+      <pages>313–322</pages>
+      <abstract>Dans le contexte médical, un patient ou médecin virtuel dialoguant permet de former les apprenants au diagnostic médical via la simulation de manière autonome. Dans ce travail, nous avons exploité les propriétés sémantiques capturées par les représentations distribuées de mots pour la recherche de questions similaires dans le système de dialogues d’un agent conversationnel médical. Deux systèmes de dialogues ont été créés et évalués sur des jeux de données collectées lors des tests avec les apprenants. Le premier système fondé sur la correspondance de règles de dialogue créées à la main présente une performance globale de 92% comme taux de réponses cohérentes sur le cas clinique étudié tandis que le second système qui combine les règles de dialogue et la similarité sémantique réalise une performance de 97% de réponses cohérentes en réduisant de 7% les erreurs de compréhension par rapport au système de correspondance de règles.</abstract>
+      <url hash="b0332a66">2019.jeptalnrecital-court.17</url>
+      <language>fra</language>
+    </paper>
+    <paper id="18">
+      <title>Inférence des relations sémantiques dans un réseau lexico-sémantique multilingue (Inferring semantic relations in a multilingual lexical semantic network)</title>
+      <author><first>Nadia</first><last>Bebeshina-Clairet</last></author>
+      <author><first>Mathieu</first><last>Lafourcade</last></author>
+      <pages>323–332</pages>
+      <abstract>Les méthodes endogènes se trouvent au coeur de la construction des ressources de connaissance telles que les réseaux lexico-sémantiques. Dans le cadre de l’expérience décrite dans le présent article, nous nous focalisons sur les méthodes d’inférence des relations. Nous considérons, en particulier, les cas d’inférence des relations sémantiques et des raffinements de sens. Les différents mécanismes d’inférence des relations sémantiques y compris dans le contexte de polysémie de termes ont été décrits par Zarrouk (2015) pour le contexte monolingue. À notre connaissance, il n’existe pas de travaux concernant l’inférence des relations sémantiques et des raffinements dans le contexte d’amélioration d’une ressource multilingue.</abstract>
+      <url hash="918ea453">2019.jeptalnrecital-court.18</url>
+      <language>fra</language>
+    </paper>
+    <paper id="19">
+      <title>Ma copie adore le vélo : analyse des besoins réels en correction orthographique sur un corpus de dictées d’enfants (A corpus analysis to define the needs of dyslexic children in terms of spelling correction)</title>
+      <author><first>Jean-Yves</first><last>Antoine</last></author>
+      <author><first>Marion</first><last>Crochetet</last></author>
+      <author><first>Celine</first><last>Arbizu</last></author>
+      <author><first>Emmanuelle</first><last>Lopez</last></author>
+      <author><first>Samuel</first><last>Pouplin</last></author>
+      <pages>333–342</pages>
+      <abstract>Cet article présente la constitution d’un corpus de textes produits, sur des données lors de dictées, par des enfants paralysés cérébraux (PC) ou dysorthographiques, son annotation en termes d’erreurs orthographiques, et enfin son analyse quantitative. Cette analyse de corpus a pour objectif de définir des besoins réels en matière de correction orthographique, et ce pour les personnes souffrant de troubles du langage écrit comme pour le grand public. Notre étude suggère que les correcteurs orthographiques ne répondent que partiellement à ces besoins.</abstract>
+      <url hash="1c7c0992">2019.jeptalnrecital-court.19</url>
+      <language>fra</language>
+    </paper>
+    <paper id="20">
+      <title>Modèles de langue appliqués aux schémas <fixed-case>W</fixed-case>inograd français (Language Models applied to <fixed-case>F</fixed-case>rench <fixed-case>W</fixed-case>inograd Schemas)</title>
+      <author><first>Olga</first><last>Seminck</last></author>
+      <author><first>Vincent</first><last>Segonne</last></author>
+      <author><first>Pascal</first><last>Amsili</last></author>
+      <pages>343–350</pages>
+      <abstract>Les schémas Winograd sont des problèmes de résolution d’anaphores conçus pour nécessiter un raisonnement sur des connaissances du monde. Par construction, ils sont insensibles à des statistiques simples (co-occurrences en corpus). Pourtant, aujourd’hui, les systèmes état de l’art pour l’anglais se basent sur des modèles de langue pour résoudre les schémas (Trinh &amp; Le, 2018). Nous présentons dans cet article une étude visant à tester des modèles similaires sur les schémas en français. Cela nous conduit à revenir sur les métriques d’évaluation utilisées dans la communauté pour les schémas Winograd. Les performances que nous obtenons, surtout comparées à celles de Amsili &amp; Seminck (2017b), suggèrent que l’approche par modèle de langue des schémas Winograd reste limitée, sans doute en partie à cause du fait que les modèles de langue encodent très difficilement le genre de raisonnement nécessaire à la résolution des schémas Winograd.</abstract>
+      <url hash="d7cc4003">2019.jeptalnrecital-court.20</url>
+      <language>fra</language>
+    </paper>
+    <paper id="21">
+      <title>Multilingual and Multitarget Hate Speech Detection in Tweets</title>
+      <author><first>Patricia</first><last>Chiril</last></author>
+      <author><first>Farah</first><last>Benamara Zitoune</last></author>
+      <author><first>Véronique</first><last>Moriceau</last></author>
+      <author><first>Marlène</first><last>Coulomb-Gully</last></author>
+      <author><first>Abhishek</first><last>Kumar</last></author>
+      <pages>351–360</pages>
+      <abstract>Social media networks have become a space where users are free to relate their opinions and sentiments which may lead to a large spreading of hatred or abusive messages which have to be moderated. This paper proposes a supervised approach to hate speech detection from a multilingual perspective. We focus in particular on hateful messages towards two different targets (immigrants and women) in English tweets, as well as sexist messages in both English and French. Several models have been developed ranging from feature-engineering approaches to neural ones. Our experiments show very encouraging results on both languages.</abstract>
+      <url hash="88f663d9">2019.jeptalnrecital-court.21</url>
+    </paper>
+    <paper id="22">
+      <title>Observation de l’expérience client dans les restaurants (Mapping Reviewers’ Experience in Restaurants)</title>
+      <author><first>Iris</first><last>Eshkol-Taravella</last></author>
+      <author><first>Hyun</first><last>Jung Kang</last></author>
+      <pages>361–370</pages>
+      <abstract>Ces dernières années, les recherches sur la fouille d’opinions ou l’analyse des sentiments sont menées activement dans le domaine du Traitement Automatique des Langues (TAL). De nombreuses études scientifiques portent sur l’extraction automatique des opinions positives ou négatives et de leurs cibles. Ce travail propose d’identifier automatiquement une évaluation, exprimée explicitement ou implicitement par des internautes dans le corpus d’avis tiré du Web. Six catégories d’évaluation sont proposées : opinion positive, opinion négative, opinion mixte, intention, suggestion et description. La méthode utilisée est fondée sur l’apprentissage supervisé qui tient compte des caractéristiques linguistiques de chaque catégorie retenue. L’une des difficultés que nous avons rencontrée concerne le déséquilibre entre les classes d’évaluation créées, cependant, cet obstacle a pu être surmonté dans l’apprentissage grâce aux stratégies de sur-échantillonnage et aux stratégies algorithmiques.</abstract>
+      <url hash="4659e5b7">2019.jeptalnrecital-court.22</url>
+      <language>fra</language>
+    </paper>
+    <paper id="23">
+      <title>Outiller une langue peu dotée grâce au <fixed-case>TALN</fixed-case> : l’exemple du corse et de la <fixed-case>BDLC</fixed-case> (Tooling up a less-resourced language with <fixed-case>NLP</fixed-case> : the example of <fixed-case>C</fixed-case>orsican and <fixed-case>BDLC</fixed-case>)</title>
+      <author><first>Laurent</first><last>Kevers</last></author>
+      <author><first>Florian</first><last>Guéniot</last></author>
+      <author><first>Aurelia</first><last>Ghjacumina Tognotti</last></author>
+      <author><first>Stella</first><last>Retali-Medori</last></author>
+      <pages>371–380</pages>
+      <abstract>Nos recherches sur la langue corse nous amènent naturellement à envisager l’utilisation d’outils pour le traitement automatique du langage. Après une brève introduction sur le corse et sur le projet qui constitue notre cadre de travail, nous proposons un état des lieux concernant l’application du TAL aux langues peu dotées, dont le corse. Nous définissons ensuite les actions qui peuvent être entreprises, ainsi que la manière dont elles peuvent s’intégrer dans le cadre de notre projet, afin de progresser vers la constitution de ressources et la construction d’outils pour le TAL corse.</abstract>
+      <url hash="8b33d37f">2019.jeptalnrecital-court.23</url>
+      <language>fra</language>
+    </paper>
+    <paper id="24">
+      <title>Plongements lexicaux spécifiques à la langue arabe : application à l’analyse d’opinions (<fixed-case>A</fixed-case>rabic-specific embedddings : application in Sentiment Analysis)</title>
+      <author><first>Amira</first><last>Barhoumi</last></author>
+      <author><first>Nathalie</first><last>Camelin</last></author>
+      <author><first>Chafik</first><last>Aloulou</last></author>
+      <author><first>Yannick</first><last>Estève</last></author>
+      <author><first>Lamia</first><last>Hadrich Belguith</last></author>
+      <pages>381–390</pages>
+      <abstract>Nous nous intéressons, dans cet article, à la tâche d’analyse d’opinions en arabe. Nous étudions la spécificité de la langue arabe pour la détection de polarité. Nous nous focalisons ici sur les caractéristiques d’agglutination et de richesse morphologique de cette langue. Nous avons particulièrement étudié différentes représentations d’unité lexicale : token, lemme et light stemme. Nous avons construit et testé des espaces continus de ces différentes représentations lexicales. Nous avons mesuré l’apport de tels types de representations vectorielles dans notre cadre spécifique. Les performances du réseau CNN montrent un gain significatif de 2% par rapport à l’état de l’art.</abstract>
+      <url hash="3748189b">2019.jeptalnrecital-court.24</url>
+      <language>fra</language>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>Q</fixed-case>-learning pour la résolution des anaphores pronominales en langue arabe (<fixed-case>Q</fixed-case>-learning for pronominal anaphora resolution in <fixed-case>A</fixed-case>rabic texts)</title>
+      <author><first>Saoussen</first><last>Mathlouthi Bouzid</last></author>
+      <author><first>Chiraz</first><last>Ben Othmane Zribi</last></author>
+      <pages>391–398</pages>
+      <abstract>La résolution d’anaphores est une tâche fondamentale pour la plupart des applications du TALN. Cette tâche reste un problème difficile qui nécessite plusieurs sources de connaissances et des techniques d’apprentissage efficaces, notamment pour la langue arabe. Cet article présente une nouvelle approche de résolution d’anaphores pronominales dans les textes arabes en se basant sur une méthode d’Apprentissage par Renforcement AR qui utilise l’algorithme Q-learning. Le processus de résolution comporte une étape d’identification des pronoms et des antécédents candidats et une autre de résolution. L’algorithme Q-learning permet d’apprendre dans un environnement dynamique et incertain. Il cherche à optimiser pour chaque pronom anaphorique, une séquence de choix de critères pour évaluer les antécédents et sélectionner le meilleur. Le système de résolution est évalué sur des textes littéraires, des textes journalistiques et des manuels techniques. Le taux de précision atteint jusqu’à 77,14%.</abstract>
+      <url hash="8ef46be4">2019.jeptalnrecital-court.25</url>
+      <language>fra</language>
+    </paper>
+    <paper id="26">
+      <title>Représentation sémantique distributionnelle et alignement de conversations par chat (Distributional semantic representation and alignment of online chat conversations )</title>
+      <author><first>Tom</first><last>Bourgeade</last></author>
+      <author><first>Philippe</first><last>Muller</last></author>
+      <pages>399–408</pages>
+      <abstract>Les mesures de similarité textuelle ont une place importante en TAL, du fait de leurs nombreuses applications, en recherche d’information et en classification notamment. En revanche, le dialogue fait moins l’objet d’attention sur cette question. Nous nous intéressons ici à la production d’une similarité dans le contexte d’un corpus de conversations par chat à l’aide de méthodes non-supervisées, exploitant à différents niveaux la notion de sémantique distributionnelle, sous forme d’embeddings. Dans un même temps, pour enrichir la mesure, et permettre une meilleure interprétation des résultats, nous établissons des alignements explicites des tours de parole dans les conversations, en exploitant la distance de Wasserstein, qui permet de prendre en compte leur dimension structurelle. Enfin, nous évaluons notre approche à l’aide d’une tâche externe sur la petite partie annotée du corpus, et observons qu’elle donne de meilleurs résultats qu’une variante plus naïve à base de moyennes.</abstract>
+      <url hash="e6b879ac">2019.jeptalnrecital-court.26</url>
+      <language>fra</language>
+    </paper>
+    <paper id="27">
+      <title>Résolution des coréférences neuronale : une approche basée sur les têtes (Neural coreference resolution : a head-based approach)</title>
+      <author><first>Quentin</first><last>Gliosca</last></author>
+      <author><first>Pascal</first><last>Amsili</last></author>
+      <pages>409–416</pages>
+      <abstract>L’avènement des approches neuronales de bout en bout a entraîné une rupture dans la façon dont était jusqu’à présent envisagée et implémentée la tâche de résolution des coréférences. Nous pensons que cette rupture impose de remettre en question la conception des mentions en termes de syntagmes maximaux, au moins pour certaines applications dont nous donnons deux exemples. Dans cette perspective, nous proposons une nouvelle formulation de la tâche, basée sur les têtes, accompagnée d’une adaptation du modèle de Lee et al. (2017) qui l’implémente.</abstract>
+      <url hash="02bbdc86">2019.jeptalnrecital-court.27</url>
+      <language>fra</language>
+    </paper>
+    <paper id="28">
+      <title>Réutilisation de Textes dans les Manuscrits Anciens (Text Reuse in Ancient Manuscripts)</title>
+      <author><first>Amir</first><last>Hazem</last></author>
+      <author><first>Béatrice</first><last>Daille</last></author>
+      <author><first>Dominique</first><last>Stutzmann</last></author>
+      <author><first>Jacob</first><last>Currie</last></author>
+      <author><first>Christine</first><last>Jacquin</last></author>
+      <pages>417–426</pages>
+      <abstract>Nous nous intéressons dans cet article à la problématique de réutilisation de textes dans les livres liturgiques du Moyen Âge. Plus particulièrement, nous étudions les variations textuelles de la prière Obsecro Te souvent présente dans les livres d’heures. L’observation manuelle de 772 copies de l’Obsecro Te a montré l’existence de plus de 21 000 variantes textuelles. Dans le but de pouvoir les extraire automatiquement et les catégoriser, nous proposons dans un premier temps une classification lexico-sémantique au niveau n-grammes de mots pour ensuite rendre compte des performances de plusieurs approches état-de-l’art d’appariement automatique de variantes textuelles de l’Obsecro Te.</abstract>
+      <url hash="5ddd0474">2019.jeptalnrecital-court.28</url>
+      <language>fra</language>
+    </paper>
+    <paper id="29">
+      <title>Transformation d’annotations en parties du discours et lemmes vers le format <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies : étude de cas pour l’alsacien et l’occitan (Converting <fixed-case>POS</fixed-case>-tag and Lemma Annotations into the <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies Format : A Case Study on <fixed-case>A</fixed-case>lsatian and <fixed-case>O</fixed-case>ccitan )</title>
+      <author><first>Aleksandra</first><last>Miletić</last></author>
+      <author><first>Delphine</first><last>Bernhard</last></author>
+      <author><first>Myriam</first><last>Bras</last></author>
+      <author><first>Anne-Laure</first><last>Ligozat</last></author>
+      <author><first>Marianne</first><last>Vergez-Couret</last></author>
+      <pages>427–436</pages>
+      <abstract>Cet article présente un retour d’expérience sur la transformation de corpus annotés pour l’alsacien et l’occitan vers le format CONLL-U défini dans le projet Universal Dependencies. Il met en particulier l’accent sur divers points de vigilance à prendre en compte, concernant la tokénisation et la définition des catégories pour l’annotation.</abstract>
+      <url hash="0ca19e87">2019.jeptalnrecital-court.29</url>
+      <language>fra</language>
+    </paper>
+    <paper id="30">
+      <title>Un corpus libre, évolutif et versionné en entités nommées du Français (A free, evolving and versioned french named entity recognition corpus)</title>
+      <author><first>Yoann</first><last>Dupont</last></author>
+      <pages>437–446</pages>
+      <abstract>Les corpus annotés sont des ressources difficiles à créer en raison du grand effort humain qu’elles impliquent. Une fois rendues disponibles, elles sont difficilement modifiables et tendent à ne pas évoluer pas dans le temps. Dans cet article, nous présentons un corpus annoté pour la reconnaissance des entités nommées libre et évolutif en utilisant les textes d’articles Wikinews français de 2016 à 2018, pour un total de 1191 articles annotés. Nous décrivons succinctement le guide d’annotation avant de situer notre corpus par rapport à d’autres corpus déjà existants. Nous donnerons également un accord intra-annotateur afin de donner un indice de stabilité des annotations ainsi que le processus global pour poursuivre les travaux d’enrichissement du corpus.</abstract>
+      <url hash="8a5b8c5d">2019.jeptalnrecital-court.30</url>
+      <language>fra</language>
+    </paper>
+    <paper id="31">
+      <title>Une approche hybride pour la segmentation automatique de documents juridiques (A hybrid approach for automatic text segmentation)</title>
+      <author><first>Filipo</first><last>Studzinski Perotto</last></author>
+      <author><first>Fadila</first><last>Taleb</last></author>
+      <author><first>Eric</first><last>Trupin</last></author>
+      <author><first>Youssouf</first><last>Saidali</last></author>
+      <author><first>Maryvonne</first><last>Holzem</last></author>
+      <author><first>Jacques</first><last>Labiche</last></author>
+      <author><first>Laurent</first><last>Vercouter</last></author>
+      <pages>447–456</pages>
+      <abstract>Cet article 1 propose une approche hybride pour la segmentation de documents basée sur l’agrégation de différentes solutions. Divers algorithmes de segmentation peuvent être utilisés dans le système, ce qui permet la combinaison de stratégies multiples (spécifiques au domaine, supervisées et nonsupervisées). Un ensemble de documents étiquetés, segmentés au préalable et représentatif du domaine ciblé, doit être fourni pour être utilisé comme ensemble d’entraînement pour l’apprentissage des méthodes supervisées, et aussi comme ensemble de test pour l’évaluation de la performance de chaque méthode, ce qui déterminera leur poids lors de la phase d’agrégation. L’approche proposée présente de bonnes performances dans un scénario expérimental issu d’un corpus extrait du domaine juridique.</abstract>
+      <url hash="2a630ddc">2019.jeptalnrecital-court.31</url>
+      <language>fra</language>
+    </paper>
+  </volume>
+  <volume id="recital" ingest-date="2020-08-14">
+    <meta>
+      <booktitle>Actes de la Conférence sur le Traitement Automatique des Langues Naturelles (TALN) PFIA 2019. Volume III : RECITAL</booktitle>
+      <editor><first>Emmanuel</first><last>Morin</last></editor>
+      <editor><first>Sophie</first><last>Rosset</last></editor>
+      <editor><first>Pierre</first><last>Zweigenbaum</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Toulouse, France</address>
+      <month>7</month>
+      <year>2019</year>
+    </meta>
+    <frontmatter>
+      <url hash="edcd1f53">2019.jeptalnrecital-recital.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Adaptation d’une métagrammaire du français contemporain au français médiéval (Adapting an existing metagrammar for Contemporary <fixed-case>F</fixed-case>rench to Medieval <fixed-case>F</fixed-case>rench)</title>
+      <author><first>Mathilde</first><last>Regnault</last></author>
+      <pages>459–472</pages>
+      <abstract>Le français médiéval se caractérise par une importante variabilité langagière. Nous cherchons à étendre un corpus d’ancien français annoté en syntaxe de dépendance avec de nouveaux textes de cette période et de moyen français. Pour cela, nous voulons adapter des outils existants et non entraîner un parser avec des données annotées. Dans cet article, nous présentons un état de l’art pour ce projet et notre démarche : adapter FRMG (French Metagrammar) à des états de langue antérieurs.</abstract>
+      <url hash="e8bc6ea3">2019.jeptalnrecital-recital.1</url>
+      <language>fra</language>
+    </paper>
+    <paper id="2">
+      <title>Apport des termes complexes pour enrichir l’analyse distributionnelle en domaine spécialisé (Multi-words terms impact in improving domain-specific distributed representations )</title>
+      <author><first>Merieme</first><last>Bouhandi</last></author>
+      <pages>473–486</pages>
+      <abstract>L’essor et les performances des modèles de sémantique distributionnelle sont principalement dus à l’accroissement de la quantité de données textuelles disponibles ainsi qu’à la généralisation des méthodes neuronales pour la construction de ces modèles. La qualité des représentations distribuées est souvent corrélée à la quantité de données disponibles et les corpus spécialisés, généralement d’une taille modeste, se trouvent de ce fait pénalisés. Alors que la plupart des modèles de sémantique distributionnelle traitent de mots isolés, nous partons de l’hypothèse que l’exploitation des termes, notamment complexes, est essentielle notamment en langue de spécialité car ils sont porteurs d’une dimension sémantique supplémentaire. Ainsi, nous évaluons une méthode de généralisation des contextes distributionnels par un mécanisme d’inclusion lexicale reposant sur les termes complexes. Nos différentes représentations distributionnelles sont ensuite confrontées à une tâche d’extraction de concepts médicaux à partir des rapports médicaux proposée par l’édition 2010 du challenge i2b2.</abstract>
+      <url hash="3a7e61fc">2019.jeptalnrecital-recital.2</url>
+      <language>fra</language>
+    </paper>
+    <paper id="3">
+      <title>Automatic summarization of medical conversations, a review</title>
+      <author><first>Jessica</first><last>López Espejel</last></author>
+      <pages>487–498</pages>
+      <abstract>ion et pour l’analyse du dialogue. Nous décrivons aussi les utilisation du Traitement Automatique des Langues dans le domaine médical. A BSTRACT Conversational analysis plays an important role in the development of simulation devices for the training of health professionals (doctors, nurses). Our goal is to develop an original automatic synthesis method for medical conversations between a patient and a healthcare professional, based on recent advances in summarization using convolutional and recurrent neural networks. The proposed method must be adapted to the specific problems related to the synthesis of dialogues. This article presents a review of the different methods for extractive and abstractive summarization, and for dialogue analysis. We also describe the use of Natural Language Processing in the medical field.</abstract>
+      <url hash="f4c77d4a">2019.jeptalnrecital-recital.3</url>
+    </paper>
+    <paper id="4">
+      <title>Détection automatique de chaînes de coréférence pour le français écrit: règles et ressources adaptées au repérage de phénomènes linguistiques spécifiques (Automatic coreference resolution for written <fixed-case>F</fixed-case>rench : rules and resources for specific linguistic phenomena)</title>
+      <author><first>Bruno</first><last>Oberle</last></author>
+      <pages>499–512</pages>
+      <abstract>Nous présentons un système end-to-end de détection automatique des chaînes de coréférence, à base de règles, pour le français écrit. Ce système insiste sur la prise en compte de phénomènes linguistiques négligés par d’autres systèmes. Nous avons élaboré des ressources lexicales pour la résolution des anaphores infidèles (Mon chat... Cet animal...), notamment lorsqu’elles incluent une entité nommée (La Seine... Ce fleuve...). Nous utilisons également des règles pour le repérage de mentions de groupes (Pierre et Paul) et d’anaphores zéros (Pierre boit et ø fume), ainsi que des règles pour la détection des pronoms de première et deuxième personnes dans les citations (Paul a dit : “Je suis étudiant.”). L’article présente l’élaboration des ressources et règles utilisées pour la gestion de ces phénomènes spécifiques, avant de décrire le système dans son ensemble, et notamment les différentes phases de la résolution de la coréférence.</abstract>
+      <url hash="921b4a01">2019.jeptalnrecital-recital.4</url>
+      <language>fra</language>
+    </paper>
+    <paper id="5">
+      <title>Etat de l’art des méthodes d’apprentissage profond pour l’extraction automatique de termes-clés (State of the art of deep learning methods for automatic keyphrase extraction )</title>
+      <author><first>Ygor</first><last>Gallina</last></author>
+      <pages>513–524</pages>
+      <abstract>Les termes-clés facilitent la recherche de documents dans de larges collections de données. Le coût d’annotation de document en termes-clés très élevé, c’est pourquoi les chercheurs s’intéressent à cette problématique. Dans cet article nous présentons un état de l’art sur l’extraction automatique de termes-clés en nous intéressant particulièrement aux modèles d’apprentissage profond. En effet, la récente publication d’un demi-million de documents annotés à permis le développement de modèles neuronaux profonds.</abstract>
+      <url hash="5d3d6bd8">2019.jeptalnrecital-recital.5</url>
+      <language>fra</language>
+    </paper>
+    <paper id="6">
+      <title>Extraction d’opinions pour l’analyse multicritère à partir de corpus oraux transcrits : État de l’art (Opinion extraction for multi-criteria analysis of transcribed oral corpora)</title>
+      <author><first>Emmanuelle</first><last>Kelodjoue</last></author>
+      <pages>525–540</pages>
+      <abstract>Cet article présente une revue de la littérature dans les domaines de l’analyse de sentiments et du résumé automatique appliqués aux corpus oraux transcrits. Peu de travaux ont été réalisés dans ces deux domaines avec des corpus oraux transcrits. C’est pourquoi nous présentons ci-dessous les tendances générales dans ces deux domaines et nous nous concentrons ensuite sur les systèmes développés pour le traitement de ce type de données. Les méthodes supervisées pour l’analyse de sentiments et les méthodes extractives pour le résumé automatique sont actuellement dominantes dans le développement des systèmes automatiques pour le traitement des corpus oraux transcrits. Le présent article est une vue d’ensemble de l’état de l’art en analyse de sentiments et du résumé automatique appliqués à des corpus oraux transcrits pour une aide à l’analyse des verbatim.</abstract>
+      <url hash="ef1f0da0">2019.jeptalnrecital-recital.6</url>
+      <language>fra</language>
+    </paper>
+    <paper id="7">
+      <title>Les systèmes de dialogue orientés-but : état de l’art et perspectives d’amélioration (Goal-oriented dialog systems : a recent overview and research prospects )</title>
+      <author><first>Léon-Paul</first><last>Schaub</last></author>
+      <author><first>Cyndel</first><last>Vaudapiviz</last></author>
+      <pages>541–562</pages>
+      <abstract>La gestion et la sélection des informations pertinentes pour un tour de parole donné restent un problème pour les systèmes de dialogue à domaine ouvert. Pour ces derniers, les interactions possibles entre un utilisateur et un agent sont a priori infinies et indéfinies. La possibilité d’une réponse erronée de l’agent à l’utilisateur demeure donc élevée. Pour les systèmes orientés-but, le problème est considéré comme résolu, mais d’après notre expérience aucun système ne montre une robustesse remarquable lorsqu’il est évalué en situation réelle. Dans cet article, nous dressons un état de l’art des méthodes d’apprentissage de l’agent et des différents modèles d’agent conversationnel. Selon nous, l’une des pistes d’amélioration de l’agent réside dans sa mémoire, car cette dernière (souvent représentée par le triplet : tour de parole courant, historique du dialogue et base de connaissances) n’est pas encore modélisée avec assez de précision. En dotant l’agent d’un modèle de mémoire d’inspiration cognitive, nous pensons pouvoir augmenter les performances d’un système de dialogue orienté-but en situation réelle, par l’emploi d’algorithmes d’apprentissage automatique avec une approche antagoniste en support d’un nouveau modèle de mémoire pour l’agent.</abstract>
+      <url hash="ef4d5133">2019.jeptalnrecital-recital.7</url>
+      <language>fra</language>
+    </paper>
+    <paper id="8">
+      <title>Lifelong learning et systèmes de dialogue : définition et perspectives (Lifelong learning and dialogue system : definition and discussion )</title>
+      <author><first>Mathilde</first><last>Veron</last></author>
+      <pages>563–576</pages>
+      <abstract>Le but de cet article est de définir comment le Lifelong Learning (LL) pourrait être appliqué aux systèmes de dialogue orientés tâche. Un système de dialogue devrait être en mesure d’apprendre de nouvelles connaissances, après avoir été déployé, et ceci de manière continue grâce à ses interactions avec l’utilisateur. Nous identifions ainsi deux aspects s’appliquant à un tel système : l’amélioration de ses capacités conversationnelles, et l’enrichissement de sa base de connaissances. Nous appliquons ces idées à un chatbot développé dans le cadre du projet LIHLITH. Nous montrons ainsi qu’un tel système doit être capable (1) de détecter la présence d’une situation inconnue (2) de décider quand et comment interagir avec l’utilisateur afin d’extraire de nouvelles connaissances et (3) de s’adapter à ces nouvelles connaissances, tout en considérant la fiabilité de celles-ci.</abstract>
+      <url hash="6422cb3a">2019.jeptalnrecital-recital.8</url>
+      <language>fra</language>
+    </paper>
+    <paper id="9">
+      <title>Méthodes de représentation de la langue pour l’analyse syntaxique multilingue (Language representation methods for multilingual syntactic parsing )</title>
+      <author><first>Manon</first><last>Scholivet</last></author>
+      <pages>577–590</pages>
+      <abstract>L’existence de modèles universels pour décrire la syntaxe des langues a longtemps été débattue. L’apparition de ressources comme le World Atlas of Language Structures et les corpus des Universal Dependencies rend possible l’étude d’une grammaire universelle pour l’analyse syntaxique en dépendances. Notre travail se concentre sur l’étude de différentes représentations des langues dans des systèmes multilingues appris sur des corpus arborés de 37 langues. Nos tests d’analyse syntaxique montrent que représenter la langue dont est issu chaque mot permet d’obtenir de meilleurs résultats qu’en cas d’un apprentissage sur une simple concaténation des langues. En revanche, l’utilisation d’un vecteur pour représenter la langue ne permet pas une amélioration évidente des résultats dans le cas d’une langue n’ayant pas du tout de données d’apprentissage.</abstract>
+      <url hash="6346edd7">2019.jeptalnrecital-recital.9</url>
+      <language>fra</language>
+    </paper>
+    <paper id="10">
+      <title>Parsing des textes journalistiques en serbe à l’aide du logiciel Talismane (Parsing of newspaper texts in <fixed-case>S</fixed-case>erbian using Talismane)</title>
+      <author><first>Dusica</first><last>Terzic</last></author>
+      <pages>591–604</pages>
+      <abstract>Cet article présente la création d’un treebank journalistique serbe, ParCoJour. Il est composé de 30K tokens et doté de trois couches d’annotation : étiquetage morphosyntaxique, lemmatisation et annotation syntaxique. Une fois construit, ParCoJour a été utilisé dans trois expériences afin d’évaluer l’impact du domaine textuel sur le parsing du serbe en comparant les performances de Talismane, un système par apprentissage automatique, sur deux types de corpus, journalistique et littéraire : 1) parsing du corpus journalistique avec un modèle entraîné sur le corpus journalistique ; 2) parsing du corpus journalistique avec un modèle entraîné sur le corpus littéraire ; 3) parsing du corpus littéraire avec un modèle entraîné sur le corpus journalistique. Les résultats sont comparés à ceux où les deux corpus relevaient du domaine littéraire. Le changement de domaine textuel dans la deuxième et la troisième expérience entraîne une baisse des performances, mais les résultats de parsing restent satisfaisants.</abstract>
+      <url hash="c1ee9dfa">2019.jeptalnrecital-recital.10</url>
+      <language>fra</language>
+    </paper>
+    <paper id="11">
+      <title>Vers la traduction automatique d’adverbiaux temporels du français vers la langue des signes française (Towards the automatic translation of temporal adverbials from <fixed-case>F</fixed-case>rench to <fixed-case>F</fixed-case>rench sign language)</title>
+      <author><first>Sandra</first><last>Bellato</last></author>
+      <pages>605–616</pages>
+      <abstract>Nous présentons ici de premiers travaux abordant la question de règles de passage entre deux formalismes décrivant la sémantique d’adverbiaux temporels respectivement pour le français et pour la Langue des Signes Française (LSF). Ces travaux prennent place dans une visée de traduction automatique d’une langue vers l’autre. Nous nous appuyons sur un corpus rassemblant 95 adverbiaux temporels du français traduits par trois locuteurs de la LSF.</abstract>
+      <url hash="ed42bcb4">2019.jeptalnrecital-recital.11</url>
+      <language>fra</language>
+    </paper>
+  </volume>
+  <volume id="demo" ingest-date="2020-08-14">
+    <meta>
+      <booktitle>Actes de la Conférence sur le Traitement Automatique des Langues Naturelles (TALN) PFIA 2019. Volume IV : Démonstrations</booktitle>
+      <editor><first>Emmanuel</first><last>Morin</last></editor>
+      <editor><first>Sophie</first><last>Rosset</last></editor>
+      <editor><first>Pierre</first><last>Zweigenbaum</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Toulouse, France</address>
+      <month>7</month>
+      <year>2019</year>
+    </meta>
+    <frontmatter>
+      <url hash="e2581c44">2019.jeptalnrecital-demo.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Apporter des connaissances sémantiques à un jeu de pictogrammes destiné à des personnes en situation de handicap : Un ensemble de liens entre <fixed-case>P</fixed-case>rinceton <fixed-case>W</fixed-case>ord<fixed-case>N</fixed-case>et et Arasaac, Arasaac-<fixed-case>WN</fixed-case> (Giving semantic knowledge to a set of pictograms for people with disabilities : a set of links between <fixed-case>W</fixed-case>ord<fixed-case>N</fixed-case>et and Arasaac, Arasaac-<fixed-case>WN</fixed-case> )</title>
+      <author><first>Didier</first><last>Schwab</last></author>
+      <author><first>Pauline</first><last>Trial</last></author>
+      <author><first>Vaschalde</first><last>Céline</last></author>
+      <author><first>Loïc</first><last>Vial</last></author>
+      <author><first>Benjamin</first><last>Lecouteux</last></author>
+      <pages>619–622</pages>
+      <abstract>Cet article présente une ressource qui fait le lien entre WordNet et Arasaac, la plus grande base de pictogrammes librement disponible. Cette ressource est particulièrement intéressante pour la création d’applications visant l’aide aux personnes en situation de handicap cognitif.</abstract>
+      <url hash="67b32e1e">2019.jeptalnrecital-demo.1</url>
+      <language>fra</language>
+    </paper>
+    <paper id="2">
+      <title>Cameli@ : analyses automatiques d’e-mails pour améliorer la relation client (Cameli@ : automatic e-mail analysis to improve the customer relationship )</title>
+      <author><first>Guillaume</first><last>Dubuisson Duplessis</last></author>
+      <author><first>Sofiane</first><last>Kerroua</last></author>
+      <author><first>Ludivine</first><last>Kuznik</last></author>
+      <author><first>Anne-Laure</first><last>Guénet</last></author>
+      <pages>623–626</pages>
+      <abstract>Cette démonstration présente un système actuellement en production d’analyses automatiques d’emails en français incluant des analyses thématiques, des analyses de l’opinion, des tâches d’extraction d’information et une tâche de pseudo-anonymisation.</abstract>
+      <url hash="0fb07eb0">2019.jeptalnrecital-demo.2</url>
+      <language>fra</language>
+    </paper>
+    <paper id="3">
+      <title>Démonstrateur en-ligne du projet <fixed-case>ANR</fixed-case> <fixed-case>PARSEME</fixed-case>-<fixed-case>FR</fixed-case> sur les expressions polylexicales (On-line demonstrator of the <fixed-case>PARSEME</fixed-case>-<fixed-case>FR</fixed-case> project on multiword expressions)</title>
+      <author><first>Marine</first><last>Schmitt</last></author>
+      <author><first>Elise</first><last>Moreau</last></author>
+      <author><first>Mathieu</first><last>Constant</last></author>
+      <author><first>Agata</first><last>Savary</last></author>
+      <pages>627–630</pages>
+      <abstract>Nous présentons le démonstrateur en-ligne du projet ANR PARSEME-FR dédié aux expressions polylexicales. Il inclut différents outils d’identification de telles expressions et un outil d’exploration des ressources linguistiques de ce projet.</abstract>
+      <url hash="a662ea9e">2019.jeptalnrecital-demo.3</url>
+      <language>fra</language>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>S</fixed-case>yl<fixed-case>N</fixed-case>ews, un agréfilter multilingue (<fixed-case>S</fixed-case>yl<fixed-case>N</fixed-case>ews, a multilingual aggrefilter)</title>
+      <author><first>Olivier</first><last>Hamon</last></author>
+      <author><first>Kévin</first><last>Espasa</last></author>
+      <author><first>Sara</first><last>Quispe</last></author>
+      <pages>631–634</pages>
+      <abstract>Depuis plusieurs années, Syllabs intègre de nombreux composants au sein d’un agréfilter, utilisant des technologies d’extraction d’information développées en interne et dans un contexte multilingue. Originellement conçu pour agréger des contenus issus de la presse, SylNews peut être utilisé à des fins de veille, pour explorer des contenus, ou pour identifier d’une manière plus globale les sujets chauds de l’ensemble ou d’une partie des contenus stockés.</abstract>
+      <url hash="b185b86f">2019.jeptalnrecital-demo.4</url>
+      <language>fra</language>
+    </paper>
+    <paper id="5">
+      <title>“Sentiment Aware Map” : exploration cartographique de points d’intérêt via l’analyse de sentiments au niveau des aspects ()</title>
+      <author><first>Ioan</first><last>Calapodescu</last></author>
+      <author><first>Caroline</first><last>Brun</last></author>
+      <author><first>Vassilina</first><last>Nikoulina</last></author>
+      <author><first>Salah</first><last>Aït-Mokhtar</last></author>
+      <pages>635–638</pages>
+      <abstract/>
+      <url hash="e956efd3">2019.jeptalnrecital-demo.5</url>
+      <language>fra</language>
+    </paper>
+    <paper id="6">
+      <title>Interprétation et visualisation contextuelle de <fixed-case>NOTAM</fixed-case>s (messages aux navigants aériens) ()</title>
+      <author><first>Alexandre</first><last>Arnold</last></author>
+      <author><first>Gérard</first><last>Dupont</last></author>
+      <author><first>Catherine</first><last>Kobus</last></author>
+      <author><first>François</first><last>Lancelot</last></author>
+      <author><first>Pooja</first><last>Narayan</last></author>
+      <pages>639–643</pages>
+      <abstract>Dans cet article, nous présentons une démonstration de visualisation de l’information extraite automatiquement de la partie textuelle des NOTAMs. Dans le domaine aéronautique, les NOTAMs sont des messages publiés par les agences gouvernementales de contrôle de la navigation aérienne. Nous détaillons la construction du jeu de données, les expériences d’extraction d’information par apprentissage profond (approche et résultats), ainsi que le lien avec la visualisation contextuelle sur des cartes d’aéroports.</abstract>
+      <url hash="5ba41e08">2019.jeptalnrecital-demo.6</url>
+      <language>fra</language>
+    </paper>
+  </volume>
+  <volume id="deft" ingest-date="2020-08-14">
+    <meta>
+      <booktitle>Actes de la Conférence sur le Traitement Automatique des Langues Naturelles (TALN) PFIA 2019. Défi Fouille de Textes (atelier TALN-RECITAL)</booktitle>
+      <editor><first>Emmanuel</first><last>Morin</last></editor>
+      <editor><first>Sophie</first><last>Rosset</last></editor>
+      <editor><first>Pierre</first><last>Zweigenbaum</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Toulouse, France</address>
+      <month>7</month>
+      <year>2019</year>
+    </meta>
+    <frontmatter>
+      <url hash="3ad255cf">2019.jeptalnrecital-deft.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Recherche et extraction d’information dans des cas cliniques. Présentation de la campagne d’évaluation <fixed-case>DEFT</fixed-case> 2019 (Information Retrieval and Information Extraction from Clinical Cases)</title>
+      <author><first>Natalia</first><last>Grabar</last></author>
+      <author><first>Cyril</first><last>Grouin</last></author>
+      <author><first>Thierry</first><last>Hamon</last></author>
+      <author><first>Vincent</first><last>Claveau</last></author>
+      <pages>7–16</pages>
+      <abstract>Cet article présente la campagne d’évaluation DEFT 2019 sur l’analyse de textes cliniques rédigés en français. Le corpus se compose de cas cliniques publiés et discutés dans des articles scientifiques, et indexés par des mots-clés. Nous proposons trois tâches indépendantes : l’indexation des cas cliniques et discussions, évaluée prioritairement par la MAP (mean average precision), l’appariement entre cas cliniques et discussions, évalué au moyen d’une précision, et l’extraction d’information parmi quatre catégories (âge, genre, origine de la consultation, issue), évaluée en termes de rappel, précision et F-mesure. Nous présentons les résultats obtenus par les participants sur chaque tâche.</abstract>
+      <url hash="3862bd8f">2019.jeptalnrecital-deft.1</url>
+      <language>fra</language>
+    </paper>
+    <paper id="2">
+      <title>Participation d’<fixed-case>EDF</fixed-case> <fixed-case>R</fixed-case>&amp;<fixed-case>D</fixed-case> à <fixed-case>DEFT</fixed-case> 2019 : des vecteurs et des règles ! (<fixed-case>EDF</fixed-case> <fixed-case>R</fixed-case>&amp;<fixed-case>D</fixed-case> submission to <fixed-case>DEFT</fixed-case> 2019 )</title>
+      <author><first>Philippe</first><last>Suignard</last></author>
+      <author><first>Meryl</first><last>Bothua</last></author>
+      <author><first>Alexandra</first><last>Benamar</last></author>
+      <pages>17–28</pages>
+      <abstract>Ce papier décrit la participation d’EDF R&amp;D à la campagne d’évaluation DEFT 2019. Notre équipe a participé aux trois tâchés proposées : Indexation de cas cliniques (Tâche T1) ; Détection de similarité entre des cas cliniques et des discussions (Tâche T2) ; Extraction d’information dans des cas cliniques (Tâche 3). Nous avons utilisé des méthodes symboliques et/ou numériques en fonction de ces tâches. Aucune donnée supplémentaire, autre que les données d’apprentissage, n’a été utilisée. Notre équipe obtient des résultats satisfaisants sur l’ensemble des taches et se classe première sur la tache 2. Les méthodes proposées sont facilement transposables à d’autres tâches d’indexation et de détection de similarité qui peuvent intéresser plusieurs entités du groupe EDF.</abstract>
+      <url hash="b3484f52">2019.jeptalnrecital-deft.2</url>
+      <language>fra</language>
+    </paper>
+    <paper id="3">
+      <title>Participation de l’équipe <fixed-case>LAI</fixed-case> à <fixed-case>DEFT</fixed-case> 2019 (Participation of team <fixed-case>LAI</fixed-case> in the <fixed-case>DEFT</fixed-case> 2019 challenge )</title>
+      <author><first>Jacques</first><last>Hilbey</last></author>
+      <author><first>Louise</first><last>Deléger</last></author>
+      <author><first>Xavier</first><last>Tannier</last></author>
+      <pages>29–34</pages>
+      <abstract>Nous présentons dans cet article les méthodes conçues et les résultats obtenus lors de notre participation à la tâche 3 de la campagne d’évaluation DEFT 2019. Nous avons utilisé des approches simples à base de règles ou d’apprentissage automatique, et si nos résultats sont très bons sur les informations simples à extraire comme l’âge et le sexe du patient, ils restent mitigés sur les tâches plus difficiles.</abstract>
+      <url hash="433ad8cb">2019.jeptalnrecital-deft.3</url>
+      <language>fra</language>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>DÉ</fixed-case>fi Fouille de Textes 2019 : indexation par extraction et appariement textuel (<fixed-case>DEFT</fixed-case> 2019 : extraction-based document indexing and textual document similarity matching )</title>
+      <author><first>Jean-Christophe</first><last>Mensonides</last></author>
+      <author><first>Pierre-Antoine</first><last>Jean</last></author>
+      <author><first>Andon</first><last>Tchechmedjiev</last></author>
+      <author><first>Sébastien</first><last>Harispe</last></author>
+      <pages>35–48</pages>
+      <abstract>Cet article présente la contribution de l’équipe du Laboratoire de Génie Informatique et d’Ingénierie de Production (LGI2P) d’IMT Mines Alès au DÉfi Fouille de Textes (DEFT) 2019. Il détaille en particulier deux approches proposées pour les tâches liées à (1) l’indexation et à (2) la similarité de documents. Ces méthodes reposent sur des techniques robustes et éprouvées du domaine de la Recherche d’Information et du Traitement Automatique du Langage Naturel, qui ont été adaptées à la nature spécifique du corpus (biomédical/clinique) et couplées à des mécanismes développés pour répondre aux spécificités des tâches traitées. Pour la tâche 1, nous proposons une méthode d’indexation par extraction appliquée sur une version normalisée du corpus (MAP de 0,48 à l’évaluation) ; les spécificités de la phase de normalisation seront en particulier détaillées. Pour la tâche 2, au-delà de la présentation de l’approche proposée basée sur l’évaluation de similarités sur des représentations de documents (score de 0,91 à l’évaluation), nous proposons une étude comparative de l’impact des choix de la distance et de la manière de représenter les textes sur la performance de l’approche.</abstract>
+      <url hash="2fab8cb3">2019.jeptalnrecital-deft.4</url>
+      <language>fra</language>
+    </paper>
+    <paper id="5">
+      <title>Indexation et appariements de documents cliniques pour le Deft 2019 (Indexing and pairing texts of the medical domain )</title>
+      <author><first>Davide</first><last>Buscaldi</last></author>
+      <author><first>Dhaou</first><last>Ghoul</last></author>
+      <author><first>Joseph</first><last>Le Roux</last></author>
+      <author><first>Gaël</first><last>Lejeune</last></author>
+      <pages>49–56</pages>
+      <abstract>Dans cet article, nous présentons nos méthodes pour les tâches d’indexation et d’appariements du Défi Fouile de Textes (Deft) 2019. Pour la taĉhe d’indexation nous avons testé deux méthodes, une fondée sur l’appariemetn préalable des documents du jeu de tset avec les documents du jeu d’entraînement et une autre méthode fondée sur l’annotation terminologique. Ces méthodes ont malheureusement offert des résultats assez faible. Pour la tâche d’appariement, nous avons dévellopé une méthode sans apprentissage fondée sur des similarités de chaînes de caractères ainsi qu’une méthode exploitant des réseaux siamois. Là encore les résultats ont été plutôt décevant même si la méthode non supervisée atteint un score plutôt honorable pour une méthode non-supervisée : 62% .</abstract>
+      <url hash="8978007e">2019.jeptalnrecital-deft.5</url>
+      <language>fra</language>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>D</fixed-case>e<fixed-case>FT</fixed-case> 2019 : Auto-encodeurs, Gradient Boosting et combinaisons de modèles pour l’identification automatique de mots-clés. Participation de l’équipe <fixed-case>TALN</fixed-case> du <fixed-case>LS</fixed-case>2<fixed-case>N</fixed-case> (Autoencoders, gradient boosting and ensemble systems for automatic keyphrase assignment : The <fixed-case>LS</fixed-case>2<fixed-case>N</fixed-case> team participation’s in the 2019 edition of <fixed-case>D</fixed-case>e<fixed-case>FT</fixed-case>)</title>
+      <author><first>Mérième</first><last>Bouhandi</last></author>
+      <author><first>Florian</first><last>Boudin</last></author>
+      <author><first>Ygor</first><last>Gallina</last></author>
+      <pages>57–66</pages>
+      <abstract>Nous présentons dans cet article la participation de l’équipe TALN du LS2N à la tâche d’indexation de cas cliniques (tâche 1). Nous proposons deux systèmes permettant d’identifier, dans la liste de mots-clés fournie, les mots-clés correspondant à un couple cas clinique/discussion, ainsi qu’un classifieur entraîné sur la combinaison des sorties des deux systèmes. Nous présenterons dans le détail les descripteurs utilisés pour représenter les mots-clés ainsi que leur impact sur nos systèmes de classification.</abstract>
+      <url hash="5e93bdd9">2019.jeptalnrecital-deft.6</url>
+      <language>fra</language>
+    </paper>
+    <paper id="7">
+      <title>Qwant Research @<fixed-case>DEFT</fixed-case> 2019 : appariement de documents et extraction d’informations à partir de cas cliniques (Document matching and information retrieval using clinical cases)</title>
+      <author><first>Estelle</first><last>Maudet</last></author>
+      <author><first>Oralie</first><last>Cattan</last></author>
+      <author><first>Maureen</first><last>de Seyssel</last></author>
+      <author><first>Christophe</first><last>Servan</last></author>
+      <pages>67–80</pages>
+      <abstract>Dans ce papier, nous présentons la participation de Qwant Research aux tâches 2 et 3 de l’édition 2019 du défi fouille de textes (DEFT) portant sur l’analyse de documents cliniques rédigés en français. La tâche 2 est une tâche de similarité sémantique qui demande d’apparier cas cliniques et discussions médicales. Pour résoudre cette tâche, nous proposons une approche reposant sur des modèles de langue et évaluons l’impact de différents pré-traitements et de différentes techniques d’appariement sur les résultats. Pour la tâche 3, nous avons développé un système d’extraction d’information qui produit des résultats encourageants en termes de précision. Nous avons expérimenté deux approches différentes, l’une se fondant exclusivement sur l’utilisation de réseaux de neurones pour traiter la tâche, l’autre reposant sur l’exploitation des informations linguistiques issues d’une analyse syntaxique.</abstract>
+      <url hash="c6b28e4a">2019.jeptalnrecital-deft.7</url>
+      <language>fra</language>
+    </paper>
+    <paper id="8">
+      <title>Aprentissage non-supervisé pour l’appariement et l’étiquetage de cas cliniques en français - <fixed-case>DEFT</fixed-case>2019 (Unsupervised learning for matching and labelling of french clincal cases - <fixed-case>DEFT</fixed-case>2019 )</title>
+      <author><first>Damien</first><last>Sileo</last></author>
+      <author><first>Tim</first><last>Van de Cruys</last></author>
+      <author><first>Philippe</first><last>Muller</last></author>
+      <author><first>Camille</first><last>Pradel</last></author>
+      <pages>81–90</pages>
+      <abstract>Nous présentons le système utilisé par l’équipe Synapse/IRIT dans la compétition DEFT2019 portant sur deux tâches liées à des cas cliniques rédigés en français : l’une d’appariement entre des cas cliniques et des discussions, l’autre d’extraction de mots-clefs. Une des particularité est l’emploi d’apprentissage non-supervisé sur les deux tâches, sur un corpus construit spécifiquement pour le domaine médical en français</abstract>
+      <url hash="c3bf8956">2019.jeptalnrecital-deft.8</url>
+      <language>fra</language>
+    </paper>
+    <paper id="9">
+      <title>Indexation et appariement de documents cliniques avec le modèle vectoriel (Indexing and matching clinical documents using the vector space model)</title>
+      <author><first>Khadim</first><last>Dramé</last></author>
+      <author><first>Ibrahima</first><last>Diop</last></author>
+      <author><first>Lamine</first><last>Faty</last></author>
+      <author><first>Birame</first><last>Ndoye</last></author>
+      <pages>91–97</pages>
+      <abstract>Dans ce papier, nous présentons les méthodes que nous avons développées pour participer aux tâches 1 et 2 de l’édition 2019 du défi fouille de textes (DEFT 2019). Pour la première tâche, qui s’intéresse à l’indexation de cas cliniques, une méthode utilisant la pondération TF-IDF (term frequency – inverse document frequency) a été proposée. Quant à la seconde tâche, la méthode proposée repose sur le modèle vectoriel pour apparier des discussions aux cas cliniques correspondants ; pour cela, le cosinus est utilisé comme mesure de similarité. L’indexation sémantique latente (latent semantic indexing – LSI) est également expérimentée pour étendre cette méthode. Pour chaque méthode, différentes configurations ont été testées et évaluées sur les données de test du DEFT 2019.</abstract>
+      <url hash="ddc6cc38">2019.jeptalnrecital-deft.9</url>
+      <language>fra</language>
+    </paper>
+  </volume>
+  <volume id="tia" ingest-date="2020-08-14">
+    <meta>
+      <booktitle>Actes de la Conférence sur le Traitement Automatique des Langues Naturelles (TALN) PFIA 2019. Terminologie et Intelligence Artificielle (atelier TALN-RECITAL \&amp; IC)</booktitle>
+      <editor><first>Emmanuel</first><last>Morin</last></editor>
+      <editor><first>Sophie</first><last>Rosset</last></editor>
+      <editor><first>Pierre</first><last>Zweigenbaum</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Toulouse, France</address>
+      <month>7</month>
+      <year>2019</year>
+    </meta>
+    <frontmatter>
+      <url hash="ad21d1bc">2019.jeptalnrecital-tia.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Terminology systematization for Cybersecurity domain in <fixed-case>I</fixed-case>talian Language</title>
+      <author><first>Claudia</first><last>Lanza</last></author>
+      <author><first>Béatrice</first><last>Daille</last></author>
+      <pages>7–18</pages>
+      <abstract>This paper aims at presenting the first steps to improve the quality of the first draft of an Italian thesaurus for Cybersecurity terminology that has been realized for a specific project activity in collaboration with CybersecurityLab at Informatics and Telematics Institute (IIT) of the National Council of Research (CNR) in Italy. In particular, the paper will focus, first, on the terminological knowledge base built to retrieve the most representative candidate terms of Cybersecurity domain in Italian language, giving examples of the main gold standard repositories that have been used to build this semantic tool. Attention will be then given to the methodology and software employed to configure a system of NLP rules to get the desired semantic results and to proceed with the enhancement of the candidate terms selection which are meant to be inserted in the controlled vocabulary.</abstract>
+      <url hash="de1e5938">2019.jeptalnrecital-tia.1</url>
+    </paper>
+    <paper id="2">
+      <title>Identification des catégories de relations aliment-médicament (Identification of categories of food-drug relations)</title>
+      <author><first>Tsanta</first><last>Randriatsitohaina</last></author>
+      <author><first>Thierry</first><last>Hamon</last></author>
+      <pages>19–30</pages>
+      <abstract>Les interactions aliment-médicament se produisent lorsque des aliments et des médicaments pris ensembles provoquent un effet inattendu. Leur reconnaissance automatique dans les textes peut être considérée comme une tâche d’extraction de relation à l’aide de méthodes de classification. Toutefois, étant donné que ces interactions sont décrites de manière très fine, nous sommes confrontés au manque de données et au manque d’exemples par type de relation. Pour résoudre ce problème, nous proposons une approche efficace pour regrouper des relations partageant une représentation similaire en groupes et réduire le manque d’exemples. Notre approche améliore les performances de la classification des FDI. Enfin, nous contrastons une méthode de regroupement intuitive basée sur la définition des types de relation et un apprentissage non supervisé basé sur les instances de chaque type de relation.</abstract>
+      <url hash="90edd329">2019.jeptalnrecital-tia.2</url>
+      <language>fra</language>
+    </paper>
+    <paper id="3">
+      <title>Terminology-based Text Embedding for Computing Document Similarities on Technical Content</title>
+      <author><first>Hamid</first><last>Mirisaee</last></author>
+      <author><first>Eric</first><last>Gaussier</last></author>
+      <author><first>Cedric</first><last>Lagnier</last></author>
+      <author><first>Agnes</first><last>Guerraz</last></author>
+      <pages>31–42</pages>
+      <abstract>We propose in this paper a new, hybrid document embedding approach in order to address the problem of document similarities with respect to the technical content. To do so, we employ a state-of-the-art graph techniques to first extract the keyphrases (composite keywords) of documents and, then, use them to score the sentences. Using the ranked sentences, we propose two approaches to embed documents and show their performances with respect to two baselines. With domain expert annotations, we illustrate that the proposed methods can find more relevant documents and outperform the baselines up to 27% in terms of NDCG.</abstract>
+      <url hash="32dbbb15">2019.jeptalnrecital-tia.3</url>
+    </paper>
+    <paper id="4">
+      <title>Exploiter un réseau lexico-sémantique pour la construction d’ontologie (Lexical Semantic Network Use for Ontology Building )</title>
+      <author><first>Nadia</first><last>Bebeshina-Clairet</last></author>
+      <author><first>Sylvie</first><last>Desprès</last></author>
+      <pages>43–54</pages>
+      <abstract>Dans le présent article nous nous intéressons à l’exploitation des ressources de connaissance lexicosémantiques dans le cadre de la construction et de l’enrichissement d’ontologie. En effet, la construction d’ontologie est souvent menée de manière descendante où ses concepts de haut niveau sont définis pour ensuite être spécifiés sur la base d’un consensus entre les experts humains. Nous explorons une technique d’utilisation des réseaux lexico-sémantiques (RLS) multilingue et monolingue pour enrichir une ontologie existante. Cette technique vise à réduire l’effort humain nécessaire à la localisation ou à l’enrichissement d’une ontologie.</abstract>
+      <url hash="32df3f35">2019.jeptalnrecital-tia.4</url>
+      <language>fra</language>
+    </paper>
+    <paper id="5">
+      <title>Entropic characterisation of termino-conceptual structure : A preliminary study</title>
+      <author><first>Kyo</first><last>Kageura</last></author>
+      <author><first>Long-Huei</first><last>Chen</last></author>
+      <pages>55–68</pages>
+      <abstract>Terms represent concepts, which consist of conceptual characteristics. In actual concept-term formation, which is done by researchers, the process is in reverse: conceptual elements/characteristics are consolidated to form concepts, which are represented by terms. As concepts do not exist on the fly, what we may call termino-conceptual system provides scaffolding in this process. Terminologists, both in practice and in research, do not only collect and list terms but also analyse, describe and define terms and systematise terminologies. To carry out these tasks, terminologists must refer to conceptual systems, to the extent that they contribute to systematising terminologies; terminologists thus also deal with the sphere of termino-conceptual system. In this paper, we consolidate the status of termino-conceptual sphere and propose a way to characterise the structure of termino-conceptual system by using entropy. The entropic characterisation of English terminologies of six domain, i.e. agriculture, botany, chemistry, computer science, physics and psychology are presented.</abstract>
+      <url hash="419de580">2019.jeptalnrecital-tia.5</url>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>T</fixed-case>em<fixed-case>PO</fixed-case> : towards a conceptualisation of pathology in speech and language therapy</title>
+      <author><first>Frédérique</first><last>Brin-Henry</last></author>
+      <author><first>Rute</first><last>Costa</last></author>
+      <author><first>Sylvie</first><last>Desprès</last></author>
+      <pages>69–81</pages>
+      <abstract/>
+      <url hash="b863a58f">2019.jeptalnrecital-tia.6</url>
+    </paper>
+  </volume>
+</collection>

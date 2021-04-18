@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.autosimtrans">
+  <volume id="1" ingest-date="2020-06-21">
+    <meta>
+      <booktitle>Proceedings of the First Workshop on Automatic Simultaneous Translation</booktitle>
+      <editor><first>Hua</first><last>Wu</last></editor>
+      <editor><first>Collin</first><last>Cherry</last></editor>
+      <editor><first>Liang</first><last>Huang</last></editor>
+      <editor><first>Zhongjun</first><last>He</last></editor>
+      <editor><first>Mark</first><last>Liberman</last></editor>
+      <editor><first>James</first><last>Cross</last></editor>
+      <editor id="yang-liu-ict"><first>Yang</first><last>Liu</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Seattle, Washington</address>
+      <month>July</month>
+      <year>2020</year>
+      <url hash="acf5340f">2020.autosimtrans-1</url>
+    </meta>
+    <frontmatter>
+      <url hash="fdc9613d">2020.autosimtrans-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Dynamic Sentence Boundary Detection for Simultaneous Translation</title>
+      <author><first>Ruiqing</first><last>Zhang</last></author>
+      <author><first>Chuanqiang</first><last>Zhang</last></author>
+      <pages>1–9</pages>
+      <abstract>Simultaneous Translation is a great challenge in which translation starts before the source sentence finished. Most studies take transcription as input and focus on balancing translation quality and latency for each sentence. However, most ASR systems can not provide accurate sentence boundaries in realtime. Thus it is a key problem to segment sentences for the word streaming before translation. In this paper, we propose a novel method for sentence boundary detection that takes it as a multi-class classification task under the end-to-end pre-training framework. Experiments show significant improvements both in terms of translation quality and latency.</abstract>
+      <url hash="fa3be46f">2020.autosimtrans-1.1</url>
+      <doi>10.18653/v1/2020.autosimtrans-1.1</doi>
+      <video tag="video" href="http://slideslive.com/38929917"/>
+    </paper>
+    <paper id="2">
+      <title>End-to-End Speech Translation with Adversarial Training</title>
+      <author><first>Xuancai</first><last>Li</last></author>
+      <author><first>Chen</first><last>Kehai</last></author>
+      <author><first>Tiejun</first><last>Zhao</last></author>
+      <author><first>Muyun</first><last>Yang</last></author>
+      <pages>10–14</pages>
+      <abstract>End-to-End speech translation usually leverages audio-to-text parallel data to train an available speech translation model which has shown impressive results on various speech translation tasks. Due to the artificial cost of collecting audio-to-text parallel data, the speech translation is a natural low-resource translation scenario, which greatly hinders its improvement. In this paper, we proposed a new adversarial training method to leverage target monolingual data to relieve the low-resource shortcoming of speech translation. In our method, the existing speech translation model is considered as a Generator to gain a target language output, and another neural Discriminator is used to guide the distinction between outputs of speech translation model and true target monolingual sentences. Experimental results on the CCMT 2019-BSTC dataset speech translation task demonstrate that the proposed methods can significantly improve the performance of the End-to-End speech translation system.</abstract>
+      <url hash="5403eb0f">2020.autosimtrans-1.2</url>
+      <doi>10.18653/v1/2020.autosimtrans-1.2</doi>
+      <video tag="video" href="http://slideslive.com/38929918"/>
+    </paper>
+    <paper id="3">
+      <title>Robust Neural Machine Translation with <fixed-case>ASR</fixed-case> Errors</title>
+      <author><first>Haiyang</first><last>Xue</last></author>
+      <author><first>Yang</first><last>Feng</last></author>
+      <author><first>Shuhao</first><last>Gu</last></author>
+      <author><first>Wei</first><last>Chen</last></author>
+      <pages>15–23</pages>
+      <abstract>In many practical applications, neural machine translation systems have to deal with the input from automatic speech recognition (ASR) systems which may contain a certain number of errors. This leads to two problems which degrade translation performance. One is the discrepancy between the training and testing data and the other is the translation error caused by the input errors may ruin the whole translation. In this paper, we propose a method to handle the two problems so as to generate robust translation to ASR errors. First, we simulate ASR errors in the training data so that the data distribution in the training and test is consistent. Second, we focus on ASR errors on homophone words and words with similar pronunciation and make use of their pronunciation information to help the translation model to recover from the input errors. Experiments on two Chinese-English data sets show that our method is more robust to input errors and can outperform the strong Transformer baseline significantly.</abstract>
+      <url hash="66a7a979">2020.autosimtrans-1.3</url>
+      <doi>10.18653/v1/2020.autosimtrans-1.3</doi>
+      <video tag="video" href="http://slideslive.com/38929919"/>
+    </paper>
+    <paper id="4">
+      <title>Improving Autoregressive <fixed-case>NMT</fixed-case> with Non-Autoregressive Model</title>
+      <author><first>Long</first><last>Zhou</last></author>
+      <author><first>Jiajun</first><last>Zhang</last></author>
+      <author><first>Chengqing</first><last>Zong</last></author>
+      <pages>24–29</pages>
+      <abstract>Autoregressive neural machine translation (NMT) models are often used to teach non-autoregressive models via knowledge distillation. However, there are few studies on improving the quality of autoregressive translation (AT) using non-autoregressive translation (NAT). In this work, we propose a novel Encoder-NAD-AD framework for NMT, aiming at boosting AT with global information produced by NAT model. Specifically, under the semantic guidance of source-side context captured by the encoder, the non-autoregressive decoder (NAD) first learns to generate target-side hidden state sequence in parallel. Then the autoregressive decoder (AD) performs translation from left to right, conditioned on source-side and target-side hidden states. Since AD has global information generated by low-latency NAD, it is more likely to produce a better translation with less time delay. Experiments on WMT14 En-De, WMT16 En-Ro, and IWSLT14 De-En translation tasks demonstrate that our framework achieves significant improvements with only 8% speed degeneration over the autoregressive NMT.</abstract>
+      <url hash="57a3c992">2020.autosimtrans-1.4</url>
+      <doi>10.18653/v1/2020.autosimtrans-1.4</doi>
+      <video tag="video" href="http://slideslive.com/38929920"/>
+    </paper>
+    <paper id="5">
+      <title>Modeling Discourse Structure for Document-level Neural Machine Translation</title>
+      <author><first>Junxuan</first><last>Chen</last></author>
+      <author><first>Xiang</first><last>Li</last></author>
+      <author><first>Jiarui</first><last>Zhang</last></author>
+      <author><first>Chulun</first><last>Zhou</last></author>
+      <author><first>Jianwei</first><last>Cui</last></author>
+      <author><first>Bin</first><last>Wang</last></author>
+      <author><first>Jinsong</first><last>Su</last></author>
+      <pages>30–36</pages>
+      <abstract>Recently, document-level neural machine translation (NMT) has become a hot topic in the community of machine translation. Despite its success, most of existing studies ignored the discourse structure information of the input document to be translated, which has shown effective in other tasks. In this paper, we propose to improve document-level NMT with the aid of discourse structure information. Our encoder is based on a hierarchical attention network (HAN) (Miculicich et al., 2018). Specifically, we first parse the input document to obtain its discourse structure. Then, we introduce a Transformer-based path encoder to embed the discourse structure information of each word. Finally, we combine the discourse structure information with the word embedding before it is fed into the encoder. Experimental results on the English-to-German dataset show that our model can significantly outperform both Transformer and Transformer+HAN.</abstract>
+      <url hash="9016f8ab">2020.autosimtrans-1.5</url>
+      <doi>10.18653/v1/2020.autosimtrans-1.5</doi>
+      <video tag="video" href="http://slideslive.com/38929921"/>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>BIT</fixed-case>’s system for the <fixed-case>A</fixed-case>uto<fixed-case>S</fixed-case>im<fixed-case>T</fixed-case>rans 2020</title>
+      <author><first>Minqin</first><last>Li</last></author>
+      <author><first>Haodong</first><last>Cheng</last></author>
+      <author><first>Yuanjie</first><last>Wang</last></author>
+      <author><first>Sijia</first><last>Zhang</last></author>
+      <author><first>Liting</first><last>Wu</last></author>
+      <author><first>Yuhang</first><last>Guo</last></author>
+      <pages>37–44</pages>
+      <abstract>This paper describes our machine translation systems for the streaming Chinese-to-English translation task of AutoSimTrans 2020. We present a sentence length based method and a sentence boundary detection model based method for the streaming input segmentation. Experimental results of the transcription and the ASR output translation on the development data sets show that the translation system with the detection model based method outperforms the one with the length based method in BLEU score by 1.19 and 0.99 respectively under similar or better latency.</abstract>
+      <url hash="8c84d04a">2020.autosimtrans-1.6</url>
+      <doi>10.18653/v1/2020.autosimtrans-1.6</doi>
+      <video tag="video" href="http://slideslive.com/38929922"/>
+    </paper>
+  </volume>
+</collection>

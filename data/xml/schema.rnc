@@ -9,7 +9,8 @@ MarkupText = (text | b | i | url | fixed-case | tex-math )+
 
 first = element first { text }
 last = element last { text }
-Person = attribute id { xsd:NCName }?, (first? & last)
+Variant = element variant { attribute script { xsd:string }, (first? & last) }
+Person = attribute id { xsd:NCName }?, (first? & last & Variant?)
 
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
 checksum = attribute hash { xsd:string {minLength="8" maxLength="8" pattern="[0-9a-f]*"} }
@@ -44,7 +45,7 @@ Paper = element paper {
        checksum,
        local-filename
      }*
-   & element issue { xsd:positiveInteger }?
+   & element issue { xsd:nonNegativeInteger }?
    & element journal { text }?
    & element mrf {
        attribute src { xsd:NCName },
@@ -61,6 +62,7 @@ Paper = element paper {
      }*
    & element volume { xsd:positiveInteger }?
    & element language { xsd:language }?
+   & element award { text }*
    )
 }
 Meta = element meta {

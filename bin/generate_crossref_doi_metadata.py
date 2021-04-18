@@ -48,8 +48,8 @@ import time
 
 from lxml import etree
 
-from anthology.utils import deconstruct_anthology_id, make_simple_element
-from anthology.data import ANTHOLOGY_URL, DOI_PREFIX
+from anthology.utils import deconstruct_anthology_id, make_simple_element, is_newstyle_id
+from anthology.data import CANONICAL_URL_TEMPLATE, DOI_PREFIX
 from anthology.formatter import MarkupFormatter
 
 # CONSTANTS
@@ -75,8 +75,7 @@ MONTH_HASH = {
 
 # FUNCTION DEFINITIONS
 def prettify(elem):
-    """Return a pretty-printed XML string for the Element.
-    """
+    """Return a pretty-printed XML string for the Element."""
     rough_string = etree.tostring(elem, "utf-8")
     reparsed = minidom.parseString(rough_string)
     return reparsed.toprettyxml(indent="  ")
@@ -157,8 +156,6 @@ def main(volumes):
                         file=sys.stderr,
                     )
                     sys.exit(1)
-            elif tag.tag == "url":
-                url = tag.text
             elif tag.tag == "booktitle":
                 booktitle = formatter.as_text(tag)
             elif tag.tag == "address":
@@ -177,7 +174,12 @@ def main(volumes):
                 editor_index += 1
 
                 for name_part in tag:
-                    if name_part.tag == "first":
+                    # Check if empty (e.g., "Mausam")
+                    if (
+                        name_part.tag == "first"
+                        and name_part.text is not None
+                        and name_part.text != ""
+                    ):
                         gn = make_simple_element(
                             "given_name", parent=pn, text=name_part.text
                         )
@@ -217,21 +219,23 @@ def main(volumes):
 
         # DOI assignation data
         dd = make_simple_element("doi_data", parent=pm)
-        doi = make_simple_element("doi", parent=dd, text=DOI_PREFIX + url)
+        doi = make_simple_element("doi", parent=dd, text=DOI_PREFIX + full_volume_id)
         resource = make_simple_element(
-            "resource", parent=dd, text=ANTHOLOGY_URL.format(url)
+            "resource", parent=dd, text=CANONICAL_URL_TEMPLATE.format(full_volume_id)
         )
 
         for paper in v.findall("./paper"):
             ## Individual Paper Data
-
-            # TODO: this is not future-proof, should use anthology.util library functions
-            aa_id = ""
-            if len(url) == 6:
-                aa_id = "{:02d}".format(int(paper.attrib["id"]))
+            paper_id = paper.attrib["id"]
+            if paper.find("./url") is not None:
+                url = paper.find("./url").text
             else:
-                if len(url) == 5:
-                    aa_id = "{:03d}".format(int(paper.attrib["id"]))
+                if is_newstyle_id(full_volume_id):
+                    url = f"{full_volume_id}.{paper_id}"
+                elif len(full_volume_id) == 6:
+                    url = f"{full_volume_id}{paper_id:02d}"
+                elif len(full_volume_id) == 5:
+                    url = f"{full_volume_id}{paper_id:03d}"
 
             cp = make_simple_element("conference_paper", parent=c)
 
@@ -250,7 +254,11 @@ def main(volumes):
                 author_index += 1
 
                 for name_part in author:
-                    if name_part.tag == "first":
+                    if (
+                        name_part.tag == "first"
+                        and name_part.text is not None
+                        and name_part.text != ""
+                    ):
                         gn = make_simple_element(
                             "given_name", parent=pn, text=name_part.text
                         )
@@ -282,9 +290,9 @@ def main(volumes):
 
             # DOI assignation data
             dd = make_simple_element("doi_data", parent=cp)
-            doi = make_simple_element("doi", parent=dd, text=DOI_PREFIX + url + aa_id)
+            doi = make_simple_element("doi", parent=dd, text=DOI_PREFIX + url)
             resource = make_simple_element(
-                "resource", parent=dd, text=ANTHOLOGY_URL.format(url + aa_id)
+                "resource", parent=dd, text=CANONICAL_URL_TEMPLATE.format(url)
             )
 
     print(

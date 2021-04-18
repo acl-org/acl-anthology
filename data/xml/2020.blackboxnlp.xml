@@ -1,0 +1,350 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.blackboxnlp">
+  <volume id="1" ingest-date="2020-11-06">
+    <meta>
+      <booktitle>Proceedings of the Third BlackboxNLP Workshop on Analyzing and Interpreting Neural Networks for NLP</booktitle>
+      <editor><first>Afra</first><last>Alishahi</last></editor>
+      <editor><first>Yonatan</first><last>Belinkov</last></editor>
+      <editor><first>Grzegorz</first><last>Chrupała</last></editor>
+      <editor><first>Dieuwke</first><last>Hupkes</last></editor>
+      <editor><first>Yuval</first><last>Pinter</last></editor>
+      <editor><first>Hassan</first><last>Sajjad</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Online</address>
+      <month>November</month>
+      <year>2020</year>
+    </meta>
+    <frontmatter>
+      <url hash="de8af8bb">2020.blackboxnlp-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>BERT</fixed-case>ering <fixed-case>RAMS</fixed-case>: What and How Much does <fixed-case>BERT</fixed-case> Already Know About Event Arguments? - A Study on the <fixed-case>RAMS</fixed-case> Dataset</title>
+      <author><first>Varun</first><last>Gangal</last></author>
+      <author><first>Eduard</first><last>Hovy</last></author>
+      <pages>1–10</pages>
+      <abstract>Using the attention map based probing framework from (Clark et al., 2019), we observe that, on the RAMS dataset (Ebner et al., 2020), BERT’s attention heads have modest but well above-chance ability to spot event arguments sans any training or domain finetuning, varying from a low of 17.77% for Place to a high of 51.61% for Artifact. Next, we find that linear combinations of these heads, estimated with approx. 11% of available total event argument detection supervision, can push performance well higher for some roles — highest two being Victim (68.29% Accuracy) and Artifact (58.82% Accuracy). Furthermore, we investigate how well our methods do for cross-sentence event arguments. We propose a procedure to isolate “best heads” for cross-sentence argument detection separately of those for intra-sentence arguments. The heads thus estimated have superior cross-sentence performance compared to their jointly estimated equivalents, albeit only under the unrealistic assumption that we already know the argument is present in another sentence. Lastly, we seek to isolate to what extent our numbers stem from lexical frequency based associations between gold arguments and roles. We propose NONCE, a scheme to create adversarial test examples by replacing gold arguments with randomly generated “nonce” words. We find that learnt linear combinations are robust to NONCE, though individual best heads can be more sensitive.</abstract>
+      <url hash="22c98ad3">2020.blackboxnlp-1.1</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="4379a3aa">2020.blackboxnlp-1.1.OptionalSupplementaryMaterial.zip</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Emergent Language Generalization and Acquisition Speed are not tied to Compositionality</title>
+      <author><first>Eugene</first><last>Kharitonov</last></author>
+      <author><first>Marco</first><last>Baroni</last></author>
+      <pages>11–15</pages>
+      <abstract>Studies of discrete languages emerging when neural agents communicate to solve a joint task often look for evidence of compositional structure. This stems for the expectation that such a structure would allow languages to be acquired faster by the agents and enable them to generalize better. We argue that these beneficial properties are only loosely connected to compositionality. In two experiments, we demonstrate that, depending on the task, non-compositional languages might show equal, or better, generalization performance and acquisition speed than compositional ones. Further research in the area should be clearer about what benefits are expected from compositionality, and how the latter would lead to them.</abstract>
+      <url hash="30a2f114">2020.blackboxnlp-1.2</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Examining the rhetorical capacities of neural language models</title>
+      <author><first>Zining</first><last>Zhu</last></author>
+      <author><first>Chuer</first><last>Pan</last></author>
+      <author><first>Mohamed</first><last>Abdalla</last></author>
+      <author><first>Frank</first><last>Rudzicz</last></author>
+      <pages>16–32</pages>
+      <abstract>Recently, neural language models (LMs) have demonstrated impressive abilities in generating high-quality discourse. While many recent papers have analyzed the syntactic aspects encoded in LMs, there has been no analysis to date of the inter-sentential, rhetorical knowledge. In this paper, we propose a method that quantitatively evaluates the rhetorical capacities of neural LMs. We examine the capacities of neural LMs understanding the rhetoric of discourse by evaluating their abilities to encode a set of linguistic features derived from Rhetorical Structure Theory (RST). Our experiments show that BERT-based LMs outperform other Transformer LMs, revealing the richer discourse knowledge in their intermediate layer representations. In addition, GPT-2 and XLNet apparently encode less rhetorical knowledge, and we suggest an explanation drawing from linguistic philosophy. Our method shows an avenue towards quantifying the rhetorical capacities of neural LMs.</abstract>
+      <url hash="317b4a79">2020.blackboxnlp-1.3</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>What Happens To <fixed-case>BERT</fixed-case> Embeddings During Fine-tuning?</title>
+      <author><first>Amil</first><last>Merchant</last></author>
+      <author><first>Elahe</first><last>Rahimtoroghi</last></author>
+      <author><first>Ellie</first><last>Pavlick</last></author>
+      <author><first>Ian</first><last>Tenney</last></author>
+      <pages>33–44</pages>
+      <abstract>While much recent work has examined how linguistic information is encoded in pre-trained sentence representations, comparatively little is understood about how these models change when adapted to solve downstream tasks. Using a suite of analysis techniques—supervised probing, unsupervised similarity analysis, and layer-based ablations—we investigate how fine-tuning affects the representations of the BERT model. We find that while fine-tuning necessarily makes some significant changes, there is no catastrophic forgetting of linguistic phenomena. We instead find that fine-tuning is a conservative process that primarily affects the top layers of BERT, albeit with noteworthy variation across tasks. In particular, dependency parsing reconfigures most of the model, whereas SQuAD and MNLI involve much shallower processing. Finally, we also find that fine-tuning has a weaker effect on representations of out-of-domain sentences, suggesting room for improvement in model generalization.</abstract>
+      <url hash="713eb8cb">2020.blackboxnlp-1.4</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="ca3b275a">2020.blackboxnlp-1.4.OptionalSupplementaryMaterial.zip</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title>It’s not <fixed-case>G</fixed-case>reek to m<fixed-case>BERT</fixed-case>: Inducing Word-Level Translations from Multilingual <fixed-case>BERT</fixed-case></title>
+      <author><first>Hila</first><last>Gonen</last></author>
+      <author><first>Shauli</first><last>Ravfogel</last></author>
+      <author><first>Yanai</first><last>Elazar</last></author>
+      <author><first>Yoav</first><last>Goldberg</last></author>
+      <pages>45–56</pages>
+      <abstract>Recent works have demonstrated that multilingual BERT (mBERT) learns rich cross-lingual representations, that allow for transfer across languages. We study the word-level translation information embedded in mBERT and present two simple methods that expose remarkable translation capabilities with no fine-tuning. The results suggest that most of this information is encoded in a non-linear way, while some of it can also be recovered with purely linear tools. As part of our analysis, we test the hypothesis that mBERT learns representations which contain both a language-encoding component and an abstract, cross-lingual component, and explicitly identify an empirical language-identity subspace within mBERT representations.</abstract>
+      <url hash="adc2c23f">2020.blackboxnlp-1.5</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Leveraging Extracted Model Adversaries for Improved Black Box Attacks</title>
+      <author><first>Naveen Jafer</first><last>Nizar</last></author>
+      <author><first>Ari</first><last>Kobren</last></author>
+      <pages>57–67</pages>
+      <abstract>We present a method for adversarial input generation against black box models for reading comprehension based question answering. Our approach is composed of two steps. First, we approximate a victim black box model via model extraction. Second, we use our own white box method to generate input perturbations that cause the approximate model to fail. These perturbed inputs are used against the victim. In experiments we find that our method improves on the efficacy of the ADDANY—a white box attack—performed on the approximate model by 25% F1, and the ADDSENT attack—a black box attack—by 11% F1.</abstract>
+      <url hash="ac888724">2020.blackboxnlp-1.6</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>On the Interplay Between Fine-tuning and Sentence-Level Probing for Linguistic Knowledge in Pre-Trained Transformers</title>
+      <author><first>Marius</first><last>Mosbach</last></author>
+      <author><first>Anna</first><last>Khokhlova</last></author>
+      <author><first>Michael A.</first><last>Hedderich</last></author>
+      <author><first>Dietrich</first><last>Klakow</last></author>
+      <pages>68–82</pages>
+      <abstract>Fine-tuning pre-trained contextualized embedding models has become an integral part of the NLP pipeline. At the same time, probing has emerged as a way to investigate the linguistic knowledge captured by pre-trained models. Very little is, however, understood about how fine-tuning affects the representations of pre-trained models and thereby the linguistic knowledge they encode. This paper contributes towards closing this gap. We study three different pre-trained models: BERT, RoBERTa, and ALBERT, and investigate through sentence-level probing how fine-tuning affects their representations. We find that for some probing tasks fine-tuning leads to substantial changes in accuracy, possibly suggesting that fine-tuning introduces or even removes linguistic knowledge from a pre-trained model. These changes, however, vary greatly across different models, fine-tuning and probing tasks. Our analysis reveals that while fine-tuning indeed changes the representations of a pre-trained model and these changes are typically larger for higher layers, only in very few cases, fine-tuning has a positive effect on probing accuracy that is larger than just using the pre-trained model with a strong pooling method. Based on our findings, we argue that both positive and negative effects of fine-tuning on probing require a careful interpretation.</abstract>
+      <url hash="51138dac">2020.blackboxnlp-1.7</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Unsupervised Evaluation for Question Answering with Transformers</title>
+      <author><first>Lukas</first><last>Muttenthaler</last></author>
+      <author><first>Isabelle</first><last>Augenstein</last></author>
+      <author><first>Johannes</first><last>Bjerva</last></author>
+      <pages>83–90</pages>
+      <abstract>It is challenging to automatically evaluate the answer of a QA model at inference time. Although many models provide confidence scores, and simple heuristics can go a long way towards indicating answer correctness, such measures are heavily dataset-dependent and are unlikely to generalise. In this work, we begin by investigating the hidden representations of questions, answers, and contexts in transformer-based QA architectures. We observe a consistent pattern in the answer representations, which we show can be used to automatically evaluate whether or not a predicted answer span is correct. Our method does not require any labelled data and outperforms strong heuristic baselines, across 2 datasets and 7 domains. We are able to predict whether or not a model’s answer is correct with 91.37% accuracy on SQuAD, and 80.7% accuracy on SubjQA. We expect that this method will have broad applications, e.g., in semi-automatic development of QA datasets.</abstract>
+      <url hash="a3cf2829">2020.blackboxnlp-1.8</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Unsupervised Distillation of Syntactic Information from Contextualized Word Representations</title>
+      <author><first>Shauli</first><last>Ravfogel</last></author>
+      <author><first>Yanai</first><last>Elazar</last></author>
+      <author><first>Jacob</first><last>Goldberger</last></author>
+      <author><first>Yoav</first><last>Goldberg</last></author>
+      <pages>91–106</pages>
+      <abstract>Contextualized word representations, such as ELMo and BERT, were shown to perform well on various semantic and syntactic task. In this work, we tackle the task of unsupervised disentanglement between semantics and structure in neural language representations: we aim to learn a transformation of the contextualized vectors, that discards the lexical semantics, but keeps the structural information. To this end, we automatically generate groups of sentences which are structurally similar but semantically different, and use metric-learning approach to learn a transformation that emphasizes the structural component that is encoded in the vectors. We demonstrate that our transformation clusters vectors in space by structural properties, rather than by lexical semantics. Finally, we demonstrate the utility of our distilled representations by showing that they outperform the original contextualized representations in a few-shot parsing setting.</abstract>
+      <url hash="caaa537f">2020.blackboxnlp-1.9</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>The Explanation Game: Towards Prediction Explainability through Sparse Communication</title>
+      <author><first>Marcos</first><last>Treviso</last></author>
+      <author><first>André F. T.</first><last>Martins</last></author>
+      <pages>107–118</pages>
+      <abstract>Explainability is a topic of growing importance in NLP. In this work, we provide a unified perspective of explainability as a communication problem between an explainer and a layperson about a classifier’s decision. We use this framework to compare several explainers, including gradient methods, erasure, and attention mechanisms, in terms of their communication success. In addition, we reinterpret these methods in the light of classical feature selection, and use this as inspiration for new embedded explainers, through the use of selective, sparse attention. Experiments in text classification and natural language inference, using different configurations of explainers and laypeople (including both machines and humans), reveal an advantage of attention-based explainers over gradient and erasure methods, and show that selective attention is a simpler alternative to stochastic rationalizers. Human experiments show strong results on text classification with post-hoc explainers trained to optimize communication success.</abstract>
+      <url hash="b97a2a97">2020.blackboxnlp-1.10</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="546c8b32">2020.blackboxnlp-1.10.OptionalSupplementaryMaterial.zip</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Latent Tree Learning with Ordered Neurons: What Parses Does It Produce?</title>
+      <author><first>Yian</first><last>Zhang</last></author>
+      <pages>119–125</pages>
+      <abstract>Recent latent tree learning models can learn constituency parsing without any exposure to human-annotated tree structures. One such model is ON-LSTM (Shen et al., 2019), which is trained on language modelling and has near-state-of-the-art performance on unsupervised parsing. In order to better understand the performance and consistency of the model as well as how the parses it generates are different from gold-standard PTB parses, we replicate the model with different restarts and examine their parses. We find that (1) the model has reasonably consistent parsing behaviors across different restarts, (2) the model struggles with the internal structures of complex noun phrases, (3) the model has a tendency to overestimate the height of the split points right before verbs. We speculate that both problems could potentially be solved by adopting a different training task other than unidirectional language modelling.</abstract>
+      <url hash="2948f882">2020.blackboxnlp-1.11</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Linguistically-Informed Transformations (<fixed-case>LIT</fixed-case>): A Method for Automatically Generating Contrast Sets</title>
+      <author><first>Chuanrong</first><last>Li</last></author>
+      <author><first>Lin</first><last>Shengshuo</last></author>
+      <author><first>Zeyu</first><last>Liu</last></author>
+      <author><first>Xinyi</first><last>Wu</last></author>
+      <author><first>Xuhui</first><last>Zhou</last></author>
+      <author><first>Shane</first><last>Steinert-Threlkeld</last></author>
+      <pages>126–135</pages>
+      <abstract>Although large-scale pretrained language models, such as BERT and RoBERTa, have achieved superhuman performance on in-distribution test sets, their performance suffers on out-of-distribution test sets (e.g., on contrast sets). Building contrast sets often requires human-expert annotation, which is expensive and hard to create on a large scale. In this work, we propose a Linguistically-Informed Transformation (LIT) method to automatically generate contrast sets, which enables practitioners to explore linguistic phenomena of interests as well as compose different phenomena. Experimenting with our method on SNLI and MNLI shows that current pretrained language models, although being claimed to contain sufficient linguistic knowledge, struggle on our automatically generated contrast sets. Furthermore, we improve models’ performance on the contrast sets by applying LIT to augment the training data, without affecting performance on the original data.</abstract>
+      <url hash="27e3ad59">2020.blackboxnlp-1.12</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="437d7ae3">2020.blackboxnlp-1.12.OptionalSupplementaryMaterial.pdf</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Controlling the Imprint of Passivization and Negation in Contextualized Representations</title>
+      <author><first>Hande</first><last>Celikkanat</last></author>
+      <author><first>Sami</first><last>Virpioja</last></author>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <author><first>Marianna</first><last>Apidianaki</last></author>
+      <pages>136–148</pages>
+      <abstract>Contextualized word representations encode rich information about syntax and semantics, alongside specificities of each context of use. While contextual variation does not always reflect actual meaning shifts, it can still reduce the similarity of embeddings for word instances having the same meaning. We explore the imprint of two specific linguistic alternations, namely passivization and negation, on the representations generated by neural models trained with two different objectives: masked language modeling and translation. Our exploration methodology is inspired by an approach previously proposed for removing societal biases from word vectors. We show that passivization and negation leave their traces on the representations, and that neutralizing this information leads to more similar embeddings for words that should preserve their meaning in the transformation. We also find clear differences in how the respective features generalize across datasets.</abstract>
+      <url hash="2d7f2864">2020.blackboxnlp-1.13</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>The elephant in the interpretability room: Why use attention as explanation when we have saliency methods?</title>
+      <author><first>Jasmijn</first><last>Bastings</last></author>
+      <author><first>Katja</first><last>Filippova</last></author>
+      <pages>149–155</pages>
+      <abstract>There is a recent surge of interest in using attention as explanation of model predictions, with mixed evidence on whether attention can be used as such. While attention conveniently gives us one weight per input token and is easily extracted, it is often unclear toward what goal it is used as explanation. We find that often that goal, whether explicitly stated or not, is to find out what input tokens are the most relevant to a prediction, and that the implied user for the explanation is a model developer. For this goal and user, we argue that input saliency methods are better suited, and that there are no compelling reasons to use attention, despite the coincidence that it provides a weight for each input. With this position paper, we hope to shift some of the recent focus on attention to saliency methods, and for authors to clearly state the goal and user for their explanations.</abstract>
+      <url hash="852122f3">2020.blackboxnlp-1.14</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>How does <fixed-case>BERT</fixed-case> capture semantics? A closer look at polysemous words</title>
+      <author><first>David</first><last>Yenicelik</last></author>
+      <author><first>Florian</first><last>Schmidt</last></author>
+      <author><first>Yannic</first><last>Kilcher</last></author>
+      <pages>156–162</pages>
+      <abstract>The recent paradigm shift to contextual word embeddings has seen tremendous success across a wide range of down-stream tasks. However, little is known on how the emergent relation of context and semantics manifests geometrically. We investigate polysemous words as one particularly prominent instance of semantic organization. Our rigorous quantitative analysis of linear separability and cluster organization in embedding vectors produced by BERT shows that semantics do not surface as isolated clusters but form seamless structures, tightly coupled with sentiment and syntax.</abstract>
+      <url hash="e8fd6b10">2020.blackboxnlp-1.15</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="70fccad0">2020.blackboxnlp-1.15.OptionalSupplementaryMaterial.zip</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Neural Natural Language Inference Models Partially Embed Theories of Lexical Entailment and Negation</title>
+      <author><first>Atticus</first><last>Geiger</last></author>
+      <author><first>Kyle</first><last>Richardson</last></author>
+      <author><first>Christopher</first><last>Potts</last></author>
+      <pages>163–173</pages>
+      <abstract>We address whether neural models for Natural Language Inference (NLI) can learn the compositional interactions between lexical entailment and negation, using four methods: the behavioral evaluation methods of (1) challenge test sets and (2) systematic generalization tasks, and the structural evaluation methods of (3) probes and (4) interventions. To facilitate this holistic evaluation, we present Monotonicity NLI (MoNLI), a new naturalistic dataset focused on lexical entailment and negation. In our behavioral evaluations, we find that models trained on general-purpose NLI datasets fail systematically on MoNLI examples containing negation, but that MoNLI fine-tuning addresses this failure. In our structural evaluations, we look for evidence that our top-performing BERT-based model has learned to implement the monotonicity algorithm behind MoNLI. Probes yield evidence consistent with this conclusion, and our intervention experiments bolster this, showing that the causal dynamics of the model mirror the causal dynamics of this algorithm on subsets of MoNLI. This suggests that the BERT model at least partially embeds a theory of lexical entailment and negation at an algorithmic level.</abstract>
+      <url hash="6f23d1c1">2020.blackboxnlp-1.16</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="e8cf6ccc">2020.blackboxnlp-1.16.OptionalSupplementaryMaterial.zip</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>BERT</fixed-case>nesia: Investigating the capture and forgetting of knowledge in <fixed-case>BERT</fixed-case></title>
+      <author><first>Jaspreet</first><last>Singh</last></author>
+      <author><first>Jonas</first><last>Wallat</last></author>
+      <author><first>Avishek</first><last>Anand</last></author>
+      <pages>174–183</pages>
+      <abstract>Probing complex language models has recently revealed several insights into linguistic and semantic patterns found in the learned representations. In this paper, we probe BERT specifically to understand and measure the relational knowledge it captures. We utilize knowledge base completion tasks to probe every layer of pre-trained as well as fine-tuned BERT (ranking, question answering, NER). Our findings show that knowledge is not just contained in BERT’s final layers. Intermediate layers contribute a significant amount (17-60%) to the total knowledge found. Probing intermediate layers also reveals how different types of knowledge emerge at varying rates. When BERT is fine-tuned, relational knowledge is forgotten but the extent of forgetting is impacted by the fine-tuning objective but not the size of the dataset. We found that ranking models forget the least and retain more knowledge in their final layer.</abstract>
+      <url hash="6435800f">2020.blackboxnlp-1.17</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="3574294b">2020.blackboxnlp-1.17.OptionalSupplementaryMaterial.zip</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Probing for Multilingual Numerical Understanding in Transformer-Based Language Models</title>
+      <author><first>Devin</first><last>Johnson</last></author>
+      <author><first>Denise</first><last>Mak</last></author>
+      <author><first>Andrew</first><last>Barker</last></author>
+      <author><first>Lexi</first><last>Loessberg-Zahl</last></author>
+      <pages>184–192</pages>
+      <abstract>Natural language numbers are an example of compositional structures, where larger numbers are composed of operations on smaller numbers. Given that compositional reasoning is a key to natural language understanding, we propose novel multilingual probing tasks tested on DistilBERT, XLM, and BERT to investigate for evidence of compositional reasoning over numerical data in various natural language number systems. By using both grammaticality judgment and value comparison classification tasks in English, Japanese, Danish, and French, we find evidence that the information encoded in these pretrained models’ embeddings is sufficient for grammaticality judgments but generally not for value comparisons. We analyze possible reasons for this and discuss how our tasks could be extended in further studies.</abstract>
+      <url hash="874dc816">2020.blackboxnlp-1.18</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title>Dissecting Lottery Ticket Transformers: Structural and Behavioral Study of Sparse Neural Machine Translation</title>
+      <author><first>Rajiv</first><last>Movva</last></author>
+      <author><first>Jason</first><last>Zhao</last></author>
+      <pages>193–203</pages>
+      <abstract>Recent work on the lottery ticket hypothesis has produced highly sparse Transformers for NMT while maintaining BLEU. However, it is unclear how such pruning techniques affect a model’s learned representations. By probing Transformers with more and more low-magnitude weights pruned away, we find that complex semantic information is first to be degraded. Analysis of internal activations reveals that higher layers diverge most over the course of pruning, gradually becoming less complex than their dense counterparts. Meanwhile, early layers of sparse models begin to perform more encoding. Attention mechanisms remain remarkably consistent as sparsity increases.</abstract>
+      <url hash="34fcea29">2020.blackboxnlp-1.19</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="d5a8b85c">2020.blackboxnlp-1.19.OptionalSupplementaryMaterial.pdf</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.19</doi>
+    </paper>
+    <paper id="20">
+      <title>Exploring Neural Entity Representations for Semantic Information</title>
+      <author><first>Andrew</first><last>Runge</last></author>
+      <author><first>Eduard</first><last>Hovy</last></author>
+      <pages>204–216</pages>
+      <abstract>Neural methods for embedding entities are typically extrinsically evaluated on downstream tasks and, more recently, intrinsically using probing tasks. Downstream task-based comparisons are often difficult to interpret due to differences in task structure, while probing task evaluations often look at only a few attributes and models. We address both of these issues by evaluating a diverse set of eight neural entity embedding methods on a set of simple probing tasks, demonstrating which methods are able to remember words used to describe entities, learn type, relationship and factual information, and identify how frequently an entity is mentioned. We also compare these methods in a unified framework on two entity linking tasks and discuss how they generalize to different model architectures and datasets.</abstract>
+      <url hash="3b1958b1">2020.blackboxnlp-1.20</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>BERT</fixed-case>s of a feather do not generalize together: Large variability in generalization across models with similar test set performance</title>
+      <author><first>R. Thomas</first><last>McCoy</last></author>
+      <author><first>Junghyun</first><last>Min</last></author>
+      <author><first>Tal</first><last>Linzen</last></author>
+      <pages>217–227</pages>
+      <abstract>If the same neural network architecture is trained multiple times on the same dataset, will it make similar linguistic generalizations across runs? To study this question, we fine-tuned 100 instances of BERT on the Multi-genre Natural Language Inference (MNLI) dataset and evaluated them on the HANS dataset, which evaluates syntactic generalization in natural language inference. On the MNLI development set, the behavior of all instances was remarkably consistent, with accuracy ranging between 83.6% and 84.8%. In stark contrast, the same models varied widely in their generalization performance. For example, on the simple case of subject-object swap (e.g., determining that “the doctor visited the lawyer” does not entail “the lawyer visited the doctor”), accuracy ranged from 0.0% to 66.2%. Such variation is likely due to the presence of many local minima in the loss surface that are equally attractive to a low-bias learner such as a neural network; decreasing the variability may therefore require models with stronger inductive biases.</abstract>
+      <url hash="3e3b4902">2020.blackboxnlp-1.21</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title>Second-Order <fixed-case>NLP</fixed-case> Adversarial Examples</title>
+      <author><first>John</first><last>Morris</last></author>
+      <pages>228–237</pages>
+      <abstract>Adversarial example generation methods in NLP rely on models like language models or sentence encoders to determine if potential adversarial examples are valid. In these methods, a valid adversarial example fools the model being attacked, and is determined to be semantically or syntactically valid by a second model. Research to date has counted all such examples as errors by the attacked model. We contend that these adversarial examples may not be flaws in the attacked model, but flaws in the model that determines validity. We term such invalid inputs second-order adversarial examples. We propose the constraint robustness curve, and associated metric ACCS, as tools for evaluating the robustness of a constraint to second-order adversarial examples. To generate this curve, we design an adversarial attack to run directly on the semantic similarity models. We test on two constraints, the Universal Sentence Encoder (USE) and BERTScore. Our findings indicate that such second-order examples exist, but are typically less common than first-order adversarial examples in state-of-the-art models. They also indicate that USE is effective as constraint on NLP adversarial examples, while BERTScore is nearly ineffectual. Code for running the experiments in this paper is available here.</abstract>
+      <url hash="2683e834">2020.blackboxnlp-1.22</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="30f2598d">2020.blackboxnlp-1.22.OptionalSupplementaryMaterial.zip</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Discovering the Compositional Structure of Vector Representations with Role Learning Networks</title>
+      <author><first>Paul</first><last>Soulos</last></author>
+      <author><first>R. Thomas</first><last>McCoy</last></author>
+      <author><first>Tal</first><last>Linzen</last></author>
+      <author><first>Paul</first><last>Smolensky</last></author>
+      <pages>238–254</pages>
+      <abstract>How can neural networks perform so well on compositional tasks even though they lack explicit compositional representations? We use a novel analysis technique called ROLE to show that recurrent neural networks perform well on such tasks by converging to solutions which implicitly represent symbolic structure. This method uncovers a symbolic structure which, when properly embedded in vector space, closely approximates the encodings of a standard seq2seq network trained to perform the compositional SCAN task. We verify the causal importance of the discovered symbolic structure by showing that, when we systematically manipulate hidden embeddings based on this symbolic structure, the model’s output is changed in the way predicted by our analysis.</abstract>
+      <url hash="610114ab">2020.blackboxnlp-1.23</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Structured Self-<fixed-case>A</fixed-case>ttention<fixed-case>W</fixed-case>eights Encode Semantics in Sentiment Analysis</title>
+      <author><first>Zhengxuan</first><last>Wu</last></author>
+      <author><first>Thanh-Son</first><last>Nguyen</last></author>
+      <author><first>Desmond</first><last>Ong</last></author>
+      <pages>255–264</pages>
+      <abstract>Neural attention, especially the self-attention made popular by the Transformer, has become the workhorse of state-of-the-art natural language processing (NLP) models. Very recent work suggests that the self-attention in the Transformer encodes syntactic information; Here, we show that self-attention scores encode semantics by considering sentiment analysis tasks. In contrast to gradient-based feature attribution methods, we propose a simple and effective Layer-wise Attention Tracing (LAT) method to analyze structured attention weights. We apply our method to Transformer models trained on two tasks that have surface dissimilarities, but share common semantics—sentiment analysis of movie reviews and time-series valence prediction in life story narratives. Across both tasks, words with high aggregated attention weights were rich in emotional semantics, as quantitatively validated by an emotion lexicon labeled by human annotators. Our results show that structured attention weights encode rich semantics in sentiment analysis, and match human interpretations of semantics.</abstract>
+      <url hash="9e803558">2020.blackboxnlp-1.24</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="fe482c08">2020.blackboxnlp-1.24.OptionalSupplementaryMaterial.zip</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.24</doi>
+    </paper>
+    <paper id="25">
+      <title>Investigating Novel Verb Learning in <fixed-case>BERT</fixed-case>: Selectional Preference Classes and Alternation-Based Syntactic Generalization</title>
+      <author><first>Tristan</first><last>Thrush</last></author>
+      <author><first>Ethan</first><last>Wilcox</last></author>
+      <author><first>Roger</first><last>Levy</last></author>
+      <pages>265–275</pages>
+      <abstract>Previous studies investigating the syntactic abilities of deep learning models have not targeted the relationship between the strength of the grammatical generalization and the amount of evidence to which the model is exposed during training. We address this issue by deploying a novel word-learning paradigm to test BERT’s few-shot learning capabilities for two aspects of English verbs: alternations and classes of selectional preferences. For the former, we fine-tune BERT on a single frame in a verbal-alternation pair and ask whether the model expects the novel verb to occur in its sister frame. For the latter, we fine-tune BERT on an incomplete selectional network of verbal objects and ask whether it expects unattested but plausible verb/object pairs. We find that BERT makes robust grammatical generalizations after just one or two instances of a novel word in fine-tuning. For the verbal alternation tests, we find that the model displays behavior that is consistent with a transitivity bias: verbs seen few times are expected to take direct objects, but verbs seen with direct objects are not expected to occur intransitively.</abstract>
+      <url hash="82f892db">2020.blackboxnlp-1.25</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title>The <fixed-case>EOS</fixed-case> Decision and Length Extrapolation</title>
+      <author><first>Benjamin</first><last>Newman</last></author>
+      <author><first>John</first><last>Hewitt</last></author>
+      <author><first>Percy</first><last>Liang</last></author>
+      <author><first>Christopher D.</first><last>Manning</last></author>
+      <pages>276–291</pages>
+      <abstract>Extrapolation to unseen sequence lengths is a challenge for neural generative models of language. In this work, we characterize the effect on length extrapolation of a modeling decision often overlooked: predicting the end of the generative process through the use of a special end-of-sequence (EOS) vocabulary item. We study an oracle setting - forcing models to generate to the correct sequence length at test time - to compare the length-extrapolative behavior of networks trained to predict EOS (+EOS) with networks not trained to (-EOS). We find that -EOS substantially outperforms +EOS, for example extrapolating well to lengths 10 times longer than those seen at training time in a bracket closing task, as well as achieving a 40% improvement over +EOS in the difficult SCAN dataset length generalization task. By comparing the hidden states and dynamics of -EOS and +EOS models, we observe that +EOS models fail to generalize because they (1) unnecessarily stratify their hidden states by their linear position is a sequence (structures we call length manifolds) or (2) get stuck in clusters (which we refer to as length attractors) once the EOS token is the highest-probability prediction.</abstract>
+      <url hash="9400b4dc">2020.blackboxnlp-1.26</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Do Language Embeddings capture Scales?</title>
+      <author><first>Xikun</first><last>Zhang</last></author>
+      <author><first>Deepak</first><last>Ramachandran</last></author>
+      <author><first>Ian</first><last>Tenney</last></author>
+      <author><first>Yanai</first><last>Elazar</last></author>
+      <author><first>Dan</first><last>Roth</last></author>
+      <pages>292–299</pages>
+      <abstract>Pretrained Language Models (LMs) have been shown to possess significant linguistic, common sense and factual knowledge. One form of knowledge that has not been studied yet in this context is information about the scalar magnitudes of objects. We show that pretrained language models capture a significant amount of this information but are short of the capability required for general common-sense reasoning. We identify contextual information in pre-training and numeracy as two key factors affecting their performance, and show that a simple method of canonicalizing numbers can have a significant effect on the results.</abstract>
+      <url hash="efffa432">2020.blackboxnlp-1.27</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.27</doi>
+    </paper>
+    <paper id="28">
+      <title>Evaluating Attribution Methods using White-Box <fixed-case>LSTM</fixed-case>s</title>
+      <author><first>Yiding</first><last>Hao</last></author>
+      <pages>300–313</pages>
+      <abstract>Interpretability methods for neural networks are difficult to evaluate because we do not understand the black-box models typically used to test them. This paper proposes a framework in which interpretability methods are evaluated using manually constructed networks, which we call white-box networks, whose behavior is understood a priori. We evaluate five methods for producing attribution heatmaps by applying them to white-box LSTM classifiers for tasks based on formal languages. Although our white-box classifiers solve their tasks perfectly and transparently, we find that all five attribution methods fail to produce the expected model explanations.</abstract>
+      <url hash="d2a8e796">2020.blackboxnlp-1.28</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.28</doi>
+    </paper>
+    <paper id="29">
+      <title>Defining Explanation in an <fixed-case>AI</fixed-case> Context</title>
+      <author><first>Tejaswani</first><last>Verma</last></author>
+      <author><first>Christoph</first><last>Lingenfelder</last></author>
+      <author><first>Dietrich</first><last>Klakow</last></author>
+      <pages>314–322</pages>
+      <abstract>With the increase in the use of AI systems, a need for explanation systems arises. Building an explanation system requires a definition of explanation. However, the natural language term explanation is difficult to define formally as it includes multiple perspectives from different domains such as psychology, philosophy, and cognitive sciences. We study multiple perspectives and aspects of explainability of recommendations or predictions made by AI systems, and provide a generic definition of explanation. The proposed definition is ambitious and challenging to apply. With the intention to bridge the gap between theory and application, we also propose a possible architecture of an automated explanation system based on our definition of explanation.</abstract>
+      <url hash="a3224d28">2020.blackboxnlp-1.29</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.29</doi>
+    </paper>
+    <paper id="30">
+      <title>Searching for a Search Method: Benchmarking Search Algorithms for Generating <fixed-case>NLP</fixed-case> Adversarial Examples</title>
+      <author><first>Jin Yong</first><last>Yoo</last></author>
+      <author><first>John</first><last>Morris</last></author>
+      <author><first>Eli</first><last>Lifland</last></author>
+      <author><first>Yanjun</first><last>Qi</last></author>
+      <pages>323–332</pages>
+      <abstract>We study the behavior of several black-box search algorithms used for generating adversarial examples for natural language processing (NLP) tasks. We perform a fine-grained analysis of three elements relevant to search: search algorithm, search space, and search budget. When new search algorithms are proposed in past work, the attack search space is often modified alongside the search algorithm. Without ablation studies benchmarking the search algorithm change with the search space held constant, one cannot tell if an increase in attack success rate is a result of an improved search algorithm or a less restrictive search space. Additionally, many previous studies fail to properly consider the search algorithms’ run-time cost, which is essential for downstream tasks like adversarial training. Our experiments provide a reproducible benchmark of search algorithms across a variety of search spaces and query budgets to guide future research in adversarial NLP. Based on our experiments, we recommend greedy attacks with word importance ranking when under a time constraint or attacking long inputs, and either beam search or particle swarm optimization otherwise.</abstract>
+      <url hash="a44404f7">2020.blackboxnlp-1.30</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="b16c7bd9">2020.blackboxnlp-1.30.OptionalSupplementaryMaterial.pdf</attachment>
+      <doi>10.18653/v1/2020.blackboxnlp-1.30</doi>
+    </paper>
+    <paper id="31">
+      <title>This is a <fixed-case>BERT</fixed-case>. Now there are several of them. Can they generalize to novel words?</title>
+      <author><first>Coleman</first><last>Haley</last></author>
+      <pages>333–341</pages>
+      <abstract>Recently, large-scale pre-trained neural network models such as BERT have achieved many state-of-the-art results in natural language processing. Recent work has explored the linguistic capacities of these models. However, no work has focused on the ability of these models to generalize these capacities to novel words. This type of generalization is exhibited by humans, and is intimately related to morphology—humans are in many cases able to identify inflections of novel words in the appropriate context. This type of morphological capacity has not been previously tested in BERT models, and is important for morphologically-rich languages, which are under-studied in the literature regarding BERT’s linguistic capacities. In this work, we investigate this by considering monolingual and multilingual BERT models’ abilities to agree in number with novel plural words in English, French, German, Spanish, and Dutch. We find that many models are not able to reliably determine plurality of novel words, suggesting potential deficiencies in the morphological capacities of BERT models.</abstract>
+      <url hash="e81d9fc6">2020.blackboxnlp-1.31</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.31</doi>
+    </paper>
+    <paper id="32">
+      <title>diag<fixed-case>NN</fixed-case>ose: A Library for Neural Activation Analysis</title>
+      <author><first>Jaap</first><last>Jumelet</last></author>
+      <pages>342–350</pages>
+      <abstract>In this paper we introduce diagNNose, an open source library for analysing the activations of deep neural networks. diagNNose contains a wide array of interpretability techniques that provide fundamental insights into the inner workings of neural networks. We demonstrate the functionality of diagNNose with a case study on subject-verb agreement within language models. diagNNose is available at https://github.com/i-machine-think/diagnnose.</abstract>
+      <url hash="77b01878">2020.blackboxnlp-1.32</url>
+      <doi>10.18653/v1/2020.blackboxnlp-1.32</doi>
+    </paper>
+  </volume>
+</collection>

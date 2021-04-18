@@ -7,6 +7,12 @@
 # In addition, we support a number of convenience shortcuts for PDF
 # files and attachments, paper pages, and authors.
 
+# Notes regarding mirrors:
+# we try to keep the rules compatible with mirrors.
+# there is one variable we need to fill in:
+# ANTHOLOGYDIR is the base directory of the anthology
+# and is replaced in this file during build time.
+
 # This is important for returning the proper encoding for BibTeX files
 AddDefaultCharset utf-8
 
@@ -19,7 +25,8 @@ RewriteEngine On
 # EXTERNAL REDIRECTIONS
 #
 # These rules contain external redirections: to HTTPS, to the canonical URLs, and others.
-#
+# The redirects are only applicable to the official aclweb.org anthology; all the
+# 301 redirects are guarded with a RewriteCond.
 
 # Redirect non-canonical URL bases to https://aclweb.org/anthology/
 RewriteCond %{HTTP_HOST} ^anthology\.aclweb\.org$ [OR]
@@ -29,6 +36,7 @@ RewriteRule ^/?(.*) https://www.aclweb.org/anthology/$1 [R=301,L]
 # Now we know we are at the canonical URL.
 # Now make sure that we redirect from non-HTTPS to HTTPS.
 # **Note**: at this point, paths are relative to /anthology, that is, they *do not include* the /anthology/ text.
+RewriteCond %{HTTP_HOST} aclweb.org
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} !^www\. [NC]
 RewriteRule ^(.*)$ https://www.aclweb.org/anthology/$1 [R=301,L]
@@ -36,15 +44,14 @@ RewriteRule ^(.*)$ https://www.aclweb.org/anthology/$1 [R=301,L]
 ## Nested file paths
 # Redirect old nested file paths (e.g., P/P17/P17-1069.pdf -> https://www.aclweb.org/anthology/P17-1069.pdf)
 # Note that since capture patterns can't be reused in the capture portion of the string, this is a leaky match
-# that will also redirect X/Z19/P17-1069.pdf -> /anthology-files/pdf/P/P17/P17-1069.pdf
-RewriteRule ^[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(/|\.[a-z]+)?$ https://www.aclweb.org/anthology/$1$2-$3$4 [R=301,L]
+# that will also redirect X/Z19/P17-1069.pdf -> ANTHOLOGYFILES/pdf/P/P17/P17-1069.pdf
+RewriteCond %{HTTP_HOST} ^www\.aclweb\.org$
+RewriteRule ^[A-Za-z]/[A-Za-z]\d{2}/([A-Za-z])(\d{2})\-(\d{4})(/|\.[a-z]+)?$ https://www.aclweb.org/anthology/$1$2-$3$4 [R=301,L]
 
 # Redirect nested paper pages to the canonical location (e.g., papers/P/P19/P19-1001/ -> P19-1001)
 # This way there is only one page. Should maintain for backward compatibility for some time after August 2019.
-RewriteRule ^papers/[A-Za-z]/[A-Za-z][0-9][0-9]/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])/?$ https://www.aclweb.org/anthology/$1$2-$3 [R=301,L]
-
-# Volume pages (e.g., redirect /W19-75 to /volumes/W19-75)
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9])/?$ https://www.aclweb.org/anthology/volumes/$1$2-$3 [R=301,L]
+RewriteCond %{HTTP_HOST} ^www\.aclweb\.org$
+RewriteRule ^papers/[A-Za-z]/[A-Za-z]\d{2}/([A-Za-z])(\d{2})\-(\d{4})/?$ https://www.aclweb.org/anthology/$1$2-$3 [R=301,L]
 
 #
 # INTERNAL RETRIEVALS
@@ -52,21 +59,28 @@ RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9])/?$ https://www.aclweb.org/anth
 # These rules take valid external URLS (which are often virtual targets) and retrieve their target.
 # They are invisible to the outside.
 #
+# The internal retrievals are used for all anthology hosts.
 
-# Volume URLs (e.g., P17-1.pdf loads P/P17/P17-1.pdf)
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9]{1,2})\.pdf$ /anthology-files/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
+# Volume pages (e.g., redirect /W19-75 to /volumes/W19-75)
+RewriteRule ^([A-Za-z]\d{2}\-\d{1,2})/?$ /ANTHOLOGYDIR/volumes/$1 [L,NC]
+RewriteRule ^(\d{4}\.[a-zA-Z\d]+\-[a-zA-Z\d]+)/?$ /ANTHOLOGYDIR/volumes/$1 [L,NC]
+
+# Volume URLs (e.g., P17-1.pdf loads P/P17/P17-1.pdf, 2020.acl-main loads acl/2020.acl-main.pdf)
+RewriteRule ^([A-Za-z])(\d{2})\-(\d{1,2})\.pdf$ ANTHOLOGYFILES/pdf/$1/$1$2/$1$2-$3.pdf [L,NC]
+RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.pdf$ ANTHOLOGYFILES/pdf/$2/$1.$2-$3.pdf [L,NC]
 
 # PDF link, revisions, and errata (P17-1069[v2].pdf loads P/P17/P17-1069[v2].pdf --- with "v2" optional)
 # TODO: decide on a new format for revisions and errata
-RewriteRule ^([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])([ve][0-9]+)?\.pdf$ /anthology-files/pdf/$1/$1$2/$1$2-$3$4.pdf [L,NC]
-RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+\.\d+)\.pdf$ /anthology-files/pdf/$2/$1.$2-$3.pdf [L,NC]
+RewriteRule ^([A-Za-z])(\d{2})\-(\d{4})([ve]\d+)?\.pdf$ ANTHOLOGYFILES/pdf/$1/$1$2/$1$2-$3$4.pdf [L,NC]
+RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.(\d+([ve]\d+)?)\.pdf$ ANTHOLOGYFILES/pdf/$2/$1.$2-$3.$4.pdf [L,NC]
 
-# Attachments (e.g., P17-1069.Poster.pdf loads /anthology-files/attachments/P/P17/P17-1069.Poster.pdf)
-RewriteRule ^attachments/([A-Za-z])([0-9][0-9])\-([0-9][0-9][0-9][0-9])(\..*)?$ /anthology-files/attachments/$1/$1$2/$1$2-$3$4 [L,NC]
-RewriteRule ^attachments/(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+\.\d+)\.(.*)$ /anthology-files/attachments/$2/$1.$2-$3.$4 [L,NC]
+# Attachments (e.g., P17-1069.Poster.pdf loads ANTHOLOGYFILES/attachments/P/P17/P17-1069.Poster.pdf)
+RewriteRule ^attachments/([A-Za-z])(\d{2})\-(\d{4})(\..*)?$ ANTHOLOGYFILES/attachments/$1/$1$2/$1$2-$3$4 [L,NC]
+RewriteRule ^attachments/(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+\.\d+)\.(.*)$ ANTHOLOGYFILES/attachments/$2/$1.$2-$3.$4 [L,NC]
 
-# Thumbnails (e.g., /thumb/P17-1069.jpg loads /anthology-files/thumb/P17-1069.jpg)
-RewriteRule ^thumb/(.*)$ /anthology-files/thumb/$1 [L,NC]
+# Thumbnails (e.g., /thumb/P17-1069.jpg loads ANTHOLOGYFILES/thumb/P17-1069.jpg)
+RewriteRule ^thumb/(.*)$ ANTHOLOGYFILES/thumb/$1 [L,NC]
 
 # Author pages (e.g., people/arya-d-mccarthy loads people/a/arya-d-mccarthy)
 RewriteRule ^people/([a-z])([\-a-z0-9]*)$ people/$1/$1$2/ [L,NC]
+

@@ -1,0 +1,351 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.ngt">
+  <volume id="1" ingest-date="2020-06-21">
+    <meta>
+      <booktitle>Proceedings of the Fourth Workshop on Neural Generation and Translation</booktitle>
+      <editor><first>Alexandra</first><last>Birch</last></editor>
+      <editor><first>Andrew</first><last>Finch</last></editor>
+      <editor><first>Hiroaki</first><last>Hayashi</last></editor>
+      <editor><first>Kenneth</first><last>Heafield</last></editor>
+      <editor><first>Marcin</first><last>Junczys-Dowmunt</last></editor>
+      <editor><first>Ioannis</first><last>Konstas</last></editor>
+      <editor><first>Xian</first><last>Li</last></editor>
+      <editor><first>Graham</first><last>Neubig</last></editor>
+      <editor><first>Yusuke</first><last>Oda</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Online</address>
+      <month>July</month>
+      <year>2020</year>
+      <url hash="35b7d8df">2020.ngt-1</url>
+    </meta>
+    <frontmatter>
+      <url hash="ce0cb7a8">2020.ngt-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Findings of the Fourth Workshop on Neural Generation and Translation</title>
+      <author><first>Kenneth</first><last>Heafield</last></author>
+      <author><first>Hiroaki</first><last>Hayashi</last></author>
+      <author><first>Yusuke</first><last>Oda</last></author>
+      <author><first>Ioannis</first><last>Konstas</last></author>
+      <author><first>Andrew</first><last>Finch</last></author>
+      <author><first>Graham</first><last>Neubig</last></author>
+      <author><first>Xian</first><last>Li</last></author>
+      <author><first>Alexandra</first><last>Birch</last></author>
+      <pages>1–9</pages>
+      <abstract>We describe the finding of the Fourth Workshop on Neural Generation and Translation, held in concert with the annual conference of the Association for Computational Linguistics (ACL 2020). First, we summarize the research trends of papers presented in the proceedings. Second, we describe the results of the three shared tasks 1) efficient neural machine translation (NMT) where participants were tasked with creating NMT systems that are both accurate and efficient, and 2) document-level generation and translation (DGT) where participants were tasked with developing systems that generate summaries from structured data, potentially with assistance from text in another language and 3) STAPLE task: creation of as many possible translations of a given input text. This last shared task was organised by Duolingo.</abstract>
+      <url hash="c1b45c54">2020.ngt-1.1</url>
+      <doi>10.18653/v1/2020.ngt-1.1</doi>
+      <attachment type="Dataset" hash="bf7e633a">2020.ngt-1.1.Dataset.txt</attachment>
+    </paper>
+    <paper id="2">
+      <title>Learning to Generate Multiple Style Transfer Outputs for an Input Sentence</title>
+      <author><first>Kevin</first><last>Lin</last></author>
+      <author><first>Ming-Yu</first><last>Liu</last></author>
+      <author><first>Ming-Ting</first><last>Sun</last></author>
+      <author><first>Jan</first><last>Kautz</last></author>
+      <pages>10–23</pages>
+      <abstract>Text style transfer refers to the task of rephrasing a given text in a different style. While various methods have been proposed to advance the state of the art, they often assume the transfer output follows a delta distribution, and thus their models cannot generate different style transfer results for a given input text. To address the limitation, we propose a one-to-many text style transfer framework. In contrast to prior works that learn a one-to-one mapping that converts an input sentence to one output sentence, our approach learns a one-to-many mapping that can convert an input sentence to multiple different output sentences, while preserving the input content. This is achieved by applying adversarial training with a latent decomposition scheme. Specifically, we decompose the latent representation of the input sentence to a style code that captures the language style variation and a content code that encodes the language style-independent content. We then combine the content code with the style code for generating a style transfer output. By combining the same content code with a different style code, we generate a different style transfer output. Extensive experimental results with comparisons to several text style transfer approaches on multiple public datasets using a diverse set of performance metrics validate effectiveness of the proposed approach.</abstract>
+      <url hash="0ad9ac22">2020.ngt-1.2</url>
+      <doi>10.18653/v1/2020.ngt-1.2</doi>
+      <video tag="video" href="http://slideslive.com/38929815"/>
+    </paper>
+    <paper id="3">
+      <title>Balancing Cost and Benefit with Tied-Multi Transformers</title>
+      <author><first>Raj</first><last>Dabre</last></author>
+      <author><first>Raphael</first><last>Rubino</last></author>
+      <author><first>Atsushi</first><last>Fujita</last></author>
+      <pages>24–34</pages>
+      <abstract>We propose a novel procedure for training multiple Transformers with tied parameters which compresses multiple models into one enabling the dynamic choice of the number of encoder and decoder layers during decoding. In training an encoder-decoder model, typically, the output of the last layer of the N-layer encoder is fed to the M-layer decoder, and the output of the last decoder layer is used to compute loss. Instead, our method computes a single loss consisting of NxM losses, where each loss is computed from the output of one of the M decoder layers connected to one of the N encoder layers. Such a model subsumes NxM models with different number of encoder and decoder layers, and can be used for decoding with fewer than the maximum number of encoder and decoder layers. Given our flexible tied model, we also address to a-priori selection of the number of encoder and decoder layers for faster decoding, and explore recurrent stacking of layers and knowledge distillation for model compression. We present a cost-benefit analysis of applying the proposed approaches for neural machine translation and show that they reduce decoding costs while preserving translation quality.</abstract>
+      <url hash="fc3138f4">2020.ngt-1.3</url>
+      <doi>10.18653/v1/2020.ngt-1.3</doi>
+      <video tag="video" href="http://slideslive.com/38929816"/>
+    </paper>
+    <paper id="4">
+      <title>Compressing Neural Machine Translation Models with 4-bit Precision</title>
+      <author><first>Alham Fikri</first><last>Aji</last></author>
+      <author><first>Kenneth</first><last>Heafield</last></author>
+      <pages>35–42</pages>
+      <abstract>Neural Machine Translation (NMT) is resource-intensive. We design a quantization procedure to compress fit NMT models better for devices with limited hardware capability. We use logarithmic quantization, instead of the more commonly used fixed-point quantization, based on the empirical fact that parameters distribution is not uniform. We find that biases do not take a lot of memory and show that biases can be left uncompressed to improve the overall quality without affecting the compression rate. We also propose to use an error-feedback mechanism during retraining, to preserve the compressed model as a stale gradient. We empirically show that NMT models based on Transformer or RNN architecture can be compressed up to 4-bit precision without any noticeable quality degradation. Models can be compressed up to binary precision, albeit with lower quality. RNN architecture seems to be more robust towards compression, compared to the Transformer.</abstract>
+      <url hash="86ea06ff">2020.ngt-1.4</url>
+      <doi>10.18653/v1/2020.ngt-1.4</doi>
+      <video tag="video" href="http://slideslive.com/38929817"/>
+    </paper>
+    <paper id="5">
+      <title>Meta-Learning for Few-Shot <fixed-case>NMT</fixed-case> Adaptation</title>
+      <author><first>Amr</first><last>Sharaf</last></author>
+      <author><first>Hany</first><last>Hassan</last></author>
+      <author><first>Hal</first><last>Daumé III</last></author>
+      <pages>43–53</pages>
+      <abstract>We present META-MT, a meta-learning approach to adapt Neural Machine Translation (NMT) systems in a few-shot setting. META-MT provides a new approach to make NMT models easily adaptable to many target do- mains with the minimal amount of in-domain data. We frame the adaptation of NMT systems as a meta-learning problem, where we learn to adapt to new unseen domains based on simulated offline meta-training domain adaptation tasks. We evaluate the proposed meta-learning strategy on ten domains with general large scale NMT systems. We show that META-MT significantly outperforms classical domain adaptation when very few in- domain examples are available. Our experiments shows that META-MT can outperform classical fine-tuning by up to 2.5 BLEU points after seeing only 4, 000 translated words (300 parallel sentences).</abstract>
+      <url hash="11a07b03">2020.ngt-1.5</url>
+      <doi>10.18653/v1/2020.ngt-1.5</doi>
+      <video tag="video" href="http://slideslive.com/38929818"/>
+    </paper>
+    <paper id="6">
+      <title>Automatically Ranked <fixed-case>R</fixed-case>ussian Paraphrase Corpus for Text Generation</title>
+      <author><first>Vadim</first><last>Gudkov</last></author>
+      <author><first>Olga</first><last>Mitrofanova</last></author>
+      <author><first>Elizaveta</first><last>Filippskikh</last></author>
+      <pages>54–59</pages>
+      <abstract>The article is focused on automatic development and ranking of a large corpus for Russian paraphrase generation which proves to be the first corpus of such type in Russian computational linguistics. Existing manually annotated paraphrase datasets for Russian are limited to small-sized ParaPhraser corpus and ParaPlag which are suitable for a set of NLP tasks, such as paraphrase and plagiarism detection, sentence similarity and relatedness estimation, etc. Due to size restrictions, these datasets can hardly be applied in end-to-end text generation solutions. Meanwhile, paraphrase generation requires a large amount of training data. In our study we propose a solution to the problem: we collect, rank and evaluate a new publicly available headline paraphrase corpus (ParaPhraser Plus), and then perform text generation experiments with manual evaluation on automatically ranked corpora using the Universal Transformer architecture.</abstract>
+      <url hash="88a4de10">2020.ngt-1.6</url>
+      <doi>10.18653/v1/2020.ngt-1.6</doi>
+      <video tag="video" href="http://slideslive.com/38929819"/>
+    </paper>
+    <paper id="7">
+      <title>A Deep Reinforced Model for Zero-Shot Cross-Lingual Summarization with Bilingual Semantic Similarity Rewards</title>
+      <author><first>Zi-Yi</first><last>Dou</last></author>
+      <author><first>Sachin</first><last>Kumar</last></author>
+      <author><first>Yulia</first><last>Tsvetkov</last></author>
+      <pages>60–68</pages>
+      <abstract>Cross-lingual text summarization aims at generating a document summary in one language given input in another language. It is a practically important but under-explored task, primarily due to the dearth of available data. Existing methods resort to machine translation to synthesize training data, but such pipeline approaches suffer from error propagation. In this work, we propose an end-to-end cross-lingual text summarization model. The model uses reinforcement learning to directly optimize a bilingual semantic similarity metric between the summaries generated in a target language and gold summaries in a source language. We also introduce techniques to pre-train the model leveraging monolingual summarization and machine translation objectives. Experimental results in both English–Chinese and English–German cross-lingual summarization settings demonstrate the effectiveness of our methods. In addition, we find that reinforcement learning models with bilingual semantic similarity as rewards generate more fluent sentences than strong baselines.</abstract>
+      <url hash="08626e04">2020.ngt-1.7</url>
+      <doi>10.18653/v1/2020.ngt-1.7</doi>
+      <video tag="video" href="http://slideslive.com/38929820"/>
+    </paper>
+    <paper id="8">
+      <title>A Question Type Driven and Copy Loss Enhanced Frameworkfor Answer-Agnostic Neural Question Generation</title>
+      <author><first>Xiuyu</first><last>Wu</last></author>
+      <author><first>Nan</first><last>Jiang</last></author>
+      <author><first>Yunfang</first><last>Wu</last></author>
+      <pages>69–78</pages>
+      <abstract>The answer-agnostic question generation is a significant and challenging task, which aims to automatically generate questions for a given sentence but without an answer. In this paper, we propose two new strategies to deal with this task: question type prediction and copy loss mechanism. The question type module is to predict the types of questions that should be asked, which allows our model to generate multiple types of questions for the same source sentence. The new copy loss enhances the original copy mechanism to make sure that every important word in the source sentence has been copied when generating questions. Our integrated model outperforms the state-of-the-art approach in answer-agnostic question generation, achieving a BLEU-4 score of 13.9 on SQuAD. Human evaluation further validates the high quality of our generated questions. We will make our code public available for further research.</abstract>
+      <url hash="49b154b4">2020.ngt-1.8</url>
+      <doi>10.18653/v1/2020.ngt-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>A Generative Approach to Titling and Clustering <fixed-case>W</fixed-case>ikipedia Sections</title>
+      <author><first>Anjalie</first><last>Field</last></author>
+      <author><first>Sascha</first><last>Rothe</last></author>
+      <author><first>Simon</first><last>Baumgartner</last></author>
+      <author><first>Cong</first><last>Yu</last></author>
+      <author><first>Abe</first><last>Ittycheriah</last></author>
+      <pages>79–87</pages>
+      <abstract>We evaluate the performance of transformer encoders with various decoders for information organization through a new task: generation of section headings for Wikipedia articles. Our analysis shows that decoders containing attention mechanisms over the encoder output achieve high-scoring results by generating extractive text. In contrast, a decoder without attention better facilitates semantic encoding and can be used to generate section embeddings. We additionally introduce a new loss function, which further encourages the decoder to generate high-quality embeddings.</abstract>
+      <url hash="38324904">2020.ngt-1.9</url>
+      <doi>10.18653/v1/2020.ngt-1.9</doi>
+      <video tag="video" href="http://slideslive.com/38929822"/>
+    </paper>
+    <paper id="10">
+      <title>The Unreasonable Volatility of Neural Machine Translation Models</title>
+      <author><first>Marzieh</first><last>Fadaee</last></author>
+      <author><first>Christof</first><last>Monz</last></author>
+      <pages>88–96</pages>
+      <abstract>Recent works have shown that Neural Machine Translation (NMT) models achieve impressive performance, however, questions about understanding the behavior of these models remain unanswered. We investigate the unexpected volatility of NMT models where the input is semantically and syntactically correct. We discover that with trivial modifications of source sentences, we can identify cases where <i>unexpected changes</i> happen in the translation and in the worst case lead to mistranslations. This volatile behavior of translating extremely similar sentences in surprisingly different ways highlights the underlying generalization problem of current NMT models. We find that both RNN and Transformer models display volatile behavior in 26% and 19% of sentence variations, respectively.</abstract>
+      <url hash="7498dc68">2020.ngt-1.10</url>
+      <doi>10.18653/v1/2020.ngt-1.10</doi>
+      <video tag="video" href="http://slideslive.com/38929823"/>
+    </paper>
+    <paper id="11">
+      <title>Leveraging Sentence Similarity in Natural Language Generation: Improving Beam Search using Range Voting</title>
+      <author><first>Sebastian</first><last>Borgeaud</last></author>
+      <author><first>Guy</first><last>Emerson</last></author>
+      <pages>97–109</pages>
+      <abstract>We propose a method for natural language generation, choosing the most representative output rather than the most likely output. By viewing the language generation process from the voting theory perspective, we define representativeness using range voting and a similarity measure. The proposed method can be applied when generating from any probabilistic language model, including n-gram models and neural network models. We evaluate different similarity measures on an image captioning task and a machine translation task, and show that our method generates longer and more diverse sentences, providing a solution to the common problem of short outputs being preferred over longer and more informative ones. The generated sentences obtain higher BLEU scores, particularly when the beam size is large. We also perform a human evaluation on both tasks and find that the outputs generated using our method are rated higher.</abstract>
+      <url hash="d2e77961">2020.ngt-1.11</url>
+      <doi>10.18653/v1/2020.ngt-1.11</doi>
+      <video tag="video" href="http://slideslive.com/38929824"/>
+    </paper>
+    <paper id="12">
+      <title>Distill, Adapt, Distill: Training Small, In-Domain Models for Neural Machine Translation</title>
+      <author><first>Mitchell</first><last>Gordon</last></author>
+      <author><first>Kevin</first><last>Duh</last></author>
+      <pages>110–118</pages>
+      <abstract>We explore best practices for training small, memory efficient machine translation models with sequence-level knowledge distillation in the domain adaptation setting. While both domain adaptation and knowledge distillation are widely-used, their interaction remains little understood. Our large-scale empirical results in machine translation (on three language pairs with three domains each) suggest distilling twice for best performance: once using general-domain data and again using in-domain data with an adapted teacher.</abstract>
+      <url hash="9cd128f3">2020.ngt-1.12</url>
+      <doi>10.18653/v1/2020.ngt-1.12</doi>
+      <video tag="video" href="http://slideslive.com/38929825"/>
+    </paper>
+    <paper id="13">
+      <title>Training and Inference Methods for High-Coverage Neural Machine Translation</title>
+      <author><first>Michael</first><last>Yang</last></author>
+      <author><first>Yixin</first><last>Liu</last></author>
+      <author><first>Rahul</first><last>Mayuranath</last></author>
+      <pages>119–128</pages>
+      <abstract>In this paper, we introduce a system built for the Duolingo Simultaneous Translation And Paraphrase for Language Education (STAPLE) shared task at the 4th Workshop on Neural Generation and Translation (WNGT 2020). We participated in the English-to-Japanese track with a Transformer model pretrained on the JParaCrawl corpus and fine-tuned in two steps on the JESC corpus and then the (smaller) Duolingo training corpus. First, during training, we find it is essential to deliberately expose the model to higher-quality translations more often during training for optimal translation performance. For inference, encouraging a small amount of diversity with Diverse Beam Search to improve translation coverage yielded marginal improvement over regular Beam Search. Finally, using an auxiliary filtering model to filter out unlikely candidates from Beam Search improves performance further. We achieve a weighted F1 score of 27.56% on our own test set, outperforming the STAPLE AWS translations baseline score of 4.31%.</abstract>
+      <url hash="314168b0">2020.ngt-1.13</url>
+      <doi>10.18653/v1/2020.ngt-1.13</doi>
+      <video tag="video" href="http://slideslive.com/38929827"/>
+    </paper>
+    <paper id="14">
+      <title>Meeting the 2020 <fixed-case>D</fixed-case>uolingo Challenge on a Shoestring</title>
+      <author><first>Tadashi</first><last>Nomoto</last></author>
+      <pages>129–133</pages>
+      <abstract>What is given below is a brief description of the two systems, called gFCONV and c-VAE, which we built in a response to the 2020 Duolingo Challenge. Both are neural models that aim at disrupting a sentence representation the encoder generates with an eye on increasing the diversity of sentences that emerge out of the process. Importantly, we decided not to turn to external sources for extra ammunition, curious to know how far we can go while confining ourselves to the data released by Duolingo. gFCONV works by taking over a pre-trained sequence model, and intercepting the output its encoder produces on its way to the decoder. c-VAE is a conditional variational auto-encoder, seeking the diversity by blurring the representation that the encoder derives. Experiments on a corpus constructed out of the public dataset from Duolingo, containing some 4 million pairs of sentences, found that gFCONV is a consistent winner over c-VAE though both suffered heavily from a low recall.</abstract>
+      <url hash="8fe2f88d">2020.ngt-1.14</url>
+      <doi>10.18653/v1/2020.ngt-1.14</doi>
+      <video tag="video" href="http://slideslive.com/38929828"/>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>E</fixed-case>nglish-to-<fixed-case>J</fixed-case>apanese Diverse Translation by Combining Forward and Backward Outputs</title>
+      <author><first>Masahiro</first><last>Kaneko</last></author>
+      <author><first>Aizhan</first><last>Imankulova</last></author>
+      <author><first>Tosho</first><last>Hirasawa</last></author>
+      <author><first>Mamoru</first><last>Komachi</last></author>
+      <pages>134–138</pages>
+      <abstract>We introduce our TMU system that is submitted to The 4th Workshop on Neural Generation and Translation (WNGT2020) to English-to-Japanese (En→Ja) track on Simultaneous Translation And Paraphrase for Language Education (STAPLE) shared task. In most cases machine translation systems generate a single output from the input sentence, however, in order to assist language learners in their journey with better and more diverse feedback, it is helpful to create a machine translation system that is able to produce diverse translations of each input sentence. However, creating such systems would require complex modifications in a model to ensure the diversity of outputs. In this paper, we investigated if it is possible to create such systems in a simple way and whether it can produce desired diverse outputs. In particular, we combined the outputs from forward and backward neural translation models (NMT). Our system achieved third place in En→Ja track, despite adopting only a simple approach.</abstract>
+      <url hash="3ac8d18f">2020.ngt-1.15</url>
+      <doi>10.18653/v1/2020.ngt-1.15</doi>
+      <video tag="video" href="http://slideslive.com/38929829"/>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>POSTECH</fixed-case> Submission on <fixed-case>D</fixed-case>uolingo Shared Task</title>
+      <author><first>Junsu</first><last>Park</last></author>
+      <author><first>Hongseok</first><last>Kwon</last></author>
+      <author><first>Jong-Hyeok</first><last>Lee</last></author>
+      <pages>139–143</pages>
+      <abstract>In this paper, we propose a transfer learning based simultaneous translation model by extending BART. We pre-trained BART with Korean Wikipedia and a Korean news dataset, and fine-tuned with an additional web-crawled parallel corpus and the 2020 Duolingo official training dataset. In our experiments on the 2020 Duolingo test dataset, our submission achieves 0.312 in weighted macro F1 score, and ranks second among the submitted En-Ko systems.</abstract>
+      <url hash="a9ff1725">2020.ngt-1.16</url>
+      <doi>10.18653/v1/2020.ngt-1.16</doi>
+      <video tag="video" href="http://slideslive.com/38929830"/>
+    </paper>
+    <paper id="17">
+      <title>The <fixed-case>ADAPT</fixed-case> System Description for the <fixed-case>STAPLE</fixed-case> 2020 <fixed-case>E</fixed-case>nglish-to-<fixed-case>P</fixed-case>ortuguese Translation Task</title>
+      <author><first>Rejwanul</first><last>Haque</last></author>
+      <author><first>Yasmin</first><last>Moslem</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>144–152</pages>
+      <abstract>This paper describes the ADAPT Centre’s submission to STAPLE (Simultaneous Translation and Paraphrase for Language Education) 2020, a shared task of the 4th Workshop on Neural Generation and Translation (WNGT), for the English-to-Portuguese translation task. In this shared task, the participants were asked to produce high-coverage sets of plausible translations given English prompts (input source sentences). We present our English-to-Portuguese machine translation (MT) models that were built applying various strategies, e.g. data and sentence selection, monolingual MT for generating alternative translations, and combining multiple n-best translations. Our experiments show that adding the aforementioned techniques to the baseline yields an excellent performance in the English-to-Portuguese translation task.</abstract>
+      <url hash="ba8bc9ae">2020.ngt-1.17</url>
+      <doi>10.18653/v1/2020.ngt-1.17</doi>
+      <video tag="video" href="http://slideslive.com/38929831"/>
+    </paper>
+    <paper id="18">
+      <title>Expand and Filter: <fixed-case>CUNI</fixed-case> and <fixed-case>LMU</fixed-case> Systems for the <fixed-case>WNGT</fixed-case> 2020 <fixed-case>D</fixed-case>uolingo Shared Task</title>
+      <author><first>Jindřich</first><last>Libovický</last></author>
+      <author><first>Zdeněk</first><last>Kasner</last></author>
+      <author><first>Jindřich</first><last>Helcl</last></author>
+      <author><first>Ondřej</first><last>Dušek</last></author>
+      <pages>153–160</pages>
+      <abstract>We present our submission to the Simultaneous Translation And Paraphrase for Language Education (STAPLE) challenge. We used a standard Transformer model for translation, with a crosslingual classifier predicting correct translations on the output n-best list. To increase the diversity of the outputs, we used additional data to train the translation model, and we trained a paraphrasing model based on the Levenshtein Transformer architecture to generate further synonymous translations. The paraphrasing results were again filtered using our classifier. While the use of additional data and our classifier filter were able to improve results, the paraphrasing model produced too many invalid outputs to further improve the output quality. Our model without the paraphrasing component finished in the middle of the field for the shared task, improving over the best baseline by a margin of 10-22 % weighted F1 absolute.</abstract>
+      <url hash="d44f7ee3">2020.ngt-1.18</url>
+      <doi>10.18653/v1/2020.ngt-1.18</doi>
+      <video tag="video" href="http://slideslive.com/38929832"/>
+    </paper>
+    <paper id="19">
+      <title>Exploring Model Consensus to Generate Translation Paraphrases</title>
+      <author><first>Zhenhao</first><last>Li</last></author>
+      <author><first>Marina</first><last>Fomicheva</last></author>
+      <author><first>Lucia</first><last>Specia</last></author>
+      <pages>161–168</pages>
+      <abstract>This paper describes our submission to the 2020 Duolingo Shared Task on Simultaneous Translation And Paraphrase for Language Education (STAPLE). This task focuses on improving the ability of neural MT systems to generate diverse translations. Our submission explores various methods, including N-best translation, Monte Carlo dropout, Diverse Beam Search, Mixture of Experts, Ensembling, and Lexical Substitution. Our main submission is based on the integration of multiple translations from multiple methods using Consensus Voting. Experiments show that the proposed approach achieves a considerable degree of diversity without introducing noisy translations. Our final submission achieves a 0.5510 weighted F1 score on the blind test set for the English-Portuguese track.</abstract>
+      <url hash="10b36882">2020.ngt-1.19</url>
+      <doi>10.18653/v1/2020.ngt-1.19</doi>
+      <video tag="video" href="http://slideslive.com/38929833"/>
+    </paper>
+    <paper id="20">
+      <title>Growing Together: Modeling Human Language Learning With n-Best Multi-Checkpoint Machine Translation</title>
+      <author><first>El Moatez Billah</first><last>Nagoudi</last></author>
+      <author><first>Muhammad</first><last>Abdul-Mageed</last></author>
+      <author><first>Hasan</first><last>Cavusoglu</last></author>
+      <pages>169–177</pages>
+      <abstract>We describe our submission to the 2020 Duolingo Shared Task on Simultaneous Translation And Paraphrase for Language Education (STAPLE). We view MT models at various training stages (i.e., checkpoints) as human learners at different levels. Hence, we employ an ensemble of multi-checkpoints from the same model to generate translation sequences with various levels of fluency. From each checkpoint, for our best model, we sample n-Best sequences (n=10) with a beam width =100. We achieve an 37.57 macro F1 with a 6 checkpoint model ensemble on the official shared task test data, outperforming a baseline Amazon translation system of 21.30 macro F1 and ultimately demonstrating the utility of our intuitive method.</abstract>
+      <url hash="f5b30a1f">2020.ngt-1.20</url>
+      <doi>10.18653/v1/2020.ngt-1.20</doi>
+      <video tag="video" href="http://slideslive.com/38929834"/>
+    </paper>
+    <paper id="21">
+      <title>Generating Diverse Translations via Weighted Fine-tuning and Hypotheses Filtering for the <fixed-case>D</fixed-case>uolingo <fixed-case>STAPLE</fixed-case> Task</title>
+      <author><first>Sweta</first><last>Agrawal</last></author>
+      <author><first>Marine</first><last>Carpuat</last></author>
+      <pages>178–187</pages>
+      <abstract>This paper describes the University of Maryland’s submission to the Duolingo Shared Task on Simultaneous Translation And Paraphrase for Language Education (STAPLE). Unlike the standard machine translation task, STAPLE requires generating a set of outputs for a given input sequence, aiming to cover the space of translations produced by language learners. We adapt neural machine translation models to this requirement by (a) generating n-best translation hypotheses from a model fine-tuned on learner translations, oversampled to reflect the distribution of learner responses, and (b) filtering hypotheses using a feature-rich binary classifier that directly optimizes a close approximation of the official evaluation metric. Combination of systems that use these two strategies achieves F1 scores of 53.9% and 52.5% on Vietnamese and Portuguese, respectively ranking 2nd and 4th on the leaderboard.</abstract>
+      <url hash="20b9b604">2020.ngt-1.21</url>
+      <doi>10.18653/v1/2020.ngt-1.21</doi>
+      <video tag="video" href="http://slideslive.com/38929835"/>
+    </paper>
+    <paper id="22">
+      <title>The <fixed-case>JHU</fixed-case> Submission to the 2020 <fixed-case>D</fixed-case>uolingo Shared Task on Simultaneous Translation and Paraphrase for Language Education</title>
+      <author><first>Huda</first><last>Khayrallah</last></author>
+      <author><first>Jacob</first><last>Bremerman</last></author>
+      <author><first>Arya D.</first><last>McCarthy</last></author>
+      <author><first>Kenton</first><last>Murray</last></author>
+      <author><first>Winston</first><last>Wu</last></author>
+      <author><first>Matt</first><last>Post</last></author>
+      <pages>188–197</pages>
+      <abstract>This paper presents the Johns Hopkins University submission to the 2020 Duolingo Shared Task on Simultaneous Translation and Paraphrase for Language Education (STAPLE). We participated in all five language tasks, placing first in each. Our approach involved a language-agnostic pipeline of three components: (1) building strong machine translation systems on general-domain data, (2) fine-tuning on Duolingo-provided data, and (3) generating n-best lists which are then filtered with various score-based techniques. In addi- tion to the language-agnostic pipeline, we attempted a number of linguistically-motivated approaches, with, unfortunately, little success. We also find that improving BLEU performance of the beam-search generated translation does not necessarily improve on the task metric—weighted macro F1 of an n-best list.</abstract>
+      <url hash="9c921c15">2020.ngt-1.22</url>
+      <doi>10.18653/v1/2020.ngt-1.22</doi>
+      <video tag="video" href="http://slideslive.com/38929836"/>
+    </paper>
+    <paper id="23">
+      <title>Simultaneous paraphrasing and translation by fine-tuning Transformer models</title>
+      <author><first>Rakesh</first><last>Chada</last></author>
+      <pages>198–203</pages>
+      <abstract>This paper describes the third place submission to the shared task on simultaneous translation and paraphrasing for language education at the 4th workshop on Neural Generation and Translation (WNGT) for ACL 2020. The final system leverages pre-trained translation models and uses a Transformer architecture combined with an oversampling strategy to achieve a competitive performance. This system significantly outperforms the baseline on Hungarian (27% absolute improvement in Weighted Macro F1 score) and Portuguese (33% absolute improvement) languages.</abstract>
+      <url hash="c5ee9a90">2020.ngt-1.23</url>
+      <doi>10.18653/v1/2020.ngt-1.23</doi>
+      <video tag="video" href="http://slideslive.com/38929837"/>
+    </paper>
+    <paper id="24">
+      <title>The <fixed-case>N</fixed-case>iu<fixed-case>T</fixed-case>rans System for <fixed-case>WNGT</fixed-case> 2020 Efficiency Task</title>
+      <author><first>Chi</first><last>Hu</last></author>
+      <author><first>Bei</first><last>Li</last></author>
+      <author><first>Yinqiao</first><last>Li</last></author>
+      <author><first>Ye</first><last>Lin</last></author>
+      <author><first>Yanyang</first><last>Li</last></author>
+      <author><first>Chenglong</first><last>Wang</last></author>
+      <author><first>Tong</first><last>Xiao</last></author>
+      <author><first>Jingbo</first><last>Zhu</last></author>
+      <pages>204–210</pages>
+      <abstract>This paper describes the submissions of the NiuTrans Team to the WNGT 2020 Efficiency Shared Task. We focus on the efficient implementation of deep Transformer models (Wang et al., 2019; Li et al., 2019) using NiuTensor, a flexible toolkit for NLP tasks. We explored the combination of deep encoder and shallow decoder in Transformer models via model compression and knowledge distillation. The neural machine translation decoding also benefits from FP16 inference, attention caching, dynamic batching, and batch pruning. Our systems achieve promising results in both translation quality and efficiency, e.g., our fastest system can translate more than 40,000 tokens per second with an RTX 2080 Ti while maintaining 42.9 BLEU on newstest2018.</abstract>
+      <url hash="9a22395a">2020.ngt-1.24</url>
+      <doi>10.18653/v1/2020.ngt-1.24</doi>
+      <video tag="video" href="http://slideslive.com/38929838"/>
+    </paper>
+    <paper id="25">
+      <title>Efficient and High-Quality Neural Machine Translation with <fixed-case>O</fixed-case>pen<fixed-case>NMT</fixed-case></title>
+      <author><first>Guillaume</first><last>Klein</last></author>
+      <author><first>Dakun</first><last>Zhang</last></author>
+      <author><first>Clément</first><last>Chouteau</last></author>
+      <author><first>Josep</first><last>Crego</last></author>
+      <author><first>Jean</first><last>Senellart</last></author>
+      <pages>211–217</pages>
+      <abstract>This paper describes the OpenNMT submissions to the WNGT 2020 efficiency shared task. We explore training and acceleration of Transformer models with various sizes that are trained in a teacher-student setup. We also present a custom and optimized C++ inference engine that enables fast CPU and GPU decoding with few dependencies. By combining additional optimizations and parallelization techniques, we create small, efficient, and high-quality neural machine translation models.</abstract>
+      <url hash="65454d9c">2020.ngt-1.25</url>
+      <doi>10.18653/v1/2020.ngt-1.25</doi>
+      <video tag="video" href="http://slideslive.com/38929839"/>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>E</fixed-case>dinburgh’s Submissions to the 2020 Machine Translation Efficiency Task</title>
+      <author><first>Nikolay</first><last>Bogoychev</last></author>
+      <author><first>Roman</first><last>Grundkiewicz</last></author>
+      <author><first>Alham Fikri</first><last>Aji</last></author>
+      <author><first>Maximiliana</first><last>Behnke</last></author>
+      <author><first>Kenneth</first><last>Heafield</last></author>
+      <author><first>Sidharth</first><last>Kashyap</last></author>
+      <author><first>Emmanouil-Ioannis</first><last>Farsarakis</last></author>
+      <author><first>Mateusz</first><last>Chudyk</last></author>
+      <pages>218–224</pages>
+      <abstract>We participated in all tracks of the Workshop on Neural Generation and Translation 2020 Efficiency Shared Task: single-core CPU, multi-core CPU, and GPU. At the model level, we use teacher-student training with a variety of student sizes, tie embeddings and sometimes layers, use the Simpler Simple Recurrent Unit, and introduce head pruning. On GPUs, we used 16-bit floating-point tensor cores. On CPUs, we customized 8-bit quantization and multiple processes with affinity for the multi-core setting. To reduce model size, we experimented with 4-bit log quantization but use floats at runtime. In the shared task, most of our submissions were Pareto optimal with respect the trade-off between time and quality.</abstract>
+      <url hash="b267cea9">2020.ngt-1.26</url>
+      <doi>10.18653/v1/2020.ngt-1.26</doi>
+      <attachment type="Dataset" hash="ffd898b7">2020.ngt-1.26.Dataset.txt</attachment>
+      <video tag="video" href="http://slideslive.com/38929840"/>
+    </paper>
+    <paper id="27">
+      <title>Improving Document-Level Neural Machine Translation with Domain Adaptation</title>
+      <author><first>Sami</first><last>Ul Haq</last></author>
+      <author><first>Sadaf</first><last>Abdul Rauf</last></author>
+      <author><first>Arslan</first><last>Shoukat</last></author>
+      <author><first>Noor-e-</first><last>Hira</last></author>
+      <pages>225–231</pages>
+      <abstract>Recent studies have shown that translation quality of NMT systems can be improved by providing document-level contextual information. In general sentence-based NMT models are extended to capture contextual information from large-scale document-level corpora which are difficult to acquire. Domain adaptation on the other hand promises adapting components of already developed systems by exploiting limited in-domain data. This paper presents FJWU’s system submission at WNGT, we specifically participated in Document level MT task for German-English translation. Our system is based on context-aware Transformer model developed on top of original NMT architecture by integrating contextual information using attention networks. Our experimental results show providing previous sentences as context significantly improves the BLEU score as compared to a strong NMT baseline. We also studied the impact of domain adaptation on document level translationand were able to improve results by adaptingthe systems according to the testing domain.</abstract>
+      <url hash="7a0ce3cc">2020.ngt-1.27</url>
+      <doi>10.18653/v1/2020.ngt-1.27</doi>
+    </paper>
+    <paper id="28">
+      <title>Simultaneous Translation and Paraphrase for Language Education</title>
+      <author><first>Stephen</first><last>Mayhew</last></author>
+      <author><first>Klinton</first><last>Bicknell</last></author>
+      <author><first>Chris</first><last>Brust</last></author>
+      <author><first>Bill</first><last>McDowell</last></author>
+      <author><first>Will</first><last>Monroe</last></author>
+      <author><first>Burr</first><last>Settles</last></author>
+      <pages>232–243</pages>
+      <abstract>We present the task of Simultaneous Translation and Paraphrasing for Language Education (STAPLE). Given a prompt in one language, the goal is to generate a diverse set of correct translations that language learners are likely to produce. This is motivated by the need to create and maintain large, high-quality sets of acceptable translations for exercises in a language-learning application, and synthesizes work spanning machine translation, MT evaluation, automatic paraphrasing, and language education technology. We developed a novel corpus with unique properties for five languages (Hungarian, Japanese, Korean, Portuguese, and Vietnamese), and report on the results of a shared task challenge which attracted 20 teams to solve the task. In our meta-analysis, we focus on three aspects of the resulting systems: external training corpus selection, model architecture and training decisions, and decoding and filtering strategies. We find that strong systems start with a large amount of generic training data, and then fine-tune with in-domain data, sampled according to our provided learner response frequencies.</abstract>
+      <url hash="e2635680">2020.ngt-1.28</url>
+      <doi>10.18653/v1/2020.ngt-1.28</doi>
+    </paper>
+  </volume>
+</collection>

@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.louhi">
+  <volume id="1" ingest-date="2020-11-06">
+    <meta>
+      <booktitle>Proceedings of the 11th International Workshop on Health Text Mining and Information Analysis</booktitle>
+      <editor><first>Eben</first><last>Holderness</last></editor>
+      <editor><first>Antonio</first><last>Jimeno Yepes</last></editor>
+      <editor><first>Alberto</first><last>Lavelli</last></editor>
+      <editor><first>Anne-Lyse</first><last>Minard</last></editor>
+      <editor><first>James</first><last>Pustejovsky</last></editor>
+      <editor><first>Fabio</first><last>Rinaldi</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Online</address>
+      <month>November</month>
+      <year>2020</year>
+    </meta>
+    <frontmatter>
+      <url hash="323b7822">2020.louhi-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>The Impact of De-identification on Downstream Named Entity Recognition in Clinical Text</title>
+      <author><first>Hanna</first><last>Berg</last></author>
+      <author><first>Aron</first><last>Henriksson</last></author>
+      <author><first>Hercules</first><last>Dalianis</last></author>
+      <pages>1–11</pages>
+      <abstract>The impact of de-identification on data quality and, in particular, utility for developing models for downstream tasks has been more thoroughly studied for structured data than for unstructured text. While previous studies indicate that text de-identification has a limited impact on models for downstream tasks, it remains unclear what the impact is with various levels and forms of de-identification, in particular concerning the trade-off between precision and recall. In this paper, the impact of de-identification is studied on downstream named entity recognition in Swedish clinical text. The results indicate that de-identification models with moderate to high precision lead to similar downstream performance, while low precision has a substantial negative impact. Furthermore, different strategies for concealing sensitive information affect performance to different degrees, ranging from pseudonymisation having a low impact to the removal of entire sentences with sensitive information having a high impact. This study indicates that it is possible to increase the recall of models for identifying sensitive information without negatively affecting the use of de-identified text data for training models for clinical named entity recognition; however, there is ultimately a trade-off between the level of de-identification and the subsequent utility of the data.</abstract>
+      <url hash="24eeed56">2020.louhi-1.1</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="b3672b0f">2020.louhi-1.1.OptionalSupplementaryMaterial.zip</attachment>
+      <doi>10.18653/v1/2020.louhi-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Simple Hierarchical Multi-Task Neural End-To-End Entity Linking for Biomedical Text</title>
+      <author><first>Maciej</first><last>Wiatrak</last></author>
+      <author><first>Juha</first><last>Iso-Sipila</last></author>
+      <pages>12–17</pages>
+      <abstract>Recognising and linking entities is a crucial first step to many tasks in biomedical text analysis, such as relation extraction and target identification. Traditionally, biomedical entity linking methods rely heavily on heuristic rules and predefined, often domain-specific features. The features try to capture the properties of entities and complex multi-step architectures to detect, and subsequently link entity mentions. We propose a significant simplification to the biomedical entity linking setup that does not rely on any heuristic methods. The system performs all the steps of the entity linking task jointly in either single or two stages. We explore the use of hierarchical multi-task learning, using mention recognition and entity typing tasks as auxiliary tasks. We show that hierarchical multi-task models consistently outperform single-task models when trained tasks are homogeneous. We evaluate the performance of our models on the biomedical entity linking benchmarks using MedMentions and BC5CDR datasets. We achieve state-of-theart results on the challenging MedMentions dataset, and comparable results on BC5CDR.</abstract>
+      <url hash="99622a41">2020.louhi-1.2</url>
+      <doi>10.18653/v1/2020.louhi-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Medical Concept Normalization in User-Generated Texts by Learning Target Concept Embeddings</title>
+      <author><first>Katikapalli Subramanyam</first><last>Kalyan</last></author>
+      <author><first>Sivanesan</first><last>Sangeetha</last></author>
+      <pages>18–23</pages>
+      <abstract>Medical concept normalization helps in discovering standard concepts in free-form text i.e., maps health-related mentions to standard concepts in a clinical knowledge base. It is much beyond simple string matching and requires a deep semantic understanding of concept mentions. Recent research approach concept normalization as either text classification or text similarity. The main drawback in existing a) text classification approach is ignoring valuable target concepts information in learning input concept mention representation b) text similarity approach is the need to separately generate target concept embeddings which is time and resource consuming. Our proposed model overcomes these drawbacks by jointly learning the representations of input concept mention and target concepts. First, we learn input concept mention representation using RoBERTa. Second, we find cosine similarity between embeddings of input concept mention and all the target concepts. Here, embeddings of target concepts are randomly initialized and then updated during training. Finally, the target concept with maximum cosine similarity is assigned to the input concept mention. Our model surpasses all the existing methods across three standard datasets by improving accuracy up to 2.31%.</abstract>
+      <url hash="96a0fc85">2020.louhi-1.3</url>
+      <doi>10.18653/v1/2020.louhi-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Not a cute stroke: Analysis of Rule- and Neural Network-based Information Extraction Systems for Brain Radiology Reports</title>
+      <author><first>Andreas</first><last>Grivas</last></author>
+      <author><first>Beatrice</first><last>Alex</last></author>
+      <author><first>Claire</first><last>Grover</last></author>
+      <author><first>Richard</first><last>Tobin</last></author>
+      <author><first>William</first><last>Whiteley</last></author>
+      <pages>24–37</pages>
+      <abstract>We present an in-depth comparison of three clinical information extraction (IE) systems designed to perform entity recognition and negation detection on brain imaging reports: EdIE-R, a bespoke rule-based system, and two neural network models, EdIE-BiLSTM and EdIE-BERT, both multi-task learning models with a BiLSTM and BERT encoder respectively. We compare our models both on an in-sample and an out-of-sample dataset containing mentions of stroke findings and draw on our error analysis to suggest improvements for effective annotation when building clinical NLP models for a new domain. Our analysis finds that our rule-based system outperforms the neural models on both datasets and seems to generalise to the out-of-sample dataset. On the other hand, the neural models do not generalise negation to the out-of-sample dataset, despite metrics on the in-sample dataset suggesting otherwise.</abstract>
+      <url hash="9efebaab">2020.louhi-1.4</url>
+      <doi>10.18653/v1/2020.louhi-1.4</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>GGPONC</fixed-case>: A Corpus of <fixed-case>G</fixed-case>erman Medical Text with Rich Metadata Based on Clinical Practice Guidelines</title>
+      <author><first>Florian</first><last>Borchert</last></author>
+      <author><first>Christina</first><last>Lohr</last></author>
+      <author><first>Luise</first><last>Modersohn</last></author>
+      <author><first>Thomas</first><last>Langer</last></author>
+      <author><first>Markus</first><last>Follmann</last></author>
+      <author><first>Jan Philipp</first><last>Sachs</last></author>
+      <author><first>Udo</first><last>Hahn</last></author>
+      <author><first>Matthieu-P.</first><last>Schapranow</last></author>
+      <pages>38–48</pages>
+      <abstract>The lack of publicly accessible text corpora is a major obstacle for progress in natural language processing. For medical applications, unfortunately, all language communities other than English are low-resourced. In this work, we present GGPONC (German Guideline Program in Oncology NLP Corpus), a freely dis tributable German language corpus based on clinical practice guidelines for oncology. This corpus is one of the largest ever built from German medical documents. Unlike clinical documents, clinical guidelines do not contain any patient-related information and can therefore be used without data protection restrictions. Moreover, GGPONC is the first corpus for the German language covering diverse conditions in a large medical subfield and provides a variety of metadata, such as literature references and evidence levels. By applying and evaluating existing medical information extraction pipelines for German text, we are able to draw comparisons for the use of medical language to other corpora, medical and non-medical ones.</abstract>
+      <url hash="0c08fe11">2020.louhi-1.5</url>
+      <doi>10.18653/v1/2020.louhi-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Normalization of Long-tail Adverse Drug Reactions in Social Media</title>
+      <author><first>Emmanouil</first><last>Manousogiannis</last></author>
+      <author><first>Sepideh</first><last>Mesbah</last></author>
+      <author><first>Alessandro</first><last>Bozzon</last></author>
+      <author><first>Robert-Jan</first><last>Sips</last></author>
+      <author><first>Zoltan</first><last>Szlanik</last></author>
+      <author><first>Selene</first><last>Baez</last></author>
+      <pages>49–58</pages>
+      <abstract>The automatic mapping of Adverse Drug Reaction (ADR) reports from user-generated content to concepts in a controlled medical vocabulary provides valuable insights for monitoring public health. While state-of-the-art deep learning-based sequence classification techniques achieve impressive performance for medical concepts with large amounts of training data, they show their limit with long-tail concepts that have a low number of training samples. The above hinders their adaptability to the changes of layman’s terminology and the constant emergence of new informal medical terms. Our objective in this paper is to tackle the problem of normalizing long-tail ADR mentions in user-generated content. In this paper, we exploit the implicit semantics of rare ADRs for which we have few training samples, in order to detect the most similar class for the given ADR. The evaluation results demonstrate that our proposed approach addresses the limitations of the existing techniques when the amount of training data is limited.</abstract>
+      <url hash="71586330">2020.louhi-1.6</url>
+      <doi>10.18653/v1/2020.louhi-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Evaluation of Machine Translation Methods applied to Medical Terminologies</title>
+      <author><first>Konstantinos</first><last>Skianis</last></author>
+      <author><first>Yann</first><last>Briand</last></author>
+      <author><first>Florent</first><last>Desgrippes</last></author>
+      <pages>59–69</pages>
+      <abstract>Medical terminologies resources and standards play vital roles in clinical data exchanges, enabling significantly the services’ interoperability within healthcare national information networks. Health and medical science are constantly evolving causing requirements to advance the terminologies editions. In this paper, we present our evaluation work of the latest machine translation techniques addressing medical terminologies. Experiments have been conducted leveraging selected statistical and neural machine translation methods. The devised procedure is tested on a validated sample of ICD-11 and ICF terminologies from English to French with promising results.</abstract>
+      <url hash="4241ab53">2020.louhi-1.7</url>
+      <doi>10.18653/v1/2020.louhi-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Information retrieval for animal disease surveillance: a pattern-based approach.</title>
+      <author><first>Sarah</first><last>Valentin</last></author>
+      <author><first>Mathieu</first><last>Roche</last></author>
+      <author><first>Renaud</first><last>Lancelot</last></author>
+      <pages>70–78</pages>
+      <abstract>Animal diseases-related news articles are richin information useful for risk assessment. In this paper, we explore a method to automatically retrieve sentence-level epidemiological information. Our method is an incremental approach to create and expand patterns at both lexical and syntactic levels. Expert knowledge input are used at different steps of the approach. Distributed vector representations (word embedding) were used to expand the patterns at the lexical level, thus alleviating manual curation. We showed that expert validation was crucial to improve the precision of automatically generated patterns.</abstract>
+      <url hash="aedacac5">2020.louhi-1.8</url>
+      <doi>10.18653/v1/2020.louhi-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Multitask Learning of Negation and Speculation using Transformers</title>
+      <author><first>Aditya</first><last>Khandelwal</last></author>
+      <author><first>Benita Kathleen</first><last>Britto</last></author>
+      <pages>79–87</pages>
+      <abstract>Detecting negation and speculation in language has been a task of considerable interest to the biomedical community, as it is a key component of Information Extraction systems from Biomedical documents. Prior work has individually addressed Negation Detection and Speculation Detection, and both have been addressed in the same way, using 2 stage pipelined approach: Cue Detection followed by Scope Resolution. In this paper, we propose Multitask learning approaches over 2 sets of tasks: Negation Cue Detection &amp; Speculation Cue Detection, and Negation Scope Resolution &amp; Speculation Scope Resolution. We utilise transformer-based architectures like BERT, XLNet and RoBERTa as our core model architecture, and finetune these using the Multitask learning approaches. We show that this Multitask Learning approach outperforms the single task learning approach, and report new state-of-the-art results on Negation and Speculation Scope Resolution on the BioScope Corpus and the SFU Review Corpus.</abstract>
+      <url hash="b756842e">2020.louhi-1.9</url>
+      <doi>10.18653/v1/2020.louhi-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Biomedical Event Extraction as Multi-turn Question Answering</title>
+      <author><first>Xing David</first><last>Wang</last></author>
+      <author><first>Leon</first><last>Weber</last></author>
+      <author><first>Ulf</first><last>Leser</last></author>
+      <pages>88–96</pages>
+      <abstract>Biomedical event extraction from natural text is a challenging task as it searches for complex and often nested structures describing specific relationships between multiple molecular entities, such as genes, proteins, or cellular components. It usually is implemented by a complex pipeline of individual tools to solve the different relation extraction subtasks. We present an alternative approach where the detection of relationships between entities is described uniformly as questions, which are iteratively answered by a question answering (QA) system based on the domain-specific language model SciBERT. This model outperforms two strong baselines in two biomedical event extraction corpora in a Knowledge Base Population setting, and also achieves competitive performance in BioNLP challenge evaluation settings.</abstract>
+      <url hash="107d750e">2020.louhi-1.10</url>
+      <doi>10.18653/v1/2020.louhi-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>An efficient representation of chronological events in medical texts</title>
+      <author><first>Andrey</first><last>Kormilitzin</last></author>
+      <author><first>Nemanja</first><last>Vaci</last></author>
+      <author><first>Qiang</first><last>Liu</last></author>
+      <author><first>Hao</first><last>Ni</last></author>
+      <author><first>Goran</first><last>Nenadic</last></author>
+      <author><first>Alejo</first><last>Nevado-Holgado</last></author>
+      <pages>97–103</pages>
+      <abstract>In this work we addressed the problem of capturing sequential information contained in longitudinal electronic health records (EHRs). Clinical notes, which is a particular type of EHR data, are a rich source of information and practitioners often develop clever solutions how to maximise the sequential information contained in free-texts. We proposed a systematic methodology for learning from chronological events available in clinical notes. The proposed methodological path signature framework creates a non-parametric hierarchical representation of sequential events of any type and can be used as features for downstream statistical learning tasks. The methodology was developed and externally validated using the largest in the UK secondary care mental health EHR data on a specific task of predicting survival risk of patients diagnosed with Alzheimer’s disease. The signature-based model was compared to a common survival random forest model. Our results showed a 15.4% increase of risk prediction AUC at the time point of 20 months after the first admission to a specialist memory clinic and the signature method outperformed the baseline mixed-effects model by 13.2 %.</abstract>
+      <url hash="61bd2c77">2020.louhi-1.11</url>
+      <doi>10.18653/v1/2020.louhi-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Defining and Learning Refined Temporal Relations in the Clinical Narrative</title>
+      <author><first>Kristin</first><last>Wright-Bettner</last></author>
+      <author><first>Chen</first><last>Lin</last></author>
+      <author><first>Timothy</first><last>Miller</last></author>
+      <author><first>Steven</first><last>Bethard</last></author>
+      <author><first>Dmitriy</first><last>Dligach</last></author>
+      <author><first>Martha</first><last>Palmer</last></author>
+      <author><first>James H.</first><last>Martin</last></author>
+      <author><first>Guergana</first><last>Savova</last></author>
+      <pages>104–114</pages>
+      <abstract>We present refinements over existing temporal relation annotations in the Electronic Medical Record clinical narrative. We refined the THYME corpus annotations to more faithfully represent nuanced temporality and nuanced temporal-coreferential relations. The main contributions are in re-defining CONTAINS and OVERLAP relations into CONTAINS, CONTAINS-SUBEVENT, OVERLAP and NOTED-ON. We demonstrate that these refinements lead to substantial gains in learnability for state-of-the-art transformer models as compared to previously reported results on the original THYME corpus. We thus establish a baseline for the automatic extraction of these refined temporal relations. Although our study is done on clinical narrative, we believe it addresses far-reaching challenges that are corpus- and domain- agnostic.</abstract>
+      <url hash="4f1bb59f">2020.louhi-1.12</url>
+      <doi>10.18653/v1/2020.louhi-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Context-Aware Automatic Text Simplification of Health Materials in Low-Resource Domains</title>
+      <author><first>Tarek</first><last>Sakakini</last></author>
+      <author><first>Jong Yoon</first><last>Lee</last></author>
+      <author><first>Aditya</first><last>Duri</last></author>
+      <author><first>Renato F.L.</first><last>Azevedo</last></author>
+      <author><first>Victor</first><last>Sadauskas</last></author>
+      <author><first>Kuangxiao</first><last>Gu</last></author>
+      <author><first>Suma</first><last>Bhat</last></author>
+      <author><first>Dan</first><last>Morrow</last></author>
+      <author><first>James</first><last>Graumlich</last></author>
+      <author><first>Saqib</first><last>Walayat</last></author>
+      <author><first>Mark</first><last>Hasegawa-Johnson</last></author>
+      <author><first>Thomas</first><last>Huang</last></author>
+      <author><first>Ann</first><last>Willemsen-Dunlap</last></author>
+      <author><first>Donald</first><last>Halpin</last></author>
+      <pages>115–126</pages>
+      <abstract>Healthcare systems have increased patients’ exposure to their own health materials to enhance patients’ health levels, but this has been impeded by patients’ lack of understanding of their health material. We address potential barriers to their comprehension by developing a context-aware text simplification system for health material. Given the scarcity of annotated parallel corpora in healthcare domains, we design our system to be independent of a parallel corpus, complementing the availability of data-driven neural methods when such corpora are available. Our system compensates for the lack of direct supervision using a biomedical lexical database: Unified Medical Language System (UMLS). Compared to a competitive prior approach that uses a tool for identifying biomedical concepts and a consumer-directed vocabulary list, we empirically show the enhanced accuracy of our system due to improved handling of ambiguous terms. We also show the enhanced accuracy of our system over directly-supervised neural methods in this low-resource setting. Finally, we show the direct impact of our system on laypeople’s comprehension of health material via a human subjects’ study (n=160).</abstract>
+      <url hash="50778ff7">2020.louhi-1.13</url>
+      <doi>10.18653/v1/2020.louhi-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Identifying Personal Experience Tweets of Medication Effects Using Pre-trained <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a Language Model and Its Updating</title>
+      <author><first>Minghao</first><last>Zhu</last></author>
+      <author><first>Youzhe</first><last>Song</last></author>
+      <author><first>Ge</first><last>Jin</last></author>
+      <author><first>Keyuan</first><last>Jiang</last></author>
+      <pages>127–137</pages>
+      <abstract>Post-market surveillance, the practice of monitoring the safe use of pharmaceutical drugs is an important part of pharmacovigilance. Being able to collect personal experience related to pharmaceutical product use could help us gain insight into how the human body reacts to different medications. Twitter, a popular social media service, is being considered as an important alternative data source for collecting personal experience information with medications. Identifying personal experience tweets is a challenging classification task in natural language processing. In this study, we utilized three methods based on Facebook’s Robustly Optimized BERT Pretraining Approach (RoBERTa) to predict personal experience tweets related to medication use: the first one combines the pre-trained RoBERTa model with a classifier, the second combines the updated pre-trained RoBERTa model using a corpus of unlabeled tweets with a classifier, and the third combines the RoBERTa model that was trained with our unlabeled tweets from scratch with the classifier too. Our results show that all of these approaches outperform the published methods (Word Embedding + LSTM) in classification performance (p &lt; 0.05), and updating the pre-trained language model with tweets related to medications could even improve the performance further.</abstract>
+      <url hash="0e26c93c">2020.louhi-1.14</url>
+      <doi>10.18653/v1/2020.louhi-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title>Detecting Foodborne Illness Complaints in Multiple Languages Using <fixed-case>E</fixed-case>nglish Annotations Only</title>
+      <author><first>Ziyi</first><last>Liu</last></author>
+      <author><first>Giannis</first><last>Karamanolakis</last></author>
+      <author><first>Daniel</first><last>Hsu</last></author>
+      <author><first>Luis</first><last>Gravano</last></author>
+      <pages>138–146</pages>
+      <abstract>Health departments have been deploying text classification systems for the early detection of foodborne illness complaints in social media documents such as Yelp restaurant reviews. Current systems have been successfully applied for documents in English and, as a result, a promising direction is to increase coverage and recall by considering documents in additional languages, such as Spanish or Chinese. Training previous systems for more languages, however, would be expensive, as it would require the manual annotation of many documents for each new target language. To address this challenge, we consider cross-lingual learning and train multilingual classifiers using only the annotations for English-language reviews. Recent zero-shot approaches based on pre-trained multi-lingual BERT (mBERT) have been shown to effectively align languages for aspects such as sentiment. Interestingly, we show that those approaches are less effective for capturing the nuances of foodborne illness, our public health application of interest. To improve performance without extra annotations, we create artificial training documents in the target language through machine translation and train mBERT jointly for the source (English) and target language. Furthermore, we show that translating labeled documents to multiple languages leads to additional performance improvements for some target languages. We demonstrate the benefits of our approach through extensive experiments with Yelp restaurant reviews in seven languages. Our classifiers identify foodborne illness complaints in multilingual reviews from the Yelp Challenge dataset, which highlights the potential of our general approach for deployment in health departments.</abstract>
+      <url hash="760ad0d6">2020.louhi-1.15</url>
+      <doi>10.18653/v1/2020.louhi-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Detection of Mental Health from <fixed-case>R</fixed-case>eddit via Deep Contextualized Representations</title>
+      <author><first>Zhengping</first><last>Jiang</last></author>
+      <author><first>Sarah Ita</first><last>Levitan</last></author>
+      <author><first>Jonathan</first><last>Zomick</last></author>
+      <author><first>Julia</first><last>Hirschberg</last></author>
+      <pages>147–156</pages>
+      <abstract>We address the problem of automatic detection of psychiatric disorders from the linguistic content of social media posts. We build a large scale dataset of Reddit posts from users with eight disorders and a control user group. We extract and analyze linguistic characteristics of posts and identify differences between diagnostic groups. We build strong classification models based on deep contextualized word representations and show that they outperform previously applied statistical models with simple linguistic features by large margins. We compare user-level and post-level classification performance, as well as an ensembled multiclass model.</abstract>
+      <url hash="a341236f">2020.louhi-1.16</url>
+      <doi>10.18653/v1/2020.louhi-1.16</doi>
+    </paper>
+  </volume>
+</collection>

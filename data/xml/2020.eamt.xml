@@ -1,0 +1,720 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.eamt">
+  <volume id="1" ingest-date="2020-08-11">
+    <meta>
+      <booktitle>Proceedings of the 22nd Annual Conference of the European Association for Machine Translation</booktitle>
+      <editor><first>André</first><last>Martins</last></editor>
+      <editor><first>Helena</first><last>Moniz</last></editor>
+      <editor><first>Sara</first><last>Fumega</last></editor>
+      <editor><first>Bruno</first><last>Martins</last></editor>
+      <editor><first>Fernando</first><last>Batista</last></editor>
+      <editor><first>Luisa</first><last>Coheur</last></editor>
+      <editor><first>Carla</first><last>Parra</last></editor>
+      <editor><first>Isabel</first><last>Trancoso</last></editor>
+      <editor><first>Marco</first><last>Turchi</last></editor>
+      <editor><first>Arianna</first><last>Bisazza</last></editor>
+      <editor><first>Joss</first><last>Moorkens</last></editor>
+      <editor><first>Ana</first><last>Guerberof</last></editor>
+      <editor><first>Mary</first><last>Nurminen</last></editor>
+      <editor><first>Lena</first><last>Marg</last></editor>
+      <editor><first>Mikel L.</first><last>Forcada</last></editor>
+      <publisher>European Association for Machine Translation</publisher>
+      <address>Lisboa, Portugal</address>
+      <month>November</month>
+      <year>2020</year>
+      <url hash="7d46b928">2020.eamt-1</url>
+    </meta>
+    <frontmatter>
+      <url hash="ab0a7709">2020.eamt-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>The Roles of Language Models and Hierarchical Models in Neural Sequence-to-Sequence Prediction</title>
+      <author><first>Felix</first><last>Stahlberg</last></author>
+      <pages>5–6</pages>
+      <url hash="43a13d10">2020.eamt-1.1</url>
+    </paper>
+    <paper id="2">
+      <title>Comprehension and Trust in Crises: Investigating the Impact of Machine Translation and Post-Editing</title>
+      <author><first>Alessandra</first><last>Rossetti</last></author>
+      <author><first>Sharon</first><last>O’Brien</last></author>
+      <author><first>Patrick</first><last>Cadwell</last></author>
+      <pages>9–18</pages>
+      <abstract>We conducted a survey to understand the impact of machine translation and post-editing awareness on comprehension of and trust in messages disseminated to prepare the public for a weather-related crisis, i.e. flooding. The translation direction was English–Italian. Sixty-one participants—all native Italian speakers with different English proficiency levels—answered our survey. Each participant read and evaluated between three and six crisis messages using ratings and open-ended questions on comprehensibility and trust. The messages were in English and Italian. All the Italian messages had been machine translated and post-edited. Nevertheless, participants were told that only half had been post-edited, so that we could test the impact of post-editing awareness. We could not draw firm conclusions when comparing the scores for trust and comprehensibility assigned to the three types of messages—English, post-edits, and purported raw outputs. However, when scores were triangulated with open-ended answers, stronger patterns were observed, such as the impact of fluency of the translations on their comprehensibility and trustworthiness. We found correlations between comprehensibility and trustworthiness, and identified other factors influencing these aspects, such as the clarity and soundness of the messages. We conclude by outlining implications for crisis preparedness, limitations, and areas for future research.</abstract>
+      <url hash="9ba33823">2020.eamt-1.2</url>
+    </paper>
+    <paper id="3">
+      <title>Efficiently Reusing Old Models Across Languages via Transfer Learning</title>
+      <author><first>Tom</first><last>Kocmi</last></author>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <pages>19–28</pages>
+      <abstract>Recent progress in neural machine translation (NMT) is directed towards larger neural networks trained on an increasing amount of hardware resources. As a result, NMT models are costly to train, both financially, due to the electricity and hardware cost, and environmentally, due to the carbon footprint. It is especially true in transfer learning for its additional cost of training the “parent” model before transferring knowledge and training the desired “child” model. In this paper, we propose a simple method of re-using an already trained model for different language pairs where there is no need for modifications in model architecture. Our approach does not need a separate parent model for each investigated language pair, as it is typical in NMT transfer learning. To show the applicability of our method, we recycle a Transformer model trained by different researchers and use it to seed models for different language pairs. We achieve better translation quality and shorter convergence times than when training from random initialization.</abstract>
+      <url hash="dc6b5b55">2020.eamt-1.3</url>
+    </paper>
+    <paper id="4">
+      <title>Efficient Transfer Learning for Quality Estimation with Bottleneck Adapter Layer</title>
+      <author><first>Hao</first><last>Yang</last></author>
+      <author><first>Minghan</first><last>Wang</last></author>
+      <author><first>Ning</first><last>Xie</last></author>
+      <author><first>Ying</first><last>Qin</last></author>
+      <author><first>Yao</first><last>Deng</last></author>
+      <pages>29–34</pages>
+      <abstract>The Predictor-Estimator framework for quality estimation (QE) is commonly used for its strong performance. Where the predictor and estimator works on feature extraction and quality evaluation, respectively. However, training the predictor from scratch is computationally expensive. In this paper, we propose an efficient transfer learning framework to transfer knowledge from NMT dataset into QE models. A Predictor-Estimator alike model named BAL-QE is also proposed, aiming to extract high quality features with pre-trained NMT model, and make classification with a fine-tuned Bottleneck Adapter Layer (BAL). The experiment shows that BAL-QE achieves 97% of the SOTA performance in WMT19 En-De and En-Ru QE tasks by only training 3% of parameters within 4 hours on 4 Titan XP GPUs. Compared with the commonly used NuQE baseline, BAL-QE achieves 47% (En-Ru) and 75% (En-De) of performance promotions.</abstract>
+      <url hash="44ec6031">2020.eamt-1.4</url>
+    </paper>
+    <paper id="5">
+      <title>When and Why is Unsupervised Neural Machine Translation Useless?</title>
+      <author><first>Yunsu</first><last>Kim</last></author>
+      <author><first>Miguel</first><last>Graça</last></author>
+      <author><first>Hermann</first><last>Ney</last></author>
+      <pages>35–44</pages>
+      <abstract>This paper studies the practicality of the current state-of-the-art unsupervised methods in neural machine translation (NMT). In ten translation tasks with various data settings, we analyze the conditions under which the unsupervised methods fail to produce reasonable translations. We show that their performance is severely affected by linguistic dissimilarity and domain mismatch between source and target monolingual data. Such conditions are common for low-resource language pairs, where unsupervised learning works poorly. In all of our experiments, supervised and semi-supervised baselines with 50k-sentence bilingual data outperform the best unsupervised results. Our analyses pinpoint the limits of the current unsupervised NMT and also suggest immediate research directions.</abstract>
+      <url hash="ca4d93ad">2020.eamt-1.5</url>
+    </paper>
+    <paper id="6">
+      <title>Incorporating External Annotation to improve Named Entity Translation in <fixed-case>NMT</fixed-case></title>
+      <author><first>Maciej</first><last>Modrzejewski</last></author>
+      <author><first>Miriam</first><last>Exel</last></author>
+      <author><first>Bianka</first><last>Buschbeck</last></author>
+      <author><first>Thanh-Le</first><last>Ha</last></author>
+      <author><first>Alexander</first><last>Waibel</last></author>
+      <pages>45–51</pages>
+      <abstract>The correct translation of named entities (NEs) still poses a challenge for conventional neural machine translation (NMT) systems. This study explores methods incorporating named entity recognition (NER) into NMT with the aim to improve named entity translation. It proposes an annotation method that integrates named entities and inside–outside–beginning (IOB) tagging into the neural network input with the use of source factors. Our experiments on English→German and English→ Chinese show that just by including different NE classes and IOB tagging, we can increase the BLEU score by around 1 point using the standard test set from WMT2019 and achieve up to 12% increase in NE translation rates over a strong baseline.</abstract>
+      <url hash="a639a645">2020.eamt-1.6</url>
+    </paper>
+    <paper id="7">
+      <title>Unified Humor Detection Based on Sentence-pair Augmentation and Transfer Learning</title>
+      <author><first>Minghan</first><last>Wang</last></author>
+      <author><first>Hao</first><last>Yang</last></author>
+      <author><first>Ying</first><last>Qin</last></author>
+      <author><first>Shiliang</first><last>Sun</last></author>
+      <author><first>Yao</first><last>Deng</last></author>
+      <pages>53–59</pages>
+      <abstract>We propose a unified multilingual model for humor detection which can be trained under a transfer learning framework. 1) The model is built based on pre-trained multilingual BERT, thereby is able to make predictions on Chinese, Russian and Spanish corpora. 2) We step out from single sentence classification and propose sequence-pair prediction which considers the inter-sentence relationship. 3) We propose the Sentence Discrepancy Prediction (SDP) loss, aiming to measure the semantic discrepancy of the sequence-pair, which often appears in the setup and punchline of a joke. Our method achieves two SoTA and a second-place on three humor detection corpora in three languages (Russian, Spanish and Chinese), and also improves F1-score by 4%-6%, which demonstrates the effectiveness of it in humor detection tasks.</abstract>
+      <url hash="32314008">2020.eamt-1.7</url>
+    </paper>
+    <paper id="8">
+      <title>A multi-source approach for <fixed-case>B</fixed-case>reton–<fixed-case>F</fixed-case>rench hybrid machine translation</title>
+      <author><first>Víctor M.</first><last>Sánchez-Cartagena</last></author>
+      <author><first>Mikel L.</first><last>Forcada</last></author>
+      <author><first>Felipe</first><last>Sánchez-Martínez</last></author>
+      <pages>61–70</pages>
+      <abstract>Corpus-based approaches to machine translation (MT) have difficulties when the amount of parallel corpora to use for training is scarce, especially if the languages involved in the translation are highly inflected. This problem can be addressed from different perspectives, including data augmentation, transfer learning, and the use of additional resources, such as those used in rule-based MT. This paper focuses on the hybridisation of rule-based MT and neural MT for the Breton–French under-resourced language pair in an attempt to study to what extent the rule-based MT resources help improve the translation quality of the neural MT system for this particular under-resourced language pair. We combine both translation approaches in a multi-source neural MT architecture and find out that, even though the rule-based system has a low performance according to automatic evaluation metrics, using it leads to improved translation quality.</abstract>
+      <url hash="428bc35d">2020.eamt-1.8</url>
+    </paper>
+    <paper id="9">
+      <title>Leveraging Multilingual Resources for Language Invariant Sentiment Analysis</title>
+      <author><first>Allen</first><last>Antony</last></author>
+      <author><first>Arghya</first><last>Bhattacharya</last></author>
+      <author><first>Jaipal</first><last>Goud</last></author>
+      <author><first>Radhika</first><last>Mamidi</last></author>
+      <pages>71–79</pages>
+      <abstract>Sentiment analysis is a widely researched NLP problem with state-of-the-art solutions capable of attaining human-like accuracies for various languages. However, these methods rely heavily on large amounts of labeled data or sentiment weighted language-specific lexical resources that are unavailable for low-resource languages. Our work attempts to tackle this data scarcity issue by introducing a neural architecture for language invariant sentiment analysis capable of leveraging various monolingual datasets for training without any kind of cross-lingual supervision. The proposed architecture attempts to learn language agnostic sentiment features via adversarial training on multiple resource-rich languages which can then be leveraged for inferring sentiment information at a sentence level on a low resource language. Our model outperforms the current state-of-the-art methods on the Multilingual Amazon Review Text Classification dataset [REF] and achieves significant performance gains over prior work on the low resource Sentiraama corpus [REF]. A detailed analysis of our research highlights the ability of our architecture to perform significantly well in the presence of minimal amounts of training data for low resource languages.</abstract>
+      <url hash="fb4c0580">2020.eamt-1.9</url>
+    </paper>
+    <paper id="10">
+      <title>Low-Resource Unsupervised <fixed-case>NMT</fixed-case>: Diagnosing the Problem and Providing a Linguistically Motivated Solution</title>
+      <author><first>Lukas</first><last>Edman</last></author>
+      <author><first>Antonio</first><last>Toral</last></author>
+      <author><first>Gertjan</first><last>van Noord</last></author>
+      <pages>81–90</pages>
+      <abstract>Unsupervised Machine Translation has been advancing our ability to translate without parallel data, but state-of-the-art methods assume an abundance of monolingual data. This paper investigates the scenario where monolingual data is limited as well, finding that current unsupervised methods suffer in performance under this stricter setting. We find that the performance loss originates from the poor quality of the pretrained monolingual embeddings, and we offer a potential solution: dependency-based word embeddings. These embeddings result in a complementary word representation which offers a boost in performance of around 1.5 BLEU points compared to standard word2vec when monolingual data is limited to 1 million sentences per language. We also find that the inclusion of sub-word information is crucial to improving the quality of the embeddings.</abstract>
+      <url hash="77aa3364">2020.eamt-1.10</url>
+    </paper>
+    <paper id="11">
+      <title>Revisiting Round-trip Translation for Quality Estimation</title>
+      <author><first>Jihyung</first><last>Moon</last></author>
+      <author><first>Hyunchang</first><last>Cho</last></author>
+      <author><first>Eunjeong L.</first><last>Park</last></author>
+      <pages>91–104</pages>
+      <abstract>Quality estimation (QE), a task of evaluating the quality of translation automatically without human-translated reference, is one of the important challenges for machine translation (MT). As the QE methods, BLEU score for round-trip translation (RTT) had been considered. However, it was found to be a poor predictor of translation quality since BLEU was not an adequate metric to detect semantic similarity between input and RTT. Recently, the pre-trained language models have made breakthroughs in many NLP tasks by providing semantically meaningful word and sentence embeddings. In this paper, we employ the semantic embeddings to RTT-based QE metric. Our method achieves the highest correlations with human judgments compared to WMT 2019 quality estimation metric task submissions. Additionally, we observe that with semantic-level metrics, RTT-based QE is robust to the choice of a backward translation system and shows consistent performance on both SMT and NMT forward translation systems.</abstract>
+      <url hash="db78b7b2">2020.eamt-1.11</url>
+    </paper>
+    <paper id="12">
+      <title>Double Attention-based Multimodal Neural Machine Translation with Semantic Image Regions</title>
+      <author><first>Yuting</first><last>Zhao</last></author>
+      <author><first>Mamoru</first><last>Komachi</last></author>
+      <author><first>Tomoyuki</first><last>Kajiwara</last></author>
+      <author><first>Chenhui</first><last>Chu</last></author>
+      <pages>105–114</pages>
+      <abstract>Existing studies on multimodal neural machine translation (MNMT) have mainly focused on the effect of combining visual and textual modalities to improve translations. However, it has been suggested that the visual modality is only marginally beneficial. Conventional visual attention mechanisms have been used to select the visual features from equally-sized grids generated by convolutional neural networks (CNNs), and may have had modest effects on aligning the visual concepts associated with textual objects, because the grid visual features do not capture semantic information. In contrast, we propose the application of semantic image regions for MNMT by integrating visual and textual features using two individual attention mechanisms (double attention). We conducted experiments on the Multi30k dataset and achieved an improvement of 0.5 and 0.9 BLEU points for English-German and English-French translation tasks, compared with the MNMT with grid visual features. We also demonstrated concrete improvements on translation performance benefited from semantic image regions.</abstract>
+      <url hash="fb521973">2020.eamt-1.12</url>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>MT</fixed-case> for subtitling: User evaluation of post-editing productivity</title>
+      <author><first>Maarit</first><last>Koponen</last></author>
+      <author><first>Umut</first><last>Sulubacak</last></author>
+      <author><first>Kaisa</first><last>Vitikainen</last></author>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <pages>115–124</pages>
+      <abstract>This paper presents a user evaluation of machine translation and post-editing for TV subtitles. Based on a process study where 12 professional subtitlers translated and post-edited subtitles, we compare effort in terms of task time and number of keystrokes. We also discuss examples of specific subtitling features like condensation, and how these features may have affected the post-editing results. In addition to overall MT quality, segmentation and timing of the subtitles are found to be important issues to be addressed in future work.</abstract>
+      <url hash="3c9c86d2">2020.eamt-1.13</url>
+    </paper>
+    <paper id="14">
+      <title>Fine-grained Human Evaluation of Transformer and Recurrent Approaches to Neural Machine Translation for <fixed-case>E</fixed-case>nglish-to-<fixed-case>C</fixed-case>hinese</title>
+      <author><first>Yuying</first><last>Ye</last></author>
+      <author><first>Antonio</first><last>Toral</last></author>
+      <pages>125–134</pages>
+      <abstract>This research presents a fine-grained human evaluation to compare the Transformer and recurrent approaches to neural machine translation (MT), on the translation direction English-to-Chinese. To this end, we develop an error taxonomy compliant with the Multidimensional Quality Metrics (MQM) framework that is customised to the relevant phenomena of this translation direction. We then conduct an error annotation using this customised error taxonomy on the output of state-of-the-art recurrent- and Transformer-based MT systems on a subset of WMT2019’s news test set. The resulting annotation shows that, compared to the best recurrent system, the best Transformer system results in a 31% reduction of the total number of errors and it produced significantly less errors in 10 out of 22 error categories. We also note that two of the systems evaluated do not produce any error for a category that was relevant for this translation direction prior to the advent of NMT systems: Chinese classifiers.</abstract>
+      <url hash="42195dd4">2020.eamt-1.14</url>
+    </paper>
+    <paper id="15">
+      <title>Correct Me If You Can: Learning from Error Corrections and Markings</title>
+      <author><first>Julia</first><last>Kreutzer</last></author>
+      <author><first>Nathaniel</first><last>Berger</last></author>
+      <author><first>Stefan</first><last>Riezler</last></author>
+      <pages>135–144</pages>
+      <abstract>Sequence-to-sequence learning involves a trade-off between signal strength and annotation cost of training data. For example, machine translation data range from costly expert-generated translations that enable supervised learning, to weak quality-judgment feedback that facilitate reinforcement learning. We present the first user study on annotation cost and machine learnability for the less popular annotation mode of error markings. We show that error markings for translations of TED talks from English to German allow precise credit assignment while requiring significantly less human effort than correcting/post-editing, and that error-marked data can be used successfully to fine-tune neural machine translation models.</abstract>
+      <url hash="e7af16b9">2020.eamt-1.15</url>
+    </paper>
+    <paper id="16">
+      <title>Quality In, Quality Out: Learning from Actual Mistakes</title>
+      <author><first>Frederic</first><last>Blain</last></author>
+      <author><first>Nikolaos</first><last>Aletras</last></author>
+      <author><first>Lucia</first><last>Specia</last></author>
+      <pages>145–153</pages>
+      <abstract>Approaches to Quality Estimation (QE) of machine translation have shown promising results at predicting quality scores for translated sentences. However, QE models are often trained on noisy approximations of quality annotations derived from the proportion of post-edited words in translated sentences instead of direct human annotations of translation errors. The latter is a more reliable ground-truth but more expensive to obtain. In this paper, we present the first attempt to model the task of predicting the proportion of actual translation errors in a sentence while minimising the need for direct human annotation. For that purpose, we use transfer-learning to leverage large scale noisy annotations and small sets of high-fidelity human annotated translation errors to train QE models. Experiments on four language pairs and translations obtained by statistical and neural models show consistent gains over strong baselines.</abstract>
+      <url hash="6de2fda4">2020.eamt-1.16</url>
+    </paper>
+    <paper id="17">
+      <title>Fine-Grained Error Analysis on <fixed-case>E</fixed-case>nglish-to-<fixed-case>J</fixed-case>apanese Machine Translation in the Medical Domain</title>
+      <author><first>Takeshi</first><last>Hayakawa</last></author>
+      <author><first>Yuki</first><last>Arase</last></author>
+      <pages>155–164</pages>
+      <abstract>We performed a detailed error analysis in domain-specific neural machine translation (NMT) for the English and Japanese language pair with fine-grained manual annotation. Despite its importance for advancing NMT technologies, research on the performance of domain-specific NMT and non-European languages has been limited. In this study, we designed an error typology based on the error types that were typically generated by NMT systems and might cause significant impact in technical translations: “Addition,” “Omission,” “Mistranslation,” “Grammar,” and “Terminology.” The error annotation was targeted to the medical domain and was performed by experienced professional translators specialized in medicine under careful quality control. The annotation detected 4,912 errors on 2,480 sentences, and the frequency and distribution of errors were analyzed. We found that the major errors in NMT were “Mistranslation” and “Terminology” rather than “Addition” and “Omission,” which have been reported as typical problems of NMT. Interestingly, more errors occurred in documents for professionals compared with those for the general public. The results of our annotation work will be published as a parallel corpus with error labels, which are expected to contribute to developing better NMT models, automatic evaluation metrics, and quality estimation models.</abstract>
+      <url hash="9555cccb">2020.eamt-1.17</url>
+    </paper>
+    <paper id="18">
+      <title>With or without you? Effects of using machine translation to write flash fiction in the foreign language</title>
+      <author><first>Nora</first><last>Aranberri</last></author>
+      <pages>165–174</pages>
+      <abstract>The improvement in the quality of machine translation (MT) for both majority and minority languages in recent years is resulting in its steady adoption. This is not only happening among professional translators but also among users who occasionally find themselves in situations where translation is required or MT presents itself as a easier means to producing a text. This work sets to explore the effect using MT has in flash fiction produced in the foreign language. Specifically, we study the impact in surface closeness, syntactic and lexical complexity, and edits. Results show that texts produced with MT seem to fit closer to certain traits of the foreign language and that differences in the use of part-of-speech categories and structures emerge. Moreover, the analysis of the post-edited texts reveals that participants approach the editing of the MT output differently, displaying a wide range in the number of edits.</abstract>
+      <url hash="38449452">2020.eamt-1.18</url>
+    </paper>
+    <paper id="19">
+      <title>Intelligent Translation Memory Matching and Retrieval with Sentence Encoders</title>
+      <author><first>Tharindu</first><last>Ranasinghe</last></author>
+      <author><first>Constantin</first><last>Orasan</last></author>
+      <author><first>Ruslan</first><last>Mitkov</last></author>
+      <pages>175–184</pages>
+      <abstract>Matching and retrieving previously translated segments from the Translation Memory is a key functionality in Translation Memories systems. However this matching and retrieving process is still limited to algorithms based on edit distance which we have identified as a major drawback in Translation Memories systems. In this paper, we introduce sentence encoders to improve matching and retrieving process in Translation Memories systems - an effective and efficient solution to replace edit distance-based algorithms.</abstract>
+      <url hash="01a2c19d">2020.eamt-1.19</url>
+    </paper>
+    <paper id="20">
+      <title>Reassessing Claims of Human Parity and Super-Human Performance in Machine Translation at <fixed-case>WMT</fixed-case> 2019</title>
+      <author><first>Antonio</first><last>Toral</last></author>
+      <pages>185–194</pages>
+      <abstract>We reassess the claims of human parity and super-human performance made at the news shared task of WMT2019 for three translation directions: English→German, English→Russian and German→English. First we identify three potential issues in the human evaluation of that shared task: (i) the limited amount of intersen- tential context available, (ii) the limited translation proficiency of the evaluators and (iii) the use of a reference transla- tion. We then conduct a modified eval- uation taking these issues into account. Our results indicate that all the claims of human parity and super-human perfor- mance made at WMT2019 should be re- futed, except the claim of human parity for English→German. Based on our findings, we put forward a set of recommendations and open questions for future assessments of human parity in machine translation.</abstract>
+      <url hash="9682daf6">2020.eamt-1.20</url>
+    </paper>
+    <paper id="21">
+      <title>Modelling Source- and Target- Language Syntactic Information as Conditional Context in Interactive Neural Machine Translation</title>
+      <author><first>Kamal Kumar</first><last>Gupta</last></author>
+      <author><first>Rejwanul</first><last>Haque</last></author>
+      <author><first>Asif</first><last>Ekbal</last></author>
+      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>195–204</pages>
+      <abstract>In interactive machine translation (MT), human translators correct errors in automatic translations in collaboration with the MT systems, which is seen as an effective way to improve the productivity gain in translation. In this study, we model source-language syntactic constituency parse and target-language syntactic descriptions in the form of supertags as conditional context for interactive prediction in neural MT (NMT). We found that the supertags significantly improve productivity gain in translation in interactive-predictive NMT (INMT), while syntactic parsing somewhat found to be effective in reducing human effort in translation. Furthermore, when we model this source- and target-language syntactic information together as the conditional context, both types complement each other and our fully syntax-informed INMT model statistically significantly reduces human efforts in a French–to–English translation task, achieving 4.30 points absolute (corresponding to 9.18% relative) improvement in terms of word prediction accuracy (WPA) and 4.84 points absolute (corresponding to 9.01% relative) reduction in terms of word stroke ratio (WSR) over the baseline.</abstract>
+      <url hash="4554ca33">2020.eamt-1.21</url>
+    </paper>
+    <paper id="22">
+      <title>Learning Non-Monotonic Automatic Post-Editing of Translations from Human Orderings</title>
+      <author><first>António</first><last>Góis</last></author>
+      <author><first>Kyunghyun</first><last>Cho</last></author>
+      <author><first>André</first><last>Martins</last></author>
+      <pages>205–214</pages>
+      <abstract>Recent research in neural machine translation has explored flexible generation orders, as an alternative to left-to-right generation. However, training non-monotonic models brings a new complication: how to search for a good ordering when there is a combinatorial explosion of orderings arriving at the same final result? Also, how do these automatic orderings compare with the actual behaviour of human translators? Current models rely on manually built biases or are left to explore all possibilities on their own. In this paper, we analyze the orderings produced by human post-editors and use them to train an automatic post-editing system. We compare the resulting system with those trained with left-to-right and random post-editing orderings. We observe that humans tend to follow a nearly left-to-right order, but with interesting deviations, such as preferring to start by correcting punctuation or verbs.</abstract>
+      <url hash="f421c358">2020.eamt-1.22</url>
+    </paper>
+    <paper id="23">
+      <title>What’s the Difference Between Professional Human and Machine Translation? A Blind Multi-language Study on Domain-specific <fixed-case>MT</fixed-case></title>
+      <author><first>Lukas</first><last>Fischer</last></author>
+      <author><first>Samuel</first><last>Läubli</last></author>
+      <pages>215–224</pages>
+      <abstract>Machine translation (MT) has been shown to produce a number of errors that require human post-editing, but the extent to which professional human translation (HT) contains such errors has not yet been compared to MT. We compile pre-translated documents in which MT and HT are interleaved, and ask professional translators to flag errors and post-edit these documents in a blind evaluation. We find that the post-editing effort for MT segments is only higher in two out of three language pairs, and that the number of segments with wrong terminology, omissions, and typographical problems is similar in HT.</abstract>
+      <url hash="219af01a">2020.eamt-1.23</url>
+    </paper>
+    <paper id="24">
+      <title>Document-level Neural <fixed-case>MT</fixed-case>: A Systematic Comparison</title>
+      <author><first>António</first><last>Lopes</last></author>
+      <author><first>M. Amin</first><last>Farajian</last></author>
+      <author><first>Rachel</first><last>Bawden</last></author>
+      <author><first>Michael</first><last>Zhang</last></author>
+      <author><first>André F. T.</first><last>Martins</last></author>
+      <pages>225–234</pages>
+      <abstract>In this paper we provide a systematic comparison of existing and new document-level neural machine translation solutions. As part of this comparison, we introduce and evaluate a document-level variant of the recently proposed Star Transformer architecture. In addition to using the traditional metric BLEU, we report the accuracy of the models in handling anaphoric pronoun translation as well as coherence and cohesion using contrastive test sets. Finally, we report the results of human evaluation in terms of Multidimensional Quality Metrics (MQM) and analyse the correlation of the results obtained by the automatic metrics with human judgments.</abstract>
+      <url hash="75c56ae1">2020.eamt-1.24</url>
+    </paper>
+    <paper id="25">
+      <title>Automatic Translation for Multiple <fixed-case>NLP</fixed-case> tasks: a Multi-task Approach to Machine-oriented <fixed-case>NMT</fixed-case> Adaptation</title>
+      <author><first>Amirhossein</first><last>Tebbifakhr</last></author>
+      <author><first>Matteo</first><last>Negri</last></author>
+      <author><first>Marco</first><last>Turchi</last></author>
+      <pages>235–244</pages>
+      <abstract>Although machine translation (MT) traditionally pursues “human-oriented” objectives, humans are not the only possible consumers of MT output. For instance, when automatic translations are used to feed downstream Natural Language Processing (NLP) components in cross-lingual settings, they should ideally pursue “machine-oriented” objectives that maximize the performance of these components. Tebbifakhr et al. (2019) recently proposed a reinforcement learning approach to adapt a generic neural MT(NMT) system by exploiting the reward from a downstream sentiment classifier. But what if the downstream NLP tasks to serve are more than one? How to avoid the costs of adapting and maintaining one dedicated NMT system for each task? We address this problem by proposing a multi-task approach to machine-oriented NMT adaptation, which is capable to serve multiple downstream tasks with a single system. Through experiments with Spanish and Italian data covering three different tasks, we show that our approach can outperform a generic NMT system, and compete with single-task models in most of the settings.</abstract>
+      <url hash="bb23d3aa">2020.eamt-1.25</url>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>MT</fixed-case> syntactic priming effects on <fixed-case>L</fixed-case>2 <fixed-case>E</fixed-case>nglish speakers</title>
+      <author><first>Natália</first><last>Resende</last></author>
+      <author><first>Benjamin</first><last>Cowan</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>245–253</pages>
+      <abstract>In this paper, we tested 20 Brazilian Portuguese speakers at intermediate and advanced English proficiency levels to investigate the influence of Google Translate’s MT system on the mental processing of English as a second language. To this end, we employed a syntactic priming experimental paradigm using a pretest-priming design which allowed us to compare participants’ linguistic behaviour before and after a translation task using Google Translate. Results show that, after performing a translation task with Google Translate, participants more frequently described images in English using the syntactic alternative previously seen in the output of Google Translate, compared to the translation task with no prior influence of the MT output. Results also show that this syntactic priming effect is modulated by English proficiency levels.</abstract>
+      <url hash="eecfeea3">2020.eamt-1.26</url>
+    </paper>
+    <paper id="27">
+      <title>Domain Informed Neural Machine Translation: Developing Translation Services for Healthcare Enterprise</title>
+      <author><first>Sahil</first><last>Manchanda</last></author>
+      <author><first>Galina</first><last>Grunin</last></author>
+      <pages>255–261</pages>
+      <abstract>Neural Machine Translation (NMT) is a deep learning based approach that has achieved outstanding results lately in the translation community. The performance of NMT systems, however, is dependent on the availability of large amounts of in-domain parallel corpora. The business enterprises in domains such as legal and healthcare require specialized vocabulary but translation systems trained for a general purpose do not cater to these needs. The data in these domains is either hard to acquire or is very small in comparison to public data sets. This is a detailed report of using an open-source library to implement a machine translation system and successfully customizing it for the needs of a particular client in the healthcare domain. This report details the chronological development of every component of this system, namely, extraction of data from in-domain healthcare documents, a pre-processing pipeline for the data, data alignment and augmentation, training and a fully automated and robust deployment pipeline. This work proposes an efficient way for the continuous deployment of newly trained deep learning models. The deployed translation models are optimized for both inference time and cost.</abstract>
+      <url hash="b596704f">2020.eamt-1.27</url>
+    </paper>
+    <paper id="28">
+      <title>Evaluating the usefulness of neural machine translation for the <fixed-case>P</fixed-case>olish translators in the <fixed-case>E</fixed-case>uropean Commission</title>
+      <author><first>Karolina</first><last>Stefaniak</last></author>
+      <pages>263–269</pages>
+      <abstract>The mission of the Directorate General for Translation (DGT) is to provide high-quality translation to help the European Commission communicate with EU citizens. To this end DGT employs almost 2000 translators from all EU official languages. But while the demand for translation has been continuously growing, following a global trend, the number of translators has decreased. To cope with the demand, DGT extensively uses a CAT environment encompassing translation memories, terminology databases and recently also machine translation. This paper examines the benefits and risks of using neural machine translation to augment the productivity of in‒house DGT translators for the English‒Polish language pair. Based on the analysis of a sample of NMT‒translated texts and on the observations of the working practices of Polish translators it is concluded that the possible productivity gain is still modest, while the risks to quality are quite substantial.</abstract>
+      <url hash="79c3e33d">2020.eamt-1.28</url>
+    </paper>
+    <paper id="29">
+      <title>Terminology-Constrained Neural Machine Translation at <fixed-case>SAP</fixed-case></title>
+      <author><first>Miriam</first><last>Exel</last></author>
+      <author><first>Bianka</first><last>Buschbeck</last></author>
+      <author><first>Lauritz</first><last>Brandt</last></author>
+      <author><first>Simona</first><last>Doneva</last></author>
+      <pages>271–280</pages>
+      <abstract>This paper examines approaches to bias a neural machine translation model to adhere to terminology constraints in an industrial setup. In particular, we investigate variations of the approach by Dinu et al. (2019), which uses inline annotation of the target terms in the source segment plus source factor embeddings during training and inference, and compare them to constrained decoding. We describe the challenges with respect to terminology in our usage scenario at SAP and show how far the investigated methods can help to overcome them. We extend the original study to a new language pair and provide an in-depth evaluation including an error classification and a human evaluation.</abstract>
+      <url hash="199ff6ff">2020.eamt-1.29</url>
+    </paper>
+    <paper id="30">
+      <title>Ellipsis Translation for a Medical Speech to Speech Translation System</title>
+      <author><first>Jonathan</first><last>Mutal</last></author>
+      <author><first>Johanna</first><last>Gerlach</last></author>
+      <author><first>Pierrette</first><last>Bouillon</last></author>
+      <author><first>Hervé</first><last>Spechbach</last></author>
+      <pages>281–290</pages>
+      <abstract>In diagnostic interviews, elliptical utterances allow doctors to question patients in a more efficient and economical way. However, literal translation of such incomplete utterances is rarely possible without affecting communication. Previous studies have focused on automatic ellipsis detection and resolution, but only few specifically address the problem of automatic translation of ellipsis. In this work, we evaluate four different approaches to translate ellipsis in medical dialogues in the context of the speech to speech translation system BabelDr. We also investigate the impact of training data, using an under-sampling method and data with elliptical utterances in context. Results show that the best model is able to translate 88% of elliptical utterances.</abstract>
+      <url hash="a50e8e6c">2020.eamt-1.30</url>
+    </paper>
+    <paper id="31">
+      <title>Bifixer and Bicleaner: two open-source tools to clean your parallel data</title>
+      <author><first>Gema</first><last>Ramírez-Sánchez</last></author>
+      <author><first>Jaume</first><last>Zaragoza-Bernabeu</last></author>
+      <author><first>Marta</first><last>Bañón</last></author>
+      <author><first>Sergio Ortiz</first><last>Rojas</last></author>
+      <pages>291–298</pages>
+      <abstract>This paper shows the utility of two open-source tools designed for parallel data cleaning: Bifixer and Bicleaner. Already used to clean highly noisy parallel content from crawled multilingual websites, we evaluate their performance in a different scenario: cleaning publicly available corpora commonly used to train machine translation systems. We choose four English–Portuguese corpora which we plan to use internally to compute paraphrases at a later stage. We clean the four corpora using both tools, which are described in detail, and analyse the effect of some of the cleaning steps on them. We then compare machine translation training times and quality before and after cleaning these corpora, showing a positive impact particularly for the noisiest ones.</abstract>
+      <url hash="c45fb6c6">2020.eamt-1.31</url>
+    </paper>
+    <paper id="32">
+      <title>An <fixed-case>E</fixed-case>nglish-<fixed-case>S</fixed-case>wahili parallel corpus and its use for neural machine translation in the news domain</title>
+      <author><first>Felipe</first><last>Sánchez-Martínez</last></author>
+      <author><first>Víctor M.</first><last>Sánchez-Cartagena</last></author>
+      <author><first>Juan Antonio</first><last>Pérez-Ortiz</last></author>
+      <author><first>Mikel L.</first><last>Forcada</last></author>
+      <author><first>Miquel</first><last>Esplà-Gomis</last></author>
+      <author><first>Andrew</first><last>Secker</last></author>
+      <author><first>Susie</first><last>Coleman</last></author>
+      <author><first>Julie</first><last>Wall</last></author>
+      <pages>299–308</pages>
+      <abstract>This paper describes our approach to create a neural machine translation system to translate between English and Swahili (both directions) in the news domain, as well as the process we followed to crawl the necessary parallel corpora from the Internet. We report the results of a pilot human evaluation performed by the news media organisations participating in the H2020 EU-funded project GoURMET.</abstract>
+      <url hash="a78dd32d">2020.eamt-1.32</url>
+    </paper>
+    <paper id="33">
+      <title>Machine Translation Post-Editing Levels: Breaking Away from the Tradition and Delivering a Tailored Service</title>
+      <author><first>Mara</first><last>Nunziatini</last></author>
+      <author><first>Lena</first><last>Marg</last></author>
+      <pages>309–318</pages>
+      <abstract>While definitions of full and light post-editing have been around for a while, and error typologies like DQF and MQM gained in prominence since the beginning of last decade, for a long time customers tended to refuse to be flexible as for their final quality requirements, irrespective of the text type, purpose, target audience etc. We are now finally seeing some change in this space, with a renewed interest in different machine translation (MT) and post-editing (PE) service levels. While existing definitions of light and full post-editing are useful as general guidelines, they typically remain too abstract and inflexible both for translation buyers and linguists. Besides, they are inconsistent and overlap across the literature and different Language Service Providers (LSPs). In this paper, we comment on existing industry standards and share our experience on several challenges, as well as ways to steer customer conversations and provide clear instructions to post-editors.</abstract>
+      <url hash="3f107250">2020.eamt-1.33</url>
+    </paper>
+    <paper id="34">
+      <title>A User Study of the Incremental Learning in <fixed-case>NMT</fixed-case></title>
+      <author><first>Miguel</first><last>Domingo</last></author>
+      <author><first>Mercedes</first><last>García-Martínez</last></author>
+      <author><first>Álvaro</first><last>Peris</last></author>
+      <author><first>Alexandre</first><last>Helle</last></author>
+      <author><first>Amando</first><last>Estela</last></author>
+      <author><first>Laurent</first><last>Bié</last></author>
+      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <author><first>Manuel</first><last>Herranz</last></author>
+      <pages>319–328</pages>
+      <abstract>In the translation industry, human experts usually supervise and post-edit machine translation hypotheses. Adaptive neural machine translation systems, able to incrementally update the underlying models under an online learning regime, have been proven to be useful to improve the efficiency of this workflow. However, this incremental adaptation is somewhat unstable, and it may lead to undesirable side effects. One of them is the sporadic appearance of made-up words, as a byproduct of an erroneous application of subword segmentation techniques. In this work, we extend previous studies on on-the-fly adaptation of neural machine translation systems. We perform a user study involving professional, experienced post-editors, delving deeper on the aforementioned problems. Results show that adaptive systems were able to learn how to generate the correct translation for task-specific terms, resulting in an improvement of the user’s productivity. We also observed a close similitude, in terms of morphology, between made-up words and the words that were expected.</abstract>
+      <url hash="bb6d3db2">2020.eamt-1.34</url>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>NICE</fixed-case>: Neural Integrated Custom Engines</title>
+      <author><first>Daniel Marín</first><last>Buj</last></author>
+      <author><first>Daniel</first><last>Ibáñez García</last></author>
+      <author><first>Zuzanna</first><last>Parcheta</last></author>
+      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <pages>329–338</pages>
+      <abstract>In this paper, we present a machine translation system implemented by the Translation Centre for the Bodies of the European Union (CdT). The main goal of this project is to create domain-specific machine translation engines in order to support machine translation services and applications to the Translation Centre’s clients. In this article, we explain the entire implementation process of NICE: Neural Integrated Custom Engines. We describe the problems identified and the solutions provided, and present the final results for different language pairs. Finally, we describe the work that will be done on this project in the future.</abstract>
+      <url hash="adf7f158">2020.eamt-1.35</url>
+    </paper>
+    <paper id="36">
+      <title>Estimation vs Metrics: is <fixed-case>QE</fixed-case> Useful for <fixed-case>MT</fixed-case> Model Selection?</title>
+      <author><first>Anna</first><last>Zaretskaya</last></author>
+      <author><first>José</first><last>Conceição</last></author>
+      <author><first>Frederick</first><last>Bane</last></author>
+      <pages>339–346</pages>
+      <abstract>This paper presents a case study of applying machine translation quality estimation (QE) for the purpose of machine translation (MT) engine selection. The goal is to understand how well the QE predictions correlate with several MT evaluation metrics (automatic and human). Our findings show that our industry-level QE system is not reliable enough for MT selection when the MT systems have similar performance. We suggest that QE can be used with more success for other tasks relevant for translation industry such as risk prevention.</abstract>
+      <url hash="621b2cd8">2020.eamt-1.36</url>
+    </paper>
+    <paper id="37">
+      <title>Persistent <fixed-case>MT</fixed-case> on software technical documentation - a case study</title>
+      <author><first>María Concepción</first><last>Laguardia</last></author>
+      <pages>347–352</pages>
+      <abstract>We report on the features and current challenges of our on-going implementation of a Persistent MT workflow for Citrix Product Documentation, to increase localization coverage to 100% content in docs.citrix.com into German, French, Spanish, Japanese and Simplified Chinese. By the end of 2019, we had processed seven million words of English documentation with this model, across 24 doc sets, and raised localization coverage from 40% to 100% of the content of our documentation repositories. This has boosted our global reach across the entire Citrix portfolio (Digital Workspace, Networking, and Analytics). The current implementation requires a process of Light Post-editing (LPE) for all languages, in order to fix over-translations, out-of-domain words, inline tags and markdown errors in the raw output.</abstract>
+      <url hash="677e8845">2020.eamt-1.37</url>
+    </paper>
+    <paper id="38">
+      <title>Insights from Gathering <fixed-case>MT</fixed-case> Productivity Metrics at Scale</title>
+      <author><first>Georg</first><last>Kirchner</last></author>
+      <pages>353–362</pages>
+      <abstract>In this paper, we describe Dell EMC’s framework to automatically collect MT-related productivity metrics from a large translation supply chain over an extended period of time, the characteristics and volume of the gathered data, and the insights from analyzing the data to guide our MT strategy. Aligning tools, processes and people required decisions, concessions and contributions from Dell management, technology providers, tool implementors, LSPs and linguists to harvest data at scale over 2+ years while Dell EMC migrated from customized SMT to generic NMT and then customized NMT systems. For content in two quality tiers, we ranked language pairs by productivity, graphed trendlines, compared the time needed to edit machine translations versus fuzzy matches, studied the time spent on segments with no post-edits, and going by the post-edit density, re-viewed segment distribution on a post-edit scale of 1 to 10 and any correlation between the extent of edits and segment length.</abstract>
+      <url hash="c7329438">2020.eamt-1.38</url>
+    </paper>
+    <paper id="39">
+      <title>On the differences between human translations</title>
+      <author><first>Maja</first><last>Popovic</last></author>
+      <pages>365–374</pages>
+      <abstract>Many studies have confirmed that translated texts exhibit different features than texts originally written in the given language. This work explores texts translated by different translators taking into account expertise and native language. A set of computational analyses was conducted on three language pairs, English-Croatian, German-French and English-Finnish, and the results show that each of the factors has certain influence on the features of the translated texts, especially on sentence length and lexical richness. The results also indicate that for translations used for machine translation evaluation, it is important to specify these factors, especially if comparing machine translation quality with human translation quality is involved.</abstract>
+      <url hash="9fe97fc0">2020.eamt-1.39</url>
+    </paper>
+    <paper id="40">
+      <title>Re-design of the Machine Translation Training Tool (<fixed-case>MT</fixed-case>3)</title>
+      <author><first>Paula</first><last>Estrella</last></author>
+      <author><first>Emiliano</first><last>Cuenca</last></author>
+      <author><first>Laura</first><last>Bruno</last></author>
+      <author><first>Jonathan</first><last>Mutal</last></author>
+      <author><first>Sabrina</first><last>Girletti</last></author>
+      <author><first>Lise</first><last>Volkart</last></author>
+      <author><first>Pierrette</first><last>Bouillon</last></author>
+      <pages>375–382</pages>
+      <abstract>We believe that machine translation (MT) must be introduced to translation students as part of their training, in preparation for their professional life. In this paper we present a new version of the tool called MT3, which builds on and extends a joint effort undertaken by the Faculty of Languages of the University of Córdoba and Faculty of Translation and Interpreting of the University of Geneva to develop an open-source web platform to teach MT to translation students. We also report on a pilot experiment with the goal of testing the viability of using <tex-math>MT^3</tex-math> in an MT course. The pilot let us identify areas for improvement and collect students’ feedback about the tool’s usability.</abstract>
+      <url hash="a7a30886">2020.eamt-1.40</url>
+    </paper>
+    <paper id="41">
+      <title>Multidimensional assessment of the e<fixed-case>T</fixed-case>ranslation output for <fixed-case>E</fixed-case>nglish–<fixed-case>S</fixed-case>lovene</title>
+      <author><first>Mateja</first><last>Arnejšek</last></author>
+      <author><first>Alenka</first><last>Unk</last></author>
+      <pages>383–392</pages>
+      <abstract>The Slovene language department of the European Commission Directorate-General for Translation has always been an early adopter of new developments in the area of machine translation. In 2018, the department started using neural machine translation produced by the eTranslation in-house engines. In 2019, a multidimensional assessment of the eTranslation output for the language combination English–Slovene was carried out. It was based on two user satisfaction surveys, an analysis of detected and reported errors and an ex post analysis of a sample. As part of the assessment effort, a categorisation of errors was devised in order to raise awareness among translators of the potential pitfalls of neural machine translation.</abstract>
+      <url hash="5cd2195d">2020.eamt-1.41</url>
+    </paper>
+    <paper id="42">
+      <title>How do <fixed-case>LSP</fixed-case>s compute <fixed-case>MT</fixed-case> discounts? Presenting a company’s pipeline and its use</title>
+      <author><first>Randy</first><last>Scansani</last></author>
+      <author><first>Lamis</first><last>Mhedhbi</last></author>
+      <pages>393–401</pages>
+      <abstract>In this paper we present a pipeline developed at Acolad to test a Machine Translation (MT) engine and compute the discount to be applied when its output is used in production. Our pipeline includes three main steps where quality and productivity are measured through automatic metrics, manual evaluation, and by keeping track of editing and temporal effort during a post-editing task. Thanks to this approach, it is possible to evaluate the output quality and compute an engine-specific discount. Our test pipeline tackles the complexity of transforming productivity measurements into discounts by comparing the outcome of each of the above-mentioned steps to an estimate of the average productivity of translation from scratch. The discount is obtained by subtracting the resulting coefficient from the per-word rate. After a description of the pipeline, the paper presents its application on four engines, discussing its results and showing that our method to estimate post-editing effort through manual evaluation seems to capture the actual productivity. The pipeline relies heavily on the work of professional post-editors, with the aim of creating a mutually beneficial cooperation between users and developers.</abstract>
+      <url hash="bfc11647">2020.eamt-1.42</url>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>P</fixed-case>os<fixed-case>E</fixed-case>di<fixed-case>O</fixed-case>n: Post-Editing Assessment in <fixed-case>P</fixed-case>yth<fixed-case>O</fixed-case>n</title>
+      <author><first>Antoni</first><last>Oliver</last></author>
+      <author><first>Sergi</first><last>Alvarez</last></author>
+      <author><first>Toni</first><last>Badia</last></author>
+      <pages>403–410</pages>
+      <abstract>There is currently an extended use of post-editing of machine translation (PEMT) in the translation industry. This is due to the increase in the demand of translation and to the significant improvements in quality achieved by neural machine translation (NMT). PEMT has been included as part of the translation workflow because it increases translators’ productivity and it also reduces costs. Although an effective post-editing requires enough quality of the MT output, usual automatic metrics do not always correlate with post-editing effort. We describe a standalone tool designed both for industry and research that has two main purposes: collect sentence-level information from the post-editing process (e.g. post-editing time and keystrokes) and visually present multiple evaluation scores so they can be easily interpreted by a user.</abstract>
+      <url hash="21fa8d59">2020.eamt-1.43</url>
+    </paper>
+    <paper id="44">
+      <title>Quantitative Analysis of Post-Editing Effort Indicators for <fixed-case>NMT</fixed-case></title>
+      <author><first>Sergi</first><last>Alvarez</last></author>
+      <author><first>Antoni</first><last>Oliver</last></author>
+      <author><first>Toni</first><last>Badia</last></author>
+      <pages>411–420</pages>
+      <abstract>The recent improvements in machine translation (MT) have boosted the use of post-editing (PE) in the translation industry. A new machine translation paradigm, neural machine translation (NMT), is displacing its corpus-based predecessor, statistical machine translation (SMT), in the translation workflows currently implemented because it usually increases the fluency and accuracy of the MT output. However, usual automatic measurements do not always indicate the quality of the MT output and there is still no clear correlation between PE effort and productivity. We present a quantitative analysis of different PE effort indicators for two NMT systems (transformer and seq2seq) for English-Spanish in-domain medical documents. We compare both systems and study the correlation between PE time and other scores. Results show less PE effort for the transformer NMT model and a high correlation between PE time and keystrokes.</abstract>
+      <url hash="16001850">2020.eamt-1.44</url>
+    </paper>
+    <paper id="45">
+      <title>Comparing Post-editing based on Four Editing Actions against Translating with an Auto-Complete Feature</title>
+      <author><first>Félix Do</first><last>Carmo</last></author>
+      <pages>421–430</pages>
+      <abstract>This article describes the results of a workshop in which 50 translators tested two experimental translation interfaces, as part of a project which aimed at studying the details of editing work. In this work, editing is defined as a selection of four actions: deleting, inserting, moving and replacing words. Four texts, machine-translated from English into European Portuguese, were post-edited in four different sessions in which each translator swapped between texts and two work modes. One of the work modes involved a typical auto-complete feature, and the other was based on the four actions. The participants answered surveys before, during and after the workshop. A descriptive analysis of the answers to the surveys and of the logs recorded during the experiments was performed. The four editing actions mode is shown to be more intrusive, but to allow for more planned decisions: although they take more time in this mode, translators hesitate less and make fewer edits. The article shows the usefulness of the approach for research on the editing task.</abstract>
+      <url hash="1b512029">2020.eamt-1.45</url>
+    </paper>
+    <paper id="46">
+      <title>A human evaluation of <fixed-case>E</fixed-case>nglish-<fixed-case>I</fixed-case>rish statistical and neural machine translation</title>
+      <author><first>Meghan</first><last>Dowling</last></author>
+      <author><first>Sheila</first><last>Castilho</last></author>
+      <author><first>Joss</first><last>Moorkens</last></author>
+      <author><first>Teresa</first><last>Lynn</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>431–440</pages>
+      <abstract>With official status in both Ireland and the EU, there is a need for high-quality English-Irish (EN-GA) machine translation (MT) systems which are suitable for use in a professional translation environment. While we have seen recent research on improving both statistical MT and neural MT for the EN-GA pair, the results of such systems have always been reported using automatic evaluation metrics. This paper provides the first human evaluation study of EN-GA MT using professional translators and in-domain (public administration) data for a more accurate depiction of the translation quality available via MT.</abstract>
+      <url hash="d59b6dd8">2020.eamt-1.46</url>
+    </paper>
+    <paper id="47">
+      <title>Machine Translation Quality: A comparative evaluation of <fixed-case>SMT</fixed-case>, <fixed-case>NMT</fixed-case> and tailored-<fixed-case>NMT</fixed-case> outputs</title>
+      <author><first>Maria</first><last>Stasimioti</last></author>
+      <author><first>Vilelmini</first><last>Sosoni</last></author>
+      <author><first>Katia</first><last>Kermanidis</last></author>
+      <author><first>Despoina</first><last>Mouratidis</last></author>
+      <pages>441–450</pages>
+      <abstract>The present study aims to compare three systems: a generic statistical machine translation (SMT), a generic neural machine translation (NMT) and a tailored-NMT system focusing on the English to Greek language pair. The comparison is carried out following a mixed-methods approach, i.e. automatic metrics, as well as side-by-side ranking, adequacy and fluency rating, measurement of actual post editing (PE) effort and human error analysis performed by 16 postgraduate Translation students. The findings reveal a higher score for both the generic NMT and the tailored-NMT outputs as regards automatic metrics and human evaluation metrics, with the tailored-NMT output faring even better than the generic NMT output.</abstract>
+      <url hash="55b8fe21">2020.eamt-1.47</url>
+    </paper>
+    <paper id="48">
+      <title><fixed-case>QE</fixed-case> Viewer: an Open-Source Tool for Visualization of Machine Translation Quality Estimation Results</title>
+      <author><first>Felipe</first><last>Soares</last></author>
+      <author><first>Anna</first><last>Zaretskaya</last></author>
+      <author><first>Diego</first><last>Bartolome</last></author>
+      <pages>453–454</pages>
+      <abstract>QE Viewer is a web-based tool for visualizing results of a Machine Translation Quality Estimation (QE) system. It allows users to see information on the predicted post-editing distance (PED) for a given file or sentence, and highlighted words that were predicted to contain MT errors. The tool can be used in a variety of academic, educational and commercial scenarios.</abstract>
+      <url hash="8f2a7c48">2020.eamt-1.48</url>
+    </paper>
+    <paper id="49">
+      <title>Document-Level Machine Translation Evaluation Project: Methodology, Effort and Inter-Annotator Agreement</title>
+      <author><first>Sheila</first><last>Castilho</last></author>
+      <pages>455–456</pages>
+      <abstract>Document-level (doc-level) human eval-uation of machine translation (MT) has raised interest in the community after a fewattempts have disproved claims of “human parity” (Toral et al., 2018; Laubli et al.,2018). However, little is known about bestpractices regarding doc-level human evalu-ation. The goal of this project is to identifywhich methodologies better cope with i)the current state-of-the-art (SOTA) humanmetrics, ii) a possible complexity when as-signing a single score to a text consisted of‘good’ and ‘bad’ sentences, iii) a possibletiredness bias in doc-level set-ups, and iv)the difference in inter-annotator agreement(IAA) between sentence and doc-level set-ups.</abstract>
+      <url hash="8bd5f97e">2020.eamt-1.49</url>
+    </paper>
+    <paper id="50">
+      <title>Sockeye 2: A Toolkit for Neural Machine Translation</title>
+      <author><first>Felix</first><last>Hieber</last></author>
+      <author><first>Tobias</first><last>Domhan</last></author>
+      <author><first>Michael</first><last>Denkowski</last></author>
+      <author><first>David</first><last>Vilar</last></author>
+      <pages>457–458</pages>
+      <abstract>We present Sockeye 2, a modernized and streamlined version of the Sockeye neural machine translation (NMT) toolkit. New features include a simplified code base through the use of MXNet’s Gluon API, a focus on state of the art model architectures, and distributed mixed precision training. These improvements result in faster training and inference, higher automatic metric scores, and a shorter path from research to production.</abstract>
+      <url hash="14f53504">2020.eamt-1.50</url>
+    </paper>
+    <paper id="51">
+      <title><fixed-case>CEF</fixed-case> Data Marketplace: Powering a Long-term Supply of Language Data</title>
+      <author><first>Amir</first><last>Kamran</last></author>
+      <author><first>Dace</first><last>Dzeguze</last></author>
+      <author><first>Jaap</first><last>van der Meer</last></author>
+      <author><first>Milica</first><last>Panic</last></author>
+      <author><first>Alessandro</first><last>Cattelan</last></author>
+      <author><first>Daniele</first><last>Patrioli</last></author>
+      <author><first>Luisa</first><last>Bentivogli</last></author>
+      <author><first>Marco</first><last>Turchi</last></author>
+      <pages>459–460</pages>
+      <abstract>We describe the CEF Data Marketplace project, which focuses on the development of a trading platform of translation data for language professionals: translators, machine translation (MT) developers, language service providers (LSPs), translation buyers and government bodies. The CEF Data Marketplace platform will be designed and built to manage and trade data for all languages and domains. This project will open a continuous and longterm supply of language data for MT and other machine learning applications.</abstract>
+      <url hash="5d7cdf1a">2020.eamt-1.51</url>
+    </paper>
+    <paper id="52">
+      <title><fixed-case>QR</fixed-case>ev: Machine Translation of User Reviews: What Influences the Translation Quality?</title>
+      <author><first>Maja</first><last>Popovic</last></author>
+      <pages>461–462</pages>
+      <abstract>This project aims to identify the important aspects of translation quality of user reviews which will represent a starting point for developing better automatic MT metrics and challenge test sets, and will be also helpful for developing MT systems for this genre. We work on two types of reviews: Amazon products and IMDb movies, written in English and translated into two closely related target languages, Croatian and Serbian.</abstract>
+      <url hash="b9a7abfc">2020.eamt-1.52</url>
+    </paper>
+    <paper id="53">
+      <title><fixed-case>ELITR</fixed-case>: <fixed-case>E</fixed-case>uropean Live Translator</title>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <author><first>Dominik</first><last>Macháček</last></author>
+      <author><first>Sangeet</first><last>Sagar</last></author>
+      <author><first>Otakar</first><last>Smrž</last></author>
+      <author><first>Jonáš</first><last>Kratochvíl</last></author>
+      <author><first>Ebrahim</first><last>Ansari</last></author>
+      <author><first>Dario</first><last>Franceschini</last></author>
+      <author><first>Chiara</first><last>Canton</last></author>
+      <author><first>Ivan</first><last>Simonini</last></author>
+      <author><first>Thai-Son</first><last>Nguyen</last></author>
+      <author><first>Felix</first><last>Schneider</last></author>
+      <author><first>Sebastian</first><last>Stücker</last></author>
+      <author><first>Alex</first><last>Waibel</last></author>
+      <author><first>Barry</first><last>Haddow</last></author>
+      <author><first>Rico</first><last>Sennrich</last></author>
+      <author><first>Philip</first><last>Williams</last></author>
+      <pages>463–464</pages>
+      <abstract>ELITR (European Live Translator) project aims to create a speech translation system for simultaneous subtitling of conferences and online meetings targetting up to 43 languages. The technology is tested by the Supreme Audit Office of the Czech Republic and by alfaview®, a German online conferencing system. Other project goals are to advance document-level and multilingual machine translation, automatic speech recognition, and automatic minuting.</abstract>
+      <url hash="f715b3a9">2020.eamt-1.53</url>
+    </paper>
+    <paper id="54">
+      <title>Progress of the <fixed-case>PRINCIPLE</fixed-case> Project: Promoting <fixed-case>MT</fixed-case> for <fixed-case>C</fixed-case>roatian, <fixed-case>I</fixed-case>celandic, <fixed-case>I</fixed-case>rish and <fixed-case>N</fixed-case>orwegian</title>
+      <author><first>Andy</first><last>Way</last></author>
+      <author><first>Petra</first><last>Bago</last></author>
+      <author><first>Jane</first><last>Dunne</last></author>
+      <author><first>Federico</first><last>Gaspari</last></author>
+      <author><first>Andre</first><last>Kåsen</last></author>
+      <author><first>Gauti</first><last>Kristmannsson</last></author>
+      <author><first>Helen</first><last>McHugh</last></author>
+      <author><first>Jon Arild</first><last>Olsen</last></author>
+      <author><first>Dana Davis</first><last>Sheridan</last></author>
+      <author><first>Páraic</first><last>Sheridan</last></author>
+      <author><first>John</first><last>Tinsley</last></author>
+      <pages>465–466</pages>
+      <abstract>This paper updates the progress made on the PRINCIPLE project, a 2-year action funded by the European Commission under the Connecting Europe Facility (CEF) programme. PRINCIPLE focuses on collecting high-quality language resources for Croatian, Icelandic, Irish and Norwegian, which have been identified as low-resource languages, especially for building effective machine translation (MT) systems. We report initial achievements of the project and ongoing activities aimed at promoting the uptake of neural MT for the low-resource languages of the project.</abstract>
+      <url hash="8dd19bc0">2020.eamt-1.54</url>
+    </paper>
+    <paper id="55">
+      <title><fixed-case>MTUOC</fixed-case>: easy and free integration of <fixed-case>NMT</fixed-case> systems in professional translation environments</title>
+      <author><first>Antoni</first><last>Oliver</last></author>
+      <pages>467–468</pages>
+      <abstract>In this paper the MTUOC project, aiming to provide an easy integration of neural and statistical machine translation systems, is presented. Almost all the required software to train and use neural and statistical MT systems are released under free licences. However, their use is not always easy and intuitive and medium-high specialized skills are required. MTUOC project provides simplified scripts for preprocessing and training MT systems, and a server and client for easy use of the trained systems. The server is compatible with popular CAT tools for a seamless integration. The project also distributes some free engines.</abstract>
+      <url hash="f0dcd771">2020.eamt-1.55</url>
+    </paper>
+    <paper id="56">
+      <title><fixed-case>INMIGRA</fixed-case>3: building a case for <fixed-case>NGO</fixed-case>s and <fixed-case>NMT</fixed-case></title>
+      <author><first>Celia</first><last>Rico</last></author>
+      <author><first>María Del Mar Sánchez</first><last>Ramos</last></author>
+      <author><first>Antoni</first><last>Oliver</last></author>
+      <pages>469–470</pages>
+      <abstract>INMIGRA3 is a three-year project that builds on the work of two previous initi-atives: INMIGRA2-CM and CRISIS-MT . Together, they address the specific needs of NGOs in multilingual settings with a particular interest in migratory contexts. Work on INMIGRA3 concentrates in the analysis of how best can be NMT put to use for the purposes of translating NGOs documentation.</abstract>
+      <url hash="bccaa65a">2020.eamt-1.56</url>
+    </paper>
+    <paper id="57">
+      <title>The Multilingual Anonymisation Toolkit for Public Administrations (<fixed-case>MAPA</fixed-case>) Project</title>
+      <author><first>Ēriks</first><last>Ajausks</last></author>
+      <author><first>Victoria</first><last>Arranz</last></author>
+      <author><first>Laurent</first><last>Bié</last></author>
+      <author><first>Aleix</first><last>Cerdà-i-Cucó</last></author>
+      <author><first>Khalid</first><last>Choukri</last></author>
+      <author><first>Montse</first><last>Cuadros</last></author>
+      <author><first>Hans</first><last>Degroote</last></author>
+      <author><first>Amando</first><last>Estela</last></author>
+      <author><first>Thierry</first><last>Etchegoyhen</last></author>
+      <author><first>Mercedes</first><last>García-Martínez</last></author>
+      <author><first>Aitor</first><last>García-Pablos</last></author>
+      <author><first>Manuel</first><last>Herranz</last></author>
+      <author><first>Alejandro</first><last>Kohan</last></author>
+      <author><first>Maite</first><last>Melero</last></author>
+      <author><first>Mike</first><last>Rosner</last></author>
+      <author><first>Roberts</first><last>Rozis</last></author>
+      <author><first>Patrick</first><last>Paroubek</last></author>
+      <author><first>Artūrs</first><last>Vasiļevskis</last></author>
+      <author><first>Pierre</first><last>Zweigenbaum</last></author>
+      <pages>471–472</pages>
+      <abstract>We describe the MAPA project, funded under the Connecting Europe Facility programme, whose goal is the development of an open-source de-identification toolkit for all official European Union languages. It will be developed since January 2020 until December 2021.</abstract>
+      <url hash="df50817f">2020.eamt-1.57</url>
+    </paper>
+    <paper id="58">
+      <title><fixed-case>APE</fixed-case>-<fixed-case>QUEST</fixed-case>: an <fixed-case>MT</fixed-case> Quality Gate</title>
+      <author><first>Heidi</first><last>Depraetere</last></author>
+      <author><first>Joachim</first><last>Van den Bogaert</last></author>
+      <author><first>Sara</first><last>Szoc</last></author>
+      <author><first>Tom</first><last>Vanallemeersch</last></author>
+      <pages>473–474</pages>
+      <abstract>The APE-QUEST project (2018--2020) sets up a quality gate and crowdsourcing workflow for the eTranslation system of EC’s Connecting Europe Facility to improve translation quality in specific domains. It packages these services as a translation portal for machine-to-machine and machine-to-human scenarios.</abstract>
+      <url hash="4d073da0">2020.eamt-1.58</url>
+    </paper>
+    <paper id="59">
+      <title><fixed-case>MICE</fixed-case>: a middleware layer for <fixed-case>MT</fixed-case></title>
+      <author><first>Joachim</first><last>Van den Bogaert</last></author>
+      <author><first>Tom</first><last>Vanallemeersch</last></author>
+      <author><first>Heidi</first><last>Depraetere</last></author>
+      <pages>475–476</pages>
+      <abstract>The MICE project (2018-2020) will deliver a middleware layer for improving the output quality of the eTranslation system of EC’s Connecting Europe Facility through additional services, such as domain adaptation and named entity recognition. It will also deliver a user portal, allowing for human post-editing.</abstract>
+      <url hash="e078908c">2020.eamt-1.59</url>
+    </paper>
+    <paper id="60">
+      <title>Neural Translation for the <fixed-case>E</fixed-case>uropean <fixed-case>U</fixed-case>nion (<fixed-case>NTEU</fixed-case>) Project</title>
+      <author><first>Laurent</first><last>Bié</last></author>
+      <author><first>Aleix</first><last>Cerdà-i-Cucó</last></author>
+      <author><first>Hans</first><last>Degroote</last></author>
+      <author><first>Amando</first><last>Estela</last></author>
+      <author><first>Mercedes</first><last>García-Martínez</last></author>
+      <author><first>Manuel</first><last>Herranz</last></author>
+      <author><first>Alejandro</first><last>Kohan</last></author>
+      <author><first>Maite</first><last>Melero</last></author>
+      <author><first>Tony</first><last>O’Dowd</last></author>
+      <author><first>Sinéad</first><last>O’Gorman</last></author>
+      <author><first>Mārcis</first><last>Pinnis</last></author>
+      <author><first>Roberts</first><last>Rozis</last></author>
+      <author><first>Riccardo</first><last>Superbo</last></author>
+      <author><first>Artūrs</first><last>Vasiļevskis</last></author>
+      <pages>477–478</pages>
+      <abstract>The Neural Translation for the European Union (NTEU) project aims to build a neural engine farm with all European official language combinations for eTranslation, without the necessity to use a high-resourced language as a pivot. NTEU started in September 2019 and will run until August 2021.</abstract>
+      <url hash="cb823ed0">2020.eamt-1.60</url>
+    </paper>
+    <paper id="61">
+      <title><fixed-case>OPUS</fixed-case>-<fixed-case>MT</fixed-case> – Building open translation services for the World</title>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <author><first>Santhosh</first><last>Thottingal</last></author>
+      <pages>479–480</pages>
+      <abstract>This paper presents OPUS-MT a project that focuses on the development of free resources and tools for machine translation. The current status is a repository of over 1,000 pre-trained neural machine translation models that are ready to be launched in on-line translation services. For this we also provide open source implementations of web applications that can run efficiently on average desktop hardware with a straightforward setup and installation.</abstract>
+      <url hash="4de7c318">2020.eamt-1.61</url>
+    </paper>
+    <paper id="62">
+      <title><fixed-case>OCR</fixed-case>, Classification
+
+&amp; Machine Translation (<fixed-case>OCCAM</fixed-case>)</title>
+      <author><first>Joachim</first><last>Van den Bogaert</last></author>
+      <author><first>Arne</first><last>Defauw</last></author>
+      <author><first>Frederic</first><last>Everaert</last></author>
+      <author><first>Koen</first><last>Van Winckel</last></author>
+      <author><first>Alina</first><last>Kramchaninova</last></author>
+      <author><first>Anna</first><last>Bardadym</last></author>
+      <author><first>Tom</first><last>Vanallemeersch</last></author>
+      <author><first>Pavel</first><last>Smrž</last></author>
+      <author><first>Michal</first><last>Hradiš</last></author>
+      <pages>481–482</pages>
+      <abstract>The OCCAM project (Optical Character recognition, ClassificAtion &amp; Machine Translation) aims at integrating the CEF (Connecting Europe Facility) Automated Translation service with image classification, Translation Memories (TMs), Optical Character Recognition (OCR), and Machine Translation (MT). It will support the automated translation of scanned business documents (a document format that, currently, cannot be processed by the CEF eTranslation service) and will also lead to a tool useful for the Digital Humanities domain.</abstract>
+      <url hash="f3a2980e">2020.eamt-1.62</url>
+    </paper>
+    <paper id="63">
+      <title><fixed-case>CEFAT</fixed-case>4<fixed-case>C</fixed-case>ities, a Natural Language Layer for the <fixed-case>ISA</fixed-case>2 Core Public Service Vocabulary</title>
+      <author><first>Joachim</first><last>Van den Bogaert</last></author>
+      <author><first>Arne</first><last>Defauw</last></author>
+      <author><first>Sara</first><last>Szoc</last></author>
+      <author><first>Frederic</first><last>Everaert</last></author>
+      <author><first>Koen</first><last>Van Winckel</last></author>
+      <author><first>Alina</first><last>Kramchaninova</last></author>
+      <author><first>Anna</first><last>Bardadym</last></author>
+      <author><first>Tom</first><last>Vanallemeersch</last></author>
+      <pages>483–484</pages>
+      <abstract>The CEFAT4Cities project (2020-2022) will create a “Smart Cities natural language context” (a software layer that facilitates the conversion of natural-language administrative procedures, into machine-readable data sets) on top of the existing ISA2 interoperability layer for public services. Integration with the FIWARE/ORION “Smart City” Context Broker, will make existing, paper-based, public services discoverable through “Smart City” frameworks, thus allowing for the development of more sophisticated and more user-friendly public services applications. An automated translation component will be included, to provide a solution that can be used by all EU Member States. As a result, the project will allow EU citizens and businesses to interact with public services on the city, national, regional and EU level, in their own language.</abstract>
+      <url hash="6a5496ae">2020.eamt-1.63</url>
+    </paper>
+    <paper id="64">
+      <title>Assessing the Comprehensibility of Automatic Translations (<fixed-case>A</fixed-case>ris<fixed-case>T</fixed-case>o<fixed-case>CAT</fixed-case>)</title>
+      <author><first>Lieve</first><last>Macken</last></author>
+      <author><first>Margot</first><last>Fonteyne</last></author>
+      <author><first>Arda</first><last>Tezcan</last></author>
+      <author><first>Joke</first><last>Daems</last></author>
+      <pages>485–486</pages>
+      <abstract>The ArisToCAT project aims to assess the comprehensibility of ‘raw’ (unedited) MT output for readers who can only rely on the MT output. In this project description, we summarize the main results of the project and present future work.</abstract>
+      <url hash="f231fd46">2020.eamt-1.64</url>
+    </paper>
+    <paper id="65">
+      <title>Let <fixed-case>MT</fixed-case> simplify and speed up your Alignment for <fixed-case>TM</fixed-case> creation</title>
+      <author><first>Judith</first><last>Klein</last></author>
+      <author><first>Giorgio</first><last>Bernardinello</last></author>
+      <pages>487–489</pages>
+      <abstract>Large quantities of multilingual legal documents are waiting to be regularly aligned and used for future translations. For reasons of time, effort and cost, manual alignment is not an option. Automatically aligned segments are suitable for concordance search but are unreliable for fuzzy search and pretranslation. MT-based alignment could be the key to improving the results.</abstract>
+      <url hash="e984b4ab">2020.eamt-1.65</url>
+    </paper>
+    <paper id="66">
+      <title>An Overview of the <fixed-case>SEBAMAT</fixed-case> Project</title>
+      <author><first>Reinhard</first><last>Rapp</last></author>
+      <author><first>George</first><last>Tambouratzis</last></author>
+      <pages>491–492</pages>
+      <abstract>SEBAMAT (semantics-based MT) is a Marie Curie project intended to con-tribute to the state of the art in machine translation (MT). Current MT systems typically take the semantics of a text only in so far into account as they are implicit in the underlying text corpora or dictionaries. Occasionally it has been argued that it may be difficult to advance MT quality to the next level as long as the systems do not make more explicit use of semantic knowledge. SEBAMAT aims to evaluate three approaches incorporating such knowledge into MT.</abstract>
+      <url hash="dda2e873">2020.eamt-1.66</url>
+    </paper>
+    <paper id="67">
+      <title><fixed-case>D</fixed-case>eep<fixed-case>SPIN</fixed-case>: Deep Structured Prediction for Natural Language Processing</title>
+      <author><first>André F. T.</first><last>Martins</last></author>
+      <pages>493–494</pages>
+      <abstract>DeepSPIN is a research project funded by the European Research Council (ERC) whose goal is to develop new neural structured prediction methods, models, and algorithms for improving the quality, interpretability, and data-efficiency of natural language processing (NLP) systems, with special emphasis on machine translation and quality estimation applications.</abstract>
+      <url hash="fcc2fce4">2020.eamt-1.67</url>
+    </paper>
+    <paper id="68">
+      <title>Project <fixed-case>MAIA</fixed-case>: Multilingual <fixed-case>AI</fixed-case> Agent Assistant</title>
+      <author><first>André F. T.</first><last>Martins</last></author>
+      <author><first>Joao</first><last>Graca</last></author>
+      <author><first>Paulo</first><last>Dimas</last></author>
+      <author><first>Helena</first><last>Moniz</last></author>
+      <author><first>Graham</first><last>Neubig</last></author>
+      <pages>495–496</pages>
+      <abstract>This paper presents the Multilingual Artificial Intelligence Agent Assistant (MAIA), a project led by Unbabel with the collaboration of CMU, INESC-ID and IT Lisbon. MAIA will employ cutting-edge machine learning and natural language processing technologies to build multilingual AI agent assistants, eliminating language barriers. MAIA’s translation layer will empower human agents to provide customer support in real-time, in any language, with human quality.</abstract>
+      <url hash="f81dae6d">2020.eamt-1.68</url>
+    </paper>
+    <paper id="69">
+      <title><fixed-case>MT</fixed-case>rill project: Machine Translation impact on language learning</title>
+      <author><first>Natália</first><last>Resende</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>497–498</pages>
+      <abstract>Over the last decades, massive research investments have been made in the development of machine translation (MT) systems (Gupta and Dhawan, 2019). This has brought about a paradigm shift in the performance of these language tools, leading to widespread use of popular MT systems (Gaspari and Hutchins, 2007). Although the first MT engines were used for gisting purposes, in recent years, there has been an increasing interest in using MT tools, especially the freely available online MT tools, for language teaching and learning (Clifford et al., 2013). The literature on MT and Computer Assisted Language Learning (CALL) shows that, over the years, MT systems have been facilitating language teaching and also language learning (Nin ̃o, 2006). It has been shown that MT tools can increase awareness of grammatical linguistic features of a foreign language. Research also shows the positive role of MT systems in the development of writing skills in English as well as in improving communication skills in English(Garcia and Pena, 2011). However, to date, the cognitive impact of MT on language acquisition and on the syntactic aspects of language processing has not yet been investigated and deserves further scrutiny. The MTril project aims at filling this gap in the literature by examining whether MT is contributing to a central aspect of language acquisition: the so-called language binding, i.e., the ability to combine single words properly in a grammatical sentence (Heyselaar et al., 2017; Ferreira and Bock, 2006). The project focus on the initial stages (pre-intermediate and intermediate) of the acquisition of English syntax by Brazilian Portuguese native speakers using MT systems as a support for language learning.</abstract>
+      <url hash="3cc666fd">2020.eamt-1.69</url>
+    </paper>
+  </volume>
+</collection>

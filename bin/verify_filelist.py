@@ -38,7 +38,6 @@ import logging as log
 import os
 from urllib.parse import urlparse
 
-from anthology.data import ANTHOLOGY_PREFIX, ATTACHMENT_PREFIX
 from anthology.utils import is_newstyle_id, build_anthology_id, SeverityTracker
 
 
@@ -146,7 +145,9 @@ if __name__ == "__main__":
     tracker = SeverityTracker()
     log.getLogger().addHandler(tracker)
 
-    opts = dict(list_remaining=bool(args["--list-remaining"]),)
+    opts = dict(
+        list_remaining=bool(args["--list-remaining"]),
+    )
     main(args["--importdir"], args["FILELIST"], opts)
 
     if tracker.highest >= log.ERROR:

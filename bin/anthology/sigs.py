@@ -45,13 +45,28 @@ class SIGIndex:
         if srcdir is not None:
             self.load_from_dir(srcdir)
 
-    def load_from_dir(self, directory):
-        for filename in glob("{}/yaml/sigs/*.yaml".format(directory)):
+    def load_from_dir(self, sigdir):
+        self.directory = sigdir
+        for filename in glob("{}/yaml/sigs/*.yaml".format(self.directory)):
             log.debug("Instantiating SIG from {}...".format(filename))
             with open(filename, "r") as f:
                 data = yaml.load(f, Loader=Loader)
                 sig = SIG.from_dict(data)
                 self.sigs[sig.acronym] = sig
+
+    def add_volume(self, signame, volume):
+        """
+        Adds a volume to a SIG.
+        """
+        self.sigs[signame.upper()].add_volume(volume)
+
+    def dump(self):
+        """
+        Dumps the venue database to file.
+        """
+        for acronym, sig in self.items():
+            with open(f"{self.directory}/yaml/sigs/{acronym.lower()}.yaml", "wt") as f:
+                print(yaml.dump(sig._data, sort_keys=False, allow_unicode=True), file=f)
 
     def remove_volume(self, full_volume_id):
         for acronym, sig in self.sigs.items():
@@ -96,6 +111,13 @@ class SIG:
                 for event in self.events_by_year[year]
                 if not event[0] == full_volume_id
             ]
+
+    def add_volume(self, full_volume_id):
+        collection_id, _, _ = deconstruct_anthology_id(full_volume_id)
+        year = int(infer_year(collection_id))
+        if not year in self.events_by_year:
+            self.events_by_year[year] = []
+        self.events_by_year[year].append(full_volume_id)
 
     @property
     def associated_events(self):

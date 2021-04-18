@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.scai">
+  <volume id="1" ingest-date="2020-11-06">
+    <meta>
+      <booktitle>Proceedings of the 5th International Workshop on Search-Oriented Conversational AI (SCAI)</booktitle>
+      <editor><first>Jeff</first><last>Dalton</last></editor>
+      <editor><first>Aleksandr</first><last>Chuklin</last></editor>
+      <editor><first>Julia</first><last>Kiseleva</last></editor>
+      <editor><first>Mikhail</first><last>Burtsev</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Online</address>
+      <month>November</month>
+      <year>2020</year>
+    </meta>
+    <frontmatter>
+      <url hash="6d144a1a">2020.scai-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Slice-Aware Neural Ranking</title>
+      <author><first>Gustavo</first><last>Penha</last></author>
+      <author><first>Claudia</first><last>Hauff</last></author>
+      <pages>1–6</pages>
+      <abstract>Understanding when and why neural ranking models fail for an IR task via error analysis is an important part of the research cycle. Here we focus on the challenges of (i) identifying categories of difficult instances (a pair of question and response candidates) for which a neural ranker is ineffective and (ii) improving neural ranking for such instances. To address both challenges we resort to slice-based learning for which the goal is to improve effectiveness of neural models for slices (subsets) of data. We address challenge (i) by proposing different slicing functions (SFs) that select slices of the dataset—based on prior work we heuristically capture different failures of neural rankers. Then, for challenge (ii) we adapt a neural ranking model to learn slice-aware representations, i.e. the adapted model learns to represent the question and responses differently based on the model’s prediction of which slices they belong to. Our experimental results (the source code and data are available at https://github.com/Guzpenha/slice_based_learning) across three different ranking tasks and four corpora show that slice-based learning improves the effectiveness by an average of 2% over a neural ranker that is not slice-aware.</abstract>
+      <url hash="fa23f086">2020.scai-1.1</url>
+      <doi>10.18653/v1/2020.scai-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>A Wrong Answer or a Wrong Question? An Intricate Relationship between Question Reformulation and Answer Selection in Conversational Question Answering</title>
+      <author><first>Svitlana</first><last>Vakulenko</last></author>
+      <author><first>Shayne</first><last>Longpre</last></author>
+      <author><first>Zhucheng</first><last>Tu</last></author>
+      <author><first>Raviteja</first><last>Anantha</last></author>
+      <pages>7–16</pages>
+      <abstract>The dependency between an adequate question formulation and correct answer selection is a very intriguing but still underexplored area. In this paper, we show that question rewriting (QR) of the conversational context allows to shed more light on this phenomenon and also use it to evaluate robustness of different answer selection approaches. We introduce a simple framework that enables an automated analysis of the conversational question answering (QA) performance using question rewrites, and present the results of this analysis on the TREC CAsT and QuAC (CANARD) datasets. Our experiments uncover sensitivity to question formulation of the popular state-of-the-art question answering approaches. Our results demonstrate that the reading comprehension model is insensitive to question formulation, while the passage ranking changes dramatically with a little variation in the input question. The benefit of QR is that it allows us to pinpoint and group such cases automatically. We show how to use this methodology to verify whether QA models are really learning the task or just finding shortcuts in the dataset, and better understand the frequent types of error they make.</abstract>
+      <url hash="0042df23">2020.scai-1.2</url>
+      <doi>10.18653/v1/2020.scai-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Multi-Task Learning using Dynamic Task Weighting for Conversational Question Answering</title>
+      <author><first>Sarawoot</first><last>Kongyoung</last></author>
+      <author><first>Craig</first><last>Macdonald</last></author>
+      <author><first>Iadh</first><last>Ounis</last></author>
+      <pages>17–26</pages>
+      <abstract>Conversational Question Answering (ConvQA) is a Conversational Search task in a simplified setting, where an answer must be extracted from a given passage. Neural language models, such as BERT, fine-tuned on large-scale ConvQA datasets such as CoQA and QuAC have been used to address this task. Recently, Multi-Task Learning (MTL) has emerged as a particularly interesting approach for developing ConvQA models, where the objective is to enhance the performance of a primary task by sharing the learned structure across several related auxiliary tasks. However, existing ConvQA models that leverage MTL have not investigated the dynamic adjustment of the relative importance of the different tasks during learning, nor the resulting impact on the performance of the learned models. In this paper, we first study the effectiveness and efficiency of dynamic MTL methods including Evolving Weighting, Uncertainty Weighting, and Loss-Balanced Task Weighting, compared to static MTL methods such as the uniform weighting of tasks. Furthermore, we propose a novel hybrid dynamic method combining Abridged Linear for the main task with a Loss-Balanced Task Weighting (LBTW) for the auxiliary tasks, so as to automatically fine-tune task weighting during learning, ensuring that each of the task’s weights is adjusted by the relative importance of the different tasks. We conduct experiments using QuAC, a large-scale ConvQA dataset. Our results demonstrate the effectiveness of our proposed method, which significantly outperforms both the single-task learning and static task weighting methods with improvements ranging from +2.72% to +3.20% in F1 scores. Finally, our findings show that the performance of using MTL in developing ConvQA model is sensitive to the correct selection of the auxiliary tasks as well as to an adequate balancing of the loss rates of these tasks during training by using LBTW.</abstract>
+      <url hash="db9713f2">2020.scai-1.3</url>
+      <doi>10.18653/v1/2020.scai-1.3</doi>
+    </paper>
+  </volume>
+</collection>

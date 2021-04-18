@@ -21,20 +21,34 @@ import anthology.formatter as my_formatter
 class PersonName:
     first, last = "", ""
 
-    def __init__(self, first, last):
+    def __init__(self, first, last, script="roman", variant: "PersonName" = None):
         self.first = first.strip() if first is not None else ""
         self.last = last.strip()
+        self.script = script
+        self.variant = variant
 
     def from_element(person_element):
+        """
+        Reads from the XML, which includes an optional first name, a last name,
+        and an optional variant (itself containing an optional first name, and a
+        last name).
+        """
         first, last = "", ""
+        # The name variant script, defaults to roman
+        script = person_element.attrib.get("script", "roman")
+        variant = None
         for element in person_element:
             tag = element.tag
+
             # These are guaranteed to occur at most once by the schema
             if tag == "first":
                 first = element.text or ""
             elif tag == "last":
                 last = element.text or ""
-        return PersonName(first, last)
+            elif tag == "variant":
+                variant = PersonName.from_element(element)
+
+        return PersonName(first, last, script=script, variant=variant)
 
     def from_repr(repr_):
         parts = repr_.split(" || ")
@@ -53,7 +67,20 @@ class PersonName:
 
     @property
     def full(self):
-        return "{} {}".format(self.first, self.last).strip()
+        """
+        Return the full rendering of the name.
+        This includes any name variant in parentheses.
+        Currently handles both Roman and Han scripts.
+        """
+        if self.script.startswith("han"):
+            form = f"{self.last}{self.first}"
+        else:  # default to "roman"
+            form = f"{self.first} {self.last}"
+
+        if self.variant is not None:
+            return f"{form} ({self.variant.full})"
+        else:
+            return form
 
     @property
     def id_(self):

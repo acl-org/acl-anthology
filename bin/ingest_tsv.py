@@ -1,249 +1,197 @@
 #!/usr/bin/env python3
 """
-Takes a conference TSV file and, optionally, a conference metadata
-file, and creates the Anthology XML in the ACL Anthology repository.
+Takes a conference TSV file and creates the Anthology XML in the ACL Anthology repository.
 This file can then be added to the repo and committed.
+
+Expects fields name like BibTeX files.
 
 Example usage:
 
-- First, fork [the ACL Anthology](https://github.com/acl-org/acl-anthology) to your Github account, and clone it to your drive
-- Grab one of the [conference TSV files](https://drive.google.com/drive/u/0/folders/1hC7FDlsXWVM2HSYgdluz01yotdEd0zW8)
-- Export the [conference list file](https://docs.google.com/spreadsheets/d/1fpxmdV_BPwR6BQHyU9VJQxXeSOmy4__5nQCHBEviyAw/edit#gid=0) to conference-meta.tsv
+    cat data.tsv \
+    | ./ingest_tsv.py amta user 2020 --proceedings-pdf 2020.amta-user.pdf
 
-Then run it as
+where data.tsv has TSV fields:
 
-    scripts/ingest_tsv.py [--anthology /path/to/anthology] eamt/eamt.1997.tsv conference-metadata.tsv
-
-this will create a file `/path/to/anthology/data/xml/1997.eamt.xml`.
-You can then commit this to your Anthology repo, push to your Github, and create a PR.
-
-This was used for ingesting many of the conferences in the MT Archive.
+* author
+* title
+* booktitle
+* month
+* year
+* address
+* publisher
+* pages
+* pdf
 
 Author: Matt Post
-March 2020
+October 2020
 """
 
+import anthology
 import csv
 import lxml.etree as etree
 import os
+import shutil
 import ssl
 import subprocess
 import sys
 import urllib.request
 
-from anthology.utils import make_simple_element, indent, compute_hash
+from anthology import Anthology
+from anthology.utils import (
+    make_simple_element,
+    indent,
+    compute_hash_from_file,
+    retrieve_url,
+)
 from datetime import datetime
 from normalize_anth import normalize
-
-
-def download(remote_path, local_path):
-    if os.path.exists(local_path):
-        print(f"{local_path} already exists, not re-downloading", file=sys.stderr)
-        return True
-    local_dir = os.path.dirname(local_path)
-    if not os.path.exists(local_dir):
-        print(f"Creating directory {local_dir}", file=sys.stderr)
-        os.makedirs(local_dir)
-    try:
-        print(f"-> Downloading file from {remote_path} to {local_path}", file=sys.stderr)
-        with urllib.request.urlopen(remote_path) as url, open(
-            local_path, mode="wb"
-        ) as input_file_fh:
-            input_file_fh.write(url.read())
-    except ssl.SSLError:
-        raise Exception(f"Could not download {remote_path} to {local_path}")
-    except urllib.error.HTTPError:
-        print(f"-> FAILED to download {remote_path}", file=sys.stderr)
-        return False
-    except urllib.error.URLError:
-        print(f"-> FAILED to download {remote_path}", file=sys.stderr)
-        return False
-
-    return True
-
-
-def extract_pages(source_path, page_range, local_path):
-    if os.path.exists(local_path):
-        print(f"{local_path} already exists, not re-extracting", file=sys.stderr)
-        return True
-    if not os.path.exists(source_path):
-        print(f"{source_path} does not exists", file=sys.stderr)
-        raise Exception(f"Could not extract pdf")
-    try:
-        if "--" in page_range:
-            page_range = page_range.replace("--", "-")
-        page_range = ' A'.join(page_range.split(','))
-        print(
-            f"-> Extracting pages {page_range} from {source_path} to {local_path}",
-            file=sys.stderr,
-        )
-        command = [f"pdftk A={source_path} cat {page_range} output {local_path}"]
-        print(command, file=sys.stderr)
-        subprocess.check_call(command, shell=True)
-    except ssl.SSLError:
-        raise Exception(f"Could not extract pdf")
-
-    return True
+from likely_name_split import NameSplitter
+from ingest import maybe_copy
+from ingest_mtarchive import extract_pages
 
 
 def main(args):
-    year, venue, _ = os.path.basename(args.tsv_file.name).split(".")
-
-    # Set the volume name from the collection file, or default to 1
-    # The file name is either "2012.eamt.tsv" or "2012.eamt-main.tsv".
-    # The default volume name is "1".
-    if "-" in venue:
-        venue, volume_id = venue.split("-")
-    else:
-        volume_id = "1"
-
+    year = args.year
+    venue = args.venue
+    volume_id = args.volume
     collection_id = f"{year}.{venue}"
 
-    tree = etree.ElementTree(
-        make_simple_element("collection", attrib={"id": collection_id})
+    splitter = NameSplitter(anthology_dir=args.anthology_dir)
+
+    collection_file = os.path.join(
+        args.anthology_dir, "data", "xml", f"{collection_id}.xml"
     )
+    if os.path.exists(collection_file):
+        tree = etree.parse(collection_file)
+    else:
+        tree = etree.ElementTree(
+            make_simple_element("collection", attrib={"id": collection_id})
+        )
 
     now = datetime.now()
     today = f"{now.year}-{now.month:02d}-{now.day:02d}"
 
-    volume = make_simple_element("volume", attrib={"id": volume_id, "ingest-date": today})
-    tree.getroot().insert(0, volume)
+    volume_node = tree.getroot().find(f"./volume[@id='{volume_id}']")
+    if volume_node is not None:
+        tree.getroot().remove(volume_node)
 
-    # Location of entire-proceedings PDF
-    proceedings_pdf = args.proceedings
-
-    # Create the metadata for the paper
-    meta = None
-    for row in csv.DictReader(args.meta_file, delimiter="\t"):
-        current_collection_id = f"{row['Year']}.{row['Conference code']}"
-        if current_collection_id == collection_id:
-            meta = make_simple_element("meta", parent=volume)
-            make_simple_element("booktitle", row["Conference title"], parent=meta)
-            make_simple_element("publisher", row["Publisher"], parent=meta)
-            make_simple_element("address", row["Location"], parent=meta)
-            make_simple_element("month", row["Dates held"], parent=meta)
-            make_simple_element("year", row["Year"], parent=meta)
-
-            url = row["URL"]
-
-            if url.endswith(".pdf"):
-                if proceedings_pdf:
-                    print(
-                        "Overriding --proceedings with proceedings PDF found in conference list",
-                        file=sys.stderr,
-                    )
-                proceedings_pdf = url
-
-            elif "Complete PDF" in row and row["Complete PDF"] != "":
-                proceedings_pdf = row["Complete PDF"]
-
-            # volume PDF
-            if proceedings_pdf is not None:
-                volume_anth_id = f"{collection_id}-{volume_id}"
-                pdf_local_path = os.path.join(
-                    args.anthology_files_path, venue, f"{volume_anth_id}.pdf"
-                )
-                download(proceedings_pdf, pdf_local_path)
-                with open(pdf_local_path, "rb") as f:
-                    checksum = compute_hash(f.read())
-                make_simple_element(
-                    "url", volume_anth_id, attrib={"hash": checksum}, parent=meta
-                )
-                proceedings_pdf = pdf_local_path
-
-            if row["Editors"] != "" and "?" not in row["Editors"]:
-                editors = row["Editors"].split(" and ")
-                for editor_name in editors:
-                    editor = make_simple_element("editor", parent=meta)
-                    if ", " in editor_name:
-                        last, first = editor_name.split(", ")
-                    else:
-                        first, last = (
-                            ' '.join(editor_name.split()[:-1]),
-                            editor_name.split()[-1],
-                        )
-                    make_simple_element("first", first, parent=editor)
-                    make_simple_element("last", last, parent=editor)
-            break
-    else:
-        print(
-            f"Couldn't find conference code {collection_id} in 'Conference code' field of metadata file {args.meta_file.name}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    volume = make_simple_element(
+        "volume", attrib={"id": volume_id, "ingest-date": today}, parent=tree.getroot()
+    )
 
     if not os.path.exists(collection_id):
         print(f"Creating {collection_id}", file=sys.stderr)
         os.makedirs(collection_id)
 
-    paperid = 0
     # Create entries for all the papers
-    for row in csv.DictReader(args.tsv_file, delimiter='\t'):
-        pages = row.get("Pagenumbers", None)
+    for paperid, row in enumerate(
+        csv.DictReader(args.tsv_file, delimiter=args.delimiter)
+    ):
+        pages = row.get("pages", None)
 
-        title_text = row["Title"]
+        if paperid == 0:
+            meta = make_simple_element("meta", parent=volume)
+            make_simple_element("booktitle", row["booktitle"], parent=meta)
+            make_simple_element("publisher", row["publisher"], parent=meta)
+            make_simple_element("address", row["address"], parent=meta)
+            make_simple_element("month", row["month"], parent=meta)
+            make_simple_element("year", year, parent=meta)
+
+            editors = row["author"].split(" and ")
+            row["author"] = ""
+            for editor_name in editors:
+                editor = make_simple_element("editor", parent=meta)
+                surname, givenname = splitter.best_split(editor_name)
+                make_simple_element("first", givenname, parent=editor)
+                make_simple_element("last", surname, parent=editor)
+
+            # volume PDF
+            proceedings_pdf = args.proceedings_pdf
+            if proceedings_pdf is not None:
+                volume_anth_id = f"{collection_id}-{volume_id}"
+                pdf_local_path = os.path.join(
+                    args.anthology_files_path, venue, f"{volume_anth_id}.pdf"
+                )
+                retrieve_url(proceedings_pdf, pdf_local_path)
+                checksum = compute_hash_from_file(pdf_local_path)
+                make_simple_element(
+                    "url", volume_anth_id, attrib={"hash": checksum}, parent=meta
+                )
+                proceedings_pdf = pdf_local_path
+
+        title_text = row["title"]
 
         # The first row might be front matter (needs a special name)
-        if title_text == "Frontmatter" and paperid == 0:
+        if paperid == 0 and title_text.lower() in ["frontmatter", "front matter"]:
             paper = make_simple_element("frontmatter", parent=volume)
-
         else:
-            paperid += 1
+            if paperid == 0:
+                # Not frontmatter, so paper 1
+                paperid += 1
+
             paper = make_simple_element(
                 "paper", attrib={"id": str(paperid)}, parent=volume
             )
             # Only make the title for not-the-frontmatter
             make_simple_element("title", title_text, parent=paper)
 
-        author_list = row["Authors"].split(" and ")
+        author_list = row["author"].split(" and ")
 
         for author_name in author_list:
             if author_name == "":
                 continue
             author = make_simple_element("author", parent=paper)
-            if ", " in author_name:
-                last, first = author_name.split(", ")
-            else:
-                first, last = ' '.join(author_name.split()[:-1]), author_name.split()[-1]
-            make_simple_element("first", first, parent=author)
-            make_simple_element("last", last, parent=author)
+            surname, givenname = splitter.best_split(author_name)
+            make_simple_element("first", givenname, parent=author)
+            make_simple_element("last", surname, parent=author)
 
-        if pages is not None:
+        if pages is not None and pages != "":
             make_simple_element("pages", pages, parent=paper)
 
         # Find the PDF, either listed directly, or extracted from the proceedings PDF
         anth_id = f"{collection_id}-{volume_id}.{paperid}"
         pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{anth_id}.pdf")
         url = None
-        if "Pdf" in row and row["Pdf"] != "":
-            if download(row["Pdf"], pdf_local_path):
+        if "pdf" in row and row["pdf"] != "":
+            if retrieve_url(row["pdf"], pdf_local_path):
                 url = anth_id
+            else:
+                print("Can't find", row["pdf"])
 
         elif "pages in pdf" in row:
-            pdf_pages = row["pages in pdf"]
+            pdf_pages = row["pages"]
             extract_pages(proceedings_pdf, pdf_pages, pdf_local_path)
             url = anth_id
 
         if url is not None:
-            with open(pdf_local_path, "rb") as f:
-                checksum = compute_hash(f.read())
+            checksum = compute_hash_from_file(pdf_local_path)
 
             make_simple_element("url", url, attrib={"hash": checksum}, parent=paper)
 
-        if "Abstract" in row:
-            make_simple_element("abstract", row["Abstract"], parent=paper)
+        if "abstract" in row and row["abstract"] != "":
+            make_simple_element("abstract", row["abstract"], parent=paper)
 
-        if "Presentation" in row:
-            url = row["Presentation"]
+        if "presentation" in row:
+            url = row["presentation"]
             if url is not None and url != "" and url != "None":
-                extension = row["Presentation"].split(".")[-1]
+                extension = row["presentation"].split(".")[-1]
                 name = f"{anth_id}.Presentation.{extension}"
                 local_path = os.path.join(
-                    args.anthology_files_path, "..", "attachments", venue, name,
+                    args.anthology_files_path,
+                    "..",
+                    "attachments",
+                    venue,
+                    name,
                 )
-                if download(row["Presentation"], local_path):
+                if retrieve_url(row["presentation"], local_path):
                     make_simple_element(
-                        "attachment", name, attrib={"type": "presentation"}, parent=paper
+                        "attachment",
+                        name,
+                        attrib={
+                            "type": "presentation",
+                            "hash": compute_hash_from_file(local_path),
+                        },
+                        parent=paper,
                     )
 
         # Normalize
@@ -253,7 +201,6 @@ def main(args):
     indent(tree.getroot())
 
     # Write the file to disk: acl-anthology/data/xml/{collection_id}.xml
-    collection_file = os.path.join(args.anthology, "data", "xml", f"{collection_id}.xml")
     tree.write(collection_file, encoding="UTF-8", xml_declaration=True, with_tail=True)
 
 
@@ -261,12 +208,11 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('tsv_file', type=argparse.FileType("r"))
     parser.add_argument(
-        'meta_file', type=argparse.FileType("r"), help="Path to conference metadata file"
+        '--tsv-file', nargs="?", default=sys.stdin, type=argparse.FileType("r")
     )
     parser.add_argument(
-        '--anthology',
+        '--anthology-dir',
         default=f"{os.environ.get('HOME')}/code/acl-anthology",
         help="Path to Anthology repo (cloned from https://github.com/acl-org/acl-anthology)",
     )
@@ -275,10 +221,15 @@ if __name__ == '__main__':
         default=f"{os.environ.get('HOME')}/anthology-files/pdf",
         help="Path to Anthology files (Default: ~/anthology-files",
     )
-
-    parser.add_argument('--proceedings', help="Path to PDF with conference proceedings")
-    parser.add_argument('--frontmatter', action="store_true")
-    parser.add_argument("--force", "-f", action="store_true")
+    parser.add_argument(
+        "--delimiter", "-d", default="\t", help="CSV file delimiter (default: TAB)"
+    )
+    parser.add_argument(
+        '--proceedings-pdf', help="Path to PDF with conference proceedings"
+    )
+    parser.add_argument("venue", help="Venue code, e.g., acl")
+    parser.add_argument("volume", help="Volume name, e.g., main or 1")
+    parser.add_argument("year", help="Full year, e.g., 2020")
     args = parser.parse_args()
 
     main(args)

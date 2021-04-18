@@ -143,11 +143,16 @@
       <dd>{{ with $paper.note }}{{ . }}{{ end }}</dd>
       <dt>Pages:</dt>
       <dd>{{ with $paper.pages }}{{ . }}{{ end }}</dd>
+      <dt>Language:</dt>
+      <dd>{{ with $paper.language }}{{ . }}{{ end }}</dd>
       <dt>URL:</dt>
       <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
       <dt>DOI:</dt>
       <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
-
+      {{ range $paper.award }}
+      <dt>Award:</dt>
+      <dd><i class="fas fa-award"></i>&nbsp;{{ . }}</dd>
+      {{ end }}
       <!--
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>

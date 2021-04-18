@@ -19,6 +19,7 @@ import logging
 import os
 import re
 import requests
+import shutil
 
 from lxml import etree
 from urllib.parse import urlparse
@@ -109,7 +110,8 @@ def test_url_code(url):
     """
     Test a URL, returning the result.
     """
-    r = requests.head(url, allow_redirects=True)
+    headers = {'user-agent': 'acl-anthology/0.0.1'}
+    r = requests.head(url, headers=headers, allow_redirects=True)
     return r
 
 
@@ -118,6 +120,38 @@ def test_url(url):
     Tests a URL, returning True if the URL exists, and False otherwise.
     """
     return test_url_code(url).status_code == requests.codes.ok
+
+
+def retrieve_url(remote_url: str, local_path: str):
+    """
+    Saves a URL to a local path. Can handle cookies, e.g., those
+    used downloading PDFs from MIT Press (TACL, CL).
+
+    :param remote_url: The URL to download from. Currently supports http only.
+    :param local_path: Where to save the file to.
+    """
+    outdir = os.path.dirname(local_path)
+    if not os.path.exists(outdir):
+        os.makedirs(outdir)
+
+    if remote_url.startswith("http"):
+        import ssl
+        import urllib.request
+
+        cookieProcessor = urllib.request.HTTPCookieProcessor()
+        opener = urllib.request.build_opener(cookieProcessor)
+        request = urllib.request.Request(
+            remote_url, headers={'User-Agent': 'Mozilla/5.0'}
+        )
+
+        with opener.open(request, timeout=1000) as url, open(
+            local_path, mode="wb"
+        ) as input_file_fh:
+            input_file_fh.write(url.read())
+    else:
+        shutil.copyfile(remote_url, local_path)
+
+    return True
 
 
 def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
@@ -193,12 +227,18 @@ def remove_extra_whitespace(text):
     return re.sub(" +", " ", text.replace("\n", "").strip())
 
 
-def infer_url(filename, prefix=data.ANTHOLOGY_PREFIX):
+def infer_url(filename, template=data.CANONICAL_URL_TEMPLATE):
     """If URL is relative, return the full Anthology URL.
-    """
+    Returns the canonical URL by default, unless a different
+    template is provided."""
+
+    assert (
+        "{}" in template or "%s" in template
+    ), "template has no substitution text; did you pass a prefix by mistake?"
+
     if urlparse(filename).netloc:
         return filename
-    return f"{prefix}/{filename}"
+    return template.format(filename)
 
 
 def infer_attachment_url(filename, parent_id=None):
@@ -211,7 +251,7 @@ def infer_attachment_url(filename, parent_id=None):
                 parent_id, filename
             )
         )
-    return infer_url(filename, data.ATTACHMENT_PREFIX)
+    return infer_url(filename, data.ATTACHMENT_TEMPLATE)
 
 
 def infer_year(collection_id):
@@ -292,7 +332,7 @@ def indent(elem, level=0, internal=False):
     Adapted from https://stackoverflow.com/a/33956544 .
     """
     # tags that have no internal linebreaks (including children)
-    oneline = elem.tag in ("author", "editor", "title", "booktitle")
+    oneline = elem.tag in ("author", "editor", "title", "booktitle", "variant")
 
     elem.text = clean_whitespace(elem.text)
 
@@ -381,7 +421,7 @@ def parse_element(xml_element):
             attrib["pdf"] = (
                 element.text
                 if urlparse(element.text).netloc
-                else data.ANTHOLOGY_PDF.format(element.text)
+                else data.PDF_LOCATION_TEMPLATE.format(element.text)
             )
 
         if tag in data.LIST_ELEMENTS:

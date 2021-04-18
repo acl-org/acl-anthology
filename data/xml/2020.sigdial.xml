@@ -1,0 +1,467 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2020.sigdial">
+  <volume id="1" ingest-date="2020-07-09">
+    <meta>
+      <booktitle>Proceedings of the 21th Annual Meeting of the Special Interest Group on Discourse and Dialogue</booktitle>
+      <editor><first>Olivier</first><last>Pietquin</last></editor>
+      <editor><first>Smaranda</first><last>Muresan</last></editor>
+      <editor><first>Vivian</first><last>Chen</last></editor>
+      <editor><first>Casey</first><last>Kennington</last></editor>
+      <editor><first>David</first><last>Vandyke</last></editor>
+      <editor><first>Nina</first><last>Dethlefs</last></editor>
+      <editor><first>Koji</first><last>Inoue</last></editor>
+      <editor><first>Erik</first><last>Ekstedt</last></editor>
+      <editor><first>Stefan</first><last>Ultes</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>1st virtual meeting</address>
+      <month>July</month>
+      <year>2020</year>
+    </meta>
+    <frontmatter>
+      <url hash="37c3ed2c">2020.sigdial-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Semantic Guidance of Dialogue Generation with Reinforcement Learning</title>
+      <author><first>Cheng-Hsun</first><last>Hsueh</last></author>
+      <author><first>Wei-Yun</first><last>Ma</last></author>
+      <pages>1–9</pages>
+      <abstract>Neural encoder-decoder models have shown promising performance for human-computer dialogue systems over the past few years. However, due to the maximum-likelihood objective for the decoder, the generated responses are often universal and safe to the point that they lack meaningful information and are no longer relevant to the post. To address this, in this paper, we propose semantic guidance using reinforcement learning to ensure that the generated responses indeed include the given or predicted semantics and that these semantics do not appear repeatedly in the response. Synsets, which comprise sets of manually defined synonyms, are used as the form of assigned semantics. For a given/assigned/predicted synset, only one of its synonyms should appear in the generated response; this constitutes a simple but effective semantic-control mechanism. We conduct both quantitative and qualitative evaluations, which show that the generated responses are not only higher-quality but also reflect the assigned semantic controls.</abstract>
+      <url hash="b4dfdde2">2020.sigdial-1.1</url>
+      <video href="https://youtube.com/watch?v=nNvH4co2qr0" tag="video"/>
+    </paper>
+    <paper id="2">
+      <title>Counseling-Style Reflection Generation Using Generative Pretrained Transformers with Augmented Context</title>
+      <author><first>Siqi</first><last>Shen</last></author>
+      <author><first>Charles</first><last>Welch</last></author>
+      <author><first>Rada</first><last>Mihalcea</last></author>
+      <author><first>Verónica</first><last>Pérez-Rosas</last></author>
+      <pages>10–20</pages>
+      <abstract>We introduce a counseling dialogue system that seeks to assist counselors while they are learning and refining their counseling skills. The system generates counselors’reflections – i.e., responses that reflect back on what the client has said given the dialogue history. Our method builds upon the new generative pretrained transformer architecture and enhances it with context augmentation techniques inspired by traditional strategies used during counselor training. Through a set of comparative experiments, we show that the system that incorporates these strategies performs better in the reflection generation task than a system that is just fine-tuned with counseling conversations. To confirm our findings, we present a human evaluation study that shows that our system generates naturally-looking reflections that are also stylistically and grammatically correct.</abstract>
+      <url hash="4c5659b2">2020.sigdial-1.2</url>
+      <video href="https://youtube.com/watch?v=Y9dOYM98rqI" tag="video"/>
+    </paper>
+    <paper id="3">
+      <title>Learning from Mistakes: Combining Ontologies via Self-Training for Dialogue Generation</title>
+      <author><first>Lena</first><last>Reed</last></author>
+      <author><first>Vrindavan</first><last>Harrison</last></author>
+      <author><first>Shereen</first><last>Oraby</last></author>
+      <author><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <author><first>Marilyn</first><last>Walker</last></author>
+      <pages>21–34</pages>
+      <abstract>Natural language generators (NLGs) for task-oriented dialogue typically take a meaning representation (MR) as input, and are trained end-to-end with a corpus of MR/utterance pairs, where the MRs cover a specific set of dialogue acts and domain attributes. Creation of such datasets is labor intensive and time consuming. Therefore, dialogue systems for new domain ontologies would benefit from using data for pre-existing ontologies. Here we explore, for the first time, whether it is possible to train an NLG for a new larger ontology using existing training sets for the restaurant domain, where each set is based on a different ontology. We create a new, larger combined ontology, and then train an NLG to produce utterances covering it. For example, if one dataset has attributes for family friendly and rating information, and the other has attributes for decor and service, our aim is an NLG for the combined ontology that can produce utterances that realize values for family friendly, rating, decor and service. Initial experiments with a baseline neural sequence-to-sequence model show that this task is surprisingly challenging. We then develop a novel self-training method that identifies (errorful) model outputs, automatically constructs a corrected MR input to form a new (MR, utterance) training pair, and then repeatedly adds these new instances back into the training data. We then test the resulting model on a new test set. The result is a self-trained model whose performance is an absolute 75.4% improvement over the baseline model. We also report a human qualitative evaluation of the final model showing that it achieves high naturalness, semantic coherence and grammaticality.</abstract>
+      <url hash="8b8aaa7d">2020.sigdial-1.3</url>
+      <video href="https://youtube.com/watch?v=PxlR3DSFqkg" tag="video"/>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>T</fixed-case>rip<fixed-case>P</fixed-case>y: A Triple Copy Strategy for Value Independent Neural Dialog State Tracking</title>
+      <author><first>Michael</first><last>Heck</last></author>
+      <author><first>Carel</first><last>van Niekerk</last></author>
+      <author><first>Nurul</first><last>Lubis</last></author>
+      <author><first>Christian</first><last>Geishauser</last></author>
+      <author><first>Hsien-Chin</first><last>Lin</last></author>
+      <author><first>Marco</first><last>Moresi</last></author>
+      <author><first>Milica</first><last>Gasic</last></author>
+      <pages>35–44</pages>
+      <abstract>Task-oriented dialog systems rely on dialog state tracking (DST) to monitor the user’s goal during the course of an interaction. Multi-domain and open-vocabulary settings complicate the task considerably and demand scalable solutions. In this paper we present a new approach to DST which makes use of various copy mechanisms to fill slots with values. Our model has no need to maintain a list of candidate values. Instead, all values are extracted from the dialog context on-the-fly. A slot is filled by one of three copy mechanisms: (1) Span prediction may extract values directly from the user input; (2) a value may be copied from a system inform memory that keeps track of the system’s inform operations (3) a value may be copied over from a different slot that is already contained in the dialog state to resolve coreferences within and across domains. Our approach combines the advantages of span-based slot filling methods with memory methods to avoid the use of value picklists altogether. We argue that our strategy simplifies the DST task while at the same time achieving state of the art performance on various popular evaluation sets including Multiwoz 2.1, where we achieve a joint goal accuracy beyond 55%.</abstract>
+      <url hash="39b9202b">2020.sigdial-1.4</url>
+      <video href="https://youtube.com/watch?v=qWLnp4tPbPM" tag="video"/>
+    </paper>
+    <paper id="5">
+      <title>Conversational Agents for Intelligent Buildings</title>
+      <author><first>Weronika</first><last>Sieińska</last></author>
+      <author><first>Christian</first><last>Dondrup</last></author>
+      <author><first>Nancie</first><last>Gunson</last></author>
+      <author><first>Oliver</first><last>Lemon</last></author>
+      <pages>45–48</pages>
+      <abstract>We will demonstrate a deployed conversational AI system that acts as a host of a smart-building on a university campus. The system combines open-domain social conversation with task-based conversation regarding navigation in the building, live resource updates (e.g. available computers) and events in the building. We are able to demonstrate the system on several platforms: Google Home devices, Android phones, and a Furhat robot.</abstract>
+      <url hash="bc4cad4c">2020.sigdial-1.5</url>
+      <video href="https://youtube.com/watch?v=JL0ERwP41kk" tag="video"/>
+    </paper>
+    <paper id="6">
+      <title>Retico: An incremental framework for spoken dialogue systems</title>
+      <author><first>Thilo</first><last>Michael</last></author>
+      <pages>49–52</pages>
+      <abstract>In this paper we present the newest version of retico - a python-based incremental dialogue framework to create state-of-the-art spoken dialogue systems and simulations. Retico provides a range of incremental modules that are based on services like Google ASR, Google TTS and Rasa NLU. Incremental networks can be created either in code or with a graphical user interface. In this demo we present three use cases that are implemented in retico: a spoken translation tool that translates speech in real-time, a conversation simulation that models turn-taking and a spoken dialogue restaurant information service.</abstract>
+      <url hash="8b8de6cb">2020.sigdial-1.6</url>
+      <video href="https://youtube.com/watch?v=1tW_GFxW8dM" tag="video"/>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>MC</fixed-case>-Saar-Instruct: a Platform for <fixed-case>M</fixed-case>inecraft Instruction Giving Agents</title>
+      <author><first>Arne</first><last>Köhn</last></author>
+      <author><first>Julia</first><last>Wichlacz</last></author>
+      <author><first>Christine</first><last>Schäfer</last></author>
+      <author><first>Álvaro</first><last>Torralba</last></author>
+      <author><first>Joerg</first><last>Hoffmann</last></author>
+      <author><first>Alexander</first><last>Koller</last></author>
+      <pages>53–56</pages>
+      <abstract>We present a comprehensive platform to run human-computer experiments where an agent instructs a human in Minecraft, a 3D blocksworld environment. This platform enables comparisons between different agents by matching users to agents. It performs extensive logging and takes care of all boilerplate, allowing to easily incorporate new agents to evaluate them. Our environment is prepared to evaluate any kind of instruction giving system, recording the interaction and all actions of the user. We provide example architects, a Wizard-of-Oz architect and set-up scripts to automatically download, build and start the platform.</abstract>
+      <url hash="649a092c">2020.sigdial-1.7</url>
+      <video href="https://youtube.com/watch?v=ipGAj_qLXz4" tag="video"/>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>C</fixed-case>onvo<fixed-case>K</fixed-case>it: A Toolkit for the Analysis of Conversations</title>
+      <author><first>Jonathan P.</first><last>Chang</last></author>
+      <author><first>Caleb</first><last>Chiam</last></author>
+      <author><first>Liye</first><last>Fu</last></author>
+      <author><first>Andrew</first><last>Wang</last></author>
+      <author><first>Justine</first><last>Zhang</last></author>
+      <author><first>Cristian</first><last>Danescu-Niculescu-Mizil</last></author>
+      <pages>57–60</pages>
+      <abstract>This paper describes the design and functionality of ConvoKit, an open-source toolkit for analyzing conversations and the social interactions embedded within. ConvoKit provides an unified framework for representing and manipulating conversational data, as well as a large and diverse collection of conversational datasets. By providing an intuitive interface for exploring and interacting with conversational data, this toolkit lowers the technical barriers for the broad adoption of computational methods for conversational analysis.</abstract>
+      <url hash="fd16cdf7">2020.sigdial-1.8</url>
+      <video href="https://youtube.com/watch?v=nofzyxM4h1k" tag="video"/>
+    </paper>
+    <paper id="9">
+      <title>Commonsense Evidence Generation and Injection in Reading Comprehension</title>
+      <author><first>Ye</first><last>Liu</last></author>
+      <author><first>Tao</first><last>Yang</last></author>
+      <author><first>Zeyu</first><last>You</last></author>
+      <author><first>Wei</first><last>Fan</last></author>
+      <author><first>Philip S.</first><last>Yu</last></author>
+      <pages>61–73</pages>
+      <abstract>Human tackle reading comprehension not only based on the given context itself but often rely on the commonsense beyond. To empower the machine with commonsense reasoning, in this paper, we propose a Commonsense Evidence Generation and Injection framework in reading comprehension, named CEGI. The framework injects two kinds of auxiliary commonsense evidence into comprehensive reading to equip the machine with the ability of rational thinking. Specifically, we build two evidence generators: one aims to generate textual evidence via a language model; the other aims to extract factual evidence (automatically aligned text-triples) from a commonsense knowledge graph after graph completion. Those evidences incorporate contextual commonsense and serve as the additional inputs to the reasoning model. Thereafter, we propose a deep contextual encoder to extract semantic relationships among the paragraph, question, option, and evidence. Finally, we employ a capsule network to extract different linguistic units (word and phrase) from the relations, and dynamically predict the optimal option based on the extracted units. Experiments on the CosmosQA dataset demonstrate that the proposed CEGI model outperforms the current state-of-the-art approaches and achieves the highest accuracy (83.6%) on the leaderboard.</abstract>
+      <url hash="471ecfcb">2020.sigdial-1.9</url>
+    </paper>
+    <paper id="10">
+      <title>Identifying Collaborative Conversations using Latent Discourse Behaviors</title>
+      <author><first>Ayush</first><last>Jain</last></author>
+      <author><first>Maria Leonor</first><last>Pacheco</last></author>
+      <author><first>Steven</first><last>Lancette</last></author>
+      <author><first>Mahak</first><last>Goindani</last></author>
+      <author><first>Dan</first><last>Goldwasser</last></author>
+      <pages>74–78</pages>
+      <abstract>In this work, we study collaborative online conversations. Such conversations are rich in content, constructive and motivated by a shared goal. Automatically identifying such conversations requires modeling complex discourse behaviors, which characterize the flow of information, sentiment and community structure within discussions. To help capture these behaviors, we define a hybrid relational model in which relevant discourse behaviors are formulated as discrete latent variables and scored using neural networks. These variables provide the information needed for predicting the overall collaborative characterization of the entire conversational thread. We show that adding inductive bias in the form of latent variables results in performance improvement, while providing a natural way to explain the decision.</abstract>
+      <url hash="99f84b81">2020.sigdial-1.10</url>
+    </paper>
+    <paper id="11">
+      <title>A Case Study of User Communication Styles with Customer Service Agents versus Intelligent Virtual Agents</title>
+      <author><first>Timothy</first><last>Hewitt</last></author>
+      <author><first>Ian</first><last>Beaver</last></author>
+      <pages>79–85</pages>
+      <abstract>We investigate differences in user communication with live chat agents versus a commercial Intelligent Virtual Agent (IVA). This case study compares the two types of interactions in the same domain for the same company filling the same purposes. We compared 16,794 human-to-human conversations and 27,674 conversations with the IVA. Of those IVA conversations, 8,324 escalated to human live chat agents. We then investigated how human-to-human communication strategies change when users first communicate with an IVA in the same conversation thread. We measured quantity, quality, and diversity of language, and analyzed complexity using numerous features. We find that while the complexity of language did not significantly change between modes, the quantity and some quality metrics did vary significantly. This fair comparison provides unique insight into how humans interact with commercial IVAs and how IVA and chatbot designers might better curate training data when automating customer service tasks.</abstract>
+      <url hash="676673a0">2020.sigdial-1.11</url>
+      <video href="https://youtube.com/watch?v=2Zzu8atsg8s" tag="video"/>
+    </paper>
+    <paper id="12">
+      <title>It’s About Time: Turn-Entry Timing For Situated Human-Robot Dialogue</title>
+      <author><first>Felix</first><last>Gervits</last></author>
+      <author><first>Ravenna</first><last>Thielstrom</last></author>
+      <author><first>Antonio</first><last>Roque</last></author>
+      <author><first>Matthias</first><last>Scheutz</last></author>
+      <pages>86–96</pages>
+      <abstract>Turn-entry timing is an important requirement for conversation, and one that spoken dialogue systems largely fail at. In this paper, we introduce a computational framework based on work from Psycholinguistics, which is aimed at achieving proper turn-taking timing for situated agents. The approach involves incremental processing and lexical prediction of the turn in progress, which allows a situated dialogue system to start its turn and initiate actions earlier than would otherwise be possible. We evaluate the framework by integrating it within a cognitive robotic architecture and testing performance on a corpus of task-oriented human-robot directives. We demonstrate that: 1) the system is superior to a non-incremental system in terms of faster responses, reduced gap between turns, and the ability to perform actions early, 2) the system can time its turn to come in immediately at a transition point or earlier to produce several types of overlap, and 3) the system is robust to various forms of disfluency in the input. Overall, this domain-independent framework can be integrated into various dialogue systems to improve responsiveness, and is a step toward more natural, human-like turn-taking behavior.</abstract>
+      <url hash="9a2a2a7a">2020.sigdial-1.12</url>
+      <video href="https://youtube.com/watch?v=xUWAxoIuf4o" tag="video"/>
+    </paper>
+    <paper id="13">
+      <title>Learning Word Groundings from Humans Facilitated by Robot Emotional Displays</title>
+      <author><first>David</first><last>McNeill</last></author>
+      <author><first>Casey</first><last>Kennington</last></author>
+      <pages>97–106</pages>
+      <abstract>In working towards accomplishing a human-level acquisition and understanding of language, a robot must meet two requirements: the ability to learn words from interactions with its physical environment, and the ability to learn language from people in settings for language use, such as spoken dialogue. In a live interactive study, we test the hypothesis that emotional displays are a viable solution to the cold-start problem of how to communicate without relying on language the robot does not–indeed, cannot–yet know. We explain our modular system that can autonomously learn word groundings through interaction and show through a user study with 21 participants that emotional displays improve the quantity and quality of the inputs provided to the robot.</abstract>
+      <url hash="ca1e1b5d">2020.sigdial-1.13</url>
+      <video href="https://youtube.com/watch?v=xTNbo840EPk" tag="video"/>
+    </paper>
+    <paper id="14">
+      <title>Learning and Reasoning for Robot Dialog and Navigation Tasks</title>
+      <author><first>Keting</first><last>Lu</last></author>
+      <author><first>Shiqi</first><last>Zhang</last></author>
+      <author><first>Peter</first><last>Stone</last></author>
+      <author><first>Xiaoping</first><last>Chen</last></author>
+      <pages>107–117</pages>
+      <abstract>Reinforcement learning and probabilistic reasoning algorithms aim at learning from interaction experiences and reasoning with probabilistic contextual knowledge respectively. In this research, we develop algorithms for robot task completions, while looking into the complementary strengths of reinforcement learning and probabilistic reasoning techniques. The robots learn from trial-and-error experiences to augment their declarative knowledge base, and the augmented knowledge can be used for speeding up the learning process in potentially different tasks. We have implemented and evaluated the developed algorithms using mobile robots conducting dialog and navigation tasks. From the results, we see that our robot’s performance can be improved by both reasoning with human knowledge and learning from task-completion experience. More interestingly, the robot was able to learn from navigation tasks to improve its dialog strategies.</abstract>
+      <url hash="f3873d64">2020.sigdial-1.14</url>
+      <video href="https://youtube.com/watch?v=KS4LPkdFyBU" tag="video"/>
+      <revision id="1" href="2020.sigdial-1.14v1" hash="681a0ae1"/>
+      <revision id="2" href="2020.sigdial-1.14v2" hash="f3873d64" date="2020-09-08">A sponsor was removed from the Acknowledgments section.</revision>
+    </paper>
+    <paper id="15">
+      <title>An Attentive Listening System with Android <fixed-case>ERICA</fixed-case>: Comparison of Autonomous and <fixed-case>WOZ</fixed-case> Interactions</title>
+      <author><first>Koji</first><last>Inoue</last></author>
+      <author><first>Divesh</first><last>Lala</last></author>
+      <author><first>Kenta</first><last>Yamamoto</last></author>
+      <author><first>Shizuka</first><last>Nakamura</last></author>
+      <author><first>Katsuya</first><last>Takanashi</last></author>
+      <author><first>Tatsuya</first><last>Kawahara</last></author>
+      <pages>118–127</pages>
+      <abstract>We describe an attentive listening system for the autonomous android robot ERICA. The proposed system generates several types of listener responses: backchannels, repeats, elaborating questions, assessments, generic sentimental responses, and generic responses. In this paper, we report a subjective experiment with 20 elderly people. First, we evaluated each system utterance excluding backchannels and generic responses, in an offline manner. It was found that most of the system utterances were linguistically appropriate, and they elicited positive reactions from the subjects. Furthermore, 58.2% of the responses were acknowledged as being appropriate listener responses. We also compared the proposed system with a WOZ system where a human operator was operating the robot. From the subjective evaluation, the proposed system achieved comparable scores in basic skills of attentive listening such as encouragement to talk, focused on the talk, and actively listening. It was also found that there is still a gap between the system and the WOZ for more sophisticated skills such as dialogue understanding, showing interest, and empathy towards the user.</abstract>
+      <url hash="7bcad570">2020.sigdial-1.15</url>
+      <video href="https://youtube.com/watch?v=Ds4LiqSh_EA" tag="video"/>
+    </paper>
+    <paper id="16">
+      <title>A Spoken Dialogue System for Spatial Question Answering in a Physical Blocks World</title>
+      <author><first>Georgiy</first><last>Platonov</last></author>
+      <author><first>Lenhart</first><last>Schubert</last></author>
+      <author><first>Benjamin</first><last>Kane</last></author>
+      <author><first>Aaron</first><last>Gindi</last></author>
+      <pages>128–131</pages>
+      <abstract>A physical blocks world, despite its relative simplicity, requires (in fully interactive form) a rich set of functional capabilities, ranging from vision to natural language understanding. In this work we tackle spatial question answering in a holistic way, using a vision system, speech input and output mediated by an animated avatar, a dialogue system that robustly interprets spatial queries, and a constraint solver that derives answers based on 3-D spatial modeling. The contributions of this work include a semantic parser that maps spatial questions into logical forms consistent with a general approach to meaning representation, a dialogue manager based on a schema representation, and a constraint solver for spatial questions that provides answers in agreement with human perception. These and other components are integrated into a multi-modal human-computer interaction pipeline.</abstract>
+      <url hash="3f04d173">2020.sigdial-1.16</url>
+      <video href="https://youtube.com/watch?v=ynx2F5Hme4I" tag="video"/>
+    </paper>
+    <paper id="17">
+      <title>rr<fixed-case>SDS</fixed-case>: Towards a Robot-ready Spoken Dialogue System</title>
+      <author><first>Casey</first><last>Kennington</last></author>
+      <author><first>Daniele</first><last>Moro</last></author>
+      <author><first>Lucas</first><last>Marchand</last></author>
+      <author><first>Jake</first><last>Carns</last></author>
+      <author><first>David</first><last>McNeill</last></author>
+      <pages>132–135</pages>
+      <abstract>Spoken interaction with a physical robot requires a dialogue system that is modular, multimodal, distributive, incremental and temporally aligned. In this demo paper, we make significant contributions towards fulfilling these requirements by expanding upon the ReTiCo incremental framework. We outline the incremental and multimodal modules and how their computation can be distributed. We demonstrate the power and flexibility of our robot-ready spoken dialogue system to be integrated with almost any robot.</abstract>
+      <url hash="a3b985ef">2020.sigdial-1.17</url>
+    </paper>
+    <paper id="18">
+      <title>Discovering Knowledge Graph Schema from Short Natural Language Text via Dialog</title>
+      <author><first>Subhasis</first><last>Ghosh</last></author>
+      <author><first>Arpita</first><last>Kundu</last></author>
+      <author><first>Aniket</first><last>Pramanick</last></author>
+      <author><first>Indrajit</first><last>Bhattacharya</last></author>
+      <pages>136–146</pages>
+      <abstract>We study the problem of schema discovery for knowledge graphs. We propose a solution where an agent engages in multi-turn dialog with an expert for this purpose. Each mini-dialog focuses on a short natural language statement, and looks to elicit the expert’s desired schema-based interpretation of that statement, taking into account possible augmentations to the schema. The overall schema evolves by performing dialog over a collection of such statements. We take into account the probability that the expert does not respond to a query, and model this probability as a function of the complexity of the query. For such mini-dialogs with response uncertainty, we propose a dialog strategy that looks to elicit the schema over as short a dialog as possible. By combining the notion of uncertainty sampling from active learning with generalized binary search, the strategy asks the query with the highest expected reduction of entropy. We show that this significantly reduces dialog complexity while engaging the expert in meaningful dialog.</abstract>
+      <url hash="ab21813f">2020.sigdial-1.18</url>
+      <video href="https://youtube.com/watch?v=OD_c-tim8JI" tag="video"/>
+    </paper>
+    <paper id="19">
+      <title>User Impressions of Questions to Acquire Lexical Knowledge</title>
+      <author><first>Kazunori</first><last>Komatani</last></author>
+      <author><first>Mikio</first><last>Nakano</last></author>
+      <pages>147–156</pages>
+      <abstract>For the acquisition of knowledge through dialogues, it is crucial for systems to ask questions that do not diminish the user’s willingness to talk, i.e., that do not degrade the user’s impression. This paper reports the results of our analysis on how user impression changes depending on the types of questions to acquire lexical knowledge, that is, explicit and implicit questions, and the correctness of the content of the questions. We also analyzed how sequences of the same type of questions affect user impression. User impression scores were collected from 104 participants recruited via crowdsourcing and then regression analysis was conducted. The results demonstrate that implicit questions give a good impression when their content is correct, but a bad impression otherwise. We also found that consecutive explicit questions are more annoying than implicit ones when the content of the questions is correct. Our findings reveal helpful insights for creating a strategy to avoid user impression deterioration during knowledge acquisition.</abstract>
+      <url hash="b4a55b09">2020.sigdial-1.19</url>
+      <video href="https://youtube.com/watch?v=-i9XnHcoIRc" tag="video"/>
+    </paper>
+    <paper id="20">
+      <title>Simulating Turn-Taking in Conversations with Delayed Transmission</title>
+      <author><first>Thilo</first><last>Michael</last></author>
+      <author><first>Sebastian</first><last>Möller</last></author>
+      <pages>157–161</pages>
+      <abstract>Conversations over the telephone require timely turn-taking cues that signal the participants when to speak and when to listen. When a two-way transmission delay is introduced into such conversations, the immediate feedback is delayed, and the interactivity of the conversation is impaired. With delayed speech on each side of the transmission, different conversation realities emerge on both ends, which alters the way the participants interact with each other. Simulating conversations can give insights on turn-taking and spoken interactions between humans but can also used for analyzing and even predicting human behavior in conversations. In this paper, we simulate two types of conversations with distinct levels of interactivity. We then introduce three levels of two-way transmission delay between the agents and compare the resulting interaction-patterns with human-to-human dialog from an empirical study. We show how the turn-taking mechanisms modeled for conversations without delay perform in scenarios with delay and identify to which extend the simulation is able to model the delayed turn-taking observed in human conversation.</abstract>
+      <url hash="816d6543">2020.sigdial-1.20</url>
+      <video href="https://youtube.com/watch?v=9jerzgGw0pY" tag="video"/>
+    </paper>
+    <paper id="21">
+      <title>Is this Dialogue Coherent? Learning from Dialogue Acts and Entities</title>
+      <author><first>Alessandra</first><last>Cervone</last></author>
+      <author><first>Giuseppe</first><last>Riccardi</last></author>
+      <pages>162–174</pages>
+      <abstract>In this work, we investigate the human perception of coherence in open-domain dialogues. In particular, we address the problem of annotating and modeling the coherence of next-turn candidates while considering the entire history of the dialogue. First, we create the Switchboard Coherence (SWBD-Coh) corpus, a dataset of human-human spoken dialogues annotated with turn coherence ratings, where next-turn candidate utterances ratings are provided considering the full dialogue context. Our statistical analysis of the corpus indicates how turn coherence perception is affected by patterns of distribution of entities previously introduced and the Dialogue Acts used. Second, we experiment with different architectures to model entities, Dialogue Acts and their combination and evaluate their performance in predicting human coherence ratings on SWBD-Coh. We find that models combining both DA and entity information yield the best performances both for response selection and turn coherence rating.</abstract>
+      <url hash="d62102f6">2020.sigdial-1.21</url>
+      <video href="https://youtube.com/watch?v=IIcHVI9Kc0Y" tag="video"/>
+    </paper>
+    <paper id="22">
+      <title>Analyzing Speaker Strategy in Referential Communication</title>
+      <author><first>Brian</first><last>McMahan</last></author>
+      <author><first>Matthew</first><last>Stone</last></author>
+      <pages>175–185</pages>
+      <abstract>We analyze a corpus of referential communication through the lens of quantitative models of speaker reasoning. Different models place different emphases on linguistic reasoning and collaborative reasoning. This leads models to make different assessments of the risks and rewards of using specific utterances in specific contexts. By fitting a latent variable model to the corpus, we can exhibit utterances that give systematic evidence of the diverse kinds of reasoning speakers employ, and build integrated models that recognize not only speaker reference but also speaker reasoning.</abstract>
+      <url hash="978b37fc">2020.sigdial-1.22</url>
+      <video href="https://youtube.com/watch?v=LPkEyzaJMvI" tag="video"/>
+    </paper>
+    <paper id="23">
+      <title>Contextualized Emotion Recognition in Conversation as Sequence Tagging</title>
+      <author><first>Yan</first><last>Wang</last></author>
+      <author><first>Jiayu</first><last>Zhang</last></author>
+      <author><first>Jun</first><last>Ma</last></author>
+      <author><first>Shaojun</first><last>Wang</last></author>
+      <author><first>Jing</first><last>Xiao</last></author>
+      <pages>186–195</pages>
+      <abstract>Emotion recognition in conversation (ERC) is an important topic for developing empathetic machines in a variety of areas including social opinion mining, health-care and so on. In this paper, we propose a method to model ERC task as sequence tagging where a Conditional Random Field (CRF) layer is leveraged to learn the emotional consistency in the conversation. We employ LSTM-based encoders that capture self and inter-speaker dependency of interlocutors to generate contextualized utterance representations which are fed into the CRF layer. For capturing long-range global context, we use a multi-layer Transformer encoder to enhance the LSTM-based encoder. Experiments show that our method benefits from modeling the emotional consistency and outperforms the current state-of-the-art methods on multiple emotion classification datasets.</abstract>
+      <url hash="6416ca30">2020.sigdial-1.23</url>
+      <video href="https://youtube.com/watch?v=1PH6JXbc3EI" tag="video"/>
+    </paper>
+    <paper id="24">
+      <title>How Self-Attention Improves Rare Class Performance in a Question-Answering Dialogue Agent</title>
+      <author><first>Adam</first><last>Stiff</last></author>
+      <author><first>Qi</first><last>Song</last></author>
+      <author><first>Eric</first><last>Fosler-Lussier</last></author>
+      <pages>196–202</pages>
+      <abstract>Contextualized language modeling using deep Transformer networks has been applied to a variety of natural language processing tasks with remarkable success. However, we find that these models are not a panacea for a question-answering dialogue agent corpus task, which has hundreds of classes in a long-tailed frequency distribution, with only thousands of data points. Instead, we find substantial improvements in recall and accuracy on rare classes from a simple one-layer RNN with multi-headed self-attention and static word embeddings as inputs. While much research has used attention weights to illustrate what input is important for a task, the complexities of our dialogue corpus offer a unique opportunity to examine how the model represents what it attends to, and we offer a detailed analysis of how that contributes to improved performance on rare classes. A particularly interesting phenomenon we observe is that the model picks up implicit meanings by splitting different aspects of the semantics of a single word across multiple attention heads.</abstract>
+      <url hash="87ecb41a">2020.sigdial-1.24</url>
+      <video href="https://youtube.com/watch?v=oRWUuuwpIIo" tag="video"/>
+    </paper>
+    <paper id="25">
+      <title>Filtering conversations through dialogue acts labels for improving corpus-based convergence studies</title>
+      <author><first>Simone</first><last>Fuscone</last></author>
+      <author><first>Benoit</first><last>Favre</last></author>
+      <author><first>Laurent</first><last>Prévot</last></author>
+      <pages>203–208</pages>
+      <abstract>Cognitive models of conversation and research on user-adaptation in dialogue systems involves a better understanding of speakers convergence in conversation. Convergence effects have been established on controlled data sets, for various acoustic and linguistic variables. Tracking interpersonal dynamics on generic corpora has provided positive but more contrasted outcomes. We propose here to enrich large conversational corpora with dialogue act (DA) information. We use DA-labels as filters in order to create data sub sets featuring homogeneous conversational activity. Those data sets allow a more precise comparison between speakers’ speech variables. Our experiences consist of comparing convergence on low level variables (Energy, Pitch, Speech Rate) measured on raw data sets, with human and automatically DA-labelled data sets. We found that such filtering does help in observing convergence suggesting that studies on interpersonal dynamics should consider such high level dialogue activity types and their related NLP topics as important ingredients of their toolboxes.</abstract>
+      <url hash="e8155888">2020.sigdial-1.25</url>
+      <video href="https://youtube.com/watch?v=ZDB3JaLVU08" tag="video"/>
+    </paper>
+    <paper id="26">
+      <title>Nontrivial Lexical Convergence in a Geography-Themed Game</title>
+      <author><first>Amanda</first><last>Bergqvist</last></author>
+      <author><first>Ramesh</first><last>Manuvinakurike</last></author>
+      <author><first>Deepthi</first><last>Karkada</last></author>
+      <author><first>Maike</first><last>Paetzel</last></author>
+      <pages>209–214</pages>
+      <abstract>The present study aims to examine the prevalent notion that people entrain to the vocabulary of a dialogue system. Although previous research shows that people will replace their choice of words with simple substitutes, studies using more challenging substitutions are sparse. In this paper, we investigate whether people adapt their speech to the vocabulary of a dialogue system when the system’s suggested words are not direct synonyms. 32 participants played a geography-themed game with a remote-controlled agent and were primed by referencing strategies (rather than individual terms) introduced in follow-up questions. Our results suggest that context-appropriate substitutes support convergence and that the convergence has a lasting effect within a dialogue session if the system’s wording is more consistent with the norms of the domain than the original wording of the speaker.</abstract>
+      <url hash="a8574bc0">2020.sigdial-1.26</url>
+    </paper>
+    <paper id="27">
+      <title>A unifying framework for modeling acoustic/prosodic entrainment: definition and evaluation on two large corpora</title>
+      <author><first>Ramiro H.</first><last>Gálvez</last></author>
+      <author><first>Lara</first><last>Gauder</last></author>
+      <author><first>Jordi</first><last>Luque</last></author>
+      <author><first>Agustín</first><last>Gravano</last></author>
+      <pages>215–224</pages>
+      <abstract>Acoustic/prosodic (a/p) entrainment has been associated with multiple positive social aspects of human-human conversations. However, research on its effects is still preliminary, first because how to model it is far from standardized, and second because most of the reported findings rely on small corpora or on corpora collected in experimental setups. The present article has a twofold purpose: 1) it proposes a unifying statistical framework for modeling a/p entrainment, and 2) it tests on two large corpora of spontaneous telephone interactions whether three metrics derived from this framework predict positive social aspects of the conversations. The corpora differ in their spoken language, domain, and positive social outcome attached. To our knowledge, this is the first article studying relations between a/p entrainment and positive social outcomes in such large corpora of spontaneous dialog. Our results suggest that our metrics effectively predict, up to some extent, positive social aspects of conversations, which not only validates the methodology, but also provides further insights into the elusive topic of entrainment in human-human conversation.</abstract>
+      <url hash="3a5bd4d0">2020.sigdial-1.27</url>
+      <video href="https://youtube.com/watch?v=cyZY4WyARkI" tag="video"/>
+    </paper>
+    <paper id="28">
+      <title>Unsupervised Evaluation of Interactive Dialog with <fixed-case>D</fixed-case>ialo<fixed-case>GPT</fixed-case></title>
+      <author><first>Shikib</first><last>Mehri</last></author>
+      <author><first>Maxine</first><last>Eskenazi</last></author>
+      <pages>225–235</pages>
+      <abstract>It is important to define meaningful and interpretable automatic evaluation metrics for open-domain dialog research. Standard language generation metrics have been shown to be ineffective for dialog. This paper introduces the FED metric (fine-grained evaluation of dialog), an automatic evaluation metric which uses DialoGPT, without any fine-tuning or supervision. It also introduces the FED dataset which is constructed by annotating a set of human-system and human-human conversations with eighteen fine-grained dialog qualities. The FED metric (1) does not rely on a ground-truth response, (2) does not require training data and (3) measures fine-grained dialog qualities at both the turn and whole dialog levels. FED attains moderate to strong correlation with human judgement at both levels.</abstract>
+      <url hash="77916f6c">2020.sigdial-1.28</url>
+      <video href="https://youtube.com/watch?v=lZVNe7XMQ8M" tag="video"/>
+    </paper>
+    <paper id="29">
+      <title>Towards Unified Dialogue System Evaluation: A Comprehensive Analysis of Current Evaluation Protocols</title>
+      <author><first>Sarah E.</first><last>Finch</last></author>
+      <author><first>Jinho D.</first><last>Choi</last></author>
+      <pages>236–245</pages>
+      <abstract>As conversational AI-based dialogue management has increasingly become a trending topic, the need for a standardized and reliable evaluation procedure grows even more pressing. The current state of affairs suggests various evaluation protocols to assess chat-oriented dialogue management systems, rendering it difficult to conduct fair comparative studies across different approaches and gain an insightful understanding of their values. To foster this research, a more robust evaluation protocol must be set in place. This paper presents a comprehensive synthesis of both automated and human evaluation methods on dialogue systems, identifying their shortcomings while accumulating evidence towards the most effective evaluation dimensions. A total of 20 papers from the last two years are surveyed to analyze three types of evaluation protocols: automated, static, and interactive. Finally, the evaluation dimensions used in these papers are compared against our expert evaluation on the system-user dialogue data collected from the Alexa Prize 2020.</abstract>
+      <url hash="50d5438a">2020.sigdial-1.29</url>
+      <video href="https://youtube.com/watch?v=icJNtco4EoI" tag="video"/>
+    </paper>
+    <paper id="30">
+      <title>Human-Human Health Coaching via Text Messages: Corpus, Annotation, and Analysis</title>
+      <author><first>Itika</first><last>Gupta</last></author>
+      <author><first>Barbara</first><last>Di Eugenio</last></author>
+      <author><first>Brian</first><last>Ziebart</last></author>
+      <author><first>Aiswarya</first><last>Baiju</last></author>
+      <author><first>Bing</first><last>Liu</last></author>
+      <author><first>Ben</first><last>Gerber</last></author>
+      <author><first>Lisa</first><last>Sharp</last></author>
+      <author><first>Nadia</first><last>Nabulsi</last></author>
+      <author><first>Mary</first><last>Smart</last></author>
+      <pages>246–256</pages>
+      <abstract>Our goal is to develop and deploy a virtual assistant health coach that can help patients set realistic physical activity goals and live a more active lifestyle. Since there is no publicly shared dataset of health coaching dialogues, the first phase of our research focused on data collection. We hired a certified health coach and 28 patients to collect the first round of human-human health coaching interaction which took place via text messages. This resulted in 2853 messages. The data collection phase was followed by conversation analysis to gain insight into the way information exchange takes place between a health coach and a patient. This was formalized using two annotation schemas: one that focuses on the goals the patient is setting and another that models the higher-level structure of the interactions. In this paper, we discuss these schemas and briefly talk about their application for automatically extracting activity goals and annotating the second round of data, collected with different health coaches and patients. Given the resource-intensive nature of data annotation, successfully annotating a new dataset automatically is key to answer the need for high quality, large datasets.</abstract>
+      <url hash="ce0b20f5">2020.sigdial-1.30</url>
+      <video href="https://youtube.com/watch?v=1ga22I-NZeA" tag="video"/>
+    </paper>
+    <paper id="31">
+      <title>Agent-Based Dynamic Collaboration Support in a Smart Office Space</title>
+      <author><first>Yansen</first><last>Wang</last></author>
+      <author><first>R. Charles</first><last>Murray</last></author>
+      <author><first>Haogang</first><last>Bao</last></author>
+      <author><first>Carolyn</first><last>Rose</last></author>
+      <pages>257–260</pages>
+      <abstract>For the past 15 years, in computer-supported collaborative learning applications, conversational agents have been used to structure group interactions in online chat-based environments. A series of experimental studies has provided an empirical foundation for the design of chat-based conversational agents that significantly improve learning over no-support control conditions and static-support control conditions. In this demo, we expand upon this foundation, bringing conversational agents to structure group interaction into physical spaces, with the specific goal of facilitating collaboration and learning in workplace scenarios.</abstract>
+      <url hash="8d12f903">2020.sigdial-1.31</url>
+      <video href="https://youtube.com/watch?v=3uC3ZJSL2Xc" tag="video"/>
+    </paper>
+    <paper id="32">
+      <title>Emora <fixed-case>STDM</fixed-case>: A Versatile Framework for Innovative Dialogue System Development</title>
+      <author><first>James D.</first><last>Finch</last></author>
+      <author><first>Jinho D.</first><last>Choi</last></author>
+      <pages>261–264</pages>
+      <abstract>This demo paper presents Emora STDM (State Transition Dialogue Manager), a dialogue system development framework that provides novel workflows for rapid prototyping of chat-based dialogue managers as well as collaborative development of complex interactions. Our framework caters to a wide range of expertise levels by supporting interoperability between two popular approaches, state machine and information state, to dialogue management. Our Natural Language Expression package allows seamless integration of pattern matching, custom NLP modules, and database querying, that makes the workflows much more efficient. As a user study, we adopt this framework to an interdisciplinary undergraduate course where students with both technical and non-technical backgrounds are able to develop creative dialogue managers in a short period of time.</abstract>
+      <url hash="561004f9">2020.sigdial-1.32</url>
+      <video href="https://youtube.com/watch?v=GnxClvqoi-4" tag="video"/>
+    </paper>
+    <paper id="33">
+      <title>Boosting Naturalness of Language in Task-oriented Dialogues via Adversarial Training</title>
+      <author><first>Chenguang</first><last>Zhu</last></author>
+      <pages>265–271</pages>
+      <abstract>The natural language generation (NLG) module in a task-oriented dialogue system produces user-facing utterances conveying required information. Thus, it is critical for the generated response to be natural and fluent. We propose to integrate adversarial training to produce more human-like responses. The model uses Straight-Through Gumbel-Softmax estimator for gradient computation. We also propose a two-stage training scheme to boost performance. Empirical results show that the adversarial training can effectively improve the quality of language generation in both automatic and human evaluations. For example, in the RNN-LG Restaurant dataset, our model AdvNLG outperforms the previous state-of-the-art result by 3.6% in BLEU.</abstract>
+      <url hash="60cd4f39">2020.sigdial-1.33</url>
+      <video href="https://youtube.com/watch?v=JZHzDvmG6Ns" tag="video"/>
+    </paper>
+    <paper id="34">
+      <title>A Sequence-to-sequence Approach for Numerical Slot-filling Dialog Systems</title>
+      <author><first>Hongjie</first><last>Shi</last></author>
+      <pages>272–277</pages>
+      <abstract>Dialog systems capable of filling slots with numerical values have wide applicability to many task-oriented applications. In this paper, we perform a particular case study on the “number_of_guests” slot-filling in hotel reservation domain, and propose two methods to improve current dialog system model on 1. numerical reasoning performance by training the model to predict arithmetic expressions, and 2. multi-turn question generation by introducing additional context slots. Furthermore, because the proposed methods are all based on an end-to-end trainable sequence-to-sequence (seq2seq) neural model, it is possible to achieve further performance improvement on increasing dialog logs in the future.</abstract>
+      <url hash="e62fb03c">2020.sigdial-1.34</url>
+      <video href="https://youtube.com/watch?v=p8cvYEjct5g" tag="video"/>
+    </paper>
+    <paper id="35">
+      <title>Beyond Domain <fixed-case>API</fixed-case>s: Task-oriented Conversational Modeling with Unstructured Knowledge Access</title>
+      <author><first>Seokhwan</first><last>Kim</last></author>
+      <author><first>Mihail</first><last>Eric</last></author>
+      <author><first>Karthik</first><last>Gopalakrishnan</last></author>
+      <author><first>Behnam</first><last>Hedayatnia</last></author>
+      <author id="yang-liu"><first>Yang</first><last>Liu</last></author>
+      <author><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <pages>278–289</pages>
+      <abstract>Most prior work on task-oriented dialogue systems are restricted to a limited coverage of domain APIs, while users oftentimes have domain related requests that are not covered by the APIs. In this paper, we propose to expand coverage of task-oriented dialogue systems by incorporating external unstructured knowledge sources. We define three sub-tasks: knowledge-seeking turn detection, knowledge selection, and knowledge-grounded response generation, which can be modeled individually or jointly. We introduce an augmented version of MultiWOZ 2.1, which includes new out-of-API-coverage turns and responses grounded on external knowledge sources. We present baselines for each sub-task using both conventional and neural approaches. Our experimental results demonstrate the need for further research in this direction to enable more informative conversational systems.</abstract>
+      <url hash="2330848e">2020.sigdial-1.35</url>
+      <video href="https://youtube.com/watch?v=0NwAtEe-vUA" tag="video"/>
+    </paper>
+    <paper id="36">
+      <title>Multi-Action Dialog Policy Learning with Interactive Human Teaching</title>
+      <author><first>Megha</first><last>Jhunjhunwala</last></author>
+      <author><first>Caleb</first><last>Bryant</last></author>
+      <author><first>Pararth</first><last>Shah</last></author>
+      <pages>290–296</pages>
+      <abstract>We present a framework for improving task-oriented dialog systems through online interactive teaching with human trainers. A dialog policy trained with imitation learning on a limited corpus may not generalize well to novel dialog flows often uncovered in live interactions. This issue is magnified in multi-action dialog policies which have a more expressive action space. In our approach, a pre-trained dialog policy model interacts with human trainers, and at each turn the trainers choose the best output among N-best multi-action outputs. We present a novel multi-domain, multi-action dialog policy architecture trained on MultiWOZ, and show that small amounts of online supervision can lead to significant improvement in model performance. We also present transfer learning results which show that interactive learning in one domain improves policy model performance in related domains.</abstract>
+      <url hash="4607697b">2020.sigdial-1.36</url>
+      <video href="https://youtube.com/watch?v=_0WiUcv_KNI" tag="video"/>
+    </paper>
+    <paper id="37">
+      <title>Is Your Goal-Oriented Dialog Model Performing Really Well? Empirical Analysis of System-wise Evaluation</title>
+      <author><first>Ryuichi</first><last>Takanobu</last></author>
+      <author><first>Qi</first><last>Zhu</last></author>
+      <author><first>Jinchao</first><last>Li</last></author>
+      <author><first>Baolin</first><last>Peng</last></author>
+      <author><first>Jianfeng</first><last>Gao</last></author>
+      <author><first>Minlie</first><last>Huang</last></author>
+      <pages>297–310</pages>
+      <abstract>There is a growing interest in developing goal-oriented dialog systems which serve users in accomplishing complex tasks through multi-turn conversations. Although many methods are devised to evaluate and improve the performance of individual dialog components, there is a lack of comprehensive empirical study on how different components contribute to the overall performance of a dialog system. In this paper, we perform a system-wise evaluation and present an empirical analysis on different types of dialog systems which are composed of different modules in different settings. Our results show that (1) a pipeline dialog system trained using fine-grained supervision signals at different component levels often obtains better performance than the systems that use joint or end-to-end models trained on coarse-grained labels, (2) component-wise, single-turn evaluation results are not always consistent with the overall performance of a dialog system, and (3) despite the discrepancy between simulators and human users, simulated evaluation is still a valid alternative to the costly human evaluation especially in the early stage of development.</abstract>
+      <url hash="fe4b974e">2020.sigdial-1.37</url>
+      <video href="https://youtube.com/watch?v=1Xfqq0mt1X8" tag="video"/>
+    </paper>
+    <paper id="38">
+      <title>Similarity Scoring for Dialogue Behaviour Comparison</title>
+      <author><first>Stefan</first><last>Ultes</last></author>
+      <author><first>Wolfgang</first><last>Maier</last></author>
+      <pages>311–322</pages>
+      <abstract>The differences in decision making between behavioural models of voice interfaces are hard to capture using existing measures for the absolute performance of such models. For instance, two models may have a similar task success rate, but very different ways of getting there. In this paper, we propose a general methodology to compute the similarity of two dialogue behaviour models and investigate different ways of computing scores on both the semantic and the textual level. Complementing absolute measures of performance, we test our scores on three different tasks and show the practical usability of the measures.</abstract>
+      <url hash="84acdb32">2020.sigdial-1.38</url>
+      <video href="https://youtube.com/watch?v=zs0yOpHWBf8" tag="video"/>
+    </paper>
+    <paper id="39">
+      <title>Collection and Analysis of Dialogues Provided by Two Speakers Acting as One</title>
+      <author><first>Tsunehiro</first><last>Arimoto</last></author>
+      <author><first>Ryuichiro</first><last>Higashinaka</last></author>
+      <author><first>Kou</first><last>Tanaka</last></author>
+      <author><first>Takahito</first><last>Kawanishi</last></author>
+      <author><first>Hiroaki</first><last>Sugiyama</last></author>
+      <author><first>Hiroshi</first><last>Sawada</last></author>
+      <author><first>Hiroshi</first><last>Ishiguro</last></author>
+      <pages>323–328</pages>
+      <abstract>We are studying a cooperation style where multiple speakers can provide both advanced dialogue services and operator education. We focus on a style in which two operators interact with a user by pretending to be a single operator. For two operators to effectively act as one, each must adjust his/her conversational content and timing to the other. In the process, we expect each operator to experience the conversational content of his/her partner as if it were his/her own, creating efficient and effective learning of the other’s skill. We analyzed this educational effect and examined whether dialogue services can be successfully provided by collecting travel guidance dialogue data from operators who give travel information to users. In this paper, we report our preliminary results on dialogue content and user satisfaction of operators and users.</abstract>
+      <url hash="18cb50ab">2020.sigdial-1.39</url>
+      <video href="https://youtube.com/watch?v=hFIHx-PqzDE" tag="video"/>
+    </paper>
+    <paper id="40">
+      <title>Adaptive Dialog Policy Learning with Hindsight and User Modeling</title>
+      <author><first>Yan</first><last>Cao</last></author>
+      <author><first>Keting</first><last>Lu</last></author>
+      <author><first>Xiaoping</first><last>Chen</last></author>
+      <author><first>Shiqi</first><last>Zhang</last></author>
+      <pages>329–338</pages>
+      <abstract>Reinforcement learning (RL) methods have been widely used for learning dialog policies. Sample efficiency, i.e., the efficiency of learning from limited dialog experience, is particularly important in RL-based dialog policy learning, because interacting with people is costly and low-quality dialog policies produce very poor user experience. In this paper, we develop LHUA (Learning with Hindsight, User modeling, and Adaptation) that, for the first time, enables dialog agents to adaptively learn with hindsight from both simulated and real users. Simulation and hindsight provide the dialog agent with more experience and more (positive) reinforcement respectively. Experimental results suggest that LHUA outperforms competitive baselines from the literature, including its no-simulation, no-adaptation, and no-hindsight counterparts.</abstract>
+      <url hash="4435202f">2020.sigdial-1.40</url>
+      <video href="https://youtube.com/watch?v=ZEXvT2F7UR4" tag="video"/>
+    </paper>
+    <paper id="41">
+      <title>Dialogue Policies for Learning Board Games through Multimodal Communication</title>
+      <author><first>Maryam</first><last>Zare</last></author>
+      <author><first>Ali</first><last>Ayub</last></author>
+      <author><first>Aishan</first><last>Liu</last></author>
+      <author><first>Sweekar</first><last>Sudhakara</last></author>
+      <author><first>Alan</first><last>Wagner</last></author>
+      <author><first>Rebecca</first><last>Passonneau</last></author>
+      <pages>339–351</pages>
+      <abstract>This paper presents MDP policy learning for agents to learn strategic behavior–how to play board games–during multimodal dialogues. Policies are trained offline in simulation, with dialogues carried out in a formal language. The agent has a temporary belief state for the dialogue, and a persistent knowledge store represented as an extensive-form game tree. How well the agent learns a new game from a dialogue with a simulated partner is evaluated by how well it plays the game, given its dialogue-final knowledge state. During policy training, we control for the simulated dialogue partner’s level of informativeness in responding to questions. The agent learns best when its trained policy matches the current dialogue partner’s informativeness. We also present a novel data collection for training natural language modules. Human subjects who engaged in dialogues with a baseline system rated the system’s language skills as above average. Further, results confirm that human dialogue partners also vary in their informativeness.</abstract>
+      <url hash="54f8364b">2020.sigdial-1.41</url>
+      <video href="https://youtube.com/watch?v=Mu1Wb2oLeCw" tag="video"/>
+    </paper>
+  </volume>
+</collection>

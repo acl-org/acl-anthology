@@ -10,6 +10,7 @@ The official home of this repository is <https://github.com/acl-org/acl-antholog
 To build the Anthology website, you will need:
 
 + **Python 3.7** or higher
++ Python packages listed in `bin/requirements.txt`; to install, run `pip -r bin/requirements.txt`
 + [**Hugo 0.58.3**](https://gohugo.io) or higher (can be [downloaded directly from
   their repo](https://github.com/gohugoio/hugo/releases); the ***extended version*** is required!)
 + [**bibutils**](https://sourceforge.net/p/bibutils/home/Bibutils/) for creating
@@ -63,6 +64,53 @@ the maximum RAM usage reported when running `hugo --minify --stepAnalysis`.)
 The anthology can be viewed locally by running `hugo server` in the
 `hugo/` directory.  Note that it rebuilds the site and therefore takes
 about a minute to start.
+
+
+## Hosting a mirror of the ACL anthology
+
+First, creating a mirror is slow and stresses the ACL anthology
+infrastructure because on initial setup you have to download every
+single file of the anthology from the official webserver.  This can
+take up to 8 hours no matter how fast *your* connection is.  So please
+don't play around with this just for fun.
+
+If you want to host a mirror, you have to set two environment variables:
+ - `ANTHOLOGY_PREFIX` the http prefix your mirror will be reachable under
+   e.g. https://example.com/my-awesome-mirror or http://aclanthology.lst.uni-saarland.de
+   (Notice that there is no slash at the end!)
+ - `ANTHOLOGYFILES` the directory under which papers, attachments etc.
+   will reside on your webserver.  This directory needs to be readable
+   by your webserver (obviously) but should not be a subdirectory
+   of the anthology mirror directory.
+
+With these variables set, you run `make` to create the pages and `make
+mirror` to mirror all additional files into the build/anthology-files
+directory.  If you created a mirror before already, it will only
+download the missing files.
+
+If you want to mirror the papers but not all attachments, you can run
+`make mirror-no-attachments` instead.
+
+You then rsync the `build/website/` directory to your webserver or, if
+you serve the mirror in a subdirectory `FOO`, you mirror
+`build/website/FOO`.  The `build/anthology-files` directory needs to
+be rsync-ed to the `ANTHOLOGYFILES` directory of your webserver.
+
+As you probably want to keep the mirror up to date, you can modify the
+shell script `bin/acl-mirror-cronjob.sh` to your needs.
+
+You will need this software on the server
+ - rsync
+ - git
+ - python3
+ - hugo > 0.58
+ - python3-venv
+
+If you want the build process to be fast, install `cython3` and
+`libyaml-dev` (see above).
+
+Note that generating the anthology takes quite a bit of RAM, so make
+sure it is available on your machine.
 
 ## Contributing
 
