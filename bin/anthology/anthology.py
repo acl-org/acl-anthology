@@ -20,6 +20,7 @@ import logging as log
 import os
 
 from datetime import datetime
+import pytz
 
 from .formatter import MarkupFormatter
 from .index import AnthologyIndex
@@ -67,7 +68,10 @@ class Anthology:
             )
 
             # skip volumes that have an ingestion date in the future
-            if datetime.strptime(volume.ingest_date, "%Y-%m-%d") > datetime.utcnow():
+            if datetime.strptime(volume.ingest_date, "%Y-%m-%d") > datetime.now(
+                # furthest east!
+                pytz.timezone("Pacific/Kiritimati")
+            ):
                 log.info(
                     f"Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future."
                 )
