@@ -31,7 +31,7 @@ SHELL = /bin/sh
 #
 #     ANTHOLOGY_PREFIX="https://aclanthology.org" make
 #
-# PLEASE NOTE that the prefix cannot contain any '#' character, or a Perl regex 
+# PLEASE NOTE that the prefix cannot contain any '#' character, or a Perl regex
 # below will fail.
 # The following line ensures that it is exported as an environment variable
 # for all sub-processes:
