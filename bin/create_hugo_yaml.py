@@ -30,6 +30,7 @@ Options:
 
 from docopt import docopt
 from collections import defaultdict
+from slugify import slugify
 from tqdm import tqdm
 import logging as log
 import os
@@ -76,7 +77,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         name = anthology.people.get_canonical_name(id_)
         log.debug("export_anthology: processing person '{}'".format(repr(name)))
         data = name.as_dict()
-        data["slug"] = id_
+        data["slug"] = slugify(repr(name)) or "NONE"
         if id_ in anthology.people.comments:
             data["comment"] = anthology.people.comments[id_]
         if id_ in anthology.people.similar:
