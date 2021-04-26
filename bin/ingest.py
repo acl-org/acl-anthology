@@ -245,8 +245,8 @@ def main(args):
             os.makedirs(pdfs_dest_dir)
 
         # copy the book
-        book_src_filename = meta["abbrev"] + "-" + year
-        book_src_path = os.path.join(root_path, book_src_filename) + ".pdf"
+        book_src_filename = f'{year}.{meta["abbrev"]}-{volume_name}.pdf'
+        book_src_path = os.path.join(root_path, book_src_filename)
         book_dest_path = None
         if os.path.exists(book_src_path):
             book_dest_path = (

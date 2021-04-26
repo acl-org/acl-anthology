@@ -1,4 +1,4 @@
-# Publishes the build to our main site at aclweb.org/anthology
+# Publishes the build to our current mirror, aclanthology.org
 
 name: publish
 
@@ -27,12 +27,9 @@ jobs:
     - uses: actions/checkout@v1
     - name: build
       env:
-        ANTHOLOGY_PREFIX: https://www.aclweb.org/anthology
+        ANTHOLOGY_PREFIX: https://aclanthology.org
       run: |
         make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site
     - name: publish
-      env:
-        PUBLISH_TARGET: 50.87.169.12:anthology-static
-        ANTHOLOGY_PREFIX: https://www.aclweb.org/anthology
       run: |
-        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} upload
+        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} upload-mirror
