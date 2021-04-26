@@ -2,13 +2,15 @@
 Title: Information for Submitters
 linktitle: Submitting
 subtitle: General information on submitting proceedings to the ACL Anthology (for event chairs)
-date: "2020-10-30"
+date: "2021-04-18"
 ---
 
 This page contains general information about submitting the proceedings of a conference to the ACL Anthology.
 (For information about the complete conference management process, particularly for ACL conference publications chairs, please refer to [the official documentation](https://acl-org.github.io/ACLPUB/).)
 It is intended for publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
 Chairs of workshops attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
+
+Please note that chairs of workshops colocated with a larger conference should work through their conference publication chair instead of directly with the Anthology.
 
 ### Overview of the Submission Process
 
@@ -45,8 +47,26 @@ Please note the following important dates.
   </tbody>
 </table>
 
+### Register your meeting
 
+Please register your meeting by having the main conferene publications chair contact the Anthology director via email.
+This should be done as soon as possible in the conference process, ideally once the complete list of volumes (main conference and workshops) has been determined.
+We prefer you to send this information in the form of a spreadsheet with the following information for each volume:
 
+-  **The full title**.
+-  **A short title**.
+-  **The venue code** or abbreviation, e.g., ("ACL", "RepL4NLP")
+
+Additionally, please let us know **The date** you would like your volumes to be available to the world.
+(Your proceedings will be due no later than **two weeks** prior to this negotiated date).
+
+An excellent spreadsheet example [can be found here](https://docs.google.com/spreadsheets/d/13F1XhnT4PsiN-ZXcpv6QUp5A2qlr6-W9MoDgCkBOw9w/edit#gid=0)).
+% https://docs.google.com/spreadsheets/d/1vxReqK6CkqdJPvC3en6USQj8FFg8zyiA5i4gGr-_tFA/edit#gid=0
+
+All publications chairs need to obtain or verify [the venue identifiers]({{< relref "ids.md" >}}) for proceedings submitted to the Anthology.
+
+If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair to receive your identifiers.
+(If you are an established venue, you can also look yours up [here](https://github.com/acl-org/acl-anthology/blob/master/data/yaml/venues.yaml).)
 
 ### Register your meeting
 
