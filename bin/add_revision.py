@@ -144,7 +144,10 @@ def main(args):
         os.path.dirname(sys.argv[0]), "..", "data", "xml", f"{collection_id}.xml"
     )
     tree = ET.parse(xml_file)
-    paper = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
+    if paper_id == "0":
+      paper = tree.getroot().find(f"./volume[@id='{volume_id}']/frontmatter")
+    else:
+      paper = tree.getroot().find(f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']")
     if paper is not None:
         revisions = paper.findall(change_type)
         revno = 1 if args.erratum else 2
