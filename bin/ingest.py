@@ -202,6 +202,9 @@ def main(args):
             print(f"Fatal: Venue assembler put year in acronym: '{venue_abbrev}'")
             sys.exit(1)
 
+        if re.match(r".*\d$", venue_abbrev) is not None:
+            print(f"WARNING: Venue {venue_abbrev} ends in a number, this is probably a mistake")
+
         if venue_slug not in venue_keys:
             unseen_venues.append((venue_slug, venue_abbrev, meta["title"]))
 
