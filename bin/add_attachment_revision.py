@@ -20,7 +20,7 @@ This script is heavily adopted from add_attachments.py
 
 Usage:
 
-    add_attachments.py anth_id attachment_revision_URL 'ATTACHMENT_TYPE'
+    add_attachment_revision.py anth_id attachment_revision_URL 'ATTACHMENT_TYPE'
 """
 
 import argparse
