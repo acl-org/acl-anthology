@@ -16,7 +16,9 @@
 # limitations under the License.
 
 """Used to add attachment revision as an additional attachament to the Anthology.
+
 This script is heavily adopted from add_attachments.py
+Only adding attachment without reading in .csv file and keeping a log
 
 Usage:
 
