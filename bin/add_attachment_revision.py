@@ -158,6 +158,7 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
 def main(args):
     add_attachment(args.anthology_id, args.path, args.attach_type, overwrite=False)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -169,7 +170,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "attach_type", type=str, default='Supplementary', help="attachment type"
     )
-    
+
     parser.add_argument(
         "--attachment-root",
         default=os.path.join(os.environ["HOME"], "anthology-files/attachments"),
