@@ -325,9 +325,9 @@ upload:
 # Push a preview to the mirror
 .PHONY: preview
 preview:
-  @if [ ! -z $(ANTHOLOGYDIR) ]; then\
+	@if [ ! -z $(ANTHOLOGYDIR) ]; then\
 	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview...";\
 	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/$(ANTHOLOGYDIR)/ anthologizer@aclanthology.org:/var/www/aclanthology.org/$(ANTHOLOGYDIR);\
 	else\
 	  echo "INFO     Cannot generate preview with empty ANTHOLOGYDIR";\
-  fi
+	fi
