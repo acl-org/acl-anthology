@@ -329,5 +329,5 @@ preview:
 	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview...";\
 	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/$(ANTHOLOGYDIR)/ anthologizer@aclanthology.org:/var/www/aclanthology.org/$(ANTHOLOGYDIR);\
 	else\
-	  echo "INFO     Cannot generate preview with empty ANTHOLOGYDIR";\
+	  echo "INFO     Cannot generate preview with empty ANTHOLOGYDIR ($(ANTHOLOGY_PREFIX) -> $(ANTHOLOGYDIR))";\
 	fi
