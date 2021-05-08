@@ -36,11 +36,14 @@ SHELL = /bin/sh
 # The following line ensures that it is exported as an environment variable
 # for all sub-processes:
 
-export ANTHOLOGY_PREFIX ?= https://www.aclweb.org/anthology
+MAIN_PREFIX = https://www.aclweb.org/anthology
+MIRROR_PREFIX = https://aclanthology.org
+
+export ANTHOLOGY_PREFIX ?= $(MAIN_PREFIX)
 
 SLASHATEND:=$(shell echo ${ANTHOLOGY_PREFIX} | grep -q '/$$'; echo $$?)
 
-ifeq (${SLASHATEND},0)
+ifeq ($(SLASHATEND),0)
   $(error ANTHOLOGY_PREFIX is not allowed to have a slash at the end.)
 endif
 
@@ -306,24 +309,25 @@ serve:
 	 @echo "INFO     Starting a server at http://localhost:8000/"
 	 @cd build/website && python3 -m http.server 8000
 
-# this target does not use ANTHOLOGYDIR because the official website
-# only works if ANTHOLOGYDIR == anthology.
+# Upload to the main website or mirror
 .PHONY: upload
 upload:
-	@if [ $(ANTHOLOGYDIR) != "anthology" ]; then \
-            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of 'anthology'"; \
-            exit 1; \
-        fi
-	@echo "INFO     Running rsync for main site..."
-	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static
-
-.PHONY: upload-mirror
-upload-mirror:
-	@echo "INFO     Running rsync for aclanthology.org mirror..."
-	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/ anthologizer@aclanthology.org:/var/www/aclanthology.org
+	@if [ $(ANTHOLOGY_PREFIX) = $(MAIN_PREFIX) ]; then\
+	  echo "INFO     Running rsync for main site ($(ANTHOLOGY_PREFIX))...";\
+	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static;\
+  elif [ $(ANTHOLOGY_PREFIX) = $(MIRROR_PREFIX) ]; then\
+	  echo "INFO     Running rsync for mirror ($(ANTHOLOGY_PREFIX))...";\
+	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/ anthologizer@aclanthology.org:/var/www/aclanthology.org;\
+	else\
+	  echo "INFO     Can't upload prefix $(ANTHOLOGY_PREFIX)";\
+	fi
 
 # Push a preview to the mirror
 .PHONY: preview
 preview:
-	@echo "INFO     Running rsync for the '${ANTHOLOGYDIR}' branch preview..."
-	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
+  @if [ ! -z $(ANTHOLOGYDIR) ]; then\
+	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview...";\
+	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/$(ANTHOLOGYDIR)/ anthologizer@aclanthology.org:/var/www/aclanthology.org/$(ANTHOLOGYDIR);\
+	else\
+	  echo "INFO     Cannot generate preview with empty ANTHOLOGYDIR";\
+  fi
