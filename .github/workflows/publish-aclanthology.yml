@@ -1,6 +1,6 @@
 # Publishes the build to our current mirror, aclanthology.org
 
-name: publish
+name: publish-aclanthology
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - master
 
 jobs:
-  publish:
+  publish-aclanthology:
     runs-on: ubuntu-20.04
     steps:
     - name: install hugo
@@ -32,4 +32,4 @@ jobs:
         make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site
     - name: publish
       run: |
-        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} upload-mirror
+        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} upload
