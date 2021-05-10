@@ -22,7 +22,7 @@ Only adding attachment without reading in .csv file and keeping a log
 
 Usage:
 
-    add_attachment_revision.py anth_id attachment_revision_URL 'ATTACHMENT_TYPE'
+    add_attachment.py anth_id attachment_revision_URL 'ATTACHMENT_TYPE'
 """
 
 import argparse

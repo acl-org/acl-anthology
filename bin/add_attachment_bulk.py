@@ -18,7 +18,7 @@
 """Used to add attachments to the Anthology.
 Usage:
 
-    add_attachments.py CSV_FILE
+    add_attachment_bulk.py CSV_FILE
 
 Where CSV_FILE is output from the Microsoft form (https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u) we use to collect attachments, and has the following headers:
 
