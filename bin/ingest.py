@@ -202,6 +202,11 @@ def main(args):
             print(f"Fatal: Venue assembler put year in acronym: '{venue_abbrev}'")
             sys.exit(1)
 
+        if re.match(r".*\d$", venue_abbrev) is not None:
+            print(
+                f"WARNING: Venue {venue_abbrev} ends in a number, this is probably a mistake"
+            )
+
         if venue_slug not in venue_keys:
             unseen_venues.append((venue_slug, venue_abbrev, meta["title"]))
 
@@ -245,8 +250,8 @@ def main(args):
             os.makedirs(pdfs_dest_dir)
 
         # copy the book
-        book_src_filename = meta["abbrev"] + "-" + year
-        book_src_path = os.path.join(root_path, book_src_filename) + ".pdf"
+        book_src_filename = f'{year}.{meta["abbrev"]}-{volume_name}.pdf'
+        book_src_path = os.path.join(root_path, book_src_filename)
         book_dest_path = None
         if os.path.exists(book_src_path):
             book_dest_path = (

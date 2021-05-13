@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.tacl">
+  <volume id="1">
+    <meta>
+      <booktitle>Transactions of the Association for Computational Linguistics, Volume 9</booktitle>
+      <year>2021</year>
+    </meta>
+    <paper id="1">
+      <title>Reducing Confusion in Active Learning for Part-Of-Speech Tagging</title>
+      <author><first>Aditi</first><last>Chaudhary</last></author>
+      <author><first>Antonios</first><last>Anastasopoulos</last></author>
+      <author><first>Zaid</first><last>Sheikh</last></author>
+      <author><first>Graham</first><last>Neubig</last></author>
+      <doi>10.1162/tacl_a_00350</doi>
+      <abstract>Active learning (AL) uses a data selection algorithm to select useful training samples to minimize annotation cost. This is now an essential tool for building low-resource syntactic analyzers such as part-of-speech (POS) taggers. Existing AL heuristics are generally designed on the principle of selecting uncertain yet representative training instances, where annotating these instances may reduce a large number of errors. However, in an empirical study across six typologically diverse languages (German, Swedish, Galician, North Sami, Persian, and Ukrainian), we found the surprising result that even in an oracle scenario where we know the true uncertainty of predictions, these current heuristics are far from optimal. Based on this analysis, we pose the problem of AL as selecting instances that maximally reduce the confusion between particular pairs of output tags. Extensive experimentation on the aforementioned languages shows that our proposed AL strategy outperforms other AL strategies by a significant margin. We also present auxiliary results demonstrating the importance of proper calibration of models, which we ensure through cross-view training, and analysis demonstrating how our proposed strategy selects examples that more closely follow the oracle data distribution. The code is publicly released here.1</abstract>
+      <pages>1–16</pages>
+      <url hash="79c83253">2021.tacl-1.1</url>
+    </paper>
+    <paper id="2">
+      <title>Revisiting Multi-Domain Machine Translation</title>
+      <author><first>MinhQuang</first><last>Pham</last></author>
+      <author><first>Josep Maria</first><last>Crego</last></author>
+      <author><first>François</first><last>Yvon</last></author>
+      <doi>10.1162/tacl_a_00351</doi>
+      <abstract>When building machine translation systems, one often needs to make the best out of heterogeneous sets of parallel data in training, and to robustly handle inputs from unexpected domains in testing. This multi-domain scenario has attracted a lot of recent work that fall under the general umbrella of transfer learning. In this study, we revisit multi-domain machine translation, with the aim to formulate the motivations for developing such systems and the associated expectations with respect to performance. Our experiments with a large sample of multi-domain systems show that most of these expectations are hardly met and suggest that further work is needed to better analyze the current behaviour of multi-domain systems and to make them fully hold their promises.</abstract>
+      <pages>17–35</pages>
+      <url hash="d31dab0a">2021.tacl-1.2</url>
+    </paper>
+    <paper id="3">
+      <title>Conversation Graph: Data Augmentation, Training, and Evaluation for Non-Deterministic Dialogue Management</title>
+      <author><first>Milan</first><last>Gritta</last></author>
+      <author><first>Gerasimos</first><last>Lampouras</last></author>
+      <author><first>Ignacio</first><last>Iacobacci</last></author>
+      <doi>10.1162/tacl_a_00352</doi>
+      <abstract>Task-oriented dialogue systems typically rely on large amounts of high-quality training data or require complex handcrafted rules. However, existing datasets are often limited in size con- sidering the complexity of the dialogues. Additionally, conventional training signal in- ference is not suitable for non-deterministic agent behavior, namely, considering multiple actions as valid in identical dialogue states. We propose the Conversation Graph (ConvGraph), a graph-based representation of dialogues that can be exploited for data augmentation, multi- reference training and evaluation of non- deterministic agents. ConvGraph generates novel dialogue paths to augment data volume and diversity. Intrinsic and extrinsic evaluation across three datasets shows that data augmentation and/or multi-reference training with ConvGraph can improve dialogue success rates by up to 6.4%.</abstract>
+      <pages>36–52</pages>
+      <url hash="15fc1f8e">2021.tacl-1.3</url>
+    </paper>
+    <paper id="4">
+      <title>Efficient Content-Based Sparse Attention with Routing Transformers</title>
+      <author><first>Aurko</first><last>Roy</last></author>
+      <author><first>Mohammad</first><last>Saffar</last></author>
+      <author><first>Ashish</first><last>Vaswani</last></author>
+      <author><first>David</first><last>Grangier</last></author>
+      <doi>10.1162/tacl_a_00353</doi>
+      <abstract>Self-attention has recently been adopted for a wide range of sequence modeling problems. Despite its effectiveness, self-attention suffers from quadratic computation and memory requirements with respect to sequence length. Successful approaches to reduce this complexity focused on attending to local sliding windows or a small set of locations independent of content. Our work proposes to learn dynamic sparse attention patterns that avoid allocating computation and memory to attend to content unrelated to the query of interest. This work builds upon two lines of research: It combines the modeling flexibility of prior work on content-based sparse attention with the efficiency gains from approaches based on local, temporal sparse attention. Our model, the Routing Transformer, endows self-attention with a sparse routing module based on online k-means while reducing the overall complexity of attention to O(n1.5d) from O(n2d) for sequence length n and hidden dimension d. We show that our model outperforms comparable sparse attention models on language modeling on Wikitext-103 (15.8 vs 18.3 perplexity), as well as on image generation on ImageNet-64 (3.43 vs 3.44 bits/dim) while using fewer self-attention layers. Additionally, we set a new state-of-the-art on the newly released PG-19 data-set, obtaining a test perplexity of 33.2 with a 22 layer Routing Transformer model trained on sequences of length 8192. We open-source the code for Routing Transformer in Tensorflow.1</abstract>
+      <pages>53–68</pages>
+      <url hash="b06612dd">2021.tacl-1.4</url>
+    </paper>
+    <paper id="5">
+      <title>Deciphering Undersegmented Ancient Scripts Using Phonetic Prior</title>
+      <author><first>Jiaming</first><last>Luo</last></author>
+      <author><first>Frederik</first><last>Hartmann</last></author>
+      <author><first>Enrico</first><last>Santus</last></author>
+      <author><first>Regina</first><last>Barzilay</last></author>
+      <author><first>Yuan</first><last>Cao</last></author>
+      <doi>10.1162/tacl_a_00354</doi>
+      <abstract>Most undeciphered lost languages exhibit two characteristics that pose significant decipherment challenges: (1) the scripts are not fully segmented into words; (2) the closest known language is not determined. We propose a decipherment model that handles both of these challenges by building on rich linguistic constraints reflecting consistent patterns in historical sound change. We capture the natural phonological geometry by learning character embeddings based on the International Phonetic Alphabet (IPA). The resulting generative framework jointly models word segmentation and cognate alignment, informed by phonological constraints. We evaluate the model on both deciphered languages (Gothic, Ugaritic) and an undeciphered one (Iberian). The experiments show that incorporating phonetic geometry leads to clear and consistent gains. Additionally, we propose a measure for language closeness which correctly identifies related languages for Gothic and Ugaritic. For Iberian, the method does not show strong evidence supporting Basque as a related language, concurring with the favored position by the current scholarship.1</abstract>
+      <pages>69–81</pages>
+      <url hash="3c1203d1">2021.tacl-1.5</url>
+    </paper>
+    <paper id="6">
+      <title>Augmenting Transformers with <fixed-case>KNN</fixed-case>-Based Composite Memory for Dialog</title>
+      <author><first>Angela</first><last>Fan</last></author>
+      <author><first>Claire</first><last>Gardent</last></author>
+      <author><first>Chloé</first><last>Braud</last></author>
+      <author><first>Antoine</first><last>Bordes</last></author>
+      <doi>10.1162/tacl_a_00356</doi>
+      <abstract>Various machine learning tasks can benefit from access to external information of different modalities, such as text and images. Recent work has focused on learning architectures with large memories capable of storing this knowledge. We propose augmenting generative Transformer neural networks with KNN-based Information Fetching (KIF) modules. Each KIF module learns a read operation to access fixed external knowledge. We apply these modules to generative dialog modeling, a challenging task where information must be flexibly retrieved and incorporated to maintain the topic and flow of conversation. We demonstrate the effectiveness of our approach by identifying relevant knowledge required for knowledgeable but engaging dialog from Wikipedia, images, and human-written dialog utterances, and show that leveraging this retrieved information improves model performance, measured by automatic and human evaluation.</abstract>
+      <pages>82–99</pages>
+      <url hash="24aad438">2021.tacl-1.6</url>
+    </paper>
+    <paper id="7">
+      <title>Modeling Content and Context with Deep Relational Learning</title>
+      <author><first>Maria Leonor</first><last>Pacheco</last></author>
+      <author><first>Dan</first><last>Goldwasser</last></author>
+      <doi>10.1162/tacl_a_00357</doi>
+      <abstract>Building models for realistic natural language tasks requires dealing with long texts and accounting for complicated structural dependencies. Neural-symbolic representations have emerged as a way to combine the reasoning capabilities of symbolic methods, with the expressiveness of neural networks. However, most of the existing frameworks for combining neural and symbolic representations have been designed for classic relational learning tasks that work over a universe of symbolic entities and relations. In this paper, we present DRaiL, an open-source declarative framework for specifying deep relational models, designed to support a variety of NLP scenarios. Our framework supports easy integration with expressive language encoders, and provides an interface to study the interactions between representation, inference and learning.</abstract>
+      <pages>100–119</pages>
+      <url hash="986a0d9b">2021.tacl-1.7</url>
+    </paper>
+    <paper id="8">
+      <title>Recursive Non-Autoregressive Graph-to-Graph Transformer for Dependency Parsing with Iterative Refinement</title>
+      <author><first>Alireza</first><last>Mohammadshahi</last></author>
+      <author><first>James</first><last>Henderson</last></author>
+      <doi>10.1162/tacl_a_00358</doi>
+      <abstract>We propose the Recursive Non-autoregressive Graph-to-Graph Transformer architecture (RNGTr) for the iterative refinement of arbitrary graphs through the recursive application of a non-autoregressive Graph-to-Graph Transformer and apply it to syntactic dependency parsing. We demonstrate the power and effectiveness of RNGTr on several dependency corpora, using a refinement model pre-trained with BERT. We also introduce Syntactic Transformer (SynTr), a non-recursive parser similar to our refinement model. RNGTr can improve the accuracy of a variety of initial parsers on 13 languages from the Universal Dependencies Treebanks, English and Chinese Penn Treebanks, and the German CoNLL2009 corpus, even improving over the new state-of-the-art results achieved by SynTr, significantly improving the state-of-the-art for all corpora tested.</abstract>
+      <pages>120–138</pages>
+      <url hash="d5fc315a">2021.tacl-1.8</url>
+    </paper>
+  </volume>
+</collection>
