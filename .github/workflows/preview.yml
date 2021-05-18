@@ -18,7 +18,7 @@ jobs:
     - name: update
       run: sudo apt-get update
     - name: install other deps
-      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.8-dev
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.8-dev nodejs npm
     - name: dump secret key
       env:
         SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
