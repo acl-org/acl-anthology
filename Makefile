@@ -24,7 +24,7 @@
 # - Disable bibtex etc. targets by setting NOBIB=true (for debugging etc.)
 #   (e.g., make -j4 NOBIB=true)
 
-SHELL = /bin/sh
+SHELL := /bin/bash
 
 # If you want to host the anthology on your own, set ANTHOLOGY_PREFIX
 # in your call to make to your prefix, e.g.
@@ -326,7 +326,7 @@ upload-mirror:
 .PHONY: preview
 preview:
 	make --version
-	if [[ "$(ANTHOLOGYDIR)" =~ ^previews ]]; then \
+	@if [[ "$(ANTHOLOGYDIR)" =~ ^previews ]]; then \
 	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview..."; \
 	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}; \
 	else \
