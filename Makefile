@@ -325,9 +325,10 @@ upload-mirror:
 # Push a preview to the mirror
 .PHONY: preview
 preview:
-	@if [ ! $(ANTHOLOGYDIR) =~ ^previews ]; then \
-	  echo "FATAL: ANTHOLOGYDIR must have the format previews/{branch_name} (found '$(ANTHOLOGYDIR)')"; \
+	@if [[ $(ANTHOLOGYDIR) =~ ^previews ]]; then \
+	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview..."; \
+	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}; \
+	else \
+	  echo "FATAL    ANTHOLOGYDIR must have the format previews/{branch_name} (found '$(ANTHOLOGYDIR)')"; \
 	  exit 1; \
-	 fi
-	@echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview..."
-	rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
+	fi
