@@ -333,3 +333,4 @@ preview:
 	  echo "FATAL    ANTHOLOGYDIR must have the format previews/{branch_name} (found '$(ANTHOLOGYDIR)')"; \
 	  exit 1; \
 	fi
+
