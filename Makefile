@@ -325,7 +325,7 @@ upload-mirror:
 # Push a preview to the mirror
 .PHONY: preview
 preview:
-	@if [[ ! $(ANTHOLOGYDIR) =~ ^previews ]]; then \
+	@if [ ! $(ANTHOLOGYDIR) =~ ^previews ]; then \
 	  echo "FATAL: ANTHOLOGYDIR must have the format previews/{branch_name} (found '$(ANTHOLOGYDIR)')"; \
 	  exit 1; \
 	 fi
