@@ -18,7 +18,7 @@ jobs:
     - name: update
       run: sudo apt-get update
     - name: install other deps
-      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.8-dev nodejs npm
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.8-dev
     - name: dump secret key
       env:
         SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
@@ -27,14 +27,14 @@ jobs:
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
     - uses: actions/checkout@v1
-    - run: npm ci
-    - uses: nelonoel/branch-name@v1.0.1
-    - run: |
-        echo "Building preview for branch ${BRANCH_NAME}"
+    - name: extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
     - name: build
       shell: bash
       env:
-        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${BRANCH_NAME}
+        ANTHOLOGY_PREFIX: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
       run: |
         echo "Running make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site"
         make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site
@@ -44,7 +44,7 @@ jobs:
     - uses: mshick/add-pr-comment@v1
       with:
         message: |
-          Build successful. You can preview it here: https://aclanthology.org/previews/${BRANCH_NAME}
+          Build successful. You can preview it here: https://aclanthology.org/previews/${{ steps.extract_branch.outputs.branch }}
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
         allow-repeats: false
