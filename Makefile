@@ -326,7 +326,7 @@ upload-mirror:
 .PHONY: preview
 preview:
 	make --version
-	if [ "$(ANTHOLOGYDIR)" =~ ^previews ]; then \
+	if [[ "$(ANTHOLOGYDIR)" =~ ^previews ]]; then \
 	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview..."; \
 	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}; \
 	else \
