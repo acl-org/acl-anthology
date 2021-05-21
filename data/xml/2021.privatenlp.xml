@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.privatenlp">
+  <volume id="1" ingest-date="2021-05-21">
+    <meta>
+      <booktitle>Proceedings of the Third Workshop on Privacy in Natural Language Processing</booktitle>
+      <editor><first>Oluwaseyi</first><last>Feyisetan</last></editor>
+      <editor><first>Sepideh</first><last>Ghanavati</last></editor>
+      <editor><first>Shervin</first><last>Malmasi</last></editor>
+      <editor><first>Patricia</first><last>Thaine</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Online</address>
+      <month>June</month>
+      <year>2021</year>
+      <url hash="85c83d62">2021.privatenlp-1</url>
+    </meta>
+    <frontmatter>
+      <url hash="8fef7924">2021.privatenlp-1.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Understanding Unintended Memorization in Language Models Under Federated Learning</title>
+      <author><first>Om Dipakbhai</first><last>Thakkar</last></author>
+      <author><first>Swaroop</first><last>Ramaswamy</last></author>
+      <author><first>Rajiv</first><last>Mathews</last></author>
+      <author><first>Francoise</first><last>Beaufays</last></author>
+      <pages>1–10</pages>
+      <abstract>Recent works have shown that language models (LMs), e.g., for next word prediction (NWP), have a tendency to memorize rare or unique sequences in the training data. Since useful LMs are often trained on sensitive data, it is critical to identify and mitigate such <i>unintended</i> memorization. Federated Learning (FL) has emerged as a novel framework for large-scale distributed learning tasks. It differs in many aspects from the well-studied <i>central learning</i> setting where all the data is stored at the central server, and minibatch stochastic gradient descent is used to conduct training. This work is motivated by our observation that NWP models trained under FL exhibited remarkably less propensity to such memorization compared to the central learning setting. Thus, we initiate a formal study to understand the effect of different components of FL on unintended memorization in trained NWP models. Our results show that several differing components of FL play an important role in reducing unintended memorization. First, we discover that the clustering of data according to users—which happens by design in FL—has the most significant effect in reducing such memorization. Using the Federated Averaging optimizer with larger effective minibatch sizes for training causes a further reduction. We also demonstrate that training in FL with a user-level differential privacy guarantee results in models that can provide high utility while being resilient to memorizing <i>out-of-distribution</i> phrases with thousands of insertions across over a hundred users in the training set.</abstract>
+      <url hash="aef2feb3">2021.privatenlp-1.1</url>
+    </paper>
+    <paper id="2">
+      <title>On a Utilitarian Approach to Privacy Preserving Text Generation</title>
+      <author><first>Zekun</first><last>Xu</last></author>
+      <author><first>Abhinav</first><last>Aggarwal</last></author>
+      <author><first>Oluwaseyi</first><last>Feyisetan</last></author>
+      <author><first>Nathanael</first><last>Teissier</last></author>
+      <pages>11–20</pages>
+      <abstract>Differentially-private mechanisms for text generation typically add carefully calibrated noise to input words and use the nearest neighbor to the noised input as the output word. When the noise is small in magnitude, these mechanisms are susceptible to reconstruction of the original sensitive text. This is because the nearest neighbor to the noised input is likely to be the original input. To mitigate this empirical privacy risk, we propose a novel class of differentially private mechanisms that parameterizes the nearest neighbor selection criterion in traditional mechanisms. Motivated by Vickrey auction, where only the second highest price is revealed and the highest price is kept private, we balance the choice between the first and the second nearest neighbors in the proposed class of mechanisms using a tuning parameter. This parameter is selected by empirically solving a constrained optimization problem for maximizing utility, while maintaining the desired privacy guarantees. We argue that this empirical measurement framework can be used to align different mechanisms along a common benchmark for their privacy-utility tradeoff, particularly when different distance metrics are used to calibrate the amount of noise added. Our experiments on real text classification datasets show up to 50% improvement in utility compared to the existing state-of-the-art with the same empirical privacy guarantee.</abstract>
+      <url hash="53f1718c">2021.privatenlp-1.2</url>
+    </paper>
+    <paper id="3">
+      <title>Learning and Evaluating a Differentially Private Pre-trained Language Model</title>
+      <author><first>Shlomo</first><last>Hoory</last></author>
+      <author><first>Amir</first><last>Feder</last></author>
+      <author><first>Avichai</first><last>Tendler</last></author>
+      <author><first>Alon</first><last>Cohen</last></author>
+      <author><first>Sofia</first><last>Erell</last></author>
+      <author><first>Itay</first><last>Laish</last></author>
+      <author><first>Hootan</first><last>Nakhost</last></author>
+      <author><first>Uri</first><last>Stemmer</last></author>
+      <author><first>Ayelet</first><last>Benjamini</last></author>
+      <author><first>Avinatan</first><last>Hassidim</last></author>
+      <author><first>Yossi</first><last>Matias</last></author>
+      <pages>21–29</pages>
+      <abstract>Contextual language models have led to significantly better results on a plethora of language understanding tasks, especially when pre-trained on the same data as the downstream task. While this additional pre-training usually improves performance, it can lead to information leakage and therefore risks the privacy of individuals mentioned in the training data. One method to guarantee the privacy of such individuals is to train a differentially-private model, but this usually comes at the expense of model performance. Moreover, it is hard to tell given a privacy parameter <tex-math>\epsilon</tex-math> what was the effect on the trained representation. In this work we aim to guide future practitioners and researchers on how to improve privacy while maintaining good model performance. We demonstrate how to train a differentially-private pre-trained language model (i.e., BERT) with a privacy guarantee of <tex-math>\epsilon=1</tex-math> and with only a small degradation in performance. We experiment on a dataset of clinical notes with a model trained on a target entity extraction task, and compare it to a similar model trained without differential privacy. Finally, we present experiments showing how to interpret the differentially-private representation and understand the information lost and maintained in this process.</abstract>
+      <url hash="804e3a52">2021.privatenlp-1.3</url>
+    </paper>
+    <paper id="4">
+      <title>An Investigation towards Differentially Private Sequence Tagging in a Federated Framework</title>
+      <author><first>Abhik</first><last>Jana</last></author>
+      <author><first>Chris</first><last>Biemann</last></author>
+      <pages>30–35</pages>
+      <abstract>To build machine learning-based applications for sensitive domains like medical, legal, etc. where the digitized text contains private information, anonymization of text is required for preserving privacy. Sequence tagging, e.g. as done in Named Entity Recognition (NER) can help to detect private information. However, to train sequence tagging models, a sufficient amount of labeled data are required but for privacy-sensitive domains, such labeled data also can not be shared directly. In this paper, we investigate the applicability of a privacy-preserving framework for sequence tagging tasks, specifically NER. Hence, we analyze a framework for the NER task, which incorporates two levels of privacy protection. Firstly, we deploy a federated learning (FL) framework where the labeled data are not shared with the centralized server as well as the peer clients. Secondly, we apply differential privacy (DP) while the models are being trained in each client instance. While both privacy measures are suitable for privacy-aware models, their combination results in unstable models. To our knowledge, this is the first study of its kind on privacy-aware sequence tagging models.</abstract>
+      <url hash="e434bd2d">2021.privatenlp-1.4</url>
+    </paper>
+    <paper id="5">
+      <title>A Privacy-Preserving Approach to Extraction of Personal Information through Automatic Annotation and Federated Learning</title>
+      <author><first>Rajitha</first><last>Hathurusinghe</last></author>
+      <author><first>Isar</first><last>Nejadgholi</last></author>
+      <author><first>Miodrag</first><last>Bolic</last></author>
+      <pages>36–45</pages>
+      <abstract>We curated WikiPII, an automatically labeled dataset composed of Wikipedia biography pages, annotated for personal information extraction. Although automatic annotation can lead to a high degree of label noise, it is an inexpensive process and can generate large volumes of annotated documents. We trained a BERT-based NER model with WikiPII and showed that with an adequately large training dataset, the model can significantly decrease the cost of manual information extraction, despite the high level of label noise. In a similar approach, organizations can leverage text mining techniques to create customized annotated datasets from their historical data without sharing the raw data for human annotation. Also, we explore collaborative training of NER models through federated learning when the annotation is noisy. Our results suggest that depending on the level of trust to the ML operator and the volume of the available data, distributed training can be an effective way of training a personal information identifier in a privacy-preserved manner. Research material is available at https://github.com/ratmcu/wikipiifed.</abstract>
+      <url hash="3e93618b">2021.privatenlp-1.5</url>
+    </paper>
+    <paper id="6">
+      <title>Using Confidential Data for Domain Adaptation of Neural Machine Translation</title>
+      <author><first>Sohyung</first><last>Kim</last></author>
+      <author><first>Arianna</first><last>Bisazza</last></author>
+      <author><first>Fatih</first><last>Turkmen</last></author>
+      <pages>46–52</pages>
+      <abstract>We study the problem of domain adaptation in Neural Machine Translation (NMT) when domain-specific data cannot be shared due to confidentiality or copyright issues. As a first step, we propose to fragment data into phrase pairs and use a random sample to fine-tune a generic NMT model instead of the full sentences. Despite the loss of long segments for the sake of confidentiality protection, we find that NMT quality can considerably benefit from this adaptation, and that further gains can be obtained with a simple tagging technique.</abstract>
+      <url hash="86e00d83">2021.privatenlp-1.6</url>
+      <attachment type="OptionalSupplementaryData" hash="dbf8a8e7">2021.privatenlp-1.6.OptionalSupplementaryData.zip</attachment>
+    </paper>
+    <paper id="7">
+      <title>Private Text Classification with Convolutional Neural Networks</title>
+      <author><first>Samuel</first><last>Adams</last></author>
+      <author><first>David</first><last>Melanson</last></author>
+      <author><first>Martine</first><last>De Cock</last></author>
+      <pages>53–58</pages>
+      <abstract>Text classifiers are regularly applied to personal texts, leaving users of these classifiers vulnerable to privacy breaches. We propose a solution for privacy-preserving text classification that is based on Convolutional Neural Networks (CNNs) and Secure Multiparty Computation (MPC). Our method enables the inference of a class label for a personal text in such a way that (1) the owner of the personal text does not have to disclose their text to anyone in an unencrypted manner, and (2) the owner of the text classifier does not have to reveal the trained model parameters to the text owner or to anyone else. To demonstrate the feasibility of our protocol for practical private text classification, we implemented it in the PyTorch-based MPC framework CrypTen, using a well-known additive secret sharing scheme in the honest-but-curious setting. We test the runtime of our privacy-preserving text classifier, which is fast enough to be used in practice.</abstract>
+      <url hash="a36b03e1">2021.privatenlp-1.7</url>
+    </paper>
+  </volume>
+</collection>
