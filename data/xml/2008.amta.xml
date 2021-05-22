@@ -2,7 +2,7 @@
 <collection id="2008.amta">
   <volume id="keynotes" ingest-date="2021-05-19">
     <meta>
-      <booktitle>Proceedings of the 6th Conference of the Association for Machine Translation in the Americas: Keynote Presentations</booktitle>
+      <booktitle>Proceedings of the 8th Conference of the Association for Machine Translation in the Americas: Keynote Presentations</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
       <address>Waikiki, USA</address>
       <month>October 21-25</month>
@@ -30,7 +30,7 @@
   </volume>
   <volume id="papers" ingest-date="2021-05-19">
     <meta>
-      <booktitle>Proceedings of the 6th Conference of the Association for Machine Translation in the Americas: Technical Papers</booktitle>
+      <booktitle>Proceedings of the 8th Conference of the Association for Machine Translation in the Americas: Research Papers</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
       <address>Waikiki, USA</address>
       <month>October 21-25</month>
@@ -48,17 +48,10 @@
       <author><first>Gorka</first><last>Labaka</last></author>
       <author><first>Mikel</first><last>Lersundi</last></author>
       <author><first>Aingeru</first><last>Mayor</last></author>
-      <author><first>Alegria</first><last>Kepa SarasolaIñaki</last></author>
-      <author><first>Arantza</first><last>Casillas</last></author>
-      <author><first>Arantza</first><last>Diaz de Ilarraza</last></author>
-      <author><first>Jon</first><last>Igartua</last></author>
-      <author><first>Gorka</first><last>Labaka</last></author>
-      <author><first>Mikel</first><last>Lersundi</last></author>
-      <author><first>Aingeru</first><last>Mayor</last></author>
       <author><first>Kepa</first><last>Sarasola</last></author>
       <url hash="0cffa517">2008.amta-papers.1</url>
       <pages>37-45</pages>
-      <abstract>  We present our initial strategy for Spanish-to-Basque MultiEngine Machine Translation, a language pair with very different structure and word order and with no huge parallel corpus available. This hybrid proposal is based on the combination of three different MT paradigms: Example-Based MT, Statistical MT and Rule- Based MT. We have evaluated the system, reporting automatic evaluation metrics for a corpus in a test domain. The first results obtained are encouraging.</abstract>
+      <abstract>We present our initial strategy for Spanish-to-Basque MultiEngine Machine Translation, a language pair with very different structure and word order and with no huge parallel corpus available. This hybrid proposal is based on the combination of three different MT paradigms: Example-Based MT, Statistical MT and Rule- Based MT. We have evaluated the system, reporting automatic evaluation metrics for a corpus in a test domain. The first results obtained are encouraging.</abstract>
     </paper>
     <paper id="2">
       <title>Exploiting Document-Level Context for Data-Driven Machine Translation</title>
@@ -235,9 +228,9 @@
       <abstract>We propose a two-stage system for spoken language machine translation. In the first stage, the source sentence is parsed and paraphrased into an intermediate language which retains the words in the source language but follows the word order of the target language as much as feasible. This stage is mostly linguistic. In the second stage, a statistical MT is performed to translate the intermediate language into the target language. For the task of English-to-Mandarin translation, we achieved a 2.5 increase in BLEU score and a 45% decrease in GIZA-Alignment Crossover, on IWSLT-06 data. In a human evaluation of the sentences that differed, the two-stage system was preferred three times as often as the baseline.</abstract>
     </paper>
   </volume>
-  <volume id="studentworkshop" ingest-date="2021-05-19">
+  <volume id="srw" ingest-date="2021-05-19">
     <meta>
-      <booktitle>Proceedings of the 6th Conference of the Association for Machine Translation in the Americas: Student Research Workshop</booktitle>
+      <booktitle>Proceedings of the 8th Conference of the Association for Machine Translation in the Americas: Student Research Workshop</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
       <address>Waikiki, USA</address>
       <month>October 21-25</month>
@@ -247,7 +240,7 @@
       <title>Improving Syntax-Driven Translation Models by Re-structuring Divergent and Nonisomorphic Parse Tree Structures</title>
       <author><first>Vamshi</first><last>Ambati</last></author>
       <author><first>Alon</first><last>Lavie</last></author>
-      <url hash="6988a07d">2008.amta-studentworkshop.1</url>
+      <url hash="6988a07d">2008.amta-srw.1</url>
       <pages>235-244</pages>
       <abstract>Syntax-based approaches to statistical MT require syntax-aware methods for acquiring their underlying translation models from parallel data. This acquisition process can be driven by syntactic trees for either the source or target language, or by trees on both sides. Work to date has demonstrated that using trees for both sides suffers from severe coverage problems. This is primarily due to the highly restrictive space of constituent segmentations that the trees on two sides introduce, which adversely affects the recall of the resulting translation models. Approaches that project from trees on one side, on the other hand, have higher levels of recall, but suffer from lower precision, due to the lack of syntactically-aware word alignments. In this paper we explore the issue of lexical coverage of the translation models learned in both of these scenarios. We specifically look at how the non-isomorphic nature of the parse trees for the two languages affects recall and coverage. We then propose a novel technique for restructuring target parse trees, that generates highly isomorphic target trees that preserve the syntactic boundaries of constituents that were aligned in the original parse trees. We evaluate the translation models learned from these restructured trees and show that they are significantly better than those learned using trees on both sides and trees on one side.</abstract>
     </paper>
@@ -255,7 +248,7 @@
       <title>Using Bilingual <fixed-case>C</fixed-case>hinese-<fixed-case>E</fixed-case>nglish Word Alignments to Resolve <fixed-case>PP</fixed-case>-attachment Ambiguity in <fixed-case>E</fixed-case>nglish</title>
       <author><first>Victoria</first><last>Fossum</last></author>
       <author><first>Kevin</first><last>Knight</last></author>
-      <url hash="55c8d228">2008.amta-studentworkshop.2</url>
+      <url hash="55c8d228">2008.amta-srw.2</url>
       <pages>245-253</pages>
       <abstract>Errors in English parse trees impact the quality of syntax-based MT systems trained using those parses. Frequent sources of error for English parsers include PP-attachment ambiguity, NP-bracketing ambiguity, and coordination ambiguity. Not all ambiguities are preserved across languages. We examine a common type of ambiguity in English that is not preserved in Chinese: given a sequence “VP NP PP”, should the PP be attached to the main verb, or to the object noun phrase? We present a discriminative method for exploiting bilingual Chinese-English word alignments to resolve this ambiguity in English. On a held-out test set of Chinese-English parallel sentences, our method achieves 86.3% accuracy on this PP-attachment disambiguation task, an improvement of 4% over the accuracy of the baseline Collins parser (82.3%).</abstract>
     </paper>
@@ -263,14 +256,14 @@
       <title>Combination of Machine Translation Systems via Hypothesis Selection from Combined N-Best Lists</title>
       <author><first>Almut Silja</first><last>Hildebrand</last></author>
       <author><first>Stephan</first><last>Vogel</last></author>
-      <url hash="fcefbb7e">2008.amta-studentworkshop.3</url>
+      <url hash="fcefbb7e">2008.amta-srw.3</url>
       <pages>254-261</pages>
       <abstract>Different approaches in machine translation achieve similar translation quality with a variety of translations in the output. Recently it has been shown, that it is possible to leverage the individual strengths of various systems and improve the overall translation quality by combining translation outputs. In this paper we present a method of hypothesis selection which is relatively simple compared to system combination methods which construct a synthesis of the input hypotheses. Our method uses information from n-best lists from several MT systems and features on the sentence level which are independent from the MT systems involved to improve the translation quality.</abstract>
     </paper>
     <paper id="4">
       <title>The Value of Machine Translation for the Professional Translator</title>
       <author><first>Elina</first><last>Lagoudaki</last></author>
-      <url hash="496652d7">2008.amta-studentworkshop.4</url>
+      <url hash="496652d7">2008.amta-srw.4</url>
       <pages>262-269</pages>
       <abstract>More and more Translation Memory (TM) systems nowadays are fortified with machine translation (MT) techniques to enable them to propose a translation to the translator when no match is found in his TM resources. The system attempts this by assembling a combination of terms from its terminology database, translations from its memory, and even portions of them. This paper reviews the most popular commercial TM systems with integrated MT techniques and explores their usefulness based on the perceived practical benefits brought to their users. Feedback from translators reveals a variety of attitudes towards machine translation, with some supporting and others contradicting several points of conventional wisdom regarding the relationship between machine translation and human translators.</abstract>
     </paper>
@@ -279,21 +272,21 @@
       <author><first>Tim</first><last>Schlippe</last></author>
       <author><first>ThuyLinh</first><last>Nguyen</last></author>
       <author><first>Stephan</first><last>Vogel</last></author>
-      <url hash="e3e9cdf4">2008.amta-studentworkshop.5</url>
+      <url hash="e3e9cdf4">2008.amta-srw.5</url>
       <pages>270-278</pages>
       <abstract>In this paper we describe and compare two techniques for the automatic diacritization of Arabic text: First, we treat diacritization as a monotone machine translation problem, proposing and evaluating several translation and language models, including word and character-based models separately and combined as well as a model which uses statistical machine translation (SMT) to post-edit a rule-based diacritization system. Then we explore a more traditional view of diacritization as a sequence labeling problem, and propose a solution using conditional random fields (Lafferty et al., 2001). All these techniques are compared through word error rate and diacritization error rate both in terms of full diacritization and ignoring vowel endings. The empirical experiments showed that the machine translation approaches perform better than the sequence labeling approaches concerning the error rates.</abstract>
     </paper>
     <paper id="6">
       <title>Multi-Source Translation Methods</title>
       <author><first>Lane</first><last>Schwartz</last></author>
-      <url hash="c8a49dbf">2008.amta-studentworkshop.6</url>
+      <url hash="c8a49dbf">2008.amta-srw.6</url>
       <pages>279-288</pages>
       <abstract>Multi-parallel corpora provide a potentially rich resource for machine translation. This paper surveys existing methods for utilizing such resources, including hypothesis ranking and system combination techniques. We find that despite significant research into system combination, relatively little is know about how best to translate when multiple parallel source languages are available. We provide results to show that the MAX multilingual multi-source hypothesis ranking method presented by Och and Ney (2001) does not reliably improve translation quality when a broad range of language pairs are considered. We also show that the PROD multilingual multi-source hypothesis ranking method of Och and Ney (2001) cannot be used with standard phrase-based translation engines, due to a high number of unreachable hypotheses. Finally, we present an oracle experiment which shows that current hypothesis ranking methods fall far short of the best results reachable via sentence-level ranking.</abstract>
     </paper>
   </volume>
   <volume id="govandcom" ingest-date="2021-05-19">
     <meta>
-      <booktitle>Proceedings of the 6th Conference of the Association for Machine Translation in the Americas: Government and Commercial Uses of MT</booktitle>
+      <booktitle>Proceedings of the 8th Conference of the Association for Machine Translation in the Americas: Government and Commercial Uses of MT</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
       <address>Waikiki, USA</address>
       <month>October 21-25</month>
@@ -521,7 +514,7 @@
   </volume>
   <volume id="additional" ingest-date="2021-05-19">
     <meta>
-      <booktitle>Additional Papers not in Proceedings</booktitle>
+      <booktitle>Proceedings of the 8th Conference of the Association for Machine Translation in the Americas: Additional Papers</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
       <address>Waikiki, USA</address>
       <month>October 21-25</month>
