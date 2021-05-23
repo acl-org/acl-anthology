@@ -306,8 +306,9 @@ serve:
 	 @echo "INFO     Starting a server at http://localhost:8000/"
 	 @cd build/website && python3 -m http.server 8000
 
+# Main site: aclanthology.org. Requires ANTHOLOGYDIR to be unset.
 .PHONY: upload
-upload-mirror:
+upload:
 	@if [[ $(ANTHOLOGYDIR) != "" ]]; then \
             echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '${ANTHOLOGYDIR}' instead of being empty"; \
             exit 1; \
@@ -315,10 +316,9 @@ upload-mirror:
 	@echo "INFO     Running rsync for main site (aclanthology.org)..."
 	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/ anthologizer@aclanthology.org:/var/www/aclanthology.org
 
-# this target does not use ANTHOLOGYDIR because the official website
-# only works if ANTHOLOGYDIR == anthology.
+# Uploads to our mirror site: aclweb.org/anthology. Requires ANTHOLOGYDIR is "anthology".
 .PHONY: upload-mirror
-upload:
+upload-mirror:
 	@if [[ $(ANTHOLOGYDIR) != "anthology" ]]; then \
             echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '${ANTHOLOGYDIR}' instead of 'anthology'"; \
             exit 1; \
