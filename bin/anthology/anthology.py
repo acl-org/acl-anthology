@@ -60,7 +60,7 @@ class Anthology:
 
     def import_file(self, filename):
         # furthest east!
-        date_in_kiritimati = datetime.now(pytz.timezone("Pacific/Kiritimati")).date()
+        # date_in_kiritimati = datetime.now(pytz.timezone("Pacific/Kiritimati")).date()
 
         tree = etree.parse(filename)
         collection = tree.getroot()
@@ -70,18 +70,20 @@ class Anthology:
                 volume_xml, collection_id, self.venues, self.sigs, self.formatter
             )
 
+            # MJP 2021-05: no longer doing this since it kills branch previews.
+            # Don't merge with master prior to ingest date!
+            #
             # skip volumes that have an ingestion date in the future
-            if (
-                datetime.strptime(volume.ingest_date, "%Y-%m-%d").date()
-                > date_in_kiritimati
-            ):
-                log.info(
-                    f"Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future."
-                )
-
-                # Remove any SIG entries with this volume
-                self.sigs.remove_volume(volume.full_id)
-                continue
+            # if (
+            #     datetime.strptime(volume.ingest_date, "%Y-%m-%d").date()
+            #     > date_in_kiritimati
+            # ):
+            #     log.info(
+            #         f"Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future."
+            #     )
+            #     # Remove any SIG entries with this volume
+            #     self.sigs.remove_volume(volume.full_id)
+            #     continue
 
             # Register the volume since we're not skipping it
             self.venues.register(volume)
@@ -102,15 +104,18 @@ class Anthology:
             for paper_xml in volume_xml.findall("paper"):
                 parsed_paper = Paper.from_xml(paper_xml, volume, self.formatter)
 
+                # MJP 2021-05: no longer doing this since it kills branch previews.
+                # Don't merge with master prior to ingest date!
+                #
                 # skip papers that have an ingestion date in the future
-                if (
-                    datetime.strptime(parsed_paper.ingest_date, "%Y-%m-%d").date()
-                    > date_in_kiritimati
-                ):
-                    log.info(
-                        f"Skipping paper {parsed_paper.full_id} with ingestion date {parsed_paper.ingest_date} in the future."
-                    )
-                    continue
+                # if (
+                #     datetime.strptime(parsed_paper.ingest_date, "%Y-%m-%d").date()
+                #     > date_in_kiritimati
+                # ):
+                #     log.info(
+                #         f"Skipping paper {parsed_paper.full_id} with ingestion date {parsed_paper.ingest_date} in the future."
+                #     )
+                #     continue
 
                 self.pindex.register(parsed_paper)
                 full_id = parsed_paper.full_id
