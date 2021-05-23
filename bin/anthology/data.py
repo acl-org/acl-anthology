@@ -25,7 +25,7 @@ import os
 
 # this is the canonical URL.  In contrast to all other
 # URL templates, it always links to the official anthology.
-CANONICAL_URL_TEMPLATE = "https://www.aclweb.org/anthology/{}"
+CANONICAL_URL_TEMPLATE = "https://aclanthology.org/{}"
 
 # the prefix is used in different programs and we need to set it everywhere
 # We use a environment variable to set this and not have to forward the value
@@ -34,7 +34,7 @@ CANONICAL_URL_TEMPLATE = "https://www.aclweb.org/anthology/{}"
 try:
     ANTHOLOGY_PREFIX = os.environ["ANTHOLOGY_PREFIX"]
 except:
-    ANTHOLOGY_PREFIX = "https://www.aclweb.org/anthology"
+    ANTHOLOGY_PREFIX = "https://aclanthology.org"
 
 ATTACHMENT_PREFIX = ANTHOLOGY_PREFIX + "/attachments"
 ATTACHMENT_TEMPLATE = ATTACHMENT_PREFIX + "/{}"
