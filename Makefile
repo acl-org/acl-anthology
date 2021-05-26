@@ -316,16 +316,6 @@ upload:
 	@echo "INFO     Running rsync for main site (aclanthology.org)..."
 	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/ anthologizer@aclanthology.org:/var/www/aclanthology.org
 
-# Uploads to our mirror site: aclweb.org/anthology. Requires ANTHOLOGYDIR is "anthology".
-.PHONY: upload-mirror
-upload-mirror:
-	@if [[ $(ANTHOLOGYDIR) != "anthology" ]]; then \
-            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '${ANTHOLOGYDIR}' instead of 'anthology'"; \
-            exit 1; \
-        fi
-	@echo "INFO     Running rsync for aclweb.org/anthology mirror..."
-	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static
-
 # Push a preview to the mirror
 .PHONY: preview
 preview:
