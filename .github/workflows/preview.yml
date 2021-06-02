@@ -40,7 +40,7 @@ jobs:
     - uses: mshick/add-pr-comment@v1
       with:
         message: |
-          Build successful. You can preview it here: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }} |
+          Build successful. You can preview it here: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
           This preview will be removed when the branch is merged.
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
