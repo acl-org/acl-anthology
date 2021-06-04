@@ -250,16 +250,20 @@ def main(args):
             os.makedirs(pdfs_dest_dir)
 
         # copy the book
+        book_dest_path = (
+            os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
+        )
+
+        # try the standard filename, e.g., 2021.naacl-main.pdf
         book_src_filename = f'{year}.{meta["abbrev"]}-{volume_name}.pdf'
         book_src_path = os.path.join(root_path, book_src_filename)
-        book_dest_path = None
-        if os.path.exists(book_src_path):
-            book_dest_path = (
-                os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
-            )
+        if not os.path.exists(book_src_path):
+            # try a different filename, e.g., "NLP4CALL-2021.pdf"
+            book_src_filename = f'{meta["abbrev"]}-{year}.pdf'
+            book_src_path = os.path.join(root_path, book_src_filename)
 
-            if not args.dry_run:
-                maybe_copy(book_src_path, book_dest_path)
+        if os.path.exists(book_src_path) and not args.dry_run:
+            maybe_copy(book_src_path, book_dest_path)
 
         # copy the paper PDFs
         pdf_src_dir = os.path.join(root_path, "pdf")
