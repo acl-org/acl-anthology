@@ -24,7 +24,7 @@
 # - Disable bibtex etc. targets by setting NOBIB=true (for debugging etc.)
 #   (e.g., make -j4 NOBIB=true)
 
-SHELL = /bin/sh
+SHELL := /bin/bash
 
 # If you want to host the anthology on your own, set ANTHOLOGY_PREFIX
 # in your call to make to your prefix, e.g.
@@ -311,7 +311,7 @@ serve:
 .PHONY: upload
 upload:
 	@if [ $(ANTHOLOGYDIR) != "anthology" ]; then \
-            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '$(ANTHOLOGYDIR)' instead of 'anthology'"; \
+            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '${ANTHOLOGYDIR}' instead of 'anthology'"; \
             exit 1; \
         fi
 	@echo "INFO     Running rsync for main site..."
@@ -325,5 +325,11 @@ upload-mirror:
 # Push a preview to the mirror
 .PHONY: preview
 preview:
-	@echo "INFO     Running rsync for the '${ANTHOLOGYDIR}' branch preview..."
-	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}
+	make --version
+	@if [[ "$(ANTHOLOGYDIR)" != "" ]]; then \
+	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview..."; \
+	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/preview.aclanthology.org/${ANTHOLOGYDIR}; \
+	else \
+	  echo "FATAL    ANTHOLOGYDIR must contain the preview name, but was empty"; \
+	  exit 1; \
+	fi

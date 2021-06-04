@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Matt Post <post@cs.jhu.edu>
+# Copyright 2021 Xinru Yan <xinru1414@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,22 +15,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Used to add attachments to the Anthology.
+"""Used to add attachment revision as an additional attachament to the Anthology.
+
+This script is heavily adopted from add_attachments.py
+Only adding attachment without reading in .csv file and keeping a log
+
 Usage:
 
-    add_attachments.py CSV_FILE
-
-Where CSV_FILE is output from the Microsoft form (https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABqTSThUN0I2VEdZMTk4Sks3S042MVkxUEZQUVdOUS4u) we use to collect attachments, and has the following headers:
-
-    ID,Start time,Completion time,Email,Name,Anthology ID,URL where we can download the attachment,Attachment type,"For corrections or errata, please explain in detailed prose what has changed.",Your name,Your email address,I agree to the Anthology's CC-BY-4.0 distribution license.
-
-Downloads the files, edits the XML, and dumps a log to
-add_attachments.log, along with emails to be sent to those whose
-imports failed.
+    add_attachment.py anth_id attachment_revision_URL 'ATTACHMENT_TYPE'
 """
 
 import argparse
-import csv
 import filetype
 import os
 import shutil
@@ -47,6 +42,7 @@ from anthology.utils import (
 
 import lxml.etree as ET
 import urllib.request
+from datetime import datetime
 
 ALLOWED_TYPES = ["pdf", "pptx", "zip"]
 ATTACHMENT_TYPES = "Poster Presentation Note Software Supplementary Dataset".split()
@@ -160,100 +156,23 @@ def add_attachment(anthology_id, path, attach_type, overwrite=False):
 
 
 def main(args):
-    attachments = {}
-    with open(args.csv_file) as csv_file:
-        for row in csv.DictReader(csv_file):
-            # ID,Start time,Completion time,Email,Name,Anthology ID,URL where we can download the attachment,Attachment type,"For corrections or errata, please explain in detailed prose what has changed.",Your name,Your email address,I agree to the Anthology's CC-BY-4.0 distribution license
-            anthology_id = row["Anthology ID"].strip()
-            download_path = row["URL"]
-            attachment_type = row["Attachment type"]
-            submitter_name = row["Your name"]
-            submitter_email = row["Your email address"]
-            submitted = row["Completion time"]
-
-            if attachment_type not in ATTACHMENT_TYPES:
-                print(
-                    f"{anthology_id}: Skipping unknown type {attachment_type}: {download_path}",
-                    file=sys.stderr,
-                )
-                continue
-
-            if anthology_id in attachments:
-                print(
-                    f"{anthology_id}: Received multiple entries, only processing the last one ({attachment_type}): {download_path}",
-                    file=sys.stderr,
-                )
-
-            attachments[anthology_id] = (
-                download_path,
-                attachment_type,
-                submitter_name,
-                submitter_email,
-                submitted,
-            )
-
-    succeeded = 0
-    failed = 0
-    with open(args.logfile, "a") as log:
-        for anthology_id, (path, attach_type, name, email, date) in attachments.items():
-            try:
-                print(f"Processing attachment for {anthology_id}", file=sys.stderr)
-                success = add_attachment(
-                    anthology_id, path, attach_type, overwrite=args.overwrite
-                )
-                if success:
-                    succeeded += 1
-                    print(f"{anthology_id}: SUCCESS.", file=log)
-                else:
-                    print(f"{anthology_id}: ALREADY DONE (use -o to redo).", file=log)
-            except Exception as reason:
-                failed += 1
-                print(f"{anthology_id}: FAILURE", file=log)
-                with open(f"{args.logfile}.{anthology_id}.txt", "w") as email_log:
-                    print(
-                        f"{email}\n"
-                        f"ACL Anthology: failed to add attachment for {anthology_id}\n"
-                        f"Dear {name},\n"
-                        f"\n"
-                        f"On {date} you submitted the following attachment to the ACL Anthology\n"
-                        f"\n"
-                        f"  paper ID: {anthology_id}\n"
-                        f"      link: {path}\n"
-                        f"\n"
-                        f"Adding this attachment failed. The reason reported was:\n"
-                        f"\n"
-                        f"  {reason}\n"
-                        f"\n"
-                        f"To resubmit, follow the instructions here:\n"
-                        f"\n"
-                        f"  https://www.aclweb.org/anthology/info/corrections/\n",
-                        f"\n"
-                        f"There is no need to respond to this email.\n"
-                        f"\n"
-                        f"Sincerely,\n"
-                        f"Matt Post\n"
-                        f"Anthology Director\n",
-                        file=email_log,
-                    )
-
-    print(
-        f"Processed {len(attachments)} attachments ({succeeded} succeeded, {failed} failed)."
-    )
-    print(f"Wrote logfile to {args.logfile}.")
+    add_attachment(args.anthology_id, args.path, args.attach_type, overwrite=False)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("csv_file", help="The CSV file from the Microsoft form")
     parser.add_argument(
-        "--overwrite", "-o", action="store_true", help="Overwrite attachments"
+        "anthology_id", help="The Anthology paper ID to revise (e.g., P18-1001)"
     )
     parser.add_argument(
-        "--logfile", "-l", default="add_attachments.log", help="Logfile to write to"
+        "path", type=str, help="Path to the revised attachment ID (can be URL)"
     )
+    parser.add_argument(
+        "attach_type", type=str, default='Supplementary', help="attachment type"
+    )
+
     parser.add_argument(
         "--attachment-root",
-        "-d",
         default=os.path.join(os.environ["HOME"], "anthology-files/attachments"),
         help="Anthology web directory root.",
     )

@@ -60,7 +60,9 @@ def create_bibtex(anthology, trgdir, clean=False):
         return
 
     log.info("Creating BibTeX files for all papers...")
-    with gzip.open(
+    with open(
+        "{}/anthology.bib".format(trgdir), "wt", encoding="utf-8"
+    ) as file_anthology_raw, gzip.open(
         "{}/anthology.bib.gz".format(trgdir), "wt", encoding="utf-8"
     ) as file_anthology, gzip.open(
         "{}/anthology+abstracts.bib.gz".format(trgdir), "wt", encoding="utf-8"
@@ -83,6 +85,7 @@ def create_bibtex(anthology, trgdir, clean=False):
                         concise_contents = paper.as_bibtex(concise=True)
                         print(concise_contents, file=file_volume)
                         print(concise_contents, file=file_anthology)
+                        print(concise_contents, file=file_anthology_raw)
 
 
 if __name__ == "__main__":
