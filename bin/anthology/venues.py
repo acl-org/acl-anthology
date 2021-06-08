@@ -26,7 +26,7 @@ try:
 except ImportError:
     from yaml import Loader
 
-from .utils import is_newstyle_id, deconstruct_anthology_id
+from .utils import is_newstyle_id, build_anthology_id, deconstruct_anthology_id
 from anthology.data import VENUE_FORMAT
 
 
@@ -121,18 +121,21 @@ class VenueIndex:
 
     def get_by_letter(self, letter):
         """Get a venue acronym by first letter (e.g., Q -> TACL)."""
-        try:
-            return self.letters[letter]
-        except KeyError:
-            log.critical("Unknown venue letter: {}".format(letter))
+        return self.letters.get(letter, None)
 
     def get_main_venue(self, anthology_id):
         """Get a venue acronym by anthology ID (e.g., acl -> ACL)."""
-        collection_id, *_ = deconstruct_anthology_id(anthology_id)
+        collection_id, volume_id, _ = deconstruct_anthology_id(anthology_id)
         if is_newstyle_id(collection_id):
             return self.acronyms_by_key[collection_id.split(".")[-1]]
-        else:
-            return self.get_by_letter(collection_id[0])
+        else:  # old-style ID
+            main_venue = self.get_by_letter(collection_id[0])
+            if main_venue is None:
+                try:
+                    main_venue = self.joint_map[build_anthology_id(collection_id, volume_id, None)][0]
+                except (KeyError, IndexError):
+                    log.critical("Old-style ID {} isn't assigned any venue!".format(anthology_id))
+            return main_venue
 
     def get_associated_venues(self, anthology_id):
         """Get a list of all venue acronyms for a given (volume) anthology ID."""
