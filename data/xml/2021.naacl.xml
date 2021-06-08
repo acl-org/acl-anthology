@@ -937,7 +937,7 @@
     <paper id="88">
       <title><fixed-case>DR</fixed-case>e<fixed-case>C</fixed-case>a: A General Task Augmentation Strategy for Few-Shot Natural Language Inference</title>
       <author><first>Shikhar</first><last>Murty</last></author>
-      <author><first>Tatsunori</first><last>Hashimoto</last></author>
+      <author><first>Tatsunori B.</first><last>Hashimoto</last></author>
       <author><first>Christopher</first><last>Manning</last></author>
       <pages>1113–1125</pages>
       <abstract>Meta-learning promises few-shot learners that can adapt to new distributions by repurposing knowledge acquired from previous training. However, we believe meta-learning has not yet succeeded in NLP due to the lack of a well-defined task distribution, leading to attempts that treat datasets as tasks. Such an ad hoc task distribution causes problems of quantity and quality. Since there’s only a handful of datasets for any NLP problem, meta-learners tend to overfit their adaptation mechanism and, since NLP datasets are highly heterogeneous, many learning episodes have poor transfer between their support and query sets, which discourages the meta-learner from adapting. To alleviate these issues, we propose DReCA (Decomposing datasets into Reasoning Categories), a simple method for discovering and using latent reasoning categories in a dataset, to form additional high quality tasks. DReCA works by splitting examples into label groups, embedding them with a finetuned BERT model and then clustering each group into reasoning categories. Across four few-shot NLI problems, we demonstrate that using DReCA improves the accuracy of meta-learners by 1.5-4%</abstract>
@@ -4201,7 +4201,7 @@
     <paper id="404">
       <title>On the Inductive Bias of Masked Language Modeling: From Statistical to Syntactic Dependencies</title>
       <author><first>Tianyi</first><last>Zhang</last></author>
-      <author><first>Tatsunori</first><last>Hashimoto</last></author>
+      <author><first>Tatsunori B.</first><last>Hashimoto</last></author>
       <pages>5131–5146</pages>
       <abstract>We study how masking and predicting tokens in an unsupervised fashion can give rise to linguistic structures and downstream performance gains. Recent theories have suggested that pretrained language models acquire useful inductive biases through masks that implicitly act as cloze reductions for downstream tasks. While appealing, we show that the success of the random masking strategy used in practice cannot be explained by such cloze-like masks alone. We construct cloze-like masks using task-specific lexicons for three different classification datasets and show that the majority of pretrained performance gains come from generic masks that are not associated with the lexicon. To explain the empirical success of these generic masks, we demonstrate a correspondence between the Masked Language Model (MLM) objective and existing methods for learning statistical dependencies in graphical models. Using this, we derive a method for extracting these learned statistical dependencies in MLMs and show that these dependencies encode useful inductive biases in the form of syntactic structures. In an unsupervised parsing evaluation, simply forming a minimum spanning tree on the implied statistical dependence structure outperforms a classic method for unsupervised parsing (58.74 vs. 55.91 UUAS).</abstract>
       <url hash="e38eece1">2021.naacl-main.404</url>
@@ -4214,8 +4214,10 @@
       <author><first>Matthew R.</first><last>Gormley</last></author>
       <author><first>Jason</first><last>Eisner</last></author>
       <pages>5147–5173</pages>
-      <abstract>Standard autoregressive language models perform only polynomial-time computation to compute the probability of the next symbol. While this is attractive, it means they cannot model distributions whose next-symbol probability is <i>hard</i> to compute. Indeed, they cannot even model them well enough to solve associated <i>easy</i> decision problemsin main text, note that they’re easy because you get to see the whole string rather than a prefix—this is really the difference between checking a given assignment against a formula and asking whether any satisfying assignment exists for which an engineer might want to consult a language model. These limitations apply no matter how much computation and data are used to train the model, unless the model is given access to oracle parameters that grow <i>superpolynomially</i> in sequence length. Thus, simply training larger autoregressive language models is not a panacea for NLP. Alternatives include energy-based models (which give up efficient sampling) and latent-variable autoregressive models (which give up efficient scoring of a given string). Both are powerful enough to escape the above limitations.</abstract>
-      <url hash="93f6fe2b">2021.naacl-main.405</url>
+      <abstract>Standard autoregressive language models perform only polynomial-time computation to compute the probability of the next symbol. While this is attractive, it means they cannot model distributions whose next-symbol probability is <i>hard</i> to compute. Indeed, they cannot even model them well enough to solve associated <i>easy</i> decision problems for which an engineer might want to consult a language model. These limitations apply no matter how much computation and data are used to train the model, unless the model is given access to oracle parameters that grow <i>superpolynomially</i> in sequence length. Thus, simply training larger autoregressive language models is not a panacea for NLP. Alternatives include energy-based models (which give up efficient sampling) and latent-variable autoregressive models (which give up efficient scoring of a given string). Both are powerful enough to escape the above limitations.</abstract>
+      <url hash="49e12cc6">2021.naacl-main.405</url>
+      <revision id="1" href="2021.naacl-main.405v1" hash="93f6fe2b"/>
+      <revision id="2" href="2021.naacl-main.405v2" hash="49e12cc6" date="2021-05-31">Various corrections through the paper</revision>
     </paper>
     <paper id="406">
       <title>On the Transformer Growth for Progressive <fixed-case>BERT</fixed-case> Training</title>
@@ -5529,7 +5531,7 @@
       <author><first>Arman</first><last>Cohan</last></author>
       <author><first>Hannaneh</first><last>Hajishirzi</last></author>
       <author><first>Sewon</first><last>Min</last></author>
-      <author><first>Matthew</first><last>Peters</last></author>
+      <author><first>Matthew E.</first><last>Peters</last></author>
       <pages>20–24</pages>
       <abstract>In this tutorial, we aim at bringing interested NLP researchers up to speed about the recent and ongoing techniques for document-level representation learning. Additionally, our goal is to reveal new research opportunities to the audience, which will hopefully bring us closer to address existing challenges in this domain.</abstract>
       <url hash="6d7a352b">2021.naacl-tutorials.5</url>
