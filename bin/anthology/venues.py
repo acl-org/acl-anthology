@@ -132,9 +132,13 @@ class VenueIndex:
             main_venue = self.get_by_letter(collection_id[0])
             if main_venue is None:
                 try:
-                    main_venue = self.joint_map[build_anthology_id(collection_id, volume_id, None)][0]
+                    main_venue = self.joint_map[
+                        build_anthology_id(collection_id, volume_id, None)
+                    ][0]
                 except (KeyError, IndexError):
-                    log.critical("Old-style ID {} isn't assigned any venue!".format(anthology_id))
+                    log.critical(
+                        "Old-style ID {} isn't assigned any venue!".format(anthology_id)
+                    )
             return main_venue
 
     def get_associated_venues(self, anthology_id):
