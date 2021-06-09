@@ -131,6 +131,9 @@ class VenueIndex:
         else:  # old-style ID
             main_venue = self.get_by_letter(collection_id[0])
             if main_venue is None:
+                # If there's no association with the letter, use joint.yaml to
+                # get the venue.  As of 06/2021 this is only used for "O"
+                # (ROCLING/IJCLCLP).
                 try:
                     main_venue = self.joint_map[
                         build_anthology_id(collection_id, volume_id, None)
