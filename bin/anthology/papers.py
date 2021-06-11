@@ -98,7 +98,7 @@ class Paper:
                                 tag, paper.full_id, item["url"]
                             )
                         )
-                    item["url"] = data.ANTHOLOGY_PDF.format(item["url"])
+                    item["url"] = data.PDF_LOCATION_TEMPLATE.format(item["url"])
 
         if "attachment" in paper.attrib:
             for item in paper.attrib["attachment"]:
@@ -137,8 +137,9 @@ class Paper:
 
         # if "withdrawn" in paper.attrib:
         #     paper.attrib["withdrawn"] = True
-
-        paper.attrib["thumbnail"] = data.ANTHOLOGY_THUMBNAIL.format(paper.full_id)
+        paper.attrib["thumbnail"] = data.PDF_THUMBNAIL_LOCATION_TEMPLATE.format(
+            paper.full_id
+        )
 
         return paper
 

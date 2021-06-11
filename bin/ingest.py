@@ -31,6 +31,7 @@ Updated in March 2020, this script replaces:
 """
 
 import argparse
+import iso639
 import os
 import re
 import readline
@@ -43,6 +44,10 @@ from collections import defaultdict, OrderedDict
 from datetime import datetime
 
 from normalize_anth import normalize
+from anthology.bibtex import read_bibtex
+from anthology.index import AnthologyIndex
+from anthology.people import PersonName
+from anthology.sigs import SIGIndex
 from anthology.utils import (
     make_simple_element,
     build_anthology_id,
@@ -50,9 +55,6 @@ from anthology.utils import (
     indent,
     compute_hash_from_file,
 )
-from anthology.index import AnthologyIndex
-from anthology.people import PersonName
-from anthology.bibtex import read_bibtex
 from anthology.venues import VenueIndex
 
 from itertools import chain
@@ -70,11 +72,16 @@ def read_meta(path: str) -> Dict[str, Any]:
     meta = {"chairs": []}
     with open(path) as instream:
         for line in instream:
+            if re.match(r"^\s*$", line):
+                continue
             key, value = line.rstrip().split(" ", maxsplit=1)
             if key.startswith("chair"):
                 meta["chairs"].append(value)
             else:
                 meta[key] = value
+    if "volume" in meta and re.match(rf"^[a-z0-1]+$", meta["volume"]) is None:
+        raise Exception(f"Invalid volume key '{meta['volume']}' in {path}")
+
     return meta
 
 
@@ -181,6 +188,8 @@ def main(args):
     venue_index = VenueIndex(srcdir=anthology_datadir)
     venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
 
+    sig_index = SIGIndex(srcdir=anthology_datadir)
+
     # Build list of volumes, confirm uniqueness
     unseen_venues = []
     for proceedings in args.proceedings:
@@ -188,6 +197,15 @@ def main(args):
 
         venue_abbrev = meta["abbrev"]
         venue_slug = venue_index.get_slug(venue_abbrev)
+
+        if str(datetime.now().year) in venue_abbrev:
+            print(f"Fatal: Venue assembler put year in acronym: '{venue_abbrev}'")
+            sys.exit(1)
+
+        if re.match(r".*\d$", venue_abbrev) is not None:
+            print(
+                f"WARNING: Venue {venue_abbrev} ends in a number, this is probably a mistake"
+            )
 
         if venue_slug not in venue_keys:
             unseen_venues.append((venue_slug, venue_abbrev, meta["title"]))
@@ -203,6 +221,13 @@ def main(args):
 
         collections[collection_id][volume_name] = {}
         volumes[volume_full_id] = meta
+
+        if "sig" in meta:
+            print(
+                f"Add this line to {anthology_datadir}/sigs/{meta['sig'].lower()}.yaml:"
+            )
+            print(f"  - {meta['year']}:")
+            print(f"    - {volume_full_id} # {meta['booktitle']}")
 
     # Make sure all venues exist
     if len(unseen_venues) > 0:
@@ -225,16 +250,20 @@ def main(args):
             os.makedirs(pdfs_dest_dir)
 
         # copy the book
-        book_src_filename = meta["abbrev"] + "-" + year
-        book_src_path = os.path.join(root_path, book_src_filename) + ".pdf"
-        book_dest_path = None
-        if os.path.exists(book_src_path):
-            book_dest_path = (
-                os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
-            )
+        book_dest_path = (
+            os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
+        )
 
-            if not args.dry_run:
-                maybe_copy(book_src_path, book_dest_path)
+        # try the standard filename, e.g., 2021.naacl-main.pdf
+        book_src_filename = f'{year}.{meta["abbrev"]}-{volume_name}.pdf'
+        book_src_path = os.path.join(root_path, book_src_filename)
+        if not os.path.exists(book_src_path):
+            # try a different filename, e.g., "NLP4CALL-2021.pdf"
+            book_src_filename = f'{meta["abbrev"]}-{year}.pdf'
+            book_src_path = os.path.join(root_path, book_src_filename)
+
+        if os.path.exists(book_src_path) and not args.dry_run:
+            maybe_copy(book_src_path, book_dest_path)
 
         # copy the paper PDFs
         pdf_src_dir = os.path.join(root_path, "pdf")
@@ -432,6 +461,17 @@ def main(args):
                 for oldnode in paper_node:
                     normalize(oldnode, informat="latex")
 
+                # Adjust the language tag
+                language_node = paper_node.find("./language")
+                if language_node is not None:
+                    try:
+                        lang = iso639.languages.get(name=language_node.text)
+                    except KeyError:
+                        raise Exception(f"Can't find language '{language_node.text}'")
+                    language_node.text = lang.part3
+                    print(language_node.text)
+
+                # Fix author names
                 for name_node in chain(
                     paper_node.findall("./author"), paper_node.findall("./editor")
                 ):

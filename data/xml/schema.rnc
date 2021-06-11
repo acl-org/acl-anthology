@@ -24,6 +24,13 @@ attachment = element attachment {
     local-filename
 }
 
+Revision = element revision {
+  attribute id { xsd:positiveInteger },
+  attribute href { local-filename },
+  attribute date { xsd:date }?,
+  checksum,
+  text
+}
 Paper = element paper {
   attribute id { xsd:positiveInteger },
   attribute ingest-date { xsd:date }?,
@@ -32,13 +39,7 @@ Paper = element paper {
    & element author { Person }*
    & element doi { xsd:anyURI }?
    & element editor { Person }*
-   & element revision {
-       attribute id { xsd:positiveInteger },
-       attribute href { local-filename },
-       attribute date { xsd:date }?,
-       checksum,
-       text
-     }*
+   & Revision*
    & element erratum {
        attribute id { xsd:positiveInteger },
        attribute date { xsd:date }?,
@@ -66,6 +67,7 @@ Paper = element paper {
      }*
    & element volume { xsd:positiveInteger }?
    & element language { xsd:language }?
+   & element award { text }*
    )
 }
 Meta = element meta {
@@ -85,12 +87,7 @@ Meta = element meta {
 Frontmatter = element frontmatter {
   (url-with-checksum?
    & element pages { text }?
-   & element revision {
-       attribute id { xsd:positiveInteger },
-       attribute href { local-filename },
-       checksum,
-       text
-     }*
+   & Revision*
    & attachment*
    & element doi { xsd:anyURI }?
   )

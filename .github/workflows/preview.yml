@@ -1,0 +1,47 @@
+# Builds a preview of all non-master branches and publishes them
+# to https://aclanthology.org/previews/BRANCHNAME
+
+name: preview
+
+on:
+  push:
+    branches:
+    - '*'
+    - '!master'
+
+jobs:
+  preview:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: install hugo
+      run: wget https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_extended_0.58.3_Linux-64bit.deb && sudo dpkg -i hugo_extended*.deb
+    - name: update
+      run: sudo apt-get update
+    - name: install other deps
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.8-dev
+    - name: dump secret key
+      env:
+        SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
+      run: |
+        mkdir -p $HOME/.ssh/
+        echo "$SSH_KEY" > $HOME/.ssh/id_rsa
+        chmod 600 $HOME/.ssh/id_rsa
+    - uses: actions/checkout@v1
+    - name: extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - name: preview
+      shell: bash
+      env:
+        ANTHOLOGY_PREFIX: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+      run: |
+        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} NOBIB=true check site preview
+    - uses: mshick/add-pr-comment@v1
+      with:
+        message: |
+          Build successful. You can preview it here: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+          This preview will be removed when the branch is merged.
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+        allow-repeats: false

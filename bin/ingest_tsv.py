@@ -8,7 +8,7 @@ Expects fields name like BibTeX files.
 Example usage:
 
     cat data.tsv \
-    | ./ingest_tsv.py --venue amta --year 2020 --volume user --proceedings-pdf 2020.amta-user.pdf
+    | ./ingest_tsv.py amta user 2020 --proceedings-pdf 2020.amta-user.pdf
 
 where data.tsv has TSV fields:
 
@@ -36,7 +36,13 @@ import subprocess
 import sys
 import urllib.request
 
-from anthology.utils import make_simple_element, indent, compute_hash, retrieve_url
+from anthology import Anthology
+from anthology.utils import (
+    make_simple_element,
+    indent,
+    compute_hash_from_file,
+    retrieve_url,
+)
 from datetime import datetime
 from normalize_anth import normalize
 from likely_name_split import NameSplitter
@@ -50,9 +56,11 @@ def main(args):
     volume_id = args.volume
     collection_id = f"{year}.{venue}"
 
-    splitter = NameSplitter()
+    splitter = NameSplitter(anthology_dir=args.anthology_dir)
 
-    collection_file = os.path.join(args.anthology, "data", "xml", f"{collection_id}.xml")
+    collection_file = os.path.join(
+        args.anthology_dir, "data", "xml", f"{collection_id}.xml"
+    )
     if os.path.exists(collection_file):
         tree = etree.parse(collection_file)
     else:
@@ -105,8 +113,7 @@ def main(args):
                     args.anthology_files_path, venue, f"{volume_anth_id}.pdf"
                 )
                 retrieve_url(proceedings_pdf, pdf_local_path)
-                with open(pdf_local_path, "rb") as f:
-                    checksum = compute_hash(f.read())
+                checksum = compute_hash_from_file(pdf_local_path)
                 make_simple_element(
                     "url", volume_anth_id, attrib={"hash": checksum}, parent=meta
                 )
@@ -114,10 +121,9 @@ def main(args):
 
         title_text = row["title"]
 
-        if paperid == 0:
-            # The first row might be front matter (needs a special name)
-            if title_text.lower() in ["frontmatter", "front matter"]:
-                paper = make_simple_element("frontmatter", parent=volume)
+        # The first row might be front matter (needs a special name)
+        if paperid == 0 and title_text.lower() in ["frontmatter", "front matter"]:
+            paper = make_simple_element("frontmatter", parent=volume)
         else:
             if paperid == 0:
                 # Not frontmatter, so paper 1
@@ -149,6 +155,8 @@ def main(args):
         if "pdf" in row and row["pdf"] != "":
             if retrieve_url(row["pdf"], pdf_local_path):
                 url = anth_id
+            else:
+                print("Can't find", row["pdf"])
 
         elif "pages in pdf" in row:
             pdf_pages = row["pages"]
@@ -156,12 +164,11 @@ def main(args):
             url = anth_id
 
         if url is not None:
-            with open(pdf_local_path, "rb") as f:
-                checksum = compute_hash(f.read())
+            checksum = compute_hash_from_file(pdf_local_path)
 
             make_simple_element("url", url, attrib={"hash": checksum}, parent=paper)
 
-        if "abstract" in row:
+        if "abstract" in row and row["abstract"] != "":
             make_simple_element("abstract", row["abstract"], parent=paper)
 
         if "presentation" in row:
@@ -178,7 +185,13 @@ def main(args):
                 )
                 if retrieve_url(row["presentation"], local_path):
                     make_simple_element(
-                        "attachment", name, attrib={"type": "presentation"}, parent=paper
+                        "attachment",
+                        name,
+                        attrib={
+                            "type": "presentation",
+                            "hash": compute_hash_from_file(local_path),
+                        },
+                        parent=paper,
                     )
 
         # Normalize
@@ -196,10 +209,10 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'tsv_file', nargs="?", default=sys.stdin, type=argparse.FileType("r")
+        '--tsv-file', nargs="?", default=sys.stdin, type=argparse.FileType("r")
     )
     parser.add_argument(
-        '--anthology',
+        '--anthology-dir',
         default=f"{os.environ.get('HOME')}/code/acl-anthology",
         help="Path to Anthology repo (cloned from https://github.com/acl-org/acl-anthology)",
     )
@@ -214,11 +227,9 @@ if __name__ == '__main__':
     parser.add_argument(
         '--proceedings-pdf', help="Path to PDF with conference proceedings"
     )
-    parser.add_argument('--frontmatter', action="store_true")
-    parser.add_argument("--force", "-f", action="store_true")
-    parser.add_argument("--venue", help="Venue code, e.g., acl")
-    parser.add_argument("--volume", help="Volume name, e.g., main or 1")
-    parser.add_argument("--year", help="Full year, e.g., 2020")
+    parser.add_argument("venue", help="Venue code, e.g., acl")
+    parser.add_argument("volume", help="Volume name, e.g., main or 1")
+    parser.add_argument("year", help="Full year, e.g., 2020")
     args = parser.parse_args()
 
     main(args)

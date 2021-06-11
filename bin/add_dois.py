@@ -87,9 +87,12 @@ def add_doi(xml_node, collection_id, volume_id, force=False):
             print(f"--> Got 429, pausing for {pause_for} seconds", file=sys.stderr)
             sleep(pause_for + 1)
         elif result.status_code == 404:  # not found
+            print(f"--> Got 404", file=sys.stderr)
             break
+        else:
+            print(f"--> Other problem: {result}", file=sys.stderr)
 
-    print(f"-> Couldn't add DOI {doi_url}", file=sys.stderr)
+    print(f"-> Couldn't add DOI for {doi_url}", file=sys.stderr)
     return False
 
 
@@ -113,7 +116,7 @@ def process_volume(anthology_volume):
     if volume is not None:
         volume_booktitle = volume.find(f"./meta/booktitle")
         volume_title = formatter.as_text(volume_booktitle)
-        print(f'-> found existing volume "{volume_title}"', file=sys.stderr)
+        print(f'-> Found volume "{volume_title}"', file=sys.stderr)
 
         # Iterate through all papers
         for paper in chain(volume.find("frontmatter"), volume.findall("paper")):

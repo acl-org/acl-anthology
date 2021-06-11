@@ -3229,6 +3229,7 @@
       <pages>2733–2743</pages>
       <abstract>Probes, supervised models trained to predict properties (like parts-of-speech) from representations (like ELMo), have achieved high accuracy on a range of linguistic tasks. But does this mean that the representations encode linguistic structure or just that the probe has learned the linguistic task? In this paper, we propose control tasks, which associate word types with random outputs, to complement linguistic tasks. By construction, these tasks can only be learned by the probe itself. So a good probe, (one that reflects the representation), should be selective, achieving high linguistic task accuracy and low control task accuracy. The selectivity of a probe puts linguistic task accuracy in context with the probe’s capacity to memorize from word types. We construct control tasks for English part-of-speech tagging and dependency edge prediction, and show that popular probes on ELMo representations are not selective. We also find that dropout, commonly used to control probe complexity, is ineffective for improving selectivity of MLPs, but that other forms of regularization are effective. Finally, we find that while probes on the first layer of ELMo yield slightly better part-of-speech tagging accuracy than the second, probes on the second layer are substantially more selective, which raises the question of which layer better represents parts-of-speech.</abstract>
       <url hash="a8e0ab3f">D19-1275</url>
+      <award>Best Paper Runner-Up</award>
       <doi>10.18653/v1/D19-1275</doi>
     </paper>
     <paper id="276">
@@ -3239,6 +3240,7 @@
       <abstract>Pre-trained word embeddings like ELMo and BERT contain rich syntactic and semantic information, resulting in state-of-the-art performance on various tasks. We propose a very fast variational information bottleneck (VIB) method to nonlinearly compress these embeddings, keeping only the information that helps a discriminative parser. We compress each word embedding to either a discrete tag or a continuous vector. In the discrete version, our automatically compressed tags form an alternative tag set: we show experimentally that our tags capture most of the information in traditional POS tag annotations, but our tag sequences can be parsed more accurately at the same level of tag granularity. In the continuous version, we show experimentally that moderately compressing the word embeddings by our method yields a more accurate parser in 8 of 9 languages, unlike simple dimensionality reduction.</abstract>
       <url hash="97f7139a">D19-1276</url>
       <attachment hash="ca431e0f">D19-1276.Attachment.pdf</attachment>
+      <award>Best Paper</award>
       <doi>10.18653/v1/D19-1276</doi>
     </paper>
     <paper id="277">
@@ -4999,7 +5001,7 @@
       <title>Distributionally Robust Language Modeling</title>
       <author><first>Yonatan</first><last>Oren</last></author>
       <author><first>Shiori</first><last>Sagawa</last></author>
-      <author><first>Tatsunori</first><last>Hashimoto</last></author>
+      <author><first>Tatsunori B.</first><last>Hashimoto</last></author>
       <author><first>Percy</first><last>Liang</last></author>
       <pages>4227–4237</pages>
       <abstract>Language models are generally trained on data spanning a wide range of topics (e.g., news, reviews, fiction), but they might be applied to an a priori unknown target distribution (e.g., restaurant reviews). In this paper, we first show that training on text outside the test distribution can degrade test performance when using standard maximum likelihood (MLE) training. To remedy this without the knowledge of the test distribution, we propose an approach which trains a model that performs well over a wide range of potential test distributions. In particular, we derive a new distributionally robust optimization (DRO) procedure which minimizes the loss of the model over the worst-case mixture of topics with sufficient overlap with the training distribution. Our approach, called topic conditional value at risk (topic CVaR), obtains a 5.5 point perplexity reduction over MLE when the language models are trained on a mixture of Yelp reviews and news and tested only on reviews.</abstract>
@@ -6150,9 +6152,12 @@
       <author><first>Simone</first><last>Teufel</last></author>
       <pages>5267–5275</pages>
       <abstract>This paper treats gender bias latent in word embeddings. Previous mitigation attempts rely on the operationalisation of gender bias as a projection over a linear subspace. An alternative approach is Counterfactual Data Augmentation (CDA), in which a corpus is duplicated and augmented to remove bias, e.g. by swapping all inherently-gendered words in the copy. We perform an empirical comparison of these approaches on the English Gigaword and Wikipedia, and find that whilst both successfully reduce direct bias and perform well in tasks which quantify embedding quality, CDA variants outperform projection-based methods at the task of drawing non-biased gender analogies by an average of 19% across both corpora. We propose two improvements to CDA: Counterfactual Data Substitution (CDS), a variant of CDA in which potentially biased text is randomly substituted to avoid duplication, and the Names Intervention, a novel name-pairing technique that vastly increases the number of words being treated. CDA/S with the Names Intervention is the only approach which is able to mitigate indirect gender bias: following debiasing, previously biased words are significantly less clustered according to gender (cluster purity is reduced by 49%), thus improving on the state-of-the-art for bias mitigation.</abstract>
-      <url hash="7cc444af">D19-1530</url>
+      <url hash="38c0ed9e">D19-1530</url>
       <attachment hash="862fcf18">D19-1530.Attachment.zip</attachment>
       <doi>10.18653/v1/D19-1530</doi>
+      <revision id="1" href="D19-1530v1" hash="7cc444af"/>
+      <revision id="2" href="D19-1530v2" hash="38c0ed9e" date="2021-05-02">type correction and added a new figure</revision>
+      <attachment type="supplementary" hash="be6d27cf">D19-1530.Supplementary.pdf</attachment>
     </paper>
     <paper id="531">
       <title>Examining Gender Bias in Languages with Grammatical Gender</title>
@@ -7361,6 +7366,7 @@
       <abstract>For machine translation, a vast majority of language pairs in the world are considered low-resource because they have little parallel data available. Besides the technical challenges of learning with limited supervision, it is difficult to evaluate methods trained on low-resource language pairs because of the lack of freely and publicly available benchmarks. In this work, we introduce the FLORES evaluation datasets for Nepali–English and Sinhala– English, based on sentences translated from Wikipedia. Compared to English, these are languages with very different morphology and syntax, for which little out-of-domain parallel data is available and for which relatively large amounts of monolingual data are freely available. We describe our process to collect and cross-check the quality of translations, and we report baseline performance using several learning settings: fully supervised, weakly supervised, semi-supervised, and fully unsupervised. Our experiments demonstrate that current state-of-the-art methods perform rather poorly on this benchmark, posing a challenge to the research community working on low-resource MT. Data and code to reproduce our experiments are available at https://github.com/facebookresearch/flores.</abstract>
       <url hash="3fb1e684">D19-1632</url>
       <attachment hash="d362e55e">D19-1632.Attachment.zip</attachment>
+      <award>Best Resource Paper</award>
       <doi>10.18653/v1/D19-1632</doi>
     </paper>
     <paper id="633">
@@ -8004,8 +8010,7 @@ The tutorial will bring researchers and practitioners to be aware of this issue,
       <author><first>Lei</first><last>Li</last></author>
       <abstract>This tutorial provides a comprehensive guide to the process of discreteness in neural NLP.
 
-As a gentle start, we will briefly introduce the background of deep learning based NLP, where we point out the ubiquitous discreteness of natural language and its challenges in neural information processing. Particularly, we will focus on how such discreteness plays a role in the input space, the latent space, and the output space of a neural network. In each part, we will provide examples, discuss machine learning techniques, as well as demonstrate NLP applications."
-</abstract>
+As a gentle start, we will briefly introduce the background of deep learning based NLP, where we point out the ubiquitous discreteness of natural language and its challenges in neural information processing. Particularly, we will focus on how such discreteness plays a role in the input space, the latent space, and the output space of a neural network. In each part, we will provide examples, discuss machine learning techniques, as well as demonstrate NLP applications.</abstract>
     </paper>
     <paper id="6">
       <title>Graph-based Deep Learning in Natural Language Processing</title>
@@ -8061,6 +8066,7 @@ A plethora of methods have been proposed to emphasize specific lexico-semantic r
       <pages>7–12</pages>
       <abstract>Neural NLP models are increasingly accurate but are imperfect and opaque—they break in counterintuitive ways and leave end users puzzled at their behavior. Model interpretation methods ameliorate this opacity by providing explanations for specific model predictions. Unfortunately, existing interpretation codebases make it difficult to apply these methods to new models and tasks, which hinders adoption for practitioners and burdens interpretability researchers. We introduce AllenNLP Interpret, a flexible framework for interpreting NLP models. The toolkit provides interpretation primitives (e.g., input gradients) for any AllenNLP model and task, a suite of built-in interpretation methods, and a library of front-end visualization components. We demonstrate the toolkit’s flexibility and utility by implementing live demos for five interpretation methods (e.g., saliency maps and adversarial attacks) on a variety of models and tasks (e.g., masked language modeling using BERT and reading comprehension using BiDAF). These demos, alongside our code and tutorials, are available at https://allennlp.org/interpret.</abstract>
       <url hash="960027a7">D19-3002</url>
+      <award>Best Demo paper</award>
       <doi>10.18653/v1/D19-3002</doi>
     </paper>
     <paper id="3">
@@ -12637,8 +12643,10 @@ Typo in Table 4 fixed to reflect correct recall of presented system.</revision>
       <author><first>Joelle</first><last>Pineau</last></author>
       <pages>62–66</pages>
       <abstract>How can we teach artificial agents to use human language flexibly to solve problems in real-world environments? We have an example of this in nature: human babies eventually learn to use human language to solve problems, and they are taught with an adult human-in-the-loop. Unfortunately, current machine learning methods (e.g. from deep reinforcement learning) are too data inefficient to learn language in this way. An outstanding goal is finding an algorithm with a suitable ‘language learning prior’ that allows it to learn human language, while minimizing the number of on-policy human interactions. In this paper, we propose to learn such a prior in simulation using an approach we call, Learning to Learn to Communicate (L2C). Specifically, in L2C we train a meta-learning agent in simulation to interact with populations of pre-trained agents, each with their own distinct communication protocol. Once the meta-learning agent is able to quickly adapt to each population of agents, it can be deployed in new populations, including populations speaking human language. Our key insight is that such populations can be obtained via self-play, after pre-training agents with imitation learning on a small amount of off-policy human language data. We call this latter technique Seeded Self-Play (S2P). Our preliminary experiments show that agents trained with L2C and S2P need fewer on-policy samples to learn a compositional language in a Lewis signaling game.</abstract>
-      <url hash="eac7dcf7">D19-6409</url>
+      <url hash="a57f3d4d">D19-6409</url>
       <doi>10.18653/v1/D19-6409</doi>
+      <revision id="1" href="D19-6409v1" hash="eac7dcf7"/>
+      <revision id="2" href="D19-6409v2" hash="a57f3d4d" date="2021-01-03">Updated title</revision>
     </paper>
   </volume>
   <volume id="65" ingest-date="2019-11-03">

@@ -64,6 +64,14 @@ The following information in the spreadsheet is especially important:
    A [slugified](https://en.wikipedia.org/wiki/Clean_URL#Slug) version of this acronym, containing only numerals and lowercase ASCII letters, is used in the URL for the venue's page on the Anthology (e.g., [ACL → acl](https://www.aclweb.org/anthology/venues/acl), [JEP/TALN/RECITAL → jeptalnrecital](https://www.aclweb.org/anthology/venues/jeptalnrecital)), and also forms a component of the [Anthology ID]({{< relref "ids.md" >}}).
    For existing venues, be sure to look up [the venue's existing identifier](https://www.aclweb.org/anthology/venues/).
    New venues must have their venue identifier confirmed by the Anthology director.
+   Note: a common mistake is to include the year in the venue identifier, e.g., ACL2020 (perhaps in part because Softconf often uses this).
+   This confuses a *meeting* of a venue with the venue itself.
+   The identifier should not have the year or meeting number in it.
+-  **Venue name**. Each venue has a name.
+   These names are attached to the venue identifier and stored in [our database](https://github.com/acl-org/acl-anthology/blob/master/data/yaml/venues.yaml).
+   If your venue is new, please enter the venue name.
+   Note: similar to the caveat about about the venue identifier, this is the name of the venue, not a particular meeting of the venue.
+   When submitting a new venue to the Anthology, please make sure *not* to put the year or meeting number in the venue name.
 -  **Volume titles**. These are the titles of the volumes that will be published, e.g., *Proceedings of the...*.
    We recommend you choose a name consistent with your prior years' volumes.
    The full titles should not contain abbreviations, except parenthetically.
