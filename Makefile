@@ -326,10 +326,10 @@ upload-mirror:
 .PHONY: preview
 preview:
 	make --version
-	@if [[ "$(ANTHOLOGYDIR)" =~ ^previews ]]; then \
+	@if [[ "$(ANTHOLOGYDIR)" != "" ]]; then \
 	  echo "INFO     Running rsync for the '$(ANTHOLOGYDIR)' branch preview..."; \
-	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/aclanthology.org/${ANTHOLOGYDIR}; \
+	  rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/${ANTHOLOGYDIR}/ anthologizer@aclanthology.org:/var/www/preview.aclanthology.org/${ANTHOLOGYDIR}; \
 	else \
-	  echo "FATAL    ANTHOLOGYDIR must have the format previews/{branch_name} (found '$(ANTHOLOGYDIR)')"; \
+	  echo "FATAL    ANTHOLOGYDIR must contain the preview name, but was empty"; \
 	  exit 1; \
 	fi
