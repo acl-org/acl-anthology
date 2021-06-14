@@ -51,6 +51,9 @@
 {{ $anthology_id := .Params.anthology_id }}
 {{ $volume_id := index (split .Params.anthology_id "-") 0 }}
 {{ $paper := index (index .Site.Data.papers $volume_id) .Params.anthology_id }}
+{{ $has_bib := fileExists (printf "/data-export/%s.bib" $anthology_id) }}
+{{ $has_xml := fileExists (printf "/data-export/%s.xml" $anthology_id) }}
+{{ $has_endf := fileExists (printf "/data-export/%s.endf" $anthology_id) }}
 <section id="main">
   <h2 id="title">
     {{ with $paper.pdf }}
@@ -161,16 +164,16 @@
       -->
       <dt class="acl-button-row">Bib Export formats:</dt>
       <dd class="acl-button-row">
-      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
+      {{ if $has_bib }}
         <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}">BibTeX</a>
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s.xml" $anthology_id)) }}
+      {{ if $has_xml }}
         <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s.endf" $anthology_id)) }}
+      {{ if $has_endf }}
         <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}">EndNote</a>
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
+      {{ if $has_bib }}
         <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s.bib" $anthology_id) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
       {{ end }}
       </dd>
@@ -257,7 +260,7 @@
               </div>
             </div>
             <div class="tab-pane active" id="citeBibtex" role="tabpanel">
-              {{- if (fileExists (printf "/data-export/%s.bib" $anthology_id)) -}}
+              {{- if $has_bib -}}
               <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">
                 {{- readFile (printf "/data-export/%s.bib" $anthology_id) -}}
               </pre>
@@ -268,7 +271,7 @@
               {{- end -}}
             </div>
             <div class="tab-pane" id="citeMods" role="tabpanel">
-              {{- if (fileExists (printf "/data-export/%s.xml" $anthology_id)) -}}
+              {{- if $has_xml -}}
               <pre id="citeModsContent" class="bg-light border p-2" style="max-height: 50vh;">
                 {{- readFile (printf "/data-export/%s.xml" $anthology_id) -}}
               </pre>
@@ -279,7 +282,7 @@
               {{- end -}}
             </div>
             <div class="tab-pane" id="citeEndnote" role="tabpanel">
-              {{- if (fileExists (printf "/data-export/%s.endf" $anthology_id)) -}}
+              {{- if $has_endf -}}
               <pre id="citeEndnoteContent" class="bg-light border p-2" style="max-height: 50vh;">
                 {{- readFile (printf "/data-export/%s.endf" $anthology_id) -}}
               </pre>
