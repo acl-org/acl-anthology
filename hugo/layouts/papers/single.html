@@ -66,9 +66,6 @@
       {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   {{ end }}
-  {{ with $paper.citation }}
-  <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-toggle="tooltip" title="Copy summary to clipboard" data-clipboard-text="{{ . }}"><i class="far fa-clipboard"></i></button>
-  {{ end }}
   <hr />
 
   <div class="row acl-paper-details">
