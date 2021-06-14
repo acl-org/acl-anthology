@@ -40,7 +40,18 @@
 <script>
   $( document ).ready(function() {
       if (ClipboardJS.isSupported()) {
-          new ClipboardJS(".btn-clipboard");
+          var clipboard = new ClipboardJS(".btn-clipboard");
+          clipboard.on('success', function(e) {
+              var src = $(e.trigger);
+              src.toggleClass("btn-primary btn-success");
+              src.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check");
+              e.clearSelection();
+
+              setTimeout(function() {
+                  src.toggleClass("btn-primary btn-success");
+                  src.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check");
+              }, 2000);
+          });
           $(".btn-clipboard").removeClass("d-none");
       }
   });
