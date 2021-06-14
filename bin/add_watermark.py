@@ -41,7 +41,7 @@ from anthology.utils import (
     retrieve_url,
     is_newstyle_id,
 )
-from anthology.data import ANTHOLOGY_PDF, ANTHOLOGY_URL
+from anthology.data import CANONICAL_URL_TEMPLATE, PDF_LOCATION_TEMPLATE
 
 from datetime import datetime
 
@@ -58,7 +58,8 @@ template = Template(
             unicode=true
 }
 
-\newwatermark[allpages,color=red!80,angle=45,scale=3,xpos=0,ypos=0]{WITHDRAWN}
+% "allpages" didn't work
+\newwatermark[pages=1-1000,color=red!80,angle=45,scale=3,xpos=0,ypos=0]{WITHDRAWN}
 
 % set A4
 \setlength{\paperwidth}{21cm}
@@ -77,15 +78,15 @@ template = Template(
   \put(105,290){\makebox(0,0){This paper was withdrawn. For more information, see \url{$url}.}}
 }
 
-\includepdf[pages={1}]{$file}
+\includepdf[pages=-]{$file}
 
 \end{document}"""
 )
 
 
 def main(args):
-    page = ANTHOLOGY_URL.format(args.anthology_id)
-    url = ANTHOLOGY_PDF.format(args.anthology_id)
+    page = CANONICAL_URL_TEMPLATE.format(args.anthology_id)
+    url = PDF_LOCATION_TEMPLATE.format(args.anthology_id)
     _, pdf_file = tempfile.mkstemp(suffix=".pdf")
     retrieve_url(url, pdf_file)
 
