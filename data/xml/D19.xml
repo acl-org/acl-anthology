@@ -5001,7 +5001,7 @@
       <title>Distributionally Robust Language Modeling</title>
       <author><first>Yonatan</first><last>Oren</last></author>
       <author><first>Shiori</first><last>Sagawa</last></author>
-      <author><first>Tatsunori</first><last>Hashimoto</last></author>
+      <author><first>Tatsunori B.</first><last>Hashimoto</last></author>
       <author><first>Percy</first><last>Liang</last></author>
       <pages>4227–4237</pages>
       <abstract>Language models are generally trained on data spanning a wide range of topics (e.g., news, reviews, fiction), but they might be applied to an a priori unknown target distribution (e.g., restaurant reviews). In this paper, we first show that training on text outside the test distribution can degrade test performance when using standard maximum likelihood (MLE) training. To remedy this without the knowledge of the test distribution, we propose an approach which trains a model that performs well over a wide range of potential test distributions. In particular, we derive a new distributionally robust optimization (DRO) procedure which minimizes the loss of the model over the worst-case mixture of topics with sufficient overlap with the training distribution. Our approach, called topic conditional value at risk (topic CVaR), obtains a 5.5 point perplexity reduction over MLE when the language models are trained on a mixture of Yelp reviews and news and tested only on reviews.</abstract>
@@ -6152,9 +6152,12 @@
       <author><first>Simone</first><last>Teufel</last></author>
       <pages>5267–5275</pages>
       <abstract>This paper treats gender bias latent in word embeddings. Previous mitigation attempts rely on the operationalisation of gender bias as a projection over a linear subspace. An alternative approach is Counterfactual Data Augmentation (CDA), in which a corpus is duplicated and augmented to remove bias, e.g. by swapping all inherently-gendered words in the copy. We perform an empirical comparison of these approaches on the English Gigaword and Wikipedia, and find that whilst both successfully reduce direct bias and perform well in tasks which quantify embedding quality, CDA variants outperform projection-based methods at the task of drawing non-biased gender analogies by an average of 19% across both corpora. We propose two improvements to CDA: Counterfactual Data Substitution (CDS), a variant of CDA in which potentially biased text is randomly substituted to avoid duplication, and the Names Intervention, a novel name-pairing technique that vastly increases the number of words being treated. CDA/S with the Names Intervention is the only approach which is able to mitigate indirect gender bias: following debiasing, previously biased words are significantly less clustered according to gender (cluster purity is reduced by 49%), thus improving on the state-of-the-art for bias mitigation.</abstract>
-      <url hash="7cc444af">D19-1530</url>
+      <url hash="38c0ed9e">D19-1530</url>
       <attachment hash="862fcf18">D19-1530.Attachment.zip</attachment>
       <doi>10.18653/v1/D19-1530</doi>
+      <revision id="1" href="D19-1530v1" hash="7cc444af"/>
+      <revision id="2" href="D19-1530v2" hash="38c0ed9e" date="2021-05-02">type correction and added a new figure</revision>
+      <attachment type="supplementary" hash="be6d27cf">D19-1530.Supplementary.pdf</attachment>
     </paper>
     <paper id="531">
       <title>Examining Gender Bias in Languages with Grammatical Gender</title>
@@ -12640,8 +12643,10 @@ Typo in Table 4 fixed to reflect correct recall of presented system.</revision>
       <author><first>Joelle</first><last>Pineau</last></author>
       <pages>62–66</pages>
       <abstract>How can we teach artificial agents to use human language flexibly to solve problems in real-world environments? We have an example of this in nature: human babies eventually learn to use human language to solve problems, and they are taught with an adult human-in-the-loop. Unfortunately, current machine learning methods (e.g. from deep reinforcement learning) are too data inefficient to learn language in this way. An outstanding goal is finding an algorithm with a suitable ‘language learning prior’ that allows it to learn human language, while minimizing the number of on-policy human interactions. In this paper, we propose to learn such a prior in simulation using an approach we call, Learning to Learn to Communicate (L2C). Specifically, in L2C we train a meta-learning agent in simulation to interact with populations of pre-trained agents, each with their own distinct communication protocol. Once the meta-learning agent is able to quickly adapt to each population of agents, it can be deployed in new populations, including populations speaking human language. Our key insight is that such populations can be obtained via self-play, after pre-training agents with imitation learning on a small amount of off-policy human language data. We call this latter technique Seeded Self-Play (S2P). Our preliminary experiments show that agents trained with L2C and S2P need fewer on-policy samples to learn a compositional language in a Lewis signaling game.</abstract>
-      <url hash="eac7dcf7">D19-6409</url>
+      <url hash="a57f3d4d">D19-6409</url>
       <doi>10.18653/v1/D19-6409</doi>
+      <revision id="1" href="D19-6409v1" hash="eac7dcf7"/>
+      <revision id="2" href="D19-6409v2" hash="a57f3d4d" date="2021-01-03">Updated title</revision>
     </paper>
   </volume>
   <volume id="65" ingest-date="2019-11-03">

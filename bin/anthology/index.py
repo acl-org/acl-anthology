@@ -39,6 +39,24 @@ def load_stopwords(language):
     return [t for w in get_stop_words(language) for t in slugify(w).split("-")]
 
 
+def score_variant(name):
+    """Heuristically assign scores to names, with the idea of assigning higher
+    scores to spellings more likely to be the correct canonical variant."""
+    name = repr(name)
+    # Prefer longer variants
+    score = len(name)
+    # Prefer variants with non-ASCII characters
+    score += sum((ord(c) > 127) for c in name)
+    # Penalize upper-case characters after word boundaries
+    score -= sum(any(c.isupper() for c in w[1:]) for w in re.split(r"\W+", name))
+    # Penalize lower-case characters at word boundaries
+    score -= sum(w[0].islower() if w else 0 for w in re.split(r"\W+", name))
+    if name[0].islower():  # extra penalty for first name
+        score -= 1
+
+    return score
+
+
 class AnthologyIndex:
     """Keeps an index of persons, their associated papers, paper bibliography
     keys, etc.."""
@@ -96,7 +114,7 @@ class AnthologyIndex:
                                 canonical
                             )
                         )
-                    id_ = self.fresh_id(canonical)
+                    id_ = self.generate_id(canonical)
                     self.set_canonical_name(id_, canonical)
                 for variant in variants:
                     variant = PersonName.from_dict(variant)
@@ -270,17 +288,16 @@ class AnthologyIndex:
         #                )
         #            )
         for name, d in self.name_to_papers.items():
-            if len(d[False]) > 0 and len(d[True]) > 0:
+            # name appears with more than one explicit id and also
+            # appears without id at least once
+            if len(d[False]) > 0 and len(d[True]) > 1:
                 log.error(
-                    "Name '{}' is used both with and without explicit id".format(
+                    "Name '{}' is ambiguous and is used without explicit id".format(
                         repr(name)
                     )
                 )
                 log.error(
                     "  Please add an id to paper(s):   {}".format(" ".join(d[False]))
-                )
-                log.error(
-                    "  Or remove the id from paper(s): {}".format(" ".join(d[True]))
                 )
 
     def personids(self):
@@ -290,13 +307,11 @@ class AnthologyIndex:
         return self.id_to_canonical[id_]
 
     def set_canonical_name(self, id_, name):
-        if id_ in self.id_to_canonical:
-            log.error(
-                "Person id '{}' is used by both '{}' and '{}'".format(
-                    id_, name, self.id_to_canonical[id_]
-                )
-            )
-        self.id_to_canonical[id_] = name
+        if (not id_ in self.id_to_canonical) or (
+            score_variant(name) > score_variant(self.id_to_canonical[id_])
+        ):
+            # if name not seen yet, or if this version has more accents
+            self.id_to_canonical[id_] = name
         self.name_to_ids[name].append(id_)
 
     def add_variant_name(self, id_, name):
@@ -314,7 +329,7 @@ class AnthologyIndex:
         :return: A list of name ID strings.
         """
         if name not in self.name_to_ids:
-            id_ = self.fresh_id(name)
+            id_ = self.generate_id(name)
             self.set_canonical_name(id_, name)
 
         return sorted(self.name_to_ids[name])
@@ -323,7 +338,7 @@ class AnthologyIndex:
         """
         Returns the comment associated with the name ID.
 
-        :param id_: The name ID (e.g., "fei-liu-ftdallas")
+        :param id_: The name ID (e.g., "fei-liu-utdallas")
         :return: The comment (e.g., "UT Dallas, Bosch, CMU, University of Central Florida")
         """
         return self.comments.get(id_, None)
@@ -346,12 +361,16 @@ class AnthologyIndex:
         d["id"] = id_
         return d
 
-    def fresh_id(self, name):
+    # This just slugifies the name - not guaranteed to be a "fresh" id.
+    # If two names slugify to the same thing, we assume they are the same person.
+    # This happens when there are missing accents in one version, or
+    # when we have an inconsistent first/last split for multiword names.
+    # These cases have in practice always referred to the same person.
+    def generate_id(self, name):
         assert name not in self.name_to_ids, name
-        slug, i = slugify(repr(name)), 0
-        while slug == "" or slug in self.id_to_canonical:
-            i += 1
-            slug = "{}{}".format(slugify(repr(name)), i)
+        slug = slugify(repr(name))
+        if slug == "":
+            slug = "none"
         return slug
 
     def get_papers(self, id_, role=None):
