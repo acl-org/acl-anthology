@@ -209,11 +209,9 @@
         </a>
         {{ end }}
       {{ end }}
-      {{ if (fileExists (printf "/data-export/%s.bib" $anthology_id)) }}
-      <a class="btn btn-secondary" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}" title="Export '{{ $paper.title | htmlEscape }}' to bib format">
-        <i class="fas fa-file-export"></i><span class="pl-2 transform-lower-sm">Bib</span><span class="d-none d-sm-inline">TeX</span>
+      <a type="button" class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal">
+        <i class="fas fa-file-export"></i><span class="pl-2">Cite</span>
       </a>
-      {{ end }}
       <a class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
         <i class="ai ai-google-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
@@ -226,5 +224,78 @@
     </div>
   </div>
   <hr />
+
+  <div class="modal fade" id="citeModal" tabindex="-1" role="dialog" aria-labelledby="citeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="citeModalLabel">Export citation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-tabs mb-2" id="citeFormats" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="false">Markdown</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="true">BibTeX</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="list" href="#citeMods" role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="list" href="#citeEndnote" role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
+            </li>
+          </ul>
+
+          <div class="tab-content" id="citeFormatsContent">
+            <div class="tab-pane" id="citeMarkdown" role="tabpanel">
+              <p id="citeMarkdownContent" class="text-monospace small bg-light border p-2">
+                {{- $paper.citation -}}
+              </p>
+              <div class="modal-footer pb-1">
+                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+              </div>
+            </div>
+            <div class="tab-pane active" id="citeBibtex" role="tabpanel">
+              {{- if (fileExists (printf "/data-export/%s.bib" $anthology_id)) -}}
+              <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">
+                {{- readFile (printf "/data-export/%s.bib" $anthology_id) -}}
+              </pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
+                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+              </div>
+              {{- end -}}
+            </div>
+            <div class="tab-pane" id="citeMods" role="tabpanel">
+              {{- if (fileExists (printf "/data-export/%s.xml" $anthology_id)) -}}
+              <pre id="citeModsContent" class="bg-light border p-2" style="max-height: 50vh;">
+                {{- readFile (printf "/data-export/%s.xml" $anthology_id) -}}
+              </pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
+                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+              </div>
+              {{- end -}}
+            </div>
+            <div class="tab-pane" id="citeEndnote" role="tabpanel">
+              {{- if (fileExists (printf "/data-export/%s.endf" $anthology_id)) -}}
+              <pre id="citeEndnoteContent" class="bg-light border p-2" style="max-height: 50vh;">
+                {{- readFile (printf "/data-export/%s.endf" $anthology_id) -}}
+              </pre>
+              <div class="modal-footer pb-1">
+                <a class="btn btn-secondary" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
+                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+              </div>
+              {{- end -}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 {{ end }}
