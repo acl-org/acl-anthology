@@ -13,7 +13,7 @@ assignees: mjpost
 
 ## Changes to the author list
 
-you need permission from the relevant conference program chairs if you
+You need permission from the relevant conference program chairs if you
 want to change the author list in the metadata, see
 [the notes on author changes](https://www.aclweb.org/anthology/info/corrections/#note-on-author-changes)
 
