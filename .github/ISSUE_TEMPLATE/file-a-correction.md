@@ -11,7 +11,16 @@ assignees: mjpost
 
 [See here](https://www.aclweb.org/anthology/info/corrections/) to read about the three types of corrections.
 
-## Metadata correction: please describe the issue here**
+## Changes to the author list
+
+You need permission from the relevant conference program chairs if you
+want to change the author list in the metadata, see
+[the notes on author changes](https://www.aclweb.org/anthology/info/corrections/#note-on-author-changes)
+
+ - [ ] I have read the note on author changes and will contact the program chairs
+       for permission to be posted here or via email.
+
+## Other metadata correction: please describe the issue here**
 
 
 ## Revision or erratum: please add the following information**
