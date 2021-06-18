@@ -188,12 +188,15 @@
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
+      {{ with $paper.citation }}
+      <dt>Short Cite:</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
+      {{ end }}
       <dt class="acl-button-row">Copy Citation:</dt>
       <dd class="acl-button-row">
-        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Markdown</button>
       {{ if $has_bib }}
         <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>BibTeX</button>
       {{ end }}
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Markdown</button>
       {{ if $has_xml }}
         <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>MODS XML</button>
       {{ end }}
@@ -202,9 +205,6 @@
       {{ end }}
         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#citeModal">More options…</button>
       </dd>
-      {{ with $paper.citation }}
-      <dt>Citation (short):</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
-      {{ end }}
 
       {{ with $paper.pdf }}
       <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
@@ -237,8 +237,8 @@
         </a>
         {{ end }}
       {{ end }}
-      <a type="button" class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal">
-        <i class="fas fa-file-export"></i><span class="pl-2">Cite</span>
+      <a type="button" class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal" href="#">
+        <i class="fas fa-quote-left"></i><span class="pl-2">Cite</span>
       </a>
       <a class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
         <i class="ai ai-google-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
@@ -263,16 +263,12 @@
           </button>
         </div>
         <div class="modal-body">
-          <ul class="border-bottom pb-3">
-            <li>{{ $paper.citation | markdownify }}</li>
-          </ul>
-
           <ul class="nav nav-tabs mb-2" id="citeFormats" role="tablist">
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_bib }}active{{ end }}" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $has_bib }}false{{ else }}true{{ end }}">Markdown</a>
+              <a class="nav-link {{ if not $has_bib }}disabled{{ else }}active{{ end }}" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="{{ if $has_bib }}true{{ else }}false{{ end }}">BibTeX</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_bib }}disabled{{ else }}active{{ end }}" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="{{ if $has_bib }}true{{ else }}false{{ end }}">BibTeX</a>
+              <a class="nav-link {{ if not $has_bib }}active{{ end }}" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $has_bib }}false{{ else }}true{{ end }}">Markdown</a>
             </li>
             <li class="nav-item">
               <a class="nav-link {{ if not $has_xml }}disabled{{ end }}" data-toggle="list" href="#citeMods" role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
@@ -283,14 +279,6 @@
           </ul>
 
           <div class="tab-content" id="citeFormatsContent">
-            <div class="tab-pane" id="citeMarkdown" role="tabpanel">
-              <p id="citeMarkdownContent" class="text-monospace small bg-light border p-2">
-                {{- $paper.citation -}}
-              </p>
-              <div class="modal-footer pb-1">
-                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
-              </div>
-            </div>
             <div class="tab-pane active" id="citeBibtex" role="tabpanel">
               {{- if $has_bib -}}
               <pre id="citeBibtexContent" class="bg-light border p-2" style="max-height: 50vh;">
@@ -301,6 +289,17 @@
                 <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
+            </div>
+            <div class="tab-pane" id="citeMarkdown" role="tabpanel">
+              <p id="citeMarkdownContent" class="text-monospace small bg-light border p-2">
+                {{- $paper.citation -}}
+              </p>
+              <ul class="mt-2">
+                <li>{{- $paper.citation | markdownify -}}</li>
+              </ul>
+              <div class="modal-footer pb-1">
+                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+              </div>
             </div>
             <div class="tab-pane" id="citeMods" role="tabpanel">
               {{- if $has_xml -}}
