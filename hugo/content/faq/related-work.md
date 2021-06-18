@@ -18,4 +18,4 @@ A 2018 paper gave a technical description of the Anthology at the time:
 
 It is now out of date, but helped direct changes to the Anthology that occurred in 2019.
 
-Many other [publications based on the ACL Anthology](https://scholar.google.de/scholar?q=acl+anthology) exist.
+Many other [publications based on the ACL Anthology](https://www.semanticscholar.org/search?q=acl+anthology) exist.
