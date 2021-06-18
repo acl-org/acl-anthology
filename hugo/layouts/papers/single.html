@@ -40,8 +40,8 @@
 <script>
   $( document ).ready(function() {
       if (ClipboardJS.isSupported()) {
-          var clipboard = new ClipboardJS(".btn-clipboard");
-          clipboard.on('success', function(e) {
+          success_fn = function(e) {
+              // turns button into "copy successful"-style for 2 seconds
               var src = $(e.trigger);
               src.toggleClass("btn-success");
               src.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check");
@@ -51,8 +51,23 @@
                   src.toggleClass("btn-success");
                   src.children("i").toggleClass("far fa-clipboard fas fa-clipboard-check");
               }, 2000);
-          });
+          };
+
+          var clipboard = new ClipboardJS(".btn-clipboard");
+          clipboard.on('success', success_fn);
           $(".btn-clipboard").removeClass("d-none");
+
+          // buttons outside the "cite" popup can't copy the content the usual way
+          // because the content element is hidden at the time; therefore we fetch
+          // and return the text to be copied manually
+          var clipboard_outside = new ClipboardJS(".btn-clipboard-outside", {
+              text: function(trigger) {
+                  var target = trigger.getAttribute("data-clipboard-target");
+                  return $(target).text();
+              }
+          });
+          clipboard_outside.on('success', success_fn);
+          $(".btn-clipboard-outside").removeClass("d-none");
       }
   });
 </script>
@@ -173,23 +188,22 @@
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
-      <dt class="acl-button-row">Bib Export formats:</dt>
+      <dt class="acl-button-row">Copy Citation:</dt>
       <dd class="acl-button-row">
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Markdown</button>
       {{ if $has_bib }}
-        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}">BibTeX</a>
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>BibTeX</button>
       {{ end }}
       {{ if $has_xml }}
-        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}">MODS XML</a>
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>MODS XML</button>
       {{ end }}
       {{ if $has_endf }}
-        <a class="btn btn-secondary btn-sm" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}">EndNote</a>
+        <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Endnote</button>
       {{ end }}
-      {{ if $has_bib }}
-        <button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none" data-clipboard-text="{{ readFile (printf "/data-export/%s.bib" $anthology_id) }}"><i class="far fa-clipboard pr-2"></i>Copy BibTeX to Clipboard</button>
-      {{ end }}
+        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#citeModal">More options…</button>
       </dd>
       {{ with $paper.citation }}
-      <dt>Citation (short):</dt><dd>{{ markdownify . }}</dd>
+      <dt>Citation (short):</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
       {{ end }}
 
       {{ with $paper.pdf }}
