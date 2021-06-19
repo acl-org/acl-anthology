@@ -188,6 +188,9 @@
       <dt>Bibkey:</dt>
       <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
+      {{ with $paper.citation_acl }}
+      <dt>Citation (ACL):</dt><dd><span id="citeACL">{{ safeHTML . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeACL"><i class="far fa-clipboard"></i></button></dd>
+      {{ end }}
       {{ with $paper.citation }}
       <dt>Short Cite:</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
       {{ end }}

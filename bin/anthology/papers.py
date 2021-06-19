@@ -16,6 +16,10 @@
 
 import iso639
 import logging as log
+import citeproc
+from citeproc.source.json import CiteProcJSON
+import citeproc_styles
+
 from .utils import (
     build_anthology_id,
     parse_element,
@@ -31,6 +35,28 @@ from . import data
 from .formatter import bibtex_encode, bibtex_make_entry
 
 
+CSL_STYLES = {}
+
+
+def bibtype_to_csl(bibtype):
+    """Convert a BibTeX entry type to a CSL type."""
+    types = {
+        "article": "article-journal",
+        "inproceedings": "paper-conference",
+        "proceedings": "book",
+    }
+    return types[bibtype]
+
+
+def get_csl_style(style):
+    global CSL_STYLES
+    if style not in CSL_STYLES:
+        CSL_STYLES[style] = citeproc.CitationStylesStyle(
+            citeproc_styles.get_style_filepath(style)
+        )
+    return CSL_STYLES[style]
+
+
 class Paper:
     def __init__(self, paper_id, ingest_date, volume, formatter, venue_index=None):
         self.parent_volume = volume
@@ -39,6 +65,7 @@ class Paper:
         self._id = paper_id
         self._ingest_date = ingest_date
         self._bibkey = False
+        self._citeproc_json = None
         self.is_volume = paper_id == "0"
 
         # initialize metadata with keys inherited from volume
@@ -140,6 +167,9 @@ class Paper:
             paper.full_id
         )
         paper.attrib["citation"] = paper.as_markdown()
+        paper.attrib["citation_acl"] = paper.as_citation_html(
+            "association-for-computational-linguistics"
+        )
 
         return paper
 
@@ -316,6 +346,63 @@ class Paper:
 
         # Serialize it
         return bibtex_make_entry(bibkey, bibtype, entries)
+
+    def as_citeproc_json(self):
+        """Return a citation object suitable for CiteProcJSON."""
+        if self._citeproc_json is None:
+            json = {
+                "id": self.bibkey,
+                "title": self.get_title(form="text"),
+                "type": bibtype_to_csl(self.bibtype),
+            }
+            if "author" in self.attrib:
+                json["author"] = [p.as_citeproc_json() for p, _ in self.get("author")]
+            if "editor" in self.attrib:
+                # or should this be "container-author"/"collection-editor" here?
+                json["editor"] = [p.as_citeproc_json() for p, _ in self.get("editor")]
+            if is_journal(self.full_id):
+                json["container-title"] = self.parent_volume.get("meta_journal_title")
+                journal_volume = self.parent_volume.get(
+                    "meta_volume", self.parent_volume.get("volume")
+                )
+                if journal_volume:
+                    json["volume"] = journal_volume
+                journal_issue = self.parent_volume.get(
+                    "meta_issue", self.parent_volume.get("issue")
+                )
+                if journal_issue:
+                    json["issue"] = journal_issue
+            else:
+                if "xml_booktitle" in self.attrib:
+                    json["container-title"] = self.get_booktitle(form="text")
+                elif self.bibtype != "proceedings":
+                    json["container-title"] = self.parent_volume.get_title(form="text")
+            json["publisher"] = self.get("publisher", "")
+            json["publisher-place"] = self.get("address", "")
+            json["issued"] = {
+                "date-parts": [
+                    [self.get("year")]
+                ]  # TODO: month needs to be a numeral to be included
+            }
+            for entry in ("url", "doi"):
+                if entry in self.attrib:
+                    json[entry.upper()] = self.get(entry)
+            if "pages" in self.attrib:
+                json["page"] = self.get("pages")
+            if self.isbn:
+                json["ISBN"] = self.isbn
+            self._citeproc_json = [json]
+        return self._citeproc_json
+
+    def as_citation_html(self, style="association-for-computational-linguistics"):
+        csl_style = get_csl_style(style)
+        source = CiteProcJSON(self.as_citeproc_json())
+        item = [citeproc.CitationItem(self.bibkey)]
+        bib = citeproc.CitationStylesBibliography(
+            csl_style, source, citeproc.formatter.html
+        )
+        bib.register(citeproc.Citation(item))
+        return str(bib.style.render_bibliography(item)[0])
 
     def as_markdown(self, concise=False):
         """Return a Markdown-formatted entry."""
