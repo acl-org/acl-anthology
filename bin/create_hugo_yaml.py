@@ -48,6 +48,9 @@ from create_hugo_pages import check_directory
 def export_anthology(anthology, outdir, clean=False, dryrun=False):
     # Prepare paper index
     papers = defaultdict(dict)
+    citation_styles = {
+        "acl": "association-for-computational-linguistics",
+    }
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
@@ -68,6 +71,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             data["editor"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["editor"]
             ]
+        for abbrev, style in citation_styles.items():
+            data[f"citation_{abbrev}"] = paper.as_citation_html(style)
         papers[paper.collection_id][paper.full_id] = data
 
     # Prepare people index

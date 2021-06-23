@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2021 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 import logging as log
 from copy import deepcopy
 from lxml import etree
+import citeproc
+import citeproc_styles
 import codecs
 import re
 
@@ -42,6 +44,35 @@ _BIBTEX_MONTHS = {
     "november": "nov",
     "december": "dec",
 }
+
+_CSL_STYLES = {}
+
+
+def bibtype_to_csl(bibtype):
+    """Convert a BibTeX entry type to a CSL type.
+
+    Will raise KeyError for unimplemented types so we know to explicitly handle
+    them if we include them.
+    """
+    types = {
+        "article": "article-journal",
+        "inproceedings": "paper-conference",
+        "proceedings": "book",
+    }
+    return types[bibtype]
+
+
+def get_csl_style(style):
+    """Loads a CSL file.
+
+    Style object is cached in a global variable.
+    """
+    global _CSL_STYLES
+    if style not in _CSL_STYLES:
+        _CSL_STYLES[style] = citeproc.CitationStylesStyle(
+            citeproc_styles.get_style_filepath(style)
+        )
+    return _CSL_STYLES[style]
 
 
 def bibtex_encode(text):

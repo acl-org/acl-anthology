@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2021 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ import iso639
 import logging as log
 import citeproc
 from citeproc.source.json import CiteProcJSON
-import citeproc_styles
 
 from .utils import (
     build_anthology_id,
@@ -31,30 +30,8 @@ from .utils import (
 )
 from . import data
 
-# For BibTeX export
-from .formatter import bibtex_encode, bibtex_make_entry
-
-
-CSL_STYLES = {}
-
-
-def bibtype_to_csl(bibtype):
-    """Convert a BibTeX entry type to a CSL type."""
-    types = {
-        "article": "article-journal",
-        "inproceedings": "paper-conference",
-        "proceedings": "book",
-    }
-    return types[bibtype]
-
-
-def get_csl_style(style):
-    global CSL_STYLES
-    if style not in CSL_STYLES:
-        CSL_STYLES[style] = citeproc.CitationStylesStyle(
-            citeproc_styles.get_style_filepath(style)
-        )
-    return CSL_STYLES[style]
+# For bibliography export
+from .formatter import bibtex_encode, bibtex_make_entry, bibtype_to_csl, get_csl_style
 
 
 class Paper:
@@ -167,9 +144,6 @@ class Paper:
             paper.full_id
         )
         paper.attrib["citation"] = paper.as_markdown()
-        paper.attrib["citation_acl"] = paper.as_citation_html(
-            "association-for-computational-linguistics"
-        )
 
         return paper
 
