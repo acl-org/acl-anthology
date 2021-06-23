@@ -50,6 +50,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     papers = defaultdict(dict)
     citation_styles = {
         "acl": "association-for-computational-linguistics",
+        "apa": "apa-6th-edition",
+        "mla": "modern-language-association-7th-edition",
     }
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))

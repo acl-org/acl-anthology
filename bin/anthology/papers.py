@@ -31,7 +31,12 @@ from .utils import (
 from . import data
 
 # For bibliography export
-from .formatter import bibtex_encode, bibtex_make_entry, bibtype_to_csl, get_csl_style
+from .formatter import (
+    bibtex_encode,
+    bibtex_make_entry,
+    bibtype_to_csl,
+    get_csl_style,
+)
 
 
 class Paper:
@@ -376,7 +381,8 @@ class Paper:
             csl_style, source, citeproc.formatter.html
         )
         bib.register(citeproc.Citation(item))
-        return str(bib.style.render_bibliography(item)[0])
+        html = str(bib.style.render_bibliography(item)[0])
+        return html
 
     def as_markdown(self, concise=False):
         """Return a Markdown-formatted entry."""
