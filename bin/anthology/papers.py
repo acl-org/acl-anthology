@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019-2021 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,8 +16,6 @@
 
 import iso639
 import logging as log
-import citeproc
-from citeproc.source.json import CiteProcJSON
 
 from .utils import (
     build_anthology_id,
@@ -31,23 +29,16 @@ from .utils import (
 from . import data
 
 # For bibliography export
-from .formatter import (
-    bibtex_encode,
-    bibtex_make_entry,
-    bibtype_to_csl,
-    get_csl_style,
-)
+from .formatter import bibtex_encode, bibtex_make_entry
 
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter, venue_index=None):
+    def __init__(self, paper_id, ingest_date, volume, formatter):
         self.parent_volume = volume
         self.formatter = formatter
-        self.venue_index = venue_index
         self._id = paper_id
         self._ingest_date = ingest_date
         self._bibkey = False
-        self._citeproc_json = None
         self.is_volume = paper_id == "0"
 
         # initialize metadata with keys inherited from volume
@@ -148,7 +139,6 @@ class Paper:
         paper.attrib["thumbnail"] = data.PDF_THUMBNAIL_LOCATION_TEMPLATE.format(
             paper.full_id
         )
-        paper.attrib["citation"] = paper.as_markdown()
 
         return paper
 
@@ -325,88 +315,6 @@ class Paper:
 
         # Serialize it
         return bibtex_make_entry(bibkey, bibtype, entries)
-
-    def as_citeproc_json(self):
-        """Return a citation object suitable for CiteProcJSON."""
-        if self._citeproc_json is None:
-            json = {
-                "id": self.bibkey,
-                "title": self.get_title(form="text"),
-                "type": bibtype_to_csl(self.bibtype),
-            }
-            if "author" in self.attrib:
-                json["author"] = [p.as_citeproc_json() for p, _ in self.get("author")]
-            if "editor" in self.attrib:
-                # or should this be "container-author"/"collection-editor" here?
-                json["editor"] = [p.as_citeproc_json() for p, _ in self.get("editor")]
-            if is_journal(self.full_id):
-                json["container-title"] = self.parent_volume.get("meta_journal_title")
-                journal_volume = self.parent_volume.get(
-                    "meta_volume", self.parent_volume.get("volume")
-                )
-                if journal_volume:
-                    json["volume"] = journal_volume
-                journal_issue = self.parent_volume.get(
-                    "meta_issue", self.parent_volume.get("issue")
-                )
-                if journal_issue:
-                    json["issue"] = journal_issue
-            else:
-                if "xml_booktitle" in self.attrib:
-                    json["container-title"] = self.get_booktitle(form="text")
-                elif self.bibtype != "proceedings":
-                    json["container-title"] = self.parent_volume.get_title(form="text")
-            json["publisher"] = self.get("publisher", "")
-            json["publisher-place"] = self.get("address", "")
-            json["issued"] = {
-                "date-parts": [
-                    [self.get("year")]
-                ]  # TODO: month needs to be a numeral to be included
-            }
-            for entry in ("url", "doi"):
-                if entry in self.attrib:
-                    json[entry.upper()] = self.get(entry)
-            if "pages" in self.attrib:
-                json["page"] = self.get("pages")
-            if self.isbn:
-                json["ISBN"] = self.isbn
-            self._citeproc_json = [json]
-        return self._citeproc_json
-
-    def as_citation_html(self, style="association-for-computational-linguistics"):
-        csl_style = get_csl_style(style)
-        source = CiteProcJSON(self.as_citeproc_json())
-        item = [citeproc.CitationItem(self.bibkey)]
-        bib = citeproc.CitationStylesBibliography(
-            csl_style, source, citeproc.formatter.html
-        )
-        bib.register(citeproc.Citation(item))
-        html = str(bib.style.render_bibliography(item)[0])
-        return html
-
-    def as_markdown(self, concise=False):
-        """Return a Markdown-formatted entry."""
-        title = self.get_title(form="text")
-
-        authors = ""
-        for field in ("author", "editor"):
-            if field in self.attrib:
-                people = [person[0] for person in self.get(field)]
-                num_people = len(people)
-                if num_people == 1:
-                    authors = people[0].last
-                elif num_people == 2:
-                    authors = f"{people[0].last} & {people[1].last}"
-                elif num_people == 3:
-                    authors = f"{people[0].last}, {people[1].last}, & {people[2].last}"
-                elif num_people >= 4:
-                    authors = f"{people[0].last} et al."
-
-        year = self.get("year")
-        venue = self.venue_index.get_main_venue(self.parent_volume_id)
-
-        url = self.get("url")
-        return f"[{title}]({url}) ({authors}, {venue} {year})"
 
     def as_dict(self):
         value = self.attrib.copy()

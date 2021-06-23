@@ -83,13 +83,11 @@ class Volume:
 
         front_matter_xml = volume_xml.find("frontmatter")
         if front_matter_xml is not None:
-            front_matter = Paper.from_xml(
-                front_matter_xml, volume, formatter, venue_index
-            )
+            front_matter = Paper.from_xml(front_matter_xml, volume, formatter)
         else:
             # dummy front matter to make sure that editors of
             # volume get registered as people in author database
-            front_matter = Paper("0", ingest_date, volume, formatter, venue_index)
+            front_matter = Paper("0", ingest_date, volume, formatter)
         volume.add_frontmatter(front_matter)
 
         return volume
