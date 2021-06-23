@@ -403,7 +403,7 @@ class Paper:
         return f"[{title}]({url}) ({authors}, {venue} {year})"
 
     def as_dict(self):
-        value = self.attrib
+        value = self.attrib.copy()
         value["paper_id"] = self.paper_id
         value["parent_volume_id"] = self.parent_volume_id
         value["bibkey"] = self.bibkey
