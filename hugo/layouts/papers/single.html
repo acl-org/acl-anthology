@@ -236,7 +236,7 @@
         {{ end }}
       {{ end }}
       {{ if (or $has_bib $has_xml $has_endf) }}
-      <a type="button" class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal" href="#">
+      <a class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal" href="#">
         <i class="fas fa-quote-left"></i><span class="pl-2">Cite</span>
       </a>
       {{ end }}
@@ -258,7 +258,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="citeModalLabel">Export citation</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -283,7 +283,7 @@
               </pre>
               <div class="modal-footer pb-1">
                 <a class="btn btn-secondary" href="{{ (printf "/%s.bib" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
-                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
             </div>
@@ -294,7 +294,7 @@
               </pre>
               <div class="modal-footer pb-1">
                 <a class="btn btn-secondary" href="{{ (printf "/%s.xml" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
-                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeModsContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
             </div>
@@ -305,7 +305,7 @@
               </pre>
               <div class="modal-footer pb-1">
                 <a class="btn btn-secondary" href="{{ (printf "/%s.endf" $anthology_id) | relURL }}"><i class="fas fa-download pr-2"></i>Download as File</a>
-                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
+                <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
             </div>
