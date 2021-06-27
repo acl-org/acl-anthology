@@ -470,7 +470,7 @@ def main(args):
             for name_node in chain(
                 paper_node.findall("./author"), paper_node.findall("./editor")
             ):
-                name_node.attrib["id"] = disambiguate_name(name_node, paper_id_full)
+                # name_node.attrib["id"] = disambiguate_name(name_node, paper_id_full)
                 person = PersonName.from_element(name_node)
                 for name_part in name_node:
                     name_part.text = correct_caps(name_part.text)
