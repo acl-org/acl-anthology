@@ -220,7 +220,7 @@ def main(args):
                     print(f"[{i}] {id_} ({people.get_comment(id_)})")
                 choice = int(input("--> "))
 
-        return ids[choice]
+        return ids[choice], choice
 
     # Build list of volumes, confirm uniqueness
     unseen_venues = []
@@ -470,7 +470,9 @@ def main(args):
             for name_node in chain(
                 paper_node.findall("./author"), paper_node.findall("./editor")
             ):
-                # name_node.attrib["id"] = disambiguate_name(name_node, paper_id_full)
+                disamb_name, name_choice = disambiguate_name(name_node, paper_id_full)
+                if name_choice != -1:
+                    name_node.attrib["id"] = disamb_name
                 person = PersonName.from_element(name_node)
                 for name_part in name_node:
                     name_part.text = correct_caps(name_part.text)
