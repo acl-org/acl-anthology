@@ -58,7 +58,7 @@ endif
 # Root location for PDF and attachment hierarchy.
 # This is the directory where you have to put all the papers and attachments.
 # Easiest if the server can just serve them from /anthology-files.
-ANTHOLOGYFILES ?= /anthology-files
+ANTHOLOGYFILES ?= /var/www/anthology-files
 
 HUGO_ENV ?= production
 
@@ -245,8 +245,8 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         --cleanDestinationDir \
 	         --minify
 	@cd build/website/$(ANTHOLOGYDIR) \
-	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess \
-	    && perl -i -pe 's|ANTHOLOGYFILES|$(ANTHOLOGYFILES)|g' .htaccess
+	    && ln -s $(ANTHOLOGYFILES) anthology-files \
+	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
 	@touch build/.hugo
 
 .PHONY: mirror
