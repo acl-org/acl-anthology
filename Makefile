@@ -29,14 +29,14 @@ SHELL := /bin/bash
 # If you want to host the anthology on your own, set ANTHOLOGY_PREFIX
 # in your call to make to your prefix, e.g.
 #
-#     ANTHOLOGY_PREFIX="https://aclanthology.org" make
+#     ANTHOLOGY_PREFIX="https://www.aclweb.org/anthology" make
 #
 # PLEASE NOTE that the prefix cannot contain any '#' character, or a Perl regex
 # below will fail.
 # The following line ensures that it is exported as an environment variable
 # for all sub-processes:
 
-export ANTHOLOGY_PREFIX ?= https://www.aclweb.org/anthology
+export ANTHOLOGY_PREFIX ?= https://aclanthology.org
 
 SLASHATEND:=$(shell echo ${ANTHOLOGY_PREFIX} | grep -q '/$$'; echo $$?)
 
@@ -58,7 +58,7 @@ endif
 # Root location for PDF and attachment hierarchy.
 # This is the directory where you have to put all the papers and attachments.
 # Easiest if the server can just serve them from /anthology-files.
-ANTHOLOGYFILES ?= /anthology-files
+ANTHOLOGYFILES ?= /var/www/anthology-files
 
 HUGO_ENV ?= production
 
@@ -245,8 +245,8 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         --cleanDestinationDir \
 	         --minify
 	@cd build/website/$(ANTHOLOGYDIR) \
-	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess \
-	    && perl -i -pe 's|ANTHOLOGYFILES|$(ANTHOLOGYFILES)|g' .htaccess
+	    && ln -s $(ANTHOLOGYFILES) anthology-files \
+	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
 	@touch build/.hugo
 
 .PHONY: mirror
@@ -306,20 +306,14 @@ serve:
 	 @echo "INFO     Starting a server at http://localhost:8000/"
 	 @cd build/website && python3 -m http.server 8000
 
-# this target does not use ANTHOLOGYDIR because the official website
-# only works if ANTHOLOGYDIR == anthology.
+# Main site: aclanthology.org. Requires ANTHOLOGYDIR to be unset.
 .PHONY: upload
 upload:
-	@if [ $(ANTHOLOGYDIR) != "anthology" ]; then \
-            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '${ANTHOLOGYDIR}' instead of 'anthology'"; \
+	@if [[ $(ANTHOLOGYDIR) != "" ]]; then \
+            echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '${ANTHOLOGYDIR}' instead of being empty"; \
             exit 1; \
         fi
-	@echo "INFO     Running rsync for main site..."
-	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/anthology/ aclwebor@50.87.169.12:anthology-static
-
-.PHONY: upload-mirror
-upload-mirror:
-	@echo "INFO     Running rsync for aclanthology.org mirror..."
+	@echo "INFO     Running rsync for main site (aclanthology.org)..."
 	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/ anthologizer@aclanthology.org:/var/www/aclanthology.org
 
 # Push a preview to the mirror
