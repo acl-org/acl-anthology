@@ -309,7 +309,7 @@ serve:
 # Main site: aclanthology.org. Requires ANTHOLOGYDIR to be unset.
 .PHONY: upload
 upload:
-	@if [[ $(ANTHOLOGYDIR) != "" ]]; then \
+	@if [[ "$(ANTHOLOGYDIR)" != "" ]]; then \
             echo "WARNING: Can't upload because ANTHOLOGYDIR was set to '${ANTHOLOGYDIR}' instead of being empty"; \
             exit 1; \
         fi
