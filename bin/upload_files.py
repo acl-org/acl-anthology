@@ -43,14 +43,11 @@ from collections import defaultdict
 from anthology.utils import deconstruct_anthology_id
 from typing import List
 
-# Name for the SSH alias in ~/.ssh/config.
-SSH_CONFIG_TARGET = "aclweb"
-
 # The root directory for files, currently containing pdf/ and attachments/
-ACLWEB_FILE_ROOT = "/home3/aclwebor/anthology-files"
+ACLWEB_FILE_ROOT = "/home/anthologizer/anthology-files"
 
-# The ssh shortcut or full hostname
-ACLWEB_HOST = "aclweb"
+# The ssh shortcut (in ~/.ssh/config) or full hostname
+ACLWEB_HOST = "anth"
 
 
 def get_dest_path(filepath: str):
