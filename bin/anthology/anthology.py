@@ -67,7 +67,11 @@ class Anthology:
         collection_id = collection.get("id")
         for volume_xml in collection:
             volume = Volume.from_xml(
-                volume_xml, collection_id, self.venues, self.sigs, self.formatter
+                volume_xml,
+                collection_id,
+                self.venues,
+                self.sigs,
+                self.formatter,
             )
 
             # MJP 2021-05: no longer doing this since it kills branch previews.

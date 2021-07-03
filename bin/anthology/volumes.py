@@ -51,6 +51,7 @@ class Volume:
         self._id = volume_id
         self.ingest_date = ingest_date
         self.formatter = formatter
+        self.venue_index = venue_index
         self._set_meta_info(meta_data)
         self.attrib["venues"] = venue_index.get_associated_venues(self.full_id)
         self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
