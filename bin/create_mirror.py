@@ -22,7 +22,7 @@ XMLFILE: data file from the anthology data dir to fetch data for. Use data/xml/*
 fetch everything.
 
 Options:
-  --source=SRC               where to fetch the files from [default: https://www.aclweb.org/anthology]
+  --source=SRC               where to fetch the files from [default: https://aclanthology.org]
   --to=DIR                 Directory to write files to [default: {scriptdir}/../build/anthology-files]
   --only-papers            Do not mirror attachments, only papers.
   --debug                  Output debug-level log messages.

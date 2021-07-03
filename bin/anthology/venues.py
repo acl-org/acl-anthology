@@ -33,7 +33,8 @@ from anthology.data import VENUE_FORMAT
 class VenueIndex:
     def __init__(self, srcdir=None):
         self.venues, self.letters, self.joint_map = {}, {}, defaultdict(list)
-        self.acronyms_by_key = {}
+        self.acronyms = {}  # acronym -> venue
+        self.acronyms_by_key = {}  # slug -> acronym
         self.venue_dict = None
         if srcdir is not None:
             self.load_from_dir(srcdir)
@@ -96,6 +97,7 @@ class VenueIndex:
                 # encapsulation --MB)
                 self.venues[val["acronym"]] = val
                 self.acronyms_by_key[key] = val["acronym"]
+                self.acronyms[val["acronym"]] = val
 
                 if "oldstyle_letter" in val:
                     if not val["is_toplevel"]:
@@ -122,6 +124,13 @@ class VenueIndex:
     def get_by_letter(self, letter):
         """Get a venue acronym by first letter (e.g., Q -> TACL)."""
         return self.letters.get(letter, None)
+
+    def get_by_acronym(self, acronym):
+        """Get a venue object by its acronym (assumes acronyms are unique)."""
+        try:
+            return self.acronyms[acronym]
+        except KeyError:
+            log.critical(f"Unknown venue acronym: {acronym}")
 
     def get_main_venue(self, anthology_id):
         """Get a venue acronym by anthology ID (e.g., acl -> ACL)."""

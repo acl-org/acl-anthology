@@ -22,7 +22,7 @@ echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 
 for f in "$@"; do
 	echo '  <sitemap>'
-    echo '    <loc>https://www.aclweb.org/anthology/'$f'</loc>'
+    echo '    <loc>https://aclanthology.org/'$f'</loc>'
 	echo '  </sitemap>'
 done
 echo '</sitemapindex>'
