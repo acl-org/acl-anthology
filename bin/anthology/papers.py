@@ -16,6 +16,7 @@
 
 import iso639
 import logging as log
+
 from .utils import (
     build_anthology_id,
     parse_element,
@@ -27,7 +28,7 @@ from .utils import (
 )
 from . import data
 
-# For BibTeX export
+# For bibliography export
 from .formatter import bibtex_encode, bibtex_make_entry
 
 
@@ -322,7 +323,7 @@ class Paper:
         return bibtex_make_entry(bibkey, bibtype, entries)
 
     def as_dict(self):
-        value = self.attrib
+        value = self.attrib.copy()
         value["paper_id"] = self.paper_id
         value["parent_volume_id"] = self.parent_volume_id
         value["bibkey"] = self.bibkey
