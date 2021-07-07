@@ -106,9 +106,7 @@ class Anthology:
             else:
                 # dummy front matter to make sure that editors of
                 # volume get registered as people in author database
-                dummy_front_matter = Paper(
-                    "0", volume.content[0].ingest_date, volume, self.formatter
-                )
+                dummy_front_matter = Paper("0", None, volume, self.formatter)
                 self.pindex.register(dummy_front_matter)
 
             self.volumes[volume.full_id] = volume
