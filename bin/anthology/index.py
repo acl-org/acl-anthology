@@ -230,6 +230,17 @@ class AnthologyIndex:
         self.bibkeys.add(bibkey)
         return bibkey
 
+    def register_bibkey(self, paper):
+        """Register a paper's bibkey in Anthology-wide set to ensure uniqueness."""
+        key = paper.bibkey
+        if key is None:
+            log.error("Paper {} has no bibkey!".format(paper.full_id))
+            return
+        if key in self.bibkeys:
+            log.error("Paper {} has bibkey that is not unique ({})!".format(paper.full_id, key))
+            return
+        self.bibkeys.add(key)
+
     def register(self, paper):
         """Register all names associated with the given paper."""
         from .papers import Paper
@@ -237,7 +248,7 @@ class AnthologyIndex:
         assert isinstance(paper, Paper), "Expected Paper, got {} ({})".format(
             type(paper), repr(paper)
         )
-        paper.bibkey = self.create_bibkey(paper)
+        self.register_bibkey(paper)
         for role in ("author", "editor"):
             for name, id_ in paper.get(role, []):
                 if id_ is None:
