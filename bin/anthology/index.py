@@ -230,7 +230,7 @@ class AnthologyIndex:
         self.bibkeys.add(bibkey)
         return bibkey
 
-    def register(self, paper):
+    def register(self, paper, dummy=False):
         """Register all names associated with the given paper."""
         from .papers import Paper
 
@@ -264,9 +264,10 @@ class AnthologyIndex:
                     explicit = True
 
                 self.id_to_used[id_].add(name)
-                # Register paper
-                self.id_to_papers[id_][role].append(paper.full_id)
-                self.name_to_papers[name][explicit].append(paper.full_id)
+                if not dummy:
+                    # Register paper
+                    self.id_to_papers[id_][role].append(paper.full_id)
+                    self.name_to_papers[name][explicit].append(paper.full_id)
                 # Register co-author(s)
                 for co_name, co_id in paper.get(role):
                     if co_id is None:
