@@ -208,5 +208,5 @@ There are three `make` targets that help you check (and fix) your commits:
 To easily make any of these targets work as a pre-commit hook, you can create a
 symlink to one of the predefined scripts as follows:
 
-+ `ln -s ../../.git-hooks/check_commit .git/hooks/pre-commit` (for check target)
-+ `ln -s ../../.git-hooks/autofix .git/hooks/pre-commit` (for autofix target)
++ `ln -s .git-hooks/check_commit .git/hooks/pre-commit` (for check target)
++ `ln -s .git-hooks/autofix .git/hooks/pre-commit` (for autofix target)
