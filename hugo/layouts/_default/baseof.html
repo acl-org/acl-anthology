@@ -16,11 +16,16 @@
     {{ hugo.Generator }}
     <link href="{{ "aclicon.ico" | relURL }}" rel="shortcut icon" type="image/x-icon" />
 
-    {{ $sass_options := (dict "includePaths" (slice "assets/css" "assets/css/vendor/bootstrap/scss")) }}
-    {{ $style := resources.Get "css/main.scss" | toCSS $sass_options | minify | fingerprint }}
+    <link rel="preload" href="/fonts/academicons.ttf?v=1.8.6"  as="font" crossorigin="anonymous">
+    <link rel="preload" href="/webfonts/fa-regular-400.woff2" as="font" crossorigin="anonymous">
+    <link rel="preload" href="/webfonts/fa-solid-900.woff2" as="font" crossorigin="anonymous">
+    
+    {{ $sass_options := (dict "includePaths" (slice "assets/css" "assets/css/vendor/bootstrap/scss") "outputStyle" "compressed") }}
+    {{ $maincss := resources.Get "css/main.scss" | toCSS $sass_options }}
+    {{ $academicicons := resources.Get "css/academicons.min.css" }}
+    {{ $fontawesome := resources.Get "css/fontawesome-all.css" }}
+    {{ $style := slice $maincss $academicicons $fontawesome | resources.Concat "css/acl.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $style.RelPermalink }}" media="screen" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ "/css/academicons.min.css" | relURL }}">
 
     {{ block "meta" . }}{{ end }}
   </head>
@@ -34,9 +39,8 @@
     {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
 
     <!-- JavaScript used by Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js" integrity="sha512-72WD92hLs7T5FAXn3vkNZflWG6pglUDDpm87TeQmfSg8KnrymL2G30R7as4FmTwhgu9H7eSzDCX3mjitSecKnw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
       $(function () {
           // tooltips
