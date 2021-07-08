@@ -32,6 +32,11 @@
   <meta property="og:site_name" content="ACL Anthology" />
   <meta property="og:url" content="{{ $paper.url }}" />
   <meta property="og:description" content="{{ $paper.author_string }}. {{ $paper.booktitle }}. {{ $paper.year }}." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@aclanthology" />
+  {{ with $paper.abstract_html }}
+  <meta name="description" content="{{ . }}" />
+  {{ end }}
   <link rel="canonical" href="{{ $paper.url }}" />
 {{ end }}
 
