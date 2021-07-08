@@ -16,9 +16,9 @@
     {{ hugo.Generator }}
     <link href="{{ "aclicon.ico" | relURL }}" rel="shortcut icon" type="image/x-icon" />
 
-    <link rel="preload" href="/fonts/academicons.ttf?v=1.8.6"  as="font" crossorigin="anonymous">
-    <link rel="preload" href="/webfonts/fa-regular-400.woff2" as="font" crossorigin="anonymous">
-    <link rel="preload" href="/webfonts/fa-solid-900.woff2" as="font" crossorigin="anonymous">
+    <link rel="preload" href="{{ "fonts/academicons.ttf?v=1.8.6" | relURL }}"  as="font" crossorigin="anonymous">
+    <link rel="preload" href="{{ "/webfonts/fa-regular-400.woff2" | relURL }}" as="font" crossorigin="anonymous">
+    <link rel="preload" href="{{ "/webfonts/fa-solid-900.woff2" | relURL }}" as="font" crossorigin="anonymous">
 
     {{ $sass_options := (dict "includePaths" (slice "assets/css" "assets/css/vendor/bootstrap/scss") "outputStyle" "compressed") }}
     {{ $maincss := resources.Get "css/main.scss" | toCSS $sass_options }}
