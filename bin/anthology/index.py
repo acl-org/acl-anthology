@@ -231,7 +231,13 @@ class AnthologyIndex:
         return bibkey
 
     def register(self, paper, dummy=False):
-        """Register all names associated with the given paper."""
+        """Register all names associated with the given paper.
+
+        :param dummy: If True, will only resolve the author/editor names without
+        actually linking them to the given paper.  This is used for volumes
+        without frontmatter to make sure their editors still get registered
+        here, but without creating links to a non-existent paper.
+        """
         from .papers import Paper
 
         assert isinstance(paper, Paper), "Expected Paper, got {} ({})".format(
