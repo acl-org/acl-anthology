@@ -103,6 +103,11 @@ class Anthology:
                 front_matter = volume.content[0]
                 self.pindex.register(front_matter)
                 self.papers[front_matter.full_id] = front_matter
+            else:
+                # dummy front matter to make sure that editors of
+                # volume get registered as people in author database
+                dummy_front_matter = Paper("0", None, volume, self.formatter)
+                self.pindex.register(dummy_front_matter, dummy=True)
 
             self.volumes[volume.full_id] = volume
             for paper_xml in volume_xml.findall("paper"):
