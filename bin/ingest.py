@@ -79,7 +79,7 @@ def read_meta(path: str) -> Dict[str, Any]:
                 meta["chairs"].append(value)
             else:
                 meta[key] = value
-    if "volume" in meta and re.match(rf"^[a-z0-1]+$", meta["volume"]) is None:
+    if "volume" in meta and re.match(rf"^[a-z0-9]+$", meta["volume"]) is None:
         raise Exception(f"Invalid volume key '{meta['volume']}' in {path}")
 
     return meta
