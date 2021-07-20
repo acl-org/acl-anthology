@@ -285,14 +285,8 @@ def main(args):
             os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
         )
 
-        # try the standard filename, e.g., 2021.naacl-main.pdf
-        book_src_filename = f'{year}.{meta["abbrev"]}-{volume_name}.pdf'
-        book_src_path = os.path.join(root_path, book_src_filename)
-        if not os.path.exists(book_src_path):
-            # try a different filename, e.g., "NLP4CALL-2021.pdf"
-            book_src_filename = f'{meta["abbrev"]}-{year}.pdf'
-            book_src_path = os.path.join(root_path, book_src_filename)
-
+        # copy the book from the top-level proceedings/ dir, named "book.pdf"
+        book_src_path = os.path.join(meta["path"], "book.pdf")
         if os.path.exists(book_src_path) and not args.dry_run:
             maybe_copy(book_src_path, book_dest_path)
 
@@ -344,8 +338,13 @@ def main(args):
                 attachment_file_path = os.path.join(
                     root_path, "additional", attachment_file
                 )
+                # Find the attachment file, using a bit of a fuzzy
+                # match. The fuzzy match is because sometimes people
+                # generate the proceedings with the wrong venue
+                # code. If we correct it, we still need to be able to
+                # find the file.
                 match = re.match(
-                    rf"{year}\.{venue_name}-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file
+                    rf"{year}\..*-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file
                 )
                 if match is None:
                     print(
