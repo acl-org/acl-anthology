@@ -230,8 +230,14 @@ class AnthologyIndex:
         self.bibkeys.add(bibkey)
         return bibkey
 
-    def register(self, paper):
-        """Register all names associated with the given paper."""
+    def register(self, paper, dummy=False):
+        """Register all names associated with the given paper.
+
+        :param dummy: If True, will only resolve the author/editor names without
+        actually linking them to the given paper.  This is used for volumes
+        without frontmatter to make sure their editors still get registered
+        here, but without creating links to a non-existent paper.
+        """
         from .papers import Paper
 
         assert isinstance(paper, Paper), "Expected Paper, got {} ({})".format(
@@ -264,15 +270,17 @@ class AnthologyIndex:
                     explicit = True
 
                 self.id_to_used[id_].add(name)
-                # Register paper
-                self.id_to_papers[id_][role].append(paper.full_id)
-                self.name_to_papers[name][explicit].append(paper.full_id)
-                # Register co-author(s)
-                for co_name, co_id in paper.get(role):
-                    if co_id is None:
-                        co_id = self.resolve_name(co_name)["id"]
-                    if co_id != id_:
-                        self.coauthors[id_][co_id] += 1
+
+                if not dummy:
+                    # Register paper
+                    self.id_to_papers[id_][role].append(paper.full_id)
+                    self.name_to_papers[name][explicit].append(paper.full_id)
+                    # Register co-author(s)
+                    for co_name, co_id in paper.get(role):
+                        if co_id is None:
+                            co_id = self.resolve_name(co_name)["id"]
+                        if co_id != id_:
+                            self.coauthors[id_][co_id] += 1
 
     def verify(self):
         ## no longer issuing a warning for unused variants
