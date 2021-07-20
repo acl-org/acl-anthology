@@ -406,7 +406,14 @@ def main(args):
                 ):
                     meta_node.append(author_or_editor)
                     author_or_editor.tag = "editor"
-                meta_node.append(paper_node.find("publisher"))
+
+                # Here, we grab the publisher from the meta file, in case it's not in the
+                # frontmatter paper. We don't handle the situation where it's in neither!
+                publisher_node = paper_node.find("publisher")
+                if publisher_node is None:
+                    publisher_node = make_simple_element("publisher", meta["publisher"])
+                meta_node.append(publisher_node)
+
                 meta_node.append(paper_node.find("address"))
                 meta_node.append(paper_node.find("month"))
                 meta_node.append(paper_node.find("year"))
