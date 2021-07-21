@@ -412,7 +412,12 @@ def main(args):
                     publisher_node = make_simple_element("publisher", meta["publisher"])
                 meta_node.append(publisher_node)
 
-                meta_node.append(paper_node.find("address"))
+                # Look for the address in the bib file, then the meta file
+                address_node = paper_node.find("address")
+                if address_node is None:
+                    address_node = make_simple_element("address", meta["location"])
+                meta_node.append(address_node)
+
                 meta_node.append(paper_node.find("month"))
                 meta_node.append(paper_node.find("year"))
                 if book_dest_path is not None:
