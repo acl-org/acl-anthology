@@ -23,11 +23,13 @@ from math import *
 from anthology import Anthology
 from anthology.people import PersonName
 
+
 def log0(x):
     if x == 0:
         return -inf
     else:
         return log(x)
+
 
 class NameSplitter:
     def __init__(self, anthology=None, anthology_dir=None):
@@ -112,19 +114,19 @@ class NameSplitter:
             first_probs = [
                 # more smoothing for first than last name,
                 # so that default is one-word last name when all counts are zero
-                log((self.first_count[x] + 0.1) / self.first_total) for x in words[0:i]
+                log((self.first_count[x] + 0.1) / self.first_total)
+                for x in words[0:i]
             ]
             first_score = max(
                 # no smoothing for multiword name: log(0) => -inf
                 log0((self.first_full_count[first]) / self.first_total),
-                sum(first_probs)
+                sum(first_probs),
             )
             last_probs = [
                 log((self.last_count[x] + 0.01) / self.last_total) for x in words[i:]
             ]
             last_score = max(
-                log0((self.last_full_count[last]) / self.last_total),
-                sum(last_probs)
+                log0((self.last_full_count[last]) / self.last_total), sum(last_probs)
             )
 
             if first_score + last_score > best_score:
