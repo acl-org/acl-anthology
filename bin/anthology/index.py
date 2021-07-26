@@ -61,8 +61,9 @@ class AnthologyIndex:
     """Keeps an index of persons, their associated papers, paper bibliography
     keys, etc.."""
 
-    def __init__(self, parent, srcdir=None):
+    def __init__(self, parent, srcdir=None, require_bibkeys=True):
         self._parent = parent
+        self._require_bibkeys = require_bibkeys
         self.bibkeys = set()
         self.stopwords = load_stopwords("en")
         self.id_to_canonical = {}  # maps ids to canonical names
@@ -227,17 +228,21 @@ class AnthologyIndex:
                         bibkey
                     )
                 )
-        self.bibkeys.add(bibkey)
+        paper.bibkey = bibkey
+        self.register_bibkey(paper)
         return bibkey
 
     def register_bibkey(self, paper):
         """Register a paper's bibkey in Anthology-wide set to ensure uniqueness."""
         key = paper.bibkey
         if key is None:
-            log.error("Paper {} has no bibkey!".format(paper.full_id))
+            if self._require_bibkeys:
+                log.error("Paper {} has no bibkey!".format(paper.full_id))
             return
         if key in self.bibkeys:
-            log.error("Paper {} has bibkey that is not unique ({})!".format(paper.full_id, key))
+            log.error(
+                "Paper {} has bibkey that is not unique ({})!".format(paper.full_id, key)
+            )
             return
         self.bibkeys.add(key)
 
