@@ -259,7 +259,11 @@ class AnthologyIndex:
         assert isinstance(paper, Paper), "Expected Paper, got {} ({})".format(
             type(paper), repr(paper)
         )
-        self.register_bibkey(paper)
+        # Make sure paper has a bibkey and it is unique (except for dummy
+        # frontmatter, as it is not an actual paper)
+        if not dummy:
+            self.register_bibkey(paper)
+        # Resolve and register authors/editors for this paper
         for role in ("author", "editor"):
             for name, id_ in paper.get(role, []):
                 if id_ is None:
