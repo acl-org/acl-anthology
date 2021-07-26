@@ -6188,6 +6188,7 @@
       <pages>7265–7281</pages>
       <abstract>Active learning promises to alleviate the massive data needs of supervised machine learning: it has successfully improved sample efficiency by an order of magnitude on traditional tasks like topic classification and object recognition. However, we uncover a striking contrast to this promise: across 5 models and 4 datasets on the task of visual question answering, a wide variety of active learning approaches fail to outperform random selection. To understand this discrepancy, we profile 8 active learning methods on a per-example basis, and identify the problem as collective outliers – groups of examples that active learning methods prefer to acquire but models fail to learn (e.g., questions that ask about text in images or require external knowledge). Through systematic ablation experiments and qualitative visualizations, we verify that collective outliers are a general phenomenon responsible for degrading pool-based active learning. Notably, we show that active learning sample efficiency increases significantly as the number of collective outliers in the active learning pool decreases. We conclude with a discussion and prescriptive recommendations for mitigating the effects of these outliers in future work.</abstract>
       <url hash="8942f361">2021.acl-long.564</url>
+      <award>Outstanding Paper</award>
     </paper>
     <paper id="565">
       <title>All That’s ‘Human’ Is Not Gold: Evaluating Human Evaluation of Generated Text</title>
@@ -6201,6 +6202,7 @@
       <abstract>Human evaluations are typically considered the gold standard in natural language generation, but as models’ fluency improves, how well can evaluators detect and judge machine-generated text? We run a study assessing non-experts’ ability to distinguish between human- and machine-authored text (GPT2 and GPT3) in three domains (stories, news articles, and recipes). We find that, without training, evaluators distinguished between GPT3- and human-authored text at random chance level. We explore three approaches for quickly training evaluators to better identify GPT3-authored text (detailed instructions, annotated examples, and paired examples) and find that while evaluators’ accuracy improved up to 55%, it did not significantly improve across the three domains. Given the inconsistent results across text domains and the often contradictory reasons evaluators gave for their judgments, we examine the role untrained human evaluations play in NLG evaluation and provide recommendations to NLG researchers for improving human evaluations of text generated from state-of-the-art models.</abstract>
       <url hash="c6ff4c7f">2021.acl-long.565</url>
       <attachment type="OptionalSupplementaryMaterial" hash="f65daf16">2021.acl-long.565.OptionalSupplementaryMaterial.zip</attachment>
+      <award>Outstanding Paper</award>
     </paper>
     <paper id="566">
       <title>Scientific Credibility of Machine Translation Research: A Meta-Evaluation of 769 Papers</title>
@@ -6211,6 +6213,7 @@
       <abstract>This paper presents the first large-scale meta-evaluation of machine translation (MT). We annotated MT evaluations conducted in 769 research papers published from 2010 to 2020. Our study shows that practices for automatic MT evaluation have dramatically changed during the past decade and follow concerning trends. An increasing number of MT evaluations exclusively rely on differences between BLEU scores to draw conclusions, without performing any kind of statistical significance testing nor human evaluation, while at least 108 metrics claiming to be better than BLEU have been proposed. MT evaluations in recent papers tend to copy and compare automatic metric scores from previous work to claim the superiority of a method or an algorithm without confirming neither exactly the same training, validating, and testing data have been used nor the metric scores are comparable. Furthermore, tools for reporting standardized metric scores are still far from being widely adopted by the MT community. After showing how the accumulation of these pitfalls leads to dubious evaluation, we propose a guideline to encourage better automatic MT evaluation along with a simple meta-evaluation scoring method to assess its credibility.</abstract>
       <url hash="3303b539">2021.acl-long.566</url>
       <attachment type="OptionalSupplementaryMaterial" hash="3f758abe">2021.acl-long.566.OptionalSupplementaryMaterial.zip</attachment>
+      <award>Outstanding Paper</award>
     </paper>
     <paper id="567">
       <title>Neural Machine Translation with Monolingual Translation Memory</title>
@@ -6222,6 +6225,7 @@
       <pages>7307–7318</pages>
       <abstract>Prior work has proved that Translation Memory (TM) can boost the performance of Neural Machine Translation (NMT). In contrast to existing work that uses bilingual corpus as TM and employs source-side similarity search for memory retrieval, we propose a new framework that uses monolingual memory and performs learnable memory retrieval in a cross-lingual manner. Our framework has unique advantages. First, the cross-lingual memory retriever allows abundant monolingual data to be TM. Second, the memory retriever and NMT model can be jointly optimized for the ultimate translation goal. Experiments show that the proposed method obtains substantial improvements. Remarkably, it even outperforms strong TM-augmented NMT baselines using bilingual TM. Owning to the ability to leverage monolingual data, our model also demonstrates effectiveness in low-resource and domain adaptation scenarios.</abstract>
       <url hash="229c7074">2021.acl-long.567</url>
+      <award>Outstanding Paper</award>
     </paper>
     <paper id="568">
       <title>Intrinsic Dimensionality Explains the Effectiveness of Language Model Fine-Tuning</title>
@@ -6231,6 +6235,7 @@
       <pages>7319–7328</pages>
       <abstract>Although pretrained language models can be fine-tuned to produce state-of-the-art results for a very wide range of language understanding tasks, the dynamics of this process are not well understood, especially in the low data regime. Why can we use relatively vanilla gradient descent algorithms (e.g., without strong regularization) to tune a model with hundreds of millions of parameters on datasets with only hundreds or thousands of labeled examples? In this paper, we argue that analyzing fine-tuning through the lens of intrinsic dimension provides us with empirical and theoretical intuitions to explain this remarkable phenomenon. We empirically show that common pre-trained models have a very low intrinsic dimension; in other words, there exists a low dimension reparameterization that is as effective for fine-tuning as the full parameter space. For example, by optimizing only 200 trainable parameters randomly projected back into the full space, we can tune a RoBERTa model to achieve 90% of the full parameter performance levels on MRPC. Furthermore, we empirically show that pre-training implicitly minimizes intrinsic dimension and, perhaps surprisingly, larger models tend to have lower intrinsic dimension after a fixed number of pre-training updates, at least in part explaining their extreme effectiveness. Lastly, we connect intrinsic dimensionality with low dimensional task representations and compression based generalization bounds to provide intrinsic-dimension-based generalization bounds that are independent of the full parameter count.</abstract>
       <url hash="6dbe6ed0">2021.acl-long.568</url>
+      <award>Outstanding Paper</award>
     </paper>
     <paper id="569">
       <title><fixed-case>UnNatural</fixed-case> <fixed-case>L</fixed-case>anguage <fixed-case>I</fixed-case>nference</title>
@@ -6241,6 +6246,7 @@
       <pages>7329–7346</pages>
       <abstract>Recent investigations into the inner-workings of state-of-the-art large-scale pre-trained Transformer-based Natural Language Understanding (NLU) models indicate that they appear to understand human-like syntax, at least to some extent. We provide novel evidence that complicates this claim: we find that state-of-the-art Natural Language Inference (NLI) models assign the same labels to permuted examples as they do to the original, i.e. they are invariant to random word-order permutations. This behavior notably differs from that of humans; we struggle to understand the meaning of ungrammatical sentences. To measure the severity of this issue, we propose a suite of metrics and investigate which properties of particular permutations lead models to be word order invariant. For example, in MNLI dataset we find almost all (98.7%) examples contain at least one permutation which elicits the gold label. Models are even able to assign gold labels to permutations that they originally failed to predict correctly. We provide a comprehensive empirical evaluation of this phenomenon, and further show that this issue exists in pre-Transformer RNN / ConvNet based encoders, as well as across multiple languages (English and Chinese). Our code and data are available at https://github.com/facebookresearch/unlu.</abstract>
       <url hash="240ff9fb">2021.acl-long.569</url>
+      <award>Outstanding Paper</award>
     </paper>
     <paper id="570">
       <title>Including Signed Languages in Natural Language Processing</title>
@@ -6252,6 +6258,7 @@
       <pages>7347–7360</pages>
       <abstract>Signed languages are the primary means of communication for many deaf and hard of hearing individuals. Since signed languages exhibit all the fundamental linguistic properties of natural language, we believe that tools and theories of Natural Language Processing (NLP) are crucial towards its modeling. However, existing research in Sign Language Processing (SLP) seldom attempt to explore and leverage the linguistic organization of signed languages. This position paper calls on the NLP community to include signed languages as a research area with high social and scientific impact. We first discuss the linguistic properties of signed languages to consider during their modeling. Then, we review the limitations of current SLP models and identify the open challenges to extend NLP to signed languages. Finally, we urge (1) the adoption of an efficient tokenization method; (2) the development of linguistically-informed models; (3) the collection of real-world signed language data; (4) the inclusion of local signed language communities as an active and leading voice in the direction of research.</abstract>
       <url hash="26db27e7">2021.acl-long.570</url>
+      <award>Best Theme Paper</award>
     </paper>
     <paper id="571">
       <title>Vocabulary Learning via Optimal Transport for Neural Machine Translation</title>
@@ -6263,6 +6270,7 @@
       <pages>7361–7373</pages>
       <abstract>The choice of token vocabulary affects the performance of machine translation. This paper aims to figure out what is a good vocabulary and whether we can find the optimal vocabulary without trial training. To answer these questions, we first provide an alternative understanding of vocabulary from the perspective of information theory. It motivates us to formulate the quest of vocabularization – finding the best token dictionary with a proper size – as an optimal transport (OT) problem. We propose VOLT, a simple and efficient solution without trial training. Empirical results show that VOLT beats widely-used vocabularies in diverse scenarios, including WMT-14 English-German translation, TED bilingual translation, and TED multilingual translation. For example, VOLT achieves 70% vocabulary size reduction and 0.5 BLEU gain on English-German translation. Also, compared to BPE-search, VOLT reduces the search time from 384 GPU hours to 30 GPU hours on English-German translation. Codes are available at https://github.com/Jingjing-NLP/VOLT.</abstract>
       <url hash="bd59504c">2021.acl-long.571</url>
+      <award>Best Paper</award>
     </paper>
   </volume>
   <volume id="short" ingest-date="2021-07-25">
@@ -7880,6 +7888,7 @@
       <pages>114–121</pages>
       <abstract>We introduce Explainable Scientific Research Assistant (ESRA), a literature discovery platform that augments search results with relevant details and explanations, aiding users in understanding more about their queries and the returned papers beyond existing literature search systems. Enabled by a knowledge graph we extracted from abstracts of 23k papers on the arXiv’s cs.CL category, ESRA provides three main features: explanation (for why a paper is returned to the user), list of facts (that are relevant to the query), and graph visualization (drawing connections between the query and each paper with surrounding related entities). The experimental results with humans involved show that ESRA can accelerate the users’ search process with paper explanations and helps them better explore the landscape of the topics of interest by exploiting the underlying knowledge graph. We provide the ESRA web application at http://esra.cp.eng.chula.ac.th/.</abstract>
       <url hash="8d575733">2021.acl-demo.14</url>
+      <award>Best Demonstration Runner-up</award>
     </paper>
     <paper id="15">
       <title>Trafilatura: <fixed-case>A</fixed-case> Web Scraping Library and Command-Line Tool for Text Discovery and Extraction</title>
@@ -8118,6 +8127,7 @@
       <pages>280–289</pages>
       <abstract>With the rapid development of NLP research, leaderboards have emerged as one tool to track the performance of various systems on various NLP tasks. They are effective in this goal to some extent, but generally present a rather simplistic one-dimensional view of the submitted systems, communicated only through holistic accuracy numbers. In this paper, we present a new conceptualization and implementation of NLP evaluation: the ExplainaBoard, which in addition to inheriting the functionality of the standard leaderboard, also allows researchers to (i) diagnose strengths and weaknesses of a single system (e.g. what is the best-performing system bad at?) (ii) interpret relationships between multiple systems. (e.g. where does system A outperform system B? What if we combine systems A, B and C?) and (iii) examine prediction results closely (e.g. what are common errors made by multiple systems or in what contexts do particular errors occur?). So far, ExplainaBoard covers more than 400 systems, 50 datasets, 40 languages, and 12 tasks. We not only released an online platform at the website but also make our evaluation tool an API with MIT Licence at Github and PyPi that allows users to conveniently assess their models offline. We additionally release all output files from systems that we have run or collected to motivate “output-driven” research in the future.</abstract>
       <url hash="c44d2e5b">2021.acl-demo.34</url>
+      <award>Best Demonstration Paper</award>
     </paper>
     <paper id="35">
       <title>Exploring Word Usage Change with Continuously Evolving Embeddings</title>
