@@ -42,6 +42,7 @@ import lxml.etree as etree
 
 from collections import defaultdict, OrderedDict
 from datetime import datetime
+from glob import glob
 
 from normalize_anth import normalize
 from anthology.bibtex import read_bibtex
@@ -66,6 +67,15 @@ from slugify import slugify
 def log(text: str, fake: bool = False):
     message = "[DRY RUN] " if fake else ""
     print(f"{message}{text}", file=sys.stderr)
+
+
+def load_bibkeys(anthology_datadir):
+    bibkeys = set()
+    for xmlfile in glob(os.path.join(anthology_datadir, "xml", "*.xml")):
+        tree = etree.parse(xmlfile)
+        root = tree.getroot()
+        bibkeys.update(str(elem.text) for elem in root.iterfind(".//bibkey"))
+    return bibkeys
 
 
 def read_meta(path: str) -> Dict[str, Any]:
@@ -190,6 +200,7 @@ def main(args):
     sig_index = SIGIndex(srcdir=anthology_datadir)
 
     people = AnthologyIndex(srcdir=anthology_datadir)
+    people.bibkeys = load_bibkeys(anthology_datadir)
 
     def correct_caps(name):
         """
