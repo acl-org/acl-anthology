@@ -60,9 +60,7 @@ class Anthology:
 
     def import_directory(self, importdir):
         assert os.path.isdir(importdir), "Directory not found: {}".format(importdir)
-        self.pindex = AnthologyIndex(
-            self, importdir, require_bibkeys=self._require_bibkeys
-        )
+        self.pindex = AnthologyIndex(importdir, require_bibkeys=self._require_bibkeys)
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
         for xmlfile in glob(importdir + "/xml/*.xml"):
