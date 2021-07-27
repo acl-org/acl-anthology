@@ -189,7 +189,7 @@ def main(args):
 
     sig_index = SIGIndex(srcdir=anthology_datadir)
 
-    people = AnthologyIndex(None, srcdir=anthology_datadir)
+    people = AnthologyIndex(srcdir=anthology_datadir)
 
     def correct_caps(name):
         """

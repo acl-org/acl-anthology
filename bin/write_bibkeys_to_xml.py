@@ -77,7 +77,7 @@ def write_bibkeys(anthology, srcdir, commit=False):
                 continue
 
             # Generate unique bibkey
-            bibkey = anthology.pindex.create_bibkey(paper)
+            bibkey = anthology.pindex.create_bibkey(paper, vidx=anthology.venues)
             make_simple_element("bibkey", bibkey, parent=node)
 
         indent(root)

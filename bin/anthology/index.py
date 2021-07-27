@@ -58,11 +58,27 @@ def score_variant(name):
 
 
 class AnthologyIndex:
-    """Keeps an index of persons, their associated papers, paper bibliography
-    keys, etc.."""
+    """Keeps an index of people and papers.
 
-    def __init__(self, parent, srcdir=None, require_bibkeys=True):
-        self._parent = parent
+    This class provides:
+    - An index of people (authors/editors) with their internal IDs, canonical
+      names, and name variants.
+    - A mapping of people to all papers associated with them.
+    - A set of all bibliography keys used within the Anthology and a method to
+      create new ones, guaranteeing uniqueness.
+
+    The index is NOT automatically populated when instantiating this class, but
+    rather gets its data from papers being registered in it as they are loaded
+    from the XML by the main `Anthology` class.
+
+    :param srcdir: Path to the Anthology data directory. Only used for loading
+    the list of name variants.
+    :param require_bibkeys: Whether to log an error when a paper being added
+    does not have a bibkey. Should only be set to False during the ingestion of
+    new papers, when this class is being used to generate new, unique bibkeys.
+    """
+
+    def __init__(self, srcdir=None, require_bibkeys=True):
         self._require_bibkeys = require_bibkeys
         self.bibkeys = set()
         self.stopwords = load_stopwords("en")
@@ -190,11 +206,11 @@ class AnthologyIndex:
                 return True
         return False
 
-    def create_bibkey(self, paper):
+    def create_bibkey(self, paper, vidx=None):
         """Create a unique bibliography key for the given paper."""
         if paper.is_volume:
             # Proceedings volumes use venue acronym instead of authors/editors
-            bibnames = slugify(self._parent.venues.get_main_venue(paper.full_id))
+            bibnames = slugify(vidx.get_main_venue(paper.full_id))
         else:
             # Regular papers use author/editor names
             names = paper.get("author")
@@ -247,7 +263,7 @@ class AnthologyIndex:
         self.bibkeys.add(key)
 
     def register(self, paper, dummy=False):
-        """Register all names associated with the given paper.
+        """Register bibkey and names associated with the given paper.
 
         :param dummy: If True, will only resolve the author/editor names without
         actually linking them to the given paper.  This is used for volumes
