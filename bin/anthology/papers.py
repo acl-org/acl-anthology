@@ -38,7 +38,7 @@ class Paper:
         self.formatter = formatter
         self._id = paper_id
         self._ingest_date = ingest_date
-        self._bibkey = False
+        self._bibkey = None
         self.is_volume = paper_id == "0"
 
         # initialize metadata with keys inherited from volume
@@ -74,7 +74,10 @@ class Paper:
         for key, value in parse_element(xml_element).items():
             if key == "author" and "editor" in paper.attrib:
                 del paper.attrib["editor"]
-            paper.attrib[key] = value
+            if key == "bibkey":
+                paper.bibkey = value
+            else:
+                paper.attrib[key] = value
 
         # Frontmatter title is the volume 'booktitle'
         if paper.is_volume:
@@ -185,8 +188,6 @@ class Paper:
 
     @property
     def bibkey(self):
-        if not self._bibkey:
-            self._bibkey = self.full_id  # fallback
         return self._bibkey
 
     @bibkey.setter
