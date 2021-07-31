@@ -42,6 +42,7 @@ import lxml.etree as etree
 
 from collections import defaultdict, OrderedDict
 from datetime import datetime
+from glob import glob
 
 from normalize_anth import normalize
 from anthology.bibtex import read_bibtex
@@ -68,6 +69,15 @@ def log(text: str, fake: bool = False):
     print(f"{message}{text}", file=sys.stderr)
 
 
+def load_bibkeys(anthology_datadir):
+    bibkeys = set()
+    for xmlfile in glob(os.path.join(anthology_datadir, "xml", "*.xml")):
+        tree = etree.parse(xmlfile)
+        root = tree.getroot()
+        bibkeys.update(str(elem.text) for elem in root.iterfind(".//bibkey"))
+    return bibkeys
+
+
 def read_meta(path: str) -> Dict[str, Any]:
     meta = {"chairs": []}
     with open(path) as instream:
@@ -79,7 +89,7 @@ def read_meta(path: str) -> Dict[str, Any]:
                 meta["chairs"].append(value)
             else:
                 meta[key] = value
-    if "volume" in meta and re.match(rf"^[a-z0-1]+$", meta["volume"]) is None:
+    if "volume" in meta and re.match(rf"^[a-z0-9]+$", meta["volume"]) is None:
         raise Exception(f"Invalid volume key '{meta['volume']}' in {path}")
 
     return meta
@@ -189,7 +199,8 @@ def main(args):
 
     sig_index = SIGIndex(srcdir=anthology_datadir)
 
-    people = AnthologyIndex(None, srcdir=anthology_datadir)
+    people = AnthologyIndex(srcdir=anthology_datadir)
+    people.bibkeys = load_bibkeys(anthology_datadir)
 
     def correct_caps(name):
         """
@@ -280,20 +291,13 @@ def main(args):
         if not os.path.exists(pdfs_dest_dir):
             os.makedirs(pdfs_dest_dir)
 
-        # copy the book
-        book_dest_path = (
-            os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
-        )
-
-        # try the standard filename, e.g., 2021.naacl-main.pdf
-        book_src_filename = f'{year}.{meta["abbrev"]}-{volume_name}.pdf'
-        book_src_path = os.path.join(root_path, book_src_filename)
-        if not os.path.exists(book_src_path):
-            # try a different filename, e.g., "NLP4CALL-2021.pdf"
-            book_src_filename = f'{meta["abbrev"]}-{year}.pdf'
-            book_src_path = os.path.join(root_path, book_src_filename)
-
+        # copy the book from the top-level proceedings/ dir, named "book.pdf"
+        book_src_path = os.path.join(meta["path"], "book.pdf")
+        book_dest_path = None
         if os.path.exists(book_src_path) and not args.dry_run:
+            book_dest_path = (
+                os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
+            )
             maybe_copy(book_src_path, book_dest_path)
 
         # temp holder for papers in each volume
@@ -344,8 +348,13 @@ def main(args):
                 attachment_file_path = os.path.join(
                     root_path, "additional", attachment_file
                 )
+                # Find the attachment file, using a bit of a fuzzy
+                # match. The fuzzy match is because sometimes people
+                # generate the proceedings with the wrong venue
+                # code. If we correct it, we still need to be able to
+                # find the file.
                 match = re.match(
-                    rf"{year}\.{venue_name}-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file
+                    rf"{year}\..*-\w+\.(\d+)_?(\w+)\.(\w+)$", attachment_file
                 )
                 if match is None:
                     print(
@@ -406,8 +415,20 @@ def main(args):
                 ):
                     meta_node.append(author_or_editor)
                     author_or_editor.tag = "editor"
-                meta_node.append(paper_node.find("publisher"))
-                meta_node.append(paper_node.find("address"))
+
+                # Here, we grab the publisher from the meta file, in case it's not in the
+                # frontmatter paper. We don't handle the situation where it's in neither!
+                publisher_node = paper_node.find("publisher")
+                if publisher_node is None:
+                    publisher_node = make_simple_element("publisher", meta["publisher"])
+                meta_node.append(publisher_node)
+
+                # Look for the address in the bib file, then the meta file
+                address_node = paper_node.find("address")
+                if address_node is None:
+                    address_node = make_simple_element("address", meta["location"])
+                meta_node.append(address_node)
+
                 meta_node.append(paper_node.find("month"))
                 meta_node.append(paper_node.find("year"))
                 if book_dest_path is not None:
@@ -464,7 +485,6 @@ def main(args):
                 except KeyError:
                     raise Exception(f"Can't find language '{language_node.text}'")
                 language_node.text = lang.part3
-                print(language_node.text)
 
             # Fix author names
             for name_node in chain(
