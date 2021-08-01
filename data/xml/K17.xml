@@ -14,6 +14,7 @@
     </meta>
     <frontmatter>
       <url hash="ee31cfab">K17-1000</url>
+      <bibkey>conll-2017-natural</bibkey>
     </frontmatter>
     <paper id="1">
       <title>Should Neural Network Architecture Reflect Linguistic Structure?</title>
@@ -22,6 +23,7 @@
       <url hash="b3fed06d">K17-1001</url>
       <doi>10.18653/v1/K17-1001</doi>
       <abstract>I explore the hypothesis that conventional neural network models (e.g., recurrent neural networks) are incorrectly biased for making linguistically sensible generalizations when learning, and that a better class of models is based on architectures that reflect hierarchical structures for which considerable behavioral evidence exists. I focus on the problem of modeling and representing the meanings of sentences. On the generation front, I introduce recurrent neural network grammars (RNNGs), a joint, generative model of phrase-structure trees and sentences. RNNGs operate via a recursive syntactic process reminiscent of probabilistic context-free grammar generation, but decisions are parameterized using RNNs that condition on the entire (top-down, left-to-right) syntactic derivation history, thus relaxing context-free independence assumptions, while retaining a bias toward explaining decisions via “syntactically local” conditioning contexts. Experiments show that RNNGs obtain better results in generating language than models that don’t exploit linguistic structure. On the representation front, I explore unsupervised learning of syntactic structures based on distant semantic supervision using a reinforcement-learning algorithm. The learner seeks a syntactic structure that provides a compositional architecture that produces a good representation for a downstream semantic task. Although the inferred structures are quite different from traditional syntactic analyses, the performance on the downstream tasks surpasses that of systems that use sequential RNNs and tree-structured RNNs based on treebank dependencies. This is joint work with Adhi Kuncoro, Dani Yogatama, Miguel Ballesteros, Phil Blunsom, Ed Grefenstette, Wang Ling, and Noah A. Smith.</abstract>
+      <bibkey>dyer-2017-neural</bibkey>
     </paper>
     <paper id="2">
       <title>Rational Distortions of Learners’ Linguistic Input</title>
@@ -30,6 +32,7 @@
       <url hash="83dbcf94">K17-1002</url>
       <doi>10.18653/v1/K17-1002</doi>
       <abstract>Language acquisition can be modeled as a statistical inference problem: children use sentences and sounds in their input to infer linguistic structure. However, in many cases, children learn from data whose statistical structure is distorted relative to the language they are learning. Such distortions can arise either in the input itself, or as a result of children’s immature strategies for encoding their input. This work examines several cases in which the statistical structure of children’s input differs from the language being learned. Analyses show that these distortions of the input can be accounted for with a statistical learning framework by carefully considering the inference problems that learners solve during language acquisition</abstract>
+      <bibkey>feldman-2017-rational</bibkey>
     </paper>
     <paper id="3">
       <title>Exploring the Syntactic Abilities of <fixed-case>RNN</fixed-case>s with Multi-task Learning</title>
@@ -40,6 +43,7 @@
       <url hash="10dc79cf">K17-1003</url>
       <doi>10.18653/v1/K17-1003</doi>
       <abstract>Recent work has explored the syntactic abilities of RNNs using the subject-verb agreement task, which diagnoses sensitivity to sentence structure. RNNs performed this task well in common cases, but faltered in complex sentences (Linzen et al., 2016). We test whether these errors are due to inherent limitations of the architecture or to the relatively indirect supervision provided by most agreement dependencies in a corpus. We trained a single RNN to perform both the agreement task and an additional task, either CCG supertagging or language modeling. Multi-task training led to significantly lower error rates, in particular on complex sentences, suggesting that RNNs have the ability to evolve more sophisticated syntactic representations than shown before. We also show that easily available agreement training data can improve performance on other syntactic tasks, in particular when only a limited amount of training data is available for those tasks. The multi-task paradigm can also be leveraged to inject grammatical knowledge into language models.</abstract>
+      <bibkey>enguehard-etal-2017-exploring</bibkey>
     </paper>
     <paper id="4">
       <title>The Effect of Different Writing Tasks on Linguistic Style: A Case Study of the <fixed-case>ROC</fixed-case> Story Cloze Task</title>
@@ -53,6 +57,7 @@
       <url hash="947cccb9">K17-1004</url>
       <doi>10.18653/v1/K17-1004</doi>
       <abstract>A writer’s style depends not just on personal traits but also on her intent and mental state. In this paper, we show how variants of the same writing task can lead to measurable differences in writing style. We present a case study based on the story cloze task (Mostafazadeh et al., 2016a), where annotators were assigned similar writing tasks with different constraints: (1) writing an entire story, (2) adding a story ending for a given story context, and (3) adding an incoherent ending to a story. We show that a simple linear classifier informed by stylistic features is able to successfully distinguish among the three cases, without even looking at the story context. In addition, combining our stylistic features with language model predictions reaches state of the art performance on the story cloze challenge. Our results demonstrate that different task framings can dramatically affect the way people write.</abstract>
+      <bibkey>schwartz-etal-2017-effect</bibkey>
     </paper>
     <paper id="5">
       <title>Parsing for Grammatical Relations via Graph Merging</title>
@@ -63,6 +68,7 @@
       <url hash="5cdb42e1">K17-1005</url>
       <doi>10.18653/v1/K17-1005</doi>
       <abstract>This paper is concerned with building deep grammatical relation (GR) analysis using data-driven approach. To deal with this problem, we propose graph merging, a new perspective, for building flexible dependency graphs: Constructing complex graphs via constructing simple subgraphs. We discuss two key problems in this perspective: (1) how to decompose a complex graph into simple subgraphs, and (2) how to combine subgraphs into a coherent complex graph. Experiments demonstrate the effectiveness of graph merging. Our parser reaches state-of-the-art performance and is significantly better than two transition-based parsers.</abstract>
+      <bibkey>sun-etal-2017-parsing</bibkey>
     </paper>
     <paper id="6">
       <title>Leveraging Eventive Information for Better Metaphor Detection and Classification</title>
@@ -74,6 +80,7 @@
       <url hash="70f1aa4c">K17-1006</url>
       <doi>10.18653/v1/K17-1006</doi>
       <abstract>Metaphor detection has been both challenging and rewarding in natural language processing applications. This study offers a new approach based on eventive information in detecting metaphors by leveraging the Chinese writing system, which is a culturally bound ontological system organized according to the basic concepts represented by radicals. As such, the information represented is available in all Chinese text without pre-processing. Since metaphor detection is another culturally based conceptual representation, we hypothesize that sub-textual information can facilitate the identification and classification of the types of metaphoric events denoted in Chinese text. We propose a set of syntactic conditions crucial to event structures to improve the model based on the classification of radical groups. With the proposed syntactic conditions, the model achieves a performance of 0.8859 in terms of F-scores, making 1.7% of improvement than the same classifier with only Bag-of-word features. Results show that eventive information can improve the effectiveness of metaphor detection. Event information is rooted in every language, and thus this approach has a high potential to be applied to metaphor detection in other languages.</abstract>
+      <bibkey>chen-etal-2017-leveraging</bibkey>
     </paper>
     <paper id="7">
       <title>Collaborative Partitioning for Coreference Resolution</title>
@@ -83,6 +90,7 @@
       <url hash="eeed52aa">K17-1007</url>
       <doi>10.18653/v1/K17-1007</doi>
       <abstract>This paper presents a collaborative partitioning algorithm—a novel ensemble-based approach to coreference resolution. Starting from the all-singleton partition, we search for a solution close to the ensemble’s outputs in terms of a task-specific similarity measure. Our approach assumes a loose integration of individual components of the ensemble and can therefore combine arbitrary coreference resolvers, regardless of their models. Our experiments on the CoNLL dataset show that collaborative partitioning yields results superior to those attained by the individual components, for ensembles of both strong and weak systems. Moreover, by applying the collaborative partitioning algorithm on top of three state-of-the-art resolvers, we obtain the best coreference performance reported so far in the literature (MELA v08 score of 64.47).</abstract>
+      <bibkey>uryupina-moschitti-2017-collaborative</bibkey>
     </paper>
     <paper id="8">
       <title>Named Entity Disambiguation for Noisy Text</title>
@@ -96,6 +104,7 @@
       <url hash="1fd7d161">K17-1008</url>
       <doi>10.18653/v1/K17-1008</doi>
       <abstract>We address the task of Named Entity Disambiguation (NED) for noisy text. We present WikilinksNED, a large-scale NED dataset of text fragments from the web, which is significantly noisier and more challenging than existing news-based datasets. To capture the limited and noisy local context surrounding each mention, we design a neural model and train it with a novel method for sampling informative negative examples. We also describe a new way of initializing word and entity embeddings that significantly improves performance. Our model significantly outperforms existing state-of-the-art methods on WikilinksNED while achieving comparable performance on a smaller newswire dataset.</abstract>
+      <bibkey>eshel-etal-2017-named</bibkey>
     </paper>
     <paper id="9">
       <title>Tell Me Why: Using Question Answering as Distant Supervision for Answer Justification</title>
@@ -109,6 +118,7 @@
       <url hash="52ae6606">K17-1009</url>
       <doi>10.18653/v1/K17-1009</doi>
       <abstract>For many applications of question answering (QA), being able to explain why a given model chose an answer is critical. However, the lack of labeled data for answer justifications makes learning this difficult and expensive. Here we propose an approach that uses answer ranking as distant supervision for learning how to select informative justifications, where justifications serve as inferential connections between the question and the correct answer while often containing little lexical overlap with either. We propose a neural network architecture for QA that reranks answer justifications as an intermediate (and human-interpretable) step in answer selection. Our approach is informed by a set of features designed to combine both learned representations and explicit features to capture the connection between questions, answers, and answer justifications. We show that with this end-to-end approach we are able to significantly improve upon a strong IR baseline in both justification ranking (+9% rated highly relevant) and answer selection (+6% P@1).</abstract>
+      <bibkey>sharp-etal-2017-tell</bibkey>
     </paper>
     <paper id="10">
       <title>Learning What is Essential in Questions</title>
@@ -120,6 +130,7 @@
       <url hash="73600ab7">K17-1010</url>
       <doi>10.18653/v1/K17-1010</doi>
       <abstract>Question answering (QA) systems are easily distracted by irrelevant or redundant words in questions, especially when faced with long or multi-sentence questions in difficult domains. This paper introduces and studies the notion of essential question terms with the goal of improving such QA solvers. We illustrate the importance of essential question terms by showing that humans’ ability to answer questions drops significantly when essential terms are eliminated from questions.We then develop a classifier that reliably (90% mean average precision) identifies and ranks essential terms in questions. Finally, we use the classifier to demonstrate that the notion of question term essentiality allows state-of-the-art QA solver for elementary-level science questions to make better and more informed decisions,improving performance by up to 5%.We also introduce a new dataset of over 2,200 crowd-sourced essential terms annotated science questions.</abstract>
+      <bibkey>khashabi-etal-2017-learning</bibkey>
     </paper>
     <paper id="11">
       <title>Top-Rank Enhanced Listwise Optimization for Statistical Machine Translation</title>
@@ -132,6 +143,7 @@
       <url hash="824faaee">K17-1011</url>
       <doi>10.18653/v1/K17-1011</doi>
       <abstract>Pairwise ranking methods are the most widely used discriminative training approaches for structure prediction problems in natural language processing (NLP). Decomposing the problem of ranking hypotheses into pairwise comparisons enables simple and efficient solutions. However, neglecting the global ordering of the hypothesis list may hinder learning. We propose a listwise learning framework for structure prediction problems such as machine translation. Our framework directly models the entire translation list’s ordering to learn parameters which may better fit the given listwise samples. Furthermore, we propose top-rank enhanced loss functions, which are more sensitive to ranking errors at higher positions. Experiments on a large-scale Chinese-English translation task show that both our listwise learning framework and top-rank enhanced listwise losses lead to significant improvements in translation quality.</abstract>
+      <bibkey>chen-etal-2017-top</bibkey>
     </paper>
     <paper id="12">
       <title>Embedding Words and Senses Together via Joint Knowledge-Enhanced Training</title>
@@ -144,6 +156,7 @@
       <doi>10.18653/v1/K17-1012</doi>
       <abstract>Word embeddings are widely used in Natural Language Processing, mainly due to their success in capturing semantic information from massive corpora. However, their creation process does not allow the different meanings of a word to be automatically separated, as it conflates them into a single vector. We address this issue by proposing a new model which learns word and sense embeddings jointly. Our model exploits large corpora and knowledge from semantic networks in order to produce a unified vector space of word and sense embeddings. We evaluate the main features of our approach both qualitatively and quantitatively in a variety of tasks, highlighting the advantages of the proposed method in comparison to state-of-the-art word- and sense-based models.</abstract>
       <attachment type="presentation" hash="b006f477">K17-1012.Presentation.pdf</attachment>
+      <bibkey>mancini-etal-2017-embedding</bibkey>
     </paper>
     <paper id="13">
       <title>Automatic Selection of Context Configurations for Improved Class-Specific Word Representations</title>
@@ -156,6 +169,7 @@
       <url hash="b0feb864">K17-1013</url>
       <doi>10.18653/v1/K17-1013</doi>
       <abstract>This paper is concerned with identifying contexts useful for training word representation models for different word classes such as adjectives (A), verbs (V), and nouns (N). We introduce a simple yet effective framework for an automatic selection of class-specific context configurations. We construct a context configuration space based on universal dependency relations between words, and efficiently search this space with an adapted beam search algorithm. In word similarity tasks for each word class, we show that our framework is both effective and efficient. Particularly, it improves the Spearman’s rho correlation with human scores on SimLex-999 over the best previously proposed class-specific contexts by 6 (A), 6 (V) and 5 (N) rho points. With our selected context configurations, we train on only 14% (A), 26.2% (V), and 33.6% (N) of all dependency-based contexts, resulting in a reduced training time. Our results generalise: we show that the configurations our algorithm learns for one English training setup outperform previously proposed context types in another training setup for English. Moreover, basing the configuration space on universal dependencies, it is possible to transfer the learned configurations to German and Italian. We also demonstrate improved per-class results over other context types in these two languages..</abstract>
+      <bibkey>vulic-etal-2017-automatic</bibkey>
     </paper>
     <paper id="14">
       <title>Modeling Context Words as Regions: An Ordinal Regression Approach to Word Embedding</title>
@@ -165,6 +179,7 @@
       <url hash="e7dc59aa">K17-1014</url>
       <doi>10.18653/v1/K17-1014</doi>
       <abstract>Vector representations of word meaning have found many applications in the field of natural language processing. Word vectors intuitively represent the average context in which a given word tends to occur, but they cannot explicitly model the diversity of these contexts. Although region representations of word meaning offer a natural alternative to word vectors, only few methods have been proposed that can effectively learn word regions. In this paper, we propose a new word embedding model which is based on SVM regression. We show that the underlying ranking interpretation of word contexts is sufficient to match, and sometimes outperform, the performance of popular methods such as Skip-gram. Furthermore, we show that by using a quadratic kernel, we can effectively learn word regions, which outperform existing unsupervised models for the task of hypernym detection.</abstract>
+      <bibkey>jameel-schockaert-2017-modeling</bibkey>
     </paper>
     <paper id="15">
       <title>An Artificial Language Evaluation of Distributional Semantic Models</title>
@@ -174,6 +189,7 @@
       <url hash="bb0adef1">K17-1015</url>
       <doi>10.18653/v1/K17-1015</doi>
       <abstract>Recent studies of distributional semantic models have set up a competition between word embeddings obtained from predictive neural networks and word vectors obtained from abstractive count-based models. This paper is an attempt to reveal the underlying contribution of additional training data and post-processing steps on each type of model in word similarity and relatedness inference tasks. We do so by designing an artificial language framework, training a predictive and a count-based model on data sampled from this grammar, and evaluating the resulting word vectors in paradigmatic and syntagmatic tasks defined with respect to the grammar.</abstract>
+      <bibkey>torabi-asr-jones-2017-artificial</bibkey>
     </paper>
     <paper id="16">
       <title>Learning Word Representations with Regularization from Prior Knowledge</title>
@@ -184,6 +200,7 @@
       <url hash="58aca8f4">K17-1016</url>
       <doi>10.18653/v1/K17-1016</doi>
       <abstract>Conventional word embeddings are trained with specific criteria (e.g., based on language modeling or co-occurrence) inside a single information source, disregarding the opportunity for further calibration using external knowledge. This paper presents a unified framework that leverages pre-learned or external priors, in the form of a regularizer, for enhancing conventional language model-based embedding learning. We consider two types of regularizers. The first type is derived from topic distribution by running LDA on unlabeled data. The second type is based on dictionaries that are created with human annotation efforts. To effectively learn with the regularizers, we propose a novel data structure, trajectory softmax, in this paper. The resulting embeddings are evaluated by word similarity and sentiment classification. Experimental results show that our learning framework with regularization from prior knowledge improves embedding quality across multiple datasets, compared to a diverse collection of baseline methods.</abstract>
+      <bibkey>song-etal-2017-learning</bibkey>
     </paper>
     <paper id="17">
       <title>Attention-based Recurrent Convolutional Neural Network for Automatic Essay Scoring</title>
@@ -194,6 +211,7 @@
       <url hash="9595a384">K17-1017</url>
       <doi>10.18653/v1/K17-1017</doi>
       <abstract>Neural network models have recently been applied to the task of automatic essay scoring, giving promising results. Existing work used recurrent neural networks and convolutional neural networks to model input essays, giving grades based on a single vector representation of the essay. On the other hand, the relative advantages of RNNs and CNNs have not been compared. In addition, different parts of the essay can contribute differently for scoring, which is not captured by existing models. We address these issues by building a hierarchical sentence-document model to represent essays, using the attention mechanism to automatically decide the relative weights of words and sentences. Results show that our model outperforms the previous state-of-the-art methods, demonstrating the effectiveness of the attention mechanism.</abstract>
+      <bibkey>dong-etal-2017-attention</bibkey>
     </paper>
     <paper id="18">
       <title>Feature Selection as Causal Inference: Experiments with Text Classification</title>
@@ -202,6 +220,7 @@
       <url hash="60ac5aea">K17-1018</url>
       <doi>10.18653/v1/K17-1018</doi>
       <abstract>This paper proposes a matching technique for learning causal associations between word features and class labels in document classification. The goal is to identify more meaningful and generalizable features than with only correlational approaches. Experiments with sentiment classification show that the proposed method identifies interpretable word associations with sentiment and improves classification performance in a majority of cases. The proposed feature selection method is particularly effective when applied to out-of-domain data.</abstract>
+      <bibkey>paul-2017-feature</bibkey>
     </paper>
     <paper id="19">
       <title>A Joint Model for Semantic Sequences: Frames, Entities, Sentiments</title>
@@ -212,6 +231,7 @@
       <url hash="316987b2">K17-1019</url>
       <doi>10.18653/v1/K17-1019</doi>
       <abstract>Understanding stories – sequences of events – is a crucial yet challenging natural language understanding task. These events typically carry multiple aspects of semantics including actions, entities and emotions. Not only does each individual aspect contribute to the meaning of the story, so does the interaction among these aspects. Building on this intuition, we propose to jointly model important aspects of semantic knowledge – frames, entities and sentiments – via a semantic language model. We achieve this by first representing these aspects’ semantic units at an appropriate level of abstraction and then using the resulting vector representations for each semantic aspect to learn a joint representation via a neural language model. We show that the joint semantic language model is of high quality and can generate better semantic sequences than models that operate on the word level. We further demonstrate that our joint model can be applied to story cloze test and shallow discourse parsing tasks with improved performance and that each semantic aspect contributes to the model.</abstract>
+      <bibkey>peng-etal-2017-joint</bibkey>
     </paper>
     <paper id="20">
       <title>Neural Sequence-to-sequence Learning of Internal Word Structure</title>
@@ -221,6 +241,7 @@
       <url hash="20ce76f0">K17-1020</url>
       <doi>10.18653/v1/K17-1020</doi>
       <abstract>Learning internal word structure has recently been recognized as an important step in various multilingual processing tasks and in theoretical language comparison. In this paper, we present a neural encoder-decoder model for learning canonical morphological segmentation. Our model combines character-level sequence-to-sequence transformation with a language model over canonical segments. We obtain up to 4% improvement over a strong character-level encoder-decoder baseline for three languages. Our model outperforms the previous state-of-the-art for two languages, while eliminating the need for external resources such as large dictionaries. Finally, by comparing the performance of encoder-decoder and classical statistical machine translation systems trained with and without corpus counts, we show that including corpus counts is beneficial to both approaches.</abstract>
+      <bibkey>ruzsics-samardzic-2017-neural</bibkey>
     </paper>
     <paper id="21">
       <title>A Supervised Approach to Extractive Summarisation of Scientific Papers</title>
@@ -231,6 +252,7 @@
       <url hash="dd85c328">K17-1021</url>
       <doi>10.18653/v1/K17-1021</doi>
       <abstract>Automatic summarisation is a popular approach to reduce a document to its main arguments. Recent research in the area has focused on neural approaches to summarisation, which can be very data-hungry. However, few large datasets exist and none for the traditionally popular domain of scientific publications, which opens up challenging research avenues centered on encoding large, complex documents. In this paper, we introduce a new dataset for summarisation of computer science publications by exploiting a large resource of author provided summaries and show straightforward ways of extending it further. We develop models on the dataset making use of both neural sentence encoding and traditionally used summarisation features and show that models which encode sentences as well as their local and global context perform best, significantly outperforming well-established baseline methods.</abstract>
+      <bibkey>collins-etal-2017-supervised</bibkey>
     </paper>
     <paper id="22">
       <title>An Automatic Approach for Document-level Topic Model Evaluation</title>
@@ -241,6 +263,7 @@
       <url hash="2eaad930">K17-1022</url>
       <doi>10.18653/v1/K17-1022</doi>
       <abstract>Topic models jointly learn topics and document-level topic distribution. Extrinsic evaluation of topic models tends to focus exclusively on topic-level evaluation, e.g. by assessing the coherence of topics. We demonstrate that there can be large discrepancies between topic- and document-level model quality, and that basing model evaluation on topic-level analysis can be highly misleading. We propose a method for automatically predicting topic model quality based on analysis of document-level topic allocations, and provide empirical evidence for its robustness.</abstract>
+      <bibkey>bhatia-etal-2017-automatic</bibkey>
     </paper>
     <paper id="23">
       <title>Robust Coreference Resolution and Entity Linking on Dialogues: Character Identification on <fixed-case>TV</fixed-case> Show Transcripts</title>
@@ -251,6 +274,7 @@
       <url hash="4b8a50cd">K17-1023</url>
       <doi>10.18653/v1/K17-1023</doi>
       <abstract>This paper presents a novel approach to character identification, that is an entity linking task that maps mentions to characters in dialogues from TV show transcripts. We first augment and correct several cases of annotation errors in an existing corpus so the corpus is clearer and cleaner for statistical learning. We also introduce the agglomerative convolutional neural network that takes groups of features and learns mention and mention-pair embeddings for coreference resolution. We then propose another neural model that employs the embeddings learned and creates cluster embeddings for entity linking. Our coreference resolution model shows comparable results to other state-of-the-art systems. Our entity linking model significantly outperforms the previous work, showing the F1 score of 86.76% and the accuracy of 95.30% for character identification.</abstract>
+      <bibkey>chen-etal-2017-robust</bibkey>
     </paper>
     <paper id="24">
       <title>Cross-language Learning with Adversarial Neural Networks</title>
@@ -262,6 +286,7 @@
       <url hash="9310b2ab">K17-1024</url>
       <doi>10.18653/v1/K17-1024</doi>
       <abstract>We address the problem of cross-language adaptation for question-question similarity reranking in community question answering, with the objective to port a system trained on one input language to another input language given labeled training data for the first language and only unlabeled data for the second language. In particular, we propose to use adversarial training of neural networks to learn high-level features that are discriminative for the main learning task, and at the same time are invariant across the input languages. The evaluation results show sizable improvements for our cross-language adversarial neural network (CLANN) model over a strong non-adversarial system.</abstract>
+      <bibkey>joty-etal-2017-cross</bibkey>
     </paper>
     <paper id="25">
       <title>Knowledge Tracing in Sequential Learning of Inflected Vocabulary</title>
@@ -272,6 +297,7 @@
       <url hash="9c51c7e4">K17-1025</url>
       <doi>10.18653/v1/K17-1025</doi>
       <abstract>We present a feature-rich knowledge tracing method that captures a student’s acquisition and retention of knowledge during a foreign language phrase learning task. We model the student’s behavior as making predictions under a log-linear model, and adopt a neural gating mechanism to model how the student updates their log-linear parameters in response to feedback. The gating mechanism allows the model to learn complex patterns of retention and acquisition for each feature, while the log-linear parameterization results in an interpretable knowledge state. We collect human data and evaluate several versions of the model.</abstract>
+      <bibkey>renduchintala-etal-2017-knowledge</bibkey>
     </paper>
     <paper id="26">
       <title>A Probabilistic Generative Grammar for Semantic Parsing</title>
@@ -282,6 +308,7 @@
       <url hash="5d99e2ff">K17-1026</url>
       <doi>10.18653/v1/K17-1026</doi>
       <abstract>We present a generative model of natural language sentences and demonstrate its application to semantic parsing. In the generative process, a logical form sampled from a prior, and conditioned on this logical form, a grammar probabilistically generates the output sentence. Grammar induction using MCMC is applied to learn the grammar given a set of labeled sentences with corresponding logical forms. We develop a semantic parser that finds the logical form with the highest posterior probability exactly. We obtain strong results on the GeoQuery dataset and achieve state-of-the-art F1 on Jobs.</abstract>
+      <bibkey>saparov-etal-2017-probabilistic</bibkey>
     </paper>
     <paper id="27">
       <title>Learning Contextual Embeddings for Structural Semantic Similarity using Categorical Information</title>
@@ -291,6 +318,7 @@
       <url hash="488c05b3">K17-1027</url>
       <doi>10.18653/v1/K17-1027</doi>
       <abstract>Tree kernels (TKs) and neural networks are two effective approaches for automatic feature engineering. In this paper, we combine them by modeling context word similarity in semantic TKs. This way, the latter can operate subtree matching by applying neural-based similarity on tree lexical nodes. We study how to learn representations for the words in context such that TKs can exploit more focused information. We found that neural embeddings produced by current methods do not provide a suitable contextual similarity. Thus, we define a new approach based on a Siamese Network, which produces word representations while learning a binary text similarity. We set the latter considering examples in the same category as similar. The experiments on question and sentiment classification show that our semantic TK highly improves previous results.</abstract>
+      <bibkey>nicosia-moschitti-2017-learning</bibkey>
     </paper>
     <paper id="28">
       <title>Making Neural <fixed-case>QA</fixed-case> as Simple as Possible but not Simpler</title>
@@ -301,6 +329,7 @@
       <url hash="3bbb649f">K17-1028</url>
       <doi>10.18653/v1/K17-1028</doi>
       <abstract>Recent development of large-scale question answering (QA) datasets triggered a substantial amount of research into end-to-end neural architectures for QA. Increasingly complex systems have been conceived without comparison to simpler neural baseline systems that would justify their complexity. In this work, we propose a simple heuristic that guides the development of neural baseline systems for the extractive QA task. We find that there are two ingredients necessary for building a high-performing neural QA system: first, the awareness of question words while processing the context and second, a composition function that goes beyond simple bag-of-words modeling, such as recurrent neural networks. Our results show that FastQA, a system that meets these two requirements, can achieve very competitive performance compared with existing models. We argue that this surprising finding puts results of previous systems and the complexity of recent QA datasets into perspective.</abstract>
+      <bibkey>weissenborn-etal-2017-making</bibkey>
     </paper>
     <paper id="29">
       <title>Neural Domain Adaptation for Biomedical Question Answering</title>
@@ -312,6 +341,7 @@
       <doi>10.18653/v1/K17-1029</doi>
       <abstract>Factoid question answering (QA) has recently benefited from the development of deep learning (DL) systems. Neural network models outperform traditional approaches in domains where large datasets exist, such as SQuAD (ca. 100,000 questions) for Wikipedia articles. However, these systems have not yet been applied to QA in more specific domains, such as biomedicine, because datasets are generally too small to train a DL system from scratch. For example, the BioASQ dataset for biomedical QA comprises less then 900 factoid (single answer) and list (multiple answers) QA instances. In this work, we adapt a neural QA system trained on a large open-domain dataset (SQuAD, source) to a biomedical dataset (BioASQ, target) by employing various transfer learning techniques. Our network architecture is based on a state-of-the-art QA system, extended with biomedical word embeddings and a novel mechanism to answer list questions. In contrast to existing biomedical QA systems, our system does not rely on domain-specific ontologies, parsers or entity taggers, which are expensive to create. Despite this fact, our systems achieve state-of-the-art results on factoid questions and competitive results on list questions.</abstract>
       <attachment type="poster" hash="b709ef27">K17-1029.Poster.pdf</attachment>
+      <bibkey>wiese-etal-2017-neural</bibkey>
     </paper>
     <paper id="30">
       <title>A phoneme clustering algorithm based on the obligatory contour principle</title>
@@ -320,6 +350,7 @@
       <url hash="f20c0a55">K17-1030</url>
       <doi>10.18653/v1/K17-1030</doi>
       <abstract>This paper explores a divisive hierarchical clustering algorithm based on the well-known Obligatory Contour Principle in phonology. The purpose is twofold: to see if such an algorithm could be used for unsupervised classification of phonemes or graphemes in corpora, and to investigate whether this purported universal constraint really holds for several classes of phonological distinctive features. The algorithm achieves very high accuracies in an unsupervised setting of inferring a consonant-vowel distinction, and also has a strong tendency to detect coronal phonemes in an unsupervised fashion. Remaining classes, however, do not correspond as neatly to phonological distinctive feature splits. While the results offer only mixed support for a universal Obligatory Contour Principle, the algorithm can be very useful for many NLP tasks due to the high accuracy in revealing consonant/vowel/coronal distinctions.</abstract>
+      <bibkey>hulden-2017-phoneme</bibkey>
     </paper>
     <paper id="31">
       <title>Learning Stock Market Sentiment Lexicon and Sentiment-Oriented Word Vector from <fixed-case>S</fixed-case>tock<fixed-case>T</fixed-case>wits</title>
@@ -329,6 +360,7 @@
       <url hash="e3fe32fb">K17-1031</url>
       <doi>10.18653/v1/K17-1031</doi>
       <abstract>Previous studies have shown that investor sentiment indicators can predict stock market change. A domain-specific sentiment lexicon and sentiment-oriented word embedding model would help the sentiment analysis in financial domain and stock market. In this paper, we present a new approach to learning stock market lexicon from StockTwits, a popular financial social network for investors to share ideas. It learns word polarity by predicting message sentiment, using a neural net-work. The sentiment-oriented word embeddings are learned from tens of millions of StockTwits posts, and this is the first study presenting sentiment-oriented word embeddings for stock market. The experiments of predicting investor sentiment show that our lexicon outperformed other lexicons built by the state-of-the-art methods, and the sentiment-oriented word vector was much better than the general word embeddings.</abstract>
+      <bibkey>li-shah-2017-learning</bibkey>
     </paper>
     <paper id="32">
       <title>Learning local and global contexts using a convolutional recurrent network model for relation classification in biomedical text</title>
@@ -339,6 +371,7 @@
       <url hash="6e892643">K17-1032</url>
       <doi>10.18653/v1/K17-1032</doi>
       <abstract>The task of relation classification in the biomedical domain is complex due to the presence of samples obtained from heterogeneous sources such as research articles, discharge summaries, or electronic health records. It is also a constraint for classifiers which employ manual feature engineering. In this paper, we propose a convolutional recurrent neural network (CRNN) architecture that combines RNNs and CNNs in sequence to solve this problem. The rationale behind our approach is that CNNs can effectively identify coarse-grained local features in a sentence, while RNNs are more suited for long-term dependencies. We compare our CRNN model with several baselines on two biomedical datasets, namely the i2b2-2010 clinical relation extraction challenge dataset, and the SemEval-2013 DDI extraction dataset. We also evaluate an attentive pooling technique and report its performance in comparison with the conventional max pooling method. Our results indicate that the proposed model achieves state-of-the-art performance on both datasets.</abstract>
+      <bibkey>raj-etal-2017-learning</bibkey>
     </paper>
     <paper id="33">
       <title>Idea density for predicting <fixed-case>A</fixed-case>lzheimer’s disease from transcribed speech</title>
@@ -349,6 +382,7 @@
       <url hash="4afeb965">K17-1033</url>
       <doi>10.18653/v1/K17-1033</doi>
       <abstract>Idea Density (ID) measures the rate at which ideas or elementary predications are expressed in an utterance or in a text. Lower ID is found to be associated with an increased risk of developing Alzheimer’s disease (AD) (Snowdon et al., 1996; Engelman et al., 2010). ID has been used in two different versions: propositional idea density (PID) counts the expressed ideas and can be applied to any text while semantic idea density (SID) counts pre-defined information content units and is naturally more applicable to normative domains, such as picture description tasks. In this paper, we develop DEPID, a novel dependency-based method for computing PID, and its version DEPID-R that enables to exclude repeating ideas—a feature characteristic to AD speech. We conduct the first comparison of automatically extracted PID and SID in the diagnostic classification task on two different AD datasets covering both closed-topic and free-recall domains. While SID performs better on the normative dataset, adding PID leads to a small but significant improvement (+1.7 F-score). On the free-topic dataset, PID performs better than SID as expected (77.6 vs 72.3 in F-score) but adding the features derived from the word embedding clustering underlying the automatic SID increases the results considerably, leading to an F-score of 84.8.</abstract>
+      <bibkey>sirts-etal-2017-idea</bibkey>
     </paper>
     <paper id="34">
       <title>Zero-Shot Relation Extraction via Reading Comprehension</title>
@@ -360,6 +394,7 @@
       <url hash="fed4f480">K17-1034</url>
       <doi>10.18653/v1/K17-1034</doi>
       <abstract>We show that relation extraction can be reduced to answering simple reading comprehension questions, by associating one or more natural-language questions with each relation slot. This reduction has several advantages: we can (1) learn relation-extraction models by extending recent neural reading-comprehension techniques, (2) build very large training sets for those models by combining relation-specific crowd-sourced questions with distant supervision, and even (3) do zero-shot learning by extracting new relation types that are only specified at test-time, for which we have no labeled training examples. Experiments on a Wikipedia slot-filling task demonstrate that the approach can generalize to new questions for known relation types with high accuracy, and that zero-shot generalization to unseen relation types is possible, at lower accuracy levels, setting the bar for future work on this task.</abstract>
+      <bibkey>levy-etal-2017-zero</bibkey>
     </paper>
     <paper id="35">
       <title>The Covert Helps Parse the Overt</title>
@@ -370,6 +405,7 @@
       <url hash="e92a3e90">K17-1035</url>
       <doi>10.18653/v1/K17-1035</doi>
       <abstract>This paper is concerned with whether deep syntactic information can help surface parsing, with a particular focus on empty categories. We design new algorithms to produce dependency trees in which empty elements are allowed, and evaluate the impact of information about empty category on parsing overt elements. Such information is helpful to reduce the approximation error in a structured parsing model, but increases the search space for inference and accordingly the estimation error. To deal with structure-based overfitting, we propose to integrate disambiguation models with and without empty elements, and perform structure regularization via joint decoding. Experiments on English and Chinese TreeBanks with different parsing models indicate that incorporating empty elements consistently improves surface parsing.</abstract>
+      <bibkey>zhang-etal-2017-covert</bibkey>
     </paper>
     <paper id="36">
       <title><fixed-case>G</fixed-case>erman in Flux: Detecting Metaphoric Change via Word Entropy</title>
@@ -383,6 +419,7 @@
       <doi>10.18653/v1/K17-1036</doi>
       <abstract>This paper explores the information-theoretic measure entropy to detect metaphoric change, transferring ideas from hypernym detection to research on language change. We build the first diachronic test set for German as a standard for metaphoric change annotation. Our model is unsupervised, language-independent and generalizable to other processes of semantic change.</abstract>
       <attachment type="presentation" hash="c9f0390e">K17-1036.Presentation.pdf</attachment>
+      <bibkey>schlechtweg-etal-2017-german</bibkey>
     </paper>
     <paper id="37">
       <title>Encoding of phonology in a recurrent neural model of grounded speech</title>
@@ -394,6 +431,7 @@
       <doi>10.18653/v1/K17-1037</doi>
       <abstract>We study the representation and encoding of phonemes in a recurrent neural network model of grounded speech. We use a model which processes images and their spoken descriptions, and projects the visual and auditory representations into the same semantic space. We perform a number of analyses on how information about individual phonemes is encoded in the MFCC features extracted from the speech signal, and the activations of the layers of the model. Via experiments with phoneme decoding and phoneme discrimination we show that phoneme representations are most salient in the lower layers of the model, where low-level signals are processed at a fine-grained level, although a large amount of phonological information is retain at the top recurrent layer. We further find out that the attention mechanism following the top recurrent layer significantly attenuates encoding of phonology and makes the utterance embeddings much more invariant to synonymy. Moreover, a hierarchical clustering of phoneme representations learned by the network shows an organizational structure of phonemes similar to those proposed in linguistics.</abstract>
       <attachment type="presentation" hash="ed700ecc">K17-1037.Presentation.pdf</attachment>
+      <bibkey>alishahi-etal-2017-encoding</bibkey>
     </paper>
     <paper id="38">
       <title>Multilingual Semantic Parsing And Code-Switching</title>
@@ -407,6 +445,7 @@
       <url hash="fcaea308">K17-1038</url>
       <doi>10.18653/v1/K17-1038</doi>
       <abstract>Extending semantic parsing systems to new domains and languages is a highly expensive, time-consuming process, so making effective use of existing resources is critical. In this paper, we describe a transfer learning method using crosslingual word embeddings in a sequence-to-sequence model. On the NLmaps corpus, our approach achieves state-of-the-art accuracy of 85.7% for English. Most importantly, we observed a consistent improvement for German compared with several baseline domain adaptation techniques. As a by-product of this approach, our models that are trained on a combination of English and German utterances perform reasonably well on code-switching utterances which contain a mixture of English and German, even though the training data does not contain any such. As far as we know, this is the first study of code-switching in semantic parsing. We manually constructed the set of code-switching test utterances for the NLmaps corpus and achieve 78.3% accuracy on this dataset.</abstract>
+      <bibkey>duong-etal-2017-multilingual-semantic</bibkey>
     </paper>
     <paper id="39">
       <title>Optimizing Differentiable Relaxations of Coreference Evaluation Metrics</title>
@@ -416,6 +455,7 @@
       <url hash="0921f8fa">K17-1039</url>
       <doi>10.18653/v1/K17-1039</doi>
       <abstract>Coreference evaluation metrics are hard to optimize directly as they are non-differentiable functions, not easily decomposable into elementary decisions. Consequently, most approaches optimize objectives only indirectly related to the end goal, resulting in suboptimal performance. Instead, we propose a differentiable relaxation that lends itself to gradient-based optimisation, thus bypassing the need for reinforcement learning or heuristic modification of cross-entropy. We show that by modifying the training objective of a competitive neural coreference system, we obtain a substantial gain in performance. This suggests that our approach can be regarded as a viable alternative to using reinforcement learning or more computationally expensive imitation learning.</abstract>
+      <bibkey>le-titov-2017-optimizing</bibkey>
     </paper>
     <paper id="40">
       <title>Neural Structural Correspondence Learning for Domain Adaptation</title>
@@ -425,6 +465,7 @@
       <url hash="01272cee">K17-1040</url>
       <doi>10.18653/v1/K17-1040</doi>
       <abstract>We introduce a neural network model that marries together ideas from two prominent strands of research on domain adaptation through representation learning: structural correspondence learning (SCL, (Blitzer et al., 2006)) and autoencoder neural networks (NNs). Our model is a three-layer NN that learns to encode the non-pivot features of an input example into a low dimensional representation, so that the existence of pivot features (features that are prominent in both domains and convey useful information for the NLP task) in the example can be decoded from that representation. The low-dimensional representation is then employed in a learning algorithm for the task. Moreover, we show how to inject pre-trained word embeddings into our model in order to improve generalization across examples with similar pivot features. We experiment with the task of cross-domain sentiment classification on 16 domain pairs and show substantial improvements over strong baselines.</abstract>
+      <bibkey>ziser-reichart-2017-neural</bibkey>
     </paper>
     <paper id="41">
       <title>A Simple and Accurate Syntax-Agnostic Neural Model for Dependency-based Semantic Role Labeling</title>
@@ -435,6 +476,7 @@
       <url hash="3856833f">K17-1041</url>
       <doi>10.18653/v1/K17-1041</doi>
       <abstract>We introduce a simple and accurate neural model for dependency-based semantic role labeling. Our model predicts predicate-argument dependencies relying on states of a bidirectional LSTM encoder. The semantic role labeler achieves competitive performance on English, even without any kind of syntactic information and only using local inference. However, when automatically predicted part-of-speech tags are provided as input, it substantially outperforms all previous local models and approaches the best reported results on the English CoNLL-2009 dataset. We also consider Chinese, Czech and Spanish where our approach also achieves competitive results. Syntactic parsers are unreliable on out-of-domain data, so standard (i.e., syntactically-informed) SRL models are hindered when tested in this setting. Our syntax-agnostic model appears more robust, resulting in the best reported results on standard out-of-domain test sets.</abstract>
+      <bibkey>marcheggiani-etal-2017-simple</bibkey>
     </paper>
     <paper id="42">
       <title>Joint Prediction of Morphosyntactic Categories for Fine-Grained <fixed-case>A</fixed-case>rabic Part-of-Speech Tagging Exploiting Tag Dictionary Information</title>
@@ -445,6 +487,7 @@
       <url hash="2d527a06">K17-1042</url>
       <doi>10.18653/v1/K17-1042</doi>
       <abstract>Part-of-speech (POS) tagging for morphologically rich languages such as Arabic is a challenging problem because of their enormous tag sets. One reason for this is that in the tagging scheme for such languages, a complete POS tag is formed by combining tags from multiple tag sets defined for each morphosyntactic category. Previous approaches in Arabic POS tagging applied one model for each morphosyntactic tagging task, without utilizing shared information between the tasks. In this paper, we propose an approach that utilizes this information by jointly modeling multiple morphosyntactic tagging tasks with a multi-task learning framework. We also propose a method of incorporating tag dictionary information into our neural models by combining word representations with representations of the sets of possible tags. Our experiments showed that the joint model with tag dictionary information results in an accuracy of 91.38% on the Penn Arabic Treebank data set, with an absolute improvement of 2.11% over the current state-of-the-art tagger.</abstract>
+      <bibkey>inoue-etal-2017-joint</bibkey>
     </paper>
     <paper id="43">
       <title>Learning from Relatives: Unified Dialectal <fixed-case>A</fixed-case>rabic Segmentation</title>
@@ -459,6 +502,7 @@
       <url hash="c9a86e76">K17-1043</url>
       <doi>10.18653/v1/K17-1043</doi>
       <abstract>Arabic dialects do not just share a common koiné, but there are shared pan-dialectal linguistic phenomena that allow computational models for dialects to learn from each other. In this paper we build a unified segmentation model where the training data for different dialects are combined and a single model is trained. The model yields higher accuracies than dialect-specific models, eliminating the need for dialect identification before segmentation. We also measure the degree of relatedness between four major Arabic dialects by testing how a segmentation model trained on one dialect performs on the other dialects. We found that linguistic relatedness is contingent with geographical proximity. In our experiments we use SVM-based ranking and bi-LSTM-CRF sequence labeling.</abstract>
+      <bibkey>samih-etal-2017-learning</bibkey>
     </paper>
     <paper id="44">
       <title>Natural Language Generation for Spoken Dialogue System using <fixed-case>RNN</fixed-case> Encoder-Decoder Networks</title>
@@ -468,6 +512,7 @@
       <url hash="4b5541c6">K17-1044</url>
       <doi>10.18653/v1/K17-1044</doi>
       <abstract>Natural language generation (NLG) is a critical component in a spoken dialogue system. This paper presents a Recurrent Neural Network based Encoder-Decoder architecture, in which an LSTM-based decoder is introduced to select, aggregate semantic elements produced by an attention mechanism over the input elements, and to produce the required utterances. The proposed generator can be jointly trained both sentence planning and surface realization to produce natural language sentences. The proposed model was extensively evaluated on four different NLG datasets. The experimental results showed that the proposed generators not only consistently outperform the previous methods across all the NLG domains but also show an ability to generalize from a new, unseen domain and learn from multi-domain datasets.</abstract>
+      <bibkey>tran-nguyen-2017-natural</bibkey>
     </paper>
     <paper id="45">
       <title>Graph-based Neural Multi-Document Summarization</title>
@@ -481,6 +526,7 @@
       <url hash="a42896cd">K17-1045</url>
       <doi>10.18653/v1/K17-1045</doi>
       <abstract>We propose a neural multi-document summarization system that incorporates sentence relation graphs. We employ a Graph Convolutional Network (GCN) on the relation graphs, with sentence embeddings obtained from Recurrent Neural Networks as input node features. Through multiple layer-wise propagation, the GCN generates high-level hidden sentence features for salience estimation. We then use a greedy heuristic to extract salient sentences that avoid redundancy. In our experiments on DUC 2004, we consider three types of sentence relation graphs and demonstrate the advantage of combining sentence relations in graphs with the representation power of deep neural networks. Our model improves upon other traditional graph-based extractive approaches and the vanilla GRU sequence model with no graph, and it achieves competitive results against other state-of-the-art multi-document summarization systems.</abstract>
+      <bibkey>yasunaga-etal-2017-graph</bibkey>
     </paper>
   </volume>
   <volume id="2">
@@ -496,6 +542,7 @@
     </meta>
     <frontmatter>
       <url hash="fa633a4b">K17-2000</url>
+      <bibkey>conll-2017-conll</bibkey>
     </frontmatter>
     <paper id="1">
       <title><fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case>-<fixed-case>SIGMORPHON</fixed-case> 2017 Shared Task: Universal Morphological Reinflection in 52 Languages</title>
@@ -513,6 +560,7 @@
       <pages>1–30</pages>
       <url hash="db473344">K17-2001</url>
       <doi>10.18653/v1/K17-2001</doi>
+      <bibkey>cotterell-etal-2017-conll</bibkey>
     </paper>
     <paper id="2">
       <title>Training Data Augmentation for Low-Resource Morphological Inflection</title>
@@ -523,6 +571,7 @@
       <pages>31–39</pages>
       <url hash="741e6c01">K17-2002</url>
       <doi>10.18653/v1/K17-2002</doi>
+      <bibkey>bergmanis-etal-2017-training</bibkey>
     </paper>
     <paper id="3">
       <title>The <fixed-case>LMU</fixed-case> System for the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case>-<fixed-case>SIGMORPHON</fixed-case> 2017 Shared Task on Universal Morphological Reinflection</title>
@@ -531,6 +580,7 @@
       <pages>40–48</pages>
       <url hash="1973c642">K17-2003</url>
       <doi>10.18653/v1/K17-2003</doi>
+      <bibkey>kann-schutze-2017-lmu</bibkey>
     </paper>
     <paper id="4">
       <title>Align and Copy: <fixed-case>UZH</fixed-case> at <fixed-case>SIGMORPHON</fixed-case> 2017 Shared Task for Morphological Reinflection</title>
@@ -540,6 +590,7 @@
       <pages>49–57</pages>
       <url hash="783d8e09">K17-2004</url>
       <doi>10.18653/v1/K17-2004</doi>
+      <bibkey>makarov-etal-2017-align</bibkey>
     </paper>
     <paper id="5">
       <title>Morphological Inflection Generation with Multi-space Variational Encoder-Decoders</title>
@@ -548,6 +599,7 @@
       <pages>58–65</pages>
       <url hash="4ece80af">K17-2005</url>
       <doi>10.18653/v1/K17-2005</doi>
+      <bibkey>zhou-neubig-2017-morphological</bibkey>
     </paper>
     <paper id="6">
       <title><fixed-case>ISI</fixed-case> at the <fixed-case>SIGMORPHON</fixed-case> 2017 Shared Task on Morphological Reinflection</title>
@@ -556,6 +608,7 @@
       <pages>66–70</pages>
       <url hash="629ba7ce">K17-2006</url>
       <doi>10.18653/v1/K17-2006</doi>
+      <bibkey>chakrabarty-garain-2017-isi</bibkey>
     </paper>
     <paper id="7">
       <title>Experiments on Morphological Reinflection: <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case>-2017 Shared Task</title>
@@ -564,6 +617,7 @@
       <pages>71–78</pages>
       <url hash="6c1448bd">K17-2007</url>
       <doi>10.18653/v1/K17-2007</doi>
+      <bibkey>sudhakar-singh-2017-experiments</bibkey>
     </paper>
     <paper id="8">
       <title>If you can’t beat them, join them: the <fixed-case>U</fixed-case>niversity of <fixed-case>A</fixed-case>lberta system description</title>
@@ -575,6 +629,7 @@
       <pages>79–84</pages>
       <url hash="379ec7d1">K17-2008</url>
       <doi>10.18653/v1/K17-2008</doi>
+      <bibkey>nicolai-etal-2017-cant</bibkey>
     </paper>
     <paper id="9">
       <title>Character Sequence-to-Sequence Model with Global Attention for Universal Morphological Reinflection</title>
@@ -584,6 +639,7 @@
       <pages>85–89</pages>
       <url hash="f5fd1936">K17-2009</url>
       <doi>10.18653/v1/K17-2009</doi>
+      <bibkey>zhu-etal-2017-character</bibkey>
     </paper>
     <paper id="10">
       <title>Data Augmentation for Morphological Reinflection</title>
@@ -594,6 +650,7 @@
       <pages>90–99</pages>
       <url hash="72d71331">K17-2010</url>
       <doi>10.18653/v1/K17-2010</doi>
+      <bibkey>silfverberg-etal-2017-data</bibkey>
     </paper>
     <paper id="11">
       <title>Seq2seq for Morphological Reinflection: When Deep Learning Fails</title>
@@ -602,6 +659,7 @@
       <pages>100–109</pages>
       <url hash="94852279">K17-2011</url>
       <doi>10.18653/v1/K17-2011</doi>
+      <bibkey>senuma-aizawa-2017-seq2seq</bibkey>
     </paper>
     <paper id="12">
       <title><fixed-case>SU</fixed-case>-<fixed-case>RUG</fixed-case> at the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case>-<fixed-case>SIGMORPHON</fixed-case> 2017 shared task: Morphological Inflection with Attentional Sequence-to-Sequence Models</title>
@@ -610,6 +668,7 @@
       <pages>110–113</pages>
       <url hash="a552dd56">K17-2012</url>
       <doi>10.18653/v1/K17-2012</doi>
+      <bibkey>ostling-bjerva-2017-su</bibkey>
     </paper>
   </volume>
   <volume id="3">
@@ -626,6 +685,7 @@
     </meta>
     <frontmatter>
       <url hash="5b38a3e1">K17-3000</url>
+      <bibkey>conll-2017-conll-2017</bibkey>
     </frontmatter>
     <paper id="1">
       <title><fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2017 Shared Task: Multilingual Parsing from Raw Text to <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies</title>
@@ -695,6 +755,7 @@
       <url hash="dbb3affb">K17-3001</url>
       <doi>10.18653/v1/K17-3001</doi>
       <abstract>The Conference on Computational Natural Language Learning (CoNLL) features a shared task, in which participants train and test their learning systems on the same data sets. In 2017, the task was devoted to learning dependency parsers for a large number of languages, in a real-world setting without any gold-standard annotation on input. All test sets followed a unified annotation scheme, namely that of Universal Dependencies. In this paper, we define the task and evaluation methodology, describe how the data sets were prepared, report and analyze the main results, and provide a brief categorization of the different approaches of the participating systems.</abstract>
+      <bibkey>zeman-etal-2017-conll</bibkey>
     </paper>
     <paper id="2">
       <title><fixed-case>S</fixed-case>tanford’s Graph-based Neural Dependency Parser at the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2017 Shared Task</title>
@@ -705,6 +766,7 @@
       <url hash="e174a8ef">K17-3002</url>
       <doi>10.18653/v1/K17-3002</doi>
       <abstract>This paper describes the neural dependency parser submitted by Stanford to the CoNLL 2017 Shared Task on parsing Universal Dependencies. Our system uses relatively simple LSTM networks to produce part of speech tags and labeled dependency parses from segmented and tokenized sequences of words. In order to address the rare word problem that abounds in languages with complex morphology, we include a character-based word representation that uses an LSTM to produce embeddings from sequences of characters. Our system was ranked first according to all five relevant metrics for the system: UPOS tagging (93.09%), XPOS tagging (82.27%), unlabeled attachment score (81.30%), labeled attachment score (76.30%), and content word labeled attachment score (72.57%).</abstract>
+      <bibkey>dozat-etal-2017-stanfords</bibkey>
     </paper>
     <paper id="3">
       <title>Combining Global Models for Parsing <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies</title>
@@ -716,6 +778,7 @@
       <url hash="415b8b8e">K17-3003</url>
       <doi>10.18653/v1/K17-3003</doi>
       <abstract>We describe our entry, C2L2, to the CoNLL 2017 shared task on parsing Universal Dependencies from raw text. Our system features an ensemble of three global parsing paradigms, one graph-based and two transition-based. Each model leverages character-level bi-directional LSTMs as lexical feature extractors to encode morphological information. Though relying on baseline tokenizers and focusing only on parsing, our system ranked second in the official end-to-end evaluation with a macro-average of 75.00 LAS F1 score over 81 test treebanks. In addition, we had the top average performance on the four surprise languages and on the small treebank subset.</abstract>
+      <bibkey>shi-etal-2017-combining</bibkey>
     </paper>
     <paper id="4">
       <title><fixed-case>IMS</fixed-case> at the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2017 <fixed-case>UD</fixed-case> Shared Task: <fixed-case>CRF</fixed-case>s and Perceptrons Meet Neural Networks</title>
@@ -727,6 +790,7 @@
       <url hash="a427d6bd">K17-3004</url>
       <doi>10.18653/v1/K17-3004</doi>
       <abstract>This paper presents the IMS contribution to the CoNLL 2017 Shared Task. In the preprocessing step we employed a CRF POS/morphological tagger and a neural tagger predicting supertags. On some languages, we also applied word segmentation with the CRF tagger and sentence segmentation with a perceptron-based parser. For parsing we took an ensemble approach by blending multiple instances of three parsers with very different architectures. Our system achieved the third place overall and the second place for the surprise languages.</abstract>
+      <bibkey>bjorkelund-etal-2017-ims</bibkey>
     </paper>
     <paper id="5">
       <title>The <fixed-case>HIT</fixed-case>-<fixed-case>SCIR</fixed-case> System for End-to-End Parsing of <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies</title>
@@ -754,6 +818,7 @@
       improvement of 3.76% in LAS of all languages. And finally, we rank the 4th
       place on the official test sets.
     </abstract>
+      <bibkey>che-etal-2017-hit</bibkey>
     </paper>
     <paper id="6">
       <title>A System for Multilingual Dependency Parsing based on Bidirectional <fixed-case>LSTM</fixed-case> Feature Representations</title>
@@ -763,6 +828,7 @@
       <url hash="2cacd098">K17-3006</url>
       <doi>10.18653/v1/K17-3006</doi>
       <abstract>In this paper, we present our multilingual dependency parser developed for the CoNLL 2017 UD Shared Task dealing with “Multilingual Parsing from Raw Text to Universal Dependencies”. Our parser extends the monolingual BIST-parser as a multi-source multilingual trainable parser. Thanks to multilingual word embeddings and one hot encodings for languages, our system can use both monolingual and multi-source training. We trained 69 monolingual language models and 13 multilingual models for the shared task. Our multilingual approach making use of different resources yield better results than the monolingual approach for 11 languages. Our system ranked 5 th and achieved 70.93 overall LAS score over the 81 test corpora (macro-averaged LAS F1 score).</abstract>
+      <bibkey>lim-poibeau-2017-system</bibkey>
     </paper>
     <paper id="7">
       <title>Adversarial Training for Cross-Domain <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Parsing</title>
@@ -774,6 +840,7 @@
       <url hash="f4a7a497">K17-3007</url>
       <doi>10.18653/v1/K17-3007</doi>
       <abstract>We describe our submission to the CoNLL 2017 shared task, which exploits the shared common knowledge of a language across different domains via a domain adaptation technique. Our approach is an extension to the recently proposed adversarial training technique for domain adaptation, which we apply on top of a graph-based neural dependency parsing model on bidirectional LSTMs. In our experiments, we find our baseline graph-based parser already outperforms the official baseline model (UDPipe) by a large margin. Further, by applying our technique to the treebanks of the same language with different domains, we observe an additional gain in the performance, in particular for the domains with less training data.</abstract>
+      <bibkey>sato-etal-2017-adversarial</bibkey>
     </paper>
     <paper id="8">
       <title>Parsing with Context Embeddings</title>
@@ -784,6 +851,7 @@
       <url hash="c68db857">K17-3008</url>
       <doi>10.18653/v1/K17-3008</doi>
       <abstract>We introduce context embeddings, dense vectors derived from a language model that represent the left/right context of a word instance, and demonstrate that context embeddings significantly improve the accuracy of our transition based parser. Our model consists of a bidirectional LSTM (BiLSTM) based language model that is pre-trained to predict words in plain text, and a multi-layer perceptron (MLP) decision model that uses features from the language model to predict the correct actions for an ArcHybrid transition based parser. We participated in the CoNLL 2017 UD Shared Task as the “Koç University” team and our system was ranked 7th out of 33 systems that parsed 81 treebanks in 49 languages.</abstract>
+      <bibkey>kirnap-etal-2017-parsing</bibkey>
     </paper>
     <paper id="9">
       <title>Tokenizing, <fixed-case>POS</fixed-case> Tagging, Lemmatizing and Parsing <fixed-case>UD</fixed-case> 2.0 with <fixed-case>UDP</fixed-case>ipe</title>
@@ -794,6 +862,7 @@
       <doi>10.18653/v1/K17-3009</doi>
       <abstract>Many natural language processing tasks, including the most advanced ones, routinely start by several basic processing steps – tokenization and segmentation, most likely also POS tagging and lemmatization, and commonly parsing as well. A multilingual pipeline performing these steps can be trained using the Universal Dependencies project, which contains annotations of the described tasks for 50 languages in the latest release UD 2.0. We present an update to UDPipe, a simple-to-use pipeline processing CoNLL-U version 2.0 files, which performs these tasks for multiple languages without requiring additional external data. We provide models for all 50 languages of UD 2.0, and furthermore, the pipeline can be trained easily using data in CoNLL-U format. UDPipe is a standalone application in C++, with bindings available for Python, Java, C# and Perl. In the CoNLL 2017 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies, UDPipe was the eight best system, while achieving low running times and moderately sized models.</abstract>
       <attachment type="poster" hash="a1c0e577">K17-3009.Poster.pdf</attachment>
+      <bibkey>straka-strakova-2017-tokenizing</bibkey>
     </paper>
     <paper id="10">
       <title><fixed-case>UP</fixed-case>arse: the <fixed-case>E</fixed-case>dinburgh system for the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2017 <fixed-case>UD</fixed-case> shared task</title>
@@ -804,6 +873,7 @@
       <url hash="a88d380c">K17-3010</url>
       <doi>10.18653/v1/K17-3010</doi>
       <abstract>This paper presents our submissions for the CoNLL 2017 UD Shared Task. Our parser, called UParse, is based on a neural network graph-based dependency parser. The parser uses features from a bidirectional LSTM to to produce a distribution over possible heads for each word in the sentence. To allow transfer learning for low-resource treebanks and surprise languages, we train several multilingual models for related languages, grouped by their genus and language families. Out of 33 participants, our system achieves rank 9th in the main results, with 75.49 UAS and 68.87 LAS F-1 scores (average across 81 treebanks).</abstract>
+      <bibkey>vania-etal-2017-uparse</bibkey>
     </paper>
     <paper id="11">
       <title>Multi-Model and Crosslingual Dependency Analysis</title>
@@ -814,6 +884,7 @@
       <doi>10.18653/v1/K17-3011</doi>
       <abstract>This paper describes the system of the Team Orange-Deskiñ, used for the CoNLL 2017 UD Shared Task in Multilingual Dependency Parsing. We based our approach on an existing open source tool (BistParser), which we modified in order to produce the required output. Additionally we added a kind of pseudo-projectivisation. This was needed since some of the task’s languages have a high percentage of non-projective dependency trees. In most cases we also employed word embeddings. For the 4 surprise languages, the data provided seemed too little to train on. Thus we decided to use the training data of typologically close languages instead. Our system achieved a macro-averaged LAS of 68.61% (10th in the overall ranking) which improved to 69.38% after bug fixes.</abstract>
       <attachment type="poster" hash="90fa0280">K17-3011.Poster.pdf</attachment>
+      <bibkey>heinecke-asadullah-2017-multi</bibkey>
     </paper>
     <paper id="12">
       <title><fixed-case>T</fixed-case>urku<fixed-case>NLP</fixed-case>: Delexicalized Pre-training of Word Embeddings for Dependency Parsing</title>
@@ -824,6 +895,7 @@
       <url hash="de4fb55e">K17-3012</url>
       <doi>10.18653/v1/K17-3012</doi>
       <abstract>We present the TurkuNLP entry in the CoNLL 2017 Shared Task on Multilingual Parsing from Raw Text to Universal Dependencies. The system is based on the UDPipe parser with our focus being in exploring various techniques to pre-train the word embeddings used by the parser in order to improve its performance especially on languages with small training sets. The system ranked 11th among the 33 participants overall, being 8th on the small treebanks, 10th on the large treebanks, 12th on the parallel test sets, and 26th on the surprise languages.</abstract>
+      <bibkey>kanerva-etal-2017-turkunlp</bibkey>
     </paper>
     <paper id="13">
       <title>The parse is darc and full of errors: Universal dependency parsing with transition-based and graph-based algorithms</title>
@@ -835,6 +907,7 @@
       <url hash="18cc1213">K17-3013</url>
       <doi>10.18653/v1/K17-3013</doi>
       <abstract>We developed two simple systems for dependency parsing: darc, a transition-based parser, and mstnn, a graph-based parser. We tested our systems in the CoNLL 2017 UD Shared Task, with darc being the official system. Darc ranked 12th among 33 systems, just above the baseline. Mstnn had no official ranking, but its main score was above the 27th. In this paper, we describe our two systems, examine their strengths and weaknesses, and discuss the lessons we learned.</abstract>
+      <bibkey>yu-etal-2017-parse</bibkey>
     </paper>
     <paper id="14">
       <title>A Novel Neural Network Model for Joint <fixed-case>POS</fixed-case> Tagging and Graph-based Dependency Parsing</title>
@@ -846,6 +919,7 @@
       <doi>10.18653/v1/K17-3014</doi>
       <abstract>We present a novel neural network model that learns POS tagging and graph-based dependency parsing jointly. Our model uses bidirectional LSTMs to learn feature representations shared for both POS tagging and dependency parsing tasks, thus handling the feature-engineering problem. Our extensive experiments, on 19 languages from the Universal Dependencies project, show that our model outperforms the state-of-the-art neural network-based Stack-propagation model for joint POS tagging and transition-based dependency parsing, resulting in a new state of the art. Our code is open-source and available together with pre-trained models at: <url>https://github.com/datquocnguyen/jPTDP</url>
       </abstract>
+      <bibkey>nguyen-etal-2017-novel</bibkey>
     </paper>
     <paper id="15">
       <title>A non-<fixed-case>DNN</fixed-case> Feature Engineering Approach to Dependency Parsing – <fixed-case>FBAML</fixed-case> at <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2017 Shared Task</title>
@@ -855,6 +929,7 @@
       <url hash="91f77a17">K17-3015</url>
       <doi>10.18653/v1/K17-3015</doi>
       <abstract>For this year’s multilingual dependency parsing shared task, we developed a pipeline system, which uses a variety of features for each of its components. Unlike the recent popular deep learning approaches that learn low dimensional dense features using non-linear classifier, our system uses structured linear classifiers to learn millions of sparse features. Specifically, we trained a linear classifier for sentence boundary prediction, linear chain conditional random fields (CRFs) for tokenization, part-of-speech tagging and morph analysis. A second order graph based parser learns the tree structure (without relations), and fa linear tree CRF then assigns relations to the dependencies in the tree. Our system achieves reasonable performance – 67.87% official averaged macro F1 score</abstract>
+      <bibkey>qian-liu-2017-non</bibkey>
     </paper>
     <paper id="16">
       <title>A non-projective greedy dependency parser with bidirectional <fixed-case>LSTM</fixed-case>s</title>
@@ -865,6 +940,7 @@
       <doi>10.18653/v1/K17-3016</doi>
       <abstract>The LyS-FASTPARSE team present BIST-COVINGTON, a neural implementation of the Covington (2001) algorithm for non-projective dependency parsing. The bidirectional LSTM approach by Kiperwasser and Goldberg (2016) is used to train a greedy parser with a dynamic oracle to mitigate error propagation. The model participated in the CoNLL 2017 UD Shared Task. In spite of not using any ensemble methods and using the baseline segmentation and PoS tagging, the parser obtained good results on both macro-average LAS and UAS in the big treebanks category (55 languages), ranking 7th out of 33 teams. In the all treebanks category (LAS and UAS) we ranked 16th and 12th. The gap between the all and big categories is mainly due to the poor performance on four parallel PUD treebanks, suggesting that some ‘suffixed’ treebanks (e.g. Spanish-AnCora) perform poorly on cross-treebank settings, which does not occur with the corresponding ‘unsuffixed’ treebank (e.g. Spanish). By changing that, we obtain the 11th best LAS among all runs (official and unofficial). The code is made available at <url>https://github.com/CoNLL-UD-2017/LyS-FASTPARSE</url>
       </abstract>
+      <bibkey>vilares-gomez-rodriguez-2017-non</bibkey>
     </paper>
     <paper id="17">
       <title><fixed-case>LIMSI</fixed-case>@<fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case>’17: <fixed-case>UD</fixed-case> Shared Task</title>
@@ -875,6 +951,7 @@
       <url hash="0ad93afc">K17-3017</url>
       <doi>10.18653/v1/K17-3017</doi>
       <abstract>This paper describes LIMSI’s submission to the CoNLL 2017 UD Shared Task, which is focused on small treebanks, and how to improve low-resourced parsing only by ad hoc combination of multiple views and resources. We present our approach for low-resourced parsing, together with a detailed analysis of the results for each test treebank. We also report extensive analysis experiments on model selection for the PUD treebanks, and on annotation consistency among UD treebanks.</abstract>
+      <bibkey>aufrant-etal-2017-limsi</bibkey>
     </paper>
     <paper id="18">
       <title><fixed-case>RACAI</fixed-case>’s Natural Language Processing pipeline for <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies</title>
@@ -885,6 +962,7 @@
       <url hash="a33928cc">K17-3018</url>
       <doi>10.18653/v1/K17-3018</doi>
       <abstract>This paper presents RACAI’s approach, experiments and results at CONLL 2017 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies. We handle raw text and we cover tokenization, sentence splitting, word segmentation, tagging, lemmatization and parsing. All results are reported under strict training, development and testing conditions, in which the corpora provided for the shared tasks is used “as is”, without any modifications to the composition of the train and development sets.</abstract>
+      <bibkey>dumitrescu-etal-2017-racais</bibkey>
     </paper>
     <paper id="19">
       <title>Delexicalized transfer parsing for low-resource languages using transformed and combined treebanks</title>
@@ -895,6 +973,7 @@
       <url hash="0ac9c3fe">K17-3019</url>
       <doi>10.18653/v1/K17-3019</doi>
       <abstract>This paper describes our dependency parsing system in CoNLL-2017 shared task on Multilingual Parsing from Raw Text to Universal Dependencies. We primarily focus on the low-resource languages (surprise languages). We have developed a framework to combine multiple treebanks to train parsers for low resource languages by delexicalization method. We have applied transformation on source language treebanks based on syntactic features of the low-resource language to improve performance of the parser. In the official evaluation, our system achieves an macro-averaged LAS score of 67.61 and 37.16 on the entire blind test data and the surprise language test data respectively.</abstract>
+      <bibkey>das-etal-2017-delexicalized</bibkey>
     </paper>
     <paper id="20">
       <title>A Transition-based System for <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Parsing</title>
@@ -905,6 +984,7 @@
       <url hash="72710b65">K17-3020</url>
       <doi>10.18653/v1/K17-3020</doi>
       <abstract>This paper describes the system for our participation in the CoNLL 2017 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies. In this work, we design a system based on UDPipe1 for universal dependency parsing, where multilingual transition-based models are trained for different treebanks. Our system directly takes raw texts as input, performing several intermediate steps like tokenizing and tagging, and finally generates the corresponding dependency trees. For the special surprise languages for this task, we adopt a delexicalized strategy and predict basing on transfer learning from other related languages. In the final evaluation of the shared task, our system achieves a result of 66.53% in macro-averaged LAS F1-score.</abstract>
+      <bibkey>wang-etal-2017-transition-based</bibkey>
     </paper>
     <paper id="21">
       <title>Corpus Selection Approaches for Multilingual Parsing from Raw Text to <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies</title>
@@ -915,6 +995,7 @@
       <url hash="643eeff0">K17-3021</url>
       <doi>10.18653/v1/K17-3021</doi>
       <abstract>This paper describes UALing’s approach to the <i>CoNLL 2017 UD Shared Task</i> using corpus selection techniques to reduce training data size. The methodology is simple: we use similarity measures to select a corpus from available training data (even from multiple corpora for surprise languages) and use the resulting corpus to complete the parsing task. The training and parsing is done with the baseline UDPipe system (Straka et al., 2016). While our approach reduces the size of training data significantly, it retains performance within 0.5% of the baseline system. Due to the reduction in training data size, our system performs faster than the naïve, complete corpus method. Specifically, our system runs in less than 10 minutes, ranking it among the fastest entries for this task. Our system is available at <url>https://github.com/CoNLL-UD-2017/UALING</url>. </abstract>
+      <bibkey>hornby-etal-2017-corpus</bibkey>
     </paper>
     <paper id="22">
       <title>From Raw Text to <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies - Look, No Tags!</title>
@@ -930,6 +1011,7 @@
       <doi>10.18653/v1/K17-3022</doi>
       <abstract>We present the Uppsala submission to the CoNLL 2017 shared task on parsing from raw text to universal dependencies. Our system is a simple pipeline consisting of two components. The first performs joint word and sentence segmentation on raw text; the second predicts dependency trees from raw words. The parser bypasses the need for part-of-speech tagging, but uses word embeddings based on universal tag distributions. We achieved a macro-averaged LAS F1 of 65.11 in the official test run, which improved to 70.49 after bug fixes. We obtained the 2nd best result for sentence segmentation with a score of 89.03.</abstract>
       <attachment type="poster" hash="77c0e24f">K17-3022.Poster.pdf</attachment>
+      <bibkey>de-lhoneux-etal-2017-raw</bibkey>
     </paper>
     <paper id="23">
       <title>Initial Explorations of <fixed-case>CCG</fixed-case> Supertagging for <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependency Parsing</title>
@@ -940,6 +1022,7 @@
       <url hash="c7e29f0b">K17-3023</url>
       <doi>10.18653/v1/K17-3023</doi>
       <abstract>In this paper we describe the system by METU team for universal dependency parsing of multilingual text. We use a neural network-based dependency parser that has a greedy transition approach to dependency parsing. CCG supertags contain rich structural information that proves useful in certain NLP tasks. We experiment with CCG supertags as additional features in our experiments. The neural network parser is trained together with dependencies and simplified CCG tags as well as other features provided.</abstract>
+      <bibkey>akkus-etal-2017-initial</bibkey>
     </paper>
     <paper id="24">
       <title><fixed-case>CLCL</fixed-case> (Geneva) <fixed-case>DINN</fixed-case> Parser: a Neural Network Dependency Parser Ten Years Later</title>
@@ -951,6 +1034,7 @@
       <url hash="e7d4bbed">K17-3024</url>
       <doi>10.18653/v1/K17-3024</doi>
       <abstract>This paper describes the University of Geneva’s submission to the CoNLL 2017 shared task Multilingual Parsing from Raw Text to Universal Dependencies (listed as the CLCL (Geneva) entry). Our submitted parsing system is the grandchild of the first transition-based neural network dependency parser, which was the University of Geneva’s entry in the CoNLL 2007 multilingual dependency parsing shared task, with some improvements to speed and portability. These results provide a baseline for investigating how far we have come in the past ten years of work on neural network dependency parsing.</abstract>
+      <bibkey>moor-etal-2017-clcl</bibkey>
     </paper>
     <paper id="25">
       <title>A Fast and Lightweight System for Multilingual Dependency Parsing</title>
@@ -961,6 +1045,7 @@
       <url hash="d9e67330">K17-3025</url>
       <doi>10.18653/v1/K17-3025</doi>
       <abstract>We present a multilingual dependency parser with a bidirectional-LSTM (BiLSTM) feature extractor and a multi-layer perceptron (MLP) classifier. We trained our transition-based projective parser in UD version 2.0 datasets without any additional data. The parser is fast, lightweight and effective on big treebanks. In the CoNLL 2017 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies, the official results show that the macro-averaged LAS F1 score of our system Mengest is 61.33%.</abstract>
+      <bibkey>ji-etal-2017-fast</bibkey>
     </paper>
     <paper id="26">
       <title>The <fixed-case>P</fixed-case>aris<fixed-case>NLP</fixed-case> entry at the <fixed-case>C</fixed-case>on<fixed-case>LL</fixed-case> <fixed-case>UD</fixed-case> Shared Task 2017: A Tale of a #<fixed-case>P</fixed-case>arsing<fixed-case>T</fixed-case>ragedy</title>
@@ -971,6 +1056,7 @@
       <url hash="0cadf968">K17-3026</url>
       <doi>10.18653/v1/K17-3026</doi>
       <abstract>We present the ParisNLP entry at the UD CoNLL 2017 parsing shared task. In addition to the UDpipe models provided, we built our own data-driven tokenization models, sentence segmenter and lexicon-based morphological analyzers. All of these were used with a range of different parsing models (neural or not, feature-rich or not, transition or graph-based, etc.) and the best combination for each language was selected. Unfortunately, a glitch in the shared task’s Matrix led our model selector to run generic, weakly lexicalized models, tailored for surprise languages, instead of our dataset-specific models. Because of this #ParsingTragedy, we officially ranked 27th, whereas our real models finally unofficially ranked 6th.</abstract>
+      <bibkey>de-la-clergerie-etal-2017-parisnlp</bibkey>
     </paper>
     <paper id="27">
       <title>Universal Joint Morph-Syntactic Processing: The <fixed-case>O</fixed-case>pen <fixed-case>U</fixed-case>niversity of <fixed-case>I</fixed-case>srael’s Submission to The <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2017 Shared Task</title>
@@ -980,6 +1066,7 @@
       <url hash="4774691d">K17-3027</url>
       <doi>10.18653/v1/K17-3027</doi>
       <abstract>We present the Open University’s submission to the CoNLL 2017 Shared Task on multilingual parsing from raw text to Universal Dependencies. The core of our system is a joint morphological disambiguator and syntactic parser which accepts morphologically analyzed surface tokens as input and returns morphologically disambiguated dependency trees as output. Our parser requires a lattice as input, so we generate morphological analyses of surface tokens using a data-driven morphological analyzer that derives its lexicon from the UD training corpora, and we rely on UDPipe for sentence segmentation and surface-level tokenization. We report our official macro-average LAS is 56.56. Although our model is not as performant as many others, it does not make use of neural networks, therefore we do not rely on word embeddings or any other data source other than the corpora themselves. In addition, we show the utility of a lexicon-backed morphological analyzer for the MRL Modern Hebrew. We use our results on Modern Hebrew to argue that the UD community should define a UD-compatible standard for access to lexical resources, which we argue is crucial for MRLs and low resource languages in particular.</abstract>
+      <bibkey>more-tsarfaty-2017-universal</bibkey>
     </paper>
     <paper id="28">
       <title>A Semi-universal Pipelined Approach to the <fixed-case>C</fixed-case>o<fixed-case>NLL</fixed-case> 2017 <fixed-case>UD</fixed-case> Shared Task</title>
@@ -990,6 +1077,7 @@
       <url hash="6fa51465">K17-3028</url>
       <doi>10.18653/v1/K17-3028</doi>
       <abstract>This paper presents our system submitted for the CoNLL 2017 Shared Task, “Multilingual Parsing from Raw Text to Universal Dependencies.” We ran the system for all languages with our own fully pipelined components without relying on re-trained baseline systems. To train the dependency parser, we used only the universal part-of-speech tags and distance between words, and applied deterministic rules to assign dependency labels. The simple and delexicalized models are suitable for cross-lingual transfer approaches and a universal language model. Experimental results show that our model performed well in some metrics and leads discussion on topics such as contribution of each component and on syntactic similarities among languages.</abstract>
+      <bibkey>kanayama-etal-2017-semi</bibkey>
     </paper>
     <paper id="29">
       <title>A rule-based system for cross-lingual parsing of <fixed-case>R</fixed-case>omance languages with <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies</title>
@@ -999,6 +1087,7 @@
       <url hash="5da61948">K17-3029</url>
       <doi>10.18653/v1/K17-3029</doi>
       <abstract>This article describes MetaRomance, a rule-based cross-lingual parser for Romance languages submitted to CoNLL 2017 Shared Task: Multilingual Parsing from Raw Text to Universal Dependencies. The system is an almost delexicalized parser which does not need training data to analyze Romance languages. It contains linguistically motivated rules based on PoS-tag patterns. The rules included in MetaRomance were developed in about 12 hours by one expert with no prior knowledge in Universal Dependencies, and can be easily extended using a transparent formalism. In this paper we compare the performance of MetaRomance with other supervised systems participating in the competition, paying special attention to the parsing of different treebanks of the same language. We also compare our system with a delexicalized parser for Romance languages, and take advantage of the harmonized annotation of Universal Dependencies to propose a language ranking based on the syntactic distance each variety has from Romance languages.</abstract>
+      <bibkey>garcia-gamallo-2017-rule</bibkey>
     </paper>
   </volume>
 </collection>

@@ -185,9 +185,9 @@
       <!--
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
-      <dt>Bibkey:</dt>
-      <dd>{{ with $paper.bibkey }}{{ . }}{{ end }}</dd>
       -->
+      <dt class="acl-button-row">Bibkey:</dt>
+      <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey"><i class="far fa-clipboard"></i><span id="citePaperBibkey" class="pl-2 text-monospace">{{ . }}</span></button>{{ end }}</dd>
       <dt class="acl-button-row">Copy Citation:</dt>
       <dd class="acl-button-row">
       {{ if $has_bib }}
