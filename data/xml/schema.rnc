@@ -13,6 +13,7 @@ Variant = element variant { attribute script { xsd:string }, (first? & last) }
 Person = attribute id { xsd:NCName }?, (first? & last & Variant?)
 
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
+bibtex-key = xsd:string { pattern="[A-Za-z0-9\-]+" }
 checksum = attribute hash { xsd:string {minLength="8" maxLength="8" pattern="[0-9a-f]*"} }
 url-with-checksum = element url {
     xsd:anyURI {pattern="https?://.*"} |
@@ -36,6 +37,7 @@ Paper = element paper {
   attribute ingest-date { xsd:date }?,
   (element abstract { MarkupText }?
    & attachment*
+   & element bibkey { bibtex-key }
    & element author { Person }*
    & element doi { xsd:anyURI }?
    & element editor { Person }*
@@ -83,6 +85,7 @@ Meta = element meta {
 Frontmatter = element frontmatter {
   (url-with-checksum?
    & element pages { text }?
+   & element bibkey { bibtex-key }
    & Revision*
    & attachment*
    & element doi { xsd:anyURI }?
