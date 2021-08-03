@@ -108,14 +108,10 @@ def create_volumes(srcdir, clean=False):
     for anthology_id, entry in data.items():
         with open("{}/content/volumes/{}.md".format(srcdir, anthology_id), "w") as f:
             print("---", file=f)
-            nested_dir = "/volumes/{}/".format(anthology_id)  # backwards-compatibility
             yaml.dump(
                 {
                     "anthology_id": anthology_id,
                     "title": entry["title"],
-                    "aliases": [
-                        nested_dir,
-                    ],
                 },
                 default_flow_style=False,
                 stream=f,
