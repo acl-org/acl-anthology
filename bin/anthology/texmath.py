@@ -172,6 +172,8 @@ class TexMath:
             text = text.replace("\\{", "\\lbrace{}").replace("\\}", "\\rbrace{}")
             self._parse(TexSoup.TexSoup(text).expr.everything, trg)
             return
+        if "\\%" in text:
+            text = text.replace("\\%", "%")
         # parse ^ and _ (won't get recognized as separate nodes by TexSoup)
         sxscript = False
         if "^" in text or "_" in text:
