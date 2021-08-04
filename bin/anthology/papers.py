@@ -345,10 +345,14 @@ class Paper:
         value["bibtype"] = self.bibtype
         value["language"] = self.language
         value["url"] = self.url
-        value["pdf"] = self.pdf
-        value["revision"] = self.revisions
-        value["erratum"] = self.errata
-        value["attachment"] = self.attachments
+        if self.pdf:
+            value["pdf"] = self.pdf
+        if self.revisions:
+            value["revision"] = self.revisions
+        if self.errata:
+            value["erratum"] = self.errata
+        if self.attachments:
+            value["attachment"] = self.attachments
         value["thumbnail"] = self.thumbnail
         return value
 
