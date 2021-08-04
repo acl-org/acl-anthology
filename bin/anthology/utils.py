@@ -247,9 +247,7 @@ def infer_attachment_url(filename, parent_id=None):
     # Otherwise, treat it as an internal filename
     if parent_id is not None and not filename.startswith(parent_id):
         logging.error(
-            "attachment must begin with paper ID '{}', but is '{}'".format(
-                parent_id, filename
-            )
+            f"attachment must begin with paper ID '{parent_id}', but is '{filename}'"
         )
     return infer_url(filename, data.ATTACHMENT_TEMPLATE)
 
@@ -269,9 +267,9 @@ def infer_year(collection_id):
     ), f"Couldn't infer year: unknown volume ID format '{collection_id}' ({type(collection_id)})"
     digits = collection_id[1:]
     if int(digits) >= 60:
-        year = "19{}".format(digits)
+        year = f"19{digits}"
     else:
-        year = "20{}".format(digits)
+        year = f"20{digits}"
 
     return year
 
@@ -374,7 +372,7 @@ def parse_element(xml_element):
         # parse value
         tag = element.tag.lower()
         if tag in ("abstract", "title", "booktitle"):
-            tag = "xml_{}".format(tag)
+            tag = f"xml_{tag}"
             value = element
         elif tag == "attachment":
             value = {

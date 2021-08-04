@@ -18,6 +18,7 @@ import logging as log
 import re
 import yaml
 from collections import defaultdict, Counter
+from functools import cache
 from slugify import slugify
 from stop_words import get_stop_words
 from .formatter import bibtex_encode
@@ -98,7 +99,7 @@ class AnthologyIndex:
             self.load_variant_list(srcdir)
 
     def load_variant_list(self, directory):
-        with open("{}/yaml/name_variants.yaml".format(directory), "r") as f:
+        with open(f"{directory}/yaml/name_variants.yaml", "r") as f:
             name_list = yaml.load(f, Loader=Loader)
 
             # Reserve ids for people with explicit ids in variant list
@@ -121,15 +122,13 @@ class AnthologyIndex:
                     variants = entry.get("variants", [])
                     id_ = entry.get("id", None)
                 except (KeyError, TypeError):
-                    log.error("Couldn't parse name variant entry: {}".format(entry))
+                    log.error(f"Couldn't parse name variant entry: {entry}")
                     continue
                 canonical = PersonName.from_dict(canonical)
                 if id_ is None:
                     if canonical in self.name_to_ids:
                         log.error(
-                            "Canonical name '{}' is ambiguous but doesn't have an id; please add one".format(
-                                canonical
-                            )
+                            f"Canonical name '{canonical}' is ambiguous but doesn't have an id; please add one"
                         )
                     id_ = self.generate_id(canonical)
                     self.set_canonical_name(id_, canonical)
@@ -151,9 +150,7 @@ class AnthologyIndex:
                     self.similar[id_].update(entry["similar"])
                     for other in entry["similar"]:
                         if id_ not in self.similar[other]:
-                            log.debug(
-                                'inferring similar name {} -> {}'.format(other, id_)
-                            )
+                            log.debug(f'inferring similar name {other} -> {id_}')
                         self.similar[other].add(id_)
 
         # form transitive closure of self.similar
@@ -165,7 +162,7 @@ class AnthologyIndex:
                     for z in list(self.similar[y]):
                         if z != x and z not in self.similar[x]:
                             self.similar[x].add(z)
-                            log.debug('inferring similar name {} -> {}'.format(x, z))
+                            log.debug(f'inferring similar name {x} -> {z}')
                             again = True
 
     def _is_stopword(self, word, paper):
@@ -218,7 +215,7 @@ class AnthologyIndex:
                 names = paper.get("editor", [])
             if names:
                 if len(names) > BIBKEY_MAX_NAMES:
-                    bibnames = "{}-etal".format(slugify(names[0][0].last))
+                    bibnames = f"{slugify(names[0][0].last)}-etal"
                 else:
                     bibnames = "-".join(slugify(n.last) for n, _ in names)
             else:
@@ -228,21 +225,19 @@ class AnthologyIndex:
             for w in slugify(paper.get_title("plain")).split("-")
             if not self._is_stopword(w, paper)
         ]
-        bibkey = "{}-{}-{}".format(bibnames, str(paper.get("year")), title.pop(0))
+        bibkey = f"{bibnames}-{paper.get('year')}-{title.pop(0)}"
         while bibkey in self.bibkeys:  # guarantee uniqueness
             if title:
-                bibkey += "-{}".format(title.pop(0))
+                bibkey += f"-{title.pop(0)}"
             else:
                 match = re.search(r"-([0-9][0-9]?)$", bibkey)
                 if match is not None:
                     num = int(match.group(1)) + 1
-                    bibkey = bibkey[: -len(match.group(1))] + "{}".format(num)
+                    bibkey = bibkey[: -len(match.group(1))] + f"{num}"
                 else:
                     bibkey += "-2"
                 log.debug(
-                    "New bibkey for clash that can't be resolved by adding title words: {}".format(
-                        bibkey
-                    )
+                    f"New bibkey for clash that can't be resolved by adding title words: {bibkey}"
                 )
         paper.bibkey = bibkey
         self.register_bibkey(paper)
@@ -253,12 +248,10 @@ class AnthologyIndex:
         key = paper.bibkey
         if key is None:
             if self._require_bibkeys:
-                log.error("Paper {} has no bibkey!".format(paper.full_id))
+                log.error(f"Paper {paper.full_id} has no bibkey!")
             return
         if key in self.bibkeys:
-            log.error(
-                "Paper {} has bibkey that is not unique ({})!".format(paper.full_id, key)
-            )
+            log.error(f"Paper {paper.full_id} has bibkey that is not unique ({key})!")
             return
         self.bibkeys.add(key)
 
@@ -272,9 +265,9 @@ class AnthologyIndex:
         """
         from .papers import Paper
 
-        assert isinstance(paper, Paper), "Expected Paper, got {} ({})".format(
-            type(paper), repr(paper)
-        )
+        assert isinstance(
+            paper, Paper
+        ), f"Expected Paper, got {type(paper)} ({repr(paper)})"
         # Make sure paper has a bibkey and it is unique (except for dummy
         # frontmatter, as it is not an actual paper)
         if not dummy:
@@ -285,9 +278,7 @@ class AnthologyIndex:
                 if id_ is None:
                     if len(self.name_to_ids.get(name, [])) > 1:
                         log.error(
-                            "Paper {} uses ambiguous name '{}' without id".format(
-                                paper.full_id, name
-                            )
+                            f"Paper {paper.full_id} uses ambiguous name '{name}' without id"
                         )
                         log.error(
                             "  Please add an id, for example: {}".format(
@@ -299,9 +290,7 @@ class AnthologyIndex:
                 else:
                     if id_ not in self.id_to_canonical:
                         log.error(
-                            "Paper {} uses name '{}' with id '{}' that does not exist".format(
-                                paper.full_id, name, id_
-                            )
+                            f"Paper {paper.full_id} uses name '{name}' with id '{id_}' that does not exist"
                         )
                     explicit = True
 
@@ -335,11 +324,7 @@ class AnthologyIndex:
             # name appears with more than one explicit id and also
             # appears without id at least once
             if len(d[False]) > 0 and len(d[True]) > 1:
-                log.error(
-                    "Name '{}' is ambiguous and is used without explicit id".format(
-                        repr(name)
-                    )
-                )
+                log.error(f"Name '{name}' is ambiguous and is used without explicit id")
                 log.error(
                     "  Please add an id to paper(s):   {}".format(" ".join(d[False]))
                 )
@@ -387,6 +372,7 @@ class AnthologyIndex:
         """
         return self.comments.get(id_, None)
 
+    @cache
     def resolve_name(self, name, id_=None):
         """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
@@ -396,7 +382,7 @@ class AnthologyIndex:
             if len(ids) > 1:
                 log.debug(
                     "Name '{}' is ambiguous between {}".format(
-                        repr(name), ", ".join("'{}'".format(i) for i in ids)
+                        repr(name), ", ".join(f"'{i}'" for i in ids)
                     )
                 )
             # Just return the first

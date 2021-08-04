@@ -114,7 +114,7 @@ class Volume:
         if "month" in self.attrib:
             month = month_str2num(self.get("month"))
             if month is not None:
-                self.attrib["meta_date"] = "{}/{}".format(self.get("year"), month)
+                self.attrib["meta_date"] = f"{self.get('year')}/{month}"
         if is_journal(self.collection_id):
             self.attrib["meta_journal_title"] = data.get_journal_title(
                 self.collection_id, self.attrib["title"]

@@ -22,8 +22,8 @@ class PersonName:
     first, last = "", ""
 
     def __init__(self, first, last, script="roman", variant: "PersonName" = None):
-        self.first = first.strip() if first is not None else ""
-        self.last = last.strip()
+        self.first = first if first is not None else ""
+        self.last = last
         self.script = script
         self.variant = variant
 
@@ -88,8 +88,8 @@ class PersonName:
 
     def as_bibtex(self):
         if not self.first:
-            return "{{{}}}".format(my_formatter.bibtex_encode(self.last))
-        return my_formatter.bibtex_encode("{}, {}".format(self.last, self.first))
+            return f"{{{my_formatter.bibtex_encode(self.last)}}}"
+        return my_formatter.bibtex_encode(f"{self.last}, {self.first}")
 
     def as_dict(self):
         return {"first": self.first, "last": self.last, "full": self.full}
@@ -103,7 +103,7 @@ class PersonName:
     def __repr__(self):
         if not self.first:
             return self.last
-        return "{} || {}".format(self.first, self.last)
+        return f"{self.first} || {self.last}"
 
     def __hash__(self):
         return hash(repr(self))

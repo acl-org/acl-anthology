@@ -139,18 +139,14 @@ class Paper:
             if paper.is_volume:
                 if "author" in paper.attrib:
                     log.warn(
-                        "Paper {} has both <editor> and <author>; ignoring <author>".format(
-                            paper.full_id
-                        )
+                        f"Paper {paper.full_id} has both <editor> and <author>; ignoring <author>"
                     )
                 # Proceedings editors are considered authors for their front matter
                 paper.attrib["author"] = paper.attrib["editor"]
                 del paper.attrib["editor"]
             else:
                 log.warn(
-                    "Paper {} has <editor> but is not a proceedings volume; ignoring <editor>".format(
-                        paper.full_id
-                    )
+                    f"Paper {paper.full_id} has <editor> but is not a proceedings volume; ignoring <editor>"
                 )
         if "pages" in paper.attrib:
             if paper.attrib["pages"] is not None:

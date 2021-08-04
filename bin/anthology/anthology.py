@@ -59,7 +59,7 @@ class Anthology:
         return self.pindex
 
     def import_directory(self, importdir):
-        assert os.path.isdir(importdir), "Directory not found: {}".format(importdir)
+        assert os.path.isdir(importdir), f"Directory not found: {importdir}"
         self.pindex = AnthologyIndex(importdir, require_bibkeys=self._require_bibkeys)
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
@@ -102,10 +102,8 @@ class Anthology:
             self.venues.register(volume)
 
             if volume.full_id in self.volumes:
-                log.critical(
-                    "Attempted to import volume ID '{}' twice".format(volume.full_id)
-                )
-                log.critical("Triggered by file: {}".format(filename))
+                log.critical(f"Attempted to import volume ID '{volume.full_id}' twice")
+                log.critical(f"Triggered by file: {filename}")
 
             # front matter
             if volume.has_frontmatter:
@@ -139,7 +137,7 @@ class Anthology:
                 full_id = parsed_paper.full_id
                 if full_id in self.papers:
                     log.critical(
-                        "Attempted to import paper '{}' twice -- skipping".format(full_id)
+                        f"Attempted to import paper '{full_id}' twice -- skipping"
                     )
                     continue
                 volume.append(parsed_paper)
