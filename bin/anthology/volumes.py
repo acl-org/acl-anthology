@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from functools import cached_property
 import re
 import logging as log
 
@@ -88,6 +89,12 @@ class Volume:
 
         return volume
 
+    @cached_property
+    def url(self):
+        # If <url> field not present, use ID.
+        # But see https://github.com/acl-org/acl-anthology/issues/997.
+        return infer_url(self.attrib.get("xml_url", self.full_id))
+
     def _set_meta_info(self, meta_data):
         """Derive journal title, volume, and issue no. used in metadata.
 
@@ -98,10 +105,6 @@ class Volume:
             # Authors of the front matter are the volume's editors
             self.attrib["editor"] = self.attrib["author"]
             del self.attrib["author"]
-
-        # Expand URL if present
-        if "url" in self.attrib:
-            self.attrib["url"] = infer_url(self.attrib["url"])
 
         # Some volumes don't set this---but they should!
         if "year" not in self.attrib:
@@ -163,6 +166,11 @@ class Volume:
           - html:  Convert XML tags into valid HTML tags
         """
         return self.formatter(self.get("xml_booktitle"), form)
+
+    def as_dict(self):
+        value = self.attrib.copy()
+        value["url"] = self.url
+        return value
 
     def __len__(self):
         return len(self.content)

@@ -414,15 +414,7 @@ def parse_element(xml_element):
             value = element.text
 
         if tag == "url":
-            # Set the URL (canonical / landing page for Anthology)
-            value = infer_url(element.text)
-
-            # Add a PDF link with, converting relative URLs to canonical ones
-            attrib["pdf"] = (
-                element.text
-                if urlparse(element.text).netloc
-                else data.PDF_LOCATION_TEMPLATE.format(element.text)
-            )
+            tag = "xml_url"
 
         if tag in data.LIST_ELEMENTS:
             try:

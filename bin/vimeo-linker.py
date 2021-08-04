@@ -43,9 +43,7 @@ from vimeo_apikeys import *
 
 
 def checkVideo(paper):
-    if not "attachment" in paper.attrib:
-        return False
-    for elem in paper.attrib["attachment"]:
+    for elem in paper.attachments:
         if elem["type"] == "video":
             return True
     return False

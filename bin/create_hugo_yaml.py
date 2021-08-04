@@ -110,7 +110,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     volumes = {}
     for id_, volume in anthology.volumes.items():
         log.debug("export_anthology: processing volume '{}'".format(id_))
-        data = volume.attrib
+        data = volume.as_dict()
         data["title_html"] = volume.get_title("html")
         del data["xml_booktitle"]
         if "xml_abstract" in data:

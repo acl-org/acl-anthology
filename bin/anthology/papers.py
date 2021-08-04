@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from functools import cached_property
 import iso639
 import logging as log
 
@@ -63,6 +64,49 @@ class Paper:
 
             self.attrib[key] = value
 
+    @cached_property
+    def url(self):
+        # If <url> field not present, use ID.
+        # But see https://github.com/acl-org/acl-anthology/issues/997.
+        return infer_url(self.attrib.get("xml_url", self.full_id))
+
+    @cached_property
+    def pdf(self):
+        url = self.attrib.get("xml_url", None)
+        if url is not None:
+            return infer_url(url, template=data.PDF_LOCATION_TEMPLATE)
+        return None
+
+    def _parse_revision_or_errata(self, tag):
+        for item in self.attrib.get(tag, []):
+            # Expand URLs with paper ID
+            if not item["url"].startswith(self.full_id):
+                log.error(
+                    "{} must begin with paper ID '{}', but is '{}'".format(
+                        tag, self.full_id, item["url"]
+                    )
+                )
+            item["url"] = data.PDF_LOCATION_TEMPLATE.format(item["url"])
+        return self.attrib.get(tag, [])
+
+    @cached_property
+    def revisions(self):
+        return self._parse_revision_or_errata("revision")
+
+    @cached_property
+    def errata(self):
+        return self._parse_revision_or_errata("erratum")
+
+    @cached_property
+    def attachments(self):
+        for item in self.attrib.get("attachment", []):
+            item["url"] = infer_attachment_url(item["url"], self.full_id)
+        return self.attrib.get("attachment", [])
+
+    @cached_property
+    def thumbnail(self):
+        return data.PDF_THUMBNAIL_LOCATION_TEMPLATE.format(self.full_id)
+
     def from_xml(xml_element, *args):
         ingest_date = xml_element.get("ingest-date", data.UNKNOWN_INGEST_DATE)
 
@@ -84,29 +128,9 @@ class Paper:
             paper.attrib["xml_title"] = paper.attrib["xml_booktitle"]
             paper.attrib["xml_title"].tag = "title"
 
-        # Create URL field if not present. But see https://github.com/acl-org/acl-anthology/issues/997.
-        if "url" not in paper.attrib:
-            paper.attrib["url"] = infer_url(paper.full_id)
-
         # Remove booktitle for frontmatter and journals
         if paper.is_volume or is_journal(paper.full_id):
             del paper.attrib["xml_booktitle"]
-
-        # Expand URLs with paper ID
-        for tag in ("revision", "erratum"):
-            if tag in paper.attrib:
-                for item in paper.attrib[tag]:
-                    if not item["url"].startswith(paper.full_id):
-                        log.error(
-                            "{} must begin with paper ID '{}', but is '{}'".format(
-                                tag, paper.full_id, item["url"]
-                            )
-                        )
-                    item["url"] = data.PDF_LOCATION_TEMPLATE.format(item["url"])
-
-        if "attachment" in paper.attrib:
-            for item in paper.attrib["attachment"]:
-                item["url"] = infer_attachment_url(item["url"], paper.full_id)
 
         paper.attrib["title"] = paper.get_title("plain")
         paper.attrib["booktitle"] = paper.get_booktitle("plain")
@@ -138,10 +162,6 @@ class Paper:
             paper.attrib["author_string"] = ", ".join(
                 [x[0].full for x in paper.attrib["author"]]
             )
-
-        paper.attrib["thumbnail"] = data.PDF_THUMBNAIL_LOCATION_TEMPLATE.format(
-            paper.full_id
-        )
 
         return paper
 
@@ -324,6 +344,12 @@ class Paper:
         value["bibkey"] = self.bibkey
         value["bibtype"] = self.bibtype
         value["language"] = self.language
+        value["url"] = self.url
+        value["pdf"] = self.pdf
+        value["revision"] = self.revisions
+        value["erratum"] = self.errata
+        value["attachment"] = self.attachments
+        value["thumbnail"] = self.thumbnail
         return value
 
     def items(self):
