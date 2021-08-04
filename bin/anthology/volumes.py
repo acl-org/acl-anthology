@@ -141,7 +141,7 @@ class Volume:
     def volume_id(self):
         return self._id
 
-    @property
+    @cached_property
     def full_id(self):
         return build_anthology_id(self.collection_id, self.volume_id)
 

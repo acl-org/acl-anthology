@@ -91,7 +91,7 @@ def build_anthology_id(
             return f"{collection_id}-{volume_id}"
     # pre-2020 IDs
     if (
-        collection_id.startswith("W")
+        collection_id[0] == "W"
         or collection_id == "C69"
         or (collection_id == "D19" and int(volume_id) >= 5)
     ):

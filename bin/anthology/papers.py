@@ -198,7 +198,7 @@ class Paper:
     def full_id(self):
         return self.anthology_id
 
-    @property
+    @cached_property
     def anthology_id(self):
         return build_anthology_id(self.collection_id, self.volume_id, self.paper_id)
 
