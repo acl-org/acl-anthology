@@ -95,6 +95,13 @@ class Volume:
         # But see https://github.com/acl-org/acl-anthology/issues/997.
         return infer_url(self.attrib.get("xml_url", self.full_id))
 
+    @cached_property
+    def pdf(self):
+        url = self.attrib.get("xml_url", None)
+        if url is not None:
+            return infer_url(url, template=data.PDF_LOCATION_TEMPLATE)
+        return None
+
     def _set_meta_info(self, meta_data):
         """Derive journal title, volume, and issue no. used in metadata.
 
@@ -170,6 +177,8 @@ class Volume:
     def as_dict(self):
         value = self.attrib.copy()
         value["url"] = self.url
+        if self.pdf:
+            value["pdf"] = self.pdf
         return value
 
     def __len__(self):
