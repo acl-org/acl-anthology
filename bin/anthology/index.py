@@ -58,11 +58,28 @@ def score_variant(name):
 
 
 class AnthologyIndex:
-    """Keeps an index of persons, their associated papers, paper bibliography
-    keys, etc.."""
+    """Keeps an index of people and papers.
 
-    def __init__(self, parent, srcdir=None):
-        self._parent = parent
+    This class provides:
+    - An index of people (authors/editors) with their internal IDs, canonical
+      names, and name variants.
+    - A mapping of people to all papers associated with them.
+    - A set of all bibliography keys used within the Anthology and a method to
+      create new ones, guaranteeing uniqueness.
+
+    The index is NOT automatically populated when instantiating this class, but
+    rather gets its data from papers being registered in it as they are loaded
+    from the XML by the main `Anthology` class.
+
+    :param srcdir: Path to the Anthology data directory. Only used for loading
+    the list of name variants.
+    :param require_bibkeys: Whether to log an error when a paper being added
+    does not have a bibkey. Should only be set to False during the ingestion of
+    new papers, when this class is being used to generate new, unique bibkeys.
+    """
+
+    def __init__(self, srcdir=None, require_bibkeys=True):
+        self._require_bibkeys = require_bibkeys
         self.bibkeys = set()
         self.stopwords = load_stopwords("en")
         self.id_to_canonical = {}  # maps ids to canonical names
@@ -189,11 +206,11 @@ class AnthologyIndex:
                 return True
         return False
 
-    def create_bibkey(self, paper):
+    def create_bibkey(self, paper, vidx=None):
         """Create a unique bibliography key for the given paper."""
         if paper.is_volume:
             # Proceedings volumes use venue acronym instead of authors/editors
-            bibnames = slugify(self._parent.venues.get_main_venue(paper.full_id))
+            bibnames = slugify(vidx.get_main_venue(paper.full_id))
         else:
             # Regular papers use author/editor names
             names = paper.get("author")
@@ -227,17 +244,42 @@ class AnthologyIndex:
                         bibkey
                     )
                 )
-        self.bibkeys.add(bibkey)
+        paper.bibkey = bibkey
+        self.register_bibkey(paper)
         return bibkey
 
-    def register(self, paper):
-        """Register all names associated with the given paper."""
+    def register_bibkey(self, paper):
+        """Register a paper's bibkey in Anthology-wide set to ensure uniqueness."""
+        key = paper.bibkey
+        if key is None:
+            if self._require_bibkeys:
+                log.error("Paper {} has no bibkey!".format(paper.full_id))
+            return
+        if key in self.bibkeys:
+            log.error(
+                "Paper {} has bibkey that is not unique ({})!".format(paper.full_id, key)
+            )
+            return
+        self.bibkeys.add(key)
+
+    def register(self, paper, dummy=False):
+        """Register bibkey and names associated with the given paper.
+
+        :param dummy: If True, will only resolve the author/editor names without
+        actually linking them to the given paper.  This is used for volumes
+        without frontmatter to make sure their editors still get registered
+        here, but without creating links to a non-existent paper.
+        """
         from .papers import Paper
 
         assert isinstance(paper, Paper), "Expected Paper, got {} ({})".format(
             type(paper), repr(paper)
         )
-        paper.bibkey = self.create_bibkey(paper)
+        # Make sure paper has a bibkey and it is unique (except for dummy
+        # frontmatter, as it is not an actual paper)
+        if not dummy:
+            self.register_bibkey(paper)
+        # Resolve and register authors/editors for this paper
         for role in ("author", "editor"):
             for name, id_ in paper.get(role, []):
                 if id_ is None:
@@ -264,15 +306,17 @@ class AnthologyIndex:
                     explicit = True
 
                 self.id_to_used[id_].add(name)
-                # Register paper
-                self.id_to_papers[id_][role].append(paper.full_id)
-                self.name_to_papers[name][explicit].append(paper.full_id)
-                # Register co-author(s)
-                for co_name, co_id in paper.get(role):
-                    if co_id is None:
-                        co_id = self.resolve_name(co_name)["id"]
-                    if co_id != id_:
-                        self.coauthors[id_][co_id] += 1
+
+                if not dummy:
+                    # Register paper
+                    self.id_to_papers[id_][role].append(paper.full_id)
+                    self.name_to_papers[name][explicit].append(paper.full_id)
+                    # Register co-author(s)
+                    for co_name, co_id in paper.get(role):
+                        if co_id is None:
+                            co_id = self.resolve_name(co_name)["id"]
+                        if co_id != id_:
+                            self.coauthors[id_][co_id] += 1
 
     def verify(self):
         ## no longer issuing a warning for unused variants
