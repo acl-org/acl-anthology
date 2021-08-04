@@ -18,7 +18,7 @@ import logging as log
 import re
 import yaml
 from collections import defaultdict, Counter
-from functools import cache
+from functools import lru_cache
 from slugify import slugify
 from stop_words import get_stop_words
 from .formatter import bibtex_encode
@@ -372,7 +372,7 @@ class AnthologyIndex:
         """
         return self.comments.get(id_, None)
 
-    @cache
+    @lru_cache(maxsize=None)
     def resolve_name(self, name, id_=None):
         """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
