@@ -56,12 +56,15 @@ class AnthologyIndex:
 
     :param srcdir: Path to the Anthology data directory. Only used for loading
     the list of name variants.
+    :param fast_load: Whether to disable some error checking in favor of faster
+    loading.
     :param require_bibkeys: Whether to log an error when a paper being added
     does not have a bibkey. Should only be set to False during the ingestion of
     new papers, when this class is being used to generate new, unique bibkeys.
     """
 
-    def __init__(self, srcdir=None, require_bibkeys=True):
+    def __init__(self, srcdir=None, fast_load=False, require_bibkeys=True):
+        self._fast_load = fast_load
         self._require_bibkeys = require_bibkeys
         self.bibkeys = set()
         self.stopwords = load_stopwords("en")
@@ -187,6 +190,10 @@ class AnthologyIndex:
 
     def create_bibkey(self, paper, vidx=None):
         """Create a unique bibliography key for the given paper."""
+        if self._fast_load:
+            raise Exception(
+                "Cannot create bibkeys when AnthologyIndex is instantiated with fast_load=True"
+            )
         if paper.is_volume:
             # Proceedings volumes use venue acronym instead of authors/editors
             bibnames = slugify(vidx.get_main_venue(paper.full_id))
@@ -252,7 +259,7 @@ class AnthologyIndex:
         ), f"Expected Paper, got {type(paper)} ({repr(paper)})"
         # Make sure paper has a bibkey and it is unique (except for dummy
         # frontmatter, as it is not an actual paper)
-        if not dummy:
+        if not dummy and not self._fast_load:
             self.register_bibkey(paper)
         # Resolve and register authors/editors for this paper
         for role in ("author", "editor"):
@@ -281,7 +288,8 @@ class AnthologyIndex:
                 if not dummy:
                     # Register paper
                     self.id_to_papers[id_][role].append(paper.full_id)
-                    self.name_to_papers[name][explicit].append(paper.full_id)
+                    if not self._fast_load:
+                        self.name_to_papers[name][explicit].append(paper.full_id)
                     # Register co-author(s)
                     for co_name, co_id in paper.get(role):
                         if co_id is None:
@@ -302,6 +310,8 @@ class AnthologyIndex:
         #                    repr(name), repr(cname)
         #                )
         #            )
+        if self._fast_load:
+            return  # does nothing
         for name, d in self.name_to_papers.items():
             # name appears with more than one explicit id and also
             # appears without id at least once

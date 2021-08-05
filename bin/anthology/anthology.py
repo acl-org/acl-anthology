@@ -37,11 +37,13 @@ class Anthology:
     sigs = None
     formatter = None
 
-    def __init__(self, importdir=None, require_bibkeys=True):
+    def __init__(self, importdir=None, fast_load=False, require_bibkeys=True):
         """Instantiates the Anthology.
 
         :param importdir: Data directory to import from; if not given, you'll
         need to call `import_directory` explicitly to load the Anthology data.
+        :param fast_load: If True, will disable some error checking in favor
+        of faster loading.
         :param require_bibkeys: If True (default), will log errors if papers
         don't have a bibkey; can be set to False in order to create bibkeys
         for newly added papers.
@@ -49,6 +51,7 @@ class Anthology:
         self.formatter = MarkupFormatter()
         self.volumes = {}  # maps volume IDs to Volume objects
         self.papers = {}  # maps paper IDs to Paper objects
+        self._fast_load = fast_load
         self._require_bibkeys = require_bibkeys
         if importdir is not None:
             self.import_directory(importdir)
@@ -60,7 +63,9 @@ class Anthology:
 
     def import_directory(self, importdir):
         assert os.path.isdir(importdir), f"Directory not found: {importdir}"
-        self.pindex = AnthologyIndex(importdir, require_bibkeys=self._require_bibkeys)
+        self.pindex = AnthologyIndex(
+            importdir, fast_load=self._fast_load, require_bibkeys=self._require_bibkeys
+        )
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
         for xmlfile in glob(importdir + "/xml/*.xml"):
