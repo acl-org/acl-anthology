@@ -77,7 +77,7 @@ class AnthologyIndex:
         self.comments = (
             {}
         )  # maps ids to comments (used for distinguishing authors with same name)
-        self.similar = defaultdict(set)
+        self._similar = defaultdict(set)
         self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
         self.name_to_papers = defaultdict(
             lambda: defaultdict(list)
@@ -97,12 +97,11 @@ class AnthologyIndex:
                     canonical = PersonName.from_dict(canonical)
                     self.set_canonical_name(id_, canonical)
             # Automatically add people with same canonical name to similar list
-            for name, ids in self.name_to_ids.items():
-                if len(ids) > 1:
-                    for id1 in ids:
-                        for id2 in ids:
-                            if id2 != id1:
-                                self.similar[id1].add(id2)
+            if not self._fast_load:
+                for name, ids in self.name_to_ids.items():
+                    if len(ids) > 1:
+                        for (id1, id2) in it.permutations(ids):
+                            self._similar[id1].add(id2)
             for entry in name_list:
                 try:
                     canonical = entry["canonical"]
@@ -133,24 +132,25 @@ class AnthologyIndex:
                     self.add_variant_name(id_, variant)
                 if "comment" in entry:
                     self.comments[id_] = entry["comment"]
-                if "similar" in entry:
-                    self.similar[id_].update(entry["similar"])
+                if "similar" in entry and not self._fast_load:
+                    self._similar[id_].update(entry["similar"])
                     for other in entry["similar"]:
-                        if id_ not in self.similar[other]:
+                        if id_ not in self._similar[other]:
                             log.debug(f'inferring similar name {other} -> {id_}')
-                        self.similar[other].add(id_)
+                        self._similar[other].add(id_)
 
-        # form transitive closure of self.similar
-        again = True
-        while again:
-            again = False
-            for x in list(self.similar):
-                for y in list(self.similar[x]):
-                    for z in list(self.similar[y]):
-                        if z != x and z not in self.similar[x]:
-                            self.similar[x].add(z)
-                            log.debug(f'inferring similar name {x} -> {z}')
-                            again = True
+        # form transitive closure of self._similar
+        if not self._fast_load:
+            again = True
+            while again:
+                again = False
+                for x in list(self._similar):
+                    for y in list(self._similar[x]):
+                        for z in list(self._similar[y]):
+                            if z != x and z not in self._similar[x]:
+                                self._similar[x].add(z)
+                                log.debug(f'inferring similar name {x} -> {z}')
+                                again = True
 
     def _is_stopword(self, word, paper):
         """Determines if a given word should be considered a stopword for
@@ -324,6 +324,14 @@ class AnthologyIndex:
                         id2 = self.resolve_name(name2)["id"]
                     self._coauthors[id1][id2] += 1
         return self._coauthors
+
+    @property
+    def similar(self):
+        if self._fast_load:
+            raise Exception(
+                "Cannot retrieve list of similar names when AnthologyIndex is instantiated with fast_load=True"
+            )
+        return self._similar
 
     def verify(self):
         ## no longer issuing a warning for unused variants
