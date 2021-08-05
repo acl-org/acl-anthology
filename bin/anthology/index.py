@@ -19,6 +19,7 @@ import re
 import yaml
 from collections import defaultdict, Counter
 from functools import lru_cache
+import itertools as it
 from slugify import slugify
 from stop_words import get_stop_words
 from .formatter import bibtex_encode
@@ -63,15 +64,16 @@ class AnthologyIndex:
     new papers, when this class is being used to generate new, unique bibkeys.
     """
 
-    def __init__(self, srcdir=None, fast_load=False, require_bibkeys=True):
+    def __init__(self, srcdir=None, fast_load=False, require_bibkeys=True, parent=None):
+        self._parent = parent
         self._fast_load = fast_load
         self._require_bibkeys = require_bibkeys
         self.bibkeys = set()
         self.stopwords = load_stopwords("en")
         self.id_to_canonical = {}  # maps ids to canonical names
-        self.id_to_used = defaultdict(set)  # maps ids to all names actually used
+        self._id_to_used = defaultdict(set)  # maps ids to all names actually used
         self.name_to_ids = defaultdict(list)  # maps canonical/variant names to ids
-        self.coauthors = defaultdict(Counter)  # maps ids to co-author ids
+        self._coauthors = defaultdict(Counter)  # maps ids to co-author ids
         self.comments = (
             {}
         )  # maps ids to comments (used for distinguishing authors with same name)
@@ -283,19 +285,45 @@ class AnthologyIndex:
                         )
                     explicit = True
 
-                self.id_to_used[id_].add(name)
+                if not self._fast_load:
+                    self._id_to_used[id_].add(name)
 
                 if not dummy:
                     # Register paper
                     self.id_to_papers[id_][role].append(paper.full_id)
                     if not self._fast_load:
                         self.name_to_papers[name][explicit].append(paper.full_id)
-                    # Register co-author(s)
-                    for co_name, co_id in paper.get(role):
-                        if co_id is None:
-                            co_id = self.resolve_name(co_name)["id"]
-                        if co_id != id_:
-                            self.coauthors[id_][co_id] += 1
+                        # Register co-author(s)
+                        for co_name, co_id in paper.get(role):
+                            if co_id is None:
+                                co_id = self.resolve_name(co_name)["id"]
+                            if co_id != id_:
+                                self._coauthors[id_][co_id] += 1
+
+    @property
+    def id_to_used(self):
+        if self._fast_load and not self._id_to_used:
+            for paper in self._parent.papers.values():
+                for (name, id_, _) in paper.iter_people():
+                    self._id_to_used[id_].add(name)
+        return self._id_to_used
+
+    @property
+    def coauthors(self):
+        if self._fast_load and not self._coauthors:
+            for paper in self._parent.papers.values():
+                people = list(paper.iter_people())
+                for (p1, p2) in it.permutations(people):
+                    name1, id1, role1 = p1
+                    name2, id2, role2 = p2
+                    if role1 != role2:
+                        continue
+                    if id1 is None:
+                        id1 = self.resolve_name(name1)["id"]
+                    if id2 is None:
+                        id2 = self.resolve_name(name2)["id"]
+                    self._coauthors[id1][id2] += 1
+        return self._coauthors
 
     def verify(self):
         ## no longer issuing a warning for unused variants
@@ -304,7 +332,7 @@ class AnthologyIndex:
         # for name, ids in self.name_to_ids.items():
         #    for id_ in ids:
         #        cname = self.id_to_canonical[id_]
-        #        if name != cname and name not in self.id_to_used[id_]:
+        #        if name != cname and name not in self._id_to_used[id_]:
         #            log.warning(
         #                "Variant name '{}' of '{}' is not used".format(
         #                    repr(name), repr(cname)

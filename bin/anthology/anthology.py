@@ -64,7 +64,10 @@ class Anthology:
     def import_directory(self, importdir):
         assert os.path.isdir(importdir), f"Directory not found: {importdir}"
         self.pindex = AnthologyIndex(
-            importdir, fast_load=self._fast_load, require_bibkeys=self._require_bibkeys
+            importdir,
+            fast_load=self._fast_load,
+            require_bibkeys=self._require_bibkeys,
+            parent=self,
         )
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)

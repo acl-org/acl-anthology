@@ -361,3 +361,8 @@ class Paper:
 
     def items(self):
         return self.attrib.items()
+
+    def iter_people(self):
+        for role in ("author", "editor"):
+            for name, id_ in self.get(role, []):
+                yield (name, id_, role)
