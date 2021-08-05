@@ -129,6 +129,16 @@ class TexMath:
         # Handle fractions
         elif name == "frac":
             self._parse_fraction(args, trg)
+        # Handle \textrm (-- currently does nothing)
+        elif name == "textrm":
+            sx = etree.Element("span")
+            self._parse(args, sx)
+            trg.append(sx)
+        # Handle stuff that should be displayed bolder
+        elif name in ("mathbf", "boldsymbol"):
+            sx = etree.Element("strong")
+            self._parse(args, sx)
+            trg.append(sx)
         # Give up, but preserve element
         else:
             log.warn("Unknown TeX-math command: {}".format(str(code)))
@@ -162,6 +172,8 @@ class TexMath:
             text = text.replace("\\{", "\\lbrace{}").replace("\\}", "\\rbrace{}")
             self._parse(TexSoup.TexSoup(text).expr.everything, trg)
             return
+        if "\\%" in text:
+            text = text.replace("\\%", "%")
         # parse ^ and _ (won't get recognized as separate nodes by TexSoup)
         sxscript = False
         if "^" in text or "_" in text:
