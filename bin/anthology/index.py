@@ -40,24 +40,6 @@ def load_stopwords(language):
     return [t for w in get_stop_words(language) for t in slugify(w).split("-")]
 
 
-def score_variant(name):
-    """Heuristically assign scores to names, with the idea of assigning higher
-    scores to spellings more likely to be the correct canonical variant."""
-    name = repr(name)
-    # Prefer longer variants
-    score = len(name)
-    # Prefer variants with non-ASCII characters
-    score += sum((ord(c) > 127) for c in name)
-    # Penalize upper-case characters after word boundaries
-    score -= sum(any(c.isupper() for c in w[1:]) for w in re.split(r"\W+", name))
-    # Penalize lower-case characters at word boundaries
-    score -= sum(w[0].islower() if w else 0 for w in re.split(r"\W+", name))
-    if name[0].islower():  # extra penalty for first name
-        score -= 1
-
-    return score
-
-
 class AnthologyIndex:
     """Keeps an index of people and papers.
 
@@ -130,7 +112,7 @@ class AnthologyIndex:
                         log.error(
                             f"Canonical name '{canonical}' is ambiguous but doesn't have an id; please add one"
                         )
-                    id_ = self.generate_id(canonical)
+                    id_ = canonical.slug
                     self.set_canonical_name(id_, canonical)
                 for variant in variants:
                     variant = PersonName.from_dict(variant)
@@ -337,7 +319,7 @@ class AnthologyIndex:
 
     def set_canonical_name(self, id_, name):
         if (not id_ in self.id_to_canonical) or (
-            score_variant(name) > score_variant(self.id_to_canonical[id_])
+            name.score > self.id_to_canonical[id_].score
         ):
             # if name not seen yet, or if this version has more accents
             self.id_to_canonical[id_] = name
@@ -358,10 +340,11 @@ class AnthologyIndex:
         :return: A list of name ID strings.
         """
         if name not in self.name_to_ids:
-            id_ = self.generate_id(name)
+            id_ = name.slug
             self.set_canonical_name(id_, name)
 
-        return sorted(self.name_to_ids[name])
+        self.name_to_ids[name].sort()
+        return self.name_to_ids[name]
 
     def get_comment(self, id_: str) -> str:
         """
@@ -390,18 +373,6 @@ class AnthologyIndex:
         d = name.as_dict()
         d["id"] = id_
         return d
-
-    # This just slugifies the name - not guaranteed to be a "fresh" id.
-    # If two names slugify to the same thing, we assume they are the same person.
-    # This happens when there are missing accents in one version, or
-    # when we have an inconsistent first/last split for multiword names.
-    # These cases have in practice always referred to the same person.
-    def generate_id(self, name):
-        assert name not in self.name_to_ids, name
-        slug = slugify(repr(name))
-        if slug == "":
-            slug = "none"
-        return slug
 
     def get_papers(self, id_, role=None):
         if role is None:
