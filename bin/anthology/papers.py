@@ -107,6 +107,14 @@ class Paper:
     def thumbnail(self):
         return data.PDF_THUMBNAIL_LOCATION_TEMPLATE.format(self.full_id)
 
+    @cached_property
+    def title(self):
+        return self.get_title("plain")
+
+    @cached_property
+    def booktitle(self):
+        return self.get_booktitle("plain")
+
     def from_xml(xml_element, *args):
         ingest_date = xml_element.get("ingest-date", data.UNKNOWN_INGEST_DATE)
 
@@ -131,9 +139,6 @@ class Paper:
         # Remove booktitle for frontmatter and journals
         if paper.is_volume or is_journal(paper.full_id):
             del paper.attrib["xml_booktitle"]
-
-        paper.attrib["title"] = paper.get_title("plain")
-        paper.attrib["booktitle"] = paper.get_booktitle("plain")
 
         if "editor" in paper.attrib:
             if paper.is_volume:
@@ -341,6 +346,8 @@ class Paper:
         value["bibtype"] = self.bibtype
         value["language"] = self.language
         value["url"] = self.url
+        value["title"] = self.title
+        value["booktitle"] = self.booktitle
         if self.pdf:
             value["pdf"] = self.pdf
         if self.revisions:
