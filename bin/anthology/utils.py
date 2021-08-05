@@ -224,7 +224,12 @@ def stringify_children(node):
 
 
 def remove_extra_whitespace(text):
-    return re.sub(" +", " ", text.replace("\n", "").strip())
+    text = text.replace("\n", "").strip()
+    # This was profiled to be 2x-4x faster than using re.sub();
+    # also cf. https://stackoverflow.com/a/15913564
+    while "  " in text:
+        text = text.replace("  ", " ")
+    return text
 
 
 def infer_url(filename, template=data.CANONICAL_URL_TEMPLATE):
@@ -374,6 +379,9 @@ def parse_element(xml_element):
         if tag in ("abstract", "title", "booktitle"):
             tag = f"xml_{tag}"
             value = element
+        elif tag == "url":
+            tag = "xml_url"
+            value = element.text
         elif tag == "attachment":
             value = {
                 "filename": element.text,
@@ -410,9 +418,6 @@ def parse_element(xml_element):
             tag = "attachment"
         else:
             value = element.text
-
-        if tag == "url":
-            tag = "xml_url"
 
         if tag in data.LIST_ELEMENTS:
             try:
