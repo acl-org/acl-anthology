@@ -321,11 +321,12 @@ class Paper:
         for entry in ("month", "year", "address", "publisher", "note"):
             if self.get(entry) is not None:
                 entries.append((entry, bibtex_encode(self.get(entry))))
-        for entry in ("url", "doi"):
-            if entry in self.attrib:
-                # don't want latex escapes such as
-                # doi = "10.1162/coli{\_}a{\_}00008",
-                entries.append((entry, self.get(entry)))
+        if self.url is not None:
+            entries.append(("url", self.url))
+        if "doi" in self.attrib:
+            # don't want latex escapes such as
+            # doi = "10.1162/coli{\_}a{\_}00008",
+            entries.append(("doi", self.get("doi")))
         if "pages" in self.attrib:
             entries.append(("pages", self.get("pages").replace("–", "--")))
         if "xml_abstract" in self.attrib and not concise:
