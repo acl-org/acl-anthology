@@ -59,6 +59,7 @@ class Paper:
                 "meta_date",
                 "url",
                 "pdf",
+                "xml_url",
             ):
                 continue
 
