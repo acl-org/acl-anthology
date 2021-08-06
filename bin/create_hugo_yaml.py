@@ -60,6 +60,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         if "xml_abstract" in data:
             data["abstract_html"] = paper.get_abstract("html")
             del data["xml_abstract"]
+        if "xml_url" in data:
+            del data["xml_url"]
         if "author" in data:
             data["author"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
