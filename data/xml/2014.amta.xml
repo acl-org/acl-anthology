@@ -17,6 +17,7 @@
       <pages>1-14</pages>
       <url hash="edf26045">2014.amta-researchers.1</url>
       <abstract>Left-to-right (LR) decoding Watanabe et al. (2006) is a promising decoding algorithm for hierarchical phrase-based translation (Hiero) that visits input spans in arbitrary order producing the output translation in left to right order. This leads to far fewer language model calls. But the constrained SCFG grammar used in LR-Hiero (GNF) with at most two non-terminals is unable to account for some complex phrasal reordering. Allowing more non-terminals in the rules results in a more expressive grammar. LR-decoding can be used to decode with SCFGs with more than two non-terminals, but the CKY decoders used for Hiero systems cannot deal with such expressive grammars due to a blowup in computational complexity. In this paper we present a dynamic programming algorithm for GNF rule extraction which efficiently extracts sentence level SCFG rule sets with an arbitrary number of non-terminals. We analyze the performance of the obtained grammar for statistical machine translation on three language pairs.</abstract>
+      <bibkey>siahbani-sarkar-2014-expressive</bibkey>
     </paper>
     <paper id="2">
       <title><fixed-case>B</fixed-case>ayesian iterative-cascade framework for hierarchical phrase-based translation</title>
@@ -25,6 +26,7 @@
       <pages>15-27</pages>
       <url hash="9479fcc5">2014.amta-researchers.2</url>
       <abstract>The typical training of a hierarchical phrase-based machine translation involves a pipeline of multiple steps where mistakes in early steps of the pipeline are propagated without any scope for rectifying them. Additionally the alignments are trained independent of and without being informed of the end goal and hence are not optimized for translation. We introduce a novel Bayesian iterative-cascade framework for training Hiero-style model that learns the alignments together with the synchronous translation grammar in an iterative setting. Our framework addresses the above mentioned issues and provides an elegant and principled alternative to the existing training pipeline. Based on the validation experiments involving two language pairs, our proposed iterative-cascade framework shows consistent gains over the traditional training pipeline for hierarchical translation.</abstract>
+      <bibkey>sankaran-sarkar-2014-bayesian</bibkey>
     </paper>
     <paper id="3">
       <title>Coarse “split and lump” bilingual language models for richer source information in <fixed-case>SMT</fixed-case></title>
@@ -34,7 +36,8 @@
       <author><first>George</first><last>Foster</last></author>
       <pages>28-41</pages>
       <url hash="f3858916">2014.amta-researchers.3</url>
-      <abstract>Recently, there has been interest in automatically generated word classes for improving statistical machine translation (SMT) quality: e.g, (Wuebker et al, 2013). We create new models by replacing words with word classes in features applied during decoding; we call these “coarse models”. We find that coarse versions of the bilingual language models (biLMs) of (Niehues et al, 2011) yield larger BLEU gains than the original biLMs. BiLMs provide phrase-based systems with rich contextual information from the source sentence; because they have a large number of types, they suffer from data sparsity. Niehues et al (2011) mitigated this problem by replacing source or target words with parts of speech (POSs). We vary their approach in two ways: by clustering words on the source or target side over a range of granularities (word clustering), and by clustering the bilingual units that make up biLMs (bitoken clustering). We find that loglinear combinations of the resulting coarse biLMs with each other and with coarse LMs (LMs based on word classes) yield even higher scores than single coarse models. When we add an appealing “generic” coarse configuration chosen on English > French devtest data to four language pairs (keeping the structure fixed, but providing language-pair-specific models for each pair), BLEU gains on blind test data against strong baselines averaged over 5 runs are +0.80 for English > French, +0.35 for French > English, +1.0 for Arabic > English, and +0.6 for Chinese > English.</abstract>
+      <abstract>Recently, there has been interest in automatically generated word classes for improving statistical machine translation (SMT) quality: e.g, (Wuebker et al, 2013). We create new models by replacing words with word classes in features applied during decoding; we call these “coarse models”. We find that coarse versions of the bilingual language models (biLMs) of (Niehues et al, 2011) yield larger BLEU gains than the original biLMs. BiLMs provide phrase-based systems with rich contextual information from the source sentence; because they have a large number of types, they suffer from data sparsity. Niehues et al (2011) mitigated this problem by replacing source or target words with parts of speech (POSs). We vary their approach in two ways: by clustering words on the source or target side over a range of granularities (word clustering), and by clustering the bilingual units that make up biLMs (bitoken clustering). We find that loglinear combinations of the resulting coarse biLMs with each other and with coarse LMs (LMs based on word classes) yield even higher scores than single coarse models. When we add an appealing “generic” coarse configuration chosen on English &gt; French devtest data to four language pairs (keeping the structure fixed, but providing language-pair-specific models for each pair), BLEU gains on blind test data against strong baselines averaged over 5 runs are +0.80 for English &gt; French, +0.35 for French &gt; English, +1.0 for Arabic &gt; English, and +0.6 for Chinese &gt; English.</abstract>
+      <bibkey>stewart-etal-2014-coarse</bibkey>
     </paper>
     <paper id="4">
       <title>Using any machine translation source for fuzzy-match repair in a computer-aided translation setting</title>
@@ -44,6 +47,7 @@
       <pages>42-53</pages>
       <url hash="079ad257">2014.amta-researchers.4</url>
       <abstract>When a computer-assisted translation (CAT) tool does not find an exact match for the source segment to translate in its translation memory (TM), translators must use fuzzy matches that come from translation units in the translation memory that do not completely match the source segment. We explore the use of a fuzzy-match repair technique called patching to repair translation proposals from a TM in a CAT environment using any available machine translation system, or any external bilingual source, regardless of its internals. Patching attempts to aid CAT tool users by repairing fuzzy matches and proposing improved translations. Our results show that patching improves the quality of translation proposals and reduces the amount of edit operations to perform, especially when a specific set of restrictions is applied.</abstract>
+      <bibkey>ortega-etal-2014-using</bibkey>
     </paper>
     <paper id="5">
       <title>Enhancing statistical machine translation with bilingual terminology in a <fixed-case>CAT</fixed-case> environment</title>
@@ -54,6 +58,7 @@
       <pages>54-68</pages>
       <url hash="bef34916">2014.amta-researchers.5</url>
       <abstract>In this paper, we address the problem of extracting and integrating bilingual terminology into a Statistical Machine Translation (SMT) system for a Computer Aided Translation (CAT) tool scenario. We develop a framework that, taking as input a small amount of parallel in-domain data, gathers domain-specific bilingual terms and injects them in an SMT system to enhance the translation productivity. Therefore, we investigate several strategies to extract and align bilingual terminology, and to embed it into the SMT. We compare two embedding methods that can be easily used at run-time without altering the normal activity of an SMT system: XML markup and the cache-based model. We tested our framework on two different domains showing improvements up to 15% BLEU score points.</abstract>
+      <bibkey>arcan-etal-2014-enhancing</bibkey>
     </paper>
     <paper id="6">
       <title>Clean data for training statistical <fixed-case>MT</fixed-case>: the case of <fixed-case>MT</fixed-case> contamination</title>
@@ -61,6 +66,7 @@
       <pages>69-82</pages>
       <url hash="3273f6fa">2014.amta-researchers.6</url>
       <abstract>Users of Statistical Machine Translation (SMT) sometimes turn to the Web to obtain data to train their systems. One problem with this approach is the potential for “MT contamination”: when large amounts of parallel data are collected automatically, there is a risk that a non-negligible portion consists of machine-translated text. Theoretically, using this kind of data to train SMT systems is likely to reinforce the errors committed by other systems, or even by an earlier versions of the same system. In this paper, we study the effect of MT-contaminated training data on SMT quality, by performing controlled simulations under a wide range of conditions. Our experiments highlight situations in which MT contamination can be harmful, and assess the potential of decontamination techniques.</abstract>
+      <bibkey>simard-2014-clean</bibkey>
     </paper>
     <paper id="7">
       <title>Bilingual phrase-to-phrase alignment for arbitrarily-small datasets</title>
@@ -68,6 +74,7 @@
       <pages>83-95</pages>
       <url hash="1467e902">2014.amta-researchers.7</url>
       <abstract>This paper presents a novel system for sub-sentential alignment of bilingual sentence pairs, however few, using readily-available machine-readable bilingual dictionaries. Performance is evaluated against an existing gold-standard parallel corpus where word alignments are annotated, showing results that are a considerable improvement on a comparable system and on GIZA++ performance for the same corpus. Since naïve application of the system for N languages would require N(N - 1) dictionaries, it is also evaluated using a pivot language, where only 2(N - 1) dictionaries would be required, with surprisingly similar performance. The system is proposed as an alternative to statistical methods, for use with very small corpora or for ‘on-the-fly’ alignment.</abstract>
+      <bibkey>flanagan-2014-bilingual</bibkey>
     </paper>
     <paper id="8">
       <title>A probabilistic feature-based fill-up for <fixed-case>SMT</fixed-case></title>
@@ -78,6 +85,7 @@
       <pages>96-109</pages>
       <url hash="2558da96">2014.amta-researchers.8</url>
       <abstract>In this paper, we describe an effective translation model combination approach based on the estimation of a probabilistic Support Vector Machine (SVM). We collect domain knowledge from both in-domain and general-domain corpora inspired by a commonly used data selection algorithm, which we then use as features for the SVM training. Drawing on previous work on binary-featured phrase table fill-up (Nakov, 2008; Bisazza et al., 2011), we substitute the binary feature in the original work with our probabilistic domain-likeness feature. Later, we design two experiments to evaluate the proposed probabilistic feature-based approach on the French-to-English language pair using data provided at WMT07, WMT13 and IWLST11 translation tasks. Our experiments demonstrate that translation performance can gain significant improvements of up to +0.36 and +0.82 BLEU scores by using our probabilistic feature-based translation model fill-up approach compared with the binary featured fill-up approach in both experiments.</abstract>
+      <bibkey>zhang-etal-2014-probabilistic</bibkey>
     </paper>
     <paper id="9">
       <title>Document-level re-ranking with soft lexical and semantic features for statistical machine translation</title>
@@ -87,6 +95,7 @@
       <pages>110-123</pages>
       <url hash="0976332d">2014.amta-researchers.9</url>
       <abstract>We introduce two document-level features to polish baseline sentence-level translations generated by a state-of-the-art statistical machine translation (SMT) system. One feature uses the word-embedding technique to model the relation between a sentence and its context on the target side; the other feature is a crisp document-level token-type ratio of target-side translations for source-side words to model the lexical consistency in translation. The weights of introduced features are tuned to optimize the sentence- and document-level metrics simultaneously on the basis of Pareto optimality. Experimental results on two different schemes with different corpora illustrate that the proposed approach can efficiently and stably integrate document-level information into a sentence-level SMT system. The best improvements were approximately 0.5 BLEU on test sets with statistical significance.</abstract>
+      <bibkey>ding-etal-2014-document</bibkey>
     </paper>
     <paper id="10">
       <title>A comparison of mixture and vector space techniques for translation model adaptation</title>
@@ -96,6 +105,7 @@
       <pages>124-138</pages>
       <url hash="242625e8">2014.amta-researchers.10</url>
       <abstract>In this paper, we propose two extensions to the vector space model (VSM) adaptation technique (Chen et al., 2013b) for statistical machine translation (SMT), both of which result in significant improvements. We also systematically compare the VSM techniques to three mixture model adaptation techniques: linear mixture, log-linear mixture (Foster and Kuhn, 2007), and provenance features (Chiang et al., 2011). Experiments on NIST Chinese-to-English and Arabic-to-English tasks show that all methods achieve significant improvement over a competitive non-adaptive baseline. Except for the original VSM adaptation method, all methods yield improvements in the +1.7-2.0 BLEU range. Combining them gives further significant improvements of up to +2.6-3.3 BLEU over the baseline.</abstract>
+      <bibkey>chen-etal-2014-comparison</bibkey>
     </paper>
     <paper id="11">
       <title>Combining domain and topic adaptation for <fixed-case>SMT</fixed-case></title>
@@ -105,6 +115,7 @@
       <pages>139-151</pages>
       <url hash="77121747">2014.amta-researchers.11</url>
       <abstract>Recent years have seen increased interest in adapting translation models to test domains that are known in advance as well as using latent topic representations to adapt to unknown test domains. However, the relationship between domains and latent topics is still somewhat unclear and topic adaptation approaches typically do not make use of domain knowledge in the training data. We show empirically that combining domain and topic adaptation approaches can be beneficial and that topic representations can be used to predict the domain of a test document. Our best combined model yields gains of up to 0.82 BLEU over a domain-adapted translation system and up to 1.67 BLEU over an unadapted system, measured on the stronger of two training conditions.</abstract>
+      <bibkey>hasler-etal-2014-combining</bibkey>
     </paper>
     <paper id="12">
       <title>Online multi-user adaptive statistical machine translation</title>
@@ -115,6 +126,7 @@
       <pages>152-165</pages>
       <url hash="ebe0dc73">2014.amta-researchers.12</url>
       <abstract>In this paper we investigate the problem of adapting a machine translation system to the feedback provided by multiple post-editors. It is well know that translators might have very different post-editing styles and that this variability hinders the application of online learning methods, which indeed assume a homogeneous source of adaptation data. We hence propose multi-task learning to leverage bias information from each single post-editors in order to constrain the evolution of the SMT system. A new framework for significance testing with sentence level metrics is described which shows that Multi-Task learning approaches outperforms existing online learning approaches, with significant gains of 1.24 and 1.88 TER score over a strong online adaptive baseline, on a test set of post-edits produced by four translators texts and on a popular benchmark with multiple references, respectively.</abstract>
+      <bibkey>mathur-etal-2014-online</bibkey>
     </paper>
     <paper id="13">
       <title>The repetition rate of text as a predictor of the effectiveness of machine translation adaptation</title>
@@ -124,6 +136,7 @@
       <pages>166-179</pages>
       <url hash="66d1fdee">2014.amta-researchers.13</url>
       <abstract>Since the effectiveness of MT adaptation relies on the text repetitiveness, the question on how to measure repetitions in a text naturally arises. This work deals with the issue of looking for and evaluating text features that might help the prediction of the impact of MT adaptation on translation quality. In particular, the repetition rate metric, we recently proposed, is compared to other features employed in very related NLP tasks. The comparison is carried out through a regression analysis between feature values and MT performance gains by dynamically adapted versus non-adapted MT engines, on five different translation tasks. The main outcome of experiments is that the repetition rate correlates better than any other considered feature with the MT gains yielded by the online adaptation, although using all features jointly results in better predictions than with any single feature.</abstract>
+      <bibkey>cettolo-etal-2014-repetition</bibkey>
     </paper>
     <paper id="14">
       <title>Expanding machine translation training data with an out-of-domain corpus using language modeling based vocabulary saturation</title>
@@ -132,6 +145,7 @@
       <pages>180-192</pages>
       <url hash="1ee3cee3">2014.amta-researchers.14</url>
       <abstract>The training data size is of utmost importance for statistical machine translation (SMT), since it affects the training time, model size, decoding speed, as well as the system’s overall success. One of the challenges for developing SMT systems for languages with less resources is the limited sizes of the available training data. In this paper, we propose an approach for expanding the training data by including parallel texts from an out-of-domain corpus. Selecting the best out-of-domain sentences for inclusion in the training set is important for the overall performance of the system. Our method is based on first ranking the out-of-domain sentences using a language modeling approach, and then, including the sentences to the training set by using the vocabulary saturation filter technique. We evaluated our approach for the English-Turkish language pair and obtained promising results. Performance improvements of up to +0.8 BLEU points for the English-Turkish translation system are achieved. We compared our results with the translation model combination approaches as well and reported the improvements. Moreover, we implemented our system with dependency parse tree based language modeling in addition to the n-gram based language modeling and reported comparable results.</abstract>
+      <bibkey>aydin-ozgur-2014-expanding</bibkey>
     </paper>
     <paper id="15">
       <title>Comparison of data selection techniques for the translation of video lectures</title>
@@ -146,6 +160,7 @@
       <pages>193-207</pages>
       <url hash="1f0d0943">2014.amta-researchers.15</url>
       <abstract>For the task of online translation of scientific video lectures, using huge models is not possible. In order to get smaller and efficient models, we perform data selection. In this paper, we perform a qualitative and quantitative comparison of several data selection techniques, based on cross-entropy and infrequent n-gram criteria. In terms of BLEU, a combination of translation and language model cross-entropy achieves the most stable results. As another important criterion for measuring translation quality in our application, we identify the number of out-of-vocabulary words. Here, infrequent n-gram recovery shows superior performance. Finally, we combine the two selection techniques in order to benefit from both their strengths.</abstract>
+      <bibkey>wuebker-etal-2014-comparison</bibkey>
     </paper>
     <paper id="16">
       <title>Review and analysis of <fixed-case>C</fixed-case>hina workshop on machine translation 2013 evaluation</title>
@@ -157,6 +172,7 @@
       <pages>208-221</pages>
       <url hash="71d868bd">2014.amta-researchers.16</url>
       <abstract>This paper gives a general review and detailed analysis of China Workshop on Machine Translation (CWMT) Evaluation. Compared with the past CWMT evaluation campaigns, CWMT2013 evaluation is characterized as follows: first, adopting gray-box evaluation which makes the results more replicable and controllable; second, adding one rule-based system as a counterpart; third, carrying out manual evaluations on some specific tasks to give a more comprehensive analysis of the translation errors. Boosted by those new features, our analysis and case study on the evaluation results shows the pros and cons of both rule-based and statistical systems, and reveals some interesting correlations bewteen automatic and manual evaluation metrics on different translation systems.</abstract>
+      <bibkey>yang-etal-2014-review</bibkey>
     </paper>
     <paper id="17">
       <title>Combining techniques from different <fixed-case>NN</fixed-case>-based language models for machine translation</title>
@@ -167,6 +183,7 @@
       <pages>222-233</pages>
       <url hash="2c3a386d">2014.amta-researchers.17</url>
       <abstract>This paper presents two improvements of language models based on Restricted Boltzmann Machine (RBM) for large machine translation tasks. In contrast to other continuous space approach, RBM based models can easily be integrated into the decoder and are able to directly learn a hidden representation of the n-gram. Previous work on RBM-based language models do not use a shared word representation and therefore, they might suffer of a lack of generalization for larger contexts. Moreover, since the training step is very time consuming, they are only used for quite small copora. In this work we add a shared word representation for the RBM-based language model by factorizing the weight matrix. In addition, we propose an efficient and tailored sampling algorithm that allows us to drastically speed up the training process. Experiments are carried out on two German to English translation tasks and the results show that the training time could be reduced by a factor of 10 without any drop in performance. Furthermore, the RBM-based model can also be trained on large size corpora.</abstract>
+      <bibkey>niehues-etal-2014-combining</bibkey>
     </paper>
     <paper id="18">
       <title><fixed-case>J</fixed-case>apanese-to-<fixed-case>E</fixed-case>nglish patent translation system based on domain-adapted word segmentation and post-ordering</title>
@@ -177,6 +194,7 @@
       <pages>234-248</pages>
       <url hash="b664546e">2014.amta-researchers.18</url>
       <abstract>This paper presents a Japanese-to-English statistical machine translation system specialized for patent translation. Patents are practically useful technical documents, but their translation needs different efforts from general-purpose translation. There are two important problems in the Japanese-to-English patent translation: long distance reordering and lexical translation of many domain-specific terms. We integrated novel lexical translation of domain-specific terms with a syntax-based post-ordering framework that divides the machine translation problem into lexical translation and reordering explicitly for efficient syntax-based translation. The proposed lexical translation consists of a domain-adapted word segmentation and an unknown word transliteration. Experimental results show our system achieves better translation accuracy in BLEU and TER compared to the baseline methods.</abstract>
+      <bibkey>sudoh-etal-2014-japanese</bibkey>
     </paper>
     <paper id="19">
       <title>A discriminative framework of integrating translation memory features into <fixed-case>SMT</fixed-case></title>
@@ -186,6 +204,7 @@
       <pages>249-260</pages>
       <url hash="e01d5a63">2014.amta-researchers.19</url>
       <abstract>Combining Translation Memory (TM) with Statistical Machine Translation (SMT) together has been demonstrated to be beneficial. In this paper, we present a discriminative framework which can integrate TM into SMT by incorporating TM-related feature functions. Experiments on English–Chinese and English–French tasks show that our system using TM feature functions only from the best fuzzy match performs significantly better than the baseline phrase- based system on both tasks, and our discriminative model achieves comparable results to those of an effective generative model which uses similar features. Furthermore, with the capacity of handling a large amount of features in the discriminative framework, we propose a method to efficiently use multiple fuzzy matches which brings more feature functions and further significantly improves our system.</abstract>
+      <bibkey>li-etal-2014-discriminative</bibkey>
     </paper>
     <paper id="20">
       <title>Assessing the impact of speech recognition errors on machine translation quality</title>
@@ -194,6 +213,7 @@
       <pages>261-274</pages>
       <url hash="ef604669">2014.amta-researchers.20</url>
       <abstract>In spoken language translation, it is crucial that an automatic speech recognition (ASR) system produces outputs that can be adequately translated by a statistical machine translation (SMT) system. While word error rate (WER) is the standard metric of ASR quality, the assumption that each ASR error type is weighted equally is violated in a SMT system that relies on structured input. In this paper, we outline a statistical framework for analyzing the impact of specific ASR error types on translation quality in a speech translation pipeline. Our approach is based on linear mixed-effects models, which allow the analysis of ASR errors on a translation quality metric. The mixed-effects models take into account the variability of ASR systems and the difficulty of each speech utterance being translated in a specific experimental setting. We use mixed-effects models to verify that the ASR errors that compose the WER metric do not contribute equally to translation quality and that interactions exist between ASR errors that cumulatively affect a SMT system’s ability to translate an utterance. Our experiments are carried out on the English to French language pair using eight ASR systems and seven post-edited machine translation references from the IWSLT 2013 evaluation campaign. We report significant findings that demonstrate differences in the contributions of specific ASR error types toward speech translation quality and suggest further error types that may contribute to translation difficulty.</abstract>
+      <bibkey>ruiz-federico-2014-assessing</bibkey>
     </paper>
     <paper id="21">
       <title>Using noun class information to model selectional preferences for translating prepositions in <fixed-case>SMT</fixed-case></title>
@@ -203,6 +223,7 @@
       <pages>275-287</pages>
       <url hash="91701cda">2014.amta-researchers.21</url>
       <abstract>Translating prepositions is a difficult and under-studied problem in SMT. We present a novel method to improve the translation of prepositions by using noun classes to model their selectional preferences. We compare three variants of noun class information: (i) classes induced from the lexical resource GermaNet or obtained from clusterings based on either (ii) window information or (iii) syntactic features. Furthermore, we experiment with PP rule generalization. While we do not significantly improve over the baseline, our results demonstrate that (i) integrating selectional preferences as rigid class annotation in the parse tree is sub-optimal, and that (ii) clusterings based on window co-occurrence are more robust than syntax-based clusters or GermaNet classes for the task of modeling selectional preferences.</abstract>
+      <bibkey>weller-etal-2014-using</bibkey>
     </paper>
     <paper id="22">
       <title>Predicting human translation quality</title>
@@ -211,6 +232,7 @@
       <pages>288-300</pages>
       <url hash="8389ce4f">2014.amta-researchers.22</url>
       <abstract>We present a first attempt at predicting the quality of translations produced by human, professional translators. We examine datasets annotated for quality at sentence- and word-level for four language pairs and provide experiments with prediction models for these datasets. We compare the performance of such models against that of models built from machine translations, highlighting a number of challenges in estimating quality and detecting errors in human translations.</abstract>
+      <bibkey>specia-shah-2014-predicting</bibkey>
     </paper>
     <paper id="23">
       <title>Data selection for compact adapted <fixed-case>SMT</fixed-case> models</title>
@@ -219,6 +241,7 @@
       <pages>301-314</pages>
       <url hash="bdf685c3">2014.amta-researchers.23</url>
       <abstract>Data selection is a common technique for adapting statistical translation models for a specific domain, which has been shown to both improve translation quality and to reduce model size. Selection relies on some in-domain data, of the same domain of the texts expected to be translated. Selecting the sentence-pairs that are most similar to the in-domain data from a pool of parallel texts has been shown to be effective; yet, this approach holds the risk of resulting in a limited coverage, when necessary n-grams that do appear in the pool are less similar to in-domain data that is available in advance. Some methods select additional data based on the actual text that needs to be translated. While useful, this is not always a practical scenario. In this work we describe an extensive exploration of data selection techniques over Arabic to French datasets, and propose methods to address both similarity and coverage considerations while maintaining a limited model size.</abstract>
+      <bibkey>mirkin-besacier-2014-data</bibkey>
     </paper>
     <paper id="24">
       <title>Pivot-based triangulation for low-resource languages</title>
@@ -227,6 +250,7 @@
       <pages>315-328</pages>
       <url hash="e137533a">2014.amta-researchers.24</url>
       <abstract>This paper conducts a comprehensive study on the use of triangulation for four very low-resource languages: Mawukakan and Maninkakan, Haitian Kreyol and Malagasy. To the best of our knowledge, ours is the first effective translation system for the first two of these languages. We improve translation quality by adding data using pivot languages and exper- imentally compare previously proposed triangulation design options. Furthermore, since the low-resource language pair and pivot language pair data typically come from very different domains, we use insights from domain adaptation to tune the weighted mixture of direct and pivot based phrase pairs to improve translation quality.</abstract>
+      <bibkey>dholakia-sarkar-2014-pivot</bibkey>
     </paper>
     <paper id="25">
       <title>An <fixed-case>A</fixed-case>rabizi-<fixed-case>E</fixed-case>nglish social media statistical machine translation system</title>
@@ -236,6 +260,7 @@
       <pages>329-341</pages>
       <url hash="b73e0820">2014.amta-researchers.25</url>
       <abstract>We present a machine translation engine that can translate romanized Arabic, often known as Arabizi, into English. With such a system we can, for the first time, translate the massive amounts of Arabizi that are generated every day in the social media sphere but until now have been uninterpretable by automated means. We accomplish our task by leveraging a machine translation system trained on non-Arabizi social media data and a weighted finite-state transducer-based Arabizi-to-Arabic conversion module, equipped with an Arabic character-based n-gram language model. The resulting system allows high capacity on-the-fly translation from Arabizi to English. We demonstrate via several experiments that our performance is quite close to the theoretical maximum attained by perfect deromanization of Arabizi input. This constitutes the first presentation of a high capacity end-to-end social media Arabizi-to-English translation system.</abstract>
+      <bibkey>may-etal-2014-arabizi</bibkey>
     </paper>
     <paper id="26">
       <title>Automatic dialect classification for statistical machine translation</title>
@@ -246,6 +271,7 @@
       <pages>342-355</pages>
       <url hash="080a6f0f">2014.amta-researchers.26</url>
       <abstract>The training data for statistical machine translation are gathered from various sources representing a mixture of domains. In this work, we argue that when translating dialects representing varieties of the same language, a manually assigned data source is not a reliable indicator of the dialect. We resort to automatic dialect classification to refine the training corpora according to the different dialects and build improved dialect specific systems. A fairly standard classifier for Arabic developed within this work achieves state-of-the-art performance, with classification precision above 90%, making it usefully accurate for our application. The classification of the data is then used to distinguish between the different dialects, split the data accordingly, and utilize the new splits for several adaptation techniques. Performing translation experiments on a large scale dialectal Arabic to English translation task, our results show that the classifier generates better contrast between the dialects and achieves superior translation quality than using the original manual corpora splits.</abstract>
+      <bibkey>mansour-etal-2014-automatic</bibkey>
     </paper>
     <paper id="27">
       <title>A tunable language model for statistical machine translation</title>
@@ -256,6 +282,7 @@
       <pages>356-368</pages>
       <url hash="ced80d07">2014.amta-researchers.27</url>
       <abstract>A novel variation of modified KNESER-NEY model using monomial discounting is presented and integrated into the MOSES statistical machine translation toolkit. The language model is trained on a large training set as usual, but its new discount parameters are tuned to the small development set. An in-domain and cross-domain evaluation of the language model is performed based on perplexity, in which sizable improvements are obtained. Additionally, the performance of the language model is also evaluated in several major machine translation tasks including Chinese-to-English. In those tests, the test data is from a (slightly) different domain than the training data. The experimental results indicate that the new model significantly outperforms a baseline model using SRILM in those domain adaptation scenarios. The new language model is thus ideally suited for domain adaptation without sacrificing performance on in-domain experiments.</abstract>
+      <bibkey>guo-etal-2014-tunable</bibkey>
     </paper>
   </volume>
   <volume id="users" ingest-date="2021-06-20">
@@ -278,12 +305,14 @@
       <author><first>Tanya</first><last>Badeka</last></author>
       <pages>1-24</pages>
       <attachment type="presentation" hash="747b286e">2014.amta-users.1.Presentation.pdf</attachment>
+      <bibkey>sanchez-badeka-2014-linguistic</bibkey>
     </paper>
     <paper id="2">
       <title>Reducing time and tedium with translation technology: the six-pound challenge</title>
       <author><first>Scott</first><last>Gaskill</last></author>
       <pages>25-30</pages>
       <attachment type="presentation" hash="d4313cc8">2014.amta-users.2.Presentation.pdf</attachment>
+      <bibkey>gaskill-2014-reducing</bibkey>
     </paper>
     <paper id="3">
       <title>Machine translation for global e-commerce on e<fixed-case>B</fixed-case>ay</title>
@@ -291,24 +320,28 @@
       <author><first>Carmen</first><last>Heger</last></author>
       <pages>31-37</pages>
       <attachment type="presentation" hash="0b418ac2">2014.amta-users.3.Presentation.pdf</attachment>
+      <bibkey>guha-heger-2014-machine</bibkey>
     </paper>
     <paper id="4">
       <title>When to choose <fixed-case>SMT</fixed-case>: typology of documents</title>
       <author><first>François</first><last>Lanctôt</last></author>
       <pages>38-49</pages>
       <attachment type="presentation" hash="3995c75b">2014.amta-users.4.Presentation.pdf</attachment>
+      <bibkey>lanctot-2014-choose</bibkey>
     </paper>
     <paper id="5">
       <title>Machine translation and post-editing for user generated content: an <fixed-case>LSP</fixed-case> perspective</title>
       <author><first>Elaine</first><last>O’Curran</last></author>
       <pages>50-54</pages>
       <attachment type="presentation" hash="32bb9f95">2014.amta-users.5.Presentation.pdf</attachment>
+      <bibkey>ocurran-2014-machine</bibkey>
     </paper>
     <paper id="6">
       <title>Challenges of machine translation for user generated content: queries from <fixed-case>B</fixed-case>razilian users</title>
       <author><first>Silvio</first><last>Picinini</last></author>
       <pages>55-65</pages>
       <attachment type="presentation" hash="959dbb2a">2014.amta-users.6.Presentation.pdf</attachment>
+      <bibkey>picinini-2014-challenges</bibkey>
     </paper>
     <paper id="7">
       <title>Real-world challenges in application of <fixed-case>MT</fixed-case> for localization: the Baltic case</title>
@@ -317,36 +350,42 @@
       <author><first>Andrejs</first><last>Vasiļjevs</last></author>
       <pages>66-79</pages>
       <attachment type="presentation" hash="a7c81efa">2014.amta-users.7.Presentation.pdf</attachment>
+      <bibkey>pinnis-etal-2014-real</bibkey>
     </paper>
     <paper id="8">
       <title>Machine translation is not one size fits all</title>
       <author><first>Lori</first><last>Thicke</last></author>
       <pages>80-104</pages>
       <attachment type="presentation" hash="796a6e50">2014.amta-users.8.Presentation.pdf</attachment>
+      <bibkey>thicke-2014-machine</bibkey>
     </paper>
     <paper id="9">
       <title>From the lab to the market: commercialising <fixed-case>MT</fixed-case> research</title>
       <author><first>John</first><last>Tinsley</last></author>
       <pages>105-130</pages>
       <attachment type="presentation" hash="736432b0">2014.amta-users.9.Presentation.pdf</attachment>
+      <bibkey>tinsley-2014-lab</bibkey>
     </paper>
     <paper id="10">
       <title>Tools-driven content curation and engine tuning</title>
       <author><first>Alex</first><last>Yanishevsky</last></author>
       <pages>131-151</pages>
       <attachment type="presentation" hash="be911a03">2014.amta-users.10.Presentation.pdf</attachment>
+      <bibkey>yanishevsky-2014-tools</bibkey>
     </paper>
     <paper id="11">
       <title>Term translation central: up-to-date <fixed-case>MT</fixed-case> without frequent retraining</title>
       <author><first>Ventsislav</first><last>Zhechev</last></author>
       <pages>152-159</pages>
       <attachment type="presentation" hash="c0f8cea9">2014.amta-users.11.Presentation.pdf</attachment>
+      <bibkey>zhechev-2014-term</bibkey>
     </paper>
     <paper id="12">
       <title>Translation technology in action: a <fixed-case>US</fixed-case> government use case</title>
       <author><first>Vanesa</first><last>Jurica</last></author>
       <pages>160-180</pages>
       <attachment type="presentation" hash="407355e2">2014.amta-users.12.Presentation.pdf</attachment>
+      <bibkey>jurica-2014-translation</bibkey>
     </paper>
     <paper id="13">
       <title>Machine translation for e-government – the Baltic case</title>
@@ -356,6 +395,7 @@
       <author><first>Raivis</first><last>Skadiņš</last></author>
       <pages>181-193</pages>
       <attachment type="presentation" hash="07d1f5c6">2014.amta-users.13.Presentation.pdf</attachment>
+      <bibkey>vasiljevs-etal-2014-machine</bibkey>
     </paper>
     <paper id="14">
       <title>Panel: Inserting <fixed-case>CAT</fixed-case> tools into a government <fixed-case>LSP</fixed-case> environment</title>
@@ -365,6 +405,7 @@
       <author><first>Elizabeth</first><last>Richerson</last></author>
       <pages>194-202</pages>
       <attachment type="presentation" hash="0b3770b0">2014.amta-users.14.Presentation.pdf</attachment>
+      <bibkey>helmen-etal-2014-panel</bibkey>
     </paper>
     <paper id="15">
       <title>A novel use of <fixed-case>MT</fixed-case> in the development of a text level analytic for language learning</title>
@@ -373,11 +414,13 @@
       <author><first>Amy</first><last>Weinberg</last></author>
       <pages>203-212</pages>
       <attachment type="presentation" hash="92af34aa">2014.amta-users.15.Presentation.pdf</attachment>
+      <bibkey>van-ess-dykema-etal-2014-novel</bibkey>
     </paper>
     <paper id="16">
       <title>Technology showcase guide</title>
       <author><first>Jennifer</first><last>DeCamppp</last></author>
       <attachment type="presentation" hash="7bf083ea">2014.amta-users.16.Presentation.pdf</attachment>
+      <bibkey>decamppp-2014-technology</bibkey>
     </paper>
   </volume>
   <volume id="tutorials" ingest-date="2021-06-20">
@@ -394,11 +437,13 @@
       <author><first>Linda</first><last>Moreau</last></author>
       <author><first>Sherri</first><last>Condon</last></author>
       <attachment type="presentation" hash="26e6287d">2014.amta-tutorials.1.Presentation.pdf</attachment>
+      <bibkey>miller-etal-2014-handling</bibkey>
     </paper>
     <paper id="2">
       <title>Interaction design for <fixed-case>MT</fixed-case> interfaces</title>
       <author><first>Patricia</first><last>O’Neill-Brown</last></author>
       <attachment type="presentation" hash="4a2463fd">2014.amta-tutorials.2.Presentation.pdf</attachment>
+      <bibkey>oneill-brown-2014-interaction</bibkey>
     </paper>
     <paper id="3">
       <title><fixed-case>M</fixed-case>ate<fixed-case>C</fixed-case>at: an open source <fixed-case>CAT</fixed-case> tool for <fixed-case>MT</fixed-case> post-editing</title>
@@ -407,6 +452,7 @@
       <author><first>Marco</first><last>Trombetti</last></author>
       <author><first>Alessandro</first><last>Cattelan</last></author>
       <attachment type="presentation" hash="7309f2fa">2014.amta-tutorials.3.Presentation.pdf</attachment>
+      <bibkey>federico-etal-2014-matecat-open</bibkey>
     </paper>
     <paper id="4">
       <title>Working with <fixed-case>M</fixed-case>ate<fixed-case>C</fixed-case>at: user manual and installation guide</title>
@@ -415,6 +461,7 @@
       <author><first>Marco</first><last>Trombetti</last></author>
       <author><first>Alessandro</first><last>Cattelan</last></author>
       <attachment type="presentation" hash="39d1dd94">2014.amta-tutorials.4.Presentation.pdf</attachment>
+      <bibkey>federico-etal-2014-working</bibkey>
     </paper>
     <paper id="5">
       <title>Statistical machine translation with the <fixed-case>M</fixed-case>oses toolkit</title>
@@ -422,6 +469,7 @@
       <author><first>Matthias</first><last>Huck</last></author>
       <author><first>Philipp</first><last>Koehn</last></author>
       <attachment type="presentation" hash="6b0da3f6">2014.amta-tutorials.5.Presentation.pdf</attachment>
+      <bibkey>hoang-etal-2014-statistical</bibkey>
     </paper>
   </volume>
   <volume id="workshop" ingest-date="2021-06-20">
@@ -450,6 +498,7 @@
       <pages>1-8</pages>
       <url hash="068d7a60">2014.amta-workshop.1</url>
       <abstract>This paper describes a pilot study with a computed-assisted translation workbench aiming at testing the integration of online and active learning features. We investigate the effect of these features on translation productivity, using interactive translation prediction (ITP) as a baseline. User activity data were collected from five beta testers using key-logging and eye-tracking. User feedback was also collected at the end of the experiments in the form of retrospective think-aloud protocols. We found that OL performs better than ITP, especially in terms of translation speed. In addition, AL provides better translation quality than ITP for the same levels of user effort. We plan to incorporate these features in the final version of the workbench.</abstract>
+      <bibkey>alabau-etal-2014-integrating</bibkey>
     </paper>
     <paper id="2">
       <title>Towards a combination of online and multitask learning for <fixed-case>MT</fixed-case> quality estimation: a preliminary study</title>
@@ -459,6 +508,7 @@
       <pages>9-19</pages>
       <url hash="d8c4748e">2014.amta-workshop.2</url>
       <abstract>Quality estimation (QE) for machine translation has emerged as a promising way to provide real-world applications with methods to estimate at run-time the reliability of automatic translations. Real-world applications, however, pose challenges that go beyond those of current QE evaluation settings. For instance, the heterogeneity and the scarce availability of training data might contribute to significantly raise the bar. To address these issues we compare two alternative machine learning paradigms, namely online and multi-task learning, measuring their capability to overcome the limitations of current batch methods. The results of our experiments, which are carried out in the same experimental setting, demonstrate the effectiveness of the two methods and suggest their complementarity. This indicates, as a promising research avenue, the possibility to combine their strengths into an online multi-task approach to the problem.</abstract>
+      <bibkey>de-souza-etal-2014-towards</bibkey>
     </paper>
     <paper id="3">
       <title>Dynamic phrase tables for machine translation in an interactive post-editing scenario</title>
@@ -466,6 +516,7 @@
       <pages>20-31</pages>
       <url hash="c5008642">2014.amta-workshop.3</url>
       <abstract>This paper presents a phrase table implementation for the Moses system that computes phrase table entries for phrase-based statistical machine translation (PBSMT) on demand by sampling an indexed bitext. While this approach has been used for years in hierarchical phrase-based translation, the PBSMT community has been slow to adopt this paradigm, due to concerns that this would be slow and lead to lower translation quality. The experiments conducted in the course of this work provide evidence to the contrary: without loss in translation quality, the sampling phrase table ranks second out of four in terms of speed, being slightly slower than hash table look-up (Junczys-Dowmunt, 2012) and considerably faster than current implementations of the approach suggested by Zens and Ney (2007). In addition, the underlying parallel corpus can be updated in real time, so that professionally produced translations can be used to improve the quality of the machine translation engine immediately.</abstract>
+      <bibkey>germann-2014-dynamic</bibkey>
     </paper>
     <paper id="4">
       <title>Optimized <fixed-case>MT</fixed-case> online learning in computer assisted translation</title>
@@ -474,6 +525,7 @@
       <pages>32-41</pages>
       <url hash="1c00494f">2014.amta-workshop.4</url>
       <abstract>In this paper we propose a cascading framework for optimizing online learning in machine translation for a computer assisted translation scenario. With the use of online learning, several hyperparameters associated with the learning algorithm are introduced. The number of iterations of online learning can affect the translation quality as well. We discuss these issues and propose a few approaches to optimize the hyperparameters and to find the number of iterations required for online learning. We experimentally show that optimizing hyperparameters and number of iterations in online learning yields consistent improvement against baseline results.</abstract>
+      <bibkey>mathur-cettolo-2014-optimized</bibkey>
     </paper>
     <paper id="5">
       <title>Behind the scenes in an interactive speech translation system</title>
@@ -482,6 +534,7 @@
       <pages>42-50</pages>
       <url hash="edacc7a2">2014.amta-workshop.5</url>
       <abstract>This paper describes the facilities of Converser for Healthcare 4.0, a highly interactive speech translation system which enables users to verify and correct speech recognition and machine translation. Corrections are presently useful for real-time reliability, and in the future should prove applicable to offline machine learning. We provide examples of interactive tools in action, emphasizing semantically controlled back-translation and lexical disambiguation, and explain for the first time the techniques employed in the tools’ creation, focusing upon compilation of a database of semantic cues and its connection to third-party MT engines. Planned extensions of our techniques to statistical MT are also discussed.</abstract>
+      <bibkey>seligman-dillinger-2014-behind</bibkey>
     </paper>
     <paper id="6">
       <title>Predicting post-editor profiles from the translation process</title>
@@ -493,6 +546,7 @@
       <pages>51-60</pages>
       <url hash="a766f32c">2014.amta-workshop.6</url>
       <abstract>The purpose of the current investigation is to predict post-editor profiles based on user behaviour and demographics using machine learning techniques to gain a better understanding of post-editor styles. Our study extracts process unit features from the CasMaCat LS14 database from the CRITT Translation Process Research Database (TPR-DB). The analysis has two main research goals: We create n-gram models based on user activity and part-of-speech sequences to automatically cluster post-editors, and we use discriminative classifier models to characterize post-editors based on a diverse range of translation process features. The classification and clustering of participants resulting from our study suggest this type of exploration could be used as a tool to develop new translation tool features or customization possibilities.</abstract>
+      <bibkey>singla-etal-2014-predicting</bibkey>
     </paper>
   </volume>
   <volume id="wptp" ingest-date="2021-06-20">
@@ -513,6 +567,7 @@
       <pages>5-19</pages>
       <url hash="97db679b">2014.amta-wptp.1</url>
       <abstract>The aim of this study is to analyse whether translation trainees who are not native speakers of the target language are able to perform as well as those who are native speakers, and whether they achieve the expected quality in a “good enough” post-editing (PE) job. In particular the study focuses on the performance of two groups of students doing PE from Spanish into English: native English speakers and native Spanish speakers. A pilot study was set up to collect evidence to compare and contrast the two groups’ performances. Trainees from both groups had been given the same training in PE and were asked to post-edit 30 sentences translated from Spanish to English. The PE output was analyzed taking into account accuracy errors (mistranslations and omissions) as well as language errors (grammatical errors and syntax errors). The results show that some native Spanish speakers corrected just as many errors as the native English speakers. Furthermore, the Spanish-speaking trainees outperformed their English-speaking counterparts when identifying mistranslations and omissions. Moreover, the performances of the best English-speaking and Spanish-speaking trainees at identifying grammar and syntax errors were very similar.</abstract>
+      <bibkey>sanchez-gijon-torres-hostench-2014-mt</bibkey>
     </paper>
     <paper id="2">
       <title>Comparison of post-editing productivity between professional translators and lay users</title>
@@ -523,6 +578,7 @@
       <pages>20-33</pages>
       <url hash="3eb8da83">2014.amta-wptp.2</url>
       <abstract>This work compares the post-editing productivity of professional translators and lay users. We integrate an English to Basque MT system within Bologna Translation Service, an end-to-end translation management platform, and perform a producitivity experiment in a real working environment. Six translators and six lay users translate or post-edit two texts from English into Basque. Results suggest that overall, post-editing increases translation throughput for both translators and users, although the latter seem to benefit more from the MT output. We observe that translators and users perceive MT differently. Additionally, a preliminary analysis seems to suggest that familiarity with the domain, source text complexity and MT quality might affect potential productivity gain.</abstract>
+      <bibkey>aranberri-etal-2014-comparison</bibkey>
     </paper>
     <paper id="3">
       <title>Monolingual post-editing by a domain expert is highly effective for translation triage</title>
@@ -530,6 +586,7 @@
       <pages>34-44</pages>
       <url hash="47406903">2014.amta-wptp.3</url>
       <abstract>Various small-scale pilot studies have found that for at least some documents, monolingual target language speakers may be able to successfully post-edit machine translations. We begin by analyzing previously published post-editing data to ascertain the effect, if any, of original source language on post-editing quality. Schwartz et al. (2014) hypothesized that post-editing success may be more pronounced when the monolingual post-editors are experts in the domain of the translated documents. This work tests that hypothesis by asking a domain expert to post-edit machine translations of a French scientific article (Besacier, 2014) into English. We find that the monolingual domain expert post-editor was able to successfully post-edit 86.7% of the sentences without requesting assistance from a bilingual post-editor. We evaluate the post-edited sentences according to a bilingual adequacy metric, and find that 96.5% of those sentences post-edited by only a monolingual post-editor are judged to be completely correct. These results confirm that a monolingual domain expert can successfully triage the post-editing effort, substantially reducing the workload on the bilingual post-editor by only sending the most challenging sentences to the bilingual post-editor.</abstract>
+      <bibkey>schwartz-2014-monolingual</bibkey>
     </paper>
     <paper id="4">
       <title>Perceived vs. measured performance in the post-editing of suggestions from machine translation and translation memories</title>
@@ -537,6 +594,7 @@
       <pages>45-59</pages>
       <url hash="1a28d1f4">2014.amta-wptp.4</url>
       <abstract>This paper investigates the behaviour of ten professional translators when performing translation tasks with and without translation suggestions, and with and without translation metadata. The measured performances are then compared with the translators’ perceptions of their performances. The variables that are taken into consideration are time, edits and errors. Keystroke logging and screen recording are used to measure time and edits, an error score system is used to identify errors and post-performance interviews are used to assess participants’ perceptions. The study looks at the correlations between the translators’ perceptions and their actual performances, and tries to understand the reasons behind any discrepancies. Translators are found to prefer an environment with translation suggestions and translation metadata to an environment without metadata. This preference, however, does not always correlate with an improved performance. Task familiarity seems to be the most prominent factor responsible for the positive perceptions, rather than any intrinsic characteristics in the tasks. A certain prejudice against MT is also present in some of the comments.</abstract>
+      <bibkey>teixeira-2014-perceived</bibkey>
     </paper>
     <paper id="5">
       <title>Perception vs. reality: measuring machine translation post-editing productivity</title>
@@ -548,6 +606,7 @@
       <pages>60-72</pages>
       <url hash="bde48571">2014.amta-wptp.5</url>
       <abstract>This paper presents a study of user-perceived vs real machine translation (MT) post-editing effort and productivity gains, focusing on two bidirectional language pairs: English—German and English—Dutch. Twenty experienced media professionals post-edited statistical MT output and also manually translated comparative texts within a production environment. The paper compares the actual post-editing time against the users’ perception of the effort and time required to post-edit the MT output to achieve publishable quality, thus measuring real (vs perceived) productivity gains. Although for all the language pairs users perceived MT post-editing to be slower, in fact it proved to be a faster option than manual translation for two translation directions out of four, i.e. for Dutch to English, and (marginally) for English to German. For further objective scrutiny, the paper also checks the correlation of three state-of-the-art automatic MT evaluation metrics (BLEU, METEOR and TER) with the actual post-editing time.</abstract>
+      <bibkey>gaspari-etal-2014-perception</bibkey>
     </paper>
     <paper id="6">
       <title>Cognitive demand and cognitive effort in post-editing</title>
@@ -557,6 +616,7 @@
       <pages>73-84</pages>
       <url hash="b70dcca2">2014.amta-wptp.6</url>
       <abstract>The pause to word ratio, the number of pauses per word in a post-edited MT segment, is an indicator of cognitive effort in post-editing (Lacruz and Shreve, 2014). We investigate how low the pause threshold can reasonably be taken, and we propose that 300 ms is a good choice, as pioneered by Schilperoord (1996). We then seek to identify a good measure of the cognitive demand imposed by MT output on the post-editor, as opposed to the cognitive effort actually exerted by the post-editor during post-editing. Measuring cognitive demand is closely related to measuring MT utility, the MT quality as perceived by the post-editor. HTER, an extrinsic edit to word ratio that does not necessarily correspond to actual edits per word performed by the post-editor, is a well-established measure of MT quality, but it does not comprehensively capture cognitive demand (Koponen, 2012). We investigate intrinsic measures of MT quality, and so of cognitive demand, through edited-error to word metrics. We find that the transfer-error to word ratio predicts cognitive effort better than mechanical-error to word ratio (Koby and Champe, 2013). We identify specific categories of cognitively challenging MT errors whose error to word ratios correlate well with cognitive effort.</abstract>
+      <bibkey>lacruz-etal-2014-cognitive</bibkey>
     </paper>
     <paper id="7">
       <title>Vocabulary accuracy of statistical machine translation in the legal context</title>
@@ -564,6 +624,7 @@
       <pages>85-98</pages>
       <url hash="5b085552">2014.amta-wptp.7</url>
       <abstract>This paper examines the accuracy of free online SMT output provided by Google Translate (GT) in the difficult context of legal translation. The paper analyzes English machine translations produced by GT for a large sample of Spanish legal vocabulary items that originate from a voluminous text of judgment summaries produced by the Supreme Court of Spain. Prior to this study, this same text was translated into English but without MT and it was found that the majority of the translation solutions that were chosen for the said vocabulary items could be hand-selected from mostly EU databases with versions in English and Spanish. The paper argues that MT in the legal translation context should be worthwhile if the output can consistently provide a reasonable amount of accurate translations of the types of vocabulary items translators in this context often have to do research on before being able to effectively translate them. Much of the currently available translated text used to train SMT comes from international organizations, such as the EU and the UN which often write about legal matters. Moreover, SMT can use the immediate co-text of vocabulary items as a way of attempting to identify correct translations in its database.</abstract>
+      <bibkey>killman-2014-vocabulary</bibkey>
     </paper>
     <paper id="8">
       <title>Towards desktop-based <fixed-case>CAT</fixed-case> tool instrumentation</title>
@@ -573,6 +634,7 @@
       <pages>99-112</pages>
       <url hash="4b20f1c5">2014.amta-wptp.8</url>
       <abstract>Though a number of web-based CAT tools have emerged over recent years, to date the most common form of CAT tool used by translators remains the desktop-based CAT tool. However, currently none of the most commonly used desktop-based CAT tools provide a means of measuring translation speed at a segment level. This metric is important, as previous work on MT productivity testing has shown that edit distance can be a misleading measure of MT post-editing effort. In this paper we present iOmegaT, an instrumented version of a popular desktop-based open-source CAT tool called OmegaT. We survey a number of similar applications and outline some of the weaknesses of web-based CAT tools for experi- enced professional translators. On the basis of a two productivity test carried out using iOmegaT we show why it is important to be able to identify fast good post-editors to maximize MT utility and how this is problematic using only edit-distance measures. Finally, we argue how and why instrumentation could be added to more commonly used desktop-based CAT tools that are paid for by freelance translators if their privacy is respected.</abstract>
+      <bibkey>moran-etal-2014-towards</bibkey>
     </paper>
     <paper id="9">
       <title>Translation quality in post-edited versus human-translated segments: a case study</title>
@@ -580,6 +642,7 @@
       <pages>113-118</pages>
       <url hash="2fc387e3">2014.amta-wptp.9</url>
       <abstract>We analyze the linguistic quality results for a post-editing productivity test that contains a 3:1 ratio of post-edited segments versus human-translated segments, in order to assess if there is a difference in the final translation quality of each segment type and also to investigate the type of errors that are found in each segment type. Overall, we find that the human-translated segments contain more errors per word than the post-edited segments and although the error categories logged are similar across the two segment types, the most notable difference is that the number of stylistic errors in the human translations is 3 times higher than in the post-edited translations.</abstract>
+      <bibkey>ocurran-2014-translation</bibkey>
     </paper>
     <paper id="10">
       <title><fixed-case>TAUS</fixed-case> post-editing course</title>
@@ -587,6 +650,7 @@
       <pages>119</pages>
       <url hash="d79b37bc">2014.amta-wptp.10</url>
       <abstract>While there is a massive adoption of MT post-editing as a new service in the global translation industry, a common reference to skills and best practices to do this work well has been missing. TAUS took up the challenge to provide a course that would integrate with the DQF tools and the post-editing best practices developed by TAUS members in the previous years and offers both theory and practice to develop post-editing skills. The contribution of language service providers who are involved in MT and post-editing on a daily basis allowed TAUS to deliver fast on this industry need. This online course addresses the challenges for linguists and translators deciding to work on post-editing assignments and is aimed at those who want to learn the best practices and skills to become more efficient and proficient in the activity of post-editing.</abstract>
+      <bibkey>gorog-2014-taus</bibkey>
     </paper>
     <paper id="11">
       <title><fixed-case>TAUS</fixed-case> post-editing productivity tool</title>
@@ -594,6 +658,7 @@
       <pages>120</pages>
       <url hash="d79b37bc">2014.amta-wptp.11</url>
       <abstract>While there is a massive adoption of MT post-editing as a new service in the global translation industry, a common reference to skills and best practices to do this work well has been missing. TAUS took up the challenge to provide a course that would integrate with the DQF tools and the post-editing best practices developed by TAUS members in the previous years and offers both theory and practice to develop post-editing skills. The contribution of language service providers who are involved in MT and post-editing on a daily basis allowed TAUS to deliver fast on this industry need. This online course addresses the challenges for linguists and translators deciding to work on post-editing assignments and is aimed at those who want to learn the best practices and skills to become more efficient and proficient in the activity of post-editing.</abstract>
+      <bibkey>gorog-2014-taus-post</bibkey>
     </paper>
     <paper id="12">
       <title><fixed-case>Q</fixed-case>u<fixed-case>E</fixed-case>st: A framework for translation quality estimation</title>
@@ -602,6 +667,7 @@
       <pages>121</pages>
       <url hash="b9aa3c0f">2014.amta-wptp.12</url>
       <abstract>We present QUEST, an open source framework for translation quality estimation. QUEST provides a wide range of feature extractors from source and translation texts and external resources and tools. These go from simple, language-independent features, to advanced, linguistically motivated features. They include features that rely on information from the translation system and features that are oblivious to the way translations were produced. In addition, it provides wrappers for a well-known machine learning toolkit, scikit-learn, including techniques for feature selection and model building, as well as parameter optimisation. We also present a Web interface and functionalities for non-expert users. Using this interface, quality predictions (or internal features of the framework) can be obtained without the installation of the toolkit and the building of prediction models. The interface also provides a ranking method for multiple translations given for the same source text according to their predicted quality.</abstract>
+      <bibkey>specia-shah-2014-quest</bibkey>
     </paper>
     <paper id="13">
       <title>An open source desktop post-editing tool</title>
@@ -609,6 +675,7 @@
       <pages>122</pages>
       <url hash="9057e224">2014.amta-wptp.13</url>
       <abstract>We present a simple user interface for post-editing that presents the user with the source sentence, machine translation, and word alignments for each sentence in a test document (Figure 1). This software is open source, written in Java, and has no external dependencies; it can be run on Linux, Mac OS X, and Windows. This software was originally designed for monolingual post-editors, but should be equally usable by bilingual post-editors. While it may seem counter-intuitive to present monolingual post-editors with the source sentence, we found that the presence of alignment links between source words and target words can in fact aid a monolingual post-editor, especially with regard to correcting word order. For example, in our experiments using this interface (Schwartz et al., 2014), post-editors encountered some sentences where a word or phrase was enclosed within bracketing punctuation marks (such as quotation marks, commas, or parentheses) in the source sentence, and the machine translation system incorrectly reordered the word or phrase outside the enclosing punctuation; by examining the alignment links the post-editors were able to correct such reordering mistakes.</abstract>
+      <bibkey>schwartz-2014-open</bibkey>
     </paper>
     <paper id="14">
       <title>Real time adaptive machine translation: cdec and <fixed-case>T</fixed-case>rans<fixed-case>C</fixed-case>enter</title>
@@ -619,6 +686,7 @@
       <pages>123</pages>
       <url hash="49448eea">2014.amta-wptp.14</url>
       <abstract>cdec Realtime and TransCenter provide an end-to-end experimental setup for machine translation post-editing research. Realtime provides a framework for building adaptive MT systems that learn from post-editor feedback while TransCenter incorporates a web-based translation interface that connects users to these systems and logs post-editing activity. This combination allows the straightforward deployment of MT systems specifically for post-editing and analysis of translator productivity when working with adaptive systems. Both toolkits are freely available under open source licenses.</abstract>
+      <bibkey>denkowski-etal-2014-real-time</bibkey>
     </paper>
     <paper id="15">
       <title>Post-editing user interface using visualization of a sentence structure</title>
@@ -629,6 +697,7 @@
       <pages>124</pages>
       <url hash="61044b6f">2014.amta-wptp.15</url>
       <abstract>Translation has become increasingly important by virtue of globalization. To reduce the cost of translation, it is necessary to use machine translation and further to take advantage of post-editing based on the result of a machine translation for accurate information dissemination. Such post-editing (e.g., PET [Aziz et al., 2012]) can be used practically for translation between European languages, which has a high performance in statistical machine translation. However, due to the low accuracy of machine translation between languages with different word order, such as Japanese-English and Japanese-Chinese, post-editing has not been used actively.</abstract>
+      <bibkey>kishimoto-etal-2014-post</bibkey>
     </paper>
     <paper id="16">
       <title><fixed-case>K</fixed-case>anjingo: a mobile app for post-editing</title>
@@ -638,6 +707,7 @@
       <pages>125-127</pages>
       <url hash="284db954">2014.amta-wptp.16</url>
       <abstract>We present Kanjingo, a mobile app for post-editing currently running under iOS. The App was developed using an agile methodoly at CNGL, DCU. Though it could be used for numerous scenarios, our test scenario involved the post-editing of machine translated sample content for the non-profit translation organization Translators without Borders. Feedback from a first round of user testing for English-French and English-Spanish was positive, but users also identified a number of usability issues that required improvement. These issues were addressed in a second development round and a second usability evaluation was carried out in collaboration with another non-profit translation organization, The Rosetta Foundation, again with French and Spanish as target languages.</abstract>
+      <bibkey>obrien-etal-2014-kanjingo-mobile</bibkey>
     </paper>
-    </volume>
+  </volume>
 </collection>
