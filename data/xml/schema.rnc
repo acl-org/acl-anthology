@@ -35,6 +35,7 @@ Revision = element revision {
 Paper = element paper {
   attribute id { xsd:positiveInteger },
   attribute ingest-date { xsd:date }?,
+  attribute type { xsd:string }?,
   (element abstract { MarkupText }?
    & attachment*
    & element bibkey { bibtex-key }
