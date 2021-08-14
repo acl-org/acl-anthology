@@ -132,7 +132,14 @@ class PersonName:
         return {"first": self.first, "last": self.last, "full": self.full}
 
     def __eq__(self, other):
-        return (self.first == other.first) and (self.last == other.last)
+        if other is None:
+            return False
+        return (
+            (self.first == other.first)
+            and (self.last == other.last)
+            and (self.script == other.script)
+            and (self.variant == other.variant)
+        )
 
     def __str__(self):
         return self.full
@@ -143,4 +150,4 @@ class PersonName:
         return f"{self.first} || {self.last}"
 
     def __hash__(self):
-        return hash(repr(self))
+        return hash(self.full)
