@@ -141,6 +141,9 @@ class PersonName:
             and (self.variant == other.variant)
         )
 
+    def __lt__(self, other):
+        return self.full < other.full
+
     def __str__(self):
         return self.full
 

@@ -105,7 +105,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         )
         variants = [n for n in anthology.people.get_used_names(id_) if n != name]
         if len(variants) > 0:
-            data["variant_entries"] = [name.as_dict() for name in variants]
+            data["variant_entries"] = [name.as_dict() for name in sorted(variants)]
         people[id_[0]][id_] = data
 
     # Prepare volume index
