@@ -145,7 +145,7 @@ else
     make clean
     msg "${GREEN}* Building site with revision ${YELLOW}${rev1}${GREEN}...${NOFORMAT}"
     git checkout $rev1
-    NOBIB=$nobib make site
+    NOBIB=$nobib make -j4 site
     mv build $rev1_dir
 fi
 
@@ -155,7 +155,7 @@ else
     make clean
     msg "${GREEN}* Building site with revision ${YELLOW}${rev2}${GREEN}...${NOFORMAT}"
     git checkout $rev2
-    NOBIB=$nobib make site
+    NOBIB=$nobib make -j4 site
     mv build $rev2_dir
 fi
 
