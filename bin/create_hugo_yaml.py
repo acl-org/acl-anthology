@@ -103,7 +103,11 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             key=lambda p: p[1],
             reverse=True,
         )
-        variants = [n for n in anthology.people.get_used_names(id_) if n != name]
+        variants = [
+            n
+            for n in anthology.people.get_used_names(id_)
+            if n.first != name.first or n.last != name.last
+        ]
         if len(variants) > 0:
             data["variant_entries"] = [name.as_dict() for name in sorted(variants)]
         people[id_[0]][id_] = data

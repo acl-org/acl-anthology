@@ -389,8 +389,7 @@ class AnthologyIndex:
             id_ = name.slug
             self.set_canonical_name(id_, name)
 
-        self.name_to_ids[name].sort()
-        return self.name_to_ids[name]
+        return sorted(self.name_to_ids[name])
 
     def get_comment(self, id_: str) -> str:
         """
