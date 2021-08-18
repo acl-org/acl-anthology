@@ -104,11 +104,11 @@ def main(args):
     new_pdf = f"{tex_file}".replace(".tex", ".pdf")
     orig_hash = compute_hash_from_file(pdf_file)
     new_hash = compute_hash_from_file(new_pdf)
-    print(f'<revision id="1" href="{args.anthology_id}v1" hash="{orig_hash}" />')
+    print(f'      <revision id="1" href="{args.anthology_id}v1" hash="{orig_hash}" />')
     print(
-        f'<revision id="2" href="{args.anthology_id}v2" hash="{new_hash}" date="{date}">Retracted.</revision>'
+        f'      <revision id="2" href="{args.anthology_id}v2" hash="{new_hash}" date="{date}">Retracted.</revision>'
     )
-
+    print(f"      <retracted date=\"{date}\"></retraction>")
     collection_id, venue_name, paper_id = deconstruct_anthology_id(args.anthology_id)
 
     if is_newstyle_id(args.anthology_id):
