@@ -99,9 +99,8 @@ class Volume:
             self.attrib["editor"] = self.attrib["author"]
             del self.attrib["author"]
 
-        # Expand URL if present
-        if "url" in self.attrib:
-            self.attrib["url"] = infer_url(self.attrib["url"])
+        # Expand URL if present, or create URL field if not
+        self.attrib["url"] = infer_url(self.attrib.get("url", self.full_id))
 
         # Some volumes don't set this---but they should!
         if "year" not in self.attrib:
