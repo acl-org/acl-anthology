@@ -404,7 +404,6 @@ def main(args):
             bibfile = paper["bib"]
             paper_node = bib2xml(bibfile, paper_id_full)
 
-
             if paper_node.attrib["id"] == "0":
                 # create metadata subtree
                 meta_node = make_simple_element("meta", parent=volume_node)
@@ -414,7 +413,9 @@ def main(args):
                 for author_or_editor in chain(
                     paper_node.findall("./author"), paper_node.findall("./editor")
                 ):
-                    disamb_name, name_choice = disambiguate_name(author_or_editor, paper_id_full)
+                    disamb_name, name_choice = disambiguate_name(
+                        author_or_editor, paper_id_full
+                    )
                     if name_choice != -1:
                         author_or_editor.attrib["id"] = disamb_name
                     person = PersonName.from_element(author_or_editor)
