@@ -18,12 +18,7 @@
 """
 Takes an Anthology ID, downloads the PDF, and produces a revision PDF
 with a "RETRACTED" watermark, as well as a note at the top pointing
-to the paper page.
-
-TODO:
-* assumes no existing revision, should check if existing ones
-* update XML automatically
-* rename as retract_paper.py or something
+to the paper page. Also revises the XML.
 """
 
 import argparse
@@ -36,14 +31,18 @@ import tempfile
 from string import Template
 
 from anthology.utils import (
-    compute_hash_from_file,
-    deconstruct_anthology_id,
     retrieve_url,
-    is_newstyle_id,
+    deconstruct_anthology_id,
+    make_simple_element,
+    get_xml_file,
+    indent,
 )
 from anthology.data import CANONICAL_URL_TEMPLATE, PDF_LOCATION_TEMPLATE
+from add_revision import add_revision
 
 from datetime import datetime
+
+import lxml.etree as ET
 
 template = Template(
     r"""\documentclass{article}
@@ -84,60 +83,72 @@ template = Template(
 )
 
 
-def main(args):
-    page = CANONICAL_URL_TEMPLATE.format(args.anthology_id)
-    url = PDF_LOCATION_TEMPLATE.format(args.anthology_id)
-    _, pdf_file = tempfile.mkstemp(suffix=".pdf")
-    retrieve_url(url, pdf_file)
+def add_watermark(anth_id, workdir="."):
+    """
+    Downloads an Anthology paper and adds a RETRACTED watermark.
+    """
+    page = CANONICAL_URL_TEMPLATE.format(anth_id)
+    url = PDF_LOCATION_TEMPLATE.format(anth_id)
+    orig_pdf = os.path.join(workdir, "tmp.pdf")
 
-    tex_file = f"{args.anthology_id}v2.tex"
+    retrieve_url(url, orig_pdf)
+
+    tex_file = os.path.join(workdir, f"{anth_id}.tex")
+    print("TEX_FILE", tex_file)
     with open(tex_file, "w") as f:
-        print(template.substitute(file=pdf_file, url=page), file=f)
+        print(template.substitute(file=orig_pdf, url=page), file=f)
 
     command = f"pdflatex {tex_file}"
-    retcode = subprocess.call(command, shell=True)
+    retcode = subprocess.call(command, shell=True, cwd=workdir, stdout=subprocess.DEVNULL)
 
-    now = datetime.now()
-    date = f"{now.year}-{now.month:02d}-{now.day:02d}"
-
-    # TODO: edit the XML programmatically
     new_pdf = f"{tex_file}".replace(".tex", ".pdf")
-    orig_hash = compute_hash_from_file(pdf_file)
-    new_hash = compute_hash_from_file(new_pdf)
-    print(f'      <revision id="1" href="{args.anthology_id}v1" hash="{orig_hash}" />')
-    print(
-        f'      <revision id="2" href="{args.anthology_id}v2" hash="{new_hash}" date="{date}">Retracted.</revision>'
-    )
-    print(f"      <retracted date=\"{date}\"></retraction>")
-    collection_id, venue_name, paper_id = deconstruct_anthology_id(args.anthology_id)
 
-    if is_newstyle_id(args.anthology_id):
-        venue_name = collection_id.split(".")[1]
-        output_dir = os.path.join(args.anthology_dir, "pdf", venue_name)
-    else:
-        output_dir = os.path.join(
-            args.anthology_dir, "pdf", collection_id[0], collection_id
+    return new_pdf
+
+
+def main(args):
+    """
+    Downloads an Anthology paper and adds a RETRACTED watermark, then updates the XML
+    with an appropriate <revision> and <retracted> tag.
+    """
+
+    with tempfile.TemporaryDirectory() as tempdir:
+
+        new_pdf = add_watermark(args.anthology_id, workdir=tempdir)
+        print("Got a new PDF:", new_pdf)
+        retrieve_url(new_pdf, f"t.pdf")
+
+        add_revision(
+            args.anthology_id,
+            new_pdf,
+            explanation="Retracted.",
+            change_type="revision",
+            dry_run=False,
         )
 
-    # Make sure directory exists
-    if not os.path.exists(output_dir):
-        print(f"-> Creating directory {output_dir}", file=sys.stderr)
-        os.makedirs(output_dir)
-
-    shutil.copyfile(pdf_file, os.path.join(output_dir, f"{args.anthology_id}v1.pdf"))
-    shutil.copyfile(new_pdf, os.path.join(output_dir, new_pdf))
-
-    os.remove(pdf_file)
+        xml_file = get_xml_file(args.anthology_id)
+        collection_id, volume_id, paper_id = deconstruct_anthology_id(args.anthology_id)
+        tree = ET.parse(xml_file)
+        if paper_id == "0":
+            paper = tree.getroot().find(f"./volume[@id='{volume_id}']/frontmatter")
+        else:
+            paper = tree.getroot().find(
+                f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
+            )
+        if paper is not None:
+            now = datetime.now()
+            date = f"{now.year}-{now.month:02d}-{now.day:02d}"
+            retracted_node = make_simple_element(
+                "retracted", args.explanation, attrib={"date": date}, parent=paper
+            )
+            indent(tree.getroot())
+            tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("anthology_id")
-    parser.add_argument(
-        "--anthology-dir",
-        default=os.path.join(os.environ["HOME"], "anthology-files"),
-        help="Anthology web directory root.",
-    )
+    parser.add_argument("explanation", help="Brief description of the changes.")
     args = parser.parse_args()
 
     main(args)

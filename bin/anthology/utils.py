@@ -131,7 +131,7 @@ def retrieve_url(remote_url: str, local_path: str):
     :param local_path: Where to save the file to.
     """
     outdir = os.path.dirname(local_path)
-    if not os.path.exists(outdir):
+    if outdir != "" and not os.path.exists(outdir):
         os.makedirs(outdir)
 
     if remote_url.startswith("http"):
@@ -201,6 +201,36 @@ def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
             return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
         else:  # Possible Volume only identifier
             return (collection_id, str(int(rest)), None)
+
+
+def get_xml_file(anth_id):
+    """
+    Returns the XML file containing an Anthology ID.
+    """
+    collection_id, _, _ = deconstruct_anthology_id(anth_id)
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "..",
+        "..",
+        "data",
+        "xml",
+        f"{collection_id}.xml",
+    )
+
+
+def get_pdf_dir(anth_id):
+    """
+    Returns a local path to the directory containing the PDF of the specified Anthology ID.
+    """
+    collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
+
+    if is_newstyle_id(anth_id):
+        venue_name = collection_id.split(".")[1]
+        return os.path.join(data.ANTHOLOGY_FILE_DIR, "pdf", venue_name)
+    else:
+        return os.path.join(
+            data.ANTHOLOGY_FILE_DIR, "pdf", collection_id[0], collection_id
+        )
 
 
 def stringify_children(node):
