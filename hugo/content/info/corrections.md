@@ -2,33 +2,31 @@
 Title: Requesting Corrections
 linktitle: Corrections
 subtitle: How to submit corrections to the Anthology
-date: "2020-01-22"
+date: "2021-08-25"
 ---
 
 ### Types of corrections
 
 The staff of the ACL Anthology can process requests for both many types of corrections to data in the ACL Anthology.
-These include correcting *metadata* and posting *errata* and *revisions* for scholarly works that are already published.
-While this service can help correct post-publication problems, due to certain difficulties and liabilities, the corrections have certain limitations, which we describe here.
+We generally distinguish four types of corrections:
 
-+ Corrections to **metadata** do not require the submission of a new PDF.
+* Corrections to **metadata** do not require changing the PDF.
   Examples include correcting the spelling of a name or the title.
   These kinds of corrections are typically made to bring the metadata in line with what is on the PDF, which is taken to be authoritative.
-  If the metadata changes impact the work's physical form (e.g., adding an additional author), a revision must also be supplied.
-+ A **revision** is a replacement to the original scholarly work.
-  This format allows a corrected paper to be read independently of the original scholarly work, and typically does not highlight the original's errors.
-+ An **erratum** clarifies errors made in the original scholarly work.
-  Usually these are just short notes, correcting statements, or changes to equations or other problems in the original, which need to be read alongside the original work.
+  If changes to the metadata also require a change to the PDF (e.g., changing an author's name), a revision must also be supplied.
+* An **erratum** clarifies errors made in the original scholarly work.
+  Usually these are just short notes, corrective statements, or changes to equations or other problems in the original, which need to be read alongside the original work.
+* A **revision** is a versioned replacement of the original scholarly work.
+  This format allows a corrected paper to be read in place of the original scholarly work, and typically does not highlight the original's errors.
+* A **retraction** occurs when serious, unrecoverable errors are discovered, which drastically affect the findings of the original work.
 
-Please take note of the following regarding revisions and errata:
+Please take note of the following points regarding revisions and retractions.
 
-+ The original published PDF is not invalidated.
+* The original published PDF is not invalidated.
   The original will still stand as published and cannot be withdrawn, and both will remain available and linked on the website.
-+ The landing page for the work will indicate the availability of the erratum or revision.
-+ We cannot retrofit any accompanying full volumes with either revisions or errata.
-+ If possible, when generating your revision, it would be good to add the proper proceedings header and footer stamps, as well as the correct page numbering.
-  Unfortunately, we cannot provide any assistance with this task.
-+ Downstream consumers of the Anthology (e.g., search engines) should notice the changes in your work, but there are no guarantees of this.
+* The landing page for the work will indicate the availability of the erratum or revision.
+* We cannot currently regenerate the full volumes, which will continue to contain only the original papers.
+* We have no control over how downstream consumers of the Anthology, such as search engine, process the changes.
 
 ### Correcting Metadata
 
@@ -59,6 +57,8 @@ For requests to change paper *content* (either a revision or an erratum), again,
   This summary will be included in the Anthology.
 	Its intended audience is users of the Anthology, and should therefore be written from a neutral, scientific perspective.
 - If the metadata also needs to change, please also follow the instructions in the previous section.
+- If possible, when generating your revision, it would be good to add the proper proceedings header and footer stamps, as well as the correct page numbering.
+  Unfortunately, we cannot provide any assistance with this task.
 
 For revisions, the brief summary should allow readers to find the changed parts, but need not be too detailed.
 Here are some good examples:
@@ -73,9 +73,24 @@ Submissions not meeting these standards will be rejected, potentially without no
 
 A revision that changes the author list needs permission (see below).
 
+### Retractions
+
+For retractions, please communicate directly with the Anthology director.
+Retractions are rare, and often involve the organizing editors or chairs of the respective journal or conference.
+
+Retractions result in the following changes in the Anthology:
+
+* The paper is processed as a revision.
+  Each page of the revised PDF is marked with a prominent watermark reading "RETRACTED".
+* The paper's title and author list are displayed with ~~strikeout text~~ in the volume and event listings.
+* The paper's canonical page contains a prominent noticed of the retraction,
+  Its title, author list, and abstract are presented in ~~strikeout text~~.
+  No bibliographic files are generated, and the paper is not listed in the consolidated Anthology BibTeX file.
+* The paper is removed entirely from the listing on the author page.
+
 ### Note on author changes
 
-Some conferences and workshops have a policy of disallowing authorship changes after the initial submission.
-Because it is beyond our ability to track this, changes to the list of authors, whether in the PDF or in the metadata, require permission from the associated conference program chair or workshop/tutorial chair.
+ACL conferences and workshops have a recent policy of disallowing authorship changes after the initial submission.
+Because it is beyond our ability to know which venues have this policy, we require that changes to the list of authors, whether in the PDF or in the metadata, receive permission from the associated conference program chair or workshop/tutorial chair.
 You are responsible for arranging for this permission to be conveyed to us, either via email or on your Github issue.
 Permission is not required for the correction of obvious spelling errors or other typos or for changes to an author's name.
