@@ -139,8 +139,9 @@ class Paper:
                 [x[0].full for x in paper.attrib["author"]]
             )
 
-        # if "retracted" in paper.attrib:
-        #     paper.attrib["retracted"] = True
+        if "retracted" in paper.attrib:
+            paper.attrib["retracted"] = True
+
         paper.attrib["thumbnail"] = data.PDF_THUMBNAIL_LOCATION_TEMPLATE.format(
             paper.full_id
         )
