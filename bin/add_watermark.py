@@ -17,7 +17,7 @@
 
 """
 Takes an Anthology ID, downloads the PDF, and produces a revision PDF
-with a "WITHDRAWN" watermark, as well as a note at the top pointing
+with a "RETRACTED" watermark, as well as a note at the top pointing
 to the paper page.
 
 TODO:
@@ -59,7 +59,7 @@ template = Template(
 }
 
 % "allpages" didn't work
-\newwatermark[pages=1-1000,color=red!80,angle=45,scale=3,xpos=0,ypos=0]{WITHDRAWN}
+\newwatermark[pages=1-1000,color=red!80,angle=45,scale=3,xpos=-6,ypos=0]{RETRACTED}
 
 % set A4
 \setlength{\paperwidth}{21cm}
@@ -75,7 +75,7 @@ template = Template(
 \AddToShipoutPicture{%
   \setlength{\unitlength}{1mm}
   % center box at (x, y) millimeters from bottom-left corner
-  \put(105,290){\makebox(0,0){This paper was withdrawn. For more information, see \url{$url}.}}
+  \put(105,290){\makebox(0,0){This paper was retracted. For more information, see \url{$url}.}}
 }
 
 \includepdf[pages=-]{$file}
