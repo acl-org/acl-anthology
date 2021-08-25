@@ -25,24 +25,29 @@ from anthology.people import PersonName
 from anthology.utils import deconstruct_anthology_id
 
 if __name__ == "__main__":
-  import argparse
-  parser = argparse.ArgumentParser()
-  parser.add_argument("collections", nargs="+")
-  args = parser.parse_args()
+    import argparse
 
-  anthology = Anthology(importdir=os.path.join(os.path.dirname(sys.argv[0]), "..", "data"))
+    parser = argparse.ArgumentParser()
+    parser.add_argument("collections", nargs="+")
+    args = parser.parse_args()
 
-  # header
-  print("name", "id", "title", sep="\t")
+    anthology = Anthology(
+        importdir=os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
+    )
 
-  for id_, paper in anthology.papers.items():
-    collection_id, volume_name, paper_id = deconstruct_anthology_id(id_)
-    if collection_id in args.collections:
-      authors = paper.attrib.get("author", [])
-      if len(authors) > 0:
-        # "authors" is a list of ("last name || first name", name-id or None) tuples
-        first_author = authors[0][0]
-        authors_papers = list(anthology.people.name_to_papers[first_author].values())
-        authors_papers = authors_papers[0] + authors_papers[1]
-        if len(authors_papers) == 1:
-          print(first_author.full, id_, paper.get_title('text'), sep="\t")
+    # header
+    print("name", "id", "title", sep="\t")
+
+    for id_, paper in anthology.papers.items():
+        collection_id, volume_name, paper_id = deconstruct_anthology_id(id_)
+        if collection_id in args.collections:
+            authors = paper.attrib.get("author", [])
+            if len(authors) > 0:
+                # "authors" is a list of ("last name || first name", name-id or None) tuples
+                first_author = authors[0][0]
+                authors_papers = list(
+                    anthology.people.name_to_papers[first_author].values()
+                )
+                authors_papers = authors_papers[0] + authors_papers[1]
+                if len(authors_papers) == 1:
+                    print(first_author.full, id_, paper.get_title('text'), sep="\t")
