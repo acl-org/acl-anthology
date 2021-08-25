@@ -37,10 +37,19 @@ class Anthology:
     sigs = None
     formatter = None
 
-    def __init__(self, importdir=None):
+    def __init__(self, importdir=None, require_bibkeys=True):
+        """Instantiates the Anthology.
+
+        :param importdir: Data directory to import from; if not given, you'll
+        need to call `import_directory` explicitly to load the Anthology data.
+        :param require_bibkeys: If True (default), will log errors if papers
+        don't have a bibkey; can be set to False in order to create bibkeys
+        for newly added papers.
+        """
         self.formatter = MarkupFormatter()
         self.volumes = {}  # maps volume IDs to Volume objects
         self.papers = {}  # maps paper IDs to Paper objects
+        self._require_bibkeys = require_bibkeys
         if importdir is not None:
             self.import_directory(importdir)
 
@@ -51,7 +60,7 @@ class Anthology:
 
     def import_directory(self, importdir):
         assert os.path.isdir(importdir), "Directory not found: {}".format(importdir)
-        self.pindex = AnthologyIndex(self, importdir)
+        self.pindex = AnthologyIndex(importdir, require_bibkeys=self._require_bibkeys)
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
         for xmlfile in glob(importdir + "/xml/*.xml"):
@@ -67,7 +76,11 @@ class Anthology:
         collection_id = collection.get("id")
         for volume_xml in collection:
             volume = Volume.from_xml(
-                volume_xml, collection_id, self.venues, self.sigs, self.formatter
+                volume_xml,
+                collection_id,
+                self.venues,
+                self.sigs,
+                self.formatter,
             )
 
             # MJP 2021-05: no longer doing this since it kills branch previews.
@@ -99,6 +112,11 @@ class Anthology:
                 front_matter = volume.content[0]
                 self.pindex.register(front_matter)
                 self.papers[front_matter.full_id] = front_matter
+            else:
+                # dummy front matter to make sure that editors of
+                # volume get registered as people in author database
+                dummy_front_matter = Paper("0", None, volume, self.formatter)
+                self.pindex.register(dummy_front_matter, dummy=True)
 
             self.volumes[volume.full_id] = volume
             for paper_xml in volume_xml.findall("paper"):

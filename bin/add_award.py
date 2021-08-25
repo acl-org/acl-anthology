@@ -22,6 +22,25 @@ Usage:
 
   add_award.py paper_id "Award title"
 
+If you have them all listed in a file, "awards.txt", like this:
+
+    2021.naacl-main.119 Best Long Paper
+    2021.naacl-main.31 Outstanding Long Paper
+    2021.naacl-main.185 Outstanding Long Paper
+    2021.naacl-main.410 Best Short Paper
+    2021.naacl-main.208 Outstanding Short Paper
+    2021.naacl-main.51 Best Thematic Paper
+    2021.naacl-industry.20 Best Industry Paper
+
+You can do
+
+    cat awards.txt | while read line; do
+      id=$(echo $line | cut -d" " -f1)
+      text=$(echo $line | cut -d" " -f2-)
+      ./bin/add_award.py $id "$text"
+    done
+
+The commit the changes and push.
 """
 
 import argparse
