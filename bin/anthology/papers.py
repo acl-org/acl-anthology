@@ -139,8 +139,11 @@ class Paper:
                 [x[0].full for x in paper.attrib["author"]]
             )
 
-        if "retracted" in paper.attrib:
-            paper.attrib["retracted"] = True
+        # An empty value gets set to None, which causes hugo to skip it over
+        # entirely. Set it here to a single space, instead. There's probably
+        # a better way to do this.
+        if "retracted" in paper.attrib and paper.attrib["retracted"] is None:
+            paper.attrib["retracted"] = " "
 
         paper.attrib["thumbnail"] = data.PDF_THUMBNAIL_LOCATION_TEMPLATE.format(
             paper.full_id
