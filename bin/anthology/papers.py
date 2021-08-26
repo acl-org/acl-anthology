@@ -165,6 +165,12 @@ class Paper:
                 [x[0].full for x in paper.attrib["author"]]
             )
 
+        # An empty value gets set to None, which causes hugo to skip it over
+        # entirely. Set it here to a single space, instead. There's probably
+        # a better way to do this.
+        if "retracted" in paper.attrib and paper.attrib["retracted"] is None:
+            paper.attrib["retracted"] = " "
+
         return paper
 
     def _interpret_pages(self):
@@ -234,6 +240,10 @@ class Paper:
     @property
     def has_abstract(self):
         return "xml_abstract" in self.attrib
+
+    @property
+    def is_retracted(self) -> bool:
+        return "retracted" in self.attrib
 
     @property
     def isbn(self):
