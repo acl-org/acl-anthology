@@ -131,6 +131,11 @@ class PersonName:
     def as_dict(self):
         return {"first": self.first, "last": self.last, "full": self.full}
 
+    def without_variant(self):
+        if self.variant is None:
+            return self
+        return PersonName(self.first, self.last)
+
     def __eq__(self, other):
         if other is None:
             return False

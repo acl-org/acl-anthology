@@ -41,6 +41,29 @@ def load_stopwords(language):
     return [t for w in get_stop_words(language) for t in slugify(w).split("-")]
 
 
+# Temporary hack until we refactor person/name handling
+class defaultdict_names(defaultdict):
+    """This is a defaultdict that indexes PersonName objects, but without regard
+    for any locally defined name variant, so that PersonName('X', 'Y') and
+    PersonName('X', 'Y', variant=foo) will key to the same thing.
+    """
+
+    def __getitem__(self, key: PersonName):
+        return super().__getitem__(key.without_variant())
+
+    def __setitem__(self, key: PersonName, val):
+        return super().__setitem__(key.without_variant(), val)
+
+    def __delitem__(self, key: PersonName):
+        return super().__delitem__(key.without_variant())
+
+    def __contains__(self, key: PersonName):
+        return super().__contains__(key.without_variant())
+
+    def get(self, key: PersonName, default=None):
+        return super().get(key.without_variant(), default)
+
+
 class AnthologyIndex:
     """Keeps an index of people and papers.
 
@@ -72,14 +95,14 @@ class AnthologyIndex:
         self.stopwords = load_stopwords("en")
         self.id_to_canonical = {}  # maps ids to canonical names
         self._id_to_used = defaultdict(set)  # maps ids to all names actually used
-        self.name_to_ids = defaultdict(list)  # maps canonical/variant names to ids
+        self.name_to_ids = defaultdict_names(list)  # maps canonical/variant names to ids
         self._coauthors = defaultdict(Counter)  # maps ids to co-author ids
         self.comments = (
             {}
         )  # maps ids to comments (used for distinguishing authors with same name)
         self._similar = defaultdict(set)
         self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
-        self.name_to_papers = defaultdict(
+        self.name_to_papers = defaultdict_names(
             lambda: defaultdict(list)
         )  # name -> (explicit id?) -> papers; used only for error checking
         if srcdir is not None:
