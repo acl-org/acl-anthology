@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 '''
 Usage example: python bin/author_names_to_variants.py data/xml/2021.ccl.xml data/xml/2021.ccl.xml
 
