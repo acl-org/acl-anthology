@@ -37,11 +37,13 @@ class Anthology:
     sigs = None
     formatter = None
 
-    def __init__(self, importdir=None, require_bibkeys=True):
+    def __init__(self, importdir=None, fast_load=False, require_bibkeys=True):
         """Instantiates the Anthology.
 
         :param importdir: Data directory to import from; if not given, you'll
         need to call `import_directory` explicitly to load the Anthology data.
+        :param fast_load: If True, will disable some error checking in favor
+        of faster loading.
         :param require_bibkeys: If True (default), will log errors if papers
         don't have a bibkey; can be set to False in order to create bibkeys
         for newly added papers.
@@ -49,6 +51,7 @@ class Anthology:
         self.formatter = MarkupFormatter()
         self.volumes = {}  # maps volume IDs to Volume objects
         self.papers = {}  # maps paper IDs to Paper objects
+        self._fast_load = fast_load
         self._require_bibkeys = require_bibkeys
         if importdir is not None:
             self.import_directory(importdir)
@@ -59,8 +62,13 @@ class Anthology:
         return self.pindex
 
     def import_directory(self, importdir):
-        assert os.path.isdir(importdir), "Directory not found: {}".format(importdir)
-        self.pindex = AnthologyIndex(importdir, require_bibkeys=self._require_bibkeys)
+        assert os.path.isdir(importdir), f"Directory not found: {importdir}"
+        self.pindex = AnthologyIndex(
+            importdir,
+            fast_load=self._fast_load,
+            require_bibkeys=self._require_bibkeys,
+            parent=self,
+        )
         self.venues = VenueIndex(importdir)
         self.sigs = SIGIndex(importdir)
         for xmlfile in glob(importdir + "/xml/*.xml"):
@@ -102,10 +110,8 @@ class Anthology:
             self.venues.register(volume)
 
             if volume.full_id in self.volumes:
-                log.critical(
-                    "Attempted to import volume ID '{}' twice".format(volume.full_id)
-                )
-                log.critical("Triggered by file: {}".format(filename))
+                log.critical(f"Attempted to import volume ID '{volume.full_id}' twice")
+                log.critical(f"Triggered by file: {filename}")
 
             # front matter
             if volume.has_frontmatter:
@@ -139,7 +145,7 @@ class Anthology:
                 full_id = parsed_paper.full_id
                 if full_id in self.papers:
                     log.critical(
-                        "Attempted to import paper '{}' twice -- skipping".format(full_id)
+                        f"Attempted to import paper '{full_id}' twice -- skipping"
                     )
                     continue
                 volume.append(parsed_paper)

@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from functools import cached_property
 import iso639
 import logging as log
 
@@ -58,10 +59,62 @@ class Paper:
                 "meta_date",
                 "url",
                 "pdf",
+                "xml_url",
             ):
                 continue
 
             self.attrib[key] = value
+
+    @cached_property
+    def url(self):
+        # If <url> field not present, use ID.
+        # But see https://github.com/acl-org/acl-anthology/issues/997.
+        return infer_url(self.attrib.get("xml_url", self.full_id))
+
+    @cached_property
+    def pdf(self):
+        url = self.attrib.get("xml_url", None)
+        if url is not None:
+            return infer_url(url, template=data.PDF_LOCATION_TEMPLATE)
+        return None
+
+    def _parse_revision_or_errata(self, tag):
+        for item in self.attrib.get(tag, []):
+            # Expand URLs with paper ID
+            if not item["url"].startswith(self.full_id):
+                log.error(
+                    "{} must begin with paper ID '{}', but is '{}'".format(
+                        tag, self.full_id, item["url"]
+                    )
+                )
+            item["url"] = data.PDF_LOCATION_TEMPLATE.format(item["url"])
+        return self.attrib.get(tag, [])
+
+    @cached_property
+    def revisions(self):
+        return self._parse_revision_or_errata("revision")
+
+    @cached_property
+    def errata(self):
+        return self._parse_revision_or_errata("erratum")
+
+    @cached_property
+    def attachments(self):
+        for item in self.attrib.get("attachment", []):
+            item["url"] = infer_attachment_url(item["url"], self.full_id)
+        return self.attrib.get("attachment", [])
+
+    @cached_property
+    def thumbnail(self):
+        return data.PDF_THUMBNAIL_LOCATION_TEMPLATE.format(self.full_id)
+
+    @cached_property
+    def title(self):
+        return self.get_title("plain")
+
+    @cached_property
+    def booktitle(self):
+        return self.get_booktitle("plain")
 
     def from_xml(xml_element, *args):
         ingest_date = xml_element.get("ingest-date", data.UNKNOWN_INGEST_DATE)
@@ -84,49 +137,22 @@ class Paper:
             paper.attrib["xml_title"] = paper.attrib["xml_booktitle"]
             paper.attrib["xml_title"].tag = "title"
 
-        # Create URL field if not present. But see https://github.com/acl-org/acl-anthology/issues/997.
-        if "url" not in paper.attrib:
-            paper.attrib["url"] = infer_url(paper.full_id)
-
         # Remove booktitle for frontmatter and journals
         if paper.is_volume or is_journal(paper.full_id):
             del paper.attrib["xml_booktitle"]
-
-        # Expand URLs with paper ID
-        for tag in ("revision", "erratum"):
-            if tag in paper.attrib:
-                for item in paper.attrib[tag]:
-                    if not item["url"].startswith(paper.full_id):
-                        log.error(
-                            "{} must begin with paper ID '{}', but is '{}'".format(
-                                tag, paper.full_id, item["url"]
-                            )
-                        )
-                    item["url"] = data.PDF_LOCATION_TEMPLATE.format(item["url"])
-
-        if "attachment" in paper.attrib:
-            for item in paper.attrib["attachment"]:
-                item["url"] = infer_attachment_url(item["url"], paper.full_id)
-
-        paper.attrib["title"] = paper.get_title("plain")
-        paper.attrib["booktitle"] = paper.get_booktitle("plain")
 
         if "editor" in paper.attrib:
             if paper.is_volume:
                 if "author" in paper.attrib:
                     log.warn(
-                        "Paper {} has both <editor> and <author>; ignoring <author>".format(
-                            paper.full_id
-                        )
+                        f"Paper {paper.full_id} has both <editor> and <author>; ignoring <author>"
                     )
                 # Proceedings editors are considered authors for their front matter
                 paper.attrib["author"] = paper.attrib["editor"]
                 del paper.attrib["editor"]
             else:
                 log.warn(
-                    "Paper {} has <editor> but is not a proceedings volume; ignoring <editor>".format(
-                        paper.full_id
-                    )
+                    f"Paper {paper.full_id} has <editor> but is not a proceedings volume; ignoring <editor>"
                 )
         if "pages" in paper.attrib:
             if paper.attrib["pages"] is not None:
@@ -144,10 +170,6 @@ class Paper:
         # a better way to do this.
         if "retracted" in paper.attrib and paper.attrib["retracted"] is None:
             paper.attrib["retracted"] = " "
-
-        paper.attrib["thumbnail"] = data.PDF_THUMBNAIL_LOCATION_TEMPLATE.format(
-            paper.full_id
-        )
 
         return paper
 
@@ -188,7 +210,7 @@ class Paper:
     def full_id(self):
         return self.anthology_id
 
-    @property
+    @cached_property
     def anthology_id(self):
         return build_anthology_id(self.collection_id, self.volume_id, self.paper_id)
 
@@ -310,11 +332,12 @@ class Paper:
         for entry in ("month", "year", "address", "publisher", "note"):
             if self.get(entry) is not None:
                 entries.append((entry, bibtex_encode(self.get(entry))))
-        for entry in ("url", "doi"):
-            if entry in self.attrib:
-                # don't want latex escapes such as
-                # doi = "10.1162/coli{\_}a{\_}00008",
-                entries.append((entry, self.get(entry)))
+        if self.url is not None:
+            entries.append(("url", self.url))
+        if "doi" in self.attrib:
+            # don't want latex escapes such as
+            # doi = "10.1162/coli{\_}a{\_}00008",
+            entries.append(("doi", self.get("doi")))
         if "pages" in self.attrib:
             entries.append(("pages", self.get("pages").replace("–", "--")))
         if "xml_abstract" in self.attrib and not concise:
@@ -334,7 +357,24 @@ class Paper:
         value["bibkey"] = self.bibkey
         value["bibtype"] = self.bibtype
         value["language"] = self.language
+        value["url"] = self.url
+        value["title"] = self.title
+        value["booktitle"] = self.booktitle
+        if self.pdf:
+            value["pdf"] = self.pdf
+        if self.revisions:
+            value["revision"] = self.revisions
+        if self.errata:
+            value["erratum"] = self.errata
+        if self.attachments:
+            value["attachment"] = self.attachments
+        value["thumbnail"] = self.thumbnail
         return value
 
     def items(self):
         return self.attrib.items()
+
+    def iter_people(self):
+        for role in ("author", "editor"):
+            for name, id_ in self.get(role, []):
+                yield (name, id_, role)
