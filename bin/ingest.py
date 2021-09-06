@@ -413,6 +413,14 @@ def main(args):
                 for author_or_editor in chain(
                     paper_node.findall("./author"), paper_node.findall("./editor")
                 ):
+                    disamb_name, name_choice = disambiguate_name(
+                        author_or_editor, paper_id_full
+                    )
+                    if name_choice != -1:
+                        author_or_editor.attrib["id"] = disamb_name
+                    person = PersonName.from_element(author_or_editor)
+                    for name_part in author_or_editor:
+                        name_part.text = correct_caps(name_part.text)
                     meta_node.append(author_or_editor)
                     author_or_editor.tag = "editor"
 
