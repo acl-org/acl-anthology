@@ -52,7 +52,7 @@ class TexMath:
     def __init__(self, symbolsfile=None):
         self.cmd_map = {}
         if symbolsfile is None:
-            symbolsfile = "{}/{}".format(
+            symbolsfile = os.path.join(
                 os.path.dirname(os.path.abspath(__file__)), "unimathsymbols.txt"
             )
         self.load_symbols(symbolsfile)
@@ -102,7 +102,7 @@ class TexMath:
                 else:
                     self._parse(TexSoup.TexSoup(code.value).expr.everything, trg)
             else:
-                log.error("TeX-math parser got unhandled element: {}".format(type(code)))
+                log.error(f"TeX-math parser got unhandled element: {type(code)}")
 
     def _parse_command(self, code, trg):
         args = list(code.arguments)
@@ -141,16 +141,12 @@ class TexMath:
             trg.append(sx)
         # Give up, but preserve element
         else:
-            log.warn("Unknown TeX-math command: {}".format(str(code)))
+            log.warn(f"Unknown TeX-math command: {code}")
             self._append_unparsed(code, trg)
 
     def _parse_fraction(self, args, trg):
         if len(args) != 2:
-            log.warn(
-                "Couldn't parse \\frac: got {} arguments, expected {}".format(
-                    len(args), 2
-                )
-            )
+            log.warn(f"Couldn't parse \\frac: got {len(args)} arguments, expected 2")
             self._append_unparsed(code, trg)
         else:
             # Represent numerator of fraction as superscript
@@ -198,7 +194,7 @@ class TexMath:
     def _append_unparsed(self, code, trg):
         pre = etree.Element("span")
         pre.attrib["class"] = "tex-math-unparsed"
-        pre.text = "\\{}{}".format(code.name, str(code.arguments))
+        pre.text = f"\\{code.name}{code.arguments}"
         trg.append(pre)
 
     def etree_to_html(self, element):
@@ -213,13 +209,9 @@ class TexMath:
         if isinstance(element, etree._Element):
             return self.etree_to_html(element)
         elif isinstance(element, str):
-            value = self.etree_to_html(
-                etree.fromstring("<span>{}</span>".format(element))
-            )
+            value = self.etree_to_html(etree.fromstring(f"<span>{element}</span>"))
             return etree.tostring(value)
-        raise NotImplementedError(
-            "Cannot convert elements of type {}".format(type(element))
-        )
+        raise NotImplementedError(f"Cannot convert elements of type {type(element)}")
 
     def to_unicode(self, element):
         """Converts a TeX math expression to a Unicode string.

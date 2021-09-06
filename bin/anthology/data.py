@@ -45,6 +45,12 @@ PDF_THUMBNAIL_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/thumb/{}.jpg"
 # Regular expression matching full Anthology IDs
 ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"
 
+# Anthology file location on server
+# Defaults to ~/anthology-files
+ANTHOLOGY_FILE_DIR = os.environ.get(
+    "ANTHOLOGY_FILES", os.path.join(os.environ["HOME"], "anthology-files")
+)
+
 # Names of XML elements that may appear multiple times
 LIST_ELEMENTS = (
     "attachment",

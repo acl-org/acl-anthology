@@ -1,0 +1,510 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.mtsummit">
+  <volume id="research" ingest-date="2021-08-14">
+    <meta>
+      <booktitle>Proceedings of the 18th Biennial Machine Translation Summit (Volume 1: Research Track)</booktitle>
+      <publisher>Association for Machine Translation in the Americas</publisher>
+      <address>Virtual</address>
+      <month>August</month>
+      <year>2021</year>
+      <editor><first>Kevin</first><last>Duh</last></editor>
+      <editor><first>Francisco</first><last>Guzmán</last></editor>
+      <url hash="7b81460c">2021.mtsummit-research</url>
+    </meta>
+    <frontmatter>
+      <url hash="d25ee171">2021.mtsummit-research.0</url>
+      <bibkey>mtsummit-2021-biennial</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Learning Curricula for Multilingual Neural Machine Translation Training</title>
+      <author><first>Gaurav</first><last>Kumar</last></author>
+      <author><first>Philipp</first><last>Koehn</last></author>
+      <author><first>Sanjeev</first><last>Khudanpur</last></author>
+      <pages>1-9</pages>
+      <url hash="d1a0e709">2021.mtsummit-research.1</url>
+      <abstract>Low-resource Multilingual Neural Machine Translation (MNMT) is typically tasked with improving the translation performance on one or more language pairs with the aid of high-resource language pairs. In this paper and we propose two simple search based curricula – orderings of the multilingual training data – which help improve translation performance in conjunction with existing techniques such as fine-tuning. Additionally and we attempt to learn a curriculum for MNMT from scratch jointly with the training of the translation system using contextual multi-arm bandits. We show on the FLORES low-resource translation dataset that these learned curricula can provide better starting points for fine tuning and improve overall performance of the translation system.</abstract>
+      <bibkey>kumar-etal-2021-learning-curricula</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Investigating Active Learning in Interactive Neural Machine Translation</title>
+      <author><first>Kamal</first><last>Gupta</last></author>
+      <author><first>Dhanvanth</first><last>Boppana</last></author>
+      <author><first>Rejwanul</first><last>Haque</last></author>
+      <author><first>Asif</first><last>Ekbal</last></author>
+      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <pages>10-22</pages>
+      <url hash="dc619f86">2021.mtsummit-research.2</url>
+      <abstract>Interactive-predictive translation is a collaborative iterative process and where human translators produce translations with the help of machine translation (MT) systems interactively. Various sampling techniques in active learning (AL) exist to update the neural MT (NMT) model in the interactive-predictive scenario. In this paper and we explore term based (named entity count (NEC)) and quality based (quality estimation (QE) and sentence similarity (Sim)) sampling techniques – which are used to find the ideal candidates from the incoming data – for human supervision and MT model’s weight updation. We carried out experiments with three language pairs and viz. German-English and Spanish-English and Hindi-English. Our proposed sampling technique yields 1.82 and 0.77 and 0.81 BLEU points improvements for German-English and Spanish-English and Hindi-English and respectively and over random sampling based baseline. It also improves the present state-of-the-art by 0.35 and 0.12 BLEU points for German-English and Spanish-English and respectively. Human editing effort in terms of number-of-words-changed also improves by 5 and 4 points for German-English and Spanish-English and respectively and compared to the state-of-the-art.</abstract>
+      <bibkey>gupta-etal-2021-investigating</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Crosslingual Embeddings are Essential in <fixed-case>UNMT</fixed-case> for distant languages: An <fixed-case>E</fixed-case>nglish to <fixed-case>I</fixed-case>ndo<fixed-case>A</fixed-case>ryan Case Study</title>
+      <author><first>Tamali</first><last>Banerjee</last></author>
+      <author><first>Rudra</first><last>V Murthy</last></author>
+      <author><first>Pushpak</first><last>Bhattacharya</last></author>
+      <pages>23-34</pages>
+      <url hash="d9f87513">2021.mtsummit-research.3</url>
+      <abstract>Recent advances in Unsupervised Neural Machine Translation (UNMT) has minimized the gap between supervised and unsupervised machine translation performance for closely related language-pairs. However and the situation is very different for distant language pairs. Lack of overlap in lexicon and low syntactic similarity such as between English and IndoAryan languages leads to poor translation quality in existing UNMT systems. In this paper and we show that initialising the embedding layer of UNMT models with cross-lingual embeddings leads to significant BLEU score improvements over existing UNMT models where the embedding layer weights are randomly initialized. Further and freezing the embedding layer weights leads to better gains compared to updating the embedding layer weights during training. We experimented using Masked Sequence to Sequence (MASS) and Denoising Autoencoder (DAE) UNMT approaches for three distant language pairs. The proposed cross-lingual embedding initialization yields BLEU score improvement of as much as ten times over the baseline for English-Hindi and English-Bengali and English-Gujarati. Our analysis shows that initialising embedding layer with static cross-lingual embedding mapping is essential for training of UNMT models for distant language-pairs.</abstract>
+      <bibkey>banerjee-etal-2021-crosslingual</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Neural Machine Translation in Low-Resource Setting: a Case Study in <fixed-case>E</fixed-case>nglish-<fixed-case>M</fixed-case>arathi Pair</title>
+      <author><first>Aakash</first><last>Banerjee</last></author>
+      <author><first>Aditya</first><last>Jain</last></author>
+      <author><first>Shivam</first><last>Mhaskar</last></author>
+      <author><first>Sourabh</first><last>Dattatray Deoghare</last></author>
+      <author><first>Aman</first><last>Sehgal</last></author>
+      <author><first>Pushpak</first><last>Bhattacharya</last></author>
+      <pages>35-47</pages>
+      <url hash="571ce526">2021.mtsummit-research.4</url>
+      <abstract>In this paper and we explore different techniques of overcoming the challenges of low-resource in Neural Machine Translation (NMT) and specifically focusing on the case of English-Marathi NMT. NMT systems require a large amount of parallel corpora to obtain good quality translations. We try to mitigate the low-resource problem by augmenting parallel corpora or by using transfer learning. Techniques such as Phrase Table Injection (PTI) and back-translation and mixing of language corpora are used for enhancing the parallel data; whereas pivoting and multilingual embeddings are used to leverage transfer learning. For pivoting and Hindi comes in as assisting language for English-Marathi translation. Compared to baseline transformer model and a significant improvement trend in BLEU score is observed across various techniques. We have done extensive manual and automatic and qualitative evaluation of our systems. Since the trend in Machine Translation (MT) today is post-editing and measuring of Human Effort Reduction (HER) and we have given our preliminary observations on Translation Edit Rate (TER) vs. BLEU score study and where TER is regarded as a measure of HER.</abstract>
+      <bibkey>banerjee-etal-2021-neural</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Transformers for Low-Resource Languages: Is Féidir Linn!</title>
+      <author><first>Seamus</first><last>Lankford</last></author>
+      <author><first>Haithem</first><last>Alfi</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>48-60</pages>
+      <url hash="c2adacfa">2021.mtsummit-research.5</url>
+      <abstract>The Transformer model is the state-of-the-art in Machine Translation. However and in general and neural translation models often under perform on language pairs with insufficient training data. As a consequence and relatively few experiments have been carried out using this architecture on low-resource language pairs. In this study and hyperparameter optimization of Transformer models in translating the low-resource English-Irish language pair is evaluated. We demonstrate that choosing appropriate parameters leads to considerable performance improvements. Most importantly and the correct choice of subword model is shown to be the biggest driver of translation performance. SentencePiece models using both unigram and BPE approaches were appraised. Variations on model architectures included modifying the number of layers and testing various regularization techniques and evaluating the optimal number of heads for attention. A generic 55k DGT corpus and an in-domain 88k public admin corpus were used for evaluation. A Transformer optimized model demonstrated a BLEU score improvement of 7.8 points when compared with a baseline RNN model. Improvements were observed across a range of metrics and including TER and indicating a substantially reduced post editing effort for Transformer optimized models with 16k BPE subword models. Bench-marked against Google Translate and our translation engines demonstrated significant improvements. The question of whether or not Transformers can be used effectively in a low-resource setting of English-Irish translation has been addressed. Is féidir linn - yes we can.</abstract>
+      <bibkey>lankford-etal-2021-transformers</bibkey>
+    </paper>
+    <paper id="6">
+      <title>The Effect of Domain and Diacritics in <fixed-case>Y</fixed-case>oruba–<fixed-case>E</fixed-case>nglish Neural Machine Translation</title>
+      <author><first>David</first><last>Adelani</last></author>
+      <author><first>Dana</first><last>Ruiter</last></author>
+      <author><first>Jesujoba</first><last>Alabi</last></author>
+      <author><first>Damilola</first><last>Adebonojo</last></author>
+      <author><first>Adesina</first><last>Ayeni</last></author>
+      <author><first>Mofe</first><last>Adeyemi</last></author>
+      <author><first>Ayodele Esther</first><last>Awokoya</last></author>
+      <author><first>Cristina</first><last>España-Bonet</last></author>
+      <pages>61-75</pages>
+      <url hash="2a7fbaa1">2021.mtsummit-research.6</url>
+      <abstract>Massively multilingual machine translation (MT) has shown impressive capabilities and including zero and few-shot translation between low-resource language pairs. However and these models are often evaluated on high-resource languages with the assumption that they generalize to low-resource ones. The difficulty of evaluating MT models on low-resource pairs is often due to lack of standardized evaluation datasets. In this paper and we present MENYO-20k and the first multi-domain parallel corpus with a especially curated orthography for Yoruba–English with standardized train-test splits for benchmarking. We provide several neural MT benchmarks and compare them to the performance of popular pre-trained (massively multilingual) MT models both for the heterogeneous test set and its subdomains. Since these pre-trained models use huge amounts of data with uncertain quality and we also analyze the effect of diacritics and a major characteristic of Yoruba and in the training data. We investigate how and when this training condition affects the final quality of a translation and its understandability.
+
+Our models outperform massively multilingual models such as Google (<tex-math>+8.7</tex-math> BLEU) and Facebook M2M (<tex-math>+9.1</tex-math>) when translating to Yoruba and setting a high quality benchmark for future research.</abstract>
+      <bibkey>adelani-etal-2021-effect</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Integrating Unsupervised Data Generation into Self-Supervised Neural Machine Translation for Low-Resource Languages</title>
+      <author><first>Dana</first><last>Ruiter</last></author>
+      <author><first>Dietrich</first><last>Klakow</last></author>
+      <author><first>Josef</first><last>van Genabith</last></author>
+      <author><first>Cristina</first><last>España-Bonet</last></author>
+      <pages>76-91</pages>
+      <url hash="71ec5ae3">2021.mtsummit-research.7</url>
+      <abstract>For most language combinations and parallel data is either scarce or simply unavailable. To address this and unsupervised machine translation (UMT) exploits large amounts of monolingual data by using synthetic data generation techniques such as back-translation and noising and while self-supervised NMT (SSNMT) identifies parallel sentences in smaller comparable data and trains on them. To this date and the inclusion of UMT data generation techniques in SSNMT has not been investigated. We show that including UMT techniques into SSNMT significantly outperforms SSNMT (up to +4.3 BLEU and af2en) as well as statistical (+50.8 BLEU) and hybrid UMT (+51.5 BLEU) baselines on related and distantly-related and unrelated language pairs.</abstract>
+      <bibkey>ruiter-etal-2021-integrating</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Surprise Language Challenge: Developing a Neural Machine Translation System between <fixed-case>P</fixed-case>ashto and <fixed-case>E</fixed-case>nglish in Two Months</title>
+      <author><first>Alexandra</first><last>Birch</last></author>
+      <author><first>Barry</first><last>Haddow</last></author>
+      <author><first>Antonio</first><last>Valerio Miceli Barone</last></author>
+      <author><first>Jindrich</first><last>Helcl</last></author>
+      <author><first>Jonas</first><last>Waldendorf</last></author>
+      <author><first>Felipe</first><last>Sánchez Martínez</last></author>
+      <author><first>Mikel</first><last>Forcada</last></author>
+      <author><first>Víctor</first><last>Sánchez Cartagena</last></author>
+      <author><first>Juan Antonio</first><last>Pérez-Ortiz</last></author>
+      <author><first>Miquel</first><last>Esplà-Gomis</last></author>
+      <author><first>Wilker</first><last>Aziz</last></author>
+      <author><first>Lina</first><last>Murady</last></author>
+      <author><first>Sevi</first><last>Sariisik</last></author>
+      <author><first>Peggy</first><last>van der Kreeft</last></author>
+      <author><first>Kay</first><last>Macquarrie</last></author>
+      <pages>92-102</pages>
+      <url hash="6de63817">2021.mtsummit-research.8</url>
+      <abstract>In the media industry and the focus of global reporting can shift overnight. There is a compelling need to be able to develop new machine translation systems in a short period of time and in order to more efficiently cover quickly developing stories. As part of the EU project GoURMET and which focusses on low-resource machine translation and our media partners selected a surprise language for which a machine translation system had to be built and evaluated in two months(February and March 2021). The language selected was Pashto and an Indo-Iranian language spoken in Afghanistan and Pakistan and India. In this period we completed the full pipeline of development of a neural machine translation system: data crawling and cleaning and aligning and creating test sets and developing and testing models and and delivering them to the user partners. In this paperwe describe rapid data creation and experiments with transfer learning and pretraining for this low-resource language pair. We find that starting from an existing large model pre-trained on 50languages leads to far better BLEU scores than pretraining on one high-resource language pair with a smaller model. We also present human evaluation of our systems and which indicates that the resulting systems perform better than a freely available commercial system when translating from English into Pashto direction and and similarly when translating from Pashto into English.</abstract>
+      <bibkey>birch-etal-2021-surprise</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Like Chalk and Cheese? On the Effects of Translationese in <fixed-case>MT</fixed-case> Training</title>
+      <author><first>Samuel</first><last>Larkin</last></author>
+      <author><first>Michel</first><last>Simard</last></author>
+      <author><first>Rebecca</first><last>Knowles</last></author>
+      <pages>103-113</pages>
+      <url hash="2449aac9">2021.mtsummit-research.9</url>
+      <abstract>We revisit the topic of translation direction in the data used for training neural machine translation systems and focusing on a real-world scenario with known translation direction and imbalances in translation direction: the Canadian Hansard. According to automatic metrics and we observe that using parallel data that was produced in the “matching” translation direction (Authentic source and translationese target) improves translation quality. In cases of data imbalance in terms of translation direction and we find that tagging of translation direction can close the performance gap. We perform a human evaluation that differs slightly from the automatic metrics and but nevertheless confirms that for this French-English dataset that is known to contain high-quality translations and authentic or tagged mixed source improves over translationese source for training.</abstract>
+      <bibkey>larkin-etal-2021-like</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Investigating Softmax Tempering for Training Neural Machine Translation Models</title>
+      <author><first>Raj</first><last>Dabre</last></author>
+      <author><first>Atsushi</first><last>Fujita</last></author>
+      <pages>114-126</pages>
+      <url hash="c2c0d716">2021.mtsummit-research.10</url>
+      <abstract>Neural machine translation (NMT) models are typically trained using a softmax cross-entropy loss where the softmax distribution is compared against the gold labels. In low-resource scenarios and NMT models tend to perform poorly because the model training quickly converges to a point where the softmax distribution computed using logits approaches the gold label distribution. Although label smoothing is a well-known solution to address this issue and we further propose to divide the logits by a temperature coefficient greater than one and forcing the softmax distribution to be smoother during training. This makes it harder for the model to quickly over-fit. In our experiments on 11 language pairs in the low-resource Asian Language Treebank dataset and we observed significant improvements in translation quality. Our analysis focuses on finding the right balance of label smoothing and softmax tempering which indicates that they are orthogonal methods. Finally and a study of softmax entropies and gradients reveal the impact of our method on the internal behavior of our NMT models.</abstract>
+      <bibkey>dabre-fujita-2021-investigating</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Scrambled Translation Problem: A Problem of Denoising <fixed-case>UNMT</fixed-case></title>
+      <author><first>Tamali</first><last>Banerjee</last></author>
+      <author><first>Rudra</first><last>V Murthy</last></author>
+      <author><first>Pushpak</first><last>Bhattacharya</last></author>
+      <pages>127-138</pages>
+      <url hash="92ca6c7d">2021.mtsummit-research.11</url>
+      <abstract>In this paper and we identify an interesting kind of error in the output of Unsupervised Neural Machine Translation (UNMT) systems like Undreamt1. We refer to this error type as Scrambled Translation problem. We observe that UNMT models which use word shuffle noise (as in case of Undreamt) can generate correct words and but fail to stitch them together to form phrases. As a result and words of the translated sentence look scrambled and resulting in decreased BLEU. We hypothesise that the reason behind scrambled translation problem is ’shuffling noise’ which is introduced in every input sentence as a denoising strategy. To test our hypothesis and we experiment by retraining UNMT models with a simple retraining strategy. We stop the training of the Denoising UNMT model after a pre-decided number of iterations and resume the training for the remaining iterations- which number is also pre-decided- using original sentence as input without adding any noise. Our proposed solution achieves significant performance improvement UNMT models that train conventionally. We demonstrate these performance gains on four language pairs and viz. and English-French and English-German and English-Spanish and Hindi-Punjabi. Our qualitative and quantitative analysis shows that the retraining strategy helps achieve better alignment as observed by attention heatmap and better phrasal translation and leading to statistically significant improvement in BLEU scores.</abstract>
+      <bibkey>banerjee-etal-2021-scrambled</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Make the Blind Translator See The World: A Novel Transfer Learning Solution for Multimodal Machine Translation</title>
+      <author><first>Minghan</first><last>Wang</last></author>
+      <author><first>Jiaxin</first><last>Guo</last></author>
+      <author><first>Yimeng</first><last>Chen</last></author>
+      <author><first>Chang</first><last>Su</last></author>
+      <author><first>Min</first><last>Zhang</last></author>
+      <author><first>Shimin</first><last>Tao</last></author>
+      <author><first>Hao</first><last>Yang</last></author>
+      <pages>139-149</pages>
+      <url hash="cc7369f0">2021.mtsummit-research.12</url>
+      <abstract>Based on large-scale pretrained networks and the liability to be easily overfitting with limited labelled training data of multimodal translation (MMT) is a critical issue in MMT. To this end and we propose a transfer learning solution. Specifically and 1) A vanilla Transformer is pre-trained on massive bilingual text-only corpus to obtain prior knowledge; 2) A multimodal Transformer named VLTransformer is proposed with several components incorporated visual contexts; and 3) The parameters of VLTransformer are initialized with the pre-trained vanilla Transformer and then being fine-tuned on MMT tasks with a newly proposed method named cross-modal masking which forces the model to learn from both modalities. We evaluated on the Multi30k en-de and en-fr dataset and improving up to 8% BLEU score compared with the SOTA performance. The experimental result demonstrates that performing transfer learning with monomodal pre-trained NMT model on multimodal NMT tasks can obtain considerable boosts.</abstract>
+      <bibkey>wang-etal-2021-make</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Sentiment Preservation in Review Translation using Curriculum-based Re-inforcement Framework</title>
+      <author><first>Divya</first><last>Kumari</last></author>
+      <author><first>Soumya</first><last>Chennabasavaraj</last></author>
+      <author><first>Nikesh</first><last>Garera</last></author>
+      <author><first>Asif</first><last>Ekbal</last></author>
+      <pages>150-162</pages>
+      <url hash="0512f50a">2021.mtsummit-research.13</url>
+      <abstract>Machine Translation (MT) systems often fail to preserve different stylistic and pragmatic properties of the source text (e.g. sentiment and emotion and gender traits and etc.) to the target and especially in a low-resource scenario. Such loss can affect the performance of any downstream Natural Language Processing (NLP) task and such as sentiment analysis and that heavily relies on the output of the MT systems. The susceptibility to sentiment polarity loss becomes even more severe when an MT system is employed for translating a source content that lacks a legitimate language structure (e.g. review text). Therefore and we must find ways to minimize the undesirable effects of sentiment loss in translation without compromising with the adequacy. In our current work and we present a deep re-inforcement learning (RL) framework in conjunction with the curriculum learning (as per difficulties of the reward) to fine-tune the parameters of a pre-trained neural MT system so that the generated translation successfully encodes the underlying sentiment of the source without compromising the adequacy unlike previous methods. We evaluate our proposed method on the English–Hindi (product domain) and French–English (restaurant domain) review datasets and and found that our method brings a significant improvement over several baselines in the machine translation and and sentiment classification tasks.</abstract>
+      <bibkey>kumari-etal-2021-sentiment</bibkey>
+    </paper>
+    <paper id="14">
+      <title>On nature and causes of observed <fixed-case>MT</fixed-case> errors</title>
+      <author><first>Maja</first><last>Popovic</last></author>
+      <pages>163-175</pages>
+      <url hash="e5ca11cd">2021.mtsummit-research.14</url>
+      <abstract>This work describes analysis of nature and causes of MT errors observed by different evaluators under guidance of different quality criteria: adequacy and comprehension and and a not specified generic mixture of adequacy and fluency. We report results for three language pairs and two domains and eleven MT systems. Our findings indicate that and despite the fact that some of the identified phenomena depend on domain and/or language and the following set of phenomena can be considered as generally challenging for modern MT systems: rephrasing groups of words and translation of ambiguous source words and translating noun phrases and and mistranslations. Furthermore and we show that the quality criterion also has impact on error perception. Our findings indicate that comprehension and adequacy can be assessed simultaneously by different evaluators and so that comprehension and as an important quality criterion and can be included more often in human evaluations.</abstract>
+      <bibkey>popovic-2021-nature</bibkey>
+    </paper>
+    <paper id="15">
+      <title>A Comparison of Sentence-Weighting Techniques for <fixed-case>NMT</fixed-case></title>
+      <author><first>Simon</first><last>Rieß</last></author>
+      <author><first>Matthias</first><last>Huck</last></author>
+      <author><first>Alex</first><last>Fraser</last></author>
+      <pages>176-187</pages>
+      <url hash="6e7c5d5a">2021.mtsummit-research.15</url>
+      <abstract>Sentence weighting is a simple and powerful domain adaptation technique. We carry out domain classification for computing sentence weights with 1) language model cross entropy difference 2) a convolutional neural network 3) a Recursive Neural Tensor Network. We compare these approaches with regard to domain classification accuracy and and study the posterior probability distributions. Then we carry out NMT experiments in the scenario where we have no in-domain parallel corpora and and only very limited in-domain monolingual corpora. Here and we use the domain classifier to reweight the sentences of our out-of-domain training corpus. This leads to improvements of up to 2.1 BLEU for German to English translation.</abstract>
+      <bibkey>riess-etal-2021-comparison</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Sentiment-based Candidate Selection for <fixed-case>NMT</fixed-case></title>
+      <author><first>Alexander G</first><last>Jones</last></author>
+      <author><first>Derry</first><last>Wijaya</last></author>
+      <pages>188-201</pages>
+      <url hash="6b20bd43">2021.mtsummit-research.16</url>
+      <abstract>The explosion of user-generated content (UGC)—e.g. social media posts and comments and and reviews—has motivated the development of NLP applications tailored to these types of informal texts. Prevalent among these applications have been sentiment analysis and machine translation (MT). Grounded in the observation that UGC features highly idiomatic and sentiment-charged language and we propose a decoder-side approach that incorporates automatic sentiment scoring into the MT candidate selection process. We train monolingual sentiment classifiers in English and Spanish and in addition to a multilingual sentiment model and by fine-tuning BERT and XLM-RoBERTa. Using n-best candidates generated by a baseline MT model with beam search and we select the candidate that minimizes the absolute difference between the sentiment score of the source sentence and that of the translation and and perform two human evaluations to assess the produced translations. Unlike previous work and we select this minimally divergent translation by considering the sentiment scores of the source sentence and translation on a continuous interval and rather than using e.g. binary classification and allowing for more fine-grained selection of translation candidates. The results of human evaluations show that and in comparison to the open-source MT baseline model on top of which our sentiment-based pipeline is built and our pipeline produces more accurate translations of colloquial and sentiment-heavy source texts.</abstract>
+      <bibkey>jones-wijaya-2021-sentiment</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Studying The Impact Of Document-level Context On Simultaneous Neural Machine Translation</title>
+      <author><first>Raj</first><last>Dabre</last></author>
+      <author><first>Aizhan</first><last>Imankulova</last></author>
+      <author><first>Masahiro</first><last>Kaneko</last></author>
+      <pages>202-214</pages>
+      <url hash="2c986a6a">2021.mtsummit-research.17</url>
+      <abstract>In a real-time simultaneous translation setting and neural machine translation (NMT) models start generating target language tokens from incomplete source language sentences and making them harder to translate and leading to poor translation quality. Previous research has shown that document-level NMT and comprising of sentence and context encoders and a decoder and leverages context from neighboring sentences and helps improve translation quality. In simultaneous translation settings and the context from previous sentences should be even more critical. To this end and in this paper and we propose wait-k simultaneous document-level NMT where we keep the context encoder as it is and replace the source sentence encoder and target language decoder with their wait-k equivalents. We experiment with low and high resource settings using the ALT and OpenSubtitles2018 corpora and where we observe minor improvements in translation quality. We then perform an analysis of the translations obtained using our models by focusing on sentences that should benefit from the context where we found out that the model does and in fact and benefit from context but is unable to effectively leverage it and especially in a low-resource setting. This shows that there is a need for further innovation in the way useful context is identified and leveraged.</abstract>
+      <bibkey>dabre-etal-2021-studying</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Attainable Text-to-Text Machine Translation vs. Translation: Issues Beyond Linguistic Processing</title>
+      <author><first>Atsushi</first><last>Fujita</last></author>
+      <pages>215-230</pages>
+      <url hash="a0a1548f">2021.mtsummit-research.18</url>
+      <abstract>Existing approaches for machine translation (MT) mostly translate given text in the source language into the target language and without explicitly referring to information indispensable for producing proper translation. This includes not only information in other textual elements and modalities than texts in the same document and but also extra-document and non-linguistic information and such as norms and skopos. To design better translation production work-flows and we need to distinguish translation issues that could be resolved by the existing text-to-text approaches and those beyond them. To this end and we conducted an analytic assessment of MT outputs and taking an English-to-Japanese news translation task as a case study. First and examples of translation issues and their revisions were collected by a two-stage post-editing (PE) method: performing minimal PE to obtain translation attainable based on the given textual information and further performing full PE to obtain truly acceptable translation referring to any information if necessary. Then and the collected revision examples were manually analyzed. We revealed dominant issues and information indispensable for resolving them and such as fine-grained style specifications and terminology and domain-specific knowledge and and reference documents and delineating a clear distinction between translation and what text-to-text MT can ultimately attain.</abstract>
+      <bibkey>fujita-2021-attainable</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Modeling Target-side Inflection in Placeholder Translation</title>
+      <author><first>Ryokan</first><last>Ri</last></author>
+      <author><first>Toshiaki</first><last>Nakazawa</last></author>
+      <author><first>Yoshimasa</first><last>Tsuruoka</last></author>
+      <pages>231-242</pages>
+      <url hash="6bd323a3">2021.mtsummit-research.19</url>
+      <abstract>Placeholder translation systems enable the users to specify how a specific phrase is translated in the output sentence. The system is trained to output special placeholder tokens and the user-specified term is injected into the output through the context-free replacement of the placeholder token. However and this approach could result in ungrammatical sentences because it is often the case that the specified term needs to be inflected according to the context of the output and which is unknown before the translation. To address this problem and we propose a novel method of placeholder translation that can inflect specified terms according to the grammatical construction of the output sentence. We extend the seq2seq architecture with a character-level decoder that takes the lemma of a user-specified term and the words generated from the word-level decoder to output a correct inflected form of the lemma. We evaluate our approach with a Japanese-to-English translation task in the scientific writing domain and and show our model can incorporate specified terms in a correct form more successfully than other comparable models.</abstract>
+      <bibkey>ri-etal-2021-modeling</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Product Review Translation using Phrase Replacement and Attention Guided Noise Augmentation</title>
+      <author><first>Kamal</first><last>Gupta</last></author>
+      <author><first>Soumya</first><last>Chennabasavaraj</last></author>
+      <author><first>Nikesh</first><last>Garera</last></author>
+      <author><first>Asif</first><last>Ekbal</last></author>
+      <pages>243-255</pages>
+      <url hash="fb006eb1">2021.mtsummit-research.20</url>
+      <abstract>Product reviews provide valuable feedback of the customers and however and they are available today only in English on most of the e-commerce platforms. The nature of reviews provided by customers in any multilingual country poses unique challenges for machine translation such as code-mixing and ungrammatical sentences and presence of colloquial terms and lack of e-commerce parallel corpus etc. Given that 44% of Indian population speaks and operates in Hindi language and we address the above challenges by presenting an English–to–Hindi neural machine translation (NMT) system to translate the product reviews available on e-commerce websites by creating an in-domain parallel corpora and handling various types of noise in reviews via two data augmentation techniques and viz. (i). a novel phrase augmentation technique (PhrRep) where the syntactic noun phrases in sentences are replaced by the other noun phrases carrying different meanings but in similar context; and (ii). a novel attention guided noise augmentation (AttnNoise) technique to make our NMT model robust towards various noise. Evaluation shows that using the proposed augmentation techniques we achieve a 6.67 BLEU score improvement over the baseline model. In order to show that our proposed approach is not language-specific and we also perform experiments for two other language pairs and viz. En-Fr (MTNT18 corpus) and En-De (IWSLT17) that yield the improvements of 2.55 and 0.91 BLEU points and respectively and over the baselines.</abstract>
+      <bibkey>gupta-etal-2021-product-review</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Optimizing Word Alignments with Better Subword Tokenization</title>
+      <author><first>Anh Khoa</first><last>Ngo Ho</last></author>
+      <author><first>François</first><last>Yvon</last></author>
+      <pages>256-269</pages>
+      <url hash="ae8b1811">2021.mtsummit-research.21</url>
+      <abstract>Word alignment identify translational correspondences between words in a parallel sentence pair and are used and for example and to train statistical machine translation and learn bilingual dictionaries or to perform quality estimation. Subword tokenization has become a standard preprocessing step for a large number of applications and notably for state-of-the-art open vocabulary machine translation systems. In this paper and we thoroughly study how this preprocessing step interacts with the word alignment task and propose several tokenization strategies to obtain well-segmented parallel corpora. Using these new techniques and we were able to improve baseline word-based alignment models for six language pairs.</abstract>
+      <bibkey>ngo-ho-yvon-2021-optimizing</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Introducing Mouse Actions into Interactive-Predictive Neural Machine Translation</title>
+      <author><first>Ángel</first><last>Navarro</last></author>
+      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <pages>270-281</pages>
+      <url hash="9dbd11ef">2021.mtsummit-research.22</url>
+      <abstract>The quality of the translations generated by Machine Translation (MT) systems has highly improved through the years and but we are still far away to obtain fully automatic high-quality translations. To generate them and translators make use of Computer-Assisted Translation (CAT) tools and among which we find the Interactive-Predictive Machine Translation (IPMT) systems. In this paper and we use bandit feedback as the main and only information needed to generate new predictions that correct the previous translations. The application of bandit feedback reduces significantly the number of words that the translator need to type in an IPMT session. In conclusion and the use of this technique saves useful time and effort to translators and its performance improves with the future advances in MT and so we recommend its application in the actuals IPMT systems.</abstract>
+      <bibkey>navarro-casacuberta-2021-introducing</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Neural Machine Translation with Inflected Lexicon</title>
+      <author><first>Artur</first><last>Nowakowski</last></author>
+      <author><first>Krzysztof</first><last>Jassem</last></author>
+      <pages>282-292</pages>
+      <url hash="3e6e063b">2021.mtsummit-research.23</url>
+      <abstract>The paper presents experiments in neural machine translation with lexical constraints into a morphologically rich language. In particular and we introduce a method and based on constrained decoding and which handles the inflected forms of lexical entries and does not require any modification to the training data or model architecture. To evaluate its effectiveness and we carry out experiments in two different scenarios: general and domain-specific. We compare our method with baseline translation and i.e. translation without lexical constraints and in terms of translation speed and translation quality. To evaluate how well the method handles the constraints and we propose new evaluation metrics which take into account the presence and placement and duplication and inflectional correctness of lexical terms in the output sentence.</abstract>
+      <bibkey>nowakowski-jassem-2021-neural</bibkey>
+    </paper>
+    <paper id="24">
+      <title>An Alignment-Based Approach to Semi-Supervised Bilingual Lexicon Induction with Small Parallel Corpora</title>
+      <author><first>Kelly</first><last>Marchisio</last></author>
+      <author><first>Philipp</first><last>Koehn</last></author>
+      <author><first>Conghao</first><last>Xiong</last></author>
+      <pages>293-304</pages>
+      <url hash="80107846">2021.mtsummit-research.24</url>
+      <abstract>Aimed at generating a seed lexicon for use in downstream natural language tasks and unsupervised methods for bilingual lexicon induction have received much attention in the academic literature recently. While interesting and fully unsupervised settings are unrealistic; small amounts of bilingual data are usually available due to the existence of massively multilingual parallel corpora and or linguists can create small amounts of parallel data. In this work and we demonstrate an effective bootstrapping approach for semi-supervised bilingual lexicon induction that capitalizes upon the complementary strengths of two disparate methods for inducing bilingual lexicons. Whereas statistical methods are highly effective at inducing correct translation pairs for words frequently occurring in a parallel corpus and monolingual embedding spaces have the advantage of having been trained on large amounts of data and and therefore may induce accurate translations for words absent from the small corpus. By combining these relative strengths and our method achieves state-of-the-art results on 3 of 4 language pairs in the challenging VecMap test set using minimal amounts of parallel data and without the need for a translation dictionary. We release our implementation at www.blind-review.code.</abstract>
+      <bibkey>marchisio-etal-2021-alignment</bibkey>
+    </paper>
+  </volume>
+  <volume id="asltrw" ingest-date="2021-08-19">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on Automatic Spoken Language Translation in Real-World Settings (ASLTRW)</booktitle>
+      <publisher>Association for Machine Translation in the Americas</publisher>
+      <address>Virtual</address>
+      <month>August</month>
+      <year>2021</year>
+      <editor><first>Marco</first><last>Turchi</last></editor>
+      <editor><first>Claudio</first><last>Fantinuoli</last></editor>
+      <url hash="7eb0fa67">2021.mtsummit-asltrw</url>
+    </meta>
+    <frontmatter>
+      <url hash="b1f110cd">2021.mtsummit-asltrw.0</url>
+      <bibkey>mtsummit-2021-automatic</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Seed Words Based Data Selection for Language Model Adaptation</title>
+      <author><first>Roberto</first><last>Gretter</last></author>
+      <author><first>Marco</first><last>Matassoni</last></author>
+      <author><first>Daniele</first><last>Falavigna</last></author>
+      <pages>1-12</pages>
+      <url hash="b0308a90">2021.mtsummit-asltrw.1</url>
+      <abstract>We address the problem of language model customization in applications where the ASR component needs to manage domain-specific terminology; although current state-of-the-art speech recognition technology provides excellent results for generic domains, the adaptation to specialized dictionaries or glossaries is still an open issue. In this work we present an approach for automatically selecting sentences, from a text corpus, that match, both semantically and morphologically, a glossary of terms (words or composite words) furnished by the user. The final goal is to rapidly adapt the language model of an hybrid ASR system with a limited amount of in-domain text data in order to successfully cope with the linguistic domain at hand; the vocabulary of the baseline model is expanded and tailored, reducing the resulting OOV rate. Data selection strategies based on shallow morphological seeds and semantic similarity via word2vec are introduced and discussed; the experimental setting consists in a simultaneous interpreting scenario, where ASRs in three languages are designed to recognize the domainspecific terms (i.e. dentistry). Results using different metrics (OOV rate, WER, precision and recall) show the effectiveness of the proposed techniques.</abstract>
+      <bibkey>gretter-etal-2021-seed</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Post-Editing Job Profiles for Subtitlers</title>
+      <author><first>Anke</first><last>Tardel</last></author>
+      <author><first>Silvia</first><last>Hansen-Schirra</last></author>
+      <author><first>Jean</first><last>Nitzke</last></author>
+      <pages>13-22</pages>
+      <url hash="7fd9ca14">2021.mtsummit-asltrw.2</url>
+      <abstract>Language technologies, such as machine translation (MT), but also the application of artificial intelligence in general and an abundance of CAT tools and platforms have an increasing influence on the translation market. Human interaction with these technologies becomes ever more important as they impact translators’ workflows, work environments, and job profiles. Moreover, it has implications for translator training. One of the tasks that emerged with language technologies is post-editing (PE) where a human translator corrects raw machine translated output according to given guidelines and quality criteria (O’Brien, 2011: 197-198). Already widely used in several traditional translation settings, its use has come into focus in more creative processes such as literary translation and audiovisual translation (AVT) as well. With the integration of MT systems, the translation process should become more efficient. Both economic and cognitive processes are impacted and with it the necessary competences of all stakeholders involved change. In this paper, we want to describe the different potential job profiles and respective competences needed when post-editing subtitles.</abstract>
+      <bibkey>tardel-etal-2021-post</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Operating a Complex <fixed-case>SLT</fixed-case> System with Speakers and Human Interpreters</title>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <author><first>Vojtěch</first><last>Srdečný</last></author>
+      <author><first>Rishu</first><last>Kumar</last></author>
+      <author><first>Otakar</first><last>Smrž</last></author>
+      <author><first>Felix</first><last>Schneider</last></author>
+      <author><first>Barry</first><last>Haddow</last></author>
+      <author><first>Phil</first><last>Williams</last></author>
+      <author><first>Chiara</first><last>Canton</last></author>
+      <pages>23-34</pages>
+      <url hash="0b9805f0">2021.mtsummit-asltrw.3</url>
+      <abstract>We describe our experience with providing automatic simultaneous spoken language translation for an event with human interpreters. We provide a detailed overview of the systems we use, focusing on their interconnection and the issues it brings. We present our tools to monitor the pipeline and a web application to present the results of our SLT pipeline to the end users. Finally, we discuss various challenges we encountered, their possible solutions and we suggest improvements for future deployments.</abstract>
+      <bibkey>bojar-etal-2021-operating</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Simultaneous Speech Translation for Live Subtitling: from Delay to Display</title>
+      <author><first>Alina</first><last>Karakanta</last></author>
+      <author><first>Sara</first><last>Papi</last></author>
+      <author><first>Matteo</first><last>Negri</last></author>
+      <author><first>Marco</first><last>Turchi</last></author>
+      <pages>35-48</pages>
+      <url hash="3ecf36a9">2021.mtsummit-asltrw.4</url>
+      <abstract>With the increased audiovisualisation of communication, the need for live subtitles in multilingual events is more relevant than ever. In an attempt to automatise the process, we aim at exploring the feasibility of simultaneous speech translation (SimulST) for live subtitling. However, the word-for-word rate of generation of SimulST systems is not optimal for displaying the subtitles in a comprehensible and readable way. In this work, we adapt SimulST systems to predict subtitle breaks along with the translation. We then propose a display mode that exploits the predicted break structure by presenting the subtitles in scrolling lines. We compare our proposed mode with a display 1) word-for-word and 2) in blocks, in terms of reading speed and delay. Experiments on three language pairs (en→it, de, fr) show that scrolling lines is the only mode achieving an acceptable reading speed while keeping delay close to a 4-second threshold. We argue that simultaneous translation for readable live subtitles still faces challenges, the main one being poor translation quality, and propose directions for steering future research.</abstract>
+      <bibkey>karakanta-etal-2021-simultaneous</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Technology-Augmented Multilingual Communication Models: New Interaction Paradigms, Shifts in the Language Services Industry, and Implications for Training Programs</title>
+      <author><first>Francesco</first><last>Saina</last></author>
+      <pages>49-59</pages>
+      <url hash="9341d2bf">2021.mtsummit-asltrw.5</url>
+      <abstract>This paper explores how technology, particularly digital tools and artificial intelligence, are impacting multilingual communication and language transfer processes. Information and communication technologies are enabling novel interaction patterns, with computers transitioning from pure media to actual language generators, and profoundly reshaping the industry of language services, as the relevance of language data and assisting engines continues to rise. Since these changes deeply affect communication and languages models overall, they need to be addressed not only from the perspective of information technology or by business-driven companies, but also in the field of translation and interpreting studies, in a broader debate among scholars and practitioners, and when preparing educational programs for the training of specialised language professionals. Special focus is devoted to some of the latest advancements in automatic speech recognition and spoken translation, and how their applications in interpreting may push the boundaries of new ‘augmented’ real-world use cases. Hence, this work—at the intersection of theoretical investigation, professional practice, and instructional design—aims at offering an introductory overview of the current landscape and envisaging potential paths for forthcoming scenarios.</abstract>
+      <bibkey>saina-2021-technology</bibkey>
+    </paper>
+  </volume>
+  <volume id="at4ssl" ingest-date="2021-08-19">
+    <meta>
+      <booktitle>Proceedings of the 1st International Workshop on Automatic Translation for Signed and Spoken Languages (AT4SSL)</booktitle>
+      <publisher>Association for Machine Translation in the Americas</publisher>
+      <address>Virtual</address>
+      <month>August</month>
+      <year>2021</year>
+      <editor><first>Dimitar</first><last>Shterionov</last></editor>
+      <url hash="8f55092e">2021.mtsummit-at4ssl</url>
+    </meta>
+    <frontmatter>
+      <url hash="1714f5bc">2021.mtsummit-at4ssl.0</url>
+      <bibkey>mtsummit-2021-international</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Data Augmentation for Sign Language Gloss Translation</title>
+      <author><first>Amit</first><last>Moryossef</last></author>
+      <author><first>Kayo</first><last>Yin</last></author>
+      <author><first>Graham</first><last>Neubig</last></author>
+      <author><first>Yoav</first><last>Goldberg</last></author>
+      <pages>1-11</pages>
+      <url hash="fa4497f2">2021.mtsummit-at4ssl.1</url>
+      <abstract>Sign language translation (SLT) is often decomposed into video-to-gloss recognition and gloss to-text translation, where a gloss is a sequence of transcribed spoken-language words in the order in which they are signed. We focus here on gloss-to-text translation, which we treat as a low-resource neural machine translation (NMT) problem. However, unlike traditional low resource NMT, gloss-to-text translation differs because gloss-text pairs often have a higher lexical overlap and lower syntactic overlap than pairs of spoken languages. We exploit this lexical overlap and handle syntactic divergence by proposing two rule-based heuristics that generate pseudo-parallel gloss-text pairs from monolingual spoken language text. By pre-training on this synthetic data, we improve translation from American Sign Language (ASL) to English and German Sign Language (DGS) to German by up to 3.14 and 2.20 BLEU, respectively.</abstract>
+      <bibkey>moryossef-etal-2021-data</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Is “good enough” good enough? Ethical and responsible development of sign language technologies</title>
+      <author><first>Maartje</first><last>De Meulder</last></author>
+      <pages>12-22</pages>
+      <url hash="d6542abb">2021.mtsummit-at4ssl.2</url>
+      <abstract>This paper identifies some common and specific pitfalls in the development of sign language technologies targeted at deaf communities, with a specific focus on signing avatars. It makes the call to urgently interrogate some of the ideologies behind those technologies, including issues of ethical and responsible development. The paper addresses four separate and interlinked issues: ideologies about deaf people and mediated communication, bias in data sets and learning, user feedback, and applications of the technologies. The paper ends with several take away points for both technology developers and deaf NGOs. Technology developers should give more consideration to diversifying their team and working interdisciplinary, and be mindful of the biases that inevitably creep into data sets. There should also be a consideration of the technologies’ end users. Sign language interpreters are not the end users nor should they be seen as the benchmark for language use. Technology developers and deaf NGOs can engage in a dialogue about how to prioritize application domains and prioritize within application domains. Finally, deaf NGOs policy statements will need to take a longer view, and use avatars to think of a significantly better system compared to what sign language interpreting services can provide.</abstract>
+      <bibkey>de-meulder-2021-good</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Sign and Search: Sign Search Functionality for Sign Language Lexica</title>
+      <author><first>Manolis</first><last>Fragkiadakis</last></author>
+      <author><first>Peter</first><last>van der Putten</last></author>
+      <pages>23-32</pages>
+      <url hash="deda50c0">2021.mtsummit-at4ssl.3</url>
+      <abstract>Sign language lexica are a useful resource for researchers and people learning sign languages. Current implementations allow a user to search a sign either by its gloss or by selecting its primary features such as handshape and location. This study focuses on exploring a reverse search functionality where a user can sign a query sign in front of a webcam and retrieve a set of matching signs. By extracting different body joints combinations (upper body, dominant hand’s arm and wrist) using the pose estimation framework OpenPose, we compare four techniques (PCA, UMAP, DTW and Euclidean distance) as distance metrics between 20 query signs, each performed by eight participants on a 1200 sign lexicon. The results show that UMAP and DTW can predict a matching sign with an 80% and 71% accuracy respectively at the top-20 retrieved signs using the movement of the dominant hand arm. Using DTW and adding more sign instances from other participants in the lexicon, the accuracy can be raised to 90% at the top-10 ranking. Our results suggest that our methodology can be used with no training in any sign language lexicon regardless of its size.</abstract>
+      <bibkey>fragkiadakis-van-der-putten-2021-sign</bibkey>
+    </paper>
+    <paper id="4">
+      <title>The Myth of Signing Avatars</title>
+      <author><first>John C.</first><last>McDonald</last></author>
+      <author><first>Rosalee</first><last>Wolfe</last></author>
+      <author><first>Eleni</first><last>Efthimiou</last></author>
+      <author><first>Evita</first><last>Fontinea</last></author>
+      <author><first>Frankie</first><last>Picron</last></author>
+      <author><first>Davy</first><last>Van Landuyt</last></author>
+      <author><first>Tina</first><last>Sioen</last></author>
+      <author><first>Annelies</first><last>Braffort</last></author>
+      <author><first>Michael</first><last>Filhol</last></author>
+      <author><first>Sarah</first><last>Ebling</last></author>
+      <author><first>Thomas</first><last>Hanke</last></author>
+      <author><first>Verena</first><last>Krausneker</last></author>
+      <pages>33-42</pages>
+      <url hash="33f694fb">2021.mtsummit-at4ssl.4</url>
+      <abstract>Development of automatic translation between signed and spoken languages has lagged behind the development of automatic translation between spoken languages, but it is a common misperception that extending machine translation techniques to include signed languages should be a straightforward process. A contributing factor is the lack of an acceptable method for displaying sign language apart from interpreters on video. This position paper examines the challenges of displaying a signed language as a target in automatic translation, analyses the underlying causes and suggests strategies to develop display technologies that are acceptable to sign language communities.</abstract>
+      <bibkey>rosalee-wolfe-etal-2021-myth</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>AVASAG</fixed-case>: A <fixed-case>G</fixed-case>erman <fixed-case>S</fixed-case>ign <fixed-case>L</fixed-case>anguage Translation System for Public Services (short paper)</title>
+      <author><first>Fabrizio</first><last>Nunnari</last></author>
+      <author><first>Judith</first><last>Bauerdiek</last></author>
+      <author><first>Lucas</first><last>Bernhard</last></author>
+      <author><first>Cristina</first><last>España-Bonet</last></author>
+      <author><first>Corinna</first><last>Jäger</last></author>
+      <author><first>Amelie</first><last>Unger</last></author>
+      <author><first>Kristoffer</first><last>Waldow</last></author>
+      <author><first>Sonja</first><last>Wecker</last></author>
+      <author><first>Elisabeth</first><last>André</last></author>
+      <author><first>Stephan</first><last>Busemann</last></author>
+      <author><first>Christian</first><last>Dold</last></author>
+      <author><first>Arnulph</first><last>Fuhrmann</last></author>
+      <author><first>Patrick</first><last>Gebhard</last></author>
+      <author><first>Yasser</first><last>Hamidullah</last></author>
+      <author><first>Marcel</first><last>Hauck</last></author>
+      <author><first>Yvonne</first><last>Kossel</last></author>
+      <author><first>Martin</first><last>Misiak</last></author>
+      <author><first>Dieter</first><last>Wallach</last></author>
+      <author><first>Alexander</first><last>Stricker</last></author>
+      <pages>43-48</pages>
+      <url hash="aaf021a0">2021.mtsummit-at4ssl.5</url>
+      <abstract>This paper presents an overview of AVASAG; an ongoing applied-research project developing a text-to-sign-language translation system for public services. We describe the scientific innovation points (geometry-based SL-description, 3D animation and video corpus, simplified annotation scheme, motion capture strategy) and the overall translation pipeline.</abstract>
+      <bibkey>nunnari-etal-2021-avasag</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Using Computer Vision to Analyze Non-manual Marking of Questions in <fixed-case>KRSL</fixed-case></title>
+      <author><first>Anna</first><last>Kuznetsova</last></author>
+      <author><first>Alfarabi</first><last>Imashev</last></author>
+      <author><first>Medet</first><last>Mukushev</last></author>
+      <author><first>Anara</first><last>Sandygulova</last></author>
+      <author><first>Vadim</first><last>Kimmelman</last></author>
+      <pages>49-59</pages>
+      <url hash="1401d625">2021.mtsummit-at4ssl.6</url>
+      <abstract>This paper presents a study that compares non-manual markers of polar and wh-questions to statements in Kazakh-Russian Sign Language (KRSL) in a dataset collected for NLP tasks. The primary focus of the study is to demonstrate the utility of computer vision solutions for the linguistic analysis of non-manuals in sign languages, although additional corrections are required to account for biases in the output. To this end, we analyzed recordings of 10 triplets of sentences produced by 9 native signers using both manual annotation and computer vision solutions (such as OpenFace). We utilize and improve the computer vision solution, and briefly describe the results of the linguistic analysis.</abstract>
+      <bibkey>kuznetsova-etal-2021-using</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Approaching Sign Language Gloss Translation as a Low-Resource Machine Translation Task</title>
+      <author><first>Xuan</first><last>Zhang</last></author>
+      <author><first>Kevin</first><last>Duh</last></author>
+      <pages>60-70</pages>
+      <url hash="9b4ced03">2021.mtsummit-at4ssl.7</url>
+      <abstract>A cascaded Sign Language Translation system first maps sign videos to gloss annotations and then translates glosses into a spoken languages. This work focuses on the second-stage gloss translation component, which is challenging due to the scarcity of publicly available parallel data. We approach gloss translation as a low-resource machine translation task and investigate two popular methods for improving translation quality: hyperparameter search and backtranslation. We discuss the potentials and pitfalls of these methods based on experiments on the RWTH-PHOENIX-Weather 2014T dataset.</abstract>
+      <bibkey>zhang-duh-2021-approaching</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Automatic generation of a 3<fixed-case>D</fixed-case> sign language avatar on <fixed-case>AR</fixed-case> glasses given 2<fixed-case>D</fixed-case> videos of human signers</title>
+      <author><first>Lan Thao</first><last>Nguyen</last></author>
+      <author><first>Florian</first><last>Schicktanz</last></author>
+      <author><first>Aeneas</first><last>Stankowski</last></author>
+      <author><first>Eleftherios</first><last>Avramidis</last></author>
+      <pages>71-81</pages>
+      <url hash="4457bbf7">2021.mtsummit-at4ssl.8</url>
+      <abstract>In this paper we present a prototypical implementation of a pipeline that allows the automatic generation of a German Sign Language avatar from 2D video material. The presentation is accompanied by the source code. We record human pose movements during signing with computer vision models. The joint coordinates of hands and arms are imported as landmarks to control the skeleton of our avatar. From the anatomically independent landmarks, we create another skeleton based on the avatar’s skeletal bone architecture to calculate the bone rotation data. This data is then used to control our human 3D avatar. The avatar is displayed on AR glasses and can be placed virtually in the room, in a way that it can be perceived simultaneously to the verbal speaker. In further work it is aimed to be enhanced with speech recognition and machine translation methods for serving as a sign language interpreter. The prototype has been shown to people of the deaf and hard-of-hearing community for assessing its comprehensibility. Problems emerged with the transferred hand rotations, hand gestures were hard to recognize on the avatar due to deformations like twisted finger meshes.</abstract>
+      <bibkey>nguyen-etal-2021-automatic</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Online Evaluation of Text-to-sign Translation by Deaf End Users: Some Methodological Recommendations (short paper)</title>
+      <author><first>Floris</first><last>Roelofsen</last></author>
+      <author><first>Lyke</first><last>Esselink</last></author>
+      <author><first>Shani</first><last>Mende-Gillings</last></author>
+      <author><first>Maartje</first><last>de Meulder</last></author>
+      <author><first>Nienke</first><last>Sijm</last></author>
+      <author><first>Anika</first><last>Smeijers</last></author>
+      <pages>82-87</pages>
+      <url hash="f5b830f2">2021.mtsummit-at4ssl.9</url>
+      <abstract>We present a number of methodological recommendations concerning the online evaluation of avatars for text-to-sign translation, focusing on the structure, format and length of the questionnaire, as well as methods for eliciting and faithfully transcribing responses</abstract>
+      <bibkey>roelofsen-etal-2021-online</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Frozen Pretrained Transformers for Neural Sign Language Translation</title>
+      <author><first>Mathieu</first><last>De Coster</last></author>
+      <author><first>Karel</first><last>D’Oosterlinck</last></author>
+      <author><first>Marija</first><last>Pizurica</last></author>
+      <author><first>Paloma</first><last>Rabaey</last></author>
+      <author><first>Severine</first><last>Verlinden</last></author>
+      <author><first>Mieke</first><last>Van Herreweghe</last></author>
+      <author><first>Joni</first><last>Dambre</last></author>
+      <pages>88-97</pages>
+      <url hash="b695c908">2021.mtsummit-at4ssl.10</url>
+      <abstract>One of the major challenges in sign language translation from a sign language to a spoken language is the lack of parallel corpora. Recent works have achieved promising results on the RWTH-PHOENIX-Weather 2014T dataset, which consists of over eight thousand parallel sentences between German sign language and German. However, from the perspective of neural machine translation, this is still a tiny dataset. To improve the performance of models trained on small datasets, transfer learning can be used. While this has been previously applied in sign language translation for feature extraction, to the best of our knowledge, pretrained language models have not yet been investigated. We use pretrained BERT-base and mBART-50 models to initialize our sign language video to spoken language text translation model. To mitigate overfitting, we apply the frozen pretrained transformer technique: we freeze the majority of parameters during training. Using a pretrained BERT model, we outperform a baseline trained from scratch by 1 to 2 BLEU-4. Our results show that pretrained language models can be used to improve sign language translation performance and that the self-attention patterns in BERT transfer in zero-shot to the encoder and decoder of sign language translation models.</abstract>
+      <bibkey>de-coster-etal-2021-frozen</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Defining meaningful units. Challenges in sign segmentation and segment-meaning mapping (short paper)</title>
+      <author><first>Mirella</first><last>De Sisto</last></author>
+      <author><first>Dimitar</first><last>Shterionov</last></author>
+      <author><first>Irene</first><last>Murtagh</last></author>
+      <author><first>Myriam</first><last>Vermeerbergen</last></author>
+      <author><first>Lorraine</first><last>Leeson</last></author>
+      <pages>98-103</pages>
+      <url hash="9d07a557">2021.mtsummit-at4ssl.11</url>
+      <abstract>This paper addresses the tasks of sign segmentation and segment-meaning mapping in the context of sign language (SL) recognition. It aims to give an overview of the linguistic properties of SL, such as coarticulation and simultaneity, which make these tasks complex. A better understanding of SL structure is the necessary ground for the design and development of SL recognition and segmentation methodologies, which are fundamental for machine translation of these languages. Based on this preliminary exploration, a proposal for mapping segments to meaning in the form of an agglomerate of lexical and non-lexical information is introduced.</abstract>
+      <bibkey>de-sisto-etal-2021-defining</bibkey>
+    </paper>
+  </volume>
+</collection>
