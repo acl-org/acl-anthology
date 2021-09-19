@@ -29,6 +29,7 @@ RewriteEngine On
 # 301 redirects are guarded with a RewriteCond.
 
 RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} acl\.ldc\.upenn\.edu [OR]
 RewriteCond %{HTTP_HOST} www\.aclanthology\.org [NC]
 RewriteRule ^(.*)$ https://aclanthology.org/$1 [R=301,L]
 
