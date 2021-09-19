@@ -74,7 +74,7 @@ def main(args):
                 print(f"* Couldn't match '{match_str}' to '{line}'", file=sys.stderr)
 
             paper = anthology.papers[anthology_id]
-            explanation = paper.attrib["revision"][-1]["explanation"]
+            explanation = paper.revisions[-1]["explanation"]
 
             revisions.append(
                 (

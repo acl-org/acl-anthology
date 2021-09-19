@@ -134,7 +134,7 @@ venv/bin/activate: bin/requirements.txt
 	touch venv/bin/activate
 
 .PHONY: all
-all: clean check site
+all: check site
 
 .PHONY: basedirs
 basedirs:
@@ -264,7 +264,7 @@ test: hugo
 
 .PHONY: clean
 clean:
-	rm -rf build
+	rm -rf build venv
 
 .PHONY: check
 check: venv

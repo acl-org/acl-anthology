@@ -1,0 +1,1323 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.ccl">
+  <volume id="1" ingest-date="2021-08-31">
+    <meta>
+      <booktitle>Proceedings of the 20th Chinese National Conference on Computational Linguistics</booktitle>
+      <editor><first>Sheng</first><last>Li</last><variant script="hani"><first>生</first><last>李</last></variant></editor>
+      <editor><first>Maosong</first><last>Sun</last><variant script="hani"><first>茂松</first><last>孙</last></variant></editor>
+      <editor id="yang-liu-ict"><first>Yang</first><last>Liu</last><variant script="hani"><first>洋</first><last>刘</last></variant></editor>
+      <editor><first>Hua</first><last>Wu</last><variant script="hani"><first>华</first><last>吴</last></variant></editor>
+      <editor><first>Kang</first><last>Liu</last><variant script="hani"><first>康</first><last>刘</last></variant></editor>
+      <editor><first>Wanxiang</first><last>Che</last><variant script="hani"><first>万翔</first><last>车</last></variant></editor>
+      <editor><first>Shizhu</first><last>He</last><variant script="hani"><first>世柱</first><last>何</last></variant></editor>
+      <editor><first>Gaoqi</first><last>Rao</last><variant script="hani"><first>高琦</first><last>饶</last></variant></editor>
+      <publisher>Chinese Information Processing Society of China</publisher>
+      <address>Huhhot, China</address>
+      <month>August</month>
+      <year>2021</year>
+    </meta>
+    <frontmatter>
+      <url hash="9c39efdc">2021.ccl-1.0</url>
+      <bibkey>ccl-2021-chinese</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>融合零指代识别的篇章级机器翻译(Context-aware Machine Translation Integrating Zero Pronoun Recognition)</title>
+      <author><first>Hao</first><last>Wang</last><variant script="hani"><first>浩</first><last>汪</last></variant></author>
+      <author><first>Junhui</first><last>Li</last><variant script="hani"><first>军辉</first><last>李</last></variant></author>
+      <author><first>Zhengxian</first><last>Gong</last><variant script="hani"><first>正仙</first><last>贡</last></variant></author>
+      <pages>1–12</pages>
+      <abstract>“在汉语等其他有省略代词习惯的语言中,通常会删掉可从上下文信息推断出的代词。尽管以Transformer为代表的的神经机器翻译模型取得了巨大的成功,但这种省略现象依旧对神经机器翻译模型造成了很大的挑战。本文在Transformer基础上提出了一个融合零指代识别的翻译模型,并引入篇章上下文来丰富指代信息。具体地,该模型采用联合学习的框架,在翻译模型基础上,联合了一个分类任务,即判别句子中省略代词在句子所表示的成分,使得模型能够融合零指代信息辅助翻译。通过在中英对话数据集上的实验,验证了本文提出方法的有效性,与基准模型相比,翻译性能提升了1.48个BLEU值。”</abstract>
+      <url hash="ba414cb1">2021.ccl-1.1</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-rong</bibkey>
+    </paper>
+    <paper id="2">
+      <title>融合<fixed-case>XLM</fixed-case>词语表示的神经机器译文自动评价方法(Neural Automatic Evaluation of Machine Translation Method Combined with <fixed-case>XLM</fixed-case> Word Representation)</title>
+      <author><first>Wei</first><last>Hu</last><variant script="hani"><first>纬</first><last>胡</last></variant></author>
+      <author><first>Maoxi</first><last>Li</last><variant script="hani"><first>茂西</first><last>李</last></variant></author>
+      <author><first>Bailian</first><last>Qiu</last><variant script="hani"><first>白莲</first><last>裘</last></variant></author>
+      <author><first>Mingwen</first><last>Wang</last><variant script="hani"><first>明文</first><last>王</last></variant></author>
+      <pages>13–22</pages>
+      <abstract>“机器译文自动评价对机器翻译的发展和应用起着重要的促进作用,它一般通过计算机器译文和人工参考译文的相似度来度量机器译文的质量。该文通过跨语种预训练语言模型XLM将源语言句子、机器译文和人工参考译文映射到相同的语义空间,结合分层注意力和内部注意力提取源语言句子与机器译文、机器译文与人工参考译文以及源语言句子与人工参考译文之间差异特征,并将其融入到基于Bi-LSTM神经译文自动评价方法中。在WMT’19译文自动评价数据集上的实验结果表明,融合XLM词语表示的神经机器译文自动评价方法显著提高了其与人工评价的相关性。”</abstract>
+      <url hash="f279b471">2021.ccl-1.2</url>
+      <language>zho</language>
+      <bibkey>hu-etal-2021-rong</bibkey>
+    </paper>
+    <paper id="3">
+      <title>利用语义关联增强的跨语言预训练模型的译文质量评估(A Cross-language Pre-trained Model with Enhanced Semantic Connection for <fixed-case>MT</fixed-case> Quality Estimation)</title>
+      <author><first>Heng</first><last>Ye</last><variant script="hani"><first>恒</first><last>叶</last></variant></author>
+      <author><first>Zhengxian</first><last>Gong</last><variant script="hani"><first>正仙</first><last>贡</last></variant></author>
+      <pages>23–34</pages>
+      <abstract>“机器翻译质量评估(QE)虽然不需要参考译文就能进行自动评估,但它需要人工标注的评估数据进行训练。基于神经网络框架的QE为了克服人工评估数据的稀缺问题,通常包括两个阶段,首先借助大规模的平行语料学习双语对齐,然后在小规模评估数据集上进行评估建模。跨语言预训练模型可以用来代替该任务第一阶段的学习过程,因此本文首先建议一个基于XLM-R的为源/目标语言统一编码的QE模型。其次,由于大多数预训练模型是在多语言的单语数据集上构建的,因此两两语言对的语义关联能力相对较弱。为了能使跨语言预训练模型更好地适应QE任务,本文提出用三种预训练策略来增强预训练模型的跨语言语义关联能力。本文的方法在WMT2017和WMT2019英德评估数据集上都达到了最高性能。”</abstract>
+      <url hash="5703e6fa">2021.ccl-1.3</url>
+      <language>zho</language>
+      <bibkey>ye-etal-2021-li</bibkey>
+    </paper>
+    <paper id="4">
+      <title>基于模型不确定性约束的半监督汉缅神经机器翻译(Semi-Supervised <fixed-case>C</fixed-case>hinese-<fixed-case>M</fixed-case>yanmar Neural Machine Translation based Model-Uncertainty)</title>
+      <author><first>Linqin</first><last>Wang</last><variant script="hani"><first>琳钦</first><last>王</last></variant></author>
+      <author><first>Zhengtao</first><last>Yu</last><variant script="hani"><first>正涛</first><last>余</last></variant></author>
+      <author><first>Cunli</first><last>Mao</last><variant script="hani"><first>存礼</first><last>毛</last></variant></author>
+      <author><first>Chengxiang</first><last>Gao</last><variant script="hani"><first>盛祥</first><last>高</last></variant></author>
+      <author><first>Zhibo</first><last>Man</last><variant script="hani"><first>志博</first><last>满</last></variant></author>
+      <author><first>Zhenhan</first><last>Wang</last><variant script="hani"><first>振晗</first><last>王</last></variant></author>
+      <pages>35–45</pages>
+      <abstract>“基于回译的半监督神经机器翻译方法在低资源神经机器翻译取得了明显的效果,然而,由于汉缅双语资源稀缺、结构差异较大,传统基于Transformer的回译方法中编码端的Self-attention机制不能有效区别回译中产生的伪平行数据的噪声对句子编码的影响,致使译文出现漏译,多译,错译等问题。为此,该文提出基于模型不确定性为约束的半监督汉缅神经机器翻译方法,在Transformer网络中利用基于变分推断的蒙特卡洛Dropout构建模型不确定性注意力机制,获取到能够区分噪声数据的句子向量表征,在此基础上与Self-attention机制得到的句子编码向量进行融合,以此得到句子有效编码表征。实验证明,本文方法相比传统基于Transformer的回译方法在汉语-缅甸语和缅甸语-汉语两个翻译方向BLEU值分别提升了4.01和1.88个点,充分验证了该方法在汉缅神经翻译任务的有效性。”</abstract>
+      <url hash="98086585">2021.ccl-1.4</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="5">
+      <title>基于枢轴语言系统融合的词汇混淆网络神经机器翻译(Neural Machine Translation for Vocabulary Confusion Network Based on Pivotal Language System Fusion)</title>
+      <author><first>Xiaobing</first><last>Zhao</last><variant script="hani"><first>小兵</first><last>赵</last></variant></author>
+      <author><first>Bo</first><last>Jin</last><variant script="hani"><first>波</first><last>金</last></variant></author>
+      <author><first>Yuan</first><last>Sun</last><variant script="hani"><first>媛</first><last>孙</last></variant></author>
+      <pages>46–56</pages>
+      <abstract>“神经机器翻译在低资源语言的翻译任务中存在翻译难度大、译文质量不佳的问题。本文针对低资源语言与汉语之间没有双语平行语料的情况,采用正反向枢轴翻译的方法,生成了三种低资源语言到汉语的平行句对,采用词汇级的系统融合技术,将Transformer模型和对偶学习模型翻译生成的目标语言译文进行融合,然后通过混淆神经网络进行词汇选择,生成了更为优质的目标语言译文。实验证明,本文提出的多模型融合方法在爱沙尼亚语-汉语、拉脱维亚语-汉语、罗马尼亚语-汉语这三种低资源语言翻译任务中均优于独立模型的翻译效果,进一步提升了低资源语言神经机器翻译的译文质量。”</abstract>
+      <url hash="ac3e1a72">2021.ccl-1.5</url>
+      <language>zho</language>
+      <bibkey>zhao-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="6">
+      <title>基于义原表示学习的词向量表示方法(Word Representation based on Sememe Representation Learning)</title>
+      <author><first>Ning</first><last>Yu</last><variant script="hani"><first>宁</first><last>于</last></variant></author>
+      <author><first>Jiangping</first><last>Wang</last><variant script="hani"><first>江萍</first><last>王</last></variant></author>
+      <author><first>Yu</first><last>Shi</last><variant script="hani"><first>宇</first><last>石</last></variant></author>
+      <author><first>Jianyi</first><last>Liu</last><variant script="hani"><first>建毅</first><last>刘</last></variant></author>
+      <pages>57–65</pages>
+      <abstract>“本文利用知网(HowNet)中的知识,并将Word2vec模型的结构和思想迁移至义原表示学习过程中,提出了一个基于义原表示学习的词向量表示方法。首先,本文利用OpenHowNet获取义原知识库中的所有义原、所有中文词汇以及所有中文词汇和其对应的义原集合,作为实验的数据集。然后,基于Skip-gram模型,训练义原表示学习模型,进而获得词向量。最后,通过词相似度任务、词义消歧任务、词汇类比和观察最近邻义原,来评价本文提出的方法获取的词向量的效果。通过和基线模型比较,发现本文提出的方法既高效又准确,不依赖大规模语料也不需要复杂的网络结构和繁多的参数,也能提升各种自然语言处理任务的准确率。”</abstract>
+      <url hash="66a93390">2021.ccl-1.6</url>
+      <language>zho</language>
+      <bibkey>yu-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="7">
+      <title>一种新的处理汉语动名超常搭配的方法(A New Method for the Processing of <fixed-case>C</fixed-case>hinese Verb-Noun Anomalous Collocations)</title>
+      <author><first>Mengxiang</first><last>Wang</last><variant script="hani"><first>梦翔</first><last>汪</last></variant></author>
+      <pages>66–75</pages>
+      <abstract>“动名超常搭配由于一般带有成分的省略或隐喻,给中文信息处理带来了难度。以往一般是通过整体打包进词库的形式来直接处理,而本文的处理思路是对汉语动名超常搭配进行解构还原的方式来进行处理。具体做法是,依托西方生成词库理论的思想构建一套专门的汉语词项描述体系,这一知识表示体系可以较为清晰的还原因省略或隐喻而造成的非常规搭配,进而解读出它们的组合机制和生成过程。然后本文通过补缺和替换的形式把动名非常规搭配还原为常规性搭配来进行处理。实验表明,这种思路处理动名超常搭配切实有效。”</abstract>
+      <url hash="4d350a48">2021.ccl-1.7</url>
+      <language>zho</language>
+      <bibkey>wang-wang-2021-yi</bibkey>
+    </paper>
+    <paper id="8">
+      <title>基于双编码器的医学文本中文分词(<fixed-case>C</fixed-case>hinese word segmentation of medical text based on dual-encoder)</title>
+      <author><first>Yuan</first><last>Zong</last><variant script="hani"><first>源</first><last>宗</last></variant></author>
+      <author><first>Baobao</first><last>Chang</last><variant script="hani"><first>宝宝</first><last>常</last></variant></author>
+      <pages>76–85</pages>
+      <abstract>“中文分词是自然语言处理领域的基础工作,然而前人的医学文本分词工作都只是直接套用通用分词的方法,而医学文本多专用术语的特点让分词系统需要对医学专用术语和医学文本中的非医学术语文本提供不同的分词粒度。本文提出了双编码器医学文本中文分词模型,利用辅助编码器为医学专有术语提供粗粒度表示。模型将需要粗粒度分词的医学专用术语和需要通用分词粒度的文本分开,在提升医学专用术语的分词能力的同时最大限度地避免了其粗粒度对于医学文本中通用文本分词的干扰。”</abstract>
+      <url hash="fa13de20">2021.ccl-1.8</url>
+      <language>zho</language>
+      <bibkey>zong-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="9">
+      <title>中文连动句语义关系识别研究(Research on Semantic Relation Recognition of <fixed-case>C</fixed-case>hinese Serial-verb Sentences)</title>
+      <author><first>Chao</first><last>Sun</last><variant script="hani"><first>超</first><last>孙</last></variant></author>
+      <author><first>Weiguang</first><last>Qu</last><variant script="hani"><first>维光</first><last>曲</last></variant></author>
+      <author><first>Tingxin</first><last>Wei</last><variant script="hani"><first>庭新</first><last>魏</last></variant></author>
+      <author><first>Yanhui</first><last>Gu</last><variant script="hani"><first>彦慧</first><last>顾</last></variant></author>
+      <author><first>Bin</first><last>Li</last><variant script="hani"><first>斌</first><last>李</last></variant></author>
+      <author><first>Junsheng</first><last>Zhou</last><variant script="hani"><first>俊生</first><last>周</last></variant></author>
+      <pages>86–96</pages>
+      <abstract>“连动句是形如“NP+VP1+VP2”的句子,句中含有两个或两个以上的动词(或动词结构)且动词的施事为同一对象。相同结构的连动句可以表示多种不同的语义关系。本文基于前人对连动句中VP1和VP2之间的语义关系分类,标注了连动句语义关系数据集,基于神经网络完成了对连动句语义关系的识别。该方法将连动句语义识别任务进行分解,基于BERT进行编码,利用BiLSTM-CRF先识别出连动句中连动词(VP)及其主语(NP),再基于融合连动词信息的编码,利用BiLSTM-Attention对连动词进行关系判别,实验结果验证了所提方法的有效性。”</abstract>
+      <url hash="1a2cb5c4">2021.ccl-1.9</url>
+      <language>zho</language>
+      <bibkey>sun-etal-2021-zhong</bibkey>
+    </paper>
+    <paper id="10">
+      <title>中文词语离合现象识别研究(Research on Recognition of the Separation and Reunion Phenomena of Words in <fixed-case>C</fixed-case>hinese)</title>
+      <author><first>Lou</first><last>Zhou</last><variant script="hani"><first>露</first><last>周</last></variant></author>
+      <author><first>Weiguang</first><last>Qu</last><variant script="hani"><first>维光</first><last>曲</last></variant></author>
+      <author><first>Tingxin</first><last>Wei</last><variant script="hani"><first>庭新</first><last>魏</last></variant></author>
+      <author><first>Junsheng</first><last>Zhou</last><variant script="hani"><first>俊生</first><last>周</last></variant></author>
+      <author><first>Bin</first><last>Li</last><variant script="hani"><first>斌</first><last>李</last></variant></author>
+      <author><first>Yanhui</first><last>Gu</last><variant script="hani"><first>彦慧</first><last>顾</last></variant></author>
+      <pages>97–107</pages>
+      <abstract>“汉语词语的离合现象是汉语中一种词语可分可合的特殊现象。本文采用字符级序列标注方法解决二字动词离合现象的自动识别问题,以避免中文分词及词性标注的错误传递,节省制定匹配规则与特征模板的人工开支。在训练过程中微调BERT中文预训练模型,获取面向目标任务的字符向量表示,并引入掩码机制对模型隐藏离用法中分离的词语,减轻词语本身对识别结果的影响,强化中间插入成分的学习,并对前后语素采用不同的掩码以强调其出现顺序,进而使模型具备了识别复杂及偶发性离用法的能力。为获得含有上下文信息的句子表达,将原始的句子表达与采用掩码的句子表达分别输入两个不同参数的BiLSTM层进行训练,最后采用CRF算法捕捉句子标签序列的依赖关系。本文提出的BERT MASK + 2BiLSTMs + CRF模型比现有最优的离合词识别模型提高了2.85%的F1值。”</abstract>
+      <url hash="71b953be">2021.ccl-1.10</url>
+      <language>zho</language>
+      <bibkey>zhou-etal-2021-zhong</bibkey>
+    </paper>
+    <paper id="11">
+      <title>先秦词网构建及梵汉对比研究(The Construction of Pre-<fixed-case>Q</fixed-case>in <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese <fixed-case>W</fixed-case>ord<fixed-case>N</fixed-case>et and Cross Language Comparative Study between <fixed-case>A</fixed-case>ncient <fixed-case>S</fixed-case>anskrit <fixed-case>W</fixed-case>ord<fixed-case>N</fixed-case>et and Pre-<fixed-case>Q</fixed-case>in <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese <fixed-case>W</fixed-case>ord<fixed-case>N</fixed-case>et)</title>
+      <author><first>Xuehui</first><last>Lu</last><variant script="hani"><first>雪晖</first><last>卢</last></variant></author>
+      <author><first>Huidan</first><last>Xu</last><variant script="hani"><first>会丹</first><last>徐</last></variant></author>
+      <author><first>Siyu</first><last>Chen</last><variant script="hani"><first>思瑜</first><last>陈</last></variant></author>
+      <author><first>Bin</first><last>Li</last><variant script="hani"><first>斌</first><last>李</last></variant></author>
+      <pages>108–120</pages>
+      <abstract>“先秦汉语在汉语史研究上具有重要地位,然而以往的研究始终没有形成结构化的先秦词汇资源,难以满足古汉语信息处理和跨语言对比的研究需要。国际上以英文词网(WordNet)的义类架构为基础,已经建立了数十种语言的词网,已经成为多语言自然语言处理和跨语言对比的基础资源。本文综述了国内外各种词网的构建情况,特别是古代语言的词网和汉语词网,然后详细介绍了先秦词网的构建和校正过程,构建起了涵盖43591个词语、61227个义项、17975个义类的先秦汉语词网。本文还通过与古梵语词网的跨语言对比,尝试分析这两种古老语言在词汇上的共性和差异,初步验证先秦词网的有效性。”</abstract>
+      <url hash="6c48eb9b">2021.ccl-1.11</url>
+      <language>zho</language>
+      <bibkey>lu-etal-2021-xian</bibkey>
+    </paper>
+    <paper id="12">
+      <title>基于<fixed-case>BERT</fixed-case>的意图分类与槽填充联合方法(Joint Method of Intention Classification and Slot Filling Based on <fixed-case>BERT</fixed-case>)</title>
+      <author><first>Jun</first><last>Qin</last><variant script="hani"><first>俊</first><last>覃</last></variant></author>
+      <author><first>Tianyu</first><last>Ma</last><variant script="hani"><first>天宇</first><last>马</last></variant></author>
+      <author><first>Jing</first><last>Liu</last><variant script="hani"><first>晶</first><last>刘</last></variant></author>
+      <author><first>Jun</first><last>Tie</last><variant script="hani"><first>军</first><last>帖</last></variant></author>
+      <author><first>Qi</first><last>Hou</last><variant script="hani"><first>琦</first><last>后</last></variant></author>
+      <pages>121–129</pages>
+      <abstract>“口语理解是自然语言处理的一个重要内容,意图分类和槽填充是口语理解的两个基本子任务。最近的研究表明,共同学习这两项任务可以起到相互促进的作用。本文提出了一个基于BERT的意图分类联合模型,通过一个关联网络使得两个任务建立直接联系,共享信息,以此来提升任务效果。模型引入BERT来增强词向量的语义表示,有效解决了目前联合模型由于训练数据规模较小导致的泛化能力较差的问题。实验结果表明,该模型能有效提升意图分类和槽填充的性能。”</abstract>
+      <url hash="d4ebd3ed">2021.ccl-1.12</url>
+      <language>zho</language>
+      <bibkey>qin-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="13">
+      <title>基于依存语法的偷抢类动词研究(Research of Verbs of Stealing and Robbing Based on Dependency Grammar)</title>
+      <author><first>Shan</first><last>Wang</last><variant script="hani"><first>珊</first><last>王</last></variant></author>
+      <author><first>Xiaojun</first><last>Liu</last><variant script="hani"><first>晓骏</first><last>刘</last></variant></author>
+      <pages>130–142</pages>
+      <abstract>“本文筛选了汉语“偷抢”类动词的单句,并借助依存语法的标注体系对“偷抢”类动词句法依存和语义依存进行定量分析。研究结果表明,当汉语“偷抢”类动词为从属词时,表现出句法功能的多样性、内部相似性和区别其他动词小类的特异性,其语义角色分布具有多样性。当汉语“偷抢”类动词为支配词时,该类动词的句法依存随其不同的句法功能而发生变化;从该类动词的语义依存来看,其客体语义密度整体低于主体语义密度,最常见的情境角色是地点和时间,在事件关系中,并列事件发生概率最高。“偷抢”类动词的句法语义特点丰富,主要的句型为主谓宾句式,而该句式中最常用的语义搭配模式是施事对受事实施偷抢动作。本研究结合依存语法和框架语义学,深化了对汉语“偷抢”类动词的句法、语义和事件关系的了解,促进了对该类动词的研究。”</abstract>
+      <url hash="fae02068">2021.ccl-1.13</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-ji-yu</bibkey>
+    </paper>
+    <paper id="14">
+      <title>基于中文信息与越南语句法指导的越南语事件检测(<fixed-case>V</fixed-case>ietnamese event detection based on <fixed-case>C</fixed-case>hinese information and <fixed-case>V</fixed-case>ietnamese syntax guidance)</title>
+      <author><first>Long</first><last>Chen</last><variant script="hani"><first>龙</first><last>陈</last></variant></author>
+      <author><first>Junjun</first><last>Guo</last><variant script="hani"><first>军军</first><last>郭</last></variant></author>
+      <author><first>Yafei</first><last>Zhang</last><variant script="hani"><first>亚飞</first><last>张</last></variant></author>
+      <author><first>Chengxiang</first><last>Gao</last><variant script="hani"><first>盛祥</first><last>高</last></variant></author>
+      <author><first>Zhengtao</first><last>Yu</last><variant script="hani"><first>正涛</first><last>余</last></variant></author>
+      <pages>143–155</pages>
+      <abstract>“当前基于深度学习的事件检测模型都依赖足够数量的标注数据,而标注数据的稀缺及事件类型歧义为越南语事件检测带来了极大的挑战。根据“表达相同观点但语言不同的句子通常有相同或相似的语义成分”这一多语言一致性特征,本文提出了一种基于中文信息与越南语句法指导的越南语事件检测框架。首先通过共享编码器策略和交叉注意力网络将中文信息融入到越南语中,然后使用图卷积网络融入越南语依存句法信息,最后在中文事件类型指导下实现越南语事件检测。实验结果表明,在中文信息和越南语句法的指导下越南语事件检测取得了较好的效果。”</abstract>
+      <url hash="16d71e89">2021.ccl-1.14</url>
+      <language>zho</language>
+      <bibkey>chen-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="15">
+      <title>基于多层次预训练策略和多任务学习的端到端蒙汉语音翻译(End-to-end <fixed-case>M</fixed-case>ongolian-<fixed-case>C</fixed-case>hinese Speech Translation Based on Multi-level Pre-training Strategies and Multi-task Learning)</title>
+      <author><first>Ningning</first><last>Wang</last><variant script="hani"><first>宁宁</first><last>王</last></variant></author>
+      <author><first>Long</first><last>Fei</last><variant script="hani"><first>龙</first><last>飞</last></variant></author>
+      <author><first>Hui</first><last>Zhang</last><variant script="hani"><first>晖</first><last>张</last></variant></author>
+      <pages>156–165</pages>
+      <abstract>“端到端语音翻译将源语言语音直接翻译为目标语言文本,它需要“源语言语音-目标语言文本”作为训练数据,然而这类数据极其稀缺,本文提出了一种多层次预训练策略和多任务学习相结合的训练方法,首先分别对语音识别和机器翻译模型的各个模块进行多层次预训练,接着将语音识别和机器翻译模型连接起来构成语音翻译模型,然后使用迁移学习对预训练好的模型进行多步骤微调,在此过程中又运用多任务学习的方法,将语音识别作为语音翻译的一个辅助任务来组织训练,充分利用了已经存在的各种不同形式的数据来训练端到端模型,首次将端到端技术应用于资源受限条件下的蒙汉语音翻译,构建了首个翻译质量较高、实际可用的端到端蒙汉语音翻译系统。”</abstract>
+      <url hash="ea8adba5">2021.ccl-1.15</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-ji-yu-duo</bibkey>
+    </paper>
+    <paper id="16">
+      <title>基于层间知识蒸馏的神经机器翻译(Inter-layer Knowledge Distillation for Neural Machine Translation)</title>
+      <author><first>Chang</first><last>Jin</last><variant script="hani"><first>畅</first><last>金</last></variant></author>
+      <author><first>Renchong</first><last>Duan</last><variant script="hani"><first>仁翀</first><last>段</last></variant></author>
+      <author><first>Nini</first><last>Xiao</last><variant script="hani"><first>妮妮</first><last>肖</last></variant></author>
+      <author><first>Xiangyu</first><last>Duan</last><variant script="hani"><first>湘煜</first><last>段</last></variant></author>
+      <pages>166–175</pages>
+      <abstract>“神经机器翻译(NMT)通常采用多层神经网络模型结构,随着网络层数的加深,所得到的特征也越来越抽象,但是在现有的神经机器翻译模型中,高层的抽象信息仅在预测分布时被利用。为了更好地利用这些信息,本文提出了层间知识蒸馏,目的在于将高层网络的抽象知识迁移到低层网络,使低层网络能够捕捉更加有用的信息,从而提升整个模型的翻译质量。区别于传统教师模型和学生模型的知识蒸馏,层间知识蒸馏实现的是同一个模型内部不同层之间的知识迁移。通过在中文-英语、英语-罗马尼亚语、德语-英语三个数据集上的实验,结果证明层间蒸馏方法能够有效提升翻译性能,分别在中-英、英-罗、德-英上提升1.19,0.72,1.35的BLEU值,同时也证明有效地利用高层信息能够提高神经网络模型的翻译质量。”</abstract>
+      <url hash="881ac139">2021.ccl-1.16</url>
+      <language>zho</language>
+      <bibkey>jin-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="17">
+      <title>融合多层语义特征图的缅甸语图像文本识别方法(<fixed-case>B</fixed-case>urmese Image Text Recognition Method Fused with Multi-layer Semantic Feature Maps)</title>
+      <author><first>Fuhao</first><last>Liu</last><variant script="hani"><first>福浩</first><last>刘</last></variant></author>
+      <author><first>Cunli</first><last>Mao</last><variant script="hani"><first>存礼</first><last>毛</last></variant></author>
+      <author><first>Zhengtao</first><last>Yu</last><variant script="hani"><first>正涛</first><last>余</last></variant></author>
+      <author><first>Chengxiang</first><last>Gao</last><variant script="hani"><first>盛祥</first><last>高</last></variant></author>
+      <author><first>Linqin</first><last>Wang</last><variant script="hani"><first>琳钦</first><last>王</last></variant></author>
+      <author><first>Xuyang</first><last>Xie</last><variant script="hani"><first>旭阳</first><last>谢</last></variant></author>
+      <pages>176–185</pages>
+      <abstract>“由于缅甸语存在特殊的字符组合结构,在图像文本识别研究方面存在较大的困难,直接利用现有的图像文本识别方法识别缅甸语图片存在字符缺失和复杂背景下识别效果不佳的问题。因此,本文提出一种融合多层语义特征图的缅甸语图像文本识别方法,利用深度卷积网络获得多层图像特征并对其融合获取多层语义信息,缓解缅甸语图像中由于字符嵌套导致特征丢失的问题。另外,在训练阶段采用MIX UP的策略进行网络参数优化,提高模型的泛化能力,降低模型在测试阶段对训练样本产生的依赖。实验结果表明,提出方法相比基线模型准确率提升了2.2%。”</abstract>
+      <url hash="f59d737e">2021.ccl-1.17</url>
+      <language>zho</language>
+      <bibkey>liu-etal-2021-rong</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>JC</fixed-case>aps<fixed-case>R</fixed-case>: 一种联合胶囊神经网络的藏语知识图谱表示学习模型(<fixed-case>JC</fixed-case>aps<fixed-case>R</fixed-case>: A Joint Capsule Neural Network for <fixed-case>T</fixed-case>ibetan Knowledge Graph Representation Learning)</title>
+      <author><first>Yuan</first><last>Sun</last><variant script="hani"><first>媛</first><last>孙</last></variant></author>
+      <author><first>Jiaya</first><last>Liang</last><variant script="hani"><first>家亚</first><last>梁</last></variant></author>
+      <author><first>Andong</first><last>Chen</last><variant script="hani"><first>安东</first><last>陈</last></variant></author>
+      <author><first>Xiaobing</first><last>Zhao</last><variant script="hani"><first>小兵</first><last>赵</last></variant></author>
+      <pages>186–195</pages>
+      <abstract>“知识图谱表示学习是自然语言处理的一项关键技术,现有的知识图谱表示研究主要集中在英语、汉语等语言,而低资源语言的知识图谱表示学习研究还处于探索阶段,例如藏语。本文基于前期构建的藏语知识图谱,提出了一种联合胶囊神经网络(JCapsR)的藏语知识图谱表示学习模型。首先,我们使用TransR模型生成藏语知识图谱的结构化信息表示。其次,采用融合多头注意力和关系注意力的Transformer模型表示藏语实体的文本描述信息。最后,采用JCapsR进一步提取三元组在知识图谱语义空间中的关系,将实体文本描述信息和结构化信息融合,得到藏语知识图谱的表示。实验结果表明,相比基线系统,联合胶囊神经网络JCapsR模型提高了藏语知识图谱表示学习的效果,相关研究为其它低资源语言知识图谱表示学习的拓展优化提供了参考借鉴意义。”</abstract>
+      <url hash="0a263e2f">2021.ccl-1.18</url>
+      <language>zho</language>
+      <bibkey>sun-etal-2021-jcapsr</bibkey>
+    </paper>
+    <paper id="19">
+      <title>基于阅读理解的汉越跨语言新闻事件要素抽取方法(News Events Element Extraction of <fixed-case>C</fixed-case>hinese-<fixed-case>V</fixed-case>ietnamese Cross-language Using Reading Comprehension)</title>
+      <author><first>Enchang</first><last>Zhu</last><variant script="hani"><first>恩昌</first><last>朱</last></variant></author>
+      <author><first>Zhengtao</first><last>Yu</last><variant script="hani"><first>正涛</first><last>余</last></variant></author>
+      <author><first>Chengxiang</first><last>Gao</last><variant script="hani"><first>盛祥</first><last>高</last></variant></author>
+      <author><first>Yuxin</first><last>Huang</last><variant script="hani"><first>宇欣</first><last>黄</last></variant></author>
+      <author><first>Junjun</first><last>Guo</last><variant script="hani"><first>军军</first><last>郭</last></variant></author>
+      <pages>196–207</pages>
+      <abstract>“新闻事件要素抽取旨在抽取新闻文本中描述主题事件的事件要素,如时间、地点、人物和组织机构名等。传统的事件要素抽取方法在资源稀缺型语言上性能欠佳,且对长文本语义建模困难。对此,本文提出了基于阅读理解的汉越跨语言新闻事件要素抽取方法。该方法首先利用新闻长文本关键句检索模块过滤含噪声的句子。然后利用跨语言阅读理解模型将富资源语言知识迁移到越南语,提高越南语新闻事件要素抽取的性能。在自建的汉越双语新闻事件要素抽取数据集上的实验证明了本文方法的有效性。”</abstract>
+      <url hash="ae9447c1">2021.ccl-1.19</url>
+      <language>zho</language>
+      <bibkey>zhu-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="20">
+      <title>面向机器阅读理解的高质量藏语数据集构建(Construction of High-quality <fixed-case>T</fixed-case>ibetan Dataset for Machine Reading Comprehension)</title>
+      <author><first>Yuan</first><last>Sun</last><variant script="hani"><first>媛</first><last>孙</last></variant></author>
+      <author><first>Sisi</first><last>Liu</last><variant script="hani"><first>思思</first><last>刘</last></variant></author>
+      <author><first>Chaofan</first><last>Chen</last><variant script="hani"><first>超凡</first><last>陈</last></variant></author>
+      <author><first>Zhengcuo</first><last>Dan</last><variant script="hani"><first>正错</first><last>旦</last></variant></author>
+      <author><first>Xiaobing</first><last>Zhao</last><variant script="hani"><first>小兵</first><last>赵</last></variant></author>
+      <pages>208–218</pages>
+      <abstract>“机器阅读理解是通过算法让机器根据给定的上下文回答问题,从而测试机器理解自然语言的程度。其中,数据集的构建是机器阅读理解的主要任务。目前,相关算法模型在大多数流行的英语数据集上都取得了显著的成绩,甚至超过了人类的表现。但对于低资源语言,由于缺乏相应的数据集,机器阅读理解研究还处于起步阶段。本文以藏语为例,人工构建了藏语机器阅读理解数据集(TibetanQA),其中包含20000个问题答案对和1513篇文章。本数据集的文章均来自云藏网,涵盖了自然、文化和教育等12个领域的知识,问题形式多样且具有一定的难度。另外,该数据集在文章收集、问题构建、答案验证、回答多样性和推理能力等方面,均采用严格的流程以确保数据的质量,同时采用基于语言特征消融输入的验证方法说明了数据集的质量。最后,本文初步探索了三种经典的英语阅读理解模型在TibetanQA数据集上的表现,其结果难以媲美人类,这表明在藏语机器阅读理解任务上还需要更进一步的探索。”</abstract>
+      <url hash="bea9c04d">2021.ccl-1.20</url>
+      <language>zho</language>
+      <bibkey>sun-etal-2021-mian</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Ti-Reader: 基于注意力机制的藏文机器阅读理解端到端网络模型(Ti-Reader: An End-to-End Network Model Based on Attention Mechanisms for <fixed-case>T</fixed-case>ibetan Machine Reading Comprehension)</title>
+      <author><first>Yuan</first><last>Sun</last><variant script="hani"><first>媛</first><last>孙</last></variant></author>
+      <author><first>Chaofan</first><last>Chen</last><variant script="hani"><first>超凡</first><last>陈</last></variant></author>
+      <author><first>Sisi</first><last>Liu</last><variant script="hani"><first>思思</first><last>刘</last></variant></author>
+      <author><first>Xiaobing</first><last>Zhao</last><variant script="hani"><first>小兵</first><last>赵</last></variant></author>
+      <pages>219–228</pages>
+      <abstract>“机器阅读理解旨在教会机器去理解一篇文章并且回答与之相关的问题。为了解决低资源语言上机器阅读理解模型性能低的问题,本文提出了一种基于注意力机制的藏文机器阅读理解端到端网络模型Ti-Reader。首先,为了编码更细粒度的藏文文本信息,本文将音节和词相结合进行词表示,然后采用词级注意力机制去关注文本中的关键词,采用重读机制去捕捉文章和问题之间的语义信息,采用自注意力机制去匹配问题与答案的隐变量本身,为答案预测提供更多的线索。最后,实验结果表明,Ti-Reader模型提升了藏文机器阅读理解的性能,并且在英文数据集SQuAD上也有较好的表现。”</abstract>
+      <url hash="b3b2247f">2021.ccl-1.21</url>
+      <language>zho</language>
+      <bibkey>sun-etal-2021-ti</bibkey>
+    </paper>
+    <paper id="22">
+      <title>藏文文本校对评测集构建(Construction of <fixed-case>T</fixed-case>ibetan Text Proofreading Evaluation Set)</title>
+      <author><first>Maocuo</first><last>San</last><variant script="hani"><first>毛措</first><last>三</last></variant></author>
+      <author><first>Zhijie</first><last>Cai</last><variant script="hani"><first>智杰</first><last>才</last></variant></author>
+      <author><first>Jizaxi</first><last>Dao</last><variant script="hani"><first>吉扎西</first><last>道</last></variant></author>
+      <pages>229–237</pages>
+      <abstract>“文本校对评测集是拼写检查研究的基础,包括传统文本校对评测集和标准文本校对评测集。传统文本校对评测集是对正确的数据集通过主观经验人工伪造而得到的评测集,是一种常用的文本校对评测方式,但也存在诸多的缺陷。标准文本校对评测集是通过选择研究对象获取可信度强的真实数据集而得到的评测集。本文在分析英、汉文文本校对评测集构建方法的基础上,结合藏文的特点研究了藏文文本校对评测集的构建方法,构建了用于评价藏文文本校对性能的标准文本校对评测集,并统计分析了评测集中的错误类型及分布,以此验证本文构建的标准文本校对评测集的有效性和可用性。”</abstract>
+      <url hash="564fe8f8">2021.ccl-1.22</url>
+      <language>zho</language>
+      <bibkey>san-etal-2021-cang</bibkey>
+    </paper>
+    <paper id="23">
+      <title>结合标签转移关系的多任务笑点识别方法(Multi-task punchlines recognition method combined with label transfer relationship)</title>
+      <author><first>Tongyue</first><last>Zhang</last><variant script="hani"><first>童越</first><last>张</last></variant></author>
+      <author><first>Shaowu</first><last>Zhang</last><variant script="hani"><first>绍武</first><last>张</last></variant></author>
+      <author><first>Bo</first><last>Xu</last><variant script="hani"><first>博</first><last>徐</last></variant></author>
+      <author><first>Liang</first><last>Yang</last><variant script="hani"><first>亮</first><last>杨</last></variant></author>
+      <author><first>Hongfei</first><last>Lin</last><variant script="hani"><first>鸿飞</first><last>林</last></variant></author>
+      <pages>238–247</pages>
+      <abstract>“幽默在人类交流中扮演着重要角色,并大量存在于情景喜剧中。笑点(punchline)是情景喜剧实现幽默效果的形式之一,在情景喜剧笑点识别任务中,每条句子的标签代表该句是否为笑点,但是以往的笑点识别工作通常只通过建模上下文语义关系识别笑点,对标签的利用并不充分。为了充分利用标签序列中的信息,本文提出了一种新的识别方法,即结合条件随机场的单词级-句子级多任务学习模型,该模型在两方面进行了改进,首先将标签序列中相邻两个标签之间的转移关系看作幽默理论中不一致性的一种体现,并使用条件随机场学习这种转移关系,其次由于学习相邻标签之间的转移关系以及上下文语义关系均能够学习到铺垫和笑点之间的不一致性,两者之间存在相关性,为了使模型通过利用这种相关性提高笑点识别的效果,该模型引入了多任务学习方法,使用多任务学习方法同时学习每条句子的句义、组成每条句子的所有字符的词义,单词级别的标签转移关系以及句子级别的标签转移关系。本文在CCL2020“小牛杯”幽默计算—情景喜剧笑点识别评测任务的英文数据集上进行实验,结果表明,本文提出的方法比目前最好的方法提高了3.2%,在情景喜剧幽默笑点识别任务上取得了最好的效果,并通过消融实验证明了上述两方面改进的有效性。”</abstract>
+      <url hash="dec71fc0">2021.ccl-1.23</url>
+      <language>zho</language>
+      <bibkey>zhang-etal-2021-jie</bibkey>
+    </paper>
+    <paper id="24">
+      <title>基于时间注意力胶囊网络的维吾尔语情感分类模型(<fixed-case>U</fixed-case>yghur Sentiment Classification Model Based on Temporal Attention Capsule Networks)</title>
+      <author><first>Hantian</first><last>Luo</last><variant script="hani"><first>涵天</first><last>罗</last></variant></author>
+      <author><first>Yating</first><last>Yang</last><variant script="hani"><first>雅婷</first><last>杨</last></variant></author>
+      <author><first>Rui</first><last>Dong</last><variant script="hani"><first>瑞</first><last>董</last></variant></author>
+      <author><first>Bo</first><last>Ma</last><variant script="hani"><first>博</first><last>马</last></variant></author>
+      <pages>248–257</pages>
+      <abstract>“维吾尔语属于稀缺资源语言,如何在资源有限的情况下提升维吾尔语情感分类模型的性能,是目前待解决的问题。本文针对现有维吾尔语情感分析因为泛化能力不足所导致的分类效果不佳的问题,提出了基于时间卷积注意力胶囊网络的维吾尔语情感分类模型匨協十匭千卡印匩。本文在维吾尔语情感分类数据集中进行了实验并且从多个评价指标(准确率,精确率,召回率,F1值)进行评估,实验结果表明本文提出的模型相比传统深度学习模型可以有效提升维吾尔语情感分类的各项指标。”</abstract>
+      <url hash="6aa2c06e">2021.ccl-1.24</url>
+      <language>zho</language>
+      <bibkey>luo-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="25">
+      <title>基于<fixed-case>H</fixed-case>ow<fixed-case>N</fixed-case>et的无监督汉语动词隐喻识别方法(Unsupervised <fixed-case>C</fixed-case>hinese Verb Metaphor Recognition Method Based on <fixed-case>H</fixed-case>ow<fixed-case>N</fixed-case>et)</title>
+      <author><first>Minghao</first><last>Zhang</last><variant script="hani"><first>明昊</first><last>张</last></variant></author>
+      <author><first>Dongyu</first><last>Zhang</last><variant script="hani"><first>冬瑜</first><last>张</last></variant></author>
+      <author><first>Hongfei</first><last>Lin</last><variant script="hani"><first>鸿飞</first><last>林</last></variant></author>
+      <pages>258–268</pages>
+      <abstract>“隐喻是人类思维和语言理解的核心问题。随着互联网发展和海量文本出现,利用自然语言处理技术对隐喻文本进行自动识别成为一种迫切的需求。但是目前在汉语隐喻识别研究中,由于语义资源有限,导致模型容易过拟合。此外,主流隐喻识别方法存在可解释性差的缺点。针对上述问题,本文构建了一个规模较大的汉语动词隐喻数据集,并且提出了一种基于HowNet的无监督汉语动词隐喻识别模型。实验结果表明,本文提出的模型能够有效地应用于动词隐喻识别任务,识别效果超过了对比的无监督模型;并且,与其它用于隐喻识别的深度学习模型相比,本文模型具有结构简单、参数少、可解释性强的优点。”</abstract>
+      <url hash="0af6c2f5">2021.ccl-1.25</url>
+      <language>zho</language>
+      <bibkey>zhang-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="26">
+      <title>基于风格化嵌入的中文文本风格迁移(<fixed-case>C</fixed-case>hinese text style transfer based on stylized embedding)</title>
+      <author><first>Chenguang</first><last>Wang</last><variant script="hani"><first>晨光</first><last>王</last></variant></author>
+      <author><first>Hongfei</first><last>Lin</last><variant script="hani"><first>鸿飞</first><last>林</last></variant></author>
+      <author><first>Liang</first><last>Yang</last><variant script="hani"><first>亮</first><last>杨</last></variant></author>
+      <pages>269–279</pages>
+      <abstract>“对话风格能够反映对话者的属性,例如情感、性别和教育背景等。在对话系统中,通过理解用户的对话风格,能够更好地对用户进行建模。同样的,面对不同背景的用户,对话机器人也应该使用不同的语言风格与之交流。语言表达风格是文本的内在属性,然而现有的大多数文本风格迁移研究,集中在英文领域,在中文领域则研究较少。本文构建了三个可用于中文文本风格迁移研究的数据集,并将多种已有的文本风格迁移方法应用于该数据集。同时,本文提出了基于DeepStyle算法与Transformer的风格迁移模型,通过预训练可以获得不同风格的隐层向量表示。并基于Transformer构建生成端模型,在解码阶段,通过重建源文本的方式,保留生成文本的内容信息,并且引入对立风格的嵌入表示,使得模型能够生成不同风格的文本。实验结果表明,本文提出的模型在构建的中文数据集上均优于现有模型。”</abstract>
+      <url hash="37206bc5">2021.ccl-1.26</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-ji-yu-feng</bibkey>
+    </paper>
+    <paper id="27">
+      <title>基于双星型自注意力网络的搜索结果多样化方法(Search Result Diversification Framework Based on Dual Star-shaped Self-Attention Network)</title>
+      <author><first>Xubo</first><last>Qin</last><variant script="hani"><first>绪博</first><last>秦</last></variant></author>
+      <author><first>Zhicheng</first><last>Dou</last><variant script="hani"><first>志成</first><last>窦</last></variant></author>
+      <author><first>Yutao</first><last>Zhu</last><variant script="hani"><first>余韬</first><last>朱</last></variant></author>
+      <author><first>Jirong</first><last>Wen</last><variant script="hani"><first>继荣</first><last>文</last></variant></author>
+      <pages>280–292</pages>
+      <abstract>“相关研究指出,用户提交给搜索引擎的查询通常为短查询。由于自然语言本身的特点,短查询通常具有歧义性,同一个查询可以指代不同的事物,或同一事物的不同方面。为了让搜索结果尽可能满足用户多样化的信息需求,搜索引擎需要对返回的结果进行多样化排序,搜索结果多样化技术应运而生。目前已有的基于全局交互的多样化方法通过全连接的自注意力网络捕获全体候选文档间的交互关系,取得了较好的效果。但由于此类方法只考虑文档间的相关关系,并没有考虑到文档是否具有跟查询相关的有效信息,在训练数据有限的条件下效率相对较低。该文提出了一种基于双星型自注意力网络的搜索结果多样化方法,将全连接结构改为星型拓扑结构,并嵌入查询信息以高效率地提取文档跟查询相关的全局交互特征。相关实验结果显示,该模型相对于基于全连接自注意力网络的多样化方法,具备显著的性能优势。”</abstract>
+      <url hash="a724680d">2021.ccl-1.27</url>
+      <language>zho</language>
+      <bibkey>qin-etal-2021-ji-yu</bibkey>
+    </paper>
+    <paper id="28">
+      <title>基于迭代信息传递和滑动窗口注意力的问题生成模型研究(Question Generation Model Based on Iterative Message Passing and Sliding Windows Hierarchical Attention)</title>
+      <author><first>Qian</first><last>Chen</last><variant script="hani"><first>千</first><last>陈</last></variant></author>
+      <author><first>Xiaoying</first><last>Gao</last><variant script="hani"><first>晓影</first><last>高</last></variant></author>
+      <author><first>Suge</first><last>Wang</last><variant script="hani"><first>素格</first><last>王</last></variant></author>
+      <author><first>Xin</first><last>Guo</last><variant script="hani"><first>鑫</first><last>郭</last></variant></author>
+      <pages>293–303</pages>
+      <abstract>“知识图谱问题生成任务是从给定的知识图谱中生成与其相关的问题。目前,知识图谱问题生成模型主要使用基于RNN或Transformer对知识图谱子图进行编码,但这种方式丢失了显式的图结构化信息,在解码器中忽视了局部信息对节点的重要性。本文提出迭代信息传递图编码器来编码子图,获取子图显式的图结构化信息,此外,我们还使用滑动窗口注意力机制提高RNN解码器,提升子图局部信息对节点的重要度。从WQ和PQ数据集上的实验结果看,我们提出的模型比KTG模型在BLEU4指标上分别高出2.16和15.44,证明了该模型的有效性。”</abstract>
+      <url hash="83205000">2021.ccl-1.28</url>
+      <language>zho</language>
+      <bibkey>chen-etal-2021-ji-yu</bibkey>
+    </paper>
+    <paper id="29">
+      <title>面向中文口语理解的基于依赖引导的字特征槽填充模型(A Dependency-Guided Character-Based Slot Filling Model for <fixed-case>C</fixed-case>hinese Spoken Language Understanding)</title>
+      <author><first>Zhanbiao</first><last>Zhu</last><variant script="hani"><first>展标</first><last>朱</last></variant></author>
+      <author><first>Peijie</first><last>Huang</last><variant script="hani"><first>沛杰</first><last>黄</last></variant></author>
+      <author><first>Yexing</first><last>Zhang</last><variant script="hani"><first>业兴</first><last>张</last></variant></author>
+      <author><first>Shudong</first><last>Liu</last><variant script="hani"><first>树东</first><last>刘</last></variant></author>
+      <author><first>Hualin</first><last>Zhang</last><variant script="hani"><first>华林</first><last>张</last></variant></author>
+      <author><first>Junyao</first><last>Huang</last><variant script="hani"><first>均曜</first><last>黄</last></variant></author>
+      <pages>304–315</pages>
+      <abstract>“意图识别和槽信息填充的联合模型将口语理解技术(Spoken Language Understanding)提升到了一个新的水平,但由于存在出现频率低或未见过的槽指称项(0 shot slot mentions),模型的序列标注性能受限,而且这些联合模型往往没有利用输入序列存在的语法知识信息。已有研究表明序列标注任务可以通过引入依赖树结构,辅助推断序列标注中槽的存在。在中文口语对话理解中,由于中文话语是一串字序列组成,输入话语的字和槽信息是一一对应的,因而槽信息填充模型往往是字特征模型。基于词的依赖树结构无法直接应用于基于字特征的槽填充模型。为了解决字词之间的矛盾,本文提出了一种基于字模型的依赖引导槽填充模型(dependency guided character-based slot filling model,DCSF),提供了一种简洁的方法解决将词级依赖树结构引入中文字特征模型的冲突,同时通过对话语中词汇内部关系进行建模,保留了词级上下文信息和分词信息。在公共基准语料库当SMP-ECDT和CrossWOZ上的实验结果表明,我们的模型优于比较模型,特别是在未见过的槽指称项和低资源情况下有很大的改进。”</abstract>
+      <url hash="a63af1ae">2021.ccl-1.29</url>
+      <language>zho</language>
+      <bibkey>zhu-etal-2021-mian</bibkey>
+    </paper>
+    <paper id="30">
+      <title>利用图像描述与知识图谱增强表示的视觉问答(Exploiting Image Captions and External Knowledge as Representation Enhancement for Visual Question Answering)</title>
+      <author><first>Gechao</first><last>Wang</last><variant script="hani"><first>屹超</first><last>王</last></variant></author>
+      <author><first>Muhua</first><last>Zhu</last><variant script="hani"><first>慕华</first><last>朱</last></variant></author>
+      <author><first>Chen</first><last>Xu</last><variant script="hani"><first>晨</first><last>许</last></variant></author>
+      <author><first>Yan</first><last>Zhang</last><variant script="hani"><first>琰</first><last>张</last></variant></author>
+      <author><first>Huizhen</first><last>Wang</last><variant script="hani"><first>会珍</first><last>王</last></variant></author>
+      <author><first>Jingbo</first><last>Zhu</last><variant script="hani"><first>靖波</first><last>朱</last></variant></author>
+      <pages>316–326</pages>
+      <abstract>“视觉问答作为多模态任务,需要深度理解图像和文本问题从而推理出答案。然而在许多情况下,仅在图像和问题上进行简单推理难以得到正确的答案,事实上还有其它有效的信息可以被利用,例如图像描述、外部知识等。针对以上问题,本文提出了利用图像描述和外部知识增强表示的视觉问答模型。该模型以问题为导向,基于协同注意力机制分别在图像和其描述上进行编码,并且利用知识图谱嵌入,将外部知识编码到模型当中,丰富了模型的特征表示,增强模型的推理能力。在OKVQA数据集上的实验结果表明本文方法相比基线系统有1.71%的准确率提升,与先前工作中的主流模型相比也有1.88%的准确率提升,证明了本文方法的有效性。”</abstract>
+      <url hash="6832fafb">2021.ccl-1.30</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-li</bibkey>
+    </paper>
+    <paper id="31">
+      <title>面向对话文本的实体关系抽取(Entity Relation Extraction for Dialogue Text)</title>
+      <author><first>Liang</first><last>Liu</last><variant script="hani"><first>亮</first><last>陆</last></variant></author>
+      <author><first>Fang</first><last>Kong</last><variant script="hani"><first>芳</first><last>孔</last></variant></author>
+      <pages>327–338</pages>
+      <abstract>“实体关系抽取旨在从文本中抽取出实体之间的语义关系,是自然语言处理的一项基本任务。在新闻报道、维基百科等规范文本上该任务的研究相对丰富,已经取得了一定的效果,但面向对话文本的相关研究还处于起始阶段。相较于规范文本,用于实体关系抽取的对话语料规模较小,对话文本的有效特征难以捕获,这使得面向对话文本的实体关系抽取更具挑战。该文针对这一任务提出了一个基于Star-Transformer的实体关系抽取模型,通过融入高速网络进行信息桥接,并在此基础上融入交互信息和知识,最后使用多任务学习机制进一步提升模型的性能。在DialogRE公开数据集上实验得到F1值为55.7%,F1c值为52.3%,证明了提出方法的有效性。”</abstract>
+      <url hash="608c1649">2021.ccl-1.31</url>
+      <language>zho</language>
+      <bibkey>liu-etal-2021-mian</bibkey>
+    </paper>
+    <paper id="32">
+      <title>结合边界预测和动态模板方法的槽填充模型(Slot Filling Model with Boundary Prediction and Dynamic Template)</title>
+      <author><first>Zhanbiao</first><last>Zhu</last><variant script="hani"><first>展标</first><last>朱</last></variant></author>
+      <author><first>Peijie</first><last>Huang</last><variant script="hani"><first>沛杰</first><last>黄</last></variant></author>
+      <author><first>Yexing</first><last>Zhang</last><variant script="hani"><first>业兴</first><last>张</last></variant></author>
+      <author><first>Shudong</first><last>Liu</last><variant script="hani"><first>树东</first><last>刘</last></variant></author>
+      <author><first>Hualin</first><last>Zhang</last><variant script="hani"><first>华林</first><last>张</last></variant></author>
+      <author><first>Junyao</first><last>Huang</last><variant script="hani"><first>均曜</first><last>黄</last></variant></author>
+      <pages>339–349</pages>
+      <abstract>“意图识别和槽信息填充的联合模型将口语理解技术(Spoken language understandingSLU)提升到了一个新的水平,但是目前研究进展的模型通过话语上下文信息判断位置信息,缺少对槽信息标签之间位置信息的考虑,导致模型在槽位提取过程中容易发生边界错误,进而影响最终槽位提取表现。而且在槽信息提取任务中,槽指称项(Slot mentions)可能与正常表述话语并没有区别,特别是电影名字、歌曲名字等,模型容易受到槽指称项话语的干扰,因而无法在槽位提取中正确识别槽位边界。本文提出了一种面向口语理解的结合边界预测和动态模板的槽填充(Boundary-predictionand Dynamic-template Slot Filling BDSF)模型。该模型提供了一种联合预测边界信息的辅助任务,将位置信息引入到槽信息填充中,同时利用动态模版机制对话语句式建模,能够让模型聚焦于话语中的非槽指称项部分,避免了模型被槽指称项干扰,增强模型区分槽位边界的能力。在公共基准语料库CAIS和SMP-ECDT上的实验结果表明,我们的模型优于比较模型,特别是能够为槽标签预测模型提供准确的位置信息。”</abstract>
+      <url hash="e07278f5">2021.ccl-1.32</url>
+      <language>zho</language>
+      <bibkey>zhu-etal-2021-jie</bibkey>
+    </paper>
+    <paper id="33">
+      <title>近十年来澳门的词汇增长(Macau’s Vocabulary Growth in the Recent Ten Year)</title>
+      <author><first>Shan</first><last>Wang</last><variant script="hani"><first>珊</first><last>王</last></variant></author>
+      <author><first>Zhao</first><last>Chen</last><variant script="hani"><first>钊</first><last>陈</last></variant></author>
+      <author><first>Haodi</first><last>Zhang</last><variant script="hani"><first>昊迪</first><last>张</last></variant></author>
+      <pages>350–360</pages>
+      <abstract>“词汇增长模型可以通过拟合词种(types)与词例(tokens)之间的数量关系,反映某一领域词汇的历时演化。澳门作为多语言多文化融合之地,词汇的使用情况能够反映社会的关注焦点,但目前尚无对澳门历时词汇演变的研究。本文首次构建澳门汉语历时语料库,利用三大词汇增长模型拟合语料库的词汇变化,并选取效果最好的 Heaps 模型进一步分析词汇演变与报刊内容的关系,结果反映出澳门词汇的变化趋势与热点新闻、澳门施政方针和民生密切相关。本研究还采用去除文本时序信息后的乱序文本,验证了方法的有效性。本文是首项基于大规模历时语料库考察澳门词汇演变的研究,对深入了解澳门语言生活的发展具有重要意义。”</abstract>
+      <url hash="ac300790">2021.ccl-1.33</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-jin</bibkey>
+    </paper>
+    <paper id="34">
+      <title>基于结构树库的状位动词语义分类及搭配库构建(Semantic Classification of Adverbial Verbs Based on Structure Tree Database and Construction of Collocation Database)</title>
+      <author><first>Tian</first><last>Shao</last><variant script="hani"><first>田</first><last>邵</last></variant></author>
+      <author><first>Shiquan</first><last>Zhai</last><variant script="hani"><first>世权</first><last>翟</last></variant></author>
+      <author><first>Gaoqi</first><last>Rao</last><variant script="hani"><first>高琦</first><last>饶</last></variant></author>
+      <author><first>Endong</first><last>Xun</last><variant script="hani"><first>恩东</first><last>荀</last></variant></author>
+      <pages>361–373</pages>
+      <abstract>“一般情况下,一个小句中只有一个动词,但是也有两个动词同时在一个小句中出现的情况,比如两个动词接连出现在同一小句中,在句法上有可能构成状中、述补、动宾、连谓及并列等结构,语义上可能表示修饰、支配、并列等关系。连续使用的两个动词构成了相对复杂的结构与语义关系,尤其是在没有形式标记的情况下,如何自动识别连用动词的结构及其所表达的语义关系是句法语义分析在落地过程中面对的较为困难的问题。对此,本文将研究对象定位于直接作状语的动词,从大规模结构树库中抽取两个动词连用的情况,并对语料进行消歧,提取出作状语的动词后,进一步对其进行语义的细分类,最后构建相应的语义搭配库。不仅为语言学本体提供了分类参考,同时也为深层次的汉语句法语义分析提供了更多的知识。”</abstract>
+      <url hash="3a84ee16">2021.ccl-1.34</url>
+      <language>zho</language>
+      <bibkey>shao-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="35">
+      <title>基于序列到序列的中文<fixed-case>AMR</fixed-case>解析(<fixed-case>C</fixed-case>hinese <fixed-case>AMR</fixed-case> Parsing based on Sequence-to-Sequence Modeling)</title>
+      <author><first>Ziyi</first><last>Huang</last><variant script="hani"><first>子怡</first><last>黄</last></variant></author>
+      <author><first>Junhui</first><last>Li</last><variant script="hani"><first>军辉</first><last>李</last></variant></author>
+      <author><first>Zhengxian</first><last>Gong</last><variant script="hani"><first>正仙</first><last>贡</last></variant></author>
+      <pages>374–385</pages>
+      <abstract>“抽象语义表示(Abstract Meaning Representation,简称AMR)是将给定的文本的语义特征抽象成一个单根的有向无环图。AMR语义解析则是根据输入的文本获取对应的AMR图。相比于英文AMR,中文AMR的研究起步较晚,造成针对中文的AMR语义解析相关研究较少。本文针对公开的中文AMR语料库CAMR1.0,采用序列到序列的方法进行中文AMR语义解析的相关研究。具体地,首先基于Transformer模型实现一个适用于中文的序列到序列AMR语义解析系统;然后,探索并比较了不同预训练模型在中文AMR语义解析中的应用。基于该语料,本文中文AMR语义解析方法最优性能达到了70.29的Smatch F1值。本文是第一次在该数据集上报告实验结果。”</abstract>
+      <url hash="05969459">2021.ccl-1.35</url>
+      <language>zho</language>
+      <bibkey>huang-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="36">
+      <title>基于词信息嵌入的汉语构词结构识别研究(<fixed-case>C</fixed-case>hinese Word-Formation Prediction based on Representations of Word-Related Features)</title>
+      <author><first>Hua</first><last>Zheng</last><variant script="hani"><first>婳</first><last>郑</last></variant></author>
+      <author><first>Yaqi</first><last>Yan</last><variant script="hani"><first>雅琦</first><last>殷</last></variant></author>
+      <author><first>Yue</first><last>Wang</last><variant script="hani"><first>悦</first><last>王</last></variant></author>
+      <author><first>Damai</first><last>Dai</last><variant script="hani"><first>达劢</first><last>代</last></variant></author>
+      <author id="yang-liu-icsi"><first>Yang</first><last>Liu</last><variant script="hani"><first>扬</first><last>刘</last></variant></author>
+      <pages>386–397</pages>
+      <abstract>“作为一种意合型语言,汉语中的构词结构刻画了构词成分之间的组合关系,是认知、理解词义的关键。在中文信息处理领域,此前的构词结构识别工作大多沿用句法层面的粗粒度标签,且主要基于上下文等词间信息建模,忽略了语素义、词义等词内信息对构词结构识别的作用。本文采用语言学视域下的构词结构标签体系,构建汉语构词结构及相关信息数据集,提出了一种基于Bi-LSTM和Self-attention的模型,以此来探究词内、词间等多方面信息对构词结构识别的潜在影响和能达到的性能。实验取得了良好的预测效果,准确率77.87%,F1值78.36%;同时,对比测试揭示,词内的语素义信息对构词结构识别具有显著的贡献,而词间的上下文信息贡献较弱且带有较强的不稳定性。该预测方法与数据集,将为中文信息处理的多种任务,如语素和词结构分析、词义识别与生成、语言文字研究与词典编纂等提供新的观点和方案。”</abstract>
+      <url hash="9c3498ce">2021.ccl-1.36</url>
+      <language>zho</language>
+      <bibkey>zheng-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="37">
+      <title>汉语语体特征的计量与分类研究(A study on the measurement and classification of <fixed-case>C</fixed-case>hinese stylistic features)</title>
+      <author><first>Qinqing</first><last>Tai</last><variant script="hani"><first>沁清</first><last>邰</last></variant></author>
+      <author><first>Gaoqi</first><last>Rao</last><variant script="hani"><first>高琦</first><last>饶</last></variant></author>
+      <pages>398–412</pages>
+      <abstract>“本文运用语料库和统计方法对汉语语体进行特征的计量研究,并进一步实现自动分类任务。首先通过单因素方差分析描述语体特征区别不同语体的作用和功能。其次,选取其中具有区分度的语言要素拟合逻辑回归模型,量化语体表达形式并观察特征对语体构成的重要性,并通过聚类计算得到了语体的范畴分类体系。最后,以具有代表性的机器学习模型为分类器,挖掘不同组合特征的结构对于语体自动分类的影响。得出在“词2n+词类2n+标点符号2n+语言特征”的组合特征上,取得了最好的分类结果,随机森林模型达到97.25%的准确率。”</abstract>
+      <url hash="ce8a31a5">2021.ccl-1.37</url>
+      <language>zho</language>
+      <bibkey>tai-etal-2021-yi</bibkey>
+    </paper>
+    <paper id="38">
+      <title>多模态表述视域下的小学数学课堂语言计量初探(A preliminary study of language measurement in elementary school mathematics classrooms from the perspective of multimodal representation)</title>
+      <author><first>Zezhi</first><last>Zheng</last><variant script="hani"><first>泽芝</first><last>郑</last></variant></author>
+      <author><first>Qian</first><last>Zhao</last><variant script="hani"><first>骞</first><last>赵</last></variant></author>
+      <pages>413–421</pages>
+      <abstract>“本文重点探讨小学数学课堂多模态话语的分析和计量。本文以一堂数学优质课为语料,探讨多模态语料库的加工标注,提出两种多模态语言计量方法:多模态值和多模态表征离散程度,并对量化的多模态语言抽样数据结果进行分析。研究发现:教师能够借助多模态语言更好的传递抽象知识,计量结果能够反映模态之间的协同表述关系,以及课堂教学的多模态语言演绎是否恰当。”</abstract>
+      <url hash="d913b5e9">2021.ccl-1.38</url>
+      <language>zho</language>
+      <bibkey>zheng-etal-2021-duo</bibkey>
+    </paper>
+    <paper id="39">
+      <title>替换类动词的句法语义分析(Syntactic and Semantic Analysis of verbs of Exchange)</title>
+      <author><first>Shan</first><last>Wang</last><variant script="hani"><first>珊</first><last>王</last></variant></author>
+      <author><first>Le</first><last>Wu</last><variant script="hani"><first>乐</first><last>吴</last></variant></author>
+      <pages>422–434</pages>
+      <abstract>“句法和语义分析作为近年来自然语言处理的热点,对大量真实语料进行依存语法分析为探究语言的深层知识提供了可能。本文利用自主开发的句法语义标注工具,对替换类的四个动词“替换”“调换”“代替”和“取代”所在的例句进行句法和语义层面的标注和统计,根据结果将它们的句法表现概括成不同的句法模式,并分析它们的句法组合特点以及这种特点下的语义选择限制。本研究发现,替换类动词除了各自特有的句法结构外,会共同出现在“ADV+替换类动词+VOB”和“替换类动词+RAD”句法结构中;不同之处在于“取代”在“FOB+取代”句法结构中占有一定的比例,而“调换”和“替换”还经常出现在“替换类动词+CMP”和“COO”这样的句法结构中。在高频句法结构的基础上,本文对它们的语义依存进行了分析,发现它们共同的语义依存都有施事、当事、受事和客事这四种,而它们的不同之处在于“取代”的语义依存多为“当事”;“替换”的语义主体多为能动性较强的“施事”;而“代替”和“调换”的则有各自不同的语义依存和语义搭配结构。”</abstract>
+      <url hash="6db93c77">2021.ccl-1.39</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-ti</bibkey>
+    </paper>
+    <paper id="40">
+      <title>基于自动识别的委婉语历时性发展变化与社会共变研究(A Study on the Diachronic Development and Social Covariance of Euphemism Based on Automatic Recognition)</title>
+      <author><first>Chenlin</first><last>Zhang</last><variant script="hani"><first>辰麟</first><last>张</last></variant></author>
+      <author><first>Mingwen</first><last>Wang</last><variant script="hani"><first>明文</first><last>王</last></variant></author>
+      <author><first>Yiming</first><last>Tan</last><variant script="hani"><first>亦鸣</first><last>谭</last></variant></author>
+      <author><first>Ming</first><last>Yin</last><variant script="hani"><first>明</first><last>尹</last></variant></author>
+      <author><first>Xinyi</first><last>Zhang</last><variant script="hani"><first>心怡</first><last>张</last></variant></author>
+      <pages>435–445</pages>
+      <abstract>“本文主要以汉语委婉语作为研究对象,基于大量人工标注,借助机器学习有监督分类方法,实现了较高精度的委婉语自动识别,并基于此对1946年-2017年的《人民日报》中的委婉语历时变化发展情况进行量化统计分析。从大规模数据的角度探讨委婉语历时性发展变化、委婉语与社会之间的共变关系,验证了语言的格雷什姆规律与更新规律。”</abstract>
+      <url hash="1d8ebf8a">2021.ccl-1.40</url>
+      <language>zho</language>
+      <bibkey>zhang-etal-2021-ji-yu</bibkey>
+    </paper>
+    <paper id="41">
+      <title>基于篇章结构攻击的阅读理解任务探究(Analysis of Reading Comprehension Tasks based on passage structure attacks)</title>
+      <author><first>Shukai</first><last>Ma</last><variant script="hani"><first>树楷</first><last>马</last></variant></author>
+      <author><first>Jiajie</first><last>Zou</last><variant script="hani"><first>家杰</first><last>邹</last></variant></author>
+      <author><first>Nai</first><last>Ding</last><variant script="hani"><first>鼐</first><last>丁</last></variant></author>
+      <pages>446–453</pages>
+      <abstract>“本文实验发现,段落顺序会影响人类阅读理解效果;而打乱段落或句子顺序,对BERT、ALBERT和RoBERTa三种人工神经网络模型的阅读理解答题几乎没有影响。打乱词序后,人的阅读理解水平低于三个模型,但人和模型的答题情况高于随机水平,这说明人比人工神经网络对词序更敏感,但人与模型可以在单词乱序的情况下答题。综上,人与人工神经网络在正常阅读的情况下回答阅读理解问题的正确率相当,但两者对篇章结构及语序的依赖程度不同。”</abstract>
+      <url hash="2206f0ce">2021.ccl-1.41</url>
+      <language>zho</language>
+      <bibkey>ma-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="42">
+      <title>中美学者学术英语写作中词汇难度特征比较研究——以计算语言学领域论文为例(A Comparative Study of the Features of Lexical Sophistication in Academic <fixed-case>E</fixed-case>nglish Writing by <fixed-case>C</fixed-case>hinese and <fixed-case>A</fixed-case>merican)</title>
+      <author><first>Yonghui</first><last>Xie</last><variant script="hani"><first>永慧</first><last>谢</last></variant></author>
+      <author id="yang-liu-ict"><first>Yang</first><last>Liu</last><variant script="hani"><first>洋</first><last>刘</last></variant></author>
+      <author><first>Erhong</first><last>Yang</last><variant script="hani"><first>尔弘</first><last>杨</last></variant></author>
+      <author><first>Liner</first><last>Yang</last><variant script="hani"><first>麟儿</first><last>杨</last></variant></author>
+      <pages>454–466</pages>
+      <abstract>“学术英语写作在国际学术交流中的作用日益凸显,然而对于英语非母语者,学术英语写作是困难的,为此本文对计算语言领域中美学者学术英语写作中词汇难度特征做比较研究。自构建1132篇中美论文全文语料库,统计语料中484个词汇难度特征值。经过特征筛选与因子分析的降维处理得到表现较好的五个维度。最后计算中美学者论文的维度分从而比较差异,发现美国学者的论文相较中国学者的论文中词汇单位更具常用性、二元词串更具稳固性、三元词串更具稳固性、虚词更具复杂性、词类更具关联性。主要原因在于统计特征值时借助的外部资源库与美国学者的论文更贴近,且中国学者没有完全掌握该领域学术写作的习惯。因此,中国学者可充分利用英语本族语者构建的资源库,从而产出更为地道与流利的学术英语论文。”</abstract>
+      <url hash="6fe7e5a4">2021.ccl-1.42</url>
+      <language>zho</language>
+      <bibkey>xie-etal-2021-zhong</bibkey>
+    </paper>
+    <paper id="43">
+      <title>基于词汇链强化表征的篇章修辞结构分析研究(Lexical Chain Based Strengthened Representation for Discourse Rhetorical Structure Parsing)</title>
+      <author><first>Jinfeng</first><last>Wang</last><variant script="hani"><first>金锋</first><last>王</last></variant></author>
+      <author><first>Fang</first><last>Kong</last><variant script="hani"><first>芳</first><last>孔</last></variant></author>
+      <pages>467–476</pages>
+      <abstract>“篇章分析作为自然语言处理领域的基础问题一直广受关注。由于语料规模有限,绝大多数已有研究仍依赖于外部特征的加入。针对该问题,本文提出了提出一种通用的表征增强方法,借助图卷积神经网络将词汇链信息融入到基本篇章单元的表征中。在RST-DT和CDTB上的实验证明,本文提出的表征增强方法能够提升多种篇章解析器的性能。”</abstract>
+      <url hash="8694ca20">2021.ccl-1.43</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-ji-yu-ci</bibkey>
+    </paper>
+    <paper id="44">
+      <title>不同类型噪声环境下言语理解的脑机制研究(Brain Mechanism of Speech Comprehension in Different Noise Conditions)</title>
+      <author><first>Libo</first><last>Geng</last><variant script="hani"><first>立波</first><last>耿</last></variant></author>
+      <author><first>Zixuan</first><last>Xue</last><variant script="hani"><first>紫炫</first><last>薛</last></variant></author>
+      <author><first>Yiming</first><last>Yang</last><variant script="hani"><first>亦鸣</first><last>杨</last></variant></author>
+      <pages>477–489</pages>
+      <abstract>“文章使用ERP技术,对比分析了安静、白噪声、汉语噪声、英语噪声四种听觉条件下,听力正常的汉语母语者加工汉语句子的情况,以探究信息掩蔽条件下语义加工的神经机制。研究发现不同噪声条件下诱发的N100、N400、LPC等ERPs成分具有不同的波形表现,据此本文得出以下结论:首先,在语音掩蔽条件下,对于难度较大的语义加工,目标语音与掩蔽噪声在知觉层面的相似性并非主要影响因素,而掩蔽噪声语义内容上的可懂度发挥着更关键的作用。其次,当言语噪声为听者极其熟悉或完全陌生的语言,其对语义加工的掩蔽干扰较小,而当掩蔽噪声为听者接触过的语言但不是母语或主要语言,其掩蔽效应可能更强。最后,不熟悉的言语噪声中所包含的出现频率较小但能够被听者理解的语义内容,与听者的预期相冲突,引发听者的注意转移,这些语义信息被传输至听觉中枢神经,占用了原本用于目标刺激的认知资源,从而增强了信息掩蔽的效果。”</abstract>
+      <url hash="eda27b60">2021.ccl-1.44</url>
+      <language>zho</language>
+      <bibkey>geng-etal-2021-bu</bibkey>
+    </paper>
+    <paper id="45">
+      <title>回避类动词的句法语义(The Syntax and Semantics of Verbs of Avoiding)</title>
+      <author><first>Shan</first><last>Wang</last><variant script="hani"><first>珊</first><last>王</last></variant></author>
+      <author><first>Xiaojun</first><last>Liu</last><variant script="hani"><first>晓骏</first><last>刘</last></variant></author>
+      <pages>490–500</pages>
+      <abstract>“回避行为是人类重要的认知经验,己有对回避类动词的研究多为分析回避类动词的隐性否定语义和语篇博弈效果,但对该类动词的深层句法和语义分析不多。本文选取五个双音节回避类动词为研究对象,利用依存语法的相关理论,基于大规模语料分析回避类动词的句法和语义特征,从而深化对该类动词的研究。本研究的结果也可以进一步完善现有的汉语词典。本研究对汉语研究、汉语教学、词典编纂等具有重要的参考价值。”</abstract>
+      <url hash="f862f9a9">2021.ccl-1.45</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-hui</bibkey>
+    </paper>
+    <paper id="46">
+      <title>欺骗类动词的句法语义研究(On the Syntax and Semantics of Verbs of Cheating)</title>
+      <author><first>Shan</first><last>Wang</last><variant script="hani"><first>珊</first><last>王</last></variant></author>
+      <author><first>Jie</first><last>Zhou</last><variant script="hani"><first>洁</first><last>周</last></variant></author>
+      <pages>501–512</pages>
+      <abstract>“欺骗是一种常见的社会现象,但对欺骗类动词的研究十分有限。本文筛选“欺骗”类动词的单句并对其进行大规模的句法依存和语义依存分析。研究显示,“欺骗”类动词在句中作为从属词时,可作为不同的句法成分和语义角色,同时此类动词在句法功能上表现出高度的相似性。作为支配词的“欺骗”类动词,承担不同句法功能时,表现出不同的句法共现模式。语义上,本文详细描述、解释了该类动词在语义密度、主客体角色、情境角色和事件关系等维度的语义依存特点。“欺骗”类动词的句法语义虽具有多样性,但主要的句型为主谓宾句式,而该句式中最常用的语义搭配模式是施事对涉事进行欺骗行为,并对涉事产生影响。本研究结合依存语法和框架语义学,融合定量统计和定性分析探究欺骗类动词的句法语义,深化了对欺骗行为言语线索以及言说动词的研究。”</abstract>
+      <url hash="93dfdde2">2021.ccl-1.46</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-qi</bibkey>
+    </paper>
+    <paper id="47">
+      <title>基于结构检索的汉语介动搭配知识库构建(Construction of Preposition-verb Knowledge Base Based on Structure Retrieval)</title>
+      <author><first>Chengwen</first><last>Wang</last><variant script="hani"><first>诚文</first><last>王</last></variant></author>
+      <author><first>Gaoqi</first><last>Rao</last><variant script="hani"><first>高琦</first><last>饶</last></variant></author>
+      <author><first>Endong</first><last>Xun</last><variant script="hani"><first>恩东</first><last>荀</last></variant></author>
+      <pages>513–524</pages>
+      <abstract>“以往的介词知识库构建重视介词语义和介宾的搭配研究,鲜有对介动搭配进行系统研究及知识获取的工作。而汉语介词发达及动词是句子中心的特征决定了介动搭配研究的重要性。本研究基于结构检索技术,充分借助短语结构属性和结构信息,从大规模语料中抽取介动搭配16033对。并提出了介动搭配紧密度的度量方法,初步分析证明其远优于依靠绝对频次进行搭配度量的方法。”</abstract>
+      <url hash="70aa56a9">2021.ccl-1.47</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-ji-yu-jie</bibkey>
+    </paper>
+    <paper id="48">
+      <title>数据标注方法比较研究:以依存句法树标注为例(Comparison Study on Data Annotation Approaches: Dependency Tree Annotation as Case Study)</title>
+      <author><first>Mingyue</first><last>Zhou</last><variant script="hani"><first>明月</first><last>周</last></variant></author>
+      <author><first>Chen</first><last>Gong</last><variant script="hani"><first>晨</first><last>龚</last></variant></author>
+      <author><first>Zhenghua</first><last>Li</last><variant script="hani"><first>正华</first><last>李</last></variant></author>
+      <author><first>Min</first><last>Zhang</last><variant script="hani"><first>民</first><last>张</last></variant></author>
+      <pages>525–536</pages>
+      <abstract>“数据标注最重要的考虑因素是数据的质量和标注代价。我们调研发现自然语言处理领域的数据标注工作通常采用机标人校的标注方法以降低代价;同时,很少有工作严格对比不同标注方法,以探讨标注方法对标注质量和代价的影响。该文借助一个成熟的标注团队,以依存句法数据标注为案例,实验对比了机标人校、双人独立标注、及本文通过融合前两种方法所新提出的人机独立标注方法,得到了一些初步的结论。”</abstract>
+      <url hash="34e72051">2021.ccl-1.48</url>
+      <language>zho</language>
+      <bibkey>zhou-etal-2021-shu</bibkey>
+    </paper>
+    <paper id="49">
+      <title>字里行间的道德:中文文本道德句识别研究(Morality Between the Lines: Research on Identification of <fixed-case>C</fixed-case>hinese Moral Sentence)</title>
+      <author><first>Shiya</first><last>Peng</last><variant script="hani"><first>诗雅</first><last>彭</last></variant></author>
+      <author><first>Chang</first><last>Liu</last><variant script="hani"><first>畅</first><last>刘</last></variant></author>
+      <author><first>Yayue</first><last>Deng</last><variant script="hani"><first>雅月</first><last>邓</last></variant></author>
+      <author><first>Dong</first><last>Yu</last><variant script="hani"><first>东</first><last>于</last></variant></author>
+      <pages>537–548</pages>
+      <abstract>“随着人工智能的发展,越来越多的研究开始关注人工智能伦理。在NLP领域,道德自动识别作为研究分析文本中的道德的一项重要任务,近年来开始受到研究者的关注。该任务旨在识别文本中的道德片段,其对自然语言处理的道德相关的下游任务如偏见识别消除、判定模型隐形歧视等具有重要意义。与英文相比,目前面向中文的道德识别研究开展缓慢,其主要原因是至今还没有较大型的道德中文数据集为研究提供数据。为解决上述问题,本文在中文语料上进行了中文道德句的标注工作,并初步对识别中文文本道德句进行探索。我们首先构建了国内首个10万级别的中文道德句数据集,然后本文提出了利用流行的几种机器学习方法探究识别中文道德句任务的效果。此外,我们还探索了利用额外知识辅助的方法,对中文道德句的识别任务进行了进一步的探究。”</abstract>
+      <url hash="45e630bf">2021.ccl-1.49</url>
+      <language>zho</language>
+      <bibkey>peng-etal-2021-zi</bibkey>
+    </paper>
+    <paper id="50">
+      <title>古汉语词义标注语料库的构建及应用研究(The Construction and Application of <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese Corpus with Word Sense Annotation)</title>
+      <author><first>Lei</first><last>Shu</last><variant script="hani"><first>蕾</first><last>舒</last></variant></author>
+      <author><first>Yiluan</first><last>Guo</last><variant script="hani"><first>懿鸾</first><last>郭</last></variant></author>
+      <author><first>Huiping</first><last>Wang</last><variant script="hani"><first>慧萍</first><last>王</last></variant></author>
+      <author><first>Xuetao</first><last>Zhang</last><variant script="hani"><first>学涛</first><last>张</last></variant></author>
+      <author><first>Renfen</first><last>Hu</last><variant script="hani"><first>韧奋</first><last>胡</last></variant></author>
+      <pages>549–563</pages>
+      <abstract>“古汉语以单音节词为主,其一词多义现象十分突出,这为现代人理解古文含义带来了一定的挑战。为了更好地实现古汉语词义的分析和判别,本研究基于传统辞书和语料库反映的语言事实,设计了针对古汉语多义词的词义划分原则,并对常用古汉语单音节词进行词义级别的知识整理,据此对包含多义词的语料开展词义标注。现有的语料库包含3.87万条标注数据,规模超过117.6万字,丰富了古代汉语领域的语言资源。实验显示,基于该语料库和BERT语言模型,词义判别算法准确率达到80%左右。进一步地,本文以词义历时演变分析和义族归纳为案例,初步探索了语料库与词义消歧技术在语言本体研究和词典编撰等领域的应用。”</abstract>
+      <url hash="18360e79">2021.ccl-1.50</url>
+      <language>zho</language>
+      <bibkey>shu-etal-2021-gu</bibkey>
+    </paper>
+    <paper id="51">
+      <title>中文句子级性别无偏数据集构建及预训练语言模型的性别偏度评估(Construction of <fixed-case>C</fixed-case>hinese Sentence-Level Gender-Unbiased Data Set and Evaluation of Gender Bias in Pre-Training Language)</title>
+      <author><first>Jishun</first><last>Zhao</last><variant script="hani"><first>继舜</first><last>赵</last></variant></author>
+      <author><first>Bingjie</first><last>Du</last><variant script="hani"><first>冰洁</first><last>杜</last></variant></author>
+      <author><first>Shucheng</first><last>Zhu</last><variant script="hani"><first>述承</first><last>朱</last></variant></author>
+      <author><first>Pengyuan</first><last>Liu</last><variant script="hani"><first>鹏远</first><last>刘</last></variant></author>
+      <pages>564–575</pages>
+      <abstract>“自然语言处理领域各项任务中,模型广泛存在性别偏见。然而当前尚无中文性别偏见评估和消偏的相关数据集,因此无法对中文自然语言处理模型中的性别偏见进行评估。首先本文根据16对性别称谓词,从一个平面媒体语料库中筛选出性别无偏的句子,构建了一个含有20000条语句的中文句子级性别无偏数据集SlguSet。随后,本文提出了一个可衡量预训练语言模型性别偏见程度的指标,并对5种流行的预训练语言模型中的性别偏见进行评估。结果表明,中文预训练语言模型中存在不同程度的性别偏见,该文所构建数据集能够很好的对中文预训练语言模型中的性别偏见进行评估。同时,该数据集还可作为评估预训练语言模型消偏方法的数据集。”</abstract>
+      <url hash="4b24e0f3">2021.ccl-1.51</url>
+      <language>zho</language>
+      <bibkey>zhao-etal-2021-zhong</bibkey>
+    </paper>
+    <paper id="52">
+      <title>基于多任务标签一致性机制的中文命名实体识别(<fixed-case>C</fixed-case>hinese Named Entity Recognition based on Multi-task Label Consistency Mechanism)</title>
+      <author><first>Shuning</first><last>Lv</last><variant script="hani"><first>书宁</first><last>吕</last></variant></author>
+      <author><first>Jian</first><last>Liu</last><variant script="hani"><first>健</first><last>刘</last></variant></author>
+      <author><first>Jinan</first><last>Xu</last><variant script="hani"><first>金安</first><last>徐</last></variant></author>
+      <author><first>Yufeng</first><last>Chen</last><variant script="hani"><first>钰枫</first><last>陈</last></variant></author>
+      <author><first>Yujie</first><last>Zhang</last><variant script="hani"><first>玉洁</first><last>张</last></variant></author>
+      <pages>576–588</pages>
+      <abstract>“实体边界预测对中文命名实体识别至关重要。现有研究为改善边界识别效果提出的多任务学习方法仅考虑与分词任务结合,缺少多任务标签训练数据,无法学到任务的标签一致性关系。本文提出一种新的基于多任务标签一致性机制的中文命名实体识别方法:将分词和词性信息融入命名实体识别模型,使三种任务联合训练;建立基于标签一致性机制的多任务学习模式,来捕获标签一致性关系及学习多任务表示。全样本和小样本实验表明了方法的有效性。”</abstract>
+      <url hash="2dadc0f0">2021.ccl-1.52</url>
+      <language>zho</language>
+      <bibkey>lv-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="53">
+      <title>面向法律文本的实体关系联合抽取算法(Joint Entity and Relation Extraction for Legal Texts)</title>
+      <author><first>Wenhui</first><last>Song</last><variant script="hani"><first>文辉</first><last>宋</last></variant></author>
+      <author><first>Xiang</first><last>Zhou</last><variant script="hani"><first>翔</first><last>周</last></variant></author>
+      <author><first>Ping</first><last>Yang</last><variant script="hani"><first>萍</first><last>杨</last></variant></author>
+      <author><first>Yuanyuan</first><last>Sun</last><variant script="hani"><first>媛媛</first><last>孙</last></variant></author>
+      <author><first>Liang</first><last>Yang</last><variant script="hani"><first>亮</first><last>杨</last></variant></author>
+      <author><first>Hongfei</first><last>Lin</last><variant script="hani"><first>鸿飞</first><last>林</last></variant></author>
+      <pages>589–599</pages>
+      <abstract>“法律文本中包含的丰富信息可以通过结构化的实体关系三元组进行表示,便于法律知识的存储和查询。传统的流水线方法在自动抽取三元组时执行了大量冗余计算,造成了误差传播。而现有的联合学习方法无法适用于有大量重叠关系的法律文本,也并未关注语法结构信息对文本表示的增强,因此本文提出一种面向法律文本的实体关系联合抽取模型。该模型首先通过ON-LSTM注入语法信息,然后引入多头注意力机制分解重叠关系。相较于流水线和其他联合学习方法本文模型抽取效果最佳,在涉毒类法律文本数据集上抽取结果的F1值达到78.7%。”</abstract>
+      <url hash="6f45e182">2021.ccl-1.53</url>
+      <language>zho</language>
+      <bibkey>song-etal-2021-mian</bibkey>
+    </paper>
+    <paper id="54">
+      <title>融入篇章信息的文学作品命名实体识别(Document-level Literary Named Entity Recognition)</title>
+      <author><first>Yuxiang</first><last>Jia</last><variant script="hani"><first>玉祥</first><last>贾</last></variant></author>
+      <author><first>Rui</first><last>Chao</last><variant script="hani"><first>睿</first><last>晁</last></variant></author>
+      <author><first>Hongying</first><last>Zan</last><variant script="hani"><first>红英</first><last>昝</last></variant></author>
+      <author><first>Huayi</first><last>Dou</last><variant script="hani"><first>华溢</first><last>窦</last></variant></author>
+      <author><first>Shuai</first><last>Cao</last><variant script="hani"><first>帅</first><last>曹</last></variant></author>
+      <author><first>Shuo</first><last>Xu</last><variant script="hani"><first>硕</first><last>徐</last></variant></author>
+      <pages>600–611</pages>
+      <abstract>“命名实体识别是文学作品智能分析的基础性工作,当前文学领域命名实体识别的研究还较薄弱,一个主要的原因是缺乏标注语料。本文从金庸小说入手,对两部小说180余万字进行了命名实体的标注,共标注4类实体5万多个。针对小说文本的特点,本文提出融入篇章信息的命名实体识别模型,引入篇章字典保存汉字的历史状态,利用可信度计算融合BiGRU-CRF与Transformer模型。实验结果表明,利用篇章信息有效地提升了命名实体识别的效果。最后,我们还探讨了命名实体识别在小说社会网络构建中的应用。”</abstract>
+      <url hash="804a1173">2021.ccl-1.54</url>
+      <language>zho</language>
+      <bibkey>jia-etal-2021-rong</bibkey>
+    </paper>
+    <paper id="55">
+      <title>基于人物特征增强的拟人句要素抽取方法研究(Research on Element Extraction of Personified Sentences Based on Enhanced Characters)</title>
+      <author><first>Jing</first><last>Li</last><variant script="hani"><first>婧</first><last>李</last></variant></author>
+      <author><first>Suge</first><last>Wang</last><variant script="hani"><first>素格</first><last>王</last></variant></author>
+      <author><first>Xin</first><last>Chen</last><variant script="hani"><first>鑫</first><last>陈</last></variant></author>
+      <author><first>Dian</first><last>Wang</last><variant script="hani"><first>典</first><last>王</last></variant></author>
+      <pages>612–621</pages>
+      <abstract>“在散文阅读理解的鉴赏类问题中,对拟人句赏析考查比较频繁。目前,已有的工作仅对拟人句中的本体要素进行识别并抽取,存在要素抽取不完整的问题,尤其是当句子中出现多个本体时,需要确定拟人词与各个本体的对应关系。为解决这些问题,本文提出了基于人物特征增强的拟人句要素抽取方法。该方法利用特定领域的特征,增强句子的向量表示,再利用条件随机场模型对拟人句中的本体和拟人词要素进行识别。在此基础上,利用自注意力机制对要素之间的关系进行检测,使用要素同步机制和关系同步机制进行信息交互,用于要素识别和关系检测的输入更新。在自建的拟人数据集上进行&lt;本体,拟人词&gt;抽取的比较实验,结果表明本文提出的模型性能优于其他比较模型。”</abstract>
+      <url hash="4be00053">2021.ccl-1.55</url>
+      <language>zho</language>
+      <bibkey>li-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="56">
+      <title>糖尿病电子病历实体及关系标注语料库构建(Construction of Corpus for Entity and Relation Annotation of Diabetes Electronic Medical Records)</title>
+      <author><first>Yajuan</first><last>Ye</last><variant script="hani"><first>娅娟</first><last>叶</last></variant></author>
+      <author><first>Bin</first><last>Hu</last><variant script="hani"><first>斌</first><last>胡</last></variant></author>
+      <author><first>Kunli</first><last>Zhang</last><variant script="hani"><first>坤丽</first><last>张</last></variant></author>
+      <author><first>Hongying</first><last>Zan</last><variant script="hani"><first>红英</first><last>昝</last></variant></author>
+      <pages>622–632</pages>
+      <abstract>“电子病历是医疗信息的重要来源,包含大量与医疗相关的领域知识。本文从糖尿病电子病历文本入手,在调研了国内外已有的电子病历语料库的基础上,参考坉圲坂圲实体及关系分类,建立了糖尿病电子病历实体及实体关系分类体系,并制定了标注规范。利用实体及关系标注平台,进行了实体及关系预标注及多轮人工校对工作,形成了糖尿病电子病历实体及关系标注语料库(Diabetes Electronic Medical Record entity and Related Corpus DEMRC)。所构建的DEMRC包含8899个实体、456个实体修饰及16564个关系。对DEMRC进行一致性评价和分析,标注结果达到了较高的一致性。针对实体识别和实体关系抽取任务,分别采用基于迁移学习的Bi-LSTM-CRF模型和RoBERTa模型进行初步实验,并对语料库中的各类实体及关系进行评估,为后续糖尿病电子病历实体识别及关系抽取研究以及糖尿病知识图谱构建打下基础。”</abstract>
+      <url hash="e918ada6">2021.ccl-1.56</url>
+      <language>zho</language>
+      <bibkey>ye-etal-2021-tang</bibkey>
+    </paper>
+    <paper id="57">
+      <title>脑卒中疾病电子病历实体及实体关系标注语料库构建(Corpus Construction for Named-Entity and Entity Relations for Electronic Medical Records of Stroke Disease)</title>
+      <author><first>Hongyang</first><last>Chang</last><variant script="hani"><first>洪阳</first><last>常</last></variant></author>
+      <author><first>Hongying</first><last>Zan</last><variant script="hani"><first>红英</first><last>昝</last></variant></author>
+      <author><first>Yutuan</first><last>Ma</last><variant script="hani"><first>玉团</first><last>马</last></variant></author>
+      <author><first>Kunli</first><last>Zhang</last><variant script="hani"><first>坤丽</first><last>张</last></variant></author>
+      <pages>633–642</pages>
+      <abstract>“本文探讨了在脑卒中疾病中文电子病历文本中实体及实体间关系的标注问题,提出了适用于脑卒中疾病电子病历文本的实体及实体关系标注体系和规范。在标注体系和规范的指导下,进行了多轮的人工标注及校正工作,完成了158万余字的脑卒中电子病历文本实体及实体关系的标注工作。构建了脑卒中电子病历实体及实体关系标注语料库(Stroke Electronic Medical Record entity and entity related Corpus SEMRC)。所构建的语料库共包含命名实体10594个,实体关系14457个。实体名标注一致率达到85.16%,实体关系标注一致率达到94.16%。”</abstract>
+      <url hash="f69fd9ef">2021.ccl-1.57</url>
+      <language>zho</language>
+      <bibkey>chang-etal-2021-nao</bibkey>
+    </paper>
+    <paper id="58">
+      <title>中文关系抽取的句级语言学特征探究(A Probe into the Sentence-level Linguistic Features of <fixed-case>C</fixed-case>hinese Relation Extraction)</title>
+      <author><first>Baixi</first><last>Xing</last><variant script="hani"><first>百西</first><last>邢</last></variant></author>
+      <author><first>Jishun</first><last>Zhao</last><variant script="hani"><first>继舜</first><last>赵</last></variant></author>
+      <author><first>Pengyuan</first><last>Liu</last><variant script="hani"><first>鹏远</first><last>刘</last></variant></author>
+      <pages>643–654</pages>
+      <abstract>“神经网络模型近些年在关系抽取任务上已经展示出了很好的效果,然而我们对于特征提取的过程所知甚少,而这也进一步限制了深度神经网络模型在关系抽取任务上的进一步发展。当前已有研究工作对英文关系抽取的语言学特征进行探究,并且得到了一些规律。然而由于中文与西方语言之间明显的差异性,其所探究到的规律与解释性不适用于中文关系抽取。本文首次对中文关系抽取神经网络进行探究,采用了四个角度共13种探究任务,其中包含中文特有的分词探究任务。在两个关系抽取数据集上进行了实验,探究了中文关系抽取模型进行特征提取的规律。”</abstract>
+      <url hash="ab6f80d9">2021.ccl-1.58</url>
+      <language>zho</language>
+      <bibkey>xing-etal-2021-zhong</bibkey>
+    </paper>
+    <paper id="59">
+      <title>基于数据选择和局部伪标注的跨语义依存分析研究(Selection and Pseudo Partial Annotationy)</title>
+      <author><first>Dazhan</first><last>Mao</last><variant script="hani"><first>达展</first><last>毛</last></variant></author>
+      <author><first>Kuai</first><last>Yu</last><variant script="hani"><first>快</first><last>喻</last></variant></author>
+      <author><first>Yanqiu</first><last>Shao</last><variant script="hani"><first>艳秋</first><last>邵</last></variant></author>
+      <pages>655–666</pages>
+      <abstract>“语义依存分析要走向实用,模型从单领域迁移到其他领域的领域适应能力至关重要。近年来,对抗学习针对领域适应这个任务取得了较好的效果,但对目标领域的无标注数据利用效率并不高。本文采用Self-training这种半监督学习方法,充分发挥无标注数据的潜能,弥补对抗学习方法的不足。但传统的Self-training效率和性能并不好,为此本文针对跨领域语义依存分析这个任务,尝试了强化学习数据选择器,提出了局部伪标注的标注策略,实验结果证明我们提出的模型优于基线模型。”</abstract>
+      <url hash="efcbf420">2021.ccl-1.59</url>
+      <language>zho</language>
+      <bibkey>mao-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="60">
+      <title><fixed-case>S</fixed-case>a<fixed-case>GE</fixed-case>: 基于句法感知图卷积神经网络和<fixed-case>ELECTRA</fixed-case>的中文隐喻识别模型(<fixed-case>S</fixed-case>a<fixed-case>GE</fixed-case>: Syntax-aware <fixed-case>GCN</fixed-case> with <fixed-case>ELECTRA</fixed-case> for <fixed-case>C</fixed-case>hinese Metaphor Detection)</title>
+      <author><first>Shenglong</first><last>Zhang</last><variant script="hani"><first>声龙</first><last>张</last></variant></author>
+      <author><first>Ying</first><last>Liu</last><variant script="hani"><first>颖</first><last>刘</last></variant></author>
+      <author><first>Yanjun</first><last>Ma</last><variant script="hani"><first>艳军</first><last>马</last></variant></author>
+      <pages>667–677</pages>
+      <abstract>“隐喻是人类语言中经常出现的一种特殊现象,隐喻识别对于自然语言处理各项任务来说具有十分基础和重要的意义。针对中文领域的隐喻识别任务,我们提出了一种基于句法感知图卷积神经网络和ELECTRA的隐喻识别模型(Syntax-aware GCN withELECTRA SaGE)。该模型从语言学出发,使用ELECTRA和Transformer编码器抽取句子的语义特征,将句子按照依存关系组织成一张图并使用图卷积神经网络抽取其句法特征,在此基础上对两类特征进行融合以进行隐喻识别。我们的模型在CCL2018中文隐喻识别评测数据集上以85.22%的宏平均F1分数超越了此前的最佳成绩,验证了融合语义信息和句法信息对于隐喻识别任务具有重要作用。”</abstract>
+      <url hash="464a59a9">2021.ccl-1.60</url>
+      <language>zho</language>
+      <bibkey>zhang-etal-2021-sage</bibkey>
+    </paper>
+    <paper id="61">
+      <title>基于预训练语言模型的繁体古文自动句读研究(Automatic Traditional <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese Texts Segmentation and Punctuation Based on Pre-training Language Model)</title>
+      <author><first>Xuemei</first><last>Tang</last><variant script="hani"><first>雪梅</first><last>唐</last></variant></author>
+      <author><first>Qi</first><last>Su</last><variant script="hani"><first>祺</first><last>苏</last></variant></author>
+      <author><first>Jun</first><last>Wang</last><variant script="hani"><first>军</first><last>王</last></variant></author>
+      <author><first>Yuhang</first><last>Chen</last><variant script="hani"><first>雨航</first><last>陈</last></variant></author>
+      <author><first>Hao</first><last>Yang</last><variant script="hani"><first>浩</first><last>杨</last></variant></author>
+      <pages>678–688</pages>
+      <abstract>“未经整理的古代典籍不含任何标点,不符合当代人的阅读习惯,古籍断句标点之后有助于阅读、研究和出版。本文提出了一种基于预训练语言模型的繁体古文自动句读框架。本文整理了约10亿字的繁体古文语料,对于训练语言模型进行增量训练,在此基础上上实现古文自动句读和标点。实验表明经过大规模繁体古文语料增量训练后的语言模型具备更好的古文语义表示能力,能够有助提升繁体古文自动句读和自动标点的效果。融合了增量训练模型之后,古文断句F1值达到95.03%,古文标点F1值达到了80.18%,分别比使用未增量训练的语言模型提升1.83%和2.21%。为解决现有篇章级句读方案效率低的问题,本文改进了前人的串行滑动窗口方式,在一定程度上提高了句读效率,并提出一种新的并行滑动窗口方式,能够高效准确地进行长文本自动句读。”</abstract>
+      <url hash="59742d2e">2021.ccl-1.61</url>
+      <language>zho</language>
+      <bibkey>tang-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="62">
+      <title>阅读分级相关研究综述(A Survey of Leveled Reading)</title>
+      <author><first>Simin</first><last>Rao</last><variant script="hani"><first>思敏</first><last>饶</last></variant></author>
+      <author><first>Hua</first><last>Zheng</last><variant script="hani"><first>婳</first><last>郑</last></variant></author>
+      <author><first>Sujian</first><last>Li</last><variant script="hani"><first>素建</first><last>李</last></variant></author>
+      <pages>689–702</pages>
+      <abstract>“阅读分级的概念在二十世纪早期就被教育工作者提出,随着人们对阅读变得越来越重视,阅读分级引起了越来越多的关注,自动阅读分级技术也得到了一定程度的发展。本文总结了近年来的阅读分级领域的研究进展,首先介绍了阅读分级现有的标准和随之而产生的各种体系和语料资源。在此基础之上整理了在自动阅读分级工作已经广泛应用的三类方法:公式法、传统的机器学习方法和最近热门的深度学习方法,并结合实验结果梳理了三类方法存在的弊利,以及可以改进的方向。最后本文还对阅读分级的未来发展方向以及可以应用的领域进行了总结和展望。”</abstract>
+      <url hash="c1dd71fd">2021.ccl-1.62</url>
+      <language>zho</language>
+      <bibkey>rao-etal-2021-yue</bibkey>
+    </paper>
+    <paper id="63">
+      <title>融合情感分析的隐式反问句识别模型(Implicit Rhetorical Questions Recognition Model Combined with Sentiment Analysis)</title>
+      <author><first>Xiang</first><last>Li</last><variant script="hani"><first>翔</first><last>李</last></variant></author>
+      <author><first>Chengwei</first><last>Liu</last><variant script="hani"><first>承伟</first><last>刘</last></variant></author>
+      <author><first>Xiaoxu</first><last>Zhu</last><variant script="hani"><first>晓旭</first><last>朱</last></variant></author>
+      <pages>703–713</pages>
+      <abstract>“反问是现代汉语中一种常用的修辞手法,根据是否含有反问标记可分为显式反问句与隐式反问句。其中隐式反问句表达的情感更为丰富,表现形式也十分复杂,对隐式反问句的识别更具挑战性。本文首先扩充了汉语反问句语料库,语料库规模达到10000余句,接着针对隐式反问句的特点,提出了一种融合情感分析的隐式反问句识别模型。模型考虑了句子的语义信息,上下文信息,并借助情感分析任务辅助识别隐式反问句。实验结果表明,本文提出的模型在隐式反问句识别任务上取得了良好的性能。”</abstract>
+      <url hash="b8d800b2">2021.ccl-1.63</url>
+      <language>zho</language>
+      <bibkey>li-etal-2021-rong</bibkey>
+    </paper>
+    <paper id="64">
+      <title>面向我国英语学习的英语文本可读性评测模型研究(Research on the Readability Evaluation Model of <fixed-case>E</fixed-case>nglish Text for <fixed-case>C</fixed-case>hinese’s <fixed-case>E</fixed-case>nglish Learning)</title>
+      <author><first>Zhijuan</first><last>Wang</last><variant script="hani"><first>志娟</first><last>王</last></variant></author>
+      <author><first>Xiaoli</first><last>Cao</last><variant script="hani"><first>晓丽</first><last>曹</last></variant></author>
+      <pages>714–722</pages>
+      <abstract>“目前的英语可读性研究主要针对第一语言学习和在英语环境下的英语学习(ESL),我国学生在中文环境下学习英语(EFL),因此针对第一语言学习、ESL学习及其他国家的EFL学习的英语文本可读性研究不适合对我国英语文本进行可读性评测。本文基于人教版小学到高中英语教材设计了英语可读性评测公式,该公式可按我国英语教学规划对英语文本进行可读性评测,进而为我国学生推荐适合的英语阅读材料。”</abstract>
+      <url hash="71845baa">2021.ccl-1.64</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-mian</bibkey>
+    </paper>
+    <paper id="65">
+      <title>基于小句复合体的中文机器阅读理解研究(Machine Reading Comprehension Based on Clause Complex)</title>
+      <author><first>Ruiqi</first><last>Wang</last><variant script="hani"><first>瑞琦</first><last>王</last></variant></author>
+      <author><first>Zhiyong</first><last>Luo</last><variant script="hani"><first>智勇</first><last>罗</last></variant></author>
+      <author><first>Xiang</first><last>Liu</last><variant script="hani"><first>祥</first><last>刘</last></variant></author>
+      <author><first>Rui</first><last>Han</last><variant script="hani"><first>瑞昉</first><last>韩</last></variant></author>
+      <author><first>Shuxin</first><last>Li</last><variant script="hani"><first>舒馨</first><last>李</last></variant></author>
+      <pages>723–735</pages>
+      <abstract>“机器阅读理解任务要求机器根据篇章文本回答相关问题。本文以抽取式机器阅读理解为例,重点考察当问题的线索要素与答案在篇章文本中跨越多个标点句时的阅读理解问题。本文将小句复合体结构自动分析任务与机器阅读理解任务融合,利用小句复合体中跨标点句话头札话体共享关系,来化简机器阅读理解任务的难度;并设计与实现了基于小句复合体的机器阅读理解模型。实验结果表明:在问题线索要素与答案跨越多个标点句时,答案抽取的精确匹配率(EM)相对于基准模型提升了3.49%,模型整体的精确匹配率提升了3.26%。”</abstract>
+      <url hash="2e266285">2021.ccl-1.65</url>
+      <language>zho</language>
+      <bibkey>wang-etal-2021-ji-yu-xiao</bibkey>
+    </paper>
+    <paper id="66">
+      <title>融合自编码器和对抗训练的中文新词发现方法(Finding <fixed-case>C</fixed-case>hinese New Word By Combining Self-encoder and Adversarial Training)</title>
+      <author><first>Wei</first><last>Pan</last><variant script="hani"><first>韦</first><last>潘</last></variant></author>
+      <author><first>Tianyuan</first><last>Liu</last><variant script="hani"><first>天元</first><last>刘</last></variant></author>
+      <author><first>Yuqing</first><last>Sun</last><variant script="hani"><first>宇清</first><last>孙</last></variant></author>
+      <author><first>Bin</first><last>Gong</last><variant script="hani"><first>斌</first><last>龚</last></variant></author>
+      <author><first>Yongman</first><last>Zhang</last><variant script="hani"><first>永满</first><last>张</last></variant></author>
+      <author><first>Ping</first><last>Yang</last><variant script="hani"><first>萍</first><last>杨</last></variant></author>
+      <pages>736–746</pages>
+      <abstract>“新词的不断涌现是语言的自然规律,如在专业领域中新概念和实体名称代表了专业领域中某些共同特征集合的抽象概括,经常作为关键词在句子中承担一定的角色。新词发现问题直接影响中文分词结果和后继文本语义理解任务的性能,是自然语言处理研究领域的重要任务。本文提出了融合自编码器和对抗训练的中文新词发现模型,采用字符级别的自编码器和无监督自学习的方式进行预训练,可以有效提取语义信息,不受分词结果影响,适用于不同领域的文本;同时为了引入通用语言学知识,添加了先验句法分析结果,借助领域共享编码器融合语义和语法信息,以提升划分歧义词的准确性;采用对抗训练机制,以提取领域无关特征,减少对于人工标注语料的依赖。实验选择六个不同的专业领域数据集评估新词发现任务,结果显示本文模型优于其他现有方法;结合模型析构实验,详细验证了各个模块的有效性。同时通过选择不同类型的源域数据和不同数量的目标域数据进行对比实验,验证了模型的鲁棒性。最后以可视化的方式对比了自编码器和共享编码器对不同领域数据的编码结果,显示了对抗训练方法能够有效地提取两者之间的相关性和差异性信息。”</abstract>
+      <url hash="d9e84547">2021.ccl-1.66</url>
+      <language>zho</language>
+      <bibkey>pan-etal-2021-rong</bibkey>
+    </paper>
+    <paper id="67">
+      <title>融合多粒度特征的低资源语言词性标记和依存分析联合模型(A Joint Model with Multi-Granularity Features of Low-resource Language <fixed-case>POS</fixed-case> Tagging and Dependency Parsing)</title>
+      <author><first>Sha</first><last>Lu</last><variant script="hani"><first>杉</first><last>陆</last></variant></author>
+      <author><first>Cunli</first><last>Mao</last><variant script="hani"><first>存礼</first><last>毛</last></variant></author>
+      <author><first>Zhengtao</first><last>Yu</last><variant script="hani"><first>正涛</first><last>余</last></variant></author>
+      <author><first>Chengxiang</first><last>Gao</last><variant script="hani"><first>盛祥</first><last>高</last></variant></author>
+      <author><first>Yuxin</first><last>Huang</last><variant script="hani"><first>于欣</first><last>黄</last></variant></author>
+      <author><first>Zhenhan</first><last>Wang</last><variant script="hani"><first>振晗</first><last>王</last></variant></author>
+      <pages>747–757</pages>
+      <abstract>“研究低资源语言的词性标记和依存分析对推动低资源自然语言处理任务有着重要的作用。针对低资源语言词嵌入表示,已有工作并没有充分利用字符、子词层面信息编码,导致模型无法利用不同粒度的特征,对此,提出融合多粒度特征的词嵌入表示,利用不同的语言模型分别获得字符、子词以及词语层面的语义信息,将三种粒度的词嵌入进行拼接,达到丰富语义信息的目的,缓解由于标注数据稀缺导致的依存分析模型性能不佳的问题。进一步将词性标记和依存分析模型进行联合训练,使模型之间能相互共享知识,降低词性标记错误在依存分析任务上的线性传递。以泰语、越南语为研究对象,在宾州树库数据集上,提出方法相比于基线模型的UAS、LAS、POS均有明显提升。”</abstract>
+      <url hash="fad6869f">2021.ccl-1.67</url>
+      <language>zho</language>
+      <bibkey>lu-etal-2021-rong</bibkey>
+    </paper>
+    <paper id="68">
+      <title>融合外部知识的开放域复述模板获取方法(An Open Domain Paraphrasing Template Acquisition Method Based on External Knowledge)</title>
+      <author><first>Bo</first><last>Jin</last><variant script="hani"><first>波</first><last>金</last></variant></author>
+      <author><first>Mingtong</first><last>Liu</last><variant script="hani"><first>明童</first><last>刘</last></variant></author>
+      <author><first>Yujie</first><last>Zhang</last><variant script="hani"><first>玉洁</first><last>张</last></variant></author>
+      <author><first>Jinan</first><last>Xu</last><variant script="hani"><first>金安</first><last>徐</last></variant></author>
+      <author><first>Yufeng</first><last>Chen</last><variant script="hani"><first>钰枫</first><last>陈</last></variant></author>
+      <pages>758–768</pages>
+      <abstract>“如何挖掘语言资源中丰富的复述模板,是复述研究中的一项重要任务。已有方法在人工给定种子实体对的基础上,利用实体关系,通过自举迭代方式,从开放域获取复述模板,规避对平行语料或可比语料的依赖,但是该方法需人工给定实体对,实体关系受限;在迭代过程中语义会发生偏移,影响获取质量。针对这些问题,我们考虑知识库中包含描述特定语义关系的实体对(即关系三元组),提出融合外部知识的开放域复述模板自动获取方法。首先,将关系三元组与开放域文本对齐,获取关系对应文本,并将文本中语义丰富部分泛化成变量槽,获取关系模板;接着设计模板表示方法,本文利用预训练语言模型,在模板表示中融合变量槽语义;最后,根据获得的模板表示,设计自动聚类与筛选方法,获取高精度的复述模板。在融合自动评测与人工评测的评价方法下,实验结果表明,本文提出的方法实现了在开放域数据上复述模板的自动泛化与获取,能够获得质量高、语义一致的复述模板。”</abstract>
+      <url hash="c27c7892">2021.ccl-1.68</url>
+      <language>zho</language>
+      <bibkey>jin-etal-2021-rong</bibkey>
+    </paper>
+    <paper id="69">
+      <title>基于堆叠式注意力网络的复杂话语领域分类方法(Complex Utterance Domain Classification Using Stacked Attention Networks)</title>
+      <author><first>Chaojie</first><last>Liang</last><variant script="hani"><first>超杰</first><last>梁</last></variant></author>
+      <author><first>Peijie</first><last>Huang</last><variant script="hani"><first>沛杰</first><last>黄</last></variant></author>
+      <author><first>Jiande</first><last>Ding</last><variant script="hani"><first>健德</first><last>丁</last></variant></author>
+      <author><first>Jiankai</first><last>Zhu</last><variant script="hani"><first>建恺</first><last>朱</last></variant></author>
+      <author><first>Piyuan</first><last>Lin</last><variant script="hani"><first>丕源</first><last>林</last></variant></author>
+      <pages>769–780</pages>
+      <abstract>“话语领域分类(utterance domain classification UDC)是口语语言理解(spoken lan-guage understanding SLU)中语义分析的关键步骤。尽管带注意力机制的递归神经网络已经得到了广泛的应用,并将UDC的研究进展提高到了一个新的水平,但是对于复杂的话语,如长度较长的话语或带有逗号的复合句的话语,有效的UDC仍然是一个挑战。本文提出一种基于堆叠式注意力网络的话语领域分类方法SAN-DC(stacked attention networks-DC)。该模型综合了对口语话语多层次的语言特征的捕捉,增强对复杂话语的理解。首先在模型底层采用语境化词向量(contextualized word embedding)得到良好的词汇特征表达,并在词法层采用长短期记忆网络(long short-term memory)将话语编码为上下文向量表示。接着在语法级别上使用自注意力机制(self-attention mechanism)来捕捉特定领域的词依赖,然后使用词注意力(word-attention)层提取语义信息。最后使用残差连接(residual connection)将低层语言信息传递到高层,更好地实现多层语言信息的融合。本文在中文话语领域分类基准语料SMP-ECDT上验证所提出的方法的有效性。通过与研究进展的文本分类模型对比,本文的方法取得了较高的话语领域分类正确率。尤其是对于较为复杂的用户话语,本文提出的方法较研究进展方法的性能提升更为显著。”</abstract>
+      <url hash="ee07c61c">2021.ccl-1.69</url>
+      <language>zho</language>
+      <bibkey>liang-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="70">
+      <title>基于大规模语料库的《古籍汉字分级字表》研究(The Formulation of The graded <fixed-case>C</fixed-case>hinese character list of ancient books Based on Large-scale Corpus)</title>
+      <author><first>Changwei</first><last>Xu</last><variant script="hani"><first>长伟</first><last>许</last></variant></author>
+      <author><first>Minxuan</first><last>Feng</last><variant script="hani"><first>敏萱</first><last>冯</last></variant></author>
+      <author><first>Bin</first><last>Li</last><variant script="hani"><first>斌</first><last>李</last></variant></author>
+      <author><first>Yiguo</first><last>Yuan</last><variant script="hani"><first>义国</first><last>袁</last></variant></author>
+      <pages>781–791</pages>
+      <abstract>"《古籍汉字分级字表》是基于大规模古籍文本语料库、为辅助学习者古籍文献阅读而研制的分级字表。该字表填补了古籍字表研究成果的空缺,依据各汉字学习优先级别的不同,实现了古籍汉字的等级划分,目前收录一级字105个,二级字340个,三级字555个。本文介绍了该字表研制的主要依据和基本步骤,并将其与传统识字教材“三百千”及《现代汉语常用字表》进行比较,验证了其收字的合理性。该字表有助于学习者优先掌握古籍文本常用字,提升古籍阅读能力,从而促进中华优秀传统文化的继承与发展。”</abstract>
+      <url hash="dde8adc0">2021.ccl-1.70</url>
+      <language>zho</language>
+      <bibkey>xu-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="71">
+      <title>一种基于<fixed-case>IDLSTM</fixed-case>+<fixed-case>CRF</fixed-case>的中文主地域抽取方法(A <fixed-case>C</fixed-case>hinese Main Location Extraction Method based on <fixed-case>IDLSTM</fixed-case>+<fixed-case>CRF</fixed-case>)</title>
+      <author><first>Yiqi</first><last>Tong</last><variant script="hani"><first>逸琦</first><last>童</last></variant></author>
+      <author><first>Peigen</first><last>Ye</last><variant script="hani"><first>培根</first><last>叶</last></variant></author>
+      <author><first>Biao</first><last>Fu</last><variant script="hani"><first>彪</first><last>付</last></variant></author>
+      <author><first>Yidong</first><last>Chen</last><variant script="hani"><first>毅东</first><last>陈</last></variant></author>
+      <author><first>Xiaodong</first><last>Shi</last><variant script="hani"><first>晓东</first><last>史</last></variant></author>
+      <pages>792–802</pages>
+      <abstract>“新闻文本通常会涉及多个地域,主地域则描述了文本舆情内容的地域属性,是进行舆情分析的关键属性。目前深度学习领域针对主地域自动抽取的研究还比较少。基于此,本文构建了一个基于IDLSTM+CRF的主地域抽取系统。该系统通过地名识别、主地域抽取、主地域补全三大模块实现对主地域标签的自动抽取和补全。在公开数据集上的实验结果表明,我们的方法在地名识别任务上要优于BiLSTM+CRF等模型。而对于主地域抽取任务,目前还没有标准的中文主地域评测集合。针对该问题,我们标注并开源了1226条验证集和1500条测试集。最终,我们的主地域抽取系统在两个集合上分别取得了91.7%和84.8%的抽取准确率,并成功运用于线上生产环境。”</abstract>
+      <url hash="4a94e2c3">2021.ccl-1.71</url>
+      <language>zho</language>
+      <bibkey>tong-etal-2021-yi</bibkey>
+    </paper>
+    <paper id="72">
+      <title>基于信息交互增强的时序关系联合识别(Joint Recognition of Temporal Relation Based on Information Interaction Enhancement)</title>
+      <author><first>Qianying</first><last>Dai</last><variant script="hani"><first>倩颖</first><last>戴</last></variant></author>
+      <author><first>Fang</first><last>Kong</last><variant script="hani"><first>芳</first><last>孔</last></variant></author>
+      <pages>803–812</pages>
+      <abstract>“时序关系识别是信息抽取领域的一个重要分支,对文本理解发挥着关键作用。按照关联对象的不同,时序关系分为三大类:事件对(E-E)间的时序关系,事件与时间表达式间(E-T)的时序关系,事件与文档建立时间(E-D)间的时序关系。不同关系类型孤立识别的方法忽视了其间隐含的关联信息,针对这一问题构建了基于信息交互增强的时序关系联合识别模型。通过在不同神经网络层之间共享参数实现E-E与E-T时序关系的语义交流,利用两者的潜在联系提高识别精度。在Time-Bank Dense语料上的一系列实验表明,该方法优于现有的大多数神经网络方法。”</abstract>
+      <url hash="2fdc298a">2021.ccl-1.72</url>
+      <language>zho</language>
+      <bibkey>dai-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="73">
+      <title>基于字词粒度噪声数据增强的中文语法纠错(<fixed-case>C</fixed-case>hinese Grammatical Error Correction enhanced by Data Augmentation from Word and Character Levels)</title>
+      <author><first>Zecheng</first><last>Tang</last><variant script="hani"><first>泽成</first><last>汤</last></variant></author>
+      <author><first>Yixin</first><last>Ji</last><variant script="hani"><first>一心</first><last>纪</last></variant></author>
+      <author><first>Yibo</first><last>Zhao</last><variant script="hani"><first>怡博</first><last>赵</last></variant></author>
+      <author><first>Junhui</first><last>Li</last><variant script="hani"><first>军辉</first><last>李</last></variant></author>
+      <pages>813–824</pages>
+      <abstract>“语法纠错是自然语言处理领域的热门任务之一,其目的是将错误的句子修改为正确的句子。为了缓解中文训练语料不足的问题,本文从数据增强的角度出发,提出一种新颖的扩充和增强数据的方法。具体地,为了使模型能更好地获取不同类型和不同粒度的错误,本文首先对语法纠错中出现的错误进行了字和词粒度的分类,在此基础上提出了融合字词粒度噪声的数据增强方法,以此获得大规模且质量较高的错误数据集。基于NLPCC2018共享任务的实验结果表明,本文提出的融合字词粒度加噪方法能够显著提升模型的性能,在该数据集上达到了最优的性能。最后,本文分析了错误类型和数据规模对中文语法纠错模型性能的影响。”</abstract>
+      <url hash="5d2fad15">2021.ccl-1.73</url>
+      <language>zho</language>
+      <bibkey>tang-etal-2021-ji-yu</bibkey>
+    </paper>
+    <paper id="74">
+      <title>基于多质心异质图学习的社交网络用户建模(User Representation Learning based on Multi-centroid Heterogeneous Graph Neural Networks)</title>
+      <author><first>Shangyi</first><last>Ning</last><variant script="hani"><first>上毅</first><last>宁</last></variant></author>
+      <author><first>Guanying</first><last>Li</last><variant script="hani"><first>冠颖</first><last>李</last></variant></author>
+      <author><first>Qin</first><last>Chen</last><variant script="hani"><first>琴</first><last>陈</last></variant></author>
+      <author><first>Zengfeng</first><last>Huang</last><variant script="hani"><first>增峰</first><last>黄</last></variant></author>
+      <author><first>Baohua</first><last>Zhou</last><variant script="hani"><first>葆华</first><last>周</last></variant></author>
+      <author><first>Zhongyu</first><last>Wei</last><variant script="hani"><first>忠钰</first><last>魏</last></variant></author>
+      <pages>825–836</pages>
+      <abstract>“用户建模已经引起了学术界和工业界的广泛关注。现有的方法大多侧重于将用户间的人际关系融入社区,而用户生成的内容(如帖子)却没有得到很好的研究。在本文中,我们通过实际舆情传播相关的分析表明,在舆情传播过程中对用户属性进行研究的重要作用,并且提出了用户资料数据的筛选方法。同时,我们提出了一种通过异构多质心图池为用户捕获更多不同社区特征的建模。我们首先构造了一个由用户和关键字组成的异质图,并在其上采用了一个异质图神经网络。为了方便用户建模的图表示,提出了一种多质心图池化机制,将多质心的集群特征融入到表示学习中。在三个基准数据集上的大量实验表明了该方法的有效性。”</abstract>
+      <url hash="0b122d78">2021.ccl-1.74</url>
+      <language>zho</language>
+      <bibkey>ning-etal-2021-ji</bibkey>
+    </paper>
+    <paper id="75">
+      <title>软件标识符的自然语言规范性研究(Research on the Natural Language Normalness of Software Identifiers)</title>
+      <author><first>Dongzhen</first><last>Wen</last><variant script="hani"><first>东震</first><last>汶</last></variant></author>
+      <author><first>Fan</first><last>Zhang</last><variant script="hani"><first>帆</first><last>张</last></variant></author>
+      <author><first>Xiao</first><last>Zhang</last><variant script="hani"><first>晓</first><last>张</last></variant></author>
+      <author><first>Liang</first><last>Yang</last><variant script="hani"><first>亮</first><last>杨</last></variant></author>
+      <author><first>Yuan</first><last>Lin</last><variant script="hani"><first>原</first><last>林</last></variant></author>
+      <author><first>Bo</first><last>Xu</last><variant script="hani"><first>博</first><last>徐</last></variant></author>
+      <author><first>Hongfei</first><last>Lin</last><variant script="hani"><first>鸿飞</first><last>林</last></variant></author>
+      <pages>837–850</pages>
+      <abstract>“软件源代码的理解则是软件协同开发与维护的核心,而源代码中占半数以上的标识符的理解则在软件理解中起到重要作用,传统软件工程主要研究通过命名规范限制标识符的命名过程以构造更易理解和交流的标识符。本文则在梳理分析常见编程语言命名规范的基础上,提出一种全新的标识符可理解性评价标准。具体而言,本文首先总结梳理了常见主流编程语言中的命名规范并类比自然语言语素概念本文提出基于软件语素的标识符构成过程,即标识符的构成可被视为软件语素的生成、排列和连接过程。在此基础上,本文提出一种结合自然语料库的软件标识符规范性评价方法,用来衡量软件标识符是否易于理解。最后,本文通过源代码理解数据集和乇乩乴乨乵乢平台中开源项目对规范性指标进行了验证性实验,结果表明本文提出的规范性分数能够很好衡量软件项目的可理解性。”</abstract>
+      <url hash="662d0965">2021.ccl-1.75</url>
+      <language>zho</language>
+      <bibkey>wen-etal-2021-ruan</bibkey>
+    </paper>
+    <paper id="76">
+      <title>基于改进<fixed-case>C</fixed-case>onformer的新闻领域端到端语音识别(End-to-End Speech Recognition in News Field based on Conformer)</title>
+      <author><first>Jimin</first><last>Zhang</last><variant script="hani"><first>济民</first><last>张</last></variant></author>
+      <author><first>Kerekadeer</first><last>Zao</last><variant script="hani"><first>克热·卡德尔</first><last>早</last></variant></author>
+      <author><first>Yunfei</first><last>Shen</last><variant script="hani"><first>云飞</first><last>申</last></variant></author>
+      <author><first>Shanwumaier</first><last>Ai</last><variant script="hani"><first>山·吾买尔</first><last>艾</last></variant></author>
+      <author><first>Liejun</first><last>Wang</last><variant script="hani"><first>烈军</first><last>汪</last></variant></author>
+      <pages>851–861</pages>
+      <abstract>“目前,开源的中文语音识别数据集多为面向通用领域,缺少面向新闻领域的开源语音识别语料库,因此本文构建了面向新闻领域的中文语音识别数据集CHNEWSASR并使用ESPNET-0.9.6框架的RNN、Transformer和Conformer等模型对数据集的有效性进行了验证,实验表明本文所构建的语料在最好的模型上CER为4.8%,SER为39.4%。由于新闻联播主持人说话语速相对较快,本文构建的数据集文本平均长度为28个字符是Aishell1数据集文本平均长度的2倍,且以往的研究中训练目标函数通常为基于字或词水平,缺乏明确的句子水平关系,因此本文提出了一个句子层级的一致性模块与Conformer模型结合直接减少源语音和目标文本的表示差异,在开源的Aishell1数据集上其CER降低0.4%,SER降低2%;在CHNEWSASR数据集上其CER降低0.9%,SER降低3%,实验结果表明该方法不提升模型参数量的前提下能有效提升语音识别的质量。”</abstract>
+      <url hash="383c68b8">2021.ccl-1.76</url>
+      <language>zho</language>
+      <bibkey>zhang-etal-2021-ji-yu-gai</bibkey>
+    </paper>
+    <paper id="77">
+      <title>基于<fixed-case>BPE</fixed-case>分词的中国古诗主题模型及主题可控的诗歌生成(Topic model and topic-controlled poetry generation of <fixed-case>C</fixed-case>hinese ancient poem based on <fixed-case>BPE</fixed-case>)</title>
+      <author><first>Jiarui</first><last>Zhang</last><variant script="hani"><first>家瑞</first><last>张</last></variant></author>
+      <author><first>Wenhao</first><last>Li</last><variant script="hani"><first>文浩</first><last>李</last></variant></author>
+      <author><first>Maosong</first><last>Sun</last><variant script="hani"><first>茂松</first><last>孙</last></variant></author>
+      <pages>862–873</pages>
+      <abstract>“中国古代诗歌是人类文化的瑰宝,其短小精悍的语言却能表达出极其丰富的含义和主题,从古至今吸引了无数的爱好者的欣赏。本文以超过锸锰万首古诗为研究对象,基于BPE算法,按照共现频率对古诗集进行分词,以便于下游任务对古诗的语义进行更准确的理解,我们还将分词后的古诗语料利用隐狄利克雷分配(LDA)模型进行了主题分析。通过比较、调整主题的数量得到了准确度较高的主题模型。更进一步,我们还对语料中的绝句和律诗逐句套用了主题模型,得到了一首诗内部的主题转移矩阵,并进行了一些相关的分析。最后,我们利用了简单的控制码方法将主题模型嵌入到诗歌生成模型中,实现了主题可控的诗歌生成,同时检验了我们训练的主题模型的有效性。”</abstract>
+      <url hash="60702962">2021.ccl-1.77</url>
+      <language>zho</language>
+      <bibkey>zhang-etal-2021-ji-yu-bpefen</bibkey>
+    </paper>
+    <paper id="78">
+      <title>Reducing Length Bias in Scoring Neural Machine Translation via a Causal Inference Method</title>
+      <author><first>Shi</first><last>Xuewen</last></author>
+      <author><first>Huang</first><last>Heyan</last></author>
+      <author><first>Jian</first><last>Ping</last></author>
+      <author><first>Tang</first><last>Yi-Kun</last></author>
+      <pages>874–885</pages>
+      <abstract>“Neural machine translation (NMT) usually employs beam search to expand the searching spaceand obtain more translation candidates. However the increase of the beam size often suffersfrom plenty of short translations resulting in dramatical decrease in translation quality. In this paper we handle the length bias problem through a perspective of causal inference. Specially we regard the model generated translation score S as a degraded true translation quality affectedby some noise and one of the confounders is the translation length. We apply a Half-Sibling Re-gression method to remove the length effect on S and then we can obtain a debiased translation score without length information. The proposed method is model agnostic and unsupervised which is adaptive to any NMT model and test dataset. We conduct the experiments on three translation tasks with different scales of datasets. Experimental results and further analyses showthat our approaches gain comparable performance with the empirical baseline methods.”</abstract>
+      <url hash="4ac7a164">2021.ccl-1.78</url>
+      <language>eng</language>
+      <bibkey>xuewen-etal-2021-reducing</bibkey>
+    </paper>
+    <paper id="79">
+      <title>Low-Resource Machine Translation based on Asynchronous Dynamic Programming</title>
+      <author><first>Jia</first><last>Xiaoning</last></author>
+      <author><first>Hou</first><last>Hongxu</last></author>
+      <author><first>Wu</first><last>Nier</last></author>
+      <author><first>Li</first><last>Haoran</last></author>
+      <author><first>Chang</first><last>Xin</last></author>
+      <pages>886–894</pages>
+      <abstract>“Reinforcement learning has been proved to be effective in handling low resource machine trans-lation tasks and different sampling methods of reinforcement learning affect the performance ofthe model. The reward for generating translation is determined by the scalability and iteration ofthe sampling strategy so it is difficult for the model to achieve bias-variance trade-off. Therefore according to the poor ability of the model to analyze the structure of the sequence in low-resourcetasks this paper proposes a neural machine translation model parameter optimization method for asynchronous dynamic programming training strategies. In view of the experience priority situa-tion under the current strategy each selective sampling experience not only improves the value ofthe experience state but also avoids the high computational resource consumption inherent in tra-ditional valuation methods (such as dynamic programming). We verify the Mongolian-Chineseand Uyghur-Chinese tasks on CCMT2019. The result shows that our method has improved the quality of low-resource neural machine translation model compared with general reinforcement learning methods which fully demonstrates the effectiveness of our method.”</abstract>
+      <url hash="11b5dbdb">2021.ccl-1.79</url>
+      <language>eng</language>
+      <bibkey>xiaoning-etal-2021-low</bibkey>
+    </paper>
+    <paper id="80">
+      <title><fixed-case>U</fixed-case>yghur Metaphor Detection Via Considering Emotional Consistency</title>
+      <author><first>Yang</first><last>Qimeng</last></author>
+      <author><first>Yu</first><last>Long</last></author>
+      <author><first>Tian</first><last>Shengwei</last></author>
+      <author><first>Song</first><last>Jinmiao</last></author>
+      <pages>895–905</pages>
+      <abstract>“Metaphor detection plays an important role in tasks such as machine translation and human-machine dialogue. As more users express their opinions on products or other topics on socialmedia through metaphorical expressions this task is particularly especially topical. Most of the research in this field focuses on English and there are few studies on minority languages thatlack language resources and tools. Moreover metaphorical expressions have different meaningsin different language environments. We therefore established a deep neural network (DNN)framework for Uyghur metaphor detection tasks. The proposed method can focus on the multi-level semantic information of the text from word embedding part of speech and location which makes the feature representation more complete. We also use the emotional information of words to learn the emotional consistency features of metaphorical words and their context. A qualitative analysis further confirms the need for broader emotional information in metaphor detection. Ourresults indicate the performance of Uyghur metaphor detection can be effectively improved withthe help of multi-attention and emotional information.”</abstract>
+      <url hash="a3b485b9">2021.ccl-1.80</url>
+      <language>eng</language>
+      <bibkey>qimeng-etal-2021-uyghur</bibkey>
+    </paper>
+    <paper id="81">
+      <title>Incorporating translation quality estimation into <fixed-case>C</fixed-case>hinese-<fixed-case>K</fixed-case>orean neural machine translation</title>
+      <author><first>Li</first><last>Feiyu</last></author>
+      <author><first>Zhao</first><last>Yahui</last></author>
+      <author><first>Yang</first><last>Feiyang</last></author>
+      <author><first>Cui</first><last>Rongyi</last></author>
+      <pages>906–915</pages>
+      <abstract>“Exposure bias and poor translation diversity are two common problems in neural machine trans-lation (NMT) which are caused by the general of the teacher forcing strategy for training inthe NMT models. Moreover the NMT models usually require the large-scale and high-quality parallel corpus. However Korean is a low resource language and there is no large-scale parallel corpus between Chinese and Korean which is a challenging for the researchers. Therefore wepropose a method which is to incorporate translation quality estimation into the translation processand adopt reinforcement learning. The evaluation mechanism is used to guide the training of the model so that the prediction cannot converge completely to the ground truth word. When the model predicts a sequence different from the ground truth word the evaluation mechanism cangive an appropriate evaluation and reward to the model. In addition we alleviated the lack of Korean corpus resources by adding training data. In our experiment we introduce a monolingual corpus of a certain scale to construct pseudo-parallel data. At the same time we also preprocessed the Korean corpus with different granularities to overcome the data sparsity. Experimental results show that our work is superior to the baselines in Chinese-Korean and Korean-Chinese translation tasks which fully certificates the effectiveness of our method.”</abstract>
+      <url hash="b3ee7eae">2021.ccl-1.81</url>
+      <language>eng</language>
+      <bibkey>feiyu-etal-2021-incorporating</bibkey>
+    </paper>
+    <paper id="82">
+      <title>Emotion Classification of <fixed-case>COVID</fixed-case>-19 <fixed-case>C</fixed-case>hinese Microblogs based on the Emotion Category Description</title>
+      <author><first>Guo</first><last>Xianwei</last></author>
+      <author><first>Lai</first><last>Hua</last></author>
+      <author><first>Xiang</first><last>Yan</last></author>
+      <author><first>Yu</first><last>Zhengtao</last></author>
+      <author><first>Huang</first><last>Yuxin</last></author>
+      <pages>916–927</pages>
+      <abstract>“Emotion classification of COVID-19 Chinese microblogs helps analyze the public opinion triggered by COVID-19. Existing methods only consider the features of the microblog itself with-out combining the semantics of emotion categories for modeling. Emotion classification of mi-croblogs is a process of reading the content of microblogs and combining the semantics of emo-tion categories to understand whether it contains a certain emotion. Inspired by this we proposean emotion classification model based on the emotion category description for COVID-19 Chi-nese microblogs. Firstly we expand all emotion categories into formalized category descriptions.Secondly based on the idea of question answering we construct a question for each microblogin the form of ‘What is the emotion expressed in the text X?’ and regard all category descrip-tions as candidate answers. Finally we construct a question-and-answer pair and use it as the input of the BERT model to complete emotion classification. By integrating rich contextual andcategory semantics the model can better understand the emotion of microblogs. Experimentson the COVID-19 Chinese microblog dataset show that our approach outperforms many existinge motion classification methods including the BERT baseline.”</abstract>
+      <url hash="d9e86cc1">2021.ccl-1.82</url>
+      <language>eng</language>
+      <bibkey>xianwei-etal-2021-emotion</bibkey>
+    </paper>
+    <paper id="83">
+      <title>Multi-level Emotion Cause Analysis by Multi-head Attention Based Multi-task Learning</title>
+      <author><first>Li</first><last>Xiangju</last></author>
+      <author><first>Feng</first><last>Shi</last></author>
+      <author><first>Zhang</first><last>Yifei</last></author>
+      <author><first>Wang</first><last>Daling</last></author>
+      <pages>928–939</pages>
+      <abstract>“Emotion cause analysis (ECA) aims to identify the potential causes behind certain emotions intext. Lots of ECA models have been designed to extract the emotion cause at the clause level.However in many scenarios only extracting the cause clause is ambiguous. To ease the problemin this paper we introduce multi-level emotion cause analysis which focuses on identifying emotion cause clause (ECC) and emotion cause keywords (ECK) simultaneously. ECK is a more challenging task since it not only requires capturing the specific understanding of the role of eachword in the clause but also the relation between each word and emotion expression. We observethat ECK task can incorporate the contextual information from the ECC task while ECC taskcan be improved by learning the correlation between emotion cause keywords and emotion fromthe ECK task. To fulfill the goal of joint learning we propose a multi-head attention basedmulti-task learning method which utilizes a series of mechanisms including shared and privatefeature extractor multi-head attention emotion attention and label embedding to capture featuresand correlations between the two tasks. Experimental results show that the proposed method consistently outperforms the state-of-the-art methods on a benchmark emotion cause dataset.”</abstract>
+      <url hash="51cef222">2021.ccl-1.83</url>
+      <language>eng</language>
+      <bibkey>xiangju-etal-2021-multi</bibkey>
+    </paper>
+    <paper id="84">
+      <title>Using Query Expansion in Manifold Ranking for Query-Oriented Multi-Document Summarization</title>
+      <author><first>Jia</first><last>Quanye</last></author>
+      <author><first>Liu</first><last>Rui</last></author>
+      <author><first>Lin</first><last>Jianying</last></author>
+      <pages>940–951</pages>
+      <abstract>“Manifold ranking has been successfully applied in query-oriented multi-document summariza-tion. It not only makes use of the relationships among the sentences but also the relationships between the given query and the sentences. However the information of original query is often insufficient. So we present a query expansion method which is combined in the manifold rank-ing to resolve this problem. Our method not only utilizes the information of the query term itselfand the knowledge base WordNet to expand it by synonyms but also uses the information of the document set itself to expand the query in various ways (mean expansion variance expansionand TextRank expansion). Compared with the previous query expansion methods our methodcombines multiple query expansion methods to better represent query information and at the same time it makes a useful attempt on manifold ranking. In addition we use the degree of wordoverlap and the proximity between words to calculate the similarity between sentences. We per-formed experiments on the datasets of DUC 2006 and DUC2007 and the evaluation results showthat the proposed query expansion method can significantly improve the system performance andmake our system comparable to the state-of-the-art systems.”</abstract>
+      <url hash="ab5b3ad2">2021.ccl-1.84</url>
+      <language>eng</language>
+      <bibkey>quanye-etal-2021-using</bibkey>
+    </paper>
+    <paper id="85">
+      <title>Jointly Learning Salience and Redundancy by Adaptive Sentence Reranking for Extractive Summarization</title>
+      <author><first>Zhang</first><last>Ximing</last></author>
+      <author><first>Liu</first><last>Ruifang</last></author>
+      <pages>952–963</pages>
+      <abstract>“Extractive text summarization seeks to extract indicative sentences from a source document andassemble them to form a summary. Selecting salient but not redundant sentences has alwaysbeen the main challenge. Unlike the previous two-stage strategies this paper presents a unifiedend-to-end model learning to rerank the sentences by modeling salience and redundancy simul-taneously. Through this ranking mechanism our method can improve the quality of the overall candidate summary by giving higher scores to sentences that can bring more novel informa-tion. We first design a summary-level measure to evaluate the cumulating gain of each candidate summaries. Then we propose an adaptive training objective to rerank the sentences aiming atobtaining a summary with a high summary-level score. The experimental results and evalua-tion show that our method outperforms the strong baselines on three datasets and further booststhe quality of candidate summaries which intensely indicate the effectiveness of the proposed framework.”</abstract>
+      <url hash="fcee3b1c">2021.ccl-1.85</url>
+      <language>eng</language>
+      <bibkey>ximing-ruifang-2021-jointly</bibkey>
+    </paper>
+    <paper id="86">
+      <title>Incorporating Commonsense Knowledge into Abstractive Dialogue Summarization via Heterogeneous Graph Networks</title>
+      <author><first>Feng</first><last>Xiachong</last></author>
+      <author><first>Feng</first><last>Xiaocheng</last></author>
+      <author><first>Qin</first><last>Bing</last></author>
+      <pages>964–975</pages>
+      <abstract>“Abstractive dialogue summarization is the task of capturing the highlights of a dialogue andrewriting them into a concise version. In this paper we present a novel multi-speaker dialogue summarizer to demonstrate how large-scale commonsense knowledge can facilitate dialogue un-derstanding and summary generation. In detail we consider utterance and commonsense knowl-edge as two different types of data and design a Dialogue Heterogeneous Graph Network (D-HGN) for modeling both information. Meanwhile we also add speakers as heterogeneous nodes to facilitate information flow. Experimental results on the SAMSum dataset show that our modelcan outperform various methods. We also conduct zero-shot setting experiments on the Argu-mentative Dialogue Summary Corpus the results show that our model can better generalized tothe new domain.”</abstract>
+      <url hash="b16fab74">2021.ccl-1.86</url>
+      <language>eng</language>
+      <bibkey>xiachong-etal-2021-incorporating</bibkey>
+    </paper>
+    <paper id="87">
+      <title>Enhancing Question Generation with Commonsense Knowledge</title>
+      <author><first>Jia</first><last>Xin</last></author>
+      <author><first>Wang</first><last>Hao</last></author>
+      <author><first>Yin</first><last>Dawei</last></author>
+      <author><first>Wu</first><last>Yunfang</last></author>
+      <pages>976–987</pages>
+      <abstract>“Question generation (QG) is to generate natural and grammatical questions that can be answeredby a specific answer for a given context. Previous sequence-to-sequence models suffer from aproblem that asking high-quality questions requires commonsense knowledge as backgrounds which in most cases can not be learned directly from training data resulting in unsatisfactory questions deprived of knowledge. In this paper we propose a multi-task learning framework tointroduce commonsense knowledge into question generation process. We first retrieve relevant commonsense knowledge triples from mature databases and select triples with the conversion information from source context to question. Based on these informative knowledge triples wedesign two auxiliary tasks to incorporate commonsense knowledge into the main QG modelwhere one task is Concept Relation Classification and the other is Tail Concept Generation. Ex-perimental results on SQuAD show that our proposed methods are able to noticeably improvethe QG performance on both automatic and human evaluation metrics demonstrating that incor-porating external commonsense knowledge with multi-task learning can help the model generatehuman-like and high-quality questions.”</abstract>
+      <url hash="be09e090">2021.ccl-1.87</url>
+      <language>eng</language>
+      <bibkey>xin-etal-2021-enhancing</bibkey>
+    </paper>
+    <paper id="88">
+      <title>Topic Knowledge Acquisition and Utilization for Machine Reading Comprehension in Social Media Domain</title>
+      <author><first>Tian</first><last>Zhixing</last></author>
+      <author><first>Zhang</first><last>Yuanzhe</last></author>
+      <author><first>Liu</first><last>Kang</last></author>
+      <author><first>Zhao</first><last>Jun</last></author>
+      <pages>988–999</pages>
+      <abstract>“In this paper we focus on machine reading comprehension in social media. In this domain onenormally posts a message on the assumption that the readers have specific background knowledge. Therefore those messages are usually short and lacking in background information whichis different from the text in the other domain. Thus it is difficult for a machine to understandthe messages comprehensively. Fortunately a key nature of social media is clustering. A group of people tend to express their opinion or report news around one topic. Having realized this we propose a novel method that utilizes the topic knowledge implied by the clustered messages to aid in the comprehension of those short messages. The experiments on TweetQA datasets demonstrate the effectiveness of our method.”</abstract>
+      <url hash="b6f30d23">2021.ccl-1.88</url>
+      <language>eng</language>
+      <bibkey>zhixing-etal-2021-topic</bibkey>
+    </paper>
+    <paper id="89">
+      <title>Category-Based Strategy-Driven Question Generator for Visual Dialogue</title>
+      <author><first>Shi</first><last>Yanan</last></author>
+      <author><first>Tan</first><last>Yanxin</last></author>
+      <author><first>Feng</first><last>Fangxiang</last></author>
+      <author><first>Zheng</first><last>Chunping</last></author>
+      <author><first>Wang</first><last>Xiaojie</last></author>
+      <pages>1000–1011</pages>
+      <abstract>“GuessWhat?! is a task-oriented visual dialogue task which has two players a guesser and anoracle. Guesser aims to locate the object supposed by oracle by asking several Yes/No questions which are answered by oracle. How to ask proper questions is crucial to achieve the final goal of the whole task. Previous methods generally use an word-level generator which is hard to grasp the dialogue-level questioning strategy. They often generate repeated or useless questions. This paper proposes a sentence-level category-based strategy-driven question generator(CSQG) to explicitly provide a category based questioning strategy for the generator. First we encode the image and the dialogue history to decide the category of the next question to be generated. Thenthe question is generated with the helps of category-based dialogue strategy as well as encoding of both the image and dialogue history. The evaluation on large-scale visual dialogue dataset GuessWhat?! shows that our method can help guesser achieve 51.71% success rate which is the state-of-the-art on the supervised training methods.”</abstract>
+      <url hash="f6e7a908">2021.ccl-1.89</url>
+      <language>eng</language>
+      <bibkey>yanan-etal-2021-category</bibkey>
+    </paper>
+    <paper id="90">
+      <title>From Learning-to-Match to Learning-to-Discriminate:Global Prototype Learning for Few-shot Relation Classification</title>
+      <author><first>Liu</first><last>Fangchao</last></author>
+      <author><first>Xiao</first><last>Xinyan</last></author>
+      <author><first>Yan</first><last>Lingyong</last></author>
+      <author><first>Lin</first><last>Hongyu</last></author>
+      <author><first>Han</first><last>Xianpei</last></author>
+      <author><first>Dai</first><last>Dai</last></author>
+      <author><first>Wu</first><last>Hua</last></author>
+      <author><first>Sun</first><last>Le</last></author>
+      <pages>1012–1023</pages>
+      <abstract>“Few-shot relation classification has attracted great attention recently and is regarded as an ef-fective way to tackle the long-tail problem in relation classification. Most previous works onfew-shot relation classification are based on learning-to-match paradigms which focus on learn-ing an effective universal matcher between the query and one target class prototype based oninner-class support sets. However the learning-to-match paradigm focuses on capturing the sim-ilarity knowledge between query and class prototype while fails to consider discriminative infor-mation between different candidate classes. Such information is critical especially when targetclasses are highly confusing and domain shifting exists between training and testing phases. Inthis paper we propose the Global Transformed Prototypical Networks(GTPN) which learns tobuild a few-shot model to directly discriminate between the query and all target classes with bothinner-class local information and inter-class global information. Such learning-to-discriminate paradigm can make the model concentrate more on the discriminative knowledge between allcandidate classes and therefore leads to better classification performance. We conducted exper-iments on standard FewRel benchmarks. Experimental results show that GTPN achieves very competitive performance on few-shot relation classification and reached the best performance onthe official leaderboard of FewRel 2.0 1.”</abstract>
+      <url hash="bc1c0b8f">2021.ccl-1.90</url>
+      <language>eng</language>
+      <bibkey>fangchao-etal-2021-learning</bibkey>
+    </paper>
+    <paper id="91">
+      <title>Multi-Strategy Knowledge Distillation Based Teacher-Student Framework for Machine Reading Comprehension</title>
+      <author><first>Yu</first><last>Xiaoyan</last></author>
+      <author><first>Liu</first><last>Qingbin</last></author>
+      <author><first>He</first><last>Shizhu</last></author>
+      <author><first>Liu</first><last>Kang</last></author>
+      <author><first>Liu</first><last>Shengping</last></author>
+      <author><first>Zhao</first><last>Jun</last></author>
+      <author><first>Zhou</first><last>Yongbin</last></author>
+      <pages>1024–1036</pages>
+      <abstract>“The irrelevant information in documents poses a great challenge for machine reading compre-hension (MRC). To deal with such a challenge current MRC models generally fall into twoseparate parts: evidence extraction and answer prediction where the former extracts the key evi-dence corresponding to the question and the latter predicts the answer based on those sentences.However such pipeline paradigms tend to accumulate errors i.e. extracting the incorrect evi-dence results in predicting the wrong answer. In order to address this problem we propose aMulti-Strategy Knowledge Distillation based Teacher-Student framework (MSKDTS) for ma-chine reading comprehension. In our approach we first take evidence and document respec-tively as the input reference information to build a teacher model and a student model. Then the multi-strategy knowledge distillation method transfers the knowledge from the teacher model to the student model at both feature and prediction level through knowledge distillation approach.Therefore in the testing phase the enhanced student model can predict answer similar to the teacher model without being aware of which sentence is the corresponding evidence in the docu-ment. Experimental results on the ReCO dataset demonstrate the effectiveness of our approachand further ablation studies prove the effectiveness of both knowledge distillation strategies.”</abstract>
+      <url hash="1f8d1482">2021.ccl-1.91</url>
+      <language>eng</language>
+      <bibkey>xiaoyan-etal-2021-multi</bibkey>
+    </paper>
+    <paper id="92">
+      <title><fixed-case>LRRA</fixed-case>:A Transparent Neural-Symbolic Reasoning Framework for Real-World Visual Question Answering</title>
+      <author><first>Wan</first><last>Zhang</last></author>
+      <author><first>Chen</first><last>Keming</last></author>
+      <author><first>Zhang</first><last>Yujie</last></author>
+      <author><first>Xu</first><last>Jinan</last></author>
+      <author><first>Chen</first><last>Yufeng</last></author>
+      <pages>1037–1045</pages>
+      <abstract>“The predominant approach of visual question answering (VQA) relies on encoding the imageand question with a ”black box” neural encoder and decoding a single token into answers suchas ”yes” or ”no”. Despite this approach’s strong quantitative results it struggles to come up withhuman-readable forms of justification for the prediction process. To address this insufficiency we propose LRRA[LookReadReasoningAnswer]a transparent neural-symbolic framework forvisual question answering that solves the complicated problem in the real world step-by-steplike humans and provides human-readable form of justification at each step.Specifically LRRAlearns to first convert an image into a scene graph and parse a question into multiple reasoning instructions. It then executes the reasoning instructions one at a time by traversing the scenegraph using a recurrent neural-symbolic execution module.Finally it generates answers to the given questions and makes corresponding marks on the image. Furthermore we believe that the relations between objects in the question is of great significance for obtaining the correct answerso we create a perturbed GQA test set by removing linguistic cues (attributes and relations) in the questions to analyze which part of the question contributes more to the answer.Our experimentson the GQA dataset show that LRRA is significantly better than the existing representative model(57.12% vs. 56.39%). Our experiments on the perturbed GQA test set show that the relations between objects is more important for answering complicated questions than the attributes ofobjects.Keywords:Visual Question Answering Relations Between Objects Neural-Symbolic Reason-ing.”</abstract>
+      <url hash="28d54567">2021.ccl-1.92</url>
+      <language>eng</language>
+      <bibkey>zhang-etal-2021-lrra</bibkey>
+    </paper>
+    <paper id="93">
+      <title>Meaningfulness and unit of <fixed-case>Z</fixed-case>ipf’s law: evidence from danmu comments</title>
+      <author><first>Zhou</first><last>Yihan</last></author>
+      <pages>1046–1057</pages>
+      <abstract>“Zipf’s law is a succinct yet powerful mathematical law in linguistics. However the mean-ingfulness and units of the law have remained controversial. The current study usesonline video comments call “danmu comment” to investigate these two questions. Theresults are consistent with previous studies arguing Zipf’s law is subject to topical coher-ence. Specifically it is found that danmu comments sampled from a single video followZipf’s law better than danmu comments sampled from a collection of videos. The resultsalso suggest the existence of multiple units of Zipf’s law. When different units includingwords n-grams and danmu comments are compared both words and danmu commentsobey Zipf’s law and words may be a better fit. The issues of combined n-grams in the literature are also discussed.”</abstract>
+      <url hash="2e4f081b">2021.ccl-1.93</url>
+      <language>eng</language>
+      <bibkey>yihan-2021-meaningfulness</bibkey>
+    </paper>
+    <paper id="94">
+      <title>Unifying Discourse Resources with Dependency Framework</title>
+      <author><first>Cheng</first><last>Yi</last></author>
+      <author><first>Li</first><last>Sujian</last></author>
+      <author><first>Li</first><last>Yueyuan</last></author>
+      <pages>1058–1065</pages>
+      <abstract>“For text-level discourse analysis there are various discourse schemes but relatively few labeleddata because discourse research is still immature and it is labor-intensive to annotate the innerlogic of a text. In this paper we attempt to unify multiple Chinese discourse corpora under different annotation schemes with discourse dependency framework by designing semi-automatic methods to convert them into dependency structures. We also implement several benchmark dependency parsers and research on how they can leverage the unified data to improve performance.1”</abstract>
+      <url hash="64cd4370">2021.ccl-1.94</url>
+      <language>eng</language>
+      <bibkey>yi-etal-2021-unifying</bibkey>
+    </paper>
+    <paper id="95">
+      <title>A <fixed-case>C</fixed-case>hinese Machine Reading Comprehension Dataset Automatic Generated Based on Knowledge Graph</title>
+      <author><first>Zhao</first><last>Hanyu</last></author>
+      <author><first>Yuan</first><last>Sha</last></author>
+      <author><first>Leng</first><last>Jiahong</last></author>
+      <author><first>Pan</first><last>Xiang</last></author>
+      <author><first>Xue</first><last>Zhao</last></author>
+      <author><first>Ma</first><last>Quanyue</last></author>
+      <author><first>Liang</first><last>Yangxiao</last></author>
+      <pages>1066–1075</pages>
+      <abstract>“Machine reading comprehension (MRC) is a typical natural language processing (NLP)task and has developed rapidly in the last few years. Various reading comprehension datasets have been built to support MRC studies. However large-scale and high-quality datasets are rare due to the high complexity and huge workforce cost of making sucha dataset. Besides most reading comprehension datasets are in English and Chinesedatasets are insufficient.In this paper we propose an automatic method for MRCdataset generation and build the largest Chinese medical reading comprehension dataset presently named CMedRC. Our dataset contains 17k questions generated by our auto-matic method and some seed questions. We obtain the corresponding answers from amedical knowledge graph and manually check all of them. Finally we test BiLSTM andBERT-based pre-trained language models (PLMs) on our dataset and propose a base-line for the following studies. Results show that the automatic MRC dataset generation method is considerable for future model improvements.”</abstract>
+      <url hash="9271658d">2021.ccl-1.95</url>
+      <language>eng</language>
+      <bibkey>hanyu-etal-2021-chinese</bibkey>
+    </paper>
+    <paper id="96">
+      <title>Morphological Analysis Corpus Construction of <fixed-case>U</fixed-case>yghur</title>
+      <author><first>Abudouwaili</first><last>Gulinigeer</last></author>
+      <author><first>Abiderexiti</first><last>Kahaerjiang</last></author>
+      <author><first>Wushouer</first><last>Jiamila</last></author>
+      <author><first>Shen</first><last>Yunfei</last></author>
+      <author><first>Maimaitimin</first><last>Turenisha</last></author>
+      <author><first>Yibulayin</first><last>Tuergen</last></author>
+      <pages>1076–1086</pages>
+      <abstract>“Morphological analysis is a fundamental task in natural language processing and results can beapplied to different downstream tasks such as named entity recognition syntactic analysis andmachine translation. However there are many problems in morphological analysis such as lowaccuracy caused by a lack of resources. In this paper to alleviate the lack of resources in Uyghurmorphological analysis research we construct a Uyghur morphological analysis corpus based onthe analysis of grammatical features and the format of the general morphological analysis corpus.We define morphological tags from 14 dimensions and 53 features manually annotate and correctthe dataset. Finally the corpus provided some informations such as word lemma part of speech morphological analysis tags morphological segmentation and lemmatization. Also this paperanalyzes some basic features of the corpus and we use the models and datasets provided bySIGMORPHON Shared Task organizers to design comparative experiments to verify the corpus’savailability. Results of the experiment are 85.56% 88.29% respectively. The corpus provides areference value for morphological analysis and promotes the research of Uyghur natural language processing.”</abstract>
+      <url hash="863ea483">2021.ccl-1.96</url>
+      <language>eng</language>
+      <bibkey>gulinigeer-etal-2021-morphological</bibkey>
+    </paper>
+    <paper id="97">
+      <title>Improving Entity Linking by Encoding Type Information into Entity Embeddings</title>
+      <author><first>Li</first><last>Tianran</last></author>
+      <author><first>Yang</first><last>Erguang</last></author>
+      <author><first>Zhang</first><last>Yujie</last></author>
+      <author><first>Chen</first><last>Yufeng</last></author>
+      <author><first>Xu</first><last>Jinan</last></author>
+      <pages>1087–1095</pages>
+      <abstract>“Entity Linking (EL) refers to the task of linking entity mentions in the text to the correct entities inthe Knowledge Base (KB) in which entity embeddings play a vital and challenging role because of the subtle differences between entities. However existing pre-trained entity embeddings onlylearn the underlying semantic information in texts yet the fine-grained entity type informationis ignored which causes the type of the linked entity is incompatible with the mention context.In order to solve this problem we propose to encode fine-grained type information into entity embeddings. We firstly pre-train word vectors to inject type information by embedding wordsand fine-grained entity types into the same vector space. Then we retrain entity embeddings withword vectors containing fine-grained type information. By applying our entity embeddings to twoexisting EL models our method respectively achieves 0.82% and 0.42% improvement on average F1 score of the test sets. Meanwhile our method is model-irrelevant which means it can helpother EL models.”</abstract>
+      <url hash="88d6dbc8">2021.ccl-1.97</url>
+      <language>eng</language>
+      <bibkey>tianran-etal-2021-improving</bibkey>
+    </paper>
+    <paper id="98">
+      <title>A Unified Representation Learning Strategy for Open Relation Extraction with Ranked List Loss</title>
+      <author><first>Lou</first><last>Renze</last></author>
+      <author><first>Zhang</first><last>Fan</last></author>
+      <author><first>Zhou</first><last>Xiaowei</last></author>
+      <author><first>Wang</first><last>Yutong</last></author>
+      <author><first>Wu</first><last>Minghui</last></author>
+      <author><first>Sun</first><last>Lin</last></author>
+      <pages>1096–1108</pages>
+      <abstract>“Open Relation Extraction (OpenRE) aiming to extract relational facts from open-domain cor-pora is a sub-task of Relation Extraction and a crucial upstream process for many other NLPtasks. However various previous clustering-based OpenRE strategies either confine themselves to unsupervised paradigms or can not directly build a unified relational semantic space henceimpacting down-stream clustering. In this paper we propose a novel supervised learning frame-work named MORE-RLL (Metric learning-based Open Relation Extraction with Ranked ListLoss) to construct a semantic metric space by utilizing Ranked List Loss to discover new rela-tional facts. Experiments on real-world datasets show that MORE-RLL can achieve excellent performance compared with previous state-of-the-art methods demonstrating the capability of MORE-RLL in unified semantic representation learning and novel relational fact detection.”</abstract>
+      <url hash="361f0c0d">2021.ccl-1.98</url>
+      <language>eng</language>
+      <bibkey>renze-etal-2021-unified</bibkey>
+    </paper>
+    <paper id="99">
+      <title><fixed-case>NS</fixed-case>-Hunter: <fixed-case>BERT</fixed-case>-Cloze Based Semantic Denoising for Distantly Supervised Relation Classification</title>
+      <author><first>Shen</first><last>Tielin</last></author>
+      <author><first>Wang</first><last>Daling</last></author>
+      <author><first>Feng</first><last>Shi</last></author>
+      <author><first>Zhang</first><last>Yifei</last></author>
+      <pages>1109–1120</pages>
+      <abstract>“Distant supervision can generate large-scale relation classification data quickly and economi-cally. However a great number of noise sentences are introduced which can not express their labeled relations. By means of pre-trained language model BERT’s powerful function in this paper we propose a BERT-based semantic denoising approach for distantly supervised relation classification. In detail we define an entity pair as a source entity and a target entity. For the specific sentences whose target entities in BERT-vocabulary (one-token word) we present the differences of dependency between two entities for noise and non-noise sentences. For general sentences whose target entity is multi-token word we further present the differences of last hid-den states of [MASK]-entity (MASK-lhs for short) in BERT for noise and non-noise sentences.We regard the dependency and MASK-lhs in BERT as two semantic features of sentences. With BERT we capture the dependency feature to discriminate specific sentences first then capturethe MASK-lhs feature to denoise distant supervision datasets. We propose NS-Hunter a noveldenoising model which leverages BERT-cloze ability to capture the two semantic features andintegrates above functions. According to the experiment on NYT data our NS-Hunter modelachieves the best results in distant supervision denoising and sentence-level relation classification. Keywords: Distant supervision relation classification semantic denoisingIntroduction”</abstract>
+      <url hash="4dc8e34a">2021.ccl-1.99</url>
+      <language>eng</language>
+      <bibkey>tielin-etal-2021-ns</bibkey>
+    </paper>
+    <paper id="100">
+      <title>A Trigger-Aware Multi-Task Learning for <fixed-case>C</fixed-case>hinese Event Entity Recognition</title>
+      <author><first>Xiang</first><last>Yangxiao</last></author>
+      <author><first>Li</first><last>Chenliang</last></author>
+      <pages>1121–1130</pages>
+      <abstract>“This paper tackles a new task for event entity recognition (EER). Different from named entity recognizing (NER) task it only identifies the named entities which are related to a specific event type. Currently there is no specific model to directly deal with the EER task. Previous namedentity recognition methods that combine both relation extraction and argument role classification(named NER+TD+ARC) can be adapted for the task by utilizing the relation extraction component for event trigger detection (TD). However these technical alternatives heavily rely on the efficiency of the event trigger detection which have to require the tedious yet expensive human la-beling of the event triggers especially for languages where triggers contain multiple tokens andhave numerous synonymous expressions (such as Chinese). In this paper a novel trigger-awaremulti-task learning framework (TAM) which jointly performs both trigger detection and evententity recognition is proposed to tackle Chinese EER task. We conduct extensive experimentson a real-world Chinese EER dataset. Compared with the previous methods TAM outperformsthe existing technical alternatives in terms of F1 measure. Besides TAM can accurately identifythe synonymous expressions that are not included in the trigger dictionary. Morover TAM canobtain a robust performance when only a few labeled triggers are available.”</abstract>
+      <url hash="39a1e279">2021.ccl-1.100</url>
+      <language>eng</language>
+      <bibkey>yangxiao-chenliang-2021-trigger</bibkey>
+    </paper>
+    <paper id="101">
+      <title>Improving Low-Resource Named Entity Recognition via Label-Aware Data Augmentation and Curriculum Denoising</title>
+      <author><first>Zhu</first><last>Wenjing</last></author>
+      <author><first>Liu</first><last>Jian</last></author>
+      <author><first>Xu</first><last>Jinan</last></author>
+      <author><first>Chen</first><last>Yufeng</last></author>
+      <author><first>Zhang</first><last>Yujie</last></author>
+      <pages>1131–1142</pages>
+      <abstract>“Deep neural networks have achieved state-of-the-art performances on named entity recognition(NER) with sufficient training data while they perform poorly in low-resource scenarios due to data scarcity. To solve this problem we propose a novel data augmentation method based on pre-trained language model (PLM) and curriculum learning strategy. Concretely we use the PLMto generate diverse training instances through predicting different masked words and design atask-specific curriculum learning strategy to alleviate the influence of noises. We evaluate the effectiveness of our approach on three datasets: CoNLL-2003 OntoNotes5.0 and MaScip of which the first two are simulated low-resource scenarios and the last one is a real low-resource dataset in material science domain. Experimental results show that our method consistently outperform the baseline model. Specifically our method achieves an absolute improvement of3.46% F1 score on the 1% CoNLL-2003 2.58% on the 1% OntoNotes5.0 and 0.99% on the full of MaScip.”</abstract>
+      <url hash="a8e968f0">2021.ccl-1.101</url>
+      <language>eng</language>
+      <bibkey>wenjing-etal-2021-improving</bibkey>
+    </paper>
+    <paper id="102">
+      <title>Global entity alignment with Gated Latent Space Neighborhood Aggregation</title>
+      <author><first>Chen</first><last>Wei</last></author>
+      <author><first>Chen</first><last>Xiaoying</last></author>
+      <author><first>Xiong</first><last>Shengwu</last></author>
+      <pages>1143–1153</pages>
+      <abstract>“Existing entity alignment models mainly use the topology structure of the original knowledge graph and have achieved promising performance. However they are still challenged by the heterogeneous topological neighborhood structures which could cause the models to produce different representations of counterpart entities. In the paper we propose a global entity alignment model with gated latent space neighborhood aggregation (LatsEA) to address this challenge. Latent space neighborhood is formed by calculating the similarity between the entity embeddings it can introduce long-range neighbors to expand the topological neighborhood and reconcile the heterogeneous neighborhood structures. Meanwhile it uses vanilla GCN to aggregate the topological neighborhood and latent space neighborhood respectively. Then it uses an average gating mechanism to aggregate topological neighborhood information and latent space neighborhood information of the central entity. In order to further consider the interdependence between entity alignment decisions we propose a global entity alignment strategy i.e. formulate entity alignment as the maximum bipartite matching problem which is effectively solved by Hungarian algorithm. Our experiments with ablation studies on three real-world entity alignment datasets prove the effectiveness of the proposed model. Latent space neighborhood informationand global entity alignment decisions both contributes to the entity alignment performance improvement.”</abstract>
+      <url hash="8f8b539e">2021.ccl-1.102</url>
+      <language>eng</language>
+      <bibkey>wei-etal-2021-global</bibkey>
+    </paper>
+    <paper id="103">
+      <title>Few-Shot Charge Prediction with Multi-Grained Features and <fixed-case>M</fixed-case>utual<fixed-case>I</fixed-case>nformation</title>
+      <author><first>Zhang</first><last>Han</last></author>
+      <author><first>Zhu</first><last>Yutao</last></author>
+      <author><first>Dou</first><last>Zhicheng</last></author>
+      <author><first>Wen</first><last>Ji-Rong</last></author>
+      <pages>1154–1166</pages>
+      <abstract>“Charge prediction aims to predict the final charge for a case according to its fact descriptionand plays an important role in legal assistance systems. With deep learning based methods prediction on high-frequency charges has achieved promising results but that on few-shot chargesis still challenging. In this work we propose a framework with multi-grained features and mutual information for few-shot charge prediction. Specifically we extract coarse- and fine-grained features to enhance the model’s capability on representation based on which the few-shot chargescan be better distinguished. Furthermore we propose a loss function based on mutual information.This loss function leverages the prior distribution of the charges to tune their weights so the few-shot charges can contribute more on model optimization. Experimental results on several datasets demonstrate the effectiveness and robustness of our method. Besides our method can work wellon tiny datasets and has better efficiency in the training which provides better applicability in realscenarios.”</abstract>
+      <url hash="68d112c0">2021.ccl-1.103</url>
+      <language>eng</language>
+      <bibkey>han-etal-2021-shot</bibkey>
+    </paper>
+    <paper id="104">
+      <title>Sketchy Scene Captioning: Learning Multi-Level Semantic Information from Sparse Visual Scene Cues</title>
+      <author><first>Zhou</first><last>Lian</last></author>
+      <author><first>Chen</first><last>Yangdong</last></author>
+      <author><first>Zhang</first><last>Yuejie</last></author>
+      <pages>1167–1177</pages>
+      <abstract>“To enrich the research about sketch modality a new task termed Sketchy Scene Captioning isproposed in this paper. This task aims to generate sentence-level and paragraph-level descrip-tions for a sketchy scene. The sentence-level description provides the salient semantics of asketchy scene while the paragraph-level description gives more details about the sketchy scene.Sketchy Scene Captioning can be viewed as an extension of sketch classification which can onlyprovide one class label for a sketch. To generate multi-level descriptions for a sketchy scene ischallenging because of the visual sparsity and ambiguity of the sketch modality. To achieve ourgoal we first contribute a sketchy scene captioning dataset to lay the foundation of this new task.The popular sequence learning scheme e.g. Long Short-Term Memory neural network with vi-sual attention mechanism is then adopted to recognize the objects in a sketchy scene and inferthe relations among the objects. In the experiments promising results have been achieved on the proposed dataset. We believe that this work will motivate further researches on the understanding of sketch modality and the numerous sketch-based applications in our daily life. The collected dataset is released at https://github.com/SketchysceneCaption/Dataset.”</abstract>
+      <url hash="caa3a0f3">2021.ccl-1.104</url>
+      <language>eng</language>
+      <bibkey>lian-etal-2021-sketchy</bibkey>
+    </paper>
+    <paper id="105">
+      <title><fixed-case>BDCN</fixed-case>: Semantic Embedding Self-explanatory Breast Diagnostic Capsules Network</title>
+      <author><first>Chen</first><last>Dehua</last></author>
+      <author><first>Zhong</first><last>Keting</last></author>
+      <author><first>He</first><last>Jianrong</last></author>
+      <pages>1178–1189</pages>
+      <abstract>“Building an interpretable AI diagnosis system for breast cancer is an important embodiment ofAI assisted medicine. Traditional breast cancer diagnosis methods based on machine learning areeasy to explain but the accuracy is very low. Deep neural network greatly improves the accuracy of diagnosis but the black box model does not provide transparency and interpretation. In this work we propose a semantic embedding self-explanatory Breast Diagnostic Capsules Network(BDCN). This model is the first to combine the capsule network with semantic embedding for theAI diagnosis of breast tumors using capsules to simulate semantics. We pre-trained the extrac-tion word vector by embedding the semantic tree into the BERT and used the capsule network to improve the semantic representation of multiple heads of attention to construct the extraction feature the capsule network was extended from the computer vision classification task to the text classification task. Simultaneously both the back propagation principle and dynamic routing algorithm are used to realize the local interpretability of the diagnostic model. The experimental results show that this breast diagnosis model improves the model performance and has good interpretability which is more suitable for clinical situations.IntroductionBreast cancer is an important killer threatening women’s health because of rising incidence. Early detection and diagnosis are the key to reduce the mortality rate of breast cancer and improve the quality of life of patients. Mammary gland molybdenum target report contains rich semantic information whichcan directly reflect the results of breast cancer screening (CACA-CBCS 2019) and AI-assisted diagno-sis of breast cancer is an important means. Therefore various diagnostic models were born. Mengwan(2020) used support vector machine(SVM) and Naive Bayes to classify morphological features with anaccuracy of 91.11%. Wei (2009) proposed a classification method of breast cancer based on SVM andthe accuracy of the classifier experiment is 79.25%. These traditional AI diagnoses of breast tumors havelimited data volume and low accuracy. Deep Neural Networks (DNN) enters into the ranks of the diagno-sis of breast tumor. Wang (2019) put forward a kind of based on feature fusion with CNN deep features of breast computer-aided diagnosis methods the accuracy is 92.3%. Zhao (2018) investigated capsule networks with dynamic routing for text classification which proves the feasibility of text categorization. Existing models have poor predictive effect and lack of interpretation which can not meet the clinical needs.”</abstract>
+      <url hash="3718e1b6">2021.ccl-1.105</url>
+      <language>eng</language>
+      <bibkey>dehua-etal-2021-bdcn</bibkey>
+    </paper>
+    <paper id="106">
+      <title><fixed-case>GCN</fixed-case> with External Knowledge for Clinical Event Detection</title>
+      <author><first>Liu</first><last>Dan</last></author>
+      <author><first>Zhang</first><last>Zhichang</last></author>
+      <author><first>Peng</first><last>Hui</last></author>
+      <author><first>Han</first><last>Ruirui</last></author>
+      <pages>1190–1201</pages>
+      <abstract>“In recent years with the development of deep learning and the increasing demand for medical information acquisition in medical information technology applications such as clinical decision support Clinical Event Detection has been widely studied as its subtask. However directly applying advances in deep learning to Clinical Event Detection tasks often produces undesirable results. This paper proposes a multi-granularity information fusion encoder-decoder frameworkthat introduces external knowledge. First the word embedding generated by the pre-trained biomedical language representation model (BioBERT) and the character embedding generatedby the Convolutional Neural Network are spliced. And then perform Part-of-Speech attention coding for character-level embedding perform semantic Graph Convolutional Network codingfor the spliced character-word embedding. Finally the information of these three parts is fusedas Conditional Random Field input to generate the sequence label of the word. The experimental results on the 2012 i2b2 data set show that the model in this paper is superior to other existingmodels. In addition the model in this paper alleviates the problem that “occurrence” event typeseem more difficult to detect than other event types.”</abstract>
+      <url hash="5cce8cc6">2021.ccl-1.106</url>
+      <language>eng</language>
+      <bibkey>dan-etal-2021-gcn</bibkey>
+    </paper>
+    <paper id="107">
+      <title>A Prompt-independent and Interpretable Automated Essay Scoring Method for <fixed-case>C</fixed-case>hinese Second Language Writing</title>
+      <author><first>Wang</first><last>Yupei</last></author>
+      <author><first>Hu</first><last>Renfen</last></author>
+      <pages>1202–1217</pages>
+      <abstract>“With the increasing popularity of learning Chinese as a second language (L2) the development of an automatic essay scoring (AES) method specially for Chinese L2 essays has become animportant task. To build a robust model that could easily adapt to prompt changes we propose 90linguistic features with consideration of both language complexity and correctness and introducethe Ordinal Logistic Regression model that explicitly combines these linguistic features and low-level textual representations. Our model obtains a high QWK of 0.714 a low RMSE of 1.516 anda considerable Pearson correlation of 0.734. With a simple linear model we further analyze the contribution of the linguistic features to score prediction revealing the model’s interpretability and its potential to give writing feedback to users. This work provides insights and establishes asolid baseline for Chinese L2 AES studies.”</abstract>
+      <url hash="5a0d88ae">2021.ccl-1.107</url>
+      <language>eng</language>
+      <bibkey>yupei-renfen-2021-prompt</bibkey>
+    </paper>
+    <paper id="108">
+      <title>A Robustly Optimized <fixed-case>BERT</fixed-case> Pre-training Approach with Post-training</title>
+      <author><first>Liu</first><last>Zhuang</last></author>
+      <author><first>Lin</first><last>Wayne</last></author>
+      <author><first>Shi</first><last>Ya</last></author>
+      <author><first>Zhao</first><last>Jun</last></author>
+      <pages>1218–1227</pages>
+      <abstract>“In the paper we present a ‘pre-training’+‘post-training’+‘fine-tuning’ three-stage paradigm which is a supplementary framework for the standard ‘pre-training’+‘fine-tuning’ languagemodel approach. Furthermore based on three-stage paradigm we present a language modelnamed PPBERT. Compared with original BERT architecture that is based on the standard two-stage paradigm we do not fine-tune pre-trained model directly but rather post-train it on the domain or task related dataset first which helps to better incorporate task-awareness knowl-edge and domain-awareness knowledge within pre-trained model also from the training datasetreduce bias. Extensive experimental results indicate that proposed model improves the perfor-mance of the baselines on 24 NLP tasks which includes eight GLUE benchmarks eight Su-perGLUE benchmarks six extractive question answering benchmarks. More remarkably our proposed model is a more flexible and pluggable model where post-training approach is able to be plugged into other PLMs that are based on BERT. Extensive ablations further validate the effectiveness and its state-of-the-art (SOTA) performance. The open source code pre-trained models and post-trained models are available publicly.”</abstract>
+      <url hash="5a899e68">2021.ccl-1.108</url>
+      <language>eng</language>
+      <bibkey>zhuang-etal-2021-robustly</bibkey>
+    </paper>
+  </volume>
+</collection>
