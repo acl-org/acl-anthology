@@ -47,8 +47,8 @@ class SIGIndex:
 
     def load_from_dir(self, sigdir):
         self.directory = sigdir
-        for filename in glob("{}/yaml/sigs/*.yaml".format(self.directory)):
-            log.debug("Instantiating SIG from {}...".format(filename))
+        for filename in glob(f"{self.directory}/yaml/sigs/*.yaml"):
+            log.debug(f"Instantiating SIG from {filename}...")
             with open(filename, "r") as f:
                 data = yaml.load(f, Loader=Loader)
                 sig = SIG.from_dict(data)
@@ -143,9 +143,7 @@ class SIG:
                         )
                     else:
                         log.warning(
-                            "In SIG '{}': Unknown event format: {}".format(
-                                self.acronym, type(event)
-                            )
+                            f"In SIG '{self.acronym}': Unknown event format: {type(event)}"
                         )
                     self._associated_events.append(ev)
                     self.events_by_year[year].append(ev)
