@@ -134,7 +134,7 @@ venv/bin/activate: bin/requirements.txt
 	touch venv/bin/activate
 
 .PHONY: all
-all: clean check site
+all: check site
 
 .PHONY: basedirs
 basedirs:
@@ -264,7 +264,7 @@ test: hugo
 
 .PHONY: clean
 clean:
-	rm -rf build
+	rm -rf build venv
 
 .PHONY: check
 check: venv
@@ -314,7 +314,7 @@ upload:
             exit 1; \
         fi
 	@echo "INFO     Running rsync for main site (aclanthology.org)..."
-	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" build/website/ anthologizer@aclanthology.org:/var/www/aclanthology.org
+	@rsync -aze "ssh -o StrictHostKeyChecking=accept-new" --delete build/website/ anthologizer@aclanthology.org:/var/www/aclanthology.org
 
 # Push a preview to the mirror
 .PHONY: preview

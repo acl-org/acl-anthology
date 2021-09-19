@@ -105,7 +105,7 @@ if __name__ == "__main__":
     tracker = SeverityTracker()
     log.getLogger().addHandler(tracker)
 
-    anthology = Anthology(importdir=args["--importdir"])
+    anthology = Anthology(importdir=args["--importdir"], fast_load=True)
     create_bibtex(anthology, args["--exportdir"], clean=args["--clean"])
 
     if tracker.highest >= log.ERROR:
