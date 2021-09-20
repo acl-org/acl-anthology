@@ -291,8 +291,9 @@ def main(args):
         if not os.path.exists(pdfs_dest_dir):
             os.makedirs(pdfs_dest_dir)
 
-        # copy the book from the top-level proceedings/ dir, named "book.pdf"
-        book_src_path = os.path.join(meta["path"], "book.pdf")
+        # copy the book from the top-level proceedings/ dir, named "VENUE-year.pdf"
+        book_path = 'cdrom/' + venue_name.upper() + '-' + year + '.pdf'
+        book_src_path = os.path.join(meta["path"], book_path)
         book_dest_path = None
         if os.path.exists(book_src_path) and not args.dry_run:
             book_dest_path = (
