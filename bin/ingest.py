@@ -292,7 +292,7 @@ def main(args):
             os.makedirs(pdfs_dest_dir)
 
         # copy the book from the top-level proceedings/ dir, named "VENUE-year.pdf"
-        book_path = 'cdrom/' + venue_name.upper() + '-' + year + '.pdf'
+        book_path = f'cdrom/{venue_name.upper()}-{year}.pdf'
         book_src_path = os.path.join(meta["path"], book_path)
         book_dest_path = None
         if os.path.exists(book_src_path) and not args.dry_run:
