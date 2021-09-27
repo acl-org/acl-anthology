@@ -64,11 +64,11 @@ class VenueIndex:
         """
         Dumps the venue database to file.
         """
-        with open("{}/yaml/venues.yaml".format(directory), "wt") as f:
+        with open(f"{directory}/yaml/venues.yaml", "wt") as f:
             print(yaml.dump(self.venue_dict, allow_unicode=True), file=f)
 
     def load_from_dir(self, directory):
-        with open("{}/yaml/venues.yaml".format(directory), "r") as f:
+        with open(f"{directory}/yaml/venues.yaml", "r") as f:
             self.venue_dict = yaml.load(f, Loader=Loader)
             venue_dict = deepcopy(self.venue_dict)
             for key, val in venue_dict.items():
@@ -106,7 +106,7 @@ class VenueIndex:
                         )
                     self.letters[val["oldstyle_letter"]] = val["acronym"]
 
-        with open("{}/yaml/joint.yaml".format(directory), "r") as f:
+        with open(f"{directory}/yaml/joint.yaml", "r") as f:
             map_dict = yaml.load(f, Loader=Loader)
             for venue, data in map_dict.items():
                 acronym = self.acronyms_by_key[venue]
@@ -148,9 +148,7 @@ class VenueIndex:
                         build_anthology_id(collection_id, volume_id, None)
                     ][0]
                 except (KeyError, IndexError):
-                    log.critical(
-                        "Old-style ID {} isn't assigned any venue!".format(anthology_id)
-                    )
+                    log.critical(f"Old-style ID {anthology_id} isn't assigned any venue!")
             return main_venue
 
     def get_associated_venues(self, anthology_id):
