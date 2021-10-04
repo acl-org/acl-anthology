@@ -18,6 +18,8 @@ import logging as log
 import re
 import yaml
 from collections import defaultdict, Counter
+from functools import lru_cache
+import itertools as it
 from slugify import slugify
 from stop_words import get_stop_words
 from .formatter import bibtex_encode
@@ -39,49 +41,75 @@ def load_stopwords(language):
     return [t for w in get_stop_words(language) for t in slugify(w).split("-")]
 
 
-def score_variant(name):
-    """Heuristically assign scores to names, with the idea of assigning higher
-    scores to spellings more likely to be the correct canonical variant."""
-    name = repr(name)
-    # Prefer longer variants
-    score = len(name)
-    # Prefer variants with non-ASCII characters
-    score += sum((ord(c) > 127) for c in name)
-    # Penalize upper-case characters after word boundaries
-    score -= sum(any(c.isupper() for c in w[1:]) for w in re.split(r"\W+", name))
-    # Penalize lower-case characters at word boundaries
-    score -= sum(w[0].islower() if w else 0 for w in re.split(r"\W+", name))
-    if name[0].islower():  # extra penalty for first name
-        score -= 1
+# Temporary hack until we refactor person/name handling
+class defaultdict_names(defaultdict):
+    """This is a defaultdict that indexes PersonName objects, but without regard
+    for any locally defined name variant, so that PersonName('X', 'Y') and
+    PersonName('X', 'Y', variant=foo) will key to the same thing.
+    """
 
-    return score
+    def __getitem__(self, key: PersonName):
+        return super().__getitem__(key.without_variant())
+
+    def __setitem__(self, key: PersonName, val):
+        return super().__setitem__(key.without_variant(), val)
+
+    def __delitem__(self, key: PersonName):
+        return super().__delitem__(key.without_variant())
+
+    def __contains__(self, key: PersonName):
+        return super().__contains__(key.without_variant())
+
+    def get(self, key: PersonName, default=None):
+        return super().get(key.without_variant(), default)
 
 
 class AnthologyIndex:
-    """Keeps an index of persons, their associated papers, paper bibliography
-    keys, etc.."""
+    """Keeps an index of people and papers.
 
-    def __init__(self, parent, srcdir=None):
+    This class provides:
+    - An index of people (authors/editors) with their internal IDs, canonical
+      names, and name variants.
+    - A mapping of people to all papers associated with them.
+    - A set of all bibliography keys used within the Anthology and a method to
+      create new ones, guaranteeing uniqueness.
+
+    The index is NOT automatically populated when instantiating this class, but
+    rather gets its data from papers being registered in it as they are loaded
+    from the XML by the main `Anthology` class.
+
+    :param srcdir: Path to the Anthology data directory. Only used for loading
+    the list of name variants.
+    :param fast_load: Whether to disable some error checking in favor of faster
+    loading.
+    :param require_bibkeys: Whether to log an error when a paper being added
+    does not have a bibkey. Should only be set to False during the ingestion of
+    new papers, when this class is being used to generate new, unique bibkeys.
+    """
+
+    def __init__(self, srcdir=None, fast_load=False, require_bibkeys=True, parent=None):
         self._parent = parent
+        self._fast_load = fast_load
+        self._require_bibkeys = require_bibkeys
         self.bibkeys = set()
         self.stopwords = load_stopwords("en")
         self.id_to_canonical = {}  # maps ids to canonical names
-        self.id_to_used = defaultdict(set)  # maps ids to all names actually used
-        self.name_to_ids = defaultdict(list)  # maps canonical/variant names to ids
-        self.coauthors = defaultdict(Counter)  # maps ids to co-author ids
+        self._id_to_used = defaultdict(set)  # maps ids to all names actually used
+        self.name_to_ids = defaultdict_names(list)  # maps canonical/variant names to ids
+        self._coauthors = defaultdict(Counter)  # maps ids to co-author ids
         self.comments = (
             {}
         )  # maps ids to comments (used for distinguishing authors with same name)
-        self.similar = defaultdict(set)
+        self._similar = defaultdict(set)
         self.id_to_papers = defaultdict(lambda: defaultdict(list))  # id -> role -> papers
-        self.name_to_papers = defaultdict(
+        self.name_to_papers = defaultdict_names(
             lambda: defaultdict(list)
         )  # name -> (explicit id?) -> papers; used only for error checking
         if srcdir is not None:
             self.load_variant_list(srcdir)
 
     def load_variant_list(self, directory):
-        with open("{}/yaml/name_variants.yaml".format(directory), "r") as f:
+        with open(f"{directory}/yaml/name_variants.yaml", "r") as f:
             name_list = yaml.load(f, Loader=Loader)
 
             # Reserve ids for people with explicit ids in variant list
@@ -92,29 +120,26 @@ class AnthologyIndex:
                     canonical = PersonName.from_dict(canonical)
                     self.set_canonical_name(id_, canonical)
             # Automatically add people with same canonical name to similar list
-            for name, ids in self.name_to_ids.items():
-                if len(ids) > 1:
-                    for id1 in ids:
-                        for id2 in ids:
-                            if id2 != id1:
-                                self.similar[id1].add(id2)
+            if not self._fast_load:
+                for name, ids in self.name_to_ids.items():
+                    if len(ids) > 1:
+                        for (id1, id2) in it.permutations(ids, 2):
+                            self._similar[id1].add(id2)
             for entry in name_list:
                 try:
                     canonical = entry["canonical"]
                     variants = entry.get("variants", [])
                     id_ = entry.get("id", None)
                 except (KeyError, TypeError):
-                    log.error("Couldn't parse name variant entry: {}".format(entry))
+                    log.error(f"Couldn't parse name variant entry: {entry}")
                     continue
                 canonical = PersonName.from_dict(canonical)
                 if id_ is None:
                     if canonical in self.name_to_ids:
                         log.error(
-                            "Canonical name '{}' is ambiguous but doesn't have an id; please add one".format(
-                                canonical
-                            )
+                            f"Canonical name '{canonical}' is ambiguous but doesn't have an id; please add one"
                         )
-                    id_ = self.generate_id(canonical)
+                    id_ = canonical.slug
                     self.set_canonical_name(id_, canonical)
                 for variant in variants:
                     variant = PersonName.from_dict(variant)
@@ -130,26 +155,25 @@ class AnthologyIndex:
                     self.add_variant_name(id_, variant)
                 if "comment" in entry:
                     self.comments[id_] = entry["comment"]
-                if "similar" in entry:
-                    self.similar[id_].update(entry["similar"])
+                if "similar" in entry and not self._fast_load:
+                    self._similar[id_].update(entry["similar"])
                     for other in entry["similar"]:
-                        if id_ not in self.similar[other]:
-                            log.debug(
-                                'inferring similar name {} -> {}'.format(other, id_)
-                            )
-                        self.similar[other].add(id_)
+                        if id_ not in self._similar[other]:
+                            log.debug(f'inferring similar name {other} -> {id_}')
+                        self._similar[other].add(id_)
 
-        # form transitive closure of self.similar
-        again = True
-        while again:
-            again = False
-            for x in list(self.similar):
-                for y in list(self.similar[x]):
-                    for z in list(self.similar[y]):
-                        if z != x and z not in self.similar[x]:
-                            self.similar[x].add(z)
-                            log.debug('inferring similar name {} -> {}'.format(x, z))
-                            again = True
+        # form transitive closure of self._similar
+        if not self._fast_load:
+            again = True
+            while again:
+                again = False
+                for x in list(self._similar):
+                    for y in list(self._similar[x]):
+                        for z in list(self._similar[y]):
+                            if z != x and z not in self._similar[x]:
+                                self._similar[x].add(z)
+                                log.debug(f'inferring similar name {x} -> {z}')
+                                again = True
 
     def _is_stopword(self, word, paper):
         """Determines if a given word should be considered a stopword for
@@ -189,11 +213,15 @@ class AnthologyIndex:
                 return True
         return False
 
-    def create_bibkey(self, paper):
+    def create_bibkey(self, paper, vidx=None):
         """Create a unique bibliography key for the given paper."""
+        if self._fast_load:
+            raise Exception(
+                "Cannot create bibkeys when AnthologyIndex is instantiated with fast_load=True"
+            )
         if paper.is_volume:
             # Proceedings volumes use venue acronym instead of authors/editors
-            bibnames = slugify(self._parent.venues.get_main_venue(paper.full_id))
+            bibnames = slugify(vidx.get_main_venue(paper.full_id))
         else:
             # Regular papers use author/editor names
             names = paper.get("author")
@@ -201,7 +229,7 @@ class AnthologyIndex:
                 names = paper.get("editor", [])
             if names:
                 if len(names) > BIBKEY_MAX_NAMES:
-                    bibnames = "{}-etal".format(slugify(names[0][0].last))
+                    bibnames = f"{slugify(names[0][0].last)}-etal"
                 else:
                     bibnames = "-".join(slugify(n.last) for n, _ in names)
             else:
@@ -211,41 +239,60 @@ class AnthologyIndex:
             for w in slugify(paper.get_title("plain")).split("-")
             if not self._is_stopword(w, paper)
         ]
-        bibkey = "{}-{}-{}".format(bibnames, str(paper.get("year")), title.pop(0))
+        bibkey = f"{bibnames}-{paper.get('year')}-{title.pop(0)}"
         while bibkey in self.bibkeys:  # guarantee uniqueness
             if title:
-                bibkey += "-{}".format(title.pop(0))
+                bibkey += f"-{title.pop(0)}"
             else:
                 match = re.search(r"-([0-9][0-9]?)$", bibkey)
                 if match is not None:
                     num = int(match.group(1)) + 1
-                    bibkey = bibkey[: -len(match.group(1))] + "{}".format(num)
+                    bibkey = bibkey[: -len(match.group(1))] + f"{num}"
                 else:
                     bibkey += "-2"
                 log.debug(
-                    "New bibkey for clash that can't be resolved by adding title words: {}".format(
-                        bibkey
-                    )
+                    f"New bibkey for clash that can't be resolved by adding title words: {bibkey}"
                 )
-        self.bibkeys.add(bibkey)
+        paper.bibkey = bibkey
+        self.register_bibkey(paper)
         return bibkey
 
-    def register(self, paper):
-        """Register all names associated with the given paper."""
+    def register_bibkey(self, paper):
+        """Register a paper's bibkey in Anthology-wide set to ensure uniqueness."""
+        key = paper.bibkey
+        if key is None:
+            if self._require_bibkeys:
+                log.error(f"Paper {paper.full_id} has no bibkey!")
+            return
+        if key in self.bibkeys:
+            log.error(f"Paper {paper.full_id} has bibkey that is not unique ({key})!")
+            return
+        self.bibkeys.add(key)
+
+    def register(self, paper, dummy=False):
+        """Register bibkey and names associated with the given paper.
+
+        :param dummy: If True, will only resolve the author/editor names without
+        actually linking them to the given paper.  This is used for volumes
+        without frontmatter to make sure their editors still get registered
+        here, but without creating links to a non-existent paper.
+        """
         from .papers import Paper
 
-        assert isinstance(paper, Paper), "Expected Paper, got {} ({})".format(
-            type(paper), repr(paper)
-        )
-        paper.bibkey = self.create_bibkey(paper)
+        assert isinstance(
+            paper, Paper
+        ), f"Expected Paper, got {type(paper)} ({repr(paper)})"
+        # Make sure paper has a bibkey and it is unique (except for dummy
+        # frontmatter, as it is not an actual paper)
+        if not dummy and not self._fast_load:
+            self.register_bibkey(paper)
+        # Resolve and register authors/editors for this paper
         for role in ("author", "editor"):
             for name, id_ in paper.get(role, []):
                 if id_ is None:
                     if len(self.name_to_ids.get(name, [])) > 1:
                         log.error(
-                            "Paper {} uses ambiguous name '{}' without id".format(
-                                paper.full_id, name
-                            )
+                            f"Paper {paper.full_id} uses ambiguous name '{name}' without id"
                         )
                         log.error(
                             "  Please add an id, for example: {}".format(
@@ -257,22 +304,57 @@ class AnthologyIndex:
                 else:
                     if id_ not in self.id_to_canonical:
                         log.error(
-                            "Paper {} uses name '{}' with id '{}' that does not exist".format(
-                                paper.full_id, name, id_
-                            )
+                            f"Paper {paper.full_id} uses name '{name}' with id '{id_}' that does not exist"
                         )
                     explicit = True
 
-                self.id_to_used[id_].add(name)
-                # Register paper
-                self.id_to_papers[id_][role].append(paper.full_id)
-                self.name_to_papers[name][explicit].append(paper.full_id)
-                # Register co-author(s)
-                for co_name, co_id in paper.get(role):
-                    if co_id is None:
-                        co_id = self.resolve_name(co_name)["id"]
-                    if co_id != id_:
-                        self.coauthors[id_][co_id] += 1
+                if not self._fast_load:
+                    self._id_to_used[id_].add(name)
+
+                if not dummy:
+                    # Register paper
+                    self.id_to_papers[id_][role].append(paper.full_id)
+                    if not self._fast_load:
+                        self.name_to_papers[name][explicit].append(paper.full_id)
+                        # Register co-author(s)
+                        for co_name, co_id in paper.get(role):
+                            if co_id is None:
+                                co_id = self.resolve_name(co_name)["id"]
+                            if co_id != id_:
+                                self._coauthors[id_][co_id] += 1
+
+    @property
+    def id_to_used(self):
+        if self._fast_load and not self._id_to_used:
+            for paper in self._parent.papers.values():
+                for (name, id_, _) in paper.iter_people():
+                    self._id_to_used[id_].add(name)
+        return self._id_to_used
+
+    @property
+    def coauthors(self):
+        if self._fast_load and not self._coauthors:
+            for paper in self._parent.papers.values():
+                people = list(paper.iter_people())
+                for (p1, p2) in it.permutations(people, 2):
+                    name1, id1, role1 = p1
+                    name2, id2, role2 = p2
+                    if role1 != role2:
+                        continue
+                    if id1 is None:
+                        id1 = self.resolve_name(name1)["id"]
+                    if id2 is None:
+                        id2 = self.resolve_name(name2)["id"]
+                    self._coauthors[id1][id2] += 1
+        return self._coauthors
+
+    @property
+    def similar(self):
+        if self._fast_load:
+            raise Exception(
+                "Cannot retrieve list of similar names when AnthologyIndex is instantiated with fast_load=True"
+            )
+        return self._similar
 
     def verify(self):
         ## no longer issuing a warning for unused variants
@@ -281,21 +363,19 @@ class AnthologyIndex:
         # for name, ids in self.name_to_ids.items():
         #    for id_ in ids:
         #        cname = self.id_to_canonical[id_]
-        #        if name != cname and name not in self.id_to_used[id_]:
+        #        if name != cname and name not in self._id_to_used[id_]:
         #            log.warning(
         #                "Variant name '{}' of '{}' is not used".format(
         #                    repr(name), repr(cname)
         #                )
         #            )
+        if self._fast_load:
+            return  # does nothing
         for name, d in self.name_to_papers.items():
             # name appears with more than one explicit id and also
             # appears without id at least once
             if len(d[False]) > 0 and len(d[True]) > 1:
-                log.error(
-                    "Name '{}' is ambiguous and is used without explicit id".format(
-                        repr(name)
-                    )
-                )
+                log.error(f"Name '{name}' is ambiguous and is used without explicit id")
                 log.error(
                     "  Please add an id to paper(s):   {}".format(" ".join(d[False]))
                 )
@@ -308,7 +388,7 @@ class AnthologyIndex:
 
     def set_canonical_name(self, id_, name):
         if (not id_ in self.id_to_canonical) or (
-            score_variant(name) > score_variant(self.id_to_canonical[id_])
+            name.score > self.id_to_canonical[id_].score
         ):
             # if name not seen yet, or if this version has more accents
             self.id_to_canonical[id_] = name
@@ -329,7 +409,7 @@ class AnthologyIndex:
         :return: A list of name ID strings.
         """
         if name not in self.name_to_ids:
-            id_ = self.generate_id(name)
+            id_ = name.slug
             self.set_canonical_name(id_, name)
 
         return sorted(self.name_to_ids[name])
@@ -343,6 +423,7 @@ class AnthologyIndex:
         """
         return self.comments.get(id_, None)
 
+    @lru_cache(maxsize=None)
     def resolve_name(self, name, id_=None):
         """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
@@ -352,7 +433,7 @@ class AnthologyIndex:
             if len(ids) > 1:
                 log.debug(
                     "Name '{}' is ambiguous between {}".format(
-                        repr(name), ", ".join("'{}'".format(i) for i in ids)
+                        repr(name), ", ".join(f"'{i}'" for i in ids)
                     )
                 )
             # Just return the first
@@ -360,18 +441,6 @@ class AnthologyIndex:
         d = name.as_dict()
         d["id"] = id_
         return d
-
-    # This just slugifies the name - not guaranteed to be a "fresh" id.
-    # If two names slugify to the same thing, we assume they are the same person.
-    # This happens when there are missing accents in one version, or
-    # when we have an inconsistent first/last split for multiword names.
-    # These cases have in practice always referred to the same person.
-    def generate_id(self, name):
-        assert name not in self.name_to_ids, name
-        slug = slugify(repr(name))
-        if slug == "":
-            slug = "none"
-        return slug
 
     def get_papers(self, id_, role=None):
         if role is None:

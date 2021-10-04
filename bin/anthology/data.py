@@ -25,7 +25,7 @@ import os
 
 # this is the canonical URL.  In contrast to all other
 # URL templates, it always links to the official anthology.
-CANONICAL_URL_TEMPLATE = "https://www.aclweb.org/anthology/{}"
+CANONICAL_URL_TEMPLATE = "https://aclanthology.org/{}"
 
 # the prefix is used in different programs and we need to set it everywhere
 # We use a environment variable to set this and not have to forward the value
@@ -34,7 +34,7 @@ CANONICAL_URL_TEMPLATE = "https://www.aclweb.org/anthology/{}"
 try:
     ANTHOLOGY_PREFIX = os.environ["ANTHOLOGY_PREFIX"]
 except:
-    ANTHOLOGY_PREFIX = "https://www.aclweb.org/anthology"
+    ANTHOLOGY_PREFIX = "https://aclanthology.org"
 
 ATTACHMENT_PREFIX = ANTHOLOGY_PREFIX + "/attachments"
 ATTACHMENT_TEMPLATE = ATTACHMENT_PREFIX + "/{}"
@@ -44,6 +44,12 @@ PDF_THUMBNAIL_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/thumb/{}.jpg"
 
 # Regular expression matching full Anthology IDs
 ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"
+
+# Anthology file location on server
+# Defaults to ~/anthology-files
+ANTHOLOGY_FILE_DIR = os.environ.get(
+    "ANTHOLOGY_FILES", os.path.join(os.environ["HOME"], "anthology-files")
+)
 
 # Names of XML elements that may appear multiple times
 LIST_ELEMENTS = (
