@@ -100,9 +100,14 @@ def add_watermark(anth_id, workdir="."):
 
     command = f"pdflatex {tex_file}"
     try:
-        subprocess.call(command, shell=True, cwd=workdir, stdout=subprocess.DEVNULL, timeout=60)
+        subprocess.call(
+            command, shell=True, cwd=workdir, stdout=subprocess.DEVNULL, timeout=60
+        )
     except TimeoutExpired:
-        print("pdflatex didn't finish within 60 seconds. Do you have the CTAN watermark package installed?", file=sys.stderr)
+        print(
+            "pdflatex didn't finish within 60 seconds. Do you have the CTAN watermark package installed?",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     new_pdf = f"{tex_file}".replace(".tex", ".pdf")
