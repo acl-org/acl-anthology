@@ -2,13 +2,13 @@
 Title: Requesting Corrections
 linktitle: Corrections
 subtitle: How to submit corrections to the Anthology
-date: "2021-08-25"
+date: "2021-10-05"
 ---
 
 ### Types of corrections
 
 The staff of the ACL Anthology can process requests for both many types of corrections to data in the ACL Anthology.
-We generally distinguish four types of corrections:
+We generally distinguish five types of corrections, loosely following the [ACM Publications Policy](https://www.acm.org/publications/policies/):
 
 * Corrections to **metadata** do not require changing the PDF.
   Examples include correcting the spelling of a name or the title.
@@ -19,6 +19,7 @@ We generally distinguish four types of corrections:
 * A **revision** is a versioned replacement of the original scholarly work.
   This format allows a corrected paper to be read in place of the original scholarly work, and typically does not highlight the original's errors.
 * A **retraction** occurs when serious, unrecoverable errors are discovered, which drastically affect the findings of the original work.
+* A **removal** occurs in rare circumstances where serious ethical or legal issues arise, such as plagiarism.
 
 Please take note of the following points regarding revisions and retractions.
 
@@ -75,18 +76,34 @@ A revision that changes the author list needs permission (see below).
 
 ### Retractions
 
-For retractions, please communicate directly with the Anthology director.
-Retractions are rare, and often involve the organizing editors or chairs of the respective journal or conference.
+To initiate a retraction, please communicate directly with the Anthology director.
+Retractions often involve the organizing editors or chairs of the respective journal or conference.
 
 Retractions result in the following changes in the Anthology:
 
 * The paper is processed as a revision.
   Each page of the revised PDF is marked with a prominent watermark reading "RETRACTED".
 * The paper's title and author list are displayed with ~~strikeout text~~ in the volume and event listings.
-* The paper's canonical page contains a prominent noticed of the retraction,
+* The paper's canonical page contains a prominent notice of the retraction,
   Its title, author list, and abstract are presented in ~~strikeout text~~.
   No bibliographic files are generated, and the paper is not listed in the consolidated Anthology BibTeX file.
 * The paper is removed entirely from the listing on the author page.
+
+### Removal
+
+As with retractions, for removals, please also communicate directly with the Anthology director.
+Removals are rare events that often involve the governing boards of the relevant scientific organizatoin.
+
+A removal will result in the following changes to the Anthology:
+
+* The paper PDF, along with all revisions and attachments, are removed from the Anthology.
+  (They will, however, be preserved in the Anthology's private storage.)
+* The associated book will either be regenerated or will edited to remove the offending paper.
+* The paper will be removed from all listings, including the volume page, any events pages it is associated with, and the author page.
+* The paper's canonical page will be modified to contain a prominent notice of the removal.
+  Its title and author list will be presented in ~~strikeout text~~.
+  The abstract, if present, will be removed.
+  No bibliographic files will be generated.
 
 ### Note on author changes
 

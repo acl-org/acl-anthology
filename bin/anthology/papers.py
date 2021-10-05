@@ -171,6 +171,9 @@ class Paper:
         if "retracted" in paper.attrib and paper.attrib["retracted"] is None:
             paper.attrib["retracted"] = " "
 
+        if "removed" in paper.attrib and paper.attrib["removed"] is None:
+            paper.attrib["removed"] = " "
+
         return paper
 
     def _interpret_pages(self):
@@ -244,6 +247,10 @@ class Paper:
     @property
     def is_retracted(self) -> bool:
         return "retracted" in self.attrib
+
+    @property
+    def is_removed(self) -> bool:
+        return "removed" in self.attrib
 
     @property
     def isbn(self):
