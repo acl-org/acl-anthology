@@ -23,7 +23,8 @@
         <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
       {{- end -}}
   </span>
-  <span class="d-block" {{ if or $paper.retracted $paper.removed }} style="text-decoration: line-through" {{ end }}>
+  {{ if not $paper.removed }}
+  <span class="d-block" {{ if $paper.retracted }} style="text-decoration: line-through" {{ end }}>
     {{ if eq hugo.Environment "development" }}
       <span class="badge badge-light align-middle">{{ .Params.anthology_id }}</span>
     {{ end }}
@@ -37,6 +38,7 @@
       {{ end }}
     {{ end }}
   </span>
+  {{ end }}
 </p>
 
 {{ with $paper.abstract_html }}
