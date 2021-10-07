@@ -91,14 +91,16 @@ Retractions result in the following changes in the Anthology:
 
 ### Removal
 
-As with retractions, for removals, please also communicate directly with the Anthology director.
-Removals are rare events that often involve the governing boards of the relevant scientific organizatoin.
+Removals are rare events that are undertaken only in the most serious of situations, such as plagiarism or fraud.
+A paper can be removed at the request of the scientific organization with jurisdiction over the paper.
+For most papers within the Anthology, this is the [ACL](https://www.aclweb.org/).
+The Anthology does not itself adjudicate removal decisions.
 
 A removal will result in the following changes to the Anthology:
 
 * The paper PDF, along with all revisions and attachments, are removed from the Anthology.
   (They will, however, be preserved in the Anthology's private storage.)
-* The associated book will either be regenerated or will edited to remove the offending paper.
+* The associated book will either be regenerated or will be edited to remove the offending paper.
 * The paper will be removed from all listings, including the volume page, any events pages it is associated with, and the author page.
 * The paper's canonical page will be modified to contain a prominent notice of the removal.
   Its title and author list will be presented in ~~strikeout text~~.
