@@ -93,8 +93,8 @@ Retractions result in the following changes in the Anthology:
 
 Removals are rare events that are undertaken only in the most serious of situations, such as plagiarism or fraud.
 A paper can be removed at the request of the scientific organization with jurisdiction over the paper.
-For most papers within the Anthology, this is the [ACL](https://www.aclweb.org/).
-The Anthology does not itself adjudicate removal decisions.
+For most papers within the Anthology, this is the [ACL](https://www.aclweb.org/), but any organization with publications in the Anthology (e.g., [AMTA](https://www.amtaweb.org/), [LREC](https://lrec-conf.org)) can also request the removal of a paper.
+The Anthology staff does not adjudicate removal decisions.
 
 A removal will result in the following changes to the Anthology:
 
