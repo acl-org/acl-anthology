@@ -81,7 +81,7 @@
 {{ $has_xml := fileExists (printf "/data-export/%s.xml" $anthology_id) }}
 {{ $has_endf := fileExists (printf "/data-export/%s.endf" $anthology_id) }}
 <section id="main">
-  <div {{ with $paper.retracted }} style="text-decoration: line-through" {{ end }}>
+  <div {{ if or $paper.retracted $paper.removed }} style="text-decoration: line-through" {{ end }}>
   <h2 id="title">
     {{ with $paper.pdf }}
     <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
@@ -105,6 +105,13 @@
       {{ with $paper.retracted }}
       <div class="alert alert-danger" role="alert">
         <b>This paper has been retracted.</b> {{ . }}
+      </div>
+      {{ end }}
+
+      {{ with $paper.removed }}
+      <div class="alert alert-danger" role="alert">
+        <b>This paper has been <a href="https://aclanthology.org/info/corrections/#removal">removed</a>.</b>
+        {{ . }}
       </div>
       {{ end }}
 
@@ -197,7 +204,7 @@
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
       -->
-      {{ if not $paper.retracted }}
+      {{ if and (not $paper.retracted) (not $paper.removed) }}
       <dt class="acl-button-row">Bibkey:</dt>
       <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey"><i class="far fa-clipboard"></i><span id="citePaperBibkey" class="pl-2 text-monospace">{{ . }}</span></button>{{ end }}</dd>
       <dt class="acl-button-row">Copy Citation:</dt>
@@ -248,7 +255,7 @@
         </a>
         {{ end }}
       {{ end }}
-      {{ if and (not $paper.retracted) (or $has_bib $has_xml $has_endf) }}
+      {{ if and (not $paper.retracted) (not $paper.removed) (or $has_bib $has_xml $has_endf) }}
       <a class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal" href="#">
         <i class="fas fa-quote-left"></i><span class="pl-2">Cite</span>
       </a>
