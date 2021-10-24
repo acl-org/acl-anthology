@@ -99,7 +99,16 @@ def add_watermark(anth_id, workdir="."):
         print(template.substitute(file=orig_pdf, url=page), file=f)
 
     command = f"pdflatex {tex_file}"
-    retcode = subprocess.call(command, shell=True, cwd=workdir, stdout=subprocess.DEVNULL)
+    try:
+        subprocess.call(
+            command, shell=True, cwd=workdir, stdout=subprocess.DEVNULL, timeout=60
+        )
+    except TimeoutExpired:
+        print(
+            "pdflatex didn't finish within 60 seconds. Do you have the CTAN watermark package installed?",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     new_pdf = f"{tex_file}".replace(".tex", ".pdf")
 
@@ -115,8 +124,6 @@ def main(args):
     with tempfile.TemporaryDirectory() as tempdir:
 
         new_pdf = add_watermark(args.anthology_id, workdir=tempdir)
-        print("Got a new PDF:", new_pdf)
-        retrieve_url(new_pdf, f"t.pdf")
 
         add_revision(
             args.anthology_id,
@@ -135,14 +142,19 @@ def main(args):
             paper = tree.getroot().find(
                 f"./volume[@id='{volume_id}']/paper[@id='{paper_id}']"
             )
-        if paper is not None:
-            now = datetime.now()
-            date = f"{now.year}-{now.month:02d}-{now.day:02d}"
-            retracted_node = make_simple_element(
-                "retracted", args.explanation, attrib={"date": date}, parent=paper
-            )
-            indent(tree.getroot())
-            tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
+
+        if paper is None:
+            print(f"Couldn't find paper {args.anthology_id}!", file=sys.stderr)
+            sys.exit(2)
+
+        print("Modifying the XML", file=sys.stderr)
+        now = datetime.now()
+        date = f"{now.year}-{now.month:02d}-{now.day:02d}"
+        retracted_node = make_simple_element(
+            "retracted", args.explanation, attrib={"date": date}, parent=paper
+        )
+        indent(tree.getroot())
+        tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
 
 
 if __name__ == "__main__":

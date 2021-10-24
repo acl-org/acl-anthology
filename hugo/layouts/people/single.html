@@ -37,7 +37,7 @@
         {{/* Generate a heading per year -- assumes that papers are already sorted by year,
              which the YAML exporter should take care of */}}
         {{ $paper := index (index $.Site.Data.papers (index (split . "-") 0)) . }}
-        {{ if not $paper.retracted }}
+        {{ if and (not $paper.retracted) (not $paper.removed) }}
           {{ if ne $paper.year ($.Scratch.Get "current_year") }}
             <h4>{{ $paper.year }}</h4>
             {{ $.Scratch.Set "current_year" $paper.year }}
@@ -50,8 +50,8 @@
     </div>
 
     <div class="col-lg-3">
-      <a class="btn btn-lg btn-secondary btn-block mb-2" href="https://scholar.google.com/citations?{{ (querify "view_op" "search_authors" "mauthors" $person.full) | safeURL }}" title="Search for '{{ $person.full | htmlEscape }}' on Google Scholar">
-        <i class="ai ai-google-scholar"></i><span class="pl-sm-2">Search</span>
+      <a class="btn btn-lg btn-secondary btn-block mb-2" href="https://www.semanticscholar.org/search?{{ (querify "q" $person.full) | safeURL }}" title="Search for '{{ $person.full | htmlEscape }}' on Semantic Scholar">
+        <i class="ai ai-semantic-scholar"></i><span class="pl-sm-2">Search</span>
       </a>
 
       {{/* Basic idea of this layout: on tiny displays, these cards are stacked

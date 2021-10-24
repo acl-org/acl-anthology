@@ -1020,9 +1020,12 @@
       <author><first>Sharon</first><last>Goldwater</last></author>
       <pages>979–992</pages>
       <abstract>Parsing spoken dialogue poses unique difficulties, including disfluencies and unmarked boundaries between sentence-like units. Previous work has shown that prosody can help with parsing disfluent speech (Tran et al. 2018), but has assumed that the input to the parser is already segmented into sentence-like units (SUs), which isn’t true in existing speech applications. We investigate how prosody affects a parser that receives an entire dialogue turn as input (a turn-based model), instead of gold standard pre-segmented SUs (an SU-based model). In experiments on the English Switchboard corpus, we find that when using transcripts alone, the turn-based model has trouble segmenting SUs, leading to worse parse performance than the SU-based model. However, prosody can effectively replace gold standard SU boundaries: with prosody, the turn-based model performs as well as the SU-based model (91.38 vs. 91.06 F1 score, respectively), despite performing two tasks (SU segmentation and parsing) rather than one (parsing alone). Analysis shows that pitch and intensity features are the most important for this corpus, since they allow the model to correctly distinguish an SU boundary from a speech disfluency – a distinction that the model otherwise struggles to make.</abstract>
-      <url hash="432cee73">2021.acl-long.79</url>
+      <url hash="54b77a64">2021.acl-long.79</url>
       <doi>10.18653/v1/2021.acl-long.79</doi>
       <bibkey>nielsen-etal-2021-prosodic</bibkey>
+      <revision id="1" href="2021.acl-long.79v1" hash="432cee73"/>
+      <revision id="2" href="2021.acl-long.79v2" hash="54b77a64" date="2021-10-07">Retracted.</revision>
+      <retracted date="2021-10-07">An error occurred in the preprocessing of the pitch and intensity features that this model used. This error means that it can no longer be concluded that prosody is as helpful for finding sentence boundaries and parsing as asserted in this paper.</retracted>
     </paper>
     <paper id="80">
       <title><fixed-case>V</fixed-case>ox<fixed-case>P</fixed-case>opuli: A Large-Scale Multilingual Speech Corpus for Representation Learning, Semi-Supervised Learning and Interpretation</title>
@@ -3768,9 +3771,11 @@
       <author><first>Ramón</first><last>Fernandez Astudillo</last></author>
       <pages>3735–3745</pages>
       <abstract>Transformer-based language models pre-trained on large amounts of text data have proven remarkably successful in learning generic transferable linguistic representations. Here we study whether structural guidance leads to more human-like systematic linguistic generalization in Transformer language models without resorting to pre-training on very large amounts of data. We explore two general ideas. The “Generative Parsing” idea jointly models the incremental parse and word sequence as part of the same sequence modeling task. The “Structural Scaffold” idea guides the language model’s representation via additional structure loss that separately predicts the incremental constituency parse. We train the proposed models along with a vanilla Transformer language model baseline on a 14 million-token and a 46 million-token subset of the BLLIP dataset, and evaluate models’ syntactic generalization performances on SG Test Suites and sized BLiMP. Experiment results across two benchmarks suggest converging evidence that generative structural supervisions can induce more robust and humanlike linguistic generalization in Transformer language models without the need for data intensive pre-training.</abstract>
-      <url hash="ce37206e">2021.acl-long.289</url>
+      <url hash="650ea895">2021.acl-long.289</url>
       <doi>10.18653/v1/2021.acl-long.289</doi>
       <bibkey>qian-etal-2021-structural</bibkey>
+      <revision id="1" href="2021.acl-long.289v1" hash="ce37206e"/>
+      <revision id="2" href="2021.acl-long.289v2" hash="650ea895" date="2021-09-21">updated paper according to bug fixes</revision>
     </paper>
     <paper id="290">
       <title>Surprisal Estimators for Human Reading Times Need Character Models</title>

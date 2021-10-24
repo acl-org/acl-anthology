@@ -2,7 +2,7 @@
 <collection id="2021.mtsummit">
   <volume id="research" ingest-date="2021-08-14">
     <meta>
-      <booktitle>Proceedings of the 18th Biennial Machine Translation Summit (Volume 1: Research Track)</booktitle>
+      <booktitle>Proceedings of Machine Translation Summit XVIII: Research Track</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
       <address>Virtual</address>
       <month>August</month>
@@ -523,7 +523,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <url hash="14bd8b24">2021.mtsummit-up</url>
     </meta>
     <frontmatter>
-      <url hash="0455ff38">2021.mtsummit-up.0</url>
+      <url hash="fe8dce6a">2021.mtsummit-up.0</url>
       <bibkey>mtsummit-2021-machine</bibkey>
     </frontmatter>
     <paper id="1">
@@ -684,7 +684,13 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
     </paper>
     <paper id="19">
       <title>Preserving high <fixed-case>MT</fixed-case> quality for content with inline tags</title>
-      <author><first>Konstantin</first><last>Savenkov</last></author>
+      <author><first>Dimitar</first><last>Shterionov</last></author>
+      <author><first>John</first><last>J O’Flaherty</last></author>
+      <author><first>Edward</first><last>Keane</last></author>
+      <author><first>Connor</first><last>O’Reilly</last></author>
+      <author><first>Marcello</first><last>Paolo Scipioni</last></author>
+      <author><first>Marco</first><last>Giovanelli</last></author>
+      <author><first>Matteo</first><last>Villa</last></author>
       <pages>246-276</pages>
       <abstract>Attendees will learn about how we use machine translation to provide targeted, high MT quality for content with inline tags. We offer a new and innovative approach to inserting tags into the translated text in a way that reliably preserves their quality. This process can achieve better MT quality and lower costs, as it is MT-independent, and can be used for all languages, MT engines, and use cases.</abstract>
       <attachment type="presentation" hash="6b879691">2021.mtsummit-up.19.Presentation.pdf</attachment>
@@ -692,7 +698,9 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
     </paper>
     <paper id="20">
       <title>Early-stage development of the <fixed-case>S</fixed-case>ign<fixed-case>ON</fixed-case> application and open framework – challenges and opportunities</title>
-      <author><first>Dimitar</first><last>Shterionov</last></author>
+      <author><first>Konstantin</first><last>Savenkov</last></author>
+      <author><first>Grigory</first><last>Sapunov</last></author>
+      <author><first>Pavel</first><last>Stepachev</last></author>
       <pages>277-290</pages>
       <abstract>SignON is an EU Horizon 2020 Research and Innovation project, that is developing a smartphone application and an open framework to facilitate translation between different European sign, spoken and text languages. The framework will incorporate state of the art sign language recognition and presentation, speech processing technologies and, in its core, multi-modal, cross-language machine translation. The framework, dedicated to the computationally heavy tasks and distributed on the cloud powers the application – a lightweight app running on a standard mobile device. The application and framework are being researched, designed and developed through a co-creation user-centric approach with the European deaf and hard of hearing communities. In this session, the speakers will detail their progress, challenges and lessons learned in the early-stage development of the application and framework. They will also present their Agile DevOps approach and the next steps in the evolution of the SignON project.</abstract>
       <attachment type="presentation" hash="0a80bb8f">2021.mtsummit-up.20.Presentation.pdf</attachment>
@@ -707,7 +715,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <bibkey>tamchyna-2021-deploying</bibkey>
     </paper>
     <paper id="22">
-      <title>Validating Quality Estimation in a <fixed-case>CAT</fixed-case> Workflow: Speed, Cost and Quality Trade-off</title>
+      <title>Validating Quality Estimation in a Computer-Aided Translation Workflow: Speed, Cost and Quality Trade-off</title>
       <author><first>Fernando</first><last>Alva-Manchego</last></author>
       <author><first>Lucia</first><last>Specia</last></author>
       <author><first>Sara</first><last>Szoc</last></author>
@@ -742,6 +750,9 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <title>A Data-Centric Approach to Real-World Custom <fixed-case>NMT</fixed-case> for <fixed-case>A</fixed-case>rabic</title>
       <author><first>Rebecca</first><last>Jonsson</last></author>
       <author><first>Ruba</first><last>Jaikat</last></author>
+      <author><first>Abdallah</first><last>Nasir</last></author>
+      <author><first>Nour</first><last>Al-Khdour</last></author>
+      <author><first>Sara</first><last>Alisis</last></author>
       <pages>335-352</pages>
       <abstract>In this presentation, we will present our approach to taking Custom NMT to the next level by building tailor-made NMT to fit the needs of businesses seeking to scale in the Arabic-speaking world. In close collaboration with customers in the MENA region and with a deep understanding of their data, we work on building a variety of NMT models that accommodate to the unique challenges of the Arabic language. This session will provide insights into the challenges of acquiring, analyzing, and processing customer data in various sectors, as well as insights into how to best make use of this data to build high-quality Custom NMT models in English-Arabic. Feedback from usage of these models in production will be provided. Furthermore, we will show how to use our translation management system to make the most of the custom NMT, by leveraging the models, fine-tuning and continuing to improve them over time.</abstract>
       <attachment type="presentation" hash="b3ff86db">2021.mtsummit-up.24.Presentation.pdf</attachment>
@@ -780,6 +791,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Pavel</first><last>Levin</last></author>
       <pages>396-420</pages>
       <abstract>Production NMT systems typically need to serve niche domains that are not covered by adequately large and readily available parallel corpora. As a result, practitioners often fine-tune general purpose models to each of the domains their organisation caters to. The number of domains however can often become large, which in combination with the number of languages that need serving can lead to an unscalable fleet of models to be developed and maintained. We propose Multi Dimensional Tagging, a method for fine-tuning a single NMT model on several domains simultaneously, thus drastically reducing development and maintenance costs. We run experiments where a single MDT model compares favourably to a set of SOTA specialist models, even when evaluated on the domain those baselines have been fine-tuned on. Besides BLEU, we report human evaluation results. MDT models are now live at Booking.com, powering an MT engine that serves millions of translations a day in over 40 different languages.</abstract>
+      <url hash="2fd6bc65">2021.mtsummit-up.27</url>
       <attachment type="presentation" hash="82097f2f">2021.mtsummit-up.27.Presentation.pdf</attachment>
       <bibkey>stergiadis-etal-2021-multi</bibkey>
     </paper>
@@ -812,7 +824,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <bibkey>murgolo-2021-lab</bibkey>
     </paper>
   </volume>
-  <volume id="LoResMT" ingest-date="2021-09-15">
+  <volume id="loresmt" ingest-date="2021-09-26">
     <meta>
       <booktitle>Proceedings of the 4th Workshop on Technologies for MT of Low Resource Languages (LoResMT2021)</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
@@ -823,9 +835,10 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <editor><first>Atul Kr.</first><last>Ojha</last></editor>
       <editor><first>Katharina</first><last>Kann</last></editor>
       <editor><first>Chao-Hong</first><last>Liu</last></editor>
-      <url hash="2510de92">2021.mtsummit-LoResMT</url>
+      <url hash="2510de92">2021.mtsummit-loresmt</url>
     </meta>
     <frontmatter>
+      <url hash="abf10b8d">2021.mtsummit-loresmt.0</url>
       <bibkey>mtsummit-2021-technologies</bibkey>
     </frontmatter>
     <paper id="1">
@@ -836,6 +849,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Jaehyung</first><last>Seo</last></author>
       <author><first>Heuiseok</first><last>Lim</last></author>
       <pages>1-10</pages>
+      <url hash="b693ee3a">2021.mtsummit-loresmt.1</url>
       <abstract>In quality estimation (QE), the quality of translation can be predicted by referencing the source sentence and the machine translation (MT) output without access to the reference sentence. However, there exists a paradox in that constructing a dataset for creating a QE model requires non-trivial human labor and time, and it may even requires additional effort compared to the cost of constructing a parallel corpus. In this study, to address this paradox and utilize the various applications of QE, even in low-resource languages (LRLs), we propose a method for automatically constructing a pseudo-QE dataset without using human labor. We perform a comparative analysis on the pseudo-QE dataset using multilingual pre-trained language models. As we generate the pseudo dataset, we conduct experiments using various external machine translators as test sets to verify the accuracy of the results objectively. Also, the experimental results show that multilingual BART demonstrates the best performance, and we confirm the applicability of QE in LRLs using pseudo-QE dataset construction methods.</abstract>
       <bibkey>eo-etal-2021-dealing</bibkey>
     </paper>
@@ -844,6 +858,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Benjamin</first><last>Murauer</last></author>
       <author><first>Gunther</first><last>Specht</last></author>
       <pages>11-19</pages>
+      <url hash="4c321314">2021.mtsummit-loresmt.2</url>
       <abstract>Cross-language authorship attribution is the challenging task of classifying documents by bilingual authors where the training documents are written in a different language than the evaluation documents. Traditional solutions rely on either translation to enable the use of single-language features, or language-independent feature extraction methods. More recently, transformer-based language models like BERT can also be pre-trained on multiple languages, making them intuitive candidates for cross-language classifiers which have not been used for this task yet. We perform extensive experiments to benchmark the performance of three different approaches to a smallscale cross-language authorship attribution experiment: (1) using language-independent features with traditional classification models, (2) using multilingual pre-trained language models, and (3) using machine translation to allow single-language classification. For the language-independent features, we utilize universal syntactic features like part-of-speech tags and dependency graphs, and multilingual BERT as a pre-trained language model. We use a small-scale social media comments dataset, closely reflecting practical scenarios. We show that applying machine translation drastically increases the performance of almost all approaches, and that the syntactic features in combination with the translation step achieve the best overall classification performance. In particular, we demonstrate that pre-trained language models are outperformed by traditional models in small scale authorship attribution problems for every language combination analyzed in this paper.</abstract>
       <bibkey>murauer-specht-2021-small</bibkey>
     </paper>
@@ -852,6 +867,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>William</first><last>Chen</last></author>
       <author><first>Brett</first><last>Fazio</last></author>
       <pages>20-31</pages>
+      <url hash="ae20b945">2021.mtsummit-loresmt.3</url>
       <abstract>Neural Machine Translation (NMT) for Low Resource Languages (LRL) is often limited by the lack of available training data, making it necessary to explore additional techniques to improve translation quality. We propose the use of the Prefix-Root-Postfix-Encoding (PRPE) subword segmentation algorithm to improve translation quality for LRLs, using two agglutinative languages as case studies: Quechua and Indonesian. During the course of our experiments, we reintroduce a parallel corpus for Quechua-Spanish translation that was previously unavailable for NMT. Our experiments show the importance of appropriate subword segmentation, which can go as far as improving translation quality over systems trained on much larger quantities of data. We show this by achieving state-of-the-art results for both languages, obtaining higher BLEU scores than large pre-trained models with much smaller amounts of data.</abstract>
       <bibkey>chen-fazio-2021-morphologically</bibkey>
     </paper>
@@ -860,6 +876,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Zhong</first><last>Zhou</last></author>
       <author><first>Alex</first><last>Waibel</last></author>
       <pages>32-43</pages>
+      <url hash="31d3d9e9">2021.mtsummit-loresmt.4</url>
       <abstract>We translate a closed text that is known in advance and available in many languages into a new and severely low resource language. Most human translation efforts adopt a portionbased approach to translate consecutive pages/chapters in order, which may not suit machine translation. We compare the portion-based approach that optimizes coherence of the text locally with the random sampling approach that increases coverage of the text globally. Our results show that the random sampling approach performs better. When training on a seed corpus of ∼1,000 lines from the Bible and testing on the rest of the Bible (∼30,000 lines), random sampling gives a performance gain of +11.0 BLEU using English as a simulated low resource language, and +4.9 BLEU using Eastern Pokomchi, a Mayan language. Furthermore, we compare three ways of updating machine translation models with increasing amount of human post-edited data through iterations. We find that adding newly post-edited data to training after vocabulary update without self-supervision performs the best. We propose an algorithm for human and machine to work together seamlessly to translate a closed text into a severely low resource language.</abstract>
       <bibkey>zhou-waibel-2021-active</bibkey>
     </paper>
@@ -869,6 +886,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Richard Alexander</first><last>Castro Mamani</last></author>
       <author><first>Jaime Rafael</first><last>Montoya Samame</last></author>
       <pages>44-51</pages>
+      <url hash="23797532">2021.mtsummit-loresmt.5</url>
       <abstract>Low-resource languages sometimes take on similar morphological and syntactic characteristics due to their geographic nearness and shared history. Two low-resource neighboring languages found in Peru, Quechua and Ashaninka, can be considered, at first glance, two languages that are morphologically similar. In order to translate the two languages, various approaches have been taken. For Quechua, neural machine transfer-learning has been used along with byte-pair encoding. For Ashaninka, the language of the two with fewer resources, a finite-state transducer is used to transform Ashaninka texts and its dialects for machine translation use. We evaluate and compare two approaches by attempting to use newly-formed Ashaninka corpora for neural machine translation. Our experiments show that combining the two neighboring languages, while similar in morphology, word sharing, and geographical location, improves Ashaninka– Spanish translation but degrades Quechua–Spanish translations.</abstract>
       <bibkey>ortega-etal-2021-love</bibkey>
     </paper>
@@ -887,6 +905,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Jianfeng</first><last>Gao</last></author>
       <author><first>Paul</first><last>Smolensky</last></author>
       <pages>52-67</pages>
+      <url hash="e3f0ee9d">2021.mtsummit-loresmt.6</url>
       <abstract>Machine translation has seen rapid progress with the advent of Transformer-based models. These models have no explicit linguistic structure built into them, yet they may still implicitly learn structured relationships by attending to relevant tokens. We hypothesize that this structural learning could be made more robust by explicitly endowing Transformers with a structural bias, and we investigate two methods for building in such a bias. One method, the TP-Transformer, augments the traditional Transformer architecture to include an additional component to represent structure. The second method imbues structure at the data level by segmenting the data with morphological tokenization. We test these methods on translating from English into morphologically rich languages, Turkish and Inuktitut, and consider both automatic metrics and human evaluations. We find that each of these two approaches allows the network to achieve better performance, but this improvement is dependent on the size of the dataset. In sum, structural encoding methods make Transformers more sample-efficient, enabling them to perform better from smaller amounts of data.</abstract>
       <bibkey>soulos-etal-2021-structural</bibkey>
     </paper>
@@ -895,6 +914,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Arbnor</first><last>Rama</last></author>
       <author><first>Eva</first><last>Vanmassenhove</last></author>
       <pages>68-77</pages>
+      <url hash="69376856">2021.mtsummit-loresmt.7</url>
       <abstract>Low-resource languages can be understood as languages that are more scarce, less studied, less privileged, less commonly taught and for which there are less resources available (Singh, 2008; Cieri et al., 2016; Magueresse et al., 2020). Natural Language Processing (NLP) research and technology mainly focuses on those languages for which there are large data sets available. To illustrate differences in data availability: there are 6 million Wikipedia articles available for English, 2 million for Dutch, and merely 82 thousand for Albanian. The scarce data issue becomes increasingly apparent when large parallel data sets are required for applications such as Neural Machine Translation (NMT). In this work, we investigate to what extent translation between Albanian (SQ) and Dutch (NL) is possible comparing a one-to-one (SQ↔AL) model, a low-resource pivot-based approach (English (EN) as pivot) and a zero-shot translation (ZST) (Johnson et al., 2016; Mattoni et al., 2017) system. From our experiments, it results that the EN-pivot-model outperforms both the direct one-to-one and the ZST model. Since often, small amounts of parallel data are available for low-resource languages or settings, experiments were conducted using small sets of parallel NL↔SQ data. The ZST appeared to be the worst performing models. Even when the available parallel data (NL↔SQ) was added, i.e. in a few-shot setting (FST), it remained the worst performing system according to the automatic (BLEU and TER) and human evaluation.</abstract>
       <bibkey>rama-vanmassenhove-2021-comparison</bibkey>
     </paper>
@@ -903,6 +923,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Lenin</first><last>Laitonjam</last></author>
       <author><first>Sanasam</first><last>Ranbir Singh</last></author>
       <pages>78-88</pages>
+      <url hash="0e86da02">2021.mtsummit-loresmt.8</url>
       <abstract>Unsupervised Machine Translation (MT) model, which has the ability to perform MT without parallel sentences using comparable corpora, is becoming a promising approach for developing MT in low-resource languages. However, majority of the studies in unsupervised MT have considered resource-rich language pairs with similar linguistic characteristics. In this paper, we investigate the effectiveness of unsupervised MT models over a Manipuri-English comparable corpus. Manipuri is a low-resource language having different linguistic characteristics from that of English. This paper focuses on identifying challenges in building unsupervised MT models over the comparable corpus. From various experimental observations, it is evident that the development of MT over comparable corpus using unsupervised methods is feasible. Further, the paper also identifies future directions of developing effective MT for Manipuri-English language pair under unsupervised scenarios.</abstract>
       <bibkey>laitonjam-ranbir-singh-2021-manipuri</bibkey>
     </paper>
@@ -913,6 +934,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Partha</first><last>Pakray</last></author>
       <author><first>Sivaji</first><last>Bandyopadhyay</last></author>
       <pages>89-95</pages>
+      <url hash="a69fcce0">2021.mtsummit-loresmt.9</url>
       <abstract>In machine translation, corpus preparation is one of the crucial tasks, particularly for lowresource pairs. In multilingual countries like India, machine translation plays a vital role in communication among people with various linguistic backgrounds. There are available online automatic translation systems by Google and Microsoft which include various languages which lack support for the Khasi language, which can hence be considered lowresource. This paper overviews the development of EnKhCorp1.0, a corpus for English–Khasi pair, and implemented baseline systems for EnglishtoKhasi and KhasitoEnglish translation based on the neural machine translation approach.</abstract>
       <bibkey>laskar-etal-2021-enkhcorp1</bibkey>
     </paper>
@@ -922,6 +944,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Matteo</first><last>Negri</last></author>
       <author><first>Marco</first><last>Turchi</last></author>
       <pages>96-113</pages>
+      <url hash="92554ecc">2021.mtsummit-loresmt.10</url>
       <abstract>Neural Machine Translation (NMT) approaches employing monolingual data are showing steady improvements in resource-rich conditions. However, evaluations using real-world lowresource languages still result in unsatisfactory performance. This work proposes a novel zeroshot NMT modeling approach that learns without the now-standard assumption of a pivot language sharing parallel data with the zero-shot source and target languages. Our approach is based on three stages: initialization from any pre-trained NMT model observing at least the target language, augmentation of source sides leveraging target monolingual data, and learning to optimize the initial model to the zero-shot pair, where the latter two constitute a selflearning cycle. Empirical findings involving four diverse (in terms of a language family, script and relatedness) zero-shot pairs show the effectiveness of our approach with up to +5.93 BLEU improvement against a supervised bilingual baseline. Compared to unsupervised NMT, consistent improvements are observed even in a domain-mismatch setting, attesting to the usability of our method.</abstract>
       <bibkey>lakew-etal-2021-zero</bibkey>
     </paper>
@@ -934,6 +957,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Sheetal</first><last>Shatam</last></author>
       <author><first>Theodorus</first><last>Fransen</last></author>
       <pages>114-123</pages>
+      <url hash="034d0987">2021.mtsummit-loresmt.11</url>
       <abstract>We present the findings of the LoResMT 2021 shared task which focuses on machine translation (MT) of COVID-19 data for both low-resource spoken and sign languages. The organization of this task was conducted as part of the fourth workshop on technologies for machine translation of low resource languages (LoResMT). Parallel corpora is presented and publicly available which includes the following directions: English↔Irish, English↔Marathi, and Taiwanese Sign language↔Traditional Chinese. Training data consists of 8112, 20933 and 128608 segments, respectively. There are additional monolingual data sets for Marathi and English that consist of 21901 segments. The results presented here are based on entries from a total of eight teams. Three teams submitted systems for English↔Irish while five teams submitted systems for English↔Marathi. Unfortunately, there were no systems submissions for the Taiwanese Sign language↔Traditional Chinese task. Maximum system performance was computed using BLEU and follow as 36.0 for English–Irish, 34.6 for Irish–English, 24.2 for English–Marathi, and 31.3 for Marathi–English.</abstract>
       <bibkey>ojha-etal-2021-findings</bibkey>
     </paper>
@@ -942,6 +966,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Saumitra</first><last>Yadav</last></author>
       <author><first>Manish</first><last>Shrivastava</last></author>
       <pages>124-128</pages>
+      <url hash="7640ab5e">2021.mtsummit-loresmt.12</url>
       <abstract>In this paper, we describe our submissions for LoResMT Shared Task @MT Summit 2021 Conference. We built statistical translation systems in each direction for English ⇐⇒ Marathi language pair. This paper outlines initial baseline experiments with various tokenization schemes to train models. Using optimal tokenization scheme we create synthetic data and further train augmented dataset to create more statistical models. Also, we reorder English to match Marathi syntax to further train another set of baseline and data augmented models using various tokenization schemes. We report configuration of the submitted systems and results produced by them.</abstract>
       <bibkey>yadav-shrivastava-2021-a3</bibkey>
     </paper>
@@ -950,6 +975,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>William</first><last>Chen</last></author>
       <author><first>Brett</first><last>Fazio</last></author>
       <pages>129-133</pages>
+      <url hash="7e85e7d6">2021.mtsummit-loresmt.13</url>
       <abstract>We present the University of Central Florida systems for the LoResMT 2021 Shared Task, participating in the English-Irish and English-Marathi translation pairs. We focused our efforts on constrained track of the task, using transfer learning and subword segmentation to enhance our models given small amounts of training data. Our models achieved the highest BLEU scores on the fully constrained tracks of English-Irish, Irish-English, and Marathi-English with scores of 13.5, 21.3, and 17.9 respectively</abstract>
       <bibkey>chen-fazio-2021-ucf</bibkey>
     </paper>
@@ -963,6 +989,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Kingston</first><last>Pal Thamburaj</last></author>
       <author><first>Bharathi Raja</first><last>Chakravarthi</last></author>
       <pages>134-143</pages>
+      <url hash="20bcf971">2021.mtsummit-loresmt.14</url>
       <abstract>This paper reports the Machine Translation (MT) systems submitted by the IIITT team for the English→Marathi and English⇔Irish language pairs LoResMT 2021 shared task. The task focuses on getting exceptional translations for rather low-resourced languages like Irish and Marathi. We fine-tune IndicTrans, a pretrained multilingual NMT model for English→Marathi, using external parallel corpus as input for additional training. We have used a pretrained Helsinki-NLP Opus MT English⇔Irish model for the latter language pair. Our approaches yield relatively promising results on the BLEU metrics. Under the team name IIITT, our systems ranked 1, 1, and 2 in English→Marathi, Irish→English, and English→Irish respectively. The codes for our systems are published1 .</abstract>
       <bibkey>puranik-etal-2021-attentive</bibkey>
     </paper>
@@ -972,6 +999,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Haithem</first><last>Afli</last></author>
       <author><first>Andy</first><last>Way</last></author>
       <pages>144-150</pages>
+      <url hash="3a67d63e">2021.mtsummit-loresmt.15</url>
       <abstract>Translation models for the specific domain of translating Covid data from English to Irish were developed for the LoResMT 2021 shared task. Domain adaptation techniques, using a Covid-adapted generic 55k corpus from the Directorate General of Translation, were applied. Fine-tuning, mixed fine-tuning and combined dataset approaches were compared with models trained on an extended in-domain dataset. As part of this study, an English-Irish dataset of Covid related data, from the Health and Education domains, was developed. The highestperforming model used a Transformer architecture trained with an extended in-domain Covid dataset. In the context of this study, we have demonstrated that extending an 8k in-domain baseline dataset by just 5k lines improved the BLEU score by 27 points.</abstract>
       <bibkey>lankford-etal-2021-machine</bibkey>
     </paper>
@@ -980,6 +1008,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Vandan</first><last>Mujadia</last></author>
       <author><first>Dipti Misra</first><last>Sharma</last></author>
       <pages>151-157</pages>
+      <url hash="91f17898">2021.mtsummit-loresmt.16</url>
       <abstract>In this paper, we (team - oneNLP-IIITH) describe our Neural Machine Translation approaches for English-Marathi (both direction) for LoResMT-20211 . We experimented with transformer based Neural Machine Translation and explored the use of different linguistic features like POS and Morph on subword unit for both English-Marathi and Marathi-English. In addition, we have also explored forward and backward translation using web-crawled monolingual data. We obtained 22.2 (overall 2 nd) and 31.3 (overall 1 st) BLEU scores for English-Marathi and Marathi-English on respectively</abstract>
       <bibkey>mujadia-sharma-2021-english</bibkey>
     </paper>
@@ -989,6 +1018,7 @@ Our models outperform massively multilingual models such as Google (<tex-math>+8
       <author><first>Shivam</first><last>Mhaskar</last></author>
       <author><first>Pushpak</first><last>Bhattacharyya</last></author>
       <pages>158-162</pages>
+      <url hash="ec6106f8">2021.mtsummit-loresmt.17</url>
       <abstract>In this paper, we discuss the details of the various Machine Translation (MT) systems that we have submitted for the English-Marathi LoResMT task. As a part of this task, we have submitted three different Neural Machine Translation (NMT) systems; a Baseline English-Marathi system, a Baseline Marathi-English system, and an English-Marathi system that is based on the back-translation technique. We explore the performance of these NMT systems between English and Marathi languages, which forms a low resource language pair due to unavailability of sufficient parallel data. We also explore the performance of the back-translation technique when the back-translated data is obtained from NMT systems that are trained on a very less amount of data. From our experiments, we observe that the back-translation technique can help improve the MT quality over the baseline for the English-Marathi language pair.</abstract>
       <bibkey>jain-etal-2021-evaluating</bibkey>
     </paper>
