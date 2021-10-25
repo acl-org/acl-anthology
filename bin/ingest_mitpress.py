@@ -19,9 +19,9 @@ a directory like this:
     |-- tacl_a_00298.xml
     ...
 
-Then, in that directory, run:
+Find that directory, then in anthology root dir run:
 
-    /path/to/anthology/tacl_cl_parser.py .
+    python bin/ingest_mitpress.py /path/to/the/dir
 
 This will
 
