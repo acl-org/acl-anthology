@@ -291,8 +291,9 @@ def main(args):
         if not os.path.exists(pdfs_dest_dir):
             os.makedirs(pdfs_dest_dir)
 
-        # copy the book from the top-level proceedings/ dir, named "book.pdf"
-        book_src_path = os.path.join(meta["path"], "book.pdf")
+        # copy the book from the top-level proceedings/ dir, named "VENUE-year.pdf"
+        book_path = f'cdrom/{venue_name.upper()}-{year}.pdf'
+        book_src_path = os.path.join(meta["path"], book_path)
         book_dest_path = None
         if os.path.exists(book_src_path) and not args.dry_run:
             book_dest_path = (
@@ -413,6 +414,14 @@ def main(args):
                 for author_or_editor in chain(
                     paper_node.findall("./author"), paper_node.findall("./editor")
                 ):
+                    disamb_name, name_choice = disambiguate_name(
+                        author_or_editor, paper_id_full
+                    )
+                    if name_choice != -1:
+                        author_or_editor.attrib["id"] = disamb_name
+                    person = PersonName.from_element(author_or_editor)
+                    for name_part in author_or_editor:
+                        name_part.text = correct_caps(name_part.text)
                     meta_node.append(author_or_editor)
                     author_or_editor.tag = "editor"
 

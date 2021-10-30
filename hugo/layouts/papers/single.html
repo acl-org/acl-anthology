@@ -81,6 +81,7 @@
 {{ $has_xml := fileExists (printf "/data-export/%s.xml" $anthology_id) }}
 {{ $has_endf := fileExists (printf "/data-export/%s.endf" $anthology_id) }}
 <section id="main">
+  <div {{ if or $paper.retracted $paper.removed }} style="text-decoration: line-through" {{ end }}>
   <h2 id="title">
     {{ with $paper.pdf }}
     <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
@@ -95,15 +96,32 @@
       {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   {{ end }}
+  </p>
+  </div>
   <hr />
 
   <div class="row acl-paper-details">
     <div class="col col-lg-10 order-2">
+      {{ with $paper.retracted }}
+      <div class="alert alert-danger" role="alert">
+        <b>This paper has been retracted.</b> {{ . }}
+      </div>
+      {{ end }}
+
+      {{ with $paper.removed }}
+      <div class="alert alert-danger" role="alert">
+        <b>This paper has been <a href="https://aclanthology.org/info/corrections/#removal">removed</a>.</b>
+        {{ . }}
+      </div>
+      {{ end }}
+
       {{ with $paper.abstract_html }}
       <div class="card bg-light mb-2 mb-lg-3">
         <div class="card-body acl-abstract">
           <h5 class="card-title">Abstract</h5>
+          <span {{ with $paper.retracted }} style="text-decoration: line-through" {{ end }}>
           {{ . | safeHTML }}
+          </span>
         </div>
       </div>
       {{ end }}
@@ -186,6 +204,7 @@
       <dt>Bibtype:</dt>
       <dd>{{ with $paper.bibtype }}{{ . }}{{ end }}</dd>
       -->
+      {{ if and (not $paper.retracted) (not $paper.removed) }}
       <dt class="acl-button-row">Bibkey:</dt>
       <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey"><i class="far fa-clipboard"></i><span id="citePaperBibkey" class="pl-2 text-monospace">{{ . }}</span></button>{{ end }}</dd>
       <dt class="acl-button-row">Copy Citation:</dt>
@@ -203,6 +222,7 @@
         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#citeModal">More options…</button>
       {{ end }}
       </dd>
+      {{ end }}  <!-- if not $paper.retracted -->
 
       {{ with $paper.pdf }}
       <dt>PDF:</dt><dd><a href="{{ . }}">{{ . }}</a></dd>
@@ -235,13 +255,13 @@
         </a>
         {{ end }}
       {{ end }}
-      {{ if (or $has_bib $has_xml $has_endf) }}
+      {{ if and (not $paper.retracted) (not $paper.removed) (or $has_bib $has_xml $has_endf) }}
       <a class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal" href="#">
         <i class="fas fa-quote-left"></i><span class="pl-2">Cite</span>
       </a>
       {{ end }}
-      <a class="btn btn-secondary" href="https://scholar.google.com/scholar?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Google Scholar">
-        <i class="ai ai-google-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
+      <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar">
+        <i class="ai ai-semantic-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
       </a>
       {{ range $paper.attachment }}
       <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
