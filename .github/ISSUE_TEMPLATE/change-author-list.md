@@ -29,5 +29,5 @@ The brief description of the changes will be displayed on your paper page, and s
 
 > This revision corrects a typo in Equation 7. It also introduces a new figure, Figure 12, which plots the relationship between our proposed model and the baselines.
 
-**Description of changes:** 
+**Description of changes:**
 __Replace this text with your description__

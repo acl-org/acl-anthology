@@ -21,4 +21,3 @@ To find the XML file for the paper you want to correct, look at its Anthology ID
 For example:
 * (new ID format, 2020+) 2020.acl-main.17 -> [2020.acl.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/2020.acl.xml)
 * (old ID format) W18-6319 -> [W18.xml](https://github.com/acl-org/acl-anthology/blob/master/data/xml/W18.xml)
-
