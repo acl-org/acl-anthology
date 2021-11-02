@@ -22,6 +22,7 @@ import logging
 import json
 import lxml.etree as etree
 import os
+import logging as log
 
 
 def format_str(x):
@@ -100,16 +101,16 @@ if __name__ == "__main__":
                     continue
 
                 # start by removing any old entries
-                for old in paper.findall("code"):
+                for old in paper.findall("pwccode"):
                     remove_and_shift_tails(paper, old)
-                for old in paper.findall("dataset"):
+                for old in paper.findall("pwcdataset"):
                     remove_and_shift_tails(paper, old)
 
                 if acl_id in pwc_meta:
                     pwc = pwc_meta[acl_id]
                     pwc_code = pwc["code"]
                     if pwc_code["url"] or pwc_code["additional"]:
-                        code = etree.SubElement(paper, "code")
+                        code = etree.SubElement(paper, "pwccode")
                         code.set("url", format_str(pwc_code["url"]))
                         code.set("additional", format_str(pwc_code["additional"]))
                         if pwc_code["name"]:
@@ -117,7 +118,7 @@ if __name__ == "__main__":
                         shift_tails(paper)
 
                     for pwc_data in pwc["datasets"]:
-                        data = etree.SubElement(paper, "dataset")
+                        data = etree.SubElement(paper, "pwcdataset")
                         data.set("url", pwc_data["url"])
                         data.text = pwc_data["name"]
                         shift_tails(paper)
@@ -130,6 +131,6 @@ if __name__ == "__main__":
             with open(full_path, "w") as outfile:
                 outfile.write(new_content)
 
-            print(f"Modified {full_path}")
+            log.info(f"Added Papers with Code metadata to {full_path}")
 
 
