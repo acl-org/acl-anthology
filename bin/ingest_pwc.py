@@ -135,6 +135,6 @@ if __name__ == "__main__":
 
         if old_content != new_content:
             with open(full_path, "w") as outfile:
-                outfile.write(new_content + "\n") # all files end with newline
+                outfile.write(new_content + "\n")  # all files end with newline
 
             log.info(f"Modified Papers with Code metadata in {full_path}")
