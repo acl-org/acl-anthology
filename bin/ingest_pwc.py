@@ -23,6 +23,8 @@ import json
 import lxml.etree as etree
 import os
 import logging as log
+import requests
+import sys
 
 
 def format_str(x):
@@ -70,8 +72,12 @@ if __name__ == "__main__":
         with open(args.infile, "r") as f:
             pwc_meta = json.load(f)
     else:
-        # TODO
-        pwc_meta = None
+        res = requests.get("https://paperswithcode.com/integrations/acl")
+        if res.ok:
+            pwc_meta = res.json()
+        else:
+            log.warning("Couldn't fetch metadata from Papers with Code (server error).")
+            sys.exit(1)
 
     data_base = "data/xml"
 
