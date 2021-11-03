@@ -131,12 +131,10 @@ if __name__ == "__main__":
 
         new_content = etree.tostring(
             tree, encoding="UTF-8", xml_declaration=True, with_tail=True
-        ).decode("utf8")
+        ).decode("utf8") + "\n"  # all files end with newline
 
         if old_content != new_content:
             with open(full_path, "w") as outfile:
                 outfile.write(new_content)
 
-            log.info(f"Added Papers with Code metadata to {full_path}")
-
-
+            log.info(f"Modified Papers with Code metadata in {full_path}")
