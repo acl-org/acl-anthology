@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.insights">
+  <volume id="1" ingest-date="2021-11-02">
+    <meta>
+      <booktitle>Proceedings of the Second Workshop on Insights from Negative Results in NLP</booktitle>
+      <editor><first>João</first><last>Sedoc</last></editor>
+      <editor><first>Anna</first><last>Rogers</last></editor>
+      <editor><first>Anna</first><last>Rumshisky</last></editor>
+      <editor><first>Shabnam</first><last>Tafreshi</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Online and Punta Cana, Dominican Republic</address>
+      <month>November</month>
+      <year>2021</year>
+    </meta>
+    <frontmatter>
+      <url hash="18678a7a">2021.insights-1.0</url>
+      <bibkey>insights-2021-insights</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Corrected <fixed-case>CBOW</fixed-case> Performs as well as Skip-gram</title>
+      <author><first>Ozan</first><last>İrsoy</last></author>
+      <author><first>Adrian</first><last>Benton</last></author>
+      <author><first>Karl</first><last>Stratos</last></author>
+      <pages>1–8</pages>
+      <abstract>Mikolov et al. (2013a) observed that continuous bag-of-words (CBOW) word embeddings tend to underperform Skip-gram (SG) embeddings, and this finding has been reported in subsequent works. We find that these observations are driven not by fundamental differences in their training objectives, but more likely on faulty negative sampling CBOW implementations in popular libraries such as the official implementation, word2vec.c, and Gensim. We show that after correcting a bug in the CBOW gradient update, one can learn CBOW word embeddings that are fully competitive with SG on various intrinsic and extrinsic tasks, while being many times faster to train.</abstract>
+      <url hash="aeb2d85a">2021.insights-1.1</url>
+      <bibkey>irsoy-etal-2021-corrected</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Does Commonsense help in detecting Sarcasm?</title>
+      <author><first>Somnath</first><last>Basu Roy Chowdhury</last></author>
+      <author><first>Snigdha</first><last>Chaturvedi</last></author>
+      <pages>9–15</pages>
+      <abstract>Sarcasm detection is important for several NLP tasks such as sentiment identification in product reviews, user feedback, and online forums. It is a challenging task requiring a deep understanding of language, context, and world knowledge. In this paper, we investigate whether incorporating commonsense knowledge helps in sarcasm detection. For this, we incorporate commonsense knowledge into the prediction process using a graph convolution network with pre-trained language model embeddings as input. Our experiments with three sarcasm detection datasets indicate that the approach does not outperform the baseline model. We perform an exhaustive set of experiments to analyze where commonsense support adds value and where it hurts classification. Our implementation is publicly available at: https://github.com/brcsomnath/commonsense-sarcasm.</abstract>
+      <url hash="7e391af7">2021.insights-1.2</url>
+      <attachment type="Software" hash="22c5d48d">2021.insights-1.2.Software.zip</attachment>
+      <bibkey>basu-roy-chowdhury-chaturvedi-2021-commonsense</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>BERT</fixed-case> Cannot Align Characters</title>
+      <author><first>Antonis</first><last>Maronikolakis</last></author>
+      <author><first>Philipp</first><last>Dufter</last></author>
+      <author><first>Hinrich</first><last>Schütze</last></author>
+      <pages>16–22</pages>
+      <abstract>In previous work, it has been shown that BERT can adequately align cross-lingual sentences on the word level. Here we investigate whether BERT can also operate as a char-level aligner. The languages examined are English, Fake English, German and Greek. We show that the closer two languages are, the better BERT can align them on the character level. BERT indeed works well in English to Fake English alignment, but this does not generalize to natural languages to the same extent. Nevertheless, the proximity of two languages does seem to be a factor. English is more related to German than to Greek and this is reflected in how well BERT aligns them; English to German is better than English to Greek. We examine multiple setups and show that the similarity matrices for natural languages show weaker relations the further apart two languages are.</abstract>
+      <url hash="993e58e5">2021.insights-1.3</url>
+      <bibkey>maronikolakis-etal-2021-bert</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Two Heads are Better than One? Verification of Ensemble Effect in Neural Machine Translation</title>
+      <author><first>Chanjun</first><last>Park</last></author>
+      <author><first>Sungjin</first><last>Park</last></author>
+      <author><first>Seolhwa</first><last>Lee</last></author>
+      <author><first>Taesun</first><last>Whang</last></author>
+      <author><first>Heuiseok</first><last>Lim</last></author>
+      <pages>23–28</pages>
+      <abstract>In the field of natural language processing, ensembles are broadly known to be effective in improving performance. This paper analyzes how ensemble of neural machine translation (NMT) models affect performance improvement by designing various experimental setups (i.e., intra-, inter-ensemble, and non-convergence ensemble). To an in-depth examination, we analyze each ensemble method with respect to several aspects such as different attention models and vocab strategies. Experimental results show that ensembling is not always resulting in performance increases and give noteworthy negative findings.</abstract>
+      <url hash="507d99cc">2021.insights-1.4</url>
+      <bibkey>park-etal-2021-two</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Finetuning Pretrained Transformers into Variational Autoencoders</title>
+      <author><first>Seongmin</first><last>Park</last></author>
+      <author><first>Jihwa</first><last>Lee</last></author>
+      <pages>29–35</pages>
+      <abstract>Text variational autoencoders (VAEs) are notorious for posterior collapse, a phenomenon where the model’s decoder learns to ignore signals from the encoder. Because posterior collapse is known to be exacerbated by expressive decoders, Transformers have seen limited adoption as components of text VAEs. Existing studies that incorporate Transformers into text VAEs (Li et al., 2020; Fang et al., 2021) mitigate posterior collapse using massive pretraining, a technique unavailable to most of the research community without extensive computing resources. We present a simple two-phase training scheme to convert a sequence-to-sequence Transformer into a VAE with just finetuning. The resulting language model is competitive with massively pretrained Transformer-based VAEs in some internal metrics while falling short on others. To facilitate training we comprehensively explore the impact of common posterior collapse alleviation techniques in the literature. We release our code for reproducability.</abstract>
+      <url hash="a17eb712">2021.insights-1.5</url>
+      <bibkey>park-lee-2021-finetuning</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Are <fixed-case>BERT</fixed-case>s Sensitive to Native Interference in <fixed-case>L</fixed-case>2 Production?</title>
+      <author><first>Zixin</first><last>Tang</last></author>
+      <author><first>Prasenjit</first><last>Mitra</last></author>
+      <author><first>David</first><last>Reitter</last></author>
+      <pages>36–41</pages>
+      <abstract>With the essays part from The International Corpus Network of Asian Learners of English (ICNALE) and the TOEFL11 corpus, we fine-tuned neural language models based on BERT to predict English learners’ native languages. Results showed neural models can learn to represent and detect such native language impacts, but multilingually trained models have no advantage in doing so.</abstract>
+      <url hash="45d0fca2">2021.insights-1.6</url>
+      <bibkey>tang-etal-2021-berts</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Zero-Shot Cross-Lingual Transfer is a Hard Baseline to Beat in <fixed-case>G</fixed-case>erman Fine-Grained Entity Typing</title>
+      <author><first>Sabine</first><last>Weber</last></author>
+      <author><first>Mark</first><last>Steedman</last></author>
+      <pages>42–48</pages>
+      <abstract>The training of NLP models often requires large amounts of labelled training data, which makes it difficult to expand existing models to new languages. While zero-shot cross-lingual transfer relies on multilingual word embeddings to apply a model trained on one language to another, Yarowski and Ngai (2001) propose the method of annotation projection to generate training data without manual annotation. This method was successfully used for the tasks of named entity recognition and coarse-grained entity typing, but we show that it is outperformed by zero-shot cross-lingual transfer when applied to the similar task of fine-grained entity typing. In our study of fine-grained entity typing with the FIGER type ontology for German, we show that annotation projection amplifies the English model’s tendency to underpredict level 2 labels and is beaten by zero-shot cross-lingual transfer on three novel test sets.</abstract>
+      <url hash="2a982749">2021.insights-1.7</url>
+      <bibkey>weber-steedman-2021-zero</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Comparing <fixed-case>E</fixed-case>uclidean and Hyperbolic Embeddings on the <fixed-case>W</fixed-case>ord<fixed-case>N</fixed-case>et Nouns Hypernymy Graph</title>
+      <author><first>Sameer</first><last>Bansal</last></author>
+      <author><first>Adrian</first><last>Benton</last></author>
+      <pages>49–53</pages>
+      <abstract>Nickel and Kiela (2017) present a new method for embedding tree nodes in the Poincare ball, and suggest that these hyperbolic embeddings are far more effective than Euclidean embeddings at embedding nodes in large, hierarchically structured graphs like the WordNet nouns hypernymy tree. This is especially true in low dimensions (Nickel and Kiela, 2017, Table 1). In this work, we seek to reproduce their experiments on embedding and reconstructing the WordNet nouns hypernymy graph. Counter to what they report, we find that Euclidean embeddings are able to represent this tree at least as well as Poincare embeddings, when allowed at least 50 dimensions. We note that this does not diminish the significance of their work given the impressive performance of hyperbolic embeddings in very low-dimensional settings. However, given the wide influence of their work, our aim here is to present an updated and more accurate comparison between the Euclidean and hyperbolic embeddings.</abstract>
+      <url hash="fa0346b5">2021.insights-1.8</url>
+      <bibkey>bansal-benton-2021-comparing</bibkey>
+    </paper>
+    <paper id="9">
+      <title>When does Further Pre-training <fixed-case>MLM</fixed-case> Help? An Empirical Study on Task-Oriented Dialog Pre-training</title>
+      <author><first>Qi</first><last>Zhu</last></author>
+      <author><first>Yuxian</first><last>Gu</last></author>
+      <author><first>Lingxiao</first><last>Luo</last></author>
+      <author><first>Bing</first><last>Li</last></author>
+      <author><first>Cheng</first><last>Li</last></author>
+      <author><first>Wei</first><last>Peng</last></author>
+      <author><first>Minlie</first><last>Huang</last></author>
+      <author><first>Xiaoyan</first><last>Zhu</last></author>
+      <pages>54–61</pages>
+      <abstract>Further pre-training language models on in-domain data (domain-adaptive pre-training, DAPT) or task-relevant data (task-adaptive pre-training, TAPT) before fine-tuning has been shown to improve downstream tasks’ performances. However, in task-oriented dialog modeling, we observe that further pre-training MLM does not always boost the performance on a downstream task. We find that DAPT is beneficial in the low-resource setting, but as the fine-tuning data size grows, DAPT becomes less beneficial or even useless, and scaling the size of DAPT data does not help. Through Representational Similarity Analysis, we conclude that more data for fine-tuning yields greater change of the model’s representations and thus reduces the influence of initialization.</abstract>
+      <url hash="ef081dd2">2021.insights-1.9</url>
+      <attachment type="Software" hash="87da336e">2021.insights-1.9.Software.zip</attachment>
+      <bibkey>zhu-etal-2021-pre</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Recurrent Attention for the Transformer</title>
+      <author><first>Jan</first><last>Rosendahl</last></author>
+      <author><first>Christian</first><last>Herold</last></author>
+      <author><first>Frithjof</first><last>Petrick</last></author>
+      <author><first>Hermann</first><last>Ney</last></author>
+      <pages>62–66</pages>
+      <abstract>In this work, we conduct a comprehensive investigation on one of the centerpieces of modern machine translation systems: the encoder-decoder attention mechanism. Motivated by the concept of first-order alignments, we extend the (cross-)attention mechanism by a recurrent connection, allowing direct access to previous attention/alignment decisions. We propose several ways to include such a recurrency into the attention mechanism. Verifying their performance across different translation tasks we conclude that these extensions and dependencies are not beneficial for the translation performance of the Transformer architecture.</abstract>
+      <url hash="19a0619e">2021.insights-1.10</url>
+      <bibkey>rosendahl-etal-2021-recurrent</bibkey>
+    </paper>
+    <paper id="11">
+      <title>On the Difficulty of Segmenting Words with Attention</title>
+      <author><first>Ramon</first><last>Sanabria</last></author>
+      <author><first>Hao</first><last>Tang</last></author>
+      <author><first>Sharon</first><last>Goldwater</last></author>
+      <pages>67–73</pages>
+      <abstract>Word segmentation, the problem of finding word boundaries in speech, is of interest for a range of tasks. Previous papers have suggested that for sequence-to-sequence models trained on tasks such as speech translation or speech recognition, attention can be used to locate and segment the words. We show, however, that even on monolingual data this approach is brittle. In our experiments with different input types, data sizes, and segmentation algorithms, only models trained to predict phones from words succeed in the task. Models trained to predict words from either phones or speech (i.e., the opposite direction needed to generalize to new data), yield much worse results, suggesting that attention-based segmentation is only useful in limited scenarios.</abstract>
+      <url hash="de075e65">2021.insights-1.11</url>
+      <bibkey>sanabria-etal-2021-difficulty</bibkey>
+    </paper>
+    <paper id="12">
+      <title>The Highs and Lows of Simple Lexical Domain Adaptation Approaches for Neural Machine Translation</title>
+      <author><first>Nikolay</first><last>Bogoychev</last></author>
+      <author><first>Pinzhen</first><last>Chen</last></author>
+      <pages>74–80</pages>
+      <abstract>Machine translation systems are vulnerable to domain mismatch, especially in a low-resource scenario. Out-of-domain translations are often of poor quality and prone to hallucinations, due to exposure bias and the decoder acting as a language model. We adopt two approaches to alleviate this problem: lexical shortlisting restricted by IBM statistical alignments, and hypothesis reranking based on similarity. The methods are computationally cheap and show success on low-resource out-of-domain test sets. However, the methods lose advantage when there is sufficient data or too great domain mismatch. This is due to both the IBM model losing its advantage over the implicitly learned neural alignment, and issues with subword segmentation of unseen words.</abstract>
+      <url hash="93b16635">2021.insights-1.12</url>
+      <bibkey>bogoychev-chen-2021-highs</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Backtranslation in Neural Morphological Inflection</title>
+      <author><first>Ling</first><last>Liu</last></author>
+      <author><first>Mans</first><last>Hulden</last></author>
+      <pages>81–88</pages>
+      <abstract>Backtranslation is a common technique for leveraging unlabeled data in low-resource scenarios in machine translation. The method is directly applicable to morphological inflection generation if unlabeled word forms are available. This paper evaluates the potential of backtranslation for morphological inflection using data from six languages with labeled data drawn from the SIGMORPHON shared task resource and unlabeled data from different sources. Our core finding is that backtranslation can offer modest improvements in low-resource scenarios, but only if the unlabeled data is very clean and has been filtered by the same annotation standards as the labeled data.</abstract>
+      <url hash="f560fdcd">2021.insights-1.13</url>
+      <bibkey>liu-hulden-2021-backtranslation</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Learning Data Augmentation Schedules for Natural Language Processing</title>
+      <author><first>Daphné</first><last>Chopard</last></author>
+      <author><first>Matthias S.</first><last>Treder</last></author>
+      <author><first>Irena</first><last>Spasić</last></author>
+      <pages>89–102</pages>
+      <abstract>Despite its proven efficiency in other fields, data augmentation is less popular in the context of natural language processing (NLP) due to its complexity and limited results. A recent study (Longpre et al., 2020) showed for example that task-agnostic data augmentations fail to consistently boost the performance of pretrained transformers even in low data regimes. In this paper, we investigate whether data-driven augmentation scheduling and the integration of a wider set of transformations can lead to improved performance where fixed and limited policies were unsuccessful. Our results suggest that, while this approach can help the training process in some settings, the improvements are unsubstantial. This negative result is meant to help researchers better understand the limitations of data augmentation for NLP.</abstract>
+      <url hash="b534b2f5">2021.insights-1.14</url>
+      <bibkey>chopard-etal-2021-learning</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>A</fixed-case>n <fixed-case>I</fixed-case>nvestigation into the <fixed-case>C</fixed-case>ontribution of <fixed-case>L</fixed-case>ocally <fixed-case>A</fixed-case>ggregated <fixed-case>D</fixed-case>escriptors to <fixed-case>F</fixed-case>igurative <fixed-case>L</fixed-case>anguage <fixed-case>I</fixed-case>dentification</title>
+      <author><first>Sina Mahdipour</first><last>Saravani</last></author>
+      <author><first>Ritwik</first><last>Banerjee</last></author>
+      <author><first>Indrakshi</first><last>Ray</last></author>
+      <pages>103–109</pages>
+      <abstract>In natural language understanding, topics that touch upon figurative language and pragmatics are notably difficult. We probe a novel use of locally aggregated descriptors – specifically, an architecture called NeXtVLAD – motivated by its accomplishments in computer vision, achieve tremendous success in the FigLang2020 sarcasm detection task. The reported F1 score of 93.1% is 14% higher than the next best result. We specifically investigate the extent to which the novel architecture is responsible for this boost, and find that it does not provide statistically significant benefits. Deep learning approaches are expensive, and we hope our insights highlighting the lack of benefits from introducing a resource-intensive component will aid future research to distill the effective elements from long and complex pipelines, thereby providing a boost to the wider research community.</abstract>
+      <url hash="b4a57ad0">2021.insights-1.15</url>
+      <bibkey>saravani-etal-2021-investigation</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Blindness to Modality Helps Entailment Graph Mining</title>
+      <author><first>Liane</first><last>Guillou</last></author>
+      <author><first>Sander</first><last>Bijl de Vroe</last></author>
+      <author><first>Mark</first><last>Johnson</last></author>
+      <author><first>Mark</first><last>Steedman</last></author>
+      <pages>110–116</pages>
+      <abstract>Understanding linguistic modality is widely seen as important for downstream tasks such as Question Answering and Knowledge Graph Population. Entailment Graph learning might also be expected to benefit from attention to modality. We build Entailment Graphs using a news corpus filtered with a modality parser, and show that stripping modal modifiers from predicates in fact increases performance. This suggests that for some tasks, the pragmatics of modal modification of predicates allows them to contribute as evidence of entailment.</abstract>
+      <url hash="79eee9a8">2021.insights-1.16</url>
+      <bibkey>guillou-etal-2021-blindness</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Investigating the Effect of Natural Language Explanations on Out-of-Distribution Generalization in Few-shot <fixed-case>NLI</fixed-case></title>
+      <author><first>Yangqiaoyu</first><last>Zhou</last></author>
+      <author><first>Chenhao</first><last>Tan</last></author>
+      <pages>117–124</pages>
+      <abstract>Although neural models have shown strong performance in datasets such as SNLI, they lack the ability to generalize out-of-distribution (OOD). In this work, we formulate a few-shot learning setup and examine the effects of natural language explanations on OOD generalization. We leverage the templates in the HANS dataset and construct templated natural language explanations for each template. Although generated explanations show competitive BLEU scores against ground truth explanations, they fail to improve prediction performance. We further show that generated explanations often hallucinate information and miss key elements that indicate the label.</abstract>
+      <url hash="01a8646e">2021.insights-1.17</url>
+      <bibkey>zhou-tan-2021-investigating</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Generalization in <fixed-case>NLI</fixed-case>: Ways (Not) To Go Beyond Simple Heuristics</title>
+      <author><first>Prajjwal</first><last>Bhargava</last></author>
+      <author><first>Aleksandr</first><last>Drozd</last></author>
+      <author><first>Anna</first><last>Rogers</last></author>
+      <pages>125–135</pages>
+      <abstract>Much of recent progress in NLU was shown to be due to models’ learning dataset-specific heuristics. We conduct a case study of generalization in NLI (from MNLI to the adversarially constructed HANS dataset) in a range of BERT-based architectures (adapters, Siamese Transformers, HEX debiasing), as well as with subsampling the data and increasing the model size. We report 2 successful and 3 unsuccessful strategies, all providing insights into how Transformer-based models learn to generalize.</abstract>
+      <url hash="83213fb0">2021.insights-1.18</url>
+      <bibkey>bhargava-etal-2021-generalization</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Challenging the Semi-Supervised <fixed-case>VAE</fixed-case> Framework for Text Classification</title>
+      <author><first>Ghazi</first><last>Felhi</last></author>
+      <author><first>Joseph</first><last>Le Roux</last></author>
+      <author><first>Djamé</first><last>Seddah</last></author>
+      <pages>136–143</pages>
+      <abstract>Semi-Supervised Variational Autoencoders (SSVAEs) are widely used models for data efficient learning. In this paper, we question the adequacy of the standard design of sequence SSVAEs for the task of text classification as we exhibit two sources of overcomplexity for which we provide simplifications. These simplifications to SSVAEs preserve their theoretical soundness while providing a number of practical advantages in the semi-supervised setup where the result of training is a text classifier. These simplifications are the removal of (i) the Kullback-Liebler divergence from its objective and (ii) the fully unobserved latent variable from its probabilistic model. These changes relieve users from choosing a prior for their latent variables, make the model smaller and faster, and allow for a better flow of information into the latent variables. We compare the simplified versions to standard SSVAEs on 4 text classification tasks. On top of the above-mentioned simplification, experiments show a speed-up of 26%, while keeping equivalent classification scores. The code to reproduce our experiments is public.</abstract>
+      <url hash="f94e6d7d">2021.insights-1.19</url>
+      <bibkey>felhi-etal-2021-challenging</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Active Learning for Argument Strength Estimation</title>
+      <author><first>Nataliia</first><last>Kees</last></author>
+      <author><first>Michael</first><last>Fromm</last></author>
+      <author><first>Evgeniy</first><last>Faerman</last></author>
+      <author><first>Thomas</first><last>Seidl</last></author>
+      <pages>144–150</pages>
+      <abstract>High-quality arguments are an essential part of decision-making. Automatically predicting the quality of an argument is a complex task that recently got much attention in argument mining. However, the annotation effort for this task is exceptionally high. Therefore, we test uncertainty-based active learning (AL) methods on two popular argument-strength data sets to estimate whether sample-efficient learning can be enabled. Our extensive empirical evaluation shows that uncertainty-based acquisition functions can not surpass the accuracy reached with the random acquisition on these data sets.</abstract>
+      <url hash="8e0ea365">2021.insights-1.20</url>
+      <attachment type="Software" hash="a1fb3587">2021.insights-1.20.Software.zip</attachment>
+      <bibkey>kees-etal-2021-active</bibkey>
+    </paper>
+  </volume>
+</collection>
