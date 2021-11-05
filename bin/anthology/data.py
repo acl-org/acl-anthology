@@ -60,6 +60,7 @@ LIST_ELEMENTS = (
     "revision",
     "erratum",
     "award",
+    "pwcdataset",
 )
 
 # New-style IDs that should be handled as journals
