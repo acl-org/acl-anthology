@@ -50,7 +50,7 @@ def remove_and_shift_tails(element, child):
     inx = children.index(child)
 
     if inx > 0:
-        children[inx-1].tail = children[inx].tail
+        children[inx - 1].tail = children[inx].tail
 
     element.remove(child)
 
@@ -58,12 +58,10 @@ def remove_and_shift_tails(element, child):
 if __name__ == "__main__":
     import argparse
 
-    ap = argparse.ArgumentParser(
-        description="Import metadata from Papers with Code"
+    ap = argparse.ArgumentParser(description="Import metadata from Papers with Code")
+    ap.add_argument(
+        "-i", "--infile", help="Input metadata JSON (default: fetch from PWC API)"
     )
-    ap.add_argument("-i",
-                    "--infile",
-                    help="Input metadata JSON (default: fetch from PWC API)")
     args = ap.parse_args()
 
     logging.basicConfig(level=logging.INFO)

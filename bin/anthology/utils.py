@@ -450,7 +450,11 @@ def parse_element(xml_element):
             value = {"filename": element.text, "type": tag, "url": element.text}
             tag = "attachment"
         elif tag == "pwccode":
-            value = {"url": element.get("url"), "additional": element.get("additional"), "name": element.text}
+            value = {
+                "url": element.get("url"),
+                "additional": element.get("additional"),
+                "name": element.text,
+            }
         elif tag == "pwcdataset":
             value = {"url": element.get("url"), "name": element.text}
         else:
