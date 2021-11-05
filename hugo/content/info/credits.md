@@ -11,7 +11,7 @@ We are grateful to all our contributors whose work makes this collection of scho
 + [Marcel Bollmann](https://marcel.bollmann.me/) (University of Copenhagen) --- **Site Development Lead**
 + [Chenliang Li](http://www.lichenliang.net/) (Wuhan University) --- **Journal Indexing Lead**
 + [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame) --- **Data Lead**
-+ [Arne Köhn](https://arne.chark.eu) (Universität des Saarlandes)
++ [Arne Köhn](https://arne.chark.eu) (New Work SE)
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
 + [Kilian Gebhardt](https://wwwtcs.inf.tu-dresden.de/~kilian/) (TU Dresden)
 + [Nathan Schneider](http://people.cs.georgetown.edu/nschneid/) (Georgetown University)
