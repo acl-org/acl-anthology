@@ -8,7 +8,7 @@ We are grateful to all our contributors whose work makes this collection of scho
 ### Active Volunteers
 
 + [Arya McCarthy](https://aryamccarthy.github.io/) (Johns Hopkins University) --- **MIT Press Ingestion Lead**
-+ [Marcel Bollmann](https://marcel.bollmann.me/) (University of Copenhagen) --- **Site Development Lead**
++ [Marcel Bollmann](https://marcel.bollmann.me/) (Jönköping University) --- **Site Development Lead**
 + [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame) --- **Data Lead**
 + [Arne Köhn](https://arne.chark.eu) (New Work SE)
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
