@@ -25,6 +25,7 @@
       <abstract>Abstractive summarization models heavily rely on copy mechanisms, such as the pointer network or attention, to achieve good performance, measured by textual overlap with reference summaries. As a result, the generated summaries stay close to the formulations in the source document. We propose the *sentence planner* model to generate more abstractive summaries. It includes a hierarchical decoder that first generates a representation for the next summary sentence, and then conditions the word generator on this representation. Our generated summaries are more abstractive and at the same time achieve high ROUGE scores when compared to human reference summaries. We verify the effectiveness of our design decisions with extensive evaluations.</abstract>
       <url hash="6c478295">2021.newsum-1.1</url>
       <bibkey>marfurt-henderson-2021-sentence</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
     </paper>
     <paper id="2">
       <title>Template-aware Attention Model for Earnings Call Report Generation</title>
@@ -35,6 +36,7 @@
       <abstract>Earning calls are among important resources for investors and analysts for updating their price targets. Firms usually publish corresponding transcripts soon after earnings events. However, raw transcripts are often too long and miss the coherent structure. To enhance the clarity, analysts write well-structured reports for some important earnings call events by analyzing them, requiring time and effort. In this paper, we propose TATSum (Template-Aware aTtention model for Summarization), a generalized neural summarization approach for structured report generation, and evaluate its performance in the earnings call domain. We build a large corpus with thousands of transcripts and reports using historical earnings events. We first generate a candidate set of reports from the corpus as potential soft templates which do not impose actual rules on the output. Then, we employ an encoder model with margin-ranking loss to rank the candidate set and select the best quality template. Finally, the transcript and the selected soft template are used as input in a seq2seq framework for report generation. Empirical results on the earnings call dataset show that our model significantly outperforms state-of-the-art models in terms of informativeness and structure.</abstract>
       <url hash="7a331d05">2021.newsum-1.2</url>
       <bibkey>huang-etal-2021-template</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
     </paper>
     <paper id="3">
       <title>Knowledge and Keywords Augmented Abstractive Sentence Summarization</title>
@@ -62,6 +64,8 @@
       <abstract>Cross-lingual summarization is a challenging task for which there are no cross-lingual scientific resources currently available. To overcome the lack of a high-quality resource, we present a new dataset for monolingual and cross-lingual summarization considering the English-German pair. We collect high-quality, real-world cross-lingual data from Spektrum der Wissenschaft, which publishes human-written German scientific summaries of English science articles on various subjects. The generated Spektrum dataset is small; therefore, we harvest a similar dataset from the Wikipedia Science Portal to complement it. The Wikipedia dataset consists of English and German articles, which can be used for monolingual and cross-lingual summarization. Furthermore, we present a quantitative analysis of the datasets and results of empirical experiments with several existing extractive and abstractive summarization models. The results suggest the viability and usefulness of the proposed dataset for monolingual and cross-lingual summarization.</abstract>
       <url hash="c43fe091">2021.newsum-1.5</url>
       <bibkey>fatima-strube-2021-novel</bibkey>
+      <pwccode url="https://github.com/mehwishfatimah/wsd" additional="false">mehwishfatimah/wsd</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikilingua">WikiLingua</pwcdataset>
     </paper>
     <paper id="6">
       <title>Evaluation of Summarization Systems across Gender, Age, and Race</title>
@@ -132,6 +136,7 @@
       <abstract>Incremental meeting temporal summarization, summarizing relevant information of partial multi-party meeting dialogue, is emerging as the next challenge in summarization research. Here we examine the extent to which human abstractive summaries of the preceding increments (context) can be combined with extractive meeting dialogue to generate abstractive summaries. We find that previous context improves ROUGE scores. Our findings further suggest that contexts begin to outweigh the dialogue. Using keyphrase extraction and semantic role labeling (SRL), we find that SRL captures relevant information without overwhelming the the model architecture. By compressing the previous contexts by ~70%, we achieve better ROUGE scores over our baseline models. Collectively, these results suggest that context matters, as does the way in which context is presented to the model.</abstract>
       <url hash="8b52edd0">2021.newsum-1.11</url>
       <bibkey>beckage-etal-2021-context</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
     </paper>
     <paper id="12">
       <title>Are We Summarizing the Right Way? A Survey of Dialogue Summarization Data Sets</title>
@@ -154,6 +159,8 @@
       <abstract>A crucial difference between single- and multi-document summarization is how salient content manifests itself in the document(s). While such content may appear at the beginning of a single document, essential information is frequently reiterated in a set of documents related to a particular topic, resulting in an endorsement effect that increases information salience. In this paper, we model the cross-document endorsement effect and its utilization in multiple document summarization. Our method generates a synopsis from each document, which serves as an endorser to identify salient content from other documents. Strongly endorsed text segments are used to enrich a neural encoder-decoder model to consolidate them into an abstractive summary. The method has a great potential to learn from fewer examples to identify salient content, which alleviates the need for costly retraining when the set of documents is dynamically adjusted. Through extensive experiments on benchmark multi-document summarization datasets, we demonstrate the effectiveness of our proposed method over strong published baselines. Finally, we shed light on future research directions and discuss broader challenges of this task using a case study.</abstract>
       <url hash="23d249a2">2021.newsum-1.13</url>
       <bibkey>lebanoff-etal-2021-modeling</bibkey>
+      <pwccode url="https://github.com/ucfnlp/endorser-summ" additional="false">ucfnlp/endorser-summ</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/wcep">WCEP</pwcdataset>
     </paper>
     <paper id="14">
       <title><fixed-case>SUBSUME</fixed-case>: A Dataset for Subjective Summary Extraction from <fixed-case>W</fixed-case>ikipedia Documents</title>
@@ -168,6 +175,7 @@
       <abstract>Many applications require generation of summaries tailored to the user’s information needs, i.e., their intent. Methods that express intent via explicit user queries fall short when query interpretation is subjective. Several datasets exist for summarization with objective intents where, for each document and intent (e.g., “weather”), a single summary suffices for all users. No datasets exist, however, for subjective intents (e.g., “interesting places”) where different users will provide different summaries. We present SUBSUME, the first dataset for evaluation of SUBjective SUMmary Extraction systems. SUBSUME contains 2,200 (document, intent, summary) triplets over 48 Wikipedia pages, with ten intents of varying subjectivity, provided by 103 individuals over Mechanical Turk. We demonstrate statistically that the intents in SUBSUME vary systematically in subjectivity. To indicate SUBSUME’s usefulness, we explore a collection of baseline algorithms for subjective extractive summarization and show that (i) as expected, example-based approaches better capture subjective intents than query-based ones, and (ii) there is ample scope for improving upon the baseline algorithms, thereby motivating further research on this challenging problem.</abstract>
       <url hash="6d84def1">2021.newsum-1.14</url>
       <bibkey>yadav-etal-2021-subsume</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
     </paper>
     <paper id="15">
       <title><fixed-case>TLDR</fixed-case>9+: A Large Scale Resource for Extreme Summarization of Social Media Posts</title>
@@ -179,6 +187,9 @@
       <abstract>Recent models in developing summarization systems consist of millions of parameters and the model performance is highly dependent on the abundance of training data. While most existing summarization corpora contain data in the order of thousands to one million, generation of large-scale summarization datasets in order of couple of millions is yet to be explored. Practically, more data is better at generalizing the training patterns to unseen data. In this paper, we introduce TLDR9+ –a large-scale summarization dataset– containing over 9 million training instances extracted from Reddit discussion forum ([HTTP]). This dataset is specifically gathered to perform <i>extreme</i> summarization (i.e., generating one-sentence summary in high compression and abstraction) and is more than twice larger than the previously proposed dataset. We go one step further and with the help of human annotations, we distill a more fine-grained dataset by sampling High-Quality instances from TLDR9+ and call it TLDRHQ dataset. We further pinpoint different state-of-the-art summarization models on our proposed datasets.</abstract>
       <url hash="ccbd9c6e">2021.newsum-1.15</url>
       <bibkey>sotudeh-etal-2021-tldr9</bibkey>
+      <pwccode url="https://github.com/sajastu/reddit_collector" additional="false">sajastu/reddit_collector</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/tldr9">TLDR9+</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/reddit-tifu">Reddit TIFU</pwcdataset>
     </paper>
     <paper id="16">
       <title>A New Dataset and Efficient Baselines for Document-level Text Simplification in <fixed-case>G</fixed-case>erman</title>
