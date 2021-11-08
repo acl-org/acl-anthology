@@ -8,15 +8,13 @@ We are grateful to all our contributors whose work makes this collection of scho
 ### Active Volunteers
 
 + [Arya McCarthy](https://aryamccarthy.github.io/) (Johns Hopkins University) --- **MIT Press Ingestion Lead**
-+ [Marcel Bollmann](https://marcel.bollmann.me/) (University of Copenhagen) --- **Site Development Lead**
-+ [Chenliang Li](http://www.lichenliang.net/) (Wuhan University) --- **Journal Indexing Lead**
++ [Marcel Bollmann](https://marcel.bollmann.me/) (Jönköping University) --- **Site Development Lead**
 + [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame) --- **Data Lead**
-+ [Arne Köhn](https://arne.chark.eu) (Universität des Saarlandes)
++ [Arne Köhn](https://arne.chark.eu) (New Work SE)
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
 + [Kilian Gebhardt](https://wwwtcs.inf.tu-dresden.de/~kilian/) (TU Dresden)
 + [Nathan Schneider](http://people.cs.georgetown.edu/nschneid/) (Georgetown University)
 + [Marc Schulder](https://marc.schulder.info/) (Institute for German Sign Language, Hamburg University)
-+ Namratha Urs (University of North Texas)
 
 ### Past Volunteers
 
@@ -29,6 +27,8 @@ We are grateful to all our contributors whose work makes this collection of scho
 + [Martín Villalba](http://www.coli.uni-saarland.de/~villalba/) (Saarland University)
 + [Simone Teufel](https://www.cl.cam.ac.uk/~sht25/) (Cambridge)
 + [Tao Chen](http://www.cs.jhu.edu/~taochen/) (Google)
++ Namratha Urs (University of North Texas)
++ [Chenliang Li](http://www.lichenliang.net/) (Wuhan University)
 + Authors of anthology introductions: John Nerbonne, Julia Hirschberg, Donia Scott, Diane Litman, Sergei Nirenburg, Karen Spärck Jones, and Aravind Joshi.
 
 ### Directors
