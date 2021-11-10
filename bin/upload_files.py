@@ -16,7 +16,7 @@
 # limitations under the License.
 
 """
-Uploads PDFs and other files to their correct place on aclweb.org.
+Uploads PDFs and other files to their correct place on aclanthology.org.
 
 Usage:
 
@@ -44,10 +44,10 @@ from anthology.utils import deconstruct_anthology_id
 from typing import List
 
 # The root directory for files, currently containing pdf/ and attachments/
-ACLWEB_FILE_ROOT = "/home/anthologizer/anthology-files"
+ANTHOLOGY_FILE_ROOT = "/home/anthologizer/anthology-files"
 
 # The ssh shortcut (in ~/.ssh/config) or full hostname
-ACLWEB_HOST = "anth"
+ANTHOLOGY_HOST = "anth"
 
 
 def get_dest_path(filepath: str):
@@ -73,7 +73,7 @@ def get_dest_path(filepath: str):
     else:
         raise Exception(f"Can't determine target destination from {filepath}")
 
-    return f"{ACLWEB_HOST}:{ACLWEB_FILE_ROOT}/{dest_path}"
+    return f"{ANTHOLOGY_HOST}:{ANTHOLOGY_FILE_ROOT}/{dest_path}"
 
 
 def upload_files(target_uri: str, files: List[str]):

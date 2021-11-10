@@ -46,12 +46,12 @@ Front and back matter that appears internally to a volume will be counted just l
 The canonical URLs for the Anthology are formed by appending the ACL ID to the Anthology URL.
 For example,
 
-> https://www.aclweb.org/anthology/P18-1023
+> https://aclanthology.org/P18-1023
 
 will return the landing page for this paper.
 The PDF can be accessed directly by accessing
 
-> https://www.aclweb.org/anthology/P18-1023.pdf
+> https://aclanthology.org/P18-1023.pdf
 
 This works for other provided files such as BibTeX (.bib) and MODS XML (.xml).
 
