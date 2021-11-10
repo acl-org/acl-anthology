@@ -9,13 +9,13 @@ assignees: mjpost
 
 **Please be sure to add the Anthology ID in the title**
 
-[See here](https://www.aclweb.org/anthology/info/corrections/) to read about the three types of corrections.
+[See here](https://aclanthology.org/info/corrections/) to read about the three types of corrections.
 
 ## Changes to the author list
 
 You need permission from the relevant conference program chairs if you
 want to change the author list in the metadata, see
-[the notes on author changes](https://www.aclweb.org/anthology/info/corrections/#note-on-author-changes)
+[the notes on author changes](https://aclanthology.org/info/corrections/#note-on-author-changes)
 
  - [ ] I have read the note on author changes and will contact the program chairs
        for permission to be posted here or via email.
