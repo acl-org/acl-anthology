@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.cinlp">
+  <volume id="1" ingest-date="2021-10-28">
+    <meta>
+      <booktitle>Proceedings of the First Workshop on Causal Inference and NLP</booktitle>
+      <editor><first>Amir</first><last>Feder</last></editor>
+      <editor><first>Katherine</first><last>Keith</last></editor>
+      <editor><first>Emaad</first><last>Manzoor</last></editor>
+      <editor><first>Reid</first><last>Pryzant</last></editor>
+      <editor><first>Dhanya</first><last>Sridhar</last></editor>
+      <editor><first>Zach</first><last>Wood-Doughty</last></editor>
+      <editor><first>Jacob</first><last>Eisenstein</last></editor>
+      <editor><first>Justin</first><last>Grimmer</last></editor>
+      <editor><first>Roi</first><last>Reichart</last></editor>
+      <editor><first>Molly</first><last>Roberts</last></editor>
+      <editor><first>Uri</first><last>Shalit</last></editor>
+      <editor><first>Brandon</first><last>Stewart</last></editor>
+      <editor><first>Victor</first><last>Veitch</last></editor>
+      <editor><first>Diyi</first><last>Yang</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Punta Cana, Dominican Republic</address>
+      <month>November</month>
+      <year>2021</year>
+    </meta>
+    <frontmatter>
+      <url hash="eea34e17">2021.cinlp-1.0</url>
+      <bibkey>cinlp-2021-causal</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Causal Augmentation for Causal Sentence Classification</title>
+      <author><first>Fiona Anting</first><last>Tan</last></author>
+      <author><first>Devamanyu</first><last>Hazarika</last></author>
+      <author><first>See-Kiong</first><last>Ng</last></author>
+      <author><first>Soujanya</first><last>Poria</last></author>
+      <author><first>Roger</first><last>Zimmermann</last></author>
+      <pages>1–20</pages>
+      <abstract>Scarcity of annotated causal texts leads to poor robustness when training state-of-the-art language models for causal sentence classification. In particular, we found that models misclassify on augmented sentences that have been negated or strengthened with respect to its causal meaning. This is worrying since minor linguistic differences in causal sentences can have disparate meanings. Therefore, we propose the generation of counterfactual causal sentences by creating contrast sets (Gardner et al., 2020) to be included during model training. We experimented on two model architectures and predicted on two out-of-domain corpora. While our strengthening schemes proved useful in improving model performance, for negation, regular edits were insufficient. Thus, we also introduce heuristics like shortening or multiplying root words of a sentence. By including a mixture of edits when training, we achieved performance improvements beyond the baseline across both models, and within and out of corpus’ domain, suggesting that our proposed augmentation can also help models generalize.</abstract>
+      <url hash="85688950">2021.cinlp-1.1</url>
+      <bibkey>tan-etal-2021-causal</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Text as Causal Mediators: Research Design for Causal Estimates of Differential Treatment of Social Groups via Language Aspects</title>
+      <author><first>Katherine</first><last>Keith</last></author>
+      <author><first>Douglas</first><last>Rice</last></author>
+      <author><first>Brendan</first><last>O’Connor</last></author>
+      <pages>21–32</pages>
+      <abstract>Using observed language to understand interpersonal interactions is important in high-stakes decision making. We propose a causal research design for observational (non-experimental) data to estimate the natural direct and indirect effects of social group signals (e.g. race or gender) on speakers’ responses with separate aspects of language as causal mediators. We illustrate the promises and challenges of this framework via a theoretical case study of the effect of an advocate’s gender on interruptions from justices during U.S. Supreme Court oral arguments. We also discuss challenges conceptualizing and operationalizing causal variables such as gender and language that comprise of many components, and we articulate technical open challenges such as temporal dependence between language mediators in conversational settings.</abstract>
+      <url hash="4a8b729a">2021.cinlp-1.2</url>
+      <bibkey>keith-etal-2021-text</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Enhancing Model Robustness and Fairness with Causality: A Regularization Approach</title>
+      <author><first>Zhao</first><last>Wang</last></author>
+      <author><first>Kai</first><last>Shu</last></author>
+      <author><first>Aron</first><last>Culotta</last></author>
+      <pages>33–43</pages>
+      <abstract>Recent work has raised concerns on the risk of spurious correlations and unintended biases in statistical machine learning models that threaten model robustness and fairness. In this paper, we propose a simple and intuitive regularization approach to integrate causal knowledge during model training and build a robust and fair model by emphasizing causal features and de-emphasizing spurious features. Specifically, we first manually identify causal and spurious features with principles inspired from the counterfactual framework of causal inference. Then, we propose a regularization approach to penalize causal and spurious features separately. By adjusting the strength of the penalty for each type of feature, we build a predictive model that relies more on causal features and less on non-causal features. We conduct experiments to evaluate model robustness and fairness on three datasets with multiple metrics. Empirical results show that the new models built with causal awareness significantly improve model robustness with respect to counterfactual texts and model fairness with respect to sensitive attributes.</abstract>
+      <url hash="b3058f67">2021.cinlp-1.3</url>
+      <bibkey>wang-etal-2021-enhancing</bibkey>
+    </paper>
+    <paper id="4">
+      <title>What Makes a Scientific Paper be Accepted for Publication?</title>
+      <author><first>Panagiotis</first><last>Fytas</last></author>
+      <author><first>Georgios</first><last>Rizos</last></author>
+      <author><first>Lucia</first><last>Specia</last></author>
+      <pages>44–60</pages>
+      <abstract>Despite peer-reviewing being an essential component of academia since the 1600s, it has repeatedly received criticisms for lack of transparency and consistency. We posit that recent work in machine learning and explainable AI provide tools that enable insights into the decisions from a given peer-review process. We start by simulating the peer-review process using an ML classifier and extracting global explanations in the form of linguistic features that affect the acceptance of a scientific paper for publication on an open peer-review dataset. Second, since such global explanations do not justify causal interpretations, we propose a methodology for detecting confounding effects in natural language and generating explanations, disentangled from textual confounders, in the form of lexicons. Our proposed linguistic explanation methodology indicates the following on a case dataset of ICLR submissions: a) the organising committee follows, for the most part, the recommendations of reviewers, and b) the paper’s main characteristics that led to reviewers recommending acceptance for publication are originality, clarity and substance.</abstract>
+      <url hash="3077eba2">2021.cinlp-1.4</url>
+      <bibkey>fytas-etal-2021-makes</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Sensitivity Analysis for Causal Mediation through Text: an Application to Political Polarization</title>
+      <author><first>Graham</first><last>Tierney</last></author>
+      <author><first>Alexander</first><last>Volfovsky</last></author>
+      <pages>61–73</pages>
+      <abstract>We introduce a procedure to examine a text-as-mediator problem from a novel randomized experiment that studied the effect of conversations on political polarization. In this randomized experiment, Americans from the Democratic and Republican parties were either randomly paired with one-another to have an anonymous conversation about politics or alternatively not assigned to a conversation — change in political polarization over time was measured for all participants. This paper analyzes the text of the conversations to identify potential mediators of depolarization and is faced with a unique challenge, necessitated by the primary research hypothesis, that individuals in the control condition do not have conversations and so lack observed text data. We highlight the importance of using domain knowledge to perform dimension reduction on the text data, and describe a procedure to characterize indirect effects via text when the text is only observed in one arm of the experiment.</abstract>
+      <url hash="20da3fe2">2021.cinlp-1.5</url>
+      <attachment type="Software" hash="a607ca5e">2021.cinlp-1.5.Software.zip</attachment>
+      <bibkey>tierney-volfovsky-2021-sensitivity</bibkey>
+    </paper>
+    <paper id="6">
+      <title>A Survey of Online Hate Speech through the Causal Lens</title>
+      <author><first>Antigoni</first><last>Founta</last></author>
+      <author><first>Lucia</first><last>Specia</last></author>
+      <pages>74–82</pages>
+      <abstract>The societal issue of digital hostility has previously attracted a lot of attention. The topic counts an ample body of literature, yet remains prominent and challenging as ever due to its subjective nature. We posit that a better understanding of this problem will require the use of causal inference frameworks. This survey summarises the relevant research that revolves around estimations of causal effects related to online hate speech. Initially, we provide an argumentation as to why re-establishing the exploration of hate speech in causal terms is of the essence. Following that, we give an overview of the leading studies classified with respect to the direction of their outcomes, as well as an outline of all related research, and a summary of open research problems that can influence future work on the topic.</abstract>
+      <url hash="e4cde0db">2021.cinlp-1.6</url>
+      <bibkey>founta-specia-2021-survey</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Identifying Causal Influences on Publication Trends and Behavior: A Case Study of the Computational Linguistics Community</title>
+      <author><first>Maria</first><last>Glenski</last></author>
+      <author><first>Svitlana</first><last>Volkova</last></author>
+      <pages>83–94</pages>
+      <abstract>Drawing causal conclusions from observational real-world data is a very much desired but a challenging task. In this paper we present mixed-method analyses to investigate causal influences of publication trends and behavior on the adoption, persistence and retirement of certain research foci – methodologies, materials, and tasks that are of interest to the computational linguistics (CL) community. Our key findings highlight evidence of the transition to rapidly emerging methodologies in the research community (e.g., adoption of bidirectional LSTMs influencing the retirement of LSTMs), the persistent engagement with trending tasks and techniques (e.g., deep learning, embeddings, generative, and language models), the effect of scientist location from outside the US e.g., China on propensity of researching languages beyond English, and the potential impact of funding for large-scale research programs. We anticipate this work to provide useful insights about publication trends and behavior and raise the awareness about the potential for causal inference in the computational linguistics and a broader scientific community.</abstract>
+      <url hash="bf8b39c9">2021.cinlp-1.7</url>
+      <bibkey>glenski-volkova-2021-identifying</bibkey>
+    </paper>
+    <paper id="8">
+      <title>It’s quality and quantity: the effect of the amount of comments on online suicidal posts</title>
+      <author><first>Daniel</first><last>Low</last></author>
+      <author><first>Kelly</first><last>Zuromski</last></author>
+      <author><first>Daniel</first><last>Kessler</last></author>
+      <author><first>Satrajit S.</first><last>Ghosh</last></author>
+      <author><first>Matthew K.</first><last>Nock</last></author>
+      <author><first>Walter</first><last>Dempsey</last></author>
+      <pages>95–103</pages>
+      <abstract>Every day, individuals post suicide notes on social media asking for support, resources, and reasons to live. Some posts receive few comments while others receive many. While prior studies have analyzed whether specific responses are more or less helpful, it is not clear if the quantity of comments received is beneficial in reducing symptoms or in keeping the user engaged with the platform and hence with life. In the present study, we create a large dataset of users’ first r/SuicideWatch (SW) posts from Reddit (N=21,274), collect the comments as well as the user’s subsequent posts (N=1,615,699) to determine whether they post in SW again in the future. We use propensity score stratification, a causal inference method for observational data, and estimate whether the amount of comments —as a measure of social support— increases or decreases the likelihood of posting again on SW. One hypothesis is that receiving more comments may <i>decrease</i> the likelihood of the user posting in SW in the future, either by reducing symptoms or because comments from untrained peers may be harmful. On the contrary, we find that receiving more comments <i>increases</i> the likelihood a user will post in SW again. We discuss how receiving more comments is helpful, not by permanently relieving symptoms since users make another SW post and their second posts have similar mentions of suicidal ideation, but rather by reinforcing users to seek support and remain engaged with the platform. Furthermore, since receiving only 1 comment —the most common case— decreases the likelihood of posting again by 14% on average depending on the time window, it is important to develop systems that encourage more commenting.</abstract>
+      <url hash="c377a868">2021.cinlp-1.8</url>
+      <bibkey>low-etal-2021-quality</bibkey>
+    </paper>
+  </volume>
+</collection>
