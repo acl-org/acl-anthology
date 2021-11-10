@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2021.wnut">
-  <volume id="1" ingest-date="2021-10-28">
+  <volume id="1" ingest-date="2021-11-09">
     <meta>
       <booktitle>Proceedings of the Seventh Workshop on Noisy User-generated Text (W-NUT 2021)</booktitle>
       <editor><first>Wei</first><last>Xu</last></editor>
@@ -13,7 +13,7 @@
       <year>2021</year>
     </meta>
     <frontmatter>
-      <url hash="7be7b922">2021.wnut-1.0</url>
+      <url hash="e1049109">2021.wnut-1.0</url>
       <bibkey>wnut-2021-noisy</bibkey>
     </frontmatter>
     <paper id="1">
@@ -558,23 +558,51 @@
       <bibkey>scherrer-ljubesic-2021-sesame</bibkey>
     </paper>
     <paper id="53">
+      <title><fixed-case>CL</fixed-case>-<fixed-case>M</fixed-case>o<fixed-case>N</fixed-case>oise: Cross-lingual Lexical Normalization</title>
+      <author><first>Rob</first><last>van der Goot</last></author>
+      <pages>473–477</pages>
+      <abstract>Social media is notoriously difficult to process for existing natural language processing tools, because of spelling errors, non-standard words, shortenings, non-standard capitalization and punctuation. One method to circumvent these issues is to normalize input data before processing. Most previous work has focused on only one language, which is mostly English. In this paper, we are the first to propose a model for cross-lingual normalization, with which we participate in the WNUT 2021 shared task. To this end, we use MoNoise as a starting point, and make a simple adaptation for cross-lingual application. Our proposed model outperforms the leave-as-is baseline provided by the organizers which copies the input. Furthermore, we explore a completely different model which converts the task to a sequence labeling task. Performance of this second system is low, as it does not take capitalization into account in our implementation.</abstract>
+      <url hash="55ee3805">2021.wnut-1.53</url>
+      <bibkey>van-der-goot-2021-cl</bibkey>
+    </paper>
+    <paper id="54">
       <title>Sequence-to-Sequence Lexical Normalization with Multilingual Transformers</title>
       <author><first>Ana-Maria</first><last>Bucur</last></author>
       <author><first>Adrian</first><last>Cosma</last></author>
       <author><first>Liviu P.</first><last>Dinu</last></author>
-      <pages>473–482</pages>
+      <pages>478–487</pages>
       <abstract>Current benchmark tasks for natural language processing contain text that is qualitatively different from the text used in informal day to day digital communication. This discrepancy has led to severe performance degradation of state-of-the-art NLP models when fine-tuned on real-world data. One way to resolve this issue is through lexical normalization, which is the process of transforming non-standard text, usually from social media, into a more standardized form. In this work, we propose a sentence-level sequence-to-sequence model based on mBART, which frames the problem as a machine translation problem. As the noisy text is a pervasive problem across languages, not just English, we leverage the multi-lingual pre-training of mBART to fine-tune it to our data. While current approaches mainly operate at the word or subword level, we argue that this approach is straightforward from a technical standpoint and builds upon existing pre-trained transformer networks. Our results show that while word-level, intrinsic, performance evaluation is behind other methods, our model improves performance on extrinsic, downstream tasks through normalization compared to models operating on raw, unprocessed, social media text.</abstract>
-      <url hash="1fbf78c4">2021.wnut-1.53</url>
+      <url hash="36c3f345">2021.wnut-1.54</url>
       <bibkey>bucur-etal-2021-sequence</bibkey>
     </paper>
-    <paper id="54">
+    <paper id="55">
       <title><fixed-case>ÚFAL</fixed-case> at <fixed-case>M</fixed-case>ulti<fixed-case>L</fixed-case>ex<fixed-case>N</fixed-case>orm 2021: Improving Multilingual Lexical Normalization by Fine-tuning <fixed-case>B</fixed-case>y<fixed-case>T</fixed-case>5</title>
       <author><first>David</first><last>Samuel</last></author>
       <author><first>Milan</first><last>Straka</last></author>
-      <pages>483–492</pages>
+      <pages>488–497</pages>
       <abstract>We present the winning entry to the Multilingual Lexical Normalization (MultiLexNorm) shared task at W-NUT 2021 (van der Goot et al., 2021a), which evaluates lexical-normalization systems on 12 social media datasets in 11 languages. We base our solution on a pre-trained byte-level language model, ByT5 (Xue et al., 2021a), which we further pre-train on synthetic data and then fine-tune on authentic normalization data. Our system achieves the best performance by a wide margin in intrinsic evaluation, and also the best performance in extrinsic evaluation through dependency parsing. The source code is released at https://github.com/ufal/multilexnorm2021 and the fine-tuned models at https://huggingface.co/ufal.</abstract>
-      <url hash="ba0bc551">2021.wnut-1.54</url>
+      <url hash="64bc6448">2021.wnut-1.55</url>
       <bibkey>samuel-straka-2021-ufal</bibkey>
+    </paper>
+    <paper id="56">
+      <title><fixed-case>M</fixed-case>ulti<fixed-case>L</fixed-case>ex<fixed-case>N</fixed-case>orm: A Shared Task on Multilingual Lexical Normalization</title>
+      <author><first>Rob</first><last>van der Goot</last></author>
+      <author><first>Alan</first><last>Ramponi</last></author>
+      <author><first>Arkaitz</first><last>Zubiaga</last></author>
+      <author><first>Barbara</first><last>Plank</last></author>
+      <author><first>Benjamin</first><last>Muller</last></author>
+      <author><first>Iñaki</first><last>San Vicente Roncal</last></author>
+      <author><first>Nikola</first><last>Ljubešić</last></author>
+      <author><first>Özlem</first><last>Çetinoğlu</last></author>
+      <author><first>Rahmad</first><last>Mahendra</last></author>
+      <author><first>Talha</first><last>Çolakoğlu</last></author>
+      <author><first>Timothy</first><last>Baldwin</last></author>
+      <author><first>Tommaso</first><last>Caselli</last></author>
+      <author><first>Wladimir</first><last>Sidorenko</last></author>
+      <pages>498–514</pages>
+      <abstract>Lexical normalization is the task of transforming an utterance into its standardized form. This task is beneficial for downstream analysis, as it provides a way to harmonize (often spontaneous) linguistic variation. Such variation is typical for social media on which information is shared in a multitude of ways, including diverse languages and code-switching. Since the seminal work of Han and Baldwin (2011) a decade ago, lexical normalization has attracted attention in English and multiple other languages. However, there exists a lack of a common benchmark for comparison of systems across languages with a homogeneous data and evaluation setup. The MultiLexNorm shared task sets out to fill this gap. We provide the largest publicly available multilingual lexical normalization benchmark including 13 language variants. We propose a homogenized evaluation setup with both intrinsic and extrinsic evaluation. As extrinsic evaluation, we use dependency parsing and part-of-speech tagging with adapted evaluation metrics (a-LAS, a-UAS, and a-POS) to account for alignment discrepancies. The shared task hosted at W-NUT 2021 attracted 9 participants and 18 submissions. The results show that neural normalization systems outperform the previous state-of-the-art system by a large margin. Downstream parsing and part-of-speech tagging performance is positively affected but to varying degrees, with improvements of up to 1.72 a-LAS, 0.85 a-UAS, and 1.54 a-POS for the winning system.</abstract>
+      <url hash="b9857fbc">2021.wnut-1.56</url>
+      <bibkey>van-der-goot-etal-2021-multilexnorm</bibkey>
     </paper>
   </volume>
 </collection>
