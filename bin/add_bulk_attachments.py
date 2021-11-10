@@ -226,7 +226,7 @@ def main(args):
                         f"\n"
                         f"To resubmit, follow the instructions here:\n"
                         f"\n"
-                        f"  https://www.aclweb.org/anthology/info/corrections/\n",
+                        f"  https://aclanthology.org/info/corrections/\n",
                         f"\n"
                         f"There is no need to respond to this email.\n"
                         f"\n"
