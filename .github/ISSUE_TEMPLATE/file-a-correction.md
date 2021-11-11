@@ -9,7 +9,7 @@ assignees: mjpost
 
 **Please be sure to add the Anthology ID in the title**
 
-[See here](https://aclanthology.org/info/corrections/) to read about the three types of corrections.
+Please review [our correction policy](https://aclanthology.org/info/corrections/).
 
 ## Changes to the author list
 
