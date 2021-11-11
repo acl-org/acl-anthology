@@ -24,7 +24,7 @@ To build the Anthology website, you will need:
 ### Building and deployment with GitHub
 
 There is a GitHub actions action performing deployment directly from GitHub.  To use this, you need to
-define this variables in your repository settings (web interface: settings -> secrets):
+define this variable in your repository settings (web interface: settings -> secrets):
 
 + `PUBLISH_SSH_KEY`: the secret key in standard pem format for authentication (without a passphrase)
 
