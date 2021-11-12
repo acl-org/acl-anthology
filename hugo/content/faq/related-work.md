@@ -12,7 +12,7 @@ The following people have written reflections on the ACL Anthology:
 
 A 2018 paper gave a technical description of the Anthology at the time:
 
-> [The ACL Anthology: Current State and Future Directions](https://aclweb.org/anthology/W18-2504/)
+> [The ACL Anthology: Current State and Future Directions](https://aclanthology.org/W18-2504/)
 > Daniel Gildea, Min-Yen Kan, Nitin Madnani, Christoph Teichmann, Martin Villalba
 > Proceedings of Workshop for NLP Open Source Software (NLP-OSS)
 

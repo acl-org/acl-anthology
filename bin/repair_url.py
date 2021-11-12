@@ -16,7 +16,7 @@ from anthology.utils import test_url
 
 
 def get_anth_url(volume_id, paper_id=None, width=4):
-    return "https://www.aclweb.org/anthology/{volume_id}-{paper_id:0{width}d}".format(
+    return "https://aclanthology.org/{volume_id}-{paper_id:0{width}d}".format(
         volume_id=volume_id, paper_id=paper_id, width=width
     )
 
