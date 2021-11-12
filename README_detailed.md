@@ -1,7 +1,7 @@
 # ACL Anthology - Detailed Instructions
 
 These are the detailed instructions on generating the ACL Anthology website as
-seen on <https://aclweb.org/anthology/> and contributing to it.
+seen on <https://aclanthology.org/> and contributing to it.
 
 
 ## Generating the Anthology

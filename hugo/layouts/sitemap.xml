@@ -11,7 +11,7 @@
   {{ end }}
   {{ range .Site.Data.volumes }}
     {{ with .pdf }}
-      {{ if (hasPrefix . "https://www.aclweb.org/anthology") }}
+      {{ if (hasPrefix . "https://aclanthology.org") }}
   <url><loc>{{ . }}</loc></url>
       {{ end }}
     {{ end }}
@@ -19,13 +19,13 @@
   {{ range .Site.Data.papers }}
     {{ range . }}
       {{ with .pdf }}
-        {{ if (hasPrefix . "https://www.aclweb.org/anthology") }}
+        {{ if (hasPrefix . "https://aclanthology.org") }}
   <url><loc>{{ . }}</loc></url>
         {{ end }}
       {{ end }}
       {{ with .attachment }}
         {{ range . }}
-          {{ if (hasPrefix .url "https://www.aclweb.org/anthology") }}
+          {{ if (hasPrefix .url "https://aclanthology.org") }}
   <url><loc>{{ .url }}</loc></url>
           {{ end }}
         {{ end }}
