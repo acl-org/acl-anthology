@@ -27,6 +27,9 @@
       <url hash="3803b389">2021.crac-1.1</url>
       <attachment type="Software" hash="928dde1a">2021.crac-1.1.Software.zip</attachment>
       <bibkey>zhang-etal-2021-brief</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wsc">WSC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/winogrande">WinoGrande</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/definite-pronoun-resolution-dataset">Definite Pronoun Resolution Dataset</pwcdataset>
     </paper>
     <paper id="2">
       <title>Coreference Resolution for the Biomedical Domain: A Survey</title>
@@ -36,6 +39,7 @@
       <abstract>Issues with coreference resolution are one of the most frequently mentioned challenges for information extraction from the biomedical literature. Thus, the biomedical genre has long been the second most researched genre for coreference resolution after the news domain, and the subject of a great deal of research for NLP in general. In recent years this interest has grown enormously leading to the development of a number of substantial datasets, of domain-specific contextual language models, and of several architectures. In this paper we review the state of-the-art of coreference in the biomedical domain with a particular attention on these most recent developments.</abstract>
       <url hash="07d3b6f3">2021.crac-1.2</url>
       <bibkey>lu-poesio-2021-coreference</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/genia">GENIA</pwcdataset>
     </paper>
     <paper id="3">
       <title><fixed-case>F</fixed-case>antasy<fixed-case>C</fixed-case>oref: Coreference Resolution on Fantasy Literature Through Omniscient Writer’s Point of View</title>
@@ -50,6 +54,7 @@
       <abstract>This paper presents a new corpus and annotation guideline for a novel coreference resolution task on fictional texts, and analyzes its unique characteristics. FantasyCoref contains 211 stories of Grimms’ Fairy Tales and 3 other fantasy literature annotated in the omniscient writer’s point of view (OWV) to handle distinctive aspects in this genre. This task is more challenging than general coreference resolution in two ways. First, documents in our corpus are 2.5 times longer than the ones in OntoNotes, raising a new layer of difficulty in resolving long-distant referents. Second, annotation of literary styles and concepts raise several issues which are not sufficiently addressed in the existing annotation guidelines. Hence, considerations on such issues and the concept of OWV are necessary to achieve high inter-annotator agreement (IAA) in coreference resolution of fictional texts. We carefully conduct annotation tasks in four stages to ensure the quality of our annotation. As a result, a high IAA score of 87% is achieved using the standard coreference evaluation metric. Finally, state-of-the-art coreference resolution approaches are evaluated on our corpus. After training with our annotated dataset, there was a 2.59% and 3.06% improvement over the model trained on the OntoNotes dataset. Also, we observe that the portion of errors specific to fictional texts declines after the training.</abstract>
       <url hash="cca968d6">2021.crac-1.3</url>
       <bibkey>han-etal-2021-fantasycoref</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/litbank">LitBank</pwcdataset>
     </paper>
     <paper id="4">
       <title><fixed-case>D</fixed-case>rama<fixed-case>C</fixed-case>oref: A Hybrid Coreference Resolution System for <fixed-case>G</fixed-case>erman Theater Plays</title>
@@ -104,6 +109,10 @@
       <url hash="ba1158de">2021.crac-1.8</url>
       <attachment type="Software" hash="ce213f27">2021.crac-1.8.Software.zip</attachment>
       <bibkey>stylianou-vlahavas-2021-corelm</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/cbt">CBT</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/lambada">LAMBADA</pwcdataset>
     </paper>
     <paper id="9">
       <title>Data Augmentation Methods for Anaphoric Zero Pronouns</title>
@@ -121,6 +130,7 @@
       <abstract>In this paper, we develop bilingual transfer learning approaches to improve Arabic coreference resolution by leveraging additional English annotation via bilingual or multilingual pre-trained transformers. We show that bilingual transfer learning improves the strong transformer-based neural coreference models by 2-4 F1. We also systemically investigate the effectiveness of several pre-trained transformer models that differ in training corpora, languages covered, and model capacity. Our best model achieves a new state-of-the-art performance of 64.55 F1 on the Arabic OntoNotes dataset. Our code is publicly available at https://github.com/bnmin/arabic_coref.</abstract>
       <url hash="c08cfea8">2021.crac-1.10</url>
       <bibkey>min-2021-exploring</bibkey>
+      <pwccode url="https://github.com/bnmin/arabic_coref" additional="false">bnmin/arabic_coref</pwccode>
     </paper>
     <paper id="11">
       <title>Event and Entity Coreference using Trees to Encode Uncertainty in Joint Decisions</title>
@@ -132,6 +142,7 @@
       <abstract>Coreference decisions among event mentions and among co-occurring entity mentions are highly interdependent, thus motivating joint inference. Capturing the uncertainty over each variable can be crucial for inference among multiple dependent variables. Previous work on joint coreference employs heuristic approaches, lacking well-defined objectives, and lacking modeling of uncertainty on each side of the joint problem. We present a new approach of joint coreference, including (1) a formal cost function inspired by Dasgupta’s cost for hierarchical clustering, and (2) a representation for uncertainty of clustering of event and entity mentions, again based on a hierarchical structure. We describe an alternating optimization method for inference that when clustering event mentions, considers the uncertainty of the clustering of entity mentions and vice-versa. We show that our proposed joint model provides empirical advantages over state-of-the-art independent and joint models.</abstract>
       <url hash="fe97fe19">2021.crac-1.11</url>
       <bibkey>yadav-etal-2021-event</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/ecb">ECB+</pwcdataset>
     </paper>
     <paper id="12">
       <title>On Generalization in Coreference Resolution</title>
@@ -144,6 +155,12 @@
       <abstract>While coreference resolution is defined independently of dataset domain, most models for performing coreference resolution do not transfer well to unseen domains. We consolidate a set of 8 coreference resolution datasets targeting different domains to evaluate the off-the-shelf performance of models. We then mix three datasets for training; even though their domain, annotation guidelines, and metadata differ, we propose a method for jointly training a single model on this heterogeneous data mixture by using data augmentation to account for annotation differences and sampling to balance the data quantities. We find that in a zero-shot setting, models trained on a single dataset transfer poorly while joint training yields improved overall performance, leading to better generalization in coreference resolution models. This work contributes a new benchmark for robust coreference resolution and multiple new state-of-the-art results.</abstract>
       <url hash="9cea37bc">2021.crac-1.12</url>
       <bibkey>toshniwal-etal-2021-generalization</bibkey>
+      <pwccode url="https://github.com/shtoshni92/fast-coref" additional="false">shtoshni92/fast-coref</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/wsc">WSC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/gap-coreference-dataset">GAP Coreference Dataset</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikicoref">WikiCoref</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/preco">PreCo</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ontogum">OntoGUM</pwcdataset>
     </paper>
     <paper id="13">
       <title>Improving Span Representation for Domain-adapted Coreference Resolution</title>
@@ -167,6 +184,7 @@
       <abstract>Event coreference resolution is critical to understand events in the growing number of online news with multiple modalities including text, video, speech, etc. However, the events and entities depicting in different modalities may not be perfectly aligned and can be difficult to annotate, which makes the task especially challenging with little supervision available. To address the above issues, we propose a supervised model based on attention mechanism and an unsupervised model based on statistical machine translation, capable of learning the relative importance of modalities for event coreference resolution. Experiments on a video multimedia event dataset show that our multimodal models outperform text-only systems in event coreference resolution tasks. A careful analysis reveals that the performance gain of the multimodal model especially under unsupervised settings comes from better learning of visually salient events.</abstract>
       <url hash="817d81a4">2021.crac-1.14</url>
       <bibkey>wang-etal-2021-coreference</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/m2e2">M2E2</pwcdataset>
     </paper>
     <paper id="15">
       <title>Anatomy of <fixed-case>O</fixed-case>nto<fixed-case>GUM</fixed-case>—<fixed-case>A</fixed-case>dapting <fixed-case>GUM</fixed-case> to the <fixed-case>O</fixed-case>nto<fixed-case>N</fixed-case>otes Scheme to Evaluate Robustness of <fixed-case>SOTA</fixed-case> Coreference Algorithms</title>
@@ -177,6 +195,9 @@
       <abstract>SOTA coreference resolution produces increasingly impressive scores on the OntoNotes benchmark. However lack of comparable data following the same scheme for more genres makes it difficult to evaluate generalizability to open domain data. Zhu et al. (2021) introduced the creation of the OntoGUM corpus for evaluating geralizability of the latest neural LM-based end-to-end systems. This paper covers details of the mapping process which is a set of deterministic rules applied to the rich syntactic and discourse annotations manually annotated in the GUM corpus. Out-of-domain evaluation across 12 genres shows nearly 15-20% degradation for both deterministic and deep learning systems, indicating a lack of generalizability or covert overfitting in existing coreference resolution models.</abstract>
       <url hash="cc2b4d47">2021.crac-1.15</url>
       <bibkey>zhu-etal-2021-anatomy</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/gap-coreference-dataset">GAP Coreference Dataset</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikicoref">WikiCoref</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ontogum">OntoGUM</pwcdataset>
     </paper>
     <paper id="16">
       <title>Understanding Mention Detector-Linker Interaction in Neural Coreference Resolution</title>
@@ -186,6 +207,7 @@
       <abstract>Despite significant recent progress in coreference resolution, the quality of current state-of-the-art systems still considerably trails behind human-level performance. Using the CoNLL-2012 and PreCo datasets, we dissect the best instantiation of the mainstream end-to-end coreference resolution model that underlies most current best-performing coreference systems, and empirically analyze the behavior of its two components: mention detector and mention linker. While the detector traditionally focuses heavily on recall as a design decision, we demonstrate the importance of precision, calling for their balance. However, we point out the difficulty in building a precise detector due to its inability to make important anaphoricity decisions. We also highlight the enormous room for improving the linker and show that the rest of its errors mainly involve pronoun resolution. We propose promising next steps and hope our findings will help future research in coreference resolution.</abstract>
       <url hash="38a3c20c">2021.crac-1.16</url>
       <bibkey>wu-gardner-2021-understanding</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/preco">PreCo</pwcdataset>
     </paper>
   </volume>
 </collection>
