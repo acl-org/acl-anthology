@@ -72,9 +72,9 @@ If you are chairing a meeting attached as a satellite of a main conference (e.g.
 
 If you are a conference publications chair, you must register your intention to submit your proceedings.
 This step requires you to send (a) the complete list of volumes that will be published in the Anthology (main conference volumes and workshops) and (b) the desired publication date.
-This information should be assembled in a spreadsheet and then commmunicated to [the Anthology Director](mailto:anthology@aclweb.org) in a single email.
-Please do this as early as possible, ideally well before the submission deadline.
-An template for this spreadsheet [can be found here](https://docs.google.com/spreadsheets/d/13F1XhnT4PsiN-ZXcpv6QUp5A2qlr6-W9MoDgCkBOw9w/edit#gid=0).
+This information should be submitted to us [via a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=mjpost&labels=ingestion&template=ingestion-request.md&title=Ingestion+request)
+**Please do this as early as possible**, ideally well before the submission deadline.
+This will allow us to do a quick sanity check of the metadata.
 As noted above, if you are the chair of a workshop that is colocated with a larger event, please work with your main conference publication chair instead of directly with the Anthology.
 
 The following information in the spreadsheet is especially important:
