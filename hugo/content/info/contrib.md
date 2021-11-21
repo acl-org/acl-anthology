@@ -81,8 +81,8 @@ The following information in the spreadsheet is especially important:
 
 -  **Venue identifiers**. Each venue (conference or workshop) has a venue identifier.
    Its basic form is the conference acronym, such as ACL, NAACL, JEP/TALN/RECITAL, and so on.
-   A [slugified](https://en.wikipedia.org/wiki/Clean_URL#Slug) version of this acronym, containing only numerals and lowercase ASCII letters, is used in the URL for the venue's page on the Anthology (e.g., [ACL → acl](https://www.aclweb.org/anthology/venues/acl), [JEP/TALN/RECITAL → jeptalnrecital](https://www.aclweb.org/anthology/venues/jeptalnrecital)), and also forms a component of the [Anthology ID]({{< relref "ids.md" >}}).
-   For existing venues, be sure to look up [the venue's existing identifier](https://www.aclweb.org/anthology/venues/).
+   A [slugified](https://en.wikipedia.org/wiki/Clean_URL#Slug) version of this acronym, containing only numerals and lowercase ASCII letters, is used in the URL for the venue's page on the Anthology (e.g., [ACL → acl](https://aclanthology.org/venues/acl), [JEP/TALN/RECITAL → jeptalnrecital](https://aclanthology.org/venues/jeptalnrecital)), and also forms a component of the [Anthology ID]({{< relref "ids.md" >}}).
+   For existing venues, be sure to look up [the venue's existing identifier](https://aclanthology.org/venues/).
    New venues must have their venue identifier confirmed by the Anthology director.
    Note: a common mistake is to include the year in the venue identifier, e.g., ACL2020 (perhaps in part because Softconf often uses this).
    This confuses a *meeting* of a venue with the venue itself.

@@ -1,0 +1,41 @@
+# Fetches metadata from Papers with Code and commits changes
+name: Update Papers with Code
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow at 0:30 UTC daily
+  schedule:
+  - cron: '30 0 * * *'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  ingest-pwc:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: update
+      run: sudo apt-get update
+    - name: install other deps
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.8-dev python3-lxml
+
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    # Fetch & update metadata
+    - name: Update PwC metadata
+      run: |
+        python3 bin/ingest_pwc.py
+        git add data/xml/*xml
+        make check_staged_xml
+
+    - name: Commit metadata updates
+      run: |
+        if [ ! -z "$(git diff --cached)" ]; then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git commit -m "Update metadata from Papers with Code"
+            git push
+        fi
