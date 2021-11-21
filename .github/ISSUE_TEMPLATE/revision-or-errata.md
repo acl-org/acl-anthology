@@ -9,11 +9,11 @@ assignees: xinru1414
 ## Important
 
 * **Please be sure to add the Anthology ID in the title**
-* [See here](https://www.aclweb.org/anthology/info/corrections/) to read about the types of corrections.
+* Please read [our corrections policy](https://aclanthology.org/info/corrections/).
 
 ## Instructions
 
-## Checklist
+Please ensure you have done all the following.
 
 - [ ] I have attached the revised PDF or erratum to this issue
 - [ ] I have written a brief description of the changes below
