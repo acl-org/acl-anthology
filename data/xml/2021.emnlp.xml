@@ -2475,6 +2475,7 @@
       <abstract>Learning sentence embeddings from dialogues has drawn increasing attention due to its low annotation cost and high domain adaptability. Conventional approaches employ the siamese-network for this task, which obtains the sentence embeddings through modeling the context-response semantic relevance by applying a feed-forward network on top of the sentence encoders. However, as the semantic textual similarity is commonly measured through the element-wise distance metrics (e.g. cosine and L2 distance), such architecture yields a large gap between training and evaluating. In this paper, we propose DialogueCSE, a dialogue-based contrastive learning approach to tackle this issue. DialogueCSE first introduces a novel matching-guided embedding (MGE) mechanism, which generates a context-aware embedding for each candidate response embedding (i.e. the context-free embedding) according to the guidance of the multi-turn context-response matching matrices. Then it pairs each context-aware embedding with its corresponding context-free embedding and finally minimizes the contrastive loss across all pairs. We evaluate our model on three multi-turn dialogue datasets: the Microsoft Dialogue Corpus, the Jing Dong Dialogue Corpus, and the E-commerce Dialogue Corpus. Evaluation results show that our approach significantly outperforms the baselines across all three datasets in terms of MAP and Spearman’s correlation measures, demonstrating its effectiveness. Further quantitative experiments show that our approach achieves better performance when leveraging more dialogue context and remains robust when less training data is provided.</abstract>
       <url hash="eeb39f37">2021.emnlp-main.185</url>
       <bibkey>liu-etal-2021-dialoguecse</bibkey>
+      <pwccode url="https://github.com/wangruicn/dialoguecse" additional="false">wangruicn/dialoguecse</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
     </paper>
     <paper id="186">
@@ -2993,6 +2994,7 @@
       <abstract>News recommendation is critical for personalized news access. Most existing news recommendation methods rely on centralized storage of users’ historical news click behavior data, which may lead to privacy concerns and hazards. Federated Learning is a privacy-preserving framework for multiple clients to collaboratively train models without sharing their private data. However, the computation and communication cost of directly learning many existing news recommendation models in a federated way are unacceptable for user clients. In this paper, we propose an efficient federated learning framework for privacy-preserving news recommendation. Instead of training and communicating the whole model, we decompose the news recommendation model into a large news model maintained in the server and a light-weight user model shared on both server and clients, where news representations and user model are communicated between server and clients. More specifically, the clients request the user model and news representations from the server, and send their locally computed gradients to the server for aggregation. The server updates its global user model with the aggregated gradients, and further updates its news model to infer updated news representations. Since the local gradients may contain private information, we propose a secure aggregation method to aggregate gradients in a privacy-preserving way. Experiments on two real-world datasets show that our method can reduce the computation and communication cost on clients while keep promising model performance.</abstract>
       <url hash="5c3d6b96">2021.emnlp-main.223</url>
       <bibkey>yi-etal-2021-efficient</bibkey>
+      <pwccode url="https://github.com/yjw1029/efficient-fedrec" additional="false">yjw1029/efficient-fedrec</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mind">MIND</pwcdataset>
     </paper>
     <paper id="224">
@@ -5894,6 +5896,7 @@
       <bibkey>zhou-chen-2021-learning</bibkey>
       <pwccode url="https://github.com/wzhouad/NLL-IE" additional="false">wzhouad/NLL-IE</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conll">CoNLL++</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/tacred">TACRED</pwcdataset>
     </paper>
     <paper id="438">
@@ -6053,6 +6056,7 @@
       <abstract>As NLP systems become better at detecting opinions and beliefs from text, it is important to ensure not only that models are accurate but also that they arrive at their predictions in ways that align with human reasoning. In this work, we present a method for imparting human-like rationalization to a stance detection model using crowdsourced annotations on a small fraction of the training data. We show that in a data-scarce setting, our approach can improve the reasoning of a state-of-the-art classifier—particularly for inputs containing challenging phenomena such as sarcasm—at no cost in predictive performance. Furthermore, we demonstrate that attention weights surpass a leading attribution method in providing faithful explanations of our model’s predictions, thus serving as a computationally cheap and reliable source of attributions for our model.</abstract>
       <url hash="dfcee043">2021.emnlp-main.450</url>
       <bibkey>jayaram-allaway-2021-human</bibkey>
+      <pwccode url="https://github.com/sahilj97/explainable-stance-detection" additional="false">sahilj97/explainable-stance-detection</pwccode>
     </paper>
     <paper id="451">
       <title>The Stem Cell Hypothesis: Dilemma behind Multi-Task Learning with Transformer Encoders</title>
@@ -8333,6 +8337,7 @@
       <abstract>Millions of hashtags are created on social media every day to cross-refer messages concerning similar topics. To help people find the topics they want to discuss, this paper characterizes a user’s hashtagging preferences via predicting how likely they will post with a hashtag. It is hypothesized that one’s interests in a hashtag are related with what they said before (user history) and the existing posts present the hashtag (hashtag contexts). These factors are married in the deep semantic space built with a pre-trained BERT and a neural topic model via multitask learning. In this way, user interests learned from the past can be customized to match future hashtags, which is beyond the capability of existing methods assuming unchanged hashtag semantics. Furthermore, we propose a novel personalized topic attention to capture salient contents to personalize hashtag contexts. Experiments on a large-scale Twitter dataset show that our model significantly outperforms the state-of-the-art recommendation approach without exploiting latent topics.</abstract>
       <url hash="76dc4a17">2021.emnlp-main.616</url>
       <bibkey>zhang-etal-2021-howyoutagtweets</bibkey>
+      <pwccode url="https://github.com/polyusmart/personalized-hashtag-preferences" additional="false">polyusmart/personalized-hashtag-preferences</pwccode>
     </paper>
     <paper id="617">
       <title>Learning Neural Templates for Recommender Dialogue System</title>
@@ -9805,6 +9810,7 @@
       <abstract>Many efforts have been made in solving the Aspect-based sentiment analysis (ABSA) task. While most existing studies focus on English texts, handling ABSA in resource-poor languages remains a challenging problem. In this paper, we consider the unsupervised cross-lingual transfer for the ABSA task, where only labeled data in the source language is available and we aim at transferring its knowledge to the target language having no labeled data. To this end, we propose an alignment-free label projection method to obtain high-quality pseudo-labeled data of the target language with the help of the translation system, which could preserve more accurate task-specific knowledge in the target language. For better utilizing the source and translated data, as well as enhancing the cross-lingual alignment, we design an aspect code-switching mechanism to augment the training data with code-switched bilingual sentences. To further investigate the importance of language-specific knowledge in solving the ABSA problem, we distill the above model on the unlabeled target language data which improves the performance to the same level of the supervised method.</abstract>
       <url hash="0b5024cc">2021.emnlp-main.727</url>
       <bibkey>zhang-etal-2021-cross</bibkey>
+      <pwccode url="https://github.com/isakzhang/xabsa" additional="false">isakzhang/xabsa</pwccode>
     </paper>
     <paper id="728">
       <title>Towards Label-Agnostic Emotion Embeddings</title>
