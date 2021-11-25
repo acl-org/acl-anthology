@@ -46,13 +46,17 @@ jobs:
     - uses: peter-evans/create-pull-request@v3
       id: create-pr
       name: Create pull request
-      if: steps.check-if-pr.outputs.lines-changed > 0 && (steps.check-if-pr.outputs.commits-this-week == 0 || steps.check-if-pr.outputs.lines-changed > 20)
+      if: steps.check-if-pr.outputs.lines-changed > 0
       with:
         token: ${{ secrets.PWC_BOT_TOKEN }}
         push-to-fork: acl-pwc-bot/acl-anthology
+        author: "acl-pwc-bot <acl-pwc-bot@bollmann.me>"
         commit-message: "Update metadata from Papers with Code"
         title: "[automated] Update metadata from Papers with Code"
-        body: "Automated changes via GitHub action."
+        body: |
+          **Auto-generated PR by GitHub action; will be merged automatically.**
+
+          Update ${{ steps.check-if-pr.outputs.lines-changed }} lines of XML data from [Papers with Code](https://paperswithcode.com/).
         delete-branch: true
 
     - uses: hmarr/auto-approve-action@v2
