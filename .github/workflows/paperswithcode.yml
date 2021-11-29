@@ -49,7 +49,7 @@ jobs:
       if: steps.check-if-pr.outputs.lines-changed > 0
       with:
         token: ${{ secrets.PWC_BOT_TOKEN }}
-        push-to-fork: acl-pwc-bot/acl-anthology
+        branch: automated/update-pwc-metadata
         author: "acl-pwc-bot <acl-pwc-bot@bollmann.me>"
         commit-message: "Update metadata from Papers with Code"
         title: "[automated] Update metadata from Papers with Code"
