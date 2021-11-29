@@ -2349,6 +2349,7 @@
       <abstract>Despite achieving remarkable performance, previous knowledge-enhanced works usually only use a single-source homogeneous knowledge base of limited knowledge coverage. Thus, they often degenerate into traditional methods because not all dialogues can be linked with knowledge entries. This paper proposes a novel dialogue generation model, MSKE-Dialog, to solve this issue with three unique advantages: (1) Rather than only one, MSKE-Dialog can simultaneously leverage multiple heterogeneous knowledge sources (it includes but is not limited to commonsense knowledge facts, text knowledge, infobox knowledge) to improve the knowledge coverage; (2) To avoid the topic conflict among the context and different knowledge sources, we propose a Multi-Reference Selection to better select context/knowledge; (3) We propose a Multi-Reference Generation to generate informative responses by referring to multiple generation references at the same time. Extensive evaluations on a Chinese dataset show the superior performance of this work against various state-of-the-art approaches. To our best knowledge, this work is the first to use the multi-source heterogeneous knowledge in the open-domain knowledge-enhanced dialogue generation.</abstract>
       <url hash="85bea459">2021.emnlp-main.175</url>
       <bibkey>wu-etal-2021-better</bibkey>
+      <pwccode url="https://github.com/pku-sixing/emnlp2021-mske_dialog" additional="false">pku-sixing/emnlp2021-mske_dialog</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
     </paper>
     <paper id="176">
@@ -3712,6 +3713,7 @@
       <abstract>GPT-3 shows remarkable in-context learning ability of large-scale language models (LMs) trained on hundreds of billion scale data. Here we address some remaining issues less reported by the GPT-3 paper, such as a non-English LM, the performances of different sized models, and the effect of recently introduced prompt optimization on in-context learning. To achieve this, we introduce HyperCLOVA, a Korean variant of 82B GPT-3 trained on a Korean-centric corpus of 560B tokens. Enhanced by our Korean-specific tokenization, HyperCLOVA with our training configuration shows state-of-the-art in-context zero-shot and few-shot learning performances on various downstream tasks in Korean. Also, we show the performance benefits of prompt-based learning and demonstrate how it can be integrated into the prompt engineering pipeline. Then we discuss the possibility of materializing the No Code AI paradigm by providing AI prototyping capabilities to non-experts of ML by introducing HyperCLOVA studio, an interactive prompt engineering interface. Lastly, we demonstrate the potential of our methods with three successful in-house applications.</abstract>
       <url hash="7d38683d">2021.emnlp-main.274</url>
       <bibkey>kim-etal-2021-changes</bibkey>
+      <pwccode url="" additional="true"/>
       <pwcdataset url="https://paperswithcode.com/dataset/klue">KLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/korquad">KorQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
@@ -4262,6 +4264,7 @@
       <abstract>As an essential form of knowledge representation, taxonomies are widely used in various downstream natural language processing tasks. However, with the continuously rising of new concepts, many existing taxonomies are unable to maintain coverage by manual expansion. In this paper, we propose TEMP, a self-supervised taxonomy expansion method, which predicts the position of new concepts by ranking the generated taxonomy-paths. For the first time, TEMP employs pre-trained contextual encoders in taxonomy construction and hypernym detection problems. Experiments prove that pre-trained contextual embeddings are able to capture hypernym-hyponym relations. To learn more detailed differences between taxonomy-paths, we train the model with dynamic margin loss by a novel dynamic margin function. Extensive evaluations exhibit that TEMP outperforms prior state-of-the-art taxonomy expansion approaches by 14.3% in accuracy and 15.8% in mean reciprocal rank on three public benchmarks.</abstract>
       <url hash="56d6c4f0">2021.emnlp-main.313</url>
       <bibkey>liu-etal-2021-temp</bibkey>
+      <pwccode url="https://github.com/liu-zichen/TEMP" additional="false">liu-zichen/TEMP</pwccode>
     </paper>
     <paper id="314">
       <title>A Graph-Based Neural Model for End-to-End Frame Semantic Parsing</title>
@@ -4485,6 +4488,7 @@
       <abstract>Sentence extractive summarization shortens a document by selecting sentences for a summary while preserving its important contents. However, constructing a coherent and informative summary is difficult using a pre-trained BERT-based encoder since it is not explicitly trained for representing the information of sentences in a document. We propose a nested tree-based extractive summarization model on RoBERTa (NeRoBERTa), where nested tree structures consist of syntactic and discourse trees in a given document. Experimental results on the CNN/DailyMail dataset showed that NeRoBERTa outperforms baseline models in ROUGE. Human evaluation results also showed that NeRoBERTa achieves significantly better scores than the baselines in terms of coherence and yields comparable scores to the state-of-the-art models.</abstract>
       <url hash="463fd16e">2021.emnlp-main.330</url>
       <bibkey>kwon-etal-2021-considering</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
     </paper>
     <paper id="331">
       <title>Frame Semantic-Enhanced Sentence Modeling for Sentence-level Extractive Text Summarization</title>
@@ -4511,6 +4515,7 @@
       <abstract>Code summarization aims to generate concise natural language descriptions of source code, which can help improve program comprehension and maintenance. Recent studies show that syntactic and structural information extracted from abstract syntax trees (ASTs) is conducive to summary generation. However, existing approaches fail to fully capture the rich information in ASTs because of the large size/depth of ASTs. In this paper, we propose a novel model CAST that hierarchically splits and reconstructs ASTs. First, we hierarchically split a large AST into a set of subtrees and utilize a recursive neural network to encode the subtrees. Then, we aggregate the embeddings of subtrees by reconstructing the split ASTs to get the representation of the complete AST. Finally, AST representation, together with source code embedding obtained by a vanilla code token encoder, is used for code summarization. Extensive experiments, including the ablation study and the human evaluation, on benchmarks have demonstrated the power of CAST. To facilitate reproducibility, our code and data are available at https://github.com/DeepSoftwareAnalytics/CAST.</abstract>
       <url hash="99a6e237">2021.emnlp-main.332</url>
       <bibkey>shi-etal-2021-cast</bibkey>
+      <pwccode url="https://github.com/DeepSoftwareAnalytics/CAST" additional="false">DeepSoftwareAnalytics/CAST</pwccode>
     </paper>
     <paper id="333">
       <title><fixed-case>S</fixed-case>g<fixed-case>S</fixed-case>um:Transforming Multi-document Summarization into Sub-graph Selection</title>
@@ -5406,6 +5411,7 @@
       <abstract>With the early success of query-answer assistants such as Alexa and Siri, research attempts to expand system capabilities of handling service automation are now abundant. However, preliminary systems have quickly found the inadequacy in relying on simple classification techniques to effectively accomplish the automation task. The main challenge is that the dialogue often involves complexity in user’s intents (or purposes) which are multiproned, subject to spontaneous change, and difficult to track. Furthermore, public datasets have not considered these complications and the general semantic annotations are lacking which may result in zero-shot problem. Motivated by the above, we propose a Label-Aware BERT Attention Network (LABAN) for zero-shot multi-intent detection. We first encode input utterances with BERT and construct a label embedded space by considering embedded semantics in intent labels. An input utterance is then classified based on its projection weights on each intent embedding in this embedded space. We show that it successfully extends to few/zero-shot setting where part of intent labels are unseen in training data, by also taking account of semantics in these unseen intent labels. Experimental results show that our approach is capable of detecting many unseen intent labels correctly. It also achieves the state-of-the-art performance on five multi-intent datasets in normal cases.</abstract>
       <url hash="07f4a1fb">2021.emnlp-main.399</url>
       <bibkey>wu-etal-2021-label</bibkey>
+      <pwccode url="https://github.com/waynewu6250/laban" additional="false">waynewu6250/laban</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/atis">ATIS</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sgd">SGD</pwcdataset>
     </paper>
@@ -5770,6 +5776,7 @@
       <abstract>We address the sampling bias and outlier issues in few-shot learning for event detection, a subtask of information extraction. We propose to model the relations between training tasks in episodic few-shot learning by introducing cross-task prototypes. We further propose to enforce prediction consistency among classifiers across tasks to make the model more robust to outliers. Our extensive experiment shows a consistent improvement on three few-shot learning datasets. The findings suggest that our model is more robust when labeled data of novel event types is limited. The source code is available at http://github.com/laiviet/fsl-proact.</abstract>
       <url hash="f5bce283">2021.emnlp-main.427</url>
       <bibkey>lai-etal-2021-learning</bibkey>
+      <pwccode url="https://github.com/laiviet/fsl-proact" additional="false">laiviet/fsl-proact</pwccode>
     </paper>
     <paper id="428">
       <title>Lifelong Event Detection with Knowledge Transfer</title>
@@ -10834,6 +10841,7 @@
       <abstract>We present a method for exploring regions around individual points in a contextualized vector space (particularly, BERT space), as a way to investigate how these regions correspond to word senses. By inducing a contextualized “pseudoword” vector as a stand-in for a static embedding in the input layer, and then performing masked prediction of a word in the sentence, we are able to investigate the geometry of the BERT-space in a controlled manner around individual instances. Using our method on a set of carefully constructed sentences targeting highly ambiguous English words, we find substantial regularity in the contextualized space, with regions that correspond to distinct word senses; but between these regions there are occasionally “sense voids”—regions that do not correspond to any intelligible sense.</abstract>
       <url hash="23611c2b">2021.emnlp-main.806</url>
       <bibkey>karidi-etal-2021-putting</bibkey>
+      <pwccode url="https://github.com/tai314159/pwibm-putting-words-in-bert-s-mouth" additional="false">tai314159/pwibm-putting-words-in-bert-s-mouth</pwccode>
     </paper>
     <paper id="807">
       <title>Rationales for Sequential Predictions</title>
