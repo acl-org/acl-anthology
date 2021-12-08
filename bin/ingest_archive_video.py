@@ -36,7 +36,14 @@ def get_collection_ids(video_dir: str) -> List[str]:
     return:
     a list of unique collection ids, eg: ['N13', 'Q13']
     '''
-    collection_ids = list(set([deconstruct_anthology_id(file[len(video_dir):].split('.')[0])[0] for file in glob.glob(f"{video_dir}/*.mp4")]))
+    collection_ids = list(
+        set(
+            [
+                deconstruct_anthology_id(file[len(video_dir) :].split('.')[0])[0]
+                for file in glob.glob(f"{video_dir}/*.mp4")
+            ]
+        )
+    )
     return collection_ids
 
 
@@ -52,8 +59,16 @@ def get_anth_ids(video_dir: str) -> Tuple[List[str], List[List[str]]]:
     anth_ids_single: a list of anth_ids which only has one video to ingest, eg: ['N13-1118', 'N13-1124']
     anth_ids_multiple: a list of list of [anth_ids], [vid_num] which has multiple videos to ingest, eg: [['N13-4001', '1'],['N13-4001', '2'],['N13-4002', '1'],['N13-4002', '2']. vid_num represents the numbered videos.
     '''
-    anth_ids_single = [file[len(video_dir):].split('.')[0] for file in glob.glob(f"{video_dir}/*.mp4") if len(file[len(video_dir):].split('.')) == 2]
-    anth_ids_multiple = [file[len(video_dir):].split('.')[0:-1] for file in glob.glob(f"{video_dir}/*.mp4") if len(file[len(video_dir):].split('.')) > 2]
+    anth_ids_single = [
+        file[len(video_dir) :].split('.')[0]
+        for file in glob.glob(f"{video_dir}/*.mp4")
+        if len(file[len(video_dir) :].split('.')) == 2
+    ]
+    anth_ids_multiple = [
+        file[len(video_dir) :].split('.')[0:-1]
+        for file in glob.glob(f"{video_dir}/*.mp4")
+        if len(file[len(video_dir) :].split('.')) > 2
+    ]
     anth_ids_multiple.sort()
     return anth_ids_single, anth_ids_multiple
 
@@ -79,7 +94,6 @@ def add_video_tag_multiple(anth_id, vid_num, xml_parse):
     make_simple_element("video", attrib={"tag": "video", "href": video_url}, parent=paper)
 
 
-
 def update_xml(data_dir, collection_id, extention, xml_tree):
     '''
     Update xml
@@ -91,11 +105,20 @@ def update_xml(data_dir, collection_id, extention, xml_tree):
 
 
 @click.command()
-@click.option('-v','--video_dir', default='/Users/xinruyan/Dropbox/naacl-2013/', help='Directory contains all videos need to be ingested')
+@click.option(
+    '-v',
+    '--video_dir',
+    default='/Users/xinruyan/Dropbox/naacl-2013/',
+    help='Directory contains all videos need to be ingested',
+)
 def main(video_dir):
-    collection_ids =get_collection_ids(video_dir=video_dir)
+    collection_ids = get_collection_ids(video_dir=video_dir)
 
-    xml_files = [file for file in os.listdir(DATA_DIR) if os.path.splitext(file)[0] in collection_ids]
+    xml_files = [
+        file
+        for file in os.listdir(DATA_DIR)
+        if os.path.splitext(file)[0] in collection_ids
+    ]
 
     anth_ids_single, anth_ids_multiple = get_anth_ids(video_dir=video_dir)
 
@@ -104,15 +127,25 @@ def main(video_dir):
         tree = et.parse(os.path.join(DATA_DIR, file))
         for anth_id in anth_ids_single:
             if collection_id in anth_id:
-                add_video_tag_single(anth_id=anth_id,xml_parse=tree)
-                update_xml(data_dir=DATA_DIR, collection_id=collection_id, extention=extention, xml_tree=tree)
+                add_video_tag_single(anth_id=anth_id, xml_parse=tree)
+                update_xml(
+                    data_dir=DATA_DIR,
+                    collection_id=collection_id,
+                    extention=extention,
+                    xml_tree=tree,
+                )
 
         for anth_id_vid_num in anth_ids_multiple:
             anth_id = anth_id_vid_num[0]
             vid_num = anth_id_vid_num[1]
             if collection_id in anth_id:
                 add_video_tag_multiple(anth_id=anth_id, vid_num=vid_num, xml_parse=tree)
-                update_xml(data_dir=DATA_DIR, collection_id=collection_id, extention=extention, xml_tree=tree)
+                update_xml(
+                    data_dir=DATA_DIR,
+                    collection_id=collection_id,
+                    extention=extention,
+                    xml_tree=tree,
+                )
 
 
 if __name__ == '__main__':
