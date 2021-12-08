@@ -43,12 +43,12 @@ def get_collection_ids(video_dir: str) -> List[str]:
 def get_anth_ids(video_dir: str) -> Tuple[List[str], List[List[str]]]:
     '''
     Go over all the .mp4 files in the video dir and extract two types of anthology ids, which will be used to identify papers that needs video tag.
-    
+
     param:
     video_dir: directory contains video files, eg: /Users/xinruyan/Dropbox/naacl-2013/
-    
-    return: 
-    a tuple, (anth_ids_single, anth_ids_multiple), 
+
+    return:
+    a tuple, (anth_ids_single, anth_ids_multiple),
     anth_ids_single: a list of anth_ids which only has one video to ingest, eg: ['N13-1118', 'N13-1124']
     anth_ids_multiple: a list of list of [anth_ids], [vid_num] which has multiple videos to ingest, eg: [['N13-4001', '1'],['N13-4001', '2'],['N13-4002', '1'],['N13-4002', '2']. vid_num represents the numbered videos.
     '''
