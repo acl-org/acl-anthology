@@ -77,3 +77,8 @@ RewriteRule ^thumb/(.*)$ anthology-files/thumb/$1 [L,NC]
 # Author pages (e.g., people/arya-d-mccarthy loads people/a/arya-d-mccarthy)
 RewriteRule ^people/([a-z])([\-a-z0-9]*)$ people/$1/$1$2/ [L,NC]
 
+# Videos
+## match old-style URLs, e.g., /N13-1001.mp4 -> anthology-files/videos/N/N13-1001.mp4
+RewriteRule ^([A-Za-z])(\d{2})\-(\d{4})\.(mp4)$ anthology-files/videos/$1/$1$2-$3.$4 [L,NC]
+## match new-style URLs, e.g., /2021.naacl-main.14.mp4 -> anthology-files/videos/naacl/2021.naacl-main.14.mp4
+RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.(\d+)\.(mp4|mov|m4v)$ anthology-files/videos/$2/$1.$2-$3.$4.$5 [L,NC]
