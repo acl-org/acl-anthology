@@ -74,6 +74,7 @@
       <abstract>In this paper, we explore how to use a small amount of new data to update a task-oriented semantic parsing model when the desired output for some examples has changed. When making updates in this way, one potential problem that arises is the presence of conflicting data, or out-of-date labels in the original training set. To evaluate the impact of this understudied problem, we propose an experimental setup for simulating changes to a neural semantic parser. We show that the presence of conflicting data greatly hinders learning of an update, then explore several methods to mitigate its effect. Our multi-task and data selection methods lead to large improvements in model accuracy compared to a naive data-mixing strategy, and our best method closes 86% of the accuracy gap between this baseline and an oracle upper bound.</abstract>
       <url hash="ad206d06">2021.nlp4convai-1.5</url>
       <bibkey>gaddy-etal-2021-overcoming</bibkey>
+      <pwccode url="https://github.com/google/overcoming-conflicting-data" additional="false">google/overcoming-conflicting-data</pwccode>
     </paper>
     <paper id="6">
       <title>Not So Fast, Classifier – Accuracy and Entropy Reduction in Incremental Intent Classification</title>
@@ -144,8 +145,8 @@
       <attachment type="Software" hash="fc3883f4">2021.nlp4convai-1.10.Software.zip</attachment>
       <bibkey>lin-etal-2021-xpersona</bibkey>
       <pwccode url="https://github.com/HLTCHKUST/Xpersona" additional="false">HLTCHKUST/Xpersona</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/persona-chat-1">PERSONA-CHAT</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/convai2">ConvAI2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/persona-chat-1">PERSONA-CHAT</pwcdataset>
     </paper>
     <paper id="11">
       <title>Collaborative Data Relabeling for Robust and Diverse Voice Apps Recommendation in Intelligent Personal Assistants</title>
@@ -194,8 +195,8 @@
       <abstract>Large-scale conversation models are turning to leveraging external knowledge to improve the factual accuracy in response generation. Considering the infeasibility to annotate the external knowledge for large-scale dialogue corpora, it is desirable to learn the knowledge selection and response generation in an unsupervised manner. In this paper, we propose PLATO-KAG (Knowledge-Augmented Generation), an unsupervised learning approach for end-to-end knowledge-grounded conversation modeling. For each dialogue context, the top-k relevant knowledge elements are selected and then employed in knowledge-grounded response generation. The two components of knowledge selection and response generation are optimized jointly and effectively under a balanced objective. Experimental results on two publicly available datasets validate the superiority of PLATO-KAG.</abstract>
       <url hash="8ce43e25">2021.nlp4convai-1.14</url>
       <bibkey>huang-etal-2021-plato</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wizard-of-wikipedia">Wizard of Wikipedia</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/holl-e">Holl-E</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wizard-of-wikipedia">Wizard of Wikipedia</pwcdataset>
     </paper>
     <paper id="15">
       <title>Improving Dialogue State Tracking by Joint Slot Modeling</title>
@@ -268,11 +269,11 @@
       <url hash="c0fe4819">2021.nlp4convai-1.20</url>
       <bibkey>ribeiro-etal-2021-investigating</bibkey>
       <pwccode url="https://github.com/UKPLab/plms-graph2text" additional="true">UKPLab/plms-graph2text</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/dbpedia">DBpedia</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/webnlg">WebNLG</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/semantic-scholar">Semantic Scholar</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/dart">DART</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/agenda">AGENDA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/dart">DART</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/dbpedia">DBpedia</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semantic-scholar">Semantic Scholar</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/webnlg">WebNLG</pwcdataset>
     </paper>
     <paper id="21">
       <title>Style Control for Schema-Guided Natural Language Generation</title>
@@ -330,8 +331,8 @@
       <abstract>Knowledge Grounded Conversation Models are usually based on a selection/retrieval module and a generation module, trained separately or simultaneously, with or without having access to a ‘gold’ knowledge option. With the introduction of large pre-trained generative models, the selection and generation part have become more and more entangled, shifting the focus towards enhancing knowledge incorporation (from multiple sources) instead of trying to pick the best knowledge option. These approaches however depend on knowledge labels and/or a separate dense retriever for their best performance. In this work we study the unsupervised selection abilities of pre-trained generative models (e.g. BART) and show that by adding a score-and-aggregate module between encoder and decoder, they are capable of learning to pick the proper knowledge through minimising the language modelling loss (i.e. without having access to knowledge labels). Trained as such, our model - K-Mine - shows competitive selection and generation performance against models that benefit from knowledge labels and/or separate dense retriever.</abstract>
       <url hash="6fbace53">2021.nlp4convai-1.24</url>
       <bibkey>lotfi-etal-2021-teach</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wizard-of-wikipedia">Wizard of Wikipedia</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/holl-e">Holl-E</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wizard-of-wikipedia">Wizard of Wikipedia</pwcdataset>
     </paper>
     <paper id="25">
       <title>Influence of user personality on dialogue task performance: A case study using a rule-based dialogue system</title>
@@ -355,9 +356,6 @@
       <abstract>Code-mixed language plays a crucial role in communication in multilingual societies. Though the recent growth of web users has greatly boosted the use of such mixed languages, the current generation of dialog systems is primarily monolingual. This increase in usage of code-mixed language has prompted dialog systems in a similar language. We present our work in Code-Mixed Dialog Generation, an unexplored task in code-mixed languages, generating utterances in code-mixed language rather than a single language that is more often just English. We present a new synthetic corpus in code-mix for dialogs, CM-DailyDialog, by converting an existing English-only dialog corpus to a mixed Hindi-English corpus. We then propose a baseline approach where we show the effectiveness of using mBART like multilingual sequence-to-sequence transformers for code-mixed dialog generation. Our best performing dialog models can conduct coherent conversations in Hindi-English mixed language as evaluated by human and automatic metrics setting new benchmarks for the Code-Mixed Dialog Generation task.</abstract>
       <url hash="567f7604">2021.nlp4convai-1.26</url>
       <bibkey>agarwal-etal-2021-towards</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/lince">LinCE</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/phinc">PHINC</pwcdataset>
     </paper>
     <paper id="27">
       <title>Towards Zero and Few-shot Knowledge-seeking Turn Detection in Task-orientated Dialogue Systems</title>
@@ -370,6 +368,7 @@
       <abstract>Most prior work on task-oriented dialogue systems is restricted to supporting domain APIs. However, users may have requests that are out of the scope of these APIs. This work focuses on identifying such user requests. Existing methods for this task mainly rely on fine-tuning pre-trained models on large annotated data. We propose a novel method, REDE, based on adaptive representation learning and density estimation. REDE can be applied to zero-shot cases, and quickly learns a high-performing detector with only a few shots by updating less than 3K parameters. We demonstrate REDE’s competitive performance on DSTC9 data and our newly collected test set.</abstract>
       <url hash="bc4804fa">2021.nlp4convai-1.27</url>
       <bibkey>jin-etal-2021-towards</bibkey>
+      <pwccode url="https://github.com/jind11/rede" additional="false">jind11/rede</pwccode>
     </paper>
   </volume>
 </collection>

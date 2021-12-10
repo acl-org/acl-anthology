@@ -337,8 +337,8 @@
       <url hash="2b1fa83e">C16-1030</url>
       <abstract>Sequence labeling architectures use word embeddings for capturing similarity, but suffer when handling previously unseen or rare words. We investigate character-level extensions to such models and propose a novel architecture for combining alternative word representations. By using an attention mechanism, the model is able to dynamically decide how much information to use from a word- or character-level component. We evaluated different architectures on a range of sequence labeling datasets, and character-level extensions were found to improve performance on every benchmark. In addition, the proposed attention-based architecture delivered the best results even with a smaller number of trainable parameters.</abstract>
       <bibkey>rei-etal-2016-attending</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/fce">FCE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="31">
       <title>A Word Labeling Approach to <fixed-case>T</fixed-case>hai Sentence Boundary Detection and <fixed-case>POS</fixed-case> Tagging</title>
@@ -1211,8 +1211,8 @@
       <url hash="9e008682">C16-1112</url>
       <abstract>Semantic text processing faces the challenge of defining the relation between lexical expressions and the world to which they make reference within a period of time. It is unclear whether the current test sets used to evaluate disambiguation tasks are representative for the full complexity considering this time-anchored relation, resulting in semantic overfitting to a specific period and the frequent phenomena within. We conceptualize and formalize a set of metrics which evaluate this complexity of datasets. We provide evidence for their applicability on five different disambiguation tasks. To challenge semantic overfitting of disambiguation systems, we propose a time-based, metric-aware method for developing datasets in a systematic and semi-automated manner, as well as an event-based QA task.</abstract>
       <bibkey>ilievski-etal-2016-semantic</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/ecb">ECB+</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/amr-bank">AMR Bank</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ecb">ECB+</pwcdataset>
     </paper>
     <paper id="113">
       <title>Extraction of Keywords of Novelties From Patent Claims</title>
@@ -1404,8 +1404,8 @@
       <url hash="a7aba4f8">C16-1130</url>
       <abstract>Determining the intended sense of words in text – word sense disambiguation (WSD) – is a long-standing problem in natural language processing. Recently, researchers have shown promising results using word vectors extracted from a neural network language model as features in WSD algorithms. However, a simple average or concatenation of word vectors for each word in a text loses the sequential and syntactic information of the text. In this paper, we study WSD with a sequence learning neural net, LSTM, to better capture the sequential and syntactic patterns of the text. To alleviate the lack of training data in all-words WSD, we employ the same LSTM in a semi-supervised label propagation classifier. We demonstrate state-of-the-art results, especially on verbs.</abstract>
       <bibkey>yuan-etal-2016-semi</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/senseval-2-1">Senseval-2</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/semeval-2013">SemEval 2013</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/senseval-2-1">Senseval-2</pwcdataset>
     </paper>
     <paper id="131">
       <title>Fast Gated Neural Domain Adaptation: Language Model as a Case Study</title>
@@ -1780,8 +1780,8 @@
       <url hash="ac7b162b">C16-1164</url>
       <abstract>This work focuses on answering single-relation factoid questions over Freebase. Each question can acquire the answer from a single fact of form (subject, predicate, object) in Freebase. This task, simple question answering (SimpleQA), can be addressed via a two-step pipeline: entity linking and fact selection. In fact selection, we match the subject entity in a fact candidate with the entity mention in the question by a character-level convolutional neural network (char-CNN), and match the predicate in that fact with the question by a word-level CNN (word-CNN). This work makes two main contributions. (i) A simple and effective entity linker over Freebase is proposed. Our entity linker outperforms the state-of-the-art entity linker over SimpleQA task. (ii) A novel attentive maxpooling is stacked over word-CNN, so that the predicate representation can be matched with the predicate-focused question representation more effectively. Experiments show that our system sets new state-of-the-art in this task.</abstract>
       <bibkey>yin-etal-2016-simple</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/simplequestions">SimpleQuestions</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/paralex">Paralex</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/simplequestions">SimpleQuestions</pwcdataset>
     </paper>
     <paper id="165">
       <title>Recurrent Dropout without Memory Loss</title>
@@ -1792,7 +1792,7 @@
       <url hash="8ff5187b">C16-1165</url>
       <abstract>This paper presents a novel approach to recurrent neural network (RNN) regularization. Differently from the widely adopted dropout method, which is applied to forward connections of feedforward architectures or RNNs, we propose to drop neurons directly in recurrent connections in a way that does not cause loss of long-term memory. Our approach is as easy to implement and apply as the regular feed-forward dropout and we demonstrate its effectiveness for the most effective modern recurrent network – Long Short-Term Memory network. Our experiments on three NLP benchmarks show consistent improvements even when combined with conventional feed-forward dropout.</abstract>
       <bibkey>semeniuta-etal-2016-recurrent</bibkey>
-      <pwccode url="https://github.com/stas-semeniuta/drop-rnn" additional="false">stas-semeniuta/drop-rnn</pwccode>
+      <pwccode url="https://github.com/stas-semeniuta/drop-rnn" additional="true">stas-semeniuta/drop-rnn</pwccode>
     </paper>
     <paper id="166">
       <title>Modeling topic dependencies in semantically coherent text spans with copulas</title>
@@ -1939,6 +1939,7 @@
       <url hash="28fd2c76">C16-1179</url>
       <abstract>We experiment with different ways of training LSTM networks to predict RST discourse trees. The main challenge for RST discourse parsing is the limited amounts of training data. We combat this by regularizing our models using task supervision from related tasks as well as alternative views on discourse structures. We show that a simple LSTM sequential discourse parser takes advantage of this multi-view and multi-task framework with 12-15% error reductions over our baseline (depending on the metric) and results that rival more complex state-of-the-art parsers.</abstract>
       <bibkey>braud-etal-2016-multi</bibkey>
+      <pwccode url="https://bitbucket.org/chloebt/discourse" additional="false">chloebt/discourse</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/rst-dt">RST-DT</pwcdataset>
     </paper>
     <paper id="180">
@@ -2419,8 +2420,8 @@
       <url hash="cfae4586">C16-1224</url>
       <abstract>Answer selection is a core component in any question-answering systems. It aims to select correct answer sentences for a given question from a pool of candidate sentences. In recent years, many deep learning methods have been proposed and shown excellent results for this task. However, these methods typically require extensive parameter (and hyper-parameter) tuning, which give rise to efficiency issues for large-scale datasets, and potentially make them less portable across new datasets and domains (as re-tuning is usually required). In this paper, we propose an extremely efficient hybrid model (FastHybrid) that tackles the problem from both an accuracy and scalability point of view. FastHybrid is a light-weight model that requires little tuning and adaptation across different domains. It combines a fast deep model (which will be introduced in the method section) with an initial information retrieval model to effectively and efficiently handle answer selection. We introduce a new efficient attention mechanism in the hybrid model and demonstrate its effectiveness on several QA datasets. Experimental results show that although the hybrid uses no training data, its accuracy is often on-par with supervised deep learning techniques, while significantly reducing training and tuning costs across different domains.</abstract>
       <bibkey>wang-etal-2016-fasthybrid</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikiqa">WikiQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/insuranceqa">InsuranceQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikiqa">WikiQA</pwcdataset>
     </paper>
     <paper id="225">
       <title>Extracting Spatial Entities and Relations in <fixed-case>K</fixed-case>orean Text</title>
@@ -2463,6 +2464,7 @@
       <url hash="71f47bda">C16-1228</url>
       <abstract>With the development and the advancement of social networks, forums, blogs and online sales, a growing number of Arabs are expressing their opinions on the web. In this paper, a scheme of Arabic sentiment classification, which evaluates and detects the sentiment polarity from Arabic reviews and Arabic social media, is studied. We investigated in several architectures to build a quality neural word embeddings using a 3.4 billion words corpus from a collected 10 billion words web-crawled corpus. Moreover, a convolutional neural network trained on top of pre-trained Arabic word embeddings is used for sentiment classification to evaluate the quality of these word embeddings. The simulation results show that the proposed scheme outperforms the existed methods on 4 out of 5 balanced and unbalanced datasets.</abstract>
       <bibkey>dahou-etal-2016-word</bibkey>
+      <pwccode url="https://github.com/dahouabdelghani/arabic_word_embeddings_CNN/blob/master/Arabic_WE_model/get_Arabic_WE_models.sh" additional="false">dahouabdelghani/arabic_word_embeddings_CNN</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/astd">ASTD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/labr">LABR</pwcdataset>
     </paper>
@@ -3387,8 +3389,8 @@
       <url hash="7c21847d">C16-1313</url>
       <abstract>Video event detection is a challenging problem in information and multimedia retrieval. Different from single action detection, event detection requires a richer level of semantic information from video. In order to overcome this challenge, existing solutions often represent videos using high level features such as concepts. However, concept-based representation can be confusing because it does not encode the relationship between concepts. This issue can be addressed by exploiting the co-occurrences of the concepts, however, it often leads to a very huge number of possible combinations. In this paper, we propose a new approach to obtain the relationship between concepts by exploiting the syntactic dependencies between words in the image captions. The main advantage of this approach is that it significantly reduces the number of informative combinations between concepts. We conduct extensive experiments to analyze the effectiveness of using the new dependency representation for event detection on two large-scale TRECVID Multimedia Event Detection 2013 and 2014 datasets. Experimental results show that i) Dependency features are more discriminative than concept-based features. ii) Dependency features can be combined with our current event detection system to further improve the performance. For instance, the relative improvement can be as far as 8.6% on the MEDTEST14 10Ex setting.</abstract>
       <bibkey>phan-etal-2016-video</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
     </paper>
     <paper id="314">
       <title>Predicting Restaurant Consumption Level through Social Media Footprints</title>
@@ -3626,9 +3628,9 @@
       <abstract>We propose a novel semantic tagging task, semtagging, tailored for the purpose of multilingual semantic parsing, and present the first tagger using deep residual networks (ResNets). Our tagger uses both word and character representations, and includes a novel residual bypass architecture. We evaluate the tagset both intrinsically on the new task of semantic tagging, as well as on Part-of-Speech (POS) tagging. Our system, consisting of a ResNet and an auxiliary loss function predicting our semantic tags, significantly outperforms prior results on English Universal Dependencies POS tagging (95.71% accuracy on UD v1.2 and 95.67% accuracy on UD v1.3).</abstract>
       <bibkey>bjerva-etal-2016-semantic</bibkey>
       <pwccode url="https://github.com/bjerva/semantic-tagging" additional="false">bjerva/semantic-tagging</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/groningen-meaning-bank">Groningen Meaning Bank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/groningen-meaning-bank">Groningen Meaning Bank</pwcdataset>
     </paper>
     <paper id="334">
       <title>A Supervised Approach for Enriching the Relational Structure of Frame Semantics in <fixed-case>F</fixed-case>rame<fixed-case>N</fixed-case>et</title>

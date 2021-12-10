@@ -44,8 +44,8 @@
       <abstract>Pretrained transformer-based encoders such as BERT have been demonstrated to achieve state-of-the-art performance on numerous NLP tasks. Despite their success, BERT style encoders are large in size and have high latency during inference (especially on CPU machines) which make them unappealing for many online applications. Recently introduced compression and distillation methods have provided effective ways to alleviate this shortcoming. However, the focus of these works has been mainly on monolingual encoders. Motivated by recent successes in zero-shot cross-lingual transfer learning using multilingual pretrained encoders such as mBERT, we evaluate the effectiveness of Knowledge Distillation (KD) both during pretraining stage and during fine-tuning stage on multilingual BERT models. We demonstrate that in contradiction to the previous observation in the case of monolingual distillation, in multilingual settings, distillation during pretraining is more effective than distillation during fine-tuning for zero-shot transfer learning. Moreover, we observe that distillation during fine-tuning may hurt zero-shot cross-lingual performance. Finally, we demonstrate that distilling a larger model (BERT Large) results in the strongest distilled model that performs best both on the source language as well as target languages in zero-shot settings.</abstract>
       <url hash="40ec1cfc">2021.sustainlp-1.3</url>
       <bibkey>soltan-etal-2021-limitations</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/paws-x">PAWS-X</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
     </paper>
     <paper id="4">
       <title>Countering the Influence of Essay Length in Neural Essay Scoring</title>
@@ -55,6 +55,7 @@
       <abstract>Previous work has shown that automated essay scoring systems, in particular machine learning-based systems, are not capable of assessing the quality of essays, but are relying on essay length, a factor irrelevant to writing proficiency. In this work, we first show that state-of-the-art systems, recent neural essay scoring systems, might be also influenced by the correlation between essay length and scores in a standard dataset. In our evaluation, a very simple neural model shows the state-of-the-art performance on the standard dataset. To consider essay content without taking essay length into account, we introduce a simple neural model assessing the similarity of content between an input essay and essays assigned different scores. This neural model achieves performance comparable to the state of the art on a standard dataset as well as on a second dataset. Our findings suggest that neural essay scoring systems should consider the characteristics of datasets to focus on text quality.</abstract>
       <url hash="f451c07a">2021.sustainlp-1.4</url>
       <bibkey>jeon-strube-2021-countering</bibkey>
+      <pwccode url="https://github.com/sdeva14/sustai21-counter-neural-essay-length" additional="false">sdeva14/sustai21-counter-neural-essay-length</pwccode>
     </paper>
     <paper id="5">
       <title>Memory-efficient Transformers via Top-k Attention</title>
@@ -68,16 +69,16 @@
       <url hash="63f61f70">2021.sustainlp-1.5</url>
       <bibkey>gupta-etal-2021-memory</bibkey>
       <pwccode url="https://github.com/ag1988/top_k_attention" additional="false">ag1988/top_k_attention</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/commonsenseqa">CommonsenseQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/commonsenseqa">CommonsenseQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/listops">ListOps</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mctest">MCTest</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/openbookqa">OpenBookQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/listops">ListOps</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ropes">ROPES</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
     </paper>
     <paper id="6">
       <title><fixed-case>B</fixed-case>io<fixed-case>C</fixed-case>opy: A Plug-And-Play Span Copy Mechanism in <fixed-case>S</fixed-case>eq2<fixed-case>S</fixed-case>eq Models</title>
@@ -179,8 +180,8 @@
       <abstract>Knowledge Distillation (KD) offers a natural way to reduce the latency and memory/energy usage of massive pretrained models that have come to dominate Natural Language Processing (NLP) in recent years. While numerous sophisticated variants of KD algorithms have been proposed for NLP applications, the key factors underpinning the optimal distillation performance are often confounded and remain unclear. We aim to identify how different components in the KD pipeline affect the resulting performance and how much the optimal KD pipeline varies across different datasets/tasks, such as the data augmentation policy, the loss function, and the intermediate representation for transferring the knowledge between teacher and student. To tease apart their effects, we propose Distiller, a meta KD framework that systematically combines a broad range of techniques across different stages of the KD pipeline, which enables us to quantify each component’s contribution. Within Distiller, we unify commonly used objectives for distillation of intermediate representations under a universal mutual information (MI) objective and propose a class of MI-objective functions with better bias/variance trade-off for estimating the MI between the teacher and the student. On a diverse set of NLP datasets, the best Distiller configurations are identified via large-scale hyper-parameter optimization. Our experiments reveal the following: 1) the approach used to distill the intermediate representations is the most important factor in KD performance, 2) among different objectives for intermediate distillation, MI-performs the best, and 3) data augmentation provides a large boost for small training datasets or small student networks. Moreover, we find that different datasets/tasks prefer different KD algorithms, and thus propose a simple AutoDistiller algorithm that can recommend a good KD pipeline for a new dataset.</abstract>
       <url hash="71c94360">2021.sustainlp-1.13</url>
       <bibkey>he-etal-2021-distiller</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="14">
@@ -222,8 +223,8 @@
       <url hash="cc4f8271">2021.sustainlp-1.16</url>
       <bibkey>sachidananda-etal-2021-efficient</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/scierc">SciERC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/s2orc">S2ORC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/scierc">SciERC</pwcdataset>
     </paper>
     <paper id="17">
       <title>Unsupervised Contextualized Document Representation</title>
