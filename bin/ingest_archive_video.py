@@ -14,6 +14,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+#
+# Usage:
+#   python -v PATH_TO_VIDEO_DIR
+#
+# Video dir contains a list of videos need to be ingested, for example
+#
+# videos/
+#    N13-1001.mp4
+#    N13-1002.mp4
+#    ...
+#
+#
 
 import click
 import os, glob
