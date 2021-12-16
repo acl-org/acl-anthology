@@ -42,6 +42,8 @@ ATTACHMENT_TEMPLATE = ATTACHMENT_PREFIX + "/{}"
 PDF_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}.pdf"
 PDF_THUMBNAIL_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/thumb/{}.jpg"
 
+VIDEO_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}"
+
 # Regular expression matching full Anthology IDs
 ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"
 
@@ -61,6 +63,7 @@ LIST_ELEMENTS = (
     "erratum",
     "award",
     "pwcdataset",
+    "video",
 )
 
 # New-style IDs that should be handled as journals

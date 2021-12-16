@@ -233,6 +233,11 @@
       <dd class="acl-button-row"><a href="{{ .url }}" class="btn btn-attachment btn-sm">{{ partial "attachment_repr.html" . }}&nbsp;{{ .filename }}</a></dd>
       {{ end }}
 
+      {{ range $paper.video }}
+      <dt class="acl-button-row">Video:</dt>
+      <dd class="acl-button-row"><a href="{{ . }}" class="btn btn-attachment btn-sm"><i class="fas fa-video"></i>&nbsp;{{ . }}</a></dd>
+      {{ end }}
+
       {{ with $paper.pwccode }}
       <dt>Code</dt>
       <dd>

@@ -15,6 +15,7 @@
 # limitations under the License.
 
 from functools import cached_property
+import sys
 import iso639
 import logging as log
 
@@ -77,6 +78,16 @@ class Paper:
         if url is not None:
             return infer_url(url, template=data.PDF_LOCATION_TEMPLATE)
         return None
+
+    @cached_property
+    def videos(self):
+        videos = self.attrib.get("video", None)
+        if videos:
+            return [
+                infer_url(video, template=data.VIDEO_LOCATION_TEMPLATE)
+                for video in videos
+            ]
+        return []
 
     def _parse_revision_or_errata(self, tag):
         for item in self.attrib.get(tag, []):
@@ -373,6 +384,8 @@ class Paper:
             value["revision"] = self.revisions
         if self.errata:
             value["erratum"] = self.errata
+        if self.videos:
+            value["video"] = self.videos
         if self.attachments:
             value["attachment"] = self.attachments
         value["thumbnail"] = self.thumbnail

@@ -437,15 +437,11 @@ def parse_element(xml_element):
             value = {"filename": element.text, "src": element.get("src")}
         elif tag == "video":
             # Treat videos the same way as other attachments
-            tag = "attachment"
+            tag = "video"
             # Skip videos where permission was not granted (these should be marked as private anyway in Vimeo)
             if element.get("permission", "true") == "false":
                 continue
-            value = {
-                "filename": element.get("href"),
-                "type": element.get("tag", "video"),
-                "url": element.get("href"),
-            }
+            value = element.get("href")
         elif tag in ("dataset", "software"):
             value = {"filename": element.text, "type": tag, "url": element.text}
             tag = "attachment"
