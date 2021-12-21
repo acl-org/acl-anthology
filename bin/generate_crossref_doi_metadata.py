@@ -67,6 +67,7 @@ MONTH_HASH = {
     "June": "6",
     "July": "7",
     "August": "8",
+    "Aug": "8",
     "September": "9",
     "October": "10",
     "November": "11",

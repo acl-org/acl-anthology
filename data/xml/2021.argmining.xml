@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.argmining">
+  <volume id="1" ingest-date="2021-10-28">
+    <meta>
+      <booktitle>Proceedings of the 8th Workshop on Argument Mining</booktitle>
+      <editor><first>Khalid</first><last>Al-Khatib</last></editor>
+      <editor><first>Yufang</first><last>Hou</last></editor>
+      <editor><first>Manfred</first><last>Stede</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Punta Cana, Dominican Republic</address>
+      <month>November</month>
+      <year>2021</year>
+    </meta>
+    <frontmatter>
+      <url hash="f5428747">2021.argmining-1.0</url>
+      <bibkey>argmining-2021-argument</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Argument Mining on <fixed-case>T</fixed-case>witter: A Case Study on the Planned Parenthood Debate</title>
+      <author><first>Muhammad Mahad Afzal</first><last>Bhatti</last></author>
+      <author><first>Ahsan Suheer</first><last>Ahmad</last></author>
+      <author><first>Joonsuk</first><last>Park</last></author>
+      <pages>1–11</pages>
+      <abstract>Twitter is a popular platform to share opinions and claims, which may be accompanied by the underlying rationale. Such information can be invaluable to policy makers, marketers and social scientists, to name a few. However, the effort to mine arguments on Twitter has been limited, mainly because a tweet is typically too short to contain an argument — both a claim and a premise. In this paper, we propose a novel problem formulation to mine arguments from Twitter: We formulate argument mining on Twitter as a text classification task to identify tweets that serve as premises for a hashtag that represents a claim of interest. To demonstrate the efficacy of this formulation, we mine arguments for and against funding Planned Parenthood expressed in tweets. We first present a new dataset of 24,100 tweets containing hashtag #StandWithPP or #DefundPP, manually labeled as SUPPORT WITH REASON, SUPPORT WITHOUT REASON, and NO EXPLICIT SUPPORT. We then train classifiers to determine the types of tweets, achieving the best performance of 71% F1. Our results manifest claim-specific keywords as the most informative features, which in turn reveal prominent arguments for and against funding Planned Parenthood.</abstract>
+      <url hash="903d86b5">2021.argmining-1.1</url>
+      <bibkey>bhatti-etal-2021-argument</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Multi-task and Multi-corpora Training Strategies to Enhance Argumentative Sentence Linking Performance</title>
+      <author><first>Jan Wira Gotama</first><last>Putra</last></author>
+      <author><first>Simone</first><last>Teufel</last></author>
+      <author><first>Takenobu</first><last>Tokunaga</last></author>
+      <pages>12–23</pages>
+      <abstract>Argumentative structure prediction aims to establish links between textual units and label the relationship between them, forming a structured representation for a given input text. The former task, linking, has been identified by earlier works as particularly challenging, as it requires finding the most appropriate structure out of a very large search space of possible link combinations. In this paper, we improve a state-of-the-art linking model by using multi-task and multi-corpora training strategies. Our auxiliary tasks help the model to learn the role of each sentence in the argumentative structure. Combining multi-corpora training with a selective sampling strategy increases the training data size while ensuring that the model still learns the desired target distribution well. Experiments on essays written by English-as-a-foreign-language learners show that both strategies significantly improve the model’s performance; for instance, we observe a 15.8% increase in the F1-macro for individual link predictions.</abstract>
+      <url hash="0295bf5c">2021.argmining-1.2</url>
+      <bibkey>putra-etal-2021-multi</bibkey>
+      <pwccode url="https://github.com/wiragotama/argmin2021" additional="false">wiragotama/argmin2021</pwccode>
+    </paper>
+    <paper id="3">
+      <title>Explainable Unsupervised Argument Similarity Rating with <fixed-case>A</fixed-case>bstract <fixed-case>M</fixed-case>eaning <fixed-case>R</fixed-case>epresentation and Conclusion Generation</title>
+      <author><first>Juri</first><last>Opitz</last></author>
+      <author><first>Philipp</first><last>Heinisch</last></author>
+      <author><first>Philipp</first><last>Wiesenbach</last></author>
+      <author><first>Philipp</first><last>Cimiano</last></author>
+      <author><first>Anette</first><last>Frank</last></author>
+      <pages>24–35</pages>
+      <abstract>When assessing the similarity of arguments, researchers typically use approaches that do not provide interpretable evidence or justifications for their ratings. Hence, the features that determine argument similarity remain elusive. We address this issue by introducing <i>novel argument similarity metrics</i> that aim at high performance and explainability. We show that Abstract Meaning Representation (AMR) graphs can be useful for representing arguments, and that novel AMR graph metrics can offer explanations for argument similarity ratings. We start from the hypothesis that <i>similar premises</i> often lead to <i>similar conclusions</i>—and extend an approach for <i>AMR-based argument similarity rating</i> by estimating, in addition, the similarity of <i>conclusions</i> that we automatically infer from the arguments used as premises. We show that AMR similarity metrics make argument similarity judgements more <i>interpretable</i> and may even support <i>argument quality judgements</i>. Our approach provides significant performance improvements over strong baselines in a <i>fully unsupervised</i> setting. Finally, we make first steps to address the problem of reference-less evaluation of argumentative conclusion generations.</abstract>
+      <url hash="81c5accd">2021.argmining-1.3</url>
+      <bibkey>opitz-etal-2021-explainable</bibkey>
+      <pwccode url="https://github.com/heidelberg-nlp/amr-argument-sim" additional="false">heidelberg-nlp/amr-argument-sim</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>Image Retrieval for Arguments Using Stance-Aware Query Expansion</title>
+      <author><first>Johannes</first><last>Kiesel</last></author>
+      <author><first>Nico</first><last>Reichenbach</last></author>
+      <author><first>Benno</first><last>Stein</last></author>
+      <author><first>Martin</first><last>Potthast</last></author>
+      <pages>36–45</pages>
+      <abstract>Many forms of argumentation employ images as persuasive means, but research in argument mining has been focused on verbal argumentation so far. This paper shows how to integrate images into argument mining research, specifically into argument retrieval. By exploiting the sophisticated image representations of keyword-based image search, we propose to use semantic query expansion for both the pro and the con stance to retrieve “argumentative images” for the respective stance. Our results indicate that even simple expansions provide a strong baseline, reaching a precision@10 of 0.49 for images being (1) on-topic, (2) argumentative, and (3) on-stance. An in-depth analysis reveals a high topic dependence of the retrieval performance and shows the need to further investigate on images providing contextual information.</abstract>
+      <url hash="1c7e1778">2021.argmining-1.4</url>
+      <bibkey>kiesel-etal-2021-image</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Is Stance Detection Topic-Independent and Cross-topic Generalizable? - A Reproduction Study</title>
+      <author><first>Myrthe</first><last>Reuver</last></author>
+      <author><first>Suzan</first><last>Verberne</last></author>
+      <author><first>Roser</first><last>Morante</last></author>
+      <author><first>Antske</first><last>Fokkens</last></author>
+      <pages>46–56</pages>
+      <abstract>Cross-topic stance detection is the task to automatically detect stances (pro, against, or neutral) on unseen topics. We successfully reproduce state-of-the-art cross-topic stance detection work (Reimers et. al, 2019), and systematically analyze its reproducibility. Our attention then turns to the cross-topic aspect of this work, and the specificity of topics in terms of vocabulary and socio-cultural context. We ask: To what extent is stance detection topic-independent and generalizable across topics? We compare the model’s performance on various unseen topics, and find topic (e.g. abortion, cloning), class (e.g. pro, con), and their interaction affecting the model’s performance. We conclude that investigating performance on different topics, and addressing topic-specific vocabulary and context, is a future avenue for cross-topic stance detection. References Nils Reimers, Benjamin Schiller, Tilman Beck, Johannes Daxenberger, Christian Stab, and Iryna Gurevych. 2019. Classification and Clustering of Arguments with Contextualized Word Embeddings. In Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics, pages 567–578, Florence, Italy. Association for Computational Linguistics.</abstract>
+      <url hash="e1178f40">2021.argmining-1.5</url>
+      <bibkey>reuver-etal-2021-stance</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Exploring Methodologies for Collecting High-Quality Implicit Reasoning in Arguments</title>
+      <author><first>Keshav</first><last>Singh</last></author>
+      <author><first>Farjana Sultana</first><last>Mim</last></author>
+      <author><first>Naoya</first><last>Inoue</last></author>
+      <author><first>Shoichi</first><last>Naito</last></author>
+      <author><first>Kentaro</first><last>Inui</last></author>
+      <pages>57–66</pages>
+      <abstract>Annotation of implicit reasoning (i.e., warrant) in arguments is a critical resource to train models in gaining deeper understanding and correct interpretation of arguments. However, warrants are usually annotated in unstructured form, having no restriction on their lexical structure which sometimes makes it difficult to interpret how warrants relate to any of the information given in claim and premise. Moreover, assessing and determining better warrants from the large variety of reasoning patterns of unstructured warrants becomes a formidable task. Therefore, in order to annotate warrants in a more interpretative and restrictive way, we propose two methodologies to annotate warrants in a semi-structured form. To the best of our knowledge, we are the first to show how such semi-structured warrants can be annotated on a large scale via crowdsourcing. We demonstrate through extensive quality evaluation that our methodologies enable collecting better quality warrants in comparison to unstructured annotations. To further facilitate research towards the task of explicating warrants in arguments, we release our materials publicly (i.e., crowdsourcing guidelines and collected warrants).</abstract>
+      <url hash="7566f642">2021.argmining-1.6</url>
+      <bibkey>singh-etal-2021-exploring</bibkey>
+      <pwccode url="https://github.com/cl-tohoku/ukw-warrants" additional="false">cl-tohoku/ukw-warrants</pwccode>
+    </paper>
+    <paper id="7">
+      <title>Assessing the Sufficiency of Arguments through Conclusion Generation</title>
+      <author><first>Timon</first><last>Gurcke</last></author>
+      <author><first>Milad</first><last>Alshomary</last></author>
+      <author><first>Henning</first><last>Wachsmuth</last></author>
+      <pages>67–77</pages>
+      <abstract>The premises of an argument give evidence or other reasons to support a conclusion. However, the amount of support required depends on the generality of a conclusion, the nature of the individual premises, and similar. An argument whose premises make its conclusion rationally worthy to be drawn is called sufficient in argument quality research. Previous work tackled sufficiency assessment as a standard text classification problem, not modeling the inherent relation of premises and conclusion. In this paper, we hypothesize that the conclusion of a sufficient argument can be generated from its premises. To study this hypothesis, we explore the potential of assessing sufficiency based on the output of large-scale pre-trained language models. Our best model variant achieves an F1-score of .885, outperforming the previous state-of-the-art and being on par with human experts. While manual evaluation reveals the quality of the generated conclusions, their impact remains low ultimately.</abstract>
+      <url hash="be61af83">2021.argmining-1.7</url>
+      <bibkey>gurcke-etal-2021-assessing</bibkey>
+      <pwccode url="https://github.com/webis-de/argmining-21" additional="false">webis-de/argmining-21</pwccode>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>M</fixed-case>-Arg: Multimodal Argument Mining Dataset for Political Debates with Audio and Transcripts</title>
+      <author><first>Rafael</first><last>Mestre</last></author>
+      <author><first>Razvan</first><last>Milicin</last></author>
+      <author><first>Stuart</first><last>Middleton</last></author>
+      <author><first>Matt</first><last>Ryan</last></author>
+      <author><first>Jiatong</first><last>Zhu</last></author>
+      <author><first>Timothy J.</first><last>Norman</last></author>
+      <pages>78–88</pages>
+      <abstract>Argumentation mining aims at extracting, analysing and modelling people’s arguments, but large, high-quality annotated datasets are limited, and no multimodal datasets exist for this task. In this paper, we present M-Arg, a multimodal argument mining dataset with a corpus of US 2020 presidential debates, annotated through crowd-sourced annotations. This dataset allows models to be trained to extract arguments from natural dialogue such as debates using information like the intonation and rhythm of the speaker. Our dataset contains 7 hours of annotated US presidential debates, 6527 utterances and 4104 relation labels, and we report results from different baseline models, namely a text-only model, an audio-only model and multimodal models that extract features from both text and audio. With accuracy reaching 0.86 in multimodal models, we find that audio features provide added value with respect to text-only models.</abstract>
+      <url hash="da4e6696">2021.argmining-1.8</url>
+      <bibkey>mestre-etal-2021-arg</bibkey>
+      <pwccode url="https://github.com/rafamestre/m-arg_multimodal-argumentation-dataset" additional="false">rafamestre/m-arg_multimodal-argumentation-dataset</pwccode>
+    </paper>
+    <paper id="9">
+      <title>Citizen Involvement in Urban Planning - How Can Municipalities Be Supported in Evaluating Public Participation Processes for Mobility Transitions?</title>
+      <author><first>Julia</first><last>Romberg</last></author>
+      <author><first>Stefan</first><last>Conrad</last></author>
+      <pages>89–99</pages>
+      <abstract>Public participation processes allow citizens to engage in municipal decision-making processes by expressing their opinions on specific issues. Municipalities often only have limited resources to analyze a possibly large amount of textual contributions that need to be evaluated in a timely and detailed manner. Automated support for the evaluation is therefore essential, e.g. to analyze arguments. In this paper, we address (A) the identification of argumentative discourse units and (B) their classification as major position or premise in German public participation processes. The objective of our work is to make argument mining viable for use in municipalities. We compare different argument mining approaches and develop a generic model that can successfully detect argument structures in different datasets of mobility-related urban planning. We introduce a new data corpus comprising five public participation processes. In our evaluation, we achieve high macro F1 scores (0.76 - 0.80 for the identification of argumentative units; 0.86 - 0.93 for their classification) on all datasets. Additionally, we improve previous results for the classification of argumentative units on a similar German online participation dataset.</abstract>
+      <url hash="8b39dd8e">2021.argmining-1.9</url>
+      <bibkey>romberg-conrad-2021-citizen</bibkey>
+      <pwccode url="https://github.com/juliaromberg/cimt-argument-mining-dataset" additional="false">juliaromberg/cimt-argument-mining-dataset</pwccode>
+    </paper>
+    <paper id="10">
+      <title>Argumentation Mining in Scientific Literature for Sustainable Development</title>
+      <author><first>Aris</first><last>Fergadis</last></author>
+      <author><first>Dimitris</first><last>Pappas</last></author>
+      <author><first>Antonia</first><last>Karamolegkou</last></author>
+      <author><first>Haris</first><last>Papageorgiou</last></author>
+      <pages>100–111</pages>
+      <abstract>Science, technology and innovation (STI) policies have evolved in the past decade. We are now progressing towards policies that are more aligned with sustainable development through integrating social, economic and environmental dimensions. In this new policy environment, the need to keep track of innovation from its conception in Science and Research has emerged. Argumentation mining, an interdisciplinary NLP field, gives rise to the required technologies. In this study, we present the first STI-driven multidisciplinary corpus of scientific abstracts annotated for argumentative units (AUs) on the sustainable development goals (SDGs) set by the United Nations (UN). AUs are the sentences conveying the Claim(s) reported in the author’s original research and the Evidence provided for support. We also present a set of strong, BERT-based neural baselines achieving an f1-score of 70.0 for Claim and 62.4 for Evidence identification evaluated with 10-fold cross-validation. To demonstrate the effectiveness of our models, we experiment with different test sets showing comparable performance across various SDG policy domains. Our dataset and models are publicly available for research purposes.</abstract>
+      <url hash="98812cd6">2021.argmining-1.10</url>
+      <bibkey>fergadis-etal-2021-argumentation</bibkey>
+      <pwccode url="https://github.com/afergadis/sciark" additional="false">afergadis/sciark</pwccode>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>B</fixed-case>ayesian Argumentation-Scheme Networks: <fixed-case>A</fixed-case> Probabilistic Model of Argument Validity Facilitated by Argumentation Schemes</title>
+      <author><first>Takahiro</first><last>Kondo</last></author>
+      <author><first>Koki</first><last>Washio</last></author>
+      <author><first>Katsuhiko</first><last>Hayashi</last></author>
+      <author><first>Yusuke</first><last>Miyao</last></author>
+      <pages>112–124</pages>
+      <abstract>We propose a methodology for representing the reasoning structure of arguments using Bayesian networks and predicate logic facilitated by argumentation schemes. We express the meaning of text segments using predicate logic and map the boolean values of predicate logic expressions to nodes in a Bayesian network. The reasoning structure among text segments is described with a directed acyclic graph. While our formalism is highly expressive and capable of describing the informal logic of human arguments, it is too open-ended to actually build a network for an argument. It is not at all obvious which segment of argumentative text should be considered as a node in a Bayesian network, and how to decide the dependencies among nodes. To alleviate the difficulty, we provide abstract network fragments, called idioms, which represent typical argument justification patterns derived from argumentation schemes. The network construction process is decomposed into idiom selection, idiom instantiation, and idiom combination. We define 17 idioms in total by referring to argumentation schemes as well as analyzing actual arguments and fitting idioms to them. We also create a dataset consisting of pairs of an argumentative text and a corresponding Bayesian network. Our dataset contains about 2,400 pairs, which is large in the research area of argumentation schemes.</abstract>
+      <url hash="4203bb2f">2021.argmining-1.11</url>
+      <bibkey>kondo-etal-2021-bayesian</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Multilingual Counter Narrative Type Classification</title>
+      <author><first>Yi-Ling</first><last>Chung</last></author>
+      <author><first>Marco</first><last>Guerini</last></author>
+      <author><first>Rodrigo</first><last>Agerri</last></author>
+      <pages>125–132</pages>
+      <abstract>The growing interest in employing counter narratives for hatred intervention brings with it a focus on dataset creation and automation strategies. In this scenario, learning to recognize counter narrative types from natural text is expected to be useful for applications such as hate speech countering, where operators from non-governmental organizations are supposed to answer to hate with several and diverse arguments that can be mined from online sources. This paper presents the first multilingual work on counter narrative type classification, evaluating SoTA pre-trained language models in monolingual, multilingual and cross-lingual settings. When considering a fine-grained annotation of counter narrative classes, we report strong baseline classification results for the majority of the counter narrative types, especially if we translate every language to English before cross-lingual prediction. This suggests that knowledge about counter narratives can be successfully transferred across languages.</abstract>
+      <url hash="b15138ac">2021.argmining-1.12</url>
+      <attachment type="Software" hash="1fed4ebd">2021.argmining-1.12.Software.zip</attachment>
+      <bibkey>chung-etal-2021-multilingual</bibkey>
+      <pwccode url="https://github.com/yilingchung/multilingualcn-classification" additional="false">yilingchung/multilingualcn-classification</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/conan">CONAN</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikilingua">WikiLingua</pwcdataset>
+    </paper>
+    <paper id="13">
+      <title>Predicting Moderation of Deliberative Arguments: Is Argument Quality the Key?</title>
+      <author><first>Neele</first><last>Falk</last></author>
+      <author><first>Iman</first><last>Jundi</last></author>
+      <author><first>Eva Maria</first><last>Vecchi</last></author>
+      <author><first>Gabriella</first><last>Lapesa</last></author>
+      <pages>133–141</pages>
+      <abstract>Human moderation is commonly employed in deliberative contexts (argumentation and discussion targeting a shared decision on an issue relevant to a group, e.g., citizens arguing on how to employ a shared budget). As the scale of discussion enlarges in online settings, the overall discussion quality risks to drop and moderation becomes more important to assist participants in having a cooperative and productive interaction. The scale also makes it more important to employ NLP methods for(semi-)automatic moderation, e.g. to prioritize when moderation is most needed. In this work, we make the first steps towards (semi-)automatic moderation by using state-of-the-art classification models to predict which posts require moderation, showing that while the task is undoubtedly difficult, performance is significantly above baseline. We further investigate whether argument quality is a key indicator of the need for moderation, showing that surprisingly, high quality arguments also trigger moderation. We make our code and data publicly available.</abstract>
+      <url hash="15d70475">2021.argmining-1.13</url>
+      <bibkey>falk-etal-2021-predicting</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Self-trained Pretrained Language Models for Evidence Detection</title>
+      <author><first>Mohamed</first><last>Elaraby</last></author>
+      <author><first>Diane</first><last>Litman</last></author>
+      <pages>142–147</pages>
+      <abstract>Argument role labeling is a fundamental task in Argument Mining research. However, such research often suffers from a lack of large-scale datasets labeled for argument roles such as evidence, which is crucial for neural model training. While large pretrained language models have somewhat alleviated the need for massive manually labeled datasets, how much these models can further benefit from self-training techniques hasn’t been widely explored in the literature in general and in Argument Mining specifically. In this work, we focus on self-trained language models (particularly BERT) for evidence detection. We provide a thorough investigation on how to utilize pseudo labels effectively in the self-training scheme. We also assess whether adding pseudo labels from an out-of-domain source can be beneficial. Experiments on sentence level evidence detection show that self-training can complement pretrained language models to provide performance improvements.</abstract>
+      <url hash="359ce20b">2021.argmining-1.14</url>
+      <bibkey>elaraby-litman-2021-self</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Multi-task Learning in Argument Mining for Persuasive Online Discussions</title>
+      <author><first>Nhat</first><last>Tran</last></author>
+      <author><first>Diane</first><last>Litman</last></author>
+      <pages>148–153</pages>
+      <abstract>We utilize multi-task learning to improve argument mining in persuasive online discussions, in which both micro-level and macro-level argumentation must be taken into consideration. Our models learn to identify argument components and the relations between them at the same time. We also tackle the low-precision which arises from imbalanced relation data by experimenting with SMOTE and XGBoost. Our approaches improve over baselines that use the same pre-trained language model but process the argument component task and two relation tasks separately. Furthermore, our results suggest that the tasks to be incorporated into multi-task learning should be taken into consideration as using all relevant tasks does not always lead to the best performance.</abstract>
+      <url hash="470d2a1f">2021.argmining-1.15</url>
+      <bibkey>tran-litman-2021-multi</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Overview of the 2021 Key Point Analysis Shared Task</title>
+      <author><first>Roni</first><last>Friedman</last></author>
+      <author><first>Lena</first><last>Dankin</last></author>
+      <author><first>Yufang</first><last>Hou</last></author>
+      <author><first>Ranit</first><last>Aharonov</last></author>
+      <author><first>Yoav</first><last>Katz</last></author>
+      <author><first>Noam</first><last>Slonim</last></author>
+      <pages>154–164</pages>
+      <abstract>We describe the 2021 Key Point Analysis (KPA-2021) shared task on key point analysis that we organized as a part of the 8th Workshop on Argument Mining (ArgMining 2021) at EMNLP 2021. We outline various approaches and discuss the results of the shared task. We expect the task and the findings reported in this paper to be relevant for researchers working on text summarization and argument mining.</abstract>
+      <url hash="c221cdd2">2021.argmining-1.16</url>
+      <bibkey>friedman-etal-2021-overview</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/argkp-2021">ArgKP-2021</pwcdataset>
+    </paper>
+    <paper id="17">
+      <title>Matching The Statements: A Simple and Accurate Model for Key Point Analysis</title>
+      <author><first>Hoang</first><last>Phan</last></author>
+      <author><first>Long</first><last>Nguyen</last></author>
+      <author><first>Long</first><last>Nguyen</last></author>
+      <author><first>Khanh</first><last>Doan</last></author>
+      <pages>165–174</pages>
+      <abstract>Key Point Analysis (KPA) is one of the most essential tasks in building an Opinion Summarization system, which is capable of generating key points for a collection of arguments toward a particular topic. Furthermore, KPA allows quantifying the coverage of each summary by counting its matched arguments. With the aim of creating high-quality summaries, it is necessary to have an in-depth understanding of each individual argument as well as its universal semantic in a specified context. In this paper, we introduce a promising model, named Matching the Statements (MTS) that incorporates the discussed topic information into arguments/key points comprehension to fully understand their meanings, thus accurately performing ranking and retrieving best-match key points for an input argument. Our approach has achieved the 4th place in Track 1 of the Quantitative Summarization – Key Point Analysis Shared Task by IBM, yielding a competitive performance of 0.8956 (3rd) and 0.9632 (7th) strict and relaxed mean Average Precision, respectively.</abstract>
+      <url hash="a68e2c45">2021.argmining-1.17</url>
+      <bibkey>phan-etal-2021-matching</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Modern Talking in Key Point Analysis: Key Point Matching using Pretrained Encoders</title>
+      <author><first>Jan Heinrich</first><last>Reimer</last></author>
+      <author><first>Thi Kim Hanh</first><last>Luu</last></author>
+      <author><first>Max</first><last>Henze</last></author>
+      <author><first>Yamen</first><last>Ajjour</last></author>
+      <pages>175–183</pages>
+      <abstract>We contribute to the ArgMining 2021 shared task on Quantitative Summarization and Key Point Analysis with two approaches for argument key point matching. For key point matching the task is to decide if a short key point matches the content of an argument with the same topic and stance towards the topic. We approach this task in two ways: First, we develop a simple rule-based baseline matcher by computing token overlap after removing stop words, stemming, and adding synonyms/antonyms. Second, we fine-tune pretrained BERT and RoBERTalanguage models as aregression classifier for only a single epoch. We manually examine errors of our proposed matcher models and find that long arguments are harder to classify. Our fine-tuned RoBERTa-Base model achieves a mean average precision score of 0.913, the best score for strict labels of all participating teams.</abstract>
+      <url hash="b7276b7a">2021.argmining-1.18</url>
+      <attachment type="Software" hash="fb381bb6">2021.argmining-1.18.Software.zip</attachment>
+      <bibkey>reimer-etal-2021-modern</bibkey>
+      <pwccode url="https://github.com/heinrichreimer/modern-talking" additional="false">heinrichreimer/modern-talking</pwccode>
+    </paper>
+    <paper id="19">
+      <title>Key Point Analysis via Contrastive Learning and Extractive Argument Summarization</title>
+      <author><first>Milad</first><last>Alshomary</last></author>
+      <author><first>Timon</first><last>Gurcke</last></author>
+      <author><first>Shahbaz</first><last>Syed</last></author>
+      <author><first>Philipp</first><last>Heinisch</last></author>
+      <author><first>Maximilian</first><last>Spliethöver</last></author>
+      <author><first>Philipp</first><last>Cimiano</last></author>
+      <author><first>Martin</first><last>Potthast</last></author>
+      <author><first>Henning</first><last>Wachsmuth</last></author>
+      <pages>184–189</pages>
+      <abstract>Key point analysis is the task of extracting a set of concise and high-level statements from a given collection of arguments, representing the gist of these arguments. This paper presents our proposed approach to the Key Point Analysis Shared Task, colocated with the 8th Workshop on Argument Mining. The approach integrates two complementary components. One component employs contrastive learning via a siamese neural network for matching arguments to key points; the other is a graph-based extractive summarization model for generating key points. In both automatic and manual evaluation, our approach was ranked best among all submissions to the shared task.</abstract>
+      <url hash="91934a59">2021.argmining-1.19</url>
+      <bibkey>alshomary-etal-2021-key</bibkey>
+      <pwccode url="https://github.com/webis-de/argmining-21" additional="false">webis-de/argmining-21</pwccode>
+    </paper>
+    <paper id="20">
+      <title>Key Point Matching with Transformers</title>
+      <author><first>Emanuele</first><last>Cosenza</last></author>
+      <pages>190–199</pages>
+      <abstract>This work aims at describing a solution for the Track 1 of the KPA 2021 shared task, analyzing different methodologies for the specific problem of key point matching. The analysis focuses on transformer based architectures, experimentally investigating the effectiveness of variants specifically tailored to the task.</abstract>
+      <url hash="83a55657">2021.argmining-1.20</url>
+      <bibkey>cosenza-2021-key</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Team Enigma at <fixed-case>A</fixed-case>rg<fixed-case>M</fixed-case>ining-<fixed-case>EMNLP</fixed-case> 2021: Leveraging Pre-trained Language Models for Key Point Matching</title>
+      <author><first>Manav</first><last>Kapadnis</last></author>
+      <author><first>Sohan</first><last>Patnaik</last></author>
+      <author><first>Siba</first><last>Panigrahi</last></author>
+      <author><first>Varun</first><last>Madhavan</last></author>
+      <author><first>Abhilash</first><last>Nandy</last></author>
+      <pages>200–205</pages>
+      <abstract>We present the system description for our submission towards the Key Point Analysis Shared Task at ArgMining 2021. Track 1 of the shared task requires participants to develop methods to predict the match score between each pair of arguments and key points, provided they belong to the same topic under the same stance. We leveraged existing state of the art pre-trained language models along with incorporating additional data and features extracted from the inputs (topics, key points, and arguments) to improve performance. We were able to achieve mAP strict and mAP relaxed score of 0.872 and 0.966 respectively in the evaluation phase, securing 5th place on the leaderboard. In the post evaluation phase, we achieved a mAP strict and mAP relaxed score of 0.921 and 0.982 respectively.</abstract>
+      <url hash="9b32a315">2021.argmining-1.21</url>
+      <attachment type="Software" hash="e2932bd7">2021.argmining-1.21.Software.zip</attachment>
+      <bibkey>kapadnis-etal-2021-team</bibkey>
+    </paper>
+  </volume>
+</collection>

@@ -26,14 +26,15 @@ try:
 except ImportError:
     from yaml import Loader
 
-from .utils import is_newstyle_id, deconstruct_anthology_id
+from .utils import is_newstyle_id, build_anthology_id, deconstruct_anthology_id
 from anthology.data import VENUE_FORMAT
 
 
 class VenueIndex:
     def __init__(self, srcdir=None):
         self.venues, self.letters, self.joint_map = {}, {}, defaultdict(list)
-        self.acronyms_by_key = {}
+        self.acronyms = {}  # acronym -> venue
+        self.acronyms_by_key = {}  # slug -> acronym
         self.venue_dict = None
         if srcdir is not None:
             self.load_from_dir(srcdir)
@@ -63,11 +64,11 @@ class VenueIndex:
         """
         Dumps the venue database to file.
         """
-        with open("{}/yaml/venues.yaml".format(directory), "wt") as f:
+        with open(f"{directory}/yaml/venues.yaml", "wt") as f:
             print(yaml.dump(self.venue_dict, allow_unicode=True), file=f)
 
     def load_from_dir(self, directory):
-        with open("{}/yaml/venues.yaml".format(directory), "r") as f:
+        with open(f"{directory}/yaml/venues.yaml", "r") as f:
             self.venue_dict = yaml.load(f, Loader=Loader)
             venue_dict = deepcopy(self.venue_dict)
             for key, val in venue_dict.items():
@@ -96,6 +97,7 @@ class VenueIndex:
                 # encapsulation --MB)
                 self.venues[val["acronym"]] = val
                 self.acronyms_by_key[key] = val["acronym"]
+                self.acronyms[val["acronym"]] = val
 
                 if "oldstyle_letter" in val:
                     if not val["is_toplevel"]:
@@ -104,7 +106,7 @@ class VenueIndex:
                         )
                     self.letters[val["oldstyle_letter"]] = val["acronym"]
 
-        with open("{}/yaml/joint.yaml".format(directory), "r") as f:
+        with open(f"{directory}/yaml/joint.yaml", "r") as f:
             map_dict = yaml.load(f, Loader=Loader)
             for venue, data in map_dict.items():
                 acronym = self.acronyms_by_key[venue]
@@ -121,18 +123,33 @@ class VenueIndex:
 
     def get_by_letter(self, letter):
         """Get a venue acronym by first letter (e.g., Q -> TACL)."""
+        return self.letters.get(letter, None)
+
+    def get_by_acronym(self, acronym):
+        """Get a venue object by its acronym (assumes acronyms are unique)."""
         try:
-            return self.letters[letter]
+            return self.acronyms[acronym]
         except KeyError:
-            log.critical("Unknown venue letter: {}".format(letter))
+            log.critical(f"Unknown venue acronym: {acronym}")
 
     def get_main_venue(self, anthology_id):
         """Get a venue acronym by anthology ID (e.g., acl -> ACL)."""
-        collection_id, *_ = deconstruct_anthology_id(anthology_id)
+        collection_id, volume_id, _ = deconstruct_anthology_id(anthology_id)
         if is_newstyle_id(collection_id):
             return self.acronyms_by_key[collection_id.split(".")[-1]]
-        else:
-            return self.get_by_letter(collection_id[0])
+        else:  # old-style ID
+            main_venue = self.get_by_letter(collection_id[0])
+            if main_venue is None:
+                # If there's no association with the letter, use joint.yaml to
+                # get the venue.  As of 06/2021 this is only used for "O"
+                # (ROCLING/IJCLCLP).
+                try:
+                    main_venue = self.joint_map[
+                        build_anthology_id(collection_id, volume_id, None)
+                    ][0]
+                except (KeyError, IndexError):
+                    log.critical(f"Old-style ID {anthology_id} isn't assigned any venue!")
+            return main_venue
 
     def get_associated_venues(self, anthology_id):
         """Get a list of all venue acronyms for a given (volume) anthology ID."""

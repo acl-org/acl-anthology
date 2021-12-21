@@ -49,7 +49,7 @@ def guess_url(paper):
     if not url:
         url = paper.attrib.get("href", None)
     if not url:
-        url = "http://www.aclweb.org/anthology/{}-{}".format(
+        url = "http://www.aclanthology.org/{}-{}".format(
             volume.attrib["id"], paper.attrib["id"]
         )
 

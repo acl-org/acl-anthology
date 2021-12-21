@@ -1,6 +1,6 @@
 # ACL Anthology
 
-These are basic instructions on generating the ACL Anthology website as seen on <https://aclweb.org/anthology/>.
+These are basic instructions on generating the ACL Anthology website as seen on <https://aclanthology.org/>.
 The official home of this repository is <https://github.com/acl-org/acl-anthology>.
 
 ## Generating the Anthology
@@ -24,13 +24,12 @@ To build the Anthology website, you will need:
 ### Building and deployment with GitHub
 
 There is a GitHub actions action performing deployment directly from GitHub.  To use this, you need to
-define these variables in your repository settings (web interface: settings -> secrets):
+define this variable in your repository settings (web interface: settings -> secrets):
 
-+ `PUBLISH_TARGET`: rsync will push the anthology to this target (e.g. `user@aclweb.org:anthology-static`)
 + `PUBLISH_SSH_KEY`: the secret key in standard pem format for authentication (without a passphrase)
-+ `PUBLISH_ANTHOLOGYHOST`: The host which will serve the anthology later on (e.g. `https://www.aclweb.org`)
 
 GitHub will then automatically build and deploy the current master whenever the master branch changes.
+This is done via the `upload` target in the Makefile.
 
 ### Cloning
 

@@ -211,6 +211,9 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
     journal_meta = xml_front_node.find("journal-meta")
     journal_title_group = journal_meta.find("journal-title-group")
     journal_title = journal_title_group.find("journal-title")
+    # For some reason, sometimes this is not present, so look for this one
+    if journal_title is None:
+        journal_title = journal_title_group.find("abbrev-journal-title")
     journal_title_text = journal_title.text
 
     article_meta = xml_front_node.find("article-meta")

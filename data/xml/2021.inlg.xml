@@ -1,0 +1,552 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.inlg">
+  <volume id="1" ingest-date="2021-09-20">
+    <meta>
+      <booktitle>Proceedings of the 14th International Conference on Natural Language Generation</booktitle>
+      <editor><first>Anya</first><last>Belz</last></editor>
+      <editor><first>Angela</first><last>Fan</last></editor>
+      <editor><first>Ehud</first><last>Reiter</last></editor>
+      <editor><first>Yaji</first><last>Sripada</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Aberdeen, Scotland, UK</address>
+      <month>August</month>
+      <year>2021</year>
+      <url hash="fd554c4d">2021.inlg-1</url>
+    </meta>
+    <frontmatter>
+      <url hash="61c58746">2021.inlg-1.0</url>
+      <bibkey>inlg-2021-international</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Generating Diverse Descriptions from Semantic Graphs</title>
+      <author><first>Jiuzhou</first><last>Han</last></author>
+      <author><first>Daniel</first><last>Beck</last></author>
+      <author><first>Trevor</first><last>Cohn</last></author>
+      <pages>1–11</pages>
+      <abstract>Text generation from semantic graphs is traditionally performed with deterministic methods, which generate a unique description given an input graph. However, the generation problem admits a range of acceptable textual outputs, exhibiting lexical, syntactic and semantic variation. To address this disconnect, we present two main contributions. First, we propose a stochastic graph-to-text model, incorporating a latent variable in an encoder-decoder model, and its use in an ensemble. Second, to assess the diversity of the generated sentences, we propose a new automatic evaluation metric which jointly evaluates output diversity and quality in a multi-reference setting. We evaluate the models on WebNLG datasets in English and Russian, and show an ensemble of stochastic models produces diverse sets of generated sentences while, retaining similar quality to state-of-the-art models.</abstract>
+      <url hash="77d12172">2021.inlg-1.1</url>
+      <bibkey>han-etal-2021-generating</bibkey>
+      <pwccode url="https://github.com/Jiuzhouh/Multi-Score" additional="false">Jiuzhouh/Multi-Score</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/webnlg">WebNLG</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title>Neural Methodius Revisited: Do Discourse Relations Help with Pre-Trained Models Too?</title>
+      <author><first>Aleksandre</first><last>Maskharashvili</last></author>
+      <author><first>Symon</first><last>Stevens-Guille</last></author>
+      <author><first>Xintong</first><last>Li</last></author>
+      <author><first>Michael</first><last>White</last></author>
+      <pages>12–23</pages>
+      <abstract>Recent developments in natural language generation (NLG) have bolstered arguments in favor of re-introducing explicit coding of discourse relations in the input to neural models. In the Methodius corpus, a meaning representation (MR) is hierarchically structured and includes discourse relations. Meanwhile pre-trained language models have been shown to implicitly encode rich linguistic knowledge which provides an excellent resource for NLG. By virtue of synthesizing these lines of research, we conduct extensive experiments on the benefits of using pre-trained models and discourse relation information in MRs, focusing on the improvement of discourse coherence and correctness. We redesign the Methodius corpus; we also construct another Methodius corpus in which MRs are not hierarchically structured but flat. We report experiments on different versions of the corpora, which probe when, where, and how pre-trained models benefit from MRs with discourse relation information in them. We conclude that discourse relations significantly improve NLG when data is limited.</abstract>
+      <url hash="c3d2f45e">2021.inlg-1.2</url>
+      <bibkey>maskharashvili-etal-2021-neural</bibkey>
+      <pwccode url="https://github.com/aleksadre/methodiusneuralinlg2021" additional="false">aleksadre/methodiusneuralinlg2021</pwccode>
+    </paper>
+    <paper id="3">
+      <title>Exploring Input Representation Granularity for Generating Questions Satisfying Question-Answer Congruence</title>
+      <author><first>Madeeswaran</first><last>Kannan</last></author>
+      <author><first>Haemanth</first><last>Santhi Ponnusamy</last></author>
+      <author><first>Kordula</first><last>De Kuthy</last></author>
+      <author><first>Lukas</first><last>Stein</last></author>
+      <author><first>Detmar</first><last>Meurers</last></author>
+      <pages>24–34</pages>
+      <abstract>In question generation, the question produced has to be well-formed and meaningfully related to the answer serving as input. Neural generation methods have predominantly leveraged the distributional semantics of words as representations of meaning and generated questions one word at a time. In this paper, we explore the viability of form-based and more fine-grained encodings, such as character or subword representations for question generation. We start from the typical seq2seq architecture using word embeddings presented by De Kuthy et al. (2020), who generate questions from text so that the answer given in the input text matches not just in meaning but also in form, satisfying question-answer congruence. We show that models trained on character and subword representations substantially outperform the published results based on word embeddings, and they do so with fewer parameters. Our approach eliminates two important problems of the word-based approach: the encoding of rare or out-of-vocabulary words and the incorrect replacement of words with semantically-related ones. The character-based model substantially improves on the published results, both in terms of BLEU scores and regarding the quality of the generated question. Going beyond the specific task, this result adds to the evidence weighing different form- and meaning-based representations for natural language processing tasks.</abstract>
+      <url hash="09da1a7f">2021.inlg-1.3</url>
+      <bibkey>kannan-etal-2021-exploring</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>Towards Zero-Shot Multilingual Synthetic Question and Answer Generation for Cross-Lingual Reading Comprehension</title>
+      <author><first>Siamak</first><last>Shakeri</last></author>
+      <author><first>Noah</first><last>Constant</last></author>
+      <author><first>Mihir</first><last>Kale</last></author>
+      <author><first>Linting</first><last>Xue</last></author>
+      <pages>35–45</pages>
+      <abstract>We propose a simple method to generate multilingual question and answer pairs on a large scale through the use of a single generative model. These synthetic samples can be used to improve the zero-shot performance of multilingual QA models on target languages. Our proposed multi-task training of the generative model only requires labeled training samples in English, thus removing the need for such samples in the target languages, making it applicable to far more languages than those with labeled data. Human evaluations indicate the majority of such samples are grammatically correct and sensible. Experimental results show our proposed approach can achieve large gains on the XQuAD dataset, reducing the gap between zero-shot and supervised performance of smaller QA models on various languages.</abstract>
+      <url hash="38a00ea8">2021.inlg-1.4</url>
+      <bibkey>shakeri-etal-2021-towards</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/c4">C4</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mlqa">MLQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDi QA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/xquad">XQuAD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mc4">mC4</pwcdataset>
+    </paper>
+    <paper id="5">
+      <title>Chefbot: A Novel Framework for the Generation of Commonsense-enhanced Responses for Task-based Dialogue Systems</title>
+      <author><first>Carl</first><last>Strathearn</last></author>
+      <author><first>Dimitra</first><last>Gkatzia</last></author>
+      <pages>46–47</pages>
+      <abstract>Conversational systems aim to generate responses that are accurate, relevant and engaging, either through utilising neural end-to-end models or through slot filling. Human-to-human conversations are enhanced by not only the latest utterance of the interlocutor, but also by recalling relevant information about concepts/objects covered in the dialogue and integrating them into their responses. Such information may contain recent referred concepts, commonsense knowledge and more. A concrete scenario of such dialogues is the cooking scenario, i.e. when an artificial agent (personal assistant, robot, chatbot) and a human converse about a recipe. We will demo a novel system for commonsense enhanced response generation in the scenario of cooking, where the conversational system is able to not only provide directions for cooking step-by-step, but also display <i>commonsense</i> capabilities by offering explanations of how objects can be used and provide recommendations for replacing ingredients.</abstract>
+      <url hash="532dee8f">2021.inlg-1.5</url>
+      <bibkey>strathearn-gkatzia-2021-chefbot</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Predicting Antonyms in Context using <fixed-case>BERT</fixed-case></title>
+      <author><first>Ayana</first><last>Niwa</last></author>
+      <author><first>Keisuke</first><last>Nishiguchi</last></author>
+      <author><first>Naoaki</first><last>Okazaki</last></author>
+      <pages>48–54</pages>
+      <abstract>We address the task of antonym prediction in a context, which is a fill-in-the-blanks problem. This task setting is unique and practical because it requires contrastiveness to the other word and naturalness as a text in filling a blank. We propose methods for fine-tuning pre-trained masked language models (BERT) for context-aware antonym prediction. The experimental results demonstrate that these methods have positive impacts on the prediction of antonyms within a context. Moreover, human evaluation reveals that more than 85% of predictions using the proposed method are acceptable as antonyms.</abstract>
+      <url hash="ffc3387c">2021.inlg-1.6</url>
+      <bibkey>niwa-etal-2021-predicting</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2018-task-9-hypernym-discovery">SemEval-2018 Task 9: Hypernym Discovery</pwcdataset>
+    </paper>
+    <paper id="7">
+      <title>Examining Covert Gender Bias: A Case Study in <fixed-case>T</fixed-case>urkish and <fixed-case>E</fixed-case>nglish Machine Translation Models</title>
+      <author><first>Chloe</first><last>Ciora</last></author>
+      <author><first>Nur</first><last>Iren</last></author>
+      <author><first>Malihe</first><last>Alikhani</last></author>
+      <pages>55–63</pages>
+      <abstract>As Machine Translation (MT) has become increasingly more powerful, accessible, and widespread, the potential for the perpetuation of bias has grown alongside its advances. While overt indicators of bias have been studied in machine translation, we argue that covert biases expose a problem that is further entrenched. Through the use of the gender-neutral language Turkish and the gendered language English, we examine cases of both overt and covert gender bias in MT models. Specifically, we introduce a method to investigate asymmetrical gender markings. We also assess bias in the attribution of personhood and examine occupational and personality stereotypes through overt bias indicators in MT models. Our work explores a deeper layer of bias in MT models and demonstrates the continued need for language-specific, interdisciplinary methodology in MT model development.</abstract>
+      <url hash="5260729e">2021.inlg-1.7</url>
+      <bibkey>ciora-etal-2021-examining</bibkey>
+      <pwccode url="https://github.com/NurIren/Gender-Bias-in-TR-to-EN-MT-Models" additional="false">NurIren/Gender-Bias-in-TR-to-EN-MT-Models</pwccode>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>W</fixed-case>ea<fixed-case>S</fixed-case>u<fixed-case>L</fixed-case>: Weakly Supervised Dialogue Policy Learning: Reward Estimation for Multi-turn Dialogue</title>
+      <author><first>Anant</first><last>Khandelwal</last></author>
+      <pages>64–75</pages>
+      <abstract>An intelligent dialogue system in a multi-turn setting should not only generate the responses which are of good quality, but it should also generate the responses which can lead to long-term success of the dialogue. Although, the current approaches improved the response quality, but they over-look the training signals present in the dialogue data. We can leverage these signals to generate the weakly supervised training data for learning dialog policy and reward estimator, and make the policy take actions (generates responses) which can foresee the future direction for a successful (rewarding) conversation. We simulate the dialogue between an agent and a user (modelled similar to an agent with supervised learning objective) to interact with each other. The agent uses dynamic blocking to generate ranked diverse responses and exploration-exploitation to select among the Top-K responses. Each simulated state-action pair is evaluated (works as a weak annotation) with three quality modules: Semantic Relevant, Semantic Coherence and Consistent Flow. Empirical studies with two benchmarks indicate that our model can significantly out-perform the response quality and lead to a successful conversation on both automatic evaluation and human judgment.</abstract>
+      <url hash="126b2d6e">2021.inlg-1.8</url>
+      <bibkey>khandelwal-2021-weasul-weakly</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Multi-Sentence Knowledge Selection in Open-Domain Dialogue</title>
+      <author><first>Mihail</first><last>Eric</last></author>
+      <author><first>Nicole</first><last>Chartier</last></author>
+      <author><first>Behnam</first><last>Hedayatnia</last></author>
+      <author><first>Karthik</first><last>Gopalakrishnan</last></author>
+      <author><first>Pankaj</first><last>Rajan</last></author>
+      <author id="yang-liu-icsi"><first>Yang</first><last>Liu</last></author>
+      <author><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <pages>76–86</pages>
+      <abstract>Incorporating external knowledge sources effectively in conversations is a longstanding problem in open-domain dialogue research. The existing literature on open-domain knowledge selection is limited and makes certain brittle assumptions on knowledge sources to simplify the overall task, such as the existence of a single relevant knowledge sentence per context. In this work, we evaluate the existing state of open-domain conversation knowledge selection, showing where the existing methodologies regarding data and evaluation are flawed. We then improve on them by proposing a new framework for collecting relevant knowledge, and create an augmented dataset based on the Wizard of Wikipedia (WOW) corpus, which we call WOW++. WOW++ averages 8 relevant knowledge sentences per dialogue context, embracing the inherent ambiguity of open-domain dialogue knowledge selection. We then benchmark various knowledge ranking algorithms on this augmented dataset with both intrinsic evaluation and extrinsic measures of response quality, showing that neural rerankers that use WOW++ can outperform rankers trained on standard datasets.</abstract>
+      <url hash="45ade724">2021.inlg-1.9</url>
+      <bibkey>eric-etal-2021-multi</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wizard-of-wikipedia">Wizard of Wikipedia</pwcdataset>
+    </paper>
+    <paper id="10">
+      <title>Self-Training for Compositional Neural <fixed-case>NLG</fixed-case> in Task-Oriented Dialogue</title>
+      <author><first>Xintong</first><last>Li</last></author>
+      <author><first>Symon</first><last>Stevens-Guille</last></author>
+      <author><first>Aleksandre</first><last>Maskharashvili</last></author>
+      <author><first>Michael</first><last>White</last></author>
+      <pages>87–102</pages>
+      <abstract>Neural approaches to natural language generation in task-oriented dialogue have typically required large amounts of annotated training data to achieve satisfactory performance, especially when generating from compositional inputs. To address this issue, we show that self-training enhanced with constrained decoding yields large gains in data efficiency on a conversational weather dataset that employs compositional meaning representations. In particular, our experiments indicate that self-training with constrained decoding can enable sequence-to-sequence models to achieve satisfactory quality using vanilla decoding with five to ten times less data than with ordinary supervised baseline; moreover, by leveraging pretrained models, data efficiency can be increased further to fifty times. We confirm the main automatic results with human evaluations and show that they extend to an enhanced, compositional version of the E2E dataset. The end result is an approach that makes it possible to achieve acceptable performance on compositional NLG tasks using hundreds rather than tens of thousands of training samples.</abstract>
+      <url hash="a39a71a0">2021.inlg-1.10</url>
+      <bibkey>li-etal-2021-self</bibkey>
+      <pwccode url="https://github.com/znculee/treenlg-bart" additional="true">znculee/treenlg-bart</pwccode>
+    </paper>
+    <paper id="11">
+      <title>Generating Racing Game Commentary from Vision, Language, and Structured Data</title>
+      <author><first>Tatsuya</first><last>Ishigaki</last></author>
+      <author><first>Goran</first><last>Topic</last></author>
+      <author><first>Yumi</first><last>Hamazono</last></author>
+      <author><first>Hiroshi</first><last>Noji</last></author>
+      <author><first>Ichiro</first><last>Kobayashi</last></author>
+      <author><first>Yusuke</first><last>Miyao</last></author>
+      <author><first>Hiroya</first><last>Takamura</last></author>
+      <pages>103–113</pages>
+      <abstract>We propose the task of automatically generating commentaries for races in a motor racing game, from vision, structured numerical, and textual data. Commentaries provide information to support spectators in understanding events in races. Commentary generation models need to interpret the race situation and generate the correct content at the right moment. We divide the task into two subtasks: utterance timing identification and utterance generation. Because existing datasets do not have such alignments of data in multiple modalities, this setting has not been explored in depth. In this study, we introduce a new large-scale dataset that contains aligned video data, structured numerical data, and transcribed commentaries that consist of 129,226 utterances in 1,389 races in a game. Our analysis reveals that the characteristics of commentaries change over time or from viewpoints. Our experiments on the subtasks show that it is still challenging for a state-of-the-art vision encoder to capture useful information from videos to generate accurate commentaries. We make the dataset and baseline implementation publicly available for further research.</abstract>
+      <url hash="4c3983f7">2021.inlg-1.11</url>
+      <bibkey>ishigaki-etal-2021-generating</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Explaining Decision-Tree Predictions by Addressing Potential Conflicts between Predictions and Plausible Expectations</title>
+      <author><first>Sameen</first><last>Maruf</last></author>
+      <author><first>Ingrid</first><last>Zukerman</last></author>
+      <author><first>Ehud</first><last>Reiter</last></author>
+      <author><first>Gholamreza</first><last>Haffari</last></author>
+      <pages>114–127</pages>
+      <abstract>We offer an approach to explain Decision Tree (DT) predictions by addressing potential conflicts between aspects of these predictions and plausible expectations licensed by background information. We define four types of conflicts, operationalize their identification, and specify explanatory schemas that address them. Our human evaluation focused on the effect of explanations on users’ understanding of a DT’s reasoning and their willingness to act on its predictions. The results show that (1) explanations that address potential conflicts are considered at least as good as baseline explanations that just follow a DT path; and (2) the conflict-based explanations are deemed especially valuable when users’ expectations disagree with the DT’s predictions.</abstract>
+      <url hash="0a6f5d87">2021.inlg-1.12</url>
+      <bibkey>maruf-etal-2021-explaining</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Formulating Neural Sentence Ordering as the Asymmetric Traveling Salesman Problem</title>
+      <author><first>Vishal</first><last>Keswani</last></author>
+      <author><first>Harsh</first><last>Jhamtani</last></author>
+      <pages>128–139</pages>
+      <abstract>The task of Sentence Ordering refers to rearranging a set of given sentences in a coherent ordering. Prior work (Prabhumoye et al., 2020) models this as an optimal graph traversal (with sentences as nodes, and edges as local constraints) using topological sorting. However, such an approach has major limitations – it cannot handle the presence of cycles in the resulting graphs and considers only the binary presence/absence of edges rather than a more granular score. In this work, we propose an alternate formulation of this task as a classic combinatorial optimization problem popular as the Traveling Salesman Problem (or TSP in short). Compared to the previous approach of using topological sorting, our proposed technique gracefully handles the presence of cycles and is more expressive since it takes into account real-valued constraint/edge scores rather than just the presence/absence of edges. Our experiments demonstrate improved handling of such cyclic cases in resulting graphs. Additionally, we highlight how model accuracy can be sensitive to the ordering of input sentences when using such graphs-based formulations. Finally, we note that our approach requires only lightweight fine-tuning of a classification layer built on pretrained BERT sentence encoder to identify local relationships.</abstract>
+      <url hash="c41bbe02">2021.inlg-1.13</url>
+      <bibkey>keswani-jhamtani-2021-formulating</bibkey>
+      <pwccode url="https://github.com/vkeswani/bertsp" additional="false">vkeswani/bertsp</pwccode>
+    </paper>
+    <paper id="14">
+      <title>Underreporting of errors in <fixed-case>NLG</fixed-case> output, and what to do about it</title>
+      <author><first>Emiel</first><last>van Miltenburg</last></author>
+      <author><first>Miruna</first><last>Clinciu</last></author>
+      <author><first>Ondřej</first><last>Dušek</last></author>
+      <author><first>Dimitra</first><last>Gkatzia</last></author>
+      <author><first>Stephanie</first><last>Inglis</last></author>
+      <author><first>Leo</first><last>Leppänen</last></author>
+      <author><first>Saad</first><last>Mahamood</last></author>
+      <author><first>Emma</first><last>Manning</last></author>
+      <author><first>Stephanie</first><last>Schoch</last></author>
+      <author><first>Craig</first><last>Thomson</last></author>
+      <author><first>Luou</first><last>Wen</last></author>
+      <pages>140–153</pages>
+      <abstract>We observe a severe under-reporting of the different kinds of errors that Natural Language Generation systems make. This is a problem, because mistakes are an important indicator of where systems should still be improved. If authors only report overall performance metrics, the research community is left in the dark about the specific weaknesses that are exhibited by ‘state-of-the-art’ research. Next to quantifying the extent of error under-reporting, this position paper provides recommendations for error identification, analysis and reporting.</abstract>
+      <url hash="a17c8e0e">2021.inlg-1.14</url>
+      <attachment type="Supplementary_Attachment" hash="302452fb">2021.inlg-1.14.Supplementary_Attachment.zip</attachment>
+      <bibkey>van-miltenburg-etal-2021-underreporting</bibkey>
+    </paper>
+    <paper id="15">
+      <title>What can Neural Referential Form Selectors Learn?</title>
+      <author><first>Guanyi</first><last>Chen</last></author>
+      <author><first>Fahime</first><last>Same</last></author>
+      <author><first>Kees</first><last>van Deemter</last></author>
+      <pages>154–166</pages>
+      <abstract>Despite achieving encouraging results, neural Referring Expression Generation models are often thought to lack transparency. We probed neural Referential Form Selection (RFS) models to find out to what extent the linguistic features influencing the RE form are learned and captured by state-of-the-art RFS models. The results of 8 probing tasks show that all the defined features were learned to some extent. The probing tasks pertaining to referential status and syntactic position exhibited the highest performance. The lowest performance was achieved by the probing models designed to predict discourse structure properties beyond the sentence level.</abstract>
+      <url hash="00e09a6e">2021.inlg-1.15</url>
+      <attachment type="Supplementary_Attachment" hash="634b0c83">2021.inlg-1.15.Supplementary_Attachment.zip</attachment>
+      <bibkey>chen-etal-2021-neural-referential</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/webnlg">WebNLG</pwcdataset>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>HI</fixed-case>-<fixed-case>CMLM</fixed-case>: Improve <fixed-case>CMLM</fixed-case> with Hybrid Decoder Input</title>
+      <author><first>Minghan</first><last>Wang</last></author>
+      <author><first>Guo</first><last>Jiaxin</last></author>
+      <author><first>Yuxia</first><last>Wang</last></author>
+      <author><first>Yimeng</first><last>Chen</last></author>
+      <author><first>Su</first><last>Chang</last></author>
+      <author><first>Daimeng</first><last>Wei</last></author>
+      <author><first>Min</first><last>Zhang</last></author>
+      <author><first>Shimin</first><last>Tao</last></author>
+      <author><first>Hao</first><last>Yang</last></author>
+      <pages>167–171</pages>
+      <abstract>Mask-predict CMLM (Ghazvininejad et al.,2019) has achieved stunning performance among non-autoregressive NMT models, but we find that the mechanism of predicting all of the target words only depending on the hidden state of [MASK] is not effective and efficient in initial iterations of refinement, resulting in ungrammatical repetitions and slow convergence. In this work, we mitigate this problem by combining copied source with embeddings of [MASK] in decoder. Notably. it’s not a straightforward copying that is shown to be useless, but a novel heuristic hybrid strategy — fence-mask. Experimental results show that it gains consistent boosts on both WMT14 En&lt;-&gt;De and WMT16 En&lt;-&gt;Ro corpus by 0.5 BLEU on average, and 1 BLEU for less-informative short sentences. This reveals that incorporating additional information by proper strategies is beneficial to improve CMLM, particularly translation quality of short texts and speeding up early-stage convergence.</abstract>
+      <url hash="aaa17567">2021.inlg-1.16</url>
+      <bibkey>wang-etal-2021-hi</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Using <fixed-case>BERT</fixed-case> for choosing classifiers in <fixed-case>M</fixed-case>andarin</title>
+      <author><first>Jani</first><last>Järnfors</last></author>
+      <author><first>Guanyi</first><last>Chen</last></author>
+      <author><first>Kees</first><last>van Deemter</last></author>
+      <author><first>Rint</first><last>Sybesma</last></author>
+      <pages>172–176</pages>
+      <abstract>Choosing the most suitable classifier in a linguistic context is a well-known problem in the production of Mandarin and many other languages. The present paper proposes a solution based on BERT, compares this solution to previous neural and rule-based models, and argues that the BERT model performs particularly well on those difficult cases where the classifier adds information to the text.</abstract>
+      <url hash="ac529884">2021.inlg-1.17</url>
+      <bibkey>jarnfors-etal-2021-using</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/chinese-classifier">Chinese Classifier</pwcdataset>
+    </paper>
+    <paper id="18">
+      <title>Enriching the <fixed-case>E</fixed-case>2<fixed-case>E</fixed-case> dataset</title>
+      <author><first>Thiago</first><last>Castro Ferreira</last></author>
+      <author><first>Helena</first><last>Vaz</last></author>
+      <author><first>Brian</first><last>Davis</last></author>
+      <author><first>Adriana</first><last>Pagano</last></author>
+      <pages>177–183</pages>
+      <abstract>This study introduces an enriched version of the E2E dataset, one of the most popular language resources for data-to-text NLG. We extract intermediate representations for popular pipeline tasks such as discourse ordering, text structuring, lexicalization and referring expression generation, enabling researchers to rapidly develop and evaluate their data-to-text pipeline systems. The intermediate representations are extracted by aligning non-linguistic and text representations through a process called delexicalization, which consists in replacing input referring expressions to entities/attributes with placeholders. The enriched dataset is publicly available.</abstract>
+      <url hash="d6562239">2021.inlg-1.18</url>
+      <bibkey>castro-ferreira-etal-2021-enriching</bibkey>
+      <pwccode url="https://github.com/ThiagoCF05/EnrichedE2E" additional="false">ThiagoCF05/EnrichedE2E</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/webnlg">WebNLG</pwcdataset>
+    </paper>
+    <paper id="19">
+      <title>Goal-Oriented Script Construction</title>
+      <author><first>Qing</first><last>Lyu</last></author>
+      <author><first>Li</first><last>Zhang</last></author>
+      <author><first>Chris</first><last>Callison-Burch</last></author>
+      <pages>184–200</pages>
+      <abstract>The knowledge of scripts, common chains of events in stereotypical scenarios, is a valuable asset for task-oriented natural language understanding systems. We propose the Goal-Oriented Script Construction task, where a model produces a sequence of steps to accomplish a given goal. We pilot our task on the first multilingual script learning dataset supporting 18 languages collected from wikiHow, a website containing half a million how-to articles. For baselines, we consider both a generation-based approach using a language model and a retrieval-based approach by first retrieving the relevant steps from a large candidate pool and then ordering them. We show that our task is practical, feasible but challenging for state-of-the-art Transformer models, and that our methods can be readily deployed for various other datasets and domains with decent zero-shot performance.</abstract>
+      <url hash="8fd5b8b1">2021.inlg-1.19</url>
+      <attachment type="Supplementary_Attachment" hash="11ce1c50">2021.inlg-1.19.Supplementary_Attachment.zip</attachment>
+      <bibkey>lyu-etal-2021-goal</bibkey>
+      <pwccode url="https://github.com/veronica320/wikihow-gosc" additional="false">veronica320/wikihow-gosc</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikihow">WikiHow</pwcdataset>
+    </paper>
+    <paper id="20">
+      <title>Single Example Can Improve Zero-Shot Data Generation</title>
+      <author><first>Pavel</first><last>Burnyshev</last></author>
+      <author><first>Valentin</first><last>Malykh</last></author>
+      <author><first>Andrey</first><last>Bout</last></author>
+      <author><first>Ekaterina</first><last>Artemova</last></author>
+      <author><first>Irina</first><last>Piontkovskaya</last></author>
+      <pages>201–211</pages>
+      <abstract>Sub-tasks of intent classification, such as robustness to distribution shift, adaptation to specific user groups and personalization, out-of-domain detection, require extensive and flexible datasets for experiments and evaluation. As collecting such datasets is time- and labor-consuming, we propose to use text generation methods to gather datasets. The generator should be trained to generate utterances that belong to the given intent. We explore two approaches to the generation of task-oriented utterances: in the zero-shot approach, the model is trained to generate utterances from seen intents and is further used to generate utterances for intents unseen during training. In the one-shot approach, the model is presented with a single utterance from a test intent. We perform a thorough automatic, and human evaluation of the intrinsic properties of two-generation approaches. The attributes of the generated data are close to original test sets, collected via crowd-sourcing.</abstract>
+      <url hash="bc6b2754">2021.inlg-1.20</url>
+      <bibkey>burnyshev-etal-2021-single</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/sgd">SGD</pwcdataset>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>SAPPHIRE</fixed-case>: Approaches for Enhanced Concept-to-Text Generation</title>
+      <author><first>Steven Y.</first><last>Feng</last></author>
+      <author><first>Jessica</first><last>Huynh</last></author>
+      <author><first>Chaitanya Prasad</first><last>Narisetty</last></author>
+      <author><first>Eduard</first><last>Hovy</last></author>
+      <author><first>Varun</first><last>Gangal</last></author>
+      <pages>212–225</pages>
+      <abstract>We motivate and propose a suite of simple but effective improvements for concept-to-text generation called SAPPHIRE: Set Augmentation and Post-hoc PHrase Infilling and REcombination. We demonstrate their effectiveness on generative commonsense reasoning, a.k.a. the CommonGen task, through experiments using both BART and T5 models. Through extensive automatic and human evaluation, we show that SAPPHIRE noticeably improves model performance. An in-depth qualitative analysis illustrates that SAPPHIRE effectively addresses many issues of the baseline model generations, including lack of commonsense, insufficient specificity, and poor fluency.</abstract>
+      <url hash="35a791e3">2021.inlg-1.21</url>
+      <bibkey>feng-etal-2021-sapphire</bibkey>
+      <pwccode url="https://github.com/styfeng/sapphire" additional="false">styfeng/sapphire</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/commongen">CommonGen</pwcdataset>
+    </paper>
+    <paper id="22">
+      <title>Contextualizing Variation in Text Style Transfer Datasets</title>
+      <author><first>Stephanie</first><last>Schoch</last></author>
+      <author><first>Wanyu</first><last>Du</last></author>
+      <author><first>Yangfeng</first><last>Ji</last></author>
+      <pages>226–239</pages>
+      <abstract>Text style transfer involves rewriting the content of a source sentence in a target style. Despite there being a number of style tasks with available data, there has been limited systematic discussion of how text style datasets relate to each other. This understanding, however, is likely to have implications for selecting multiple data sources for model training. While it is prudent to consider inherent stylistic properties when determining these relationships, we also must consider how a style is realized in a particular dataset. In this paper, we conduct several empirical analyses of existing text style datasets. Based on our results, we propose a categorization of stylistic and dataset properties to consider when utilizing or comparing text style datasets.</abstract>
+      <url hash="5cfcb3de">2021.inlg-1.22</url>
+      <bibkey>schoch-etal-2021-contextualizing</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/gyafc">GYAFC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
+    </paper>
+    <paper id="23">
+      <title>Generation Challenges: Results of the Accuracy Evaluation Shared Task</title>
+      <author><first>Craig</first><last>Thomson</last></author>
+      <author><first>Ehud</first><last>Reiter</last></author>
+      <pages>240–248</pages>
+      <abstract>The Shared Task on Evaluating Accuracy focused on techniques (both manual and automatic) for evaluating the factual accuracy of texts produced by neural NLG systems, in a sports-reporting domain. Four teams submitted evaluation techniques for this task, using very different approaches and techniques. The best-performing submissions did encouragingly well at this difficult task. However, all automatic submissions struggled to detect factual errors which are semantically or pragmatically complex (for example, based on incorrect computation or inference).</abstract>
+      <url hash="611b4355">2021.inlg-1.23</url>
+      <bibkey>thomson-reiter-2021-generation</bibkey>
+      <pwccode url="https://github.com/ehudreiter/accuracysharedtask" additional="false">ehudreiter/accuracysharedtask</pwccode>
+    </paper>
+    <paper id="24">
+      <title>The <fixed-case>R</fixed-case>epro<fixed-case>G</fixed-case>en Shared Task on Reproducibility of Human Evaluations in <fixed-case>NLG</fixed-case>: Overview and Results</title>
+      <author><first>Anya</first><last>Belz</last></author>
+      <author><first>Anastasia</first><last>Shimorina</last></author>
+      <author><first>Shubham</first><last>Agarwal</last></author>
+      <author><first>Ehud</first><last>Reiter</last></author>
+      <pages>249–258</pages>
+      <abstract>The NLP field has recently seen a substantial increase in work related to reproducibility of results, and more generally in recognition of the importance of having shared definitions and practices relating to evaluation. Much of the work on reproducibility has so far focused on metric scores, with reproducibility of human evaluation results receiving far less attention. As part of a research programme designed to develop theory and practice of reproducibility assessment in NLP, we organised the first shared task on reproducibility of human evaluations, ReproGen 2021. This paper describes the shared task in detail, summarises results from each of the reproduction studies submitted, and provides further comparative analysis of the results. Out of nine initial team registrations, we received submissions from four teams. Meta-analysis of the four reproduction studies revealed varying degrees of reproducibility, and allowed very tentative first conclusions about what types of evaluation tend to have better reproducibility.</abstract>
+      <url hash="f6d3a5f2">2021.inlg-1.24</url>
+      <bibkey>belz-etal-2021-reprogen</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Text-in-Context: Token-Level Error Detection for Table-to-Text Generation</title>
+      <author><first>Zdeněk</first><last>Kasner</last></author>
+      <author><first>Simon</first><last>Mille</last></author>
+      <author><first>Ondřej</first><last>Dušek</last></author>
+      <pages>259–265</pages>
+      <abstract>We present our Charles-UPF submission for the Shared Task on Evaluating Accuracy in Generated Texts at INLG 2021. Our system can detect the errors automatically using a combination of a rule-based natural language generation (NLG) system and pretrained language models (LMs). We first utilize a rule-based NLG system to generate sentences with facts that can be derived from the input. For each sentence we evaluate, we select a subset of facts which are relevant by measuring semantic similarity to the sentence in question. Finally, we finetune a pretrained language model on annotated data along with the relevant facts for fine-grained error detection. On the test set, we achieve 69% recall and 75% precision with a model trained on a mixture of human-annotated and synthetic data.</abstract>
+      <url hash="982cb039">2021.inlg-1.25</url>
+      <bibkey>kasner-etal-2021-text</bibkey>
+      <pwccode url="https://github.com/kasnerz/accuracysharedtask_cuni-upf" additional="false">kasnerz/accuracysharedtask_cuni-upf</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/rotowire">RotoWire</pwcdataset>
+    </paper>
+    <paper id="26">
+      <title>Shared Task in Evaluating Accuracy: Leveraging Pre-Annotations in the Validation Process</title>
+      <author><first>Nicolas</first><last>Garneau</last></author>
+      <author><first>Luc</first><last>Lamontagne</last></author>
+      <pages>266–270</pages>
+      <abstract>We hereby present our submission to the Shared Task in Evaluating Accuracy at the INLG 2021 Conference. Our evaluation protocol relies on three main components; rules and text classifiers that pre-annotate the dataset, a human annotator that validates the pre-annotations, and a web interface that facilitates this validation. Our submission consists in fact of two submissions; we first analyze solely the performance of the rules and classifiers (pre-annotations), and then the human evaluation aided by the former pre-annotations using the web interface (hybrid). The code for the web interface and the classifiers is publicly available.</abstract>
+      <url hash="fbf1bf5a">2021.inlg-1.26</url>
+      <bibkey>garneau-lamontagne-2021-shared</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Automatic Verification of Data Summaries</title>
+      <author><first>Rayhane</first><last>Rezgui</last></author>
+      <author><first>Mohammed</first><last>Saeed</last></author>
+      <author><first>Paolo</first><last>Papotti</last></author>
+      <pages>271–275</pages>
+      <abstract>We present a generic method to compute thefactual accuracy of a generated data summarywith minimal user effort. We look at the prob-lem as a fact-checking task to verify the nu-merical claims in the text. The verification al-gorithm assumes that the data used to generatethe text is available. In this paper, we describehow the proposed solution has been used toidentify incorrect claims about basketball tex-tual summaries in the context of the AccuracyShared Task at INLG 2021.</abstract>
+      <url hash="87ee832b">2021.inlg-1.27</url>
+      <bibkey>rezgui-etal-2021-automatic</bibkey>
+    </paper>
+    <paper id="28">
+      <title>Grounding <fixed-case>NBA</fixed-case> Matchup Summaries</title>
+      <author><first>Tadashi</first><last>Nomoto</last></author>
+      <pages>276–281</pages>
+      <abstract>The present paper summarizes an attempt we made to meet a shared task challenge on grounding machine-generated summaries of NBA matchups (https://github.com/ehudreiter/accuracySharedTask.git). In the first half, we discuss methods and in the second, we report results, together with a discussion on what feature may have had an effect on the performance.</abstract>
+      <url hash="b5fa3711">2021.inlg-1.28</url>
+      <bibkey>nomoto-2021-grounding</bibkey>
+      <pwccode url="https://github.com/ehudreiter/accuracysharedtask" additional="false">ehudreiter/accuracysharedtask</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/rotowire">RotoWire</pwcdataset>
+    </paper>
+    <paper id="29">
+      <title>Reproducing a Comparison of Hedged and Non-hedged <fixed-case>NLG</fixed-case> Texts</title>
+      <author><first>Saad</first><last>Mahamood</last></author>
+      <pages>282–285</pages>
+      <abstract>This paper describes an attempt to reproduce an earlier experiment, previously conducted by the author, that compares hedged and non-hedged NLG texts as part of the ReproGen shared challenge. This reproduction effort was only able to partially replicate results from the original study. The analyisis from this reproduction effort suggests that whilst it is possible to replicate the procedural aspects of a previous study, replicating the results can prove more challenging as differences in participant type can have a potential impact.</abstract>
+      <url hash="64443a05">2021.inlg-1.29</url>
+      <bibkey>mahamood-2021-reproducing</bibkey>
+      <pwccode url="https://github.com/saad-mahamood/reprohum2021" additional="false">saad-mahamood/reprohum2021</pwccode>
+    </paper>
+    <paper id="30">
+      <title>Another <fixed-case>PASS</fixed-case>: A Reproduction Study of the Human Evaluation of a Football Report Generation System</title>
+      <author><first>Simon</first><last>Mille</last></author>
+      <author><first>Thiago</first><last>Castro Ferreira</last></author>
+      <author><first>Anya</first><last>Belz</last></author>
+      <author><first>Brian</first><last>Davis</last></author>
+      <pages>286–292</pages>
+      <abstract>This paper reports results from a reproduction study in which we repeated the human evaluation of the PASS Dutch-language football report generation system (van der Lee et al., 2017). The work was carried out as part of the ReproGen Shared Task on Reproducibility of Human Evaluations in NLG, in Track A (Paper 1). We aimed to repeat the original study exactly, with the main difference that a different set of evaluators was used. We describe the study design, present the results from the original and the reproduction study, and then compare and analyse the differences between the two sets of results. For the two ‘headline’ results of average Fluency and Clarity, we find that in both studies, the system was rated more highly for Clarity than for Fluency, and Clarity had higher standard deviation. Clarity and Fluency ratings were higher, and their standard deviations lower, in the reproduction study than in the original study by substantial margins. Clarity had a higher degree of reproducibility than Fluency, as measured by the coefficient of variation. Data and code are publicly available.</abstract>
+      <url hash="09d878f2">2021.inlg-1.30</url>
+      <bibkey>mille-etal-2021-another</bibkey>
+    </paper>
+    <paper id="31">
+      <title>A Reproduction Study of an Annotation-based Human Evaluation of <fixed-case>MT</fixed-case> Outputs</title>
+      <author><first>Maja</first><last>Popović</last></author>
+      <author><first>Anya</first><last>Belz</last></author>
+      <pages>293–300</pages>
+      <abstract>In this paper we report our reproduction study of the Croatian part of an annotation-based human evaluation of machine-translated user reviews (Popovic, 2020). The work was carried out as part of the ReproGen Shared Task on Reproducibility of Human Evaluation in NLG. Our aim was to repeat the original study exactly, except for using a different set of evaluators. We describe the experimental design, characterise differences between original and reproduction study, and present the results from each study, along with analysis of the similarity between them. For the six main evaluation results of Major/Minor/All Comprehension error rates and Major/Minor/All Adequacy error rates, we find that (i) 4/6 system rankings are the same in both studies, (ii) the relative differences between systems are replicated well for Major Comprehension and Adequacy (Pearson’s &gt; 0.9), but not for the corresponding Minor error rates (Pearson’s 0.36 for Adequacy, 0.67 for Comprehension), and (iii) the individual system scores for both types of Minor error rates had a higher degree of reproducibility than the corresponding Major error rates. We also examine inter-annotator agreement and compare the annotations obtained in the original and reproduction studies.</abstract>
+      <url hash="d8082155">2021.inlg-1.31</url>
+      <bibkey>popovic-belz-2021-reproduction</bibkey>
+    </paper>
+    <paper id="32">
+      <title><fixed-case>TUDA</fixed-case>-Reproducibility @ <fixed-case>R</fixed-case>epro<fixed-case>G</fixed-case>en: Replicability of Human Evaluation of Text-to-Text and Concept-to-Text Generation</title>
+      <author><first>Christian</first><last>Richter</last></author>
+      <author><first>Yanran</first><last>Chen</last></author>
+      <author><first>Steffen</first><last>Eger</last></author>
+      <pages>301–307</pages>
+      <abstract>This paper describes our contribution to the Shared Task ReproGen by Belz et al. (2021), which investigates the reproducibility of human evaluations in the context of Natural Language Generation. We selected the paper “Generation of Company descriptions using concept-to-text and text-to-text deep models: data set collection and systems evaluation” (Qader et al., 2018) and aimed to replicate, as closely to the original as possible, the human evaluation and the subsequent comparison between the human judgements and the automatic evaluation metrics. Here, we first outline the text generation task of the paper of Qader et al. (2018). Then, we document how we approached our replication of the paper’s human evaluation. We also discuss the difficulties we encountered and which information was missing. Our replication has medium to strong correlation (0.66 Spearman overall) with the original results of Qader et al. (2018), but due to the missing information about how Qader et al. (2018) compared the human judgements with the metric scores, we have refrained from reproducing this comparison.</abstract>
+      <url hash="65d43df5">2021.inlg-1.32</url>
+      <bibkey>richter-etal-2021-tuda</bibkey>
+    </paper>
+    <paper id="33">
+      <title><fixed-case>D</fixed-case>ialog<fixed-case>S</fixed-case>um Challenge: Summarizing Real-Life Scenario Dialogues</title>
+      <author><first>Yulong</first><last>Chen</last></author>
+      <author id="yang-liu-edinburgh"><first>Yang</first><last>Liu</last></author>
+      <author><first>Yue</first><last>Zhang</last></author>
+      <pages>308–313</pages>
+      <abstract>We propose a shared task on summarizing real-life scenario dialogues, DialogSum Challenge, to encourage researchers to address challenges in dialogue summarization, which has been less studied by the summarization community. Real-life scenario dialogue summarization has a wide potential application prospect in chat-bot and personal assistant. It contains unique challenges such as special discourse structure, coreference, pragmatics, and social common sense, which require specific representation learning technologies to deal with. We carefully annotate a large-scale dialogue summarization dataset based on multiple public dialogue corpus, opening the door to all kinds of summarization models.</abstract>
+      <url hash="5c2b25d1">2021.inlg-1.33</url>
+      <bibkey>chen-etal-2021-dialogsum-challenge</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/dream">DREAM</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/dialogsum">DialogSum</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mutual">MuTual</pwcdataset>
+    </paper>
+    <paper id="34">
+      <title>Quality Evaluation of the Low-Resource Synthetically Generated Code-Mixed <fixed-case>H</fixed-case>inglish Text</title>
+      <author><first>Vivek</first><last>Srivastava</last></author>
+      <author><first>Mayank</first><last>Singh</last></author>
+      <pages>314–319</pages>
+      <abstract>In this shared task, we seek the participating teams to investigate the factors influencing the quality of the code-mixed text generation systems. We synthetically generate code-mixed Hinglish sentences using two distinct approaches and employ human annotators to rate the generation quality. We propose two subtasks, quality rating prediction and annotators’ disagreement prediction of the synthetic Hinglish dataset. The proposed subtasks will put forward the reasoning and explanation of the factors influencing the quality and human perception of the code-mixed text.</abstract>
+      <url hash="7ca3c662">2021.inlg-1.34</url>
+      <bibkey>srivastava-singh-2021-quality</bibkey>
+    </paper>
+    <paper id="35">
+      <title>Shared Task on Feedback Comment Generation for Language Learners</title>
+      <author><first>Ryo</first><last>Nagata</last></author>
+      <author><first>Masato</first><last>Hagiwara</last></author>
+      <author><first>Kazuaki</first><last>Hanawa</last></author>
+      <author><first>Masato</first><last>Mita</last></author>
+      <author><first>Artem</first><last>Chernodub</last></author>
+      <author><first>Olena</first><last>Nahorna</last></author>
+      <pages>320–324</pages>
+      <abstract>In this paper, we propose a generation challenge called Feedback comment generation for language learners. It is a task where given a text and a span, a system generates, for the span, an explanatory note that helps the writer (language learner) improve their writing skills. The motivations for this challenge are: (i) practically, it will be beneficial for both language learners and teachers if a computer-assisted language learning system can provide feedback comments just as human teachers do; (ii) theoretically, feedback comment generation for language learners has a mixed aspect of other generation tasks together with its unique features and it will be interesting to explore what kind of generation technique is effective against what kind of writing rule. To this end, we have created a dataset and developed baseline systems to estimate baseline performance. With these preparations, we propose a generation challenge of feedback comment generation.</abstract>
+      <url hash="b671e03a">2021.inlg-1.35</url>
+      <bibkey>nagata-etal-2021-shared</bibkey>
+    </paper>
+    <paper id="36">
+      <title>The <fixed-case>S</fixed-case>elect<fixed-case>G</fixed-case>en Challenge: Finding the Best Training Samples for Few-Shot Neural Text Generation</title>
+      <author><first>Ernie</first><last>Chang</last></author>
+      <author><first>Xiaoyu</first><last>Shen</last></author>
+      <author><first>Alex</first><last>Marin</last></author>
+      <author><first>Vera</first><last>Demberg</last></author>
+      <pages>325–330</pages>
+      <abstract>We propose a shared task on training instance selection for few-shot neural text generation. Large-scale pretrained language models have led to dramatic improvements in few-shot text generation. Nonetheless, almost all previous work simply applies random sampling to select the few-shot training instances. Little to no attention has been paid to the selection strategies and how they would affect model performance. Studying the selection strategy can help us (1) make the most use of our annotation budget in downstream tasks and (2) better benchmark few-shot text generative models. We welcome submissions that present their selection strategies and the effects on the generation quality.</abstract>
+      <url hash="d330b73f">2021.inlg-1.36</url>
+      <bibkey>chang-etal-2021-selectgen</bibkey>
+    </paper>
+    <paper id="37">
+      <title>Affective Decoding for Empathetic Response Generation</title>
+      <author><first>Chengkun</first><last>Zeng</last></author>
+      <author><first>Guanyi</first><last>Chen</last></author>
+      <author><first>Chenghua</first><last>Lin</last></author>
+      <author><first>Ruizhe</first><last>Li</last></author>
+      <author><first>Zhi</first><last>Chen</last></author>
+      <pages>331–340</pages>
+      <abstract>Understanding speaker’s feelings and producing appropriate responses with emotion connection is a key communicative skill for empathetic dialogue systems. In this paper, we propose a simple technique called Affective Decoding for empathetic response generation. Our method can effectively incorporate emotion signals during each decoding step, and can additionally be augmented with an auxiliary dual emotion encoder, which learns separate embeddings for the speaker and listener given the emotion base of the dialogue. Extensive empirical studies show that our models are perceived to be more empathetic by human evaluations, in comparison to several strong mainstream methods for empathetic responding.</abstract>
+      <url hash="e4e2e2ae">2021.inlg-1.37</url>
+      <bibkey>zeng-etal-2021-affective</bibkey>
+      <pwccode url="https://github.com/zenggo/affective-decoding-4-empathetic-dialog" additional="false">zenggo/affective-decoding-4-empathetic-dialog</pwccode>
+    </paper>
+    <paper id="38">
+      <title>Controllable Sentence Simplification with a Unified Text-to-Text Transfer Transformer</title>
+      <author><first>Kim Cheng</first><last>Sheang</last></author>
+      <author><first>Horacio</first><last>Saggion</last></author>
+      <pages>341–352</pages>
+      <abstract>Recently, a large pre-trained language model called T5 (A Unified Text-to-Text Transfer Transformer) has achieved state-of-the-art performance in many NLP tasks. However, no study has been found using this pre-trained model on Text Simplification. Therefore in this paper, we explore the use of T5 fine-tuning on Text Simplification combining with a controllable mechanism to regulate the system outputs that can help generate adapted text for different target audiences. Our experiments show that our model achieves remarkable results with gains of between +0.69 and +1.41 over the current state-of-the-art (BART+ACCESS). We argue that using a pre-trained model such as T5, trained on several tasks with large amounts of data, can help improve Text Simplification.</abstract>
+      <url hash="e5b994d2">2021.inlg-1.38</url>
+      <bibkey>sheang-saggion-2021-controllable</bibkey>
+      <pwccode url="https://github.com/kimchengsheang/ts_t5" additional="false">kimchengsheang/ts_t5</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/asset">ASSET</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/turkcorpus">TurkCorpus</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikilarge">WikiLarge</pwcdataset>
+    </paper>
+    <paper id="39">
+      <title><fixed-case>SEPRG</fixed-case>: Sentiment aware Emotion controlled Personalized Response Generation</title>
+      <author><first>Mauajama</first><last>Firdaus</last></author>
+      <author><first>Umang</first><last>Jain</last></author>
+      <author><first>Asif</first><last>Ekbal</last></author>
+      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <pages>353–363</pages>
+      <abstract>Social chatbots have gained immense popularity, and their appeal lies not just in their capacity to respond to the diverse requests from users, but also in the ability to develop an emotional connection with users. To further develop and promote social chatbots, we need to concentrate on increasing user interaction and take into account both the intellectual and emotional quotient in the conversational agents. Therefore, in this work, we propose the task of sentiment aware emotion controlled personalized dialogue generation giving the machine the capability to respond emotionally and in accordance with the persona of the user. As sentiment and emotions are highly co-related, we use the sentiment knowledge of the previous utterance to generate the correct emotional response in accordance with the user persona. We design a Transformer based Dialogue Generation framework, that generates responses that are sensitive to the emotion of the user and corresponds to the persona and sentiment as well. Moreover, the persona information is encoded by a different Transformer encoder, along with the dialogue history, is fed to the decoder for generating responses. We annotate the PersonaChat dataset with sentiment information to improve the response quality. Experimental results on the PersonaChat dataset show that the proposed framework significantly outperforms the existing baselines, thereby generating personalized emotional responses in accordance with the sentiment that provides better emotional connection and user satisfaction as desired in a social chatbot.</abstract>
+      <url hash="5d17bbe4">2021.inlg-1.39</url>
+      <bibkey>firdaus-etal-2021-seprg</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/persona-chat-1">PERSONA-CHAT</pwcdataset>
+    </paper>
+    <paper id="40">
+      <title>Biomedical Data-to-Text Generation via Fine-Tuning Transformers</title>
+      <author><first>Ruslan</first><last>Yermakov</last></author>
+      <author><first>Nicholas</first><last>Drago</last></author>
+      <author><first>Angelo</first><last>Ziletti</last></author>
+      <pages>364–370</pages>
+      <abstract>Data-to-text (D2T) generation in the biomedical domain is a promising - yet mostly unexplored - field of research. Here, we apply neural models for D2T generation to a real-world dataset consisting of package leaflets of European medicines. We show that fine-tuned transformers are able to generate realistic, multi-sentence text from data in the biomedical domain, yet have important limitations. We also release a new dataset (BioLeaflets) for benchmarking D2T generation models in the biomedical domain.</abstract>
+      <url hash="62dd2e99">2021.inlg-1.40</url>
+      <bibkey>yermakov-etal-2021-biomedical</bibkey>
+      <pwccode url="https://github.com/bayer-science-for-a-better-life/data2text-bioleaflets" additional="false">bayer-science-for-a-better-life/data2text-bioleaflets</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/bioleaflets">BioLeaflets</pwcdataset>
+    </paper>
+    <paper id="41">
+      <title>Decoding, Fast and Slow: A Case Study on Balancing Trade-Offs in Incremental, Character-level Pragmatic Reasoning</title>
+      <author><first>Sina</first><last>Zarrieß</last></author>
+      <author><first>Hendrik</first><last>Buschmeier</last></author>
+      <author><first>Ting</first><last>Han</last></author>
+      <author><first>Simeon</first><last>Schüz</last></author>
+      <pages>371–376</pages>
+      <abstract>Recent work has adopted models of pragmatic reasoning for the generation of informative language in, e.g., image captioning. We propose a simple but highly effective relaxation of fully rational decoding, based on an existing incremental and character-level approach to pragmatically informative neural image captioning. We implement a mixed, ‘fast’ and ‘slow’, speaker that applies pragmatic reasoning occasionally (only word-initially), while unrolling the language model. In our evaluation, we find that increased informativeness through pragmatic decoding generally lowers quality and, somewhat counter-intuitively, increases repetitiveness in captions. Our mixed speaker, however, achieves a good balance between quality and informativeness.</abstract>
+      <url hash="5bfa463c">2021.inlg-1.41</url>
+      <bibkey>zarriess-etal-2021-decoding</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+    </paper>
+    <paper id="42">
+      <title><fixed-case>G</fixed-case>raph<fixed-case>P</fixed-case>lan: Story Generation by Planning with Event Graph</title>
+      <author><first>Hong</first><last>Chen</last></author>
+      <author><first>Raphael</first><last>Shu</last></author>
+      <author><first>Hiroya</first><last>Takamura</last></author>
+      <author><first>Hideki</first><last>Nakayama</last></author>
+      <pages>377–386</pages>
+      <abstract>Story generation is a task that aims to automatically generate a meaningful story. This task is challenging because it requires high-level understanding of the semantic meaning of sentences and causality of story events. Naivesequence-to-sequence models generally fail to acquire such knowledge, as it is difficult to guarantee logical correctness in a text generation model without strategic planning. In this study, we focus on planning a sequence of events assisted by event graphs and use the events to guide the generator. Rather than using a sequence-to-sequence model to output a sequence, as in some existing works, we propose to generate an event sequence by walking on an event graph. The event graphs are built automatically based on the corpus. To evaluate the proposed approach, we incorporate human participation, both in event planning and story generation. Based on the largescale human annotation results, our proposed approach has been shown to provide more logically correct event sequences and stories compared with previous approaches.</abstract>
+      <url hash="7a88f47e">2021.inlg-1.42</url>
+      <bibkey>chen-etal-2021-graphplan</bibkey>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>BERT</fixed-case>-based distractor generation for <fixed-case>S</fixed-case>wedish reading comprehension questions using a small-scale dataset</title>
+      <author><first>Dmytro</first><last>Kalpakchi</last></author>
+      <author><first>Johan</first><last>Boye</last></author>
+      <pages>387–403</pages>
+      <abstract>An important part when constructing multiple-choice questions (MCQs) for reading comprehension assessment are the distractors, the incorrect but preferably plausible answer options. In this paper, we present a new BERT-based method for automatically generating distractors using only a small-scale dataset. We also release a new such dataset of Swedish MCQs (used for training the model), and propose a methodology for assessing the generated distractors. Evaluation shows that from a student’s perspective, our method generated one or more plausible distractors for more than 50% of the MCQs in our test set. From a teacher’s perspective, about 50% of the generated distractors were deemed appropriate. We also do a thorough analysis of the results.</abstract>
+      <url hash="5c2bc4e0">2021.inlg-1.43</url>
+      <bibkey>kalpakchi-boye-2021-bert</bibkey>
+      <pwccode url="https://github.com/dkalpakchi/swequad-mc" additional="false">dkalpakchi/swequad-mc</pwccode>
+    </paper>
+    <paper id="44">
+      <title>Exploring Structural Encoding for Data-to-Text Generation</title>
+      <author><first>Joy</first><last>Mahapatra</last></author>
+      <author><first>Utpal</first><last>Garain</last></author>
+      <pages>404–415</pages>
+      <abstract>Due to efficient end-to-end training and fluency in generated texts, several encoder-decoder framework-based models are recently proposed for data-to-text generations. Appropriate encoding of input data is a crucial part of such encoder-decoder models. However, only a few research works have concentrated on proper encoding methods. This paper presents a novel encoder-decoder based data-to-text generation model where the proposed encoder carefully encodes input data according to underlying structure of the data. The effectiveness of the proposed encoder is evaluated both extrinsically and intrinsically by shuffling input data without changing meaning of that data. For selecting appropriate content information in encoded data from encoder, the proposed model incorporates attention gates in the decoder. With extensive experiments on WikiBio and E2E dataset, we show that our model outperforms the state-of-the models and several standard baseline systems. Analysis of the model through component ablation tests and human evaluation endorse the proposed model as a well-grounded system.</abstract>
+      <url hash="b676d59f">2021.inlg-1.44</url>
+      <bibkey>mahapatra-garain-2021-exploring</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikibio">WikiBio</pwcdataset>
+    </paper>
+    <paper id="45">
+      <title>Attention Is Indeed All You Need: Semantically Attention-Guided Decoding for Data-to-Text <fixed-case>NLG</fixed-case></title>
+      <author><first>Juraj</first><last>Juraska</last></author>
+      <author><first>Marilyn</first><last>Walker</last></author>
+      <pages>416–431</pages>
+      <abstract>Ever since neural models were adopted in data-to-text language generation, they have invariably been reliant on extrinsic components to improve their semantic accuracy, because the models normally do not exhibit the ability to generate text that reliably mentions all of the information provided in the input. In this paper, we propose a novel decoding method that extracts interpretable information from encoder-decoder models’ cross-attention, and uses it to infer which attributes are mentioned in the generated text, which is subsequently used to rescore beam hypotheses. Using this decoding method with T5 and BART, we show on three datasets its ability to dramatically reduce semantic errors in the generated outputs, while maintaining their state-of-the-art quality.</abstract>
+      <url hash="924003e6">2021.inlg-1.45</url>
+      <bibkey>juraska-walker-2021-attention</bibkey>
+      <pwccode url="https://github.com/jjuraska/data2text-nlg" additional="false">jjuraska/data2text-nlg</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/viggo">ViGGO</pwcdataset>
+    </paper>
+  </volume>
+</collection>

@@ -30,7 +30,7 @@ def read_bibtex(bibfilename):
             bibstring = bibbytes.decode(encoding)
         except UnicodeDecodeError:
             continue
-        logging.debug("{}: using {} encoding".format(bibfilename, encoding))
+        logging.debug(f"{bibfilename}: using {encoding} encoding")
         break
     else:
         logging.warning("couldn't figure out encoding; using ascii with escapes")
@@ -43,9 +43,10 @@ def read_bibtex(bibfilename):
     #                fake_parse]:
     try:
         bibdata = pybtex.database.parse_string(bibstring, "bibtex")
-    except:
+    except Exception as e:
         import sys
 
         print(f"Failed to parse {bibfilename}", file=sys.stderr)
+        print(e)
         sys.exit(1)
     return bibdata
