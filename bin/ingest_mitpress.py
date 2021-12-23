@@ -36,14 +36,15 @@ Warning (August 2020): not yet tested with CL, but should work!
 
 Authors: Arya D. McCarthy, Matt Post
 """
-import logging
 import os
 import shutil
+import logging
 import lxml.etree as etree
 
 from pathlib import Path
 from typing import List, Optional, Tuple
 
+from anthology import Anthology, Paper, Volume
 from normalize_anth import normalize
 from anthology.utils import make_simple_element, indent, compute_hash_from_file
 
@@ -332,6 +333,8 @@ def issue_info_to_node(
 
 
 def main(args):
+    anthology = Anthology(importdir=os.path.join(args.anthology_dir, "data"), require_bibkeys=False)
+
     is_tacl = "tacl" in args.root_dir.stem
 
     venue = TACL if is_tacl else CL  # J for CL, Q for TACL.
@@ -390,17 +393,17 @@ def main(args):
             previous_issue_info = issue_info
 
             # Look for node in tree, else create it
-            volume = collection.find(f'./volume[@id="{issue}"]')
-            if volume is None:
+            volume_xml = collection.find(f'./volume[@id="{issue}"]')
+            if volume_xml is None:
                 # xml volume = journal issue
-                volume = make_simple_element(
+                volume_xml = make_simple_element(
                     "volume", attrib={"id": issue}, parent=collection
                 )
-                volume.append(
+                volume_xml.append(
                     issue_info_to_node(issue_info, year, collection_id, is_tacl)
                 )
             else:
-                for paper in volume.findall(".//paper"):
+                for paper in volume_xml.findall(".//paper"):
                     paper_id = max(paper_id, int(paper.attrib["id"]))
                     print(f"Setting paper_id to {paper_id}")
                 paper_id += 1
@@ -429,10 +432,22 @@ def main(args):
         url.text = url_text
         papernode.append(url)
 
+        # Generate bibkey
+        volume = Volume.from_xml(
+            volume_xml,
+            collection_id,
+            anthology.venues,
+            anthology.sigs,
+            anthology.formatter,
+        )
+        paper = Paper.from_xml(papernode, volume, anthology.formatter)
+        bibkey = anthology.pindex.create_bibkey(paper, vidx=anthology.venues)
+        make_simple_element("bibkey", bibkey, parent=papernode)
+
         # Normalize
         for oldnode in papernode:
             normalize(oldnode, informat="latex")
-        volume.append(papernode)
+        volume_xml.append(papernode)
 
         paper_id += 1
 
