@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.newsum">
+  <volume id="1" ingest-date="2021-10-28">
+    <meta>
+      <booktitle>Proceedings of the Third Workshop on New Frontiers in Summarization</booktitle>
+      <editor><first>Giuseppe</first><last>Carenini</last></editor>
+      <editor><first>Jackie Chi Kit</first><last>Cheung</last></editor>
+      <editor><first>Yue</first><last>Dong</last></editor>
+      <editor id="fei-liu-utdallas"><first>Fei</first><last>Liu</last></editor>
+      <editor><first>Lu</first><last>Wang</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Online and in Dominican Republic</address>
+      <month>November</month>
+      <year>2021</year>
+    </meta>
+    <frontmatter>
+      <url hash="50975032">2021.newsum-1.0</url>
+      <bibkey>newsum-2021-new</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Sentence-level Planning for Especially Abstractive Summarization</title>
+      <author><first>Andreas</first><last>Marfurt</last></author>
+      <author><first>James</first><last>Henderson</last></author>
+      <pages>1–14</pages>
+      <abstract>Abstractive summarization models heavily rely on copy mechanisms, such as the pointer network or attention, to achieve good performance, measured by textual overlap with reference summaries. As a result, the generated summaries stay close to the formulations in the source document. We propose the *sentence planner* model to generate more abstractive summaries. It includes a hierarchical decoder that first generates a representation for the next summary sentence, and then conditions the word generator on this representation. Our generated summaries are more abstractive and at the same time achieve high ROUGE scores when compared to human reference summaries. We verify the effectiveness of our design decisions with extensive evaluations.</abstract>
+      <url hash="6c478295">2021.newsum-1.1</url>
+      <bibkey>marfurt-henderson-2021-sentence</bibkey>
+      <pwccode url="https://github.com/idiap/sentence-planner" additional="false">idiap/sentence-planner</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title>Template-aware Attention Model for Earnings Call Report Generation</title>
+      <author><first>Yangchen</first><last>Huang</last></author>
+      <author><first>Prashant K.</first><last>Dhingra</last></author>
+      <author><first>Seyed Danial</first><last>Mohseni Taheri</last></author>
+      <pages>15–24</pages>
+      <abstract>Earning calls are among important resources for investors and analysts for updating their price targets. Firms usually publish corresponding transcripts soon after earnings events. However, raw transcripts are often too long and miss the coherent structure. To enhance the clarity, analysts write well-structured reports for some important earnings call events by analyzing them, requiring time and effort. In this paper, we propose TATSum (Template-Aware aTtention model for Summarization), a generalized neural summarization approach for structured report generation, and evaluate its performance in the earnings call domain. We build a large corpus with thousands of transcripts and reports using historical earnings events. We first generate a candidate set of reports from the corpus as potential soft templates which do not impose actual rules on the output. Then, we employ an encoder model with margin-ranking loss to rank the candidate set and select the best quality template. Finally, the transcript and the selected soft template are used as input in a seq2seq framework for report generation. Empirical results on the earnings call dataset show that our model significantly outperforms state-of-the-art models in terms of informativeness and structure.</abstract>
+      <url hash="7a331d05">2021.newsum-1.2</url>
+      <bibkey>huang-etal-2021-template</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Knowledge and Keywords Augmented Abstractive Sentence Summarization</title>
+      <author><first>Shuo</first><last>Guan</last></author>
+      <pages>25–32</pages>
+      <abstract>In this paper, we study the abstractive sentence summarization. There are two essential information features that can influence the quality of news summarization, which are topic keywords and the knowledge structure of the news text. Besides, the existing knowledge encoder has poor performance on sparse sentence knowledge structure. Considering these, we propose KAS, a novel Knowledge and Keywords Augmented Abstractive Sentence Summarization framework. Tri-encoders are utilized to integrate contexts of original text, knowledge structure and keywords topic simultaneously, with a special linearized knowledge structure. Automatic and human evaluations demonstrate that KAS achieves the best performances.</abstract>
+      <url hash="459bfadf">2021.newsum-1.3</url>
+      <bibkey>guan-2021-knowledge</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Rewards with Negative Examples for Reinforced Topic-Focused Abstractive Summarization</title>
+      <author><first>Khalil</first><last>Mrini</last></author>
+      <author><first>Can</first><last>Liu</last></author>
+      <author><first>Markus</first><last>Dreyer</last></author>
+      <pages>33–38</pages>
+      <abstract>We consider the problem of topic-focused abstractive summarization, where the goal is to generate an abstractive summary focused on a particular topic, a phrase of one or multiple words. We hypothesize that the task of generating topic-focused summaries can be improved by showing the model what it must not focus on. We introduce a deep reinforcement learning approach to topic-focused abstractive summarization, trained on rewards with a novel negative example baseline. We define the input in this problem as the source text preceded by the topic. We adapt the CNN-Daily Mail and New York Times summarization datasets for this task. We then show through experiments on existing rewards that the use of a negative example baseline can outperform the use of a self-critical baseline, in Rouge, BERTScore, and human evaluation metrics.</abstract>
+      <url hash="df77db38">2021.newsum-1.4</url>
+      <bibkey>mrini-etal-2021-rewards</bibkey>
+    </paper>
+    <paper id="5">
+      <title>A Novel <fixed-case>W</fixed-case>ikipedia based Dataset for Monolingual and Cross-Lingual Summarization</title>
+      <author><first>Mehwish</first><last>Fatima</last></author>
+      <author><first>Michael</first><last>Strube</last></author>
+      <pages>39–50</pages>
+      <abstract>Cross-lingual summarization is a challenging task for which there are no cross-lingual scientific resources currently available. To overcome the lack of a high-quality resource, we present a new dataset for monolingual and cross-lingual summarization considering the English-German pair. We collect high-quality, real-world cross-lingual data from Spektrum der Wissenschaft, which publishes human-written German scientific summaries of English science articles on various subjects. The generated Spektrum dataset is small; therefore, we harvest a similar dataset from the Wikipedia Science Portal to complement it. The Wikipedia dataset consists of English and German articles, which can be used for monolingual and cross-lingual summarization. Furthermore, we present a quantitative analysis of the datasets and results of empirical experiments with several existing extractive and abstractive summarization models. The results suggest the viability and usefulness of the proposed dataset for monolingual and cross-lingual summarization.</abstract>
+      <url hash="c43fe091">2021.newsum-1.5</url>
+      <bibkey>fatima-strube-2021-novel</bibkey>
+      <pwccode url="https://github.com/mehwishfatimah/wsd" additional="false">mehwishfatimah/wsd</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikilingua">WikiLingua</pwcdataset>
+    </paper>
+    <paper id="6">
+      <title>Evaluation of Summarization Systems across Gender, Age, and Race</title>
+      <author><first>Anna</first><last>Jørgensen</last></author>
+      <author><first>Anders</first><last>Søgaard</last></author>
+      <pages>51–56</pages>
+      <abstract>Summarization systems are ultimately evaluated by human annotators and raters. Usually, annotators and raters do not reflect the demographics of end users, but are recruited through student populations or crowdsourcing platforms with skewed demographics. For two different evaluation scenarios – evaluation against gold summaries and system output ratings – we show that summary evaluation is sensitive to protected attributes. This can severely bias system development and evaluation, leading us to build models that cater for some groups rather than others.</abstract>
+      <url hash="29131b06">2021.newsum-1.6</url>
+      <bibkey>jorgensen-sogaard-2021-evaluation</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Evaluation of Abstractive Summarisation Models with Machine Translation in Deliberative Processes</title>
+      <author><first>Miguel</first><last>Arana-Catania</last></author>
+      <author><first>Rob</first><last>Procter</last></author>
+      <author><first>Yulan</first><last>He</last></author>
+      <author><first>Maria</first><last>Liakata</last></author>
+      <pages>57–64</pages>
+      <abstract>We present work on summarising deliberative processes for non-English languages. Unlike commonly studied datasets, such as news articles, this deliberation dataset reflects difficulties of combining multiple narratives, mostly of poor grammatical quality, in a single text. We report an extensive evaluation of a wide range of abstractive summarisation models in combination with an off-the-shelf machine translation model. Texts are translated into English, summarised, and translated back to the original language. We obtain promising results regarding the fluency, consistency and relevance of the summaries produced. Our approach is easy to implement for many languages for production purposes by simply changing the translation model.</abstract>
+      <url hash="0a7dcf07">2021.newsum-1.7</url>
+      <bibkey>arana-catania-etal-2021-evaluation</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Capturing Speaker Incorrectness: Speaker-Focused Post-Correction for Abstractive Dialogue Summarization</title>
+      <author><first>Dongyub</first><last>Lee</last></author>
+      <author><first>Jungwoo</first><last>Lim</last></author>
+      <author><first>Taesun</first><last>Whang</last></author>
+      <author><first>Chanhee</first><last>Lee</last></author>
+      <author><first>Seungwoo</first><last>Cho</last></author>
+      <author><first>Mingun</first><last>Park</last></author>
+      <author><first>Heuiseok</first><last>Lim</last></author>
+      <pages>65–73</pages>
+      <abstract>In this paper, we focus on improving the quality of the summary generated by neural abstractive dialogue summarization systems. Even though pre-trained language models generate well-constructed and promising results, it is still challenging to summarize the conversation of multiple participants since the summary should include a description of the overall situation and the actions of each speaker. This paper proposes self-supervised strategies for speaker-focused post-correction in abstractive dialogue summarization. Specifically, our model first discriminates which type of speaker correction is required in a draft summary and then generates a revised summary according to the required type. Experimental results show that our proposed method adequately corrects the draft summaries, and the revised summaries are significantly improved in both quantitative and qualitative evaluations.</abstract>
+      <url hash="72e1d5f4">2021.newsum-1.8</url>
+      <bibkey>lee-etal-2021-capturing</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Measuring Similarity of Opinion-bearing Sentences</title>
+      <author><first>Wenyi</first><last>Tay</last></author>
+      <author><first>Xiuzhen</first><last>Zhang</last></author>
+      <author><first>Stephen</first><last>Wan</last></author>
+      <author><first>Sarvnaz</first><last>Karimi</last></author>
+      <pages>74–84</pages>
+      <abstract>For many NLP applications of online reviews, comparison of two opinion-bearing sentences is key. We argue that, while general purpose text similarity metrics have been applied for this purpose, there has been limited exploration of their applicability to opinion texts. We address this gap in the literature, studying: (1) how humans judge the similarity of pairs of opinion-bearing sentences; and, (2) the degree to which existing text similarity metrics, particularly embedding-based ones, correspond to human judgments. We crowdsourced annotations for opinion sentence pairs and our main findings are: (1) annotators tend to agree on whether or not opinion sentences are similar or different; and (2) embedding-based metrics capture human judgments of “opinion similarity” but not “opinion difference”. Based on our analysis, we identify areas where the current metrics should be improved. We further propose to learn a similarity metric for opinion similarity via fine-tuning the Sentence-BERT sentence-embedding network based on review text and weak supervision by review ratings. Experiments show that our learned metric outperforms existing text similarity metrics and especially show significantly higher correlations with human annotations for differing opinions.</abstract>
+      <url hash="24552158">2021.newsum-1.9</url>
+      <bibkey>tay-etal-2021-measuring</bibkey>
+      <pwccode url="https://github.com/wenyi-tay/sos" additional="false">wenyi-tay/sos</pwccode>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>EASE</fixed-case>: Extractive-Abstractive Summarization End-to-End using the Information Bottleneck Principle</title>
+      <author><first>Haoran</first><last>Li</last></author>
+      <author><first>Arash</first><last>Einolghozati</last></author>
+      <author><first>Srinivasan</first><last>Iyer</last></author>
+      <author><first>Bhargavi</first><last>Paranjape</last></author>
+      <author><first>Yashar</first><last>Mehdad</last></author>
+      <author><first>Sonal</first><last>Gupta</last></author>
+      <author><first>Marjan</first><last>Ghazvininejad</last></author>
+      <pages>85–95</pages>
+      <abstract>Current abstractive summarization systems outperform their extractive counterparts, but their widespread adoption is inhibited by the inherent lack of interpretability. Extractive summarization systems, though interpretable, suffer from redundancy and possible lack of coherence. To achieve the best of both worlds, we propose EASE, an extractive-abstractive framework that generates concise abstractive summaries that can be traced back to an extractive summary. Our framework can be applied to any evidence-based text generation problem and can accommodate various pretrained models in its simple architecture. We use the Information Bottleneck principle to jointly train the extraction and abstraction in an end-to-end fashion. Inspired by previous research that humans use a two-stage framework to summarize long documents (Jing and McKeown, 2000), our framework first extracts a pre-defined amount of evidence spans and then generates a summary using only the evidence. Using automatic and human evaluations, we show that the generated summaries are better than strong extractive and extractive-abstractive baselines.</abstract>
+      <url hash="88d85d67">2021.newsum-1.10</url>
+      <bibkey>li-etal-2021-ease</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Context or No Context? A preliminary exploration of human-in-the-loop approach for Incremental Temporal Summarization in meetings</title>
+      <author><first>Nicole</first><last>Beckage</last></author>
+      <author><first>Shachi</first><last>H Kumar</last></author>
+      <author><first>Saurav</first><last>Sahay</last></author>
+      <author><first>Ramesh</first><last>Manuvinakurike</last></author>
+      <pages>96–106</pages>
+      <abstract>Incremental meeting temporal summarization, summarizing relevant information of partial multi-party meeting dialogue, is emerging as the next challenge in summarization research. Here we examine the extent to which human abstractive summaries of the preceding increments (context) can be combined with extractive meeting dialogue to generate abstractive summaries. We find that previous context improves ROUGE scores. Our findings further suggest that contexts begin to outweigh the dialogue. Using keyphrase extraction and semantic role labeling (SRL), we find that SRL captures relevant information without overwhelming the the model architecture. By compressing the previous contexts by ~70%, we achieve better ROUGE scores over our baseline models. Collectively, these results suggest that context matters, as does the way in which context is presented to the model.</abstract>
+      <url hash="8b52edd0">2021.newsum-1.11</url>
+      <bibkey>beckage-etal-2021-context</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
+    </paper>
+    <paper id="12">
+      <title>Are We Summarizing the Right Way? A Survey of Dialogue Summarization Data Sets</title>
+      <author><first>Don</first><last>Tuggener</last></author>
+      <author><first>Margot</first><last>Mieskes</last></author>
+      <author><first>Jan</first><last>Deriu</last></author>
+      <author><first>Mark</first><last>Cieliebak</last></author>
+      <pages>107–118</pages>
+      <abstract>Dialogue summarization is a long-standing task in the field of NLP, and several data sets with dialogues and associated human-written summaries of different styles exist. However, it is unclear for which type of dialogue which type of summary is most appropriate. For this reason, we apply a linguistic model of dialogue types to derive matching summary items and NLP tasks. This allows us to map existing dialogue summarization data sets into this model and identify gaps and potential directions for future work. As part of this process, we also provide an extensive overview of existing dialogue summarization data sets.</abstract>
+      <url hash="86503840">2021.newsum-1.12</url>
+      <bibkey>tuggener-etal-2021-summarizing</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Modeling Endorsement for Multi-Document Abstractive Summarization</title>
+      <author><first>Logan</first><last>Lebanoff</last></author>
+      <author><first>Bingqing</first><last>Wang</last></author>
+      <author><first>Zhe</first><last>Feng</last></author>
+      <author id="fei-liu-utdallas"><first>Fei</first><last>Liu</last></author>
+      <pages>119–130</pages>
+      <abstract>A crucial difference between single- and multi-document summarization is how salient content manifests itself in the document(s). While such content may appear at the beginning of a single document, essential information is frequently reiterated in a set of documents related to a particular topic, resulting in an endorsement effect that increases information salience. In this paper, we model the cross-document endorsement effect and its utilization in multiple document summarization. Our method generates a synopsis from each document, which serves as an endorser to identify salient content from other documents. Strongly endorsed text segments are used to enrich a neural encoder-decoder model to consolidate them into an abstractive summary. The method has a great potential to learn from fewer examples to identify salient content, which alleviates the need for costly retraining when the set of documents is dynamically adjusted. Through extensive experiments on benchmark multi-document summarization datasets, we demonstrate the effectiveness of our proposed method over strong published baselines. Finally, we shed light on future research directions and discuss broader challenges of this task using a case study.</abstract>
+      <url hash="23d249a2">2021.newsum-1.13</url>
+      <bibkey>lebanoff-etal-2021-modeling</bibkey>
+      <pwccode url="https://github.com/ucfnlp/endorser-summ" additional="false">ucfnlp/endorser-summ</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/wcep">WCEP</pwcdataset>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>SUBSUME</fixed-case>: A Dataset for Subjective Summary Extraction from <fixed-case>W</fixed-case>ikipedia Documents</title>
+      <author><first>Nishant</first><last>Yadav</last></author>
+      <author><first>Matteo</first><last>Brucato</last></author>
+      <author><first>Anna</first><last>Fariha</last></author>
+      <author><first>Oscar</first><last>Youngquist</last></author>
+      <author><first>Julian</first><last>Killingback</last></author>
+      <author><first>Alexandra</first><last>Meliou</last></author>
+      <author><first>Peter</first><last>Haas</last></author>
+      <pages>131–141</pages>
+      <abstract>Many applications require generation of summaries tailored to the user’s information needs, i.e., their intent. Methods that express intent via explicit user queries fall short when query interpretation is subjective. Several datasets exist for summarization with objective intents where, for each document and intent (e.g., “weather”), a single summary suffices for all users. No datasets exist, however, for subjective intents (e.g., “interesting places”) where different users will provide different summaries. We present SUBSUME, the first dataset for evaluation of SUBjective SUMmary Extraction systems. SUBSUME contains 2,200 (document, intent, summary) triplets over 48 Wikipedia pages, with ten intents of varying subjectivity, provided by 103 individuals over Mechanical Turk. We demonstrate statistically that the intents in SUBSUME vary systematically in subjectivity. To indicate SUBSUME’s usefulness, we explore a collection of baseline algorithms for subjective extractive summarization and show that (i) as expected, example-based approaches better capture subjective intents than query-based ones, and (ii) there is ample scope for improving upon the baseline algorithms, thereby motivating further research on this challenging problem.</abstract>
+      <url hash="6d84def1">2021.newsum-1.14</url>
+      <bibkey>yadav-etal-2021-subsume</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/subsume">SubSumE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>TLDR</fixed-case>9+: A Large Scale Resource for Extreme Summarization of Social Media Posts</title>
+      <author><first>Sajad</first><last>Sotudeh</last></author>
+      <author><first>Hanieh</first><last>Deilamsalehy</last></author>
+      <author><first>Franck</first><last>Dernoncourt</last></author>
+      <author><first>Nazli</first><last>Goharian</last></author>
+      <pages>142–151</pages>
+      <abstract>Recent models in developing summarization systems consist of millions of parameters and the model performance is highly dependent on the abundance of training data. While most existing summarization corpora contain data in the order of thousands to one million, generation of large-scale summarization datasets in order of couple of millions is yet to be explored. Practically, more data is better at generalizing the training patterns to unseen data. In this paper, we introduce TLDR9+ –a large-scale summarization dataset– containing over 9 million training instances extracted from Reddit discussion forum ([HTTP]). This dataset is specifically gathered to perform <i>extreme</i> summarization (i.e., generating one-sentence summary in high compression and abstraction) and is more than twice larger than the previously proposed dataset. We go one step further and with the help of human annotations, we distill a more fine-grained dataset by sampling High-Quality instances from TLDR9+ and call it TLDRHQ dataset. We further pinpoint different state-of-the-art summarization models on our proposed datasets.</abstract>
+      <url hash="ccbd9c6e">2021.newsum-1.15</url>
+      <bibkey>sotudeh-etal-2021-tldr9</bibkey>
+      <pwccode url="https://github.com/sajastu/reddit_collector" additional="false">sajastu/reddit_collector</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/tldr9">TLDR9+</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/reddit-tifu">Reddit TIFU</pwcdataset>
+    </paper>
+    <paper id="16">
+      <title>A New Dataset and Efficient Baselines for Document-level Text Simplification in <fixed-case>G</fixed-case>erman</title>
+      <author><first>Annette</first><last>Rios</last></author>
+      <author><first>Nicolas</first><last>Spring</last></author>
+      <author><first>Tannon</first><last>Kew</last></author>
+      <author><first>Marek</first><last>Kostrzewa</last></author>
+      <author><first>Andreas</first><last>Säuberli</last></author>
+      <author><first>Mathias</first><last>Müller</last></author>
+      <author><first>Sarah</first><last>Ebling</last></author>
+      <pages>152–161</pages>
+      <abstract>The task of document-level text simplification is very similar to summarization with the additional difficulty of reducing complexity. We introduce a newly collected data set of German texts, collected from the Swiss news magazine 20 Minuten (‘20 Minutes’) that consists of full articles paired with simplified summaries. Furthermore, we present experiments on automatic text simplification with the pretrained multilingual mBART and a modified version thereof that is more memory-friendly, using both our new data set and existing simplification corpora. Our modifications of mBART let us train at a lower memory cost without much loss in performance, in fact, the smaller mBART even improves over the standard model in a setting with multiple simplification levels.</abstract>
+      <url hash="51d14860">2021.newsum-1.16</url>
+      <bibkey>rios-etal-2021-new</bibkey>
+    </paper>
+  </volume>
+</collection>

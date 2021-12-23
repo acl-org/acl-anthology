@@ -29,7 +29,7 @@ SHELL := /bin/bash
 # If you want to host the anthology on your own, set ANTHOLOGY_PREFIX
 # in your call to make to your prefix, e.g.
 #
-#     ANTHOLOGY_PREFIX="https://www.aclweb.org/anthology" make
+#     ANTHOLOGY_PREFIX="https://mirror.myhost.com/anthology" make
 #
 # PLEASE NOTE that the prefix cannot contain any '#' character, or a Perl regex
 # below will fail.
