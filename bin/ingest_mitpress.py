@@ -187,8 +187,7 @@ def get_doi(xml_front_node: etree.Element) -> str:
 
 
 def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> str:
-    """
-    """
+    """ """
     nsmap = xml_front_node.nsmap
 
     journal_meta = xml_front_node.find("journal-meta", nsmap)
@@ -243,8 +242,7 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
 
 
 def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
-    """
-    """
+    """ """
     logging.info("Reading {}".format(xml))
 
     tree = etree.parse(open(str(xml)))
@@ -333,7 +331,9 @@ def issue_info_to_node(
 
 
 def main(args):
-    anthology = Anthology(importdir=os.path.join(args.anthology_dir, "data"), require_bibkeys=False)
+    anthology = Anthology(
+        importdir=os.path.join(args.anthology_dir, "data"), require_bibkeys=False
+    )
 
     is_tacl = "tacl" in args.root_dir.stem
 
@@ -498,4 +498,3 @@ if __name__ == "__main__":
     logging.basicConfig(level=args.verbose)
 
     main(args)
-
