@@ -402,6 +402,8 @@ def main(args):
                 volume_xml.append(
                     issue_info_to_node(issue_info, year, collection_id, is_tacl)
                 )
+                make_simple_element("publisher", "MIT Press", parent=volume_xml)
+                make_simple_element("address", "Cambridge, MA", parent=volume_xml)
             else:
                 for paper in volume_xml.findall(".//paper"):
                     paper_id = max(paper_id, int(paper.attrib["id"]))
