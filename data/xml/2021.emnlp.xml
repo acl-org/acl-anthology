@@ -182,6 +182,7 @@
       <url hash="c660f213">2021.emnlp-main.13</url>
       <attachment type="Software" hash="41b48d72">2021.emnlp-main.13.Software.zip</attachment>
       <bibkey>liu-etal-2021-hetformer</bibkey>
+      <pwccode url="https://github.com/yeliu918/hetformer" additional="false">yeliu918/hetformer</pwccode>
     </paper>
     <paper id="14">
       <title>Unsupervised Keyphrase Extraction by Jointly Modeling Local and Global Context</title>
@@ -407,6 +408,7 @@
       <abstract>A computationally expensive and memory intensive neural network lies behind the recent success of language representation learning. Knowledge distillation, a major technique for deploying such a vast language model in resource-scarce environments, transfers the knowledge on individual word representations learned without restrictions. In this paper, inspired by the recent observations that language representations are relatively positioned and have more semantic knowledge as a whole, we present a new knowledge distillation objective for language representation learning that transfers the contextual knowledge via two types of relationships across representations: Word Relation and Layer Transforming Relation. Unlike other recent distillation techniques for the language models, our contextual distillation does not have any restrictions on architectural changes between teacher and student. We validate the effectiveness of our method on challenging benchmarks of language understanding tasks, not only in architectures of various sizes but also in combination with DynaBERT, the recently proposed adaptive size pruning method.</abstract>
       <url hash="af511c21">2021.emnlp-main.30</url>
       <bibkey>park-etal-2021-distilling</bibkey>
+      <pwccode url="https://github.com/geondopark/ckd" additional="false">geondopark/ckd</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
@@ -1107,6 +1109,10 @@
       <abstract>Automatic construction of relevant Knowledge Bases (KBs) from text, and generation of semantically meaningful text from KBs are both long-standing goals in Machine Learning. In this paper, we present ReGen, a bidirectional generation of text and graph leveraging Reinforcement Learning to improve performance. Graph linearization enables us to re-frame both tasks as a sequence to sequence generation problem regardless of the generative direction, which in turn allows the use of Reinforcement Learning for sequence training where the model itself is employed as its own critic leading to Self-Critical Sequence Training (SCST). We present an extensive investigation demonstrating that the use of RL via SCST benefits graph and text generation on WebNLG+ 2020 and TekGen datasets. Our system provides state-of-the-art results on WebNLG+ 2020 by significantly improving upon published results from the WebNLG 2020+ Challenge for both text-to-graph and graph-to-text generation tasks. More details at https://github.com/IBM/regen.</abstract>
       <url hash="326c9605">2021.emnlp-main.83</url>
       <bibkey>dognin-etal-2021-regen</bibkey>
+      <pwccode url="https://github.com/IBM/regen" additional="false">IBM/regen</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/kelm">KELM</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tekgen">TekGen</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/webnlg">WebNLG</pwcdataset>
     </paper>
     <paper id="84">
       <title>Contrastive Out-of-Distribution Detection for Pretrained Transformers</title>
@@ -3575,6 +3581,7 @@
       <abstract>Non-autoregressive neural machine translation, which decomposes the dependence on previous target tokens from the inputs of the decoder, has achieved impressive inference speedup but at the cost of inferior accuracy. Previous works employ iterative decoding to improve the translation by applying multiple refinement iterations. However, a serious drawback is that these approaches expose the serious weakness in recognizing the erroneous translation pieces. In this paper, we propose an architecture named RewriteNAT to explicitly learn to rewrite the erroneous translation pieces. Specifically, RewriteNAT utilizes a locator module to locate the erroneous ones, which are then revised into the correct ones by a revisor module. Towards keeping the consistency of data distribution with iterative decoding, an iterative training strategy is employed to further improve the capacity of rewriting. Extensive experiments conducted on several widely-used benchmarks show that RewriteNAT can achieve better performance while significantly reducing decoding time, compared with previous iterative decoding strategies. In particular, RewriteNAT can obtain competitive results with autoregressive translation on WMT14 En-De, En-Fr and WMT16 Ro-En translation benchmarks.</abstract>
       <url hash="398efbbb">2021.emnlp-main.265</url>
       <bibkey>geng-etal-2021-learning</bibkey>
+      <pwccode url="https://github.com/xwgeng/rewritenat" additional="false">xwgeng/rewritenat</pwccode>
     </paper>
     <paper id="266">
       <title><fixed-case>SHAPE</fixed-case>: <fixed-case>S</fixed-case>hifted Absolute Position Embedding for Transformers</title>
@@ -4207,6 +4214,7 @@
       <abstract>Masked language models (MLMs) have contributed to drastic performance improvements with regard to zero anaphora resolution (ZAR). To further improve this approach, in this study, we made two proposals. The first is a new pretraining task that trains MLMs on anaphoric relations with explicit supervision, and the second proposal is a new finetuning method that remedies a notorious issue, the pretrain-finetune discrepancy. Our experiments on Japanese ZAR demonstrated that our two proposals boost the state-of-the-art performance, and our detailed analysis provides new insights on the remaining challenges.</abstract>
       <url hash="f9a643c6">2021.emnlp-main.308</url>
       <bibkey>konno-etal-2021-pseudo</bibkey>
+      <pwccode url="https://github.com/ryuto10/pzero-improves-zar" additional="false">ryuto10/pzero-improves-zar</pwccode>
     </paper>
     <paper id="309">
       <title>Aligning Cross-lingual Sentence Representations with Dual Momentum Contrast</title>
@@ -4905,6 +4913,7 @@
       <abstract>Aspect terms extraction (ATE) and aspect sentiment classification (ASC) are two fundamental and fine-grained sub-tasks in aspect-level sentiment analysis (ALSA). In the textual analysis, joint extracting both aspect terms and sentiment polarities has been drawn much attention due to the better applications than individual sub-task. However, in the multi-modal scenario, the existing studies are limited to handle each sub-task independently, which fails to model the innate connection between the above two objectives and ignores the better applications. Therefore, in this paper, we are the first to jointly perform multi-modal ATE (MATE) and multi-modal ASC (MASC), and we propose a multi-modal joint learning approach with auxiliary cross-modal relation detection for multi-modal aspect-level sentiment analysis (MALSA). Specifically, we first build an auxiliary text-image relation detection module to control the proper exploitation of visual information. Second, we adopt the hierarchical framework to bridge the multi-modal connection between MATE and MASC, as well as separately visual guiding for each sub module. Finally, we can obtain all aspect-level sentiment polarities dependent on the jointly extracted specific aspects. Extensive experiments show the effectiveness of our approach against the joint textual approaches, pipeline and collapsed multi-modal approaches.</abstract>
       <url hash="84931f70">2021.emnlp-main.360</url>
       <bibkey>ju-etal-2021-joint</bibkey>
+      <pwccode url="https://github.com/manlp-suda/jml" additional="false">manlp-suda/jml</pwccode>
     </paper>
     <paper id="361">
       <title>Solving Aspect Category Sentiment Analysis as a Text Generation Task</title>
@@ -4917,6 +4926,7 @@
       <abstract>Aspect category sentiment analysis has attracted increasing research attention. The dominant methods make use of pre-trained language models by learning effective aspect category-specific representations, and adding specific output layers to its pre-trained representation. We consider a more direct way of making use of pre-trained language models, by casting the ACSA tasks into natural language generation tasks, using natural language sentences to represent the output. Our method allows more direct use of pre-trained knowledge in seq2seq language models by directly following the task setting during pre-training. Experiments on several benchmarks show that our method gives the best reported results, having large advantages in few-shot and zero-shot settings.</abstract>
       <url hash="8f2fe667">2021.emnlp-main.361</url>
       <bibkey>liu-etal-2021-solving</bibkey>
+      <pwccode url="https://github.com/lgw863/acsa-generation" additional="false">lgw863/acsa-generation</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mams">MAMS</pwcdataset>
     </paper>
     <paper id="362">
@@ -6303,6 +6313,7 @@
       <abstract>Many recent successes in sentence representation learning have been achieved by simply fine-tuning on the Natural Language Inference (NLI) datasets with triplet loss or siamese loss. Nevertheless, they share a common weakness: sentences in a contradiction pair are not necessarily from different semantic categories. Therefore, optimizing the semantic entailment and contradiction reasoning objective alone is inadequate to capture the high-level semantic structure. The drawback is compounded by the fact that the vanilla siamese or triplet losses only learn from individual sentence pairs or triplets, which often suffer from bad local optima. In this paper, we propose PairSupCon, an instance discrimination based approach aiming to bridge semantic entailment and contradiction understanding with high-level categorical concept encoding. We evaluate PairSupCon on various downstream tasks that involve understanding sentence semantics at different granularities. We outperform the previous state-of-the-art method with 10%–13% averaged improvement on eight clustering tasks, and 5%–6% averaged improvement on seven semantic textual similarity (STS) tasks.</abstract>
       <url hash="0eb1a54c">2021.emnlp-main.467</url>
       <bibkey>zhang-etal-2021-pairwise</bibkey>
+      <pwccode url="https://github.com/amazon-research/sentence-representations" additional="false">amazon-research/sentence-representations</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mpqa-opinion-corpus">MPQA Opinion Corpus</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
@@ -6834,6 +6845,7 @@
       <abstract>Enthymemes are defined as arguments where a premise or conclusion is left implicit. We tackle the task of generating the <i>implicit premise in an enthymeme</i>, which requires not only an understanding of the stated conclusion and premise but also additional inferences that could depend on commonsense knowledge. The largest available dataset for enthymemes (Habernal et al., 2018) consists of 1.7k samples, which is not large enough to train a neural text generation model. To address this issue, we take advantage of a similar task and dataset: Abductive reasoning in narrative text (Bhagavatula et al., 2020). However, we show that simply using a state-of-the-art seq2seq model fine-tuned on this data might not generate meaningful implicit premises associated with the given enthymemes. We demonstrate that encoding discourse-aware commonsense during fine-tuning improves the quality of the generated implicit premises and outperforms all other baselines both in automatic and human evaluations on three different datasets.</abstract>
       <url hash="5dbdab40">2021.emnlp-main.504</url>
       <bibkey>chakrabarty-etal-2021-implicit</bibkey>
+      <pwccode url="https://github.com/tuhinjubcse/enthymemesemnlp2021" additional="false">tuhinjubcse/enthymemesemnlp2021</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/art-dataset">ART Dataset</pwcdataset>
     </paper>
     <paper id="505">
@@ -6941,6 +6953,7 @@
       <abstract>Visual question answering (VQA) is challenging not only because the model has to handle multi-modal information, but also because it is just so hard to collect sufficient training examples — there are too many questions one can ask about an image. As a result, a VQA model trained solely on human-annotated examples could easily over-fit specific question styles or image contents that are being asked, leaving the model largely ignorant about the sheer diversity of questions. Existing methods address this issue primarily by introducing an auxiliary task such as visual grounding, cycle consistency, or debiasing. In this paper, we take a drastically different approach. We found that many of the “unknowns” to the learned VQA model are indeed “known” in the dataset implicitly. For instance, questions asking about the same object in different images are likely paraphrases; the number of detected or annotated objects in an image already provides the answer to the “how many” question, even if the question has not been annotated for that image. Building upon these insights, we present a simple data augmentation pipeline SimpleAug to turn this “known” knowledge into training examples for VQA. We show that these augmented examples can notably improve the learned VQA models’ performance, not only on the VQA-CP dataset with language prior shifts but also on the VQA v2 dataset without such shifts. Our method further opens up the door to leverage weakly-labeled or unlabeled images in a principled way to enhance VQA models. Our code and data are publicly available at https://github.com/heendung/simpleAUG.</abstract>
       <url hash="63c28a40">2021.emnlp-main.512</url>
       <bibkey>kil-etal-2021-discovering</bibkey>
+      <pwccode url="https://github.com/heendung/simpleaug" additional="false">heendung/simpleaug</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-genome">Visual Genome</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-question-answering">Visual Question Answering</pwcdataset>
@@ -7281,6 +7294,7 @@
       <abstract>Recent multilingual pre-trained language models have achieved remarkable zero-shot performance, where the model is only finetuned on one source language and directly evaluated on target languages. In this work, we propose a self-learning framework that further utilizes unlabeled data of target languages, combined with uncertainty estimation in the process to select high-quality silver labels. Three different uncertainties are adapted and analyzed specifically for the cross lingual transfer: Language Heteroscedastic/Homoscedastic Uncertainty (LEU/LOU), Evidential Uncertainty (EVI). We evaluate our framework with uncertainties on two cross-lingual tasks including Named Entity Recognition (NER) and Natural Language Inference (NLI) covering 40 languages in total, which outperforms the baselines significantly by 10 F1 for NER on average and 2.5 accuracy for NLI.</abstract>
       <url hash="9dd570d4">2021.emnlp-main.538</url>
       <bibkey>xu-etal-2021-boosting</bibkey>
+      <pwccode url="https://github.com/lxucs/multilingual-sl" additional="false">lxucs/multilingual-sl</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
     </paper>
     <paper id="539">
@@ -10016,6 +10030,7 @@
       <abstract>We present a cross-lingual summarisation corpus with long documents in a source language associated with multi-sentence summaries in a target language. The corpus covers twelve language pairs and directions for four European languages, namely Czech, English, French and German, and the methodology for its creation can be applied to several other languages. We derive cross-lingual document-summary instances from Wikipedia by combining lead paragraphs and articles’ bodies from language aligned Wikipedia titles. We analyse the proposed cross-lingual summarisation task with automatic metrics and validate it with a human study. To illustrate the utility of our dataset we report experiments with multi-lingual pre-trained models in supervised, zero- and few-shot, and out-of-domain scenarios.</abstract>
       <url hash="9222eb1e">2021.emnlp-main.742</url>
       <bibkey>perez-beltrachini-lapata-2021-models</bibkey>
+      <pwccode url="https://github.com/lauhaide/clads" additional="false">lauhaide/clads</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/wikilingua">WikiLingua</pwcdataset>
     </paper>
     <paper id="743">
@@ -10049,7 +10064,7 @@
       <abstract>We compare two orthogonal semi-supervised learning techniques, namely tri-training and pretrained word embeddings, in the task of dependency parsing. We explore language-specific FastText and ELMo embeddings and multilingual BERT embeddings. We focus on a low resource scenario as semi-supervised learning can be expected to have the most impact here. Based on treebank size and available ELMo models, we select Hungarian, Uyghur (a zero-shot language for mBERT) and Vietnamese. Furthermore, we include English in a simulated low-resource setting. We find that pretrained word embeddings make more effective use of unlabelled data than tri-training but that the two approaches can be successfully combined.</abstract>
       <url hash="e899d7c6">2021.emnlp-main.745</url>
       <bibkey>wagner-foster-2021-revisiting</bibkey>
-      <pwccode url="https://github.com/jowagner/mtb-tri-training" additional="false">jowagner/mtb-tri-training</pwccode>
+      <pwccode url="https://github.com/jowagner/mtb-tri-training" additional="true">jowagner/mtb-tri-training</pwccode>
     </paper>
     <paper id="746">
       <title>Bridge to Target Domain by Prototypical Contrastive Learning and Label Confusion: Re-explore Zero-Shot Learning for Slot Filling</title>
@@ -10104,7 +10119,7 @@
       <abstract>Recent pretrained language models extend from millions to billions of parameters. Thus the need to fine-tune an extremely large pretrained model with a limited training corpus arises in various downstream tasks. In this paper, we propose a straightforward yet effective fine-tuning technique, Child-Tuning, which updates a subset of parameters (called child network) of large pretrained models via strategically masking out the gradients of the non-child network during the backward process. Experiments on various downstream tasks in GLUE benchmark show that Child-Tuning consistently outperforms the vanilla fine-tuning by 1.5 8.6 average score among four different pretrained models, and surpasses the prior fine-tuning techniques by 0.6 1.3 points. Furthermore, empirical results on domain transfer and task transfer show that Child-Tuning can obtain better generalization performance by large margins.</abstract>
       <url hash="0417c456">2021.emnlp-main.749</url>
       <bibkey>xu-etal-2021-raise</bibkey>
-      <pwccode url="https://github.com/pkunlp-icler/childtuning" additional="false">pkunlp-icler/childtuning</pwccode>
+      <pwccode url="https://github.com/alibaba/AliceMind" additional="true">alibaba/AliceMind</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sick">SICK</pwcdataset>
@@ -10149,7 +10164,7 @@
       <abstract>Backdoor attacks are a kind of emergent training-time threat to deep neural networks (DNNs). They can manipulate the output of DNNs and possess high insidiousness. In the field of natural language processing, some attack methods have been proposed and achieve very high attack success rates on multiple popular models. Nevertheless, there are few studies on defending against textual backdoor attacks. In this paper, we propose a simple and effective textual backdoor defense named ONION, which is based on outlier word detection and, to the best of our knowledge, is the first method that can handle all the textual backdoor attack situations. Experiments demonstrate the effectiveness of our model in defending BiLSTM and BERT against five different backdoor attacks. All the code and data of this paper can be obtained at https://github.com/thunlp/ONION.</abstract>
       <url hash="1b8e14d1">2021.emnlp-main.752</url>
       <bibkey>qi-etal-2021-onion</bibkey>
-      <pwccode url="https://github.com/thunlp/ONION" additional="false">thunlp/ONION</pwccode>
+      <pwccode url="https://github.com/thunlp/ONION" additional="true">thunlp/ONION</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
     </paper>
@@ -10319,6 +10334,7 @@
       <abstract>The clustering-based unsupervised relation discovery method has gradually become one of the important methods of open relation extraction (OpenRE). However, high-dimensional vectors can encode complex linguistic information which leads to the problem that the derived clusters cannot explicitly align with the relational semantic classes. In this work, we propose a relation-oriented clustering model and use it to identify the novel relations in the unlabeled data. Specifically, to enable the model to learn to cluster relational data, our method leverages the readily available labeled data of pre-defined relations to learn a relation-oriented representation. We minimize distance between the instance with same relation by gathering the instances towards their corresponding relation centroids to form a cluster structure, so that the learned representation is cluster-friendly. To reduce the clustering bias on predefined classes, we optimize the model by minimizing a joint objective on both labeled and unlabeled data. Experimental results show that our method reduces the error rate by 29.2% and 15.7%, on two datasets respectively, compared with current SOTA methods.</abstract>
       <url hash="fb4e65b2">2021.emnlp-main.765</url>
       <bibkey>zhao-etal-2021-relation</bibkey>
+      <pwccode url="https://github.com/ac-zyx/rocore" additional="false">ac-zyx/rocore</pwccode>
     </paper>
     <paper id="766">
       <title>Exploring Methods for Generating Feedback Comments for Writing Learning</title>
@@ -11064,6 +11080,7 @@
       <bibkey>mahendra-etal-2021-indonli</bibkey>
       <pwccode url="https://github.com/ir-nlp-csui/indonli" additional="false">ir-nlp-csui/indonli</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/indonli">IndoNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/indonlu-benchmark">IndoNLU Benchmark</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ocnli">OCNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
