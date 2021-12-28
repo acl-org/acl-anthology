@@ -30,11 +30,11 @@ from .utils import (
 from . import data
 
 # For bibliography export
-from .formatter import bibtex_encode, bibtex_make_entry
+from .formatter import bibtex_encode, bibtex_make_entry, MarkupFormatter
 
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter):
+    def __init__(self, paper_id, ingest_date, volume, formatter=MarkupFormatter):
         self.parent_volume = volume
         self.formatter = formatter
         self._id = paper_id
