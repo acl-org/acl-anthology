@@ -189,6 +189,10 @@ def main(volumes):
                             "surname", text=name_part.text, parent=pn
                         )
 
+        if editor_index == 0:
+            print(f"FATAL: Found no editors", file=sys.stderr)
+            sys.exit(1)
+
         # Assemble Event Metadata
         em = make_simple_element("event_metadata", parent=c)
         cn = make_simple_element("conference_name", parent=em, text=booktitle)
