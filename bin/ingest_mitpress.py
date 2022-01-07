@@ -191,7 +191,6 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
     nsmap = xml_front_node.nsmap
 
     journal_meta = xml_front_node.find("journal-meta", nsmap)
-    print("JOURNAL META", journal_meta)
 
     journal_title_group = journal_meta.find("journal-title-group", nsmap)
     journal_title = journal_title_group.find("journal-title", nsmap)
@@ -293,14 +292,11 @@ def issue_info_to_node(
     issue_info: str, year_: str, volume_id: str, is_tacl: bool
 ) -> etree.Element:
     """Creates the meta block for a new issue / volume"""
-    node = etree.Element("meta")
+    node = make_simple_element("meta")
 
     assert int(year_)
 
-    title_text = issue_info
-    title = etree.Element("booktitle")
-    title.text = title_text
-    node.append(title)
+    make_simple_element("booktitle", issue_info, parent=node)
 
     if not is_tacl:
         month_text = issue_info.split()[-2]  # blah blah blah month year
@@ -319,13 +315,9 @@ def issue_info_to_node(
             "December",
         }:
             logging.error("Unknown month: " + month_text)
-        month = etree.Element("month")
-        month.text = month_text
-        node.append(month)
+        make_simple_element("month", month_text, parent=node)
 
-    year = etree.Element("year")
-    year.text = year_
-    node.append(year)
+    make_simple_element("year", str(year_), parent=node)
 
     return node
 
