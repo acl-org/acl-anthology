@@ -225,9 +225,9 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
         issue_text = issue.text
 
         pub_date = article_meta.find("pub-date", nsmap)
-        string_date = pub_date.find("string-date", nsmap)
-        string_date_text = string_date.text
-
+        month = pub_date.find("month", nsmap).text
+        year = pub_date.find("year", nsmap).text
+        string_date_text = f"{month} {year}"
         format_string = "{journal}, Volume {volume}, Issue {issue} - {date}"
 
     data = dict(
@@ -292,11 +292,13 @@ def issue_info_to_node(
     issue_info: str, year_: str, volume_id: str, is_tacl: bool
 ) -> etree.Element:
     """Creates the meta block for a new issue / volume"""
-    node = make_simple_element("meta")
+    meta = make_simple_element("meta")
 
     assert int(year_)
 
-    make_simple_element("booktitle", issue_info, parent=node)
+    make_simple_element("booktitle", issue_info, parent=meta)
+    make_simple_element("publisher", "MIT Press", parent=meta)
+    make_simple_element("address", "Cambridge, MA", parent=meta)
 
     if not is_tacl:
         month_text = issue_info.split()[-2]  # blah blah blah month year
@@ -315,11 +317,11 @@ def issue_info_to_node(
             "December",
         }:
             logging.error("Unknown month: " + month_text)
-        make_simple_element("month", month_text, parent=node)
+        make_simple_element("month", month_text, parent=meta)
 
-    make_simple_element("year", str(year_), parent=node)
+    make_simple_element("year", str(year_), parent=meta)
 
-    return node
+    return meta
 
 
 def main(args):
@@ -394,8 +396,6 @@ def main(args):
                 volume_xml.append(
                     issue_info_to_node(issue_info, year, collection_id, is_tacl)
                 )
-                make_simple_element("publisher", "MIT Press", parent=volume_xml)
-                make_simple_element("address", "Cambridge, MA", parent=volume_xml)
             else:
                 for paper in volume_xml.findall(".//paper"):
                     paper_id = max(paper_id, int(paper.attrib["id"]))
