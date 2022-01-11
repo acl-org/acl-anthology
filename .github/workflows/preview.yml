@@ -46,6 +46,11 @@ jobs:
       shell: bash
       run: echo "##[set-output name=list;]$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py ${{ steps.extract_branch.outputs.branch }})"
       id: list_volumes
+    - name: list volumes debug
+      shell: bash
+      run: |
+        git diff --name-only $GITHUB_REF origin/master
+        git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py ${{ steps.extract_branch.outputs.branch }})
 #    - name: preview
 #      shell: bash
 #      env:
