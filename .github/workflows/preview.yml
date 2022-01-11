@@ -26,7 +26,7 @@ jobs:
         mkdir -p $HOME/.ssh/
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: fetch master branch
       run: |
         git fetch origin master
@@ -44,7 +44,7 @@ jobs:
       id: extract_branch
     - name: list volumes
       shell: bash
-      run: echo "##[set-output name=list;]$(git diff --name-only origin/master | python ./bin/volumes_from_diff.py ${{ steps.extract_branch.outputs.branch }})"
+      run: echo "##[set-output name=list;]$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py ${{ steps.extract_branch.outputs.branch }})"
       id: list_volumes
     - name: preview
       shell: bash
