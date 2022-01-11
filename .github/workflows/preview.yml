@@ -37,7 +37,7 @@ jobs:
       id: extract_branch
     - name: list volumes
       shell: bash
-      run: echo "##[set-output name=list;]$(python ./bin/volumes_from_diff.py ${{ steps.extract_branch.outputs.branch }})
+      run: echo "##[set-output name=list;]$(git diff --name-only master | python ./bin/volumes_from_diff.py ${{ steps.extract_branch.outputs.branch }})"
       id: list_volumes
     - name: preview
       shell: bash

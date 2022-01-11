@@ -12,6 +12,7 @@ Used to find the list of volumes to generate previews for.
 import sys
 import argparse
 import lxml.etree as etree
+import subprocess
 
 
 parser = argparse.ArgumentParser()
@@ -19,7 +20,7 @@ parser.add_argument("url_root")
 args = parser.parse_args()
 
 volumes = []
-for xmlfile in sys.stdin:
+for line in sys.stdin:
     try:
         tree = etree.parse(xmlfile.rstrip())
     except:
