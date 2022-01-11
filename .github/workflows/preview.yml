@@ -50,7 +50,7 @@ jobs:
       shell: bash
       run: |
         git diff --name-only $GITHUB_REF origin/master
-        git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py ${{ steps.extract_branch.outputs.branch }}
+        git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
 #    - name: preview
 #      shell: bash
 #      env:
