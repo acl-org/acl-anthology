@@ -52,7 +52,6 @@ from itertools import chain
 from time import sleep
 
 import lxml.etree as ET
-import urllib.request
 
 
 def add_doi(xml_node, collection_id, volume_id, force=False):

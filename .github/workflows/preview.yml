@@ -26,11 +26,31 @@ jobs:
         mkdir -p $HOME/.ssh/
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+    - name: fetch master branch
+      run: |
+        git fetch origin master
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: install pip dependencies
+      run: |
+        python -m pip install -U pip
+        python -m pip install lxml
     - name: extract branch name
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
+    - name: list volumes
+      shell: bash
+      run: echo "##[set-output name=volumes;]$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}/volumes)"
+      id: list_volumes
+#    - name: list volumes debug
+#      shell: bash
+#      run: |
+#        git diff --name-only $GITHUB_REF origin/master
+#        git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
     - name: preview
       shell: bash
       env:
@@ -40,7 +60,10 @@ jobs:
     - uses: mshick/add-pr-comment@v1
       with:
         message: |
-          Build successful. You can preview it here: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+          Build successful. Some useful links:
+          * Complete site preview: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
+          * Potential volumes of interest: ${{ steps.list_volumes.outputs.volumes }}
+
           This preview will be removed when the branch is merged.
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
