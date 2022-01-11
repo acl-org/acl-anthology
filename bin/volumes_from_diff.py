@@ -20,10 +20,10 @@ parser.add_argument("url_root")
 args = parser.parse_args()
 
 volumes = []
-for line in sys.stdin:
+for filepath in sys.stdin:
     try:
-        tree = etree.parse(xmlfile.rstrip())
-    except:
+        tree = etree.parse(filepath.rstrip())
+    except Exception as e:
         continue
     root = tree.getroot()
     collection_id = root.attrib["id"]
