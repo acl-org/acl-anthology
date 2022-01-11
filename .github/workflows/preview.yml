@@ -44,7 +44,7 @@ jobs:
       id: extract_branch
     - name: list volumes
       shell: bash
-      run: echo "##[set-output name=volumes;]$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py ${{ steps.extract_branch.outputs.branch }})"
+      run: echo "##[set-output name=volumes;]$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}/volumes)"
       id: list_volumes
     - name: list volumes debug
       shell: bash
