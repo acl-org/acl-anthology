@@ -291,11 +291,26 @@ def main(args):
         if not os.path.exists(pdfs_dest_dir):
             os.makedirs(pdfs_dest_dir)
 
-        # copy the book from the top-level proceedings/ dir, named "VENUE-year.pdf"
-        book_path = f'cdrom/{venue_name.upper()}-{year}.pdf'
-        book_src_path = os.path.join(meta["path"], book_path)
+        def find_book():
+            """Book location has shifted a bit over the years"""
+
+            potential_names = [
+                os.path.join(meta["path"], "book.pdf"),
+                os.path.join(meta["path"], "cdrom", f"{year}-{venue_name.lower()}-{volume_name}.pdf"),
+                os.path.join(meta["path"], "cdrom", f"{venue_name.upper()}-{year}.pdf"),
+            ]
+
+            for book_rel_path in potential_names:
+                if os.path.exists(book_rel_path):
+                    return book_rel_path
+
+            return None
+
+        # copy the book from the top-level proceedings/ dir, named "VENUE-year.pdf",
+        # or sometimes "book.pdf"
+        book_src_path = find_book()
         book_dest_path = None
-        if os.path.exists(book_src_path) and not args.dry_run:
+        if book_src_path is not None and not args.dry_run:
             book_dest_path = (
                 os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
             )
