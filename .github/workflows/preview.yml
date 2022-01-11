@@ -27,6 +27,9 @@ jobs:
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
     - uses: actions/checkout@v1
+    - name: fetch master branch
+      run: |
+        git fetch origin master
     - name: setup python
       uses: actions/setup-python@v2
       with:
