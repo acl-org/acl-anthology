@@ -27,13 +27,17 @@ jobs:
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
     - uses: actions/checkout@v1
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
     - name: extract branch name
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
     - name: list volumes
       shell: bash
-      run: echo "##[set-output name=list;]$(git diff --name-only master | ./bin/volumes_from_xml.py ${{ steps.extract_branch.outputs.branch }})
+      run: echo "##[set-output name=list;]$(git diff --name-only master | python ./bin/volumes_from_xml.py ${{ steps.extract_branch.outputs.branch }})
       id: list_volumes
     - name: preview
       shell: bash
