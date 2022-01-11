@@ -31,6 +31,10 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
+    - name: install pip dependencies
+      run: |
+        python -m pip install -U pip
+        python -m pip install lxml
     - name: extract branch name
       shell: bash
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
