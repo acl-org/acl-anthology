@@ -20,7 +20,10 @@ args = parser.parse_args()
 
 volumes = []
 for xmlfile in sys.stdin:
-    tree = etree.parse(xmlfile.rstrip())
+    try:
+        tree = etree.parse(xmlfile.rstrip())
+    except:
+        continue
     root = tree.getroot()
     collection_id = root.attrib["id"]
     for volume in root:
