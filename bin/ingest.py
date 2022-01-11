@@ -296,7 +296,11 @@ def main(args):
 
             potential_names = [
                 os.path.join(meta["path"], "book.pdf"),
-                os.path.join(meta["path"], "cdrom", f"{year}-{venue_name.lower()}-{volume_name}.pdf"),
+                os.path.join(
+                    meta["path"],
+                    "cdrom",
+                    f"{year}-{venue_name.lower()}-{volume_name}.pdf",
+                ),
                 os.path.join(meta["path"], "cdrom", f"{venue_name.upper()}-{year}.pdf"),
             ]
 
