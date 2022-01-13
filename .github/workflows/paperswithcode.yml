@@ -1,11 +1,10 @@
 # Fetches metadata from Papers with Code and commits changes
 name: Update Papers with Code
 
-# Controls when the workflow will run
-# Currently set to run Thursdays just after midnight,
-# to minimize merge commits.
+# Controls when the workflow will run.
+# We run it once a week to minimize merge commits.
 on:
-  # Triggers the workflow at 0:30 UTC daily
+  # Triggers the workflow at 0:30 UTC every Thursday
   schedule:
   - cron: '30 0 * * 4'
 
