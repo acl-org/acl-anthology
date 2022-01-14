@@ -314,6 +314,12 @@
         <span class="px-1">{{ humanize .type }}</span>
       </a>
       {{ end }}
+      {{ range $paper.video }}
+      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ . }}" title="Open video for '{{ $paper.title | htmlEscape }}'">
+        <span class="align-self-center px-1"><i class="fas fa-video"></i></span>
+        <span class="px-1">Video</span>
+      </a>
+      {{ end }}
     </div>
   </div>
   <hr />

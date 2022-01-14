@@ -19,9 +19,12 @@
     {{- range $paper.award -}}
     <span class="align-middle mr-1" data-toggle=tooltip data-placement=bottom title="{{ . }}"><i class="fas fa-award"></i></span>
     {{- end -}}
-      {{- range $paper.attachment -}}
-        <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
-      {{- end -}}
+    {{- range $paper.attachment -}}
+      <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
+    {{- end -}}
+    {{ range $paper.video }}
+    <a class="badge badge-attachment align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Video"><i class="fas fa-video"></i></a>
+    {{- end -}}
     {{- with $paper.pwccode -}}
       {{- if (or (eq .additional "true") .url) -}}
           <a class="badge badge-secondary align-middle mr-1 pwc-reduced-padding" href="https://paperswithcode.com/paper/?acl={{ $.Params.anthology_id }}" data-toggle="tooltip" data-placement="top" title="Code">
