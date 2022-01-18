@@ -22,7 +22,7 @@
     {{- range $paper.attachment -}}
       <a class="badge badge-attachment align-middle mr-1" href="{{ .url }}" data-toggle="tooltip" data-placement="top" title="{{ .type | humanize }}">{{ partial "attachment_repr.html" . }}</a>
     {{- end -}}
-    {{ range $paper.video }}
+    {{- range $paper.video -}}
     <a class="badge badge-attachment align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Video"><i class="fas fa-video"></i></a>
     {{- end -}}
     {{- with $paper.pwccode -}}

@@ -15,7 +15,6 @@
 # limitations under the License.
 
 from functools import cached_property
-import sys
 import iso639
 import logging as log
 
