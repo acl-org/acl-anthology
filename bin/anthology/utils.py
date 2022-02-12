@@ -111,7 +111,7 @@ def test_url_code(url):
     Test a URL, returning the result.
     """
     headers = {'user-agent': 'acl-anthology/0.0.1'}
-    r = requests.head(url, headers=headers, allow_redirects=True)
+    r = requests.head(url, headers=headers, allow_redirects=True)  # , verify=False)
     return r
 
 

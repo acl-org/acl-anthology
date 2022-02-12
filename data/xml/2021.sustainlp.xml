@@ -4,6 +4,13 @@
     <meta>
       <booktitle>Proceedings of the Second Workshop on Simple and Efficient Natural Language Processing</booktitle>
       <publisher>Association for Computational Linguistics</publisher>
+      <editor><first>Nafise Sadat</first><last>Moosavi</last></editor>
+      <editor><first>Iryna</first><last>Gurevych</last></editor>
+      <editor><first>Angela</first><last>Fan</last></editor>
+      <editor><first>Thomas</first><last>Wolf</last></editor>
+      <editor><first>Yufang</first><last>Hou</last></editor>
+      <editor><first>Ana</first><last>Marasović</last></editor>
+      <editor><first>Sujith</first><last>Ravi</last></editor>
       <address>Virtual</address>
       <month>November</month>
       <year>2021</year>
@@ -23,6 +30,7 @@
       <url hash="ada90a48">2021.sustainlp-1.1</url>
       <attachment type="Software" hash="5d29bbd1">2021.sustainlp-1.1.Software.zip</attachment>
       <bibkey>zhou-etal-2021-low</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.1</doi>
     </paper>
     <paper id="2">
       <title>Evaluating the carbon footprint of <fixed-case>NLP</fixed-case> methods: a survey and analysis of existing tools</title>
@@ -34,6 +42,7 @@
       <abstract>Modern Natural Language Processing (NLP) makes intensive use of deep learning methods because of the accuracy they offer for a variety of applications. Due to the significant environmental impact of deep learning, cost-benefit analysis including carbon footprint as well as accuracy measures has been suggested to better document the use of NLP methods for research or deployment. In this paper, we review the tools that are available to measure energy use and CO2 emissions of NLP methods. We describe the scope of the measures provided and compare the use of six tools (carbon tracker, experiment impact tracker, green algorithms, ML CO2 impact, energy usage and cumulator) on named entity recognition experiments performed on different computational set-ups (local server vs. computing facility). Based on these findings, we propose actionable recommendations to accurately measure the environmental impact of NLP experiments.</abstract>
       <url hash="a1f4684a">2021.sustainlp-1.2</url>
       <bibkey>bannour-etal-2021-evaluating</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.2</doi>
     </paper>
     <paper id="3">
       <title>Limitations of Knowledge Distillation for Zero-shot Transfer Learning</title>
@@ -44,6 +53,7 @@
       <abstract>Pretrained transformer-based encoders such as BERT have been demonstrated to achieve state-of-the-art performance on numerous NLP tasks. Despite their success, BERT style encoders are large in size and have high latency during inference (especially on CPU machines) which make them unappealing for many online applications. Recently introduced compression and distillation methods have provided effective ways to alleviate this shortcoming. However, the focus of these works has been mainly on monolingual encoders. Motivated by recent successes in zero-shot cross-lingual transfer learning using multilingual pretrained encoders such as mBERT, we evaluate the effectiveness of Knowledge Distillation (KD) both during pretraining stage and during fine-tuning stage on multilingual BERT models. We demonstrate that in contradiction to the previous observation in the case of monolingual distillation, in multilingual settings, distillation during pretraining is more effective than distillation during fine-tuning for zero-shot transfer learning. Moreover, we observe that distillation during fine-tuning may hurt zero-shot cross-lingual performance. Finally, we demonstrate that distilling a larger model (BERT Large) results in the strongest distilled model that performs best both on the source language as well as target languages in zero-shot settings.</abstract>
       <url hash="40ec1cfc">2021.sustainlp-1.3</url>
       <bibkey>soltan-etal-2021-limitations</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.3</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/paws-x">PAWS-X</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
     </paper>
@@ -55,6 +65,7 @@
       <abstract>Previous work has shown that automated essay scoring systems, in particular machine learning-based systems, are not capable of assessing the quality of essays, but are relying on essay length, a factor irrelevant to writing proficiency. In this work, we first show that state-of-the-art systems, recent neural essay scoring systems, might be also influenced by the correlation between essay length and scores in a standard dataset. In our evaluation, a very simple neural model shows the state-of-the-art performance on the standard dataset. To consider essay content without taking essay length into account, we introduce a simple neural model assessing the similarity of content between an input essay and essays assigned different scores. This neural model achieves performance comparable to the state of the art on a standard dataset as well as on a second dataset. Our findings suggest that neural essay scoring systems should consider the characteristics of datasets to focus on text quality.</abstract>
       <url hash="f451c07a">2021.sustainlp-1.4</url>
       <bibkey>jeon-strube-2021-countering</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.4</doi>
       <pwccode url="https://github.com/sdeva14/sustai21-counter-neural-essay-length" additional="false">sdeva14/sustai21-counter-neural-essay-length</pwccode>
     </paper>
     <paper id="5">
@@ -68,6 +79,7 @@
       <abstract>Following the success of dot-product attention in Transformers, numerous approximations have been recently proposed to address its quadratic complexity with respect to the input length. While these variants are memory and compute efficient, it is not possible to directly use them with popular pre-trained language models trained using vanilla attention, without an expensive corrective pre-training stage. In this work, we propose a simple yet highly accurate approximation for vanilla attention. We process the queries in chunks, and for each query, compute the top-*k* scores with respect to the keys. Our approach offers several advantages: (a) its memory usage is linear in the input size, similar to linear attention variants, such as Performer and RFA (b) it is a drop-in replacement for vanilla attention that does not require any corrective pre-training, and (c) it can also lead to significant memory savings in the feed-forward layers after casting them into the familiar query-key-value framework. We evaluate the quality of top-*k* approximation for multi-head attention layers on the Long Range Arena Benchmark, and for feed-forward layers of T5 and UnifiedQA on multiple QA datasets. We show our approach leads to accuracy that is nearly-identical to vanilla attention in multiple setups including training from scratch, fine-tuning, and zero-shot inference.</abstract>
       <url hash="63f61f70">2021.sustainlp-1.5</url>
       <bibkey>gupta-etal-2021-memory</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.5</doi>
       <pwccode url="https://github.com/ag1988/top_k_attention" additional="false">ag1988/top_k_attention</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>
@@ -91,6 +103,7 @@
       <abstract>Copy mechanisms explicitly obtain unchanged tokens from the source (input) sequence to generate the target (output) sequence under the neural seq2seq framework. However, most of the existing copy mechanisms only consider single word copying from the source sentences, which results in losing essential tokens while copying long spans. In this work, we propose a plug-and-play architecture, namely BioCopy, to alleviate the problem aforementioned. Specifically, in the training stage, we construct a BIO tag for each token and train the original model with BIO tags jointly. In the inference stage, the model will firstly predict the BIO tag at each time step, then conduct different mask strategies based on the predicted BIO label to diminish the scope of the probability distributions over the vocabulary list. Experimental results on two separate generative tasks show that they all outperform the baseline models by adding our BioCopy to the original model structure.</abstract>
       <url hash="15837462">2021.sustainlp-1.6</url>
       <bibkey>liu-etal-2021-biocopy</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.6</doi>
     </paper>
     <paper id="7">
       <title>Combining Lexical and Dense Retrieval for Computationally Efficient Multi-hop Question Answering</title>
@@ -102,6 +115,7 @@
       <abstract>In simple open-domain question answering (QA), dense retrieval has become one of the standard approaches for retrieving the relevant passages to infer an answer. Recently, dense retrieval also achieved state-of-the-art results in multi-hop QA, where aggregating information from multiple pieces of information and reasoning over them is required. Despite their success, dense retrieval methods are computationally intensive, requiring multiple GPUs to train. In this work, we introduce a hybrid (lexical and dense) retrieval approach that is highly competitive with the state-of-the-art dense retrieval models, while requiring substantially less computational resources. Additionally, we provide an in-depth evaluation of dense retrieval methods on limited computational resource settings, something that is missing from the current literature.</abstract>
       <url hash="0132b005">2021.sustainlp-1.7</url>
       <bibkey>sidiropoulos-etal-2021-combining</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.7</doi>
       <pwccode url="https://github.com/gsidiropoulos/hybrid_retrieval_for_efficient_qa" additional="false">gsidiropoulos/hybrid_retrieval_for_efficient_qa</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
     </paper>
@@ -116,6 +130,7 @@
       <abstract>It is well known that rerankers built on pretrained transformer models such as BERT have dramatically improved retrieval effectiveness in many tasks. However, these gains have come at substantial costs in terms of efficiency, as noted by many researchers. In this work, we show that it is possible to retain the benefits of transformer-based rerankers in a multi-stage reranking pipeline by first using feature-based learning-to-rank techniques to reduce the number of candidate documents under consideration without adversely affecting their quality in terms of recall. Applied to the MS MARCO passage and document ranking tasks, we are able to achieve the same level of effectiveness, but with up to 18× increase in efficiency. Furthermore, our techniques are orthogonal to other methods focused on accelerating transformer inference, and thus can be combined for even greater efficiency gains. A higher-level message from our work is that, even though pretrained transformers dominate the modern IR landscape, there are still important roles for “traditional” LTR techniques, and that we should not forget history.</abstract>
       <url hash="88a71479">2021.sustainlp-1.8</url>
       <bibkey>zhang-etal-2021-learning-rank</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.8</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
     </paper>
     <paper id="9">
@@ -128,6 +143,7 @@
       <abstract>Traditional synonym recommendations often include ill-suited suggestions for writer’s specific contexts. We propose a simple approach for contextual synonym recommendation by combining existing human-curated thesauri, e.g. WordNet, with pre-trained language models. We evaluate our technique by curating a set of word-sentence pairs balanced across corpora and parts of speech, then annotating each word-sentence pair with the contextually appropriate set of synonyms. We found that basic language model approaches have higher precision. Approaches leveraging sentence context have higher recall. Overall, the latter contextual approach had the highest F-score.</abstract>
       <url hash="40163f87">2021.sustainlp-1.9</url>
       <bibkey>glenski-etal-2021-improving</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.9</doi>
     </paper>
     <paper id="10">
       <title>Semantic Categorization of Social Knowledge for Commonsense Question Answering</title>
@@ -140,6 +156,7 @@
       <abstract>Large pre-trained language models (PLMs) have led to great success on various commonsense question answering (QA) tasks in an end-to-end fashion. However, little attention has been paid to what commonsense knowledge is needed to deeply characterize these QA tasks. In this work, we proposed to categorize the semantics needed for these tasks using the SocialIQA as an example. Building upon our labeled social knowledge categories dataset on top of SocialIQA, we further train neural QA models to incorporate such social knowledge categories and relation information from a knowledge base. Unlike previous work, we observe our models with semantic categorizations of social knowledge can achieve comparable performance with a relatively simple model and smaller size compared to other complex approaches.</abstract>
       <url hash="499d3240">2021.sustainlp-1.10</url>
       <bibkey>wang-etal-2021-semantic</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.10</doi>
       <pwccode url="https://github.com/posuer/social-commonsense-knolwedge" additional="false">posuer/social-commonsense-knolwedge</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/atomic">ATOMIC</pwcdataset>
@@ -156,6 +173,7 @@
       <url hash="ec7a12ab">2021.sustainlp-1.11</url>
       <attachment type="Software" hash="6dd676cc">2021.sustainlp-1.11.Software.zip</attachment>
       <bibkey>torbarina-etal-2021-speeding</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.11</doi>
     </paper>
     <paper id="12">
       <title>Hyperparameter Power Impact in Transformer Language Model Training</title>
@@ -167,6 +185,8 @@
       <abstract>Training large language models can consume a large amount of energy. We hypothesize that the language model’s configuration impacts its energy consumption, and that there is room for power consumption optimisation in modern large language models. To investigate these claims, we introduce a power consumption factor to the objective function, and explore the range of models and hyperparameter configurations that affect power. We identify multiple configuration factors that can reduce power consumption during language model training while retaining model quality.</abstract>
       <url hash="7ae1cacd">2021.sustainlp-1.12</url>
       <bibkey>puvis-de-chavannes-etal-2021-hyperparameter</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.12</doi>
+      <pwccode url="https://github.com/StrombergNLP/Low-Carbon-NLP" additional="false">StrombergNLP/Low-Carbon-NLP</pwccode>
     </paper>
     <paper id="13">
       <title>Distiller: A Systematic Study of Model Distillation Methods in Natural Language Processing</title>
@@ -180,6 +200,7 @@
       <abstract>Knowledge Distillation (KD) offers a natural way to reduce the latency and memory/energy usage of massive pretrained models that have come to dominate Natural Language Processing (NLP) in recent years. While numerous sophisticated variants of KD algorithms have been proposed for NLP applications, the key factors underpinning the optimal distillation performance are often confounded and remain unclear. We aim to identify how different components in the KD pipeline affect the resulting performance and how much the optimal KD pipeline varies across different datasets/tasks, such as the data augmentation policy, the loss function, and the intermediate representation for transferring the knowledge between teacher and student. To tease apart their effects, we propose Distiller, a meta KD framework that systematically combines a broad range of techniques across different stages of the KD pipeline, which enables us to quantify each component’s contribution. Within Distiller, we unify commonly used objectives for distillation of intermediate representations under a universal mutual information (MI) objective and propose a class of MI-objective functions with better bias/variance trade-off for estimating the MI between the teacher and the student. On a diverse set of NLP datasets, the best Distiller configurations are identified via large-scale hyper-parameter optimization. Our experiments reveal the following: 1) the approach used to distill the intermediate representations is the most important factor in KD performance, 2) among different objectives for intermediate distillation, MI-performs the best, and 3) data augmentation provides a large boost for small training datasets or small student networks. Moreover, we find that different datasets/tasks prefer different KD algorithms, and thus propose a simple AutoDistiller algorithm that can recommend a good KD pipeline for a new dataset.</abstract>
       <url hash="71c94360">2021.sustainlp-1.13</url>
       <bibkey>he-etal-2021-distiller</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.13</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
@@ -197,6 +218,7 @@
       <abstract>Wav2vec 2.0 is a state-of-the-art speech recognition model which maps speech audio waveforms into latent representations. The largest version of wav2vec 2.0 contains 317 million parameters. Hence, the inference latency of wav2vec 2.0 will be a bottleneck in production, leading to high costs and a significant environmental footprint. To improve wav2vec’s applicability to a production setting, we explore multiple model compression methods borrowed from the domain of large language models. Using a teacher-student approach, we distilled the knowledge from the original wav2vec 2.0 model into a student model, which is 2 times faster, 4.8 times smaller than the original model. More importantly, the student model is 2 times more energy efficient than the original model in terms of CO2 emission. This increase in performance is accomplished with only a 7% degradation in word error rate (WER). Our quantized model is 3.6 times smaller than the original model, with only a 0.1% degradation in WER. To the best of our knowledge, this is the first work that compresses wav2vec 2.0.</abstract>
       <url hash="b90fb3f6">2021.sustainlp-1.14</url>
       <bibkey>peng-etal-2021-shrinking</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.14</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
     </paper>
     <paper id="15">
@@ -209,6 +231,7 @@
       <abstract>Language models pretrained on vast corpora of unstructured text using self-supervised learning framework are used in numerous natural language understanding and generation tasks. Many studies show that language acquisition in humans follows a rather structured simple-to-complex pattern and guided by this intuition, curriculum learning, which enables training of computational models in a meaningful order, such as processing easy samples before hard ones, has been shown to potentially reduce training time. The question remains whether curriculum learning can benefit pretraining of language models. In this work, we perform comprehensive experiments involving multiple curricula strategies varying the criteria for complexity and the training schedules. Empirical results of training transformer language models on English corpus and evaluating it intrinsically as well as after fine-tuning across eight tasks from the GLUE benchmark, show consistent improvement gains over conventional vanilla training. Interestingly, in our experiments, when evaluated on one epoch, the best model following a document-level hard-to-easy curriculum, outperforms the vanilla model by 1.7 points (average GLUE score) and it takes the vanilla model twice as many training steps to reach comparable performance.</abstract>
       <url hash="49119c32">2021.sustainlp-1.15</url>
       <bibkey>agrawal-etal-2021-role</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.15</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
@@ -222,6 +245,7 @@
       <abstract>Contextual embedding-based language models trained on large data sets, such as BERT and RoBERTa, provide strong performance across a wide range of tasks and are ubiquitous in modern NLP. It has been observed that fine-tuning these models on tasks involving data from domains different from that on which they were pretrained can lead to suboptimal performance. Recent work has explored approaches to adapt pretrained language models to new domains by incorporating additional pretraining on domain-specific corpora and task data. We propose an alternative approach for transferring pretrained language models to new domains by adapting their tokenizers. We show that domain-specific subword sequences can be determined efficiently directly from divergences in the conditional token distributions of the base and domain-specific corpora. In datasets from four disparate domains, we find adaptive tokenization on a pretrained RoBERTa model provides greater than 85% of the performance benefits of domain specific pretraining. Our approach produces smaller models and less training and inference time than other approaches using tokenizer augmentation. Although using adaptive tokenization incurs a 6% increase in model parameters (due to the introduction of 10k new domain-specific tokens), our approach, using 64 CPUs, is &gt;72x faster than further pretraining the language model on domain-specific corpora on 8 TPUs.</abstract>
       <url hash="cc4f8271">2021.sustainlp-1.16</url>
       <bibkey>sachidananda-etal-2021-efficient</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.16</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/s2orc">S2ORC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/scierc">SciERC</pwcdataset>
@@ -234,6 +258,7 @@
       <abstract>Several NLP tasks need the effective repre-sentation of text documents.Arora et al.,2017 demonstrate that simple weighted aver-aging of word vectors frequently outperformsneural models. SCDV (Mekala et al., 2017)further extends this from sentences to docu-ments by employing soft and sparse cluster-ing over pre-computed word vectors. How-ever, both techniques ignore the polysemyand contextual character of words.In thispaper, we address this issue by proposingSCDV+BERT(ctxd), a simple and effective un-supervised representation that combines con-textualized BERT (Devlin et al., 2019) basedword embedding for word sense disambigua-tion with SCDV soft clustering approach. Weshow that our embeddings outperform origi-nal SCDV, pre-train BERT, and several otherbaselines on many classification datasets. Wealso demonstrate our embeddings effective-ness on other tasks, such as concept match-ing and sentence similarity.In addition,we show that SCDV+BERT(ctxd) outperformsfine-tune BERT and different embedding ap-proaches in scenarios with limited data andonly few shots examples.</abstract>
       <url hash="d9b2a07c">2021.sustainlp-1.17</url>
       <bibkey>gupta-gupta-2021-unsupervised</bibkey>
+      <doi>10.18653/v1/2021.sustainlp-1.17</doi>
       <pwccode url="https://github.com/vgupta123/contextualize_scdv" additional="false">vgupta123/contextualize_scdv</pwccode>
     </paper>
   </volume>
