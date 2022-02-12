@@ -7,8 +7,9 @@ We are grateful to all our contributors whose work makes this collection of scho
 
 ### Active Volunteers
 
-+ [Marcel Bollmann](https://marcel.bollmann.me/) (Jönköping University) --- **Site Development Lead**
-+ [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame) --- **Data Lead**
++ **Indexing Lead**: [A. Seza Doğruöz](https://lt3.ugent.be/people/as-dogruoz/) (Universiteit Gent)
++ **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (Jönköping University)
++ **Data Lead**: [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame)
 + [Arne Köhn](https://arne.chark.eu) (New Work SE)
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
 + [Kilian Gebhardt](https://wwwtcs.inf.tu-dresden.de/~kilian/) (TU Dresden)
@@ -32,14 +33,15 @@ We are grateful to all our contributors whose work makes this collection of scho
 
 ### Directors
 
-+ [Matt Post](http://mjpost.github.io/) (2019&ndash;)
++ [Matt Post](http://waypost.net/) (2019&ndash;)
 + [Min-Yen Kan](http://www.comp.nus.edu.sg/~kanmy/) (2008&ndash;2018)
 + [Steven Bird](http://stevenbird.net/) (2001&ndash;2007)
 + Eduard Hovy, John Nerbonne, Mike Rosner, Nicoletta Calzolari and Doug Arnold (Past Associate Editors)
 
-### Assistant
+### Assistants
 
 + Xinru Yan (2020&ndash;)
++ [David Stap](https://davidstap.github.io)
 
 ### Donors
 
