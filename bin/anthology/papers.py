@@ -42,7 +42,9 @@ from .formatter import (
 
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter=MarkupFormatter, venue_index=None):
+    def __init__(
+        self, paper_id, ingest_date, volume, formatter=MarkupFormatter, venue_index=None
+    ):
         self.parent_volume = volume
         self.formatter = formatter
         self.venue_index = venue_index
