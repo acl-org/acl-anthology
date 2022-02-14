@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.germeval">
+  <volume id="1" ingest-date="2021-10-22">
+    <meta>
+      <booktitle>Proceedings of the GermEval 2021 Shared Task on the Identification of Toxic, Engaging, and Fact-Claiming Comments</booktitle>
+      <editor><first>Julian</first><last>Risch</last></editor>
+      <editor><first>Anke</first><last>Stoll</last></editor>
+      <editor><first>Lena</first><last>Wilms</last></editor>
+      <editor><first>Michael</first><last>Wiegand</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Duesseldorf, Germany</address>
+      <month>September</month>
+      <year>2021</year>
+      <url hash="a6114ee1">2021.germeval-1</url>
+    </meta>
+    <frontmatter>
+      <url hash="d35277ad">2021.germeval-1.0</url>
+      <bibkey>germeval-2021-germeval</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Overview of the <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021 Shared Task on the Identification of Toxic, Engaging, and Fact-Claiming Comments</title>
+      <author><first>Julian</first><last>Risch</last></author>
+      <author><first>Anke</first><last>Stoll</last></author>
+      <author><first>Lena</first><last>Wilms</last></author>
+      <author><first>Michael</first><last>Wiegand</last></author>
+      <pages>1–12</pages>
+      <abstract>We present the GermEval 2021 shared task on the identification of toxic, engaging, and fact-claiming comments. This shared task comprises three binary classification subtasks with the goal to identify: toxic comments, engaging comments, and comments that include indications of a need for fact-checking, here referred to as fact-claiming comments. Building on the two previous GermEval shared tasks on the identification of offensive language in 2018 and 2019, we extend this year’s task definition to meet the demand of moderators and community managers to also highlight comments that foster respectful communication, encourage in-depth discussions, and check facts that lines of arguments rely on. The dataset comprises 4,188 posts extracted from the Facebook page of a German political talk show of a national public television broadcaster. A theoretical framework and additional reliability tests during the data annotation process ensure particularly high data quality. The shared task had 15 participating teams submitting 31 runs for the subtask on toxic comments, 25 runs for the subtask on engaging comments, and 31 for the subtask on fact-claiming comments. The shared task website can be found at https://germeval2021toxic.github.io/SharedTask/.</abstract>
+      <url hash="b3fb0a93">2021.germeval-1.1</url>
+      <bibkey>risch-etal-2021-overview</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>UPA</fixed-case>pplied<fixed-case>CL</fixed-case> at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Identifying Fact-Claiming and Engaging <fixed-case>F</fixed-case>acebook Comments Using Transformers</title>
+      <author><first>Robin</first><last>Schaefer</last></author>
+      <author><first>Manfred</first><last>Stede</last></author>
+      <pages>13–18</pages>
+      <abstract>In this paper we present UPAppliedCL’s contribution to the GermEval 2021 Shared Task. In particular, we participated in Subtasks 2 (Engaging Comment Classification) and 3 (Fact-Claiming Comment Classification). While acceptable results can be obtained by using unigrams or linguistic features in combination with traditional machine learning models, we show that for both tasks transformer models trained on fine-tuned BERT embeddings yield best results.</abstract>
+      <url hash="b252dc2d">2021.germeval-1.2</url>
+      <bibkey>schaefer-stede-2021-upappliedcl</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>FH</fixed-case>-<fixed-case>SWF</fixed-case> <fixed-case>SG</fixed-case> at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Using Transformer-Based Language Models to Identify Toxic, Engaging, &amp; Fact-Claiming Comments</title>
+      <author><first>Christian</first><last>Gawron</last></author>
+      <author><first>Sebastian</first><last>Schmidt</last></author>
+      <pages>19–24</pages>
+      <abstract>In this paper we describe the methods we used for our submissions to the GermEval 2021 shared task on the identification of toxic, engaging, and fact-claiming comments. For all three subtasks we fine-tuned freely available transformer-based models from the Huggingface model hub. We evaluated the performance of various pre-trained models after fine-tuning on 80% of the training data with different hyperparameters and submitted predictions of the two best performing resulting models. We found that this approach worked best for subtask 3, for which we achieved an F1-score of 0.736.</abstract>
+      <url hash="9f2578bd">2021.germeval-1.3</url>
+      <bibkey>gawron-schmidt-2021-fh</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>DFKI</fixed-case> <fixed-case>SLT</fixed-case> at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Multilingual Pre-training and Data Augmentation for the Classification of Toxicity in Social Media Comments</title>
+      <author><first>Remi</first><last>Calizzano</last></author>
+      <author><first>Malte</first><last>Ostendorff</last></author>
+      <author><first>Georg</first><last>Rehm</last></author>
+      <pages>25–31</pages>
+      <abstract>We present our submission to the first subtask of GermEval 2021 (classification of German Facebook comments as toxic or not). Binary sequence classification is a standard NLP task with known state-of-the-art methods. Therefore, we focus on data preparation by using two different techniques: task-specific pre-training and data augmentation. First, we pre-train multilingual transformers (XLM-RoBERTa and MT5) on 12 hatespeech detection datasets in nine different languages. In terms of F1, we notice an improvement of 10% on average, using task-specific pre-training. Second, we perform data augmentation by labelling unlabelled comments, taken from Facebook, to increase the size of the training dataset by 79%. Models trained on the augmented training dataset obtain on average +0.0282 (+5%) F1 score compared to models trained on the original training dataset. Finally, the combination of the two techniques allows us to obtain an F1 score of 0.6899 with XLM- RoBERTa and 0.6859 with MT5. The code of the project is available at: https://github.com/airKlizz/germeval2021toxic.</abstract>
+      <url hash="ba6470d5">2021.germeval-1.4</url>
+      <bibkey>calizzano-etal-2021-dfki</bibkey>
+      <pwccode url="https://github.com/airklizz/germeval2021toxic" additional="false">airklizz/germeval2021toxic</pwccode>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>WLV</fixed-case>-<fixed-case>RIT</fixed-case> at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Multitask Learning with Transformers to Detect Toxic, Engaging, and Fact-Claiming Comments</title>
+      <author><first>Skye</first><last>Morgan</last></author>
+      <author><first>Tharindu</first><last>Ranasinghe</last></author>
+      <author><first>Marcos</first><last>Zampieri</last></author>
+      <pages>32–38</pages>
+      <abstract>This paper addresses the identification of toxic, engaging, and fact-claiming comments on social media. We used the dataset made available by the organizers of the GermEval2021 shared task containing over 3,000 manually annotated Facebook comments in German. Considering the relatedness of the three tasks, we approached the problem using large pre-trained transformer models and multitask learning. Our results indicate that multitask learning achieves performance superior to the more common single task learning approach in all three tasks. We submit our best systems to GermEval-2021 under the team name WLV-RIT.</abstract>
+      <url hash="b8a3edc3">2021.germeval-1.5</url>
+      <bibkey>morgan-etal-2021-wlv</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/hate-speech">Hate Speech</pwcdataset>
+    </paper>
+    <paper id="6">
+      <title>Precog-<fixed-case>LTRC</fixed-case>-<fixed-case>IIITH</fixed-case> at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Ensembling Pre-Trained Language Models with Feature Engineering</title>
+      <author><first>T. H.</first><last>Arjun</last></author>
+      <author><first>Arvindh</first><last>A.</last></author>
+      <author><first>Kumaraguru</first><last>Ponnurangam</last></author>
+      <pages>39–46</pages>
+      <abstract>We describe our participation in all the subtasks of the Germeval 2021 shared task on the identification of Toxic, Engaging, and Fact-Claiming Comments. Our system is an ensemble of state-of-the-art pre-trained models finetuned with carefully engineered features. We show that feature engineering and data augmentation can be helpful when the training data is sparse. We achieve an F1 score of 66.87, 68.93, and 73.91 in Toxic, Engaging, and Fact-Claiming comment identification subtasks.</abstract>
+      <url hash="f2e34068">2021.germeval-1.6</url>
+      <bibkey>arjun-etal-2021-precog</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>IRC</fixed-case>ologne at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Toxicity Classification</title>
+      <author><first>Fabian</first><last>Haak</last></author>
+      <author><first>Björn</first><last>Engelmann</last></author>
+      <pages>47–53</pages>
+      <abstract>In this paper, we describe the TH Köln’s submission for the Shared Task on the Identification of Toxic Comments at GermEval 2021. Toxicity is a severe and latent problem in comments in online discussions. Complex language model based methods have shown the most success in identifying toxicity. However, these approaches lack explainability and might be insensitive to domain-specific renditions of toxicity. In the scope of the GermEval 2021 toxic comment classification task (Risch et al., 2021), we employed a simple but promising combination of term-frequency-based classification and rule-based labeling to produce effective but to no lesser degree explainable toxicity predictions.</abstract>
+      <url hash="83ae0764">2021.germeval-1.7</url>
+      <bibkey>haak-engelmann-2021-ircologne</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>D</fixed-case>e<fixed-case>T</fixed-case>ox at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Toxic Comment Classification</title>
+      <author><first>Mina</first><last>Schütz</last></author>
+      <author><first>Christoph</first><last>Demus</last></author>
+      <author><first>Jonas</first><last>Pitz</last></author>
+      <author><first>Nadine</first><last>Probol</last></author>
+      <author><first>Melanie</first><last>Siegel</last></author>
+      <author><first>Dirk</first><last>Labudde</last></author>
+      <pages>54–61</pages>
+      <abstract>In this work, we present our approaches on the toxic comment classification task (subtask 1) of the GermEval 2021 Shared Task. For this binary task, we propose three models: a German BERT transformer model; a multilayer perceptron, which was first trained in parallel on textual input and 14 additional linguistic features and then concatenated in an additional layer; and a multilayer perceptron with both feature types as input. We enhanced our pre-trained transformer model by re-training it with over 1 million tweets and fine-tuned it on two additional German datasets of similar tasks. The embeddings of the final fine-tuned German BERT were taken as the textual input features for our neural networks. Our best models on the validation data were both neural networks, however our enhanced German BERT gained with a F1-score = 0.5895 a higher prediction on the test data.</abstract>
+      <url hash="ce166435">2021.germeval-1.8</url>
+      <bibkey>schutz-etal-2021-detox</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Universität Regensburg <fixed-case>M</fixed-case>ax<fixed-case>S</fixed-case> at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021 Task 1: Synthetic Data in Toxic Comment Classification</title>
+      <author><first>Maximilian</first><last>Schmidhuber</last></author>
+      <pages>62–68</pages>
+      <abstract>We report on our submission to Task 1 of the GermEval 2021 challenge – toxic comment classification. We investigate different ways of bolstering scarce training data to improve off-the-shelf model performance on a toxic comment classification task. To help address the limitations of a small dataset, we use data synthetically generated by a German GPT-2 model. The use of synthetic data has only recently been taking off as a possible solution to ad- dressing training data sparseness in NLP, and initial results are promising. However, our model did not see measurable improvement through the use of synthetic data. We discuss possible reasons for this finding and explore future works in the field.</abstract>
+      <url hash="3f3c5702">2021.germeval-1.9</url>
+      <bibkey>schmidhuber-2021-universitat</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/hatexplain">HateXplain</pwcdataset>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>TUW</fixed-case>-<fixed-case>I</fixed-case>nf at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val2021: Rule-based and Hybrid Methods for Detecting Toxic, Engaging, and Fact-Claiming Comments</title>
+      <author><first>Kinga</first><last>Gémes</last></author>
+      <author><first>Gábor</first><last>Recski</last></author>
+      <pages>69–75</pages>
+      <abstract>This paper describes our methods submitted for the GermEval 2021 shared task on identifying toxic, engaging and fact-claiming comments in social media texts (Risch et al., 2021). We explore simple strategies for semi-automatic generation of rule-based systems with high precision and low recall, and use them to achieve slight overall improvements over a standard BERT-based classifier.</abstract>
+      <url hash="9143b01d">2021.germeval-1.10</url>
+      <bibkey>gemes-recski-2021-tuw</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>AIT</fixed-case>_<fixed-case>FHSTP</fixed-case> at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Automatic Fact Claiming Detection with Multilingual Transformer Models</title>
+      <author><first>Jaqueline</first><last>Böck</last></author>
+      <author><first>Daria</first><last>Liakhovets</last></author>
+      <author><first>Mina</first><last>Schütz</last></author>
+      <author><first>Armin</first><last>Kirchknopf</last></author>
+      <author><first>Djordje</first><last>Slijepčević</last></author>
+      <author><first>Matthias</first><last>Zeppelzauer</last></author>
+      <author><first>Alexander</first><last>Schindler</last></author>
+      <pages>76–82</pages>
+      <abstract>Spreading ones opinion on the internet is becoming more and more important. A problem is that in many discussions people often argue with supposed facts. This year’s GermEval 2021 focuses on this topic by incorporating a shared task on the identification of fact-claiming comments. This paper presents the contribution of the AIT FHSTP team at the GermEval 2021 benchmark for task 3: “identifying fact-claiming comments in social media texts”. Our methodological approaches are based on transformers and incorporate 3 different models: multilingual BERT, GottBERT and XML-RoBERTa. To solve the fact claiming task, we fine-tuned these transformers with external data and the data provided by the GermEval task organizers. Our multilingual BERT model achieved a precision-score of 72.71%, a recall of 72.96% and an F1-Score of 72.84% on the GermEval test set. Our fine-tuned XML-RoBERTa model achieved a precision-score of 68.45%, a recall of 70.11% and a F1-Score of 69.27%. Our best model is GottBERT (i.e., a BERT transformer pre-trained on German texts) fine-tuned on the GermEval 2021 data. This transformer achieved a precision of 74.13%, a recall of 75.11% and an F1-Score of 74.62% on the test set.</abstract>
+      <url hash="471dcabf">2021.germeval-1.11</url>
+      <bibkey>bock-etal-2021-ait</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/claimbuster">ClaimBuster</pwcdataset>
+    </paper>
+    <paper id="12">
+      <title>ur-iw-hnt at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: An Ensembling Strategy with Multiple <fixed-case>BERT</fixed-case> Models</title>
+      <author><first>Hoai Nam</first><last>Tran</last></author>
+      <author><first>Udo</first><last>Kruschwitz</last></author>
+      <pages>83–87</pages>
+      <abstract>This paper describes our approach (ur-iw-hnt) for the Shared Task of GermEval2021 to identify toxic, engaging, and fact-claiming comments. We submitted three runs using an ensembling strategy by majority (hard) voting with multiple different BERT models of three different types: German-based, Twitter-based, and multilingual models. All ensemble models outperform single models, while BERTweet is the winner of all individual models in every subtask. Twitter-based models perform better than GermanBERT models, and multilingual models perform worse but by a small margin.</abstract>
+      <url hash="a929a4f4">2021.germeval-1.12</url>
+      <bibkey>tran-kruschwitz-2021-ur</bibkey>
+      <pwccode url="https://github.com/hn-tran/germeval2021" additional="false">hn-tran/germeval2021</pwccode>
+    </paper>
+    <paper id="13">
+      <title>Data Science Kitchen at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: A Fine Selection of Hand-Picked Features, Delivered Fresh from the Oven</title>
+      <author><first>Niclas</first><last>Hildebrandt</last></author>
+      <author><first>Benedikt</first><last>Boenninghoff</last></author>
+      <author><first>Dennis</first><last>Orth</last></author>
+      <author><first>Christopher</first><last>Schymura</last></author>
+      <pages>88–94</pages>
+      <abstract>This paper presents the contribution of the Data Science Kitchen at GermEval 2021 shared task on the identification of toxic, engaging, and fact-claiming comments. The task aims at extending the identification of offensive language, by including additional subtasks that identify comments which should be prioritized for fact-checking by moderators and community managers. Our contribution focuses on a feature-engineering approach with a conventional classification backend. We combine semantic and writing style embeddings derived from pre-trained deep neural networks with additional numerical features, specifically designed for this task. Ensembles of Logistic Regression classifiers and Support Vector Machines are used to derive predictions for each subtask via a majority voting scheme. Our best submission achieved macro-averaged F1-scores of 66.8%, 69.9% and 72.5% for the identification of toxic, engaging, and fact-claiming comments.</abstract>
+      <url hash="275a546f">2021.germeval-1.13</url>
+      <bibkey>hildebrandt-etal-2021-data</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>UR</fixed-case>@<fixed-case>NLP</fixed-case>_<fixed-case>A</fixed-case>_<fixed-case>T</fixed-case>eam @ <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Ensemble-based Classification of Toxic, Engaging and Fact-Claiming Comments</title>
+      <author><first>Kwabena Odame</first><last>Akomeah</last></author>
+      <author><first>Udo</first><last>Kruschwitz</last></author>
+      <author><first>Bernd</first><last>Ludwig</last></author>
+      <pages>95–99</pages>
+      <abstract>In this paper, we report on our approach to addressing the GermEval 2021 Shared Task on the Identification of Toxic, Engaging, and Fact-Claiming Comments for the German language. We submitted three runs for each subtask based on ensembles of three models each using contextual embeddings from pre-trained language models using SVM and neural-network-based classifiers. We include language-specific as well as language-agnostic language models – both with and without fine-tuning. We observe that for the runs we submitted that the SVM models overfitted the training data and this affected the aggregation method (simple majority voting) of the ensembles. The model records a lower performance on the test set than on the training set. Exploring the issue of overfitting we uncovered that due to a bug in the pipeline the runs we submitted had not been trained on the full set but only on a small training set. Therefore in this paper we also include the results we get when trained on the full training set which demonstrate the power of ensembles.</abstract>
+      <url hash="46655dd7">2021.germeval-1.14</url>
+      <bibkey>akomeah-etal-2021-ur</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>H</fixed-case>unter<fixed-case>S</fixed-case>peech<fixed-case>L</fixed-case>ab at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Does Your Comment Claim A Fact? Contextualized Embeddings for <fixed-case>G</fixed-case>erman Fact-Claiming Comment Classification</title>
+      <author><first>Subhadarshi</first><last>Panda</last></author>
+      <author><first>Sarah Ita</first><last>Levitan</last></author>
+      <pages>100–104</pages>
+      <abstract>In this paper we investigate the efficacy of using contextual embeddings from multilingual BERT and German BERT in identifying fact-claiming comments in German on social media. Additionally, we examine the impact of formulating the classification problem as a multi-task learning problem, where the model identifies toxicity and engagement of the comment in addition to identifying whether it is fact-claiming. We provide a thorough comparison of the two BERT based models compared with a logistic regression baseline and show that German BERT features trained using a multi-task objective achieves the best F1 score on the test set. This work was done as part of a submission to GermEval 2021 shared task on the identification of fact-claiming comments.</abstract>
+      <url hash="a9c73794">2021.germeval-1.15</url>
+      <bibkey>panda-levitan-2021-hunterspeechlab</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>FHAC</fixed-case> at <fixed-case>G</fixed-case>erm<fixed-case>E</fixed-case>val 2021: Identifying <fixed-case>G</fixed-case>erman toxic, engaging, and fact-claiming comments with ensemble learning</title>
+      <author><first>Tobias</first><last>Bornheim</last></author>
+      <author><first>Niklas</first><last>Grieger</last></author>
+      <author><first>Stephan</first><last>Bialonski</last></author>
+      <pages>105–111</pages>
+      <abstract>The availability of language representations learned by large pretrained neural network models (such as BERT and ELECTRA) has led to improvements in many downstream Natural Language Processing tasks in recent years. Pretrained models usually differ in pretraining objectives, architectures, and datasets they are trained on which can affect downstream performance. In this contribution, we fine-tuned German BERT and German ELECTRA models to identify toxic (subtask 1), engaging (subtask 2), and fact-claiming comments (subtask 3) in Facebook data provided by the GermEval 2021 competition. We created ensembles of these models and investigated whether and how classification performance depends on the number of ensemble members and their composition. On out-of-sample data, our best ensemble achieved a macro-F1 score of 0.73 (for all subtasks), and F1 scores of 0.72, 0.70, and 0.76 for subtasks 1, 2, and 3, respectively.</abstract>
+      <url hash="8be8b7d7">2021.germeval-1.16</url>
+      <bibkey>bornheim-etal-2021-fhac</bibkey>
+      <pwccode url="https://github.com/dslaborg/germeval2021" additional="false">dslaborg/germeval2021</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/germeval-2021-toxic-engaging-fact-claiming">GermEval 2021 - Toxic, Engaging, &amp; Fact-Claiming Comments test set</pwcdataset>
+    </paper>
+  </volume>
+</collection>

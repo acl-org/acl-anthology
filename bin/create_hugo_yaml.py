@@ -65,6 +65,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         if "xml_abstract" in data:
             data["abstract_html"] = paper.get_abstract("html")
             del data["xml_abstract"]
+        if "xml_url" in data:
+            del data["xml_url"]
         if "author" in data:
             data["author"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
@@ -108,20 +110,26 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             key=lambda p: p[1],
             reverse=True,
         )
-        variants = [n for n in anthology.people.get_used_names(id_) if n != name]
+        variants = [
+            n
+            for n in anthology.people.get_used_names(id_)
+            if n.first != name.first or n.last != name.last
+        ]
         if len(variants) > 0:
-            data["variant_entries"] = [name.as_dict() for name in variants]
+            data["variant_entries"] = [name.as_dict() for name in sorted(variants)]
         people[id_[0]][id_] = data
 
     # Prepare volume index
     volumes = {}
     for id_, volume in anthology.volumes.items():
         log.debug("export_anthology: processing volume '{}'".format(id_))
-        data = volume.attrib
+        data = volume.as_dict()
         data["title_html"] = volume.get_title("html")
         del data["xml_booktitle"]
         if "xml_abstract" in data:
             del data["xml_abstract"]
+        if "xml_url" in data:
+            del data["xml_url"]
         data["has_abstracts"] = volume.has_abstracts
         data["papers"] = volume.paper_ids
         if "author" in data:

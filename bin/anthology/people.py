@@ -15,15 +15,36 @@
 # limitations under the License.
 
 import logging as log
+from functools import cached_property
+import re
+from slugify import slugify
 import anthology.formatter as my_formatter
+
+
+def score_variant(name):
+    """Heuristically assign scores to names, with the idea of assigning higher
+    scores to spellings more likely to be the correct canonical variant."""
+    name = repr(name)
+    # Prefer longer variants
+    score = len(name)
+    # Prefer variants with non-ASCII characters
+    score += sum((ord(c) > 127) for c in name)
+    # Penalize upper-case characters after word boundaries
+    score -= sum(any(c.isupper() for c in w[1:]) for w in re.split(r"\W+", name))
+    # Penalize lower-case characters at word boundaries
+    score -= sum(w[0].islower() if w else 0 for w in re.split(r"\W+", name))
+    if name[0].islower():  # extra penalty for first name
+        score -= 1
+
+    return score
 
 
 class PersonName:
     first, last = "", ""
 
     def __init__(self, first, last, script="roman", variant: "PersonName" = None):
-        self.first = first.strip() if first is not None else ""
-        self.last = last.strip()
+        self.first = first if first is not None else ""
+        self.last = last
         self.script = script
         self.variant = variant
 
@@ -65,7 +86,7 @@ class PersonName:
         last = dict_["last"]
         return PersonName(first, last)
 
-    @property
+    @cached_property
     def full(self):
         """
         Return the full rendering of the name.
@@ -82,14 +103,30 @@ class PersonName:
         else:
             return form
 
+    @cached_property
+    def slug(self):
+        # This is effectively used as the person's "id".
+        # If two names slugify to the same thing, we assume they are the same person.
+        # This happens when there are missing accents in one version, or
+        # when we have an inconsistent first/last split for multiword names.
+        # These cases have in practice always referred to the same person.
+        slug = slugify(repr(self))
+        if not slug:
+            slug = "none"
+        return slug
+
+    @cached_property
+    def score(self):
+        return score_variant(self)
+
     @property
     def id_(self):
         return repr(self)
 
     def as_bibtex(self):
         if not self.first:
-            return "{{{}}}".format(my_formatter.bibtex_encode(self.last))
-        return my_formatter.bibtex_encode("{}, {}".format(self.last, self.first))
+            return f"{{{my_formatter.bibtex_encode(self.last)}}}"
+        return my_formatter.bibtex_encode(f"{self.last}, {self.first}")
 
     def as_citeproc_json(self):
         if not self.first:
@@ -99,8 +136,23 @@ class PersonName:
     def as_dict(self):
         return {"first": self.first, "last": self.last, "full": self.full}
 
+    def without_variant(self):
+        if self.variant is None:
+            return self
+        return PersonName(self.first, self.last)
+
     def __eq__(self, other):
-        return (self.first == other.first) and (self.last == other.last)
+        if other is None:
+            return False
+        return (
+            (self.first == other.first)
+            and (self.last == other.last)
+            and (self.script == other.script)
+            and (self.variant == other.variant)
+        )
+
+    def __lt__(self, other):
+        return self.full < other.full
 
     def __str__(self):
         return self.full
@@ -108,7 +160,7 @@ class PersonName:
     def __repr__(self):
         if not self.first:
             return self.last
-        return "{} || {}".format(self.first, self.last)
+        return f"{self.first} || {self.last}"
 
     def __hash__(self):
-        return hash(repr(self))
+        return hash(self.full)

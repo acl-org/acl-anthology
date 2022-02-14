@@ -67,6 +67,7 @@ MONTH_HASH = {
     "June": "6",
     "July": "7",
     "August": "8",
+    "Aug": "8",
     "September": "9",
     "October": "10",
     "November": "11",
@@ -187,6 +188,10 @@ def main(volumes):
                         sn = make_simple_element(
                             "surname", text=name_part.text, parent=pn
                         )
+
+        if editor_index == 0:
+            print(f"FATAL: Found no editors", file=sys.stderr)
+            sys.exit(1)
 
         # Assemble Event Metadata
         em = make_simple_element("event_metadata", parent=c)

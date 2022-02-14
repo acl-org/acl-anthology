@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from functools import cached_property
 import re
 import logging as log
 
@@ -86,13 +87,22 @@ class Volume:
             front_matter = Paper.from_xml(
                 front_matter_xml, volume, formatter, venue_index
             )
-        else:
-            # dummy front matter to make sure that editors of
-            # volume get registered as people in author database
-            front_matter = Paper("0", ingest_date, volume, formatter, venue_index)
-        volume.add_frontmatter(front_matter)
+            volume.add_frontmatter(front_matter)
 
         return volume
+
+    @cached_property
+    def url(self):
+        # If <url> field not present, use ID.
+        # But see https://github.com/acl-org/acl-anthology/issues/997.
+        return infer_url(self.attrib.get("xml_url", self.full_id))
+
+    @cached_property
+    def pdf(self):
+        url = self.attrib.get("xml_url", None)
+        if url is not None:
+            return infer_url(url, template=data.PDF_LOCATION_TEMPLATE)
+        return None
 
     def _set_meta_info(self, meta_data):
         """Derive journal title, volume, and issue no. used in metadata.
@@ -105,10 +115,6 @@ class Volume:
             self.attrib["editor"] = self.attrib["author"]
             del self.attrib["author"]
 
-        # Expand URL if present
-        if "url" in self.attrib:
-            self.attrib["url"] = infer_url(self.attrib["url"])
-
         # Some volumes don't set this---but they should!
         if "year" not in self.attrib:
             self.attrib["year"] = infer_year(self.collection_id)
@@ -117,7 +123,7 @@ class Volume:
         if "month" in self.attrib:
             month = month_str2num(self.get("month"))
             if month is not None:
-                self.attrib["meta_date"] = "{}/{}".format(self.get("year"), month)
+                self.attrib["meta_date"] = f"{self.get('year')}/{month}"
         if is_journal(self.collection_id):
             self.attrib["meta_journal_title"] = data.get_journal_title(
                 self.collection_id, self.attrib["title"]
@@ -137,7 +143,7 @@ class Volume:
     def volume_id(self):
         return self._id
 
-    @property
+    @cached_property
     def full_id(self):
         return build_anthology_id(self.collection_id, self.volume_id)
 
@@ -169,6 +175,13 @@ class Volume:
           - html:  Convert XML tags into valid HTML tags
         """
         return self.formatter(self.get("xml_booktitle"), form)
+
+    def as_dict(self):
+        value = self.attrib.copy()
+        value["url"] = self.url
+        if self.pdf:
+            value["pdf"] = self.pdf
+        return value
 
     def __len__(self):
         return len(self.content)

@@ -61,8 +61,8 @@ The following information in the spreadsheet is especially important:
 
 -  **Venue identifiers**. Each venue (conference or workshop) has a venue identifier.
    Its basic form is the conference acronym, such as ACL, NAACL, JEP/TALN/RECITAL, and so on.
-   A [slugified](https://en.wikipedia.org/wiki/Clean_URL#Slug) version of this acronym, containing only numerals and lowercase ASCII letters, is used in the URL for the venue's page on the Anthology (e.g., [ACL → acl](https://www.aclweb.org/anthology/venues/acl), [JEP/TALN/RECITAL → jeptalnrecital](https://www.aclweb.org/anthology/venues/jeptalnrecital)), and also forms a component of the [Anthology ID]({{< relref "ids.md" >}}).
-   For existing venues, be sure to look up [the venue's existing identifier](https://www.aclweb.org/anthology/venues/).
+   A [slugified](https://en.wikipedia.org/wiki/Clean_URL#Slug) version of this acronym, containing only numerals and lowercase ASCII letters, is used in the URL for the venue's page on the Anthology (e.g., [ACL → acl](https://aclanthology.org/venues/acl), [JEP/TALN/RECITAL → jeptalnrecital](https://aclanthology.org/venues/jeptalnrecital)), and also forms a component of the [Anthology ID]({{< relref "ids.md" >}}).
+   For existing venues, be sure to look up [the venue's existing identifier](https://aclanthology.org/venues/).
    New venues must have their venue identifier confirmed by the Anthology director.
    Note: a common mistake is to include the year in the venue identifier, e.g., ACL2020 (perhaps in part because Softconf often uses this).
    This confuses a *meeting* of a venue with the venue itself.
@@ -86,11 +86,8 @@ If you prefer to have it published on a different date, please inform us when yo
 
 ### Submit your data
 
-After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange all the volumes of your proceedings into [ACLPUB](https://github.com/acl-org/ACLPUB) format, as described in the [ACLPUB → Anthology documentation](https://acl-org.github.io/ACLPUB/anthology.html).
-
-If you used [Softconf](https://www.softconf.com)'s [STARTv2 conference management system](https://www.softconf.com/about/start-v2-mainmenu-26), the situation is easy for you, since ACLPUB is integrated.
-For meetings using EasyChair, you will need to first convert to ACLPUB format using [our easy2acl scripts](https://github.com/acl-org/easy2acl).
-The end result in either case is a `data` directory containing ACLPUB proceedings, one for each conference (again, see [the ACLPUB -> Anthology instructions](https://acl-org.github.io/ACLPUB/anthology.html)).
+After your conference management software has collected all the camera-ready papers and associated attachments, you will arrange all the volumes of your proceedings into ACLPUB format, as described in the [ACLPUB → Anthology documentation](https://acl-org.github.io/ACLPUB/anthology.html).
+The end result is a `data` directory containing ACLPUB proceedings, one for each conference.
 A link to this directory (preferably via a file sharing service, such as Dropbox or Google Drive) should be sent to the Anthology Director **two weeks prior to your desired publication date** (which was negotiated when you first contacted us).
 
 The remaining steps are handled by Anthology staff and use [Anthology tools](https://github.com/acl-org/acl-anthology/tree/master/bin/):

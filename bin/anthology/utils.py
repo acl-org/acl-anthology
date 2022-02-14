@@ -91,7 +91,7 @@ def build_anthology_id(
             return f"{collection_id}-{volume_id}"
     # pre-2020 IDs
     if (
-        collection_id.startswith("W")
+        collection_id[0] == "W"
         or collection_id == "C69"
         or (collection_id == "D19" and int(volume_id) >= 5)
     ):
@@ -111,7 +111,7 @@ def test_url_code(url):
     Test a URL, returning the result.
     """
     headers = {'user-agent': 'acl-anthology/0.0.1'}
-    r = requests.head(url, headers=headers, allow_redirects=True)
+    r = requests.head(url, headers=headers, allow_redirects=True)  # , verify=False)
     return r
 
 
@@ -131,7 +131,7 @@ def retrieve_url(remote_url: str, local_path: str):
     :param local_path: Where to save the file to.
     """
     outdir = os.path.dirname(local_path)
-    if not os.path.exists(outdir):
+    if outdir != "" and not os.path.exists(outdir):
         os.makedirs(outdir)
 
     if remote_url.startswith("http"):
@@ -141,7 +141,10 @@ def retrieve_url(remote_url: str, local_path: str):
         cookieProcessor = urllib.request.HTTPCookieProcessor()
         opener = urllib.request.build_opener(cookieProcessor)
         request = urllib.request.Request(
-            remote_url, headers={'User-Agent': 'Mozilla/5.0'}
+            remote_url,
+            headers={
+                'User-Agent': 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11'
+            },
         )
 
         with opener.open(request, timeout=1000) as url, open(
@@ -200,6 +203,36 @@ def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
             return (collection_id, str(int(rest)), None)
 
 
+def get_xml_file(anth_id):
+    """
+    Returns the XML file containing an Anthology ID.
+    """
+    collection_id, _, _ = deconstruct_anthology_id(anth_id)
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        "..",
+        "..",
+        "data",
+        "xml",
+        f"{collection_id}.xml",
+    )
+
+
+def get_pdf_dir(anth_id):
+    """
+    Returns a local path to the directory containing the PDF of the specified Anthology ID.
+    """
+    collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
+
+    if is_newstyle_id(anth_id):
+        venue_name = collection_id.split(".")[1]
+        return os.path.join(data.ANTHOLOGY_FILE_DIR, "pdf", venue_name)
+    else:
+        return os.path.join(
+            data.ANTHOLOGY_FILE_DIR, "pdf", collection_id[0], collection_id
+        )
+
+
 def stringify_children(node):
     """Returns the full content of a node, including tags.
 
@@ -224,7 +257,12 @@ def stringify_children(node):
 
 
 def remove_extra_whitespace(text):
-    return re.sub(" +", " ", text.replace("\n", "").strip())
+    text = text.replace("\n", "").strip()
+    # This was profiled to be 2x-4x faster than using re.sub();
+    # also cf. https://stackoverflow.com/a/15913564
+    while "  " in text:
+        text = text.replace("  ", " ")
+    return text
 
 
 def infer_url(filename, template=data.CANONICAL_URL_TEMPLATE):
@@ -247,9 +285,7 @@ def infer_attachment_url(filename, parent_id=None):
     # Otherwise, treat it as an internal filename
     if parent_id is not None and not filename.startswith(parent_id):
         logging.error(
-            "attachment must begin with paper ID '{}', but is '{}'".format(
-                parent_id, filename
-            )
+            f"attachment must begin with paper ID '{parent_id}', but is '{filename}'"
         )
     return infer_url(filename, data.ATTACHMENT_TEMPLATE)
 
@@ -269,9 +305,9 @@ def infer_year(collection_id):
     ), f"Couldn't infer year: unknown volume ID format '{collection_id}' ({type(collection_id)})"
     digits = collection_id[1:]
     if int(digits) >= 60:
-        year = "19{}".format(digits)
+        year = f"19{digits}"
     else:
-        year = "20{}".format(digits)
+        year = f"20{digits}"
 
     return year
 
@@ -374,8 +410,11 @@ def parse_element(xml_element):
         # parse value
         tag = element.tag.lower()
         if tag in ("abstract", "title", "booktitle"):
-            tag = "xml_{}".format(tag)
+            tag = f"xml_{tag}"
             value = element
+        elif tag == "url":
+            tag = "xml_url"
+            value = element.text
         elif tag == "attachment":
             value = {
                 "filename": element.text,
@@ -410,19 +449,16 @@ def parse_element(xml_element):
         elif tag in ("dataset", "software"):
             value = {"filename": element.text, "type": tag, "url": element.text}
             tag = "attachment"
+        elif tag == "pwccode":
+            value = {
+                "url": element.get("url"),
+                "additional": element.get("additional"),
+                "name": element.text,
+            }
+        elif tag == "pwcdataset":
+            value = {"url": element.get("url"), "name": element.text}
         else:
             value = element.text
-
-        if tag == "url":
-            # Set the URL (canonical / landing page for Anthology)
-            value = infer_url(element.text)
-
-            # Add a PDF link with, converting relative URLs to canonical ones
-            attrib["pdf"] = (
-                element.text
-                if urlparse(element.text).netloc
-                else data.PDF_LOCATION_TEMPLATE.format(element.text)
-            )
 
         if tag in data.LIST_ELEMENTS:
             try:

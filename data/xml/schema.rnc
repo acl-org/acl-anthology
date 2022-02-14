@@ -13,6 +13,7 @@ Variant = element variant { attribute script { xsd:string }, (first? & last) }
 Person = attribute id { xsd:NCName }?, (first? & last & Variant?)
 
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
+bibtex-key = xsd:string { pattern="[A-Za-z0-9\-]+" }
 checksum = attribute hash { xsd:string {minLength="8" maxLength="8" pattern="[0-9a-f]*"} }
 url-with-checksum = element url {
     xsd:anyURI {pattern="https?://.*"} |
@@ -34,8 +35,10 @@ Revision = element revision {
 Paper = element paper {
   attribute id { xsd:positiveInteger },
   attribute ingest-date { xsd:date }?,
+  attribute type { xsd:string }?,
   (element abstract { MarkupText }?
    & attachment*
+   & element bibkey { bibtex-key }
    & element author { Person }*
    & element doi { xsd:anyURI }?
    & element editor { Person }*
@@ -46,6 +49,14 @@ Paper = element paper {
        checksum,
        local-filename
      }*
+   & element retracted {
+       attribute date { xsd:date },
+       text
+     }?
+   & element removed {
+       attribute date { xsd:date },
+       text
+     }?
    & element issue { xsd:nonNegativeInteger }?
    & element journal { text }?
    & element mrf {
@@ -64,6 +75,15 @@ Paper = element paper {
    & element volume { xsd:positiveInteger }?
    & element language { xsd:language }?
    & element award { text }*
+   & element pwcdataset {
+       attribute url { xsd:anyURI },
+       text
+     }*
+   & element pwccode {
+       attribute url { xsd:anyURI },
+       attribute additional { xsd:boolean },
+       text
+     }?
    )
 }
 Meta = element meta {
@@ -83,6 +103,7 @@ Meta = element meta {
 Frontmatter = element frontmatter {
   (url-with-checksum?
    & element pages { text }?
+   & element bibkey { bibtex-key }
    & Revision*
    & attachment*
    & element doi { xsd:anyURI }?

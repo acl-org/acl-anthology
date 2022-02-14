@@ -17,6 +17,7 @@
     </meta>
     <frontmatter>
       <url hash="ae3cbb95">2021.lantern-1.0</url>
+      <bibkey>lantern-2021-beyond</bibkey>
     </frontmatter>
     <paper id="1">
       <title>Reasoning over Vision and Language: Exploring the Benefits of Supplemental Knowledge</title>
@@ -27,6 +28,15 @@
       <pages>1–18</pages>
       <abstract>The limits of applicability of vision-and language models are defined by the coverage of their training data. Tasks like vision question answering (VQA) often require commonsense and factual information beyond what can be learned from task-specific datasets. This paper investigates the injection of knowledge from general-purpose knowledge bases (KBs) into vision-and-language transformers. We use an auxiliary training objective that encourages the learned representations to align with graph embeddings of matching entities in a KB. We empirically study the relevance of various KBs to multiple tasks and benchmarks. The technique brings clear benefits to knowledge-demanding question answering tasks (OK-VQA, FVQA) by capturing semantic and relational knowledge absent from existing models. More surprisingly, the technique also benefits visual reasoning tasks (NLVR2, SNLI-VE). We perform probing experiments and show that the injection of additional knowledge regularizes the space of embeddings, which improves the representation of lexical and semantic similarities. The technique is model-agnostic and can expand the applicability of any vision-and-language transformer with minimal computational overhead.</abstract>
       <url hash="0661acfe">2021.lantern-1.1</url>
+      <bibkey>shevchenko-etal-2021-reasoning</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco-captions">COCO Captions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/gqa">GQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ok-vqa">OK-VQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/snli-ve">SNLI-VE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/visual-genome">Visual Genome</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/visual-question-answering-v2-0">Visual Question Answering v2.0</pwcdataset>
     </paper>
     <paper id="2">
       <title>Visual Grounding Strategies for Text-Only Natural Language Processing</title>
@@ -34,6 +44,11 @@
       <pages>19–29</pages>
       <abstract>Visual grounding is a promising path toward more robust and accurate Natural Language Processing (NLP) models. Many multimodal extensions of BERT (e.g., VideoBERT, LXMERT, VL-BERT) allow a joint modeling of texts and images that lead to state-of-the-art results on multimodal tasks such as Visual Question Answering. Here, we leverage multimodal modeling for purely textual tasks (language modeling and classification) with the expectation that the multimodal pretraining provides a grounding that can improve text processing accuracy. We propose possible strategies in this respect. A first type of strategy, referred to as <i>transferred grounding</i> consists in applying multimodal models to text-only tasks using a placeholder to replace image input. The second one, which we call <i>associative grounding</i>, harnesses image retrieval to match texts with related images during both pretraining and text-only downstream tasks. We draw further distinctions into both strategies and then compare them according to their impact on language modeling and commonsense-related downstream tasks, showing improvement over text-only baselines.</abstract>
       <url hash="a8765d1d">2021.lantern-1.2</url>
+      <bibkey>sileo-2021-visual</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/bookcorpus">BookCorpus</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="3">
       <title>Exploiting Image–Text Synergy for Contextual Image Captioning</title>
@@ -46,6 +61,7 @@
       <pages>30–37</pages>
       <abstract>Modern web content - news articles, blog posts, educational resources, marketing brochures - is predominantly multimodal. A notable trait is the inclusion of media such as images placed at meaningful locations within a textual narrative. Most often, such images are accompanied by captions - either factual or stylistic (humorous, metaphorical, etc.) - making the narrative more engaging to the reader. While standalone image captioning has been extensively studied, captioning an image based on external knowledge such as its surrounding text remains under-explored. In this paper, we study this new task: given an image and an associated unstructured knowledge snippet, the goal is to generate a contextual caption for the image.</abstract>
       <url hash="0b77efd0">2021.lantern-1.3</url>
+      <bibkey>nag-chowdhury-etal-2021-exploiting</bibkey>
     </paper>
     <paper id="4">
       <title>Large-Scale Zero-Shot Image Classification from Rich and Diverse Textual Descriptions</title>
@@ -55,6 +71,8 @@
       <abstract>We study the impact of using rich and diverse textual descriptions of classes for zero-shot learning (ZSL) on ImageNet. We create a new dataset ImageNet-Wiki that matches each ImageNet class to its corresponding Wikipedia article. We show that merely employing these Wikipedia articles as class descriptions yields much higher ZSL performance than prior works. Even a simple model using this type of auxiliary data outperforms state-of-the-art models that rely on standard features of word embedding encodings of class names. These results highlight the usefulness and importance of textual descriptions for ZSL, as well as the relative importance of auxiliary data type compared to the algorithmic progress. Our experimental results also show that standard zero-shot learning approaches generalize poorly across categories of classes.</abstract>
       <url hash="bfbf01cb">2021.lantern-1.4</url>
       <attachment type="Supplementary_material" hash="7723ac57">2021.lantern-1.4.Supplementary_material.zip</attachment>
+      <bibkey>bujwid-sullivan-2021-large</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/awa2-1">AwA2</pwcdataset>
     </paper>
     <paper id="5">
       <title>What Did This Castle Look like before? Exploring Referential Relations in Naturally Occurring Multimodal Texts</title>
@@ -63,6 +81,7 @@
       <pages>53–60</pages>
       <abstract>Multi-modal texts are abundant and diverse in structure, yet Language &amp; Vision research of these naturally occurring texts has mostly focused on genres that are comparatively light on text, like tweets. In this paper, we discuss the challenges and potential benefits of a L&amp;V framework that explicitly models referential relations, taking Wikipedia articles about buildings as an example. We briefly survey existing related tasks in L&amp;V and propose multi-modal information extraction as a general direction for future research.</abstract>
       <url hash="1666b58c">2021.lantern-1.5</url>
+      <bibkey>utescher-zarriess-2021-castle</bibkey>
     </paper>
   </volume>
 </collection>

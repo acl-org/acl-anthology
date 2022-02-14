@@ -26,6 +26,7 @@
     </meta>
     <frontmatter>
       <url hash="f7ce0583">2021.sdp-1.0</url>
+      <bibkey>sdp-2021-scholarly</bibkey>
     </frontmatter>
     <paper id="1">
       <title>Determining the Credibility of Science Communication</title>
@@ -34,6 +35,7 @@
       <abstract>Most work on scholarly document processing assumes that the information processed is trust-worthy and factually correct. However, this is not always the case. There are two core challenges, which should be addressed: 1) ensuring that scientific publications are credible – e.g. that claims are not made without supporting evidence, and that all relevant supporting evidence is provided; and 2) that scientific findings are not misrepresented, distorted or outright misreported when communicated by journalists or the general public. I will present some first steps towards addressing these problems and outline remaining challenges.</abstract>
       <url hash="501264fb">2021.sdp-1.1</url>
       <doi>10.18653/v1/2021.sdp-1.1</doi>
+      <bibkey>augenstein-2021-determining</bibkey>
     </paper>
     <paper id="2">
       <title>Unsupervised Document Expansion for Information Retrieval with Stochastic Text Generation</title>
@@ -45,6 +47,9 @@
       <abstract>One of the challenges in information retrieval (IR) is the vocabulary mismatch problem, which happens when the terms between queries and documents are lexically different but semantically similar. While recent work has proposed to expand the queries or documents by enriching their representations with additional relevant terms to address this challenge, they usually require a large volume of query-document pairs to train an expansion model. In this paper, we propose an Unsupervised Document Expansion with Generation (UDEG) framework with a pre-trained language model, which generates diverse supplementary sentences for the original document without using labels on query-document pairs for training. For generating sentences, we further stochastically perturb their embeddings to generate more diverse sentences for document expansion. We validate our framework on two standard IR benchmark datasets. The results show that our framework significantly outperforms relevant expansion baselines for IR.</abstract>
       <url hash="60c76cbd">2021.sdp-1.2</url>
       <doi>10.18653/v1/2021.sdp-1.2</doi>
+      <bibkey>jeong-etal-2021-unsupervised</bibkey>
+      <pwccode url="https://github.com/starsuzi/udeg" additional="false">starsuzi/udeg</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
     </paper>
     <paper id="3">
       <title>Task Definition and Integration For Scientific-Document Writing Support</title>
@@ -58,6 +63,8 @@
       <abstract>With the increase in the number of published academic papers, growing expectations have been placed on research related to supporting the writing process of scientific papers. Recently, research has been conducted on various tasks such as citation worthiness (judging whether a sentence requires citation), citation recommendation, and citation-text generation. However, since each task has been studied and evaluated using data that has been independently developed, it is currently impossible to verify whether such tasks can be successfully pipelined to effective use in scientific-document writing. In this paper, we first define a series of tasks related to scientific-document writing that can be pipelined. Then, we create a dataset of academic papers that can be used for the evaluation of each task as well as a series of these tasks. Finally, using the dataset, we evaluate the tasks of citation worthiness and citation recommendation as well as both of these tasks integrated. The results of our evaluations show that the proposed approach is promising.</abstract>
       <url hash="b7851166">2021.sdp-1.3</url>
       <doi>10.18653/v1/2021.sdp-1.3</doi>
+      <bibkey>narimatsu-etal-2021-task</bibkey>
+      <pwccode url="https://github.com/citation-minami-lab/citation-dataset" additional="false">citation-minami-lab/citation-dataset</pwccode>
     </paper>
     <paper id="4">
       <title>Detecting Anatomical and Functional Connectivity Relations in Biomedical Literature via Language Representation Models</title>
@@ -69,6 +76,8 @@
       <abstract>Understanding of nerve-organ interactions is crucial to facilitate the development of effective bioelectronic treatments. Towards the end of developing a systematized and computable wiring diagram of the autonomic nervous system (ANS), we introduce a curated ANS connectivity corpus together with several neural language representation model based connectivity relation extraction systems. We also show that active learning guided curation for labeled corpus expansion significantly outperforms randomly selecting connectivity relation candidates minimizing curation effort. Our final relation extraction system achieves <tex-math>F_1</tex-math> = 72.8% on anatomical connectivity and <tex-math>F_1</tex-math> = 74.6% on functional connectivity relation extraction.</abstract>
       <url hash="f5014d33">2021.sdp-1.4</url>
       <doi>10.18653/v1/2021.sdp-1.4</doi>
+      <bibkey>ozyurt-etal-2021-detecting</bibkey>
+      <pwccode url="https://github.com/scicrunch/connectivity-re" additional="false">scicrunch/connectivity-re</pwccode>
     </paper>
     <paper id="5">
       <title>The Biomaterials Annotator: a system for ontology-based concept annotation of biomaterials text</title>
@@ -83,6 +92,8 @@
       <abstract>Biomaterials are synthetic or natural materials used for constructing artificial organs, fabricating prostheses, or replacing tissues. The last century saw the development of thousands of novel biomaterials and, as a result, an exponential increase in scientific publications in the field. Large-scale analysis of biomaterials and their performance could enable data-driven material selection and implant design. However, such analysis requires identification and organization of concepts, such as materials and structures, from published texts. To facilitate future information extraction and the application of machine-learning techniques, we developed a semantic annotator specifically tailored for the biomaterials literature. The Biomaterials Annotator has been implemented following a modular organization using software containers for the different components and orchestrated using Nextflow as workflow manager. Natural language processing (NLP) components are mainly developed in Java. This set-up has allowed named entity recognition of seventeen classes relevant to the biomaterials domain. Here we detail the development, evaluation and performance of the system, as well as the release of the first collection of annotated biomaterials abstracts. We make both the corpus and system available to the community to promote future efforts in the field and contribute towards its sustainability.</abstract>
       <url hash="e7299c63">2021.sdp-1.5</url>
       <doi>10.18653/v1/2021.sdp-1.5</doi>
+      <bibkey>corvi-etal-2021-biomaterials</bibkey>
+      <pwccode url="https://github.com/projectdebbie/biomaterials_annotator" additional="false">projectdebbie/biomaterials_annotator</pwccode>
     </paper>
     <paper id="6">
       <title>Keyphrase Extraction from Scientific Articles via Extractive Summarization</title>
@@ -93,6 +104,8 @@
       <abstract>Automatically extracting keyphrases from scholarly documents leads to a valuable concise representation that humans can understand and machines can process for tasks, such as information retrieval, article clustering and article classification. This paper is concerned with the parts of a scientific article that should be given as input to keyphrase extraction methods. Recent deep learning methods take titles and abstracts as input due to the increased computational complexity in processing long sequences, whereas traditional approaches can also work with full-texts. Titles and abstracts are dense in keyphrases, but often miss important aspects of the articles, while full-texts on the other hand are richer in keyphrases but much noisier. To address this trade-off, we propose the use of extractive summarization models on the full-texts of scholarly documents. Our empirical study on 3 article collections using 3 keyphrase extraction methods shows promising results.</abstract>
       <url hash="ab1057a1">2021.sdp-1.6</url>
       <doi>10.18653/v1/2021.sdp-1.6</doi>
+      <bibkey>kontoulis-etal-2021-keyphrase</bibkey>
+      <pwccode url="https://github.com/intelligence-csd-auth-gr/keyphrase-extraction-via-summarization" additional="false">intelligence-csd-auth-gr/keyphrase-extraction-via-summarization</pwccode>
     </paper>
     <paper id="7">
       <title>Argument Mining for Scholarly Document Processing: Taking Stock and Looking Ahead</title>
@@ -105,6 +118,7 @@
       <abstract>Argument mining targets structures in natural language related to interpretation and persuasion which are central to scientific communication. Most scholarly discourse involves interpreting experimental evidence and attempting to persuade other scientists to adopt the same conclusions. While various argument mining studies have addressed student essays and news articles, those that target scientific discourse are still scarce. This paper surveys existing work in argument mining of scholarly discourse, and provides an overview of current models, data, tasks, and applications. We identify a number of key challenges confronting argument mining in the scientific domain, and suggest some possible solutions and future directions.</abstract>
       <url hash="f6d39cb0">2021.sdp-1.7</url>
       <doi>10.18653/v1/2021.sdp-1.7</doi>
+      <bibkey>al-khatib-etal-2021-argument</bibkey>
     </paper>
     <paper id="8">
       <title>Bootstrapping Multilingual Metadata Extraction: A Showcase in <fixed-case>C</fixed-case>yrillic</title>
@@ -116,6 +130,8 @@
       <abstract>Applications based on scholarly data are of ever increasing importance. This results in disadvantages for areas where high-quality data and compatible systems are not available, such as non-English publications. To advance the mitigation of this imbalance, we use Cyrillic script publications from the CORE collection to create a high-quality data set for metadata extraction. We utilize our data for training and evaluating sequence labeling models to extract title and author information. Retraining GROBID on our data, we observe significant improvements in terms of precision and recall and achieve even better results with a self developed model. We make our data set covering over 15,000 publications as well as our source code freely available.</abstract>
       <url hash="70da7581">2021.sdp-1.8</url>
       <doi>10.18653/v1/2021.sdp-1.8</doi>
+      <bibkey>krause-etal-2021-bootstrapping</bibkey>
+      <pwccode url="https://github.com/illdepence/sdp2021" additional="false">illdepence/sdp2021</pwccode>
     </paper>
     <paper id="9">
       <title>The Effect of Pretraining on Extractive Summarization for Scientific Documents</title>
@@ -133,6 +149,7 @@
       <abstract>Large pretrained models have seen enormous success in extractive summarization tasks. In this work, we investigate the influence of pretraining on a BERT-based extractive summarization system for scientific documents. We derive significant performance improvements using an intermediate pretraining step that leverages existing summarization datasets and report state-of-the-art results on a recently released scientific summarization dataset, SciTLDR. We systematically analyze the intermediate pretraining step by varying the size and domain of the pretraining corpus, changing the length of the input sequence in the target task and varying target tasks. We also investigate how intermediate pretraining interacts with contextualized word embeddings trained on different domains.</abstract>
       <url hash="826fc418">2021.sdp-1.9</url>
       <doi>10.18653/v1/2021.sdp-1.9</doi>
+      <bibkey>gupta-etal-2021-effect</bibkey>
     </paper>
     <paper id="10">
       <title>Finding Pragmatic Differences Between Disciplines</title>
@@ -142,6 +159,7 @@
       <abstract>Scholarly documents have a great degree of variation, both in terms of content (semantics) and structure (pragmatics). Prior work in scholarly document understanding emphasizes semantics through document summarization and corpus topic modeling but tends to omit pragmatics such as document organization and flow. Using a corpus of scholarly documents across 19 disciplines and state-of-the-art language modeling techniques, we learn a fixed set of domain-agnostic descriptors for document sections and “retrofit” the corpus to these descriptors (also referred to as “normalization”). Then, we analyze the position and ordering of these descriptors across documents to understand the relationship between discipline and structure. We report within-discipline structural archetypes, variability, and between-discipline comparisons, supporting the hypothesis that scholarly communities, despite their size, diversity, and breadth, share similar avenues for expressing their work. Our findings lay the foundation for future work in assessing research quality, domain style transfer, and further pragmatic analysis.</abstract>
       <url hash="6724d9e5">2021.sdp-1.10</url>
       <doi>10.18653/v1/2021.sdp-1.10</doi>
+      <bibkey>kezar-pujara-2021-finding</bibkey>
     </paper>
     <paper id="11">
       <title>Extractive Research Slide Generation Using Windowed Labeling Ranking</title>
@@ -153,6 +171,9 @@
       <abstract>Presentation slides generated from original research papers provide an efficient form to present research innovations. Manually generating presentation slides is labor-intensive. We propose a method to automatically generates slides for scientific articles based on a corpus of 5000 paper-slide pairs compiled from conference proceedings websites. The sentence labeling module of our method is based on SummaRuNNer, a neural sequence model for extractive summarization. Instead of ranking sentences based on semantic similarities in the whole document, our algorithm measures the importance and novelty of sentences by combining semantic and lexical features within a sentence window. Our method outperforms several baseline methods including SummaRuNNer by a significant margin in terms of ROUGE score.</abstract>
       <url hash="3b9dcf40">2021.sdp-1.11</url>
       <doi>10.18653/v1/2021.sdp-1.11</doi>
+      <bibkey>sefid-etal-2021-extractive</bibkey>
+      <pwccode url="https://github.com/atharsefid/Extractive_Research_Slide_Generation_Using_Windowed_Labeling_Ranking" additional="false">atharsefid/Extractive_Research_Slide_Generation_Using_Windowed_Labeling_Ranking</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/5k-presetation-slides">5k_presetation_slides</pwcdataset>
     </paper>
     <paper id="12">
       <title><fixed-case>L</fixed-case>ong<fixed-case>S</fixed-case>umm 2021: Session based automatic summarization model for scientific document</title>
@@ -164,6 +185,7 @@
       <url hash="e13f7cbf">2021.sdp-1.12</url>
       <attachment type="OptionalSupplementaryCode" hash="7d3b2a40">2021.sdp-1.12.OptionalSupplementaryCode.zip</attachment>
       <doi>10.18653/v1/2021.sdp-1.12</doi>
+      <bibkey>ying-etal-2021-longsumm</bibkey>
     </paper>
     <paper id="13">
       <title><fixed-case>CNLP</fixed-case>-<fixed-case>NITS</fixed-case> @ <fixed-case>L</fixed-case>ong<fixed-case>S</fixed-case>umm 2021: <fixed-case>T</fixed-case>ext<fixed-case>R</fixed-case>ank Variant for Generating Long Summaries</title>
@@ -175,6 +197,7 @@
       <abstract>The huge influx of published papers in the field of machine learning makes the task of summarization of scholarly documents vital, not just to eliminate the redundancy but also to provide a complete and satisfying crux of the content. We participated in LongSumm 2021: The <tex-math>2^{nd}</tex-math> Shared Task on Generating Long Summaries for scientific documents, where the task is to generate long summaries for scientific papers provided by the organizers. This paper discusses our extractive summarization approach to solve the task. We used TextRank algorithm with the BM25 score as a similarity function. Even after being a graph-based ranking algorithm that does not require any learning, TextRank produced pretty decent results with minimal compute power and time. We attained <tex-math>3^{rd}</tex-math> rank according to ROUGE-1 scores (0.5131 for F-measure and 0.5271 for recall) and performed decently as shown by the ROUGE-2 scores.</abstract>
       <url hash="02632e8d">2021.sdp-1.13</url>
       <doi>10.18653/v1/2021.sdp-1.13</doi>
+      <bibkey>kaushik-etal-2021-cnlp</bibkey>
     </paper>
     <paper id="14">
       <title>Unsupervised document summarization using pre-trained sentence embeddings and graph centrality</title>
@@ -184,6 +207,7 @@
       <abstract>This paper describes our submission for the LongSumm task in SDP 2021. We propose a method for incorporating sentence embeddings produced by deep language models into extractive summarization techniques based on graph centrality in an unsupervised manner.The proposed method is simple, fast, can summarize any kind of document of any size and can satisfy any length constraints for the summaries produced. The method offers competitive performance to more sophisticated supervised methods and can serve as a proxy for abstractive summarization techniques</abstract>
       <url hash="b96b587b">2021.sdp-1.14</url>
       <doi>10.18653/v1/2021.sdp-1.14</doi>
+      <bibkey>ramirez-orta-milios-2021-unsupervised</bibkey>
     </paper>
     <paper id="15">
       <title><fixed-case>QMUL</fixed-case>-<fixed-case>SDS</fixed-case> at <fixed-case>SCIVER</fixed-case>: Step-by-Step Binary Classification for Scientific Claim Verification</title>
@@ -193,6 +217,103 @@
       <abstract>Scientific claim verification is a unique challenge that is attracting increasing interest. The SCIVER shared task offers a benchmark scenario to test and compare claim verification approaches by participating teams and consists in three steps: relevant abstract selection, rationale selection and label prediction. In this paper, we present team QMUL-SDS’s participation in the shared task. We propose an approach that performs scientific claim verification by doing binary classifications step-by-step. We trained a BioBERT-large classifier to select abstracts based on pairwise relevance assessments for each &lt;claim, title of the abstract&gt; and continued to train it to select rationales out of each retrieved abstract based on &lt;claim, sentence&gt;. We then propose a two-step setting for label prediction, i.e. first predicting “NOT_ENOUGH_INFO” or “ENOUGH_INFO”, then label those marked as “ENOUGH_INFO” as either “SUPPORT” or “CONTRADICT”. Compared to the baseline system, we achieve substantial improvements on the dev set. As a result, our team is the No. 4 team on the leaderboard.</abstract>
       <url hash="c8ee47ef">2021.sdp-1.15</url>
       <doi>10.18653/v1/2021.sdp-1.15</doi>
+      <bibkey>zeng-zubiaga-2021-qmul</bibkey>
+      <pwccode url="https://github.com/XiaZeng0223/sciverbinary" additional="false">XiaZeng0223/sciverbinary</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/scifact">SciFact</pwcdataset>
+    </paper>
+    <paper id="16">
+      <title>Overview and Insights from the <fixed-case>SCIVER</fixed-case> shared task on Scientific Claim Verification</title>
+      <author><first>David</first><last>Wadden</last></author>
+      <author><first>Kyle</first><last>Lo</last></author>
+      <pages>124–129</pages>
+      <abstract>We present an overview of the SCIVER shared task, presented at the 2nd Scholarly Document Processing (SDP) workshop at NAACL 2021. In this shared task, systems were provided a scientific claim and a corpus of research abstracts, and asked to identify which articles Support or Refute the claim as well as provide evidentiary sentences justifying those labels. 11 teams made a total of 14 submissions to the shared task leaderboard, leading to an improvement of more than +23 F1 on the primary task evaluation metric. In addition to surveying the participating systems, we provide several insights into modeling approaches to support continued progress and future research on the important and challenging task of scientific claim verification.</abstract>
+      <url hash="e7c9bb30">2021.sdp-1.16</url>
+      <bibkey>wadden-lo-2021-overview</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/scifact">SciFact</pwcdataset>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>S</fixed-case>ci<fixed-case>BERT</fixed-case> Sentence Representation for Citation Context Classification</title>
+      <author><first>Himanshu</first><last>Maheshwari</last></author>
+      <author><first>Bhavyajeet</first><last>Singh</last></author>
+      <author><first>Vasudeva</first><last>Varma</last></author>
+      <pages>130–133</pages>
+      <abstract>This paper describes our system (IREL) for 3C-Citation Context Classification shared task of the Scholarly Document Processing Workshop at NAACL 2021. We participated in both subtask A and subtask B. Our best system achieved a Macro F1 score of 0.26973 on the private leaderboard for subtask A and was ranked one. For subtask B our best system achieved a Macro F1 score of 0.59071 on the private leaderboard and was ranked two. We used similar models for both the subtasks with some minor changes, as discussed in this paper. Our best performing model for both the subtask was a finetuned SciBert model followed by a linear layer. This paper provides a detailed description of all the approaches we tried and their results.</abstract>
+      <url hash="3c52a58b">2021.sdp-1.17</url>
+      <bibkey>maheshwari-etal-2021-scibert</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Multitask Learning for Citation Purpose Classification</title>
+      <author><first>Yasa M.</first><last>Baig</last></author>
+      <author><first>Alex X.</first><last>Oesterling</last></author>
+      <author><first>Rui</first><last>Xin</last></author>
+      <author><first>Haoyang</first><last>Yu</last></author>
+      <author><first>Angikar</first><last>Ghosal</last></author>
+      <author><first>Lesia</first><last>Semenova</last></author>
+      <author><first>Cynthia</first><last>Rudin</last></author>
+      <pages>134–139</pages>
+      <abstract>We present our entry into the 2021 3C Shared Task Citation Context Classification based on Purpose competition. The goal of the competition is to classify a citation in a scientific article based on its purpose. This task is important because it could potentially lead to more comprehensive ways of summarizing the purpose and uses of scientific articles, but it is also difficult, mainly due to the limited amount of available training data in which the purposes of each citation have been hand-labeled, along with the subjectivity of these labels. Our entry in the competition is a multi-task model that combines multiple modules designed to handle the problem from different perspectives, including hand-generated linguistic features, TF-IDF features, and an LSTM-with- attention model. We also provide an ablation study and feature analysis whose insights could lead to future work.</abstract>
+      <url hash="dcbd633b">2021.sdp-1.18</url>
+      <bibkey>baig-etal-2021-multitask</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>IITP</fixed-case>-<fixed-case>CUNI</fixed-case>@3<fixed-case>C</fixed-case>: Supervised Approaches for Citation Classification (Task A) and Citation Significance Detection (Task <fixed-case>B</fixed-case>)</title>
+      <author><first>Kamal Kaushik</first><last>Varanasi</last></author>
+      <author><first>Tirthankar</first><last>Ghosal</last></author>
+      <author><first>Piyush</first><last>Tiwary</last></author>
+      <author><first>Muskaan</first><last>Singh</last></author>
+      <pages>140–145</pages>
+      <abstract>Citations are crucial to a scientific discourse. Besides providing additional contexts to research papers, citations act as trackers of the direction of research in a field and as an important measure in understanding the impact of a research publication. With the rapid growth in research publications, automated solutions for identifying the purpose and influence of citations are becoming very important. The 3C Citation Context Classification Task organized as part of the Second Workshop on Scholarly Document Processing @ NAACL 2021 is a shared task to address the aforementioned problems. In this paper, we present our team, IITP-CUNI@3C’s submission to the 3C shared tasks. For Task A, citation context purpose classification, we propose a neural multi-task learning framework that harnesses the structural information of the research papers and the relation between the citation context and the cited paper for citation classification. For Task B, citation context influence classification, we use a set of simple features to classify citations based on their perceived significance. We achieve comparable performance with respect to the best performing systems in Task A and superseded the majority baseline in Task B with very simple features.</abstract>
+      <url hash="011046cb">2021.sdp-1.19</url>
+      <bibkey>varanasi-etal-2021-iitp</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/scicite">SciCite</pwcdataset>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>A</fixed-case>mrita_<fixed-case>CEN</fixed-case>_<fixed-case>NLP</fixed-case>@<fixed-case>SDP</fixed-case>2021 Task A and <fixed-case>B</fixed-case></title>
+      <author><first>Premjith</first><last>B</last></author>
+      <author><first>Isha Indhu</first><last>S</last></author>
+      <author><first>Kavya S.</first><last>Kumar</last></author>
+      <author><first>Lakshaya</first><last>Karthikeyan</last></author>
+      <author><first>Soman</first><last>Kp</last></author>
+      <pages>146–149</pages>
+      <abstract>The purpose and influence of a citation are important in understanding the quality of a publication. The 3c citation context classification shared task at the Second Workshop on Scholarly Document Processing aims at addressing this problem. This paper is the submission of the team Amrita_CEN_NLP to the shared task. We employed Bi-directional Long Short Term Memory (LSTM) networks and a Random Forest classifier for modelling the aforementioned problems by considering the class imbalance problem in the data.</abstract>
+      <url hash="19540b6d">2021.sdp-1.20</url>
+      <bibkey>b-etal-2021-amrita</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Overview of the 2021 <fixed-case>SDP</fixed-case> 3<fixed-case>C</fixed-case> Citation Context Classification Shared Task</title>
+      <author><first>Suchetha</first><last>N. Kunnath</last></author>
+      <author><first>David</first><last>Pride</last></author>
+      <author><first>Drahomira</first><last>Herrmannova</last></author>
+      <author><first>Petr</first><last>Knoth</last></author>
+      <pages>150–158</pages>
+      <abstract>This paper provides an overview of the 2021 3C Citation Context Classification shared task. The second edition of the shared task was organised as part of the 2nd Workshop on Scholarly Document Processing (SDP 2021). The task is composed of two subtasks: classifying citations based on their (Subtask A) purpose and (Subtask B) influence. As in the previous year, both tasks were hosted on Kaggle and used a portion of the new ACT dataset. A total of 22 teams participated in Subtask A, and 19 teams competed in Subtask B. All the participated systems were ranked based on their achieved macro f-score. The highest scores of 0.26973 and 0.60025 were reported for subtask A and B, respectively.</abstract>
+      <url hash="6e7d64d3">2021.sdp-1.21</url>
+      <bibkey>n-kunnath-etal-2021-overview</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/scicite">SciCite</pwcdataset>
+    </paper>
+    <paper id="22">
+      <title>Overview of the Second Workshop on Scholarly Document Processing</title>
+      <author><first>Iz</first><last>Beltagy</last></author>
+      <author><first>Arman</first><last>Cohan</last></author>
+      <author><first>Guy</first><last>Feigenblat</last></author>
+      <author><first>Dayne</first><last>Freitag</last></author>
+      <author><first>Tirthankar</first><last>Ghosal</last></author>
+      <author><first>Keith</first><last>Hall</last></author>
+      <author><first>Drahomira</first><last>Herrmannova</last></author>
+      <author><first>Petr</first><last>Knoth</last></author>
+      <author><first>Kyle</first><last>Lo</last></author>
+      <author><first>Philipp</first><last>Mayr</last></author>
+      <author><first>Robert</first><last>Patton</last></author>
+      <author><first>Michal</first><last>Shmueli-Scheuer</last></author>
+      <author><first>Anita</first><last>de Waard</last></author>
+      <author><first>Kuansan</first><last>Wang</last></author>
+      <author><first>Lucy</first><last>Wang</last></author>
+      <pages>159–165</pages>
+      <abstract>With the ever-increasing pace of research and high volume of scholarly communication, scholars face a daunting task. Not only must they keep up with the growing literature in their own and related fields, scholars increasingly also need to rebut pseudo-science and disinformation. These needs have motivated an increasing focus on computational methods for enhancing search, summarization, and analysis of scholarly documents. However, the various strands of research on scholarly document processing remain fragmented. To reach out to the broader NLP and AI/ML community, pool distributed efforts in this area, and enable shared access to published research, we held the 2nd Workshop on Scholarly Document Processing (SDP) at NAACL 2021 as a virtual event (https://sdproc.org/2021/). The SDP workshop consisted of a research track, three invited talks, and three Shared Tasks (LongSumm 2021, SCIVER, and 3C). The program was geared towards the application of NLP, information retrieval, and data mining for scholarly documents, with an emphasis on identifying and providing solutions to open challenges.</abstract>
+      <url hash="b5c0f401">2021.sdp-1.22</url>
+      <bibkey>beltagy-etal-2021-overview</bibkey>
     </paper>
   </volume>
 </collection>

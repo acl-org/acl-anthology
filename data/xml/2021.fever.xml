@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2021.fever">
+  <volume id="1" ingest-date="2021-10-28">
+    <meta>
+      <booktitle>Proceedings of the Fourth Workshop on Fact Extraction and VERification (FEVER)</booktitle>
+      <editor><first>Rami</first><last>Aly</last></editor>
+      <editor><first>Christos</first><last>Christodoulopoulos</last></editor>
+      <editor><first>Oana</first><last>Cocarascu</last></editor>
+      <editor><first>Zhijiang</first><last>Guo</last></editor>
+      <editor><first>Arpit</first><last>Mittal</last></editor>
+      <editor><first>Michael</first><last>Schlichtkrull</last></editor>
+      <editor><first>James</first><last>Thorne</last></editor>
+      <editor><first>Andreas</first><last>Vlachos</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Dominican Republic</address>
+      <month>November</month>
+      <year>2021</year>
+    </meta>
+    <frontmatter>
+      <url hash="9a076571">2021.fever-1.0</url>
+      <bibkey>fever-2021-fact</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>The Fact Extraction and <fixed-case>VER</fixed-case>ification Over Unstructured and Structured information (<fixed-case>FEVEROUS</fixed-case>) Shared Task</title>
+      <author><first>Rami</first><last>Aly</last></author>
+      <author><first>Zhijiang</first><last>Guo</last></author>
+      <author><first>Michael Sejr</first><last>Schlichtkrull</last></author>
+      <author><first>James</first><last>Thorne</last></author>
+      <author><first>Andreas</first><last>Vlachos</last></author>
+      <author><first>Christos</first><last>Christodoulopoulos</last></author>
+      <author><first>Oana</first><last>Cocarascu</last></author>
+      <author><first>Arpit</first><last>Mittal</last></author>
+      <pages>1–13</pages>
+      <abstract>The Fact Extraction and VERification Over Unstructured and Structured information (FEVEROUS) shared task, asks participating systems to determine whether human-authored claims are Supported or Refuted based on evidence retrieved from Wikipedia (or NotEnoughInfo if the claim cannot be verified). Compared to the FEVER 2018 shared task, the main challenge is the addition of structured data (tables and lists) as a source of evidence. The claims in the FEVEROUS dataset can be verified using only structured evidence, only unstructured evidence, or a mixture of both. Submissions are evaluated using the FEVEROUS score that combines label accuracy and evidence retrieval. Unlike FEVER 2018, FEVEROUS requires partial evidence to be returned for NotEnoughInfo claims, and the claims are longer and thus more complex. The shared task received 13 entries, six of which were able to beat the baseline system. The winning team was “Bust a move!”, achieving a FEVEROUS score of 27% (+9% compared to the baseline). In this paper we describe the shared task, present the full results and highlight commonalities and innovations among the participating systems.</abstract>
+      <url hash="86f86949">2021.fever-1.1</url>
+      <bibkey>aly-etal-2021-fact</bibkey>
+      <doi>10.18653/v1/2021.fever-1.1</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/feverous">FEVEROUS</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title>Evidence Selection as a Token-Level Prediction Task</title>
+      <author><first>Dominik</first><last>Stammbach</last></author>
+      <pages>14–20</pages>
+      <abstract>In Automated Claim Verification, we retrieve evidence from a knowledge base to determine the veracity of a claim. Intuitively, the retrieval of the correct evidence plays a crucial role in this process. Often, evidence selection is tackled as a pairwise sentence classification task, i.e., we train a model to predict for each sentence individually whether it is evidence for a claim. In this work, we fine-tune document level transformers to extract all evidence from a Wikipedia document at once. We show that this approach performs better than a comparable model classifying sentences individually on all relevant evidence selection metrics in FEVER. Our complete pipeline building on this evidence selection procedure produces a new state-of-the-art result on FEVER, a popular claim verification benchmark.</abstract>
+      <url hash="0380ea54">2021.fever-1.2</url>
+      <bibkey>stammbach-2021-evidence</bibkey>
+      <doi>10.18653/v1/2021.fever-1.2</doi>
+      <pwccode url="https://github.com/dominiksinsaarland/document-level-fever" additional="false">dominiksinsaarland/document-level-fever</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Graph Reasoning with Context-Aware Linearization for Interpretable Fact Extraction and Verification</title>
+      <author><first>Neema</first><last>Kotonya</last></author>
+      <author><first>Thomas</first><last>Spooner</last></author>
+      <author><first>Daniele</first><last>Magazzeni</last></author>
+      <author><first>Francesca</first><last>Toni</last></author>
+      <pages>21–30</pages>
+      <abstract>This paper presents an end-to-end system for fact extraction and verification using textual and tabular evidence, the performance of which we demonstrate on the FEVEROUS dataset. We experiment with both a multi-task learning paradigm to jointly train a graph attention network for both the task of evidence extraction and veracity prediction, as well as a single objective graph model for solely learning veracity prediction and separate evidence extraction. In both instances, we employ a framework for per-cell linearization of tabular evidence, thus allowing us to treat evidence from tables as sequences. The templates we employ for linearizing tables capture the context as well as the content of table data. We furthermore provide a case study to show the interpretability our approach. Our best performing system achieves a FEVEROUS score of 0.23 and 53% label accuracy on the blind test data.</abstract>
+      <url hash="2bceea13">2021.fever-1.3</url>
+      <bibkey>kotonya-etal-2021-graph</bibkey>
+      <doi>10.18653/v1/2021.fever-1.3</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/feverous">FEVEROUS</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>F</fixed-case>a<fixed-case>BULOUS</fixed-case>: Fact-checking Based on Understanding of Language Over Unstructured and Structured information</title>
+      <author><first>Mostafa</first><last>Bouziane</last></author>
+      <author><first>Hugo</first><last>Perrin</last></author>
+      <author><first>Amine</first><last>Sadeq</last></author>
+      <author><first>Thanh</first><last>Nguyen</last></author>
+      <author><first>Aurélien</first><last>Cluzeau</last></author>
+      <author><first>Julien</first><last>Mardas</last></author>
+      <pages>31–39</pages>
+      <abstract>As part of the FEVEROUS shared task, we developed a robust and finely tuned architecture to handle the joint retrieval and entailment on text data as well as structured data like tables. We proposed two training schemes to tackle the hurdles inherent to multi-hop multi-modal datasets. The first one allows having a robust retrieval of full evidence sets, while the second one enables entailment to take full advantage of noisy evidence inputs. In addition, our work has revealed important insights and potential avenue of research for future improvement on this kind of dataset. In preliminary evaluation on the FEVEROUS shared task test set, our system achieves 0.271 FEVEROUS score, with 0.4258 evidence recall and 0.5607 entailment accuracy.</abstract>
+      <url hash="de37efe9">2021.fever-1.4</url>
+      <bibkey>bouziane-etal-2021-fabulous</bibkey>
+      <doi>10.18653/v1/2021.fever-1.4</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/feverous">FEVEROUS</pwcdataset>
+    </paper>
+    <paper id="5">
+      <title>Team Papelo at <fixed-case>FEVEROUS</fixed-case>: Multi-hop Evidence Pursuit</title>
+      <author><first>Christopher</first><last>Malon</last></author>
+      <pages>40–49</pages>
+      <abstract>We develop a system for the FEVEROUS fact extraction and verification task that ranks an initial set of potential evidence and then pursues missing evidence in subsequent hops by trying to generate it, with a “next hop prediction module” whose output is matched against page elements in a predicted article. Seeking evidence with the next hop prediction module continues to improve FEVEROUS score for up to seven hops. Label classification is trained on possibly incomplete extracted evidence chains, utilizing hints that facilitate numerical comparison. The system achieves .281 FEVEROUS score and .658 label accuracy on the development set, and finishes in second place with .259 FEVEROUS score and .576 label accuracy on the test set.</abstract>
+      <url hash="6a85bead">2021.fever-1.5</url>
+      <bibkey>malon-2021-team</bibkey>
+      <doi>10.18653/v1/2021.fever-1.5</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/feverous">FEVEROUS</pwcdataset>
+    </paper>
+    <paper id="6">
+      <title>Modeling Entity Knowledge for Fact Verification</title>
+      <author id="yang-liu-microsoft"><first>Yang</first><last>Liu</last></author>
+      <author><first>Chenguang</first><last>Zhu</last></author>
+      <author><first>Michael</first><last>Zeng</last></author>
+      <pages>50–59</pages>
+      <abstract>Fact verification is a challenging task of identifying the truthfulness of given claims based on the retrieval of relevant evidence texts. Many claims require understanding and reasoning over external entity information for precise verification. In this paper, we propose a novel fact verification model using entity knowledge to enhance its performance. We retrieve descriptive text from Wikipedia for each entity, and then encode these descriptions by a smaller lightweight network to be fed into the main verification model. Furthermore, we boost model performance by adopting and predicting the relatedness between the claim and each evidence as additional signals. We demonstrate experimentally on a large-scale benchmark dataset FEVER that our framework achieves competitive results with a FEVER score of 72.89% on the test set.</abstract>
+      <url hash="c78ee92b">2021.fever-1.6</url>
+      <bibkey>liu-etal-2021-modeling</bibkey>
+      <doi>10.18653/v1/2021.fever-1.6</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+    </paper>
+    <paper id="7">
+      <title>Verdict Inference with Claim and Retrieved Elements Using <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a</title>
+      <author><first>In-Zu</first><last>Gi</last></author>
+      <author><first>Ting-Yu</first><last>Fang</last></author>
+      <author><first>Richard Tzong-Han</first><last>Tsai</last></author>
+      <pages>60–65</pages>
+      <abstract>Automatic fact verification has attracted recent research attention as the increasing dissemination of disinformation on social media platforms. The FEVEROUS shared task introduces a benchmark for fact verification, in which a system is challenged to verify the given claim using the extracted evidential elements from Wikipedia documents. In this paper, we propose our 3rd place three-stage system consisting of document retrieval, element retrieval, and verdict inference for the FEVEROUS shared task. By considering the context relevance in the fact extraction and verification task, our system achieves 0.29 FEVEROUS score on the development set and 0.25 FEVEROUS score on the blind test set, both outperforming the FEVEROUS baseline.</abstract>
+      <url hash="a13a8bc3">2021.fever-1.7</url>
+      <bibkey>gi-etal-2021-verdict</bibkey>
+      <doi>10.18653/v1/2021.fever-1.7</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/feverous">FEVEROUS</pwcdataset>
+    </paper>
+    <paper id="8">
+      <title>Stance Detection in <fixed-case>G</fixed-case>erman News Articles</title>
+      <author><first>Laura</first><last>Mascarell</last></author>
+      <author><first>Tatyana</first><last>Ruzsics</last></author>
+      <author><first>Christian</first><last>Schneebeli</last></author>
+      <author><first>Philippe</first><last>Schlattner</last></author>
+      <author><first>Luca</first><last>Campanella</last></author>
+      <author><first>Severin</first><last>Klingler</last></author>
+      <author><first>Cristina</first><last>Kadar</last></author>
+      <pages>66–77</pages>
+      <abstract>The widespread use of the Internet and the rapid dissemination of information poses the challenge of identifying the veracity of its content. Stance detection, which is the task of predicting the position of a text in regard to a specific target (e.g. claim or debate question), has been used to determine the veracity of information in tasks such as rumor classification and fake news detection. While most of the work and available datasets for stance detection address short texts snippets extracted from textual dialogues, social media platforms, or news headlines with a strong focus on the English language, there is a lack of resources targeting long texts in other languages. Our contribution in this paper is twofold. First, we present a German dataset of debate questions and news articles that is manually annotated for stance and emotion detection. Second, we leverage the dataset to tackle the supervised task of classifying the stance of a news article with regards to a debate question and provide baseline models as a reference for future work on stance detection in German news articles.</abstract>
+      <url hash="4fb37b21">2021.fever-1.8</url>
+      <bibkey>mascarell-etal-2021-stance</bibkey>
+      <doi>10.18653/v1/2021.fever-1.8</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/x-stance">x-stance</pwcdataset>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>FANG</fixed-case>-<fixed-case>COVID</fixed-case>: A New Large-Scale Benchmark Dataset for Fake News Detection in <fixed-case>G</fixed-case>erman</title>
+      <author><first>Justus</first><last>Mattern</last></author>
+      <author><first>Yu</first><last>Qiao</last></author>
+      <author><first>Elma</first><last>Kerz</last></author>
+      <author><first>Daniel</first><last>Wiechmann</last></author>
+      <author><first>Markus</first><last>Strohmaier</last></author>
+      <pages>78–91</pages>
+      <abstract>As the world continues to fight the COVID-19 pandemic, it is simultaneously fighting an ‘infodemic’ – a flood of disinformation and spread of conspiracy theories leading to health threats and the division of society. To combat this infodemic, there is an urgent need for benchmark datasets that can help researchers develop and evaluate models geared towards automatic detection of disinformation. While there are increasing efforts to create adequate, open-source benchmark datasets for English, comparable resources are virtually unavailable for German, leaving research for the German language lagging significantly behind. In this paper, we introduce the new benchmark dataset FANG-COVID consisting of 28,056 real and 13,186 fake German news articles related to the COVID-19 pandemic as well as data on their propagation on Twitter. Furthermore, we propose an explainable textual- and social context-based model for fake news detection, compare its performance to “black-box” models and perform feature ablation to assess the relative importance of human-interpretable features in distinguishing fake news from authentic news.</abstract>
+      <url hash="f99d4cc6">2021.fever-1.9</url>
+      <bibkey>mattern-etal-2021-fang</bibkey>
+      <doi>10.18653/v1/2021.fever-1.9</doi>
+      <pwccode url="https://github.com/justusmattern/fang-covid" additional="false">justusmattern/fang-covid</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/coaid">CoAID</pwcdataset>
+    </paper>
+    <paper id="10">
+      <title>Combining sentence and table evidence to predict veracity of factual claims using <fixed-case>T</fixed-case>a<fixed-case>P</fixed-case>a<fixed-case>S</fixed-case> and <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a</title>
+      <author><first>Martin</first><last>Funkquist</last></author>
+      <pages>92–100</pages>
+      <abstract>This paper describes a method for retrieving evidence and predicting the veracity of factual claims, on the FEVEROUS dataset. The evidence consists of both sentences and table cells. The proposed method is part of the FEVER shared task. It uses similarity scores between TF-IDF vectors to retrieve the textual evidence and similarity scores between dense vectors created by fine-tuned TaPaS models for tabular evidence retrieval. The evidence is passed through a dense neural network to produce a veracity label. The FEVEROUS score for the proposed system is 0.126.</abstract>
+      <url hash="de9b53b2">2021.fever-1.10</url>
+      <bibkey>funkquist-2021-combining</bibkey>
+      <doi>10.18653/v1/2021.fever-1.10</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/feverous">FEVEROUS</pwcdataset>
+    </paper>
+    <paper id="11">
+      <title>Automatic Fact-Checking with Document-level Annotations using <fixed-case>BERT</fixed-case> and Multiple Instance Learning</title>
+      <author><first>Aalok</first><last>Sathe</last></author>
+      <author><first>Joonsuk</first><last>Park</last></author>
+      <pages>101–107</pages>
+      <abstract>Automatic fact-checking is crucial for recognizing misinformation spreading on the internet. Most existing fact-checkers break down the process into several subtasks, one of which determines candidate evidence sentences that can potentially support or refute the claim to be verified; typically, evidence sentences with gold-standard labels are needed for this. In a more realistic setting, however, such sentence-level annotations are not available. In this paper, we tackle the natural language inference (NLI) subtask—given a document and a (sentence) claim, determine whether the document supports or refutes the claim—only using document-level annotations. Using fine-tuned BERT and multiple instance learning, we achieve 81.9% accuracy, significantly outperforming the existing results on the WikiFactCheck-English dataset.</abstract>
+      <url hash="b7136d60">2021.fever-1.11</url>
+      <bibkey>sathe-park-2021-automatic</bibkey>
+      <doi>10.18653/v1/2021.fever-1.11</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+    </paper>
+    <paper id="12">
+      <title>Neural Re-rankers for Evidence Retrieval in the <fixed-case>FEVEROUS</fixed-case> Task</title>
+      <author><first>Mohammed</first><last>Saeed</last></author>
+      <author><first>Giulio</first><last>Alfarano</last></author>
+      <author><first>Khai</first><last>Nguyen</last></author>
+      <author><first>Duc</first><last>Pham</last></author>
+      <author><first>Raphael</first><last>Troncy</last></author>
+      <author><first>Paolo</first><last>Papotti</last></author>
+      <pages>108–112</pages>
+      <abstract>Computational fact-checking has gained a lot of traction in the machine learning and natural language processing communities. A plethora of solutions have been developed, but methods which leverage both structured and unstructured information to detect misinformation are of particular relevance. In this paper, we tackle the FEVEROUS (Fact Extraction and VERification Over Unstructured and Structured information) challenge which consists of an open source baseline system together with a benchmark dataset containing 87,026 verified claims. We extend this baseline model by improving the evidence retrieval module yielding the best evidence F1 score among the competitors in the challenge leaderboard while obtaining an overall FEVEROUS score of 0.20 (5th best ranked system).</abstract>
+      <url hash="7dc480f8">2021.fever-1.12</url>
+      <bibkey>saeed-etal-2021-neural</bibkey>
+      <doi>10.18653/v1/2021.fever-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>A Fact Checking and Verification System for <fixed-case>FEVEROUS</fixed-case> Using a Zero-Shot Learning Approach</title>
+      <author><first>Orkun</first><last>Temiz</last></author>
+      <author><first>Özgün Ozan</first><last>Kılıç</last></author>
+      <author><first>Arif Ozan</first><last>Kızıldağ</last></author>
+      <author><first>Tuğba</first><last>Taşkaya Temizel</last></author>
+      <pages>113–120</pages>
+      <abstract>In this paper, we propose a novel fact checking and verification system to check claims against Wikipedia content. Our system retrieves relevant Wikipedia pages using Anserini, uses BERT-large-cased question answering model to select correct evidence, and verifies claims using XLNET natural language inference model by comparing it with the evidence. Table cell evidence is obtained through looking for entity-matching cell values and TAPAS table question answering model. The pipeline utilizes zero-shot capabilities of existing models and all the models used in the pipeline requires no additional training. Our system got a FEVEROUS score of 0.06 and a label accuracy of 0.39 in FEVEROUS challenge.</abstract>
+      <url hash="4eeba4d4">2021.fever-1.13</url>
+      <bibkey>temiz-etal-2021-fact</bibkey>
+      <doi>10.18653/v1/2021.fever-1.13</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/feverous">FEVEROUS</pwcdataset>
+    </paper>
+  </volume>
+</collection>

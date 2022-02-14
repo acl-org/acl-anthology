@@ -108,16 +108,16 @@ def bibtex_convert_month(text):
     if text in _BIBTEX_MONTHS.values():  # already a month spec
         return text
     # Find embedded month strings
-    text = '"{}"'.format(text)
+    text = f'"{text}"'
     for month, macro in _BIBTEX_MONTHS.items():
         if month in text:
-            text = text.replace(month, '" # {} # "'.format(macro))
+            text = text.replace(month, f'" # {macro} # "')
             text = " # ".join(filter(lambda k: k != '""', text.split(" # ")))
     return text
 
 
 def bibtex_make_entry(bibkey, bibtype, fields):
-    lines = ["@{}{{{},".format(bibtype, bibkey)]
+    lines = [f"@{bibtype}{{{bibkey},"]
     for key, value in fields:
         if key == "author" and bibtype == "proceedings":
             key = "editor"
@@ -131,11 +131,11 @@ def bibtex_make_entry(bibkey, bibtype, fields):
             continue
         elif '"' in value:
             # Make sure not to use "" to quote values when they contain "
-            value = "{{{}}}".format(value)
+            value = f"{{{value}}}"
         else:
             # quote value
-            value = '"{}"'.format(value)
-        lines.append("    {} = {},".format(key, value))
+            value = f'"{value}"'
+        lines.append(f"    {key} = {value},")
     lines.append("}")
     return "\n".join(lines)
 
@@ -178,7 +178,7 @@ class MarkupFormatter:
         # following convert_xml_text_markup in anth2bib.py
         if element.tag in ["tex-math", "url"]:
             if len(element) > 0:
-                log.warning("<{}> element has children".format(element.tag))
+                log.warning(f"<{element.tag}> element has children")
             text = element.text
         else:
             text = bibtex_encode(element.text)
@@ -186,15 +186,15 @@ class MarkupFormatter:
             text += self.as_latex(nested_element)
             text += bibtex_encode(nested_element.tail)
         if element.tag == "fixed-case":
-            text = "{{{}}}".format(text)
+            text = f"{{{text}}}"
         elif element.tag == "b":
-            text = "\\textbf{{{}}}".format(text)
+            text = f"\\textbf{{{text}}}"
         elif element.tag == "i":
-            text = "\\textit{{{}}}".format(text)
+            text = f"\\textit{{{text}}}"
         elif element.tag == "tex-math":
-            text = "${}$".format(text)
+            text = f"${text}$"
         elif element.tag == "url":
-            text = "\\url{{{}}}".format(text)
+            text = f"\\url{{{text}}}"
         text = bibtex_convert_quotes(text)
         return remove_extra_whitespace(text)
 
@@ -209,4 +209,4 @@ class MarkupFormatter:
             return self.as_html(element, **kwargs)
         elif form == "latex":
             return self.as_latex(element)
-        raise ValueError("Unknown format: {}".format(form))
+        raise ValueError(f"Unknown format: {form}")
