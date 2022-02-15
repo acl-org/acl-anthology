@@ -450,7 +450,7 @@ class Paper:
 
         year = self.get("year")
         venue = self.venue_index.get_main_venue(self.parent_volume_id)
-        url = self.get("url")
+        url = self.url
 
         # hard-coded exception for old-style W-* volumes without an annotated
         # main venue
