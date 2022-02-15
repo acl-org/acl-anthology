@@ -442,9 +442,7 @@ class Paper:
                     authors = people[0].last
                 elif num_people == 2:
                     authors = f"{people[0].last} & {people[1].last}"
-                elif num_people == 3:
-                    authors = f"{people[0].last}, {people[1].last}, & {people[2].last}"
-                elif num_people >= 4:
+                elif num_people >= 3:
                     authors = f"{people[0].last} et al."
 
         year = self.get("year")
