@@ -429,8 +429,17 @@ class Paper:
             self._citeproc_json = [data]
         return self._citeproc_json
 
-    def as_citation_html(self, style="association-for-computational-linguistics"):
-        return CiteprocFormatter.render_html_citation(self, style)
+    def as_citation_html(
+        self, style="association-for-computational-linguistics", link_title=True
+    ):
+        html = CiteprocFormatter.render_html_citation(self, style)
+        if link_title:
+            # It would be nicer to do this within Citeproc, which would probably
+            # entail writing/updating our own CSL style.
+            title = self.get_title("plain")
+            link = f'<a href="{self.url}">{title}</a>'
+            html = html.replace(title, link)
+        return html
 
     def as_markdown(self, concise=False):
         """Return a Markdown-formatted entry."""
