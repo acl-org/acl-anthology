@@ -447,9 +447,13 @@ class Paper:
 
         year = self.get("year")
         venue = self.venue_index.get_main_venue(self.parent_volume_id)
-
         url = self.get("url")
-        return f"[{title}]({url}) ({authors}, {venue} {year})"
+
+        # hard-coded exception for old-style W-* volumes without an annotated
+        # main venue
+        if venue != "WS":
+            return f"[{title}]({url}) ({authors}, {venue} {year})"
+        return f"[{title}]({url}) ({authors}, {year})"
 
     def as_dict(self):
         value = self.attrib.copy()
