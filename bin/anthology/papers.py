@@ -408,9 +408,9 @@ class Paper:
                     [self.get("year")]
                 ]  # TODO: month needs to be a numeral to be included
             }
-            for entry in ("url", "doi"):
-                if entry in self.attrib:
-                    json[entry.upper()] = self.get(entry)
+            json["URL"] = self.url
+            if "doi" in self.attrib:
+                json["DOI"] = self.get("doi")
             if "pages" in self.attrib:
                 json["page"] = self.get("pages")
             if self.isbn:
