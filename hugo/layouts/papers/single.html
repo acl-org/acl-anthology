@@ -208,10 +208,10 @@
       <dt class="acl-button-row">Bibkey:</dt>
       <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey"><i class="far fa-clipboard"></i><span id="citePaperBibkey" class="pl-2 text-monospace">{{ . }}</span></button>{{ end }}</dd>
       {{ with $paper.citation_acl }}
-      <dt>Citation (ACL):</dt><dd><span id="citeACL">{{ safeHTML . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeACL"><i class="far fa-clipboard"></i></button></dd>
+      <dt>Cite (ACL):</dt><dd><span id="citeACL">{{ safeHTML . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeACL"><i class="far fa-clipboard"></i></button></dd>
       {{ end }}
       {{ with $paper.citation }}
-      <dt>Short Cite:</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
+      <dt>Cite (Informal):</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
       {{ end }}
       <dt class="acl-button-row">Copy Citation:</dt>
       <dd class="acl-button-row">
@@ -333,16 +333,13 @@
               <a class="nav-link {{ if not $has_bib }}disabled{{ else }}active{{ end }}" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="{{ if $has_bib }}true{{ else }}false{{ end }}">BibTeX</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_bib }}active{{ end }}" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $has_bib }}false{{ else }}true{{ end }}">Markdown</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="list" href="#citePlainText" role="tab" aria-controls="citePlainText" aria-selected="false">Plain Text</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link {{ if not $has_xml }}disabled{{ end }}" data-toggle="list" href="#citeMods" role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
             </li>
             <li class="nav-item">
               <a class="nav-link {{ if not $has_endf }}disabled{{ end }}" data-toggle="list" href="#citeEndnote" role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {{ if not $has_bib }}active{{ end }}" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $has_bib }}false{{ else }}true{{ end }}">Preformatted</a>
             </li>
           </ul>
 
@@ -357,40 +354,6 @@
                 <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeBibtexContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
-            </div>
-            <div class="tab-pane" id="citeMarkdown" role="tabpanel">
-              <p id="citeMarkdownContent" class="text-monospace small bg-light border p-2">
-                {{- $paper.citation -}}
-              </p>
-              <ul class="mt-2">
-                <li>{{- $paper.citation | markdownify -}}</li>
-              </ul>
-              <div class="modal-footer pb-1">
-                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
-              </div>
-            </div>
-            <div class="tab-pane" id="citePlainText" role="tabpanel">
-              {{ with $paper.citation_acl }}
-              <h5>ACL</h5>
-              <ul class="mt-2">
-                <li>{{- $paper.citation_acl | safeHTML -}}</li>
-              </ul>
-              {{ end }}
-              {{ with $paper.citation_apa }}
-              <h5>APA</h5>
-              <ul class="mt-2">
-                <li>{{- $paper.citation_apa | safeHTML -}}</li>
-              </ul>
-              {{ end }}
-              {{ with $paper.citation_mla }}
-              <h5>MLA</h5>
-              <ul class="mt-2">
-                <li>{{- $paper.citation_mla | safeHTML -}}</li>
-              </ul>
-              {{ end }}
-              <div class="modal-footer pb-1">
-                <!-- -->
-              </div>
             </div>
             <div class="tab-pane" id="citeMods" role="tabpanel">
               {{- if $has_xml -}}
@@ -413,6 +376,27 @@
                 <button class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Copy to Clipboard</button>
               </div>
               {{- end -}}
+            </div>
+            <div class="tab-pane" id="citeMarkdown" role="tabpanel">
+              <p id="citeMarkdownContent" class="text-monospace small bg-light border p-2">
+                {{- $paper.citation -}}
+              </p>
+              <h5>Markdown (Informal)</h5>
+              <ul class="mt-2">
+                <li>{{- $paper.citation | markdownify -}}</li>
+              </ul>
+              {{ with $paper.citation_acl }}
+              <h5>ACL</h5>
+              <ul class="mt-2">
+                <li id="citeACLstyleContent">{{- $paper.citation_acl | safeHTML -}}</li>
+              </ul>
+              {{ end }}
+              <div class="modal-footer pb-1">
+                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeMarkdownContent"><i class="far fa-clipboard pr-2"></i>Copy Markdown to Clipboard</button>
+                {{ with $paper.citation_acl }}
+                <button type="button" class="btn btn-clipboard btn-primary d-none" data-clipboard-target="#citeACLstyleContent"><i class="far fa-clipboard pr-2"></i>Copy ACL to Clipboard</button>
+                {{ end }}
+              </div>
             </div>
           </div>
         </div>
