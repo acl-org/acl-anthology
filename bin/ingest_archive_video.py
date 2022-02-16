@@ -92,7 +92,7 @@ def add_video_tag_single(anth_id, xml_parse):
     collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
     paper = xml_parse.find(f'./volume[@id="{volume_id}"]/paper[@id="{paper_id}"]')
     video_url = anth_id + '.mp4'
-    make_simple_element("video", attrib={"tag": "video", "href": video_url}, parent=paper)
+    make_simple_element("video", attrib={"href": video_url}, parent=paper)
 
 
 def add_video_tag_multiple(anth_id, vid_num, xml_parse):
@@ -103,7 +103,7 @@ def add_video_tag_multiple(anth_id, vid_num, xml_parse):
     collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
     paper = xml_parse.find(f'./volume[@id="{volume_id}"]/paper[@id="{paper_id}"]')
     video_url = anth_id + f'.{vid_num}' + '.mp4'
-    make_simple_element("video", attrib={"tag": "video", "href": video_url}, parent=paper)
+    make_simple_element("video", attrib={"href": video_url}, parent=paper)
 
 
 def update_xml(data_dir, collection_id, extention, xml_tree):

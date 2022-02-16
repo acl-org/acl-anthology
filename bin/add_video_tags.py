@@ -61,7 +61,7 @@ def add_video_tag(anth_paper, xml_parse):
     else:
         video_url = "https://slideslive.com/{}".format(anth_paper.presentation_id)
 
-    make_simple_element("video", attrib={"tag": "video", "href": video_url}, parent=paper)
+    make_simple_element("video", attrib={"href": video_url}, parent=paper)
 
 
 def main(args):
