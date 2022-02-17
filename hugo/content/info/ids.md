@@ -2,34 +2,32 @@
 Title: Anthology Identifiers
 linktitle: IDs
 subtitle: Information on how the Anthology assigns identifiers
-date: "2019-11-15"
+date: "2022-02-12"
 ---
 
-Every item in the anthology is assigned an Anthology ID and a canonical URL so that it can be easily located and referenced.
+Every item in the Anthology is assigned an identifier, called the "Anthology ID".
+These identifiers are used together with the Anthology domain name to form a canonical URL for each of these items, for easy location and reference.
 
-## Identifier format
+## Modern identifier format
 
-We introduced a new identifier scheme in 2020 in order to accommodate growth in the Anthology.
-Everything ingested in 2020 and afterwards will have these IDs (including volumes from years prior to 2020).
-The new identifiers are of the form `YEAR.VENUE-VOLUME.NUMBER`, where
+Everything /ingested/ into the Anthology after 2020 (including volumes from prior years) has been assigned an identifier of the form `YEAR.VENUE-VOLUME.NUMBER`, where:
 
-- YEAR is the 4-digit year (e.g., "2020)
+- YEAR is the 4-digit year (e.g., "2020")
 - VENUE is a lowercased, alphanumeric ([a-z0-9]+) identifier (e.g., "acl" or "repl4nlp")
 - VOLUME is a volume name (e.g., "1" or "long")
 - NUMBER is a paper number
 
-An example is "2020.acl-1.12" for the twelth paper in the first volume.
-
-This new format solves a number of problems:
-
-- The old format had only four digits to encode the volume and paper number.
-  Some workshops had more than 100 papers and had to be split in a cumbersome fashion.
-  *The new format supports an unlimited number of volumes and papers in each volume.*
-- The old format had a fixed number of identifiers for venues (for example, "P" was for "ACL").
-  *The new format allows every venue to have its own identifer*.
+An example is `2020.acl-1.12` for the twelth paper in the first volume.
+Its canonical page can be accessed at <https://aclanthology.org/2020.acl-main.12>.
 
 Venue identifiers are assigned by the Anthology Directory in consultation with submitters.
 Typically, an acronym will be selected ("lrec" for [LREC](http://lrec.org), "acl" for [ACL](http://www.aclweb.org/), etc.).
+
+In addition to paper identifiers, there are a number of other useful concepts.
+
+Volumes themselves also have identifiers.
+A volume identifier is formed by removing the paper
+Volumes can be accessed by 
 
 ## Paper numbering
 
@@ -56,7 +54,7 @@ The PDF can be accessed directly by accessing
 This works for other provided files such as BibTeX (.bib) and MODS XML (.xml).
 
 
-## Anthology IDs prior to 2020
+## Old format (for materials ingested prior to 2020)
 
 Anthology IDs from volumes ingested prior to 2020 had a unique 8-character identifier, comprising a letter, a two digit year, and a 4 digit volume and paper ID (e.g., P18-1024).
 The paper ID decomposes into a volume ID and a paper ID.
@@ -117,3 +115,17 @@ Both paper and volume IDs are zero-padded to ensure that filenames have a fixed 
 
 Historically, the file names fit within the 8.3 DOS naming constraint for maximum portability, as recommended by Adobe.
 PDF filenames are globally unique, to support subsetting (saving an ad hoc collection of papers to a single directory).
+
+The old format presented a number of problems.
+
+* It had only four digits to encode the volume and paper number.
+  Some workshops had more than 100 papers and had to be unnaturally split into multiple volumes, in a cumbersome fashion (for example, [WMT 2019](https://aclanthology.org/events/wmt-2019/)).
+  The modern format has no real restriction on the number of papers.
+
+* It had a fixed number of identifiers for venues (for example, "P" was for "ACL").
+  All other venues shared the "W" identifier.
+  The modern format permits a unique venue code for every venue.
+
+
+
+
