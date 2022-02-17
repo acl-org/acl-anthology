@@ -26,8 +26,14 @@ Typically, an acronym will be selected ("lrec" for [LREC](http://lrec.org), "acl
 In addition to paper identifiers, there are a number of other useful concepts.
 
 Volumes themselves also have identifiers.
-A volume identifier is formed by removing the paper
-Volumes can be accessed by 
+A volume identifier is formed by removing the paper number and the delimiter, e.g., `2020.acl-main`.
+Volumes can be accessed via the same scheme for canonical pages used for papers, e.g., <https://aclanthology.org/2020.acl-main>.
+
+We also infer the presence of events.
+Each yearly entry for a venue creates an "events" page.
+This can be accessed using the year and venue code.
+For example, the ACL 2020 event is available at <https://aclanthology.org/eventes/acl-2020>.
+This page will include all volumes published under ACL, as well as any colocated events, such as workshops.
 
 ## Paper numbering
 
@@ -125,7 +131,3 @@ The old format presented a number of problems.
 * It had a fixed number of identifiers for venues (for example, "P" was for "ACL").
   All other venues shared the "W" identifier.
   The modern format permits a unique venue code for every venue.
-
-
-
-

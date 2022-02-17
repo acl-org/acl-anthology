@@ -81,7 +81,7 @@ When submitting a new venue to the Anthology, please make sure *not* to put the 
    For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
    You should also seek consistency with the names of your volumes from prior years.
 
-If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair, rather than directly with the Anthology staff. 
+If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair, rather than directly with the Anthology staff.
 
 ### Submit your data
 
