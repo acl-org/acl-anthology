@@ -24,6 +24,9 @@ To build the anthology, the packages listed in
     If this doesn't enable the C bindings, make sure you have Cython installed,
     then try rebuilding pyyaml again.
 
+You also need to install "jing", an XML schema checker. if you are using Homebrew on OS X, you can install
+this with `brew install jing-trang`.
+
 ### Step 1: Prepare the data for site generation
 
 The data sources for the Anthology currently reside in the [`data/`](data/)
