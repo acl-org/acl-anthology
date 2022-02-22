@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2022 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,16 +30,25 @@ from .utils import (
 from . import data
 
 # For bibliography export
-from .formatter import bibtex_encode, bibtex_make_entry, MarkupFormatter
+from .formatter import (
+    bibtex_encode,
+    bibtex_make_entry,
+    CiteprocFormatter,
+    MarkupFormatter,
+)
 
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter=MarkupFormatter):
+    def __init__(self, paper_id, ingest_date, volume, formatter=None, venue_index=None):
         self.parent_volume = volume
+        if formatter is None:
+            formatter = MarkupFormatter()
         self.formatter = formatter
+        self.venue_index = venue_index
         self._id = paper_id
         self._ingest_date = ingest_date
-        self._bibkey = None
+        self._bibkey = False
+        self._citeproc_json = None
         self.is_volume = paper_id == "0"
 
         # initialize metadata with keys inherited from volume
@@ -175,6 +184,8 @@ class Paper:
                 [x[0].full for x in paper.attrib["author"]]
             )
 
+        paper.attrib["citation"] = paper.as_markdown()
+
         # An empty value gets set to None, which causes hugo to skip it over
         # entirely. Set it here to a single space, instead. There's probably
         # a better way to do this.
@@ -237,12 +248,26 @@ class Paper:
 
     @property
     def bibtype(self):
+        """Return the BibTeX entry type for this paper."""
         if is_journal(self.full_id):
             return "article"
         elif self.is_volume:
             return "proceedings"
         else:
             return "inproceedings"
+
+    @property
+    def csltype(self):
+        """Return the CSL type for this paper.
+
+        cf. https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types
+        """
+        if is_journal(self.full_id):
+            return "article-journal"
+        elif self.is_volume:
+            return "book"
+        else:
+            return "paper-conference"
 
     @property
     def parent_volume_id(self):
@@ -366,6 +391,91 @@ class Paper:
 
         # Serialize it
         return bibtex_make_entry(bibkey, bibtype, entries)
+
+    def as_citeproc_json(self):
+        """Return a citation object suitable for CiteProcJSON."""
+        if self._citeproc_json is None:
+            data = {
+                "id": self.bibkey,
+                "title": self.get_title(form="text"),
+                "type": self.csltype,
+            }
+            if "author" in self.attrib:
+                data["author"] = [p.as_citeproc_json() for p, _ in self.get("author")]
+            if "editor" in self.attrib:
+                # or should this be "container-author"/"collection-editor" here?
+                data["editor"] = [p.as_citeproc_json() for p, _ in self.get("editor")]
+            if is_journal(self.full_id):
+                data["container-title"] = self.parent_volume.get("meta_journal_title")
+                journal_volume = self.parent_volume.get(
+                    "meta_volume", self.parent_volume.get("volume")
+                )
+                if journal_volume:
+                    data["volume"] = journal_volume
+                journal_issue = self.parent_volume.get(
+                    "meta_issue", self.parent_volume.get("issue")
+                )
+                if journal_issue:
+                    data["issue"] = journal_issue
+            else:
+                if "xml_booktitle" in self.attrib:
+                    data["container-title"] = self.get_booktitle(form="text")
+                elif self.bibtype != "proceedings":
+                    data["container-title"] = self.parent_volume.get_title(form="text")
+            data["publisher"] = self.get("publisher", "")
+            data["publisher-place"] = self.get("address", "")
+            data["issued"] = {
+                "date-parts": [
+                    [self.get("year")]
+                ]  # TODO: month needs to be a numeral to be included
+            }
+            data["URL"] = self.url
+            if "doi" in self.attrib:
+                data["DOI"] = self.get("doi")
+            if "pages" in self.attrib:
+                data["page"] = self.get("pages")
+            if self.isbn:
+                data["ISBN"] = self.isbn
+            self._citeproc_json = [data]
+        return self._citeproc_json
+
+    def as_citation_html(
+        self, style="association-for-computational-linguistics", link_title=True
+    ):
+        html = CiteprocFormatter.render_html_citation(self, style)
+        if link_title:
+            # It would be nicer to do this within Citeproc, which would probably
+            # entail writing/updating our own CSL style.
+            title = self.get_title("plain")
+            link = f'<a href="{self.url}">{title}</a>'
+            html = html.replace(title, link)
+        return html
+
+    def as_markdown(self, concise=False):
+        """Return a Markdown-formatted entry."""
+        title = self.get_title(form="text")
+
+        authors = ""
+        for field in ("author", "editor"):
+            if field in self.attrib:
+                people = [person[0] for person in self.get(field)]
+                num_people = len(people)
+                if num_people == 1:
+                    authors = people[0].last
+                elif num_people == 2:
+                    authors = f"{people[0].last} & {people[1].last}"
+                elif num_people >= 3:
+                    authors = f"{people[0].last} et al."
+
+        year = self.get("year")
+        venue = self.venue_index.get_main_venue(self.parent_volume_id)
+        url = self.url
+
+        # hard-coded exception for old-style W-* volumes without an annotated
+        # main venue
+        if venue != "WS":
+            return f"[{title}]({url}) ({authors}, {venue} {year})"
+        return f"[{title}]({url}) ({authors}, {year})"
 
     def as_dict(self):
         value = self.attrib.copy()
