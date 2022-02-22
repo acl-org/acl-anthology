@@ -41,7 +41,7 @@ We are grateful to all our contributors whose work makes this collection of scho
 ### Assistants
 
 + Xinru Yan (2020&ndash;)
-+ [David Stap](https://davidstap.github.io)
++ [David Stap](https://davidstap.github.io) (2020&ndash;)
 
 ### Donors
 
@@ -61,4 +61,8 @@ Our thanks to:
 
 * The European Language Resources Association (ELRA), for allowing us to host the International Conference on Language Resources and Evaluation proceedings series (LREC).
 
+<<<<<<< HEAD
 * Robert, Amsler for his generous help and support of compiling the listing of the Finite String newsletter, and to David Chiang for undertaking the labor of splitting it up into readable articles.
+=======
+* Robert Amsler for his generous help and support of compiling the listing of the Finite String newsletter, and to David Chiang for undertaking the labor of splitting it up into readable articles.
+>>>>>>> master
