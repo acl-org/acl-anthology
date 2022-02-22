@@ -32,7 +32,7 @@ Volumes can be accessed via the same scheme for canonical pages used for papers,
 We also infer the presence of events.
 Each yearly entry for a venue creates an "events" page.
 This can be accessed using the year and venue code.
-For example, the ACL 2020 event is available at <https://aclanthology.org/eventes/acl-2020>.
+For example, the ACL 2020 event is available at <https://aclanthology.org/events/acl-2020>.
 This page will include all volumes published under ACL, as well as any colocated events, such as workshops.
 
 ## Paper numbering

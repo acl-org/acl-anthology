@@ -61,4 +61,4 @@ Our thanks to:
 
 * The European Language Resources Association (ELRA), for allowing us to host the International Conference on Language Resources and Evaluation proceedings series (LREC).
 
-* Robert, Amsler for his generous help and support of compiling the listing of the Finite String newsletter, and to David Chiang for undertaking the labor of splitting it up into readable articles.
+* Robert Amsler for his generous help and support of compiling the listing of the Finite String newsletter, and to David Chiang for undertaking the labor of splitting it up into readable articles.
