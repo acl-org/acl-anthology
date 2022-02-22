@@ -41,7 +41,7 @@ We are grateful to all our contributors whose work makes this collection of scho
 ### Assistants
 
 + Xinru Yan (2020&ndash;)
-+ [David Stap](https://davidstap.github.io)
++ [David Stap](https://davidstap.github.io) (2020&ndash;)
 
 ### Donors
 
