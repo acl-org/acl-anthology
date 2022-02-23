@@ -126,7 +126,9 @@ class Anthology:
 
             self.volumes[volume.full_id] = volume
             for paper_xml in volume_xml.findall("paper"):
-                parsed_paper = Paper.from_xml(paper_xml, volume, self.formatter)
+                parsed_paper = Paper.from_xml(
+                    paper_xml, volume, self.formatter, self.venues
+                )
 
                 # MJP 2021-05: no longer doing this since it kills branch previews.
                 # Don't merge with master prior to ingest date!

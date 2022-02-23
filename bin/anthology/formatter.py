@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2022 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,6 +17,9 @@
 import logging as log
 from copy import deepcopy
 from lxml import etree
+import citeproc
+from citeproc.source.json import CiteProcJSON
+import citeproc_styles
 import codecs
 import re
 
@@ -42,6 +45,42 @@ _BIBTEX_MONTHS = {
     "november": "nov",
     "december": "dec",
 }
+
+
+class CiteprocFormatter:
+    """Formatter using Citeproc and CSL files to produce citations.
+
+    cf. https://github.com/citation-style-language/styles for possible citation
+    styles
+    """
+
+    styles = {}
+
+    @classmethod
+    def load_style(cls, style):
+        """Loads and returns a CSL style."""
+        if style not in cls.styles:
+            cls.styles[style] = citeproc.CitationStylesStyle(
+                citeproc_styles.get_style_filepath(style)
+            )
+        return cls.styles[style]
+
+    @classmethod
+    def render_html_citation(
+        cls, paper, style="association-for-computational-linguistics"
+    ):
+        """Render a bibliography entry for a paper with a given CSL style.
+
+        Returns HTML encoded as a single string.
+        """
+        data = paper.as_citeproc_json()
+        source = CiteProcJSON(data)
+        item = citeproc.CitationItem(data[0]["id"])
+        bib = citeproc.CitationStylesBibliography(
+            cls.load_style(style), source, citeproc.formatter.html
+        )
+        bib.register(citeproc.Citation([item]))
+        return str(bib.style.render_bibliography([item])[0])
 
 
 def bibtex_encode(text):

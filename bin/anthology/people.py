@@ -128,6 +128,11 @@ class PersonName:
             return f"{{{my_formatter.bibtex_encode(self.last)}}}"
         return my_formatter.bibtex_encode(f"{self.last}, {self.first}")
 
+    def as_citeproc_json(self):
+        if not self.first:
+            return {"family": self.last}
+        return {"family": self.last, "given": self.first}
+
     def as_dict(self):
         return {"first": self.first, "last": self.last, "full": self.full}
 
