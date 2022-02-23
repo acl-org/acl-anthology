@@ -3,7 +3,7 @@ name: File a Correction
 about: Correcting paper data in the Anthology
 title: Correction to Anthology ID XXX
 labels: correction
-assignees: mjpost
+assignees: xinru1414
 
 ---
 

@@ -2,13 +2,13 @@
 Title: Requesting Corrections
 linktitle: Corrections
 subtitle: How to submit corrections to the Anthology
-date: "2021-10-05"
+date: 2021-11-11
 ---
 
 ### Types of corrections
 
-The staff of the ACL Anthology can process requests for both many types of corrections to data in the ACL Anthology.
-We generally distinguish five types of corrections, loosely following the [ACM Publications Policy](https://www.acm.org/publications/policies/):
+The staff of the ACL Anthology can process requests for many types of corrections.
+We generally distinguish five types, loosely following the [ACM Publications Policy](https://www.acm.org/publications/policies/):
 
 * Corrections to **metadata** do not require changing the PDF.
   Examples include correcting the spelling of a name or the title.
