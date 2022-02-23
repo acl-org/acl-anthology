@@ -58,30 +58,39 @@ This information should be submitted to us [via a Github issue](https://github.c
 This will allow us to do a quick sanity check of the metadata.
 As noted above, if you are the chair of a workshop that is colocated with a larger event, please work with your main conference publication chair instead of directly with the Anthology.
 
-The Github issue will prompt you for the following information for each volume.
+Your Github issue should contain the following information for each volume.
 
--  **Venue identifiers**. Each venue (conference or workshop) has a [venue identifier]({{< relref "ids.md" >}}).
+-  **Venue identifier**. Each venue (conference or workshop) has a [venue identifier]({{< relref "ids.md" >}}).
    Its basic form is the conference acronym, such as ACL, NAACL, JEP/TALN/RECITAL, and so on.
    A [slugified](https://en.wikipedia.org/wiki/Clean_URL#Slug) version of this acronym, containing only numerals and lowercase ASCII letters, is used in the URL for the venue's page on the Anthology (e.g., [ACL → acl](https://aclanthology.org/venues/acl), [JEP/TALN/RECITAL → jeptalnrecital](https://aclanthology.org/venues/jeptalnrecital)), and also forms a component of the [Anthology ID]({{< relref "ids.md" >}}).
    For existing venues, be sure to look up [the venue's existing identifier](https://aclanthology.org/venues/).
-   New venues must have their venue identifier confirmed by the Anthology director.
+   New venues must have their venue identifier confirmed by the Anthology director (see subsection below).
    Note: a common mistake is to include the year in the venue identifier, e.g., ACL2020.
    This confuses a *meeting* of a venue with the venue itself.
    The identifier should not have the year or meeting number in it.
--  **Venue name**. Each venue has a name.
+-  **Volume title**. This is the title of the volume book that will be published, e.g., *Proceedings of the...*.
+   We recommend you choose a name consistent with your prior years' volumes.
+   The full title should not contain abbreviations, except parenthetically.
+   For example, "Proceedings of EMNLP 2019" is not a good title, but "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)" is a great one.
+   If you have sub-volumes (e.g., long papers, short papers, demonstrations, tutorial abstracts), we suggest you append descriptors after the full volume name.
+   For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
+   But above all, you should also seek consistency with the names of your volumes from prior years.
+
+If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair, rather than directly with the Anthology staff.
+
+#### New venues
+
+If your venue is appearing for the first time in the Anthology, we need to assign it a venue identifier, as described above.
+You can choose one yourself, but it will require confirmation from the Anthology director.
+If you are submitting a new venue, please be sure to also include the following information:
+
+- **Venue name**. Each venue has a name.
    These names are attached to the venue identifier and stored in [our database](https://github.com/acl-org/acl-anthology/blob/master/data/yaml/venues.yaml).
    If your venue is new, please enter the venue name.
    Note: similar to the caveat about about the venue identifier, this is the name of the venue, not a particular meeting of the venue.
-When submitting a new venue to the Anthology, please make sure *not* to put the year or meeting number in the venue name.
--  **Volume titles**. These are the titles of the volumes that will be published, e.g., *Proceedings of the...*.
-   We recommend you choose a name consistent with your prior years' volumes.
-   The full titles should not contain abbreviations, except parenthetically.
-   For example, "Proceedings of EMNLP 2019" is not a good title, but "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)" is a great one.
-   If you have sub-volumes (e.g., long papers, short papers, demonstrations, tutorial abstracts), we suggest you append them after the full volume name.
-   For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
-   You should also seek consistency with the names of your volumes from prior years.
-
-If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair, rather than directly with the Anthology staff.
+   When submitting a new venue to the Anthology, please make sure *not* to put the year or meeting number in the venue name.
+- **Website**. The website of the venue.
+  Ideally this is a website of the venue itself (e.g., [https://naacl.org](https://naacl.org)), and not a particular meeting of the venue.
 
 ### Submit your data
 
