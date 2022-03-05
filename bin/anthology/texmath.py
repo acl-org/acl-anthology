@@ -19,7 +19,7 @@ import csv
 import logging as log
 import os
 import TexSoup
-
+from TexSoup.data import *
 
 FUNCTION_NAMES = ("lim", "log")
 
@@ -85,31 +85,31 @@ class TexMath:
         """
         sxscript = False  # Tracks whether we're in a subscript/superscript
         for code in everything:
-            if isinstance(code, TexSoup.TexCmd):
+            if isinstance(code, TexCmd):
                 # code is a TeX command
                 self._parse_command(code, trg)
-            elif isinstance(code, TexSoup.TokenWithPosition):
+            elif isinstance(code, TexText) or isinstance(code, str):
                 # code is text
                 sxscript = self._parse_text(code, trg)
-            elif isinstance(code, TexSoup.Arg):
+            elif isinstance(code, TexGroup):
                 # If in subscript/superscript, wrap the entire element in respective tag
                 if sxscript:
                     my_trg = etree.Element(sxscript)
-                    self._parse(TexSoup.TexSoup(code.value).expr.everything, my_trg)
+                    self._parse(code.contents, my_trg)
                     trg.append(my_trg)
                     sxscript = False
                 # Otherwise, just parse it normally
                 else:
-                    self._parse(TexSoup.TexSoup(code.value).expr.everything, trg)
+                    self._parse(code.contents, trg)
             else:
                 log.error(f"TeX-math parser got unhandled element: {type(code)}")
 
     def _parse_command(self, code, trg):
-        args = list(code.arguments)
+        args = list(code.args)
         name = str(code.name)
         # TexSoup doesn't parse curly brackets correctly
         if name[0] in ("{", "}"):
-            args = list(TexSoup.TexSoup(name[1:]).expr.everything) + args
+            args = list(TexSoup.TexSoup(name[1:]).expr.all) + args
             name = name[0]
         # Check if the command is in the list of known Unicode mappings
         if name in self.cmd_map:
@@ -161,7 +161,7 @@ class TexMath:
             trg.append(sx)
 
     def _parse_text(self, code, trg):
-        text = code.text
+        text = str(code)
         # TexSoup doesn't parse curly brackets correctly, so we replace them
         # with a valid alternative command and repeat the parse
         if "\\{" in text or "\\}" in text:
@@ -194,14 +194,14 @@ class TexMath:
     def _append_unparsed(self, code, trg):
         pre = etree.Element("span")
         pre.attrib["class"] = "tex-math-unparsed"
-        pre.text = f"\\{code.name}{code.arguments}"
+        pre.text = f"\\{code.name}{code.args}"
         trg.append(pre)
 
     def etree_to_html(self, element):
         result = etree.Element("span")
         result.attrib["class"] = "tex-math"
         result.tail = element.tail  # Preserve tail
-        self._parse(TexSoup.TexSoup(element.text).expr.everything, result)
+        self._parse(TexSoup.TexSoup(element.text).expr.all, result)
         return result
 
     def to_html(self, element):
