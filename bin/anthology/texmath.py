@@ -166,7 +166,7 @@ class TexMath:
         # with a valid alternative command and repeat the parse
         if "\\{" in text or "\\}" in text:
             text = text.replace("\\{", "\\lbrace{}").replace("\\}", "\\rbrace{}")
-            self._parse(TexSoup.TexSoup(text).expr.everything, trg)
+            self._parse(TexSoup.TexSoup(text).expr.all, trg)
             return
         if "\\%" in text:
             text = text.replace("\\%", "%")
