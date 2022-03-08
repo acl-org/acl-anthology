@@ -267,7 +267,7 @@ clean:
 	rm -rf build venv
 
 .PHONY: check
-check: venv
+check: venv pytest
 	@if grep -rl '	' data/xml; then \
 	    echo "check error: found a tab character in the above XML files!"; \
 	    exit 1; \
@@ -276,6 +276,10 @@ check: venv
 	SKIP=no-commit-to-branch . $(VENV) \
 	  && pre-commit run --all-files \
 	  && black --check $(pysources)
+
+.PHONY: pytest
+pytest: venv
+	PYTHONPATH=bin/ python -m pytest tests
 
 .PHONY: check_staged_xml
 check_staged_xml:
