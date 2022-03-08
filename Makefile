@@ -279,7 +279,7 @@ check: venv pytest
 
 .PHONY: pytest
 pytest: venv
-	. $(VENV) && PYTHONPATH=bin/ python -m pytest tests
+	. $(VENV) && PYTHONPATH=bin/ python -m pytest tests --cov-report term --cov=anthology tests
 
 .PHONY: check_staged_xml
 check_staged_xml:
