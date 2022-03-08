@@ -223,6 +223,22 @@ test_cases_html = (
         '<tex-math>\textrm{Pr}(f_1^J/e^I_1)</tex-math>',
         '<span class="tex-math">\textrmPr(f<sub>1</sub><sup>J</sup>/e<sup>I</sup><sub>1</sub>)</span>',
     ),
+    (
+        '<tex-math>\\# \\$ \\% \\&amp; \\_ \\{ \\} \\| \\:</tex-math>',
+        '<span class="tex-math"># $ % &amp; _ { } ‖  </span>',
+    ),
+    (
+        '<tex-math>asd\\$asd</tex-math>',
+        '<span class="tex-math">asd$asd</span>',
+    ),
+    (
+        '<tex-math>2\\_3</tex-math>',
+        '<span class="tex-math">2_3</span>',
+    ),
+    (
+        '<tex-math>2_3</tex-math>',
+        '<span class="tex-math">2<sub>3</sub></span>',
+    ),
 )
 
 

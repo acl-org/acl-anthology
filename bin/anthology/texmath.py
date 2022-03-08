@@ -18,8 +18,8 @@ from lxml import etree
 import csv
 import logging as log
 import os
-import TexSoup
-from TexSoup.data import *
+from TexSoup import TexSoup
+from TexSoup.data import TexCmd, TexText, TexGroup
 
 FUNCTION_NAMES = ("lim", "log")
 
@@ -107,10 +107,6 @@ class TexMath:
     def _parse_command(self, code, trg):
         args = list(code.args)
         name = str(code.name)
-        # TexSoup doesn't parse curly brackets correctly
-        if name[0] in ("{", "}"):
-            args = list(TexSoup.TexSoup(name[1:]).expr.all) + args
-            name = name[0]
         # Check if the command is in the list of known Unicode mappings
         if name in self.cmd_map:
             _append_text(self.cmd_map[name], trg)
@@ -162,14 +158,13 @@ class TexMath:
 
     def _parse_text(self, code, trg):
         text = str(code)
-        # TexSoup doesn't parse curly brackets correctly, so we replace them
-        # with a valid alternative command and repeat the parse
-        if "\\{" in text or "\\}" in text:
-            text = text.replace("\\{", "\\lbrace{}").replace("\\}", "\\rbrace{}")
-            self._parse(TexSoup.TexSoup(text).expr.all, trg)
+        # TexSoup doesn't parse any non-alpha command as a command. Ex: \$
+        # However it does seperate them into their own text part. Ex: 'r\\&dd' -> ['r', '\\&', 'dd']
+        # Therefore try to do command mapping replacement of all text beginning with \ and of length 2
+        if len(text) == 2 and text[0] == '\\':
+            text = self.cmd_map.get(text[1], text)
+            _append_text(text, trg)
             return
-        if "\\%" in text:
-            text = text.replace("\\%", "%")
         # parse ^ and _ (won't get recognized as separate nodes by TexSoup)
         sxscript = False
         if "^" in text or "_" in text:
@@ -201,7 +196,7 @@ class TexMath:
         result = etree.Element("span")
         result.attrib["class"] = "tex-math"
         result.tail = element.tail  # Preserve tail
-        self._parse(TexSoup.TexSoup(element.text).expr.all, result)
+        self._parse(TexSoup(element.text).expr.all, result)
         return result
 
     def to_html(self, element):
