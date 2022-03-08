@@ -279,7 +279,7 @@ check: venv pytest
 
 .PHONY: pytest
 pytest: venv
-	PYTHONPATH=bin/ python -m pytest tests
+	. $(VENV) && PYTHONPATH=bin/ python -m pytest tests
 
 .PHONY: check_staged_xml
 check_staged_xml:
