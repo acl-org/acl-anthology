@@ -79,7 +79,7 @@ ifeq (, $(shell which python3 ))
   $(error "python3 not found in $(PATH)")
 endif
 
-PYTHON_VERSION_MIN=3.7
+PYTHON_VERSION_MIN=3.8
 PYTHON_VERSION=$(shell python3 -c 'import sys; print("%d.%d"% sys.version_info[0:2])' )
 PYTHON_VERSION_OK=$(shell python3 -c 'import sys; print(int(float("%d.%d"% sys.version_info[0:2]) >= $(PYTHON_VERSION_MIN)))' )
 
