@@ -47,7 +47,7 @@ class Paper:
         self.venue_index = venue_index
         self._id = paper_id
         self._ingest_date = ingest_date
-        self._bibkey = False
+        self._bibkey = None
         self._citeproc_json = None
         self.is_volume = paper_id == "0"
 
