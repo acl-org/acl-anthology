@@ -208,10 +208,10 @@
       <dt class="acl-button-row">Bibkey:</dt>
       <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey"><i class="far fa-clipboard"></i><span id="citePaperBibkey" class="pl-2 text-monospace">{{ . }}</span></button>{{ end }}</dd>
       {{ with $paper.citation_acl }}
-      <dt>Cite (ACL):</dt><dd><span id="citeACL">{{ safeHTML . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeACL"><i class="far fa-clipboard"></i></button></dd>
+      <dt>Cite (ACL):</dt><dd><span id="citeACL" style="all: initial;">{{ safeHTML . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeACL"><i class="far fa-clipboard"></i></button></dd>
       {{ end }}
       {{ with $paper.citation }}
-      <dt>Cite (Informal):</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
+      <dt>Cite (Informal):</dt><dd><span id="citeRichText" style="all: initial;">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
       {{ end }}
       <dt class="acl-button-row">Copy Citation:</dt>
       <dd class="acl-button-row">
@@ -399,7 +399,7 @@
               {{ with $paper.citation_acl }}
               <h5>ACL</h5>
               <ul class="mt-2">
-                <li id="citeACLstyleContent">{{- $paper.citation_acl | safeHTML -}}</li>
+                <li id="citeACLstyleContent" style="all: initial;">{{- $paper.citation_acl | safeHTML -}}</li>
               </ul>
               {{ end }}
               <div class="modal-footer pb-1">
