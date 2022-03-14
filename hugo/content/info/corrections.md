@@ -2,13 +2,13 @@
 Title: Requesting Corrections
 linktitle: Corrections
 subtitle: How to submit corrections to the Anthology
-date: 2021-11-11
+date: 2022-03-13
 ---
 
 ### Types of corrections
 
 The staff of the ACL Anthology can process requests for many types of corrections.
-We generally distinguish five types, loosely following the [ACM Publications Policy](https://www.acm.org/publications/policies/):
+We generally distinguish five types, loosely following the [ACM Publications Policy](https://www.acm.org/publications/policies/retraction-policy):
 
 * Corrections to **metadata** do not require changing the PDF.
   Examples include correcting the spelling of a name or the title.
@@ -18,8 +18,8 @@ We generally distinguish five types, loosely following the [ACM Publications Pol
   Usually these are just short notes, corrective statements, or changes to equations or other problems in the original, which need to be read alongside the original work.
 * A **revision** is a versioned replacement of the original scholarly work.
   This format allows a corrected paper to be read in place of the original scholarly work, and typically does not highlight the original's errors.
-* A **retraction** occurs when serious, unrecoverable errors are discovered, which drastically affect the findings of the original work.
-* A **removal** occurs in rare circumstances where serious ethical or legal issues arise, such as plagiarism.
+* A **retraction** occurs when serious, unrecoverable errors are discovered which drastically affect the findings of the original work, or for issues such as duplicate publications, plagiarism, or disputed authorship.
+* A **removal** occurs in rare circumstances where serious ethical or legal issues arise.
 
 Please take note of the following points regarding revisions and retractions.
 
