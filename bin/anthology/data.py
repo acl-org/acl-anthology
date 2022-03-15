@@ -22,6 +22,7 @@
 ################################################################################
 
 import os
+from enum import Enum
 
 # this is the canonical URL.  In contrast to all other
 # URL templates, it always links to the official anthology.
@@ -98,3 +99,8 @@ def get_journal_title(top_level_id, volume_title):
         return "Transactions of the Association for Computational Linguistics"
     else:
         return volume_title
+
+
+class ResourceType(Enum):
+    PDF = 'pdf'
+    ATTACHMENT = 'attachments'

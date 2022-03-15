@@ -492,3 +492,48 @@ def compute_hash(value: bytes) -> str:
 def compute_hash_from_file(path: str) -> str:
     with open(path, "rb") as f:
         return compute_hash(f.read())
+
+
+# For auto upload files to server
+# The root directory for files
+ANTHOLOGY_FILE_ROOT = "anthology-files"
+
+# The ssh shortcut (in ~/.ssh/config) or full hostname
+ANTHOLOGY_HOST = "anth"
+
+
+def upload_file_to_queue(
+    local_path: str,
+    resource_type: data.ResourceType,
+    venue_name: str,
+    filename: str,
+    file_hash: str,
+    commit: bool = False,
+):
+    actual_hash = compute_hash_from_file(local_path)
+    if file_hash != actual_hash:
+        raise Exception(
+            f"Got unexpected hash, file contains incorrect data. (actual hash: {actual_hash}, expected: {file_hash})"
+        )
+
+    mdkir_cmd = [
+        'ssh',
+        ANTHOLOGY_HOST,
+        f'mkdir -p {ANTHOLOGY_FILE_ROOT}/queue/{resource_type.value}/{venue_name}',
+    ]
+    if commit:
+        subprocess.check_call(mdkir_cmd)
+    else:
+        logging.info(f"Would run: {mdkir_cmd}")
+
+    upload_cmd = [
+        "rsync",
+        "-lptgoDve",
+        "ssh",
+        local_path,
+        f"{ANTHOLOGY_HOST}:{ANTHOLOGY_FILE_ROOT}/queue/{resource_type.value}/{venue_name}/{filename}.{file_hash}",
+    ]
+    if commit:
+        subprocess.check_call(upload_cmd)
+    else:
+        logging.info(f"Would run: {upload_cmd}")
