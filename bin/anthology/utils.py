@@ -20,6 +20,7 @@ import os
 import re
 import requests
 import shutil
+import subprocess
 
 from lxml import etree
 from urllib.parse import urlparse
@@ -415,11 +416,13 @@ def parse_element(xml_element):
         elif tag == "url":
             tag = "xml_url"
             value = element.text
+            attrib['pdf_hash'] = element.get("hash")
         elif tag == "attachment":
             value = {
                 "filename": element.text,
                 "type": element.get("type", "attachment"),
                 "url": element.text,
+                "hash": element.get("hash"),
             }
         elif tag in ("author", "editor"):
             id_ = element.attrib.get("id", None)
