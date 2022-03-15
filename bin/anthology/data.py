@@ -54,6 +54,25 @@ ANTHOLOGY_FILE_DIR = os.environ.get(
     "ANTHOLOGY_FILES", os.path.join(os.environ["HOME"], "anthology-files")
 )
 
+# Anthology pdf location
+# Defaults to {ANTHOLOGY_FILE_DIR}/pdf
+ANTHOLOGY_PDF_DIR = os.environ.get(
+    "ANTHOLOGY_PDFS", os.path.join(ANTHOLOGY_FILE_DIR, "pdf")
+)
+
+# Anthology attachments location
+# Defaults to {ANTHOLOGY_FILE_DIR}/attachments
+ANTHOLOGY_ATTACHMENTS_DIR = os.environ.get(
+    "ANTHOLOGY_ATTACHMENTS", os.path.join(ANTHOLOGY_FILE_DIR, "attachments")
+)
+
+# Anthology data location
+# Defaults to {git_repo_root}/data
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+ANTHOLOGY_DATA_DIR = os.environ.get(
+    "ANTHOLOGY_DATA", os.path.abspath(os.path.join(_SCRIPT_DIR, "..", "..", "data"))
+)
+
 # Names of XML elements that may appear multiple times
 LIST_ELEMENTS = (
     "attachment",
