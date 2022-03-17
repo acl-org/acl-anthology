@@ -44,14 +44,14 @@
     <small><a href="#" class="text-muted"><i class="fas fa-arrow-up"></i> up</a></small>
 
     <h4 class="d-sm-flex pb-2 border-bottom">
-      <span class="d-block mr-2 list-button-row">
+      <span class="d-block me-2 list-button-row">
       {{- with $volume.pdf -}}
-      <a class="badge badge-primary align-middle mr-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
+      <a class="badge badge-primary align-middle me-1" href="{{ . }}" data-toggle="tooltip" data-placement="top" title="Open full proceedings volume as PDF">pdf&nbsp;(full)</a>
       <br class="d-none d-sm-inline-block" />
       {{- end -}}
       {{- $bibfile := printf "/volumes/%s.bib" . -}}
       {{- if (fileExists (printf "/data-export/%s" $bibfile)) -}}
-      <a class="badge badge-secondary align-middle mr-1" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
+      <a class="badge badge-secondary align-middle me-1" href="{{ $bibfile | relURL }}" data-toggle="tooltip" data-placement="top" title="Export to BibTeX">bib&nbsp;(full)</a>
       {{- end -}}
       </span>
     <a class="align-middle" href="{{ relref $ (printf "/volumes/%s.md" .) }}">{{ $volume.title }}</a></h4>
