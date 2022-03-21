@@ -79,7 +79,7 @@ ifeq (, $(shell which python3 ))
   $(error "python3 not found in $(PATH)")
 endif
 
-PYTHON_VERSION_MIN=3.7
+PYTHON_VERSION_MIN=3.8
 PYTHON_VERSION=$(shell python3 -c 'import sys; print("%d.%d"% sys.version_info[0:2])' )
 PYTHON_VERSION_OK=$(shell python3 -c 'import sys; print(int(float("%d.%d"% sys.version_info[0:2]) >= $(PYTHON_VERSION_MIN)))' )
 
@@ -267,7 +267,7 @@ clean:
 	rm -rf build venv
 
 .PHONY: check
-check: venv
+check: venv pytest
 	@if grep -rl '	' data/xml; then \
 	    echo "check error: found a tab character in the above XML files!"; \
 	    exit 1; \
@@ -276,6 +276,10 @@ check: venv
 	SKIP=no-commit-to-branch . $(VENV) \
 	  && pre-commit run --all-files \
 	  && black --check $(pysources)
+
+.PHONY: pytest
+pytest: venv
+	. $(VENV) && PYTHONPATH=bin/ python -m pytest tests --cov-report term --cov=anthology tests
 
 .PHONY: check_staged_xml
 check_staged_xml:
