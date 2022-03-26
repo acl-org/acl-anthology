@@ -537,3 +537,12 @@ def upload_file_to_queue(
         subprocess.check_call(upload_cmd)
     else:
         logging.info(f"Would run: {upload_cmd}")
+
+
+def get_proceedings_id_from_filename(
+    resource_type: data.ResourceType, filename: str
+) -> str:
+    trailing_dots = {data.ResourceType.PDF: 1, data.ResourceType.ATTACHMENT: 2}[
+        resource_type
+    ]
+    return filename.rsplit('.', trailing_dots)[0]

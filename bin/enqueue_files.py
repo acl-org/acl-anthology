@@ -41,31 +41,6 @@ def get_proceedings_id_from_filename(resource_type: ResourceType, filename: str)
     return filename.rsplit('.', trailing_dots)[0]
 
 
-def get_hash_for_resource(
-    anth: Anthology, resource_type: ResourceType, filename: str
-) -> str:
-    proceedings_id = get_proceedings_id_from_filename(resource_type, filename)
-    if proceedings_id not in anth.papers and proceedings_id not in anth.volumes:
-        raise Exception(f"Paper/Volume for PDF {proceedings_id!r} does not exist.")
-
-    resource_hash = None
-    if resource_type == ResourceType.PDF:
-        resource_hash = anth.papers.get(
-            proceedings_id, anth.volumes.get(proceedings_id)
-        ).pdf_hash
-    elif resource_type == ResourceType.ATTACHMENT:
-        attachments = anth.papers[proceedings_id].attachments
-        filename_to_hash = {a['filename']: a['hash'] for a in attachments}
-        resource_hash = filename_to_hash.get(filename)
-
-    if resource_hash is None:
-        raise Exception(
-            "Hash for resource is None. Please update with value before running this script."
-        )
-
-    return resource_hash
-
-
 # Iterate over files in resource directory, find the hash in the Anthology and upload the file (if commit)
 def enqueue_dir(
     anth: Anthology,
@@ -79,7 +54,7 @@ def enqueue_dir(
 
             # Get resource hash
             try:
-                resource_hash = get_hash_for_resource(anth, resource_type, filename)
+                resource_hash = anth.get_hash_for_resource(anth, resource_type, filename)
             except Exception as e:
                 log.error(f"{e} (filename: {local_path!r})", exc_info=True)
                 continue

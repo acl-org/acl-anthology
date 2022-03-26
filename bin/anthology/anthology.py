@@ -28,6 +28,8 @@ from .papers import Paper
 from .venues import VenueIndex
 from .volumes import Volume
 from .sigs import SIGIndex
+from .data import ResourceType
+from .utils import get_proceedings_id_from_filename
 
 
 class Anthology:
@@ -152,3 +154,25 @@ class Anthology:
                     continue
                 volume.append(parsed_paper)
                 self.papers[full_id] = parsed_paper
+
+    def get_hash_for_resource(self, resource_type: ResourceType, filename: str) -> str:
+        proceedings_id = get_proceedings_id_from_filename(resource_type, filename)
+        if proceedings_id not in self.papers and proceedings_id not in self.volumes:
+            raise Exception(f"Paper/Volume for PDF {proceedings_id!r} does not exist.")
+
+        resource_hash = None
+        if resource_type == ResourceType.PDF:
+            resource_hash = self.papers.get(
+                proceedings_id, self.volumes.get(proceedings_id)
+            ).pdf_hash
+        elif resource_type == ResourceType.ATTACHMENT:
+            attachments = self.papers[proceedings_id].attachments
+            filename_to_hash = {a['filename']: a['hash'] for a in attachments}
+            resource_hash = filename_to_hash.get(filename)
+
+        if resource_hash is None:
+            raise Exception(
+                "Hash for resource is None. Please update with value before running this script."
+            )
+
+        return resource_hash
