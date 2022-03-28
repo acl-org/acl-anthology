@@ -183,7 +183,7 @@ def process_queue(anth: Anthology, resource_type: ResourceType, fs: FileSystemOp
     for venue_name in fs.listdir(queue_base_path):
         for filename in fs.listdir(os.path.join(queue_base_path, venue_name)):
             base_filename, file_hash = filename.rsplit('.', 1)
-
+            
             # Get main branch resource hash
             try:
                 current_version_hash = anth.get_hash_for_resource(
@@ -284,6 +284,11 @@ def complete_check(anth: Anthology, resource_type: ResourceType, fs: FileSystemO
     ),
 )
 @click.option(
+    '--remote',
+    required=True,
+    default=True,
+)
+@click.option(
     '-c',
     '--commit',
     is_flag=True,
@@ -314,6 +319,7 @@ def main(
 
     # if not is_clean_checkout_of_remote_branch(importdir, REMOTE_URL, REMOTE_MAIN_BRANCH_NAME):
     #   log.error(f"Repo @ {importdir} isn't clean or isn't tracking the master remote branch.")
+    #   can not be tested since code is not on master yet
 
     log.info("Instantiating the Anthology...")
     anth = Anthology(importdir=importdir)
