@@ -78,6 +78,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/ccaligned">CCAligned</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/dogc">DOGC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wmt-2020">WMT 2020</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikimatrix">WikiMatrix</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/cawac">caWaC</pwcdataset>
@@ -125,6 +126,8 @@
       <abstract>This paper presents the University of Edinburgh’s constrained submissions of English-German and English-Hausa systems to the WMT 2021 shared task on news translation. We build En-De systems in three stages: corpus filtering, back-translation, and fine-tuning. For En-Ha we use an iterative back-translation approach on top of pre-trained En-De models and investigate vocabulary embedding mapping.</abstract>
       <url hash="52042e1c">2021.wmt-1.4</url>
       <bibkey>chen-etal-2021-university</bibkey>
+      <pwccode url="https://github.com/marian-nmt/marian" additional="false">marian-nmt/marian</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="5">
       <title>Tune in: The <fixed-case>AFRL</fixed-case> <fixed-case>WMT</fixed-case>21 News-Translation Systems</title>
@@ -135,7 +138,6 @@
       <abstract>This paper describes the Air Force Research Laboratory (AFRL) machine translation sys- tems and the improvements that were developed during the WMT21 evaluation campaign. This year, we explore various methods of adapting our baseline models from WMT20 and again measure improvements in performance on the Russian–English language pair.</abstract>
       <url hash="ac7ec2b4">2021.wmt-1.5</url>
       <bibkey>erdmann-etal-2021-tune</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikimatrix">WikiMatrix</pwcdataset>
     </paper>
     <paper id="6">
@@ -189,6 +191,7 @@
       <bibkey>simonarson-etal-2021-mideinds</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/ccmatrix">CCMatrix</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ipac">IPAC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="10">
       <title>Allegro.eu Submission to <fixed-case>WMT</fixed-case>21 News Translation Task</title>
@@ -845,6 +848,7 @@
       <abstract>This paper proposes a technique for adding a new source or target language to an existing multilingual NMT model without re-training it on the initial set of languages. It consists in replacing the shared vocabulary with a small language-specific vocabulary and fine-tuning the new embeddings on the new language’s parallel data. Some additional language-specific components may be trained to improve performance (e.g., Transformer layers or adapter modules). Because the parameters of the original model are not modified, its performance on the initial languages does not degrade. We show on two sets of experiments (small-scale on TED Talks, and large-scale on ParaCrawl) that this approach performs as well or better as the more costly alternatives; and that it has excellent zero-shot performance: training on English-centric data is enough to translate between the new language and any of the initial languages.</abstract>
       <url hash="71cc6ed2">2021.wmt-1.62</url>
       <bibkey>berard-2021-continual</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="63">
       <title><fixed-case>DELA</fixed-case> Corpus - A Document-Level Corpus Annotated with Context-Related Issues</title>
@@ -866,6 +870,7 @@
       <abstract>Adapter layers are lightweight, learnable units inserted between transformer layers. Recent work explores using such layers for neural machine translation (NMT), to adapt pre-trained models to new domains or language pairs, training only a small set of parameters for each new setting (language pair or domain). In this work we study the compositionality of language and domain adapters in the context of Machine Translation. We aim to study, 1) parameter-efficient adaptation to multiple domains and languages simultaneously (full-resource scenario) and 2) cross-lingual transfer in domains where parallel data is unavailable for certain language pairs (partial-resource scenario). We find that in the partial resource scenario a naive combination of domain-specific and language-specific adapters often results in ‘catastrophic forgetting’ of the missing languages. We study other ways to combine the adapters to alleviate this issue and maximize cross-lingual transfer. With our best adapter combinations, we obtain improvements of 3-4 BLEU on average for source languages that do not have in-domain data. For target languages without in-domain data, we achieve a similar improvement by combining adapters with back-translation. Supplementary material is available at https://tinyurl.com/r66stbxj.</abstract>
       <url hash="f2520c89">2021.wmt-1.64</url>
       <bibkey>cooper-stickland-etal-2021-multilingual</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="65">
       <title>Translation Transformers Rediscover Inherent Data Domains</title>
@@ -878,7 +883,6 @@
       <bibkey>del-etal-2021-translation</bibkey>
       <pwccode url="https://github.com/tartunlp/inherent-domains-wmt21" additional="false">tartunlp/inherent-domains-wmt21</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/opensubtitles">OpenSubtitles</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="66">
       <title>Improving Machine Translation of Rare and Unseen Word Senses</title>
@@ -1550,6 +1554,7 @@
       <abstract>Large web-crawled corpora represent an excellent resource for improving the performance of Neural Machine Translation (NMT) systems across several language pairs. However, since these corpora are typically extremely noisy, their use is fairly limited. Current approaches to deal with this problem mainly focus on filtering using heuristics or single features such as language model scores or bi-lingual similarity. This work presents an alternative approach which learns weights for multiple sentence-level features. These feature weights which are optimized directly for the task of improving translation performance, are used to score and filter sentences in the noisy corpora more effectively. We provide results of applying this technique to building NMT systems using the Paracrawl corpus for Estonian-English and show that it beats strong single feature baselines and hand designed combinations. Additionally, we analyze the sensitivity of this method to different types of noise and explore if the learned weights generalize to other language pairs using the Maltese-English Paracrawl corpus.</abstract>
       <url hash="733fefb0">2021.wmt-1.118</url>
       <bibkey>kumar-etal-2021-learning-feature</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="119">
       <title>Monotonic Simultaneous Translation with Chunk-wise Reordering and Refinement</title>
