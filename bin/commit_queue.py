@@ -183,7 +183,7 @@ def process_queue(anth: Anthology, resource_type: ResourceType, fs: FileSystemOp
     for venue_name in fs.listdir(queue_base_path):
         for filename in fs.listdir(os.path.join(queue_base_path, venue_name)):
             base_filename, file_hash = filename.rsplit('.', 1)
-            
+
             # Get main branch resource hash
             try:
                 current_version_hash = anth.get_hash_for_resource(
