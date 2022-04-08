@@ -11,6 +11,7 @@
 #  4. Combine both #2 and #3
 #    pros: will detect missing resources, extra resources and out dated resources
 #    cons: have to iterate all Papers, etc... in xml and checksum all files in the "real" location
+# Picking option #1 as default and #4 as a complete check (will implement in future)
 
 
 from typing import List, Optional
@@ -38,11 +39,6 @@ REMOTE_URL = "https://github.com/acl-org/acl-anthology.git"
 
 # The main branch of the acl anthology git repo
 REMOTE_MAIN_BRANCH_NAME = "master"
-
-
-class ServerLocation:
-    REMOTE = 'remote'
-    LOCAL = 'local'
 
 
 def is_clean_checkout_of_remote_branch(
@@ -104,90 +100,109 @@ def run_remote_command(cmd):
 
 
 class FileSystemOps:
-    def __init__(self, remote: bool, host: Optional[str], commit: bool):
-        self.remote = remote
+    def __init__(self, is_on_server: bool, host: Optional[str], commit: bool):
+        self.is_on_server = is_on_server
         self.host = host
         self.commit = commit
-        if remote and not host:
-            raise Exception(f"If remote is true host is required but got host: {host!r}")
+        if not is_on_server and not host:
+            raise Exception(
+                f"If is_on_server is false, host is required but got host: {host!r}"
+            )
 
-        self.root_dir = ANTHOLOGY_FILE_ROOT if remote else ANTHOLOGY_DATA_DIR
+        self.root_dir = ANTHOLOGY_DATA_DIR if is_on_server else ANTHOLOGY_FILE_ROOT
 
     def listdir(self, relative_path: str) -> List[str]:
         abs_dir = f'{self.root_dir}/{relative_path}'
-        if self.remote:
-            return (
-                subprocess.check_output(['ssh', self.host, f'ls {abs_dir}'])
-                .decode('utf-8')
-                .strip()
-                .split('\n')
-            )
-        else:
+        if self.is_on_server:
             return os.listdir(abs_dir)
+        return (
+            subprocess.check_output(['ssh', self.host, f'ls {abs_dir}'])
+            .decode('utf-8')
+            .strip()
+            .split('\n')
+        )
 
     def movefile(self, relative_src_path: str, relative_dest_path: str):
         abs_src = f'{self.root_dir}/{relative_src_path}'
         abs_dest = f'{self.root_dir}/{relative_dest_path}'
+        abs_dest_dir = os.path.dirname(abs_dest)
 
-        if self.remote:
-            cmd = ['ssh', self.host, f'mv {abs_src} {abs_dest}']
+        if self.is_on_server:
             if self.commit:
-                subprocess.check_call(cmd)
+                os.makedirs(abs_dest_dir, exist_ok=True)
             else:
-                log.info(f"Would run: {cmd}")
-        else:
+                log.info(f"Would super-mkdir {abs_dest_dir!r}")
             if self.commit:
                 os.rename(abs_src, abs_dest)
             else:
                 log.info(f"Would move file {abs_src!r} to {abs_dest!r}")
+            return
+        mdkir_cmd = [
+            'ssh',
+            ANTHOLOGY_HOST,
+            f'mkdir -p {abs_dest_dir}',
+        ]
+        if self.commit:
+            subprocess.check_call(mdkir_cmd)
+        else:
+            log.info(f"Would run: {mdkir_cmd}")
+
+        cmd = ['ssh', self.host, f'mv {abs_src} {abs_dest}']
+        if self.commit:
+            subprocess.check_call(cmd)
+        else:
+            log.info(f"Would run: {cmd}")
 
     def hashfile(self, relative_path: str) -> str:
         abs_dir = f'{self.root_dir}/{relative_path}'
-        if self.remote:
-            return (
-                subprocess.check_output(['ssh', self.host, f'crc32 {abs_dir}'])
-                .decode('utf-8')
-                .strip()
-            )
-        else:
+        if self.is_on_server:
             return compute_hash_from_file(abs_dir)
+        return (
+            subprocess.check_output(['ssh', self.host, f'crc32 {abs_dir}'])
+            .decode('utf-8')
+            .strip()
+        )
 
     def exists(self, relative_path: str) -> bool:
         abs_dir = f'{self.root_dir}/{relative_path}'
-        if self.remote:
-            try:
-                subprocess.check_output(['ssh', self.host, f'stat {abs_dir}'])
-                return True
-            except subprocess.CalledProcessError:
-                return False
-        else:
+        if self.is_on_server:
             return os.path.exists(abs_dir)
+        try:
+            subprocess.check_output(['ssh', self.host, f'stat {abs_dir}'])
+            return True
+        except subprocess.CalledProcessError:
+            return False
 
-    def remove(self, relative_path: str) -> bool:
+    def remove(self, relative_path: str):
         abs_dir = f'{self.root_dir}/{relative_path}'
-        if self.remote:
-            cmd = ['ssh', self.host, f'rm {abs_dir}']
-            if self.commit:
-                subprocess.check_call(cmd)
-            else:
-                log.info(f"Would run: {cmd}")
-        else:
+        if self.is_on_server:
             if self.commit:
                 os.remove(abs_dir)
             else:
                 log.info(f"Would remove file {abs_dir!r}")
+            return
+        cmd = ['ssh', self.host, f'rm {abs_dir}']
+        if self.commit:
+            subprocess.check_call(cmd)
+        else:
+            log.info(f"Would run: {cmd}")
 
 
 def process_queue(anth: Anthology, resource_type: ResourceType, fs: FileSystemOps):
+    log.debug(f'Processing queue for {resource_type}')
     queue_base_path = f'queue/{resource_type.value}'
+    if not fs.exists(queue_base_path):
+        log.error(f'Missing queue directory: {queue_base_path}.')
+        return
     for venue_name in fs.listdir(queue_base_path):
         for filename in fs.listdir(os.path.join(queue_base_path, venue_name)):
+            log.debug(f'\tProcessing file {filename!r}')
             base_filename, file_hash = filename.rsplit('.', 1)
 
             # Get main branch resource hash
             try:
                 current_version_hash = anth.get_hash_for_resource(
-                    anth, resource_type, base_filename
+                    resource_type, base_filename
                 )
             except Exception as e:
                 log.error(f"{e} (filename: {filename!r})", exc_info=True)
@@ -203,69 +218,8 @@ def process_queue(anth: Anthology, resource_type: ResourceType, fs: FileSystemOp
                 )
 
 
-def get_all_pdf_filepath_to_hash(anth: Anthology):
-    filepath_to_hash = {}
-    for _, paper in anth.papers.items():
-        if paper.pdf is not None:
-            filepath = (
-                f"{ResourceType.PDF.value}/{paper.collection_id}/{paper.full_id}.pdf"
-            )
-            filepath_to_hash[filepath] = paper.pdf_hash
-
-    return filepath_to_hash
-
-
-def get_all_attachment_filepath_to_hash(anth: Anthology):
-    filepath_to_hash = {}
-    for _, paper in anth.papers.items():
-        for attachment in paper.attachments:
-            filepath = f"{ResourceType.ATTACHMENT.value}/{paper.collection_id}/{attachment['filename']}"
-            filepath_to_hash[filepath] = attachment['hash']
-
-    return filepath_to_hash
-
-
-def complete_check(anth: Anthology, resource_type: ResourceType, fs: FileSystemOps):
+def do_complete_check(anth: Anthology, resource_type: ResourceType, fs: FileSystemOps):
     log.error("Complete check isn't implemented yet")
-    # get all hashes for files in server "live" directory
-    live_filepath_to_hash = {}
-    base_path = f'{resource_type.value}'
-    for venue_name in fs.listdir(base_path):
-        for filename in fs.listdir(os.path.join(base_path, venue_name)):
-            filepath = os.path.join(base_path, venue_name, filename)
-            live_filepath_to_hash[filepath] = fs.hashfile(filepath)
-
-    expected_filepath_to_hash = {
-        ResourceType.ATTACHMENT: get_all_pdf_filepath_to_hash,
-        ResourceType.PDF: get_all_attachment_filepath_to_hash,
-    }[resource_type](anth)
-
-    missing_files = set(expected_filepath_to_hash.keys() - live_filepath_to_hash.keys())
-    extra_files = set(live_filepath_to_hash.keys() - expected_filepath_to_hash.keys())
-
-    out_dated_files = set()
-    common_files = set(expected_filepath_to_hash.keys() & live_filepath_to_hash.keys())
-    for filepath in common_files:
-        if expected_filepath_to_hash[filepath] is None:
-            log.error(f'Missing expected_file_hash for {filepath}')
-            continue
-        if expected_filepath_to_hash[filepath] != live_filepath_to_hash[filepath]:
-            out_dated_files.add(filepath)
-
-    files_to_move_in = missing_files | out_dated_files
-    for filepath in files_to_move_in:
-        expected_file_hash = expected_filepath_to_hash[filepath]
-        if expected_file_hash is None:
-            log.error(f'Missing expected_file_hash for {filepath}')
-            continue
-        queue_file_path = f'queue/{filepath}.{expected_file_hash}'
-        if fs.exists(queue_file_path):
-            fs.movefile(queue_file_path, filepath)
-        else:
-            log.error(f'Missing file in queue: {queue_file_path}')
-
-    for filepath in extra_files:
-        fs.remove(filepath)
 
 
 @click.command()
@@ -277,16 +231,9 @@ def complete_check(anth: Anthology, resource_type: ResourceType, fs: FileSystemO
     help="Directory to import the Anthology XML files data files from.",
 )
 @click.option(
-    '--server-location',
-    required=True,
-    type=click.Choice(
-        [ServerLocation.REMOTE, ServerLocation.LOCAL], case_sensitive=False
-    ),
-)
-@click.option(
-    '--remote',
-    required=True,
-    default=True,
+    '--is-on-server',
+    is_flag=True,
+    help="If this flag is set file system changes will be applied to the local file system, else changes will be made by sshing into the anth server.",
 )
 @click.option(
     '-c',
@@ -300,8 +247,7 @@ def complete_check(anth: Anthology, resource_type: ResourceType, fs: FileSystemO
 @click.option('--debug', is_flag=True, help="Output debug-level log messages.")
 def main(
     importdir: str,
-    server_location: str,
-    remote: bool,
+    is_on_server: bool,
     commit: str,
     complete_check: bool,
     debug: bool,
@@ -311,23 +257,27 @@ def main(
     tracker = SeverityTracker()
     log.getLogger().addHandler(tracker)
 
-    log.info(f"Remote {remote}")
+    log.info(
+        'Running as if on server.'
+        if is_on_server
+        else 'Will ssh to server for file system operations.'
+    )
 
-    if server_location != ServerLocation.REMOTE:
-        log.error("Running this script locally on the server isn't supported yet!")
-        exit(1)
-
-    # if not is_clean_checkout_of_remote_branch(importdir, REMOTE_URL, REMOTE_MAIN_BRANCH_NAME):
-    #   log.error(f"Repo @ {importdir} isn't clean or isn't tracking the master remote branch.")
-    #   can not be tested since code is not on master yet
+    if not is_clean_checkout_of_remote_branch(
+        importdir, REMOTE_URL, REMOTE_MAIN_BRANCH_NAME
+    ):
+        log.error(
+            f"Repo @ {importdir} isn't clean or isn't tracking the master remote branch."
+        )
 
     log.info("Instantiating the Anthology...")
     anth = Anthology(importdir=importdir)
 
-    fs = FileSystemOps(remote=remote, host=ANTHOLOGY_HOST, commit=commit)
+    fs = FileSystemOps(is_on_server=is_on_server, host=ANTHOLOGY_HOST, commit=commit)
 
     if complete_check:
-        complete_check()
+        do_complete_check(anth, resource_type=ResourceType.PDF, fs=fs)
+        do_complete_check(anth, resource_type=ResourceType.ATTACHMENT, fs=fs)
     else:
         process_queue(anth, resource_type=ResourceType.PDF, fs=fs)
         process_queue(anth, resource_type=ResourceType.ATTACHMENT, fs=fs)
