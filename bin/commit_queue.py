@@ -218,8 +218,104 @@ def process_queue(anth: Anthology, resource_type: ResourceType, fs: FileSystemOp
                 )
 
 
+def get_all_pdf_filepath_to_hash(anth: Anthology):
+    filepath_to_hash = {}
+    for _, paper in anth.papers.items():
+        if paper.pdf is not None:
+            filepath = (
+                f"{ResourceType.PDF.value}/{paper.collection_id}/{paper.full_id}.pdf"
+            )
+            filepath_to_hash[filepath] = paper.pdf_hash
+
+    return filepath_to_hash
+
+
+def get_all_attachment_filepath_to_hash(anth: Anthology):
+    filepath_to_hash = {}
+    for _, paper in anth.papers.items():
+        for attachment in paper.attachments:
+            filepath = f"{ResourceType.ATTACHMENT.value}/{paper.collection_id}/{attachment['filename']}"
+            filepath_to_hash[filepath] = attachment['hash']
+
+    return filepath_to_hash
+
+
+old_venue_names = {
+    "A",
+    "C",
+    "D",
+    "E",
+    "F",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "W",
+    "X",
+    "Y",
+    "Z",
+}
+
+
+def list_venues(fs: FileSystemOps, base_path: str):
+    for venue_name in fs.listdir(base_path):
+        if venue_name not in old_venue_names:
+            yield venue_name
+            continue
+        for sub_venue_name in fs.listdir(os.path.join(base_path, venue_name)):
+            yield os.path.join(venue_name, sub_venue_name)
+
+
 def do_complete_check(anth: Anthology, resource_type: ResourceType, fs: FileSystemOps):
-    log.error("Complete check isn't implemented yet")
+    # get all hashes for files in server "live" directory
+    live_filepath_to_hash = {}
+    base_path = f'{resource_type.value}'
+    for venue_name in list_venues(fs=fs, base_path=base_path):
+        for filename in fs.listdir(os.path.join(base_path, venue_name)):
+            filepath = os.path.join(base_path, venue_name, filename)
+            live_filepath_to_hash[filepath] = fs.hashfile(filepath)
+
+    expected_filepath_to_hash = {
+        ResourceType.ATTACHMENT: get_all_pdf_filepath_to_hash,
+        ResourceType.PDF: get_all_attachment_filepath_to_hash,
+    }[resource_type](anth)
+
+    missing_files = set(expected_filepath_to_hash.keys() - live_filepath_to_hash.keys())
+    extra_files = set(live_filepath_to_hash.keys() - expected_filepath_to_hash.keys())
+
+    out_dated_files = set()
+    common_files = set(expected_filepath_to_hash.keys() & live_filepath_to_hash.keys())
+    for filepath in common_files:
+        if expected_filepath_to_hash[filepath] is None:
+            log.error(f'Missing expected_file_hash for {filepath}')
+            continue
+        if expected_filepath_to_hash[filepath] != live_filepath_to_hash[filepath]:
+            out_dated_files.add(filepath)
+
+    files_to_move_in = missing_files | out_dated_files
+    for filepath in files_to_move_in:
+        expected_file_hash = expected_filepath_to_hash[filepath]
+        if expected_file_hash is None:
+            log.error(f'Missing expected_file_hash for {filepath}')
+            continue
+        queue_file_path = f'queue/{filepath}.{expected_file_hash}'
+        if fs.exists(queue_file_path):
+            fs.movefile(queue_file_path, filepath)
+        else:
+            log.error(f'Missing file in queue: {queue_file_path}')
+
+    for filepath in extra_files:
+        fs.remove(filepath)
 
 
 @click.command()
