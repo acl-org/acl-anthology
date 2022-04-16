@@ -107,10 +107,10 @@ A removal will result in the following changes to the Anthology:
   The abstract, if present, will be removed.
   No bibliographic files will be generated.
 
-### Note on author changes
+### Note on changes to author metadata
 
 The Anthology generally accepts corrections to the author metadata that bring it into line with the PDF, which we treat as authoritative.
-Example corrections include name spellings and details (such as initialization or the inclusion of a middle name), name changes, changes to author ordering, and even the addition of authors mistakenly left out of the metadata.
+Example corrections include name spellings and details (such as initialization or the inclusion of a middle name), changes to author ordering, and even the addition of authors mistakenly left out of the metadata.
 Because it is beyond our ability to keep track of the many differing policies governing conferences and journals whose proceedings we host, it is therefore up to those groups to ensure that PDF authorship is correct when proceedings are delivered to the Anthology for ingestion.
 
 We reserve the right to seek permission or corroboration from the associated conference or workshop program chairs in unusual situations, such as removing or adding an author to a PDF revision.
