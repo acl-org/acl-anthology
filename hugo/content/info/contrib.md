@@ -48,7 +48,7 @@ Please note the following important dates.
 ### Register your meeting
 
 If you are a conference publications chair, you must register your intention to submit your proceedings.
-(Workshop chairs should do this     
+(Workshop chairs should do this through your main conference publication chair).
 This step requires you to send (a) the complete list of volumes that will be published in the Anthology (main conference volumes and workshops) and (b) the desired publication date.
 Your proceedings will be due no later than **two weeks** prior to this negotiated date.
 
@@ -75,7 +75,7 @@ Your Github issue should contain the following information for each volume.
    For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
    But above all, you should also seek consistency with the names of your volumes from prior years.
 
-**We emphasize** that if you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please do not communicate directly with the Anthology as a first result, but instead work with your main conference publication chair, who will take care of registration and many of the details below.
+**We emphasize** that if you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please do not communicate directly with the Anthology, but instead first work with your main conference publication chair(s), who will take care of registration and many of the details below.
 
 #### New venues
 
@@ -104,7 +104,7 @@ The remaining steps are handled by Anthology staff and use [Anthology tools](htt
 - Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
 
 **Please note** that workshop chairs should handle this step through their main conference publication chair, and not directly with the Anthology.
-        
+
 ### Copyright
 
 If you are using the START system, this process is handled as part of the camera-ready submission process.
