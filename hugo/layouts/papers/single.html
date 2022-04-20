@@ -230,7 +230,7 @@
       {{ if $has_endf }}
         <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Endnote</button>
       {{ end }}
-        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#citeModal">More options…</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#citeModal">More options…</button>
       </dd>
       {{ end }}  <!-- if not $paper.retracted -->
 
@@ -355,7 +355,7 @@
               <a class="nav-link {{ if not $has_endf }}disabled{{ end }}" data-bs-toggle="list" href="#citeEndnote" role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_bib }}active{{ end }}" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $has_bib }}false{{ else }}true{{ end }}">Preformatted</a>
+              <a class="nav-link {{ if not $has_bib }}active{{ end }}" data-bs-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $has_bib }}false{{ else }}true{{ end }}">Preformatted</a>
             </li>
           </ul>
 
