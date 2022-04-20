@@ -67,7 +67,7 @@
               <li class="list-group-item">
                 {{ $co_id := index . 0 }}
                 {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
-                <span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                <span class="btn btn-sm btn-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               {{ if gt (len $person.coauthors) 5 }}
@@ -79,7 +79,7 @@
               <li class="list-group-item">
                 {{ $co_id := index . 0 }}
                 {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
-                <span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                <span class="btn btn-sm btn-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               </div>
@@ -96,7 +96,7 @@
                 {{ $venue := index . 0 }}
                 <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
                   {{- $venue -}}
-                </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                </a><span class="btn btn-sm btn-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               {{ if gt (len $person.venues) 5 }}
@@ -109,7 +109,7 @@
                 {{ $venue := index . 0 }}
                 <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
                   {{- $venue -}}
-                </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                </a><span class="btn btn-sm btn-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               </div>
