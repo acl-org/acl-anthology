@@ -115,11 +115,18 @@ ul ul, ul ol, ol ul, ol ol {
   @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
 }
 
+// remove hover default https://stackoverflow.com/a/65480130
+a:not([class]) {
+    text-decoration: none;
+}
+
+a:not([class]):hover {
+    text-decoration: underline;
+}
 
 .btn-attachment {
     @extend .btn;
 }
-
 
 .list-group-toggle-btn {
   padding: 0.25rem 0.1rem!important;
