@@ -10,6 +10,9 @@ $cyan: #29ABE0;
 $secondary: #dee2e6;
 $yiq-contrasted-threshold: 200;
 
+$input-btn-padding-y-sm: .25rem;
+$input-btn-padding-x-sm: .12rem;
+
 @import 'vendor/bootstrap/scss/bootstrap';
 
 // /* Required Bootstrap components */
@@ -107,7 +110,15 @@ ul ul, ul ol, ol ul, ol ol {
   }
 }
 
+.btn-sm {
+  line-height: 1.0 !important;
+  @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
+}
+
+
 .list-group-toggle-btn {
+  padding: 0.25rem 0.1rem!important;
+  line-height: 1.0!important;
   @extend .btn;
 
   &[aria-expanded=false] {
