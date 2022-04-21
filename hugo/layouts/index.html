@@ -22,7 +22,7 @@
     {{ $.Scratch.Add "paper_count" (len .) }}
   {{ end }}
 
-  <div class="col-12 col-xl-2">
+  <div class="col-xl-2">
     <h2 class="ps-2 pb-2">Welcome to the ACL Anthology!</h2>
 
     <aside class="card acl-greeting fw-light mb-3">
@@ -45,15 +45,19 @@
     -->
 
     <div class="row mb-3">
-      <div class="d-grid gap-2 col-6 col-xl-12 mb-2">
 	{{ if (fileExists "/data-export/anthology.bib.gz") }}
+      <div class="d-grid gap-2 col-6 col-md-4 col-xl-12 mb-2">
         <a class="btn btn-info" href="{{ "/anthology.bib.gz" | relURL }}">Full Anthology as BibTeX ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology.bib.gz").Size 1000000.0) }})</a>
+      </div>
+      <div class="d-grid gap-2 col-6 col-md-4 col-xl-12 mb-2">
         <a class="btn btn-block btn-info" href="{{ "/anthology+abstracts.bib.gz" | relURL }}">…with abstracts ({{ printf "%.2f MB" (div (os.Stat "/data-export/anthology+abstracts.bib.gz").Size 1000000.0) }})</a>
+      </div>
       {{ end }}
+      <div class="d-grid gap-2 col-6 col-md-4 col-xl-12 mb-2">
         <a class="btn btn-block btn-warning" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
       </div>
     </div>
-  </div><div class="col-12 col-xl-10 col-xl-width-auto">
+  </div><div class="col-xl-10">
     <main aria-role="main">
     <h6>ACL Events</h6>
     {{/* ACL EVENTS */}}
