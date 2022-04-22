@@ -266,6 +266,10 @@ def remove_extra_whitespace(text):
     return text
 
 
+def is_url_remote(filename):
+    return True if urlparse(filename).netloc else False
+
+
 def infer_url(filename, template=data.CANONICAL_URL_TEMPLATE):
     """If URL is relative, return the full Anthology URL.
     Returns the canonical URL by default, unless a different
@@ -275,13 +279,13 @@ def infer_url(filename, template=data.CANONICAL_URL_TEMPLATE):
         "{}" in template or "%s" in template
     ), "template has no substitution text; did you pass a prefix by mistake?"
 
-    if urlparse(filename).netloc:
+    if is_url_remote(filename):
         return filename
     return template.format(filename)
 
 
 def infer_attachment_url(filename, parent_id=None):
-    if urlparse(filename).netloc:
+    if is_url_remote(filename):
         return filename
     # Otherwise, treat it as an internal filename
     if parent_id is not None and not filename.startswith(parent_id):

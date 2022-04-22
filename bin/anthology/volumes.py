@@ -16,6 +16,7 @@
 
 from functools import cached_property
 import re
+import os
 import logging as log
 
 from . import data
@@ -29,6 +30,8 @@ from .utils import (
     month_str2num,
     infer_url,
     infer_year,
+    is_newstyle_id,
+    is_url_remote,
 )
 
 
@@ -105,8 +108,21 @@ class Volume:
         return None
 
     @cached_property
+    def is_pdf_remote(self) -> bool:
+        return is_url_remote(self.attrib.get("xml_url", None))
+
+    @cached_property
     def pdf_hash(self):
         return self.attrib.get("pdf_hash", None)
+
+    @cached_property
+    def relative_pdf_path_to_anthology_files(self):
+        if is_newstyle_id(self.full_id):
+            venue_name = self.collection_id.split(".")[1]
+            return os.path.join("pdf", venue_name, self.full_id+'.pdf')
+        else:
+            return os.path.join("pdf", self.collection_id[0], self.collection_id, self.full_id+'.pdf'
+            )
 
     def _set_meta_info(self, meta_data):
         """Derive journal title, volume, and issue no. used in metadata.

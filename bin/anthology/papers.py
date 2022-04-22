@@ -15,14 +15,17 @@
 # limitations under the License.
 
 from functools import cached_property
+import os
 import iso639
 import logging as log
 
 from .utils import (
     build_anthology_id,
+    is_newstyle_id,
     parse_element,
     infer_url,
     infer_attachment_url,
+    is_url_remote,
     remove_extra_whitespace,
     is_journal,
     is_volume_id,
@@ -98,8 +101,21 @@ class Paper:
         return []
 
     @cached_property
+    def is_pdf_remote(self) -> bool:
+        return is_url_remote(self.attrib.get("xml_url", None))
+
+    @cached_property
     def pdf_hash(self):
         return self.attrib.get("pdf_hash", None)
+
+    @cached_property
+    def relative_pdf_path_to_anthology_files(self):
+        if is_newstyle_id(self.anthology_id):
+            venue_name = self.collection_id.split(".")[1]
+            return os.path.join("pdf", venue_name, self.full_id+'.pdf')
+        else:
+            return os.path.join("pdf", self.collection_id[0], self.collection_id, self.full_id+'.pdf'
+            )
 
     def _parse_revision_or_errata(self, tag):
         for item in self.attrib.get(tag, []):
