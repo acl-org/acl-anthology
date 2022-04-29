@@ -100,7 +100,7 @@ def maybe_copy(source_path, dest_path):
     if not os.path.exists(dest_path) or compute_hash_from_file(
         source_path
     ) != compute_hash_from_file(dest_path):
-        log(f"Copying {source_path} -> {dest_path}", args.dry_run)
+        log(f"Copying {source_path} -> {dest_path}")
         shutil.copyfile(source_path, dest_path)
 
 
@@ -235,9 +235,9 @@ def main(args):
 
     # Build list of volumes, confirm uniqueness
     unseen_venues = []
+
     for proceedings in args.proceedings:
         meta = read_meta(os.path.join(proceedings, "meta"))
-
         venue_abbrev = meta["abbrev"]
         venue_slug = venue_index.get_slug(venue_abbrev)
 
