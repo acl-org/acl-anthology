@@ -27,6 +27,7 @@ import re
 import sys
 import os
 import glob
+import PyPDF2
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
@@ -149,6 +150,27 @@ def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
     return papers
 
 
+def add_paper_nums_in_paper_yaml(
+    papers: List[Dict[str, str]], ingestion_dir: str
+) -> List[Dict[str, str]]:
+    start, end = 1, 0
+    for paper in papers:
+        paper_id = str(paper['id'])
+        if os.path.exists(f'{ingestion_dir}inputs/papers/{paper_id}.pdf'):
+            paper_need_read_path = f'{ingestion_dir}inputs/papers/{paper_id}.pdf'
+        elif os.path.exists(f'{ingestion_dir}input/papers/{paper_id}.pdf'):
+            paper_need_read_path = f'{ingestion_dir}input/papers/{paper_id}.pdf'
+        else:
+            paper_need_read_path = None
+        assert paper_need_read_path, f'{paper_id} path is None'
+        pdf = open(paper_need_read_path, 'rb')
+        pdf_reader = PyPDF2.PdfFileReader(pdf)
+        start = end + 1
+        end = start + pdf_reader.numPages - 1
+        paper['pages'] = f'{start}-{end}'
+    return papers
+
+
 def create_des_path(org_dir_name: str, venue_name: str) -> str:
     dest_dir = os.path.join(org_dir_name, venue_name)
     if not os.path.exists(dest_dir):
@@ -245,6 +267,8 @@ def paper2xml(
             elif field == 'abstract':
                 value = paper_item['abstract'].replace('\n', '')
             elif field == 'title':
+                value = paper_item[field]
+            elif field == 'pages':
                 value = paper_item[field]
             else:
                 continue
@@ -479,8 +503,8 @@ def create_xml(
             volume_node.append(paper_node)
 
         # Normalize
-        # for oldnode in paper_node:
-        #     normalize(oldnode, informat='latex')
+        for oldnode in paper_node:
+            normalize(oldnode, informat='latex')
 
         # Adjust the language tag
         # language_node = paper_node.find('./language')
@@ -513,7 +537,6 @@ def create_xml(
 @click.option(
     '-i',
     '--ingestion_dir',
-    default='/Users/xinruyan/Dropbox/ingests/2022/2022-04-21-acl/2022-acl-short/',
     help='Directory contains proceedings need to be ingested',
 )
 @click.option(
@@ -558,6 +581,9 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
         ingestion_dir, anthology_datadir, venue_index, venue_keys
     )
     papers = parse_paper_yaml(ingestion_dir)
+    print(f'original paper {papers[0]}')
+    papers = add_paper_nums_in_paper_yaml(papers, ingestion_dir)
+    print(f'updated paper {papers[0]}')
     (
         volume,
         collection_id,
