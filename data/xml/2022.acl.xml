@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.acl">
-  <volume id="short" ingest-date="2022-04-28">
+  <volume id="short" ingest-date="2022-05-04">
     <meta>
       <booktitle>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</booktitle>
       <editor><first>Smaranda</first><last>Muresan</last></editor>
@@ -17,10 +17,11 @@
       <bibkey>acl-2022-association</bibkey>
     </frontmatter>
     <paper id="1">
-      <title>BitFit: Simple Parameter-efficient Fine-tuning for Transformer-based Masked Language-models</title>
+      <title><fixed-case>B</fixed-case>it<fixed-case>F</fixed-case>it: Simple Parameter-efficient Fine-tuning for Transformer-based Masked Language-models</title>
       <author><first>Elad</first><last>Ben Zaken</last></author>
       <author><first>Yoav</first><last>Goldberg</last></author>
       <author><first>Shauli</first><last>Ravfogel</last></author>
+      <pages>1-9</pages>
       <abstract>We introduce BitFit, a sparse-finetuning method where only the bias-terms of the model (or a subset of them) are being modified. We show that with small-to-medium training data, applying BitFit on pre-trained BERT models is competitive with (and sometimes better than) fine-tuning the entire model. For larger data, the method is competitive with other sparse fine-tuning methods.Besides their practical utility, these findings are relevant for the question of understanding the commonly-used process of finetuning: they support the hypothesis that finetuning is mainly about exposing knowledge induced by language-modeling training, rather than learning new task-specific linguistic knowledge.</abstract>
       <url hash="9cf9d5c2">2022.acl-short.1</url>
       <attachment type="software" hash="0e45fd56">2022.acl-short.1.software.zip</attachment>
@@ -32,6 +33,7 @@
       <author><first>Tongshuang</first><last>Wu</last></author>
       <author><first>Wenbo</first><last>Guo</last></author>
       <author><first>Ting-Hao</first><last>Huang</last></author>
+      <pages>10-19</pages>
       <abstract>Existing self-explaining models typically favor extracting the shortest possible rationales — snippets of an input text “responsible for” corresponding output — to explain the model prediction, with the assumption that shorter rationales are more intuitive to humans. However, this assumption has yet to be validated. Is the shortest rationale indeed the most human-understandable? To answer this question, we design a self-explaining model, LimitedInk, which allows users to extract rationales at any target length. Compared to existing baselines, LimitedInk achieves compatible end-task performance and human-annotated rationale agreement, making it a suitable representation of the recent class of self-explaining models. We use LimitedInk to conduct a user study on the impact of rationale length, where we ask human judges to predict the sentiment label of documents based only on LimitedInk-generated rationales with different lengths. We show rationales that are too short do not help humans predict labels better than randomly masked text, suggesting the need for more careful design of the best human rationales.</abstract>
       <url hash="828a3f16">2022.acl-short.2</url>
       <bibkey>shen-etal-2022-shortest</bibkey>
@@ -43,7 +45,8 @@
       <author><first>Thomas</first><last>Clark</last></author>
       <author><first>Ryan</first><last>Cotterell</last></author>
       <author><first>Roger</first><last>Levy</last></author>
-      <abstract>Numerous analyses of reading time (RT) data have been undertaken in the effort to learn more about the internal processes that occur during reading comprehension. However, data measured on words at the end of a sentence--or even clause--is often omitted due to the confounding factors introduced by so-called "wrap-up effects," which manifests as a skewed distribution of RTs for these words. Consequently, the understanding of the cognitive processes that might be involved in these effects is limited. In this work, we attempt to learn more about these processes by looking for the existence--or absence--of a link between wrap-up effects and information theoretic quantities, such as word and context information content. We find that the information distribution of prior context is often predictive of sentence- and clause-final RTs (while not of sentence-medial RTs), which lends support to several prior hypotheses about the processes involved in wrap-up effects.</abstract>
+      <pages>20-28</pages>
+      <abstract>Numerous analyses of reading time (RT) data have been undertaken in the effort to learn more about the internal processes that occur during reading comprehension. However, data measured on words at the end of a sentence–or even clause–is often omitted due to the confounding factors introduced by so-called “wrap-up effects,” which manifests as a skewed distribution of RTs for these words. Consequently, the understanding of the cognitive processes that might be involved in these effects is limited. In this work, we attempt to learn more about these processes by looking for the existence–or absence–of a link between wrap-up effects and information theoretic quantities, such as word and context information content. We find that the information distribution of prior context is often predictive of sentence- and clause-final RTs (while not of sentence-medial RTs), which lends support to several prior hypotheses about the processes involved in wrap-up effects.</abstract>
       <url hash="f8f2c305">2022.acl-short.3</url>
       <bibkey>meister-etal-2022-analyzing</bibkey>
     </paper>
@@ -53,6 +56,7 @@
       <author><first>Jingyi</first><last>Sun</last></author>
       <author><first>Qinglin</first><last>Zhu</last></author>
       <author><first>Ruifeng</first><last>Xu</last></author>
+      <pages>29-35</pages>
       <abstract>Argument pair extraction (APE) aims to automatically mine argument pairs from two interrelated argumentative documents. Existing studies typically identify argument pairs indirectly by predicting sentence-level relations between two documents, neglecting the modeling of the holistic argument-level interactions. Towards this issue, we propose to address APE via a machine reading comprehension (MRC) framework with two phases. The first phase employs an argument mining (AM) query to identify all arguments in two documents. The second phase considers each identified argument as an APE query to extract its paired arguments from another document, allowing to better capture the argument-level interactions. Also, this framework enables these two phases to be jointly trained in a single MRC model, thereby maximizing the mutual benefits of them. Experimental results demonstrate that our approach achieves the best performance, outperforming the state-of-the-art method by 7.11% in F1 score.</abstract>
       <url hash="0e02168d">2022.acl-short.4</url>
       <attachment type="software" hash="9485565d">2022.acl-short.4.software.zip</attachment>
@@ -64,12 +68,13 @@
       <author><first>Gian</first><last>Wiher</last></author>
       <author><first>Tiago</first><last>Pimentel</last></author>
       <author><first>Ryan</first><last>Cotterell</last></author>
-      <abstract>When generating natural language from neural probabilistic models, high probability does not always coincide with high quality. Rather, mode-seeking decoding methods can lead to incredibly unnatural language, while stochastic methods produce text perceived as much more human-like. In this note, we offer an explanation for this phenomenon by analyzing language as a means of communication in the information-theoretic sense. We posit that human-like language usually contains an expected amount of information---quantified as negative log-probability---and that language with substantially more (or less) information is undesirable. We provide preliminary empirical evidence for this hypothesis using quality ratings for both human and machine-generated text, covering multiple tasks and common decoding schemes.</abstract>
+      <pages>36-45</pages>
+      <abstract>When generating natural language from neural probabilistic models, high probability does not always coincide with high quality. Rather, mode-seeking decoding methods can lead to incredibly unnatural language, while stochastic methods produce text perceived as much more human-like. In this note, we offer an explanation for this phenomenon by analyzing language as a means of communication in the information-theoretic sense. We posit that human-like language usually contains an expected amount of information—quantified as negative log-probability—and that language with substantially more (or less) information is undesirable. We provide preliminary empirical evidence for this hypothesis using quality ratings for both human and machine-generated text, covering multiple tasks and common decoding schemes.</abstract>
       <url hash="32554835">2022.acl-short.5</url>
       <bibkey>meister-etal-2022-high</bibkey>
     </paper>
     <paper id="6">
-      <title>Disentangled Knowledge Transfer for OOD Intent Discovery with Unified Contrastive Learning</title>
+      <title>Disentangled Knowledge Transfer for <fixed-case>OOD</fixed-case> Intent Discovery with Unified Contrastive Learning</title>
       <author><first>Yutao</first><last>Mou</last></author>
       <author><first>Keqing</first><last>He</last></author>
       <author><first>Yanan</first><last>Wu</last></author>
@@ -78,6 +83,7 @@
       <author><first>Huixing</first><last>Jiang</last></author>
       <author><first>Wei</first><last>Wu</last></author>
       <author><first>Weiran</first><last>Xu</last></author>
+      <pages>46-53</pages>
       <abstract>Discovering Out-of-Domain(OOD) intents is essential for developing new skills in a task-oriented dialogue system. The key challenge is how to transfer prior IND knowledge to OOD clustering. Different from existing work based on shared intent representation, we propose a novel disentangled knowledge transfer method via a unified multi-head contrastive learning framework. We aim to bridge the gap between IND pre-training and OOD clustering. Experiments and analysis on two benchmark datasets show the effectiveness of our method.</abstract>
       <url hash="4087fd49">2022.acl-short.6</url>
       <bibkey>mou-etal-2022-disentangled</bibkey>
@@ -88,12 +94,13 @@
       <author><first>Shizhan</first><last>Zhu</last></author>
       <author><first>Dan</first><last>Klein</last></author>
       <author><first>Trevor</first><last>Darrell</last></author>
+      <pages>54-60</pages>
       <abstract>Natural language applied to natural 2D images describes a fundamentally 3D world. We present the Voxel-informed Language Grounder (VLG), a language grounding model that leverages 3D geometric information in the form of voxel maps derived from the visual input using a volumetric reconstruction model. We show that VLG significantly improves grounding accuracy on SNARE, an object reference game task.At the time of writing, VLG holds the top place on the SNARE leaderboard, achieving SOTA results with a 2.0% absolute improvement.</abstract>
       <url hash="e7594d42">2022.acl-short.7</url>
       <bibkey>corona-etal-2022-voxel</bibkey>
     </paper>
     <paper id="8">
-      <title>P-Tuning: Prompt Tuning Can Be Comparable to Fine-tuning Across Scales and Tasks</title>
+      <title><fixed-case>P</fixed-case>-Tuning: Prompt Tuning Can Be Comparable to Fine-tuning Across Scales and Tasks</title>
       <author><first>Xiao</first><last>Liu</last></author>
       <author><first>Kaixuan</first><last>Ji</last></author>
       <author><first>Yicheng</first><last>Fu</last></author>
@@ -101,7 +108,8 @@
       <author><first>Zhengxiao</first><last>Du</last></author>
       <author><first>Zhilin</first><last>Yang</last></author>
       <author><first>Jie</first><last>Tang</last></author>
-      <abstract>Prompt tuning, which only tunes continuous prompts with a frozen language model, substantially reduces per-task storage and memory usage at training. However, in the context of NLU, prior work reveals that prompt tuning does not perform well for normal-sized pretrained models. We also find that existing methods of prompt tuning cannot handle hard sequence labeling tasks, indicating a lack of universality. We present a novel empirical finding that properly optimized prompt tuning can be universally effective across a wide range of model scales and NLU tasks. It matches the performance of finetuning while having only 0.1%-3% tuned parameters. Our method P-Tuning v2 is an implementation of Deep Prompt Tuning \cite{li2021prefix,qin2021learning} optimized and adapted for NLU. Given the universality and simplicity of P-Tuning v2, we believe it can serve as an alternative to finetuning and a strong baseline for future research.\footnote{Our code and data are released at \url{https://github.com/THUDM/P-tuning-v2}.}</abstract>
+      <pages>61-68</pages>
+      <abstract>Prompt tuning, which only tunes continuous prompts with a frozen language model, substantially reduces per-task storage and memory usage at training. However, in the context of NLU, prior work reveals that prompt tuning does not perform well for normal-sized pretrained models. We also find that existing methods of prompt tuning cannot handle hard sequence labeling tasks, indicating a lack of universality. We present a novel empirical finding that properly optimized prompt tuning can be universally effective across a wide range of model scales and NLU tasks. It matches the performance of finetuning while having only 0.1%-3% tuned parameters. Our method P-Tuning v2 is an implementation of Deep Prompt Tuning (CITATION) optimized and adapted for NLU. Given the universality and simplicity of P-Tuning v2, we believe it can serve as an alternative to finetuning and a strong baseline for future research.</abstract>
       <url hash="2f68e622">2022.acl-short.8</url>
       <bibkey>liu-etal-2022-p</bibkey>
     </paper>
@@ -110,6 +118,7 @@
       <author><first>Joel</first><last>Moniz</last></author>
       <author><first>Barun</first><last>Patra</last></author>
       <author><first>Matthew</first><last>Gormley</last></author>
+      <pages>69-85</pages>
       <abstract>When tasked with supporting multiple languages for a given problem, two approaches have arisen: training a model for each language with the annotation budget divided equally among them, and training on a high-resource language followed by zero-shot transfer to the remaining languages. In this work, we show that the strategy of joint learning across multiple languages using a single model performs substantially better than the aforementioned alternatives. We also demonstrate that active learning provides additional, complementary benefits. We show that this simple approach enables the model to be data efficient by allowing it to arbitrate its annotation budget to query languages it is less certain on. We illustrate the effectiveness of our proposed method on a diverse set of tasks: a classification task with 4 languages, a sequence tagging task with 4 languages and a dependency parsing task with 5 languages. Our proposed method, whilst simple, substantially outperforms the other viable alternatives for building a model in a multilingual setting under constrained budgets.</abstract>
       <url hash="56623e86">2022.acl-short.9</url>
       <bibkey>moniz-etal-2022-efficiently</bibkey>
@@ -119,14 +128,16 @@
       <author><first>Ganesh</first><last>Jawahar</last></author>
       <author><first>Muhammad</first><last>Abdul-Mageed</last></author>
       <author><first>Laks</first><last>Lakshmanan</last></author>
+      <pages>86-93</pages>
       <abstract>In this work, we focus on the problem of distinguishing a human written news article from a news article that is created by manipulating entities in a human written news article (e.g., replacing entities with factually incorrect entities). Such manipulated articles can mislead the reader by posing as a human written news article. We propose a neural network based detector that detects manipulated news articles by reasoning about the facts mentioned in the article. Our proposed detector exploits factual knowledge via graph convolutional neural network along with the textual information in the news article. We also create challenging datasets for this task by considering various strategies to generate the new replacement entity (e.g., entity generation from GPT-2). In all the settings, our proposed model either matches or outperforms the state-of-the-art detector in terms of accuracy. Our code and data are available at https://github.com/UBC-NLP/manipulated_entity_detection.</abstract>
       <url hash="4e2fe6c7">2022.acl-short.10</url>
       <bibkey>jawahar-etal-2022-automatic</bibkey>
     </paper>
     <paper id="11">
-      <title>Does BERT Know that the IS-A Relation Is Transitive?</title>
+      <title>Does <fixed-case>BERT</fixed-case> Know that the <fixed-case>IS</fixed-case>-A Relation Is Transitive?</title>
       <author><first>Ruixi</first><last>Lin</last></author>
       <author><first>Hwee Tou</first><last>Ng</last></author>
+      <pages>94-99</pages>
       <abstract>The success of a natural language processing (NLP) system on a task does not amount to fully understanding the complexity of the task, typified by many deep learning models. One such question is: can a black-box model make logically consistent predictions for transitive relations? Recent studies suggest that pre-trained BERT can capture lexico-semantic clues from words in the context. However, to what extent BERT captures the transitive nature of some lexical relations is unclear. From a probing perspective, we examine WordNet word senses and the IS-A relation, which is a transitive relation. That is, for senses A, B, and C, A is-a B and B is-a C entail A is-a C. We aim to quantify how much BERT agrees with the transitive property of IS-A relations, via a minimalist probing setting. Our investigation reveals that BERT’s predictions do not fully obey the transitivity property of the IS-A relation.</abstract>
       <url hash="3725bea3">2022.acl-short.11</url>
       <attachment type="software" hash="93a7eb0a">2022.acl-short.11.software.zip</attachment>
@@ -136,7 +147,8 @@
       <title>Buy Tesla, Sell Ford: Assessing Implicit Stock Market Preference in Pre-trained Language Models</title>
       <author><first>Chengyu</first><last>Chuang</last></author>
       <author><first>Yi</first><last>Yang</last></author>
-      <abstract>Pretrained language models such as BERT have achieved remarkable success in several NLP tasks. With the wide adoption of BERT in real-world applications, researchers begin to investigate the implicit biases encoded in the BERT. In this paper, we assess the implicit stock market preferences in BERT and its finance domain-specific model FinBERT. We find some interesting patterns. For example, the language models are overall more positive towards the stock market, but there are significant differences in preferences between a pair of industry sectors, or even within a sector. Given the prevalence of NLP models in financial decision making systems, this work raises the awareness of their potential implicit preferences in the stock markets. Awareness of such problems can help practitioners improve robustness and accountability of their financial NLP pipelines \footnote{Code and data for this work are available at \url{https://github.com/MattioCh/Buy-Tesla-Sell-Ford}}.</abstract>
+      <pages>100-105</pages>
+      <abstract>Pretrained language models such as BERT have achieved remarkable success in several NLP tasks. With the wide adoption of BERT in real-world applications, researchers begin to investigate the implicit biases encoded in the BERT. In this paper, we assess the implicit stock market preferences in BERT and its finance domain-specific model FinBERT. We find some interesting patterns. For example, the language models are overall more positive towards the stock market, but there are significant differences in preferences between a pair of industry sectors, or even within a sector. Given the prevalence of NLP models in financial decision making systems, this work raises the awareness of their potential implicit preferences in the stock markets. Awareness of such problems can help practitioners improve robustness and accountability of their financial NLP pipelines .</abstract>
       <url hash="c78afad1">2022.acl-short.12</url>
       <bibkey>chuang-yang-2022-buy</bibkey>
     </paper>
@@ -146,6 +158,7 @@
       <author><first>Vaibhav</first><last>Garg</last></author>
       <author><first>Hui</first><last>Guo</last></author>
       <author><first>Munindar</first><last>Singh</last></author>
+      <pages>106-112</pages>
       <abstract>We present Pixie, a manually annotated dataset for preference classification comprising 8,890 sentences drawn from app reviews. Unlike previous studies on preference classification, Pixie contains implicit (omitting an entity being compared) and indirect (lacking comparative linguistic cues) comparisons. We find that transformer-based pretrained models, finetuned on Pixie, achieve a weighted average F1 score of 83.34% and outperform the existing state-of-the-art preference classification model (73.99%).</abstract>
       <url hash="e37fc16a">2022.acl-short.13</url>
       <bibkey>haque-etal-2022-pixie</bibkey>
@@ -156,7 +169,8 @@
       <author><first>Stephen</first><last>Mell</last></author>
       <author><first>Stephan</first><last>Zdancewic</last></author>
       <author><first>Osbert</first><last>Bastani</last></author>
-      <abstract>A key challenge facing natural language interfaces is enabling users to understand the capabilities of the underlying system. We propose a novel approach for generating explanations of a natural language interface based on semantic parsing. We focus on counterfactual explanations, which are post-hoc explanations that describe to the user how they could have minimally modified their utterance to achieve their desired goal. In particular, the user provides an utterance along with a demonstration of their desired goal; then, our algorithm synthesizes a paraphrase of their utterance that is guaranteed to achieve their goal. In two user studies, we demonstrate that our approach substantially improves user performance, and that it generates explanations that more closely match the user's intent compared to two ablations.</abstract>
+      <pages>113-118</pages>
+      <abstract>A key challenge facing natural language interfaces is enabling users to understand the capabilities of the underlying system. We propose a novel approach for generating explanations of a natural language interface based on semantic parsing. We focus on counterfactual explanations, which are post-hoc explanations that describe to the user how they could have minimally modified their utterance to achieve their desired goal. In particular, the user provides an utterance along with a demonstration of their desired goal; then, our algorithm synthesizes a paraphrase of their utterance that is guaranteed to achieve their goal. In two user studies, we demonstrate that our approach substantially improves user performance, and that it generates explanations that more closely match the user’s intent compared to two ablations.</abstract>
       <url hash="e9580d83">2022.acl-short.14</url>
       <attachment type="software" hash="275e13c7">2022.acl-short.14.software.zip</attachment>
       <bibkey>tolkachev-etal-2022-counterfactual</bibkey>
@@ -165,6 +179,7 @@
       <title>Predicting Difficulty and Discrimination of Natural Language Questions</title>
       <author><first>Matthew</first><last>Byrd</last></author>
       <author><first>Shashank</first><last>Srivastava</last></author>
+      <pages>119-130</pages>
       <abstract>Item Response Theory (IRT) has been extensively used to numerically characterize question difficulty and discrimination for human subjects in domains including cognitive psychology and education (Primi et al., 2014; Downing, 2003). More recently, IRT has been used to similarly characterize item difficulty and discrimination for natural language models across various datasets (Lalor et al., 2019; Vania et al., 2021; Rodriguez et al., 2021). In this work, we explore predictive models for directly estimating and explaining these traits for natural language questions in a question-answering context. We use HotpotQA for illustration. Our experiments show that it is possible to predict both difficulty and discrimination parameters for new questions, and these traits are correlated with features of questions, answers, and associated contexts. Our findings can have significant implications for the creation of new datasets and tests on the one hand and strategies such as active learning and curriculum learning on the other.</abstract>
       <url hash="36f3b534">2022.acl-short.15</url>
       <attachment type="software" hash="55174984">2022.acl-short.15.software.zip</attachment>
@@ -174,6 +189,7 @@
       <title>How does the pre-training objective affect what large language models learn about linguistic properties?</title>
       <author><first>Ahmed</first><last>Alajrami</last></author>
       <author><first>Nikolaos</first><last>Aletras</last></author>
+      <pages>131-147</pages>
       <abstract>Several pre-training objectives, such as masked language modeling (MLM), have been proposed to pre-train language models (e.g. BERT) with the aim of learning better language representations. However, to the best of our knowledge, no previous work so far has investigated how different pre-training objectives affect what BERT learns about linguistics properties. We hypothesize that linguistically motivated objectives such as MLM should help BERT to acquire better linguistic knowledge compared to other non-linguistically motivated objectives that are not intuitive or hard for humans to guess the association between the input and the label to be predicted. To this end, we pre-train BERT with two linguistically motivated objectives and three non-linguistically motivated ones. We then probe for linguistic characteristics encoded in the representation of the resulting models. We find strong evidence that there are only small differences in probing performance between the representations learned by the two different types of objectives. These surprising results question the dominant narrative of linguistically informed pre-training.</abstract>
       <url hash="97eb9c71">2022.acl-short.16</url>
       <bibkey>alajrami-aletras-2022-pre</bibkey>
@@ -183,6 +199,7 @@
       <author><first>Nathan</first><last>Schucher</last></author>
       <author><first>Siva</first><last>Reddy</last></author>
       <author><first>Harm</first><last>de Vries</last></author>
+      <pages>148-156</pages>
       <abstract>Prompt tuning has recently emerged as an effective method for adapting pre-trained language models to a number of language understanding and generation tasks. In this paper, we investigate prompt tuning for semantic parsing—the task of mapping natural language utterances onto formal meaning representations. On the low-resource splits of Overnight and TOPv2, we find that a prompt tuned T5-xl significantly outperforms its fine-tuned counterpart, as well as strong GPT-3 and BART baselines. We also conduct ablation studies across different model scales and target representations, finding that, with increasing model scale, prompt tuned T5 models improve at generating target representations that are far from the pre-training distribution.</abstract>
       <url hash="300bf1a9">2022.acl-short.17</url>
       <bibkey>schucher-etal-2022-power</bibkey>
@@ -191,7 +208,8 @@
       <title>Data Contamination: From Memorization to Exploitation</title>
       <author><first>Inbal</first><last>Magar</last></author>
       <author><first>Roy</first><last>Schwartz</last></author>
-      <abstract>Pretrained language models are typically trained on massive web-based datasets, which are often ``contaminated'' with downstream test sets. It is not clear to what extent models exploit the contaminated data for downstream tasks. We present a principled method to study this question. We pretrain BERT models on joint corpora of Wikipedia and labeled downstream datasets, and fine-tune them on the relevant task. Comparing performance between samples seen and unseen during pretraining enables us to define and quantify levels of memorization and exploitation.Experiments with two models and three downstream tasks show that exploitation exists in some cases, but in others the models memorize the contaminated data, but do not exploit it. We show that these two measures are affected by different factors such as the number of duplications of the contaminated data and the model size. Our results highlight the importance of analyzing massive web-scale datasets to verify that progress in NLP is obtained by better language understanding and not better data exploitation.</abstract>
+      <pages>157-165</pages>
+      <abstract>Pretrained language models are typically trained on massive web-based datasets, which are often “contaminated” with downstream test sets. It is not clear to what extent models exploit the contaminated data for downstream tasks. We present a principled method to study this question. We pretrain BERT models on joint corpora of Wikipedia and labeled downstream datasets, and fine-tune them on the relevant task. Comparing performance between samples seen and unseen during pretraining enables us to define and quantify levels of memorization and exploitation.Experiments with two models and three downstream tasks show that exploitation exists in some cases, but in others the models memorize the contaminated data, but do not exploit it. We show that these two measures are affected by different factors such as the number of duplications of the contaminated data and the model size. Our results highlight the importance of analyzing massive web-scale datasets to verify that progress in NLP is obtained by better language understanding and not better data exploitation.</abstract>
       <url hash="2a09277a">2022.acl-short.18</url>
       <bibkey>magar-schwartz-2022-data</bibkey>
     </paper>
@@ -199,7 +217,8 @@
       <title>Detecting Annotation Errors in Morphological Data with the Transformer</title>
       <author><first>Ling</first><last>Liu</last></author>
       <author><first>Mans</first><last>Hulden</last></author>
-      <abstract>Annotation errors that stem from various sources are usually unavoidable when performing large-scale annotation of linguistic data. In this paper, we evaluate the feasibility of using the Transformer model to detect various types of annotator errors in morphological data sets that contain inflected word forms. We evaluate our error detection model on four languages by introducing three different types of artificial errors in the data: (1) typographic errors, where single characters in the data are inserted, replaced, or deleted; (2) linguistic confusion errors where two inflected forms are systematically swapped; and (3) self-adversarial errors where the Transformer model itself is used to generate plausible-looking, but erroneous forms by retrieving high-scoring predictions from the search beam. Results show that the Transformer model can with perfect, or near-perfect recall detect errors in all three scenarios, even when significant amounts of the annotated data (5\%-30\%) are corrupted on all languages tested. Precision varies across the languages and types of errors, but is high enough that the model can be very effectively used to flag suspicious entries in large data sets for further scrutiny by human annotators.</abstract>
+      <pages>166-174</pages>
+      <abstract>Annotation errors that stem from various sources are usually unavoidable when performing large-scale annotation of linguistic data. In this paper, we evaluate the feasibility of using the Transformer model to detect various types of annotator errors in morphological data sets that contain inflected word forms. We evaluate our error detection model on four languages by introducing three different types of artificial errors in the data: (1) typographic errors, where single characters in the data are inserted, replaced, or deleted; (2) linguistic confusion errors where two inflected forms are systematically swapped; and (3) self-adversarial errors where the Transformer model itself is used to generate plausible-looking, but erroneous forms by retrieving high-scoring predictions from the search beam. Results show that the Transformer model can with perfect, or near-perfect recall detect errors in all three scenarios, even when significant amounts of the annotated data (5%-30%) are corrupted on all languages tested. Precision varies across the languages and types of errors, but is high enough that the model can be very effectively used to flag suspicious entries in large data sets for further scrutiny by human annotators.</abstract>
       <url hash="e95321fd">2022.acl-short.19</url>
       <bibkey>liu-hulden-2022-detecting</bibkey>
     </paper>
@@ -208,22 +227,24 @@
       <author><first>Aryaman</first><last>Arora</last></author>
       <author><first>Clara</first><last>Meister</last></author>
       <author><first>Ryan</first><last>Cotterell</last></author>
+      <pages>175-195</pages>
       <abstract>Shannon entropy is often a quantity of interest to linguists studying the communicative capacity of human language. However, entropymust typically be estimated from observed data because researchers do not have access to the underlying probability distribution. While entropy estimation is a well-studied problem in other fields, there is not yet a comprehensive exploration of the efficacy of entropy estimators for use with linguistic data. In this work, we fill this void, studying the empirical effectiveness of different entropy estimators for linguistic distributions. In a replication of two recent information-theoretic linguistic studies, we find evidence that the reported effect size is over-estimated due to over-reliance on poor entropy estimators. We end this paper with a concrete recommendation for the entropy estimators that should be used in future linguistic studies.</abstract>
       <url hash="78fe50af">2022.acl-short.20</url>
       <attachment type="software" hash="9d122214">2022.acl-short.20.software.zip</attachment>
       <bibkey>arora-etal-2022-estimating</bibkey>
     </paper>
     <paper id="21">
-      <title>Morphological Reinflection with Multiple Arguments: An Extended Annotation schema and a Georgian Case Study</title>
+      <title>Morphological Reinflection with Multiple Arguments: An Extended Annotation schema and a <fixed-case>G</fixed-case>eorgian Case Study</title>
       <author><first>David</first><last>Guriel</last></author>
       <author><first>Omer</first><last>Goldman</last></author>
       <author><first>Reut</first><last>Tsarfaty</last></author>
+      <pages>196-202</pages>
       <abstract>In recent years, a flurry of morphological datasets had emerged, most notably UniMorph, aa multi-lingual repository of inflection tables. However, the flat structure of the current morphological annotation makes the treatment of some languages quirky, if not impossible, specifically in cases of polypersonal agreement. In this paper we propose a general solution for such cases and expand the UniMorph annotation schema to naturally address this phenomenon, in which verbs agree with multiple arguments using true affixes. We apply this extended schema to one such language, Georgian, and provide a human-verified, accurate and balanced morphological dataset for Georgian verbs. The dataset has 4 times more tables and 6 times more verb forms compared to the existing UniMorph dataset, covering all possible variants of argument marking, demonstrating the adequacy of our proposed scheme. Experiments on a reinflection task show that generalization is easy when the data is split at the form level, but extremely hard when splitting along lemma lines. Expanding the other languages in UniMorph according to this schema is expected to improve both the coverage, consistency and interpretability of this benchmark.</abstract>
       <url hash="b4a93a7a">2022.acl-short.21</url>
       <bibkey>guriel-etal-2022-morphological</bibkey>
     </paper>
     <paper id="22">
-      <title>DQ-BART: Efficient Sequence-to-Sequence Model via Joint Distillation and Quantization</title>
+      <title><fixed-case>DQ</fixed-case>-<fixed-case>BART</fixed-case>: Efficient Sequence-to-Sequence Model via Joint Distillation and Quantization</title>
       <author><first>Zheng</first><last>Li</last></author>
       <author><first>Zijian</first><last>Wang</last></author>
       <author><first>Ming</first><last>Tan</last></author>
@@ -232,6 +253,7 @@
       <author><first>Andrew</first><last>Arnold</last></author>
       <author><first>Bing</first><last>Xiang</last></author>
       <author><first>Dan</first><last>Roth</last></author>
+      <pages>203-211</pages>
       <abstract>Large-scale pre-trained sequence-to-sequence models like BART and T5 achieve state-of-the-art performance on many generative NLP tasks. However, such models pose a great challenge in resource-constrained scenarios owing to their large memory requirements and high latency. To alleviate this issue, we propose to jointly distill and quantize the model, where knowledge is transferred from the full-precision teacher model to the quantized and distilled low-precision student model. Empirical analyses show that, despite the challenging nature of generative tasks, we were able to achieve a 16.5x model footprint compression ratio with little performance drop relative to the full-precision counterparts on multiple summarization and QA datasets. We further pushed the limit of compression ratio to 27.7x and presented the performance-efficiency trade-off for generative tasks using pre-trained models. To the best of our knowledge, this is the first work aiming to effectively distill and quantize sequence-to-sequence pre-trained models for language generation tasks.</abstract>
       <url hash="2d54010d">2022.acl-short.22</url>
       <attachment type="software" hash="0d9ca22d">2022.acl-short.22.software.zip</attachment>
@@ -245,28 +267,31 @@
       <author><first>Kaiqiang</first><last>Song</last></author>
       <author><first>Dong</first><last>Yu</last></author>
       <author><first>Jianshu</first><last>Chen</last></author>
+      <pages>212-218</pages>
       <abstract>Comprehending a dialogue requires a model to capture diverse kinds of key information in the utterances, which are either scattered around or implicitly implied in different turns of conversations. Therefore, dialogue comprehension requires diverse capabilities such as paraphrasing, summarizing, and commonsense reasoning. Towards the objective of pre-training a zero-shot dialogue comprehension model, we develop a novel narrative-guided pre-training strategy that learns by narrating the key information from a dialogue input. However, the dialogue-narrative parallel corpus for such a pre-training strategy is currently unavailable. For this reason, we first construct a dialogue-narrative parallel corpus by automatically aligning movie subtitles and their synopses. We then pre-train a BART model on the data and evaluate its performance on four dialogue-based tasks that require comprehension. Experimental results show that our model not only achieves superior zero-shot performance but also exhibits stronger fine-grained dialogue comprehension capabilities. The data and code are available at https://github.com/zhaochaocs/Diana.</abstract>
       <url hash="bbebdc57">2022.acl-short.23</url>
       <bibkey>zhao-etal-2022-learning</bibkey>
     </paper>
     <paper id="24">
-      <title>Kronecker Decomposition for GPT Compression</title>
+      <title>Kronecker Decomposition for <fixed-case>GPT</fixed-case> Compression</title>
       <author><first>Ali</first><last>Edalati</last></author>
       <author><first>Marzieh</first><last>Tahaei</last></author>
       <author><first>Ahmad</first><last>Rashid</last></author>
       <author><first>Vahid</first><last>Nia</last></author>
       <author><first>James</first><last>Clark</last></author>
       <author><first>Mehdi</first><last>Rezagholizadeh</last></author>
+      <pages>219-226</pages>
       <abstract>GPT is an auto-regressive Transformer-based pre-trained language model which has attracted a lot of attention in the natural language processing (NLP) domain. The success of GPT is mostly attributed to its pre-training on huge amount of data and its large number of parameters. Despite the superior performance of GPT, this overparameterized nature of GPT can be very prohibitive for deploying this model on devices with limited computational power or memory. This problem can be mitigated using model compression techniques; however, compressing GPT models has not been investigated much in the literature. In this work, we use Kronecker decomposition to compress the linear mappings of the GPT-2 model. Our Kronecker GPT-2 model (KnGPT2) is initialized based on the Kronecker decomposed version of the GPT-2 model and then is undergone a very light pre- training on only a small portion of the training data with intermediate layer knowledge distillation (ILKD). Finally, our KnGPT2 is fine-tuned on downstream tasks using ILKD as well. We evaluate our model on both language modeling and General Language Understanding Evaluation benchmark tasks and show that with more efficient pre-training and similar number of parameters, our KnGPT2 outperforms the existing DistilGPT2 model significantly.</abstract>
       <url hash="dae29c0c">2022.acl-short.24</url>
       <bibkey>edalati-etal-2022-kronecker</bibkey>
     </paper>
     <paper id="25">
-      <title>Simple and Effective Knowledge-Driven Query Expansion for QA-Based Product Attribute Extraction</title>
+      <title>Simple and Effective Knowledge-Driven Query Expansion for <fixed-case>QA</fixed-case>-Based Product Attribute Extraction</title>
       <author><first>Keiji</first><last>Shinzato</last></author>
       <author><first>Naoki</first><last>Yoshinaga</last></author>
       <author><first>Yandi</first><last>Xia</last></author>
       <author><first>Wei-Te</first><last>Chen</last></author>
+      <pages>227-234</pages>
       <abstract>A key challenge in attribute value extraction (AVE) from e-commerce sites is how to handle a large number of attributes for diverse products. Although this challenge is partially addressed by a question answering (QA) approach which finds a value in product data for a given query (attribute), it does not work effectively for rare and ambiguous queries. We thus propose simple knowledge-driven query expansion based on possible answers (values) of a query (attribute) for QA-based AVE. We retrieve values of a query (attribute) from the training data to expand the query. We train a model with two tricks, knowledge dropout and knowledge token mixing, which mimic the imperfection of the value knowledge in testing. Experimental results on our cleaned version of AliExpress dataset show that our method improves the performance of AVE (+6.08 macro F1), especially for rare and ambiguous attributes (+7.82 and +6.86 macro F1, respectively).</abstract>
       <url hash="806c47a9">2022.acl-short.25</url>
       <bibkey>shinzato-etal-2022-simple</bibkey>
@@ -279,7 +304,8 @@
       <author><first>Dhruvesh</first><last>Patel</last></author>
       <author><first>Dongxu</first><last>Zhang</last></author>
       <author><first>Andrew</first><last>McCallum</last></author>
-      <abstract>To understand a story with multiple events, it is important to capture the proper relations across these events. However, existing event relation extraction (ERE) framework regards it as a multi-class classification task and do not guarantee any coherence between different relation types, such as anti-symmetry. If a phone line "died" after "storm", then it is obvious that the "storm" happened before the "died". Current framework of event relation extraction do not guarantee this coherence and thus enforces it via constraint loss function (Wang et al., 2020). In this work, we propose to modify the underlying ERE model to guarantee coherence by representing each event as a box representation (BERE) without applying explicit constraints. From our experiments, BERE also shows stronger conjunctive constraint satisfaction while performing on par or better in F1 compared to previous models with constraint injection.</abstract>
+      <pages>235-244</pages>
+      <abstract>To understand a story with multiple events, it is important to capture the proper relations across these events. However, existing event relation extraction (ERE) framework regards it as a multi-class classification task and do not guarantee any coherence between different relation types, such as anti-symmetry. If a phone line “died” after “storm”, then it is obvious that the “storm” happened before the “died”. Current framework of event relation extraction do not guarantee this coherence and thus enforces it via constraint loss function (Wang et al., 2020). In this work, we propose to modify the underlying ERE model to guarantee coherence by representing each event as a box representation (BERE) without applying explicit constraints. From our experiments, BERE also shows stronger conjunctive constraint satisfaction while performing on par or better in F1 compared to previous models with constraint injection.</abstract>
       <url hash="a8cd46c7">2022.acl-short.26</url>
       <bibkey>hwang-etal-2022-event</bibkey>
     </paper>
@@ -288,6 +314,7 @@
       <author><first>Tsz Kin</first><last>Lam</last></author>
       <author><first>Shigehiko</first><last>Schamoni</last></author>
       <author><first>Stefan</first><last>Riezler</last></author>
+      <pages>245-254</pages>
       <abstract>End-to-end speech translation relies on data that pair source-language speech inputs with corresponding translations into a target language. Such data are notoriously scarce, making synthetic data augmentation by back-translation or knowledge distillation a necessary ingredient of end-to-end training. In this paper, we present a novel approach to data augmentation that leverages audio alignments, linguistic properties, and translation. First, we augment a transcription by sampling from a suffix memory that stores text and audio data. Second, we translate the augmented transcript. Finally, we recombine concatenated audio segments and the generated translation. Our method delivers consistent improvements of up to 0.9 and 1.1 BLEU points on top of augmentation with knowledge distillation on five language pairs on CoVoST 2 and on two language pairs on Europarl-ST, respectively.</abstract>
       <url hash="77652721">2022.acl-short.27</url>
       <attachment type="software" hash="76f29c2f">2022.acl-short.27.software.tgz</attachment>
@@ -298,6 +325,7 @@
       <author><first>Bohan</first><last>Zhang</last></author>
       <author><first>Prafulla Kumar</first><last>Choubey</last></author>
       <author><first>Ruihong</first><last>Huang</last></author>
+      <pages>255-261</pages>
       <abstract>Document-level text simplification often deletes some sentences besides performing lexical, grammatical or structural simplification to reduce text complexity. In this work, we focus on sentence deletions for text simplification and use a news genre-specific functional discourse structure, which categorizes sentences based on their contents and their function roles in telling a news story, for predicting sentence deletion. We incorporate sentence categories into a neural net model in two ways for predicting sentence deletions, either as additional features or by jointly predicting sentence deletions and sentence categories. Experimental results using human-annotated data show that incorporating the functional structure improves the recall of sentence deletion prediction by 6.5% and 10.7% respectively using the two methods, and improves the overall F1-score by 3.6% and 4.3% respectively.</abstract>
       <url hash="658bc4a5">2022.acl-short.28</url>
       <bibkey>zhang-etal-2022-predicting</bibkey>
@@ -307,6 +335,7 @@
       <author><first>Huiyuan</first><last>Lai</last></author>
       <author><first>Antonio</first><last>Toral</last></author>
       <author><first>Malvina</first><last>Nissim</last></author>
+      <pages>262-271</pages>
       <abstract>We exploit the pre-trained seq2seq model mBART for multilingual text style transfer. Using machine translated data as well as gold aligned English sentences yields state-of-the-art results in the three target languages we consider. Besides, in view of the general scarcity of parallel data, we propose a modular approach for multilingual formality transfer, which consists of two training strategies that target adaptation to both language and task. Our approach achieves competitive performance without monolingual task-specific parallel data and can be applied to other style transfer tasks as well as to other languages.</abstract>
       <url hash="80f68181">2022.acl-short.29</url>
       <bibkey>lai-etal-2022-multilingual</bibkey>
@@ -316,12 +345,13 @@
       <author><first>Orion</first><last>Weller</last></author>
       <author><first>Kevin</first><last>Seppi</last></author>
       <author><first>Matt</first><last>Gardner</last></author>
+      <pages>272-282</pages>
       <abstract>Transfer learning (TL) in natural language processing (NLP) has seen a surge of interest in recent years, as pre-trained models have shown an impressive ability to transfer to novel tasks. Three main strategies have emerged for making use of multiple supervised datasets during fine-tuning: training on an intermediate task before training on the target task (STILTs), using multi-task learning (MTL) to train jointly on a supplementary task and the target task (pairwise MTL), or simply using MTL to train jointly on all available datasets (MTL-ALL). In this work, we compare all three TL methods in a comprehensive analysis on the GLUE dataset suite. We find that there is a simple heuristic for when to use one of these techniques over the other: pairwise MTL is better than STILTs when the target task has fewer instances than the supporting task and vice versa. We show that this holds true in more than 92% of applicable cases on the GLUE dataset and validate this hypothesis with experiments varying dataset size. The simplicity and effectiveness of this heuristic is surprising and warrants additional exploration by the TL community. Furthermore, we find that MTL-ALL is worse than the pairwise methods in almost every case. We hope this study will aid others as they choose between TL methods for NLP tasks.</abstract>
       <url hash="096c69fb">2022.acl-short.30</url>
       <bibkey>weller-etal-2022-use</bibkey>
     </paper>
     <paper id="31">
-      <title>Leveraging Explicit Lexico-logical Alignments in Text-to-SQL Parsing</title>
+      <title>Leveraging Explicit Lexico-logical Alignments in Text-to-<fixed-case>SQL</fixed-case> Parsing</title>
       <author><first>Runxin</first><last>Sun</last></author>
       <author><first>Shizhu</first><last>He</last></author>
       <author><first>Chong</first><last>Zhu</last></author>
@@ -329,7 +359,8 @@
       <author><first>Jinlong</first><last>Li</last></author>
       <author><first>Jun</first><last>Zhao</last></author>
       <author><first>Kang</first><last>Liu</last></author>
-      <abstract>Text-to-SQL aims to parse natural language questions into SQL queries, which is valuable in providing an easy interface to access large databases. Previous work has observed that leveraging lexico-logical alignments is very helpful to improve parsing performance. However, current attention-based approaches can only model such alignments at the token level and have unsatisfactory generalization capability. In this paper, we propose a new approach to leveraging explicit lexico-logical alignments. It first identifies possible phrase-level alignments and injects them as additional contexts to guide the parsing procedure. Experimental results on $\textsc{Squall}$ show that our approach can make better use of such alignments and obtains an absolute improvement of 3.4% compared with the current state-of-the-art.</abstract>
+      <pages>283-289</pages>
+      <abstract>Text-to-SQL aims to parse natural language questions into SQL queries, which is valuable in providing an easy interface to access large databases. Previous work has observed that leveraging lexico-logical alignments is very helpful to improve parsing performance. However, current attention-based approaches can only model such alignments at the token level and have unsatisfactory generalization capability. In this paper, we propose a new approach to leveraging explicit lexico-logical alignments. It first identifies possible phrase-level alignments and injects them as additional contexts to guide the parsing procedure. Experimental results on <tex-math>\textsc{Squall}</tex-math> show that our approach can make better use of such alignments and obtains an absolute improvement of 3.4% compared with the current state-of-the-art.</abstract>
       <url hash="44d81470">2022.acl-short.31</url>
       <attachment type="software" hash="2537fdd8">2022.acl-short.31.software.zip</attachment>
       <bibkey>sun-etal-2022-leveraging</bibkey>
@@ -346,6 +377,7 @@
       <author><first>Wei</first><last>Li</last></author>
       <author><first>Jiafeng</first><last>Guo</last></author>
       <author><first>Xueqi</first><last>Cheng</last></author>
+      <pages>290-296</pages>
       <abstract>A Temporal Knowledge Graph (TKG) is a sequence of KGs corresponding to different timestamps. TKG reasoning aims to predict potential facts in the future given the historical KG sequences. One key of this task is to mine and understand evolutional patterns of facts from these sequences. The evolutional patterns are complex in two aspects, length-diversity and time-variability. Existing models for TKG reasoning focus on modeling fact sequences of a fixed length, which cannot discover complex evolutional patterns that vary in length. Furthermore, these models are all trained offline, which cannot well adapt to the changes of evolutional patterns from then on. Thus, we propose a new model, called Complex Evolutional Network (CEN), which uses a length-aware Convolutional Neural Network (CNN) to handle evolutional patterns of different lengths via an easy-to-difficult curriculum learning strategy. Besides, we propose to learn the model under the online setting so that it can adapt to the changes of evolutional patterns over time. Extensive experiments demonstrate that CEN obtains substantial performance improvement under both the traditional offline and the proposed online settings.</abstract>
       <url hash="0b516643">2022.acl-short.32</url>
       <bibkey>li-etal-2022-complex</bibkey>
@@ -357,18 +389,20 @@
       <author><first>Yukyung</first><last>Lee</last></author>
       <author><first>Pilsung</first><last>Kang</last></author>
       <author><first>Misuk</first><last>Kim</last></author>
-      <abstract>Dialogue state tracking (DST) aims to extract essential information from multi-turn dialog situations and take appropriate actions. A belief state, one of the core pieces of information, refers to the subject and its specific content, and appears in the form of \texttt{domain-slot-value}. The trained model predicts ``accumulated'' belief states in every turn, and joint goal accuracy and slot accuracy are mainly used to evaluate the prediction; however, we specify that the current evaluation metrics have a critical limitation when evaluating belief states accumulated as the dialogue proceeds, especially in the most used MultiWOZ dataset. Additionally, we propose \textbf{relative slot accuracy} to complement existing metrics. Relative slot accuracy does not depend on the number of predefined slots, and allows intuitive evaluation by assigning relative scores according to the turn of each dialog. This study also encourages not solely the reporting of joint goal accuracy, but also various complementary metrics in DST tasks for the sake of a realistic evaluation.</abstract>
+      <pages>297-309</pages>
+      <abstract>Dialogue state tracking (DST) aims to extract essential information from multi-turn dialog situations and take appropriate actions. A belief state, one of the core pieces of information, refers to the subject and its specific content, and appears in the form of domain-slot-value. The trained model predicts “accumulated” belief states in every turn, and joint goal accuracy and slot accuracy are mainly used to evaluate the prediction; however, we specify that the current evaluation metrics have a critical limitation when evaluating belief states accumulated as the dialogue proceeds, especially in the most used MultiWOZ dataset. Additionally, we propose <b>relative slot accuracy</b> to complement existing metrics. Relative slot accuracy does not depend on the number of predefined slots, and allows intuitive evaluation by assigning relative scores according to the turn of each dialog. This study also encourages not solely the reporting of joint goal accuracy, but also various complementary metrics in DST tasks for the sake of a realistic evaluation.</abstract>
       <url hash="6e677f56">2022.acl-short.33</url>
       <bibkey>kim-etal-2022-mismatch</bibkey>
     </paper>
     <paper id="34">
-      <title>LM-BFF-MS: Improving Few-Shot Fine-tuning of Language Models based on Multiple Soft Demonstration Memory</title>
+      <title><fixed-case>LM</fixed-case>-<fixed-case>BFF</fixed-case>-<fixed-case>MS</fixed-case>: Improving Few-Shot Fine-tuning of Language Models based on Multiple Soft Demonstration Memory</title>
       <author><first>Eunhwan</first><last>Park</last></author>
       <author><first>Donghyeon</first><last>Jeon</last></author>
       <author><first>Seonhoon</first><last>Kim</last></author>
       <author><first>Inho</first><last>Kang</last></author>
       <author><first>Seung-Hoon</first><last>Na</last></author>
-      <abstract>LM-BFF \citep{gao-etal-2021-making} achieves significant few-shot performance by using auto-generated prompts and adding demonstrations similar to an input example. To improve the approach of LM-BFF, this paper proposes \textbf{LM-BFF-MS}\textemdash \underline{\textbf{b}}etter \underline{\textbf{f}}ew-shot \underline{\textbf{f}}ine-tuning of \underline{\textbf{l}}anguage \underline{\textbf{m}}odels with \underline{\textbf{m}}ultiple \underline{\textbf{s}}oft demonstrations by making its further extensions, which include 1) prompts with \textit{multiple demonstrations} based on automatic generation of multiple label words; and 2) \textit{soft demonstration memory} which consists of multiple sequences of \textit{globally shared} word embeddings for a similar context. Experiments conducted on eight NLP tasks show that LM-BFF-MS leads to improvements over LM-BFF on five tasks, particularly achieving 94.0 and 90.4 on SST-2 and MRPC, respectively\footnote{Our implementation is publicly available at \url{https://github.com/judepark96/LM-BFF-MS}}.</abstract>
+      <pages>310-317</pages>
+      <abstract>LM-BFF (CITATION) achieves significant few-shot performance by using auto-generated prompts and adding demonstrations similar to an input example. To improve the approach of LM-BFF, this paper proposes <b>LM-BFF-MS</b>—<b>b</b>etter <b>f</b>ew-shot <b>f</b>ine-tuning of <b>l</b>anguage <b>m</b>odels with <b>m</b>ultiple <b>s</b>oft demonstrations by making its further extensions, which include 1) prompts with <i>multiple demonstrations</i> based on automatic generation of multiple label words; and 2) <i>soft demonstration memory</i> which consists of multiple sequences of <i>globally shared</i> word embeddings for a similar context. Experiments conducted on eight NLP tasks show that LM-BFF-MS leads to improvements over LM-BFF on five tasks, particularly achieving 94.0 and 90.4 on SST-2 and MRPC, respectively.</abstract>
       <url hash="06ee24c4">2022.acl-short.34</url>
       <attachment type="software" hash="86fbf2bb">2022.acl-short.34.software.tgz</attachment>
       <bibkey>park-etal-2022-lm</bibkey>
@@ -378,6 +412,7 @@
       <author><first>Suvodip</first><last>Dey</last></author>
       <author><first>Ramamohan</first><last>Kummara</last></author>
       <author><first>Maunendra</first><last>Desarkar</last></author>
+      <pages>318-324</pages>
       <abstract>Dialogue State Tracking (DST) is primarily evaluated using Joint Goal Accuracy (JGA) defined as the fraction of turns where the ground-truth dialogue state exactly matches the prediction. Generally in DST, the dialogue state or belief state for a given turn contain all the intents shown by the user till that turn. Due to this cumulative nature of the belief state, it is difficult to get a correct prediction once a misprediction has occurred. Thus, although being a useful metric, it can be harsh at times and underestimate the true potential of a DST model. Moreover, an improvement in JGA can sometimes decrease the performance of turn-level or non-cumulative belief state prediction due to inconsistency in annotations. So, using JGA as the only metric for model selection may not be ideal for all scenarios. In this work, we discuss various evaluation metrics used for DST along with their shortcomings. To address the existing issues, we propose a new evaluation metric named Flexible Goal Accuracy (FGA). FGA is a generalized version of JGA. But unlike JGA, it tries to give penalized rewards to mispredictions that are locally correct i.e. the root cause of the error is an earlier turn. By doing so, FGA considers the performance of both cumulative and turn-level prediction flexibly and provides a better insight than the existing metrics. We also show that FGA is a better discriminator of DST model performance.</abstract>
       <url hash="3c8e5695">2022.acl-short.35</url>
       <attachment type="software" hash="a4f7ce29">2022.acl-short.35.software.zip</attachment>
@@ -388,12 +423,13 @@
       <author><first>Mohsen</first><last>Tabasi</last></author>
       <author><first>Kiamehr</first><last>Rezaee</last></author>
       <author><first>Mohammad Taher</first><last>Pilehvar</last></author>
+      <pages>325-332</pages>
       <abstract>As a recent development in few-shot learning, prompt-based techniques have demonstrated promising potential in a variety of natural language processing tasks. However, despite proving competitive on most tasks in the GLUE and SuperGLUE benchmarks, existing prompt-based techniques fail on the semantic distinction task of the Word-in-Context (WiC) dataset. Specifically, none of the existing few-shot approaches (including the in-context learning of GPT-3) can attain a performance that is meaningfully different from the random baseline.Trying to fill this gap, we propose a new prompting technique, based on similarity metrics, which boosts few-shot performance to the level of fully supervised methods. Our simple adaptation shows that the failure of existing prompt-based techniques in semantic distinction is due to their improper configuration, rather than lack of relevant knowledge in the representations. We also show that this approach can be effectively extended to other downstream tasks for which a single prompt is sufficient.</abstract>
       <url hash="91162b9f">2022.acl-short.36</url>
       <bibkey>tabasi-etal-2022-exploiting</bibkey>
     </paper>
     <paper id="37">
-      <title>Hierarchical Curriculum Learning for AMR Parsing</title>
+      <title>Hierarchical Curriculum Learning for <fixed-case>AMR</fixed-case> Parsing</title>
       <author><first>Peiyi</first><last>Wang</last></author>
       <author><first>Liang</first><last>Chen</last></author>
       <author><first>Tianyu</first><last>Liu</last></author>
@@ -401,18 +437,20 @@
       <author><first>Yunbo</first><last>Cao</last></author>
       <author><first>Baobao</first><last>Chang</last></author>
       <author><first>Zhifang</first><last>Sui</last></author>
+      <pages>333-339</pages>
       <abstract>Abstract Meaning Representation (AMR) parsing aims to translate sentences to semantic representation with a hierarchical structure, and is recently empowered by pretrained sequence-to-sequence models. However, there exists a gap between their flat training objective (i.e., equally treats all output tokens) and the hierarchical AMR structure, which limits the model generalization. To bridge this gap, we propose a Hierarchical Curriculum Learning (HCL) framework with Structure-level (SC) and Instance-level Curricula (IC). SC switches progressively from core to detail AMR semantic elements while IC transits from structure-simple to -complex AMR instances during training. Through these two warming-up processes, HCL reduces the difficulty of learning complex structures, thus the flat model can better adapt to the AMR hierarchy. Extensive experiments on AMR2.0, AMR3.0, structure-complex and out-of-distribution situations verify the effectiveness of HCL.</abstract>
       <url hash="e46ffd32">2022.acl-short.37</url>
       <attachment type="software" hash="000755dd">2022.acl-short.37.software.zip</attachment>
       <bibkey>wang-etal-2022-hierarchical</bibkey>
     </paper>
     <paper id="38">
-      <title>PARE: A Simple and Strong Baseline for Monolingual and Multilingual Distantly Supervised Relation Extraction</title>
+      <title><fixed-case>PARE</fixed-case>: A Simple and Strong Baseline for Monolingual and Multilingual Distantly Supervised Relation Extraction</title>
       <author><first>Vipul</first><last>Rathore</last></author>
       <author><first>Kartikeya</first><last>Badola</last></author>
       <author><first>Parag</first><last>Singla</last></author>
       <author><first>Mausam</first><last>.</last></author>
-      <abstract>Neural models for distantly supervised relation extraction (DS-RE) encode each sentence in an entity-pair bag separately. These are then aggregated for bag-level relation prediction. Since, at encoding time, these approaches do not allow information to flow from other sentences in the bag, we believe that they do not utilize the available bag data to the fullest. In response, we explore a simple baseline approach (PARE) in which all sentences of a bag are concatenated into a passage of sentences, and encoded jointly using BERT. The contextual embeddings of tokens are aggregated using attention with the candidate relation as query -- this summary of whole passage predicts the candidate relation. We find that our simple baseline solution outperforms existing state-of-the-art DS-RE models in both monolingual and multilingual DS-RE datasets.</abstract>
+      <pages>340-354</pages>
+      <abstract>Neural models for distantly supervised relation extraction (DS-RE) encode each sentence in an entity-pair bag separately. These are then aggregated for bag-level relation prediction. Since, at encoding time, these approaches do not allow information to flow from other sentences in the bag, we believe that they do not utilize the available bag data to the fullest. In response, we explore a simple baseline approach (PARE) in which all sentences of a bag are concatenated into a passage of sentences, and encoded jointly using BERT. The contextual embeddings of tokens are aggregated using attention with the candidate relation as query – this summary of whole passage predicts the candidate relation. We find that our simple baseline solution outperforms existing state-of-the-art DS-RE models in both monolingual and multilingual DS-RE datasets.</abstract>
       <url hash="4a8c5450">2022.acl-short.38</url>
       <attachment type="software" hash="36cab2db">2022.acl-short.38.software.zip</attachment>
       <bibkey>rathore-etal-2022-pare</bibkey>
@@ -424,6 +462,7 @@
       <author><first>Tejas</first><last>Gokhale</last></author>
       <author><first>Yezhou</first><last>Yang</last></author>
       <author><first>Chitta</first><last>Baral</last></author>
+      <pages>355-361</pages>
       <abstract>We present a debiased dataset for the Person-centric Visual Grounding (PCVG) task first proposed by Cui et al. (2021) in the Who’s Waldo dataset. Given an image and a caption, PCVG requires pairing up a person’s name mentioned in a caption with a bounding box that points to the person in the image. We find that the original Who’s Waldo dataset compiled for this task contains a large number of biased samples that are solvable simply by heuristic methods; for instance, in many cases the first name in the sentence corresponds to the largest bounding box, or the sequence of names in the sentence corresponds to an exact left-to-right order in the image. Naturally, models trained on these biased data lead to over-estimation of performance on the benchmark. To enforce models being correct for the correct reasons, we design automated tools to filter and debias the original dataset by ruling out all examples of insufficient context, such as those with no verb or with a long chain of conjunct names in their captions. Our experiments show that our new sub-sampled dataset contains less bias with much lowered heuristic performances and widened gaps between heuristic and supervised methods. We also demonstrate the same benchmark model trained on our debiased training set outperforms that trained on the original biased (and larger) training set on our debiased test set. We argue our debiased dataset offers the PCVG task a more practical baseline for reliable benchmarking and future improvements.</abstract>
       <url hash="40fccc1f">2022.acl-short.39</url>
       <bibkey>luo-etal-2022-find</bibkey>
@@ -434,27 +473,30 @@
       <author><first>Qianru</first><last>Sun</last></author>
       <author><first>Hao</first><last>Zhang</last></author>
       <author><first>Jing</first><last>Jiang</last></author>
+      <pages>362-370</pages>
       <abstract>Translate-train is a general training approach to multilingual tasks. The key idea is to use the translator of the target language to generate training data to mitigate the gap between the source and target languages. However, its performance is often hampered by the artifacts in the translated texts (translationese). We discover that such artifacts have common patterns in different languages and can be modeled by deep learning, and subsequently propose an approach to conduct translate-train using Translationese Embracing the effect of Artifacts (TEA). TEA learns to mitigate such effect on the training data of a source language (whose original and translationese are both available), and applies the learned module to facilitate the inference on the target language. Extensive experiments on the multilingual QA dataset TyDiQA demonstrate that TEA outperforms strong baselines.</abstract>
       <url hash="b15174aa">2022.acl-short.40</url>
       <bibkey>yu-etal-2022-translate</bibkey>
     </paper>
     <paper id="41">
-      <title>C-MORE: Pretraining to Answer Open-Domain Questions by Consulting Millions of References</title>
+      <title><fixed-case>C</fixed-case>-<fixed-case>MORE</fixed-case>: Pretraining to Answer Open-Domain Questions by Consulting Millions of References</title>
       <author><first>Xiang</first><last>Yue</last></author>
       <author><first>Xiaoman</first><last>Pan</last></author>
       <author><first>Wenlin</first><last>Yao</last></author>
       <author><first>Dian</first><last>Yu</last></author>
       <author><first>Dong</first><last>Yu</last></author>
       <author><first>Jianshu</first><last>Chen</last></author>
+      <pages>371-377</pages>
       <abstract>We consider the problem of pretraining a two-stage open-domain question answering (QA) system (retriever + reader) with strong transfer capabilities. The key challenge is how to construct a large amount of high-quality question-answer-context triplets without task-specific annotations. Specifically, the triplets should align well with downstream tasks by: (i) covering a wide range of domains (for open-domain applications), (ii) linking a question to its semantically relevant context with supporting evidence (for training the retriever), and (iii) identifying the correct answer in the context (for training the reader). Previous pretraining approaches generally fall short of one or more of these requirements. In this work, we automatically construct a large-scale corpus that meets all three criteria by consulting millions of references cited within Wikipedia. The well-aligned pretraining signals benefit both the retriever and the reader significantly. Our pretrained retriever leads to 2%-10% absolute gains in top-20 accuracy. And with our pretrained reader, the entire system improves by up to 4% in exact match.</abstract>
       <url hash="899780b3">2022.acl-short.41</url>
       <bibkey>yue-etal-2022-c</bibkey>
     </paper>
     <paper id="42">
-      <title>k-{R}ater {R}eliability: {T}he Correct Unit of Reliability for Aggregated Human Annotations</title>
+      <title>k-<fixed-case>R</fixed-case>ater <fixed-case>R</fixed-case>eliability: <fixed-case>T</fixed-case>he Correct Unit of Reliability for Aggregated Human Annotations</title>
       <author><first>Ka</first><last>Wong</last></author>
       <author><first>Praveen</first><last>Paritosh</last></author>
-      <abstract>Since the inception of crowdsourcing, aggregation has been a common strategy for dealing with unreliable data. Aggregate ratings are more reliable than individual ones. However, many Natural Language Processing (NLP) applications that rely on aggregate ratings only report the reliability of individual ratings, which is the incorrect unit of analysis. In these instances, the data reliability is under-reported, and a proposed $k$-rater reliability (kRR) should be used as the correct data reliability for aggregated datasets. It is a multi-rater generalization of inter-rater reliability (IRR). We conducted two replications of the WordSim-353 benchmark, and present empirical, analytical, and bootstrap-based methods for computing kRR on WordSim-353. These methods produce very similar results. We hope this discussion will nudge researchers to report kRR in addition to IRR.</abstract>
+      <pages>378-384</pages>
+      <abstract>Since the inception of crowdsourcing, aggregation has been a common strategy for dealing with unreliable data. Aggregate ratings are more reliable than individual ones. However, many Natural Language Processing (NLP) applications that rely on aggregate ratings only report the reliability of individual ratings, which is the incorrect unit of analysis. In these instances, the data reliability is under-reported, and a proposed <tex-math>k</tex-math>-rater reliability (kRR) should be used as the correct data reliability for aggregated datasets. It is a multi-rater generalization of inter-rater reliability (IRR). We conducted two replications of the WordSim-353 benchmark, and present empirical, analytical, and bootstrap-based methods for computing kRR on WordSim-353. These methods produce very similar results. We hope this discussion will nudge researchers to report kRR in addition to IRR.</abstract>
       <url hash="55b819b3">2022.acl-short.42</url>
       <bibkey>wong-paritosh-2022-k</bibkey>
     </paper>
@@ -463,15 +505,17 @@
       <author><first>Valentin</first><last>Hofmann</last></author>
       <author><first>Hinrich</first><last>Schuetze</last></author>
       <author><first>Janet</first><last>Pierrehumbert</last></author>
+      <pages>385-393</pages>
       <abstract>We introduce FLOTA (Few Longest Token Approximation), a simple yet effective method to improve the tokenization of pretrained language models (PLMs). FLOTA uses the vocabulary of a standard tokenizer but tries to preserve the morphological structure of words during tokenization. We evaluate FLOTA on morphological gold segmentations as well as a text classification task, using BERT, GPT-2, and XLNet as example PLMs. FLOTA leads to performance gains, makes inference more efficient, and enhances the robustness of PLMs with respect to whitespace noise.</abstract>
       <url hash="e7889e52">2022.acl-short.43</url>
       <attachment type="software" hash="f9bf618d">2022.acl-short.43.software.zip</attachment>
       <bibkey>hofmann-etal-2022-embarrassingly</bibkey>
     </paper>
     <paper id="44">
-      <title>SCD: Self-Contrastive Decorrelation of Sentence Embeddings</title>
+      <title><fixed-case>SCD</fixed-case>: Self-Contrastive Decorrelation of Sentence Embeddings</title>
       <author><first>Tassilo</first><last>Klein</last></author>
       <author><first>Moin</first><last>Nabi</last></author>
+      <pages>394-400</pages>
       <abstract>In this paper, we propose Self-Contrastive Decorrelation (SCD), a self-supervised approach. Given an input sentence, it optimizes a joint self-contrastive and decorrelation objective. Learning a representation is facilitated by leveraging the contrast arising from the instantiation of standard dropout at different rates. The proposed method is conceptually simple yet empirically powerful. It achieves comparable results with state-of-the-art methods on multiple benchmarks without using contrastive pairs. This study opens up avenues for efficient self-supervised learning methods that are more robust than current contrastive methods.</abstract>
       <url hash="103d4be7">2022.acl-short.44</url>
       <bibkey>klein-nabi-2022-scd</bibkey>
@@ -482,6 +526,7 @@
       <author><first>Kawin</first><last>Ethayarajh</last></author>
       <author><first>Dallas</first><last>Card</last></author>
       <author><first>Dan</first><last>Jurafsky</last></author>
+      <pages>401-423</pages>
       <abstract>Cosine similarity of contextual embeddings is used in many NLP tasks (e.g., QA, IR, MT) and metrics (e.g., BERTScore). Here, we uncover systematic ways in which word similarities estimated by cosine over BERT embeddings are understated and trace this effect to training data frequency. We find that relative to human judgements, cosine similarity underestimates the similarity of frequent words with other instances of the same word or other words across contexts, even after controlling for polysemy and other factors. We conjecture that this underestimation of similarity for high frequency words is due to differences in the representational geometry of high and low frequency words and provide a formal argument for the two-dimensional case.</abstract>
       <url hash="c8ba50a0">2022.acl-short.45</url>
       <bibkey>zhou-etal-2022-problems</bibkey>
@@ -492,6 +537,7 @@
       <author><first>Satwik</first><last>Bhattamishra</last></author>
       <author><first>Phil</first><last>Blunsom</last></author>
       <author><first>Navin</first><last>Goyal</last></author>
+      <pages>424-434</pages>
       <abstract>Compositional generalization is a fundamental trait in humans, allowing us to effortlessly combine known phrases to form novel sentences. Recent works have claimed that standard seq-to-seq models severely lack the ability to compositionally generalize. In this paper, we focus on one-shot primitive generalization as introduced by the popular SCAN benchmark. We demonstrate that modifying the training distribution in simple and intuitive ways enables standard seq-to-seq models to achieve near-perfect generalization performance, thereby showing that their compositional generalization abilities were previously underestimated. We perform detailed empirical analysis of this phenomenon. Our results indicate that the generalization performance of models is highly sensitive to the characteristics of the training data which should be carefully considered while designing such benchmarks in future.</abstract>
       <url hash="22becd43">2022.acl-short.46</url>
       <attachment type="software" hash="d670a08a">2022.acl-short.46.software.zip</attachment>
@@ -504,7 +550,8 @@
       <author><first>Xiaoguang</first><last>Li</last></author>
       <author><first>Minghui</first><last>Huang</last></author>
       <author><first>Meizhen</first><last>Ding</last></author>
-      <abstract>Open-domain question answering is a challenging task with a wide variety of practical applications. Existing modern approaches mostly follow a standard two-stage paradigm: retriever then reader. In this article, we focus on improving the effectiveness of the reader module and propose a novel copy-augmented generative approach that integrates the merits of both extractive and generative readers. In particular, our model is built upon the powerful generative model FiD \citep{FiD}. We enhance the original generative reader by incorporating a pointer network to encourage the model to directly copy words from the retrieved passages. We conduct experiments on the two benchmark datasets, Natural Questions and TriviaQA, and the empirical results demonstrate the performance gains of our proposed approach.</abstract>
+      <pages>435-441</pages>
+      <abstract>Open-domain question answering is a challenging task with a wide variety of practical applications. Existing modern approaches mostly follow a standard two-stage paradigm: retriever then reader. In this article, we focus on improving the effectiveness of the reader module and propose a novel copy-augmented generative approach that integrates the merits of both extractive and generative readers. In particular, our model is built upon the powerful generative model FiD (CITATION). We enhance the original generative reader by incorporating a pointer network to encourage the model to directly copy words from the retrieved passages. We conduct experiments on the two benchmark datasets, Natural Questions and TriviaQA, and the empirical results demonstrate the performance gains of our proposed approach.</abstract>
       <url hash="0ee2c21b">2022.acl-short.47</url>
       <bibkey>liu-etal-2022-copy</bibkey>
     </paper>
@@ -515,17 +562,19 @@
       <author><first>Sukmin</first><last>Cho</last></author>
       <author><first>Sung Ju</first><last>Hwang</last></author>
       <author><first>Jong</first><last>Park</last></author>
+      <pages>442-452</pages>
       <abstract>Dense retrieval models, which aim at retrieving the most relevant document for an input query on a dense representation space, have gained considerable attention for their remarkable success. Yet, dense models require a vast amount of labeled training data for notable performance, whereas it is often challenging to acquire query-document pairs annotated by humans. To tackle this problem, we propose a simple but effective Document Augmentation for dense Retrieval (DAR) framework, which augments the representations of documents with their interpolation and perturbation. We validate the performance of DAR on retrieval tasks with two benchmark datasets, showing that the proposed DAR significantly outperforms relevant baselines on the dense retrieval of both the labeled and unlabeled documents.</abstract>
       <url hash="2ec62bb7">2022.acl-short.48</url>
       <bibkey>jeong-etal-2022-augmenting</bibkey>
     </paper>
     <paper id="49">
-      <title>WLASL-LEX: a Dataset for Recognising Phonological Properties in American Sign Language</title>
+      <title><fixed-case>WLASL</fixed-case>-<fixed-case>LEX</fixed-case>: a Dataset for Recognising Phonological Properties in <fixed-case>A</fixed-case>merican <fixed-case>S</fixed-case>ign <fixed-case>L</fixed-case>anguage</title>
       <author><first>Federico</first><last>Tavella</last></author>
       <author><first>Viktor</first><last>Schlegel</last></author>
       <author><first>Marta</first><last>Romeo</last></author>
       <author><first>Aphrodite</first><last>Galata</last></author>
       <author><first>Angelo</first><last>Cangelosi</last></author>
+      <pages>453-463</pages>
       <abstract>Signed Language Processing (SLP) concerns the automated processing of signed languages, the main means of communication of Deaf and hearing impaired individuals. SLP features many different tasks, ranging from sign recognition to translation and production of signed speech, but has been overlooked by the NLP community thus far.In this paper, we bring to attention the task of modelling the phonology of sign languages. We leverage existing resources to construct a large-scale dataset of American Sign Language signs annotated with six different phonological properties. We then conduct an extensive empirical study to investigate whether data-driven end-to-end and feature-based approaches can be optimised to automatically recognise these properties. We find that, despite the inherent challenges of the task, graph-based neural networks that operate over skeleton features extracted from raw videos are able to succeed at the task to a varying degree. Most importantly, we show that this performance pertains even on signs unobserved during training.</abstract>
       <url hash="f67b422a">2022.acl-short.49</url>
       <attachment type="software" hash="d671aab0">2022.acl-short.49.software.zip</attachment>
@@ -537,6 +586,7 @@
       <author><first>Ryuichiro</first><last>Higashinaka</last></author>
       <author><first>Tingxuan</first><last>Li</last></author>
       <author><first>Sen</first><last>Yoshida</last></author>
+      <pages>464-469</pages>
       <abstract>Creating chatbots to behave like real people is important in terms of believability. Errors in general chatbots and chatbots that follow a rough persona have been studied, but those in chatbots that behave like real people have not been thoroughly investigated. We collected a large amount of user interactions of a generation-based chatbot trained from large-scale dialogue data of a specific character, i.e., target person, and analyzed errors related to that person. We found that person-specific errors can be divided into two types: errors in attributes and those in relations, each of which can be divided into two levels: self and other. The correspondence with an existing taxonomy of errors was also investigated, and person-specific errors that should be addressed in the future were clarified.</abstract>
       <url hash="a91c38bd">2022.acl-short.50</url>
       <bibkey>mitsuda-etal-2022-investigating</bibkey>
@@ -549,16 +599,18 @@
       <author><first>Stephan</first><last>Oepen</last></author>
       <author><first>Lilja</first><last>Øvrelid</last></author>
       <author><first>Erik</first><last>Velldal</last></author>
+      <pages>470-478</pages>
       <abstract>This paper demonstrates how a graph-based semantic parser can be applied to the task of structured sentiment analysis, directly predicting sentiment graphs from text. We advance the state of the art on 4 out of 5 standard benchmark sets. We release the source code, models and predictions.</abstract>
       <url hash="da37cbc0">2022.acl-short.51</url>
       <attachment type="software" hash="b7223ee1">2022.acl-short.51.software.zip</attachment>
       <bibkey>samuel-etal-2022-direct</bibkey>
     </paper>
     <paper id="52">
-      <title>{XDBERT}: {D}istilling Visual Information to {BERT} from Cross-Modal Systems to Improve Language Understanding</title>
+      <title><fixed-case>XDBERT</fixed-case>: <fixed-case>D</fixed-case>istilling Visual Information to <fixed-case>BERT</fixed-case> from Cross-Modal Systems to Improve Language Understanding</title>
       <author><first>Chan-Jan</first><last>Hsu</last></author>
       <author><first>Hung-yi</first><last>Lee</last></author>
       <author><first>Yu</first><last>Tsao</last></author>
+      <pages>479-489</pages>
       <abstract>Transformer-based models are widely used in natural language understanding (NLU) tasks, and multimodal transformers have been effective in visual-language tasks. This study explores distilling visual information from pretrained multimodal transformers to pretrained language encoders. Our framework is inspired by cross-modal encoders’ success in visual-language tasks while we alter the learning objective to cater to the language-heavy characteristics of NLU. After training with a small number of extra adapting steps and finetuned, the proposed XDBERT (cross-modal distilled BERT) outperforms pretrained-BERT in general language understanding evaluation (GLUE), situations with adversarial generations (SWAG) benchmarks, and readability benchmarks. We analyze the performance of XDBERT on GLUE to show that the improvement is likely visually grounded.</abstract>
       <url hash="377be7ca">2022.acl-short.52</url>
       <attachment type="software" hash="6d3019f3">2022.acl-short.52.software.zip</attachment>
@@ -568,6 +620,7 @@
       <title>As Little as Possible, as Much as Necessary: Detecting Over- and Undertranslations with Contrastive Conditioning</title>
       <author><first>Jannis</first><last>Vamvas</last></author>
       <author><first>Rico</first><last>Sennrich</last></author>
+      <pages>490-500</pages>
       <abstract>Omission and addition of content is a typical issue in neural machine translation. We propose a method for detecting such phenomena with off-the-shelf translation models. Using contrastive conditioning, we compare the likelihood of a full sequence under a translation model to the likelihood of its parts, given the corresponding source or target sequence. This allows to pinpoint superfluous words in the translation and untranslated words in the source even in the absence of a reference translation. The accuracy of our method is comparable to a supervised method that requires a custom quality estimation model.</abstract>
       <url hash="a3860683">2022.acl-short.53</url>
       <attachment type="software" hash="ae53cad9">2022.acl-short.53.software.zip</attachment>
@@ -578,18 +631,20 @@
       <author><first>Bingzhi</first><last>Li</last></author>
       <author><first>Guillaume</first><last>Wisniewski</last></author>
       <author><first>Benoit</first><last>Crabbé</last></author>
+      <pages>501-507</pages>
       <abstract>This work addresses the question of the localization of syntactic information encoded in the transformers representations. We tackle this question from two perspectives, considering the object-past participle agreement in French, by identifying, first, in which part of the sentence and, second, in which part of the representation the syntactic information is encoded. The results of our experiments, using probing, causal analysis and feature selection method, show that syntactic information is encoded locally in a way consistent with the French grammar.</abstract>
       <url hash="b005c4a8">2022.acl-short.54</url>
       <bibkey>li-etal-2022-distributed</bibkey>
     </paper>
     <paper id="55">
-      <title>Machine Translation for Livonian: Catering to 20 Speakers</title>
+      <title>Machine Translation for <fixed-case>L</fixed-case>ivonian: Catering to 20 Speakers</title>
       <author><first>Matīss</first><last>Rikters</last></author>
       <author><first>Marili</first><last>Tomingas</last></author>
       <author><first>Tuuli</first><last>Tuisk</last></author>
       <author><first>Valts</first><last>Ernštreits</last></author>
       <author><first>Mark</first><last>Fishel</last></author>
-      <abstract>Livonian is one of the most endangered languages in Europe with just a tiny handful of speakers and virtually no publicly available corpora. In this paper we tackle the task of developing neural machine translation (NMT) between Livonian and English, with a two-fold aim: on one hand, preserving the language and on the other – enabling access to Livonian folklore, lifestories and other textual intangible heritage as well as making it easier to create further parallel corpora. We rely on Livonian's linguistic similarity to Estonian and Latvian and collect parallel and monolingual data for the four languages for translation experiments. We combine different low-resource NMT techniques like zero-shot translation, cross-lingual transfer and synthetic data creation to reach the highest possible translation quality as well as to find which base languages are empirically more helpful for transfer to Livonian. The resulting NMT systems and the collected monolingual and parallel data, including a manually translated and verified translation benchmark, are publicly released via OPUS and Huggingface repositories.</abstract>
+      <pages>508-514</pages>
+      <abstract>Livonian is one of the most endangered languages in Europe with just a tiny handful of speakers and virtually no publicly available corpora. In this paper we tackle the task of developing neural machine translation (NMT) between Livonian and English, with a two-fold aim: on one hand, preserving the language and on the other – enabling access to Livonian folklore, lifestories and other textual intangible heritage as well as making it easier to create further parallel corpora. We rely on Livonian’s linguistic similarity to Estonian and Latvian and collect parallel and monolingual data for the four languages for translation experiments. We combine different low-resource NMT techniques like zero-shot translation, cross-lingual transfer and synthetic data creation to reach the highest possible translation quality as well as to find which base languages are empirically more helpful for transfer to Livonian. The resulting NMT systems and the collected monolingual and parallel data, including a manually translated and verified translation benchmark, are publicly released via OPUS and Huggingface repositories.</abstract>
       <url hash="5c2cabc2">2022.acl-short.55</url>
       <bibkey>rikters-etal-2022-machine</bibkey>
     </paper>
@@ -601,6 +656,7 @@
       <author><first>Yunqiu</first><last>Xu</last></author>
       <author><first>Shirui</first><last>Pan</last></author>
       <author><first>Reza</first><last>Haf</last></author>
+      <pages>515-522</pages>
       <abstract>Text-based games (TGs) are exciting testbeds for developing deep reinforcement learning techniques due to their partially observed environments and large action spaces. In these games, the agent learns to explore the environment via natural language interactions with the game simulator. A fundamental challenge in TGs is the efficient exploration of the large action space when the agent has not yet acquired enough knowledge about the environment. We propose CommExpl, an exploration technique that injects external commonsense knowledge, via a pretrained language model (LM), into the agent during training when the agent is the most uncertain about its next action. Our method exhibits improvement on the collected game scores during the training in four out of nine games from Jericho. Additionally, the produced trajectory of actions exhibit lower perplexity, when tested with a pretrained LM, indicating better closeness to human language.</abstract>
       <url hash="f8a07d76">2022.acl-short.56</url>
       <bibkey>ryu-etal-2022-fire</bibkey>
@@ -612,26 +668,29 @@
       <author><first>Peng</first><last>Li</last></author>
       <author><first>Maosong</first><last>Sun</last></author>
       <author><first>Zhiyuan</first><last>Liu</last></author>
-      <abstract>Pre-trained language models (PLMs) cannot well recall rich factual knowledge of entities exhibited in large-scale corpora, especially those rare entities. In this paper, we propose to build a simple but effective Pluggable Entity Lookup Table (PELT) on demand by aggregating the entity's output representations of multiple occurrences in the corpora. PELT can be compatibly plugged as inputs to infuse supplemental entity knowledge into PLMs. Compared to previous knowledge-enhanced PLMs, PELT only requires 0.2%-5% pre-computation with capability of acquiring knowledge from out-of-domain corpora for domain adaptation scenario. The experiments on knowledge-related tasks demonstrate that our method, PELT, can flexibly and effectively transfer entity knowledge from related corpora into PLMs with different architectures. Our code and models are publicly available at https://github.com/thunlp/PELT</abstract>
+      <pages>523-529</pages>
+      <abstract>Pre-trained language models (PLMs) cannot well recall rich factual knowledge of entities exhibited in large-scale corpora, especially those rare entities. In this paper, we propose to build a simple but effective Pluggable Entity Lookup Table (PELT) on demand by aggregating the entity’s output representations of multiple occurrences in the corpora. PELT can be compatibly plugged as inputs to infuse supplemental entity knowledge into PLMs. Compared to previous knowledge-enhanced PLMs, PELT only requires 0.2%-5% pre-computation with capability of acquiring knowledge from out-of-domain corpora for domain adaptation scenario. The experiments on knowledge-related tasks demonstrate that our method, PELT, can flexibly and effectively transfer entity knowledge from related corpora into PLMs with different architectures. Our code and models are publicly available at https://github.com/thunlp/PELT</abstract>
       <url hash="00d81082">2022.acl-short.57</url>
       <attachment type="software" hash="fdae91cf">2022.acl-short.57.software.zip</attachment>
       <bibkey>ye-etal-2022-simple</bibkey>
     </paper>
     <paper id="58">
-      <title>S$^4$-Tuning: A Simple Cross-lingual Sub-network Tuning Method</title>
+      <title>S<tex-math>^4</tex-math>-Tuning: A Simple Cross-lingual Sub-network Tuning Method</title>
       <author><first>Runxin</first><last>Xu</last></author>
       <author><first>Fuli</first><last>Luo</last></author>
       <author><first>Baobao</first><last>Chang</last></author>
       <author><first>Songfang</first><last>Huang</last></author>
       <author><first>Fei</first><last>Huang</last></author>
-      <abstract>The emergence of multilingual pre-trained language models makes it possible to adapt to target languages with only few labeled examples.However, vanilla fine-tuning tends to achieve degenerated and unstable results, owing to the Language Interference among different languages, and Parameter Overload under the few-sample transfer learning scenarios.To address two problems elegantly, we propose S$^4$-Tuning, a Simple Cross-lingual Sub-network Tuning method. S$^4$-Tuning first detects the most essential sub-network for each target language, and only updates it during fine-tuning.In this way, the language sub-networks lower the scale of trainable parameters, and hence better suit the low-resource scenarios.Meanwhile, the commonality and characteristics across languages are modeled by the overlapping and non-overlapping parts to ease the interference among languages.Simple but effective, S$^4$-Tuning gains consistent improvements over vanilla fine-tuning on three multi-lingual tasks involving 37 different languages in total (XNLI, PAWS-X, and Tatoeba).</abstract>
+      <pages>530-537</pages>
+      <abstract>The emergence of multilingual pre-trained language models makes it possible to adapt to target languages with only few labeled examples.However, vanilla fine-tuning tends to achieve degenerated and unstable results, owing to the Language Interference among different languages, and Parameter Overload under the few-sample transfer learning scenarios.To address two problems elegantly, we propose S<tex-math>^4</tex-math>-Tuning, a Simple Cross-lingual Sub-network Tuning method. S<tex-math>^4</tex-math>-Tuning first detects the most essential sub-network for each target language, and only updates it during fine-tuning.In this way, the language sub-networks lower the scale of trainable parameters, and hence better suit the low-resource scenarios.Meanwhile, the commonality and characteristics across languages are modeled by the overlapping and non-overlapping parts to ease the interference among languages.Simple but effective, S<tex-math>^4</tex-math>-Tuning gains consistent improvements over vanilla fine-tuning on three multi-lingual tasks involving 37 different languages in total (XNLI, PAWS-X, and Tatoeba).</abstract>
       <url hash="5b29cccc">2022.acl-short.58</url>
-      <bibkey>xu-etal-2022-4</bibkey>
+      <bibkey>xu-etal-2022-s4</bibkey>
     </paper>
     <paper id="59">
       <title>Region-dependent temperature scaling for certainty calibration and application to class-imbalanced token classification</title>
       <author><first>Hillary</first><last>Dawkins</last></author>
       <author><first>Isar</first><last>Nejadgholi</last></author>
+      <pages>538-544</pages>
       <abstract>Certainty calibration is an important goal on the path to interpretability and trustworthy AI. Particularly in the context of human-in-the-loop systems, high-quality low to mid-range certainty estimates are essential. In the presence of a dominant high-certainty class, for instance the non-entity class in NER problems, existing calibration error measures are completely insensitive to potentially large errors in this certainty region of interest. We introduce a region-balanced calibration error metric that weights all certainty regions equally. When low and mid certainty estimates are taken into account, calibration error is typically larger than previously reported. We introduce a simple extension of temperature scaling, requiring no additional computation, that can reduce both traditional and region-balanced notions of calibration error over existing baselines.</abstract>
       <url hash="0d150380">2022.acl-short.59</url>
       <bibkey>dawkins-nejadgholi-2022-region</bibkey>
@@ -640,7 +699,8 @@
       <title>Developmental Negation Processing in Transformer Language Models</title>
       <author><first>Antonio</first><last>Laverghetta Jr.</last></author>
       <author><first>John</first><last>Licato</last></author>
-      <abstract>Reasoning using negation is known to be difficult for transformer-based language models. While previous studies have used the tools of psycholinguistics to probe a transformer's ability to reason over negation, none have focused on the types of negation studied in developmental psychology. We explore how well transformers can process such categories of negation, by framing the problem as a natural language inference (NLI) task. We curate a set of diagnostic questions for our target categories from popular NLI datasets and evaluate how well a suite of models reason over them. We find that models perform consistently better only on certain categories, suggesting clear distinctions in how they are processed.</abstract>
+      <pages>545-551</pages>
+      <abstract>Reasoning using negation is known to be difficult for transformer-based language models. While previous studies have used the tools of psycholinguistics to probe a transformer’s ability to reason over negation, none have focused on the types of negation studied in developmental psychology. We explore how well transformers can process such categories of negation, by framing the problem as a natural language inference (NLI) task. We curate a set of diagnostic questions for our target categories from popular NLI datasets and evaluate how well a suite of models reason over them. We find that models perform consistently better only on certain categories, suggesting clear distinctions in how they are processed.</abstract>
       <url hash="bd545578">2022.acl-short.60</url>
       <attachment type="software" hash="457bf561">2022.acl-short.60.software.zip</attachment>
       <bibkey>laverghetta-jr-licato-2022-developmental</bibkey>
@@ -650,7 +710,8 @@
       <author><first>Rahil</first><last>Parikh</last></author>
       <author><first>Christophe</first><last>Dupuy</last></author>
       <author><first>Rahul</first><last>Gupta</last></author>
-      <abstract>Natural Language Understanding (NLU) models can be trained on sensitive information such as phone numbers, zip-codes etc. Recent literature has focused on Model Inversion Attacks (ModIvA) that can extract training data from model parameters. In this work, we present a version of such an attack by extracting canaries inserted in NLU training data. In the attack, an adversary with open-box access to the model reconstructs the canaries contained in the model's training set. We evaluate our approach by performing text completion on canaries and demonstrate that by using the prefix (non-sensitive) tokens of the canary, we can generate the full canary. As an example, our attack is able to reconstruct a four digit code in the training dataset of the NLU model with a probability of 0.5 in its best configuration. As countermeasures, we identify several defense mechanisms that, when combined, effectively eliminate the risk of ModIvA in our experiments.</abstract>
+      <pages>552-560</pages>
+      <abstract>Natural Language Understanding (NLU) models can be trained on sensitive information such as phone numbers, zip-codes etc. Recent literature has focused on Model Inversion Attacks (ModIvA) that can extract training data from model parameters. In this work, we present a version of such an attack by extracting canaries inserted in NLU training data. In the attack, an adversary with open-box access to the model reconstructs the canaries contained in the model’s training set. We evaluate our approach by performing text completion on canaries and demonstrate that by using the prefix (non-sensitive) tokens of the canary, we can generate the full canary. As an example, our attack is able to reconstruct a four digit code in the training dataset of the NLU model with a probability of 0.5 in its best configuration. As countermeasures, we identify several defense mechanisms that, when combined, effectively eliminate the risk of ModIvA in our experiments.</abstract>
       <url hash="62fcb4e4">2022.acl-short.61</url>
       <bibkey>parikh-etal-2022-canary</bibkey>
     </paper>
@@ -663,15 +724,17 @@
       <author><first>Varun</first><last>Kumar</last></author>
       <author><first>Jwala</first><last>Dhamala</last></author>
       <author><first>Aram</first><last>Galstyan</last></author>
+      <pages>561-570</pages>
       <abstract>Multiple metrics have been introduced to measure fairness in various natural language processing tasks. These metrics can be roughly categorized into two categories: 1) extrinsic metrics for evaluating fairness in downstream applications and 2) intrinsic metrics for estimating fairness in upstream contextualized language representation models. In this paper, we conduct an extensive correlation study between intrinsic and extrinsic metrics across bias notions using 19 contextualized language models. We find that intrinsic and extrinsic metrics do not necessarily correlate in their original setting, even when correcting for metric misalignments, noise in evaluation datasets, and confounding factors such as experiment configuration for extrinsic metrics.</abstract>
       <url hash="d9b5d60d">2022.acl-short.62</url>
       <bibkey>cao-etal-2022-intrinsic</bibkey>
     </paper>
     <paper id="63">
-      <title>Sequence-to-sequence AMR Parsing with Ancestor Information</title>
+      <title>Sequence-to-sequence <fixed-case>AMR</fixed-case> Parsing with Ancestor Information</title>
       <author><first>Chen</first><last>Yu</last></author>
       <author><first>Daniel</first><last>Gildea</last></author>
-      <abstract>AMR parsing is the task that maps a sentence to an AMR semantic graph automatically. The difficulty comes from generating the complex graph structure. The previous state-of-the-art method translates the AMR graph into a sequence, then directly fine-tunes a pretrained sequence-to-sequence Transformer model (BART). However, purely treating the graph as a sequence does not take advantage of structural information about the graph. In this paper, we design several strategies to add the important \textit{ancestor information} into the Transformer Decoder. Our experiments show that we can improve the performance for both AMR 2.0 and AMR 3.0 dataset and achieve new state-of-the-art results.</abstract>
+      <pages>571-577</pages>
+      <abstract>AMR parsing is the task that maps a sentence to an AMR semantic graph automatically. The difficulty comes from generating the complex graph structure. The previous state-of-the-art method translates the AMR graph into a sequence, then directly fine-tunes a pretrained sequence-to-sequence Transformer model (BART). However, purely treating the graph as a sequence does not take advantage of structural information about the graph. In this paper, we design several strategies to add the important <i>ancestor information</i> into the Transformer Decoder. Our experiments show that we can improve the performance for both AMR 2.0 and AMR 3.0 dataset and achieve new state-of-the-art results.</abstract>
       <url hash="65085794">2022.acl-short.63</url>
       <bibkey>yu-gildea-2022-sequence</bibkey>
     </paper>
@@ -680,31 +743,34 @@
       <author><first>Miryam</first><last>De Lhoneux</last></author>
       <author><first>Sheng</first><last>Zhang</last></author>
       <author><first>Anders</first><last>Søgaard</last></author>
-      <abstract>Large multilingual pretrained language models such as mBERT and XLM-RoBERTa have been found to be surprisingly effective for cross-lingual transfer of syntactic parsing models Wu and Dredze (2019), but only between related languages. However, source and training languages are rarely related, when parsing truly low-resource languages. To close this gap, we adopt a method from multi-task learning, which relies on automated curriculum learning, to dynamically optimize for parsing performance on {\em outlier} languages. We show that this approach is significantly better than uniform and size-proportional sampling in the zero-shot setting.</abstract>
+      <pages>578-587</pages>
+      <abstract>Large multilingual pretrained language models such as mBERT and XLM-RoBERTa have been found to be surprisingly effective for cross-lingual transfer of syntactic parsing models Wu and Dredze (2019), but only between related languages. However, source and training languages are rarely related, when parsing truly low-resource languages. To close this gap, we adopt a method from multi-task learning, which relies on automated curriculum learning, to dynamically optimize for parsing performance on <i>outlier</i> languages. We show that this approach is significantly better than uniform and size-proportional sampling in the zero-shot setting. </abstract>
       <url hash="bfb09cca">2022.acl-short.64</url>
       <bibkey>de-lhoneux-etal-2022-zero</bibkey>
     </paper>
     <paper id="65">
-      <title>PriMock57: A Dataset Of Primary Care Mock Consultations</title>
+      <title><fixed-case>P</fixed-case>ri<fixed-case>M</fixed-case>ock57: A Dataset Of Primary Care Mock Consultations</title>
       <author><first>Alex</first><last>Papadopoulos Korfiatis</last></author>
       <author><first>Francesco</first><last>Moramarco</last></author>
       <author><first>Radmila</first><last>Sarac</last></author>
       <author><first>Aleksandar</first><last>Savkov</last></author>
+      <pages>588-598</pages>
       <abstract>Recent advances in Automatic Speech Recognition (ASR) have made it possible to reliably produce automatic transcripts of clinician-patient conversations. However, access to clinical datasets is heavily restricted due to patient privacy, thus slowing down normal research practices. We detail the development of a public access, high quality dataset comprising of 57 mocked primary care consultations, including audio recordings, their manual utterance-level transcriptions, and the associated consultation notes. Our work illustrates how the dataset can be used as a benchmark for conversational medical ASR as well as consultation note generation from transcripts.</abstract>
       <url hash="cba2e54c">2022.acl-short.65</url>
       <bibkey>papadopoulos-korfiatis-etal-2022-primock57</bibkey>
     </paper>
     <paper id="66">
-      <title>{U}ni{GDD}: {A} Unified Generative Framework for Goal-Oriented Document-Grounded Dialogue</title>
+      <title><fixed-case>U</fixed-case>ni<fixed-case>GDD</fixed-case>: <fixed-case>A</fixed-case> Unified Generative Framework for Goal-Oriented Document-Grounded Dialogue</title>
       <author><first>Chang</first><last>Gao</last></author>
       <author><first>Wenxuan</first><last>Zhang</last></author>
       <author><first>Wai</first><last>Lam</last></author>
+      <pages>599-605</pages>
       <abstract>The goal-oriented document-grounded dialogue aims at responding to the user query based on the dialogue context and supporting document. Existing studies tackle this problem by decomposing it into two sub-tasks: knowledge identification and response generation. However, such pipeline methods would unavoidably suffer from the error propagation issue. This paper proposes to unify these two sub-tasks via sequentially generating the grounding knowledge and the response. We further develop a prompt-connected multi-task learning strategy to model the characteristics and connections of different tasks and introduce linear temperature scheduling to reduce the negative effect of irrelevant document information. Experimental results demonstrate the effectiveness of our framework.</abstract>
       <url hash="fff7c16f">2022.acl-short.66</url>
-      <bibkey>gao-etal-2022-u</bibkey>
+      <bibkey>gao-etal-2022-unigdd</bibkey>
     </paper>
     <paper id="67">
-      <title>DMix: Adaptive Distance-aware Interpolative Mixup</title>
+      <title><fixed-case>DM</fixed-case>ix: Adaptive Distance-aware Interpolative Mixup</title>
       <author><first>Ramit</first><last>Sawhney</last></author>
       <author><first>Megh</first><last>Thakkar</last></author>
       <author><first>Shrey</first><last>Pandit</last></author>
@@ -712,7 +778,8 @@
       <author><first>Di</first><last>Jin</last></author>
       <author><first>Diyi</first><last>Yang</last></author>
       <author><first>Lucie</first><last>Flek</last></author>
-      <abstract>Interpolation-based regularisation methods such as Mixup, which generate virtual training samples, have proven to be effective for various tasks and modalities.We extend Mixup and propose DMix, an adaptive distance-aware interpolative Mixup that selects samples based on their diversity in the embedding space. DMix leverages the hyperbolic space as a similarity measure among input samples for a richer encoded representation.DMix achieves state-of-the-art results on sentence classification over existing data augmentation methods on $8$ benchmark datasets across English, Arabic, Turkish, and Hindi languages while achieving benchmark F1 scores in $3$ times less number of iterations.We probe the effectiveness of DMix in conjunction with various similarity measures and qualitatively analyze the different components.DMix being generalizable, can be applied to various tasks, models and modalities.</abstract>
+      <pages>606-612</pages>
+      <abstract>Interpolation-based regularisation methods such as Mixup, which generate virtual training samples, have proven to be effective for various tasks and modalities.We extend Mixup and propose DMix, an adaptive distance-aware interpolative Mixup that selects samples based on their diversity in the embedding space. DMix leverages the hyperbolic space as a similarity measure among input samples for a richer encoded representation.DMix achieves state-of-the-art results on sentence classification over existing data augmentation methods on 8 benchmark datasets across English, Arabic, Turkish, and Hindi languages while achieving benchmark F1 scores in 3 times less number of iterations.We probe the effectiveness of DMix in conjunction with various similarity measures and qualitatively analyze the different components.DMix being generalizable, can be applied to various tasks, models and modalities.</abstract>
       <url hash="0fc753ba">2022.acl-short.67</url>
       <attachment type="software" hash="d9088b45">2022.acl-short.67.software.zip</attachment>
       <bibkey>sawhney-etal-2022-dmix</bibkey>
@@ -721,19 +788,21 @@
       <title>Sub-Word Alignment is Still Useful: A Vest-Pocket Method for Enhancing Low-Resource Machine Translation</title>
       <author><first>Minhan</first><last>Xu</last></author>
       <author><first>Yu</first><last>Hong</last></author>
+      <pages>613-619</pages>
       <abstract>We leverage embedding duplication between aligned sub-words to extend the Parent-Child transfer learning method, so as to improve low-resource machine translation. We conduct experiments on benchmark datasets of My-En, Id-En and Tr-En translation scenarios. The test results show that our method produces substantial improvements, achieving the BLEU scores of 22.5, 28.0 and 18.1 respectively. In addition, the method is computationally efficient which reduces the consumption of training time by 63.8%, reaching the duration of 1.6 hours when training on a Tesla 16GB P100 GPU. All the models and source codes in the experiments will be made publicly available to support reproducible research.</abstract>
       <url hash="b3432ff7">2022.acl-short.68</url>
       <attachment type="software" hash="e33424fe">2022.acl-short.68.software.zip</attachment>
       <bibkey>xu-hong-2022-sub</bibkey>
     </paper>
     <paper id="69">
-      <title>HYPHEN: Hyperbolic Hawkes Attention For Text Streams</title>
+      <title><fixed-case>HYPHEN</fixed-case>: Hyperbolic <fixed-case>H</fixed-case>awkes Attention For Text Streams</title>
       <author><first>Shivam</first><last>Agarwal</last></author>
       <author><first>Ramit</first><last>Sawhney</last></author>
       <author><first>Sanchit</first><last>Ahuja</last></author>
       <author><first>Ritesh</first><last>Soun</last></author>
       <author><first>Sudheer</first><last>Chava</last></author>
-      <abstract>Analyzing the temporal sequence of texts from sources such as social media, news, and parliamentary debates is a challenging problem as it exhibits time-varying scale-free properties and fine-grained timing irregularities. We propose a Hyperbolic Hawkes Attention Network (HYPHEN), which learns a data-driven hyperbolic space and models irregular powerlaw excitations using a hyperbolic Hawkes process. Through quantitative and exploratory experiments over financial NLP, suicide ideation detection, and political debate analysis we demonstrate HYPHEN's practical applicability for modeling online text sequences in a geometry agnostic manner.</abstract>
+      <pages>620-627</pages>
+      <abstract>Analyzing the temporal sequence of texts from sources such as social media, news, and parliamentary debates is a challenging problem as it exhibits time-varying scale-free properties and fine-grained timing irregularities. We propose a Hyperbolic Hawkes Attention Network (HYPHEN), which learns a data-driven hyperbolic space and models irregular powerlaw excitations using a hyperbolic Hawkes process. Through quantitative and exploratory experiments over financial NLP, suicide ideation detection, and political debate analysis we demonstrate HYPHEN’s practical applicability for modeling online text sequences in a geometry agnostic manner.</abstract>
       <url hash="9fe4d607">2022.acl-short.69</url>
       <attachment type="software" hash="6fdc6607">2022.acl-short.69.software.zip</attachment>
       <bibkey>agarwal-etal-2022-hyphen</bibkey>
@@ -743,16 +812,18 @@
       <author><first>Ramit</first><last>Sawhney</last></author>
       <author><first>Atula</first><last>Neerkaje</last></author>
       <author><first>Manas</first><last>Gaur</last></author>
-      <abstract>Recent studies have shown that social media has increasingly become a platform for users to express suicidal thoughts outside traditional clinical settings. With advances in Natural Language Processing strategies, it is now possible to design automated systems to assess suicide risk. However, such systems may generate uncertain predictions, leading to severe consequences. We hence reformulate suicide risk assessment as a selective prioritized prediction problem over the Columbia Suicide Severity Risk Scale (C-SSRS). We propose SASI, a risk-averse and self-aware transformer-based hierarchical attention classifier, augmented to refrain from making uncertain predictions. We show that SASI is able to refrain from 83\% of incorrect predictions on real-world Reddit data. Furthermore, we discuss the qualitative, practical, and ethical aspects of SASI for suicide risk assessment as a human-in-the-loop framework.</abstract>
+      <pages>628-635</pages>
+      <abstract>Recent studies have shown that social media has increasingly become a platform for users to express suicidal thoughts outside traditional clinical settings. With advances in Natural Language Processing strategies, it is now possible to design automated systems to assess suicide risk. However, such systems may generate uncertain predictions, leading to severe consequences. We hence reformulate suicide risk assessment as a selective prioritized prediction problem over the Columbia Suicide Severity Risk Scale (C-SSRS). We propose SASI, a risk-averse and self-aware transformer-based hierarchical attention classifier, augmented to refrain from making uncertain predictions. We show that SASI is able to refrain from 83% of incorrect predictions on real-world Reddit data. Furthermore, we discuss the qualitative, practical, and ethical aspects of SASI for suicide risk assessment as a human-in-the-loop framework.</abstract>
       <url hash="7f9bf49e">2022.acl-short.70</url>
       <bibkey>sawhney-etal-2022-risk</bibkey>
     </paper>
     <paper id="71">
-      <title>When classifying grammatical role, BERT doesn't care about word order... except when it matters</title>
+      <title>When classifying grammatical role, <fixed-case>BERT</fixed-case> doesn’t care about word order... except when it matters</title>
       <author><first>Isabel</first><last>Papadimitriou</last></author>
       <author><first>Richard</first><last>Futrell</last></author>
       <author><first>Kyle</first><last>Mahowald</last></author>
-      <abstract>Because meaning can often be inferred from lexical semantics alone, word order is often a redundant cue in natural language. For example, the words chopped, chef, and onion are more likely used to convey "The chef chopped the onion," not "The onion chopped the chef." Recent work has shown large language models to be surprisingly word order invariant, but crucially has largely considered natural prototypical inputs, where compositional meaning mostly matches lexical expectations. To overcome this confound, we probe grammatical role representation in English BERT and GPT-2, on instances where lexical expectations are not sufficient, and word order knowledge is necessary for correct classification. Such non-prototypical instances are naturally occurring English sentences with inanimate subjects or animate objects, or sentences where we systematically swap the arguments to make sentences like "The onion chopped the chef". We find that, while early layer embeddings are largely lexical, word order is in fact crucial in defining the later-layer representations of words in semantically non-prototypical positions. Our experiments isolate the effect of word order on the contextualization process, and highlight how models use context in the uncommon, but critical, instances where it matters.</abstract>
+      <pages>636-643</pages>
+      <abstract>Because meaning can often be inferred from lexical semantics alone, word order is often a redundant cue in natural language. For example, the words chopped, chef, and onion are more likely used to convey “The chef chopped the onion,” not “The onion chopped the chef.” Recent work has shown large language models to be surprisingly word order invariant, but crucially has largely considered natural prototypical inputs, where compositional meaning mostly matches lexical expectations. To overcome this confound, we probe grammatical role representation in English BERT and GPT-2, on instances where lexical expectations are not sufficient, and word order knowledge is necessary for correct classification. Such non-prototypical instances are naturally occurring English sentences with inanimate subjects or animate objects, or sentences where we systematically swap the arguments to make sentences like “The onion chopped the chef”. We find that, while early layer embeddings are largely lexical, word order is in fact crucial in defining the later-layer representations of words in semantically non-prototypical positions. Our experiments isolate the effect of word order on the contextualization process, and highlight how models use context in the uncommon, but critical, instances where it matters.</abstract>
       <url hash="9986b5a4">2022.acl-short.71</url>
       <attachment type="software" hash="b23260cc">2022.acl-short.71.software.tgz</attachment>
       <bibkey>papadimitriou-etal-2022-classifying-grammatical</bibkey>
@@ -762,6 +833,7 @@
       <author><first>Meng</first><last>Zhang</last></author>
       <author><first>Liangyou</first><last>Li</last></author>
       <author><first>Qun</first><last>Liu</last></author>
+      <pages>644-650</pages>
       <abstract>Triangular machine translation is a special case of low-resource machine translation where the language pair of interest has limited parallel data, but both languages have abundant parallel data with a pivot language. Naturally, the key to triangular machine translation is the successful exploitation of such auxiliary data. In this work, we propose a transfer-learning-based approach that utilizes all types of auxiliary data. As we train auxiliary source-pivot and pivot-target translation models, we initialize some parameters of the pivot side with a pre-trained language model and freeze them to encourage both translation models to work in the same pivot language space, so that they can be smoothly transferred to the source-target translation model. Experiments show that our approach can outperform previous ones.</abstract>
       <url hash="540f7d04">2022.acl-short.72</url>
       <bibkey>zhang-etal-2022-triangular</bibkey>
@@ -770,6 +842,7 @@
       <title>Can Visual Dialogue Models Do Scorekeeping? Exploring How Dialogue Representations Incrementally Encode Shared Knowledge</title>
       <author><first>Brielen</first><last>Madureira</last></author>
       <author><first>David</first><last>Schlangen</last></author>
+      <pages>651-664</pages>
       <abstract>Cognitively plausible visual dialogue models should keep a mental scoreboard of shared established facts in the dialogue context. We propose a theory-based evaluation method for investigating to what degree models pretrained on the VisDial dataset incrementally build representations that appropriately do scorekeeping. Our conclusion is that the ability to make the distinction between shared and privately known statements along the dialogue is moderately present in the analysed models, but not always incrementally consistent, which may partially be due to the limited need for grounding interactions in the original task.</abstract>
       <url hash="cdd2ef62">2022.acl-short.73</url>
       <attachment type="software" hash="496421c2">2022.acl-short.73.software.zip</attachment>
@@ -780,26 +853,29 @@
       <author><first>Liang</first><last>Chen</last></author>
       <author><first>Runxin</first><last>Xu</last></author>
       <author><first>Baobao</first><last>Chang</last></author>
-      <abstract>Label smoothing and vocabulary sharing are two widely used techniques in neural machine translation models. However, we argue that simply applying both techniques can be conflicting and even leads to sub-optimal performance. When allocating smoothed probability, original label smoothing treats the source-side words that would never appear in the target language equally to the real target-side words, which could bias the translation model. To address this issue, we propose Masked Label Smoothing (MLS), a new mechanism that masks the soft label probability of source-side words to zero. Simple yet effective, MLS manages to better integrate label smoothing with vocabulary sharing. Our extensive experiments show that MLS consistently yields improvement over original label smoothing on different datasets, including bilingual and multilingual translation from both translation quality and model's calibration. Our code is released at https://github.com/PKUnlp-icler/MLS</abstract>
+      <pages>665-671</pages>
+      <abstract>Label smoothing and vocabulary sharing are two widely used techniques in neural machine translation models. However, we argue that simply applying both techniques can be conflicting and even leads to sub-optimal performance. When allocating smoothed probability, original label smoothing treats the source-side words that would never appear in the target language equally to the real target-side words, which could bias the translation model. To address this issue, we propose Masked Label Smoothing (MLS), a new mechanism that masks the soft label probability of source-side words to zero. Simple yet effective, MLS manages to better integrate label smoothing with vocabulary sharing. Our extensive experiments show that MLS consistently yields improvement over original label smoothing on different datasets, including bilingual and multilingual translation from both translation quality and model’s calibration. Our code is released at https://github.com/PKUnlp-icler/MLS</abstract>
       <url hash="2b491c86">2022.acl-short.74</url>
       <attachment type="software" hash="8d6fa45e">2022.acl-short.74.software.zip</attachment>
       <bibkey>chen-etal-2022-focus</bibkey>
     </paper>
     <paper id="75">
       <title>Contrastive Learning-Enhanced Nearest Neighbor Mechanism for Multi-Label Text Classification</title>
-      <author><first>Xi'ao</first><last>Su</last></author>
+      <author><first>Xi’ao</first><last>Su</last></author>
       <author><first>Ran</first><last>Wang</last></author>
       <author><first>Xinyu</first><last>Dai</last></author>
+      <pages>672-679</pages>
       <abstract>Multi-Label Text Classification (MLTC) is a fundamental and challenging task in natural language processing. Previous studies mainly focus on learning text representation and modeling label correlation but neglect the rich knowledge from the existing similar instances when predicting labels of a specific text. To make up for this oversight, we propose a k nearest neighbor (kNN) mechanism which retrieves several neighbor instances and interpolates the model output with their labels. Moreover, we design a multi-label contrastive learning objective that makes the model aware of the kNN classification process and improves the quality of the retrieved neighbors while inference. Extensive experiments show that our method can bring consistent and significant performance improvement to multiple MLTC models including the state-of-the-art pretrained and non-pretrained ones.</abstract>
       <url hash="e7cd1262">2022.acl-short.75</url>
       <bibkey>su-etal-2022-contrastive</bibkey>
     </paper>
     <paper id="76">
-      <title>NoisyTune: A Little Noise Can Help You Finetune Pretrained Language Models Better</title>
+      <title><fixed-case>N</fixed-case>oisy<fixed-case>T</fixed-case>une: A Little Noise Can Help You Finetune Pretrained Language Models Better</title>
       <author><first>Chuhan</first><last>Wu</last></author>
       <author><first>Fangzhao</first><last>Wu</last></author>
       <author><first>Tao</first><last>Qi</last></author>
       <author><first>Yongfeng</first><last>Huang</last></author>
+      <pages>680-685</pages>
       <abstract>Effectively finetuning pretrained language models (PLMs) is critical for their success in downstream tasks. However, PLMs may have risks in overfitting the pretraining tasks and data, which usually have gap with the target downstream tasks. Such gap may be difficult for existing PLM finetuning methods to overcome and lead to suboptimal performance. In this paper, we propose a very simple yet effective method named NoisyTune to help better finetune PLMs on downstream tasks by adding some noise to the parameters of PLMs before fine-tuning. More specifically, we propose a matrix-wise perturbing method which adds different uniform noises to different parameter matrices based on their standard deviations. In this way, the varied characteristics of different types of parameters in PLMs can be considered. Extensive experiments on both GLUE English benchmark and XTREME multilingual benchmark show NoisyTune can consistently empower the finetuning of different PLMs on different downstream tasks.</abstract>
       <url hash="96e1ae36">2022.acl-short.76</url>
       <bibkey>wu-etal-2022-noisytune</bibkey>
@@ -808,15 +884,17 @@
       <title>Adjusting the Precision-Recall Trade-Off with Align-and-Predict Decoding for Grammatical Error Correction</title>
       <author><first>Xin</first><last>Sun</last></author>
       <author><first>Houfeng</first><last>Wang</last></author>
-      <abstract>Modern writing assistance applications are always equipped with a Grammatical Error Correction (GEC) model to correct errors in user-entered sentences. Different scenarios have varying requirements for correction behavior, e.g., performing more precise corrections (high precision) or providing more candidates for users (high recall). However, previous works adjust such trade-off only for sequence labeling approaches. In this paper, we propose a simple yet effective counterpart -- Align-and-Predict Decoding (APD) for the most popular sequence-to-sequence models to offer more flexibility for the precision-recall trade-off. During inference, APD aligns the already generated sequence with input and adjusts scores of the following tokens. Experiments in both English and Chinese GEC benchmarks show that our approach not only adapts a single model to precision-oriented and recall-oriented inference, but also maximizes its potential to achieve state-of-the-art results. Our code is available at https://github.com/AutoTemp/Align-and-Predict.</abstract>
+      <pages>686-693</pages>
+      <abstract>Modern writing assistance applications are always equipped with a Grammatical Error Correction (GEC) model to correct errors in user-entered sentences. Different scenarios have varying requirements for correction behavior, e.g., performing more precise corrections (high precision) or providing more candidates for users (high recall). However, previous works adjust such trade-off only for sequence labeling approaches. In this paper, we propose a simple yet effective counterpart – Align-and-Predict Decoding (APD) for the most popular sequence-to-sequence models to offer more flexibility for the precision-recall trade-off. During inference, APD aligns the already generated sequence with input and adjusts scores of the following tokens. Experiments in both English and Chinese GEC benchmarks show that our approach not only adapts a single model to precision-oriented and recall-oriented inference, but also maximizes its potential to achieve state-of-the-art results. Our code is available at https://github.com/AutoTemp/Align-and-Predict.</abstract>
       <url hash="0da86cd0">2022.acl-short.77</url>
       <bibkey>sun-wang-2022-adjusting</bibkey>
     </paper>
     <paper id="78">
-      <title>On the Effect of Isotropy on VAE Representations of Text</title>
+      <title>On the Effect of Isotropy on <fixed-case>VAE</fixed-case> Representations of Text</title>
       <author><first>Lan</first><last>Zhang</last></author>
       <author><first>Wray</first><last>Buntine</last></author>
       <author><first>Ehsan</first><last>Shareghi</last></author>
+      <pages>694-701</pages>
       <abstract>Injecting desired geometric properties into text representations has attracted a lot of attention. A property that has been argued for, due to its better utilisation of representation space, is isotropy. In parallel, VAEs have been successful in areas of NLP, but are known for their sub-optimal utilisation of the representation space. To address an aspect of this, we investigate the impact of injecting isotropy during training of VAEs. We achieve this by using an isotropic Gaussian posterior (IGP) instead of the ellipsoidal Gaussian posterior. We illustrate that IGP effectively encourages isotropy in the representations, inducing a more discriminative latent space. Compared to vanilla VAE, this translates into a much better classification performance, robustness to input perturbation, and generative behavior. Additionally, we offer insights about the representational properties encouraged by IGP.</abstract>
       <url hash="967c61c1">2022.acl-short.78</url>
       <attachment type="software" hash="97f5638a">2022.acl-short.78.software.zip</attachment>
@@ -827,15 +905,17 @@
       <author><first>Hyunji</first><last>Park</last></author>
       <author><first>Yogarshi</first><last>Vyas</last></author>
       <author><first>Kashif</first><last>Shah</last></author>
+      <pages>702-709</pages>
       <abstract>Several methods have been proposed for classifying long textual documents using Transformers. However, there is a lack of consensus on a benchmark to enable a fair comparison among different approaches. In this paper, we provide a comprehensive evaluation of the relative efficacy measured against various baselines and diverse datasets — both in terms of accuracy as well as time and space overheads. Our datasets cover binary, multi-class, and multi-label classification tasks and represent various ways information is organized in a long text (e.g. information that is critical to making the classification decision is at the beginning or towards the end of the document). Our results show that more complex models often fail to outperform simple baselines and yield inconsistent performance across datasets. These findings emphasize the need for future studies to consider comprehensive baselines and datasets that better represent the task of long document classification to develop robust models.</abstract>
       <url hash="01692739">2022.acl-short.79</url>
       <bibkey>park-etal-2022-efficient</bibkey>
     </paper>
     <paper id="80">
-      <title>Rewarding Semantic Similarity under Optimized Alignments for AMR-to-Text Generation</title>
+      <title>Rewarding Semantic Similarity under Optimized Alignments for <fixed-case>AMR</fixed-case>-to-Text Generation</title>
       <author><first>Lisa</first><last>Jin</last></author>
       <author><first>Daniel</first><last>Gildea</last></author>
-      <abstract>A common way to combat exposure bias is by applying scores from evaluation metrics as rewards in reinforcement learning (RL). Metrics leveraging contextualized embeddings appear more flexible than their n-gram matching counterparts and thus ideal as training rewards. However, metrics such as BERTScore greedily align candidate and reference tokens, which can allow system outputs to receive excess credit relative to a reference. Furthermore, past approaches featuring semantic similarity rewards suffer from repetitive outputs and overfitting. We address these issues by proposing metrics that replace the greedy alignments in BERTScore with optimized ones. We compute them on a model's trained token embeddings to prevent domain mismatch. Our model optimizing discrete alignment metrics consistently outperforms cross-entropy and BLEU reward baselines on AMR-to-text generation. In addition, we find that this approach enjoys stable training compared to a non-RL setting.</abstract>
+      <pages>710-715</pages>
+      <abstract>A common way to combat exposure bias is by applying scores from evaluation metrics as rewards in reinforcement learning (RL). Metrics leveraging contextualized embeddings appear more flexible than their n-gram matching counterparts and thus ideal as training rewards. However, metrics such as BERTScore greedily align candidate and reference tokens, which can allow system outputs to receive excess credit relative to a reference. Furthermore, past approaches featuring semantic similarity rewards suffer from repetitive outputs and overfitting. We address these issues by proposing metrics that replace the greedy alignments in BERTScore with optimized ones. We compute them on a model’s trained token embeddings to prevent domain mismatch. Our model optimizing discrete alignment metrics consistently outperforms cross-entropy and BLEU reward baselines on AMR-to-text generation. In addition, we find that this approach enjoys stable training compared to a non-RL setting.</abstract>
       <url hash="646a9d8f">2022.acl-short.80</url>
       <bibkey>jin-gildea-2022-rewarding</bibkey>
     </paper>
@@ -844,24 +924,27 @@
       <author><first>Md Mosharaf</first><last>Hossain</last></author>
       <author><first>Dhivya</first><last>Chinnappa</last></author>
       <author><first>Eduardo</first><last>Blanco</last></author>
+      <pages>716-723</pages>
       <abstract>This paper analyzes negation in eight popular corpora spanning six natural language understanding tasks. We show that these corpora have few negations compared to general-purpose English, and that the few negations in them are often unimportant. Indeed, one can often ignore negations and still make the right predictions. Additionally, experimental results show that state-of-the-art transformers trained with these corpora obtain substantially worse results with instances that contain negation, especially if the negations are important. We conclude that new corpora accounting for negation are needed to solve natural language understanding tasks when negation is present.</abstract>
       <url hash="3aa2a1dd">2022.acl-short.81</url>
       <attachment type="software" hash="3a2e892c">2022.acl-short.81.software.zip</attachment>
       <bibkey>hossain-etal-2022-analysis</bibkey>
     </paper>
     <paper id="82">
-      <title>{P}rimum {N}on {N}ocere: {B}efore working with {I}ndigenous data, the {ACL} must confront ongoing colonialism</title>
+      <title><fixed-case>P</fixed-case>rimum <fixed-case>N</fixed-case>on <fixed-case>N</fixed-case>ocere: <fixed-case>B</fixed-case>efore working with <fixed-case>I</fixed-case>ndigenous data, the <fixed-case>ACL</fixed-case> must confront ongoing colonialism</title>
       <author><first>Lane</first><last>Schwartz</last></author>
+      <pages>724-731</pages>
       <abstract>In this paper, we challenge the ACL community to reckon with historical and ongoing colonialism by adopting a set of ethical obligations and best practices drawn from the Indigenous studies literature. While the vast majority of NLP research focuses on a very small number of very high resource languages (English, Chinese, etc), some work has begun to engage with Indigenous languages. No research involving Indigenous language data can be considered ethical without first acknowledging that Indigenous languages are not merely very low resource languages. The toxic legacy of colonialism permeates every aspect of interaction between Indigenous communities and outside researchers. To this end, we propose that the ACL draft and adopt an ethical framework for NLP researchers and computational linguists wishing to engage in research involving Indigenous languages.</abstract>
       <url hash="062d286d">2022.acl-short.82</url>
-      <bibkey>schwartz-2022-p</bibkey>
+      <bibkey>schwartz-2022-primum</bibkey>
     </paper>
     <paper id="83">
-      <title>Unsupervised multiple-choice question generation for out-of-domain Q&amp;A fine-tuning</title>
+      <title>Unsupervised multiple-choice question generation for out-of-domain <fixed-case>Q</fixed-case>&amp;<fixed-case>A</fixed-case> fine-tuning</title>
       <author><first>Guillaume</first><last>Le Berre</last></author>
       <author><first>Christophe</first><last>Cerisara</last></author>
       <author><first>Philippe</first><last>Langlais</last></author>
       <author><first>Guy</first><last>Lapalme</last></author>
+      <pages>732-738</pages>
       <abstract>Pre-trained models have shown very good performances on a number of question answering benchmarks especially when fine-tuned on multiple question answering datasets at once. In this work, we propose an approach for generating a fine-tuning dataset thanks to a rule-based algorithm that generates questions and answers from unannotated sentences. We show that the state-of-the-art model UnifiedQA can greatly benefit from such a system on a multiple-choice benchmark about physics, biology and chemistry it has never been trained on. We further show that improved performances may be obtained by selecting the most challenging distractors (wrong answers), with a dedicated ranker based on a pretrained RoBERTa model.</abstract>
       <url hash="03a7719d">2022.acl-short.83</url>
       <attachment type="software" hash="f57c82e4">2022.acl-short.83.software.zip</attachment>
@@ -871,7 +954,8 @@
       <title>Can a Transformer Pass the Wug Test? Tuning Copying Bias in Neural Morphological Inflection Models</title>
       <author><first>Ling</first><last>Liu</last></author>
       <author><first>Mans</first><last>Hulden</last></author>
-      <abstract>Deep learning sequence models have been successful with morphological inflection generation. The SIGMORPHON shared task results in the past several years indicate that such models can perform well, but only if the training data covers a good amount of different lemmata, or if the lemmata to be inflected at test time have also been seen in training, as has indeed been largely the case in these tasks. Surprisingly, we find that standard models such as the Transformer almost completely fail at generalizing inflection patterns when trained on a limited number of lemmata and asked to inflect previously unseen lemmata---i.e. under ``wug test''-like circumstances. This is true even though the actual number of training examples is very large. While established data augmentation techniques can be employed to alleviate this shortcoming by introducing a copying bias through hallucinating synthetic new word forms using the alphabet in the language at hand, our experiment results show that, to be more effective, the hallucination process needs to pay attention to substrings of syllable-like length rather than individual characters.</abstract>
+      <pages>739-749</pages>
+      <abstract>Deep learning sequence models have been successful with morphological inflection generation. The SIGMORPHON shared task results in the past several years indicate that such models can perform well, but only if the training data covers a good amount of different lemmata, or if the lemmata to be inflected at test time have also been seen in training, as has indeed been largely the case in these tasks. Surprisingly, we find that standard models such as the Transformer almost completely fail at generalizing inflection patterns when trained on a limited number of lemmata and asked to inflect previously unseen lemmata—i.e. under “wug test”-like circumstances. This is true even though the actual number of training examples is very large. While established data augmentation techniques can be employed to alleviate this shortcoming by introducing a copying bias through hallucinating synthetic new word forms using the alphabet in the language at hand, our experiment results show that, to be more effective, the hallucination process needs to pay attention to substrings of syllable-like length rather than individual characters.</abstract>
       <url hash="9e813d49">2022.acl-short.84</url>
       <attachment type="software" hash="881c783e">2022.acl-short.84.software.zip</attachment>
       <bibkey>liu-hulden-2022-transformer</bibkey>
@@ -882,6 +966,7 @@
       <author><first>Don</first><last>Tuggener</last></author>
       <author><first>Pius</first><last>Von Däniken</last></author>
       <author><first>Mark</first><last>Cieliebak</last></author>
+      <pages>750-761</pages>
       <abstract>This paper introduces an adversarial method to stress-test trained metrics for the evaluation of conversational dialogue systems. The method leverages Reinforcement Learning to find response strategies that elicit optimal scores from the trained metrics. We apply our method to test recently proposed trained metrics. We find that they all are susceptible to giving high scores to responses generated by rather simple and obviously flawed strategies that our method converges on. For instance, simply copying parts of the conversation context to form a response yields competitive scores or even outperforms responses written by humans.</abstract>
       <url hash="511bb8fe">2022.acl-short.85</url>
       <attachment type="software" hash="6156e3b3">2022.acl-short.85.software.zip</attachment>
@@ -895,13 +980,15 @@
       <author><first>Pei</first><last>Ke</last></author>
       <author><first>Xiaoyan</first><last>Zhu</last></author>
       <author><first>Minlie</first><last>Huang</last></author>
-      <abstract>Distinct is a widely used automatic metric for evaluating diversity in language generation tasks.However, we observed that the original approach to calculating distinct scores has evident biases that tend to assign higher penalties to longer sequences. We refine the calculation of distinct scores by scaling the number of distinct tokens based on their expectations. We provide both empirical and theoretical evidence to show that our method effectively removes the biases existing in the original distinct score. Our experiments show that our proposed metric, \textit{Expectation-Adjusted Distinct (EAD)}, correlates better with human judgment in evaluating response diversity.To assist future research, we provide an example implementation at \url{https://github.com/lsy641/Expectation-Adjusted-Distinct}.</abstract>
+      <pages>762-770</pages>
+      <abstract>Distinct is a widely used automatic metric for evaluating diversity in language generation tasks.However, we observed that the original approach to calculating distinct scores has evident biases that tend to assign higher penalties to longer sequences. We refine the calculation of distinct scores by scaling the number of distinct tokens based on their expectations. We provide both empirical and theoretical evidence to show that our method effectively removes the biases existing in the original distinct score. Our experiments show that our proposed metric, <i>Expectation-Adjusted Distinct (EAD)</i>, correlates better with human judgment in evaluating response diversity.To assist future research, we provide an example implementation at <url>https://github.com/lsy641/Expectation-Adjusted-Distinct</url>.</abstract>
       <url hash="1403efc8">2022.acl-short.86</url>
       <bibkey>liu-etal-2022-rethinking</bibkey>
     </paper>
     <paper id="87">
       <title>How reparametrization trick broke differentially-private text representation learning</title>
       <author><first>Ivan</first><last>Habernal</last></author>
+      <pages>771-777</pages>
       <abstract>As privacy gains traction in the NLP community, researchers have started adopting various approaches to privacy-preserving methods. One of the favorite privacy frameworks, differential privacy (DP), is perhaps the most compelling thanks to its fundamental theoretical guarantees. Despite the apparent simplicity of the general concept of differential privacy, it seems non-trivial to get it right when applying it to NLP. In this short paper, we formally analyze several recent NLP papers proposing text representation learning using DPText (Beigi et al., 2019a,b; Alnasser et al., 2021; Beigi et al., 2021) and reveal their false claims of being differentially private. Furthermore, we also show a simple yet general empirical sanity check to determine whether a given implementation of a DP mechanism almost certainly violates the privacy loss guarantees. Our main goal is to raise awareness and help the community understand potential pitfalls of applying differential privacy to text representation learning.</abstract>
       <url hash="a4b9841c">2022.acl-short.87</url>
       <attachment type="software" hash="4ef18285">2022.acl-short.87.software.zip</attachment>
@@ -914,16 +1001,18 @@
       <author><first>Yiwei</first><last>Jiang</last></author>
       <author><first>Thomas</first><last>Demeester</last></author>
       <author><first>Chris</first><last>Develder</last></author>
+      <pages>778-784</pages>
       <abstract>We consider the task of document-level entity linking (EL), where it is important to make consistent decisions for entity mentions over the full document jointly. We aim to leverage explicit “connections” among mentions within the document itself: we propose to join EL and coreference resolution (coref) in a single structured prediction task over directed trees and use a globally normalized model to solve it. This contrasts with related works where two separate models are trained for each of the tasks and additional logic is required to merge the outputs. Experimental results on two datasets show a boost of up to +5% F1-score on both coref and EL tasks, compared to their standalone counterparts. For a subset of hard cases, with individual mentions lacking the correct EL in their candidate entity list, we obtain a +50% increase in accuracy.</abstract>
       <url hash="c1abe1aa">2022.acl-short.88</url>
       <bibkey>zaporojets-etal-2022-towards</bibkey>
     </paper>
     <paper id="89">
-      <title>A Flexible Multi-Task Model for BERT Serving</title>
+      <title>A Flexible Multi-Task Model for <fixed-case>BERT</fixed-case> Serving</title>
       <author><first>Tianwen</first><last>Wei</last></author>
       <author><first>Jianwei</first><last>Qi</last></author>
       <author><first>Shenghuan</first><last>He</last></author>
-      <abstract>We present an efficient BERT-based multi-task (MT) framework that is particularly suitable for iterative and incremental development of the tasks. The proposed framework is based on the idea of partial fine-tuning, i.e. only fine-tune some top layers of BERT while keep the other layers frozen. For each task, we train independently a single-task (ST) model using partial fine-tuning. Then we compress the task-specific layers in each ST model using knowledge distillation. Those compressed ST models are finally merged into one MT model so that the frozen layers of the former are shared across the tasks. We exemplify our approach on eight GLUE tasks, demonstrating that it is able to achieve 99.6\% of the performance of the full fine-tuning method, while reducing up to two thirds of its overhead.</abstract>
+      <pages>785-796</pages>
+      <abstract>We present an efficient BERT-based multi-task (MT) framework that is particularly suitable for iterative and incremental development of the tasks. The proposed framework is based on the idea of partial fine-tuning, i.e. only fine-tune some top layers of BERT while keep the other layers frozen. For each task, we train independently a single-task (ST) model using partial fine-tuning. Then we compress the task-specific layers in each ST model using knowledge distillation. Those compressed ST models are finally merged into one MT model so that the frozen layers of the former are shared across the tasks. We exemplify our approach on eight GLUE tasks, demonstrating that it is able to achieve 99.6% of the performance of the full fine-tuning method, while reducing up to two thirds of its overhead.</abstract>
       <url hash="f7657517">2022.acl-short.89</url>
       <bibkey>wei-etal-2022-flexible</bibkey>
     </paper>
@@ -932,26 +1021,29 @@
       <author><first>Nicholas</first><last>Tomlin</last></author>
       <author><first>Andre</first><last>He</last></author>
       <author><first>Dan</first><last>Klein</last></author>
+      <pages>797-807</pages>
       <abstract>We present a new dataset containing 10K human-annotated games of Go and show how these natural language annotations can be used as a tool for model interpretability. Given a board state and its associated comment, our approach uses linear probing to predict mentions of domain-specific terms (e.g., ko, atari) from the intermediate state representations of game-playing agents like AlphaGo Zero. We find these game concepts are nontrivially encoded in two distinct policy networks, one trained via imitation learning and another trained via reinforcement learning. Furthermore, mentions of domain-specific terms are most easily predicted from the later layers of both models, suggesting that these policy networks encode high-level abstractions similar to those used in the natural language annotations.</abstract>
       <url hash="d4933fb5">2022.acl-short.90</url>
       <attachment type="software" hash="af80e601">2022.acl-short.90.software.zip</attachment>
       <bibkey>tomlin-etal-2022-understanding</bibkey>
     </paper>
     <paper id="91">
-      <title>Code Synonyms Do Matter: Multiple Synonyms Matching Network for Automatic ICD Coding</title>
+      <title>Code Synonyms Do Matter: Multiple Synonyms Matching Network for Automatic <fixed-case>ICD</fixed-case> Coding</title>
       <author><first>Zheng</first><last>Yuan</last></author>
       <author><first>Chuanqi</first><last>Tan</last></author>
       <author><first>Songfang</first><last>Huang</last></author>
+      <pages>808-814</pages>
       <abstract>Automatic ICD coding is defined as assigning disease codes to electronic medical records (EMRs).Existing methods usually apply label attention with code representations to match related text snippets.Unlike these works that model the label with the code hierarchy or description, we argue that the code synonyms can provide more comprehensive knowledge based on the observation that the code expressions in EMRs vary from their descriptions in ICD. By aligning codes to concepts in UMLS, we collect synonyms of every code. Then, we propose a multiple synonyms matching network to leverage synonyms for better code representation learning, and finally help the code classification. Experiments on the MIMIC-III dataset show that our proposed method outperforms previous state-of-the-art methods.</abstract>
       <url hash="bb6430d9">2022.acl-short.91</url>
       <attachment type="software" hash="55e42695">2022.acl-short.91.software.zip</attachment>
       <bibkey>yuan-etal-2022-code</bibkey>
     </paper>
     <paper id="92">
-      <title>CoDA21: Evaluating Language Understanding Capabilities of NLP Models With Context-Definition Alignment</title>
+      <title><fixed-case>C</fixed-case>o<fixed-case>DA</fixed-case>21: Evaluating Language Understanding Capabilities of <fixed-case>NLP</fixed-case> Models With Context-Definition Alignment</title>
       <author><first>Lütfi Kerem</first><last>Senel</last></author>
       <author><first>Timo</first><last>Schick</last></author>
       <author><first>Hinrich</first><last>Schuetze</last></author>
+      <pages>815-824</pages>
       <abstract>Pretrained language models (PLMs) have achieved superhuman performance on many benchmarks, creating a need for harder tasks. We introduce CoDA21 (Context Definition Alignment), a challenging benchmark that measures natural language understanding (NLU) capabilities of PLMs: Given a definition and a context each for k words, but not the words themselves, the task is to align the k definitions with the k contexts. CoDA21 requires a deep understanding of contexts and definitions, including complex inference and world knowledge. We find that there is a large gap between human and PLM performance, suggesting that CoDA21 measures an aspect of NLU that is not sufficiently covered in existing benchmarks.</abstract>
       <url hash="330de818">2022.acl-short.92</url>
       <bibkey>senel-etal-2022-coda21</bibkey>
@@ -961,6 +1053,7 @@
       <author><first>Katerina</first><last>Margatina</last></author>
       <author><first>Loic</first><last>Barrault</last></author>
       <author><first>Nikolaos</first><last>Aletras</last></author>
+      <pages>825-836</pages>
       <abstract>Recent active learning (AL) approaches in Natural Language Processing (NLP) proposed using off-the-shelf pretrained language models (LMs). In this paper, we argue that these LMs are not adapted effectively to the downstream task during AL and we explore ways to address this issue. We suggest to first adapt the pretrained LM to the target task by continuing training with all the available unlabeled data and then use it for AL. We also propose a simple yet effective fine-tuning method to ensure that the adapted LM is properly trained in both low and high resource scenarios during AL. Our experiments demonstrate that our approach provides substantial data efficiency improvements compared to the standard fine-tuning approach, suggesting that a poor training strategy can be catastrophic for AL.</abstract>
       <url hash="055172b5">2022.acl-short.93</url>
       <bibkey>margatina-etal-2022-importance</bibkey>
@@ -973,16 +1066,18 @@
       <author><first>Andy</first><last>Coenen</last></author>
       <author><first>Chris</first><last>Callison-Burch</last></author>
       <author><first>Jason</first><last>Wei</last></author>
-      <abstract>In this paper, we leverage large language models (LLMs) to perform zero-shot text style transfer. We present a prompting method that we call augmented zero-shot learning, which frames style transfer as a sentence rewriting task and requires only a natural language instruction, without model fine-tuning or exemplars in the target style. Augmented zero-shot learning is simple and demonstrates promising results not just on standard style transfer tasks such as sentiment, but also on arbitrary transformations such as 'make this melodramatic' or 'insert a metaphor.'</abstract>
+      <pages>837-848</pages>
+      <abstract>In this paper, we leverage large language models (LLMs) to perform zero-shot text style transfer. We present a prompting method that we call augmented zero-shot learning, which frames style transfer as a sentence rewriting task and requires only a natural language instruction, without model fine-tuning or exemplars in the target style. Augmented zero-shot learning is simple and demonstrates promising results not just on standard style transfer tasks such as sentiment, but also on arbitrary transformations such as ‘make this melodramatic’ or ‘insert a metaphor.’</abstract>
       <url hash="43dd3351">2022.acl-short.94</url>
       <attachment type="software" hash="46605c32">2022.acl-short.94.software.zip</attachment>
       <bibkey>reif-etal-2022-recipe</bibkey>
     </paper>
     <paper id="95">
-      <title>DiS-ReX: A Multilingual Dataset for Distantly Supervised Relation Extraction</title>
+      <title><fixed-case>D</fixed-case>i<fixed-case>S</fixed-case>-<fixed-case>R</fixed-case>e<fixed-case>X</fixed-case>: A Multilingual Dataset for Distantly Supervised Relation Extraction</title>
       <author><first>Abhyuday</first><last>Bhartiya</last></author>
       <author><first>Kartikeya</first><last>Badola</last></author>
       <author><first>Mausam</first><last>.</last></author>
+      <pages>849-863</pages>
       <abstract>Our goal is to study the novel task of distant supervision for multilingual relation extraction (Multi DS-RE). Research in Multi DS-RE has remained limited due to the absence of a reliable benchmarking dataset. The only available dataset for this task, RELX-Distant (Köksal and Özgür, 2020), displays several unrealistic characteristics, leading to a systematic overestimation of model performance. To alleviate these concerns, we release a new benchmark dataset for the task, named DiS-ReX. We also modify the widely-used bag attention models using an mBERT encoder and provide the first baseline results on the proposed task. We show that DiS-ReX serves as a more challenging dataset than RELX-Distant, leaving ample room for future research in this domain.</abstract>
       <url hash="935e9f53">2022.acl-short.95</url>
       <attachment type="software" hash="1f5e4a5c">2022.acl-short.95.software.zip</attachment>
@@ -993,7 +1088,8 @@
       <author><first>Omer</first><last>Goldman</last></author>
       <author><first>David</first><last>Guriel</last></author>
       <author><first>Reut</first><last>Tsarfaty</last></author>
-      <abstract>In the domain of Morphology, Inflection is a fundamental and important task that gained a lot of traction in recent years, mostly via SIGMORPHON's shared-tasks.With average accuracy above 0.9 over the scores of all languages, the task is considered mostly solved using relatively generic neural seq2seq models, even with little data provided.In this work, we propose to re-evaluate morphological inflection models by employing harder train-test splits that will challenge the generalization capacity of the models. In particular, as opposed to the na{\"i}ve split-by-form, we propose a split-by-lemma method to challenge the performance on existing benchmarks.Our experiments with the three top-ranked systems on the SIGMORPHON's 2020 shared-task show that the lemma-split presents an average drop of 30 percentage points in macro-average for the 90 languages included. The effect is most significant for low-resourced languages with a drop as high as 95 points, but even high-resourced languages lose about 10 points on average. Our results clearly show that generalizing inflection to unseen lemmas is far from being solved, presenting a simple yet effective means to promote more sophisticated models.</abstract>
+      <pages>864-870</pages>
+      <abstract>In the domain of Morphology, Inflection is a fundamental and important task that gained a lot of traction in recent years, mostly via SIGMORPHON’s shared-tasks.With average accuracy above 0.9 over the scores of all languages, the task is considered mostly solved using relatively generic neural seq2seq models, even with little data provided.In this work, we propose to re-evaluate morphological inflection models by employing harder train-test splits that will challenge the generalization capacity of the models. In particular, as opposed to the naïve split-by-form, we propose a split-by-lemma method to challenge the performance on existing benchmarks.Our experiments with the three top-ranked systems on the SIGMORPHON’s 2020 shared-task show that the lemma-split presents an average drop of 30 percentage points in macro-average for the 90 languages included. The effect is most significant for low-resourced languages with a drop as high as 95 points, but even high-resourced languages lose about 10 points on average. Our results clearly show that generalizing inflection to unseen lemmas is far from being solved, presenting a simple yet effective means to promote more sophisticated models.</abstract>
       <url hash="c96e5703">2022.acl-short.96</url>
       <bibkey>goldman-etal-2022-un</bibkey>
     </paper>
@@ -1004,6 +1100,7 @@
       <author><first>Meng</first><last>Lin</last></author>
       <author><first>Liangjun</first><last>Zang</last></author>
       <author><first>Songlin</first><last>Hu</last></author>
+      <pages>871-875</pages>
       <abstract>Before entering the neural network, a token needs to be converted to its one-hot representation, which is a discrete distribution of the vocabulary. Smoothed representation is the probability of candidate tokens obtained from the pre-trained masked language model, which can be seen as a more informative augmented substitution to the one-hot representation. We propose an efficient data augmentation method, dub as text smoothing, by converting a sentence from its one-hot representation to controllable smoothed representation.We evaluate text smoothing on different datasets in a low-resource regime. Experimental results show that text smoothing outperforms various mainstream data augmentation methods by a substantial margin. Moreover, text smoothing can be combined with these data augmentation methods to achieve better performance.</abstract>
       <url hash="3d1f2f32">2022.acl-short.97</url>
       <bibkey>wu-etal-2022-text</bibkey>
