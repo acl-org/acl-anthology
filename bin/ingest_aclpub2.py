@@ -156,10 +156,15 @@ def add_paper_nums_in_paper_yaml(
     start, end = 1, 0
     for paper in papers:
         paper_id = str(paper['id'])
+        paper_name = paper['file']
         if os.path.exists(f'{ingestion_dir}inputs/papers/{paper_id}.pdf'):
             paper_need_read_path = f'{ingestion_dir}inputs/papers/{paper_id}.pdf'
         elif os.path.exists(f'{ingestion_dir}input/papers/{paper_id}.pdf'):
             paper_need_read_path = f'{ingestion_dir}input/papers/{paper_id}.pdf'
+        elif os.path.exists(f'{ingestion_dir}inputs/papers/{paper_name}'):
+            paper_need_read_path = f'{ingestion_dir}inputs/papers/{paper_name}'
+        elif os.path.exists(f'{ingestion_dir}input/papers/{paper_name}'):
+            paper_need_read_path = f'{ingestion_dir}input/papers/{paper_name}'
         else:
             paper_need_read_path = None
         assert paper_need_read_path, f'{paper_id} path is None'
@@ -364,13 +369,21 @@ def copy_pdf_and_attachment(
     for i, paper in enumerate(papers):
         # copy pdf
         paper_name = paper['file']
+        paper_id = str(paper['id'])
         paper_num = i + 1
         paper_id_full = f'{collection_id}-{volume_name}.{paper_num}'
 
-        pdf_src_path = os.path.join(pdfs_src_dir, paper_name)
+        if os.path.exists(os.path.join(pdfs_src_dir, paper_name)):
+            pdf_src_path = os.path.join(pdfs_src_dir, paper_name)
+        elif os.path.exists(os.path.join(pdfs_src_dir, f'{paper_id}.pdf')):
+            pdf_src_path = os.path.join(pdfs_src_dir, f'{paper_id}.pdf')
+        else:
+            pdf_src_path = None
+        assert pdf_src_path, f'{paper_name} path is None'
         pdf_dest_path = os.path.join(
             pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
         )
+        print(f'pdf_src_path is {pdf_src_path}')
         if dry_run:
             print(f'would\'ve moved {pdf_src_path} to {pdf_dest_path}')
         if not dry_run:
