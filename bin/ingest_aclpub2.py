@@ -387,7 +387,7 @@ def copy_pdf_and_attachment(
             attchs_src_dir = os.path.join(meta['path'], 'attachments')
             assert os.path.exists(
                 attchs_src_dir
-            ), f'paper {i} contains attachments but attachments folder was not found'
+            ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
             attch_src_path = find_paper_attachment(
                 str(os.path.splitext(paper_name)[0]), attchs_src_dir
             )
