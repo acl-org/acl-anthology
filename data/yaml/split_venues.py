@@ -17,4 +17,3 @@ with open("venues.yaml") as f:
         print(venue, venue_data)
         with open(f"venues/{venue}.yaml", "w") as outf:
             yaml.dump(venue_data, Dumper=Dumper, stream=outf)
-
