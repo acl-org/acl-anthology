@@ -8,7 +8,7 @@
   {{ $venue := index .Site.Data.venues .Params.venue }}
   <div>
     {{ range $year := sort (index $venue "years") "value" "desc" }}
-    {{ $volumes := index $venue "volumes_by_year" $year }}
+    {{ $volumes := index $venue "own_volumes_by_year" $year }}
     <div class="row">
       <div class="col-sm-1">
         <h4><a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ $year }}</a></h4>

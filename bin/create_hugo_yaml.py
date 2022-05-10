@@ -142,6 +142,16 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             ]
         volumes[volume.full_id] = data
 
+    def volume_is_venue(volume_id, venue_acronym, venue_letter):
+        """
+        Returns true if volume is part of the venue denoted by "acronym" or "letter".
+        """
+        collection_id, _, _ = deconstruct_anthology_id(volume_id)
+        if is_newstyle_id(collection_id):
+            return collection_id.split(".")[1] == venue_acronym.lower()
+        else:
+            return collection_id[0] == letter
+
     class SortedVolume:
         """Keys for sorting volumes so they appear in a more reasonable order.
         Takes the parent venue being sorted under, along with its letter,
@@ -160,9 +170,20 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         """
 
         def __init__(self, acronym, letter, anth_id):
+            """
+            :param acronym: The venue acronym, e.g., "ACL"
+            :param letter: The old-style letter, e.g., "P"
+            :param anth_id: The collection and volume ID, e.g., "P19" or "2022.acl"
+            """
+
+            # The parent venue is just the acronym (e.g., ACL -> acl)
             self.parent_venue = acronym.lower()
             self.anth_id = anth_id
 
+            # is_parent_venue marks volumes that match their parent, either
+            # the acronym or the letter, depending on whether this is old-style
+            # or new-style volume. Ideally we'd just get the venue from the letter
+            # and then just compare on that; maybe there's a way to do that.
             collection_id, self.volume_id, _ = deconstruct_anthology_id(anth_id)
             if is_newstyle_id(collection_id):
                 self.venue = collection_id.split(".")[1]
@@ -193,6 +214,13 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         data["volumes_by_year"] = {
             year: sorted(
                 filter(lambda k: volumes[k]["year"] == year, data["volumes"]),
+                key=lambda x: SortedVolume(acronym, letter, x),
+            )
+            for year in sorted(data["years"])
+        }
+        data["own_volumes_by_year"] = {
+            year: sorted(
+                filter(lambda k: volumes[k]["year"] == year and volume_is_venue(k, acronym, letter), data["volumes"]),
                 key=lambda x: SortedVolume(acronym, letter, x),
             )
             for year in sorted(data["years"])
