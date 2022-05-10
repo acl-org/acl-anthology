@@ -220,7 +220,11 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         }
         data["own_volumes_by_year"] = {
             year: sorted(
-                filter(lambda k: volumes[k]["year"] == year and volume_is_venue(k, acronym, letter), data["volumes"]),
+                filter(
+                    lambda k: volumes[k]["year"] == year
+                    and volume_is_venue(k, acronym, letter),
+                    data["volumes"],
+                ),
                 key=lambda x: SortedVolume(acronym, letter, x),
             )
             for year in sorted(data["years"])
