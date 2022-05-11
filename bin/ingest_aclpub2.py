@@ -184,6 +184,9 @@ def create_des_path(org_dir_name: str, venue_name: str) -> str:
 
 
 def find_paper_attachment(paper_name: str, attachments_dir: str) -> Optional[str]:
+    '''
+    files in the attachments folder need to be named filename.zip
+    '''
     attachment_path = None
     for filename in glob.glob(attachments_dir + '/*'):
         if os.path.splitext(os.path.split(filename)[1])[0] == paper_name:
@@ -383,10 +386,10 @@ def copy_pdf_and_attachment(
         pdf_dest_path = os.path.join(
             pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
         )
-        print(f'pdf_src_path is {pdf_src_path}')
         if dry_run:
             print(f'would\'ve moved {pdf_src_path} to {pdf_dest_path}')
         if not dry_run:
+           
             maybe_copy(pdf_src_path, pdf_dest_path)
 
         volume[paper_num] = {
@@ -404,6 +407,8 @@ def copy_pdf_and_attachment(
             attch_src_path = find_paper_attachment(
                 str(os.path.splitext(paper_name)[0]), attchs_src_dir
             )
+            print(f'{attch_src_path}')
+            assert attch_src_path, f'{paper_name} attachment path is None'
             _, attch_src_extension = os.path.splitext(attch_src_path)
             type_ = paper['attachments'][0]['type']
             file_name = (
@@ -594,9 +599,9 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
         ingestion_dir, anthology_datadir, venue_index, venue_keys
     )
     papers = parse_paper_yaml(ingestion_dir)
-    print(f'original paper {papers[0]}')
+    # print(f'original paper {papers[0]}')
     papers = add_paper_nums_in_paper_yaml(papers, ingestion_dir)
-    print(f'updated paper {papers[0]}')
+    # print(f'updated paper {papers[0]}')
     (
         volume,
         collection_id,
