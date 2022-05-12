@@ -107,9 +107,11 @@ A removal will result in the following changes to the Anthology:
   The abstract, if present, will be removed.
   No bibliographic files will be generated.
 
-### Note on author changes
+### Note on changes to author metadata
 
-ACL conferences and workshops have a recent policy of disallowing authorship changes after the initial submission.
-Because it is beyond our ability to know which venues have this policy, we require that changes to the list of authors, whether in the PDF or in the metadata, receive permission from the associated conference program chair or workshop/tutorial chair.
-You are responsible for arranging for this permission to be conveyed to us, either via email or on your Github issue.
-Permission is not required for the correction of obvious spelling errors or other typos or for changes to an author's name.
+The Anthology generally accepts corrections to the author metadata that bring it into line with the PDF, which we treat as authoritative.
+Example corrections include name spellings and details (such as initialization or the inclusion of a middle name), changes to author ordering, and even the addition of authors mistakenly left out of the metadata.
+Because it is beyond our ability to keep track of the many differing policies governing conferences and journals whose proceedings we host, it is therefore up to those groups to ensure that PDF authorship is correct when proceedings are delivered to the Anthology for ingestion.
+
+We reserve the right to seek permission or corroboration from the associated conference or workshop program chairs in unusual situations, such as removing or adding an author to a PDF revision.
+In such cases, we will ask authors to arrange for this permission to be conveyed to us, either via email or on a Github issue.
