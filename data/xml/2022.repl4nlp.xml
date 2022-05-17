@@ -22,7 +22,7 @@
       <address>Dublin, Ireland</address>
       <month>May</month>
       <year>2022</year>
-      <url hash="f3a1f5a2">2022.repl4nlp-1</url>
+      <url hash="535a0b47">2022.repl4nlp-1</url>
     </meta>
     <frontmatter>
       <url hash="f3a1f5a2">2022.repl4nlp-1.0</url>
@@ -47,15 +47,6 @@
       <abstract>Simultaneous training of a multi-task learning network on different domains or tasks is not always straightforward. It could lead to inferior performance or generalization compared to the corresponding single-task networks. An effective training scheduling method is deemed necessary to maximize the benefits of multi-task learning. Traditional schedulers follow a heuristic or prefixed strategy, ignoring the relation of the tasks, their sample complexities, and the state of the emergent shared features. We proposed a deep Q-Learning Scheduler (QLS) that monitors the state of the tasks and the shared features using a novel histogram of task uncertainty, and through trial-and-error, learns an optimal policy for task scheduling. Extensive experiments on multi-domain and multi-task settings with various task difficulty profiles have been conducted, the proposed method is benchmarked against other schedulers, its superior performance has been demonstrated, and results are discussed.</abstract>
       <url hash="6efd7595">2022.repl4nlp-1.2</url>
       <bibkey>meshgi-etal-2022-q</bibkey>
-    </paper>
-    <paper id="3">
-      <title><fixed-case>PARADISE</fixed-case>”:" Exploiting Parallel Data for Multilingual Sequence-to-Sequence Pretraining</title>
-      <author><first>Machel</first><last>Reid</last></author>
-      <author><first>Mikel</first><last>Artetxe</last></author>
-      <pages>20-28</pages>
-      <abstract>Despite the success of multilingual sequence-to-sequence pretraining, most existing approaches rely on monolingual corpora and do not make use of the strong cross-lingual signal contained in parallel data. In this paper, we present PARADISE (PARAllel &amp;Denoising Integration in SEquence-to-sequence models), which extends the conventional denoising objective used to train these models by (i) replacing words in the noised sequence according to a multilingual dictionary, and (ii) predicting the reference translation according to a parallel corpus instead of recovering the original sequence. Our experiments on machine translation and cross-lingual natural language inference show an average improvement of 2.0 BLEU points and 6.7 accuracy points from integrating parallel data into pretraining, respectively, obtaining results that are competitive with several popular models at a fraction of their computational cost.</abstract>
-      <url hash="d47bce18">2022.repl4nlp-1.3</url>
-      <bibkey>reid-artetxe-2022-paradise</bibkey>
     </paper>
     <paper id="4">
       <title>When does <fixed-case>CLIP</fixed-case> generalize better than unimodal models? When judging human-centric concepts</title>
@@ -172,15 +163,6 @@
       <url hash="3f26fa80">2022.repl4nlp-1.13</url>
       <bibkey>jun-etal-2022-anna</bibkey>
     </paper>
-    <paper id="14">
-      <title>Isomorphic Cross-lingual Embeddings for Low-Resource Languages</title>
-      <author><first>Sonal</first><last>Sannigrahi</last></author>
-      <author><first>Jesse</first><last>Read</last></author>
-      <pages>133-142</pages>
-      <abstract>Cross-Lingual Word Embeddings (CLWEs) are a key component to transfer linguistic information learnt from higher-resource settings into lower-resource ones. Recent research in cross-lingual representation learning has focused on offline mapping approaches due to their simplicity, computational efficacy, and ability to work with minimal parallel resources. However, they crucially depend on the assumption of embedding spaces being approximately isomorphic i.e. sharing similar geometric structure, which does not hold in practice, leading to poorer performance on low-resource and distant language pairs. In this paper, we introduce a framework to learn CLWEs, without assuming isometry, for low-resource pairs via joint exploitation of a related higher-resource language. In our work, we first pre-align the low-resource and related language embedding spaces using offline methods to mitigate the assumption of isometry. Following this, we use joint training methods to develops CLWEs for the related language and the target embedding space. Finally, we remap the pre-aligned low-resource space and the target space to generate the final CLWEs. We show consistent gains over current methods in both quality and degree of isomorphism, as measured by bilingual lexicon induction (BLI) and eigenvalue similarity respectively, across several language pairs”:" {Nepali, Finnish, Romanian, Gujarati, Hungarian}-English. Lastly, our analysis also points to the relatedness as well as the amount of related language data available as being key factors in determining the quality of embeddings achieved.</abstract>
-      <url hash="7c707740">2022.repl4nlp-1.14</url>
-      <bibkey>sannigrahi-read-2022-isomorphic</bibkey>
-    </paper>
     <paper id="15">
       <title>Video Language Co-Attention with Multimodal Fast-Learning Feature Fusion for <fixed-case>V</fixed-case>ideo<fixed-case>QA</fixed-case></title>
       <author><first>Adnen</first><last>Abdessaied</last></author>
@@ -250,15 +232,6 @@
       <abstract>In this paper we investigate how concreteness and abstractness are represented in word embedding spaces. We use data for English and German, and show that concreteness and abstractness can be determined independently and turn out to be completely opposite directions in the embedding space. Various methods can be used to determine the direction of concreteness, always resulting in roughly the same vector. Though concreteness is a central aspect of the meaning of words and can be detected clearly in embedding spaces, it seems not as easy to subtract or add concreteness to words to obtain other words or word senses like e.g. can be done with a semantic property like gender.</abstract>
       <url hash="d6f70d97">2022.repl4nlp-1.21</url>
       <bibkey>wartena-2022-geometry</bibkey>
-    </paper>
-    <paper id="22">
-      <title><fixed-case>PALBERT</fixed-case>”:" Teaching <fixed-case>ALBERT</fixed-case> to Ponder</title>
-      <author><first>Daniil</first><last>Gavrilov</last></author>
-      <author><first>Nikita</first><last>Balagansky</last></author>
-      <pages>213-220</pages>
-      <abstract>Currently, pre-trained models can be considered the default choice for a wide range of NLP tasks. Despite their SoTA results, there is practical evidence that these models may require a different number of computing layers for different input sequences, since evaluating all layers leads to overconfidence on wrong predictions (namely overthinking). This problem can potentially be solved by implementing adaptive computation time approaches, which were first designed to improve inference speed.Recently proposed PonderNet may be a promising solution for performing an early exit by treating the exit layer’s index as a latent variable. However, the originally proposed exit criterion, relying on sampling from trained posterior distribution on the probability of exiting from i-th layer, introduces major variance in model outputs, significantly reducing the resulting model’s performance.In this paper, we propose Ponder ALBERT (PALBERT) – an improvement to PonderNet with a novel deterministic Q-exit criterion and a revisited model architecture. We compared PALBERT with recent methods for performing an early exit. We observed that the proposed changes can be considered significant improvements on the original PonderNet architecture and outperform PABEE on a wide range of GLUE tasks. In addition, we also performed an in-depth ablation study of the proposed architecture to further understand Lambda layers and their performance.</abstract>
-      <url hash="7b963fa2">2022.repl4nlp-1.22</url>
-      <bibkey>gavrilov-balagansky-2022-palbert</bibkey>
     </paper>
     <paper id="23">
       <title>Towards Improving Selective Prediction Ability of <fixed-case>NLP</fixed-case> Systems</title>
