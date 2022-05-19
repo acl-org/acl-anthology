@@ -28,6 +28,9 @@
       <abstract>Distributional semantic models capture word-level meaning that is useful in many natural language processing tasks and have even been shown to capture cognitive aspects of word meaning. The majority of these models are purely text based, even though the human sensory experience is much richer. In this paper we create visually grounded word embeddings by combining English text and images and compare them to popular text-based methods, to see if visual information allows our model to better capture cognitive aspects of word meaning. Our analysis shows that visually grounded embedding similarities are more predictive of the human reaction times in a large priming experiment than the purely text-based embeddings. The visually grounded embeddings also correlate well with human word similarity ratings. Importantly, in both experiments we show that the grounded embeddings account for a unique portion of explained variance, even when we include text-based embeddings trained on huge corpora. This shows that visual grounding allows our model to capture information that cannot be extracted using text as the only source of information.</abstract>
       <url hash="febc495c">2022.cmcl-1.1</url>
       <bibkey>merkx-etal-2022-seeing</bibkey>
+      <pwccode url="https://github.com/DannyMerkx/speech2image" additional="false">DannyMerkx/speech2image</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
     </paper>
     <paper id="2">
       <title>A Neural Model for Compositional Word Embeddings and Sentence Processing</title>
@@ -48,6 +51,7 @@
       <abstract>Noun-noun compounds (NNCs) occur frequently in the English language. Accurate NNC interpretation, i.e. determining the implicit relationship between the constituents of a NNC, is crucial for the advancement of many natural language processing tasks. Until now, computational NNC interpretation has been limited to approaches involving linguistic representations only. However, much research suggests that grounding linguistic representations in vision or other modalities can increase performance on this and other tasks. Our work is a novel comparison of linguistic and visuo-linguistic representations for the task of NNC interpretation. We frame NNC interpretation as a relation classification task, evaluating on a large, relationally-annotated NNC dataset. We combine distributional word vectors with image vectors to investigate how visual information can help improve NNC interpretation systems. We find that adding visual vectors increases classification performance on our dataset in many cases.</abstract>
       <url hash="70b87ec6">2022.cmcl-1.3</url>
       <bibkey>lang-etal-2022-visually</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
     </paper>
     <paper id="4">
       <title>Less Descriptive yet Discriminative: Quantifying the Properties of Multimodal Referring Utterances via <fixed-case>CLIP</fixed-case></title>
@@ -58,6 +62,7 @@
       <abstract>In this work, we use a transformer-based pre-trained multimodal model, CLIP, to shed light on the mechanisms employed by human speakers when referring to visual entities. In particular, we use CLIP to quantify the degree of descriptiveness (how well an utterance describes an image in isolation) and discriminativeness (to what extent an utterance is effective in picking out a single image among similar images) of human referring utterances within multimodal dialogues. Overall, our results show that utterances become less descriptive over time while their discriminativeness remains unchanged. Through analysis, we propose that this trend could be due to participants relying on the previous mentions in the dialogue history, as well as being able to distill the most discriminative information from the visual context. In general, our study opens up the possibility of using this and similar models to quantify patterns in human data and shed light on the underlying cognitive mechanisms.</abstract>
       <url hash="f6e0cfdc">2022.cmcl-1.4</url>
       <bibkey>takmaz-etal-2022-less</bibkey>
+      <pwccode url="https://github.com/ecekt/clip-desc-disc" additional="false">ecekt/clip-desc-disc</pwccode>
     </paper>
     <paper id="5">
       <title>Codenames as a Game of Co-occurrence Counting</title>
@@ -69,6 +74,7 @@
       <abstract>Codenames is a popular board game, in which knowledge and cooperation between players play an important role. The task of a player playing as a spymaster is to find words (clues) that a teammate finds related to as many of some given words as possible, but not to other specified words. This is a hard challenge even with today’s advanced language technology methods.In our study, we create spymaster agents using four types of relatedness measures that require only a raw text corpus to produce. These include newly introduced ones based on co-occurrences, which outperform FastText cosine similarity on gold standard relatedness data. To generate clues in Codenames, we combine relatedness measures with four different scoring functions, for two languages, English and Hungarian. For testing, we collect decisions of human guesser players in an online game, and our configurations outperform previous agents among methods using raw corpora only.</abstract>
       <url hash="40b217b3">2022.cmcl-1.5</url>
       <bibkey>cserhati-etal-2022-codenames</bibkey>
+      <pwccode url="https://github.com/xerevity/codenamesagent" additional="false">xerevity/codenamesagent</pwccode>
     </paper>
     <paper id="6">
       <title>Estimating word co-occurrence probabilities from pretrained static embeddings using a log-bilinear model</title>
@@ -110,6 +116,9 @@
       <abstract>Attention describes cognitive processes that are important to many human phenomena including reading. The term is also used to describe the way in which transformer neural networks perform natural language processing. While attention appears to be very different under these two contexts, this paper presents an analysis of the correlations between transformer attention and overt human attention during reading tasks. An extensive analysis of human eye tracking datasets showed that the dwell times of human eye movements were strongly correlated with the attention patterns occurring in the early layers of pre-trained transformers such as BERT. Additionally, the strength of a correlation was not related to the number of parameters within a transformer. This suggests that something about the transformers’ architecture determined how closely the two measures were correlated.</abstract>
       <url hash="01d4f289">2022.cmcl-1.9</url>
       <bibkey>bensemann-etal-2022-eye</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/movieqa">MovieQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="10">
       <title>About Time: Do Transformers Learn Temporal Verbal Aspect?</title>
@@ -120,6 +129,7 @@
       <abstract>Aspect is a linguistic concept that describes how an action, event, or state of a verb phrase is situated in time. In this paper, we explore whether different transformer models are capable of identifying aspectual features. We focus on two specific aspectual features: telicity and duration. Telicity marks whether the verb’s action or state has an endpoint or not (telic/atelic), and duration denotes whether a verb expresses an action (dynamic) or a state (stative). These features are integral to the interpretation of natural language, but also hard to annotate and identify with NLP methods. We perform experiments in English and French, and our results show that transformer models adequately capture information on telicity and duration in their vectors, even in their non-finetuned forms, but are somewhat biased with regard to verb tense and word order.</abstract>
       <url hash="fae10edd">2022.cmcl-1.10</url>
       <bibkey>metheniti-etal-2022-time</bibkey>
+      <pwccode url="https://github.com/lenakmeth/telicity_classification" additional="false">lenakmeth/telicity_classification</pwccode>
     </paper>
     <paper id="11">
       <title>Poirot at <fixed-case>CMCL</fixed-case> 2022 Shared Task: Zero Shot Crosslingual Eye-Tracking Data Prediction using Multilingual Transformer Models</title>
@@ -136,6 +146,7 @@
       <abstract>In this paper, we present a unified model that works for both multilingual and crosslingual prediction of reading times of words in various languages. The secret behind the success of this model is in the preprocessing step where all words are transformed to their universal language representation via the International Phonetic Alphabet (IPA). To the best of our knowledge, this is the first study to favorably exploit this phonological property of language for the two tasks. Various feature types were extracted covering basic frequencies, n-grams, information theoretic, and psycholinguistically-motivated predictors for model training. A finetuned Random Forest model obtained best performance for both tasks with 3.8031 and 3.9065 MAE scores for mean first fixation duration (FFDAvg) and mean total reading time (TRTAvg) respectively.</abstract>
       <url hash="69adb5a8">2022.cmcl-1.12</url>
       <bibkey>imperial-2022-nu</bibkey>
+      <pwccode url="https://github.com/imperialite/cmcl2022-unified-eye-tracking-ipa" additional="false">imperialite/cmcl2022-unified-eye-tracking-ipa</pwccode>
     </paper>
     <paper id="13">
       <title><fixed-case>H</fixed-case>k<fixed-case>A</fixed-case>msters at <fixed-case>CMCL</fixed-case> 2022 Shared Task: Predicting Eye-Tracking Data from a Gradient Boosting Framework with Linguistic Features</title>

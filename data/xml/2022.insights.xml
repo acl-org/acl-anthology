@@ -30,6 +30,7 @@
       <abstract>Different studies of the embedding space of transformer models suggest that the distribution of contextual representations is highly anisotropic - the embeddings are distributed in a narrow cone. Meanwhile, static word representations (e.g., Word2Vec or GloVe) have been shown to benefit from isotropic spaces. Therefore, previous work has developed methods to calibrate the embedding space of transformers in order to ensure isotropy. However, a recent study (Cai et al. 2021) shows that the embedding space of transformers is locally isotropic, which suggests that these models are already capable of exploiting the expressive capacity of their embedding space. In this work, we conduct an empirical evaluation of state-of-the-art methods for isotropy calibration on transformers and find that they do not provide consistent improvements across models and tasks. These results support the thesis that, given the local isotropy, transformers do not benefit from additional isotropy calibration.</abstract>
       <url hash="f0fc70dc">2022.insights-1.1</url>
       <bibkey>ding-etal-2022-isotropy</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
     </paper>
     <paper id="2">
       <title>Do Dependency Relations Help in the Task of Stance Detection?</title>
@@ -59,6 +60,9 @@
       <abstract>Past work that investigates out-of-domain performance of QA systems has mainly focused on general domains (e.g. news domain, wikipedia domain), underestimating the importance of subdomains defined by the internal characteristics of QA datasets.In this paper, we extend the scope of “out-of-domain” by splitting QA examples into different subdomains according to their internal characteristics including question type, text length, answer position. We then examine the performance of QA systems trained on the data from different subdomains. Experimental results show that the performance of QA systems can be significantly reduced when the train data and test data come from different subdomains. These results question the generalizability of current QA systems in multiple subdomains, suggesting the need to combat the bias introduced by the internal characteristics of QA datasets.</abstract>
       <url hash="60ac7946">2022.insights-1.4</url>
       <bibkey>lyu-etal-2022-extending</bibkey>
+      <pwccode url="https://github.com/lyuchenyang/analysing-question-answering-data" additional="false">lyuchenyang/analysing-question-answering-data</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/newsqa">NewsQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="5">
       <title>What Do You Get When You Cross Beam Search with Nucleus Sampling?</title>
@@ -78,6 +82,7 @@
       <abstract>Recent progress in large pretrained language models (LMs) has led to a growth of analyses examining what kinds of linguistic knowledge are encoded by these models. Due to computational constraints, existing analyses are mostly conducted on publicly-released LM checkpoints, which makes it difficult to study how various factors during <i>training</i> affect the models’ acquisition of linguistic knowledge. In this paper, we train a suite of small-scale Transformer LMs that differ from each other with respect to architectural decisions (e.g., self-attention configuration) or training objectives (e.g., multi-tasking, focal loss). We evaluate these LMs on BLiMP, a targeted evaluation benchmark of multiple English linguistic phenomena. Our experiments show that while none of these modifications yields significant improvements on aggregate, changes to the loss function result in promising improvements on several subcategories (e.g., detecting adjunct islands, correctly scoping negative polarity items). We hope our work offers useful insights for future research into designing Transformer LMs that more effectively learn linguistic knowledge.</abstract>
       <url hash="ed9bc02c">2022.insights-1.6</url>
       <bibkey>sun-etal-2022-much</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/blimp">BLiMP</pwcdataset>
     </paper>
     <paper id="7">
       <title>Cross-lingual Inflection as a Data Augmentation Method for Parsing</title>
@@ -100,6 +105,9 @@
       <abstract>Incorrect labels in training data occur when human annotators make mistakes or when the data is generated via weak or distant supervision. It has been shown that complex noise-handling techniques - by modeling, cleaning or filtering the noisy instances - are required to prevent models from fitting this label noise. However, we show in this work that, for text classification tasks with modern NLP models like BERT, over a variety of noise types, existing noise-handling methods do not always improve its performance, and may even deteriorate it, suggesting the need for further investigation. We also back our observations with a comprehensive analysis.</abstract>
       <url hash="3135461b">2022.insights-1.8</url>
       <bibkey>zhu-etal-2022-bert</bibkey>
+      <pwccode url="https://github.com/uds-lsv/bert-lnl" additional="false">uds-lsv/bert-lnl</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
     </paper>
     <paper id="9">
       <title>Ancestor-to-Creole Transfer is Not a Walk in the Park</title>
@@ -123,6 +131,8 @@
       <attachment type="OptionalSupplementarySoftware" hash="d9115711">2022.insights-1.10.OptionalSupplementarySoftware.zip</attachment>
       <attachment type="OptionalSupplementaryData" hash="5354e2d3">2022.insights-1.10.OptionalSupplementaryData.zip</attachment>
       <bibkey>yang-etal-2022-gpt</bibkey>
+      <pwccode url="https://github.com/awesomecoref/prompt-coref" additional="false">awesomecoref/prompt-coref</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/wsc">WSC</pwcdataset>
     </paper>
     <paper id="11">
       <title>Evaluating Biomedical Word Embeddings for Vocabulary Alignment at Scale in the <fixed-case>UMLS</fixed-case> <fixed-case>M</fixed-case>etathesaurus Using <fixed-case>S</fixed-case>iamese Networks</title>
@@ -149,6 +159,7 @@
       <abstract>With in the broader scope of machine learning, data augmentation is a common strategy to improve generalization and robustness of machine learning models. While data augmentation has been widely used within computer vision, its use in the NLP has been been comparably rather limited. The reason for this is that within NLP, the impact of proposed data augmentation methods on performance has not been evaluated in a unified manner, and effective data augmentation methods are unclear. In this paper, we look to tackle this by evaluating the impact of 12 data augmentation methods on multiple datasets when finetuning pre-trained language models. We find minimal improvements when data sizes are constrained to a few thousand, with performance degradation when data size is increased. We also use various methods to quantify the strength of data augmentations, and find that these values, though weakly correlated with downstream performance, correlate negatively or positively depending on the task.Furthermore, we find a glaring lack of consistently performant data augmentations. This all alludes to the difficulty of data augmentations for NLP tasks and we are inclined to believe that static data augmentations are not broadly applicable given these properties.</abstract>
       <url hash="32ceab8e">2022.insights-1.12</url>
       <bibkey>okimura-etal-2022-impact</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
     </paper>
     <paper id="13">
       <title>Can Question Rewriting Help Conversational Question Answering?</title>
@@ -160,6 +171,11 @@
       <abstract>Question rewriting (QR) is a subtask of conversational question answering (CQA) aiming to ease the challenges of understanding dependencies among dialogue history by reformulating questions in a self-contained form. Despite seeming plausible, little evidence is available to justify QR as a mitigation method for CQA. To verify the effectiveness of QR in CQA, we investigate a reinforcement learning approach that integrates QR and CQA tasks and does not require corresponding QR datasets for targeted CQA.We find, however, that the RL method is on par with the end-to-end baseline. We provide an analysis of the failure and describe the difficulty of exploiting QR for CQA.</abstract>
       <url hash="d81f6d7b">2022.insights-1.13</url>
       <bibkey>ishii-etal-2022-question</bibkey>
+      <pwccode url="https://github.com/hltchkust/cqr4cqa" additional="false">hltchkust/cqr4cqa</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/canard">CANARD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/qrecc">QReCC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/quac">QuAC</pwcdataset>
     </paper>
     <paper id="14">
       <title>Clustering Examples in Multi-Dataset Benchmarks with Item Response Theory</title>
@@ -171,6 +187,10 @@
       <abstract>In natural language processing, multi-dataset benchmarks for common tasks (e.g., SuperGLUE for natural language inference and MRQA for question answering) have risen in importance. Invariably, tasks and individual examples vary in difficulty. Recent analysis methods infer properties of examples such as difficulty. In particular, Item Response Theory (IRT) jointly infers example and model properties from the output of benchmark tasks (i.e., scores for each model-example pair). Therefore, it seems sensible that methods like IRT should be able to detect differences between datasets in a task. This work shows that current IRT models are not as good at identifying differences as we would expect, explain why this is difficult, and outline future directions that incorporate more (textual) signal from examples.</abstract>
       <url hash="a3ecade1">2022.insights-1.14</url>
       <bibkey>rodriguez-etal-2022-clustering</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/dynasent">DynaSent</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mrqa-2019">MRQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="15">
       <title>On the Limits of Evaluating Embodied Agent Model Generalization Using Validation Sets</title>
@@ -183,6 +203,8 @@
       <abstract>Natural language guided embodied task completion is a challenging problem since it requires understanding natural language instructions, aligning them with egocentric visual observations, and choosing appropriate actions to execute in the environment to produce desired changes. We experiment with augmenting a transformer model for this task with modules that effectively utilize a wider field of view and learn to choose whether the next step requires a navigation or manipulation action. We observed that the proposed modules resulted in improved, and in fact state-of-the-art performance on an unseen validation set of a popular benchmark dataset, ALFRED. However, our best model selected using the unseen validation set underperforms on the unseen test split of ALFRED, indicating that performance on the unseen validation set may not in itself be a sufficient indicator of whether model improvements generalize to unseen test sets. We highlight this result as we believe it may be a wider phenomenon in machine learning tasks but primarily noticeable only in benchmarks that limit evaluations on test splits, and highlights the need to modify benchmark design to better account for variance in model performance.</abstract>
       <url hash="d37bb9a1">2022.insights-1.15</url>
       <bibkey>kim-etal-2022-limits</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/ai2-thor">AI2-THOR</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/alfred">ALFRED</pwcdataset>
     </paper>
     <paper id="16">
       <title>Do Data-based Curricula Work?</title>
@@ -202,6 +224,8 @@
       <abstract>The current state-of-the-art test accuracy (97.42%) on the IMDB movie reviews dataset was reported by Thongtan and Phienthrakul (2019) and achieved by the logistic regression classifier trained on the Document Vectors using Cosine Similarity (DV-ngrams-cosine) proposed in their paper and the Bag-of-N-grams (BON) vectors scaled by Naïve Bayesian weights. While large pre-trained Transformer-based models have shown SOTA results across many datasets and tasks, the aforementioned model has not been surpassed by them, despite being much simpler and pre-trained on the IMDB dataset only. In this paper, we describe an error in the evaluation procedure of this model, which was found when we were trying to analyze its excellent performance on the IMDB dataset. We further show that the previously reported test accuracy of 97.42% is invalid and should be corrected to 93.68%. We also analyze the model performance with different amounts of training data (subsets of the IMDB dataset) and compare it to the Transformer-based RoBERTa model. The results show that while RoBERTa has a clear advantage for larger training sets, the DV-ngrams-cosine performs better than RoBERTa when the labeled training set is very small (10 or 20 documents). Finally, we introduce a sub-sampling scheme based on Naïve Bayesian weights for the training process of the DV-ngrams-cosine, which leads to faster training and better quality.</abstract>
       <url hash="98b28aca">2022.insights-1.17</url>
       <bibkey>bingyu-arefyev-2022-document</bibkey>
+      <pwccode url="https://github.com/bgzh/dv_cosine_revisited" additional="false">bgzh/dv_cosine_revisited</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
     </paper>
     <paper id="18">
       <title>Challenges in including extra-linguistic context in pre-trained language models</title>
@@ -233,6 +257,8 @@
       <url hash="a927d615">2022.insights-1.20</url>
       <attachment type="OptionalSupplementarySoftware" hash="29645c05">2022.insights-1.20.OptionalSupplementarySoftware.zip</attachment>
       <bibkey>chen-etal-2022-pathologies</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
     </paper>
     <paper id="21">
       <title>An Empirical study to understand the Compositional Prowess of Neural Dialog Models</title>
@@ -244,6 +270,9 @@
       <abstract>In this work, we examine the problems associated with neural dialog models under the common theme of compositionality. Specifically, we investigate three manifestations of compositionality: (1) Productivity, (2) Substitutivity, and (3) Systematicity. These manifestations shed light on the generalization, syntactic robustness, and semantic capabilities of neural dialog models. We design probing experiments by perturbing the training data to study the above phenomenon. We make informative observations based on automated metrics and hope that this work increases research interest in understanding the capacity of these models.</abstract>
       <url hash="47556e99">2022.insights-1.21</url>
       <bibkey>kumar-etal-2022-empirical</bibkey>
+      <pwccode url="https://github.com/vinayshekharcmu/ComposionalityOfDialogModels" additional="false">vinayshekharcmu/ComposionalityOfDialogModels</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mutualfriends">MutualFriends</pwcdataset>
     </paper>
     <paper id="22">
       <title>Combining Extraction and Generation for Constructing Belief-Consequence Causal Links</title>
@@ -273,6 +302,7 @@
       <attachment type="OptionalSupplementarySoftware" hash="ccbdbdc5">2022.insights-1.24.OptionalSupplementarySoftware.zip</attachment>
       <attachment type="OptionalSupplementaryData" hash="d8ccba59">2022.insights-1.24.OptionalSupplementaryData.zip</attachment>
       <bibkey>kumar-thawani-2022-bpe</bibkey>
+      <pwccode url="https://github.com/pegasus-lynx/mwe-bpe" additional="false">pegasus-lynx/mwe-bpe</pwccode>
     </paper>
     <paper id="25">
       <title>Pre-trained language models evaluating themselves - A comparative study</title>
@@ -283,6 +313,7 @@
       <abstract>Evaluating generated text received new attention with the introduction of model-based metrics in recent years. These new metrics have a higher correlation with human judgments and seemingly overcome many issues of previous n-gram based metrics from the symbolic age. In this work, we examine the recently introduced metrics BERTScore, BLEURT, NUBIA, MoverScore, and Mark-Evaluate (Petersen). We investigate their sensitivity to different types of semantic deterioration (part of speech drop and negation), word order perturbations, word drop, and the common problem of repetition. No metric showed appropriate behaviour for negation, and further none of them was overall sensitive to the other issues mentioned above.</abstract>
       <url hash="6fe00304">2022.insights-1.25</url>
       <bibkey>koch-etal-2022-pre</bibkey>
+      <pwccode url="https://github.com/lazerlambda/metricscomparison" additional="false">lazerlambda/metricscomparison</pwccode>
     </paper>
   </volume>
 </collection>
