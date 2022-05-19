@@ -34,6 +34,7 @@
       <abstract>We propose a novel multitask learning method for diacritization which trains a model to both diacritize and translate. Our method addresses data sparsity by exploiting large, readily available bitext corpora. Furthermore, translation requires implicit linguistic and semantic knowledge, which is helpful for resolving ambiguities in diacritization. We apply our method to the Penn Arabic Treebank and report a new state-of-the-art word error rate of 4.79%. We also conduct manual and automatic analysis to better understand our method and highlight some of the remaining challenges in diacritization. Our method has applications in text-to-speech, speech-to-speech translation, and other NLP tasks.</abstract>
       <url hash="9f696203">2022.iwslt-1.2</url>
       <bibkey>thompson-alshehri-2022-improving</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikimatrix">WikiMatrix</pwcdataset>
     </paper>
     <paper id="3">
       <title>Simultaneous Neural Machine Translation with Prefix Alignment</title>
@@ -65,6 +66,7 @@
       <abstract>Simultaneous machine translation (SimulMT) speeds up the translation process by starting to translate before the source sentence is completely available. It is difficult due to limited context and word order difference between languages. Existing methods increase latency or introduce adaptive read-write policies for SimulMT models to handle local reordering and improve translation quality. However, the long-distance reordering would make the SimulMT models learn translation mistakenly. Specifically, the model may be forced to predict target tokens when the corresponding source tokens have not been read. This leads to aggressive anticipation during inference, resulting in the hallucination phenomenon. To mitigate this problem, we propose a new framework that decompose the translation process into the monotonic translation step and the reordering step, and we model the latter by the auxiliary sorting network (ASN). The ASN rearranges the hidden states to match the order in the target language, so that the SimulMT model could learn to translate more reasonably. The entire model is optimized end-to-end and does not rely on external aligners or data. During inference, ASN is removed to achieve streaming. Experiments show the proposed framework could outperform previous methods with less latency.</abstract>
       <url hash="0c2d6a44">2022.iwslt-1.5</url>
       <bibkey>chang-etal-2022-anticipation</bibkey>
+      <pwccode url="https://github.com/george0828zhang/sinkhorn-simultrans" additional="false">george0828zhang/sinkhorn-simultrans</pwccode>
     </paper>
     <paper id="6">
       <title>Who Are We Talking About? Handling Person Names in Speech Translation</title>
@@ -75,6 +77,8 @@
       <abstract>Recent work has shown that systems for speech translation (ST) – similarly to automatic speech recognition (ASR) – poorly handle person names. This shortcoming does not only lead to errors that can seriously distort the meaning of the input, but also hinders the adoption of such systems in application scenarios (like computer-assisted interpreting) where the translation of named entities, like person names, is crucial. In this paper, we first analyse the outputs of ASR/ST systems to identify the reasons of failures in person name transcription/translation. Besides the frequency in the training data, we pinpoint the nationality of the referred person as a key factor. We then mitigate the problem by creating multilingual models, and further improve our ST systems by forcing them to jointly generate transcripts and translations, prioritising the former over the latter. Overall, our solutions result in a relative improvement in token-level person name accuracy by 47.8% on average for three language pairs (en-&gt;es,fr,it).</abstract>
       <url hash="d4d5ad11">2022.iwslt-1.6</url>
       <bibkey>gaido-etal-2022-talking</bibkey>
+      <pwccode url="https://github.com/hlt-mt/fbk-fairseq" additional="false">hlt-mt/fbk-fairseq</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/europarl-st">Europarl-ST</pwcdataset>
     </paper>
     <paper id="7">
       <title>Joint Generation of Captions and Subtitles with Dual Decoding</title>
@@ -87,6 +91,8 @@
       <abstract>As the amount of audio-visual content increases, the need to develop automatic captioning and subtitling solutions to match the expectations of a growing international audience appears as the only viable way to boost throughput and lower the related post-production costs. Automatic captioning and subtitling often need to be tightly intertwined to achieve an appropriate level of consistency and synchronization with each other and with the video signal. In this work, we assess a dual decoding scheme to achieve a strong coupling between these two tasks and show how adequacy and consistency are increased, with virtually no additional cost in terms of model size and training complexity.</abstract>
       <url hash="0eb28e70">2022.iwslt-1.7</url>
       <bibkey>xu-etal-2022-joint</bibkey>
+      <pwccode url="https://github.com/jitao-xu/dual-decoding" additional="false">jitao-xu/dual-decoding</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-cinema">MuST-Cinema</pwcdataset>
     </paper>
     <paper id="8">
       <title><fixed-case>M</fixed-case>irror<fixed-case>A</fixed-case>lign: A Super Lightweight Unsupervised Word Alignment Model via Cross-Lingual Contrastive Learning</title>
@@ -108,6 +114,8 @@
       <abstract>Training speech translation (ST) models requires large and high-quality datasets. MuST-C is one of the most widely used ST benchmark datasets. It contains around 400 hours of speech-transcript-translation data for each of the eight translation directions. This dataset passes several quality-control filters during creation. However, we find that MuST-C still suffers from three major quality issues: audiotext misalignment, inaccurate translation, and unnecessary speaker’s name. What are the impacts of these data quality issues for model development and evaluation? In this paper, we propose an automatic method to fix or filter the above quality issues, using English-German (En-De) translation as an example. Our experiments show that ST models perform better on clean test sets, and the rank of proposed models remains consistent across different test sets. Besides, simply removing misaligned data points from the training set does not lead to a better ST model.</abstract>
       <url hash="c7144378">2022.iwslt-1.9</url>
       <bibkey>ouyang-etal-2022-impact</bibkey>
+      <pwccode url="https://github.com/owaski/must-c-clean" additional="false">owaski/must-c-clean</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
     </paper>
     <paper id="10">
       <title>Findings of the <fixed-case>IWSLT</fixed-case> 2022 Evaluation Campaign</title>
@@ -158,6 +166,10 @@
       <abstract>The evaluation campaign of the 19th International Conference on Spoken Language Translation featured eight shared tasks: (i) Simultaneous speech translation, (ii) Offline speech translation, (iii) Speech to speech translation, (iv) Low-resource speech translation, (v) Multilingual speech translation, (vi) Dialect speech translation, (vii) Formality control for speech translation, (viii) Isometric speech translation. A total of 27 teams participated in at least one of the shared tasks. This paper details, for each shared task, the purpose of the task, the data that were released, the evaluation metrics that were applied, the submissions that were received and the results that were achieved.</abstract>
       <url hash="fcb6ccac">2022.iwslt-1.10</url>
       <bibkey>anastasopoulos-etal-2022-findings</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/css10">CSS10</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/voxpopuli">VoxPopuli</pwcdataset>
     </paper>
     <paper id="11">
       <title>The <fixed-case>Y</fixed-case>i<fixed-case>T</fixed-case>rans Speech Translation System for <fixed-case>IWSLT</fixed-case> 2022 Offline Shared Task</title>
@@ -167,6 +179,10 @@
       <abstract>This paper describes the submission of our end-to-end YiTrans speech translation system for the IWSLT 2022 offline task, which translates from English audio to German, Chinese, and Japanese. The YiTrans system is built on large-scale pre-trained encoder-decoder models. More specifically, we first design a multi-stage pre-training strategy to build a multi-modality model with a large amount of labeled and unlabeled data. We then fine-tune the corresponding components of the model for the downstream speech translation tasks. Moreover, we make various efforts to improve performance, such as data filtering, data augmentation, speech segmentation, model ensemble, and so on. Experimental results show that our YiTrans system obtains a significant improvement than the strong baseline on three translation directions, and it achieves +5.2 BLEU improvements over last year’s optimal end-to-end system on tst2021 English-German.</abstract>
       <url hash="733fcf26">2022.iwslt-1.11</url>
       <bibkey>zhang-ao-2022-yitrans</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/opensubtitles">OpenSubtitles</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/voxpopuli">VoxPopuli</pwcdataset>
     </paper>
     <paper id="12">
       <title><fixed-case>A</fixed-case>mazon <fixed-case>A</fixed-case>lexa <fixed-case>AI</fixed-case>’s System for <fixed-case>IWSLT</fixed-case> 2022 Offline Speech Translation Shared Task</title>
@@ -178,6 +194,9 @@
       <abstract>This paper describes Amazon Alexa AI’s submission to the IWSLT 2022 Offline Speech Translation Task. Our system is an end-to-end speech translation model that leverages pretrained models and cross modality transfer learning. We detail two improvements to the knowledge transfer schema. First, we implemented a new loss function that reduces knowledge gap between audio and text modalities in translation task effectively. Second, we investigate multiple finetuning strategies including sampling loss, language grouping and domain adaption. These strategies aims to bridge the gaps between speech and text translation tasks. We also implement a multi-stage segmentation and merging strategy that yields improvements on the unsegmented development datasets. Results show that the proposed loss function consistently improves BLEU scores on the development datasets for both English-German and multilingual models. Additionally, certain language pairs see BLEU score improvements with specific finetuning strategies.</abstract>
       <url hash="323f0771">2022.iwslt-1.12</url>
       <bibkey>shanbhogue-etal-2022-amazon</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/europarl-st">Europarl-ST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
     </paper>
     <paper id="13">
       <title>Efficient yet Competitive Speech Translation: <fixed-case>FBK</fixed-case>@<fixed-case>IWSLT</fixed-case>2022</title>
@@ -191,6 +210,7 @@
       <abstract>The primary goal of this FBK’s systems submission to the IWSLT 2022 offline and simultaneous speech translation tasks is to reduce model training costs without sacrificing translation quality. As such, we first question the need of ASR pre-training, showing that it is not essential to achieve competitive results. Second, we focus on data filtering, showing that a simple method that looks at the ratio between source and target characters yields a quality improvement of 1 BLEU. Third, we compare different methods to reduce the detrimental effect of the audio segmentation mismatch between training data manually segmented at sentence level and inference data that is automatically segmented. Towards the same goal of training cost reduction, we participate in the simultaneous task with the same model trained for offline ST. The effectiveness of our lightweight training strategy is shown by the high score obtained on the MuST-C en-de corpus (26.7 BLEU) and is confirmed in high-resource data conditions by a 1.6 BLEU improvement on the IWSLT2020 test set over last year’s winning system.</abstract>
       <url hash="c6f5ab80">2022.iwslt-1.13</url>
       <bibkey>gaido-etal-2022-efficient</bibkey>
+      <pwccode url="https://github.com/hlt-mt/fbk-fairseq" additional="false">hlt-mt/fbk-fairseq</pwccode>
     </paper>
     <paper id="14">
       <title>Effective combination of pretrained models - <fixed-case>KIT</fixed-case>@<fixed-case>IWSLT</fixed-case>2022</title>
@@ -205,6 +225,9 @@
       <abstract>Pretrained models in acoustic and textual modalities can potentially improve speech translation for both Cascade and End-to-end approaches. In this evaluation, we aim at empirically looking for the answer by using the wav2vec, mBART50 and DeltaLM models to improve text and speech translation models. The experiments showed that the presence of these models together with an advanced audio segmentation method results in an improvement over the previous end-to-end system by up to 7 BLEU points. More importantly, the experiments showed that given enough data and modeling capacity to overcome the training difficulty, we can outperform even very competitive Cascade systems. In our experiments, this gap can be as large as 2.0 BLEU points, the same gap that the Cascade often led over the years.</abstract>
       <url hash="a0eed6a0">2022.iwslt-1.14</url>
       <bibkey>pham-etal-2022-effective</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/how2">How2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
     </paper>
     <paper id="15">
       <title>The <fixed-case>USTC</fixed-case>-<fixed-case>NELSLIP</fixed-case> Offline Speech Translation Systems for <fixed-case>IWSLT</fixed-case> 2022</title>
@@ -271,6 +294,9 @@
       <abstract>This paper provides an overview of NVIDIA NeMo’s speech translation systems for the IWSLT 2022 Offline Speech Translation Task. Our cascade system consists of 1) Conformer RNN-T automatic speech recognition model, 2) punctuation-capitalization model based on pre-trained T5 encoder, 3) ensemble of Transformer neural machine translation models fine-tuned on TED talks. Our end-to-end model has less parameters and consists of Conformer encoder and Transformer decoder. It relies on the cascade system by re-using its pre-trained ASR encoder and training on synthetic translations generated with the ensemble of NMT models. Our En-&gt;De cascade and end-to-end systems achieve 29.7 and 26.2 BLEU on the 2020 test set correspondingly, both outperforming the previous year’s best of 26 BLEU.</abstract>
       <url hash="071dbd50">2022.iwslt-1.18</url>
       <bibkey>hrinchuk-etal-2022-nvidia</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/europarl-st">Europarl-ST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/voxpopuli">VoxPopuli</pwcdataset>
     </paper>
     <paper id="19">
       <title>The <fixed-case>N</fixed-case>iu<fixed-case>T</fixed-case>rans’s Submission to the <fixed-case>IWSLT</fixed-case>22 <fixed-case>E</fixed-case>nglish-to-<fixed-case>C</fixed-case>hinese Offline Speech Translation Task</title>
@@ -304,6 +330,8 @@
       <abstract>This paper describes the HW-TSC’s designation of the Offline Speech Translation System submitted for IWSLT 2022 Evaluation. We explored both cascade and end-to-end system on three language tracks (en-de, en-zh and en-ja), and we chose the cascade one as our primary submission. For the automatic speech recognition (ASR) model of cascade system, there are three ASR models including Conformer, S2T-Transformer and U2 trained on the mixture of five datasets. During inference, transcripts are generated with the help of domain controlled generation strategy. Context-aware reranking and ensemble based anti-interference strategy are proposed to produce better ASR outputs. For machine translation part, we pretrained three translation models on WMT21 dataset and fine-tuned them on in-domain corpora. Our cascade system shows competitive performance than the known offline systems in the industry and academia.</abstract>
       <url hash="30d9494b">2022.iwslt-1.20</url>
       <bibkey>wang-etal-2022-hw</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ted-lium-3">TED-LIUM 3</pwcdataset>
     </paper>
     <paper id="21">
       <title>The <fixed-case>HW</fixed-case>-<fixed-case>TSC</fixed-case>’s Simultaneous Speech Translation System for <fixed-case>IWSLT</fixed-case> 2022 Evaluation</title>
@@ -323,6 +351,8 @@
       <abstract>This paper presents our work in the participation of IWSLT 2022 simultaneous speech translation evaluation. For the track of text-to-text (T2T), we participate in three language pairs and build wait-k based simultaneous MT (SimulMT) model for the task. The model was pretrained on WMT21 news corpora, and was further improved with in-domain fine-tuning and self-training. For the speech-to-text (S2T) track, we designed both cascade and end-to-end form in three language pairs. The cascade system is composed of a chunking-based streaming ASR model and the SimulMT model used in the T2T track. The end-to-end system is a simultaneous speech translation (SimulST) model based on wait-k strategy, which is directly trained on a synthetic corpus produced by translating all texts of ASR corpora into specific target language with an offline MT model. It also contains a heuristic sentence breaking strategy, preventing it from finishing the translation before the the end of the speech. We evaluate our systems on the MUST-C tst-COMMON dataset and show that the end-to-end system is competitive to the cascade one. Meanwhile, we also demonstrate that the SimulMT model can be efficiently optimized by these approaches, resulting in the improvements of 1-2 BLEU points.</abstract>
       <url hash="67f8ea3d">2022.iwslt-1.21</url>
       <bibkey>wang-etal-2022-hw-tscs</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ted-lium-3">TED-LIUM 3</pwcdataset>
     </paper>
     <paper id="22">
       <title><fixed-case>MLLP</fixed-case>-<fixed-case>VRAIN</fixed-case> <fixed-case>UPV</fixed-case> systems for the <fixed-case>IWSLT</fixed-case> 2022 Simultaneous Speech Translation and Speech-to-Speech Translation tasks</title>
@@ -340,6 +370,9 @@
       <abstract>This work describes the participation of the MLLP-VRAIN research group in the two shared tasks of the IWSLT 2022 conference: Simultaneous Speech Translation and Speech-to-Speech Translation. We present our streaming-ready ASR, MT and TTS systems for Speech Translation and Synthesis from English into German. Our submission combines these systems by means of a cascade approach paying special attention to data preparation and decoding for streaming inference.</abstract>
       <url hash="ddc85806">2022.iwslt-1.22</url>
       <bibkey>iranzo-sanchez-etal-2022-mllp</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/europarl-st">Europarl-ST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/opensubtitles">OpenSubtitles</pwcdataset>
     </paper>
     <paper id="23">
       <title>Pretrained Speech Encoders and Efficient Fine-tuning Methods for Speech Translation: <fixed-case>UPC</fixed-case> at <fixed-case>IWSLT</fixed-case> 2022</title>
@@ -352,6 +385,8 @@
       <abstract>This paper describes the submissions of the UPC Machine Translation group to the IWSLT 2022 Offline Speech Translation and Speech-to-Speech Translation tracks. The offline task involves translating English speech to German, Japanese and Chinese text. Our Speech Translation systems are trained end-to-end and are based on large pretrained speech and text models. We use an efficient fine-tuning technique that trains only specific layers of our system, and explore the use of adapter modules for the non-trainable layers. We further investigate the suitability of different speech encoders (wav2vec 2.0, HuBERT) for our models and the impact of knowledge distillation from the Machine Translation model that we use for the decoder (mBART). For segmenting the IWSLT test sets we fine-tune a pretrained audio segmentation model and achieve improvements of 5 BLEU compared to the given segmentation. Our best single model uses HuBERT and parallel adapters and achieves 29.42 BLEU at English-German MuST-C tst-COMMON and 26.77 at IWSLT 2020 test. By ensembling many models, we further increase translation quality to 30.83 BLEU and 27.78 accordingly. Furthermore, our submission for English-Japanese achieves 15.85 and English-Chinese obtains 25.63 BLEU on the MuST-C tst-COMMON sets. Finally, we extend our system to perform English-German Speech-to-Speech Translation with a pretrained Text-to-Speech model.</abstract>
       <url hash="020821cf">2022.iwslt-1.23</url>
       <bibkey>tsiamas-etal-2022-pretrained</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/europarl-st">Europarl-ST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
     </paper>
     <paper id="24">
       <title><fixed-case>CUNI</fixed-case>-<fixed-case>KIT</fixed-case> System for Simultaneous Speech Translation Task at <fixed-case>IWSLT</fixed-case> 2022</title>
@@ -382,6 +417,7 @@
       <abstract>This paper describes NAIST’s simultaneous speech translation systems developed for IWSLT 2022 Evaluation Campaign. We participated the speech-to-speech track for English-to-German and English-to-Japanese. Our primary submissions were end-to-end systems using adaptive segmentation policies based on Prefix Alignment.</abstract>
       <url hash="44b5367e">2022.iwslt-1.25</url>
       <bibkey>fukuda-etal-2022-naist</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
     </paper>
     <paper id="26">
       <title>The <fixed-case>HW</fixed-case>-<fixed-case>TSC</fixed-case>’s Speech to Speech Translation System for <fixed-case>IWSLT</fixed-case> 2022 Evaluation</title>
@@ -401,6 +437,8 @@
       <abstract>The paper presents the HW-TSC’s pipeline and results of Offline Speech to Speech Translation for IWSLT 2022. We design a cascade system consisted of an ASR model, machine translation model and TTS model to convert the speech from one language into another language(en-de). For the ASR part, we find that better performance can be obtained by ensembling multiple heterogeneous ASR models and performing reranking on beam candidates. And we find that the combination of context-aware reranking strategy and MT model fine-tuned on the in-domain dataset is helpful to improve the performance. Because it can mitigate the problem that the inconsistency in transcripts caused by the lack of context. Finally, we use VITS model provided officially to reproduce audio files from the translation hypothesis.</abstract>
       <url hash="a5fd592a">2022.iwslt-1.26</url>
       <bibkey>guo-etal-2022-hw</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ted-lium-3">TED-LIUM 3</pwcdataset>
     </paper>
     <paper id="27">
       <title><fixed-case>CMU</fixed-case>’s <fixed-case>IWSLT</fixed-case> 2022 Dialect Speech Translation System</title>
@@ -456,6 +494,8 @@
       <abstract>This paper describes the University of Maryland’s submission to the Special Task on Formality Control for Spoken Language Translation at IWSLT, which evaluates translation from English into 6 languages with diverse grammatical formality markers. We investigate to what extent this problem can be addressed with a single multilingual model, simultaneously controlling its output for target language and formality. Results show that this strategy can approach the translation quality and formality control achieved by dedicated translation models. However, the nature of the underlying pre-trained language model and of the finetuning samples greatly impact results.</abstract>
       <url hash="e794bbdd">2022.iwslt-1.30</url>
       <bibkey>rippeth-etal-2022-controlling</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/ccmatrix">CCMatrix</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="31">
       <title>Controlling Formality in Low-Resource <fixed-case>NMT</fixed-case> with Domain Adaptation and Re-Ranking: <fixed-case>SLT</fixed-case>-<fixed-case>CDT</fixed-case>-<fixed-case>U</fixed-case>o<fixed-case>S</fixed-case> at <fixed-case>IWSLT</fixed-case>2022</title>
@@ -466,6 +506,9 @@
       <abstract>This paper describes the SLT-CDT-UoS group’s submission to the first Special Task on Formality Control for Spoken Language Translation, part of the IWSLT 2022 Evaluation Campaign. Our efforts were split between two fronts: data engineering and altering the objective function for best hypothesis selection. We used language-independent methods to extract formal and informal sentence pairs from the provided corpora; using English as a pivot language, we propagated formality annotations to languages treated as zero-shot in the task; we also further improved formality controlling with a hypothesis re-ranking approach. On the test sets for English-to-German and English-to-Spanish, we achieved an average accuracy of .935 within the constrained setting and .995 within unconstrained setting. In a zero-shot setting for English-to-Russian and English-to-Italian, we scored average accuracy of .590 for constrained setting and .659 for unconstrained.</abstract>
       <url hash="b99f5632">2022.iwslt-1.31</url>
       <bibkey>vincent-etal-2022-controlling</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikimatrix">WikiMatrix</pwcdataset>
     </paper>
     <paper id="32">
       <title>Improving Machine Translation Formality Control with Weakly-Labelled Data Augmentation and Post Editing Strategies</title>
@@ -506,6 +549,7 @@
       <abstract>To participate in the Isometric Spoken Language Translation Task of the IWSLT 2022 evaluation, constrained condition, AppTek developed neural Transformer-based systems for English-to-German with various mechanisms of length control, ranging from source-side and target-side pseudo-tokens to encoding of remaining length in characters that replaces positional encoding. We further increased translation length compliance by sentence-level selection of length-compliant hypotheses from different system variants, as well as rescoring of N-best candidates from a single system. Length-compliant back-translated and forward-translated synthetic data, as well as other parallel data variants derived from the original MuST-C training corpus were important for a good quality/desired length trade-off. Our experimental results show that length compliance levels above 90% can be reached while minimizing losses in MT quality as measured in BERT and BLEU scores.</abstract>
       <url hash="180fbdd0">2022.iwslt-1.34</url>
       <bibkey>wilken-matusov-2022-appteks</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
     </paper>
     <paper id="35">
       <title>Hierarchical Multi-task learning framework for Isometric-Speech Language Translation</title>
@@ -517,6 +561,9 @@
       <abstract>This paper presents our submission for the shared task on isometric neural machine translation in International Conference on Spoken Language Translation (IWSLT). There are numerous state-of-art models for translation problems. However, these models lack any length constraint to produce short or long outputs from the source text. In this paper, we propose a hierarchical approach to generate isometric translation on MUST-C dataset, we achieve a BERTscore of 0.85, a length ratio of 1.087, a BLEU score of 42.3, and a length range of 51.03%. On the blind dataset provided by the task organizers, we obtain a BERTscore of 0.80, a length ratio of 1.10 and a length range of 47.5%. We have made our code public here https://github.com/aakash0017/Machine-Translation-ISWLT</abstract>
       <url hash="83cc6568">2022.iwslt-1.35</url>
       <bibkey>bhatnagar-etal-2022-hierarchical</bibkey>
+      <pwccode url="https://github.com/aakash0017/machine-translation-iswlt" additional="false">aakash0017/machine-translation-iswlt</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/paws-x">PAWS-X</pwcdataset>
     </paper>
   </volume>
 </collection>
