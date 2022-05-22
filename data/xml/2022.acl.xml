@@ -721,6 +721,7 @@
       <abstract>Pre-trained language models have recently shown that training on large corpora using the language modeling objective enables few-shot and zero-shot capabilities on a variety of NLP tasks, including commonsense reasoning tasks. This is achieved using text interactions with the model, usually by posing the task as a natural language text completion problem. While using language model probabilities to obtain task specific scores has been generally useful, it often requires task-specific heuristics such as length normalization, or probability calibration. In this work, we consider the question answering format, where we need to choose from a set of (free-form) textual choices of unspecified lengths given a context. We present ALC (Answer-Level Calibration), where our main suggestion is to model context-independent biases in terms of the probability of a choice without the associated context and to subsequently remove it using an unsupervised estimate of similarity with the full context. We show that our unsupervised answer-level calibration consistently improves over or is competitive with baselines using standard evaluation metrics on a variety of tasks including commonsense reasoning tasks. Further, we show that popular datasets potentially favor models biased towards easy cues which are available independent of the context. We analyze such biases using an associated F1-score. Our analysis indicates that answer-level calibration is able to remove such biases and leads to a more robust measure of model capability.</abstract>
       <url hash="faffa724">2022.acl-long.49</url>
       <bibkey>kumar-2022-answer</bibkey>
+      <pwccode url="https://github.com/sawankumar28/alc" additional="false">sawankumar28/alc</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/copa">COPA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/commonsenseqa">CommonsenseQA</pwcdataset>
@@ -1032,7 +1033,7 @@
       <url hash="c019a61c">2022.acl-long.69</url>
       <bibkey>yavuz-etal-2022-modeling</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/iirc">IIRC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
     <paper id="70">
@@ -1943,6 +1944,7 @@
       <url hash="57334288">2022.acl-long.134</url>
       <attachment type="software" hash="9a44132d">2022.acl-long.134.software.zip</attachment>
       <bibkey>qi-etal-2022-enhancing</bibkey>
+      <pwccode url="https://github.com/qikunxun/pct" additional="false">qikunxun/pct</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/paws-x">PAWS-X</pwcdataset>
     </paper>
     <paper id="135">
@@ -2393,7 +2395,6 @@
       <abstract>Finetuning large pre-trained language models with a task-specific head has advanced the state-of-the-art on many natural language understanding benchmarks. However, models with a task-specific head require a lot of training data, making them susceptible to learning and exploiting dataset-specific superficial cues that do not generalize to other datasets.Prompting has reduced the data requirement by reusing the language model head and formatting the task input to match the pre-training objective. Therefore, it is expected that few-shot prompt-based models do not exploit superficial cues.This paper presents an empirical examination of whether few-shot prompt-based models also exploit superficial cues.Analyzing few-shot prompt-based models on MNLI, SNLI, HANS, and COPA has revealed that prompt-based models also exploit superficial cues. While the models perform well on instances with superficial cues, they often underperform or only marginally outperform random accuracy on instances without superficial cues.</abstract>
       <url hash="1b311431">2022.acl-long.166</url>
       <bibkey>kavumba-etal-2022-prompt</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/copa">COPA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
@@ -3047,6 +3048,7 @@
       <url hash="3d0cdf9a">2022.acl-long.211</url>
       <attachment type="software" hash="40897cc2">2022.acl-long.211.software.zip</attachment>
       <bibkey>svikhnushina-etal-2022-taxonomy</bibkey>
+      <pwccode url="https://github.com/sea94/eqt" additional="false">sea94/eqt</pwccode>
     </paper>
     <paper id="212">
       <title>Enhanced Multi-Channel Graph Convolutional Network for Aspect Sentiment Triplet Extraction</title>
@@ -3157,6 +3159,7 @@
       <url hash="aaea8422">2022.acl-long.219</url>
       <attachment type="software" hash="b8982868">2022.acl-long.219.software.zip</attachment>
       <bibkey>wallace-etal-2022-automated</bibkey>
+      <pwccode url="https://github.com/albertkx/berkeley-crossword-solver" additional="false">albertkx/berkeley-crossword-solver</pwccode>
     </paper>
     <paper id="220">
       <title>Learned Incremental Representations for Parsing</title>
@@ -3961,6 +3964,7 @@ in the Case of Unambiguous Gender</title>
       <url hash="a0eddebf">2022.acl-long.276</url>
       <attachment type="software" hash="0d687ed4">2022.acl-long.276.software.zip</attachment>
       <bibkey>ghosh-srivastava-2022-epic</bibkey>
+      <pwccode url="https://github.com/sgdgp/epic" additional="false">sgdgp/epic</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
     </paper>
     <paper id="277">
@@ -5683,7 +5687,6 @@ in the Case of Unambiguous Gender</title>
       <abstract>Information extraction suffers from its varying targets, heterogeneous structures, and demand-specific schemas. In this paper, we propose a unified text-to-structure generation framework, namely UIE, which can universally model different IE tasks, adaptively generate targeted structures, and collaboratively learn general IE abilities from different knowledge sources. Specifically, UIE uniformly encodes different extraction structures via a structured extraction language, adaptively generates target extractions via a schema-based prompt mechanism – structural schema instructor, and captures the common IE abilities via a large-scale pretrained text-to-structure model. Experiments show that UIE achieved the state-of-the-art performance on 4 IE tasks, 13 datasets, and on all supervised, low-resource, and few-shot settings for a wide range of entity, relation, event and sentiment extraction tasks and their unification. These results verified the effectiveness, universality, and transferability of UIE.</abstract>
       <url hash="275e634d">2022.acl-long.395</url>
       <bibkey>lu-etal-2022-unified</bibkey>
-      <pwccode url="https://github.com/PaddlePaddle/PaddleNLP/tree/develop/model_zoo/uie" additional="false">PaddlePaddle/PaddleNLP</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/scierc">SciERC</pwcdataset>
     </paper>
@@ -6642,6 +6645,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>While a great deal of work has been done on NLP approaches to lexical semantic change detection, other aspects of language change have received less attention from the NLP community. In this paper, we address the detection of sound change through historical spelling. We propose that a sound change can be captured by comparing the relative distance through time between the distributions of the characters involved before and after the change has taken place. We model these distributions using PPMI character embeddings. We verify this hypothesis in synthetic data and then test the method’s ability to trace the well-known historical change of lenition of plosives in Danish historical sources. We show that the models are able to identify several of the changes under consideration and to uncover meaningful contexts in which they appeared. The methodology has the potential to contribute to the study of open questions such as the relative chronology of sound shifts and their geographical distribution.</abstract>
       <url hash="bfc34783">2022.acl-long.463</url>
       <bibkey>boldsen-paggio-2022-letters</bibkey>
+      <pwccode url="https://github.com/syssel/letters-from-the-past" additional="false">syssel/letters-from-the-past</pwccode>
     </paper>
     <paper id="464">
       <title>A Token-level Reference-free Hallucination Detection Benchmark for Free-form Text Generation</title>
@@ -8126,6 +8130,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>Uncertainty estimation (UE) of model predictions is a crucial step for a variety of tasks such as active learning, misclassification detection, adversarial attack detection, out-of-distribution detection, etc. Most of the works on modeling the uncertainty of deep neural networks evaluate these methods on image classification tasks. Little attention has been paid to UE in natural language processing. To fill this gap, we perform a vast empirical investigation of state-of-the-art UE methods for Transformer models on misclassification detection in named entity recognition and text classification tasks and propose two computationally efficient modifications, one of which approaches or even outperforms computationally intensive methods.</abstract>
       <url hash="3353d634">2022.acl-long.566</url>
       <bibkey>vazhentsev-etal-2022-uncertainty</bibkey>
+      <pwccode url="https://github.com/airi-institute/uncertainty_transformers" additional="false">airi-institute/uncertainty_transformers</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cola">CoLA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
@@ -10029,6 +10034,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>Over the last five years, research on Relation Extraction (RE) witnessed extensive progress with many new dataset releases. At the same time, setup clarity has decreased, contributing to increased difficulty of reliable empirical evaluation (Taillé et al., 2020). In this paper, we provide a comprehensive survey of RE datasets, and revisit the task definition and its adoption by the community. We find that cross-dataset and cross-domain setups are particularly lacking. We present an empirical study on scientific Relation Classification across two datasets. Despite large data overlap, our analysis reveals substantial discrepancies in annotation. Annotation discrepancies strongly impact Relation Classification performance, explaining large drops in cross-dataset evaluations. Variation within further sub-domains exists but impacts Relation Classification only to limited degrees. Overall, our study calls for more rigour in reporting setups in RE and evaluation across multiple test sets.</abstract>
       <url hash="b64e8ad5">2022.acl-srw.7</url>
       <bibkey>bassignana-plank-2022-mean</bibkey>
+      <pwccode url="https://github.com/Kaleidophon/deep-significance" additional="false">Kaleidophon/deep-significance</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/dwie">DWIE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/docred">DocRED</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/fewrel">FewRel</pwcdataset>
@@ -10205,6 +10211,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>Text style transfer and paraphrasing of texts are actively growing areas of NLP, dozens of methods for solving these tasks have been recently introduced. In both tasks, the system is supposed to generate a text which should be semantically similar to the input text. Therefore, these tasks are dependent on methods of measuring textual semantic similarity. However, it is still unclear which measures are the best to automatically evaluate content preservation between original and generated text. According to our observations, many researchers still use BLEU-like measures, while there exist more advanced measures including neural-based that significantly outperform classic approaches. The current problem is the lack of a thorough evaluation of the available measures. We close this gap by conducting a large-scale computational study by comparing 57 measures based on different principles on 19 annotated datasets. We show that measures based on cross-encoder models outperform alternative approaches in almost all cases.We also introduce the Mutual Implication Score (MIS), a measure that uses the idea of paraphrasing as a bidirectional entailment and outperforms all other measures on the paraphrase detection task and performs on par with the best measures in the text style transfer task.</abstract>
       <url hash="b367e784">2022.acl-srw.23</url>
       <bibkey>babakov-etal-2022-large</bibkey>
+      <pwccode url="https://github.com/skoltech-nlp/mutual_implication_score" additional="false">skoltech-nlp/mutual_implication_score</pwccode>
     </paper>
     <paper id="24">
       <title>Explicit Object Relation Alignment for Vision and Language Navigation</title>
