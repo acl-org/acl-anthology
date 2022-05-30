@@ -1330,12 +1330,13 @@
     </paper>
     <paper id="91">
       <title>Tracing Origins: Coreference-aware Machine Reading Comprehension</title>
+      <author><first>Baorong</first><last>Huang</last></author>
       <author><first>Zhuosheng</first><last>Zhang</last></author>
       <author><first>Hai</first><last>Zhao</last></author>
       <pages>1281-1292</pages>
       <abstract>Machine reading comprehension is a heavily-studied research and test field for evaluating new pre-trained language models (PrLMs) and fine-tuning strategies, and recent studies have enriched the pre-trained language models with syntactic, semantic and other linguistic information to improve the performance of the models. In this paper, we imitate the human reading process in connecting the anaphoric expressions and explicitly leverage the coreference information of the entities to enhance the word embeddings from the pre-trained language model, in order to highlight the coreference mentions of the entities that must be identified for coreference-intensive question answering in QUOREF, a relatively new dataset that is specifically designed to evaluate the coreference-related performance of a model. We use two strategies to fine-tune a pre-trained language model, namely, placing an additional encoder layer after a pre-trained language model to focus on the coreference mentions or constructing a relational graph convolutional network to model the coreference relations. We demonstrate that the explicit incorporation of coreference information in the fine-tuning stage performs better than the incorporation of the coreference information in pre-training a language model.</abstract>
       <url hash="c93f243c">2022.acl-long.91</url>
-      <bibkey>zhang-zhao-2022-tracing</bibkey>
+      <bibkey>huang-etal-2022-tracing</bibkey>
       <pwccode url="https://github.com/bright2013/CorefAwareMRC" additional="false">bright2013/CorefAwareMRC</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/newsqa">NewsQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/quac">QuAC</pwcdataset>
@@ -1579,7 +1580,7 @@
       <author><first>Hinrich</first><last>Schuetze</last></author>
       <author><first>Oladimeji</first><last>Farri</last></author>
       <pages>1542-1553</pages>
-      <abstract>The IMPRESSIONS section of a radiology report about an imaging study is a summary of the radiologist’s reasoning and conclusions, and it also aids the referring physician in confirming or excluding certain diagnoses. A cascade of tasks are required to automatically generate an abstractive summary of the typical information-rich radiology report. These tasks include acquisition of salient content from the report and generation of a concise, easily consumable IMPRESSIONS section. Prior research on radiology report summarization has focused on single-step end-to-end models – which subsume the task of salient content acquisition. To fully explore the cascade structure and explainability of radiology report summarization, we introduce two innovations. First, we design a two-step approach: extractive summarization followed by abstractive summarization. Second, we additionally break down the extractive part into two independent tasks: extraction of salient (1) sentences and (2) keywords. Experiments on a publicly available radiology report dataset show our novel approach leads to a more precise summary compared to single-step and to two-step-with-single-extractive-process baselines with an overall improvement in F1 score of 3-4%.</abstract>
+      <abstract>The IMPRESSIONS section of a radiology report about an imaging study is a summary of the radiologist’s reasoning and conclusions, and it also aids the referring physician in confirming or excluding certain diagnoses. A cascade of tasks are required to automatically generate an abstractive summary of the typical information-rich radiology report. These tasks include acquisition of salient content from the report and generation of a concise, easily consumable IMPRESSIONS section. Prior research on radiology report summarization has focused on single-step end-to-end models – which subsume the task of salient content acquisition. To fully explore the cascade structure and explainability of radiology report summarization, we introduce two innovations. First, we design a two-step approach: extractive summarization followed by abstractive summarization. Second, we additionally break down the extractive part into two independent tasks: extraction of salient (1) sentences and (2) keywords. Experiments on English radiology reports from two clinical sites show our novel approach leads to a more precise summary compared to single-step and to two-step-with-single-extractive-process baselines with an overall improvement in F1 score of 3-4%.</abstract>
       <url hash="f697dfe7">2022.acl-long.109</url>
       <bibkey>karn-etal-2022-differentiable</bibkey>
     </paper>
@@ -1621,7 +1622,7 @@
       <abstract>Text summarization helps readers capture salient information from documents, news, interviews, and meetings. However, most state-of-the-art pretrained language models (LM) are unable to efficiently process long text for many summarization tasks. In this paper, we propose Summ<tex-math>^N</tex-math>, a simple, flexible, and effective multi-stage framework for input texts that are longer than the maximum context length of typical pretrained LMs. Summ<tex-math>^N</tex-math> first splits the data samples and generates a coarse summary in multiple stages and then produces the final fine-grained summary based on it. Our framework can process input text of arbitrary length by adjusting the number of stages while keeping the LM input size fixed. Moreover, it can deal with both single-source documents and dialogues, and it can be used on top of different backbone abstractive summarization models. To the best of our knowledge, Summ<tex-math>^N</tex-math> is the first multi-stage split-then-summarize framework for long input summarization. Our experiments demonstrate that Summ<tex-math>^N</tex-math> outperforms previous state-of-the-art methods by improving ROUGE scores on three long meeting summarization datasets AMI, ICSI, and QMSum, two long TV series datasets from SummScreen, and a long document summarization dataset GovReport. Our data and code are available at https://github.com/psunlpgroup/Summ-N. </abstract>
       <url hash="ed4caee6">2022.acl-long.112</url>
       <bibkey>zhang-etal-2022-summn</bibkey>
-      <pwccode url="https://github.com/chatc/summ-n" additional="true">chatc/summ-n</pwccode>
+      <pwccode url="https://github.com/psunlpgroup/summ-n" additional="true">psunlpgroup/summ-n</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/govreport">GovReport</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qmsum">QMSum</pwcdataset>
     </paper>
@@ -3291,6 +3292,7 @@
       <abstract>Existing pre-trained transformer analysis works usually focus only on one or two model families at a time, overlooking the variability of the architecture and pre-training objectives. In our work, we utilize the oLMpics bench- mark and psycholinguistic probing datasets for a diverse set of 29 models including T5, BART, and ALBERT. Additionally, we adapt the oLMpics zero-shot setup for autoregres- sive models and evaluate GPT networks of different sizes. Our findings show that none of these models can resolve compositional questions in a zero-shot fashion, suggesting that this skill is not learnable using existing pre-training objectives. Furthermore, we find that global model decisions such as architecture, directionality, size of the dataset, and pre-training objective are not predictive of a model’s linguistic capabilities.</abstract>
       <url hash="df1c2b78">2022.acl-long.227</url>
       <bibkey>lialin-etal-2022-life</bibkey>
+      <pwccode url="https://github.com/kev-zhao/life-after-bert" additional="false">kev-zhao/life-after-bert</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/webtext">WebText</pwcdataset>
     </paper>
     <paper id="228">
@@ -3379,6 +3381,7 @@
       <abstract>Toxic language detection systems often falsely flag text that contains minority group mentions as toxic, as those groups are often the targets of online hate. Such over-reliance on spurious correlations also causes systems to struggle with detecting implicitly toxic language.To help mitigate these issues, we create ToxiGen, a new large-scale and machine-generated dataset of 274k toxic and benign statements about 13 minority groups. We develop a demonstration-based prompting framework and an adversarial classifier-in-the-loop decoding method to generate subtly toxic and benign text with a massive pretrained language model. Controlling machine generation in this way allows ToxiGen to cover implicitly toxic text at a larger scale, and about more demographic groups, than previous resources of human-written text. We conduct a human evaluation on a challenging subset of ToxiGen and find that annotators struggle to distinguish machine-generated text from human-written language. We also find that 94.5% of toxic examples are labeled as hate speech by human annotators. Using three publicly-available datasets, we show that finetuning a toxicity classifier on our data improves its performance on human-written data substantially. We also demonstrate that ToxiGen can be used to fight machine-generated toxicity as finetuning improves the classifier significantly on our evaluation subset.</abstract>
       <url hash="b2e341e6">2022.acl-long.234</url>
       <bibkey>hartvigsen-etal-2022-toxigen</bibkey>
+      <pwccode url="https://github.com/microsoft/toxigen" additional="false">microsoft/toxigen</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/toxigen">ToxiGen</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/hate-speech">Hate Speech</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/implicit-hate">Implicit Hate</pwcdataset>
@@ -3424,6 +3427,7 @@
       <abstract>Controllable summarization aims to provide summaries that take into account user-specified aspects and preferences to better assist them with their information need, as opposed to the standard summarization setup which build a single generic summary of a document.We introduce a human-annotated data set EntSUM for controllable summarization with a focus on named entities as the aspects to control.We conduct an extensive quantitative analysis to motivate the task of entity-centric summarization and show that existing methods for controllable summarization fail to generate entity-centric summaries. We propose extensions to state-of-the-art summarization approaches that achieve substantially better results on our data set. Our analysis and results show the challenging nature of this task and of the proposed data set.</abstract>
       <url hash="392c8a29">2022.acl-long.237</url>
       <bibkey>maddela-etal-2022-entsum</bibkey>
+      <pwccode url="https://github.com/bloomberg/entsum" additional="false">bloomberg/entsum</pwccode>
     </paper>
     <paper id="238">
       <title>Sentence-level Privacy for Document Embeddings</title>
@@ -3866,6 +3870,7 @@ in the Case of Unambiguous Gender</title>
       <url hash="697f3528">2022.acl-long.268</url>
       <attachment type="software" hash="ee28b082">2022.acl-long.268.software.zip</attachment>
       <bibkey>alvarez-mellado-lignos-2022-detecting</bibkey>
+      <pwccode url="https://github.com/lirondos/coalas" additional="false">lirondos/coalas</pwccode>
     </paper>
     <paper id="269">
       <title>Is Attention Explanation? An Introduction to the Debate</title>
@@ -4822,6 +4827,7 @@ in the Case of Unambiguous Gender</title>
       <url hash="b4b0326c">2022.acl-long.335</url>
       <attachment type="software" hash="44887842">2022.acl-long.335.software.zip</attachment>
       <bibkey>wang-etal-2022-textomics</bibkey>
+      <pwccode url="https://github.com/amos814/textomics" additional="false">amos814/textomics</pwccode>
     </paper>
     <paper id="336">
       <title>A Contrastive Framework for Learning Sentence Representations from Pairwise and Triple-wise Perspective in Angular Space</title>
@@ -5015,6 +5021,7 @@ in the Case of Unambiguous Gender</title>
       <url hash="5cd6c5f6">2022.acl-long.347</url>
       <attachment type="software" hash="bdfea510">2022.acl-long.347.software.zip</attachment>
       <bibkey>zhu-etal-2022-pass</bibkey>
+      <pwccode url="https://github.com/thunlp/model-selection-attack" additional="false">thunlp/model-selection-attack</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/olid">OLID</pwcdataset>
@@ -5403,6 +5410,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>Transformers are unable to model long-term memories effectively, since the amount of computation they need to perform grows with the context length. While variations of efficient transformers have been proposed, they all have a finite memory capacity and are forced to drop old information. In this paper, we propose the <tex-math>\infty</tex-math>-former, which extends the vanilla transformer with an unbounded long-term memory. By making use of a continuous-space attention mechanism to attend over the long-term memory, the <tex-math>\infty</tex-math>-former’s attention complexity becomes independent of the context length, trading off memory length with precision.In order to control where precision is more important, <tex-math>\infty</tex-math>-former maintains “sticky memories,” being able to model arbitrarily long contexts while keeping the computation budget fixed.Experiments on a synthetic sorting task, language modeling, and document grounded dialogue generation demonstrate the <tex-math>\infty</tex-math>-former’s ability to retain information from long sequences.</abstract>
       <url hash="02e8edcb">2022.acl-long.375</url>
       <bibkey>martins-etal-2022-former</bibkey>
+      <pwccode url="https://github.com/deep-spin/infinite-former" additional="false">deep-spin/infinite-former</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/pg-19">PG-19</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
     </paper>
@@ -5614,8 +5622,11 @@ in the Case of Unambiguous Gender</title>
       <bibkey>zhao-etal-2022-m3ed</bibkey>
       <pwccode url="https://github.com/aim3-ruc/rucm3ed" additional="false">aim3-ruc/rucm3ed</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ch-sims">CH-SIMS</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/cmu-mosei">CMU-MOSEI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/emorynlp">EmoryNLP</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/emotionlines">EmotionLines</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/iemocap">IEMOCAP</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/meld">MELD</pwcdataset>
     </paper>
     <paper id="392">
@@ -5653,7 +5664,9 @@ in the Case of Unambiguous Gender</title>
       <abstract>Motivated by the success of T5 (Text-To-Text Transfer Transformer) in pre-trained natural language processing models, we propose a unified-modal SpeechT5 framework that explores the encoder-decoder pre-training for self-supervised speech/text representation learning. The SpeechT5 framework consists of a shared encoder-decoder network and six modal-specific (speech/text) pre/post-nets. After preprocessing the input speech/text through the pre-nets, the shared encoder-decoder network models the sequence-to-sequence transformation, and then the post-nets generate the output in the speech/text modality based on the output of the decoder. Leveraging large-scale unlabeled speech and text data, we pre-train SpeechT5 to learn a unified-modal representation, hoping to improve the modeling capability for both speech and text. To align the textual and speech information into this unified semantic space, we propose a cross-modal vector quantization approach that randomly mixes up speech/text states with latent units as the interface between encoder and decoder. Extensive evaluations show the superiority of the proposed SpeechT5 framework on a wide variety of spoken language processing tasks, including automatic speech recognition, speech synthesis, speech translation, voice conversion, speech enhancement, and speaker identification.</abstract>
       <url hash="8128b1c4">2022.acl-long.393</url>
       <bibkey>ao-etal-2022-speecht5</bibkey>
+      <pwccode url="https://github.com/microsoft/speecht5" additional="false">microsoft/speecht5</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/libritts">LibriTTS</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/voxceleb1">VoxCeleb1</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wham">WHAM!</pwcdataset>
@@ -6177,6 +6190,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>Nested named entity recognition (NER) has been receiving increasing attention. Recently, Fu et al. (2020) adapt a span-based constituency parser to tackle nested NER. They treat nested entities as partially-observed constituency trees and propose the masked inside algorithm for partial marginalization. However, their method cannot leverage entity heads, which have been shown useful in entity mention detection and entity typing. In this work, we resort to more expressive structures, lexicalized constituency trees in which constituents are annotated by headwords, to model nested entities. We leverage the Eisner-Satta algorithm to perform partial marginalization and inference efficiently.In addition, we propose to use (1) a two-stage strategy (2) a head regularization loss and (3) a head-aware labeling loss in order to enhance the performance. We make a thorough ablation study to investigate the functionality of each component. Experimentally, our method achieves the state-of-the-art performance on ACE2004, ACE2005 and NNE, and competitive performance on GENIA, and meanwhile has a fast inference speed.</abstract>
       <url hash="c5363e94">2022.acl-long.428</url>
       <bibkey>lou-etal-2022-nested</bibkey>
+      <pwccode url="https://github.com/louchao98/nner_as_parsing" additional="false">louchao98/nner_as_parsing</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/nne">NNE</pwcdataset>
     </paper>
     <paper id="429">
@@ -6755,6 +6769,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>The introduction of immensely large Causal Language Models (CLMs) has rejuvenated the interest in open-ended text generation. However, controlling the generative process for these Transformer-based models is at large an unsolved problem. Earlier work has explored either plug-and-play decoding strategies, or more powerful but blunt approaches such as prompting. There hence currently exists a trade-off between fine-grained control, and the capability for more expressive high-level instructions. To alleviate this trade-off, we propose an encoder-decoder architecture that enables intermediate text prompts at arbitrary time steps. We propose a resource-efficient method for converting a pre-trained CLM into this architecture, and demonstrate its potential on various experiments, including the novel task of contextualized word inclusion. Our method provides strong results on multiple experimental settings, proving itself to be both expressive and versatile.</abstract>
       <url hash="a8028b71">2022.acl-long.471</url>
       <bibkey>carlsson-etal-2022-fine</bibkey>
+      <pwccode url="https://github.com/freddefrallan/non-residual-prompting" additional="false">freddefrallan/non-residual-prompting</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/c4">C4</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/commongen">CommonGen</pwcdataset>
     </paper>
@@ -7181,7 +7196,7 @@ in the Case of Unambiguous Gender</title>
     </paper>
     <paper id="500">
       <title>One Country, 700+ Languages: <fixed-case>NLP</fixed-case> Challenges for Underrepresented Languages and Dialects in <fixed-case>I</fixed-case>ndonesia</title>
-      <author><first>Alham</first><last>Aji</last></author>
+      <author><first>Alham Fikri</first><last>Aji</last></author>
       <author><first>Genta Indra</first><last>Winata</last></author>
       <author><first>Fajri</first><last>Koto</last></author>
       <author><first>Samuel</first><last>Cahyawijaya</last></author>
@@ -8485,6 +8500,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>We introduce SummScreen, a summarization dataset comprised of pairs of TV series transcripts and human written recaps. The dataset provides a challenging testbed for abstractive summarization for several reasons. Plot details are often expressed indirectly in character dialogues and may be scattered across the entirety of the transcript. These details must be found and integrated to form the succinct plot descriptions in the recaps. Also, TV scripts contain content that does not directly pertain to the central plot but rather serves to develop characters or provide comic relief. This information is rarely contained in recaps. Since characters are fundamental to TV series, we also propose two entity-centric evaluation metrics. Empirically, we characterize the dataset by evaluating several methods, including neural models and those based on nearest neighbors. An oracle extractive approach outperforms all benchmarked models according to automatic metrics, showing that the neural models are unable to fully exploit the input transcripts. Human evaluation and qualitative analysis reveal that our non-oracle models are competitive with their oracle counterparts in terms of generating faithful plot events and can benefit from better content selectors. Both oracle and non-oracle models generate unfaithful facts, suggesting future research directions.</abstract>
       <url hash="9923a96a">2022.acl-long.589</url>
       <bibkey>chen-etal-2022-summscreen</bibkey>
+      <pwccode url="https://github.com/mingdachen/SummScreen" additional="false">mingdachen/SummScreen</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/multi-news">Multi-News</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/tvrecap">TVRecap</pwcdataset>
     </paper>
@@ -8800,6 +8816,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>Natural language applied to natural 2D images describes a fundamentally 3D world. We present the Voxel-informed Language Grounder (VLG), a language grounding model that leverages 3D geometric information in the form of voxel maps derived from the visual input using a volumetric reconstruction model. We show that VLG significantly improves grounding accuracy on SNARE, an object reference game task.At the time of writing, VLG holds the top place on the SNARE leaderboard, achieving SOTA results with a 2.0% absolute improvement.</abstract>
       <url hash="db00b958">2022.acl-short.7</url>
       <bibkey>corona-etal-2022-voxel</bibkey>
+      <pwccode url="https://github.com/rcorona/voxel_informed_language_grounding" additional="false">rcorona/voxel_informed_language_grounding</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/snare">SNARE</pwcdataset>
     </paper>
     <paper id="8">
@@ -8987,6 +9004,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>Comprehending a dialogue requires a model to capture diverse kinds of key information in the utterances, which are either scattered around or implicitly implied in different turns of conversations. Therefore, dialogue comprehension requires diverse capabilities such as paraphrasing, summarizing, and commonsense reasoning. Towards the objective of pre-training a zero-shot dialogue comprehension model, we develop a novel narrative-guided pre-training strategy that learns by narrating the key information from a dialogue input. However, the dialogue-narrative parallel corpus for such a pre-training strategy is currently unavailable. For this reason, we first construct a dialogue-narrative parallel corpus by automatically aligning movie subtitles and their synopses. We then pre-train a BART model on the data and evaluate its performance on four dialogue-based tasks that require comprehension. Experimental results show that our model not only achieves superior zero-shot performance but also exhibits stronger fine-grained dialogue comprehension capabilities. The data and code are available at https://github.com/zhaochaocs/Diana.</abstract>
       <url hash="8c20bb93">2022.acl-short.23</url>
       <bibkey>zhao-etal-2022-learning</bibkey>
+      <pwccode url="https://github.com/zhaochaocs/diana" additional="false">zhaochaocs/diana</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/crd3">CRD3</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/dream">DREAM</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/movienet">MovieNet</pwcdataset>
@@ -9265,6 +9283,7 @@ in the Case of Unambiguous Gender</title>
       <url hash="b614856f">2022.acl-short.43</url>
       <attachment type="software" hash="f9bf618d">2022.acl-short.43.software.zip</attachment>
       <bibkey>hofmann-etal-2022-embarrassingly</bibkey>
+      <pwccode url="https://github.com/valentinhofmann/flota" additional="false">valentinhofmann/flota</pwccode>
     </paper>
     <paper id="44">
       <title><fixed-case>SCD</fixed-case>: Self-Contrastive Decorrelation of Sentence Embeddings</title>
@@ -9654,7 +9673,7 @@ in the Case of Unambiguous Gender</title>
       <url hash="bc308565">2022.acl-short.74</url>
       <attachment type="software" hash="8d6fa45e">2022.acl-short.74.software.zip</attachment>
       <bibkey>chen-etal-2022-focus</bibkey>
-      <pwccode url="https://github.com/pkunlp-icler/mls" additional="false">pkunlp-icler/mls</pwccode>
+      <pwccode url="https://github.com/chenllliang/MLS" additional="true">chenllliang/MLS</pwccode>
     </paper>
     <paper id="75">
       <title>Contrastive Learning-Enhanced Nearest Neighbor Mechanism for Multi-Label Text Classification</title>
@@ -10076,6 +10095,7 @@ in the Case of Unambiguous Gender</title>
       <abstract>Natural Language Inference (NLI) is the task of determining whether a premise entails a hypothesis. NLI with temporal order is a challenging task because tense and aspect are complex linguistic phenomena involving interactions with temporal adverbs and temporal connectives. To tackle this, temporal and aspectual inference has been analyzed in various ways in the field of formal semantics. However, a Japanese NLI system for temporal order based on the analysis of formal semantics has not been sufficiently developed. We present a logic-based NLI system that considers temporal order in Japanese based on compositional semantics via Combinatory Categorial Grammar (CCG) syntactic analysis. Our system performs inference involving temporal order by using axioms for temporal relations and automated theorem provers. We evaluate our system by experimenting with Japanese NLI datasets that involve temporal order. We show that our system outperforms previous logic-based systems as well as current deep learning-based models.</abstract>
       <url hash="0775c922">2022.acl-srw.10</url>
       <bibkey>sugimoto-yanaka-2022-compositional</bibkey>
+      <pwccode url="https://github.com/ynklab/ccgtemp" additional="false">ynklab/ccgtemp</pwccode>
     </paper>
     <paper id="11">
       <title>Combine to Describe: Evaluating Compositional Generalization in Image Captioning</title>
