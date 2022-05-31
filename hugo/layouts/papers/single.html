@@ -238,6 +238,11 @@
       <dd class="acl-button-row"><a href="{{ .url }}" class="btn btn-attachment btn-sm">{{ partial "attachment_repr.html" . }}&nbsp;{{ .filename }}</a></dd>
       {{ end }}
 
+      {{ range $paper.video }}
+      <dt class="acl-button-row">Video:</dt>
+      <dd class="acl-button-row"><a href="{{ . }}" class="btn btn-attachment btn-sm"><i class="fas fa-video"></i>&nbsp;{{ . }}</a></dd>
+      {{ end }}
+
       {{ with $paper.pwccode }}
       <dt>Code</dt>
       <dd>
@@ -312,6 +317,12 @@
       <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ .url }}" title="Open {{ .type | humanize | lower }} for '{{ $paper.title | htmlEscape }}'">
         <span class="align-self-center px-1">{{ partial "attachment_repr.html" . -}}</span>
         <span class="px-1">{{ humanize .type }}</span>
+      </a>
+      {{ end }}
+      {{ range $paper.video }}
+      <a class="btn btn-attachment d-flex flex-wrap justify-content-center" href="{{ . }}" title="Open video for '{{ $paper.title | htmlEscape }}'">
+        <span class="align-self-center px-1"><i class="fas fa-video"></i></span>
+        <span class="px-1">Video</span>
       </a>
       {{ end }}
     </div>

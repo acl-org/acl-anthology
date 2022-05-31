@@ -8,9 +8,7 @@ date: "2021-04-18"
 This page contains general information about submitting the proceedings of a conference to the ACL Anthology.
 (For information about the complete conference management process, particularly for ACL conference publications chairs, please refer to [the official documentation](https://acl-org.github.io/ACLPUB/).)
 It is intended for publication chairs of main conferences and standalone events, who have the responsibility of delivering the proceedings for all main conference and workshop volumes to the Anthology director.
-Chairs of workshops attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
-
-Please note that chairs of workshops colocated with a larger conference should work through their conference publication chair instead of directly with the Anthology.
+**Chairs of workshops** attached to a larger conference should also read this page, but should work through their main conference publication chair instead of directly with the Anthology.
 
 ### Overview of the Submission Process
 
@@ -50,10 +48,11 @@ Please note the following important dates.
 ### Register your meeting
 
 If you are a conference publications chair, you must register your intention to submit your proceedings.
+(Workshop chairs should do this through your main conference publication chair).
 This step requires you to send (a) the complete list of volumes that will be published in the Anthology (main conference volumes and workshops) and (b) the desired publication date.
 Your proceedings will be due no later than **two weeks** prior to this negotiated date.
 
-This information should be submitted to us [via a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=mjpost&labels=ingestion&template=ingestion-request.md&title=Ingestion+request)
+This information should be submitted to us [via a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=mjpost&labels=ingestion&template=ingestion-request.md&title=Ingestion+request).
 **Please do this as early as possible**, ideally well before the submission deadline.
 This will allow us to do a quick sanity check of the metadata.
 As noted above, if you are the chair of a workshop that is colocated with a larger event, please work with your main conference publication chair instead of directly with the Anthology.
@@ -76,7 +75,7 @@ Your Github issue should contain the following information for each volume.
    For example, "Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP): Tutorial Abstracts".
    But above all, you should also seek consistency with the names of your volumes from prior years.
 
-If you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please work with the main conference publication chair, rather than directly with the Anthology staff.
+**We emphasize** that if you are chairing a meeting attached as a satellite of a main conference (e.g., ACL or EMNLP), please do not communicate directly with the Anthology, but instead first work with your main conference publication chair(s), who will take care of registration and many of the details below.
 
 #### New venues
 
@@ -103,6 +102,8 @@ The remaining steps are handled by Anthology staff and use [Anthology tools](htt
 - We ingest that data by running additional scripts that convert it into our authoritative format, apply title-case protection, and disambiguate author names.
 - This becomes a pull request on [our Github repository](https://github.com/acl-org/acl-anthology/).
 - Once approved and merged into the `master` branch, the site will be automatically rebuilt (which happens twice a day) and made live.
+
+**Please note** that workshop chairs should handle this step through their main conference publication chair, and not directly with the Anthology.
 
 ### Copyright
 
