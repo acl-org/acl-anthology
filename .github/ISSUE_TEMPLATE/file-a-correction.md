@@ -6,7 +6,7 @@ labels: correction
 assignees: xinru1414
 ---
 
-# Instuctions
+# Instructions
 
 **Please be sure to add the Anthology ID in the Issue title**
 
