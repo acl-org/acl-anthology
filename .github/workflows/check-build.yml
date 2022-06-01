@@ -3,6 +3,9 @@ name: check-build
 on:
   pull_request
 
+# only run one at a time per branch
+concurrency: check-build-${{ github.ref }}
+
 jobs:
   check-build:
     runs-on: ubuntu-20.04
