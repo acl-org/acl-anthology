@@ -4,7 +4,9 @@ on:
   pull_request
 
 # only run one at a time per branch
-concurrency: check-build-${{ github.ref }}
+concurrency:
+  group: check-build-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   check-build:

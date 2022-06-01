@@ -10,7 +10,9 @@ on:
     - '!master'
 
 # only run one at a time per branch
-concurrency: preview-${{ github.ref }}
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   preview:
