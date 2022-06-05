@@ -25,7 +25,7 @@ from stop_words import get_stop_words
 from .formatter import bibtex_encode
 from .people import PersonName
 from .venues import VenueIndex
-from .events import EventIndex
+# from .events import EventIndex
 
 from typing import List
 
