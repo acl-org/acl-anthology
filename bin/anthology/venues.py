@@ -98,9 +98,13 @@ class VenueIndex:
             with open(f"{directory}/yaml/venues/{venue_file}", "r") as f:
                 venue_dict = yaml.load(f, Loader=Loader)
                 if "acronym" not in venue_dict:
-                    raise Exception(f"Venues must have 'acronym' - none defined for '{slug}'")
+                    raise Exception(
+                        f"Venues must have 'acronym' - none defined for '{slug}'"
+                    )
                 if "name" not in venue_dict:
-                    raise Exception(f"Venues must have 'name' - none defined for '{slug}'")
+                    raise Exception(
+                        f"Venues must have 'name' - none defined for '{slug}'"
+                    )
                 if venue_dict["acronym"] in self.venues:
                     raise Exception(
                         f"Venue acronyms must be unique - '{venue_dict['acronym']}' used"
@@ -130,14 +134,18 @@ class VenueIndex:
                         )
                     self.letters[venue_dict["oldstyle_letter"]] = venue_dict["acronym"]
 
-                venue_dict["volumes"] = VenueIndex.read_leaves(venue_dict.get("volumes", []))
+                venue_dict["volumes"] = VenueIndex.read_leaves(
+                    venue_dict.get("volumes", [])
+                )
                 for volume in venue_dict["volumes"]:
                     acronym = self.acronyms_by_slug[slug]
                     self.volume_map[volume].append(acronym)
 
                 venue_dict["excluded_volumes"] = list()
                 if "excluded-volumes" in venue_dict:
-                    venue_dict["excluded-volumes"] = VenueIndex.read_leaves(venue_dict["excluded-volumes"])
+                    venue_dict["excluded-volumes"] = VenueIndex.read_leaves(
+                        venue_dict["excluded-volumes"]
+                    )
 
                 self.venue_dict[slug] = venue_dict
 
@@ -191,7 +199,9 @@ class VenueIndex:
                         build_anthology_id(collection_id, volume_id, None)
                     ][0]
                 except (KeyError, IndexError):
-                    raise Exception(f"Old-style ID {anthology_id} isn't assigned any venue!")
+                    raise Exception(
+                        f"Old-style ID {anthology_id} isn't assigned any venue!"
+                    )
             return main_venue
 
     def get_associated_venues(self, anthology_id):
