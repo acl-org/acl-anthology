@@ -211,13 +211,13 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     for acronym, data in anthology.venues.items():
         letter = data.get("oldstyle_letter", "W")
         data = data.copy()
-        data["volumes_by_year"] = {
-            year: sorted(
-                filter(lambda k: volumes[k]["year"] == year, data["volumes"]),
+        data["volumes_by_year"] = {}
+        for year in sorted(data["years"]):
+            filtered_volumes = list(filter(lambda k: volumes[k]["year"] == year, data["volumes"]))
+            data["volumes_by_year"][year] = sorted(
+                filtered_volumes,
                 key=lambda x: SortedVolume(acronym, letter, x),
             )
-            for year in sorted(data["years"])
-        }
         data["years"] = sorted(list(data["years"]))
         del data["volumes"]
         venues[acronym] = data
