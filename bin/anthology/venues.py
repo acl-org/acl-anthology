@@ -234,8 +234,10 @@ class VenueIndex:
         """
         venues = self.get_associated_venues(volume.full_id)
         for venue in venues:
-            if volume.full_id not in self.venues[venue]["volumes"] and \
-               volume.full_id not in self.venues[venue]["excluded_volumes"]:
+            if (
+                volume.full_id not in self.venues[venue]["volumes"]
+                and volume.full_id not in self.venues[venue]["excluded_volumes"]
+            ):
                 self.venues[venue]["volumes"].append(volume.full_id)
                 self.venues[venue]["years"].add(volume.get("year"))
 
