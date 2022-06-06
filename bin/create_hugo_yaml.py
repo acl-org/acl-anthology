@@ -221,7 +221,11 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                 key=lambda x: SortedVolume(acronym, letter, x),
             )
         data["years"] = sorted(list(data["years"]))
+
+        # Remove these two which are no longer needed
         del data["volumes"]
+        del data["excluded_volumes"]
+
         venues[acronym] = data
 
     # Prepare SIG index
