@@ -37,6 +37,7 @@ class VenueIndex:
         self.venues = {}
         self.letters = {}
         self.volume_map = defaultdict(list)
+        self.excluded_volume_map = defaultdict(list)
         self.acronyms = {}  # acronym -> venue
         self.acronyms_by_slug = {}  # slug -> acronym
         self.venue_dict = None
@@ -134,6 +135,7 @@ class VenueIndex:
                         )
                     self.letters[venue_dict["oldstyle_letter"]] = venue_dict["acronym"]
 
+                # explicit links from volumes to venues (joint volumes)
                 venue_dict["volumes"] = VenueIndex.read_leaves(
                     venue_dict.get("volumes", [])
                 )
@@ -141,11 +143,13 @@ class VenueIndex:
                     acronym = self.acronyms_by_slug[slug]
                     self.volume_map[volume].append(acronym)
 
-                venue_dict["excluded_volumes"] = list()
-                if "excluded-volumes" in venue_dict:
-                    venue_dict["excluded-volumes"] = VenueIndex.read_leaves(
-                        venue_dict["excluded-volumes"]
-                    )
+                # List of venues excluded from each volume
+                venue_dict["excluded_volumes"] = VenueIndex.read_leaves(
+                    venue_dict.get("excluded_volumes", [])
+                )
+                for volume in venue_dict["excluded_volumes"]:
+                    acronym = self.acronyms_by_slug[slug]
+                    self.excluded_volume_map[volume].append(acronym)
 
                 self.venue_dict[slug] = venue_dict
 
@@ -191,7 +195,7 @@ class VenueIndex:
             # the venue files.
             main_venue = self.get_by_letter(collection_id[0])
             if main_venue is None:
-                # If there's no association with the letter, use joint.yaml to
+                # If there was no association with the letter, use joint.yaml to
                 # get the venue.  As of 06/2021 this is only used for "O"
                 # (ROCLING/IJCLCLP).
                 try:
@@ -208,19 +212,33 @@ class VenueIndex:
         """Get a list of all venue acronyms for a given (volume) anthology ID."""
         main_venue = self.get_main_venue(anthology_id)
         venues = [main_venue]
+
+        # TODO 06/2022: this should be updated for events, instead of "joint"
         if "joint" in self.venues[main_venue]:
             venues += self.venues[main_venue]["joint"]
         if anthology_id in self.volume_map:
             venues += self.volume_map[anthology_id]
-        return sorted(set(venues))
+
+        # Subtract out excluded volumes
+        return sorted(set(venues) - set(self.excluded_volume_map.get(anthology_id, [])))
 
     def register(self, volume):
-        """Register a proceedings volume with all associated venues."""
+        """Register a proceedings volume with all associated venues.
+
+        For each volume, we determine the set of associated venues, and add this volume to that
+        venue. Associations are made by default links from the venue ID (e.g., "2021.acl-1" and
+        P17-02 are associated with "acl"), and also by explicit listings in the individual venues
+        files (e.g., "O17-1" is explicitly listed in rocling.yaml). We also skip volumes that
+        were explicitly excluded in the venues file (these are volumes with default associations
+        that are incorrect, such as EMNLP 2019's workshops using the "D" key).
+        """
         venues = self.get_associated_venues(volume.full_id)
         for venue in venues:
-            if volume.full_id not in self.venues[venue]["excluded_volumes"]:
+            if volume.full_id not in self.venues[venue]["volumes"] and \
+               volume.full_id not in self.venues[venue]["excluded_volumes"]:
                 self.venues[venue]["volumes"].append(volume.full_id)
                 self.venues[venue]["years"].add(volume.get("year"))
+
         return venues
 
     def items(self):
