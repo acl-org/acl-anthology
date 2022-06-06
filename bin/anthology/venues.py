@@ -80,19 +80,17 @@ class VenueIndex:
         { "2019": ["this", "that"] } -> ["this", "that"]
         ["this", "that"] => ["this", "that"]
         """
-        leaves = set()
+        leaves = []
         if isinstance(data, dict):
             for subdata in data.values():
-                for item in VenueIndex.read_leaves(subdata):
-                    leaves.add(item)
+                leaves += VenueIndex.read_leaves(subdata)
         elif isinstance(data, list):
             for subdata in data:
-                for item in VenueIndex.read_leaves(subdata):
-                    leaves.add(item)
+                leaves += VenueIndex.read_leaves(subdata)
         elif data:
-            leaves = set([data])
+            leaves = [data]
 
-        return set(leaves)
+        return leaves
 
     def load_from_dir(self, directory):
         self.venue_dict = {}
@@ -139,7 +137,7 @@ class VenueIndex:
 
                 # explicit links from volumes to venues (joint volumes)
                 venue_dict["volumes"] = VenueIndex.read_leaves(
-                    venue_dict.get("volumes", set())
+                    venue_dict.get("volumes", [])
                 )
                 for volume in venue_dict["volumes"]:
                     acronym = self.acronyms_by_slug[slug]
@@ -219,10 +217,11 @@ class VenueIndex:
         if "joint" in self.venues[main_venue]:
             venues += self.venues[main_venue]["joint"]
         if anthology_id in self.volume_map:
-            venues += self.volume_map[anthology_id]
+            for venue in self.volume_map[anthology_id]:
+                if venue not in self.excluded_volume_map.get(anthology_id, []):
+                    venues.append(venue)
 
-        # Subtract out excluded volumes
-        return sorted(set(venues) - set(self.excluded_volume_map.get(anthology_id, [])))
+        return venues
 
     def register(self, volume):
         """Register a proceedings volume with all associated venues.
@@ -236,7 +235,8 @@ class VenueIndex:
         """
         venues = self.get_associated_venues(volume.full_id)
         for venue in venues:
-            self.venues[venue]["volumes"].add(volume.full_id)
+            if volume.full_id not in self.venues[venue]["volumes"]:
+                self.venues[venue]["volumes"].append(volume.full_id)
             self.venues[venue]["years"].add(volume.get("year"))
 
         return venues
