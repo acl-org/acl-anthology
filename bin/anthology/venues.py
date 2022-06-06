@@ -80,17 +80,19 @@ class VenueIndex:
         { "2019": ["this", "that"] } -> ["this", "that"]
         ["this", "that"] => ["this", "that"]
         """
-        leaves = []
+        leaves = set()
         if isinstance(data, dict):
             for subdata in data.values():
-                leaves += VenueIndex.read_leaves(subdata)
+                for item in VenueIndex.read_leaves(subdata):
+                    leaves.add(item)
         elif isinstance(data, list):
             for subdata in data:
-                leaves += VenueIndex.read_leaves(subdata)
-        else:
-            leaves = [data]
+                for item in VenueIndex.read_leaves(subdata):
+                    leaves.add(item)
+        elif data:
+            leaves = set([data])
 
-        return leaves
+        return set(leaves)
 
     def load_from_dir(self, directory):
         self.venue_dict = {}
@@ -137,7 +139,7 @@ class VenueIndex:
 
                 # explicit links from volumes to venues (joint volumes)
                 venue_dict["volumes"] = VenueIndex.read_leaves(
-                    venue_dict.get("volumes", [])
+                    venue_dict.get("volumes", set())
                 )
                 for volume in venue_dict["volumes"]:
                     acronym = self.acronyms_by_slug[slug]
@@ -145,7 +147,7 @@ class VenueIndex:
 
                 # List of venues excluded from each volume
                 venue_dict["excluded_volumes"] = VenueIndex.read_leaves(
-                    venue_dict.get("excluded_volumes", [])
+                    venue_dict.get("excluded_volumes", set())
                 )
                 for volume in venue_dict["excluded_volumes"]:
                     acronym = self.acronyms_by_slug[slug]
@@ -234,12 +236,8 @@ class VenueIndex:
         """
         venues = self.get_associated_venues(volume.full_id)
         for venue in venues:
-            if (
-                volume.full_id not in self.venues[venue]["volumes"]
-                and volume.full_id not in self.venues[venue]["excluded_volumes"]
-            ):
-                self.venues[venue]["volumes"].append(volume.full_id)
-                self.venues[venue]["years"].add(volume.get("year"))
+            self.venues[venue]["volumes"].add(volume.full_id)
+            self.venues[venue]["years"].add(volume.get("year"))
 
         return venues
 
