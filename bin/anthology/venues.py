@@ -221,7 +221,11 @@ class VenueIndex:
                 venues.append(venue)
 
         # Remove excluded venues
-        venues = list(filter(lambda v: v not in self.excluded_volume_map.get(anthology_id, []), venues))
+        venues = list(
+            filter(
+                lambda v: v not in self.excluded_volume_map.get(anthology_id, []), venues
+            )
+        )
 
         return venues
 
