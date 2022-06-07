@@ -218,8 +218,10 @@ class VenueIndex:
             venues += self.venues[main_venue]["joint"]
         if anthology_id in self.volume_map:
             for venue in self.volume_map[anthology_id]:
-                if venue not in self.excluded_volume_map.get(anthology_id, []):
-                    venues.append(venue)
+                venues.append(venue)
+
+        # Remove excluded venues
+        venues = list(filter(lambda v: v not in self.excluded_volume_map.get(anthology_id, []), venues))
 
         return venues
 
