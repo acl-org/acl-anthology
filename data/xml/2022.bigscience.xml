@@ -31,9 +31,9 @@
       <abstract>Pretrained language models (PTLMs) are typically learned over a large, static corpus and further fine-tuned for various downstream tasks. However, when deployed in the real world, a PTLM-based model must deal with data distributions that deviates from what the PTLM was initially trained on. In this paper, we study a lifelong language model pretraining challenge where a PTLM is continually updated so as to adapt to emerging data. Over a domain-incremental research paper stream and a chronologically-ordered tweet stream, we incrementally pretrain a PTLM with different continual learning algorithms, and keep track of the downstream task performance (after fine-tuning). We evaluate PTLM’s ability to adapt to new corpora while retaining learned knowledge in earlier corpora. Our experiments show distillation-based approaches to be most effective in retaining downstream performance in earlier domains. The algorithms also improve knowledge transfer, allowing models to achieve better downstream performance over latest data, and improve temporal generalization when distribution gaps exist between training and evaluation because of time. We believe our problem formulation, methods, and analysis will inspire future studies towards continual pretraining of language models.</abstract>
       <url hash="b618bf84">2022.bigscience-1.1</url>
       <bibkey>jin-etal-2022-lifelong</bibkey>
+      <doi>10.18653/v1/2022.bigscience-1.1</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/s2orc">S2ORC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/scierc">SciERC</pwcdataset>
-      <doi>10.18653/v1/2022.bigscience-1.1</doi>
     </paper>
     <paper id="2">
       <title>Using <fixed-case>ASR</fixed-case>-Generated Text for Spoken Language Modeling</title>
@@ -72,8 +72,8 @@
       <abstract>Evaluating bias, fairness, and social impact in monolingual language models is a difficult task. This challenge is further compounded when language modeling occurs in a multilingual context. Considering the implication of evaluation biases for large multilingual language models, we situate the discussion of bias evaluation within a wider context of social scientific research with computational work.We highlight three dimensions of developing multilingual bias evaluation frameworks: (1) increasing transparency through documentation, (2) expanding targets of bias beyond gender, and (3) addressing cultural differences that exist between languages.We further discuss the power dynamics and consequences of training large language models and recommend that researchers remain cognizant of the ramifications of developing such technologies.</abstract>
       <url hash="eb2f21e0">2022.bigscience-1.3</url>
       <bibkey>talat-etal-2022-reap</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/crows-pairs">CrowS-Pairs</pwcdataset>
       <doi>10.18653/v1/2022.bigscience-1.3</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/crows-pairs">CrowS-Pairs</pwcdataset>
     </paper>
     <paper id="4">
       <title>Diverse Lottery Tickets Boost Ensemble from a Single Pretrained Model</title>
@@ -85,12 +85,12 @@
       <abstract>Ensembling is a popular method used to improve performance as a last resort. However, ensembling multiple models finetuned from a single pretrained model has been not very effective; this could be due to the lack of diversity among ensemble members. This paper proposes Multi-Ticket Ensemble, which finetunes different subnetworks of a single pretrained model and ensembles them. We empirically demonstrated that winning-ticket subnetworks produced more diverse predictions than dense networks and their ensemble outperformed the standard ensemble in some tasks when accurate lottery tickets are found on the tasks.</abstract>
       <url hash="74030f42">2022.bigscience-1.4</url>
       <bibkey>kobayashi-etal-2022-diverse</bibkey>
+      <doi>10.18653/v1/2022.bigscience-1.4</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
-      <doi>10.18653/v1/2022.bigscience-1.4</doi>
     </paper>
     <paper id="5">
       <title><fixed-case>UNIREX</fixed-case>: A Unified Learning Framework for Language Model Rationale Extraction</title>
@@ -106,12 +106,12 @@
       <abstract>An extractive rationale explains a language model’s (LM’s) prediction on a given task instance by highlighting the text inputs that most influenced the prediction. Ideally, rationale extraction should be faithful (reflective of LM’s actual behavior) and plausible (convincing to humans), without compromising the LM’s (i.e., task model’s) task performance. Although attribution algorithms and select-predict pipelines are commonly used in rationale extraction, they both rely on certain heuristics that hinder them from satisfying all three desiderata. In light of this, we propose UNIREX, a flexible learning framework which generalizes rationale extractor optimization as follows: (1) specify architecture for a learned rationale extractor; (2) select explainability objectives (i.e., faithfulness and plausibility criteria); and (3) jointly the train task model and rationale extractor on the task using selected objectives. UNIREX enables replacing prior works’ heuristic design choices with a generic learned rationale extractor in (1) and optimizing it for all three desiderata in (2)-(3). To facilitate comparison between methods w.r.t. multiple desiderata, we introduce the Normalized Relative Gain (NRG) metric. Across five English text classification datasets, our best UNIREX configuration outperforms the strongest baselines by an average of 32.9% NRG. Plus, we find that UNIREX-trained rationale extractors’ faithfulness can even generalize to unseen datasets and tasks.</abstract>
       <url hash="108df412">2022.bigscience-1.5</url>
       <bibkey>chan-etal-2022-unirex</bibkey>
+      <doi>10.18653/v1/2022.bigscience-1.5</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/cos-e">CoS-E</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/hate-speech">Hate Speech</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multirc">MultiRC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/e-snli">e-SNLI</pwcdataset>
-      <doi>10.18653/v1/2022.bigscience-1.5</doi>
     </paper>
     <paper id="6">
       <title>Pipelines for Social Bias Testing of Large Language Models</title>
@@ -150,8 +150,8 @@
       <abstract>As ever larger language models grow more ubiquitous, it is crucial to consider their environmental impact. Characterised by extreme size and resource use, recent generations of models have been criticised for their voracious appetite for compute, and thus significant carbon footprint. Although reporting of carbon impact has grown more common in machine learning papers, this reporting is usually limited to compute resources used strictly for training. In this work, we propose a holistic assessment of the footprint of an extreme-scale language model, Noor. Noor is an ongoing project aiming to develop the largest multi-task Arabic language models–with up to 13B parameters–leveraging zero-shot generalisation to enable a wide range of downstream tasks via natural language instructions. We assess the total carbon bill of the entire project: starting with data collection and storage costs, including research and development budgets, pretraining costs, future serving estimates, and other exogenous costs necessary for this international cooperation. Notably, we find that inference costs and exogenous factors can have a significant impact on total budget. Finally, we discuss pathways to reduce the carbon footprint of extreme-scale models.</abstract>
       <url hash="857bbf5a">2022.bigscience-1.8</url>
       <bibkey>lakim-etal-2022-holistic</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/ccnet">CCNet</pwcdataset>
       <doi>10.18653/v1/2022.bigscience-1.8</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/ccnet">CCNet</pwcdataset>
     </paper>
     <paper id="9">
       <title><fixed-case>GPT</fixed-case>-<fixed-case>N</fixed-case>eo<fixed-case>X</fixed-case>-20<fixed-case>B</fixed-case>: An Open-Source Autoregressive Language Model</title>
@@ -176,6 +176,7 @@
       <abstract>We introduce GPT-NeoX-20B, a 20 billion parameter autoregressive language model trained on the Pile, whose weights will be made freely and openly available to the public through a permissive license. It is, to the best of our knowledge, the largest dense autoregressive model that has publicly available weights at the time of submission. In this work, we describe GPT-NeoX-20B’s architecture and training, and evaluate its performance. We open-source the training and evaluation code, as well as the model weights, at https://github.com/EleutherAI/gpt-neox.</abstract>
       <url hash="dd5071ff">2022.bigscience-1.9</url>
       <bibkey>black-etal-2022-gpt</bibkey>
+      <doi>10.18653/v1/2022.bigscience-1.9</doi>
       <pwccode url="https://github.com/eleutherai/gpt-neox" additional="true">eleutherai/gpt-neox</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/hellaswag">HellaSwag</pwcdataset>
@@ -187,7 +188,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/prost">PROST</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/the-pile">The Pile</pwcdataset>
-      <doi>10.18653/v1/2022.bigscience-1.9</doi>
     </paper>
     <paper id="10">
       <title>Dataset Debt in Biomedical Language Modeling</title>
@@ -207,9 +207,9 @@
       <abstract>Large-scale language modeling and natural language prompting have demonstrated exciting capabilities for few and zero shot learning in NLP. However, translating these successes to specialized domains such as biomedicine remains challenging, due in part to biomedical NLP’s significant dataset debt – the technical costs associated with data that are not consistently documented or easily incorporated into popular machine learning frameworks at scale. To assess this debt, we crowdsourced curation of datasheets for 167 biomedical datasets. We find that only 13% of datasets are available via programmatic access and 30% lack any documentation on licensing and permitted reuse. Our dataset catalog is available at: https://tinyurl.com/bigbio22.</abstract>
       <url hash="6e7d01d4">2022.bigscience-1.10</url>
       <bibkey>fries-etal-2022-dataset</bibkey>
+      <doi>10.18653/v1/2022.bigscience-1.10</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/blue">BLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/blurb">BLURB</pwcdataset>
-      <doi>10.18653/v1/2022.bigscience-1.10</doi>
     </paper>
     <paper id="11">
       <title>Emergent Structures and Training Dynamics in Large Language Models</title>
@@ -241,6 +241,7 @@
       <abstract>Foundation models pre-trained on large corpora demonstrate significant gains across many natural language processing tasks and domains e.g., law, healthcare, education, etc. However, only limited efforts have investigated the opportunities and limitations of applying these powerful models to science and security applications. In this work, we develop foundation models of scientific knowledge for chemistry to augment scientists with the advanced ability to perceive and reason at scale previously unimagined. Specifically, we build large-scale (1.47B parameter) general-purpose models for chemistry that can be effectively used to perform a wide range of in-domain and out-of-domain tasks. Evaluating these models in a zero-shot setting, we analyze the effect of model and data scaling, knowledge depth, and temporality on model performance in context of model training efficiency. Our novel findings demonstrate that (1) model size significantly contributes to the task performance when evaluated in a zero-shot setting; (2) data quality (aka diversity) affects model performance more than data quantity; (3) similarly, unlike previous work, temporal order of the documents in the corpus boosts model performance only for specific tasks, e.g., SciQ; and (4) models pre-trained from scratch perform better on in-domain tasks than those tuned from general-purpose models like Open AI’s GPT-2.</abstract>
       <url hash="365545c7">2022.bigscience-1.12</url>
       <bibkey>horawalavithana-etal-2022-foundation</bibkey>
+      <doi>10.18653/v1/2022.bigscience-1.12</doi>
       <pwccode url="https://github.com/eleutherai/gpt-neox" additional="false">eleutherai/gpt-neox</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/blue">BLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>
@@ -256,7 +257,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/wsc">WSC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/webtext">WebText</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wic">WiC</pwcdataset>
-      <doi>10.18653/v1/2022.bigscience-1.12</doi>
     </paper>
   </volume>
 </collection>
