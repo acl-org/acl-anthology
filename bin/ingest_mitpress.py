@@ -157,6 +157,9 @@ def get_abstract(xml_front_node: etree.Element) -> str:
     abstract = article_meta.find("abstract", nsmap)
     if abstract is not None:
         abstract_text = collapse_spaces("".join(abstract.itertext()))
+        # 2022/June abstracts all started with "Abstract "
+        if abstract_text.starts_with("Abstract "):
+            abstract_text = abstract_text[9:]
         return abstract_text
     else:
         return None
