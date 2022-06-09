@@ -456,7 +456,9 @@ class Paper:
         title = self.get_title(form="text")
 
         if self.venue_index is None:
-            raise Exception("Can't call Paper.as_markdown() because no venue_index was passed")
+            raise Exception(
+                "Can't call Paper.as_markdown() because no venue_index was passed"
+            )
 
         authors = ""
         for field in ("author", "editor"):
