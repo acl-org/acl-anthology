@@ -455,6 +455,9 @@ class Paper:
         """Return a Markdown-formatted entry."""
         title = self.get_title(form="text")
 
+        if self.venue_index is None:
+            raise Exception("Can't call Paper.as_markdown() because no venue_index was passed")
+
         authors = ""
         for field in ("author", "editor"):
             if field in self.attrib:

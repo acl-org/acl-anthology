@@ -53,6 +53,20 @@ __version__ = "0.5"
 TACL = "tacl"
 CL = "cl"
 
+MONTHS = {
+    "01": "January",
+    "02": "February",
+    "03": "March",
+    "04": "April",
+    "05": "May",
+    "06": "June",
+    "07": "July",
+    "08": "August",
+    "09": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December",
+}
 
 def collapse_spaces(text: str) -> str:
     return " ".join(text.split())
@@ -207,14 +221,14 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
         journal_title_text.split()
     )  # Sometimes it's split onto two lines...
     journal_title_text = (
-        journal_title_text.replace(  # Somebody in 2018 didn't know our name?
+        journal_title_text.replace(  # Fix typo found in 2018
             "Association of Computational Linguistics",
             "Association for Computational Linguistics",
         )
     )
     volume_text = volume.text.lstrip(
         "0"
-    )  # Somebody brilliant decided that 2018 would be "06" instead of "6"
+    )  # Sometimes we find "06" instead of "6"
 
     if is_tacl:
         issue_text = None
@@ -224,10 +238,19 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
         issue = article_meta.find("issue", nsmap)
         issue_text = issue.text
 
-        pub_date = article_meta.find("pub-date", nsmap)
-        month = pub_date.find("month", nsmap).text
-        year = pub_date.find("year", nsmap).text
-        string_date_text = f"{month} {year}"
+        string_date_text = None
+        for pub_date in article_meta.findall("pub-date", nsmap):
+            month = pub_date.find("season", nsmap).text
+            if month is None:
+                continue
+            year = pub_date.find("year", nsmap).text
+            string_date_text = f"{month} {year}"
+            break
+
+        if string_date_text is None:
+            print("Fatal: found no year/date", file=sys.stderr)
+            sys.exit(1)
+
         format_string = "{journal}, Volume {volume}, Issue {issue} - {date}"
 
     data = dict(
@@ -330,6 +353,7 @@ def main(args):
     )
 
     is_tacl = "tacl" in args.root_dir.stem
+    logging.info(f"Looks like a TACL ingest: {is_tacl}")
 
     venue = TACL if is_tacl else CL  # J for CL, Q for TACL.
     try:
@@ -434,7 +458,7 @@ def main(args):
             anthology.sigs,
             anthology.formatter,
         )
-        paper = Paper.from_xml(papernode, volume, anthology.formatter)
+        paper = Paper.from_xml(papernode, volume, anthology.formatter, anthology.venues)
         bibkey = anthology.pindex.create_bibkey(paper, vidx=anthology.venues)
         make_simple_element("bibkey", bibkey, parent=papernode)
 
