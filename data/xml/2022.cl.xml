@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.cl">
+  <volume id="1">
+    <meta>
+      <booktitle>Computational Linguistics, Volume 48, Issue 1 - March 2022</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <month>March</month>
+      <year>2022</year>
+    </meta>
+    <paper id="1">
+      <title>Obituary: <fixed-case>M</fixed-case>artin Kay</title>
+      <author><first>Ronald M.</first><last>Kaplan</last></author>
+      <author><first>Hans</first><last>Uszkoreit</last></author>
+      <doi>10.1162/coli_a_00424</doi>
+      <pages>1–3</pages>
+      <url hash="e434ff70">2022.cl-1.1</url>
+      <bibkey>kaplan-uszkoreit-2022-obituary</bibkey>
+    </paper>
+    <paper id="2">
+      <title>To Augment or Not to Augment? A Comparative Study on Text Augmentation Techniques for Low-Resource <fixed-case>NLP</fixed-case></title>
+      <author><first>Gözde Gül</first><last>Şahin</last></author>
+      <doi>10.1162/coli_a_00425</doi>
+      <abstract>Abstract Data-hungry deep neural networks have established themselves as the de facto standard for many NLP tasks, including the traditional sequence tagging ones. Despite their state-of-the-art performance on high-resource languages, they still fall behind their statistical counterparts in low-resource scenarios. One methodology to counterattack this problem is text augmentation, that is, generating new synthetic training data points from existing data. Although NLP has recently witnessed several new textual augmentation techniques, the field still lacks a systematic performance analysis on a diverse set of languages and sequence tagging tasks. To fill this gap, we investigate three categories of text augmentation methodologies that perform changes on the syntax (e.g., cropping sub-sentences), token (e.g., random word insertion), and character (e.g., character swapping) levels. We systematically compare the methods on part-of-speech tagging, dependency parsing, and semantic role labeling for a diverse set of language families using various models, including the architectures that rely on pretrained multilingual contextualized language models such as mBERT. Augmentation most significantly improves dependency parsing, followed by part-of-speech tagging and semantic role labeling. We find the experimented techniques to be effective on morphologically rich languages in general rather than analytic languages such as Vietnamese. Our results suggest that the augmentation techniques can further improve over strong baselines based on mBERT, especially for dependency parsing. We identify the character-level methods as the most consistent performers, while synonym replacement and syntactic augmenters provide inconsistent improvements. Finally, we discuss that the results most heavily depend on the task, language pair (e.g., syntactic-level techniques mostly benefit higher-level tasks and morphologically richer languages), and model type (e.g., token-level augmentation provides significant improvements for BPE, while character-level ones give generally higher scores for char and mBERT based models).</abstract>
+      <pages>5–42</pages>
+      <url hash="a51f95a4">2022.cl-1.2</url>
+      <bibkey>sahin-2022-augment</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Novelty Detection: A Perspective from Natural Language Processing</title>
+      <author><first>Tirthankar</first><last>Ghosal</last></author>
+      <author><first>Tanik</first><last>Saikh</last></author>
+      <author><first>Tameesh</first><last>Biswas</last></author>
+      <author><first>Asif</first><last>Ekbal</last></author>
+      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <doi>10.1162/coli_a_00429</doi>
+      <abstract>The quest for new information is an inborn human trait and has always been quintessential for human survival and progress. Novelty drives curiosity, which in turn drives innovation. In Natural Language Processing (NLP), Novelty Detection refers to finding text that has some new information to offer with respect to whatever is earlier seen or known. With the exponential growth of information all across the Web, there is an accompanying menace of redundancy. A considerable portion of the Web contents are duplicates, and we need efficient mechanisms to retain new information and filter out redundant information. However, detecting redundancy at the semantic level and identifying novel text is not straightforward because the text may have less lexical overlap yet convey the same information. On top of that, non-novel/redundant information in a document may have assimilated from multiple source documents, not just one. The problem surmounts when the subject of the discourse is documents, and numerous prior documents need to be processed to ascertain the novelty/non-novelty of the current one in concern. In this work, we build upon our earlier investigations for document-level novelty detection and present a comprehensive account of our efforts toward the problem. We explore the role of pre-trained Textual Entailment (TE) models to deal with multiple source contexts and present the outcome of our current investigations. We argue that a multipremise entailment task is one close approximation toward identifying semantic-level non-novelty. Our recent approach either performs comparably or achieves significant improvement over the latest reported results on several datasets and across several related tasks (paraphrasing, plagiarism, rewrite). We critically analyze our performance with respect to the existing state of the art and show the superiority and promise of our approach for future investigations. We also present our enhanced dataset TAP-DLND 2.0 and several baselines to the community for further research on document-level novelty detection.</abstract>
+      <pages>77–117</pages>
+      <url hash="3a678836">2022.cl-1.3</url>
+      <bibkey>ghosal-etal-2022-novelty</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>Improved N-Best Extraction with an Evaluation on Language Data</title>
+      <author><first>Johanna</first><last>Björklund</last></author>
+      <author><first>Frank</first><last>Drewes</last></author>
+      <author><first>Anna</first><last>Jonsson</last></author>
+      <doi>10.1162/coli_a_00427</doi>
+      <abstract>We show that a previously proposed algorithm for the N-best trees problem can be made more efficient by changing how it arranges and explores the search space. Given an integer N and a weighted tree automaton (wta) M over the tropical semiring, the algorithm computes N trees of minimal weight with respect to M. Compared with the original algorithm, the modifications increase the laziness of the evaluation strategy, which makes the new algorithm asymptotically more efficient than its predecessor. The algorithm is implemented in the software Betty, and compared to the state-of-the-art algorithm for extracting the N best runs, implemented in the software toolkit Tiburon. The data sets used in the experiments are wtas resulting from real-world natural language processing tasks, as well as artificially created wtas with varying degrees of nondeterminism. We find that Betty outperforms Tiburon on all tested data sets with respect to running time, while Tiburon seems to be the more memory-efficient choice.</abstract>
+      <pages>119–153</pages>
+      <url hash="91a1df11">2022.cl-1.4</url>
+      <bibkey>bjorklund-etal-2022-improved</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Linguistic Parameters of Spontaneous Speech for Identifying Mild Cognitive Impairment and <fixed-case>A</fixed-case>lzheimer Disease</title>
+      <author><first>Veronika</first><last>Vincze</last></author>
+      <author><first>Martina Katalin</first><last>Szabó</last></author>
+      <author><first>Ildikó</first><last>Hoffmann</last></author>
+      <author><first>László</first><last>Tóth</last></author>
+      <author><first>Magdolna</first><last>Pákáski</last></author>
+      <author><first>János</first><last>Kálmán</last></author>
+      <author><first>Gábor</first><last>Gosztolya</last></author>
+      <doi>10.1162/coli_a_00428</doi>
+      <abstract>In this article, we seek to automatically identify Hungarian patients suffering from mild cognitive impairment (MCI) or mild Alzheimer disease (mAD) based on their speech transcripts, focusing only on linguistic features. In addition to the features examined in our earlier study, we introduce syntactic, semantic, and pragmatic features of spontaneous speech that might affect the detection of dementia. In order to ascertain the most useful features for distinguishing healthy controls, MCI patients, and mAD patients, we carry out a statistical analysis of the data and investigate the significance level of the extracted features among various speaker group pairs and for various speaking tasks. In the second part of the article, we use this rich feature set as a basis for an effective discrimination among the three speaker groups. In our machine learning experiments, we analyze the efficacy of each feature group separately. Our model that uses all the features achieves competitive scores, either with or without demographic information (3-class accuracy values: 68%–70%, 2-class accuracy values: 77.3%–80%). We also analyze how different data recording scenarios affect linguistic features and how they can be productively used when distinguishing MCI patients from healthy controls.</abstract>
+      <pages>119–153</pages>
+      <url hash="2038bfad">2022.cl-1.5</url>
+      <bibkey>vincze-etal-2022-linguistic</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Deep Learning for Text Style Transfer: A Survey</title>
+      <author><first>Di</first><last>Jin</last></author>
+      <author><first>Zhijing</first><last>Jin</last></author>
+      <author><first>Zhiting</first><last>Hu</last></author>
+      <author><first>Olga</first><last>Vechtomova</last></author>
+      <author><first>Rada</first><last>Mihalcea</last></author>
+      <doi>10.1162/coli_a_00426</doi>
+      <abstract>Text style transfer is an important task in natural language generation, which aims to control certain attributes in the generated text, such as politeness, emotion, humor, and many others. It has a long history in the field of natural language processing, and recently has re-gained significant attention thanks to the promising performance brought by deep neural models. In this article, we present a systematic survey of the research on neural text style transfer, spanning over 100 representative articles since the first neural text style transfer work in 2017. We discuss the task formulation, existing datasets and subtasks, evaluation, as well as the rich methodologies in the presence of parallel and non-parallel data. We also provide discussions on a variety of important topics regarding the future development of this task.1</abstract>
+      <pages>155–205</pages>
+      <url hash="ad5beda4">2022.cl-1.6</url>
+      <bibkey>jin-etal-2022-deep</bibkey>
+      <pwccode url="https://github.com/fuzhenxin/Style-Transfer-in-Text" additional="true">fuzhenxin/Style-Transfer-in-Text</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/gyafc">GYAFC</pwcdataset>
+    </paper>
+    <paper id="7">
+      <title>Probing Classifiers: Promises, Shortcomings, and Advances</title>
+      <author><first>Yonatan</first><last>Belinkov</last></author>
+      <doi>10.1162/coli_a_00422</doi>
+      <abstract>Probing classifiers have emerged as one of the prominent methodologies for interpreting and analyzing deep neural network models of natural language processing. The basic idea is simple—a classifier is trained to predict some linguistic property from a model’s representations—and has been used to examine a wide variety of models and properties. However, recent studies have demonstrated various methodological limitations of this approach. This squib critically reviews the probing classifiers framework, highlighting their promises, shortcomings, and advances.</abstract>
+      <pages>207–219</pages>
+      <url hash="4dd30d51">2022.cl-1.7</url>
+      <bibkey>belinkov-2022-probing</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Revisiting the Boundary between <fixed-case>ASR</fixed-case> and <fixed-case>NLU</fixed-case> in the Age of Conversational Dialog Systems</title>
+      <author><first>Manaal</first><last>Faruqui</last></author>
+      <author><first>Dilek</first><last>Hakkani-Tür</last></author>
+      <doi>10.1162/coli_a_00430</doi>
+      <abstract>As more users across the world are interacting with dialog agents in their daily life, there is a need for better speech understanding that calls for renewed attention to the dynamics between research in automatic speech recognition (ASR) and natural language understanding (NLU). We briefly review these research areas and lay out the current relationship between them. In light of the observations we make in this article, we argue that (1) NLU should be cognizant of the presence of ASR models being used upstream in a dialog system’s pipeline, (2) ASR should be able to learn from errors found in NLU, (3) there is a need for end-to-end data sets that provide semantic annotations on spoken input, (4) there should be stronger collaboration between ASR and NLU research communities.</abstract>
+      <pages>221–232</pages>
+      <url hash="d99b7b9c">2022.cl-1.8</url>
+      <bibkey>faruqui-hakkani-tur-2022-revisiting</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/spoken-squad">Spoken-SQuAD</pwcdataset>
+    </paper>
+    <paper id="9">
+      <title>Natural Language Processing: A Machine Learning Perspective by <fixed-case>Y</fixed-case>ue <fixed-case>Z</fixed-case>hang and Zhiyang Teng</title>
+      <author><first>Julia</first><last>Ive</last></author>
+      <doi>10.1162/coli_r_00423</doi>
+      <pages>233–235</pages>
+      <url hash="9ace3399">2022.cl-1.9</url>
+      <bibkey>ive-2022-natural</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Erratum for “Formal Basis of a Language Universal”</title>
+      <author><first>Miloš</first><last>Stanojević</last></author>
+      <author><first>Mark</first><last>Steedman</last></author>
+      <doi>10.1162/coli_x_00432</doi>
+      <pages>237–237</pages>
+      <url hash="6fd084dd">2022.cl-1.10</url>
+      <bibkey>stanojevic-steedman-2022-erratum</bibkey>
+    </paper>
+  </volume>
+</collection>
