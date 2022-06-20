@@ -1,4 +1,5 @@
 {{ define "main" }}
+
 <section id="main">
   <h2 id="title">
     {{ .Title }}
@@ -6,7 +7,10 @@
   <hr />
 
   {{ $venue := index .Site.Data.venues .Params.venue }}
-  {{ $volumes := index $venue "volumes_by_year" .Params.year }}
+  {{ $slug := $venue["slug"]
+  (index .Site.data.events .Params.venue)
+  <!-- {{ $volumes := index $venue "volumes_by_year" .Params.year }} -->
+  {{ $volumes := index (index .Site.data.events .Params.venue) }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">
       <h4 class="card-title">Contents</h4>

@@ -28,12 +28,14 @@ from .papers import Paper
 from .venues import VenueIndex
 from .volumes import Volume
 from .sigs import SIGIndex
+from .events import Event
 
 
 class Anthology:
     schema = None
     pindex = None
     venues = None
+    events = None
     sigs = None
     formatter = None
 
