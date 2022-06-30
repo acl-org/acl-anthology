@@ -409,7 +409,7 @@ def copy_pdf_and_attachment(
             if os.path.split(cur_paper)[0] == 'attachments':
                 cur_paper = os.path.split(cur_paper)[1]
             attch_src_path = attchs_src_dir + '/' + cur_paper
-            print(attch_src_path)
+            # print(attch_src_path)
             # print(os.path.splitext(paper['attachments'][0]['file']))
             # print(str(os.path.splitext(paper_name)[0]))
             # attch_src_path = find_paper_attachment(
