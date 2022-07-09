@@ -28,7 +28,8 @@ from .papers import Paper
 from .venues import VenueIndex
 from .volumes import Volume
 from .sigs import SIGIndex
-from .events import Event
+
+# from .events import Event
 
 
 class Anthology:
