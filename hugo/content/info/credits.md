@@ -9,7 +9,7 @@ We are grateful to all our contributors whose work makes this collection of scho
 
 + **Indexing Lead**: [A. Seza Doğruöz](https://lt3.ugent.be/people/as-dogruoz/) (Universiteit Gent)
 + **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (Jönköping University)
-+ **Data Lead**: [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame)
++ [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame)
 + [Arne Köhn](https://arne.chark.eu) (New Work SE)
 + [Daniel Gildea](https://www.cs.rochester.edu/u/gildea/) (University of Rochester)
 + [Kilian Gebhardt](https://wwwtcs.inf.tu-dresden.de/~kilian/) (TU Dresden)
