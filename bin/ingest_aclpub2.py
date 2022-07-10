@@ -363,10 +363,20 @@ def copy_pdf_and_attachment(
     if not dry_run:
         maybe_copy(proceedings_pdf_src_path, proceedings_pdf_dest_path)
 
+    # copy frontmatter
+    frontmatter_src_path = os.path.join(pdfs_src_dir, '0.pdf')
+    frontmatter_dest_path = (
+        os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + '.0.pdf'
+    )
+    if dry_run:
+        print(f'would\'ve moved {frontmatter_src_path} to {frontmatter_dest_path}')
+    if not dry_run:
+        maybe_copy(frontmatter_src_path, frontmatter_dest_path)
+
     paper_id_full = f'{collection_id}-{volume_name}.0'
     volume[0] = {
         'anthology_id': paper_id_full,
-        'pdf': proceedings_pdf_dest_path,
+        'pdf': frontmatter_dest_path,
         'attachments': [],
     }
 
