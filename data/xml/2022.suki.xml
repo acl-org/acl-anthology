@@ -60,6 +60,7 @@
       <abstract>Intent classification (IC) and slot filling (SF) are two fundamental tasks in modern Natural Language Understanding (NLU) systems. Collecting and annotating large amounts of data to train deep learning models for such systems are not scalable. This problem can be addressed by learning from few examples using fast supervised meta-learning techniques such as prototypical networks. In this work, we systematically investigate how contrastive learning and data augmentation methods can benefit these existing meta-learning pipelines for jointly modelled IC/SF tasks. Through extensive experiments across standard IC/SF benchmarks (SNIPS and ATIS), we show that our proposed approaches outperform standard meta-learning methods: contrastive losses as a regularizer in conjunction with prototypical networks consistently outperform the existing state-of-the-art for both IC and SF tasks, while data augmentation strategies primarily improve few-shot IC by a significant margin</abstract>
       <url hash="827c40f2">2022.suki-1.3</url>
       <bibkey>basu-etal-2022-strategies</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/atis">ATIS</pwcdataset>
     </paper>
     <paper id="4">
       <title>Learning Open Domain Multi-hop Search Using Reinforcement Learning</title>
@@ -70,6 +71,7 @@
       <abstract>We propose a method to teach an automated agent to learn how to search for multi-hop paths of relations between entities in an open domain. The method learns a policy for directing existing information retrieval and machine reading resources to focus on relevant regions of a corpus. The approach formulates the learning problem as a Markov decision process with a state representation that encodes the dynamics of the search process and a reward structure that minimizes the number of documents that must be processed while still finding multi-hop paths. We implement the method in an actor-critic reinforcement learning algorithm and evaluate it on a dataset of search problems derived from a subset of English Wikipedia. The algorithm finds a family of policies that succeeds in extracting the desired information while processing fewer documents compared to several baseline heuristic algorithms.</abstract>
       <url hash="b8775896">2022.suki-1.4</url>
       <bibkey>noriega-atala-etal-2022-learning</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikihop">WikiHop</pwcdataset>
     </paper>
     <paper id="5">
       <title>Table Retrieval May Not Necessitate Table-specific Model Design</title>
@@ -81,6 +83,8 @@
       <abstract>Tables are an important form of structured data for both human and machine readers alike, providing answers to questions that cannot, or cannot easily, be found in texts. Recent work has designed special models and training paradigms for table-related tasks such as table-based question answering and table retrieval. Though effective, they add complexity in both modeling and data acquisition compared to generic text solutions and obscure which elements are truly beneficial. In this work, we focus on the task of table retrieval, and ask: “is table-specific model design necessary for table retrieval, or can a simpler text-based model be effectively used to achieve a similar result?’’ First, we perform an analysis on a table-based portion of the Natural Questions dataset (NQ-table), and find that structure plays a negligible role in more than 70% of the cases. Based on this, we experiment with a general Dense Passage Retriever (DPR) based on text and a specialized Dense Table Retriever (DTR) that uses table-specific model designs. We find that DPR performs well without any table-specific design and training, and even achieves superior results compared to DTR when fine-tuned on properly linearized tables. We then experiment with three modules to explicitly encode table structures, namely auxiliary row/column embeddings, hard attention masks, and soft relation-based attention biases. However, none of these yielded significant improvements, suggesting that table-specific model design may not be necessary for table retrieval.</abstract>
       <url hash="557212f3">2022.suki-1.5</url>
       <bibkey>wang-etal-2022-table</bibkey>
+      <pwccode url="https://github.com/zorazrw/nqt-retrieval" additional="false">zorazrw/nqt-retrieval</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
     </paper>
     <paper id="6">
       <title>Transfer Learning and Masked Generation for Answer Verbalization</title>
@@ -93,6 +97,8 @@
       <abstract>Structured Knowledge has recently emerged as an essential component to support fine-grained Question Answering (QA). In general, QA systems query a Knowledge Base (KB) to detect and extract the raw answers as final prediction. However, as lacking of context, language generation can offer a much informative and complete response. In this paper, we propose to combine the power of transfer learning and the advantage of entity placeholders to produce high-quality verbalization of extracted answers from a KB. We claim that such approach is especially well-suited for answer generation. Our experiments show 44.25%, 3.26% and 29.10% relative gain in BLEU over the state-of-the-art on the VQuAnDA, ParaQA and VANiLLa datasets, respectively. We additionally provide minor hallucinations corrections in VANiLLa standing for 5% of each of the training and testing set. We witness a median absolute gain of 0.81 SacreBLEU. This strengthens the importance of data quality when using automated evaluation.</abstract>
       <url hash="43c256c2">2022.suki-1.6</url>
       <bibkey>montella-etal-2022-transfer</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/paraqa">ParaQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/vanilla">VANiLLa</pwcdataset>
     </paper>
     <paper id="7">
       <title>Knowledge Transfer between Structured and Unstructured Sources for Complex Question Answering</title>
@@ -104,6 +110,8 @@
       <abstract>Multi-hop question answering (QA) combines multiple pieces of evidence to search for the correct answer. Reasoning over a text corpus (TextQA) and/or a knowledge base (KBQA) has been extensively studied and led to distinct system architectures. However, knowledge transfer between such two QA systems has been under-explored. Research questions like what knowledge is transferred or whether the transferred knowledge can help answer over one source using another one, are yet to be answered. In this paper, therefore, we study the knowledge transfer of multi-hop reasoning between structured and unstructured sources. We first propose a unified QA framework named SimultQA to enable knowledge transfer and bridge the distinct supervisions from KB and text sources. Then, we conduct extensive analyses to explore how knowledge is transferred by leveraging the pre-training and fine-tuning paradigm. We focus on the low-resource fine-tuning to show that pre-training SimultQA on one source can substantially improve its performance on the other source. More fine-grained analyses on transfer behaviors reveal the types of transferred knowledge and transfer patterns. We conclude with insights into how to construct better QA datasets and systems to exploit knowledge transfer for future work.</abstract>
       <url hash="7fdd8ffc">2022.suki-1.7</url>
       <bibkey>mo-etal-2022-knowledge</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/hybridqa">HybridQA</pwcdataset>
     </paper>
     <paper id="8">
       <title>Hierarchical Control of Situated Agents through Natural Language</title>
@@ -114,6 +122,7 @@
       <abstract>When humans perform a particular task, they do so hierarchically: splitting higher-level tasks into smaller sub-tasks. However, most works on natural language (NL) command of situated agents have treated the procedures to be executed as flat sequences of simple actions, or any hierarchies of procedures have been shallow at best. In this paper, we propose a formalism of procedures as programs, a method for representing hierarchical procedural knowledge for agent command and control aimed at enabling easy application to various scenarios. We further propose a modeling paradigm of hierarchical modular networks, which consist of a planner and reactors that convert NL intents to predictions of executable programs and probe the environment for information necessary to complete the program execution. We instantiate this framework on the IQA and ALFRED datasets for NL instruction following. Our model outperforms reactive baselines by a large margin on both datasets. We also demonstrate that our framework is more data-efficient, and that it allows for fast iterative development.</abstract>
       <url hash="901a9f1e">2022.suki-1.8</url>
       <bibkey>zhou-etal-2022-hierarchical-control</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/alfred">ALFRED</pwcdataset>
     </paper>
   </volume>
 </collection>
