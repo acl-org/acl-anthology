@@ -27,6 +27,7 @@
       <abstract>Incorporating stronger syntactic biases into neural language models (LMs) is a long-standing goal, but research in this area often focuses on modeling English text, where constituent treebanks are readily available. Extending constituent tree-based LMs to the multilingual setting, where dependency treebanks are more common, is possible via dependency-to-constituency conversion methods. However, this raises the question of which tree formats are best for learning the model, and for which languages. We investigate this question by training recurrent neural network grammars (RNNGs) using various conversion methods, and evaluating them empirically in a multilingual setting. We examine the effect on LM performance across nine conversion methods and five languages through seven types of syntactic tests. On average, the performance of our best model represents a 19 % increase in accuracy over the worst choice across all languages. Our best model shows the advantage over sequential/overparameterized LMs, suggesting the positive effect of syntax injection in a multilingual setting. Our experiments highlight the importance of choosing the right tree formalism, and provide insights into making an informed decision.</abstract>
       <url hash="27e42a42">2022.spnlp-1.1</url>
       <bibkey>kando-etal-2022-multilingual</bibkey>
+      <doi>10.18653/v1/2022.spnlp-1.1</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/clams">CLAMS</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
@@ -39,6 +40,7 @@
       <abstract>This study introduces a novel approach to the joint extraction of entities and relations by stacking convolutional neural networks (CNNs) on pretrained language models. We adopt table representations to model the entities and relations, casting the entity and relation extraction as a table-labeling problem. Regarding each table as an image and each cell in a table as an image pixel, we apply two-dimensional CNNs to the tables to capture local dependencies and predict the cell labels. The experimental results showed that the performance of the proposed method is comparable to those of current state-of-art systems on the CoNLL04, ACE05, and ADE datasets.Even when freezing pretrained language model parameters, the proposed method showed a stable performance, whereas the compared methods suffered from significant decreases in performance. This observation indicates that the parameters of the pretrained encoder may incorporate dependencies among the entity and relation labels during fine-tuning.</abstract>
       <url hash="6949900b">2022.spnlp-1.2</url>
       <bibkey>ma-etal-2022-joint</bibkey>
+      <doi>10.18653/v1/2022.spnlp-1.2</doi>
       <pwccode url="https://github.com/youmima/tablert-cnn" additional="false">youmima/tablert-cnn</pwccode>
     </paper>
     <paper id="3">
@@ -55,6 +57,7 @@
       <abstract>Temporal knowledge graphs store the dynamics of entities and relations during a time period. However, typical temporal knowledge graphs often suffer from incomplete dynamics with missing facts in real-world scenarios. Hence, modeling temporal knowledge graphs to complete the missing facts is important. In this paper, we tackle the temporal knowledge graph completion task by proposing <b>TempCaps</b>, which is a <b>Caps</b>ule network-based embedding model for <b>Temp</b>oral knowledge graph completion. TempCaps models temporal knowledge graphs by introducing a novel dynamic routing aggregator inspired by Capsule Networks. Specifically, TempCaps builds entity embeddings by dynamically routing retrieved temporal relation and neighbor information. Experimental results demonstrate that TempCaps reaches state-of-the-art performance for temporal knowledge graph completion. Additional analysis also shows that TempCaps is efficient.</abstract>
       <url hash="ac76f2b8">2022.spnlp-1.3</url>
       <bibkey>fu-etal-2022-tempcaps</bibkey>
+      <doi>10.18653/v1/2022.spnlp-1.3</doi>
       <pwccode url="https://github.com/fuguigui/tempcaps" additional="false">fuguigui/tempcaps</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/icews">ICEWS</pwcdataset>
     </paper>
@@ -67,6 +70,7 @@
       <abstract>We present SlotGAN, a framework for training a mention detection model that only requires unlabeled text and a gazetteer. It consists of a generator trained to extract spans from an input sentence, and a discriminator trained to determine whether a span comes from the generator, or from the gazetteer.We evaluate the method on English newswire data and compare it against supervised, weakly-supervised, and unsupervised methods. We find that the performance of the method is lower than these baselines, because it tends to generate more and longer spans, and in some cases it relies only on capitalization. In other cases, it generates spans that are valid but differ from the benchmark. When evaluated with metrics based on overlap, we find that SlotGAN performs within 95% of the precision of a supervised method, and 84% of its recall. Our results suggest that the model can generate spans that overlap well, but an additional filtering mechanism is required.</abstract>
       <url hash="f1cb76a4">2022.spnlp-1.4</url>
       <bibkey>daza-etal-2022-slotgan</bibkey>
+      <doi>10.18653/v1/2022.spnlp-1.4</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
     </paper>
     <paper id="5">
@@ -80,6 +84,7 @@
       <abstract>Topic models are some of the most popular ways to represent textual data in an interpret-able manner. Recently, advances in deep generative models, specifically auto-encoding variational Bayes (AEVB), have led to the introduction of unsupervised neural topic models, which leverage deep generative models as opposed to traditional statistics-based topic models. We extend upon these neural topic models by introducing the Label-Indexed Neural Topic Model (LI-NTM), which is, to the extent of our knowledge, the first effective upstream semi-supervised neural topic model. We find that LI-NTM outperforms existing neural topic models in document reconstruction benchmarks, with the most notable results in low labeled data regimes and for data-sets with informative labels; furthermore, our jointly learned classifier outperforms baseline classifiers in ablation studies.</abstract>
       <url hash="3aa971bf">2022.spnlp-1.5</url>
       <bibkey>chiu-etal-2022-joint</bibkey>
+      <doi>10.18653/v1/2022.spnlp-1.5</doi>
     </paper>
     <paper id="6">
       <title>Neural String Edit Distance</title>
@@ -89,6 +94,7 @@
       <abstract>We propose the neural string edit distance model for string-pair matching and string transduction based on learnable string edit distance. We modify the original expectation-maximization learned edit distance algorithm into a differentiable loss function, allowing us to integrate it into a neural network providing a contextual representation of the input. We evaluate on cognate detection, transliteration, and grapheme-to-phoneme conversion, and show that we can trade off between performance and interpretability in a single framework. Using contextual representations, which are difficult to interpret, we match the performance of state-of-the-art string-pair matching models. Using static embeddings and a slightly different loss function, we force interpretability, at the expense of an accuracy drop.</abstract>
       <url hash="d2a70555">2022.spnlp-1.6</url>
       <bibkey>libovicky-fraser-2022-neural</bibkey>
+      <doi>10.18653/v1/2022.spnlp-1.6</doi>
       <pwccode url="https://github.com/jlibovicky/neural-string-edit-distance" additional="false">jlibovicky/neural-string-edit-distance</pwccode>
     </paper>
     <paper id="7">
@@ -102,7 +108,9 @@
       <abstract>Transformers’ quadratic complexity with respect to the input sequence length has motivated a body of work on efficient sparse approximations to softmax. An alternative path, used by entmax transformers, consists of having built-in exact sparse attention; however this approach still requires quadratic computation. In this paper, we propose Sparsefinder, a simple model trained to identify the sparsity pattern of entmax attention before computing it. We experiment with three variants of our method, based on distances, quantization, and clustering, on two tasks: machine translation (attention in the decoder) and masked language modeling (encoder-only). Our work provides a new angle to study model efficiency by doing extensive analysis of the tradeoff between the sparsity and recall of the predicted attention graph. This allows for detailed comparison between different models along their Pareto curves, important to guide future benchmarks for sparse attention models.</abstract>
       <url hash="eaefbf81">2022.spnlp-1.7</url>
       <bibkey>treviso-etal-2022-predicting</bibkey>
+      <doi>10.18653/v1/2022.spnlp-1.7</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
     </paper>
   </volume>
 </collection>

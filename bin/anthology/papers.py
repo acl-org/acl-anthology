@@ -15,7 +15,7 @@
 # limitations under the License.
 
 from functools import cached_property
-import iso639
+import langcodes
 import logging as log
 
 from .utils import (
@@ -293,7 +293,7 @@ class Paper:
 
     @property
     def langcode(self):
-        """Returns the ISO-639 language code, if present"""
+        """Returns the BCP47 language code, if present"""
         return self.attrib.get("language", None)
 
     @property
@@ -301,7 +301,7 @@ class Paper:
         """Returns the language name, if present"""
         lang = None
         if self.langcode:
-            lang = iso639.languages.get(part3=self.langcode).name
+            lang = langcodes.Language.get(self.langcode).display_name()
         return lang
 
     def get(self, name, default=None):
@@ -454,6 +454,11 @@ class Paper:
     def as_markdown(self, concise=False):
         """Return a Markdown-formatted entry."""
         title = self.get_title(form="text")
+
+        if self.venue_index is None:
+            raise Exception(
+                "Can't call Paper.as_markdown() because no venue_index was passed"
+            )
 
         authors = ""
         for field in ("author", "editor"):

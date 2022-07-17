@@ -97,7 +97,7 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     must meta keys = [
                  'book_title',
                  'anthology_venue_id',
-                 'volume',
+                 'volume_name',
                  'month',
                  'year',
                  'location',
@@ -123,7 +123,7 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     must_have_keys = [
         'book_title',
         'anthology_venue_id',
-        'volume',
+        'volume_name',
         'month',
         'year',
         'location',
@@ -134,9 +134,10 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     for key in must_have_keys:
         assert key in meta.keys(), f'{key} is missing in the conference_details.yml file'
 
-    if re.match(rf'^[a-z0-9]+$', meta['volume']) is None:
+    meta['volume_name'] = str(meta['volume_name'])
+    if re.match(rf'^[a-z0-9]+$', meta['volume_name']) is None:
         raise Exception(
-            f"Invalid volume key '{meta['volume']}' in {ingestion_dir + 'inputs/conference_details.yml'}"
+            f"Invalid volume key '{meta['volume_name']}' in {ingestion_dir + 'inputs/conference_details.yml'}"
         )
 
     return meta
@@ -319,7 +320,7 @@ def process_procedding(
 
     meta["path"] = ingestion_dir
     meta["collection_id"] = collection_id = meta["year"] + "." + venue_slug
-    volume_name = meta["volume"].lower()
+    volume_name = meta["volume_name"].lower()
     volume_full_id = f"{collection_id}-{volume_name}"
 
     # if "sig" in meta:
@@ -343,7 +344,7 @@ def copy_pdf_and_attachment(
     volume = dict()
     collection_id = meta['collection_id']
     venue_name = meta['anthology_venue_id'].lower()
-    volume_name = meta['volume'].lower()
+    volume_name = meta['volume_name'].lower()
 
     pdfs_dest_dir = create_des_path(pdfs_dir, venue_name)
 
@@ -362,10 +363,20 @@ def copy_pdf_and_attachment(
     if not dry_run:
         maybe_copy(proceedings_pdf_src_path, proceedings_pdf_dest_path)
 
+    # copy frontmatter
+    frontmatter_src_path = os.path.join(pdfs_src_dir, '0.pdf')
+    frontmatter_dest_path = (
+        os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + '.0.pdf'
+    )
+    if dry_run:
+        print(f'would\'ve moved {frontmatter_src_path} to {frontmatter_dest_path}')
+    if not dry_run:
+        maybe_copy(frontmatter_src_path, frontmatter_dest_path)
+
     paper_id_full = f'{collection_id}-{volume_name}.0'
     volume[0] = {
         'anthology_id': paper_id_full,
-        'pdf': proceedings_pdf_dest_path,
+        'pdf': frontmatter_dest_path,
         'attachments': [],
     }
 
@@ -398,16 +409,24 @@ def copy_pdf_and_attachment(
             'attachments': [],
         }
         # copy attachments
-        if 'attachments' in paper.keys():
+        if 'attachments' in paper.keys() and paper['attachments']:
             attchs_dest_dir = create_des_path(attachments_dir, venue_name)
             attchs_src_dir = os.path.join(meta['path'], 'attachments')
             assert os.path.exists(
                 attchs_src_dir
             ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
-            attch_src_path = find_paper_attachment(
-                str(os.path.splitext(paper_name)[0]), attchs_src_dir
-            )
-            print(f'{attch_src_path}')
+            cur_paper = paper['attachments'][0]['file']
+            if os.path.split(cur_paper)[0] == 'attachments':
+                cur_paper = os.path.split(cur_paper)[1]
+            attch_src_path = attchs_src_dir + '/' + cur_paper
+            # print(attch_src_path)
+            # print(os.path.splitext(paper['attachments'][0]['file']))
+            # print(str(os.path.splitext(paper_name)[0]))
+            # attch_src_path = find_paper_attachment(
+            #     str(os.path.splitext(paper_name)[0]), attchs_src_dir
+            # )
+
+            # print(f'{attch_src_path}')
             assert attch_src_path, f'{paper_name} attachment path is None'
             _, attch_src_extension = os.path.splitext(attch_src_path)
             type_ = paper['attachments'][0]['type']
@@ -415,7 +434,7 @@ def copy_pdf_and_attachment(
                 f'{collection_id}-{volume_name}.{paper_num}.{type_}{attch_src_extension}'
             )
             attch_dest_path = os.path.join(attchs_dest_dir, file_name)
-
+            print(f'attacb src path is {attch_src_path}')
             if dry_run:
                 print(f'would\'ve moved {attch_src_path} to {attch_dest_path}')
             if not dry_run:

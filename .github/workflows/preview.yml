@@ -9,6 +9,11 @@ on:
     - '*'
     - '!master'
 
+# only run one at a time per branch
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   preview:
     runs-on: ubuntu-20.04

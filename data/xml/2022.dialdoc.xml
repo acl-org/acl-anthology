@@ -26,6 +26,7 @@
       <abstract>Dialogue summarization helps users capture salient information from various types of dialogues has received much attention recently. However, current works mainly focus on English dialogue summarization, leaving other languages less well explored. Therefore, we present a multi-lingual dialogue summarization dataset, namely MSAMSum, which covers dialogue-summary pairs in six languages. Specifically, we derive MSAMSum from the standard SAMSum using sophisticated translation techniques and further employ two methods to ensure the integral translation quality and summary factual consistency. Given the proposed MSAMum, we systematically set up five multi-lingual settings for this task, including a novel mix-lingual dialogue summarization setting. To illustrate the utility of our dataset, we benchmark various experiments with pre-trained models under different settings and report results in both supervised and zero-shot manners. We also discuss some future works towards this task to motivate future researches.</abstract>
       <url hash="a5065568">2022.dialdoc-1.1</url>
       <bibkey>feng-etal-2022-msamsum</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.1</doi>
       <pwccode url="https://github.com/xcfcode/msamsum" additional="false">xcfcode/msamsum</pwccode>
     </paper>
     <paper id="2">
@@ -43,6 +44,7 @@
       <abstract>With the advances in deep learning, tremendous progress has been made with chit-chat dialogue systems and task-oriented dialogue systems. However, these two systems are often tackled separately in current methods. To achieve more natural interaction with humans, dialogue systems need to be capable of both chatting and accomplishing tasks. To this end, we propose a unified dialogue system (UniDS) with the two aforementioned skills. In particular, we design a unified dialogue data schema, compatible for both chit-chat and task-oriented dialogues. Besides, we propose a two-stage training method to train UniDS based on the unified dialogue data schema. UniDS does not need to adding extra parameters to existing chit-chat dialogue systems. Experimental results demonstrate that the proposed UniDS works comparably well as the state-of-the-art chit-chat dialogue systems and task-oriented dialogue systems. More importantly, UniDS achieves better robustness than pure dialogue systems and satisfactory switch ability between two types of dialogues.</abstract>
       <url hash="7505eaa1">2022.dialdoc-1.2</url>
       <bibkey>zhao-etal-2022-unids</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.2</doi>
     </paper>
     <paper id="3">
       <title>Low-Resource Adaptation of Open-Domain Generative Chatbots</title>
@@ -54,6 +56,7 @@
       <abstract>Recent work building open-domain chatbots has demonstrated that increasing model size improves performance (Adiwardana et al., 2020; Roller et al., 2020). On the other hand, latency and connectivity considerations dictate the move of digital assistants on the device (Verge, 2021). Giving a digital assistant like Siri, Alexa, or Google Assistant the ability to discuss just about anything leads to the need for reducing the chatbot model size such that it fits on the user’s device. We demonstrate that low parameter models can simultaneously retain their general knowledge conversational abilities while improving in a specific domain. Additionally, we propose a generic framework that accounts for variety in question types, tracks reference throughout multi-turn conversations, and removes inconsistent and potentially toxic responses. Our framework seamlessly transitions between chatting and performing transactional tasks, which will ultimately make interactions with digital assistants more human-like. We evaluate our framework on 1 internal and 4 public benchmark datasets using both automatic (Perplexity) and human (SSA – Sensibleness and Specificity Average) evaluation metrics and establish comparable performance while reducing model parameters by 90%.</abstract>
       <url hash="531a58cf">2022.dialdoc-1.3</url>
       <bibkey>gerhard-young-etal-2022-low</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.3</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/blended-skill-talk">Blended Skill Talk</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/convai2">ConvAI2</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qrecc">QReCC</pwcdataset>
@@ -69,6 +72,7 @@
       <abstract>Question answering (QA) with disambiguation questions is essential for practical QA systems because user questions often do not contain information enough to find their answers. We call this task clarifying question answering, a task to find answers to ambiguous user questions by disambiguating their intents through interactions. There are two major problems in building a clarifying question answering system: data preparation of possible ambiguous questions and the generation of clarifying questions. In this paper, we tackle these problems by sentence generation methods using sentence structures. Ambiguous questions are generated by eliminating a part of a sentence considering the sentence structure. Clarifying the question generation method based on case frame dictionary and sentence structure is also proposed. Our experimental results verify that our pseudo ambiguous question generation successfully adds ambiguity to questions. Moreover, the proposed clarifying question generation recovers the performance drop by asking the user for missing information.</abstract>
       <url hash="681bc19b">2022.dialdoc-1.4</url>
       <bibkey>nakano-etal-2022-pseudo</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.4</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
     </paper>
     <paper id="5">
@@ -80,6 +84,7 @@
       <abstract>A long-term ambition of information seeking QA systems is to reason over multi-modal contexts and generate natural answers to user queries. Today, memory intensive pre-trained language models are adapted to downstream tasks such as QA by fine-tuning the model on QA data in a specific modality like unstructured text or structured tables. To avoid training such memory-hungry models while utilizing a uniform architecture for each modality, parameter-efficient adapters add and train small task-specific bottle-neck layers between transformer layers. In this work, we study parameter-efficient abstractive QA in encoder-decoder models over structured tabular data and unstructured textual data using only 1.5% additional parameters for each modality. We also ablate over adapter layers in both encoder and decoder modules to study the efficiency-performance trade-off and demonstrate that reducing additional trainable parameters down to 0.7%-1.0% leads to comparable results. Our models out-perform current state-of-the-art models on tabular QA datasets such as Tablesum and FeTaQA, and achieve comparable performance on a textual QA dataset such as NarrativeQA using significantly less trainable parameters than fine-tuning.</abstract>
       <url hash="fd968a0b">2022.dialdoc-1.5</url>
       <bibkey>pal-etal-2022-parameter</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.5</doi>
       <pwccode url="https://github.com/kolk/pea-qa" additional="false">kolk/pea-qa</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/narrativeqa">NarrativeQA</pwcdataset>
     </paper>
@@ -93,6 +98,7 @@
       <abstract>When multiple conversations occur simultaneously, a listener must decide which conversation each utterance is part of in order to interpret and respond to it appropriately. This task is referred as dialogue disentanglement. A significant drawback of previous studies on disentanglement lies in that they only focus on pair-wise relationships between utterances while neglecting the conversation structure which is important for conversation structure modeling. In this paper, we propose a hierarchical model, named Dialogue BERT (DIALBERT), which integrates the local and global semantics in the context range by using BERT to encode each message-pair and using BiLSTM to aggregate the chronological context information into the output of BERT. In order to integrate the conversation structure information into the model, two types of loss of conversation-structure loss and tree-structure loss are designed. In this way, our model can implicitly learn and leverage the conversation structures without being restricted to the lack of explicit access to such structures during the inference stage. Experimental results on two large datasets show that our method outperforms previous methods by substantial margins, achieving great performance on dialogue disentanglement.</abstract>
       <url hash="7072f64e">2022.dialdoc-1.6</url>
       <bibkey>li-etal-2022-conversation</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.6</doi>
     </paper>
     <paper id="7">
       <title>Conversational Search with Mixed-Initiative - Asking Good Clarification Questions backed-up by Passage Retrieval</title>
@@ -104,6 +110,7 @@
       <abstract>We deal with the scenario of conversational search, where user queries are under-specified or ambiguous. This calls for a mixed-initiative setup. User-asks (queries) and system-answers, as well as system-asks (clarification questions) and user response, in order to clarify her information needs. We focus on the task of selecting the next clarification question, given conversation context. Our method leverages passage retrieval from background content to fine-tune two deep-learning models for ranking candidate clarification questions. We evaluated our method on two different use-cases. The first is an open domain conversational search in a large web collection. The second is a task-oriented customer-support setup.We show that our method performs well on both use-cases.</abstract>
       <url hash="f71bd331">2022.dialdoc-1.7</url>
       <bibkey>mass-etal-2022-conversational</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.7</doi>
     </paper>
     <paper id="8">
       <title>Graph-combined Coreference Resolution Methods on Conversational Machine Reading Comprehension with Pre-trained Language Model</title>
@@ -113,6 +120,7 @@
       <abstract>Coreference resolution such as for anaphora has been an essential challenge that is commonly found in conversational machine reading comprehension (CMRC). This task aims to determine the referential entity to which a pronoun refers on the basis of contextual information. Existing approaches based on pre-trained language models (PLMs) mainly rely on an end-to-end method, which still has limitations in clarifying referential dependency. In this study, a novel graph-based approach is proposed to integrate the coreference of given text into graph structures (called coreference graphs), which can pinpoint a pronoun’s referential entity. We propose two graph-combined methods, evidence-enhanced and the fusion model, for CMRC to integrate coreference graphs from different levels of the PLM architecture. Evidence-enhanced refers to textual level methods that include an evidence generator (for generating new text to elaborate a pronoun) and enhanced question (for rewriting a pronoun in a question) as PLM input. The fusion model is a structural level method that combines the PLM with a graph neural network. We evaluated these approaches on a CoQA pronoun-containing dataset and the whole CoQA dataset. The result showed that our methods can outperform baseline PLM methods with BERT and RoBERTa.</abstract>
       <url hash="ad0d231a">2022.dialdoc-1.8</url>
       <bibkey>wang-komatani-2022-graph</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.8</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/canard">CANARD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
     </paper>
@@ -125,6 +133,7 @@
       <abstract>We work on a recommendation dialogue system to help a user understand the appealing points of some target (e.g., a movie). In such dialogues, the recommendation system needs to utilize structured external knowledge to make informative and detailed recommendations. However, there is no dialogue dataset with structured external knowledge designed to make detailed recommendations for the target. Therefore, we construct a dialogue dataset, Japanese Movie Recommendation Dialogue (JMRD), in which the recommender recommends one movie in a long dialogue (23 turns on average). The external knowledge used in this dataset is hierarchically structured, including title, casts, reviews, and plots. Every recommender’s utterance is associated with the external knowledge related to the utterance. We then create a movie recommendation dialogue system that considers the structure of the external knowledge and the history of the knowledge used. Experimental results show that the proposed model is superior in knowledge selection to the baseline models.</abstract>
       <url hash="8e387518">2022.dialdoc-1.9</url>
       <bibkey>kodama-etal-2022-construction</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.9</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/kdconv">KdConv</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wizard-of-wikipedia">Wizard of Wikipedia</pwcdataset>
     </paper>
@@ -142,6 +151,7 @@
       <abstract>To diversify and enrich generated dialogue responses, knowledge-grounded dialogue has been investigated in recent years. The existing methods tackle the knowledge grounding challenge by retrieving the relevant sentences over a large corpus and augmenting the dialogues with explicit extra information. Despite their success, however, the existing works have drawbacks on the inference efficiency. This paper proposes KnowExpert, an end-to-end framework to bypass the explicit retrieval process and inject knowledge into the pre-trained language models with lightweight adapters and adapt to the knowledge-grounded dialogue task. To the best of our knowledge, this is the first attempt to tackle this challenge without retrieval in this task under an open-domain chit-chat scenario. The experimental results show that KnowExpert performs comparably with some retrieval-based baselines while being time-efficient in inference, demonstrating the effectiveness of our proposed method.</abstract>
       <url hash="3dc3d7f0">2022.dialdoc-1.10</url>
       <bibkey>xu-etal-2022-retrieval</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.10</doi>
       <pwccode url="https://github.com/hltchkust/knowexpert" additional="false">hltchkust/knowexpert</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/wizard-of-wikipedia">Wizard of Wikipedia</pwcdataset>
     </paper>
@@ -156,6 +166,7 @@
       <abstract>Goal-oriented dialogues generation grounded in multiple documents(MultiDoc2Dial) is a challenging and realistic task. Unlike previous works which treat document-grounded dialogue modeling as a machine reading comprehension task from single document, MultiDoc2Dial task faces challenges of both seeking information from multiple documents and generating conversation response simultaneously. This paper summarizes our entries to agent response generation subtask in MultiDoc2Dial dataset. We propose a three-stage solution, Grounding-guided goal-oriented dialogues generation(G4), which predicts groundings from retrieved passages to guide the generation of the final response. Our experiments show that G4 achieves SacreBLEU score of 31.24 and F1 score of 44.6 which is 60.7% higher than the baseline model.</abstract>
       <url hash="10c8265b">2022.dialdoc-1.11</url>
       <bibkey>zhang-etal-2022-g4</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.11</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/multidoc2dial">MultiDoc2Dial</pwcdataset>
     </paper>
     <paper id="12">
@@ -169,6 +180,7 @@
       <abstract>This work presents the contribution from the Text-to-Knowledge team of Ghent University (UGent-T2K) to the MultiDoc2Dial shared task on modeling dialogs grounded in multiple documents. We propose a pipeline system, comprising (1) document retrieval, (2) passage retrieval, and (3) response generation. We engineered these individual components mainly by, for (1)-(2), combining multiple ranking models and adding a final LambdaMART reranker, and, for (3), by adopting a Fusion-in-Decoder (FiD) model. We thus significantly boost the baseline system’s performance (over +10 points for both F1 and SacreBLEU). Further, error analysis reveals two major failure cases, to be addressed in future work: (i) in case of topic shift within the dialog, retrieval often fails to select the correct grounding document(s), and (ii) generation sometimes fails to use the correctly retrieved grounding passage. Our code is released at this link.</abstract>
       <url hash="a5668a63">2022.dialdoc-1.12</url>
       <bibkey>jiang-etal-2022-ugent</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.12</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/doc2dial-1">Doc2Dial</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multidoc2dial">MultiDoc2Dial</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/doc2dial">doc2dial</pwcdataset>
@@ -186,6 +198,7 @@
       <abstract>MultiDoc2Dial presents an important challenge on modeling dialogues grounded with multiple documents. This paper proposes a pipeline system of “retrieve, re-rank, and generate”, where each component is individually optimized. This enables the passage re-ranker and response generator to fully exploit training with ground-truth data. Furthermore, we use a deep cross-encoder trained with localized hard negative passages from the retriever. For the response generator, we use grounding span prediction as an auxiliary task to be jointly trained with the main task of response generation. We also adopt a passage dropout and regularization technique to improve response generation performance. Experimental results indicate that the system clearly surpasses the competitive baseline and our team CPII-NLP ranked 1st among the public submissions on ALL four leaderboards based on the sum of F1, SacreBLEU, METEOR and RougeL scores.</abstract>
       <url hash="804578aa">2022.dialdoc-1.13</url>
       <bibkey>li-etal-2022-grounded</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.13</doi>
     </paper>
     <paper id="14">
       <title>A Knowledge storage and semantic space alignment Method for Multi-documents dialogue generation</title>
@@ -197,6 +210,7 @@
       <abstract>Question Answering (QA) is a Natural Language Processing (NLP) task that can measure language and semantics understanding ability, it requires a system not only to retrieve relevant documents from a large number of articles but also to answer corresponding questions according to documents. However, various language styles and sources of human questions and evidence documents form the different embedding semantic spaces, which may bring some errors to the downstream QA task. To alleviate these problems, we propose a framework for enhancing downstream evidence retrieval by generating evidence, aiming at improving the performance of response generation. Specifically, we take the pre-training language model as a knowledge base, storing documents’ information and knowledge into model parameters. With the Child-Tuning approach being designed, the knowledge storage and evidence generation avoid catastrophic forgetting for response generation. Extensive experiments carried out on the multi-documents dataset show that the proposed method can improve the final performance, which demonstrates the effectiveness of the proposed framework.</abstract>
       <url hash="df5921ee">2022.dialdoc-1.14</url>
       <bibkey>zhu-etal-2022-knowledge-storage</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.14</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multidoc2dial">MultiDoc2Dial</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/quac">QuAC</pwcdataset>
@@ -214,6 +228,7 @@
       <abstract>In this paper, we mainly discuss about our submission to MultiDoc2Dial task, which aims to model the goal-oriented dialogues grounded in multiple documents. The proposed task is split into grounding span prediction and agent response generation. The baseline for the task is the retrieval augmented generation model, which consists of a dense passage retrieval model for the retrieval part and the BART model for the generation part. The main challenge of this task is that the system requires a great amount of pre-trained knowledge to generate answers grounded in multiple documents. To overcome this challenge, we adopt model pretraining, fine-tuning, and multi-task learning to enhance our model’s coverage of pretrained knowledge. We experimented with various settings of our method to show the effectiveness of our approaches.</abstract>
       <url hash="c3b3396f">2022.dialdoc-1.15</url>
       <bibkey>jang-etal-2022-improving</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.15</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multidoc2dial">MultiDoc2Dial</pwcdataset>
     </paper>
@@ -228,6 +243,7 @@
       <abstract>Information-seeking dialogue systems, including knowledge identification and response generation, aim to respond to users with fluent, coherent, and informative answers based on users’ needs. This paper discusses our proposed approach, <tex-math>Docalog</tex-math>, for the DialDoc-22 (MultiDoc2Dial) shared task. <tex-math>Docalog</tex-math> identifies the most relevant knowledge in the associated document, in a multi-document setting. <tex-math>Docalog</tex-math>, is a three-stage pipeline consisting of <i>(1) a document retriever model (DR. TEIT)</i>, <i>(2) an answer span prediction model</i>, and <i>(3) an ultimate span picker</i> deciding on the most likely answer span, out of all predicted spans. In the test phase of MultiDoc2Dial 2022, <tex-math>Docalog</tex-math> achieved f1-scores of 36.07% and 28.44% and SacreBLEU scores of 23.70% and 20.52%, respectively on the <i>MDD-SEEN</i> and <i>MDD-UNSEEN</i> folds.</abstract>
       <url hash="29fe31f8">2022.dialdoc-1.16</url>
       <bibkey>alavian-etal-2022-docalog</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.16</doi>
       <pwccode url="https://github.com/sharif-slpl-nlp/docalog-2022" additional="false">sharif-slpl-nlp/docalog-2022</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/doc2dial-1">Doc2Dial</pwcdataset>
@@ -249,6 +265,7 @@
       <abstract>In this paper, we present our submission to the DialDoc shared task based on the MultiDoc2Dial dataset. MultiDoc2Dial is a conversational question answering dataset that grounds dialogues in multiple documents. The task involves grounding a user’s query in a document followed by generating an appropriate response. We propose several improvements over the baseline’s retriever-reader architecture to aid in modeling goal-oriented dialogues grounded in multiple documents. Our proposed approach employs sparse representations for passage retrieval, a passage re-ranker, the fusion-in-decoder architecture for generation, and a curriculum learning training paradigm. Our approach shows a 12 point improvement in BLEU score compared to the baseline RAG model.</abstract>
       <url hash="608448d9">2022.dialdoc-1.17</url>
       <bibkey>bansal-etal-2022-r3</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.17</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/doc2dial-1">Doc2Dial</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
@@ -266,6 +283,7 @@
       <abstract>The paper presents the results of the Shared Task hosted by the Second DialDoc Workshop on Document-grounded Dialogue and Conversational Question Answering co-located at ACL 2022. The primary goal of this Shared Task is to build goal-oriented information-seeking conversation systems that are grounded in the domain documents, where each dialogue could correspond to multiple subtasks that are based on different documents. The task is to generate agent responses in natural language given the dialogue and document contexts. There are two task settings and leaderboards based on (1) the same sets of domains (SEEN) and (2) one unseen domain (UNSEEN). There are over 20 teams participating in Dev Phase and 8 teams participating in both Dev and Test Phases. Multiple submissions significantly outperform the baseline. The best-performing system achieves 52.06 F1 and the total of 191.30 on the SEEN task; and 34.65 F1 and the total of 130.79 on the UNSEEN task.</abstract>
       <url hash="c161f860">2022.dialdoc-1.18</url>
       <bibkey>feng-etal-2022-dialdoc</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.18</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/doc2dial-1">Doc2Dial</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multidoc2dial">MultiDoc2Dial</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/doc2dial">doc2dial</pwcdataset>
@@ -286,12 +304,7 @@
       <abstract>Grounded text generation systems often generate text that contains factual inconsistencies, hindering their real-world applicability. Automatic factual consistency evaluation may help alleviate this limitation by accelerating evaluation cycles, filtering inconsistent outputs and augmenting training data. While attracting increasing attention, such evaluation metrics are usually developed and evaluated in silo for a single task or dataset, slowing their adoption. Moreover, previous meta-evaluation protocols focused on system-level correlations with human annotations, which leave the example-level accuracy of such metrics unclear.In this work, we introduce TRUE: a comprehensive study of factual consistency metrics on a standardized collection of existing texts from diverse tasks, manually annotated for factual consistency. Our standardization enables an example-level meta-evaluation protocol that is more actionable and interpretable than previously reported correlations, yielding clearer quality measures. Across diverse state-of-the-art metrics and 11 datasets we find that large-scale NLI and question generation-and-answering-based approaches achieve strong and complementary results. We recommend those methods as a starting point for model and metric developers, and hope TRUE will foster progress towards even better methods.</abstract>
       <url hash="9200f1fe">2022.dialdoc-1.19</url>
       <bibkey>honovich-etal-2022-true</bibkey>
-      <pwccode url="https://github.com/google-research/true" additional="false">google-research/true</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/anli">ANLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/dialfact">DialFact</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/paws">PAWS</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/vitaminc">VitaminC</pwcdataset>
+      <doi>10.18653/v1/2022.dialdoc-1.19</doi>
     </paper>
     <paper id="20">
       <title>Handling Comments in Documents through Interactions</title>
@@ -301,6 +314,7 @@
       <abstract>Comments are widely used by users in collaborative documents every day. The documents’ comments enable collaborative editing and review dynamics, transforming each document into a context-sensitive communication channel. Understanding the role of comments in communication dynamics within documents is the first step towards automating their management. In this paper we propose the first ever taxonomy for different types of in-document comments based on analysis of a large scale dataset of public documents from the web. We envision that the next generation of intelligent collaborative document experiences allow interactive creation and consumption of content, there We also introduce the components necessary for developing novel tools that automate the handling of comments through natural language interaction with the documents. We identify the commands that users would use to respond to various types of comments. We train machine learning algorithms to recognize the different types of comments and assess their feasibility. We conclude by discussing some of the implications for the design of automatic document management tools.</abstract>
       <url hash="5ff2769a">2022.dialdoc-1.20</url>
       <bibkey>nouri-toxtli-2022-handling</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.20</doi>
     </paper>
     <paper id="21">
       <title><fixed-case>T</fixed-case>ask2<fixed-case>D</fixed-case>ial: A Novel Task and Dataset for Commonsense-enhanced Task-based Dialogue Grounded in Documents</title>
@@ -310,6 +324,7 @@
       <abstract>This paper proposes a novel task on commonsense-enhanced task-based dialogue grounded in documents and describes the Task2Dial dataset, a novel dataset of document-grounded task-based dialogues, where an Information Giver (IG) provides instructions (by consulting a document) to an Information Follower (IF), so that the latter can successfully complete the task. In this unique setting, the IF can ask clarification questions which may not be grounded in the underlying document and require commonsense knowledge to be answered. The Task2Dial dataset poses new challenges: (1) its human reference texts show more lexical richness and variation than other document-grounded dialogue datasets; (2) generating from this set requires paraphrasing as instructional responses might have been modified from the underlying document; (3) requires commonsense knowledge, since questions might not necessarily be grounded in the document; (4) generating requires planning based on context, as task steps need to be provided in order. The Task2Dial dataset contains dialogues with an average 18.15 number of turns and 19.79 tokens per turn, as compared to 12.94 and 12 respectively in existing datasets. As such, learning from this dataset promises more natural, varied and less template-like system utterances.</abstract>
       <url hash="995b73d7">2022.dialdoc-1.21</url>
       <bibkey>strathearn-gkatzia-2022-task2dial</bibkey>
+      <doi>10.18653/v1/2022.dialdoc-1.21</doi>
       <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/doc2dial-1">Doc2Dial</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/doc2dial">doc2dial</pwcdataset>
