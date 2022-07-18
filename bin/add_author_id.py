@@ -35,15 +35,8 @@ import ssl
 import sys
 import tempfile
 
-from anthology.utils import (
-    deconstruct_anthology_id,
-    make_simple_element,
-    indent,
-    compute_hash,
-    infer_url,
-    is_newstyle_id,
-)
-from anthology.data import PDF_LOCATION_TEMPLATE
+from anthology.utils import indent
+from itertools import chain
 
 import lxml.etree as ET
 
@@ -56,13 +49,14 @@ def main(args):
         changed_one = False
 
         tree = ET.parse(xml_file)
-        for paper_xml in tree.getroot().findall(f".//paper"):
-            for author_xml in paper_xml.findall("./author"):
+        for paper_xml in chain(tree.getroot().findall(f".//paper"), tree.getroot().findall(".//meta")):
+            for author_xml in chain(paper_xml.findall("./author"), paper_xml.findall("./editor")):
                 if "id" in author_xml.attrib:
                     continue
                 last_name = author_xml.find("./last").text
                 if last_name == args.last_name:
-                    anth_id = f"{xml_file}/{paper_xml.attrib['id']}"
+                    paper_id = paper_xml.attrib["id"] if paper_xml.text == "paper" else "0"
+                    anth_id = f"{xml_file}/{paper_id}"
                     print(f"Adding {args.id} to {anth_id}...")
                     author_xml.attrib["id"] = args.id
                     changed_one = True
