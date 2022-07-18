@@ -77,7 +77,9 @@ if __name__ == "__main__":
     parser.add_argument("id", help="Author ID to add")
     parser.add_argument("--last-name", help="Author's last name")
     parser.add_argument("--confirm", action="store_true", help="Confirm each instance")
-    parser.add_argument("--data-dir", default=os.path.join(os.path.dirname(__file__), "..", "data", "xml"))
+    parser.add_argument(
+        "--data-dir", default=os.path.join(os.path.dirname(__file__), "..", "data", "xml")
+    )
     args = parser.parse_args()
 
     main(args)
