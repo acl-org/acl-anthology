@@ -49,13 +49,19 @@ def main(args):
         changed_one = False
 
         tree = ET.parse(xml_file)
-        for paper_xml in chain(tree.getroot().findall(f".//paper"), tree.getroot().findall(".//meta")):
-            for author_xml in chain(paper_xml.findall("./author"), paper_xml.findall("./editor")):
+        for paper_xml in chain(
+            tree.getroot().findall(f".//paper"), tree.getroot().findall(".//meta")
+        ):
+            for author_xml in chain(
+                paper_xml.findall("./author"), paper_xml.findall("./editor")
+            ):
                 if "id" in author_xml.attrib:
                     continue
                 last_name = author_xml.find("./last").text
                 if last_name == args.last_name:
-                    paper_id = paper_xml.attrib["id"] if paper_xml.text == "paper" else "0"
+                    paper_id = (
+                        paper_xml.attrib["id"] if paper_xml.text == "paper" else "0"
+                    )
                     anth_id = f"{xml_file}/{paper_id}"
                     print(f"Adding {args.id} to {anth_id}...")
                     author_xml.attrib["id"] = args.id
