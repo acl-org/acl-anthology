@@ -10173,7 +10173,7 @@
     <paper id="690">
       <title>Reducing Gender Bias in Neural Machine Translation as a Domain Adaptation Problem</title>
       <author><first>Danielle</first><last>Saunders</last></author>
-      <author><first>Bill</first><last>Byrne</last></author>
+      <author id="bill-byrne"><first>Bill</first><last>Byrne</last></author>
       <pages>7724–7736</pages>
       <abstract>Training data for NLP tasks often exhibits gender bias in that fewer sentences refer to women than to men. In Neural Machine Translation (NMT) gender bias has been shown to reduce translation quality, particularly when the target language has grammatical gender. The recent WinoMT challenge set allows us to measure this effect directly (Stanovsky et al, 2019) Ideally we would reduce system bias by simply debiasing all data prior to training, but achieving this effectively is itself a challenge. Rather than attempt to create a ‘balanced’ dataset, we use transfer learning on a small set of trusted, gender-balanced examples. This approach gives strong and consistent improvements in gender debiasing with much less computational cost than training from scratch. A known pitfall of transfer learning on new domains is ‘catastrophic forgetting’, which we address at adaptation and inference time. During adaptation we show that Elastic Weight Consolidation allows a performance trade-off between general translation quality and bias reduction. At inference time we propose a lattice-rescoring scheme which outperforms all systems evaluated in Stanovsky et al, 2019 on WinoMT with no degradation of general test set BLEU. We demonstrate our approach translating from English into three languages with varied linguistic properties and data availability.</abstract>
       <url hash="37c57e44">2020.acl-main.690</url>
@@ -10214,7 +10214,7 @@
       <title>Using Context in Neural Machine Translation Training Objectives</title>
       <author><first>Danielle</first><last>Saunders</last></author>
       <author><first>Felix</first><last>Stahlberg</last></author>
-      <author><first>Bill</first><last>Byrne</last></author>
+      <author id="bill-byrne"><first>Bill</first><last>Byrne</last></author>
       <pages>7764–7770</pages>
       <abstract>We present Neural Machine Translation (NMT) training using document-level metrics with batch-level documents. Previous sequence-objective approaches to NMT training focus exclusively on sentence-level metrics like sentence BLEU which do not correspond to the desired evaluation metric, typically document BLEU. Meanwhile research into document-level NMT training focuses on data or model architecture rather than training procedure. We find that each of these lines of research has a clear space in it for the other, and propose merging them with a scheme that allows a document-level evaluation metric to be used in the NMT training objective. We first sample pseudo-documents from sentence samples. We then approximate the expected document BLEU gradient with Monte Carlo sampling for use as a cost function in Minimum Risk Training (MRT). This two-level sampling procedure gives NMT performance gains over sequence MRT and maximum-likelihood training. We demonstrate that training is more robust for document-level metrics than with sequence metrics. We further demonstrate improvements on NMT with TER and Grammatical Error Correction (GEC) using GLEU, both metrics used at the document level for evaluations.</abstract>
       <url hash="110cb0a7">2020.acl-main.693</url>

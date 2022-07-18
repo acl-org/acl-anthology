@@ -1895,7 +1895,7 @@
       <author><first>Eva</first><last>Hasler</last></author>
       <author><first>Ke</first><last>Tran</last></author>
       <author><first>Sony</first><last>Trenous</last></author>
-      <author><first>Bill</first><last>Byrne</last></author>
+      <author id="bill-byrne"><first>Bill</first><last>Byrne</last></author>
       <author><first>Felix</first><last>Hieber</last></author>
       <pages>1861-1874</pages>
       <abstract>Vocabulary selection, or lexical shortlisting, is a well-known technique to improve latency of Neural Machine Translation models by constraining the set of allowed output words during inference. The chosen set is typically determined by separately trained alignment model parameters, independent of the source-sentence context at inference time. While vocabulary selection appears competitive with respect to automatic quality metrics in prior work, we show that it can fail to select the right set of output words, particularly for semantically non-compositional linguistic phenomena such as idiomatic expressions, leading to reduced translation quality as perceived by humans. Trading off latency for quality by increasing the size of the allowed set is often not an option in real-world scenarios. We propose a model of vocabulary selection, integrated into the neural translation model, that predicts the set of allowed output words from contextualized encoder representations. This restores translation quality of an unconstrained system, as measured by human evaluations on WMT newstest2020 and idiomatic expressions, at an inference latency competitive with alignment-based selection using aggressive thresholds, thereby removing the dependency on separately trained alignment models.</abstract>
