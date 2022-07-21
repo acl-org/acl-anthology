@@ -80,10 +80,10 @@ ifeq (, $(shell which python3 ))
 endif
 
 PYTHON_VERSION_MIN=3.8
-PYTHON_VERSION=$(shell python3 -c 'import sys; print("%d.%d"% sys.version_info[0:2])' )
-PYTHON_VERSION_OK=$(shell python3 -c 'import sys; print(int(float("%d.%d"% sys.version_info[0:2]) >= $(PYTHON_VERSION_MIN)))' )
+PYTHON_VERSION_OK=$(shell python3 -c 'import sys; (major, minor) = "$(PYTHON_VERSION_MIN)".split("."); print(sys.version_info.major==int(major) and sys.version_info.minor >= int(minor))' )
 
-ifeq ($(PYTHON_VERSION_OK),0)
+ifeq ($(PYTHON_VERSION_OK),"False")
+  PYTHON_VERSION=$(shell python3 -c 'import sys; print("%d.%d"% sys.version_info[0:2])' )
   $(error "Need python $(PYTHON_VERSION_MIN), but only found python $(PYTHON_VERSION)!")
 endif
 # end python check
@@ -91,7 +91,7 @@ endif
 
 # hugo version check
 HUGO_VERSION_MIN=58
-HUGO_VERSION=$(shell hugo version | sed 's/.*Generator v0.\(..\).*/\1/')
+HUGO_VERSION=$(shell hugo version | sed 's/.*Generator v0.\(..\).*/\1/; s/hugo v0.\(..\).*/\1/')
 HUGO_VERSION_TOO_LOW:=$(shell [ $(HUGO_VERSION_MIN) -gt $(HUGO_VERSION) ] && echo true)
 ifeq ($(HUGO_VERSION_TOO_LOW),true)
   $(error "incorrect hugo version installed! Need hugo 0.$(HUGO_VERSION_MIN), but only found hugo 0.$(HUGO_VERSION)!")
