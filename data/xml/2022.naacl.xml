@@ -1413,6 +1413,7 @@
       <abstract>Although fine-tuning pre-trained language models (PLMs) renders strong performance in many NLP tasks, it relies on excessive labeled data. Recently, researchers have resorted to active fine-tuning for enhancing the label efficiency of PLM fine-tuning, but existing methods of this type usually ignore the potential of unlabeled data. We develop AcTune, a new framework that improves the label efficiency of active PLM fine-tuning by unleashing the power of unlabeled data via self-training. AcTune switches between data annotation and model self-training based on uncertainty: the unlabeled samples of high-uncertainty are selected for annotation, while the ones from low-uncertainty regions are used for model self-training. Additionally, we design (1) a region-aware sampling strategy to avoid redundant samples when querying annotations and (2) a momentum-based memory bank to dynamically aggregate the model’s pseudo labels to suppress label noise in self-training. Experiments on 6 text classification datasets show that AcTune outperforms the strongest active learning and self-training baselines and improves the label efficiency of PLM fine-tuning by 56.2% on average. Our implementation is available at <url>https://github.com/yueyu1030/actune</url>.</abstract>
       <url hash="49cd916b">2022.naacl-main.102</url>
       <bibkey>yu-etal-2022-actune</bibkey>
+      <pwccode url="https://github.com/yueyu1030/actune" additional="false">yueyu1030/actune</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/pubmed-rct">PubMed RCT</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
@@ -1650,6 +1651,7 @@
       <abstract>In traditional Visual Question Generation (VQG), most images have multiple concepts (e.g. objects and categories) for which a question could be generated, but models are trained to mimic an arbitrary choice of concept as given in their training data. This makes training difficult and also poses issues for evaluation – multiple valid questions exist for most images but only one or a few are captured by the human references. We present Guiding Visual Question Generation - a variant of VQG which conditions the question generator on categorical information based on expectations on the type of question and the objects it should explore. We propose two variant families: (i) an explicitly guided model that enables an actor (human or automated) to select which objects and categories to generate a question for; and (ii) 2 types of implicitly guided models that learn which objects and categories to condition on, based on discrete variables. The proposed models are evaluated on an answer-category augmented VQA dataset and our quantitative results show a substantial improvement over the current state of the art (over 9 BLEU-4 increase). Human evaluation validates that guidance helps the generation of questions that are grammatically coherent and relevant to the given image and objects.</abstract>
       <url hash="2b4d5a17">2022.naacl-main.118</url>
       <bibkey>vedd-etal-2022-guiding</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/visual-question-answering">Visual Question Answering</pwcdataset>
     </paper>
     <paper id="119">
       <title><fixed-case>OPERA</fixed-case>: Operation-Pivoted Discrete Reasoning over Text</title>
@@ -1971,6 +1973,11 @@
       <attachment type="software" hash="4e060248">2022.naacl-main.140.software.zip</attachment>
       <bibkey>hu-etal-2022-hero</bibkey>
       <pwccode url="https://github.com/jinpeng01/hgn" additional="false">jinpeng01/hgn</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/bc2gm">BC2GM</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/bc5cdr">BC5CDR</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wnut-2016-ner">WNUT 2016 NER</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wnut-2017-emerging-and-rare-entity">WNUT 2017</pwcdataset>
     </paper>
     <paper id="141">
       <title><fixed-case>MGIMN</fixed-case>: Multi-Grained Interactive Matching Network for Few-shot Text Classification</title>
@@ -1996,6 +2003,8 @@
       <abstract>Visual Question Answering (VQA) has benefited from increasingly sophisticated models, but has not enjoyed the same level of engagement in terms of data creation. In this paper, we propose a method that automatically derives VQA examples at volume, by leveraging the abundance of existing image-caption annotations combined with neural models for textual question generation. We show that the resulting data is of high-quality. VQA models trained on our data improve state-of-the-art zero-shot accuracy by double digits and achieve a level of robustness that lacks in the same model trained on human-annotated VQA data.</abstract>
       <url hash="502cc410">2022.naacl-main.142</url>
       <bibkey>changpinyo-etal-2022-may</bibkey>
+      <pwccode url="https://github.com/google-research-datasets/maverics" additional="false">google-research-datasets/maverics</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/maverics">MAVERICS</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/coco-qa">COCO-QA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conceptual-captions">Conceptual Captions</pwcdataset>
@@ -4088,6 +4097,8 @@
       <abstract>We introduce Bi-SimCut: a simple but effective training strategy to boost neural machine translation (NMT) performance. It consists of two procedures: bidirectional pretraining and unidirectional finetuning. Both procedures utilize SimCut, a simple regularization method that forces the consistency between the output distributions of the original and the cutoff sentence pairs. Without leveraging extra dataset via back-translation or integrating large-scale pretrained model, Bi-SimCut achieves strong translation performance across five translation benchmarks (data sizes range from 160K to 20.2M): BLEU scores of 31.16 for <tex-math>\texttt{en}\rightarrow\texttt{de}</tex-math> and 38.37 for <tex-math>\texttt{de}\rightarrow\texttt{en}</tex-math> on the IWSLT14 dataset, 30.78 for <tex-math>\texttt{en}\rightarrow\texttt{de}</tex-math> and 35.15 for <tex-math>\texttt{de}\rightarrow\texttt{en}</tex-math> on the WMT14 dataset, and 27.17 for <tex-math>\texttt{zh}\rightarrow\texttt{en}</tex-math> on the WMT17 dataset. SimCut is not a new method, but a version of Cutoff (Shen et al., 2020) simplified and adapted for NMT, and it could be considered as a perturbation-based method. Given the universality and simplicity of Bi-SimCut and SimCut, we believe they can serve as strong baselines for future NMT research.</abstract>
       <url hash="ab196a68">2022.naacl-main.289</url>
       <bibkey>gao-etal-2022-bi</bibkey>
+      <pwccode url="https://github.com/gpengzhi/Bi-SimCut" additional="false">gpengzhi/Bi-SimCut</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/wmt-2014">WMT 2014</pwcdataset>
     </paper>
     <paper id="290">
       <title>On Transferability of Prompt Tuning for Natural Language Processing</title>
@@ -4986,6 +4997,7 @@
       <url hash="5f55c923">2022.naacl-main.353</url>
       <bibkey>yang-etal-2022-dynamic</bibkey>
       <pwccode url="https://github.com/sustcsonglin/TN-PCFG" additional="true">sustcsonglin/TN-PCFG</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="354">
       <title>What Factors Should Paper-Reviewer Assignments Rely On? Community Perspectives on Issues and Ideals in Conference Peer-Review</title>
@@ -5975,6 +5987,7 @@
       <abstract>The Covid-19 pandemic has led to infodemic of low quality information leading to poor health decisions. Combating the outcomes of this infodemic is not only a question of identifying false claims, but also reasoning about the decisions individuals make.In this work we propose a holistic analysis framework connecting stance and reason analysis, and fine-grained entity level moral sentiment analysis. We study how to model the dependencies between the different level of analysis and incorporate human insights into the learning process. Experiments show that our framework provides reliable predictions even in the low-supervision settings.</abstract>
       <url hash="607fab2b">2022.naacl-main.427</url>
       <bibkey>pacheco-etal-2022-holistic</bibkey>
+      <pwccode url="https://gitlab.com/mlpacheco/covid-moral-foundations" additional="false">mlpacheco/covid-moral-foundations</pwccode>
     </paper>
     <paper id="428">
       <title>Learning to Win Lottery Tickets in <fixed-case>BERT</fixed-case> Transfer via Task-agnostic Mask Training</title>
@@ -7352,6 +7365,7 @@
       <abstract>This paper presents an effort within our company of developing knowledge extraction pipeline for English, which can be further used for constructing an entreprise-specific knowledge base. We present a system consisting of entity detection and linking, coreference resolution, and relation extraction based on the Wikidata schema. We highlight existing challenges of knowledge extraction by evaluating the deployed pipeline on real-world data. We also make available a database, which can serve as a new resource for sentential relation extraction, and we underline the importance of having balanced data for training classification models.</abstract>
       <url hash="a0b7870e">2022.naacl-industry.33</url>
       <bibkey>shimorina-etal-2022-knowledge</bibkey>
+      <pwccode url="https://github.com/shimorina/relation-extraction-db-wikidata" additional="false">shimorina/relation-extraction-db-wikidata</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/docred">DocRED</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/fewrel">FewRel</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/t-rex">T-REx</pwcdataset>
