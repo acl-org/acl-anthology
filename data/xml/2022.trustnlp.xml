@@ -13,10 +13,10 @@
       <address>Seattle, U.S.A.</address>
       <month>July</month>
       <year>2022</year>
-      <url hash="2e41ff89">2022.trustnlp-1</url>
+      <url hash="5f900410">2022.trustnlp-1</url>
     </meta>
     <frontmatter>
-      <url hash="2e41ff89">2022.trustnlp-1.0</url>
+      <url hash="a721c477">2022.trustnlp-1.0</url>
       <bibkey>trustnlp-2022-trustworthy</bibkey>
     </frontmatter>
     <paper id="1">
@@ -28,6 +28,10 @@
       <abstract>The bi-encoder design of dense passage retriever (DPR) is a key factor to its success in open-domain question answering (QA), yet it is unclear how DPR’s question encoder and passage encoder individually contributes to overall performance, which we refer to as the encoder attribution problem. The problem is important as it helps us identify the factors that affect individual encoders to further improve overall performance. In this paper, we formulate our analysis under a probabilistic framework called encoder marginalization, where we quantify the contribution of a single encoder by marginalizing other variables. First, we find that the passage encoder contributes more than the question encoder to in-domain retrieval accuracy. Second, we demonstrate how to find the affecting factors for each encoder, where we train DPR with different amounts of data and use encoder marginalization to analyze the results. We find that positive passage overlap and corpus coverage of training data have big impacts on the passage encoder, while the question encoder is mainly affected by training sample complexity under this setting. Based on this framework, we can devise data-efficient training regimes: for example, we manage to train a passage encoder on SQuAD using 60% less training data without loss of accuracy.</abstract>
       <url hash="00f57ea8">2022.trustnlp-1.1</url>
       <bibkey>li-etal-2022-encoder</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/triviaqa">TriviaQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/webquestions">WebQuestions</pwcdataset>
     </paper>
     <paper id="2">
       <title>Attributing Fair Decisions with Attention Interventions</title>
@@ -50,6 +54,8 @@
       <abstract>In an effort to guarantee that machine learning model outputs conform with human moral values, recent work has begun exploring the possibility of explicitly training models to learn the difference between right and wrong. This is typically done in a bottom-up fashion, by exposing the model to different scenarios, annotated with human moral judgements. One question, however, is whether the trained models actually learn any consistent, higher-level ethical principles from these datasets – and if so, what? Here, we probe the Allen AI Delphi model with a set of standardized morality questionnaires, and find that, despite some inconsistencies, Delphi tends to mirror the moral principles associated with the demographic groups involved in the annotation process. We question whether this is desirable and discuss how we might move forward with this knowledge.</abstract>
       <url hash="7e585c72">2022.trustnlp-1.3</url>
       <bibkey>fraser-etal-2022-moral</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/ethics-1">ETHICS</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/moral-stories">Moral Stories</pwcdataset>
     </paper>
     <paper id="4">
       <title>The Cycle of Trust and Responsibility in Outsourced <fixed-case>AI</fixed-case></title>
@@ -81,6 +87,8 @@
       <abstract>Neural rationale models are popular for interpretable predictions of NLP tasks. In these, a selector extracts segments of the input text, called rationales, and passes these segments to a classifier for prediction. Since the rationale is the only information accessible to the classifier, it is plausibly defined as the explanation. Is such a characterization unconditionally correct? In this paper, we argue to the contrary, with both philosophical perspectives and empirical evidence suggesting that rationale models are, perhaps, less rational and interpretable than expected. We call for more rigorous evaluations of these models to ensure desired properties of interpretability are indeed achieved. The code for our experiments is at https://github.com/yimingz89/Neural-Rationale-Analysis.</abstract>
       <url hash="670e0f09">2022.trustnlp-1.6</url>
       <bibkey>zheng-etal-2022-irrationality</bibkey>
+      <pwccode url="https://github.com/yimingz89/neural-rationale-analysis" additional="false">yimingz89/neural-rationale-analysis</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
     </paper>
     <paper id="7">
       <title>An Empirical Study on Pseudo-log-likelihood Bias Measures for Masked Language Models Using Paraphrased Sentences</title>
@@ -90,6 +98,7 @@
       <abstract>In this paper, we conduct an empirical study on a bias measure, log-likelihood Masked Language Model (MLM) scoring, on a benchmark dataset. Previous work evaluates whether MLMs are biased or not for certain protected attributes (e.g., race) by comparing the log-likelihood scores of sentences that contain stereotypical characteristics with one category (e.g., black) versus another (e.g., white). We hypothesized that this approach might be too sensitive to the choice of contextual words than the meaning of the sentence. Therefore, we computed the same measure after paraphrasing the sentences with different words but with same meaning. Our results demonstrate that the log-likelihood scoring can be more sensitive to utterance of specific words than to meaning behind a given sentence. Our paper reveals a shortcoming of the current log-likelihood-based bias measures for MLMs and calls for new ways to improve the robustness of it</abstract>
       <url hash="97392aa1">2022.trustnlp-1.7</url>
       <bibkey>kwon-mihindukulasooriya-2022-empirical</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/crows-pairs">CrowS-Pairs</pwcdataset>
     </paper>
     <paper id="8">
       <title>Challenges in Applying Explainability Methods to Improve the Fairness of <fixed-case>NLP</fixed-case> Models</title>
@@ -101,17 +110,6 @@
       <abstract>Motivations for methods in explainable artificial intelligence (XAI) often include detecting, quantifying and mitigating bias, and contributing to making machine learning models fairer. However, exactly how an XAI method can help in combating biases is often left unspecified. In this paper, we briefly review trends in explainability and fairness in NLP research, identify the current practices in which explainability methods are applied to detect and mitigate bias, and investigate the barriers preventing XAI methods from being used more widely in tackling fairness issues.</abstract>
       <url hash="ceddb74d">2022.trustnlp-1.8</url>
       <bibkey>balkir-etal-2022-challenges</bibkey>
-    </paper>
-    <paper id="9">
-      <title><fixed-case>ER</fixed-case>-<fixed-case>TEST</fixed-case> Evaluating Explanation Regularization Methods for <fixed-case>NLP</fixed-case> Models</title>
-      <author><first>Brihi</first><last>Joshi</last></author>
-      <author><first>Aaron</first><last>Chan</last></author>
-      <author><first>Ziyi</first><last>Liu</last></author>
-      <author><first>Xiang</first><last>Ren</last></author>
-      <pages>93-109</pages>
-      <abstract>Neural language models’ (NLMs’) reasoning processes are notoriously hard to explain. Recently, there has been much progress in automatically generating machine rationales of NLM behavior, but less in utilizing the rationales to improve NLM behavior. For the latter, explanation regularization (ER) aims to improve NLM generalization by pushing the machine rationales to align with human rationales. Whereas prior works primarily evaluate such ER models via in-distribution (ID) generalization, ER’s impact on out-of-distribution (OOD) is largely underexplored. Plus, little is understood about how ER model performance is affected by the choice of ER criteria or by the number/choice of training instances with human rationales. In light of this, we propose ER-TEST, a protocol for evaluating ER models’ OOD generalization along three dimensions: (1) unseen datasets, (2) contrast set tests, and (3) functional tests. Using ER-TEST, we study two key questions: (A) Which ER criteria are most effective for the given OOD setting? (B) How is ER affected by the number/choice of training instances with human rationales? ER-TEST enables comprehensive analysis of these questions by considering a diverse range of tasks and datasets. Through ER-TEST, we show that ER has little impact on ID performance, but can yield large gains on OOD performance w.r.t. (1)-(3). Also, we find that the best ER criterion is task-dependent, while ER can improve OOD performance even with limited human rationales.</abstract>
-      <url hash="dfe0099e">2022.trustnlp-1.9</url>
-      <bibkey>joshi-etal-2022-er</bibkey>
     </paper>
   </volume>
 </collection>

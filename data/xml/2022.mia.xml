@@ -19,7 +19,7 @@
       <url hash="f450f52b">2022.mia-1</url>
     </meta>
     <frontmatter>
-      <url hash="f450f52b">2022.mia-1.0</url>
+      <url hash="3b3c3cb6">2022.mia-1.0</url>
       <bibkey>mia-2022-multilingual</bibkey>
     </frontmatter>
     <paper id="1">
@@ -50,6 +50,12 @@
       <abstract>Existing methods for open-retrieval question answering in lower resource languages (LRLs) lag significantly behind English. They not only suffer from the shortcomings of non-English document retrieval, but are reliant on language-specific supervision for either the task or translation. We formulate a task setup more realistic to available resources, that circumvents document retrieval to reliably transfer knowledge from English to lower resource languages. Assuming a strong English question answering model or database, we compare and analyze methods that pivot through English: to map foreign queries to English and then English answers back to target language answers. Within this task setup we propose Reranked Multilingual Maximal Inner Product Search (RM-MIPS), akin to semantic similarity retrieval over the English training set with reranking, which outperforms the strongest baselines by 2.7% on XQuAD and 6.2% on MKQA. Analysis demonstrates the particular efficacy of this strategy over state-of-the-art alternatives in challenging settings: low-resource languages, with extensive distractor data and query distribution misalignment. Circumventing retrieval, our analysis shows this approach offers rapid answer generation to many other languages off-the-shelf, without necessitating additional training data in the target language.</abstract>
       <url hash="ac60c183">2022.mia-1.3</url>
       <bibkey>montero-etal-2022-pivot</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/mkqa">MKQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/paws">PAWS</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/paws-x">PAWS-X</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/xquad">XQuAD</pwcdataset>
     </paper>
     <paper id="4">
       <title>Cross-Lingual <fixed-case>QA</fixed-case> as a Stepping Stone for Monolingual Open <fixed-case>QA</fixed-case> in <fixed-case>I</fixed-case>celandic</title>
@@ -59,6 +65,8 @@
       <abstract>It can be challenging to build effective open question answering (open QA) systems for languages other than English, mainly due to a lack of labeled data for training. We present a data efficient method to bootstrap such a system for languages other than English. Our approach requires only limited QA resources in the given language, along with machine-translated data, and at least a bilingual language model. To evaluate our approach, we build such a system for the Icelandic language and evaluate performance over trivia style datasets. The corpora used for training are English in origin but machine translated into Icelandic. We train a bilingual Icelandic/English language model to embed English context and Icelandic questions following methodology introduced with DensePhrases (Lee et al., 2021). The resulting system is an open domain cross-lingual QA system between Icelandic and English. Finally, the system is adapted for Icelandic only open QA, demonstrating how it is possible to efficiently create an open QA system with limited access to curated datasets in the language of interest.</abstract>
       <url hash="133427ab">2022.mia-1.4</url>
       <bibkey>snaebjarnarson-einarsson-2022-cross</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/newsqa">NewsQA</pwcdataset>
     </paper>
     <paper id="5">
       <title>Multilingual Event Linking to <fixed-case>W</fixed-case>ikidata</title>
@@ -69,6 +77,7 @@
       <abstract>We present a task of multilingual linking of events to a knowledge base. We automatically compile a large-scale dataset for this task, comprising of 1.8M mentions across 44 languages referring to over 10.9K events from Wikidata. We propose two variants of the event linking task: 1) multilingual, where event descriptions are from the same language as the mention, and 2) crosslingual, where all event descriptions are in English. On the two proposed tasks, we compare multiple event linking systems including BM25+ (Lv and Zhai, 2011) and multilingual adaptations of the biencoder and crossencoder architectures from BLINK (Wu et al., 2020). In our experiments on the two task variants, we find both biencoder and crossencoder models significantly outperform the BM25+ baseline. Our results also indicate that the crosslingual task is in general more challenging than the multilingual task. To test the out-of-domain generalization of the proposed linking systems, we additionally create a Wikinews-based evaluation set. We present qualitative analysis highlighting various aspects captured by the proposed dataset, including the need for temporal reasoning over context and tackling diverse event descriptions across languages.</abstract>
       <url hash="a481c2fa">2022.mia-1.5</url>
       <bibkey>pratapa-etal-2022-multilingual</bibkey>
+      <pwccode url="https://github.com/adithya7/xlel-wd" additional="false">adithya7/xlel-wd</pwccode>
     </paper>
     <paper id="6">
       <title>Complex Word Identification in <fixed-case>V</fixed-case>ietnamese: Towards <fixed-case>V</fixed-case>ietnamese Text Simplification</title>
@@ -91,6 +100,7 @@
       <abstract>Current virtual assistant (VA) platforms are beholden to the limited number of languages they support. Every component, such as the tokenizer and intent classifier, is engineered for specific languages in these intricate platforms. Thus, supporting a new language in such platforms is a resource-intensive operation requiring expensive re-training and re-designing. In this paper, we propose a benchmark for evaluating language-agnostic intent classification, the most critical component of VA platforms. To ensure the benchmarking is challenging and comprehensive, we include 29 public and internal datasets across 10 low-resource languages and evaluate various training and testing settings with consideration of both accuracy and training time. The benchmarking result shows that Watson Assistant, among 7 commercial VA platforms and pre-trained multilingual language models (LMs), demonstrates close-to-best accuracy with the best accuracy-training time trade-off.</abstract>
       <url hash="29d74020">2022.mia-1.7</url>
       <bibkey>wang-etal-2022-benchmarking</bibkey>
+      <pwccode url="https://github.com/posuer/benchmark-multilingual-intent-classification" additional="false">posuer/benchmark-multilingual-intent-classification</pwccode>
     </paper>
     <paper id="8">
       <title><fixed-case>Z</fixed-case>usammen<fixed-case>QA</fixed-case>: Data Augmentation with Specialized Models for Cross-lingual Open-retrieval Question Answering System</title>
@@ -106,6 +116,11 @@
       <abstract>This paper introduces our proposed system for the MIA Shared Task on Cross-lingual Openretrieval Question Answering (COQA). In this challenging scenario, given an input question the system has to gather evidence documents from a multilingual pool and generate from them an answer in the language of the question. We devised several approaches combining different model variants for three main components: Data Augmentation, Passage Retrieval, and Answer Generation. For passage retrieval, we evaluated the monolingual BM25 ranker against the ensemble of re-rankers based on multilingual pretrained language models (PLMs) and also variants of the shared task baseline, re-training it from scratch using a recently introduced contrastive loss that maintains a strong gradient signal throughout training by means of mixed negative samples. For answer generation, we focused on languageand domain-specialization by means of continued language model (LM) pretraining of existing multilingual encoders. Additionally, for both passage retrieval and answer generation, we augmented the training data provided by the task organizers with automatically generated question-answer pairs created from Wikipedia passages to mitigate the issue of data scarcity, particularly for the low-resource languages for which no training data were provided. Our results show that language- and domain-specialization as well as data augmentation help, especially for low-resource languages.</abstract>
       <url hash="2a21c67b">2022.mia-1.8</url>
       <bibkey>hung-etal-2022-zusammenqa</bibkey>
+      <pwccode url="https://github.com/umanlp/zusammenqa" additional="true">umanlp/zusammenqa</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/ccnet">CCNet</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mkqa">MKQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/xor-tydi-qa">XOR-TYDI QA</pwcdataset>
     </paper>
     <paper id="9">
       <title>Zero-shot cross-lingual open domain question answering</title>
@@ -117,6 +132,9 @@
       <abstract>People speaking different kinds of languages search for information in a cross-lingual manner. They tend to ask questions in their language and expect the answer to be in the same language, despite the evidence lying in another language. In this paper, we present our approach for this task of cross-lingual open-domain question-answering. Our proposed method employs a passage reranker, the fusion-in-decoder technique for generation, and a wiki data entity-based post-processing system to tackle the inability to generate entities across all languages. Our end-2-end pipeline shows an improvement of 3 and 4.6 points on F1 and EM metrics respectively, when compared with the baseline CORA model on the XOR-TyDi dataset. We also evaluate the effectiveness of our proposed techniques in the zero-shot setting using the MKQA dataset and show an improvement of 5 points in F1 for high-resource and 3 points improvement for low-resource zero-shot languages. Our team, CMUmQA’s submission in the MIA-Shared task ranked 1st in the constrained setup for the dev and 2nd in the test setting.</abstract>
       <url hash="572ac35a">2022.mia-1.9</url>
       <bibkey>agarwal-etal-2022-zero</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/mkqa">MKQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/xquad">XQuAD</pwcdataset>
     </paper>
     <paper id="10">
       <title><fixed-case>MIA</fixed-case> 2022 Shared Task Submission: Leveraging Entity Representations, Dense-Sparse Hybrids, and Fusion-in-Decoder for Cross-Lingual Question Answering</title>
@@ -126,6 +144,10 @@
       <abstract>We describe our two-stage system for the Multilingual Information Access (MIA) 2022 Shared Task on Cross-Lingual Open-Retrieval Question Answering. The first stage consists of multilingual passage retrieval with a hybrid dense and sparse retrieval strategy. The second stage consists of a reader which outputs the answer from the top passages returned by the first stage. We show the efficacy of using entity representations, sparse retrieval signals to help dense retrieval, and Fusion-in-Decoder. On the development set, we obtain 43.46 F1 on XOR-TyDi QA and 21.99 F1 on MKQA, for an average F1 score of 32.73. On the test set, we obtain 40.93 F1 on XOR-TyDi QA and 22.29 F1 on MKQA, for an average F1 score of 31.61. We improve over the official baseline by over 4 F1 points on both the development and test sets.</abstract>
       <url hash="420c4ce4">2022.mia-1.10</url>
       <bibkey>tu-padmanabhan-2022-mia</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/mkqa">MKQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mr-tydi">Mr. TYDI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDi QA</pwcdataset>
     </paper>
     <paper id="11">
       <title><fixed-case>MIA</fixed-case> 2022 Shared Task: Evaluating Cross-lingual Open-Retrieval Question Answering for 16 Diverse Languages</title>
@@ -142,6 +164,9 @@
       <abstract>We present the results of the Workshop on Multilingual Information Access (MIA) 2022 Shared Task, evaluating cross-lingual open-retrieval question answering (QA) systems in 16 typologically diverse languages. In this task, we adapted two large-scale cross-lingual open-retrieval QA datasets in 14 typologically diverse languages, and newly annotated open-retrieval QA data in 2 underrepresented languages: Tagalog and Tamil. Four teams submitted their systems. The best constrained system uses entity-aware contextualized representations for document retrieval, thereby achieving an average F1 score of 31.6, which is 4.1 F1 absolute higher than the challenging baseline. The best system obtains particularly significant improvements in Tamil (20.8 F1), whereas most of the other systems yield nearly zero scores. The best unconstrained system achieves 32.2 F1, outperforming our baseline by 4.5 points.</abstract>
       <url hash="adedb5ae">2022.mia-1.11</url>
       <bibkey>asai-etal-2022-mia</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/mkqa">MKQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDi QA</pwcdataset>
     </paper>
   </volume>
 </collection>

@@ -15,7 +15,7 @@
       <url hash="784128f7">2022.gebnlp-1</url>
     </meta>
     <frontmatter>
-      <url hash="784128f7">2022.gebnlp-1.0</url>
+      <url hash="f5d9b2bf">2022.gebnlp-1.0</url>
       <bibkey>gebnlp-2022-gender</bibkey>
     </frontmatter>
     <paper id="1">
@@ -47,6 +47,7 @@
       <abstract>The representations in large language models contain multiple types of gender information. We focus on two types of such signals in English texts: factual gender information, which is a grammatical or semantic property, and gender bias, which is the correlation between a word and specific gender. We can disentangle the model’s embeddings and identify components encoding both types of information with probing. We aim to diminish the stereotypical bias in the representations while preserving the factual gender signal. Our filtering method shows that it is possible to decrease the bias of gender-neutral profession names without significant deterioration of language modeling capabilities. The findings can be applied to language generation to mitigate reliance on stereotypes while preserving gender agreement in coreferences.</abstract>
       <url hash="e55899c0">2022.gebnlp-1.3</url>
       <bibkey>limisiewicz-marecek-2022-dont</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/winobias">WinoBias</pwcdataset>
     </paper>
     <paper id="4">
       <title>Uncertainty and Inclusivity in Gender Bias Annotation: An Annotation Taxonomy and Annotated Datasets of <fixed-case>B</fixed-case>ritish <fixed-case>E</fixed-case>nglish Text</title>
@@ -72,6 +73,7 @@
       <abstract>People frequently interact with information retrieval (IR) systems, however, IR models exhibit biases and discrimination towards various demographics. The in-processing fair ranking methods provides a trade-offs between accuracy and fairness through adding a fairness-related regularization term in the loss function. However, there haven’t been intuitive objective functions that depend on the click probability and user engagement to directly optimize towards this.In this work, we propose the {textbf{I}n-{textbf{B}atch {textbf{B}alancing {textbf{R}egularization (IBBR) to mitigate the ranking disparity among subgroups. In particular, we develop a differentiable {textbf{normed Pairwise Ranking Fairness} (nPRF) and leverage the T-statistics on top of nPRF over subgroups as a regularization to improve fairness. Empirical results with the BERT-based neural rankers on the MS MARCO Passage Retrieval dataset with the human-annotated non-gendered queries benchmark {cite{rekabsaz2020neural} show that our {ibbr{} method with nPRF achieves significantly less bias with minimal degradation in ranking performance compared with the baseline.</abstract>
       <url hash="2712ac2d">2022.gebnlp-1.5</url>
       <bibkey>li-etal-2022-debiasing</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
     </paper>
     <paper id="6">
       <title>Gender Biases and Where to Find Them: Exploring Gender Bias in Pre-Trained Transformer-based Language Models Using Movement Pruning</title>
@@ -81,6 +83,9 @@
       <abstract>Language model debiasing has emerged as an important field of study in the NLP community. Numerous debiasing techniques were proposed, but bias ablation remains an unaddressed issue. We demonstrate a novel framework for inspecting bias in pre-trained transformer-based language models via movement pruning. Given a model and a debiasing objective, our framework finds a subset of the model containing less bias than the original model. We implement our framework by pruning the model while fine-tuning it on the debasing objective. Optimized are only the pruning scores – parameters coupled with the model’s weights that act as gates. We experiment with pruning attention heads, an important building block of transformers: we prune square blocks, as well as establish a new way of pruning the entire heads. Lastly, we demonstrate the usage of our framework using gender bias, and based on our findings, we propose an improvement to an existing debiasing method. Additionally, we re-discover a bias-performance trade-off: the better the model performs, the more bias it contains.</abstract>
       <url hash="e89343e3">2022.gebnlp-1.6</url>
       <bibkey>joniak-aizawa-2022-gender</bibkey>
+      <pwccode url="https://github.com/kainoj/pruning-bias" additional="false">kainoj/pruning-bias</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cola">CoLA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
     </paper>
     <paper id="7">
       <title>Gendered Language in Resumes and its Implications for Algorithmic Bias in Hiring</title>
@@ -101,6 +106,7 @@
       <abstract>Detecting and mitigating harmful biases in modern language models are widely recognized as crucial, open problems. In this paper, we take a step back and investigate how language models come to be biased in the first place.We use a relatively small language model, using the LSTM architecture trained on an English Wikipedia corpus. With full access to the data and to the model parameters as they change during every step while training, we can map in detail how the representation of gender develops, what patterns in the dataset drive this, and how the model’s internal state relates to the bias in a downstream task (semantic textual similarity).We find that the representation of gender is dynamic and identify different phases during training.Furthermore, we show that gender information is represented increasingly locally in the input embeddings of the model and that, as a consequence, debiasing these can be effective in reducing the downstream bias.Monitoring the training dynamics, allows us to detect an asymmetry in how the female and male gender are represented in the input embeddings. This is important, as it may cause naive mitigation strategies to introduce new undesirable biases.We discuss the relevance of the findings for mitigation strategies more generally and the prospects of generalizing our methods to larger language models, the Transformer architecture, other languages and other undesirable biases.</abstract>
       <url hash="dd2b2174">2022.gebnlp-1.8</url>
       <bibkey>van-der-wal-etal-2022-birth</bibkey>
+      <pwccode url="https://github.com/bias-barometer/birth-of-bias" additional="false">bias-barometer/birth-of-bias</pwccode>
     </paper>
     <paper id="9">
       <title>Challenges in Measuring Bias via Open-Ended Language Generation</title>
@@ -112,6 +118,7 @@
       <abstract>Researchers have devised numerous ways to quantify social biases vested in pretrained language models. As some language models are capable of generating coherent completions given a set of textual prompts, several prompting datasets have been proposed to measure biases between social groups—posing language generation as a way of identifying biases. In this opinion paper, we analyze how specific choices of prompt sets, metrics, automatic tools and sampling strategies affect bias results. We find out that the practice of measuring biases through text completion is prone to yielding contradicting results under different experiment settings. We additionally provide recommendations for reporting biases in open-ended language generation for a more complete outlook of biases exhibited by a given language model. Code to reproduce the results is released under https://github.com/feyzaakyurek/bias-textgen.</abstract>
       <url hash="61f2116c">2022.gebnlp-1.9</url>
       <bibkey>akyurek-etal-2022-challenges</bibkey>
+      <pwccode url="https://github.com/feyzaakyurek/bias-textgen" additional="false">feyzaakyurek/bias-textgen</pwccode>
     </paper>
     <paper id="10">
       <title>Worst of Both Worlds: Biases Compound in Pre-trained Vision-and-Language Models</title>
@@ -155,6 +162,9 @@
       <abstract>The size of pretrained models is increasing, and so is their performance on a variety of NLP tasks. However, as their memorization capacity grows, they might pick up more social biases. In this work, we examine the connection between model size and its gender bias (specifically, occupational gender bias). We measure bias in three masked language model families (RoBERTa, DeBERTa, and T5) in two setups: directly using prompt based method, and using a downstream task (Winogender). We find on the one hand that larger models receive higher bias scores on the former task, but when evaluated on the latter, they make fewer gender errors. To examine these potentially conflicting results, we carefully investigate the behavior of the different models on Winogender. We find that while larger models outperform smaller ones, the probability that their mistakes are caused by gender bias is higher. Moreover, we find that the proportion of stereotypical errors compared to anti-stereotypical ones grows with the model size. Our findings highlight the potential risks that can arise from increasing model size.</abstract>
       <url hash="f940637e">2022.gebnlp-1.13</url>
       <bibkey>tal-etal-2022-fewer</bibkey>
+      <pwccode url="https://github.com/schwartz-lab-nlp/model_size_and_gender_bias" additional="false">schwartz-lab-nlp/model_size_and_gender_bias</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/stereoset">StereoSet</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="14">
       <title>Unsupervised Mitigating Gender Bias by Character Components: A Case Study of <fixed-case>C</fixed-case>hinese Word Embedding</title>
@@ -196,6 +206,8 @@
       <abstract>Considerable efforts to measure and mitigate gender bias in recent years have led to the introduction of an abundance of tasks, datasets, and metrics used in this vein. In this position paper, we assess the current paradigm of gender bias evaluation and identify several flaws in it. First, we highlight the importance of extrinsic bias metrics that measure how a model’s performance on some task is affected by gender, as opposed to intrinsic evaluations of model representations, which are less strongly connected to specific harms to people interacting with systems. We find that only a few extrinsic metrics are measured in most studies, although more can be measured. Second, we find that datasets and metrics are often coupled, and discuss how their coupling hinders the ability to obtain reliable conclusions, and how one may decouple them. We then investigate how the choice of the dataset and its composition, as well as the choice of the metric, affect bias measurement, finding significant variations across each of them. Finally, we propose several guidelines for more reliable gender bias evaluation.</abstract>
       <url hash="72d9507a">2022.gebnlp-1.17</url>
       <bibkey>orgad-belinkov-2022-choose</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/gap-coreference-dataset">GAP Coreference Dataset</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/winobias">WinoBias</pwcdataset>
     </paper>
     <paper id="18">
       <title>A Taxonomy of Bias-Causing Ambiguities in Machine Translation</title>
@@ -213,6 +225,7 @@
       <abstract>We explore whether neural Natural Language Processing models trained to identify offensive language in tweets contain gender biases. We add historically gendered and gender ambiguous American names to an existing offensive language evaluation set to determine whether models? predictions are sensitive or robust to gendered names. While we see some evidence that these models might be prone to biased stereotypes that men use more offensive language than women, our results indicate that these models? binary predictions might not greatly change based upon gendered names.</abstract>
       <url hash="622072dd">2022.gebnlp-1.19</url>
       <bibkey>marce-poliak-2022-gender</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/olid">OLID</pwcdataset>
     </paper>
     <paper id="20">
       <title>Gender Bias in <fixed-case>BERT</fixed-case> - Measuring and Analysing Biases through Sentiment Rating in a Realistic Downstream Classification Task</title>
@@ -223,6 +236,7 @@
       <url hash="18ad5dea">2022.gebnlp-1.20</url>
       <attachment type="note" hash="b5139377">2022.gebnlp-1.20.note.pdf</attachment>
       <bibkey>jentzsch-turan-2022-gender</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
     </paper>
     <paper id="21">
       <title>Occupational Biases in <fixed-case>N</fixed-case>orwegian and Multilingual Language Models</title>
@@ -233,6 +247,8 @@
       <abstract>In this paper we explore how a demographic distribution of occupations, along gender dimensions, is reflected in pre-trained language models. We give a descriptive assessment of the distribution of occupations, and investigate to what extent these are reflected in four Norwegian and two multilingual models. To this end, we introduce a set of simple bias probes, and perform five different tasks combining gendered pronouns, first names, and a set of occupations from the Norwegian statistics bureau. We show that language specific models obtain more accurate results, and are much closer to the real-world distribution of clearly gendered occupations. However, we see that none of the models have correct representations of the occupations that are demographically balanced between genders. We also discuss the importance of the training data on which the models were trained on, and argue that template-based bias probes can sometimes be fragile, and a simple alteration in a template can change a model’s behavior.</abstract>
       <url hash="9338aa10">2022.gebnlp-1.21</url>
       <bibkey>touileb-etal-2022-occupational</bibkey>
+      <pwccode url="https://github.com/samiatouileb/biases-norwegian-multilingual-lms" additional="false">samiatouileb/biases-norwegian-multilingual-lms</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/winobias">WinoBias</pwcdataset>
     </paper>
     <paper id="22">
       <title>Looking for a Handsome Carpenter! Debiasing <fixed-case>GPT</fixed-case>-3 Job Advertisements</title>
@@ -247,18 +263,20 @@
       <abstract>The growing capability and availability of generative language models has enabled a wide range of new downstream tasks. Academic research has identified, quantified and mitigated biases present in language models but is rarely tailored to downstream tasks where wider impact on individuals and society can be felt. In this work, we leverage one popular generative language model, GPT-3, with the goal of writing unbiased and realistic job advertisements. We first assess the bias and realism of zero-shot generated advertisements and compare them to real-world advertisements. We then evaluate prompt-engineering and fine-tuning as debiasing methods. We find that prompt-engineering with diversity-encouraging prompts gives no significant improvement to bias, nor realism. Conversely, fine-tuning, especially on unbiased real advertisements, can improve realism and reduce bias.</abstract>
       <url hash="f985e0a2">2022.gebnlp-1.22</url>
       <bibkey>borchers-etal-2022-looking</bibkey>
+      <pwccode url="https://github.com/oxai/gpt3-jobadvert-bias" additional="false">oxai/gpt3-jobadvert-bias</pwccode>
     </paper>
     <paper id="23">
       <title><fixed-case>H</fixed-case>etero<fixed-case>C</fixed-case>orpus: A Corpus for Heteronormative Language Detection</title>
       <author><first>Juan</first><last>Vásquez</last></author>
       <author><first>Gemma</first><last>Bel-Enguix</last></author>
-      <author><first>Scott</first><last>Andersen</last></author>
+      <author><first>Scott Thomas</first><last>Andersen</last></author>
       <author><first>Sergio-Luis</first><last>Ojeda-Trueba</last></author>
       <pages>225-234</pages>
       <abstract>In recent years, plenty of work has been done by the NLP community regarding gender bias detection and mitigation in language systems. Yet, to our knowledge, no one has focused on the difficult task of heteronormative language detection and mitigation. We consider this an urgent issue, since language technologies are growing increasingly present in the world and, as it has been proven by various studies, NLP systems with biases can create real-life adverse consequences for women, gender minorities and racial minorities and queer people. For these reasons, we propose and evaluate HeteroCorpus; a corpus created specifically for studying heterononormative language in English. Additionally, we propose a baseline set of classification experiments on our corpus, in order to show the performance of our corpus in classification tasks.</abstract>
       <url hash="e344fc03">2022.gebnlp-1.23</url>
       <attachment type="dataset" hash="21dc9aac">2022.gebnlp-1.23.dataset.zip</attachment>
       <bibkey>vasquez-etal-2022-heterocorpus</bibkey>
+      <pwccode url="https://github.com/juanmvsa/heterocorpus" additional="false">juanmvsa/heterocorpus</pwccode>
     </paper>
     <paper id="24">
       <title>Evaluating Gender Bias Transfer from Film Data</title>
@@ -272,6 +290,7 @@
       <abstract>Films are a rich source of data for natural language processing. OpenSubtitles (Lison and Tiedemann, 2016) is a popular movie script dataset, used for training models for tasks such as machine translation and dialogue generation. However, movies often contain biases that reflect society at the time, and these biases may be introduced during pre-training and influence downstream models. We perform sentiment analysis on template infilling (Kurita et al., 2019) and the Sentence Embedding Association Test (May et al., 2019) to measure how BERT-based language models change after continued pre-training on OpenSubtitles. We consider gender bias as a primary motivating case for this analysis, while also measuring other social biases such as disability. We show that sentiment analysis on template infilling is not an effective measure of bias due to the rarity of disability and gender identifying tokens in the movie dialogue. We extend our analysis to a longitudinal study of bias in film dialogue over the last 110 years and find that continued pre-training on OpenSubtitles encodes additional bias into BERT. We show that BERT learns associations that reflect the biases and representation of each film era, suggesting that additional care must be taken when using historical data.</abstract>
       <url hash="64eec327">2022.gebnlp-1.24</url>
       <bibkey>bertsch-etal-2022-evaluating</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/opensubtitles">OpenSubtitles</pwcdataset>
     </paper>
     <paper id="25">
       <title>Indigenous Language Revitalization and the Dilemma of Gender Bias</title>
@@ -291,6 +310,8 @@
       <abstract>Previous work has examined how debiasing language models affect downstream tasks, specifically, how debiasing techniques influence task performance and whether debiased models also make impartial predictions in downstream tasks or not. However, what we don’t understand well yet is why debiasing methods have varying impacts on downstream tasks and how debiasing techniques affect internal components of language models, i.e., neurons, layers, and attentions. In this paper, we decompose the internal mechanisms of debiasing language models with respect to gender by applying causal mediation analysis to understand the influence of debiasing methods on toxicity detection as a downstream task. Our findings suggest a need to test the effectiveness of debiasing methods with different bias metrics, and to focus on changes in the behavior of certain components of the models, e.g.,first two layers of language models, and attention heads.</abstract>
       <url hash="d41f990e">2022.gebnlp-1.26</url>
       <bibkey>jeoung-diesner-2022-changed</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/winobias">WinoBias</pwcdataset>
     </paper>
     <paper id="27">
       <title>Why Knowledge Distillation Amplifies Gender Bias and How to Mitigate from the Perspective of <fixed-case>D</fixed-case>istil<fixed-case>BERT</fixed-case></title>
@@ -302,6 +323,7 @@
       <abstract>Knowledge distillation is widely used to transfer the language understanding of a large model to a smaller model.However, after knowledge distillation, it was found that the smaller model is more biased by gender compared to the source large model.This paper studies what causes gender bias to increase after the knowledge distillation process.Moreover, we suggest applying a variant of the mixup on knowledge distillation, which is used to increase generalizability during the distillation process, not for augmentation.By doing so, we can significantly reduce the gender bias amplification after knowledge distillation.We also conduct an experiment on the GLUE benchmark to demonstrate that even if the mixup is applied, it does not have a significant adverse effect on the model’s performance.</abstract>
       <url hash="3933cfd4">2022.gebnlp-1.27</url>
       <bibkey>ahn-etal-2022-knowledge</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
     </paper>
     <paper id="28">
       <title>Incorporating Subjectivity into Gendered Ambiguous Pronoun (<fixed-case>GAP</fixed-case>) Resolution using Style Transfer</title>
