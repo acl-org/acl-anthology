@@ -13,12 +13,12 @@ on:
 
 jobs:
   ingest-pwc:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Update system
       run: sudo apt-get update
     - name: Install dependencies
-      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.8-dev python3-lxml
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev python3-lxml python3-wheel
 
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
