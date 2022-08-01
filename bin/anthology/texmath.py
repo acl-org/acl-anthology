@@ -126,7 +126,7 @@ class TexMath:
         elif name == "frac":
             self._parse_fraction(args, trg)
         # Handle \textrm (-- currently does nothing)
-        elif name in("textrm", "text"):
+        elif name in ("textrm", "text"):
             sx = etree.Element("span")
             self._parse(args, sx)
             trg.append(sx)
