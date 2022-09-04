@@ -7,10 +7,9 @@ Expects fields name like BibTeX files.
 
 Example usage:
 
-    cat data.tsv \
-    | ./ingest_tsv.py amta user 2020 --proceedings-pdf 2020.amta-user.pdf
+    python bin/ingest_tsv.py --tsv-file ~/Dropbox/ingests/2022/2022-09-03-amta/ACL_Delivery_2022.amta/2022.amta-upg/2022.amta-upg.tsv --anthology-dir PATH_TO_ANTH_DIR amta upg 2022 --proceedings-pdf ~/Dropbox/ingests/2022/2022-09-03-amta/ACL_Delivery_2022.amta/2022.amta-upg/2022.amta-upg.pdf --source_path ~/Dropbox/ingests/2022/2022-09-03-amta/ACL_Delivery_2022.amta/2022.amta-upg/
 
-where data.tsv has TSV fields:
+where the tsv has TSV fields:
 
 * author
 * title
@@ -21,9 +20,10 @@ where data.tsv has TSV fields:
 * publisher
 * pages
 * pdf
+* presentation (optional)
 
-Author: Matt Post
-October 2020
+Author: Matt Post, Xinru Yan
+Last updated Sept 2022
 """
 
 import anthology
@@ -55,6 +55,7 @@ def main(args):
     venue = args.venue
     volume_id = args.volume
     collection_id = f"{year}.{venue}"
+    source_path_prefix = args.source_path
 
     splitter = NameSplitter(anthology_dir=args.anthology_dir)
 
@@ -97,7 +98,7 @@ def main(args):
             make_simple_element("month", row["month"], parent=meta)
             make_simple_element("year", year, parent=meta)
 
-            editors = row["author"].split(" and ")
+            editors = row["author"].split(", ")
             row["author"] = ""
             for editor_name in editors:
                 editor = make_simple_element("editor", parent=meta)
@@ -135,7 +136,7 @@ def main(args):
             # Only make the title for not-the-frontmatter
             make_simple_element("title", title_text, parent=paper)
 
-        author_list = row["author"].split(" and ")
+        author_list = row["author"].split(", ")
 
         for author_name in author_list:
             if author_name == "":
@@ -152,8 +153,9 @@ def main(args):
         anth_id = f"{collection_id}-{volume_id}.{paperid}"
         pdf_local_path = os.path.join(args.anthology_files_path, venue, f"{anth_id}.pdf")
         url = None
-        if "pdf" in row and row["pdf"] != "":
-            if retrieve_url(row["pdf"], pdf_local_path):
+        if "pdf" in row and row["pdf"] != "" and row["pdf"] is not None:
+            pdf_source_path = source_path_prefix + 'Papers/' + row["pdf"]
+            if retrieve_url(pdf_source_path, pdf_local_path):
                 url = anth_id
             else:
                 print("Can't find", row["pdf"])
@@ -172,8 +174,14 @@ def main(args):
             make_simple_element("abstract", row["abstract"], parent=paper)
 
         if "presentation" in row:
-            url = row["presentation"]
-            if url is not None and url != "" and url != "None":
+            if (
+                row["presentation"] is not None
+                and row["presentation"] != ""
+                and row["presentation"] != "None"
+            ):
+                presentation_source_path = (
+                    source_path_prefix + 'Presentations/' + row["presentation"]
+                )
                 extension = row["presentation"].split(".")[-1]
                 name = f"{anth_id}.Presentation.{extension}"
                 local_path = os.path.join(
@@ -183,7 +191,7 @@ def main(args):
                     venue,
                     name,
                 )
-                if retrieve_url(row["presentation"], local_path):
+                if retrieve_url(presentation_source_path, local_path):
                     make_simple_element(
                         "attachment",
                         name,
@@ -230,6 +238,11 @@ if __name__ == '__main__':
     parser.add_argument("venue", help="Venue code, e.g., acl")
     parser.add_argument("volume", help="Volume name, e.g., main or 1")
     parser.add_argument("year", help="Full year, e.g., 2020")
+    parser.add_argument(
+        '--source_path',
+        default=sys.stdin,
+        help="the source dir for all pdfs and presentations",
+    )
     args = parser.parse_args()
 
     main(args)
