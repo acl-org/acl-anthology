@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Takes a conference TSV file and creates the Anthology XML in the ACL Anthology repository.
+Takes a conference TSV file and paths_to_all_papers/presentations, and creates the Anthology XML in the ACL Anthology repository.
 This file can then be added to the repo and committed.
 
 Expects fields name like BibTeX files.
@@ -12,6 +12,7 @@ Example usage:
 where the tsv has TSV fields:
 
 * author
+    - author names should be listed as LastName FirstName, LastName FirstName, LastName FirstName
 * title
 * booktitle
 * month
@@ -21,6 +22,12 @@ where the tsv has TSV fields:
 * pages
 * pdf
 * presentation (optional)
+
+source_path: the root dir that contains
+* the tsv file
+* a Paper dir that contains all the paper pdfs (including frontmatter pdf, excluding the full proceedings pdf). Paper pdf name should correspond to the pdf column value in the tsv file.
+* a Presentation dir (optional) that contains all the presentation pdfs. Presentation pdf name should correspond to the presentation column value in the tsv file.
+* the full proceedings pdf (--proceedings-pdf)
 
 Author: Matt Post, Xinru Yan
 Last updated Sept 2022
