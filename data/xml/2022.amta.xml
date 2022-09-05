@@ -1,6 +1,357 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.amta">
-  <volume id="wetpr" ingest-date="2022-09-03">
+  <volume id="research" ingest-date="2022-09-04">
+    <meta>
+      <booktitle>Proceedings of the 15th biennial conference of the Association for Machine Translation in the Americas (Volume 1: Research Track)</booktitle>
+      <publisher>Association for Machine Translation in the Americas</publisher>
+      <address>Orlando, USA</address>
+      <month>September</month>
+      <year>2022</year>
+      <editor><first>Kevin</first><last>Duh &amp; Francisco Guzmán</last></editor>
+      <url hash="d9ed47cc">2022.amta-research</url>
+    </meta>
+    <frontmatter>
+      <url hash="d55061e5">2022.amta-research.0</url>
+      <bibkey>amta-2022-biennial</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Building Machine Translation System for Software Product Descriptions Using Domain-specific Sub-corpora Extraction</title>
+      <author><first>Pintu</first><last>Lohar</last></author>
+      <author><first>Sinead</first><last>Madden</last></author>
+      <author><first>Edmond</first><last>O’Connor</last></author>
+      <author><first>Maja</first><last>Popovic</last></author>
+      <author><first>Tanya</first><last>Habruseva</last></author>
+      <pages>1-13</pages>
+      <url hash="7b97ae54">2022.amta-research.1</url>
+      <abstract>Building Machine Translation systems for a specific domain requires a sufficiently large and good quality parallel corpus in that domain. However, this is a bit challenging task due to the lack of parallel data in many domains such as economics, science and technology, sports etc. In this work, we build English-to-French translation systems for software product descriptions scraped from LinkedIn website. Moreover, we developed a first-ever test parallel data set of product descriptions. We conduct experiments by building a baseline translation system trained on general domain and then domain-adapted systems using sentence-embedding based corpus filtering and domain-specific sub-corpora extraction. All the systems are tested on our newly developed data set mentioned earlier. Our experimental evaluation reveals that the domain-adapted model based on our proposed approaches outperforms the baseline.</abstract>
+      <bibkey>lohar-etal-2022-building</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Domain-Specific Text Generation for Machine Translation</title>
+      <author><first>Yasmin</first><last>Moslem</last></author>
+      <author><first>Rejwanul</first><last>Haque</last></author>
+      <author><first>John</first><last>Kelleher</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>14-30</pages>
+      <url hash="f1da3e1d">2022.amta-research.2</url>
+      <abstract>Preservation of domain knowledge from the source to target is crucial in any translation workflow. It is common in the translation industry to receive highly-specialized projects, where there is hardly any parallel in-domain data. In such scenarios where there is insufficient in-domain data to fine-tune Machine Translation (MT) models, producing translations that are consistent with the relevant context is challenging. In this work, we propose leveraging state-of-the-art pretrained language models (LMs) for domain-specific data augmentation for MT, simulating the domain characteristics of either (a) a small bilingual dataset, or (b) the monolingual source text to be translated. Combining this idea with back-translation, we can generate huge amounts of synthetic bilingual in-domain data for both use cases. For our investigation, we used the state-of-the-art MT architecture, Transformer. We employed mixed fine-tuning to train models that significantly improve translation of in-domain texts. More specifically, our proposed methods achieved improvements of approximately 5-6 BLEU and 2-3 BLEU, respectively, on Arabic-to-English and English-to-Arabic language pairs. Furthermore, the outcome of human evaluation corroborates the automatic evaluation results.</abstract>
+      <bibkey>moslem-etal-2022-domain</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Strategies for Adapting Multilingual Pre-training for Domain-Specific Machine Translation</title>
+      <author><first>Neha</first><last>Verma</last></author>
+      <author><first>Kenton W</first><last>Murray</last></author>
+      <author><first>Kevin</first><last>Duh</last></author>
+      <pages>31-44</pages>
+      <url hash="899ca3d7">2022.amta-research.3</url>
+      <abstract>Pretrained multilingual sequence-to-sequence models have been successful in improving translation performance for mid- and lower-resourced languages. However, it is unclear if these models are helpful in the domain adaptation setting, and if so, how to best adapt them to both the domain and translation language pair. Therefore, in this work, we propose two major fine-tuning strategies: our language-first approach first learns the translation language pair via general bitext, followed by the domain via in-domain bitext, and our domain-first approach first learns the domain via multilingual in-domain bitext, followed by the language pair via language pair-specific in-domain bitext. We test our approach on 3 domains at different levels of data availability, and 5 language pairs. We find that models using an mBART initialization generally outperform those using a random Transformer initialization. This holds for languages even outside of mBART’s pretraining set, and can result in improvements of over +10 BLEU. Additionally, we find that via our domain-first approach, fine-tuning across multilingual in-domain corpora can lead to stark improvements in domain adaptation without sourcing additional out-of-domain bitext. In larger domain availability settings, our domain-first approach can be competitive with our language-first approach, even when using over 50X less data.</abstract>
+      <bibkey>verma-etal-2022-strategies</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Prefix Embeddings for In-context Machine Translation</title>
+      <author><first>Suzanna</first><last>Sia</last></author>
+      <author><first>Kevin</first><last>Duh</last></author>
+      <pages>45-57</pages>
+      <url hash="12daf4b3">2022.amta-research.4</url>
+      <abstract>Very large language models have been shown to translate with few-shot in-context examples. However, they have not achieved state-of-art results for translating out of English. In this work, we investigate an extremely lightweight fixed-parameter method for conditioning a large language model to better translate into the target language. Our method introduces additional embeddings, known as prefix embeddings which do not interfere with the existing weights of the model. Using unsupervised and weakly semi-supervised methods that train only 0.0001% of the model parameters, the simple method improves ~0.2-1.3 BLEU points across 3 domains and 3 languages. We analyze the resulting embeddings’ training dynamics, and where they lie in the embedding space, and show that our trained embeddings can be used for both in-context translation, and diverse generation of the target sentence.</abstract>
+      <bibkey>sia-duh-2022-prefix</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Fast Vocabulary Projection Method via Clustering for Multilingual Machine Translation on <fixed-case>GPU</fixed-case></title>
+      <author><first>Hossam</first><last>Amer</last></author>
+      <author><first>Mohamed</first><last>Afify</last></author>
+      <author><first>Young Jin</first><last>Kim</last></author>
+      <author><first>Hitokazu</first><last>Matsushita</last></author>
+      <author><first>Hany</first><last>Hassan</last></author>
+      <pages>58-69</pages>
+      <url hash="40cc328d">2022.amta-research.5</url>
+      <abstract>Multilingual Neural Machine Translation has been showing great success using transformer models. Deploying these models is challenging because they usually require large vocabulary (vocab) sizes for various languages. This limits the speed of predicting the output tokens in the last vocab projection layer. To alleviate these challenges, this paper proposes a fast vocabulary projection method via clustering which can be used for multilingual transformers on GPUs. First, we offline split the vocab search space into disjoint clusters given the hidden context vector of the decoder output, which results in much smaller vocab columns for vocab projection. Second, at inference time, the proposed method predicts the clusters and candidate active tokens for hidden context vectors at the vocab projection. This paper also includes analysis of different ways of building these clusters in multilingual settings. Our results show end-to-end speed gains in float16 GPU inference up to 25% while maintaining the BLEU score and slightly increasing memory cost. The proposed method speeds up the vocab projection step itself by up to 2.6x. We also conduct an extensive human evaluation to verify the proposed method preserves the quality of the translations from the original model.</abstract>
+      <bibkey>amer-etal-2022-fast</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Language Tokens: Simply Improving Zero-Shot Multi-Aligned Translation in Encoder-Decoder Models</title>
+      <author><first>Muhammad</first><last>N ElNokrashy</last></author>
+      <author><first>Amr</first><last>Hendy</last></author>
+      <author><first>Mohamed</first><last>Maher</last></author>
+      <author><first>Mohamed</first><last>Afify</last></author>
+      <author><first>Hany</first><last>Hassan</last></author>
+      <pages>70-82</pages>
+      <url hash="c4e3b27e">2022.amta-research.6</url>
+      <abstract>This paper proposes a simple and effective method to improve direct translation for the zero-shot case and when direct data is available. We modify the input tokens at both the encoder and decoder to include signals for the source and target languages. We show a performance gain when training from scratch, or finetuning a pretrained model with the proposed setup. In in-house experiments, our method shows nearly a 10.0 BLEU points difference depending on the stoppage criteria. In a WMT-based setting, we see 1.3 and 0.4 BLEU points improvement for the zero-shot setting, and when using direct data for training, respectively, while from-English performance improves by 4.17 and 0.85 BLEU points. In the low-resource setting, we see a 1.5 ∼ 1.7 point improvement when finetuning on directly translated domain data.</abstract>
+      <bibkey>n-elnokrashy-etal-2022-language</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Low Resource Chat Translation: A Benchmark for <fixed-case>H</fixed-case>indi–<fixed-case>E</fixed-case>nglish Language Pair</title>
+      <author><first>Baban</first><last>Gain</last></author>
+      <author><first>Ramakrishna</first><last>Appicharla</last></author>
+      <author><first>Asif</first><last>Ekbal</last></author>
+      <author><first>muthusamy</first><last>chelliah</last></author>
+      <author><first>Soumya</first><last>Chennabasavraj</last></author>
+      <author><first>Nikesh</first><last>Garera</last></author>
+      <pages>83-96</pages>
+      <url hash="e5ae2d94">2022.amta-research.7</url>
+      <abstract>Chatbots are used in various sectors such as banking, healthcare, e-commerce, etc, and are mainly available in English. Machine Translation (MT) could be an effective way to develop multilingual chatbots. This paper provides a benchmark setup for Chat and QnA translation for English-Hindi, a relatively low-resource language pair. We create the English-Hindi parallel corpus consisting of both synthetic and gold standard parallel sentences from WMT20 Chat, MMD, and Flipkart QA corpora. We conduct experiments on Transfer Learning, Domain Adaptation techniques at sentence-level and context-level. We achieve BLEU scores of 57.6 and 55.5 on the En-Hi and Hi-En subsets of WMT20 Chat corpus, 51.5 and 80.4 BLEU scores on En-Hi and Hi-En subsets of MMD corpus, and 50.6 and 46.3 BLEU scores on question and answer subsets of QA corpus respectively. We also perform thorough quality tests by a very well-known e-commerce industry by deploying them to real users.</abstract>
+      <bibkey>gain-etal-2022-low</bibkey>
+    </paper>
+    <paper id="8">
+      <title>How Robust is Neural Machine Translation to Language Imbalance in Multilingual Tokenizer Training?</title>
+      <author><first>Shiyue</first><last>Zhang</last></author>
+      <author><first>Vishrav</first><last>Chaudhary</last></author>
+      <author><first>Naman</first><last>Goyal</last></author>
+      <author><first>James</first><last>Cross</last></author>
+      <author><first>Guillaume</first><last>Wenzek</last></author>
+      <author><first>Mohit</first><last>Bansal</last></author>
+      <author><first>Francisco</first><last>Guzman</last></author>
+      <pages>97-116</pages>
+      <url hash="54f7ce3b">2022.amta-research.8</url>
+      <abstract>A multilingual tokenizer is a fundamental component of multilingual neural machine translation. It is trained from a multilingual corpus. Since a skewed data distribution is considered to be harmful, a sampling strategy is usually used to balance languages in the corpus. However, few works have systematically answered how language imbalance in tokenizer training affects downstream performance. In this work, we analyze how translation performance changes as the data ratios among languages vary in the tokenizer training corpus. We find that while relatively better performance is often observed when languages are more equally sampled, the downstream performance is more robust to language imbalance than we usually expected. Two features, UNK rate and closeness to the character level, can warn of poor downstream performance before performing the task. We also distinguish language sampling for tokenizer training from sampling for model training and show that the model is more sensitive to the latter.</abstract>
+      <bibkey>zhang-etal-2022-robust</bibkey>
+    </paper>
+    <paper id="9">
+      <title>How Effective is Byte Pair Encoding for Out-Of-Vocabulary Words in Neural Machine Translation?</title>
+      <author><first>Ali</first><last>Araabi</last></author>
+      <author><first>Christof</first><last>Monz</last></author>
+      <author><first>Vlad</first><last>Niculae</last></author>
+      <pages>117-130</pages>
+      <url hash="fd2826f2">2022.amta-research.9</url>
+      <abstract>Neural Machine Translation (NMT) is an open vocabulary problem. As a result, dealing with the words not occurring during training (a.k.a. out-of-vocabulary (OOV) words) have long been a fundamental challenge for NMT systems. The predominant method to tackle this problem is Byte Pair Encoding (BPE) which splits words, including OOV words, into sub-word segments. BPE has achieved impressive results for a wide range of translation tasks in terms of automatic evaluation metrics. While it is often assumed that by using BPE, NMT systems are capable of handling OOV words, the effectiveness of BPE in translating OOV words has not been explicitly measured. In this paper, we study to what extent BPE is successful in translating OOV words at the word-level. We analyze the translation quality of OOV words based on word type, number of segments, cross-attention weights, and the frequency of segment n-grams in the training data. Our experiments show that while careful BPE settings seem to be fairly useful in translating OOV words across datasets, a considerable percentage of OOV words are translated incorrectly. Furthermore, we highlight the slightly higher effectiveness of BPE in translating OOV words for special cases, such as named-entities and when the languages involved are linguistically close to each other.</abstract>
+      <bibkey>araabi-etal-2022-effective</bibkey>
+    </paper>
+    <paper id="10">
+      <title>On the Effectiveness of Quasi Character-Level Models for Machine Translation</title>
+      <author><first>Salvador</first><last>Carrión-Ponz</last></author>
+      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <pages>131-143</pages>
+      <url hash="b53f65d5">2022.amta-research.10</url>
+      <abstract>Neural Machine Translation (NMT) models often use subword-level vocabularies to deal with rare or unknown words. Although some studies have shown the effectiveness of purely character-based models, these approaches have resulted in highly expensive models in computational terms. In this work, we explore the benefits of quasi-character-level models for very low-resource languages and their ability to mitigate the effects of the catastrophic forgetting problem. First, we conduct an empirical study on the efficacy of these models, as a function of the vocabulary and training set size, for a range of languages, domains, and architectures. Next, we study the ability of these models to mitigate the effects of catastrophic forgetting in machine translation. Our work suggests that quasi-character-level models have practically the same generalization capabilities as character-based models but at lower computational costs. Furthermore, they appear to help achieve greater consistency between domains than standard subword-level models, although the catastrophic forgetting problem is not mitigated.</abstract>
+      <bibkey>carrion-ponz-casacuberta-2022-effectiveness</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Improving Translation of Out Of Vocabulary Words using Bilingual Lexicon Induction in Low-Resource Machine Translation</title>
+      <author><first>Jonas</first><last>Waldendorf</last></author>
+      <author><first>Alexandra</first><last>Birch</last></author>
+      <author><first>Barry</first><last>Hadow</last></author>
+      <author><first>Antonio Valerio</first><last>Micele Barone</last></author>
+      <pages>144-156</pages>
+      <url hash="cb56b79f">2022.amta-research.11</url>
+      <abstract>Dictionary-based data augmentation techniques have been used in the field of domain adaptation to learn words that do not appear in the parallel training data of a machine translation model. These techniques strive to learn correct translations of these words by generating a synthetic corpus from in-domain monolingual data utilising a dictionary obtained from bilingual lexicon induction. This paper applies these techniques to low resource machine translation, where there is often a shift in distribution of content between the parallel data and any monolingual data. English-Pashto machine learning systems are trained using a novel approach that introduces monolingual data to existing joint learning techniques for bilingual word embeddings, combined with word-for-word back-translation to improve the translation of words that do not or rarely appear in the parallel training data. Improvements are made both in terms of BLEU, chrF and word translation accuracy for an En-&gt;Ps model, compared to a baseline and when combined with back-translation.</abstract>
+      <bibkey>waldendorf-etal-2022-improving</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Doubly-Trained Adversarial Data Augmentation for Neural Machine Translation</title>
+      <author><first>Weiting</first><last>Tan</last></author>
+      <author><first>Shuoyang</first><last>Ding</last></author>
+      <author><first>Huda</first><last>Khayrallah</last></author>
+      <author><first>Philipp</first><last>Koehn</last></author>
+      <pages>157-174</pages>
+      <url hash="093ab615">2022.amta-research.12</url>
+      <abstract>Neural Machine Translation (NMT) models are known to suffer from noisy inputs. To make models robust, we generate adversarial augmentation samples that attack the model and preserve the source-side meaning at the same time. To generate such samples, we propose a doubly-trained architecture that pairs two NMT models of opposite translation directions with a joint loss function, which combines the target-side attack and the source-side semantic similarity constraint. The results from our experiments across three different language pairs and two evaluation metrics show that these adversarial samples improve model robustness.</abstract>
+      <bibkey>tan-etal-2022-doubly</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Limitations and Challenges of Unsupervised Cross-lingual Pre-training</title>
+      <author><first>Martín</first><last>Quesada Zaragoza</last></author>
+      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <pages>175-187</pages>
+      <url hash="b17e42b1">2022.amta-research.13</url>
+      <abstract>Cross-lingual alignment methods for monolingual language representations have received notable attention in recent years. However, their use in machine translation pre-training remains scarce. This work tries to shed light on the effects of some of the factors that play a role in cross-lingual pre-training, both for cross-lingual mappings and their integration in supervised neural models. The results show that unsupervised cross-lingual methods are effective at inducing alignment even for distant languages and they benefit noticeably from subword information. However, we find that their effectiveness as pre-training models in machine translation is severely limited due to their cross-lingual signal being easily distorted by the principal network during training. Moreover, the learned bilingual projection is too restrictive to allow said network to learn properly when the embedding weights are frozen.</abstract>
+      <bibkey>quesada-zaragoza-casacuberta-2022-limitations</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Few-Shot Regularization to Tackle Catastrophic Forgetting in Multilingual Machine Translation</title>
+      <author><first>Salvador Carrión-Ponz</first><last/></author>
+      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <pages>188-199</pages>
+      <url hash="fd8d6bcf">2022.amta-research.14</url>
+      <abstract>Increasing the number of tasks supported by a machine learning model without forgetting previously learned tasks is the goal of any lifelong learning system. In this work, we study how to mitigate the effects of the catastrophic forgetting problem to sequentially train a multilingual neural machine translation model using minimal past information. First, we describe the catastrophic forgetting phenomenon as a function of the number of tasks learned (language pairs) and the ratios of past data used during the learning of the new task. Next, we explore the importance of applying oversampling strategies for scenarios where only minimal amounts of past data are available. Finally, we derive a new loss function that minimizes the forgetting of previously learned tasks by actively re-weighting past samples and penalizing weights that deviate too much from the original model. Our work suggests that by using minimal amounts of past data and a simple regularization function, we can significantly mitigate the effects of the catastrophic forgetting phenomenon without increasing the computational costs.</abstract>
+      <bibkey>-casacuberta-2022-shot</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Quantized <fixed-case>W</fixed-case>asserstein <fixed-case>P</fixed-case>rocrustes Alignment of Word Embedding Spaces</title>
+      <author><first>Prince O</first><last>Aboagye</last></author>
+      <author><first>Yan</first><last>Zheng</last></author>
+      <author><first>Michael</first><last>Yeh</last></author>
+      <author><first>Junpeng</first><last>Wang</last></author>
+      <author><first>Zhongfang</first><last>Zhuang</last></author>
+      <author><first>Huiyuan</first><last>Chen</last></author>
+      <author><first>Liang</first><last>Wang</last></author>
+      <author><first>Wei</first><last>Zhang</last></author>
+      <author><first>Jeff</first><last>Phillips</last></author>
+      <pages>200-214</pages>
+      <url hash="e6c0f026">2022.amta-research.15</url>
+      <abstract>Motivated by the widespread interest in the cross-lingual transfer of NLP models from high resource to low resource languages, research on Cross-lingual word embeddings (CLWEs) has gained much popularity over the years. Among the most successful and attractive CLWE models are the unsupervised CLWE models. These unsupervised CLWE models pose the alignment task as a Wasserstein-Procrustes problem aiming to estimate a permutation matrix and an orthogonal matrix jointly. Most existing unsupervised CLWE models resort to Optimal Transport (OT) based methods to estimate the permutation matrix. However, linear programming algorithms and approximate OT solvers via Sinkhorn for computing the permutation matrix scale cubically and quadratically, respectively, in the input size. This makes it impractical and infeasible to compute OT distances exactly for larger sample size, resulting in a poor approximation quality of the permutation matrix and subsequently a less robust learned transfer function or mapper. This paper proposes an unsupervised projection-based CLWE model called quantized Wasserstein Procrustes (qWP) that jointly estimates a permutation matrix and an orthogonal matrix. qWP relies on a quantization step to estimate the permutation matrix between two probability distributions or measures. This approach substantially improves the approximation quality of empirical OT solvers given fixed computational cost. We demonstrate that qWP achieves state-of-the-art results on the Bilingual lexicon Induction (BLI) task.</abstract>
+      <bibkey>aboagye-etal-2022-quantized</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Refining an Almost Clean Translation Memory Helps Machine Translation</title>
+      <author><first>Shivendra</first><last>Bhardwa</last></author>
+      <author><first>David</first><last>Alfonso-Hermelo</last></author>
+      <author><first>Philippe</first><last>Langlais</last></author>
+      <author><first>Gabriel</first><last>Bernier-Colborne</last></author>
+      <author><first>Cyril</first><last>Goutte</last></author>
+      <author><first>Michel</first><last>Simard</last></author>
+      <pages>215-226</pages>
+      <url hash="38116128">2022.amta-research.16</url>
+      <abstract>While recent studies have been dedicated to cleaning very noisy parallel corpora to improve Machine Translation training, we focus in this work on filtering a large and mostly clean Translation Memory. This problem of practical interest has not received much consideration from the community, in contrast with, for example, filtering large web-mined parallel corpora. We experiment with an extensive, multi-domain proprietary Translation Memory and compare five approaches involving deep-, feature-, and heuristic-based solutions. We propose two ways of evaluating this task, manual annotation and resulting Machine Translation quality. We report significant gains over a state-of-the-art, off-the-shelf cleaning system, using two MT engines.</abstract>
+      <bibkey>bhardwa-etal-2022-refining</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Practical Attacks on Machine Translation using Paraphrase</title>
+      <author><first>Elizabeth M</first><last>Merkhofer</last></author>
+      <author><first>John</first><last>Henderson</last></author>
+      <author><first>Abigail</first><last>Gertner</last></author>
+      <author><first>Michael</first><last>Doyle</last></author>
+      <author><first>Lily</first><last>Wong</last></author>
+      <pages>227-239</pages>
+      <url hash="f16b24ea">2022.amta-research.17</url>
+      <abstract>Studies show machine translation systems are vulnerable to adversarial attacks, where a small change to the input produces an undesirable change in system behavior. This work considers whether this vulnerability exists for attacks crafted with limited information about the target: without access to ground truth references or the particular MT system under attack. It also applies a higher threshold of success, taking into account both source language meaning preservation and target language meaning degradation. We propose an attack that generates edits to an input using a finite state transducer over lexical and phrasal paraphrases and selects one perturbation for meaning preservation and expected degradation of a target system. Attacks against eight state-of-the-art translation systems covering English-German, English-Czech and English-Chinese are evaluated under black-box and transfer scenarios, including cross-language and cross-system transfer. Results suggest that successful single-system attacks seldom transfer across models, especially when crafted without ground truth, but ensembles show promise for generalizing attacks.</abstract>
+      <bibkey>merkhofer-etal-2022-practical</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Sign Language Machine Translation and the Sign Language Lexicon: A Linguistically Informed Approach</title>
+      <author><first>Irene</first><last>Murtagh</last></author>
+      <author><first>Víctor Ubieto</first><last>Nogales</last></author>
+      <author><first>Josep</first><last>Blat</last></author>
+      <pages>240-251</pages>
+      <url hash="8a6d4e44">2022.amta-research.18</url>
+      <abstract>Natural language processing and the machine translation of spoken language (speech/text) has benefitted from significant scientific research and development in re-cent times, rapidly advancing the field. On the other hand, computational processing and modelling of signed language has unfortunately not garnered nearly as much interest, with sign languages generally being excluded from modern language technologies. Many deaf and hard-of-hearing individuals use sign language on a daily basis as their first language. For the estimated 72 million deaf people in the world, the exclusion of sign languages from modern natural language processing and machine translation technology, aggravates further the communication barrier that already exists for deaf and hard-of-hearing individuals. This research leverages a linguistically informed approach to the processing and modelling of signed language. We outline current challenges for sign language machine translation from both a linguistic and a technical prespective. We provide an account of our work in progress in the development of sign language lexicon entries and sign language lexeme repository entries for SLMT. We leverage Role and Reference Grammar together with the Sign_A computational framework with-in this development. We provide an XML description for Sign_A, which is utilised to document SL lexicon entries together with SL lexeme repository entries. This XML description is also leveraged in the development of an extension to Bahavioural Markup Language, which will be used within this development to link the divide be-tween the sign language lexicon and the avatar animation interface.</abstract>
+      <bibkey>murtagh-etal-2022-sign</bibkey>
+    </paper>
+    <paper id="19">
+      <title>A Neural Machine Translation Approach to Translate Text to Pictographs in a Medical Speech Translation System - The <fixed-case>B</fixed-case>abel<fixed-case>D</fixed-case>r Use Case</title>
+      <author><first>Jonathan</first><last>Mutal</last></author>
+      <author><first>Pierrette</first><last>Bouillon</last></author>
+      <author><first>Magali</first><last>Norré</last></author>
+      <author><first>Johanna</first><last>Gerlach</last></author>
+      <author><first>Lucia Ormaechea</first><last>Grijalba</last></author>
+      <pages>252-263</pages>
+      <url hash="1aa99cc7">2022.amta-research.19</url>
+      <abstract>The use of images has been shown to positively affect patient comprehension in medical settings, in particular to deliver specific medical instructions. However, tools that automatically translate sentences into pictographs are still scarce due to the lack of resources. Previous studies have focused on the translation of sentences into pictographs by using WordNet combined with rule-based approaches and deep learning methods. In this work, we showed how we leveraged the BabelDr system, a speech to speech translator for medical triage, to build a speech to pictograph translator using UMLS and neural machine translation approaches. We showed that the translation from French sentences to a UMLS gloss can be viewed as a machine translation task and that a Multilingual Neural Machine Translation system achieved the best results.</abstract>
+      <bibkey>mutal-etal-2022-neural</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Embedding-Enhanced <fixed-case>GIZA</fixed-case>++: Improving Low-Resource Word Alignment Using Embeddings</title>
+      <author><first>Kelly</first><last>Marchisio</last></author>
+      <author><first>Conghao</first><last>Xiong</last></author>
+      <author><first>Philipp</first><last>Koehn</last></author>
+      <pages>264-273</pages>
+      <url hash="7d2adc02">2022.amta-research.20</url>
+      <abstract>A popular natural language processing task decades ago, word alignment has been dominated until recently by GIZA++, a statistical method based on the 30-year-old IBM models. New methods that outperform GIZA++ primarily rely on large machine translation models, massively multilingual language models, or supervision from GIZA++ alignments itself. We introduce Embedding-Enhanced GIZA++, and outperform GIZA++ without any of the aforementioned factors. Taking advantage of monolingual embedding spaces of source and target language only, we exceed GIZA++’s performance in every tested scenario for three languages pairs. In the lowest-resource setting, we outperform GIZA++ by 8.5, 10.9, and 12 AER for RoEn, De-En, and En-Fr, respectively. We release our code at www.blind-review.code.</abstract>
+      <bibkey>marchisio-etal-2022-embedding</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Gender bias Evaluation in <fixed-case>L</fixed-case>uganda-<fixed-case>E</fixed-case>nglish Machine Translation</title>
+      <author><first>Eric Peter</first><last>Wairagala</last></author>
+      <pages>274-286</pages>
+      <url hash="53a305d9">2022.amta-research.21</url>
+      <abstract>We have seen significant growth in the area of building Natural Language Processing (NLP) tools for African languages. However, the evaluation of gender bias in the machine translation systems for African languages is not yet thoroughly investigated. This is due to the unavailability of explicit text data available for addressing the issue of gender bias in machine translation. In this paper, we use transfer learning techniques based on a pre-trained Marian MT model for building machine translation models for English-Luganda and Luganda-English. Our work attempts to evaluate and quantify the gender bias within a Luganda-English machine translation system using Word Embeddings Fairness Evaluation Framework (WEFE). Luganda is one of the languages with gender-neutral pronouns in the world, therefore we use a small set of trusted gendered examples as the test set to evaluate gender bias by biasing word embeddings. This approach allows us to focus on Luganda-Engish translations with gender-specific pronouns, and the results of the gender bias evaluation are confirmed by human evaluation. To compare and contrast the results of the word embeddings evaluation metric, we used a modified version of the existing Translation Gender Bias Index (TGBI) based on the grammatical consideration for Luganda.</abstract>
+      <bibkey>wairagala-2022-gender</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Adapting Large Multilingual Machine Translation Models to Unseen Low Resource Languages via Vocabulary Substitution and Neuron Selection</title>
+      <author><first>Mohamed A</first><last>Abdelghaffar</last></author>
+      <author><first>Amr</first><last>El Mogy</last></author>
+      <author><first>Nada Ahmed</first><last>Sharaf</last></author>
+      <pages>287-297</pages>
+      <url hash="672a61d4">2022.amta-research.22</url>
+      <abstract>We propose a method to adapt large Multilingual Machine Translation models to a low resource language (LRL) that was not included during the pre-training/training phases. We use neuron-ranking analysis to select neurons that are most influential to the high resource language (HRL) and fine-tune only this subset of the deep neural network’s neurons. We experiment with three mechanisms to compute such ranking. To allow for the potential difference in writing scripts between the HRL and LRL we utilize an alignment model to substitute HRL elements of the predefined vocab with appropriate LRL ones. Our method improves on both zero-shot and the stronger baseline of directly fine-tuning the model on the low-resource data by 3 BLEU points in X -&gt; E and 1.6 points in E -&gt; X.We also show that as we simulate smaller data amounts, the gap between our method and direct fine-tuning continues to widen.</abstract>
+      <bibkey>abdelghaffar-etal-2022-adapting</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Measuring the Effects of Human and Machine Translation on Website Engagement</title>
+      <author><first>Geza</first><last>Kovacs</last></author>
+      <author><first>John</first><last>DeNero</last></author>
+      <pages>298-308</pages>
+      <url hash="a48b5b65">2022.amta-research.23</url>
+      <abstract>With the internet growing increasingly multilingual, it is important to consider translating websites. However, professional translators are much more expensive than machines, and machine translation quality is continually increasing, so we must justify the cost of professional translation by measuring the effects of translation on website engagement, and how users interact with translations. This paper presents an in-the-wild study run on 2 websites fully translated into 15 and 11 languages respectively, where visitors with non-English preferred languages were randomized into being shown text translated by a professional translator, machine translated text, or untranslated English text. We find that both human and machine translations improve engagement, users rarely switch the page language manually, and that in-browser machine translation is often used when English is shown, particularly by users from countries with low English proficiency. We also release a dataset of interaction data collected during our studies, including 3,332,669 sessions from 190 countries across 2 websites.</abstract>
+      <bibkey>kovacs-denero-2022-measuring</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Consistent Human Evaluation of Machine Translation across Language Pairs</title>
+      <author><first>Daniel</first><last>Licht</last></author>
+      <author><first>Cynthia</first><last>Gao</last></author>
+      <author><first>Janice</first><last>Lam</last></author>
+      <author><first>Francisco</first><last>Guzman</last></author>
+      <author><first>Mona</first><last>Diab</last></author>
+      <author><first>Philipp</first><last>Koehn</last></author>
+      <pages>309-321</pages>
+      <url hash="bd5843c5">2022.amta-research.24</url>
+      <abstract>Obtaining meaningful quality scores for machine translation systems through human evaluation remains a challenge given the high variability between human evaluators, partly due to subjective expectations for translation quality for different language pairs. We propose a new metric called XSTS that is more focused on semantic equivalence and a cross-lingual calibration method that enables more consistent assessment. We demonstrate the effectiveness of these novel contributions in large scale evaluation studies across up to 14 language pairs, with translation both into and out of English.</abstract>
+      <bibkey>licht-etal-2022-consistent</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Evaluating Machine Translation in Cross-lingual <fixed-case>E</fixed-case>-Commerce Search</title>
+      <author><first>Hang</first><last>Zhang</last></author>
+      <author><first>Liling</first><last>Tan</last></author>
+      <author><first>Amita</first><last>Misra</last></author>
+      <pages>322-334</pages>
+      <url hash="efade0fd">2022.amta-research.25</url>
+      <abstract>Multilingual query localization is integral to modern e-commerce. While machine translation is widely used to translate e-commerce queries, evaluation of query translation in the context of the down-stream search task is overlooked. This study proposes a search ranking-based evaluation framework with an edit-distance based search metric to evaluate machine translation impact on cross-lingual information retrieval for e-commerce search query translation, The framework demonstrate evaluation of machine translation for e-commerce search at scale and the proposed metric is strongly associated with traditional machine translation and traditional search relevance-based metrics.</abstract>
+      <bibkey>zhang-etal-2022-evaluating</bibkey>
+    </paper>
+  </volume>
+  <volume id="coco4mt" ingest-date="2022-09-04">
+    <meta>
+      <booktitle>Proceedings of the 15th biennial conference of the Association for Machine Translation in the Americas (Workshop 2: Corpus Generation and Corpus Augmentation for Machine Translation)</booktitle>
+      <publisher>Association for Machine Translation in the Americas</publisher>
+      <address/>
+      <month>September</month>
+      <year>2022</year>
+      <editor><first>John E.</first><last>Ortega</last></editor>
+      <editor><first>Marine</first><last>Carpuat</last></editor>
+      <editor><first>William</first><last>Chen</last></editor>
+      <editor><first>Katharina</first><last>Kann</last></editor>
+      <editor><first>Constantine</first><last>Lignos</last></editor>
+      <editor><first>Maja</first><last>Popovic</last></editor>
+      <editor><first>Shabnam</first><last>Tafreshi</last></editor>
+      <url hash="440fe20d">2022.amta-coco4mt</url>
+    </meta>
+    <frontmatter>
+      <url hash="c043d80c">2022.amta-coco4mt.0</url>
+      <bibkey>amta-2022-biennial-association</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>E</fixed-case>nglish-<fixed-case>R</fixed-case>ussian Data Augmentation for Neural Machine Translation</title>
+      <author><first>Nikita</first><last>Teslenko Grygoryev</last></author>
+      <author><first>Mercedes</first><last>Garcia Martinez</last></author>
+      <author><first>Francisco</first><last>Casacuberta Nolla</last></author>
+      <author><first>Amando</first><last>Estela Pastor</last></author>
+      <author><first>Manuel</first><last>Herranz</last></author>
+      <pages>1-10</pages>
+      <url hash="b2deb5a2">2022.amta-coco4mt.1</url>
+      <abstract>Data Augmentation (DA) refers to strategies for increasing the diversity of training examples without explicitly collecting new data manually. We have used neural networks and linguistic resources for the automatic generation of text in Russian. The system generates new texts using information from embeddings trained with a huge amount of data in neural language models. Data from the public domain have been used for experiments. The generation of these texts increases the corpus used to train models for NLP tasks, such as machine translation. Finally, an analysis of the results obtained evaluating the quality of generated texts has been carried out and those texts have been added to the training process of Neural Machine Translation (NMT) models. In order to evaluate the quality of the NMT models, firstly, these models have been compared performing a quantitative analysis by means of several standard automatic metrics used in machine translation, and measuring the time spent and the amount of text generated for a good use in the language industry. Secondly, NMT models have been compared through a qualitative analysis, where generated examples of translation have been exposed and compared with each other. Using our DA method, we achieve better results than a baseline model by fine tuning NMT systems with the newly generated datasets.</abstract>
+      <bibkey>teslenko-grygoryev-etal-2022-english</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Efficient Machine Translation Corpus Generation</title>
+      <author><first>Kamer Ali</first><last>Yuksel</last></author>
+      <author><first>Ahmet</first><last>Gunduz</last></author>
+      <author><first>Shreyas</first><last>Sharma</last></author>
+      <author><first>Hassan</first><last>Sawaf</last></author>
+      <pages>11-17</pages>
+      <url hash="c08b8e8a">2022.amta-coco4mt.2</url>
+      <abstract>This paper proposes an efficient and semi-automated method for human-in-the-loop post- editing for machine translation (MT) corpus generation. The method is based on online training of a custom MT quality estimation metric on-the-fly as linguists perform post-edits. The online estimator is used to prioritize worse hypotheses for post-editing, and auto-close best hypothe- ses without post-editing. This way, significant improvements can be achieved in the resulting quality of post-edits at a lower cost due to reduced human involvement. The trained estimator can also provide an online sanity check mechanism for post-edits and remove the need for ad- ditional linguists to review them or work on the same hypotheses. In this paper, the effect of prioritizing with the proposed method on the resulting MT corpus quality is presented versus scheduling hypotheses randomly. As demonstrated by experiments, the proposed method im- proves the lifecycle of MT models by focusing the linguist effort on production samples and hypotheses, which matter most for expanding MT corpora to be used for re-training them</abstract>
+      <bibkey>yuksel-etal-2022-efficient</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Building and Analysis of <fixed-case>T</fixed-case>amil Lyric Corpus with Semantic Representation</title>
+      <author><first>Karthika</first><last>Ranganathan</last></author>
+      <author><first>Geetha</first><last>T V</last></author>
+      <pages>18-27</pages>
+      <url hash="b395a5a2">2022.amta-coco4mt.3</url>
+      <abstract>In the new era of modern technology, the cloud has become the library for many things including entertainment, i.e, the availability of lyrics. In order to create awareness about the language and to increase the interest in Tamil film lyrics, a computerized electronic format of Tamil lyrics corpus is necessary for mining the lyric documents. In this paper, the Tamil lyric corpus was collected from various books and lyric websites. Here, we also address the challenges faced while building this corpus. A corpus was created with 15286 documents and stored all the lyric information obtained in the XML format. In this paper, we also explained the Universal Networking Language (UNL) semantic representation that helps to represent the document in a language and domain independent ways. We evaluated this corpus by performing simple statistical analysis for characters, words and a few rhetorical effect analysis. We also evaluated our semantic representation with the existing work and the results are very encouraging.</abstract>
+      <bibkey>ranganathan-t-v-2022-building</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>U</fixed-case>krainian-To-<fixed-case>E</fixed-case>nglish Folktale Corpus: Parallel Corpus Creation and Augmentation for Machine Translation in Low-Resource Languages</title>
+      <author><first>Olena</first><last>Burda-Lassen</last></author>
+      <pages>28-31</pages>
+      <url hash="633676ec">2022.amta-coco4mt.4</url>
+      <abstract>Folktales are linguistically very rich and culturally significant in understanding the source language. Historically, only human translation has been used for translating folklore. Therefore, the number of translated texts is very sparse, which limits access to knowledge about cultural traditions and customs. We have created a new Ukrainian-To-English parallel corpus of familiar Ukrainian folktales based on available English translations and suggested several new ones. We offer a combined domain-specific approach to building and augmenting this corpus, considering the nature of the domain and differences in the purpose of human versus machine translation. Our corpus is word and sentence-aligned, allowing for the best curation of meaning, specifically tailored for use as training data for machine translation models.</abstract>
+      <bibkey>burda-lassen-2022-ukrainian</bibkey>
+    </paper>
+  </volume>
+  <volume id="wetpr" ingest-date="2022-09-04">
     <meta>
       <booktitle>Proceedings of the 15th biennial conference of the Association for Machine Translation in the Americas (Workshop 1: Empirical Translation Process Research)</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
@@ -12,6 +363,10 @@
       <editor><first>Longui</first><last>Zou</last></editor>
       <url hash="1025f64d">2022.amta-wetpr</url>
     </meta>
+    <frontmatter>
+      <url hash="c9639be2">2022.amta-wetpr.0</url>
+      <bibkey>amta-2022-biennial-association-machine</bibkey>
+    </frontmatter>
     <paper id="1">
       <title>The graphical brain and deep inference</title>
       <author><first>Karl</first><last>Friston</last></author>
@@ -84,351 +439,7 @@
       <bibkey>wei-2022-entropy</bibkey>
     </paper>
   </volume>
-  <volume id="coco4mt" ingest-date="2022-09-03">
-    <meta>
-      <booktitle>Proceedings of the 15th biennial conference of the Association for Machine Translation in the Americas (Workshop 2: Corpus Generation and Corpus Augmentation for Machine Translation)</booktitle>
-      <publisher>Association for Machine Translation in the Americas</publisher>
-      <address/>
-      <month>September</month>
-      <year>2022</year>
-      <editor><first>John E.</first><last>Ortega</last></editor>
-      <editor><first>Marine</first><last>Carpuat</last></editor>
-      <editor><first>William</first><last>Chen</last></editor>
-      <editor><first>Katharina</first><last>Kann</last></editor>
-      <editor><first>Constantine</first><last>Lignos</last></editor>
-      <editor><first>Maja</first><last>Popovic</last></editor>
-      <editor><first>Shabnam</first><last>Tafreshi</last></editor>
-      <url hash="440fe20d">2022.amta-coco4mt</url>
-    </meta>
-    <paper id="1">
-      <title><fixed-case>E</fixed-case>nglish-<fixed-case>R</fixed-case>ussian Data Augmentation for Neural Machine Translation</title>
-      <author><first>Nikita</first><last>Teslenko Grygoryev</last></author>
-      <author><first>Mercedes</first><last>Garcia Martinez</last></author>
-      <author><first>Francisco</first><last>Casacuberta Nolla</last></author>
-      <author><first>Amando</first><last>Estela Pastor</last></author>
-      <author><first>Manuel</first><last>Herranz</last></author>
-      <pages>1-10</pages>
-      <url hash="b2deb5a2">2022.amta-coco4mt.1</url>
-      <abstract>Data Augmentation (DA) refers to strategies for increasing the diversity of training examples without explicitly collecting new data manually. We have used neural networks and linguistic resources for the automatic generation of text in Russian. The system generates new texts using information from embeddings trained with a huge amount of data in neural language models. Data from the public domain have been used for experiments. The generation of these texts increases the corpus used to train models for NLP tasks, such as machine translation. Finally, an analysis of the results obtained evaluating the quality of generated texts has been carried out and those texts have been added to the training process of Neural Machine Translation (NMT) models. In order to evaluate the quality of the NMT models, firstly, these models have been compared performing a quantitative analysis by means of several standard automatic metrics used in machine translation, and measuring the time spent and the amount of text generated for a good use in the language industry. Secondly, NMT models have been compared through a qualitative analysis, where generated examples of translation have been exposed and compared with each other. Using our DA method, we achieve better results than a baseline model by fine tuning NMT systems with the newly generated datasets.</abstract>
-      <bibkey>teslenko-grygoryev-etal-2022-english</bibkey>
-    </paper>
-    <paper id="2">
-      <title>Efficient Machine Translation Corpus Generation</title>
-      <author><first>Kamer Ali</first><last>Yuksel</last></author>
-      <author><first>Ahmet</first><last>Gunduz</last></author>
-      <author><first>Shreyas</first><last>Sharma</last></author>
-      <author><first>Hassan</first><last>Sawaf</last></author>
-      <pages>11-17</pages>
-      <url hash="c08b8e8a">2022.amta-coco4mt.2</url>
-      <abstract>This paper proposes an efficient and semi-automated method for human-in-the-loop post- editing for machine translation (MT) corpus generation. The method is based on online training of a custom MT quality estimation metric on-the-fly as linguists perform post-edits. The online estimator is used to prioritize worse hypotheses for post-editing, and auto-close best hypothe- ses without post-editing. This way, significant improvements can be achieved in the resulting quality of post-edits at a lower cost due to reduced human involvement. The trained estimator can also provide an online sanity check mechanism for post-edits and remove the need for ad- ditional linguists to review them or work on the same hypotheses. In this paper, the effect of prioritizing with the proposed method on the resulting MT corpus quality is presented versus scheduling hypotheses randomly. As demonstrated by experiments, the proposed method im- proves the lifecycle of MT models by focusing the linguist effort on production samples and hypotheses, which matter most for expanding MT corpora to be used for re-training them</abstract>
-      <bibkey>yuksel-etal-2022-efficient</bibkey>
-    </paper>
-    <paper id="3">
-      <title>Building and Analysis of <fixed-case>T</fixed-case>amil Lyric Corpus with Semantic Representation</title>
-      <author><first>Karthika</first><last>Ranganathan</last></author>
-      <author><first>Geetha</first><last>T V</last></author>
-      <pages>18-27</pages>
-      <url hash="b395a5a2">2022.amta-coco4mt.3</url>
-      <abstract>In the new era of modern technology, the cloud has become the library for many things including entertainment, i.e, the availability of lyrics. In order to create awareness about the language and to increase the interest in Tamil film lyrics, a computerized electronic format of Tamil lyrics corpus is necessary for mining the lyric documents. In this paper, the Tamil lyric corpus was collected from various books and lyric websites. Here, we also address the challenges faced while building this corpus. A corpus was created with 15286 documents and stored all the lyric information obtained in the XML format. In this paper, we also explained the Universal Networking Language (UNL) semantic representation that helps to represent the document in a language and domain independent ways. We evaluated this corpus by performing simple statistical analysis for characters, words and a few rhetorical effect analysis. We also evaluated our semantic representation with the existing work and the results are very encouraging.</abstract>
-      <bibkey>ranganathan-t-v-2022-building</bibkey>
-    </paper>
-    <paper id="4">
-      <title><fixed-case>U</fixed-case>krainian-To-<fixed-case>E</fixed-case>nglish Folktale Corpus: Parallel Corpus Creation and Augmentation for Machine Translation in Low-Resource Languages</title>
-      <author><first>Olena</first><last>Burda-Lassen</last></author>
-      <pages>28-31</pages>
-      <url hash="633676ec">2022.amta-coco4mt.4</url>
-      <abstract>Folktales are linguistically very rich and culturally significant in understanding the source language. Historically, only human translation has been used for translating folklore. Therefore, the number of translated texts is very sparse, which limits access to knowledge about cultural traditions and customs. We have created a new Ukrainian-To-English parallel corpus of familiar Ukrainian folktales based on available English translations and suggested several new ones. We offer a combined domain-specific approach to building and augmenting this corpus, considering the nature of the domain and differences in the purpose of human versus machine translation. Our corpus is word and sentence-aligned, allowing for the best curation of meaning, specifically tailored for use as training data for machine translation models.</abstract>
-      <bibkey>burda-lassen-2022-ukrainian</bibkey>
-    </paper>
-  </volume>
-  <volume id="research" ingest-date="2022-09-03">
-    <meta>
-      <booktitle>Proceedings of the 15th biennial conference of the Association for Machine Translation in the Americas (Volume 1: Research Track)</booktitle>
-      <publisher>Association for Machine Translation in the Americas</publisher>
-      <address>Orlando, USA</address>
-      <month>September</month>
-      <year>2022</year>
-      <editor><first>Kevin</first><last>Duh</last></editor>
-      <editor><first>Francisco</first><last>Guzmán</last></editor>
-      <url hash="d9ed47cc">2022.amta-research</url>
-    </meta>
-    <paper id="1">
-      <title>Building Machine Translation System for Software Product Descriptions Using Domain-specific Sub-corpora Extraction</title>
-      <author><first>Pintu</first><last>Lohar</last></author>
-      <author><first>Sinead</first><last>Madden</last></author>
-      <author><first>Edmond</first><last>O’Connor</last></author>
-      <author><first>Maja</first><last>Popovic</last></author>
-      <author><first>Tanya</first><last>Habruseva</last></author>
-      <pages>1-13</pages>
-      <url hash="7b97ae54">2022.amta-research.1</url>
-      <abstract>Building Machine Translation systems for a specific domain requires a sufficiently large and good quality parallel corpus in that domain. However, this is a bit challenging task due to the lack of parallel data in many domains such as economics, science and technology, sports etc. In this work, we build English-to-French translation systems for software product descriptions scraped from LinkedIn website. Moreover, we developed a first-ever test parallel data set of product descriptions. We conduct experiments by building a baseline translation system trained on general domain and then domain-adapted systems using sentence-embedding based corpus filtering and domain-specific sub-corpora extraction. All the systems are tested on our newly developed data set mentioned earlier. Our experimental evaluation reveals that the domain-adapted model based on our proposed approaches outperforms the baseline.</abstract>
-      <bibkey>lohar-etal-2022-building</bibkey>
-    </paper>
-    <paper id="2">
-      <title>Domain-Specific Text Generation for Machine Translation</title>
-      <author><first>Yasmin</first><last>Moslem</last></author>
-      <author><first>Rejwanul</first><last>Haque</last></author>
-      <author><first>John</first><last>Kelleher</last></author>
-      <author><first>Andy</first><last>Way</last></author>
-      <pages>14-31</pages>
-      <url hash="f1da3e1d">2022.amta-research.2</url>
-      <abstract>Preservation of domain knowledge from the source to target is crucial in any translation workflow. It is common in the translation industry to receive highly-specialized projects, where there is hardly any parallel in-domain data. In such scenarios where there is insufficient in-domain data to fine-tune Machine Translation (MT) models, producing translations that are consistent with the relevant context is challenging. In this work, we propose leveraging state-of-the-art pretrained language models (LMs) for domain-specific data augmentation for MT, simulating the domain characteristics of either (a) a small bilingual dataset, or (b) the monolingual source text to be translated. Combining this idea with back-translation, we can generate huge amounts of synthetic bilingual in-domain data for both use cases. For our investigation, we used the state-of-the-art MT architecture, Transformer. We employed mixed fine-tuning to train models that significantly improve translation of in-domain texts. More specifically, our proposed methods achieved improvements of approximately 5-6 BLEU and 2-3 BLEU, respectively, on Arabic-to-English and English-to-Arabic language pairs. Furthermore, the outcome of human evaluation corroborates the automatic evaluation results.</abstract>
-      <bibkey>moslem-etal-2022-domain</bibkey>
-    </paper>
-    <paper id="3">
-      <title>Strategies for Adapting Multilingual Pre-training for Domain-Specific Machine Translation</title>
-      <author><first>Neha</first><last>Verma</last></author>
-      <author><first>Kenton W</first><last>Murray</last></author>
-      <author><first>Kevin</first><last>Duh</last></author>
-      <pages>32-46</pages>
-      <url hash="899ca3d7">2022.amta-research.3</url>
-      <abstract>Pretrained multilingual sequence-to-sequence models have been successful in improving translation performance for mid- and lower-resourced languages. However, it is unclear if these models are helpful in the domain adaptation setting, and if so, how to best adapt them to both the domain and translation language pair. Therefore, in this work, we propose two major fine-tuning strategies: our language-first approach first learns the translation language pair via general bitext, followed by the domain via in-domain bitext, and our domain-first approach first learns the domain via multilingual in-domain bitext, followed by the language pair via language pair-specific in-domain bitext. We test our approach on 3 domains at different levels of data availability, and 5 language pairs. We find that models using an mBART initialization generally outperform those using a random Transformer initialization. This holds for languages even outside of mBART’s pretraining set, and can result in improvements of over +10 BLEU. Additionally, we find that via our domain-first approach, fine-tuning across multilingual in-domain corpora can lead to stark improvements in domain adaptation without sourcing additional out-of-domain bitext. In larger domain availability settings, our domain-first approach can be competitive with our language-first approach, even when using over 50X less data.</abstract>
-      <bibkey>verma-etal-2022-strategies</bibkey>
-    </paper>
-    <paper id="4">
-      <title>Prefix Embeddings for In-context Machine Translation</title>
-      <author><first>Suzanna</first><last>Sia</last></author>
-      <author><first>Kevin</first><last>Duh</last></author>
-      <pages>47-60</pages>
-      <url hash="12daf4b3">2022.amta-research.4</url>
-      <abstract>Very large language models have been shown to translate with few-shot in-context examples. However, they have not achieved state-of-art results for translating out of English. In this work, we investigate an extremely lightweight fixed-parameter method for conditioning a large language model to better translate into the target language. Our method introduces additional embeddings, known as prefix embeddings which do not interfere with the existing weights of the model. Using unsupervised and weakly semi-supervised methods that train only 0.0001% of the model parameters, the simple method improves ~0.2-1.3 BLEU points across 3 domains and 3 languages. We analyze the resulting embeddings’ training dynamics, and where they lie in the embedding space, and show that our trained embeddings can be used for both in-context translation, and diverse generation of the target sentence.</abstract>
-      <bibkey>sia-duh-2022-prefix</bibkey>
-    </paper>
-    <paper id="5">
-      <title>Fast Vocabulary Projection Method via Clustering for Multilingual Machine Translation on <fixed-case>GPU</fixed-case></title>
-      <author><first>Hossam</first><last>Amer</last></author>
-      <author><first>Mohamed</first><last>Afify</last></author>
-      <author><first>Young Jin</first><last>Kim</last></author>
-      <author><first>Hitokazu</first><last>Matsushita</last></author>
-      <author><first>Hany</first><last>Hassan</last></author>
-      <pages>61-73</pages>
-      <url hash="40cc328d">2022.amta-research.5</url>
-      <abstract>Multilingual Neural Machine Translation has been showing great success using transformer models. Deploying these models is challenging because they usually require large vocabulary (vocab) sizes for various languages. This limits the speed of predicting the output tokens in the last vocab projection layer. To alleviate these challenges, this paper proposes a fast vocabulary projection method via clustering which can be used for multilingual transformers on GPUs. First, we offline split the vocab search space into disjoint clusters given the hidden context vector of the decoder output, which results in much smaller vocab columns for vocab projection. Second, at inference time, the proposed method predicts the clusters and candidate active tokens for hidden context vectors at the vocab projection. This paper also includes analysis of different ways of building these clusters in multilingual settings. Our results show end-to-end speed gains in float16 GPU inference up to 25% while maintaining the BLEU score and slightly increasing memory cost. The proposed method speeds up the vocab projection step itself by up to 2.6x. We also conduct an extensive human evaluation to verify the proposed method preserves the quality of the translations from the original model.</abstract>
-      <bibkey>amer-etal-2022-fast</bibkey>
-    </paper>
-    <paper id="6">
-      <title>Language Tokens: Simply Improving Zero-Shot Multi-Aligned Translation in Encoder-Decoder Models</title>
-      <author><first>Muhammad</first><last>N ElNokrashy</last></author>
-      <author><first>Amr</first><last>Hendy</last></author>
-      <author><first>Mohamed</first><last>Maher</last></author>
-      <author><first>Mohamed</first><last>Afify</last></author>
-      <author><first>Hany</first><last>Hassan</last></author>
-      <pages>74-87</pages>
-      <url hash="c4e3b27e">2022.amta-research.6</url>
-      <abstract>This paper proposes a simple and effective method to improve direct translation for the zero-shot case and when direct data is available. We modify the input tokens at both the encoder and decoder to include signals for the source and target languages. We show a performance gain when training from scratch, or finetuning a pretrained model with the proposed setup. In in-house experiments, our method shows nearly a 10.0 BLEU points difference depending on the stoppage criteria. In a WMT-based setting, we see 1.3 and 0.4 BLEU points improvement for the zero-shot setting, and when using direct data for training, respectively, while from-English performance improves by 4.17 and 0.85 BLEU points. In the low-resource setting, we see a 1.5 ∼ 1.7 point improvement when finetuning on directly translated domain data.</abstract>
-      <bibkey>n-elnokrashy-etal-2022-language</bibkey>
-    </paper>
-    <paper id="7">
-      <title>Low Resource Chat Translation: A Benchmark for <fixed-case>H</fixed-case>indi–<fixed-case>E</fixed-case>nglish Language Pair</title>
-      <author><first>Baban</first><last>Gain</last></author>
-      <author><first>Ramakrishna</first><last>Appicharla</last></author>
-      <author><first>Asif</first><last>Ekbal</last></author>
-      <author><first>muthusamy</first><last>chelliah</last></author>
-      <author><first>Soumya</first><last>Chennabasavraj</last></author>
-      <author><first>Nikesh</first><last>Garera</last></author>
-      <pages>88-102</pages>
-      <url hash="e5ae2d94">2022.amta-research.7</url>
-      <abstract>Chatbots are used in various sectors such as banking, healthcare, e-commerce, etc, and are mainly available in English. Machine Translation (MT) could be an effective way to develop multilingual chatbots. This paper provides a benchmark setup for Chat and QnA translation for English-Hindi, a relatively low-resource language pair. We create the English-Hindi parallel corpus consisting of both synthetic and gold standard parallel sentences from WMT20 Chat, MMD, and Flipkart QA corpora. We conduct experiments on Transfer Learning, Domain Adaptation techniques at sentence-level and context-level. We achieve BLEU scores of 57.6 and 55.5 on the En-Hi and Hi-En subsets of WMT20 Chat corpus, 51.5 and 80.4 BLEU scores on En-Hi and Hi-En subsets of MMD corpus, and 50.6 and 46.3 BLEU scores on question and answer subsets of QA corpus respectively. We also perform thorough quality tests by a very well-known e-commerce industry by deploying them to real users.</abstract>
-      <bibkey>gain-etal-2022-low</bibkey>
-    </paper>
-    <paper id="8">
-      <title>How Robust is Neural Machine Translation to Language Imbalance in Multilingual Tokenizer Training?</title>
-      <author><first>Shiyue</first><last>Zhang</last></author>
-      <author><first>Vishrav</first><last>Chaudhary</last></author>
-      <author><first>Naman</first><last>Goyal</last></author>
-      <author><first>James</first><last>Cross</last></author>
-      <author><first>Guillaume</first><last>Wenzek</last></author>
-      <author><first>Mohit</first><last>Bansal</last></author>
-      <author><first>Francisco</first><last>Guzman</last></author>
-      <pages>103-123</pages>
-      <url hash="54f7ce3b">2022.amta-research.8</url>
-      <abstract>A multilingual tokenizer is a fundamental component of multilingual neural machine translation. It is trained from a multilingual corpus. Since a skewed data distribution is considered to be harmful, a sampling strategy is usually used to balance languages in the corpus. However, few works have systematically answered how language imbalance in tokenizer training affects downstream performance. In this work, we analyze how translation performance changes as the data ratios among languages vary in the tokenizer training corpus. We find that while relatively better performance is often observed when languages are more equally sampled, the downstream performance is more robust to language imbalance than we usually expected. Two features, UNK rate and closeness to the character level, can warn of poor downstream performance before performing the task. We also distinguish language sampling for tokenizer training from sampling for model training and show that the model is more sensitive to the latter.</abstract>
-      <bibkey>zhang-etal-2022-robust</bibkey>
-    </paper>
-    <paper id="9">
-      <title>How Effective is Byte Pair Encoding for Out-Of-Vocabulary Words in Neural Machine Translation?</title>
-      <author><first>Ali</first><last>Araabi</last></author>
-      <author><first>Christof</first><last>Monz</last></author>
-      <author><first>Vlad</first><last>Niculae</last></author>
-      <pages>124-138</pages>
-      <url hash="fd2826f2">2022.amta-research.9</url>
-      <abstract>Neural Machine Translation (NMT) is an open vocabulary problem. As a result, dealing with the words not occurring during training (a.k.a. out-of-vocabulary (OOV) words) have long been a fundamental challenge for NMT systems. The predominant method to tackle this problem is Byte Pair Encoding (BPE) which splits words, including OOV words, into sub-word segments. BPE has achieved impressive results for a wide range of translation tasks in terms of automatic evaluation metrics. While it is often assumed that by using BPE, NMT systems are capable of handling OOV words, the effectiveness of BPE in translating OOV words has not been explicitly measured. In this paper, we study to what extent BPE is successful in translating OOV words at the word-level. We analyze the translation quality of OOV words based on word type, number of segments, cross-attention weights, and the frequency of segment n-grams in the training data. Our experiments show that while careful BPE settings seem to be fairly useful in translating OOV words across datasets, a considerable percentage of OOV words are translated incorrectly. Furthermore, we highlight the slightly higher effectiveness of BPE in translating OOV words for special cases, such as named-entities and when the languages involved are linguistically close to each other.</abstract>
-      <bibkey>araabi-etal-2022-effective</bibkey>
-    </paper>
-    <paper id="10">
-      <title>On the Effectiveness of Quasi Character-Level Models for Machine Translation</title>
-      <author><first>Salvador</first><last>Carrión-Ponz</last></author>
-      <author><first>Francisco</first><last>Casacuberta</last></author>
-      <pages>139-152</pages>
-      <url hash="b53f65d5">2022.amta-research.10</url>
-      <abstract>Neural Machine Translation (NMT) models often use subword-level vocabularies to deal with rare or unknown words. Although some studies have shown the effectiveness of purely character-based models, these approaches have resulted in highly expensive models in computational terms. In this work, we explore the benefits of quasi-character-level models for very low-resource languages and their ability to mitigate the effects of the catastrophic forgetting problem. First, we conduct an empirical study on the efficacy of these models, as a function of the vocabulary and training set size, for a range of languages, domains, and architectures. Next, we study the ability of these models to mitigate the effects of catastrophic forgetting in machine translation. Our work suggests that quasi-character-level models have practically the same generalization capabilities as character-based models but at lower computational costs. Furthermore, they appear to help achieve greater consistency between domains than standard subword-level models, although the catastrophic forgetting problem is not mitigated.</abstract>
-      <bibkey>carrion-ponz-casacuberta-2022-effectiveness</bibkey>
-    </paper>
-    <paper id="11">
-      <title>Improving Translation of Out Of Vocabulary Words using Bilingual Lexicon Induction in Low-Resource Machine Translation</title>
-      <author><first>Jonas</first><last>Waldendorf</last></author>
-      <author><first>Alexandra</first><last>Birch</last></author>
-      <author><first>Barry</first><last>Hadow</last></author>
-      <author><first>Antonio Valerio</first><last>Micele Barone</last></author>
-      <pages>153-166</pages>
-      <url hash="cb56b79f">2022.amta-research.11</url>
-      <abstract>Dictionary-based data augmentation techniques have been used in the field of domain adaptation to learn words that do not appear in the parallel training data of a machine translation model. These techniques strive to learn correct translations of these words by generating a synthetic corpus from in-domain monolingual data utilising a dictionary obtained from bilingual lexicon induction. This paper applies these techniques to low resource machine translation, where there is often a shift in distribution of content between the parallel data and any monolingual data. English-Pashto machine learning systems are trained using a novel approach that introduces monolingual data to existing joint learning techniques for bilingual word embeddings, combined with word-for-word back-translation to improve the translation of words that do not or rarely appear in the parallel training data. Improvements are made both in terms of BLEU, chrF and word translation accuracy for an En-&gt;Ps model, compared to a baseline and when combined with back-translation.</abstract>
-      <bibkey>waldendorf-etal-2022-improving</bibkey>
-    </paper>
-    <paper id="12">
-      <title>Doubly-Trained Adversarial Data Augmentation for Neural Machine Translation</title>
-      <author><first>Weiting</first><last>Tan</last></author>
-      <author><first>Shuoyang</first><last>Ding</last></author>
-      <author><first>Huda</first><last>Khayrallah</last></author>
-      <author><first>Philipp</first><last>Koehn</last></author>
-      <pages>167-185</pages>
-      <url hash="093ab615">2022.amta-research.12</url>
-      <abstract>Neural Machine Translation (NMT) models are known to suffer from noisy inputs. To make models robust, we generate adversarial augmentation samples that attack the model and preserve the source-side meaning at the same time. To generate such samples, we propose a doubly-trained architecture that pairs two NMT models of opposite translation directions with a joint loss function, which combines the target-side attack and the source-side semantic similarity constraint. The results from our experiments across three different language pairs and two evaluation metrics show that these adversarial samples improve model robustness.</abstract>
-      <bibkey>tan-etal-2022-doubly</bibkey>
-    </paper>
-    <paper id="13">
-      <title>Limitations and Challenges of Unsupervised Cross-lingual Pre-training</title>
-      <author><first>Martín</first><last>Quesada Zaragoza</last></author>
-      <author><first>Francisco</first><last>Casacuberta</last></author>
-      <pages>186-199</pages>
-      <url hash="b17e42b1">2022.amta-research.13</url>
-      <abstract>Cross-lingual alignment methods for monolingual language representations have received notable attention in recent years. However, their use in machine translation pre-training remains scarce. This work tries to shed light on the effects of some of the factors that play a role in cross-lingual pre-training, both for cross-lingual mappings and their integration in supervised neural models. The results show that unsupervised cross-lingual methods are effective at inducing alignment even for distant languages and they benefit noticeably from subword information. However, we find that their effectiveness as pre-training models in machine translation is severely limited due to their cross-lingual signal being easily distorted by the principal network during training. Moreover, the learned bilingual projection is too restrictive to allow said network to learn properly when the embedding weights are frozen.</abstract>
-      <bibkey>quesada-zaragoza-casacuberta-2022-limitations</bibkey>
-    </paper>
-    <paper id="14">
-      <title>Few-Shot Regularization to Tackle Catastrophic Forgetting in Multilingual Machine Translation</title>
-      <author><first>Salvador Carrión-Ponz</first><last/></author>
-      <author><first>Francisco</first><last>Casacuberta</last></author>
-      <pages>200-212</pages>
-      <url hash="fd8d6bcf">2022.amta-research.14</url>
-      <abstract>Increasing the number of tasks supported by a machine learning model without forgetting previously learned tasks is the goal of any lifelong learning system. In this work, we study how to mitigate the effects of the catastrophic forgetting problem to sequentially train a multilingual neural machine translation model using minimal past information. First, we describe the catastrophic forgetting phenomenon as a function of the number of tasks learned (language pairs) and the ratios of past data used during the learning of the new task. Next, we explore the importance of applying oversampling strategies for scenarios where only minimal amounts of past data are available. Finally, we derive a new loss function that minimizes the forgetting of previously learned tasks by actively re-weighting past samples and penalizing weights that deviate too much from the original model. Our work suggests that by using minimal amounts of past data and a simple regularization function, we can significantly mitigate the effects of the catastrophic forgetting phenomenon without increasing the computational costs.</abstract>
-      <bibkey>-casacuberta-2022-shot</bibkey>
-    </paper>
-    <paper id="15">
-      <title>Quantized <fixed-case>W</fixed-case>asserstein <fixed-case>P</fixed-case>rocrustes Alignment of Word Embedding Spaces</title>
-      <author><first>Prince O</first><last>Aboagye</last></author>
-      <author><first>Yan</first><last>Zheng</last></author>
-      <author><first>Michael</first><last>Yeh</last></author>
-      <author><first>Junpeng</first><last>Wang</last></author>
-      <author><first>Zhongfang</first><last>Zhuang</last></author>
-      <author><first>Huiyuan</first><last>Chen</last></author>
-      <author><first>Liang</first><last>Wang</last></author>
-      <author><first>Wei</first><last>Zhang</last></author>
-      <author><first>Jeff</first><last>Phillips</last></author>
-      <pages>213-228</pages>
-      <url hash="e6c0f026">2022.amta-research.15</url>
-      <abstract>Motivated by the widespread interest in the cross-lingual transfer of NLP models from high resource to low resource languages, research on Cross-lingual word embeddings (CLWEs) has gained much popularity over the years. Among the most successful and attractive CLWE models are the unsupervised CLWE models. These unsupervised CLWE models pose the alignment task as a Wasserstein-Procrustes problem aiming to estimate a permutation matrix and an orthogonal matrix jointly. Most existing unsupervised CLWE models resort to Optimal Transport (OT) based methods to estimate the permutation matrix. However, linear programming algorithms and approximate OT solvers via Sinkhorn for computing the permutation matrix scale cubically and quadratically, respectively, in the input size. This makes it impractical and infeasible to compute OT distances exactly for larger sample size, resulting in a poor approximation quality of the permutation matrix and subsequently a less robust learned transfer function or mapper. This paper proposes an unsupervised projection-based CLWE model called quantized Wasserstein Procrustes (qWP) that jointly estimates a permutation matrix and an orthogonal matrix. qWP relies on a quantization step to estimate the permutation matrix between two probability distributions or measures. This approach substantially improves the approximation quality of empirical OT solvers given fixed computational cost. We demonstrate that qWP achieves state-of-the-art results on the Bilingual lexicon Induction (BLI) task.</abstract>
-      <bibkey>aboagye-etal-2022-quantized</bibkey>
-    </paper>
-    <paper id="16">
-      <title>Refining an Almost Clean Translation Memory Helps Machine Translation</title>
-      <author><first>Shivendra</first><last>Bhardwa</last></author>
-      <author><first>David</first><last>Alfonso-Hermelo</last></author>
-      <author><first>Philippe</first><last>Langlais</last></author>
-      <author><first>Gabriel</first><last>Bernier-Colborne</last></author>
-      <author><first>Cyril</first><last>Goutte</last></author>
-      <author><first>Michel</first><last>Simard</last></author>
-      <pages>229-241</pages>
-      <url hash="38116128">2022.amta-research.16</url>
-      <abstract>While recent studies have been dedicated to cleaning very noisy parallel corpora to improve Machine Translation training, we focus in this work on filtering a large and mostly clean Translation Memory. This problem of practical interest has not received much consideration from the community, in contrast with, for example, filtering large web-mined parallel corpora. We experiment with an extensive, multi-domain proprietary Translation Memory and compare five approaches involving deep-, feature-, and heuristic-based solutions. We propose two ways of evaluating this task, manual annotation and resulting Machine Translation quality. We report significant gains over a state-of-the-art, off-the-shelf cleaning system, using two MT engines.</abstract>
-      <bibkey>bhardwa-etal-2022-refining</bibkey>
-    </paper>
-    <paper id="17">
-      <title>Practical Attacks on Machine Translation using Paraphrase</title>
-      <author><first>Elizabeth M</first><last>Merkhofer</last></author>
-      <author><first>John</first><last>Henderson</last></author>
-      <author><first>Abigail</first><last>Gertner</last></author>
-      <author><first>Michael</first><last>Doyle</last></author>
-      <author><first>Lily</first><last>Wong</last></author>
-      <pages>242-255</pages>
-      <url hash="f16b24ea">2022.amta-research.17</url>
-      <abstract>Studies show machine translation systems are vulnerable to adversarial attacks, where a small change to the input produces an undesirable change in system behavior. This work considers whether this vulnerability exists for attacks crafted with limited information about the target: without access to ground truth references or the particular MT system under attack. It also applies a higher threshold of success, taking into account both source language meaning preservation and target language meaning degradation. We propose an attack that generates edits to an input using a finite state transducer over lexical and phrasal paraphrases and selects one perturbation for meaning preservation and expected degradation of a target system. Attacks against eight state-of-the-art translation systems covering English-German, English-Czech and English-Chinese are evaluated under black-box and transfer scenarios, including cross-language and cross-system transfer. Results suggest that successful single-system attacks seldom transfer across models, especially when crafted without ground truth, but ensembles show promise for generalizing attacks.</abstract>
-      <bibkey>merkhofer-etal-2022-practical</bibkey>
-    </paper>
-    <paper id="18">
-      <title>Sign Language Machine Translation and the Sign Language Lexicon: A Linguistically Informed Approach</title>
-      <author><first>Irene</first><last>Murtagh</last></author>
-      <author><first>Víctor Ubieto</first><last>Nogales</last></author>
-      <author><first>Josep</first><last>Blat</last></author>
-      <pages>256-268</pages>
-      <url hash="8a6d4e44">2022.amta-research.18</url>
-      <abstract>Natural language processing and the machine translation of spoken language (speech/text) has benefitted from significant scientific research and development in re-cent times, rapidly advancing the field. On the other hand, computational processing and modelling of signed language has unfortunately not garnered nearly as much interest, with sign languages generally being excluded from modern language technologies. Many deaf and hard-of-hearing individuals use sign language on a daily basis as their first language. For the estimated 72 million deaf people in the world, the exclusion of sign languages from modern natural language processing and machine translation technology, aggravates further the communication barrier that already exists for deaf and hard-of-hearing individuals. This research leverages a linguistically informed approach to the processing and modelling of signed language. We outline current challenges for sign language machine translation from both a linguistic and a technical prespective. We provide an account of our work in progress in the development of sign language lexicon entries and sign language lexeme repository entries for SLMT. We leverage Role and Reference Grammar together with the Sign_A computational framework with-in this development. We provide an XML description for Sign_A, which is utilised to document SL lexicon entries together with SL lexeme repository entries. This XML description is also leveraged in the development of an extension to Bahavioural Markup Language, which will be used within this development to link the divide be-tween the sign language lexicon and the avatar animation interface.</abstract>
-      <bibkey>murtagh-etal-2022-sign</bibkey>
-    </paper>
-    <paper id="19">
-      <title>A Neural Machine Translation Approach to Translate Text to Pictographs in a Medical Speech Translation System - The <fixed-case>B</fixed-case>abel<fixed-case>D</fixed-case>r Use Case</title>
-      <author><first>Jonathan</first><last>Mutal</last></author>
-      <author><first>Pierrette</first><last>Bouillon</last></author>
-      <author><first>Magali</first><last>Norré</last></author>
-      <author><first>Johanna</first><last>Gerlach</last></author>
-      <author><first>Lucia Ormaechea</first><last>Grijalba</last></author>
-      <pages>269-281</pages>
-      <url hash="1aa99cc7">2022.amta-research.19</url>
-      <abstract>The use of images has been shown to positively affect patient comprehension in medical settings, in particular to deliver specific medical instructions. However, tools that automatically translate sentences into pictographs are still scarce due to the lack of resources. Previous studies have focused on the translation of sentences into pictographs by using WordNet combined with rule-based approaches and deep learning methods. In this work, we showed how we leveraged the BabelDr system, a speech to speech translator for medical triage, to build a speech to pictograph translator using UMLS and neural machine translation approaches. We showed that the translation from French sentences to a UMLS gloss can be viewed as a machine translation task and that a Multilingual Neural Machine Translation system achieved the best results.</abstract>
-      <bibkey>mutal-etal-2022-neural</bibkey>
-    </paper>
-    <paper id="20">
-      <title>Embedding-Enhanced <fixed-case>GIZA</fixed-case>++: Improving Low-Resource Word Alignment Using Embeddings</title>
-      <author><first>Kelly</first><last>Marchisio</last></author>
-      <author><first>Conghao</first><last>Xiong</last></author>
-      <author><first>Philipp</first><last>Koehn</last></author>
-      <pages>282-292</pages>
-      <url hash="7d2adc02">2022.amta-research.20</url>
-      <abstract>A popular natural language processing task decades ago, word alignment has been dominated until recently by GIZA++, a statistical method based on the 30-year-old IBM models. New methods that outperform GIZA++ primarily rely on large machine translation models, massively multilingual language models, or supervision from GIZA++ alignments itself. We introduce Embedding-Enhanced GIZA++, and outperform GIZA++ without any of the aforementioned factors. Taking advantage of monolingual embedding spaces of source and target language only, we exceed GIZA++’s performance in every tested scenario for three languages pairs. In the lowest-resource setting, we outperform GIZA++ by 8.5, 10.9, and 12 AER for RoEn, De-En, and En-Fr, respectively. We release our code at www.blind-review.code.</abstract>
-      <bibkey>marchisio-etal-2022-embedding</bibkey>
-    </paper>
-    <paper id="21">
-      <title>Gender bias Evaluation in <fixed-case>L</fixed-case>uganda-<fixed-case>E</fixed-case>nglish Machine Translation</title>
-      <author><first>Eric Peter</first><last>Wairagala</last></author>
-      <pages>293-306</pages>
-      <url hash="53a305d9">2022.amta-research.21</url>
-      <abstract>We have seen significant growth in the area of building Natural Language Processing (NLP) tools for African languages. However, the evaluation of gender bias in the machine translation systems for African languages is not yet thoroughly investigated. This is due to the unavailability of explicit text data available for addressing the issue of gender bias in machine translation. In this paper, we use transfer learning techniques based on a pre-trained Marian MT model for building machine translation models for English-Luganda and Luganda-English. Our work attempts to evaluate and quantify the gender bias within a Luganda-English machine translation system using Word Embeddings Fairness Evaluation Framework (WEFE). Luganda is one of the languages with gender-neutral pronouns in the world, therefore we use a small set of trusted gendered examples as the test set to evaluate gender bias by biasing word embeddings. This approach allows us to focus on Luganda-Engish translations with gender-specific pronouns, and the results of the gender bias evaluation are confirmed by human evaluation. To compare and contrast the results of the word embeddings evaluation metric, we used a modified version of the existing Translation Gender Bias Index (TGBI) based on the grammatical consideration for Luganda.</abstract>
-      <bibkey>wairagala-2022-gender</bibkey>
-    </paper>
-    <paper id="22">
-      <title>Adapting Large Multilingual Machine Translation Models to Unseen Low Resource Languages via Vocabulary Substitution and Neuron Selection</title>
-      <author><first>Mohamed A</first><last>Abdelghaffar</last></author>
-      <author><first>Amr</first><last>El Mogy</last></author>
-      <author><first>Nada Ahmed</first><last>Sharaf</last></author>
-      <pages>307-318</pages>
-      <url hash="672a61d4">2022.amta-research.22</url>
-      <abstract>We propose a method to adapt large Multilingual Machine Translation models to a low resource language (LRL) that was not included during the pre-training/training phases. We use neuron-ranking analysis to select neurons that are most influential to the high resource language (HRL) and fine-tune only this subset of the deep neural network’s neurons. We experiment with three mechanisms to compute such ranking. To allow for the potential difference in writing scripts between the HRL and LRL we utilize an alignment model to substitute HRL elements of the predefined vocab with appropriate LRL ones. Our method improves on both zero-shot and the stronger baseline of directly fine-tuning the model on the low-resource data by 3 BLEU points in X -&gt; E and 1.6 points in E -&gt; X.We also show that as we simulate smaller data amounts, the gap between our method and direct fine-tuning continues to widen.</abstract>
-      <bibkey>abdelghaffar-etal-2022-adapting</bibkey>
-    </paper>
-    <paper id="23">
-      <title>Measuring the Effects of Human and Machine Translation on Website Engagement</title>
-      <author><first>Geza</first><last>Kovacs</last></author>
-      <author><first>John</first><last>DeNero</last></author>
-      <pages>319-330</pages>
-      <url hash="a48b5b65">2022.amta-research.23</url>
-      <abstract>With the internet growing increasingly multilingual, it is important to consider translating websites. However, professional translators are much more expensive than machines, and machine translation quality is continually increasing, so we must justify the cost of professional translation by measuring the effects of translation on website engagement, and how users interact with translations. This paper presents an in-the-wild study run on 2 websites fully translated into 15 and 11 languages respectively, where visitors with non-English preferred languages were randomized into being shown text translated by a professional translator, machine translated text, or untranslated English text. We find that both human and machine translations improve engagement, users rarely switch the page language manually, and that in-browser machine translation is often used when English is shown, particularly by users from countries with low English proficiency. We also release a dataset of interaction data collected during our studies, including 3,332,669 sessions from 190 countries across 2 websites.</abstract>
-      <bibkey>kovacs-denero-2022-measuring</bibkey>
-    </paper>
-    <paper id="24">
-      <title>Consistent Human Evaluation of Machine Translation across Language Pairs</title>
-      <author><first>Daniel</first><last>Licht</last></author>
-      <author><first>Cynthia</first><last>Gao</last></author>
-      <author><first>Janice</first><last>Lam</last></author>
-      <author><first>Francisco</first><last>Guzman</last></author>
-      <author><first>Mona</first><last>Diab</last></author>
-      <author><first>Philipp</first><last>Koehn</last></author>
-      <pages>331-344</pages>
-      <url hash="bd5843c5">2022.amta-research.24</url>
-      <abstract>Obtaining meaningful quality scores for machine translation systems through human evaluation remains a challenge given the high variability between human evaluators, partly due to subjective expectations for translation quality for different language pairs. We propose a new metric called XSTS that is more focused on semantic equivalence and a cross-lingual calibration method that enables more consistent assessment. We demonstrate the effectiveness of these novel contributions in large scale evaluation studies across up to 14 language pairs, with translation both into and out of English.</abstract>
-      <bibkey>licht-etal-2022-consistent</bibkey>
-    </paper>
-    <paper id="25">
-      <title>Evaluating Machine Translation in Cross-lingual <fixed-case>E</fixed-case>-Commerce Search</title>
-      <author><first>Hang</first><last>Zhang</last></author>
-      <author><first>Liling</first><last>Tan</last></author>
-      <author><first>Amita</first><last>Misra</last></author>
-      <pages>345-358</pages>
-      <url hash="efade0fd">2022.amta-research.25</url>
-      <abstract>Multilingual query localization is integral to modern e-commerce. While machine translation is widely used to translate e-commerce queries, evaluation of query translation in the context of the down-stream search task is overlooked. This study proposes a search ranking-based evaluation framework with an edit-distance based search metric to evaluate machine translation impact on cross-lingual information retrieval for e-commerce search query translation, The framework demonstrate evaluation of machine translation for e-commerce search at scale and the proposed metric is strongly associated with traditional machine translation and traditional search relevance-based metrics.</abstract>
-      <bibkey>zhang-etal-2022-evaluating</bibkey>
-    </paper>
-  </volume>
-  <volume id="upg" ingest-date="2022-09-03">
+  <volume id="upg" ingest-date="2022-09-04">
     <meta>
       <booktitle>Proceedings of the 15th Biennial Conference of the Association for Machine Translation in the Americas (Volume 2: Users and Providers Track and Government Track)</booktitle>
       <publisher>Association for Machine Translation in the Americas</publisher>
