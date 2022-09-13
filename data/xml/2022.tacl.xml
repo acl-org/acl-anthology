@@ -662,5 +662,118 @@
       <url hash="68bc071c">2022.tacl-1.47</url>
       <bibkey>freitag-etal-2022-high</bibkey>
     </paper>
+    <paper id="48">
+      <title>Generate, Annotate, and Learn: <fixed-case>NLP</fixed-case> with Synthetic Text</title>
+      <author><first>Xuanli</first><last>He</last></author>
+      <author><first>Islam</first><last>Nassar</last></author>
+      <author><first>Jamie</first><last>Kiros</last></author>
+      <author><first>Gholamreza</first><last>Haffari</last></author>
+      <author><first>Mohammad</first><last>Norouzi</last></author>
+      <doi>10.1162/tacl_a_00492</doi>
+      <abstract>This paper studies the use of language models as a source of synthetic unlabeled text for NLP. We formulate a general framework called “generate, annotate, and learn (GAL)” to take advantage of synthetic text within knowledge distillation, self-training, and few-shot learning applications. To generate high-quality task-specific text, we either fine-tune LMs on inputs from the task of interest, or prompt large LMs with few examples. We use the best available classifier to annotate synthetic text with soft pseudo labels for knowledge distillation and self-training, and use LMs to obtain hard labels for few-shot learning. We train new supervised models on the combination of labeled and pseudo-labeled data, which results in significant gains across several applications. We investigate key components of GAL and present theoretical and empirical arguments against the use of class-conditional LMs to generate synthetic labeled text instead of unlabeled text. GAL achieves new state-of-the-art knowledge distillation results for 6-layer transformers on the GLUE leaderboard.</abstract>
+      <pages>826–842</pages>
+      <url hash="97c89005">2022.tacl-1.48</url>
+      <bibkey>he-etal-2022-generate</bibkey>
+    </paper>
+    <paper id="49">
+      <title>Saturated Transformers are Constant-Depth Threshold Circuits</title>
+      <author><first>William</first><last>Merrill</last></author>
+      <author><first>Ashish</first><last>Sabharwal</last></author>
+      <author><first>Noah A.</first><last>Smith</last></author>
+      <doi>10.1162/tacl_a_00493</doi>
+      <abstract>Transformers have become a standard neural network architecture for many NLP problems, motivating theoretical analysis of their power in terms of formal languages. Recent work has shown that transformers with hard attention are quite limited in power (Hahn, 2020), as they can be simulated by constant-depth AND/OR circuits (Hao et al., 2022). However, hard attention is a strong assumption, which may complicate the relevance of these results in practice. In this work, we analyze the circuit complexity of transformers with saturated attention: a generalization of hard attention that more closely captures the attention patterns learnable in practical transformers. We first show that saturated transformers transcend the known limitations of hard-attention transformers. We then prove saturated transformers with floating-point values can be simulated by constant-depth threshold circuits, giving the class TC0 as an upper bound on the formal languages they recognize.</abstract>
+      <pages>843–856</pages>
+      <url hash="fb928cf5">2022.tacl-1.49</url>
+      <bibkey>merrill-etal-2022-saturated</bibkey>
+    </paper>
+    <paper id="50">
+      <title>Reducing Conversational Agents’ Overconfidence Through Linguistic Calibration</title>
+      <author><first>Sabrina J.</first><last>Mielke</last></author>
+      <author><first>Arthur</first><last>Szlam</last></author>
+      <author><first>Emily</first><last>Dinan</last></author>
+      <author><first>Y-Lan</first><last>Boureau</last></author>
+      <doi>10.1162/tacl_a_00494</doi>
+      <abstract>While improving neural dialogue agents’ factual accuracy is the object of much research, another important aspect of communication, less studied in the setting of neural dialogue, is transparency about ignorance. In this work, we analyze to what extent state-of-the-art chit-chat models are linguistically calibrated in the sense that their verbalized expression of doubt (or confidence) matches the likelihood that the model’s responses are factually incorrect (or correct). We find that these models are poorly calibrated, yet we show that likelihood of correctness can accurately be predicted. By incorporating such metacognitive features into the training of a controllable generation model, we obtain a dialogue agent with greatly improved linguistic calibration.</abstract>
+      <pages>857–872</pages>
+      <url hash="bf6e919f">2022.tacl-1.50</url>
+      <bibkey>mielke-etal-2022-reducing</bibkey>
+    </paper>
+    <paper id="51">
+      <title>A Survey of Text Games for Reinforcement Learning Informed by Natural Language</title>
+      <author><first>Philip</first><last>Osborne</last></author>
+      <author><first>Heido</first><last>Nõmm</last></author>
+      <author><first>André</first><last>Freitas</last></author>
+      <doi>10.1162/tacl_a_00495</doi>
+      <abstract>Reinforcement Learning has shown success in a number of complex virtual environments. However, many challenges still exist towards solving problems with natural language as a core component. Interactive Fiction Games (or Text Games) are one such problem type that offer a set of safe, partially observable environments where natural language is required as part of the Reinforcement Learning solution. Therefore, this survey’s aim is to assist in the development of new Text Game problem settings and solutions for Reinforcement Learning informed by natural language. Specifically, this survey: 1) introduces the challenges in Text Game Reinforcement Learning problems, 2) outlines the generation tools for rendering Text Games and the subsequent environments generated, and 3) compares the agent architectures currently applied to provide a systematic review of benchmark methodologies and opportunities for future researchers.</abstract>
+      <pages>873–887</pages>
+      <url hash="a29c0f0a">2022.tacl-1.51</url>
+      <bibkey>osborne-etal-2022-survey</bibkey>
+    </paper>
+    <paper id="52">
+      <title>Dependency Parsing with Backtracking using Deep Reinforcement Learning</title>
+      <author><first>Franck</first><last>Dary</last></author>
+      <author><first>Maxime</first><last>Petit</last></author>
+      <author><first>Alexis</first><last>Nasr</last></author>
+      <doi>10.1162/tacl_a_00496</doi>
+      <abstract>Greedy algorithms for NLP such as transition-based parsing are prone to error propagation. One way to overcome this problem is to allow the algorithm to backtrack and explore an alternative solution in cases where new evidence contradicts the solution explored so far. In order to implement such a behavior, we use reinforcement learning and let the algorithm backtrack in cases where such an action gets a better reward than continuing to explore the current solution. We test this idea on both POS tagging and dependency parsing and show that backtracking is an effective means to fight against error propagation.</abstract>
+      <pages>888–903</pages>
+      <url hash="0a79e150">2022.tacl-1.52</url>
+      <bibkey>dary-etal-2022-dependency</bibkey>
+    </paper>
+    <paper id="53">
+      <title>Temporal Effects on Pre-trained Models for Language Processing Tasks</title>
+      <author><first>Oshin</first><last>Agarwal</last></author>
+      <author><first>Ani</first><last>Nenkova</last></author>
+      <doi>10.1162/tacl_a_00497</doi>
+      <abstract>Keeping the performance of language technologies optimal as time passes is of great practical interest. We study temporal effects on model performance on downstream language tasks, establishing a nuanced terminology for such discussion and identifying factors essential to conduct a robust study. We present experiments for several tasks in English where the label correctness is not dependent on time and demonstrate the importance of distinguishing between temporal model deterioration and temporal domain adaptation for systems using pre-trained representations. We find that, depending on the task, temporal model deterioration is not necessarily a concern. Temporal domain adaptation, however, is beneficial in all cases, with better performance for a given time period possible when the system is trained on temporally more recent data. Therefore, we also examine the efficacy of two approaches for temporal domain adaptation without human annotations on new data. Self-labeling shows consistent improvement and notably, for named entity recognition, leads to better temporal adaptation than even human annotations.</abstract>
+      <pages>904–921</pages>
+      <url hash="89ccf909">2022.tacl-1.53</url>
+      <bibkey>agarwal-nenkova-2022-temporal</bibkey>
+    </paper>
+    <paper id="54">
+      <title>Learning <fixed-case>E</fixed-case>nglish with <fixed-case>P</fixed-case>eppa <fixed-case>P</fixed-case>ig</title>
+      <author><first>Mitja</first><last>Nikolaus</last></author>
+      <author><first>Afra</first><last>Alishahi</last></author>
+      <author><first>Grzegorz</first><last>Chrupała</last></author>
+      <doi>10.1162/tacl_a_00498</doi>
+      <abstract>Recent computational models of the acquisition of spoken language via grounding in perception exploit associations between spoken and visual modalities and learn to represent speech and visual data in a joint vector space. A major unresolved issue from the point of ecological validity is the training data, typically consisting of images or videos paired with spoken descriptions of what is depicted. Such a setup guarantees an unrealistically strong correlation between speech and the visual data. In the real world the coupling between the linguistic and the visual modality is loose, and often confounded by correlations with non-semantic aspects of the speech signal. Here we address this shortcoming by using a dataset based on the children’s cartoon Peppa Pig. We train a simple bi-modal architecture on the portion of the data consisting of dialog between characters, and evaluate on segments containing descriptive narrations. Despite the weak and confounded signal in this training data, our model succeeds at learning aspects of the visual semantics of spoken language.</abstract>
+      <pages>922–936</pages>
+      <url hash="d76ef062">2022.tacl-1.54</url>
+      <bibkey>nikolaus-etal-2022-learning</bibkey>
+    </paper>
+    <paper id="55">
+      <title>Compositional Generalization in Multilingual Semantic Parsing over <fixed-case>W</fixed-case>ikidata</title>
+      <author><first>Ruixiang</first><last>Cui</last></author>
+      <author><first>Rahul</first><last>Aralikatte</last></author>
+      <author><first>Heather</first><last>Lent</last></author>
+      <author><first>Daniel</first><last>Hershcovich</last></author>
+      <doi>10.1162/tacl_a_00499</doi>
+      <abstract>Semantic parsing (SP) allows humans to leverage vast knowledge resources through natural interaction. However, parsers are mostly designed for and evaluated on English resources, such as CFQ (Keysers et al., 2020), the current standard benchmark based on English data generated from grammar rules and oriented towards Freebase, an outdated knowledge base. We propose a method for creating a multilingual, parallel dataset of question-query pairs, grounded in Wikidata. We introduce such a dataset, which we call Multilingual Compositional Wikidata Questions (MCWQ), and use it to analyze the compositional generalization of semantic parsers in Hebrew, Kannada, Chinese, and English. While within- language generalization is comparable across languages, experiments on zero-shot cross- lingual transfer demonstrate that cross-lingual compositional generalization fails, even with state-of-the-art pretrained multilingual encoders. Furthermore, our methodology, dataset, and results will facilitate future research on SP in more realistic and diverse settings than has been possible with existing resources.</abstract>
+      <pages>937–955</pages>
+      <url hash="2daa1bd5">2022.tacl-1.55</url>
+      <bibkey>cui-etal-2022-compositional</bibkey>
+    </paper>
+    <paper id="56">
+      <title>Adapting to the Long Tail: A Meta-Analysis of Transfer Learning Research for Language Understanding Tasks</title>
+      <author><first>Aakanksha</first><last>Naik</last></author>
+      <author><first>Jill</first><last>Lehman</last></author>
+      <author><first>Carolyn</first><last>Rosé</last></author>
+      <doi>10.1162/tacl_a_00500</doi>
+      <abstract>Natural language understanding (NLU) has made massive progress driven by large benchmarks, but benchmarks often leave a long tail of infrequent phenomena underrepresented. We reflect on the question: Have transfer learning methods sufficiently addressed the poor performance of benchmark-trained models on the long tail? We conceptualize the long tail using macro-level dimensions (underrepresented genres, topics, etc.), and perform a qualitative meta-analysis of 100 representative papers on transfer learning research for NLU. Our analysis asks three questions: (i) Which long tail dimensions do transfer learning studies target? (ii) Which properties of adaptation methods help improve performance on the long tail? (iii) Which methodological gaps have greatest negative impact on long tail performance? Our answers highlight major avenues for future research in transfer learning for the long tail. Lastly, using our meta-analysis framework, we perform a case study comparing the performance of various adaptation methods on clinical narratives, which provides interesting insights that may enable us to make progress along these future avenues.</abstract>
+      <pages>956–980</pages>
+      <url hash="c3e6a886">2022.tacl-1.56</url>
+      <bibkey>naik-etal-2022-adapting</bibkey>
+    </paper>
+    <paper id="57">
+      <title>How to Dissect a <fixed-case>M</fixed-case>uppet: The Structure of Transformer Embedding Spaces</title>
+      <author><first>Timothee</first><last>Mickus</last></author>
+      <author><first>Denis</first><last>Paperno</last></author>
+      <author><first>Mathieu</first><last>Constant</last></author>
+      <doi>10.1162/tacl_a_00501</doi>
+      <abstract>Pretrained embeddings based on the Transformer architecture have taken the NLP community by storm. We show that they can mathematically be reframed as a sum of vector factors and showcase how to use this reframing to study the impact of each component. We provide evidence that multi-head attentions and feed-forwards are not equally useful in all downstream applications, as well as a quantitative overview of the effects of finetuning on the overall embedding space. This approach allows us to draw connections to a wide range of previous studies, from vector space anisotropy to attention weights.</abstract>
+      <pages>981–996</pages>
+      <url hash="57f74758">2022.tacl-1.57</url>
+      <bibkey>mickus-etal-2022-dissect</bibkey>
+    </paper>
   </volume>
 </collection>

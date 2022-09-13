@@ -349,7 +349,7 @@ def main(args):
     )
 
     is_tacl = "tacl" in args.root_dir.stem
-    logging.info(f"Looks like a TACL ingest: {is_tacl}")
+    logging.info("Looks like a", 'TACL' if is_tacl else 'CL', "ingest")
 
     venue = TACL if is_tacl else CL  # J for CL, Q for TACL.
     year = args.year
