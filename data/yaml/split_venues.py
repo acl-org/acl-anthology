@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Takes each venue and writes its data to a new file under venues/
+"""
+
 import sys
 import yaml
 
