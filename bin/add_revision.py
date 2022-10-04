@@ -137,9 +137,10 @@ def add_revision(
 
         if not dry_run:
             # Update the URL hash on the <url> tag
-            url = paper.find("./url")
-            if url is not None:
-                url.attrib["hash"] = checksum
+            if change_type != "erratum":
+                url = paper.find("./url")
+                if url is not None:
+                    url.attrib["hash"] = checksum
 
             if change_type == "revision" and revno == 2:
                 if paper.find("./url") is not None:
