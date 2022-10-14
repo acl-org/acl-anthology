@@ -48,7 +48,7 @@ from anthology.utils import SeverityTracker
 
 def check_directory(cdir, clean=False):
     if not os.path.isdir(cdir) and not os.path.exists(cdir):
-        os.mkdir(cdir)
+        os.makedirs(cdir)
         return True
     entries = os.listdir(cdir)
     if "_index.md" in entries:
