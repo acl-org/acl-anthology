@@ -260,6 +260,7 @@
       <abstract>Knowledge-grounded dialogue generation consists of two subtasks: knowledge selection and response generation. The knowledge selector generally constructs a query based on the dialogue context and selects the most appropriate knowledge to help response generation. Recent work finds that realizing who (the user or the agent) holds the initiative and utilizing the role-initiative information to instruct the query construction can help select knowledge. It depends on whether the knowledge connection between two adjacent rounds is smooth to assign the role. However, whereby the user takes the initiative only when there is a strong semantic transition between two rounds, probably leading to initiative misjudgment. Therefore, it is necessary to seek a more sensitive reason beyond the initiative role for knowledge selection. To address the above problem, we propose a Topic-shift Aware Knowledge sElector(TAKE). Specifically, we first annotate the topic shift and topic inheritance labels in multi-round dialogues with distant supervision. Then, we alleviate the noise problem in pseudo labels through curriculum learning and knowledge distillation. Extensive experiments on WoW show that TAKE performs better than strong baselines.</abstract>
       <url hash="a5cf64bb">2022.coling-1.20</url>
       <bibkey>yang-etal-2022-take</bibkey>
+      <pwccode url="https://github.com/iie-ycx/coling2022-take" additional="false">iie-ycx/coling2022-take</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/wizard-of-wikipedia">Wizard of Wikipedia</pwcdataset>
     </paper>
     <paper id="21">
@@ -291,6 +292,7 @@
       <abstract>Learning from multimodal data has become a popular research topic in recent years. Multimodal coreference resolution (MCR) is an important task in this area. MCR involves resolving the references across different modalities, e.g., text and images, which is a crucial capability for building next-generation conversational agents. MCR is challenging as it requires encoding information from different modalities and modeling associations between them. Although significant progress has been made for visual-linguistic tasks such as visual grounding, most of the current works involve single turn utterances and focus on simple coreference resolutions. In this work, we propose an MCR model that resolves coreferences made in multi-turn dialogues with scene images. We present GRAVL-BERT, a unified MCR framework which combines visual relationships between objects, background scenes, dialogue, and metadata by integrating Graph Neural Networks with VL-BERT. We present results on the SIMMC 2.0 multimodal conversational dataset, achieving the rank-1 on the DSTC-10 SIMMC 2.0 MCR challenge with F1 score 0.783. Our code is available at https://github.com/alexa/gravl-bert.</abstract>
       <url hash="6f47ccfb">2022.coling-1.22</url>
       <bibkey>guo-etal-2022-gravl</bibkey>
+      <pwccode url="https://github.com/alexa/gravl-bert" additional="false">alexa/gravl-bert</pwccode>
     </paper>
     <paper id="23">
       <title>Learning to Improve Persona Consistency in Multi-party Dialogue Generation via Text Knowledge Enhancement</title>
@@ -444,6 +446,7 @@
       <abstract>Persuasive conversations for a social cause often require influencing other person’s attitude or intention that may fail even with compelling arguments. The use of emotions and different types of polite tones as needed with facts may enhance the persuasiveness of a message. To incorporate these two aspects, we propose a polite, empathetic persuasive dialogue system (PEPDS). First, in a Reinforcement Learning setting, a Maximum Likelihood Estimation loss based model is fine-tuned by designing an efficient reward function consisting of five different sub rewards viz. Persuasion, Emotion, Politeness-Strategy Consistency, Dialogue-Coherence and Non-repetitiveness. Then, to generate empathetic utterances for non-empathetic ones, an Empathetic transfer model is built upon the RL fine-tuned model. Due to the unavailability of an appropriate dataset, by utilizing the PERSUASIONFORGOOD dataset, we create two datasets, viz. EPP4G and ETP4G. EPP4G is used to train three transformer-based classification models as per persuasiveness, emotion and politeness strategy to achieve respective reward feedbacks. The ETP4G dataset is used to train an empathetic transfer model. Our experimental results demonstrate that PEPDS increases the rate of persuasive responses with emotion and politeness acknowledgement compared to the current state-of-the-art dialogue models, while also enhancing the dialogue’s engagement and maintaining the linguistic quality.</abstract>
       <url hash="4f7e4e1f">2022.coling-1.34</url>
       <bibkey>mishra-etal-2022-pepds</bibkey>
+      <pwccode url="https://github.com/mishrakshitij/pepds" additional="false">mishrakshitij/pepds</pwccode>
     </paper>
     <paper id="35">
       <title><fixed-case>D</fixed-case>ial<fixed-case>A</fixed-case>ug: Mixing up Dialogue Contexts in Contrastive Learning for Robust Conversational Modeling</title>
@@ -685,6 +688,7 @@
       <abstract>Multi-class unknown intent detection has made remarkable progress recently. However, it has a strong assumption that each utterance has only one intent, which does not conform to reality because utterances often have multiple intents. In this paper, we propose a more desirable task, multi-label unknown intent detection, to detect whether the utterance contains the unknown intent, in which each utterance may contain multiple intents. In this task, the unique utterances simultaneously containing known and unknown intents make existing multi-class methods easy to fail. To address this issue, we propose an intuitive and effective method to recognize whether All Intents contained in the utterance are Known (AIK). Our high-level idea is to predict the utterance’s intent number, then check whether the utterance contains the same number of known intents. If the number of known intents is less than the number of intents, it implies that the utterance also contains unknown intents. We benchmark AIK over existing methods, and empirical results suggest that our method obtains state-of-the-art performances. For example, on the MultiWOZ 2.3 dataset, AIK significantly reduces the FPR95 by 12.25% compared to the best baseline.</abstract>
       <url hash="b1b0a50e">2022.coling-1.52</url>
       <bibkey>ouyang-etal-2022-towards</bibkey>
+      <pwccode url="https://github.com/yawenouyang/aik" additional="false">yawenouyang/aik</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mixsnips-1">MixSNIPs</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snips">SNIPS</pwcdataset>
     </paper>
@@ -827,6 +831,7 @@
       <abstract>Target-oriented dialog aims to reach a global target through multi-turn conversation. The key to the task is the global planning towards the target, which flexibly guides the dialog concerning the context. However, existing target-oriented dialog works take a local and greedy strategy for response generation, where global planning is absent. In this work, we propose global planning for target-oriented dialog on a commonsense knowledge graph (KG). We design a global reinforcement learning with the planned paths to flexibly adjust the local response generation model towards the global target. We also propose a KG-based method to collect target-oriented samples automatically from the chit-chat corpus for model training. Experiments show that our method can reach the target with a higher success rate, fewer turns, and more coherent responses.</abstract>
       <url hash="4c8a3d3c">2022.coling-1.62</url>
       <bibkey>yang-etal-2022-topkg</bibkey>
+      <pwccode url="https://github.com/yyyyyyzt/topkgchat" additional="false">yyyyyyzt/topkgchat</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/convai2">ConvAI2</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/otters">OTTers</pwcdataset>
@@ -839,6 +844,7 @@
       <abstract>We examine the link between facets of Rhetorical Structure Theory (RST) and the selection of content for extractive summarisation, for German-language texts. For this purpose, we produce a set of extractive summaries for a dataset of German-language newspaper commentaries, a corpus which already has several layers of annotation. We provide an in-depth analysis of the connection between summary sentences and several RST-based features and transfer these insights to various automated summarisation models. Our results show that RST features are informative for the task of extractive summarisation, particularly nuclearity and relations at sentence-level.</abstract>
       <url hash="fa3f57de">2022.coling-1.63</url>
       <bibkey>hewett-stede-2022-extractive</bibkey>
+      <pwccode url="https://github.com/fhewett/rst-features" additional="true">fhewett/rst-features</pwccode>
     </paper>
     <paper id="64">
       <title>End-to-End Neural Bridging Resolution</title>
@@ -947,6 +953,7 @@
       <abstract>Recent research shows that pre-trained language models, built to generate text conditioned on some context, learn to encode syntactic knowledge to a certain degree. This has motivated researchers to move beyond the sentence-level and look into their ability to encode less studied discourse-level phenomena. In this paper, we add to the body of probing research by investigating discourse entity representations in large pre-trained language models in English. Motivated by early theories of discourse and key pieces of previous work, we focus on the information-status of entities as discourse-new or discourse-old. We present two probing models, one based on binary classification and another one on sequence labeling. The results of our experiments show that pre-trained language models do encode information on whether an entity has been introduced before or not in the discourse. However, this information alone is not sufficient to find the entities in a discourse, opening up interesting questions about the definition of entities for future work.</abstract>
       <url hash="44590c54">2022.coling-1.73</url>
       <bibkey>loaiciga-etal-2022-new</bibkey>
+      <pwccode url="https://github.com/clp-research/new-old-discourse-entities" additional="false">clp-research/new-old-discourse-entities</pwccode>
     </paper>
     <paper id="74">
       <title>Dialo-<fixed-case>AP</fixed-case>: A Dependency Parsing Based Argument Parser for Dialogues</title>
@@ -957,6 +964,7 @@
       <abstract>While neural approaches to argument mining (AM) have advanced considerably, most of the recent work has been limited to parsing monologues. With an urgent interest in the use of conversational agents for broader societal applications, there is a need to advance the state-of-the-art in argument parsers for dialogues. This enables progress towards more purposeful conversations involving persuasion, debate and deliberation. This paper discusses Dialo-AP, an end-to-end argument parser that constructs argument graphs from dialogues. We formulate AM as dependency parsing of elementary and argumentative discourse units; the system is trained using extensive pre-training and curriculum learning comprising nine diverse corpora. Dialo-AP is capable of generating argument graphs from dialogues by performing all sub-tasks of AM. Compared to existing state-of-the-art baselines, Dialo-AP achieves significant improvements across all tasks, which is further validated through rigorous human evaluation.</abstract>
       <url hash="84c78b63">2022.coling-1.74</url>
       <bibkey>saha-etal-2022-dialo</bibkey>
+      <pwccode url="https://github.com/sougata-ub/dialo-ap" additional="false">sougata-ub/dialo-ap</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cdcp">CDCP</pwcdataset>
     </paper>
     <paper id="75">
@@ -969,6 +977,7 @@
       <abstract>Implicit Discourse Relation Recognition (IDRR) is to detect and classify relation sense between two text segments without an explicit connective. Vanilla pre-train and fine-tuning paradigm builds upon a Pre-trained Language Model (PLM) with a task-specific neural network. However, the task objective functions are often not in accordance with that of the PLM. Furthermore, this paradigm cannot well exploit some linguistic evidence embedded in the pre-training process. The recent pre-train, prompt, and predict paradigm selects appropriate prompts to reformulate downstream tasks, so as to utilizing the PLM itself for prediction. However, for its success applications, prompts, verbalizer as well as model training should still be carefully designed for different tasks. As the first trial of using this new paradigm for IDRR, this paper develops a Connective-cloze Prompt (ConnPrompt) to transform the relation prediction task as a connective-cloze task. Specifically, we design two styles of ConnPrompt template: Insert-cloze Prompt (ICP) and Prefix-cloze Prompt (PCP) and construct an answer space mapping to the relation senses based on the hierarchy sense tags and implicit connectives. Furthermore, we use a multi-prompt ensemble to fuse predictions from different prompting results. Experiments on the PDTB corpus show that our method significantly outperforms the state-of-the-art algorithms, even with fewer training data.</abstract>
       <url hash="9e1289b1">2022.coling-1.75</url>
       <bibkey>xiang-etal-2022-connprompt</bibkey>
+      <pwccode url="https://github.com/hustminslab/connprompt" additional="false">hustminslab/connprompt</pwccode>
     </paper>
     <paper id="76">
       <title>A Distance-Aware Multi-Task Framework for Conversational Discourse Parsing</title>
@@ -1055,6 +1064,7 @@
       <abstract>Nowadays, deep-learning based NLP models are usually trained with large-scale third-party data which can be easily injected with malicious backdoors. Thus, BackDoor Attack (BDA) study has become a trending research to help promote the robustness of an NLP system. Text-based BDA aims to train a poisoned model with both clean and poisoned texts to perform normally on clean inputs while being misled to predict those trigger-embedded texts as target labels set by attackers. Previous works usually choose fixed Positions-to-Poison (P2P) first, then add triggers upon those positions such as letter insertion or deletion. However, considering the positions of words with important semantics may vary in different contexts, fixed P2P models are severely limited in flexibility and performance. We study the text-based BDA from the perspective of automatically and dynamically selecting P2P from contexts. We design a novel Locator model which can predict P2P dynamically without human intervention. Based on the predicted P2P, four effective strategies are introduced to show the BDA performance. Experiments on two public datasets show both tinier test accuracy gap on clean data and higher attack success rate on poisoned ones. Human evaluation with volunteers also shows the P2P predicted by our model are important for classification. Source code is available at https://github.com/jncsnlp/LocatorModel</abstract>
       <url hash="0239b7da">2022.coling-1.82</url>
       <bibkey>lu-etal-2022-attack</bibkey>
+      <pwccode url="https://github.com/jncsnlp/locatormodel" additional="false">jncsnlp/locatormodel</pwccode>
     </paper>
     <paper id="83">
       <title>Locally Distributed Activation Vectors for Guided Feature Attribution</title>
@@ -1090,6 +1100,7 @@
       <abstract>We present a biomedical knowledge enhanced pre-trained language model for medicinal product vertical search. Following ELECTRA’s replaced token detection (RTD) pre-training, we leverage biomedical entity masking (EM) strategy to learn better contextual word representations. Furthermore, we propose a novel pre-training task, product attribute prediction (PAP), to inject product knowledge into the pre-trained language model efficiently by leveraging medicinal product databases directly. By sharing the parameters of PAP’s transformer encoder with that of RTD’s main transformer, these two pre-training tasks are jointly learned. Experiments demonstrate the effectiveness of PAP task for pre-trained language model on medicinal product vertical search scenario, which includes query-title relevance, query intent classification, and named entity recognition in query.</abstract>
       <url hash="3a6e03ec">2022.coling-1.85</url>
       <bibkey>liu-etal-2022-domain</bibkey>
+      <pwccode url="https://github.com/liuks/ep_plm" additional="false">liuks/ep_plm</pwccode>
     </paper>
     <paper id="86">
       <title><fixed-case>CONCRETE</fixed-case>: Improving Cross-lingual Fact-checking with Cross-lingual Retrieval</title>
@@ -1133,6 +1144,7 @@
       <abstract>Metadata attributes (e.g., user and product IDs from reviews) can be incorporated as additional inputs to neural-based NLP models, by expanding the architecture of the models to improve performance. However, recent models rely on pretrained language models (PLMs), in which previously used techniques for attribute injection are either nontrivial or cost-ineffective. In this paper, we introduce a benchmark for evaluating attribute injection models, which comprises eight datasets across a diverse range of tasks and domains and six synthetically sparsified ones. We also propose a lightweight and memory-efficient method to inject attributes into PLMs. We extend adapters, i.e. tiny plug-in feed-forward modules, to include attributes both independently of or jointly with the text. We use approximation techniques to parameterize the model efficiently for domains with large attribute vocabularies, and training mechanisms to handle multi-labeled and sparse attributes. Extensive experiments and analyses show that our method outperforms previous attribute injection methods and achieves state-of-the-art performance on all datasets.</abstract>
       <url hash="b7abfb3f">2022.coling-1.88</url>
       <bibkey>amplayo-etal-2022-attribute</bibkey>
+      <pwccode url="https://github.com/rktamplayo/injector" additional="false">rktamplayo/injector</pwccode>
     </paper>
     <paper id="89">
       <title>Towards Robust Neural Retrieval with Source Domain Synthetic Pre-Finetuning</title>
@@ -1172,6 +1184,7 @@
       <abstract>In weakly-supervised text classification, only label names act as sources of supervision. Predominant approaches to weakly-supervised text classification utilize a two-phase framework, where test samples are first assigned pseudo-labels and are then used to train a neural text classifier. In most previous work, the pseudo-labeling step is dependent on obtaining seed words that best capture the relevance of each class label. We present LIME, a framework for weakly-supervised text classification that entirely replaces the brittle seed-word generation process with entailment-based pseudo-classification. We find that combining weakly-supervised classification and textual entailment mitigates shortcomings of both, resulting in a more streamlined and effective classification pipeline. With just an off-the-shelf textual entailment model, LIME outperforms recent baselines in weakly-supervised text classification and achieves state-of-the-art in 4 benchmarks.</abstract>
       <url hash="e518f617">2022.coling-1.91</url>
       <bibkey>park-lee-2022-lime</bibkey>
+      <pwccode url="https://github.com/seongminp/lime" additional="false">seongminp/lime</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
     </paper>
     <paper id="92">
@@ -1231,6 +1244,7 @@
       <abstract>This paper addresses a deficiency in existing cross-lingual information retrieval (CLIR) datasets and provides a robust evaluation of CLIR systems’ disambiguation ability. CLIR is commonly tackled by combining translation and traditional IR. Due to translation ambiguity, the problem of ambiguity is worse in CLIR than in monolingual IR. But existing auto-generated CLIR datasets are dominated by searches for named entity mentions, which does not provide a good measure for disambiguation performance, as named entity mentions can often be transliterated across languages and tend not to have multiple translations. Therefore, we introduce a new evaluation dataset (MuSeCLIR) to address this inadequacy. The dataset focusses on polysemous common nouns with multiple possible translations. MuSeCLIR is constructed from multilingual Wikipedia and supports searches on documents written in European (French, German, Italian) and Asian (Chinese, Japanese) languages. We provide baseline statistical and neural model results on MuSeCLIR which show that MuSeCLIR has a higher requirement on the ability of systems to disambiguate query terms.</abstract>
       <url hash="5a1d67d2">2022.coling-1.96</url>
       <bibkey>li-etal-2022-museclir</bibkey>
+      <pwccode url="https://github.com/justinal/museclir" additional="false">justinal/museclir</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/clirmatrix">CLIRMatrix</pwcdataset>
     </paper>
     <paper id="97">
@@ -1346,6 +1360,7 @@
       <abstract>In this work, we discuss different threat scenarios from neural fake news generated by state-of-the-art language models. Through our experiments, we assess the performance of generated text detection systems under these threat scenarios. For each scenario, we also identify the minimax strategy for the detector that minimizes its worst-case performance. This constitutes a set of best practices that practitioners can rely on. In our analysis, we find that detectors are prone to shortcut learning (lack of out-of-distribution generalization) and discuss approaches to mitigate this problem and improve detectors more broadly. Finally, we argue that strong detectors should be released along with new generators.</abstract>
       <url hash="b1fbf78b">2022.coling-1.106</url>
       <bibkey>pagnoni-etal-2022-threat</bibkey>
+      <pwccode url="https://github.com/artidoro/detect-gentext" additional="false">artidoro/detect-gentext</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/lambada">LAMBADA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/webtext">WebText</pwcdataset>
     </paper>
@@ -1380,6 +1395,7 @@
       <abstract>Pretrained Language Models (PLMs), though popular, have been diagnosed to encode bias against protected groups in the representations they learn, which may harm the prediction fairness of downstream models. Given that such bias is believed to be related to the amount of demographic information carried in the learned representations, this study aimed to quantify the awareness that a PLM (i.e., BERT) has regarding people’s protected attributes and augment BERT to improve prediction fairness of downstream models by inhibiting this awareness. Specifically, we developed a method to dynamically sample data to continue the pretraining of BERT and enable it to generate representations carrying minimal demographic information, which can be directly used as input to downstream models for fairer predictions. By experimenting on the task of classifying educational forum posts and measuring fairness between students of different gender or first-language backgrounds, we showed that, compared to a baseline without any additional pretraining, our method improved not only fairness (with a maximum improvement of 52.33%) but also accuracy (with a maximum improvement of 2.53%). Our method can be generalized to any PLM and demographic attributes. All the codes used in this study can be accessed via https://github.com/lsha49/FairBERT_deploy.</abstract>
       <url hash="a2527a1f">2022.coling-1.109</url>
       <bibkey>sha-etal-2022-bigger</bibkey>
+      <pwccode url="https://github.com/lsha49/fairbert_deploy" additional="false">lsha49/fairbert_deploy</pwccode>
     </paper>
     <paper id="110">
       <title>Debiasing Word Embeddings with Nonlinear Geometry</title>
@@ -1414,6 +1430,7 @@
       <abstract>Natural language generation (NLG) models can propagate social bias towards particular demography. Though several studies investigated bias from data and model, NLG task distinctively uses stochastic decoder that can positively or negatively impact the bias-sensitive tokens initially predicted by the model. To address this gap in research, we present an extensive analysis of bias from decoding techniques for open-domain language generation considering the entire decoding space. We analyze to what extent bias metrics like toxicity and sentiment are impacted by the individual components of decoder algorithms. To this extent, we also analyze the trade-off between bias scores and human-annotated generation quality throughout the decoder space. Together, these methods reveal the imperative of testing inference time bias and provide evidence on the usefulness of inspecting the entire decoding spectrum.</abstract>
       <url hash="66fc16c3">2022.coling-1.112</url>
       <bibkey>das-balke-2022-quantifying</bibkey>
+      <pwccode url="https://github.com/mayukhga83/decoder-bias" additional="false">mayukhga83/decoder-bias</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/gap-coreference-dataset">GAP Coreference Dataset</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/webtext">WebText</pwcdataset>
     </paper>
@@ -1555,6 +1572,7 @@
       <abstract>Interpreting patient case descriptions has emerged as a challenging problem for biomedical NLP, where the aim is typically to predict diagnoses, to recommended treatments, or to answer questions about cases more generally. Previous work has found that biomedical language models often lack the knowledge that is needed for such tasks. In this paper, we aim to improve their performance through a self-supervised intermediate fine-tuning strategy based on PubMed abstracts. Our solution builds on the observation that many of these abstracts are case reports, and thus essentially patient case descriptions. As a general strategy, we propose to fine-tune biomedical language models on the task of predicting masked medical concepts from such abstracts. We find that the success of this strategy crucially depends on the selection of the medical concepts to be masked. By ensuring that these concepts are sufficiently salient, we can substantially boost the performance of biomedical language models, achieving state-of-the-art results on two benchmarks.</abstract>
       <url hash="e561c6fc">2022.coling-1.123</url>
       <bibkey>alghanmi-etal-2022-self</bibkey>
+      <pwccode url="https://github.com/israa-alghanmi/intermediate-ft-biomedical-lms" additional="false">israa-alghanmi/intermediate-ft-biomedical-lms</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/diskne">DisKnE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/headqa">HeadQA</pwcdataset>
     </paper>
@@ -1581,6 +1599,7 @@
       <abstract>Despite the success of state-of-the-art pre-trained language models (PLMs) on a series of multi-hop reasoning tasks, they still suffer from their limited abilities to transfer learning from simple to complex tasks and vice-versa. We argue that one step forward to overcome this limitation is to better understand the behavioral trend of PLMs at each hop over the inference chain. Our critical underlying idea is to mimic human-style reasoning: we envision the multi-hop reasoning process as a sequence of explicit single-hop reasoning steps. To endow PLMs with incremental reasoning skills, we propose a set of inference strategies on relevant facts and distractors allowing us to build automatically generated training datasets. Using the SHINRA and ConceptNet resources jointly, we empirically show the effectiveness of our proposal on multiple-choice question answering and reading comprehension, with a relative improvement in terms of accuracy of 68.4% and 16.0% w.r.t. classic PLMs, respectively.</abstract>
       <url hash="b473eb67">2022.coling-1.125</url>
       <bibkey>lovon-melgarejo-etal-2022-guide</bibkey>
+      <pwccode url="https://github.com/jeslev/incremental_reasoning" additional="false">jeslev/incremental_reasoning</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/race">RACE</pwcdataset>
     </paper>
@@ -1861,6 +1880,7 @@
       <abstract>Question answering over knowledge bases (KBQA) for complex questions is a challenging task in natural language processing. Recently, generation-based methods that translate natural language questions to executable logical forms have achieved promising performance. These methods use auxiliary information to augment the logical form generation of questions with unseen KB items or novel combinations, but the noise introduced can also leads to more incorrect results. In this work, we propose GMT-KBQA, a Generation-based KBQA method via Multi-Task learning, to better retrieve and utilize auxiliary information. GMT-KBQA first obtains candidate entities and relations through dense retrieval, and then introduces a multi-task model which jointly learns entity disambiguation, relation classification, and logical form generation. Experimental results show that GMT-KBQA achieves state-of-the-art results on both ComplexWebQuestions and WebQuestionsSP datasets. Furthermore, the detailed evaluation demonstrates that GMT-KBQA benefits from the auxiliary tasks and has a strong generalization capability.</abstract>
       <url hash="41b11bbe">2022.coling-1.145</url>
       <bibkey>hu-etal-2022-logical</bibkey>
+      <pwccode url="https://github.com/hxx97/gmt-kbqa" additional="false">hxx97/gmt-kbqa</pwccode>
     </paper>
     <paper id="146">
       <title><fixed-case>CMQA</fixed-case>: A Dataset of Conditional Question Answering with Multiple-Span Answers</title>
@@ -1874,6 +1894,7 @@
       <abstract>Forcing the answer of the Question Answering (QA) task to be a single text span might be restrictive since the answer can be multiple spans in the context. Moreover, we found that multi-span answers often appear with two characteristics when building the QA system for a real-world application. First, multi-span answers might be caused by users lacking domain knowledge and asking ambiguous questions, which makes the question need to be answered with conditions. Second, there might be hierarchical relations among multiple answer spans. Some recent span-extraction QA datasets include multi-span samples, but they only contain unconditional and parallel answers, which cannot be used to tackle this problem. To bridge the gap, we propose a new task: conditional question answering with hierarchical multi-span answers, where both the hierarchical relations and the conditions need to be extracted. Correspondingly, we introduce CMQA, a Conditional Multiple-span Chinese Question Answering dataset to study the new proposed task. The final release of CMQA consists of 7,861 QA pairs and 113,089 labels, where all samples contain multi-span answers, 50.4% of samples are conditional, and 56.6% of samples are hierarchical. CMQA can serve as a benchmark to study the new proposed task and help study building QA systems for real-world applications. The low performance of models drawn from related literature shows that the new proposed task is challenging for the community to solve.</abstract>
       <url hash="cb86f6cb">2022.coling-1.146</url>
       <bibkey>ju-etal-2022-cmqa</bibkey>
+      <pwccode url="https://github.com/juyiming/cmqa" additional="false">juyiming/cmqa</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/drop">DROP</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
@@ -1939,6 +1960,7 @@
       <abstract>Mathematical reasoning task is a subset of the natural language question answering task. Existing work suggested solving this task with a two-phase approach, where the model first predicts formulas from questions and then calculates answers from such formulas. This approach achieved desirable performance in existing work. However, its reliance on annotated formulas as intermediate labels throughout its training limited its application. In this work, we put forward the idea to enable models to learn optimal formulas autonomously. We proposed Weakly Supervised Formula Learner, a learning framework that drives the formula exploration with weak supervision from the final answers to mathematical problems. Our experiments are conducted on two representative mathematical reasoning datasets MathQA and Math23K. On MathQA, our method outperformed baselines trained on complete yet imperfect formula annotations. On Math23K, our method outperformed other weakly supervised learning methods.</abstract>
       <url hash="8d05d99a">2022.coling-1.150</url>
       <bibkey>wu-nakayama-2022-weakly</bibkey>
+      <pwccode url="https://github.com/evan-ak/wsfl" additional="false">evan-ak/wsfl</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/math23k">Math23K</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mathqa">MathQA</pwcdataset>
     </paper>
@@ -1951,6 +1973,7 @@
       <abstract>Deep neural models have become the mainstream in answer selection, yielding state-of-the-art performance. However, these models tend to rely on spurious correlations between prediction labels and input features, which in general suffer from robustness and generalization. In this paper, we propose a novel Spurious Correlation reduction method to improve the robustness of the neural ANswer selection models (SCAN) from the sample and feature perspectives by removing the feature dependencies and language biases in answer selection. First, from the sample perspective, we propose a feature decorrelation module by learning a weight for each instance at the training phase to remove the feature dependencies and reduce the spurious correlations without prior knowledge of such correlations. Second, from the feature perspective, we propose a feature debiasing module with contrastive learning to alleviate the negative language biases (spurious correlations) and further improve the robustness of the AS models. Experimental results on three benchmark datasets show that SCAN achieves substantial improvements over strong baselines. For reproducibility, we will release our code and data upon the publication of this paper.</abstract>
       <url hash="ef561cf6">2022.coling-1.151</url>
       <bibkey>zhong-etal-2022-reducing</bibkey>
+      <pwccode url="https://github.com/xish9/scan" additional="false">xish9/scan</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/selqa">SelQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikiqa">WikiQA</pwcdataset>
     </paper>
@@ -2053,6 +2076,7 @@
       <abstract>Supervised open relation extraction aims to discover novel relations by leveraging supervised data of pre-defined relations. However, most existing methods do not achieve effective knowledge transfer from pre-defined relations to novel relations, they have difficulties generating high-quality pseudo-labels for unsupervised data of novel relations and usually suffer from the error propagation issue. In this paper, we propose a Cluster-aware Pseudo-Labeling (CaPL) method to improve the pseudo-labels quality and transfer more knowledge for discovering novel relations. Specifically, the model is firstly pre-trained with the pre-defined relations to learn the relation representations. To improve the pseudo-labels quality, the distances between each instance and all cluster centers are used to generate the cluster-aware soft pseudo-labels for novel relations. To mitigate the catastrophic forgetting issue, we design the consistency regularization loss to make better use of the pseudo-labels and jointly train the model with both unsupervised and supervised data. Experimental results on two public datasets demonstrate that our proposed method achieves new state-of-the-arts performance.</abstract>
       <url hash="ee29fee8">2022.coling-1.158</url>
       <bibkey>duan-etal-2022-cluster</bibkey>
+      <pwccode url="https://github.com/bobtuan/capl" additional="false">bobtuan/capl</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/tacred">TACRED</pwcdataset>
     </paper>
     <paper id="159">
@@ -2083,6 +2107,7 @@
       <abstract>Recently, multimodal information extraction from social media posts has gained increasing attention in the natural language processing community. Despite their success, current approaches overestimate the significance of images. In this paper, we argue that different social media posts should consider different modalities for multimodal information extraction. Multimodal models cannot always outperform unimodal models. Some posts are more suitable for the multimodal model, while others are more suitable for the unimodal model. Therefore, we propose a general data splitting strategy to divide the social media posts into two sets so that these two sets can achieve better performance under the information extraction models of the corresponding modalities. Specifically, for an information extraction task, we first propose a data discriminator that divides social media posts into a multimodal and a unimodal set. Then we feed these sets into the corresponding models. Finally, we combine the results of these two models to obtain the final extraction results. Due to the lack of explicit knowledge, we use reinforcement learning to train the data discriminator. Experiments on two different multimodal information extraction tasks demonstrate the effectiveness of our method. The source code of this paper can be found in https://github.com/xubodhu/RDS.</abstract>
       <url hash="84b82757">2022.coling-1.160</url>
       <bibkey>xu-etal-2022-different</bibkey>
+      <pwccode url="https://github.com/xubodhu/rds" additional="false">xubodhu/rds</pwccode>
     </paper>
     <paper id="161">
       <title>Augmentation, Retrieval, Generation: Event Sequence Prediction with a Three-Stage Sequence-to-Sequence Approach</title>
@@ -2173,6 +2198,7 @@
       <abstract>An efficient assessment of the health relatedness of text passages is important to mine the web at scale to conduct health sociological analyses or to develop a health search engine. We propose a new efficient and effective termhood score for predicting the health relatedness of phrases and sentences, which achieves 69% recall at over 90% precision on a web dataset with cause-effect statements. It is more effective than state-of-the-art medical entity linkers and as effective but much faster than BERT-based approaches. Using our method, we compile the Webis Medical CauseNet 2022, a new resource of 7.8 million health-related cause-effect statements such as “Studies show that stress induces insomnia” in which the cause (‘stress’) and effect (‘insomnia’) are labeled.</abstract>
       <url hash="ea018197">2022.coling-1.167</url>
       <bibkey>schlatt-etal-2022-mining</bibkey>
+      <pwccode url="https://github.com/webis-de/coling-22" additional="false">webis-de/coling-22</pwccode>
     </paper>
     <paper id="168">
       <title>Find the Funding: Entity Linking with Incomplete Funding Knowledge Bases</title>
@@ -2184,6 +2210,7 @@
       <abstract>Automatic extraction of funding information from academic articles adds significant value to industry and research communities, including tracking research outcomes by funding organizations, profiling researchers and universities based on the received funding, and supporting open access policies. Two major challenges of identifying and linking funding entities are: (i) sparse graph structure of the Knowledge Base (KB), which makes the commonly used graph-based entity linking approaches suboptimal for the funding domain, (ii) missing entities in KB, which (unlike recent zero-shot approaches) requires marking entity mentions without KB entries as NIL. We propose an entity linking model that can perform NIL prediction and overcome data scarcity issues in a time and data-efficient manner. Our model builds on a transformer-based mention detection and a bi-encoder model to perform entity linking. We show that our model outperforms strong existing baselines.</abstract>
       <url hash="be092b51">2022.coling-1.168</url>
       <bibkey>aydin-etal-2022-find</bibkey>
+      <pwccode url="https://github.com/informagi/fund-el" additional="false">informagi/fund-el</pwccode>
     </paper>
     <paper id="169">
       <title><fixed-case>K</fixed-case>i<fixed-case>PT</fixed-case>: Knowledge-injected Prompt Tuning for Event Detection</title>
@@ -2242,6 +2269,7 @@
       <abstract>Event detection, which aims to identify instances of specific event types from pieces of text, is a fundamental task in information extraction. Most existing approaches leverage syntactic knowledge with a set of syntactic relations to enhance event detection. However, a side effect of these syntactic-based approaches is that they may confuse different syntactic relations and tend to introduce redundant or noisy information, which may lead to performance degradation. To this end, we propose a simple yet effective model named DualGAT (Dual Relational Graph Attention Networks), which exploits the complementary nature of syntactic and semantic relations to alleviate the problem. Specifically, we first construct a dual relational graph that both aggregates syntactic and semantic relations to the key nodes in the graph, so that event-relevant information can be comprehensively captured from multiple perspectives (i.e., syntactic and semantic views). We then adopt augmented relational graph attention networks to encode the graph and optimize its attention weights by introducing contextual information, which further improves the performance of event detection. Extensive experiments conducted on the standard ACE2005 benchmark dataset indicate that our method significantly outperforms the state-of-the-art methods and verifies the superiority of DualGAT over existing syntactic-based methods.</abstract>
       <url hash="7975b0a8">2022.coling-1.172</url>
       <bibkey>mi-etal-2022-event</bibkey>
+      <pwccode url="https://github.com/macvh/dualgat" additional="false">macvh/dualgat</pwccode>
     </paper>
     <paper id="173">
       <title>A Multi-Format Transfer Learning Model for Event Argument Extraction via Variational Information Bottleneck</title>
@@ -2385,6 +2413,7 @@
       <abstract>Document-level biomedical relation extraction (Bio-DocuRE) is an important branch of biomedical text mining that aims to automatically extract all relation facts from the biomedical text. Since there are a considerable number of relations in biomedical documents that need to be judged by other existing relations, logical reasoning has become a research hotspot in the past two years. However, current models with reasoning are single-granularity only based on one element information, ignoring the complementary fact of different granularity reasoning information. In addition, obtaining rich document information is a prerequisite for logical reasoning, but most of the previous models cannot sufficiently utilize document information, which limits the reasoning ability of the model. In this paper, we propose a novel Bio-DocuRE model called FILR, based on Multi-Dimensional Fusion Information and Multi-Granularity Logical Reasoning. Specifically, FILR presents a multi-dimensional information fusion module MDIF to extract sufficient global document information. Then FILR proposes a multi-granularity reasoning module MGLR to obtain rich inference information through the reasoning of both entity-pairs and mention-pairs. We evaluate our FILR model on two widely used biomedical corpora CDR and GDA. Experimental results show that FILR achieves state-of-the-art performance.</abstract>
       <url hash="256aa41a">2022.coling-1.183</url>
       <bibkey>li-etal-2022-document</bibkey>
+      <pwccode url="https://github.com/luguo-ry/filr" additional="false">luguo-ry/filr</pwccode>
     </paper>
     <paper id="184">
       <title>Simple Yet Powerful: An Overlooked Architecture for Nested Named Entity Recognition</title>
@@ -2395,6 +2424,7 @@
       <abstract>Named Entity Recognition (NER) is an important task in Natural Language Processing that aims to identify text spans belonging to predefined categories. Traditional NER systems ignore nested entities, which are entities contained in other entity mentions. Although several methods have been proposed to address this case, most of them rely on complex task-specific structures and ignore potentially useful baselines for the task. We argue that this creates an overly optimistic impression of their performance. This paper revisits the Multiple LSTM-CRF (MLC) model, a simple, overlooked, yet powerful approach based on training independent sequence labeling models for each entity type. Extensive experiments with three nested NER corpora show that, regardless of the simplicity of this model, its performance is better or at least as well as more sophisticated methods. Furthermore, we show that the MLC architecture achieves state-of-the-art results in the Chilean Waiting List corpus by including pre-trained language models. In addition, we implemented an open-source library that computes task-specific metrics for nested NER. The results suggest that metrics used in previous work do not measure well the ability of a model to detect nested entities, while our metrics provide new evidence on how existing approaches handle the task.</abstract>
       <url hash="e7264629">2022.coling-1.184</url>
       <bibkey>rojas-etal-2022-simple</bibkey>
+      <pwccode url="https://github.com/matirojasg/nested-ner-mlc" additional="false">matirojasg/nested-ner-mlc</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/genia">GENIA</pwcdataset>
     </paper>
     <paper id="185">
@@ -2450,6 +2480,7 @@
       <abstract>Cross-domain named entity recognition aims to improve performance in a target domain with shared knowledge from a well-studied source domain. The previous sequence-labeling based method focuses on promoting model parameter sharing among domains. However, such a paradigm essentially ignores the domain-specific information and suffers from entity type conflicts. To address these issues, we propose a novel machine reading comprehension based framework, named DoSEA, which can identify domain-specific semantic differences and mitigate the subtype conflicts between domains. Concretely, we introduce an entity existence discrimination task and an entity-aware training setting, to recognize inconsistent entity annotations in the source domain and bring additional reference to better share information across domains. Experiments on six datasets prove the effectiveness of our DoSEA. Our source code can be obtained from https://github.com/mhtang1995/DoSEA.</abstract>
       <url hash="e2c8ee5c">2022.coling-1.188</url>
       <bibkey>tang-etal-2022-dosea</bibkey>
+      <pwccode url="https://github.com/mhtang1995/dosea" additional="false">mhtang1995/dosea</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/crossner">CrossNER</pwcdataset>
     </paper>
     <paper id="189">
@@ -2570,6 +2601,7 @@
       <abstract>Distantly supervised relation extraction aims to extract relational facts from texts but suffers from noisy instances. Existing methods usually select reliable sentences that rely on potential noisy labels, resulting in wrongly selecting many noisy training instances or underutilizing a large amount of valuable training data. This paper proposes a sentence-level DSRE method beyond typical instance selection approaches by preventing samples from falling into the wrong classification space on the feature space. Specifically, a theorem for denoising and the corresponding implementation, named Consensus Enhanced Training Approach (CETA), are proposed in this paper. By training the model with CETA, samples of different classes are separated, and samples of the same class are closely clustered in the feature space. Thus the model can easily establish the robust classification boundary to prevent noisy labels from biasing wrongly labeled samples into the wrong classification space. This process is achieved by enhancing the classification consensus between two discrepant classifiers and does not depend on any potential noisy labels, thus avoiding the above two limitations. Extensive experiments on widely-used benchmarks have demonstrated that CETA significantly outperforms the previous methods and achieves new state-of-the-art results.</abstract>
       <url hash="1478b527">2022.coling-1.197</url>
       <bibkey>liu-etal-2022-ceta</bibkey>
+      <pwccode url="https://github.com/ethan-rr/ceta" additional="false">ethan-rr/ceta</pwccode>
     </paper>
     <paper id="198">
       <title><fixed-case>M</fixed-case>ed<fixed-case>D</fixed-case>istant19: Towards an Accurate Benchmark for Broad-Coverage Biomedical Relation Extraction</title>
@@ -2626,6 +2658,7 @@
       <abstract>Event Causality Identification (ECI), which aims to detect whether a causality relation exists between two given textual events, is an important task for event causality understanding. However, the ECI task ignores crucial event structure and cause-effect causality component information, making it struggle for downstream applications. In this paper, we introduce a novel task, namely Event Causality Extraction (ECE), aiming to extract the cause-effect event causality pairs with their structured event information from plain texts. The ECE task is more challenging since each event can contain multiple event arguments, posing fine-grained correlations between events to decide the cause-effect event pair. Hence, we propose a method with a dual grid tagging scheme to capture the intra- and inter-event argument correlations for ECE. Further, we devise a event type-enhanced model architecture to realize the dual grid tagging scheme. Experiments demonstrate the effectiveness of our method, and extensive analyses point out several future directions for ECE.</abstract>
       <url hash="c93535c4">2022.coling-1.201</url>
       <bibkey>cui-etal-2022-event</bibkey>
+      <pwccode url="https://github.com/cuishiyao96/ece" additional="false">cuishiyao96/ece</pwccode>
     </paper>
     <paper id="202">
       <title><fixed-case>SCL</fixed-case>-<fixed-case>RAI</fixed-case>: Span-based Contrastive Learning with Retrieval Augmented Inference for Unlabeled Entity Problem in <fixed-case>NER</fixed-case></title>
@@ -2649,6 +2682,7 @@
       <abstract>Relational web-tables are significant sources of structural information that are widely used for relation extraction and population of facts into knowledge graphs. To transform the web-table data into knowledge, we need to identify the relations that exist between column pairs. Currently, there are only a handful of publicly available datasets with relations annotated against natural web-tables. Most datasets are constructed using synthetic tables that lack valuable metadata information, or are limited in size to be considered as a challenging evaluation set. In this paper, we present REDTab, the largest natural-table relation extraction dataset. We have annotated ~9K tables and ~22K column pairs using crowd sourced annotators from MTurk, which has 50x larger number of column pairs than the existing human-annotated benchmark. Our test set is specially designed to be challenging as observed in our experiment results using TaBERT. We publicly release REDTab as a benchmark for the evaluation process in relation extraction.</abstract>
       <url hash="9b920c9c">2022.coling-1.203</url>
       <bibkey>singh-etal-2022-relation</bibkey>
+      <pwccode url="https://github.com/alexa/alexa-dataset-redtab" additional="false">alexa/alexa-dataset-redtab</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/dbpedia">DBpedia</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/t2dv2">T2Dv2</pwcdataset>
     </paper>
@@ -2673,6 +2707,7 @@
       <abstract>Few-shot relation classification aims to classify the relation type between two given entities in a sentence by training with a few labeled instances for each relation. However, most of existing models fail to distinguish multiple relations that co-exist in one sentence. This paper presents a novel dependency-aware prototype learning (DAPL) method for few-shot relation classification. Concretely, we utilize dependency trees and shortest dependency paths (SDP) as structural information to complement the contextualized representations of input sentences by using the dependency-aware embedding as attention inputs to learn attentive sentence representations. In addition, we introduce a gate controlled update mechanism to update the dependency-aware representations according to the output of each network layer. Extensive experiments on the FewRel dataset show that DAPL achieves substantially better performance than strong baselines. For reproducibility, we will release our code and data upon the publication of this paper at https://github.com/publicstaticvo/DAPL.</abstract>
       <url hash="452e32cb">2022.coling-1.205</url>
       <bibkey>yu-etal-2022-dependency</bibkey>
+      <pwccode url="https://github.com/publicstaticvo/dapl" additional="false">publicstaticvo/dapl</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/fewrel">FewRel</pwcdataset>
     </paper>
     <paper id="206">
@@ -2802,6 +2837,7 @@
       <abstract>Entity linking, which aims at aligning ambiguous entity mentions to their referent entities in a knowledge base, plays a key role in multiple natural language processing tasks. Recently, zero-shot entity linking task has become a research hotspot, which links mentions to unseen entities to challenge the generalization ability. For this task, the training set and test set are from different domains, and thus entity linking models tend to be overfitting due to the tendency of memorizing the properties of entities that appear frequently in the training set. We argue that general ultra-fine-grained type information can help the linking models to learn contextual commonality and improve their generalization ability to tackle the overfitting problem. However, in the zero-shot entity linking setting, any type information is not available and entities are only identified by textual descriptions. Thus, we first extract the ultra-fine entity type information from the entity textual descriptions. Then, we propose a hierarchical multi-task model to improve the high-level zero-shot entity linking candidate generation task by utilizing the entity typing task as an auxiliary low-level task, which introduces extracted ultra-fine type information into the candidate generation task. Experimental results demonstrate the effectiveness of utilizing the ultra-fine entity type information and our proposed method achieves state-of-the-art performance.</abstract>
       <url hash="cc2aa771">2022.coling-1.214</url>
       <bibkey>sui-etal-2022-improving</bibkey>
+      <pwccode url="https://github.com/suixuhui/etzel" additional="false">suixuhui/etzel</pwccode>
     </paper>
     <paper id="215">
       <title><fixed-case>C</fixed-case>ofe<fixed-case>N</fixed-case>et: Context and Former-Label Enhanced Net for Complicated Quotation Extraction</title>
@@ -2837,6 +2873,7 @@
       <abstract>Existing studies typically handle aspect-based sentiment analysis by stacking multiple neural modules, which inevitably result in severe error propagation. Instead, we propose a novel end-to-end framework, MRCOOL: MRC-PrOmpt mOdeL framework, where numerous sentiment aspects are elicited by a machine reading comprehension (MRC) model and their corresponding sentiment polarities are classified in a prompt learning way. Experiments show that our end-to-end framework consistently yields promising results on widely-used benchmark datasets which significantly outperform existing state-of-the-art models or achieve comparable performance.</abstract>
       <url hash="fd1f4073">2022.coling-1.217</url>
       <bibkey>yang-zhao-2022-aspect</bibkey>
+      <pwccode url="https://github.com/yangyifei729/mrc4absa" additional="false">yangyifei729/mrc4absa</pwccode>
     </paper>
     <paper id="218">
       <title>Nested Named Entity Recognition as Corpus Aware Holistic Structure Parsing</title>
@@ -2847,6 +2884,7 @@
       <abstract>As a fundamental natural language processing task and one of core knowledge extraction techniques, named entity recognition (NER) is widely used to extract information from texts for downstream tasks. Nested NER is a branch of NER in which the named entities (NEs) are nested with each other. However, most of the previous studies on nested NER usually apply linear structure to model the nested NEs which are actually accommodated in a hierarchical structure. Thus in order to address this mismatch, this work models the full nested NEs in a sentence as a holistic structure, then we propose a holistic structure parsing algorithm to disclose the entire NEs once for all. Besides, there is no research on applying corpus-level information to NER currently. To make up for the loss of this information, we introduce Point-wise Mutual Information (PMI) and other frequency features from corpus-aware statistics for even better performance by holistic modeling from sentence-level to corpus-level. Experiments show that our model yields promising results on widely-used benchmarks which approach or even achieve state-of-the-art. Further empirical studies show that our proposed corpus-aware features can substantially improve NER domain adaptation, which demonstrates the surprising advantage of our proposed corpus-level holistic structure modeling.</abstract>
       <url hash="1c22d09f">2022.coling-1.218</url>
       <bibkey>yang-etal-2022-nested</bibkey>
+      <pwccode url="https://github.com/yangyifei729/nerasparsing" additional="false">yangyifei729/nerasparsing</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/genia">GENIA</pwcdataset>
     </paper>
     <paper id="219">
@@ -2864,6 +2902,7 @@
       <abstract>Many recent sentence-level event detection efforts focus on enriching sentence semantics, e.g., via multi-task or prompt-based learning. Despite the promising performance, these methods commonly depend on label-extensive manual annotations or require domain expertise to design sophisticated templates and rules. This paper proposes a new paradigm, named dialogue-based explanation, to enhance sentence semantics for event detection. By saying dialogue-based explanation of an event, we mean explaining it through a consistent information-intensive dialogue, with the original event description as the start utterance. We propose three simple dialogue generation methods, whose outputs are then fed into a hybrid attention mechanism to characterize the complementary event semantics. Extensive experimental results on two event detection datasets verify the effectiveness of our method and suggest promising research opportunities in the dialogue-based explanation paradigm.</abstract>
       <url hash="54aa22cd">2022.coling-1.219</url>
       <bibkey>wei-etal-2022-desed</bibkey>
+      <pwccode url="https://github.com/ydongd/desed" additional="false">ydongd/desed</pwccode>
     </paper>
     <paper id="220">
       <title>Data Augmentation for Few-Shot Knowledge Graph Completion from Hierarchical Perspective</title>
@@ -2959,6 +2998,7 @@
       <abstract>This paper introduces the problem of determining whether people are located in the places they mention in their tweets. In particular, we investigate the role of text and images to solve this challenging problem. We present a new corpus of tweets that contain both text and images. Our analyses show that this problem is multimodal at its core: human judgments depend on whether annotators have access to the text, the image, or both. Experimental results show that a neural architecture that combines both modalities yields better results. We also conduct an error analysis to provide insights into why and when each modality is beneficial.</abstract>
       <url hash="49de0441">2022.coling-1.226</url>
       <bibkey>xiao-blanco-2022-people</bibkey>
+      <pwccode url="https://github.com/zhaomin1995/coling2022_repo" additional="false">zhaomin1995/coling2022_repo</pwccode>
     </paper>
     <paper id="227">
       <title>Multi-modal Contrastive Representation Learning for Entity Alignment</title>
@@ -2984,7 +3024,7 @@
       <abstract>Neural topic models have been widely used in discovering the latent semantics from a corpus. Recently, there are several researches on hierarchical neural topic models since the relationships among topics are valuable for data analysis and exploration. However, the existing hierarchical neural topic models are limited to generate a single topic tree. In this study, we present a nonparametric forest-structured neural topic model by firstly applying the self-attention mechanism to capture parent-child topic relationships, and then build a sparse directed acyclic graph to form a topic forest. Experiments indicate that our model can automatically learn a forest-structured topic hierarchy with indefinite numbers of trees and leaves, and significantly outperforms the baseline models on topic hierarchical rationality and affinity.</abstract>
       <url hash="13fd20cd">2022.coling-1.228</url>
       <bibkey>zhang-etal-2022-nonparametric</bibkey>
-      <pwccode url="https://github.com/hostnlp/ntsntm" additional="false">hostnlp/ntsntm</pwccode>
+      <pwccode url="https://github.com/hostnlp/ntsntm" additional="true">hostnlp/ntsntm</pwccode>
     </paper>
     <paper id="229">
       <title><fixed-case>KGE</fixed-case>-<fixed-case>CL</fixed-case>: Contrastive Learning of Tensor Decomposition Based Knowledge Graph Embeddings</title>
@@ -3081,6 +3121,7 @@
       <abstract>Existing legal judgment prediction methods usually only consider one single case fact description as input, which may not fully utilize the information in the data such as case relations and frequency. In this paper, we propose a new perspective that introduces some contrastive case relations to construct case triples as input, and a corresponding judgment prediction framework with case triples modeling (CTM). Our CTM can more effectively utilize beneficial information to refine the encoding and decoding processes through three customized modules, including the case triple module, the relational attention module, and the category decoder module. Finally, we conduct extensive experiments on two public datasets to verify the effectiveness of our CTM, including overall evaluation, compatibility analysis, ablation studies, analysis of gain source and visualization of case representations.</abstract>
       <url hash="6ff56c10">2022.coling-1.235</url>
       <bibkey>liu-etal-2022-augmenting</bibkey>
+      <pwccode url="https://github.com/dgliu/coling22_ctm" additional="false">dgliu/coling22_ctm</pwccode>
     </paper>
     <paper id="236">
       <title>Constrained Regeneration for Cross-Lingual Query-Focused Extractive Summarization</title>
@@ -3119,6 +3160,7 @@
       <abstract>Biomedical events represent complex, graphical, and semantically rich interactions expressed in the scientific literature. Almost all contributions in the event realm orbit around semantic parsing, usually employing discriminative architectures and cumbersome multi-step pipelines limited to a small number of target interaction types. We present the first lightweight framework to solve both event extraction and event verbalization with a unified text-to-text approach, allowing us to fuse all the resources so far designed for different tasks. To this end, we present a new event graph linearization technique and release highly comprehensive event-text paired datasets, covering more than 150 event types from multiple biology subareas (English language). By streamlining parsing and generation to translations, we propose baseline transformer model results according to multiple biomedical text mining benchmarks and NLG metrics. Our extractive models achieve greater state-of-the-art performance than single-task competitors and show promising capabilities for the controlled generation of coherent natural language utterances from structured data.</abstract>
       <url hash="8b7ac764">2022.coling-1.238</url>
       <bibkey>frisoni-etal-2022-text</bibkey>
+      <pwccode url="https://github.com/disi-unibo-nlp/bio-ee-egv" additional="false">disi-unibo-nlp/bio-ee-egv</pwccode>
     </paper>
     <paper id="239">
       <title>Multimodal Semi-supervised Learning for Disaster Tweet Classification</title>
@@ -3173,6 +3215,7 @@
       <abstract>Existing works on rumor resolution have shown great potential in recognizing word appearance and user participation. However, they ignore the intrinsic propagation mechanisms of rumors and present poor adaptive ability when unprecedented news emerges. To exploit the fine-grained rumor diffusion patterns and generalize rumor resolution methods, we formulate a predecessor task to identify triggering posts, and then exploit their characteristics to facilitate rumor verification. We design a tree-structured annotation interface and extend PHEME dataset with labels on the message level. Data analysis shows that triggers play a critical role in verifying rumors and present similar lingual patterns across irrelevant events. We propose a graph-based model considering the direction and interaction of information flow to implement role-aware rumor resolution. Experimental results demonstrate the effectiveness of our proposed model and progressive scheme.</abstract>
       <url hash="e6a9a7cf">2022.coling-1.242</url>
       <bibkey>chen-etal-2022-progressive</bibkey>
+      <pwccode url="https://github.com/lchen96/trigger_identification" additional="false">lchen96/trigger_identification</pwccode>
     </paper>
     <paper id="243">
       <title>Uncertainty-aware Propagation Structure Reconstruction for Fake News Detection</title>
@@ -3205,6 +3248,7 @@
       <abstract>Framing is a political strategy in which journalists and politicians emphasize certain aspects of a societal issue in order to influence and sway public opinion. Frameworks for detecting framing in news articles or social media posts are critical in understanding the spread of biased information in our society. In this paper, we propose CLoSE, a multi-task BERT-based model which uses contrastive learning to embed indicators of frames from news articles in order to predict political bias. We evaluate the performance of our proposed model on subframes and political bias classification tasks. We also demonstrate the model’s classification accuracy on zero-shot and few-shot learning tasks, providing a promising avenue for framing detection in unlabeled data.</abstract>
       <url hash="d9e26177">2022.coling-1.245</url>
       <bibkey>kim-johnson-2022-close</bibkey>
+      <pwccode url="https://github.com/msu-nlp-css/close_framing" additional="false">msu-nlp-css/close_framing</pwccode>
     </paper>
     <paper id="246">
       <title>Grammatical Error Correction: Are We There Yet?</title>
@@ -3250,6 +3294,7 @@
       <abstract>Understanding news content is critical to improving the quality of news recommendation. To achieve this goal, recent studies have attempted to apply pre-trained language models (PLMs) such as BERT for semantic-enhanced news recommendation. Despite their great success in offline evaluation, it is still a challenge to apply such large PLMs in real-time ranking model due to the stringent requirement in inference and updating time. To bridge this gap, we propose a plug-and-play pre-trainer, namely PREC, to learn both user and news encoders through multi-task pre-training. Instead of directly leveraging sophisticated PLMs for end-to-end inference, we focus on how to use the derived user and item representations to boost the performance of conventional lightweight models for click-through-rate prediction. This enables efficient online inference as well as compatibility to conventional models, which would significantly ease the practical deployment. We validate the effectiveness of PREC through both offline evaluation on public datasets and online A/B testing in an industrial application.</abstract>
       <url hash="78b57458">2022.coling-1.249</url>
       <bibkey>liu-etal-2022-boosting</bibkey>
+      <pwccode url="https://github.com/jyonn/prec" additional="false">jyonn/prec</pwccode>
     </paper>
     <paper id="250">
       <title>Improving Fake News Detection of Influential Domain via Domain- and Instance-Level Transfer</title>
@@ -3322,6 +3367,7 @@
       <abstract>The International Classification of Diseases (ICD) is the foundation of global health statistics and epidemiology. The ICD is designed to translate health conditions into alphanumeric codes. A number of approaches have been proposed for automatic ICD coding, since manual coding is labor-intensive and there is a global shortage of healthcare workers. However, existing studies did not exploit the discourse structure of clinical notes, which provides rich contextual information for code assignment. In this paper, we exploit the discourse structure by leveraging section type classification and section type embeddings. We also focus on the class-imbalanced problem and the heterogeneous writing style between clinical notes and ICD code definitions. The proposed reconciled embedding approach is able to tackle them simultaneously. Experimental results on the MIMIC dataset show that our model outperforms all previous state-of-the-art models by a large margin. The source code is available at https://github.com/discnet2022/discnet</abstract>
       <url hash="58bae6cf">2022.coling-1.254</url>
       <bibkey>zhang-etal-2022-automatic</bibkey>
+      <pwccode url="https://github.com/discnet2022/discnet" additional="false">discnet2022/discnet</pwccode>
     </paper>
     <paper id="255">
       <title>Towards Summarizing Healthcare Questions in Low-Resource Setting</title>
@@ -3343,6 +3389,7 @@
       <abstract>Recognizing the layout of unstructured digital documents is crucial when parsing the documents into the structured, machine-readable format for downstream applications. Recent studies in Document Layout Analysis usually rely on visual cues to understand documents while ignoring other information, such as contextual information or the relationships between document layout components, which are vital to boost better layout analysis performance. Our Doc-GCN presents an effective way to harmonize and integrate heterogeneous aspects for Document Layout Analysis. We construct different graphs to capture the four main features aspects of document layout components, including syntactic, semantic, density, and appearance features. Then, we apply graph convolutional networks to enhance each aspect of features and apply the node-level pooling for integration. Finally, we concatenate features of all aspects and feed them into the 2-layer MLPs for document layout component classification. Our Doc-GCN achieves state-of-the-art results on three widely used DLA datasets: PubLayNet, FUNSD, and DocBank. The code will be released at https://github.com/adlnlp/doc_gcn</abstract>
       <url hash="d56c3868">2022.coling-1.256</url>
       <bibkey>luo-etal-2022-doc</bibkey>
+      <pwccode url="https://github.com/adlnlp/doc_gcn" additional="false">adlnlp/doc_gcn</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/docbank">DocBank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/funsd">FUNSD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/publaynet">PubLayNet</pwcdataset>
@@ -3391,6 +3438,7 @@
       <abstract>Explaining the reasoning of neural models has attracted attention in recent years. Providing highly-accessible and comprehensible explanations in natural language is useful for humans to understand model’s prediction results. In this work, we present a pilot study to investigate explanation generation with a narrative and causal structure for the scenario of health consulting. Our model generates a medical suggestion regarding the patient’s concern and provides an explanation as the outline of the reasoning. To align the generated explanation with the suggestion, we propose a novel discourse-aware mechanism with multi-task learning. Experimental results show that our model achieves promising performances in both quantitative and human evaluation.</abstract>
       <url hash="209fe111">2022.coling-1.260</url>
       <bibkey>chen-etal-2022-learning-generate</bibkey>
+      <pwccode url="https://github.com/ntunlplab/tw-eh" additional="false">ntunlplab/tw-eh</pwccode>
     </paper>
     <paper id="261">
       <title><fixed-case>D</fixed-case>elta<fixed-case>N</fixed-case>et: Conditional Medical Report Generation for <fixed-case>COVID</fixed-case>-19 Diagnosis</title>
@@ -3435,6 +3483,7 @@
       <abstract>Framing is a communication strategy to bias discussion by selecting and emphasizing. Frame detection aims to automatically analyze framing strategy. Previous works on frame detection mainly focus on a single scenario or issue, ignoring the special characteristics of frame detection that new events emerge continuously and policy agenda changes dynamically. To better deal with various context and frame typologies across different issues, we propose a two-stage adaptation framework. In the framing domain adaptation from pre-training stage, we design two tasks based on pivots and prompts to learn a transferable encoder, verbalizer, and prompts. In the downstream scenario generalization stage, the transferable components are applied to new issues and label sets. Experiment results demonstrate the effectiveness of our framework in different scenarios. Also, it shows superiority both in full-resource and low-resource conditions.</abstract>
       <url hash="20463a72">2022.coling-1.263</url>
       <bibkey>mou-etal-2022-two</bibkey>
+      <pwccode url="https://github.com/xymou/frame_detection" additional="false">xymou/frame_detection</pwccode>
     </paper>
     <paper id="264">
       <title>Summarizing Patients’ Problems from Hospital Progress Notes Using Pre-trained Sequence-to-Sequence Models</title>
@@ -3524,6 +3573,7 @@
       <abstract>ICD coding is designed to assign the disease codes to electronic health records (EHRs) upon discharge, which is crucial for billing and clinical statistics. In an attempt to improve the effectiveness and efficiency of manual coding, many methods have been proposed to automatically predict ICD codes from clinical notes. However, most previous works ignore the decisive information contained in structured medical data in EHRs, which is hard to be captured from the noisy clinical notes. In this paper, we propose a Tree-enhanced Multimodal Attention Network (TreeMAN) to fuse tabular features and textual features into multimodal representations by enhancing the text representations with tree-based features via the attention mechanism. Tree-based features are constructed according to decision trees learned from structured multimodal medical data, which capture the decisive information about ICD coding. We can apply the same multi-label classifier from previous text models to the multimodal representations to predict ICD codes. Experiments on two MIMIC datasets show that our method outperforms prior state-of-the-art ICD coding approaches. The code is available at https://github.com/liu-zichen/TreeMAN.</abstract>
       <url hash="e4d5702a">2022.coling-1.270</url>
       <bibkey>liu-etal-2022-treeman</bibkey>
+      <pwccode url="https://github.com/liu-zichen/treeman" additional="false">liu-zichen/treeman</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mimic-iii">MIMIC-III</pwcdataset>
     </paper>
     <paper id="271">
@@ -3633,6 +3683,7 @@
       <abstract>Does BERT store surface knowledge in its bottom layers, syntactic knowledge in its middle layers, and semantic knowledge in its upper layers? In re-examining Jawahar et al. (2019) and Tenney et al.’s (2019a) probes into the structure of BERT, we have found that the pipeline-like separation that they asserted lacks conclusive empirical support. BERT’s structure is, however, linguistically founded, although perhaps in a way that is more nuanced than can be explained by layers alone. We introduce a novel probe, called GridLoc, through which we can also take into account token positions, training rounds, and random seeds. Using GridLoc, we are able to detect other, stronger regularities that suggest that pseudo-cognitive appeals to layer depth may not be the preferable mode of explanation for BERT’s inner workings.</abstract>
       <url hash="c9e237d2">2022.coling-1.278</url>
       <bibkey>niu-etal-2022-bert</bibkey>
+      <pwccode url="https://github.com/frankniujc/gridloc_probe" additional="false">frankniujc/gridloc_probe</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/senteval">SentEval</pwcdataset>
     </paper>
     <paper id="279">
@@ -3678,6 +3729,7 @@
       <abstract>Generic statements such as “ducks lay eggs” make claims about kinds, e.g., ducks as a category. The generic overgeneralization effect refers to the inclination to accept false universal generalizations such as “all ducks lay eggs” or “all lions have manes” as true. In this paper, we investigate the generic overgeneralization effect in pre-trained language models experimentally. We show that pre-trained language models suffer from overgeneralization and tend to treat quantified generic statements such as “all ducks lay eggs” as if they were true generics. Furthermore, we demonstrate how knowledge embedding methods can lessen this effect by injecting factual knowledge about kinds into pre-trained language models. To this end, we source factual knowledge about two types of generics, minority characteristic generics and majority characteristic generics, and inject this knowledge using a knowledge embedding model. Our results show that knowledge injection reduces, but does not eliminate, generic overgeneralization, and that majority characteristic generics of kinds are more susceptible to overgeneralization bias.</abstract>
       <url hash="913db875">2022.coling-1.282</url>
       <bibkey>ralethe-buys-2022-generic</bibkey>
+      <pwccode url="https://github.com/sello-ralethe/gog-in-plms" additional="false">sello-ralethe/gog-in-plms</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ascentkb">Ascent KB</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/genericskb">GenericsKB</pwcdataset>
     </paper>
@@ -3690,6 +3742,7 @@
       <abstract>This paper presents a comprehensive set of probing experiments using a multilingual language model, XLM-R, for temporal relation classification between events in four languages. Results show an advantage of contextualized embeddings over static ones and a detrimen- tal role of sentence level embeddings. While obtaining competitive results against state-of-the-art systems, our probes indicate a lack of suitable encoded information to properly address this task.</abstract>
       <url hash="38a6093a">2022.coling-1.283</url>
       <bibkey>caselli-etal-2022-time</bibkey>
+      <pwccode url="https://github.com/irenedini/tlink_probing" additional="false">irenedini/tlink_probing</pwccode>
     </paper>
     <paper id="284">
       <title><fixed-case>C</fixed-case>og<fixed-case>BERT</fixed-case>: Cognition-Guided Pre-trained Language Models</title>
@@ -3727,6 +3780,7 @@
       <abstract>Using prompts to utilize language models to perform various downstream tasks, also known as prompt-based learning or prompt-learning, has lately gained significant success in comparison to the pre-train and fine-tune paradigm. Nonetheless, virtually most prompt-based methods are token-level such as PET based on mask language model (MLM). In this paper, we attempt to accomplish several NLP tasks in the zero-shot and few-shot scenarios using a BERT original pre-training task abandoned by RoBERTa and other models——Next Sentence Prediction (NSP). Unlike token-level techniques, our sentence-level prompt-based method NSP-BERT does not need to fix the length of the prompt or the position to be predicted, allowing it to handle tasks such as entity linking with ease. NSP-BERT can be applied to a variety of tasks based on its properties. We present an NSP-tuning approach with binary cross-entropy loss for single-sentence classification tasks that is competitive compared to PET and EFL. By continuing to train BERT on RoBERTa’s corpus, the model’s performance improved significantly, which indicates that the pre-training corpus is another important determinant of few-shot besides model size and prompt method.</abstract>
       <url hash="913cb585">2022.coling-1.286</url>
       <bibkey>sun-etal-2022-nsp</bibkey>
+      <pwccode url="https://github.com/sunyilgdx/prompts4keras" additional="false">sunyilgdx/prompts4keras</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/clue">CLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/chid">ChID</pwcdataset>
@@ -3808,6 +3862,7 @@
       <abstract>At least 5% of questions submitted to search engines ask about cause-effect relationships in some way. To support the development of tailored approaches that can answer such questions, we construct Webis-CausalQA-22, a benchmark corpus of 1.1 million causal questions with answers. We distinguish different types of causal questions using a novel typology derived from a data-driven, manual analysis of questions from ten large question answering (QA) datasets. Using high-precision lexical rules, we extract causal questions of each type from these datasets to create our corpus. As an initial baseline, the state-of-the-art QA model UnifiedQA achieves a ROUGE-L F1 score of 0.48 on our new benchmark.</abstract>
       <url hash="0a7ea521">2022.coling-1.291</url>
       <bibkey>bondarenko-etal-2022-causalqa</bibkey>
+      <pwccode url="https://github.com/webis-de/coling-22" additional="false">webis-de/coling-22</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/commonsenseqa">CommonsenseQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/eli5">ELI5</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/gooaq">GooAQ</pwcdataset>
@@ -3841,6 +3896,7 @@
       <abstract>A significant limitation in developing therapeutic chatbots to support people going through psychological distress is the lack of high-quality, large-scale datasets capturing conversations between clients and trained counselors. As a remedy, researchers have focused their attention on scraping conversational data from peer support platforms such as Reddit. But the extent to which the responses from peers align with responses from trained counselors is understudied. We address this gap by analyzing the differences between responses from counselors and peers by getting trained counselors to annotate ≈17K such responses using Motivational Interviewing Treatment Integrity (MITI) code, a well-established behavioral coding system that differentiates between favorable and unfavorable responses. We developed an annotation pipeline with several stages of quality control. Due to its design, this method was able to achieve 97% of coverage, meaning that out of the 17.3K responses we successfully labeled 16.8K with a moderate agreement. We use this data to conclude the extent to which conversational data from peer support platforms align with real therapeutic conversations and discuss in what ways they can be exploited to train therapeutic chatbots.</abstract>
       <url hash="49f4e08c">2022.coling-1.293</url>
       <bibkey>welivita-pu-2022-curating</bibkey>
+      <pwccode url="https://github.com/anuradha1992/motivational-interviewing-dataset" additional="false">anuradha1992/motivational-interviewing-dataset</pwccode>
     </paper>
     <paper id="294">
       <title><fixed-case>CCTC</fixed-case>: A Cross-Sentence <fixed-case>C</fixed-case>hinese Text Correction Dataset for Native Speakers</title>
@@ -4024,8 +4080,8 @@
       <abstract>The recently proposed capability-based NLP testing allows model developers to test the functional capabilities of NLP models, revealing functional failures for models with good held-out evaluation scores. However, existing work on capability-based testing requires the developer to compose each individual test template from scratch. Such approach thus requires extensive manual efforts and is less scalable. In this paper, we investigate a different approach that requires the developer to only annotate a few test templates, while leveraging the GPT-3 engine to generate the majority of test cases. While our approach saves the manual efforts by design, it guarantees the correctness of the generated suites with a validity checker. Moreover, our experimental results show that the test suites generated by GPT-3 are more diverse than the manually created ones; they can also be used to detect more errors compared to manually created counterparts. Our test suites can be downloaded at https://anonymous-researcher-nlp.github.io/testaug/.</abstract>
       <url hash="f260ae48">2022.coling-1.307</url>
       <bibkey>yang-etal-2022-testaug</bibkey>
+      <pwccode url="https://github.com/guanqun-yang/testaug" additional="false">guanqun-yang/testaug</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/help">HELP</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
     </paper>
     <paper id="308">
@@ -4120,7 +4176,7 @@
       <abstract>Most comparative datasets of Chinese varieties are not digital; however, Wiktionary includes a wealth of transcriptions of words from these varieties. The usefulness of these data is limited by the fact that they use a wide range of variety-specific romanizations, making data difficult to compare. The current work collects this data into a single constituent (IPA, or International Phonetic Alphabet) and structured form (TSV) for use in comparative linguistics and Chinese NLP. At the time of writing, the dataset contains 67,943 entries across 8 varieties and Middle Chinese. The dataset is validated on a protoform reconstruction task using an encoder-decoder cross-attention architecture (Meloni et al 2021), achieving an accuracy of 54.11%, a PER (phoneme error rate) of 17.69%, and a FER (feature error rate) of 6.60%.</abstract>
       <url hash="9b36169f">2022.coling-1.314</url>
       <bibkey>chang-etal-2022-wikihan</bibkey>
-      <pwccode url="https://github.com/cmu-llab/meloni-2021-reimplementation" additional="false">cmu-llab/meloni-2021-reimplementation</pwccode>
+      <pwccode url="https://github.com/cmu-llab/wikihan" additional="true">cmu-llab/wikihan</pwccode>
     </paper>
     <paper id="315">
       <title>Visual Recipe Flow: A Dataset for Learning Visual State Changes of Objects with Recipe Flows</title>
@@ -4168,6 +4224,7 @@
       <abstract>Pretrained multilingual language models can help bridge the digital language divide, enabling high-quality NLP models for lower-resourced languages. Studies of multilingual models have so far focused on performance, consistency, and cross-lingual generalisation. However, with their wide-spread application in the wild and downstream societal impact, it is important to put multilingual models under the same scrutiny as monolingual models. This work investigates the group fairness of multilingual models, asking whether these models are equally fair across languages. To this end, we create a new four-way multilingual dataset of parallel cloze test examples (MozArt), equipped with demographic information (balanced with regard to gender and native tongue) about the test participants. We evaluate three multilingual models on MozArt –mBERT, XLM-R, and mT5– and show that across the four target languages, the three models exhibit different levels of group disparity, e.g., exhibiting near-equal risk for Spanish, but high levels of disparity for German.</abstract>
       <url hash="709bec3d">2022.coling-1.318</url>
       <bibkey>cabello-piqueras-sogaard-2022-pretrained</bibkey>
+      <pwccode url="https://github.com/coastalcph/mozart" additional="false">coastalcph/mozart</pwccode>
     </paper>
     <paper id="319">
       <title>Possible Stories: Evaluating Situated Commonsense Reasoning under Multiple Possible Scenarios</title>
@@ -4243,6 +4300,7 @@
       <abstract>Behavioural consistency is a critical condition for a language model (LM) to become trustworthy like humans. Despite its importance, however, there is little consensus on the definition of LM consistency, resulting in different definitions across many studies. In this paper, we first propose the idea of LM consistency based on behavioural consistency and establish a taxonomy that classifies previously studied consistencies into several sub-categories. Next, we create a new benchmark that allows us to evaluate a model on 19 test cases, distinguished by multiple types of consistency and diverse downstream tasks. Through extensive experiments on the new benchmark, we ascertain that none of the modern pre-trained language models (PLMs) performs well in every test case, while exhibiting high inconsistency in many cases. Our experimental results suggest that a unified benchmark that covers broad aspects (i.e., multiple consistency types and tasks) is essential for a more precise evaluation.</abstract>
       <url hash="7b2e1c40">2022.coling-1.324</url>
       <bibkey>jang-etal-2022-becel</bibkey>
+      <pwccode url="https://github.com/mj-jang/becel" additional="false">mj-jang/becel</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
@@ -4281,6 +4339,7 @@
       <abstract>The process by which sections in a document are demarcated and labeled is known as section identification. Such sections are helpful to the reader when searching for information and contextualizing specific topics. The goal of this work is to segment the sections of clinical medical domain documentation. The primary contribution of this work is MedSecId, a publicly available set of 2,002 fully annotated medical notes from the MIMIC-III. We include several baselines, source code, a pretrained model and analysis of the data showing a relationship between medical concepts across sections using principal component analysis.</abstract>
       <url hash="747ee4ab">2022.coling-1.326</url>
       <bibkey>landes-etal-2022-new</bibkey>
+      <pwccode url="https://github.com/uic-nlp-lab/medsecid" additional="false">uic-nlp-lab/medsecid</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mimic-iii">MIMIC-III</pwcdataset>
     </paper>
     <paper id="327">
@@ -4404,6 +4463,7 @@
       <abstract>Cross-lingual Abstract Meaning Representation (AMR) parsers are currently evaluated in comparison to gold English AMRs, despite parsing a language other than English, due to the lack of multilingual AMR evaluation metrics. This evaluation practice is problematic because of the established effect of source language on AMR structure. In this work, we present three multilingual adaptations of monolingual AMR evaluation metrics and compare the performance of these metrics to sentence-level human judgments. We then use our most highly correlated metric to evaluate the output of state-of-the-art cross-lingual AMR parsers, finding that Smatch may still be a useful metric in comparison to gold English AMRs, while our multilingual adaptation of S2match (XS2match) is best for comparison with gold in-language AMRs.</abstract>
       <url hash="39e40864">2022.coling-1.336</url>
       <bibkey>wein-schneider-2022-accounting</bibkey>
+      <pwccode url="https://github.com/shirawein/crossling-amr-eval" additional="false">shirawein/crossling-amr-eval</pwccode>
     </paper>
     <paper id="337">
       <title><fixed-case>QSTS</fixed-case>: A Question-Sensitive Text Similarity Measure for Question Generation</title>
@@ -4469,6 +4529,7 @@
       <abstract>Paraphrasing, i.e., restating the same meaning in different ways, is an important data augmentation approach for natural language processing (NLP). Zhang et al. (2019b) propose to extract sentence-level paraphrases from multiple Chinese translations of the same source texts, and construct the PKU Paraphrase Bank of 0.5M sentence pairs. However, despite being the largest Chinese parabank to date, the size of PKU parabank is limited by the availability of one-to-many sentence translation data, and cannot well support the training of large Chinese paraphrasers. In this paper, we relieve the restriction with one-to-many sentence translation data, and construct ParaZh-22M, a larger Chinese parabank that is composed of 22M sentence pairs, based on one-to-one bilingual sentence translation data and machine translation (MT). In our data augmentation experiments, we show that paraphrasing based on ParaZh-22M can bring about consistent and significant improvements over several strong baselines on a wide range of Chinese NLP tasks, including a number of Chinese natural language understanding benchmarks (CLUE) and low-resource machine translation.</abstract>
       <url hash="335f6e8a">2022.coling-1.341</url>
       <bibkey>hao-etal-2022-parazh</bibkey>
+      <pwccode url="https://github.com/haowj9977/parazh-22m" additional="false">haowj9977/parazh-22m</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/clue">CLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/parabank">ParaBank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
@@ -4486,7 +4547,7 @@
       <abstract>Contrastive learning has been attracting much attention for learning unsupervised sentence embeddings. The current state-of-the-art unsupervised method is the unsupervised SimCSE (unsup-SimCSE). Unsup-SimCSE takes dropout as a minimal data augmentation method, and passes the same input sentence to a pre-trained Transformer encoder (with dropout turned on) twice to obtain the two corresponding embeddings to build a positive pair. As the length information of a sentence will generally be encoded into the sentence embeddings due to the usage of position embedding in Transformer, each positive pair in unsup-SimCSE actually contains the same length information. And thus unsup-SimCSE trained with these positive pairs is probably biased, which would tend to consider that sentences of the same or similar length are more similar in semantics. Through statistical observations, we find that unsup-SimCSE does have such a problem. To alleviate it, we apply a simple repetition operation to modify the input sentence, and then pass the input sentence and its modified counterpart to the pre-trained Transformer encoder, respectively, to get the positive pair. Additionally, we draw inspiration from the community of computer vision and introduce a momentum contrast, enlarging the number of negative pairs without additional calculations. The proposed two modifications are applied on positive and negative pairs separately, and build a new sentence embedding method, termed Enhanced Unsup-SimCSE (ESimCSE). We evaluate the proposed ESimCSE on several benchmark datasets w.r.t the semantic text similarity (STS) task. Experimental results show that ESimCSE outperforms the state-of-the-art unsup-SimCSE by an average Spearman correlation of 2.02% on BERT-base.</abstract>
       <url hash="3f5e81b6">2022.coling-1.342</url>
       <bibkey>wu-etal-2022-esimcse</bibkey>
-      <pwccode url="https://github.com/caskcsg/ESimCSE" additional="true">caskcsg/ESimCSE</pwccode>
+      <pwccode url="https://github.com/caskcsg/sentemb/tree/main/ESimCSE" additional="true">caskcsg/sentemb</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mpqa-opinion-corpus">MPQA Opinion Corpus</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
@@ -4553,6 +4614,7 @@
       <abstract>The way we use words is influenced by our opinion. We investigate whether this is reflected in contextualized word embeddings. For example, is the representation of “animal” different between people who would abolish zoos and those who would not? We explore this question from a Lexical Semantic Change standpoint. Our experiments with BERT embeddings derived from datasets with stance annotations reveal small but significant differences in word representations between opposing stances.</abstract>
       <url hash="f88065a2">2022.coling-1.347</url>
       <bibkey>gari-soler-etal-2022-one</bibkey>
+      <pwccode url="https://github.com/ainagari/1word2sides" additional="false">ainagari/1word2sides</pwccode>
     </paper>
     <paper id="348">
       <title>Prepositions Matter in Quantifier Scope Disambiguation</title>
@@ -4565,6 +4627,7 @@
       <abstract>Although it is widely agreed that world knowledge plays a significant role in quantifier scope disambiguation (QSD), there has been only very limited work on how to integrate this knowledge into a QSD model. This paper contributes to this scarce line of research by incorporating into a machine learning model our knowledge about relations, as conveyed by a manageable closed class of function words: prepositions. For data, we use a scope-disambiguated corpus created by AnderBois, Brasoveanu and Henderson, which is additionally annotated with prepositional senses using Schneider et al’s Semantic Network of Adposition and Case Supersenses (SNACS) scheme. By applying Manshadi and Allen’s method to the corpus, we were able to inspect the information gain provided by prepositions for the QSD task. Statistical analysis of the performance of the classifiers, trained in scenarios with and without preposition information, supports the claim that prepositional senses have a strong positive impact on the learnability of automatic QSD systems.</abstract>
       <url hash="0a37ee27">2022.coling-1.348</url>
       <bibkey>leczkowski-etal-2022-prepositions</bibkey>
+      <pwccode url="https://github.com/aleczkowski/prep_matter_in_qsd" additional="false">aleczkowski/prep_matter_in_qsd</pwccode>
     </paper>
     <paper id="349">
       <title>Modelling Commonsense Properties Using Pre-Trained Bi-Encoders</title>
@@ -4606,6 +4669,7 @@
       <abstract>A recent success in semantic dependency parsing shows that graph neural networks can make significant accuracy improvements, owing to its powerful ability in learning expressive graph representations. However, this work learns graph representations based on a static graph constructed by an existing parser, suffering from two drawbacks: (1) the static graph might be error-prone (e.g., noisy or incomplete), and (2) graph construction stage and graph representation learning stage are disjoint, the errors introduced in the graph construction stage cannot be corrected and might be accumulated to later stages. To address these two drawbacks, we propose a dynamic graph learning framework and apply it to semantic dependency parsing, for jointly learning graph structure and graph representations. Experimental results show that our parser outperforms the previous parsers on the SemEval-2015 Task 18 dataset in three languages (English, Chinese, and Czech).</abstract>
       <url hash="56e12be7">2022.coling-1.351</url>
       <bibkey>li-etal-2022-dyngl</bibkey>
+      <pwccode url="https://github.com/libinnlp/dyngl-sdp" additional="false">libinnlp/dyngl-sdp</pwccode>
     </paper>
     <paper id="352">
       <title>Knowledge Is Flat: A <fixed-case>S</fixed-case>eq2<fixed-case>S</fixed-case>eq Generative Framework for Various Knowledge Graph Completion</title>
@@ -4649,6 +4713,7 @@
       <abstract>This paper presents M3L-Contrast—a novel multimodal multilingual (M3L) neural topic model for comparable data that maps texts from multiple languages and images into a shared topic space. Our model is trained jointly on texts and images and takes advantage of pretrained document and image embeddings to abstract the complexities between different languages and modalities. As a multilingual topic model, it produces aligned language-specific topics and as multimodal model, it infers textual representations of semantic concepts in images. We demonstrate that our model is competitive with a zero-shot topic model in predicting topic distributions for comparable multilingual data and significantly outperforms a zero-shot model in predicting topic distributions for comparable texts and images. We also show that our model performs almost as well on unaligned embeddings as it does on aligned embeddings.</abstract>
       <url hash="0532fc47">2022.coling-1.355</url>
       <bibkey>zosa-pivovarova-2022-multilingual</bibkey>
+      <pwccode url="https://github.com/ezosa/m3l-topic-model" additional="false">ezosa/m3l-topic-model</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/wit">WIT</pwcdataset>
     </paper>
     <paper id="356">
@@ -4674,6 +4739,7 @@
       <abstract>Word sense disambiguation (WSD), identifying the most suitable meaning of ambiguous words in the given contexts according to a predefined sense inventory, is one of the most classical and challenging tasks in natural language processing. Benefiting from the powerful ability of deep neural networks, WSD has achieved a great advancement in recent years. Reformulating WSD as a text span extraction task is an effective approach, which accepts a sentence context of an ambiguous word together with all definitions of its candidate senses simultaneously, and requires to extract the text span corresponding with the right sense. However, the approach merely depends on a short definition to learn sense representation, which neglects abundant semantic knowledge from related senses and leads to data-inefficient learning and suboptimal WSD performance. To address the limitations, we propose a novel WSD method with Knowledge-Enhanced and Local Self-Attention-based Extractive Sense Comprehension (KELESC). Specifically, a knowledge-enhanced method is proposed to enrich semantic representation by incorporating additional examples and definitions of the related senses in WordNet. Then, in order to avoid the huge computing complexity induced by the additional information, a local self-attention mechanism is utilized to constrain attention to be local, which allows longer input texts without large-scale computing burdens. Extensive experimental results demonstrate that KELESC achieves better performance than baseline models on public benchmark datasets.</abstract>
       <url hash="9b567d00">2022.coling-1.357</url>
       <bibkey>zhang-etal-2022-word</bibkey>
+      <pwccode url="https://github.com/stubborn-z/kelesc" additional="false">stubborn-z/kelesc</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/word-sense-disambiguation-a-unified">Word Sense Disambiguation: a Unified Evaluation Framework and Empirical Comparison</pwcdataset>
     </paper>
     <paper id="358">
@@ -4700,6 +4766,7 @@
       <abstract>Previous work has demonstrated that pre-trained large language models (LLM) acquire knowledge during pre-training which enables reasoning over relationships between words (e.g, hyponymy) and more complex inferences over larger units of meaning such as sentences. Here, we investigate whether lexical entailment (LE, i.e. hyponymy or the is a relation between words) can be generalised in a compositional manner. Accordingly, we introduce PLANE (Phrase-Level Adjective-Noun Entailment), a new benchmark to test models on fine-grained compositional entailment using adjective-noun phrases. Our experiments show that knowledge extracted via In–Context and transfer learning is not enough to solve PLANE. However, a LLM trained on PLANE can generalise well to out–of–distribution sets, since the required knowledge can be stored in the representations of subwords (SW) tokens.</abstract>
       <url hash="9dc9d295">2022.coling-1.359</url>
       <bibkey>bertolini-etal-2022-testing</bibkey>
+      <pwccode url="https://github.com/lorenzoscottb/plane" additional="false">lorenzoscottb/plane</pwccode>
     </paper>
     <paper id="360">
       <title>Does <fixed-case>BERT</fixed-case> Recognize an Agent? Modeling <fixed-case>D</fixed-case>owty’s Proto-Roles with Contextual Embeddings</title>
@@ -4733,6 +4800,7 @@
       <abstract>Lexical substitution, which aims to generate substitutes for a target word given a context, is an important natural language processing task useful in many applications. Due to the paucity of annotated data, existing methods for lexical substitution tend to rely on manually curated lexical resources and contextual word embedding models. Methods based on lexical resources are likely to miss relevant substitutes whereas relying only on contextual word embedding models fails to provide adequate information on the impact of a substitute in the entire context and the overall meaning of the input. We proposed CILex, which uses contextual sentence embeddings along with methods that capture additional context information complimenting contextual word embeddings for lexical substitution. This ensured the semantic consistency of a substitute with the target word while maintaining the overall meaning of the sentence. Our experimental comparisons with previously proposed methods indicated that our solution is now the state-of-the-art on both the widely used LS07 and CoInCo datasets with P@1 scores of 55.96% and 57.25% for lexical substitution. The implementation of the proposed approach is available at https://github.com/sandaruSen/CILex under the MIT license.</abstract>
       <url hash="8447838d">2022.coling-1.362</url>
       <bibkey>seneviratne-etal-2022-cilex</bibkey>
+      <pwccode url="https://github.com/sandarusen/cilex" additional="false">sandarusen/cilex</pwccode>
     </paper>
     <paper id="363">
       <title>Emotion Enriched Retrofitted Word Embeddings</title>
@@ -4753,6 +4821,7 @@
       <abstract>In this paper we present MisNet, a novel model for word level metaphor detection. MisNet converts two linguistic rules, i.e., Metaphor Identification Procedure (MIP) and Selectional Preference Violation (SPV) into semantic matching tasks. MIP module computes the similarity between the contextual meaning and the basic meaning of a target word. SPV module perceives the incongruity between target words and their contexts. To better represent basic meanings, MisNet utilizes dictionary resources. Empirical results indicate that MisNet achieves competitive performance on several datasets.</abstract>
       <url hash="8e96c753">2022.coling-1.364</url>
       <bibkey>zhang-liu-2022-metaphor</bibkey>
+      <pwccode url="https://github.com/silasthu/misnet" additional="false">silasthu/misnet</pwccode>
     </paper>
     <paper id="365">
       <title>Fast and Accurate End-to-End Span-based Semantic Role Labeling as Word-based Graph Parsing</title>
@@ -4802,6 +4871,7 @@
       <abstract>As a key natural language processing (NLP) task, word sense disambiguation (WSD) evaluates how well NLP models can understand the fine-grained semantics of words under specific contexts. Benefited from the large-scale annotation, current WSD systems have achieved impressive performances in English by combining supervised learning with lexical knowledge. However, such success is hard to be replicated in other languages, where we only have very limited annotations. In this paper, based on that the multilingual lexicon BabelNet describing the same set of concepts across languages, we propose to build knowledge and supervised based Multilingual Word Sense Disambiguation (MWSD) systems. We build unified sense representations for multiple languages and address the annotation scarcity problem for MWSD by transferring annotations from rich sourced languages. With the unified sense representations, annotations from multiple languages can be jointly trained to benefit the MWSD tasks. Evaluations of SemEval-13 and SemEval-15 datasets demonstrate the effectiveness of our methodology.</abstract>
       <url hash="9ef2fa74">2022.coling-1.368</url>
       <bibkey>su-etal-2022-multilingual</bibkey>
+      <pwccode url="https://github.com/suytingwan/multilingual-wsd" additional="false">suytingwan/multilingual-wsd</pwccode>
     </paper>
     <paper id="369">
       <title>A Transition-based Method for Complex Question Understanding</title>
@@ -4839,6 +4909,7 @@
       <abstract>Training with noisy labelled data is known to be detrimental to model performance, especially for high-capacity neural network models in low-resource domains. Our experiments suggest that standard regularisation strategies, such as weight decay and dropout, are ineffective in the face of noisy labels. We propose a simple noisy label detection method that prevents error propagation from the input layer. The approach is based on the observation that the projection of noisy labels is learned through memorisation at advanced stages of learning, and that the Pearson correlation is sensitive to outliers. Extensive experiments over real-world human-disagreement annotations as well as randomly-corrupted and data-augmented labels, across various tasks and domains, demonstrate that our method is effective, regularising noisy labels and improving generalisation performance.</abstract>
       <url hash="6b3dda5b">2022.coling-1.371</url>
       <bibkey>wang-etal-2022-noisy</bibkey>
+      <pwccode url="https://github.com/yuxiaw/regularise-regression-noisy-labels" additional="false">yuxiaw/regularise-regression-noisy-labels</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/peerread">PeerRead</pwcdataset>
     </paper>
@@ -4970,6 +5041,7 @@
       <abstract>Multilingual pre-trained language models (PLMs) have demonstrated impressive performance on several downstream tasks for both high-resourced and low-resourced languages. However, there is still a large performance drop for languages unseen during pre-training, especially African languages. One of the most effective approaches to adapt to a new language is language adaptive fine-tuning (LAFT) — fine-tuning a multilingual PLM on monolingual texts of a language using the pre-training objective. However, adapting to target language individually takes large disk space and limits the cross-lingual transfer abilities of the resulting models because they have been specialized for a single language. In this paper, we perform multilingual adaptive fine-tuning on 17 most-resourced African languages and three other high-resource languages widely spoken on the African continent to encourage cross-lingual transfer learning. To further specialize the multilingual PLM, we removed vocabulary tokens from the embedding layer that corresponds to non-African writing scripts before MAFT, thus reducing the model size by around 50%. Our evaluation on two multilingual PLMs (AfriBERTa and XLM-R) and three NLP tasks (NER, news topic classification, and sentiment classification) shows that our approach is competitive to applying LAFT on individual languages while requiring significantly less disk space. Additionally, we show that our adapted PLM also improves the zero-shot cross-lingual transfer abilities of parameter efficient fine-tuning methods.</abstract>
       <url hash="b911b6de">2022.coling-1.382</url>
       <bibkey>alabi-etal-2022-adapting</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/masakhaner">MasakhaNER</pwcdataset>
     </paper>
     <paper id="383">
       <title>Noun Class Disambiguation in <fixed-case>R</fixed-case>unyankore and Related Languages</title>
@@ -5007,6 +5079,8 @@
       <abstract>Existing zero-shot cross-lingual transfer methods rely on parallel corpora or bilingual dictionaries, which are expensive and impractical for low-resource languages. To disengage from these dependencies, researchers have explored training multilingual models on English-only resources and transferring them to low-resource languages. However, its effect is limited by the gap between embedding clusters of different languages. To address this issue, we propose Embedding-Push, Attention-Pull, and Robust targets to transfer English embeddings to virtual multilingual embeddings without semantic loss, thereby improving cross-lingual transferability. Experimental results on mBERT and XLM-R demonstrate that our method significantly outperforms previous works on the zero-shot cross-lingual text classification task and can obtain a better multilingual alignment.</abstract>
       <url hash="341047af">2022.coling-1.385</url>
       <bibkey>ding-etal-2022-simple</bibkey>
+      <pwccode url="https://github.com/kb-ding/ear" additional="false">kb-ding/ear</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
     </paper>
     <paper id="386">
       <title>Towards Multi-Sense Cross-Lingual Alignment of Contextual Embeddings</title>
@@ -5041,6 +5115,7 @@
       <abstract>Multilingual neural machine translation (MNMT) jointly trains a shared model for translation with multiple language pairs. However, traditional subword-based MNMT approaches suffer from out-of-vocabulary (OOV) issues and representation bottleneck, which often degrades translation performance on certain language pairs. While byte tokenization is used to tackle the OOV problems in neural machine translation (NMT), until now its capability has not been validated in MNMT. Additionally, existing work has not studied how byte encoding can benefit endangered language translation to our knowledge. We propose a byte-based multilingual neural machine translation system (BMNMT) to alleviate the representation bottleneck and improve translation performance in endangered languages. Furthermore, we design a random byte mapping method with an ensemble prediction to enhance our model robustness. Experimental results show that our BMNMT consistently and significantly outperforms subword/word-based baselines on twelve language pairs up to +18.5 BLEU points, an 840% relative improvement.</abstract>
       <url hash="16beccf9">2022.coling-1.388</url>
       <bibkey>zhang-xu-2022-byte</bibkey>
+      <pwccode url="https://github.com/mengjiaozhang/byte-based-multilingual-nmt" additional="false">mengjiaozhang/byte-based-multilingual-nmt</pwccode>
     </paper>
     <paper id="389">
       <title><fixed-case>BRCC</fixed-case> and <fixed-case>S</fixed-case>enti<fixed-case>B</fixed-case>ahasa<fixed-case>R</fixed-case>ojak: The First <fixed-case>B</fixed-case>ahasa Rojak Corpus for Pretraining and Sentiment Analysis Dataset</title>
@@ -5101,6 +5176,7 @@
       <abstract>Current practices in building new NLP models for low-resourced languages rely either on Machine Translation of training sets from better resourced languages or on cross-lingual transfer from them. Still we can see a considerable performance gap between the models originally trained within better resourced languages and the models transferred from them. In this study we test the possibility of (1) using natural annotation to build synthetic training sets from resources not initially designed for the target downstream task and (2) employing curriculum learning methods to select the most suitable examples from synthetic training sets. We test this hypothesis across seven Slavic languages and across three curriculum learning strategies on Named Entity Recognition as the downstream task. We also test the possibility of fine-tuning the synthetic resources to reflect linguistic properties, such as the grammatical case and gender, both of which are important for the Slavic languages. We demonstrate the possibility to achieve the mean F1 score of 0.78 across the three basic entities types for Belarusian starting from zero resources in comparison to the baseline of 0.63 using the zero-shot transfer from English. For comparison, the English model trained on the original set achieves the mean F1-score of 0.75. The experimental results are available from https://github.com/ValeraLobov/SlavNER</abstract>
       <url hash="184df396">2022.coling-1.394</url>
       <bibkey>lobov-etal-2022-applying</bibkey>
+      <pwccode url="https://github.com/valeralobov/slavner" additional="false">valeralobov/slavner</pwccode>
     </paper>
     <paper id="395">
       <title>Taking Actions Separately: A Bidirectionally-Adaptive Transfer Learning Method for Low-Resource Neural Machine Translation</title>
@@ -5164,6 +5240,7 @@
       <abstract>The paper aims to identify cited text spans in the reference paper related to the given citance in the citing paper. We refer to it as cited text span retrieval (CTSR). Most current methods attempt this task by relying on pre-trained off-the-shelf deep learning models like SciBERT. Though these models are pre-trained on large datasets, they under-perform in out-of-domain settings. We introduce CitRet, a novel hybrid model for CTSR that leverages unique semantic and syntactic structural characteristics of scientific documents. This enables us to use significantly less data for finetuning. We use only 1040 documents for finetuning. Our model augments mildly-trained SBERT-based contextual embeddings with pre-trained non-contextual Word2Vec embeddings to calculate semantic textual similarity. We demonstrate the performance of our model on the CLSciSumm shared tasks. It improves the state-of-the-art results by over 15% on the F1 score evaluation.</abstract>
       <url hash="a9b309f5">2022.coling-1.399</url>
       <bibkey>pandey-etal-2022-citret</bibkey>
+      <pwccode url="https://github.com/amitpandey-research/citret_public" additional="false">amitpandey-research/citret_public</pwccode>
     </paper>
     <paper id="400">
       <title>A Weak Supervision Approach for Predicting Difficulty of Technical Interview Questions</title>
@@ -5263,6 +5340,7 @@
       <abstract>The cross-entropy loss function is widely used and generally considered the default loss function for text classification. When it comes to ordinal text classification where there is an ordinal relationship between labels, the cross-entropy is not optimal as it does not incorporate the ordinal character into its feedback. In this paper, we propose a new simple loss function called ordinal log-loss (OLL). We show that this loss function outperforms state-of-the-art previously introduced losses on four benchmark text classification datasets.</abstract>
       <url hash="26d46461">2022.coling-1.407</url>
       <bibkey>castagnos-etal-2022-simple</bibkey>
+      <pwccode url="https://github.com/glanceable-io/ordinal-log-loss" additional="false">glanceable-io/ordinal-log-loss</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
     </paper>
@@ -5336,6 +5414,7 @@
       <abstract>Probing studies have extensively explored where in neural language models linguistic information is located. The standard approach to interpreting the results of a probing classifier is to focus on the layers whose representations give the highest performance on the probing task. We propose an alternative method that asks where the task-relevant information emerges in the model. Our framework consists of a family of metrics that explicitly model local information gain relative to the previous layer and each layer’s contribution to the model’s overall performance. We apply the new metrics to two pairs of syntactic probing tasks with different degrees of complexity and find that the metrics confirm the expected ordering only for one of the pairs. Our local metrics show a massive dominance of the first layers, indicating that the features that contribute the most to our probing tasks are not as high-level as global metrics suggest.</abstract>
       <url hash="d4fcf487">2022.coling-1.413</url>
       <bibkey>kunz-kuhlmann-2022-linguistic</bibkey>
+      <pwccode url="https://github.com/jekunz/emergent_info" additional="false">jekunz/emergent_info</pwccode>
     </paper>
     <paper id="414">
       <title>Accelerating Inference for Pretrained Language Models by Unified Multi-Perspective Early Exiting</title>
@@ -5440,6 +5519,7 @@
       <abstract>Solving math word problems (MWPs) is an important and challenging problem in natural language processing. Existing approaches to solving MWPs require full supervision in the form of intermediate equations. However, labeling every MWP with its corresponding equations is a time-consuming and expensive task. In order to address this challenge of equation annotation, we propose a weakly supervised model for solving MWPs by requiring only the final answer as supervision. We approach this problem by first learning to generate the equation using the problem description and the final answer, which we subsequently use to train a supervised MWP solver. We propose and compare various weakly supervised techniques to learn to generate equations directly from the problem description and answer. Through extensive experiments, we demonstrate that without using equations for supervision, our approach achieves accuracy gains of 4.5% and 32% over the current state-of-the-art weakly-supervised approach, on the standard Math23K and AllArith datasets respectively. Additionally, we curate and release new datasets of roughly 10k MWPs each in English and in Hindi (a low-resource language). These datasets are suitable for training weakly supervised models. We also present an extension of our model to semi-supervised learning and present further improvements on results, along with insights.</abstract>
       <url hash="84ae8615">2022.coling-1.421</url>
       <bibkey>chatterjee-etal-2022-warm</bibkey>
+      <pwccode url="https://github.com/iishapandey/warm" additional="false">iishapandey/warm</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/math23k">Math23K</pwcdataset>
     </paper>
     <paper id="422">
@@ -5603,7 +5683,7 @@
       <abstract>Unsupervised contrastive sentence embedding models, e.g., unsupervised SimCSE, use the InfoNCE loss function in training. Theoretically, we expect to use larger batches to get more adequate comparisons among samples and avoid overfitting. However, increasing batch size leads to performance degradation when it exceeds a threshold, which is probably due to the introduction of false-negative pairs through statistical observation. To alleviate this problem, we introduce a simple smoothing strategy upon the InfoNCE loss function, termed Gaussian Smoothed InfoNCE (GS-InfoNCE). In other words, we add random Gaussian noise as an extension to the negative pairs without increasing the batch size. Through experiments on the semantic text similarity tasks, though simple, the proposed smoothing strategy brings improvements to unsupervised SimCSE.</abstract>
       <url hash="ff8e1b9f">2022.coling-1.434</url>
       <bibkey>wu-etal-2022-smoothed</bibkey>
-      <pwccode url="https://github.com/caskcsg/gsInfoNCE" additional="false">caskcsg/gsInfoNCE</pwccode>
+      <pwccode url="https://github.com/caskcsg/sentemb/tree/main/gsInfoNCE" additional="true">caskcsg/sentemb</pwccode>
     </paper>
     <paper id="435">
       <title>Knowledge Distillation with Reptile Meta-Learning for Pretrained Language Model Compression</title>
@@ -5615,6 +5695,7 @@
       <abstract>The billions, and sometimes even trillions, of parameters involved in pre-trained language models significantly hamper their deployment in resource-constrained devices and real-time applications. Knowledge distillation (KD) can transfer knowledge from the original model (i.e., teacher) into a compact model (i.e., student) to achieve model compression. However, previous KD methods have usually frozen the teacher and applied its immutable output feature maps as soft labels to guide the student’s training. Moreover, the goal of the teacher is to achieve the best performance on downstream tasks rather than knowledge transfer. Such a fixed architecture may limit the teacher’s teaching and student’s learning abilities. Herein, a knowledge distillation method with reptile meta-learning is proposed to facilitate the transfer of knowledge from the teacher to the student. The teacher can continuously meta-learn the student’s learning objective to adjust its parameters for maximizing the student’s performance throughout the distillation process. In this way, the teacher learns to teach, produces more suitable soft labels, and transfers more appropriate knowledge to the student, resulting in improved performance. Unlike previous KD using meta-learning, the proposed method only needs to calculate the first-order derivatives to update the teacher, leading to lower computational cost but better convergence. Extensive experiments on the GLUE benchmark show the competitive performance achieved by the proposed method. For reproducibility, the code for this paper is available at: https://github.com/maxinge8698/ReptileDistil.</abstract>
       <url hash="24ef8097">2022.coling-1.435</url>
       <bibkey>ma-etal-2022-knowledge</bibkey>
+      <pwccode url="https://github.com/maxinge8698/reptiledistil" additional="false">maxinge8698/reptiledistil</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cola">CoLA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
@@ -5736,6 +5817,7 @@
       <abstract>Loanwords are words incorporated from one language into another without translation. Suppose two words from distantly-related or unrelated languages sound similar and have a similar meaning. In that case, this is evidence of likely borrowing. This paper presents a method to automatically detect loanwords across various language pairs, accounting for differences in script, pronunciation and phonetic transformation by the borrowing language. We incorporate edit distance, semantic similarity measures, and phonetic alignment. We evaluate on 12 language pairs and achieve performance comparable to or exceeding state of the art methods on single-pair loanword detection tasks. We also demonstrate that multilingual models perform the same or often better than models trained on single language pairs and can potentially generalize to unseen language pairs with sufficient data, and that our method can exceed human performance on loanword detection.</abstract>
       <url hash="53d59496">2022.coling-1.442</url>
       <bibkey>nath-etal-2022-generalized</bibkey>
+      <pwccode url="https://github.com/csu-signal/loan-word-detection" additional="false">csu-signal/loan-word-detection</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cc100">CC100</pwcdataset>
     </paper>
     <paper id="443">
@@ -5760,6 +5842,7 @@
       <abstract>Neural Machine Translation (NMT) aims to translate the source- to the target-language while preserving the original meaning. Linguistic information such as morphology, syntactic, and semantics shall be grasped in token embeddings to produce a high-quality translation. Recent works have leveraged the powerful Graph Neural Networks (GNNs) to encode such language knowledge into token embeddings. Specifically, they use a trained parser to construct semantic graphs given sentences and then apply GNNs. However, most semantic graphs are tree-shaped and too sparse for GNNs which cause the over-smoothing problem. To alleviate this problem, we propose a novel Multi-level Community-awareness Graph Neural Network (MC-GNN) layer to jointly model local and global relationships between words and their linguistic roles in multiple communities. Intuitively, the MC-GNN layer substitutes a self-attention layer at the encoder side of a transformer-based machine translation model. Extensive experiments on four language-pair datasets with common evaluation metrics show the remarkable improvements of our method while reducing the time complexity in very long sentences.</abstract>
       <url hash="5e01d103">2022.coling-1.444</url>
       <bibkey>nguyen-etal-2022-multi</bibkey>
+      <pwccode url="https://github.com/nqbinh17/mc-gnn" additional="false">nqbinh17/mc-gnn</pwccode>
     </paper>
     <paper id="445">
       <title>On the Complementarity between Pre-Training and Random-Initialization for Resource-Rich Machine Translation</title>
@@ -5808,6 +5891,7 @@
       <abstract>Back-translation has been proven to be effective in unsupervised domain adaptation of neural machine translation (NMT). However, the existing back-translation methods mainly improve domain adaptability by generating in-domain pseudo-parallel data that contains sentence-structural knowledge, paying less attention to the in-domain lexical knowledge, which may lead to poor translation of unseen in-domain words. In this paper, we propose an Iterative Constrained Back-Translation (ICBT) method to incorporate in-domain lexical knowledge on the basis of BT for unsupervised domain adaptation of NMT. Specifically, we apply lexical constraints into back-translation to generate pseudo-parallel data with in-domain lexical knowledge, and then perform round-trip iterations to incorporate more lexical knowledge. Based on this, we further explore sampling strategies of constrained words in ICBT to introduce more targeted lexical knowledge, via domain specificity and confidence estimation. Experimental results on four domains show that our approach achieves state-of-the-art results, improving the BLEU score by up to 3.08 compared to the strongest baseline, which demonstrates the effectiveness of our approach.</abstract>
       <url hash="c93faff9">2022.coling-1.448</url>
       <bibkey>zhang-etal-2022-iterative</bibkey>
+      <pwccode url="https://github.com/zzzxiaohong/icbt" additional="false">zzzxiaohong/icbt</pwccode>
     </paper>
     <paper id="449">
       <title>Linguistically-Motivated <fixed-case>Y</fixed-case>orùbá-<fixed-case>E</fixed-case>nglish Machine Translation</title>
@@ -5865,6 +5949,7 @@
       <abstract>Despite the revolutionary advances made by Transformer in Neural Machine Translation (NMT), inference efficiency remains an obstacle due to the heavy use of attention operations in auto-regressive decoding. We thereby propose a lightweight attention structure called Attention Refinement Network (ARN) for speeding up Transformer. Specifically, we design a weighted residual network, which reconstructs the attention by reusing the features across layers. To further improve the Transformer efficiency, we merge the self-attention and cross-attention components for parallel computing. Extensive experiments on ten WMT machine translation tasks show that the proposed model yields an average of 1.35x faster (with almost no decrease in BLEU) over the state-of-the-art inference implementation. Results on widely used WMT14 En-De machine translation tasks demonstrate that our model achieves a higher speed-up, giving highly competitive performance compared to AAN and SAN models with fewer parameter numbers.</abstract>
       <url hash="454ca69e">2022.coling-1.453</url>
       <bibkey>wu-etal-2022-speeding</bibkey>
+      <pwccode url="https://github.com/kaixin-wu-for-open-source/arn" additional="false">kaixin-wu-for-open-source/arn</pwccode>
     </paper>
     <paper id="454">
       <title>Interactive Post-Editing for Verbosity Controlled Translation</title>
@@ -5963,6 +6048,7 @@
       <abstract>Cohesion devices, e.g., reiteration, coreference, are crucial for building cohesion links across sentences. In this paper, we propose a document-level neural machine translation framework, CoDoNMT, which models cohesion devices from two perspectives: Cohesion Device Masking (CoDM) and Cohesion Attention Focusing (CoAF). In CoDM, we mask cohesion devices in the current sentence and force NMT to predict them with inter-sentential context information. A prediction task is also introduced to be jointly trained with NMT. In CoAF, we attempt to guide the model to pay exclusive attention to relevant cohesion devices in the context when translating cohesion devices in the current sentence. Such a cohesion attention focusing strategy is softly applied to the self-attention layer. Experiments on three benchmark datasets demonstrate that our approach outperforms state-of-the-art document-level neural machine translation baselines. Further linguistic evaluation validates the effectiveness of the proposed model in producing cohesive translations.</abstract>
       <url hash="3a80f2c1">2022.coling-1.462</url>
       <bibkey>lei-etal-2022-codonmt</bibkey>
+      <pwccode url="https://github.com/codeboy311/codonmt" additional="false">codeboy311/codonmt</pwccode>
     </paper>
     <paper id="463">
       <title>Improving Non-Autoregressive Neural Machine Translation via Modeling Localness</title>
@@ -6033,6 +6119,7 @@
       <abstract>Most existing methods on robust neural machine translation (NMT) construct adversarial examples by injecting noise into authentic examples and indiscriminately exploit two types of examples. They require the model to translate both the authentic source sentence and its adversarial counterpart into the identical target sentence within the same training stage, which may be a suboptimal choice to achieve robust NMT. In this paper, we first conduct a preliminary study to confirm this claim and further propose an Iterative Scheduled Data-switch Training Framework to mitigate this problem. Specifically, we introduce two training stages, iteratively switching between authentic and adversarial examples. Compared with previous studies, our model focuses more on just one type of examples at each single stage, which can better exploit authentic and adversarial examples, and thus obtaining a better robust NMT model. Moreover, we introduce an improved curriculum learning method with a sampling strategy to better schedule the process of noise injection. Experimental results show that our model significantly surpasses several competitive baselines on four translation benchmarks. Our source code is available at https://github.com/DeepLearnXMU/RobustNMT-ISDST.</abstract>
       <url hash="35c524a5">2022.coling-1.468</url>
       <bibkey>miao-etal-2022-towards</bibkey>
+      <pwccode url="https://github.com/deeplearnxmu/robustnmt-isdst" additional="false">deeplearnxmu/robustnmt-isdst</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mtnt">MTNT</pwcdataset>
     </paper>
     <paper id="469">
@@ -6236,6 +6323,7 @@
       <abstract>Annotation conversion is an effective way to construct datasets under new annotation guidelines based on existing datasets with little human labour. Previous work has been limited in conversion between tree-structured datasets and mainly focused on feature-based models which are not easily applicable to new conversions. In this paper, we propose two simple and effective graph-to-graph annotation conversion approaches, namely Label Switching and Graph2Graph Linear Transformation, which use pseudo data and inherit parameters to guide graph conversions respectively. These methods are able to deal with conversion between graph-structured annotations and require no manually designed features. To verify their effectiveness, we manually construct a graph-structured parallel annotated dataset and evaluate the proposed approaches on it as well as other existing parallel annotated datasets. Experimental results show that the proposed approaches outperform strong baselines with higher conversion score. To further validate the quality of converted graphs, we utilize them to train the target parser and find graphs generated by our approaches lead to higher parsing score than those generated by the baselines.</abstract>
       <url hash="7d15f7bf">2022.coling-1.484</url>
       <bibkey>wang-etal-2022-simple</bibkey>
+      <pwccode url="https://github.com/wangyuxuan93/g2gconversion" additional="false">wangyuxuan93/g2gconversion</pwccode>
     </paper>
     <paper id="485">
       <title><fixed-case>B</fixed-case>i<fixed-case>BL</fixed-case>: <fixed-case>AMR</fixed-case> Parsing and Generation with Bidirectional <fixed-case>B</fixed-case>ayesian Learning</title>
@@ -6246,6 +6334,7 @@
       <abstract>Abstract Meaning Representation (AMR) offers a unified semantic representation for natural language sentences. Thus transformation between AMR and text yields two transition tasks in opposite directions, i.e., Text-to-AMR parsing and AMR-to-Text generation. Existing AMR studies only focus on one-side improvements despite the duality of the two tasks, and their improvements are greatly attributed to the inclusion of large extra training data or complex structure modifications which harm the inference speed. Instead, we propose data-efficient Bidirectional Bayesian learning (BiBL) to facilitate bidirectional information transition by adopting a single-stage multitasking strategy so that the resulting model may enjoy much lighter training at the same time. Evaluation on benchmark datasets shows that our proposed BiBL outperforms strong previous seq2seq refinements without the help of extra data which is indispensable in existing counterpart models. We release the codes of BiBL at: https://github.com/KHAKhazeus/BiBL.</abstract>
       <url hash="3d0c45ad">2022.coling-1.485</url>
       <bibkey>cheng-etal-2022-bibl</bibkey>
+      <pwccode url="https://github.com/khakhazeus/bibl" additional="false">khakhazeus/bibl</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/bio">Bio</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/new3">New3</pwcdataset>
     </paper>
@@ -6258,6 +6347,7 @@
       <abstract>Biaffine method is a strong and efficient method for graph-based dependency parsing. However, previous work only used the biaffine method at the end of the dependency parser as a scorer, and its application in multi-layer form is ignored. In this paper, we propose a multi-layer pseudo-Siamese biaffine model for neural dependency parsing. In this model, we modify the biaffine method so that it can be utilized in multi-layer form, and use pseudo-Siamese biaffine module to construct arc weight matrix for final prediction. In our proposed multi-layer architecture, the biaffine method plays important roles in both scorer and attention mechanism at the same time in each layer. We evaluate our model on PTB, CTB, and UD. The model achieves state-of-the-art results on these datasets. Further experiments show the benefits of introducing multi-layer form and pseudo-Siamese module into the biaffine method with low efficiency loss.</abstract>
       <url hash="ad91d8b3">2022.coling-1.486</url>
       <bibkey>xu-etal-2022-multi</bibkey>
+      <pwccode url="https://github.com/xzy-xzy/mlpsb-parser" additional="false">xzy-xzy/mlpsb-parser</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
     <paper id="487">
@@ -6309,6 +6399,7 @@
       <abstract>Despite the recent success of pretrained language models as on-the-fly knowledge sources for various downstream tasks, they are shown to inadequately represent trivial common facts that vision typically captures. This limits their application to natural language understanding tasks that require commonsense knowledge. We seek to determine the capability of pretrained visual-linguistic models as knowledge sources on demand. To this end, we systematically compare language-only and visual-linguistic models in a zero-shot commonsense question answering inference task. We find that visual-linguistic models are highly promising regarding their benefit for text-only tasks on certain types of commonsense knowledge associated with the visual world. Surprisingly, this knowledge can be activated even when no visual input is given during inference, suggesting an effective multimodal fusion during pretraining. However, we reveal that there is still a huge space for improvement towards better cross-modal reasoning abilities and pretraining strategies for event understanding.</abstract>
       <url hash="d9899d5e">2022.coling-1.491</url>
       <bibkey>yang-silberer-2022-visual</bibkey>
+      <pwccode url="https://github.com/mallory24/cs_probing" additional="false">mallory24/cs_probing</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conceptual-captions">Conceptual Captions</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-genome">Visual Genome</pwcdataset>
     </paper>
@@ -6361,6 +6452,7 @@
       <abstract>Artificial agents are nowadays challenged to perform embodied AI tasks. To succeed, agents must understand the meaning of verbs and how their corresponding actions transform the surrounding world. In this work, we propose ACT-Thor, a novel controlled benchmark for embodied action understanding. We use the AI2-THOR simulated environment to produce a controlled setup in which an agent, given a before-image and an associated action command, has to determine what the correct after-image is among a set of possible candidates. First, we assess the feasibility of the task via a human evaluation that resulted in 81.4% accuracy, and very high inter-annotator agreement (84.9%). Second, we design both unimodal and multimodal baselines, using state-of-the-art visual feature extractors. Our evaluation and error analysis suggest that only models that have a very structured representation of the actions together with powerful visual features can perform well on the task. However, they still fall behind human performance in a zero-shot scenario where the model is exposed to unseen (action, object) pairs. This paves the way for a systematic way of evaluating embodied AI agents that understand grounded actions.</abstract>
       <url hash="661a48fa">2022.coling-1.495</url>
       <bibkey>hanna-etal-2022-act</bibkey>
+      <pwccode url="https://github.com/hannamw/act-thor" additional="false">hannamw/act-thor</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ai2-thor">AI2-THOR</pwcdataset>
     </paper>
     <paper id="496">
@@ -6520,6 +6612,7 @@
       <abstract>Data-to-Text Generation (D2T) problems can be considered as a stream of time-stamped events with a text summary being produced for each. The problem becomes more challenging when event summaries contain complex insights derived from multiple records either within an event, or across several events from the event stream. It is important to understand the different types of content present in the summary to help us better define the system requirements so that we can build better systems. In this paper, we propose a novel typology of content types, that we use to classify the contents of event summaries. Using the typology, a profile of a dataset is generated as the distribution of the aggregated content types which captures the specific characteristics of the dataset and gives a measure of the complexity present in the problem. Extensive experimentation on different D2T datasets is performed and these demonstrate that neural systems struggle in generating contents of complex types.</abstract>
       <url hash="57d47022">2022.coling-1.507</url>
       <bibkey>upadhyay-massie-2022-content</bibkey>
+      <pwccode url="https://github.com/ashishu007/content-type-profiling" additional="false">ashishu007/content-type-profiling</pwccode>
     </paper>
     <paper id="508">
       <title><fixed-case>C</fixed-case>o<fixed-case>L</fixed-case>o: A Contrastive Learning Based Re-ranking Framework for One-Stage Summarization</title>
@@ -6584,6 +6677,7 @@
       <abstract>Heterogeneous Graph Neural Networks (HeterGNN) have been recently introduced as an emergent approach for extracting document summarization (EDS) by exploiting the cross-relations between words and sentences. However, applying HeterGNN for long documents is still an open research issue. One of the main majors is the lacking of inter-sentence connections. In this regard, this paper exploits how to apply HeterGNN for long documents by building a graph on sentence-level nodes (homogeneous graph) and combine with HeterGNN for capturing the semantic information in terms of both inter and intra-sentence connections. Experiments on two benchmark datasets of long documents such as PubMed and ArXiv show that our method is able to achieve state-of-the-art results in this research field.</abstract>
       <url hash="de86ffc5">2022.coling-1.512</url>
       <bibkey>doan-etal-2022-multi</bibkey>
+      <pwccode url="https://github.com/dungdx34/mtgnn-sum" additional="false">dungdx34/mtgnn-sum</pwccode>
     </paper>
     <paper id="513">
       <title>Improving Zero-Shot Multilingual Text Generation via Iterative Distillation</title>
@@ -6687,6 +6781,7 @@
       <abstract>Recent research on code summarization relies on the structural information from the abstract syntax tree (AST) of source codes. It is, however, questionable whether it is the most effective to use AST for expressing the structural information. We find that a program dependency graph (PDG) can represent the structure of a code more effectively. We propose PDG Boosting Module (PBM) that encodes PDG into graph embedding and the framework to implement the proposed PBM with the existing models. PBM achieves improvements of 6.67% (BLEU) and 7.47% (ROUGE) on average. We then analyze the experimental results, and examine how PBM helps the training of baseline models and its performance robustness. For the validation of robustness, we measure the performance of an out-of-domain benchmark dataset, and confirm its robustness. In addition, we apply a new evaluation measure, SBERT score, to evaluate the semantic performance. The models implemented with PBM improve the performance of SBERT score. This implies that they generate summaries that are semantically more similar to the reference summary.</abstract>
       <url hash="288b10cf">2022.coling-1.521</url>
       <bibkey>son-etal-2022-boosting</bibkey>
+      <pwccode url="https://github.com/sjk0825/coling2022" additional="false">sjk0825/coling2022</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/codesearchnet">CodeSearchNet</pwcdataset>
     </paper>
     <paper id="522">
@@ -6934,6 +7029,7 @@
       <abstract>Social media posts provide a compelling, yet challenging source of data of diverse perspectives from many socially salient groups. Automatic text summarization algorithms make this data accessible at scale by compressing large collections of documents into short summaries that preserve salient information from the source text. In this work, we take a complementary approach to analyzing and improving the quality of summaries generated from social media data in terms of their ability to represent salient as well as diverse perspectives. We introduce a novel dataset, DivSumm, of dialect diverse tweets and human-written extractive and abstractive summaries. Then, we study the extent of dialect diversity reflected in human-written reference summaries as well as system-generated summaries. The results of our extensive experiments suggest that humans annotate fairly well-balanced dialect diverse summaries, and that cluster-based pre-processing approaches seem beneficial in improving the overall quality of the system-generated summaries without loss in diversity.</abstract>
       <url hash="0ed88887">2022.coling-1.542</url>
       <bibkey>olabisi-etal-2022-analyzing</bibkey>
+      <pwccode url="https://github.com/portnlp/divsumm" additional="false">portnlp/divsumm</pwccode>
     </paper>
     <paper id="543">
       <title>Multi-Document Scientific Summarization from a Knowledge Graph-Centric View</title>
@@ -6966,6 +7062,7 @@
       <abstract>An after-visit summary (AVS) is a summary note given to patients after their clinical visit. It recaps what happened during their clinical visit and guides patients’ disease self-management. Studies have shown that a majority of patients found after-visit summaries useful. However, many physicians face excessive workloads and do not have time to write clear and informative summaries. In this paper, we study the problem of automatic generation of after-visit summaries and examine whether those summaries can convey the gist of clinical visits. We report our findings on a new clinical dataset that contains a large number of electronic health record (EHR) notes and their associated summaries. Our results suggest that generation of lay language after-visit summaries remains a challenging task. Crucially, we introduce a feedback mechanism that alerts physicians when an automatic summary fails to capture the important details of the clinical notes or when it contains hallucinated facts that are potentially detrimental to the summary quality. Automatic and human evaluation demonstrates the effectiveness of our approach in providing writing feedback and supporting physicians.</abstract>
       <url hash="0064372c">2022.coling-1.544</url>
       <bibkey>cai-etal-2022-generation</bibkey>
+      <pwccode url="https://github.com/pengshancai/avs_gen" additional="false">pengshancai/avs_gen</pwccode>
     </paper>
     <paper id="545">
       <title><fixed-case>H</fixed-case>eter<fixed-case>G</fixed-case>raph<fixed-case>L</fixed-case>ong<fixed-case>S</fixed-case>um: Heterogeneous Graph Neural Network with Passage Aggregation for Extractive Long Document Summarization</title>
@@ -7047,6 +7144,7 @@
       <abstract>Multi-Document Summarization (MDS) commonly employs the 2-stage extract-then-abstract paradigm, which first extracts a relatively short meta-document, then feeds it into the deep neural networks to generate an abstract. Previous work usually takes the ROUGE score as the label for training a scoring model to evaluate source documents. However, the trained scoring model is prone to under-fitting for low-resource settings, as it relies on the training data. To extract documents effectively, we construct prompting templates that invoke the underlying knowledge in Pre-trained Language Model (PLM) to calculate the document and keyword’s perplexity, which can assess the document’s semantic salience. Our unsupervised approach can be applied as a plug-in to boost other metrics for evaluating a document’s salience, thus improving the subsequent abstract generation. We get positive results on 2 MDS datasets, 2 data settings, and 2 abstractive backbone models, showing our method’s effectiveness. Our code is available at https://github.com/THU-KEG/UPER</abstract>
       <url hash="ca17df34">2022.coling-1.550</url>
       <bibkey>tu-etal-2022-uper</bibkey>
+      <pwccode url="https://github.com/thu-keg/uper" additional="false">thu-keg/uper</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/wcep">WCEP</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikicatsum">WikiCatSum</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikisum">WikiSum</pwcdataset>
@@ -7195,6 +7293,7 @@
       <abstract>Labeling large amounts of extractive summarization data is often prohibitive expensive due to time, financial, and expertise constraints, which poses great challenges to incorporating summarization system in practical applications. This limitation can be overcome by semi-supervised approaches: consistency-training and pseudo-labeling to make full use of unlabeled data. Researches on the two, however, are conducted independently, and very few works try to connect them. In this paper, we first use the noise-injected consistency training paradigm to regularize model predictions. Subsequently, we propose a novel entropy-constrained pseudo labeling strategy to obtain high-confidence labels from unlabeled predictions, which can obtain high-confidence labels from unlabeled predictions by comparing the entropy of supervised and unsupervised predictions. By combining consistency training and pseudo-labeling, this framework enforce a low-density separation between classes, which decently improves the performance of supervised learning over an insufficient labeled extractive summarization dataset.</abstract>
       <url hash="5e45750f">2022.coling-1.561</url>
       <bibkey>wang-etal-2022-noise</bibkey>
+      <pwccode url="https://github.com/opensum/cpsum" additional="false">opensum/cpsum</pwccode>
     </paper>
     <paper id="562">
       <title>Question Generation Based on Grammar Knowledge and Fine-grained Classification</title>
@@ -7412,6 +7511,7 @@
       <abstract>Hate speech detection has gained increasing attention with the growing prevalence of hateful contents. When a text contains an obvious hate word or expression, it is fairly easy to detect it. However, it is challenging to identify implicit hate speech in nuance or context when there are insufficient lexical cues. Recently, there are several attempts to detect implicit hate speech leveraging pre-trained language models such as BERT and HateBERT. Fine-tuning on an implicit hate speech dataset shows satisfactory performance when evaluated on the test set of the dataset used for training. However, we empirically confirm that the performance drops at least 12.5%p in F1 score when tested on the dataset that is different from the one used for training. We tackle this cross-dataset underperforming problem using contrastive learning. Based on our observation of common underlying implications in various forms of hate posts, we propose a novel contrastive learning method, ImpCon, that pulls an implication and its corresponding posts close in representation space. We evaluate the effectiveness of ImpCon by running cross-dataset evaluation on three implicit hate speech benchmarks. The experimental results on cross-dataset show that ImpCon improves at most 9.10% on BERT, and 8.71% on HateBERT.</abstract>
       <url hash="9cb8b0bc">2022.coling-1.579</url>
       <bibkey>kim-etal-2022-generalizable</bibkey>
+      <pwccode url="https://github.com/youngwook06/impcon" additional="false">youngwook06/impcon</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/implicit-hate">Implicit Hate</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sbic">SBIC</pwcdataset>
     </paper>
@@ -7427,6 +7527,7 @@
       <abstract>Early rumor detection is a key challenging task to prevent rumors from spreading widely. Sociological research shows that social bots’ behavior in the early stage has become the main reason for rumors’ wide spread. However, current models do not explicitly distinguish genuine users from social bots, and their failure in identifying rumors timely. Therefore, this paper aims at early rumor detection by accounting for social bots’ behavior, and presents a Social Bot-Aware Graph Neural Network, named SBAG. SBAG firstly pre-trains a multi-layer perception network to capture social bot features, and then constructs multiple graph neural networks by embedding the features to model the early propagation of posts, which is further used to detect rumors. Extensive experiments on three benchmark datasets show that SBAG achieves significant improvements against the baselines and also identifies rumors within 3 hours while maintaining more than 90% accuracy.</abstract>
       <url hash="14658a1d">2022.coling-1.580</url>
       <bibkey>huang-etal-2022-social</bibkey>
+      <pwccode url="https://github.com/sky-star-moon/sbag" additional="false">sky-star-moon/sbag</pwccode>
     </paper>
     <paper id="581">
       <title>A Contrastive Cross-Channel Data Augmentation Framework for Aspect-Based Sentiment Analysis</title>
@@ -7464,6 +7565,7 @@
       <abstract>Moderating user comments and promoting healthy understanding is a challenging task, especially in the context of polarized topics such as climate change. We propose a moderation tool to assist moderators in promoting mutual understanding in regard to this topic. The approach is twofold. First, we train classifiers to label incoming posts for the arguments they entail, with a specific focus on minority arguments. We apply active learning to further supplement the training data with rare arguments. Second, we dive deeper into singular arguments and extract the lexical patterns that distinguish each argument from the others. Our findings indicate that climate change arguments form clearly separable clusters in the embedding space. These classes are characterized by their own unique lexical patterns that provide a quick insight in an argument’s key concepts. Additionally, supplementing our training data was necessary for our classifiers to be able to adequately recognize rare arguments. We argue that this detailed rundown of each argument provides insight into where others are coming from. These computational approaches can be part of the toolkit for content moderators and researchers struggling with polarized topics.</abstract>
       <url hash="a16d99d6">2022.coling-1.583</url>
       <bibkey>waterschoot-etal-2022-detecting</bibkey>
+      <pwccode url="https://github.com/cwaterschoot/minority_argumentation" additional="false">cwaterschoot/minority_argumentation</pwccode>
     </paper>
     <paper id="584">
       <title>A Multi-turn Machine Reading Comprehension Framework with Rethink Mechanism for Emotion-Cause Pair Extraction</title>
@@ -7538,6 +7640,7 @@
       <abstract>This paper explores the task of identifying the overall sentiment expressed towards volitional entities (persons and organizations) in a document - what we refer to as Entity-Level Sentiment Analysis (ELSA). While identifying sentiment conveyed towards an entity is well researched for shorter texts like tweets, we find little to no research on this specific task for longer texts with multiple mentions and opinions towards the same entity. This lack of research would be understandable if ELSA can be derived from existing tasks and models. To assess this, we annotate a set of professional reviews for their overall sentiment towards each volitional entity in the text. We sample from data already annotated for document-level, sentence-level, and target-level sentiment in a multi-domain review corpus, and our results indicate that there is no single proxy task that provides this overall sentiment we seek for the entities at a satisfactory level of performance. We present a suite of experiments aiming to assess the contribution towards ELSA provided by document-, sentence-, and target-level sentiment analysis, and provide a discussion of their shortcomings. We show that sentiment in our dataset is expressed not only with an entity mention as target, but also towards targets with a sentiment-relevant relation to a volitional entity. In our data, these relations extend beyond anaphoric coreference resolution, and our findings call for further research of the topic. Finally, we also present a survey of previous relevant work.</abstract>
       <url hash="03b63a9c">2022.coling-1.589</url>
       <bibkey>ronningstad-etal-2022-entity</bibkey>
+      <pwccode url="https://github.com/egilron/elsa-introduction" additional="false">egilron/elsa-introduction</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/norec">NoReC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/norec-fine">NoReC_fine</pwcdataset>
     </paper>
@@ -7553,6 +7656,7 @@
       <abstract>Target-oriented multimodal sentiment classification (TMSC) is a new subtask of aspect-based sentiment analysis, which aims to determine the sentiment polarity of the opinion target mentioned in a (sentence, image) pair. Recently, dominant works employ the attention mechanism to capture the corresponding visual representations of the opinion target, and then aggregate them as evidence to make sentiment predictions. However, they still suffer from two problems: (1) The granularity of the opinion target in two modalities is inconsistent, which causes visual attention sometimes fail to capture the corresponding visual representations of the target; (2) Even though it is captured, there are still significant differences between the visual representations expressing the same mood, which brings great difficulty to sentiment prediction. To this end, we propose a novel Knowledge-enhanced Framework (KEF) in this paper, which can successfully exploit adjective-noun pairs extracted from the image to improve the visual attention capability and sentiment prediction capability of the TMSC task. Extensive experimental results show that our framework consistently outperforms state-of-the-art works on two public datasets.</abstract>
       <url hash="e5b8e4a5">2022.coling-1.590</url>
       <bibkey>zhao-etal-2022-learning-adjective</bibkey>
+      <pwccode url="https://github.com/1429904852/kef" additional="false">1429904852/kef</pwccode>
     </paper>
     <paper id="591">
       <title>Towards Exploiting Sticker for Multimodal Sentiment Analysis in Social Media: A New Dataset and Baseline</title>
@@ -7634,6 +7738,7 @@
       <abstract>Relevant to all application domains where it is important to get at the reasons underlying sentiments and decisions, argument mining seeks to obtain structured arguments from unstructured text and has been addressed by approaches typically involving some feature and/or neural architecture engineering. By adopting a transfer learning methodology, and by means of a systematic study with a wide range of knowledge sources promisingly suitable to leverage argument mining, the aim of this paper is to empirically assess the potential of transferring such knowledge learned with confluent tasks. By adopting a lean approach that dispenses with heavier feature and model engineering, this study permitted both to gain novel empirically based insights into the argument mining task and to establish new state of the art levels of performance for its three main sub-tasks, viz. identification of argument components, classification of the components, and determination of the relation among them.</abstract>
       <url hash="b1ebd51a">2022.coling-1.597</url>
       <bibkey>rodrigues-branco-2022-transferring</bibkey>
+      <pwccode url="https://github.com/nlx-group/transfer-am" additional="false">nlx-group/transfer-am</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/copa">COPA</pwcdataset>
@@ -7698,6 +7803,7 @@
       <abstract>Sentiment analysis has always been an important research direction in natural language processing. The research can be divided into explicit sentiment analysis and implicit sentiment analysis according to whether there are sentiment words in language expression. There have been many research results in explicit sentiment analysis. However, implicit sentiment analysis is rarely studied. Compared with explicit sentiment expression, implicit sentiment expression usually omits a lot of knowledge and common sense, and context also has an important impact on implicit sentiment expression. In this paper, we use a knowledge graph to supplement implicit sentiment expression and propose a novel Implicit Sentiment Analysis model combining Knowledge enhancement and Context features (dubbed KC-ISA). The KC-ISA model can effectively integrate external knowledge and contextual features by the coattention mechanism. Finally, we conduct experiments on the SMP2019 implicit sentiment analysis dataset. Moreover, to verify the generality of the model, we also conduct experiments on two common sentiment analysis datasets. The results on three datasets show that our proposed KC-ISA model can achieve better results on text sentiment analysis.</abstract>
       <url hash="7c8d20ba">2022.coling-1.601</url>
       <bibkey>xu-etal-2022-kc</bibkey>
+      <pwccode url="https://github.com/anonymouscoling2022/kc-isa" additional="false">anonymouscoling2022/kc-isa</pwccode>
     </paper>
     <paper id="602">
       <title>Domain Generalization for Text Classification with Memory-Based Supervised Contrastive Learning</title>
@@ -7709,6 +7815,7 @@
       <abstract>While there is much research on cross-domain text classification, most existing approaches focus on one-to-one or many-to-one domain adaptation. In this paper, we tackle the more challenging task of domain generalization, in which domain-invariant representations are learned from multiple source domains, without access to any data from the target domains, and classification decisions are then made on test documents in unseen target domains. We propose a novel framework based on supervised contrastive learning with a memory-saving queue. In this way, we explicitly encourage examples of the same class to be closer and examples of different classes to be further apart in the embedding space. We have conducted extensive experiments on two Amazon review sentiment datasets, and one rumour detection dataset. Experimental results show that our domain generalization method consistently outperforms state-of-the-art domain adaptation methods.</abstract>
       <url hash="9b99f8ca">2022.coling-1.602</url>
       <bibkey>tan-etal-2022-domain</bibkey>
+      <pwccode url="https://github.com/tonytan48/mscl" additional="false">tonytan48/mscl</pwccode>
     </paper>
     <paper id="603">
       <title>A Zero-Shot Claim Detection Framework Using Question Answering</title>
@@ -7745,6 +7852,7 @@
       <abstract>Stance detection aims to identify the attitude from an opinion towards a certain target. Despite the significant progress on this task, it is extremely time-consuming and budget-unfriendly to collect sufficient high-quality labeled data for every new target under fully-supervised learning, whereas unlabeled data can be collected easier. Therefore, this paper is devoted to few-shot stance detection and investigating how to achieve satisfactory results in semi-supervised settings. As a target-oriented task, the core idea of semi-supervised few-shot stance detection is to make better use of target-relevant information from labeled and unlabeled data. Therefore, we develop a novel target-aware semi-supervised framework. Specifically, we propose a target-aware contrastive learning objective to learn more distinguishable representations for different targets. Such an objective can be easily applied with or without unlabeled data. Furthermore, to thoroughly exploit the unlabeled data and facilitate the model to learn target-relevant stance features in the opinion content, we explore a simple but effective target-aware consistency regularization combined with a self-training strategy. The experimental results demonstrate that our approach can achieve state-of-the-art performance on multiple benchmark datasets in the few-shot setting.</abstract>
       <url hash="413fe0bf">2022.coling-1.605</url>
       <bibkey>liu-etal-2022-target</bibkey>
+      <pwccode url="https://github.com/monolith-v1/stcc" additional="false">monolith-v1/stcc</pwccode>
     </paper>
     <paper id="606">
       <title>Joint Alignment of Multi-Task Feature and Label Spaces for Emotion Cause Pair Extraction</title>
@@ -7839,6 +7947,7 @@
       <abstract>As an emerging research topic in natural language processing community, emotion recognition in multi-party conversations has attained increasing interest. Previous approaches that focus either on dyadic or multi-party scenarios exert much effort to cope with the challenge of emotional dynamics and achieve appealing results. However, since emotional interactions among speakers are often more complicated within the entangled multi-party conversations, these works are limited in capturing effective emotional clues in conversational context. In this work, we propose Mutual Conversational Detachment Network (MuCDN) to clearly and effectively understand the conversational context by separating conversations into detached threads. Specifically, two detachment ways are devised to perform context and speaker-specific modeling within detached threads and they are bridged through a mutual module. Experimental results on two datasets show that our model achieves better performance over the baseline models.</abstract>
       <url hash="b828d559">2022.coling-1.612</url>
       <bibkey>zhao-etal-2022-mucdn</bibkey>
+      <pwccode url="https://github.com/circle-hit/mucdn" additional="false">circle-hit/mucdn</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/emorynlp">EmoryNLP</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/meld">MELD</pwcdataset>
     </paper>
@@ -7882,6 +7991,7 @@
       <abstract>Large pre-trained language models (PLMs) have demonstrated superior performance in industrial applications. Recent studies have explored parameter-efficient PLM tuning, which only updates a small amount of task-specific parameters while achieving both high efficiency and comparable performance against standard fine-tuning. However, all these methods ignore the inefficiency problem caused by the task-specific output layers, which is inflexible for us to re-use PLMs and introduces non-negligible parameters. In this work, we focus on the text classification task and propose plugin-tuning, a framework that further improves the efficiency of existing parameter-efficient methods with a unified classifier. Specifically, we re-formulate both token and sentence classification tasks into a unified language modeling task, and map label spaces of different tasks into the same vocabulary space. In this way, we can directly re-use the language modeling heads of PLMs, avoiding introducing extra parameters for different tasks. We conduct experiments on six classification benchmarks. The experimental results show that plugin-tuning can achieve comparable performance against fine-tuned PLMs, while further saving around 50% parameters on top of other parameter-efficient methods.</abstract>
       <url hash="3054f302">2022.coling-1.615</url>
       <bibkey>zhou-etal-2022-making</bibkey>
+      <pwccode url="https://github.com/xzhou20/plugin-tuning" additional="false">xzhou20/plugin-tuning</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
@@ -7939,6 +8049,7 @@
       <abstract>Existing research for argument representation learning mainly treats tokens in the sentence equally and ignores the implied structure information of argumentative context. In this paper, we propose to separate tokens into two groups, namely framing tokens and topic ones, to capture structural information of arguments. In addition, we consider high-level structure by incorporating paragraph-level position information. A novel structure-aware argument encoder is proposed for literature discourse analysis. Experimental results on both a self-constructed corpus and a public corpus show the effectiveness of our model. Resources are available at https://github.com/lemuria-wchen/SAE.</abstract>
       <url hash="e125cb51">2022.coling-1.619</url>
       <bibkey>li-etal-2022-structure</bibkey>
+      <pwccode url="https://github.com/lemuria-wchen/sae" additional="false">lemuria-wchen/sae</pwccode>
     </paper>
     <paper id="620">
       <title>Mere Contrastive Learning for Cross-Domain Sentiment Analysis</title>
@@ -8095,6 +8206,7 @@
       <abstract>The joint multiple Intent Detection (ID) and Slot Filling (SF) is a significant challenge in spoken language understanding. Because the slots in an utterance may relate to multi-intents, most existing approaches focus on utilizing task-specific components to capture the relations between intents and slots. The customized networks restrict models from modeling commonalities between tasks and generalization for broader applications. To address the above issue, we propose a Unified Generative framework (UGEN) based on a prompt-based paradigm, and formulate the task as a question-answering problem. Specifically, we design 5-type templates as instructional prompts, and each template includes a question that acts as the driver to teach UGEN to grasp the paradigm, options that list the candidate intents or slots to reduce the answer search space, and the context denotes original utterance. Through the instructional prompts, UGEN is guided to understand intents, slots, and their implicit correlations. On two popular multi-intent benchmark datasets, experimental results demonstrate that UGEN achieves new SOTA performances on full-data and surpasses the baselines by a large margin on 5-shot (28.1%) and 10-shot (23%) scenarios, which verify that UGEN is robust and effective.</abstract>
       <url hash="3eb70d03">2022.coling-1.631</url>
       <bibkey>wu-etal-2022-incorporating</bibkey>
+      <pwccode url="https://github.com/young1993/ugen" additional="false">young1993/ugen</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/atis">ATIS</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mixatis">MixATIS</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mixsnips-1">MixSNIPs</pwcdataset>
@@ -8109,6 +8221,7 @@
       <abstract>Supervised methods have achieved remarkable results in disfluency detection. However, in real-world scenarios, human-annotated data is difficult to obtain. Recent works try to handle disfluency detection with unsupervised self-training, which can exploit existing large-scale unlabeled data efficiently. However, their self-training-based methods suffer from the problems of selection bias and error accumulation. To tackle these problems, we propose an adaptive unsupervised self-training method for disfluency detection. Specifically, we re-weight the importance of each training example according to its grammatical feature and prediction confidence. Experiments on the Switchboard dataset show that our method improves 2.3 points over the current SOTA unsupervised method. Moreover, our method is competitive with the SOTA supervised method.</abstract>
       <url hash="3465e568">2022.coling-1.632</url>
       <bibkey>wang-etal-2022-adaptive</bibkey>
+      <pwccode url="https://github.com/wyxstriker/reweightingdisfluency" additional="false">wyxstriker/reweightingdisfluency</pwccode>
     </paper>
   </volume>
 </collection>

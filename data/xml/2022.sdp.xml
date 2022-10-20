@@ -51,6 +51,7 @@
       <abstract>The ever growing amount of research publications demands computational assistance for everyone trying to keep track with scientific processes. Topic modeling has become a popular approach for finding scientific topics in static collections of research papers. However, the reality of continuously growing corpora of scholarly documents poses a major challenge for traditional approaches. We introduce RollingLDA for an ongoing monitoring of research topics, which offers the possibility of sequential modeling of dynamically growing corpora with time consistency of time series resulting from the modeled texts. We evaluate its capability to detect research topics and present a Shiny App as an easy-to-use interface. In addition, we illustrate usage scenarios for different user groups such as researchers, students, journalists, or policy-makers.</abstract>
       <url hash="0a2ebb9f">2022.sdp-1.2</url>
       <bibkey>bittermann-rieger-2022-finding</bibkey>
+      <pwccode url="https://github.com/leibniz-psychology/psychtopics" additional="true">leibniz-psychology/psychtopics</pwccode>
     </paper>
     <paper id="3">
       <title>Large-scale Evaluation of Transformer-based Article Encoders on the Task of Citation Recommendation</title>
@@ -106,6 +107,7 @@
       <abstract>Communicative functions are an important rhetorical feature of scientific writing. Sentence embeddings that contain such features are highly valuable for the argumentative analysis of scientific documents, with applications in document alignment, recommendation, and academic writing assistance. Moreover, embeddings can provide a possible solution to the open-set problem, where models need to generalize to new communicative functions unseen at training time. However, existing sentence representation models are not suited for detecting functional similarity since they only consider lexical or semantic similarities. To remedy this, we propose a combined approach of distant supervision and metric learning to make a representation model more aware of the functional part of a sentence. We first leverage an existing academic phrase database to label sentences automatically with their functions. Then, we train an embedding model to capture similarities and dissimilarities from a rhetorical perspective. The experimental results demonstrate that the embeddings obtained from our model are more advantageous than existing models when retrieving functionally similar sentences. We also provide an extensive analysis of the performance differences between five metric learning objectives, revealing that traditional methods (e.g., softmax cross-entropy loss and triplet loss) outperform state-of-the-art techniques.</abstract>
       <url hash="556766b5">2022.sdp-1.7</url>
       <bibkey>sugimoto-aizawa-2022-incorporating</bibkey>
+      <pwccode url="https://github.com/kaisugi/rhetorical_aspect_embeddings" additional="false">kaisugi/rhetorical_aspect_embeddings</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/pubmed-rct">PubMed RCT</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/s2orc">S2ORC</pwcdataset>
     </paper>
@@ -125,6 +127,7 @@
       <abstract>Existing dense retrieval models for scientific documents have been optimized for either retrieval by short queries, or for document similarity, but usually not for both. In this paper, we explore the space of combining multiple objectives to achieve a single representation model that presents a good balance between both modes of dense retrieval, combining the relevance judgements from MS MARCO with the citation similarity of SPECTER, and the self-supervised objective of independent cropping. We also consider the addition of training data from document co-citation in a sentence context and domain-specific synthetic data. We show that combining multiple objectives yields models that generalize well across different benchmark tasks, improving up to 73% over models trained on a single objective.</abstract>
       <url hash="a35ac701">2022.sdp-1.9</url>
       <bibkey>parisot-zavrel-2022-multi</bibkey>
+      <pwccode url="https://github.com/zetaalphavector/multi-obj-repr-learning" additional="false">zetaalphavector/multi-obj-repr-learning</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/beir">BEIR</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/scidocs">SciDocs</pwcdataset>
@@ -169,6 +172,7 @@
       <abstract>Long document summarisation, a challenging summarisation scenario, is the focus of the recently proposed LongSumm shared task. One of the limitations of this shared task has been its use of a single family of metrics for evaluation (the ROUGE metrics). In contrast, other fields, like text generation, employ multiple metrics. We replicated the LongSumm evaluation using multiple test set samples (vs. the single test set of the official shared task) and investigated how different metrics might complement each other in this evaluation framework. We show that under this more rigorous evaluation, (1) some of the key learnings from Longsumm 2020 and 2021 still hold, but the relative ranking of systems changes, and (2) the use of additional metrics reveals additional high-quality summaries missed by ROUGE, and (3) we show that SPICE is a candidate metric for summarisation evaluation for LongSumm.</abstract>
       <url hash="a1402178">2022.sdp-1.13</url>
       <bibkey>yang-wan-2022-investigating</bibkey>
+      <pwccode url="https://github.com/caiyangcy/sdp-longsumm-metric-diversity" additional="false">caiyangcy/sdp-longsumm-metric-diversity</pwccode>
     </paper>
     <paper id="14">
       <title>Exploiting Unary Relations with Stacked Learning for Relation Extraction</title>
@@ -182,6 +186,7 @@
       <abstract>Relation extraction models typically cast the problem of determining whether there is a relation between a pair of entities as a single decision. However, these models can struggle with long or complex language constructions in which two entities are not directly linked, as is often the case in scientific publications. We propose a novel approach that decomposes a binary relation into two unary relations that capture each argument’s role in the relation separately. We create a stacked learning model that incorporates information from unary and binary relation extractors to determine whether a relation holds between two entities. We present experimental results showing that this approach outperforms several competitive relation extractors on a new corpus of planetary science publications as well as a benchmark dataset in the biology domain.</abstract>
       <url hash="5d522a17">2022.sdp-1.14</url>
       <bibkey>zhuang-etal-2022-exploiting</bibkey>
+      <pwccode url="https://github.com/yyzhuang1991/stackedlearningwithunarymodels" additional="false">yyzhuang1991/stackedlearningwithunarymodels</pwccode>
     </paper>
     <paper id="15">
       <title>Mitigating Data Shift of Biomedical Research Articles for Information Retrieval and Semantic Indexing</title>
@@ -247,6 +252,7 @@
       <abstract>We provide an overview of the MSLR2022 shared task on multi-document summarization for literature reviews. The shared task was hosted at the Third Scholarly Document Processing (SDP) Workshop at COLING 2022. For this task, we provided data consisting of gold summaries extracted from review papers along with the groups of input abstracts that were synthesized into these summaries, split into two subtasks. In total, six teams participated, making 10 public submissions, 6 to the Cochrane subtask and 4 to the MSˆ2 subtask. The top scoring systems reported over 2 points ROUGE-L improvement on the Cochrane subtask, though performance improvements are not consistently reported across all automated evaluation metrics; qualitative examination of the results also suggests the inadequacy of current evaluation metrics for capturing factuality and consistency on this task. Significant work is needed to improve system performance, and more importantly, to develop better methods for automatically evaluating performance on this task.</abstract>
       <url hash="59399dbf">2022.sdp-1.20</url>
       <bibkey>wang-etal-2022-overview</bibkey>
+      <pwccode url="https://github.com/allenai/mslr-shared-task" additional="false">allenai/mslr-shared-task</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/evidence-inference">Evidence Inference</pwcdataset>
     </paper>
     <paper id="21">
@@ -261,7 +267,7 @@
       <abstract>In this paper we report the experiments performed for the submission to the Multidocument summarisation for Literature Review (MSLR) Shared Task. In particular, we adopt Primera model to the biomedical domain by placing global attention on important biomedical entities in several ways. We analyse the outputs of 23 resulting models and report some patterns related to the presence of additional global attention, number of training steps and the inputs configuration.</abstract>
       <url hash="1529b714">2022.sdp-1.21</url>
       <bibkey>otmakhova-etal-2022-led</bibkey>
-      <pwccode url="https://github.com/joey234/primer-pico-attn" additional="false">joey234/primer-pico-attn</pwccode>
+      <pwccode url="https://github.com/allenai/mslr-shared-task" additional="true">allenai/mslr-shared-task</pwccode>
     </paper>
     <paper id="22">
       <title>Evaluating Pre-Trained Language Models on Multi-Document Summarization for Literature Reviews</title>
@@ -303,6 +309,7 @@
       <abstract>Research in the biomedical domain is con- stantly challenged by its large amount of ever- evolving textual information. Biomedical re- searchers are usually required to conduct a lit- erature review before any medical interven- tion to assess the effectiveness of the con- cerned research. However, the process is time- consuming, and therefore, automation to some extent would help reduce the accompanying information overload. Multi-document sum- marization of scientific articles for literature reviews is one approximation of such automa- tion. Here in this paper, we describe our pipelined approach for the aforementioned task. We design a BERT-based extractive method followed by a BigBird PEGASUS-based ab- stractive pipeline for generating literature re- view summaries from the abstracts of biomedi- cal trial reports as part of the Multi-document Summarization for Literature Review (MSLR) shared task1 in the Scholarly Document Pro- cessing (SDP) workshop 20222. Our proposed model achieves the best performance on the MSLR-Cochrane leaderboard3 on majority of the evaluation metrics. Human scrutiny of our automatically generated summaries indicates that our approach is promising to yield readable multi-article summaries for conducting such lit- erature reviews.</abstract>
       <url hash="b21885ae">2022.sdp-1.25</url>
       <bibkey>shinde-etal-2022-extractive</bibkey>
+      <pwccode url="https://github.com/allenai/mslr-shared-task" additional="false">allenai/mslr-shared-task</pwccode>
     </paper>
     <paper id="26">
       <title>Overview of the <fixed-case>DAGP</fixed-case>ap22 Shared Task on Detecting Automatically Generated Scientific Papers</title>
@@ -378,6 +385,7 @@
       <abstract>We present a new gold-standard dataset and a benchmark for the Research Theme Identification task, a sub-task of the Scholarly Knowledge Graph Generation shared task, at the 3rd Workshop on Scholarly Document Processing. The objective of the shared task was to label given research papers with research themes from a total of 36 themes. The benchmark was compiled using data drawn from the largest overall assessment of university research output ever undertaken globally (the Research Excellence Framework - 2014). We provide a performance comparison of a transformer-based ensemble, which obtains multiple predictions for a research paper, given its multiple textual fields (e.g. title, abstract, reference), with traditional machine learning models. The ensemble involves enriching the initial data with additional information from open-access digital libraries and Argumentative Zoning techniques (CITATION). It uses a weighted sum aggregation for the multiple predictions to obtain a final single prediction for the given research paper. Both data and the ensemble are publicly available on https://www.kaggle.com/competitions/sdp2022-scholarly-knowledge-graph-generation/data?select=task1_test_no_label.csv and https://github.com/ProjectDoSSIER/sdp2022, respectively.</abstract>
       <url hash="6e2af96e">2022.sdp-1.31</url>
       <bibkey>e-mendoza-etal-2022-benchmark</bibkey>
+      <pwccode url="https://github.com/projectdossier/sdp2022" additional="false">projectdossier/sdp2022</pwccode>
     </paper>
     <paper id="32">
       <title>Overview of the First Shared Task on Multi Perspective Scientific Document Summarization (<fixed-case>M</fixed-case>u<fixed-case>P</fixed-case>)</title>
@@ -389,6 +397,7 @@
       <abstract>We present the main findings of MuP 2022 shared task, the first shared task on multi-perspective scientific document summarization. The task provides a testbed representing challenges for summarization of scientific documents, and facilitates development of better models to leverage summaries generated from multiple perspectives. We received 139 total submissions from 9 teams. We evaluated submissions both by automated metrics (i.e., Rouge) and human judgments on faithfulness, coverage, and readability which provided a more nuanced view of the differences between the systems. While we observe encouraging results from the participating teams, we conclude that there is still significant room left for improving summarization leveraging multiple references. Our dataset is available at https://github.com/allenai/mup.</abstract>
       <url hash="7a96d442">2022.sdp-1.32</url>
       <bibkey>cohan-etal-2022-overview-first</bibkey>
+      <pwccode url="https://github.com/allenai/mup" additional="false">allenai/mup</pwccode>
     </paper>
     <paper id="33">
       <title>Multi Perspective Scientific Document Summarization With Graph Attention Networks (<fixed-case>GATS</fixed-case>)</title>
