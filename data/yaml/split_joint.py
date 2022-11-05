@@ -26,8 +26,12 @@ with open("joint.yaml") as f:
     data = yaml.load(f, Loader=Loader)
 
     for venue, venue_data in data.items():
-        if venue in ["acl", "naacl", "emnlp"]:
+        # assume these are colocated, which is usually the case
+        if venue in ["acl", "naacl", "emnlp", "coling", "lrec"]:
             continue
+
+        # the rest of the entries we assume are truly joint
+        # (i.e, different names for the same event, or links to the real name)
         venue_data = {"volumes": venue_data}
         print(venue, venue_data, file=sys.stderr)
         if not os.path.exists(f"venues/{venue}.yaml"):
