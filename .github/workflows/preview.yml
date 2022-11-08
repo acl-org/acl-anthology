@@ -58,8 +58,10 @@ jobs:
         ANTHOLOGY_PREFIX: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
       run: |
         make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site preview
-    - uses: mshick/add-pr-comment@v1
+    - uses: mshick/add-pr-comment@v2
       with:
+        # this causes pushes to update the old message, instead of generating a new one
+        message-id: preview
         message: |
           Build successful. Some useful links:
           * Complete site preview: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
