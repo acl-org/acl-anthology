@@ -115,8 +115,12 @@ Volume = element volume {
   Frontmatter?,
   Paper*
 }
+Event = element event {
+  (element colocated { text }*)
+}
 Collection = element collection {
   attribute id { xsd:string },
+  Event?,
   Volume+
 }
 start = Collection
