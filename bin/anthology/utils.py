@@ -30,6 +30,8 @@ from zlib import crc32
 from .people import PersonName
 from . import data
 
+from typing import List
+
 
 xml_escape_or_none = lambda t: None if t is None else xml_escape(t)
 
@@ -159,7 +161,7 @@ def retrieve_url(remote_url: str, local_path: str):
 
 def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     """
-    Transforms an Anthology ID into its constituent collection id, volume id, and paper id
+    Parses an Anthology ID into its constituent collection id, volume id, and paper id
     parts. e.g,
 
         P18-1007 -> ('P18', '1',  '7')
@@ -167,7 +169,7 @@ def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
         D19-1001 -> ('D19', '1',  '1')
         D19-5702 -> ('D19', '57', '2')
 
-    Also can deconstruct Anthology volumes:
+    Also works with volumes:
 
         P18-1 -> ('P18', '1', None)
         W18-63 -> ('W18', '63', None)
@@ -489,3 +491,22 @@ def compute_hash(value: bytes) -> str:
 def compute_hash_from_file(path: str) -> str:
     with open(path, "rb") as f:
         return compute_hash(f.read())
+
+def read_leaves(data) -> List[str]:
+    """Reads the leaves of a possibly superfluously-hierarchical data structure.
+    For example:
+
+    { "2019": ["this", "that"] } -> ["this", "that"]
+    ["this", "that"] => ["this", "that"]
+    """
+    leaves = []
+    if isinstance(data, dict):
+        for subdata in data.values():
+            leaves += read_leaves(subdata)
+    elif isinstance(data, list):
+        for subdata in data:
+            leaves += read_leaves(subdata)
+    elif data:
+        leaves = [data]
+
+    return leaves

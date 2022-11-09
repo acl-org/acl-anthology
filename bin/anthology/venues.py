@@ -28,7 +28,7 @@ try:
 except ImportError:
     from yaml import Loader
 
-from .utils import is_newstyle_id, build_anthology_id, deconstruct_anthology_id
+from .utils import is_newstyle_id, build_anthology_id, deconstruct_anthology_id, read_leaves
 from anthology.data import VENUE_FORMAT
 
 
@@ -71,26 +71,6 @@ class VenueIndex:
         """
         with open(f"{directory}/yaml/venues.yaml", "wt") as f:
             print(yaml.dump(self.venue_dict, allow_unicode=True), file=f)
-
-    @staticmethod
-    def read_leaves(data) -> List[str]:
-        """Reads the leaves of a possibly superfluously-hierarchical data structure.
-        For example:
-
-        { "2019": ["this", "that"] } -> ["this", "that"]
-        ["this", "that"] => ["this", "that"]
-        """
-        leaves = []
-        if isinstance(data, dict):
-            for subdata in data.values():
-                leaves += VenueIndex.read_leaves(subdata)
-        elif isinstance(data, list):
-            for subdata in data:
-                leaves += VenueIndex.read_leaves(subdata)
-        elif data:
-            leaves = [data]
-
-        return leaves
 
     def load_from_dir(self, directory):
         self.venue_dict = {}
@@ -136,7 +116,7 @@ class VenueIndex:
                     self.letters[venue_dict["oldstyle_letter"]] = venue_dict["acronym"]
 
                 # explicit links from volumes to venues (joint volumes)
-                venue_dict["volumes"] = VenueIndex.read_leaves(
+                venue_dict["volumes"] = read_leaves(
                     venue_dict.get("volumes", [])
                 )
                 for volume in venue_dict["volumes"]:
@@ -144,7 +124,7 @@ class VenueIndex:
                     self.volume_map[volume].append(acronym)
 
                 # List of venues excluded from each volume
-                venue_dict["excluded_volumes"] = VenueIndex.read_leaves(
+                venue_dict["excluded_volumes"] = read_leaves(
                     venue_dict.get("excluded_volumes", set())
                 )
                 for volume in venue_dict["excluded_volumes"]:
@@ -152,21 +132,6 @@ class VenueIndex:
                     self.excluded_volume_map[volume].append(acronym)
 
                 self.venue_dict[slug] = venue_dict
-
-        # with open(f"{directory}/yaml/joint.yaml", "r") as f:
-        #     map_dict = yaml.load(f, Loader=Loader)
-        #     for venue, data in map_dict.items():
-        #         acronym = self.acronyms_by_slug[venue]
-        #         if isinstance(data, dict):
-        #             idlist = [id_ for ids in data.values() for id_ in ids]
-        #         elif isinstance(data, list):
-        #             idlist = data
-        #         else:
-        #             log.exception(
-        #                 f"Values in joint.yaml must be dict or list, found: {type(data)}"
-        #             )
-        #         for id_ in idlist:
-        #             self.joint_map[id_].append(acronym)
 
     def get_by_letter(self, letter):
         """Get a venue acronym by first letter (e.g., Q -> TACL)."""
@@ -232,12 +197,20 @@ class VenueIndex:
     def register(self, volume):
         """Register a proceedings volume with all associated venues.
 
-        For each volume, we determine the set of associated venues, and add this volume to that
-        venue. Associations are made by default links from the venue ID (e.g., "2021.acl-1" and
-        P17-02 are associated with "acl"), and also by explicit listings in the individual venues
-        files (e.g., "O17-1" is explicitly listed in rocling.yaml). We also skip volumes that
-        were explicitly excluded in the venues file (these are volumes with default associations
-        that are incorrect, such as EMNLP 2019's workshops using the "D" key).
+        For each volume, we determine the set of associated venues,
+        and add this volume to that venue. Associations are made in
+        three ways:
+
+        * For modern IDs, the Anthology ID itself links to the venue (e.g., 2021.acl-1)
+        * For old-style IDs, there is a default association for each letter (e.g., P17-02)
+        * Explicit listings in the individual venue files under data/yaml/venues.yaml
+          (e.g., "O17-1" is explicitly listed in rocling.yaml).
+
+        We also skip volumes that were explicitly excluded in the
+        venues file (these are volumes with default associations that
+        are incorrect, such as EMNLP 2019's workshops using the "D"
+        key).
+
         """
         venues = self.get_associated_venues(volume.full_id)
         for venue in venues:

@@ -228,6 +228,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
 
         venues[acronym] = data
 
+    events = anthology.eventindex.events
+
     # Prepare SIG index
     sigs = {}
     for acronym, sig in anthology.sigs.items():
@@ -260,6 +262,10 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
 
         with open("{}/venues.yaml".format(outdir), "w") as f:
             yaml.dump(venues, Dumper=Dumper, stream=f)
+        progress.update()
+
+        with open(f"{outdir}/events.yaml", "w") as f:
+            yaml.dump(events, Dumper=Dumper, stream=f)
         progress.update()
 
         with open("{}/sigs.yaml".format(outdir), "w") as f:

@@ -28,15 +28,15 @@ from .papers import Paper
 from .venues import VenueIndex
 from .volumes import Volume
 from .sigs import SIGIndex
-
-# from .events import Event
+from .utils import is_newstyle_id, infer_year
+from .events import EventIndex
 
 
 class Anthology:
     schema = None
     pindex = None
     venues = None
-    events = None
+    eventindex = None
     sigs = None
     formatter = None
 
@@ -54,6 +54,7 @@ class Anthology:
         self.formatter = MarkupFormatter()
         self.volumes = {}  # maps volume IDs to Volume objects
         self.papers = {}  # maps paper IDs to Paper objects
+        self.eventindex = EventIndex()  # contains a list of all events
         self._fast_load = fast_load
         self._require_bibkeys = require_bibkeys
         if importdir is not None:
@@ -79,35 +80,30 @@ class Anthology:
         self.pindex.verify()
 
     def import_file(self, filename):
-        # furthest east!
-        # date_in_kiritimati = datetime.now(pytz.timezone("Pacific/Kiritimati")).date()
-
         tree = etree.parse(filename)
         collection = tree.getroot()
         collection_id = collection.get("id")
-        for volume_xml in collection:
+
+        for xml_node in collection:
+            if xml_node.tag == "event":
+                assert is_newstyle_id(collection_id)
+
+                year, venue_id = collection_id.split(".")
+                self.eventindex.add_from_xml(
+                    xml_node,
+                    venue_id,
+                    year
+                )
+                continue
+
+            # If we're here we're processing volumes
             volume = Volume.from_xml(
-                volume_xml,
+                xml_node,
                 collection_id,
                 self.venues,
                 self.sigs,
                 self.formatter,
             )
-
-            # MJP 2021-05: no longer doing this since it kills branch previews.
-            # Don't merge with master prior to ingest date!
-            #
-            # skip volumes that have an ingestion date in the future
-            # if (
-            #     datetime.strptime(volume.ingest_date, "%Y-%m-%d").date()
-            #     > date_in_kiritimati
-            # ):
-            #     log.info(
-            #         f"Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future."
-            #     )
-            #     # Remove any SIG entries with this volume
-            #     self.sigs.remove_volume(volume.full_id)
-            #     continue
 
             # Register the volume since we're not skipping it
             self.venues.register(volume)
@@ -128,23 +124,10 @@ class Anthology:
                 self.pindex.register(dummy_front_matter, dummy=True)
 
             self.volumes[volume.full_id] = volume
-            for paper_xml in volume_xml.findall("paper"):
+            for paper_xml in xml_node.findall("paper"):
                 parsed_paper = Paper.from_xml(
                     paper_xml, volume, self.formatter, self.venues
                 )
-
-                # MJP 2021-05: no longer doing this since it kills branch previews.
-                # Don't merge with master prior to ingest date!
-                #
-                # skip papers that have an ingestion date in the future
-                # if (
-                #     datetime.strptime(parsed_paper.ingest_date, "%Y-%m-%d").date()
-                #     > date_in_kiritimati
-                # ):
-                #     log.info(
-                #         f"Skipping paper {parsed_paper.full_id} with ingestion date {parsed_paper.ingest_date} in the future."
-                #     )
-                #     continue
 
                 self.pindex.register(parsed_paper)
                 full_id = parsed_paper.full_id
