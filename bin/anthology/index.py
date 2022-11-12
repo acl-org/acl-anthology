@@ -423,7 +423,7 @@ class AnthologyIndex:
         """
         return self.comments.get(id_, None)
 
-    @lru_cache(maxsize=None)
+    @lru_cache(maxsize=2**16)
     def resolve_name(self, name, id_=None):
         """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
