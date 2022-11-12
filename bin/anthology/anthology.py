@@ -81,26 +81,14 @@ class Anthology:
 
     def import_file(self, filename):
         tree = etree.parse(filename)
-        collection = tree.getroot()
-        collection_id = collection.get("id")
+        collection_xml = tree.getroot()
+        collection_id = collection_xml.get("id")
 
-        for xml_node in collection:
-            if xml_node.tag == "event":
-                assert is_newstyle_id(collection_id)
-
-                year, venue_id = collection_id.split(".")
-                self.eventindex.add_from_xml(
-                    xml_node,
-                    venue_id,
-                    year
-                )
-                continue
-
+        for volume_xml in collection_xml.findall("./volume"):
             # If we're here we're processing volumes
             volume = Volume.from_xml(
-                xml_node,
+                volume_xml,
                 collection_id,
-                self.venues,
                 self.sigs,
                 self.formatter,
             )
@@ -111,6 +99,9 @@ class Anthology:
             if volume.full_id in self.volumes:
                 log.critical(f"Attempted to import volume ID '{volume.full_id}' twice")
                 log.critical(f"Triggered by file: {filename}")
+
+            # Add the volume to all events
+            # self.eventindex.register(volume)
 
             # front matter
             if volume.has_frontmatter:
@@ -124,9 +115,9 @@ class Anthology:
                 self.pindex.register(dummy_front_matter, dummy=True)
 
             self.volumes[volume.full_id] = volume
-            for paper_xml in xml_node.findall("paper"):
+            for paper_xml in volume_xml.findall("paper"):
                 parsed_paper = Paper.from_xml(
-                    paper_xml, volume, self.formatter, self.venues
+                    paper_xml, volume, self.formatter
                 )
 
                 self.pindex.register(parsed_paper)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright 2019-2020 Marcel Bollmann <marcel@bollmann.me>
+#           2022 Matt Post <post@cs.jhu.edu>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,24 +30,44 @@ except ImportError:
     from yaml import Loader
 
 from .utils import is_newstyle_id, build_anthology_id, deconstruct_anthology_id, read_leaves
-from anthology.data import VENUE_FORMAT
-
+from .data import VENUE_FORMAT
 
 class VenueIndex:
+    """
+    Venues make use of the following identifiers:
+    - acronym: a free-form acronym (e.g., WMT, Challenge-HML, NL4XAI, NLP+CSS)
+    - name: a natural language name (e.g., Workshop on NLP and Computational Social Science)
+    - slug: a variant of the acronym containing only lowercase letters and digits.
+
+    The slug is used to form the Anthology ID (e.g., {year}.{slug}-{volume}.{paper})
+
+    The data structures in here are a bit of a mess.
+    """
     def __init__(self, srcdir=None):
-        self.venues = {}
-        self.letters = {}
+        # acronym (slug) to dictionary
+        self.venues_by_acronym = {}
+        self.venues_by_slug = {}
+
+        # maps from old-style letters to acronyms
+        self.letters_to_acronym = {}
+        self.letters_to_slug = {}
+
+        # records volumes that are explicitly listed in data/yaml/venues/ files
         self.volume_map = defaultdict(list)
-        self.excluded_volume_map = defaultdict(list)
-        self.acronyms = {}  # acronym -> venue
-        self.acronyms_by_slug = {}  # slug -> acronym
-        self.venue_dict = None
+
+        # from acronyms (slugs) to venue (dictionary)
+        self.acronyms = {}
+        self.acronyms_by_slug = {}
+
         if srcdir is not None:
             self.load_from_dir(srcdir)
 
     @staticmethod
-    def get_slug(acronym):
-        """The acronym can contain a hyphen, whereas the slug must match VENUE_FORMAT."""
+    def get_slug_from_acronym(acronym):
+        """
+        The acronym can contain a hyphen (e.g., Challenge-HML), 
+        whereas the slug must match VENUE_FORMAT (lowercase, no punc)
+        """
         slug = slugify(acronym.replace("-", ""))
         assert (
             re.match(VENUE_FORMAT, slug) is not None
@@ -57,39 +78,38 @@ class VenueIndex:
         """
         Adds a new venue.
         """
-        slug = VenueIndex.get_slug(acronym)
+        slug = VenueIndex.get_slug_from_acronym(acronym)
 
-        self.venue_dict[slug] = {"acronym": acronym, "name": title}
+        self.venues_by_slug[slug] = {"acronym": acronym, "name": title}
         if is_acl:
-            self.venue_dict[slug]["is_acl"] = True
+            self.venues_by_slug[slug]["is_acl"] = True
         if url is not None:
-            self.venue_dict[slug]["url"] = url
+            self.venues_by_slug[slug]["url"] = url
 
     def dump(self, directory):
         """
         Dumps the venue database to file.
         """
         with open(f"{directory}/yaml/venues.yaml", "wt") as f:
-            print(yaml.dump(self.venue_dict, allow_unicode=True), file=f)
+            print(yaml.dump(self.venues_by_slug, allow_unicode=True), file=f)
 
     def load_from_dir(self, directory):
-        self.venue_dict = {}
         for venue_file in os.listdir(f"{directory}/yaml/venues"):
             slug = venue_file.replace(".yaml", "")
             with open(f"{directory}/yaml/venues/{venue_file}", "r") as f:
                 venue_dict = yaml.load(f, Loader=Loader)
                 if "acronym" not in venue_dict:
                     raise Exception(
-                        f"Venues must have 'acronym' - none defined for '{slug}'"
+                        f"Venues must have 'acronym' - none defined in '{venue_file}'"
                     )
                 if "name" not in venue_dict:
                     raise Exception(
-                        f"Venues must have 'name' - none defined for '{slug}'"
+                        f"Venues must have 'name' - none defined in '{venue_file}'"
                     )
-                if venue_dict["acronym"] in self.venues:
+                if venue_dict["acronym"] in self.venues_by_acronym:
                     raise Exception(
                         f"Venue acronyms must be unique - '{venue_dict['acronym']}' used"
-                        f" for '{self.venues[venue_dict['acronym']]['slug']}' and '{slug}'"
+                        f" for '{self.venues_by_acronym[venue_dict['acronym']]['slug']}' and '{slug}'"
                     )
 
                 if "is_toplevel" not in venue_dict:  # defaults to False
@@ -101,10 +121,14 @@ class VenueIndex:
                         venue_dict["joint"] = [venue_dict["joint"]]
                 venue_dict["years"] = set()
                 venue_dict["slug"] = slug
+                venue_dict["volumes"] = []
+
                 # for legacy reasons, this dict is still indexed by acronym
                 # rather than slug (that's what I get for not using proper
                 # encapsulation --MB)
-                self.venues[venue_dict["acronym"]] = venue_dict
+                self.venues_by_acronym[venue_dict["acronym"]] = venue_dict
+                self.venues_by_slug[slug] = venue_dict
+
                 self.acronyms_by_slug[slug] = venue_dict["acronym"]
                 self.acronyms[venue_dict["acronym"]] = venue_dict
 
@@ -113,86 +137,23 @@ class VenueIndex:
                         log.error(
                             f"Venues with old-style letter must be top-level - '{slug}' is not"
                         )
-                    self.letters[venue_dict["oldstyle_letter"]] = venue_dict["acronym"]
+                    self.letters_to_acronym[venue_dict["oldstyle_letter"]] = venue_dict["acronym"]
+                    self.letters_to_slug[venue_dict["oldstyle_letter"]] = slug
 
-                # explicit links from volumes to venues (joint volumes)
-                venue_dict["volumes"] = read_leaves(
-                    venue_dict.get("volumes", [])
-                )
-                for volume in venue_dict["volumes"]:
-                    acronym = self.acronyms_by_slug[slug]
-                    self.volume_map[volume].append(acronym)
-
-                # List of venues excluded from each volume
-                venue_dict["excluded_volumes"] = read_leaves(
-                    venue_dict.get("excluded_volumes", set())
-                )
-                for volume in venue_dict["excluded_volumes"]:
-                    acronym = self.acronyms_by_slug[slug]
-                    self.excluded_volume_map[volume].append(acronym)
-
-                self.venue_dict[slug] = venue_dict
-
-    def get_by_letter(self, letter):
+    def get_acronym_by_letter(self, letter):
         """Get a venue acronym by first letter (e.g., Q -> TACL)."""
-        return self.letters.get(letter, None)
+        return self.letters_to_acronym.get(letter, None)
 
-    def get_by_acronym(self, acronym):
+    def get_slug_by_letter(self, letter):
+        """Get a venue slug by first letter (e.g., Q -> TACL)."""
+        return self.letters_to_slug.get(letter, None)
+
+    def get_dict_by_acronym(self, acronym):
         """Get a venue object by its acronym (assumes acronyms are unique)."""
         try:
             return self.acronyms[acronym]
         except KeyError:
             raise Exception(f"Unknown venue acronym: {acronym}")
-
-    def get_main_venue(self, anthology_id):
-        """Get a venue acronym by anthology volume ID.
-        The Anthology ID can be a full paper ID or a volume ID.
-
-        - 2020.acl-1 -> acl
-        - W19-52 -> wmt
-        - 2020.acl-long.100 -> acl
-        """
-        collection_id, volume_id, _ = deconstruct_anthology_id(anthology_id)
-        if is_newstyle_id(collection_id):
-            return self.acronyms_by_slug[collection_id.split(".")[-1]]
-        else:  # old-style ID
-            # The main venue is defined by the "oldstyle_letter" key in
-            # the venue files.
-            main_venue = self.get_by_letter(collection_id[0])
-            if main_venue is None:
-                # If there was no association with the letter, use joint.yaml to
-                # get the venue.  As of 06/2021 this is only used for "O"
-                # (ROCLING/IJCLCLP).
-                try:
-                    main_venue = self.volume_map[
-                        build_anthology_id(collection_id, volume_id, None)
-                    ][0]
-                except (KeyError, IndexError):
-                    raise Exception(
-                        f"Old-style ID {anthology_id} isn't assigned any venue!"
-                    )
-            return main_venue
-
-    def get_associated_venues(self, anthology_id):
-        """Get a list of all venue acronyms for a given (volume) anthology ID."""
-        main_venue = self.get_main_venue(anthology_id)
-        venues = [main_venue]
-
-        # TODO 06/2022: this should be updated for events, instead of "joint"
-        if "joint" in self.venues[main_venue]:
-            venues += self.venues[main_venue]["joint"]
-        if anthology_id in self.volume_map:
-            for venue in self.volume_map[anthology_id]:
-                venues.append(venue)
-
-        # Remove excluded venues
-        venues = list(
-            filter(
-                lambda v: v not in self.excluded_volume_map.get(anthology_id, []), venues
-            )
-        )
-
-        return venues
 
     def register(self, volume):
         """Register a proceedings volume with all associated venues.
@@ -212,13 +173,13 @@ class VenueIndex:
         key).
 
         """
-        venues = self.get_associated_venues(volume.full_id)
+        venues = volume.get_venues()
         for venue in venues:
-            if volume.full_id not in self.venues[venue]["volumes"]:
-                self.venues[venue]["volumes"].append(volume.full_id)
-            self.venues[venue]["years"].add(volume.get("year"))
+            if volume.full_id not in self.venues_by_slug[venue]["volumes"]:
+                self.venues_by_slug[venue]["volumes"].append(volume.full_id)
+            self.venues_by_slug[venue]["years"].add(volume.get("year"))
 
         return venues
 
     def items(self):
-        return self.venues.items()
+        return self.venues_by_slug.items()

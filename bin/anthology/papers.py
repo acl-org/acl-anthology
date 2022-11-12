@@ -39,12 +39,11 @@ from .formatter import (
 
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter=None, venue_index=None):
+    def __init__(self, paper_id, ingest_date, volume, formatter=None):
         self.parent_volume = volume
         if formatter is None:
             formatter = MarkupFormatter()
         self.formatter = formatter
-        self.venue_index = venue_index
         self._id = paper_id
         self._ingest_date = ingest_date
         self._bibkey = None
@@ -455,11 +454,6 @@ class Paper:
         """Return a Markdown-formatted entry."""
         title = self.get_title(form="text")
 
-        if self.venue_index is None:
-            raise Exception(
-                "Can't call Paper.as_markdown() because no venue_index was passed"
-            )
-
         authors = ""
         for field in ("author", "editor"):
             if field in self.attrib:
@@ -473,7 +467,7 @@ class Paper:
                     authors = f"{people[0].last} et al."
 
         year = self.get("year")
-        venue = self.venue_index.get_main_venue(self.parent_volume_id)
+        venue = "-".join(self.parent_volume.get_venues())  # e.g., "EMNLP", "ACL-IJCNLP"
         url = self.url
 
         # hard-coded exception for old-style W-* volumes without an annotated

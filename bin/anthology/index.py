@@ -450,10 +450,10 @@ class AnthologyIndex:
     def get_coauthors(self, id_):
         return self.coauthors[id_].items()
 
-    def get_venues(self, vidx: VenueIndex, id_):
+    def get_venues(self, id_):
         """Get a list of venues a person has published in, with counts."""
         venues = Counter()
         for paper in self.get_papers(id_):
-            for venue in vidx.get_associated_venues(paper):
+            for venue in self._parent.papers[paper].parent_volume.get_venues():
                 venues[venue] += 1
         return venues

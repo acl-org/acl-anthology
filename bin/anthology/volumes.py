@@ -24,6 +24,7 @@ from .venues import VenueIndex
 from .sigs import SIGIndex
 from .utils import (
     build_anthology_id,
+    is_newstyle_id,
     parse_element,
     is_journal,
     month_str2num,
@@ -39,7 +40,6 @@ class Volume:
         volume_id,
         ingest_date,
         meta_data,
-        venue_index: VenueIndex,
         sig_index: SIGIndex,
         formatter,
     ):
@@ -52,23 +52,34 @@ class Volume:
         self._id = volume_id
         self.ingest_date = ingest_date
         self.formatter = formatter
-        self.venue_index = venue_index
         self._set_meta_info(meta_data)
-        self.attrib["venues"] = venue_index.get_associated_venues(self.full_id)
+        self.attrib["venues"] = meta_data.get("venue", [])
+        self.attrib["events"] = meta_data.get("event", [])
         self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
         self.content = []
         self.has_abstracts = False
         self.has_frontmatter = False
 
+    def get_venues(self):
+        """
+        Return the primary venues associated with this volume. This can be multiple venues,
+        if the volumes is a joint volume.
+        """
+        if is_newstyle_id(self.collection_id):
+            return [self.collection_id.split(".")[1]]
+
+        return self.attrib["venues"]
+
     @staticmethod
     def from_xml(
-        volume_xml, collection_id, venue_index: VenueIndex, sig_index: SIGIndex, formatter
+        volume_xml, collection_id, sig_index: SIGIndex, formatter
     ):
 
         volume_id = volume_xml.attrib["id"]
         # The date of publication, defaulting to earlier than anything we'll encounter
         ingest_date = volume_xml.attrib.get("ingest-date", data.UNKNOWN_INGEST_DATE)
         meta_data = parse_element(volume_xml.find("meta"))
+
         # Though metadata uses "booktitle", switch to "title" for compatibility with downstream scripts
         meta_data["title"] = formatter(meta_data["xml_booktitle"], "plain")
 
@@ -77,7 +88,6 @@ class Volume:
             volume_id,
             ingest_date,
             meta_data,
-            venue_index,
             sig_index,
             formatter,
         )
@@ -85,7 +95,7 @@ class Volume:
         front_matter_xml = volume_xml.find("frontmatter")
         if front_matter_xml is not None:
             front_matter = Paper.from_xml(
-                front_matter_xml, volume, formatter, venue_index
+                front_matter_xml, volume, formatter
             )
             volume.add_frontmatter(front_matter)
 

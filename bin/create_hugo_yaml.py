@@ -104,7 +104,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             [
                 [venue, count]
                 for (venue, count) in anthology.people.get_venues(
-                    anthology.venues, id_
+                    id_
                 ).items()
             ],
             key=lambda p: p[1],
@@ -141,16 +141,6 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                 anthology.people.resolve_name(name, id_) for name, id_ in data["editor"]
             ]
         volumes[volume.full_id] = data
-
-    def volume_is_venue(volume_id, venue_acronym, venue_letter):
-        """
-        Returns true if volume is part of the venue denoted by "acronym" or "letter".
-        """
-        collection_id, _, _ = deconstruct_anthology_id(volume_id)
-        if is_newstyle_id(collection_id):
-            return collection_id.split(".")[1] == venue_acronym.lower()
-        else:
-            return collection_id[0] == letter
 
     class SortedVolume:
         """Keys for sorting volumes so they appear in a more reasonable order.
@@ -208,7 +198,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
 
     # Prepare venue index
     venues = {}
-    for acronym, data in anthology.venues.items():
+    for slug, data in anthology.venues.items():
         letter = data.get("oldstyle_letter", "W")
         data = data.copy()
         data["volumes_by_year"] = {}
@@ -218,21 +208,19 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             )
             data["volumes_by_year"][year] = sorted(
                 filtered_volumes,
-                key=lambda x: SortedVolume(acronym, letter, x),
+                key=lambda x: SortedVolume(slug, letter, x),
             )
         data["years"] = sorted(list(data["years"]))
 
-        # Remove these two which are no longer needed
         del data["volumes"]
-        del data["excluded_volumes"]
+        venues[slug] = data
 
-        venues[acronym] = data
-
+    # Prepare events index
     events = anthology.eventindex.events
 
     # Prepare SIG index
     sigs = {}
-    for acronym, sig in anthology.sigs.items():
+    for slug, sig in anthology.sigs.items():
         data = {
             "name": sig.name,
             "slug": sig.slug,
@@ -240,7 +228,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             "volumes_by_year": sig.volumes_by_year,
             "years": sorted([str(year) for year in sig.years]),
         }
-        sigs[acronym] = data
+        sigs[slug] = data
 
     # Dump all
     if not dryrun:
