@@ -114,11 +114,11 @@ def set_main_venue(full_volume_id, venue):
         print("* Fatal: no", volume, "in", volume_collection_id)
         sys.exit(1)
     meta_xml = volume_xml.find("./meta")
-    main_venue = meta_xml.find("./main-venue")
+    main_venue = meta_xml.find("./venue")
     if main_venue is not None:
         main_venue.text = venue
     else:
-        make_simple_element("main-venue", venue, parent=meta_xml)
+        make_simple_element("venue", venue, parent=meta_xml)
 
 
 with open(YAML_DIR / "joint.yaml") as f:
@@ -196,19 +196,19 @@ for venue, venue_data in all_venue_data.items():
                 meta_xml = volume_xml.find("./meta")
 
                 # Figure out a main volume, if none was settable above
-                if not is_newstyle_id(volume) and is_oldstyle_workshop(volume) and meta_xml.find("./main-venue") is None:
+                if not is_newstyle_id(volume) and is_oldstyle_workshop(volume) and meta_xml.find("./venue") is None:
                     main_venue = infer_main_venue(volume)
                     print(f"Setting main venue({volume}) -> {main_venue} since none currently set", file=sys.stderr)
                     set_main_venue(volume, main_venue)
 
                 # make sure not assigned to main venue, and not already listed as associated
-                main_venue_xml = meta_xml.find("./main-venue")
+                main_venue_xml = meta_xml.find("./venue")
                 if main_venue_xml is not None and main_venue_xml.text != venue:
-                    for joint_venue in meta_xml.findall("./associated-venue"):
+                    for joint_venue in meta_xml.findall(f"./event"):
                         if joint_venue.text == volume:
                             break
                     else:
-                        make_simple_element("associated-venue", venue, parent=meta_xml)
+                        make_simple_element("event", venue, parent=meta_xml)
 
 
 for i, (collection_id, tree) in enumerate(collection_xml.items(), 1):
