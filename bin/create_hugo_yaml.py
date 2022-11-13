@@ -53,6 +53,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         # "apa": "apa-6th-edition",
         # "mla": "modern-language-association-7th-edition",
     }
+
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
@@ -199,6 +200,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     # Prepare venue index
     venues = {}
     for slug, data in anthology.venues.items():
+
         letter = data.get("oldstyle_letter", "W")
         data = data.copy()
         data["volumes_by_year"] = {}
@@ -212,7 +214,9 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             )
         data["years"] = sorted(list(data["years"]))
 
+        # The export uses volumes_by_year, deleting this saves space
         del data["volumes"]
+
         venues[slug] = data
 
     # Prepare events index

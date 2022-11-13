@@ -158,6 +158,11 @@ class Volume:
         return build_anthology_id(self.collection_id, self.volume_id)
 
     @property
+    def year(self):
+        """Return the year the volume was published."""
+        return self.attrib["year"]
+
+    @property
     def paper_ids(self):
         return [paper.full_id for paper in self.content]
 

@@ -404,6 +404,10 @@ def indent(elem, level=0, internal=False):
 
 
 def parse_element(xml_element):
+    """
+    Parses an XML node into a key-value hash.
+    Works for defined elements (mainly paper nodes and the <meta> block)
+    """
     attrib = {}
     if xml_element is None:
         return attrib

@@ -54,7 +54,6 @@ class Anthology:
         self.formatter = MarkupFormatter()
         self.volumes = {}  # maps volume IDs to Volume objects
         self.papers = {}  # maps paper IDs to Paper objects
-        self.eventindex = EventIndex()  # contains a list of all events
         self._fast_load = fast_load
         self._require_bibkeys = require_bibkeys
         if importdir is not None:
@@ -66,6 +65,9 @@ class Anthology:
         return self.pindex
 
     def import_directory(self, importdir):
+        """
+        Reads all XML files in the data directory.
+        """
         assert os.path.isdir(importdir), f"Directory not found: {importdir}"
         self.pindex = AnthologyIndex(
             importdir,
@@ -74,6 +76,7 @@ class Anthology:
             parent=self,
         )
         self.venues = VenueIndex(importdir)
+        self.eventindex = EventIndex(self.venues)  # contains a list of all events
         self.sigs = SIGIndex(importdir)
         for xmlfile in glob(importdir + "/xml/*.xml"):
             self.import_file(xmlfile)
@@ -83,6 +86,10 @@ class Anthology:
         tree = etree.parse(filename)
         collection_xml = tree.getroot()
         collection_id = collection_xml.get("id")
+
+        # register complete events
+        if (event_xml := collection_xml.find("./event")) is not None:
+            self.eventindex.register_event(event_xml)
 
         for volume_xml in collection_xml.findall("./volume"):
             # If we're here we're processing volumes
@@ -96,12 +103,14 @@ class Anthology:
             # Register the volume since we're not skipping it
             self.venues.register(volume)
 
+            # Also register volumes with events
+            for venue in volume.get_venues():
+                event = f"{venue}-{volume.year}"
+                self.eventindex.register_volume(volume.full_id, event)
+
             if volume.full_id in self.volumes:
                 log.critical(f"Attempted to import volume ID '{volume.full_id}' twice")
                 log.critical(f"Triggered by file: {filename}")
-
-            # Add the volume to all events
-            # self.eventindex.register(volume)
 
             # front matter
             if volume.has_frontmatter:

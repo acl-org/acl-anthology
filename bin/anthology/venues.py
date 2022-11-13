@@ -74,6 +74,9 @@ class VenueIndex:
         ), f"Proposed slug '{slug}' of venue '{acronym}' doesn't match {VENUE_FORMAT}"
         return slug
 
+    def get_venue(self, venue_slug):
+        return self.venues_by_slug[venue_slug]
+
     def add_venue(self, acronym, title, is_acl=False, url=None):
         """
         Adds a new venue.

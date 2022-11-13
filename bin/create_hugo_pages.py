@@ -146,8 +146,8 @@ def create_people(srcdir, clean=False):
     return data
 
 
-def create_venues_and_events(srcdir, clean=False):
-    """Creates page stubs for all venues and events in the Anthology."""
+def create_venues(srcdir, clean=False):
+    """Creates page stubs for all venues in the Anthology."""
     yamlfile = "{}/data/venues.yaml".format(srcdir)
     log.debug("Processing {}".format(yamlfile))
     with open(yamlfile, "r") as f:
@@ -165,24 +165,42 @@ def create_venues_and_events(srcdir, clean=False):
             yaml.dump(yaml_data, default_flow_style=False, stream=f)
             print("---", file=f)
 
+
+def create_events(srcdir, clean=False):
+    """
+    Creates page stubs for all events in the Anthology.
+
+    Expects that the EventIndex has as sequence of dictionaries,
+    keyed by the event name, with the following fields:
+
+    [ 
+        "acl-2022": {
+            "title": "Annual Meeting of the Association for Computational Linguistics (2022)",
+            "volumes": ["2022.acl-main", "2022.acl-srw", ...]
+        },
+        ...
+    ]
+    
+    Here, a "{event_slug}.md" stub is written for each paper. This is used with the Hugo template
+    file hugo/layout/events/single.html to lookup data written in build/data/events.yaml
+    (created by create_hugo_yaml.py, the previous step), which knows about the volumes to list.
+    The stub lists only the event slug and the event title
+    """
+    yamlfile = f"{srcdir}/data/events.yaml"
+    log.debug(f"Processing {yamlfile}")
+    with open(yamlfile, "r") as f:
+        yaml_data = yaml.load(f, Loader=Loader)
+
     log.info("Creating stubs for events...")
-    if not check_directory("{}/content/events".format(srcdir), clean=clean):
+    if not check_directory(f"{srcdir}/content/events", clean=clean):
         return
-    # Create a paper stub for each event (= venue + year, e.g. ACL 2018)
-    for venue, venue_data in data.items():
-        venue_str = venue_data["slug"]
-        for year in venue_data["volumes_by_year"]:
-            with open(
-                "{}/content/events/{}-{}.md".format(srcdir, venue_str, year), "w"
-            ) as f:
-                print("---", file=f)
-                yaml_data = {
-                    "venue": venue,
-                    "year": year,
-                    "title": "{} ({})".format(venue_data["name"], year),
-                }
-                yaml.dump(yaml_data, default_flow_style=False, stream=f)
-                print("---", file=f)
+    # Create a paper stub for each event
+    for event, event_data in yaml_data.items():
+        with open(f"{srcdir}/content/events/{event}.md", "w") as f:
+            print("---", file=f)
+            yaml_data = {"event_slug": event, "title": event_data["title"]}
+            yaml.dump(yaml_data, default_flow_style=False, stream=f)
+            print("---", file=f)
 
 
 def create_sigs(srcdir, clean=False):
@@ -227,7 +245,8 @@ if __name__ == "__main__":
     create_papers(dir_, clean=args["--clean"])
     create_volumes(dir_, clean=args["--clean"])
     create_people(dir_, clean=args["--clean"])
-    create_venues_and_events(dir_, clean=args["--clean"])
+    create_venues(dir_, clean=args["--clean"])
+    create_events(dir_, clean=args["--clean"])
     create_sigs(dir_, clean=args["--clean"])
 
     if tracker.highest >= log.ERROR:

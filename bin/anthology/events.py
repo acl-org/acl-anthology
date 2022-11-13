@@ -23,24 +23,53 @@ import logging as log
 import os
 import re
 
-
 class EventIndex:
     """
     Keeps track of all events in the anthology and their relation to venues and volumes.
+    Events are both explicitly represented in a collections <event> block, and are also
+    implicit: every volume has one or more <venue> tags, as well as a year, and this information
+    is used to add each volume to its event.
+
+    In the future, we may wish to do away with this implicit association, and instead require
+    that it all be made explicit.
     """
-    def __init__(self):
+    def __init__(self, venue_index):
         self.events = {}
+        self.venue_index = venue_index
 
-    def add_from_xml(self,
-                     event_xml,
-                     venue,
-                     year):
+    def register_event(self, event_xml):
+        """
+        Parses event XML and registers all colocated volumes.
+        """
+        event = event_xml.attrib["id"]
+        for child_xml in event_xml:
+            if child_xml.tag == "title":
+                self.set_title(child_xml.text, event)
+            elif child_xml.tag == "colocated":
+                self.register_volume(child_xml.text, event)
 
-        event_name = f"{venue}-{year}"
-        if not event_name in self.events:
-            self.events[event_name] = {}
-        self.events[event_name]["colocated"] = []
+    def set_title(self, title, event):
+        if event not in self.events:
+            self.events[event] = {
+                "title": None,
+                "volumes": [],
+            }
+        self.events[event]["title"] = title
 
-        if event_xml.findall("colocated") is not None:
-            for colocated in event_xml.findall("colocated"):
-                self.events[event_name]["colocated"].append(colocated.text)
+    def register_volume(self, volume: str, event: str):
+        """
+        Adds a volume to an event.
+
+        :param volume: The full volume ID (e.g., P19-1, 2022.acl-long)
+        :param event: The event (e.g., acl-2019, acl-2022)
+        """
+        if event not in self.events:
+            venue, year = event.split("-")
+            venue_name = self.venue_index.get_venue(venue)["name"]
+            self.events[event] = {
+                "title": f"{venue_name} ({year})",
+                "volumes": [],
+            }
+
+        if volume not in self.events[event]:
+            self.events[event]["volumes"].append(volume)
