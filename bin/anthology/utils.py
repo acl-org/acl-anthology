@@ -80,7 +80,7 @@ def is_valid_id(id_):
 
 
 def build_anthology_id(
-    collection_id: str, volume_id: str, paper_id: Optional[str] = None
+    collection_id: str, volume_id: Optional[str], paper_id: Optional[str] = None
 ) -> str:
     """
     Transforms collection id, volume id, and paper id to a width-padded
@@ -89,24 +89,26 @@ def build_anthology_id(
     if is_newstyle_id(collection_id):
         if paper_id is not None:
             return f"{collection_id}-{volume_id}.{paper_id}"
-        else:
+        elif volume_id is not None:
             return f"{collection_id}-{volume_id}"
-    # pre-2020 IDs
-    if (
-        collection_id[0] == "W"
-        or collection_id == "C69"
-        or (collection_id == "D19" and int(volume_id) >= 5)
-    ):
-        anthology_id = f"{collection_id}-{int(volume_id):02d}"
-        if paper_id is not None:
-            anthology_id += f"{int(paper_id):02d}"
-    else:
-        anthology_id = f"{collection_id}-{int(volume_id):01d}"
-        if paper_id is not None:
-            anthology_id += f"{int(paper_id):03d}"
+        else:
+            return collection_id
 
-    return anthology_id
+    else:  # pre-2020 IDs
+        if (
+            collection_id[0] == "W"
+            or collection_id == "C69"
+            or (collection_id == "D19" and int(volume_id) >= 5)
+        ):
+            anthology_id = f"{collection_id}-{int(volume_id):02d}"
+            if paper_id is not None:
+                anthology_id += f"{int(paper_id):02d}"
+        else:
+            anthology_id = f"{collection_id}-{int(volume_id):01d}"
+            if paper_id is not None:
+                anthology_id += f"{int(paper_id):03d}"
 
+        return anthology_id
 
 def test_url_code(url):
     """
@@ -168,11 +170,16 @@ def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
         W18-6310 -> ('W18', '63', '10')
         D19-1001 -> ('D19', '1',  '1')
         D19-5702 -> ('D19', '57', '2')
+        2022.acl-main.1 -> ('2022.acl', 'main', '1')        
 
     Also works with volumes:
 
         P18-1 -> ('P18', '1', None)
         W18-63 -> ('W18', '63', None)
+
+    And even with just collections:
+
+        P18 -> ('P18', None, None)
 
     For Anthology IDs prior to 2020, the volume ID is the first digit after the hyphen, except
     for the following situations, where it is the first two digits:
@@ -181,28 +188,43 @@ def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
     - The collection "C69"
     - All collections in "D19" where the first digit is >= 5
     """
-    collection_id, rest = anthology_id.split("-")
+
     if is_newstyle_id(anthology_id):
-        if "." in rest:
-            volume_id, paper_id = rest.split(".")
+        if "-" in anthology_id:
+            collection_id, rest = anthology_id.split("-")
         else:
-            volume_id, paper_id = rest, None
+            collection_id = anthology_id
+        rest = None
+        if "-" in anthology_id:
+            collection_id, rest = anthology_id.split("-")
+            if "." in rest:
+                volume_id, paper_id = rest.split(".")
+            else:
+                volume_id, paper_id = rest, None
+        else:
+            collection_id, volume_id, paper_id = anthology_id, None, None
+
         return (collection_id, volume_id, paper_id)
-    # pre-2020 IDs
-    if (
-        collection_id.startswith("W")
-        or collection_id == "C69"
-        or (collection_id == "D19" and int(rest[0]) >= 5)
-    ):
-        if len(rest) == 4:
-            return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
-        else:  # Possible Volume only identifier
-            return (collection_id, str(int(rest)), None)
     else:
-        if len(rest) == 4:
-            return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
-        else:  # Possible Volume only identifier
-            return (collection_id, str(int(rest)), None)
+        if "-" in anthology_id:
+            collection_id, rest = anthology_id.split("-")
+            # pre-2020 IDs
+            if (
+                collection_id.startswith("W")
+                or collection_id == "C69"
+                or (collection_id == "D19" and int(rest[0]) >= 5)
+            ):
+                if len(rest) == 4:
+                    return (collection_id, str(int(rest[0:2])), str(int(rest[2:])))
+                else:  # Possible Volume only identifier
+                    return (collection_id, str(int(rest)), None)
+            else:
+                if len(rest) == 4:
+                    return (collection_id, str(int(rest[0:1])), str(int(rest[1:])))
+                else:  # Possible Volume only identifier
+                    return (collection_id, str(int(rest)), None)
+        else:
+            return anthology_id, None, None
 
 
 def get_xml_file(anth_id):
