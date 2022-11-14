@@ -35,6 +35,7 @@ from anthology.utils import (
     deconstruct_anthology_id,
 )
 from anthology.venues import VenueIndex
+from anthology.utils import infer_year
 
 venues = VenueIndex("/Users/mattpost/src/acl-anthology/data")
 
@@ -90,6 +91,7 @@ def main(args):
         root = tree.getroot()
 
         collection_id = root.attrib["id"]
+        year = infer_year(collection_id)
 
         changed_one = False
         for volume_xml in tree.getroot():
