@@ -173,14 +173,14 @@ def create_events(srcdir, clean=False):
     Expects that the EventIndex has as sequence of dictionaries,
     keyed by the event name, with the following fields:
 
-    [ 
+    [
         "acl-2022": {
             "title": "Annual Meeting of the Association for Computational Linguistics (2022)",
             "volumes": ["2022.acl-main", "2022.acl-srw", ...]
         },
         ...
     ]
-    
+
     Here, a "{event_slug}.md" stub is written for each paper. This is used with the Hugo template
     file hugo/layout/events/single.html to lookup data written in build/data/events.yaml
     (created by create_hugo_yaml.py, the previous step), which knows about the volumes to list.

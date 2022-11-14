@@ -65,7 +65,7 @@ LIST_ELEMENTS = (
     "pwcdataset",
     "video",
     "venue",
-    "event"
+    "event",
 )
 
 # New-style IDs that should be handled as journals

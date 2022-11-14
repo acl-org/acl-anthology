@@ -71,9 +71,7 @@ class Volume:
         return self.attrib["venues"]
 
     @staticmethod
-    def from_xml(
-        volume_xml, collection_id, sig_index: SIGIndex, formatter
-    ):
+    def from_xml(volume_xml, collection_id, sig_index: SIGIndex, formatter):
 
         volume_id = volume_xml.attrib["id"]
         # The date of publication, defaulting to earlier than anything we'll encounter
@@ -94,9 +92,7 @@ class Volume:
 
         front_matter_xml = volume_xml.find("frontmatter")
         if front_matter_xml is not None:
-            front_matter = Paper.from_xml(
-                front_matter_xml, volume, formatter
-            )
+            front_matter = Paper.from_xml(front_matter_xml, volume, formatter)
             volume.add_frontmatter(front_matter)
 
         return volume

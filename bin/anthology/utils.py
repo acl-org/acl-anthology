@@ -110,6 +110,7 @@ def build_anthology_id(
 
         return anthology_id
 
+
 def test_url_code(url):
     """
     Test a URL, returning the result.
@@ -170,7 +171,7 @@ def deconstruct_anthology_id(anthology_id: str) -> Tuple[str, str, str]:
         W18-6310 -> ('W18', '63', '10')
         D19-1001 -> ('D19', '1',  '1')
         D19-5702 -> ('D19', '57', '2')
-        2022.acl-main.1 -> ('2022.acl', 'main', '1')        
+        2022.acl-main.1 -> ('2022.acl', 'main', '1')
 
     Also works with volumes:
 
@@ -517,6 +518,7 @@ def compute_hash(value: bytes) -> str:
 def compute_hash_from_file(path: str) -> str:
     with open(path, "rb") as f:
         return compute_hash(f.read())
+
 
 def read_leaves(data) -> List[str]:
     """Reads the leaves of a possibly superfluously-hierarchical data structure.

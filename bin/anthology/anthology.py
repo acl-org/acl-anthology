@@ -125,9 +125,7 @@ class Anthology:
 
             self.volumes[volume.full_id] = volume
             for paper_xml in volume_xml.findall("paper"):
-                parsed_paper = Paper.from_xml(
-                    paper_xml, volume, self.formatter
-                )
+                parsed_paper = Paper.from_xml(paper_xml, volume, self.formatter)
 
                 self.pindex.register(parsed_paper)
                 full_id = parsed_paper.full_id

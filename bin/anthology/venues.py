@@ -29,8 +29,14 @@ try:
 except ImportError:
     from yaml import Loader
 
-from .utils import is_newstyle_id, build_anthology_id, deconstruct_anthology_id, read_leaves
+from .utils import (
+    is_newstyle_id,
+    build_anthology_id,
+    deconstruct_anthology_id,
+    read_leaves,
+)
 from .data import VENUE_FORMAT
+
 
 class VenueIndex:
     """
@@ -43,6 +49,7 @@ class VenueIndex:
 
     The data structures in here are a bit of a mess.
     """
+
     def __init__(self, srcdir=None):
         # acronym (slug) to dictionary
         self.venues_by_acronym = {}
@@ -65,7 +72,7 @@ class VenueIndex:
     @staticmethod
     def get_slug_from_acronym(acronym):
         """
-        The acronym can contain a hyphen (e.g., Challenge-HML), 
+        The acronym can contain a hyphen (e.g., Challenge-HML),
         whereas the slug must match VENUE_FORMAT (lowercase, no punc)
         """
         slug = slugify(acronym.replace("-", ""))
@@ -140,7 +147,9 @@ class VenueIndex:
                         log.error(
                             f"Venues with old-style letter must be top-level - '{slug}' is not"
                         )
-                    self.letters_to_acronym[venue_dict["oldstyle_letter"]] = venue_dict["acronym"]
+                    self.letters_to_acronym[venue_dict["oldstyle_letter"]] = venue_dict[
+                        "acronym"
+                    ]
                     self.letters_to_slug[venue_dict["oldstyle_letter"]] = slug
 
     def get_acronym_by_letter(self, letter):

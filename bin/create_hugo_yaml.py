@@ -104,9 +104,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         data["venues"] = sorted(
             [
                 [venue, count]
-                for (venue, count) in anthology.people.get_venues(
-                    id_
-                ).items()
+                for (venue, count) in anthology.people.get_venues(id_).items()
             ],
             key=lambda p: p[1],
             reverse=True,

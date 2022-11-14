@@ -23,6 +23,7 @@ import logging as log
 import os
 import re
 
+
 class EventIndex:
     """
     Keeps track of all events in the anthology and their relation to venues and volumes.
@@ -33,6 +34,7 @@ class EventIndex:
     In the future, we may wish to do away with this implicit association, and instead require
     that it all be made explicit.
     """
+
     def __init__(self, venue_index):
         self.events = {}
         self.venue_index = venue_index
@@ -71,5 +73,5 @@ class EventIndex:
                 "volumes": [],
             }
 
-        if volume not in self.events[event]:
+        if volume not in self.events[event]["volumes"]:
             self.events[event]["volumes"].append(volume)

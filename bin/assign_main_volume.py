@@ -28,10 +28,16 @@ from anthology.utils import indent
 
 import lxml.etree as ET
 
-from anthology.utils import build_anthology_id, is_newstyle_id, make_simple_element, deconstruct_anthology_id
+from anthology.utils import (
+    build_anthology_id,
+    is_newstyle_id,
+    make_simple_element,
+    deconstruct_anthology_id,
+)
 from anthology.venues import VenueIndex
 
 venues = VenueIndex("/Users/mattpost/src/acl-anthology/data")
+
 
 def get_main_venue(anthology_id):
     """Get a venue identifier from an Anthology ID.
@@ -44,8 +50,8 @@ def get_main_venue(anthology_id):
     The logic for this is straightforward for newstyle IDs, since the venue
     slug is contained in the name. For old-style IDs, we have to infer it,
     using the following steps:
-    - if the volume letter is not W, 
-        - if the volume is not in the excluded map for the venue associated with 
+    - if the volume letter is not W,
+        - if the volume is not in the excluded map for the venue associated with
         that volume, return the venue
         - if it is excluded, return its explicit association
     - else, return the volume mapping (hopefully it's been manually associated
@@ -68,9 +74,7 @@ def get_main_venue(anthology_id):
             full_volume_id = f"{collection_id}-{volume_id}"
 
         if main_venue is None:
-            raise Exception(
-                f"Old-style ID {anthology_id} isn't assigned any venue!"
-            )
+            raise Exception(f"Old-style ID {anthology_id} isn't assigned any venue!")
 
         return main_venue
 
@@ -81,7 +85,7 @@ def main(args):
 
         if not xml_file.endswith(".xml"):
             continue
-            
+
         tree = ET.parse(xml_file)
         root = tree.getroot()
 
@@ -104,6 +108,7 @@ def main(args):
         if changed_one:
             indent(root)
             tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
