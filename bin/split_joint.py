@@ -80,10 +80,11 @@ YAML_DIR = IMPORT_DIR / "yaml"
 
 venue_index = VenueIndex(IMPORT_DIR)
 
-collection_xml = {}
+collections = {}
+
 
 def get_xml(collection_id):
-    if not collection_id in collection_xml:
+    if not collection_id in collections:
         xml_file = XML_DIR / f"{collection_id}.xml"
 
         if xml_file.exists():
@@ -92,9 +93,9 @@ def get_xml(collection_id):
             root_node = make_simple_element("collection", attrib={"id": collection_id})
             tree = ET.ElementTree(root_node)
 
-        collection_xml[collection_id] = tree
+        collections[collection_id] = tree
 
-    return collection_xml[collection_id].getroot()
+    return collections[collection_id].getroot()
 
 
 def set_main_venue(full_volume_id, venue):
@@ -211,24 +212,10 @@ for venue, venue_data in all_venue_data.items():
                         make_simple_element("event", venue, parent=meta_xml)
 
 
-for i, (collection_id, tree) in enumerate(collection_xml.items(), 1):
+for i, (collection_id, tree) in enumerate(collections.items(), 1):
     indent(tree.getroot())
 
     xml_file = XML_DIR / f"{collection_id}.xml"
     tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
 
     print("Writing", xml_file)
-
-    # # assume these are colocated, which is usually the case
-    # if venue in ["acl", "aacl", "naacl", "emnlp", "coling", "lrec"]:
-    #     continue
-
-    # # the rest of the entries we assume are truly joint
-    # # (i.e, different names for the same event, or links to the real name)
-    # venue_data = {"volumes": venue_data}
-    # print(venue, venue_data, file=sys.stderr)
-    # if not os.path.exists(f"venues/{venue}.yaml"):
-    #     print(f"Can't find venues/{venue}.yaml", file=sys.stderr)
-    #     continue
-    # with open(f"venues/{venue}.yaml", "at") as outf:
-    #     yaml.dump(venue_data, Dumper=Dumper, stream=outf)
