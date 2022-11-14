@@ -32,4 +32,4 @@ for filepath in sys.stdin:
         volume_id = f"{collection_id}-{volume_name}"
         volumes.append(f"[{volume_id}]({args.url_root}/{volume_id})")
 
-print(", ".join(volumes))
+print(", ".join(volumes)[0:50])
