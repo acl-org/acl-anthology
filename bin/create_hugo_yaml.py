@@ -141,11 +141,33 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             ]
         volumes[volume.full_id] = data
 
+    # Prepare venue index
+    venues = {}
+    for slug, data in anthology.venues.items():
+
+        letter = data.get("oldstyle_letter", "W")
+        data = data.copy()
+        data["volumes_by_year"] = {}
+        for year in sorted(data["years"]):
+            # Grab just the volumes that match the current year
+            filtered_volumes = list(
+                filter(lambda k: volumes[k]["year"] == year, data["volumes"])
+            )
+            data["volumes_by_year"][year] = filtered_volumes
+
+        data["years"] = sorted(list(data["years"]))
+
+        # The export uses volumes_by_year, deleting this saves space
+        del data["volumes"]
+
+        venues[slug] = data
+
     class SortedVolume:
-        """Keys for sorting volumes so they appear in a more reasonable order.
-        Takes the parent venue being sorted under, along with its letter,
-        and the Anthology ID of the current volume. For example, LREC 2020
-        has the following joint events, which get sorted in the following manner:
+        """
+        Works as a key for sorting volumes that are located at an event,
+        such that the event's own volumes will appear before colocated volumes.
+        For example, LREC 2020 has the following joint events, which get sorted
+        in the following manner (LREC first):
 
         ['2020.lrec-1', '2020.aespen-1', '2020.ai4hi-1',
         '2020.bucc-1', '2020.calcs-1', '2020.cllrd-1', '2020.clssts-1',
@@ -156,17 +178,21 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         '2020.osact-1', '2020.parlaclarin-1', '2020.rail-1', '2020.readi-1',
         '2020.restup-1', '2020.sltu-1 ', '2020.stoc-1', '2020.trac-1',
         '2020.wac-1', '2020.wildre-1']
+
+        Volumes can be a mix of old- and new-style IDs, so to match them to the
+        parent, we need both the parent's venue ID (e.g., acl) and it's letter,
+        if any (e.g., P). These are compared with each volume (taken from anth_id)
+        to sort all the items.
         """
 
-        def __init__(self, acronym, letter, anth_id):
+        def __init__(self, parent_venue, parent_letter, anth_id):
             """
-            :param acronym: The venue acronym, e.g., "ACL"
+            :param acronym: The venue, e.g., "acl"
             :param letter: The old-style letter, e.g., "P"
             :param anth_id: The collection and volume ID, e.g., "P19" or "2022.acl"
             """
 
-            # The parent venue is just the acronym (e.g., ACL -> acl)
-            self.parent_venue = acronym.lower()
+            self.parent_venue = parent_venue
             self.anth_id = anth_id
 
             # is_parent_venue marks volumes that match their parent, either
@@ -174,12 +200,13 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             # or new-style volume. Ideally we'd just get the venue from the letter
             # and then just compare on that; maybe there's a way to do that.
             collection_id, self.volume_id, _ = deconstruct_anthology_id(anth_id)
+
             if is_newstyle_id(collection_id):
                 self.venue = collection_id.split(".")[1]
                 self.is_parent_venue = self.venue == self.parent_venue
             else:
                 self.venue = collection_id[0]
-                self.is_parent_venue = self.venue == letter
+                self.is_parent_venue = self.venue == parent_letter
 
         def __str__(self):
             return self.anth_id
@@ -195,30 +222,16 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                 return self.venue < other.venue
             return self.is_parent_venue and not other.is_parent_venue
 
-    # Prepare venue index
-    venues = {}
-    for slug, data in anthology.venues.items():
-
-        letter = data.get("oldstyle_letter", "W")
-        data = data.copy()
-        data["volumes_by_year"] = {}
-        for year in sorted(data["years"]):
-            filtered_volumes = list(
-                filter(lambda k: volumes[k]["year"] == year, data["volumes"])
-            )
-            data["volumes_by_year"][year] = sorted(
-                filtered_volumes,
-                key=lambda x: SortedVolume(slug, letter, x),
-            )
-        data["years"] = sorted(list(data["years"]))
-
-        # The export uses volumes_by_year, deleting this saves space
-        del data["volumes"]
-
-        venues[slug] = data
-
     # Prepare events index
-    events = anthology.eventindex.events
+    events = {}
+    for slug, event_data in anthology.eventindex.items():
+        letter = event_data.get("oldstyle_letter", "W")
+        event_data = event_data.copy()
+        event_data["volumes"] = sorted(
+            data["volumes"], key=lambda x: SortedVolume(slug, letter, x)
+        )
+
+        events[slug] = event_data
 
     # Prepare SIG index
     sigs = {}

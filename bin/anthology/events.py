@@ -75,3 +75,6 @@ class EventIndex:
 
         if volume not in self.events[event]["volumes"]:
             self.events[event]["volumes"].append(volume)
+
+    def items(self):
+        return self.events.items()
