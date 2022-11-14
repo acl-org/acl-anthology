@@ -134,6 +134,7 @@ for venue, venue_data in all_venue_data.items():
         for volume in volumes:
             volume_to_venues_map[volume].append(venue)
 
+
 def venue_size(venue):
     """
     Ideally we'd use the actual paper counts, but this gets the job done.
@@ -157,13 +158,18 @@ def infer_main_venue(volume):
         # if there are associations, find the "lowest ranking" one
         return sorted(volume_to_venues_map[volume], key=venue_size)[0]
     else:
-        return venue_index.get_slug_by_letter(volume[0])                
+        return venue_index.get_slug_by_letter(volume[0])
+
 
 def is_singleton(volume):
     return len(volume_to_venues_map[volume]) == 1
 
+
 def is_oldstyle_workshop(volume):
-    return not is_newstyle_id(volume) and (volume[0] == "W" or (volume[0:3] == "D19" and int(volume[4]) >= 5))
+    return not is_newstyle_id(volume) and (
+        volume[0] == "W" or (volume[0:3] == "D19" and int(volume[4]) >= 5)
+    )
+
 
 for venue, venue_data in all_venue_data.items():
     for year, volumes in venue_data.items():
@@ -173,7 +179,7 @@ for venue, venue_data in all_venue_data.items():
         event_name = f"{venue}-{year}"
 
         for volume in volumes:
-            """Find the volume's XML file, and add a """
+            """Find the volume's XML file, and add a"""
 
             if len(volumes) == 1:
                 # IDENTIFIED
@@ -191,15 +197,24 @@ for venue, venue_data in all_venue_data.items():
                     pass
                 volume_xml = root_node.find(f"./volume[@id='{volume_id}']")
                 if volume_xml is None:
-                    print("* Fatal: no", volume, "in", volume_collection_id, file=sys.stderr)
+                    print(
+                        "* Fatal: no", volume, "in", volume_collection_id, file=sys.stderr
+                    )
                     sys.exit(1)
 
                 meta_xml = volume_xml.find("./meta")
 
                 # Figure out a main volume, if none was settable above
-                if not is_newstyle_id(volume) and is_oldstyle_workshop(volume) and meta_xml.find("./venue") is None:
+                if (
+                    not is_newstyle_id(volume)
+                    and is_oldstyle_workshop(volume)
+                    and meta_xml.find("./venue") is None
+                ):
                     main_venue = infer_main_venue(volume)
-                    print(f"Setting main venue({volume}) -> {main_venue} since none currently set", file=sys.stderr)
+                    print(
+                        f"Setting main venue({volume}) -> {main_venue} since none currently set",
+                        file=sys.stderr,
+                    )
                     set_main_venue(volume, main_venue)
 
                 # make sure not assigned to main venue, and not already listed as associated
