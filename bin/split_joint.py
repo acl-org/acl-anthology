@@ -170,12 +170,12 @@ def is_oldstyle_workshop(volume):
         volume[0] == "W" or (volume[0:3] == "D19" and int(volume[4]) >= 5)
     )
 
-
 for venue, venue_data in all_venue_data.items():
     for year, volumes in venue_data.items():
-        # TODO: Skip volumes with newstyle IDs when creating entries!
 
         collection_id = f"{year}.{venue}"
+        collection_xml = get_xml(collection_id)
+
         event_name = f"{venue}-{year}"
 
         for volume in volumes:
@@ -187,45 +187,43 @@ for venue, venue_data in all_venue_data.items():
                     set_main_venue(volume, venue)
 
             else:
-                # JOINT
+                # COLOCATED
+
+                # List each volume as colocated with the event under whose name it appears
+                print(volume, "->", event_name, collection_id)
+                event_xml = collection_xml.find("event")
+                if event_xml is None:
+                    event_xml = make_simple_element(
+                        "event", attrib={"id": event_name}, parent=collection_xml
+                    )
+
+                # add idempotency
+                for colocated_xml in event_xml.findall(f"./colocated"):
+                    if colocated_xml.text == volume:
+                        break
+                else:
+                    make_simple_element("colocated", volume, parent=event_xml)
+
+                # Make sure a main venue is assigned
                 volume_collection_id, volume_id = volume.split("-")
-                root_node = get_xml(volume_collection_id)
 
                 try:
                     volume_id = str(int(volume_id))
                 except ValueError:
                     pass
-                volume_xml = root_node.find(f"./volume[@id='{volume_id}']")
+
+                volume_xml = collection_xml.find(f"./volume[@id='{volume_id}']")
                 if volume_xml is None:
-                    print(
-                        "* Fatal: no", volume, "in", volume_collection_id, file=sys.stderr
-                    )
+                    print("* Fatal: no", volume, "in", volume_collection_id, file=sys.stderr)
                     sys.exit(1)
 
                 meta_xml = volume_xml.find("./meta")
 
                 # Figure out a main volume, if none was settable above
-                if (
-                    not is_newstyle_id(volume)
-                    and is_oldstyle_workshop(volume)
-                    and meta_xml.find("./venue") is None
-                ):
+                if not is_newstyle_id(volume) and is_oldstyle_workshop(volume) and meta_xml.find("./venue") is None:
                     main_venue = infer_main_venue(volume)
-                    print(
-                        f"Setting main venue({volume}) -> {main_venue} since none currently set",
-                        file=sys.stderr,
-                    )
+                    print(f"Setting main venue({volume}) -> {main_venue} since none currently set", file=sys.stderr)
                     set_main_venue(volume, main_venue)
-
-                # make sure not assigned to main venue, and not already listed as associated
-                main_venue_xml = meta_xml.find("./venue")
-                if main_venue_xml is not None and main_venue_xml.text != venue:
-                    for joint_venue in meta_xml.findall(f"./event"):
-                        if joint_venue.text == volume:
-                            break
-                    else:
-                        make_simple_element("event", venue, parent=meta_xml)
-
 
 for i, (collection_id, tree) in enumerate(collections.items(), 1):
     indent(tree.getroot())
