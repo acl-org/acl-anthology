@@ -228,7 +228,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         letter = event_data.get("oldstyle_letter", "W")
         event_data = event_data.copy()
         event_data["volumes"] = sorted(
-            data["volumes"], key=lambda x: SortedVolume(slug, letter, x)
+            event_data["volumes"], key=lambda x: SortedVolume(slug, letter, x)
         )
 
         events[slug] = event_data
