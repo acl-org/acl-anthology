@@ -29,10 +29,11 @@ class EventIndex:
     Keeps track of all events in the anthology and their relation to venues and volumes.
     Events are both explicitly represented in a collections <event> block, and are also
     implicit: every volume has one or more <venue> tags, as well as a year, and this information
-    is used to add each volume to its event.
+    is used to add each volume to its event. For example, if a volume in year YYYY is
+    has <venue>X</venue>, it will appear in the event named X-YYYY.
 
-    In the future, we may wish to do away with this implicit association, and instead require
-    that it all be made explicit.
+    This still leaves some events semi-implicit, since they are not listed explicitly in
+    the <event> block. We may wish to change this in the future.
     """
 
     def __init__(self, venue_index):
@@ -51,6 +52,9 @@ class EventIndex:
                 self.register_volume(child_xml.text, event)
 
     def set_title(self, title, event):
+        """"
+        Sets the the title of an event. This overrides the default title.
+        """
         if event not in self.events:
             self.events[event] = {
                 "title": None,
@@ -77,4 +81,5 @@ class EventIndex:
             self.events[event]["volumes"].append(volume)
 
     def items(self):
+        """Iterate over the items."""
         return self.events.items()
