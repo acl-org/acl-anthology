@@ -52,8 +52,10 @@ class EventIndex:
                 self.register_volume(child_xml.text, event)
 
     def set_title(self, title, event):
-        """"
-        Sets the the title of an event. This overrides the default title.
+        """
+        Sets the the title of an event. This overrides the default title, which just concatenates
+        the venue name with the year. This allows the event name to be overridden in the <event>
+        block in the XML.
         """
         if event not in self.events:
             self.events[event] = {
