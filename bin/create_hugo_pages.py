@@ -161,7 +161,11 @@ def create_venues(srcdir, clean=False):
         venue_str = venue_data["slug"]
         with open("{}/content/venues/{}.md".format(srcdir, venue_str), "w") as f:
             print("---", file=f)
-            yaml_data = {"venue": venue, "title": venue_data["name"]}
+            yaml_data = {
+                "venue": venue_data["slug"],
+                "acronym": venue_data["acronym"],
+                "title": venue_data["name"],
+            }
             yaml.dump(yaml_data, default_flow_style=False, stream=f)
             print("---", file=f)
 

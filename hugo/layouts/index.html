@@ -82,8 +82,8 @@
         {{ if (and $venue.is_toplevel $venue.is_acl) }}
         <tr class="text-center border-left border-right">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
-          {{ $acronym := index $venue_page.Params "venue" }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $acronym }}</a></th>
+          {{ $acronym := index $venue_page.Params "acronym" }}
+          <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
           {{/* this is the actual default case */}}
@@ -135,7 +135,7 @@
         {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
         <tr class="text-center border-left border-right">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
-          {{ $acronym := index $venue_page.Params "venue" }}
+          {{ $acronym := index $venue_page.Params "acronym" }}
           <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
