@@ -115,7 +115,7 @@ def add_video_tag_single(anth_id, xml_parse):
     collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
     paper = xml_parse.find(f'./volume[@id="{volume_id}"]/paper[@id="{paper_id}"]')
     video_url = anth_id + '.mp4'
- 
+
     if not video_url in [video.attrib['href'] for video in paper.iter('video')]:
         make_simple_element('video', attrib={'href': video_url}, parent=paper)
 
