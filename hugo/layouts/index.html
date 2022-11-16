@@ -86,10 +86,13 @@
           <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
+          {{ $event := printf "%s-%s" $venue.slug $year }}
           {{/* this is the actual default case */}}
           <td class="{{ cond (in $border_years $year) "border-left" "" }}">
-            {{- with index $venue "volumes_by_year" $year -}}
-            <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">{{ slicestr $year 2 4 }}</a>
+            {{- with index $.Site.Data.events $event -}}
+              {{- with index $.Site.Data.events $event "volumes" -}}
+            <a href="{{ relref $ (printf "/events/%s.md" $event) }}">{{ slicestr $year 2 4 }}</a>
+              {{- end -}}
             {{- end -}}
           </td>
           {{ end }}
