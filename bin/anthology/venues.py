@@ -29,12 +29,6 @@ try:
 except ImportError:
     from yaml import Loader
 
-from .utils import (
-    is_newstyle_id,
-    build_anthology_id,
-    deconstruct_anthology_id,
-    read_leaves,
-)
 from .data import VENUE_FORMAT
 
 
