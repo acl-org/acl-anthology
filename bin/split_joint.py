@@ -33,25 +33,25 @@ in the following places:
 
     <volume>
         <meta>
-            <main-venue>wmt</main-venue>
+            <venue>wmt</venue>
         </meta>
     </volume>
 
   Every volume must have exactly one main-venue association.
+  Joint volumes are handled manually in post-processing.
 
-* Joint volumes and colocated volumes are very tricky to distinguish.
-  Instead of trying to do so, we simply associate them, e.g.,
+* Colocated volumes (volumes presented at an event other than
+  their main venue, e.g., a workshop presented at a main conference
+  event) are handled by adding <colocated> tags to the <event> block.
 
-    <volume>
-        <meta>
-            <associated-venue>wmt</associated-venue>
-        </meta>
+    <collection id="2022.emnlp">
+        <event>>
+            <colocated>wmt</colocated>
+        </event>
     </volume>
 
-  A volume can have zero or more associated venues. Although we don't
-  capture the colocated / joint distinction, it doesn't matter. The
-  distinction is not currently captured, and the end effect (having the
-  volume show up under the venue's event page) is accomplished.
+   A particularly important (pseudo-)event is the "ws" event, which ensures
+   that all workshops appear in a single place.
 """
 
 import os
@@ -61,6 +61,8 @@ import yaml
 import lxml.etree as ET
 from pathlib import Path
 from collections import defaultdict
+
+from anthology.utils import build_anthology_id, infer_year
 
 sys.path.append("/Users/mattpost/src/acl-anthology/bin")
 from anthology.utils import make_simple_element, indent, is_newstyle_id
@@ -112,7 +114,7 @@ def set_main_venue(full_volume_id, venue):
     volume_id = str(int(volume_id))  # get rid of leading 0s
     volume_xml = root_node.find(f"./volume[@id='{volume_id}']")
     if volume_xml is None:
-        print("* Fatal: no", volume, "in", volume_collection_id)
+        print("* Fatal: no", volume_id, "in", volume_collection_id)
         sys.exit(1)
     meta_xml = volume_xml.find("./meta")
     main_venue = meta_xml.find("./venue")
@@ -175,12 +177,11 @@ for venue, venue_data in all_venue_data.items():
     for year, volumes in venue_data.items():
 
         collection_id = f"{year}.{venue}"
-        collection_xml = get_xml(collection_id)
 
         event_name = f"{venue}-{year}"
 
         for volume in volumes:
-            """Find the volume's XML file, and add a"""
+            """Find the volume's XML file, and add its main venue"""
 
             if len(volumes) == 1:
                 # IDENTIFIED
@@ -190,50 +191,85 @@ for venue, venue_data in all_venue_data.items():
             else:
                 # COLOCATED
 
-                # List each volume as colocated with the event under whose name it appears
-                print(volume, "->", event_name, collection_id)
+                # 1. List each volume as colocated with the event under whose name it appears
+                collection_xml = get_xml(collection_id)
                 event_xml = collection_xml.find("event")
                 if event_xml is None:
                     event_xml = make_simple_element(
                         "event", attrib={"id": event_name}, parent=collection_xml
                     )
-
-                # add idempotency
+                # only add if not present
                 for colocated_xml in event_xml.findall(f"./colocated"):
                     if colocated_xml.text == volume:
                         break
                 else:
                     make_simple_element("colocated", volume, parent=event_xml)
 
-                # Make sure a main venue is assigned
+                # 2. Make sure a main venue is assigned to the volume itself
                 volume_collection_id, volume_id = volume.split("-")
+                if volume_id.startswith("0"):
+                    volume_id = volume_id[1:]
 
-                try:
-                    volume_id = str(int(volume_id))
-                except ValueError:
-                    pass
-
-                volume_xml = collection_xml.find(f"./volume[@id='{volume_id}']")
+                volume_collection_xml = get_xml(volume_collection_id)
+                volume_xml = volume_collection_xml.find(f"./volume[@id='{volume_id}']")
                 if volume_xml is None:
                     print(
-                        "* Fatal: no", volume, "in", volume_collection_id, file=sys.stderr
+                        "* Fatal: no volume",
+                        volume_id,
+                        "in",
+                        volume_collection_id,
+                        file=sys.stderr,
                     )
                     sys.exit(1)
-
                 meta_xml = volume_xml.find("./meta")
-
-                # Figure out a main volume, if none was settable above
-                if (
-                    not is_newstyle_id(volume)
-                    and is_oldstyle_workshop(volume)
-                    and meta_xml.find("./venue") is None
-                ):
+                if meta_xml.find("./venue") is None:
                     main_venue = infer_main_venue(volume)
                     print(
                         f"Setting main venue({volume}) -> {main_venue} since none currently set",
                         file=sys.stderr,
                     )
                     set_main_venue(volume, main_venue)
+
+# Now, add all workshops to the "workshop event" pages.  These will
+# not naturally appear, because many/most of the workshops within them
+# have been assigned to different main venues. But we want them to
+# appear on the workshop venue pages so people can browse all
+# workshops for a given year.
+for xml_file in XML_DIR.glob("*.xml"):
+    if not (xml_file.name.startswith("W") or xml_file.name.startswith("D19")):
+        continue
+
+    collection_id = xml_file.name[0:3]
+    year = infer_year(collection_id)
+    event_name = f"ws-{year}"
+
+    # the volume we'll iterate over
+    collection_xml = ET.parse(xml_file)
+
+    # the volume we're adding events to
+    event_collection_id = f"{year}.ws"
+    event_collection_xml = get_xml(event_collection_id)
+    event_xml = event_collection_xml.find("./event")
+    if event_xml is None:
+        event_xml = make_simple_element(
+            "event", attrib={"id": event_name}, parent=event_collection_xml
+        )
+
+    for volume_xml in collection_xml.findall("./volume"):
+        volume_id = volume_xml.attrib["id"]
+
+        # skip EMNLP main
+        if collection_id == "D19" and int(volume_id) < 50:
+            continue
+
+        volume_full_id = build_anthology_id(collection_id, volume_id)
+
+        # make sure the volume isn't already listed
+        for colocated_xml in event_xml.findall("./colocated"):
+            if volume_full_id == colocated_xml.text:
+                break
+        else:
+            make_simple_element("colocated", volume_full_id, parent=event_xml)
 
 for i, (collection_id, tree) in enumerate(collections.items(), 1):
     indent(tree.getroot())
