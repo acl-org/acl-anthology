@@ -5,7 +5,7 @@
   </h2>
   <hr />
 
-  {{ $venue := index .Site.Data.venues .Params.acronym }}
+  {{ $venue := index .Site.Data.venues .Params.venue }}
   <div>
     {{ range $year := sort (index $venue "years") "value" "desc" }}
     {{ $volumes := index $venue "volumes_by_year" $year }}
