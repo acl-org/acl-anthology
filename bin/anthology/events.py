@@ -15,14 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from collections import defaultdict
-from copy import deepcopy
-from slugify import slugify
-from typing import List
-import logging as log
-import os
-import re
-
 
 class EventIndex:
     """
@@ -75,6 +67,8 @@ class EventIndex:
             venue, year = event.split("-")
             venue_name = self.venue_index.get_venue(venue)["name"]
             self.events[event] = {
+                "venue": venue,
+                "year": year,
                 "title": f"{venue_name} ({year})",
                 "volumes": [],
             }

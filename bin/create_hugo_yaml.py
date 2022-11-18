@@ -46,6 +46,10 @@ from create_hugo_pages import check_directory
 
 
 def export_anthology(anthology, outdir, clean=False, dryrun=False):
+    """
+    Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
+    page stubs created by create_hugo_pages.py to instantiate Hugo templates.
+    """
     # Prepare paper index
     papers = defaultdict(dict)
     citation_styles = {
@@ -131,6 +135,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             del data["xml_url"]
         data["has_abstracts"] = volume.has_abstracts
         data["papers"] = volume.paper_ids
+        data["venues"] = volume.get_venues()
         if "author" in data:
             data["author"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
@@ -143,8 +148,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
 
     # Prepare venue index
     venues = {}
-    for slug, data in anthology.venues.items():
-
+    for main_venue, data in anthology.venues.items():
         letter = data.get("oldstyle_letter", "W")
         data = data.copy()
         data["volumes_by_year"] = {}
@@ -160,82 +164,34 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         # The export uses volumes_by_year, deleting this saves space
         del data["volumes"]
 
-        venues[slug] = data
-
-    class SortedVolume:
-        """
-        Works as a key for sorting volumes that are located at an event,
-        such that the event's own volumes will appear before colocated volumes.
-        For example, LREC 2020 has the following joint events, which get sorted
-        in the following manner (LREC first):
-
-        ['2020.lrec-1', '2020.aespen-1', '2020.ai4hi-1',
-        '2020.bucc-1', '2020.calcs-1', '2020.cllrd-1', '2020.clssts-1',
-        '2020.cmlc-1', '2020.computerm-1', '2020.framenet-1', '2020.gamnlp-1',
-        '2020.globalex-1', '2020.isa-1', '2020.iwltp-1',
-        '2020.ldl-1', '2020.lincr-1', '2020.lr4sshoc-1', '2020.lt4gov-1',
-        '2020.lt4hala-1 ', '2020.multilingualbio-1', '2020.onion-1',
-        '2020.osact-1', '2020.parlaclarin-1', '2020.rail-1', '2020.readi-1',
-        '2020.restup-1', '2020.sltu-1 ', '2020.stoc-1', '2020.trac-1',
-        '2020.wac-1', '2020.wildre-1']
-
-        Volumes can be a mix of old- and new-style IDs, so to match them to the
-        parent, we need both the parent's venue ID (e.g., acl) and it's letter,
-        if any (e.g., P). These are compared with each volume (taken from anth_id)
-        to sort all the items.
-        """
-
-        def __init__(self, parent_venue, parent_letter, anth_id):
-            """
-            :param acronym: The venue, e.g., "acl"
-            :param letter: The old-style letter, e.g., "P"
-            :param anth_id: The collection and volume ID, e.g., "P19" or "2022.acl"
-            """
-
-            self.parent_venue = parent_venue
-            self.anth_id = anth_id
-
-            # is_parent_venue marks volumes that match their parent, either
-            # the acronym or the letter, depending on whether this is old-style
-            # or new-style volume. Ideally we'd just get the venue from the letter
-            # and then just compare on that; maybe there's a way to do that.
-            collection_id, self.volume_id, _ = deconstruct_anthology_id(anth_id)
-
-            if is_newstyle_id(collection_id):
-                self.venue = collection_id.split(".")[1]
-                self.is_parent_venue = self.venue == self.parent_venue
-            else:
-                self.venue = collection_id[0]
-                self.is_parent_venue = self.venue == parent_letter
-
-        def __str__(self):
-            return self.anth_id
-
-        def __eq__(self, other):
-            """We define equivalence at the venue (not volume) level in order
-            to preserve the sort order found in the XML"""
-            return self.venue == other.venue
-
-        def __lt__(self, other):
-            """First parent volumes, then sort by venue name"""
-            if self.is_parent_venue == other.is_parent_venue:
-                return self.venue < other.venue
-            return self.is_parent_venue and not other.is_parent_venue
+        venues[main_venue] = data
 
     # Prepare events index
     events = {}
-    for slug, event_data in anthology.eventindex.items():
-        letter = event_data.get("oldstyle_letter", "W")
+    for event_name, event_data in anthology.eventindex.items():
+        main_venue = event_data["venue"]
         event_data = event_data.copy()
-        event_data["volumes"] = sorted(
-            event_data["volumes"], key=lambda x: SortedVolume(slug, letter, x)
-        )
 
-        events[slug] = event_data
+        def volume_sorter(volume):
+            """Puts all main volumes before satellite ones.
+            Main volumes are sorted in a stabile manner as
+            found in the XML. Colocated ones are sorted
+            alphabetically."""
+            if main_venue in volumes[volume]["venues"]:
+                # sort volumes in main venue first
+                return "_"
+            else:
+                # sort colocated volumes alphabetically, using
+                # the alphabetically-earliest volume
+                return min(volumes[volume]["venues"])
+
+        event_data["volumes"] = sorted(event_data["volumes"], key=volume_sorter)
+
+        events[event_name] = event_data
 
     # Prepare SIG index
     sigs = {}
-    for slug, sig in anthology.sigs.items():
+    for main_venue, sig in anthology.sigs.items():
         data = {
             "name": sig.name,
             "slug": sig.slug,
@@ -243,7 +199,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             "volumes_by_year": sig.volumes_by_year,
             "years": sorted([str(year) for year in sig.years]),
         }
-        sigs[slug] = data
+        sigs[main_venue] = data
 
     # Dump all
     if not dryrun:
