@@ -44,7 +44,7 @@
       <dd>
         {{- $len := (len $paper.venues) -}}
         {{- range $index, $venue := $paper.venues -}}
-            {{ $acronym := index $.Site.Data.venues $venue "acronym }}
+            {{ $acronym := index $.Site.Data.venues $venue "acronym" }}
           <a href="{{ relref $ (printf "/venues/%s.md" ($venue)) }}">
             {{- $acronym -}}
           </a>
