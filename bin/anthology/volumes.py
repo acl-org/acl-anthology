@@ -40,6 +40,7 @@ class Volume:
         volume_id,
         ingest_date,
         meta_data,
+        venue_index: VenueIndex,
         sig_index: SIGIndex,
         formatter,
     ):
@@ -53,6 +54,7 @@ class Volume:
         self.ingest_date = ingest_date
         self.formatter = formatter
         self._set_meta_info(meta_data)
+        self.venue_index = venue_index
         self.attrib["venues"] = meta_data.get("venue", [])
         self.attrib["events"] = meta_data.get("event", [])
         self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
@@ -62,7 +64,7 @@ class Volume:
 
     def get_venues(self):
         """
-        Return the primary venues associated with this volume. This can be multiple venues,
+        Return the primary venues (as slugs) associated with this volume. This can be multiple venues,
         if the volumes is a joint volume.
         """
         if is_newstyle_id(self.collection_id):
@@ -71,7 +73,9 @@ class Volume:
         return self.attrib["venues"]
 
     @staticmethod
-    def from_xml(volume_xml, collection_id, sig_index: SIGIndex, formatter):
+    def from_xml(
+        volume_xml, collection_id, venue_index: VenueIndex, sig_index: SIGIndex, formatter
+    ):
 
         volume_id = volume_xml.attrib["id"]
         # The date of publication, defaulting to earlier than anything we'll encounter
@@ -86,6 +90,7 @@ class Volume:
             volume_id,
             ingest_date,
             meta_data,
+            venue_index,
             sig_index,
             formatter,
         )

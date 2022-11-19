@@ -96,6 +96,7 @@ class Anthology:
             volume = Volume.from_xml(
                 volume_xml,
                 collection_id,
+                self.venues,
                 self.sigs,
                 self.formatter,
             )

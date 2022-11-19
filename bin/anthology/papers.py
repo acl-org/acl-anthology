@@ -467,7 +467,7 @@ class Paper:
                     authors = f"{people[0].last} et al."
 
         year = self.get("year")
-        venue = "-".join(self.parent_volume.get_venues())  # e.g., "EMNLP", "ACL-IJCNLP"
+        venue = self.get_venue_acronym()
         url = self.url
 
         # hard-coded exception for old-style W-* volumes without an annotated
@@ -475,6 +475,18 @@ class Paper:
         if venue != "WS":
             return f"[{title}]({url}) ({authors}, {venue} {year})"
         return f"[{title}]({url}) ({authors}, {year})"
+
+    def get_venue_acronym(self):
+        """
+        Returns the venue acronym for the paper (e.g., NLP4TM).
+        Joint events will have more than one venue and will be hyphenated (e.g., ACL-IJCNLP).
+        """
+        venue_slugs = self.parent_volume.get_venues()
+        venues = [
+            self.parent_volume.venue_index.get_acronym_by_slug(slug)
+            for slug in venue_slugs
+        ]
+        return "-".join(venues)
 
     def as_dict(self):
         value = self.attrib.copy()

@@ -78,6 +78,9 @@ class VenueIndex:
     def get_venue(self, venue_slug):
         return self.venues_by_slug[venue_slug]
 
+    def get_acronym_by_slug(self, venue_slug):
+        return self.get_venue(venue_slug)["acronym"]
+
     def add_venue(self, acronym, title, is_acl=False, url=None):
         """
         Adds a new venue.
