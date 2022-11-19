@@ -467,6 +467,9 @@ def main(args):
                         parent=meta_node,
                     )
 
+                # Add the venue tag
+                make_simple_element("venue", venue_name, parent=meta_node)
+
                 # modify frontmatter tag
                 paper_node.tag = "frontmatter"
                 del paper_node.attrib["id"]
