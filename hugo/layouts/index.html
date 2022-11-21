@@ -82,7 +82,6 @@
         {{ if (and $venue.is_toplevel $venue.is_acl) }}
         <tr class="text-center border-left border-right">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
-          {{ $acronym := index $venue_page.Params "acronym" }}
           <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
@@ -138,16 +137,17 @@
         {{ if (and $venue.is_toplevel (not $venue.is_acl)) }}
         <tr class="text-center border-left border-right">
           {{ $venue_page := $.Site.GetPage (printf "/venues/%s.md" $venue.slug) }}
-          {{ $acronym := index $venue_page.Params "acronym" }}
-          <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $acronym }}</a></th>
+          <th scope="row"><a href="{{ $venue_page.RelPermalink }}">{{ $venue.acronym }}</a></th>
           {{ range $all_years }}
           {{ $year := string . }}
+          {{ $event := printf "%s-%s" $venue.slug $year }}
           <td class="{{ cond (in $border_years $year) "border-left" "" }}">
-            {{ with index $venue "volumes_by_year" $year }}
-            <a href="{{ relref $ (printf "/events/%s-%s.md" $venue.slug $year) }}">
-              {{- slicestr $year 2 4 -}}
-            </a>
-            {{ end }}</td>
+            {{- with index $venue $.Site.Data.events $event -}}
+              {{- with index $.Site.Data.events $event "volumes" -}}
+            <a href="{{ relref $ (printf "/events/%s.md" $event) }}">{{ slicestr $year 2 4 }}</a>
+              {{- end -}}
+            {{- end -}}
+          </td>
           {{ end }}
         </tr>
         {{ end }}
