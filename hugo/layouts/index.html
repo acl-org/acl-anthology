@@ -142,7 +142,7 @@
           {{ $year := string . }}
           {{ $event := printf "%s-%s" $venue.slug $year }}
           <td class="{{ cond (in $border_years $year) "border-left" "" }}">
-            {{- with index $venue $.Site.Data.events $event -}}
+            {{- with index $.Site.Data.events $event -}}
               {{- with index $.Site.Data.events $event "volumes" -}}
             <a href="{{ relref $ (printf "/events/%s.md" $event) }}">{{ slicestr $year 2 4 }}</a>
               {{- end -}}
