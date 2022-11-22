@@ -1,0 +1,373 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.repl4nlp">
+  <volume id="1" ingest-date="2022-05-15">
+    <meta>
+      <booktitle>Proceedings of the 7th Workshop on Representation Learning for NLP</booktitle>
+      <editor><first>Spandana</first><last>Gella</last></editor>
+      <editor><first>He</first><last>He</last></editor>
+      <editor><first>Bodhisattwa Prasad</first><last>Majumder</last></editor>
+      <editor><first>Burcu</first><last>Can</last></editor>
+      <editor><first>Eleonora</first><last>Giunchiglia</last></editor>
+      <editor><first>Samuel</first><last>Cahyawijaya</last></editor>
+      <editor><first>Sewon</first><last>Min</last></editor>
+      <editor><first>Maximilian</first><last>Mozes</last></editor>
+      <editor><first>Xiang Lorraine</first><last>Li</last></editor>
+      <editor><first>Isabelle</first><last>Augenstein</last></editor>
+      <editor><first>Anna</first><last>Rogers</last></editor>
+      <editor><first>Kyunghyun</first><last>Cho</last></editor>
+      <editor><first>Edward</first><last>Grefenstette</last></editor>
+      <editor><first>Laura</first><last>Rimell</last></editor>
+      <editor><first>Chris</first><last>Dyer</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Dublin, Ireland</address>
+      <month>May</month>
+      <year>2022</year>
+      <url hash="535a0b47">2022.repl4nlp-1</url>
+      <venue>repl4nlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="51febb7e">2022.repl4nlp-1.0</url>
+      <bibkey>repl4nlp-2022-representation</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Distributionally Robust Recurrent Decoders with Random Network Distillation</title>
+      <author><first>Antonio</first><last>Valerio Miceli Barone</last></author>
+      <author><first>Alexandra</first><last>Birch</last></author>
+      <author><first>Rico</first><last>Sennrich</last></author>
+      <pages>1-8</pages>
+      <abstract>Neural machine learning models can successfully model language that is similar to their training distribution, but they are highly susceptible to degradation under distribution shift, which occurs in many practical applications when processing out-of-domain (OOD) text. This has been attributed to “shortcut learning”":" relying on weak correlations over arbitrary large contexts. We propose a method based on OOD detection with Random Network Distillation to allow an autoregressive language model to automatically disregard OOD context during inference, smoothly transitioning towards a less expressive but more robust model as the data becomes more OOD, while retaining its full context capability when operating in-distribution. We apply our method to a GRU architecture, demonstrating improvements on multiple language modeling (LM) datasets.</abstract>
+      <url hash="12206eb8">2022.repl4nlp-1.1</url>
+      <bibkey>valerio-miceli-barone-etal-2022-distributionally</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.1</doi>
+      <video href="2022.repl4nlp-1.1.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/mtnt">MTNT</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>Q</fixed-case>-Learning Scheduler for Multi Task Learning Through the use of Histogram of Task Uncertainty</title>
+      <author><first>Kourosh</first><last>Meshgi</last></author>
+      <author><first>Maryam</first><last>Sadat Mirzaei</last></author>
+      <author><first>Satoshi</first><last>Sekine</last></author>
+      <pages>9-19</pages>
+      <abstract>Simultaneous training of a multi-task learning network on different domains or tasks is not always straightforward. It could lead to inferior performance or generalization compared to the corresponding single-task networks. An effective training scheduling method is deemed necessary to maximize the benefits of multi-task learning. Traditional schedulers follow a heuristic or prefixed strategy, ignoring the relation of the tasks, their sample complexities, and the state of the emergent shared features. We proposed a deep Q-Learning Scheduler (QLS) that monitors the state of the tasks and the shared features using a novel histogram of task uncertainty, and through trial-and-error, learns an optimal policy for task scheduling. Extensive experiments on multi-domain and multi-task settings with various task difficulty profiles have been conducted, the proposed method is benchmarked against other schedulers, its superior performance has been demonstrated, and results are discussed.</abstract>
+      <url hash="6efd7595">2022.repl4nlp-1.2</url>
+      <bibkey>meshgi-etal-2022-q</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.2</doi>
+      <video href="2022.repl4nlp-1.2.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>When does <fixed-case>CLIP</fixed-case> generalize better than unimodal models? When judging human-centric concepts</title>
+      <author><first>Romain</first><last>Bielawski</last></author>
+      <author><first>Benjamin</first><last>Devillers</last></author>
+      <author><first>Tim</first><last>Van De Cruys</last></author>
+      <author><first>Rufin</first><last>Vanrullen</last></author>
+      <pages>29-38</pages>
+      <abstract>CLIP, a vision-language network trained with a multimodal contrastive learning objective on a large dataset of images and captions, has demonstrated impressive zero-shot ability in various tasks. However, recent work showed that in comparison to unimodal (visual) networks, CLIP’s multimodal training does not benefit generalization (e.g. few-shot or transfer learning) for standard visual classification tasks such as object, street numbers or animal recognition. Here, we hypothesize that CLIP’s improved unimodal generalization abilities may be most prominent in domains that involve human-centric concepts (cultural, social, aesthetic, affective...); this is because CLIP’s training dataset is mainly composed of image annotations made by humans for other humans. To evaluate this, we use 3 tasks that require judging human-centric concepts”:" sentiment analysis on tweets, genre classification on books or movies. We introduce and publicly release a new multimodal dataset for movie genre classification. We compare CLIP’s visual stream against two visually trained networks and CLIP’s textual stream against two linguistically trained networks, as well as multimodal combinations of these networks. We show that CLIP generally outperforms other networks, whether using one or two modalities. We conclude that CLIP’s multimodal training is beneficial for both unimodal and multimodal tasks that require classification of human-centric concepts.</abstract>
+      <url hash="7452646f">2022.repl4nlp-1.4</url>
+      <bibkey>bielawski-etal-2022-clip</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.4</doi>
+      <video href="2022.repl4nlp-1.4.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/book-cover-dataset">Book Cover Dataset</pwcdataset>
+    </paper>
+    <paper id="5">
+      <title>From Hyperbolic Geometry Back to Word Embeddings</title>
+      <author><first>Zhenisbek</first><last>Assylbekov</last></author>
+      <author><first>Sultan</first><last>Nurmukhamedov</last></author>
+      <author><first>Arsen</first><last>Sheverdin</last></author>
+      <author><first>Thomas</first><last>Mach</last></author>
+      <pages>39-45</pages>
+      <abstract>We choose random points in the hyperbolic disc and claim that these points are already word representations. However, it is yet to be uncovered which point corresponds to which word of the human language of interest. This correspondence can be approximately established using a pointwise mutual information between words and recent alignment techniques.</abstract>
+      <url hash="34fa5d5e">2022.repl4nlp-1.5</url>
+      <bibkey>assylbekov-etal-2022-hyperbolic</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.5</doi>
+      <video href="2022.repl4nlp-1.5.mp4"/>
+      <pwccode url="https://github.com/soltustik/rhg" additional="false">soltustik/rhg</pwccode>
+    </paper>
+    <paper id="6">
+      <title>A Comparative Study of Pre-trained Encoders for Low-Resource Named Entity Recognition</title>
+      <author><first>Yuxuan</first><last>Chen</last></author>
+      <author><first>Jonas</first><last>Mikkelsen</last></author>
+      <author><first>Arne</first><last>Binder</last></author>
+      <author><first>Christoph</first><last>Alt</last></author>
+      <author><first>Leonhard</first><last>Hennig</last></author>
+      <pages>46-59</pages>
+      <abstract>Pre-trained language models (PLM) are effective components of few-shot named entity recognition (NER) approaches when augmented with continued pre-training on task-specific out-of-domain data or fine-tuning on in-domain data. However, their performance in low-resource scenarios, where such data is not available, remains an open question. We introduce an encoder evaluation framework, and use it to systematically compare the performance of state-of-the-art pre-trained representations on the task of low-resource NER. We analyze a wide range of encoders pre-trained with different strategies, model architectures, intermediate-task fine-tuning, and contrastive learning. Our experimental results across ten benchmark NER datasets in English and German show that encoder performance varies significantly, suggesting that the choice of encoder for a specific low-resource scenario needs to be carefully evaluated.</abstract>
+      <url hash="8968956c">2022.repl4nlp-1.6</url>
+      <bibkey>chen-etal-2022-comparative</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.6</doi>
+      <video href="2022.repl4nlp-1.6.mp4"/>
+      <pwccode url="https://github.com/dfki-nlp/fewie" additional="false">dfki-nlp/fewie</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/few-nerd">Few-NERD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wnut-2017-emerging-and-rare-entity">WNUT 2017</pwcdataset>
+    </paper>
+    <paper id="7">
+      <title>Clozer”:" Adaptable Data Augmentation for Cloze-style Reading Comprehension</title>
+      <author><first>Holy</first><last>Lovenia</last></author>
+      <author><first>Bryan</first><last>Wilie</last></author>
+      <author><first>Willy</first><last>Chung</last></author>
+      <author><first>Zeng</first><last>Min</last></author>
+      <author><first>Samuel</first><last>Cahyawijaya</last></author>
+      <author><first>Dan</first><last>Su</last></author>
+      <author><first>Pascale</first><last>Fung</last></author>
+      <pages>60-66</pages>
+      <abstract>Task-adaptive pre-training (TAPT) alleviates the lack of labelled data and provides performance lift by adapting unlabelled data to downstream task. Unfortunately, existing adaptations mainly involve deterministic rules that cannot generalize well. Here, we propose Clozer, a sequence-tagging based cloze answer extraction method used in TAPT that is extendable for adaptation on any cloze-style machine reading comprehension (MRC) downstream tasks. We experiment on multiple-choice cloze-style MRC tasks, and show that Clozer performs significantly better compared to the oracle and state-of-the-art in escalating TAPT effectiveness in lifting model performance, and prove that Clozer is able to recognize the gold answers independently of any heuristics.</abstract>
+      <url hash="c359b4b1">2022.repl4nlp-1.7</url>
+      <bibkey>lovenia-etal-2022-clozer</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.7</doi>
+      <video href="2022.repl4nlp-1.7.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/recam">ReCAM</pwcdataset>
+    </paper>
+    <paper id="8">
+      <title>Analyzing Gender Representation in Multilingual Models</title>
+      <author><first>Hila</first><last>Gonen</last></author>
+      <author><first>Shauli</first><last>Ravfogel</last></author>
+      <author><first>Yoav</first><last>Goldberg</last></author>
+      <pages>67-77</pages>
+      <abstract>Multilingual language models were shown to allow for nontrivial transfer across scripts and languages. In this work, we study the structure of the internal representations that enable this transfer. We focus on the representations of gender distinctions as a practical case study, and examine the extent to which the gender concept is encoded in shared subspaces across different languages. Our analysis shows that gender representations consist of several prominent components that are shared across languages, alongside language-specific components. The existence of language-independent and language-specific components provides an explanation for an intriguing empirical observation we make”:" while gender classification transfers well across languages, interventions for gender removal trained on a single language do not transfer easily to others.</abstract>
+      <url hash="3c161c39">2022.repl4nlp-1.8</url>
+      <bibkey>gonen-etal-2022-analyzing</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.8</doi>
+      <video href="2022.repl4nlp-1.8.mp4"/>
+      <pwccode url="https://github.com/gonenhila/multilingual_gender" additional="false">gonenhila/multilingual_gender</pwccode>
+    </paper>
+    <paper id="9">
+      <title>Detecting Textual Adversarial Examples Based on Distributional Characteristics of Data Representations</title>
+      <author><first>Na</first><last>Liu</last></author>
+      <author><first>Mark</first><last>Dras</last></author>
+      <author><first>Wei</first><last>Emma Zhang</last></author>
+      <pages>78-90</pages>
+      <abstract>Although deep neural networks have achieved state-of-the-art performance in various machine learning tasks, adversarial examples, constructed by adding small non-random perturbations to correctly classified inputs, successfully fool highly expressive deep classifiers into incorrect predictions. Approaches to adversarial attacks in natural language tasks have boomed in the last five years using character-level, word-level, phrase-level, or sentence-level textual perturbations. While there is some work in NLP on defending against such attacks through proactive methods, like adversarial training, there is to our knowledge no effective general reactive approaches to defence via detection of textual adversarial examples such as is found in the image processing literature. In this paper, we propose two new reactive methods for NLP to fill this gap, which unlike the few limited application baselines from NLP are based entirely on distribution characteristics of learned representations”:" we adapt one from the image processing literature (Local Intrinsic Dimensionality (LID)), and propose a novel one (MultiDistance Representation Ensemble Method (MDRE)). Adapted LID and MDRE obtain state-of-the-art results on character-level, word-level, and phrase-level attacks on the IMDB dataset as well as on the later two with respect to the MultiNLI dataset. For future research, we publish our code .</abstract>
+      <url hash="f365e9dc">2022.repl4nlp-1.9</url>
+      <bibkey>liu-etal-2022-detecting</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.9</doi>
+      <video href="2022.repl4nlp-1.9.mp4"/>
+      <pwccode url="https://github.com/naliuanna/mdre" additional="false">naliuanna/mdre</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
+    </paper>
+    <paper id="10">
+      <title>A Vocabulary-Free Multilingual Neural Tokenizer for End-to-End Task Learning</title>
+      <author><first>Md</first><last>Mofijul Islam</last></author>
+      <author><first>Gustavo</first><last>Aguilar</last></author>
+      <author><first>Pragaash</first><last>Ponnusamy</last></author>
+      <author><first>Clint</first><last>Solomon Mathialagan</last></author>
+      <author><first>Chengyuan</first><last>Ma</last></author>
+      <author><first>Chenlei</first><last>Guo</last></author>
+      <pages>91-99</pages>
+      <abstract>Subword tokenization is a commonly used input pre-processing step in most recent NLP models. However, it limits the models’ ability to leverage end-to-end task learning. Its frequency-based vocabulary creation compromises tokenization in low-resource languages, leading models to produce suboptimal representations. Additionally, the dependency on a fixed vocabulary limits the subword models’ adaptability across languages and domains. In this work, we propose a vocabulary-free neural tokenizer by distilling segmentation information from heuristic-based subword tokenization. We pre-train our character-based tokenizer by processing unique words from multilingual corpus, thereby extensively increasing word diversity across languages. Unlike the predefined and fixed vocabularies in subword methods, our tokenizer allows end-to-end task learning, resulting in optimal task-specific tokenization. The experimental results show that replacing the subword tokenizer with our neural tokenizer consistently improves performance on multilingual (NLI) and code-switching (sentiment analysis) tasks, with larger gains in low-resource languages. Additionally, our neural tokenizer exhibits a robust performance on downstream tasks when adversarial noise is present (typos and misspelling), further increasing the initial improvements over statistical subword tokenizers.</abstract>
+      <url hash="98eacdf2">2022.repl4nlp-1.10</url>
+      <bibkey>mofijul-islam-etal-2022-vocabulary</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.10</doi>
+      <video href="2022.repl4nlp-1.10.mp4"/>
+    </paper>
+    <paper id="11">
+      <title>Identifying the Limits of Cross-Domain Knowledge Transfer for Pretrained Models</title>
+      <author><first>Zhengxuan</first><last>Wu</last></author>
+      <author><first>Nelson</first><last>F. Liu</last></author>
+      <author><first>Christopher</first><last>Potts</last></author>
+      <pages>100-110</pages>
+      <abstract>There is growing evidence that pretrained language models improve task-specific fine-tuning even where the task examples are radically different from those seen in training. We study an extreme case of transfer learning by providing a systematic exploration of how much transfer occurs when models are denied any information about word identity via random scrambling. In four classification tasks and two sequence labeling tasks, we evaluate LSTMs using GloVe embeddings, BERT, and baseline models. Among these models, we find that only BERT shows high rates of transfer into our scrambled domains, and for classification but not sequence labeling tasks. Our analyses seek to explain why transfer succeeds for some tasks but not others, to isolate the separate contributions of pretraining versus fine-tuning, to show that the fine-tuning process is not merely learning to unscramble the scrambled inputs, and to quantify the role of word frequency. Furthermore, our results suggest that current benchmarks may overestimate the degree to which current models actually understand language.</abstract>
+      <url hash="720f5b69">2022.repl4nlp-1.11</url>
+      <bibkey>wu-etal-2022-identifying</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.11</doi>
+      <video href="2022.repl4nlp-1.11.mp4"/>
+      <pwccode url="https://github.com/frankaging/limits-cross-domain-transfer" additional="false">frankaging/limits-cross-domain-transfer</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+    </paper>
+    <paper id="12">
+      <title>Temporal Knowledge Graph Reasoning with Low-rank and Model-agnostic Representations</title>
+      <author><first>Ioannis</first><last>Dikeoulias</last></author>
+      <author><first>Saadullah</first><last>Amin</last></author>
+      <author><first>Günter</first><last>Neumann</last></author>
+      <pages>111-120</pages>
+      <abstract>Temporal knowledge graph completion (TKGC) has become a popular approach for reasoning over the event and temporal knowledge graphs, targeting the completion of knowledge with accurate but missing information. In this context, tensor decomposition has successfully modeled interactions between entities and relations. Their effectiveness in static knowledge graph completion motivates us to introduce Time-LowFER, a family of parameter-efficient and time-aware extensions of the low-rank tensor factorization model LowFER. Noting several limitations in current approaches to represent time, we propose a cycle-aware time-encoding scheme for time features, which is model-agnostic and offers a more generalized representation of time. We implement our methods in a unified temporal knowledge graph embedding framework, focusing on time-sensitive data processing. The experiments show that our proposed methods perform on par or better than the state-of-the-art semantic matching models on two benchmarks.</abstract>
+      <url hash="584f9f8d">2022.repl4nlp-1.12</url>
+      <bibkey>dikeoulias-etal-2022-temporal</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.12</doi>
+      <video href="2022.repl4nlp-1.12.mp4"/>
+      <pwccode url="https://github.com/iodike/chronokge" additional="false">iodike/chronokge</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/icews">ICEWS</pwcdataset>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>ANNA</fixed-case>: Enhanced Language Representation for Question Answering</title>
+      <author><first>Changwook</first><last>Jun</last></author>
+      <author><first>Hansol</first><last>Jang</last></author>
+      <author><first>Myoseop</first><last>Sim</last></author>
+      <author><first>Hyun</first><last>Kim</last></author>
+      <author><first>Jooyoung</first><last>Choi</last></author>
+      <author><first>Kyungkoo</first><last>Min</last></author>
+      <author><first>Kyunghoon</first><last>Bae</last></author>
+      <pages>121-132</pages>
+      <abstract>Pre-trained language models have brought significant improvements in performance in a variety of natural language processing tasks. Most existing models performing state-of-the-art results have shown their approaches in the separate perspectives of data processing, pre-training tasks, neural network modeling, or fine-tuning. In this paper, we demonstrate how the approaches affect performance individually, and that the language model performs the best results on a specific question answering task when those approaches are jointly considered in pre-training models. In particular, we propose an extended pre-training task, and a new neighbor-aware mechanism that attends neighboring tokens more to capture the richness of context for pre-training language modeling. Our best model achieves new state-of-the-art results of 95.7% F1 and 90.6% EM on SQuAD 1.1 and also outperforms existing pre-trained language models such as RoBERTa, ALBERT, ELECTRA, and XLNet on the SQuAD 2.0 benchmark.</abstract>
+      <url hash="3f26fa80">2022.repl4nlp-1.13</url>
+      <bibkey>jun-etal-2022-anna</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.13</doi>
+      <video href="2022.repl4nlp-1.13.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/c4">C4</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+    </paper>
+    <paper id="15">
+      <title>Video Language Co-Attention with Multimodal Fast-Learning Feature Fusion for <fixed-case>V</fixed-case>ideo<fixed-case>QA</fixed-case></title>
+      <author><first>Adnen</first><last>Abdessaied</last></author>
+      <author><first>Ekta</first><last>Sood</last></author>
+      <author><first>Andreas</first><last>Bulling</last></author>
+      <pages>143-155</pages>
+      <abstract>We propose the Video Language Co-Attention Network (VLCN) – a novel memory-enhanced model for Video Question Answering (VideoQA). Our model combines two original contributions”:" A multi-modal fast-learning feature fusion (FLF) block and a mechanism that uses self-attended language features to separately guide neural attention on both static and dynamic visual features extracted from individual video frames and short video clips. When trained from scratch, VLCN achieves competitive results with the state of the art on both MSVD-QA and MSRVTT-QA with 38.06% and 36.01% test accuracies, respectively. Through an ablation study, we further show that FLF improves generalization across different VideoQA datasets and performance for question types that are notoriously challenging in current datasets, such as long questions that require deeper reasoning as well as questions with rare answers.</abstract>
+      <url hash="c8cc1503">2022.repl4nlp-1.15</url>
+      <bibkey>abdessaied-etal-2022-video</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.15</doi>
+      <video href="2022.repl4nlp-1.15.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/msr-vtt">MSR-VTT</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/msvd">MSVD</pwcdataset>
+    </paper>
+    <paper id="16">
+      <title>Detecting Word-Level Adversarial Text Attacks via <fixed-case>SH</fixed-case>apley Additive ex<fixed-case>P</fixed-case>lanations</title>
+      <author><first>Lukas</first><last>Huber</last></author>
+      <author><first>Marc Alexander</first><last>Kühn</last></author>
+      <author><first>Edoardo</first><last>Mosca</last></author>
+      <author><first>Georg</first><last>Groh</last></author>
+      <pages>156-166</pages>
+      <abstract>State-of-the-art machine learning models are prone to adversarial attacks”:" Maliciously crafted inputs to fool the model into making a wrong prediction, often with high confidence. While defense strategies have been extensively explored in the computer vision domain, research in natural language processing still lacks techniques to make models resilient to adversarial text inputs. We adapt a technique from computer vision to detect word-level attacks targeting text classifiers. This method relies on training an adversarial detector leveraging Shapley additive explanations and outperforms the current state-of-the-art on two benchmarks. Furthermore, we prove the detector requires only a low amount of training samples and, in some cases, generalizes to different datasets without needing to retrain.</abstract>
+      <url hash="ed681876">2022.repl4nlp-1.16</url>
+      <bibkey>mosca-etal-2022-detecting</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.16</doi>
+      <video href="2022.repl4nlp-1.16.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+    </paper>
+    <paper id="17">
+      <title>Binary Encoded Word Mover’s Distance</title>
+      <author><first>Christian</first><last>Johnson</last></author>
+      <pages>167-172</pages>
+      <abstract>Word Mover’s Distance is a textual distance metric which calculates the minimum transport cost between two sets of word embeddings. This metric achieves impressive results on semantic similarity tasks, but is slow and difficult to scale due to the large number of floating point calculations. This paper demonstrates that by combining pre-existing lower bounds with binary encoded word vectors, the metric can be rendered highly efficient in terms of computation time and memory while still maintaining accuracy on several textual similarity tasks.</abstract>
+      <url hash="ed8a9135">2022.repl4nlp-1.17</url>
+      <bibkey>johnson-2022-binary</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.17</doi>
+      <video href="2022.repl4nlp-1.17.mp4"/>
+    </paper>
+    <paper id="18">
+      <title>Unsupervised Geometric and Topological Approaches for Cross-Lingual Sentence Representation and Comparison</title>
+      <author><first>Shaked</first><last>Haim Meirom</last></author>
+      <author><first>Omer</first><last>Bobrowski</last></author>
+      <pages>173-183</pages>
+      <abstract>We propose novel structural-based approaches for the generation and comparison of cross lingual sentence representations. We do so by applying geometric and topological methods to analyze the structure of sentences, as captured by their word embeddings. The key properties of our methods are”:" (a) They are designed to be isometric invariant, in order to provide language-agnostic representations. (b) They are fully unsupervised, and use no cross-lingual signal. The quality of our representations, and their preservation across languages, are evaluated in similarity comparison tasks, achieving competitive results. Furthermore, we show that our structural-based representations can be combined with existing methods for improved results.</abstract>
+      <url hash="cf5a4ec3">2022.repl4nlp-1.18</url>
+      <bibkey>haim-meirom-bobrowski-2022-unsupervised</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.18</doi>
+      <video href="2022.repl4nlp-1.18.mp4"/>
+    </paper>
+    <paper id="19">
+      <title>A Study on Entity Linking Across Domains: Which Data is Best for Fine-Tuning?</title>
+      <author><first>Hassan</first><last>Soliman</last></author>
+      <author><first>Heike</first><last>Adel</last></author>
+      <author><first>Mohamed</first><last>H. Gad-Elrab</last></author>
+      <author><first>Dragan</first><last>Milchevski</last></author>
+      <author><first>Jannik</first><last>Strötgen</last></author>
+      <pages>184-190</pages>
+      <abstract>Entity linking disambiguates mentions by mapping them to entities in a knowledge graph (KG). One important question in today’s research is how to extend neural entity linking systems to new domains. In this paper, we aim at a system that enables linking mentions to entities from a general-domain KG and a domain-specific KG at the same time. In particular, we represent the entities of different KGs in a joint vector space and address the questions of which data is best suited for creating and fine-tuning that space, and whether fine-tuning harms performance on the general domain. We find that a combination of data from both the general and the special domain is most helpful. The first is especially necessary for avoiding performance loss on the general domain. While additional supervision on entities that appear in both KGs performs best in an intrinsic evaluation of the vector space, it has less impact on the downstream task of entity linking.</abstract>
+      <url hash="341e93d9">2022.repl4nlp-1.19</url>
+      <bibkey>soliman-etal-2022-study</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.19</doi>
+      <video href="2022.repl4nlp-1.19.mp4"/>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>TRA</fixed-case>ttack: Text Rewriting Attack Against Text Retrieval</title>
+      <author><first>Junshuai</first><last>Song</last></author>
+      <author><first>Jiangshan</first><last>Zhang</last></author>
+      <author><first>Jifeng</first><last>Zhu</last></author>
+      <author><first>Mengyun</first><last>Tang</last></author>
+      <author><first>Yong</first><last>Yang</last></author>
+      <pages>191-203</pages>
+      <abstract>Text retrieval has been widely-used in many online applications to help users find relevant information from a text collection. In this paper, we study a new attack scenario against text retrieval to evaluate its robustness to adversarial attacks under the black-box setting, in which attackers want their own texts to always get high relevance scores with different users’ input queries and thus be retrieved frequently and can receive large amounts of impressions for profits. Considering that most current attack methods only simply follow certain fixed optimization rules, we propose a novel text rewriting attack (TRAttack) method with learning ability from the multi-armed bandit mechanism. Extensive experiments conducted on simulated victim environments demonstrate that TRAttack can yield texts that have higher relevance scores with different given users’ queries than those generated by current state-of-the-art attack methods. We also evaluate TRAttack on Tencent Cloud’s and Baidu Cloud’s commercially-available text retrieval APIs, and the rewritten adversarial texts successfully get high relevance scores with different user queries, which shows the practical potential of our method and the risk of text retrieval systems.</abstract>
+      <url hash="2793af9d">2022.repl4nlp-1.20</url>
+      <bibkey>song-etal-2022-trattack</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.20</doi>
+      <video href="2022.repl4nlp-1.20.mp4"/>
+    </paper>
+    <paper id="21">
+      <title>On the Geometry of Concreteness</title>
+      <author><first>Christian</first><last>Wartena</last></author>
+      <pages>204-212</pages>
+      <abstract>In this paper we investigate how concreteness and abstractness are represented in word embedding spaces. We use data for English and German, and show that concreteness and abstractness can be determined independently and turn out to be completely opposite directions in the embedding space. Various methods can be used to determine the direction of concreteness, always resulting in roughly the same vector. Though concreteness is a central aspect of the meaning of words and can be detected clearly in embedding spaces, it seems not as easy to subtract or add concreteness to words to obtain other words or word senses like e.g. can be done with a semantic property like gender.</abstract>
+      <url hash="d6f70d97">2022.repl4nlp-1.21</url>
+      <bibkey>wartena-2022-geometry</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.21</doi>
+      <video href="2022.repl4nlp-1.21.mp4"/>
+    </paper>
+    <paper id="23">
+      <title>Towards Improving Selective Prediction Ability of <fixed-case>NLP</fixed-case> Systems</title>
+      <author><first>Neeraj</first><last>Varshney</last></author>
+      <author><first>Swaroop</first><last>Mishra</last></author>
+      <author><first>Chitta</first><last>Baral</last></author>
+      <pages>221-226</pages>
+      <abstract>It’s better to say “I can’t answer” than to answer incorrectly. This selective prediction ability is crucial for NLP systems to be reliably deployed in real-world applications. Prior work has shown that existing selective prediction techniques fail to perform well, especially in the out-of-domain setting. In this work, we propose a method that improves probability estimates of models by calibrating them using prediction confidence and difficulty score of instances. Using these two signals, we first annotate held-out instances and then train a calibrator to predict the likelihood of correctness of the model’s prediction. We instantiate our method with Natural Language Inference (NLI) and Duplicate Detection (DD) tasks and evaluate it in both In-Domain (IID) and Out-of-Domain (OOD) settings. In (IID, OOD) settings, we show that the representations learned by our calibrator result in an improvement of (15.81%, 5.64%) and (6.19%, 13.9%) over ‘MaxProb’ -a selective prediction baseline- on NLI and DD tasks respectively.</abstract>
+      <url hash="cac5ecaa">2022.repl4nlp-1.23</url>
+      <bibkey>varshney-etal-2022-towards</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.23</doi>
+      <video href="2022.repl4nlp-1.23.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
+    </paper>
+    <paper id="24">
+      <title>On Target Representation in Continuous-output Neural Machine Translation</title>
+      <author><first>Evgeniia</first><last>Tokarchuk</last></author>
+      <author><first>Vlad</first><last>Niculae</last></author>
+      <pages>227-235</pages>
+      <abstract>Continuous generative models proved their usefulness in high-dimensional data, such as image and audio generation. However, continuous models for text generation have received limited attention from the community. In this work, we study continuous text generation using Transformers for neural machine translation (NMT). We argue that the choice of embeddings is crucial for such models, so we aim to focus on one particular aspect”:" target representation via embeddings. We explore pretrained embeddings and also introduce knowledge transfer from the discrete Transformer model using embeddings in Euclidean and non-Euclidean spaces. Our results on the WMT Romanian-English and English-Turkish benchmarks show such transfer leads to the best-performing continuous model.</abstract>
+      <url hash="95130264">2022.repl4nlp-1.24</url>
+      <bibkey>tokarchuk-niculae-2022-target</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.24</doi>
+      <video href="2022.repl4nlp-1.24.mp4"/>
+    </paper>
+    <paper id="25">
+      <title>Zero-shot Cross-lingual Transfer is Under-specified Optimization</title>
+      <author><first>Shijie</first><last>Wu</last></author>
+      <author><first>Benjamin</first><last>Van Durme</last></author>
+      <author><first>Mark</first><last>Dredze</last></author>
+      <pages>236-248</pages>
+      <abstract>Pretrained multilingual encoders enable zero-shot cross-lingual transfer, but often produce unreliable models that exhibit high performance variance on the target language. We postulate that this high variance results from zero-shot cross-lingual transfer solving an under-specified optimization problem. We show that any linear-interpolated model between the source language monolingual model and source + target bilingual model has equally low source language generalization error, yet the target language generalization error reduces smoothly and linearly as we move from the monolingual to bilingual model, suggesting that the model struggles to identify good solutions for both source and target languages using the source language alone. Additionally, we show that zero-shot solution lies in non-flat region of target language error generalization surface, causing the high variance.</abstract>
+      <url hash="2cc40ed5">2022.repl4nlp-1.25</url>
+      <bibkey>wu-etal-2022-zero</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.25</doi>
+      <video href="2022.repl4nlp-1.25.mp4"/>
+      <pwccode url="https://github.com/shijie-wu/crosslingual-nlp" additional="false">shijie-wu/crosslingual-nlp</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
+    </paper>
+    <paper id="26">
+      <title>Same Author or Just Same Topic? Towards Content-Independent Style Representations</title>
+      <author><first>Anna</first><last>Wegmann</last></author>
+      <author><first>Marijn</first><last>Schraagen</last></author>
+      <author><first>Dong</first><last>Nguyen</last></author>
+      <pages>249-268</pages>
+      <abstract>Linguistic style is an integral component of language. Recent advances in the development of style representations have increasingly used training objectives from authorship verification (AV)”:" Do two texts have the same author? The assumption underlying the AV training task (same author approximates same writing style) enables self-supervised and, thus, extensive training. However, a good performance on the AV task does not ensure good “general-purpose” style representations. For example, as the same author might typically write about certain topics, representations trained on AV might also encode content information instead of style alone. We introduce a variation of the AV training task that controls for content using conversation or domain labels. We evaluate whether known style dimensions are represented and preferred over content information through an original variation to the recently proposed STEL framework. We find that representations trained by controlling for conversation are better than representations trained with domain or no content control at representing style independent from content.</abstract>
+      <url hash="07aeaaba">2022.repl4nlp-1.26</url>
+      <bibkey>wegmann-etal-2022-author</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.26</doi>
+      <video href="2022.repl4nlp-1.26.mp4"/>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>W</fixed-case>ea<fixed-case>NF</fixed-case>”:" Weak Supervision with Normalizing Flows</title>
+      <author><first>Andreas</first><last>Stephan</last></author>
+      <author><first>Benjamin</first><last>Roth</last></author>
+      <pages>269-279</pages>
+      <abstract>A popular approach to decrease the need for costly manual annotation of large data sets is weak supervision, which introduces problems of noisy labels, coverage and bias. Methods for overcoming these problems have either relied on discriminative models, trained with cost functions specific to weak supervision, and more recently, generative models, trying to model the output of the automatic annotation process. In this work, we explore a novel direction of generative modeling for weak supervision”:" Instead of modeling the output of the annotation process (the labeling function matches), we generatively model the input-side data distributions (the feature space) covered by labeling functions. Specifically, we estimate a density for each weak labeling source, or labeling function, by using normalizing flows. An integral part of our method is the flow-based modeling of multiple simultaneously matching labeling functions, and therefore phenomena such as labeling function overlap and correlations are captured. We analyze the effectiveness and modeling capabilities on various commonly used weak supervision data sets, and show that weakly supervised normalizing flows compare favorably to standard weak supervision baselines.</abstract>
+      <url hash="2d1b6741">2022.repl4nlp-1.27</url>
+      <bibkey>stephan-roth-2022-weanf</bibkey>
+      <doi>10.18653/v1/2022.repl4nlp-1.27</doi>
+      <video href="2022.repl4nlp-1.27.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
+    </paper>
+  </volume>
+</collection>

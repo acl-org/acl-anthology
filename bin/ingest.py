@@ -100,7 +100,7 @@ def maybe_copy(source_path, dest_path):
     if not os.path.exists(dest_path) or compute_hash_from_file(
         source_path
     ) != compute_hash_from_file(dest_path):
-        log(f"Copying {source_path} -> {dest_path}", args.dry_run)
+        log(f"Copying {source_path} -> {dest_path}")
         shutil.copyfile(source_path, dest_path)
 
 
@@ -235,11 +235,11 @@ def main(args):
 
     # Build list of volumes, confirm uniqueness
     unseen_venues = []
+
     for proceedings in args.proceedings:
         meta = read_meta(os.path.join(proceedings, "meta"))
-
         venue_abbrev = meta["abbrev"]
-        venue_slug = venue_index.get_slug(venue_abbrev)
+        venue_slug = venue_index.get_slug_from_acronym(venue_abbrev)
 
         if str(datetime.now().year) in venue_abbrev:
             print(f"Fatal: Venue assembler put year in acronym: '{venue_abbrev}'")
@@ -466,6 +466,9 @@ def main(args):
                         attrib={"hash": compute_hash_from_file(book_dest_path)},
                         parent=meta_node,
                     )
+
+                # Add the venue tag
+                make_simple_element("venue", venue_name, parent=meta_node)
 
                 # modify frontmatter tag
                 paper_node.tag = "frontmatter"

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.lnls">
+  <volume id="1" ingest-date="2022-05-15">
+    <meta>
+      <booktitle>Proceedings of the First Workshop on Learning with Natural Language Supervision</booktitle>
+      <editor><first>Jacob</first><last>Andreas</last></editor>
+      <editor><first>Karthik</first><last>Narasimhan</last></editor>
+      <editor><first>Aida</first><last>Nematzadeh</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Dublin, Ireland</address>
+      <month>May</month>
+      <year>2022</year>
+      <url hash="c6e70603">2022.lnls-1</url>
+      <venue>lnls</venue>
+    </meta>
+    <frontmatter>
+      <url hash="33e4d93f">2022.lnls-1.0</url>
+      <bibkey>lnls-2022-learning</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Finding Sub-task Structure with Natural Language Instruction</title>
+      <author><first>Ryokan</first><last>Ri</last></author>
+      <author><first>Yufang</first><last>Hou</last></author>
+      <author><first>Radu</first><last>Marinescu</last></author>
+      <author><first>Akihiro</first><last>Kishimoto</last></author>
+      <pages>1-9</pages>
+      <abstract>When mapping a natural language instruction to a sequence of actions, it is often useful toidentify sub-tasks in the instruction. Such sub-task segmentation, however, is not necessarily provided in the training data. We present the A2LCTC (Action-to-Language Connectionist Temporal Classification) algorithm to automatically discover a sub-task segmentation of an action sequence.A2LCTC does not require annotations of correct sub-task segments and learns to find them from pairs of instruction and action sequence in a weakly-supervised manner.We experiment with the ALFRED dataset and show that A2LCTC accurately finds the sub-task structures.With the discovered sub-tasks segments, we also train agents that work on the downstream task and empirically show that our algorithm improves the performance.</abstract>
+      <url hash="80adfc4c">2022.lnls-1.1</url>
+      <bibkey>ri-etal-2022-finding</bibkey>
+      <doi>10.18653/v1/2022.lnls-1.1</doi>
+      <video href="2022.lnls-1.1.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/alfred">ALFRED</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>G</fixed-case>rammar<fixed-case>SHAP</fixed-case>: An Efficient Model-Agnostic and Structure-Aware <fixed-case>NLP</fixed-case> Explainer</title>
+      <author><first>Edoardo</first><last>Mosca</last></author>
+      <author><first>Defne</first><last>Demirtürk</last></author>
+      <author><first>Luca</first><last>Mülln</last></author>
+      <author><first>Fabio</first><last>Raffagnato</last></author>
+      <author><first>Georg</first><last>Groh</last></author>
+      <pages>10-16</pages>
+      <abstract>Interpreting NLP models is fundamental for their development as it can shed light on hidden properties and unexpected behaviors. However, while transformer architectures exploit contextual information to enhance their predictive capabilities, most of the available methods to explain such predictions only provide importance scores at the word level. This work addresses the lack of feature attribution approaches that also take into account the sentence structure. We extend the SHAP framework by proposing GrammarSHAP—a model-agnostic explainer leveraging the sentence’s constituency parsing to generate hierarchical importance scores.</abstract>
+      <url hash="eefc633c">2022.lnls-1.2</url>
+      <bibkey>mosca-etal-2022-grammarshap</bibkey>
+      <doi>10.18653/v1/2022.lnls-1.2</doi>
+      <video href="2022.lnls-1.2.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Single-Turn Debate Does Not Help Humans Answer Hard Reading-Comprehension Questions</title>
+      <author><first>Alicia</first><last>Parrish</last></author>
+      <author><first>Harsh</first><last>Trivedi</last></author>
+      <author><first>Ethan</first><last>Perez</last></author>
+      <author><first>Angelica</first><last>Chen</last></author>
+      <author><first>Nikita</first><last>Nangia</last></author>
+      <author><first>Jason</first><last>Phang</last></author>
+      <author><first>Samuel</first><last>Bowman</last></author>
+      <pages>17-28</pages>
+      <abstract>Current QA systems can generate reasonable-sounding yet false answers without explanation or evidence for the generated answer, which is especially problematic when humans cannot readily check the model’s answers. This presents a challenge for building trust in machine learning systems. We take inspiration from real-world situations where difficult questions are answered by considering opposing sides (see Irving et al., 2018). For multiple-choice QA examples, we build a dataset of single arguments for both a correct and incorrect answer option in a debate-style set-up as an initial step in training models to produce explanations for two candidate answers. We use long contexts—humans familiar with the context write convincing explanations for pre-selected correct and incorrect answers, and we test if those explanations allow humans who have not read the full context to more accurately determine the correct answer. We do not find that explanations in our set-up improve human accuracy, but a baseline condition shows that providing human-selected text snippets does improve accuracy. We use these findings to suggest ways of improving the debate set up for future data collection efforts.</abstract>
+      <url hash="47246998">2022.lnls-1.3</url>
+      <bibkey>parrish-etal-2022-single</bibkey>
+      <doi>10.18653/v1/2022.lnls-1.3</doi>
+      <video href="2022.lnls-1.3.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/quality">QuALITY</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>When Can Models Learn From Explanations? A Formal Framework for Understanding the Roles of Explanation Data</title>
+      <author><first>Peter</first><last>Hase</last></author>
+      <author><first>Mohit</first><last>Bansal</last></author>
+      <pages>29-39</pages>
+      <abstract>Many methods now exist for conditioning models on task instructions and user-provided explanations for individual data points. These methods show great promise for improving task performance of language models beyond what can be achieved by learning from individual (x,y) pairs. In this paper, we (1) provide a formal framework for characterizing approaches to learning from explanation data, and (2) we propose a synthetic task for studying how models learn from explanation data. In the first direction, we give graphical models for the available modeling approaches, in which explanation data can be used as model inputs, as targets, or as a prior. In the second direction, we introduce a carefully designed synthetic task with several properties making it useful for studying a model’s ability to learn from explanation data. Each data point in this binary classification task is accompanied by a string that is essentially an answer to the <i>why</i> question: “why does data point x have label y?” We aim to encourage research into this area by identifying key considerations for the modeling problem and providing an empirical testbed for theories of how models can best learn from explanation data.</abstract>
+      <url hash="0245f30f">2022.lnls-1.4</url>
+      <bibkey>hase-bansal-2022-models</bibkey>
+      <doi>10.18653/v1/2022.lnls-1.4</doi>
+      <video href="2022.lnls-1.4.mp4"/>
+      <pwccode url="https://github.com/peterbhase/ExplanationRoles" additional="false">peterbhase/ExplanationRoles</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tacred">TACRED</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/e-snli">e-SNLI</pwcdataset>
+    </paper>
+    <paper id="5">
+      <title>A survey on improving <fixed-case>NLP</fixed-case> models with human explanations</title>
+      <author><first>Mareike</first><last>Hartmann</last></author>
+      <author><first>Daniel</first><last>Sonntag</last></author>
+      <pages>40-47</pages>
+      <abstract>Training a model with access to human explanations can improve data efficiency and model performance on in- and out-of-domain data. Adding to these empirical findings, similarity with the process of human learning makes learning from explanations a promising way to establish a fruitful human-machine interaction. Several methods have been proposed for improving natural language processing (NLP) models with human explanations, that rely on different explanation types and mechanism for integrating these explanations into the learning process. These methods are rarely compared with each other, making it hard for practitioners to choose the best combination of explanation type and integration mechanism for a specific use-case. In this paper, we give an overview of different methods for learning from human explanations, and discuss different factors that can inform the decision of which method to choose for a specific use-case.</abstract>
+      <url hash="12898a15">2022.lnls-1.5</url>
+      <bibkey>hartmann-sonntag-2022-survey</bibkey>
+      <doi>10.18653/v1/2022.lnls-1.5</doi>
+      <video href="2022.lnls-1.5.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/e-snli">e-SNLI</pwcdataset>
+    </paper>
+  </volume>
+</collection>

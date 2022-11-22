@@ -9,16 +9,12 @@ version 0.3 - produces anthology ID in new format 2020.cl-1.1
 Example usage: unpack the ZIP file from MIT press. You'll have something like this:
 
     ./taclv9-11082021/
-      ./xml/
-        tacl_a_00350.xml
-        tacl_a_00351.xml
-        tacl_a_00352.xml
-        ...
-      ./assets/
-        tacl_a_00350.pdf
-        tacl_a_00351.pdf
-        tacl_a_00352.pdf
-        ...
+      tacl_a_00350.xml
+      tacl_a_00350.pdf
+      tacl_a_00351.xml
+      tacl_a_00351.pdf
+      tacl_a_00352.xml
+      tacl_a_00352.pdf
 
 Then, run
 
@@ -52,6 +48,21 @@ __version__ = "0.5"
 
 TACL = "tacl"
 CL = "cl"
+
+MONTHS = {
+    "01": "January",
+    "02": "February",
+    "03": "March",
+    "04": "April",
+    "05": "May",
+    "06": "June",
+    "07": "July",
+    "08": "August",
+    "09": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December",
+}
 
 
 def collapse_spaces(text: str) -> str:
@@ -142,6 +153,9 @@ def get_abstract(xml_front_node: etree.Element) -> str:
     abstract = article_meta.find("abstract", nsmap)
     if abstract is not None:
         abstract_text = collapse_spaces("".join(abstract.itertext()))
+        # 2022/June abstracts all started with "Abstract "
+        if abstract_text.startswith("Abstract "):
+            abstract_text = abstract_text[9:]
         return abstract_text
     else:
         return None
@@ -206,15 +220,11 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
     journal_title_text = " ".join(
         journal_title_text.split()
     )  # Sometimes it's split onto two lines...
-    journal_title_text = (
-        journal_title_text.replace(  # Somebody in 2018 didn't know our name?
-            "Association of Computational Linguistics",
-            "Association for Computational Linguistics",
-        )
+    journal_title_text = journal_title_text.replace(  # Fix typo found in 2018
+        "Association of Computational Linguistics",
+        "Association for Computational Linguistics",
     )
-    volume_text = volume.text.lstrip(
-        "0"
-    )  # Somebody brilliant decided that 2018 would be "06" instead of "6"
+    volume_text = volume.text.lstrip("0")  # Sometimes we find "06" instead of "6"
 
     if is_tacl:
         issue_text = None
@@ -224,10 +234,19 @@ def get_article_journal_info(xml_front_node: etree.Element, is_tacl: bool) -> st
         issue = article_meta.find("issue", nsmap)
         issue_text = issue.text
 
-        pub_date = article_meta.find("pub-date", nsmap)
-        month = pub_date.find("month", nsmap).text
-        year = pub_date.find("year", nsmap).text
-        string_date_text = f"{month} {year}"
+        string_date_text = None
+        for pub_date in article_meta.findall("pub-date", nsmap):
+            month = pub_date.find("season", nsmap).text
+            if month is None:
+                continue
+            year = pub_date.find("year", nsmap).text
+            string_date_text = f"{month} {year}"
+            break
+
+        if string_date_text is None:
+            print("Fatal: found no year/date", file=sys.stderr)
+            sys.exit(1)
+
         format_string = "{journal}, Volume {volume}, Issue {issue} - {date}"
 
     data = dict(
@@ -330,13 +349,17 @@ def main(args):
     )
 
     is_tacl = "tacl" in args.root_dir.stem
+    logging.info("Looks like a", 'TACL' if is_tacl else 'CL', "ingest")
 
     venue = TACL if is_tacl else CL  # J for CL, Q for TACL.
-    try:
-        year = int(args.root_dir.name[-4:])
-    except ValueError:
-        logging.warning(f"Expected last four chars of {args.root_dir} to be a year")
-        sys.exit(-1)
+    year = args.year
+    if year is None:
+        try:
+            year = int(args.root_dir.name[-4:])
+        except ValueError:
+            logging.warning(f"Expected last four chars of {args.root_dir} to be a year")
+            logging.warning(f"Or you can use --year YYYY")
+            sys.exit(-1)
 
     collection_id = str(year) + "." + venue
 
@@ -355,12 +378,12 @@ def main(args):
     previous_issue_info = None
 
     papers = []
-    for xml in sorted(args.root_dir.glob("xml/*.xml")):
+    for xml in sorted(args.root_dir.glob("*.xml")):
         papernode, issue_info, issue = process_xml(xml, is_tacl)
         if papernode is None or papernode.find("title").text.startswith("Erratum: “"):
             continue
 
-        pdf_path = xml.parent.parent / "assets" / xml.with_suffix(".pdf").name
+        pdf_path = xml.parent / xml.with_suffix(".pdf").name
         if not pdf_path.is_file():
             logging.error(f"Missing pdf for {pdf_path}")
             sys.exit(1)
@@ -434,7 +457,7 @@ def main(args):
             anthology.sigs,
             anthology.formatter,
         )
-        paper = Paper.from_xml(papernode, volume, anthology.formatter)
+        paper = Paper.from_xml(papernode, volume, anthology.formatter, anthology.venues)
         bibkey = anthology.pindex.create_bibkey(paper, vidx=anthology.venues)
         make_simple_element("bibkey", bibkey, parent=papernode)
 
@@ -466,6 +489,12 @@ if __name__ == "__main__":
         "-r",
         default=anthology_path,
         help="Root path of ACL Anthology Github repo. Default: %(default)s.",
+    )
+    parser.add_argument(
+        "--year",
+        type=int,
+        default=None,
+        help="The current year",
     )
     pdfs_path = os.path.join(os.environ["HOME"], "anthology-files")
     parser.add_argument(

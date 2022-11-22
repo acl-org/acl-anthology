@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.fever">
+  <volume id="1" ingest-date="2022-05-15">
+    <meta>
+      <booktitle>Proceedings of the Fifth Fact Extraction and VERification Workshop (FEVER)</booktitle>
+      <editor><first>Rami</first><last>Aly</last></editor>
+      <editor><first>Christos</first><last>Christodoulopoulos</last></editor>
+      <editor><first>Oana</first><last>Cocarascu</last></editor>
+      <editor><first>Zhijiang</first><last>Guo</last></editor>
+      <editor><first>Arpit</first><last>Mittal</last></editor>
+      <editor><first>Michael</first><last>Schlichtkrull</last></editor>
+      <editor><first>James</first><last>Thorne</last></editor>
+      <editor><first>Andreas</first><last>Vlachos</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Dublin, Ireland</address>
+      <month>May</month>
+      <year>2022</year>
+      <url hash="3da3193b">2022.fever-1</url>
+      <venue>fever</venue>
+    </meta>
+    <frontmatter>
+      <url hash="df5dffe7">2022.fever-1.0</url>
+      <bibkey>fever-2022-fact</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Retrieval Data Augmentation Informed by Downstream Question Answering Performance</title>
+      <author><first>James</first><last>Ferguson</last></author>
+      <author><first>Hannaneh</first><last>Hajishirzi</last></author>
+      <author><first>Pradeep</first><last>Dasigi</last></author>
+      <author><first>Tushar</first><last>Khot</last></author>
+      <pages>1-5</pages>
+      <abstract>Training retrieval models to fetch contexts for Question Answering (QA) over large corpora requires labeling relevant passages in those corpora. Since obtaining exhaustive manual annotations of all relevant passages is not feasible, prior work uses text overlap heuristics to find passages that are likely to contain the answer, but this is not feasible when the task requires deeper reasoning and answers are not extractable spans (e.g.: multi-hop, discrete reasoning). We address this issue by identifying relevant passages based on whether they are useful for a trained QA model to arrive at the correct answers, and develop a search process guided by the QA model’s loss. Our experiments show that this approach enables identifying relevant context for unseen data greater than 90% of the time on the IIRC dataset and generalizes better to the end QA task than those trained on just the gold retrieval data on IIRC and QASC datasets.</abstract>
+      <url hash="d25620ba">2022.fever-1.1</url>
+      <bibkey>ferguson-etal-2022-retrieval</bibkey>
+      <doi>10.18653/v1/2022.fever-1.1</doi>
+      <video href="2022.fever-1.1.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/iirc">IIRC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/qasc">QASC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/eqasc">eQASC</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title>Heterogeneous-Graph Reasoning and Fine-Grained Aggregation for Fact Checking</title>
+      <author><first>Hongbin</first><last>Lin</last></author>
+      <author><first>Xianghua</first><last>Fu</last></author>
+      <pages>6-15</pages>
+      <abstract>Fact checking is a challenging task that requires corresponding evidences to verify the property of a claim based on reasoning. Previous studies generally i) construct the graph by treating each evidence-claim pair as node which is a simple way that ignores to exploit their implicit interaction, or building a fully-connected graph among claim and evidences where the entailment relationship between claim and evidence would be considered equal to the semantic relationship among evidences; ii) aggregate evidences equally without considering their different stances towards the verification of fact. Towards the above issues, we propose a novel heterogeneous-graph reasoning and fine-grained aggregation model, with two following modules: 1) a heterogeneous graph attention network module to distinguish different types of relationships within the constructed graph; 2) fine-grained aggregation module which learns the implicit stance of evidences towards the prediction result in details. Extensive experiments on the benchmark dataset demonstrate that our proposed model achieves much better performance than state-of-the-art methods.</abstract>
+      <url hash="af9423ae">2022.fever-1.2</url>
+      <bibkey>lin-fu-2022-heterogeneous</bibkey>
+      <doi>10.18653/v1/2022.fever-1.2</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Distilling Salient Reviews with Zero Labels</title>
+      <author><first>Chieh-Yang</first><last>Huang</last></author>
+      <author><first>Jinfeng</first><last>Li</last></author>
+      <author><first>Nikita</first><last>Bhutani</last></author>
+      <author><first>Alexander</first><last>Whedon</last></author>
+      <author><first>Estevam</first><last>Hruschka</last></author>
+      <author><first>Yoshi</first><last>Suhara</last></author>
+      <pages>16-28</pages>
+      <abstract>Many people read online reviews to learn about real-world entities of their interest. However, majority of reviews only describes general experiences and opinions of the customers, and may not reveal facts that are specific to the entity being reviewed. In this work, we focus on a novel task of mining from a review corpus sentences that are unique for each entity. We refer to this task as Salient Fact Extraction. Salient facts are extremely scarce due to their very nature. Consequently, collecting labeled examples for training supervised models is tedious and cost-prohibitive. To alleviate this scarcity problem, we develop an unsupervised method, ZL-Distiller, which leverages contextual language representations of the reviews and their distributional patterns to identify salient sentences about entities. Our experiments on multiple domains (hotels, products, and restaurants) show that ZL-Distiller achieves state-of-the-art performance and further boosts the performance of other supervised/unsupervised algorithms for the task. Furthermore, we show that salient sentences mined by ZL-Distiller provide unique and detailed information about entities, which benefit downstream NLP applications including question answering and summarization.</abstract>
+      <url hash="cfd98f98">2022.fever-1.3</url>
+      <bibkey>huang-etal-2022-distilling</bibkey>
+      <doi>10.18653/v1/2022.fever-1.3</doi>
+      <video href="2022.fever-1.3.mp4"/>
+    </paper>
+    <paper id="4">
+      <title>Automatic Fake News Detection: Are current models “fact-checking” or“gut-checking”?</title>
+      <author><first>Ian</first><last>Kelk</last></author>
+      <author><first>Benjamin</first><last>Basseri</last></author>
+      <author><first>Wee</first><last>Lee</last></author>
+      <author><first>Richard</first><last>Qiu</last></author>
+      <author><first>Chris</first><last>Tanner</last></author>
+      <pages>29-36</pages>
+      <abstract>Automatic fake news detection models are ostensibly based on logic, where the truth of a claim made in a headline can be determined by supporting or refuting evidence found in a resulting web query. These models are believed to be reasoning in some way; however, it has been shown that these same results, or better, can be achieved without considering the claim at all – only the evidence. This implies that other signals are contained within the examined evidence, and could be based on manipulable factors such as emotion, sentiment, or part-of-speech (POS) frequencies, which are vulnerable to adversarial inputs. We neutralize some of these signals through multiple forms of both neural and non-neural pre-processing and style transfer, and find that this flattening of extraneous indicators can induce the models to actually require both claims and evidence to perform well. We conclude with the construction of a model using emotion vectors built off a lexicon and passed through an “emotional attention” mechanism to appropriately weight certain emotions. We provide quantifiable results that prove our hypothesis that manipulable features are being used for fact-checking.</abstract>
+      <url hash="1b60fd95">2022.fever-1.4</url>
+      <bibkey>kelk-etal-2022-automatic</bibkey>
+      <doi>10.18653/v1/2022.fever-1.4</doi>
+      <video href="2022.fever-1.4.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/politifact">PolitiFact</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/snopes">Snopes</pwcdataset>
+    </paper>
+    <paper id="5">
+      <title>A Semantics-Aware Approach to Automated Claim Verification</title>
+      <author><first>Blanca</first><last>Calvo Figueras</last></author>
+      <author><first>Montse</first><last>Oller</last></author>
+      <author><first>Rodrigo</first><last>Agerri</last></author>
+      <pages>37-48</pages>
+      <abstract>The influence of fake news in the perception of reality has become a mainstream topic in the last years due to the fast propagation of misleading information. In order to help in the fight against misinformation, automated solutions to fact-checking are being actively developed within the research community. In this context, the task of Automated Claim Verification is defined as assessing the truthfulness of a claim by finding evidence about its veracity. In this work we empirically demonstrate that enriching a BERT model with explicit semantic information such as Semantic Role Labelling helps to improve results in claim verification as proposed by the FEVER benchmark. Furthermore, we perform a number of explainability tests that suggest that the semantically-enriched model is better at handling complex cases, such as those including passive forms or multiple propositions.</abstract>
+      <url hash="5b6759c6">2022.fever-1.5</url>
+      <bibkey>calvo-figueras-etal-2022-semantics</bibkey>
+      <doi>10.18653/v1/2022.fever-1.5</doi>
+      <video href="2022.fever-1.5.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/fever">FEVER</pwcdataset>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>PHEMEP</fixed-case>lus: Enriching Social Media Rumour Verification with External Evidence</title>
+      <author><first>John</first><last>Dougrez-Lewis</last></author>
+      <author><first>Elena</first><last>Kochkina</last></author>
+      <author><first>Miguel</first><last>Arana-Catania</last></author>
+      <author><first>Maria</first><last>Liakata</last></author>
+      <author><first>Yulan</first><last>He</last></author>
+      <pages>49-58</pages>
+      <abstract>Work on social media rumour verification utilises signals from posts, their propagation and users involved. Other lines of work target identifying and fact-checking claims based on information from Wikipedia, or trustworthy news articles without considering social media context. However works combining the information from social media with external evidence from the wider web are lacking. To facilitate research in this direction, we release a novel dataset, PHEMEPlus, an extension of the PHEME benchmark, which contains social media conversations as well as relevant external evidence for each rumour. We demonstrate the effectiveness of incorporating such evidence in improving rumour verification models. Additionally, as part of the evidence collection, we evaluate various ways of query formulation to identify the most effective method.</abstract>
+      <url hash="fc9e5c01">2022.fever-1.6</url>
+      <bibkey>dougrez-lewis-etal-2022-phemeplus</bibkey>
+      <doi>10.18653/v1/2022.fever-1.6</doi>
+      <pwccode url="https://github.com/johnnlp/phemeplus" additional="false">johnnlp/phemeplus</pwccode>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>XI</fixed-case>nfo<fixed-case>T</fixed-case>ab<fixed-case>S</fixed-case>: Evaluating Multilingual Tabular Natural Language Inference</title>
+      <author><first>Bhavnick</first><last>Minhas</last></author>
+      <author><first>Anant</first><last>Shankhdhar</last></author>
+      <author><first>Vivek</first><last>Gupta</last></author>
+      <author><first>Divyanshu</first><last>Aggarwal</last></author>
+      <author><first>Shuo</first><last>Zhang</last></author>
+      <pages>59-77</pages>
+      <abstract>The ability to reason about tabular or semi-structured knowledge is a fundamental problem for today’s Natural Language Processing (NLP) systems. While significant progress has been achieved in the direction of tabular reasoning, these advances are limited to English due to the absence of multilingual benchmark datasets for semi-structured data. In this paper, we use machine translation methods to construct a multilingual tabular NLI dataset, namely XINFOTABS, which expands the English tabular NLI dataset of INFOTABS to ten diverse languages. We also present several baselines for multilingual tabular reasoning, e.g., machine translation-based methods and cross-lingual. We discover that the XINFOTABS evaluation suite is both practical and challenging. As a result, this dataset will contribute to increased linguistic inclusion in tabular reasoning research and applications.</abstract>
+      <url hash="1ef43e41">2022.fever-1.7</url>
+      <bibkey>minhas-etal-2022-xinfotabs</bibkey>
+      <doi>10.18653/v1/2022.fever-1.7</doi>
+      <video href="2022.fever-1.7.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/tabfact">TabFact</pwcdataset>
+    </paper>
+    <paper id="8">
+      <title>Neural Machine Translation for Fact-checking Temporal Claims</title>
+      <author><first>Marco</first><last>Mori</last></author>
+      <author><first>Paolo</first><last>Papotti</last></author>
+      <author><first>Luigi</first><last>Bellomarini</last></author>
+      <author><first>Oliver</first><last>Giudice</last></author>
+      <pages>78-82</pages>
+      <abstract>Computational fact-checking aims at supporting the verification process of textual claims by exploiting trustworthy sources. However, there are large classes of complex claims that cannot be automatically verified, for instance those related to temporal reasoning. To this aim, in this work, we focus on the verification of economic claims against time series sources.Starting from given textual claims in natural language, we propose a neural machine translation approach to produce respective queries expressed in a recently proposed temporal fragment of the Datalog language. The adopted deep neural approach shows promising preliminary results for the translation of 10 categories of claims extracted from real use cases.</abstract>
+      <url hash="bb79d9e7">2022.fever-1.8</url>
+      <bibkey>mori-etal-2022-neural</bibkey>
+      <doi>10.18653/v1/2022.fever-1.8</doi>
+      <video href="2022.fever-1.8.mp4"/>
+    </paper>
+  </volume>
+</collection>
