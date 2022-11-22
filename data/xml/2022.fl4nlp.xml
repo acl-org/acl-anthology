@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.fl4nlp">
+  <volume id="1" ingest-date="2022-05-15">
+    <meta>
+      <booktitle>Proceedings of the First Workshop on Federated Learning for Natural Language Processing (FL4NLP 2022)</booktitle>
+      <editor><first>Bill Yuchen</first><last>Lin</last></editor>
+      <editor><first>Chaoyang</first><last>He</last></editor>
+      <editor><first>Chulin</first><last>Xie</last></editor>
+      <editor><first>Fatemehsadat</first><last>Mireshghallah</last></editor>
+      <editor><first>Ninareh</first><last>Mehrabi</last></editor>
+      <editor><first>Tian</first><last>Li</last></editor>
+      <editor><first>Mahdi</first><last>Soltanolkotabi</last></editor>
+      <editor><first>Xiang</first><last>Ren</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Dublin, Ireland</address>
+      <month>May</month>
+      <year>2022</year>
+      <url hash="42897919">2022.fl4nlp-1</url>
+      <venue>fl4nlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="b6f5aadc">2022.fl4nlp-1.0</url>
+      <bibkey>fl4nlp-2022-federated</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>A</fixed-case>ct<fixed-case>P</fixed-case>er<fixed-case>FL</fixed-case>: Active Personalized Federated Learning</title>
+      <author><first>Huili</first><last>Chen</last></author>
+      <author><first>Jie</first><last>Ding</last></author>
+      <author><first>Eric</first><last>Tramel</last></author>
+      <author><first>Shuang</first><last>Wu</last></author>
+      <author><first>Anit Kumar</first><last>Sahu</last></author>
+      <author><first>Salman</first><last>Avestimehr</last></author>
+      <author><first>Tao</first><last>Zhang</last></author>
+      <pages>1-5</pages>
+      <abstract>In the context of personalized federated learning (FL), the critical challenge is to balance local model improvement and global model tuning when the personal and global objectives may not be exactly aligned. Inspired by Bayesian hierarchical models, we develop ActPerFL, a self-aware personalized FL method where each client can automatically balance the training of its local personal model and the global model that implicitly contributes to other clients’ training. Such a balance is derived from the inter-client and intra-client uncertainty quantification. Consequently, ActPerFL can adapt to the underlying clients’ heterogeneity with uncertainty-driven local training and model aggregation. With experimental studies on Sent140 and Amazon Alexa audio data, we show that ActPerFL can achieve superior personalization performance compared with the existing counterparts.</abstract>
+      <url hash="5de65579">2022.fl4nlp-1.1</url>
+      <bibkey>chen-etal-2022-actperfl</bibkey>
+      <doi>10.18653/v1/2022.fl4nlp-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title>Scaling Language Model Size in Cross-Device Federated Learning</title>
+      <author><first>Jae</first><last>Ro</last></author>
+      <author><first>Theresa</first><last>Breiner</last></author>
+      <author><first>Lara</first><last>McConnaughey</last></author>
+      <author><first>Mingqing</first><last>Chen</last></author>
+      <author><first>Ananda</first><last>Suresh</last></author>
+      <author><first>Shankar</first><last>Kumar</last></author>
+      <author><first>Rajiv</first><last>Mathews</last></author>
+      <pages>6-20</pages>
+      <abstract>Most studies in cross-device federated learning focus on small models, due to the server-client communication and on-device computation bottlenecks. In this work, we leverage various techniques for mitigating these bottlenecks to train larger language models in cross-device federated learning. With systematic applications of partial model training, quantization, efficient transfer learning, and communication-efficient optimizers, we are able to train a 21M parameter Transformer that achieves the same perplexity as that of a similarly sized LSTM with <tex-math>\sim10\times</tex-math> smaller client-to-server communication cost and 11% lower perplexity than smaller LSTMs commonly studied in literature.</abstract>
+      <url hash="ba10ba8f">2022.fl4nlp-1.2</url>
+      <bibkey>ro-etal-2022-scaling</bibkey>
+      <doi>10.18653/v1/2022.fl4nlp-1.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Adaptive Differential Privacy for Language Model Training</title>
+      <author><first>Xinwei</first><last>Wu</last></author>
+      <author><first>Li</first><last>Gong</last></author>
+      <author><first>Deyi</first><last>Xiong</last></author>
+      <pages>21-26</pages>
+      <abstract>Although differential privacy (DP) can protect language models from leaking privacy, its indiscriminative protection on all data points reduces its practical utility. Previous works improve DP training by discriminating privacy and non-privacy data. But these works rely on datasets with prior privacy information, which is not available in real-world scenarios. In this paper, we propose an Adaptive Differential Privacy (ADP) framework for language modeling without resorting to prior privacy information. We estimate the probability that a linguistic item contains privacy based on a language model. We further propose a new Adam algorithm that adjusts the degree of differential privacy noise injected to the language model according to the estimated privacy probabilities. Experiments demonstrate that our ADP improves differentially private language modeling to achieve good protection from canary attackers.</abstract>
+      <url hash="6247f4b7">2022.fl4nlp-1.3</url>
+      <bibkey>wu-etal-2022-adaptive</bibkey>
+      <doi>10.18653/v1/2022.fl4nlp-1.3</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>Intrinsic Gradient Compression for Scalable and Efficient Federated Learning</title>
+      <author><first>Luke</first><last>Melas-Kyriazi</last></author>
+      <author><first>Franklyn</first><last>Wang</last></author>
+      <pages>27-41</pages>
+      <abstract>Federated learning is a rapidly growing area of research, holding the promise of privacy-preserving distributed training on edge devices. The largest barrier to wider adoption of federated learning is the communication cost of model updates, which is accentuated by the fact that many edge devices are bandwidth-constrained. At the same time, within the machine learning theory community, a separate line of research has emerged around optimizing networks within a subspace of the full space of all parameters. The dimension of the smallest subspace for which these methods still yield strong results is called the intrinsic dimension. In this work, we prove a general correspondence between the notions of intrinsic dimension and gradient compressibility, and we show that a family of low-bandwidth federated learning algorithms, which we call intrinsic gradient compression algorithms, naturally emerges from this correspondence. Finally, we conduct large-scale NLP experiments using transformer models with over 100M parameters (GPT-2 and BERT), and show that our method significantly outperforms the state-of-the-art in gradient compression.</abstract>
+      <url hash="ba26af01">2022.fl4nlp-1.4</url>
+      <bibkey>melas-kyriazi-wang-2022-intrinsic</bibkey>
+      <doi>10.18653/v1/2022.fl4nlp-1.4</doi>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+    </paper>
+  </volume>
+</collection>

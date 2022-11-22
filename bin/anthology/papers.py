@@ -15,7 +15,7 @@
 # limitations under the License.
 
 from functools import cached_property
-import iso639
+import langcodes
 import logging as log
 
 from .utils import (
@@ -39,12 +39,11 @@ from .formatter import (
 
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter=None, venue_index=None):
+    def __init__(self, paper_id, ingest_date, volume, formatter=None):
         self.parent_volume = volume
         if formatter is None:
             formatter = MarkupFormatter()
         self.formatter = formatter
-        self.venue_index = venue_index
         self._id = paper_id
         self._ingest_date = ingest_date
         self._bibkey = None
@@ -297,7 +296,7 @@ class Paper:
 
     @property
     def langcode(self):
-        """Returns the ISO-639 language code, if present"""
+        """Returns the BCP47 language code, if present"""
         return self.attrib.get("language", None)
 
     @property
@@ -305,7 +304,7 @@ class Paper:
         """Returns the language name, if present"""
         lang = None
         if self.langcode:
-            lang = iso639.languages.get(part3=self.langcode).name
+            lang = langcodes.Language.get(self.langcode).display_name()
         return lang
 
     def get(self, name, default=None):
@@ -472,7 +471,7 @@ class Paper:
                     authors = f"{people[0].last} et al."
 
         year = self.get("year")
-        venue = self.venue_index.get_main_venue(self.parent_volume_id)
+        venue = self.get_venue_acronym()
         url = self.url
 
         # hard-coded exception for old-style W-* volumes without an annotated
@@ -480,6 +479,18 @@ class Paper:
         if venue != "WS":
             return f"[{title}]({url}) ({authors}, {venue} {year})"
         return f"[{title}]({url}) ({authors}, {year})"
+
+    def get_venue_acronym(self):
+        """
+        Returns the venue acronym for the paper (e.g., NLP4TM).
+        Joint events will have more than one venue and will be hyphenated (e.g., ACL-IJCNLP).
+        """
+        venue_slugs = self.parent_volume.get_venues()
+        venues = [
+            self.parent_volume.venue_index.get_acronym_by_slug(slug)
+            for slug in venue_slugs
+        ]
+        return "-".join(venues)
 
     def as_dict(self):
         value = self.attrib.copy()

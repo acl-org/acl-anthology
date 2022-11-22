@@ -32,4 +32,7 @@ for filepath in sys.stdin:
         volume_id = f"{collection_id}-{volume_name}"
         volumes.append(f"[{volume_id}]({args.url_root}/{volume_id})")
 
+if len(volumes) > 50:
+    volumes = volumes[0:50] + [f"(plus {len(volumes)-50} more...)"]
+
 print(", ".join(volumes))

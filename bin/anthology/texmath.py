@@ -126,13 +126,18 @@ class TexMath:
         elif name == "frac":
             self._parse_fraction(args, trg)
         # Handle \textrm (-- currently does nothing)
-        elif name == "textrm":
+        elif name in ("textrm", "text"):
             sx = etree.Element("span")
             self._parse(args, sx)
             trg.append(sx)
         # Handle stuff that should be displayed bolder
-        elif name in ("mathbf", "boldsymbol"):
+        elif name in ("mathbf", "textbf", "boldsymbol"):
             sx = etree.Element("strong")
+            self._parse(args, sx)
+            trg.append(sx)
+        # Handle italics
+        elif name in ("mathit", "textit"):
+            sx = etree.Element("em")
             self._parse(args, sx)
             trg.append(sx)
         # Give up, but preserve element

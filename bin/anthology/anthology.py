@@ -29,13 +29,15 @@ from .venues import VenueIndex
 from .volumes import Volume
 from .sigs import SIGIndex
 from .data import ResourceType
-from .utils import get_proceedings_id_from_filename
+from .utils import is_newstyle_id, infer_year, get_proceedings_id_from_filename
+from .events import EventIndex
 
 
 class Anthology:
     schema = None
     pindex = None
     venues = None
+    eventindex = None
     sigs = None
     formatter = None
 
@@ -64,6 +66,9 @@ class Anthology:
         return self.pindex
 
     def import_directory(self, importdir):
+        """
+        Reads all XML files in the data directory.
+        """
         assert os.path.isdir(importdir), f"Directory not found: {importdir}"
         self.pindex = AnthologyIndex(
             importdir,
@@ -72,19 +77,23 @@ class Anthology:
             parent=self,
         )
         self.venues = VenueIndex(importdir)
+        self.eventindex = EventIndex(self.venues)  # contains a list of all events
         self.sigs = SIGIndex(importdir)
         for xmlfile in glob(importdir + "/xml/*.xml"):
             self.import_file(xmlfile)
         self.pindex.verify()
 
     def import_file(self, filename):
-        # furthest east!
-        # date_in_kiritimati = datetime.now(pytz.timezone("Pacific/Kiritimati")).date()
-
         tree = etree.parse(filename)
-        collection = tree.getroot()
-        collection_id = collection.get("id")
-        for volume_xml in collection:
+        collection_xml = tree.getroot()
+        collection_id = collection_xml.get("id")
+
+        # register complete events
+        if (event_xml := collection_xml.find("./event")) is not None:
+            self.eventindex.register_event(event_xml)
+
+        for volume_xml in collection_xml.findall("./volume"):
+            # If we're here we're processing volumes
             volume = Volume.from_xml(
                 volume_xml,
                 collection_id,
@@ -93,23 +102,13 @@ class Anthology:
                 self.formatter,
             )
 
-            # MJP 2021-05: no longer doing this since it kills branch previews.
-            # Don't merge with master prior to ingest date!
-            #
-            # skip volumes that have an ingestion date in the future
-            # if (
-            #     datetime.strptime(volume.ingest_date, "%Y-%m-%d").date()
-            #     > date_in_kiritimati
-            # ):
-            #     log.info(
-            #         f"Skipping volume {volume.full_id} with ingestion date {volume.ingest_date} in the future."
-            #     )
-            #     # Remove any SIG entries with this volume
-            #     self.sigs.remove_volume(volume.full_id)
-            #     continue
-
             # Register the volume since we're not skipping it
             self.venues.register(volume)
+
+            # Also register volumes with events
+            for venue in volume.get_venues():
+                event = f"{venue}-{volume.year}"
+                self.eventindex.register_volume(volume.full_id, event)
 
             if volume.full_id in self.volumes:
                 log.critical(f"Attempted to import volume ID '{volume.full_id}' twice")
@@ -128,22 +127,7 @@ class Anthology:
 
             self.volumes[volume.full_id] = volume
             for paper_xml in volume_xml.findall("paper"):
-                parsed_paper = Paper.from_xml(
-                    paper_xml, volume, self.formatter, self.venues
-                )
-
-                # MJP 2021-05: no longer doing this since it kills branch previews.
-                # Don't merge with master prior to ingest date!
-                #
-                # skip papers that have an ingestion date in the future
-                # if (
-                #     datetime.strptime(parsed_paper.ingest_date, "%Y-%m-%d").date()
-                #     > date_in_kiritimati
-                # ):
-                #     log.info(
-                #         f"Skipping paper {parsed_paper.full_id} with ingestion date {parsed_paper.ingest_date} in the future."
-                #     )
-                #     continue
+                parsed_paper = Paper.from_xml(paper_xml, volume, self.formatter)
 
                 self.pindex.register(parsed_paper)
                 full_id = parsed_paper.full_id

@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
 # Copyright 2020 Matt Post <post@cs.jhu.edu>
@@ -46,19 +46,16 @@ import lxml.etree as ET
 
 template = Template(
     r"""\documentclass{article}
-\usepackage[printwatermark]{xwatermark}
+\usepackage[text=RETRACTED,scale=3,color=red]{draftwatermark}
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{pdfpages}
 \usepackage{hyperref}
 \hypersetup{plainpages=false,
-            pdfpagemode=none,
+            pdfpagemode=UseNone,
             colorlinks=true,
             unicode=true
 }
-
-% "allpages" didn't work
-\newwatermark[pages=1-1000,color=red!80,angle=45,scale=3,xpos=-6,ypos=0]{RETRACTED}
 
 % set A4
 \setlength{\paperwidth}{21cm}
@@ -101,11 +98,11 @@ def add_watermark(anth_id, workdir="."):
     command = f"pdflatex {tex_file}"
     try:
         subprocess.call(
-            command, shell=True, cwd=workdir, stdout=subprocess.DEVNULL, timeout=60
+            command, shell=True, cwd=workdir, stdout=subprocess.DEVNULL, timeout=30
         )
-    except TimeoutExpired:
+    except subprocess.TimeoutExpired:
         print(
-            "pdflatex didn't finish within 60 seconds. Do you have the CTAN watermark package installed?",
+            "pdflatex didn't finish within 30 seconds. Do you have the CTAN watermark package installed?",
             file=sys.stderr,
         )
         sys.exit(1)
