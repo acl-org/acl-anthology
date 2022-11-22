@@ -239,7 +239,7 @@ def main(args):
     for proceedings in args.proceedings:
         meta = read_meta(os.path.join(proceedings, "meta"))
         venue_abbrev = meta["abbrev"]
-        venue_slug = venue_index.get_slug(venue_abbrev)
+        venue_slug = venue_index.get_slug_from_acronym(venue_abbrev)
 
         if str(datetime.now().year) in venue_abbrev:
             print(f"Fatal: Venue assembler put year in acronym: '{venue_abbrev}'")
@@ -466,6 +466,9 @@ def main(args):
                         attrib={"hash": compute_hash_from_file(book_dest_path)},
                         parent=meta_node,
                     )
+
+                # Add the venue tag
+                make_simple_element("venue", venue_name, parent=meta_node)
 
                 # modify frontmatter tag
                 paper_node.tag = "frontmatter"

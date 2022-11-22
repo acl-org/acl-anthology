@@ -103,7 +103,7 @@ def main(ingestion_dir, pdfs_dir, dry_run, anthology_dir):
 
     meta = parse_conf_yaml(ingestion_dir)
     venue_abbrev = meta["anthology_venue_id"]
-    venue_slug = venue_index.get_slug(venue_abbrev)
+    venue_slug = venue_index.get_slug_from_acronym(venue_abbrev)
 
     meta["path"] = ingestion_dir
     meta["collection_id"] = collection_id = meta["year"] + "." + venue_slug

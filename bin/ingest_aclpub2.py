@@ -298,7 +298,7 @@ def process_procedding(
 ) -> Tuple[str, Dict[str, Any]]:
     meta = parse_conf_yaml(ingestion_dir)
     venue_abbrev = meta["anthology_venue_id"]
-    venue_slug = venue_index.get_slug(venue_abbrev)
+    venue_slug = venue_index.get_slug_from_acronym(venue_abbrev)
 
     if str(datetime.now().year) in venue_abbrev:
         print(f"Fatal: Venue assembler put year in acronym: '{venue_abbrev}'")
