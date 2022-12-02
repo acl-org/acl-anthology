@@ -349,7 +349,7 @@ def main(args):
     )
 
     is_tacl = "tacl" in args.root_dir.stem
-    logging.info("Looks like a", 'TACL' if is_tacl else 'CL', "ingest")
+    logging.info(f"Looks like a {'TACL' if is_tacl else 'CL'} ingestion")
 
     venue = TACL if is_tacl else CL  # J for CL, Q for TACL.
     year = args.year
@@ -457,7 +457,7 @@ def main(args):
             anthology.sigs,
             anthology.formatter,
         )
-        paper = Paper.from_xml(papernode, volume, anthology.formatter, anthology.venues)
+        paper = Paper.from_xml(papernode, volume, anthology.formatter)
         bibkey = anthology.pindex.create_bibkey(paper, vidx=anthology.venues)
         make_simple_element("bibkey", bibkey, parent=papernode)
 
