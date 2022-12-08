@@ -221,7 +221,7 @@ class AnthologyIndex:
             )
         if paper.is_volume:
             # Proceedings volumes use venue acronym instead of authors/editors
-            bibnames = slugify(vidx.get_main_venue(paper.full_id))
+            bibnames = slugify(paper.get_venue_acronym())
         else:
             # Regular papers use author/editor names
             names = paper.get("author")

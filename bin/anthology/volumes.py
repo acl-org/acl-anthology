@@ -65,11 +65,9 @@ class Volume:
     def get_venues(self):
         """
         Return the primary venues (as slugs) associated with this volume. This can be multiple venues,
-        if the volumes is a joint volume.
+        if the volumes is a joint volume. These venue associations are now listed explicitly in the
+        XML, even for new-style IDs.
         """
-        if is_newstyle_id(self.collection_id):
-            return [self.collection_id.split(".")[1]]
-
         return self.attrib["venues"]
 
     @staticmethod

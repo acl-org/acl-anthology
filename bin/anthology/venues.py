@@ -81,9 +81,11 @@ class VenueIndex:
     def get_acronym_by_slug(self, venue_slug):
         return self.get_venue(venue_slug)["acronym"]
 
-    def add_venue(self, acronym, title, is_acl=False, url=None):
+    def add_venue(self, directory, acronym, title, is_acl=False, url=None):
         """
         Adds a new venue.
+
+        Everytime a new venue is created, the corresponding yaml file is created as welll.
         """
         slug = VenueIndex.get_slug_from_acronym(acronym)
 
@@ -93,12 +95,8 @@ class VenueIndex:
         if url is not None:
             self.venues_by_slug[slug]["url"] = url
 
-    def dump(self, directory):
-        """
-        Dumps the venue database to file.
-        """
-        with open(f"{directory}/yaml/venues.yaml", "wt") as f:
-            print(yaml.dump(self.venues_by_slug, allow_unicode=True), file=f)
+        with open(f"{directory}/yaml/venues/{slug}.yaml", "w") as f:
+            yaml.dump(self.venues_by_slug[slug], f)
 
     def load_from_dir(self, directory):
         for venue_file in os.listdir(f"{directory}/yaml/venues"):

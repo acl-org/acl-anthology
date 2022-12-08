@@ -2399,6 +2399,7 @@
       <abstract>Entity alignment (EA) aims to find entities in different knowledge graphs (KGs) that refer to the same object in the real world. Recent studies incorporate temporal information to augment the representations of KGs. The existing methods for EA between temporal KGs (TKGs) utilize a time-aware attention mechanisms to incorporate relational and temporal information into entity embeddings. The approaches outperform the previous methods by using temporal information. However, we believe that it is not necessary to learn the embeddings of temporal information in KGs since most TKGs have uniform temporal representations. Therefore, we propose a simple GNN model combined with a temporal information matching mechanism, which achieves better performance with less time and fewer parameters. Furthermore, since alignment seeds are difficult to label in real-world applications, we also propose a method to generate unsupervised alignment seeds via the temporal information of TKG. Extensive experiments on public datasets indicate that our supervised method significantly outperforms the previous methods and the unsupervised one has competitive performance.</abstract>
       <url hash="9ef22e4f">2022.coling-1.181</url>
       <bibkey>cai-etal-2022-simple</bibkey>
+      <pwccode url="https://github.com/lcai2/stea" additional="false">lcai2/stea</pwccode>
     </paper>
     <paper id="182">
       <title><fixed-case>DCT</fixed-case>-Centered Temporal Relation Extraction</title>
@@ -2568,6 +2569,7 @@
       <abstract>Often questions provided to open-domain question answering systems are ambiguous. Traditional QA systems that provide a single answer are incapable of answering ambiguous questions since the question may be interpreted in several ways and may have multiple distinct answers. In this paper, we address multi-answer retrieval which entails retrieving passages that can capture majority of the diverse answers to the question. We propose a re-ranking based approach using Determinantal point processes utilizing BERT as kernels. Our method jointly considers query-passage relevance and passage-passage correlation to retrieve passages that are both query-relevant and diverse. Results demonstrate that our re-ranking technique outperforms state-of-the-art method on the AmbigQA dataset.</abstract>
       <url hash="a125df00">2022.coling-1.194</url>
       <bibkey>nandigam-etal-2022-diverse</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
     </paper>
     <paper id="195">
       <title>Improving Deep Embedded Clustering via Learning Cluster-level Representations</title>
@@ -2639,7 +2641,7 @@
       <abstract>Natural language understanding (NLU) models tend to rely on spurious correlations (i.e., dataset bias) to achieve high performance on in-distribution datasets but poor performance on out-of-distribution ones. Most of the existing debiasing methods often identify and weaken these samples with biased features (i.e., superficial surface features that cause such spurious correlations). However, down-weighting these samples obstructs the model in learning from the non-biased parts of these samples. To tackle this challenge, in this paper, we propose to eliminate spurious correlations in a fine-grained manner from a feature space perspective. Specifically, we introduce Random Fourier Features and weighted re-sampling to decorrelate the dependencies between features to mitigate spurious correlations. After obtaining decorrelated features, we further design a mutual-information-based method to purify them, which forces the model to learn features that are more relevant to tasks. Extensive experiments on two well-studied NLU tasks demonstrate that our method is superior to other comparative approaches.</abstract>
       <url hash="a29b5f7c">2022.coling-1.199</url>
       <bibkey>dou-etal-2022-decorrelate</bibkey>
-      <pwccode url="https://github.com/coling2022-depro/depro" additional="false">coling2022-depro/depro</pwccode>
+      <pwccode url="https://github.com/coling2022-depro/depro" additional="true">coling2022-depro/depro</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
     </paper>
     <paper id="200">
@@ -2858,6 +2860,7 @@
       <abstract>Quotation extraction aims to extract quotations from written text. There are three components in a quotation: <i>source</i> refers to the holder of the quotation, <i>cue</i> is the trigger word(s), and <i>content</i> is the main body. Existing solutions for quotation extraction mainly utilize rule-based approaches and sequence labeling models. While rule-based approaches often lead to low recalls, sequence labeling models cannot well handle quotations with complicated structures. In this paper, we propose the <b>Co</b>ntext and <b>F</b>ormer-Label <b>E</b>nhanced <b>Net</b> () for quotation extraction. is able to extract complicated quotations with components of variable lengths and complicated structures. On two public datasets (and ) and one proprietary dataset (), we show that our achieves state-of-the-art performance on complicated quotation extraction.</abstract>
       <url hash="90d01773">2022.coling-1.215</url>
       <bibkey>wang-etal-2022-cofenet</bibkey>
+      <pwccode url="https://github.com/cofe-ai/CofeNet" additional="false">cofe-ai/CofeNet</pwccode>
     </paper>
     <paper id="216">
       <title>Supporting Medical Relation Extraction via Causality-Pruned Semantic Dependency Forest</title>
@@ -3920,6 +3923,7 @@
       <abstract>The Chinese text correction (CTC) focuses on detecting and correcting Chinese spelling errors and grammatical errors. Most existing datasets of Chinese spelling check (CSC) and Chinese grammatical error correction (GEC) are focused on a single sentence written by Chinese-as-a-second-language (CSL) learners. We find that errors caused by native speakers differ significantly from those produced by non-native speakers. These differences make it inappropriate to use the existing test sets directly to evaluate text correction systems for native speakers. Some errors also require the cross-sentence information to be identified and corrected. In this paper, we propose a cross-sentence Chinese text correction dataset for native speakers. Concretely, we manually annotated 1,500 texts written by native speakers. The dataset consists of 30,811 sentences and more than 1,000,000 Chinese characters. It contains four types of errors: spelling errors, redundant words, missing words, and word ordering errors. We also test some state-of-the-art models on the dataset. The experimental results show that even the model with the best performance is 20 points lower than humans, which indicates that there is still much room for improvement. We hope that the new dataset can fill the gap in cross-sentence text correction for native Chinese speakers.</abstract>
       <url hash="33134afe">2022.coling-1.294</url>
       <bibkey>wang-etal-2022-cctc</bibkey>
+      <pwccode url="https://github.com/destwang/ctcresources" additional="false">destwang/ctcresources</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/jfleg">JFLEG</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mucgec">MuCGEC</pwcdataset>
     </paper>
@@ -4151,6 +4155,8 @@
       <abstract>Online hate speech detection has become an important issue due to the growth of online content, but resources in languages other than English are extremely limited. We introduce K-MHaS, a new multi-label dataset for hate speech detection that effectively handles Korean language patterns. The dataset consists of 109k utterances from news comments and provides a multi-label classification using 1 to 4 labels, and handles subjectivity and intersectionality. We evaluate strong baselines on K-MHaS. KR-BERT with a sub-character tokenizer outperforms others, recognizing decomposed characters in each hate speech class.</abstract>
       <url hash="67b4d6e1">2022.coling-1.311</url>
       <bibkey>lee-etal-2022-k</bibkey>
+      <pwccode url="https://github.com/adlnlp/K-MHaS" additional="false">adlnlp/K-MHaS</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/korean-multi-label-hate-speech-dataset">K-MHaS: Korean Multi-label Hate Speech Dataset</pwcdataset>
     </paper>
     <paper id="312">
       <title>Domain- and Task-Adaptation for <fixed-case>V</fixed-case>accin<fixed-case>C</fixed-case>hat<fixed-case>NL</fixed-case>, a <fixed-case>D</fixed-case>utch <fixed-case>COVID</fixed-case>-19 <fixed-case>FAQ</fixed-case> Answering Corpus and Classification Model</title>
@@ -6310,6 +6316,7 @@
       <abstract>In this study, we propose a morpheme-based scheme for Korean dependency parsing and adopt the proposed scheme to Universal Dependencies. We present the linguistic rationale that illustrates the motivation and the necessity of adopting the morpheme-based format, and develop scripts that convert between the original format used by Universal Dependencies and the proposed morpheme-based format automatically. The effectiveness of the proposed format for Korean dependency parsing is then testified by both statistical and neural models, including UDPipe and Stanza, with our carefully constructed morpheme-based word embedding for Korean. morphUD outperforms parsing results for all Korean UD treebanks, and we also present detailed error analysis.</abstract>
       <url hash="e439162c">2022.coling-1.482</url>
       <bibkey>chen-etal-2022-yet</bibkey>
+      <pwccode url="https://github.com/jungyeul/morphud-korean" additional="false">jungyeul/morphud-korean</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
     <paper id="483">
@@ -6666,6 +6673,7 @@
       <abstract>Natural language modeling with limited training data is a challenging problem, and many algorithms make use of large-scale pretrained language models (PLMs) for this due to its great generalization ability. Among them, additive learning that incorporates a task-specific adapter on top of the fixed large-scale PLM has been popularly used in the few-shot setting. However, this added adapter is still easy to disregard the knowledge of the PLM especially for few-shot natural language generation (NLG) since an entire sequence is usually generated by only the newly trained adapter. Therefore, in this work, we develop a novel additive learning algorithm based on reinforcement learning (RL) that selectively outputs language tokens between the task-general PLM and the task-specific adapter during both training and inference. This output token selection over the two generators allows the adapter to take into account solely the task-relevant parts in sequence generation, and therefore makes it more robust to overfitting as well as more stable in RL training. In addition, to obtain the complementary adapter from the PLM for each few-shot task, we exploit a separate selecting module that is also simultaneously trained using RL. Experimental results on various few-shot NLG tasks including question answering, data-to-text generation and text summarization demonstrate that the proposed selective token generation significantly outperforms the previous additive learning algorithms based on the PLMs.</abstract>
       <url hash="5277e62d">2022.coling-1.510</url>
       <bibkey>jo-etal-2022-selective</bibkey>
+      <pwccode url="https://github.com/kakaobrain/stg" additional="false">kakaobrain/stg</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
     </paper>
     <paper id="511">
@@ -6723,6 +6731,7 @@
       <abstract>Evaluating machine-generated summaries without a human-written reference summary has been a need for a long time. Inspired by preference labeling in existing work of summarization evaluation, we propose to judge summary quality by learning the preference rank of summaries using the Bradley-Terry power ranking model from inferior summaries generated by corrupting base summaries. Extensive experiments on several datasets show that our weakly supervised scheme can produce scores highly correlated with human ratings.</abstract>
       <url hash="4d5ebcac">2022.coling-1.515</url>
       <bibkey>luo-etal-2022-prefscore</bibkey>
+      <pwccode url="https://github.com/nkwbtb/prefscore" additional="false">nkwbtb/prefscore</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/bigpatent">BigPatent</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/billsum">BillSum</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/newsroom">NEWSROOM</pwcdataset>

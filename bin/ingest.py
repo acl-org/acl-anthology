@@ -275,9 +275,8 @@ def main(args):
     if len(unseen_venues) > 0:
         for venue in unseen_venues:
             slug, abbrev, title = venue
-            print(f"Creating venue '{abbrev}' ({title})")
-            venue_index.add_venue(abbrev, title)
-        venue_index.dump(directory=anthology_datadir)
+            print(f"Creating venue '{abbrev}' ({title}) slug {slug}")
+            venue_index.add_venue(anthology_datadir, abbrev, title)
 
     # Copy over the PDFs and attachments
     for volume_full_id, meta in volumes.items():
