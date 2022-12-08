@@ -157,23 +157,33 @@ def add_paper_nums_in_paper_yaml(
     start, end = 1, 0
     for paper in papers:
         paper_id = str(paper['id'])
+        if 'file' not in paper.keys():
+            print(f'{paper_id} does not have file key')
         paper_name = paper['file']
-        if os.path.exists(f'{ingestion_dir}inputs/papers/{paper_id}.pdf'):
-            paper_need_read_path = f'{ingestion_dir}inputs/papers/{paper_id}.pdf'
-        elif os.path.exists(f'{ingestion_dir}input/papers/{paper_id}.pdf'):
-            paper_need_read_path = f'{ingestion_dir}input/papers/{paper_id}.pdf'
-        elif os.path.exists(f'{ingestion_dir}inputs/papers/{paper_name}'):
-            paper_need_read_path = f'{ingestion_dir}inputs/papers/{paper_name}'
-        elif os.path.exists(f'{ingestion_dir}input/papers/{paper_name}'):
-            paper_need_read_path = f'{ingestion_dir}input/papers/{paper_name}'
-        else:
-            paper_need_read_path = None
-        assert paper_need_read_path, f'{paper_id} path is None'
-        pdf = open(paper_need_read_path, 'rb')
-        pdf_reader = PyPDF2.PdfFileReader(pdf)
-        start = end + 1
-        end = start + pdf_reader.numPages - 1
-        paper['pages'] = f'{start}-{end}'
+        if 'publish' not in paper.keys() or paper['publish'] is True:
+            if os.path.exists(f'{ingestion_dir}inputs/papers/{paper_id}.pdf'):
+                paper_need_read_path = f'{ingestion_dir}inputs/papers/{paper_id}.pdf'
+            elif os.path.exists(f'{ingestion_dir}input/papers/{paper_id}.pdf'):
+                paper_need_read_path = f'{ingestion_dir}input/papers/{paper_id}.pdf'
+            elif os.path.exists(f'{ingestion_dir}inputs/papers/{paper_name}'):
+                paper_need_read_path = f'{ingestion_dir}inputs/papers/{paper_name}'
+            elif os.path.exists(f'{ingestion_dir}input/papers/{paper_name}'):
+                paper_need_read_path = f'{ingestion_dir}input/papers/{paper_name}'
+            else:
+                paper_need_read_path = None
+            assert paper_need_read_path, f'{paper_id} path is None'
+            print(paper_need_read_path, paper_id, paper_name)
+            pdf = open(paper_need_read_path, 'rb')
+            # if paper_id == '1427':
+            #     num_of_pages = 12
+            # elif paper_id == '2051':
+            #     num_of_pages = 14
+            # else:
+            pdf_reader = PyPDF2.PdfFileReader(pdf)
+            num_of_pages = pdf_reader.numPages
+            start = end + 1
+            end = start + num_of_pages - 1
+            paper['pages'] = f'{start}-{end}'
     return papers
 
 
@@ -262,6 +272,7 @@ def paper2xml(
         'doi',
         'language',
     ]
+    # print(paper_item['id'])
     paper = make_simple_element('paper', attrib={'id': str(paper_num)})
     for field in fields:
         if field == 'author':
@@ -314,9 +325,8 @@ def process_procedding(
         assert (
             re.match(r'(.)* [Ww]orkshop', event_name) is None
         ), f"event name should start with Workshop or The Workshop, instead it started with {re.match(r'(.)* [Ww]orkshop', event_name)[0]}"
-        venue_index.add_venue(venue_abbrev, meta['event_name'])
-        print(f"Creating venue '{venue_abbrev}' ({event_name})")
-        venue_index.dump(directory=anthology_datadir)
+        print(f"Creating new venue '{venue_abbrev}' ({event_name})")
+        venue_index.add_venue(anthology_datadir, venue_abbrev, meta['event_name'])
 
     meta["path"] = ingestion_dir
     meta["collection_id"] = collection_id = meta["year"] + "." + venue_slug
@@ -383,31 +393,31 @@ def copy_pdf_and_attachment(
     for i, paper in enumerate(papers):
         # copy pdf
         paper_name = paper['file']
-        paper_id = str(paper['id'])
-        paper_num = i + 1
-        paper_id_full = f'{collection_id}-{volume_name}.{paper_num}'
+        if paper_name != '' or paper_name is not None:
+            paper_id = str(paper['id'])
+            paper_num = i + 1
+            paper_id_full = f'{collection_id}-{volume_name}.{paper_num}'
 
-        if os.path.exists(os.path.join(pdfs_src_dir, paper_name)):
-            pdf_src_path = os.path.join(pdfs_src_dir, paper_name)
-        elif os.path.exists(os.path.join(pdfs_src_dir, f'{paper_id}.pdf')):
-            pdf_src_path = os.path.join(pdfs_src_dir, f'{paper_id}.pdf')
-        else:
-            pdf_src_path = None
-        assert pdf_src_path, f'{paper_name} path is None'
-        pdf_dest_path = os.path.join(
-            pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
-        )
-        if dry_run:
-            print(f'would\'ve moved {pdf_src_path} to {pdf_dest_path}')
-        if not dry_run:
+            if os.path.exists(os.path.join(pdfs_src_dir, paper_name)):
+                pdf_src_path = os.path.join(pdfs_src_dir, paper_name)
+            elif os.path.exists(os.path.join(pdfs_src_dir, f'{paper_id}.pdf')):
+                pdf_src_path = os.path.join(pdfs_src_dir, f'{paper_id}.pdf')
+            else:
+                pdf_src_path = None
+            assert pdf_src_path, f'{paper_name} path is None'
+            pdf_dest_path = os.path.join(
+                pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
+            )
+            if dry_run:
+                print(f'would\'ve moved {pdf_src_path} to {pdf_dest_path}')
+            if not dry_run:
+                maybe_copy(pdf_src_path, pdf_dest_path)
 
-            maybe_copy(pdf_src_path, pdf_dest_path)
-
-        volume[paper_num] = {
-            'anthology_id': paper_id_full,
-            'pdf': pdf_dest_path,
-            'attachments': [],
-        }
+            volume[paper_num] = {
+                'anthology_id': paper_id_full,
+                'pdf': pdf_dest_path,
+                'attachments': [],
+            }
         # copy attachments
         if 'attachments' in paper.keys() and paper['attachments']:
             attchs_dest_dir = create_des_path(attachments_dir, venue_name)
@@ -454,6 +464,7 @@ def create_xml(
     people,
     papers: List[Dict[str, str]],
 ) -> None:
+    venue_name = meta['anthology_venue_id'].lower()
     collection_file = os.path.join(anthology_dir, 'data', 'xml', f'{collection_id}.xml')
     if os.path.exists(collection_file):
         root_node = etree.parse(collection_file).getroot()
@@ -516,6 +527,9 @@ def create_xml(
                 attrib={'hash': compute_hash_from_file(proceedings_pdf_dest_path)},
                 parent=meta_node,
             )
+
+            # add the venue tag
+            make_simple_element("venue", venue_name, parent=meta_node)
 
             # modify frontmatter tag
             paper_node.tag = 'frontmatter'
@@ -625,7 +639,7 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
         volume,
         collection_id,
         volume_name,
-        proceedings_pdf_dest_path,
+        proceedings_pdf_dest_path
     ) = copy_pdf_and_attachment(meta, pdfs_dir, attachments_dir, papers, dry_run)
     create_xml(
         volume=volume,
