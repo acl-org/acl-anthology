@@ -14,10 +14,17 @@ jobs:
     steps:
     # Check if the base brach is a local branch
     - name: check base branch
-      uses: actions/checkout@v1
       if: ! github.base_ref.startsWith('refs/heads/')
       run: |
-        wget https://github.com/gohugoio/hugo/releases/download/v0.108.0/hugo_extended_0.108.0_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb \
+        # checkout the branch
+        git checkout ${{ github.event.pull_request.head.ref }}
+
+        # download hugo
+        wget https://github.com/gohugoio/hugo/releases/download/v0.108.0/hugo_extended_0.108.0_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
+
+        # update and install utils
         sudo apt-get update
         sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
+
+        # run the check
         make check site
