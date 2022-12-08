@@ -12,12 +12,12 @@ jobs:
   check-build:
     runs-on: ubuntu-22.04
     steps:
-    - name: install hugo
-      run: wget https://github.com/gohugoio/hugo/releases/download/v0.108.0/hugo_extended_0.108.0_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
-    - name: update
-      run: sudo apt-get update
-    - name: install other deps
-      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
-    - uses: actions/checkout@v1
-    - name: build
-      run: make check site
+    # Check if the base brach is a local branch
+    - name: check base branch
+      uses: actions/checkout@v1
+      if: ! github.base_ref.startsWith('refs/heads/')
+      run: |
+        wget https://github.com/gohugoio/hugo/releases/download/v0.108.0/hugo_extended_0.108.0_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb \
+        sudo apt-get update
+        sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
+        make check site
