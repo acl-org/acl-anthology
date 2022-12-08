@@ -788,5 +788,214 @@
       <url hash="57f74758">2022.tacl-1.57</url>
       <bibkey>mickus-etal-2022-dissect</bibkey>
     </paper>
+    <paper id="58">
+      <title>On Decoding Strategies for Neural Text Generators</title>
+      <author><first>Gian</first><last>Wiher</last></author>
+      <author><first>Clara</first><last>Meister</last></author>
+      <author><first>Ryan</first><last>Cotterell</last></author>
+      <doi>10.1162/tacl_a_00502</doi>
+      <abstract>When generating text from probabilistic models, the chosen decoding strategy has a profound effect on the resulting text. Yet the properties elicited by various decoding strategies do not always transfer across natural language generation tasks. For example, while mode-seeking methods like beam search perform remarkably well for machine translation, they have been observed to lead to incoherent and repetitive text in story generation. Despite such observations, the effectiveness of decoding strategies is often assessed on only a single task. This work—in contrast—provides a comprehensive analysis of the interaction between language generation tasks and decoding strategies. Specifically, we measure changes in attributes of generated text as a function of both decoding strategy and task using human and automatic evaluation. Our results reveal both previously observed and novel findings. For example, the nature of the diversity–quality trade-off in language generation is very task-specific; the length bias often attributed to beam search is not constant across tasks. https://github.com/gianwiher/decoding-NLG</abstract>
+      <pages>997–1012</pages>
+      <url hash="8fb7789c">2022.tacl-1.58</url>
+      <bibkey>wiher-etal-2022-decoding</bibkey>
+    </paper>
+    <paper id="59">
+      <title><fixed-case>P</fixed-case>roo<fixed-case>FV</fixed-case>er: Natural Logic Theorem Proving for Fact Verification</title>
+      <author><first>Amrith</first><last>Krishna</last></author>
+      <author><first>Sebastian</first><last>Riedel</last></author>
+      <author><first>Andreas</first><last>Vlachos</last></author>
+      <doi>10.1162/tacl_a_00503</doi>
+      <abstract>Fact verification systems typically rely on neural network classifiers for veracity prediction, which lack explainability. This paper proposes ProoFVer, which uses a seq2seq model to generate natural logic-based inferences as proofs. These proofs consist of lexical mutations between spans in the claim and the evidence retrieved, each marked with a natural logic operator. Claim veracity is determined solely based on the sequence of these operators. Hence, these proofs are faithful explanations, and this makes ProoFVer faithful by construction. Currently, ProoFVer has the highest label accuracy and the second best score in the FEVER leaderboard. Furthermore, it improves by 13.21% points over the next best model on a dataset with counterfactual instances, demonstrating its robustness. As explanations, the proofs show better overlap with human rationales than attention-based highlights and the proofs help humans predict model decisions correctly more often than using the evidence directly.1</abstract>
+      <pages>1013–1030</pages>
+      <url hash="683a8870">2022.tacl-1.59</url>
+      <bibkey>krishna-etal-2022-proofver</bibkey>
+    </paper>
+    <paper id="60">
+      <title>Structural Persistence in Language Models: Priming as a Window into Abstract Language Representations</title>
+      <author><first>Arabella</first><last>Sinclair</last></author>
+      <author><first>Jaap</first><last>Jumelet</last></author>
+      <author><first>Willem</first><last>Zuidema</last></author>
+      <author><first>Raquel</first><last>Fernández</last></author>
+      <doi>10.1162/tacl_a_00504</doi>
+      <abstract>We investigate the extent to which modern neural language models are susceptible to structural priming, the phenomenon whereby the structure of a sentence makes the same structure more probable in a follow-up sentence. We explore how priming can be used to study the potential of these models to learn abstract structural information, which is a prerequisite for good performance on tasks that require natural language understanding skills. We introduce a novel metric and release Prime-LM, a large corpus where we control for various linguistic factors that interact with priming strength. We find that Transformer models indeed show evidence of structural priming, but also that the generalizations they learned are to some extent modulated by semantic information. Our experiments also show that the representations acquired by the models may not only encode abstract sequential structure but involve certain level of hierarchical syntactic information. More generally, our study shows that the priming paradigm is a useful, additional tool for gaining insights into the capacities of language models and opens the door to future priming-based investigations that probe the model’s internal states.1</abstract>
+      <pages>1031–1050</pages>
+      <url hash="ae75e122">2022.tacl-1.60</url>
+      <bibkey>sinclair-etal-2022-structural</bibkey>
+    </paper>
+    <paper id="61">
+      <title><fixed-case>DP</fixed-case>-Parse: Finding Word Boundaries from Raw Speech with an Instance Lexicon</title>
+      <author><first>Robin</first><last>Algayres</last></author>
+      <author><first>Tristan</first><last>Ricoul</last></author>
+      <author><first>Julien</first><last>Karadayi</last></author>
+      <author><first>Hugo</first><last>Laurençon</last></author>
+      <author><first>Salah</first><last>Zaiem</last></author>
+      <author><first>Abdelrahman</first><last>Mohamed</last></author>
+      <author><first>Benoît</first><last>Sagot</last></author>
+      <author><first>Emmanuel</first><last>Dupoux</last></author>
+      <doi>10.1162/tacl_a_00505</doi>
+      <abstract>Finding word boundaries in continuous speech is challenging as there is little or no equivalent of a ‘space’ delimiter between words. Popular Bayesian non-parametric models for text segmentation (Goldwater et al., 2006, 2009) use a Dirichlet process to jointly segment sentences and build a lexicon of word types. We introduce DP-Parse, which uses similar principles but only relies on an instance lexicon of word tokens, avoiding the clustering errors that arise with a lexicon of word types. On the Zero Resource Speech Benchmark 2017, our model sets a new speech segmentation state-of-the-art in 5 languages. The algorithm monotonically improves with better input representations, achieving yet higher scores when fed with weakly supervised inputs. Despite lacking a type lexicon, DP-Parse can be pipelined to a language model and learn semantic and syntactic representations as assessed by a new spoken word embedding benchmark. 1</abstract>
+      <pages>1051–1065</pages>
+      <url hash="349f7b43">2022.tacl-1.61</url>
+      <bibkey>algayres-etal-2022-dp</bibkey>
+    </paper>
+    <paper id="62">
+      <title>Evaluating Attribution in Dialogue Systems: The <fixed-case>BEGIN</fixed-case> Benchmark</title>
+      <author><first>Nouha</first><last>Dziri</last></author>
+      <author><first>Hannah</first><last>Rashkin</last></author>
+      <author><first>Tal</first><last>Linzen</last></author>
+      <author><first>David</first><last>Reitter</last></author>
+      <doi>10.1162/tacl_a_00506</doi>
+      <abstract>Knowledge-grounded dialogue systems powered by large language models often generate responses that, while fluent, are not attributable to a relevant source of information. Progress towards models that do not exhibit this issue requires evaluation metrics that can quantify its prevalence. To this end, we introduce the Benchmark for Evaluation of Grounded INteraction (Begin), comprising 12k dialogue turns generated by neural dialogue systems trained on three knowledge-grounded dialogue corpora. We collect human annotations assessing the extent to which the models’ responses can be attributed to the given background information. We then use Begin to analyze eight evaluation metrics. We find that these metrics rely on spurious correlations, do not reliably distinguish attributable abstractive responses from unattributable ones, and perform substantially worse when the knowledge source is longer. Our findings underscore the need for more sophisticated and robust evaluation metrics for knowledge-grounded dialogue. We make Begin publicly available at https://github.com/google/BEGIN-dataset.</abstract>
+      <pages>1066–1083</pages>
+      <url hash="c657c8d6">2022.tacl-1.62</url>
+      <bibkey>dziri-etal-2022-evaluating</bibkey>
+    </paper>
+    <paper id="63">
+      <title>Modeling Non-Cooperative Dialogue: Theoretical and Empirical Insights</title>
+      <author><first>Anthony</first><last>Sicilia</last></author>
+      <author><first>Tristan</first><last>Maidment</last></author>
+      <author><first>Pat</first><last>Healy</last></author>
+      <author><first>Malihe</first><last>Alikhani</last></author>
+      <doi>10.1162/tacl_a_00507</doi>
+      <abstract>Investigating cooperativity of interlocutors is central in studying pragmatics of dialogue. Models of conversation that only assume cooperative agents fail to explain the dynamics of strategic conversations. Thus, we investigate the ability of agents to identify non-cooperative interlocutors while completing a concurrent visual-dialogue task. Within this novel setting, we study the optimality of communication strategies for achieving this multi-task objective. We use the tools of learning theory to develop a theoretical model for identifying non-cooperative interlocutors and apply this theory to analyze different communication strategies. We also introduce a corpus of non-cooperative conversations about images in the GuessWhat?! dataset proposed by De Vries et al. (2017). We use reinforcement learning to implement multiple communication strategies in this context and find that empirical results validate our theory.</abstract>
+      <pages>1084–1102</pages>
+      <url hash="abe04ea7">2022.tacl-1.63</url>
+      <bibkey>sicilia-etal-2022-modeling</bibkey>
+    </paper>
+    <paper id="64">
+      <title>Diff-Explainer: Differentiable Convex Optimization for Explainable Multi-hop Inference</title>
+      <author><first>Mokanarangan</first><last>Thayaparan</last></author>
+      <author><first>Marco</first><last>Valentino</last></author>
+      <author><first>Deborah</first><last>Ferreira</last></author>
+      <author><first>Julia</first><last>Rozanova</last></author>
+      <author><first>André</first><last>Freitas</last></author>
+      <doi>10.1162/tacl_a_00508</doi>
+      <abstract>This paper presents Diff-Explainer, the first hybrid framework for explainable multi-hop inference that integrates explicit constraints with neural architectures through differentiable convex optimization. Specifically, Diff- Explainer allows for the fine-tuning of neural representations within a constrained optimization framework to answer and explain multi-hop questions in natural language. To demonstrate the efficacy of the hybrid framework, we combine existing ILP-based solvers for multi-hop Question Answering (QA) with Transformer-based representations. An extensive empirical evaluation on scientific and commonsense QA tasks demonstrates that the integration of explicit constraints in a end-to-end differentiable framework can significantly improve the performance of non- differentiable ILP solvers (8.91%–13.3%). Moreover, additional analysis reveals that Diff-Explainer is able to achieve strong performance when compared to standalone Transformers and previous multi-hop approaches while still providing structured explanations in support of its predictions.</abstract>
+      <pages>1103–1119</pages>
+      <url hash="413ee561">2022.tacl-1.64</url>
+      <bibkey>thayaparan-etal-2022-diff</bibkey>
+    </paper>
+    <paper id="65">
+      <title>Getting <fixed-case>BART</fixed-case> to Ride the Idiomatic Train: Learning to Represent Idiomatic Expressions</title>
+      <author><first>Ziheng</first><last>Zeng</last></author>
+      <author><first>Suma</first><last>Bhat</last></author>
+      <doi>10.1162/tacl_a_00510</doi>
+      <abstract>Idiomatic expressions (IEs), characterized by their non-compositionality, are an important part of natural language. They have been a classical challenge to NLP, including pre-trained language models that drive today’s state-of-the-art. Prior work has identified deficiencies in their contextualized representation stemming from the underlying compositional paradigm of representation. In this work, we take a first-principles approach to build idiomaticity into BART using an adapter as a lightweight non-compositional language expert trained on idiomatic sentences. The improved capability over baselines (e.g., BART) is seen via intrinsic and extrinsic methods, where idiom embeddings score 0.19 points higher in homogeneity score for embedding clustering, and up to 25% higher sequence accuracy on the idiom processing tasks of IE sense disambiguation and span detection.</abstract>
+      <pages>1120–1137</pages>
+      <url hash="122991d4">2022.tacl-1.65</url>
+      <bibkey>zeng-bhat-2022-getting</bibkey>
+    </paper>
+    <paper id="66">
+      <title>Causal Inference in Natural Language Processing: Estimation, Prediction, Interpretation and Beyond</title>
+      <author><first>Amir</first><last>Feder</last></author>
+      <author><first>Katherine A.</first><last>Keith</last></author>
+      <author><first>Emaad</first><last>Manzoor</last></author>
+      <author><first>Reid</first><last>Pryzant</last></author>
+      <author><first>Dhanya</first><last>Sridhar</last></author>
+      <author><first>Zach</first><last>Wood-Doughty</last></author>
+      <author><first>Jacob</first><last>Eisenstein</last></author>
+      <author><first>Justin</first><last>Grimmer</last></author>
+      <author><first>Roi</first><last>Reichart</last></author>
+      <author><first>Margaret E.</first><last>Roberts</last></author>
+      <author><first>Brandon M.</first><last>Stewart</last></author>
+      <author><first>Victor</first><last>Veitch</last></author>
+      <author><first>Diyi</first><last>Yang</last></author>
+      <doi>10.1162/tacl_a_00511</doi>
+      <abstract>A fundamental goal of scientific research is to learn about causal relationships. However, despite its critical role in the life and social sciences, causality has not had the same importance in Natural Language Processing (NLP), which has traditionally placed more emphasis on predictive tasks. This distinction is beginning to fade, with an emerging area of interdisciplinary research at the convergence of causal inference and language processing. Still, research on causality in NLP remains scattered across domains without unified definitions, benchmark datasets and clear articulations of the challenges and opportunities in the application of causal inference to the textual domain, with its unique properties. In this survey, we consolidate research across academic areas and situate it in the broader NLP landscape. We introduce the statistical challenge of estimating causal effects with text, encompassing settings where text is used as an outcome, treatment, or to address confounding. In addition, we explore potential uses of causal inference to improve the robustness, fairness, and interpretability of NLP models. We thus provide a unified overview of causal inference for the NLP community.1</abstract>
+      <pages>1138–1158</pages>
+      <url hash="12fe2cad">2022.tacl-1.66</url>
+      <bibkey>feder-etal-2022-causal</bibkey>
+    </paper>
+    <paper id="67">
+      <title>Learning Fair Representations via Rate-Distortion Maximization</title>
+      <author><first>Somnath Basu Roy</first><last>Chowdhury</last></author>
+      <author><first>Snigdha</first><last>Chaturvedi</last></author>
+      <doi>10.1162/tacl_a_00512</doi>
+      <abstract>Text representations learned by machine learning models often encode undesirable demographic information of the user. Predictive models based on these representations can rely on such information, resulting in biased decisions. We present a novel debiasing technique, Fairness-aware Rate Maximization (FaRM), that removes protected information by making representations of instances belonging to the same protected attribute class uncorrelated, using the rate-distortion function. FaRM is able to debias representations with or without a target task at hand. FaRM can also be adapted to remove information about multiple protected attributes simultaneously. Empirical evaluations show that FaRM achieves state-of-the-art performance on several datasets, and learned representations leak significantly less protected attribute information against an attack by a non-linear probing network.</abstract>
+      <pages>1159–1174</pages>
+      <url hash="df9e97d1">2022.tacl-1.67</url>
+      <bibkey>chowdhury-chaturvedi-2022-learning</bibkey>
+    </paper>
+    <paper id="68">
+      <title>Robust Dialogue State Tracking with Weak Supervision and Sparse Data</title>
+      <author><first>Michael</first><last>Heck</last></author>
+      <author><first>Nurul</first><last>Lubis</last></author>
+      <author><first>Carel van</first><last>Niekerk</last></author>
+      <author><first>Shutong</first><last>Feng</last></author>
+      <author><first>Christian</first><last>Geishauser</last></author>
+      <author><first>Hsien-Chin</first><last>Lin</last></author>
+      <author><first>Milica</first><last>Gašić</last></author>
+      <doi>10.1162/tacl_a_00513</doi>
+      <abstract>Generalizing dialogue state tracking (DST) to new data is especially challenging due to the strong reliance on abundant and fine-grained supervision during training. Sample sparsity, distributional shift, and the occurrence of new concepts and topics frequently lead to severe performance degradation during inference. In this paper we propose a training strategy to build extractive DST models without the need for fine-grained manual span labels. Two novel input-level dropout methods mitigate the negative impact of sample sparsity. We propose a new model architecture with a unified encoder that supports value as well as slot independence by leveraging the attention mechanism. We combine the strengths of triple copy strategy DST and value matching to benefit from complementary predictions without violating the principle of ontology independence. Our experiments demonstrate that an extractive DST model can be trained without manual span labels. Our architecture and training strategies improve robustness towards sample sparsity, new concepts, and topics, leading to state-of-the-art performance on a range of benchmarks. We further highlight our model’s ability to effectively learn from non-dialogue data.</abstract>
+      <pages>1175–1192</pages>
+      <url hash="d9f91028">2022.tacl-1.68</url>
+      <bibkey>heck-etal-2022-robust</bibkey>
+    </paper>
+    <paper id="69">
+      <title>Unit Testing for Concepts in Neural Networks</title>
+      <author><first>Charles</first><last>Lovering</last></author>
+      <author><first>Ellie</first><last>Pavlick</last></author>
+      <doi>10.1162/tacl_a_00514</doi>
+      <abstract>Many complex problems are naturally understood in terms of symbolic concepts. For example, our concept of “cat” is related to our concepts of “ears” and “whiskers” in a non-arbitrary way. Fodor (1998) proposes one theory of concepts, which emphasizes symbolic representations related via constituency structures. Whether neural networks are consistent with such a theory is open for debate. We propose unit tests for evaluating whether a system’s behavior is consistent with several key aspects of Fodor’s criteria. Using a simple visual concept learning task, we evaluate several modern neural architectures against this specification. We find that models succeed on tests of groundedness, modularity, and reusability of concepts, but that important questions about causality remain open. Resolving these will require new methods for analyzing models’ internal states.</abstract>
+      <pages>1193–1208</pages>
+      <url hash="5f5e676b">2022.tacl-1.69</url>
+      <bibkey>lovering-pavlick-2022-unit</bibkey>
+    </paper>
+    <paper id="70">
+      <title>Multi-task Active Learning for Pre-trained Transformer-based Models</title>
+      <author><first>Guy</first><last>Rotman</last></author>
+      <author><first>Roi</first><last>Reichart</last></author>
+      <doi>10.1162/tacl_a_00515</doi>
+      <abstract>Multi-task learning, in which several tasks are jointly learned by a single model, allows NLP models to share information from multiple annotations and may facilitate better predictions when the tasks are inter-related. This technique, however, requires annotating the same text with multiple annotation schemes, which may be costly and laborious. Active learning (AL) has been demonstrated to optimize annotation processes by iteratively selecting unlabeled examples whose annotation is most valuable for the NLP model. Yet, multi-task active learning (MT-AL) has not been applied to state-of-the-art pre-trained Transformer-based NLP models. This paper aims to close this gap. We explore various multi-task selection criteria in three realistic multi-task scenarios, reflecting different relations between the participating tasks, and demonstrate the effectiveness of multi-task compared to single-task selection. Our results suggest that MT-AL can be effectively used in order to minimize annotation efforts for multi-task NLP models.1</abstract>
+      <pages>1209–1228</pages>
+      <url hash="71d079fe">2022.tacl-1.70</url>
+      <bibkey>rotman-reichart-2022-multi</bibkey>
+    </paper>
+    <paper id="71">
+      <title>Template-based Abstractive Microblog Opinion Summarization</title>
+      <author><first>Iman Munire</first><last>Bilal</last></author>
+      <author><first>Bo</first><last>Wang</last></author>
+      <author><first>Adam</first><last>Tsakalidis</last></author>
+      <author><first>Dong</first><last>Nguyen</last></author>
+      <author><first>Rob</first><last>Procter</last></author>
+      <author><first>Maria</first><last>Liakata</last></author>
+      <doi>10.1162/tacl_a_00516</doi>
+      <abstract>We introduce the task of microblog opinion summarization (MOS) and share a dataset of 3100 gold-standard opinion summaries to facilitate research in this domain. The dataset contains summaries of tweets spanning a 2-year period and covers more topics than any other public Twitter summarization dataset. Summaries are abstractive in nature and have been created by journalists skilled in summarizing news articles following a template separating factual information (main story) from author opinions. Our method differs from previous work on generating gold-standard summaries from social media, which usually involves selecting representative posts and thus favors extractive summarization models. To showcase the dataset’s utility and challenges, we benchmark a range of abstractive and extractive state-of-the-art summarization models and achieve good performance, with the former outperforming the latter. We also show that fine-tuning is necessary to improve performance and investigate the benefits of using different sample sizes.</abstract>
+      <pages>1229–1248</pages>
+      <url hash="eccbf65e">2022.tacl-1.71</url>
+      <bibkey>bilal-etal-2022-template</bibkey>
+    </paper>
+    <paper id="72">
+      <title>Meta-Learning the Difference: Preparing Large Language Models for Efficient Adaptation</title>
+      <author><first>Zejiang</first><last>Hou</last></author>
+      <author><first>Julian</first><last>Salazar</last></author>
+      <author><first>George</first><last>Polovets</last></author>
+      <doi>10.1162/tacl_a_00517</doi>
+      <abstract>Large pretrained language models (PLMs) are often domain- or task-adapted via finetuning or prompting. Finetuning requires modifying all of the parameters and having enough data to avoid overfitting while prompting requires no training and few examples but limits performance. Instead, we prepare PLMs for data- and parameter-efficient adaptation by learning to learn the difference between general and adapted PLMs. This difference is expressed in terms of model weights and sublayer structure through our proposed dynamic low-rank reparameterization and learned architecture controller. Experiments on few-shot dialogue completion, low-resource abstractive summarization, and multi-domain language modeling show improvements in adaptation time and performance over direct finetuning or preparation via domain-adaptive pretraining. Ablations show our task-adaptive reparameterization (TARP) and model search (TAMS) components individually improve on other parameter-efficient transfer like adapters and structure-learning methods like learned sparsification.</abstract>
+      <pages>1249–1265</pages>
+      <url hash="c0d0826b">2022.tacl-1.72</url>
+      <bibkey>hou-etal-2022-meta</bibkey>
+    </paper>
+    <paper id="73">
+      <title>Compositional Evaluation on <fixed-case>J</fixed-case>apanese Textual Entailment and Similarity</title>
+      <author><first>Hitomi</first><last>Yanaka</last></author>
+      <author><first>Koji</first><last>Mineshima</last></author>
+      <doi>10.1162/tacl_a_00518</doi>
+      <abstract>Natural Language Inference (NLI) and Semantic Textual Similarity (STS) are widely used benchmark tasks for compositional evaluation of pre-trained language models. Despite growing interest in linguistic universals, most NLI/STS studies have focused almost exclusively on English. In particular, there are no available multilingual NLI/STS datasets in Japanese, which is typologically different from English and can shed light on the currently controversial behavior of language models in matters such as sensitivity to word order and case particles. Against this background, we introduce JSICK, a Japanese NLI/STS dataset that was manually translated from the English dataset SICK. We also present a stress-test dataset for compositional inference, created by transforming syntactic structures of sentences in JSICK to investigate whether language models are sensitive to word order and case particles. We conduct baseline experiments on different pre-trained language models and compare the performance of multilingual models when applied to Japanese and other languages. The results of the stress-test experiments suggest that the current pre-trained language models are insensitive to word order and case marking.</abstract>
+      <pages>1266–1284</pages>
+      <url hash="7235c565">2022.tacl-1.73</url>
+      <bibkey>yanaka-mineshima-2022-compositional</bibkey>
+    </paper>
+    <paper id="74">
+      <title>Neuron-level Interpretation of Deep <fixed-case>NLP</fixed-case> Models: A Survey</title>
+      <author><first>Hassan</first><last>Sajjad</last></author>
+      <author><first>Nadir</first><last>Durrani</last></author>
+      <author><first>Fahim</first><last>Dalvi</last></author>
+      <doi>10.1162/tacl_a_00519</doi>
+      <abstract>The proliferation of Deep Neural Networks in various domains has seen an increased need for interpretability of these models. Preliminary work done along this line, and papers that surveyed such, are focused on high-level representation analysis. However, a recent branch of work has concentrated on interpretability at a more granular level of analyzing neurons within these models. In this paper, we survey the work done on neuron analysis including: i) methods to discover and understand neurons in a network; ii) evaluation methods; iii) major findings including cross architectural comparisons that neuron analysis has unraveled; iv) applications of neuron probing such as: controlling the model, domain adaptation, and so forth; and v) a discussion on open issues and future research directions.</abstract>
+      <pages>1285–1303</pages>
+      <url hash="87add379">2022.tacl-1.74</url>
+      <bibkey>sajjad-etal-2022-neuron</bibkey>
+    </paper>
   </volume>
 </collection>
