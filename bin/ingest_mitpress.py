@@ -308,7 +308,7 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
 
 
 def issue_info_to_node(
-    issue_info: str, year_: str, volume_id: str, is_tacl: bool
+    issue_info: str, year_: str, volume_id: str, venue: str
 ) -> etree.Element:
     """Creates the meta block for a new issue / volume"""
     meta = make_simple_element("meta")
@@ -319,7 +319,7 @@ def issue_info_to_node(
     make_simple_element("publisher", "MIT Press", parent=meta)
     make_simple_element("address", "Cambridge, MA", parent=meta)
 
-    if not is_tacl:
+    if venue == "cl":
         month_text = issue_info.split()[-2]  # blah blah blah month year
         if not month_text in {
             "January",
@@ -339,6 +339,7 @@ def issue_info_to_node(
         make_simple_element("month", month_text, parent=meta)
 
     make_simple_element("year", str(year_), parent=meta)
+    make_simple_element("venue", venue, parent=meta)
 
     return meta
 
@@ -349,7 +350,7 @@ def main(args):
     )
 
     is_tacl = "tacl" in args.root_dir.stem
-    logging.info("Looks like a", 'TACL' if is_tacl else 'CL', "ingest")
+    logging.info(f"Looks like a {'TACL' if is_tacl else 'CL'} ingestion")
 
     venue = TACL if is_tacl else CL  # J for CL, Q for TACL.
     year = args.year
@@ -457,7 +458,7 @@ def main(args):
             anthology.sigs,
             anthology.formatter,
         )
-        paper = Paper.from_xml(papernode, volume, anthology.formatter, anthology.venues)
+        paper = Paper.from_xml(papernode, volume, anthology.formatter)
         bibkey = anthology.pindex.create_bibkey(paper, vidx=anthology.venues)
         make_simple_element("bibkey", bibkey, parent=papernode)
 
