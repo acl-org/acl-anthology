@@ -159,7 +159,9 @@ def add_paper_nums_in_paper_yaml(
         paper_id = str(paper['id'])
         if 'file' not in paper.keys():
             print(f'{paper_id} does not have file key')
-        paper_name = paper['file']
+            paper_name = paper['title']
+        else:
+            paper_name = paper['file']
         if 'publish' not in paper.keys() or paper['publish'] is True:
             if os.path.exists(f'{ingestion_dir}inputs/papers/{paper_id}.pdf'):
                 paper_need_read_path = f'{ingestion_dir}inputs/papers/{paper_id}.pdf'
@@ -392,7 +394,12 @@ def copy_pdf_and_attachment(
 
     for i, paper in enumerate(papers):
         # copy pdf
-        paper_name = paper['file']
+        if 'file' not in paper.keys():
+            paper_name = paper['title']
+            print(f'{paper_name} does not have file key')
+        else:
+            paper_name = paper['file']
+        # paper_name = paper['file']
         if paper_name != '' or paper_name is not None:
             paper_id = str(paper['id'])
             paper_num = i + 1
@@ -639,7 +646,7 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
         volume,
         collection_id,
         volume_name,
-        proceedings_pdf_dest_path
+        proceedings_pdf_dest_path,
     ) = copy_pdf_and_attachment(meta, pdfs_dir, attachments_dir, papers, dry_run)
     create_xml(
         volume=volume,
