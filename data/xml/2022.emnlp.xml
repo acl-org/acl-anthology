@@ -10,13 +10,8 @@
       <address>Abu Dhabi, United Arab Emirates</address>
       <month>December</month>
       <year>2022</year>
-      <url hash="d56d4453">2022.emnlp-main</url>
       <venue>emnlp</venue>
     </meta>
-    <frontmatter>
-      <url hash="d56d4453">2022.emnlp-main.0</url>
-      <bibkey>emnlp-2022-2022</bibkey>
-    </frontmatter>
     <paper id="1">
       <title>Generative Knowledge Graph Construction: A Review</title>
       <author><first>Hongbin</first><last>Ye</last></author>
@@ -9964,6 +9959,83 @@
       <abstract>Current end-to-end retrieval-based dialogue systems are mainly based on Recurrent Neural Networks or Transformers with attention mechanisms. Although promising results have been achieved, these models often suffer from slow inference or huge number of parameters. In this paper, we propose a novel lightweight fully convolutional architecture, called DialogConv, for response selection. DialogConv is exclusively built on top of convolution to extract matching features of context and response. Dialogues are modeled in 3D views, where DialogConv performs convolution operations on embedding view, word view and utterance view to capture richer semantic information from multiple contextual views. On the four benchmark datasets, compared with state-of-the-art baselines, DialogConv is on average about 8.5x smaller in size, and 79.39x and 10.64x faster on CPU and GPU devices, respectively. At the same time, DialogConv achieves the competitive effectiveness of response selection.</abstract>
       <url hash="15e5bcd9">2022.emnlp-main.828</url>
       <bibkey>liu-etal-2022-dialogconv</bibkey>
+    </paper>
+  </volume>
+   <volume id="tutorials" ingest-date="2022-12-08">
+    <meta>
+      <booktitle>Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing: Tutorial Abstracts</booktitle>
+      <editor><first>Samhaa R.</first><last>El-Beltagy</last></editor>
+      <editor><first>Xipeng</first><last>Qiu</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Abu Dubai, UAE</address>
+      <month>December</month>
+      <year>2022</year>
+      <url hash="47b288fc">2022.emnlp-tutorials</url>
+      <venue>emnlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="b19e894e">2022.emnlp-tutorials.0</url>
+      <bibkey>emnlp-2022-2022-empirical</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Non-Autoregressive Models for Fast Sequence Generation</title>
+      <author><first>Yang</first><last>Feng</last></author>
+      <author><first>Chenze</first><last>Shao</last></author>
+      <pages>1-8</pages>
+      <abstract>Autoregressive (AR) models have achieved great success in various sequence generation tasks. However, AR models can only generate target sequence word-by-word due to the AR mechanism and hence suffer from slow inference. Recently, non-autoregressive (NAR) models, which generate all the tokens in parallel by removing the sequential dependencies within the target sequence, have received increasing attention in sequence generation tasks such as neural machine translation (NMT), automatic speech recognition (ASR), and text to speech (TTS). In this tutorial, we will provide a comprehensive introduction to non-autoregressive sequence generation.</abstract>
+      <url hash="704f1720">2022.emnlp-tutorials.1</url>
+      <bibkey>feng-shao-2022-non</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Modular and Parameter-Efficient Fine-Tuning for <fixed-case>NLP</fixed-case> Models</title>
+      <author><first>Sebastian</first><last>Ruder</last></author>
+      <author><first>Jonas</first><last>Pfeiffer</last></author>
+      <author><first>Ivan</first><last>Vulić</last></author>
+      <pages>9-10</pages>
+      <abstract>State-of-the-art language models in NLP perform best when fine-tuned even on small datasets, but due to their increasing size, fine-tuning and downstream usage have become extremely compute-intensive. Being able to efficiently and effectively fine-tune the largest pre-trained models is thus key in order to reap the benefits of the latest advances in NLP. In this tutorial, we provide a comprehensive overview of parameter-efficient fine-tuning methods. We highlight their similarities and differences by presenting them in a unified view. We explore the benefits and usage scenarios of a neglected property of such parameter-efficient models—modularity—such as composition of modules to deal with previously unseen data conditions. We finally highlight how both properties——parameter efficiency and modularity——can be useful in the real-world setting of adapting pre-trained models to under-represented languages and domains with scarce annotated data for several downstream applications.</abstract>
+      <url hash="36b51093">2022.emnlp-tutorials.2</url>
+      <bibkey>ruder-etal-2022-modular</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Meaning Representations for Natural Languages: Design, Models and Applications</title>
+      <author><first>Jeffrey</first><last>Flanigan</last></author>
+      <author><first>Ishan</first><last>Jindal</last></author>
+      <author><first>Yunyao</first><last>Li</last></author>
+      <author><first>Tim</first><last>O’Gorman</last></author>
+      <author><first>Martha</first><last>Palmer</last></author>
+      <author><first>Nianwen</first><last>Xue</last></author>
+      <pages>11-16</pages>
+      <abstract>This tutorial reviews the design of common meaning representations, SoTA models for predicting meaning representations, and the applications of meaning representations in a wide range of downstream NLP tasks and real-world applications. Reporting by a diverse team of NLP researchers from academia and industry with extensive experience in designing, building and using meaning representations, our tutorial has three components: (1) an introduction to common meaning representations, including basic concepts and design challenges; (2) a review of SoTA methods on building models for meaning representations; and (3) an overview of applications of meaning representations in downstream NLP tasks and real-world applications. We will also present qualitative comparisons of common meaning representations and a quantitative study on how their differences impact model performance. Finally, we will share best practices in choosing the right meaning representation for downstream tasks.</abstract>
+      <url hash="fd615cd7">2022.emnlp-tutorials.3</url>
+      <bibkey>flanigan-etal-2022-meaning</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>C</fixed-case>ausal<fixed-case>NLP</fixed-case> Tutorial: An Introduction to Causality for Natural Language Processing</title>
+      <author><first>Zhijing</first><last>Jin</last></author>
+      <author><first>Amir</first><last>Feder</last></author>
+      <author><first>Kun</first><last>Zhang</last></author>
+      <pages>17-22</pages>
+      <abstract>Causal inference is becoming an increasingly important topic in deep learning, with the potential to help with critical deep learning problems such as model robustness, interpretability, and fairness. In addition, causality is naturally widely used in various disciplines of science, to discover causal relationships among variables and estimate causal effects of interest. In this tutorial, we introduce the fundamentals of causal discovery and causal effect estimation to the natural language processing (NLP) audience, provide an overview of causal perspectives to NLP problems, and aim to inspire novel approaches to NLP further. This tutorial is inclusive to a variety of audiences and is expected to facilitate the community’s developments in formulating and addressing new, important NLP problems in light of emerging causal principles and methodologies.</abstract>
+      <url hash="030415e4">2022.emnlp-tutorials.4</url>
+      <bibkey>jin-etal-2022-causalnlp</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Emergent Language-Based Coordination In Deep Multi-Agent Systems</title>
+      <author><first>Marco</first><last>Baroni</last></author>
+      <author><first>Roberto</first><last>Dessi</last></author>
+      <author><first>Angeliki</first><last>Lazaridou</last></author>
+      <pages>23-29</pages>
+      <abstract>Large pre-trained deep networks are the standard building blocks of modern AI applications. This raises fundamental questions about how to control their behaviour and how to make them efficiently interact with each other. Deep net emergent communication tackles these challenges by studying how to induce communication protocols between neural network agents, and how to include humans in the communication loop. Traditionally, this research had focussed on relatively small-scale experiments where two networks had to develop a discrete code from scratch for referential communication. However, with the rise of large pre-trained language models that can work well on many tasks, the emphasis is now shifting on how to let these models interact through a language-like channel to engage in more complex behaviors. By reviewing several representative papers, we will provide an introduction to deep net emergent communication, we will cover various central topics from the present and recent past, as well as discussing current shortcomings and suggest future directions. The presentation is complemented by a hands-on section where participants will implement and analyze two emergent communications setups from the literature. The tutorial should be of interest to researchers wanting to develop more flexible AI systems, but also to cognitive scientists and linguists interested in the evolution of communication systems.</abstract>
+      <url hash="55b474b9">2022.emnlp-tutorials.5</url>
+      <bibkey>baroni-etal-2022-emergent</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>A</fixed-case>rabic Natural Language Processing</title>
+      <author><first>Nizar</first><last>Habash</last></author>
+      <pages>30-35</pages>
+      <abstract>The Arabic language continues to be the focus of an increasing number of projects in natural language processing (NLP) and computational linguistics (CL). This tutorial provides NLP/CL system developers and researchers (computer scientists and linguists alike) with the necessary background information for working with Arabic in its various forms: Classical, Modern Standard and Dialectal. We discuss various Arabic linguistic phenomena and review the state-of-the-art in Arabic processing from enabling technologies and resources, to common tasks and applications. The tutorial will explain important concepts, common wisdom, and common pitfalls in Arabic processing. Given the wide range of possible issues, we invite tutorial attendees to bring up interesting challenges and problems they are working on to discuss during the tutorial.</abstract>
+      <url hash="4e54867c">2022.emnlp-tutorials.6</url>
+      <bibkey>habash-2022-arabic</bibkey>
     </paper>
   </volume>
   <event id="emnlp-2022">
