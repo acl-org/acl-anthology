@@ -291,7 +291,6 @@ def paper2xml(
         'doi',
         'language',
     ]
-    print(paper_item['id'], paper_item['pages'])
     paper = make_simple_element('paper', attrib={'id': str(paper_num)})
     for field in fields:
         if field == 'author':
