@@ -95,7 +95,7 @@ class EventIndex:
                         and not url.startswith("http")
                         and not url.startswith("/")
                     ):
-                        url = data.EVENT_LOCATION_TEMPLATE.format(event_id, url)
+                        url = EVENT_LOCATION_TEMPLATE.format(event_id, url)
 
                     self.events[event_id]["links"].append({name.capitalize(): url})
 
