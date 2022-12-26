@@ -44,8 +44,8 @@ PDF_THUMBNAIL_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/thumb/{}.jpg"
 
 VIDEO_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}"
 
-# Where files related to events can be found, e.g., /events/acl-2022/2022.acl.handbook.pdf
-EVENT_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/event-files/{}/{}"
+# Where files related to events can be found, e.g., /files/acl/2022.acl.handbook.pdf
+EVENT_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/files/{}/{}"
 
 # Regular expression matching full Anthology IDs
 ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"
@@ -56,7 +56,7 @@ ANTHOLOGY_FILE_DIR = os.environ.get(
     "ANTHOLOGY_FILES", os.path.join(os.environ["HOME"], "anthology-files")
 )
 
-# Names of XML elements that may appear multiple times, and should be accumulated as a list
+# Names of XML elements that may appear multiple times
 LIST_ELEMENTS = (
     "attachment",
     "author",

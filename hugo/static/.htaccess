@@ -71,8 +71,8 @@ RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.(\d+([ve]\d+)?)\.pdf$ anthol
 RewriteRule ^attachments/([A-Za-z])(\d{2})\-(\d{4})(\..*)?$ anthology-files/attachments/$1/$1$2/$1$2-$3$4 [L,NC]
 RewriteRule ^attachments/(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+\.\d+)\.(.*)$ anthology-files/attachments/$2/$1.$2-$3.$4 [L,NC]
 
-# Event attachments
-RewriteRule ^event-files/(.*)$ anthology-files/events/$1 [L,NC]
+# Event files (handbooks, etc). Eventually we should put all files here.
+RewriteRule ^files/(.*)$ anthology-files/files/$1 [L,NC]
 
 # Thumbnails (e.g., /thumb/P17-1069.jpg loads anthology-files/thumb/P17-1069.jpg)
 RewriteRule ^thumb/(.*)$ anthology-files/thumb/$1 [L,NC]

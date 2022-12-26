@@ -35,6 +35,9 @@ class EventIndex:
     """
 
     def __init__(self, venue_index):
+        """
+        :param venue_index: A VenueIndex object
+        """
         self.events = {}
         self.venue_index = venue_index
         self.formatter = MarkupFormatter()
@@ -67,7 +70,6 @@ class EventIndex:
             event_xml,
             list_elements=["url", "volume-id"],
             dont_parse_elements=["meta", "links", "colocated"],
-            # recurse_elements=["meta", "colocated", "links"]
         )
 
         # copy over on top of default values
