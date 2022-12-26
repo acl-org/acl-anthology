@@ -44,6 +44,9 @@ PDF_THUMBNAIL_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/thumb/{}.jpg"
 
 VIDEO_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}"
 
+# Where files related to events can be found, e.g., /events/acl-2022/2022.acl.handbook.pdf
+EVENT_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/events/{}/{}"
+
 # Regular expression matching full Anthology IDs
 ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"
 
@@ -53,7 +56,7 @@ ANTHOLOGY_FILE_DIR = os.environ.get(
     "ANTHOLOGY_FILES", os.path.join(os.environ["HOME"], "anthology-files")
 )
 
-# Names of XML elements that may appear multiple times
+# Names of XML elements that may appear multiple times, and should be accumulated as a list
 LIST_ELEMENTS = (
     "attachment",
     "author",
@@ -65,7 +68,14 @@ LIST_ELEMENTS = (
     "pwcdataset",
     "video",
     "venue",
-    "colocated",
+)
+
+# Names of XML elements that should not be parsed, so that they can be interpreted later in
+# a context-specific way
+DONT_PARSE_ELEMENTS = (
+    "abstract", 
+    "title", 
+    "booktitle",
 )
 
 # New-style IDs that should be handled as journals

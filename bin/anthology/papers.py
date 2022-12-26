@@ -23,9 +23,7 @@ from .utils import (
     parse_element,
     infer_url,
     infer_attachment_url,
-    remove_extra_whitespace,
     is_journal,
-    is_volume_id,
 )
 from . import data
 

@@ -2,7 +2,9 @@
 
 b = element b { MarkupText }
 i = element i { MarkupText }
-url = element url { xsd:anyURI }
+url = element url {
+  attribute type { xsd:NCName }? & xsd:anyURI
+}
 fixed-case = element fixed-case { MarkupText }
 tex-math = element tex-math { text }
 MarkupText = (text | b | i | url | fixed-case | tex-math )+
@@ -117,8 +119,17 @@ Volume = element volume {
   Paper*
 }
 Event = element event {
-  attribute id { xsd:string },
-  (element colocated { text }*)
+  attribute id { xsd:string }
+  & element meta {
+    (element title { MarkupText }?
+     & element location { text }?
+     & element dates { text }?
+    )
+  }?
+  & element links { url* }?
+  & element colocated { 
+    element volume-id { text }*
+    }?
 }
 Collection = element collection {
   attribute id { xsd:string },
