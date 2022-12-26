@@ -40,21 +40,29 @@ def score_variant(name):
 
 
 class PersonName:
-    first, last = "", ""
+    """
+    Represents an instance of a person name.
+    """
 
-    def __init__(self, first, last, script="roman", variant: "PersonName" = None):
+    def __init__(
+        self, first, last, affiliation=None, script="roman", variant: "PersonName" = None
+    ):
+        """
+        Initialize an instance of a person's name.
+        """
         self.first = first if first is not None else ""
         self.last = last
+        self.affiliation = affiliation
         self.script = script
         self.variant = variant
 
     def from_element(person_element):
         """
         Reads from the XML, which includes an optional first name, a last name,
-        and an optional variant (itself containing an optional first name, and a
-        last name).
+        affiliation, and an optional variant (itself containing an optional first name,
+        and a last name).
         """
-        first, last = "", ""
+        first, last, affiliation = "", "", ""
         # The name variant script, defaults to roman
         script = person_element.attrib.get("script", "roman")
         variant = None
@@ -66,10 +74,14 @@ class PersonName:
                 first = element.text or ""
             elif tag == "last":
                 last = element.text or ""
+            elif tag == "affiliation":
+                affiliation = element.text or ""
             elif tag == "variant":
                 variant = PersonName.from_element(element)
 
-        return PersonName(first, last, script=script, variant=variant)
+        return PersonName(
+            first, last, affiliation=affiliation, script=script, variant=variant
+        )
 
     def from_repr(repr_):
         parts = repr_.split(" || ")
@@ -134,7 +146,14 @@ class PersonName:
         return {"family": self.last, "given": self.first}
 
     def as_dict(self):
-        return {"first": self.first, "last": self.last, "full": self.full}
+        d = {
+            "first": self.first,
+            "last": self.last,
+            "full": self.full,
+        }
+        if self.affiliation:
+            d["affiliation"] = self.affiliation
+        return d
 
     def without_variant(self):
         if self.variant is None:
@@ -155,6 +174,8 @@ class PersonName:
         return self.full < other.full
 
     def __str__(self):
+        if self.affiliation:
+            return f"{self.full} ({self.affiliation})"
         return self.full
 
     def __repr__(self):

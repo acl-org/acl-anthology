@@ -58,6 +58,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         # "mla": "modern-language-association-7th-edition",
     }
 
+    # Load paper information
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
@@ -76,6 +77,9 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             data["author"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
             ]
+            for author in data["author"]:
+                if "affiliation" in author:
+                    print(paper.full_id, author)
         if "editor" in data:
             data["editor"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["editor"]
@@ -185,6 +189,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                 # the alphabetically-earliest volume
                 return min(volumes[volume]["venues"])
 
+        # sort volumes
         event_data["volumes"] = sorted(event_data["volumes"], key=volume_sorter)
 
         events[event_name] = event_data

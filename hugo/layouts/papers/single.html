@@ -4,7 +4,14 @@
   <meta content="{{ $paper.title }}" name="citation_title" >
 {{ range $paper.author }}
   {{ $first_letter := slicestr .id 0 1 }}
-  <meta content="{{ (index $.Site.Data.people $first_letter .id).full }}" name="citation_author" >
+  {{ $author := index .Site.Data.people $first_letter .id }}
+  <meta content="{{ .full }}" name="citation_author" >
+  {{ with .affiliation }}
+  <meta content="{{ . }}" name="citation_author_institution">
+  {{ end }}
+  {{ with $author.orcid }}
+  <meta content="{{ . }}" name="citation_author_orcid">
+  {{ end }}
 {{ end }}
 {{ with $paper.parent_volume_id }}
   {{ $volume := index $.Site.Data.volumes . }}
