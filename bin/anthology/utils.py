@@ -438,8 +438,8 @@ def parse_element(
 
     :param xml_element: the XML node to parse
     :param list_elements: a list of elements that should be accumulated as lists
-    :param recurse_elements: a list of elements that should be parsed recursively,
-      a key created for the element's tag, and its children becoming a list of dicts.
+    :param dont_parse_elements: a list of elements whose value should be the unparsed
+           XML node, rather than the parsed value
     """
     attrib = {}
     if xml_element is None:
@@ -494,8 +494,6 @@ def parse_element(
             }
         elif tag == "pwcdataset":
             value = {"url": element.get("url"), "name": element.text}
-        # elif tag in recurse_elements:
-        #     value = parse_element(element, list_elements=list_elements, recurse_elements=recurse_elements)
         else:
             value = element.text
 
