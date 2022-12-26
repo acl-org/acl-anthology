@@ -97,7 +97,7 @@ class EventIndex:
                     ):
                         url = data.EVENT_LOCATION_TEMPLATE.format(event_id, url)
 
-                    self.events[event_id]["links"].append({name: url})
+                    self.events[event_id]["links"].append({name.capitalize(): url})
 
             elif key == "xml_colocated":
                 # Turn the colocated volumes into a list of volume IDs
