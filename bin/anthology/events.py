@@ -64,7 +64,8 @@ class EventIndex:
 
         # parse the top level of the block
         event_data = parse_element(
-            event_xml, list_elements=["url", "volume-id"], 
+            event_xml,
+            list_elements=["url", "volume-id"],
             dont_parse_elements=["meta", "links", "colocated"],
             # recurse_elements=["meta", "colocated", "links"]
         )
@@ -78,7 +79,9 @@ class EventIndex:
                 for childkey, childvalue in parse_element(value).items():
                     if childkey == "xml_title":
                         # This item preserves the XML, so we need to interpret it
-                        self.events[event_id]["title"] = self.formatter(childvalue, "text")
+                        self.events[event_id]["title"] = self.formatter(
+                            childvalue, "text"
+                        )
                     else:
                         self.events[event_id][childkey] = childvalue
 
@@ -87,14 +90,20 @@ class EventIndex:
                 # in the hugo template (hugo/layouts/events/single.html
                 for name, url in parse_element(value, list_elements=["url"]).items():
                     # Rewrite the handbook URL if it's a relative path (which it should be)
-                    if name == "handbook" and not url.startswith("http") and not url.startswith("/"):
+                    if (
+                        name == "handbook"
+                        and not url.startswith("http")
+                        and not url.startswith("/")
+                    ):
                         url = data.EVENT_LOCATION_TEMPLATE.format(event_id, url)
 
-                    self.events[event_id]["links"].append({ name: url })
+                    self.events[event_id]["links"].append({name: url})
 
             elif key == "xml_colocated":
                 # Turn the colocated volumes into a list of volume IDs
-                for volume_id in parse_element(value, list_elements=["volume-id"]).get("volume-id", []):
+                for volume_id in parse_element(value, list_elements=["volume-id"]).get(
+                    "volume-id", []
+                ):
                     self.register_volume(volume_id, event_id)
 
             else:

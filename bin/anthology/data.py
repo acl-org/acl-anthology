@@ -73,8 +73,8 @@ LIST_ELEMENTS = (
 # Names of XML elements that should not be parsed, so that they can be interpreted later in
 # a context-specific way
 DONT_PARSE_ELEMENTS = (
-    "abstract", 
-    "title", 
+    "abstract",
+    "title",
     "booktitle",
 )
 

@@ -426,7 +426,11 @@ def indent(elem, level=0, internal=False):
             elem.tail = "\n" + level * "  "
 
 
-def parse_element(xml_element, list_elements=data.LIST_ELEMENTS, dont_parse_elements=data.DONT_PARSE_ELEMENTS):
+def parse_element(
+    xml_element,
+    list_elements=data.LIST_ELEMENTS,
+    dont_parse_elements=data.DONT_PARSE_ELEMENTS,
+):
     """
     Parses an XML node into a key-value hash.
     Certain types receive special treatment.
@@ -491,7 +495,7 @@ def parse_element(xml_element, list_elements=data.LIST_ELEMENTS, dont_parse_elem
         elif tag == "pwcdataset":
             value = {"url": element.get("url"), "name": element.text}
         # elif tag in recurse_elements:
-        #     value = parse_element(element, list_elements=list_elements, recurse_elements=recurse_elements) 
+        #     value = parse_element(element, list_elements=list_elements, recurse_elements=recurse_elements)
         else:
             value = element.text
 
