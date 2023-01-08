@@ -96,6 +96,10 @@ class Paper:
             ]
         return []
 
+    @cached_property
+    def pdf_hash(self):
+        return self.attrib.get("pdf_hash", None)
+
     def _parse_revision_or_errata(self, tag):
         for item in self.attrib.get(tag, []):
             # Expand URLs with paper ID

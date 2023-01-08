@@ -113,6 +113,10 @@ class Volume:
             return infer_url(url, template=data.PDF_LOCATION_TEMPLATE)
         return None
 
+    @cached_property
+    def pdf_hash(self):
+        return self.attrib.get("pdf_hash", None)
+
     def _set_meta_info(self, meta_data):
         """Derive journal title, volume, and issue no. used in metadata.
 

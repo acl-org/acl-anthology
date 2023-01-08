@@ -22,6 +22,7 @@
 ################################################################################
 
 import os
+from enum import Enum
 
 # this is the canonical URL.  In contrast to all other
 # URL templates, it always links to the official anthology.
@@ -51,6 +52,25 @@ ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"
 # Defaults to ~/anthology-files
 ANTHOLOGY_FILE_DIR = os.environ.get(
     "ANTHOLOGY_FILES", os.path.join(os.environ["HOME"], "anthology-files")
+)
+
+# Anthology pdf location
+# Defaults to {ANTHOLOGY_FILE_DIR}/pdf
+ANTHOLOGY_PDF_DIR = os.environ.get(
+    "ANTHOLOGY_PDFS", os.path.join(ANTHOLOGY_FILE_DIR, "pdf")
+)
+
+# Anthology attachments location
+# Defaults to {ANTHOLOGY_FILE_DIR}/attachments
+ANTHOLOGY_ATTACHMENTS_DIR = os.environ.get(
+    "ANTHOLOGY_ATTACHMENTS", os.path.join(ANTHOLOGY_FILE_DIR, "attachments")
+)
+
+# Anthology data location
+# Defaults to {git_repo_root}/data
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+ANTHOLOGY_DATA_DIR = os.environ.get(
+    "ANTHOLOGY_DATA", os.path.abspath(os.path.join(_SCRIPT_DIR, "..", "..", "data"))
 )
 
 # Names of XML elements that may appear multiple times
@@ -100,3 +120,8 @@ def get_journal_title(top_level_id, volume_title):
         return "Transactions of the Association for Computational Linguistics"
     else:
         return volume_title
+
+
+class ResourceType(Enum):
+    PDF = 'pdf'
+    ATTACHMENT = 'attachments'
