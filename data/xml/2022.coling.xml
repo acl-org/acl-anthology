@@ -1309,6 +1309,7 @@
       <abstract>Domain-specific documents cover terminologies and specialized knowledge. This has been the main challenge of domain-specific document retrieval systems. Previous approaches propose domain-adaptation and transfer learning methods to alleviate this problem. However, these approaches still follow the same document representation method in previous approaches; a document is embedded into a single vector. In this study, we propose VKGDR. VKGDR represents a given corpus into a graph of entities and their relations (known as a virtual knowledge graph) and computes the relevance between queries and documents based on the graph representation. We conduct three experiments 1) domain-specific document retrieval, 2) comparison of our virtual knowledge graph construction method with previous approaches, and 3) ablation study on each component of our virtual knowledge graph. From the results, we see that unsupervised VKGDR outperforms baselines in a zero-shot setting and even outperforms fully-supervised bi-encoder. We also verify that our virtual knowledge graph construction method results in better retrieval performance than previous approaches.</abstract>
       <url hash="4e54bef1">2022.coling-1.101</url>
       <bibkey>seonwoo-etal-2022-virtual</bibkey>
+      <pwccode url="https://github.com/yeonsw/vkgdr" additional="false">yeonsw/vkgdr</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/techqa">TechQA</pwcdataset>
     </paper>
     <paper id="102">
@@ -1341,7 +1342,7 @@
       <title><fixed-case>BERT</fixed-case>-Flow-<fixed-case>VAE</fixed-case>: A Weakly-supervised Model for Multi-Label Text Classification</title>
       <author><first>Ziwen</first><last>Liu</last></author>
       <author><first>Josep</first><last>Grau-Bove</last></author>
-      <author><first>Scott Allan Allan</first><last>Orr</last></author>
+      <author><first>Scott Allan</first><last>Orr</last></author>
       <pages>1203–1220</pages>
       <abstract>Multi-label Text Classification (MLTC) is the task of categorizing documents into one or more topics. Considering the large volumes of data and varying domains of such tasks, fully supervised learning requires manually fully annotated datasets which is costly and time-consuming. In this paper, we propose BERT-Flow-VAE (BFV), a Weakly-Supervised Multi-Label Text Classification (WSMLTC) model that reduces the need for full supervision. This new model (1) produces BERT sentence embeddings and calibrates them using a flow model, (2) generates an initial topic-document matrix by averaging results of a seeded sparse topic model and a textual entailment model which only require surface name of topics and 4-6 seed words per topic, and (3) adopts a VAE framework to reconstruct the embeddings under the guidance of the topic-document matrix. Finally, (4) it uses the means produced by the encoder model in the VAE architecture as predictions for MLTC. Experimental results on 6 multi-label datasets show that BFV can substantially outperform other baseline WSMLTC models in key metrics and achieve approximately 84% performance of a fully-supervised model.</abstract>
       <url hash="29fc36f0">2022.coling-1.104</url>
@@ -3770,6 +3771,7 @@
       <abstract>We study the problem of integrating cognitive language processing signals (e.g., eye-tracking or EEG data) into pre-trained language models like BERT. Existing methods typically fine-tune pre-trained models on cognitive data, ignoring the semantic gap between the texts and cognitive signals. To fill the gap, we propose CogBERT, a framework that can induce fine-grained cognitive features from cognitive data and incorporate cognitive features into BERT by adaptively adjusting the weight of cognitive features for different NLP tasks. Extensive experiments show that: (1) Cognition-guided pre-trained models can consistently perform better than basic pre-trained models on ten NLP tasks. (2) Different cognitive features contribute differently to different NLP tasks. Based on this observation, we give a fine-grained explanation of why cognitive data is helpful for NLP. (3) Different transformer layers of pre-trained models should encode different cognitive features, with word-level cognitive features at the bottom and semantic-level cognitive features at the top. (4) Attention visualization demonstrates that CogBERT aligns with human gaze patterns and improves its natural language comprehension ability.</abstract>
       <url hash="cee37c2a">2022.coling-1.284</url>
       <bibkey>ding-etal-2022-cogbert</bibkey>
+      <pwccode url="https://github.com/PosoSAgapo/cogbert" additional="false">PosoSAgapo/cogbert</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
@@ -3816,9 +3818,11 @@
       <author><first>Bohan</first><last>Li</last></author>
       <author><first>Wanxiang</first><last>Che</last></author>
       <pages>3251–3262</pages>
-      <abstract>Prompting method is regarded as one of the crucial progress for few-shot nature language processing. Recent research on prompting moves from discrete tokens based “hard prompts” to continuous “soft prompts”, which employ learnable vectors as pseudo prompt tokens and achieve better performance. Though showing promising prospects, these soft-prompting methods are observed to rely heavily on good initialization to take effect. Unfortunately, obtaining a perfect initialization for soft prompts requires understanding of inner language models working and elaborate design, which is no easy task and has to restart from scratch for each new task. To remedy this, we propose a generalized soft prompting method called MetaPrompting, which adopts the well-recognized model-agnostic meta-learning algorithm to automatically find better prompt initialization that facilitates fast adaptation to new prompting tasks. Extensive experiments show MetaPrompting tackles soft prompt initialization problem and brings significant improvement on three different datasets (over 6 points improvement in accuracy for 1-shot setting), achieving new state-of-the-art performance.</abstract>
-      <url hash="b1f9fafe">2022.coling-1.287</url>
+      <abstract>Prompting method is regarded as one of the crucial progress for few-shot nature language processing. Recent research on prompting moves from discrete tokens based “hard prompts” to continuous “soft prompts”, which employ learnable vectors as pseudo prompt tokens and achieve better performance. Though showing promising prospects, these soft-prompting methods are observed to rely heavily on good initialization to take effect. Unfortunately, obtaining a perfect initialization for soft prompts requires understanding of inner language models working and elaborate design, which is no easy task and has to restart from scratch for each new task. To remedy this, we propose a generalized soft prompting method called MetaPrompting, which adopts the well-recognized model-agnostic meta-learning algorithm to automatically find better prompt initialization that facilitates fast adaptation to new prompting tasks. Extensive experiments show MetaPrompting tackles soft prompt initialization problem and brings significant improvement on three different datasets (over 7 points improvement in accuracy for 1-shot setting), achieving new state-of-the-art performance.</abstract>
+      <url hash="f4c1fcec">2022.coling-1.287</url>
       <bibkey>hou-etal-2022-metaprompting</bibkey>
+      <revision id="1" href="2022.coling-1.287v1" hash="b1f9fafe"/>
+      <revision id="2" href="2022.coling-1.287v2" hash="f4c1fcec" date="2022-12-15">Updated experiment results.</revision>
     </paper>
     <paper id="288">
       <title>Parameter-Efficient Mixture-of-Experts Architecture for Pre-trained Language Models</title>
@@ -4879,6 +4883,7 @@
       <abstract>Even though many recent semantic parsers are based on deep learning methods, we should not forget that rule-based alternatives might offer advantages over neural approaches with respect to transparency, portability, and explainability. Taking advantage of existing off-the-shelf Universal Dependency parsers, we present a method that maps a syntactic dependency tree to a formal meaning representation based on Discourse Representation Theory. Rather than using lambda calculus to manage variable bindings, our approach is novel in that it consists of using a series of graph transformations. The resulting UD semantic parser shows good performance for English, German, Italian and Dutch, with F-scores over 75%, outperforming a neural semantic parser for the lower-resourced languages. Unlike neural semantic parsers, our UD semantic parser does not hallucinate output, is relatively easy to port to other languages, and is completely transparent.</abstract>
       <url hash="55f03c9a">2022.coling-1.367</url>
       <bibkey>poelman-etal-2022-transparent</bibkey>
+      <pwccode url="https://github.com/wpoelman/ud-boxer" additional="false">wpoelman/ud-boxer</pwccode>
     </paper>
     <paper id="368">
       <title>Multilingual Word Sense Disambiguation with Unified Sense Representation</title>
@@ -5375,6 +5380,7 @@
       <abstract>Lifelong language learning aims to stream learning NLP tasks while retaining knowledge of previous tasks. Previous works based on the language model and following data-free constraint approaches have explored formatting all data as “begin token (B) + context (C) + question (Q) + answer (A)” for different tasks. However, they still suffer from catastrophic forgetting and are exacerbated when the previous task’s pseudo data is insufficient for the following reasons: (1) The model has difficulty generating task-corresponding pseudo data, and (2) A is prone to error when A and C are separated by Q because the information of the C is diminished before generating A. Therefore, we propose the Ask Question First and Replay Question (AQF-RQ), including a novel data format “BQCA” and a new training task to train pseudo questions of previous tasks. Experimental results demonstrate that AQF-RQ makes it easier for the model to generate more pseudo data that match corresponding tasks, and is more robust to both sufficient and insufficient pseudo-data when the task boundary is both clear and unclear. AQF-RQ can achieve only 0.36% lower performance than multi-task learning.</abstract>
       <url hash="b2d61ac0">2022.coling-1.408</url>
       <bibkey>wang-etal-2022-ask</bibkey>
+      <pwccode url="https://github.com/codehan/aqf-rq" additional="false">codehan/aqf-rq</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/decanlp">decaNLP</pwcdataset>
     </paper>
     <paper id="409">
@@ -6535,7 +6541,7 @@
       <abstract>With the boom of e-commerce, Multimodal Review Helpfulness Prediction (MRHP) that identifies the helpfulness score of multimodal product reviews has become a research hotspot. Previous work on this task focuses on attention-based modality fusion, information integration, and relation modeling, which primarily exposes the following drawbacks: 1) the model may fail to capture the really essential information due to its indiscriminate attention formulation; 2) lack appropriate modeling methods that takes full advantage of correlation among provided data. In this paper, we propose SANCL: Selective Attention and Natural Contrastive Learning for MRHP. SANCL adopts a probe-based strategy to enforce high attention weights on the regions of greater significance. It also constructs a contrastive learning framework based on natural matching properties in the dataset. Experimental results on two benchmark datasets with three categories show that SANCL achieves state-of-the-art baseline performance with lower memory consumption.</abstract>
       <url hash="3dc5ea14">2022.coling-1.499</url>
       <bibkey>han-etal-2022-sancl</bibkey>
-      <pwccode url="https://github.com/declare-lab/sancl" additional="true">declare-lab/sancl</pwccode>
+      <pwccode url="https://github.com/declare-lab/sancl" additional="false">declare-lab/sancl</pwccode>
     </paper>
     <paper id="500">
       <title>Dual Capsule Attention Mask Network with Mutual Learning for Visual Question Answering</title>
@@ -6678,6 +6684,7 @@
       <url hash="5277e62d">2022.coling-1.510</url>
       <bibkey>jo-etal-2022-selective</bibkey>
       <pwccode url="https://github.com/kakaobrain/stg" additional="false">kakaobrain/stg</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ms-marco">MS MARCO</pwcdataset>
     </paper>
     <paper id="511">
@@ -7077,7 +7084,7 @@
     <paper id="544">
       <title>Generation of Patient After-Visit Summaries to Support Physicians</title>
       <author><first>Pengshan</first><last>Cai</last></author>
-      <author id="fei-liu-em"><first>Fei</first><last>Liu</last></author>
+      <author id="fei-liu-utdallas"><first>Fei</first><last>Liu</last></author>
       <author><first>Adarsha</first><last>Bajracharya</last></author>
       <author><first>Joe</first><last>Sills</last></author>
       <author><first>Alok</first><last>Kapoor</last></author>
@@ -7346,6 +7353,7 @@
       <abstract>Nominal metaphors are frequently used in human language and have been shown to be effective in persuading, expressing emotion, and stimulating interest. This paper tackles the problem of Chinese Nominal Metaphor (NM) generation. We introduce a novel multitask framework, which jointly optimizes three tasks: NM identification, NM component identification, and NM generation. The metaphor identification module is able to perform a self-training procedure, which discovers novel metaphors from a large-scale unlabeled corpus for NM generation. The NM component identification module emphasizes components during training and conditions the generation on these NM components for more coherent results. To train the NM identification and component identification modules, we construct an annotated corpus consisting of 6.3k sentences that contain diverse metaphorical patterns. Automatic metrics show that our method can produce diverse metaphors with good readability, where 92% of them are novel metaphorical comparisons. Human evaluation shows our model significantly outperforms baselines on consistency and creativity.</abstract>
       <url hash="e991b17b">2022.coling-1.563</url>
       <bibkey>li-etal-2022-cm</bibkey>
+      <pwccode url="https://github.com/liyucheng09/metaphor_generator" additional="false">liyucheng09/metaphor_generator</pwccode>
     </paper>
     <paper id="564">
       <title>Psychology-guided Controllable Story Generation</title>
@@ -7698,6 +7706,7 @@
       <abstract>Sentiment analysis in social media is challenging since posts are short of context. As a popular way to express emotion on social media, stickers related to these posts can supplement missing sentiments and help identify sentiments precisely. However, research about stickers has not been investigated further. To this end, we present a Chinese sticker-based multimodal dataset for the sentiment analysis task (CSMSA). Compared with previous real-world photo-based multimodal datasets, the CSMSA dataset focuses on stickers, conveying more vivid and moving emotions. The sticker-based multimodal sentiment analysis task is challenging in three aspects: inherent multimodality of stickers, significant inter-series variations between stickers, and complex multimodal sentiment fusion. We propose SAMSAM to address the above three challenges. Our model introduces a flexible masked self-attention mechanism to allow the dynamic interaction between post texts and stickers. The experimental results indicate that our model performs best compared with other models. More researches need to be devoted to this field. The dataset is publicly available at https://github.com/Logos23333/CSMSA.</abstract>
       <url hash="3d5e732e">2022.coling-1.591</url>
       <bibkey>ge-etal-2022-towards</bibkey>
+      <pwccode url="https://github.com/logos23333/csmsa" additional="false">logos23333/csmsa</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mod-1">MOD</pwcdataset>
     </paper>
     <paper id="592">
