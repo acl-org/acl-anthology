@@ -39,7 +39,6 @@ from datetime import datetime
 
 
 def main(args):
-
     for row in csv.DictReader(args.csv_file):
         #    ID,Start time,Completion time,Email,Name,Anthology ID,URL,Type,Explanation,Name,Email,License
 

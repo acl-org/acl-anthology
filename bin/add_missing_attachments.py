@@ -44,7 +44,6 @@ ATTACHMENT_TYPES = "Poster Presentation Note Software Supplementary".split()
 
 
 def main(args):
-
     for lineno, line in enumerate(sys.stdin, 1):
         # attachments/D/D15/D15-1272.Attachment.pdf
         tokens = line.rstrip().split("/")

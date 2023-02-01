@@ -34,7 +34,6 @@ import lxml.etree as ET
 
 
 def main(args):
-
     prev_xml_file = None
     tree = None
     for line in args.tsv_file:

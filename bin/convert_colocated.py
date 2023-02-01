@@ -58,7 +58,6 @@ for xml_file in sys.argv[1:]:
 
         colocated_xml = make_simple_element("colocated")
         for volume_xml in event_xml.findall("./colocated"):
-
             make_simple_element("volume-id", volume_xml.text, parent=colocated_xml)
             event_xml.remove(volume_xml)
         event_xml.append(colocated_xml)

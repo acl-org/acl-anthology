@@ -36,7 +36,6 @@ import lxml.etree as ET
 
 
 def main(args):
-
     for line in args.isbn_file:
         venue, isbn = line.rstrip().split()
 

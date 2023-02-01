@@ -123,7 +123,7 @@ class AnthologyIndex:
             if not self._fast_load:
                 for name, ids in self.name_to_ids.items():
                     if len(ids) > 1:
-                        for (id1, id2) in it.permutations(ids, 2):
+                        for id1, id2 in it.permutations(ids, 2):
                             self._similar[id1].add(id2)
             for entry in name_list:
                 try:
@@ -327,7 +327,7 @@ class AnthologyIndex:
     def id_to_used(self):
         if self._fast_load and not self._id_to_used:
             for paper in self._parent.papers.values():
-                for (name, id_, _) in paper.iter_people():
+                for name, id_, _ in paper.iter_people():
                     self._id_to_used[id_].add(name)
         return self._id_to_used
 
@@ -336,7 +336,7 @@ class AnthologyIndex:
         if self._fast_load and not self._coauthors:
             for paper in self._parent.papers.values():
                 people = list(paper.iter_people())
-                for (p1, p2) in it.permutations(people, 2):
+                for p1, p2 in it.permutations(people, 2):
                     name1, id1, role1 = p1
                     name2, id2, role2 = p2
                     if role1 != role2:

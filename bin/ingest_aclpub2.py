@@ -400,7 +400,6 @@ def copy_pdf_and_attachment(
         if dry_run:
             print(f'would\'ve moved {pdf_src_path} to {pdf_dest_path}')
         if not dry_run:
-
             maybe_copy(pdf_src_path, pdf_dest_path)
 
         volume[paper_num] = {

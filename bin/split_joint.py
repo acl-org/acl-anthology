@@ -175,7 +175,6 @@ def is_oldstyle_workshop(volume):
 
 for venue, venue_data in all_venue_data.items():
     for year, volumes in venue_data.items():
-
         collection_id = f"{year}.{venue}"
 
         event_name = f"{venue}-{year}"
