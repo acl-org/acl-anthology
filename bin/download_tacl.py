@@ -38,7 +38,6 @@ import lxml.etree as ET
 
 
 def process_volume(anthology_volume):
-
     collection_id, volume_id, _ = deconstruct_anthology_id(anthology_volume)
     if is_newstyle_id(anthology_volume):
         venue_path = collection_id.split(".")[1]

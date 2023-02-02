@@ -74,7 +74,6 @@ class Volume:
     def from_xml(
         volume_xml, collection_id, venue_index: VenueIndex, sig_index: SIGIndex, formatter
     ):
-
         volume_id = volume_xml.attrib["id"]
         # The date of publication, defaulting to earlier than anything we'll encounter
         ingest_date = volume_xml.attrib.get("ingest-date", data.UNKNOWN_INGEST_DATE)

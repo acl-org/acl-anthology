@@ -36,7 +36,6 @@ import urllib.request
 
 
 def main(args):
-
     for xml_file in args.files:
         # Update XML
         tree = ET.parse(xml_file)
