@@ -21,6 +21,7 @@ if __name__ == "__main__":
 else:
     from .common import *
 
+
 # recursive helper called by protect
 # protect text of "node", including children, and tails of children
 def protect_recurse(node, recased):

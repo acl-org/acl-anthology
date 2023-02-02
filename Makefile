@@ -244,7 +244,6 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         -d website/$(ANTHOLOGYDIR) \
 		 -e $(HUGO_ENV) \
 	         --cleanDestinationDir \
-                 --printMemoryUsage \
 	         --minify
 	@cd build/website/$(ANTHOLOGYDIR) \
 	    && ln -s $(ANTHOLOGYFILES) anthology-files \

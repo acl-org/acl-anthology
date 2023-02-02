@@ -74,6 +74,7 @@ MONTH_HASH = {
     "December": "12",
 }
 
+
 # FUNCTION DEFINITIONS
 def prettify(elem):
     """Return a pretty-printed XML string for the Element."""
@@ -83,7 +84,6 @@ def prettify(elem):
 
 
 def main(volumes):
-
     formatter = MarkupFormatter()
 
     ## Assemble container

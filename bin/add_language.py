@@ -34,7 +34,6 @@ import lxml.etree as ET
 
 
 def main(args):
-
     for xml_file in args.xml_files:
         tree = ET.parse(xml_file)
         for paper in tree.getroot().findall(f".//paper"):

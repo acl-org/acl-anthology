@@ -33,7 +33,6 @@ import sys
 from anthology.utils import indent
 
 if __name__ == "__main__":
-
     infilename = sys.argv[1]
     outfilename = sys.argv[2]
 

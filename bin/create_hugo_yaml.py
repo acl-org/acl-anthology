@@ -173,13 +173,20 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         event_data = event_data.copy()
 
         def volume_sorter(volume):
-            """Puts all main volumes before satellite ones.
+            """
+            Puts all main volumes before satellite ones.
             Main volumes are sorted in a stabile manner as
             found in the XML. Colocated ones are sorted
-            alphabetically."""
+            alphabetically.
+
+            :param volume: The Anthology volume
+            """
             if main_venue in volumes[volume]["venues"]:
                 # sort volumes in main venue first
                 return "_"
+            elif deconstruct_anthology_id(volume)[1] == main_venue:
+                # this puts Findings at the top (e.g., 2022-findings.emnlp will match emnlp)
+                return "__"
             else:
                 # sort colocated volumes alphabetically, using
                 # the alphabetically-earliest volume
