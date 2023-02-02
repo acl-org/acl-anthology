@@ -119,7 +119,6 @@ def main(args):
     """
 
     with tempfile.TemporaryDirectory() as tempdir:
-
         new_pdf = add_watermark(args.anthology_id, workdir=tempdir)
 
         add_revision(

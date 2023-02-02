@@ -96,7 +96,6 @@ def add_doi(xml_node, collection_id, volume_id, force=False):
 
 
 def process_volume(anthology_volume):
-
     collection_id, volume_id, _ = deconstruct_anthology_id(anthology_volume)
 
     print(f"Attempting to add DOIs for {anthology_volume}", file=sys.stderr)

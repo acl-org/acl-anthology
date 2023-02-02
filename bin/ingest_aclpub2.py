@@ -471,7 +471,6 @@ def copy_pdf_and_attachment(
                 if os.path.split(cur_paper)[0] == 'attachments':
                     cur_paper = os.path.split(cur_paper)[1]
                 attch_src_path = attchs_src_dir + '/' + cur_paper
-
                 assert attch_src_path, f'{paper_name} attachment path is None'
                 _, attch_src_extension = os.path.splitext(attch_src_path)
                 type_ = paper['attachments'][0]['type']

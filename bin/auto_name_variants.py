@@ -134,7 +134,6 @@ def root(p, x):
 
 
 if __name__ == "__main__":
-
     keys = collections.defaultdict(list)
     parent = {}
     papers = collections.defaultdict(list)
