@@ -186,8 +186,8 @@ def add_paper_nums_in_paper_yaml(
             elif paper_id == '2051':
                 num_of_pages = 14
             else:
-                pdf_reader = PyPDF2.PdfFileReader(pdf)
-                num_of_pages = pdf_reader.numPages
+                pdf_reader = PyPDF2.PdfReader(pdf)
+                num_of_pages = len(pdf_reader.pages)
             start = end + 1
             end = start + num_of_pages - 1
             paper['pages'] = f'{start}-{end}'
