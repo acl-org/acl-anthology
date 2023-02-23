@@ -189,21 +189,19 @@ mods: build/.mods
 endnote: build/.endnote
 
 #######################################################
-# Disable bibtex etc. targets by setting NOBIB=true
+build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
+	@echo "INFO     Creating BibTeX files..."
+	. $(VENV) && python3 bin/create_bibtex.py --clean
+	@touch build/.bibtex
+
+# Disable citation targets (except for 3 bibtex per volume) by setting NOBIB=true
 ifeq (true, $(NOBIB))
-$(info WARNING: not creating bib files, this is not suitable for release!)
-build/.bibtex: build/.basedirs
-	touch build/.bibtex
+$(info WARNING: not creating citation materials; this is not suitable for release!)
 build/.mods: build/.bibtex
 	touch build/.mods
 build/.endnote: build/.bibtex
 	touch build/.endnote
 else
-
-build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
-	@echo "INFO     Creating BibTeX files..."
-	. $(VENV) && python3 bin/create_bibtex.py --clean
-	@touch build/.bibtex
 
 build/.mods: build/.bibtex
 	@if [ $(HAS_BIB2XML) = false ]; then \
