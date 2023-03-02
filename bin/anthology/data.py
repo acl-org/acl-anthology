@@ -22,6 +22,10 @@
 ################################################################################
 
 import os
+import re
+
+from typing import Tuple
+
 
 # this is the canonical URL.  In contrast to all other
 # URL templates, it always links to the official anthology.
@@ -69,7 +73,7 @@ LIST_ELEMENTS = (
 )
 
 # New-style IDs that should be handled as journals
-JOURNAL_IDS = ("cl", "tacl")
+JOURNAL_IDS = ("cl", "tacl", "tal", "lilt")
 
 # Constants associated with DOI assignation
 DOI_URL_PREFIX = "https://dx.doi.org/"
@@ -82,21 +86,81 @@ UNKNOWN_INGEST_DATE = "1900-01-01"
 VENUE_FORMAT = r"^[a-z\d]+$"
 
 
-def get_journal_title(top_level_id, volume_title):
+def match_volume_and_issue(booktitle) -> Tuple[str, str]:
+    """Parses a volume name and issue name from a title.
+
+    Examples:
+    - <booktitle>Computational Linguistics, Volume 26, Number 1, March 2000</booktitle>
+    - <booktitle>Traitement Automatique des Langues 2011 Volume 52 Numéro 1</booktitle>
+    - <booktitle>Computational Linguistics, Volume 26, Number 1, March 2000</booktitle>
+
+    :param booktitle: The booktitle
+    :return: the volume and issue numbers
+    """
+    volume_no = re.search(r"Volume\s*(\d+)", booktitle, flags=re.IGNORECASE)
+    if volume_no is not None:
+        volume_no = volume_no.group(1)
+
+    issue_no = re.search(
+        r"(Number|Numéro|Issue)\s*(\d+-?\d*)", booktitle, flags=re.IGNORECASE
+    )
+    if issue_no is not None:
+        issue_no = issue_no.group(2)
+
+    return volume_no, issue_no
+
+
+def get_journal_info(top_level_id, volume_title) -> Tuple[str, str, str]:
+    """Returns info about the journal: title, volume no., and issue no.
+    Currently (Feb 2023), this information is parsed from the <booktitle> tag!
+    We should move instead to an explicit representation. See
+
+        https://github.com/acl-org/acl-anthology/issues/2379
+
+    :param top_level_id: The collection ID
+    :param volume_title: The text from the <booktitle> tag
+    :return: The journal title, volume number, and issue number
+    """
+
     # TODO: consider moving this from code to data (perhaps
     # under <booktitle> in the volume metadata
 
     top_level_id = top_level_id.split(".")[-1]  # for new-style IDs; is a no-op otherwise
 
+    journal_title = None
+    volume_no = None
+    issue_no = None
+
     if top_level_id == "cl":
-        return "Computational Linguistics"
-    if top_level_id[0] == "J":
+        # <booktitle>Computational Linguistics, Volume 26, Number 1, March 2000</booktitle>
+        journal_title = "Computational Linguistics"
+        volume_no, issue_no = match_volume_and_issue(volume_title)
+
+    elif top_level_id == "lilt":
+        # <booktitle>Linguistic Issues in Language Technology, Volume 10, 2015</booktitle>
+        journal_title = "Linguistic Issues in Language Technology"
+        volume_no, _ = match_volume_and_issue(volume_title)
+
+    elif top_level_id == "tal":
+        # <booktitle>Traitement Automatique des Langues 2011 Volume 52 Numéro 1</booktitle>
+        journal_title = "Traitement Automatique des Langues"
+        volume_no, issue_no = match_volume_and_issue(volume_title)
+
+    elif top_level_id[0] == "J":
+        # <booktitle>Computational Linguistics, Volume 26, Number 1, March 2000</booktitle>
         year = int(top_level_id[1:3])
         if year >= 65 and year <= 83:
-            return "American Journal of Computational Linguistics"
+            journal_title = "American Journal of Computational Linguistics"
         else:
-            return "Computational Linguistics"
+            journal_title = "Computational Linguistics"
+
+        volume_no, issue_no = match_volume_and_issue(volume_title)
+
     elif top_level_id[0] == "Q" or top_level_id == "tacl":
-        return "Transactions of the Association for Computational Linguistics"
+        journal_title = "Transactions of the Association for Computational Linguistics"
+        volume_no, _ = match_volume_and_issue(volume_title)
+
     else:
-        return volume_title
+        journal_title = volume_title
+
+    return journal_title, volume_no, issue_no
