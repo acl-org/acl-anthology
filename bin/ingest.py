@@ -423,6 +423,7 @@ def main(args):
             bibfile = paper["bib"]
             paper_node = bib2xml(bibfile, paper_id_full)
 
+            # front matter do exist
             if paper_node.attrib["id"] == "0":
                 # create metadata subtree
                 meta_node = make_simple_element("meta", parent=volume_node)
@@ -472,7 +473,9 @@ def main(args):
                 # modify frontmatter tag
                 paper_node.tag = "frontmatter"
                 del paper_node.attrib["id"]
+            # not front matter pdf
             else:
+                make_simple_element("frontmatter", parent=volume_node)
                 # remove unneeded fields
                 for child in paper_node:
                     if child.tag in [
