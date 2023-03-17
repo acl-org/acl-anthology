@@ -59,7 +59,7 @@ from anthology.utils import (
 from anthology.venues import VenueIndex
 
 from itertools import chain
-from typing import Dict, Any
+from typing import Dict, Any, List, Tuple
 
 from slugify import slugify
 
@@ -190,53 +190,13 @@ def bib2xml(bibfilename, anthology_id):
     return paper
 
 
-def main(args):
+def build_volumes(
+    path: str, venue_index: VenueIndex, venue_keys: List[str]
+) -> Tuple[List, Dict]:
+    unseen_venues = []
     volumes = {}
 
-    anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
-    venue_index = VenueIndex(srcdir=anthology_datadir)
-    venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
-
-    sig_index = SIGIndex(srcdir=anthology_datadir)
-
-    people = AnthologyIndex(srcdir=anthology_datadir)
-    people.bibkeys = load_bibkeys(anthology_datadir)
-
-    def correct_caps(name):
-        """
-        Many people submit their names in "ALL CAPS" or "all lowercase".
-        Correct this with heuristics.
-        """
-        if name.islower() or name.isupper():
-            # capitalize all parts
-            corrected = " ".join(list(map(lambda x: x.capitalize(), name.split())))
-            print(
-                f"-> Correcting capitalization of '{name}' to '{corrected}'",
-                file=sys.stderr,
-            )
-            name = corrected
-
-        return name
-
-    def disambiguate_name(node, anth_id):
-        name = PersonName.from_element(node)
-        ids = people.get_ids(name)
-        choice = -1
-        if len(ids) > 1:
-            while choice < 0 or choice >= len(ids):
-                print(
-                    f"({anth_id}): ambiguous author {name}; Please choose from the following:"
-                )
-                for i, id_ in enumerate(ids):
-                    print(f"[{i}] {id_} ({people.get_comment(id_)})")
-                choice = int(input("--> "))
-
-        return ids[choice], choice
-
-    # Build list of volumes, confirm uniqueness
-    unseen_venues = []
-
-    for proceedings in args.proceedings:
+    for proceedings in path:  # args.proceedings
         meta = read_meta(os.path.join(proceedings, "meta"))
         venue_abbrev = meta["abbrev"]
         venue_slug = venue_index.get_slug_from_acronym(venue_abbrev)
@@ -249,6 +209,7 @@ def main(args):
             print(
                 f"WARNING: Venue {venue_abbrev} ends in a number, this is probably a mistake"
             )
+            sys.exit(1)
 
         if venue_slug not in venue_keys:
             unseen_venues.append((venue_slug, venue_abbrev, meta["title"]))
@@ -265,18 +226,73 @@ def main(args):
         volumes[volume_full_id] = meta
 
         if "sig" in meta:
-            print(
-                f"Add this line to {anthology_datadir}/sigs/{meta['sig'].lower()}.yaml:"
-            )
+            print(f"Add this line to sigs/{meta['sig'].lower()}.yaml:")
             print(f"  - {meta['year']}:")
             print(f"    - {volume_full_id} # {meta['booktitle']}")
+    return unseen_venues, volumes
 
-    # Make sure all venues exist
+
+def create_venues(unseen_venues: List, venue_index: VenueIndex, anthology_datadir: str):
+    '''
+    Create yaml file for new venues
+    '''
     if len(unseen_venues) > 0:
         for venue in unseen_venues:
             slug, abbrev, title = venue
             print(f"Creating venue '{abbrev}' ({title}) slug {slug}")
             venue_index.add_venue(anthology_datadir, abbrev, title)
+
+
+def correct_caps(name):
+    """
+    Many people submit their names in "ALL CAPS" or "all lowercase".
+    Correct this with heuristics.
+    """
+    if name.islower() or name.isupper():
+        # capitalize all parts
+        corrected = " ".join(list(map(lambda x: x.capitalize(), name.split())))
+        print(
+            f"-> Correcting capitalization of '{name}' to '{corrected}'",
+            file=sys.stderr,
+        )
+        name = corrected
+
+    return name
+
+
+def disambiguate_name(node, anth_id, people):
+    name = PersonName.from_element(node)
+    ids = people.get_ids(name)
+    choice = -1
+    if len(ids) > 1:
+        while choice < 0 or choice >= len(ids):
+            print(
+                f"({anth_id}): ambiguous author {name}; Please choose from the following:"
+            )
+            for i, id_ in enumerate(ids):
+                print(f"[{i}] {id_} ({people.get_comment(id_)})")
+            choice = int(input("--> "))
+
+    return ids[choice], choice
+
+
+def main(args):
+    volumes = {}
+
+    anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
+    venue_index = VenueIndex(srcdir=anthology_datadir)
+    venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
+
+    print(f'{type(venue_index)}, {venue_index}, {venue_keys}')
+
+    # sig_index = SIGIndex(srcdir=anthology_datadir)
+
+    people = AnthologyIndex(srcdir=anthology_datadir)
+    people.bibkeys = load_bibkeys(anthology_datadir)
+
+    # Build list of volumes, confirm uniqueness
+    unseen_venues, volumes = build_volumes(args.proceedings, venue_index, venue_keys)
+    create_venues(unseen_venues, venue_index, anthology_datadir)
 
     # Copy over the PDFs and attachments
     for volume_full_id, meta in volumes.items():
@@ -423,7 +439,6 @@ def main(args):
             bibfile = paper["bib"]
             paper_node = bib2xml(bibfile, paper_id_full)
 
-            # front matter do exist
             if paper_node.attrib["id"] == "0":
                 # create metadata subtree
                 meta_node = make_simple_element("meta", parent=volume_node)
@@ -434,7 +449,7 @@ def main(args):
                     paper_node.findall("./author"), paper_node.findall("./editor")
                 ):
                     disamb_name, name_choice = disambiguate_name(
-                        author_or_editor, paper_id_full
+                        author_or_editor, paper_id_full, people
                     )
                     if name_choice != -1:
                         author_or_editor.attrib["id"] = disamb_name
@@ -473,7 +488,6 @@ def main(args):
                 # modify frontmatter tag
                 paper_node.tag = "frontmatter"
                 del paper_node.attrib["id"]
-            # not front matter pdf
             else:
                 make_simple_element("frontmatter", parent=volume_node)
                 # remove unneeded fields
@@ -523,7 +537,9 @@ def main(args):
             for name_node in chain(
                 paper_node.findall("./author"), paper_node.findall("./editor")
             ):
-                disamb_name, name_choice = disambiguate_name(name_node, paper_id_full)
+                disamb_name, name_choice = disambiguate_name(
+                    name_node, paper_id_full, people
+                )
                 if name_choice != -1:
                     name_node.attrib["id"] = disamb_name
                 person = PersonName.from_element(name_node)
