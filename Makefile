@@ -301,7 +301,7 @@ autofix: check_staged_xml venv/bin/activate
 	 pre-commit run || EXIT_STATUS=$$? ;\
 	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
 	 black $(pysources) || EXIT_STATUS=$$? ;\
-	 ruff --fix --show-fixes || EXIT_STATUS=$$? ;\
+	 ruff --fix --show-fixes $(pysources) || EXIT_STATUS=$$? ;\
 	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
 	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
 	 [ $${EXIT_STATUS} -eq 0 ]
