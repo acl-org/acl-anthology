@@ -248,10 +248,10 @@ class Paper:
     @property
     def bibtype(self):
         """Return the BibTeX entry type for this paper."""
-        if is_journal(self.full_id):
-            return "article"
-        elif self.is_volume:
+        if self.is_volume:
             return "proceedings"
+        elif is_journal(self.full_id):
+            return "article"
         else:
             return "inproceedings"
 
