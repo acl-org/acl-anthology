@@ -150,6 +150,10 @@ def get_journal_info(top_level_id, volume_title) -> Tuple[str, str, str]:
         journal_title = "International Journal of Computational Linguistics & Chinese Language Processing"
         volume_no, issue_no = match_volume_and_issue(volume_title)
 
+    elif top_level_id == "nejlt":
+        journal_title = "Northern European Journal of Language Technology"
+        volume_no, _ = match_volume_and_issue(volume_title)
+
     elif top_level_id[0] == "J":
         # <booktitle>Computational Linguistics, Volume 26, Number 1, March 2000</booktitle>
         year = int(top_level_id[1:3])
