@@ -29,15 +29,11 @@ Process:
 
 import argparse
 import os
-import shutil
-import ssl
 import sys
-import tempfile
 
-from anthology.utils import build_anthology_id, deconstruct_anthology_id, indent
+from anthology.utils import deconstruct_anthology_id, indent
 
 import lxml.etree as ET
-import urllib.request
 
 ALLOWED_TYPES = ["pdf", "pptx", "zip"]
 ATTACHMENT_TYPES = "Poster Presentation Note Software Supplementary".split()

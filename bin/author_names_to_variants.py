@@ -7,7 +7,6 @@ Output: updated xml file including name variant
 '''
 import lxml.etree as etree
 import sys
-import unicodedata
 
 tree = etree.parse(sys.argv[1])
 root = tree.getroot()
@@ -53,7 +52,7 @@ def process(names):
             primaries[i].append(name)
     else:
         print(
-            f'skipping:',
+            'skipping:',
             ' '.join(etree.tostring(name, encoding='unicode') for name in names),
         )
 

@@ -11,10 +11,9 @@ to the new revision style that mandates an explanation
 """
 
 import lxml.etree as etree
-import re
 import sys
 
-from anthology.utils import infer_url, test_url, indent
+from anthology.utils import indent
 
 filename = sys.argv[1]
 outfilename = sys.argv[2]

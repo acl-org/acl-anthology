@@ -15,11 +15,10 @@ import re
 import unicodedata
 import os.path, glob
 import anthology
-import copy
 import collections
 import time
 from normalize_anth import clean_unicode, curly_quotes
-import yaml, yamlfix
+import yaml
 
 
 def guess_url(paper):

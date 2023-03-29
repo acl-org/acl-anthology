@@ -36,13 +36,11 @@ Limitations:
 
 import sys
 import os
-import tempfile
 import anthology.data as data
 
 from anthology.utils import (
     build_anthology_id,
     deconstruct_anthology_id,
-    stringify_children,
     test_url_code,
     indent,
     make_simple_element,
@@ -86,7 +84,7 @@ def add_doi(xml_node, collection_id, volume_id, force=False):
             print(f"--> Got 429, pausing for {pause_for} seconds", file=sys.stderr)
             sleep(pause_for + 1)
         elif result.status_code == 404:  # not found
-            print(f"--> Got 404", file=sys.stderr)
+            print("--> Got 404", file=sys.stderr)
             break
         else:
             print(f"--> Other problem: {result}", file=sys.stderr)
@@ -112,7 +110,7 @@ def process_volume(anthology_volume):
 
     volume = tree.getroot().find(f"./volume[@id='{volume_id}']")
     if volume is not None:
-        volume_booktitle = volume.find(f"./meta/booktitle")
+        volume_booktitle = volume.find("./meta/booktitle")
         volume_title = formatter.as_text(volume_booktitle)
         print(f'-> Found volume "{volume_title}"', file=sys.stderr)
 

@@ -2,7 +2,6 @@ import lxml.etree as etree
 import sys
 import re
 import collections
-import operator
 import unicodedata
 import yaml
 

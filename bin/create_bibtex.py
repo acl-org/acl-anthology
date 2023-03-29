@@ -28,17 +28,14 @@ Options:
 """
 
 from docopt import docopt
-from lxml import etree
 from tqdm import tqdm
 import gzip
 import logging as log
-import io
 import os
 
 from anthology import Anthology
 from anthology.utils import SeverityTracker, deconstruct_anthology_id, infer_year
 from create_hugo_pages import check_directory
-from operator import itemgetter
 
 
 def volume_sorter(volume_tuple):

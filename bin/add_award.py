@@ -44,22 +44,14 @@ The commit the changes and push.
 """
 
 import argparse
-import filetype
 import os
-import shutil
-import ssl
 import sys
-import tempfile
 
 from anthology.utils import (
     deconstruct_anthology_id,
     make_simple_element,
     indent,
-    compute_hash,
-    infer_url,
-    is_newstyle_id,
 )
-from anthology.data import PDF_LOCATION_TEMPLATE
 
 import lxml.etree as ET
 

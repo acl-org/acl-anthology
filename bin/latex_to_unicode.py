@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
-import sys
 import logging
 import collections, copy
 import re
-import latexcodec, codecs
+import codecs
 import lxml.etree as etree
 
 Entry = collections.namedtuple("Entry", ["open", "close", "tag", "type", "verbatim"])

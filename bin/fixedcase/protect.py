@@ -8,13 +8,10 @@
 
 
 import lxml.etree as ET
-import os
 import sys
 import copy
 import itertools
-import inspect
 
-from collections import defaultdict
 
 if __name__ == "__main__":
     from common import *

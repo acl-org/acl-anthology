@@ -20,7 +20,6 @@
 #
 #
 #
-from collections import defaultdict
 import click
 import yaml
 import re
@@ -30,8 +29,6 @@ import glob
 import PyPDF2
 from pathlib import Path
 from datetime import datetime
-from collections import defaultdict
-from itertools import chain
 import lxml.etree as etree
 from typing import Dict, List, Tuple, Any, Optional
 from ingest import maybe_copy
@@ -135,7 +132,7 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
         assert key in meta.keys(), f'{key} is missing in the conference_details.yml file'
 
     meta['volume_name'] = str(meta['volume_name'])
-    if re.match(rf'^[a-z0-9]+$', meta['volume_name']) is None:
+    if re.match(r'^[a-z0-9]+$', meta['volume_name']) is None:
         raise Exception(
             f"Invalid volume key '{meta['volume_name']}' in {ingestion_dir + 'inputs/conference_details.yml'}"
         )
@@ -391,7 +388,7 @@ def copy_pdf_and_attachment(
 
     # copy proceedings.pdf
     proceedings_pdf_src_path = os.path.join(meta['path'], 'proceedings.pdf')
-    assert os.path.exists(proceedings_pdf_src_path), f'proceedings.pdf was not found'
+    assert os.path.exists(proceedings_pdf_src_path), 'proceedings.pdf was not found'
     proceedings_pdf_dest_path = (
         os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
     )
@@ -508,7 +505,7 @@ def create_xml(
         attrib={'id': volume_name, 'ingest-date': ingest_date},
     )
     # Replace the existing one if present
-    existing_volume_node = root_node.find(f"./volume[@id='{volume_name}']")
+    root_node.find(f"./volume[@id='{volume_name}']")
     for i, child in enumerate(root_node):
         if child.attrib['id'] == volume_name:
             root_node[i] = volume_node
@@ -537,7 +534,7 @@ def create_xml(
                 )
                 if name_choice != -1:
                     editor.attrib['id'] = disamb_name
-                person = PersonName.from_element(editor)
+                PersonName.from_element(editor)
                 for name_part in editor:
                     name_part.text = correct_caps(name_part.text)
                 meta_node.append(editor)
@@ -603,7 +600,7 @@ def create_xml(
             disamb_name, name_choice = disambiguate_name(name_node, paper_id_full, people)
             if name_choice != -1:
                 name_node.attrib['id'] = disamb_name
-            person = PersonName.from_element(name_node)
+            PersonName.from_element(name_node)
             for name_part in name_node:
                 name_part.text = correct_caps(name_part.text)
 

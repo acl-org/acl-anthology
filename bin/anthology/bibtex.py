@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import copy
-import re
 import logging
 import pybtex, pybtex.database.input.bibtex
 
