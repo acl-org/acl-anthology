@@ -25,7 +25,6 @@ import argparse
 import os
 import sys
 
-from slugify import slugify
 
 from anthology.venues import VenueIndex
 

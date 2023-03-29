@@ -16,9 +16,7 @@
 # limitations under the License.
 
 from collections import defaultdict
-from copy import deepcopy
 from slugify import slugify
-from typing import List
 import logging as log
 import os
 import re

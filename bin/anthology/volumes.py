@@ -15,8 +15,6 @@
 # limitations under the License.
 
 from functools import cached_property
-import re
-import logging as log
 
 from . import data
 from .papers import Paper
@@ -24,7 +22,6 @@ from .venues import VenueIndex
 from .sigs import SIGIndex
 from .utils import (
     build_anthology_id,
-    is_newstyle_id,
     parse_element,
     is_journal,
     month_str2num,

@@ -33,7 +33,8 @@ from . import data
 from typing import List
 
 
-xml_escape_or_none = lambda t: None if t is None else xml_escape(t)
+def xml_escape_or_none(t):
+    return None if t is None else xml_escape(t)
 
 
 def is_newstyle_id(anthology_id):
@@ -141,7 +142,6 @@ def retrieve_url(remote_url: str, local_path: str):
         os.makedirs(outdir)
 
     if remote_url.startswith("http"):
-        import ssl
         import urllib.request
 
         cookieProcessor = urllib.request.HTTPCookieProcessor()
@@ -375,7 +375,6 @@ class SeverityTracker(logging.Handler):
 
 
 def clean_whitespace(text, strip="left"):
-    old_text = text
     if text is not None:
         text = re.sub(r" +", " ", text)
         if strip == "left" or strip == "both":

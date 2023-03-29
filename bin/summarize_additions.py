@@ -107,12 +107,12 @@ def main(args):
             print("-", title, "\n ", url, "\n")
 
     if len(revisions):
-        print(f"\nRevisions:")
+        print("\nRevisions:")
         for title, url, explanation in revisions:
             print("-", title, "\n ", url, "\n ", explanation, "\n")
 
     if len(errata):
-        print(f"\nErrata:")
+        print("\nErrata:")
         for title, url in errata:
             print("-", title, "\n ", url, "\n")
 

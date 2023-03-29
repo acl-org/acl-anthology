@@ -5,8 +5,6 @@ import inspect
 import nltk.tokenize, nltk.corpus
 from collections import defaultdict
 
-from nltk.tokenize.treebank import TreebankWordDetokenizer
-
 
 def is_hyphen(s):
     return s in ("-", "–")

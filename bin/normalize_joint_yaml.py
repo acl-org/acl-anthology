@@ -26,7 +26,6 @@ Normalizes the joint.yaml file in the the following format:
       - ...
 """
 
-import re
 import sys
 import yaml
 

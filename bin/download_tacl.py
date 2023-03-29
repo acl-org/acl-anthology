@@ -52,7 +52,7 @@ def process_volume(anthology_volume):
     )
     tree = ET.parse(xml_file)
 
-    for paper in tree.getroot().findall(f".//paper"):
+    for paper in tree.getroot().findall(".//paper"):
         anthid = paper.find("./url").text
 
         # Try to get the URL from the Anthology

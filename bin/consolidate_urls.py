@@ -15,7 +15,7 @@ import lxml.etree as etree
 import re
 import sys
 
-from repair_url import test_url, get_anth_url
+from repair_url import test_url
 
 filename = sys.argv[1]
 outfilename = sys.argv[2]

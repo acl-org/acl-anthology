@@ -54,7 +54,6 @@ in the following places:
    that all workshops appear in a single place.
 """
 
-import os
 import sys
 import yaml
 
@@ -70,10 +69,8 @@ from anthology.venues import VenueIndex
 
 try:
     from yaml import CLoader as Loader
-    from yaml import CSafeDumper as Dumper
 except ImportError:
     from yaml import Loader
-    from yaml import SafeDumper as Dumper
 
 
 IMPORT_DIR = Path("/Users/mattpost/src/acl-anthology/data")
@@ -86,7 +83,7 @@ collections = {}
 
 
 def get_xml(collection_id):
-    if not collection_id in collections:
+    if collection_id not in collections:
         xml_file = XML_DIR / f"{collection_id}.xml"
 
         if xml_file.exists():
@@ -198,7 +195,7 @@ for venue, venue_data in all_venue_data.items():
                         "event", attrib={"id": event_name}, parent=collection_xml
                     )
                 # only add if not present
-                for colocated_xml in event_xml.findall(f"./colocated"):
+                for colocated_xml in event_xml.findall("./colocated"):
                     if colocated_xml.text == volume:
                         break
                 else:

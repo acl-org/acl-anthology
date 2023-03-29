@@ -20,7 +20,7 @@
 #
 #
 #
-import os, yaml, click
+import click
 import lxml.etree as et
 from ingest_aclpub2 import parse_paper_yaml
 from anthology.utils import make_simple_element

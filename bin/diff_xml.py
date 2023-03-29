@@ -17,7 +17,6 @@
 
 import difflib
 import lxml.etree as etree
-import operator
 import copy
 
 unique_attributes = {"id"}
