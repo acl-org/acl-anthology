@@ -79,7 +79,7 @@ MONTH_HASH = {
 def prettify(elem):
     """Return a pretty-printed XML string for the Element."""
     rough_string = etree.tostring(elem, "utf-8")
-    reparsed = minidom.parseString(rough_string)
+    reparsed = minidom.parseString(rough_string)  # noqa: F821  // MMB: missing import?!
     return reparsed.toprettyxml(indent="  ")
 
 
