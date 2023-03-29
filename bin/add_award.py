@@ -71,7 +71,7 @@ def main(args):
         print(f"Error: Can't find paper {args.anthology_id}, quitting")
 
     existing_award = paper.find("./award")
-    if existing_award is not None and award.text.lower() == args.award:
+    if existing_award is not None and existing_award.text.lower() == args.award:
         print(
             f"Error: Award {args.award} already exists for {args.anthology_id}, quitting"
         )

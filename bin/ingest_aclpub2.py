@@ -418,8 +418,8 @@ def copy_pdf_and_attachment(
 
     for i, paper in enumerate(papers):
         # archival papers only
-        assert 'archival' in paper.keys(), f'{paper_id} is missing key archival'
-        assert 'file' in paper.keys(), f'{paper_id} is missing key file'
+        assert 'archival' in paper.keys(), f'{paper["id"]} is missing key archival'
+        assert 'file' in paper.keys(), f'{paper["id"]} is missing key file'
         if (
             paper['archival'] == 1
             or paper['archival'] is True
