@@ -15,6 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# ruff: noqa: E741
+
 import difflib
 import lxml.etree as etree
 import copy

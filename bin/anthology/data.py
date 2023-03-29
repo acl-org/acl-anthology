@@ -37,7 +37,7 @@ CANONICAL_URL_TEMPLATE = "https://aclanthology.org/{}"
 # that the structure is historically grown -- from 2019 to 2020 :-)
 try:
     ANTHOLOGY_PREFIX = os.environ["ANTHOLOGY_PREFIX"]
-except:
+except KeyError:
     ANTHOLOGY_PREFIX = "https://aclanthology.org"
 
 ATTACHMENT_PREFIX = ANTHOLOGY_PREFIX + "/attachments"

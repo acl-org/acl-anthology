@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 import logging
-import collections, copy
+import collections
+import copy
 import re
 import codecs
 import lxml.etree as etree
@@ -119,6 +120,7 @@ def parse_latex(s):
     return stack[0]
 
 
+# ruff: noqa: E741
 def flatten(l):
     def visit(l):
         if isinstance(l, str):

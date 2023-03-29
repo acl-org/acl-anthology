@@ -39,6 +39,7 @@ import re
 from anthology import Anthology
 from docopt import docopt
 
+# ruff: noqa: F403, F405, E741
 from vimeo_apikeys import *
 
 

@@ -28,7 +28,8 @@
 #
 
 import click
-import os, glob
+import glob
+import os
 import lxml.etree as et
 from typing import List, Tuple
 from anthology.utils import deconstruct_anthology_id, make_simple_element, indent

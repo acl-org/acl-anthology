@@ -46,13 +46,13 @@ def main(args):
         attachment_file_name = tokens[-1]
         try:
             anth_id, kind, *rest = attachment_file_name.split(".")
-        except:
+        except Exception:
             print(f"Couldn't parse file {attachment_file_name} into 3 pieces")
             continue
 
         try:
             collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
-        except:
+        except Exception:
             print(f"[{lineno}] BAD LINE {line.rstrip()}")
 
         # Update XML

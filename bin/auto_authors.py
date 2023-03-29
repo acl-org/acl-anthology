@@ -13,7 +13,8 @@ import sys
 import lxml.etree as etree
 import re
 import unicodedata
-import os.path, glob
+import os.path
+import glob
 import anthology
 import collections
 import time

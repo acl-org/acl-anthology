@@ -123,7 +123,7 @@ class ACLMirrorer:
         os.makedirs(local_path, exist_ok=True)
         try:
             urlretrieve(remote_url, tmp_target)
-        except:
+        except Exception:
             log.error("could not download " + remote_url)
             self.not_downloadable.append(remote_url)
             os.remove(tmp_target)
