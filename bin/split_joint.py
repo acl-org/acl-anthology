@@ -64,8 +64,8 @@ from collections import defaultdict
 from anthology.utils import build_anthology_id, infer_year
 
 sys.path.append("/Users/mattpost/src/acl-anthology/bin")
-from anthology.utils import make_simple_element, indent, is_newstyle_id
-from anthology.venues import VenueIndex
+from anthology.utils import make_simple_element, indent, is_newstyle_id  # noqa: E402
+from anthology.venues import VenueIndex  # noqa: E402
 
 try:
     from yaml import CLoader as Loader

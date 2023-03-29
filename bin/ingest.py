@@ -176,7 +176,7 @@ def bib2xml(bibfilename, anthology_id):
 
             try:
                 make_simple_element(field, text=value, parent=paper)
-            except:
+            except Exception:
                 print(
                     f"Couldn't process {bibfilename} for {anthology_id}", file=sys.stderr
                 )

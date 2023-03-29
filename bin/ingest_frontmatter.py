@@ -21,7 +21,8 @@
 #
 #
 #
-import os, sys
+import os
+import sys
 import click
 import lxml.etree as ET
 from ingest_aclpub2 import create_des_path, parse_conf_yaml

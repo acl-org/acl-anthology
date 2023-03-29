@@ -3,6 +3,8 @@
 import xml.etree.ElementTree as ET
 import collections
 import sys
+
+# ruff: noqa: F403, F405
 from common import *
 
 falselist = set([w for w in nltk.corpus.words.words() if w.islower()])

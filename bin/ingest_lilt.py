@@ -38,7 +38,7 @@ def main(args):
         if year != prev_year:
             if prev_year is not None:
                 dump_collection(
-                    tree,
+                    tree,  # noqa: F821
                     os.path.join(args.anthology, "data", "xml", f"{prev_year}.lilt.xml"),
                 )
 

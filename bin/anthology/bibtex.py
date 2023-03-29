@@ -13,7 +13,8 @@
 # limitations under the License.
 
 import logging
-import pybtex, pybtex.database.input.bibtex
+import pybtex
+import pybtex.database.input.bibtex
 
 
 def read_bibtex(bibfilename):

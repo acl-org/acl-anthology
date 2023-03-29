@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 
-import re, sys, os
+import re
+import sys
+import os
 import inspect
-import nltk.tokenize, nltk.corpus
+import nltk.corpus
+import nltk.tokenize
 from collections import defaultdict
 
 

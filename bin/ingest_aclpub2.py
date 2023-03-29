@@ -247,7 +247,7 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any]):
 
             try:
                 make_simple_element(field, text=value, parent=paper)
-            except:
+            except Exception:
                 print(
                     f"Couldn't process proceeding {paper} for {anthology_id}",
                     file=sys.stderr,
@@ -318,7 +318,7 @@ def paper2xml(
                 continue
             try:
                 make_simple_element(field, text=value, parent=paper)
-            except:
+            except Exception:
                 print(
                     f"Couldn't process {paper} for {anthology_id}, please check the abstract in the papers.yaml file for this paper",
                     file=sys.stderr,
