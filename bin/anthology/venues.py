@@ -85,7 +85,7 @@ class VenueIndex:
         """
         Adds a new venue.
 
-        Everytime a new venue is created, the corresponding yaml file is created as welll.
+        Everytime a new venue is created, the corresponding yaml file is created as well.
         """
         slug = VenueIndex.get_slug_from_acronym(acronym)
 
