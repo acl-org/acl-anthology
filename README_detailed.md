@@ -125,14 +125,9 @@ comprise:
 + YAML files for SIGs (in [`yaml/sigs/`](data/yaml/sigs)); these contain names,
   URLs, and associated venues for all special interest groups.
 
-+ YAML files that define venues.  These are currently:
-    + [`venues.yaml`](data/yaml/venues.yaml): Maps venue acronyms to full names
-    + [`venues_letters.yaml`](data/yaml/venues_letters.yaml): Maps top-level
-      letters to venue acronyms (e.g. P ⟶ ACL)
-    + [`venues_joint_map.yaml`](data/yaml/venues_joint_map.yaml): Maps
-      proceedings volumes to additional venues (*Note:* volumes will always be
-      associated with the venue corresponding to their first letter; this file
-      defines *additional* ones in case of joint events etc.)
++ YAML files that define venues (in [`yaml/venues/`](data/yaml/venues)).
+  Each venue has its own yaml file that contains venue specific information
+  such as venue acronym, venue full name and venue url.
 
 + A name variant list ([`name_variants.yaml`](data/yaml/name_variants.yaml)) that
   defines which author names should be treated as identical for purposes of
