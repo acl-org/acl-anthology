@@ -73,7 +73,7 @@ LIST_ELEMENTS = (
 )
 
 # New-style IDs that should be handled as journals
-JOURNAL_IDS = ("cl", "tacl", "tal", "lilt")
+JOURNAL_IDS = ("cl", "tacl", "tal", "lilt", "ijclclp")
 
 # Constants associated with DOI assignation
 DOI_URL_PREFIX = "https://dx.doi.org/"
@@ -144,6 +144,10 @@ def get_journal_info(top_level_id, volume_title) -> Tuple[str, str, str]:
     elif top_level_id == "tal":
         # <booktitle>Traitement Automatique des Langues 2011 Volume 52 Numéro 1</booktitle>
         journal_title = "Traitement Automatique des Langues"
+        volume_no, issue_no = match_volume_and_issue(volume_title)
+
+    elif top_level_id == "ijclclp":
+        journal_title = "International Journal of Computational Linguistics & Chinese Language Processing"
         volume_no, issue_no = match_volume_and_issue(volume_title)
 
     elif top_level_id == "nejlt":
