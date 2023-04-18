@@ -38,11 +38,9 @@ import sys
 
 import lxml.etree as ET
 
-from anthology.utils import build_anthology_id, infer_year
 
 sys.path.append("/Users/mattpost/src/acl-anthology/bin")
-from anthology.utils import make_simple_element, indent
-from anthology.venues import VenueIndex
+from anthology.utils import make_simple_element, indent  # noqa: E402
 
 for xml_file in sys.argv[1:]:
     xml_file = Path(xml_file)

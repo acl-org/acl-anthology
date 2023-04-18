@@ -15,7 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict
 
 from anthology.utils import parse_element
 from anthology.formatter import MarkupFormatter
@@ -47,7 +46,7 @@ class EventIndex:
         Creates an event if it doesn't already exists. Initializes the event title
         to a default value that can later be overridden.
         """
-        if not event_id in self.events:
+        if event_id not in self.events:
             venue, year = event_id.split("-")
             venue_name = self.venue_index.get_venue(venue)["name"]
             self.events[event_id] = {
