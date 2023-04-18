@@ -22,9 +22,7 @@ from functools import lru_cache
 import itertools as it
 from slugify import slugify
 from stop_words import get_stop_words
-from .formatter import bibtex_encode
 from .people import PersonName
-from .venues import VenueIndex
 
 from typing import List, Dict
 
@@ -387,7 +385,7 @@ class AnthologyIndex:
         return self.id_to_canonical[id_]
 
     def set_canonical_name(self, id_, name):
-        if (not id_ in self.id_to_canonical) or (
+        if (id_ not in self.id_to_canonical) or (
             name.score > self.id_to_canonical[id_].score
         ):
             # if name not seen yet, or if this version has more accents

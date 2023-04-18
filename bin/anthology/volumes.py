@@ -15,8 +15,6 @@
 # limitations under the License.
 
 from functools import cached_property
-import re
-import logging as log
 
 from . import data
 from .papers import Paper
@@ -24,7 +22,6 @@ from .venues import VenueIndex
 from .sigs import SIGIndex
 from .utils import (
     build_anthology_id,
-    is_newstyle_id,
     parse_element,
     is_journal,
     month_str2num,
@@ -133,19 +130,17 @@ class Volume:
             if month is not None:
                 self.attrib["meta_date"] = f"{self.get('year')}/{month}"
         if is_journal(self.collection_id):
-            self.attrib["meta_journal_title"] = data.get_journal_title(
+            # TODO: This should be explicitly represented in the XML instead of
+            # hardcoding and parsing it.
+            journal_title, volume_no, issue_no = data.get_journal_info(
                 self.collection_id, self.attrib["title"]
             )
-            volume_no = re.search(
-                r"Volume\s*(\d+)", self.attrib["title"], flags=re.IGNORECASE
-            )
+
+            self.attrib["meta_journal_title"] = journal_title
             if volume_no is not None:
-                self.attrib["meta_volume"] = volume_no.group(1)
-            issue_no = re.search(
-                r"(Number|Issue)\s*(\d+-?\d*)", self.attrib["title"], flags=re.IGNORECASE
-            )
+                self.attrib["meta_volume"] = volume_no
             if issue_no is not None:
-                self.attrib["meta_issue"] = issue_no.group(2)
+                self.attrib["meta_issue"] = issue_no
 
     @property
     def volume_id(self):

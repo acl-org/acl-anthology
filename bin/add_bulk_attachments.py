@@ -39,7 +39,6 @@ import sys
 import tempfile
 
 from anthology.utils import (
-    build_anthology_id,
     deconstruct_anthology_id,
     indent,
     compute_hash,
@@ -227,12 +226,12 @@ def main(args):
                         f"To resubmit, follow the instructions here:\n"
                         f"\n"
                         f"  https://aclanthology.org/info/corrections/\n",
-                        f"\n"
-                        f"There is no need to respond to this email.\n"
-                        f"\n"
-                        f"Sincerely,\n"
-                        f"Matt Post\n"
-                        f"Anthology Director\n",
+                        "\n"
+                        "There is no need to respond to this email.\n"
+                        "\n"
+                        "Sincerely,\n"
+                        "Matt Post\n"
+                        "Anthology Director\n",
                         file=email_log,
                     )
 

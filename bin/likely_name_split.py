@@ -14,14 +14,14 @@ Options:
 
 from collections import defaultdict
 from docopt import docopt
-import pickle, json
+import json
 import sys
-import re
 import os
+
+# ruff: noqa: F403, F405
 from math import *
 
 from anthology import Anthology
-from anthology.people import PersonName
 
 
 def log0(x):
@@ -58,7 +58,7 @@ class NameSplitter:
             self.last_count = defaultdict(int, p["last_count"])
             self.last_full_count = defaultdict(int, p["last_full_count"])
             self.last_total = p["last_total"]
-        print(f"Loaded cache from names.cache", file=sys.stderr)
+        print("Loaded cache from names.cache", file=sys.stderr)
 
     def dump_cache(self):
         with open("names.cache", "w") as cache:
@@ -71,7 +71,7 @@ class NameSplitter:
                 "last_total": self.last_total,
             }
             print(json.dumps(p), file=cache)
-        print(f"Dumped counts to names.cache", file=sys.stderr)
+        print("Dumped counts to names.cache", file=sys.stderr)
 
     # counts names in anthology database into global vars
     # first_count last_count (dicts)
@@ -96,7 +96,7 @@ class NameSplitter:
     # returns ("Lopez Gonzalez", "Maria Victoria")
     # uses counts of words in first and last names in current database
     def best_split(self, name):
-        if "," in name and not "Jr." in name:
+        if "," in name and "Jr." not in name:
             # Short-circuit names that are already split
             # comma in "William Baumgartner, Jr." does not count as a split
             surname, given_names = name.split(",")

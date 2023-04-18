@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-import sys
 import logging
-import collections, copy
+import collections
+import copy
 import re
-import latexcodec, codecs
+import codecs
 import lxml.etree as etree
 
 Entry = collections.namedtuple("Entry", ["open", "close", "tag", "type", "verbatim"])
@@ -120,6 +120,7 @@ def parse_latex(s):
     return stack[0]
 
 
+# ruff: noqa: E741
 def flatten(l):
     def visit(l):
         if isinstance(l, str):

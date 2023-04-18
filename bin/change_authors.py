@@ -24,11 +24,10 @@ to <out-dir>/data/yaml/name_variants.yaml. However, sometimes this is
 not possible, so it will ask you to manually merge two entries.
 """
 
-import sys
 import os.path
 import glob
 import anthology
-import yaml, yamlfix
+import yaml
 import lxml.etree as etree
 import collections
 import argparse

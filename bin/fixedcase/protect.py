@@ -8,14 +8,11 @@
 
 
 import lxml.etree as ET
-import os
 import sys
 import copy
 import itertools
-import inspect
 
-from collections import defaultdict
-
+# ruff: noqa: F403, F405
 if __name__ == "__main__":
     from common import *
 else:

@@ -33,17 +33,11 @@ Author: Matt Post, Xinru Yan
 Last updated Sept 2022
 """
 
-import anthology
 import csv
 import lxml.etree as etree
 import os
-import shutil
-import ssl
-import subprocess
 import sys
-import urllib.request
 
-from anthology import Anthology
 from anthology.utils import (
     make_simple_element,
     indent,
@@ -53,7 +47,6 @@ from anthology.utils import (
 from datetime import datetime
 from normalize_anth import normalize
 from likely_name_split import NameSplitter
-from ingest import maybe_copy
 from ingest_mtarchive import extract_pages
 
 

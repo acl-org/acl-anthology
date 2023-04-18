@@ -5,7 +5,6 @@ usage: author_case.py -o <outdir>
 Try to correct titles that are written in mostly uppercase.
 """
 
-import sys
 import os.path
 import glob
 import lxml.etree as etree

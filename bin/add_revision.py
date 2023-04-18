@@ -39,7 +39,6 @@ import argparse
 import filetype
 import os
 import shutil
-import ssl
 import sys
 import tempfile
 
@@ -49,18 +48,12 @@ from anthology.utils import (
     indent,
     compute_hash_from_file,
     infer_url,
-    is_newstyle_id,
     retrieve_url,
     get_pdf_dir,
     get_xml_file,
 )
-from anthology.data import (
-    PDF_LOCATION_TEMPLATE,
-    ANTHOLOGY_FILE_DIR,
-)
 
 import lxml.etree as ET
-import urllib.request
 
 from datetime import datetime
 

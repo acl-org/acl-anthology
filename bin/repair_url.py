@@ -9,7 +9,6 @@ To do:
 """
 
 import lxml.etree as etree
-import requests
 import sys
 
 from anthology.utils import test_url
