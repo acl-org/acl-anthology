@@ -11,6 +11,7 @@ import lxml.etree as ET
 import sys
 import copy
 import itertools
+from nltk.tokenize.treebank import TreebankWordDetokenizer
 
 # ruff: noqa: F403, F405
 if __name__ == "__main__":

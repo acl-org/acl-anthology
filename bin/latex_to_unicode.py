@@ -4,6 +4,7 @@ import logging
 import collections
 import copy
 import re
+import latexcodec  # noqa: F401
 import codecs
 import lxml.etree as etree
 
