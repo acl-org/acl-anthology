@@ -131,7 +131,7 @@ def bib2xml(bibfilename, anthology_id):
     bibdata = read_bibtex(bibfilename)
     if len(bibdata.entries) != 1:
         log(f"more than one entry in {bibfilename}")
-    bibkey, bibentry = bibdata.entries.items()[0]
+    bibkey, bibentry = list(bibdata.entries.items())[0]
     if len(bibentry.fields) == 0:
         log(f"parsing bib of paper {paper_no} failed")
         sys.exit(1)
