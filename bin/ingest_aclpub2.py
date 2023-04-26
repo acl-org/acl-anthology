@@ -153,6 +153,8 @@ def add_paper_nums_in_paper_yaml(
 ) -> List[Dict[str, str]]:
     start, end = 1, 0
     for paper in papers:
+        if 'archival' not in paper.keys():
+            paper.update({'archival': '1'})
         assert 'archival' in paper.keys(), f'{paper["id"]} is missing key archival'
         assert 'file' in paper.keys(), f'{paper["id"]} is missing key file'
         if (
@@ -178,13 +180,8 @@ def add_paper_nums_in_paper_yaml(
                 paper_need_read_path = None
             assert paper_need_read_path, f'{paper_id} path is None'
             pdf = open(paper_need_read_path, 'rb')
-            if paper_id == '1427':
-                num_of_pages = 12
-            elif paper_id == '2051':
-                num_of_pages = 14
-            else:
-                pdf_reader = PyPDF2.PdfReader(pdf)
-                num_of_pages = len(pdf_reader.pages)
+            pdf_reader = PyPDF2.PdfReader(pdf)
+            num_of_pages = len(pdf_reader.pages)
             start = end + 1
             end = start + num_of_pages - 1
             paper['pages'] = f'{start}-{end}'
@@ -418,6 +415,8 @@ def copy_pdf_and_attachment(
 
     for i, paper in enumerate(papers):
         # archival papers only
+        if 'archival' not in paper.keys():
+            paper.update({'archival': '1'})
         assert 'archival' in paper.keys(), f'{paper["id"]} is missing key archival'
         assert 'file' in paper.keys(), f'{paper["id"]} is missing key file'
         if (
@@ -473,7 +472,7 @@ def copy_pdf_and_attachment(
                 type_ = paper['attachments'][0]['type']
                 file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}{attch_src_extension}'
                 attch_dest_path = os.path.join(attchs_dest_dir, file_name)
-                print(f'attacb src path is {attch_src_path}')
+                print(f'attach src path is {attch_src_path}')
                 if dry_run:
                     print(f'would\'ve moved {attch_src_path} to {attch_dest_path}')
                 if not dry_run:
