@@ -11,7 +11,6 @@ change_authors.py. The user can edit this list before giving it to
 change_authors.py to actually apply the changes.
 """
 
-import sys
 import os.path
 import anthology
 import logging

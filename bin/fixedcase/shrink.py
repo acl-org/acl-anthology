@@ -4,6 +4,8 @@ import lxml.etree as etree
 import sys
 import itertools
 import copy
+
+# ruff: noqa: F403, F405
 from common import *
 
 tree = etree.parse(sys.argv[1])

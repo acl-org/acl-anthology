@@ -35,7 +35,6 @@ where each file may have a different target directory.
 
 import argparse
 import os
-import re
 import subprocess
 import sys
 

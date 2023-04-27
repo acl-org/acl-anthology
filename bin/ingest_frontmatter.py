@@ -21,14 +21,15 @@
 #
 #
 #
-import os, sys
+import os
+import sys
 import click
 import lxml.etree as ET
 from ingest_aclpub2 import create_des_path, parse_conf_yaml
 from ingest import maybe_copy
 from anthology.utils import compute_hash_from_file
 from anthology.venues import VenueIndex
-from typing import Dict, List, Tuple, Any
+from typing import Dict, Tuple, Any
 
 
 def copy_front_matter(
@@ -36,7 +37,6 @@ def copy_front_matter(
     pdfs_dir: str,
     dry_run: bool,
 ) -> Tuple[Dict[str, Dict[str, str]], str, str, str]:
-    volume = dict()
     collection_id = meta['collection_id']
     venue_name = meta['anthology_venue_id'].lower()
     volume_name = meta['volume'].lower()
@@ -45,7 +45,7 @@ def copy_front_matter(
 
     # copy frontmatter (0.pdf)
     frontmatter_pdf_src_path = os.path.join(meta['path'], 'watermarked_pdfs/0.pdf')
-    assert os.path.exists(frontmatter_pdf_src_path), f'frontmatter was not found'
+    assert os.path.exists(frontmatter_pdf_src_path), 'frontmatter was not found'
     frontmatter_pdf_dest_path = (
         os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".0.pdf"
     )
@@ -99,7 +99,7 @@ def update_frontmatter_hash(
 def main(ingestion_dir, pdfs_dir, dry_run, anthology_dir):
     anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
     venue_index = VenueIndex(srcdir=anthology_datadir)
-    venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
+    [venue["slug"].lower() for _, venue in venue_index.items()]
 
     meta = parse_conf_yaml(ingestion_dir)
     venue_abbrev = meta["anthology_venue_id"]

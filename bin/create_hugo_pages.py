@@ -30,7 +30,6 @@ Options:
 
 from docopt import docopt
 from glob import glob
-from slugify import slugify
 from tqdm import tqdm
 import logging as log
 import os

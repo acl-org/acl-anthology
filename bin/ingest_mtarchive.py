@@ -26,11 +26,9 @@ March 2020
 import csv
 import lxml.etree as etree
 import os
-import shutil
 import ssl
 import subprocess
 import sys
-import urllib.request
 
 from anthology.utils import (
     make_simple_element,
@@ -48,7 +46,7 @@ def extract_pages(source_path, page_range, local_path):
         return True
     if not os.path.exists(source_path):
         print(f"{source_path} does not exists", file=sys.stderr)
-        raise Exception(f"Could not extract pdf")
+        raise Exception("Could not extract pdf")
     try:
         if "--" in page_range:
             page_range = page_range.replace("--", "-")
@@ -61,7 +59,7 @@ def extract_pages(source_path, page_range, local_path):
         print(command, file=sys.stderr)
         subprocess.check_call(command, shell=True)
     except ssl.SSLError:
-        raise Exception(f"Could not extract pdf")
+        raise Exception("Could not extract pdf")
 
     return True
 

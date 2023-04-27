@@ -91,7 +91,7 @@ def _registry(encoding):
                     try:
                         output.append(c.encode(encoding))
                         continue
-                    except:
+                    except UnicodeEncodeError:
                         pass
                 if ord(c) in latex_equivalents:
                     output.append(latex_equivalents[ord(c)])
@@ -107,14 +107,14 @@ def _registry(encoding):
         def decode(self, input, errors="strict"):
             """Convert latex source string to unicode."""
             if encoding:
-                input = unicode(input, encoding, errors)
+                input = str(input, encoding, errors)
 
             # Note: we may get buffer objects here.
             # It is not permussable to call join on buffer objects
             # but we can make them joinable by calling unicode.
             # This should always be safe since we are supposed
             # to be producing unicode output anyway.
-            x = map(unicode, _unlatex(input))
+            x = map(str, _unlatex(input))
             return u"".join(x), len(input)
 
     class StreamWriter(Codec, codecs.StreamWriter):
@@ -209,13 +209,13 @@ class _unlatex:
         for delta, c in self.candidates(0):
             if c in _l2u:
                 self.pos += delta
-                return unichr(_l2u[c])
+                return chr(_l2u[c])
             elif len(c) == 2 and c[1] == "i" and (c[0], "\\i") in _l2u:
                 self.pos += delta  # correct failure to undot i
-                return unichr(_l2u[(c[0], "\\i")])
+                return chr(_l2u[(c[0], "\\i")])
             elif len(c) == 1 and c[0].startswith("\\char") and c[0][5:].isdigit():
                 self.pos += delta
-                return unichr(int(c[0][5:]))
+                return chr(int(c[0][5:]))
 
         # nothing matches, just pass through token as-is
         self.pos += 1

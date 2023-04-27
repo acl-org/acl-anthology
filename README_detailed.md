@@ -187,6 +187,11 @@ for all changes pushed to the Anthology:
 3. Python files should have a maximum line length of 90 and follow the
    formatting guidelines defined by the [`black`](https://black.readthedocs.io/)
    tool.
+4. Python files need to follow the lint rules covered by the
+   [`ruff`](https://github.com/charliermarsh/ruff) tool.  If there's a good
+   reason to ignore a rule, [`noqa`
+   comments](https://beta.ruff.rs/docs/configuration/#error-suppression) can be
+   used on an individual basis.
 
 There are three `make` targets that help you check (and fix) your commits:
 
@@ -196,9 +201,11 @@ There are three `make` targets that help you check (and fix) your commits:
   early.
 + `make autofix` works like `check_commit`, except that it will also run the
   [`black`](https://black.readthedocs.io/) code formatter to automatically make
-  your Python files style-compliant.  This can also be used as a pre-commit
-  hook, or run manually when you find that `make check_commit` complains about
-  your files.
+  your Python files style-compliant, and the
+  [`ruff`](https://github.com/charliermarsh/ruff) linter to correct those
+  linting errors which can be fixed automatically.  This can also be used as a
+  pre-commit hook, or run manually when you find that `make check_commit`
+  complains about your files.
 
 To easily make any of these targets work as a pre-commit hook, you can create a
 symlink to one of the predefined scripts as follows:

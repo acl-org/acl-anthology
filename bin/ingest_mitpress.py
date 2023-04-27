@@ -91,7 +91,6 @@ def get_volume_info(xml: Path) -> str:
 
 
 def get_paperid(xml: Path, count: int, issue_count: int) -> str:
-    basename = xml.stem
     assert int(issue_count) < 10
     assert 0 < count < 1000
     # for i in range(1, 4+1):
@@ -321,7 +320,7 @@ def issue_info_to_node(
 
     if venue == "cl":
         month_text = issue_info.split()[-2]  # blah blah blah month year
-        if not month_text in {
+        if month_text not in {
             "January",
             "February",
             "March",
@@ -359,7 +358,7 @@ def main(args):
             year = int(args.root_dir.name[-4:])
         except ValueError:
             logging.warning(f"Expected last four chars of {args.root_dir} to be a year")
-            logging.warning(f"Or you can use --year YYYY")
+            logging.warning("Or you can use --year YYYY")
             sys.exit(-1)
 
     collection_id = str(year) + "." + venue
@@ -372,7 +371,6 @@ def main(args):
     else:
         collection = make_simple_element("collection", attrib={"id": collection_id})
 
-    tacl_glob = "tacl.20*.*/tacl.20*.*.xml"
     # volume_info = get_volume_info(list(args.year_root.glob("*.*.*/*.*.*.xml"))[0])
     # volume.append(volume_info)
 
@@ -406,7 +404,7 @@ def main(args):
         issue = issue or "1"
         if issue_info != previous_issue_info:
             # Emit the new volume info before the paper.
-            logging.info(f"New issue")
+            logging.info("New issue")
             logging.info(f"{issue_info} vs. {previous_issue_info}")
             previous_issue_info = issue_info
 

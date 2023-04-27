@@ -19,8 +19,6 @@ from lxml import etree
 import logging as log
 import os
 
-from datetime import datetime
-import pytz
 
 from .formatter import MarkupFormatter
 from .index import AnthologyIndex
@@ -28,7 +26,6 @@ from .papers import Paper
 from .venues import VenueIndex
 from .volumes import Volume
 from .sigs import SIGIndex
-from .utils import is_newstyle_id, infer_year
 from .events import EventIndex
 
 

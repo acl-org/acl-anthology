@@ -30,7 +30,6 @@ Options:
 """
 
 from docopt import docopt
-from lxml import etree
 import logging as log
 import os
 

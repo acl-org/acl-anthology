@@ -3,6 +3,8 @@
 import xml.etree.ElementTree as ET
 import collections
 import sys
+
+# ruff: noqa: F403, F405
 from common import *
 
 falselist = set([w for w in nltk.corpus.words.words() if w.islower()])
@@ -22,7 +24,7 @@ if __name__ == "__main__":
             continue
         if w_lower != max(c[w_lower], key=c[w_lower].get):
             for w in c[w_lower]:
-                if fixedcase_word(w) == None:
+                if fixedcase_word(w) is None:
                     truelist.append(w)
     truelist.sort()
 
