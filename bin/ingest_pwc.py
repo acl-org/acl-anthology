@@ -71,7 +71,7 @@ if __name__ == "__main__":
             pwc_meta = json.load(f)
     else:
         # Adds a 30s 'timeout' threshold for HTTP request
-        res = requests.get("https://paperswithcode.com/integrations/acl", timeout=30)
+        res = requests.get("https://paperswithcode.com/integrations/acl/", timeout=30)
         if res.ok:
             pwc_meta = res.json()
         else:
