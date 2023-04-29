@@ -1,0 +1,629 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.bionlp">
+  <volume id="1" ingest-date="2022-05-15">
+    <meta>
+      <booktitle>Proceedings of the 21st Workshop on Biomedical Language Processing</booktitle>
+      <editor><first>Dina</first><last>Demner-Fushman</last></editor>
+      <editor><first>Kevin Bretonnel</first><last>Cohen</last></editor>
+      <editor><first>Sophia</first><last>Ananiadou</last></editor>
+      <editor><first>Junichi</first><last>Tsujii</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Dublin, Ireland</address>
+      <month>May</month>
+      <year>2022</year>
+      <url hash="b519e08a">2022.bionlp-1</url>
+      <venue>bionlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="9fbda173">2022.bionlp-1.0</url>
+      <bibkey>bionlp-2022-biomedical</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Explainable Assessment of Healthcare Articles with <fixed-case>QA</fixed-case></title>
+      <author><first>Alodie</first><last>Boissonnet</last></author>
+      <author><first>Marzieh</first><last>Saeidi</last></author>
+      <author><first>Vassilis</first><last>Plachouras</last></author>
+      <author><first>Andreas</first><last>Vlachos</last></author>
+      <pages>1–9</pages>
+      <abstract>The healthcare domain suffers from the spread of poor quality articles on the Internet. While manual efforts exist to check the quality of online healthcare articles, they are not sufficient to assess all those in circulation. Such quality assessment can be automated as a text classification task, however, explanations for the labels are necessary for the users to trust the model predictions. While current explainable systems tackle explanation generation as summarization, we propose a new approach based on question answering (QA) that allows us to generate explanations for multiple criteria using a single model. We show that this QA-based approach is competitive with the current state-of-the-art, and complements summarization-based models for explainable quality assessment. We also introduce a human evaluation protocol more appropriate than automatic metrics for the evaluation of explanation generation models.</abstract>
+      <url hash="34f326f3">2022.bionlp-1.1</url>
+      <bibkey>boissonnet-etal-2022-explainable</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.1</doi>
+      <video href="2022.bionlp-1.1.mp4"/>
+    </paper>
+    <paper id="2">
+      <title>A sequence-to-sequence approach for document-level relation extraction</title>
+      <author><first>John</first><last>Giorgi</last></author>
+      <author><first>Gary</first><last>Bader</last></author>
+      <author><first>Bo</first><last>Wang</last></author>
+      <pages>10–25</pages>
+      <abstract>Motivated by the fact that many relations cross the sentence boundary, there has been increasing interest in document-level relation extraction (DocRE). DocRE requires integrating information within and across sentences, capturing complex interactions between mentions of entities. Most existing methods are pipeline-based, requiring entities as input. However, jointly learning to extract entities and relations can improve performance and be more efficient due to shared parameters and training steps. In this paper, we develop a sequence-to-sequence approach, seq2rel, that can learn the subtasks of DocRE (entity extraction, coreference resolution and relation extraction) end-to-end, replacing a pipeline of task-specific components. Using a simple strategy we call entity hinting, we compare our approach to existing pipeline-based methods on several popular biomedical datasets, in some cases exceeding their performance. We also report the first end-to-end results on these datasets for future comparison. Finally, we demonstrate that, under our model, an end-to-end approach outperforms a pipeline-based approach. Our code, data and trained models are available at https://github.com/johngiorgi/seq2rel. An online demo is available at https://share.streamlit.io/johngiorgi/seq2rel/main/demo.py.</abstract>
+      <url hash="ff2fd2a7">2022.bionlp-1.2</url>
+      <bibkey>giorgi-etal-2022-sequence</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.2</doi>
+      <video href="2022.bionlp-1.2.mp4"/>
+      <pwccode url="https://github.com/johngiorgi/seq2rel" additional="true">johngiorgi/seq2rel</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/bc5cdr">BC5CDR</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/cdr">CDR</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/docred">DocRED</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/gda">GDA</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Position-based Prompting for Health Outcome Generation</title>
+      <author><first>Micheal</first><last>Abaho</last></author>
+      <author><first>Danushka</first><last>Bollegala</last></author>
+      <author><first>Paula</first><last>Williamson</last></author>
+      <author><first>Susanna</first><last>Dodd</last></author>
+      <pages>26–36</pages>
+      <abstract>Probing factual knowledge in Pre-trained Language Models (PLMs) using prompts has indirectly implied that language models (LMs) can be treated as knowledge bases. To this end, this phenomenon has been effective, especially when these LMs are fine-tuned towards not just data, but also to the style or linguistic pattern of the prompts themselves. We observe that satisfying a particular linguistic pattern in prompts is an unsustainable, time-consuming constraint in the probing task, especially because they are often manually designed and the range of possible prompt template patterns can vary depending on the prompting task. To alleviate this constraint, we propose using a position-attention mechanism to capture positional information of each word in a prompt relative to the mask to be filled, hence avoiding the need to re-construct prompts when the prompts’ linguistic pattern changes. Using our approach, we demonstrate the ability of eliciting answers (in a case study on health outcome generation) to not only common prompt templates like Cloze and Prefix but also rare ones too, such as Postfix and Mixed patterns whose masks are respectively at the start and in multiple random places of the prompt. More so, using various biomedical PLMs, our approach consistently outperforms a baseline in which the default PLMs representation is used to predict masked tokens.</abstract>
+      <url hash="69bcf8af">2022.bionlp-1.3</url>
+      <bibkey>abaho-etal-2022-position</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.3</doi>
+      <video href="2022.bionlp-1.3.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/ebm-nlp">EBM-NLP</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>How You Say It Matters: Measuring the Impact of Verbal Disfluency Tags on Automated Dementia Detection</title>
+      <author><first>Shahla</first><last>Farzana</last></author>
+      <author><first>Ashwin</first><last>Deshpande</last></author>
+      <author><first>Natalie</first><last>Parde</last></author>
+      <pages>37–48</pages>
+      <abstract>Automatic speech recognition (ASR) systems usually incorporate postprocessing mechanisms to remove disfluencies, facilitating the generation of clear, fluent transcripts that are conducive to many downstream NLP tasks. However, verbal disfluencies have proved to be predictive of dementia status, although little is known about how various types of verbal disfluencies, nor automatically detected disfluencies, affect predictive performance. We experiment with an off-the-shelf disfluency annotator to tag disfluencies in speech transcripts for a well-known cognitive health assessment task. We evaluate the performance of this model on detecting repetitions and corrections or retracing, and measure the influence of gold annotated versus automatically detected verbal disfluencies on dementia detection through a series of experiments. We find that removing both gold and automatically-detected disfluencies negatively impacts dementia detection performance, degrading classification accuracy by 5.6% and 3% respectively</abstract>
+      <url hash="efd151b8">2022.bionlp-1.4</url>
+      <bibkey>farzana-etal-2022-say</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.4</doi>
+      <video href="2022.bionlp-1.4.mp4"/>
+      <pwccode url="https://github.com/ashwindeshpande96/measuring_the_impact_of_verbal_disfluency_tags_on_automated_dementia_detection" additional="false">ashwindeshpande96/measuring_the_impact_of_verbal_disfluency_tags_on_automated_dementia_detection</pwccode>
+    </paper>
+    <paper id="5">
+      <title>Zero-Shot Aspect-Based Scientific Document Summarization using Self-Supervised Pre-training</title>
+      <author><first>Amir</first><last>Soleimani</last></author>
+      <author><first>Vassilina</first><last>Nikoulina</last></author>
+      <author><first>Benoit</first><last>Favre</last></author>
+      <author><first>Salah</first><last>Ait Mokhtar</last></author>
+      <pages>49–62</pages>
+      <abstract>We study the zero-shot setting for the aspect-based scientific document summarization task. Summarizing scientific documents with respect to an aspect can remarkably improve document assistance systems and readers experience. However, existing large-scale datasets contain a limited variety of aspects, causing summarization models to over-fit to a small set of aspects and a specific domain. We establish baseline results in zero-shot performance (over unseen aspects and the presence of domain shift), paraphrasing, leave-one-out, and limited supervised samples experimental setups. We propose a self-supervised pre-training approach to enhance the zero-shot performance. We leverage the PubMed structured abstracts to create a biomedical aspect-based summarization dataset. Experimental results on the PubMed and FacetSum aspect-based datasets show promising performance when the model is pre-trained using unlabelled in-domain data.</abstract>
+      <url hash="a9079955">2022.bionlp-1.5</url>
+      <bibkey>soleimani-etal-2022-zero</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.5</doi>
+      <video href="2022.bionlp-1.5.mp4"/>
+      <pwccode url="https://github.com/asoleimanib/zeroshotaspectbased" additional="false">asoleimanib/zeroshotaspectbased</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/facetsum">FacetSum</pwcdataset>
+    </paper>
+    <paper id="6">
+      <title>Data Augmentation for Biomedical Factoid Question Answering</title>
+      <author><first>Dimitris</first><last>Pappas</last></author>
+      <author><first>Prodromos</first><last>Malakasiotis</last></author>
+      <author><first>Ion</first><last>Androutsopoulos</last></author>
+      <pages>63–81</pages>
+      <abstract>We study the effect of seven data augmentation (DA) methods in factoid question answering, focusing on the biomedical domain, where obtaining training instances is particularly difficult. We experiment with data from the BIOASQ challenge, which we augment with training instances obtained from an artificial biomedical machine reading comprehension dataset, or via back-translation, information retrieval, word substitution based on WORD2VEC embeddings, or masked language modeling, question generation, or extending the given passage with additional context. We show that DA can lead to very significant performance gains, even when using large pre-trained Transformers, contributing to a broader discussion of if/when DA benefits large pre-trained models. One of the simplest DA methods, WORD2VEC-based word substitution, performed best and is recommended. We release our artificial training instances and code.</abstract>
+      <url hash="ac136f53">2022.bionlp-1.6</url>
+      <bibkey>pappas-etal-2022-data</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.6</doi>
+      <video href="2022.bionlp-1.6.mp4"/>
+      <pwccode url="https://github.com/dpappas/Data-Augmentation-for-Biomedical-Factoid-Question-Answering" additional="false">dpappas/Data-Augmentation-for-Biomedical-Factoid-Question-Answering</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/biomrc">BIOMRC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/bioasq">BioASQ</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
+    </paper>
+    <paper id="7">
+      <title>Slot Filling for Biomedical Information Extraction</title>
+      <author><first>Yannis</first><last>Papanikolaou</last></author>
+      <author><first>Marlene</first><last>Staib</last></author>
+      <author><first>Justin Joshua</first><last>Grace</last></author>
+      <author><first>Francine</first><last>Bennett</last></author>
+      <pages>82–90</pages>
+      <abstract>Information Extraction (IE) from text refers to the task of extracting structured knowledge from unstructured text. The task typically consists of a series of sub-tasks such as Named Entity Recognition and Relation Extraction. Sourcing entity and relation type specific training data is a major bottleneck in domains with limited resources such as biomedicine. In this work we present a slot filling approach to the task of biomedical IE, effectively replacing the need for entity and relation-specific training data, allowing us to deal with zero-shot settings. We follow the recently proposed paradigm of coupling a Tranformer-based bi-encoder, Dense Passage Retrieval, with a Transformer-based reading comprehension model to extract relations from biomedical text. We assemble a biomedical slot filling dataset for both retrieval and reading comprehension and conduct a series of experiments demonstrating that our approach outperforms a number of simpler baselines. We also evaluate our approach end-to-end for standard as well as zero-shot settings. Our work provides a fresh perspective on how to solve biomedical IE tasks, in the absence of relevant training data. Our code, models and datasets are available at https://github.com/tba.</abstract>
+      <url hash="37211784">2022.bionlp-1.7</url>
+      <bibkey>papanikolaou-etal-2022-slot</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.7</doi>
+      <video href="2022.bionlp-1.7.mp4"/>
+      <pwccode url="https://github.com/ypapanik/biomedical-slot-filling" additional="true">ypapanik/biomedical-slot-filling</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/kilt">KILT</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/natural-questions">Natural Questions</pwcdataset>
+    </paper>
+    <paper id="8">
+      <title>Automatic Biomedical Term Clustering by Learning Fine-grained Term Representations</title>
+      <author><first>Sihang</first><last>Zeng</last></author>
+      <author><first>Zheng</first><last>Yuan</last></author>
+      <author><first>Sheng</first><last>Yu</last></author>
+      <pages>91–96</pages>
+      <abstract>Term clustering is important in biomedical knowledge graph construction. Using similarities between terms embedding is helpful for term clustering. State-of-the-art term embeddings leverage pretrained language models to encode terms, and use synonyms and relation knowledge from knowledge graphs to guide contrastive learning. These embeddings provide close embeddings for terms belonging to the same concept. However, from our probing experiments, these embeddings are not sensitive to minor textual differences which leads to failure for biomedical term clustering. To alleviate this problem, we adjust the sampling strategy in pretraining term embeddings by providing dynamic hard positive and negative samples during contrastive learning to learn fine-grained representations which result in better biomedical term clustering. We name our proposed method as CODER++, and it has been applied in clustering biomedical concepts in the newly released Biomedical Knowledge Graph named BIOS.</abstract>
+      <url hash="72f089fd">2022.bionlp-1.8</url>
+      <bibkey>zeng-etal-2022-automatic</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.8</doi>
+      <video href="2022.bionlp-1.8.mp4"/>
+      <pwccode url="https://github.com/GanjinZero/CODER" additional="false">GanjinZero/CODER</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/bc5cdr">BC5CDR</pwcdataset>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>B</fixed-case>io<fixed-case>BART</fixed-case>: Pretraining and Evaluation of A Biomedical Generative Language Model</title>
+      <author><first>Hongyi</first><last>Yuan</last></author>
+      <author><first>Zheng</first><last>Yuan</last></author>
+      <author><first>Ruyi</first><last>Gan</last></author>
+      <author><first>Jiaxing</first><last>Zhang</last></author>
+      <author><first>Yutao</first><last>Xie</last></author>
+      <author><first>Sheng</first><last>Yu</last></author>
+      <pages>97–109</pages>
+      <abstract>Pretrained language models have served as important backbones for natural language processing. Recently, in-domain pretraining has been shown to benefit various domain-specific downstream tasks. In the biomedical domain, natural language generation (NLG) tasks are of critical importance, while understudied. Approaching natural language understanding (NLU) tasks as NLG achieves satisfying performance in the general domain through constrained language generation or language prompting. We emphasize the lack of in-domain generative language models and the unsystematic generative downstream benchmarks in the biomedical domain, hindering the development of the research community. In this work, we introduce the generative language model BioBART that adapts BART to the biomedical domain. We collate various biomedical language generation tasks including dialogue, summarization, entity linking, and named entity recognition. BioBART pretrained on PubMed abstracts has enhanced performance compared to BART and set strong baselines on several tasks. Furthermore, we conduct ablation studies on the pretraining tasks for BioBART and find that sentence permutation has negative effects on downstream tasks.</abstract>
+      <url hash="ba7fa737">2022.bionlp-1.9</url>
+      <bibkey>yuan-etal-2022-biobart</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.9</doi>
+      <video href="2022.bionlp-1.9.mp4"/>
+      <pwccode url="https://github.com/GanjinZero/BioBART" additional="false">GanjinZero/BioBART</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/bc5cdr">BC5CDR</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/cometa">COMETA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/genia">GENIA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mediqa-ans">MEDIQA-AnS</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/mimic-iii">MIMIC-III</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/meqsum">MeQSum</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/medmentions">MedMentions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semantic-scholar">Semantic Scholar</pwcdataset>
+    </paper>
+    <paper id="10">
+      <title>Incorporating Medical Knowledge to Transformer-based Language Models for Medical Dialogue Generation</title>
+      <author><first>Usman</first><last>Naseem</last></author>
+      <author><first>Ajay</first><last>Bandi</last></author>
+      <author><first>Shaina</first><last>Raza</last></author>
+      <author><first>Junaid</first><last>Rashid</last></author>
+      <author><first>Bharathi Raja</first><last>Chakravarthi</last></author>
+      <pages>110–115</pages>
+      <abstract>Medical dialogue systems have the potential to assist doctors in expanding access to medical care, improving the quality of patient experiences, and lowering medical expenses. The computational methods are still in their early stages and are not ready for widespread application despite their great potential. Existing transformer-based language models have shown promising results but lack domain-specific knowledge. However, to diagnose like doctors, an automatic medical diagnosis necessitates more stringent requirements for the rationality of the dialogue in the context of relevant knowledge. In this study, we propose a new method that addresses the challenges of medical dialogue generation by incorporating medical knowledge into transformer-based language models. We present a method that leverages an external medical knowledge graph and injects triples as domain knowledge into the utterances. Automatic and human evaluation on a publicly available dataset demonstrates that incorporating medical knowledge outperforms several state-of-the-art baseline methods.</abstract>
+      <url hash="4e77277c">2022.bionlp-1.10</url>
+      <bibkey>naseem-etal-2022-incorporating</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.10</doi>
+      <video href="2022.bionlp-1.10.mp4"/>
+    </paper>
+    <paper id="11">
+      <title>Memory-aligned Knowledge Graph for Clinically Accurate Radiology Image Report Generation</title>
+      <author><first>Sixing</first><last>Yan</last></author>
+      <pages>116–122</pages>
+      <abstract>Automatic generating the clinically accurate radiology report from X-ray images is important but challenging. The identification of multi-grained abnormal regions in image and corresponding abnormalities is difficult for data-driven neural models. In this work, we introduce a Memory-aligned Knowledge Graph (MaKG) of clinical abnormalities to better learn the visual patterns of abnormalities and their relationships by integrating it into a deep model architecture for the report generation. We carry out extensive experiments and show that the proposed MaKG deep model can improve the clinical accuracy of the generated reports.</abstract>
+      <url hash="f21eee93">2022.bionlp-1.11</url>
+      <bibkey>yan-2022-memory</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.11</doi>
+      <video href="2022.bionlp-1.11.mp4"/>
+    </paper>
+    <paper id="12">
+      <title>Simple Semantic-based Data Augmentation for Named Entity Recognition in Biomedical Texts</title>
+      <author><first>Uyen</first><last>Phan</last></author>
+      <author><first>Nhung</first><last>Nguyen</last></author>
+      <pages>123–129</pages>
+      <abstract>Data augmentation is important in addressing data sparsity and low resources in NLP. Unlike data augmentation for other tasks such as sentence-level and sentence-pair ones, data augmentation for named entity recognition (NER) requires preserving the semantic of entities. To that end, in this paper we propose a simple semantic-based data augmentation method for biomedical NER. Our method leverages semantic information from pre-trained language models for both entity-level and sentence-level. Experimental results on two datasets: i2b2-2010 (English) and VietBioNER (Vietnamese) showed that the proposed method could improve NER performance.</abstract>
+      <url hash="e6bc06fd">2022.bionlp-1.12</url>
+      <bibkey>phan-nguyen-2022-simple</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.12</doi>
+      <video href="2022.bionlp-1.12.mp4"/>
+    </paper>
+    <paper id="13">
+      <title>Auxiliary Learning for Named Entity Recognition with Multiple Auxiliary Biomedical Training Data</title>
+      <author><first>Taiki</first><last>Watanabe</last></author>
+      <author><first>Tomoya</first><last>Ichikawa</last></author>
+      <author><first>Akihiro</first><last>Tamura</last></author>
+      <author><first>Tomoya</first><last>Iwakura</last></author>
+      <author><first>Chunpeng</first><last>Ma</last></author>
+      <author><first>Tsuneo</first><last>Kato</last></author>
+      <pages>130–139</pages>
+      <abstract>Named entity recognition (NER) is one of the elemental technologies, which has been used for knowledge extraction from biomedical text. As one of the NER improvement approaches, multi-task learning that learns a model from multiple training data has been used. Among multi-task learning, an auxiliary learning method, which uses an auxiliary task for improving its target task, has shown higher NER performance than conventional multi-task learning for improving all the tasks simultaneously by using only one auxiliary task in the auxiliary learning. We propose Multiple Utilization of NER Corpora Helpful for Auxiliary BLESsing (MUNCH ABLES). MUNCHABLES utilizes multiple training datasets as auxiliary training data by the following methods; the first one is to finetune the NER model of the target task by sequentially performing auxiliary learning for each auxiliary training dataset, and the other is to use all training datasets in one auxiliary learning. We evaluate MUNCHABLES on eight biomedical-related domain NER tasks, where seven training datasets are used as auxiliary training data. The experiment results show that MUNCHABLES achieves higher accuracy than conventional multi-task learning methods on average while showing state-of-the-art accuracy.</abstract>
+      <url hash="a7622584">2022.bionlp-1.13</url>
+      <bibkey>watanabe-etal-2022-auxiliary</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.13</doi>
+      <video href="2022.bionlp-1.13.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/ncbi-disease-1">NCBI Disease</pwcdataset>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>SNP</fixed-case>2<fixed-case>V</fixed-case>ec: Scalable Self-Supervised Pre-Training for Genome-Wide Association Study</title>
+      <author><first>Samuel</first><last>Cahyawijaya</last></author>
+      <author><first>Tiezheng</first><last>Yu</last></author>
+      <author><first>Zihan</first><last>Liu</last></author>
+      <author><first>Xiaopu</first><last>Zhou</last></author>
+      <author><first>Tze Wing Tiffany</first><last>Mak</last></author>
+      <author><first>Yuk Yu Nancy</first><last>Ip</last></author>
+      <author><first>Pascale</first><last>Fung</last></author>
+      <pages>140–154</pages>
+      <abstract>Self-supervised pre-training methods have brought remarkable breakthroughs in the understanding of text, image, and speech. Recent developments in genomics has also adopted these pre-training methods for genome understanding. However, they focus only on understanding haploid sequences, which hinders their applicability towards understanding genetic variations, also known as single nucleotide polymorphisms (SNPs), which is crucial for genome-wide association study. In this paper, we introduce SNP2Vec, a scalable self-supervised pre-training approach for understanding SNP. We apply SNP2Vec to perform long-sequence genomics modeling, and we evaluate the effectiveness of our approach on predicting Alzheimer’s disease risk in a Chinese cohort. Our approach significantly outperforms existing polygenic risk score methods and all other baselines, including the model that is trained entirely with haploid sequences.</abstract>
+      <url hash="fb95c9aa">2022.bionlp-1.14</url>
+      <bibkey>cahyawijaya-etal-2022-snp2vec</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.14</doi>
+      <video href="2022.bionlp-1.14.mp4"/>
+      <pwccode url="https://github.com/hltchkust/snp2vec" additional="false">hltchkust/snp2vec</pwccode>
+    </paper>
+    <paper id="15">
+      <title>Biomedical <fixed-case>NER</fixed-case> using Novel Schema and Distant Supervision</title>
+      <author><first>Anshita</first><last>Khandelwal</last></author>
+      <author><first>Alok</first><last>Kar</last></author>
+      <author><first>Veera Raghavendra</first><last>Chikka</last></author>
+      <author><first>Kamalakar</first><last>Karlapalem</last></author>
+      <pages>155–160</pages>
+      <abstract>Biomedical Named Entity Recognition (BMNER) is one of the most important tasks in the field of biomedical text mining. Most work so far on this task has not focused on identification of discontinuous and overlapping entities, even though they are present in significant fractions in real-life biomedical datasets. In this paper, we introduce a novel annotation schema to capture complex entities, and explore the effects of distant supervision on our deep-learning sequence labelling model. For BMNER task, our annotation schema outperforms other BIO-based annotation schemes on the same model. We also achieve higher F1-scores than state-of-the-art models on multiple corpora without fine-tuning embeddings, highlighting the efficacy of neural feature extraction using our model.</abstract>
+      <url hash="71166692">2022.bionlp-1.15</url>
+      <bibkey>khandelwal-etal-2022-biomedical</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.15</doi>
+      <video href="2022.bionlp-1.15.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/share-clef-2014-task-2-disorders">ShARe/CLEF 2014: Task 2 Disorders</pwcdataset>
+    </paper>
+    <paper id="16">
+      <title>Improving Supervised Drug-Protein Relation Extraction with Distantly Supervised Models</title>
+      <author><first>Naoki</first><last>Iinuma</last></author>
+      <author><first>Makoto</first><last>Miwa</last></author>
+      <author><first>Yutaka</first><last>Sasaki</last></author>
+      <pages>161–170</pages>
+      <abstract>This paper proposes novel drug-protein relation extraction models that indirectly utilize distant supervision data. Concretely, instead of adding distant supervision data to the manually annotated training data, our models incorporate distantly supervised models that are relation extraction models trained with distant supervision data. Distantly supervised learning has been proposed to generate a large amount of pseudo-training data at low cost. However, there is still a problem of low prediction performance due to the inclusion of mislabeled data. Therefore, several methods have been proposed to suppress the effects of noisy cases by utilizing some manually annotated training data. However, their performance is lower than that of supervised learning on manually annotated data because mislabeled data that cannot be fully suppressed becomes noise when training the model. To overcome this issue, our methods indirectly utilize distant supervision data with manually annotated training data. The experimental results on the DrugProt corpus in the BioCreative VII Track 1 showed that our proposed model can consistently improve the supervised models in different settings.</abstract>
+      <url hash="fb8d74cc">2022.bionlp-1.16</url>
+      <bibkey>iinuma-etal-2022-improving</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.16</doi>
+      <video href="2022.bionlp-1.16.mp4"/>
+    </paper>
+    <paper id="17">
+      <title>Named Entity Recognition for Cancer Immunology Research Using Distant Supervision</title>
+      <author><first>Hai-Long</first><last>Trieu</last></author>
+      <author><first>Makoto</first><last>Miwa</last></author>
+      <author><first>Sophia</first><last>Ananiadou</last></author>
+      <pages>171–177</pages>
+      <abstract>Cancer immunology research involves several important cell and protein factors. Extracting the information of such cells and proteins and the interactions between them from text are crucial in text mining for cancer immunology research. However, there are few available datasets for these entities, and the amount of annotated documents is not sufficient compared with other major named entity types. In this work, we introduce our automatically annotated dataset of key named entities, i.e., T-cells, cytokines, and transcription factors, which engages the recent cancer immunotherapy. The entities are annotated based on the UniProtKB knowledge base using dictionary matching. We build a neural named entity recognition (NER) model to be trained on this dataset and evaluate it on a manually-annotated data. Experimental results show that we can achieve a promising NER performance even though our data is automatically annotated. Our dataset also enhances the NER performance when combined with existing data, especially gaining improvement in yet investigated named entities such as cytokines and transcription factors.</abstract>
+      <url hash="a9f694d0">2022.bionlp-1.17</url>
+      <bibkey>trieu-etal-2022-named</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.17</doi>
+      <video href="2022.bionlp-1.17.mp4"/>
+    </paper>
+    <paper id="18">
+      <title>Intra-Template Entity Compatibility based Slot-Filling for Clinical Trial Information Extraction</title>
+      <author><first>Christian</first><last>Witte</last></author>
+      <author><first>Philipp</first><last>Cimiano</last></author>
+      <pages>178–192</pages>
+      <abstract>We present a deep learning based information extraction system that can extract the design and results of a published abstract describing a Randomized Controlled Trial (RCT). In contrast to other approaches, our system does not regard the PICO elements as flat objects or labels but as structured objects. We thus model the task as the one of filling a set of templates and slots; our two-step approach recognizes relevant slot candidates as a first step and assigns them to a corresponding template as second step, relying on a learned pairwise scoring function that models the compatibility of the different slot values. We evaluate the approach on a dataset of 211 manually annotated abstracts for type 2 Diabetes and Glaucoma, showing the positive impact of modelling intra-template entity compatibility. As main benefit, our approach yields a structured object for every RCT abstract that supports the aggregation and summarization of clinical trial results across published studies and can facilitate the task of creating a systematic review or meta-analysis.</abstract>
+      <url hash="ee5a3300">2022.bionlp-1.18</url>
+      <bibkey>witte-cimiano-2022-intra</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.18</doi>
+      <video href="2022.bionlp-1.18.mp4"/>
+    </paper>
+    <paper id="19">
+      <title>Pretrained Biomedical Language Models for Clinical <fixed-case>NLP</fixed-case> in <fixed-case>S</fixed-case>panish</title>
+      <author><first>Casimiro Pio</first><last>Carrino</last></author>
+      <author><first>Joan</first><last>Llop</last></author>
+      <author><first>Marc</first><last>Pàmies</last></author>
+      <author><first>Asier</first><last>Gutiérrez-Fandiño</last></author>
+      <author><first>Jordi</first><last>Armengol-Estapé</last></author>
+      <author><first>Joaquín</first><last>Silveira-Ocampo</last></author>
+      <author><first>Alfonso</first><last>Valencia</last></author>
+      <author><first>Aitor</first><last>Gonzalez-Agirre</last></author>
+      <author><first>Marta</first><last>Villegas</last></author>
+      <pages>193–199</pages>
+      <abstract>This work presents the first large-scale biomedical Spanish language models trained from scratch, using large biomedical corpora consisting of a total of 1.1B tokens and an EHR corpus of 95M tokens. We compared them against general-domain and other domain-specific models for Spanish on three clinical NER tasks. As main results, our models are superior across the NER tasks, rendering them more convenient for clinical NLP applications. Furthermore, our findings indicate that when enough data is available, pre-training from scratch is better than continual pre-training when tested on clinical tasks, raising an exciting research question about which approach is optimal. Our models and fine-tuning scripts are publicly available at HuggingFace and GitHub.</abstract>
+      <url hash="3ed5493f">2022.bionlp-1.19</url>
+      <bibkey>carrino-etal-2022-pretrained</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.19</doi>
+      <video href="2022.bionlp-1.19.mp4"/>
+      <pwccode url="https://github.com/PlanTL-GOB-ES/lm-biomedical-clinical-es" additional="false">PlanTL-GOB-ES/lm-biomedical-clinical-es</pwccode>
+    </paper>
+    <paper id="20">
+      <title>Few-Shot Cross-lingual Transfer for Coarse-grained De-identification of Code-Mixed Clinical Texts</title>
+      <author><first>Saadullah</first><last>Amin</last></author>
+      <author><first>Noon</first><last>Pokaratsiri Goldstein</last></author>
+      <author><first>Morgan</first><last>Wixted</last></author>
+      <author><first>Alejandro</first><last>Garcia-Rudolph</last></author>
+      <author><first>Catalina</first><last>Martínez-Costa</last></author>
+      <author><first>Guenter</first><last>Neumann</last></author>
+      <pages>200–211</pages>
+      <abstract>Despite the advances in digital healthcare systems offering curated structured knowledge, much of the critical information still lies in large volumes of unlabeled and unstructured clinical texts. These texts, which often contain protected health information (PHI), are exposed to information extraction tools for downstream applications, risking patient identification. Existing works in de-identification rely on using large-scale annotated corpora in English, which often are not suitable in real-world multilingual settings. Pre-trained language models (LM) have shown great potential for cross-lingual transfer in low-resource settings. In this work, we empirically show the few-shot cross-lingual transfer property of LMs for named entity recognition (NER) and apply it to solve a low-resource and real-world challenge of code-mixed (Spanish-Catalan) clinical notes de-identification in the stroke domain. We annotate a gold evaluation dataset to assess few-shot setting performance where we only use a few hundred labeled examples for training. Our model improves the zero-shot F1-score from 73.7% to 91.2% on the gold evaluation set when adapting Multilingual BERT (mBERT) (CITATION) from the MEDDOCAN (CITATION) corpus with our few-shot cross-lingual target corpus. When generalized to an out-of-sample test set, the best model achieves a human-evaluation F1-score of 97.2%.</abstract>
+      <url hash="fa6ec883">2022.bionlp-1.20</url>
+      <bibkey>amin-etal-2022-shot</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.20</doi>
+      <video href="2022.bionlp-1.20.mp4"/>
+      <pwccode url="https://github.com/suamin/t2ner" additional="false">suamin/t2ner</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2002">CoNLL 2002</pwcdataset>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>VPAI</fixed-case>_<fixed-case>L</fixed-case>ab at <fixed-case>M</fixed-case>ed<fixed-case>V</fixed-case>id<fixed-case>QA</fixed-case> 2022: A Two-Stage Cross-modal Fusion Method for Medical Instructional Video Classification</title>
+      <author><first>Bin</first><last>Li</last></author>
+      <author><first>Yixuan</first><last>Weng</last></author>
+      <author><first>Fei</first><last>Xia</last></author>
+      <author><first>Bin</first><last>Sun</last></author>
+      <author><first>Shutao</first><last>Li</last></author>
+      <pages>212–219</pages>
+      <abstract>This paper introduces the approach of VPAI_Lab team’s experiments on BioNLP 2022 shared task 1 Medical Video Classification (MedVidCL). Given an input video, the MedVidCL task aims to correctly classify it into one of three following categories: Medical Instructional, Medical Non-instructional, and Non-medical. Inspired by its dataset construction process, we divide the classification process into two stages. The first stage is to classify videos into medical videos and non-medical videos. In the second stage, for those samples classified as medical videos, we further classify them into instructional videos and non-instructional videos. In addition, we also propose the cross-modal fusion method to solve the video classification, such as fusing the text features (question and subtitles) from the pre-training language models and visual features from image frames. Specifically, we use textual information to concatenate and query the visual information for obtaining better feature representation. Extensive experiments show that the proposed method significantly outperforms the official baseline method by 15.4% in the F1 score, which shows its effectiveness. Finally, the online results show that our method ranks the Top-1 on the online unseen test set. All the experimental codes are open-sourced at https://github.com/Lireanstar/MedVidCL.</abstract>
+      <url hash="553d86ef">2022.bionlp-1.21</url>
+      <bibkey>li-etal-2022-vpai</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.21</doi>
+      <pwccode url="https://github.com/lireanstar/medvidcl" additional="false">lireanstar/medvidcl</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/kinetics">Kinetics</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/medvidqa">MedVidQA</pwcdataset>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>G</fixed-case>en<fixed-case>C</fixed-case>ompare<fixed-case>S</fixed-case>um: a hybrid unsupervised summarization method using salience</title>
+      <author><first>Jennifer</first><last>Bishop</last></author>
+      <author><first>Qianqian</first><last>Xie</last></author>
+      <author><first>Sophia</first><last>Ananiadou</last></author>
+      <pages>220–240</pages>
+      <abstract>Text summarization (TS) is an important NLP task. Pre-trained Language Models (PLMs) have been used to improve the performance of TS. However, PLMs are limited by their need of labelled training data and by their attention mechanism, which often makes them unsuitable for use on long documents. To this end, we propose a hybrid, unsupervised, abstractive-extractive approach, in which we walk through a document, generating salient textual fragments representing its key points. We then select the most important sentences of the document by choosing the most similar sentences to the generated texts, calculated using BERTScore. We evaluate the efficacy of generating and using salient textual fragments to guide extractive summarization on documents from the biomedical and general scientific domains. We compare the performance between long and short documents using different generative text models, which are finetuned to generate relevant queries or document titles. We show that our hybrid approach out-performs existing unsupervised methods, as well as state-of-the-art supervised methods, despite not needing a vast amount of labelled training data.</abstract>
+      <url hash="957b2e44">2022.bionlp-1.22</url>
+      <bibkey>bishop-etal-2022-gencomparesum</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.22</doi>
+      <video href="2022.bionlp-1.22.mp4"/>
+      <pwccode url="https://github.com/jbshp/gencomparesum" additional="false">jbshp/gencomparesum</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/cord-19">CORD-19</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/pubmed">Pubmed</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/s2orc">S2ORC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/arxiv">arXiv</pwcdataset>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>B</fixed-case>io<fixed-case>C</fixed-case>ite: A Deep Learning-based Citation Linkage Framework for Biomedical Research Articles</title>
+      <author><first>Sudipta</first><last>Singha Roy</last></author>
+      <author><first>Robert E.</first><last>Mercer</last></author>
+      <pages>241–251</pages>
+      <abstract>Research papers reflect scientific advances. Citations are widely used in research publications to support the new findings and show their benefits, while also regulating the information flow to make the contents clearer for the audience. A citation in a research article refers to the information’s source, but not the specific text span from that source article. In biomedical research articles, this task is challenging as the same chemical or biological component can be represented in multiple ways in different papers from various domains. This paper suggests a mechanism for linking citing sentences in a publication with cited sentences in referenced sources. The framework presented here pairs the citing sentence with all of the sentences in the reference text, and then tries to retrieve the semantically equivalent pairs. These semantically related sentences from the reference paper are chosen as the cited statements. This effort involves designing a citation linkage framework utilizing sequential and tree-structured siamese deep learning models. This paper also provides a method to create a synthetic corpus for such a task.</abstract>
+      <url hash="f59e0805">2022.bionlp-1.23</url>
+      <bibkey>singha-roy-mercer-2022-biocite</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.23</doi>
+      <video href="2022.bionlp-1.23.mp4"/>
+    </paper>
+    <paper id="24">
+      <title>Low Resource Causal Event Detection from Biomedical Literature</title>
+      <author><first>Zhengzhong</first><last>Liang</last></author>
+      <author><first>Enrique</first><last>Noriega-Atala</last></author>
+      <author><first>Clayton</first><last>Morrison</last></author>
+      <author><first>Mihai</first><last>Surdeanu</last></author>
+      <pages>252–263</pages>
+      <abstract>Recognizing causal precedence relations among the chemical interactions in biomedical literature is crucial to understanding the underlying biological mechanisms. However, detecting such causal relation can be hard because: (1) many times, such causal relations among events are not explicitly expressed by certain phrases but implicitly implied by very diverse expressions in the text, and (2) annotating such causal relation detection datasets requires considerable expert knowledge and effort. In this paper, we propose a strategy to address both challenges by training neural models with in-domain pre-training and knowledge distillation. We show that, by using very limited amount of labeled data, and sufficient amount of unlabeled data, the neural models outperform previous baselines on the causal precedence detection task, and are ten times faster at inference compared to the BERT base model.</abstract>
+      <url hash="4555da34">2022.bionlp-1.24</url>
+      <bibkey>liang-etal-2022-low</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.24</doi>
+      <video href="2022.bionlp-1.24.mp4"/>
+    </paper>
+    <paper id="25">
+      <title>Overview of the <fixed-case>M</fixed-case>ed<fixed-case>V</fixed-case>id<fixed-case>QA</fixed-case> 2022 Shared Task on Medical Video Question-Answering</title>
+      <author><first>Deepak</first><last>Gupta</last></author>
+      <author><first>Dina</first><last>Demner-Fushman</last></author>
+      <pages>264–274</pages>
+      <abstract>In this paper, we present an overview of the MedVidQA 2022 shared task, collocated with the 21st BioNLP workshop at ACL 2022. The shared task addressed two of the challenges faced by medical video question answering: (I) a video classification task that explores new approaches to medical video understanding (labeling), and (ii) a visual answer localization task. Visual answer localization refers to the identification of the relevant temporal segments (start and end timestamps) in the video where the answer to the medical question is being shown or illustrated. A total of thirteen teams participated in the shared task challenges, with eleven system descriptions submitted to the workshop. The descriptions present monomodal and multi-modal approaches developed for medical video classification and visual answer localization. This paper describes the tasks, the datasets, evaluation metrics, and baseline systems for both tasks. Finally, the paper summarizes the techniques and results of the evaluation of the various approaches explored by the participating teams.</abstract>
+      <url hash="bb35bdf0">2022.bionlp-1.25</url>
+      <bibkey>gupta-demner-fushman-2022-overview</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.25</doi>
+      <video href="2022.bionlp-1.25.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/howto100m">HowTo100M</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/medvidqa">MedVidQA</pwcdataset>
+    </paper>
+    <paper id="26">
+      <title>Inter-annotator agreement is not the ceiling of machine learning performance: Evidence from a comprehensive set of simulations</title>
+      <author><first>Russell</first><last>Richie</last></author>
+      <author><first>Sachin</first><last>Grover</last></author>
+      <author><first>Fuchiang (Rich)</first><last>Tsui</last></author>
+      <pages>275–284</pages>
+      <abstract>It is commonly claimed that inter-annotator agreement (IAA) is the ceiling of machine learning (ML) performance, i.e., that the agreement between an ML system’s predictions and an annotator can not be higher than the agreement between two annotators. Although Boguslav &amp; Cohen (2017) showed that this claim is falsified by many real-world ML systems, the claim has persisted. As a complement to this real-world evidence, we conducted a comprehensive set of simulations, and show that an ML model can beat IAA even if (and especially if) annotators are noisy and differ in their underlying classification functions, as long as the ML model is reasonably well-specified. Although the latter condition has long been elusive, leading ML models to underperform IAA, we anticipate that this condition will be increasingly met in the era of big data and deep learning. Our work has implications for (1) maximizing the value of machine learning, (2) adherence to ethical standards in computing, and (3) economical use of annotated resources, which is paramount in settings where annotation is especially expensive, like biomedical natural language processing.</abstract>
+      <url hash="079c2aaa">2022.bionlp-1.26</url>
+      <bibkey>richie-etal-2022-inter</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.26</doi>
+      <video href="2022.bionlp-1.26.mp4"/>
+    </paper>
+    <paper id="27">
+      <title>Conversational Bots for Psychotherapy: A Study of Generative Transformer Models Using Domain-specific Dialogues</title>
+      <author><first>Avisha</first><last>Das</last></author>
+      <author><first>Salih</first><last>Selek</last></author>
+      <author><first>Alia R.</first><last>Warner</last></author>
+      <author><first>Xu</first><last>Zuo</last></author>
+      <author><first>Yan</first><last>Hu</last></author>
+      <author><first>Vipina</first><last>Kuttichi Keloth</last></author>
+      <author><first>Jianfu</first><last>Li</last></author>
+      <author><first>W. Jim</first><last>Zheng</last></author>
+      <author><first>Hua</first><last>Xu</last></author>
+      <pages>285–297</pages>
+      <abstract>Conversational bots have become non-traditional methods for therapy among individuals suffering from psychological illnesses. Leveraging deep neural generative language models, we propose a deep trainable neural conversational model for therapy-oriented response generation. We leverage transfer learning methods during training on therapy and counseling based data from Reddit and AlexanderStreet. This was done to adapt existing generative models – GPT2 and DialoGPT – to the task of automated dialog generation. Through quantitative evaluation of the linguistic quality, we observe that the dialog generation model - DialoGPT (345M) with transfer learning on video data attains scores similar to a human response baseline. However, human evaluation of responses by conversational bots show mostly signs of generic advice or information sharing instead of therapeutic interaction.</abstract>
+      <url hash="5b70798f">2022.bionlp-1.27</url>
+      <bibkey>das-etal-2022-conversational</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.27</doi>
+      <video href="2022.bionlp-1.27.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/webtext">WebText</pwcdataset>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>BEEDS</fixed-case>: Large-Scale Biomedical Event Extraction using Distant Supervision and Question Answering</title>
+      <author><first>Xing David</first><last>Wang</last></author>
+      <author><first>Ulf</first><last>Leser</last></author>
+      <author><first>Leon</first><last>Weber</last></author>
+      <pages>298–309</pages>
+      <abstract>Automatic extraction of event structures from text is a promising way to extract important facts from the evergrowing amount of biomedical literature. We propose BEEDS, a new approach on how to mine event structures from PubMed based on a question-answering paradigm. Using a three-step pipeline comprising a document retriever, a document reader, and an entity normalizer, BEEDS is able to fully automatically extract event triples involving a query protein or gene and to store this information directly in a knowledge base. BEEDS applies a transformer-based architecture for event extraction and uses distant supervision to augment the scarce training data in event mining. In a knowledge base population setting, it outperforms a strong baseline in finding post-translational modification events consisting of enzyme-substrate-site triples while achieving competitive results in extracting binary relations consisting of protein-protein and protein-site interactions.</abstract>
+      <url hash="da3f9b7a">2022.bionlp-1.28</url>
+      <bibkey>wang-etal-2022-beeds</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.28</doi>
+      <video href="2022.bionlp-1.28.mp4"/>
+      <pwccode url="https://github.com/wangxii/beeds" additional="false">wangxii/beeds</pwccode>
+    </paper>
+    <paper id="29">
+      <title>Data Augmentation for Rare Symptoms in Vaccine Side-Effect Detection</title>
+      <author><first>Bosung</first><last>Kim</last></author>
+      <author><first>Ndapa</first><last>Nakashole</last></author>
+      <pages>310–315</pages>
+      <abstract>We study the problem of entity detection and normalization applied to patient self-reports of symptoms that arise as side-effects of vaccines. Our application domain presents unique challenges that render traditional classification methods ineffective: the number of entity types is large; and many symptoms are rare, resulting in a long-tail distribution of training examples per entity type. We tackle these challenges with an autoregressive model that generates standardized names of symptoms. We introduce a data augmentation technique to increase the number of training examples for rare symptoms. Experiments on real-life patient vaccine symptom self-reports show that our approach outperforms strong baselines, and that additional examples improve performance on the long-tail entities.</abstract>
+      <url hash="cf4e8dbe">2022.bionlp-1.29</url>
+      <bibkey>kim-nakashole-2022-data</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.29</doi>
+      <video href="2022.bionlp-1.29.mp4"/>
+    </paper>
+    <paper id="30">
+      <title>Improving <fixed-case>R</fixed-case>omanian <fixed-case>B</fixed-case>io<fixed-case>NER</fixed-case> Using a Biologically Inspired System</title>
+      <author><first>Maria</first><last>Mitrofan</last></author>
+      <author><first>Vasile</first><last>Pais</last></author>
+      <pages>316–322</pages>
+      <abstract>Recognition of named entities present in text is an important step towards information extraction and natural language understanding. This work presents a named entity recognition system for the Romanian biomedical domain. The system makes use of a new and extended version of SiMoNERo corpus, that is open sourced. Also, the best system is available for direct usage in the RELATE platform.</abstract>
+      <url hash="d70124c4">2022.bionlp-1.30</url>
+      <bibkey>mitrofan-pais-2022-improving</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.30</doi>
+      <video href="2022.bionlp-1.30.mp4"/>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>B</fixed-case>angla<fixed-case>B</fixed-case>io<fixed-case>M</fixed-case>ed: A Biomedical Named-Entity Annotated Corpus for <fixed-case>B</fixed-case>angla (<fixed-case>B</fixed-case>engali)</title>
+      <author><first>Salim</first><last>Sazzed</last></author>
+      <pages>323–329</pages>
+      <abstract>Recognizing biomedical entities in the text has significance in biomedical and health science research, as it benefits myriad downstream tasks, including entity linking, relation extraction, or entity resolution. While English and a few other widely used languages enjoy ample resources for automatic biomedical entity recognition, it is not the case for Bangla, a low-resource language. On that account, in this paper, we introduce BanglaBioMed, a Bangla biomedical named entity (NE) annotated dataset in standard IOB format, the first of its kind, consisting of over 12000 tokens annotated with the biomedical entities. The corpus is created by collecting Bangla text from a list of health articles and then annotated with four distinct types of entities: Anatomy (AN), Chemical and Drugs (CD), Disease and Symptom (DS), and Medical Procedure (MP). We provide the details of the entire data collection and annotation procedure and illustrate various statistics of the created corpus. Our developed corpus is a much-needed addition to the Bangla NLP resource that will facilitate biomedical NLP research in Bangla.</abstract>
+      <url hash="390b4457">2022.bionlp-1.31</url>
+      <bibkey>sazzed-2022-banglabiomed</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.31</doi>
+      <video href="2022.bionlp-1.31.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/cowese">CoWeSe</pwcdataset>
+    </paper>
+    <paper id="32">
+      <title><fixed-case>ICDB</fixed-case>ig<fixed-case>B</fixed-case>ird: A Contextual Embedding Model for <fixed-case>ICD</fixed-case> Code Classification</title>
+      <author><first>George</first><last>Michalopoulos</last></author>
+      <author><first>Michal</first><last>Malyska</last></author>
+      <author><first>Nicola</first><last>Sahar</last></author>
+      <author><first>Alexander</first><last>Wong</last></author>
+      <author><first>Helen</first><last>Chen</last></author>
+      <pages>330–336</pages>
+      <abstract>The International Classification of Diseases (ICD) system is the international standard for classifying diseases and procedures during a healthcare encounter and is widely used for healthcare reporting and management purposes. Assigning correct codes for clinical procedures is important for clinical, operational and financial decision-making in healthcare. Contextual word embedding models have achieved state-of-the-art results in multiple NLP tasks. However, these models have yet to achieve state-of-the-art results in the ICD classification task since one of their main disadvantages is that they can only process documents that contain a small number of tokens which is rarely the case with real patient notes. In this paper, we introduce ICDBigBird a BigBird-based model which can integrate a Graph Convolutional Network (GCN), that takes advantage of the relations between ICD codes in order to create ‘enriched’ representations of their embeddings, with a BigBird contextual model that can process larger documents. Our experiments on a real-world clinical dataset demonstrate the effectiveness of our BigBird-based model on the ICD classification task as it outperforms the previous state-of-the-art models.</abstract>
+      <url hash="7bacff3c">2022.bionlp-1.32</url>
+      <bibkey>michalopoulos-etal-2022-icdbigbird</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.32</doi>
+      <video href="2022.bionlp-1.32.mp4"/>
+    </paper>
+    <paper id="33">
+      <title>Doctor <fixed-case>XA</fixed-case>v<fixed-case>I</fixed-case>er: Explainable Diagnosis on Physician-Patient Dialogues and <fixed-case>XAI</fixed-case> Evaluation</title>
+      <author><first>Hillary</first><last>Ngai</last></author>
+      <author><first>Frank</first><last>Rudzicz</last></author>
+      <pages>337–344</pages>
+      <abstract>We introduce Doctor XAvIer — a BERT-based diagnostic system that extracts relevant clinical data from transcribed patient-doctor dialogues and explains predictions using feature attribution methods. We present a novel performance plot and evaluation metric for feature attribution methods — Feature Attribution Dropping (FAD) curve and its Normalized Area Under the Curve (N-AUC). FAD curve analysis shows that integrated gradients outperforms Shapley values in explaining diagnosis classification. Doctor XAvIer outperforms the baseline with 0.97 F1-score in named entity recognition and symptom pertinence classification and 0.91 F1-score in diagnosis classification.</abstract>
+      <url hash="b92fd07f">2022.bionlp-1.33</url>
+      <bibkey>ngai-rudzicz-2022-doctor</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.33</doi>
+      <video href="2022.bionlp-1.33.mp4"/>
+      <pwccode url="https://github.com/hillary-ngai/doctor_xavier" additional="false">hillary-ngai/doctor_xavier</pwccode>
+    </paper>
+    <paper id="34">
+      <title><fixed-case>DISTANT</fixed-case>-<fixed-case>CTO</fixed-case>: A Zero Cost, Distantly Supervised Approach to Improve Low-Resource Entity Extraction Using Clinical Trials Literature</title>
+      <author><first>Anjani</first><last>Dhrangadhariya</last></author>
+      <author><first>Henning</first><last>Müller</last></author>
+      <pages>345–358</pages>
+      <abstract>PICO recognition is an information extraction task for identifying participant, intervention, comparator, and outcome information from clinical literature. Manually identifying PICO information is the most time-consuming step for conducting systematic reviews (SR), which is already labor-intensive. A lack of diversified and large, annotated corpora restricts innovation and adoption of automated PICO recognition systems. The largest-available PICO entity/span corpus is manually annotated which is too expensive for a majority of the scientific community. To break through the bottleneck, we propose DISTANT-CTO, a novel distantly supervised PICO entity extraction approach using the clinical trials literature, to generate a massive weakly-labeled dataset with more than a million ‘Intervention’ and ‘Comparator’ entity annotations. We train distant NER (named-entity recognition) models using this weakly-labeled dataset and demonstrate that it outperforms even the sophisticated models trained on the manually annotated dataset with a 2% F1 improvement over the Intervention entity of the PICO benchmark and more than 5% improvement when combined with the manually annotated dataset. We investigate the generalizability of our approach and gain an impressive F1 score on another domain-specific PICO benchmark. The approach is not only zero-cost but is also scalable for a constant stream of PICO entity annotations.</abstract>
+      <url hash="046cb715">2022.bionlp-1.34</url>
+      <bibkey>dhrangadhariya-muller-2022-distant</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.34</doi>
+      <video href="2022.bionlp-1.34.mp4"/>
+      <pwccode url="https://github.com/anjani-dhrangadhariya/distant-cto" additional="false">anjani-dhrangadhariya/distant-cto</pwccode>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>E</fixed-case>cho<fixed-case>G</fixed-case>en: Generating Conclusions from Echocardiogram Notes</title>
+      <author><first>Liyan</first><last>Tang</last></author>
+      <author><first>Shravan</first><last>Kooragayalu</last></author>
+      <author><first>Yanshan</first><last>Wang</last></author>
+      <author><first>Ying</first><last>Ding</last></author>
+      <author><first>Greg</first><last>Durrett</last></author>
+      <author><first>Justin F.</first><last>Rousseau</last></author>
+      <author><first>Yifan</first><last>Peng</last></author>
+      <pages>359–368</pages>
+      <abstract>Generating a summary from findings has been recently explored (Zhang et al., 2018, 2020) in note types such as radiology reports that typically have short length. In this work, we focus on echocardiogram notes that is longer and more complex compared to previous note types. We formally define the task of echocardiography conclusion generation (EchoGen) as generating a conclusion given the findings section, with emphasis on key cardiac findings. To promote the development of EchoGen methods, we present a new benchmark, which consists of two datasets collected from two hospitals. We further compare both standard and start-of-the-art methods on this new benchmark, with an emphasis on factual consistency. To accomplish this, we develop a tool to automatically extract concept-attribute tuples from the text. We then propose an evaluation metric, FactComp, to compare concept-attribute tuples between the human reference and generated conclusions. Both automatic and human evaluations show that there is still a significant gap between human-written and machine-generated conclusions on echo reports in terms of factuality and overall quality.</abstract>
+      <url hash="989d85eb">2022.bionlp-1.35</url>
+      <bibkey>tang-etal-2022-echogen</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.35</doi>
+      <video href="2022.bionlp-1.35.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/mimic-iii">MIMIC-III</pwcdataset>
+    </paper>
+    <paper id="36">
+      <title>Quantifying Clinical Outcome Measures in Patients with Epilepsy Using the Electronic Health Record</title>
+      <author><first>Kevin</first><last>Xie</last></author>
+      <author><first>Brian</first><last>Litt</last></author>
+      <author><first>Dan</first><last>Roth</last></author>
+      <author><first>Colin A.</first><last>Ellis</last></author>
+      <pages>369–375</pages>
+      <abstract>A wealth of important clinical information lies untouched in the Electronic Health Record, often in the form of unstructured textual documents. For patients with Epilepsy, such information includes outcome measures like Seizure Frequency and Dates of Last Seizure, key parameters that guide all therapy for these patients. Transformer models have been able to extract such outcome measures from unstructured clinical note text as sentences with human-like accuracy; however, these sentences are not yet usable in a quantitative analysis for large-scale studies. In this study, we developed a pipeline to quantify these outcome measures. We used text summarization models to convert unstructured sentences into specific formats, and then employed rules-based quantifiers to calculate seizure frequencies and dates of last seizure. We demonstrated that our pipeline of models does not excessively propagate errors and we analyzed its mistakes. We anticipate that our methods can be generalized outside of epilepsy to other disorders to drive large-scale clinical research.</abstract>
+      <url hash="25e23e69">2022.bionlp-1.36</url>
+      <bibkey>xie-etal-2022-quantifying</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.36</doi>
+      <video href="2022.bionlp-1.36.mp4"/>
+    </paper>
+    <paper id="37">
+      <title>Comparing Encoder-Only and Encoder-Decoder Transformers for Relation Extraction from Biomedical Texts: An Empirical Study on Ten Benchmark Datasets</title>
+      <author><first>Mourad</first><last>Sarrouti</last></author>
+      <author><first>Carson</first><last>Tao</last></author>
+      <author><first>Yoann</first><last>Mamy Randriamihaja</last></author>
+      <pages>376–382</pages>
+      <abstract>Biomedical relation extraction, aiming to automatically discover high-quality and semantic relations between the entities from free text, is becoming a vital step for automated knowledge discovery. Pretrained language models have achieved impressive performance on various natural language processing tasks, including relation extraction. In this paper, we perform extensive empirical comparisons of encoder-only transformers with the encoder-decoder transformer, specifically T5, on ten public biomedical relation extraction datasets. We study the relation extraction task from four major biomedical tasks, namely chemical-protein relation extraction, disease-protein relation extraction, drug-drug interaction, and protein-protein interaction. We also explore the use of multi-task fine-tuning to investigate the correlation among major biomedical relation extraction tasks. We report performance (micro F-score) using T5, BioBERT and PubMedBERT, demonstrating that T5 and multi-task learning can improve the performance of the biomedical relation extraction task.</abstract>
+      <url hash="79d31c69">2022.bionlp-1.37</url>
+      <bibkey>sarrouti-etal-2022-comparing</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.37</doi>
+      <video href="2022.bionlp-1.37.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/ddi">DDI</pwcdataset>
+    </paper>
+    <paper id="38">
+      <title>Utility Preservation of Clinical Text After De-Identification</title>
+      <author><first>Thomas</first><last>Vakili</last></author>
+      <author><first>Hercules</first><last>Dalianis</last></author>
+      <pages>383–388</pages>
+      <abstract>Electronic health records contain valuable information about symptoms, diagnosis, treatment and outcomes of the treatments of individual patients. However, the records may also contain information that can reveal the identity of the patients. Removing these identifiers - the Protected Health Information (PHI) - can protect the identity of the patient. Automatic de-identification is a process which employs machine learning techniques to detect and remove PHI. However, automatic techniques are imperfect in their precision and introduce noise into the data. This study examines the impact of this noise on the utility of Swedish de-identified clinical data by using human evaluators and by training and testing BERT models. Our results indicate that de-identification does not harm the utility for clinical NLP and that human evaluators are less sensitive to noise from de-identification than expected.</abstract>
+      <url hash="4b033df9">2022.bionlp-1.38</url>
+      <bibkey>vakili-dalianis-2022-utility</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.38</doi>
+      <video href="2022.bionlp-1.38.mp4"/>
+    </paper>
+    <paper id="39">
+      <title>Horses to Zebras: Ontology-Guided Data Augmentation and Synthesis for <fixed-case>ICD</fixed-case>-9 Coding</title>
+      <author><first>Matúš</first><last>Falis</last></author>
+      <author><first>Hang</first><last>Dong</last></author>
+      <author><first>Alexandra</first><last>Birch</last></author>
+      <author><first>Beatrice</first><last>Alex</last></author>
+      <pages>389–401</pages>
+      <abstract>Medical document coding is the process of assigning labels from a structured label space (ontology – e.g., ICD-9) to medical documents. This process is laborious, costly, and error-prone. In recent years, efforts have been made to automate this process with neural models. The label spaces are large (in the order of thousands of labels) and follow a big-head long-tail label distribution, giving rise to few-shot and zero-shot scenarios. Previous efforts tried to address these scenarios within the model, leading to improvements on rare labels, but worse results on frequent ones. We propose data augmentation and synthesis techniques in order to address these scenarios. We further introduce an analysis technique for this setting inspired by confusion matrices. This analysis technique points to the positive impact of data augmentation and synthesis, but also highlights more general issues of confusion within families of codes, and underprediction.</abstract>
+      <url hash="ab353a18">2022.bionlp-1.39</url>
+      <bibkey>falis-etal-2022-horses</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.39</doi>
+      <video href="2022.bionlp-1.39.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/mimic-iii">MIMIC-III</pwcdataset>
+    </paper>
+    <paper id="40">
+      <title>Towards Automatic Curation of Antibiotic Resistance Genes via Statement Extraction from Scientific Papers: A Benchmark Dataset and Models</title>
+      <author><first>Sidhant</first><last>Chandak</last></author>
+      <author><first>Liqing</first><last>Zhang</last></author>
+      <author><first>Connor</first><last>Brown</last></author>
+      <author><first>Lifu</first><last>Huang</last></author>
+      <pages>402–411</pages>
+      <abstract>Antibiotic resistance has become a growing worldwide concern as new resistance mechanisms are emerging and spreading globally, and thus detecting and collecting the cause – Antibiotic Resistance Genes (ARGs), have been more critical than ever. In this work, we aim to automate the curation of ARGs by extracting ARG-related assertive statements from scientific papers. To support the research towards this direction, we build SciARG, a new benchmark dataset containing 2,000 manually annotated statements as the evaluation set and 12,516 silver-standard training statements that are automatically created from scientific papers by a set of rules. To set up the baseline performance on SciARG, we exploit three state-of-the-art neural architectures based on pre-trained language models and prompt tuning, and further ensemble them to attain the highest 77.0% F-score. To the best of our knowledge, we are the first to leverage natural language processing techniques to curate all validated ARGs from scientific papers. Both the code and data are publicly available at https://github.com/VT-NLP/SciARG.</abstract>
+      <url hash="3de7d562">2022.bionlp-1.40</url>
+      <bibkey>chandak-etal-2022-towards</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.40</doi>
+      <video href="2022.bionlp-1.40.mp4"/>
+      <pwccode url="https://github.com/vt-nlp/sciarg" additional="false">vt-nlp/sciarg</pwccode>
+    </paper>
+    <paper id="41">
+      <title>Model Distillation for Faithful Explanations of Medical Code Predictions</title>
+      <author><first>Zach</first><last>Wood-Doughty</last></author>
+      <author><first>Isabel</first><last>Cachola</last></author>
+      <author><first>Mark</first><last>Dredze</last></author>
+      <pages>412–425</pages>
+      <abstract>Machine learning models that offer excellent predictive performance often lack the interpretability necessary to support integrated human machine decision-making. In clinical medicine and other high-risk settings, domain experts may be unwilling to trust model predictions without explanations. Work in explainable AI must balance competing objectives along two different axes: 1) Models should ideally be both accurate and simple. 2) Explanations must balance faithfulness to the model’s decision-making with their plausibility to a domain expert. We propose to use knowledge distillation, or training a student model that mimics the behavior of a trained teacher model, as a technique to generate faithful and plausible explanations. We evaluate our approach on the task of assigning ICD codes to clinical notes to demonstrate that the student model is faithful to the teacher model’s behavior and produces quality natural language explanations.</abstract>
+      <url hash="a9a7a10d">2022.bionlp-1.41</url>
+      <bibkey>wood-doughty-etal-2022-model</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.41</doi>
+      <video href="2022.bionlp-1.41.mp4"/>
+    </paper>
+    <paper id="42">
+      <title>Towards Generalizable Methods for Automating Risk Score Calculation</title>
+      <author><first>Jennifer J</first><last>Liang</last></author>
+      <author><first>Eric</first><last>Lehman</last></author>
+      <author><first>Ananya</first><last>Iyengar</last></author>
+      <author><first>Diwakar</first><last>Mahajan</last></author>
+      <author><first>Preethi</first><last>Raghavan</last></author>
+      <author><first>Cindy Y.</first><last>Chang</last></author>
+      <author><first>Peter</first><last>Szolovits</last></author>
+      <pages>426–431</pages>
+      <abstract>Clinical risk scores enable clinicians to tabulate a set of patient data into simple scores to stratify patients into risk categories. Although risk scores are widely used to inform decision-making at the point-of-care, collecting the information necessary to calculate such scores requires considerable time and effort. Previous studies have focused on specific risk scores and involved manual curation of relevant terms or codes and heuristics for each data element of a risk score. To support more generalizable methods for risk score calculation, we annotate 100 patients in MIMIC-III with elements of CHA2DS2-VASc and PERC scores, and explore using question answering (QA) and off-the-shelf tools. We show that QA models can achieve comparable or better performance for certain risk score elements as compared to heuristic-based methods, and demonstrate the potential for more scalable risk score automation without the need for expert-curated heuristics. Our annotated dataset will be released to the community to encourage efforts in generalizable methods for automating risk scores.</abstract>
+      <url hash="95584e77">2022.bionlp-1.42</url>
+      <bibkey>liang-etal-2022-towards</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.42</doi>
+      <video href="2022.bionlp-1.42.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/mimic-iii">MIMIC-III</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/emrqa">emrQA</pwcdataset>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>D</fixed-case>o<fixed-case>SSIER</fixed-case> at <fixed-case>M</fixed-case>ed<fixed-case>V</fixed-case>id<fixed-case>QA</fixed-case> 2022: Text-based Approaches to Medical Video Answer Localization Problem</title>
+      <author><first>Wojciech</first><last>Kusa</last></author>
+      <author><first>Georgios</first><last>Peikos</last></author>
+      <author><first>Óscar</first><last>Espitia</last></author>
+      <author><first>Allan</first><last>Hanbury</last></author>
+      <author><first>Gabriella</first><last>Pasi</last></author>
+      <pages>432–440</pages>
+      <abstract>This paper describes our contribution to the Answer Localization track of the MedVidQA 2022 Shared Task. We propose two answer localization approaches that use only textual information extracted from the video. In particular, our approaches exploit the text extracted from the video’s transcripts along with the text displayed in the video’s frames to create a set of features. Having created a set of features that represents a video’s textual information, we employ four different models to measure the similarity between a video’s segment and a corresponding question. Then, we employ two different methods to obtain the start and end times of the identified answer. One of them is based on a random forest regressor, whereas the other one uses an unsupervised peak detection model to detect the answer’s start time. Our findings suggest that for this task, leveraging only text-related features (transmitted either verbally or visually) and using a small amount of training data, lead to significant improvements over the benchmark Video Span Localization model that is based on deep neural networks.</abstract>
+      <url hash="262e40e5">2022.bionlp-1.43</url>
+      <bibkey>kusa-etal-2022-dossier</bibkey>
+      <doi>10.18653/v1/2022.bionlp-1.43</doi>
+      <pwccode url="https://github.com/projectdossier/medvid2022" additional="false">projectdossier/medvid2022</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/medvidqa">MedVidQA</pwcdataset>
+    </paper>
+  </volume>
+</collection>

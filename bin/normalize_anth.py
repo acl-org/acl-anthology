@@ -34,7 +34,6 @@ Bugs:
 
 import lxml.etree as etree
 import re
-import difflib
 import logging
 import unicodedata
 import html
@@ -191,7 +190,6 @@ def normalize(oldnode, informat):
 
 
 if __name__ == "__main__":
-    import sys
     import argparse
 
     ap = argparse.ArgumentParser(description="Convert Anthology XML to standard format.")

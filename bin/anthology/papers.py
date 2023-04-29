@@ -15,7 +15,7 @@
 # limitations under the License.
 
 from functools import cached_property
-import iso639
+import langcodes
 import logging as log
 
 from .utils import (
@@ -23,9 +23,7 @@ from .utils import (
     parse_element,
     infer_url,
     infer_attachment_url,
-    remove_extra_whitespace,
     is_journal,
-    is_volume_id,
 )
 from . import data
 
@@ -39,15 +37,14 @@ from .formatter import (
 
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter=None, venue_index=None):
+    def __init__(self, paper_id, ingest_date, volume, formatter=None):
         self.parent_volume = volume
         if formatter is None:
             formatter = MarkupFormatter()
         self.formatter = formatter
-        self.venue_index = venue_index
         self._id = paper_id
         self._ingest_date = ingest_date
-        self._bibkey = False
+        self._bibkey = None
         self._citeproc_json = None
         self.is_volume = paper_id == "0"
 
@@ -86,6 +83,16 @@ class Paper:
         if url is not None:
             return infer_url(url, template=data.PDF_LOCATION_TEMPLATE)
         return None
+
+    @cached_property
+    def videos(self):
+        videos = self.attrib.get("video", None)
+        if videos:
+            return [
+                infer_url(video, template=data.VIDEO_LOCATION_TEMPLATE)
+                for video in videos
+            ]
+        return []
 
     def _parse_revision_or_errata(self, tag):
         for item in self.attrib.get(tag, []):
@@ -239,10 +246,10 @@ class Paper:
     @property
     def bibtype(self):
         """Return the BibTeX entry type for this paper."""
-        if is_journal(self.full_id):
-            return "article"
-        elif self.is_volume:
+        if self.is_volume:
             return "proceedings"
+        elif is_journal(self.full_id):
+            return "article"
         else:
             return "inproceedings"
 
@@ -283,7 +290,7 @@ class Paper:
 
     @property
     def langcode(self):
-        """Returns the ISO-639 language code, if present"""
+        """Returns the BCP47 language code, if present"""
         return self.attrib.get("language", None)
 
     @property
@@ -291,7 +298,7 @@ class Paper:
         """Returns the language name, if present"""
         lang = None
         if self.langcode:
-            lang = iso639.languages.get(part3=self.langcode).name
+            lang = langcodes.Language.get(self.langcode).display_name()
         return lang
 
     def get(self, name, default=None):
@@ -458,7 +465,7 @@ class Paper:
                     authors = f"{people[0].last} et al."
 
         year = self.get("year")
-        venue = self.venue_index.get_main_venue(self.parent_volume_id)
+        venue = self.get_venue_acronym()
         url = self.url
 
         # hard-coded exception for old-style W-* volumes without an annotated
@@ -466,6 +473,18 @@ class Paper:
         if venue != "WS":
             return f"[{title}]({url}) ({authors}, {venue} {year})"
         return f"[{title}]({url}) ({authors}, {year})"
+
+    def get_venue_acronym(self):
+        """
+        Returns the venue acronym for the paper (e.g., NLP4TM).
+        Joint events will have more than one venue and will be hyphenated (e.g., ACL-IJCNLP).
+        """
+        venue_slugs = self.parent_volume.get_venues()
+        venues = [
+            self.parent_volume.venue_index.get_acronym_by_slug(slug)
+            for slug in venue_slugs
+        ]
+        return "-".join(venues)
 
     def as_dict(self):
         value = self.attrib.copy()
@@ -483,6 +502,8 @@ class Paper:
             value["revision"] = self.revisions
         if self.errata:
             value["erratum"] = self.errata
+        if self.videos:
+            value["video"] = self.videos
         if self.attachments:
             value["attachment"] = self.attachments
         value["thumbnail"] = self.thumbnail

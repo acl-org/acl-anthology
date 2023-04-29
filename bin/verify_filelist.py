@@ -38,7 +38,7 @@ import logging as log
 import os
 from urllib.parse import urlparse
 
-from anthology.utils import is_newstyle_id, build_anthology_id, SeverityTracker
+from anthology.utils import SeverityTracker
 
 
 def get_expected_path(filetype, filename, collection_id):

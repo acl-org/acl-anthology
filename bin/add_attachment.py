@@ -34,7 +34,6 @@ import sys
 import tempfile
 
 from anthology.utils import (
-    build_anthology_id,
     deconstruct_anthology_id,
     indent,
     compute_hash,
@@ -42,7 +41,6 @@ from anthology.utils import (
 
 import lxml.etree as ET
 import urllib.request
-from datetime import datetime
 
 ALLOWED_TYPES = ["pdf", "pptx", "zip"]
 ATTACHMENT_TYPES = "Poster Presentation Note Software Supplementary Dataset".split()

@@ -28,17 +28,14 @@ Options:
 """
 
 from docopt import docopt
-from lxml import etree
 from tqdm import tqdm
 import gzip
 import logging as log
-import io
 import os
 
 from anthology import Anthology
 from anthology.utils import SeverityTracker, deconstruct_anthology_id, infer_year
 from create_hugo_pages import check_directory
-from operator import itemgetter
 
 
 def volume_sorter(volume_tuple):
@@ -52,8 +49,14 @@ def volume_sorter(volume_tuple):
     return year, volume_id
 
 
-def create_bibtex(anthology, trgdir, clean=False):
-    """Creates .bib files for all papers."""
+def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
+    """Creates .bib files for all papers.
+
+    :param anthology: The Anthology object.
+    :param trgdir: The target directory to write to
+    :param limit: If nonzero, only generate {limit} entries per volume
+    :param clean: Clean the directory first
+    """
     if not check_directory("{}/papers".format(trgdir), clean=clean):
         return
     if not check_directory("{}/volumes".format(trgdir), clean=clean):
@@ -74,7 +77,10 @@ def create_bibtex(anthology, trgdir, clean=False):
             if not os.path.exists(volume_dir):
                 os.makedirs(volume_dir)
             with open("{}/volumes/{}.bib".format(trgdir, volume_id), "w") as file_volume:
-                for paper in volume:
+                for i, paper in enumerate(volume, 1):
+                    if limit and i > limit:
+                        break
+
                     with open(
                         "{}/{}.bib".format(volume_dir, paper.full_id), "w"
                     ) as file_paper:
@@ -105,8 +111,12 @@ if __name__ == "__main__":
     tracker = SeverityTracker()
     log.getLogger().addHandler(tracker)
 
+    # If NOBIB is set, generate only three bibs per volume
+    limit = 0 if os.environ.get("NOBIB", "false") == "false" else 3
+    log.info(f"NOBIB=true, generating only {limit} BibTEX files per volume")
+
     anthology = Anthology(importdir=args["--importdir"], fast_load=True)
-    create_bibtex(anthology, args["--exportdir"], clean=args["--clean"])
+    create_bibtex(anthology, args["--exportdir"], limit=limit, clean=args["--clean"])
 
     if tracker.highest >= log.ERROR:
         exit(1)

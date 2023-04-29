@@ -1,0 +1,300 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2016.iwslt">
+  <volume id="1" ingest-date="2022-02-26">
+    <meta>
+      <booktitle>Proceedings of the 13th International Conference on Spoken Language Translation</booktitle>
+      <publisher>International Workshop on Spoken Language Translation</publisher>
+      <address>Seattle, Washington D.C</address>
+      <month>December 8-9</month>
+      <year>2016</year>
+      <editor><first>Mauro</first><last>Cettolo</last></editor>
+      <editor><first>Jan</first><last>Niehues</last></editor>
+      <editor><first>Sebastian</first><last>Stüker</last></editor>
+      <editor><first>Luisa</first><last>Bentivogli</last></editor>
+      <editor><first>Rolando</first><last>Cattoni</last></editor>
+      <editor><first>Marcello</first><last>Federico</last></editor>
+      <venue>iwslt</venue>
+    </meta>
+    <paper id="1">
+      <title>The <fixed-case>IWSLT</fixed-case> 2016 Evaluation Campaign</title>
+      <author><first>Mauro</first><last>Cettolo</last></author>
+      <author><first>Jan</first><last>Niehues</last></author>
+      <author><first>Sebastian</first><last>Stüker</last></author>
+      <author><first>Luisa</first><last>Bentivogli</last></author>
+      <author><first>Rolando</first><last>Cattoni</last></author>
+      <author><first>Marcello</first><last>Federico</last></author>
+      <abstract>The IWSLT 2016 Evaluation Campaign featured two tasks: the translation of talks and the translation of video conference conversations. While the first task extends previously offered tasks with talks from a different source, the second task is completely new. For both tasks, three tracks were organised: automatic speech recognition (ASR), spoken language translation (SLT), and machine translation (MT). Main translation directions that were offered are English to/from German and English to French. Additionally, the MT track included English to/from Arabic and Czech, as well as French to English. We received this year run submissions from 11 research labs. All runs were evaluated with objective metrics, while submissions for two of the MT talk tasks were also evaluated with human post-editing. Results of the human evaluation show improvements over the best submissions of last year.</abstract>
+      <url hash="ac7a4b57">2016.iwslt-1.1</url>
+      <bibkey>cettolo-etal-2016-iwslt</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Integrating Encyclopedic Knowledge into Neural Language Models</title>
+      <author><first>Yang</first><last>Zhang</last></author>
+      <author><first>Jan</first><last>Niehues</last></author>
+      <author><first>Alexander</first><last>Waibel</last></author>
+      <abstract>Neural models have recently shown big improvements in the performance of phrase-based machine translation. Recurrent language models, in particular, have been a great success due to their ability to model arbitrary long context. In this work, we integrate global semantic information extracted from large encyclopedic sources into neural network language models. We integrate semantic word classes extracted from Wikipedia and sentence level topic information into a recurrent neural network-based language model. The new resulting models exhibit great potential in alleviating data sparsity problems with the additional knowledge provided. This approach of integrating global information is not restricted to language modeling but can also be easily applied to any model that profits from context or further data resources, e.g. neural machine translation. Using this model has improved rescoring quality of a state-of-the-art phrase-based translation system by 0.84 BLEU points. We performed experiments on two language pairs.</abstract>
+      <url hash="6e990eb8">2016.iwslt-1.2</url>
+      <bibkey>zhang-etal-2016-integrating</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Factored Neural Machine Translation Architectures</title>
+      <author><first>Mercedes</first><last>García-Martínez</last></author>
+      <author><first>Loïc</first><last>Barrault</last></author>
+      <author><first>Fethi</first><last>Bougares</last></author>
+      <abstract>In this paper we investigate the potential of the neural machine translation (NMT) when taking into consideration the linguistic aspect of target language. From this standpoint, the NMT approach with attention mechanism [1] is extended in order to produce several linguistically derived outputs. We train our model to simultaneously output the lemma and its corresponding factors (e.g. part-of-speech, gender, number). The word level translation is built with a mapping function using a priori linguistic information. Compared to the standard NMT system, factored architecture increases significantly the vocabulary coverage while decreasing the number of unknown words. With its richer architecture, the Factored NMT approach allows us to implement several training setup that will be discussed in detail along this paper. On the IWSLT’15 English-to-French task, FNMT model outperforms NMT model in terms of BLEU score. A qualitative analysis of the output on a set of test sentences shows the effectiveness of the FNMT model.</abstract>
+      <url hash="1f86c74a">2016.iwslt-1.3</url>
+      <bibkey>garcia-martinez-etal-2016-factored</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Audio Segmentation for Robust Real-Time Speech Recognition Based on Neural Networks</title>
+      <author><first>Micha</first><last>Wetzel</last></author>
+      <author><first>Matthias</first><last>Sperber</last></author>
+      <author><first>Alexander</first><last>Waibel</last></author>
+      <abstract>Speech that contains multimedia content can pose a serious challenge for real-time automatic speech recognition (ASR) for two reasons: (1) The ASR produces meaningless output, hurting the readability of the transcript. (2) The search space of the ASR is blown up when multimedia content is encountered, resulting in large delays that compromise real-time requirements. This paper introduces a segmenter that aims to remove these problems by detecting music and noise segments in real-time and replacing them with silence. We propose a two step approach, consisting of frame classification and smoothing. First, a classifier detects speech and multimedia on the frame level. In the second step the smoothing algorithm considers the temporal context to prevent rapid class fluctuations. We investigate in frame classification and smoothing settings to obtain an appealing accuracy-latency-tradeoff. The proposed segmenter yields increases the transcript quality of an ASR system by removing on average 39 % of the errors caused by non-speech in the audio stream, while maintaining a real-time applicable delay of 270 milliseconds.</abstract>
+      <url hash="506aa086">2016.iwslt-1.4</url>
+      <bibkey>wetzel-etal-2016-audio</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/musan">MUSAN</pwcdataset>
+    </paper>
+    <paper id="5">
+      <title>Is Neural Machine Translation Ready for Deployment? A Case Study on 30 Translation Directions</title>
+      <author><first>Marcin</first><last>Junczys-Dowmunt</last></author>
+      <author><first>Tomasz</first><last>Dwojak</last></author>
+      <author><first>Hieu</first><last>Hoang</last></author>
+      <abstract>In this paper we provide the largest published comparison of translation quality for phrase-based SMT and neural machine translation across 30 translation directions. For ten directions we also include hierarchical phrase-based MT. Experiments are performed for the recently published United Nations Parallel Corpus v1.0 and its large six-way sentence-aligned subcorpus. In the second part of the paper we investigate aspects of translation speed, introducing AmuNMT, our efficient neural machine translation decoder. We demonstrate that current neural machine translation could already be used for in-production systems when comparing words-persecond ratios.</abstract>
+      <url hash="c48f47b8">2016.iwslt-1.5</url>
+      <bibkey>junczys-dowmunt-etal-2016-neural</bibkey>
+      <pwccode url="" additional="true"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/united-nations-parallel-corpus">United Nations Parallel Corpus</pwcdataset>
+    </paper>
+    <paper id="6">
+      <title>Toward Multilingual Neural Machine Translation with Universal Encoder and Decoder</title>
+      <author><first>Thanh-Le</first><last>Ha</last></author>
+      <author><first>Jan</first><last>Niehues</last></author>
+      <author><first>Alex</first><last>Waibel</last></author>
+      <abstract>In this paper, we present our first attempts in building a multilingual Neural Machine Translation framework under a unified approach in which the information shared among languages can be helpful in the translation of individual language pairs. We are then able to employ attention-based Neural Machine Translation for many-to-many multilingual translation tasks. Our approach does not require any special treatment on the network architecture and it allows us to learn minimal number of free parameters in a standard way of training. Our approach has shown its effectiveness in an under-resourced translation scenario with considerable improvements up to 2.6 BLEU points. In addition, we point out a novel way to make use of monolingual data with Neural Machine Translation using the same approach with a 3.15-BLEU-score gain in IWSLT’16 English→German translation task.</abstract>
+      <url hash="01ea81e9">2016.iwslt-1.6</url>
+      <bibkey>ha-etal-2016-toward</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Two-Step <fixed-case>MT</fixed-case>: Predicting Target Morphology</title>
+      <author><first>Franck</first><last>Burlot</last></author>
+      <author><first>Elena</first><last>Knyazeva</last></author>
+      <author><first>Thomas</first><last>Lavergne</last></author>
+      <author><first>François</first><last>Yvon</last></author>
+      <abstract>This paper describes a two-step machine translation system that addresses the issue of translating into a morphologically rich language (English to Czech), by performing separately the translation and the generation of target morphology. The first step consists in translating from English into a normalized version of Czech, where some morphological information has been removed. The second step retrieves this information and re-inflects the normalized output, turning it into fully inflected Czech. We introduce different setups for the second step and evaluate the quality of their predictions over different MT systems trained on different amounts of parallel and monolingual data and report ways to adapt to different data sizes, which improves the translation in low-resource conditions, as well as when large training data is available.</abstract>
+      <url hash="a2384eac">2016.iwslt-1.7</url>
+      <bibkey>burlot-etal-2016-two</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Investigating Cross-lingual Multi-level Adaptive Networks: The Importance of the Correlation of Source and Target Languages</title>
+      <author><first>Alexandros</first><last>Lazaridis</last></author>
+      <author><first>Ivan</first><last>Himawan</last></author>
+      <author><first>Petr</first><last>Motlicek</last></author>
+      <author><first>Iosif</first><last>Mporas</last></author>
+      <author><first>Philip N.</first><last>Garner</last></author>
+      <abstract>The multi-level adaptive networks (MLAN) technique is a cross-lingual adaptation framework where a bottleneck (BN) layer in a deep neural network (DNN) trained in a source language is used for producing BN features to be exploited in a second DNN in a target language. We investigate how the correlation (in the sense of phonetic similarity) of the source and target languages and the amount of data of the source language affect the efficiency of the MLAN schemes. We experiment with three different scenarios using, i) French, as a source language uncorrelated to the target language, ii) Ukrainian, as a source language correlated to the target one and finally iii) English as a source language uncorrelated to the target language using a relatively large amount of data in respect to the other two scenarios. In all cases Russian is used as target language. GLOBALPHONE data is used, except for English, where a mixture of LIBRISPEECH, TEDLIUM and AMIDA is available. The results have shown that both of these two factors are important for the MLAN schemes. Specifically, on the one hand, when a modest amount of data from the source language is used, the correlation of the source and target languages is very important. On the other hand, the correlation of the two languages seems to be less important when a relatively large amount of data, from the source language, is used. The best performance in word error rate (WER), was achieved when the English language was used as the source one in the multi-task MLAN scheme, achieving a relative improvement of 9.4% in respect to the baseline DNN model.</abstract>
+      <url hash="30f93f67">2016.iwslt-1.8</url>
+      <bibkey>lazaridis-etal-2016-investigating</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
+    </paper>
+    <paper id="9">
+      <title>Towards Improving Low-Resource Speech Recognition Using Articulatory and Language Features</title>
+      <author><first>Markus</first><last>Müller</last></author>
+      <author><first>Sebastian</first><last>Stüker</last></author>
+      <author><first>Alex</first><last>Waibel</last></author>
+      <abstract>In an increasingly globalized world, there is a rising demand for speech recognition systems. Systems for languages like English, German or French do achieve a decent performance, but there exists a long tail of languages for which such systems do not yet exist. State-of-the-art speech recognition systems feature Deep Neural Networks (DNNs). Being a data driven method and therefore highly dependent on sufficient training data, the lack of resources directly affects the recognition performance. There exist multiple techniques to deal with such resource constraint conditions, one approach is the use of additional data from other languages. In the past, is was demonstrated that multilingually trained systems benefit from adding language feature vectors (LFVs) to the input features, similar to i-Vectors. In this work, we extend this approach by the addition of articulatory features (AFs). We show that AFs also benefit from LFVs and that multilingual system setups benefit from adding both AFs and LFVs. Pretending English to be a low-resource language, we restricted ourselves to use only 10h of English acoustic training data. For system training, we use additional data from French, German and Turkish. By using a combination of AFs and LFVs, we were able to decrease the WER from 18.1% to 17.3% after system combination in our setup using a multilingual phone set.</abstract>
+      <url hash="32be4ac6">2016.iwslt-1.9</url>
+      <bibkey>muller-etal-2016-towards</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Multilingual Disfluency Removal using <fixed-case>NMT</fixed-case></title>
+      <author><first>Eunah</first><last>Cho</last></author>
+      <author><first>Jan</first><last>Niehues</last></author>
+      <author><first>Thanh-Le</first><last>Ha</last></author>
+      <author><first>Alex</first><last>Waibel</last></author>
+      <abstract>In this paper, we investigate a multilingual approach for speech disfluency removal. A major challenge of this task comes from the costly nature of disfluency annotation. Motivated by the fact that speech disfluencies are commonly observed throughout different languages, we investigate the potential of multilingual disfluency modeling. We suggest that learning a joint representation of the disfluencies in multiple languages can be a promising solution to the data sparsity issue. In this work, we utilize a multilingual neural machine translation system, where a disfluent speech transcript is directly transformed into a cleaned up text. Disfluency removal experiments on English and German speech transcripts show that multilingual disfluency modeling outperforms the single language systems. In a following experiment, we show that the improvements are also observed in a downstream application using the disfluency-removed transcripts as input.</abstract>
+      <url hash="79d08aed">2016.iwslt-1.10</url>
+      <bibkey>cho-etal-2016-multilingual</bibkey>
+    </paper>
+    <paper id="11">
+      <title>A Neural Verb Lexicon Model with Source-side Syntactic Context for String-to-Tree Machine Translation</title>
+      <author><first>Maria</first><last>Nădejde</last></author>
+      <author><first>Alexandra</first><last>Birch</last></author>
+      <author><first>Philipp</first><last>Koehn</last></author>
+      <abstract>String-to-tree MT systems translate verbs without lexical or syntactic context on the source side and with limited target-side context. The lack of context is one reason why verb translation recall is as low as 45.5%. We propose a verb lexicon model trained with a feed-forward neural network that predicts the target verb conditioned on a wide source-side context. We show that a syntactic context extracted from the dependency parse of the source sentence improves the model’s accuracy by 1.5% over a baseline trained on a window context. When used as an extra feature for re-ranking the n-best list produced by the string-to-tree MT system, the verb lexicon model improves verb translation recall by more than 7%.</abstract>
+      <url hash="3772b094">2016.iwslt-1.11</url>
+      <bibkey>nadejde-etal-2016-neural</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>M</fixed-case>icrosoft Speech Language Translation (<fixed-case>MSLT</fixed-case>) Corpus: The <fixed-case>IWSLT</fixed-case> 2016 release for <fixed-case>E</fixed-case>nglish, <fixed-case>F</fixed-case>rench and <fixed-case>G</fixed-case>erman</title>
+      <author><first>Christian</first><last>Federmann</last></author>
+      <author><first>William D.</first><last>Lewis</last></author>
+      <abstract>We describe the Microsoft Speech Language Translation (MSLT) corpus, which was created in order to evaluate end-to-end conversational speech translation quality. The corpus was created from actual conversations over Skype, and we provide details on the recording setup and the different layers of associated text data. The corpus release includes Test and Dev sets with reference transcripts for speech recognition. Additionally, cleaned up transcripts and reference translations are available for evaluation of machine translation quality. The IWSLT 2016 release described here includes the source audio, raw transcripts, cleaned up transcripts, and translations to or from English for both French and German.</abstract>
+      <url hash="66917ce2">2016.iwslt-1.12</url>
+      <bibkey>federmann-lewis-2016-microsoft</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Joint <fixed-case>ASR</fixed-case> and <fixed-case>MT</fixed-case> Features for Quality Estimation in Spoken Language Translation</title>
+      <author><first>Ngoc-Tien</first><last>Le</last></author>
+      <author><first>Benjamin</first><last>Lecouteux</last></author>
+      <author><first>Laurent</first><last>Besacier</last></author>
+      <abstract>This paper aims to unravel the automatic quality assessment for spoken language translation (SLT). More precisely, we propose several effective estimators based on our estimation of transcription (ASR) quality, translation (MT) quality, or both (combined and joint features using ASR and MT information). Our experiments provide an important opportunity to advance the understanding of the prediction quality of words in a SLT output that were revealed by MT and ASR features. These results could be applied to interactive speech translation or computer-assisted translation of speeches and lectures. For reproducible experiments, the code allowing to call our WCE-LIG application and the corpora used are made available to the research community.</abstract>
+      <url hash="098bcb93">2016.iwslt-1.13</url>
+      <bibkey>le-etal-2016-joint</bibkey>
+    </paper>
+    <paper id="14">
+      <title>The <fixed-case>IOIT</fixed-case> <fixed-case>E</fixed-case>nglish <fixed-case>ASR</fixed-case> system for <fixed-case>IWSLT</fixed-case> 2016</title>
+      <author><first>Van Huy</first><last>Nguyen</last></author>
+      <author><first>Trung-Nghia</first><last>Phung</last></author>
+      <author><first>Tat Thang</first><last>Vu</last></author>
+      <author><first>Chi Mai</first><last>Luong</last></author>
+      <abstract>This paper describes the speech recognition system of IOIT for IWSLT 2016. Four single DNN-based systems were developed to produce the 1st-pass lattices for the test sets using a baseline language model. The 2nd-pass lattices were further obtained by applying N-best list rescoring on topic adapted language models which were constructed from closed topic sentences by applying a text selection method. The final transcriptions of test sets were finally produced by combining the rescored results. On the 2013 evaluation set, we are able to reduce the word error rate of 1.62% absolute. On the 2014, provided as a development set, the word error rate of our transcription is 11.3%.</abstract>
+      <url hash="4ce7c141">2016.iwslt-1.14</url>
+      <bibkey>nguyen-etal-2016-ioit</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>FBK</fixed-case>’s Neural Machine Translation Systems for <fixed-case>IWSLT</fixed-case> 2016</title>
+      <author><first>M. Amin</first><last>Farajian</last></author>
+      <author><first>Rajen</first><last>Chatterjee</last></author>
+      <author><first>Costanza</first><last>Conforti</last></author>
+      <author><first>Shahab</first><last>Jalalvand</last></author>
+      <author><first>Vevake</first><last>Balaraman</last></author>
+      <author><first>Mattia A.</first><last>Di Gangi</last></author>
+      <author><first>Duygu</first><last>Ataman</last></author>
+      <author><first>Marco</first><last>Turchi</last></author>
+      <author><first>Matteo</first><last>Negri</last></author>
+      <author><first>Marcello</first><last>Federico</last></author>
+      <abstract>In this paper, we describe FBK’s neural machine translation (NMT) systems submitted at the International Workshop on Spoken Language Translation (IWSLT) 2016. The systems are based on the state-of-the-art NMT architecture that is equipped with a bi-directional encoder and an attention mechanism in the decoder. They leverage linguistic information such as lemmas and part-of-speech tags of the source words in the form of additional factors along with the words. We compare performances of word and subword NMT systems along with different optimizers. Further, we explore different ensemble techniques to leverage multiple models within the same and across different networks. Several reranking methods are also explored. Our submissions cover all directions of the MSLT task, as well as en-{de, fr} and {de, fr}-en directions of TED. Compared to previously published best results on the TED 2014 test set, our models achieve comparable results on en-de and surpass them on en-fr (+2 BLEU) and fr-en (+7.7 BLEU) language pairs.</abstract>
+      <url hash="b1c7f09d">2016.iwslt-1.15</url>
+      <bibkey>farajian-etal-2016-fbks</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Adaptation and Combination of <fixed-case>NMT</fixed-case> Systems: The <fixed-case>KIT</fixed-case> Translation Systems for <fixed-case>IWSLT</fixed-case> 2016</title>
+      <author><first>Eunah</first><last>Cho</last></author>
+      <author><first>Jan</first><last>Niehues</last></author>
+      <author><first>Thanh-Le</first><last>Ha</last></author>
+      <author><first>Matthias</first><last>Sperber</last></author>
+      <author><first>Mohammed</first><last>Mediani</last></author>
+      <author><first>Alex</first><last>Waibel</last></author>
+      <abstract>In this paper, we present the KIT systems of the IWSLT 2016 machine translation evaluation. We participated in the machine translation (MT) task as well as the spoken language language translation (SLT) track for English→German and German→English translation. We use attentional neural machine translation (NMT) for all our submissions. We investigated different methods to adapt the system using small in-domain data as well as methods to train the system on these small corpora. In addition, we investigated methods to combine NMT systems that encode the input as well as the output differently. We combine systems using different vocabularies, reverse translation systems, multi-source translation system. In addition, we used pre-translation systems that facilitate phrase-based machine translation systems. Results show that applying domain adaptation and ensemble technique brings a crucial improvement of 3-4 BLEU points over the baseline system. In addition, system combination using n-best lists yields further 1-2 BLEU points.</abstract>
+      <url hash="9bca9a75">2016.iwslt-1.16</url>
+      <bibkey>cho-etal-2016-adaptation</bibkey>
+    </paper>
+    <paper id="17">
+      <title>The <fixed-case>RWTH</fixed-case> <fixed-case>A</fixed-case>achen <fixed-case>LVCSR</fixed-case> system for <fixed-case>IWSLT</fixed-case>-2016 <fixed-case>G</fixed-case>erman Skype conversation recognition task</title>
+      <author><first>Wilfried</first><last>Michel</last></author>
+      <author><first>Zoltán</first><last>Tüske</last></author>
+      <author><first>M. Ali Basha</first><last>Shaik</last></author>
+      <author><first>Ralf</first><last>Schlüter</last></author>
+      <author><first>Hermann</first><last>Ney</last></author>
+      <abstract>In this paper the RWTH large vocabulary continuous speech recognition (LVCSR) systems developed for the IWSLT-2016 evaluation campaign are described. This evaluation campaign focuses on transcribing spontaneous speech from Skype recordings. State-of-the-art bidirectional long short-term memory (LSTM) and deep, multilingually boosted feed-forward neural network (FFNN) acoustic models are trained an narrow and broadband features. An open vocabulary approach using subword units is also considered. LSTM and count-based full word and hybrid backoff language modeling methods are used to model the morphological richness of the German language. All these approaches are combined using confusion network combination (CNC) to yield a competitive WER.</abstract>
+      <url hash="4f48eb02">2016.iwslt-1.17</url>
+      <bibkey>michel-etal-2016-rwth</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>QCRI</fixed-case>’s Machine Translation Systems for <fixed-case>IWSLT</fixed-case>’16</title>
+      <author><first>Nadir</first><last>Durrani</last></author>
+      <author><first>Fahim</first><last>Dalvi</last></author>
+      <author><first>Hassan</first><last>Sajjad</last></author>
+      <author><first>Stephan</first><last>Vogel</last></author>
+      <abstract>This paper describes QCRI’s machine translation systems for the IWSLT 2016 evaluation campaign. We participated in the Arabic→English and English→Arabic tracks. We built both Phrase-based and Neural machine translation models, in an effort to probe whether the newly emerged NMT framework surpasses the traditional phrase-based systems in Arabic-English language pairs. We trained a very strong phrase-based system including, a big language model, the Operation Sequence Model, Neural Network Joint Model and Class-based models along with different domain adaptation techniques such as MML filtering, mixture modeling and using fine tuning over NNJM model. However, a Neural MT system, trained by stacking data from different genres through fine-tuning, and applying ensemble over 8 models, beat our very strong phrase-based system by a significant 2 BLEU points margin in Arabic→English direction. We did not obtain similar gains in the other direction but were still able to outperform the phrase-based system. We also applied system combination on phrase-based and NMT outputs.</abstract>
+      <url hash="513281b9">2016.iwslt-1.18</url>
+      <bibkey>durrani-etal-2016-qcris</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>LIMSI</fixed-case>@<fixed-case>IWSLT</fixed-case>’16: <fixed-case>MT</fixed-case> Track</title>
+      <author><first>Franck</first><last>Burlot</last></author>
+      <author><first>Matthieu</first><last>Labeau</last></author>
+      <author><first>Elena</first><last>Knyazeva</last></author>
+      <author><first>Thomas</first><last>Lavergne</last></author>
+      <author><first>Alexandre</first><last>Allauzen</last></author>
+      <author><first>François</first><last>Yvon</last></author>
+      <abstract>This paper describes LIMSI’s submission to the MT track of IWSLT 2016. We report results for translation from English into Czech. Our submission is an attempt to address the difficulties of translating into a morphologically rich language by paying special attention to the morphology generation on target side. To this end, we propose two ways of improving the morphological fluency of the output: 1. by performing translation and inflection of the target language in two separate steps, and 2. by using a neural language model with characted-based word representation. We finally present the combination of both methods used for our primary system submission.</abstract>
+      <url hash="1203d150">2016.iwslt-1.19</url>
+      <bibkey>burlot-etal-2016-limsi</bibkey>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>RACAI</fixed-case> Entry for the <fixed-case>IWSLT</fixed-case> 2016 Shared Task</title>
+      <author><first>Sonia</first><last>Pipa</last></author>
+      <author><first>Alin Florentin</first><last>Vasile</last></author>
+      <author><first>Ioana</first><last>Ionașcu</last></author>
+      <author><first>Stefan Daniel</first><last>Dumitrescu</last></author>
+      <author><first>Tiberiu</first><last>Boros</last></author>
+      <abstract>Spoken Language Translation is currently a hot topic in the research community. This task is very complex, involving automatic speech recognition, text-normalization and machine translation. We present our speech translation system, which was compared against the other systems participating in the IWSLT 2016 Shared Task. We introduce our ASR system for English and our MT system for English to French (En-Fr) and English to German (En-De) language pairs. Additionally, for the English to French Challenge we introduce a methodology that enables the enhancement of statistical phrase-based translation with translation equivalents deduced from monolingual corpora using neural word embedding.</abstract>
+      <url hash="99460abc">2016.iwslt-1.20</url>
+      <bibkey>pipa-etal-2016-racai</bibkey>
+    </paper>
+    <paper id="21">
+      <title>The <fixed-case>MITLL</fixed-case>-<fixed-case>AFRL</fixed-case> <fixed-case>IWSLT</fixed-case> 2016 Systems</title>
+      <author><first>Michaeel</first><last>Kazi</last></author>
+      <author><first>Elizabeth</first><last>Salesky</last></author>
+      <author><first>Brian</first><last>Thompson</last></author>
+      <author><first>Jonathan</first><last>Taylor</last></author>
+      <author><first>Jeremy</first><last>Gwinnup</last></author>
+      <author><first>Timothy</first><last>Anderson</last></author>
+      <author><first>Grant</first><last>Erdmann</last></author>
+      <author><first>Eric</first><last>Hansen</last></author>
+      <author><first>Brian</first><last>Ore</last></author>
+      <author><first>Katherine</first><last>Young</last></author>
+      <author><first>Michael</first><last>Hutt</last></author>
+      <abstract>This report summarizes the MITLL-AFRL MT and ASR systems and the experiments run during the 2016 IWSLT evaluation campaign. Building on lessons learned from previous years’ results, we refine our ASR systems and examine the explosion of neural machine translation systems and techniques developed in the past year. We experiment with a variety of phrase-based, hierarchical and neural-network approaches in machine translation and utilize system combination to create a composite system with the best characteristics of all attempted MT approaches.</abstract>
+      <url hash="5c0a7eeb">2016.iwslt-1.21</url>
+      <bibkey>kazi-etal-2016-mitll</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wmt-2016">WMT 2016</pwcdataset>
+    </paper>
+    <paper id="22">
+      <title>The <fixed-case>RWTH</fixed-case> <fixed-case>A</fixed-case>achen Machine Translation System for <fixed-case>IWSLT</fixed-case> 2016</title>
+      <author><first>Jan-Thorsten</first><last>Peter</last></author>
+      <author><first>Andreas</first><last>Guta</last></author>
+      <author><first>Nick</first><last>Rossenbach</last></author>
+      <author><first>Miguel</first><last>Graça</last></author>
+      <author><first>Hermann</first><last>Ney</last></author>
+      <abstract>This work describes the statistical machine translation (SMT) systems of RWTH Aachen University developed for the evaluation campaign of International Workshop on Spoken Language Translation (IWSLT) 2016. We have participated in the MT track for the German→English language pair employing our state-of-the-art phrase-based system, neural machine translation implementation and our joint translation and reordering decoder. Furthermore, we have applied feed-forward and recurrent neural language and translation models for reranking. The attention-based approach has been used for reranking the n-best lists for both phrasebased and hierarchical setups. On top of these systems, we make use of system combination to enhance the translation quality by combining individually trained systems.</abstract>
+      <url hash="9a620a87">2016.iwslt-1.22</url>
+      <bibkey>peter-etal-2016-rwth-aachen</bibkey>
+    </paper>
+    <paper id="23">
+      <title>The 2016 <fixed-case>KIT</fixed-case> <fixed-case>IWSLT</fixed-case> Speech-to-Text Systems for <fixed-case>E</fixed-case>nglish and <fixed-case>G</fixed-case>erman</title>
+      <author><first>Thai-Son</first><last>Nguyen</last></author>
+      <author><first>Markus</first><last>Müller</last></author>
+      <author><first>Matthias</first><last>Sperber</last></author>
+      <author><first>Thomas</first><last>Zenkel</last></author>
+      <author><first>Kevin</first><last>Kilgour</last></author>
+      <author><first>Sebastian</first><last>Stüker</last></author>
+      <author><first>Alex</first><last>Waibel</last></author>
+      <abstract>This paper describes our German and English Speech-to-Text (STT) systems for the 2016 IWSLT evaluation campaign. The campaign focuses on the transcription of unsegmented TED talks. Our setup includes systems using both the Janus and Kaldi frameworks. We combined the outputs using both ROVER [1] and confusion network combination (CNC) [2] to archieve a good overall performance. The individual subsystems are built by using different speaker-adaptive feature combination (e.g., lMEL with i-vector or bottleneck speaker vector), acoustic models (GMM or DNN) and speaker adaption (MLLR or fMLLR). Decoding is performed in two stages, where the GMM and DNN systems are adapted on the combination of the first stage outputs using MLLR, and fMLLR. The combination setup produces a final hypothesis that has a significantly lower WER than any of the individual subsystems. For the English TED task, our best combination system has a WER of 7.8% on the development set while our other combinations gained 21.8% and 28.7% WERs for the English and German MSLT tasks.</abstract>
+      <url hash="ef03fffe">2016.iwslt-1.23</url>
+      <bibkey>nguyen-etal-2016-2016</bibkey>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>UFAL</fixed-case> Submissions to the <fixed-case>IWSLT</fixed-case> 2016 <fixed-case>MT</fixed-case> Track</title>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <author><first>Ondřej</first><last>Cífka</last></author>
+      <author><first>Jindřich</first><last>Helcl</last></author>
+      <author><first>Tom</first><last>Kocmi</last></author>
+      <author><first>Roman</first><last>Sudarikov</last></author>
+      <abstract>We present our submissions to the IWSLT 2016 machine translation task, as our first attempt to translate subtitles and one of our early experiments with neural machine translation (NMT). We focus primarily on English→Czech translation direction but perform also basic adaptation experiments for NMT with German and also the reverse direction. Three MT systems are tested: (1) our Chimera, a tight combination of phrase-based MT and deep linguistic processing, (2) Neural Monkey, our implementation of a NMT system in TensorFlow and (3) Nematus, an established NMT system.</abstract>
+      <url hash="a14058e8">2016.iwslt-1.24</url>
+      <bibkey>bojar-etal-2016-ufal</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wmt-2016">WMT 2016</pwcdataset>
+    </paper>
+    <paper id="25">
+      <title>The <fixed-case>UMD</fixed-case> Machine Translation Systems at <fixed-case>IWSLT</fixed-case> 2016: <fixed-case>E</fixed-case>nglish-to-<fixed-case>F</fixed-case>rench Translation of Speech Transcripts</title>
+      <author><first>Xing</first><last>Niu</last></author>
+      <author><first>Marine</first><last>Carpuat</last></author>
+      <abstract>We describe the University of Maryland machine translation system submitted to the IWSLT 2016 Microsoft Speech Language Translation (MSLT) English-French task. Our main finding is that translating conversation transcripts turned out to not be as challenging as we expected: while translation quality is of course not perfect, a straightforward phrase-based system trained on movie subtitles yields high BLEU scores (high 40s on the development set) and manual analysis of 100 examples showed that 61 of them were correctly translated, and errors were mostly local disfluencies in the remaining examples.</abstract>
+      <url hash="4a7c4e1f">2016.iwslt-1.25</url>
+      <bibkey>niu-carpuat-2016-umd</bibkey>
+    </paper>
+    <paper id="26">
+      <title>The <fixed-case>U</fixed-case>niversity of <fixed-case>E</fixed-case>dinburgh’s systems submission to the <fixed-case>MT</fixed-case> task at <fixed-case>IWSLT</fixed-case></title>
+      <author><first>Marcin</first><last>Junczys-Dowmunt</last></author>
+      <author><first>Alexandra</first><last>Birch</last></author>
+      <abstract>This paper describes the submission of the University of Edinburgh team to the IWSLT MT task for TED talks. We took part in four translation directions, en-de, de-en, en-fr, and fr-en. The models have been trained with an attentional encoder-decoder model using Nematus, training data filtering and back-translation have been applied for domain-adaptation purposes.</abstract>
+      <url hash="a677b8e4">2016.iwslt-1.26</url>
+      <bibkey>junczys-dowmunt-birch-2016-university</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/opensubtitles">OpenSubtitles</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/united-nations-parallel-corpus">United Nations Parallel Corpus</pwcdataset>
+    </paper>
+  </volume>
+</collection>

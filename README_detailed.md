@@ -125,14 +125,9 @@ comprise:
 + YAML files for SIGs (in [`yaml/sigs/`](data/yaml/sigs)); these contain names,
   URLs, and associated venues for all special interest groups.
 
-+ YAML files that define venues.  These are currently:
-    + [`venues.yaml`](data/yaml/venues.yaml): Maps venue acronyms to full names
-    + [`venues_letters.yaml`](data/yaml/venues_letters.yaml): Maps top-level
-      letters to venue acronyms (e.g. P ⟶ ACL)
-    + [`venues_joint_map.yaml`](data/yaml/venues_joint_map.yaml): Maps
-      proceedings volumes to additional venues (*Note:* volumes will always be
-      associated with the venue corresponding to their first letter; this file
-      defines *additional* ones in case of joint events etc.)
++ YAML files that define venues (in [`yaml/venues/`](data/yaml/venues)).
+  Each venue has its own yaml file that contains venue specific information
+  such as venue acronym, venue full name and venue url.
 
 + A name variant list ([`name_variants.yaml`](data/yaml/name_variants.yaml)) that
   defines which author names should be treated as identical for purposes of
@@ -192,6 +187,11 @@ for all changes pushed to the Anthology:
 3. Python files should have a maximum line length of 90 and follow the
    formatting guidelines defined by the [`black`](https://black.readthedocs.io/)
    tool.
+4. Python files need to follow the lint rules covered by the
+   [`ruff`](https://github.com/charliermarsh/ruff) tool.  If there's a good
+   reason to ignore a rule, [`noqa`
+   comments](https://beta.ruff.rs/docs/configuration/#error-suppression) can be
+   used on an individual basis.
 
 There are three `make` targets that help you check (and fix) your commits:
 
@@ -201,9 +201,11 @@ There are three `make` targets that help you check (and fix) your commits:
   early.
 + `make autofix` works like `check_commit`, except that it will also run the
   [`black`](https://black.readthedocs.io/) code formatter to automatically make
-  your Python files style-compliant.  This can also be used as a pre-commit
-  hook, or run manually when you find that `make check_commit` complains about
-  your files.
+  your Python files style-compliant, and the
+  [`ruff`](https://github.com/charliermarsh/ruff) linter to correct those
+  linting errors which can be fixed automatically.  This can also be used as a
+  pre-commit hook, or run manually when you find that `make check_commit`
+  complains about your files.
 
 To easily make any of these targets work as a pre-commit hook, you can create a
 symlink to one of the predefined scripts as follows:

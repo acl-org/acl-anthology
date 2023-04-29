@@ -39,15 +39,14 @@ from datetime import datetime
 
 
 def main(args):
-
     for row in csv.DictReader(args.csv_file):
         #    ID,Start time,Completion time,Email,Name,Anthology ID,URL,Type,Explanation,Name,Email,License
 
         anthology_id = row["Anthology ID"].strip()
         download_path = row["URL"]
         attachment_type = row["Attachment type"]
-        submitter_name = row["Your name"]
-        submitter_email = row["Your email address"]
+        row["Your name"]
+        row["Your email address"]
         submitted = row["Completion time"]
         explanation = row["Explanation"]
 

@@ -1,0 +1,360 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2018.iwslt">
+  <volume id="1" ingest-date="2022-02-18">
+    <meta>
+      <booktitle>Proceedings of the 15th International Conference on Spoken Language Translation</booktitle>
+      <publisher>International Conference on Spoken Language Translation</publisher>
+      <address>Brussels</address>
+      <month>October 29-30</month>
+      <year>2018</year>
+      <url hash="289091ee">2018.iwslt-1</url>
+      <editor><first>Marco</first><last>Turchi</last></editor>
+      <editor><first>Jan</first><last>Niehues</last></editor>
+      <editor><first>Marcello</first><last>Frederico</last></editor>
+      <venue>iwslt</venue>
+    </meta>
+    <frontmatter>
+      <url hash="25b3ea73">2018.iwslt-1.0</url>
+      <bibkey>iwslt-2018-international</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>The <fixed-case>IWSLT</fixed-case> 2018 Evaluation Campaign</title>
+      <author><first>Jan</first><last>Niehues</last></author>
+      <author><first>Rolando</first><last>Cattoni</last></author>
+      <author><first>Sebastian</first><last>Stüker</last></author>
+      <author><first>Mauro</first><last>Cettolo</last></author>
+      <author><first>Marco</first><last>Turchi</last></author>
+      <author><first>Marcello</first><last>Federico</last></author>
+      <pages>2-6</pages>
+      <abstract>The International Workshop of Spoken Language Translation (IWSLT) 2018 Evaluation Campaign featured two tasks: low-resource machine translation and speech translation. In the first task, manually transcribed speech had to be translated from Basque to English. Since this translation direction is a under-resourced language pair, participants were encouraged to use additional parallel data from related languages. In the second task, participants had to translate English audio into German text with a full speech-translation system. In the baseline condition, participants were free to use composite architectures, while in the end-to-end condition they were restricted to use a single model for the task. This year, eight research groups took part in the low-resource machine translation task and nine in the speech translation task.</abstract>
+      <url hash="21dd380e">2018.iwslt-1.1</url>
+      <bibkey>niehues-etal-2018-iwslt</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Unsupervised Parallel Sentence Extraction from Comparable Corpora</title>
+      <author><first>Viktor</first><last>Hangya</last></author>
+      <author><first>Fabienne</first><last>Braune</last></author>
+      <author><first>Yuliya</first><last>Kalasouskaya</last></author>
+      <author><first>Alexander</first><last>Fraser</last></author>
+      <pages>7-13</pages>
+      <abstract>Mining parallel sentences from comparable corpora is of great interest for many downstream tasks. In the BUCC 2017 shared task, systems performed well by training on gold standard parallel sentences. However, we often want to mine parallel sentences without bilingual supervision. We present a simple approach relying on bilingual word embeddings trained in an unsupervised fashion. We incorporate orthographic similarity in order to handle words with similar surface forms. In addition, we propose a dynamic threshold method to decide if a candidate sentence-pair is parallel which eliminates the need to fine tune a static value for different datasets. Since we do not employ any language specific engineering our approach is highly generic. We show that our approach is effective, on three language-pairs, without the use of any bilingual signal which is important because parallel sentence mining is most useful in low resource scenarios.</abstract>
+      <url hash="cb9f14e0">2018.iwslt-1.2</url>
+      <bibkey>hangya-etal-2018-unsupervised</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/bucc">BUCC</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Word Rewarding for Adequate Neural Machine Translation</title>
+      <author><first>Yuto</first><last>Takebayashi</last></author>
+      <author><first>Chu</first><last>Chenhui</last></author>
+      <author><first>Yuki</first><last>Arase†</last></author>
+      <author><first>Masaaki</first><last>Nagata</last></author>
+      <pages>14-22</pages>
+      <abstract>To improve the translation adequacy in neural machine translation (NMT), we propose a rewarding model with target word prediction using bilingual dictionaries inspired by the success of decoder constraints in statistical machine translation. In particular, the model first predicts a set of target words promising for translation; then boosts the probabilities of the predicted words to give them better chances to be output. Our rewarding model minimally interacts with the decoder so that it can be easily applied to the decoder of an existing NMT system. Extensive evaluation under both resource-rich and resource-poor settings shows that (1) BLEU score improves more than 10 points with oracle prediction, (2) BLEU score improves about 1.0 point with target word prediction using bilingual dictionaries created either manually or automatically, (3) hyper-parameters of our model are relatively easy to optimize, and (4) undergeneration problem can be alleviated in exchange for increasing over-generated words.</abstract>
+      <url hash="9085e853">2018.iwslt-1.3</url>
+      <bibkey>takebayashi-etal-2018-word</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/aspec">ASPEC</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>Analyzing Knowledge Distillation in Neural Machine Translation</title>
+      <author><first>Dakun</first><last>Zhang</last></author>
+      <author><first>Josep</first><last>Crego</last></author>
+      <author><first>Jean</first><last>Senellart</last></author>
+      <pages>23-30</pages>
+      <abstract>Knowledge distillation has recently been successfully applied to neural machine translation. It allows for building shrunk networks while the resulting systems retain most of the quality of the original model. Despite the fact that many authors report on the benefits of knowledge distillation, few have discussed the actual reasons why it works, especially in the context of neural MT. In this paper, we conduct several experiments aimed at understanding why and how distillation impacts accuracy on an English-German translation task. We show that translation complexity is actually reduced when building a distilled/synthesised bi-text when compared to the reference bi-text. We further remove noisy data from synthesised translations and merge filtered synthesised data together with original reference, thus achieving additional gains in terms of accuracy.</abstract>
+      <url hash="99d49824">2018.iwslt-1.4</url>
+      <bibkey>zhang-etal-2018-analyzing</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Word-based Domain Adaptation for Neural Machine Translation</title>
+      <author><first>Shen</first><last>Yan</last></author>
+      <author><first>Leonard</first><last>Dahlmann</last></author>
+      <author><first>Pavel</first><last>Petrushkov</last></author>
+      <author><first>Sanjika</first><last>Hewavitharana</last></author>
+      <author><first>Shahram</first><last>Khadivi</last></author>
+      <pages>31-38</pages>
+      <abstract>In this paper, we empirically investigate applying word-level weights to adapt neural machine translation to e-commerce domains, where small e-commerce datasets and large out-of-domain datasets are available. In order to mine in-domain like words in the out-of-domain datasets, we compute word weights by using a domain-specific and a non-domain-specific language model followed by smoothing and binary quantization. The baseline model is trained on mixed in-domain and out-of-domain datasets. Experimental results on En → Zh e-commerce domain translation show that compared to continuing training without word weights, it improves MT quality by up to 3.11% BLEU absolute and 1.59% TER. We have also trained models using fine-tuning on the in-domain data. Pre-training a model with word weights improves fine-tuning up to 1.24% BLEU absolute and 1.64% TER, respectively.</abstract>
+      <url hash="cf4b599e">2018.iwslt-1.5</url>
+      <bibkey>yan-etal-2018-word</bibkey>
+    </paper>
+    <paper id="6">
+      <title>A Machine Translation Approach for Modernizing Historical Documents Using Backtranslation</title>
+      <author><first>Miguel</first><last>Domingo</last></author>
+      <author><first>Francisco</first><last>Casacuberta</last></author>
+      <pages>39-47</pages>
+      <abstract>Human language evolves with the passage of time. This makes historical documents to be hard to comprehend by contemporary people and, thus, limits their accessibility to scholars specialized in the time period in which a certain document was written. Modernization aims at breaking this language barrier and increase the accessibility of historical documents to a broader audience. To do so, it generates a new version of a historical document, written in the modern version of the document’s original language. In this work, we propose several machine translation approaches for modernizing historical documents. We tested these approaches in different scenarios, obtaining very encouraging results.</abstract>
+      <url hash="586a90eb">2018.iwslt-1.6</url>
+      <bibkey>domingo-casacuberta-2018-machine</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Multi-Source Neural Machine Translation with Data Augmentation</title>
+      <author><first>Yuta</first><last>Nishimura</last></author>
+      <author><first>Katsuhito</first><last>Sudoh</last></author>
+      <author><first>Graham</first><last>Neubig</last></author>
+      <author><first>Satoshi</first><last>Nakamura</last></author>
+      <pages>48-53</pages>
+      <award>Best Student Paper</award>
+      <abstract>Multi-source translation systems translate from multiple languages to a single target language. By using information from these multiple sources, these systems achieve large gains in accuracy. To train these systems, it is necessary to have corpora with parallel text in multiple sources and the target language. However, these corpora are rarely complete in practice due to the difficulty of providing human translations in all of the relevant languages. In this paper, we propose a data augmentation approach to fill such incomplete parts using multi-source neural machine translation (NMT). In our experiments, results varied over different language combinations but significant gains were observed when using a source language similar to the target language.</abstract>
+      <url hash="9ab44f77">2018.iwslt-1.7</url>
+      <bibkey>nishimura-etal-2018-multisource</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Transfer Learning in Multilingual Neural Machine Translation with Dynamic Vocabulary</title>
+      <author><first>Surafel M.</first><last>Lakew</last></author>
+      <author><first>Aliia</first><last>Erofeeva</last></author>
+      <author><first>Matteo</first><last>Negri</last></author>
+      <author><first>Marcello</first><last>Federico</last></author>
+      <author><first>Marco</first><last>Turchi</last></author>
+      <pages>54-61</pages>
+      <abstract>We propose a method to transfer knowledge across neural machine translation (NMT) models by means of a shared dynamic vocabulary. Our approach allows to extend an initial model for a given language pair to cover new languages by adapting its vocabulary as long as new data become available (i.e., introducing new vocabulary items if they are not included in the initial model). The parameter transfer mechanism is evaluated in two scenarios: i) to adapt a trained single language NMT system to work with a new language pair and ii) to continuously add new language pairs to grow to a multilingual NMT system. In both the scenarios our goal is to improve the translation performance, while minimizing the training convergence time. Preliminary experiments spanning five languages with different training data sizes (i.e., 5k and 50k parallel sentences) show a significant performance gain ranging from +3.85 up to +13.63 BLEU in different language directions. Moreover, when compared with training an NMT model from scratch, our transfer-learning approach allows us to reach higher performance after training up to 4% of the total training steps.</abstract>
+      <url hash="759dc34d">2018.iwslt-1.8</url>
+      <bibkey>lakew-etal-2018-transfer</bibkey>
+      <pwccode url="" additional="true"/>
+    </paper>
+    <paper id="9">
+      <title>Machine Translation Human Evaluation: an investigation of evaluation based on Post-Editing and its relation with Direct Assessment</title>
+      <author><first>Luisa</first><last>Bentivogli</last></author>
+      <author><first>Mauro</first><last>Cettolo</last></author>
+      <author><first>Marcello</first><last>Federico</last></author>
+      <author><first>Christian</first><last>Federmann</last></author>
+      <pages>62-69</pages>
+      <abstract>In this paper we present an analysis of the two most prominent methodologies used for the human evaluation of MT quality, namely evaluation based on Post-Editing (PE) and evaluation based on Direct Assessment (DA). To this purpose, we exploit a publicly available large dataset containing both types of evaluations. We first focus on PE and investigate how sensitive TER-based evaluation is to the type and number of references used. Then, we carry out a comparative analysis of PE and DA to investigate the extent to which the evaluation results obtained by methodologies addressing different human perspectives are similar. This comparison sheds light not only on PE but also on the so-called reference bias related to monolingual DA. Also, we analyze if and how the two methodologies can complement each other’s weaknesses.</abstract>
+      <url hash="e941b697">2018.iwslt-1.9</url>
+      <bibkey>bentivogli-etal-2018-machine</bibkey>
+    </paper>
+    <paper id="10">
+      <title>The <fixed-case>USTC</fixed-case>-<fixed-case>NEL</fixed-case> Speech Translation system at <fixed-case>IWSLT</fixed-case> 2018</title>
+      <author><first>Dan</first><last>Liu</last></author>
+      <author><first>Junhua</first><last>Liu</last></author>
+      <author><first>Wu</first><last>Guo</last></author>
+      <author><first>Shifu</first><last>Xiong</last></author>
+      <author><first>Zhiqiang</first><last>Ma</last></author>
+      <author><first>Rui</first><last>Song</last></author>
+      <author><first>Chongliang</first><last>Wu</last></author>
+      <author><first>Quan</first><last>Liu</last></author>
+      <pages>70-75</pages>
+      <abstract>This paper describes the USTC-NEL (short for ”National Engineering Laboratory for Speech and Language Information Processing University of science and technology of china”) system to the speech translation task of the IWSLT Evaluation 2018. The system is a conventional pipeline system which contains 3 modules: speech recognition, post-processing and machine translation. We train a group of hybrid-HMM models for our speech recognition, and for machine translation we train transformer based neural machine translation models with speech recognition output style text as input. Experiments conducted on the IWSLT 2018 task indicate that, compared to baseline system from KIT, our system achieved 14.9 BLEU improvement.</abstract>
+      <url hash="64a80ff2">2018.iwslt-1.10</url>
+      <bibkey>liu-etal-2018-ustc</bibkey>
+    </paper>
+    <paper id="11">
+      <title>The <fixed-case>ADAPT</fixed-case> System Description for the <fixed-case>IWSLT</fixed-case> 2018 <fixed-case>B</fixed-case>asque to <fixed-case>E</fixed-case>nglish Translation Task</title>
+      <author><first>Alberto</first><last>Poncelas</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <author><first>Kepa</first><last>Sarasola</last></author>
+      <pages>76-82</pages>
+      <abstract>In this paper we present the ADAPT system built for the Basque to English Low Resource MT Evaluation Campaign. Basque is a low-resourced, morphologically-rich language. This poses a challenge for Neural Machine Translation models which usually achieve better performance when trained with large sets of data. Accordingly, we used synthetic data to improve the translation quality produced by a model built using only authentic data. Our proposal uses back-translated data to: (a) create new sentences, so the system can be trained with more data; and (b) translate sentences that are close to the test set, so the model can be fine-tuned to the document to be translated.</abstract>
+      <url hash="42692a7e">2018.iwslt-1.11</url>
+      <bibkey>poncelas-etal-2018-adapt</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wmt-2016">WMT 2016</pwcdataset>
+    </paper>
+    <paper id="12">
+      <title>The <fixed-case>U</fixed-case>niversity of <fixed-case>H</fixed-case>elsinki submissions to the <fixed-case>IWSLT</fixed-case> 2018 low-resource translation task</title>
+      <author><first>Yves</first><last>Scherrer</last></author>
+      <pages>82-88</pages>
+      <abstract>This paper presents the University of Helsinki submissions to the Basque–English low-resource translation task. Our primary system is a standard bilingual Transformer system, trained on the available parallel data and various types of synthetic data. We describe the creation of the synthetic datasets, some of which use a pivoting approach, in detail. One of our contrastive submissions is a multilingual model trained on comparable data, but without the synthesized parts. Our bilingual model with synthetic data performed best, obtaining 25.25 BLEU on the test data.</abstract>
+      <url hash="feedf477">2018.iwslt-1.12</url>
+      <bibkey>scherrer-2018-university</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/opensubtitles">OpenSubtitles</pwcdataset>
+    </paper>
+    <paper id="13">
+      <title>The <fixed-case>M</fixed-case>e<fixed-case>MAD</fixed-case> Submission to the <fixed-case>IWSLT</fixed-case> 2018 Speech Translation Task</title>
+      <author><first>Umut</first><last>Sulubacak</last></author>
+      <author><first>Jörg</first><last>Tiedemann</last></author>
+      <author><first>Aku</first><last>Rouhe</last></author>
+      <author><first/><last>Stig-ArneGrönroos</last></author>
+      <author><first>Mikko</first><last>Kurimo</last></author>
+      <pages>89-94</pages>
+      <abstract>This paper describes the MeMAD project entry to the IWSLT Speech Translation Shared Task, addressing the translation of English audio into German text. Between the pipeline and end-to-end model tracks, we participated only in the former, with three contrastive systems. We tried also the latter, but were not able to finish our end-to-end model in time. All of our systems start by transcribing the audio into text through an automatic speech recognition (ASR) model trained on the TED-LIUM English Speech Recognition Corpus (TED-LIUM). Afterwards, we feed the transcripts into English-German text-based neural machine translation (NMT) models. Our systems employ three different translation models trained on separate training sets compiled from the English-German part of the TED Speech Translation Corpus (TED-TRANS) and the OPENSUBTITLES2018 section of the OPUS collection. In this paper, we also describe the experiments leading up to our final systems. Our experiments indicate that using OPENSUBTITLES2018 in training significantly improves translation performance. We also experimented with various preand postprocessing routines for the NMT module, but we did not have much success with these. Our best-scoring system attains a BLEU score of 16.45 on the test set for this year’s task.</abstract>
+      <url hash="9b99e769">2018.iwslt-1.13</url>
+      <bibkey>sulubacak-etal-2018-memad</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Prompsit’s Submission to the <fixed-case>IWSLT</fixed-case> 2018 Low Resource Machine Translation Task</title>
+      <author><first>Víctor M.</first><last>Sánchez-Cartagena</last></author>
+      <pages>95-103</pages>
+      <abstract>This paper presents Prompsit Language Engineering’s submission to the IWSLT 2018 Low Resource Machine Translation task. Our submission is based on cross-lingual learning: a multilingual neural machine translation system was created with the sole purpose of improving translation quality on the Basque-to-English language pair. The multilingual system was trained on a combination of in-domain data, pseudo in-domain data obtained via cross-entropy data selection and backtranslated data. We morphologically segmented Basque text with a novel approach that only requires a dictionary such as those used by spell checkers and proved that this segmentation approach outperforms the widespread byte pair encoding strategy for this task.</abstract>
+      <url hash="6a2f1ec9">2018.iwslt-1.14</url>
+      <bibkey>sanchez-cartagena-2018-prompsit-</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Neural Speech Translation at <fixed-case>A</fixed-case>pp<fixed-case>T</fixed-case>ek</title>
+      <author><first>Evgeny</first><last>Matusov</last></author>
+      <author><first>Patrick</first><last>Wilken</last></author>
+      <author><first>Parnia</first><last>Bahar</last></author>
+      <author><first>Julian</first><last>Schamper</last></author>
+      <author><first>Pavel</first><last>Golik</last></author>
+      <author><first>Albert</first><last>Zeyer</last></author>
+      <author><first>Joan Albert</first><last>Silvestre-Cerda</last></author>
+      <author><first>Adrià</first><last>Martínez-Villaronga</last></author>
+      <author><first>Hendrik</first><last>Pesch</last></author>
+      <author><first>Jan-Thorsten</first><last>Peter</last></author>
+      <pages>104-111</pages>
+      <abstract>This work describes AppTek’s speech translation pipeline that includes strong state-of-the-art automatic speech recognition (ASR) and neural machine translation (NMT) components. We show how these components can be tightly coupled by encoding ASR confusion networks, as well as ASR-like noise adaptation, vocabulary normalization, and implicit punctuation prediction during translation. In another experimental setup, we propose a direct speech translation approach that can be scaled to translation tasks with large amounts of text-only parallel training data but a limited number of hours of recorded and human-translated speech.</abstract>
+      <url hash="0e78a93b">2018.iwslt-1.15</url>
+      <bibkey>matusov-etal-2018-neural</bibkey>
+    </paper>
+    <paper id="16">
+      <title>The Sogou-<fixed-case>TIIC</fixed-case> Speech Translation System for <fixed-case>IWSLT</fixed-case> 2018</title>
+      <author><first>Yuguang</first><last>Wang</last></author>
+      <author><first>Liangliang</first><last>Shi</last></author>
+      <author><first>Linyu</first><last>Wei</last></author>
+      <author><first>Weifeng</first><last>Zhu</last></author>
+      <author><first>Jinkun</first><last>Chen</last></author>
+      <author><first>Zhichao</first><last>Wang</last></author>
+      <author><first>Shixue</first><last>Wen</last></author>
+      <author><first>Wei</first><last>Chen</last></author>
+      <author><first>Yanfeng</first><last>Wang</last></author>
+      <author><first>Jia</first><last>Jia</last></author>
+      <pages>112-117</pages>
+      <abstract>This paper describes our speech translation system for the IWSLT 2018 Speech Translation of lectures and TED talks from English to German task. The pipeline approach is employed in our work, which mainly includes the Automatic Speech Recognition (ASR) system, a post-processing module, and the Neural Machine Translation (NMT) system. Our ASR system is an ensemble system of Deep-CNN, BLSTM, TDNN, N-gram Language model with lattice rescoring. We report average results on tst2013, tst2014, tst2015. Our best combination system has an average WER of 6.73. The machine translation system is based on Google’s Transformer architecture. We achieved an improvement of 3.6 BLEU over baseline system by applying several techniques, such as cleaning parallel corpus, fine tuning of single model, ensemble models and re-scoring with additional features. Our final average result on speech translation is 31.02 BLEU.</abstract>
+      <url hash="fc0d6208">2018.iwslt-1.16</url>
+      <bibkey>wang-etal-2018-sogou</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>S</fixed-case>amsung and <fixed-case>U</fixed-case>niversity of <fixed-case>E</fixed-case>dinburgh’s System for the <fixed-case>IWSLT</fixed-case> 2018 Low Resource <fixed-case>MT</fixed-case> Task</title>
+      <author><first>Philip</first><last>Williams</last></author>
+      <author><first>Marcin</first><last>Chochowski</last></author>
+      <author><first>Pawel</first><last>Przybysz</last></author>
+      <author><first>Rico</first><last>Sennrich</last></author>
+      <author><first>Barry</first><last>Haddow</last></author>
+      <author><first>Alexandra</first><last>Birch</last></author>
+      <pages>118-123</pages>
+      <abstract>This paper describes the joint submission to the IWSLT 2018 Low Resource MT task by Samsung R&amp;D Institute, Poland, and the University of Edinburgh. We focused on supplementing the very limited in-domain Basque-English training data with out-of-domain data, with synthetic data, and with data for other language pairs. We also experimented with a variety of model architectures and features, which included the development of extensions to the Nematus toolkit. Our submission was ultimately produced by a system combination in which we reranked translations from our strongest individual system using multiple weaker systems.</abstract>
+      <url hash="6fe9958f">2018.iwslt-1.17</url>
+      <bibkey>williems-etal-2018-samsung</bibkey>
+    </paper>
+    <paper id="18">
+      <title>The <fixed-case>AFRL</fixed-case> <fixed-case>IWSLT</fixed-case> 2018 Systems: What Worked, What Didn’t</title>
+      <author><first>Brian</first><last>Ore</last></author>
+      <author><first>Eric</first><last>Hansen</last></author>
+      <author><first>Katherine</first><last>Young</last></author>
+      <author><first>Grant</first><last>Erdmann</last></author>
+      <author><first>Jeremy</first><last>Gwinnup</last></author>
+      <pages>124-130</pages>
+      <abstract>This report summarizes the Air Force Research Laboratory (AFRL) machine translation (MT) and automatic speech recognition (ASR) systems submitted to the spoken language translation (SLT) and low-resource MT tasks as part of the IWSLT18 evaluation campaign.</abstract>
+      <url hash="b409fe59">2018.iwslt-1.18</url>
+      <bibkey>afrl-etal-2018-ore</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>KIT</fixed-case>’s <fixed-case>IWSLT</fixed-case> 2018 <fixed-case>SLT</fixed-case> Translation System</title>
+      <author><first>Matthias</first><last>Sperber</last></author>
+      <author><first>Ngoc-Quan</first><last>Pham</last></author>
+      <author><first>Thai-Son</first><last>Nguyen</last></author>
+      <author><first>Jan</first><last>Niehues</last></author>
+      <author><first>Markus</first><last>Müller</last></author>
+      <author><first>Thanh-Le</first><last>Ha</last></author>
+      <author><first>Sebastian</first><last>Stüker</last></author>
+      <author><first>Alex</first><last>Waibel</last></author>
+      <pages>131-135</pages>
+      <abstract>This paper describes KIT’s submission to the IWSLT 2018 Translation task. We describe a system participating in the baseline condition and a system participating in the end-to-end condition. The baseline system is a cascade of an ASR system, a system to segment the ASR output and a neural machine translation system. We investigate the combination of different ASR systems. For the segmentation and machine translation components, we focused on transformer-based architectures.</abstract>
+      <url hash="c0fa2a6d">2018.iwslt-1.19</url>
+      <bibkey>sperber-etal-2018-kit</bibkey>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>A</fixed-case>libaba Speech Translation Systems for <fixed-case>IWSLT</fixed-case> 2018</title>
+      <author><first>Nguyen</first><last>Bach</last></author>
+      <author><first>Hongjie</first><last>Chen</last></author>
+      <author><first>Kai</first><last>Fan</last></author>
+      <author><first>Cheung-Chi</first><last>Leung</last></author>
+      <author id="bo-li"><first>Bo</first><last>Li</last></author>
+      <author><first>Chongjia</first><last>Ni</last></author>
+      <author><first>Rong</first><last>Tong</last></author>
+      <author><first>Pei</first><last>Zhang</last></author>
+      <author><first>Boxing</first><last>Chen</last></author>
+      <author><first>Bin</first><last>Ma</last></author>
+      <author><first>Fei</first><last>Huang</last></author>
+      <pages>136-141</pages>
+      <abstract>This work describes the En→De Alibaba speech translation system developed for the evaluation campaign of the International Workshop on Spoken Language Translation (IWSLT) 2018. In order to improve ASR performance, multiple ASR models including conventional and end-to-end models are built, then we apply model fusion in the final step. ASR pre and post-processing techniques such as speech segmentation, punctuation insertion, and sentence splitting are found to be very useful for MT. We also employed most techniques that have proven effective during the WMT 2018 evaluation, such as BPE, back translation, data selection, model ensembling and reranking. These ASR and MT techniques, combined, improve the speech translation quality significantly.</abstract>
+      <url hash="21606af8">2018.iwslt-1.20</url>
+      <bibkey>bach-etal-2018-alibaba</bibkey>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>CUNI</fixed-case> <fixed-case>B</fixed-case>asque-to-<fixed-case>E</fixed-case>nglish Submission in <fixed-case>IWSLT</fixed-case>18</title>
+      <author><first>Tom</first><last>Kocmi</last></author>
+      <author><first>Dušan</first><last>Variš</last></author>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <pages>142-146</pages>
+      <abstract>We present our submission to the IWSLT18 Low Resource task focused on the translation from Basque-to-English. Our submission is based on the current state-of-the-art self-attentive neural network architecture, Transformer. We further improve this strong baseline by exploiting available monolingual data using the back-translation technique. We also present further improvements gained by a transfer learning, a technique that trains a model using a high-resource language pair (Czech-English) and then fine-tunes the model using the target low-resource language pair (Basque-English).</abstract>
+      <url hash="742d6232">2018.iwslt-1.21</url>
+      <bibkey>kocmi-etal-2018b-cuni</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Fine-tuning on Clean Data for End-to-End Speech Translation: <fixed-case>FBK</fixed-case> @ <fixed-case>IWSLT</fixed-case> 2018</title>
+      <author><first>Mattia Antonino</first><last>Di Gangi</last></author>
+      <author><first>Roberto</first><last>Dessì</last></author>
+      <author><first>Roldano</first><last>Cattoni</last></author>
+      <author><first>Matteo</first><last>Negri</last></author>
+      <author><first>Marco</first><last>Turchi</last></author>
+      <pages>147-152</pages>
+      <abstract>This paper describes FBK’s submission to the end-to-end English-German speech translation task at IWSLT 2018. Our system relies on a state-of-the-art model based on LSTMs and CNNs, where the CNNs are used to reduce the temporal dimension of the audio input, which is in general much higher than machine translation input. Our model was trained only on the audio-to-text parallel data released for the task, and fine-tuned on cleaned subsets of the original training corpus. The addition of weight normalization and label smoothing improved the baseline system by 1.0 BLEU point on our validation set. The final submission also featured checkpoint averaging within a training run and ensemble decoding of models trained during multiple runs. On test data, our best single model obtained a BLEU score of 9.7, while the ensemble obtained a BLEU score of 10.24.</abstract>
+      <url hash="512a4504">2018.iwslt-1.22</url>
+      <bibkey>di-gangi-etal-2018-fine</bibkey>
+    </paper>
+    <paper id="23">
+      <title>The <fixed-case>JHU</fixed-case>/<fixed-case>K</fixed-case>yoto<fixed-case>U</fixed-case> Speech Translation System for <fixed-case>IWSLT</fixed-case> 2018</title>
+      <author><first>Hirofumi</first><last>Inaguma</last></author>
+      <author><first>Xuan</first><last>Zhang</last></author>
+      <author><first>Zhiqi</first><last>Wang</last></author>
+      <author><first>Adithya</first><last>Renduchintala</last></author>
+      <author><first>Shinji</first><last>Watanabe</last></author>
+      <author><first>Kevin</first><last>Duh</last></author>
+      <pages>153-159</pages>
+      <abstract>This paper describes the Johns Hopkins University (JHU) and Kyoto University submissions to the Speech Translation evaluation campaign at IWSLT2018. Our end-to-end speech translation systems are based on ESPnet and implements an attention-based encoder-decoder model. As comparison, we also experiment with a pipeline system that uses independent neural network systems for both the speech transcription and text translation components. We find that a transfer learning approach that bootstraps the end-to-end speech translation system with speech transcription system’s parameters is important for training on small datasets.</abstract>
+      <url hash="64800467">2018.iwslt-1.23</url>
+      <bibkey>inaguma-etal-2018-jhu</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Adapting Multilingual <fixed-case>NMT</fixed-case> to Extremely Low Resource Languages <fixed-case>FBK</fixed-case>’s Participation in the <fixed-case>B</fixed-case>asque-<fixed-case>E</fixed-case>nglish Low-Resource <fixed-case>MT</fixed-case> Task, <fixed-case>IWSLT</fixed-case> 2018</title>
+      <author><first>Surafel M.</first><last>Lakew</last></author>
+      <author><first>Marcello</first><last>Federico</last></author>
+      <pages>160-165</pages>
+      <abstract>Multilingual neural machine translation (M-NMT) has recently shown to improve performance of machine translation of low-resource languages. Thanks to its implicit transfer-learning mechanism, the availability of a highly resourced language pair can be leveraged to learn useful representation for a lower resourced language. This work investigates how a low-resource translation task can be improved within a multilingual setting. First, we adapt a system trained on multiple language directions to a specific language pair. Then, we utilize the adapted model to apply an iterative training-inference scheme [1] using monolingual data. In the experimental setting, an extremely low-resourced Basque-English language pair (i.e., ≈ 5.6K in-domain training data) is our target translation task, where we considered a closely related French/Spanish-English parallel data to build the multilingual model. Experimental results from an i) in-domain and ii) an out-of-domain setting with additional training data, show improvements with our approach. We report a translation performance of 15.89 with the former and 23.99 BLEU with the latter on the official IWSLT 2018 Basque-English test set.</abstract>
+      <url hash="2db33e9d">2018.iwslt-1.24</url>
+      <bibkey>lakew-etal-2018-adapting</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Learning to Segment Inputs for <fixed-case>NMT</fixed-case> Favors Character-Level Processing</title>
+      <author><first>Julia</first><last>Kreutzer</last></author>
+      <author><first>Artem</first><last>Sokolov</last></author>
+      <pages>166-172</pages>
+      <abstract>Most modern neural machine translation (NMT) systems rely on presegmented inputs. Segmentation granularity importantly determines the input and output sequence lengths, hence the modeling depth, and source and target vocabularies, which in turn determine model size, computational costs of softmax normalization, and handling of out-of-vocabulary words. However, the current practice is to use static, heuristic-based segmentations that are fixed before NMT training. This begs the question whether the chosen segmentation is optimal for the translation task. To overcome suboptimal segmentation choices, we present an algorithm for dynamic segmentation, that is trainable end-to-end and driven by the NMT objective. In an evaluation on four translation tasks we found that, given the freedom to navigate between different segmentation levels, the model prefers to operate on (almost) character level, providing support for purely character-level NMT models from a novel angle.</abstract>
+      <url hash="0aa4c724">2018.iwslt-1.25</url>
+      <bibkey>kreutzer-sokolov-2018-learning</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Data Selection with Feature Decay Algorithms Using an Approximated Target Side</title>
+      <author><first>Alberto</first><last>Poncelas</last></author>
+      <author><first>Gideon</first><last>Maillette de Buy Wenniger</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>173-180</pages>
+      <abstract>Data selection techniques applied to neural machine translation (NMT) aim to increase the performance of a model by retrieving a subset of sentences for use as training data. One of the possible data selection techniques are transductive learning methods, which select the data based on the test set, i.e. the document to be translated. A limitation of these methods to date is that using the source-side test set does not by itself guarantee that sentences are selected with correct translations, or translations that are suitable given the test-set domain. Some corpora, such as subtitle corpora, may contain parallel sentences with inaccurate translations caused by localization or length restrictions. In order to try to fix this problem, in this paper we propose to use an approximated target-side in addition to the source-side when selecting suitable sentence-pairs for training a model. This approximated target-side is built by pre-translating the source-side. In this work, we explore the performance of this general idea for one specific data selection approach called Feature Decay Algorithms (FDA). We train German-English NMT models on data selected by using the test set (source), the approximated target side, and a mixture of both. Our findings reveal that models built using a combination of outputs of FDA (using the test set and an approximated target side) perform better than those solely using the test set. We obtain a statistically significant improvement of more than 1.5 BLEU points over a model trained with all data, and more than 0.5 BLEU points over a strong FDA baseline that uses source-side information only.</abstract>
+      <url hash="3b09452f">2018.iwslt-1.26</url>
+      <bibkey>poncelas-etal-2018-data</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/wmt-2015">WMT 2015</pwcdataset>
+    </paper>
+    <paper id="27">
+      <title>Multi-paraphrase Augmentation to Leverage Neural Caption Translation</title>
+      <author><first>Johanes</first><last>Effendi</last></author>
+      <author><first>Sakriani</first><last>Sakti</last></author>
+      <author><first>Katsuhito</first><last>Sudoh</last></author>
+      <author><first>Satoshi</first><last>Nakamura</last></author>
+      <pages>181-188</pages>
+      <abstract>Paraphrasing has been proven to improve translation quality in machine translation (MT) and has been widely studied alongside with the development of statistical MT (SMT). In this paper, we investigate and utilize neural paraphrasing to improve translation quality in neural MT (NMT), which has not yet been much explored. Our first contribution is to propose a new way of creating a multi-paraphrase corpus through visual description. After that, we also proposed to construct neural paraphrase models which initiate expert models and utilize them to leverage NMT. Here, we diffuse the image information by using image-based paraphrasing without using the image itself. Our proposed image-based multi-paraphrase augmentation strategies showed improvement against a vanilla NMT baseline.</abstract>
+      <url hash="f7f681b3">2018.iwslt-1.27</url>
+      <bibkey>effendi-etal-2018-multi</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+    </paper>
+    <paper id="28">
+      <title>Using Spoken Word Posterior Features in Neural Machine Translation</title>
+      <author><first>Kaho</first><last>Osamura</last></author>
+      <author><first>Takatomo</first><last>Kano</last></author>
+      <author><first>Sakriani</first><last>Sakti</last></author>
+      <author><first>Katsuhito</first><last>Sudoh</last></author>
+      <author><first>Satoshi</first><last>Nakamura</last></author>
+      <pages>189-195</pages>
+      <abstract>A spoken language translation (ST) system consists of at least two modules: an automatic speech recognition (ASR) system and a machine translation (MT) system. In most cases, an MT is only trained and optimized using error-free text data. If the ASR makes errors, the translation accuracy will be greatly reduced. Existing studies have shown that training MT systems with ASR parameters or word lattices can improve the translation quality. However, such an extension requires a large change in standard MT systems, resulting in a complicated model that is hard to train. In this paper, a neural sequence-to-sequence ASR is used as feature processing that is trained to produce word posterior features given spoken utterances. The resulting probabilistic features are used to train a neural MT (NMT) with only a slight modification. Experimental results reveal that the proposed method improved up to 5.8 BLEU scores with synthesized speech or 4.3 BLEU scores with the natural speech in comparison with a conventional cascaded-based ST system that translates from the 1-best ASR candidates.</abstract>
+      <url hash="7eb3792e">2018.iwslt-1.28</url>
+      <bibkey>osamura-etal-2018-using</bibkey>
+    </paper>
+  </volume>
+</collection>

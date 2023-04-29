@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Adds a venue to the data/yaml/venues.yaml file.
+"""Adds a yaml file for a new venue under the data/yaml/venues/ dir.
 Usage:
 
     add_venue.py acronym "name" [--url URL] [--acl]
@@ -25,7 +25,6 @@ import argparse
 import os
 import sys
 
-from slugify import slugify
 
 from anthology.venues import VenueIndex
 
@@ -35,9 +34,13 @@ def main(args):
     venues = VenueIndex(srcdir=datadir)
 
     print(f"Adding '{args.acronym}' ({args.name})")
-    venues.add_venue(args.acronym, args.name, is_acl=args.acl, url=args.url)
-
-    venues.dump(datadir)
+    venues.add_venue(
+        directory=datadir,
+        acronym=args.acronym,
+        title=args.name,
+        is_acl=args.acl,
+        url=args.url,
+    )
 
 
 if __name__ == "__main__":

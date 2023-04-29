@@ -15,7 +15,7 @@ import lxml.etree as etree
 import re
 import sys
 
-from repair_url import test_url, get_anth_url
+from repair_url import test_url
 
 filename = sys.argv[1]
 outfilename = sys.argv[2]
@@ -51,7 +51,7 @@ for paper in volume.findall("paper"):
         assert len(href) == 0
         if not test_url(href.text):
             href = paper.find("href").text
-            print(f"{acl_id}: removing href element: {text}", file=sys.stderr)
+            print(f"{acl_id}: removing href element: {href}", file=sys.stderr)
             paper.remove(paper.find("href"))
 
     url = paper.find("url")

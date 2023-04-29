@@ -39,7 +39,6 @@ import argparse
 import filetype
 import os
 import shutil
-import ssl
 import sys
 import tempfile
 
@@ -49,18 +48,12 @@ from anthology.utils import (
     indent,
     compute_hash_from_file,
     infer_url,
-    is_newstyle_id,
     retrieve_url,
     get_pdf_dir,
     get_xml_file,
 )
-from anthology.data import (
-    PDF_LOCATION_TEMPLATE,
-    ANTHOLOGY_FILE_DIR,
-)
 
 import lxml.etree as ET
-import urllib.request
 
 from datetime import datetime
 
@@ -137,9 +130,10 @@ def add_revision(
 
         if not dry_run:
             # Update the URL hash on the <url> tag
-            url = paper.find("./url")
-            if url is not None:
-                url.attrib["hash"] = checksum
+            if change_type != "erratum":
+                url = paper.find("./url")
+                if url is not None:
+                    url.attrib["hash"] = checksum
 
             if change_type == "revision" and revno == 2:
                 if paper.find("./url") is not None:

@@ -1,0 +1,865 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.sigdial">
+  <volume id="1" ingest-date="2022-10-11">
+    <meta>
+      <booktitle>Proceedings of the 23rd Annual Meeting of the Special Interest Group on Discourse and Dialogue</booktitle>
+      <editor><first>Oliver</first><last>Lemon</last></editor>
+      <editor><first>Dilek</first><last>Hakkani-Tur</last></editor>
+      <editor><first>Junyi Jessy</first><last>Li</last></editor>
+      <editor><first>Arash</first><last>Ashrafzadeh</last></editor>
+      <editor><first>Daniel Hernández</first><last>Garcia</last></editor>
+      <editor><first>Malihe</first><last>Alikhani</last></editor>
+      <editor><first>David</first><last>Vandyke</last></editor>
+      <editor><first>Ondřej</first><last>Dušek</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Edinburgh, UK</address>
+      <month>September</month>
+      <year>2022</year>
+      <url hash="66eaa597">2022.sigdial-1</url>
+      <venue>sigdial</venue>
+    </meta>
+    <frontmatter>
+      <url hash="ba19064f">2022.sigdial-1.0</url>
+      <bibkey>sigdial-2022-special</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Post-processing Networks: Method for Optimizing Pipeline Task-oriented Dialogue Systems using Reinforcement Learning</title>
+      <author><first>Atsumoto</first><last>Ohashi</last></author>
+      <author><first>Ryuichiro</first><last>Higashinaka</last></author>
+      <pages>1–13</pages>
+      <abstract>Many studies have proposed methods for optimizing the dialogue performance of an entire pipeline task-oriented dialogue system by jointly training modules in the system using reinforcement learning. However, these methods are limited in that they can only be applied to modules implemented using trainable neural-based methods. To solve this problem, we propose a method for optimizing a pipeline system composed of modules implemented with arbitrary methods for dialogue performance. With our method, neural-based components called post-processing networks (PPNs) are installed inside such a system to post-process the output of each module. All PPNs are updated to improve the overall dialogue performance of the system by using reinforcement learning, not necessitating each module to be differentiable. Through dialogue simulation and human evaluation on the MultiWOZ dataset, we show that our method can improve the dialogue performance of pipeline systems consisting of various modules.</abstract>
+      <url hash="c1026985">2022.sigdial-1.1</url>
+      <bibkey>ohashi-higashinaka-2022-post</bibkey>
+      <video href="https://youtu.be/3O0Jj4lpxn8"/>
+      <pwccode url="https://github.com/nu-dialogue/post-processing-networks" additional="false">nu-dialogue/post-processing-networks</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/multiwoz">MultiWOZ</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title>Reducing Model Churn: Stable Re-training of Conversational Agents</title>
+      <author><first>Christopher</first><last>Hidey</last></author>
+      <author id="fei-liu-gga"><first>Fei</first><last>Liu</last></author>
+      <author><first>Rahul</first><last>Goel</last></author>
+      <pages>14–25</pages>
+      <abstract>Retraining modern deep learning systems can lead to variations in model performance even when trained using the same data and hyper-parameters by simply using different random seeds. This phenomenon is known as model churn or model jitter. This issue is often exacerbated in real world settings, where noise may be introduced in the data collection process. In this work we tackle the problem of stable retraining with a novel focus on structured prediction for conversational semantic parsing. We first quantify the model churn by introducing metrics for agreement between predictions across multiple retrainings. Next, we devise realistic scenarios for noise injection and demonstrate the effectiveness of various churn reduction techniques such as ensembling and distillation. Lastly, we discuss practical trade-offs between such techniques and show that co-distillation provides a sweet spot in terms of churn reduction with only a modest increase in resource usage.</abstract>
+      <url hash="da49469f">2022.sigdial-1.2</url>
+      <bibkey>hidey-etal-2022-reducing</bibkey>
+      <video href="https://youtu.be/okIrVZD-zDE"/>
+      <pwccode url="https://github.com/google/stable-retraining-conversational-agents" additional="false">google/stable-retraining-conversational-agents</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/topv2">TOPv2</pwcdataset>
+    </paper>
+    <paper id="3">
+      <title>Knowledge-Grounded Conversational Data Augmentation with Generative Conversational Networks</title>
+      <author><first>Yen Ting</first><last>Lin</last></author>
+      <author><first>Alexandros</first><last>Papangelis</last></author>
+      <author><first>Seokhwan</first><last>Kim</last></author>
+      <author><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <pages>26–38</pages>
+      <abstract>While rich, open-domain textual data are generally available and may include interesting phenomena (humor, sarcasm, empathy, etc.) most are designed for language processing tasks, and are usually in a non-conversational format. In this work, we take a step towards automatically generating conversational data using Generative Conversational Networks, aiming to benefit from the breadth of available language and knowledge data, and train open domain social conversational agents. We evaluate our approach on conversations with and without knowledge on the Topical Chat dataset using automatic metrics and human evaluators. Our results show that for conversations without knowledge grounding, GCN can generalize from the seed data, producing novel conversations that are less relevant but more engaging and for knowledge-grounded conversations, it can produce more knowledge-focused, fluent, and engaging conversations. Specifically, we show that for open-domain conversations with 10% of seed data, our approach performs close to the baseline that uses 100% of the data, while for knowledge-grounded conversations, it achieves the same using only 1% of the data, on human ratings of engagingness, fluency, and relevance.</abstract>
+      <url hash="bafe4a68">2022.sigdial-1.3</url>
+      <bibkey>lin-etal-2022-knowledge</bibkey>
+      <video href="https://youtu.be/P8Ns-WWF770"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/topical-chat">Topical-Chat</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>Guiding the Release of Safer <fixed-case>E</fixed-case>2<fixed-case>E</fixed-case> Conversational <fixed-case>AI</fixed-case> through Value Sensitive Design</title>
+      <author><first>A. Stevie</first><last>Bergman</last></author>
+      <author><first>Gavin</first><last>Abercrombie</last></author>
+      <author><first>Shannon</first><last>Spruit</last></author>
+      <author><first>Dirk</first><last>Hovy</last></author>
+      <author><first>Emily</first><last>Dinan</last></author>
+      <author><first>Y-Lan</first><last>Boureau</last></author>
+      <author><first>Verena</first><last>Rieser</last></author>
+      <pages>39–52</pages>
+      <abstract>Over the last several years, end-to-end neural conversational agents have vastly improved their ability to carry unrestricted, open-domain conversations with humans. However, these models are often trained on large datasets from the Internet and, as a result, may learn undesirable behaviours from this data, such as toxic or otherwise harmful language. Thus, researchers must wrestle with how and when to release these models. In this paper, we survey recent and related work to highlight tensions between values, potential positive impact, and potential harms. We also provide a framework to support practitioners in deciding whether and how to release these models, following the tenets of value-sensitive design.</abstract>
+      <url hash="2adda792">2022.sigdial-1.4</url>
+      <bibkey>bergman-etal-2022-guiding</bibkey>
+      <video href="https://youtu.be/oyIBL-umAHM"/>
+    </paper>
+    <paper id="5">
+      <title>Controllable User Dialogue Act Augmentation for Dialogue State Tracking</title>
+      <author><first>Chun-Mao</first><last>Lai</last></author>
+      <author><first>Ming-Hao</first><last>Hsu</last></author>
+      <author><first>Chao-Wei</first><last>Huang</last></author>
+      <author><first>Yun-Nung</first><last>Chen</last></author>
+      <pages>53–61</pages>
+      <abstract>Prior work has demonstrated that data augmentation is useful for improving dialogue state tracking. However, there are many types of user utterances, while the prior method only considered the simplest one for augmentation, raising the concern about poor generalization capability. In order to better cover diverse dialogue acts and control the generation quality, this paper proposes controllable user dialogue act augmentation (CUDA-DST) to augment user utterances with diverse behaviors. With the augmented data, different state trackers gain improvement and show better robustness, achieving the state-of-the-art performance on MultiWOZ 2.1.</abstract>
+      <url hash="f95fb5b7">2022.sigdial-1.5</url>
+      <bibkey>lai-etal-2022-controllable</bibkey>
+      <pwccode url="https://github.com/miulab/cuda-dst" additional="false">miulab/cuda-dst</pwccode>
+    </paper>
+    <paper id="6">
+      <title>Developing an argument annotation scheme based on a semantic classification of arguments</title>
+      <author><first>Lea</first><last>Kawaletz</last></author>
+      <author><first>Heidrun</first><last>Dorgeloh</last></author>
+      <author><first>Stefan</first><last>Conrad</last></author>
+      <author><first>Zeljko</first><last>Bekcic</last></author>
+      <pages>62–67</pages>
+      <abstract>Corpora of argumentative discourse are commonly analyzed in terms of argumentative units, consisting of claims and premises. Both argument detection and classification are complex discourse processing tasks. Our paper introduces a semantic classification of arguments that can help to facilitate argument detection. We report on our experiences with corpus annotations using a function-based classification of arguments and a procedure for operationalizing the scheme by using semantic templates.</abstract>
+      <url hash="2506a3a4">2022.sigdial-1.6</url>
+      <bibkey>kawaletz-etal-2022-developing</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Multi-Task Learning for Depression Detection in Dialogs</title>
+      <author><first>Chuyuan</first><last>Li</last></author>
+      <author><first>Chloé</first><last>Braud</last></author>
+      <author><first>Maxime</first><last>Amblard</last></author>
+      <pages>68–75</pages>
+      <abstract>Depression is a serious mental illness that impacts the way people communicate, especially through their emotions, and, allegedly, the way they interact with others. This work examines depression signals in dialogs, a less studied setting that suffers from data sparsity. We hypothesize that depression and emotion can inform each other, and we propose to explore the influence of dialog structure through topic and dialog act prediction. We investigate a Multi-Task Learning (MTL) approach, where all tasks mentioned above are learned jointly with dialog-tailored hierarchical modeling. We experiment on the DAIC and DailyDialog corpora – both contain dialogs in English – and show important improvements over state-of-the-art on depression detection (at best 70.6% F1), which demonstrates the correlation of depression with emotion and dialog organization and the power of MTL to leverage information from different sources.</abstract>
+      <url hash="7b5ef0ef">2022.sigdial-1.7</url>
+      <bibkey>li-etal-2022-multi</bibkey>
+      <pwccode url="https://github.com/chuyuanli/mtl4depr" additional="false">chuyuanli/mtl4depr</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
+    </paper>
+    <paper id="8">
+      <title>To laugh or not to laugh? The use of laughter to mark discourse structure</title>
+      <author><first>Bogdan</first><last>Ludusan</last></author>
+      <author><first>Barbara</first><last>Schuppler</last></author>
+      <pages>76–82</pages>
+      <abstract>A number of cues, both linguistic and non-linguistic, have been found to mark discourse structure in conversation. This paper investigates the role of laughter, one of the most encountered non-verbal vocalizations in human communication, in the signalling of turn boundaries. We employ a corpus of informal dyadic conversations to determine the likelihood of laughter at the end of speaker turns and to establish the potential role of laughter in discourse organization. Our results show that, on average, about 10% of the turns are marked by laughter, but also that the marking is subject to individual variation, as well as effects of other factors, such as the type of relationship between speakers. More importantly, we find that turn ends are twice more likely than transition relevance places to be marked by laughter, suggesting that, indeed, laughter plays a role in marking discourse structure.</abstract>
+      <url hash="65590439">2022.sigdial-1.8</url>
+      <bibkey>ludusan-schuppler-2022-laugh</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>Q</fixed-case>uality<fixed-case>A</fixed-case>dapt: an Automatic Dialogue Quality Estimation Framework</title>
+      <author><first>John</first><last>Mendonca</last></author>
+      <author><first>Alon</first><last>Lavie</last></author>
+      <author><first>Isabel</first><last>Trancoso</last></author>
+      <pages>83–90</pages>
+      <abstract>Despite considerable advances in open-domain neural dialogue systems, their evaluation remains a bottleneck. Several automated metrics have been proposed to evaluate these systems, however, they mostly focus on a single notion of quality, or, when they do combine several sub-metrics, they are computationally expensive. This paper attempts to solve the latter: QualityAdapt leverages the Adapter framework for the task of Dialogue Quality Estimation. Using well defined semi-supervised tasks, we train adapters for different subqualities and score generated responses with AdapterFusion. This compositionality provides an easy to adapt metric to the task at hand that incorporates multiple subqualities. It also reduces computational costs as individual predictions of all subqualities are obtained in a single forward pass. This approach achieves comparable results to state-of-the-art metrics on several datasets, whilst keeping the previously mentioned advantages.</abstract>
+      <url hash="39943e32">2022.sigdial-1.9</url>
+      <bibkey>mendonca-etal-2022-qualityadapt</bibkey>
+      <pwccode url="https://github.com/johndmendonca/qualityadapt" additional="false">johndmendonca/qualityadapt</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/fed">FED</pwcdataset>
+    </paper>
+    <paper id="10">
+      <title>Graph Neural Network Policies and Imitation Learning for Multi-Domain Task-Oriented Dialogues</title>
+      <author><first>Thibault</first><last>Cordier</last></author>
+      <author><first>Tanguy</first><last>Urvoy</last></author>
+      <author><first>Fabrice</first><last>Lefèvre</last></author>
+      <author><first>Lina M.</first><last>Rojas Barahona</last></author>
+      <pages>91–100</pages>
+      <abstract>Task-oriented dialogue systems are designed to achieve specific goals while conversing with humans. In practice, they may have to handle simultaneously several domains and tasks. The dialogue manager must therefore be able to take into account domain changes and plan over different domains/tasks in order to deal with multi-domain dialogues. However, learning with reinforcement in such context becomes difficult because the state-action dimension is larger while the reward signal remains scarce. Our experimental results suggest that structured policies based on graph neural networks combined with different degrees of imitation learning can effectively handle multi-domain dialogues. The reported experiments underline the benefit of structured policies over standard policies.</abstract>
+      <url hash="6976778a">2022.sigdial-1.10</url>
+      <bibkey>cordier-etal-2022-graph</bibkey>
+    </paper>
+    <paper id="11">
+      <title>The <fixed-case>D</fixed-case>ial<fixed-case>P</fixed-case>ort tools</title>
+      <author><first>Jessica</first><last>Huynh</last></author>
+      <author><first>Shikib</first><last>Mehri</last></author>
+      <author><first>Cathy</first><last>Jiao</last></author>
+      <author><first>Maxine</first><last>Eskenazi</last></author>
+      <pages>101–106</pages>
+      <abstract>The DialPort project (http://dialport.org/), funded by the National Science Foundation (NSF), covers a group of tools and services that aim at fulfilling the needs of the dialog research community. Over the course of six years, several offerings have been created, including the DialPort Portal and DialCrowd. This paper describes these contributions, which will be demoed at SIGDIAL, including implementation, prior studies, corresponding discoveries, and the locations at which the tools will remain freely available to the community going forward.</abstract>
+      <url hash="1dc6ce47">2022.sigdial-1.11</url>
+      <bibkey>huynh-etal-2022-dialport</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Simultaneous Job Interview System Using Multiple Semi-autonomous Agents</title>
+      <author><first>Haruki</first><last>Kawai</last></author>
+      <author><first>Yusuke</first><last>Muraki</last></author>
+      <author><first>Kenta</first><last>Yamamoto</last></author>
+      <author><first>Divesh</first><last>Lala</last></author>
+      <author><first>Koji</first><last>Inoue</last></author>
+      <author><first>Tatsuya</first><last>Kawahara</last></author>
+      <pages>107–110</pages>
+      <abstract>In recent years, spoken dialogue systems have been applied to job interviews where an applicant talks to a system that asks pre-defined questions, called on-demand and self-paced job interviews. We propose a simultaneous job interview system, where one interviewer can conduct one-on-one interviews with multiple applicants simultaneously by cooperating with the multiple autonomous job interview dialogue systems. However, it is challenging for interviewers to monitor and understand all the parallel interviews done by the autonomous system at the same time. As a solution to this issue, we implemented two automatic dialogue understanding functions: (1) response evaluation of each applicant’s responses and (2) keyword extraction as a summary of the responses. It is expected that interviewers, as needed, can intervene in one dialogue and smoothly ask a proper question that elaborates the interview. We report a pilot experiment where an interviewer conducted simultaneous job interviews with three candidates.</abstract>
+      <url hash="c7e9fd37">2022.sigdial-1.12</url>
+      <bibkey>kawai-etal-2022-simultaneous</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Dialog Acts for Task Driven Embodied Agents</title>
+      <author><first>Spandana</first><last>Gella</last></author>
+      <author><first>Aishwarya</first><last>Padmakumar</last></author>
+      <author><first>Patrick</first><last>Lange</last></author>
+      <author><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <pages>111–123</pages>
+      <abstract>Embodied agents need to be able to interact in natural language – understanding task descriptions and asking appropriate follow up questions to obtain necessary information to be effective at successfully accomplishing tasks for a wide range of users. In this work, we propose a set of dialog acts for modelling such dialogs and annotate the TEACh dataset that includes over 3,000 situated, task oriented conversations (consisting of 39.5k utterances in total) with dialog acts. To our knowledge,TEACh-DA is the first large scale dataset of dialog act annotations for embodied task completion. Furthermore, we demonstrate the use of this annotated dataset in training models for tagging the dialog acts of a given utterance, predicting the dialog act of the next response given a dialog history, and use the dialog acts to guide agent’s non-dialog behaviour. In particular, our experiments on the TEACh Execution from Dialog History task where the model predicts the sequence of low level actions to be executed in the environment for embodied task completion, demonstrate that dialog acts can improve end performance by up to 2 points compared to the system without dialog acts.</abstract>
+      <url hash="b28ef333">2022.sigdial-1.13</url>
+      <bibkey>gella-etal-2022-dialog</bibkey>
+      <video href="https://youtu.be/YE8cWLaKrTw"/>
+    </paper>
+    <paper id="14">
+      <title>Symbol and Communicative Grounding through Object Permanence with a Mobile Robot</title>
+      <author><first>Josue</first><last>Torres-Fonseca</last></author>
+      <author><first>Catherine</first><last>Henry</last></author>
+      <author><first>Casey</first><last>Kennington</last></author>
+      <pages>124–134</pages>
+      <abstract>Object permanence is the ability to form and recall mental representations of objects even when they are not in view. Despite being a crucial developmental step for children, object permanence has had only some exploration as it relates to symbol and communicative grounding in spoken dialogue systems. In this paper, we leverage SLAM as a module for tracking object permanence and use a robot platform to move around a scene where it discovers objects and learns how they are denoted. We evaluated by comparing our system’s effectiveness at learning words from human dialogue partners both with and without object permanence. We found that with object permanence, human dialogue partners spoke with the robot and the robot correctly identified objects it had learned about significantly more than without object permanence, which suggests that object permanence helped facilitate communicative and symbol grounding.</abstract>
+      <url hash="59987826">2022.sigdial-1.14</url>
+      <bibkey>torres-foncesca-etal-2022-symbol</bibkey>
+      <video href="https://youtu.be/xxulenUa754"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+    </paper>
+    <paper id="15">
+      <title>Towards Personality-Aware Chatbots</title>
+      <author><first>Daniel</first><last>Fernau</last></author>
+      <author><first>Stefan</first><last>Hillmann</last></author>
+      <author><first>Nils</first><last>Feldhus</last></author>
+      <author><first>Tim</first><last>Polzehl</last></author>
+      <author><first>Sebastian</first><last>Möller</last></author>
+      <pages>135–145</pages>
+      <abstract>Chatbots are increasingly used to automate operational processes in customer service. However, most chatbots lack adaptation towards their users which may results in an unsatisfactory experience. Since knowing and meeting personal preferences is a key factor for enhancing usability in conversational agents, in this study we analyze an adaptive conversational agent that can automatically adjust according to a user’s personality type carefully excerpted from the Myers-Briggs type indicators. An experiment including 300 crowd workers examined how typifications like extroversion/introversion and thinking/feeling can be assessed and designed for a conversational agent in a job recommender domain. Our results validate the proposed design choices, and experiments on a user-matched personality typification, following the so-called law of attraction rule, show a significant positive influence on a range of selected usability criteria such as overall satisfaction, naturalness, promoter score, trust and appropriateness of the conversation.</abstract>
+      <url hash="8f5c8677">2022.sigdial-1.15</url>
+      <bibkey>fernau-etal-2022-towards</bibkey>
+      <video href="https://youtu.be/06hrn65ypxE"/>
+    </paper>
+    <paper id="16">
+      <title>Towards Socially Intelligent Agents with Mental State Transition and Human Value</title>
+      <author><first>Liang</first><last>Qiu</last></author>
+      <author><first>Yizhou</first><last>Zhao</last></author>
+      <author><first>Yuan</first><last>Liang</last></author>
+      <author><first>Pan</first><last>Lu</last></author>
+      <author><first>Weiyan</first><last>Shi</last></author>
+      <author><first>Zhou</first><last>Yu</last></author>
+      <author><first>Song-Chun</first><last>Zhu</last></author>
+      <pages>146–158</pages>
+      <abstract>Building a socially intelligent agent involves many challenges. One of which is to track the agent’s mental state transition and teach the agent to make decisions guided by its value like a human. Towards this end, we propose to incorporate mental state simulation and value modeling into dialogue agents. First, we build a hybrid mental state parser that extracts information from both the dialogue and event observations and maintains a graphical representation of the agent’s mind; Meanwhile, the transformer-based value model learns human preferences from the human value dataset, ValueNet. Empirical results show that the proposed model attains state-of-the-art performance on the dialogue/action/emotion prediction task in the fantasy text-adventure game dataset, LIGHT. We also show example cases to demonstrate: (i) how the proposed mental state parser can assist the agent’s decision by grounding on the context like locations and objects, and (ii) how the value model can help the agent make decisions based on its personal priorities.</abstract>
+      <url hash="94ce9ca6">2022.sigdial-1.16</url>
+      <bibkey>qiu-etal-2022-towards</bibkey>
+      <video href="https://youtu.be/Oo2gsoHc6YI"/>
+    </paper>
+    <paper id="17">
+      <title>Automatic Verbal Depiction of a Brick Assembly for a Robot Instructing Humans</title>
+      <author><first>Rami</first><last>Younes</last></author>
+      <author><first>Gérard</first><last>Bailly</last></author>
+      <author><first>Frederic</first><last>Elisei</last></author>
+      <author><first>Damien</first><last>Pellier</last></author>
+      <pages>159–171</pages>
+      <abstract>Verbal and nonverbal communication skills are essential for human-robot interaction, in particular when the agents are involved in a shared task. We address the specific situation when the robot is the only agent knowing about the plan and the goal of the task and has to instruct the human partner. The case study is a brick assembly. We here describe a multi-layered verbal depictor whose semantic, syntactic and lexical settings have been collected and evaluated via crowdsourcing. One crowdsourced experiment involves a robot instructed pick-and-place task. We show that implicitly referring to achieved subgoals (stairs, pillows, etc) increases performance of human partners.</abstract>
+      <url hash="d9ac131e">2022.sigdial-1.17</url>
+      <bibkey>younes-etal-2022-automatic</bibkey>
+      <video href="https://youtu.be/PbLerk3eURo"/>
+    </paper>
+    <paper id="18">
+      <title>Are Interaction Patterns Helpful for Task-Agnostic Dementia Detection? An Empirical Exploration</title>
+      <author><first>Shahla</first><last>Farzana</last></author>
+      <author><first>Natalie</first><last>Parde</last></author>
+      <pages>172–182</pages>
+      <abstract>Dementia often manifests in dialog through specific behaviors such as requesting clarification, communicating repetitive ideas, and stalling, prompting conversational partners to probe or otherwise attempt to elicit information. Dialog act (DA) sequences can have predictive power for dementia detection through their potential to capture these meaningful interaction patterns. However, most existing work in this space relies on content-dependent features, raising questions about their generalizability beyond small reference sets or across different cognitive tasks. In this paper, we adapt an existing DA annotation scheme for two different cognitive tasks present in a popular dementia detection dataset. We show that a DA tagging model leveraging neural sentence embeddings and other information from previous utterances and speaker tags achieves strong performance for both tasks. We also propose content-free interaction features and show that they yield high utility in distinguishing dementia and control subjects across different tasks. Our study provides a step toward better understanding how interaction patterns in spontaneous dialog affect cognitive modeling across different tasks, which carries implications for the design of non-invasive and low-cost cognitive health monitoring tools for use at scale.</abstract>
+      <url hash="d8da1422">2022.sigdial-1.18</url>
+      <bibkey>farzana-parde-2022-interaction</bibkey>
+      <video href="https://youtu.be/7mJS9l1Oan8"/>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>EDU</fixed-case>-<fixed-case>AP</fixed-case>: Elementary Discourse Unit based Argument Parser</title>
+      <author><first>Sougata</first><last>Saha</last></author>
+      <author><first>Souvik</first><last>Das</last></author>
+      <author><first>Rohini</first><last>Srihari</last></author>
+      <pages>183–192</pages>
+      <abstract>Neural approaches to end-to-end argument mining (AM) are often formulated as dependency parsing (DP), which relies on token-level sequence labeling and intricate post-processing for extracting argumentative structures from text. Although such methods yield reasonable results, operating solely with tokens increases the possibility of discontinuous and overly segmented structures due to minor inconsistencies in token level predictions. In this paper, we propose EDU-AP, an end-to-end argument parser, that alleviates such problems in dependency-based methods by exploiting the intrinsic relationship between elementary discourse units (EDUs) and argumentative discourse units (ADUs) and operates at both token and EDU level granularity. Further, appropriately using contextual information, along with optimizing a novel objective function during training, EDU-AP achieves significant improvements across all four tasks of AM compared to existing dependency-based methods.</abstract>
+      <url hash="be3f24cb">2022.sigdial-1.19</url>
+      <bibkey>saha-etal-2022-edu</bibkey>
+      <video href="https://youtu.be/4T_oMl8rAcE"/>
+      <pwccode url="https://github.com/sougata-ub/edu-ap" additional="false">sougata-ub/edu-ap</pwccode>
+    </paper>
+    <paper id="20">
+      <title>Using Transition Duration to Improve Turn-taking in Conversational Agents</title>
+      <author><first>Charles</first><last>Threlkeld</last></author>
+      <author><first>Muhammad</first><last>Umair</last></author>
+      <author><first>Jp</first><last>de Ruiter</last></author>
+      <pages>193–203</pages>
+      <abstract>Smooth turn-taking is an important aspect of natural conversation that allows interlocutors to maintain adequate mutual comprehensibility. In human communication, the timing between utterances is normatively constrained, and deviations convey socially relevant paralinguistic information. However, for spoken dialogue systems, smooth turn-taking continues to be a challenge. This motivates the need for spoken dialogue systems to employ a robust model of turn-taking to ensure that messages are exchanged smoothly and without transmitting unintended paralinguistic information. In this paper, we examine dialogue data from natural human interaction to develop an evidence-based model for turn-timing in spoken dialogue systems. First, we use timing between turns to develop two models of turn-taking: a speaker-agnostic model and a speaker-sensitive model. From the latter model, we derive the propensity of listeners to take the next turn given TRP duration. Finally, we outline how this measure may be incorporated into a spoken dialogue system to improve the naturalness of conversation.</abstract>
+      <url hash="bfaa0e2c">2022.sigdial-1.20</url>
+      <bibkey>threlkeld-etal-2022-using</bibkey>
+      <video href="https://youtu.be/KDjyyabmzWU"/>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>DG</fixed-case>2: Data Augmentation Through Document Grounded Dialogue Generation</title>
+      <author><first>Qingyang</first><last>Wu</last></author>
+      <author><first>Song</first><last>Feng</last></author>
+      <author><first>Derek</first><last>Chen</last></author>
+      <author><first>Sachindra</first><last>Joshi</last></author>
+      <author><first>Luis</first><last>Lastras</last></author>
+      <author><first>Zhou</first><last>Yu</last></author>
+      <pages>204–216</pages>
+      <abstract>Collecting data for training dialog systems can be extremely expensive due to the involvement of human participants and the need for extensive annotation. Especially in document-grounded dialog systems, human experts need to carefully read the unstructured documents to answer the users’ questions. As a result, existing document-grounded dialog datasets are relatively small-scale and obstruct the effective training of dialogue systems. In this paper, we propose an automatic data augmentation technique grounded on documents through a generative dialogue model. The dialogue model consists of a user bot and agent bot that can synthesize diverse dialogues given an input document, which is then used to train a downstream model. When supplementing the original dataset, our method achieves significant improvement over traditional data augmentation methods. We also achieve great performance in the low-resource setting.</abstract>
+      <url hash="f571966e">2022.sigdial-1.21</url>
+      <bibkey>wu-etal-2022-dg2</bibkey>
+      <video href="https://youtu.be/mBxsj_qAH80"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/doc2dial-1">Doc2Dial</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/quac">QuAC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sharc">ShARC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/doc2dial">doc2dial</pwcdataset>
+    </paper>
+    <paper id="22">
+      <title>When can <fixed-case>I</fixed-case> Speak? Predicting initiation points for spoken dialogue agents</title>
+      <author><first>Siyan</first><last>Li</last></author>
+      <author><first>Ashwin</first><last>Paranjape</last></author>
+      <author><first>Christopher</first><last>Manning</last></author>
+      <pages>217–224</pages>
+      <abstract>Current spoken dialogue systems initiate their turns after a long period of silence (700-1000ms), which leads to little real-time feedback, sluggish responses, and an overall stilted conversational flow. Humans typically respond within 200ms and successfully predicting initiation points in advance would allow spoken dialogue agents to do the same. In this work, we predict the lead-time to initiation using prosodic features from a pre-trained speech representation model (wav2vec 1.0) operating on user audio and word features from a pre-trained language model (GPT-2) operating on incremental transcriptions. To evaluate errors, we propose two metrics w.r.t. predicted and true lead times. We train and evaluate the models on the Switchboard Corpus and find that our method outperforms features from prior work on both metrics and vastly outperforms the common approach of waiting for 700ms of silence.</abstract>
+      <url hash="892c5350">2022.sigdial-1.22</url>
+      <bibkey>li-etal-2022-speak</bibkey>
+      <video href="https://youtu.be/63FxVG68-G8"/>
+      <pwccode url="https://github.com/siyan-sylvia-li/icarus_final" additional="false">siyan-sylvia-li/icarus_final</pwccode>
+    </paper>
+    <paper id="23">
+      <title>Using Interaction Style Dimensions to Characterize Spoken Dialog Corpora</title>
+      <author><first>Nigel</first><last>Ward</last></author>
+      <pages>225–230</pages>
+      <abstract>The construction of spoken dialog systems today relies heavily on appropriate corpora, but corpus selection is more an art than a science. As interaction style properties govern many aspects of dialog, they have the potential to be useful for relating and comparing corpora. This paper overviews a recently-developed model of interaction styles and shows how it can be used to identify relevant corpus differences, estimate corpus similarity, and flag likely outlier dialogs.</abstract>
+      <url hash="08bd9c4b">2022.sigdial-1.23</url>
+      <bibkey>ward-2022-using</bibkey>
+      <video href="https://youtu.be/XmZ4hR3eMoE"/>
+    </paper>
+    <paper id="24">
+      <title>Multi-Domain Dialogue State Tracking with Top-K Slot Self Attention</title>
+      <author><first>Longfei</first><last>Yang</last></author>
+      <author><first>Jiyi</first><last>Li</last></author>
+      <author><first>Sheng</first><last>Li</last></author>
+      <author><first>Takahiro</first><last>Shinozaki</last></author>
+      <pages>231–236</pages>
+      <abstract>As an important component of task-oriented dialogue systems, dialogue state tracking is designed to track the dialogue state through the conversations between users and systems. Multi-domain dialogue state tracking is a challenging task, in which the correlation among different domains and slots needs to consider. Recently, slot self-attention is proposed to provide a data-driven manner to handle it. However, a full-support slot self-attention may involve redundant information interchange. In this paper, we propose a top-k attention-based slot self-attention for multi-domain dialogue state tracking. In the slot self-attention layers, we force each slot to involve information from the other k prominent slots and mask the rest out. The experimental results on two mainstream multi-domain task-oriented dialogue datasets, MultiWOZ 2.0 and MultiWOZ 2.4, present that our proposed approach is effective to improve the performance of multi-domain dialogue state tracking. We also find that the best result is obtained when each slot interchanges information with only a few slots.</abstract>
+      <url hash="6cdd35d9">2022.sigdial-1.24</url>
+      <bibkey>yang-etal-2022-multi</bibkey>
+      <video href="https://youtu.be/HOaC1W3yAow"/>
+    </paper>
+    <paper id="25">
+      <title>Building a Knowledge-Based Dialogue System with Text Infilling</title>
+      <author><first>Qiang</first><last>Xue</last></author>
+      <author><first>Tetsuya</first><last>Takiguchi</last></author>
+      <author><first>Yasuo</first><last>Ariki</last></author>
+      <pages>237–243</pages>
+      <abstract>In recent years, generation-based dialogue systems using state-of-the-art (SoTA) transformer-based models have demonstrated impressive performance in simulating human-like conversations. To improve the coherence and knowledge utilization capabilities of dialogue systems, knowledge-based dialogue systems integrate retrieved graph knowledge into transformer-based models. However, knowledge-based dialog systems sometimes generate responses without using the retrieved knowledge.In this work, we propose a method in which the knowledge-based dialogue system can constantly utilize the retrieved knowledge using text infilling . Text infilling is the task of predicting missing spans of a sentence or paragraph. We utilize this text infilling to enable dialog systems to fill incomplete responses with the retrieved knowledge. Our proposed dialogue system has been proven to generate significantly more correct responses than baseline dialogue systems.</abstract>
+      <url hash="8f69af68">2022.sigdial-1.25</url>
+      <bibkey>xue-etal-2022-building</bibkey>
+      <video href="https://youtu.be/-R9IKfbZci8"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/opendialkg">OpenDialKG</pwcdataset>
+    </paper>
+    <paper id="26">
+      <title>Generating Meaningful Topic Descriptions with Sentence Embeddings and <fixed-case>LDA</fixed-case></title>
+      <author><first>Javier Miguel</first><last>Sastre Martinez</last></author>
+      <author><first>Sean</first><last>Gorman</last></author>
+      <author><first>Aisling</first><last>Nugent</last></author>
+      <author><first>Anandita</first><last>Pal</last></author>
+      <pages>244–254</pages>
+      <abstract>A major part of business operations is interacting with customers. Traditionally this was done by human agents, face to face or over telephone calls within customer support centers. There is now a move towards automation in this field using chatbots and virtual assistants, as well as an increased focus on analyzing recorded conversations to gather insights. Determining the different services that a human agent provides and estimating the incurred call handling costs per service are key to prioritizing service automation. We propose a new technique, ELDA (Embedding based LDA), based on a combination of LDA topic modeling and sentence embeddings, that can take a dataset of customer-agent dialogs and extract key utterances instead of key words. The aim is to provide more meaningful and contextual topic descriptions required for interpreting and labeling the topics, reducing the need for manually reviewing dialog transcripts.</abstract>
+      <url hash="ef8d94c4">2022.sigdial-1.26</url>
+      <bibkey>sastre-martinez-etal-2022-generating</bibkey>
+      <video href="https://youtu.be/R1_YcuKYzKs"/>
+    </paper>
+    <paper id="27">
+      <title>How Well Do You Know Your Audience? Toward Socially-aware Question Generation</title>
+      <author><first>Ian</first><last>Stewart</last></author>
+      <author><first>Rada</first><last>Mihalcea</last></author>
+      <pages>255–269</pages>
+      <abstract>When writing, a person may need to anticipate questions from their audience, but different social groups may ask very different types of questions. If someone is writing about a problem they want to resolve, what kind of follow-up question will a domain expert ask, and could the writer better address the expert’s information needs by rewriting their original post? In this paper, we explore the task of socially-aware question generation. We collect a data set of questions and posts from social media, including background information about the question-askers’ social groups. We find that different social groups, such as experts and novices, consistently ask different types of questions. We train several text-generation models that incorporate social information, and we find that a discrete social-representation model outperforms the text-only model when different social groups ask highly different questions from one another. Our work provides a framework for developing text generation models that can help writers anticipate the information expectations of highly different social groups.</abstract>
+      <url hash="70ee50d7">2022.sigdial-1.27</url>
+      <bibkey>stewart-mihalcea-2022-well</bibkey>
+      <video href="https://youtu.be/QMhSJXon4Z4"/>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>G</fixed-case>en<fixed-case>TUS</fixed-case>: Simulating User Behaviour and Language in Task-oriented Dialogues with Generative Transformers</title>
+      <author><first>Hsien-chin</first><last>Lin</last></author>
+      <author><first>Christian</first><last>Geishauser</last></author>
+      <author><first>Shutong</first><last>Feng</last></author>
+      <author><first>Nurul</first><last>Lubis</last></author>
+      <author><first>Carel</first><last>van Niekerk</last></author>
+      <author><first>Michael</first><last>Heck</last></author>
+      <author><first>Milica</first><last>Gasic</last></author>
+      <pages>270–282</pages>
+      <abstract>User simulators (USs) are commonly used to train task-oriented dialogue systems via reinforcement learning. The interactions often take place on semantic level for efficiency, but there is still a gap from semantic actions to natural language, which causes a mismatch between training and deployment environment. Incorporating a natural language generation (NLG) module with USs during training can partly deal with this problem. However, since the policy and NLG of USs are optimised separately, these simulated user utterances may not be natural enough in a given context. In this work, we propose a generative transformer-based user simulator (GenTUS). GenTUS consists of an encoder-decoder structure, which means it can optimise both the user policy and natural language generation jointly. GenTUS generates both semantic actions and natural language utterances, preserving interpretability and enhancing language variation. In addition, by representing the inputs and outputs as word sequences and by using a large pre-trained language model we can achieve generalisability in feature representation. We evaluate GenTUS with automatic metrics and human evaluation. Our results show that GenTUS generates more natural language and is able to transfer to an unseen ontology in a zero-shot fashion. In addition, its behaviour can be further shaped with reinforcement learning opening the door to training specialised user simulators.</abstract>
+      <url hash="2ddcf18e">2022.sigdial-1.28</url>
+      <bibkey>lin-etal-2022-gentus</bibkey>
+      <video href="https://youtu.be/v_zOm3OF_LI"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/multiwoz">MultiWOZ</pwcdataset>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>AARGH</fixed-case>! End-to-end Retrieval-Generation for Task-Oriented Dialog</title>
+      <author><first>Tomáš</first><last>Nekvinda</last></author>
+      <author><first>Ondřej</first><last>Dušek</last></author>
+      <pages>283–297</pages>
+      <abstract>We introduce AARGH, an end-to-end task-oriented dialog system combining retrieval and generative approaches in a single model, aiming at improving dialog management and lexical diversity of outputs. The model features a new response selection method based on an action-aware training objective and a simplified single-encoder retrieval architecture which allow us to build an end-to-end retrieval-enhanced generation model where retrieval and generation share most of the parameters. On the MultiWOZ dataset, we show that our approach produces more diverse outputs while maintaining or improving state tracking and context-to-response generation performance, compared to state-of-the-art baselines.</abstract>
+      <url hash="1f198f17">2022.sigdial-1.29</url>
+      <bibkey>nekvinda-dusek-2022-aargh</bibkey>
+      <video href="https://youtu.be/o_-G6L9wL9U"/>
+      <pwccode url="https://github.com/tomiinek/aargh" additional="false">tomiinek/aargh</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/multiwoz">MultiWOZ</pwcdataset>
+    </paper>
+    <paper id="30">
+      <title>A Systematic Evaluation of Response Selection for Open Domain Dialogue</title>
+      <author><first>Behnam</first><last>Hedayatnia</last></author>
+      <author><first>Di</first><last>Jin</last></author>
+      <author id="yang-liu-icsi"><first>Yang</first><last>Liu</last></author>
+      <author><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <pages>298–311</pages>
+      <abstract>Recent progress on neural approaches for language processing has triggered a resurgence of interest on building intelligent open-domain chatbots. However, even the state-of-the-art neural chatbots cannot produce satisfying responses for every turn in a dialog. A practical solution is to generate multiple response candidates for the same context, and then perform response ranking/selection to determine which candidate is the best. Previous work in response selection typically trains response rankers using synthetic data that is formed from existing dialogs by using a ground truth response as the single appropriate response and constructing inappropriate responses via random selection or using adversarial methods. In this work, we curated a dataset where responses from multiple response generators produced for the same dialog context are manually annotated as appropriate (positive) and inappropriate (negative). We argue that such training data better matches the actual use case examples, enabling the models to learn to rank responses effectively. With this new dataset, we conduct a systematic evaluation of state-of-the-art methods for response selection, and demonstrate that both strategies of using multiple positive candidates and using manually verified hard negative candidates can bring in significant performance improvement in comparison to using the adversarial training data, e.g., increase of 3% and 13% in Recall@1 score, respectively.</abstract>
+      <url hash="7b908bfd">2022.sigdial-1.30</url>
+      <bibkey>hedayatnia-etal-2022-systematic</bibkey>
+      <video href="https://youtu.be/05psFdQrRjs"/>
+    </paper>
+    <paper id="31">
+      <title>Inferring Ranked Dialog Flows from Human-to-Human Conversations</title>
+      <author><first>Javier Miguel</first><last>Sastre Martinez</last></author>
+      <author><first>Aisling</first><last>Nugent</last></author>
+      <pages>312–324</pages>
+      <abstract>We present a novel technique to infer ranked dialog flows from human-to-human conversations that can be used as an initial conversation design or to analyze the complexities of the conversations in a call center. This technique aims to identify, for a given service, the most common sequences of questions and responses from the human agent. Multiple dialog flows for different ranges of top paths can be produced so they can be reviewed in rank order and be refined in successive iterations until additional flows have the desired level of detail. The system ingests historical conversations and efficiently condenses them into a weighted deterministic finite-state automaton, which is then used to export dialog flow designs that can be readily used by conversational agents. A proof-of-concept experiment was conducted with the MultiWoz data set, a sample output is presented and future directions are outlined.</abstract>
+      <url hash="fb86ff41">2022.sigdial-1.31</url>
+      <bibkey>sastre-martinez-nugent-2022-inferring</bibkey>
+      <video href="https://youtu.be/Fn8syqjZFCA"/>
+    </paper>
+    <paper id="32">
+      <title>Structured Dialogue Discourse Parsing</title>
+      <author><first>Ta-Chung</first><last>Chi</last></author>
+      <author><first>Alexander</first><last>Rudnicky</last></author>
+      <pages>325–335</pages>
+      <abstract>Dialogue discourse parsing aims to uncover the internal structure of a multi-participant conversation by finding all the discourse <i>links</i> and corresponding <i>relations</i>. Previous work either treats this task as a series of independent multiple-choice problems, in which the link existence and relations are decoded separately, or the encoding is restricted to only local interaction, ignoring the holistic structural information. In contrast, we propose a principled method that improves upon previous work from two perspectives: encoding and decoding. From the encoding side, we perform structured encoding on the adjacency matrix followed by the matrix-tree learning algorithm, where all discourse links and relations in the dialogue are jointly optimized based on latent tree-level distribution. From the decoding side, we perform structured inference using the modified Chiu-Liu-Edmonds algorithm, which explicitly generates the labeled multi-root non-projective spanning tree that best captures the discourse structure. In addition, unlike in previous work, we do not rely on hand-crafted features; this improves the model’s robustness. Experiments show that our method achieves new state-of-the-art, surpassing the previous model by 2.3 on STAC and 1.5 on Molweni (F1 scores).</abstract>
+      <url hash="110e709a">2022.sigdial-1.32</url>
+      <bibkey>chi-rudnicky-2022-structured</bibkey>
+      <video href="https://youtu.be/wYYXdaFAQWA"/>
+      <pwccode url="https://github.com/chijames/structured_dialogue_discourse_parsing" additional="false">chijames/structured_dialogue_discourse_parsing</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/molweni">Molweni</pwcdataset>
+    </paper>
+    <paper id="33">
+      <title>“Do you follow me?”: A Survey of Recent Approaches in Dialogue State Tracking</title>
+      <author><first>Léo</first><last>Jacqmin</last></author>
+      <author><first>Lina M.</first><last>Rojas Barahona</last></author>
+      <author><first>Benoit</first><last>Favre</last></author>
+      <pages>336–350</pages>
+      <abstract>While communicating with a user, a task-oriented dialogue system has to track the user’s needs at each turn according to the conversation history. This process called dialogue state tracking (DST) is crucial because it directly informs the downstream dialogue policy. DST has received a lot of interest in recent years with the text-to-text paradigm emerging as the favored approach. In this review paper, we first present the task and its associated datasets. Then, considering a large number of recent publications, we identify highlights and advances of research in 2021-2022. Although neural approaches have enabled significant progress, we argue that some critical aspects of dialogue systems such as generalizability are still underexplored. To motivate future studies, we propose several research avenues.</abstract>
+      <url hash="2b44ee2d">2022.sigdial-1.33</url>
+      <bibkey>jacqmin-etal-2022-follow</bibkey>
+      <video href="https://youtu.be/8ZXMHsYDlCQ"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/crosswoz">CrossWOZ</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multiwoz">MultiWOZ</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sgd">SGD</pwcdataset>
+    </paper>
+    <paper id="34">
+      <title><fixed-case>M</fixed-case>ulti<fixed-case>WOZ</fixed-case> 2.4: A Multi-Domain Task-Oriented Dialogue Dataset with Essential Annotation Corrections to Improve State Tracking Evaluation</title>
+      <author><first>Fanghua</first><last>Ye</last></author>
+      <author><first>Jarana</first><last>Manotumruksa</last></author>
+      <author><first>Emine</first><last>Yilmaz</last></author>
+      <pages>351–360</pages>
+      <abstract>The MultiWOZ 2.0 dataset has greatly stimulated the research of task-oriented dialogue systems. However, its state annotations contain substantial noise, which hinders a proper evaluation of model performance. To address this issue, massive efforts were devoted to correcting the annotations. Three improved versions (i.e., MultiWOZ 2.1-2.3) have then been released. Nonetheless, there are still plenty of incorrect and inconsistent annotations. This work introduces MultiWOZ 2.4, which refines the annotations in the validation set and test set of MultiWOZ 2.1. The annotations in the training set remain unchanged (same as MultiWOZ 2.1) to elicit robust and noise-resilient model training. We benchmark eight state-of-the-art dialogue state tracking models on MultiWOZ 2.4. All of them demonstrate much higher performance than on MultiWOZ 2.1.</abstract>
+      <url hash="7384e323">2022.sigdial-1.34</url>
+      <bibkey>ye-etal-2022-multiwoz</bibkey>
+      <video href="https://youtu.be/mI5UNXEtSTI"/>
+      <pwccode url="https://github.com/smartyfh/MultiWOZ2.4" additional="false">smartyfh/MultiWOZ2.4</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/multiwoz">MultiWOZ</pwcdataset>
+    </paper>
+    <paper id="35">
+      <title>The Duration of a Turn Cannot be Used to Predict When It Ends</title>
+      <author><first>Charles</first><last>Threlkeld</last></author>
+      <author><first>Jp</first><last>de Ruiter</last></author>
+      <pages>361–367</pages>
+      <abstract>Turn taking in conversation is a complex process. We still don’t know how listeners are able to anticipate the end of a speaker’s turn. Previous work focuses on prosodic, semantic, and non-verbal cues that a turn is coming to an end. In this paper, we look at simple measures of duration — time, word count, and syllable count — to see if we can exploit the duration of turns as a cue. We find strong evidence that these metrics are useless.</abstract>
+      <url hash="4985d8bd">2022.sigdial-1.35</url>
+      <bibkey>threlkeld-de-ruiter-2022-duration</bibkey>
+      <video href="https://youtu.be/pjOECUyktkw"/>
+    </paper>
+    <paper id="36">
+      <title>Getting Better Dialogue Context for Knowledge Identification by Leveraging Document-level Topic Shift</title>
+      <author><first>Nhat</first><last>Tran</last></author>
+      <author><first>Diane</first><last>Litman</last></author>
+      <pages>368–375</pages>
+      <abstract>To build a goal-oriented dialogue system that can generate responses given a knowledge base, identifying the relevant pieces of information to be grounded in is vital. When the number of documents in the knowledge base is large, retrieval approaches are typically used to identify the top relevant documents. However, most prior work simply uses an entire dialogue history to guide retrieval, rather than exploiting a dialogue’s topical structure. In this work, we examine the importance of building the proper contextualized dialogue history when document-level topic shifts are present. Our results suggest that excluding irrelevant turns from the dialogue history (e.g., excluding turns not grounded in the same document as the current turn) leads to better retrieval results. We also propose a cascading approach utilizing the topical nature of a knowledge-grounded conversation to further manipulate the dialogue history used as input to the retrieval models.</abstract>
+      <url hash="223b0f0c">2022.sigdial-1.36</url>
+      <bibkey>tran-litman-2022-getting</bibkey>
+      <video href="https://youtu.be/hpr3fXbWPVA"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/doc2dial-1">Doc2Dial</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multidoc2dial">MultiDoc2Dial</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/doc2dial">doc2dial</pwcdataset>
+    </paper>
+    <paper id="37">
+      <title>Neural Generation Meets Real People: Building a Social, Informative Open-Domain Dialogue Agent</title>
+      <author><first>Ethan A.</first><last>Chi</last></author>
+      <author><first>Ashwin</first><last>Paranjape</last></author>
+      <author><first>Abigail</first><last>See</last></author>
+      <author><first>Caleb</first><last>Chiam</last></author>
+      <author><first>Trenton</first><last>Chang</last></author>
+      <author><first>Kathleen</first><last>Kenealy</last></author>
+      <author><first>Swee Kiat</first><last>Lim</last></author>
+      <author><first>Amelia</first><last>Hardy</last></author>
+      <author><first>Chetanya</first><last>Rastogi</last></author>
+      <author><first>Haojun</first><last>Li</last></author>
+      <author><first>Alexander</first><last>Iyabor</last></author>
+      <author><first>Yutong</first><last>He</last></author>
+      <author><first>Hari</first><last>Sowrirajan</last></author>
+      <author><first>Peng</first><last>Qi</last></author>
+      <author><first>Kaushik Ram</first><last>Sadagopan</last></author>
+      <author><first>Nguyet</first><last>Minh Phu</last></author>
+      <author><first>Dilara</first><last>Soylu</last></author>
+      <author><first>Jillian</first><last>Tang</last></author>
+      <author><first>Avanika</first><last>Narayan</last></author>
+      <author><first>Giovanni</first><last>Campagna</last></author>
+      <author><first>Christopher</first><last>Manning</last></author>
+      <pages>376–395</pages>
+      <abstract>We present Chirpy Cardinal, an open-domain social chatbot. Aiming to be both informative and conversational, our bot chats with users in an authentic, emotionally intelligent way. By integrating controlled neural generation with scaffolded, hand-written dialogue, we let both the user and bot take turns driving the conversation, producing an engaging and socially fluent experience. Deployed in the fourth iteration of the Alexa Prize Socialbot Grand Challenge, Chirpy Cardinal handled thousands of conversations per day, placing second out of nine bots with an average user rating of 3.58/5.</abstract>
+      <url hash="6883106a">2022.sigdial-1.37</url>
+      <bibkey>chi-etal-2022-neural</bibkey>
+      <video href="https://youtu.be/4F3Az88q3KI"/>
+    </paper>
+    <paper id="38">
+      <title><fixed-case>D</fixed-case>eep<fixed-case>C</fixed-case>on: An End-to-End Multilingual Toolkit for Automatic Minuting of Multi-Party Dialogues</title>
+      <author><first>Aakash</first><last>Bhatnagar</last></author>
+      <author><first>Nidhir</first><last>Bhavsar</last></author>
+      <author><first>Muskaan</first><last>Singh</last></author>
+      <pages>396–402</pages>
+      <abstract>In this paper, we present our minuting tool DeepCon, an end-to-end toolkit for minuting the multiparty dialogues of meetings. It provides technological support for (multilingual) communication and collaboration, with a specific focus on Natural Language Processing (NLP) technologies: Automatic Speech Recognition (ASR), Machine Translation (MT), Automatic Minuting (AM), Topic Modelling (TM) and Named Entity Recognition (NER). To the best of our knowledge, there is no such tool available. Further, this tool follows a microservice architecture, and we release the tool as open-source, deployed on Amazon Web Services (AWS). We release our tool open-source here http://www.deepcon.in.</abstract>
+      <url hash="c680c6c2">2022.sigdial-1.38</url>
+      <bibkey>bhatnagar-etal-2022-deepcon</bibkey>
+      <video href="https://youtu.be/1sfwi9oXIZg"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/samsum-corpus">SAMSum Corpus</pwcdataset>
+    </paper>
+    <paper id="39">
+      <title><fixed-case>ICM</fixed-case> : Intent and Conversational Mining from Conversation Logs</title>
+      <author><first>Sayantan</first><last>Mitra</last></author>
+      <author><first>Roshni</first><last>Ramnani</last></author>
+      <author><first>Sumit</first><last>Ranjan</last></author>
+      <author><first>Shubhashis</first><last>Sengupta</last></author>
+      <pages>403–406</pages>
+      <abstract>Building conversation agents requires a large amount of manual effort in creating training data for intents / entities as well as mapping out extensive conversation flows. In this demonstration, we present ICM (Intent and conversation Mining), a tool which can be used to analyze existing conversation logs and help a bot designer analyze customer intents, train a custom intent model as well as map and optimize conversation flows. The tool can be used for first time deployment or subsequent deployments of chatbots.</abstract>
+      <url hash="97731310">2022.sigdial-1.39</url>
+      <bibkey>mitra-etal-2022-icm</bibkey>
+      <video href="https://youtu.be/xnFqxU_8c8A"/>
+    </paper>
+    <paper id="40">
+      <title>Entity-based De-noising Modeling for Controllable Dialogue Summarization</title>
+      <author><first>Zhengyuan</first><last>Liu</last></author>
+      <author><first>Nancy</first><last>Chen</last></author>
+      <pages>407–418</pages>
+      <abstract>Although fine-tuning pre-trained backbones produces fluent and grammatically-correct text in various language generation tasks, factual consistency in abstractive summarization remains challenging. This challenge is especially thorny for dialogue summarization, where neural models often make inaccurate associations between personal named entities and their respective actions. To tackle this type of hallucination, we present an entity-based de-noising model via text perturbation on reference summaries. We then apply this proposed approach in beam search validation, conditional training augmentation, and inference post-editing. Experimental results on the SAMSum corpus show that state-of-the-art models equipped with our proposed method achieve generation quality improvement in both automatic evaluation and human assessment.</abstract>
+      <url hash="6c4f785f">2022.sigdial-1.40</url>
+      <bibkey>liu-chen-2022-entity</bibkey>
+      <video href="https://youtu.be/5FTuOs7nTK4"/>
+    </paper>
+    <paper id="41">
+      <title>i<fixed-case>E</fixed-case>val: Interactive Evaluation Framework for Open-Domain Empathetic Chatbots</title>
+      <author><first>Ekaterina</first><last>Svikhnushina</last></author>
+      <author><first>Anastasiia</first><last>Filippova</last></author>
+      <author><first>Pearl</first><last>Pu</last></author>
+      <pages>419–431</pages>
+      <abstract>Building an empathetic chatbot is an important objective in dialog generation research, with evaluation being one of the most challenging parts. By empathy, we mean the ability to understand and relate to the speakers’ emotions, and respond to them appropriately. Human evaluation has been considered as the current standard for measuring the performance of open-domain empathetic chatbots. However, existing evaluation procedures suffer from a number of limitations we try to address in our current work. In this paper, we describe iEval, a novel interactive evaluation framework where the person chatting with the bots also rates them on different conversational aspects, as well as ranking them, resulting in greater consistency of the scores. We use iEval to benchmark several state-of-the-art empathetic chatbots, allowing us to discover some intricate details in their performance in different emotional contexts. Based on these results, we present key implications for further improvement of such chatbots. To facilitate other researchers using the iEval framework, we will release our dataset consisting of collected chat logs and human scores.</abstract>
+      <url hash="5bc7b8a0">2022.sigdial-1.41</url>
+      <bibkey>svikhnushina-etal-2022-ieval</bibkey>
+      <video href="https://youtu.be/7h3jwTTfXUY"/>
+      <pwccode url="https://github.com/sea94/ieval" additional="false">sea94/ieval</pwccode>
+    </paper>
+    <paper id="42">
+      <title>Unsupervised Domain Adaptation on Question-Answering System with Conversation Data</title>
+      <author><first>Amalia</first><last>Adiba</last></author>
+      <author><first>Takeshi</first><last>Homma</last></author>
+      <author><first>Yasuhiro</first><last>Sogawa</last></author>
+      <pages>432–441</pages>
+      <abstract>Machine reading comprehension (MRC) is a task for question answering that finds answers to questions from documents of knowledge. Most studies on the domain adaptation of MRC require documents describing knowledge of the target domain. However, it is sometimes difficult to prepare such documents. The goal of this study was to transfer an MRC model to another domain without documents in an unsupervised manner. Therefore, unlike previous studies, we propose a domain-adaptation framework of MRC under the assumption that the only available data in the target domain are human conversations between a user asking questions and an expert answering the questions. The framework consists of three processes: (1) training an MRC model on the source domain, (2) converting conversations into documents using document generation (DG), a task we developed for retrieving important information from several human conversations and converting it to an abstractive document text, and (3) transferring the MRC model to the target domain with unsupervised domain adaptation. To the best of our knowledge, our research is the first to use conversation data to train MRC models in an unsupervised manner. We show that the MRC model successfully obtains question-answering ability from conversations in the target domain.</abstract>
+      <url hash="00a93917">2022.sigdial-1.42</url>
+      <bibkey>adiba-etal-2022-unsupervised</bibkey>
+      <video href="https://youtu.be/WZVBWoTkMbQ"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/doc2dial-1">Doc2Dial</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/doc2dial">doc2dial</pwcdataset>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>U</fixed-case>ni<fixed-case>DU</fixed-case>: Towards A Unified Generative Dialogue Understanding Framework</title>
+      <author><first>Zhi</first><last>Chen</last></author>
+      <author><first>Lu</first><last>Chen</last></author>
+      <author><first>Bei</first><last>Chen</last></author>
+      <author><first>Libo</first><last>Qin</last></author>
+      <author><first>Yuncong</first><last>Liu</last></author>
+      <author><first>Su</first><last>Zhu</last></author>
+      <author><first>Jian-Guang</first><last>Lou</last></author>
+      <author><first>Kai</first><last>Yu</last></author>
+      <pages>442–455</pages>
+      <abstract>With the development of pre-trained language models, remarkable success has been witnessed in dialogue understanding (DU). However, current DU approaches usually employ independent models for each distinct DU task, without considering shared knowledge across different DU tasks. In this paper, we propose a unified generative dialogue understanding framework, named UniDU, to achieve effective information exchange across diverse DU tasks. Here, we reformulate all DU tasks into a unified prompt-based generative model paradigm. More importantly, a novel model-agnostic multi-task training strategy (MATS) is introduced to dynamically adapt the weights of diverse tasks for best knowlege sharing during training, based on the nature and available data of each task. Experiments on ten DU datasets covering five fundamental DU tasks show that the proposed UniDU framework largely outperforms task-specific well-designed methods on all tasks. MATS also reveals the knowledge sharing structure of these tasks. Finally, UniDU obtains promising performance on unseen dialogue domain, showing great potential of generalization.</abstract>
+      <url hash="7759c166">2022.sigdial-1.43</url>
+      <bibkey>chen-etal-2022-unidu</bibkey>
+      <video href="https://youtu.be/LSASmJ1aIWU"/>
+    </paper>
+    <paper id="44">
+      <title>Advancing Semi-Supervised Task Oriented Dialog Systems by <fixed-case>JSA</fixed-case> Learning of Discrete Latent Variable Models</title>
+      <author><first>Yucheng</first><last>Cai</last></author>
+      <author><first>Hong</first><last>Liu</last></author>
+      <author><first>Zhijian</first><last>Ou</last></author>
+      <author><first>Yi</first><last>Huang</last></author>
+      <author><first>Junlan</first><last>Feng</last></author>
+      <pages>456–467</pages>
+      <abstract>Developing semi-supervised task-oriented dialog (TOD) systems by leveraging unlabeled dialog data has attracted increasing interests. For semi-supervised learning of latent state TOD models, variational learning is often used, but suffers from the annoying high-variance of the gradients propagated through discrete latent variables and the drawback of indirectly optimizing the target log-likelihood. Recently, an alternative algorithm, called joint stochastic approximation (JSA), has emerged for learning discrete latent variable models with impressive performances. In this paper, we propose to apply JSA to semi-supervised learning of the latent state TOD models, which is referred to as JSA-TOD. To our knowledge, JSA-TOD represents the first work in developing JSA based semi-supervised learning of discrete latent variable conditional models for such long sequential generation problems like in TOD systems. Extensive experiments show that JSA-TOD significantly outperforms its variational learning counterpart. Remarkably, semi-supervised JSA-TOD using 20% labels performs close to the full-supervised baseline on MultiWOZ2.1.</abstract>
+      <url hash="e27c87ec">2022.sigdial-1.44</url>
+      <bibkey>cai-etal-2022-advancing</bibkey>
+      <video href="https://youtu.be/ea-475Ex9do"/>
+      <pwccode url="https://github.com/cycrab/JSA-TOD" additional="false">cycrab/JSA-TOD</pwccode>
+    </paper>
+    <paper id="45">
+      <title>Redwood: Using Collision Detection to Grow a Large-Scale Intent Classification Dataset</title>
+      <author><first>Stefan</first><last>Larson</last></author>
+      <author><first>Kevin</first><last>Leach</last></author>
+      <pages>468–477</pages>
+      <abstract>Dialog systems must be capable of incorporating new skills via updates over time in order to reflect new use cases or deployment scenarios. Similarly, developers of such ML-driven systems need to be able to add new training data to an already-existing dataset to support these new skills. In intent classification systems, problems can arise if training data for a new skill’s intent overlaps semantically with an already-existing intent. We call such cases collisions. This paper introduces the task of intent collision detection between multiple datasets for the purposes of growing a system’s skillset. We introduce several methods for detecting collisions, and evaluate our methods on real datasets that exhibit collisions. To highlight the need for intent collision detection, we show that model performance suffers if new data is added in such a way that does not arbitrate colliding intents. Finally, we use collision detection to construct and benchmark a new dataset, Redwood, which is composed of 451 categories from 13 original intent classification datasets, making it the largest publicly available intent classification benchmark.</abstract>
+      <url hash="a7cedf90">2022.sigdial-1.45</url>
+      <bibkey>larson-leach-2022-redwood</bibkey>
+      <video href="https://youtu.be/E5tCFZ_5r0Y"/>
+      <pwccode url="https://github.com/gxlarson/redwood" additional="false">gxlarson/redwood</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/atis">ATIS</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/banking77">BANKING77</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/clinc150">CLINC150</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/talk2car">Talk2Car</pwcdataset>
+    </paper>
+    <paper id="46">
+      <title>Dialogue Evaluation with Offline Reinforcement Learning</title>
+      <author><first>Nurul</first><last>Lubis</last></author>
+      <author><first>Christian</first><last>Geishauser</last></author>
+      <author><first>Hsien-chin</first><last>Lin</last></author>
+      <author><first>Carel</first><last>van Niekerk</last></author>
+      <author><first>Michael</first><last>Heck</last></author>
+      <author><first>Shutong</first><last>Feng</last></author>
+      <author><first>Milica</first><last>Gasic</last></author>
+      <pages>478–489</pages>
+      <abstract>Task-oriented dialogue systems aim to fulfill user goals through natural language interactions. They are ideally evaluated with human users, which however is unattainable to do at every iteration of the development phase. Simulated users could be an alternative, however their development is nontrivial. Therefore, researchers resort to offline metrics on existing human-human corpora, which are more practical and easily reproducible. They are unfortunately limited in reflecting real performance of dialogue systems. BLEU for instance is poorly correlated with human judgment, and existing corpus-based metrics such as success rate overlook dialogue context mismatches. There is still a need for a reliable metric for task-oriented systems with good generalization and strong correlation with human judgements. In this paper, we propose the use of offline reinforcement learning for dialogue evaluation based on static data. Such an evaluator is typically called a critic and utilized for policy optimization. We go one step further and show that offline RL critics can be trained for any dialogue system as external evaluators, allowing dialogue performance comparisons across various types of systems. This approach has the benefit of being corpus- and model-independent, while attaining strong correlation with human judgements, which we confirm via an interactive user trial.</abstract>
+      <url hash="9a60ee03">2022.sigdial-1.46</url>
+      <bibkey>lubis-etal-2022-dialogue</bibkey>
+      <video href="https://youtu.be/PMrVVI4g5mM"/>
+    </paper>
+    <paper id="47">
+      <title>Disruptive Talk Detection in Multi-Party Dialogue within Collaborative Learning Environments with a Regularized User-Aware Network</title>
+      <author><first>Kyungjin</first><last>Park</last></author>
+      <author><first>Hyunwoo</first><last>Sohn</last></author>
+      <author><first>Wookhee</first><last>Min</last></author>
+      <author><first>Bradford</first><last>Mott</last></author>
+      <author><first>Krista</first><last>Glazewski</last></author>
+      <author><first>Cindy E.</first><last>Hmelo-Silver</last></author>
+      <author><first>James</first><last>Lester</last></author>
+      <pages>490–499</pages>
+      <abstract>Accurate detection and appropriate handling of disruptive talk in multi-party dialogue is essential for users to achieve shared goals. In collaborative game-based learning environments, detecting and attending to disruptive talk holds significant potential since it can cause distraction and produce negative learning experiences for students. We present a novel attention-based user-aware neural architecture for disruptive talk detection that uses a sequence dropout-based regularization mechanism. The disruptive talk detection models are evaluated with multi-party dialogue collected from 72 middle school students who interacted with a collaborative game-based learning environment. Our proposed disruptive talk detection model significantly outperforms competitive baseline approaches and shows significant potential for helping to support effective collaborative learning experiences.</abstract>
+      <url hash="f9769efc">2022.sigdial-1.47</url>
+      <bibkey>park-etal-2022-disruptive</bibkey>
+      <video href="https://youtu.be/e7nQwF82LBo"/>
+    </paper>
+    <paper id="48">
+      <title>Generating Discourse Connectives with Pre-trained Language Models: Conditioning on Discourse Relations Helps Reconstruct the <fixed-case>PDTB</fixed-case></title>
+      <author><first>Symon</first><last>Stevens-Guille</last></author>
+      <author><first>Aleksandre</first><last>Maskharashvili</last></author>
+      <author><first>Xintong</first><last>Li</last></author>
+      <author><first>Michael</first><last>White</last></author>
+      <pages>500–515</pages>
+      <abstract>We report results of experiments using BART (Lewis et al., 2019) and the Penn Discourse Tree Bank (Webber et al., 2019) (PDTB) to generate texts with correctly realized discourse relations. We address a question left open by previous research (Yung et al., 2021; Ko and Li, 2020) concerning whether conditioning the model on the intended discourse relation—which corresponds to adding explicit discourse relation information into the input to the model—improves its performance. Our results suggest that including discourse relation information in the input of the model significantly improves the consistency with which it produces a correctly realized discourse relation in the output. We compare our models’ performance to known results concerning the discourse structures found in written text and their possible explanations in terms of discourse interpretation strategies hypothesized in the psycholinguistics literature. Our findings suggest that natural language generation models based on current pre-trained Transformers will benefit from infusion with discourse level information if they aim to construct discourses with the intended relations.</abstract>
+      <url hash="6ecde446">2022.sigdial-1.48</url>
+      <bibkey>stevens-guille-etal-2022-generating</bibkey>
+      <video href="https://youtu.be/Io_RIOZj1hQ"/>
+      <pwccode url="https://github.com/symonjorystevens-guille/penngen" additional="false">symonjorystevens-guille/penngen</pwccode>
+    </paper>
+    <paper id="49">
+      <title>Toward Self-Learning End-to-End Task-oriented Dialog Systems</title>
+      <author><first>Xiaoying</first><last>Zhang</last></author>
+      <author><first>Baolin</first><last>Peng</last></author>
+      <author><first>Jianfeng</first><last>Gao</last></author>
+      <author><first>Helen</first><last>Meng</last></author>
+      <pages>516–530</pages>
+      <abstract>End-to-end task bots are typically learned over a static and usually limited-size corpus. However, when deployed in dynamic, changing, and open environments to interact with users, task bots tend to fail when confronted with data that deviate from the training corpus, i.e., out-of-distribution samples. In this paper, we study the problem of automatically adapting task bots to changing environments by learning from human-bot interactions with minimum or zero human annotations. We propose SL-Agent, a novel self-learning framework for building end-to-end task bots. SL-Agent consists of a dialog model and a pre-trained reward model to predict the quality of an agent response. It enables task bots to automatically adapt to changing environments by learning from the unlabeled human-bot dialog logs accumulated after deployment via reinforcement learning with the incorporated reward model. Experimental results on four well-studied dialog tasks show the effectiveness of SL-Agent to automatically adapt to changing environments, using both automatic and human evaluations. We will release code and data for further research.</abstract>
+      <url hash="35fba05f">2022.sigdial-1.49</url>
+      <bibkey>zhang-etal-2022-toward-self</bibkey>
+      <video href="https://youtu.be/FBO3PMW57gU"/>
+    </paper>
+    <paper id="50">
+      <title>Combining Structured and Unstructured Knowledge in an Interactive Search Dialogue System</title>
+      <author><first>Svetlana</first><last>Stoyanchev</last></author>
+      <author><first>Suraj</first><last>Pandey</last></author>
+      <author><first>Simon</first><last>Keizer</last></author>
+      <author><first>Norbert</first><last>Braunschweiler</last></author>
+      <author><first>Rama Sanand</first><last>Doddipatla</last></author>
+      <pages>531–540</pages>
+      <abstract>Users of interactive search dialogue systems specify their preferences with natural language utterances. However, a schema-driven system is limited to handling the preferences that correspond to the predefined database content. In this work, we present a methodology for extending a schema-driven interactive search dialogue system with the ability to handle unconstrained user preferences. Using unsupervised semantic similarity metrics and the text snippets associated with the search items, the system identifies suitable items for the user’s unconstrained natural language query. In crowd-sourced evaluation, the users chat with our extended restaurant search system. Based on objective metrics and subjective user ratings, we demonstrate the feasibility of using an unsupervised low latency approach to extend a schema-driven search dialogue system to handle unconstrained user preferences.</abstract>
+      <url hash="49f0c8fb">2022.sigdial-1.50</url>
+      <bibkey>stoyanchev-etal-2022-combining</bibkey>
+      <video href="https://youtu.be/4f2urztZCdQ"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/sgd">SGD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
+    </paper>
+    <paper id="51">
+      <title>How Much Does Prosody Help Turn-taking? Investigations using Voice Activity Projection Models</title>
+      <author><first>Erik</first><last>Ekstedt</last></author>
+      <author><first>Gabriel</first><last>Skantze</last></author>
+      <pages>541–551</pages>
+      <abstract>Turn-taking is a fundamental aspect of human communication and can be described as the ability to take turns, project upcoming turn shifts, and supply backchannels at appropriate locations throughout a conversation. In this work, we investigate the role of prosody in turn-taking using the recently proposed Voice Activity Projection model, which incrementally models the upcoming speech activity of the interlocutors in a self-supervised manner, without relying on explicit annotation of turn-taking events, or the explicit modeling of prosodic features. Through manipulation of the speech signal, we investigate how these models implicitly utilize prosodic information. We show that these systems learn to utilize various prosodic aspects of speech both on aggregate quantitative metrics of long-form conversations and on single utterances specifically designed to depend on prosody.</abstract>
+      <url hash="4dad212e">2022.sigdial-1.51</url>
+      <bibkey>ekstedt-skantze-2022-much</bibkey>
+      <video href="https://youtu.be/QstNOaBfJ5k"/>
+      <pwccode url="https://github.com/erikekstedt/conv_ssl" additional="false">erikekstedt/conv_ssl</pwccode>
+    </paper>
+    <paper id="52">
+      <title>What makes you change your mind? An empirical investigation in online group decision-making conversations</title>
+      <author><first>Georgi</first><last>Karadzhov</last></author>
+      <author><first>Tom</first><last>Stafford</last></author>
+      <author><first>Andreas</first><last>Vlachos</last></author>
+      <pages>552–563</pages>
+      <abstract>People leverage group discussions to collaborate in order to solve complex tasks, e.g. in project meetings or hiring panels. By doing so, they engage in a variety of conversational strategies where they try to convince each other of the best approach and ultimately reach a decision. In this work, we investigate methods for detecting what makes someone change their mind. To this end, we leverage a recently introduced dataset containing group discussions of people collaborating to solve a task. To find out what makes someone change their mind, we incorporate various techniques such as neural text classification and language-agnostic change point detection. Evaluation of these methods shows that while the task is not trivial, the best way to approach it is using a language-aware model with learning-to-rank training. Finally, we examine the cues that the models develop as indicative of the cause of a change of mind.</abstract>
+      <url hash="53ade687">2022.sigdial-1.52</url>
+      <bibkey>karadzhov-etal-2022-makes</bibkey>
+      <video href="https://youtu.be/wA9RLUEdwOg"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/delidata">DeliData</pwcdataset>
+    </paper>
+    <paper id="53">
+      <title>Dialogue Term Extraction using Transfer Learning and Topological Data Analysis</title>
+      <author><first>Renato</first><last>Vukovic</last></author>
+      <author><first>Michael</first><last>Heck</last></author>
+      <author><first>Benjamin</first><last>Ruppik</last></author>
+      <author><first>Carel</first><last>van Niekerk</last></author>
+      <author><first>Marcus</first><last>Zibrowius</last></author>
+      <author><first>Milica</first><last>Gasic</last></author>
+      <pages>564–581</pages>
+      <abstract>Goal oriented dialogue systems were originally designed as a natural language interface to a fixed data-set of entities that users might inquire about, further described by domain, slots and values. As we move towards adaptable dialogue systems where knowledge about domains, slots and values may change, there is an increasing need to automatically extract these terms from raw dialogues or related non-dialogue data on a large scale. In this paper, we take an important step in this direction by exploring different features that can enable systems to discover realisations of domains, slots and values in dialogues in a purely data-driven fashion. The features that we examine stem from word embeddings, language modelling features, as well as topological features of the word embedding space. To examine the utility of each feature set, we train a seed model based on the widely used MultiWOZ data-set. Then, we apply this model to a different corpus, the Schema-guided dialogue data-set. Our method outperforms the previously proposed approach that relies solely on word embeddings. We also demonstrate that each of the features is responsible for discovering different kinds of content. We believe our results warrant further research towards ontology induction, and continued harnessing of topological data analysis for dialogue and natural language processing research.</abstract>
+      <url hash="151e734f">2022.sigdial-1.53</url>
+      <bibkey>vukovic-etal-2022-dialogue</bibkey>
+      <video href="https://youtu.be/keSRDRwRK3Y"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/multiwoz">MultiWOZ</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sgd">SGD</pwcdataset>
+    </paper>
+    <paper id="54">
+      <title>Evaluating N-best Calibration of Natural Language Understanding for Dialogue Systems</title>
+      <author><first>Ranim</first><last>Khojah</last></author>
+      <author><first>Alexander</first><last>Berman</last></author>
+      <author><first>Staffan</first><last>Larsson</last></author>
+      <pages>582–594</pages>
+      <abstract>A Natural Language Understanding (NLU) component can be used in a dialogue system to perform intent classification, returning an N-best list of hypotheses with corresponding confidence estimates. We perform an in-depth evaluation of 5 NLUs, focusing on confidence estimation. We measure and visualize calibration for the 10 best hypotheses on model level and rank level, and also measure classification performance. The results indicate a trade-off between calibration and performance. In particular, Rasa (with Sklearn classifier) had the best calibration but the lowest performance scores, while Watson Assistant had the best performance but a poor calibration.</abstract>
+      <url hash="a5734fbb">2022.sigdial-1.54</url>
+      <bibkey>khojah-etal-2022-evaluating</bibkey>
+      <video href="https://youtu.be/VW97fUNgUw8"/>
+      <pwccode url="https://github.com/ranimkhojah/confidence-estimation-benchmark" additional="false">ranimkhojah/confidence-estimation-benchmark</pwccode>
+    </paper>
+    <paper id="55">
+      <title><fixed-case>LAD</fixed-case>: Language Models as Data for Zero-Shot Dialog</title>
+      <author><first>Shikib</first><last>Mehri</last></author>
+      <author><first>Yasemin</first><last>Altun</last></author>
+      <author><first>Maxine</first><last>Eskenazi</last></author>
+      <pages>595–604</pages>
+      <abstract>To facilitate zero-shot generalization in task-oriented dialog, this paper proposes Language Models as Data (LAD). LAD is a paradigm for creating diverse and accurate synthetic data which conveys the necessary structural constraints and can be used to train a downstream neural dialog model. LAD leverages GPT-3 to induce linguistic diversity. LAD achieves significant performance gains in zero-shot settings on intent prediction (+15%), slot filling (+31.4 F-1) and next action prediction (+10 F-1). Furthermore, an interactive human evaluation shows that training with LAD is competitive with training on human dialogs.</abstract>
+      <url hash="567bed14">2022.sigdial-1.55</url>
+      <bibkey>mehri-etal-2022-lad</bibkey>
+      <video href="https://youtu.be/cdJnOFBd5mE"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/banking77">BANKING77</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/clinc150">CLINC150</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/hwu64">HWU64</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/star">STAR</pwcdataset>
+    </paper>
+    <paper id="56">
+      <title>Improving Bot Response Contradiction Detection via Utterance Rewriting</title>
+      <author><first>Di</first><last>Jin</last></author>
+      <author><first>Sijia</first><last>Liu</last></author>
+      <author id="yang-liu-icsi"><first>Yang</first><last>Liu</last></author>
+      <author><first>Dilek</first><last>Hakkani-Tur</last></author>
+      <pages>605–614</pages>
+      <abstract>Though chatbots based on large neural models can often produce fluent responses in open domain conversations, one salient error type is contradiction or inconsistency with the preceding conversation turns. Previous work has treated contradiction detection in bot responses as a task similar to natural language inference, e.g., detect the contradiction between a pair of bot utterances. However, utterances in conversations may contain co-references or ellipsis, and using these utterances as is may not always be sufficient for identifying contradictions. This work aims to improve the contradiction detection via rewriting all bot utterances to restore co-references and ellipsis. We curated a new dataset for utterance rewriting and built a rewriting model on it. We empirically demonstrate that this model can produce satisfactory rewrites to make bot utterances more complete. Furthermore, using rewritten utterances improves contradiction detection performance significantly, e.g., the AUPR and joint accuracy scores (detecting contradiction along with evidence) increase by 6.5% and 4.5% (absolute increase), respectively.</abstract>
+      <url hash="a503a095">2022.sigdial-1.56</url>
+      <bibkey>jin-etal-2022-improving</bibkey>
+      <video href="https://youtu.be/ZEPaSnSGjiw"/>
+      <pwccode url="https://github.com/jind11/utterance-rewriting" additional="false">jind11/utterance-rewriting</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/canard">CANARD</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/dailydialog">DailyDialog</pwcdataset>
+    </paper>
+    <paper id="57">
+      <title>Comparison of Lexical Alignment with a Teachable Robot in Human-Robot and Human-Human-Robot Interactions</title>
+      <author><first>Yuya</first><last>Asano</last></author>
+      <author><first>Diane</first><last>Litman</last></author>
+      <author><first>Mingzhi</first><last>Yu</last></author>
+      <author><first>Nikki</first><last>Lobczowski</last></author>
+      <author><first>Timothy</first><last>Nokes-Malach</last></author>
+      <author><first>Adriana</first><last>Kovashka</last></author>
+      <author><first>Erin</first><last>Walker</last></author>
+      <pages>615–622</pages>
+      <abstract>Speakers build rapport in the process of aligning conversational behaviors with each other. Rapport engendered with a teachable agent while instructing domain material has been shown to promote learning. Past work on lexical alignment in the field of education suffers from limitations in both the measures used to quantify alignment and the types of interactions in which alignment with agents has been studied. In this paper, we apply alignment measures based on a data-driven notion of shared expressions (possibly composed of multiple words) and compare alignment in one-on-one human-robot (H-R) interactions with the H-R portions of collaborative human-human-robot (H-H-R) interactions. We find that students in the H-R setting align with a teachable robot more than in the H-H-R setting and that the relationship between lexical alignment and rapport is more complex than what is predicted by previous theoretical and empirical work.</abstract>
+      <url hash="74b8fbc8">2022.sigdial-1.57</url>
+      <bibkey>asano-etal-2022-comparison</bibkey>
+    </paper>
+    <paper id="58">
+      <title><fixed-case>TREND</fixed-case>: Trigger-Enhanced Relation-Extraction Network for Dialogues</title>
+      <author><first>Po-Wei</first><last>Lin</last></author>
+      <author><first>Shang-Yu</first><last>Su</last></author>
+      <author><first>Yun-Nung</first><last>Chen</last></author>
+      <pages>623–629</pages>
+      <abstract>The goal of dialogue relation extraction (DRE) is to identify the relation between two entities in a given dialogue. During conversations, speakers may expose their relations to certain entities by explicit or implicit clues, such evidences called “triggers”. However, trigger annotations may not be always available for the target data, so it is challenging to leverage such information for enhancing the performance. Therefore, this paper proposes to learn how to identify triggers from the data with trigger annotations and then transfers the trigger-finding capability to other datasets for better performance. The experiments show that the proposed approach is capable of improving relation extraction performance of unseen relations and also demonstrate the transferability of our proposed trigger-finding model across different domains and datasets.</abstract>
+      <url hash="62b5083a">2022.sigdial-1.58</url>
+      <bibkey>lin-etal-2022-trend</bibkey>
+      <pwccode url="https://github.com/miulab/trend" additional="false">miulab/trend</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/ddrel">DDRel</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/dialogre">DialogRE</pwcdataset>
+    </paper>
+    <paper id="59">
+      <title>User Satisfaction Modeling with Domain Adaptation in Task-oriented Dialogue Systems</title>
+      <author><first>Yan</first><last>Pan</last></author>
+      <author><first>Mingyang</first><last>Ma</last></author>
+      <author><first>Bernhard</first><last>Pflugfelder</last></author>
+      <author><first>Georg</first><last>Groh</last></author>
+      <pages>630–636</pages>
+      <abstract>User Satisfaction Estimation (USE) is crucial in helping measure the quality of a task-oriented dialogue system. However, the complex nature of implicit responses poses challenges in detecting user satisfaction, and most datasets are limited in size or not available to the public due to user privacy policies. Unlike task-oriented dialogue, large-scale annotated chitchat with emotion labels is publicly available. Therefore, we present a novel user satisfaction model with domain adaptation (USMDA) to utilize this chitchat. We adopt a dialogue Transformer encoder to capture contextual features from the dialogue. And we reduce domain discrepancy to learn dialogue-related invariant features. Moreover, USMDA jointly learns satisfaction signals in the chitchat context with user satisfaction estimation, and user actions in task-oriented dialogue with dialogue action recognition. Experimental results on two benchmarks show that our proposed framework for the USE task outperforms existing unsupervised domain adaptation methods. To the best of our knowledge, this is the first work to study user satisfaction estimation with unsupervised domain adaptation from chitchat to task-oriented dialogue.</abstract>
+      <url hash="240c2ff7">2022.sigdial-1.59</url>
+      <bibkey>pan-etal-2022-user</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/emorynlp">EmoryNLP</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sgd">SGD</pwcdataset>
+    </paper>
+    <paper id="60">
+      <title>N-best Response-based Analysis of Contradiction-awareness in Neural Response Generation Models</title>
+      <author><first>Shiki</first><last>Sato</last></author>
+      <author><first>Reina</first><last>Akama</last></author>
+      <author><first>Hiroki</first><last>Ouchi</last></author>
+      <author><first>Ryoko</first><last>Tokuhisa</last></author>
+      <author><first>Jun</first><last>Suzuki</last></author>
+      <author><first>Kentaro</first><last>Inui</last></author>
+      <pages>637–644</pages>
+      <abstract>Avoiding the generation of responses that contradict the preceding context is a significant challenge in dialogue response generation. One feasible method is post-processing, such as filtering out contradicting responses from a resulting n-best response list. In this scenario, the quality of the n-best list considerably affects the occurrence of contradictions because the final response is chosen from this n-best list. This study quantitatively analyzes the contextual contradiction-awareness of neural response generation models using the consistency of the n-best lists. Particularly, we used polar questions as stimulus inputs for concise and quantitative analyses. Our tests illustrate the contradiction-awareness of recent neural response generation models and methodologies, followed by a discussion of their properties and limitations.</abstract>
+      <url hash="f312a19c">2022.sigdial-1.60</url>
+      <bibkey>sato-etal-2022-n</bibkey>
+      <pwccode url="https://github.com/shiki-sato/nbest-contradiction-analysis" additional="false">shiki-sato/nbest-contradiction-analysis</pwccode>
+    </paper>
+    <paper id="61">
+      <title>A Visually-Aware Conversational Robot Receptionist</title>
+      <author><first>Nancie</first><last>Gunson</last></author>
+      <author><first>Daniel</first><last>Hernandez Garcia</last></author>
+      <author><first>Weronika</first><last>Sieińska</last></author>
+      <author><first>Angus</first><last>Addlesee</last></author>
+      <author><first>Christian</first><last>Dondrup</last></author>
+      <author><first>Oliver</first><last>Lemon</last></author>
+      <author><first>Jose L.</first><last>Part</last></author>
+      <author><first>Yanchao</first><last>Yu</last></author>
+      <pages>645–648</pages>
+      <abstract>Socially Assistive Robots (SARs) have the potential to play an increasingly important role in a variety of contexts including healthcare, but most existing systems have very limited interactive capabilities. We will demonstrate a robot receptionist that not only supports task-based and social dialogue via natural spoken conversation but is also capable of visually grounded dialogue; able to perceive and discuss the shared physical environment (e.g. helping users to locate personal belongings or objects of interest). Task-based dialogues include check-in, navigation and FAQs about facilities, alongside social features such as chit-chat, access to the latest news and a quiz game to play while waiting. We also show how visual context (objects and their spatial relations) can be combined with linguistic representations of dialogue context, to support visual dialogue and question answering. We will demonstrate the system on a humanoid ARI robot, which is being deployed in a hospital reception area.</abstract>
+      <url hash="bdaac07e">2022.sigdial-1.61</url>
+      <bibkey>gunson-etal-2022-visually</bibkey>
+    </paper>
+    <paper id="62">
+      <title>Demonstrating <fixed-case>EMMA</fixed-case>: Embodied <fixed-case>M</fixed-case>ulti<fixed-case>M</fixed-case>odal Agent for Language-guided Action Execution in 3<fixed-case>D</fixed-case> Simulated Environments</title>
+      <author><first>Alessandro</first><last>Suglia</last></author>
+      <author><first>Bhathiya</first><last>Hemanthage</last></author>
+      <author><first>Malvina</first><last>Nikandrou</last></author>
+      <author><first>George</first><last>Pantazopoulos</last></author>
+      <author><first>Amit</first><last>Parekh</last></author>
+      <author><first>Arash</first><last>Eshghi</last></author>
+      <author><first>Claudio</first><last>Greco</last></author>
+      <author><first>Ioannis</first><last>Konstas</last></author>
+      <author><first>Oliver</first><last>Lemon</last></author>
+      <author><first>Verena</first><last>Rieser</last></author>
+      <pages>649–653</pages>
+      <abstract>We demonstrate EMMA, an embodied multimodal agent which has been developed for the Alexa Prize SimBot challenge. The agent acts within a 3D simulated environment for household tasks. EMMA is a unified and multimodal generative model aimed at solving embodied tasks. In contrast to previous work, our approach treats multiple multimodal tasks as a single multimodal conditional text generation problem, where a model learns to output text given both language and visual input. Furthermore, we showcase that a single generative agent can solve tasks with visual inputs of varying length, such as answering questions about static images, or executing actions given a sequence of previous frames and dialogue utterances. The demo system will allow users to interact conversationally with EMMA in embodied dialogues in different 3D environments from the TEACh dataset.</abstract>
+      <url hash="05afdbf2">2022.sigdial-1.62</url>
+      <bibkey>suglia-etal-2022-demonstrating</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/ai2-thor">AI2-THOR</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/alfred">ALFRED</pwcdataset>
+    </paper>
+    <paper id="63">
+      <title><fixed-case>GRILLB</fixed-case>ot: A multi-modal conversational agent for complex real-world tasks</title>
+      <author><first>Carlos</first><last>Gemmell</last></author>
+      <author><first>Federico</first><last>Rossetto</last></author>
+      <author><first>Iain</first><last>Mackie</last></author>
+      <author><first>Paul</first><last>Owoicho</last></author>
+      <author><first>Sophie</first><last>Fischer</last></author>
+      <author><first>Jeff</first><last>Dalton</last></author>
+      <pages>654–658</pages>
+      <abstract>We present GRILLBot, an open-source multi-modal task-oriented voice assistant to help users perform complex tasks, focusing on the domains of cooking and home improvement. GRILLBot curates and leverages web information extraction to build coverage over a broad range of tasks for which a user can receive guidance. To represent each task, we propose TaskGraphs as a dynamic graph unifying steps, requirements, and curated domain knowledge enabling contextual question answering, and detailed explanations. Multi-modal elements play a key role in GRILLBot both helping the user navigate through the task and enriching the experience with helpful videos and images that are automatically linked throughout the task. We leverage a contextual neural semantic parser to enable flexible navigation when interacting with the system by jointly encoding stateful information with the conversation history. GRILLBot enables dynamic and adaptable task planning and assistance for complex tasks by combining elements of task representations that incorporate text and structure, combined with neural models for search, question answering, and dialogue state management. GRILLBot competed in the Alexa prize TaskBot Challenge as one of the finalists.</abstract>
+      <url hash="749214f4">2022.sigdial-1.63</url>
+      <bibkey>gemmell-etal-2022-grillbot</bibkey>
+    </paper>
+    <paper id="64">
+      <title>A System For Robot Concept Learning Through Situated Dialogue</title>
+      <author><first>Benjamin</first><last>Kane</last></author>
+      <author><first>Felix</first><last>Gervits</last></author>
+      <author><first>Matthias</first><last>Scheutz</last></author>
+      <author><first>Matthew</first><last>Marge</last></author>
+      <pages>659–662</pages>
+      <abstract>Robots operating in unexplored environments with human teammates will need to learn unknown concepts on the fly. To this end, we demonstrate a novel system that combines a computational model of question generation with a cognitive robotic architecture. The model supports dynamic production of back-and-forth dialogue for concept learning given observations of an environment, while the architecture supports symbolic reasoning, action representation, one-shot learning and other capabilities for situated interaction. The system is able to learn about new concepts including objects, locations, and actions, using an underlying approach that is generalizable and scalable. We evaluate the system by comparing learning efficiency to a human baseline in a collaborative reference resolution task and show that the system is effective and efficient in learning new concepts, and that it can informatively generate explanations about its behavior.</abstract>
+      <url hash="7dd0c205">2022.sigdial-1.64</url>
+      <bibkey>kane-etal-2022-system</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/hurdl">HuRDL</pwcdataset>
+    </paper>
+  </volume>
+</collection>

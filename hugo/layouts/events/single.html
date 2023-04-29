@@ -5,11 +5,12 @@
   </h2>
   <hr />
 
-  {{ $venue := index .Site.Data.venues .Params.venue }}
-  {{ $volumes := index $venue "volumes_by_year" .Params.year }}
+  {{/* Get the event and iterate through all the volumes associated with it */}}
+  {{ $event := index .Site.Data.events .Params.event_slug }}
+  {{ $volumes := index $event "volumes" }}
   <div class="card bg-light mb-2 mb-lg-4">
     <div class="card-body">
-      <h4 class="card-title">Contents</h4>
+      <h4 class="card-title">Volumes</h4>
       <ul class="list-pl-responsive">
         {{ range $volumes }}
         {{ $volume := index $.Site.Data.volumes . }}

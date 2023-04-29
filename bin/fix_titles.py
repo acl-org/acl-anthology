@@ -27,14 +27,13 @@ import argparse
 import os
 import sys
 
-from anthology.utils import indent, deconstruct_anthology_id, make_simple_element
+from anthology.utils import indent, deconstruct_anthology_id
 from normalize_anth import normalize
 
 import lxml.etree as ET
 
 
 def main(args):
-
     prev_xml_file = None
     tree = None
     for line in args.tsv_file:
@@ -60,7 +59,7 @@ def main(args):
             print(f"Can't find {anth_id} in {xml_file}")
             continue
 
-        title = paper.find(f"./title")
+        title = paper.find("./title")
         if title is None:
             print(f"** WARNING: no title for for {anth_id}")
             continue

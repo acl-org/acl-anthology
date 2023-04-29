@@ -15,8 +15,6 @@
 # limitations under the License.
 
 from functools import cached_property
-import re
-import logging as log
 
 from . import data
 from .papers import Paper
@@ -52,23 +50,32 @@ class Volume:
         self._id = volume_id
         self.ingest_date = ingest_date
         self.formatter = formatter
-        self.venue_index = venue_index
         self._set_meta_info(meta_data)
-        self.attrib["venues"] = venue_index.get_associated_venues(self.full_id)
+        self.venue_index = venue_index
+        self.attrib["venues"] = meta_data.get("venue", [])
+        self.attrib["events"] = meta_data.get("event", [])
         self.attrib["sigs"] = sig_index.get_associated_sigs(self.full_id)
         self.content = []
         self.has_abstracts = False
         self.has_frontmatter = False
 
+    def get_venues(self):
+        """
+        Return the primary venues (as slugs) associated with this volume. This can be multiple venues,
+        if the volumes is a joint volume. These venue associations are now listed explicitly in the
+        XML, even for new-style IDs.
+        """
+        return self.attrib["venues"]
+
     @staticmethod
     def from_xml(
         volume_xml, collection_id, venue_index: VenueIndex, sig_index: SIGIndex, formatter
     ):
-
         volume_id = volume_xml.attrib["id"]
         # The date of publication, defaulting to earlier than anything we'll encounter
         ingest_date = volume_xml.attrib.get("ingest-date", data.UNKNOWN_INGEST_DATE)
         meta_data = parse_element(volume_xml.find("meta"))
+
         # Though metadata uses "booktitle", switch to "title" for compatibility with downstream scripts
         meta_data["title"] = formatter(meta_data["xml_booktitle"], "plain")
 
@@ -84,9 +91,7 @@ class Volume:
 
         front_matter_xml = volume_xml.find("frontmatter")
         if front_matter_xml is not None:
-            front_matter = Paper.from_xml(
-                front_matter_xml, volume, formatter, venue_index
-            )
+            front_matter = Paper.from_xml(front_matter_xml, volume, formatter)
             volume.add_frontmatter(front_matter)
 
         return volume
@@ -125,19 +130,17 @@ class Volume:
             if month is not None:
                 self.attrib["meta_date"] = f"{self.get('year')}/{month}"
         if is_journal(self.collection_id):
-            self.attrib["meta_journal_title"] = data.get_journal_title(
+            # TODO: This should be explicitly represented in the XML instead of
+            # hardcoding and parsing it.
+            journal_title, volume_no, issue_no = data.get_journal_info(
                 self.collection_id, self.attrib["title"]
             )
-            volume_no = re.search(
-                r"Volume\s*(\d+)", self.attrib["title"], flags=re.IGNORECASE
-            )
+
+            self.attrib["meta_journal_title"] = journal_title
             if volume_no is not None:
-                self.attrib["meta_volume"] = volume_no.group(1)
-            issue_no = re.search(
-                r"(Number|Issue)\s*(\d+-?\d*)", self.attrib["title"], flags=re.IGNORECASE
-            )
+                self.attrib["meta_volume"] = volume_no
             if issue_no is not None:
-                self.attrib["meta_issue"] = issue_no.group(2)
+                self.attrib["meta_issue"] = issue_no
 
     @property
     def volume_id(self):
@@ -146,6 +149,11 @@ class Volume:
     @cached_property
     def full_id(self):
         return build_anthology_id(self.collection_id, self.volume_id)
+
+    @property
+    def year(self):
+        """Return the year the volume was published."""
+        return self.attrib["year"]
 
     @property
     def paper_ids(self):

@@ -44,22 +44,14 @@ The commit the changes and push.
 """
 
 import argparse
-import filetype
 import os
-import shutil
-import ssl
 import sys
-import tempfile
 
 from anthology.utils import (
     deconstruct_anthology_id,
     make_simple_element,
     indent,
-    compute_hash,
-    infer_url,
-    is_newstyle_id,
 )
-from anthology.data import PDF_LOCATION_TEMPLATE
 
 import lxml.etree as ET
 
@@ -79,7 +71,7 @@ def main(args):
         print(f"Error: Can't find paper {args.anthology_id}, quitting")
 
     existing_award = paper.find("./award")
-    if existing_award is not None and award.text.lower() == args.award:
+    if existing_award is not None and existing_award.text.lower() == args.award:
         print(
             f"Error: Award {args.award} already exists for {args.anthology_id}, quitting"
         )

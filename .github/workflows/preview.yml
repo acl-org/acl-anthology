@@ -9,16 +9,21 @@ on:
     - '*'
     - '!master'
 
+# only run one at a time per branch
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   preview:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: install hugo
-      run: wget https://github.com/gohugoio/hugo/releases/download/v0.58.3/hugo_extended_0.58.3_Linux-64bit.deb && sudo dpkg -i hugo_extended*.deb
+      run: wget https://github.com/gohugoio/hugo/releases/download/v0.108.0/hugo_extended_0.108.0_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
     - name: update
       run: sudo apt-get update
     - name: install other deps
-      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3.8-dev
+      run: sudo apt-get install -y jing bibutils openssh-client rsync libyaml-dev libpython3-dev
     - name: dump secret key
       env:
         SSH_KEY: ${{ secrets.PUBLISH_SSH_KEY }}
@@ -30,10 +35,6 @@ jobs:
     - name: fetch master branch
       run: |
         git fetch origin master
-    - name: setup python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
     - name: install pip dependencies
       run: |
         python -m pip install -U pip
@@ -56,9 +57,11 @@ jobs:
       env:
         ANTHOLOGY_PREFIX: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
       run: |
-        make ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site preview
-    - uses: mshick/add-pr-comment@v1
+        make NOBIB=true ANTHOLOGY_PREFIX=${ANTHOLOGY_PREFIX} check site preview
+    - uses: mshick/add-pr-comment@v2
       with:
+        # this causes pushes to update the old message, instead of generating a new one
+        message-id: preview
         message: |
           Build successful. Some useful links:
           * Complete site preview: https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}
@@ -66,5 +69,4 @@ jobs:
 
           This preview will be removed when the branch is merged.
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
         allow-repeats: false

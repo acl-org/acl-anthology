@@ -28,6 +28,7 @@
       <month>November</month>
       <year>2021</year>
       <url hash="74ed0994">2021.wmt-1</url>
+      <venue>wmt</venue>
     </meta>
     <frontmatter>
       <url hash="bbbc26a2">2021.wmt-1.0</url>
@@ -78,6 +79,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/ccaligned">CCAligned</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/dogc">DOGC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wmt-2020">WMT 2020</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikimatrix">WikiMatrix</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/cawac">caWaC</pwcdataset>
@@ -125,6 +127,8 @@
       <abstract>This paper presents the University of Edinburgh’s constrained submissions of English-German and English-Hausa systems to the WMT 2021 shared task on news translation. We build En-De systems in three stages: corpus filtering, back-translation, and fine-tuning. For En-Ha we use an iterative back-translation approach on top of pre-trained En-De models and investigate vocabulary embedding mapping.</abstract>
       <url hash="52042e1c">2021.wmt-1.4</url>
       <bibkey>chen-etal-2021-university</bibkey>
+      <pwccode url="https://github.com/marian-nmt/marian" additional="false">marian-nmt/marian</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="5">
       <title>Tune in: The <fixed-case>AFRL</fixed-case> <fixed-case>WMT</fixed-case>21 News-Translation Systems</title>
@@ -135,7 +139,6 @@
       <abstract>This paper describes the Air Force Research Laboratory (AFRL) machine translation sys- tems and the improvements that were developed during the WMT21 evaluation campaign. This year, we explore various methods of adapting our baseline models from WMT20 and again measure improvements in performance on the Russian–English language pair.</abstract>
       <url hash="ac7ec2b4">2021.wmt-1.5</url>
       <bibkey>erdmann-etal-2021-tune</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikimatrix">WikiMatrix</pwcdataset>
     </paper>
     <paper id="6">
@@ -170,7 +173,7 @@
       <author><first>Jailan S.</first><last>ElMosalami</last></author>
       <author><first>Mohamed</first><last>Afify</last></author>
       <author><first>Ahmed Y.</first><last>Tawfik</last></author>
-      <author><first>Hany Hassan</first><last>Awadalla</last></author>
+      <author><first>Hany</first><last>Hassan Awadalla</last></author>
       <pages>130–135</pages>
       <abstract>This paper describes the Microsoft Egypt Development Center (EgDC) submission to the constrained track of WMT21 shared news translation task. We focus on the three relatively low resource language pairs Bengali ↔ Hindi, English ↔ Hausa and Xhosa ↔ Zulu. To overcome the limitation of relatively low parallel data we train a multilingual model using a multitask objective employing both parallel and monolingual data. In addition, we augment the data using back translation. We also train a bilingual model incorporating back translation and knowledge distillation then combine the two models using sequence-to-sequence mapping. We see around 70% relative gain in BLEU point for En ↔ Ha and around 25% relative improvements for Bn ↔ Hi and Xh ↔ Zu compared to bilingual baselines.</abstract>
       <url hash="f235080b">2021.wmt-1.8</url>
@@ -189,6 +192,7 @@
       <bibkey>simonarson-etal-2021-mideinds</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/ccmatrix">CCMatrix</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ipac">IPAC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="10">
       <title>Allegro.eu Submission to <fixed-case>WMT</fixed-case>21 News Translation Task</title>
@@ -304,6 +308,7 @@
       <abstract>We describe Facebook’s multilingual model submission to the WMT2021 shared task on news translation. We participate in 14 language directions: English to and from Czech, German, Hausa, Icelandic, Japanese, Russian, and Chinese. To develop systems covering all these directions, we focus on multilingual models. We utilize data from all available sources — WMT, large-scale data mining, and in-domain backtranslation — to create high quality bilingual and multilingual baselines. Subsequently, we investigate strategies for scaling multilingual model size, such that one system has sufficient capacity for high quality representations of all eight languages. Our final submission is an ensemble of dense and sparse Mixture-of-Expert multilingual translation models, followed by finetuning on in-domain news data and noisy channel reranking. Compared to previous year’s winning submissions, our multilingual system improved the translation quality on all language directions, with an average improvement of 2.0 BLEU. In the WMT2021 task, our system ranks first in 10 directions based on automatic evaluation.</abstract>
       <url hash="172c5ef4">2021.wmt-1.19</url>
       <bibkey>tran-etal-2021-facebook</bibkey>
+      <pwccode url="https://github.com/facebookresearch/fairseq/tree/main/examples/wmt21" additional="false">facebookresearch/fairseq</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cc100">CC100</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ccaligned">CCAligned</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ccmatrix">CCMatrix</pwcdataset>
@@ -472,6 +477,7 @@
       <abstract>In this work, two Neural Machine Translation (NMT) systems have been developed and evaluated as part of the bidirectional Tamil-Telugu similar languages translation subtask in WMT21. The OpenNMT-py toolkit has been used to create quick prototypes of the systems, following which models have been trained on the training datasets containing the parallel corpus and finally the models have been evaluated on the dev datasets provided as part of the task. Both the systems have been trained on a DGX station with 4 -V100 GPUs. The first NMT system in this work is a Transformer based 6 layer encoder-decoder model, trained for 100000 training steps, whose configuration is similar to the one provided by OpenNMT-py and this is used to create a model for bidirectional translation. The second NMT system contains two unidirectional translation models with the same configuration as the first system, with the addition of utilizing Byte Pair Encoding (BPE) for subword tokenization through the pre-trained MultiBPEmb model. Based on the dev dataset evaluation metrics for both the systems, the first system i.e. the vanilla Transformer model has been submitted as the Primary system. Since there were no improvements in the metrics during training of the second system with BPE, it has been submitted as a contrastive system.</abstract>
       <url hash="b06bd41e">2021.wmt-1.32</url>
       <bibkey>saldanha-etal-2021-nitk</bibkey>
+      <video href="2021.wmt-1.32.mp4"/>
     </paper>
     <paper id="33">
       <title>A3-108 Machine Translation System for Similar Language Translation Shared Task 2021</title>
@@ -604,7 +610,7 @@
       <pwccode url="https://github.com/temu-bsc/wmt2021-indoeuropean" additional="false">temu-bsc/wmt2021-indoeuropean</pwccode>
     </paper>
     <paper id="44">
-      <title><fixed-case>E</fixed-case>din<fixed-case>S</fixed-case>aar@<fixed-case>WMT</fixed-case>21: North-Germanic Low-Resource Multilingual <fixed-case>NMT</fixed-case></title>
+      <title><fixed-case>E</fixed-case>din<fixed-case>S</fixed-case>aar@<fixed-case>WMT</fixed-case>21: <fixed-case>N</fixed-case>orth-<fixed-case>G</fixed-case>ermanic Low-Resource Multilingual <fixed-case>NMT</fixed-case></title>
       <author><first>Svetlana</first><last>Tchistiakova</last></author>
       <author><first>Jesujoba</first><last>Alabi</last></author>
       <author><first>Koel</first><last>Dutta Chowdhury</last></author>
@@ -665,6 +671,7 @@
       <abstract>In this paper, we focus on the task of multilingual machine translation for African languages and describe our contribution in the 2021 WMT Shared Task: Large-Scale Multilingual Machine Translation. We introduce MMTAfrica, the first many-to-many multilingual translation system for six African languages: Fon (fon), Igbo (ibo), Kinyarwanda (kin), Swahili/Kiswahili (swa), Xhosa (xho), and Yoruba (yor) and two non-African languages: English (eng) and French (fra). For multilingual translation concerning African languages, we introduce a novel backtranslation and reconstruction objective, BT&amp;REC, inspired by the random online back translation and T5 modelling framework respectively, to effectively leverage monolingual data. Additionally, we report improvements from MMTAfrica over the FLORES 101 benchmarks (spBLEU gains ranging from +0.58 in Swahili to French to +19.46 in French to Xhosa).</abstract>
       <url hash="eeeccac0">2021.wmt-1.48</url>
       <bibkey>emezue-dossou-2021-mmtafrica</bibkey>
+      <pwccode url="https://github.com/edaiofficial/mmtafrica" additional="false">edaiofficial/mmtafrica</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/flores-101">FLORES-101</pwcdataset>
     </paper>
     <paper id="49">
@@ -767,6 +774,7 @@
       <abstract>The current approach to collecting human judgments of machine translation quality for the news translation task at WMT – segment rating with document context – is the most recent in a sequence of changes to WMT human annotation protocol. As these annotation protocols have changed over time, they have drifted away from some of the initial statistical assumptions underpinning them, with consequences that call the validity of WMT news task system rankings into question. In simulations based on real data, we show that the rankings can be influenced by the presence of outliers (high- or low-quality systems), resulting in different system rankings and clusterings. We also examine questions of annotation task composition and how ease or difficulty of translating different documents may influence system rankings. We provide discussion of ways to analyze these issues when considering future changes to annotation protocols.</abstract>
       <url hash="32ab6ec9">2021.wmt-1.56</url>
       <bibkey>knowles-2021-stability</bibkey>
+      <video href="2021.wmt-1.56.mp4"/>
       <pwccode url="https://github.com/nrc-cnrc/wmt-stability" additional="false">nrc-cnrc/wmt-stability</pwccode>
     </paper>
     <paper id="57">
@@ -781,7 +789,8 @@
       <abstract>Automatic metrics are commonly used as the exclusive tool for declaring the superiority of one machine translation system’s quality over another. The community choice of automatic metric guides research directions and industrial developments by deciding which models are deemed better. Evaluating metrics correlations with sets of human judgements has been limited by the size of these sets. In this paper, we corroborate how reliable metrics are in contrast to human judgements on – to the best of our knowledge – the largest collection of judgements reported in the literature. Arguably, pairwise rankings of two systems are the most common evaluation tasks in research or deployment scenarios. Taking human judgement as a gold standard, we investigate which metrics have the highest accuracy in predicting translation quality rankings for such system pairs. Furthermore, we evaluate the performance of various metrics across different language pairs and domains. Lastly, we show that the sole use of BLEU impeded the development of improved models leading to bad deployment decisions. We release the collection of 2.3M sentence-level human judgements for 4380 systems for further analysis and replication of our work.</abstract>
       <url hash="1858dec3">2021.wmt-1.57</url>
       <bibkey>kocmi-etal-2021-ship</bibkey>
-      <pwccode url="https://github.com/Unbabel/COMET" additional="true">Unbabel/COMET</pwccode>
+      <video href="2021.wmt-1.57.mp4"/>
+      <pwccode url="https://github.com/MicrosoftTranslator/ToShipOrNotToShip" additional="true">MicrosoftTranslator/ToShipOrNotToShip</pwccode>
     </paper>
     <paper id="58">
       <title>Just Ask! Evaluating Machine Translation by Asking and Answering Questions</title>
@@ -793,6 +802,7 @@
       <abstract>In this paper, we show that automatically-generated questions and answers can be used to evaluate the quality of Machine Translation (MT) systems. Building on recent work on the evaluation of abstractive text summarization, we propose a new metric for system-level MT evaluation, compare it with other state-of-the-art solutions, and show its robustness by conducting experiments for various MT directions.</abstract>
       <url hash="c8e87bf1">2021.wmt-1.58</url>
       <bibkey>krubinski-etal-2021-just</bibkey>
+      <video href="2021.wmt-1.58.mp4"/>
       <pwccode url="https://github.com/ufal/mteqa" additional="false">ufal/mteqa</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xquad">XQuAD</pwcdataset>
@@ -805,6 +815,7 @@
       <abstract>BERTScore, a recently proposed automatic metric for machine translation quality, uses BERT, a large pre-trained language model to evaluate candidate translations with respect to a gold translation. Taking advantage of BERT’s semantic and syntactic abilities, BERTScore seeks to avoid the flaws of earlier approaches like BLEU, instead scoring candidate translations based on their semantic similarity to the gold sentence. However, BERT is not infallible; while its performance on NLP tasks set a new state of the art in general, studies of specific syntactic and semantic phenomena have shown where BERT’s performance deviates from that of humans more generally. This naturally raises the questions we address in this paper: what are the strengths and weaknesses of BERTScore? Do they relate to known weaknesses on the part of BERT? We find that while BERTScore can detect when a candidate differs from a reference in important content words, it is less sensitive to smaller errors, especially if the candidate is lexically or stylistically similar to the reference.</abstract>
       <url hash="0353a77e">2021.wmt-1.59</url>
       <bibkey>hanna-bojar-2021-fine</bibkey>
+      <video href="2021.wmt-1.59.mp4"/>
     </paper>
     <paper id="60">
       <title>Evaluating Multiway Multilingual <fixed-case>NMT</fixed-case> in the <fixed-case>T</fixed-case>urkic Languages</title>
@@ -826,6 +837,7 @@
       <abstract>Despite the increasing number of large and comprehensive machine translation (MT) systems, evaluation of these methods in various languages has been restrained by the lack of high-quality parallel corpora as well as engagement with the people that speak these languages. In this study, we present an evaluation of state-of-the-art approaches to training and evaluating MT systems in 22 languages from the Turkic language family, most of which being extremely under-explored. First, we adopt the TIL Corpus with a few key improvements to the training and the evaluation sets. Then, we train 26 bilingual baselines as well as a multi-way neural MT (MNMT) model using the corpus and perform an extensive analysis using automatic metrics as well as human evaluations. We find that the MNMT model outperforms almost all bilingual baselines in the out-of-domain test sets and finetuning the model on a downstream task of a single pair also results in a huge performance boost in both low- and high-resource scenarios. Our attentive analysis of evaluation criteria for MT models in Turkic languages also points to the necessity for further research in this direction. We release the corpus splits, test sets as well as models to the public.</abstract>
       <url hash="74fbd94f">2021.wmt-1.60</url>
       <bibkey>mirzakhalov-etal-2021-evaluating</bibkey>
+      <video href="2021.wmt-1.60.mp4"/>
       <pwccode url="https://github.com/turkic-interlingua/til-mt" additional="false">turkic-interlingua/til-mt</pwccode>
     </paper>
     <paper id="61">
@@ -836,6 +848,7 @@
       <abstract>Human gender bias is reflected in language and text production. Because state-of-the-art machine translation (MT) systems are trained on large corpora of text, mostly generated by humans, gender bias can also be found in MT. For instance when occupations are translated from a language like English, which mostly uses gender neutral words, to a language like German, which mostly uses a feminine and a masculine version for an occupation, a decision must be made by the MT System. Recent research showed that MT systems are biased towards stereotypical translation of occupations. In 2019 the first, and so far only, challenge set, explicitly designed to measure the extent of gender bias in MT systems has been published. In this set measurement of gender bias is solely based on the translation of occupations. With our paper we present an extension of this challenge set, called WiBeMT, which adds gender-biased adjectives and sentences with gender-biased verbs. The resulting challenge set consists of over 70, 000 sentences and has been translated with three commercial MT systems: DeepL Translator, Microsoft Translator, and Google Translate. Results show a gender bias for all three MT systems. This gender bias is to a great extent significantly influenced by adjectives and to a lesser extent by verbs.</abstract>
       <url hash="73ac409d">2021.wmt-1.61</url>
       <bibkey>troles-schmid-2021-extending</bibkey>
+      <video href="2021.wmt-1.61.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/winobias">WinoBias</pwcdataset>
     </paper>
     <paper id="62">
@@ -845,6 +858,8 @@
       <abstract>This paper proposes a technique for adding a new source or target language to an existing multilingual NMT model without re-training it on the initial set of languages. It consists in replacing the shared vocabulary with a small language-specific vocabulary and fine-tuning the new embeddings on the new language’s parallel data. Some additional language-specific components may be trained to improve performance (e.g., Transformer layers or adapter modules). Because the parameters of the original model are not modified, its performance on the initial languages does not degrade. We show on two sets of experiments (small-scale on TED Talks, and large-scale on ParaCrawl) that this approach performs as well or better as the more costly alternatives; and that it has excellent zero-shot performance: training on English-centric data is enough to translate between the new language and any of the initial languages.</abstract>
       <url hash="71cc6ed2">2021.wmt-1.62</url>
       <bibkey>berard-2021-continual</bibkey>
+      <video href="2021.wmt-1.62.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="63">
       <title><fixed-case>DELA</fixed-case> Corpus - A Document-Level Corpus Annotated with Context-Related Issues</title>
@@ -856,6 +871,7 @@
       <abstract>Recently, the Machine Translation (MT) community has become more interested in document-level evaluation especially in light of reactions to claims of “human parity”, since examining the quality at the level of the document rather than at the sentence level allows for the assessment of suprasentential context, providing a more reliable evaluation. This paper presents a document-level corpus annotated in English with context-aware issues that arise when translating from English into Brazilian Portuguese, namely ellipsis, gender, lexical ambiguity, number, reference, and terminology, with six different domains. The corpus can be used as a challenge test set for evaluation and as a training/testing corpus for MT as well as for deep linguistic analysis of context issues. To the best of our knowledge, this is the first corpus of its kind.</abstract>
       <url hash="eda6418a">2021.wmt-1.63</url>
       <bibkey>castilho-etal-2021-dela</bibkey>
+      <video href="2021.wmt-1.63.mp4"/>
     </paper>
     <paper id="64">
       <title>Multilingual Domain Adaptation for <fixed-case>NMT</fixed-case>: Decoupling Language and Domain Information with Adapters</title>
@@ -866,6 +882,8 @@
       <abstract>Adapter layers are lightweight, learnable units inserted between transformer layers. Recent work explores using such layers for neural machine translation (NMT), to adapt pre-trained models to new domains or language pairs, training only a small set of parameters for each new setting (language pair or domain). In this work we study the compositionality of language and domain adapters in the context of Machine Translation. We aim to study, 1) parameter-efficient adaptation to multiple domains and languages simultaneously (full-resource scenario) and 2) cross-lingual transfer in domains where parallel data is unavailable for certain language pairs (partial-resource scenario). We find that in the partial resource scenario a naive combination of domain-specific and language-specific adapters often results in ‘catastrophic forgetting’ of the missing languages. We study other ways to combine the adapters to alleviate this issue and maximize cross-lingual transfer. With our best adapter combinations, we obtain improvements of 3-4 BLEU on average for source languages that do not have in-domain data. For target languages without in-domain data, we achieve a similar improvement by combining adapters with back-translation. Supplementary material is available at https://tinyurl.com/r66stbxj.</abstract>
       <url hash="f2520c89">2021.wmt-1.64</url>
       <bibkey>cooper-stickland-etal-2021-multilingual</bibkey>
+      <video href="2021.wmt-1.64.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="65">
       <title>Translation Transformers Rediscover Inherent Data Domains</title>
@@ -876,9 +894,9 @@
       <abstract>Many works proposed methods to improve the performance of Neural Machine Translation (NMT) models in a domain/multi-domain adaptation scenario. However, an understanding of how NMT baselines represent text domain information internally is still lacking. Here we analyze the sentence representations learned by NMT Transformers and show that these explicitly include the information on text domains, even after only seeing the input sentences without domains labels. Furthermore, we show that this internal information is enough to cluster sentences by their underlying domains without supervision. We show that NMT models produce clusters better aligned to the actual domains compared to pre-trained language models (LMs). Notably, when computed on document-level, NMT cluster-to-domain correspondence nears 100%. We use these findings together with an approach to NMT domain adaptation using automatically extracted domains. Whereas previous work relied on external LMs for text clustering, we propose re-using the NMT model as a source of unsupervised clusters. We perform an extensive experimental study comparing two approaches across two data scenarios, three language pairs, and both sentence-level and document-level clustering, showing equal or significantly superior performance compared to LMs.</abstract>
       <url hash="2412479e">2021.wmt-1.65</url>
       <bibkey>del-etal-2021-translation</bibkey>
+      <video href="2021.wmt-1.65.mp4"/>
       <pwccode url="https://github.com/tartunlp/inherent-domains-wmt21" additional="false">tartunlp/inherent-domains-wmt21</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/opensubtitles">OpenSubtitles</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="66">
       <title>Improving Machine Translation of Rare and Unseen Word Senses</title>
@@ -891,6 +909,7 @@
       <abstract>The performance of NMT systems has improved drastically in the past few years but the translation of multi-sense words still poses a challenge. Since word senses are not represented uniformly in the parallel corpora used for training, there is an excessive use of the most frequent sense in MT output. In this work, we propose CmBT (Contextually-mined Back-Translation), an approach for improving multi-sense word translation leveraging pre-trained cross-lingual contextual word representations (CCWRs). Because of their contextual sensitivity and their large pre-training data, CCWRs can easily capture word senses that are missing or very rare in parallel corpora used to train MT. Specifically, CmBT applies bilingual lexicon induction on CCWRs to mine sense-specific target sentences from a monolingual dataset, and then back-translates these sentences to generate a pseudo parallel corpus as additional training data for an MT system. We test the translation quality of ambiguous words on the MuCoW test suite, which was built to test the word sense disambiguation effectiveness of MT systems. We show that our system improves on the translation of difficult unseen and low frequency word senses.</abstract>
       <url hash="3fd0bb62">2021.wmt-1.66</url>
       <bibkey>hangya-etal-2021-improving</bibkey>
+      <video href="2021.wmt-1.66.mp4"/>
     </paper>
     <paper id="67">
       <title>Pushing the Right Buttons: Adversarial Evaluation of Quality Estimation</title>
@@ -904,6 +923,7 @@
       <abstract>Current Machine Translation (MT) systems achieve very good results on a growing variety of language pairs and datasets. However, they are known to produce fluent translation outputs that can contain important meaning errors, thus undermining their reliability in practice. Quality Estimation (QE) is the task of automatically assessing the performance of MT systems at test time. Thus, in order to be useful, QE systems should be able to detect such errors. However, this ability is yet to be tested in the current evaluation practices, where QE systems are assessed only in terms of their correlation with human judgements. In this work, we bridge this gap by proposing a general methodology for adversarial testing of QE for MT. First, we show that despite a high correlation with human judgements achieved by the recent SOTA, certain types of meaning errors are still problematic for QE to detect. Second, we show that on average, the ability of a given model to discriminate between meaning-preserving and meaning-altering perturbations is predictive of its overall performance, thus potentially allowing for comparing QE systems without relying on manual quality annotation.</abstract>
       <url hash="bd895f85">2021.wmt-1.67</url>
       <bibkey>kanojia-etal-2021-pushing</bibkey>
+      <video href="2021.wmt-1.67.mp4"/>
       <pwccode url="https://github.com/dipteshkanojia/qe-evaluation" additional="false">dipteshkanojia/qe-evaluation</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/wmt-2020">WMT 2020</pwcdataset>
     </paper>
@@ -934,6 +954,7 @@
       <abstract>Language domains that require very careful use of terminology are abundant and reflect a significant part of the translation industry. In this work we introduce a benchmark for evaluating the quality and consistency of terminology translation, focusing on the medical (and COVID-19 specifically) domain for five language pairs: English to French, Chinese, Russian, and Korean, as well as Czech to German. We report the descriptions and results of the participating systems, commenting on the need for further research efforts towards both more adequate handling of terminologies as well as towards a proper formulation and evaluation of the task.</abstract>
       <url hash="0cbed520">2021.wmt-1.69</url>
       <bibkey>alam-etal-2021-findings</bibkey>
+      <video href="2021.wmt-1.69.mp4"/>
     </paper>
     <paper id="70">
       <title>Findings of the <fixed-case>WMT</fixed-case> 2021 Biomedical Translation Shared Task: Summaries of Animal Experiments as New Test Set</title>
@@ -974,6 +995,7 @@
       <abstract>We report the results of the WMT 2021 shared task on Quality Estimation, where the challenge is to predict the quality of the output of neural machine translation systems at the word and sentence levels. This edition focused on two main novel additions: (i) prediction for unseen languages, i.e. zero-shot settings, and (ii) prediction of sentences with catastrophic errors. In addition, new data was released for a number of languages, especially post-edited data. Participating teams from 19 institutions submitted altogether 1263 systems to different task variants and language pairs.</abstract>
       <url hash="607328ce">2021.wmt-1.71</url>
       <bibkey>specia-etal-2021-findings</bibkey>
+      <video href="2021.wmt-1.71.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/mlqe-pe">MLQE-PE</pwcdataset>
     </paper>
     <paper id="72">
@@ -997,8 +1019,11 @@
       <author><first>Ondřej</first><last>Bojar</last></author>
       <pages>733–774</pages>
       <abstract>This paper presents the results of the WMT21 Metrics Shared Task. Participants were asked to score the outputs of the translation systems competing in the WMT21 News Translation Task with automatic metrics on two different domains: news and TED talks. All metrics were evaluated on how well they correlate at the system- and segment-level with human ratings. Contrary to previous years’ editions, this year we acquired our own human ratings based on expert-based human evaluation via Multidimensional Quality Metrics (MQM). This setup had several advantages: (i) expert-based evaluation has been shown to be more reliable, (ii) we were able to evaluate all metrics on two different domains using translations of the same MT systems, (iii) we added 5 additional translations coming from the same system during system development. In addition, we designed three challenge sets that evaluate the robustness of all automatic metrics. We present an extensive analysis on how well metrics perform on three language pairs: English to German, English to Russian and Chinese to English. We further show the impact of different reference translations on reference-based metrics and compare our expert-based MQM annotation with the DA scores acquired by WMT.</abstract>
-      <url hash="84c89ac5">2021.wmt-1.73</url>
+      <url hash="b047c48c">2021.wmt-1.73</url>
       <bibkey>freitag-etal-2021-results</bibkey>
+      <revision id="1" href="2021.wmt-1.73v1" hash="84c89ac5"/>
+      <revision id="2" href="2021.wmt-1.73v2" hash="a4bbe848" date="2022-07-08">Various updates throughout the paper.</revision>
+      <revision id="3" href="2021.wmt-1.73v3" hash="b047c48c" date="2023-01-18">Corrects the WMT21 DA human ratings scores.</revision>
     </paper>
     <paper id="74">
       <title>Efficient Machine Translation with Model Pruning and Quantization</title>
@@ -1174,7 +1199,7 @@
     <paper id="87">
       <title>High Frequent In-domain Words Segmentation and Forward Translation for the <fixed-case>WMT</fixed-case>21 Biomedical Task</title>
       <author><first>Bardia</first><last>Rafieian</last></author>
-      <author><first>Marta Ruiz</first><last>Costa Jussa</last></author>
+      <author><first>Marta R.</first><last>Costa-jussa</last></author>
       <pages>863–867</pages>
       <abstract>This paper reports the optimization of using the out-of-domain data in the Biomedical translation task. We firstly optimized our parallel training dataset using the BabelNet in-domain terminology words. Afterward, to increase the training set, we studied the effects of the out-of-domain data on biomedical translation tasks, and we created a mixture of in-domain and out-of-domain training sets and added more in-domain data using forward translation in the English-Spanish task. Finally, with a simple bpe optimization method, we increased the number of in-domain sub-words in our mixed training set and trained the Transformer model on the generated data. Results show improvements using our proposed method.</abstract>
       <url hash="ca175b73">2021.wmt-1.87</url>
@@ -1531,6 +1556,7 @@
       <abstract>Unlike most work on pruning neural networks, we make inference faster. Group lasso regularisation enables pruning entire rows, columns or blocks of parameters that result in a smaller dense network. Because the network is still dense, efficient matrix multiply routines are still used and only minimal software changes are required to support variable layer sizes. Moreover, pruning is applied during training so there is no separate pruning step. Experiments on top of English-&gt;German models, which already have state-of-the-art speed and size, show that two-thirds of feedforward connections can be removed with 0.2 BLEU loss. With 6 decoder layers, the pruned model is 34% faster; with 2 tied decoder layers, the pruned model is 14% faster. Pruning entire heads and feedforward connections in a 12–1 encoder-decoder architecture gains an additional 51% speed-up. These push the Pareto frontier with respect to the trade-off between time and quality compared to strong baselines. In the WMT 2021 Efficiency Task, our pruned and quantised models are 1.9–2.7x faster at the cost 0.9–1.7 BLEU in comparison to the unoptimised baselines. Across language pairs, we see similar sparsity patterns: an ascending or U-shaped distribution in encoder feedforward and attention layers and an ascending distribution in the decoder.</abstract>
       <url hash="cabf66be">2021.wmt-1.116</url>
       <bibkey>behnke-heafield-2021-pruning</bibkey>
+      <video href="2021.wmt-1.116.mp4"/>
     </paper>
     <paper id="117">
       <title>Phrase-level Active Learning for Neural Machine Translation</title>
@@ -1540,6 +1566,7 @@
       <abstract>Neural machine translation (NMT) is sensitive to domain shift. In this paper, we address this problem in an active learning setting where we can spend a given budget on translating in-domain data, and gradually fine-tune a pre-trained out-of-domain NMT model on the newly translated data. Existing active learning methods for NMT usually select sentences based on uncertainty scores, but these methods require costly translation of full sentences even when only one or two key phrases within the sentence are informative. To address this limitation, we re-examine previous work from the phrase-based machine translation (PBMT) era that selected not full sentences, but rather individual phrases. However, while incorporating these phrases into PBMT systems was relatively simple, it is less trivial for NMT systems, which need to be trained on full sequences to capture larger structural properties of sentences unique to the new domain. To overcome these hurdles, we propose to select both full sentences and individual phrases from unlabelled data in the new domain for routing to human translators. In a German-English translation task, our active learning approach achieves consistent improvements over uncertainty-based sentence selection methods, improving up to 1.2 BLEU score over strong active learning baselines.</abstract>
       <url hash="06a09b55">2021.wmt-1.117</url>
       <bibkey>hu-neubig-2021-phrase</bibkey>
+      <video href="2021.wmt-1.117.mp4"/>
     </paper>
     <paper id="118">
       <title>Learning Feature Weights using Reward Modeling for Denoising Parallel Corpora</title>
@@ -1550,6 +1577,8 @@
       <abstract>Large web-crawled corpora represent an excellent resource for improving the performance of Neural Machine Translation (NMT) systems across several language pairs. However, since these corpora are typically extremely noisy, their use is fairly limited. Current approaches to deal with this problem mainly focus on filtering using heuristics or single features such as language model scores or bi-lingual similarity. This work presents an alternative approach which learns weights for multiple sentence-level features. These feature weights which are optimized directly for the task of improving translation performance, are used to score and filter sentences in the noisy corpora more effectively. We provide results of applying this technique to building NMT systems using the Paracrawl corpus for Estonian-English and show that it beats strong single feature baselines and hand designed combinations. Additionally, we analyze the sensitivity of this method to different types of noise and explore if the learned weights generalize to other language pairs using the Maltese-English Paracrawl corpus.</abstract>
       <url hash="733fefb0">2021.wmt-1.118</url>
       <bibkey>kumar-etal-2021-learning-feature</bibkey>
+      <video href="2021.wmt-1.118.mp4"/>
+      <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
     </paper>
     <paper id="119">
       <title>Monotonic Simultaneous Translation with Chunk-wise Reordering and Refinement</title>
@@ -1563,6 +1592,7 @@
       <abstract>Recent work in simultaneous machine translation is often trained with conventional full sentence translation corpora, leading to either excessive latency or necessity to anticipate as-yet-unarrived words, when dealing with a language pair whose word orders significantly differ. This is unlike human simultaneous interpreters who produce largely monotonic translations at the expense of the grammaticality of a sentence being translated. In this paper, we thus propose an algorithm to reorder and refine the target side of a full sentence translation corpus, so that the words/phrases between the source and target sentences are aligned largely monotonically, using word alignment and non-autoregressive neural machine translation. We then train a widely used wait-k simultaneous translation model on this reordered-and-refined corpus. The proposed approach improves BLEU scores and resulting translations exhibit enhanced monotonicity with source sentences.</abstract>
       <url hash="5ee86fdf">2021.wmt-1.119</url>
       <bibkey>han-etal-2021-monotonic</bibkey>
+      <video href="2021.wmt-1.119.mp4"/>
       <pwcdataset url="https://paperswithcode.com/dataset/mtnt">MTNT</pwcdataset>
     </paper>
     <paper id="120">
@@ -1574,6 +1604,7 @@
       <abstract>Simultaneous translation is a task in which translation begins before the speaker has finished speaking, so it is important to decide when to start the translation process. However, deciding whether to read more input words or start to translate is difficult for language pairs with different word orders such as English and Japanese. Motivated by the concept of pre-reordering, we propose a couple of simple decision rules using the label of the next constituent predicted by incremental constituent label prediction. In experiments on English-to-Japanese simultaneous translation, the proposed method outperformed baselines in the quality-latency trade-off.</abstract>
       <url hash="bf9001e2">2021.wmt-1.120</url>
       <bibkey>kano-etal-2021-simultaneous</bibkey>
+      <video href="2021.wmt-1.120.mp4"/>
     </paper>
     <paper id="121">
       <title>Contrastive Learning for Context-aware Neural Machine Translation Using Coreference Information</title>
@@ -1584,6 +1615,7 @@
       <abstract>Context-aware neural machine translation (NMT) incorporates contextual information of surrounding texts, that can improve the translation quality of document-level machine translation. Many existing works on context-aware NMT have focused on developing new model architectures for incorporating additional contexts and have shown some promising results. However, most of existing works rely on cross-entropy loss, resulting in limited use of contextual information. In this paper, we propose CorefCL, a novel data augmentation and contrastive learning scheme based on coreference between the source and contextual sentences. By corrupting automatically detected coreference mentions in the contextual sentence, CorefCL can train the model to be sensitive to coreference inconsistency. We experimented with our method on common context-aware NMT models and two document-level translation tasks. In the experiments, our method consistently improved BLEU of compared models on English-German and English-Korean tasks. We also show that our method significantly improves coreference resolution in the English-German contrastive test suite.</abstract>
       <url hash="c91a0faa">2021.wmt-1.121</url>
       <bibkey>hwang-etal-2021-contrastive</bibkey>
+      <video href="2021.wmt-1.121.mp4"/>
     </paper>
   </volume>
 </collection>

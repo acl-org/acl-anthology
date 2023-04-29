@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import sys
 import lxml.etree as etree
 
 from anthology.utils import indent

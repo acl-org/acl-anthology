@@ -39,6 +39,7 @@ import re
 from anthology import Anthology
 from docopt import docopt
 
+# ruff: noqa: F403, F405, E741
 from vimeo_apikeys import *
 
 
@@ -79,7 +80,7 @@ if cacheVimeo and os.path.isfile("videos.pickle"):
 
 while cont and fetchUrls:
     res = v.get(requestUrl)
-    if res == None:
+    if res is None:
         print("Result was None; sleeping and trying again")
         time.sleep(2)
         continue
@@ -92,7 +93,7 @@ while cont and fetchUrls:
         nameUrls[elem["name"]] = elem["link"]
     requestUrl = j["paging"]["next"]
     print(requestUrl)
-    cont = requestUrl != None
+    cont = requestUrl is not None
     # seems to be needed to not run into read timeouts.
     time.sleep(1)
 
@@ -160,17 +161,17 @@ if computeMatch:
         if " " in name:
             name = name.lower()
             res = trySubstringMatch(name)
-            if res == None:
+            if res is None:
                 res = tryMatch(name)
             # try to remove author list appended by : or by -
-            if res == None:
+            if res is None:
                 if ":" in name:
                     res = tryMatch(name.rsplit(":", 1)[0])
-            if res == None:
+            if res is None:
                 if "-" in name:
                     res = tryMatch(name.rsplit("-", 1)[0])
 
-            if res != None:
+            if res is not None:
                 (idx, p) = res
                 if checkVideo(p):
                     print("video already exists, skipping ...")

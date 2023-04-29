@@ -36,7 +36,6 @@ import lxml.etree as ET
 
 
 def main(args):
-
     for line in args.isbn_file:
         venue, isbn = line.rstrip().split()
 
@@ -47,11 +46,11 @@ def main(args):
             print(f"Can't find {xml_file}")
             continue
         tree = ET.parse(xml_file)
-        meta = tree.getroot().find(f".//volume[@id='1']/meta")
+        meta = tree.getroot().find(".//volume[@id='1']/meta")
         if meta is not None and meta.find("./isbn") is None:
             print(f"Adding {isbn} to {venue} meta block")
             make_simple_element("isbn", isbn, parent=meta)
-        elif volume.find("./isbn") is not None:
+        elif venue.find("./isbn") is not None:
             print(f"{venue} already done")
 
         indent(tree.getroot())
