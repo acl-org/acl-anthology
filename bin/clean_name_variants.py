@@ -1,4 +1,4 @@
-import yaml, yamlfix
+import yaml
 import sys
 import anthology
 import logging

@@ -22,9 +22,7 @@ from functools import lru_cache
 import itertools as it
 from slugify import slugify
 from stop_words import get_stop_words
-from .formatter import bibtex_encode
 from .people import PersonName
-from .venues import VenueIndex
 
 from typing import List
 
@@ -123,7 +121,7 @@ class AnthologyIndex:
             if not self._fast_load:
                 for name, ids in self.name_to_ids.items():
                     if len(ids) > 1:
-                        for (id1, id2) in it.permutations(ids, 2):
+                        for id1, id2 in it.permutations(ids, 2):
                             self._similar[id1].add(id2)
             for entry in name_list:
                 try:
@@ -221,7 +219,7 @@ class AnthologyIndex:
             )
         if paper.is_volume:
             # Proceedings volumes use venue acronym instead of authors/editors
-            bibnames = slugify(vidx.get_main_venue(paper.full_id))
+            bibnames = slugify(paper.get_venue_acronym())
         else:
             # Regular papers use author/editor names
             names = paper.get("author")
@@ -327,7 +325,7 @@ class AnthologyIndex:
     def id_to_used(self):
         if self._fast_load and not self._id_to_used:
             for paper in self._parent.papers.values():
-                for (name, id_, _) in paper.iter_people():
+                for name, id_, _ in paper.iter_people():
                     self._id_to_used[id_].add(name)
         return self._id_to_used
 
@@ -336,7 +334,7 @@ class AnthologyIndex:
         if self._fast_load and not self._coauthors:
             for paper in self._parent.papers.values():
                 people = list(paper.iter_people())
-                for (p1, p2) in it.permutations(people, 2):
+                for p1, p2 in it.permutations(people, 2):
                     name1, id1, role1 = p1
                     name2, id2, role2 = p2
                     if role1 != role2:
@@ -387,7 +385,7 @@ class AnthologyIndex:
         return self.id_to_canonical[id_]
 
     def set_canonical_name(self, id_, name):
-        if (not id_ in self.id_to_canonical) or (
+        if (id_ not in self.id_to_canonical) or (
             name.score > self.id_to_canonical[id_].score
         ):
             # if name not seen yet, or if this version has more accents
@@ -423,7 +421,7 @@ class AnthologyIndex:
         """
         return self.comments.get(id_, None)
 
-    @lru_cache(maxsize=None)
+    @lru_cache(maxsize=2**16)
     def resolve_name(self, name, id_=None):
         """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
@@ -450,10 +448,10 @@ class AnthologyIndex:
     def get_coauthors(self, id_):
         return self.coauthors[id_].items()
 
-    def get_venues(self, vidx: VenueIndex, id_):
+    def get_venues(self, id_):
         """Get a list of venues a person has published in, with counts."""
         venues = Counter()
         for paper in self.get_papers(id_):
-            for venue in vidx.get_associated_venues(paper):
+            for venue in self._parent.papers[paper].parent_volume.get_venues():
                 venues[venue] += 1
         return venues

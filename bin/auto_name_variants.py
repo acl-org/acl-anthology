@@ -2,7 +2,6 @@ import lxml.etree as etree
 import sys
 import re
 import collections
-import operator
 import unicodedata
 import yaml
 
@@ -134,7 +133,6 @@ def root(p, x):
 
 
 if __name__ == "__main__":
-
     keys = collections.defaultdict(list)
     parent = {}
     papers = collections.defaultdict(list)

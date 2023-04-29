@@ -33,7 +33,7 @@ from collections import defaultdict
 from tqdm import tqdm
 import logging as log
 import os
-import yaml, yamlfix
+import yaml
 
 try:
     from yaml import CSafeDumper as Dumper
@@ -41,11 +41,15 @@ except ImportError:
     from yaml import SafeDumper as Dumper
 
 from anthology import Anthology
-from anthology.utils import SeverityTracker, deconstruct_anthology_id, is_newstyle_id
+from anthology.utils import SeverityTracker, deconstruct_anthology_id
 from create_hugo_pages import check_directory
 
 
 def export_anthology(anthology, outdir, clean=False, dryrun=False):
+    """
+    Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
+    page stubs created by create_hugo_pages.py to instantiate Hugo templates.
+    """
     # Prepare paper index
     papers = defaultdict(dict)
     citation_styles = {
@@ -53,6 +57,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         # "apa": "apa-6th-edition",
         # "mla": "modern-language-association-7th-edition",
     }
+
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
@@ -103,9 +108,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         data["venues"] = sorted(
             [
                 [venue, count]
-                for (venue, count) in anthology.people.get_venues(
-                    anthology.venues, id_
-                ).items()
+                for (venue, count) in anthology.people.get_venues(id_).items()
             ],
             key=lambda p: p[1],
             reverse=True,
@@ -132,6 +135,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             del data["xml_url"]
         data["has_abstracts"] = volume.has_abstracts
         data["papers"] = volume.paper_ids
+        data["venues"] = volume.get_venues()
         if "author" in data:
             data["author"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
@@ -142,68 +146,59 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             ]
         volumes[volume.full_id] = data
 
-    class SortedVolume:
-        """Keys for sorting volumes so they appear in a more reasonable order.
-        Takes the parent venue being sorted under, along with its letter,
-        and the Anthology ID of the current volume. For example, LREC 2020
-        has the following joint events, which get sorted in the following manner:
-
-        ['2020.lrec-1', '2020.aespen-1', '2020.ai4hi-1',
-        '2020.bucc-1', '2020.calcs-1', '2020.cllrd-1', '2020.clssts-1',
-        '2020.cmlc-1', '2020.computerm-1', '2020.framenet-1', '2020.gamnlp-1',
-        '2020.globalex-1', '2020.isa-1', '2020.iwltp-1',
-        '2020.ldl-1', '2020.lincr-1', '2020.lr4sshoc-1', '2020.lt4gov-1',
-        '2020.lt4hala-1 ', '2020.multilingualbio-1', '2020.onion-1',
-        '2020.osact-1', '2020.parlaclarin-1', '2020.rail-1', '2020.readi-1',
-        '2020.restup-1', '2020.sltu-1 ', '2020.stoc-1', '2020.trac-1',
-        '2020.wac-1', '2020.wildre-1']
-        """
-
-        def __init__(self, acronym, letter, anth_id):
-            self.parent_venue = acronym.lower()
-            self.anth_id = anth_id
-
-            collection_id, self.volume_id, _ = deconstruct_anthology_id(anth_id)
-            if is_newstyle_id(collection_id):
-                self.venue = collection_id.split(".")[1]
-                self.is_parent_venue = self.venue == self.parent_venue
-            else:
-                self.venue = collection_id[0]
-                self.is_parent_venue = self.venue == letter
-
-        def __str__(self):
-            return self.anth_id
-
-        def __eq__(self, other):
-            """We define equivalence at the venue (not volume) level in order
-            to preserve the sort order found in the XML"""
-            return self.venue == other.venue
-
-        def __lt__(self, other):
-            """First parent volumes, then sort by venue name"""
-            if self.is_parent_venue == other.is_parent_venue:
-                return self.venue < other.venue
-            return self.is_parent_venue and not other.is_parent_venue
-
     # Prepare venue index
     venues = {}
-    for acronym, data in anthology.venues.items():
-        letter = data.get("oldstyle_letter", "W")
+    for main_venue, data in anthology.venues.items():
+        data.get("oldstyle_letter", "W")
         data = data.copy()
-        data["volumes_by_year"] = {
-            year: sorted(
-                filter(lambda k: volumes[k]["year"] == year, data["volumes"]),
-                key=lambda x: SortedVolume(acronym, letter, x),
+        data["volumes_by_year"] = {}
+        for year in sorted(data["years"]):
+            # Grab just the volumes that match the current year
+            filtered_volumes = list(
+                filter(lambda k: volumes[k]["year"] == year, data["volumes"])
             )
-            for year in sorted(data["years"])
-        }
+            data["volumes_by_year"][year] = filtered_volumes
+
         data["years"] = sorted(list(data["years"]))
+
+        # The export uses volumes_by_year, deleting this saves space
         del data["volumes"]
-        venues[acronym] = data
+
+        venues[main_venue] = data
+
+    # Prepare events index
+    events = {}
+    for event_name, event_data in anthology.eventindex.items():
+        main_venue = event_data["venue"]
+        event_data = event_data.copy()
+
+        def volume_sorter(volume):
+            """
+            Puts all main volumes before satellite ones.
+            Main volumes are sorted in a stabile manner as
+            found in the XML. Colocated ones are sorted
+            alphabetically.
+
+            :param volume: The Anthology volume
+            """
+            if main_venue in volumes[volume]["venues"]:
+                # sort volumes in main venue first
+                return "_"
+            elif deconstruct_anthology_id(volume)[1] == main_venue:
+                # this puts Findings at the top (e.g., 2022-findings.emnlp will match emnlp)
+                return "__"
+            else:
+                # sort colocated volumes alphabetically, using
+                # the alphabetically-earliest volume
+                return min(volumes[volume]["venues"])
+
+        event_data["volumes"] = sorted(event_data["volumes"], key=volume_sorter)
+
+        events[event_name] = event_data
 
     # Prepare SIG index
     sigs = {}
-    for acronym, sig in anthology.sigs.items():
+    for main_venue, sig in anthology.sigs.items():
         data = {
             "name": sig.name,
             "slug": sig.slug,
@@ -211,7 +206,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             "volumes_by_year": sig.volumes_by_year,
             "years": sorted([str(year) for year in sig.years]),
         }
-        sigs[acronym] = data
+        sigs[main_venue] = data
 
     # Dump all
     if not dryrun:
@@ -233,6 +228,10 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
 
         with open("{}/venues.yaml".format(outdir), "w") as f:
             yaml.dump(venues, Dumper=Dumper, stream=f)
+        progress.update()
+
+        with open(f"{outdir}/events.yaml", "w") as f:
+            yaml.dump(events, Dumper=Dumper, stream=f)
         progress.update()
 
         with open("{}/sigs.yaml".format(outdir), "w") as f:

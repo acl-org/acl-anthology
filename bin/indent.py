@@ -26,14 +26,11 @@ Usage: indent.py <in.xml> <out.xml>
 """
 
 import lxml.etree as etree
-import argparse
-import re
 import sys
 
 from anthology.utils import indent
 
 if __name__ == "__main__":
-
     infilename = sys.argv[1]
     outfilename = sys.argv[2]
 

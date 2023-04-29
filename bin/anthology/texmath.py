@@ -126,13 +126,18 @@ class TexMath:
         elif name == "frac":
             self._parse_fraction(args, trg)
         # Handle \textrm (-- currently does nothing)
-        elif name == "textrm":
+        elif name in ("textrm", "text"):
             sx = etree.Element("span")
             self._parse(args, sx)
             trg.append(sx)
         # Handle stuff that should be displayed bolder
-        elif name in ("mathbf", "boldsymbol"):
+        elif name in ("mathbf", "textbf", "boldsymbol"):
             sx = etree.Element("strong")
+            self._parse(args, sx)
+            trg.append(sx)
+        # Handle italics
+        elif name in ("mathit", "textit"):
+            sx = etree.Element("em")
             self._parse(args, sx)
             trg.append(sx)
         # Give up, but preserve element
@@ -143,7 +148,7 @@ class TexMath:
     def _parse_fraction(self, args, trg):
         if len(args) != 2:
             log.warn(f"Couldn't parse \\frac: got {len(args)} arguments, expected 2")
-            self._append_unparsed(code, trg)
+            self._append_unparsed({'name': 'frac', 'args': args}, trg)
         else:
             # Represent numerator of fraction as superscript
             sx = etree.Element("sup")

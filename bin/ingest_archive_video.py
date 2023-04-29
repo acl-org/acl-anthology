@@ -28,9 +28,9 @@
 #
 
 import click
-import os, glob
+import glob
+import os
 import lxml.etree as et
-import argparse
 from typing import List, Tuple
 from anthology.utils import deconstruct_anthology_id, make_simple_element, indent
 
@@ -115,7 +115,9 @@ def add_video_tag_single(anth_id, xml_parse):
     collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
     paper = xml_parse.find(f'./volume[@id="{volume_id}"]/paper[@id="{paper_id}"]')
     video_url = anth_id + '.mp4'
-    make_simple_element("video", attrib={"href": video_url}, parent=paper)
+
+    if video_url not in [video.attrib["href"] for video in paper.iter("video")]:
+        make_simple_element('video', attrib={'href': video_url}, parent=paper)
 
 
 def add_video_tag_multiple(anth_id, vid_num, xml_parse):

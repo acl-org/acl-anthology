@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2022.clasp">
+  <volume id="1" ingest-date="2022-09-09">
+    <meta>
+      <booktitle>Proceedings of the 2022 CLASP Conference on (Dis)embodiment</booktitle>
+      <editor><first>Simon</first><last>Dobnik</last></editor>
+      <editor><first>Julian</first><last>Grove</last></editor>
+      <editor><first>Asad</first><last>Sayeed</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Gothenburg, Sweden</address>
+      <month>September</month>
+      <year>2022</year>
+      <url hash="d5b1c825">2022.clasp-1</url>
+      <venue>clasp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="9351605a">2022.clasp-1.0</url>
+      <bibkey>clasp-2022-2022</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>A Small but Informed and Diverse Model: The Case of the Multimodal <fixed-case>G</fixed-case>uess<fixed-case>W</fixed-case>hat!? Guessing Game</title>
+      <author><first>Claudio</first><last>Greco</last></author>
+      <author><first>Alberto</first><last>Testoni</last></author>
+      <author><first>Raffaella</first><last>Bernardi</last></author>
+      <author><first>Stella</first><last>Frank</last></author>
+      <pages>1–10</pages>
+      <abstract>Pre-trained Vision and Language Transformers achieve high performance on downstream tasks due to their ability to transfer representational knowledge accumulated during pretraining on substantial amounts of data. In this paper, we ask whether it is possible to compete with such models using features based on transferred (pre-trained, frozen) representations combined with a lightweight architecture. We take a multimodal guessing task as our testbed, GuessWhat?!. An ensemble of our lightweight model matches the performance of the finetuned pre-trained transformer (LXMERT). An uncertainty analysis of our ensemble shows that the lightweight transferred representations close the data uncertainty gap with LXMERT, while retaining model diversity leading to ensemble boost. We further demonstrate that LXMERT’s performance gain is due solely to its extra V&amp;L pretraining rather than because of architectural improvements. These results argue for flexible integration of multiple features and lightweight models as a viable alternative to large, cumbersome, pre-trained models.</abstract>
+      <url hash="06ecff63">2022.clasp-1.1</url>
+      <bibkey>greco-etal-2022-small</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/guesswhat">GuessWhat?!</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/visual-genome">Visual Genome</pwcdataset>
+    </paper>
+    <paper id="2">
+      <title>A Cross-lingual Comparison of Human and Model Relative Word Importance</title>
+      <author><first>Felix</first><last>Morger</last></author>
+      <author><first>Stephanie</first><last>Brandl</last></author>
+      <author><first>Lisa</first><last>Beinborn</last></author>
+      <author><first>Nora</first><last>Hollenstein</last></author>
+      <pages>11–23</pages>
+      <abstract>Relative word importance is a key metric for natural language processing. In this work, we compare human and model relative word importance to investigate if pretrained neural language models focus on the same words as humans cross-lingually. We perform an extensive study using several importance metrics (gradient-based saliency and attention-based) in monolingual and multilingual models, including eye-tracking corpora from four languages (German, Dutch, English, and Russian). We find that gradient-based saliency, first-layer attention, and attention flow correlate strongly with human eye-tracking data across all four languages. We further analyze the role of word length and word frequency in determining relative importance and find that it strongly correlates with length and frequency, however, the mechanisms behind these non-linear relations remain elusive. We obtain a cross-lingual approximation of the similarity between human and computational language processing and insights into the usability of several importance metrics.</abstract>
+      <url hash="50b85537">2022.clasp-1.2</url>
+      <bibkey>morger-etal-2022-cross</bibkey>
+      <pwccode url="https://github.com/felixhultin/relative_importance" additional="false">felixhultin/relative_importance</pwccode>
+    </paper>
+    <paper id="3">
+      <title>Dispatcher: A Message-Passing Approach to Language Modelling</title>
+      <author><first>Alberto</first><last>Cetoli</last></author>
+      <pages>24–29</pages>
+      <abstract>This paper proposes a message-passing mechanism to address language modelling. A new layer type is introduced that aims to substitute self-attention for unidirectional sequence generation tasks. The system is shown to be competitive with existing methods: Given N tokens, the computational complexity is O(N logN) and the memory complexity is O(N) under reasonable assumptions. In the end, the Dispatcher layer is seen to achieve comparable perplexity to self-attention while being more efficient.</abstract>
+      <url hash="3fa97e7d">2022.clasp-1.3</url>
+      <bibkey>cetoli-2022-dispatcher</bibkey>
+      <pwccode url="https://github.com/fractalego/dispatcher" additional="false">fractalego/dispatcher</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/webtext">WebText</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
+    </paper>
+    <paper id="4">
+      <title>In Search of Meaning and Its Representations for Computational Linguistics</title>
+      <author><first>Simon</first><last>Dobnik</last></author>
+      <author><first>Robin</first><last>Cooper</last></author>
+      <author><first>Adam</first><last>Ek</last></author>
+      <author><first>Bill</first><last>Noble</last></author>
+      <author><first>Staffan</first><last>Larsson</last></author>
+      <author><first>Nikolai</first><last>Ilinykh</last></author>
+      <author><first>Vladislav</first><last>Maraev</last></author>
+      <author><first>Vidya</first><last>Somashekarappa</last></author>
+      <pages>30–44</pages>
+      <abstract>In this paper we examine different meaning representations that are commonly used in different natural language applications today and discuss their limits, both in terms of the aspects of the natural language meaning they are modelling and in terms of the aspects of the application for which they are used.</abstract>
+      <url hash="ca06edbd">2022.clasp-1.4</url>
+      <bibkey>dobnik-etal-2022-search</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Can We Use Small Models to Investigate Multimodal Fusion Methods?</title>
+      <author><first>Lovisa</first><last>Hagström</last></author>
+      <author><first>Tobias</first><last>Norlund</last></author>
+      <author><first>Richard</first><last>Johansson</last></author>
+      <pages>45–50</pages>
+      <abstract>Many successful methods for fusing language with information from the visual modality have recently been proposed and the topic of multimodal training is ever evolving. However, it is still largely not known what makes different vision-and-language models successful. Investigations into this are made difficult by the large sizes of the models used, requiring large training datasets and causing long train and compute times. Therefore, we propose the idea of studying multimodal fusion methods in a smaller setting with small models and datasets. In this setting, we can experiment with different approaches for fusing multimodal information with language in a controlled fashion, while allowing for fast experimentation. We illustrate this idea with the math arithmetics sandbox. This is a setting in which we fuse language with information from the math modality and strive to replicate some fusion methods from the vision-and-language domain. We find that some results for fusion methods from the larger domain translate to the math arithmetics sandbox, indicating a promising future avenue for multimodal model prototyping.</abstract>
+      <url hash="be90d3f1">2022.clasp-1.5</url>
+      <bibkey>hagstrom-etal-2022-use</bibkey>
+      <pwccode url="https://github.com/lovhag/small-math-language-multimodal-fusion" additional="false">lovhag/small-math-language-multimodal-fusion</pwccode>
+    </paper>
+    <paper id="6">
+      <title>Embodied Interaction in Mental Health Consultations: Some Observations on Grounding and Repair</title>
+      <author><first>Jing Hui</first><last>Law</last></author>
+      <author><first>Patrick</first><last>Healey</last></author>
+      <author><first>Rosella</first><last>Galindo Esparza</last></author>
+      <pages>51–61</pages>
+      <abstract>Shared physical space is an important resource for face-to-face interaction. People use the position and orientation of their bodies—relative to each other and relative to the physical environment—to determine who is part of a conversation, to manage conversational roles (e.g. speaker, addressee, side-participant) and to help co-ordinate turn-taking. These embodied uses of shared space also extend to more fine-grained aspects of interaction, such as gestures and body movements, to support topic management, orchestration of turns and grounding. This paper explores the role of embodied resources in (mis)communication in a corpus of mental health consultations. We illustrate some of the specific ways in which clinicians and patients can exploit embodiment and the position of objects in shared space to diagnose and manage moments of misunderstanding.</abstract>
+      <url hash="65763851">2022.clasp-1.6</url>
+      <bibkey>law-etal-2022-embodied</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Norm Participation Grounds Language</title>
+      <author><first>David</first><last>Schlangen</last></author>
+      <pages>62–69</pages>
+      <abstract>The striking recent advances in eliciting seemingly meaningful language behaviour from language-only machine learning models have only made more apparent, through the surfacing of clear limitations, the need to go beyond the language-only mode and to ground these models “in the world”. Proposals for doing so vary in the details, but what unites them is that the solution is sought in the addition of non-linguistic data types such as images or video streams, while largely keeping the mode of learning constant. I propose a different, and more wide-ranging conception of how grounding should be understood: What grounds language is its normative nature. There are standards for doing things right, these standards are public and authoritative, while at the same time acceptance of authority can and must be disputed and negotiated, in interactions in which only bearers of normative status can rightfully participate. What grounds language, then, is the determined use that language users make of it, and what it is grounded in is the community of language users. I sketch this idea, and draw some conclusions for work on computational modelling of meaningful language use.</abstract>
+      <url hash="6230ced0">2022.clasp-1.7</url>
+      <bibkey>schlangen-2022-norm</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Where Am <fixed-case>I</fixed-case> and Where Should <fixed-case>I</fixed-case> Go? Grounding Positional and Directional Labels in a Disoriented Human Balancing Task</title>
+      <author><first>Sheikh</first><last>Mannan</last></author>
+      <author><first>Nikhil</first><last>Krishnaswamy</last></author>
+      <pages>70–79</pages>
+      <abstract>In this paper, we present an approach toward grounding linguistic positional and directional labels directly to human motions in the course of a disoriented balancing task in a multi-axis rotational device. We use deep neural models to predict human subjects’ joystick motions as well as the subjects’ proficiency in the task, combined with BERT embedding vectors for positional and directional labels extracted from annotations into an embodied direction classifier. We find that combining contextualized BERT embeddings with embeddings describing human motion and proficiency can successfully predict the direction a hypothetical human participant should move to achieve better balance with accuracy that is comparable to a moderately-proficient balancing task subject, and that our combined embodied model may actually make decisions that are objectively better than decisions made by some humans.</abstract>
+      <url hash="a3eabbd2">2022.clasp-1.8</url>
+      <bibkey>mannan-krishnaswamy-2022-go</bibkey>
+    </paper>
+    <paper id="9">
+      <title>From Speed to Car and Back: An Exploratory Study about Associations between Abstract Nouns and Images</title>
+      <author><first>Ludovica</first><last>Cerini</last></author>
+      <author><first>Eliana</first><last>Di Palma</last></author>
+      <author><first>Alessandro</first><last>Lenci</last></author>
+      <pages>80–88</pages>
+      <abstract>Abstract concepts, notwithstanding their lack of physical referents in real world, are grounded in sensorimotor experience. In fact, images depicting concrete entities may be associated to abstract concepts, both via direct and indirect grounding processes. However, what are the links connecting the concrete concepts represented by images and abstract ones is still unclear. To investigate these links, we conducted a preliminary study collecting word association data and image-abstract word pair ratings, to identify whether the associations between visual and verbal systems rely on the same conceptual mappings. The goal of this research is to understand to what extent linguistic associations could be confirmed with visual stimuli, in order to have a starting point for multimodal analysis of abstract and concrete concepts.</abstract>
+      <url hash="148bf914">2022.clasp-1.9</url>
+      <bibkey>cerini-etal-2022-speed</bibkey>
+    </paper>
+  </volume>
+</collection>

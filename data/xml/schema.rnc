@@ -9,8 +9,9 @@ MarkupText = (text | b | i | url | fixed-case | tex-math )+
 
 first = element first { text }
 last = element last { text }
+affiliation = element affiliation { text }
 Variant = element variant { attribute script { xsd:string }, (first? & last) }
-Person = attribute id { xsd:NCName }?, (first? & last & Variant?)
+Person = attribute id { xsd:NCName }?, (first? & last & Variant? & affiliation? )
 
 local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
 bibtex-key = xsd:string { pattern="[A-Za-z0-9\-]+" }
@@ -97,6 +98,7 @@ Meta = element meta {
    & (element ISBN { xsd:NMTOKEN } | element isbn { xsd:NMTOKEN })?
    & url-with-checksum?
    & element doi { xsd:anyURI }?
+   & element venue { text }+
   )
 }
 Frontmatter = element frontmatter {
@@ -115,8 +117,13 @@ Volume = element volume {
   Frontmatter?,
   Paper*
 }
+Event = element event {
+  attribute id { xsd:string },
+  (element colocated { text }*)
+}
 Collection = element collection {
   attribute id { xsd:string },
-  Volume+
+  Volume*,
+  Event?
 }
 start = Collection

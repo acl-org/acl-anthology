@@ -31,7 +31,6 @@ Options:
 
 from collections import defaultdict
 from docopt import docopt
-from glob import glob
 from lxml import etree
 import logging as log
 import os

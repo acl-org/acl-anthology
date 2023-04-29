@@ -29,35 +29,30 @@ Process:
 
 import argparse
 import os
-import shutil
-import ssl
 import sys
-import tempfile
 
-from anthology.utils import build_anthology_id, deconstruct_anthology_id, indent
+from anthology.utils import deconstruct_anthology_id, indent
 
 import lxml.etree as ET
-import urllib.request
 
 ALLOWED_TYPES = ["pdf", "pptx", "zip"]
 ATTACHMENT_TYPES = "Poster Presentation Note Software Supplementary".split()
 
 
 def main(args):
-
     for lineno, line in enumerate(sys.stdin, 1):
         # attachments/D/D15/D15-1272.Attachment.pdf
         tokens = line.rstrip().split("/")
         attachment_file_name = tokens[-1]
         try:
             anth_id, kind, *rest = attachment_file_name.split(".")
-        except:
+        except Exception:
             print(f"Couldn't parse file {attachment_file_name} into 3 pieces")
             continue
 
         try:
             collection_id, volume_id, paper_id = deconstruct_anthology_id(anth_id)
-        except:
+        except Exception:
             print(f"[{lineno}] BAD LINE {line.rstrip()}")
 
         # Update XML

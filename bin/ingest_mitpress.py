@@ -9,16 +9,12 @@ version 0.3 - produces anthology ID in new format 2020.cl-1.1
 Example usage: unpack the ZIP file from MIT press. You'll have something like this:
 
     ./taclv9-11082021/
-      ./xml/
-        tacl_a_00350.xml
-        tacl_a_00351.xml
-        tacl_a_00352.xml
-        ...
-      ./assets/
-        tacl_a_00350.pdf
-        tacl_a_00351.pdf
-        tacl_a_00352.pdf
-        ...
+      tacl_a_00350.xml
+      tacl_a_00350.pdf
+      tacl_a_00351.xml
+      tacl_a_00351.pdf
+      tacl_a_00352.xml
+      tacl_a_00352.pdf
 
 Then, run
 
@@ -95,7 +91,6 @@ def get_volume_info(xml: Path) -> str:
 
 
 def get_paperid(xml: Path, count: int, issue_count: int) -> str:
-    basename = xml.stem
     assert int(issue_count) < 10
     assert 0 < count < 1000
     # for i in range(1, 4+1):
@@ -158,7 +153,7 @@ def get_abstract(xml_front_node: etree.Element) -> str:
     if abstract is not None:
         abstract_text = collapse_spaces("".join(abstract.itertext()))
         # 2022/June abstracts all started with "Abstract "
-        if abstract_text.starts_with("Abstract "):
+        if abstract_text.startswith("Abstract "):
             abstract_text = abstract_text[9:]
         return abstract_text
     else:
@@ -312,7 +307,7 @@ def process_xml(xml: Path, is_tacl: bool) -> Optional[etree.Element]:
 
 
 def issue_info_to_node(
-    issue_info: str, year_: str, volume_id: str, is_tacl: bool
+    issue_info: str, year_: str, volume_id: str, venue: str
 ) -> etree.Element:
     """Creates the meta block for a new issue / volume"""
     meta = make_simple_element("meta")
@@ -323,9 +318,9 @@ def issue_info_to_node(
     make_simple_element("publisher", "MIT Press", parent=meta)
     make_simple_element("address", "Cambridge, MA", parent=meta)
 
-    if not is_tacl:
+    if venue == "cl":
         month_text = issue_info.split()[-2]  # blah blah blah month year
-        if not month_text in {
+        if month_text not in {
             "January",
             "February",
             "March",
@@ -343,6 +338,7 @@ def issue_info_to_node(
         make_simple_element("month", month_text, parent=meta)
 
     make_simple_element("year", str(year_), parent=meta)
+    make_simple_element("venue", venue, parent=meta)
 
     return meta
 
@@ -353,14 +349,17 @@ def main(args):
     )
 
     is_tacl = "tacl" in args.root_dir.stem
-    logging.info(f"Looks like a TACL ingest: {is_tacl}")
+    logging.info(f"Looks like a {'TACL' if is_tacl else 'CL'} ingestion")
 
     venue = TACL if is_tacl else CL  # J for CL, Q for TACL.
-    try:
-        year = int(args.root_dir.name[-4:])
-    except ValueError:
-        logging.warning(f"Expected last four chars of {args.root_dir} to be a year")
-        sys.exit(-1)
+    year = args.year
+    if year is None:
+        try:
+            year = int(args.root_dir.name[-4:])
+        except ValueError:
+            logging.warning(f"Expected last four chars of {args.root_dir} to be a year")
+            logging.warning("Or you can use --year YYYY")
+            sys.exit(-1)
 
     collection_id = str(year) + "." + venue
 
@@ -372,19 +371,18 @@ def main(args):
     else:
         collection = make_simple_element("collection", attrib={"id": collection_id})
 
-    tacl_glob = "tacl.20*.*/tacl.20*.*.xml"
     # volume_info = get_volume_info(list(args.year_root.glob("*.*.*/*.*.*.xml"))[0])
     # volume.append(volume_info)
 
     previous_issue_info = None
 
     papers = []
-    for xml in sorted(args.root_dir.glob("xml/*.xml")):
+    for xml in sorted(args.root_dir.glob("*.xml")):
         papernode, issue_info, issue = process_xml(xml, is_tacl)
         if papernode is None or papernode.find("title").text.startswith("Erratum: “"):
             continue
 
-        pdf_path = xml.parent.parent / "assets" / xml.with_suffix(".pdf").name
+        pdf_path = xml.parent / xml.with_suffix(".pdf").name
         if not pdf_path.is_file():
             logging.error(f"Missing pdf for {pdf_path}")
             sys.exit(1)
@@ -406,7 +404,7 @@ def main(args):
         issue = issue or "1"
         if issue_info != previous_issue_info:
             # Emit the new volume info before the paper.
-            logging.info(f"New issue")
+            logging.info("New issue")
             logging.info(f"{issue_info} vs. {previous_issue_info}")
             previous_issue_info = issue_info
 
@@ -458,7 +456,7 @@ def main(args):
             anthology.sigs,
             anthology.formatter,
         )
-        paper = Paper.from_xml(papernode, volume, anthology.formatter, anthology.venues)
+        paper = Paper.from_xml(papernode, volume, anthology.formatter)
         bibkey = anthology.pindex.create_bibkey(paper, vidx=anthology.venues)
         make_simple_element("bibkey", bibkey, parent=papernode)
 
@@ -490,6 +488,12 @@ if __name__ == "__main__":
         "-r",
         default=anthology_path,
         help="Root path of ACL Anthology Github repo. Default: %(default)s.",
+    )
+    parser.add_argument(
+        "--year",
+        type=int,
+        default=None,
+        help="The current year",
     )
     pdfs_path = os.path.join(os.environ["HOME"], "anthology-files")
     parser.add_argument(
