@@ -125,9 +125,10 @@ class TexMath:
         # Handle fractions
         elif name == "frac":
             self._parse_fraction(args, trg)
-        # Handle \textrm (-- currently does nothing)
-        elif name in ("textrm", "text"):
+        # Handle \textrm
+        elif name in ("mathrm", "textrm", "text"):
             sx = etree.Element("span")
+            sx.attrib["class"] = "font-weight-normal"
             self._parse(args, sx)
             trg.append(sx)
         # Handle stuff that should be displayed bolder
@@ -140,6 +141,21 @@ class TexMath:
             sx = etree.Element("em")
             self._parse(args, sx)
             trg.append(sx)
+        # Handle small caps
+        elif name in ("textsc"):
+            sx = etree.Element("span")
+            sx.attrib["style"] = "font-variant: small-caps;"
+            self._parse(args, sx)
+            trg.append(sx)
+        # Handle monospace
+        elif name in ("texttt"):
+            sx = etree.Element("span")
+            sx.attrib["class"] = "text-monospace"
+            self._parse(args, sx)
+            trg.append(sx)
+        # Known, but unsupported formatting tags that will just be removed
+        elif name in ("bf", "rm", "it", "sc") and not args:
+            pass
         # Give up, but preserve element
         else:
             log.warn(f"Unknown TeX-math command: {code}")
