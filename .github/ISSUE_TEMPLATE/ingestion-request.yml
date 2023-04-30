@@ -14,7 +14,7 @@ body:
       options:
         - label: I confirm that I have read the [Information for Submitters](https://aclanthology.org/info/contrib/).
           required: true
-        - label: I am submitting a request for a _new venue_ that does not exist in the ACL Anthology yet.
+        - label: "I am submitting a request for a **new venue** that does not exist in the ACL Anthology yet."
   - type: input
     id: venue_id
     attributes:
@@ -25,20 +25,6 @@ body:
     validations:
       required: true
   - type: input
-    id: venue_name
-    attributes:
-      label: "Venue Name _(only if you are submitting a new venue)_"
-      description: |
-        What is the name of the venue?  Note that this should be a general name that **does _not_ include** numbers or years.
-      placeholder: ex. Conference on Empirical Methods in Natural Language Processing
-  - type: input
-    id: venue_website
-    attributes:
-      label: "Venue Website _(only if you are submitting a new venue)_"
-      description: |
-        What is the website of the venue?  Ideally provide a link for the venue itself, _not_ a particular meeting of the venue.
-      placeholder: ex. https://sigdat.org/
-  - type: input
     id: volume_title
     attributes:
       label: Volume Title
@@ -47,6 +33,20 @@ body:
       placeholder: ex. Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)
     validations:
       required: true
+  - type: input
+    id: venue_name
+    attributes:
+      label: "Venue Name (only if you are submitting a new venue)"
+      description: |
+        What is the name of the venue?  Note that this should be a general name that **does _not_ include** numbers or years.
+      placeholder: ex. Conference on Empirical Methods in Natural Language Processing
+  - type: input
+    id: venue_website
+    attributes:
+      label: "Venue Website (only if you are submitting a new venue)"
+      description: |
+        What is the website of the venue?  Ideally provide a link for the venue itself, _not_ a particular meeting of the venue.
+      placeholder: ex. https://sigdat.org/
   - type: input
     id: volume_date
     attributes:
