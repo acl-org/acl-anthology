@@ -1,5 +1,5 @@
-name: Metadata Correction
-description: Fix typos or errors in a paper's title, abstract, or author names
+name: Correction to Paper Metadata
+description: Fix typos or errors in a paper's title, abstract, or author names.
 title: "[Metadata revision to Anthology ID]: "
 labels: ["correction", "metadata"]
 assignees:
@@ -9,6 +9,7 @@ body:
     id: anthology_id
     attributes:
       label: Anthology ID
+      description: This is the ID that appears in the URL of the paper; please do _not_ give the bibkey.
       placeholder: ex. 2020.acl-1.17 or P19-1017
     validations:
       required: true
@@ -24,7 +25,7 @@ body:
     id: correction_type
     attributes:
       label: Metadata Correction Type
-      description: What type of metadata correction is this?
+      description: Which metadata field(s) need to be corrected?
       options:
         - label: Paper Title
         - label: Paper Abstract
@@ -34,28 +35,28 @@ body:
   - type: input
     id: paper_title
     attributes:
-      label: Paper Title Metadata Correction
+      label: Correction to Paper Title
       description: What is the correct paper title?
-      placeholder: "Correct paper title is: "
+      placeholder: "(leave blank if not applicable)"
     validations:
       required: false
   - type: textarea
     id: paper_abstract
     attributes:
-      label: Paper Abstract Correction
+      label: Correction to Paper Abstract
       description: What is the correct paper abstract?
-      placeholder: "Correct paper abstract is: "
+      placeholder: "(leave blank if not applicable)"
     validations:
       required: false
   - type: input
     id: author_name
     attributes:
-      label: Author Name Metadata Correction
-      description: What is the correct author first name and last name?
-      placeholder: "First name:  Last name:  "
+      label: Correction to Author Name
+      description: What is the correct author name? Please indicate clearly which parts are first and last name.
+      placeholder: "(leave blank if not applicable)"
     validations:
       required: false
   - type: markdown
     attributes:
       value: |
-        If you request an author name correction for yourself, please also make sure that your name is correctly entered into Softconf/OpenReview for any future publications, as this is where we obtain the author names from.
+        **Note:** If you request an author name correction for yourself, please also make sure that your name is correctly entered into Softconf/OpenReview for any future publications, as this is where we obtain the author names from.
