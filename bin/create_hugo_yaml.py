@@ -158,6 +158,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                 filter(lambda k: volumes[k]["year"] == year, data["volumes"])
             )
             data["volumes_by_year"][year] = filtered_volumes
+        if not data["volumes_by_year"]:
+            log.warn(f"Venue '{main_venue}' has no volumes associated with it")
 
         data["years"] = sorted(list(data["years"]))
 
