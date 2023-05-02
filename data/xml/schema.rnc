@@ -35,6 +35,15 @@ Revision = element revision {
   checksum,
   text
 }
+
+Talk = element talk {
+  attribute type { xsd:string }?,
+  (element title { MarkupText }
+   & element speaker { Person }*
+   & url?
+  )
+ }
+
 Paper = element paper {
   attribute id { xsd:positiveInteger },
   attribute ingest-date { xsd:date }?,
@@ -120,17 +129,19 @@ Volume = element volume {
   Paper*
 }
 Event = element event {
-  attribute id { xsd:string }
-  & element meta {
+  attribute id { xsd:string },
+  (element meta {
     (element title { MarkupText }?
      & element location { text }?
      & element dates { text }?
     )
   }?
-  & element links { url* }?
-  & element colocated {
-    element volume-id { text }*
-    }?
+   & element links { url* }?
+   & Talk*
+   & element colocated {
+       element volume-id { text }*
+     }?
+ )
 }
 Collection = element collection {
   attribute id { xsd:string },
