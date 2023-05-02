@@ -60,7 +60,7 @@ ANTHOLOGY_FILE_DIR = os.environ.get(
     "ANTHOLOGY_FILES", os.path.join(os.environ["HOME"], "anthology-files")
 )
 
-# Names of XML elements that may appear multiple times
+# Names of XML elements that may appear multiple times, and should be accumulated as a list
 LIST_ELEMENTS = (
     "attachment",
     "author",
