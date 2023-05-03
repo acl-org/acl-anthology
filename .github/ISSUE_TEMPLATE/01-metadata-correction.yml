@@ -1,6 +1,6 @@
 name: Correction to Paper Metadata
 description: Fix typos or errors in a paper's title, abstract, or author names.
-title: "[Paper Metadata]: <Anthology ID>"
+title: "Paper Metadata: {replace with Anthology ID}"
 labels: ["correction", "metadata"]
 assignees:
   - anthology-assist
@@ -10,7 +10,7 @@ body:
     attributes:
       label: Confirm that this is a metadata correction
       description: |
-        Please use this form only to file corrections that correct the metadata to be in line with what is contained in the PDF file hosted on the ACL Anthology.  If the PDF itself needs to be changed, please file a revision/erratum instead.
+        This form is only for corrections that change the metadata to **match the existing PDF file** hosted on the ACL Anthology.  If the PDF itself needs to be changed, please do _not_ use this form, but file a revision/erratum instead.
       options:
         - label: I want to file corrections to make the metadata match the PDF file hosted on the ACL Anthology.
           required: true
@@ -27,7 +27,7 @@ body:
     id: paper_correction_type
     attributes:
       label: Type of Paper Metadata Correction
-      description: Which metadata field(s) need to be corrected?
+      description: Which metadata field(s) need to be corrected? Check all that apply.
       options:
         - label: Paper Title
         - label: Paper Abstract
