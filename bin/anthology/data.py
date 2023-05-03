@@ -46,10 +46,11 @@ ATTACHMENT_TEMPLATE = ATTACHMENT_PREFIX + "/{}"
 PDF_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}.pdf"
 PDF_THUMBNAIL_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/thumb/{}.jpg"
 
+# URL template for videos
 VIDEO_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}"
 
-# Where files related to events can be found, e.g., /files/acl/2022.acl.handbook.pdf
-EVENT_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/files/{}/{}"
+# URL template for handbooks Where files related to events can be found, e.g., /{2022.acl.handbook.pdf}
+EVENT_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}"
 
 # Regular expression matching full Anthology IDs
 ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"
