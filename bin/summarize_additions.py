@@ -55,7 +55,7 @@ def main(args):
                 match_str = rf'<attachment type="(\w+)">({ANTHOLOGY_ID_REGEX}).*'
                 match = re.match(match_str, line)
                 attach_type, anthology_id = match.groups()
-            except:
+            except Exception:
                 print(f"* Couldn't match '{match_str}' to '{line}'", file=sys.stderr)
 
             attachments[attach_type].append(
@@ -70,7 +70,7 @@ def main(args):
                 match_str = rf'<revision.*href="({ANTHOLOGY_ID_REGEX}).*>.*'
                 match = re.match(match_str, line)
                 anthology_id = match.group(1)
-            except:
+            except Exception:
                 print(f"* Couldn't match '{match_str}' to '{line}'", file=sys.stderr)
 
             paper = anthology.papers[anthology_id]
@@ -89,7 +89,7 @@ def main(args):
                 match_str = rf"<errat.*?>({ANTHOLOGY_ID_REGEX}).*"
                 match = re.match(match_str, line)
                 anthology_id = match.group(1)
-            except:
+            except Exception:
                 print(f"* Couldn't match '{match_str}' to '{line}'", file=sys.stderr)
 
             errata.append(
@@ -107,12 +107,12 @@ def main(args):
             print("-", title, "\n ", url, "\n")
 
     if len(revisions):
-        print(f"\nRevisions:")
+        print("\nRevisions:")
         for title, url, explanation in revisions:
             print("-", title, "\n ", url, "\n ", explanation, "\n")
 
     if len(errata):
-        print(f"\nErrata:")
+        print("\nErrata:")
         for title, url in errata:
             print("-", title, "\n ", url, "\n")
 

@@ -391,6 +391,7 @@
       <abstract>In recent years, Large Language Models such as GPT-3 showed remarkable capabilities in performing NLP tasks in the zero and few shot settings. On the other hand, the experiments highlighted the difficulty of GPT-3 in carrying out tasks that require a certain degree of reasoning, such as arithmetic operations. In this paper we evaluate the ability of Transformer Language Models to perform arithmetic operations following a pipeline that, before performing computations, decomposes numbers in units, tens, and so on. We denote the models fine-tuned with this pipeline with the name Calculon and we test them in the task of performing additions, subtractions and multiplications on the same test sets of GPT-3. Results show an increase of accuracy of 63% in the five-digit addition task. Moreover, we demonstrate the importance of the decomposition pipeline introduced, since fine-tuning the same Language Model without decomposing numbers results in 0% accuracy in the five-digit addition task.</abstract>
       <url hash="25e0efcb">2022.lrec-1.30</url>
       <bibkey>muffo-etal-2022-evaluating</bibkey>
+      <pwccode url="https://github.com/mmuffo94/TransformerLM_arithmetics" additional="false">mmuffo94/TransformerLM_arithmetics</pwccode>
     </paper>
     <paper id="31">
       <title>Evaluating the Effects of Embedding with Speaker Identity Information in Dialogue Summarization</title>
@@ -787,7 +788,7 @@
       <abstract>Sentiment analysis is one of the most widely studied applications in NLP, but most work focuses on languages with large amounts of data. We introduce the first large-scale human-annotated Twitter sentiment dataset for the four most widely spoken languages in Nigeria—Hausa, Igbo, Nigerian-Pidgin, and Yorùbá—consisting of around 30,000 annotated tweets per language, including a significant fraction of code-mixed tweets. We propose text collection, filtering, processing and labeling methods that enable us to create datasets for these low-resource languages. We evaluate a range of pre-trained models and transfer strategies on the dataset. We find that language-specific models and language-adaptive fine-tuning generally perform best. We release the datasets, trained models, sentiment lexicons, and code to incentivize research on sentiment analysis in under-represented languages.</abstract>
       <url hash="9bd48a35">2022.lrec-1.63</url>
       <bibkey>muhammad-etal-2022-naijasenti</bibkey>
-      <pwccode url="https://github.com/hausanlp/naijasenti" additional="false">hausanlp/naijasenti</pwccode>
+      <pwccode url="https://github.com/hausanlp/naijasenti" additional="true">hausanlp/naijasenti</pwccode>
     </paper>
     <paper id="64">
       <title>A (Psycho-)Linguistically Motivated Scheme for Annotating and Exploring Emotions in a Genre-Diverse Corpus</title>
@@ -1305,7 +1306,8 @@
       <url hash="176eef37">2022.lrec-1.98</url>
       <bibkey>jeuris-niehues-2022-libris2s</bibkey>
       <pwccode url="https://github.com/pedrodke/libris2s" additional="false">pedrodke/libris2s</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/ljspeech">LJSpeech</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/libris2s">LibriS2S</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/librivoxdeen">LibriVoxDeEn</pwcdataset>
     </paper>
     <paper id="99">
       <title>A Linguistically Motivated Test Suite to Semi-Automatically Evaluate <fixed-case>G</fixed-case>erman–<fixed-case>E</fixed-case>nglish Machine Translation Output</title>
@@ -1408,6 +1410,7 @@
       <abstract>The Norwegian Parliamentary Speech Corpus (NPSC) is a speech dataset with recordings of meetings from Stortinget, the Norwegian parliament. It is the first, publicly available dataset containing unscripted, Norwegian speech designed for training of automatic speech recognition (ASR) systems. The recordings are manually transcribed and annotated with language codes and speakers, and there are detailed metadata about the speakers. The transcriptions exist in both normalized and non-normalized form, and non-standardized words are explicitly marked and annotated with standardized equivalents. To test the usefulness of this dataset, we have compared an ASR system trained on the NPSC with a baseline system trained on only manuscript-read speech. These systems were tested on an independent dataset containing spontaneous, dialectal speech. The NPSC-trained system performed significantly better, with a 22.9% relative improvement in word error rate (WER). Moreover, training on the NPSC is shown to have a “democratizing” effects in terms of dialects, as improvements are generally larger for dialects with higher WER from the baseline system.</abstract>
       <url hash="7b3c78fa">2022.lrec-1.106</url>
       <bibkey>solberg-ortiz-2022-norwegian</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/npsc">NPSC</pwcdataset>
     </paper>
     <paper id="107">
       <title>A Speech Recognizer for <fixed-case>F</fixed-case>risian/<fixed-case>D</fixed-case>utch Council Meetings</title>
@@ -1539,7 +1542,8 @@
       <abstract>We introduce ChemDisGene, a new dataset for training and evaluating multi-class multi-label biomedical relation extraction models. Our dataset contains 80k biomedical research abstracts labeled with mentions of chemicals, diseases, and genes, portions of which human experts labeled with 18 types of biomedical relationships between these entities (intended for evaluation), and the remainder of which (intended for training) has been distantly labeled via the CTD database with approximately 78% accuracy. In comparison to similar preexisting datasets, ours is both substantially larger and cleaner; it also includes annotations linking mentions to their entities. We also provide three baseline deep neural network relation extraction models trained and evaluated on our new dataset.</abstract>
       <url hash="9a529d9d">2022.lrec-1.116</url>
       <bibkey>zhang-etal-2022-distant</bibkey>
-      <pwccode url="https://github.com/chanzuckerberg/chemdisgene" additional="true">chanzuckerberg/chemdisgene</pwccode>
+      <pwccode url="https://github.com/chanzuckerberg/chemdisgene" additional="false">chanzuckerberg/chemdisgene</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/chemdisgene">ChemDisGene</pwcdataset>
     </paper>
     <paper id="117">
       <title><fixed-case>D</fixed-case>rug<fixed-case>EHRQA</fixed-case>: A Question Answering Dataset on Structured and Unstructured Electronic Health Records For Medicine Related Queries</title>
@@ -1915,7 +1919,7 @@
       <abstract>In this paper, we introduce a new Czech subjectivity dataset of 10k manually annotated subjective and objective sentences from movie reviews and descriptions. Our prime motivation is to provide a reliable dataset that can be used with the existing English dataset as a benchmark to test the ability of pre-trained multilingual models to transfer knowledge between Czech and English and vice versa. Two annotators annotated the dataset reaching 0.83 of the Cohen’s K inter-annotator agreement. To the best of our knowledge, this is the first subjectivity dataset for the Czech language. We also created an additional dataset that consists of 200k automatically labeled sentences. Both datasets are freely available for research purposes. Furthermore, we fine-tune five pre-trained BERT-like models to set a monolingual baseline for the new dataset and we achieve 93.56% of accuracy. We fine-tune models on the existing English dataset for which we obtained results that are on par with the current state-of-the-art results. Finally, we perform zero-shot cross-lingual subjectivity classification between Czech and English to verify the usability of our dataset as the cross-lingual benchmark. We compare and discuss the cross-lingual and monolingual results and the ability of multilingual models to transfer knowledge between languages.</abstract>
       <url hash="1331b0b5">2022.lrec-1.148</url>
       <bibkey>priban-steinberger-2022-czech</bibkey>
-      <pwccode url="https://github.com/pauli31/czech-subjectivity-dataset" additional="false">pauli31/czech-subjectivity-dataset</pwccode>
+      <pwccode url="https://github.com/pauli31/czech-subjectivity-dataset" additional="true">pauli31/czech-subjectivity-dataset</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/czech-subjectivity-dataset">Czech Subjectivity Dataset</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/subj">SUBJ</pwcdataset>
     </paper>
@@ -2003,7 +2007,7 @@
       <bibkey>gladkoff-etal-2022-measuring</bibkey>
     </paper>
     <paper id="157">
-      <title>Challenging the Transformer-based models with a Classical <fixed-case>A</fixed-case>rabic dataset: Quran and Hadith</title>
+      <title>Challenging the Transformer-based models with a Classical <fixed-case>A</fixed-case>rabic dataset: <fixed-case>Q</fixed-case>uran and <fixed-case>H</fixed-case>adith</title>
       <author><first>Shatha</first><last>Altammami</last></author>
       <author><first>Eric</first><last>Atwell</last></author>
       <pages>1462–1471</pages>
@@ -2457,7 +2461,7 @@
       <bibkey>gessler-etal-2022-xposition</bibkey>
     </paper>
     <paper id="195">
-      <title>A Study in Contradiction: Data and Annotation for <fixed-case>AIDA</fixed-case> Focusing on Informational Conflict in Russia-<fixed-case>U</fixed-case>kraine Relations</title>
+      <title>A Study in Contradiction: Data and Annotation for <fixed-case>AIDA</fixed-case> Focusing on Informational Conflict in <fixed-case>R</fixed-case>ussia-<fixed-case>U</fixed-case>kraine Relations</title>
       <author><first>Jennifer</first><last>Tracey</last></author>
       <author><first>Ann</first><last>Bies</last></author>
       <author><first>Jeremy</first><last>Getman</last></author>
@@ -2883,6 +2887,7 @@
       <abstract>We introduce the CRASS (counterfactual reasoning assessment) data set and benchmark utilizing questionized counterfactual conditionals as a novel and powerful tool to evaluate large language models. We present the data set design and benchmark. We test six state-of-the-art models against our benchmark. Our results show that it poses a valid challenge for these models and opens up considerable room for their improvement.</abstract>
       <url hash="20287000">2022.lrec-1.229</url>
       <bibkey>frohberg-binder-2022-crass</bibkey>
+      <pwccode url="https://github.com/apergo-ai/crass-data-set" additional="false">apergo-ai/crass-data-set</pwccode>
     </paper>
     <paper id="230">
       <title>Evaluating Gender Bias in Speech Translation</title>
@@ -3319,6 +3324,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/bobsl">BOBSL</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/content4all">Content4All</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/how2sign">How2Sign</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/rwth-phoenix-weather-2014-t">RWTH-PHOENIX-Weather 2014 T</pwcdataset>
     </paper>
     <paper id="265">
       <title>A Low-Cost Motion Capture Corpus in <fixed-case>F</fixed-case>rench <fixed-case>S</fixed-case>ign <fixed-case>L</fixed-case>anguage for Interpreting Iconicity and Spatial Referencing Mechanisms</title>
@@ -3591,7 +3597,7 @@
       <abstract>Traditionally, Text Simplification is treated as a monolingual translation task where sentences between source texts and their simplified counterparts are aligned for training. However, especially for longer input documents, summarizing the text (or dropping less relevant content altogether) plays an important role in the simplification process, which is currently not reflected in existing datasets. Simultaneously, resources for non-English languages are scarce in general and prohibitive for training new solutions. To tackle this problem, we pose core requirements for a system that can jointly summarize and simplify long source documents. We further describe the creation of a new dataset for joint Text Simplification and Summarization based on German Wikipedia and the German children’s encyclopedia “Klexikon”, consisting of almost 2,900 documents. We release a document-aligned version that particularly highlights the summarization aspect, and provide statistical evidence that this resource is well suited to simplification as well. Code and data are available on Github: https://github.com/dennlinger/klexikon</abstract>
       <url hash="1b144a8a">2022.lrec-1.288</url>
       <bibkey>aumiller-gertz-2022-klexikon</bibkey>
-      <pwccode url="https://github.com/dennlinger/klexikon" additional="false">dennlinger/klexikon</pwccode>
+      <pwccode url="https://github.com/dennlinger/klexikon" additional="true">dennlinger/klexikon</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/klexikon">Klexikon</pwcdataset>
     </paper>
     <paper id="289">
@@ -3831,7 +3837,7 @@
       <abstract>Political authorities in democratic countries regularly consult the public in order to allow citizens to voice their ideas and concerns on specific issues. When trying to evaluate the (often large number of) contributions by the public in order to inform decision-making, authorities regularly face challenges due to restricted resources. We identify several tasks whose automated support can help in the evaluation of public participation. These are i) the recognition of arguments, more precisely premises and their conclusions, ii) the assessment of the concreteness of arguments, iii) the detection of textual descriptions of locations in order to assign citizens’ ideas to a spatial location, and iv) the thematic categorization of contributions. To enable future research efforts to develop techniques addressing these four tasks, we introduce the CIMT PartEval Corpus, a new publicly-available German-language corpus that includes several thousand citizen contributions from six mobility-related planning processes in five German municipalities. The corpus provides annotations for each of these tasks which have not been available in German for the domain of public participation before either at all or in this scope and variety.</abstract>
       <url hash="852ffca6">2022.lrec-1.308</url>
       <bibkey>romberg-etal-2022-corpus</bibkey>
-      <pwccode url="https://github.com/juliaromberg/cimt-argument-concreteness-dataset" additional="true">juliaromberg/cimt-argument-concreteness-dataset</pwccode>
+      <pwccode url="https://github.com/juliaromberg/cimt-geographic-location-dataset" additional="true">juliaromberg/cimt-geographic-location-dataset</pwccode>
     </paper>
     <paper id="309">
       <title>Overlooked Data in Typological Databases: What Grambank Teaches Us About Gaps in Grammars</title>
@@ -3946,6 +3952,7 @@
       <abstract>To develop high-performance natural language understanding (NLU) models, it is necessary to have a benchmark to evaluate and analyze NLU ability from various perspectives. While the English NLU benchmark, GLUE, has been the forerunner, benchmarks are now being released for languages other than English, such as CLUE for Chinese and FLUE for French; but there is no such benchmark for Japanese. We build a Japanese NLU benchmark, JGLUE, from scratch without translation to measure the general NLU ability in Japanese. We hope that JGLUE will facilitate NLU research in Japanese.</abstract>
       <url hash="179d34c3">2022.lrec-1.317</url>
       <bibkey>kurihara-etal-2022-jglue</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/marc-ja">JGLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/clue">CLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/commonsenseqa">CommonsenseQA</pwcdataset>
@@ -4133,7 +4140,6 @@
       <abstract>Specialist high-quality information is typically first available in English, and it is written in a language that may be difficult to understand by most readers. While Machine Translation technologies contribute to mitigate the first issue, the translated content will most likely still contain complex language. In order to investigate and address both problems simultaneously, we introduce Simple TICO-19, a new language resource containing manual simplifications of the English and Spanish portions of the TICO-19 corpus for Machine Translation of COVID-19 literature. We provide an in-depth description of the annotation process, which entailed designing an annotation manual and employing four annotators (two native English speakers and two native Spanish speakers) who simplified over 6,000 sentences from the English and Spanish portions of the TICO-19 corpus. We report several statistics on the new dataset, focusing on analysing the improvements in readability from the original texts to their simplified versions. In addition, we propose baseline methodologies for automatically generating the simplifications, translations and joint translation and simplifications contained in our dataset.</abstract>
       <url hash="fbb6e489">2022.lrec-1.331</url>
       <bibkey>shardlow-alva-manchego-2022-simple</bibkey>
-      <pwccode url="https://github.com/mmu-tdmlab/simpletico19" additional="false">mmu-tdmlab/simpletico19</pwccode>
     </paper>
     <paper id="332">
       <title>Building Comparable Corpora for Assessing Multi-Word Term Alignment</title>
@@ -4263,6 +4269,7 @@
       <abstract>Mental disorders are a serious and increasingly relevant public health issue. NLP methods have the potential to assist with automatic mental health disorder detection, but building annotated datasets for this task can be challenging; moreover, annotated data is very scarce for disorders other than depression. Understanding the commonalities between certain disorders is also important for clinicians who face the problem of shifting standards of diagnosis. We propose that transfer learning with linguistic features can be useful for approaching both the technical problem of improving mental disorder detection in the context of data scarcity, and the clinical problem of understanding the overlapping symptoms between certain disorders. In this paper, we target four disorders: depression, PTSD, anorexia and self-harm. We explore multi-aspect transfer learning for detecting mental disorders from social media texts, using deep learning models with multi-aspect representations of language (including multiple types of interpretable linguistic features). We explore different transfer learning strategies for cross-disorder and cross-platform transfer, and show that transfer learning can be effective for improving prediction performance for disorders where little annotated data is available. We offer insights into which linguistic features are the most useful vehicles for transferring knowledge, through ablation experiments, as well as error analysis.</abstract>
       <url hash="d6771f03">2022.lrec-1.343</url>
       <bibkey>uban-etal-2022-multi</bibkey>
+      <pwccode url="https://github.com/ananana/mental-disorders" additional="false">ananana/mental-disorders</pwccode>
     </paper>
     <paper id="344">
       <title><fixed-case>A</fixed-case>r<fixed-case>C</fixed-case>ovid<fixed-case>V</fixed-case>ac: Analyzing <fixed-case>A</fixed-case>rabic Tweets About <fixed-case>COVID</fixed-case>-19 Vaccination</title>
@@ -4302,7 +4309,7 @@
       <bibkey>pritzen-etal-2022-multitask</bibkey>
     </paper>
     <paper id="347">
-      <title><fixed-case>SDS</fixed-case>-200: A <fixed-case>S</fixed-case>wiss <fixed-case>G</fixed-case>erman Speech to Standard <fixed-case>G</fixed-case>erman Text Corpus</title>
+      <title><fixed-case>SDS</fixed-case>-200: A <fixed-case>S</fixed-case>wiss <fixed-case>G</fixed-case>erman Speech to <fixed-case>S</fixed-case>tandard <fixed-case>G</fixed-case>erman Text Corpus</title>
       <author><first>Michel</first><last>Plüss</last></author>
       <author><first>Manuela</first><last>Hürlimann</last></author>
       <author><first>Marc</first><last>Cuny</last></author>
@@ -4650,6 +4657,7 @@
       <abstract>Word Problem Solving remains a challenging and interesting task in NLP. A lot of research has been carried out to solve different genres of word problems with various complexity levels in recent years. However, most of the publicly available datasets and work has been carried out for English. Recently there has been a surge in this area of word problem solving in Chinese with the creation of large benchmark datastes. Apart from these two languages, labeled benchmark datasets for low resource languages are very scarce. This is the first attempt to address this issue for any Indian Language, especially Hindi. In this paper, we present HAWP (Hindi Arithmetic Word Problems), a dataset consisting of 2336 arithmetic word problems in Hindi. We also developed baseline systems for solving these word problems. We also propose a new evaluation technique for word problem solvers taking equation equivalence into account.</abstract>
       <url hash="b38abc81">2022.lrec-1.373</url>
       <bibkey>sharma-etal-2022-hawp</bibkey>
+      <pwccode url="https://github.com/Pruthwik/Hindi-Word-Problem-Solver" additional="false">Pruthwik/Hindi-Word-Problem-Solver</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mawps">MAWPS</pwcdataset>
     </paper>
     <paper id="374">
@@ -4673,6 +4681,7 @@
       <abstract>The Story Cloze Test (SCT) is designed for training and evaluating machine learning algorithms for narrative understanding and inferences. The SOTA models can achieve over 90% accuracy on predicting the last sentence. However, it has been shown that high accuracy can be achieved by merely using surface-level features. We suspect these models may not <i>truly</i> understand the story. Based on the SCT dataset, we constructed a human-labeled and human-verified commonsense knowledge inference dataset. Given the first four sentences of a story, we asked crowd-source workers to choose from four types of narrative inference for deciding the ending sentence and which sentence contributes most to the inference. We accumulated data on 1871 stories, and three human workers labeled each story. Analysis of the intra-category and inter-category agreements show a high level of consensus. We present two new tasks for predicting the narrative inference categories and contributing sentences. Our results show that transformer-based models can reach SOTA performance on the original SCT task using transfer learning but don’t perform well on these new and more challenging tasks.</abstract>
       <url hash="1abb457b">2022.lrec-1.375</url>
       <bibkey>yao-etal-2022-corpus</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/storycloze">StoryCloze</pwcdataset>
     </paper>
     <paper id="376">
       <title>Lessons Learned from <fixed-case>GPT</fixed-case>-<fixed-case>SW</fixed-case>3: Building the First Large-Scale Generative Language Model for <fixed-case>S</fixed-case>wedish</title>
@@ -5660,7 +5669,7 @@
       <abstract>In recent years there have been considerable advances in pre-trained language models, where non-English language versions have also been made available. Due to their increasing use, many lightweight versions of these models (with reduced parameters) have also been released to speed up training and inference times. However, versions of these lighter models (e.g., ALBERT, DistilBERT) for languages other than English are still scarce. In this paper we present ALBETO and DistilBETO, which are versions of ALBERT and DistilBERT pre-trained exclusively on Spanish corpora. We train several versions of ALBETO ranging from 5M to 223M parameters and one of DistilBETO with 67M parameters. We evaluate our models in the GLUES benchmark that includes various natural language understanding tasks in Spanish. The results show that our lightweight models achieve competitive results to those of BETO (Spanish-BERT) despite having fewer parameters. More specifically, our larger ALBETO model outperforms all other models on the MLDoc, PAWS-X, XNLI, MLQA, SQAC and XQuAD datasets. However, BETO remains unbeaten for POS and NER. As a further contribution, all models are publicly available to the community for future research.</abstract>
       <url hash="f2258b34">2022.lrec-1.457</url>
       <bibkey>canete-etal-2022-albeto</bibkey>
-      <pwccode url="https://github.com/OpenCENIA/lightweight-spanish-language-models" additional="false">OpenCENIA/lightweight-spanish-language-models</pwccode>
+      <pwccode url="https://github.com/dccuchile/lightweight-spanish-language-models" additional="true">dccuchile/lightweight-spanish-language-models</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2002">CoNLL 2002</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mldoc">MLDoc</pwcdataset>
@@ -5911,7 +5920,6 @@
       <abstract>We propose a novel method to bootstrap text anonymization models based on distant supervision. Instead of requiring manually labeled training data, the approach relies on a knowledge graph expressing the background information assumed to be publicly available about various individuals. This knowledge graph is employed to automatically annotate text documents including personal data about a subset of those individuals. More precisely, the method determines which text spans ought to be masked in order to guarantee k-anonymity, assuming an adversary with access to both the text documents and the background information expressed in the knowledge graph. The resulting collection of labeled documents is then used as training data to fine-tune a pre-trained language model for text anonymization. We illustrate this approach using a knowledge graph extracted from Wikidata and short biographical texts from Wikipedia. Evaluation results with a RoBERTa-based model and a manually annotated collection of 553 summaries showcase the potential of the approach, but also unveil a number of issues that may arise if the knowledge graph is noisy or incomplete. The results also illustrate that, contrary to most sequence labeling problems, the text anonymization task may admit several alternative solutions.</abstract>
       <url hash="120c9487">2022.lrec-1.476</url>
       <bibkey>papadopoulou-etal-2022-bootstrapping</bibkey>
-      <pwccode url="https://github.com/anthipapa/textanonymization" additional="false">anthipapa/textanonymization</pwccode>
     </paper>
     <paper id="477">
       <title>Natural Questions in <fixed-case>I</fixed-case>celandic</title>
@@ -6437,6 +6445,7 @@
       <abstract>Grounding the meaning of each symbol in math formulae is important for automated understanding of scientific documents. Generally speaking, the meanings of math symbols are not necessarily constant, and the same symbol is used in multiple meanings. Therefore, coreference relations between symbols need to be identified for grounding, and the task has aspects of both description alignment and coreference analysis. In this study, we annotated 15 papers selected from arXiv.org with the grounding information. In total, 12,352 occurrences of math identifiers in these papers were annotated, and all coreference relations between them were made explicit in each paper. The constructed dataset shows that regardless of the ambiguity of symbols in math formulae, coreference relations can be labeled with a high inter-annotator agreement. The constructed dataset enables us to achieve automation of formula grounding, and in turn, make deeper use of the knowledge in scientific documents using techniques such as math information extraction. The built grounding dataset is available at https://sigmathling.kwarc.info/resources/grounding- dataset/.</abstract>
       <url hash="64b4ca4a">2022.lrec-1.519</url>
       <bibkey>asakura-etal-2022-building</bibkey>
+      <pwccode url="https://github.com/wtsnjp/MioGatto" additional="false">wtsnjp/MioGatto</pwccode>
     </paper>
     <paper id="520">
       <title><fixed-case>C</fixed-case>oref<fixed-case>UD</fixed-case> 1.0: Coreference Meets <fixed-case>U</fixed-case>niversal <fixed-case>D</fixed-case>ependencies</title>
@@ -7118,6 +7127,7 @@
       <abstract>Due to the sheer volume of online hate, the AI and NLP communities have started building models to detect such hateful content. Recently, multilingual hate is a major emerging challenge for automated detection where code-mixing or more than one language have been used for conversation in social media. Typically, hate speech detection models are evaluated by measuring their performance on the held-out test data using metrics such as accuracy and F1-score. While these metrics are useful, it becomes difficult to identify using them where the model is failing, and how to resolve it. To enable more targeted diagnostic insights of such multilingual hate speech models, we introduce a set of functionalities for the purpose of evaluation. We have been inspired to design this kind of functionalities based on real-world conversation on social media. Considering Hindi as a base language, we craft test cases for each functionality. We name our evaluation dataset HateCheckHIn. To illustrate the utility of these functionalities , we test state-of-the-art transformer based m-BERT model and the Perspective API.</abstract>
       <url hash="2df72fb9">2022.lrec-1.575</url>
       <bibkey>das-etal-2022-hatecheckhin</bibkey>
+      <pwccode url="https://github.com/hate-alert/hatecheckhin" additional="false">hate-alert/hatecheckhin</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/hate-speech">Hate Speech</pwcdataset>
     </paper>
     <paper id="576">
@@ -7610,7 +7620,7 @@
     </paper>
     <paper id="617">
       <title><fixed-case>HADREB</fixed-case>: Human Appraisals and (<fixed-case>E</fixed-case>nglish) Descriptions of Robot Emotional Behaviors</title>
-      <author><first>Josue</first><last>Torres-Fonsesca</last></author>
+      <author><first>Josue</first><last>Torres-Fonseca</last></author>
       <author><first>Casey</first><last>Kennington</last></author>
       <pages>5739–5748</pages>
       <abstract>Humans sometimes anthropomorphize everyday objects, but especially robots that have human-like qualities and that are often able to interact with and respond to humans in ways that other objects cannot. Humans especially attribute emotion to robot behaviors, partly because humans often use and interpret emotions when interacting with other humans, and they apply that capability when interacting with robots. Moreover, emotions are a fundamental part of the human language system and emotions are used as scaffolding for language learning, making them an integral part of language learning and meaning. However, there are very few datasets that explore how humans perceive the emotional states of robots and how emotional behaviors relate to human language. To address this gap we have collected HADREB, a dataset of human appraisals and English descriptions of robot emotional behaviors collected from over 30 participants. These descriptions and human emotion appraisals are collected using the Mistyrobotics Misty II and the Digital Dream Labs Cozmo (formerly Anki) robots. The dataset contains English descriptions and emotion appraisals of more than 500 descriptions and graded valence labels of 8 emotion pairs for each behavior and each robot. In this paper we describe the process of collecting and cleaning the data, give a general analysis of the data, and evaluate the usefulness of the dataset in two experiments, one using a language model to map descriptions to emotions, the other maps robot behaviors to emotions.</abstract>
@@ -7825,6 +7835,7 @@
       <abstract>This paper illustrates a workflow for developing and evaluating automatic translation alignment models for Ancient Greek. We designed an annotation Style Guide and a gold standard for the alignment of Ancient Greek-English and Ancient Greek-Portuguese, measured inter-annotator agreement and used the resulting dataset to evaluate the performance of various translation alignment models. We proposed a fine-tuning strategy that employs unsupervised training with mono- and bilingual texts and supervised training using manually aligned sentences. The results indicate that the fine-tuned model based on XLM-Roberta is superior in performance, and it achieved good results on language pairs that were not part of the training data.</abstract>
       <url hash="cc367b84">2022.lrec-1.634</url>
       <bibkey>yousef-etal-2022-automatic</bibkey>
+      <pwccode url="https://github.com/ugaritalignment/alignment-gold-standards" additional="false">ugaritalignment/alignment-gold-standards</pwccode>
     </paper>
     <paper id="635">
       <title>Rhetorical Structure Approach for Online Deception Detection: A Survey</title>
@@ -8255,6 +8266,7 @@
       <abstract>At present, more and more work has begun to pay attention to the long-term housekeeping robot scene. Naturally, we wonder whether the robot can answer the questions raised by the owner according to the actual situation at home. These questions usually do not have a clear text context, are directly related to the actual scene, and it is difficult to find the answer from the general knowledge base (such as Wikipedia). Therefore, the experience accumulated from the task seems to be a more natural choice. We present a corpus called TEQA (task-driven and experience-based question answering) in the long-term household task. Based on a popular in-house virtual environment (AI2-THOR) and agent task experiences of ALFRED, we design six types of questions along with answering including 24 question templates, 37 answer templates, and nearly 10k different question answering pairs. Our corpus aims at investigating the ability of task experience understanding of agents for the daily question answering scenario on the ALFRED dataset.</abstract>
       <url hash="85bf6ab3">2022.lrec-1.670</url>
       <bibkey>xu-etal-2022-task</bibkey>
+      <pwccode url="https://github.com/nlply/EACL2023-QE-Features" additional="false">nlply/EACL2023-QE-Features</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ai2-thor">AI2-THOR</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/alfred">ALFRED</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/eqa">EQA</pwcdataset>
@@ -9229,7 +9241,7 @@
       <abstract>Can language models read biomedical texts and explain the biomedical mechanisms discussed? In this work we introduce a biomedical mechanism summarization task. Biomedical studies often investigate the mechanisms behind how one entity (e.g., a protein or a chemical) affects another in a biological context. The abstracts of these publications often include a focused set of sentences that present relevant supporting statements regarding such relationships, associated experimental evidence, and a concluding sentence that summarizes the mechanism underlying the relationship. We leverage this structure and create a summarization task, where the input is a collection of sentences and the main entities in an abstract, and the output includes the relationship and a sentence that summarizes the mechanism. Using a small amount of manually labeled mechanism sentences, we train a mechanism sentence classifier to filter a large biomedical abstract collection and create a summarization dataset with 22k instances. We also introduce conclusion sentence generation as a pretraining task with 611k instances. We benchmark the performance of large bio-domain language models. We find that while the pretraining task help improves performance, the best model produces acceptable mechanism outputs in only 32% of the instances, which shows the task presents significant challenges in biomedical language understanding and summarization.</abstract>
       <url hash="942510bb">2022.lrec-1.748</url>
       <bibkey>bastan-etal-2022-sume</bibkey>
-      <pwccode url="https://github.com/StonyBrookNLP/SuMe" additional="false">StonyBrookNLP/SuMe</pwccode>
+      <pwccode url="https://github.com/StonyBrookNLP/SuMe" additional="true">StonyBrookNLP/SuMe</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/sume">SuMe</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/blue">BLUE</pwcdataset>
     </paper>

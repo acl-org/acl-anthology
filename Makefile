@@ -129,7 +129,7 @@ venv/bin/activate: bin/requirements.txt
 	test -d venv || python3 -m venv venv
 	. $(VENV) && pip3 install wheel
 	. $(VENV) && pip3 install -Ur bin/requirements.txt
-	@python3 -c "from yaml import CLoader" 2> /dev/null || ( \
+	@. $(VENV) && python3 -c "from yaml import CLoader" 2> /dev/null || ( \
 	    echo "WARNING     No libyaml bindings enabled for pyyaml, your build will be several times slower than needed";\
 	    echo "            see the README on GitHub for more information")
 	touch venv/bin/activate
@@ -189,21 +189,19 @@ mods: build/.mods
 endnote: build/.endnote
 
 #######################################################
-# Disable bibtex etc. targets by setting NOBIB=true
+build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
+	@echo "INFO     Creating BibTeX files..."
+	. $(VENV) && python3 bin/create_bibtex.py --clean
+	@touch build/.bibtex
+
+# Disable citation targets (except for 3 bibtex per volume) by setting NOBIB=true
 ifeq (true, $(NOBIB))
-$(info WARNING: not creating bib files, this is not suitable for release!)
-build/.bibtex: build/.basedirs
-	touch build/.bibtex
+$(info WARNING: not creating citation materials; this is not suitable for release!)
 build/.mods: build/.bibtex
 	touch build/.mods
 build/.endnote: build/.bibtex
 	touch build/.endnote
 else
-
-build/.bibtex: build/.basedirs $(sourcefiles) venv/bin/activate
-	@echo "INFO     Creating BibTeX files..."
-	. $(VENV) && python3 bin/create_bibtex.py --clean
-	@touch build/.bibtex
 
 build/.mods: build/.bibtex
 	@if [ $(HAS_BIB2XML) = false ]; then \
@@ -244,7 +242,6 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         -d website/$(ANTHOLOGYDIR) \
 		 -e $(HUGO_ENV) \
 	         --cleanDestinationDir \
-                 --printMemoryUsage \
 	         --minify
 	@cd build/website/$(ANTHOLOGYDIR) \
 	    && ln -s $(ANTHOLOGYFILES) anthology-files \
@@ -277,7 +274,8 @@ check: venv pytest
 	jing -c data/xml/schema.rnc data/xml/*xml
 	SKIP=no-commit-to-branch . $(VENV) \
 	  && pre-commit run --all-files \
-	  && black --check $(pysources)
+	  && black --check $(pysources) \
+	  && ruff check $(pysources)
 
 .PHONY: pytest
 pytest: venv
@@ -293,7 +291,7 @@ check_staged_xml:
 check_commit: check_staged_xml venv/bin/activate
 	@. $(VENV) && pre-commit run
 	@if [ ! -z "$(pystaged)" ]; then \
-	    . $(VENV) && black --check $(pystaged) ;\
+	    . $(VENV) && black --check $(pystaged) && ruff check $(pystaged) ;\
 	 fi
 
 .PHONY: autofix
@@ -302,6 +300,7 @@ autofix: check_staged_xml venv/bin/activate
 	 EXIT_STATUS=0 ;\
 	 pre-commit run || EXIT_STATUS=$$? ;\
 	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
+	 ruff --fix --show-fixes $(pysources) || EXIT_STATUS=$$? ;\
 	 black $(pysources) || EXIT_STATUS=$$? ;\
 	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
 	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\

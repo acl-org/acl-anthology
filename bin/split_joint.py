@@ -54,7 +54,6 @@ in the following places:
    that all workshops appear in a single place.
 """
 
-import os
 import sys
 import yaml
 
@@ -65,15 +64,13 @@ from collections import defaultdict
 from anthology.utils import build_anthology_id, infer_year
 
 sys.path.append("/Users/mattpost/src/acl-anthology/bin")
-from anthology.utils import make_simple_element, indent, is_newstyle_id
-from anthology.venues import VenueIndex
+from anthology.utils import make_simple_element, indent, is_newstyle_id  # noqa: E402
+from anthology.venues import VenueIndex  # noqa: E402
 
 try:
     from yaml import CLoader as Loader
-    from yaml import CSafeDumper as Dumper
 except ImportError:
     from yaml import Loader
-    from yaml import SafeDumper as Dumper
 
 
 IMPORT_DIR = Path("/Users/mattpost/src/acl-anthology/data")
@@ -86,7 +83,7 @@ collections = {}
 
 
 def get_xml(collection_id):
-    if not collection_id in collections:
+    if collection_id not in collections:
         xml_file = XML_DIR / f"{collection_id}.xml"
 
         if xml_file.exists():
@@ -175,7 +172,6 @@ def is_oldstyle_workshop(volume):
 
 for venue, venue_data in all_venue_data.items():
     for year, volumes in venue_data.items():
-
         collection_id = f"{year}.{venue}"
 
         event_name = f"{venue}-{year}"
@@ -199,7 +195,7 @@ for venue, venue_data in all_venue_data.items():
                         "event", attrib={"id": event_name}, parent=collection_xml
                     )
                 # only add if not present
-                for colocated_xml in event_xml.findall(f"./colocated"):
+                for colocated_xml in event_xml.findall("./colocated"):
                     if colocated_xml.text == volume:
                         break
                 else:

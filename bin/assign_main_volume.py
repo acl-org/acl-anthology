@@ -65,14 +65,14 @@ def get_main_venue(anthology_id):
     else:  # old-style ID
         # The main venue is defined by the "oldstyle_letter" key in
         # the venue files.
-        letter = collection_id[0]
+        collection_id[0]
 
         # If there was no association with the letter, the volume should
         # be listed in one of the files in data/yaml/venues/*.yaml. For
         # example, W17-47 is associated with WMT.
         main_venue = venues.get_slug_by_letter(collection_id[0])
-        if volume_id != None:
-            full_volume_id = f"{collection_id}-{volume_id}"
+        if volume_id is not None:
+            pass
 
         if main_venue is None:
             raise Exception(f"Old-style ID {anthology_id} isn't assigned any venue!")
@@ -91,7 +91,7 @@ def main(args):
         root = tree.getroot()
 
         collection_id = root.attrib["id"]
-        year = infer_year(collection_id)
+        infer_year(collection_id)
 
         changed_one = False
         for volume_xml in tree.getroot():

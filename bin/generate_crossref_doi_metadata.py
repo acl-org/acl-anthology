@@ -74,16 +74,16 @@ MONTH_HASH = {
     "December": "12",
 }
 
+
 # FUNCTION DEFINITIONS
 def prettify(elem):
     """Return a pretty-printed XML string for the Element."""
     rough_string = etree.tostring(elem, "utf-8")
-    reparsed = minidom.parseString(rough_string)
+    reparsed = minidom.parseString(rough_string)  # noqa: F821  // MMB: missing import?!
     return reparsed.toprettyxml(indent="  ")
 
 
 def main(volumes):
-
     formatter = MarkupFormatter()
 
     ## Assemble container
@@ -100,19 +100,15 @@ def main(volumes):
 
     ## Assemble head
     head = make_simple_element("head", parent=new_volume.getroot())
-    dbi = make_simple_element("doi_batch_id", text=str(int(time.time())), parent=head)
+    make_simple_element("doi_batch_id", text=str(int(time.time())), parent=head)
 
-    timestamp = make_simple_element("timestamp", text=str(int(time.time())), parent=head)
+    make_simple_element("timestamp", text=str(int(time.time())), parent=head)
 
     depositor = make_simple_element("depositor", parent=head)
-    depositor_name = make_simple_element(
-        "depositor_name", text=DEPOSITOR_NAME, parent=depositor
-    )
-    email_address = make_simple_element(
-        "email_address", text=EMAIL_ADDRESS, parent=depositor
-    )
+    make_simple_element("depositor_name", text=DEPOSITOR_NAME, parent=depositor)
+    make_simple_element("email_address", text=EMAIL_ADDRESS, parent=depositor)
 
-    registrant = make_simple_element("registrant", text=REGISTRANT, parent=head)
+    make_simple_element("registrant", text=REGISTRANT, parent=head)
 
     ## Assemble body
     body = make_simple_element("body", parent=new_volume.getroot())
@@ -148,10 +144,10 @@ def main(volumes):
                 try:
                     start_month = MONTH_HASH[re.split("[-–]", month)[0]]
                     end_month = MONTH_HASH[re.split("[-–]", month)[1]]
-                except IndexError as e:  # only one month
+                except IndexError:  # only one month
                     start_month = MONTH_HASH[month]
                     end_month = MONTH_HASH[month]
-                except Exception as e:
+                except Exception:
                     print(
                         f"FATAL: can't parse month {month} in {full_volume_id}",
                         file=sys.stderr,
@@ -181,23 +177,19 @@ def main(volumes):
                         and name_part.text is not None
                         and name_part.text != ""
                     ):
-                        gn = make_simple_element(
-                            "given_name", parent=pn, text=name_part.text
-                        )
+                        make_simple_element("given_name", parent=pn, text=name_part.text)
                     elif name_part.tag == "last":
-                        sn = make_simple_element(
-                            "surname", text=name_part.text, parent=pn
-                        )
+                        make_simple_element("surname", text=name_part.text, parent=pn)
 
         if editor_index == 0:
-            print(f"FATAL: Found no editors", file=sys.stderr)
+            print("FATAL: Found no editors", file=sys.stderr)
             sys.exit(1)
 
         # Assemble Event Metadata
         em = make_simple_element("event_metadata", parent=c)
-        cn = make_simple_element("conference_name", parent=em, text=booktitle)
-        cl = make_simple_element("conference_location", parent=em, text=address)
-        cd = make_simple_element(
+        make_simple_element("conference_name", parent=em, text=booktitle)
+        make_simple_element("conference_location", parent=em, text=address)
+        make_simple_element(
             "conference_date",
             parent=em,
             attrib={
@@ -212,20 +204,18 @@ def main(volumes):
         pm = make_simple_element(
             "proceedings_metadata", parent=c, attrib={"language": "en"}
         )
-        pt = make_simple_element("proceedings_title", parent=pm, text=booktitle)
+        make_simple_element("proceedings_title", parent=pm, text=booktitle)
         p = make_simple_element("publisher", parent=pm)
         pn = make_simple_element("publisher_name", parent=p, text=publisher)
-        pp = make_simple_element("publisher_place", parent=p, text=PUBLISHER_PLACE)
+        make_simple_element("publisher_place", parent=p, text=PUBLISHER_PLACE)
         pd = make_simple_element("publication_date", parent=pm)
-        y = make_simple_element("year", parent=pd, text=year)
-        noisbn = make_simple_element(
-            "noisbn", parent=pm, attrib={"reason": "simple_series"}
-        )
+        make_simple_element("year", parent=pd, text=year)
+        make_simple_element("noisbn", parent=pm, attrib={"reason": "simple_series"})
 
         # DOI assignation data
         dd = make_simple_element("doi_data", parent=pm)
-        doi = make_simple_element("doi", parent=dd, text=DOI_PREFIX + full_volume_id)
-        resource = make_simple_element(
+        make_simple_element("doi", parent=dd, text=DOI_PREFIX + full_volume_id)
+        make_simple_element(
             "resource", parent=dd, text=CANONICAL_URL_TEMPLATE.format(full_volume_id)
         )
 
@@ -264,17 +254,13 @@ def main(volumes):
                         and name_part.text is not None
                         and name_part.text != ""
                     ):
-                        gn = make_simple_element(
-                            "given_name", parent=pn, text=name_part.text
-                        )
+                        make_simple_element("given_name", parent=pn, text=name_part.text)
                     elif name_part.tag == "last":
-                        sn = make_simple_element(
-                            "surname", text=name_part.text, parent=pn
-                        )
+                        make_simple_element("surname", text=name_part.text, parent=pn)
 
             for title in paper.iter(tag="title"):
                 o_titles = make_simple_element("titles", parent=cp)
-                o_title = make_simple_element(
+                make_simple_element(
                     "title", parent=o_titles, text=formatter.as_text(title)
                 )
 
@@ -289,14 +275,14 @@ def main(volumes):
                 try:
                     fp.text = re.split("[-–]", pages.text)[0]
                     lp.text = re.split("[-–]", pages.text)[1]
-                except IndexError as e:  # only one page
+                except IndexError:  # only one page
                     fp.text = pages.text
                     lp.text = pages.text
 
             # DOI assignation data
             dd = make_simple_element("doi_data", parent=cp)
-            doi = make_simple_element("doi", parent=dd, text=DOI_PREFIX + url)
-            resource = make_simple_element(
+            make_simple_element("doi", parent=dd, text=DOI_PREFIX + url)
+            make_simple_element(
                 "resource", parent=dd, text=CANONICAL_URL_TEMPLATE.format(url)
             )
 

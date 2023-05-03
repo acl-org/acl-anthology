@@ -23,20 +23,13 @@ May be useful for salvaging in the future.
 """
 
 import argparse
-import os
-import shutil
-import ssl
-import sys
-import tempfile
 
 from anthology.utils import indent
 
 import lxml.etree as ET
-import urllib.request
 
 
 def main(args):
-
     for xml_file in args.files:
         # Update XML
         tree = ET.parse(xml_file)

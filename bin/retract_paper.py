@@ -23,7 +23,6 @@ to the paper page. Also revises the XML.
 
 import argparse
 import os
-import shutil
 import subprocess
 import sys
 import tempfile
@@ -119,7 +118,6 @@ def main(args):
     """
 
     with tempfile.TemporaryDirectory() as tempdir:
-
         new_pdf = add_watermark(args.anthology_id, workdir=tempdir)
 
         add_revision(
@@ -147,7 +145,7 @@ def main(args):
         print("Modifying the XML", file=sys.stderr)
         now = datetime.now()
         date = f"{now.year}-{now.month:02d}-{now.day:02d}"
-        retracted_node = make_simple_element(
+        make_simple_element(
             "retracted", args.explanation, attrib={"date": date}, parent=paper
         )
         indent(tree.getroot())

@@ -38,7 +38,6 @@ import lxml.etree as ET
 
 
 def process_volume(anthology_volume):
-
     collection_id, volume_id, _ = deconstruct_anthology_id(anthology_volume)
     if is_newstyle_id(anthology_volume):
         venue_path = collection_id.split(".")[1]
@@ -53,7 +52,7 @@ def process_volume(anthology_volume):
     )
     tree = ET.parse(xml_file)
 
-    for paper in tree.getroot().findall(f".//paper"):
+    for paper in tree.getroot().findall(".//paper"):
         anthid = paper.find("./url").text
 
         # Try to get the URL from the Anthology

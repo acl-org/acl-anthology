@@ -22,9 +22,7 @@ from functools import lru_cache
 import itertools as it
 from slugify import slugify
 from stop_words import get_stop_words
-from .formatter import bibtex_encode
 from .people import PersonName
-from .venues import VenueIndex
 
 from typing import List
 
@@ -123,7 +121,7 @@ class AnthologyIndex:
             if not self._fast_load:
                 for name, ids in self.name_to_ids.items():
                     if len(ids) > 1:
-                        for (id1, id2) in it.permutations(ids, 2):
+                        for id1, id2 in it.permutations(ids, 2):
                             self._similar[id1].add(id2)
             for entry in name_list:
                 try:
@@ -327,7 +325,7 @@ class AnthologyIndex:
     def id_to_used(self):
         if self._fast_load and not self._id_to_used:
             for paper in self._parent.papers.values():
-                for (name, id_, _) in paper.iter_people():
+                for name, id_, _ in paper.iter_people():
                     self._id_to_used[id_].add(name)
         return self._id_to_used
 
@@ -336,7 +334,7 @@ class AnthologyIndex:
         if self._fast_load and not self._coauthors:
             for paper in self._parent.papers.values():
                 people = list(paper.iter_people())
-                for (p1, p2) in it.permutations(people, 2):
+                for p1, p2 in it.permutations(people, 2):
                     name1, id1, role1 = p1
                     name2, id2, role2 = p2
                     if role1 != role2:
@@ -387,7 +385,7 @@ class AnthologyIndex:
         return self.id_to_canonical[id_]
 
     def set_canonical_name(self, id_, name):
-        if (not id_ in self.id_to_canonical) or (
+        if (id_ not in self.id_to_canonical) or (
             name.score > self.id_to_canonical[id_].score
         ):
             # if name not seen yet, or if this version has more accents

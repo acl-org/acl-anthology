@@ -48,7 +48,6 @@ def opentag(node):
 
 def merge(atree, btree):
     def visit(anode, bnode):
-
         if anode.tag not in recurse_elements and bnode.tag not in recurse_elements:
             return
 

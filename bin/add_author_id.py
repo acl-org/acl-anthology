@@ -28,12 +28,7 @@ Usage:
 """
 
 import argparse
-import filetype
 import os
-import shutil
-import ssl
-import sys
-import tempfile
 
 from anthology.utils import indent
 from itertools import chain
@@ -50,7 +45,7 @@ def main(args):
 
         tree = ET.parse(xml_file)
         for paper_xml in chain(
-            tree.getroot().findall(f".//paper"), tree.getroot().findall(".//meta")
+            tree.getroot().findall(".//paper"), tree.getroot().findall(".//meta")
         ):
             for author_xml in chain(
                 paper_xml.findall("./author"), paper_xml.findall("./editor")

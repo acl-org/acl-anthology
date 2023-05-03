@@ -21,7 +21,6 @@ import os
 import sys
 
 from anthology import Anthology
-from anthology.people import PersonName
 from anthology.utils import deconstruct_anthology_id
 
 if __name__ == "__main__":

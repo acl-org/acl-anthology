@@ -12,7 +12,6 @@ Used to find the list of volumes to generate previews for.
 import sys
 import argparse
 import lxml.etree as etree
-import subprocess
 
 
 parser = argparse.ArgumentParser()
@@ -23,11 +22,11 @@ volumes = []
 for filepath in sys.stdin:
     try:
         tree = etree.parse(filepath.rstrip())
-    except Exception as e:
+    except Exception:
         continue
     root = tree.getroot()
     collection_id = root.attrib["id"]
-    for volume in root:
+    for volume in root.findall("./volume"):
         volume_name = volume.attrib["id"]
         volume_id = f"{collection_id}-{volume_name}"
         volumes.append(f"[{volume_id}]({args.url_root}/{volume_id})")

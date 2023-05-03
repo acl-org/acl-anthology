@@ -33,7 +33,7 @@ from collections import defaultdict
 from tqdm import tqdm
 import logging as log
 import os
-import yaml, yamlfix
+import yaml
 
 try:
     from yaml import CSafeDumper as Dumper
@@ -41,7 +41,7 @@ except ImportError:
     from yaml import SafeDumper as Dumper
 
 from anthology import Anthology
-from anthology.utils import SeverityTracker, deconstruct_anthology_id, is_newstyle_id
+from anthology.utils import SeverityTracker, deconstruct_anthology_id
 from create_hugo_pages import check_directory
 
 
@@ -153,7 +153,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     # Prepare venue index
     venues = {}
     for main_venue, data in anthology.venues.items():
-        letter = data.get("oldstyle_letter", "W")
+        data.get("oldstyle_letter", "W")
         data = data.copy()
         data["volumes_by_year"] = {}
         for year in sorted(data["years"]):
@@ -177,13 +177,20 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         event_data = event_data.copy()
 
         def volume_sorter(volume):
-            """Puts all main volumes before satellite ones.
+            """
+            Puts all main volumes before satellite ones.
             Main volumes are sorted in a stabile manner as
             found in the XML. Colocated ones are sorted
-            alphabetically."""
+            alphabetically.
+
+            :param volume: The Anthology volume
+            """
             if main_venue in volumes[volume]["venues"]:
                 # sort volumes in main venue first
                 return "_"
+            elif deconstruct_anthology_id(volume)[1] == main_venue:
+                # this puts Findings at the top (e.g., 2022-findings.emnlp will match emnlp)
+                return "__"
             else:
                 # sort colocated volumes alphabetically, using
                 # the alphabetically-earliest volume
