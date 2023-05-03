@@ -5,8 +5,8 @@
 {{ range $paper.author }}
   {{ $first_letter := slicestr .id 0 1 }}
   {{ $author := index .Site.Data.people $first_letter .id }}
-  <meta content="{{ .full }}" name="citation_author" >
-  {{ with .affiliation }}
+  <meta content="{{ $author.full }}" name="citation_author" >
+  {{ with $author.affiliation }}
   <meta content="{{ . }}" name="citation_author_institution">
   {{ end }}
   {{ with $author.orcid }}

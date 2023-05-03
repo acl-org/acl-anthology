@@ -77,9 +77,6 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             data["author"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
             ]
-            for author in data["author"]:
-                if "affiliation" in author:
-                    print(paper.full_id, author)
         if "editor" in data:
             data["editor"] = [
                 anthology.people.resolve_name(name, id_) for name, id_ in data["editor"]
