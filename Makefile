@@ -129,7 +129,7 @@ venv/bin/activate: bin/requirements.txt
 	test -d venv || python3 -m venv venv
 	. $(VENV) && pip3 install wheel
 	. $(VENV) && pip3 install -Ur bin/requirements.txt
-	@python3 -c "from yaml import CLoader" 2> /dev/null || ( \
+	@. $(VENV) && python3 -c "from yaml import CLoader" 2> /dev/null || ( \
 	    echo "WARNING     No libyaml bindings enabled for pyyaml, your build will be several times slower than needed";\
 	    echo "            see the README on GitHub for more information")
 	touch venv/bin/activate
