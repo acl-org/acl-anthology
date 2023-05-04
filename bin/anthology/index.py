@@ -24,7 +24,7 @@ from slugify import slugify
 from stop_words import get_stop_words
 from .people import PersonName
 
-from typing import List
+from typing import List, Dict
 
 try:
     from yaml import CLoader as Loader
@@ -422,7 +422,7 @@ class AnthologyIndex:
         return self.comments.get(id_, None)
 
     @lru_cache(maxsize=2**16)
-    def resolve_name(self, name, id_=None):
+    def resolve_name(self, name, id_=None) -> Dict:
         """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
         if id_ is None:

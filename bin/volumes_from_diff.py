@@ -24,6 +24,7 @@ for filepath in sys.stdin:
         tree = etree.parse(filepath.rstrip())
     except Exception:
         continue
+
     root = tree.getroot()
     collection_id = root.attrib["id"]
     for volume in root.findall("./volume"):
