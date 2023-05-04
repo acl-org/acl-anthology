@@ -1,0 +1,27 @@
+name: Bug Report (not concerning metadata)
+description: Report a problem or bug that does not relate to paper or author metadata.
+labels: ["bug"]
+assignees:
+  - mbollmann
+body:
+  - type: checkboxes
+    attributes:
+      label: Confirm that this is a bug report
+      description: |
+        Please use this form only to report bugs or problems that do _not_ relate to paper or author metadata.  Please also check that there is no existing issue for the same problem already.
+      options:
+        - label: I want to report an issue that does _not_ concern paper or author metadata.
+          required: true
+        - label: I have searched for similar existing issues first.
+          required: true
+  - type: textarea
+    attributes:
+      label: Problem Description
+      description: |
+        Please let us know what the problem is. Please add whatever details are relevant to the problem you are reporting, such as:
+
+        - State which **browser and operation system** you are using.
+        - Attach a **screenshot** that shows the problem.
+        - Provide URLs of pages that exhibit the problem.
+    validations:
+      required: true
