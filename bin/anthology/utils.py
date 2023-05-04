@@ -426,10 +426,20 @@ def indent(elem, level=0, internal=False):
             elem.tail = "\n" + level * "  "
 
 
-def parse_element(xml_element):
+def parse_element(
+    xml_element,
+    list_elements=data.LIST_ELEMENTS,
+    dont_parse_elements=data.DONT_PARSE_ELEMENTS,
+):
     """
     Parses an XML node into a key-value hash.
+    Certain types receive special treatment.
     Works for defined elements (mainly paper nodes and the <meta> block)
+
+    :param xml_element: the XML node to parse
+    :param list_elements: a list of elements that should be accumulated as lists
+    :param dont_parse_elements: a list of elements whose value should be the unparsed
+           XML node, rather than the parsed value
     """
     attrib = {}
     if xml_element is None:
@@ -438,11 +448,14 @@ def parse_element(xml_element):
     for element in xml_element:
         # parse value
         tag = element.tag.lower()
-        if tag in ("abstract", "title", "booktitle"):
+        if tag in dont_parse_elements:
+            # These elements have sub-formatting that gets interpreted in different
+            # ways (text, BibTeX, HTML, etc.), so we preserve the XML, marking it
+            # with a prefix.
             tag = f"xml_{tag}"
             value = element
         elif tag == "url":
-            tag = "xml_url"
+            tag = element.attrib.get("type", "xml_url")
             value = element.text
         elif tag == "attachment":
             value = {
@@ -484,7 +497,8 @@ def parse_element(xml_element):
         else:
             value = element.text
 
-        if tag in data.LIST_ELEMENTS:
+        # these items get built as lists (default is to overwrite)
+        if tag in list_elements:
             try:
                 attrib[tag].append(value)
             except KeyError:

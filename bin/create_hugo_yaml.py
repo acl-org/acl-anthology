@@ -264,6 +264,7 @@ if __name__ == "__main__":
 
     log.info("Reading the Anthology data...")
     anthology = Anthology(importdir=args["--importdir"])
+
     log.info("Exporting to YAML...")
     export_anthology(
         anthology, args["--exportdir"], clean=args["--clean"], dryrun=args["--dry-run"]
