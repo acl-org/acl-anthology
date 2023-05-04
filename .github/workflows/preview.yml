@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   preview:
+    if: github.repository == 'acl-org/acl-anthology'
     runs-on: ubuntu-22.04
     steps:
     - name: install hugo
