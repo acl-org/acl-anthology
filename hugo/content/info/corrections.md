@@ -33,7 +33,7 @@ Please take note of the following points regarding revisions and retractions.
 
 A request to change paper metadata (that does not require any PDF changes) can be submitted in several ways.
 
--  (Preferred) Please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new?labels=correction&template=file-a-correction.md&title=Correction+to+Anthology+ID+XXX).
+-  _(Preferred)_ Please file [a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Cmetadata&template=01-metadata-correction.yml&title=Paper+Metadata%3A+%7Breplace+with+Anthology+ID%7D).
    **Be sure to indicate the Anthology ID of the paper** (e.g., `P19-1017` or `2020.acl-1.17`).
 -  If your issue is sensitive, you can alternately contact us via email at anthology@aclweb.org.
    Again, please be sure to include the Anthology ID of the paper in your email.
@@ -50,7 +50,7 @@ However, please see the [note below about author changes](#note-on-author-change
 
 ### Revisions and errata
 
-For requests to change paper *content* (either a revision or an erratum), again, please [file a Github issue](https://github.com/acl-org/acl-anthology/issues/new?labels=correction&template=file-a-correction.md&title=Correction+to+Anthology+ID+XXX).
+For requests to change paper *content* (either a revision or an erratum), again, please [file a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=correction%2Crevision&template=03-revision-or-errata.yml&title=Paper+Revision%7Breplace+with+Anthology+ID%7D).
 **Please note the following**:
 
 - Be sure to attach the revised PDF to the issue.
