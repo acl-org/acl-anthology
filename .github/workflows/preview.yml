@@ -42,11 +42,11 @@ jobs:
         python -m pip install lxml
     - name: extract branch name
       shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
       id: extract_branch
     - name: list volumes
       shell: bash
-      run: echo "##[set-output name=volumes;]$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}/volumes)"
+      run: echo "volumes=$(git diff --name-only $GITHUB_REF origin/master | python ./bin/volumes_from_diff.py https://preview.aclanthology.org/${{ steps.extract_branch.outputs.branch }}/volumes)" >> $GITHUB_OUTPUT
       id: list_volumes
 #    - name: list volumes debug
 #      shell: bash
