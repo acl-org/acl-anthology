@@ -257,8 +257,6 @@ latex_equivalents = {
     0x005C: "{\\textbackslash}",
     0x005E: "{\\textasciicircum}",
     0x005F: "{\\_}",
-    0x007B: "{\\{}",
-    0x007D: "{\\}}",
     0x007E: "{\\textasciitilde}",
     0x00A0: "~",
     0x00A1: "!`",
@@ -581,7 +579,6 @@ for _tex in latex_equivalents:
 for i in range(0x0020, 0x007F):
     _blacklist.add(chr(i))
 _blacklist.remove("{")
-_blacklist.remove("}")
 _blacklist.remove("$")
 for candidate in _l2u:
     if isinstance(candidate, tuple):
