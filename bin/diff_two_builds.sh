@@ -36,7 +36,7 @@ Builds the Anthology website twice from two different branches/commits, diffs
 them and reports changes.
 
 Arguments:
-  Branches or commits (i.e. anything that can be passed to `git checkout`) to
+  Branches or commits (i.e. anything that can be passed to 'git checkout') to
   compare.  If only one is given, the second will be set to the currently
   checked-out commit.
 
