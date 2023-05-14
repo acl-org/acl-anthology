@@ -1,0 +1,65 @@
+name: Correction to Paper Metadata
+description: Fix typos or errors in a paper's title, abstract, or author names.
+title: "Paper Metadata: {replace with Anthology ID}"
+labels: ["correction", "metadata"]
+assignees:
+  - anthology-assist
+body:
+  - type: checkboxes
+    id: paper_metadata_confirmation
+    attributes:
+      label: Confirm that this is a metadata correction
+      description: |
+        This form is only for corrections that change the metadata to **match the existing PDF file** hosted on the ACL Anthology.  If the PDF itself needs to be changed, please do _not_ use this form, but file a revision/erratum instead.
+      options:
+        - label: I want to file corrections to make the metadata match the PDF file hosted on the ACL Anthology.
+          required: true
+  - type: input
+    id: anthology_id
+    attributes:
+      label: Anthology ID
+      description: |
+        This is the ID that appears in the URL of the paper; please do _not_ give the bibkey.
+      placeholder: ex. 2020.acl-1.17 or P19-1017
+    validations:
+      required: true
+  - type: checkboxes
+    id: paper_correction_type
+    attributes:
+      label: Type of Paper Metadata Correction
+      description: Which metadata field(s) need to be corrected? Check all that apply.
+      options:
+        - label: Paper Title
+        - label: Paper Abstract
+        - label: Author Name(s)
+    validations:
+      required: true
+  - type: input
+    id: paper_title
+    attributes:
+      label: Correction to Paper Title
+      description: What is the correct paper title?
+      placeholder: "(leave blank if not applicable)"
+    validations:
+      required: false
+  - type: textarea
+    id: paper_abstract
+    attributes:
+      label: Correction to Paper Abstract
+      description: What is the correct paper abstract?
+      placeholder: "(leave blank if not applicable)"
+    validations:
+      required: false
+  - type: textarea
+    id: author_name
+    attributes:
+      label: Correction to Author Name(s)
+      description: |
+        What is the correct author name (list)? If a name needs to be added or changed, please indicate clearly **which parts are first and last name.**
+      placeholder: "(leave blank if not applicable)"
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        **Note:** If you request an author name correction for yourself, please also make sure that your name is correctly entered into Softconf/OpenReview for any future publications, as this is where we obtain the author names from.

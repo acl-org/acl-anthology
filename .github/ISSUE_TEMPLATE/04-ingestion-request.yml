@@ -1,0 +1,62 @@
+name: Submission of New Volume or Venue
+description: Submit a request to add new conference proceedings or journal issues to the ACL Anthology.
+title: "Ingestion Request: {replace with name of event}"
+labels: ["ingestion"]
+assignees:
+  - anthology-assist
+body:
+  - type: checkboxes
+    id: ingestion_info
+    attributes:
+      label: General information about this request
+      description: |
+        Please make sure you have read our [information for submitters](https://aclanthology.org/info/contrib/) before you continue. If you are submitting a request for a venue that does not exist in the ACL Anthology yet, please also indicate this here.
+      options:
+        - label: I confirm that I have read the [Information for Submitters](https://aclanthology.org/info/contrib/).
+          required: true
+        - label: "I am submitting a request for a **new venue** that does not exist in the ACL Anthology yet."
+  - type: input
+    id: venue_id
+    attributes:
+      label: Venue Identifier
+      description: |
+        What is the (proposed) venue identifier for this submission? If you are not sure what the correct identifier for your venue is, you can look it up in the [list of existing venues](https://aclanthology.org/venues/).
+      placeholder: ex. emnlp, repl4nlp
+    validations:
+      required: true
+  - type: input
+    id: volume_title
+    attributes:
+      label: Volume Title
+      description: |
+        What is the title of the volume that should be published?
+      placeholder: ex. Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)
+    validations:
+      required: true
+  - type: input
+    id: venue_name
+    attributes:
+      label: "Venue Name (only if you are submitting a new venue)"
+      description: |
+        What is the name of the venue?  Note that this should be a general name that **does _not_ include** numbers or years.
+      placeholder: ex. Conference on Empirical Methods in Natural Language Processing
+  - type: input
+    id: venue_website
+    attributes:
+      label: "Venue Website (only if you are submitting a new venue)"
+      description: |
+        What is the website of the venue?  Ideally provide a link for the venue itself, _not_ a particular meeting of the venue.
+      placeholder: ex. https://sigdat.org/
+  - type: input
+    id: volume_date
+    attributes:
+      label: Date of Publication
+      description: |
+        When would you like the material to be published on the ACL Anthology? If you are submitting material that can be published immediately (e.g. for conferences that already happened in the past), you can leave this field blank.
+      placeholder: ex. 2023-12-31
+  - type: textarea
+    id: ingestion_information
+    attributes:
+      label: Supporting Information
+      description: |
+        If there is anything else we should know about this ingestion request, please provide the information here.  You can also use this field to **provide links or attach files** of the material, if you already have them.
