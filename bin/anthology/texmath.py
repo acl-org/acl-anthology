@@ -137,20 +137,29 @@ class TexMath:
             self._parse(args, sx)
             trg.append(sx)
         # Handle italics
-        elif name in ("mathit", "textit"):
+        elif name in ("mathit", "textit", "emph"):
             sx = etree.Element("em")
             self._parse(args, sx)
             trg.append(sx)
         # Handle small caps
-        elif name in ("textsc"):
+        elif name in ("textsc",):
             sx = etree.Element("span")
             sx.attrib["style"] = "font-variant: small-caps;"
             self._parse(args, sx)
             trg.append(sx)
         # Handle monospace
-        elif name in ("texttt"):
+        elif name in ("texttt",):
             sx = etree.Element("span")
             sx.attrib["class"] = "text-monospace"
+            self._parse(args, sx)
+            trg.append(sx)
+        # Handle subscripts/superscripts
+        elif name in ("textsubscript",):
+            sx = etree.Element("sub")
+            self._parse(args, sx)
+            trg.append(sx)
+        elif name in ("textsuperscript",):
+            sx = etree.Element("sup")
             self._parse(args, sx)
             trg.append(sx)
         # Known, but unsupported formatting tags that will just be removed
