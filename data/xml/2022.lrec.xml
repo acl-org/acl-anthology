@@ -1688,7 +1688,6 @@
       <abstract>We present the development of a benchmark suite consisting of an annotation schema, training corpus and baseline model for Entity Recognition (ER) in job descriptions, published under a Creative Commons license. This was created to address the distinct lack of resources available to the community for the extraction of salient entities, such as skills, from job descriptions. The dataset contains 18.6k entities comprising five types (Skill, Qualification, Experience, Occupation, and Domain). We include a benchmark CRF-based ER model which achieves an F1 score of 0.59. Through the establishment of a standard definition of entities and training/testing corpus, the suite is designed as a foundation for future work on tasks such as the development of job recommender systems.</abstract>
       <url hash="8435309a">2022.lrec-1.128</url>
       <bibkey>green-etal-2022-development</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/test">test</pwcdataset>
     </paper>
     <paper id="129">
       <title><fixed-case>CAMIO</fixed-case>: A Corpus for <fixed-case>OCR</fixed-case> in Multiple Languages</title>
@@ -1808,6 +1807,7 @@
       <abstract>Every model is only as strong as the data that it is trained on. In this paper, we present a new dataset, obtained by merging four publicly available annotated corpora for task-oriented dialogues in several domains (MultiWOZ 2.2, CamRest676, DSTC2 and Schema-Guided Dialogue Dataset). This way, we assess the feasibility of providing a unified ontology and annotation schema covering several domains with a relatively limited effort. We analyze the characteristics of the resulting dataset along three main dimensions: language, information content and performance. We focus on aspects likely to be pertinent for improving dialogue success, e.g. dialogue consistency. Furthermore, to assess the usability of this new corpus, we thoroughly evaluate dialogue generation performance under various conditions with the help of two prominent recent end-to-end dialogue models: MarCo and GPT-2. These models were selected as popular open implementations representative of the two main dimensions of dialogue modelling. While we did not observe a significant gain for dialogue state tracking performance, we show that using more training data from different sources can improve language modelling capabilities and positively impact dialogue flow (consistency). In addition, we provide the community with one of the largest open dataset for machine learning experiments.</abstract>
       <url hash="117d215d">2022.lrec-1.137</url>
       <bibkey>hudecek-etal-2022-unifying</bibkey>
+      <pwccode url="https://github.com/ufal/diaser" additional="false">ufal/diaser</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/sgd">SGD</pwcdataset>
     </paper>
     <paper id="138">
@@ -3446,6 +3446,7 @@
       <abstract>We describe NorDiaChange: the first diachronic semantic change dataset for Norwegian. NorDiaChange comprises two novel subsets, covering about 80 Norwegian nouns manually annotated with graded semantic change over time. Both datasets follow the same annotation procedure and can be used interchangeably as train and test splits for each other. NorDiaChange covers the time periods related to pre- and post-war events, oil and gas discovery in Norway, and technological developments. The annotation was done using the DURel framework and two large historical Norwegian corpora. NorDiaChange is published in full under a permissive licence, complete with raw annotation data and inferred diachronic word usage graphs (DWUGs).</abstract>
       <url hash="9a10d2e8">2022.lrec-1.274</url>
       <bibkey>kutuzov-etal-2022-nordiachange</bibkey>
+      <pwccode url="https://github.com/ltgoslo/nor_dia_change" additional="false">ltgoslo/nor_dia_change</pwccode>
     </paper>
     <paper id="275">
       <title>Exploring Transformers for Ranking <fixed-case>P</fixed-case>ortuguese Semantic Relations</title>
@@ -4685,7 +4686,7 @@
       <abstract>The Story Cloze Test (SCT) is designed for training and evaluating machine learning algorithms for narrative understanding and inferences. The SOTA models can achieve over 90% accuracy on predicting the last sentence. However, it has been shown that high accuracy can be achieved by merely using surface-level features. We suspect these models may not <i>truly</i> understand the story. Based on the SCT dataset, we constructed a human-labeled and human-verified commonsense knowledge inference dataset. Given the first four sentences of a story, we asked crowd-source workers to choose from four types of narrative inference for deciding the ending sentence and which sentence contributes most to the inference. We accumulated data on 1871 stories, and three human workers labeled each story. Analysis of the intra-category and inter-category agreements show a high level of consensus. We present two new tasks for predicting the narrative inference categories and contributing sentences. Our results show that transformer-based models can reach SOTA performance on the original SCT task using transfer learning but don’t perform well on these new and more challenging tasks.</abstract>
       <url hash="1abb457b">2022.lrec-1.375</url>
       <bibkey>yao-etal-2022-corpus</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/storycloze">StoryCloze</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/storycloze">Story Cloze</pwcdataset>
     </paper>
     <paper id="376">
       <title>Lessons Learned from <fixed-case>GPT</fixed-case>-<fixed-case>SW</fixed-case>3: Building the First Large-Scale Generative Language Model for <fixed-case>S</fixed-case>wedish</title>
@@ -6224,6 +6225,7 @@
       <abstract>Automatic text generation based on neural language models has achieved performance levels that make the generated text almost indistinguishable from those written by humans. Despite the value that text generation can have in various applications, it can also be employed for malicious tasks. The diffusion of such practices represent a threat to the quality of academic publishing. To address these problems, we propose in this paper two datasets comprised of artificially generated research content: a completely synthetic dataset and a partial text substitution dataset. In the first case, the content is completely generated by the GPT-2 model after a short prompt extracted from original papers. The partial or hybrid dataset is created by replacing several sentences of abstracts with sentences that are generated by the Arxiv-NLP model. We evaluate the quality of the datasets comparing the generated texts to aligned original texts using fluency metrics such as BLEU and ROUGE. The more natural the artificial texts seem, the more difficult they are to detect and the better is the benchmark. We also evaluate the difficulty of the task of distinguishing original from generated text by using state-of-the-art classification models.</abstract>
       <url hash="c1c26430">2022.lrec-1.501</url>
       <bibkey>liyanage-etal-2022-benchmark</bibkey>
+      <pwccode url="https://github.com/vijini/generatedtextdetection" additional="false">vijini/generatedtextdetection</pwccode>
     </paper>
     <paper id="502">
       <title>Building a Dataset for Automatically Learning to Detect Questions Requiring Clarification</title>
@@ -8403,7 +8405,6 @@
       <abstract>The NLP pipeline has evolved dramatically in the last few years. The first step in the pipeline is to find suitable annotated datasets to evaluate the tasks we are trying to solve. Unfortunately, most of the published datasets lack metadata annotations that describe their attributes. Not to mention, the absence of a public catalogue that indexes all the publicly available datasets related to specific regions or languages. When we consider low-resource dialectical languages, for example, this issue becomes more prominent. In this paper, we create Masader, the largest public catalogue for Arabic NLP datasets, which consists of 200 datasets annotated with 25 attributes. Furthermore, we develop a metadata annotation strategy that could be extended to other languages. We also make remarks and highlight some issues about the current status of Arabic NLP datasets and suggest recommendations to address them.</abstract>
       <url hash="f3348abc">2022.lrec-1.681</url>
       <bibkey>alyafeai-etal-2022-masader</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/test">test</pwcdataset>
     </paper>
     <paper id="682">
       <title>Linghub2: Language Resource Discovery Tool for Language Technologies</title>
