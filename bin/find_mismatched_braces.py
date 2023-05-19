@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: fix_texmath.py [--importdir=DIR] [-c | --commit] [--debug]
+"""Usage: find_mismatched_braces.py [--importdir=DIR] [-c | --commit] [--debug]
 
 Checks XML files for wrongly escaped TeX commands (e.g. "{textbf" instead of
 "\textbf") and mismatched curly braces.

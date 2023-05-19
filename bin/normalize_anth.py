@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright 2019 David Wei Chiang <dchiang@nd.edu>
+# Copyright 2023 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -196,10 +197,16 @@ if __name__ == "__main__":
     ap.add_argument("infile", help="XML file to read")
     ap.add_argument("outfile", help="XML file to write")
     ap.add_argument(
+        "-o",
+        "--only",
+        type=str,
+        help="Only consider this tag (e.g. title, abstract)",
+    )
+    ap.add_argument(
         "-t",
         "--latex",
         action="store_true",
-        help="Assume input fields are in LaTeX (not idempotent",
+        help="Assume input fields are in LaTeX (not idempotent)",
     )
     args = ap.parse_args()
 
@@ -218,6 +225,8 @@ if __name__ == "__main__":
             root.attrib["id"], paper.getparent().attrib["id"], paper.attrib["id"]
         )
         for oldnode in paper:
+            if args.only and str(oldnode.tag) != str(args.only):
+                continue
             location = "{}:{}".format(papernum, oldnode.tag)
             normalize(oldnode, informat=informat)
 
