@@ -22,7 +22,6 @@ import requests
 import shutil
 
 from lxml import etree
-from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 from typing import Tuple, Optional
 from zlib import crc32
@@ -300,20 +299,20 @@ def infer_url(filename, template=data.CANONICAL_URL_TEMPLATE):
         "{}" in template or "%s" in template
     ), "template has no substitution text; did you pass a prefix by mistake?"
 
-    if urlparse(filename).netloc:
+    if "://" in filename:
         return filename
     return template.format(filename)
 
 
 def infer_attachment_url(filename, parent_id=None):
-    if urlparse(filename).netloc:
+    if "://" in filename:
         return filename
     # Otherwise, treat it as an internal filename
     if parent_id is not None and not filename.startswith(parent_id):
         logging.error(
             f"attachment must begin with paper ID '{parent_id}', but is '{filename}'"
         )
-    return infer_url(filename, data.ATTACHMENT_TEMPLATE)
+    return data.ATTACHMENT_TEMPLATE.format(filename)
 
 
 def infer_year(collection_id):
