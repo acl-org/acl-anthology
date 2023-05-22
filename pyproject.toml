@@ -1,0 +1,33 @@
+[tool.black]
+line-length = 90
+target-version = ['py311']
+skip-string-normalization = false
+
+[tool.ruff]
+ignore = ['E501']  # "Line too long" is black's job
+target-version = 'py311'
+
+[tool.poetry]
+name = "acl-anthology"
+version = "0.1.0"
+description = "Access data from the ACL Anthology"
+authors = ["Marcel Bollmann <marcel@bollmann.me>"]
+license = "Apache License 2.0"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+docopt = "^0.6.2"
+latexcodec = "^2.0.1"
+lxml = "^4.9.2"
+PyYAML = "^6.0"
+
+[tool.poetry.dev-dependencies]
+black = "^23.3.0"
+pytest = "^7.3.1"
+pytest-cov = "^4.0.0"
+ruff = "^0.0.269"
+pre-commit = "^3.3.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
