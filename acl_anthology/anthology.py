@@ -1,5 +1,5 @@
 from pathlib import Path
-#from .papers import PaperIndex
+from .papers import PaperIndex
 
 
 class Anthology:
@@ -8,7 +8,7 @@ class Anthology:
             raise ValueError(f"Not a directory: {datadir}")  # TODO exception type
 
         self._datadir = datadir
-        #self.papers = PaperIndex(self)
+        self.papers = PaperIndex(self)
 
     @property
     def datadir(self):
