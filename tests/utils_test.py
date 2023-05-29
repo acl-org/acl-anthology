@@ -38,11 +38,13 @@ test_cases_ids = (
     ("2022.acl", ("2022.acl", None, None)),
 )
 
-@pytest.mark.parametrize('full_id, deconstructed', test_cases_ids)
+
+@pytest.mark.parametrize("full_id, deconstructed", test_cases_ids)
 def test_deconstruct_anthology_id(full_id, deconstructed):
     assert deconstructed == deconstruct_anthology_id(full_id)
 
-@pytest.mark.parametrize('full_id, deconstructed', test_cases_ids)
+
+@pytest.mark.parametrize("full_id, deconstructed", test_cases_ids)
 def test_build_anthology_id(full_id, deconstructed):
     if deconstructed[1] is not None:
         assert build_anthology_id(*deconstructed) == full_id
