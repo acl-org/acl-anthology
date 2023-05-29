@@ -8,12 +8,27 @@ ignore = ['E501']  # "Line too long" is black's job
 target-version = 'py311'
 
 [tool.poetry]
-name = "acl-anthology"
+name = "acl-anthology-py"
+packages = [
+    { include = "acl_anthology" },
+]
 version = "0.1.0"
 description = "A library for accessing the ACL Anthology"
 authors = ["Marcel Bollmann <marcel@bollmann.me>"]
 license = "Apache-2.0"
 readme = "README.md"
+repository = "https://github.com/mbollmann/acl-anthology-py"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Interface Engine/Protocol Translator",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
