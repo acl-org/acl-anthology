@@ -1,0 +1,19 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+    - id: check-ast
+    - id: check-docstring-first
+    - id: check-merge-conflict
+    - id: end-of-file-fixer
+    - id: mixed-line-ending
+      args: ['--fix=lf']
+    - id: name-tests-test
+    - id: trailing-whitespace
+
+- repo: https://github.com/Lucas-C/pre-commit-hooks
+  rev: v1.5.1
+  hooks:
+    - id: insert-license
+      files: \.py
+      args: ['--license-filepath', 'LICENSE.header', '--use-current-year']
