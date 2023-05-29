@@ -1,7 +1,7 @@
 # acl-anthology-py
 
 [![License](https://img.shields.io/github/license/mbollmann/acl-anthology-py)](LICENSE)
-[![Code Coverage](https://codecov.io/gh/mbollmann/acl-anthology-py/branch/main/graph/badge.svg)](https://codecov.io/gh/mbollmann/acl-anthology-py)
+[![Code Coverage](https://img.shields.io/codecov/c/gh/mbollmann/acl-anthology-py)](https://codecov.io/gh/mbollmann/acl-anthology-py)
 
 This package accesses data from the [ACL
 Anthology](https://github.com/acl-org/acl-anthology).
