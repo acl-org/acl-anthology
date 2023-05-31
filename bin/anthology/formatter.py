@@ -137,6 +137,9 @@ def bibtex_make_entry(bibkey, bibtype, fields):
         elif value is None:
             log.warning(f"Skipping empty value for {bibkey}/{key}")
             continue
+        elif has_unbalanced_braces(value):
+            log.error(f"Unbalanced braces in {key} field for {bibkey}; skipping!")
+            continue
         elif '"' in value:
             # Make sure not to use "" to quote values when they contain "
             value = f"{{{value}}}"
@@ -146,6 +149,18 @@ def bibtex_make_entry(bibkey, bibtype, fields):
         lines.append(f"    {key} = {value},")
     lines.append("}")
     return "\n".join(lines)
+
+
+def has_unbalanced_braces(string):
+    c = 0
+    for char in string:
+        if char == "{":
+            c += 1
+        elif char == "}":
+            c -= 1
+        if c < 0:
+            return True
+    return c != 0
 
 
 class MarkupFormatter:

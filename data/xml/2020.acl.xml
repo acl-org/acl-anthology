@@ -596,7 +596,7 @@
       <author><first>Rongxiang</first><last>Weng</last></author>
       <author><first>Weihua</first><last>Luo</last></author>
       <pages>414–426</pages>
-      <abstract>Recent evidence reveals that Neural Machine Translation (NMT) models with deeper neural networks can be more effective but are difficult to train. In this paper, we present a MultiScale Collaborative (MSC) framework to ease the training of NMT models that are substantially deeper than those used previously. We explicitly boost the gradient back-propagation from top to bottom levels by introducing a block-scale collaboration mechanism into deep NMT models. Then, instead of forcing the whole encoder stack directly learns a desired representation, we let each encoder block learns a fine-grained representation and enhance it by encoding spatial dependencies using a context-scale collaboration. We provide empirical evidence showing that the MSC nets are easy to optimize and can obtain improvements of translation quality from considerably increased depth. On IWSLT translation tasks with three translation directions, our extremely deep models (with 72-layer encoders) surpass strong baselines by +2.2~+3.1 BLEU points. In addition, our deep MSC achieves a BLEU score of 30.56 on WMT14 English-to-German task that significantly outperforms state-of-the-art deep NMT models. We have included the source code in supplementary materials.</abstract>
+      <abstract>Recent evidence reveals that Neural Machine Translation (NMT) models with deeper neural networks can be more effective but are difficult to train. In this paper, we present a MultiScale Collaborative (MSC) framework to ease the training of NMT models that are substantially deeper than those used previously. We explicitly boost the gradient back-propagation from top to bottom levels by introducing a block-scale collaboration mechanism into deep NMT models. Then, instead of forcing the whole encoder stack directly learns a desired representation, we let each encoder block learns a fine-grained representation and enhance it by encoding spatial dependencies using a context-scale collaboration. We provide empirical evidence showing that the MSC nets are easy to optimize and can obtain improvements of translation quality from considerably increased depth. On IWSLT translation tasks with three translation directions, our extremely deep models (with 72-layer encoders) surpass strong baselines by +2.2 +3.1 BLEU points. In addition, our deep MSC achieves a BLEU score of 30.56 on WMT14 English-to-German task that significantly outperforms state-of-the-art deep NMT models. We have included the source code in supplementary materials.</abstract>
       <url hash="d1e5a35f">2020.acl-main.40</url>
       <doi>10.18653/v1/2020.acl-main.40</doi>
       <video href="http://slideslive.com/38928953"/>
@@ -667,13 +667,14 @@
       <author><first>Fei</first><last>Wu</last></author>
       <author><first>Jiwei</first><last>Li</last></author>
       <pages>465–476</pages>
-      <abstract>Many NLP tasks such as tagging and machine reading comprehension are faced with the severe data imbalance issue: negative examples significantly outnumber positive examples, and the huge number of easy-negative examples overwhelms the training. The most commonly used cross entropy (CE) criteria is actually an accuracy-oriented objective, and thus creates a discrepancy between training and test: at training time, each training instance contributes equally to the objective function, while at test time F1 score concerns more about positive examples. In this paper, we propose to use dice loss in replacement of the standard cross-entropy objective for data-imbalanced NLP tasks. Dice loss is based on the Sørensen--Dice coefficient or Tversky index , which attaches similar importance to false positives and false negatives, and is more immune to the data-imbalance issue. To further alleviate the dominating influence from easy-negative examples in training, we propose to associate training examples with dynamically adjusted weights to deemphasize easy-negative examples. Theoretical analysis shows that this strategy narrows down the gap between the F1 score in evaluation and the dice loss in training. With the proposed training objective, we observe significant performance boost on a wide range of data imbalanced NLP tasks. Notably, we are able to achieve SOTA results on CTB5, CTB6 and UD1.4 for the part of speech tagging task; SOTA results on CoNLL03, OntoNotes5.0, MSRA and OntoNotes4.0 for the named entity recognition task; along with competitive results on the tasks of machine reading comprehension and paraphrase identification.</abstract>
+      <abstract>Many NLP tasks such as tagging and machine reading comprehension are faced with the severe data imbalance issue: negative examples significantly outnumber positive examples, and the huge number of easy-negative examples overwhelms the training. The most commonly used cross entropy (CE) criteria is actually an accuracy-oriented objective, and thus creates a discrepancy between training and test: at training time, each training instance contributes equally to the objective function, while at test time F1 score concerns more about positive examples. In this paper, we propose to use dice loss in replacement of the standard cross-entropy objective for data-imbalanced NLP tasks. Dice loss is based on the Sørensen–Dice coefficient or Tversky index , which attaches similar importance to false positives and false negatives, and is more immune to the data-imbalance issue. To further alleviate the dominating influence from easy-negative examples in training, we propose to associate training examples with dynamically adjusted weights to deemphasize easy-negative examples. Theoretical analysis shows that this strategy narrows down the gap between the F1 score in evaluation and the dice loss in training. With the proposed training objective, we observe significant performance boost on a wide range of data imbalanced NLP tasks. Notably, we are able to achieve SOTA results on CTB5, CTB6 and UD1.4 for the part of speech tagging task; SOTA results on CoNLL03, OntoNotes5.0, MSRA and OntoNotes4.0 for the named entity recognition task; along with competitive results on the tasks of machine reading comprehension and paraphrase identification.</abstract>
       <url hash="5b66d2d7">2020.acl-main.45</url>
       <doi>10.18653/v1/2020.acl-main.45</doi>
       <video href="http://slideslive.com/38928694"/>
       <bibkey>li-etal-2020-dice</bibkey>
       <pwccode url="https://github.com/ShannonAI/dice_loss_for_NLP" additional="true">ShannonAI/dice_loss_for_NLP</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/msra-cn-ner">MSRA CN NER</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-4-0">OntoNotes 4.0</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
@@ -1483,7 +1484,7 @@
       <author><first>Jian</first><last>Sun</last></author>
       <author><first>Xiaodan</first><last>Zhu</last></author>
       <pages>1087–1094</pages>
-      <abstract>This paper proposes Dynamic Memory Induction Networks (DMIN) for few-short text classification. The model develops a dynamic routing mechanism over static memory, enabling it to better adapt to unseen classes, a critical capability for few-short classification. The model also expands the induction process with supervised learning weights and query information to enhance the generalization ability of meta-learning. The proposed model brings forward the state-of-the-art performance significantly by 2~4% improvement on the miniRCV1 and ODIC datasets. Detailed analysis is further performed to show how the proposed network achieves the new performance.</abstract>
+      <abstract>This paper proposes Dynamic Memory Induction Networks (DMIN) for few-short text classification. The model develops a dynamic routing mechanism over static memory, enabling it to better adapt to unseen classes, a critical capability for few-short classification. The model also expands the induction process with supervised learning weights and query information to enhance the generalization ability of meta-learning. The proposed model brings forward the state-of-the-art performance significantly by 2 4% improvement on the miniRCV1 and ODIC datasets. Detailed analysis is further performed to show how the proposed network achieves the new performance.</abstract>
       <url hash="6c2d2e1e">2020.acl-main.102</url>
       <doi>10.18653/v1/2020.acl-main.102</doi>
       <video href="http://slideslive.com/38928941"/>
@@ -2109,6 +2110,7 @@
       <video href="http://slideslive.com/38928889"/>
       <bibkey>alt-etal-2020-tacred</bibkey>
       <pwccode url="https://github.com/DFKI-NLP/tacrev" additional="false">DFKI-NLP/tacrev</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/tacred-revisited">TACRED-Revisited</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task 8</pwcdataset>
     </paper>
     <paper id="143">
@@ -2315,7 +2317,7 @@
       <author><first>Flavio</first><last>Toxvaerd</last></author>
       <author><first>Nigel</first><last>Collier</last></author>
       <pages>1715–1724</pages>
-      <abstract>We present a new challenging stance detection dataset, called Will-They-Won’t-They (WT--WT), which contains 51,284 tweets in English, making it by far the largest available dataset of the type. All the annotations are carried out by experts; therefore, the dataset constitutes a high-quality and reliable benchmark for future research in stance detection. Our experiments with a wide range of recent state-of-the-art stance detection systems show that the dataset poses a strong challenge to existing models in this domain.</abstract>
+      <abstract>We present a new challenging stance detection dataset, called Will-They-Won’t-They (WT–WT), which contains 51,284 tweets in English, making it by far the largest available dataset of the type. All the annotations are carried out by experts; therefore, the dataset constitutes a high-quality and reliable benchmark for future research in stance detection. Our experiments with a wide range of recent state-of-the-art stance detection systems show that the dataset poses a strong challenge to existing models in this domain.</abstract>
       <url hash="22f1a4db">2020.acl-main.157</url>
       <doi>10.18653/v1/2020.acl-main.157</doi>
       <video href="http://slideslive.com/38929075"/>
@@ -7167,7 +7169,7 @@
       <author><first>Hal</first><last>Daumé III</last></author>
       <author><first>Hanna</first><last>Wallach</last></author>
       <pages>5454–5476</pages>
-      <abstract>We survey 146 papers analyzing “bias” in NLP systems, finding that their motivations are often vague, inconsistent, and lacking in normative reasoning, despite the fact that analyzing “bias” is an inherently normative process. We further find that these papers’ proposed quantitative techniques for measuring or mitigating “bias” are poorly matched to their motivations and do not engage with the relevant literature outside of NLP. Based on these findings, we describe the beginnings of a path forward by proposing three recommendations that should guide work analyzing “bias” in NLP systems. These recommendations rest on a greater recognition of the relationships between language and social hierarchies, encouraging researchers and practitioners to articulate their conceptualizations of “bias”---i.e., what kinds of system behaviors are harmful, in what ways, to whom, and why, as well as the normative reasoning underlying these statements—and to center work around the lived experiences of members of communities affected by NLP systems, while interrogating and reimagining the power relations between technologists and such communities.</abstract>
+      <abstract>We survey 146 papers analyzing “bias” in NLP systems, finding that their motivations are often vague, inconsistent, and lacking in normative reasoning, despite the fact that analyzing “bias” is an inherently normative process. We further find that these papers’ proposed quantitative techniques for measuring or mitigating “bias” are poorly matched to their motivations and do not engage with the relevant literature outside of NLP. Based on these findings, we describe the beginnings of a path forward by proposing three recommendations that should guide work analyzing “bias” in NLP systems. These recommendations rest on a greater recognition of the relationships between language and social hierarchies, encouraging researchers and practitioners to articulate their conceptualizations of “bias”—i.e., what kinds of system behaviors are harmful, in what ways, to whom, and why, as well as the normative reasoning underlying these statements—and to center work around the lived experiences of members of communities affected by NLP systems, while interrogating and reimagining the power relations between technologists and such communities.</abstract>
       <url hash="6c685422">2020.acl-main.485</url>
       <doi>10.18653/v1/2020.acl-main.485</doi>
       <video href="http://slideslive.com/38929425"/>
@@ -7687,6 +7689,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/ace-2005">ACE 2005</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/genia">GENIA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/msra-cn-ner">MSRA CN NER</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-4-0">OntoNotes 4.0</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
     </paper>
@@ -7818,6 +7821,7 @@
       <video href="http://slideslive.com/38928863"/>
       <bibkey>ma-etal-2020-simplify</bibkey>
       <pwccode url="https://github.com/v-mipeng/LexiconAugmentedNER" additional="true">v-mipeng/LexiconAugmentedNER</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/msra-cn-ner">MSRA CN NER</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-4-0">OntoNotes 4.0</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/resume-ner">Resume NER</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/weibo-ner">Weibo NER</pwcdataset>
@@ -9078,6 +9082,7 @@
       <video href="http://slideslive.com/38929311"/>
       <bibkey>li-etal-2020-flat</bibkey>
       <pwccode url="https://github.com/LeeSureman/Flat-Lattice-Transformer" additional="false">LeeSureman/Flat-Lattice-Transformer</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/msra-cn-ner">MSRA CN NER</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-4-0">OntoNotes 4.0</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/resume-ner">Resume NER</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/weibo-ner">Weibo NER</pwcdataset>
@@ -10380,7 +10385,7 @@
       <title>Gender Gap in Natural Language Processing Research: Disparities in Authorship and Citations</title>
       <author><first>Saif M.</first><last>Mohammad</last></author>
       <pages>7860–7870</pages>
-      <abstract>Disparities in authorship and citations across gender can have substantial adverse consequences not just on the disadvantaged genders, but also on the field of study as a whole. Measuring gender gaps is a crucial step towards addressing them. In this work, we examine female first author percentages and the citations to their papers in Natural Language Processing (1965 to 2019). We determine aggregate-level statistics using an existing manually curated author--gender list as well as first names strongly associated with a gender. We find that only about 29% of first authors are female and only about 25% of last authors are female. Notably, this percentage has not improved since the mid 2000s. We also show that, on average, female first authors are cited less than male first authors, even when controlling for experience and area of research. Finally, we discuss the ethical considerations involved in automatic demographic analysis.</abstract>
+      <abstract>Disparities in authorship and citations across gender can have substantial adverse consequences not just on the disadvantaged genders, but also on the field of study as a whole. Measuring gender gaps is a crucial step towards addressing them. In this work, we examine female first author percentages and the citations to their papers in Natural Language Processing (1965 to 2019). We determine aggregate-level statistics using an existing manually curated author–gender list as well as first names strongly associated with a gender. We find that only about 29% of first authors are female and only about 25% of last authors are female. Notably, this percentage has not improved since the mid 2000s. We also show that, on average, female first authors are cited less than male first authors, even when controlling for experience and area of research. Finally, we discuss the ethical considerations involved in automatic demographic analysis.</abstract>
       <url hash="3bbf1e45">2020.acl-main.702</url>
       <doi>10.18653/v1/2020.acl-main.702</doi>
       <revision id="1" href="2020.acl-main.702v1" hash="0bc467e0"/>
@@ -12851,7 +12856,7 @@
       <author><first>Margot</first><last>Mieskes</last></author>
       <author><first>Aurélie</first><last>Névéol</last></author>
       <pages>16–18</pages>
-      <abstract>This tutorial will cover the theory and practice of reviewing research in natural language processing. Heavy reviewing burdens on natural language processing researchers have made it clear that our community needs to increase the size of our pool of potential reviewers. Simultaneously, notable “false negatives”---rejection by our conferences of work that was later shown to be tremendously important after acceptance by other conferences—have raised awareness of the fact that our reviewing practices leave something to be desired. We do not often talk about “false positives” with respect to conference papers, but leaders in the field have noted that we seem to have a publication bias towards papers that report high performance, with perhaps not much else of interest in them. It need not be this way. Reviewing is a learnable skill, and you will learn it here via lectures and a considerable amount of hands-on practice.</abstract>
+      <abstract>This tutorial will cover the theory and practice of reviewing research in natural language processing. Heavy reviewing burdens on natural language processing researchers have made it clear that our community needs to increase the size of our pool of potential reviewers. Simultaneously, notable “false negatives”—rejection by our conferences of work that was later shown to be tremendously important after acceptance by other conferences—have raised awareness of the fact that our reviewing practices leave something to be desired. We do not often talk about “false positives” with respect to conference papers, but leaders in the field have noted that we seem to have a publication bias towards papers that report high performance, with perhaps not much else of interest in them. It need not be this way. Reviewing is a learnable skill, and you will learn it here via lectures and a considerable amount of hands-on practice.</abstract>
       <url hash="ea7bb915">2020.acl-tutorials.4</url>
       <doi>10.18653/v1/2020.acl-tutorials.4</doi>
       <bibkey>cohen-etal-2020-reviewing</bibkey>
