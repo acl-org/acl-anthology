@@ -14,3 +14,4 @@
 
 # ruff: noqa: F401
 from .volumeindex import VolumeIndex
+from .volume import Volume

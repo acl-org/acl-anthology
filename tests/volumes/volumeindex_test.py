@@ -25,8 +25,9 @@ class AnthologyFixture:
 def test_get_volume():
     index = VolumeIndex(AnthologyFixture())
     # Fetch 2022.acl-main -- these should all be identical
-    volume = index.get_volume("2022.acl-main")
-    assert volume is index.get_volume(("2022.acl", "main"))
-    assert volume is index.get_volume(("2022.acl", "main", None))
-    assert volume is index.get("2022.acl-main")
-    assert volume is index.get(("2022.acl", "main", None))
+    volume = index.get_volume("2022.acl-long")
+    assert volume is not None
+    assert volume is index.get_volume(("2022.acl", "long"))
+    assert volume is index.get_volume(("2022.acl", "long", None))
+    assert volume is index.get("2022.acl-long")
+    assert volume is index.get(("2022.acl", "long", None))
