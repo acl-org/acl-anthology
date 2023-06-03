@@ -9,7 +9,7 @@ Anthology](https://github.com/acl-org/acl-anthology).
 
 ## Developing
 
-This package uses **Python 3.11** with the
+This package uses **Python 3.10+** with the
 [**Poetry**](https://python-poetry.org/) packaging system.
 
 To install the package and its dependencies in development mode, clone the
