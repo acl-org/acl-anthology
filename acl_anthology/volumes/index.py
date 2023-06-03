@@ -19,7 +19,7 @@ from ..logging import log
 from ..utils import deconstruct_anthology_id
 
 
-class PaperIndex:
+class VolumeIndex:
     def __init__(self, anthology):
         self._anthology = anthology
         self.collections = {}

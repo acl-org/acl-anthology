@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from pathlib import Path
-from .papers import PaperIndex
+from .volumes import VolumeIndex
 
 
 class Anthology:
@@ -22,7 +22,7 @@ class Anthology:
             raise ValueError(f"Not a directory: {datadir}")  # TODO exception type
 
         self._datadir = datadir
-        self.papers = PaperIndex(self)
+        self.volumes = VolumeIndex(self)
 
     @property
     def datadir(self):
