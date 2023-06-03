@@ -1,0 +1,37 @@
+site_name: acl-anthology-py
+site_author: Marcel Bollmann
+repo_url: https://github.com/mbollmann/acl-anthology-py
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - pymdownx.betterem
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+
+theme:
+  name: readthedocs
+
+plugins:
+- search
+- autorefs
+- mkdocstrings:
+    default_handler: python
+    handlers:
+      python:
+        # options mostly copied from textual for now
+        options:
+          show_signature_annotations: false
+          separate_signature: true
+          merge_init_into_class: true
+          docstring_options:
+            ignore_init_summary: true
+          show_source: false
+          filters:
+            - "!^_"
+            - "^__init__$"
+
+watch:
+  - acl_anthology/
