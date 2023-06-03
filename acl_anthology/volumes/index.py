@@ -27,10 +27,14 @@ class VolumeIndex:
         self._find_collections()
 
     def get(self, full_id):
-        collection_id, volume_id, paper_id = deconstruct_anthology_id(full_id)
+        if isinstance(full_id, (tuple, list)):
+            (collection_id, volume_id, paper_id) = full_id
+        else:
+            (collection_id, volume_id, paper_id) = deconstruct_anthology_id(full_id)
         collection = self.collections[collection_id]
         if not collection["volumes"]:
             self._parse_xml(collection["path"])
+        # TODO
 
     def _find_collections(self):
         """Finds all XML data files and indexes them by their collection ID."""
