@@ -40,7 +40,7 @@ class VolumeIndex:
 
     def get_volume(self, full_id):
         if isinstance(full_id, (tuple, list)):
-            (collection_id, volume_id) = full_id
+            (collection_id, volume_id, *_) = full_id
         else:
             (collection_id, volume_id, _) = deconstruct_anthology_id(full_id)
 
