@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import os
-from acl_anthology.volumes import VolumeIndex, Volume
+from acl_anthology.collections import CollectionIndex, Volume
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -24,7 +24,7 @@ class AnthologyFixture:
 
 def test_volume_attributes():
     # TODO: this is setup code
-    index = VolumeIndex(AnthologyFixture())
+    index = CollectionIndex(AnthologyFixture())
     volume = index.get_volume("2022.acl-long")
     # this is test code
     assert isinstance(volume, Volume)
@@ -41,7 +41,7 @@ def test_volume_attributes():
 
 def test_volume_attributes_j89():
     # TODO: this is setup code
-    index = VolumeIndex(AnthologyFixture())
+    index = CollectionIndex(AnthologyFixture())
     volume = index.get_volume("J89-1")
     # this is test code
     assert isinstance(volume, Volume)

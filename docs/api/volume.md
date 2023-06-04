@@ -1,1 +1,1 @@
-::: acl_anthology.volumes.volume
+::: acl_anthology.collections.volume

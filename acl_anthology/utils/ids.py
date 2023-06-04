@@ -17,6 +17,10 @@
 from typing import Optional
 
 
+AnthologyID = str | tuple[str, Optional[str], Optional[str]]
+"""Any type that can be parsed into an Anthology ID."""
+
+
 def build_id(
     collection_id: str, volume_id: Optional[str] = None, paper_id: Optional[str] = None
 ) -> str:
@@ -37,6 +41,9 @@ def build_id(
         P18-1001
         >>> build_id("2022.acl", "long", "42")
         2022.acl-long.42
+
+    Warning:
+        Does not perform any kind of input validation.
     """
     if volume_id is None:
         return collection_id
@@ -62,7 +69,7 @@ def build_id(
         return anthology_id
 
 
-def parse_id(anthology_id: str) -> tuple[str, Optional[str], Optional[str]]:
+def parse_id(anthology_id: AnthologyID) -> tuple[str, Optional[str], Optional[str]]:
     """
     Parses an Anthology ID into its constituent collection ID, volume ID, and paper ID
     parts.
@@ -98,7 +105,7 @@ def parse_id(anthology_id: str) -> tuple[str, Optional[str], Optional[str]]:
         ('P18', None, None)
 
     Warning:
-        Does not perform any validation on IDs.
+        Does not perform any kind of input validation.
 
     Note:
         For Anthology IDs prior to 2020, the volume ID is the first digit after the hyphen, except
@@ -108,6 +115,9 @@ def parse_id(anthology_id: str) -> tuple[str, Optional[str], Optional[str]]:
         - The collection "C69"
         - All collections in "D19" where the first digit is >= 5
     """
+
+    if isinstance(anthology_id, tuple):
+        return anthology_id
 
     if "-" not in anthology_id:
         return (anthology_id, None, None)

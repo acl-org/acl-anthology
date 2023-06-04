@@ -13,5 +13,6 @@
 # limitations under the License.
 
 # ruff: noqa: F401
-from .volumeindex import VolumeIndex
+from .index import CollectionIndex
+from .collection import Collection
 from .volume import Volume

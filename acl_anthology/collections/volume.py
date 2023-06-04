@@ -37,15 +37,12 @@ class Volume:
     Parameters:
         parent_id (str): The collection ID that this volume belongs to.
         volume_id (str): The volume ID.
-        ingest_date (Optional[str]): The ingestion date of this volume.
     """
 
-    def __init__(
-        self, parent_id: str, volume_id: str, ingest_date: Optional[str] = None
-    ) -> None:
+    def __init__(self, parent_id: str, volume_id: str) -> None:
         self._parent_id = parent_id
         self._id = volume_id
-        self._ingest_date = ingest_date
+        self._ingest_date: Optional[str] = None
         self._meta_attrib: dict[str, Optional[str]] = {}
         self._meta_venues: list[str] = []
         self._meta_url: Optional[str] = None
@@ -77,6 +74,10 @@ class Volume:
         if self._ingest_date is None:
             return constants.UNKNOWN_INGEST_DATE
         return self._ingest_date
+
+    @ingest_date.setter
+    def ingest_date(self, ingest_date: Optional[str]) -> None:
+        self._ingest_date = ingest_date
 
     @property
     def address(self) -> Optional[str]:
@@ -140,7 +141,7 @@ class Volume:
     def url_checksum(self) -> Optional[str]:
         """The CRC32 checksum of the volume's PDF.
 
-        Only set if [`self.url`][acl_anthology.volumes.volume.Volume.url] is an internal filename.
+        Only set if [`self.url`][acl_anthology.collections.volume.Volume.url] is an internal filename.
         """
         return self._meta_url_checksum
 

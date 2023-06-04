@@ -13,7 +13,7 @@
 # limitations under the License.
 
 import os
-from acl_anthology.volumes import VolumeIndex
+from acl_anthology.collections import CollectionIndex
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -23,11 +23,10 @@ class AnthologyFixture:
 
 
 def test_get_volume():
-    index = VolumeIndex(AnthologyFixture())
+    index = CollectionIndex(AnthologyFixture())
     # Fetch 2022.acl-main -- these should all be identical
     volume = index.get_volume("2022.acl-long")
     assert volume is not None
-    assert volume is index.get_volume(("2022.acl", "long"))
     assert volume is index.get_volume(("2022.acl", "long", None))
     assert volume is index.get("2022.acl-long")
     assert volume is index.get(("2022.acl", "long", None))
