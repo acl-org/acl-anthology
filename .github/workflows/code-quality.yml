@@ -1,4 +1,4 @@
-name: Run checks and tests
+name: Checks
 
 on:
   push:
@@ -29,6 +29,8 @@ jobs:
         run: poetry install --extras dev
       - name: Run pre-commit hooks
         run: poetry run pre-commit run --all-files
+      - name: Run type checker
+        run: poetry run mypy acl_anthology
       - name: Run tests
         run: poetry run pytest --cov=acl_anthology --cov-report=xml
       - name: Upload coverage reports to Codecov

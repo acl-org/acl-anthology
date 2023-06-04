@@ -1,7 +1,7 @@
 # acl-anthology-py
 
 [![License](https://img.shields.io/github/license/mbollmann/acl-anthology-py)](LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/mbollmann/acl-anthology-py/main.yml)](https://github.com/mbollmann/acl-anthology-py/actions/workflows/main.yml)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/mbollmann/acl-anthology-py/code-quality.yml)](https://github.com/mbollmann/acl-anthology-py/actions/workflows/code-quality.yml)
 [![Code Coverage](https://img.shields.io/codecov/c/gh/mbollmann/acl-anthology-py)](https://codecov.io/gh/mbollmann/acl-anthology-py)
 ![Supported Python Versions](https://img.shields.io/pypi/pyversions/acl-anthology-py)
 ![Development Status](https://img.shields.io/badge/status-pre--alpha-red)
