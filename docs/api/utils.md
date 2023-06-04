@@ -1,10 +1,3 @@
-# Utilities
-
-## Constants
-
-::: acl_anthology.constants
-
-
-## Utility Functions
+# utils
 
 ::: acl_anthology.utils.ids
