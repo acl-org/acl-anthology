@@ -47,8 +47,25 @@ poetry run pre-commit install
 poetry run pytest
 ```
 
+### Running typechecks
+
+```bash
+poetry run mypy acl_anthology
+```
+
 ### Running benchmarks
 
 ```bash
 poetry run richbench benchmarks/
 ```
+
+### Generating and writing documentation
+
+- `poetry run mkdocs build` (to generate in `site/`)
+- `poetry run mkdocs serve` (to serve locally)
+
+Docstrings are written in [Google
+style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings)
+as this [supports the most
+features](https://mkdocstrings.github.io/griffe/docstrings/#parsers-features)
+with the mkdocstrings handler (particularly compared to Sphinx/reST).

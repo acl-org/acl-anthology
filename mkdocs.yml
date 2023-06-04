@@ -1,6 +1,7 @@
 site_name: acl-anthology-py
 site_author: Marcel Bollmann
 repo_url: https://github.com/mbollmann/acl-anthology-py
+repo_name: mbollmann/acl-anthology-py
 
 markdown_extensions:
   - admonition
@@ -8,30 +9,64 @@ markdown_extensions:
   - pymdownx.betterem
   - pymdownx.smartsymbols
   - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
   - toc:
       permalink: true
 
 theme:
-  name: readthedocs
+  name: material
+  logo: assets/acl-logo.svg
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    # Color of the ACL logo is: rgb(237, 28, 36)
+    primary: amber
+    accent: indigo
+  features:
+    - navigation.expand
+    - navigation.indexes
+    - content.code.copy
+    #- navigation.sections
+    #- navigation.tabs
+
+nav:
+  - Overview:
+      - index.md
+  - API Documentation:
+      - api/index.md
+      - api/utils.md
+      - api/volume.md
 
 plugins:
-- search
-- autorefs
-- mkdocstrings:
-    default_handler: python
-    handlers:
-      python:
-        # options mostly copied from textual for now
-        options:
-          show_signature_annotations: false
-          separate_signature: true
-          merge_init_into_class: true
-          docstring_options:
-            ignore_init_summary: true
-          show_source: false
-          filters:
-            - "!^_"
-            - "^__init__$"
+  - search
+  - autorefs
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          import:
+            - https://docs.python.org/3/objects.inv
+          options:
+            docstring_style: google
+            docstring_section_style: list  # alt: table, spacy
+            separate_signature: true
+            merge_init_into_class: true
+            docstring_options:
+              ignore_init_summary: true
+            show_source: false
+            filters:
+              - "!^_"
+              - "^__init__$"
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/mbollmann/acl-anthology-py
+      name: acl-anthology-py on Github
+    - icon: material/web
+      link: https://aclanthology.org/
+      name: ACL Anthology Website
 
 watch:
   - acl_anthology/

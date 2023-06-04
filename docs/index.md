@@ -1,6 +1,6 @@
-# ACL Anthology Python Library
+# Overview
 
-This is a Python package for accessing data from the [ACL
+This is a Python library for accessing data from the [ACL
 Anthology](https://github.com/acl-org/acl-anthology).
 
 !!! danger
@@ -35,6 +35,12 @@ poetry run pre-commit install
 
 ```bash
 poetry run pytest
+```
+
+### Running typechecks
+
+```bash
+poetry run mypy acl_anthology
 ```
 
 ### Running benchmarks

@@ -12,4 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Constants used within the library."""
+
 UNKNOWN_INGEST_DATE = "1900-01-01"
+"""Default ingestion date."""

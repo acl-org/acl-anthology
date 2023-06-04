@@ -3,6 +3,10 @@ line-length = 90
 target-version = ['py310', 'py311']
 skip-string-normalization = false
 
+[tool.mypy]
+strict = true
+disallow_untyped_defs = false
+
 [tool.ruff]
 ignore = ['E501']  # "Line too long" is black's job
 target-version = 'py310'
@@ -51,6 +55,9 @@ richbench = "^1.0.3"
 [tool.poetry.group.dev.dependencies]
 mkdocs = "^1.4.3"
 mkdocstrings = {extras = ["python"], version = "^0.22.0"}
+mkdocs-material = "^9.1.15"
+mypy = "^1.3.0"
+lxml-stubs = "^0.4.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
