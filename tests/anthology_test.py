@@ -13,12 +13,13 @@
 # limitations under the License.
 
 import os
+from pathlib import Path
 from acl_anthology import Anthology
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-DATADIR = f"{SCRIPTDIR}/toy_anthology"
+DATADIR = Path(f"{SCRIPTDIR}/toy_anthology")
 
 
 def test_instantiate():
     anthology = Anthology(datadir=DATADIR)
-    assert anthology.datadir == DATADIR
+    assert anthology.datadir == Path(DATADIR)

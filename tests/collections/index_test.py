@@ -13,13 +13,14 @@
 # limitations under the License.
 
 import os
+from pathlib import Path
 from acl_anthology.collections import CollectionIndex
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
 
 class AnthologyFixture:
-    datadir = f"{SCRIPTDIR}/../toy_anthology"
+    datadir = Path(f"{SCRIPTDIR}/../toy_anthology")
 
 
 def test_get_volume():

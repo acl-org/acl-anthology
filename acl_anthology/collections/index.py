@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from __future__ import annotations
-from pathlib import Path
 from typing import Optional, TYPE_CHECKING
 
 from ..utils.ids import parse_id, AnthologyID
@@ -48,6 +47,6 @@ class CollectionIndex:
 
     def _find_collections(self) -> None:
         """Finds all XML data files and indexes them by their collection ID."""
-        for xmlpath in Path(self._anthology.datadir).glob("xml/*.xml"):
+        for xmlpath in self._anthology.datadir.glob("xml/*.xml"):
             collection_id = xmlpath.name[:-4]
             self.collections[collection_id] = Collection(collection_id, xmlpath)

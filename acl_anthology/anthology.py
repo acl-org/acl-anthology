@@ -12,18 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from os import PathLike
 from pathlib import Path
 from .collections import CollectionIndex
 
 
 class Anthology:
-    def __init__(self, datadir):
+    def __init__(self, datadir: str | PathLike[str]) -> None:
         if not Path(datadir).is_dir():
             raise ValueError(f"Not a directory: {datadir}")  # TODO exception type
 
-        self._datadir = datadir
+        self._datadir = Path(datadir)
         self.collections = CollectionIndex(self)
 
     @property
-    def datadir(self):
+    def datadir(self) -> Path:
         return self._datadir
