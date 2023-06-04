@@ -26,7 +26,7 @@ jobs:
         with:
           poetry-version: ${{ matrix.poetry-version }}
       - name: Install dependencies
-        run: poetry install --extras dev
+        run: poetry install --with dev
       - name: Run pre-commit hooks
         run: poetry run pre-commit run --all-files
       - name: Run type checker
