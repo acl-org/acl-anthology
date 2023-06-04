@@ -16,7 +16,7 @@ import lxml
 from typing import Optional
 
 from .. import constants
-from ..utils import build_anthology_id
+from ..utils.ids import build_id
 
 
 VOLUME_META_TEXT_ELEMENTS = (
@@ -67,7 +67,7 @@ class Volume:
     @property
     def full_id(self) -> str:
         """The full anthology ID of this volume (e.g. "L06-1" or "2022.emnlp-main")."""
-        return build_anthology_id(self._parent_id, self._id)
+        return build_id(self._parent_id, self._id)
 
     @property
     def ingest_date(self) -> str:

@@ -13,10 +13,7 @@
 # limitations under the License.
 
 import pytest
-from acl_anthology.utils import (
-    build_anthology_id,
-    deconstruct_anthology_id,
-)
+from acl_anthology.utils import ids
 
 test_cases_ids = (
     ("P18-1007", ("P18", "1", "7")),
@@ -39,12 +36,12 @@ test_cases_ids = (
 )
 
 
-@pytest.mark.parametrize("full_id, deconstructed", test_cases_ids)
-def test_deconstruct_anthology_id(full_id, deconstructed):
-    assert deconstructed == deconstruct_anthology_id(full_id)
+@pytest.mark.parametrize("full_id, parsed", test_cases_ids)
+def test_parse_id(full_id, parsed):
+    assert parsed == ids.parse_id(full_id)
 
 
-@pytest.mark.parametrize("full_id, deconstructed", test_cases_ids)
-def test_build_anthology_id(full_id, deconstructed):
-    if deconstructed[1] is not None:
-        assert build_anthology_id(*deconstructed) == full_id
+@pytest.mark.parametrize("full_id, parsed", test_cases_ids)
+def test_build_id(full_id, parsed):
+    if parsed[1] is not None:
+        assert ids.build_id(*parsed) == full_id

@@ -16,7 +16,7 @@ from lxml import etree
 from pathlib import Path
 
 from ..logging import log
-from ..utils import deconstruct_anthology_id
+from ..utils.ids import parse_id
 from .volume import Volume
 
 
@@ -31,7 +31,7 @@ class VolumeIndex:
         if isinstance(full_id, (tuple, list)):
             (collection_id, volume_id, paper_id) = full_id
         else:
-            (collection_id, volume_id, paper_id) = deconstruct_anthology_id(full_id)
+            (collection_id, volume_id, paper_id) = parse_id(full_id)
 
         volume = self.get_volume((collection_id, volume_id))
         if paper_id is not None:
@@ -42,7 +42,7 @@ class VolumeIndex:
         if isinstance(full_id, (tuple, list)):
             (collection_id, volume_id, *_) = full_id
         else:
-            (collection_id, volume_id, _) = deconstruct_anthology_id(full_id)
+            (collection_id, volume_id, _) = parse_id(full_id)
 
         collection = self.collections[collection_id]
         # Load XML file, if necessary
