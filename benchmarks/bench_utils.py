@@ -14,7 +14,7 @@
 
 import re
 
-REPEAT = 10_000
+REPEAT = 20_000
 URL_STRINGS = (
     "2020.multilingualbio-1.6",
     "2022.emnlp-industry.56",
@@ -50,11 +50,11 @@ __benchmarks__ = [
     (
         detect_url_regex,
         detect_url_contains_separator,
-        "Check for URL via '://' instead of regex",
+        "Check URL via regex vs. '://' in string",
     ),
     (
         detect_url_startswith_protocol,
         detect_url_contains_separator,
-        "Check for URL via '://' instead of starting with 'http'",
+        "Check URL via .startswith('http') vs. '://' in string",
     ),
 ]
