@@ -165,6 +165,8 @@ def create_venues(srcdir, clean=False):
                 "acronym": venue_data["acronym"],
                 "title": venue_data["name"],
             }
+            if "url" in venue_data:
+                yaml_data["venue_url"] = venue_data["url"]
             yaml.dump(yaml_data, default_flow_style=False, stream=f)
             print("---", file=f)
 

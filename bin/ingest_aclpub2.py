@@ -347,7 +347,7 @@ def process_procedding(
         event_name = meta['event_name']
         assert (
             re.match(r'(.)* [Ww]orkshop', event_name) is None
-        ), f"event name should start with Workshop or The Workshop, instead it started with {re.match(r'(.)* [Ww]orkshop', event_name)[0]}"
+        ), f"event name should start with Workshop, instead it started with {re.match(r'(.)* [Ww]orkshop', event_name)[0]}"
         print(f"Creating new venue '{venue_abbrev}' ({event_name})")
         venue_index.add_venue(anthology_datadir, venue_abbrev, meta['event_name'])
 

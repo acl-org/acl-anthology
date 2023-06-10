@@ -22,7 +22,6 @@ import requests
 import shutil
 
 from lxml import etree
-from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 from typing import Tuple, Optional
 from zlib import crc32
@@ -300,20 +299,20 @@ def infer_url(filename, template=data.CANONICAL_URL_TEMPLATE):
         "{}" in template or "%s" in template
     ), "template has no substitution text; did you pass a prefix by mistake?"
 
-    if urlparse(filename).netloc:
+    if "://" in filename:
         return filename
     return template.format(filename)
 
 
 def infer_attachment_url(filename, parent_id=None):
-    if urlparse(filename).netloc:
+    if "://" in filename:
         return filename
     # Otherwise, treat it as an internal filename
     if parent_id is not None and not filename.startswith(parent_id):
         logging.error(
             f"attachment must begin with paper ID '{parent_id}', but is '{filename}'"
         )
-    return infer_url(filename, data.ATTACHMENT_TEMPLATE)
+    return data.ATTACHMENT_TEMPLATE.format(filename)
 
 
 def infer_year(collection_id):
@@ -393,7 +392,7 @@ def indent(elem, level=0, internal=False):
     Adapted from https://stackoverflow.com/a/33956544 .
     """
     # tags that have no internal linebreaks (including children)
-    oneline = elem.tag in ("author", "editor", "title", "booktitle", "variant")
+    oneline = elem.tag in ("author", "editor", "speaker", "title", "booktitle", "variant")
 
     elem.text = clean_whitespace(elem.text)
 
@@ -426,10 +425,20 @@ def indent(elem, level=0, internal=False):
             elem.tail = "\n" + level * "  "
 
 
-def parse_element(xml_element):
+def parse_element(
+    xml_element,
+    list_elements=data.LIST_ELEMENTS,
+    dont_parse_elements=data.DONT_PARSE_ELEMENTS,
+):
     """
     Parses an XML node into a key-value hash.
+    Certain types receive special treatment.
     Works for defined elements (mainly paper nodes and the <meta> block)
+
+    :param xml_element: the XML node to parse
+    :param list_elements: a list of elements that should be accumulated as lists
+    :param dont_parse_elements: a list of elements whose value should be the unparsed
+           XML node, rather than the parsed value
     """
     attrib = {}
     if xml_element is None:
@@ -438,11 +447,14 @@ def parse_element(xml_element):
     for element in xml_element:
         # parse value
         tag = element.tag.lower()
-        if tag in ("abstract", "title", "booktitle"):
+        if tag in dont_parse_elements:
+            # These elements have sub-formatting that gets interpreted in different
+            # ways (text, BibTeX, HTML, etc.), so we preserve the XML, marking it
+            # with a prefix.
             tag = f"xml_{tag}"
             value = element
         elif tag == "url":
-            tag = "xml_url"
+            tag = element.attrib.get("type", "xml_url")
             value = element.text
         elif tag == "attachment":
             value = {
@@ -484,7 +496,8 @@ def parse_element(xml_element):
         else:
             value = element.text
 
-        if tag in data.LIST_ELEMENTS:
+        # these items get built as lists (default is to overwrite)
+        if tag in list_elements:
             try:
                 attrib[tag].append(value)
             except KeyError:

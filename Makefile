@@ -272,8 +272,8 @@ check: venv pytest
 	    exit 1; \
 	fi
 	jing -c data/xml/schema.rnc data/xml/*xml
-	SKIP=no-commit-to-branch . $(VENV) \
-	  && pre-commit run --all-files \
+	. $(VENV) \
+	  && SKIP=no-commit-to-branch pre-commit run --all-files \
 	  && black --check $(pysources) \
 	  && ruff check $(pysources)
 
