@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import annotations
+
 import lxml
-from typing import Optional
+from attr import define, field
+from typing import Optional, cast
 
 from .. import constants
 from ..utils.ids import build_id
@@ -26,159 +29,74 @@ VOLUME_META_TEXT_ELEMENTS = (
     "year",
     "volume",
     "isbn",
-    "ISBN",
     "doi",
 )
 
 
+@define
 class Volume:
     """A publication volume.
 
-    Parameters:
-        parent_id (str): The collection ID that this volume belongs to.
-        volume_id (str): The volume ID.
+    Attributes:
+        id (str): The ID of this volume (e.g. "1" or "main").
+        parent_id (str): The ID of the collection this volume belongs to (e.g. "L06" or "2022.emnlp").
+        year (str): The year of publication.
+
+        address (Optional[str]): The publisher's address for this volume.
+        doi (Optional[str]): The DOI for the volume.
+        ingest_date (str): The date of ingestion; defaults to [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE].
+        isbn (Optional[str]): The ISBN for the volume.
+        month (Optional[str]): The month of publication.
+        publisher (Optional[str]): The volume's publisher.
+        url (Optional[str]): The URL for the volume's PDF. This can be an internal filename or an external URL.
+        url_checksum (Optional[str]): The CRC32 checksum of the volume's PDF. Only set if `self.url` is an internal filename.
+        venues (list[str]): List of venues associated with this volume.
+        volume_number (Optional[str]): The volume's issue number, if it belongs to a journal.
     """
 
-    def __init__(self, parent_id: str, volume_id: str) -> None:
-        self._parent_id = parent_id
-        self._id = volume_id
-        self._ingest_date: Optional[str] = None
-        self._meta_attrib: dict[str, Optional[str]] = {}
-        self._meta_venues: list[str] = []
-        self._meta_url: Optional[str] = None
-        self._meta_url_checksum: Optional[str] = None
+    id: str
+    parent_id: str
+    year: str
 
-    def __repr__(self) -> str:
-        return f"Volume({self._parent_id!r}, {self._id!r})"
+    address: Optional[str] = field(default=None)
+    doi: Optional[str] = field(default=None)
+    ingest_date: str = field(default=constants.UNKNOWN_INGEST_DATE)
+    isbn: Optional[str] = field(default=None)
+    month: Optional[str] = field(default=None)
+    publisher: Optional[str] = field(default=None)
+    url: Optional[str] = field(default=None)
+    url_checksum: Optional[str] = field(default=None)
+    venues: list[str] = field(factory=list)
+    volume_number: Optional[str] = field(default=None)
 
-    @property
-    def id(self) -> str:
-        """The ID of this volume (e.g. "1" or "main")."""
-        return self._id
-
-    @property
-    def parent_id(self) -> str:
-        """The ID of the collection this volume belongs to (e.g. "L06" or "2022.emnlp")."""
-        return self._parent_id
+    # def __repr__(self) -> str:
+    #    return f"Volume({self._parent_id!r}, {self._id!r})"
 
     @property
     def full_id(self) -> str:
         """The full anthology ID of this volume (e.g. "L06-1" or "2022.emnlp-main")."""
-        return build_id(self._parent_id, self._id)
+        return build_id(self.parent_id, self.id)
 
-    @property
-    def ingest_date(self) -> str:
-        """The date of ingestion.  Returns
-        [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE]
-        if not set."""
-        if self._ingest_date is None:
-            return constants.UNKNOWN_INGEST_DATE
-        return self._ingest_date
-
-    @ingest_date.setter
-    def ingest_date(self, ingest_date: Optional[str]) -> None:
-        self._ingest_date = ingest_date
-
-    @property
-    def address(self) -> Optional[str]:
-        """The publisher's address for this volume."""
-        return self._meta_attrib.get("address")
-
-    @address.setter
-    def address(self, value: Optional[str]) -> None:
-        self._meta_attrib["address"] = value
-
-    @property
-    def doi(self) -> Optional[str]:
-        """The DOI for the volume."""
-        return self._meta_attrib.get("doi")
-
-    @doi.setter
-    def doi(self, value: Optional[str]) -> None:
-        # TODO: validate?
-        self._meta_attrib["doi"] = value
-
-    @property
-    def isbn(self) -> Optional[str]:
-        """The ISBN for the volume."""
-        return self._meta_attrib.get("isbn", self._meta_attrib.get("ISBN"))
-
-    @isbn.setter
-    def isbn(self, value: Optional[str]) -> None:
-        # TODO: validate?
-        self._meta_attrib["isbn"] = value
-        if "ISBN" in self._meta_attrib:
-            del self._meta_attrib["ISBN"]
-
-    @property
-    def month(self) -> Optional[str]:
-        """The month of publication."""
-        return self._meta_attrib.get("month")
-
-    @month.setter
-    def month(self, value: Optional[str]) -> None:
-        # TODO: validate?
-        self._meta_attrib["month"] = value
-
-    @property
-    def publisher(self) -> Optional[str]:
-        """The volume's publisher."""
-        return self._meta_attrib.get("publisher")
-
-    @publisher.setter
-    def publisher(self, value: Optional[str]) -> None:
-        self._meta_attrib["publisher"] = value
-
-    @property
-    def url(self) -> Optional[str]:
-        """The URL for the volume's PDF.
-
-        This can be an internal filename or an external URL.
-        """
-        return self._meta_url
-
-    @property
-    def url_checksum(self) -> Optional[str]:
-        """The CRC32 checksum of the volume's PDF.
-
-        Only set if [`self.url`][acl_anthology.collections.volume.Volume.url] is an internal filename.
-        """
-        return self._meta_url_checksum
-
-    @property
-    def venues(self) -> list[str]:
-        """List of venues associated with this volume."""
-        return self._meta_venues
-
-    @property
-    def volume_number(self) -> Optional[str]:
-        """The volume's issue number, if it belongs to a journal."""
-        return self._meta_attrib.get("volume")
-
-    @volume_number.setter
-    def volume_number(self, value: Optional[str]) -> None:
-        self._meta_attrib["volume"] = value
-
-    @property
-    def year(self) -> Optional[str]:
-        """The year of publication."""
-        return self._meta_attrib.get("year")
-
-    @year.setter
-    def year(self, value: str) -> None:
-        # TODO: validate
-        self._meta_attrib["year"] = value
-
-    def parse_xml_meta(self, meta: lxml.etree._Element) -> None:
+    @classmethod
+    def from_xml(cls, parent_id: str, meta: lxml.etree._Element) -> Volume:
+        """Instantiates a new volume from its <meta> block in the XML."""
+        volume = cast(lxml.etree._Element, meta.getparent())
+        kwargs: dict[str, str] = {}
+        venues: list[str] = []
+        if (ingest_date := volume.attrib.get("ingest-date")) is not None:
+            kwargs["ingest_date"] = str(ingest_date)
         for element in meta:
             if element.tag in VOLUME_META_TEXT_ELEMENTS:
-                self._meta_attrib[element.tag] = element.text
+                kwargs[element.tag] = str(element.text)
             elif element.tag == "venue":
-                self._meta_venues.append(str(element.text))
+                venues.append(str(element.text))
             elif element.tag == "url":
-                self._meta_url = str(element.text)
-                self._meta_url_checksum = str(element.attrib.get("hash"))
+                kwargs["url"] = str(element.text)
+                kwargs["url_checksum"] = str(element.attrib.get("hash"))
             elif element.tag in ("booktitle", "shortbooktitle"):
                 pass  # TODO: Parse MarkupText
             elif element.tag == "editor":
                 pass  # TODO: Parse Person
+        return cls(
+            id=str(volume.attrib["id"]), parent_id=parent_id, venues=venues, **kwargs
+        )

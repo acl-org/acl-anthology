@@ -56,36 +56,32 @@ class Collection:
         """
         return self.volumes.get(volume_id)
 
-    def new_volume(self, volume_id: str) -> Volume:
+    def new_volume_from_xml(self, meta: etree._Element) -> Volume:
         """Creates a new volume belonging to this collection.
 
         Parameters:
-            volume_id: The volume ID.
+            meta: The <meta> element for the volume.
 
         Returns:
             The created volume.
         """
-        if volume_id in self.volumes:
-            raise ValueError(f"Volume {volume_id} already exists in collection {self.id}")
-        volume = Volume(self.id, volume_id)
-        self.volumes[volume_id] = volume
+        volume = Volume.from_xml(self.id, meta)
+        if volume.id in self.volumes:
+            raise ValueError(f"Volume {volume.id} already exists in collection {self.id}")
+        self.volumes[volume.id] = volume
         return volume
 
     def load(self) -> None:
         """Loads the XML file belonging to this collection."""
         log.debug(f"Parsing XML data file: {self._path}")
-        current_volume = cast(Volume, None)
+        current_volume = cast(Volume, None)  # noqa: F841
         for event, element in etree.iterparse(self._path, events=("start", "end")):
             match (event, element.tag):
-                case ("start", "volume"):
-                    # Initialize a new volume
-                    current_volume = self.new_volume(element.attrib["id"])
-                    current_volume.ingest_date = element.attrib.get("ingest-date")
                 case ("end", "meta"):
                     # Set volume metadata (event metadata is handled elsewhere)
                     if element.getparent().tag == "event":
                         continue
-                    current_volume.parse_xml_meta(element)
+                    current_volume = self.new_volume_from_xml(element)  # noqa: F841
                     element.clear()
 
         # TODO: incomplete
