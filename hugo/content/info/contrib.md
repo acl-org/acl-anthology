@@ -2,7 +2,7 @@
 Title: Information for Submitters
 linktitle: Submitting
 subtitle: General information on submitting proceedings to the ACL Anthology (for event chairs)
-date: "2021-04-18"
+date: "2023-06-21"
 ---
 
 This page contains general information about submitting the proceedings of a conference to the ACL Anthology.
