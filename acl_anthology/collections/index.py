@@ -25,7 +25,9 @@ if TYPE_CHECKING:
 
 class CollectionIndex:
     def __init__(self, anthology: Anthology) -> None:
-        self._anthology = anthology
+        self._anthology = (
+            anthology  # TODO: when feature-complete, check if this is actually needed
+        )
         self.collections: dict[str, Collection] = {}
 
         self._find_collections()
