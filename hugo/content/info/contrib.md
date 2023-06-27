@@ -2,7 +2,7 @@
 Title: Information for Submitters
 linktitle: Submitting
 subtitle: General information on submitting proceedings to the ACL Anthology (for event chairs)
-date: "2021-04-18"
+date: "2023-06-21"
 ---
 
 This page contains general information about submitting the proceedings of a conference to the ACL Anthology.
@@ -120,7 +120,9 @@ For both current and legacy events, it is good practice for the organizers to at
 
 ### ISBN Numbers
 
-If you need to assign ISBN numbers, please provide the exact titles of each volume to be assigned an ISBN and forward this information to Priscilla Rasmussen, ACL Business Manager.
+If you plan to publish or print your proceedings, you will need an ISBN.
+The ACL can provide these for *ACL conferences.
+Please provide the exact titles of each volume to be assigned an ISBN and send this information to [Jennifer Rachford](acl.rachford@gmail.com), the ACL Business Manager.
 
 ### Errata and Corrections
 
