@@ -15,10 +15,11 @@
 from __future__ import annotations
 
 import lxml
-from attr import define, field
+from attr import define, field, Factory
 from typing import Optional, cast
 
 from .. import constants
+from ..people import Name
 from ..utils.ids import build_id
 
 
@@ -44,6 +45,7 @@ class Volume:
 
         address (Optional[str]): The publisher's address for this volume.
         doi (Optional[str]): The DOI for the volume.
+        editors (list[Name]): Names of editors associated with this volume.
         ingest_date (str): The date of ingestion; defaults to [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE].
         isbn (Optional[str]): The ISBN for the volume.
         month (Optional[str]): The month of publication.
@@ -60,6 +62,7 @@ class Volume:
 
     address: Optional[str] = field(default=None)
     doi: Optional[str] = field(default=None)
+    editors: list[Name] = Factory(list)
     ingest_date: str = field(default=constants.UNKNOWN_INGEST_DATE)
     isbn: Optional[str] = field(default=None)
     month: Optional[str] = field(default=None)
@@ -82,6 +85,7 @@ class Volume:
         """Instantiates a new volume from its <meta> block in the XML."""
         volume = cast(lxml.etree._Element, meta.getparent())
         kwargs: dict[str, str] = {}
+        editors: list[Name] = []
         venues: list[str] = []
         if (ingest_date := volume.attrib.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
@@ -96,7 +100,11 @@ class Volume:
             elif element.tag in ("booktitle", "shortbooktitle"):
                 pass  # TODO: Parse MarkupText
             elif element.tag == "editor":
-                pass  # TODO: Parse Person
+                editors.append(Name.from_xml(element))
         return cls(
-            id=str(volume.attrib["id"]), parent_id=parent_id, venues=venues, **kwargs
+            id=str(volume.attrib["id"]),
+            parent_id=parent_id,
+            editors=editors,
+            venues=venues,
+            **kwargs,
         )
