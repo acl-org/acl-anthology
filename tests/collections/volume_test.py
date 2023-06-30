@@ -12,22 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-from pathlib import Path
+import pytest
 from acl_anthology.collections import CollectionIndex, Volume
 
-SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+
+@pytest.fixture
+def index(anthology):
+    return CollectionIndex(anthology)
 
 
-class AnthologyFixture:
-    datadir = Path(f"{SCRIPTDIR}/../toy_anthology")
-
-
-def test_volume_attributes():
-    # TODO: this is setup code
-    index = CollectionIndex(AnthologyFixture())
+def test_volume_attributes(index):
     volume = index.get_volume("2022.acl-long")
-    # this is test code
     assert isinstance(volume, Volume)
     assert volume.id == "long"
     assert volume.ingest_date == "2022-05-15"
@@ -40,11 +35,8 @@ def test_volume_attributes():
     assert volume.venues == ["acl"]
 
 
-def test_volume_attributes_j89():
-    # TODO: this is setup code
-    index = CollectionIndex(AnthologyFixture())
+def test_volume_attributes_j89(index):
     volume = index.get_volume("J89-1")
-    # this is test code
     assert isinstance(volume, Volume)
     assert volume.id == "1"
     assert volume.venues == ["cl"]

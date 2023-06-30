@@ -12,14 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from acl_anthology.collections import CollectionIndex
+import os
+import pytest
+from pathlib import Path
+
+SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
 
-def test_get_volume(anthology):
-    index = CollectionIndex(anthology)
-    # Fetch 2022.acl-main -- these should all be identical
-    volume = index.get_volume("2022.acl-long")
-    assert volume is not None
-    assert volume is index.get_volume(("2022.acl", "long", None))
-    assert volume is index.get("2022.acl-long")
-    assert volume is index.get(("2022.acl", "long", None))
+class AnthologyFixture:
+    datadir = Path(f"{SCRIPTDIR}/toy_anthology")
+
+
+@pytest.fixture
+def anthology():
+    return AnthologyFixture()
