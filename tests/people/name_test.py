@@ -13,18 +13,43 @@
 # limitations under the License.
 
 from acl_anthology.people import Name
+import pytest
 
 
-def test_name_instantiation():
-    # Tests that common ways to instantiate a name should work
-    n0 = Name("Doe")
-    assert n0.first is None
-    assert n0.last == "Doe"
-    n1 = Name("Doe", "John")
-    n2 = Name(first="John", last="Doe")
+def test_name_firstlast():
+    n1 = Name("John", "Doe")
     assert n1.first == "John"
     assert n1.last == "Doe"
+    assert n1.full == "John Doe"
+    n2 = Name(last="Doe", first="John")
     assert n1 == n2
-    n3 = Name("Doe", "John", "john-doe-42", affiliation="University of Someplace")
-    assert n3.id == "john-doe-42"
-    assert n3.affiliation == "University of Someplace"
+    assert n2.full == "John Doe"
+
+
+def test_name_onlylast():
+    with pytest.raises(TypeError):
+        # This is error-prone, so it should fail
+        Name("Mausam")
+    # Empty first name needs to be given explicitly
+    n = Name(None, "Mausam")
+    assert n.first is None
+    assert n.last == "Mausam"
+    assert n.full == "Mausam"
+
+
+def test_name_with_affiliation():
+    n1 = Name("John", "Doe")
+    n2 = Name("John", "Doe", affiliation="University of Someplace")
+    assert n1 != n2
+    assert n1.full == n2.full
+    assert n1.affiliation is None
+    assert n2.affiliation == "University of Someplace"
+
+
+def test_name_with_id():
+    n1 = Name("John", "Doe")
+    n2 = Name("John", "Doe", "john-doe-42")
+    assert n1 != n2
+    assert n1.full == n2.full
+    assert n1.id is None
+    assert n2.id == "john-doe-42"

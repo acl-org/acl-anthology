@@ -21,13 +21,21 @@ class Name:
     """A person's name.
 
     Attributes:
-        id (Optional[str]): Unique ID for the individual that this name refers to.
-        first (Optional[str]): First name part.
+        first (Optional[str]): First name part. Can be given as `None` for people who
+            only have a single name, but cannot be omitted.
         last (str): Last name part.
-        affiliation (Optional[str]): Professional affiliation.
+        id (Optional[str]): Unique ID for the individual that this name refers to.
+            Defaults to `None`.
+        affiliation (Optional[str]): Professional affiliation.  Defaults to `None`.
     """
 
+    first: Optional[str]
     last: str
-    first: Optional[str] = field(default=None)
     id: Optional[str] = field(default=None)
     affiliation: Optional[str] = field(default=None)
+
+    @property
+    def full(self) -> str:
+        if not self.first:
+            return self.last
+        return f"{self.first} {self.last}"
