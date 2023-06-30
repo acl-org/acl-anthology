@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from acl_anthology.people import Name
+from acl_anthology.people import Name, NameVariant
+from lxml import etree
 import pytest
 
 
@@ -31,10 +32,10 @@ def test_name_onlylast():
         # This is error-prone, so it should fail
         Name("Mausam")
     # Empty first name needs to be given explicitly
-    n = Name(None, "Mausam")
-    assert n.first is None
-    assert n.last == "Mausam"
-    assert n.full == "Mausam"
+    n1 = Name(None, "Mausam")
+    assert n1.first is None
+    assert n1.last == "Mausam"
+    assert n1.full == "Mausam"
 
 
 def test_name_with_affiliation():
@@ -53,3 +54,49 @@ def test_name_with_id():
     assert n1.full == n2.full
     assert n1.id is None
     assert n2.id == "john-doe-42"
+
+
+def test_name_variant():
+    with pytest.raises(TypeError):
+        # Name variants must have a script argument
+        NameVariant("大文", "陳")
+    nv = NameVariant("大文", "陳", "hani")
+    assert nv.first == "大文"
+    assert nv.last == "陳"
+    assert nv.script == "hani"
+
+
+def test_name_with_variant():
+    n1 = Name("Tai Man", "Chan")
+    nv = NameVariant("大文", "陳", "hani")
+    n2 = Name("Tai Man", "Chan", variants=[nv])
+    assert n1 != n2
+    assert n1.full == n2.full
+    assert n2.variants[0] == nv
+
+
+def test_name_from_xml():
+    xml = """
+        <author id='john-doe-42'>
+          <first>John</first><last>Doe</last>
+          <affiliation>UOS</affiliation>
+        </author>"""
+    element = etree.fromstring(xml)
+    n = Name.from_xml(element)
+    assert n.first == "John"
+    assert n.last == "Doe"
+    assert n.id == "john-doe-42"
+    assert n.affiliation == "UOS"
+
+
+def test_name_variant_from_xml():
+    xml = """
+        <variant script="hani">
+          <last>陳</last><first>大文</first>
+        </variant>
+    """
+    element = etree.fromstring(xml)
+    nv = NameVariant.from_xml(element)
+    assert nv.first == "大文"
+    assert nv.last == "陳"
+    assert nv.script == "hani"

@@ -13,6 +13,6 @@
 # limitations under the License.
 
 from .index import PersonIndex
-from .name import Name
+from .name import Name, NameVariant
 
-__all__ = ["PersonIndex", "Name"]
+__all__ = ["PersonIndex", "Name", "NameVariant"]

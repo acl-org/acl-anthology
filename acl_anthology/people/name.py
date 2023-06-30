@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from attr import define, field
-from typing import Optional
+from __future__ import annotations
+
+import lxml
+from attr import define, field, Factory
+from typing import Optional, cast
 
 
 @define
@@ -33,9 +36,66 @@ class Name:
     last: str
     id: Optional[str] = field(default=None)
     affiliation: Optional[str] = field(default=None)
+    variants: list[NameVariant] = Factory(list)
 
     @property
     def full(self) -> str:
-        if not self.first:
+        """The person's full name, usually '<First name> <Last name>'."""
+        if self.first is None:
             return self.last
         return f"{self.first} {self.last}"
+
+    @classmethod
+    def from_xml(cls, person: lxml.etree._Element) -> Name:
+        """Instantiates a new name from an <author> or <editor> block in the XML."""
+        first: Optional[str] = None
+        last: Optional[str] = None
+        affiliation: Optional[str] = None
+        variants = []
+
+        for element in person:
+            if element.tag == "first":
+                first = element.text
+            elif element.tag == "last":
+                last = element.text
+            elif element.tag == "affiliation":
+                affiliation = element.text
+            elif element.tag == "variant":
+                variants.append(NameVariant.from_xml(element))
+
+        return cls(
+            first,
+            cast(str, last),
+            id=person.get("id"),
+            affiliation=affiliation,
+            variants=variants,
+        )
+
+
+@define
+class NameVariant:
+    """A variant of a person's name in a different script.
+
+    Attributes:
+        first (Optional[str]): First name part. Can be given as `None` for people who
+            only have a single name, but cannot be omitted.
+        last (str): Last name part.
+        script (str): Script in which this name variant is written.
+    """
+
+    first: Optional[str]
+    last: str
+    script: str
+
+    @classmethod
+    def from_xml(cls, variant: lxml.etree._Element) -> NameVariant:
+        first: Optional[str] = None
+        last: Optional[str] = None
+
+        for element in variant:
+            if element.tag == "first":
+                first = element.text
+            elif element.tag == "last":
+                last = element.text
+
+        return cls(first, cast(str, last), str(variant.attrib["script"]))
