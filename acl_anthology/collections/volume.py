@@ -16,21 +16,22 @@ from __future__ import annotations
 
 import lxml
 from attr import define, field, Factory
-from typing import Optional, cast
+from typing import Any, Optional, cast
 
 from .. import constants
 from ..people import Name
+from ..text import MarkupText
 from ..utils.ids import build_id
 
 
 VOLUME_META_TEXT_ELEMENTS = (
-    "publisher",
     "address",
-    "month",
-    "year",
-    "volume",
-    "isbn",
     "doi",
+    "isbn",
+    "month",
+    "publisher",
+    "volume",
+    "year",
 )
 
 
@@ -41,6 +42,7 @@ class Volume:
     Attributes:
         id (str): The ID of this volume (e.g. "1" or "main").
         parent_id (str): The ID of the collection this volume belongs to (e.g. "L06" or "2022.emnlp").
+        title (MarkupText): The title of the volume. (Aliased to `booktitle` for initialization.)
         year (str): The year of publication.
 
         address (Optional[str]): The publisher's address for this volume.
@@ -50,6 +52,7 @@ class Volume:
         isbn (Optional[str]): The ISBN for the volume.
         month (Optional[str]): The month of publication.
         publisher (Optional[str]): The volume's publisher.
+        shorttitle (Optional[MarkupText]): A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
         url (Optional[str]): The URL for the volume's PDF. This can be an internal filename or an external URL.
         url_checksum (Optional[str]): The CRC32 checksum of the volume's PDF. Only set if `self.url` is an internal filename.
         venues (list[str]): List of venues associated with this volume.
@@ -58,6 +61,7 @@ class Volume:
 
     id: str
     parent_id: str
+    title: MarkupText = field(alias="booktitle")
     year: str
 
     address: Optional[str] = field(default=None)
@@ -67,6 +71,7 @@ class Volume:
     isbn: Optional[str] = field(default=None)
     month: Optional[str] = field(default=None)
     publisher: Optional[str] = field(default=None)
+    shorttitle: Optional[MarkupText] = field(default=None, alias="shortbooktitle")
     url: Optional[str] = field(default=None)
     url_checksum: Optional[str] = field(default=None)
     venues: list[str] = field(factory=list)
@@ -84,27 +89,20 @@ class Volume:
     def from_xml(cls, parent_id: str, meta: lxml.etree._Element) -> Volume:
         """Instantiates a new volume from its <meta> block in the XML."""
         volume = cast(lxml.etree._Element, meta.getparent())
-        kwargs: dict[str, str] = {}
-        editors: list[Name] = []
-        venues: list[str] = []
+        # type-checking kwargs is a headache
+        kwargs: dict[str, Any] = {"parent_id": parent_id, "editors": [], "venues": []}
         if (ingest_date := volume.attrib.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
         for element in meta:
             if element.tag in VOLUME_META_TEXT_ELEMENTS:
                 kwargs[element.tag] = str(element.text)
             elif element.tag == "venue":
-                venues.append(str(element.text))
+                kwargs["venues"].append(str(element.text))
             elif element.tag == "url":
                 kwargs["url"] = str(element.text)
                 kwargs["url_checksum"] = str(element.attrib.get("hash"))
             elif element.tag in ("booktitle", "shortbooktitle"):
-                pass  # TODO: Parse MarkupText
+                kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "editor":
-                editors.append(Name.from_xml(element))
-        return cls(
-            id=str(volume.attrib["id"]),
-            parent_id=parent_id,
-            editors=editors,
-            venues=venues,
-            **kwargs,
-        )
+                kwargs["editors"].append(Name.from_xml(element))
+        return cls(id=str(volume.attrib["id"]), **kwargs)
