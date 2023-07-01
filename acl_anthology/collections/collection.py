@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from attrs import define, field
 from lxml import etree
 from pathlib import Path
 from typing import Optional, cast
@@ -20,33 +21,25 @@ from ..logging import log
 from .volume import Volume
 
 
+@define
 class Collection:
-    """A class representing a collection.
+    """A collection of volumes and events.
 
-    Collections correspond to XML files in the `data/xml/` directory of
-    the Anthology repo.  They can hold volumes and events.
+    A collection corresponds to an XML file in the `data/xml/` directory
+    of the Anthology repo.
+
+    Attributes:
+        id (str): The ID of this collection (e.g. "L06" or "2022.emnlp").
+        path (Path): The path of the XML file representing this collection.
+
+        is_data_loaded (bool): Whether the associated XML file has already
+                               been loaded.
     """
 
-    def __init__(self, collection_id: str, xml_path: Path) -> None:
-        self._id = collection_id
-        self._path = xml_path
-        self._loaded = False
-        self.volumes: dict[str, Volume] = {}
-
-    @property
-    def id(self) -> str:
-        """The collection ID."""
-        return self._id
-
-    @property
-    def path(self) -> Path:
-        """The path to the XML file belonging to this collection."""
-        return self._path
-
-    @property
-    def is_data_loaded(self) -> bool:
-        """Returns True if the associated XML file has already been loaded."""
-        return self._loaded
+    id: str
+    path: Path
+    is_data_loaded: bool = field(init=False, default=False)
+    volumes: dict[str, Volume] = field(init=False, factory=dict)
 
     def get(self, volume_id: str) -> Optional[Volume]:
         """Get an associated volume.
@@ -73,9 +66,9 @@ class Collection:
 
     def load(self) -> None:
         """Loads the XML file belonging to this collection."""
-        log.debug(f"Parsing XML data file: {self._path}")
+        log.debug(f"Parsing XML data file: {self.path}")
         current_volume = cast(Volume, None)  # noqa: F841
-        for event, element in etree.iterparse(self._path, events=("start", "end")):
+        for event, element in etree.iterparse(self.path, events=("start", "end")):
             match (event, element.tag):
                 case ("end", "meta"):
                     # Set volume metadata (event metadata is handled elsewhere)
@@ -85,4 +78,4 @@ class Collection:
                     element.clear()
 
         # TODO: incomplete
-        self._loaded = True
+        self.is_data_loaded = True

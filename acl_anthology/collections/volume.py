@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 import lxml
-from attr import define, field, Factory
+from attrs import define, field, Factory
 from typing import Any, Optional, cast
 
 from .. import constants
