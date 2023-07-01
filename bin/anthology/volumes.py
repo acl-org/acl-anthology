@@ -26,7 +26,6 @@ from .utils import (
     is_journal,
     month_str2num,
     infer_url,
-    infer_year,
 )
 
 
@@ -119,10 +118,6 @@ class Volume:
             # Authors of the front matter are the volume's editors
             self.attrib["editor"] = self.attrib["author"]
             del self.attrib["author"]
-
-        # Some volumes don't set this---but they should!
-        if "year" not in self.attrib:
-            self.attrib["year"] = infer_year(self.collection_id)
 
         self.attrib["meta_date"] = self.get("year")
         if "month" in self.attrib:
