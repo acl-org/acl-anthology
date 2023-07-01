@@ -71,11 +71,20 @@ class Collection:
         for event, element in etree.iterparse(self.path, events=("start", "end")):
             match (event, element.tag):
                 case ("end", "meta"):
-                    # Set volume metadata (event metadata is handled elsewhere)
+                    # Seeing a volume's <meta> block instantiates a new volume
                     if element.getparent().tag == "event":
+                        # Event metadata handled separately
                         continue
                     current_volume = self.new_volume_from_xml(element)  # noqa: F841
                     element.clear()
+                case ("end", "frontmatter"):
+                    # TODO: parse frontmatter
+                    pass
+                case ("end", "paper"):
+                    # TODO: parse and attach paper
+                    pass
+                case ("end", "event"):
+                    # TODO: parse and attach event
+                    pass
 
-        # TODO: incomplete
         self.is_data_loaded = True
