@@ -24,17 +24,6 @@ from ..text import MarkupText
 from ..utils.ids import build_id
 
 
-VOLUME_META_TEXT_ELEMENTS = (
-    "address",
-    "doi",
-    "isbn",
-    "month",
-    "publisher",
-    "volume",
-    "year",
-)
-
-
 @define
 class Volume:
     """A publication volume.
@@ -51,12 +40,12 @@ class Volume:
         ingest_date (str): The date of ingestion; defaults to [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE].
         isbn (Optional[str]): The ISBN for the volume.
         month (Optional[str]): The month of publication.
+        number (Optional[str]): The volume's issue number, if it belongs to a journal.
         publisher (Optional[str]): The volume's publisher.
         shorttitle (Optional[MarkupText]): A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
         url (Optional[str]): The URL for the volume's PDF. This can be an internal filename or an external URL.
         url_checksum (Optional[str]): The CRC32 checksum of the volume's PDF. Only set if `self.url` is an internal filename.
         venues (list[str]): List of venues associated with this volume.
-        volume_number (Optional[str]): The volume's issue number, if it belongs to a journal.
     """
 
     id: str
@@ -70,12 +59,12 @@ class Volume:
     ingest_date: str = field(default=constants.UNKNOWN_INGEST_DATE)
     isbn: Optional[str] = field(default=None)
     month: Optional[str] = field(default=None)
+    number: Optional[str] = field(default=None)
     publisher: Optional[str] = field(default=None)
     shorttitle: Optional[MarkupText] = field(default=None, alias="shortbooktitle")
     url: Optional[str] = field(default=None)
     url_checksum: Optional[str] = field(default=None)
     venues: list[str] = field(factory=list)
-    volume_number: Optional[str] = field(default=None)
 
     # def __repr__(self) -> str:
     #    return f"Volume({self._parent_id!r}, {self._id!r})"
@@ -90,19 +79,35 @@ class Volume:
         """Instantiates a new volume from its <meta> block in the XML."""
         volume = cast(lxml.etree._Element, meta.getparent())
         # type-checking kwargs is a headache
-        kwargs: dict[str, Any] = {"parent_id": parent_id, "editors": [], "venues": []}
+        kwargs: dict[str, Any] = {
+            "id": str(volume.attrib["id"]),
+            "parent_id": parent_id,
+            "editors": [],
+            "venues": [],
+        }
         if (ingest_date := volume.attrib.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
         for element in meta:
-            if element.tag in VOLUME_META_TEXT_ELEMENTS:
-                kwargs[element.tag] = str(element.text)
-            elif element.tag == "venue":
-                kwargs["venues"].append(str(element.text))
-            elif element.tag == "url":
-                kwargs["url"] = str(element.text)
-                kwargs["url_checksum"] = str(element.attrib.get("hash"))
+            if element.tag in (
+                "address",
+                "doi",
+                "isbn",
+                "month",
+                "publisher",
+                "year",
+            ):
+                kwargs[element.tag] = element.text
             elif element.tag in ("booktitle", "shortbooktitle"):
                 kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "editor":
                 kwargs["editors"].append(Name.from_xml(element))
-        return cls(id=str(volume.attrib["id"]), **kwargs)
+            elif element.tag == "url":
+                kwargs["url"] = element.text
+                kwargs["url_checksum"] = element.attrib.get("hash")
+            elif element.tag == "venue":
+                kwargs["venues"].append(str(element.text))
+            elif element.tag == "volume":
+                kwargs["number"] = element.text
+            else:
+                raise ValueError(f"Unsupported element for Volume: <{element.tag}>")
+        return cls(**kwargs)
