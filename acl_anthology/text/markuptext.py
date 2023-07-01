@@ -34,4 +34,10 @@ class MarkupText:
 
     @classmethod
     def from_xml(cls, element: lxml.etree._Element) -> MarkupText:
+        """Instantiate a MarkupText object from an XML element.
+
+        Arguments:
+            element: Can be any XML element that can contain MarkupText according
+                to the schema.
+        """
         return cls(deepcopy(element))

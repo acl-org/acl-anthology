@@ -76,7 +76,7 @@ class Volume:
 
     @classmethod
     def from_xml(cls, parent_id: str, meta: lxml.etree._Element) -> Volume:
-        """Instantiates a new volume from its <meta> block in the XML."""
+        """Instantiates a new volume from its `<meta>` block in the XML."""
         volume = cast(lxml.etree._Element, meta.getparent())
         # type-checking kwargs is a headache
         kwargs: dict[str, Any] = {

@@ -61,11 +61,13 @@ TexEverything = list[Union[str, TexCmd, TexText, TexGroup]]
 class TexMath:
     """Interpreter and converter for TeX inline math expressions.
 
-    This class uses TexSoup (https://github.com/alvinwan/TexSoup) to parse a TeX
-    expression and converts it to valid HTML.  The conversion combines a small
-    number of handwritten rules with a mapping of LaTeX math mode commands to
-    Unicode symbols (http://milde.users.sourceforge.net/LUCR/Math/).  Parts that
-    cannot be interpreted using this simple method are preserved as raw LaTeX.
+    This class uses [TexSoup](https://github.com/alvinwan/TexSoup) to
+    parse a TeX expression and converts it to valid HTML.  The
+    conversion combines a small number of handwritten rules with a
+    [mapping of LaTeX math mode commands to Unicode
+    symbols](http://milde.users.sourceforge.net/LUCR/Math/).  Parts that
+    cannot be interpreted using this simple method are preserved as raw
+    LaTeX.
     """
 
     def __init__(self, symbolsfile: Optional[str] = None) -> None:
@@ -228,7 +230,13 @@ class TexMath:
         ...
 
     def to_html(self, element: str | etree._Element) -> str | etree._Element:
-        """Converts a TeX math expression to HTML markup."""
+        """Converts a TeX math expression to HTML markup.
+
+        Arguments:
+            element: The element to convert. The return type of this function
+                is identical to the type that is passed in (i.e., [str][] or
+                [etree._Element][lxml.etree._Element]).
+        """
         if isinstance(element, etree._Element):
             return self.etree_to_html(element)
         elif isinstance(element, str):
@@ -239,8 +247,12 @@ class TexMath:
     def to_unicode(self, element: etree._Element) -> str:
         """Converts a TeX math expression to a Unicode string.
 
-        This will perform the same conversions as `to_html()`, but strip out the
-        HTML tags afterwards.
+        This will perform the same conversions as
+        [to_html()][acl_anthology.text.texmath.TexMath.to_html], but
+        strip out the HTML tags afterwards.
+
+        Arguments:
+            element: The element to convert.
         """
         element = self.to_html(element)
         return etree.tostring(element, encoding="unicode", method="text")
