@@ -6,6 +6,10 @@ skip-string-normalization = false
 [tool.mypy]
 strict = true
 
+[[tool.mypy.overrides]]
+module = 'TexSoup.*'
+ignore_missing_imports = true
+
 [tool.ruff]
 ignore = ['E501']  # "Line too long" is black's job
 target-version = 'py310'
@@ -43,6 +47,7 @@ app-paths = "^0.0.7"
 diskcache = "^5.6.1"
 rich = "^13.3.5"
 attrs = "^23.1.0"
+texsoup = ">=0.3.1,<0.4.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
