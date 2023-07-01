@@ -114,10 +114,6 @@ class Volume:
         This function replicates functionality that was previously hardcoded in
         'app/helpers/papers_helper.rb' of the Rails app."""
         self.attrib = meta_data
-        if "author" in self.attrib:
-            # Authors of the front matter are the volume's editors
-            self.attrib["editor"] = self.attrib["author"]
-            del self.attrib["author"]
 
         self.attrib["meta_date"] = self.get("year")
         if "month" in self.attrib:
