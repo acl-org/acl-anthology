@@ -12,13 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from lxml import etree
 import csv
 import logging as log
 import os
+from attrs import define, field
+from lxml import etree
+from pathlib import Path
 from TexSoup import TexSoup
 from TexSoup.data import TexCmd, TexText, TexGroup
-from typing import Literal, Optional, Tuple, Union, overload
+from typing import Literal, Tuple, Union, overload
 
 FUNCTION_NAMES = ("lim", "log")
 TEX_TO_HTML: dict[str, Tuple[str, dict[str, str]]] = {
@@ -37,6 +39,7 @@ TEX_TO_HTML: dict[str, Tuple[str, dict[str, str]]] = {
     "textsuperscript": ("sup", {}),
 }
 REMOVED_COMMANDS = ("bf", "rm", "it", "sc")
+SYMBOLSFILE = Path(os.path.dirname(os.path.abspath(__file__)), "unimathsymbols.txt")
 
 
 def _append_text(text: str, trg: etree._Element) -> None:
@@ -58,7 +61,8 @@ SxscriptStatus = Literal[False, "sub", "sup"]
 TexEverything = list[Union[str, TexCmd, TexText, TexGroup]]
 
 
-class TexMath:
+@define
+class _TexMath:
     """Interpreter and converter for TeX inline math expressions.
 
     This class uses [TexSoup](https://github.com/alvinwan/TexSoup) to
@@ -70,16 +74,12 @@ class TexMath:
     LaTeX.
     """
 
-    def __init__(self, symbolsfile: Optional[str] = None) -> None:
-        self.cmd_map: dict[str, str] = {}
-        if symbolsfile is None:
-            symbolsfile = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), "unimathsymbols.txt"
-            )
-        self.load_symbols(symbolsfile)
+    symbolsfile: Path = field(default=SYMBOLSFILE)
+    cmd_map: dict[str, str] = field(init=False, factory=dict)
+    loaded: bool = field(init=False, default=False)
 
-    def load_symbols(self, filename: str) -> None:
-        with open(filename, "r", encoding="utf8") as f:
+    def load_symbols(self) -> None:
+        with open(self.symbolsfile, "r", encoding="utf8") as f:
             reader = csv.reader(f, delimiter="^")
             for row in reader:
                 if row[0].startswith("#"):  # comment
@@ -93,6 +93,7 @@ class TexMath:
                     cmd = row[-1][2:].split(", ")[0]
                     if cmd.startswith("\\"):
                         self.cmd_map[cmd[1:]] = char
+        self.loaded = True
 
     def _parse(self, everything: TexEverything, trg: etree._Element) -> None:
         """Parses a list of TeX constituents into an lxml.etree._Element.
@@ -237,6 +238,8 @@ class TexMath:
                 is identical to the type that is passed in (i.e., [str][] or
                 [etree._Element][lxml.etree._Element]).
         """
+        if not self.loaded:
+            self.load_symbols()
         if isinstance(element, etree._Element):
             return self.etree_to_html(element)
         elif isinstance(element, str):
@@ -254,5 +257,10 @@ class TexMath:
         Arguments:
             element: The element to convert.
         """
+        if not self.loaded:
+            self.load_symbols()
         element = self.to_html(element)
         return etree.tostring(element, encoding="unicode", method="text")
+
+
+TexMath = _TexMath()

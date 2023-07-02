@@ -16,8 +16,6 @@ import pytest
 from lxml import etree
 from acl_anthology.text import TexMath
 
-texmath = TexMath()
-
 test_cases_unicode = (
     (
         "<tex-math>K</tex-math>-Embeddings: Learning Conceptual Embeddings for Words using Context",
@@ -276,7 +274,7 @@ test_cases_html = (
 def test_unicode(inp, out):
     element = etree.fromstring(f"<span>{inp}</span>")
     math_element = element.find(".//tex-math")
-    actual_out = texmath.to_unicode(math_element)
+    actual_out = TexMath.to_unicode(math_element)
     assert actual_out == out
 
 
@@ -284,6 +282,6 @@ def test_unicode(inp, out):
 def test_html(inp, out):
     element = etree.fromstring(f"<span>{inp}</span>")
     math_element = element.find(".//tex-math")
-    result = texmath.to_html(math_element)
+    result = TexMath.to_html(math_element)
     actual_out = etree.tostring(result, encoding="unicode")
     assert actual_out == out
