@@ -14,10 +14,9 @@
 
 import csv
 import logging as log
-import os
+import pkgutil
 from attrs import define, field
 from lxml import etree
-from pathlib import Path
 from TexSoup import TexSoup
 from TexSoup.data import TexCmd, TexText, TexGroup
 from typing import Literal, Tuple, Union, overload
@@ -39,7 +38,6 @@ TEX_TO_HTML: dict[str, Tuple[str, dict[str, str]]] = {
     "textsuperscript": ("sup", {}),
 }
 REMOVED_COMMANDS = ("bf", "rm", "it", "sc")
-SYMBOLSFILE = Path(os.path.dirname(os.path.abspath(__file__)), "unimathsymbols.txt")
 
 
 def _append_text(text: str, trg: etree._Element) -> None:
@@ -74,25 +72,29 @@ class _TexMath:
     LaTeX.
     """
 
-    symbolsfile: Path = field(default=SYMBOLSFILE)
     cmd_map: dict[str, str] = field(init=False, factory=dict)
     loaded: bool = field(init=False, default=False)
 
     def load_symbols(self) -> None:
-        with open(self.symbolsfile, "r", encoding="utf8") as f:
-            reader = csv.reader(f, delimiter="^")
-            for row in reader:
-                if row[0].startswith("#"):  # comment
-                    continue
-                assert len(row) == 8, "Expect eight-column format"
-                char, cmd = row[1], row[2]
+        data = pkgutil.get_data("acl_anthology", "data/unimathsymbols.txt")
+        if data is None:
+            raise FileNotFoundError(
+                "Resource data/unimathsymbols.txt not found in acl_anthology"
+            )
+        lines = data.decode("utf-8").split("\n")
+        reader = csv.reader(lines, delimiter="^")
+        for row in reader:
+            if (not row) or row[0].startswith("#"):  # comment
+                continue
+            assert len(row) == 8, "Expect eight-column format"
+            char, cmd = row[1], row[2]
+            if cmd.startswith("\\"):
+                self.cmd_map[cmd[1:]] = char
+            if row[-1].startswith("= ") and ", " in row[-1]:
+                # last column sometimes contains alternative command
+                cmd = row[-1][2:].split(", ")[0]
                 if cmd.startswith("\\"):
                     self.cmd_map[cmd[1:]] = char
-                if row[-1].startswith("= ") and ", " in row[-1]:
-                    # last column sometimes contains alternative command
-                    cmd = row[-1][2:].split(", ")[0]
-                    if cmd.startswith("\\"):
-                        self.cmd_map[cmd[1:]] = char
         self.loaded = True
 
     def _parse(self, everything: TexEverything, trg: etree._Element) -> None:
