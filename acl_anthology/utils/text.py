@@ -12,8 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .markuptext import MarkupText
-from .texmath import TexMath
 
-
-__all__ = ["MarkupText", "TexMath"]
+def remove_extra_whitespace(text: str) -> str:
+    text = text.replace("\n", "").strip()
+    # This was profiled to be 2x-4x faster than using re.sub();
+    # also cf. https://stackoverflow.com/a/15913564
+    while "  " in text:
+        text = text.replace("  ", " ")
+    return text

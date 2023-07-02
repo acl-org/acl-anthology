@@ -13,5 +13,16 @@
 # limitations under the License.
 
 from .ids import build_id, parse_id, AnthologyID
+from .latex import latex_encode, latex_convert_quotes
+from .text import remove_extra_whitespace
+from .xml import stringify_children
 
-__all__ = ["build_id", "parse_id", "AnthologyID"]
+__all__ = [
+    "AnthologyID",
+    "build_id",
+    "latex_encode",
+    "latex_convert_quotes",
+    "parse_id",
+    "remove_extra_whitespace",
+    "stringify_children",
+]
