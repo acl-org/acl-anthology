@@ -16,11 +16,8 @@ import codecs
 import re
 from typing import Optional
 
-# TODO: figure out if we can replace this with the PyPI version
-# -- should have thorough tests of the LaTeX conversion first
-from ..vendor import latexcodec
+import latexcodec  # noqa: F401
 
-latexcodec.register()  # type: ignore
 
 RE_OPENING_QUOTE = re.compile(r"(?<!\\)\"\b")
 RE_CLOSING_QUOTE = re.compile(r"(?<!\\)\"")
@@ -33,7 +30,7 @@ def latex_encode(text: Optional[str]) -> str:
     """
     if text is None:
         return ""
-    text = str(codecs.encode(text, "latex"))
+    text = str(codecs.encode(text, "ulatex+ascii", "keep"))
     return text
 
 

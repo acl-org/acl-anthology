@@ -10,6 +10,10 @@ strict = true
 module = 'TexSoup.*'
 ignore_missing_imports = true
 
+[[tool.mypy.overrides]]
+module = 'latexcodec.*'
+ignore_missing_imports = true
+
 [tool.ruff]
 ignore = ['E501']  # "Line too long" is black's job
 target-version = 'py310'

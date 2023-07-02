@@ -81,6 +81,24 @@ test_cases_markup = (
             "latex": "\\textit{D\\textbf{e\\textit{e\\textbf{e\\textit{e\\textbf{p}}}}}}ly",
         },
     ),
+    (
+        "Äöøéÿőßû–",
+        {
+            "text": "Äöøéÿőßû–",
+            "html": "Äöøéÿőßû–",
+            # this is what the modified latexcodec from the acl-anthology repo produces:
+            # "latex": '{\\"A}{\\"o}{\\o}{\\\'e}{\\"y}{\\H{o}}{\\ss}{\\^u}{--}',
+            "latex": '\\"A\\"o\\o \\\'e\\"y\\H o\\ss \\^u--',
+        },
+    ),
+    (
+        "陳大文",
+        {
+            "text": "陳大文",
+            "html": "陳大文",
+            "latex": "陳大文",
+        },
+    ),
 )
 
 
