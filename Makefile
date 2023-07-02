@@ -16,15 +16,27 @@ test: pytest
 .PHONY: dependencies
 dependencies: .flag_installed
 
+.PHONY: setup
+setup: .flag_installed .git/hooks/pre-commit
+
 .flag_installed:
 	poetry install --with dev
 	@touch .flag_installed
 
 .git/hooks/pre-commit: .flag_installed .pre-commit-config.yaml
-	poetry run pre-commit install
+	$(run) pre-commit install
 
-.PHONY: setup
-setup: .flag_installed .git/hooks/pre-commit
+.PHONY: clean
+clean:
+	@for folder in .mypy_cache/ .ruff_cache/ .pytest_cache/ dist/ site/; do \
+	  if [[ -d "$$folder" ]]; then \
+	    rm -rfv "$$folder" ; \
+	  fi; \
+	done
+	@find . -type d -name __pycache__ -exec rm -rfv "{}" +
+	@poetry run pre-commit uninstall
+	@poetry env remove --all -n
+	@rm -fv coverage.xml .flag_installed
 
 ### Check, test, build commands
 
