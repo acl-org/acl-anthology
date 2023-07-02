@@ -158,7 +158,7 @@ class TexMath:
     def _parse_fraction(self, args, trg):
         if len(args) != 2:
             log.warn(f"Couldn't parse \\frac: got {len(args)} arguments, expected 2")
-            self._append_unparsed({'name': 'frac', 'args': args}, trg)
+            self._append_unparsed(TexCmd("frac", args=args), trg)
         else:
             # Represent numerator of fraction as superscript
             sx = etree.Element("sup")
