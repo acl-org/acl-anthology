@@ -174,6 +174,7 @@ class MarkupFormatter:
         element = deepcopy(element)
         for sub in element.iterfind(".//tex-math"):
             sub.text = self.texmath.to_unicode(sub)
+            sub.tail = None  # tail is contained within return value of texmath.to_unicode()
         retval = etree.tostring(element, encoding="unicode", method="text")
         return remove_extra_whitespace(retval)
 
