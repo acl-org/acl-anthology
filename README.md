@@ -22,38 +22,32 @@ functional.** :warning::warning::warning:
 This package uses **Python 3.10+** with the
 [**Poetry**](https://python-poetry.org/) packaging system.
 
-To install the package and its dependencies in development mode, clone the
-repository and run `poetry install`.
+Cloning the repository and running `make` will install all dependencies via
+Poetry, run all style and type checks, run all tests, and generate the
+documentation.
 
-### Running checks and pre-commit hooks
+### Install dependencies and pre-commit hooks
 
-To run [black](https://github.com/psf/black),
-[ruff](https://github.com/charliermarsh/ruff), and some other pre-commit hooks
-on all files in the repo:
+`make setup` will install all package dependencies in development mode, as well
+as install the pre-commit hooks that run on every attempted git commit.
 
-```bash
-poetry run pre-commit run --all-files
-```
+If you only want the dependencies, but not the hooks, run `make dependencies`.
 
-To install pre-commit hooks so they run on every attempted commit:
+### Running checks
 
-```bash
-poetry run pre-commit install
-```
+`make check` will run [black](https://github.com/psf/black),
+[ruff](https://github.com/charliermarsh/ruff), and [some other pre-commit
+hooks](.pre-commit-config.yaml), as well as the
+[mypy](https://mypy.readthedocs.io/) type checker on all files in the repo.
 
 ### Running tests
 
-```bash
-poetry run pytest
-```
-
-### Running typechecks
-
-```bash
-poetry run mypy acl_anthology
-```
+`make test` will run Python unit tests and integration tests.
 
 ### Running benchmarks
+
+The [`benchmarks/`](benchmarks/) folder collects some benchmarks intended to be
+run with the [richbench](https://github.com/tonybaloney/rich-bench) tool:
 
 ```bash
 poetry run richbench benchmarks/
@@ -61,8 +55,8 @@ poetry run richbench benchmarks/
 
 ### Generating and writing documentation
 
-- `poetry run mkdocs build` (to generate in `site/`)
-- `poetry run mkdocs serve` (to serve locally)
+- `make docs` (to generate in `site/`)
+- `make docs-serve` (to serve locally)
 
 Docstrings are written in [Google
 style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings)
