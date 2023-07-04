@@ -19,7 +19,7 @@ dependencies: .flag_installed
 .PHONY: setup
 setup: .flag_installed .git/hooks/pre-commit
 
-.flag_installed:
+.flag_installed: pyproject.toml
 	poetry install --with dev
 	@touch .flag_installed
 
