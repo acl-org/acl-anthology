@@ -457,27 +457,27 @@ def copy_pdf_and_attachment(
                     'attachments': [],
                 }
             # copy attachments
-            if 'attachments' in paper.keys() and paper['attachments']:
-                attchs_dest_dir = create_des_path(attachments_dir, venue_name)
-                attchs_src_dir = os.path.join(meta['path'], 'attachments')
-                assert os.path.exists(
-                    attchs_src_dir
-                ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
-                cur_paper = paper['attachments'][0]['file']
-                if os.path.split(cur_paper)[0] == 'attachments':
-                    cur_paper = os.path.split(cur_paper)[1]
-                attch_src_path = attchs_src_dir + '/' + cur_paper
-                assert attch_src_path, f'{paper_name} attachment path is None'
-                _, attch_src_extension = os.path.splitext(attch_src_path)
-                type_ = paper['attachments'][0]['type']
-                file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}{attch_src_extension}'
-                attch_dest_path = os.path.join(attchs_dest_dir, file_name)
-                print(f'attach src path is {attch_src_path}')
-                if dry_run:
-                    print(f'would\'ve moved {attch_src_path} to {attch_dest_path}')
-                if not dry_run:
-                    maybe_copy(attch_src_path, attch_dest_path)
-                volume[paper_num]['attachments'].append((attch_dest_path, type_))
+            # if 'attachments' in paper.keys() and paper['attachments']:
+            #     attchs_dest_dir = create_des_path(attachments_dir, venue_name)
+            #     attchs_src_dir = os.path.join(meta['path'], 'attachments')
+            #     assert os.path.exists(
+            #         attchs_src_dir
+            #     ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
+            #     cur_paper = paper['attachments'][0]['file']
+            #     if os.path.split(cur_paper)[0] == 'attachments':
+            #         cur_paper = os.path.split(cur_paper)[1]
+            #     attch_src_path = attchs_src_dir + '/' + cur_paper
+            #     assert attch_src_path, f'{paper_name} attachment path is None'
+            #     _, attch_src_extension = os.path.splitext(attch_src_path)
+            #     type_ = paper['attachments'][0]['type']
+            #     file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}{attch_src_extension}'
+            #     attch_dest_path = os.path.join(attchs_dest_dir, file_name)
+            #     print(f'attach src path is {attch_src_path}')
+            #     if dry_run:
+            #         print(f'would\'ve moved {attch_src_path} to {attch_dest_path}')
+            #     if not dry_run:
+            #         maybe_copy(attch_src_path, attch_dest_path)
+            #     volume[paper_num]['attachments'].append((attch_dest_path, type_))
     return volume, collection_id, volume_name, proceedings_pdf_dest_path
 
 
