@@ -116,9 +116,7 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     '''
     ingestion_dir = Path(ingestion_dir)
     if (ingestion_dir / 'conference_details.yml').exists():
-        meta = yaml.safe_load(
-            (ingestion_dir / 'conference_details.yml').read_text()
-        )
+        meta = yaml.safe_load((ingestion_dir / 'conference_details.yml').read_text())
     else:
         meta = yaml.safe_load(
             (ingestion_dir / 'inputs/conference_details.yml').read_text()
@@ -184,9 +182,13 @@ def add_paper_nums_in_paper_yaml(
             paper_need_read_path = None
             if (path := ingestion_dir / "papers" / f"{paper_id}.pdf").exists():
                 paper_need_read_path = str(path)
-            elif (path := ingestion_dir / "inputs" / "papers" / f"{paper_id}.pdf").exists():
+            elif (
+                path := ingestion_dir / "inputs" / "papers" / f"{paper_id}.pdf"
+            ).exists():
                 paper_need_read_path = str(path)
-            elif (path := ingestion_dir / "input" / "papers" / f"{paper_id}.pdf").exists():
+            elif (
+                path := ingestion_dir / "input" / "papers" / f"{paper_id}.pdf"
+            ).exists():
                 paper_need_read_path = str(path)
             elif (path := ingestion_dir / "inputs" / "papers" / f"{paper_name}").exists():
                 paper_need_read_path = str(path)
@@ -440,7 +442,7 @@ def copy_pdf_and_attachment(
         if not dry_run:
             maybe_copy(proceedings_pdf_src_path, proceedings_pdf_dest_path)
     else:
-        print(f"Warning: proceedings.pdf was not found, skipping", file=sys.stderr)
+        print("Warning: proceedings.pdf was not found, skipping", file=sys.stderr)
 
     # Create entry for frontmatter, even if the PDF isn't there. We need this entry
     # because it is used to create the <meta> block for the volume.
@@ -490,7 +492,9 @@ def copy_pdf_and_attachment(
                 elif os.path.exists(os.path.join(pdfs_src_dir, f'{paper_id}.pdf')):
                     pdf_src_path = os.path.join(pdfs_src_dir, f'{paper_id}.pdf')
 
-                assert pdf_src_path, f"Couldn't find {paper_name}/{paper_id} in {pdfs_src_dir}"
+                assert (
+                    pdf_src_path
+                ), f"Couldn't find {paper_name}/{paper_id} in {pdfs_src_dir}"
                 pdf_dest_path = os.path.join(
                     pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
                 )
@@ -583,7 +587,11 @@ def create_xml(
                     editor.attrib['id'] = disamb_name
                 PersonName.from_element(editor)
                 for name_part in editor:
-                    if name_part.text is not None and name_part.tag in ["first", "middle", "last"]:
+                    if name_part.text is not None and name_part.tag in [
+                        "first",
+                        "middle",
+                        "last",
+                    ]:
                         name_part.text = correct_caps(name_part.text)
                 meta_node.append(editor)
 
@@ -653,7 +661,10 @@ def create_xml(
             PersonName.from_element(name_node)
             for name_part in name_node:
                 if name_part.text is None:
-                    print(f"* WARNING: element {name_part.tag} has null text", file=sys.stderr)
+                    print(
+                        f"* WARNING: element {name_part.tag} has null text",
+                        file=sys.stderr,
+                    )
                 if name_part is not None and name_part.tag in ["first", "middle", "last"]:
                     name_part.text = correct_caps(name_part.text)
 
@@ -702,8 +713,6 @@ def create_xml(
     default=f'{datetime.now().year}-{datetime.now().month:02d}-{datetime.now().day:02d}',
     help='Ingestion date',
 )
-
-
 def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, ingest_date):
     anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
     venue_index = VenueIndex(srcdir=anthology_datadir)
@@ -720,7 +729,12 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
     papers = add_paper_nums_in_paper_yaml(papers, ingestion_dir)
     # print(f'updated paper {papers[0]}')
 
-    volume, collection_id, volume_name, proceedings_pdf_dest_path = copy_pdf_and_attachment(meta, pdfs_dir, attachments_dir, papers, dry_run)
+    (
+        volume,
+        collection_id,
+        volume_name,
+        proceedings_pdf_dest_path,
+    ) = copy_pdf_and_attachment(meta, pdfs_dir, attachments_dir, papers, dry_run)
 
     create_xml(
         volume=volume,
