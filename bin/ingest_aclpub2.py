@@ -160,6 +160,7 @@ def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
 def add_paper_nums_in_paper_yaml(
     papers: List[Dict[str, str]], ingestion_dir: str
 ) -> List[Dict[str, str]]:
+    """ """
     ingestion_dir = Path(ingestion_dir)
 
     start, end = 1, 0
@@ -178,24 +179,21 @@ def add_paper_nums_in_paper_yaml(
             #     print(f'{paper_id} does not have file key but archive is {paper["archival"]}')
             #     paper_name = paper['title']
             # else:
-            paper_name = paper['file']
+
+            paper_path = paper['file']
             paper_need_read_path = None
-            if (path := ingestion_dir / "papers" / f"{paper_id}.pdf").exists():
+            # TODO: we should just be able to read paper_path directly, and throw an
+            # error if it doesn't exist
+            if (path := ingestion_dir / "watermarked_pdfs" / paper_path).exists():
                 paper_need_read_path = str(path)
             elif (
-                path := ingestion_dir / "inputs" / "papers" / f"{paper_id}.pdf"
+                path := ingestion_dir / "watermarked_pdfs" / f"{paper_id}.pdf"
             ).exists():
-                paper_need_read_path = str(path)
-            elif (
-                path := ingestion_dir / "input" / "papers" / f"{paper_id}.pdf"
-            ).exists():
-                paper_need_read_path = str(path)
-            elif (path := ingestion_dir / "inputs" / "papers" / f"{paper_name}").exists():
-                paper_need_read_path = str(path)
-            elif (path := ingestion_dir / "input" / "papers" / f"{paper_name}").exists():
                 paper_need_read_path = str(path)
 
-            assert paper_need_read_path, f'{paper_id} path is None'
+            assert (
+                paper_need_read_path is not None
+            ), f"* Fatal: could not find {paper_id} (path was {paper_path})"
 
             pdf = open(paper_need_read_path, 'rb')
             pdf_reader = PyPDF2.PdfReader(pdf)
@@ -206,7 +204,7 @@ def add_paper_nums_in_paper_yaml(
     return papers
 
 
-def create_des_path(org_dir_name: str, venue_name: str) -> str:
+def create_dest_path(org_dir_name: str, venue_name: str) -> str:
     dest_dir = os.path.join(org_dir_name, venue_name)
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
@@ -425,7 +423,7 @@ def copy_pdf_and_attachment(
     venue_name = meta['anthology_venue_id'].lower()
     volume_name = meta['volume_name'].lower()
 
-    pdfs_dest_dir = create_des_path(pdfs_dir, venue_name)
+    pdfs_dest_dir = create_dest_path(pdfs_dir, venue_name)
     pdfs_src_dir = os.path.join(meta['path'], 'watermarked_pdfs')
 
     # copy proceedings.pdf
@@ -509,27 +507,33 @@ def copy_pdf_and_attachment(
                     'attachments': [],
                 }
             # copy attachments
-            # if 'attachments' in paper.keys() and paper['attachments']:
-            #     attchs_dest_dir = create_des_path(attachments_dir, venue_name)
-            #     attchs_src_dir = os.path.join(meta['path'], 'attachments')
-            #     assert os.path.exists(
-            #         attchs_src_dir
-            #     ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
-            #     cur_paper = paper['attachments'][0]['file']
-            #     if os.path.split(cur_paper)[0] == 'attachments':
-            #         cur_paper = os.path.split(cur_paper)[1]
-            #     attch_src_path = attchs_src_dir + '/' + cur_paper
-            #     assert attch_src_path, f'{paper_name} attachment path is None'
-            #     _, attch_src_extension = os.path.splitext(attch_src_path)
-            #     type_ = paper['attachments'][0]['type']
-            #     file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}{attch_src_extension}'
-            #     attch_dest_path = os.path.join(attchs_dest_dir, file_name)
-            #     print(f'attach src path is {attch_src_path}')
-            #     if dry_run:
-            #         print(f'would\'ve moved {attch_src_path} to {attch_dest_path}')
-            #     if not dry_run:
-            #         maybe_copy(attch_src_path, attch_dest_path)
-            #     volume[paper_num]['attachments'].append((attch_dest_path, type_))
+            if 'attachments' in paper.keys() and paper['attachments']:
+                attchs_dest_dir = create_dest_path(attachments_dir, venue_name)
+                attchs_src_dir = os.path.join(meta['path'], 'attachments')
+                assert os.path.exists(
+                    attchs_src_dir
+                ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
+
+                cur_paper = paper['attachments'][0]['file']
+                if os.path.split(cur_paper)[0] == 'attachments':
+                    cur_paper = os.path.split(cur_paper)[1]
+                attach_src_path = attchs_src_dir + '/' + cur_paper
+                assert attach_src_path, f'{paper_name} attachment path is None'
+                _, attch_src_extension = os.path.splitext(attach_src_path)
+
+                type_ = paper['attachments'][0]['type']
+                file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}{attch_src_extension}'
+                attach_dest_path = os.path.join(attchs_dest_dir, file_name).replace(
+                    " ", ""
+                )
+
+                if Path(attach_src_path).exists():
+                    if dry_run:
+                        print(f'would\'ve moved {attach_src_path} to {attach_dest_path}')
+                    else:
+                        maybe_copy(attach_src_path, attach_dest_path)
+                        volume[paper_num]['attachments'].append((attach_dest_path, type_))
+
     return volume, collection_id, volume_name, proceedings_pdf_dest_path
 
 
