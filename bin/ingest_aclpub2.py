@@ -17,7 +17,34 @@
 #
 # Usage:
 #
-#   python bin/ingest_aclpub2.py -i ACLPUB2_DIR
+# First, make sure the ACLPUB2_DIR subscribes to the following format.
+#
+# aclpub2/
+#   front_matter.pdf
+#   proceedings.pdf
+#   papers.yml   # updated with relative paths for attachments and PDFs
+#   conference_details.yml  # this could probably be unchanged
+#   pdfs/
+#     1.pdf
+#     ...
+#   attachments/
+#     49_software.zip
+#     17_dataset.tgz
+#     ...
+#
+# It sometimes doesn't because the format is not set in stone, so files
+# may be scattered. Use symlinks or move everything around to make it all
+# right.
+#
+# Then, run
+#
+#     python bin/ingest_aclpub2.py -i ACLPUB2_DIR
+#
+# It will:
+# - Create the volumes in the acl-anthology directory (updating if they exist)
+# - Copy PDFs and attachments to ~/anthology-files/{pdf,attachments}
+#
+# Check things over, then commit and push the changes and synchronize the files.
 
 import click
 import yaml
@@ -160,7 +187,9 @@ def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
 def add_paper_nums_in_paper_yaml(
     papers: List[Dict[str, str]], ingestion_dir: str
 ) -> List[Dict[str, str]]:
-    """ """
+    """
+    Reads PDFs to get page numbers for metadata.
+    """
     ingestion_dir = Path(ingestion_dir)
 
     start, end = 1, 0
