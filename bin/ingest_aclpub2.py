@@ -16,10 +16,9 @@
 # limitations under the License.
 #
 # Usage:
-#   python bin/ingest_aclpub2.py
 #
-#
-#
+#   python bin/ingest_aclpub2.py -i ACLPUB2_DIR
+
 import click
 import yaml
 import re
@@ -238,6 +237,11 @@ def join_names(author, fields=["first_name"]):
 
 
 def proceeding2xml(anthology_id: str, meta: Dict[str, Any]):
+    """
+    Creates the XML meta block for a volume from the paper YAML data structure.
+    If the frontmatter PDF is not set, we skip the "url" field, which downstream
+    will cause the <frontmatter> block not to be generated.
+    """
     fields = [
         'editor',
         'booktitle',
@@ -264,7 +268,11 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any]):
                     )
         else:
             if field == 'url':
-                value = f'{anthology_id}'
+                if "pdf" in meta:
+                    # Only create the entry if the PDF exis
+                    value = f'{anthology_id}'
+                else:
+                    value = None
             elif field == 'booktitle':
                 value = meta['book_title']
             elif field == 'month':
@@ -273,7 +281,8 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any]):
                 value = meta['year']
 
             try:
-                make_simple_element(field, text=value, parent=paper)
+                if value is not None:
+                    make_simple_element(field, text=value, parent=paper)
             except Exception:
                 print(
                     f"Couldn't process proceeding {paper} for {anthology_id}",
@@ -404,13 +413,17 @@ def copy_pdf_and_attachment(
     papers: List[Dict[str, str]],
     dry_run: bool,
 ) -> Tuple[Dict[str, Dict[str, str]], str, str, str]:
+    """
+    Copies PDFs and attachments to ready them for upload. Creates
+    data structures used to subsequently generate the XML.
+    """
+
     volume = dict()
     collection_id = meta['collection_id']
     venue_name = meta['anthology_venue_id'].lower()
     volume_name = meta['volume_name'].lower()
 
     pdfs_dest_dir = create_des_path(pdfs_dir, venue_name)
-
     pdfs_src_dir = os.path.join(meta['path'], 'watermarked_pdfs')
 
     # copy proceedings.pdf
@@ -429,7 +442,13 @@ def copy_pdf_and_attachment(
     else:
         print(f"Warning: proceedings.pdf was not found, skipping", file=sys.stderr)
 
-    # copy frontmatter
+    # Create entry for frontmatter, even if the PDF isn't there. We need this entry
+    # because it is used to create the <meta> block for the volume.
+    volume[0] = {
+        "anthology_id": f"{collection_id}-{volume_name}.0",
+        "attachments": [],
+    }
+
     frontmatter_src_path = os.path.join(pdfs_src_dir, '0.pdf')
     if os.path.exists(frontmatter_src_path):
         frontmatter_dest_path = (
@@ -440,12 +459,7 @@ def copy_pdf_and_attachment(
         if not dry_run:
             maybe_copy(frontmatter_src_path, frontmatter_dest_path)
 
-        paper_id_full = f'{collection_id}-{volume_name}.0'
-        volume[0] = {
-            'anthology_id': paper_id_full,
-            'pdf': frontmatter_dest_path,
-            'attachments': [],
-        }
+        volume[0]['pdf'] = frontmatter_dest_path
 
     for i, paper in enumerate(papers):
         # archival papers only
@@ -584,12 +598,14 @@ def create_xml(
             meta_node.append(paper_node.find('month'))
             meta_node.append(paper_node.find('year'))
 
-            make_simple_element(
-                'url',
-                text=f"{collection_id}-{volume_name}",
-                attrib={'hash': compute_hash_from_file(proceedings_pdf_dest_path)},
-                parent=meta_node,
-            )
+            # Create the entry for the PDF, if defined
+            if proceedings_pdf_dest_path is not None:
+                make_simple_element(
+                    'url',
+                    text=f"{collection_id}-{volume_name}",
+                    attrib={'hash': compute_hash_from_file(proceedings_pdf_dest_path)},
+                    parent=meta_node,
+                )
 
             # add the venue tag
             make_simple_element("venue", venue_name, parent=meta_node)
@@ -599,8 +615,8 @@ def create_xml(
             del paper_node.attrib['id']
 
         url = paper_node.find('./url')
-        # if url is not None:
-        url.attrib['hash'] = compute_hash_from_file(paper['pdf'])
+        if url is not None and "pdf" in paper:
+            url.attrib['hash'] = compute_hash_from_file(paper['pdf'])
 
         for path, type_ in paper['attachments']:
             make_simple_element(
@@ -686,6 +702,8 @@ def create_xml(
     default=f'{datetime.now().year}-{datetime.now().month:02d}-{datetime.now().day:02d}',
     help='Ingestion date',
 )
+
+
 def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, ingest_date):
     anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
     venue_index = VenueIndex(srcdir=anthology_datadir)
@@ -701,12 +719,9 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
     # print(f'original paper {papers[0]}')
     papers = add_paper_nums_in_paper_yaml(papers, ingestion_dir)
     # print(f'updated paper {papers[0]}')
-    (
-        volume,
-        collection_id,
-        volume_name,
-        proceedings_pdf_dest_path,
-    ) = copy_pdf_and_attachment(meta, pdfs_dir, attachments_dir, papers, dry_run)
+
+    volume, collection_id, volume_name, proceedings_pdf_dest_path = copy_pdf_and_attachment(meta, pdfs_dir, attachments_dir, papers, dry_run)
+
     create_xml(
         volume=volume,
         anthology_dir=anthology_dir,
