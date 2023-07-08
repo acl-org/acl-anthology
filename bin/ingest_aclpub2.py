@@ -449,7 +449,7 @@ def copy_pdf_and_attachment(
         "attachments": [],
     }
 
-    frontmatter_src_path = os.path.join(pdfs_src_dir, '0.pdf')
+    frontmatter_src_path = os.path.join(pdfs_src_dir, 'front_matter.pdf')
     if os.path.exists(frontmatter_src_path):
         frontmatter_dest_path = (
             os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + '.0.pdf'
@@ -521,7 +521,7 @@ def copy_pdf_and_attachment(
                 assert attach_src_path, f'{paper_name} attachment path is None'
                 _, attch_src_extension = os.path.splitext(attach_src_path)
 
-                type_ = paper['attachments'][0]['type']
+                type_ = paper['attachments'][0]['type'].replace(" ", "")
                 file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}{attch_src_extension}'
                 attach_dest_path = os.path.join(attchs_dest_dir, file_name).replace(
                     " ", ""
