@@ -45,10 +45,19 @@ from anthology.utils import (
 
 
 def disambiguate_name(node, anth_id, people):
+    """
+    There may be multiple matching names. If so, ask the ingester to choose
+    which one is the disambiguated one. Ideally, this would be determined
+    automatically from metadata or providing orcids or other disambiguators.
+    """
     name = PersonName.from_element(node)
     ids = people.get_ids(name)
+
     choice = -1
     if len(ids) > 1:
+        # TEMPORARY
+        choice = 0
+
         while choice < 0 or choice >= len(ids):
             print(
                 f'({anth_id}): ambiguous author {name}; Please choose from the following:'
@@ -65,7 +74,7 @@ def correct_caps(name):
     Many people submit their names in "ALL CAPS" or "all lowercase".
     Correct this with heuristics.
     '''
-    if name.islower() or name.isupper():
+    if name is not None and (name.islower() or name.isupper()):
         # capitalize all parts
         corrected = " ".join(list(map(lambda x: x.capitalize(), name.split())))
         print(
@@ -106,13 +115,14 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     event_name == title
     cover_subtitle == shortbooktitle
     '''
-    if os.path.exists(Path(ingestion_dir + 'inputs/conference_details.yml')):
+    ingestion_dir = Path(ingestion_dir)
+    if (ingestion_dir / 'conference_details.yml').exists():
         meta = yaml.safe_load(
-            Path(ingestion_dir + 'inputs/conference_details.yml').read_text()
+            (ingestion_dir / 'conference_details.yml').read_text()
         )
     else:
         meta = yaml.safe_load(
-            Path(ingestion_dir + 'input/conference_details.yml').read_text()
+            (ingestion_dir / 'inputs/conference_details.yml').read_text()
         )
     meta['month'] = meta['start_date'].strftime('%B')
     meta['year'] = str(meta['start_date'].year)
@@ -141,16 +151,20 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
 
 
 def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
-    if os.path.exists(Path(ingestion_dir + 'inputs/conference_details.yml')):
-        papers = yaml.safe_load(Path(ingestion_dir + 'inputs/papers.yml').read_text())
+    ingestion_dir = Path(ingestion_dir)
+
+    if (ingestion_dir / 'conference_details.yml').exists():
+        papers = yaml.safe_load((ingestion_dir / 'papers.yml').read_text())
     else:
-        papers = yaml.safe_load(Path(ingestion_dir + 'input/papers.yml').read_text())
+        papers = yaml.safe_load((ingestion_dir / 'input/papers.yml').read_text())
     return papers
 
 
 def add_paper_nums_in_paper_yaml(
     papers: List[Dict[str, str]], ingestion_dir: str
 ) -> List[Dict[str, str]]:
+    ingestion_dir = Path(ingestion_dir)
+
     start, end = 1, 0
     for paper in papers:
         if 'archival' not in paper.keys():
@@ -168,17 +182,20 @@ def add_paper_nums_in_paper_yaml(
             #     paper_name = paper['title']
             # else:
             paper_name = paper['file']
-            if os.path.exists(f'{ingestion_dir}inputs/papers/{paper_id}.pdf'):
-                paper_need_read_path = f'{ingestion_dir}inputs/papers/{paper_id}.pdf'
-            elif os.path.exists(f'{ingestion_dir}input/papers/{paper_id}.pdf'):
-                paper_need_read_path = f'{ingestion_dir}input/papers/{paper_id}.pdf'
-            elif os.path.exists(f'{ingestion_dir}inputs/papers/{paper_name}'):
-                paper_need_read_path = f'{ingestion_dir}inputs/papers/{paper_name}'
-            elif os.path.exists(f'{ingestion_dir}input/papers/{paper_name}'):
-                paper_need_read_path = f'{ingestion_dir}input/papers/{paper_name}'
-            else:
-                paper_need_read_path = None
+            paper_need_read_path = None
+            if (path := ingestion_dir / "papers" / f"{paper_id}.pdf").exists():
+                paper_need_read_path = str(path)
+            elif (path := ingestion_dir / "inputs" / "papers" / f"{paper_id}.pdf").exists():
+                paper_need_read_path = str(path)
+            elif (path := ingestion_dir / "input" / "papers" / f"{paper_id}.pdf").exists():
+                paper_need_read_path = str(path)
+            elif (path := ingestion_dir / "inputs" / "papers" / f"{paper_name}").exists():
+                paper_need_read_path = str(path)
+            elif (path := ingestion_dir / "input" / "papers" / f"{paper_name}").exists():
+                paper_need_read_path = str(path)
+
             assert paper_need_read_path, f'{paper_id} path is None'
+
             pdf = open(paper_need_read_path, 'rb')
             pdf_reader = PyPDF2.PdfReader(pdf)
             num_of_pages = len(pdf_reader.pages)
@@ -207,6 +224,19 @@ def find_paper_attachment(paper_name: str, attachments_dir: str) -> Optional[str
     return attachment_path
 
 
+def join_names(author, fields=["first_name"]):
+    """
+    Joins name fields. If you want to merge first names with middle names,
+    set fields to ["first_name", "middle_name"]. However, many people enter
+    their middle names without the expectation that it will appear.
+    """
+    names = []
+    for field in fields:
+        if author[field] is not None:
+            names.append(author[field])
+    return " ".join(names)
+
+
 def proceeding2xml(anthology_id: str, meta: Dict[str, Any]):
     fields = [
         'editor',
@@ -221,7 +251,7 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any]):
             authors = meta['editors']
             for author in authors:
                 name_node = make_simple_element(field, parent=paper)
-                make_simple_element('first', author['first_name'], parent=name_node)
+                make_simple_element('first', join_names(author), parent=name_node)
                 make_simple_element('last', author['last_name'], parent=name_node)
                 # add affiliation
                 if 'institution' in author.keys():
@@ -291,7 +321,7 @@ def paper2xml(
             authors = paper_item['authors']
             for author in authors:
                 name_node = make_simple_element(field, parent=paper)
-                make_simple_element('first', author['first_name'], parent=name_node)
+                make_simple_element('first', join_names(author), parent=name_node)
                 make_simple_element('last', author['last_name'], parent=name_node)
                 # add affiliation
                 if 'institution' in author.keys():
@@ -324,7 +354,7 @@ def paper2xml(
     return paper
 
 
-def process_procedding(
+def process_proceeding(
     ingestion_dir: str,
     anthology_datadir: str,
     venue_index: VenueIndex,
@@ -385,33 +415,37 @@ def copy_pdf_and_attachment(
 
     # copy proceedings.pdf
     proceedings_pdf_src_path = os.path.join(meta['path'], 'proceedings.pdf')
-    assert os.path.exists(proceedings_pdf_src_path), 'proceedings.pdf was not found'
-    proceedings_pdf_dest_path = (
-        os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
-    )
-    if dry_run:
-        print(
-            f'would\'ve moved {proceedings_pdf_src_path} to {proceedings_pdf_dest_path}'
+    proceedings_pdf_dest_path = None
+    if os.path.exists(proceedings_pdf_src_path):
+        proceedings_pdf_dest_path = (
+            os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
         )
-    if not dry_run:
-        maybe_copy(proceedings_pdf_src_path, proceedings_pdf_dest_path)
+        if dry_run:
+            print(
+                f'would\'ve moved {proceedings_pdf_src_path} to {proceedings_pdf_dest_path}'
+            )
+        if not dry_run:
+            maybe_copy(proceedings_pdf_src_path, proceedings_pdf_dest_path)
+    else:
+        print(f"Warning: proceedings.pdf was not found, skipping", file=sys.stderr)
 
     # copy frontmatter
     frontmatter_src_path = os.path.join(pdfs_src_dir, '0.pdf')
-    frontmatter_dest_path = (
-        os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + '.0.pdf'
-    )
-    if dry_run:
-        print(f'would\'ve moved {frontmatter_src_path} to {frontmatter_dest_path}')
-    if not dry_run:
-        maybe_copy(frontmatter_src_path, frontmatter_dest_path)
+    if os.path.exists(frontmatter_src_path):
+        frontmatter_dest_path = (
+            os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + '.0.pdf'
+        )
+        if dry_run:
+            print(f'would\'ve moved {frontmatter_src_path} to {frontmatter_dest_path}')
+        if not dry_run:
+            maybe_copy(frontmatter_src_path, frontmatter_dest_path)
 
-    paper_id_full = f'{collection_id}-{volume_name}.0'
-    volume[0] = {
-        'anthology_id': paper_id_full,
-        'pdf': frontmatter_dest_path,
-        'attachments': [],
-    }
+        paper_id_full = f'{collection_id}-{volume_name}.0'
+        volume[0] = {
+            'anthology_id': paper_id_full,
+            'pdf': frontmatter_dest_path,
+            'attachments': [],
+        }
 
     for i, paper in enumerate(papers):
         # archival papers only
@@ -436,13 +470,13 @@ def copy_pdf_and_attachment(
                 paper_num = i + 1
                 paper_id_full = f'{collection_id}-{volume_name}.{paper_num}'
 
+                pdf_src_path = None
                 if os.path.exists(os.path.join(pdfs_src_dir, paper_name)):
                     pdf_src_path = os.path.join(pdfs_src_dir, paper_name)
                 elif os.path.exists(os.path.join(pdfs_src_dir, f'{paper_id}.pdf')):
                     pdf_src_path = os.path.join(pdfs_src_dir, f'{paper_id}.pdf')
-                else:
-                    pdf_src_path = None
-                assert pdf_src_path, f'{paper_name} path is None'
+
+                assert pdf_src_path, f"Couldn't find {paper_name}/{paper_id} in {pdfs_src_dir}"
                 pdf_dest_path = os.path.join(
                     pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
                 )
@@ -535,7 +569,8 @@ def create_xml(
                     editor.attrib['id'] = disamb_name
                 PersonName.from_element(editor)
                 for name_part in editor:
-                    name_part.text = correct_caps(name_part.text)
+                    if name_part.text is not None and name_part.tag in ["first", "middle", "last"]:
+                        name_part.text = correct_caps(name_part.text)
                 meta_node.append(editor)
 
             # Get the publisher from the meta file
@@ -601,7 +636,10 @@ def create_xml(
                 name_node.attrib['id'] = disamb_name
             PersonName.from_element(name_node)
             for name_part in name_node:
-                name_part.text = correct_caps(name_part.text)
+                if name_part.text is None:
+                    print(f"* WARNING: element {name_part.tag} has null text", file=sys.stderr)
+                if name_part is not None and name_part.tag in ["first", "middle", "last"]:
+                    name_part.text = correct_caps(name_part.text)
 
     # Other data from the meta file
     # if 'isbn' in meta:
@@ -656,7 +694,7 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
     people = AnthologyIndex(srcdir=anthology_datadir)
     # people.bibkeys = load_bibkeys(anthology_datadir)
 
-    volume_full_id, meta = process_procedding(
+    volume_full_id, meta = process_proceeding(
         ingestion_dir, anthology_datadir, venue_index, venue_keys
     )
     papers = parse_paper_yaml(ingestion_dir)
