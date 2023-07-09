@@ -265,7 +265,7 @@ def join_names(author, fields=["first_name"]):
     return " ".join(names)
 
 
-def proceeding2xml(anthology_id: str, meta: Dict[str, Any]):
+def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
     """
     Creates the XML meta block for a volume from the paper YAML data structure.
     If the frontmatter PDF is not set, we skip the "url" field, which downstream
@@ -278,12 +278,12 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any]):
         'year',
         'url',
     ]
-    paper = make_simple_element('paper', attrib={'id': '0'})
+    frontmatter_node = make_simple_element('frontmatter', attrib={'id': '0'})
     for field in fields:
         if field == 'editor':
             authors = meta['editors']
             for author in authors:
-                name_node = make_simple_element(field, parent=paper)
+                name_node = make_simple_element(field, parent=frontmatter_node)
                 make_simple_element('first', join_names(author), parent=name_node)
                 make_simple_element('last', author['last_name'], parent=name_node)
                 # add affiliation
@@ -297,10 +297,14 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any]):
                     )
         else:
             if field == 'url':
-                if "pdf" in meta:
+                if "pdf" in frontmatter:
                     # Only create the entry if the PDF exis
                     value = f'{anthology_id}'
                 else:
+                    print(
+                        f"Warning: skipping PDF for {anthology_id}: {meta}",
+                        file=sys.stderr,
+                    )
                     value = None
             elif field == 'booktitle':
                 value = meta['book_title']
@@ -309,16 +313,10 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any]):
             elif field == 'year':
                 value = meta['year']
 
-            try:
-                if value is not None:
-                    make_simple_element(field, text=value, parent=paper)
-            except Exception:
-                print(
-                    f"Couldn't process proceeding {paper} for {anthology_id}",
-                    file=sys.stderr,
-                )
-                sys.exit(2)
-    return paper
+            if value is not None:
+                make_simple_element(field, text=value, parent=frontmatter_node)
+
+    return frontmatter_node
 
 
 def paper2xml(
@@ -478,7 +476,7 @@ def copy_pdf_and_attachment(
         "attachments": [],
     }
 
-    frontmatter_src_path = os.path.join(pdfs_src_dir, 'front_matter.pdf')
+    frontmatter_src_path = 'front_matter.pdf'
     if os.path.exists(frontmatter_src_path):
         frontmatter_dest_path = (
             os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + '.0.pdf'
@@ -488,6 +486,7 @@ def copy_pdf_and_attachment(
         if not dry_run:
             maybe_copy(frontmatter_src_path, frontmatter_dest_path)
 
+        # create the PDF entry so that we'll get <frontmatter>
         volume[0]['pdf'] = frontmatter_dest_path
 
     for i, paper in enumerate(papers):
@@ -535,33 +534,42 @@ def copy_pdf_and_attachment(
                     'pdf': pdf_dest_path,
                     'attachments': [],
                 }
+
             # copy attachments
-            if 'attachments' in paper.keys() and paper['attachments']:
-                attchs_dest_dir = create_dest_path(attachments_dir, venue_name)
-                attchs_src_dir = os.path.join(meta['path'], 'attachments')
+            # TODO: skipping attachments because full of non-publishable stuff
+            if False and 'attachments' in paper:
+                attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
+                attachs_src_dir = os.path.join(meta['path'], 'attachments')
                 assert os.path.exists(
-                    attchs_src_dir
+                    attachs_src_dir
                 ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
 
-                cur_paper = paper['attachments'][0]['file']
-                if os.path.split(cur_paper)[0] == 'attachments':
-                    cur_paper = os.path.split(cur_paper)[1]
-                attach_src_path = attchs_src_dir + '/' + cur_paper
-                assert attach_src_path, f'{paper_name} attachment path is None'
-                _, attch_src_extension = os.path.splitext(attach_src_path)
+                for attachment in paper['attachments']:
+                    print("ATTACH", paper_id_full, attachment)
+                    file_path = attachment.get('file', None)
+                    if file_path is None:
+                        continue
+                    attach_src_path = attachs_src_dir + '/' + file_path
+                    attach_src_extension = attach_src_path.split(".")[-1]
 
-                type_ = paper['attachments'][0]['type'].replace(" ", "")
-                file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}{attch_src_extension}'
-                attach_dest_path = os.path.join(attchs_dest_dir, file_name).replace(
-                    " ", ""
-                )
+                    type_ = attachment['type'].replace(" ", "")
+                    file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}'
 
-                if Path(attach_src_path).exists():
-                    if dry_run:
-                        print(f'would\'ve moved {attach_src_path} to {attach_dest_path}')
-                    else:
-                        maybe_copy(attach_src_path, attach_dest_path)
-                        volume[paper_num]['attachments'].append((attach_dest_path, type_))
+                    # the destination path
+                    attach_dest_path = os.path.join(attachs_dest_dir, file_name).replace(
+                        " ", ""
+                    )
+
+                    if Path(attach_src_path).exists():
+                        if dry_run:
+                            print(
+                                f'would\'ve moved {attach_src_path} to {attach_dest_path}'
+                            )
+                        else:
+                            maybe_copy(attach_src_path, attach_dest_path)
+                            volume[paper_num]['attachments'].append(
+                                (attach_dest_path, type_)
+                            )
 
     return volume, collection_id, volume_name, proceedings_pdf_dest_path
 
@@ -603,7 +611,7 @@ def create_xml(
         paper_id_full = paper['anthology_id']
         # print(f'creating xml for paper name {paper}, in papers {papers[paper_num-1]}')
         if paper_num == 0:
-            paper_node = proceeding2xml(paper_id_full, meta)
+            paper_node = proceeding2xml(paper_id_full, meta, volume[0])
         else:
             paper_node = paper2xml(papers[paper_num - 1], paper_num, paper_id_full, meta)
 
@@ -652,11 +660,11 @@ def create_xml(
             make_simple_element("venue", venue_name, parent=meta_node)
 
             # modify frontmatter tag
-            paper_node.tag = 'frontmatter'
+            paper_node.tag = "frontmatter"
             del paper_node.attrib['id']
 
         url = paper_node.find('./url')
-        if url is not None and "pdf" in paper:
+        if url is not None:
             url.attrib['hash'] = compute_hash_from_file(paper['pdf'])
 
         for path, type_ in paper['attachments']:
@@ -672,6 +680,8 @@ def create_xml(
 
         if len(paper_node) > 0:
             volume_node.append(paper_node)
+        else:
+            print("Not appending", paper_node, file=sys.stderr)
 
         # Normalize
         for oldnode in paper_node:
