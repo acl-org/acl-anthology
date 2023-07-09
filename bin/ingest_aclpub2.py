@@ -222,7 +222,7 @@ def add_paper_nums_in_paper_yaml(
 
             assert (
                 paper_need_read_path is not None
-            ), f"* Fatal: could not find {paper_id} (path was {paper_path})"
+            ), f"* Fatal: could not find {paper_id} (path was {paper_path}, {path})"
 
             pdf = open(paper_need_read_path, 'rb')
             pdf_reader = PyPDF2.PdfReader(pdf)
