@@ -18,7 +18,7 @@
   {{ end }}
   {{ range .Site.Data.papers }}
     {{ range . }}
-      {{ $volume := index .Site.Data.volumes .parent_volume_id }}
+      {{ $volume := index $.Site.Data.volumes .parent_volume_id }}
       {{ with .pdf }}
         {{ if (hasPrefix . "https://aclanthology.org") }}
         <url>
