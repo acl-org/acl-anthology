@@ -177,10 +177,21 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
 def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
     ingestion_dir = Path(ingestion_dir)
 
-    if (ingestion_dir / 'conference_details.yml').exists():
-        papers = yaml.safe_load((ingestion_dir / 'papers.yml').read_text())
+    paths_to_check = [
+        ingestion_dir / 'papers.yml',
+        ingestion_dir / 'inputs' / 'papers.yml',
+    ]
+
+    papers = None
+    for path in paths_to_check:
+        if path.exists():
+            papers = yaml.safe_load(path.read_text())
+            break
     else:
-        papers = yaml.safe_load((ingestion_dir / 'input/papers.yml').read_text())
+        raise Exception(
+            f"Can't find papers.yml (looked in root dir and under inputs/)"
+        )
+
     return papers
 
 
@@ -213,16 +224,21 @@ def add_paper_nums_in_paper_yaml(
             paper_need_read_path = None
             # TODO: we should just be able to read paper_path directly, and throw an
             # error if it doesn't exist
-            if (path := ingestion_dir / "watermarked_pdfs" / paper_path).exists():
-                paper_need_read_path = str(path)
-            elif (
-                path := ingestion_dir / "watermarked_pdfs" / f"{paper_id}.pdf"
-            ).exists():
-                paper_need_read_path = str(path)
 
-            assert (
-                paper_need_read_path is not None
-            ), f"* Fatal: could not find {paper_id} (path was {paper_path}, {path})"
+            paths_to_check = [
+                ingestion_dir / "watermarked_pdfs" / paper_path,
+                ingestion_dir / "watermarked_pdfs" / f"{paper_id}.pdf",
+            ]
+
+            paper_need_read_path = None
+            for path in paths_to_check:
+                if path.exists():
+                    paper_need_read_path = str(path)
+                    break
+            else:
+                raise Exception(
+                    f"* Fatal: could not find paper ID {paper_id} ({paths_to_check})"
+                )
 
             pdf = open(paper_need_read_path, 'rb')
             pdf_reader = PyPDF2.PdfReader(pdf)
@@ -536,22 +552,31 @@ def copy_pdf_and_attachment(
                 }
 
             # copy attachments
-            # TODO: skipping attachments because full of non-publishable stuff
-            if False and 'attachments' in paper:
+            if 'attachments' in paper:
                 attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
-                attachs_src_dir = os.path.join(meta['path'], 'attachments')
-                assert os.path.exists(
-                    attachs_src_dir
-                ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
+                attachs_src_dir = Path(meta['path']) / 'attachments'
+                assert attachs_src_dir.exists(), f'paper {i, paper_name} contains attachments but attachments folder was not found'
 
                 for attachment in paper['attachments']:
-                    print("ATTACH", paper_id_full, attachment)
-                    file_path = attachment.get('file', None)
+                    file_path = Path(attachment.get('file', None))
                     if file_path is None:
                         continue
-                    attach_src_path = attachs_src_dir + '/' + file_path
-                    attach_src_extension = attach_src_path.split(".")[-1]
 
+                    attach_src_path = None
+                    paths_to_check = [
+                        attachs_src_dir / file_path,
+                        attachs_src_dir / file_path.name
+                    ]
+                    for path in paths_to_check:
+                        if path.exists():
+                            attach_src_path = str(path)
+                            break
+                    else:
+                        raise Exception(
+                            f"Can't find attachment (paths: {paths_to_check})"
+                        )
+
+                    attach_src_extension = attach_src_path.split(".")[-1]
                     type_ = attachment['type'].replace(" ", "")
                     file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}'
 
@@ -567,6 +592,7 @@ def copy_pdf_and_attachment(
                             )
                         else:
                             maybe_copy(attach_src_path, attach_dest_path)
+                            print(f"Attaching {attach_dest_path}/{type_} to {paper_num}")
                             volume[paper_num]['attachments'].append(
                                 (attach_dest_path, type_)
                             )
