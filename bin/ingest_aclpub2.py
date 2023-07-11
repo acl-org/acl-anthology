@@ -188,9 +188,7 @@ def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
             papers = yaml.safe_load(path.read_text())
             break
     else:
-        raise Exception(
-            f"Can't find papers.yml (looked in root dir and under inputs/)"
-        )
+        raise Exception("Can't find papers.yml (looked in root dir and under inputs/)")
 
     return papers
 
@@ -492,8 +490,22 @@ def copy_pdf_and_attachment(
         "attachments": [],
     }
 
-    frontmatter_src_path = 'front_matter.pdf'
-    if os.path.exists(frontmatter_src_path):
+    paths_to_check = [
+        Path('front_matter.pdf'),
+        Path('0.pdf'),
+    ]
+
+    frontmatter_src_path = None
+    for path in paths_to_check:
+        if path.exists():
+            frontmatter_src_path = str(path)
+            break
+    else:
+        print(
+            f"Warning: could not find front matter in {paths_to_check}", file=sys.stderr
+        )
+
+    if frontmatter_src_path is not None:
         frontmatter_dest_path = (
             os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + '.0.pdf'
         )
@@ -555,7 +567,9 @@ def copy_pdf_and_attachment(
             if 'attachments' in paper:
                 attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
                 attachs_src_dir = Path(meta['path']) / 'attachments'
-                assert attachs_src_dir.exists(), f'paper {i, paper_name} contains attachments but attachments folder was not found'
+                assert (
+                    attachs_src_dir.exists()
+                ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
 
                 for attachment in paper['attachments']:
                     file_path = Path(attachment.get('file', None))
@@ -565,7 +579,7 @@ def copy_pdf_and_attachment(
                     attach_src_path = None
                     paths_to_check = [
                         attachs_src_dir / file_path,
-                        attachs_src_dir / file_path.name
+                        attachs_src_dir / file_path.name,
                     ]
                     for path in paths_to_check:
                         if path.exists():
