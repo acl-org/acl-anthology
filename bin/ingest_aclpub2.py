@@ -46,6 +46,10 @@
 #
 # Check things over, then commit and push the changes and synchronize the files.
 
+# TODO:
+# - check for venue YAML, create/complain if non-existent
+# - add verification model to ensure format is correct
+
 import click
 import yaml
 import re
