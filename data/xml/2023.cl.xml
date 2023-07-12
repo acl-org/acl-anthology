@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.cl">
+  <volume id="1">
+    <meta>
+      <booktitle>Computational Linguistics, Volume 49, Issue 1 - March 2023</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <month>March</month>
+      <year>2023</year>
+      <venue>cl</venue>
+    </meta>
+    <venue>cl</venue>
+    <paper id="1">
+      <title>Dimensional Modeling of Emotions in Text with Appraisal Theories: Corpus Creation, Annotation Reliability, and Prediction</title>
+      <author><first>Enrica</first><last>Troiano</last></author>
+      <author><first>Laura</first><last>Oberländer</last></author>
+      <author><first>Roman</first><last>Klinger</last></author>
+      <doi>10.1162/coli_a_00461</doi>
+      <abstract>The most prominent tasks in emotion analysis are to assign emotions to texts and to understand how emotions manifest in language. An important observation for natural language processing is that emotions can be communicated implicitly by referring to events alone, appealing to an empathetic, intersubjective understanding of events, even without explicitly mentioning an emotion name. In psychology, the class of emotion theories known as appraisal theories aims at explaining the link between events and emotions. Appraisals can be formalized as variables that measure a cognitive evaluation by people living through an event that they consider relevant. They include the assessment if an event is novel, if the person considers themselves to be responsible, if it is in line with their own goals, and so forth. Such appraisals explain which emotions are developed based on an event, for example, that a novel situation can induce surprise or one with uncertain consequences could evoke fear. We analyze the suitability of appraisal theories for emotion analysis in text with the goal of understanding if appraisal concepts can reliably be reconstructed by annotators, if they can be predicted by text classifiers, and if appraisal concepts help to identify emotion categories. To achieve that, we compile a corpus by asking people to textually describe events that triggered particular emotions and to disclose their appraisals. Then, we ask readers to reconstruct emotions and appraisals from the text. This set-up allows us to measure if emotions and appraisals can be recovered purely from text and provides a human baseline to judge a model’s performance measures. Our comparison of text classification methods to human annotators shows that both can reliably detect emotions and appraisals with similar performance. Therefore, appraisals constitute an alternative computational emotion analysis paradigm and further improve the categorization of emotions in text with joint models.</abstract>
+      <pages>1–72</pages>
+      <url hash="da520382">2023.cl-1.1</url>
+      <bibkey>troiano-etal-2023-dimensional</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Transformers and the Representation of Biomedical Background Knowledge</title>
+      <author><first>Oskar</first><last>Wysocki</last></author>
+      <author><first>Zili</first><last>Zhou</last></author>
+      <author><first>Paul</first><last>O’Regan</last></author>
+      <author><first>Deborah</first><last>Ferreira</last></author>
+      <author><first>Magdalena</first><last>Wysocka</last></author>
+      <author><first>Dónal</first><last>Landers</last></author>
+      <author><first>André</first><last>Freitas</last></author>
+      <doi>10.1162/coli_a_00462</doi>
+      <abstract>Specialized transformers-based models (such as BioBERT and BioMegatron) are adapted for the biomedical domain based on publicly available biomedical corpora. As such, they have the potential to encode large-scale biological knowledge. We investigate the encoding and representation of biological knowledge in these models, and its potential utility to support inference in cancer precision medicine—namely, the interpretation of the clinical significance of genomic alterations. We compare the performance of different transformer baselines; we use probing to determine the consistency of encodings for distinct entities; and we use clustering methods to compare and contrast the internal properties of the embeddings for genes, variants, drugs, and diseases. We show that these models do indeed encode biological knowledge, although some of this is lost in fine-tuning for specific tasks. Finally, we analyze how the models behave with regard to biases and imbalances in the dataset.</abstract>
+      <pages>73–115</pages>
+      <url hash="0e303b6f">2023.cl-1.2</url>
+      <bibkey>wysocki-etal-2023-transformers</bibkey>
+    </paper>
+    <paper id="3">
+      <title>It Takes Two Flints to Make a Fire: Multitask Learning of Neural Relation and Explanation Classifiers</title>
+      <author><first>Zheng</first><last>Tang</last></author>
+      <author><first>Mihai</first><last>Surdeanu</last></author>
+      <doi>10.1162/coli_a_00463</doi>
+      <abstract>We propose an explainable approach for relation extraction that mitigates the tension between generalization and explainability by jointly training for the two goals. Our approach uses a multi-task learning architecture, which jointly trains a classifier for relation extraction, and a sequence model that labels words in the context of the relations that explain the decisions of the relation classifier. We also convert the model outputs to rules to bring global explanations to this approach. This sequence model is trained using a hybrid strategy: supervised, when supervision from pre-existing patterns is available, and semi-supervised otherwise. In the latter situation, we treat the sequence model’s labels as latent variables, and learn the best assignment that maximizes the performance of the relation classifier. We evaluate the proposed approach on the two datasets and show that the sequence model provides labels that serve as accurate explanations for the relation classifier’s decisions, and, importantly, that the joint training generally improves the performance of the relation classifier. We also evaluate the performance of the generated rules and show that the new rules are a great add-on to the manual rules and bring the rule-based system much closer to the neural models.</abstract>
+      <pages>117–156</pages>
+      <url hash="b5c72bb0">2023.cl-1.3</url>
+      <bibkey>tang-surdeanu-2023-takes</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Annotation Error Detection: Analyzing the Past and Present for a More Coherent Future</title>
+      <author><first>Jan-Christoph</first><last>Klie</last></author>
+      <author><first>Bonnie</first><last>Webber</last></author>
+      <author><first>Iryna</first><last>Gurevych</last></author>
+      <doi>10.1162/coli_a_00464</doi>
+      <abstract>Annotated data is an essential ingredient in natural language processing for training and evaluating machine learning models. It is therefore very desirable for the annotations to be of high quality. Recent work, however, has shown that several popular datasets contain a surprising number of annotation errors or inconsistencies. To alleviate this issue, many methods for annotation error detection have been devised over the years. While researchers show that their approaches work well on their newly introduced datasets, they rarely compare their methods to previous work or on the same datasets. This raises strong concerns on methods’ general performance and makes it difficult to assess their strengths and weaknesses. We therefore reimplement 18 methods for detecting potential annotation errors and evaluate them on 9 English datasets for text classification as well as token and span labeling. In addition, we define a uniform evaluation setup including a new formalization of the annotation error detection task, evaluation protocol, and general best practices. To facilitate future research and reproducibility, we release our datasets and implementations in an easy-to-use and open source software package.1</abstract>
+      <pages>157–198</pages>
+      <url hash="491b37f9">2023.cl-1.4</url>
+      <bibkey>klie-etal-2023-annotation</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Curing the <fixed-case>SICK</fixed-case> and Other <fixed-case>NLI</fixed-case> Maladies</title>
+      <author><first>Aikaterini-Lida</first><last>Kalouli</last></author>
+      <author><first>Hai</first><last>Hu</last></author>
+      <author><first>Alexander F.</first><last>Webb</last></author>
+      <author><first>Lawrence S.</first><last>Moss</last></author>
+      <author><first>Valeria</first><last>de Paiva</last></author>
+      <doi>10.1162/coli_a_00465</doi>
+      <abstract>Against the backdrop of the ever-improving Natural Language Inference (NLI) models, recent efforts have focused on the suitability of the current NLI datasets and on the feasibility of the NLI task as it is currently approached. Many of the recent studies have exposed the inherent human disagreements of the inference task and have proposed a shift from categorical labels to human subjective probability assessments, capturing human uncertainty. In this work, we show how neither the current task formulation nor the proposed uncertainty gradient are entirely suitable for solving the NLI challenges. Instead, we propose an ordered sense space annotation, which distinguishes between logical and common-sense inference. One end of the space captures non-sensical inferences, while the other end represents strictly logical scenarios. In the middle of the space, we find a continuum of common-sense, namely, the subjective and graded opinion of a “person on the street.” To arrive at the proposed annotation scheme, we perform a careful investigation of the SICK corpus and we create a taxonomy of annotation issues and guidelines. We re-annotate the corpus with the proposed annotation scheme, utilizing four symbolic inference systems, and then perform a thorough evaluation of the scheme by fine-tuning and testing commonly used pre-trained language models on the re-annotated SICK within various settings. We also pioneer a crowd annotation of a small portion of the MultiNLI corpus, showcasing that it is possible to adapt our scheme for annotation by non-experts on another NLI corpus. Our work shows the efficiency and benefits of the proposed mechanism and opens the way for a careful NLI task refinement.</abstract>
+      <pages>199–243</pages>
+      <url hash="90bde0e2">2023.cl-1.5</url>
+      <bibkey>kalouli-etal-2023-curing</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Finite-State Text Processing</title>
+      <author><first>Aniello</first><last>De Santo</last></author>
+      <doi>10.1162/coli_r_00466</doi>
+      <pages>245–247</pages>
+      <url hash="6f6c02ba">2023.cl-1.6</url>
+      <bibkey>de-santo-2023-finite</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Validity, Reliability, and Significance: Empirical Methods for <fixed-case>NLP</fixed-case> and Data Science</title>
+      <author><first>Richard</first><last>Futrell</last></author>
+      <doi>10.1162/coli_r_00467</doi>
+      <pages>249–251</pages>
+      <url hash="92e334d7">2023.cl-1.7</url>
+      <bibkey>futrell-2023-validity</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Pretrained Transformers for Text Ranking: <fixed-case>BERT</fixed-case> and Beyond</title>
+      <author><first>Suzan</first><last>Verberne</last></author>
+      <doi>10.1162/coli_r_00468</doi>
+      <pages>253–255</pages>
+      <url hash="39350ac5">2023.cl-1.8</url>
+      <bibkey>verberne-2023-pretrained</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Conversational <fixed-case>AI</fixed-case>: Dialogue Systems, Conversational Agents, and Chatbots by <fixed-case>M</fixed-case>ichael <fixed-case>M</fixed-case>c<fixed-case>T</fixed-case>ear</title>
+      <author><first>Olga</first><last>Seminck</last></author>
+      <doi>10.1162/coli_r_00470</doi>
+      <pages>257–259</pages>
+      <url hash="3c21412b">2023.cl-1.9</url>
+      <bibkey>seminck-2023-conversational</bibkey>
+    </paper>
+  </volume>
+  <volume id="2">
+    <meta>
+      <booktitle>Computational Linguistics, Volume 49, Issue 2 - June 2023</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <month>June</month>
+      <year>2023</year>
+      <venue>cl</venue>
+    </meta>
+    <venue>cl</venue>
+    <paper id="1">
+      <title>Data-driven Cross-lingual Syntax: An Agreement Study with Massively Multilingual Models</title>
+      <author><first>Andrea Gregor de</first><last>Varda</last></author>
+      <author><first>Marco</first><last>Marelli</last></author>
+      <doi>10.1162/coli_a_00472</doi>
+      <abstract>Massively multilingual models such as mBERT and XLM-R are increasingly valued in Natural Language Processing research and applications, due to their ability to tackle the uneven distribution of resources available for different languages. The models’ ability to process multiple languages relying on a shared set of parameters raises the question of whether the grammatical knowledge they extracted during pre-training can be considered as a data-driven cross-lingual grammar. The present work studies the inner workings of mBERT and XLM-R in order to test the cross-lingual consistency of the individual neural units that respond to a precise syntactic phenomenon, that is, number agreement, in five languages (English, German, French, Hebrew, Russian). We found that there is a significant overlap in the latent dimensions that encode agreement across the languages we considered. This overlap is larger (a) for long- vis-à-vis short-distance agreement and (b) when considering XLM-R as compared to mBERT, and peaks in the intermediate layers of the network. We further show that a small set of syntax-sensitive neurons can capture agreement violations across languages; however, their contribution is not decisive in agreement processing.</abstract>
+      <pages>261–299</pages>
+      <url hash="1899ddbd">2023.cl-2.1</url>
+      <bibkey>varda-marelli-2023-data</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Gradual Modifications and Abrupt Replacements: Two Stochastic Lexical Ingredients of Language Evolution</title>
+      <author><first>Michele</first><last>Pasquini</last></author>
+      <author><first>Maurizio</first><last>Serva</last></author>
+      <author><first>Davide</first><last>Vergni</last></author>
+      <doi>10.1162/coli_a_00471</doi>
+      <abstract>The evolution of the vocabulary of a language is characterized by two different random processes: abrupt lexical replacements, when a complete new word emerges to represent a given concept (which was at the basis of the Swadesh foundation of glottochronology in the 1950s), and gradual lexical modifications that progressively alter words over the centuries, considered here in detail for the first time. The main discriminant between these two processes is their impact on cognacy within a family of languages or dialects, since the former modifies the subsets of cognate terms and the latter does not. The automated cognate detection, which is here performed following a new approach inspired by graph theory, is a key preliminary step that allows us to later measure the effects of the slow modification process. We test our dual approach on the family of Malagasy dialects using a cladistic analysis, which provides strong evidence that lexical replacements and gradual lexical modifications are two random processes that separately drive the evolution of languages.</abstract>
+      <pages>301–323</pages>
+      <url hash="63ee9137">2023.cl-2.2</url>
+      <bibkey>pasquini-etal-2023-gradual</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Onception: Active Learning with Expert Advice for Real World Machine Translation</title>
+      <author><first>Vânia</first><last>Mendonça</last></author>
+      <author><first>Ricardo</first><last>Rei</last></author>
+      <author><first>Luísa</first><last>Coheur</last></author>
+      <author><first>Alberto</first><last>Sardinha</last></author>
+      <doi>10.1162/coli_a_00473</doi>
+      <abstract>Active learning can play an important role in low-resource settings (i.e., where annotated data is scarce), by selecting which instances may be more worthy to annotate. Most active learning approaches for Machine Translation assume the existence of a pool of sentences in a source language, and rely on human annotators to provide translations or post-edits, which can still be costly. In this article, we apply active learning to a real-world human-in-the-loop scenario in which we assume that: (1) the source sentences may not be readily available, but instead arrive in a stream; (2) the automatic translations receive feedback in the form of a rating, instead of a correct/edited translation, since the human-in-the-loop might be a user looking for a translation, but not be able to provide one. To tackle the challenge of deciding whether each incoming pair source–translations is worthy to query for human feedback, we resort to a number of stream-based active learning query strategies. Moreover, because we do not know in advance which query strategy will be the most adequate for a certain language pair and set of Machine Translation models, we propose to dynamically combine multiple strategies using prediction with expert advice. Our experiments on different language pairs and feedback settings show that using active learning allows us to converge on the best Machine Translation systems with fewer human interactions. Furthermore, combining multiple strategies using prediction with expert advice outperforms several individual active learning strategies with even fewer interactions, particularly in partial feedback settings.</abstract>
+      <pages>325–372</pages>
+      <url hash="6c398521">2023.cl-2.3</url>
+      <bibkey>mendonca-etal-2023-onception</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Reflection of Demographic Background on Word Usage</title>
+      <author><first>Aparna</first><last>Garimella</last></author>
+      <author><first>Carmen</first><last>Banea</last></author>
+      <author><first>Rada</first><last>Mihalcea</last></author>
+      <doi>10.1162/coli_a_00475</doi>
+      <abstract>The availability of personal writings in electronic format provides researchers in the fields of linguistics, psychology, and computational linguistics with an unprecedented chance to study, on a large scale, the relationship between language use and the demographic background of writers, allowing us to better understand people across different demographics. In this article, we analyze the relation between language and demographics by developing cross-demographic word models to identify words with usage bias, or words that are used in significantly different ways by speakers of different demographics. Focusing on three demographic categories, namely, location, gender, and industry, we identify words with significant usage differences in each category and investigate various approaches of encoding a word’s usage, allowing us to identify language aspects that contribute to the differences. Our word models using topic-based features achieve at least 20% improvement in accuracy over the baseline for all demographic categories, even for scenarios with classification into 15 categories, illustrating the usefulness of topic-based features in identifying word usage differences. Further, we note that for location and industry, topics extracted from immediate context are the best predictors of word usages, hinting at the importance of word meaning and its grammatical function for these demographics, while for gender, topics obtained from longer contexts are better predictors for word usage.</abstract>
+      <pages>373–394</pages>
+      <url hash="8bca018f">2023.cl-2.4</url>
+      <bibkey>garimella-etal-2023-reflection</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Certified Robustness to Text Adversarial Attacks by Randomized [<fixed-case>MASK</fixed-case>]</title>
+      <author><first>Jiehang</first><last>Zeng</last></author>
+      <author><first>Jianhan</first><last>Xu</last></author>
+      <author><first>Xiaoqing</first><last>Zheng</last></author>
+      <author><first>Xuanjing</first><last>Huang</last></author>
+      <doi>10.1162/coli_a_00476</doi>
+      <abstract>Very recently, few certified defense methods have been developed to provably guarantee the robustness of a text classifier to adversarial synonym substitutions. However, all the existing certified defense methods assume that the defenders have been informed of how the adversaries generate synonyms, which is not a realistic scenario. In this study, we propose a certifiably robust defense method by randomly masking a certain proportion of the words in an input text, in which the above unrealistic assumption is no longer necessary. The proposed method can defend against not only word substitution-based attacks, but also character-level perturbations. We can certify the classifications of over 50% of texts to be robust to any perturbation of five words on AGNEWS, and two words on SST2 dataset. The experimental results show that our randomized smoothing method significantly outperforms recently proposed defense methods across multiple datasets under different attack algorithms.</abstract>
+      <pages>395–427</pages>
+      <url hash="a3f269cf">2023.cl-2.5</url>
+      <bibkey>zeng-etal-2023-certified</bibkey>
+    </paper>
+    <paper id="6">
+      <title>The Analysis of Synonymy and Antonymy in Discourse Relations: An Interpretable Modeling Approach</title>
+      <author><first>Asela</first><last>Reig Alamillo</last></author>
+      <author><first>David</first><last>Torres Moreno</last></author>
+      <author><first>Eliseo</first><last>Morales González</last></author>
+      <author><first>Mauricio</first><last>Toledo Acosta</last></author>
+      <author><first>Antoine</first><last>Taroni</last></author>
+      <author><first>Jorge</first><last>Hermosillo Valadez</last></author>
+      <doi>10.1162/coli_a_00477</doi>
+      <abstract>The idea that discourse relations are interpreted both by explicit content and by shared knowledge between producer and interpreter is pervasive in discourse and linguistic studies. How much weight should be ascribed in this process to the lexical semantics of the arguments is, however, uncertain. We propose a computational approach to analyze contrast and concession relations in the PDTB corpus. Our work sheds light on the question of how much lexical relations contribute to the signaling of such explicit and implicit relations, as well as on the contribution of different parts of speech to these semantic relations. This study contributes to bridging the gap between corpus and computational linguistics by proposing transparent and explainable computational models of discourse relations based on the synonymy and antonymy of their arguments.</abstract>
+      <pages>429–464</pages>
+      <url hash="1c282373">2023.cl-2.6</url>
+      <bibkey>reig-alamillo-etal-2023-analysis</bibkey>
+    </paper>
+    <paper id="7">
+      <title>From Word Types to Tokens and Back: A Survey of Approaches to Word Meaning Representation and Interpretation</title>
+      <author><first>Marianna</first><last>Apidianaki</last></author>
+      <doi>10.1162/coli_a_00474</doi>
+      <abstract>Vector-based word representation paradigms situate lexical meaning at different levels of abstraction. Distributional and static embedding models generate a single vector per word type, which is an aggregate across the instances of the word in a corpus. Contextual language models, on the contrary, directly capture the meaning of individual word instances. The goal of this survey is to provide an overview of word meaning representation methods, and of the strategies that have been proposed for improving the quality of the generated vectors. These often involve injecting external knowledge about lexical semantic relationships, or refining the vectors to describe different senses. The survey also covers recent approaches for obtaining word type-level representations from token-level ones, and for combining static and contextualized representations. Special focus is given to probing and interpretation studies aimed at discovering the lexical semantic knowledge that is encoded in contextualized representations. The challenges posed by this exploration have motivated the interest towards static embedding derivation from contextualized embeddings, and for methods aimed at improving the similarity estimates that can be drawn from the space of contextual language models.</abstract>
+      <pages>465–523</pages>
+      <url hash="d88c77a7">2023.cl-2.7</url>
+      <bibkey>apidianaki-2023-word</bibkey>
+    </paper>
+  </volume>
+</collection>
