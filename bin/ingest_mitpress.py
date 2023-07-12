@@ -338,7 +338,6 @@ def issue_info_to_node(
         make_simple_element("month", month_text, parent=meta)
 
     make_simple_element("year", str(year_), parent=meta)
-    make_simple_element("venue", venue, parent=meta)
 
     return meta
 
