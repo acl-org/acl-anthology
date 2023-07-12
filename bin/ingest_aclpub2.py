@@ -142,12 +142,19 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     cover_subtitle == shortbooktitle
     '''
     ingestion_dir = Path(ingestion_dir)
-    if (ingestion_dir / 'conference_details.yml').exists():
-        meta = yaml.safe_load((ingestion_dir / 'conference_details.yml').read_text())
+
+    paths_to_check = [
+        ingestion_dir / 'conference_details.yml',
+        ingestion_dir / 'inputs' / 'conference_details.yml',
+    ]
+    meta = None
+    for path in paths_to_check:
+        if path.exists():
+            meta = yaml.safe_load(path.read_text())
+            break
     else:
-        meta = yaml.safe_load(
-            (ingestion_dir / 'inputs/conference_details.yml').read_text()
-        )
+        raise Exception("Can't find conference_details.yml (looked in {paths_to_check})")
+
     meta['month'] = meta['start_date'].strftime('%B')
     meta['year'] = str(meta['start_date'].year)
 
@@ -181,7 +188,6 @@ def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
         ingestion_dir / 'papers.yml',
         ingestion_dir / 'inputs' / 'papers.yml',
     ]
-
     papers = None
     for path in paths_to_check:
         if path.exists():
@@ -227,7 +233,6 @@ def add_paper_nums_in_paper_yaml(
                 ingestion_dir / "watermarked_pdfs" / paper_path,
                 ingestion_dir / "watermarked_pdfs" / f"{paper_id}.pdf",
             ]
-
             paper_need_read_path = None
             for path in paths_to_check:
                 if path.exists():
@@ -567,9 +572,9 @@ def copy_pdf_and_attachment(
             if 'attachments' in paper:
                 attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
                 attachs_src_dir = Path(meta['path']) / 'attachments'
-                assert (
-                    attachs_src_dir.exists()
-                ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
+                # assert (
+                #     attachs_src_dir.exists()
+                # ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
 
                 for attachment in paper['attachments']:
                     file_path = Path(attachment.get('file', None))
@@ -586,9 +591,11 @@ def copy_pdf_and_attachment(
                             attach_src_path = str(path)
                             break
                     else:
-                        raise Exception(
-                            f"Can't find attachment (paths: {paths_to_check})"
+                        print(
+                            f"Warning: paper {paper_id} attachment {file_path} not found, skipping",
+                            file=sys.stderr,
                         )
+                        continue
 
                     attach_src_extension = attach_src_path.split(".")[-1]
                     type_ = attachment['type'].replace(" ", "")
