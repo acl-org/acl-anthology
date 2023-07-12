@@ -29,6 +29,7 @@ from docopt import docopt
 from pathlib import Path
 import logging as log
 import os
+import re
 
 from anthology.formatter import MarkupFormatter
 from anthology.utils import (
