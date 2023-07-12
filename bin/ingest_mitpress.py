@@ -416,13 +416,16 @@ def main(args):
                     "volume", attrib={"id": issue}, parent=collection
                 )
                 volume_xml.append(
-                    issue_info_to_node(issue_info, year, collection_id, is_tacl)
+                    issue_info_to_node(issue_info, year, collection_id, venue)
                 )
+                make_simple_element("venue", venue, parent=volume_xml)
+                paper_id = 1
             else:
                 for paper in volume_xml.findall(".//paper"):
                     paper_id = max(paper_id, int(paper.attrib["id"]))
-                    print(f"Setting paper_id to {paper_id}")
+
                 paper_id += 1
+                print(f"Setting paper_id to {paper_id}")
 
         anth_id = f"{collection_id}-{issue}.{paper_id}"
 

@@ -43,7 +43,7 @@ class EventIndex:
 
     def _create_event(self, event_id):
         """
-        Creates an event if it doesn't already exists. Initializes the event title
+        Creates an event, if it doesn't already exist. Initializes the event title
         to a default value that can later be overridden.
         """
         if event_id not in self.events:
