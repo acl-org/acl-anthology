@@ -30,9 +30,14 @@ from pathlib import Path
 import logging as log
 import os
 
-from anthology import Anthology
 from anthology.formatter import MarkupFormatter
-from anthology.utils import SeverityTracker, build_anthology_id, make_simple_element, indent, is_newstyle_id
+from anthology.utils import (
+    SeverityTracker,
+    build_anthology_id,
+    make_simple_element,
+    indent,
+    is_newstyle_id,
+)
 
 import lxml.etree as ET
 
@@ -40,6 +45,7 @@ import lxml.etree as ET
 ### Copy-pasted from data.py and utils.py
 
 JOURNAL_IDS = ("cl", "tacl", "tal", "lilt", "ijclclp")
+
 
 def is_journal(anthology_id):
     if is_newstyle_id(anthology_id):
@@ -94,9 +100,6 @@ def get_journal_info(top_level_id, volume_title) -> tuple[str, str, str]:
 
     top_level_id = top_level_id.split(".")[-1]  # for new-style IDs; is a no-op otherwise
 
-    journal_title = None
-    volume_no = None
-    issue_no = None
 
 ### End copy-paste
 
@@ -112,7 +115,7 @@ def fix_journals(srcdir, commit=False):
         volume_type = "journal" if is_journal(id_) else "proceedings"
 
         for meta in root.findall("./volume/meta"):
-            volume_id = build_anthology_id(id_, meta.getparent().get('id'))
+            build_anthology_id(id_, meta.getparent().get('id'))
             if meta.getparent().get("type") is not None:
                 continue
 
@@ -125,8 +128,8 @@ def fix_journals(srcdir, commit=False):
             booktitle = formatter.as_text(xml_booktitle)
 
             title, volume_no, issue_no = get_journal_info(id_, booktitle)
-            #xml_booktitle.clear()
-            #xml_booktitle.text = title
+            # xml_booktitle.clear()
+            # xml_booktitle.text = title
             if volume_no is not None:
                 make_simple_element("journal-volume", text=volume_no, parent=meta)
             if issue_no is not None:
@@ -137,7 +140,7 @@ def fix_journals(srcdir, commit=False):
         if commit:
             indent(root)
             tree.write(xml_file, encoding="UTF-8", xml_declaration=True)
-            #log.info(f"Wrote {added} years to {xml_file.name}")
+            # log.info(f"Wrote {added} years to {xml_file.name}")
 
 
 if __name__ == "__main__":

@@ -133,7 +133,9 @@ class Volume:
             else:
                 venues = meta_data.get("venue", [])
                 if len(venues) != 1:
-                    raise ValueError(f"{self.full_id}: journal volume must have exactly one venue or an explicit <journal-title>")
+                    raise ValueError(
+                        f"{self.full_id}: journal volume must have exactly one venue or an explicit <journal-title>"
+                    )
                 journal_title = self.venue_index.get_venue(venues[0])["name"]
 
             self.attrib["meta_journal_title"] = journal_title

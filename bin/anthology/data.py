@@ -22,9 +22,6 @@
 ################################################################################
 
 import os
-import re
-
-from typing import Tuple
 
 
 # this is the canonical URL.  In contrast to all other
