@@ -338,6 +338,7 @@ def issue_info_to_node(
         make_simple_element("month", month_text, parent=meta)
 
     make_simple_element("year", str(year_), parent=meta)
+    make_simple_element("venue", venue, parent=meta)
 
     return meta
 
@@ -417,7 +418,6 @@ def main(args):
                 volume_xml.append(
                     issue_info_to_node(issue_info, year, collection_id, venue)
                 )
-                make_simple_element("venue", venue, parent=volume_xml)
                 paper_id = 1
             else:
                 for paper in volume_xml.findall(".//paper"):
