@@ -40,18 +40,6 @@ def is_newstyle_id(anthology_id):
     return anthology_id[0].isdigit()  # New-style IDs are year-first
 
 
-def is_journal(anthology_id):
-    if is_newstyle_id(anthology_id):
-        # TODO: this function is sometimes called with "full_id", sometimes with
-        # "collection_id", so we're not using `deconstruct_anthology_id` here at
-        # the moment
-        venue = anthology_id.split("-")[0].split(".")[-1]
-        # TODO: this is currently hard-coded, but should be moved to the XML representation
-        return venue in data.JOURNAL_IDS
-    else:
-        return anthology_id[0] in ("J", "Q")
-
-
 def is_volume_id(anthology_id):
     collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
     return paper_id == "0"
