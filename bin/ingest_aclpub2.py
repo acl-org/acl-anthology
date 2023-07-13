@@ -255,8 +255,6 @@ def add_paper_nums_in_paper_yaml(
         end = start + num_of_pages - 1
         paper['pages'] = f'{start}-{end}'
 
-        print(f"Paper {paper_id} has {num_of_pages} pages")
-
     return papers
 
 
