@@ -13,7 +13,42 @@
 # limitations under the License.
 
 import pytest
+from datetime import date
+
 from acl_anthology.collections import CollectionIndex, Volume
+from acl_anthology.text import MarkupText
+
+
+def test_volume_minimum_attribs():
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    volume = Volume("6", "L05", booktitle=volume_title, venues=["li"], year="2005")
+    assert volume.full_id == "L05-6"
+    assert volume.title == volume_title
+    assert volume.get_ingest_date().year == 1900
+
+
+def test_volume_all_attribs():
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    volume_shorttitle = MarkupText.from_string("L.I.")
+    volume = Volume(
+        id="42",
+        parent_id="2023.acl-long",
+        booktitle=volume_title,
+        year="2023",
+        address="Online",
+        doi="10.100/0000",
+        editors=[],
+        ingest_date="2023-01-12",
+        isbn="0000-0000-0000",
+        month="jan",
+        publisher="Myself",
+        shortbooktitle=volume_shorttitle,
+        url="2023.acl-long.42",
+        url_checksum="fc212cfc",
+        venues=["li", "acl"],
+    )
+    assert volume.ingest_date == "2023-01-12"
+    assert volume.get_ingest_date() == date(2023, 1, 12)
 
 
 @pytest.fixture
@@ -21,11 +56,12 @@ def index(anthology):
     return CollectionIndex(anthology)
 
 
-def test_volume_attributes(index):
+def test_volume_attributes_2022acl(index):
     volume = index.get_volume("2022.acl-long")
     assert isinstance(volume, Volume)
     assert volume.id == "long"
     assert volume.ingest_date == "2022-05-15"
+    assert volume.get_ingest_date() == date(2022, 5, 15)
     assert volume.address == "Dublin, Ireland"
     assert volume.publisher == "Association for Computational Linguistics"
     assert volume.month == "May"

@@ -14,6 +14,7 @@
 
 from __future__ import annotations
 
+import datetime
 from attrs import define, field, Factory
 from lxml import etree
 from typing import Any, Optional, cast
@@ -22,6 +23,9 @@ from .. import constants
 from ..people import Name
 from ..text import MarkupText
 from ..utils.ids import build_id
+
+
+# TODO: Add VolumeType as Enum + corresponding property in Volume
 
 
 @define
@@ -39,8 +43,10 @@ class Volume:
         editors (list[Name]): Names of editors associated with this volume.
         ingest_date (str): The date of ingestion; defaults to [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE].
         isbn (Optional[str]): The ISBN for the volume.
+        journal_issue (Optional[str]): The journal's issue number, if this volume belongs to a journal.
+        journal_volume (Optional[str]): The journal's volume number, if this volume belongs to a journal.
+        journal_title (Optional[str]): The journal's title (without volume/issue/subtitle), if this volume belongs to a journal.
         month (Optional[str]): The month of publication.
-        number (Optional[str]): The volume's issue number, if it belongs to a journal.
         publisher (Optional[str]): The volume's publisher.
         shorttitle (Optional[MarkupText]): A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
         url (Optional[str]): The URL for the volume's PDF. This can be an internal filename or an external URL.
@@ -58,8 +64,10 @@ class Volume:
     editors: list[Name] = Factory(list)
     ingest_date: str = field(default=constants.UNKNOWN_INGEST_DATE)
     isbn: Optional[str] = field(default=None)
+    journal_issue: Optional[str] = field(default=None)
+    journal_volume: Optional[str] = field(default=None)
+    journal_title: Optional[str] = field(default=None)
     month: Optional[str] = field(default=None)
-    number: Optional[str] = field(default=None)
     publisher: Optional[str] = field(default=None)
     shorttitle: Optional[MarkupText] = field(default=None, alias="shortbooktitle")
     url: Optional[str] = field(default=None)
@@ -73,6 +81,10 @@ class Volume:
     def full_id(self) -> str:
         """The full anthology ID of this volume (e.g. "L06-1" or "2022.emnlp-main")."""
         return build_id(self.parent_id, self.id)
+
+    def get_ingest_date(self) -> datetime.date:
+        """The date when this volume was added to the Anthology, if defined."""
+        return datetime.date.fromisoformat(self.ingest_date)
 
     @classmethod
     def from_xml(cls, parent_id: str, meta: etree._Element) -> Volume:
@@ -97,6 +109,12 @@ class Volume:
                 "year",
             ):
                 kwargs[element.tag] = element.text
+            elif element.tag in (
+                "journal-issue",
+                "journal-volume",
+                "journal-title",
+            ):
+                kwargs[element.tag.replace("-", "_")] = element.text
             elif element.tag in ("booktitle", "shortbooktitle"):
                 kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "editor":
@@ -106,8 +124,6 @@ class Volume:
                 kwargs["url_checksum"] = element.attrib.get("hash")
             elif element.tag == "venue":
                 kwargs["venues"].append(str(element.text))
-            elif element.tag == "volume":
-                kwargs["number"] = element.text
             else:
                 raise ValueError(f"Unsupported element for Volume: <{element.tag}>")
         return cls(**kwargs)
