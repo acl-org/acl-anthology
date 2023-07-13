@@ -424,7 +424,6 @@ def main(args):
                     paper_id = max(paper_id, int(paper.attrib["id"]))
 
                 paper_id += 1
-                print(f"Setting paper_id to {paper_id}")
 
         anth_id = f"{collection_id}-{issue}.{paper_id}"
 
