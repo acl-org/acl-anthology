@@ -181,6 +181,7 @@ class Paper:
                 [x[0].full for x in paper.attrib["author"]]
             )
 
+        # TODO: compute this lazily!
         paper.attrib["citation"] = paper.as_markdown()
 
         # An empty value gets set to None, which causes hugo to skip it over
