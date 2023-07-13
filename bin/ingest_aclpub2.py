@@ -236,6 +236,8 @@ def add_paper_nums_in_paper_yaml(
             paths_to_check = [
                 ingestion_dir / "watermarked_pdfs" / paper_path,
                 ingestion_dir / "watermarked_pdfs" / f"{paper_id}.pdf",
+                ingestion_dir / "build" / "watermarked_pdfs" / paper_path,
+                ingestion_dir / "build" / "watermarked_pdfs" / f"{paper_id}.pdf",
             ]
             paper_need_read_path = None
             for path in paths_to_check:
@@ -395,7 +397,9 @@ def paper2xml(
             if field == 'url':
                 value = f'{anthology_id}'
             elif field == 'abstract':
-                value = paper_item['abstract'].replace('\n', '')
+                value = None
+                if "abstract" in paper_item:
+                    value = paper_item["abstract"].replace('\n', '')
             elif field == 'title':
                 value = paper_item[field]
             elif field == 'pages':
@@ -403,7 +407,8 @@ def paper2xml(
             else:
                 continue
             try:
-                make_simple_element(field, text=value, parent=paper)
+                if value is not None:
+                    make_simple_element(field, text=value, parent=paper)
             except Exception:
                 print(
                     f"Couldn't process {paper} for {anthology_id}, please check the abstract in the papers.yaml file for this paper",
@@ -473,16 +478,25 @@ def copy_pdf_and_attachment(
     venue_name = meta['anthology_venue_id'].lower()
     volume_name = meta['volume_name'].lower()
 
-    pdfs_dest_dir = create_dest_path(pdfs_dir, venue_name)
-    pdfs_src_dir = os.path.join(meta['path'], 'watermarked_pdfs')
+    pdfs_src_dir = None
+    paths_to_check = [
+        Path(meta['path']) / 'watermarked_pdfs',
+        Path(meta['path']) / 'build' / 'watermarked_pdfs',
+    ]
+    for path in paths_to_check:
+        if path.exists() and path.is_dir():
+            pdfs_src_dir = path
+            break
+    else:
+        raise FileNotFoundError(f"Could not find watermarked PDFs in {paths_to_check}")
+
+    pdfs_dest_dir = Path(create_dest_path(pdfs_dir, venue_name))
 
     # copy proceedings.pdf
-    proceedings_pdf_src_path = os.path.join(meta['path'], 'proceedings.pdf')
+    proceedings_pdf_src_path = pdfs_src_dir / "proceedings.pdf"
     proceedings_pdf_dest_path = None
-    if os.path.exists(proceedings_pdf_src_path):
-        proceedings_pdf_dest_path = (
-            os.path.join(pdfs_dest_dir, f"{collection_id}-{volume_name}") + ".pdf"
-        )
+    if proceedings_pdf_src_path.exists():
+        proceedings_pdf_dest_path = pdfs_dest_dir / f"{collection_id}-{volume_name}.pdf"
         if dry_run:
             print(
                 f'would\'ve moved {proceedings_pdf_src_path} to {proceedings_pdf_dest_path}'
@@ -499,12 +513,13 @@ def copy_pdf_and_attachment(
         "attachments": [],
     }
 
+    frontmatter_src_path = None
     paths_to_check = [
         Path('front_matter.pdf'),
         Path('0.pdf'),
+        Path("build") / 'front_matter.pdf',
+        Path("build") / '0.pdf',
     ]
-
-    frontmatter_src_path = None
     for path in paths_to_check:
         if path.exists():
             frontmatter_src_path = str(path)
@@ -550,14 +565,14 @@ def copy_pdf_and_attachment(
                 paper_id_full = f'{collection_id}-{volume_name}.{paper_num}'
 
                 pdf_src_path = None
-                if os.path.exists(os.path.join(pdfs_src_dir, paper_name)):
-                    pdf_src_path = os.path.join(pdfs_src_dir, paper_name)
-                elif os.path.exists(os.path.join(pdfs_src_dir, f'{paper_id}.pdf')):
-                    pdf_src_path = os.path.join(pdfs_src_dir, f'{paper_id}.pdf')
+                if (pdfs_src_dir / paper_name).exists():
+                    pdf_src_path = pdfs_src_dir / paper_name
+                elif (pdfs_src_dir / f'{paper_id}.pdf'):
+                    pdf_src_path = pdfs_src_dir / f'{paper_id}.pdf'
 
                 assert (
                     pdf_src_path
-                ), f"Couldn't find {paper_name}/{paper_id} in {pdfs_src_dir}"
+                ), f"Couldn't find {paper_name} or {paper_id} in {pdfs_src_dir}"
                 pdf_dest_path = os.path.join(
                     pdfs_dest_dir, f"{collection_id}-{volume_name}.{paper_num}.pdf"
                 )
