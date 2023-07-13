@@ -377,7 +377,7 @@ def paper2xml(
         'doi',
         'language',
     ]
-    paper = make_simple_element('paper', attrib={ "id": str(paper_num) })
+    paper = make_simple_element('paper', attrib={"id": str(paper_num)})
     for field in fields:
         if field == 'author':
             authors = paper_item['authors']
@@ -506,7 +506,8 @@ def copy_pdf_and_attachment(
             break
     else:
         print(
-            f"Warning: could not find proceedings.pdf in {paths_to_check}", file=sys.stderr
+            f"Warning: could not find proceedings.pdf in {paths_to_check}",
+            file=sys.stderr,
         )
 
     proceedings_pdf_dest_path = None
