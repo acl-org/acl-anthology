@@ -32,7 +32,7 @@ class Paper:
 
     Attributes:
         id (str): The ID of this paper (e.g. "1" or "42").
-        parent_volume (Volume): The Volume object that this paper belongs to.
+        parent (Volume): The Volume object that this paper belongs to.
         bibkey (str): Bibliography key, e.g. for BibTeX.  Must be unique across all papers in the Anthology.
         title (MarkupText): The title of the paper.
 
@@ -53,7 +53,7 @@ class Paper:
     """
 
     id: str
-    parent_volume: Volume
+    parent: Volume
     bibkey: str
     title: MarkupText = field()
 
@@ -82,19 +82,19 @@ class Paper:
     @property
     def full_id(self) -> str:
         """The full anthology ID of this paper (e.g. "L06-1042" or "2022.emnlp-main.1")."""
-        return build_id(self.parent_volume.parent_id, self.parent_volume.id, self.id)
+        return build_id(self.parent.parent.id, self.parent.id, self.id)
 
     def get_ingest_date(self) -> datetime.date:
         """The date when this paper was added to the Anthology, if defined."""
         return datetime.date.fromisoformat(self.ingest_date)
 
     @classmethod
-    def from_xml(cls, parent_volume: Volume, meta: etree._Element) -> Paper:
+    def from_xml(cls, parent: Volume, meta: etree._Element) -> Paper:
         """Instantiates a new paper from its `<paper>` block in the XML."""
         paper = cast(etree._Element, meta.getparent())
         kwargs: dict[str, Any] = {
             "id": str(paper.attrib["id"]),
-            "parent_volume": parent_volume,
+            "parent": parent,
             "authors": [],
             "awards": [],
             "editors": [],

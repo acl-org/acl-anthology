@@ -17,12 +17,15 @@ from __future__ import annotations
 import datetime
 from attrs import define, field, Factory
 from lxml import etree
-from typing import Any, Optional, cast
+from typing import Any, Optional, cast, TYPE_CHECKING
 
 from .. import constants
 from ..people import Name
 from ..text import MarkupText
 from ..utils.ids import build_id
+
+if TYPE_CHECKING:
+    from . import Collection
 
 
 # TODO: Add VolumeType as Enum + corresponding property in Volume
@@ -34,7 +37,7 @@ class Volume:
 
     Attributes:
         id (str): The ID of this volume (e.g. "1" or "main").
-        parent_id (str): The ID of the collection this volume belongs to (e.g. "L06" or "2022.emnlp").
+        parent (Collection): The collection this volume belongs to.
         title (MarkupText): The title of the volume. (Aliased to `booktitle` for initialization.)
         year (str): The year of publication.
 
@@ -55,7 +58,7 @@ class Volume:
     """
 
     id: str
-    parent_id: str
+    parent: Collection
     title: MarkupText = field(alias="booktitle")
     year: str
 
@@ -80,20 +83,20 @@ class Volume:
     @property
     def full_id(self) -> str:
         """The full anthology ID of this volume (e.g. "L06-1" or "2022.emnlp-main")."""
-        return build_id(self.parent_id, self.id)
+        return build_id(self.parent.id, self.id)
 
     def get_ingest_date(self) -> datetime.date:
         """The date when this volume was added to the Anthology, if defined."""
         return datetime.date.fromisoformat(self.ingest_date)
 
     @classmethod
-    def from_xml(cls, parent_id: str, meta: etree._Element) -> Volume:
+    def from_xml(cls, parent: Collection, meta: etree._Element) -> Volume:
         """Instantiates a new volume from its `<meta>` block in the XML."""
         volume = cast(etree._Element, meta.getparent())
         # type-checking kwargs is a headache
         kwargs: dict[str, Any] = {
             "id": str(volume.attrib["id"]),
-            "parent_id": parent_id,
+            "parent": parent,
             "editors": [],
             "venues": [],
         }

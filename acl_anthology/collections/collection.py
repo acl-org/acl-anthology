@@ -32,8 +32,8 @@ class Collection:
         id (str): The ID of this collection (e.g. "L06" or "2022.emnlp").
         path (Path): The path of the XML file representing this collection.
 
-        is_data_loaded (bool): Whether the associated XML file has already
-                               been loaded.
+        is_data_loaded (bool): Whether the associated XML file has already been loaded.
+        volumes (dict[str, Volume]): A mapping of volume IDs in this collection to their Volume objects.  Is only populated if `self.is_data_loaded` is True.
     """
 
     id: str
@@ -58,7 +58,7 @@ class Collection:
         Returns:
             The created volume.
         """
-        volume = Volume.from_xml(self.id, meta)
+        volume = Volume.from_xml(self, meta)
         if volume.id in self.volumes:
             raise ValueError(f"Volume {volume.id} already exists in collection {self.id}")
         self.volumes[volume.id] = volume
