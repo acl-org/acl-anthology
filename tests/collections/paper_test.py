@@ -12,9 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .index import CollectionIndex
-from .collection import Collection
-from .volume import Volume
-from .paper import Paper
+import pytest
+from acl_anthology.collections import CollectionIndex, Paper  # noqa: F401
 
-__all__ = ["CollectionIndex", "Collection", "Volume", "Paper"]
+
+@pytest.fixture
+def index(anthology):
+    return CollectionIndex(anthology)
