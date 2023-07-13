@@ -16,10 +16,10 @@
 
 from __future__ import annotations
 
-import lxml
 from attrs import define, field
 from collections import defaultdict
 from copy import deepcopy
+from lxml import etree
 
 from ..utils import (
     latex_encode,
@@ -42,7 +42,7 @@ MARKUP_LATEX_CMDS = defaultdict(
 )
 
 
-def markup_to_latex(element: lxml.etree._Element) -> str:
+def markup_to_latex(element: etree._Element) -> str:
     tag = str(element.tag)
     if tag in ("tex-math", "url"):
         # These tags cannot have child elements
@@ -68,7 +68,7 @@ class MarkupText:
     representation of the markup text may change at any time.
     """
 
-    _content: lxml.etree._Element = field()
+    _content: etree._Element = field()
 
     def as_text(self) -> str:
         """Returns the plain text with any markup stripped.
@@ -81,7 +81,7 @@ class MarkupText:
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
             sub.tail = None  # tail is contained within the return value of to_unicode()
-        text = lxml.etree.tostring(element, encoding="unicode", method="text")
+        text = etree.tostring(element, encoding="unicode", method="text")
         text = remove_extra_whitespace(text)
         return text
 
@@ -118,7 +118,18 @@ class MarkupText:
         return text
 
     @classmethod
-    def from_xml(cls, element: lxml.etree._Element) -> MarkupText:
+    def from_string(cls, text: str) -> MarkupText:
+        """Instantiate a MarkupText object from a string.
+
+        Arguments:
+            text: A simple text string without any markup.
+        """
+        element = etree.Element("span")
+        element.text = text
+        return cls(element)
+
+    @classmethod
+    def from_xml(cls, element: etree._Element) -> MarkupText:
         """Instantiate a MarkupText object from an XML element.
 
         Arguments:

@@ -14,8 +14,8 @@
 
 from __future__ import annotations
 
-import lxml
 from attrs import define, field, Factory
+from lxml import etree
 from typing import Optional, cast
 
 
@@ -46,7 +46,7 @@ class Name:
         return f"{self.first} {self.last}"
 
     @classmethod
-    def from_xml(cls, person: lxml.etree._Element) -> Name:
+    def from_xml(cls, person: etree._Element) -> Name:
         """Instantiates a new name from an <author> or <editor> block in the XML."""
         first: Optional[str] = None
         last: Optional[str] = None
@@ -88,7 +88,7 @@ class NameVariant:
     script: str
 
     @classmethod
-    def from_xml(cls, variant: lxml.etree._Element) -> NameVariant:
+    def from_xml(cls, variant: etree._Element) -> NameVariant:
         first: Optional[str] = None
         last: Optional[str] = None
 

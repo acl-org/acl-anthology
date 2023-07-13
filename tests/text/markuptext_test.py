@@ -109,3 +109,11 @@ def test_markup(inp, out):
     assert markup.as_text() == out["text"]
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
+
+
+def test_simple_string():
+    text = "Some ASCII text without markup"
+    markup = MarkupText.from_string(text)
+    assert markup.as_text() == text
+    assert markup.as_html() == text
+    assert markup.as_latex() == text

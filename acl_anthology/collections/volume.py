@@ -14,8 +14,8 @@
 
 from __future__ import annotations
 
-import lxml
 from attrs import define, field, Factory
+from lxml import etree
 from typing import Any, Optional, cast
 
 from .. import constants
@@ -75,9 +75,9 @@ class Volume:
         return build_id(self.parent_id, self.id)
 
     @classmethod
-    def from_xml(cls, parent_id: str, meta: lxml.etree._Element) -> Volume:
+    def from_xml(cls, parent_id: str, meta: etree._Element) -> Volume:
         """Instantiates a new volume from its `<meta>` block in the XML."""
-        volume = cast(lxml.etree._Element, meta.getparent())
+        volume = cast(etree._Element, meta.getparent())
         # type-checking kwargs is a headache
         kwargs: dict[str, Any] = {
             "id": str(volume.attrib["id"]),
