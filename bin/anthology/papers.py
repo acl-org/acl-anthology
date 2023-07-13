@@ -182,7 +182,7 @@ class Paper:
             )
 
         # TODO: compute this lazily!
-        # paper.attrib["citation"] = paper.as_markdown()
+        paper.attrib["citation"] = paper.as_markdown()
 
         # An empty value gets set to None, which causes hugo to skip it over
         # entirely. Set it here to a single space, instead. There's probably
