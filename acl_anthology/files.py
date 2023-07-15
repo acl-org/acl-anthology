@@ -17,7 +17,7 @@
 from attrs import define, field
 from typing import cast, Optional
 
-from . import config
+from .config import config
 
 
 @define
@@ -28,19 +28,19 @@ class FileReference:
 
     Attributes:
         template_field (str): The URL formatting template to use.  Set by the sub-classes.
-        value (str): The file reference (as found in the XML), typically a URL or a local filename.
-        checksum (Optional[str]): The checksum for the file.  Only specified for local filenames.
+        name (str): The file reference (as found in the XML), typically a URL or an internal filename.
+        checksum (Optional[str]): The CRC32 checksum for the file.  Only specified for internal filenames.
     """
 
     template_field: str = field()
-    value: str = field()
+    name: str = field()
     checksum: Optional[str] = field(default=None)
 
     @property
     def url(self) -> str:
-        if "://" in self.value:
-            return self.value
-        return cast(str, config[self.template_field]).format(self.value)
+        if "://" in self.name:
+            return self.name
+        return cast(str, config[self.template_field]).format(self.name)
 
 
 @define

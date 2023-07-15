@@ -21,6 +21,7 @@ from lxml import etree
 from typing import Any, Optional, cast, TYPE_CHECKING
 
 from .. import constants
+from ..files import PDFReference
 from ..people import Name
 from ..text import MarkupText
 from ..utils.ids import build_id
@@ -59,10 +60,9 @@ class Volume:
         journal_volume (Optional[str]): The journal's volume number, if this volume belongs to a journal.
         journal_title (Optional[str]): The journal's title (without volume/issue/subtitle), if this volume belongs to a journal.
         month (Optional[str]): The month of publication.
+        pdf (Optional[PDFReference]): A reference to the volume's PDF.
         publisher (Optional[str]): The volume's publisher.
         shorttitle (Optional[MarkupText]): A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
-        url (Optional[str]): The URL for the volume's PDF. This can be an internal filename or an external URL.
-        url_checksum (Optional[str]): The CRC32 checksum of the volume's PDF. Only set if `self.url` is an internal filename.
         venues (list[str]): List of venues associated with this volume.
     """
 
@@ -81,10 +81,9 @@ class Volume:
     journal_volume: Optional[str] = field(default=None)
     journal_title: Optional[str] = field(default=None)
     month: Optional[str] = field(default=None)
+    pdf: Optional[PDFReference] = field(default=None)
     publisher: Optional[str] = field(default=None)
     shorttitle: Optional[MarkupText] = field(default=None, alias="shortbooktitle")
-    url: Optional[str] = field(default=None)
-    url_checksum: Optional[str] = field(default=None)
     venues: list[str] = field(factory=list)
 
     # def __repr__(self) -> str:
@@ -134,8 +133,10 @@ class Volume:
             elif element.tag == "editor":
                 kwargs["editors"].append(Name.from_xml(element))
             elif element.tag == "url":
-                kwargs["url"] = element.text
-                kwargs["url_checksum"] = element.attrib.get("hash")
+                checksum = element.attrib.get("hash")
+                kwargs["pdf"] = PDFReference(
+                    str(element.text), str(checksum) if checksum else None
+                )
             elif element.tag == "venue":
                 kwargs["venues"].append(str(element.text))
             else:

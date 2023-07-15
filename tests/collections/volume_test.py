@@ -52,10 +52,9 @@ def test_volume_all_attribs():
         ingest_date="2023-01-12",
         isbn="0000-0000-0000",
         month="jan",
+        pdf=None,
         publisher="Myself",
         shortbooktitle=volume_shorttitle,
-        url="2023.acl-long.42",
-        url_checksum="fc212cfc",
         venues=["li", "acl"],
     )
     assert volume.ingest_date == "2023-01-12"
@@ -77,8 +76,8 @@ def test_volume_attributes_2022acl(index):
     assert volume.publisher == "Association for Computational Linguistics"
     assert volume.month == "May"
     assert volume.year == "2022"
-    assert volume.url == "2022.acl-long"
-    assert volume.url_checksum == "b8317652"
+    assert volume.pdf.name == "2022.acl-long"
+    assert volume.pdf.checksum == "b8317652"
     assert volume.venues == ["acl"]
 
 
