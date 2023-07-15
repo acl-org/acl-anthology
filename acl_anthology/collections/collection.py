@@ -23,10 +23,7 @@ from .volume import Volume
 
 @define
 class Collection:
-    """A collection of volumes and events.
-
-    A collection corresponds to an XML file in the `data/xml/` directory
-    of the Anthology repo.
+    """A collection of volumes and events, corresponding to an XML file in the `data/xml/` directory of the Anthology repo.
 
     Attributes:
         id (str): The ID of this collection (e.g. "L06" or "2022.emnlp").
@@ -53,7 +50,7 @@ class Collection:
         """Creates a new volume belonging to this collection.
 
         Parameters:
-            meta: The <meta> element for the volume.
+            meta: The `<meta>` element for the volume.
 
         Returns:
             The created volume.

@@ -236,9 +236,10 @@ class _TexMath:
         """Converts a TeX math expression to HTML markup.
 
         Arguments:
-            element: The element to convert. The return type of this function
-                is identical to the type that is passed in (i.e., [str][] or
-                [etree._Element][lxml.etree._Element]).
+            element: The element to convert to HTML markup.
+
+        Returns:
+            The HTML-converted markup; the return type of this function is identical to the type that is passed in (i.e., [str][] or [etree._Element][lxml.etree._Element]).
         """
         if not self.loaded:
             self.load_symbols()
@@ -258,6 +259,9 @@ class _TexMath:
 
         Arguments:
             element: The element to convert.
+
+        Returns:
+            The converted string.
         """
         if not self.loaded:
             self.load_symbols()

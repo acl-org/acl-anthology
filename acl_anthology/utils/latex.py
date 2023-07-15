@@ -24,9 +24,12 @@ RE_CLOSING_QUOTE = re.compile(r"(?<!\\)\"")
 
 
 def latex_encode(text: Optional[str]) -> str:
-    """Encodes a text string for use in LaTeX/BibTeX.
+    """
+    Arguments:
+        text: A string that does *not* contain any LaTeX commands.
 
-    Assumes that the text does *not* contain any LaTeX commands!
+    Returns:
+        The input string encoded for use in LaTeX/BibTeX.
     """
     if text is None:
         return ""
@@ -35,7 +38,17 @@ def latex_encode(text: Optional[str]) -> str:
 
 
 def latex_convert_quotes(text: str) -> str:
-    """Converts regular quotes into LaTeX quotes."""
+    """
+    Arguments:
+        text: An arbitrary string.
+
+    Returns:
+        The input string with regular quotes converted into LaTeX quotes.
+
+    Examples:
+        >>> latex_convert_quotes('This "great" example')
+        "This ``great'' example"
+    """
     text = RE_OPENING_QUOTE.sub("``", text)
     text = RE_CLOSING_QUOTE.sub("''", text)
     return text

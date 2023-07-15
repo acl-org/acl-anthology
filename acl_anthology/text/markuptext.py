@@ -71,11 +71,9 @@ class MarkupText:
     _content: etree._Element = field()
 
     def as_text(self) -> str:
-        """Returns the plain text with any markup stripped.
-
-        The only transformation that will be performed is replacing
-        TeX-math expressions with their corresponding Unicode
-        representation, if possible.
+        """
+        Returns:
+            The plain text with any markup stripped. The only transformation that will be performed is replacing TeX-math expressions with their corresponding Unicode representation, if possible.
         """
         element = deepcopy(self._content)
         for sub in element.iterfind(".//tex-math"):
@@ -86,7 +84,9 @@ class MarkupText:
         return text
 
     def as_html(self, allow_url: bool = True) -> str:
-        """Returns the text with markup transformed into HTML.
+        """
+        Returns:
+            Text with markup transformed into HTML.
 
         Arguments:
             allow_url: Defaults to True. If False, URLs are **not** wrapped in
@@ -112,17 +112,21 @@ class MarkupText:
         return html
 
     def as_latex(self) -> str:
-        """Returns the text with markup transformed into LaTeX commands."""
+        """
+        Returns:
+            Text with markup transformed into LaTeX commands."""
         text = markup_to_latex(self._content)
         text = remove_extra_whitespace(text)
         return text
 
     @classmethod
     def from_string(cls, text: str) -> MarkupText:
-        """Instantiate a MarkupText object from a string.
-
+        """
         Arguments:
             text: A simple text string without any markup.
+
+        Returns:
+            Instantiated MarkupText object corresponding to the string.
         """
         element = etree.Element("span")
         element.text = text
@@ -130,10 +134,11 @@ class MarkupText:
 
     @classmethod
     def from_xml(cls, element: etree._Element) -> MarkupText:
-        """Instantiate a MarkupText object from an XML element.
-
+        """
         Arguments:
-            element: Can be any XML element that can contain MarkupText according
-                to the schema.
+            element: An XML element containing valid MarkupText according to the schema.
+
+        Returns:
+            Instantiated MarkupText object corresponding to the element.
         """
         return cls(deepcopy(element))

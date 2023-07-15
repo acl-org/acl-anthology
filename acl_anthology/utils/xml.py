@@ -19,13 +19,20 @@ from xml.sax.saxutils import escape as xml_escape
 
 
 def xml_escape_or_none(t: Optional[str]) -> Optional[str]:
+    """Like [xml.sax.saxutils.escape][], but accepts [None][]."""
     return None if t is None else xml_escape(t)
 
 
 def stringify_children(node: etree._Element) -> str:
-    """Returns the full content of a node, including tags.
+    """
+    Arguments:
+        node: An XML element.
 
-    Used for nodes that can have mixed text and HTML elements (like <b> and <i>)."""
+    Returns:
+        The full content of the input node, including tags.
+
+    Used for nodes that can have mixed text and HTML elements (like `<b>` and `<i>`).
+    """
     return "".join(
         chunk
         for chunk in it.chain(
