@@ -14,5 +14,7 @@
 
 """Constants used within the library."""
 
-UNKNOWN_INGEST_DATE = "1900-01-01"
+from datetime import date
+
+UNKNOWN_INGEST_DATE = date(1900, 1, 1)
 """Default ingestion date."""

@@ -54,7 +54,7 @@ class Volume:
         address (Optional[str]): The publisher's address for this volume.
         doi (Optional[str]): The DOI for the volume.
         editors (list[Name]): Names of editors associated with this volume.
-        ingest_date (str): The date of ingestion; defaults to [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE].
+        ingest_date (Optional[str]): The date of ingestion.
         isbn (Optional[str]): The ISBN for the volume.
         journal_issue (Optional[str]): The journal's issue number, if this volume belongs to a journal.
         journal_volume (Optional[str]): The journal's volume number, if this volume belongs to a journal.
@@ -75,7 +75,7 @@ class Volume:
     address: Optional[str] = field(default=None)
     doi: Optional[str] = field(default=None)
     editors: list[Name] = Factory(list)
-    ingest_date: str = field(default=constants.UNKNOWN_INGEST_DATE)
+    ingest_date: Optional[str] = field(default=None)
     isbn: Optional[str] = field(default=None)
     journal_issue: Optional[str] = field(default=None)
     journal_volume: Optional[str] = field(default=None)
@@ -97,7 +97,10 @@ class Volume:
     def get_ingest_date(self) -> datetime.date:
         """
         Returns:
-            The date when this volume was added to the Anthology."""
+            The date when this volume was added to the Anthology. If not set, will return [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE] instead.
+        """
+        if self.ingest_date is None:
+            return constants.UNKNOWN_INGEST_DATE
         return datetime.date.fromisoformat(self.ingest_date)
 
     @classmethod

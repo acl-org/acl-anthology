@@ -19,7 +19,6 @@ from attrs import define, field, Factory
 from lxml import etree
 from typing import Any, Optional, cast, TYPE_CHECKING
 
-from .. import constants
 from ..files import PDFReference
 from ..people import Name
 from ..text import MarkupText
@@ -45,7 +44,7 @@ class Paper:
 
         abstract (Optional[MarkupText]): The full abstract.
         doi (Optional[str]): The DOI for the paper.
-        ingest_date (str): The date of ingestion; defaults to [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE].
+        ingest_date (Optional[str]): The date of ingestion.
         language (Optional[str]): The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         note (Optional[str]): A note attached to this paper.  Used very sparingly.
         pages (Optional[str]): Page numbers of this paper within its volume.
@@ -66,7 +65,7 @@ class Paper:
     abstract: Optional[MarkupText] = field(default=None)
     # TODO attachment + video
     doi: Optional[str] = field(default=None)
-    ingest_date: str = field(default=constants.UNKNOWN_INGEST_DATE)
+    ingest_date: Optional[str] = field(default=None)
     # TODO revision + erratum
     language: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
@@ -88,7 +87,10 @@ class Paper:
     def get_ingest_date(self) -> datetime.date:
         """
         Returns:
-            The date when this paper was added to the Anthology."""
+            The date when this paper was added to the Anthology. Inherits from its parent volume. If not set, will return [constants.UNKNOWN_INGEST_DATE][acl_anthology.constants.UNKNOWN_INGEST_DATE] instead.
+        """
+        if self.ingest_date is None:
+            return self.parent.get_ingest_date()
         return datetime.date.fromisoformat(self.ingest_date)
 
     @classmethod
