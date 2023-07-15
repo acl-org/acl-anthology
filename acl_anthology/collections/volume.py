@@ -95,7 +95,9 @@ class Volume:
         return build_id(self.parent.id, self.id)
 
     def get_ingest_date(self) -> datetime.date:
-        """The date when this volume was added to the Anthology, if defined."""
+        """
+        Returns:
+            The date when this volume was added to the Anthology."""
         return datetime.date.fromisoformat(self.ingest_date)
 
     @classmethod

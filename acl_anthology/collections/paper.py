@@ -17,13 +17,16 @@ from __future__ import annotations
 import datetime
 from attrs import define, field, Factory
 from lxml import etree
-from typing import Any, Optional, cast
+from typing import Any, Optional, cast, TYPE_CHECKING
 
-from . import Volume
 from .. import constants
+from ..files import PDFReference
 from ..people import Name
 from ..text import MarkupText
 from ..utils.ids import build_id
+
+if TYPE_CHECKING:
+    from . import Volume
 
 
 @define
@@ -46,10 +49,9 @@ class Paper:
         language (Optional[str]): The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         note (Optional[str]): A note attached to this paper.  Used very sparingly.
         pages (Optional[str]): Page numbers of this paper within its volume.
+        pdf (Optional[PDFReference]): A reference to the paper's PDF.
         removed (Optional[tuple[str, str]]): If this paper was removed, this field will contain a tuple giving the date of removal and a brief note.
         retracted (Optional[tuple[str, str]]): If this paper was retracted, this field will contain a tuple giving the date of retraction and a brief note.
-        url (Optional[str]): The URL for the paper's PDF. This can be an internal filename or an external URL.
-        url_checksum (Optional[str]): The CRC32 checksum of the paper's PDF. Only set if `self.url` is an internal filename.
     """
 
     id: str
@@ -69,10 +71,9 @@ class Paper:
     language: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
+    pdf: Optional[PDFReference] = field(default=None)
     removed: Optional[tuple[str, str]] = field(default=None)
     retracted: Optional[tuple[str, str]] = field(default=None)
-    url: Optional[str] = field(default=None)
-    url_checksum: Optional[str] = field(default=None)
     # TODO: pwcdataset + pwccode; field(on_setattr=attrs.setters.frozen)
 
     # TODO: fields that are currently ignored: issue, journal, mrf
@@ -85,7 +86,9 @@ class Paper:
         return build_id(self.parent.parent.id, self.parent.id, self.id)
 
     def get_ingest_date(self) -> datetime.date:
-        """The date when this paper was added to the Anthology, if defined."""
+        """
+        Returns:
+            The date when this paper was added to the Anthology."""
         return datetime.date.fromisoformat(self.ingest_date)
 
     @classmethod
@@ -113,8 +116,10 @@ class Paper:
             elif element.tag == "award":
                 kwargs["awards"].append(element.text)
             elif element.tag == "url":
-                kwargs["url"] = element.text
-                kwargs["url_checksum"] = element.attrib.get("hash")
+                checksum = element.attrib.get("hash")
+                kwargs["pdf"] = PDFReference(
+                    str(element.text), str(checksum) if checksum else None
+                )
             elif element.tag in ("issue", "journal", "mrf"):
                 pass
             else:
