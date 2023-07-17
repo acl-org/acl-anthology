@@ -15,6 +15,7 @@
 # limitations under the License.
 
 from glob import glob
+from pathlib import Path
 from lxml import etree
 import logging as log
 import os
@@ -65,7 +66,9 @@ class Anthology:
         """
         Reads all XML files in the data directory.
         """
-        assert os.path.isdir(importdir), f"Directory not found: {importdir}"
+        importdir = Path(importdir)
+
+        assert importdir.exists() and importdir.is_dir(), f"Directory not found: {importdir}"
         self.pindex = AnthologyIndex(
             importdir,
             fast_load=self._fast_load,
@@ -75,7 +78,7 @@ class Anthology:
         self.venues = VenueIndex(importdir)
         self.eventindex = EventIndex(self.venues)  # contains a list of all events
         self.sigs = SIGIndex(importdir)
-        for xmlfile in glob(importdir + "/xml/*.xml"):
+        for xmlfile in (importdir / "xml").glob("*.xml"):
             self.import_file(xmlfile)
         self.pindex.verify()
 

@@ -37,7 +37,12 @@ from .formatter import (
 
 
 class Paper:
-    def __init__(self, paper_id, ingest_date, volume, formatter=None):
+    def __init__(self, paper_id: str, ingest_date: str, volume: "Volume", formatter=None):
+        """
+        :param paper_id: The paper number, as a string (e.g., "0" for frontmatter, "74")
+        :param ingest_date: The date in ISO-6401 format
+        :param volume: The Volume object
+        """
         self.parent_volume = volume
         if formatter is None:
             formatter = MarkupFormatter()

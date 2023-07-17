@@ -64,14 +64,18 @@ from typing import Dict, List, Tuple, Any, Optional
 from ingest import maybe_copy
 
 from normalize_anth import normalize
+from anthology import Anthology
+from anthology.formatter import MarkupFormatter
 from anthology.index import AnthologyIndex
 from anthology.venues import VenueIndex
+from anthology.papers import Paper
 from anthology.people import PersonName
 from anthology.utils import (
     make_simple_element,
     indent,
     compute_hash_from_file,
 )
+from anthology.volumes import Volume
 
 
 def disambiguate_name(node, anth_id, people):
@@ -663,6 +667,8 @@ def create_xml(
     proceedings_pdf_dest_path: str,
     people,
     papers: List[Dict[str, str]],
+    venues: VenueIndex,
+    index: AnthologyIndex
 ) -> None:
     venue_name = meta['anthology_venue_id'].lower()
     collection_file = os.path.join(anthology_dir, 'data', 'xml', f'{collection_id}.xml')
@@ -694,7 +700,8 @@ def create_xml(
         else:
             paper_node = paper2xml(papers[paper_num - 1], paper_num, paper_id_full, meta)
 
-        if paper_node.attrib['id'] == '0':
+        paper_id = paper_node.attrib['id']
+        if paper_id == '0':
             # create metadata subtree
             meta_node = make_simple_element('meta', parent=volume_node)
             title_node = paper_node.find('booktitle')
@@ -756,6 +763,14 @@ def create_xml(
                 },
                 parent=paper_node,
             )
+
+        #        volume_xml, collection_id, venue_index: VenueIndex, sig_index: SIGIndex, formatter
+
+        volume_obj = Volume.from_xml(volume_node, collection_id, venues, sig_index=None, formatter=MarkupFormatter())
+        paper_obj = Paper(paper_id, ingest_date, volume_obj)
+        make_simple_element("bibkey",
+                            index.create_bibkey(Paper.from_xml(paper_node), vidx=venues),
+                            parent=paper_node)
 
         if len(paper_node) > 0:
             volume_node.append(paper_node)
@@ -836,12 +851,16 @@ def create_xml(
     help='Ingestion date',
 )
 def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, ingest_date):
-    anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
+    anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
+
+    anthology = Anthology(
+        importdir=anthology_datadir, require_bibkeys=False
+    )
+
     venue_index = VenueIndex(srcdir=anthology_datadir)
     venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
 
     people = AnthologyIndex(srcdir=anthology_datadir)
-    # people.bibkeys = load_bibkeys(anthology_datadir)
 
     volume_full_id, meta = process_proceeding(
         ingestion_dir, anthology_datadir, venue_index, venue_keys
@@ -871,6 +890,8 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
         proceedings_pdf_dest_path=proceedings_pdf_dest_path,
         people=people,
         papers=papers,
+        venues=venue_index,
+        index=anthology.pindex
     )
 
 
