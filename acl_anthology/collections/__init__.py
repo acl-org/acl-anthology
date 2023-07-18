@@ -14,7 +14,7 @@
 
 from .index import CollectionIndex
 from .collection import Collection
-from .volume import Volume
+from .volume import Volume, VolumeType
 from .paper import Paper
 
-__all__ = ["CollectionIndex", "Collection", "Volume", "Paper"]
+__all__ = ["CollectionIndex", "Collection", "Volume", "VolumeType", "Paper"]

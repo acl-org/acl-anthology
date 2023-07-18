@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import datetime
 from attrs import define, field, Factory
+from enum import Enum
 from lxml import etree
 from typing import Any, Optional, cast, TYPE_CHECKING
 
@@ -28,7 +29,14 @@ if TYPE_CHECKING:
     from . import Collection
 
 
-# TODO: Add VolumeType as Enum + corresponding property in Volume
+class VolumeType(Enum):
+    """Type of publication a volume represents."""
+
+    JOURNAL = "journal"
+    """A journal issue."""
+
+    PROCEEDINGS = "proceedings"
+    """A conference/workshop proceedings volume."""
 
 
 @define
@@ -38,6 +46,7 @@ class Volume:
     Attributes:
         id (str): The ID of this volume (e.g. "1" or "main").
         parent (Collection): The collection this volume belongs to.
+        type (VolumeType): Value indicating the type of publication, e.g., journal or conference proceedings.
         title (MarkupText): The title of the volume. (Aliased to `booktitle` for initialization.)
         year (str): The year of publication.
 
@@ -59,6 +68,7 @@ class Volume:
 
     id: str
     parent: Collection
+    type: VolumeType
     title: MarkupText = field(alias="booktitle")
     year: str
 
@@ -96,6 +106,7 @@ class Volume:
         # type-checking kwargs is a headache
         kwargs: dict[str, Any] = {
             "id": str(volume.attrib["id"]),
+            "type": VolumeType(volume.attrib["type"]),
             "parent": parent,
             "editors": [],
             "venues": [],

@@ -16,14 +16,21 @@ import pytest
 from datetime import date
 from pathlib import Path
 
-from acl_anthology.collections import Collection, CollectionIndex, Volume
+from acl_anthology.collections import Collection, CollectionIndex, Volume, VolumeType
 from acl_anthology.text import MarkupText
 
 
 def test_volume_minimum_attribs():
     volume_title = MarkupText.from_string("Lorem ipsum")
     parent = Collection("L05", Path("."))
-    volume = Volume("6", parent, booktitle=volume_title, venues=["li"], year="2005")
+    volume = Volume(
+        "6",
+        parent,
+        type=VolumeType.JOURNAL,
+        booktitle=volume_title,
+        venues=["li"],
+        year="2005",
+    )
     assert volume.full_id == "L05-6"
     assert volume.title == volume_title
     assert volume.get_ingest_date().year == 1900
@@ -36,6 +43,7 @@ def test_volume_all_attribs():
     volume = Volume(
         id="42",
         parent=parent,
+        type="proceedings",
         booktitle=volume_title,
         year="2023",
         address="Online",
