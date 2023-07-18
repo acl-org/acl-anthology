@@ -668,7 +668,7 @@ def create_xml(
     people,
     papers: List[Dict[str, str]],
     venues: VenueIndex,
-    index: AnthologyIndex
+    index: AnthologyIndex,
 ) -> None:
     venue_name = meta['anthology_venue_id'].lower()
     collection_file = os.path.join(anthology_dir, 'data', 'xml', f'{collection_id}.xml')
@@ -766,11 +766,19 @@ def create_xml(
 
         #        volume_xml, collection_id, venue_index: VenueIndex, sig_index: SIGIndex, formatter
 
-        volume_obj = Volume.from_xml(volume_node, collection_id, venues, sig_index=None, formatter=MarkupFormatter())
-        paper_obj = Paper(paper_id, ingest_date, volume_obj)
-        make_simple_element("bibkey",
-                            index.create_bibkey(Paper.from_xml(paper_node), vidx=venues),
-                            parent=paper_node)
+        volume_obj = Volume.from_xml(
+            volume_node,
+            collection_id,
+            venues,
+            sig_index=None,
+            formatter=MarkupFormatter(),
+        )
+        Paper(paper_id, ingest_date, volume_obj)
+        make_simple_element(
+            "bibkey",
+            index.create_bibkey(Paper.from_xml(paper_node), vidx=venues),
+            parent=paper_node,
+        )
 
         if len(paper_node) > 0:
             volume_node.append(paper_node)
@@ -853,9 +861,7 @@ def create_xml(
 def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, ingest_date):
     anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
 
-    anthology = Anthology(
-        importdir=anthology_datadir, require_bibkeys=False
-    )
+    anthology = Anthology(importdir=anthology_datadir, require_bibkeys=False)
 
     venue_index = VenueIndex(srcdir=anthology_datadir)
     venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
@@ -891,7 +897,7 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
         people=people,
         papers=papers,
         venues=venue_index,
-        index=anthology.pindex
+        index=anthology.pindex,
     )
 
 

@@ -14,11 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from glob import glob
 from pathlib import Path
 from lxml import etree
 import logging as log
-import os
 
 
 from .formatter import MarkupFormatter
@@ -68,7 +66,9 @@ class Anthology:
         """
         importdir = Path(importdir)
 
-        assert importdir.exists() and importdir.is_dir(), f"Directory not found: {importdir}"
+        assert (
+            importdir.exists() and importdir.is_dir()
+        ), f"Directory not found: {importdir}"
         self.pindex = AnthologyIndex(
             importdir,
             fast_load=self._fast_load,
