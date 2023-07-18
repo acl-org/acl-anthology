@@ -53,7 +53,7 @@ class Paper:
     """
 
     id: str
-    parent: Volume
+    parent: Volume = field(repr=False, eq=False)
     bibkey: str
     title: MarkupText = field()
 

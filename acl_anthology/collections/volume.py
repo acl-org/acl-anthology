@@ -67,7 +67,7 @@ class Volume:
     """
 
     id: str
-    parent: Collection
+    parent: Collection = field(repr=False, eq=False)
     type: VolumeType
     title: MarkupText = field(alias="booktitle")
     year: str
