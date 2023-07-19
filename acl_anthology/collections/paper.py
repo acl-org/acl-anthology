@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import datetime
 from attrs import define, field, Factory
+from enum import Enum
 from lxml import etree
 from typing import Any, Optional, cast, TYPE_CHECKING
 
@@ -43,14 +44,13 @@ class Paper:
         editors (list[Name]): Names of editors associated with this paper; can be empty.
 
         abstract (Optional[MarkupText]): The full abstract.
+        deletion (Optional[PaperDeletionNotice]): A notice of the paper's retraction or removal, if applicable.
         doi (Optional[str]): The DOI for the paper.
         ingest_date (Optional[str]): The date of ingestion.
         language (Optional[str]): The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         note (Optional[str]): A note attached to this paper.  Used very sparingly.
         pages (Optional[str]): Page numbers of this paper within its volume.
         pdf (Optional[PDFReference]): A reference to the paper's PDF.
-        removed (Optional[tuple[str, str]]): If this paper was removed, this field will contain a tuple giving the date of removal and a brief note.
-        retracted (Optional[tuple[str, str]]): If this paper was retracted, this field will contain a tuple giving the date of retraction and a brief note.
     """
 
     id: str
@@ -64,6 +64,7 @@ class Paper:
 
     abstract: Optional[MarkupText] = field(default=None)
     # TODO attachment + video
+    deletion: Optional[PaperDeletionNotice] = field(default=None)
     doi: Optional[str] = field(default=None)
     ingest_date: Optional[str] = field(default=None)
     # TODO revision + erratum
@@ -71,8 +72,6 @@ class Paper:
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
     pdf: Optional[PDFReference] = field(default=None)
-    removed: Optional[tuple[str, str]] = field(default=None)
-    retracted: Optional[tuple[str, str]] = field(default=None)
     # TODO: pwcdataset + pwccode; field(on_setattr=attrs.setters.frozen)
 
     # TODO: fields that are currently ignored: issue, journal, mrf
@@ -83,6 +82,11 @@ class Paper:
     def full_id(self) -> str:
         """The full anthology ID of this paper (e.g. "L06-1042" or "2022.emnlp-main.1")."""
         return build_id(self.parent.parent.id, self.parent.id, self.id)
+
+    @property
+    def is_deleted(self) -> bool:
+        """Returns True if this paper was retracted or removed from the Anthology."""
+        return self.deletion is not None
 
     def get_ingest_date(self) -> datetime.date:
         """
@@ -122,8 +126,38 @@ class Paper:
                 kwargs["pdf"] = PDFReference(
                     str(element.text), str(checksum) if checksum else None
                 )
+            elif element.tag in ("removed", "retracted"):
+                kwargs["deletion"] = PaperDeletionNotice(
+                    type=PaperDeletionType(str(element.tag)),
+                    note=str(element.text),
+                    date=str(element.attrib["date"]),
+                )
             elif element.tag in ("issue", "journal", "mrf"):
                 pass
             else:
                 raise ValueError(f"Unsupported element for Paper: <{element.tag}>")
         return cls(**kwargs)
+
+
+class PaperDeletionType(Enum):
+    """Type of deletion of a paper."""
+
+    RETRACTED = "retracted"
+    """Paper was retracted.  A retraction occurs when serious, unrecoverable errors are discovered, which drastically affect the findings of the original work."""
+
+    REMOVED = "removed"
+    """Paper was removed.  A removal occurs in rare circumstances where serious ethical or legal issues arise, such as plagiarism."""
+
+
+@define
+class PaperDeletionNotice:
+    """A notice about a paper's deletion (i.e., retraction or removal) from the Anthology."""
+
+    type: PaperDeletionType
+    """Type indicating whether the paper was _retracted_ or _removed_."""
+
+    note: str
+    """A note explaining the retraction or removal."""
+
+    date: str
+    """The date on which the paper was retracted or removed."""

@@ -13,9 +13,18 @@
 # limitations under the License.
 
 import pytest
-from acl_anthology.collections import CollectionIndex, Paper  # noqa: F401
+from acl_anthology.collections import CollectionIndex, Paper
+from acl_anthology.text import MarkupText
 
 
 @pytest.fixture
 def index(anthology):
     return CollectionIndex(anthology)
+
+
+def test_paper_minimum_attribs():
+    paper_title = MarkupText.from_string("A minimal example")
+    parent = None
+    paper = Paper("42", parent, bibkey="nn-1900-minimal", title=paper_title)
+    assert not paper.is_deleted
+    assert paper.title == paper_title
