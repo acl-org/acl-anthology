@@ -63,12 +63,13 @@ def markup_to_latex(element: etree._Element) -> str:
 class MarkupText:
     """Text with optional markup.
 
-    This class **should not be instantiated directly,** but only through
-    its class method constructors.  This is because the internal
-    representation of the markup text may change at any time.
+    This class **should not be instantiated directly,** but only through its class method constructors.  This is because the internal representation of the markup text may change at any time.
     """
 
     _content: etree._Element = field()
+
+    def __str__(self) -> str:
+        return self.as_text()
 
     def as_text(self) -> str:
         """
@@ -118,6 +119,13 @@ class MarkupText:
         text = markup_to_latex(self._content)
         text = remove_extra_whitespace(text)
         return text
+
+    def as_xml(self) -> etree._Element:
+        """
+        Returns:
+            Text with markup represented according to the Anthology's XML schema.
+        """
+        return self._content
 
     @classmethod
     def from_string(cls, text: str) -> MarkupText:
