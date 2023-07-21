@@ -22,13 +22,9 @@ from functools import lru_cache
 import itertools as it
 from slugify import slugify
 from stop_words import get_stop_words
+from .people import PersonName
 
 from typing import List, Dict
-
-from anthology.people import PersonName
-from anthology.papers import Paper
-from anthology.venues import VenueIndex
-
 
 try:
     from yaml import CLoader as Loader
@@ -215,7 +211,7 @@ class AnthologyIndex:
                 return True
         return False
 
-    def create_bibkey(self, paper: Paper, vidx: VenueIndex = None):
+    def create_bibkey(self, paper, vidx=None):
         """Create a unique bibliography key for the given paper."""
         if self._fast_load:
             raise Exception(
