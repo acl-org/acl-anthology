@@ -12,6 +12,7 @@ concurrency: publish
 
 jobs:
   publish-aclanthology:
+    if: github.repository == 'acl-org/acl-anthology'
     runs-on: ubuntu-22.04
     steps:
     - name: install hugo
@@ -27,7 +28,7 @@ jobs:
         mkdir -p $HOME/.ssh/
         echo "$SSH_KEY" > $HOME/.ssh/id_rsa
         chmod 600 $HOME/.ssh/id_rsa
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
     - name: build
       env:
         ANTHOLOGY_PREFIX: https://aclanthology.org

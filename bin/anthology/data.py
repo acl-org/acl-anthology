@@ -37,7 +37,7 @@ CANONICAL_URL_TEMPLATE = "https://aclanthology.org/{}"
 # that the structure is historically grown -- from 2019 to 2020 :-)
 try:
     ANTHOLOGY_PREFIX = os.environ["ANTHOLOGY_PREFIX"]
-except:
+except KeyError:
     ANTHOLOGY_PREFIX = "https://aclanthology.org"
 
 ATTACHMENT_PREFIX = ANTHOLOGY_PREFIX + "/attachments"
@@ -46,7 +46,11 @@ ATTACHMENT_TEMPLATE = ATTACHMENT_PREFIX + "/{}"
 PDF_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}.pdf"
 PDF_THUMBNAIL_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/thumb/{}.jpg"
 
+# URL template for videos
 VIDEO_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}"
+
+# URL template for handbooks Where files related to events can be found, e.g., /{2022.acl.handbook.pdf}
+EVENT_LOCATION_TEMPLATE = ANTHOLOGY_PREFIX + "/{}"
 
 # Regular expression matching full Anthology IDs
 ANTHOLOGY_ID_REGEX = r"[A-Z]\d{2}-\d{4}"
@@ -57,7 +61,7 @@ ANTHOLOGY_FILE_DIR = os.environ.get(
     "ANTHOLOGY_FILES", os.path.join(os.environ["HOME"], "anthology-files")
 )
 
-# Names of XML elements that may appear multiple times
+# Names of XML elements that may appear multiple times, and should be accumulated as a list
 LIST_ELEMENTS = (
     "attachment",
     "author",
@@ -69,11 +73,18 @@ LIST_ELEMENTS = (
     "pwcdataset",
     "video",
     "venue",
-    "colocated",
+)
+
+# Names of XML elements that should not be parsed, so that they can be interpreted later in
+# a context-specific way
+DONT_PARSE_ELEMENTS = (
+    "abstract",
+    "title",
+    "booktitle",
 )
 
 # New-style IDs that should be handled as journals
-JOURNAL_IDS = ("cl", "tacl", "tal", "lilt")
+JOURNAL_IDS = ("cl", "tacl", "tal", "lilt", "ijclclp")
 
 # Constants associated with DOI assignation
 DOI_URL_PREFIX = "https://dx.doi.org/"
@@ -145,6 +156,14 @@ def get_journal_info(top_level_id, volume_title) -> Tuple[str, str, str]:
         # <booktitle>Traitement Automatique des Langues 2011 Volume 52 Numéro 1</booktitle>
         journal_title = "Traitement Automatique des Langues"
         volume_no, issue_no = match_volume_and_issue(volume_title)
+
+    elif top_level_id == "ijclclp":
+        journal_title = "International Journal of Computational Linguistics & Chinese Language Processing"
+        volume_no, issue_no = match_volume_and_issue(volume_title)
+
+    elif top_level_id == "nejlt":
+        journal_title = "Northern European Journal of Language Technology"
+        volume_no, _ = match_volume_and_issue(volume_title)
 
     elif top_level_id[0] == "J":
         # <booktitle>Computational Linguistics, Volume 26, Number 1, March 2000</booktitle>

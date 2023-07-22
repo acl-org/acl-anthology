@@ -15,7 +15,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import lxml.etree as etree, html
+import lxml.etree as etree
+import html
 import sys
 import os
 import logging

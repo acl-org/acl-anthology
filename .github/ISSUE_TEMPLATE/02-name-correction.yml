@@ -1,0 +1,38 @@
+name: Correction to Author Metadata
+description: Fix issues with author pages.
+title: "Author Metadata: {replace with author name}"
+labels: ["correction", "metadata"]
+assignees:
+  - anthology-assist
+body:
+  - type: textarea
+    id: name_pages_affected
+    attributes:
+      label: Author Pages
+      description: |
+        Which author page(s) are affected by this correction? Please only give one or more URLs of author pages here.
+      placeholder: ex. https://aclanthology.org/people/m/matt-post/
+    validations:
+      required: true
+  - type: checkboxes
+    id: name_correction_type
+    attributes:
+      label: Type of Author Metadata Correction
+      description: "Please indicate which issue(s) should be corrected regarding the author page(s)."
+      options:
+        - label: The author page wrongly conflates different people with the same name.
+        - label: This author has multiple pages with different spellings of their name.
+        - label: This author has permanently changed their name.
+    validations:
+      required: true
+  - type: textarea
+    id: name_change_description
+    attributes:
+      label: Supporting Information
+      description: |
+        Please provide as much information as possible to help us fix the issue.  For example:
+          - Describe what the correct author page(s) should look like.
+          - Provide a link to the academic website of the author(s) that helps us verify their current name or publication list.
+          - If there are multiple spellings of the name, indicate which spelling of the name is the preferred/canonical one. _(e.g. if you are submitting a correction for yourself)_
+    validations:
+      required: true

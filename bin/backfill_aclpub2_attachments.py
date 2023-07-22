@@ -25,7 +25,6 @@
 #
 #
 import click
-import yaml
 import glob
 import os
 import lxml.etree as et

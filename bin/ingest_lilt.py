@@ -9,13 +9,10 @@ import csv
 import lxml.etree as etree
 import os
 import shutil
-import ssl
 import sys
-import urllib.request
 
 import anthology
 from anthology.utils import make_simple_element, indent, compute_hash_from_file
-from datetime import datetime
 from normalize_anth import normalize
 from likely_name_split import NameSplitter
 
@@ -30,7 +27,6 @@ def main(args):
     splitter = NameSplitter(anth)
 
     paper_nums = {}
-    venue = "lilt"
     prev_year = None
     prev_volume = None
     for row in csv.DictReader(args.tsv_file, delimiter='\t'):
@@ -42,7 +38,7 @@ def main(args):
         if year != prev_year:
             if prev_year is not None:
                 dump_collection(
-                    tree,
+                    tree,  # noqa: F821
                     os.path.join(args.anthology, "data", "xml", f"{prev_year}.lilt.xml"),
                 )
 

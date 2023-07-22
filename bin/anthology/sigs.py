@@ -115,7 +115,7 @@ class SIG:
     def add_volume(self, full_volume_id):
         collection_id, _, _ = deconstruct_anthology_id(full_volume_id)
         year = int(infer_year(collection_id))
-        if not year in self.events_by_year:
+        if year not in self.events_by_year:
             self.events_by_year[year] = []
         self.events_by_year[year].append(full_volume_id)
 

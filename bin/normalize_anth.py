@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright 2019 David Wei Chiang <dchiang@nd.edu>
+# Copyright 2023 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,12 +35,13 @@ Bugs:
 
 import lxml.etree as etree
 import re
-import difflib
 import logging
 import unicodedata
 import html
 from latex_to_unicode import latex_to_xml
 from fixedcase.protect import protect
+from anthology.utils import indent
+
 
 location = ""
 logging.basicConfig(format="%(levelname)s:%(location)s %(message)s", level=logging.INFO)
@@ -135,7 +137,7 @@ def clean_unicode(s):
     return s
 
 
-def normalize(oldnode, informat):
+def normalize(oldnode, informat, skip_xml=False):
     """
     Receives an XML 'paper' node and normalizes many of its fields, including:
     - Unescaping HTML
@@ -168,12 +170,16 @@ def normalize(oldnode, informat):
     else:
         if informat == "latex":
             if len(oldnode) > 0:
+                if skip_xml:
+                    return
                 logging.error(
                     "field has child elements {}".format(
                         ", ".join(child.tag for child in oldnode)
                     )
                 )
             oldtext = "".join(oldnode.itertext())
+            if not oldtext:
+                return  # nothing to do
             newnode = latex_to_xml(
                 oldtext,
                 trivial_math=True,
@@ -191,17 +197,28 @@ def normalize(oldnode, informat):
 
 
 if __name__ == "__main__":
-    import sys
     import argparse
 
     ap = argparse.ArgumentParser(description="Convert Anthology XML to standard format.")
     ap.add_argument("infile", help="XML file to read")
     ap.add_argument("outfile", help="XML file to write")
     ap.add_argument(
+        "-o",
+        "--only",
+        type=str,
+        help="Only consider this tag (e.g. title, abstract)",
+    )
+    ap.add_argument(
         "-t",
         "--latex",
         action="store_true",
-        help="Assume input fields are in LaTeX (not idempotent",
+        help="Assume input fields are in LaTeX (not idempotent)",
+    )
+    ap.add_argument(
+        "-s",
+        "--skip-xml",
+        action="store_true",
+        help="Skip elements that have XML children (e.g. because they have already been normalized)",
     )
     args = ap.parse_args()
 
@@ -210,7 +227,12 @@ if __name__ == "__main__":
     else:
         informat = "xml"
 
-    tree = etree.parse(args.infile)
+    try:
+        tree = etree.parse(args.infile)
+    except etree.XMLSyntaxError as e:
+        logging.critical(f"Couldn't parse {args.infile}")
+        logging.critical(e)
+        exit(1)
     root = tree.getroot()
     if not root.tail:
         # lxml drops trailing newline
@@ -220,7 +242,10 @@ if __name__ == "__main__":
             root.attrib["id"], paper.getparent().attrib["id"], paper.attrib["id"]
         )
         for oldnode in paper:
+            if args.only and str(oldnode.tag) != str(args.only):
+                continue
             location = "{}:{}".format(papernum, oldnode.tag)
-            normalize(oldnode, informat=informat)
+            normalize(oldnode, informat=informat, skip_xml=args.skip_xml)
 
+    indent(root)
     tree.write(args.outfile, encoding="UTF-8", xml_declaration=True)

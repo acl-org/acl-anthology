@@ -33,7 +33,7 @@ from collections import defaultdict
 from tqdm import tqdm
 import logging as log
 import os
-import yaml, yamlfix
+import yaml
 
 try:
     from yaml import CSafeDumper as Dumper
@@ -41,7 +41,7 @@ except ImportError:
     from yaml import SafeDumper as Dumper
 
 from anthology import Anthology
-from anthology.utils import SeverityTracker, deconstruct_anthology_id, is_newstyle_id
+from anthology.utils import SeverityTracker, deconstruct_anthology_id
 from create_hugo_pages import check_directory
 
 
@@ -149,7 +149,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     # Prepare venue index
     venues = {}
     for main_venue, data in anthology.venues.items():
-        letter = data.get("oldstyle_letter", "W")
+        data.get("oldstyle_letter", "W")
         data = data.copy()
         data["volumes_by_year"] = {}
         for year in sorted(data["years"]):
@@ -158,6 +158,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                 filter(lambda k: volumes[k]["year"] == year, data["volumes"])
             )
             data["volumes_by_year"][year] = filtered_volumes
+        if not data["volumes_by_year"]:
+            log.warning(f"Venue '{main_venue}' has no volumes associated with it")
 
         data["years"] = sorted(list(data["years"]))
 
@@ -264,6 +266,7 @@ if __name__ == "__main__":
 
     log.info("Reading the Anthology data...")
     anthology = Anthology(importdir=args["--importdir"])
+
     log.info("Exporting to YAML...")
     export_anthology(
         anthology, args["--exportdir"], clean=args["--clean"], dryrun=args["--dry-run"]

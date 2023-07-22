@@ -2,7 +2,7 @@
 Title: Information for Submitters
 linktitle: Submitting
 subtitle: General information on submitting proceedings to the ACL Anthology (for event chairs)
-date: "2021-04-18"
+date: "2023-06-21"
 ---
 
 This page contains general information about submitting the proceedings of a conference to the ACL Anthology.
@@ -52,7 +52,7 @@ If you are a conference publications chair, you must register your intention to 
 This step requires you to send (a) the complete list of volumes that will be published in the Anthology (main conference volumes and workshops) and (b) the desired publication date.
 Your proceedings will be due no later than **two weeks** prior to this negotiated date.
 
-This information should be submitted to us [via a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=mjpost&labels=ingestion&template=ingestion-request.md&title=Ingestion+request).
+This information should be submitted to us [via a Github issue](https://github.com/acl-org/acl-anthology/issues/new?assignees=anthology-assist&labels=ingestion&template=04-ingestion-request.yml&title=Ingestion+Request%3A+%7Breplace+with+name+of+event%7D).
 **Please do this as early as possible**, ideally well before the submission deadline.
 This will allow us to do a quick sanity check of the metadata.
 As noted above, if you are the chair of a workshop that is colocated with a larger event, please work with your main conference publication chair instead of directly with the Anthology.
@@ -120,7 +120,9 @@ For both current and legacy events, it is good practice for the organizers to at
 
 ### ISBN Numbers
 
-If you need to assign ISBN numbers, please provide the exact titles of each volume to be assigned an ISBN and forward this information to Priscilla Rasmussen, ACL Business Manager.
+If you plan to publish or print your proceedings, you will need an ISBN.
+The ACL can provide these for *ACL conferences.
+Please provide the exact titles of each volume to be assigned an ISBN and send this information to [Jennifer Rachford](acl.rachford@gmail.com), the ACL Business Manager.
 
 ### Errata and Corrections
 

@@ -65,11 +65,14 @@ RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.pdf$ anthology-files/pdf/$2/
 # PDF link, revisions, and errata (P17-1069[v2].pdf loads P/P17/P17-1069[v2].pdf --- with "v2" optional)
 # TODO: decide on a new format for revisions and errata
 RewriteRule ^([A-Za-z])(\d{2})\-(\d{4})([ve]\d+)?\.pdf$ anthology-files/pdf/$1/$1$2/$1$2-$3$4.pdf [L,NC]
-RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.(\d+([ve]\d+)?)\.pdf$ anthology-files/pdf/$2/$1.$2-$3.$4.pdf [L,NC]
+RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.([a-zA-Z\d]+([ve]\d+)?)\.pdf$ anthology-files/pdf/$2/$1.$2-$3.$4.pdf [L,NC]
 
 # Attachments (e.g., P17-1069.Poster.pdf loads anthology-files/attachments/P/P17/P17-1069.Poster.pdf)
 RewriteRule ^attachments/([A-Za-z])(\d{2})\-(\d{4})(\..*)?$ anthology-files/attachments/$1/$1$2/$1$2-$3$4 [L,NC]
 RewriteRule ^attachments/(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+\.\d+)\.(.*)$ anthology-files/attachments/$2/$1.$2-$3.$4 [L,NC]
+
+# Event files (handbooks, etc). Eventually we should put all files here.
+RewriteRule ^files/(.*)$ anthology-files/files/$1 [L,NC]
 
 # Thumbnails (e.g., /thumb/P17-1069.jpg loads anthology-files/thumb/P17-1069.jpg)
 RewriteRule ^thumb/(.*)$ anthology-files/thumb/$1 [L,NC]
@@ -83,3 +86,6 @@ RewriteRule ^people/([a-z])([\-a-z0-9]*)$ people/$1/$1$2/ [L,NC]
 RewriteRule ^([A-Za-z])(\d{2})\-(\d{4})(\.\d+)?\.(mp4|mov|m4v)$ anthology-files/videos/$1/$1$2-$3$4.$5 [L,NC]
 ## match new-style URLs, e.g., /2021.naacl-main.14.mp4 -> anthology-files/videos/naacl/2021.naacl-main.14.mp4
 RewriteRule ^(\d{4})\.([a-zA-Z\d]+)\-([a-zA-Z\d]+)\.(\d+)(\.\d+)?\.(mp4|mov|m4v)$ anthology-files/videos/$2/$1.$2-$3.$4.$5$6 [L,NC]
+
+# Handbooks
+RewriteRule ^(\d{4})\.([a-zA-Z\d]+).handbook.pdf$ anthology-files/handbooks/$2/$1.$2.handbook.pdf [L,NC]

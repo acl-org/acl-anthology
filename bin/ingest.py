@@ -34,13 +34,11 @@ import argparse
 import iso639
 import os
 import re
-import readline
 import shutil
 import sys
 
 import lxml.etree as etree
 
-from collections import defaultdict, OrderedDict
 from datetime import datetime
 from glob import glob
 
@@ -51,7 +49,6 @@ from anthology.people import PersonName
 from anthology.sigs import SIGIndex
 from anthology.utils import (
     make_simple_element,
-    build_anthology_id,
     deconstruct_anthology_id,
     indent,
     compute_hash_from_file,
@@ -60,8 +57,6 @@ from anthology.venues import VenueIndex
 
 from itertools import chain
 from typing import Dict, Any
-
-from slugify import slugify
 
 
 def log(text: str, fake: bool = False):
@@ -89,7 +84,7 @@ def read_meta(path: str) -> Dict[str, Any]:
                 meta["chairs"].append(value)
             else:
                 meta[key] = value
-    if "volume" in meta and re.match(rf"^[a-z0-9]+$", meta["volume"]) is None:
+    if "volume" in meta and re.match(r"^[a-z0-9]+$", meta["volume"]) is None:
         raise Exception(f"Invalid volume key '{meta['volume']}' in {path}")
 
     return meta
@@ -136,7 +131,7 @@ def bib2xml(bibfilename, anthology_id):
     bibdata = read_bibtex(bibfilename)
     if len(bibdata.entries) != 1:
         log(f"more than one entry in {bibfilename}")
-    bibkey, bibentry = bibdata.entries.items()[0]
+    bibkey, bibentry = list(bibdata.entries.items())[0]
     if len(bibentry.fields) == 0:
         log(f"parsing bib of paper {paper_no} failed")
         sys.exit(1)
@@ -181,7 +176,7 @@ def bib2xml(bibfilename, anthology_id):
 
             try:
                 make_simple_element(field, text=value, parent=paper)
-            except:
+            except Exception:
                 print(
                     f"Couldn't process {bibfilename} for {anthology_id}", file=sys.stderr
                 )
@@ -197,7 +192,7 @@ def main(args):
     venue_index = VenueIndex(srcdir=anthology_datadir)
     venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
 
-    sig_index = SIGIndex(srcdir=anthology_datadir)
+    SIGIndex(srcdir=anthology_datadir)
 
     people = AnthologyIndex(srcdir=anthology_datadir)
     people.bibkeys = load_bibkeys(anthology_datadir)
@@ -330,7 +325,7 @@ def main(args):
                 continue
 
             # names are {abbrev}{number}.pdf
-            match = re.match(rf".*\.(\d+)\.pdf", pdf_file)
+            match = re.match(r".*\.(\d+)\.pdf", pdf_file)
 
             if match is not None:
                 paper_num = int(match[1])
@@ -408,7 +403,7 @@ def main(args):
         )
 
         # Replace the existing one if present
-        existing_volume_node = root_node.find(f"./volume[@id='{volume_name}']")
+        root_node.find(f"./volume[@id='{volume_name}']")
         for i, child in enumerate(root_node):
             if child.attrib["id"] == volume_name:
                 root_node[i] = volume_node
@@ -437,7 +432,7 @@ def main(args):
                     )
                     if name_choice != -1:
                         author_or_editor.attrib["id"] = disamb_name
-                    person = PersonName.from_element(author_or_editor)
+                    PersonName.from_element(author_or_editor)
                     for name_part in author_or_editor:
                         name_part.text = correct_caps(name_part.text)
                     meta_node.append(author_or_editor)
@@ -523,7 +518,7 @@ def main(args):
                 disamb_name, name_choice = disambiguate_name(name_node, paper_id_full)
                 if name_choice != -1:
                     name_node.attrib["id"] = disamb_name
-                person = PersonName.from_element(name_node)
+                PersonName.from_element(name_node)
                 for name_part in name_node:
                     name_part.text = correct_caps(name_part.text)
 

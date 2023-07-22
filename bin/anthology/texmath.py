@@ -22,6 +22,22 @@ from TexSoup import TexSoup
 from TexSoup.data import TexCmd, TexText, TexGroup
 
 FUNCTION_NAMES = ("lim", "log")
+TEX_TO_HTML = {
+    "mathrm": ("span", {"class": "font-weight-normal"}),
+    "textrm": ("span", {"class": "font-weight-normal"}),
+    "text": ("span", {"class": "font-weight-normal"}),
+    "mathbf": ("strong", {}),
+    "textbf": ("strong", {}),
+    "boldsymbol": ("strong", {}),
+    "mathit": ("em", {}),
+    "textit": ("em", {}),
+    "emph": ("em", {}),
+    "textsc": ("span", {"style": "font-variant: small-caps;"}),
+    "texttt": ("span", {"class": "text-monospace"}),
+    "textsubscript": ("sub", {}),
+    "textsuperscript": ("sup", {}),
+}
+REMOVED_COMMANDS = ("bf", "rm", "it", "sc")
 
 
 def _append_text(text, trg):
@@ -125,21 +141,15 @@ class TexMath:
         # Handle fractions
         elif name == "frac":
             self._parse_fraction(args, trg)
-        # Handle \textrm (-- currently does nothing)
-        elif name in ("textrm", "text"):
-            sx = etree.Element("span")
+        # Handle commands with simple HTML tag substitutions
+        elif name in TEX_TO_HTML:
+            elem_name, elem_attrib = TEX_TO_HTML[name]
+            sx = etree.Element(elem_name, attrib=elem_attrib)
             self._parse(args, sx)
             trg.append(sx)
-        # Handle stuff that should be displayed bolder
-        elif name in ("mathbf", "textbf", "boldsymbol"):
-            sx = etree.Element("strong")
-            self._parse(args, sx)
-            trg.append(sx)
-        # Handle italics
-        elif name in ("mathit", "textit"):
-            sx = etree.Element("em")
-            self._parse(args, sx)
-            trg.append(sx)
+        # Known, but unsupported formatting tags that will just be removed
+        elif name in REMOVED_COMMANDS and not args:
+            pass
         # Give up, but preserve element
         else:
             log.warn(f"Unknown TeX-math command: {code}")
@@ -148,7 +158,7 @@ class TexMath:
     def _parse_fraction(self, args, trg):
         if len(args) != 2:
             log.warn(f"Couldn't parse \\frac: got {len(args)} arguments, expected 2")
-            self._append_unparsed(code, trg)
+            self._append_unparsed({'name': 'frac', 'args': args}, trg)
         else:
             # Represent numerator of fraction as superscript
             sx = etree.Element("sup")

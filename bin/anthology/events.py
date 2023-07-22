@@ -16,6 +16,11 @@
 # limitations under the License.
 
 
+from anthology.utils import parse_element
+from anthology.formatter import MarkupFormatter
+from anthology.data import EVENT_LOCATION_TEMPLATE
+
+
 class EventIndex:
     """
     Keeps track of all events in the anthology and their relation to venues and volumes.
@@ -29,53 +34,99 @@ class EventIndex:
     """
 
     def __init__(self, venue_index):
+        """
+        :param venue_index: A VenueIndex object
+        """
         self.events = {}
         self.venue_index = venue_index
+        self.formatter = MarkupFormatter()
+
+    def _create_event(self, event_id):
+        """
+        Creates an event, if it doesn't already exist. Initializes the event title
+        to a default value that can later be overridden.
+        """
+        if event_id not in self.events:
+            venue, year = event_id.split("-")
+            venue_name = self.venue_index.get_venue(venue)["name"]
+            self.events[event_id] = {
+                "venue": venue,
+                "year": year,
+                "title": f"{venue_name} ({year})",
+                "links": [],
+                "volumes": [],
+            }
 
     def register_event(self, event_xml):
         """
-        Parses event XML and registers all colocated volumes.
+        Creates a new event from the <event> block in the XML.
         """
-        event = event_xml.attrib["id"]
-        for child_xml in event_xml:
-            if child_xml.tag == "title":
-                self.set_title(child_xml.text, event)
-            elif child_xml.tag == "colocated":
-                self.register_volume(child_xml.text, event)
+        event_id = event_xml.attrib["id"]
+        self._create_event(event_id)
 
-    def set_title(self, title, event):
-        """
-        Sets the the title of an event. This overrides the default title, which just concatenates
-        the venue name with the year. This allows the event name to be overridden in the <event>
-        block in the XML.
-        """
-        if event not in self.events:
-            self.events[event] = {
-                "title": None,
-                "volumes": [],
-            }
-        self.events[event]["title"] = title
+        # parse the top level of the block
+        event_data = parse_element(
+            event_xml,
+            list_elements=["url", "volume-id"],
+            dont_parse_elements=["meta", "links", "colocated"],
+        )
 
-    def register_volume(self, volume: str, event: str):
+        # copy over on top of default values
+        for key, value in event_data.items():
+            if key == "xml_meta":
+                # parse the children of "meta", raising them to the top level
+                # We also apply the formatter to the title, even though it shouldn't
+                # contain sub-formatting like that found in tables
+                for childkey, childvalue in parse_element(value).items():
+                    if childkey == "xml_title":
+                        # This item preserves the XML, so we need to interpret it
+                        self.events[event_id]["title"] = self.formatter(
+                            childvalue, "text"
+                        )
+                    else:
+                        self.events[event_id][childkey] = childvalue
+
+            elif key == "xml_links":
+                # Copy links as a list of dicts under "links". This is then iterated over
+                # in the hugo template (hugo/layouts/events/single.html
+                for name, url in parse_element(value, list_elements=["url"]).items():
+                    # Rewrite the handbook URL if it's a relative path (which it should be)
+                    if (
+                        name == "handbook"
+                        and not url.startswith("http")
+                        and not url.startswith("/")
+                    ):
+                        url = EVENT_LOCATION_TEMPLATE.format(url)
+
+                    self.events[event_id]["links"].append({name.capitalize(): url})
+
+            elif key == "xml_colocated":
+                # Turn the colocated volumes into a list of volume IDs
+                for volume_id in parse_element(value, list_elements=["volume-id"]).get(
+                    "volume-id", []
+                ):
+                    self.register_volume(volume_id, event_id)
+
+            else:
+                # all other keys
+                self.events[event_id][key] = value
+
+        # print(event_id, self.events[event_id])
+
+    def register_volume(self, volume: str, event_id: str):
         """
-        Adds a volume to an event.
+        Adds a volume to an event. These are the volumes that will appear on the
+        event page. It should include volumes naturally associated with the event
+        (by virtue of belonging to the event's venue) as well as colocated volumes.
 
         :param volume: The full volume ID (e.g., P19-1, 2022.acl-long)
         :param event: The event (e.g., acl-2019, acl-2022)
         """
-        if event not in self.events:
-            venue, year = event.split("-")
-            venue_name = self.venue_index.get_venue(venue)["name"]
-            self.events[event] = {
-                "venue": venue,
-                "year": year,
-                "title": f"{venue_name} ({year})",
-                "volumes": [],
-            }
+        self._create_event(event_id)
 
-        if volume not in self.events[event]["volumes"]:
-            self.events[event]["volumes"].append(volume)
+        if volume not in self.events[event_id]["volumes"]:
+            self.events[event_id]["volumes"].append(volume)
 
     def items(self):
-        """Iterate over the items."""
+        """Iterate over the events."""
         return self.events.items()

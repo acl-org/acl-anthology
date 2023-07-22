@@ -4,6 +4,7 @@ import xml.etree.ElementTree as ET
 import sys
 from collections import Counter
 
+# ruff: noqa: F403, F405
 from common import *
 
 if __name__ == "__main__":

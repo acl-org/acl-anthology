@@ -22,11 +22,9 @@ from functools import lru_cache
 import itertools as it
 from slugify import slugify
 from stop_words import get_stop_words
-from .formatter import bibtex_encode
 from .people import PersonName
-from .venues import VenueIndex
 
-from typing import List
+from typing import List, Dict
 
 try:
     from yaml import CLoader as Loader
@@ -387,7 +385,7 @@ class AnthologyIndex:
         return self.id_to_canonical[id_]
 
     def set_canonical_name(self, id_, name):
-        if (not id_ in self.id_to_canonical) or (
+        if (id_ not in self.id_to_canonical) or (
             name.score > self.id_to_canonical[id_].score
         ):
             # if name not seen yet, or if this version has more accents
@@ -424,7 +422,7 @@ class AnthologyIndex:
         return self.comments.get(id_, None)
 
     @lru_cache(maxsize=2**16)
-    def resolve_name(self, name, id_=None):
+    def resolve_name(self, name, id_=None) -> Dict:
         """Find person named 'name' and return a dict with fields
         'first', 'last', 'id'"""
         if id_ is None:

@@ -129,7 +129,7 @@ venv/bin/activate: bin/requirements.txt
 	test -d venv || python3 -m venv venv
 	. $(VENV) && pip3 install wheel
 	. $(VENV) && pip3 install -Ur bin/requirements.txt
-	@python3 -c "from yaml import CLoader" 2> /dev/null || ( \
+	@. $(VENV) && python3 -c "from yaml import CLoader" 2> /dev/null || ( \
 	    echo "WARNING     No libyaml bindings enabled for pyyaml, your build will be several times slower than needed";\
 	    echo "            see the README on GitHub for more information")
 	touch venv/bin/activate
@@ -272,9 +272,10 @@ check: venv pytest
 	    exit 1; \
 	fi
 	jing -c data/xml/schema.rnc data/xml/*xml
-	SKIP=no-commit-to-branch . $(VENV) \
-	  && pre-commit run --all-files \
-	  && black --check $(pysources)
+	. $(VENV) \
+	  && SKIP=no-commit-to-branch pre-commit run --all-files \
+	  && black --check $(pysources) \
+	  && ruff check $(pysources)
 
 .PHONY: pytest
 pytest: venv
@@ -290,7 +291,7 @@ check_staged_xml:
 check_commit: check_staged_xml venv/bin/activate
 	@. $(VENV) && pre-commit run
 	@if [ ! -z "$(pystaged)" ]; then \
-	    . $(VENV) && black --check $(pystaged) ;\
+	    . $(VENV) && black --check $(pystaged) && ruff check $(pystaged) ;\
 	 fi
 
 .PHONY: autofix
@@ -299,6 +300,7 @@ autofix: check_staged_xml venv/bin/activate
 	 EXIT_STATUS=0 ;\
 	 pre-commit run || EXIT_STATUS=$$? ;\
 	 PRE_DIFF=`git diff --no-ext-diff --no-color` ;\
+	 ruff --fix --show-fixes $(pysources) || EXIT_STATUS=$$? ;\
 	 black $(pysources) || EXIT_STATUS=$$? ;\
 	 POST_DIFF=`git diff --no-ext-diff --no-color` ;\
 	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
