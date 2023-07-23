@@ -50,6 +50,8 @@ class Paper:
         authors (list[Name]): Names of authors associated with this paper; can be empty.
         awards (list[str]): Names of awards this has paper has received; can be empty.
         editors (list[Name]): Names of editors associated with this paper; can be empty.
+        errata (list[PaperErratum]): Errata for this paper; can be empty.
+        revisions (list[PaperRevision]): Revisions for this paper; can be empty.
         videos (list[VideoReference]): Zero or more references to video recordings belonging to this paper.
 
         abstract (Optional[MarkupText]): The full abstract.
@@ -72,13 +74,14 @@ class Paper:
     authors: list[Name] = Factory(list)
     awards: list[str] = Factory(list)
     editors: list[Name] = Factory(list)
+    errata: list[PaperErratum] = Factory(list)
+    revisions: list[PaperRevision] = Factory(list)
     videos: list[VideoReference] = Factory(list)
 
     abstract: Optional[MarkupText] = field(default=None)
     deletion: Optional[PaperDeletionNotice] = field(default=None)
     doi: Optional[str] = field(default=None)
     ingest_date: Optional[str] = field(default=None)
-    # TODO revision + erratum
     language: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
@@ -112,12 +115,15 @@ class Paper:
     def from_xml(cls, parent: Volume, meta: etree._Element) -> Paper:
         """Instantiates a new paper from its `<paper>` block in the XML."""
         paper = cast(etree._Element, meta.getparent())
+        # TODO: only pre-initialize the most common list arguments
         kwargs: dict[str, Any] = {
             "id": str(paper.attrib["id"]),
             "parent": parent,
             "authors": [],
             "awards": [],
             "editors": [],
+            "errata": [],
+            "revisions": [],
             "videos": [],
             "attachments": {},
         }
@@ -140,6 +146,8 @@ class Paper:
                 )
             elif element.tag == "award":
                 kwargs["awards"].append(element.text)
+            elif element.tag == "erratum":
+                kwargs["errata"].append(PaperErratum.from_xml(element))
             elif element.tag in ("pwccode", "pwcdataset"):
                 if "paperswithcode" not in kwargs:
                     kwargs["paperswithcode"] = PapersWithCodeReference()
@@ -153,11 +161,9 @@ class Paper:
                 else:  # element.tag == "pwcdataset"
                     kwargs["paperswithcode"].datasets.append(pwc_tuple)
             elif element.tag in ("removed", "retracted"):
-                kwargs["deletion"] = PaperDeletionNotice(
-                    type=PaperDeletionType(str(element.tag)),
-                    note=str(element.text),
-                    date=str(element.attrib["date"]),
-                )
+                kwargs["deletion"] = PaperDeletionNotice.from_xml(element)
+            elif element.tag == "revision":
+                kwargs["revisions"].append(PaperRevision.from_xml(element))
             elif element.tag == "url":
                 checksum = element.attrib.get("hash")
                 kwargs["pdf"] = PDFReference(
@@ -202,3 +208,64 @@ class PaperDeletionNotice:
 
     date: str
     """The date on which the paper was retracted or removed."""
+
+    @classmethod
+    def from_xml(cls, element: etree._Element) -> PaperDeletionNotice:
+        """Instantiates a deletion notice from its `<removed>` or `<retracted>` block in the XML."""
+        return cls(
+            type=PaperDeletionType(str(element.tag)),
+            note=str(element.text),
+            date=str(element.attrib["date"]),
+        )
+
+
+@define
+class PaperErratum:
+    """An erratum for a paper."""
+
+    id: int
+    """An ID for this erratum."""
+
+    pdf: PDFReference
+    """A reference to the erratum's PDF."""
+    # Note: must be a local filename according to the schema
+
+    date: Optional[str] = field(default=None)
+    """The date where this erratum was added."""
+
+    @classmethod
+    def from_xml(cls, element: etree._Element) -> PaperErratum:
+        """Instantiates an erratum from its `<erratum>` block in the XML."""
+        return cls(
+            id=int(element.attrib["id"]),
+            pdf=PDFReference(str(element.text), str(element.attrib["hash"])),
+            date=(str(element.attrib["date"]) if "date" in element.attrib else None),
+        )
+
+
+@define
+class PaperRevision:
+    """A revised version of a paper."""
+
+    id: int
+    """An ID for this revision."""
+
+    note: str
+    """A note explaining the reason for the revision."""
+
+    pdf: PDFReference
+    """A reference to the revision's PDF."""
+    # Note: must be a local filename according to the schema
+
+    date: Optional[str] = field(default=None)
+    """The date where this revision was added."""
+
+    @classmethod
+    def from_xml(cls, element: etree._Element) -> PaperRevision:
+        """Instantiates a revision from its `<revision>` block in the XML."""
+        return cls(
+            id=int(element.attrib["id"]),
+            note=str(element.text),
+            pdf=PDFReference(str(element.attrib["href"]), str(element.attrib["hash"])),
+            date=(str(element.attrib["date"]) if "date" in element.attrib else None),
+        )

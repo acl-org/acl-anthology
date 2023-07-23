@@ -37,6 +37,11 @@ class FileReference:
     checksum: Optional[str] = field(default=None)
 
     @property
+    def is_local(self) -> bool:
+        """Whether this is a local filename."""
+        return "://" not in self.name
+
+    @property
     def url(self) -> str:
         """The URL at which this file can be accessed."""
         if "://" in self.name:
