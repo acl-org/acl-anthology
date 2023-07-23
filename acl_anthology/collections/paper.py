@@ -19,7 +19,7 @@ import datetime
 from attrs import define, field, Factory
 from enum import Enum
 from lxml import etree
-from typing import Any, Optional, cast, TYPE_CHECKING
+from typing import Any, Optional, TYPE_CHECKING
 
 from ..files import (
     AttachmentReference,
@@ -112,9 +112,8 @@ class Paper:
         return datetime.date.fromisoformat(self.ingest_date)
 
     @classmethod
-    def from_xml(cls, parent: Volume, meta: etree._Element) -> Paper:
+    def from_xml(cls, parent: Volume, paper: etree._Element) -> Paper:
         """Instantiates a new paper from its `<paper>` block in the XML."""
-        paper = cast(etree._Element, meta.getparent())
         kwargs: dict[str, Any] = {
             "id": str(paper.attrib["id"]),
             "parent": parent,
@@ -124,10 +123,11 @@ class Paper:
         }
         if (ingest_date := paper.attrib.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
-        if (paper_type := paper.attrib.get("type")) is not None:
-            kwargs["type"] = str(paper_type)
-        for element in meta:
-            if element.tag in ("doi", "language", "note", "pages"):
+        # TODO: this is currently ignored
+        # if (paper_type := paper.attrib.get("type")) is not None:
+        #    kwargs["type"] = str(paper_type)
+        for element in paper:
+            if element.tag in ("bibkey", "doi", "language", "note", "pages"):
                 kwargs[element.tag] = element.text
             elif element.tag in ("author", "editor"):
                 kwargs[f"{element.tag}s"].append(Name.from_xml(element))
