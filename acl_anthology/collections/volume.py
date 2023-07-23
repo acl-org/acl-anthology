@@ -95,9 +95,19 @@ class Volume:
     #    return f"Volume({self._parent_id!r}, {self._id!r})"
 
     @property
+    def frontmatter(self) -> Paper | None:
+        """Returns the volume's frontmatter, if any."""
+        return self.papers.get("0")
+
+    @property
     def full_id(self) -> str:
         """The full anthology ID of this volume (e.g. "L06-1" or "2022.emnlp-main")."""
         return build_id(self.parent.id, self.id)
+
+    @property
+    def has_frontmatter(self) -> bool:
+        """Returns True if this volume has frontmatter."""
+        return "0" in self.papers
 
     def get_ingest_date(self) -> datetime.date:
         """
@@ -107,6 +117,15 @@ class Volume:
         if self.ingest_date is None:
             return constants.UNKNOWN_INGEST_DATE
         return datetime.date.fromisoformat(self.ingest_date)
+
+    def _add_frontmatter_from_xml(self, element: etree._Element) -> None:
+        """Sets this volume's frontmatter.
+
+        Parameters:
+            element: The `<frontmatter>` element.
+        """
+        paper = Paper.from_frontmatter_xml(self, element)
+        self.papers[paper.id] = paper
 
     def _add_paper_from_xml(self, element: etree._Element) -> None:
         """Creates a new paper belonging to this volume.

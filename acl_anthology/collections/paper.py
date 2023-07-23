@@ -73,6 +73,7 @@ class Paper:
     attachments: dict[str, AttachmentReference] = Factory(dict)
     authors: list[Name] = Factory(list)
     awards: list[str] = Factory(list)
+    # TODO: why can a Paper ever have "editors"? it's allowed by the schema
     editors: list[Name] = Factory(list)
     errata: list[PaperErratum] = Factory(list)
     revisions: list[PaperRevision] = Factory(list)
@@ -102,6 +103,11 @@ class Paper:
         """Returns True if this paper was retracted or removed from the Anthology."""
         return self.deletion is not None
 
+    @property
+    def is_frontmatter(self) -> bool:
+        """Returns True if this paper represents a volume's frontmatter."""
+        return self.id == "0"
+
     def get_ingest_date(self) -> datetime.date:
         """
         Returns:
@@ -110,6 +116,41 @@ class Paper:
         if self.ingest_date is None:
             return self.parent.get_ingest_date()
         return datetime.date.fromisoformat(self.ingest_date)
+
+    @classmethod
+    def from_frontmatter_xml(cls, parent: Volume, paper: etree._Element) -> Paper:
+        """Instantiates a new paper from a `<frontmatter>` block in the XML."""
+        kwargs: dict[str, Any] = {
+            "id": "0",
+            "parent": parent,
+            # A frontmatter's title is the parent volume's title
+            "title": parent.title,
+            # A volume's editors are authors for the frontmatter
+            "authors": parent.editors,
+        }
+        # Frontmatter only supports a small subset of regular paper attributes,
+        # so we duplicate these here -- but maybe suboptimal?
+        for element in paper:
+            if element.tag in ("bibkey", "doi", "pages"):
+                kwargs[element.tag] = element.text
+            elif element.tag == "attachment":
+                checksum = element.attrib.get("hash")
+                type_ = str(element.attrib.get("type", "attachment"))
+                kwargs["attachments"][type_] = AttachmentReference(
+                    str(element.text), str(checksum)
+                )
+            elif element.tag == "revision":
+                if "revisions" not in kwargs:
+                    kwargs["revisions"] = []
+                kwargs["revisions"].append(PaperRevision.from_xml(element))
+            elif element.tag == "url":
+                checksum = element.attrib.get("hash")
+                kwargs["pdf"] = PDFReference(
+                    str(element.text), str(checksum) if checksum else None
+                )
+            else:
+                raise ValueError(f"Unsupported element for Frontmatter: <{element.tag}>")
+        return cls(**kwargs)
 
     @classmethod
     def from_xml(cls, parent: Volume, paper: etree._Element) -> Paper:
@@ -226,7 +267,7 @@ class PaperDeletionNotice:
 class PaperErratum:
     """An erratum for a paper."""
 
-    id: int
+    id: str
     """An ID for this erratum."""
 
     pdf: PDFReference
@@ -240,7 +281,7 @@ class PaperErratum:
     def from_xml(cls, element: etree._Element) -> PaperErratum:
         """Instantiates an erratum from its `<erratum>` block in the XML."""
         return cls(
-            id=int(element.attrib["id"]),
+            id=str(element.attrib["id"]),
             pdf=PDFReference(str(element.text), str(element.attrib["hash"])),
             date=(str(element.attrib["date"]) if "date" in element.attrib else None),
         )
@@ -250,7 +291,7 @@ class PaperErratum:
 class PaperRevision:
     """A revised version of a paper."""
 
-    id: int
+    id: str
     """An ID for this revision."""
 
     note: str
@@ -267,7 +308,7 @@ class PaperRevision:
     def from_xml(cls, element: etree._Element) -> PaperRevision:
         """Instantiates a revision from its `<revision>` block in the XML."""
         return cls(
-            id=int(element.attrib["id"]),
+            id=str(element.attrib["id"]),
             note=str(element.text),
             pdf=PDFReference(str(element.attrib["href"]), str(element.attrib["hash"])),
             date=(str(element.attrib["date"]) if "date" in element.attrib else None),

@@ -75,8 +75,7 @@ class Collection:
                     current_volume = self._add_volume_from_xml(element)  # noqa: F841
                     element.clear()
                 case ("end", "frontmatter"):
-                    # TODO: parse frontmatter
-                    pass
+                    current_volume._add_frontmatter_from_xml(element)
                 case ("end", "paper"):
                     current_volume._add_paper_from_xml(element)
                 case ("end", "event"):
