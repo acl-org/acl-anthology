@@ -14,13 +14,19 @@
 
 from __future__ import annotations
 
+import attrs
 import datetime
 from attrs import define, field, Factory
 from enum import Enum
 from lxml import etree
 from typing import Any, Optional, cast, TYPE_CHECKING
 
-from ..files import AttachmentReference, PDFReference, VideoReference
+from ..files import (
+    AttachmentReference,
+    PapersWithCodeReference,
+    PDFReference,
+    VideoReference,
+)
 from ..people import Name
 from ..text import MarkupText
 from ..utils.ids import build_id
@@ -53,6 +59,7 @@ class Paper:
         language (Optional[str]): The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
         note (Optional[str]): A note attached to this paper.  Used very sparingly.
         pages (Optional[str]): Page numbers of this paper within its volume.
+        paperswithcode (Optional[PapersWithCodeReference]): Links to code implementations and datasets as provided by [Papers with Code](https://paperswithcode.com/).
         pdf (Optional[PDFReference]): A reference to the paper's PDF.
     """
 
@@ -75,8 +82,10 @@ class Paper:
     language: Optional[str] = field(default=None)
     note: Optional[str] = field(default=None)
     pages: Optional[str] = field(default=None)
+    paperswithcode: Optional[PapersWithCodeReference] = field(
+        default=None, on_setattr=attrs.setters.frozen
+    )
     pdf: Optional[PDFReference] = field(default=None)
-    # TODO: pwcdataset + pwccode; field(on_setattr=attrs.setters.frozen)
 
     # TODO: properties we obtain from the parent volume?
 
@@ -131,6 +140,18 @@ class Paper:
                 )
             elif element.tag == "award":
                 kwargs["awards"].append(element.text)
+            elif element.tag in ("pwccode", "pwcdataset"):
+                if "paperswithcode" not in kwargs:
+                    kwargs["paperswithcode"] = PapersWithCodeReference()
+                pwc_tuple = (str(element.text), str(element.attrib["url"]))
+                if element.tag == "pwccode":
+                    kwargs["paperswithcode"].community_code = xsd_boolean(
+                        str(element.attrib["additional"])
+                    )
+                    if pwc_tuple[1]:
+                        kwargs["paperswithcode"].code = pwc_tuple
+                else:  # element.tag == "pwcdataset"
+                    kwargs["paperswithcode"].datasets.append(pwc_tuple)
             elif element.tag in ("removed", "retracted"):
                 kwargs["deletion"] = PaperDeletionNotice(
                     type=PaperDeletionType(str(element.tag)),

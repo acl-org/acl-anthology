@@ -14,7 +14,7 @@
 
 """Classes for representing and resolving file references."""
 
-from attrs import define, field
+from attrs import define, field, Factory
 from typing import cast, Optional
 
 from .config import config
@@ -82,3 +82,18 @@ class VideoReference(FileReference):
 
     template_field: str = "attachment_location_template"
     permission: bool = field(default=True)
+
+
+@define
+class PapersWithCodeReference:
+    """Class aggregating [Papers with Code](https://paperswithcode.com/) (PwC) links in a paper.
+
+    Attributes:
+        code: An official code repository, given as a tuple of the form `(name, url)`.
+        community_code: Whether the PwC page of the paper has additional, community-provided code links.
+        datasets: A list of datasets on PwC, given as tuples of the form `(name, url)`.
+    """
+
+    code: Optional[tuple[str, str]] = field(default=None)
+    community_code: bool = field(default=False)
+    datasets: list[tuple[str, str]] = Factory(list)
