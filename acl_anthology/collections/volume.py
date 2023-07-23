@@ -109,6 +109,17 @@ class Volume:
         """Returns True if this volume has frontmatter."""
         return "0" in self.papers
 
+    def get(self, paper_id: str) -> Paper | None:
+        """Access a paper in this volume by its ID.
+
+        Parameters:
+            paper_id: A paper ID.
+
+        Returns:
+            The paper associated with the given ID, if it exists in this volme.
+        """
+        return self.papers.get(paper_id)
+
     def get_ingest_date(self) -> datetime.date:
         """
         Returns:

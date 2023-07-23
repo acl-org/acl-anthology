@@ -18,6 +18,7 @@ from typing import Optional, TYPE_CHECKING
 from ..utils.ids import parse_id, AnthologyID
 from .collection import Collection
 from .volume import Volume
+from .paper import Paper
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -38,7 +39,7 @@ class CollectionIndex:
 
         self._find_collections()
 
-    def get(self, full_id: AnthologyID) -> Optional[Collection | Volume]:
+    def get(self, full_id: AnthologyID) -> Optional[Collection | Volume | Paper]:
         """Access collections, volumes, and papers, depending on the provided ID.
 
         Parameters:
@@ -51,10 +52,9 @@ class CollectionIndex:
         if volume_id is None:
             return self.collections.get(collection_id)
         volume = self.get_volume((collection_id, volume_id, None))
-        if paper_id is None:
+        if paper_id is None or volume is None:
             return volume
-        # TODO: fetch and return individual paper
-        return None
+        return volume.get(paper_id)
 
     def get_volume(self, full_id: AnthologyID) -> Optional[Volume]:
         """Access a volume by its ID or the ID of a contained paper.
