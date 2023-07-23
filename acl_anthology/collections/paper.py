@@ -115,16 +115,11 @@ class Paper:
     def from_xml(cls, parent: Volume, meta: etree._Element) -> Paper:
         """Instantiates a new paper from its `<paper>` block in the XML."""
         paper = cast(etree._Element, meta.getparent())
-        # TODO: only pre-initialize the most common list arguments
         kwargs: dict[str, Any] = {
             "id": str(paper.attrib["id"]),
             "parent": parent,
             "authors": [],
-            "awards": [],
             "editors": [],
-            "errata": [],
-            "revisions": [],
-            "videos": [],
             "attachments": {},
         }
         if (ingest_date := paper.attrib.get("ingest-date")) is not None:
@@ -145,8 +140,12 @@ class Paper:
                     str(element.text), str(checksum)
                 )
             elif element.tag == "award":
+                if "awards" not in kwargs:
+                    kwargs["awards"] = []
                 kwargs["awards"].append(element.text)
             elif element.tag == "erratum":
+                if "errata" not in kwargs:
+                    kwargs["errata"] = []
                 kwargs["errata"].append(PaperErratum.from_xml(element))
             elif element.tag in ("pwccode", "pwcdataset"):
                 if "paperswithcode" not in kwargs:
@@ -163,6 +162,8 @@ class Paper:
             elif element.tag in ("removed", "retracted"):
                 kwargs["deletion"] = PaperDeletionNotice.from_xml(element)
             elif element.tag == "revision":
+                if "revisions" not in kwargs:
+                    kwargs["revisions"] = []
                 kwargs["revisions"].append(PaperRevision.from_xml(element))
             elif element.tag == "url":
                 checksum = element.attrib.get("hash")
@@ -170,6 +171,8 @@ class Paper:
                     str(element.text), str(checksum) if checksum else None
                 )
             elif element.tag == "video":
+                if "videos" not in kwargs:
+                    kwargs["videos"] = []
                 permission = True
                 if (value := element.attrib.get("permission")) is not None:
                     permission = xsd_boolean(str(value))
