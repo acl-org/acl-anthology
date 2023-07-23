@@ -50,3 +50,12 @@ def stringify_children(node: etree._Element) -> str:
         )
         if chunk
     ).strip()
+
+
+def xsd_boolean(value: str) -> bool:
+    """Converts an xsd:boolean value to a bool."""
+    if value in ("0", "false"):
+        return False
+    elif value in ("1", "true"):
+        return True
+    raise ValueError(f"Not a valid xsd:boolean value: '{value}'")

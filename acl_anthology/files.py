@@ -24,7 +24,7 @@ from .config import config
 class FileReference:
     """Base class for all references to local or remote files in the XML data.
 
-    Do not instantiate directly; use the sub-classes instead
+    Do not instantiate directly; use the sub-classes instead.
 
     Attributes:
         template_field (str): The URL formatting template to use.  Set by the sub-classes.
@@ -38,6 +38,7 @@ class FileReference:
 
     @property
     def url(self) -> str:
+        """The URL at which this file can be accessed."""
         if "://" in self.name:
             return self.name
         return cast(str, config[self.template_field]).format(self.name)
@@ -61,6 +62,8 @@ class PDFThumbnailReference(FileReference):
 class AttachmentReference(FileReference):
     """Reference to an attachment."""
 
+    # TODO: attachments must be local files according to the schema
+
     template_field: str = "attachment_location_template"
 
 
@@ -75,4 +78,7 @@ class EventFileReference(FileReference):
 class VideoReference(FileReference):
     """Reference to a video."""
 
+    # TODO: videos can only be remote URLs according to the schema
+
     template_field: str = "attachment_location_template"
+    permission: bool = field(default=True)

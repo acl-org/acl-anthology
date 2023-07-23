@@ -20,10 +20,11 @@ from enum import Enum
 from lxml import etree
 from typing import Any, Optional, cast, TYPE_CHECKING
 
-from ..files import PDFReference
+from ..files import AttachmentReference, PDFReference, VideoReference
 from ..people import Name
 from ..text import MarkupText
 from ..utils.ids import build_id
+from ..utils.xml import xsd_boolean
 
 if TYPE_CHECKING:
     from . import Volume
@@ -39,9 +40,11 @@ class Paper:
         bibkey (str): Bibliography key, e.g. for BibTeX.  Must be unique across all papers in the Anthology.
         title (MarkupText): The title of the paper.
 
+        attachments (dict[str, AttachmentReference]): File attachments of this paper. The dictionary key specifies the type of attachment (e.g., "software").
         authors (list[Name]): Names of authors associated with this paper; can be empty.
         awards (list[str]): Names of awards this has paper has received; can be empty.
         editors (list[Name]): Names of editors associated with this paper; can be empty.
+        videos (list[VideoReference]): Zero or more references to video recordings belonging to this paper.
 
         abstract (Optional[MarkupText]): The full abstract.
         deletion (Optional[PaperDeletionNotice]): A notice of the paper's retraction or removal, if applicable.
@@ -58,12 +61,13 @@ class Paper:
     bibkey: str
     title: MarkupText = field()
 
+    attachments: dict[str, AttachmentReference] = Factory(dict)
     authors: list[Name] = Factory(list)
     awards: list[str] = Factory(list)
     editors: list[Name] = Factory(list)
+    videos: list[VideoReference] = Factory(list)
 
     abstract: Optional[MarkupText] = field(default=None)
-    # TODO attachment + video
     deletion: Optional[PaperDeletionNotice] = field(default=None)
     doi: Optional[str] = field(default=None)
     ingest_date: Optional[str] = field(default=None)
@@ -73,8 +77,6 @@ class Paper:
     pages: Optional[str] = field(default=None)
     pdf: Optional[PDFReference] = field(default=None)
     # TODO: pwcdataset + pwccode; field(on_setattr=attrs.setters.frozen)
-
-    # TODO: fields that are currently ignored: issue, journal, mrf
 
     # TODO: properties we obtain from the parent volume?
 
@@ -107,6 +109,8 @@ class Paper:
             "authors": [],
             "awards": [],
             "editors": [],
+            "videos": [],
+            "attachments": {},
         }
         if (ingest_date := paper.attrib.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
@@ -119,20 +123,36 @@ class Paper:
                 kwargs[f"{element.tag}s"].append(Name.from_xml(element))
             elif element.tag in ("abstract", "title"):
                 kwargs[element.tag] = MarkupText.from_xml(element)
+            elif element.tag == "attachment":
+                checksum = element.attrib.get("hash")
+                type_ = str(element.attrib.get("type", "attachment"))
+                kwargs["attachments"][type_] = AttachmentReference(
+                    str(element.text), str(checksum)
+                )
             elif element.tag == "award":
                 kwargs["awards"].append(element.text)
-            elif element.tag == "url":
-                checksum = element.attrib.get("hash")
-                kwargs["pdf"] = PDFReference(
-                    str(element.text), str(checksum) if checksum else None
-                )
             elif element.tag in ("removed", "retracted"):
                 kwargs["deletion"] = PaperDeletionNotice(
                     type=PaperDeletionType(str(element.tag)),
                     note=str(element.text),
                     date=str(element.attrib["date"]),
                 )
+            elif element.tag == "url":
+                checksum = element.attrib.get("hash")
+                kwargs["pdf"] = PDFReference(
+                    str(element.text), str(checksum) if checksum else None
+                )
+            elif element.tag == "video":
+                permission = True
+                if (value := element.attrib.get("permission")) is not None:
+                    permission = xsd_boolean(str(value))
+                kwargs["videos"].append(
+                    VideoReference(
+                        name=str(element.attrib.get("href")), permission=permission
+                    )
+                )
             elif element.tag in ("issue", "journal", "mrf"):
+                # TODO: these fields are currently ignored
                 pass
             else:
                 raise ValueError(f"Unsupported element for Paper: <{element.tag}>")
