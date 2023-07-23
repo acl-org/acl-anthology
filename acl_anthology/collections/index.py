@@ -72,6 +72,21 @@ class CollectionIndex:
             collection.load()
         return collection.get(volume_id)  # type: ignore
 
+    def get_paper(self, full_id: AnthologyID) -> Optional[Paper]:
+        """Access a paper by its ID.
+
+        Parameters:
+            full_id: An Anthology ID that refers to a paper.
+
+        Returns:
+            The volume associated with the given ID.
+        """
+        (collection_id, volume_id, paper_id) = parse_id(full_id)
+        volume = self.get_volume((collection_id, volume_id, None))
+        if volume is not None and paper_id is not None:
+            return volume.get(paper_id)
+        return None
+
     def _find_collections(self) -> None:
         """Finds all XML data files and indexes them by their collection ID.
 
