@@ -46,7 +46,7 @@ class Collection:
         """
         return self.volumes.get(volume_id)
 
-    def new_volume_from_xml(self, meta: etree._Element) -> Volume:
+    def _add_volume_from_xml(self, meta: etree._Element) -> Volume:
         """Creates a new volume belonging to this collection.
 
         Parameters:
@@ -72,14 +72,13 @@ class Collection:
                     if element.getparent().tag == "event":
                         # Event metadata handled separately
                         continue
-                    current_volume = self.new_volume_from_xml(element)  # noqa: F841
+                    current_volume = self._add_volume_from_xml(element)  # noqa: F841
                     element.clear()
                 case ("end", "frontmatter"):
                     # TODO: parse frontmatter
                     pass
                 case ("end", "paper"):
-                    # TODO: parse and attach paper
-                    pass
+                    current_volume._add_paper_from_xml(element)
                 case ("end", "event"):
                     # TODO: parse and attach event
                     pass

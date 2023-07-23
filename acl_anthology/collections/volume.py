@@ -25,6 +25,7 @@ from ..files import PDFReference
 from ..people import Name
 from ..text import MarkupText
 from ..utils.ids import build_id
+from .paper import Paper
 
 if TYPE_CHECKING:
     from . import Collection
@@ -51,6 +52,8 @@ class Volume:
         title (MarkupText): The title of the volume. (Aliased to `booktitle` for initialization.)
         year (str): The year of publication.
 
+        papers (dict[str, Paper]): A mapping of paper IDs in this volume to their Paper objects.
+
         address (Optional[str]): The publisher's address for this volume.
         doi (Optional[str]): The DOI for the volume.
         editors (list[Name]): Names of editors associated with this volume.
@@ -71,6 +74,8 @@ class Volume:
     type: VolumeType
     title: MarkupText = field(alias="booktitle")
     year: str
+
+    papers: dict[str, Paper] = field(init=False, repr=False, factory=dict)
 
     address: Optional[str] = field(default=None)
     doi: Optional[str] = field(default=None)
@@ -102,6 +107,15 @@ class Volume:
         if self.ingest_date is None:
             return constants.UNKNOWN_INGEST_DATE
         return datetime.date.fromisoformat(self.ingest_date)
+
+    def _add_paper_from_xml(self, element: etree._Element) -> None:
+        """Creates a new paper belonging to this volume.
+
+        Parameters:
+            element: The `<paper>` element.
+        """
+        paper = Paper.from_xml(self, element)
+        self.papers[paper.id] = paper
 
     @classmethod
     def from_xml(cls, parent: Collection, meta: etree._Element) -> Volume:
