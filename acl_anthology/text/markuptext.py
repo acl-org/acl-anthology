@@ -20,6 +20,7 @@ from attrs import define, field
 from collections import defaultdict
 from copy import deepcopy
 from lxml import etree
+from typing import Iterator
 
 from ..utils import (
     latex_encode,
@@ -59,7 +60,7 @@ def markup_to_latex(element: etree._Element) -> str:
     return text
 
 
-@define
+@define(repr=False)
 class MarkupText:
     """Text with optional markup.
 
@@ -70,6 +71,12 @@ class MarkupText:
 
     def __str__(self) -> str:
         return self.as_text()
+
+    def __repr__(self) -> str:
+        return f"MarkupText({self.as_html()!r})"
+
+    def __rich_repr__(self) -> Iterator[str]:
+        yield self.as_html()
 
     def as_text(self) -> str:
         """
