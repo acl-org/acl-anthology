@@ -533,6 +533,8 @@ def copy_pdf_and_attachment(
     paths_to_check = [
         Path('front_matter.pdf'),
         Path('0.pdf'),
+        Path("watermarked_pdfs") / 'front_matter.pdf',
+        Path("watermarked_pdfs") / '0.pdf',
         Path("build") / 'front_matter.pdf',
         Path("build") / '0.pdf',
     ]
@@ -694,7 +696,8 @@ def create_xml(
         else:
             paper_node = paper2xml(papers[paper_num - 1], paper_num, paper_id_full, meta)
 
-        if paper_node.attrib['id'] == '0':
+        paper_id = paper_node.attrib['id']
+        if paper_id == '0':
             # create metadata subtree
             meta_node = make_simple_element('meta', parent=volume_node)
             title_node = paper_node.find('booktitle')
@@ -836,7 +839,12 @@ def create_xml(
     help='Ingestion date',
 )
 def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, ingest_date):
-    anthology_datadir = os.path.join(os.path.dirname(sys.argv[0]), "..", "data")
+    anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
+
+    # anthology = Anthology(
+    #     importdir=anthology_datadir, require_bibkeys=False
+    # )
+
     venue_index = VenueIndex(srcdir=anthology_datadir)
     venue_keys = [venue["slug"].lower() for _, venue in venue_index.items()]
 
