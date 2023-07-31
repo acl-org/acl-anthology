@@ -101,6 +101,51 @@ def get_journal_info(top_level_id, volume_title) -> tuple[str, str, str]:
 
     top_level_id = top_level_id.split(".")[-1]  # for new-style IDs; is a no-op otherwise
 
+    journal_title = None
+    volume_no = None
+    issue_no = None
+
+    if top_level_id == "cl":
+        # <booktitle>Computational Linguistics, Volume 26, Number 1, March 2000</booktitle>
+        journal_title = "Computational Linguistics"
+        volume_no, issue_no = match_volume_and_issue(volume_title)
+
+    elif top_level_id == "lilt":
+        # <booktitle>Linguistic Issues in Language Technology, Volume 10, 2015</booktitle>
+        journal_title = "Linguistic Issues in Language Technology"
+        volume_no, _ = match_volume_and_issue(volume_title)
+
+    elif top_level_id == "tal":
+        # <booktitle>Traitement Automatique des Langues 2011 Volume 52 Numéro 1</booktitle>
+        journal_title = "Traitement Automatique des Langues"
+        volume_no, issue_no = match_volume_and_issue(volume_title)
+
+    elif top_level_id == "ijclclp":
+        journal_title = "International Journal of Computational Linguistics & Chinese Language Processing"
+        volume_no, issue_no = match_volume_and_issue(volume_title)
+
+    elif top_level_id == "nejlt":
+        journal_title = "Northern European Journal of Language Technology"
+        volume_no, _ = match_volume_and_issue(volume_title)
+
+    elif top_level_id[0] == "J":
+        # <booktitle>Computational Linguistics, Volume 26, Number 1, March 2000</booktitle>
+        year = int(top_level_id[1:3])
+        if year >= 65 and year <= 83:
+            journal_title = "American Journal of Computational Linguistics"
+        else:
+            journal_title = "Computational Linguistics"
+
+        volume_no, issue_no = match_volume_and_issue(volume_title)
+
+    elif top_level_id[0] == "Q" or top_level_id == "tacl":
+        journal_title = "Transactions of the Association for Computational Linguistics"
+        volume_no, _ = match_volume_and_issue(volume_title)
+
+    else:
+        journal_title = volume_title
+
+    return journal_title, volume_no, issue_no
 
 ### End copy-paste
 
