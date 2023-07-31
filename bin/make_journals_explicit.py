@@ -147,6 +147,7 @@ def get_journal_info(top_level_id, volume_title) -> tuple[str, str, str]:
 
     return journal_title, volume_no, issue_no
 
+
 ### End copy-paste
 
 
