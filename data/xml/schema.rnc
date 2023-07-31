@@ -86,7 +86,6 @@ Paper = element paper {
        attribute href { xsd:anyURI },
        attribute permission { xsd:boolean }?
      }*
-   & element volume { xsd:positiveInteger }?
    & element language { xsd:language }?
    & element award { text }*
    & element pwcdataset {
@@ -107,12 +106,14 @@ Meta = element meta {
    & element publisher { text }?
    & element address { text }?
    & element month { text }?
-   & element year { xsd:gYear }?
-   & element volume { xsd:positiveInteger }?
+   & element year { xsd:gYear }
    & element isbn { xsd:NMTOKEN }?
    & url-with-checksum?
    & element doi { xsd:anyURI }?
    & element venue { text }+
+   & element journal-volume { xsd:string }?
+   & element journal-issue { xsd:string }?
+   & element journal-title { xsd:string }?
   )
 }
 Frontmatter = element frontmatter {
@@ -126,6 +127,7 @@ Frontmatter = element frontmatter {
 }
 Volume = element volume {
   attribute id { xsd:string },
+  attribute type { "journal" | "proceedings" },
   attribute ingest-date { xsd:date }?,
   Meta,
   Frontmatter?,
