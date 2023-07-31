@@ -18,9 +18,17 @@
   {{ end }}
   {{ range .Site.Data.papers }}
     {{ range . }}
+      {{ $volume := index $.Site.Data.volumes .parent_volume_id }}
       {{ with .pdf }}
         {{ if (hasPrefix . "https://aclanthology.org") }}
-  <url><loc>{{ . }}</loc></url>
+        <url>
+          <loc>{{ . }}</loc>
+          <PageMap xmlns="http://www.google.com/schemas/sitemap-pagemap/1.0">
+            <DataObject type="metatags">
+              <Attribute name="citation_publication_date" value="{{ $volume.meta_date }}"/>
+            </DataObject>
+          </PageMap>
+        </url>
         {{ end }}
       {{ end }}
       {{ with .attachment }}

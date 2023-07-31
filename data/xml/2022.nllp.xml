@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.nllp">
-  <volume id="1" ingest-date="2022-12-14">
+  <volume id="1" ingest-date="2022-12-14" type="proceedings">
     <meta>
       <booktitle>Proceedings of the Natural Legal Language Processing Workshop 2022</booktitle>
       <editor><first>Nikolaos</first><last>Aletras</last></editor>
@@ -38,6 +38,7 @@
       <abstract>In this article, we explore the potential and challenges of applying transformer-based pre-trained language models (PLMs) and statistical methods to a particularly challenging, yet highly important and largely uncharted domain: normative discussions in tax law research. On our conviction, the role of NLP in this essentially contested territory is to make explicit implicit normative assumptions, and to foster debates across ideological divides. To this goal, we propose the first steps towards a method that automatically labels normative statements in tax law research, and that suggests the normative background of these statements. Our results are encouraging, but it is clear that there is still room for improvement.</abstract>
       <url hash="ff8ced9a">2022.nllp-1.2</url>
       <bibkey>gubelmann-etal-2022-means</bibkey>
+      <video href="2022.nllp-1.2.mp4"/>
     </paper>
     <paper id="3">
       <title><fixed-case>C</fixed-case>lass<fixed-case>A</fixed-case>ction<fixed-case>P</fixed-case>rediction: A Challenging Benchmark for Legal Judgment Prediction of Class Action Cases in the <fixed-case>US</fixed-case></title>
@@ -85,6 +86,7 @@
       <abstract>Verbose and complicated legal terminology in online service terms and conditions (T&amp;C) means that users typically don’t read these documents before accepting the terms of such unilateral service contracts. With such services becoming part of mainstream digital life, highlighting Terms of Service (ToS) clauses that impact on the collection and use of user data and privacy are important concerns. Advances in text summarization can help to create informative and concise summaries of the terms, but existing approaches geared towards news and microblogging corpora are not directly applicable to the ToS domain, which is hindered by a lack of T&amp;C-relevant resources for training and evaluation. This paper presents a ToS model, developing a hybrid extractive-classifier-abstractive pipeline that highlights the privacy and data collection/use-related sections in a ToS document and paraphrases these into concise and informative sentences. Relying on significantly less training data (4313 training pairs) than previous representative works (287,226 pairs), our model outperforms extractive baselines by at least 50% in ROUGE-1 score and 54% in METEOR score. The paper also contributes to existing community efforts by curating a dataset of online service T&amp;C, through a developed web scraping tool.</abstract>
       <url hash="3517cd2d">2022.nllp-1.6</url>
       <bibkey>lukose-etal-2022-privacy</bibkey>
+      <video href="2022.nllp-1.6.mp4"/>
     </paper>
     <paper id="7">
       <title>Abstractive Summarization of <fixed-case>D</fixed-case>utch Court Verdicts Using Sequence-to-sequence Models</title>
@@ -96,6 +98,7 @@
       <abstract>With the legal sector embracing digitization, the increasing availability of information has led to a need for systems that can automatically summarize legal documents. Most existing research on legal text summarization has so far focused on extractive models, which can result in awkward summaries, as sentences in legal documents can be very long and detailed. In this study, we apply two abstractive summarization models on a Dutch legal domain dataset. The results show that existing models transfer quite well across domains and languages: the ROUGE scores of our experiments are comparable to state-of-the-art studies on English news article texts. Examining one of the models showed the capability of rewriting long legal sentences to much shorter ones, using mostly vocabulary from the source document. Human evaluation shows that for both models hand-made summaries are still perceived as more relevant and readable, and automatic summaries do not always capture elements such as background, considerations and judgement. Still, generated summaries are valuable if only a keyword summary or no summary at all is present.</abstract>
       <url hash="ae0648b5">2022.nllp-1.7</url>
       <bibkey>schraagen-etal-2022-abstractive</bibkey>
+      <video href="2022.nllp-1.7.mp4"/>
     </paper>
     <paper id="8">
       <title>Legal-Tech Open Diaries: Lesson learned on how to develop and deploy light-weight models in the era of humongous Language Models</title>
@@ -117,6 +120,7 @@
       <abstract>Legalese can often be filled with verbose domain-specific jargon which can make it challenging to understand and use for non-experts. Creating succinct summaries of legal documents often makes it easier for user comprehension. However, obtaining labeled data for every domain of legal text is challenging, which makes cross-domain transferability of text generation models for legal text, an important area of research. In this paper, we explore the ability of existing state-of-the-art T5 &amp; BART-based summarization models to transfer across legal domains. We leverage publicly available datasets across four domains for this task, one of which is a new resource for summarizing privacy policies, that we curate and release for academic research. Our experiments demonstrate the low cross-domain transferability of these models, while also highlighting the benefits of combining different domains. Further, we compare the effectiveness of standard metrics for this task and illustrate the vast differences in their performance.</abstract>
       <url hash="2e619422">2022.nllp-1.9</url>
       <bibkey>bannihatti-kumar-etal-2022-towards</bibkey>
+      <video href="2022.nllp-1.9.mp4"/>
     </paper>
     <paper id="10">
       <title>Parameter-Efficient Legal Domain Adaptation</title>
@@ -127,6 +131,7 @@
       <abstract>Seeking legal advice is often expensive. Recent advancements in machine learning for solving complex problems can be leveraged to help make legal services more accessible to the public. However, real-life applications encounter significant challenges. State-of-the-art language models are growing increasingly large, making parameter-efficient learning increasingly important. Unfortunately, parameter-efficient methods perform poorly with small amounts of data, which are common in the legal domain (where data labelling costs are high). To address these challenges, we propose parameter-efficient legal domain adaptation, which uses vast unsupervised legal data from public legal forums to perform legal pre-training. This method exceeds or matches the fewshot performance of existing models such as LEGAL-BERT on various legal tasks while tuning only approximately 0.1% of model parameters. Additionally, we show that our method can achieve calibration comparable to existing methods across several tasks. To the best of our knowledge, this work is among the first to explore parameter-efficient methods of tuning language models in the legal domain.</abstract>
       <url hash="07eebd9b">2022.nllp-1.10</url>
       <bibkey>li-etal-2022-parameter</bibkey>
+      <video href="2022.nllp-1.10.mp4"/>
     </paper>
     <paper id="11">
       <title>Processing Long Legal Documents with Pre-trained Transformers: Modding <fixed-case>L</fixed-case>egal<fixed-case>BERT</fixed-case> and Longformer</title>
@@ -150,6 +155,7 @@
       <abstract>Legal practitioners often face a vast amount of documents. Lawyers, for instance, search for appropriate precedents favorable to their clients, while the number of legal precedents is ever-growing. Although legal search engines can assist finding individual target documents and narrowing down the number of candidates, retrieved information is often presented as unstructured text and users have to examine each document thoroughly which could lead to information overloading. This also makes their statistical analysis challenging. Here, we present an end-to-end information extraction (IE) system for legal documents. By formulating IE as a generation task, our system can be easily applied to various tasks without domain-specific engineering effort. The experimental results of four IE tasks on Korean precedents shows that our IE system can achieve competent scores (-2.3 on average) compared to the rule-based baseline with as few as 50 training examples per task and higher score (+5.4 on average) with 200 examples. Finally, our statistical analysis on two case categories — drunk driving and fraud — with 35k precedents reveals the resulting structured information from our IE system faithfully reflects the macroscopic features of Korean legal system.</abstract>
       <url hash="78deab4a">2022.nllp-1.12</url>
       <bibkey>hwang-etal-2022-data</bibkey>
+      <video href="2022.nllp-1.12.mp4"/>
     </paper>
     <paper id="13">
       <title>Semantic Segmentation of Legal Documents via Rhetorical Roles</title>
@@ -173,6 +179,7 @@
       <abstract>Pre-training large transformer models with in-domain data improves domain adaptation and helps gain performance on the domain-specific downstream tasks. However, sharing models pre-trained on potentially sensitive data is prone to adversarial privacy attacks. In this paper, we asked to which extent we can guarantee privacy of pre-training data and, at the same time, achieve better downstream performance on legal tasks without the need of additional labeled data. We extensively experiment with scalable self-supervised learning of transformer models under the formal paradigm of differential privacy and show that under specific training configurations we can improve downstream performance without sacrifying privacy protection for the in-domain data. Our main contribution is utilizing differential privacy for large-scale pre-training of transformer language models in the legal NLP domain, which, to the best of our knowledge, has not been addressed before.</abstract>
       <url hash="4cdaf06b">2022.nllp-1.14</url>
       <bibkey>yin-habernal-2022-privacy</bibkey>
+      <video href="2022.nllp-1.14.mp4"/>
     </paper>
     <paper id="15">
       <title>Named Entity Recognition in <fixed-case>I</fixed-case>ndian court judgments</title>
@@ -186,6 +193,7 @@
       <abstract>Identification of named entities from legal texts is an essential building block for developing other legal Artificial Intelligence applications. Named Entities in legal texts are slightly different and more fine-grained than commonly used named entities like Person, Organization, Location etc. In this paper, we introduce a new corpus of 46545 annotated legal named entities mapped to 14 legal entity types. The Baseline model for extracting legal named entities from judgment text is also developed.</abstract>
       <url hash="6ccc73c2">2022.nllp-1.15</url>
       <bibkey>kalamkar-etal-2022-named</bibkey>
+      <video href="2022.nllp-1.15.mp4"/>
     </paper>
     <paper id="17">
       <title>The Legal Argument Reasoning Task in Civil Procedure</title>
@@ -196,6 +204,7 @@
       <abstract>We present a new NLP task and dataset from the domain of the U.S. civil procedure. Each instance of the dataset consists of a general introduction to the case, a particular question, and a possible solution argument, accompanied by a detailed analysis of why the argument applies in that case. Since the dataset is based on a book aimed at law students, we believe that it represents a truly complex task for benchmarking modern legal language models. Our baseline evaluation shows that fine-tuning a legal transformer provides some advantage over random baseline models, but our analysis reveals that the actual ability to infer legal arguments remains a challenging open research question.</abstract>
       <url hash="608845f6">2022.nllp-1.17</url>
       <bibkey>bongard-etal-2022-legal</bibkey>
+      <video href="2022.nllp-1.17.mp4"/>
     </paper>
     <paper id="18">
       <title>Efficient Deep Learning-based Sentence Boundary Detection in Legal Text</title>
@@ -206,6 +215,7 @@
       <url hash="f46b2ced">2022.nllp-1.18</url>
       <bibkey>sheik-etal-2022-efficient</bibkey>
       <abstract>A key component of the Natural Language Processing (NLP) pipeline is Sentence Boundary Detection (SBD). Erroneous SBD could affect other processing steps and reduce performance. A few criteria based on punctuation and capitalization are necessary to identify sentence borders in well-defined corpora. However, due to several grammatical ambiguities, the complex structure of legal data poses difficulties for SBD. In this paper, we have trained a neural network framework for identifying the end of the sentence in legal text. We used several state-of-the-art deep learning models, analyzed their performance, and identified that Convolutional Neural Network(CNN) outperformed other deep learning frameworks. We compared the results with rule-based, statistical, and transformer-based frameworks. The best neural network model outscored the popular rule-based framework with an improvement of 8% in the F1 score. Although domain-specific statistical models have slightly improved performance, the trained CNN is 80 times faster in run-time and doesn’t require much feature engineering. Furthermore, after extensive pretraining, the transformer models fall short in overall performance compared to the best deep learning model.</abstract>
+      <video href="2022.nllp-1.18.mp4"/>
     </paper>
     <paper id="19">
       <title>Tracking Semantic Shifts in <fixed-case>G</fixed-case>erman Court Decisions with Diachronic Word Embeddings</title>
@@ -226,6 +236,7 @@
       <abstract>Natural language processing techniques have helped domain experts solve legal problems. Digital availability of court documents increases possibilities for researchers, who can access them as a source for building datasets — whose disclosure is aligned with good reproducibility practices in computational research. Large and digitized court systems, such as the Brazilian one, are prone to be explored in that sense. However, personal data protection laws impose restrictions on data exposure and state principles about which researchers should be mindful. Special caution must be taken in cases with human rights violations, such as gender discrimination, over which we elaborate as an example of interest. We present legal and ethical considerations on the issue, as well as guidelines for researchers dealing with this kind of data and deciding whether to disclose it.</abstract>
       <url hash="d0647d83">2022.nllp-1.20</url>
       <bibkey>m-benatti-etal-2022-disclose</bibkey>
+      <video href="2022.nllp-1.20.mp4"/>
     </paper>
     <paper id="21">
       <title>Attack on Unfair <fixed-case>T</fixed-case>o<fixed-case>S</fixed-case> Clause Detection: A Case Study using Universal Adversarial Triggers</title>
@@ -280,6 +291,7 @@
       <abstract>Generating domain-specific content such as legal clauses based on minimal user-provided information can be of significant benefit in automating legal contract generation. In this paper, we propose a controllable graph-based mechanism that can generate legal clauses using only the topic or type of the legal clauses. Our pipeline consists of two stages involving a graph-based planner followed by a clause generator. The planner outlines the content of a legal clause as a sequence of keywords in the order of generic to more specific clause information based on the input topic using a controllable graph-based mechanism. The generation stage takes in a given plan and generates a clause. The pipeline consists of a graph-based planner followed by text generation. We illustrate the effectiveness of our proposed two-stage approach on a broad set of clause topics in contracts.</abstract>
       <url hash="d15182c8">2022.nllp-1.26</url>
       <bibkey>joshi-etal-2022-graph</bibkey>
+      <video href="2022.nllp-1.26.mp4"/>
     </paper>
     <paper id="27">
       <title>Automatic Classification of Legal Violations in Cookie Banner Texts</title>
@@ -304,6 +316,7 @@
       <url hash="9d0e3193">2022.nllp-1.28</url>
       <bibkey>garimella-etal-2022-text</bibkey>
       <abstract>Legal documents such as contracts contain complex and domain-specific jargons, long and nested sentences, and often present with several details that may be difficult to understand for laypeople without domain expertise.In this paper, we explore the problem of text simplification (TS) in legal domain.The main challenge to this is the lack of availability of complex-simple parallel datasets for the legal domain.We investigate some of the existing datasets, methods, and metrics in the TS literature for simplifying legal texts, and perform human evaluation to analyze the gaps.We present some of the challenges involved, and outline a few open questions that need to be addressed for future research in this direction.</abstract>
+      <video href="2022.nllp-1.28.mp4"/>
     </paper>
     <paper id="29">
       <title>Legal Named Entity Recognition with Multi-Task Domain Adaptation</title>
@@ -317,6 +330,7 @@
       <abstract>Named Entity Recognition (NER) is a well-explored area from Information Retrieval and Natural Language Processing with an extensive research community. Despite that, few languages, such as English and German, are well-resourced, whereas many other languages, such as Romanian, have scarce resources, especially in domain-specific applications. In this work, we address the NER problem in the legal domain from both Romanian and German languages and evaluate the performance of our proposed method based on domain adaptation. We employ multi-task learning to jointly train a neural network on two legal and general domains and perform adaptation among them. The results show that domain adaptation increase performances by a small amount, under 1%, while considerable improvements are in the recall metric.</abstract>
       <url hash="11b7c1b0">2022.nllp-1.29</url>
       <bibkey>smadu-etal-2022-legal</bibkey>
+      <video href="2022.nllp-1.29.mp4"/>
     </paper>
     <paper id="30">
       <title>Computing and Exploiting Document Structure to Improve Unsupervised Extractive Summarization of Legal Case Decisions</title>
@@ -326,6 +340,7 @@
       <abstract>Though many algorithms can be used to automatically summarize legal case decisions, most fail to incorporate domain knowledge about how important sentences in a legal decision relate to a representation of its document structure. For example, analysis of a legal case sum- marization dataset demonstrates that sentences serving different types of argumentative roles in the decision appear in different sections of the document. In this work, we propose an unsupervised graph-based ranking model that uses a reweighting algorithm to exploit properties of the document structure of legal case decisions. We also explore the impact of using different methods to compute the document structure. Results on the Canadian Legal Case Law dataset show that our proposed method outperforms several strong baselines.</abstract>
       <url hash="59c098e2">2022.nllp-1.30</url>
       <bibkey>zhong-litman-2022-computing</bibkey>
+      <video href="2022.nllp-1.30.mp4"/>
     </paper>
     <paper id="31">
       <title><fixed-case>A</fixed-case>ra<fixed-case>L</fixed-case>egal-<fixed-case>BERT</fixed-case>: A pretrained language model for <fixed-case>A</fixed-case>rabic Legal text</title>
