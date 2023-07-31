@@ -23,7 +23,6 @@ from .utils import (
     parse_element,
     infer_url,
     infer_attachment_url,
-    is_journal,
 )
 from . import data
 
@@ -154,7 +153,7 @@ class Paper:
             paper.attrib["xml_title"].tag = "title"
 
         # Remove booktitle for frontmatter and journals
-        if paper.is_volume or is_journal(paper.full_id):
+        if paper.is_volume or paper.parent_volume.is_journal:
             del paper.attrib["xml_booktitle"]
 
         if "editor" in paper.attrib:
@@ -249,7 +248,7 @@ class Paper:
         """Return the BibTeX entry type for this paper."""
         if self.is_volume:
             return "proceedings"
-        elif is_journal(self.full_id):
+        elif self.parent_volume.is_journal:
             return "article"
         else:
             return "inproceedings"
@@ -260,7 +259,7 @@ class Paper:
 
         cf. https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types
         """
-        if is_journal(self.full_id):
+        if self.parent_volume.is_journal:
             return "article-journal"
         elif self.is_volume:
             return "book"
@@ -349,7 +348,7 @@ class Paper:
                 entries.append(
                     (people, "  and  ".join(p.as_bibtex() for p, _ in self.get(people)))
                 )
-        if is_journal(self.full_id):
+        if self.parent_volume.is_journal:
             entries.append(
                 ("journal", bibtex_encode(self.parent_volume.get("meta_journal_title")))
             )
@@ -403,7 +402,7 @@ class Paper:
             if "editor" in self.attrib:
                 # or should this be "container-author"/"collection-editor" here?
                 data["editor"] = [p.as_citeproc_json() for p, _ in self.get("editor")]
-            if is_journal(self.full_id):
+            if self.parent_volume.is_journal:
                 data["container-title"] = self.parent_volume.get("meta_journal_title")
                 journal_volume = self.parent_volume.get(
                     "meta_volume", self.parent_volume.get("volume")
