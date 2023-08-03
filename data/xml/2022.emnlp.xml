@@ -6873,8 +6873,10 @@
       <author><first>Jason</first><last>Eisner</last><affiliation>Johns Hopkins University</affiliation></author>
       <pages>8289-8305</pages>
       <abstract>Weighted finite-state automata (WSFAs) arecommonly used in NLP. Failure transitions area useful extension for compactly representingbackoffs or interpolation in n-gram modelsand CRFs, which are special cases of WFSAs.Unfortunately, applying standard algorithmsfor computing the pathsum requires expand-ing these compact failure transitions. As aresult, na ̈ıve computation of the pathsum inacyclic WFSAs with failure transitions runs inO(|Q|2|Σ|) (O(|Q||Σ|) for deterministic WF-SAs) while the equivalent algorithm in normalWFSAs runs in O(|E|), where E representsthe set of transitions, Q the set of states, andΣ the alphabet. In this work, we present moreefficient algorithms for computing the pathsumin sparse acyclic WFSAs, i.e., WFSAs with av-erage out symbol fraction s ≪ 1. In those,backward runs in O(s|Q||Σ|). We proposean algorithm for semiring-weighted automatawhich runs in O(|E| + s|Σ||Q||Tmax| log |Σ|),where |Tmax| is the size of the largest con-nected component of failure transitions. Ad-ditionally, we propose faster algorithms fortwo specific cases. For ring-weighted WF-SAs we propose an algorithm with complex-ity O(|E| + s|Σ||Q||πmax|), where |πmax| de-notes the longest path length of failure transi-tions stemming from q and Σ(q) the set of sym-bols on the outgoing transitions from q. Forsemiring-weighted WFSAs whose failure tran-sition topology satisfies a condition exemplifiedby CRFs, we propose an algorithm with com-plexity O(|E| + s|Σ||Q| log |Σ|).</abstract>
-      <url hash="0a9c8c6c">2022.emnlp-main.567</url>
+      <url hash="67ae35a8">2022.emnlp-main.567</url>
       <bibkey>svete-etal-2022-algorithms</bibkey>
+      <revision id="1" href="2022.emnlp-main.567v1" hash="0a9c8c6c"/>
+      <revision id="2" href="2022.emnlp-main.567v2" hash="67ae35a8" date="2023-07-29">Minor fixes.</revision>
     </paper>
     <paper id="568">
       <title>Towards Better Document-level Relation Extraction via Iterative Inference</title>
@@ -10439,6 +10441,73 @@
       <author><first>Anna</first><last>Shvets</last><affiliation>FabLab by Inetum</affiliation></author>
       <author><first>Ashish</first><last>Upadhyay</last><affiliation>Robert Gordon University</affiliation></author>
       <author><first>Bernd</first><last>Bohnet</last><affiliation>Google</affiliation></author>
+      <author><first>Bingsheng</first><last>Yao</last><affiliation>Rensselaer Polytechnic Institute</affiliation></author>
+      <author><first>Bryan</first><last>Wilie</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Chandra</first><last>Bhagavatula</last><affiliation>Allen Institute for AI</affiliation></author>
+      <author><first>Chaobin</first><last>You</last><affiliation>Tianjin University</affiliation></author>
+      <author><first>Craig</first><last>Thomson</last><affiliation>University of Aberdeen</affiliation></author>
+      <author><first>Cristina</first><last>Garbacea</last><affiliation>University of Michigan</affiliation></author>
+      <author><first>Dakuo</first><last>Wang</last><affiliation>MIT-IBM Watson AI Lab / Northeastern University</affiliation></author>
+      <author><first>Daniel</first><last>Deutsch</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Deyi</first><last>Xiong</last><affiliation>Tianjin University</affiliation></author>
+      <author><first>Di</first><last>Jin</last><affiliation>Amazon Alexa AI</affiliation></author>
+      <author><first>Dimitra</first><last>Gkatzia</last><affiliation>Edinburgh Napier University</affiliation></author>
+      <author><first>Dragomir</first><last>Radev</last><affiliation>Yale University</affiliation></author>
+      <author><first>Elizabeth</first><last>Clark</last><affiliation>Google Research</affiliation></author>
+      <author><first>Esin</first><last>Durmus</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Faisal</first><last>Ladhak</last><affiliation>Columbia University</affiliation></author>
+      <author><first>Filip</first><last>Ginter</last><affiliation>University of Turku</affiliation></author>
+      <author><first>Genta Indra</first><last>Winata</last><affiliation>The Hong Kong University of Science and Technology</affiliation></author>
+      <author><first>Hendrik</first><last>Strobelt</last><affiliation>IBM Research / MIT-IBM Watson AI Lab</affiliation></author>
+      <author><first>Hiroaki</first><last>Hayashi</last><affiliation>Carnegie Mellon University / Salesforce Research</affiliation></author>
+      <author><first>Jekaterina</first><last>Novikova</last><affiliation>Winterlight Labs</affiliation></author>
+      <author><first>Jenna</first><last>Kanerva</last><affiliation>University of Turku</affiliation></author>
+      <author><first>Jenny</first><last>Chim</last><affiliation>Queen Mary University of London</affiliation></author>
+      <author><first>Jiawei</first><last>Zhou</last><affiliation>Harvard University</affiliation></author>
+      <author><first>Jordan</first><last>Clive</last><affiliation>Chattermill</affiliation></author>
+      <author><first>Joshua</first><last>Maynez</last><affiliation>Google Research</affiliation></author>
+      <author><first>João</first><last>Sedoc</last><affiliation>New York University</affiliation></author>
+      <author><first>Juraj</first><last>Juraska</last><affiliation>University of California Santa Cruz</affiliation></author>
+      <author><first>Kaustubh</first><last>Dhole</last><affiliation>Emory University</affiliation></author>
+      <author><first>Khyathi Raghavi</first><last>Chandu</last><affiliation>Meta AI</affiliation></author>
+      <author><first>Laura Perez</first><last>Beltrachini</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>Leonardo F . R.</first><last>Ribeiro</last><affiliation>Technical University of Darmstadt</affiliation></author>
+      <author><first>Lewis</first><last>Tunstall</last><affiliation>Hugging Face</affiliation></author>
+      <author><first>Li</first><last>Zhang</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Mahim</first><last>Pushkarna</last><affiliation>Google Research</affiliation></author>
+      <author><first>Mathias</first><last>Creutz</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Michael</first><last>White</last><affiliation>The Ohio State University</affiliation></author>
+      <author><first>Mihir Sanjay</first><last>Kale</last><affiliation>Google Research</affiliation></author>
+      <author><first>Moussa Kamal</first><last>Eddine</last><affiliation>École Polytechnique</affiliation></author>
+      <author><first>Nico</first><last>Daheim</last><affiliation>RWTH Aachen University</affiliation></author>
+      <author><first>Nishant</first><last>Subramani</last><affiliation>Allen Institute for AI / Masakhane</affiliation></author>
+      <author><first>Ondrej</first><last>Dusek</last><affiliation>Charles University</affiliation></author>
+      <author><first>Paul Pu</first><last>Liang</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Pawan Sasanka</first><last>Ammanamanchi</last><affiliation>IIIT Hyderabad</affiliation></author>
+      <author><first>Qi</first><last>Zhu</last><affiliation>Tsinghua University</affiliation></author>
+      <author><first>Ratish</first><last>Puduppully</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>Reno</first><last>Kriz</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author><first>Rifat</first><last>Shahriyar</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <author><first>Ronald</first><last>Cardenas</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>Saad</first><last>Mahamood</last><affiliation>trivago N.V</affiliation></author>
+      <author><first>Salomey</first><last>Osei</last><affiliation>Masakhane</affiliation></author>
+      <author><first>Samuel</first><last>Cahyawijaya</last><affiliation>HKUST</affiliation></author>
+      <author><first>Sanja</first><last>Štajner</last><affiliation>Pompeu Fabra University</affiliation></author>
+      <author><first>Sebastien</first><last>Montella</last><affiliation>Orange Labs</affiliation></author>
+      <author><first>Shailza</first><last>Jolly</last><affiliation>TU Kaiserslautern</affiliation></author>
+      <author><first>Simon</first><last>Mille</last><affiliation>Pompeu Fabra University</affiliation></author>
+      <author><first>Tahmid</first><last>Hasan</last><affiliation>Bangladesh University of Engineering and Technology</affiliation></author>
+      <author><first>Tianhao</first><last>Shen</last><affiliation>Tianjin University</affiliation></author>
+      <author><first>Tosin</first><last>Adewumi</last><affiliation>Luleå University of Technology</affiliation></author>
+      <author><first>Vikas</first><last>Raunak</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Vipul</first><last>Raheja</last><affiliation>Grammarly</affiliation></author>
+      <author><first>Vitaly</first><last>Nikolaev</last><affiliation>Google Research</affiliation></author>
+      <author><first>Vivian</first><last>Tsai</last><affiliation>Google Research</affiliation></author>
+      <author><first>Yacine</first><last>Jernite</last><affiliation>Hugging Face</affiliation></author>
+      <author><first>Ying</first><last>Xu</last><affiliation>University of Michigan</affiliation></author>
+      <author><first>Yisi</first><last>Sang</last><affiliation>Syracuse University</affiliation></author>
+      <author><first>Yixin</first><last>Liu</last><affiliation>Yale University</affiliation></author>
+      <author><first>Yufang</first><last>Hou</last><affiliation>IBM Research</affiliation></author>
       <pages>266-281</pages>
       <abstract>Evaluations in machine learning rarely use the latest metrics, datasets, or human evaluation in favor of remaining compatible with prior work. The compatibility, often facilitated through leaderboards, thus leads to outdated but standardized evaluation practices. We pose that the standardization is taking place in the wrong spot. Evaluation infrastructure should enable researchers to use the latest methods and what should be standardized instead is how to incorporate these new evaluation advances.We introduce GEMv2, the new version of the Generation, Evaluation, and Metrics Benchmark which uses a modular infrastructure for dataset, model, and metric developers to benefit from each other’s work. GEMv2 supports 40 documented datasets in 51 languages, ongoing online evaluation for all datasets, and our interactive tools make it easier to add new datasets to the living benchmark.</abstract>
       <url hash="78a82bc2">2022.emnlp-demos.27</url>
