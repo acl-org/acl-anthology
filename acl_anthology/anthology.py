@@ -14,7 +14,7 @@
 
 from os import PathLike
 from pathlib import Path
-from typing import Optional
+from typing import Iterator, Optional
 
 from .utils.ids import AnthologyID, parse_id
 from .collections import CollectionIndex, Collection, Volume, Paper
@@ -22,19 +22,55 @@ from .people import PersonIndex
 
 
 class Anthology:
-    """TODO"""
+    """An instance of the ACL Anthology data.
+
+    Attributes:
+        datadir: The path to the data folder.
+    """
 
     def __init__(self, datadir: str | PathLike[str]) -> None:
         if not Path(datadir).is_dir():
             raise ValueError(f"Not a directory: {datadir}")  # TODO exception type
 
-        self._datadir = Path(datadir)
+        self.datadir = Path(datadir)
+        # TODO: can the following two be expressed with attrs?
         self.collections = CollectionIndex(self)
         self.people = PersonIndex(self)
 
-    @property
-    def datadir(self) -> Path:
-        return self._datadir
+    def iter_volumes(self, collection_id: Optional[str] = None) -> Iterator[Volume]:
+        """Returns an iterator over all volumes.
+
+        Parameters:
+            collection_id: If provided, only volumes belonging to the given collection ID will be included.
+        """
+        if collection_id is not None:
+            if (collection := self.collections.get(collection_id)) is None:
+                return
+            yield from iter(collection)
+        else:
+            for collection in self.collections:
+                yield from iter(collection)
+
+    def iter_papers(self, full_id: Optional[AnthologyID] = None) -> Iterator[Paper]:
+        """Returns an iterator over all papers.
+
+        Parameters:
+            full_id: If provided, only papers matching the given ID will be included.
+        """
+        if full_id is not None:
+            if (element := self.get(full_id)) is None:
+                return
+            elif isinstance(element, Paper):
+                yield from iter([element])
+            elif isinstance(element, Volume):
+                yield from iter(element)
+            else:  # Collection
+                for volume in element:
+                    yield from iter(volume)
+        else:
+            for collection in self.collections:
+                for volume in collection:
+                    yield from iter(volume)
 
     def get(self, full_id: AnthologyID) -> Optional[Collection | Volume | Paper]:
         """Access collections, volumes, and papers, depending on the provided ID.

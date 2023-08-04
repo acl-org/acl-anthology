@@ -100,6 +100,11 @@ class Volume:
         return self.papers.get("0")
 
     @property
+    def collection_id(self) -> str:
+        """The collection ID this volume belongs to."""
+        return self.parent.id
+
+    @property
     def full_id(self) -> str:
         """The full anthology ID of this volume (e.g. "L06-1" or "2022.emnlp-main")."""
         return build_id(self.parent.id, self.id)

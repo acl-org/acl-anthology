@@ -94,6 +94,16 @@ class Paper:
     # TODO: properties we obtain from the parent volume?
 
     @property
+    def collection_id(self) -> str:
+        """The collection ID this paper belongs to."""
+        return self.parent.collection_id
+
+    @property
+    def volume_id(self) -> str:
+        """The volume ID this paper belongs to."""
+        return self.parent.id
+
+    @property
     def full_id(self) -> str:
         """The full anthology ID of this paper (e.g. "L06-1042" or "2022.emnlp-main.1")."""
         return build_id(self.parent.parent.id, self.parent.id, self.id)

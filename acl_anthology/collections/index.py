@@ -48,16 +48,6 @@ class CollectionIndex:
         """
         return self.collections.get(collection_id)
 
-    # def iter_volumes(self, collection_id: Optional[AnthologyID]) -> Iterator[Volume]:
-    #     """Returns an iterator over all volumes.
-
-    #     Parameters:
-    #         collection_id: If provided, only volumes belonging to the given collection ID will be included.
-    #     """
-    #     if collection_id is not None:
-    #         (collection_id, _, _) = parse_id(collection_id)
-    #         collection = self.collections.get(collection_id)
-
     def _find_collections(self) -> None:
         """Finds all XML data files and indexes them by their collection ID.
 
