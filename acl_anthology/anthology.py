@@ -37,7 +37,7 @@ class Anthology:
         self.collections = CollectionIndex(self)
         self.people = PersonIndex(self)
 
-    def iter_volumes(self, collection_id: Optional[str] = None) -> Iterator[Volume]:
+    def volumes(self, collection_id: Optional[str] = None) -> Iterator[Volume]:
         """Returns an iterator over all volumes.
 
         Parameters:
@@ -51,7 +51,7 @@ class Anthology:
             for collection in self.collections:
                 yield from iter(collection)
 
-    def iter_papers(self, full_id: Optional[AnthologyID] = None) -> Iterator[Paper]:
+    def papers(self, full_id: Optional[AnthologyID] = None) -> Iterator[Paper]:
         """Returns an iterator over all papers.
 
         Parameters:

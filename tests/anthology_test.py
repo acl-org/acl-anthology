@@ -47,53 +47,53 @@ def test_get_paper(anthology):
     assert paper.full_id == "2022.acl-long.1"
 
 
-def test_iter_volumes(anthology):
+def test_volumes(anthology):
     # Iterate over all volumes
     expected = set(("2022.acl", "J89", "L06"))
     found = set()
     count = 0
-    for volume in anthology.iter_volumes():
+    for volume in anthology.volumes():
         count += 1
         found.add(volume.collection_id)
     assert expected == found
     assert count == 10
 
 
-def test_iter_volumes_by_id(anthology):
+def test_volumes_by_id(anthology):
     # Iterate over 2022.acl volumes
     expected = set(("long", "short", "demo", "tutorials", "srw"))
     found = set()
-    for volume in anthology.iter_volumes("2022.acl"):
+    for volume in anthology.volumes("2022.acl"):
         found.add(volume.id)
     assert expected == found
 
 
-def test_iter_papers(anthology):
+def test_papers(anthology):
     # Iterate over all papers
     expected = set(("2022.acl", "J89", "L06"))
     found = set()
     count = 0
-    for paper in anthology.iter_papers():
+    for paper in anthology.papers():
         count += 1
         found.add(paper.collection_id)
     assert expected == found
     assert count == 1355
 
 
-def test_iter_papers_by_collection_id(anthology):
+def test_papers_by_collection_id(anthology):
     # Iterate over J89 papers
     count = 0
-    for paper in anthology.iter_papers("J89"):
+    for paper in anthology.papers("J89"):
         assert paper.collection_id == "J89"
         count += 1
     assert count == 62
 
 
-def test_iter_papers_by_volume_id(anthology):
+def test_papers_by_volume_id(anthology):
     # Iterate over J89-1 papers
     expected = set(str(i) for i in range(0, 15))
     found = set()
-    for paper in anthology.iter_papers("J89-1"):
+    for paper in anthology.papers("J89-1"):
         assert paper.collection_id == "J89"
         assert paper.volume_id == "1"
         found.add(paper.id)
