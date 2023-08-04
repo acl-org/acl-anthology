@@ -38,12 +38,15 @@ class Name:
     affiliation: Optional[str] = field(default=None)
     variants: list[NameVariant] = Factory(list)
 
-    @property
-    def full(self) -> str:
-        """The person's full name, usually '[First name] [Last name]'."""
+    def as_first_last(self) -> str:
+        """Returns the person's full name in the form '[First name] [Last name]'."""
         if self.first is None:
             return self.last
         return f"{self.first} {self.last}"
+
+    def match(self, other: Name) -> bool:
+        """Returns True if the first/last name components of `other` match this name."""
+        return (self.first == other.first) and (self.last == other.last)
 
     @classmethod
     def from_xml(cls, person: etree._Element) -> Name:
