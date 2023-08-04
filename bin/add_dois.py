@@ -46,7 +46,6 @@ from anthology.utils import (
     make_simple_element,
 )
 from anthology.formatter import MarkupFormatter
-from itertools import chain
 from time import sleep
 
 import lxml.etree as ET
