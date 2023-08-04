@@ -12,7 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from . import Person
+
+if TYPE_CHECKING:
+    from ..anthology import Anthology
+
 
 class PersonIndex:
-    def __init__(self) -> None:
-        pass
+    """Index object through which all persons (authors/editors) can be accessed.
+
+    Attributes:
+        parent (Anthology): The parent Anthology instance to which this index belongs.
+    """
+
+    def __init__(self, parent: Anthology) -> None:
+        self.parent = parent
+        self.people: dict[str, Person] = {}
+        self.is_built = False
+
+    def build_index(self) -> None:
+        """Load the entire Anthology data and build an index of persons."""
+        raise NotImplementedError()

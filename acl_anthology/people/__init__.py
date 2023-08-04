@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .index import PersonIndex
 from .name import Name, NameVariant
+from .person import Person
+from .index import PersonIndex
 
-__all__ = ["PersonIndex", "Name", "NameVariant"]
+__all__ = ["PersonIndex", "Name", "NameVariant", "Person"]
