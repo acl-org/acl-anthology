@@ -27,7 +27,7 @@ class Name:
         first (Optional[str]): First name part. Can be given as `None` for people who
             only have a single name, but cannot be omitted.
         last (str): Last name part.
-        id (Optional[str]): Unique ID for the individual that this name refers to.
+        id (Optional[str]): Unique ID for the person that this name refers to.
             Defaults to `None`.
         affiliation (Optional[str]): Professional affiliation.  Defaults to `None`.
     """
@@ -40,14 +40,14 @@ class Name:
 
     @property
     def full(self) -> str:
-        """The person's full name, usually '<First name> <Last name>'."""
+        """The person's full name, usually '[First name] [Last name]'."""
         if self.first is None:
             return self.last
         return f"{self.first} {self.last}"
 
     @classmethod
     def from_xml(cls, person: etree._Element) -> Name:
-        """Instantiates a new name from an <author> or <editor> block in the XML."""
+        """Instantiates a new name from an `<author>` or `<editor>` block in the XML."""
         first: Optional[str] = None
         last: Optional[str] = None
         affiliation: Optional[str] = None
