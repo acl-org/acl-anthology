@@ -15,8 +15,8 @@
 from acl_anthology.collections import CollectionIndex
 
 
-def test_get_collection(anthology):
-    index = CollectionIndex(anthology)
+def test_get_collection(anthology_stub):
+    index = CollectionIndex(anthology_stub)
     # Fetch 2022.acl-long -- these should all be identical
     collection = index.get("2022.acl")
     assert collection is not None

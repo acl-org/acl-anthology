@@ -18,8 +18,8 @@ from acl_anthology.text import MarkupText
 
 
 @pytest.fixture
-def index(anthology):
-    return CollectionIndex(anthology)
+def index(anthology_stub):
+    return CollectionIndex(anthology_stub)
 
 
 def test_paper_minimum_attribs():
