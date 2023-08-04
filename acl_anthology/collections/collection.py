@@ -15,7 +15,7 @@
 from attrs import define, field
 from lxml import etree
 from pathlib import Path
-from typing import Optional, cast
+from typing import Iterator, Optional, cast
 
 from ..logging import log
 from .volume import Volume
@@ -38,12 +38,20 @@ class Collection:
     is_data_loaded: bool = field(init=False, default=False)
     volumes: dict[str, Volume] = field(init=False, factory=dict)
 
+    def __iter__(self) -> Iterator[Volume]:
+        """Returns an iterator over all associated volumes."""
+        if not self.is_data_loaded:
+            self.load()
+        return iter(self.volumes.values())
+
     def get(self, volume_id: str) -> Optional[Volume]:
-        """Get an associated volume.
+        """Access a volume in this collection by its ID.
 
         Parameters:
             volume_id: The volume ID (e.g. "1").
         """
+        if not self.is_data_loaded:
+            self.load()
         return self.volumes.get(volume_id)
 
     def _add_volume_from_xml(self, meta: etree._Element) -> Volume:

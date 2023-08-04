@@ -23,3 +23,22 @@ DATADIR = Path(f"{SCRIPTDIR}/toy_anthology")
 def test_instantiate():
     anthology = Anthology(datadir=DATADIR)
     assert anthology.datadir == Path(DATADIR)
+
+
+def test_get_volume(anthology):
+    # Fetch 2022.acl-long -- these should all be identical
+    volume = anthology.get_volume("2022.acl-long")
+    assert volume is not None
+    assert volume.full_id == "2022.acl-long"
+    assert volume is anthology.get_volume(("2022.acl", "long", None))
+    assert volume is anthology.get_volume("2022.acl-long.42")
+    assert volume is anthology.get("2022.acl-long")
+    assert volume is anthology.get(("2022.acl", "long", None))
+
+
+def test_get_paper(anthology):
+    # Fetch 2022.acl-long.1
+    paper = anthology.get_paper("2022.acl-long.1")
+    assert paper is not None
+    assert paper.id == "1"
+    assert paper.full_id == "2022.acl-long.1"

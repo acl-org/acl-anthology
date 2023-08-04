@@ -15,22 +15,9 @@
 from acl_anthology.collections import CollectionIndex
 
 
-def test_get_volume(anthology):
+def test_get_collection(anthology):
     index = CollectionIndex(anthology)
     # Fetch 2022.acl-long -- these should all be identical
-    volume = index.get_volume("2022.acl-long")
-    assert volume is not None
-    assert volume.full_id == "2022.acl-long"
-    assert volume is index.get_volume(("2022.acl", "long", None))
-    assert volume is index.get_volume("2022.acl-long.42")
-    assert volume is index.get("2022.acl-long")
-    assert volume is index.get(("2022.acl", "long", None))
-
-
-def test_get_paper(anthology):
-    index = CollectionIndex(anthology)
-    # Fetch 2022.acl-long.1
-    paper = index.get_paper("2022.acl-long.1")
-    assert paper is not None
-    assert paper.id == "1"
-    assert paper.full_id == "2022.acl-long.1"
+    collection = index.get("2022.acl")
+    assert collection is not None
+    assert collection.id == "2022.acl"

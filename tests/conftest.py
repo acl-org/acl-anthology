@@ -16,13 +16,11 @@ import os
 import pytest
 from pathlib import Path
 
+from acl_anthology import Anthology
+
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
-
-
-class AnthologyFixture:
-    datadir = Path(f"{SCRIPTDIR}/toy_anthology")
 
 
 @pytest.fixture
 def anthology():
-    return AnthologyFixture()
+    return Anthology(Path(f"{SCRIPTDIR}/toy_anthology"))

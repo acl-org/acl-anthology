@@ -18,7 +18,7 @@ import datetime
 from attrs import define, field, Factory
 from enum import Enum
 from lxml import etree
-from typing import Any, Optional, cast, TYPE_CHECKING
+from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
 
 from .. import constants
 from ..files import PDFReference
@@ -108,6 +108,10 @@ class Volume:
     def has_frontmatter(self) -> bool:
         """Returns True if this volume has frontmatter."""
         return "0" in self.papers
+
+    def __iter__(self) -> Iterator[Paper]:
+        """Returns an iterator over all associated papers."""
+        return iter(self.papers.values())
 
     def get(self, paper_id: str) -> Paper | None:
         """Access a paper in this volume by its ID.

@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import pytest
 from datetime import date
 from pathlib import Path
 
-from acl_anthology.collections import Collection, CollectionIndex, Volume, VolumeType
+from acl_anthology.collections import Collection, Volume, VolumeType
 from acl_anthology.text import MarkupText
 
 
@@ -61,13 +60,8 @@ def test_volume_all_attribs():
     assert volume.get_ingest_date() == date(2023, 1, 12)
 
 
-@pytest.fixture
-def index(anthology):
-    return CollectionIndex(anthology)
-
-
-def test_volume_attributes_2022acl(index):
-    volume = index.get_volume("2022.acl-long")
+def test_volume_attributes_2022acl(anthology):
+    volume = anthology.get_volume("2022.acl-long")
     assert isinstance(volume, Volume)
     assert volume.id == "long"
     assert volume.ingest_date == "2022-05-15"
@@ -81,8 +75,8 @@ def test_volume_attributes_2022acl(index):
     assert volume.venues == ["acl"]
 
 
-def test_volume_attributes_j89(index):
-    volume = index.get_volume("J89-1")
+def test_volume_attributes_j89(anthology):
+    volume = anthology.get_volume("J89-1")
     assert isinstance(volume, Volume)
     assert volume.id == "1"
     assert volume.venues == ["cl"]
