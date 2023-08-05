@@ -115,7 +115,11 @@ def process_volume(anthology_volume):
         print(f'-> Found volume "{volume_title}"', file=sys.stderr)
 
         # Iterate through all papers
-        for paper in chain(volume.find("frontmatter"), volume.findall("paper")):
+        if volume.find("frontmatter") is not None:
+            papers = chain(volume.find("frontmatter"), volume.findall("paper"))
+        else:
+            papers =  volume.findall("paper")
+        for paper in papers:
             added = add_doi(paper, collection_id, volume_id, force=args.force)
             if added:
                 num_added += 1
