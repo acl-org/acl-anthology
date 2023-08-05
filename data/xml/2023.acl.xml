@@ -528,8 +528,10 @@
       <author><first>Taihao</first><last>Li</last><affiliation>zhejianglab</affiliation></author>
       <pages>658-670</pages>
       <abstract>Multi-modal emotion recognition has gained increasing attention in recent years due to its widespread applications and the advances in multi-modal learning approaches. However, previous studies primarily focus on developing models that exploit the unification of multiple modalities. In this paper, we propose that maintaining modality independence is beneficial for the model performance. According to this principle, we construct a dataset, and devise a multi-modal transformer model. The new dataset, CHinese Emotion Recognition dataset with Modality-wise Annotions, abbreviated as CHERMA, provides uni-modal labels for each individual modality, and multi-modal labels for all modalities jointly observed. The model consists of uni-modal transformer modules that learn representations for each modality, and a multi-modal transformer module that fuses all modalities. All the modules are supervised by their corresponding labels separately, and the forward information flow is uni-directionally from the uni-modal modules to the multi-modal module. The supervision strategy and the model architecture guarantee each individual modality learns its representation independently, and meanwhile the multi-modal module aggregates all information. Extensive empirical results demonstrate that our proposed scheme outperforms state-of-the-art alternatives, corroborating the importance of modality independence in multi-modal emotion recognition. The dataset and codes are availabel at https://github.com/sunjunaimer/LFMIM</abstract>
-      <url hash="3df5987a">2023.acl-long.39</url>
+      <url hash="ea5bbafb">2023.acl-long.39</url>
       <bibkey>sun-etal-2023-layer</bibkey>
+      <revision id="1" href="2023.acl-long.39v1" hash="3df5987a"/>
+      <revision id="2" href="2023.acl-long.39v2" hash="ea5bbafb" date="2023-07-31">Updated Figure 2.</revision>
       <doi>10.18653/v1/2023.acl-long.39</doi>
     </paper>
     <paper id="40">
@@ -957,8 +959,10 @@
       <author><first>Yue</first><last>Zhang</last><affiliation>Westlake University</affiliation></author>
       <pages>1294-1308</pages>
       <abstract>Existing neural models have difficulty generalizing to unseen combinations of seen components. To achieve compositional generalization, models are required to consistently interpret (sub)expressions across contexts. Without modifying model architectures, we improve the capability of Transformer on compositional generalization through consistency regularization training, which promotes representation consistency across samples and prediction consistency for a single sample. Experimental results on semantic parsing and machine translation benchmarks empirically demonstrate the effectiveness and generality of our method. In addition, we find that the prediction consistency scores on in-distribution validation sets can be an alternative for evaluating models during training, when commonly-used metrics are not informative.</abstract>
-      <url hash="291174c1">2023.acl-long.72</url>
+      <url hash="92c90ea9">2023.acl-long.72</url>
       <bibkey>yin-etal-2023-consistency</bibkey>
+      <revision id="1" href="2023.acl-long.72v1" hash="291174c1"/>
+      <revision id="2" href="2023.acl-long.72v2" hash="92c90ea9" date="2023-07-31">Corrected fund number in Acknowledgments.</revision>
       <doi>10.18653/v1/2023.acl-long.72</doi>
     </paper>
     <paper id="73">
@@ -7965,8 +7969,10 @@
       <author><first>Yue</first><last>Zhang</last><affiliation>Westlake University</affiliation></author>
       <pages>10725-10742</pages>
       <abstract>Document-level machine translation faces the challenge of data sparsity due to its long input length and a small amount of training data, increasing the risk of learning spurious patterns. To address this challenge, we propose a target-side augmentation method, introducing a data augmentation (DA) model to generate many potential translations for each source document. Learning on these wider range translations, an MT model can learn a smoothed distribution, thereby reducing the risk of data sparsity. We demonstrate that the DA model, which estimates the posterior distribution, largely improves the MT performance, outperforming the previous best system by 2.30 s-BLEU on News and achieving new state-of-the-art on News and Europarl benchmarks.</abstract>
-      <url hash="c3309802">2023.acl-long.599</url>
+      <url hash="74e776a8">2023.acl-long.599</url>
       <bibkey>bao-etal-2023-target</bibkey>
+      <revision id="1" href="2023.acl-long.599v1" hash="c3309802"/>
+      <revision id="2" href="2023.acl-long.599v2" hash="74e776a8" date="2023-07-30">Fix Acknowledgements.</revision>
       <doi>10.18653/v1/2023.acl-long.599</doi>
     </paper>
     <paper id="600">
@@ -8085,8 +8091,10 @@
       <author><first>Ruifeng</first><last>Xu</last><affiliation>Harbin Institute of Technology, Shenzhen</affiliation></author>
       <pages>10866-10882</pages>
       <abstract>Training grounded response generation models often requires a large collection of grounded dialogues. However, it is costly to build such dialogues. In this paper, we present a synthetic data generation framework (SynDG) for grounded dialogues. The generation process utilizes large pre-trained language models and freely available knowledge data (e.g., Wikipedia pages, persona profiles, etc.). The key idea of designing SynDG is to consider dialogue flow and coherence in the generation process. Specifically, given knowledge data, we first heuristically determine a dialogue flow, which is a series of knowledge pieces. Then, we employ T5 to incrementally turn the dialogue flow into a dialogue. To ensure coherence of both the dialogue flow and the synthetic dialogue, we design a two-level filtering strategy, at the flow-level and the utterance-level respectively. Experiments on two public benchmarks show that the synthetic grounded dialogue data produced by our framework is able to significantly boost model performance in both full training data and low-resource scenarios.</abstract>
-      <url hash="63ec517a">2023.acl-long.608</url>
+      <url hash="947ac8a2">2023.acl-long.608</url>
       <bibkey>bao-etal-2023-synthetic</bibkey>
+      <revision id="1" href="2023.acl-long.608v1" hash="63ec517a"/>
+      <revision id="2" href="2023.acl-long.608v2" hash="947ac8a2" date="2023-07-29">Typo fix.</revision>
       <doi>10.18653/v1/2023.acl-long.608</doi>
     </paper>
     <paper id="609">
@@ -12729,8 +12737,10 @@
       <author><first>Richard</first><last>Johansson</last><affiliation>University of Gothenburg</affiliation></author>
       <pages>521-529</pages>
       <abstract>Augmenting language models with a retrieval mechanism has been shown to significantly improve their performance while keeping the number of parameters low. Retrieval-augmented models commonly rely on a semantic retrieval mechanism based on the similarity between dense representations of the query chunk and potential neighbors. In this paper, we study the state-of-the-art Retro model and observe that its performance gain is better explained by surface-level similarities, such as token overlap. Inspired by this, we replace the semantic retrieval in Retro with a surface-level method based on BM25, obtaining a significant reduction in perplexity. As full BM25 retrieval can be computationally costly for large datasets, we also apply it in a re-ranking scenario, gaining part of the perplexity reduction with minimal computational overhead.</abstract>
-      <url hash="bfd98e00">2023.acl-short.45</url>
+      <url hash="3b6cf10e">2023.acl-short.45</url>
       <bibkey>doostmohammadi-etal-2023-surface</bibkey>
+      <revision id="1" href="2023.acl-short.45v1" hash="bfd98e00"/>
+      <revision id="2" href="2023.acl-short.45v2" hash="3b6cf10e" date="2023-07-29">Corrected loss.</revision>
       <doi>10.18653/v1/2023.acl-short.45</doi>
     </paper>
     <paper id="46">
@@ -14192,8 +14202,10 @@
       <author><first>Taro</first><last>Watanabe</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
       <pages>1904-1917</pages>
       <abstract>In this paper, we propose a table and image generation task to verify how the knowledge about entities acquired from natural language is retained in Vision &amp; Language (V &amp; L) models. This task consists of two parts: the first is to generate a table containing knowledge about an entity and its related image, and the second is to generate an image from an entity with a caption and a table containing related knowledge of the entity. In both tasks, the model must know the entities used to perform the generation properly. We created the Wikipedia Table and Image Generation (WikiTIG) dataset from about 200,000 infoboxes in English Wikipedia articles to perform the proposed tasks. We evaluated the performance on the tasks with respect to the above research question using the V &amp; L model OFA, which has achieved state-of-the-art results in multiple tasks. Experimental results show that OFA forgets part of its entity knowledge by pre-training as a complement to improve the performance of image related tasks.</abstract>
-      <url hash="091cc80b">2023.acl-short.162</url>
+      <url hash="43000eb9">2023.acl-short.162</url>
       <bibkey>kamigaito-etal-2023-table</bibkey>
+      <revision id="1" href="2023.acl-short.162v1" hash="091cc80b"/>
+      <revision id="2" href="2023.acl-short.162v2" hash="43000eb9" date="2023-07-31">Typo corrections.</revision>
       <doi>10.18653/v1/2023.acl-short.162</doi>
     </paper>
     <paper id="163">
@@ -14646,8 +14658,10 @@
       <author><first>Iryna</first><last>Gurevych</last><affiliation>UKP Lab, Technische Universität Darmstadt</affiliation></author>
       <pages>291-303</pages>
       <abstract>Recent years have seen impressive progress in AI-assisted writing, yet the developments in AI-assisted reading are lacking. We propose inline commentary as a natural vehicle for AI-based reading assistance, and present CARE: the first open integrated platform for the study of inline commentary and reading. CARE facilitates data collection for inline commentaries in a commonplace collaborative reading environment, and provides a framework for enhancing reading with NLP-based assistance, such as text classification, generation or question answering. The extensible behavioral logging allows unique insights into the reading and commenting behavior, and flexible configuration makes the platform easy to deploy in new scenarios. To evaluate CARE in action, we apply the platform in a user study dedicated to scholarly peer review. CARE facilitates the data collection and study of inline commentary in NLP, extrinsic evaluation of NLP assistance, and application prototyping. We invite the community to explore and build upon the open source implementation of CARE.Github Repository: https://github.com/UKPLab/CAREPublic Live Demo: https://care.ukp.informatik.tu-darmstadt.de</abstract>
-      <url hash="76f7ed85">2023.acl-demo.28</url>
+      <url hash="4079cee4">2023.acl-demo.28</url>
       <bibkey>zyska-etal-2023-care</bibkey>
+      <revision id="1" href="2023.acl-demo.28v1" hash="76f7ed85"/>
+      <revision id="2" href="2023.acl-demo.28v2" hash="4079cee4" date="2023-07-31">Added funding agencies to the Acknowledgments section.</revision>
       <doi>10.18653/v1/2023.acl-demo.28</doi>
     </paper>
     <paper id="29">
@@ -15819,7 +15833,7 @@
       <doi>10.18653/v1/2023.acl-industry.23</doi>
     </paper>
     <paper id="24">
-      <title>Distilled Language Models are economically efficient for the enterprise. ...mostly.</title>
+      <title>The economic trade-offs of large language models: A case study</title>
       <author><first>Kristen</first><last>Howell</last><affiliation>LivePerson Inc.</affiliation></author>
       <author><first>Gwen</first><last>Christian</last><affiliation>LivePerson</affiliation></author>
       <author><first>Pavel</first><last>Fomitchov</last><affiliation>LivePerson, Inc</affiliation></author>
@@ -16565,7 +16579,7 @@
       <doi>10.18653/v1/2023.acl-tutorials.1</doi>
     </paper>
     <paper id="2">
-      <title>Complex Reasoning in Natural Languag</title>
+      <title>Complex Reasoning in Natural Language</title>
       <author><first>Wenting</first><last>Zhao</last></author>
       <author><first>Mor</first><last>Geva</last></author>
       <author><first>Bill Yuchen</first><last>Lin</last></author>
