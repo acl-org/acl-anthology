@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from attrs import define, field, Factory
 from lxml import etree
+from slugify import slugify
 from typing import Optional, cast
 
 
@@ -47,6 +48,21 @@ class Name:
     def match(self, other: Name) -> bool:
         """Returns True if the first/last name components of `other` match this name."""
         return (self.first == other.first) and (self.last == other.last)
+
+    def slugify(self) -> str:
+        """Returns a slugified string of the full name."""
+        slug = slugify(self.as_first_last())
+        if not slug:
+            slug = "none"
+        return slug
+
+    @classmethod
+    def from_dict(cls, person: dict[str, str]) -> Name:
+        """Instantiates a new name from a dictionary with "first" and "last" keys, such as those stored in the name variants file."""
+        return cls(
+            person.get("first"),
+            person["last"],
+        )
 
     @classmethod
     def from_xml(cls, person: etree._Element) -> Name:
