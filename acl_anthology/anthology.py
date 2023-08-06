@@ -25,17 +25,20 @@ class Anthology:
     """An instance of the ACL Anthology data.
 
     Attributes:
-        datadir: The path to the data folder.
+        datadir (PathLike[str]): The path to the data folder.
     """
 
-    def __init__(self, datadir: str | PathLike[str]) -> None:
+    def __init__(self, datadir: PathLike[str]) -> None:
         if not Path(datadir).is_dir():
             raise ValueError(f"Not a directory: {datadir}")  # TODO exception type
 
         self.datadir = Path(datadir)
         # TODO: can the following two be expressed with attrs?
         self.collections = CollectionIndex(self)
+        """The [CollectionIndex][acl_anthology.collections.CollectionIndex] for accessing collections, volumes, and papers."""
+
         self.people = PersonIndex(self)
+        """The [PersonIndex][acl_anthology.people.PersonIndex] for accessing authors and editors."""
 
     def volumes(self, collection_id: Optional[str] = None) -> Iterator[Volume]:
         """Returns an iterator over all volumes.

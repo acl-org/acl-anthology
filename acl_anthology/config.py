@@ -40,4 +40,4 @@ class DefaultConfig:
 
 
 config = OmegaConf.structured(DefaultConfig)
-"""Configuration instance that is used by all `acl_anthology` classes."""
+"""A [structured configuration instance](https://omegaconf.readthedocs.io/en/latest/structured_config.html) that is used by all `acl_anthology` classes."""

@@ -59,12 +59,13 @@ class PersonIndex:
     def generate_id(name: Name) -> str:
         """Generates and returns an ID from the given name.
 
-        This **intentionally doesn't guarantee uniqueness** of the generated ID.
-        If two names generate identical IDs with this method, we assume they
-        refer to the same person.  This happens e.g. when there are missing
-        accents in one version, or when we have an inconsistent first/last split
-        for multiword names.  These cases have in practice always referred to
-        the same person.
+        Warning:
+            This **intentionally doesn't guarantee uniqueness** of the generated ID.
+            If two names generate identical IDs with this method, we assume they
+            refer to the same person.  This happens e.g. when there are missing
+            accents in one version, or when we have an inconsistent first/last split
+            for multiword names.  These cases have in practice always referred to
+            the same person.
         """
         return name.slugify()
 

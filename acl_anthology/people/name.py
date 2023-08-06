@@ -31,6 +31,12 @@ class Name:
         id: Unique ID for the person that this name refers to.
             Defaults to `None`.
         affiliation: Professional affiliation.  Defaults to `None`.
+        variants: Variant spellings of this name in different scripts.
+
+    Examples:
+        >>> Name("Yang", "Liu")
+        >>> Name(last="Liu", first="Yang")
+        >>> Name(None, "Mausam")
     """
 
     first: Optional[str]
@@ -118,6 +124,12 @@ class Name:
 @define
 class NameVariant:
     """A variant of a person's name in a different script.
+
+    Note:
+        This is only intended for name variants stored via the `<variant>` tag in
+        the XML, i.e., for a name that has a variant in a different script.
+        It is _not_ used when an author has published under different names (for
+        this functionality, see [Person][acl_anthology.people.person.Person]).
 
     Attributes:
         first (Optional[str]): First name part. Can be given as `None` for people who

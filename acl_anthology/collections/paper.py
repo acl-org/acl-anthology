@@ -40,12 +40,13 @@ if TYPE_CHECKING:
 class Paper:
     """A paper entry.
 
-    Attributes:
+    Attributes: Required Attributes:
         id: The ID of this paper (e.g. "1" or "42").
         parent: The Volume object that this paper belongs to.
         bibkey: Bibliography key, e.g. for BibTeX.  Must be unique across all papers in the Anthology.
         title: The title of the paper.
 
+    Attributes: List Attributes:
         attachments: File attachments of this paper. The dictionary key specifies the type of attachment (e.g., "software").
         authors: Names of authors associated with this paper; can be empty.
         awards: Names of awards this has paper has received; can be empty.
@@ -54,6 +55,7 @@ class Paper:
         revisions: Revisions for this paper; can be empty.
         videos: Zero or more references to video recordings belonging to this paper.
 
+    Attributes: Optional Attributes:
         abstract: The full abstract.
         deletion: A notice of the paper's retraction or removal, if applicable.
         doi: The DOI for the paper.

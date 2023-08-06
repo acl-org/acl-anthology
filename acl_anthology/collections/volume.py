@@ -45,18 +45,20 @@ class VolumeType(Enum):
 class Volume:
     """A publication volume.
 
-    Attributes:
+    Attributes: Required Attributes:
         id: The ID of this volume (e.g. "1" or "main").
         parent: The collection this volume belongs to.
         type: Value indicating the type of publication, e.g., journal or conference proceedings.
         title: The title of the volume. (Aliased to `booktitle` for initialization.)
         year: The year of publication.
 
-        papers: A mapping of paper IDs in this volume to their Paper objects.
+    Attributes: List Attributes:
+        editors: Names of editors associated with this volume.
+        venues: List of venues associated with this volume.
 
+    Attributes: Optional Attributes:
         address: The publisher's address for this volume.
         doi: The DOI for the volume.
-        editors: Names of editors associated with this volume.
         ingest_date: The date of ingestion.
         isbn: The ISBN for the volume.
         journal_issue: The journal's issue number, if this volume belongs to a journal.
@@ -66,7 +68,9 @@ class Volume:
         pdf: A reference to the volume's PDF.
         publisher: The volume's publisher.
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
-        venues: List of venues associated with this volume.
+
+    Attributes: Non-Init Attributes:
+        papers: A mapping of paper IDs in this volume to their Paper objects.
     """
 
     id: str
@@ -76,10 +80,11 @@ class Volume:
     year: str
 
     papers: dict[str, Paper] = field(init=False, repr=False, factory=dict)
+    editors: list[Name] = Factory(list)
+    venues: list[str] = field(factory=list)
 
     address: Optional[str] = field(default=None)
     doi: Optional[str] = field(default=None)
-    editors: list[Name] = Factory(list)
     ingest_date: Optional[str] = field(default=None)
     isbn: Optional[str] = field(default=None)
     journal_issue: Optional[str] = field(default=None)
@@ -89,7 +94,6 @@ class Volume:
     pdf: Optional[PDFReference] = field(default=None)
     publisher: Optional[str] = field(default=None)
     shorttitle: Optional[MarkupText] = field(default=None, alias="shortbooktitle")
-    venues: list[str] = field(factory=list)
 
     # def __repr__(self) -> str:
     #    return f"Volume({self._parent_id!r}, {self._id!r})"
