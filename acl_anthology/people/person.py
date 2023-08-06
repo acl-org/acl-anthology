@@ -14,7 +14,8 @@
 
 from __future__ import annotations
 
-from attrs import define, Factory
+from attrs import define, field, Factory
+from typing import Optional
 from . import Name
 
 
@@ -25,10 +26,12 @@ class Person:
     Attributes:
         id: A unique ID for this person.
         names: A list of names under which this person has published.
+        comment: A comment for disambiguation purposes; can be stored in `name_variants.yaml`.
     """
 
     id: str
     names: list[Name] = Factory(list)
+    comment: Optional[str] = field(default=None)
 
     @property
     def canonical_name(self) -> Name:

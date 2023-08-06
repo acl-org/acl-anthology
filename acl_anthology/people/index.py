@@ -70,6 +70,7 @@ class PersonIndex:
         return name.slugify()
 
     def _load_variant_list(self) -> None:
+        """Loads and parses the `name_variant.yaml` file."""
         filename = self.parent.datadir / Path(VARIANTS_FILE)
         with open(filename, "r") as f:
             variant_list = yaml.load(f, Loader=Loader)
@@ -79,12 +80,14 @@ class PersonIndex:
             # If it doesn't define an ID, we have to create one
             if (pid := entry.get("id")) is None:
                 pid = self.generate_id(canonical)
+                if pid in self.people:
+                    raise AmbiguousCanonicalNameError(canonical, pid, filename)
             # Parse all the variant names, and make sure canonical stays at index 0
             names = [canonical] + [
                 Name.from_dict(var) for var in entry.get("variants", [])
             ]
             # Now we can create a new person from this entry...
-            person = Person(id=pid, names=names)
+            person = Person(id=pid, names=names, comment=entry.get("comment", None))
             # ...and add it to the index
             self.people[pid] = person
             # TODO: maybe refactor this later:
@@ -93,3 +96,18 @@ class PersonIndex:
                 for similar_id in entry["similar"]:
                     self.similar.add(similar_id)
                     self.similar.merge(pid, similar_id)
+
+
+class AmbiguousCanonicalNameError(Exception):
+    def __init__(self, name: Name, pid: str, filename: Path) -> None:
+        super().__init__(
+            (
+                f"Canonical name '{str(name)}' is ambiguous; the automatically "
+                f"generated ID '{pid}' already exists."
+            )
+        )
+        self.name = name
+        self.pid = pid
+        self.filename = filename
+        self.add_note(f"Raised while parsing: {filename}")
+        self.add_note("Did you forget to add an explicit ID to this name?")

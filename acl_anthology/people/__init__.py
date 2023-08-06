@@ -14,6 +14,6 @@
 
 from .name import Name, NameVariant
 from .person import Person
-from .index import PersonIndex
+from .index import AmbiguousCanonicalNameError, PersonIndex
 
-__all__ = ["PersonIndex", "Name", "NameVariant", "Person"]
+__all__ = ["AmbiguousCanonicalNameError", "Name", "NameVariant", "Person", "PersonIndex"]

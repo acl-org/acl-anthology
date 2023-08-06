@@ -18,3 +18,12 @@ from acl_anthology.people import PersonIndex
 def test_load_variant_list(anthology_stub):
     index = PersonIndex(anthology_stub)
     index._load_variant_list()
+    for pid in (
+        "pranav-a",
+        "pranav-anand",
+        "yang-liu-edinburgh",
+        "yang-liu-icsi",
+        "yang-liu-ict",
+        "steven-krauwer",
+    ):
+        assert pid in index.people
