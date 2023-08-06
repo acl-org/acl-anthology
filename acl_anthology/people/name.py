@@ -25,12 +25,12 @@ class Name:
     """A person's name.
 
     Attributes:
-        first (Optional[str]): First name part. Can be given as `None` for people who
+        first: First name part. Can be given as `None` for people who
             only have a single name, but cannot be omitted.
-        last (str): Last name part.
-        id (Optional[str]): Unique ID for the person that this name refers to.
+        last: Last name part.
+        id: Unique ID for the person that this name refers to.
             Defaults to `None`.
-        affiliation (Optional[str]): Professional affiliation.  Defaults to `None`.
+        affiliation: Professional affiliation.  Defaults to `None`.
     """
 
     first: Optional[str]
@@ -40,17 +40,29 @@ class Name:
     variants: list[NameVariant] = Factory(list)
 
     def as_first_last(self) -> str:
-        """Returns the person's full name in the form '[First name] [Last name]'."""
+        """
+        Returns:
+            The person's full name in the form '[First name] [Last name]'.
+        """
         if self.first is None:
             return self.last
         return f"{self.first} {self.last}"
 
     def match(self, other: Name) -> bool:
-        """Returns True if the first/last name components of `other` match this name."""
+        """
+        Parameters:
+            other: A name to check against `self`.
+
+        Returns:
+            True if the first/last name components of `other` match this name.
+        """
         return (self.first == other.first) and (self.last == other.last)
 
     def slugify(self) -> str:
-        """Returns a slugified string of the full name."""
+        """
+        Returns:
+            A [slugified string](https://github.com/un33k/python-slugify#how-to-use) of the full name.
+        """
         slug = slugify(self.as_first_last())
         if not slug:
             slug = "none"
@@ -58,7 +70,13 @@ class Name:
 
     @classmethod
     def from_dict(cls, person: dict[str, str]) -> Name:
-        """Instantiates a new name from a dictionary with "first" and "last" keys, such as those stored in the name variants file."""
+        """
+        Parameters:
+            person: A dictionary with "first" and "last" keys.
+
+        Returns:
+            A corresponding Name object.
+        """
         return cls(
             person.get("first"),
             person["last"],
@@ -66,7 +84,13 @@ class Name:
 
     @classmethod
     def from_xml(cls, person: etree._Element) -> Name:
-        """Instantiates a new name from an `<author>` or `<editor>` block in the XML."""
+        """
+        Parameters:
+            person: An XML element of an `<author>` or `<editor>` block.
+
+        Returns:
+            A corresponding Name object.
+        """
         first: Optional[str] = None
         last: Optional[str] = None
         affiliation: Optional[str] = None

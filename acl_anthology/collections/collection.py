@@ -26,11 +26,11 @@ class Collection:
     """A collection of volumes and events, corresponding to an XML file in the `data/xml/` directory of the Anthology repo.
 
     Attributes:
-        id (str): The ID of this collection (e.g. "L06" or "2022.emnlp").
-        path (Path): The path of the XML file representing this collection.
+        id: The ID of this collection (e.g. "L06" or "2022.emnlp").
+        path: The path of the XML file representing this collection.
 
-        is_data_loaded (bool): Whether the associated XML file has already been loaded.
-        volumes (dict[str, Volume]): A mapping of volume IDs in this collection to their Volume objects.  Is only populated if `self.is_data_loaded` is True.
+        is_data_loaded: Whether the associated XML file has already been loaded.
+        volumes: A mapping of volume IDs in this collection to their Volume objects.  Is only populated if `self.is_data_loaded` is True.
     """
 
     id: str

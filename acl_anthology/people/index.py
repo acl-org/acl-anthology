@@ -36,11 +36,11 @@ class PersonIndex:
     """Index object through which all persons (authors/editors) can be accessed.
 
     Attributes:
-        parent (Anthology): The parent Anthology instance to which this index belongs.
+        parent: The parent Anthology instance to which this index belongs.
     """
 
     def __init__(self, parent: Anthology) -> None:
-        self.parent = parent
+        self.parent: Anthology = parent
 
         self.people: dict[str, Person] = {}
         """A mapping of IDs to [Person][acl_anthology.people.person.Person] instances."""

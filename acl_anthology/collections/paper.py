@@ -41,28 +41,28 @@ class Paper:
     """A paper entry.
 
     Attributes:
-        id (str): The ID of this paper (e.g. "1" or "42").
-        parent (Volume): The Volume object that this paper belongs to.
-        bibkey (str): Bibliography key, e.g. for BibTeX.  Must be unique across all papers in the Anthology.
-        title (MarkupText): The title of the paper.
+        id: The ID of this paper (e.g. "1" or "42").
+        parent: The Volume object that this paper belongs to.
+        bibkey: Bibliography key, e.g. for BibTeX.  Must be unique across all papers in the Anthology.
+        title: The title of the paper.
 
-        attachments (dict[str, AttachmentReference]): File attachments of this paper. The dictionary key specifies the type of attachment (e.g., "software").
-        authors (list[Name]): Names of authors associated with this paper; can be empty.
-        awards (list[str]): Names of awards this has paper has received; can be empty.
-        editors (list[Name]): Names of editors associated with this paper; can be empty.
-        errata (list[PaperErratum]): Errata for this paper; can be empty.
-        revisions (list[PaperRevision]): Revisions for this paper; can be empty.
-        videos (list[VideoReference]): Zero or more references to video recordings belonging to this paper.
+        attachments: File attachments of this paper. The dictionary key specifies the type of attachment (e.g., "software").
+        authors: Names of authors associated with this paper; can be empty.
+        awards: Names of awards this has paper has received; can be empty.
+        editors: Names of editors associated with this paper; can be empty.
+        errata: Errata for this paper; can be empty.
+        revisions: Revisions for this paper; can be empty.
+        videos: Zero or more references to video recordings belonging to this paper.
 
-        abstract (Optional[MarkupText]): The full abstract.
-        deletion (Optional[PaperDeletionNotice]): A notice of the paper's retraction or removal, if applicable.
-        doi (Optional[str]): The DOI for the paper.
-        ingest_date (Optional[str]): The date of ingestion.
-        language (Optional[str]): The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
-        note (Optional[str]): A note attached to this paper.  Used very sparingly.
-        pages (Optional[str]): Page numbers of this paper within its volume.
-        paperswithcode (Optional[PapersWithCodeReference]): Links to code implementations and datasets as provided by [Papers with Code](https://paperswithcode.com/).
-        pdf (Optional[PDFReference]): A reference to the paper's PDF.
+        abstract: The full abstract.
+        deletion: A notice of the paper's retraction or removal, if applicable.
+        doi: The DOI for the paper.
+        ingest_date: The date of ingestion.
+        language: The language this paper is (mainly) written in.  When given, this should be a ISO 639-2 code (e.g. "eng"), though occasionally IETF is used (e.g. "pt-BR").
+        note: A note attached to this paper.  Used very sparingly.
+        pages: Page numbers of this paper within its volume.
+        paperswithcode: Links to code implementations and datasets as provided by [Papers with Code](https://paperswithcode.com/).
+        pdf: A reference to the paper's PDF.
     """
 
     id: str

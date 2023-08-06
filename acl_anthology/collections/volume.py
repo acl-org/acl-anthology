@@ -46,27 +46,27 @@ class Volume:
     """A publication volume.
 
     Attributes:
-        id (str): The ID of this volume (e.g. "1" or "main").
-        parent (Collection): The collection this volume belongs to.
-        type (VolumeType): Value indicating the type of publication, e.g., journal or conference proceedings.
-        title (MarkupText): The title of the volume. (Aliased to `booktitle` for initialization.)
-        year (str): The year of publication.
+        id: The ID of this volume (e.g. "1" or "main").
+        parent: The collection this volume belongs to.
+        type: Value indicating the type of publication, e.g., journal or conference proceedings.
+        title: The title of the volume. (Aliased to `booktitle` for initialization.)
+        year: The year of publication.
 
-        papers (dict[str, Paper]): A mapping of paper IDs in this volume to their Paper objects.
+        papers: A mapping of paper IDs in this volume to their Paper objects.
 
-        address (Optional[str]): The publisher's address for this volume.
-        doi (Optional[str]): The DOI for the volume.
-        editors (list[Name]): Names of editors associated with this volume.
-        ingest_date (Optional[str]): The date of ingestion.
-        isbn (Optional[str]): The ISBN for the volume.
-        journal_issue (Optional[str]): The journal's issue number, if this volume belongs to a journal.
-        journal_volume (Optional[str]): The journal's volume number, if this volume belongs to a journal.
-        journal_title (Optional[str]): The journal's title (without volume/issue/subtitle), if this volume belongs to a journal.
-        month (Optional[str]): The month of publication.
-        pdf (Optional[PDFReference]): A reference to the volume's PDF.
-        publisher (Optional[str]): The volume's publisher.
-        shorttitle (Optional[MarkupText]): A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
-        venues (list[str]): List of venues associated with this volume.
+        address: The publisher's address for this volume.
+        doi: The DOI for the volume.
+        editors: Names of editors associated with this volume.
+        ingest_date: The date of ingestion.
+        isbn: The ISBN for the volume.
+        journal_issue: The journal's issue number, if this volume belongs to a journal.
+        journal_volume: The journal's volume number, if this volume belongs to a journal.
+        journal_title: The journal's title (without volume/issue/subtitle), if this volume belongs to a journal.
+        month: The month of publication.
+        pdf: A reference to the volume's PDF.
+        publisher: The volume's publisher.
+        shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
+        venues: List of venues associated with this volume.
     """
 
     id: str

@@ -20,11 +20,11 @@ from . import Name
 
 @define
 class Person:
-    """A person.
+    """A natural person.
 
     Attributes:
-        id (str): A unique ID for this person.
-        names (list[Name]): A list of names under which this person has published.
+        id: A unique ID for this person.
+        names: A list of names under which this person has published.
     """
 
     id: str
@@ -32,7 +32,10 @@ class Person:
 
     @property
     def canonical_name(self) -> Name:
-        """The canonical name for this person."""
+        """
+        Returns:
+            The canonical name for this person.
+        """
         try:
             # By convention, the first entry of `self.names` is treated as the
             # canonical entry
@@ -41,15 +44,29 @@ class Person:
             raise ValueError(f"No names defined for person '{self.id}'")
 
     def has_name(self, name: Name) -> bool:
-        """Returns True if the given name can refer to this person."""
+        """
+        Parameters:
+            name: Name to be checked.
+
+        Returns:
+            True if the given name can refer to this person.
+        """
         # TODO: not sure yet how this needs to work
         # return any(n.match(name) for n in self.names)
         raise NotImplementedError()
 
     def set_canonical_name(self, name: Name) -> None:
-        """Set the canonical name for this person."""
-        raise NotImplementedError()
+        """Set the canonical name for this person.
+
+        Parameters:
+            name: Name that should be treated as canonical for this person.
+        """
+        self.names.insert(0, name)
 
     def add_name(self, name: Name) -> None:
-        """Adds the given name to this person."""
+        """Add a name for this person.
+
+        Parameters:
+            name: Name that can refer to this person.
+        """
         self.names.append(name)
