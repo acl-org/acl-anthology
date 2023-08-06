@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 from typing import TYPE_CHECKING
 import yaml
 
@@ -43,6 +44,9 @@ class PersonIndex:
 
         self.people: dict[str, Person] = {}
         """A mapping of IDs to [Person][acl_anthology.people.person.Person] instances."""
+
+        self.similar: DisjointSet = DisjointSet()
+        """A [disjoint-set structure][scipy.cluster.hierarchy.DisjointSet] of persons with similar names."""
 
         self.is_built = False
         """A flag indicating whether the index has been constructed."""
@@ -82,4 +86,9 @@ class PersonIndex:
             person = Person(id=pid, names=names)
             # ...and add it to the index
             self.people[pid] = person
-            # TODO: process the "similar" key
+            # TODO: maybe refactor this later:
+            if "similar" in entry:
+                self.similar.add(pid)
+                for similar_id in entry["similar"]:
+                    self.similar.add(similar_id)
+                    self.similar.merge(pid, similar_id)
