@@ -54,9 +54,11 @@ class Name:
         Returns:
             A [slugified string](https://github.com/un33k/python-slugify#how-to-use) of the full name.
         """
-        slug = slugify(self.as_first_last())
-        if not slug:
+        if not (name := self.as_first_last()):
+            # Only necessary because of <https://github.com/acl-org/acl-anthology/issues/2725>
             slug = "none"
+        else:
+            slug = slugify(name)
         return slug
 
     @classmethod

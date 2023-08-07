@@ -144,6 +144,7 @@ class Paper:
             "title": parent.title,
             # A volume's editors are authors for the frontmatter
             "authors": parent.editors,
+            "attachments": {},
         }
         # Frontmatter only supports a small subset of regular paper attributes,
         # so we duplicate these here -- but maybe suboptimal?
