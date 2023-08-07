@@ -111,6 +111,23 @@ def test_get_or_create_person_with_name_merging(index):
     assert person2.canonical_name == ns2.name
 
 
+def test_similar_names_defined_in_variant_list(index):
+    index._load_variant_list()
+    similar = index.similar.subset("pranav-a")
+    assert similar == {"pranav-a", "pranav-anand"}
+
+
+def test_similar_names_through_same_canonical_name(index):
+    index._load_variant_list()
+    similar = index.similar.subset("yang-liu-ict")
+    assert similar == {
+        "yang-liu-edinburgh",
+        "yang-liu-icsi",
+        "yang-liu-ict",
+        "yang-liu-microsoft",
+    }
+
+
 def test_build_personindex(index_with_full_anthology):
     index = index_with_full_anthology
     assert not index.is_built

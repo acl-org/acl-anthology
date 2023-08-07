@@ -153,11 +153,12 @@ class PersonIndex:
         Parameters:
             person: The person to add, which should not exist in the index yet.
         """
-        if person.id in self.people:
-            raise KeyError(f"A Person with ID '{person.id}' already exists in the index")
-        self.people[person.id] = person
+        if (pid := person.id) in self.people:
+            raise KeyError(f"A Person with ID '{pid}' already exists in the index")
+        self.people[pid] = person
+        self.similar.add(pid)
         for name in person.names:
-            self.name_to_ids[name].append(person.id)
+            self.name_to_ids[name].append(pid)
 
     def get_or_create_person(self, name_spec: NameSpecification) -> Person:
         """Get the person represented by a name specification, or create a new one if needed.
@@ -228,6 +229,7 @@ class PersonIndex:
             AmbiguousNameError: If there are ambiguous "canonical" names without explicit, unique IDs for each one.
         """
         filename = self.parent.datadir / Path(VARIANTS_FILE)
+        merge_list: list[tuple[str, str]] = []
         with open(filename, "r") as f:
             variant_list = yaml.load(f, Loader=Loader)
         for entry in variant_list:
@@ -253,9 +255,12 @@ class PersonIndex:
             person = Person(id=pid, names=names, comment=entry.get("comment", None))
             # ...and add it to the index
             self.add_person(person)
-            # TODO: maybe refactor this later:
-            if "similar" in entry:
-                self.similar.add(pid)
-                for similar_id in entry["similar"]:
-                    self.similar.add(similar_id)
-                    self.similar.merge(pid, similar_id)
+            for similar_id in entry.get("similar", []):
+                merge_list.append((pid, similar_id))
+
+        # Process IDs with similar names
+        for name, pid_list in self.name_to_ids.items():
+            for pid in pid_list[1:]:
+                self.similar.merge(pid_list[0], pid)
+        for a, b in merge_list:
+            self.similar.merge(a, b)
