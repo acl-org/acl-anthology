@@ -29,7 +29,7 @@ from ..files import (
 )
 from ..people import NameSpecification
 from ..text import MarkupText
-from ..utils.ids import build_id
+from ..utils.ids import build_id, AnthologyID
 from ..utils.xml import xsd_boolean
 
 if TYPE_CHECKING:
@@ -109,6 +109,11 @@ class Paper:
     def full_id(self) -> str:
         """The full anthology ID of this paper (e.g. "L06-1042" or "2022.emnlp-main.1")."""
         return build_id(self.parent.parent.id, self.parent.id, self.id)
+
+    @property
+    def full_id_tuple(self) -> AnthologyID:
+        """The full anthology ID of this paper, as a tuple (e.g. `("L06", "1", "42")`)."""
+        return (self.parent.parent.id, self.parent.id, self.id)
 
     @property
     def is_deleted(self) -> bool:

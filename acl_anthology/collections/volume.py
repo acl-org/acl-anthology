@@ -24,7 +24,7 @@ from .. import constants
 from ..files import PDFReference
 from ..people import NameSpecification
 from ..text import MarkupText
-from ..utils.ids import build_id
+from ..utils.ids import build_id, AnthologyID
 from .paper import Paper
 
 if TYPE_CHECKING:
@@ -112,6 +112,11 @@ class Volume:
     def full_id(self) -> str:
         """The full anthology ID of this volume (e.g. "L06-1" or "2022.emnlp-main")."""
         return build_id(self.parent.id, self.id)
+
+    @property
+    def full_id_tuple(self) -> AnthologyID:
+        """The full anthology ID of this volume, as a tuple (e.g. `("L06", "1", None)`)."""
+        return (self.parent.id, self.id, None)
 
     @property
     def has_frontmatter(self) -> bool:

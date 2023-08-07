@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
+import itertools as it
 from pathlib import Path
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 from typing import TYPE_CHECKING
@@ -72,15 +73,11 @@ class PersonIndex:
         for volume in self.parent.volumes():
             for name_spec in volume.editors:
                 person = self.get_or_create_person(name_spec)
-                # TODO: register paper
+                person.item_ids.add(volume.full_id_tuple)
             for paper in volume:
-                # TODO: editors?
-                for name_spec in paper.authors:
+                for name_spec in it.chain(paper.authors, paper.editors):
                     person = self.get_or_create_person(name_spec)
-                    # TODO: register paper
-
-        print(person)
-        pass
+                    person.item_ids.add(paper.full_id_tuple)
 
     def add_person(self, person: Person) -> None:
         """Add a new person to the index.
