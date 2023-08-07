@@ -101,21 +101,21 @@ class MarkupText:
                 `<a href="...">` tags, but in simply `<span>` tags.
         """
         element = deepcopy(self._content)
-        # TODO: can we replace all .iterfind()s with a single .iter()?
-        for sub in element.iterfind(".//url"):
-            if allow_url:
-                sub.tag = "a"
-                sub.attrib["href"] = str(sub.text)
-            else:
+        for sub in element.iter():
+            if sub.tag == "url":
+                if allow_url:
+                    sub.tag = "a"
+                    sub.attrib["href"] = str(sub.text)
+                else:
+                    sub.tag = "span"
+                sub.attrib["class"] = "acl-markup-url"
+            elif sub.tag == "fixed-case":
                 sub.tag = "span"
-            sub.attrib["class"] = "acl-markup-url"
-        for sub in element.iterfind(".//fixed-case"):
-            sub.tag = "span"
-            sub.attrib["class"] = "acl-fixed-case"
-        for sub in element.iterfind(".//tex-math"):
-            parsed_elem = TexMath.to_html(sub)
-            parsed_elem.tail = sub.tail
-            sub.getparent().replace(sub, parsed_elem)  # type: ignore
+                sub.attrib["class"] = "acl-fixed-case"
+            elif sub.tag == "tex-math":
+                parsed_elem = TexMath.to_html(sub)
+                parsed_elem.tail = sub.tail
+                sub.getparent().replace(sub, parsed_elem)  # type: ignore
         html = remove_extra_whitespace(stringify_children(element))
         return html
 
