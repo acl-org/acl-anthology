@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from acl_anthology.people import Name, NameVariant
+from acl_anthology.people import Name, NameSpecification
 from lxml import etree
 import itertools as it
 import pytest
@@ -25,8 +25,6 @@ def test_name_firstlast():
     assert n1.as_first_last() == "John Doe"
     n2 = Name(last="Doe", first="John")
     assert n1 == n2
-    assert n1.match(n2)
-    assert n2.match(n1)
     assert n2.as_first_last() == "John Doe"
 
 
@@ -41,61 +39,63 @@ def test_name_onlylast():
     assert n1.as_first_last() == "Mausam"
 
 
-def test_name_with_affiliation():
-    n1 = Name("John", "Doe")
-    n2 = Name("John", "Doe", affiliation="University of Someplace")
-    assert n1 != n2
-    assert n1.match(n2)
-    assert n2.match(n1)
-    assert n1.as_first_last() == n2.as_first_last()
-    assert n1.affiliation is None
-    assert n2.affiliation == "University of Someplace"
+def test_name_specification():
+    n1 = NameSpecification(Name("John", "Doe"))
+    n2 = NameSpecification(Name("John", "Doe"))
+    assert n1 == n2
 
 
-def test_name_with_id():
-    n1 = Name("John", "Doe")
-    n2 = Name("John", "Doe", "john-doe-42")
-    assert n1 != n2
-    assert n1.match(n2)
-    assert n2.match(n1)
-    assert n1.as_first_last() == n2.as_first_last()
-    assert n1.id is None
-    assert n2.id == "john-doe-42"
+def test_name_spec_with_affiliation():
+    name = Name("John", "Doe")
+    ns1 = NameSpecification(name)
+    ns2 = NameSpecification(name, affiliation="University of Someplace")
+    assert ns1 != ns2
+    assert ns1.name == ns2.name
+    assert ns1.affiliation is None
+    assert ns2.affiliation == "University of Someplace"
 
 
-def test_name_variant():
-    with pytest.raises(TypeError):
-        # Name variants must have a script argument
-        NameVariant("大文", "陳")
-    nv = NameVariant("大文", "陳", "hani")
-    assert nv.first == "大文"
-    assert nv.last == "陳"
-    assert nv.script == "hani"
+def test_name_spec_with_id():
+    name = Name("John", "Doe")
+    ns1 = NameSpecification(name)
+    ns2 = NameSpecification(name, "john-doe-42")
+    assert ns1 != ns2
+    assert ns1.id is None
+    assert ns2.id == "john-doe-42"
 
 
-def test_name_with_variant():
-    n1 = Name("Tai Man", "Chan")
-    nv = NameVariant("大文", "陳", "hani")
-    n2 = Name("Tai Man", "Chan", variants=[nv])
-    assert n1 != n2
-    assert n1.match(n2)
-    assert n2.match(n1)
-    assert n1.as_first_last() == n2.as_first_last()
-    assert n2.variants[0] == nv
+def test_name_with_script():
+    n1 = Name("大文", "陳", "hani")
+    n2 = Name("大文", "陳")
+    assert n1.first == "大文"
+    assert n1.last == "陳"
+    assert n1.script == "hani"
+    # Script information is NOT distinctive, so names should still compare equal
+    assert n1 == n2
 
 
-def test_name_from_xml():
+def test_name_spec_with_variant():
+    name = Name("Tai Man", "Chan")
+    nv = Name("大文", "陳", "hani")
+    ns1 = NameSpecification(name)
+    ns2 = NameSpecification(name, variants=[nv])
+    assert ns1 != ns2
+    assert ns2.variants[0] == nv
+
+
+def test_name_spec_from_xml():
     xml = """
         <author id='john-doe-42'>
           <first>John</first><last>Doe</last>
           <affiliation>UOS</affiliation>
         </author>"""
     element = etree.fromstring(xml)
-    n = Name.from_xml(element)
-    assert n.first == "John"
-    assert n.last == "Doe"
-    assert n.id == "john-doe-42"
-    assert n.affiliation == "UOS"
+    ns = NameSpecification.from_xml(element)
+    assert ns.first == "John"
+    assert ns.last == "Doe"
+    assert ns.name == Name("John", "Doe")
+    assert ns.id == "john-doe-42"
+    assert ns.affiliation == "UOS"
 
 
 def test_name_variant_from_xml():
@@ -105,18 +105,18 @@ def test_name_variant_from_xml():
         </variant>
     """
     element = etree.fromstring(xml)
-    nv = NameVariant.from_xml(element)
+    nv = Name.from_xml(element)
     assert nv.first == "大文"
     assert nv.last == "陳"
     assert nv.script == "hani"
 
 
-def test_name_mismatch():
+def test_name_slugify():
     n1 = Name("Tai Man", "Chan")
-    n2 = Name("Tai", "Mai Chan")
+    n2 = Name("Tai", "Man Chan")
     n3 = Name("Tai-Man", "Chan")
     n4 = Name("Tai Man", "Chen")
-    for a, b in it.combinations((n1, n2, n3, n4), 2):
-        assert a != b
-        assert not a.match(b)
-        assert not b.match(a)
+    for a, b in it.combinations((n1, n2, n3), 2):
+        assert a.slugify() == b.slugify()
+    for a in (n1, n2, n3):
+        assert a.slugify() != n4.slugify()

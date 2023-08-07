@@ -20,7 +20,7 @@ from slugify import slugify
 from typing import Optional, cast
 
 
-@define
+@define(frozen=True)
 class Name:
     """A person's name.
 
@@ -28,10 +28,7 @@ class Name:
         first: First name part. Can be given as `None` for people who
             only have a single name, but cannot be omitted.
         last: Last name part.
-        id: Unique ID for the person that this name refers to.
-            Defaults to `None`.
-        affiliation: Professional affiliation.  Defaults to `None`.
-        variants: Variant spellings of this name in different scripts.
+        script: The script in which the name is written; only used for non-Latin script name variants.
 
     Examples:
         >>> Name("Yang", "Liu")
@@ -41,9 +38,7 @@ class Name:
 
     first: Optional[str]
     last: str
-    id: Optional[str] = field(default=None)
-    affiliation: Optional[str] = field(default=None)
-    variants: list[NameVariant] = Factory(list)
+    script: Optional[str] = field(default=None, repr=False, eq=False)
 
     def as_first_last(self) -> str:
         """
@@ -53,16 +48,6 @@ class Name:
         if self.first is None:
             return self.last
         return f"{self.first} {self.last}"
-
-    def match(self, other: Name) -> bool:
-        """
-        Parameters:
-            other: A name to check against `self`.
-
-        Returns:
-            True if the first/last name components of `other` match this name.
-        """
-        return (self.first == other.first) and (self.last == other.last)
 
     def slugify(self) -> str:
         """
@@ -89,7 +74,65 @@ class Name:
         )
 
     @classmethod
-    def from_xml(cls, person: etree._Element) -> Name:
+    def from_xml(cls, variant: etree._Element) -> Name:
+        """
+        Parameters:
+            variant: An XML element of a `<variant>` block.
+
+        Returns:
+            A corresponding Name object.
+
+        Note:
+            This will work for `<author>` and `<editor>` tags as well, but those
+            are more efficiently parsed within
+            [NameSpecification.from_xml()][acl_anthology.people.name.NameSpecification.from_xml].
+        """
+        first: Optional[str] = None
+        last: Optional[str] = None
+
+        for element in variant:
+            if element.tag == "first":
+                first = element.text
+            elif element.tag == "last":
+                last = element.text
+
+        return cls(first, cast(str, last), str(variant.attrib["script"]))
+
+
+@define
+class NameSpecification:
+    """A name specification on a paper etc., containing additional data fields for information or disambiguation besides just the name.
+
+    Attributes:
+        name: The person's name.
+        id: Unique ID for the person that this name refers to.  Defaults to `None`.
+        affiliation: Professional affiliation.  Defaults to `None`.
+        variants: Variant spellings of this name in different scripts.
+
+    Note:
+        The `variants` attribute is only intended for name variants stored via the
+        `<variant>` tag in the XML, i.e., for a name that has a variant in a different
+        script.  It is _not_ used when an author has published under different names
+        (for this functionality, see [Person][acl_anthology.people.person.Person]).
+    """
+
+    name: Name
+    id: Optional[str] = field(default=None)
+    affiliation: Optional[str] = field(default=None)
+    variants: list[Name] = Factory(list)
+
+    @property
+    def first(self) -> Optional[str]:
+        """The first name component."""
+        return self.name.first
+
+    @property
+    def last(self) -> str:
+        """The last name component."""
+        return self.name.last
+
+    @classmethod
+    def from_xml(cls, person: etree._Element) -> NameSpecification:
         """
         Parameters:
             person: An XML element of an `<author>` or `<editor>` block.
@@ -110,47 +153,11 @@ class Name:
             elif element.tag == "affiliation":
                 affiliation = element.text
             elif element.tag == "variant":
-                variants.append(NameVariant.from_xml(element))
+                variants.append(Name.from_xml(element))
 
         return cls(
-            first,
-            cast(str, last),
+            Name(first, cast(str, last)),
             id=person.get("id"),
             affiliation=affiliation,
             variants=variants,
         )
-
-
-@define
-class NameVariant:
-    """A variant of a person's name in a different script.
-
-    Note:
-        This is only intended for name variants stored via the `<variant>` tag in
-        the XML, i.e., for a name that has a variant in a different script.
-        It is _not_ used when an author has published under different names (for
-        this functionality, see [Person][acl_anthology.people.person.Person]).
-
-    Attributes:
-        first (Optional[str]): First name part. Can be given as `None` for people who
-            only have a single name, but cannot be omitted.
-        last (str): Last name part.
-        script (str): Script in which this name variant is written.
-    """
-
-    first: Optional[str]
-    last: str
-    script: str
-
-    @classmethod
-    def from_xml(cls, variant: etree._Element) -> NameVariant:
-        first: Optional[str] = None
-        last: Optional[str] = None
-
-        for element in variant:
-            if element.tag == "first":
-                first = element.text
-            elif element.tag == "last":
-                last = element.text
-
-        return cls(first, cast(str, last), str(variant.attrib["script"]))

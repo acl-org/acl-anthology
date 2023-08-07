@@ -27,7 +27,7 @@ from ..files import (
     PDFReference,
     VideoReference,
 )
-from ..people import Name
+from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.ids import build_id
 from ..utils.xml import xsd_boolean
@@ -73,10 +73,10 @@ class Paper:
     title: MarkupText = field()
 
     attachments: dict[str, AttachmentReference] = Factory(dict)
-    authors: list[Name] = Factory(list)
+    authors: list[NameSpecification] = Factory(list)
     awards: list[str] = Factory(list)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: list[Name] = Factory(list)
+    editors: list[NameSpecification] = Factory(list)
     errata: list[PaperErratum] = Factory(list)
     revisions: list[PaperRevision] = Factory(list)
     videos: list[VideoReference] = Factory(list)
@@ -183,7 +183,7 @@ class Paper:
             if element.tag in ("bibkey", "doi", "language", "note", "pages"):
                 kwargs[element.tag] = element.text
             elif element.tag in ("author", "editor"):
-                kwargs[f"{element.tag}s"].append(Name.from_xml(element))
+                kwargs[f"{element.tag}s"].append(NameSpecification.from_xml(element))
             elif element.tag in ("abstract", "title"):
                 kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "attachment":

@@ -22,7 +22,7 @@ from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
 
 from .. import constants
 from ..files import PDFReference
-from ..people import Name
+from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.ids import build_id
 from .paper import Paper
@@ -80,7 +80,7 @@ class Volume:
     year: str
 
     papers: dict[str, Paper] = field(init=False, repr=False, factory=dict)
-    editors: list[Name] = Factory(list)
+    editors: list[NameSpecification] = Factory(list)
     venues: list[str] = field(factory=list)
 
     address: Optional[str] = field(default=None)
@@ -193,7 +193,7 @@ class Volume:
             elif element.tag in ("booktitle", "shortbooktitle"):
                 kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "editor":
-                kwargs["editors"].append(Name.from_xml(element))
+                kwargs["editors"].append(NameSpecification.from_xml(element))
             elif element.tag == "url":
                 checksum = element.attrib.get("hash")
                 kwargs["pdf"] = PDFReference(
