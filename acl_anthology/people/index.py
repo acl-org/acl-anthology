@@ -17,6 +17,7 @@ from __future__ import annotations
 from collections import defaultdict
 import itertools as it
 from pathlib import Path
+from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 from typing import TYPE_CHECKING
 import yaml
@@ -64,28 +65,35 @@ class PersonIndex:
         self.similar = DisjointSet()
         self.is_built = False
 
-    def build(self) -> None:
+    def build(self, show_progress: bool = False) -> None:
         """Load the entire Anthology data and build an index of persons."""
         self.reset()
         # Load variant list, so IDs defined there are added first
         self._load_variant_list()
         # Go through every single volume/paper and add authors/editors
-        for volume in self.parent.volumes():
-            try:
-                for name_spec in volume.editors:
-                    person = self.get_or_create_person(name_spec)
-                    person.item_ids.add(volume.full_id_tuple)
-            except Exception as exc:
-                exc.add_note(f"Raised in volume {volume.full_id}, {name_spec}")
-                raise exc
-            try:
-                for paper in volume:
-                    for name_spec in it.chain(paper.authors, paper.editors):
+        iterator = track(
+            self.parent.collections,
+            total=len(self.parent.collections),
+            disable=(not show_progress),
+            description="Building person index...",
+        )
+        for collection in iterator:
+            for volume in collection:
+                try:
+                    for name_spec in volume.editors:
                         person = self.get_or_create_person(name_spec)
-                        person.item_ids.add(paper.full_id_tuple)
-            except Exception as exc:
-                exc.add_note(f"Raised in paper {paper.full_id}, {name_spec}")
-                raise exc
+                        person.item_ids.add(volume.full_id_tuple)
+                except Exception as exc:
+                    exc.add_note(f"Raised in volume {volume.full_id}, {name_spec}")
+                    raise exc
+                try:
+                    for paper in volume:
+                        for name_spec in it.chain(paper.authors, paper.editors):
+                            person = self.get_or_create_person(name_spec)
+                            person.item_ids.add(paper.full_id_tuple)
+                except Exception as exc:
+                    exc.add_note(f"Raised in paper {paper.full_id}, {name_spec}")
+                    raise exc
 
     def add_person(self, person: Person) -> None:
         """Add a new person to the index.

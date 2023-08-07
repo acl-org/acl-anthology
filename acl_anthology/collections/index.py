@@ -40,6 +40,10 @@ class CollectionIndex:
         """Returns an iterator over all collections."""
         return iter(self.collections.values())
 
+    def __len__(self) -> int:
+        """Returns the number of collections."""
+        return len(self.collections)
+
     def get(self, collection_id: str) -> Optional[Collection]:
         """Access a collection in this index by its ID.
 
