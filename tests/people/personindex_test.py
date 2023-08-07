@@ -105,6 +105,7 @@ def test_get_or_create_person_with_name_merging(index):
     assert person1 is person2
     assert person2.has_name(ns1.name)
     assert person2.has_name(ns2.name)
+    assert person2.canonical_name == ns2.name
 
 
 def test_build_personindex(index_with_full_anthology):

@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from attrs import define, field, Factory
 from lxml import etree
+import re
 from slugify import slugify
 from typing import Optional, cast
 
@@ -48,6 +49,24 @@ class Name:
         if self.first is None:
             return self.last
         return f"{self.first} {self.last}"
+
+    def score(self) -> int:
+        """
+        Returns:
+            A score for this name that is intended for comparing different names that generate the same ID.  Names that are more likely to be the correct canonical variant should return higher scores via this function.
+        """
+        name = self.as_first_last()
+        # Prefer longer variants
+        score = len(name)
+        # Prefer variants with non-ASCII characters
+        score += sum((ord(c) > 127) for c in name)
+        # Penalize upper-case characters after word boundaries
+        score -= sum(any(c.isupper() for c in w[1:]) for w in re.split(r"\W+", name))
+        # Penalize lower-case characters at word boundaries
+        score -= sum(w[0].islower() if w else 0 for w in re.split(r"\W+", name))
+        if name[0].islower():  # extra penalty for first name
+            score -= 1
+        return score
 
     def slugify(self) -> str:
         """

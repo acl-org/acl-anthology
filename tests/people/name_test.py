@@ -120,3 +120,15 @@ def test_name_slugify():
         assert a.slugify() == b.slugify()
     for a in (n1, n2, n3):
         assert a.slugify() != n4.slugify()
+
+
+def test_name_scoring():
+    n1 = Name("Andre", "Rieu")
+    n2 = Name("André", "Rieu")
+    n3 = Name("ANdre", "Rieu")
+    n4 = Name("Andre", "rieu")
+    n5 = Name("Andres", "Rieu")
+    assert n1.score() < n2.score()
+    assert n1.score() > n3.score()
+    assert n1.score() > n4.score()
+    assert n1.score() < n5.score()

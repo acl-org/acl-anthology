@@ -154,8 +154,12 @@ class PersonIndex:
             try:
                 # If the auto-generated ID already exists, we assume it's the same person
                 person = self.people[pid]
-                # ... but since the name is different, we have to add it to the person and mapping
-                person.add_name(name)
+                # If the name scores higher than the current canonical one, we
+                # also assume we should set this as the canonical one
+                if name.score() > person.canonical_name.score():
+                    person.set_canonical_name(name)
+                else:
+                    person.add_name(name)
                 self.name_to_ids[name].append(pid)
             except KeyError:
                 # If it doesn't, only then do we create a new perosn
