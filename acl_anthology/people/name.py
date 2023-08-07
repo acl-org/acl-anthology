@@ -138,7 +138,7 @@ class NameSpecification:
             person: An XML element of an `<author>` or `<editor>` block.
 
         Returns:
-            A corresponding Name object.
+            A corresponding NameSpecification object.
         """
         first: Optional[str] = None
         last: Optional[str] = None
