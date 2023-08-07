@@ -20,7 +20,7 @@ from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 import sys
-from typing import Iterator, TYPE_CHECKING
+from typing import cast, Iterator, TYPE_CHECKING
 import yaml
 
 try:
@@ -88,11 +88,33 @@ class PersonIndex:
             name: A personal name.
 
         Returns:
-            A list of all persons with that name; can by empty.
+            A list of all persons with that name; can be empty.
         """
         if not self.is_built:
             self.ensure_is_built()
         return [self.people[pid] for pid in self.name_to_ids[name]]
+
+    def find_coauthors(self, person: str | Person) -> list[Person]:
+        """Find all persons who co-authored or co-edited items with the given person.
+
+        Parameters:
+            person: A person ID _or_ Person instance.
+
+        Returns:
+            A list of all persons who are co-authors; can be empty.
+        """
+        if not self.is_built:
+            self.ensure_is_built()
+        if isinstance(person, str):
+            person = self.people[person]
+        coauthors = set()
+        for item_id in person.item_ids:
+            item = cast("Volume | Paper", self.parent.get(item_id))
+            coauthors |= set(self.get_or_create_person(ns).id for ns in item.editors)
+            if hasattr(item, "authors"):
+                coauthors |= set(self.get_or_create_person(ns).id for ns in item.authors)
+        coauthors.remove(person.id)
+        return [self.people[pid] for pid in coauthors]
 
     def ensure_is_built(self) -> None:
         """Makes sure that the index is built."""

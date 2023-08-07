@@ -143,3 +143,11 @@ def test_build_personindex_automatically(index_with_full_anthology):
     persons = index.get_by_name(Name("Nicoletta", "Calzolari"))
     assert index.is_built
     assert len(persons) == 1
+
+
+def test_get_person_coauthors(index_with_full_anthology):
+    index = index_with_full_anthology
+    person = index.get_by_name(Name("Kathleen", "Dahlgren"))[0]
+    coauthors = index.find_coauthors(person)
+    assert len(coauthors) == 1
+    assert coauthors[0].canonical_name == Name("Joyce", "McDowell")
