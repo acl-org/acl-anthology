@@ -71,13 +71,21 @@ class PersonIndex:
         self._load_variant_list()
         # Go through every single volume/paper and add authors/editors
         for volume in self.parent.volumes():
-            for name_spec in volume.editors:
-                person = self.get_or_create_person(name_spec)
-                person.item_ids.add(volume.full_id_tuple)
-            for paper in volume:
-                for name_spec in it.chain(paper.authors, paper.editors):
+            try:
+                for name_spec in volume.editors:
                     person = self.get_or_create_person(name_spec)
-                    person.item_ids.add(paper.full_id_tuple)
+                    person.item_ids.add(volume.full_id_tuple)
+            except Exception as exc:
+                exc.add_note(f"Raised in volume {volume.full_id}, {name_spec}")
+                raise exc
+            try:
+                for paper in volume:
+                    for name_spec in it.chain(paper.authors, paper.editors):
+                        person = self.get_or_create_person(name_spec)
+                        person.item_ids.add(paper.full_id_tuple)
+            except Exception as exc:
+                exc.add_note(f"Raised in paper {paper.full_id}, {name_spec}")
+                raise exc
 
     def add_person(self, person: Person) -> None:
         """Add a new person to the index.
@@ -132,10 +140,6 @@ class PersonIndex:
                 person = Person(id=pid, names=[name])
                 self.add_person(person)
         return person
-
-    def get_person_from_name(self, name: Name) -> list[Person]:
-        # TODO: this could be zero, one, or multiple persons
-        raise NotImplementedError()
 
     @staticmethod
     def generate_id(name: Name) -> str:
