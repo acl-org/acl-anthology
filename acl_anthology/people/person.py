@@ -49,6 +49,14 @@ class Person:
         except KeyError:
             raise ValueError(f"No names defined for person '{self.id}'")
 
+    def add_name(self, name: Name) -> None:
+        """Add a name for this person.
+
+        Parameters:
+            name: Name that can refer to this person.
+        """
+        self.names.append(name)
+
     def has_name(self, name: Name) -> bool:
         """
         Parameters:
@@ -57,9 +65,7 @@ class Person:
         Returns:
             True if the given name can refer to this person.
         """
-        # TODO: not sure yet how this needs to work
-        # return any(n.match(name) for n in self.names)
-        raise NotImplementedError()
+        return name in self.names
 
     def set_canonical_name(self, name: Name) -> None:
         """Set the canonical name for this person.
@@ -67,12 +73,8 @@ class Person:
         Parameters:
             name: Name that should be treated as canonical for this person.
         """
+        try:
+            self.names.pop(self.names.index(name))
+        except ValueError:
+            pass
         self.names.insert(0, name)
-
-    def add_name(self, name: Name) -> None:
-        """Add a name for this person.
-
-        Parameters:
-            name: Name that can refer to this person.
-        """
-        self.names.append(name)

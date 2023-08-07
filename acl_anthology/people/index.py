@@ -105,6 +105,7 @@ class PersonIndex:
                         )
                     )
                     log.exception(exc)
+        self.is_built = True
 
     def add_person(self, person: Person) -> None:
         """Add a new person to the index.
@@ -135,6 +136,7 @@ class PersonIndex:
         if (pid := name_spec.id) is not None:
             try:
                 person = self.people[pid]
+                person.add_name(name)
             except KeyError:
                 raise NameIDUndefinedError(name_spec)
         elif pid_list := self.name_to_ids[name]:
@@ -152,7 +154,8 @@ class PersonIndex:
             try:
                 # If the auto-generated ID already exists, we assume it's the same person
                 person = self.people[pid]
-                # ... but since the name is different, we have to add it to the mapping
+                # ... but since the name is different, we have to add it to the person and mapping
+                person.add_name(name)
                 self.name_to_ids[name].append(pid)
             except KeyError:
                 # If it doesn't, only then do we create a new perosn
