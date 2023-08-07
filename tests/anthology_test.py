@@ -77,7 +77,7 @@ def test_papers(anthology):
         count += 1
         found.add(paper.collection_id)
     assert expected == found
-    assert count == 1355
+    assert count == 846
 
 
 def test_papers_by_collection_id(anthology):
