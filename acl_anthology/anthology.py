@@ -30,10 +30,10 @@ class Anthology:
 
     def __init__(self, datadir: PathLike[str]) -> None:
         if not Path(datadir).is_dir():
-            raise ValueError(f"Not a directory: {datadir}")  # TODO exception type
+            raise FileNotFoundError(f"Not a directory: {datadir}")
 
         self.datadir = Path(datadir)
-        # TODO: can the following two be expressed with attrs?
+
         self.collections = CollectionIndex(self)
         """The [CollectionIndex][acl_anthology.collections.CollectionIndex] for accessing collections, volumes, and papers."""
 

@@ -134,7 +134,7 @@ class Volume:
             paper_id: A paper ID.
 
         Returns:
-            The paper associated with the given ID, if it exists in this volme.
+            The paper associated with the given ID, if it exists in this volume.
         """
         return self.papers.get(paper_id)
 

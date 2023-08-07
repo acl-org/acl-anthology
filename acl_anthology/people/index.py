@@ -20,7 +20,7 @@ from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 import sys
-from typing import TYPE_CHECKING
+from typing import Iterator, TYPE_CHECKING
 import yaml
 
 try:
@@ -61,6 +61,44 @@ class PersonIndex:
 
         self.is_built = False
         """A flag indicating whether the index has been constructed."""
+
+    def __iter__(self) -> Iterator[Person]:
+        """Returns an iterator over all associated persons."""
+        if not self.is_built:
+            self.ensure_is_built()
+        yield from self.people.values()
+
+    def get(self, person_id: str) -> Person | None:
+        """Access a person by their ID.
+
+        Parameters:
+            person_id: A person ID.
+
+        Returns:
+            The person associated with this ID, if one exists.
+        """
+        if not self.is_built:
+            self.ensure_is_built()
+        return self.people.get(person_id)
+
+    def get_by_name(self, name: Name) -> list[Person]:
+        """Access persons by their name.
+
+        Parameters:
+            name: A personal name.
+
+        Returns:
+            A list of all persons with that name; can by empty.
+        """
+        if not self.is_built:
+            self.ensure_is_built()
+        return [self.people[pid] for pid in self.name_to_ids[name]]
+
+    def ensure_is_built(self) -> None:
+        """Makes sure that the index is built."""
+        # This function exists so we can later add the option to read the index
+        # from a cache if it doesn't need re-building.
+        self.build()
 
     def reset(self) -> None:
         """Resets the index."""
