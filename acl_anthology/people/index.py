@@ -28,11 +28,14 @@ except ImportError:
     from yaml import Loader  # type: ignore
 
 from ..exceptions import AmbiguousNameError, NameIDUndefinedError
+from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..collections import Paper, Volume
 
+log = get_logger()
 VARIANTS_FILE = "yaml/name_variants.yaml"
 
 
@@ -66,7 +69,12 @@ class PersonIndex:
         self.is_built = False
 
     def build(self, show_progress: bool = False) -> None:
-        """Load the entire Anthology data and build an index of persons."""
+        """Load the entire Anthology data and build an index of persons.
+
+        Important:
+            Exceptions raised during the index creation are sent to the logger, and **not** re-raised.
+            Use the [SeverityTracker][acl_anthology.utils.logging.SeverityTracker] to check if an exception occurred.
+        """
         self.reset()
         # Load variant list, so IDs defined there are added first
         self._load_variant_list()
@@ -79,21 +87,24 @@ class PersonIndex:
         )
         for collection in iterator:
             for volume in collection:
+                context: Paper | Volume = volume
                 try:
                     for name_spec in volume.editors:
                         person = self.get_or_create_person(name_spec)
                         person.item_ids.add(volume.full_id_tuple)
-                except Exception as exc:
-                    exc.add_note(f"Raised in volume {volume.full_id}, {name_spec}")
-                    raise exc
-                try:
                     for paper in volume:
+                        context = paper
                         for name_spec in it.chain(paper.authors, paper.editors):
                             person = self.get_or_create_person(name_spec)
                             person.item_ids.add(paper.full_id_tuple)
                 except Exception as exc:
-                    exc.add_note(f"Raised in paper {paper.full_id}, {name_spec}")
-                    raise exc
+                    exc.add_note(
+                        (
+                            f"Raised in {context.__class__.__name__} "
+                            f"{context.full_id}; {name_spec}"
+                        )
+                    )
+                    log.exception(exc)
 
     def add_person(self, person: Person) -> None:
         """Add a new person to the index.

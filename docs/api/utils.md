@@ -8,6 +8,10 @@
 
 ::: acl_anthology.utils.latex
 
+## utils.logging
+
+::: acl_anthology.utils.logging
+
 ## utils.text
 
 ::: acl_anthology.utils.text
