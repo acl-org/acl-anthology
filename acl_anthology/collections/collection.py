@@ -17,8 +17,11 @@ from lxml import etree
 from pathlib import Path
 from typing import Iterator, Optional, cast
 
-from ..logging import log
+from ..utils.logging import get_logger
 from .volume import Volume
+
+
+log = get_logger()
 
 
 @define

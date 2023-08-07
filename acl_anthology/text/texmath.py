@@ -13,13 +13,17 @@
 # limitations under the License.
 
 import csv
-import logging as log
 import pkgutil
 from attrs import define, field
 from lxml import etree
 from TexSoup import TexSoup
 from TexSoup.data import TexCmd, TexText, TexGroup
 from typing import Literal, Tuple, Union, overload
+
+from ..utils.logging import get_logger
+
+log = get_logger()
+
 
 FUNCTION_NAMES = ("lim", "log")
 TEX_TO_HTML: dict[str, Tuple[str, dict[str, str]]] = {

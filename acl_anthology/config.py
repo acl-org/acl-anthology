@@ -38,6 +38,9 @@ class DefaultConfig:
     video_location_template: str = "${url_prefix}/{}"
     """URL formatting template for videos."""
 
+    logger_name: str = "acl-anthology"
+    """Name of logger to which the library sends log messages."""
+
 
 config = OmegaConf.structured(DefaultConfig)
 """A [structured configuration instance](https://omegaconf.readthedocs.io/en/latest/structured_config.html) that is used by all `acl_anthology` classes."""

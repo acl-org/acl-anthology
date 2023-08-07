@@ -12,12 +12,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Functions for logging."""
+
 import logging
-from rich.logging import RichHandler
+from ..config import config
 
-FORMAT = "%(message)s"
-logging.basicConfig(
-    level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
-)
 
-log = logging.getLogger("acl-anthology")
+def get_logger() -> logging.Logger:
+    return logging.getLogger(config.get("logger_name"))
+
+
+def setup_rich_logging(**kwargs) -> None:  # type: ignore
+    from rich.logging import RichHandler
+
+    log_config = dict(
+        level="NOTSET",
+        format="%(message)s",
+        datefmt="[%X]",
+        handlers=[],
+    )
+    log_config.update(kwargs)
+    log_config["handlers"].append(RichHandler())  # type: ignore
+    logging.basicConfig(**log_config)  # type: ignore

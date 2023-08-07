@@ -14,15 +14,19 @@
 
 from .ids import build_id, parse_id, AnthologyID
 from .latex import latex_encode, latex_convert_quotes
+from .logging import setup_rich_logging, get_logger
 from .text import remove_extra_whitespace
 from .xml import stringify_children
+
 
 __all__ = [
     "AnthologyID",
     "build_id",
+    "get_logger",
     "latex_encode",
     "latex_convert_quotes",
     "parse_id",
     "remove_extra_whitespace",
+    "setup_rich_logging",
     "stringify_children",
 ]
