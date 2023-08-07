@@ -19,13 +19,14 @@ from .people import Name, NameSpecification
 if sys.version_info >= (3, 11):
 
     class AnthologyException(Exception):
-        pass
+        def __init__(self, msg: str):
+            super().__init__(msg)
 
 else:
 
     class AnthologyException(Exception):
-        def __init__(self, *args, **kwargs):  # type: ignore
-            super().__init__(*args, **kwargs)
+        def __init__(self, msg: str):
+            super().__init__(msg)
             self.__notes__: list[str] = []
 
         def add_note(self, note: str) -> None:

@@ -19,6 +19,7 @@ import itertools as it
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
+import sys
 from typing import TYPE_CHECKING
 import yaml
 
@@ -27,7 +28,7 @@ try:
 except ImportError:
     from yaml import Loader  # type: ignore
 
-from ..exceptions import AmbiguousNameError, NameIDUndefinedError
+from ..exceptions import AnthologyException, AmbiguousNameError, NameIDUndefinedError
 from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
 
@@ -98,12 +99,13 @@ class PersonIndex:
                             person = self.get_or_create_person(name_spec)
                             person.item_ids.add(paper.full_id_tuple)
                 except Exception as exc:
-                    exc.add_note(
-                        (
-                            f"Raised in {context.__class__.__name__} "
-                            f"{context.full_id}; {name_spec}"
-                        )
-                    )
+                    note = f"Raised in {context.__class__.__name__} {context.full_id}; {name_spec}"
+                    # If this is merged into a single if-statement (with "or"),
+                    # the type checker complains ¯\_(ツ)_/¯
+                    if isinstance(exc, AnthologyException):
+                        exc.add_note(note)
+                    elif sys.version_info >= (3, 11):
+                        exc.add_note(note)
                     log.exception(exc)
         self.is_built = True
 
