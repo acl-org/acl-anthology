@@ -46,7 +46,6 @@ from anthology.utils import (
     make_simple_element,
 )
 from anthology.formatter import MarkupFormatter
-from itertools import chain
 from time import sleep
 
 import lxml.etree as ET
@@ -115,10 +114,9 @@ def process_volume(anthology_volume):
         print(f'-> Found volume "{volume_title}"', file=sys.stderr)
 
         # Iterate through all papers
-        if volume.find("frontmatter") is not None:
-            papers = chain(volume.find("frontmatter"), volume.findall("paper"))
-        else:
-            papers = volume.findall("paper")
+        papers = volume.findall("paper")
+        if frontmatter := volume.find("frontmatter"):
+            papers.insert(0, frontmatter)
         for paper in papers:
             added = add_doi(paper, collection_id, volume_id, force=args.force)
             if added:
