@@ -12,10 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
 from .people import Name, NameSpecification
 
 
-class AmbiguousNameError(Exception):
+if sys.version_info >= (3, 11):
+
+    class AnthologyException(Exception):
+        pass
+
+else:
+
+    class AnthologyException(Exception):
+        def __init__(self, *args, **kwargs):  # type: ignore
+            super().__init__(*args, **kwargs)
+            self.__notes__: list[str] = []
+
+        def add_note(self, note: str) -> None:
+            self.__notes__.append(note)
+
+
+class AmbiguousNameError(AnthologyException):
     """Raised when an ambiguous name would need an explicit and unique ID, but does not have one.
 
     Attributes:
@@ -28,7 +45,7 @@ class AmbiguousNameError(Exception):
         self.add_note("Did you forget to add an explicit/unique ID to this name?")
 
 
-class NameIDUndefinedError(Exception):
+class NameIDUndefinedError(AnthologyException):
     """Raised when an `<author>` or `<editor>` was used with an ID which was not defined in `name_variants.yaml`.
 
     Attributes:
