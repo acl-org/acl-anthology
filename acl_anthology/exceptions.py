@@ -47,15 +47,14 @@ class AmbiguousNameError(AnthologyException):
 
 
 class NameIDUndefinedError(AnthologyException):
-    """Raised when an `<author>` or `<editor>` was used with an ID which was not defined in `name_variants.yaml`.
+    """Raised when an author ID was requested that is not defined.
+
+    This can happen when an `<author>` or `<editor>` was used with an ID which was not defined in `name_variants.yaml`, or when trying to look up a NameSpecification that does not correspond to any Person in the PersonIndex.
 
     Attributes:
         name_spec (NameSpecification): The name specification that raised the error.
     """
 
-    def __init__(self, name_spec: NameSpecification) -> None:
-        super().__init__(
-            f"Name '{name_spec.name}' used with ID '{name_spec.id}' that doesn't exist"
-        )
+    def __init__(self, name_spec: NameSpecification, message: str) -> None:
+        super().__init__(message)
         self.name_spec = name_spec
-        self.add_note("Did you forget to define the ID in name_variants.yaml?")

@@ -110,9 +110,13 @@ class PersonIndex:
         coauthors = set()
         for item_id in person.item_ids:
             item = cast("Volume | Paper", self.parent.get(item_id))
-            coauthors |= set(self.get_or_create_person(ns).id for ns in item.editors)
+            coauthors |= set(
+                self.get_or_create_person(ns, create=False).id for ns in item.editors
+            )
             if hasattr(item, "authors"):
-                coauthors |= set(self.get_or_create_person(ns).id for ns in item.authors)
+                coauthors |= set(
+                    self.get_or_create_person(ns, create=False).id for ns in item.authors
+                )
         coauthors.remove(person.id)
         return [self.people[pid] for pid in coauthors]
 
@@ -182,11 +186,14 @@ class PersonIndex:
         for name in person.names:
             self.name_to_ids[name].append(pid)
 
-    def get_or_create_person(self, name_spec: NameSpecification) -> Person:
+    def get_or_create_person(
+        self, name_spec: NameSpecification, create: bool = True
+    ) -> Person:
         """Get the person represented by a name specification, or create a new one if needed.
 
         Parameters:
             name_spec: The name specification on the paper, volume, etc.
+            create: If False, will not create a new Person object, but instead raise `NameIDUndefinedError` if no person matching `name_spec` exists.  Defaults to True.
 
         Returns:
             The person represented by `name_spec`.  This will try to use the `id` attribute if it is set, look up the name in the index otherwise, or try to find a matching person by way of an ID clash.  If all of these fail, it will create a new person and return that.
@@ -201,15 +208,19 @@ class PersonIndex:
                 person = self.people[pid]
                 person.add_name(name)
             except KeyError:
-                raise NameIDUndefinedError(name_spec)
+                exc1 = NameIDUndefinedError(
+                    name_spec, f"Name '{name}' used with ID '{pid}' that doesn't exist"
+                )
+                exc1.add_note("Did you forget to define the ID in name_variants.yaml?")
+                raise exc1
         elif pid_list := self.name_to_ids[name]:
             if len(pid_list) > 1:
-                exc = AmbiguousNameError(
+                exc2 = AmbiguousNameError(
                     name,
                     f"Name '{name.as_first_last()}' is ambiguous, but was used without an ID",
                 )
-                exc.add_note(f"Known IDs are: {', '.join(pid_list)}")
-                raise exc
+                exc2.add_note(f"Known IDs are: {', '.join(pid_list)}")
+                raise exc2
             pid = pid_list[0]
             person = self.people[pid]
         else:
@@ -225,9 +236,15 @@ class PersonIndex:
                     person.add_name(name)
                 self.name_to_ids[name].append(pid)
             except KeyError:
-                # If it doesn't, only then do we create a new perosn
-                person = Person(id=pid, names=[name])
-                self.add_person(person)
+                if create:
+                    # If it doesn't, only then do we create a new perosn
+                    person = Person(id=pid, names=[name])
+                    self.add_person(person)
+                else:
+                    raise NameIDUndefinedError(
+                        name_spec,
+                        f"Name '{name}' generated ID '{pid}' that doesn't exist",
+                    )
         return person
 
     @staticmethod

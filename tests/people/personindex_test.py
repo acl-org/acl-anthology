@@ -90,6 +90,12 @@ def test_get_or_create_person_new_person(index):
     assert person1 is index.people[person1.id]
 
 
+def test_get_or_create_person_new_person_disallowed(index):
+    ns1 = NameSpecification(Name("Yang", "Liu"))
+    with pytest.raises(NameIDUndefinedError):
+        index.get_or_create_person(ns1, create=False)
+
+
 def test_get_or_create_person_with_ambiguous_name(index):
     index._load_variant_list()
     ns1 = NameSpecification(Name("Yang", "Liu"))
