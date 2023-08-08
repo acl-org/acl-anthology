@@ -12,10 +12,53 @@
 This package accesses data from the [ACL
 Anthology](https://github.com/acl-org/acl-anthology).
 
-## About
+:warning: **This package is still work in progress.** :warning:
 
-:warning::warning::warning: **This repository is WORK IN PROGRESS and not yet
-functional.** :warning::warning::warning:
+API documentation can already be generated locally (see below for instructions),
+more documentation (included a web-hosted version) is coming.
+
+## How to use
+
+Install via `pip`:
+
+```bash
+$ pip install acl-anthology-py
+```
+
+Clone the [ACL Anthology](https://github.com/acl-org/acl-anthology) repo to
+obtain the data files _(there will be an option to automate this step in a
+future version)_:
+
+```bash
+$ git clone https://github.com/acl-org/acl-anthology
+```
+
+Afterwards, the library can be instantiated as follows:
+
+```python
+from acl_anthology import Anthology
+
+# "datadir" needs to point to the "data/" folder of the acl-anthology repo
+anthology = Anthology(datadir="acl-anthology/data")
+```
+
+Some usage examples:
+
+```python
+paper = anthology.get("C92-1025")
+
+print(str(paper.title))
+# Two-Level Morphology with Composition
+
+print([author.name for author in paper.authors])
+# [Name(first='Lauri', last='Karttunen'), Name(first='Ronald M.', last='Kaplan'), Name(first='Annie', last='Zaenen')]
+
+from acl_anthology.people import Name
+print(anthology.people.get_by_name(Name("Lauri", "Karttunen")))
+# [Person(id='lauri-karttunen', names=[Name(first='Lauri', last='Karttunen')],
+#         item_ids={('C94', '2', '206'), ('W05', '12', '6'), ('C69', '70', '1'),
+#                   ('J83', '2', '5'), ('C86', '1', '16'), ('C92', '1', '25'), ...})]
+```
 
 ## Developing
 
