@@ -14,11 +14,15 @@
 
 from os import PathLike
 from pathlib import Path
-from typing import Iterator, Optional
+from typing import overload, Iterator, Optional
 
 from .utils.ids import AnthologyID, parse_id
 from .collections import CollectionIndex, Collection, Volume, Paper
-from .people import PersonIndex
+from .people import PersonIndex, Person, NameSpecification
+
+
+NameSpecificationOrIter = NameSpecification | Iterator[NameSpecification]
+PersonOrList = Person | list[Person]
 
 
 class Anthology:
@@ -122,3 +126,29 @@ class Anthology:
         if volume is None or paper_id is None:
             return None
         return volume.get(paper_id)
+
+    @overload
+    def resolve(self, name_spec: NameSpecification) -> Person:
+        ...
+
+    @overload
+    def resolve(self, name_spec: Iterator[NameSpecification]) -> list[Person]:
+        ...
+
+    def resolve(self, name_spec: NameSpecificationOrIter) -> PersonOrList:
+        """Resolve a name specification (e.g. as attached to papers) to a natural person.
+
+        Parameters:
+            name_spec: A name specification, or an iterator over name specifications.
+
+        Returns:
+            A single Person object if a single name specification was given, or a list of Person objects with equal length to the input iterable otherwise.
+
+        Examples:
+            >>> paper = anthology.get("C92-1025")
+            >>> anthology.resolve(paper.authors)
+            [Person(id='lauri-karttunen', ...), Person(id='ronald-kaplan', ...), Person(id='annie-zaenen', ...)]
+        """
+        if isinstance(name_spec, NameSpecification):
+            return self.people.get_by_namespec(name_spec)
+        return [self.people.get_by_namespec(ns) for ns in name_spec]

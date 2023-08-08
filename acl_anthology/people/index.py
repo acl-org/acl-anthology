@@ -94,6 +94,22 @@ class PersonIndex:
             self.ensure_is_built()
         return [self.people[pid] for pid in self.name_to_ids[name]]
 
+    def get_by_namespec(self, name_spec: NameSpecification) -> Person:
+        """Access persons by their name specification.
+
+        Parameters:
+            name_spec: A name specification.
+
+        Returns:
+            The person associated with this name specification.
+
+        Raises:
+            See [PersonIndex.get_or_create_person][].
+        """
+        if not self.is_built:
+            self.ensure_is_built()
+        return self.get_or_create_person(name_spec, create=False)
+
     def find_coauthors(self, person: str | Person) -> list[Person]:
         """Find all persons who co-authored or co-edited items with the given person.
 

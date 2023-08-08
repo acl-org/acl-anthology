@@ -15,6 +15,7 @@
 import os
 from pathlib import Path
 from acl_anthology import Anthology
+from acl_anthology.people import Name
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 DATADIR = Path(f"{SCRIPTDIR}/toy_anthology")
@@ -98,3 +99,16 @@ def test_papers_by_volume_id(anthology):
         assert paper.volume_id == "1"
         found.add(paper.id)
     assert expected == found
+
+
+def test_resolve_single_author(anthology):
+    name_spec = anthology.get_paper("J89-1001").authors[0]
+    person = anthology.resolve(name_spec)
+    assert person.canonical_name == Name("Oliviero", "Stock")
+
+
+def test_resolve_author_list(anthology):
+    name_spec = anthology.get_paper("J89-1001").authors
+    person = anthology.resolve(name_spec)
+    assert len(person) == 1
+    assert person[0].canonical_name == Name("Oliviero", "Stock")
