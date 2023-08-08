@@ -55,11 +55,12 @@ def test_load_variant_list_correct_variants(index):
 def test_add_person(index):
     p1 = Person("yang-liu", [Name("Yang", "Liu")])
     index.add_person(p1)
-    index.is_built = True
+    index.is_built = True  # to prevent it attempting to build itself
     assert "yang-liu" in index.people
     assert Name("Yang", "Liu") in index.name_to_ids
     assert index.name_to_ids[Name("Yang", "Liu")] == ["yang-liu"]
     assert index.get_by_name(Name("Yang", "Liu"))[0] is p1
+    assert index.get_by_namespec(NameSpecification(Name("Yang", "Liu"))) is p1
     assert index.get("yang-liu") is p1
     with pytest.raises(KeyError):
         index.add_person(Person("yang-liu"))
@@ -157,3 +158,16 @@ def test_get_person_coauthors(index_with_full_anthology):
     coauthors = index.find_coauthors(person)
     assert len(coauthors) == 1
     assert coauthors[0].canonical_name == Name("Joyce", "McDowell")
+
+
+def test_get_by_namespec(index_with_full_anthology):
+    index = index_with_full_anthology
+    ns1 = NameSpecification(Name("Yang", "Liu"))
+    ns2 = NameSpecification(Name("Yang", "Liu"), id="yang-liu-microsoft")
+    # In contrast to test_get_or_create_person_new_person_disallowed, this
+    # should behave differently because it makes sure the index is built first
+    with pytest.raises(AmbiguousNameError):
+        index.get_by_namespec(ns1)
+    person = index.get_by_namespec(ns2)
+    assert person.id == "yang-liu-microsoft"
+    assert person.canonical_name == Name("Yang", "Liu")
