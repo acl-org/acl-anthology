@@ -5,9 +5,7 @@
 [![Code Coverage](https://img.shields.io/codecov/c/gh/mbollmann/acl-anthology-py)](https://codecov.io/gh/mbollmann/acl-anthology-py)
 ![Supported Python Versions](https://img.shields.io/pypi/pyversions/acl-anthology-py)
 ![Development Status](https://img.shields.io/badge/status-pre--alpha-red)
-<!--
 [![Package on PyPI](https://img.shields.io/pypi/v/acl-anthology-py)](https://pypi.org/project/acl-anthology-py/)
- -->
 
 This package accesses data from the [ACL
 Anthology](https://github.com/acl-org/acl-anthology).
