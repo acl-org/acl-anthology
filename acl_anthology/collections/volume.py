@@ -21,6 +21,7 @@ from lxml import etree
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
 
 from .. import constants
+from ..containers import SlottedDict
 from ..files import PDFReference
 from ..people import NameSpecification
 from ..text import MarkupText
@@ -44,8 +45,10 @@ class VolumeType(Enum):
 
 
 @define
-class Volume:
+class Volume(SlottedDict[Paper]):
     """A publication volume.
+
+    Provides dictionary-like functionality mapping paper IDs to [Paper][acl_anthology.collections.paper.Paper] objects in the volume.
 
     Attributes: Required Attributes:
         id: The ID of this volume (e.g. "1" or "main").
@@ -70,9 +73,6 @@ class Volume:
         pdf: A reference to the volume's PDF.
         publisher: The volume's publisher.
         shorttitle: A shortened form of the title. (Aliased to `shortbooktitle` for initialization.)
-
-    Attributes: Non-Init Attributes:
-        papers: A mapping of paper IDs in this volume to their Paper objects.
     """
 
     id: str
@@ -81,7 +81,6 @@ class Volume:
     title: MarkupText = field(alias="booktitle")
     year: str
 
-    papers: dict[str, Paper] = field(init=False, repr=False, factory=dict)
     editors: list[NameSpecification] = Factory(list)
     venue_ids: list[str] = field(factory=list)
 
@@ -103,7 +102,7 @@ class Volume:
     @property
     def frontmatter(self) -> Paper | None:
         """Returns the volume's frontmatter, if any."""
-        return self.papers.get("0")
+        return self.data.get("0")
 
     @property
     def collection_id(self) -> str:
@@ -123,27 +122,12 @@ class Volume:
     @property
     def has_frontmatter(self) -> bool:
         """Returns True if this volume has frontmatter."""
-        return "0" in self.papers
+        return "0" in self.data
 
     @property
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent.parent
-
-    def __iter__(self) -> Iterator[Paper]:
-        """Returns an iterator over all associated papers."""
-        return iter(self.papers.values())
-
-    def get(self, paper_id: str) -> Paper | None:
-        """Access a paper in this volume by its ID.
-
-        Parameters:
-            paper_id: A paper ID.
-
-        Returns:
-            The paper associated with the given ID, if it exists in this volume.
-        """
-        return self.papers.get(paper_id)
 
     def get_ingest_date(self) -> datetime.date:
         """
@@ -154,9 +138,13 @@ class Volume:
             return constants.UNKNOWN_INGEST_DATE
         return datetime.date.fromisoformat(self.ingest_date)
 
+    def papers(self) -> Iterator[Paper]:
+        """An iterator over all Paper objects in this volume."""
+        yield from self.data.values()
+
     def venues(self) -> list[Venue]:
         """A list of venues associated with this volume."""
-        return [self.root.venues.venues[vid] for vid in self.venue_ids]
+        return [self.root.venues[vid] for vid in self.venue_ids]
 
     def _add_frontmatter_from_xml(self, element: etree._Element) -> None:
         """Sets this volume's frontmatter.
@@ -165,7 +153,7 @@ class Volume:
             element: The `<frontmatter>` element.
         """
         paper = Paper.from_frontmatter_xml(self, element)
-        self.papers[paper.id] = paper
+        self.data[paper.id] = paper
 
     def _add_paper_from_xml(self, element: etree._Element) -> None:
         """Creates a new paper belonging to this volume.
@@ -174,7 +162,7 @@ class Volume:
             element: The `<paper>` element.
         """
         paper = Paper.from_xml(self, element)
-        self.papers[paper.id] = paper
+        self.data[paper.id] = paper
 
     @classmethod
     def from_xml(cls, parent: Collection, meta: etree._Element) -> Volume:

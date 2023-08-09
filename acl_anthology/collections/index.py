@@ -13,47 +13,33 @@
 # limitations under the License.
 
 from __future__ import annotations
-from typing import Iterator, Optional, TYPE_CHECKING
 
+from attrs import define, field
+from typing import TYPE_CHECKING
+
+from ..containers import SlottedDict
 from .collection import Collection
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
 
 
-class CollectionIndex:
+@define
+class CollectionIndex(SlottedDict[Collection]):
     """Index object through which all collections, volumes, events, and papers can be accessed.
 
+    Provides dictionary-like functionality mapping collection IDs to [Collection][acl_anthology.collections.collection.Collection] objects in the Anthology.
+
     Attributes:
-        parent (Anthology): The parent Anthology instance to which this index belongs.
+        parent: The parent Anthology instance to which this index belongs.
+        is_data_loaded: A flag indicating whether the XML directory has already been indexed.
     """
 
-    def __init__(self, parent: Anthology) -> None:
-        self.parent = parent
-        self.collections: dict[str, Collection] = {}
+    parent: Anthology = field(repr=False, eq=False)
+    is_data_loaded: bool = field(init=False, repr=False, default=False)
 
-        self._find_collections()
-
-    def __iter__(self) -> Iterator[Collection]:
-        """Returns an iterator over all collections."""
-        return iter(self.collections.values())
-
-    def __len__(self) -> int:
-        """Returns the number of collections."""
-        return len(self.collections)
-
-    def get(self, collection_id: str) -> Optional[Collection]:
-        """Access a collection in this index by its ID.
-
-        Parameters:
-            collection_id: The collection ID (e.g. "W16").
-        """
-        return self.collections.get(collection_id)
-
-    def _find_collections(self) -> None:
+    def load(self) -> None:
         """Finds all XML data files and indexes them by their collection ID.
-
-        This function is called automatically when the CollectionIndex is initialized.
 
         Note:
             Currently assumes that XML files are **always** named according to the collection ID they
@@ -64,4 +50,5 @@ class CollectionIndex:
             # IDs.  --- Alternatively, could peek at the first two lines of the
             # file to parse only the <collection id="..."> tag?
             collection_id = xmlpath.name[:-4]
-            self.collections[collection_id] = Collection(collection_id, self, xmlpath)
+            self.data[collection_id] = Collection(collection_id, self, xmlpath)
+        self.is_data_loaded = True

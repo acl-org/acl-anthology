@@ -57,10 +57,10 @@ class Anthology:
         if collection_id is not None:
             if (collection := self.collections.get(collection_id)) is None:
                 return
-            yield from iter(collection)
+            yield from collection.volumes()
         else:
-            for collection in self.collections:
-                yield from iter(collection)
+            for collection in self.collections.values():
+                yield from collection.volumes()
 
     def papers(self, full_id: Optional[AnthologyID] = None) -> Iterator[Paper]:
         """Returns an iterator over all papers.
@@ -74,14 +74,14 @@ class Anthology:
             elif isinstance(element, Paper):
                 yield from iter([element])
             elif isinstance(element, Volume):
-                yield from iter(element)
+                yield from element.papers()
             else:  # Collection
-                for volume in element:
-                    yield from iter(volume)
+                for volume in element.volumes():
+                    yield from volume.papers()
         else:
-            for collection in self.collections:
-                for volume in collection:
-                    yield from iter(volume)
+            for collection in self.collections.values():
+                for volume in collection.volumes():
+                    yield from volume.papers()
 
     def get(self, full_id: AnthologyID) -> Optional[Collection | Volume | Paper]:
         """Access collections, volumes, and papers, depending on the provided ID.

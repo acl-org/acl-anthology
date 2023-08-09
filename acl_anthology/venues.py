@@ -15,8 +15,10 @@
 from __future__ import annotations
 
 from attrs import define, field
-from typing import Iterator, Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 import yaml
+
+from .containers import SlottedDict
 
 try:
     from yaml import CLoader as Loader
@@ -50,37 +52,21 @@ class Venue:
     url: Optional[str] = field(default=None)
 
 
-class VenueIndex:
+@define
+class VenueIndex(SlottedDict[Venue]):
     """Index object through which venues and their associated volumes can be accessed.
+
+    Provides dictionary-like functionality mapping venue IDs to [Venue][acl_anthology.venues.Venue] objects.
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
+        is_data_loaded: A flag indicating whether the venue YAML files have been loaded.
     """
 
-    def __init__(self, parent: Anthology) -> None:
-        self.parent: Anthology = parent
+    parent: Anthology = field(repr=False, eq=False)
+    is_data_loaded: bool = field(init=False, repr=False, default=False)
 
-        self.venues: dict[str, Venue] = {}
-        """A mapping of IDs to [Venue][acl_anthology.venues.Venue] instances."""
-
-        self._load_yaml_metadata()
-
-    def __iter__(self) -> Iterator[Venue]:
-        """Returns an iterator over all venues."""
-        yield from self.venues.values()
-
-    def get(self, venue_id: str) -> Venue | None:
-        """Access a venue by its ID.
-
-        Parameters:
-            venue_id: A venue ID.
-
-        Returns:
-            The venue associated with this ID, if one exists.
-        """
-        return self.venues.get(venue_id)
-
-    def _load_yaml_metadata(self) -> None:
+    def load(self) -> None:
         """Loads and parses the `venues/*.yaml` files.
 
         Raises:
@@ -92,4 +78,5 @@ class VenueIndex:
                 kwargs = yaml.load(f, Loader=Loader)
             if "type" in kwargs:  # currently ignored
                 del kwargs["type"]
-            self.venues[venue_id] = Venue(venue_id, **kwargs)
+            self.data[venue_id] = Venue(venue_id, **kwargs)
+        self.is_data_loaded = True

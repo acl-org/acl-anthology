@@ -29,6 +29,7 @@ def index_with_full_anthology(anthology):
 
 def test_load_variant_list(index):
     index._load_variant_list()
+    index.is_data_loaded = True
     for pid in (
         "pranav-a",
         "pranav-anand",
@@ -38,25 +39,26 @@ def test_load_variant_list(index):
         "yang-liu-microsoft",
         "steven-krauwer",
     ):
-        assert pid in index.people
+        assert pid in index
 
 
 def test_load_variant_list_correct_variants(index):
     index._load_variant_list()
+    index.is_data_loaded = True
     n1 = Name("Susan", "Armstrong")
     n2 = Name("Susan", "Warwick")
     assert n1 in index.name_to_ids
     assert n2 in index.name_to_ids
     pid = index.name_to_ids[n1]
     assert pid == index.name_to_ids[n2]
-    assert pid[0] in index.people
+    assert pid[0] in index
 
 
 def test_add_person(index):
     p1 = Person("yang-liu", [Name("Yang", "Liu")])
     index.add_person(p1)
-    index.is_built = True  # to prevent it attempting to build itself
-    assert "yang-liu" in index.people
+    index.is_data_loaded = True  # to prevent it attempting to build itself
+    assert "yang-liu" in index
     assert Name("Yang", "Liu") in index.name_to_ids
     assert index.name_to_ids[Name("Yang", "Liu")] == ["yang-liu"]
     assert index.get_by_name(Name("Yang", "Liu"))[0] is p1
@@ -67,6 +69,7 @@ def test_add_person(index):
 
 
 def test_get_or_create_person_with_id(index):
+    index.is_data_loaded = True
     ns1 = NameSpecification(Name("Yang", "Liu"), id="yang-liu-icsi")
     ns2 = NameSpecification(Name("Y.", "Liu"), id="yang-liu-icsi")
     with pytest.raises(NameIDUndefinedError):
@@ -76,19 +79,20 @@ def test_get_or_create_person_with_id(index):
     assert person1.id == "yang-liu-icsi"
     person2 = index.get_or_create_person(ns2)
     assert person1 is person2
-    assert person1 is index.people["yang-liu-icsi"]
+    assert person1 is index["yang-liu-icsi"]
     assert person1.has_name(Name("Yang", "Liu"))
     assert person1.has_name(Name("Y.", "Liu"))
 
 
 def test_get_or_create_person_new_person(index):
+    index.is_data_loaded = True
     ns1 = NameSpecification(Name("Yang", "Liu"))
     ns2 = NameSpecification(Name("Yang", "Liu"), affiliation="University of Edinburgh")
     person1 = index.get_or_create_person(ns1)
     assert person1.has_name(Name("Yang", "Liu"))
     person2 = index.get_or_create_person(ns2)
     assert person1 is person2
-    assert person1 is index.people[person1.id]
+    assert person1 is index[person1.id]
 
 
 def test_get_or_create_person_new_person_disallowed(index):
@@ -137,18 +141,18 @@ def test_similar_names_through_same_canonical_name(index):
 
 def test_build_personindex(index_with_full_anthology):
     index = index_with_full_anthology
-    assert not index.is_built
+    assert not index.is_data_loaded
     index.build(show_progress=False)
-    assert index.is_built
-    assert "yang-liu-microsoft" in index.people
+    assert index.is_data_loaded
+    assert "yang-liu-microsoft" in index
     assert Name("Nicoletta", "Calzolari") in index.name_to_ids
 
 
 def test_build_personindex_automatically(index_with_full_anthology):
     index = index_with_full_anthology
-    assert not index.is_built
+    assert not index.is_data_loaded
     persons = index.get_by_name(Name("Nicoletta", "Calzolari"))
-    assert index.is_built
+    assert index.is_data_loaded
     assert len(persons) == 1
 
 

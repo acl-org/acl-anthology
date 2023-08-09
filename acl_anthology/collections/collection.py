@@ -17,10 +17,12 @@ from __future__ import annotations
 from attrs import define, field
 from lxml import etree
 from pathlib import Path
-from typing import Iterator, Optional, cast, TYPE_CHECKING
+from typing import Iterator, cast, TYPE_CHECKING
 
+from ..containers import SlottedDict
 from ..utils.logging import get_logger
 from .volume import Volume
+from .paper import Paper
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -31,8 +33,10 @@ log = get_logger()
 
 
 @define
-class Collection:
+class Collection(SlottedDict[Volume]):
     """A collection of volumes and events, corresponding to an XML file in the `data/xml/` directory of the Anthology repo.
+
+    Provides dictionary-like functionality mapping volume IDs to [Volume][acl_anthology.collections.volume.Volume] objects in the collection.
 
     Attributes: Required Attributes:
         id: The ID of this collection (e.g. "L06" or "2022.emnlp").
@@ -40,36 +44,29 @@ class Collection:
         path: The path of the XML file representing this collection.
 
     Attributes: Non-Init Attributes:
-        is_data_loaded: Whether the associated XML file has already been loaded.
-        volumes: A mapping of volume IDs in this collection to their Volume objects.  Is only populated if `self.is_data_loaded` is True.
+        is_data_loaded: A flag indicating whether the XML file has already been loaded.
     """
 
     id: str
     parent: CollectionIndex = field(repr=False, eq=False)
     path: Path
-    is_data_loaded: bool = field(init=False, default=False)
-    volumes: dict[str, Volume] = field(init=False, factory=dict)
+    is_data_loaded: bool = field(init=False, repr=False, default=False)
 
     @property
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent
 
-    def __iter__(self) -> Iterator[Volume]:
-        """Returns an iterator over all associated volumes."""
+    def volumes(self) -> Iterator[Volume]:
+        """An iterator over all Volume objects in this collection."""
         if not self.is_data_loaded:
             self.load()
-        return iter(self.volumes.values())
+        yield from self.data.values()
 
-    def get(self, volume_id: str) -> Optional[Volume]:
-        """Access a volume in this collection by its ID.
-
-        Parameters:
-            volume_id: The volume ID (e.g. "1").
-        """
-        if not self.is_data_loaded:
-            self.load()
-        return self.volumes.get(volume_id)
+    def papers(self) -> Iterator[Paper]:
+        """An iterator over all Paper objects in all volumes in this collection."""
+        for volume in self.volumes():
+            yield from volume.papers()
 
     def _add_volume_from_xml(self, meta: etree._Element) -> Volume:
         """Creates a new volume belonging to this collection.
@@ -81,9 +78,9 @@ class Collection:
             The created volume.
         """
         volume = Volume.from_xml(self, meta)
-        if volume.id in self.volumes:
+        if volume.id in self.data:
             raise ValueError(f"Volume {volume.id} already exists in collection {self.id}")
-        self.volumes[volume.id] = volume
+        self.data[volume.id] = volume
         return volume
 
     def load(self) -> None:

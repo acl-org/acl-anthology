@@ -14,13 +14,14 @@
 
 from __future__ import annotations
 
+from attrs import define, field
 from collections import defaultdict
 import itertools as it
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 import sys
-from typing import cast, Iterator, TYPE_CHECKING
+from typing import cast, TYPE_CHECKING
 import yaml
 
 try:
@@ -28,6 +29,7 @@ try:
 except ImportError:
     from yaml import Loader  # type: ignore
 
+from ..containers import SlottedDict
 from ..exceptions import AnthologyException, AmbiguousNameError, NameIDUndefinedError
 from ..utils.logging import get_logger
 from . import Person, Name, NameSpecification
@@ -40,46 +42,25 @@ log = get_logger()
 VARIANTS_FILE = "yaml/name_variants.yaml"
 
 
-class PersonIndex:
+@define
+class PersonIndex(SlottedDict[Person]):
     """Index object through which all persons (authors/editors) can be accessed.
+
+    Provides dictionary-like functionality mapping person IDs to [Person][acl_anthology.people.person.Person] objects.
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
+        name_to_ids: A mapping of [Name][acl_anthology.people.name.Name] instances to person IDs.
+        similar: A [disjoint-set structure][scipy.cluster.hierarchy.DisjointSet] of persons with similar names.
+        is_data_loaded: A flag indicating whether the index has been constructed.
     """
 
-    def __init__(self, parent: Anthology) -> None:
-        self.parent: Anthology = parent
-
-        self.people: dict[str, Person] = {}
-        """A mapping of IDs to [Person][acl_anthology.people.person.Person] instances."""
-
-        self.name_to_ids: dict[Name, list[str]] = defaultdict(list)
-        """A mapping of [Name][acl_anthology.people.name.Name] instances to person IDs."""
-
-        self.similar: DisjointSet = DisjointSet()
-        """A [disjoint-set structure][scipy.cluster.hierarchy.DisjointSet] of persons with similar names."""
-
-        self.is_built = False
-        """A flag indicating whether the index has been constructed."""
-
-    def __iter__(self) -> Iterator[Person]:
-        """Returns an iterator over all associated persons."""
-        if not self.is_built:
-            self.ensure_is_built()
-        yield from self.people.values()
-
-    def get(self, person_id: str) -> Person | None:
-        """Access a person by their ID.
-
-        Parameters:
-            person_id: A person ID.
-
-        Returns:
-            The person associated with this ID, if one exists.
-        """
-        if not self.is_built:
-            self.ensure_is_built()
-        return self.people.get(person_id)
+    parent: Anthology = field(repr=False, eq=False)
+    name_to_ids: dict[Name, list[str]] = field(
+        init=False, repr=False, factory=lambda: defaultdict(list)
+    )
+    similar: DisjointSet = field(init=False, repr=False, factory=DisjointSet)
+    is_data_loaded: bool = field(init=False, repr=False, default=False)
 
     def get_by_name(self, name: Name) -> list[Person]:
         """Access persons by their name.
@@ -90,9 +71,9 @@ class PersonIndex:
         Returns:
             A list of all persons with that name; can be empty.
         """
-        if not self.is_built:
-            self.ensure_is_built()
-        return [self.people[pid] for pid in self.name_to_ids[name]]
+        if not self.is_data_loaded:
+            self.load()
+        return [self.data[pid] for pid in self.name_to_ids[name]]
 
     def get_by_namespec(self, name_spec: NameSpecification) -> Person:
         """Access persons by their name specification.
@@ -106,8 +87,8 @@ class PersonIndex:
         Raises:
             See [PersonIndex.get_or_create_person][].
         """
-        if not self.is_built:
-            self.ensure_is_built()
+        if not self.is_data_loaded:
+            self.load()
         return self.get_or_create_person(name_spec, create=False)
 
     def find_coauthors(self, person: str | Person) -> list[Person]:
@@ -119,10 +100,10 @@ class PersonIndex:
         Returns:
             A list of all persons who are co-authors; can be empty.
         """
-        if not self.is_built:
-            self.ensure_is_built()
+        if not self.is_data_loaded:
+            self.load()
         if isinstance(person, str):
-            person = self.people[person]
+            person = self.data[person]
         coauthors = set()
         for item_id in person.item_ids:
             item = cast("Volume | Paper", self.parent.get(item_id))
@@ -134,20 +115,20 @@ class PersonIndex:
                     self.get_or_create_person(ns, create=False).id for ns in item.authors
                 )
         coauthors.remove(person.id)
-        return [self.people[pid] for pid in coauthors]
+        return [self.data[pid] for pid in coauthors]
 
-    def ensure_is_built(self) -> None:
-        """Makes sure that the index is built."""
+    def load(self) -> None:
+        """Loads or builds the index."""
         # This function exists so we can later add the option to read the index
         # from a cache if it doesn't need re-building.
         self.build()
 
     def reset(self) -> None:
         """Resets the index."""
-        self.people = {}
+        self.data = {}
         self.name_to_ids = defaultdict(list)
         self.similar = DisjointSet()
-        self.is_built = False
+        self.is_data_loaded = False
 
     def build(self, show_progress: bool = False) -> None:
         """Load the entire Anthology data and build an index of persons.
@@ -161,19 +142,19 @@ class PersonIndex:
         self._load_variant_list()
         # Go through every single volume/paper and add authors/editors
         iterator = track(
-            self.parent.collections,
+            self.parent.collections.values(),
             total=len(self.parent.collections),
             disable=(not show_progress),
             description="Building person index...",
         )
         for collection in iterator:
-            for volume in collection:
+            for volume in collection.volumes():
                 context: Paper | Volume = volume
                 try:
                     for name_spec in volume.editors:
                         person = self.get_or_create_person(name_spec)
                         person.item_ids.add(volume.full_id_tuple)
-                    for paper in volume:
+                    for paper in volume.papers():
                         context = paper
                         for name_spec in it.chain(paper.authors, paper.editors):
                             person = self.get_or_create_person(name_spec)
@@ -187,7 +168,7 @@ class PersonIndex:
                     elif sys.version_info >= (3, 11):
                         exc.add_note(note)
                     log.exception(exc)
-        self.is_built = True
+        self.is_data_loaded = True
 
     def add_person(self, person: Person) -> None:
         """Add a new person to the index.
@@ -195,9 +176,9 @@ class PersonIndex:
         Parameters:
             person: The person to add, which should not exist in the index yet.
         """
-        if (pid := person.id) in self.people:
+        if (pid := person.id) in self.data:
             raise KeyError(f"A Person with ID '{pid}' already exists in the index")
-        self.people[pid] = person
+        self.data[pid] = person
         self.similar.add(pid)
         for name in person.names:
             self.name_to_ids[name].append(pid)
@@ -221,7 +202,7 @@ class PersonIndex:
         name = name_spec.name
         if (pid := name_spec.id) is not None:
             try:
-                person = self.people[pid]
+                person = self.data[pid]
                 person.add_name(name)
             except KeyError:
                 exc1 = NameIDUndefinedError(
@@ -238,12 +219,12 @@ class PersonIndex:
                 exc2.add_note(f"Known IDs are: {', '.join(pid_list)}")
                 raise exc2
             pid = pid_list[0]
-            person = self.people[pid]
+            person = self.data[pid]
         else:
             pid = self.generate_id(name)
             try:
                 # If the auto-generated ID already exists, we assume it's the same person
-                person = self.people[pid]
+                person = self.data[pid]
                 # If the name scores higher than the current canonical one, we
                 # also assume we should set this as the canonical one
                 if name.score() > person.canonical_name.score():
@@ -293,7 +274,7 @@ class PersonIndex:
             # If it doesn't define an ID, we have to create one
             if (pid := entry.get("id")) is None:
                 pid = self.generate_id(canonical)
-                if pid in self.people:
+                if pid in self.data:
                     raise AmbiguousNameError(
                         canonical,
                         (
