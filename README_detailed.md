@@ -10,6 +10,14 @@ The Anthology website is generated using the [Hugo](https://gohugo.io) static
 site generator.  However, before we can actually invoke Hugo, we need to prepare
 the contents of the website.  The following steps describe what happens
 behind the scenes.  All the steps have a corresponding `make` target as well.
+If you are on a system that uses `apt` for installing packages, you can therefore
+just run the following commands:
+
+```bash
+sudo apt install jing libyaml-dev bibutils hugo
+make all
+```
+
 
 ### Step 0: Install required Python packages
 To build the anthology, the packages listed in
