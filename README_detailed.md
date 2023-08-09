@@ -18,6 +18,8 @@ sudo apt install jing libyaml-dev bibutils hugo
 make all
 ```
 
+If this doesn't work, you can instead use the following instructions to go through
+the process step by step and observe the expected outputs.
 
 ### Step 0: Install required Python packages
 To build the anthology, the packages listed in
