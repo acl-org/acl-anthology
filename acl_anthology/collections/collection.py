@@ -12,13 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import annotations
+
 from attrs import define, field
 from lxml import etree
 from pathlib import Path
-from typing import Iterator, Optional, cast
+from typing import Iterator, Optional, cast, TYPE_CHECKING
 
 from ..utils.logging import get_logger
 from .volume import Volume
+
+if TYPE_CHECKING:
+    from ..anthology import Anthology
+    from .index import CollectionIndex
 
 
 log = get_logger()
@@ -30,6 +36,7 @@ class Collection:
 
     Attributes: Required Attributes:
         id: The ID of this collection (e.g. "L06" or "2022.emnlp").
+        parent: The parent CollectionIndex instance to which this collection belongs.
         path: The path of the XML file representing this collection.
 
     Attributes: Non-Init Attributes:
@@ -38,9 +45,15 @@ class Collection:
     """
 
     id: str
+    parent: CollectionIndex = field(repr=False, eq=False)
     path: Path
     is_data_loaded: bool = field(init=False, default=False)
     volumes: dict[str, Volume] = field(init=False, factory=dict)
+
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        return self.parent.parent
 
     def __iter__(self) -> Iterator[Volume]:
         """Returns an iterator over all associated volumes."""

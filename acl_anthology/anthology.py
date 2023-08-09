@@ -19,6 +19,7 @@ from typing import overload, Iterator, Optional
 from .utils.ids import AnthologyID, parse_id
 from .collections import CollectionIndex, Collection, Volume, Paper
 from .people import PersonIndex, Person, NameSpecification
+from .venues import VenueIndex
 
 
 NameSpecificationOrIter = NameSpecification | Iterator[NameSpecification]
@@ -43,6 +44,9 @@ class Anthology:
 
         self.people = PersonIndex(self)
         """The [PersonIndex][acl_anthology.people.PersonIndex] for accessing authors and editors."""
+
+        self.venues = VenueIndex(self)
+        """The [VenueIndex][acl_anthology.venues.VenueIndex] for accessing venues."""
 
     def volumes(self, collection_id: Optional[str] = None) -> Iterator[Volume]:
         """Returns an iterator over all volumes.

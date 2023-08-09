@@ -33,6 +33,7 @@ from ..utils.ids import build_id, AnthologyID
 from ..utils.xml import xsd_boolean
 
 if TYPE_CHECKING:
+    from ..anthology import Anthology
     from . import Volume
 
 
@@ -124,6 +125,11 @@ class Paper:
     def is_frontmatter(self) -> bool:
         """Returns True if this paper represents a volume's frontmatter."""
         return self.id == "0"
+
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        return self.parent.parent.parent.parent
 
     def get_ingest_date(self) -> datetime.date:
         """

@@ -29,9 +29,7 @@ class CollectionIndex:
     """
 
     def __init__(self, parent: Anthology) -> None:
-        self.parent = (
-            parent  # TODO: when feature-complete, check if this is actually needed
-        )
+        self.parent = parent
         self.collections: dict[str, Collection] = {}
 
         self._find_collections()
@@ -66,4 +64,4 @@ class CollectionIndex:
             # IDs.  --- Alternatively, could peek at the first two lines of the
             # file to parse only the <collection id="..."> tag?
             collection_id = xmlpath.name[:-4]
-            self.collections[collection_id] = Collection(collection_id, xmlpath)
+            self.collections[collection_id] = Collection(collection_id, self, xmlpath)

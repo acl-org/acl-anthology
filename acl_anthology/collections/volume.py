@@ -24,10 +24,12 @@ from .. import constants
 from ..files import PDFReference
 from ..people import NameSpecification
 from ..text import MarkupText
+from ..venues import Venue
 from ..utils.ids import build_id, AnthologyID
 from .paper import Paper
 
 if TYPE_CHECKING:
+    from ..anthology import Anthology
     from . import Collection
 
 
@@ -54,7 +56,7 @@ class Volume:
 
     Attributes: List Attributes:
         editors: Names of editors associated with this volume.
-        venues: List of venues associated with this volume.
+        venue_ids: List of venue IDs associated with this volume. See also [venues][acl_anthology.collections.volume.Volume.venues].
 
     Attributes: Optional Attributes:
         address: The publisher's address for this volume.
@@ -81,7 +83,7 @@ class Volume:
 
     papers: dict[str, Paper] = field(init=False, repr=False, factory=dict)
     editors: list[NameSpecification] = Factory(list)
-    venues: list[str] = field(factory=list)
+    venue_ids: list[str] = field(factory=list)
 
     address: Optional[str] = field(default=None)
     doi: Optional[str] = field(default=None)
@@ -123,6 +125,11 @@ class Volume:
         """Returns True if this volume has frontmatter."""
         return "0" in self.papers
 
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        return self.parent.parent.parent
+
     def __iter__(self) -> Iterator[Paper]:
         """Returns an iterator over all associated papers."""
         return iter(self.papers.values())
@@ -146,6 +153,10 @@ class Volume:
         if self.ingest_date is None:
             return constants.UNKNOWN_INGEST_DATE
         return datetime.date.fromisoformat(self.ingest_date)
+
+    def venues(self) -> list[Venue]:
+        """A list of venues associated with this volume."""
+        return [self.root.venues.venues[vid] for vid in self.venue_ids]
 
     def _add_frontmatter_from_xml(self, element: etree._Element) -> None:
         """Sets this volume's frontmatter.
@@ -175,7 +186,7 @@ class Volume:
             "type": VolumeType(volume.attrib["type"]),
             "parent": parent,
             "editors": [],
-            "venues": [],
+            "venue_ids": [],
         }
         if (ingest_date := volume.attrib.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
@@ -205,7 +216,7 @@ class Volume:
                     str(element.text), str(checksum) if checksum else None
                 )
             elif element.tag == "venue":
-                kwargs["venues"].append(str(element.text))
+                kwargs["venue_ids"].append(str(element.text))
             else:
                 raise ValueError(f"Unsupported element for Volume: <{element.tag}>")
         return cls(**kwargs)

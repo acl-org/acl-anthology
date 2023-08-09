@@ -21,13 +21,13 @@ from acl_anthology.text import MarkupText
 
 def test_volume_minimum_attribs():
     volume_title = MarkupText.from_string("Lorem ipsum")
-    parent = Collection("L05", Path("."))
+    parent = Collection("L05", None, Path("."))
     volume = Volume(
         "6",
         parent,
         type=VolumeType.JOURNAL,
         booktitle=volume_title,
-        venues=["li"],
+        venue_ids=["li"],
         year="2005",
     )
     assert volume.full_id == "L05-6"
@@ -38,7 +38,7 @@ def test_volume_minimum_attribs():
 def test_volume_all_attribs():
     volume_title = MarkupText.from_string("Lorem ipsum")
     volume_shorttitle = MarkupText.from_string("L.I.")
-    parent = Collection("2023.acl-long", Path("."))
+    parent = Collection("2023.acl-long", None, Path("."))
     volume = Volume(
         id="42",
         parent=parent,
@@ -54,7 +54,7 @@ def test_volume_all_attribs():
         pdf=None,
         publisher="Myself",
         shortbooktitle=volume_shorttitle,
-        venues=["li", "acl"],
+        venue_ids=["li", "acl"],
     )
     assert volume.ingest_date == "2023-01-12"
     assert volume.get_ingest_date() == date(2023, 1, 12)
@@ -72,12 +72,20 @@ def test_volume_attributes_2022acl(anthology):
     assert volume.year == "2022"
     assert volume.pdf.name == "2022.acl-long"
     assert volume.pdf.checksum == "b8317652"
-    assert volume.venues == ["acl"]
+    assert volume.venue_ids == ["acl"]
 
 
 def test_volume_attributes_j89(anthology):
     volume = anthology.get_volume("J89-1")
     assert isinstance(volume, Volume)
     assert volume.id == "1"
-    assert volume.venues == ["cl"]
+    assert volume.venue_ids == ["cl"]
     assert volume.year == "1989"
+
+
+def test_volume_venues_j89(anthology):
+    volume = anthology.get_volume("J89-1")
+    assert volume.venue_ids == ["cl"]
+    venues = volume.venues()
+    assert len(venues) == 1
+    assert venues[0].id == "cl"
