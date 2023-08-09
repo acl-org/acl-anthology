@@ -28,6 +28,7 @@ Options:
   -h, --help               Display this helpful text.
 """
 
+import re
 from docopt import docopt
 from glob import glob
 from tqdm import tqdm
@@ -67,6 +68,143 @@ def check_directory(cdir, clean=False):
     return True
 
 
+def month_to_number(month):
+    monthnames = [
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december",
+    ]
+    common = []
+    # handle misspelled and abbreviated months by checking for longest match from start (>=2)
+    for mi, m in enumerate(monthnames):
+        i = 0
+        while m[i] == month[i]:
+            i += 1
+        common.append((mi, i))
+    return max(common, key=lambda x: x[1])[0] + 1
+
+
+def construct_date(year, month):
+    """Constructs a Hugo date from a year and month.
+
+    Can handle the following month formats:
+
+    - D-D month (e.g. 1-4 January)
+    - month D-D (e.g. January 1-4)
+    - D month (e.g. 1 January)
+    - month D (e.g. January 1)
+    - month (e.g. January)
+    - month D - month D (e.g. January 30 - February 2)
+    - D month - D month (e.g. January 30 - February 2)
+    - M (e.g. 7)
+    - variants of the above with em and en dashes or multiple dashes
+    - variants of the above with capitalized or lower case month names
+
+    Args:
+        year: year field as present in the XML base data
+        month: month field as present in the XML base data
+    """
+    if not re.fullmatch(r"\d{4}", year):
+        raise Exception("Invalid year: {}".format(year))
+    y = int(year)
+    dashes = r"(?:[—–-]+|/|and|to)"
+    monthnames = [
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december",
+    ]
+    fullmonth = f"({'|'.join(monthnames)})"
+    fullmonth = r"\b([a-zA-Z]{2,})\b"
+    day = r"(\d{1,2})(?:st|nd|rd|th)?"
+    numericmonth = r"(\d{1,2})"
+    if re.fullmatch(numericmonth, month):
+        m = int(month)
+        return f"{y:04d}-{m:02d}-01"
+    if re.fullmatch(fullmonth, month, re.IGNORECASE):
+        m = month_to_number(month)
+        return f"{y:04d}-{m:02d}-01"
+    d = None
+    m = None
+    match = re.search(r"\s*".join([day, dashes, day]), month)
+    if match:
+        d, _ = match.groups()
+    else:
+        parts = re.split(dashes, month)
+        if len(parts) == 2:
+            month = parts[0]
+    match = re.search(day, month)
+    if match:
+        d = match.group(1)
+    match = re.search(fullmonth, month, re.IGNORECASE)
+    if match:
+        m = month_to_number(match.group(1))
+    if m is None:
+        log.error(f"Could not parse month: {month}")
+        m = 1
+    if d is None:
+        d = 1
+    return f"{y:04d}-{m:02d}-{int(d):02d}"
+    # match = re.fullmatch(r"\s*".join([day, dashes, day, fullmonth]), month, re.IGNORECASE)
+    # if match:
+    #     d, _, m = match.groups()
+    #     m = monthnames.index(m.lower()) + 1
+    #     d = int(d)
+    #     return f"{y:04d}-{m:02d}-{d:02d}"
+    # match = re.fullmatch(r"\s*".join([fullmonth, day, dashes, day]), month, re.IGNORECASE)
+    # if match:
+    #     m, d, _ = match.groups()
+    #     m = monthnames.index(m.lower()) + 1
+    #     d = int(d)
+    #     return f"{y:04d}-{m:02d}-{d:02d}"
+    # match = re.fullmatch(r"\s*".join([day, fullmonth]), month, re.IGNORECASE)
+    # if match:
+    #     d, m = match.groups()
+    #     m = monthnames.index(m.lower()) + 1
+    #     d = int(d)
+    #     return f"{y:04d}-{m:02d}-{d:02d}"
+    # match = re.fullmatch(r"\s*".join([fullmonth, day]), month, re.IGNORECASE)
+    # if match:
+    #     m, d = match.groups()
+    #     m = monthnames.index(m.lower()) + 1
+    #     d = int(d)
+    #     return f"{y:04d}-{m:02d}-{d:02d}"
+    # match = re.fullmatch(
+    #     r"\s*".join([fullmonth, day, dashes, fullmonth, day]), month, re.IGNORECASE
+    # )
+    # if match:
+    #     m, d, _, _ = match.groups()
+    #     m = monthnames.index(m.lower()) + 1
+    #     d = int(d)
+    #     return f"{y:04d}-{m:02d}-{d:02d}"
+    # match = re.fullmatch(
+    #     r"\s*".join([day, fullmonth, dashes, day, fullmonth]), month, re.IGNORECASE
+    # )
+    # if match:
+    #     d, m, _, _ = match.groups()
+    #     m = monthnames.index(m.lower()) + 1
+    #     d = int(d)
+    #     return f"{y:04d}-{m:02d}-{d:02d}"
+    raise Exception("Invalid month: {}".format(month))
+
+
 def create_papers(srcdir, clean=False):
     """Creates page stubs for all papers in the Anthology."""
     log.info("Creating stubs for papers...")
@@ -86,7 +224,11 @@ def create_papers(srcdir, clean=False):
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
                 print("---", file=f)
                 yaml.dump(
-                    {"anthology_id": anthology_id, "title": entry["title"]},
+                    {
+                        "anthology_id": anthology_id,
+                        "title": entry["title"],
+                        "date": construct_date(entry["year"], entry.get("month", "1")),
+                    },
                     default_flow_style=False,
                     stream=f,
                 )
