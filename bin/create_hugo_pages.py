@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: create_hugo_pages.py [--dir=DIR] [-c] [--debug]
+"""Usage: create_hugo_pages.py [--dir=DIR] [-c] [-r] [--debug]
 
 Creates page stubs for the full anthology based on the YAML data files.
 
@@ -25,6 +25,7 @@ Options:
   --dir=DIR                Hugo project directory. [default: {scriptdir}/../build/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
+  -r, --replace-date       Replace unknown ingest date for papers with year and month.
   -h, --help               Display this helpful text.
 """
 
@@ -36,6 +37,7 @@ import logging as log
 import os
 import shutil
 import yaml
+import anthology.data as anthology_data
 
 try:
     from yaml import CLoader as Loader
@@ -175,7 +177,7 @@ def construct_date(year, month):
     return f"{y:04d}-{m:02d}-{int(d):02d}"
 
 
-def create_papers(srcdir, clean=False):
+def create_papers(srcdir, clean=False, replace_unknown_ingest_date=False):
     """Creates page stubs for all papers in the Anthology."""
     log.info("Creating stubs for papers...")
     if not check_directory("{}/content/papers".format(srcdir), clean=clean):
@@ -192,12 +194,19 @@ def create_papers(srcdir, clean=False):
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
+                ingest_date = entry["ingest_date"]
+                date = (
+                    construct_date(entry["year"], entry.get("month", "1"))
+                    if ingest_date == anthology_data.UNKNOWN_INGEST_DATE
+                    and replace_unknown_ingest_date
+                    else ingest_date
+                )
                 print("---", file=f)
                 yaml.dump(
                     {
                         "anthology_id": anthology_id,
                         "title": entry["title"],
-                        "date": construct_date(entry["year"], entry.get("month", "1")),
+                        "date": date,
                     },
                     default_flow_style=False,
                     stream=f,
@@ -359,7 +368,9 @@ if __name__ == "__main__":
     tracker = SeverityTracker()
     log.getLogger().addHandler(tracker)
 
-    create_papers(dir_, clean=args["--clean"])
+    create_papers(
+        dir_, clean=args["--clean"], replace_unknown_ingest_date=args["--replace-date"]
+    )
     create_volumes(dir_, clean=args["--clean"])
     create_people(dir_, clean=args["--clean"])
     create_venues(dir_, clean=args["--clean"])
