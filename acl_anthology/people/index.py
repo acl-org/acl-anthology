@@ -78,14 +78,13 @@ class PersonIndex(SlottedDict[Person]):
     def get_by_namespec(self, name_spec: NameSpecification) -> Person:
         """Access persons by their name specification.
 
+        See [get_or_create_person()][acl_anthology.people.index.PersonIndex.get_or_create_person] for exceptions that can be raised by this function.
+
         Parameters:
             name_spec: A name specification.
 
         Returns:
             The person associated with this name specification.
-
-        Raises:
-            See [PersonIndex.get_or_create_person][].
         """
         if not self.is_data_loaded:
             self.load()
