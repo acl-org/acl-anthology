@@ -69,6 +69,17 @@ def check_directory(cdir, clean=False):
 
 
 def month_to_number(month):
+    """Convert a month name to a number.
+
+    Handles misspelled and abbreviated months by checking for longest
+    match from start (>=2).
+
+    Args:
+        month: month name
+
+    Returns:
+        month number (1-12)
+    """
     monthnames = [
         "january",
         "february",
@@ -87,7 +98,7 @@ def month_to_number(month):
     # handle misspelled and abbreviated months by checking for longest match from start (>=2)
     for mi, m in enumerate(monthnames):
         i = 0
-        while m[i] == month[i]:
+        while m[i] == month[i].lower() and i < len(month) - 1:
             i += 1
         common.append((mi, i))
     return max(common, key=lambda x: x[1])[0] + 1
@@ -151,7 +162,7 @@ def construct_date(year, month):
         if len(parts) == 2:
             month = parts[0]
     match = re.search(day, month)
-    if match:
+    if d is None and match:
         d = match.group(1)
     match = re.search(fullmonth, month, re.IGNORECASE)
     if match:
