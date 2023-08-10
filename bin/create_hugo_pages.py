@@ -162,47 +162,6 @@ def construct_date(year, month):
     if d is None:
         d = 1
     return f"{y:04d}-{m:02d}-{int(d):02d}"
-    # match = re.fullmatch(r"\s*".join([day, dashes, day, fullmonth]), month, re.IGNORECASE)
-    # if match:
-    #     d, _, m = match.groups()
-    #     m = monthnames.index(m.lower()) + 1
-    #     d = int(d)
-    #     return f"{y:04d}-{m:02d}-{d:02d}"
-    # match = re.fullmatch(r"\s*".join([fullmonth, day, dashes, day]), month, re.IGNORECASE)
-    # if match:
-    #     m, d, _ = match.groups()
-    #     m = monthnames.index(m.lower()) + 1
-    #     d = int(d)
-    #     return f"{y:04d}-{m:02d}-{d:02d}"
-    # match = re.fullmatch(r"\s*".join([day, fullmonth]), month, re.IGNORECASE)
-    # if match:
-    #     d, m = match.groups()
-    #     m = monthnames.index(m.lower()) + 1
-    #     d = int(d)
-    #     return f"{y:04d}-{m:02d}-{d:02d}"
-    # match = re.fullmatch(r"\s*".join([fullmonth, day]), month, re.IGNORECASE)
-    # if match:
-    #     m, d = match.groups()
-    #     m = monthnames.index(m.lower()) + 1
-    #     d = int(d)
-    #     return f"{y:04d}-{m:02d}-{d:02d}"
-    # match = re.fullmatch(
-    #     r"\s*".join([fullmonth, day, dashes, fullmonth, day]), month, re.IGNORECASE
-    # )
-    # if match:
-    #     m, d, _, _ = match.groups()
-    #     m = monthnames.index(m.lower()) + 1
-    #     d = int(d)
-    #     return f"{y:04d}-{m:02d}-{d:02d}"
-    # match = re.fullmatch(
-    #     r"\s*".join([day, fullmonth, dashes, day, fullmonth]), month, re.IGNORECASE
-    # )
-    # if match:
-    #     d, m, _, _ = match.groups()
-    #     m = monthnames.index(m.lower()) + 1
-    #     d = int(d)
-    #     return f"{y:04d}-{m:02d}-{d:02d}"
-    raise Exception("Invalid month: {}".format(month))
 
 
 def create_papers(srcdir, clean=False):
