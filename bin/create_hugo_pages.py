@@ -105,7 +105,7 @@ def month_to_number(month):
 
 
 def construct_date(year, month):
-    """Constructs a Hugo date from a year and month.
+    """Construct a Hugo date from a year and month.
 
     Can handle the following month formats:
 
