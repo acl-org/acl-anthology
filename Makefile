@@ -176,7 +176,7 @@ hugo_pages: build/.pages
 
 build/.pages: build/.basedirs build/.yaml venv/bin/activate
 	@echo "INFO     Creating page templates for Hugo..."
-	. $(VENV) && python3 bin/create_hugo_pages.py --clean
+	. $(VENV) && python3 bin/create_hugo_pages.py --clean --replace-date
 	@touch build/.pages
 
 .PHONY: bibtex
