@@ -49,13 +49,18 @@ class Person:
         except KeyError:
             raise ValueError(f"No names defined for person '{self.id}'")
 
+    @canonical_name.setter
+    def canonical_name(self, name: Name) -> None:
+        self.set_canonical_name(name)
+
     def add_name(self, name: Name) -> None:
         """Add a name for this person.
 
         Parameters:
             name: Name that can refer to this person.
         """
-        self.names.append(name)
+        if name not in self.names:
+            self.names.append(name)
 
     def has_name(self, name: Name) -> bool:
         """
