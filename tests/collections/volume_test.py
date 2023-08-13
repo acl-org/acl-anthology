@@ -34,6 +34,7 @@ def test_volume_minimum_attribs():
     assert volume.full_id == "L05-6"
     assert volume.title == volume_title
     assert volume.get_ingest_date().year == 1900
+    assert not volume.is_workshop
 
 
 def test_volume_all_attribs():
@@ -74,6 +75,7 @@ def test_volume_attributes_2022acl(anthology):
     assert volume.pdf.name == "2022.acl-long"
     assert volume.pdf.checksum == "b8317652"
     assert volume.venue_ids == ["acl"]
+    assert not volume.is_workshop
 
 
 def test_volume_attributes_j89(anthology):
@@ -82,6 +84,15 @@ def test_volume_attributes_j89(anthology):
     assert volume.id == "1"
     assert volume.venue_ids == ["cl"]
     assert volume.year == "1989"
+    assert not volume.is_workshop
+
+
+def test_volume_attributes_naloma(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    assert isinstance(volume, Volume)
+    assert volume.id == "1"
+    assert volume.year == "2022"
+    assert volume.is_workshop
 
 
 def test_volume_venues_j89(anthology):

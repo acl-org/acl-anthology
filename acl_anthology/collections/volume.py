@@ -122,8 +122,14 @@ class Volume(SlottedDict[Paper]):
 
     @property
     def has_frontmatter(self) -> bool:
-        """Returns True if this volume has frontmatter."""
+        """True if this volume has frontmatter."""
         return "0" in self.data
+
+    @property
+    def is_workshop(self) -> bool:
+        """True if this volume is a workshop proceedings."""
+        # Venue "ws" is inconsistently marked, so we also look at the title
+        return "ws" in self.venue_ids or "workshop" in str(self.title).lower()
 
     @property
     def root(self) -> Anthology:
