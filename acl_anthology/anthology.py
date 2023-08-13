@@ -19,6 +19,7 @@ from typing import overload, Iterator, Optional
 from .utils.ids import AnthologyID, parse_id
 from .collections import CollectionIndex, Collection, Volume, Paper
 from .people import PersonIndex, Person, NameSpecification
+from .sigs import SIGIndex
 from .venues import VenueIndex
 
 
@@ -44,6 +45,9 @@ class Anthology:
 
         self.people = PersonIndex(self)
         """The [PersonIndex][acl_anthology.people.PersonIndex] for accessing authors and editors."""
+
+        self.sigs = SIGIndex(self)
+        """The [SIGIndex][acl_anthology.sigs.SIGIndex] for accessing SIGs."""
 
         self.venues = VenueIndex(self)
         """The [VenueIndex][acl_anthology.venues.VenueIndex] for accessing venues."""
