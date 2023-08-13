@@ -50,14 +50,14 @@ def test_get_paper(anthology):
 
 def test_volumes(anthology):
     # Iterate over all volumes
-    expected = set(("2022.acl", "J89", "L06"))
+    expected = set(("2022.acl", "2022.naloma", "J89", "L06"))
     found = set()
     count = 0
     for volume in anthology.volumes():
         count += 1
         found.add(volume.collection_id)
     assert expected == found
-    assert count == 10
+    assert count == 11
 
 
 def test_volumes_by_id(anthology):
@@ -71,23 +71,22 @@ def test_volumes_by_id(anthology):
 
 def test_papers(anthology):
     # Iterate over all papers
-    expected = set(("2022.acl", "J89", "L06"))
+    expected = set(("2022.acl", "2022.naloma", "J89", "L06"))
     found = set()
     count = 0
     for paper in anthology.papers():
         count += 1
         found.add(paper.collection_id)
     assert expected == found
-    assert count == 846
+    assert count == 852
 
 
 def test_papers_by_collection_id(anthology):
-    # Iterate over J89 papers
     count = 0
-    for paper in anthology.papers("J89"):
-        assert paper.collection_id == "J89"
+    for paper in anthology.papers("2022.naloma"):
+        assert paper.collection_id == "2022.naloma"
         count += 1
-    assert count == 62
+    assert count == 6
 
 
 def test_papers_by_volume_id(anthology):

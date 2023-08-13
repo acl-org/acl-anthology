@@ -19,6 +19,7 @@ from attrs import define, field, Factory
 from enum import Enum
 from lxml import etree
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
+import sys
 
 from .. import constants
 from ..containers import SlottedDict
@@ -144,7 +145,14 @@ class Volume(SlottedDict[Paper]):
 
     def venues(self) -> list[Venue]:
         """A list of venues associated with this volume."""
-        return [self.root.venues[vid] for vid in self.venue_ids]
+        try:
+            return [self.root.venues[vid] for vid in self.venue_ids]
+        except KeyError as exc:
+            if sys.version_info >= (3, 11):
+                exc.add_note(
+                    f"Most likely, venue ID '{exc.args[0]}' is not defined in yaml/venues/*.yaml"
+                )
+            raise exc
 
     def _add_frontmatter_from_xml(self, element: etree._Element) -> None:
         """Sets this volume's frontmatter.

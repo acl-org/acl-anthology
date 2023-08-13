@@ -14,6 +14,7 @@
 
 from datetime import date
 from pathlib import Path
+import pytest
 
 from acl_anthology.collections import Collection, Volume, VolumeType
 from acl_anthology.text import MarkupText
@@ -89,3 +90,11 @@ def test_volume_venues_j89(anthology):
     venues = volume.venues()
     assert len(venues) == 1
     assert venues[0].id == "cl"
+
+
+def test_volume_venues_naloma(anthology):
+    volume = anthology.get_volume("2022.naloma-1")
+    assert volume.venue_ids == ["naloma"]
+    # This venue is intentionally not defined in the toy data directory
+    with pytest.raises(KeyError):
+        _ = volume.venues()
