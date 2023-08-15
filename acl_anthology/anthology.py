@@ -32,18 +32,20 @@ class Anthology:
 
     Attributes:
         datadir (PathLike[str]): The path to the data folder.
+        verbose (bool): If True, will show progress bars during longer operations.
     """
 
-    def __init__(self, datadir: PathLike[str]) -> None:
+    def __init__(self, datadir: PathLike[str], verbose: bool = False) -> None:
         if not Path(datadir).is_dir():
             raise FileNotFoundError(f"Not a directory: {datadir}")
 
         self.datadir = Path(datadir)
+        self.verbose = verbose
 
         self.collections = CollectionIndex(self)
         """The [CollectionIndex][acl_anthology.collections.CollectionIndex] for accessing collections, volumes, and papers."""
 
-        self.people = PersonIndex(self)
+        self.people = PersonIndex(self, verbose)
         """The [PersonIndex][acl_anthology.people.PersonIndex] for accessing authors and editors."""
 
         self.sigs = SIGIndex(self)

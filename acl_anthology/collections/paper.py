@@ -30,11 +30,14 @@ from ..files import (
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.ids import build_id, AnthologyID
+from ..utils.logging import get_logger
 from ..utils.xml import xsd_boolean
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
     from . import Volume
+
+log = get_logger()
 
 
 @define
@@ -188,9 +191,10 @@ class Paper:
         }
         if (ingest_date := paper.attrib.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
-        # TODO: this is currently ignored
-        # if (paper_type := paper.attrib.get("type")) is not None:
-        #    kwargs["type"] = str(paper_type)
+        if paper.attrib.get("type") is not None:
+            # TODO: this is currently ignored
+            log.debug(f"Paper {paper.attrib['id']}: Type attribute is currently ignored")
+            # kwargs["type"] = str(paper_type)
         for element in paper:
             if element.tag in ("bibkey", "doi", "language", "note", "pages"):
                 kwargs[element.tag] = element.text
@@ -248,7 +252,9 @@ class Paper:
                 )
             elif element.tag in ("issue", "journal", "mrf"):
                 # TODO: these fields are currently ignored
-                pass
+                log.debug(
+                    f"Paper {paper.attrib['id']}: Tag '{element.tag}' is currently ignored"
+                )
             else:
                 raise ValueError(f"Unsupported element for Paper: <{element.tag}>")
         return cls(**kwargs)

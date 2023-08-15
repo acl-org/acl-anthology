@@ -50,12 +50,14 @@ class PersonIndex(SlottedDict[Person]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
+        verbose: If True, will show progress bar when building the index from scratch.
         name_to_ids: A mapping of [Name][acl_anthology.people.name.Name] instances to person IDs.
         similar: A [disjoint-set structure][scipy.cluster.hierarchy.DisjointSet] of persons with similar names.
         is_data_loaded: A flag indicating whether the index has been constructed.
     """
 
     parent: Anthology = field(repr=False, eq=False)
+    verbose: bool = field(default=False)
     name_to_ids: dict[Name, list[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
@@ -120,7 +122,7 @@ class PersonIndex(SlottedDict[Person]):
         """Loads or builds the index."""
         # This function exists so we can later add the option to read the index
         # from a cache if it doesn't need re-building.
-        self.build()
+        self.build(show_progress=self.verbose)
 
     def reset(self) -> None:
         """Resets the index."""
