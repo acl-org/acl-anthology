@@ -17,10 +17,11 @@ from __future__ import annotations
 from attrs import define, field
 from lxml import etree
 from pathlib import Path
-from typing import Iterator, cast, TYPE_CHECKING
+from typing import Iterator, Optional, cast, TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..utils.logging import get_logger
+from .event import Event
 from .volume import Volume
 from .paper import Paper
 
@@ -44,12 +45,14 @@ class Collection(SlottedDict[Volume]):
         path: The path of the XML file representing this collection.
 
     Attributes: Non-Init Attributes:
+        event: An event represented by this collection.
         is_data_loaded: A flag indicating whether the XML file has already been loaded.
     """
 
     id: str
     parent: CollectionIndex = field(repr=False, eq=False)
     path: Path
+    event: Optional[Event] = field(init=False, repr=False, default=None)
     is_data_loaded: bool = field(init=False, repr=False, default=False)
 
     @property
@@ -76,12 +79,28 @@ class Collection(SlottedDict[Volume]):
 
         Returns:
             The created volume.
+
+        Raises:
+            ValueError: If a volume with the given ID already exists.
         """
         volume = Volume.from_xml(self, meta)
         if volume.id in self.data:
             raise ValueError(f"Volume {volume.id} already exists in collection {self.id}")
         self.data[volume.id] = volume
         return volume
+
+    def _set_event_from_xml(self, meta: etree._Element) -> None:
+        """Creates and sets a new event belonging to this collection.
+
+        Parameters:
+            meta: The `<event>` element.
+
+        Raises:
+            ValueError: If an event had already been set; collections may only have a single event.
+        """
+        if self.event is not None:
+            raise ValueError(f"Event already defined in collection {self.id}")
+        self.event = Event.from_xml(self, meta)
 
     def load(self) -> None:
         """Loads the XML file belonging to this collection."""
@@ -95,13 +114,13 @@ class Collection(SlottedDict[Volume]):
                         # Event metadata handled separately
                         continue
                     current_volume = self._add_volume_from_xml(element)  # noqa: F841
-                    element.clear()
                 case ("end", "frontmatter"):
                     current_volume._add_frontmatter_from_xml(element)
                 case ("end", "paper"):
                     current_volume._add_paper_from_xml(element)
+                case ("end", "volume"):
+                    current_volume = cast(Volume, None)  # noqa: F481
                 case ("end", "event"):
-                    # TODO: parse and attach event
-                    pass
+                    self._set_event_from_xml(element)
 
         self.is_data_loaded = True
