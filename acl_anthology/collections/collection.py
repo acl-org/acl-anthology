@@ -106,21 +106,27 @@ class Collection(SlottedDict[Volume]):
         """Loads the XML file belonging to this collection."""
         log.debug(f"Parsing XML data file: {self.path}")
         current_volume = cast(Volume, None)  # noqa: F841
-        for event, element in etree.iterparse(self.path, events=("start", "end")):
-            match (event, element.tag):
-                case ("end", "meta"):
-                    # Seeing a volume's <meta> block instantiates a new volume
-                    if element.getparent().tag == "event":
-                        # Event metadata handled separately
-                        continue
-                    current_volume = self._add_volume_from_xml(element)  # noqa: F841
-                case ("end", "frontmatter"):
-                    current_volume._add_frontmatter_from_xml(element)
-                case ("end", "paper"):
-                    current_volume._add_paper_from_xml(element)
-                case ("end", "volume"):
-                    current_volume = cast(Volume, None)  # noqa: F481
-                case ("end", "event"):
-                    self._set_event_from_xml(element)
+        for _, element in etree.iterparse(
+            self.path, tag=("meta", "frontmatter", "paper", "volume", "event")
+        ):
+            discard_element = True
+            if element.tag == "meta" and element.getparent().tag != "event":
+                # Seeing a volume's <meta> block instantiates a new volume
+                current_volume = self._add_volume_from_xml(element)  # noqa: F841
+            elif element.tag == "frontmatter":
+                current_volume._add_frontmatter_from_xml(element)
+            elif element.tag == "paper":
+                current_volume._add_paper_from_xml(element)
+            elif element.tag == "volume":
+                current_volume = cast(Volume, None)  # noqa: F481
+            elif element.tag == "event":
+                self._set_event_from_xml(element)
+                element.clear()
+            else:
+                # Keep element around; should only apply to <event><meta> ...
+                discard_element = False
+
+            if discard_element:
+                element.clear()
 
         self.is_data_loaded = True
