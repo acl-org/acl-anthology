@@ -193,7 +193,9 @@ class Paper:
             kwargs["ingest_date"] = str(ingest_date)
         if paper.attrib.get("type") is not None:
             # TODO: this is currently ignored
-            log.debug(f"Paper {paper.attrib['id']}: Type attribute is currently ignored")
+            log.debug(
+                f"Paper {paper.attrib['id']!r}: Type attribute is currently ignored"
+            )
             # kwargs["type"] = str(paper_type)
         for element in paper:
             if element.tag in ("bibkey", "doi", "language", "note", "pages"):
@@ -253,7 +255,7 @@ class Paper:
             elif element.tag in ("issue", "journal", "mrf"):
                 # TODO: these fields are currently ignored
                 log.debug(
-                    f"Paper {paper.attrib['id']}: Tag '{element.tag}' is currently ignored"
+                    f"Paper {paper.attrib['id']!r}: Tag '{element.tag}' is currently ignored"
                 )
             else:
                 raise ValueError(f"Unsupported element for Paper: <{element.tag}>")
