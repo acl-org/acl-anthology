@@ -67,7 +67,14 @@ class MarkupText:
     This class **should not be instantiated directly,** but only through its class method constructors.  This is because the internal representation of the markup text may change at any time.
     """
 
-    _content: etree._Element = field()
+    # IMPLEMENTATION NOTE: Deepcopy-ing (or newly instantiating) etree._Element
+    # is very expensive, as shown by profiling. Therefore, markup elements
+    # which don't actually contain any markup are simply stored as
+    # strings. This makes the implementation slightly more verbose (we need to
+    # check everywhere whether we're dealing with etree._Element or str), but
+    # much faster. ---For further optimization, we could explore if there's an
+    # alternative that doesn't require deepcopy-ing XML elements at all.
+    _content: etree._Element | str = field()
 
     def __str__(self) -> str:
         return self.as_text()
@@ -83,6 +90,8 @@ class MarkupText:
         Returns:
             The plain text with any markup stripped. The only transformation that will be performed is replacing TeX-math expressions with their corresponding Unicode representation, if possible.
         """
+        if isinstance(self._content, str):
+            return self._content
         element = deepcopy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
@@ -100,6 +109,8 @@ class MarkupText:
             allow_url: Defaults to True. If False, URLs are **not** wrapped in
                 `<a href="...">` tags, but in simply `<span>` tags.
         """
+        if isinstance(self._content, str):
+            return self._content
         element = deepcopy(self._content)
         for sub in element.iter():
             if sub.tag == "url":
@@ -123,6 +134,8 @@ class MarkupText:
         """
         Returns:
             Text with markup transformed into LaTeX commands."""
+        if isinstance(self._content, str):
+            return latex_convert_quotes(latex_encode(self._content))
         text = markup_to_latex(self._content)
         text = remove_extra_whitespace(text)
         return text
@@ -132,6 +145,10 @@ class MarkupText:
         Returns:
             Text with markup represented according to the Anthology's XML schema.
         """
+        if isinstance(self._content, str):
+            element = etree.Element("span")
+            element.text = self._content
+            return element
         return self._content
 
     @classmethod
@@ -143,9 +160,7 @@ class MarkupText:
         Returns:
             Instantiated MarkupText object corresponding to the string.
         """
-        element = etree.Element("span")
-        element.text = text
-        return cls(element)
+        return cls(text)
 
     @classmethod
     def from_xml(cls, element: etree._Element) -> MarkupText:
@@ -156,4 +171,7 @@ class MarkupText:
         Returns:
             Instantiated MarkupText object corresponding to the element.
         """
-        return cls(deepcopy(element))
+        if len(element):
+            return cls(deepcopy(element))
+        else:
+            return cls(str(element.text))
