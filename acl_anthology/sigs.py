@@ -96,6 +96,8 @@ class SIGIndex(SlottedDict[SIG]):
         Raises:
             KeyError: If a mandatory key is missing in a YAML file.
         """
+        if self.is_data_loaded:
+            return
         for yamlpath in self.parent.datadir.glob("yaml/sigs/*.yaml"):
             sig_id = yamlpath.name[:-5]
             with open(yamlpath, "r") as f:

@@ -44,6 +44,9 @@ class EventIndex(SlottedDict[Event]):
 
     def load(self) -> None:
         """Load the entire Anthology data and build an index of events."""
+        if self.is_data_loaded:
+            return
+
         iterator = track(
             self.parent.collections.values(),
             total=len(self.parent.collections),
