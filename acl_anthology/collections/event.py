@@ -36,6 +36,7 @@ class Event:
     Attributes: Required Attributes:
         id: The ID of this event.
         parent: The Collection object that this event belongs to.
+        is_explicit: True if this event was defined explicitly in the XML.
 
     Attributes: List Attributes:
         colocated_ids: Volume IDs of proceedings that were colocated with this event.
@@ -50,6 +51,7 @@ class Event:
 
     id: str
     parent: Collection = field(repr=False, eq=False)
+    is_explicit: bool = field(default=False)
 
     colocated_ids: list[str] = field(factory=list, repr=False)
     links: dict[str, AttachmentReference] = field(factory=dict, repr=False)
@@ -75,6 +77,7 @@ class Event:
         kwargs: dict[str, Any] = {
             "id": event.attrib["id"],
             "parent": parent,
+            "is_explicit": True,
             "talks": [],
         }
         for element in event:

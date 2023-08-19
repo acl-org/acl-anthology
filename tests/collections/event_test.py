@@ -32,29 +32,13 @@ def test_event_minimum_attribs():
     )
     assert event.id == "foobar-2023"
     assert event.collection_id == "Foo"
+    assert not event.is_explicit
     assert not event.colocated_ids
     assert not event.links
     assert not event.talks
     assert event.title is None
     assert event.location is None
     assert event.dates is None
-
-
-def test_event_all_attribs():
-    event_title = MarkupText.from_string("Lorem ipsum")
-    parent = Collection("2023.li", None, Path("."))
-    event = Event(
-        id="li-2023",
-        parent=parent,
-        title=event_title,
-        location="Online",
-        dates="August 17-19, 2023",
-        colocated_ids=["2023.foobar-1", "2023.baz-1", "2023.asdf-1"],
-        talks=[],  # TODO
-        links={"Website": AttachmentReferenceMock("http://foobar.com")},
-    )
-    assert event.collection_id == "2023.li"
-    assert event.title == event_title
 
 
 def test_talk_minimum_attribs():
@@ -64,3 +48,22 @@ def test_talk_minimum_attribs():
     assert talk.type is None
     assert not talk.speakers
     assert not talk.attachments
+
+
+def test_event_all_attribs():
+    event_title = MarkupText.from_string("Lorem ipsum")
+    parent = Collection("2023.li", None, Path("."))
+    event = Event(
+        id="li-2023",
+        parent=parent,
+        is_explicit=True,
+        title=event_title,
+        location="Online",
+        dates="August 17-19, 2023",
+        colocated_ids=["2023.foobar-1", "2023.baz-1", "2023.asdf-1"],
+        talks=[Talk("Invited talk")],
+        links={"Website": AttachmentReferenceMock("http://foobar.com")},
+    )
+    assert event.collection_id == "2023.li"
+    assert event.title == event_title
+    assert event.is_explicit

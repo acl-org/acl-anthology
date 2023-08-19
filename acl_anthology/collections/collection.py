@@ -129,4 +129,10 @@ class Collection(SlottedDict[Volume]):
             if discard_element:
                 element.clear()
 
+        if self.event is not None:
+            # Volumes in the same collection as an event are implicitly
+            # associated with it
+            for volume in self.data.values():
+                self.event.colocated_ids.insert(0, volume.full_id)
+
         self.is_data_loaded = True
