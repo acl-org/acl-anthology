@@ -14,7 +14,16 @@
 
 from .index import CollectionIndex
 from .collection import Collection
+from .event import Event, Talk
 from .volume import Volume, VolumeType
 from .paper import Paper
 
-__all__ = ["CollectionIndex", "Collection", "Volume", "VolumeType", "Paper"]
+__all__ = [
+    "Collection",
+    "CollectionIndex",
+    "Event",
+    "Paper",
+    "Talk",
+    "Volume",
+    "VolumeType",
+]
