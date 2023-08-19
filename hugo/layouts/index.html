@@ -16,7 +16,7 @@
 {{ end }}
 
 {{ define "meta" }}
-    <link rel="alternate" type="application/rss+xml" href="{{ "/papers/index.xml" | relURL }}" title="ACL Anthology" />
+    <link rel="alternate" type="application/rss+xml" href="{{ "/papers/index.xml" | relURL }}" title="ACL Anthology Papers" />
 {{ end }}
 
 {{ define "main" }}
@@ -56,10 +56,10 @@
       </div>
       {{ end }}
       <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-block btn-info" href="{{ "/papers/index.xml" | relURL }}">RSS Feed (latest 1000 papers)</a>
+        <a class="btn btn-block btn-warning" href="{{ "/papers/index.xml" | relURL }}">RSS Feed (latest 1000 papers)</a>
       </div>
       <div class="col-6 col-xl-12 mb-2">
-        <a class="btn btn-block btn-warning" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
+        <a class="btn btn-block btn-success" href="{{ ($.Site.GetPage "/faq/feedback.md").RelPermalink }}">Give feedback</a>
       </div>
     </div>
   </div><div class="col-12 col-xl-10 col-xl-width-auto">
