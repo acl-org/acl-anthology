@@ -13,4 +13,4 @@ There is one more thing that we want to announce with this first post: We now al
 By subscribing to this, you get to see the individual papers added to the Anthology and never miss any of the latest developments in NLP and computational linguistics ever again! 🎉
 The feed is limited to the latest 1000 papers, as the full file would be over 40 MB in size, otherwise. 🤯
 
-We hope that you will enjoy these updates as much as we do, and we'll see you here for the next update!
+We hope that you will enjoy these new features as much as we do, and we'll see you here for the next update!
