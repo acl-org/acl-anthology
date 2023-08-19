@@ -20,6 +20,11 @@ from acl_anthology.collections import Collection, Volume, VolumeType
 from acl_anthology.text import MarkupText
 
 
+class CollectionIndexStub:
+    def __init__(self, parent):
+        self.parent = parent
+
+
 def test_volume_minimum_attribs():
     volume_title = MarkupText.from_string("Lorem ipsum")
     parent = Collection("L05", None, Path("."))
@@ -105,7 +110,22 @@ def test_volume_venues_j89(anthology):
 
 def test_volume_venues_naloma(anthology):
     volume = anthology.get_volume("2022.naloma-1")
-    assert volume.venue_ids == ["naloma"]
-    # This venue is intentionally not defined in the toy data directory
+    assert volume.venue_ids == ["nlma"]
+    venues = volume.venues()
+    assert len(venues) == 1
+    assert venues[0].id == "nlma"
+
+
+def test_volume_with_nonexistent_venue(anthology):
+    volume_title = MarkupText.from_string("Lorem ipsum")
+    parent = Collection("L05", CollectionIndexStub(anthology), Path("."))
+    volume = Volume(
+        "42",
+        parent,
+        type=VolumeType.JOURNAL,
+        booktitle=volume_title,
+        venue_ids=["doesntexist"],
+        year="2005",
+    )
     with pytest.raises(KeyError):
         _ = volume.venues()

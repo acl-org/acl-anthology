@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import overload, Iterator, Optional
 
 from .utils.ids import AnthologyID, parse_id
-from .collections import CollectionIndex, Collection, Volume, Paper
+from .collections import CollectionIndex, Collection, Volume, Paper, EventIndex
 from .people import PersonIndex, Person, NameSpecification
 from .sigs import SIGIndex
 from .venues import VenueIndex
@@ -44,6 +44,9 @@ class Anthology:
 
         self.collections = CollectionIndex(self)
         """The [CollectionIndex][acl_anthology.collections.CollectionIndex] for accessing collections, volumes, and papers."""
+
+        self.events = EventIndex(self, verbose)
+        """The [EventIndex][acl_anthology.collections.EventIndex] for accessing events."""
 
         self.people = PersonIndex(self, verbose)
         """The [PersonIndex][acl_anthology.people.PersonIndex] for accessing authors and editors."""

@@ -71,6 +71,12 @@ class Collection(SlottedDict[Volume]):
         for volume in self.volumes():
             yield from volume.papers()
 
+    def get_event(self) -> Optional[Event]:
+        """An Event explicitly defined in this collection, if any."""
+        if not self.is_data_loaded:
+            self.load()
+        return self.event
+
     def _add_volume_from_xml(self, meta: etree._Element) -> Volume:
         """Creates a new volume belonging to this collection.
 
@@ -130,9 +136,9 @@ class Collection(SlottedDict[Volume]):
                 element.clear()
 
         if self.event is not None:
-            # Volumes in the same collection as an event are implicitly
-            # associated with it
-            for volume in self.data.values():
-                self.event.colocated_ids.insert(0, volume.full_id)
+            # Events are implicitly linked to volumes defined in the same collection
+            self.event.colocated_ids = [
+                volume.full_id for volume in self.data.values()
+            ] + self.event.colocated_ids
 
         self.is_data_loaded = True

@@ -40,4 +40,4 @@ def test_venueindex_cl(anthology):
 def test_venueindex_iter(anthology):
     index = VenueIndex(anthology)
     venue_ids = set(index.keys())
-    assert venue_ids == {"acl", "cl", "humeval", "lrec"}
+    assert venue_ids == {"acl", "cl", "humeval", "lrec", "nlma"}

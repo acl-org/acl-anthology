@@ -14,6 +14,7 @@
 
 from .index import CollectionIndex
 from .collection import Collection
+from .eventindex import EventIndex
 from .event import Event, Talk
 from .volume import Volume, VolumeType
 from .paper import Paper
@@ -22,6 +23,7 @@ __all__ = [
     "Collection",
     "CollectionIndex",
     "Event",
+    "EventIndex",
     "Paper",
     "Talk",
     "Volume",
