@@ -15,12 +15,15 @@
 from __future__ import annotations
 
 from attrs import define, field
+from collections import defaultdict
 from rich.progress import track
 from typing import TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..text import MarkupText
+from ..utils.ids import AnthologyID, build_id
 from .event import Event
+from .volume import Volume
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -35,12 +38,30 @@ class EventIndex(SlottedDict[Event]):
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
         verbose: If True, will show progress bar when building the index from scratch.
+        reverse: A mapping of volume IDs to a set of associated event IDs.
         is_data_loaded: A flag indicating whether the index has been constructed.
     """
 
     parent: Anthology = field(repr=False, eq=False)
     verbose: bool = field(default=False)
+    reverse: dict[str, set[str]] = field(
+        init=False, repr=False, factory=lambda: defaultdict(set)
+    )
     is_data_loaded: bool = field(init=False, repr=False, default=False)
+
+    def by_volume(self, volume: Volume | AnthologyID) -> list[Event]:
+        """Find events associated with a volume."""
+        if not self.is_data_loaded:
+            self.load()
+
+        if isinstance(volume, str):
+            volume_fid = volume
+        elif isinstance(volume, Volume):
+            volume_fid = volume.full_id
+        else:
+            volume_fid = build_id(*volume)
+
+        return [self.data[event_id] for event_id in self.reverse[volume_fid]]
 
     def load(self) -> None:
         """Load the entire Anthology data and build an index of events."""
@@ -54,10 +75,13 @@ class EventIndex(SlottedDict[Event]):
             description=" Building event index...",
         )
         for collection in iterator:
-            if (event := collection.get_event()) is not None:
-                self.data[event.id] = event
+            if (explicit_event := collection.get_event()) is not None:
+                self.data[explicit_event.id] = explicit_event
 
             for volume in collection.volumes():
+                volume_fid = volume.full_id
+                if explicit_event is not None:
+                    self.reverse[volume_fid].add(explicit_event.id)
                 for venue_id in volume.venue_ids:
                     event_id = f"{venue_id}-{volume.year}"
                     if (event := self.data.get(event_id)) is None:
@@ -67,10 +91,11 @@ class EventIndex(SlottedDict[Event]):
                             event_id,
                             collection,
                             is_explicit=False,
-                            colocated_ids=[volume.full_id],
+                            colocated_ids=[volume_fid],
                             title=MarkupText.from_string(event_name),
                         )
-                    elif volume.full_id not in event.colocated_ids:
-                        event.colocated_ids.append(volume.full_id)
+                    elif volume_fid not in event.colocated_ids:
+                        event.colocated_ids.append(volume_fid)
+                    self.reverse[volume_fid].add(event_id)
 
         self.is_data_loaded = True

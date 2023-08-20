@@ -49,3 +49,11 @@ def test_explicit_event(anthology):
         "2022.bigscience-1",
         "2022.wit-1",
     ]
+
+
+def test_event_by_volume(anthology):
+    index = EventIndex(anthology)
+    assert index.by_volume("2022.acl-demo") == [index["acl-2022"]]
+    assert index.by_volume("L06-1") == [index["lrec-2006"]]
+    # This volume is defined under <colocated>, but doesn't exist in the toy data
+    assert index.by_volume("2022.bigscience-1") == []
