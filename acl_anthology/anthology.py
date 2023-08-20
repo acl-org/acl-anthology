@@ -12,10 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import gc
 from os import PathLike
 from pathlib import Path
 from typing import overload, Iterator, Optional
 
+from .config import config
 from .utils.ids import AnthologyID, parse_id
 from .collections import CollectionIndex, Collection, Volume, Paper, EventIndex
 from .people import PersonIndex, Person, NameSpecification
@@ -56,6 +58,31 @@ class Anthology:
 
         self.venues = VenueIndex(self)
         """The [VenueIndex][acl_anthology.venues.VenueIndex] for accessing venues."""
+
+    def load_all(self) -> None:
+        """Load all Anthology data files.
+
+        Calling this function is **not strictly necessary.** If you
+        access Anthology data through object methods or
+        [SlottedDict][acl_anthology.containers.SlottedDict]
+        functionality, data will be loaded on-the-fly as required.
+        However, if you know that your program will load all data files
+        (particularly the XML files) eventually, for example by
+        iterating over all volumes/papers, loading everything at once
+        with this function can result in a considerable speed-up.
+        """
+        was_gc_enabled = False
+        if config["disable_gc"]:
+            was_gc_enabled = gc.isenabled()
+            gc.disable()
+        for collection in self.collections.values():
+            collection.load()
+        self.events.load()
+        self.people.load()
+        self.sigs.load()
+        self.venues.load()
+        if was_gc_enabled:
+            gc.enable()
 
     def volumes(self, collection_id: Optional[str] = None) -> Iterator[Volume]:
         """Returns an iterator over all volumes.

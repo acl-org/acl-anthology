@@ -41,6 +41,9 @@ class DefaultConfig:
     logger_name: str = "acl-anthology"
     """Name of logger to which the library sends log messages."""
 
+    disable_gc: bool = True
+    """If True, disables garbage collection while parsing XML files and building indices.  This typically results in a considerable speed-up, but if it happens to cause problems, it can be disabled here."""
+
 
 config = OmegaConf.structured(DefaultConfig)
 """A [structured configuration instance](https://omegaconf.readthedocs.io/en/latest/structured_config.html) that is used by all `acl_anthology` classes."""

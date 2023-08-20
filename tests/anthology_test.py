@@ -111,3 +111,13 @@ def test_resolve_author_list(anthology):
     person = anthology.resolve(name_spec)
     assert len(person) == 1
     assert person[0].canonical_name == Name("Oliviero", "Stock")
+
+
+def test_load_all(anthology):
+    anthology.load_all()
+    assert anthology.collections.is_data_loaded
+    assert anthology.collections["J89"].is_data_loaded
+    assert anthology.events.is_data_loaded
+    assert anthology.people.is_data_loaded
+    assert anthology.sigs.is_data_loaded
+    assert anthology.venues.is_data_loaded
