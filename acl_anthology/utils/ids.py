@@ -74,7 +74,7 @@ def build_id(
 
 def build_id_from_tuple(anthology_id: AnthologyID) -> str:
     """
-    Like [build_id()][], but takes any [AnthologyID][] type.
+    Like [build_id()][acl_anthology.utils.ids.build_id], but takes any [AnthologyID][acl_anthology.utils.ids.AnthologyID] type.
 
     Parameters:
         anthology_id: The Anthology ID to convert into a string.
