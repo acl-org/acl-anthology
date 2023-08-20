@@ -60,7 +60,11 @@ def test_event_all_attribs():
         title=event_title,
         location="Online",
         dates="August 17-19, 2023",
-        colocated_ids=["2023.foobar-1", "2023.baz-1", "2023.asdf-1"],
+        colocated_ids=[
+            ("2023.foobar", "1", None),
+            ("2023.baz", "1", None),
+            ("2023.asdf", "1", None),
+        ],
         talks=[Talk("Invited talk")],
         links={"Website": AttachmentReferenceMock("http://foobar.com")},
     )

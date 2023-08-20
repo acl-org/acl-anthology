@@ -43,5 +43,9 @@ def test_parse_id(full_id, parsed):
 
 @pytest.mark.parametrize("full_id, parsed", test_cases_ids)
 def test_build_id(full_id, parsed):
-    if parsed[1] is not None:
-        assert ids.build_id(*parsed) == full_id
+    assert ids.build_id(*parsed) == full_id
+
+
+@pytest.mark.parametrize("full_id, parsed", test_cases_ids)
+def test_build_id_from_tuple(full_id, parsed):
+    assert ids.build_id_from_tuple(parsed) == ids.build_id_from_tuple(full_id) == full_id

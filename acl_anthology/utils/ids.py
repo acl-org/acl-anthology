@@ -17,7 +17,10 @@
 from typing import Optional
 
 
-AnthologyID = str | tuple[str, Optional[str], Optional[str]]
+AnthologyIDTuple = tuple[str, Optional[str], Optional[str]]
+"""A tuple representing an Anthology ID."""
+
+AnthologyID = str | AnthologyIDTuple
 """Any type that can be parsed into an Anthology ID."""
 
 
@@ -69,7 +72,26 @@ def build_id(
         return anthology_id
 
 
-def parse_id(anthology_id: AnthologyID) -> tuple[str, Optional[str], Optional[str]]:
+def build_id_from_tuple(anthology_id: AnthologyID) -> str:
+    """
+    Like [build_id()][], but takes any [AnthologyID][] type.
+
+    Parameters:
+        anthology_id: The Anthology ID to convert into a string.
+
+    Returns:
+        The full Anthology ID.
+
+    Examples:
+        >>> build_id(("P18", "1", "1"))
+        P18-1001
+    """
+    if isinstance(anthology_id, str):
+        return anthology_id
+    return build_id(*anthology_id)
+
+
+def parse_id(anthology_id: AnthologyID) -> AnthologyIDTuple:
     """
     Parses an Anthology ID into its constituent collection ID, volume ID, and paper ID
     parts.

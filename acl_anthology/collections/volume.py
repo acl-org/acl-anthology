@@ -27,7 +27,7 @@ from ..files import PDFReference
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..venues import Venue
-from ..utils.ids import build_id, AnthologyID
+from ..utils.ids import build_id, AnthologyIDTuple
 from .paper import Paper
 
 if TYPE_CHECKING:
@@ -116,7 +116,7 @@ class Volume(SlottedDict[Paper]):
         return build_id(self.parent.id, self.id)
 
     @property
-    def full_id_tuple(self) -> AnthologyID:
+    def full_id_tuple(self) -> AnthologyIDTuple:
         """The full anthology ID of this volume, as a tuple (e.g. `("L06", "1", None)`)."""
         return (self.parent.id, self.id, None)
 

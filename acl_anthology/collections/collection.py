@@ -141,7 +141,7 @@ class Collection(SlottedDict[Volume]):
         if self.event is not None:
             # Events are implicitly linked to volumes defined in the same collection
             self.event.colocated_ids = [
-                volume.full_id for volume in self.data.values()
+                volume.full_id_tuple for volume in self.data.values()
             ] + self.event.colocated_ids
 
         self.is_data_loaded = True

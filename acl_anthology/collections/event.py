@@ -23,6 +23,7 @@ from ..files import (
 )
 from ..people import NameSpecification
 from ..text import MarkupText
+from ..utils.ids import AnthologyIDTuple, parse_id
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -53,7 +54,7 @@ class Event:
     parent: Collection = field(repr=False, eq=False)
     is_explicit: bool = field(default=False)
 
-    colocated_ids: list[str] = field(factory=list, repr=False)
+    colocated_ids: list[AnthologyIDTuple] = field(factory=list, repr=False)
     links: dict[str, AttachmentReference] = field(factory=dict, repr=False)
     talks: list[Talk] = field(factory=list, repr=False)
 
@@ -98,7 +99,9 @@ class Event:
             elif element.tag == "talk":
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":
-                kwargs["colocated_ids"] = [str(volume_id.text) for volume_id in element]
+                kwargs["colocated_ids"] = [
+                    parse_id(str(volume_id.text)) for volume_id in element
+                ]
             else:
                 raise ValueError(f"Unsupported element for Event: <{element.tag}>")
         return cls(**kwargs)

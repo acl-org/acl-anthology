@@ -21,7 +21,7 @@ from typing import TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..text import MarkupText
-from ..utils.ids import AnthologyID, build_id
+from ..utils.ids import AnthologyID, AnthologyIDTuple, parse_id
 from .event import Event
 from .volume import Volume
 
@@ -44,7 +44,7 @@ class EventIndex(SlottedDict[Event]):
 
     parent: Anthology = field(repr=False, eq=False)
     verbose: bool = field(default=False)
-    reverse: dict[str, set[str]] = field(
+    reverse: dict[AnthologyIDTuple, set[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(set)
     )
     is_data_loaded: bool = field(init=False, repr=False, default=False)
@@ -54,12 +54,10 @@ class EventIndex(SlottedDict[Event]):
         if not self.is_data_loaded:
             self.load()
 
-        if isinstance(volume, str):
-            volume_fid = volume
-        elif isinstance(volume, Volume):
-            volume_fid = volume.full_id
+        if isinstance(volume, Volume):
+            volume_fid = volume.full_id_tuple
         else:
-            volume_fid = build_id(*volume)
+            volume_fid = parse_id(volume)
 
         return [self.data[event_id] for event_id in self.reverse[volume_fid]]
 
@@ -79,7 +77,7 @@ class EventIndex(SlottedDict[Event]):
                 self.data[explicit_event.id] = explicit_event
 
             for volume in collection.volumes():
-                volume_fid = volume.full_id
+                volume_fid = volume.full_id_tuple
                 if explicit_event is not None:
                     self.reverse[volume_fid].add(explicit_event.id)
                 for venue_id in volume.venue_ids:

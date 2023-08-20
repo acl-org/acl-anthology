@@ -40,14 +40,14 @@ def test_explicit_event(anthology):
     assert event.location == "Dublin, Ireland"
     assert event.dates == "May 22–27, 2022"
     assert event.colocated_ids == [
-        "2022.acl-long",
-        "2022.acl-short",
-        "2022.acl-srw",
-        "2022.acl-demo",
-        "2022.acl-tutorials",
-        "2022.findings-acl",
-        "2022.bigscience-1",
-        "2022.wit-1",
+        ("2022.acl", "long", None),
+        ("2022.acl", "short", None),
+        ("2022.acl", "srw", None),
+        ("2022.acl", "demo", None),
+        ("2022.acl", "tutorials", None),
+        ("2022.findings", "acl", None),
+        ("2022.bigscience", "1", None),
+        ("2022.wit", "1", None),
     ]
 
 

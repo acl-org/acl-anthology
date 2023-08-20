@@ -29,7 +29,7 @@ from ..files import (
 )
 from ..people import NameSpecification
 from ..text import MarkupText
-from ..utils.ids import build_id, AnthologyID
+from ..utils.ids import build_id, AnthologyIDTuple
 from ..utils.logging import get_logger
 from ..utils.xml import xsd_boolean
 
@@ -115,7 +115,7 @@ class Paper:
         return build_id(self.parent.parent.id, self.parent.id, self.id)
 
     @property
-    def full_id_tuple(self) -> AnthologyID:
+    def full_id_tuple(self) -> AnthologyIDTuple:
         """The full anthology ID of this paper, as a tuple (e.g. `("L06", "1", "42")`)."""
         return (self.parent.parent.id, self.parent.id, self.id)
 

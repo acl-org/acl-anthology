@@ -16,7 +16,7 @@ from __future__ import annotations
 
 from attrs import define, field, Factory
 from typing import Optional
-from ..utils.ids import AnthologyID
+from ..utils.ids import AnthologyIDTuple
 from . import Name
 
 
@@ -33,7 +33,7 @@ class Person:
 
     id: str
     names: list[Name] = Factory(list)
-    item_ids: set[AnthologyID] = Factory(set)
+    item_ids: set[AnthologyIDTuple] = Factory(set)
     comment: Optional[str] = field(default=None)
 
     @property
