@@ -32,6 +32,12 @@ e.g.,
 
     python3 generate_crossref_doi_metadata.py P19-1 P19-2 P19-3 P19-4 > acl2019_dois.xml
 
+Here's an example of how to use it to get all main conference volumes plus linked workshops:
+
+    ./bin/generate_crossref_doi_metadata.py 2022.emnlp-{main,tutorials,demos,industry} $(grep "<volume-id" data/xml/2022.emnlp.xml | perl -pe "s/<\/?volume-id>//g") > emnlp-2022.dois.xml
+
+Here, I had to manually list the main volumes (easy), and then grabbed the "<volume-id>" lines to get the workshops, all in one file.
+
 Limitations:
 - This script does not inject the DOI data into the Anthology XML.
   For this, use `bin/add_dois.py <list of volume IDs>`.
