@@ -1,5 +1,10 @@
 # Changelog
 
+## [Unreleased]
+
+- `MarkupText.as_xml()` removed in favor of `.to_xml()`, with slightly different
+  semantics.
+
 ## [0.3.0] — 2023-08-21
 
 ### Added

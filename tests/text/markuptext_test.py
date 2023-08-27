@@ -104,11 +104,13 @@ test_cases_markup = (
 
 @pytest.mark.parametrize("inp, out", test_cases_markup)
 def test_markup(inp, out):
-    element = etree.fromstring(f"<title>{inp}</title>")
+    xml = f"<title>{inp}</title>"
+    element = etree.fromstring(xml)
     markup = MarkupText.from_xml(element)
     assert markup.as_text() == out["text"]
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
+    assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
 
 
 def test_simple_string():
@@ -117,3 +119,7 @@ def test_simple_string():
     assert markup.as_text() == text
     assert markup.as_html() == text
     assert markup.as_latex() == text
+    assert (
+        etree.tostring(markup.to_xml("span"), encoding="unicode")
+        == f"<span>{text}</span>"
+    )

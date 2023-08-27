@@ -140,17 +140,6 @@ class MarkupText:
         text = remove_extra_whitespace(text)
         return text
 
-    def as_xml(self) -> etree._Element:
-        """
-        Returns:
-            Text with markup represented according to the Anthology's XML schema.
-        """
-        if isinstance(self._content, str):
-            element = etree.Element("span")
-            element.text = self._content
-            return element
-        return self._content
-
     @classmethod
     def from_string(cls, text: str) -> MarkupText:
         """
@@ -175,3 +164,19 @@ class MarkupText:
             return cls(deepcopy(element))
         else:
             return cls(str(element.text))
+
+    def to_xml(self, tag: str = "span") -> etree._Element:
+        """
+        Arguments:
+            tag: Name of outer tag in which the text should be wrapped.
+
+        Returns:
+            A serialization of this MarkupText in Anthology XML format.
+        """
+        if isinstance(self._content, str):
+            element = etree.Element(tag)
+            element.text = self._content
+        else:
+            element = deepcopy(self._content)
+            element.tag = tag
+        return element
