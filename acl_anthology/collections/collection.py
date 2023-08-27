@@ -119,7 +119,11 @@ class Collection(SlottedDict[Volume]):
             self.path, tag=("meta", "frontmatter", "paper", "volume", "event")
         ):
             discard_element = True
-            if element.tag == "meta" and element.getparent().tag != "event":
+            if (
+                element.tag == "meta"
+                and (parent := element.getparent()) is not None
+                and parent.tag != "event"
+            ):
                 # Seeing a volume's <meta> block instantiates a new volume
                 current_volume = self._add_volume_from_xml(element)  # noqa: F841
             elif element.tag == "frontmatter":

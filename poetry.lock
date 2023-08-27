@@ -663,20 +663,6 @@ htmlsoup = ["BeautifulSoup4"]
 source = ["Cython (>=0.29.35)"]
 
 [[package]]
-name = "lxml-stubs"
-version = "0.4.0"
-description = "Type annotations for the lxml package"
-optional = false
-python-versions = "*"
-files = [
-    {file = "lxml-stubs-0.4.0.tar.gz", hash = "sha256:184877b42127256abc2b932ba8bd0ab5ea80bd0b0fee618d16daa40e0b71abee"},
-    {file = "lxml_stubs-0.4.0-py3-none-any.whl", hash = "sha256:3b381e9e82397c64ea3cc4d6f79d1255d015f7b114806d4826218805c10ec003"},
-]
-
-[package.extras]
-test = ["coverage[toml] (==5.2)", "pytest (>=6.0.0)", "pytest-mypy-plugins (==1.9.3)"]
-
-[[package]]
 name = "markdown"
 version = "3.4.4"
 description = "Python implementation of John Gruber's Markdown."
@@ -1632,6 +1618,48 @@ files = [
 ]
 
 [[package]]
+name = "types-beautifulsoup4"
+version = "4.12.0.6"
+description = "Typing stubs for beautifulsoup4"
+optional = false
+python-versions = "*"
+files = [
+    {file = "types-beautifulsoup4-4.12.0.6.tar.gz", hash = "sha256:045ab285d3e540186e16133612f43f67e31f910e6d7578906b43a0ad8f811347"},
+    {file = "types_beautifulsoup4-4.12.0.6-py3-none-any.whl", hash = "sha256:3da00d754e73afae0ec2793253af0cb9aa1ff2c730e34b31c60313da781b4f6f"},
+]
+
+[package.dependencies]
+types-html5lib = "*"
+
+[[package]]
+name = "types-html5lib"
+version = "1.1.11.15"
+description = "Typing stubs for html5lib"
+optional = false
+python-versions = "*"
+files = [
+    {file = "types-html5lib-1.1.11.15.tar.gz", hash = "sha256:80e1a2062d22a3affe5c28d97da30bffbf3a076d393c80fc6f1671216c1bd492"},
+    {file = "types_html5lib-1.1.11.15-py3-none-any.whl", hash = "sha256:16fe936d99b9f7fc210e2e21a2aed1b6bbbc554ad8242a6ef75f6f2bddb27e58"},
+]
+
+[[package]]
+name = "types-lxml"
+version = "2023.3.28"
+description = "Complete lxml external type annotation"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "types_lxml-2023.3.28-py3-none-any.whl", hash = "sha256:f1b5867e8ff5be5084916738dfc1cb9e003ae6350e97c74d00929f5910965558"},
+    {file = "types_lxml-2023.3.28.tar.gz", hash = "sha256:8b072a331520582f2d7c44110a53885605679ee79a09d39ef59b1abfc6109380"},
+]
+
+[package.dependencies]
+types-beautifulsoup4 = "*"
+
+[package.extras]
+dev = ["black", "isort", "lxml (>=4.9,<5.0)", "mypy (==1.1.*)", "pyright (>=1.1.288)", "pytest-mypy-plugins (>1.10.0,<2.0)"]
+
+[[package]]
 name = "types-python-slugify"
 version = "8.0.0.3"
 description = "Typing stubs for python-slugify"
@@ -1765,4 +1793,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10,!=3.11.0"
-content-hash = "87f206da663518d9f3318139f2f8a4a6e7e25c94c60a6a42cbaec2e404ebd496"
+content-hash = "9ece2e28e9be77b753f1d781292a3158449c3d7fca6ac1d161af830334cbcf72"
