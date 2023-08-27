@@ -39,6 +39,24 @@ test_cases_xml = (
     ),
 )
 
+test_cases_indent = (
+    (
+        "<paper><author><first>Peter</first><last>Parker</last></author></paper>",
+        """<paper>
+  <author><first>Peter</first><last>Parker</last></author>
+</paper>
+""",
+    ),
+    (
+        "<meta>    <foo>Foo</foo> <bar>Bar</bar></meta>",
+        """<meta>
+  <foo>Foo</foo>
+  <bar>Bar</bar>
+</meta>
+""",
+    ),
+)
+
 
 @pytest.mark.parametrize("inp, child, out", test_cases_xml)
 def test_stringify_children(inp, child, out):
@@ -46,3 +64,10 @@ def test_stringify_children(inp, child, out):
     if child is not None:
         element = element.find(child)
     assert xml.stringify_children(element) == out
+
+
+@pytest.mark.parametrize("inp, out", test_cases_indent)
+def test_indent(inp, out):
+    element = etree.fromstring(inp)
+    xml.indent(element)
+    assert etree.tostring(element, encoding="unicode") == out
