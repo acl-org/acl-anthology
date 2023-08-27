@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from attrs import define, field, Factory
 from lxml import etree
+from lxml.builder import E
 import re
 from slugify import slugify
 from typing import Optional, cast
@@ -110,14 +111,33 @@ class Name:
         """
         first: Optional[str] = None
         last: Optional[str] = None
+        script = variant.attrib["script"] if "script" in variant.attrib else None
 
         for element in variant:
             if element.tag == "first":
                 first = element.text
             elif element.tag == "last":
                 last = element.text
+        return cls(first, cast(str, last), script)
 
-        return cls(first, cast(str, last), str(variant.attrib["script"]))
+    def to_xml(self, tag: str = "variant") -> etree._Element:
+        """
+        Arguments:
+            tag: Name of outer tag in which the name should be wrapped.
+
+        Returns:
+            A serialization of this name in Anthology XML format.
+        """
+        elem = etree.Element(tag)
+        elem.extend(
+            (
+                E.first(self.first) if self.first is not None else E.first(),
+                E.last(self.last),
+            )
+        )
+        if self.script is not None:
+            elem.attrib["script"] = self.script
+        return elem
 
 
 @define
@@ -182,3 +202,26 @@ class NameSpecification:
             affiliation=affiliation,
             variants=variants,
         )
+
+    def to_xml(self, tag: str = "author") -> etree._Element:
+        """
+        Arguments:
+            tag: Name of outer tag in which the name should be wrapped.
+
+        Returns:
+            A serialization of this name in Anthology XML format.
+        """
+        elem = etree.Element(tag)
+        if self.id is not None:
+            elem.attrib["id"] = self.id
+        elem.extend(
+            (
+                E.first(self.first) if self.first is not None else E.first(),
+                E.last(self.last),
+            )
+        )
+        if self.affiliation is not None:
+            elem.append(E.affiliation(self.affiliation))
+        for variant in self.variants:
+            elem.append(variant.to_xml())
+        return elem

@@ -98,6 +98,18 @@ def test_name_spec_from_xml():
     assert ns.affiliation == "UOS"
 
 
+def test_name_spec_to_xml():
+    xml = '<author id="john-doe-42"><first>John</first><last>Doe</last><affiliation>UOS</affiliation></author>'
+    element = NameSpecification.from_xml(etree.fromstring(xml)).to_xml("author")
+    assert etree.tostring(element, encoding="unicode") == xml
+
+
+def test_name_spec_to_xml_onlylast():
+    xml = "<editor><first/><last>Mausam</last></editor>"
+    element = NameSpecification.from_xml(etree.fromstring(xml)).to_xml("editor")
+    assert etree.tostring(element, encoding="unicode") == xml
+
+
 def test_name_variant_from_xml():
     xml = """
         <variant script="hani">
@@ -109,6 +121,18 @@ def test_name_variant_from_xml():
     assert nv.first == "大文"
     assert nv.last == "陳"
     assert nv.script == "hani"
+
+
+def test_name_variant_to_xml():
+    xml = '<variant script="hani"><first>大文</first><last>陳</last></variant>'
+    element = Name.from_xml(etree.fromstring(xml)).to_xml()
+    assert etree.tostring(element, encoding="unicode") == xml
+
+
+def test_name_variant_to_xml_onlylast():
+    xml = "<variant><first/><last>陳</last></variant>"
+    element = Name.from_xml(etree.fromstring(xml)).to_xml()
+    assert etree.tostring(element, encoding="unicode") == xml
 
 
 def test_name_slugify():
