@@ -19,6 +19,7 @@ import datetime
 from attrs import define, field, Factory
 from enum import Enum
 from lxml import etree
+from lxml.builder import E
 from typing import Any, Optional, TYPE_CHECKING
 
 from ..files import (
@@ -260,6 +261,33 @@ class Paper:
             else:
                 raise ValueError(f"Unsupported element for Paper: <{element.tag}>")
         return cls(**kwargs)
+
+    def to_xml(self) -> etree._Element:
+        """
+        INCOMPLETE; DO NOT USE.
+
+        Returns:
+            A serialization of this paper as a `<paper>` block in the Anthology XML format.
+        """
+        paper = etree.Element("paper", attrib={"id": self.id})
+        if self.ingest_date is not None:
+            paper.attrib["ingest-date"] = self.ingest_date
+        paper.append(self.title.to_xml("title"))
+        for name_spec in self.authors:
+            paper.append(name_spec.to_xml("author"))
+        for name_spec in self.editors:
+            paper.append(name_spec.to_xml("editor"))
+        if self.pages is not None:
+            paper.append(E.pages(self.pages))
+        if self.abstract is not None:
+            paper.append(self.abstract.to_xml("abstract"))
+        if self.pdf is not None:
+            paper.append(E.url(self.pdf.name, hash=str(self.pdf.checksum)))
+        for tag in ("doi", "language", "note"):
+            if (value := getattr(self, tag)) is not None:
+                paper.append(getattr(E, tag)(value))
+        paper.append(E.bibkey(self.bibkey))
+        return paper
 
 
 class PaperDeletionType(Enum):

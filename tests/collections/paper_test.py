@@ -15,6 +15,8 @@
 import pytest
 from acl_anthology.collections import CollectionIndex, Paper
 from acl_anthology.text import MarkupText
+from acl_anthology.utils.xml import indent
+from lxml import etree
 
 
 @pytest.fixture
@@ -28,3 +30,23 @@ def test_paper_minimum_attribs():
     paper = Paper("42", parent, bibkey="nn-1900-minimal", title=paper_title)
     assert not paper.is_deleted
     assert paper.title == paper_title
+
+
+test_cases_xml = (
+    """<paper id="1">
+  <title>Strings from neurons to language</title>
+  <author><first>Tim</first><last>Fernando</last></author>
+  <pages>1–10</pages>
+  <url hash="61daae5b">2022.naloma-1.1</url>
+  <bibkey>fernando-2022-strings</bibkey>
+</paper>
+""",
+)
+
+
+@pytest.mark.parametrize("xml", test_cases_xml)
+def test_paper_from_to_xml(xml):
+    paper = Paper.from_xml(None, etree.fromstring(xml))
+    out = paper.to_xml()
+    indent(out)
+    assert etree.tostring(out, encoding="unicode") == xml
