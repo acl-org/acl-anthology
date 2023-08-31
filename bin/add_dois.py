@@ -115,7 +115,7 @@ def process_volume(anthology_volume):
 
         # Iterate through all papers
         papers = volume.findall("paper")
-        if frontmatter := volume.find("frontmatter"):
+        if (frontmatter := volume.find("frontmatter")) is not None:
             papers.insert(0, frontmatter)
         for paper in papers:
             added = add_doi(paper, collection_id, volume_id, force=args.force)
