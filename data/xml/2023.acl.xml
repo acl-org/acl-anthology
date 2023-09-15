@@ -610,9 +610,12 @@
       <author><first>Zhi</first><last>Jin</last><affiliation>Peking University</affiliation></author>
       <pages>769-787</pages>
       <abstract>Large language models (LLMs) have demonstrated an impressive ability to generate codes on competitive programming tasks. However, with limited sample numbers, LLMs still suffer from poor accuracy. Inspired by the process of human programming, we propose a generate-and-edit approach named Self-Edit that utilizes execution results of the generated code from LLMs to improve the code quality on the competitive programming task. We execute the generated code on the example test case provided in the question and wrap execution results into a supplementary comment. Utilizing this comment as guidance, our fault-aware code editor is employed to correct errors in the generated code.We perform extensive evaluations across two competitive programming datasets with nine different LLMs. Compared to directly generating from LLMs, our approach can improve the average of pass@1 by 89% on APPS-dev, 31% on APPS-test, and 48% on HumanEval over nine popular code generation LLMs with parameter sizes ranging from 110M to 175B. Compared to other post-processing methods, our method demonstrates superior accuracy and efficiency.</abstract>
-      <url hash="7b818522">2023.acl-long.45</url>
+      <url hash="9bf829bb">2023.acl-long.45</url>
       <bibkey>zhang-etal-2023-self</bibkey>
       <doi>10.18653/v1/2023.acl-long.45</doi>
+      <revision id="1" href="2023.acl-long.45v1" hash="7b818522"/>
+      <revision id="2" href="2023.acl-long.45v2" hash="bb18fef2" date="2023-09-04">Author name correction.</revision>
+      <revision id="3" href="2023.acl-long.45v3" hash="9bf829bb" date="2023-09-09">Author name correction.</revision>
     </paper>
     <paper id="46">
       <title><fixed-case>C</fixed-case>ol<fixed-case>D</fixed-case> Fusion: Collaborative Descent for Distributed Multitask Finetuning</title>
@@ -4004,8 +4007,10 @@
       <author><first>Xiang</first><last>Ren</last><affiliation>University of Southern California</affiliation></author>
       <pages>5546-5558</pages>
       <abstract>Large language models (LMs) beyond a certain scale, demonstrate the emergent capability of generating free-text rationales for their predictions via chain-of-thought (CoT) prompting.While CoT can yield dramatically improved performance, such gains are only observed for sufficiently large LMs. Even more concerning, there is little guarantee that the generated rationales are consistent with LM’s predictions or faithfully justify the decisions. In this work, we propose SCOTT, a faithful knowledge distillation method to learn a small, self-consistent CoT model from a teacher model that is orders of magnitude larger. To form better supervision, we elicit rationales supporting the gold answers from a large LM (teacher) by contrastive decoding, which encourages the teacher to generate tokens that become more plausible only when the answer is considered. To ensure faithful distillation, we use the teacher-generated rationales to learn a student LM with a counterfactual reasoning objective, which prevents the student from ignoring the rationales to make inconsistent predictions. Experiments show that while yielding comparable performance, our method leads to a more faithful model than baselines. Further analysis shows that such a model respects the rationales more when making decisions; thus, we can improve its performance more by refining its rationales.</abstract>
-      <url hash="3cf9dfc3">2023.acl-long.304</url>
+      <url hash="a27dc346">2023.acl-long.304</url>
       <bibkey>wang-etal-2023-scott</bibkey>
+      <revision id="1" href="2023.acl-long.304v1" hash="3cf9dfc3"/>
+      <revision id="2" href="2023.acl-long.304v2" hash="a27dc346" date="2023-08-02">Update the footnote on the first page to indicate the corresponding authors.</revision>
       <doi>10.18653/v1/2023.acl-long.304</doi>
     </paper>
     <paper id="305">
@@ -4488,8 +4493,10 @@
       <author><first>Saif</first><last>Mohammad</last><affiliation>National Research Council Canada</affiliation></author>
       <pages>6192-6208</pages>
       <abstract>Citing papers is the primary method through which modern scientific writing discusses and builds on past work. Collectively, citing a diverse set of papers (in time and area of study) is an indicator of how widely the community is reading. Yet, there is little work looking at broad temporal patterns of citation. This work systematically and empirically examines: How far back in time do we tend to go to cite papers? How has that changed over time, and what factors correlate with this citational attention/amnesia? We chose NLP as our domain of interest and analyzed approximately 71.5K papers to show and quantify several key trends in citation. Notably, around 62% of cited papers are from the immediate five years prior to publication, whereas only about 17% are more than ten years old. Furthermore, we show that the median age and age diversity of cited papers were steadily increasing from 1990 to 2014, but since then, the trend has reversed, and current NLP papers have an all-time low temporal citation diversity. Finally, we show that unlike the 1990s, the highly cited papers in the last decade were also papers with the least citation diversity, likely contributing to the intense (and arguably harmful) recency focus. Code, data, and a demo are available on the project homepage.</abstract>
-      <url hash="8cf37f72">2023.acl-long.341</url>
+      <url hash="342d65cb">2023.acl-long.341</url>
       <bibkey>singh-etal-2023-forgotten</bibkey>
+      <revision id="1" href="2023.acl-long.341v1" hash="8cf37f72"/>
+      <revision id="2" href="2023.acl-long.341v2" hash="342d65cb" date="2023-08-02">Updated the related work; Fixed typo in Table 2.</revision>
       <doi>10.18653/v1/2023.acl-long.341</doi>
     </paper>
     <paper id="342">
@@ -4830,9 +4837,11 @@
       <author><first>Ruifeng</first><last>Xu</last><affiliation>Harbin Institute of Technology, Shenzhen</affiliation></author>
       <pages>6608-6619</pages>
       <abstract>Dialogue models are often enriched with extensive external knowledge to provide informative responses through a retrieval-augmented pipeline.Nevertheless, retrieval-augmented approaches rely on finely annotated retrieval training data and knowledge-grounded response generation data, making it costly to transfer. To tackle this challenge, this paper proposed a retrieval-free approach, KiDG, by automatically turning knowledge documents into simulated multi-turn dialogues through a Multi-Document Traversal algorithm. The simulated knowledge-intensive dialogues constructed by KiDG in one domain can be easily used to train and enhance pre-trained dialogue models’ knowledge w.r.t. this domain without costly annotation.We conduct extensive experiments comparing retrieval-augmented models and a variety of retrieval-free models. We found that dialogue models enhanced with data simulated with KiDG largely outperform state-of-the-art retrieval-free methods, and it achieves comparable performance compared to retrieval-augmented methods while being better, and cheaper at domain transfer.</abstract>
-      <url hash="568d0172">2023.acl-long.364</url>
+      <url hash="f4c93fd5">2023.acl-long.364</url>
       <bibkey>wang-etal-2023-retrieval</bibkey>
       <doi>10.18653/v1/2023.acl-long.364</doi>
+      <revision id="1" href="2023.acl-long.364v1" hash="568d0172"/>
+      <revision id="2" href="2023.acl-long.364v2" hash="f4c93fd5" date="2023-08-07">Typo correction.</revision>
     </paper>
     <paper id="365">
       <title><fixed-case>BERM</fixed-case>: Training the Balanced and Extractable Representation for Matching to Improve Generalization Ability of Dense Retrieval</title>
@@ -14497,7 +14506,7 @@
     </paper>
     <paper id="18">
       <title><fixed-case>PEEP</fixed-case>-Talk: A Situational Dialogue-based Chatbot for <fixed-case>E</fixed-case>nglish Education</title>
-      <author><first>Seugnjun</first><last>Lee</last><affiliation>Korea University</affiliation></author>
+      <author><first>Seungjun</first><last>Lee</last><affiliation>Korea University</affiliation></author>
       <author><first>Yoonna</first><last>Jang</last><affiliation>Department of Computer Science and Engineering, Korea University</affiliation></author>
       <author><first>Chanjun</first><last>Park</last><affiliation>Upstage</affiliation></author>
       <author><first>Jungseob</first><last>Lee</last><affiliation>Korea University</affiliation></author>
@@ -14790,7 +14799,7 @@
       <author><first>Hirofumi</first><last>Inaguma</last><affiliation>Meta AI</affiliation></author>
       <author><first>Yifan</first><last>Peng</last><affiliation>Carnegie Mellon University</affiliation></author>
       <author><first>Siddharth</first><last>Dalmia</last><affiliation>Google</affiliation></author>
-      <author><first>Peter</first><last>Polak</last><affiliation>Charles University, MFF UFAL</affiliation></author>
+      <author><first>Peter</first><last>Polák</last><affiliation>Charles University, MFF UFAL</affiliation></author>
       <author><first>Patrick</first><last>Fernandes</last><affiliation>Carnegie Mellon University, Instituto de Telecomunicações</affiliation></author>
       <author><first>Dan</first><last>Berrebbi</last><affiliation>Carnegie Mellon University</affiliation></author>
       <author><first>Tomoki</first><last>Hayashi</last><affiliation>Nagoya University</affiliation></author>
@@ -16611,6 +16620,7 @@
       <author><first>Afra</first><last>Amini</last></author>
       <author><first>Ryan</first><last>Cotterell</last></author>
       <author><first>John</first><last>Hewitt</last></author>
+      <author><first>Luca</first><last>Malagutti</last></author>
       <author><first>Clara</first><last>Meister</last></author>
       <author><first>Tiago</first><last>Pimentel</last></author>
       <pages>27-31</pages>
