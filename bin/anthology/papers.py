@@ -442,17 +442,17 @@ class Paper:
         """Return a Markdown-formatted entry."""
         title = self.get_title(form="text")
 
-        authors = ""
-        for field in ("author", "editor"):
-            if field in self.attrib:
-                people = [person[0] for person in self.get(field)]
-                num_people = len(people)
-                if num_people == 1:
-                    authors = people[0].last
-                elif num_people == 2:
-                    authors = f"{people[0].last} & {people[1].last}"
-                elif num_people >= 3:
-                    authors = f"{people[0].last} et al."
+        authors = "N.N."
+        field = "author" if "author" in self.attrib else "editor"
+        if field in self.attrib:
+            people = [person[0] for person in self.get(field)]
+            num_people = len(people)
+            if num_people == 1:
+                authors = people[0].last
+            elif num_people == 2:
+                authors = f"{people[0].last} & {people[1].last}"
+            elif num_people >= 3:
+                authors = f"{people[0].last} et al."
 
         year = self.get("year")
         venue = self.get_venue_acronym()
