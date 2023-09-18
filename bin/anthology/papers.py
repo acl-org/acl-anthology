@@ -50,8 +50,7 @@ class Paper:
         # initialize metadata with keys inherited from volume
         self.attrib = {}
         for key, value in volume.attrib.items():
-            # Only inherit 'editor' for frontmatter
-            if (key == "editor" and not self.is_volume) or key in (
+            if key in (
                 "collection_id",
                 "booktitle",
                 "id",
@@ -140,8 +139,6 @@ class Paper:
         # Set values from parsing the XML element (overwriting
         # and changing some initialized from the volume metadata)
         for key, value in parse_element(xml_element).items():
-            if key == "author" and "editor" in paper.attrib:
-                del paper.attrib["editor"]
             if key == "bibkey":
                 paper.bibkey = value
             else:
@@ -157,18 +154,11 @@ class Paper:
             del paper.attrib["xml_booktitle"]
 
         if "editor" in paper.attrib:
-            if paper.is_volume:
-                if "author" in paper.attrib:
-                    log.warn(
-                        f"Paper {paper.full_id} has both <editor> and <author>; ignoring <author>"
-                    )
+            if paper.is_volume and "author" not in paper.attrib:
                 # Proceedings editors are considered authors for their front matter
                 paper.attrib["author"] = paper.attrib["editor"]
                 del paper.attrib["editor"]
-            else:
-                log.warn(
-                    f"Paper {paper.full_id} has <editor> but is not a proceedings volume; ignoring <editor>"
-                )
+
         if "pages" in paper.attrib:
             if paper.attrib["pages"] is not None:
                 paper._interpret_pages()
