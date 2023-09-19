@@ -242,7 +242,8 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         -d website/$(ANTHOLOGYDIR) \
 		 -e $(HUGO_ENV) \
 	         --cleanDestinationDir \
-	         --minify
+	         --minify \
+		 --logLevel=info
 	@cd build/website/$(ANTHOLOGYDIR) \
 	    && ln -s $(ANTHOLOGYFILES) anthology-files \
 	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
