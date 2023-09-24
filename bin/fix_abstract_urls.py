@@ -157,13 +157,13 @@ acceptable_tlds = ['aaa', 'aarp', 'abarth', 'abb', 'abbott', 'abbvie', 'abc', 'a
                    'youtube', 'yt', 'yun', 'za', 'zappos', 'zara', 'zero', 'zip', 'zm', 'zone', 'zuerich', 'zw']
 acceptable_tlds_regex = '|'.join(acceptable_tlds)
 
-# regex to capture valid urls
-url_regex_str = rf'(?:https?|ftp)://[-a-zA-Z0-9@:%._+~#=]+\.(?:{acceptable_tlds_regex})\b(?:[-a-zA-Z0-9@:%_+.~#?&/=]*)'
+# regex to capture valid urls (ensure it starts with a bracket or a space to avoid joined-together URLS)
+# e.g. http://web.archive.org/web/20230924000431/http://www.google.com
+url_regex_str = rf'(?<=[ ([:“,])(?:https?|ftp)://[-a-zA-Z0-9@:%._+~#=]+\.(?:{acceptable_tlds_regex})\b(?:[-a-zA-Z0-9@:%_+.~#?&/=]*[-a-zA-Z0-9@:%_+~#?&/=])?'
 # regex for URL that is not between <url> tags
-no_tags_url_regex = re.compile(rf'(?<!<url>)({url_regex_str})(?!</url>)')
+url_regex = re.compile(url_regex_str)
 
 # regex to capture valid urls that are split up by spaces, being careful not to pick up any words after the URL
-
 url_spaces_domain = rf'(?:https?|ftp)://(?: ?[-a-zA-Z0-9@:%_+~#=]+\.)+ ?(?:{acceptable_tlds_regex})'
 url_spaces_path = r'\b(?: [-a-zA-Z0-9@:%._+~#=&?]*/|[-a-zA-Z0-9@:%._+~#=&?/]*)*[-a-zA-Z0-9@:%_+~#=&?/]'
 
@@ -172,14 +172,30 @@ url_spaces_regex = re.compile(url_spaces_regex_str)
 
 
 def fix_abstract_url_tags(text):
-    matches = no_tags_url_regex.findall(text)
-    if not len(matches):
-        return False
+    url_begin_tag = '<url>'
+    url_end_tag = '</url>'
 
-    for m in matches:
-        if m.endswith('.'):
-            m = m[:-1]
-        text = text.replace(m, f'<url>{m}</url>')
+    addtl_chars = 0
+
+    for match in url_regex.finditer(text):
+        match_start, match_end = match.span()
+        match_start += addtl_chars
+        match_end += addtl_chars
+
+        potential_opening_tag = text[match_start - len(url_begin_tag):match_start]
+        potential_closing_tag = text[match_end:match_end + len(url_end_tag)]
+
+        opening_tag_is_url = potential_opening_tag == url_begin_tag
+        closing_tag_is_url = potential_closing_tag == url_end_tag
+
+        if opening_tag_is_url and closing_tag_is_url:
+            # already has tags
+            continue
+        else:
+            assert not opening_tag_is_url and not closing_tag_is_url, (match.group(), opening_tag_is_url,
+                                                                       closing_tag_is_url, text)
+            text = text[:match_start] + url_begin_tag + match.group() + url_end_tag + text[match_end:]
+            addtl_chars += len(url_begin_tag) + len(url_end_tag)
 
     return text
 
@@ -188,9 +204,6 @@ def fix_abstract_url_space(text):
     # fix abstracts that have spaces in the URL
     matches = url_spaces_regex.findall(text)
     matches = [m for m in matches if ' ' in m]
-
-    if not len(matches):
-        return False
 
     for m in matches:
         text = text.replace(m, m.replace(' ', ''))
@@ -203,18 +216,11 @@ def handle_file(filename, method_fn):
         lines = f.read()
     abstracts = re.findall(r'<abstract>.*?</abstract>', lines, re.DOTALL)
 
-    n_changes = 0
-
     for abstract in abstracts:
-        potentially_fixed_abstract = method_fn(abstract)
-        if potentially_fixed_abstract:
-            lines = lines.replace(abstract, potentially_fixed_abstract)
-            n_changes += 1
+        lines = lines.replace(abstract, method_fn(abstract))
 
     with open(filename, 'w') as f:
         f.write(lines)
-
-    return n_changes
 
 
 def main():
@@ -230,11 +236,8 @@ def main():
     else:
         method_fn = fix_abstract_url_tags
 
-    n_changes = 0
     for filename in tqdm(xml_data_files):
-        n_changes += handle_file(filename, method_fn)
-
-    print(f'Fixed {n_changes} abstracts')
+        handle_file(filename, method_fn)
 
 
 if __name__ == '__main__':
