@@ -17,7 +17,8 @@ concurrency:
 jobs:
   preview:
     if: github.repository == 'acl-org/acl-anthology'
-    runs-on: ubuntu-22.04
+    runs-on:
+      labels: ubuntu-latest-m
     steps:
     - name: install hugo
       run: wget https://github.com/gohugoio/hugo/releases/download/v0.118.2/hugo_extended_0.118.2_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
