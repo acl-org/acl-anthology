@@ -90,7 +90,7 @@ endif
 #######################################################
 
 # hugo version check
-HUGO_VERSION_MIN=58
+HUGO_VERSION_MIN=114
 HUGO_VERSION=$(shell hugo version | sed 's/^.* v0\.\(.*\)\..*/\1/')
 HUGO_VERSION_TOO_LOW:=$(shell [[ $(HUGO_VERSION_MIN) -gt $(HUGO_VERSION) ]] && echo true)
 ifeq ($(HUGO_VERSION_TOO_LOW),true)
@@ -242,7 +242,8 @@ build/.hugo: build/.static build/.pages build/.bibtex build/.mods build/.endnote
 	         -d website/$(ANTHOLOGYDIR) \
 		 -e $(HUGO_ENV) \
 	         --cleanDestinationDir \
-	         --minify
+	         --minify \
+		 --logLevel=info
 	@cd build/website/$(ANTHOLOGYDIR) \
 	    && ln -s $(ANTHOLOGYFILES) anthology-files \
 	    && perl -i -pe 's|ANTHOLOGYDIR|$(ANTHOLOGYDIR)|g' .htaccess
