@@ -21,7 +21,6 @@ table = [
     Entry(r"\sl", None, "i", "setter", False),
     Entry(r"\textbf", None, "b", "unary", False),
     Entry(r"\bf", None, "b", "setter", False),
-    Entry(r"\textsuperscript", None, "sup", "unary", False),
     # Entry(r'\textsc', None, 'sc', 'unary', False),
     # Entry(r'\sc', None, 'sc', 'setter', False),
     Entry(r"\url", None, "url", "unary", True),

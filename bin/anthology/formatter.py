@@ -218,8 +218,6 @@ class MarkupFormatter:
             text = f"${text}$"
         elif element.tag == "url":
             text = f"\\url{{{text}}}"
-        elif element.tag == "sup":
-            text = f"\\textsuperscript{{{text}}}"
         text = bibtex_convert_quotes(text)
         return remove_extra_whitespace(text)
 
