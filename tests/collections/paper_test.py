@@ -28,6 +28,11 @@ from acl_anthology.collections.paper import (
 )
 
 
+class VolumeStub:
+    title = "Generic volume"
+    editors = []
+
+
 @pytest.fixture
 def index(anthology_stub):
     return CollectionIndex(anthology_stub)
@@ -42,6 +47,11 @@ def test_paper_minimum_attribs():
 
 
 test_cases_xml = (
+    """<frontmatter>
+  <url hash="56ea4e43">2022.acl-long.0</url>
+  <bibkey>acl-2022-association-linguistics-1</bibkey>
+</frontmatter>
+""",
     """<paper id="1">
   <title>Strings from neurons to language</title>
   <author><first>Tim</first><last>Fernando</last></author>
@@ -100,7 +110,7 @@ test_cases_xml = (
 
 @pytest.mark.parametrize("xml", test_cases_xml)
 def test_paper_roundtrip_xml(xml):
-    paper = Paper.from_xml(None, etree.fromstring(xml))
+    paper = Paper.from_xml(VolumeStub(), etree.fromstring(xml))
     out = paper.to_xml()
     indent(out)
     assert etree.tostring(out, encoding="unicode") == xml

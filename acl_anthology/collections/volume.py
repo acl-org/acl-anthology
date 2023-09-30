@@ -160,15 +160,6 @@ class Volume(SlottedDict[Paper]):
                 )
             raise exc
 
-    def _add_frontmatter_from_xml(self, element: etree._Element) -> None:
-        """Sets this volume's frontmatter.
-
-        Parameters:
-            element: The `<frontmatter>` element.
-        """
-        paper = Paper.from_frontmatter_xml(self, element)
-        self.data[paper.id] = paper
-
     def _add_paper_from_xml(self, element: etree._Element) -> None:
         """Creates a new paper belonging to this volume.
 

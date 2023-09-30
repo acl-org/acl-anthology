@@ -126,9 +126,7 @@ class Collection(SlottedDict[Volume]):
             ):
                 # Seeing a volume's <meta> block instantiates a new volume
                 current_volume = self._add_volume_from_xml(element)  # noqa: F841
-            elif element.tag == "frontmatter":
-                current_volume._add_frontmatter_from_xml(element)
-            elif element.tag == "paper":
+            elif element.tag in ("paper", "frontmatter"):
                 current_volume._add_paper_from_xml(element)
             elif element.tag == "volume":
                 current_volume = cast(Volume, None)  # noqa: F481

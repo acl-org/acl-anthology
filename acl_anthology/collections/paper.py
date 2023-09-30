@@ -161,27 +161,27 @@ class Paper:
             if element.tag in ("bibkey", "doi", "pages"):
                 kwargs[element.tag] = element.text
             elif element.tag == "attachment":
-                checksum = element.attrib.get("hash")
                 type_ = str(element.attrib.get("type", "attachment"))
-                kwargs["attachments"][type_] = AttachmentReference(
-                    str(element.text), str(checksum)
-                )
+                kwargs["attachments"][type_] = AttachmentReference.from_xml(element)
             elif element.tag == "revision":
                 if "revisions" not in kwargs:
                     kwargs["revisions"] = []
                 kwargs["revisions"].append(PaperRevision.from_xml(element))
             elif element.tag == "url":
-                checksum = element.attrib.get("hash")
-                kwargs["pdf"] = PDFReference(
-                    str(element.text), str(checksum) if checksum else None
-                )
+                kwargs["pdf"] = PDFReference.from_xml(element)
             else:
                 raise ValueError(f"Unsupported element for Frontmatter: <{element.tag}>")
         return cls(**kwargs)
 
     @classmethod
     def from_xml(cls, parent: Volume, paper: etree._Element) -> Paper:
-        """Instantiates a new paper from its `<paper>` block in the XML."""
+        """Instantiates a new paper from its `<paper>` block in the XML.
+
+        This function can also be called with a `<frontmatter>` block, in which case it will just defer to [self.from_frontmatter_xml][acl_anthology.collections.paper.Paper.from_frontmatter_xml].
+        """
+        if paper.tag == "frontmatter":
+            return Paper.from_frontmatter_xml(parent, paper)
+        # Remainder of this function assumes paper.tag == "paper"
         kwargs: dict[str, Any] = {
             "id": str(paper.attrib["id"]),
             "parent": parent,
@@ -243,16 +243,20 @@ class Paper:
     def to_xml(self) -> etree._Element:
         """
         Returns:
-            A serialization of this paper as a `<paper>` block in the Anthology XML format.
+            A serialization of this paper as a `<paper>` or `<frontmatter>` block in the Anthology XML format.
         """
-        paper = etree.Element("paper", attrib={"id": self.id})
+        if self.is_frontmatter:
+            paper = etree.Element("frontmatter")
+        else:
+            paper = etree.Element("paper", attrib={"id": self.id})
         if self.ingest_date is not None:
             paper.attrib["ingest-date"] = self.ingest_date
-        paper.append(self.title.to_xml("title"))
-        for name_spec in self.authors:
-            paper.append(name_spec.to_xml("author"))
-        for name_spec in self.editors:
-            paper.append(name_spec.to_xml("editor"))
+        if not self.is_frontmatter:
+            paper.append(self.title.to_xml("title"))
+            for name_spec in self.authors:
+                paper.append(name_spec.to_xml("author"))
+            for name_spec in self.editors:
+                paper.append(name_spec.to_xml("editor"))
         if self.pages is not None:
             paper.append(E.pages(self.pages))
         if self.abstract is not None:
