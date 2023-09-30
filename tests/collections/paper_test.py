@@ -89,7 +89,7 @@ def test_paperdeletionnotice_from_xml(xml, type_, note, date):
 @pytest.mark.parametrize("xml, type_, note, date", test_cases_paperdeletionnotice)
 def test_paperdeletionnotice_to_xml(xml, type_, note, date):
     notice = PaperDeletionNotice(type=type_, note=note, date=date)
-    assert etree.tostring(notice.to_xml(), encoding="utf-8").decode() == xml
+    assert etree.tostring(notice.to_xml(), encoding="unicode") == xml
 
 
 test_cases_papererratum = (
@@ -129,7 +129,7 @@ def test_papererratum_to_xml(xml, id_, pdf_name, pdf_checksum, date):
     erratum = PaperErratum(
         id_, PDFReference(name=pdf_name, checksum=pdf_checksum), date=date
     )
-    assert etree.tostring(erratum.to_xml(), encoding="utf-8").decode() == xml
+    assert etree.tostring(erratum.to_xml(), encoding="unicode") == xml
 
 
 test_cases_paperrevision = (
@@ -180,4 +180,4 @@ def test_paperrevision_to_xml(xml, id_, pdf_name, pdf_checksum, date, note):
     revision = PaperRevision(
         id_, note=note, pdf=PDFReference(name=pdf_name, checksum=pdf_checksum), date=date
     )
-    assert etree.tostring(revision.to_xml(), encoding="utf-8").decode() == xml
+    assert etree.tostring(revision.to_xml(), encoding="unicode") == xml

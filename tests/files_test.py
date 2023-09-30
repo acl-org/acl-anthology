@@ -142,7 +142,7 @@ def test_pdf_reference_init(xml, name, url, checksum, is_local):
 @pytest.mark.parametrize("xml, name, url, checksum, is_local", test_cases_pdf)
 def test_pdf_reference_to_xml(xml, name, url, checksum, is_local):
     ref = PDFReference(name=name, checksum=checksum)
-    assert etree.tostring(ref.to_xml("url"), encoding="utf-8").decode() == xml
+    assert etree.tostring(ref.to_xml("url"), encoding="unicode") == xml
 
 
 @pytest.mark.parametrize("xml, name, url, permission", test_cases_video)
@@ -158,7 +158,7 @@ def test_video_reference_from_xml(xml, name, url, permission):
 def test_video_reference_to_xml(xml, name, url, permission):
     ref = VideoReference(name=name, permission=permission)
     assert ref.url == url
-    assert etree.tostring(ref.to_xml("video"), encoding="utf-8").decode() == xml
+    assert etree.tostring(ref.to_xml("video"), encoding="unicode") == xml
 
 
 @pytest.mark.parametrize("xml_list, code, community_code, datasets", test_cases_pwc)
@@ -182,4 +182,4 @@ def test_pwc_reference_to_xml(xml_list, code, community_code, datasets):
     actual_xml_list = ref.to_xml_list()
     assert len(xml_list) == len(actual_xml_list)
     for expected_xml, actual_xml in zip(xml_list, actual_xml_list):
-        assert etree.tostring(actual_xml, encoding="utf-8").decode() == expected_xml
+        assert etree.tostring(actual_xml, encoding="unicode") == expected_xml
