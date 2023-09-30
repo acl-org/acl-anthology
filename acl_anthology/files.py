@@ -15,9 +15,12 @@
 """Classes for representing and resolving file references."""
 
 from attrs import define, field, Factory
-from typing import cast, Optional
+from lxml import etree
+from lxml.builder import E
+from typing import cast, Optional, Self
 
 from .config import config
+from .utils.xml import xsd_boolean
 
 
 @define
@@ -32,9 +35,9 @@ class FileReference:
         checksum (Optional[str]): The CRC32 checksum for the file.  Only specified for internal filenames.
     """
 
-    template_field: str = field()
     name: str = field()
     checksum: Optional[str] = field(default=None)
+    template_field: str = ""
 
     @property
     def is_local(self) -> bool:
@@ -47,6 +50,26 @@ class FileReference:
         if "://" in self.name:
             return self.name
         return cast(str, config[self.template_field]).format(self.name)
+
+    @classmethod
+    def from_xml(cls, elem: etree._Element) -> Self:
+        """Instantiates a new file reference from a corresponding XML element."""
+        checksum = elem.attrib.get("hash")
+        return cls(name=str(elem.text), checksum=str(checksum) if checksum else None)
+
+    def to_xml(self, tag: str = "url") -> etree._Element:
+        """
+        Arguments:
+            tag: Name of outer tag in which this file reference should be wrapped.  Defaults to "url".
+
+        Returns:
+            A serialization of this file reference in Anthology XML format.
+        """
+        elem = etree.Element(tag)
+        elem.text = self.name
+        if self.is_local and self.checksum is not None:
+            elem.attrib["hash"] = str(self.checksum)
+        return elem
 
 
 @define
@@ -88,6 +111,20 @@ class VideoReference(FileReference):
     template_field: str = "attachment_location_template"
     permission: bool = field(default=True)
 
+    @classmethod
+    def from_xml(cls, elem: etree._Element) -> Self:
+        name = str(elem.attrib.get("href"))
+        if (value := elem.attrib.get("permission")) is not None:
+            return cls(name=name, permission=xsd_boolean(str(value)))
+        else:
+            return cls(name=name)
+
+    def to_xml(self, tag: str = "video") -> etree._Element:
+        elem = E.video(href=self.name)
+        if not self.permission:
+            elem.attrib["permission"] = "false"
+        return elem
+
 
 @define
 class PapersWithCodeReference:
@@ -102,3 +139,35 @@ class PapersWithCodeReference:
     code: Optional[tuple[str, str]] = field(default=None)
     community_code: bool = field(default=False)
     datasets: list[tuple[str, str]] = Factory(list)
+
+    def append_from_xml(self, elem: etree._Element) -> None:
+        """Appends information from a `<pwccode>` or `<pwcdataset>` block to this reference."""
+        pwc_tuple = (str(elem.text), str(elem.attrib["url"]))
+        if elem.tag == "pwccode":
+            self.community_code = xsd_boolean(str(elem.attrib["additional"]))
+            if pwc_tuple[1]:
+                self.code = pwc_tuple
+        elif elem.tag == "pwcdataset":
+            self.datasets.append(pwc_tuple)
+        else:
+            raise ValueError(
+                f"Unsupported element for PapersWithCodeReference: <{elem.tag}>"
+            )
+
+    def to_xml_list(self) -> list[etree._Element]:
+        """
+        Returns:
+            A serialization of all PapersWithCode information as a list of corresponding XML tags in the Anthology XML format.
+        """
+        elements = []
+        if self.code is not None:
+            elements.append(
+                E.pwccode(
+                    self.code[0],
+                    url=self.code[1],
+                    additional=str(self.community_code).lower(),
+                )
+            )
+        for dataset in self.datasets:
+            elements.append(E.pwcdataset(dataset[0], url=dataset[1]))
+        return elements
