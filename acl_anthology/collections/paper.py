@@ -20,7 +20,7 @@ from attrs import define, field, Factory
 from enum import Enum
 from lxml import etree
 from lxml.builder import E
-from typing import Any, Optional, TYPE_CHECKING
+from typing import cast, Any, Optional, TYPE_CHECKING
 
 from ..files import (
     AttachmentReference,
@@ -300,6 +300,15 @@ class PaperDeletionNotice:
             date=str(element.attrib["date"]),
         )
 
+    def to_xml(self) -> etree._Element:
+        """
+        Returns:
+            A serialization of this deletion notice in Anthology XML format.
+        """
+        return cast(
+            etree._Element, getattr(E, self.type.value)(self.note, date=self.date)
+        )
+
 
 @define
 class PaperErratum:
@@ -320,9 +329,19 @@ class PaperErratum:
         """Instantiates an erratum from its `<erratum>` block in the XML."""
         return cls(
             id=str(element.attrib["id"]),
-            pdf=PDFReference(str(element.text), str(element.attrib["hash"])),
+            pdf=PDFReference.from_xml(element),
             date=(str(element.attrib["date"]) if "date" in element.attrib else None),
         )
+
+    def to_xml(self) -> etree._Element:
+        """
+        Returns:
+            A serialization of this erratum in Anthology XML format.
+        """
+        elem = E.erratum(self.pdf.name, id=self.id, hash=str(self.pdf.checksum))
+        if self.date is not None:
+            elem.attrib["date"] = self.date
+        return elem
 
 
 @define
@@ -332,7 +351,7 @@ class PaperRevision:
     id: str
     """An ID for this revision."""
 
-    note: str
+    note: Optional[str]
     """A note explaining the reason for the revision."""
 
     pdf: PDFReference
@@ -347,7 +366,23 @@ class PaperRevision:
         """Instantiates a revision from its `<revision>` block in the XML."""
         return cls(
             id=str(element.attrib["id"]),
-            note=str(element.text),
+            note=str(element.text) if element.text else None,
             pdf=PDFReference(str(element.attrib["href"]), str(element.attrib["hash"])),
             date=(str(element.attrib["date"]) if "date" in element.attrib else None),
         )
+
+    def to_xml(self) -> etree._Element:
+        """
+        Returns:
+            A serialization of this revision in Anthology XML format.
+        """
+        elem = E.revision(
+            id=self.id,
+            href=self.pdf.name,
+            hash=str(self.pdf.checksum),
+        )
+        if self.note:
+            elem.text = str(self.note)
+        if self.date is not None:
+            elem.attrib["date"] = self.date
+        return elem
