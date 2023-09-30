@@ -18,9 +18,7 @@ from attrs import define, field
 from lxml import etree
 from typing import Any, Optional, TYPE_CHECKING
 
-from ..files import (
-    AttachmentReference,
-)
+from ..files import AttachmentReference
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.ids import AnthologyIDTuple, parse_id
@@ -91,11 +89,8 @@ class Event:
             elif element.tag == "links":
                 kwargs["links"] = {}
                 for url in element:
-                    checksum = url.attrib.get("hash")
                     type_ = str(url.attrib.get("type", "attachment"))
-                    kwargs["links"][type_] = AttachmentReference(
-                        str(url.text), str(checksum)
-                    )
+                    kwargs["links"][type_] = AttachmentReference.from_xml(url)
             elif element.tag == "talk":
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":

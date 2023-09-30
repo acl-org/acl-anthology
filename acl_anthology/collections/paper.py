@@ -32,7 +32,6 @@ from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.ids import build_id, AnthologyIDTuple
 from ..utils.logging import get_logger
-from ..utils.xml import xsd_boolean
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -206,11 +205,8 @@ class Paper:
             elif element.tag in ("abstract", "title"):
                 kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "attachment":
-                checksum = element.attrib.get("hash")
                 type_ = str(element.attrib.get("type", "attachment"))
-                kwargs["attachments"][type_] = AttachmentReference(
-                    str(element.text), str(checksum)
-                )
+                kwargs["attachments"][type_] = AttachmentReference.from_xml(element)
             elif element.tag == "award":
                 if "awards" not in kwargs:
                     kwargs["awards"] = []
@@ -222,15 +218,7 @@ class Paper:
             elif element.tag in ("pwccode", "pwcdataset"):
                 if "paperswithcode" not in kwargs:
                     kwargs["paperswithcode"] = PapersWithCodeReference()
-                pwc_tuple = (str(element.text), str(element.attrib["url"]))
-                if element.tag == "pwccode":
-                    kwargs["paperswithcode"].community_code = xsd_boolean(
-                        str(element.attrib["additional"])
-                    )
-                    if pwc_tuple[1]:
-                        kwargs["paperswithcode"].code = pwc_tuple
-                else:  # element.tag == "pwcdataset"
-                    kwargs["paperswithcode"].datasets.append(pwc_tuple)
+                kwargs["paperswithcode"].append_from_xml(element)
             elif element.tag in ("removed", "retracted"):
                 kwargs["deletion"] = PaperDeletionNotice.from_xml(element)
             elif element.tag == "revision":
@@ -238,21 +226,11 @@ class Paper:
                     kwargs["revisions"] = []
                 kwargs["revisions"].append(PaperRevision.from_xml(element))
             elif element.tag == "url":
-                checksum = element.attrib.get("hash")
-                kwargs["pdf"] = PDFReference(
-                    str(element.text), str(checksum) if checksum else None
-                )
+                kwargs["pdf"] = PDFReference.from_xml(element)
             elif element.tag == "video":
                 if "videos" not in kwargs:
                     kwargs["videos"] = []
-                permission = True
-                if (value := element.attrib.get("permission")) is not None:
-                    permission = xsd_boolean(str(value))
-                kwargs["videos"].append(
-                    VideoReference(
-                        name=str(element.attrib.get("href")), permission=permission
-                    )
-                )
+                kwargs["videos"].append(VideoReference.from_xml(element))
             elif element.tag in ("issue", "journal", "mrf"):
                 # TODO: these fields are currently ignored
                 log.debug(

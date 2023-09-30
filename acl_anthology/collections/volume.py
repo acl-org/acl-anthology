@@ -213,10 +213,7 @@ class Volume(SlottedDict[Paper]):
             elif element.tag == "editor":
                 kwargs["editors"].append(NameSpecification.from_xml(element))
             elif element.tag == "url":
-                checksum = element.attrib.get("hash")
-                kwargs["pdf"] = PDFReference(
-                    str(element.text), str(checksum) if checksum else None
-                )
+                kwargs["pdf"] = PDFReference.from_xml(element)
             elif element.tag == "venue":
                 kwargs["venue_ids"].append(str(element.text))
             else:
