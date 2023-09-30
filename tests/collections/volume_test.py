@@ -13,16 +13,87 @@
 # limitations under the License.
 
 from datetime import date
+from lxml import etree
 from pathlib import Path
 import pytest
 
 from acl_anthology.collections import Collection, Volume, VolumeType
 from acl_anthology.text import MarkupText
+from acl_anthology.utils.xml import indent
 
 
 class CollectionIndexStub:
     def __init__(self, parent):
         self.parent = parent
+
+
+test_cases_volume_xml = (
+    """<volume id="long" type="proceedings" ingest-date="2022-05-15">
+  <meta>
+    <booktitle>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</booktitle>
+    <editor><first>Smaranda</first><last>Muresan</last></editor>
+    <editor><first>Preslav</first><last>Nakov</last></editor>
+    <editor><first>Aline</first><last>Villavicencio</last></editor>
+    <publisher>Association for Computational Linguistics</publisher>
+    <address>Dublin, Ireland</address>
+    <month>May</month>
+    <year>2022</year>
+    <url hash="b8317652">2022.acl-long</url>
+    <venue>acl</venue>
+  </meta>
+  <frontmatter>
+    <url hash="56ea4e43">2022.acl-long.0</url>
+    <bibkey>acl-2022-association-linguistics-1</bibkey>
+  </frontmatter>
+</volume>
+""",
+    """<volume id="1" type="journal">
+  <meta>
+    <booktitle>Computational Linguistics, Volume 15, Number 1, March 1989</booktitle>
+    <year>1989</year>
+    <venue>cl</venue>
+    <journal-volume>15</journal-volume>
+    <journal-issue>1</journal-issue>
+  </meta>
+  <frontmatter>
+    <url hash="363084f8">J89-1000</url>
+    <bibkey>cl-1989-linguistics</bibkey>
+  </frontmatter>
+  <paper id="1">
+    <title>Parsing with Flexibility, Dynamic Strategies, and Idioms in Mind</title>
+    <author><first>Oliviero</first><last>Stock</last></author>
+    <pages>1-18</pages>
+    <url hash="ad57020c">J89-1001</url>
+    <bibkey>stock-1989-parsing</bibkey>
+  </paper>
+</volume>
+""",
+    """<volume id="4" type="journal">
+  <meta>
+    <booktitle>American Journal of Computational Linguistics (November 1975)</booktitle>
+    <editor><first>David G.</first><last>Hays</last></editor>
+    <month>November</month>
+    <year>1975</year>
+    <venue>cl</venue>
+    <journal-title>American Journal of Computational Linguistics</journal-title>
+  </meta>
+</volume>
+""",
+    """<volume id="75" type="proceedings" ingest-date="2019-10-16">
+  <meta>
+    <booktitle>Proceedings of the 6th International Sanskrit Computational Linguistics Symposium</booktitle>
+    <shortbooktitle>6th ISCLS</shortbooktitle>
+    <editor><first>Pawan</first><last>Goyal</last></editor>
+    <publisher>Association for Computational Linguistics</publisher>
+    <address>IIT Kharagpur, India</address>
+    <month>October</month>
+    <year>2019</year>
+    <url hash="48102019">W19-75</url>
+    <venue>iscls</venue>
+  </meta>
+</volume>
+""",
+)
 
 
 def test_volume_minimum_attribs():
@@ -129,3 +200,18 @@ def test_volume_with_nonexistent_venue(anthology):
     )
     with pytest.raises(KeyError):
         _ = volume.venues()
+
+
+@pytest.mark.parametrize("xml", test_cases_volume_xml)
+def test_volume_roundtrip_xml(xml):
+    # Create and populate volume
+    volume_element = etree.fromstring(xml)
+    meta = volume_element.find("meta")
+    volume = Volume.from_xml(None, meta)
+    for child in volume_element:
+        if child.tag in ("frontmatter", "paper"):
+            volume._add_paper_from_xml(child)
+    # Serialize and compare
+    out = volume.to_xml()
+    indent(out)
+    assert etree.tostring(out, encoding="unicode") == xml

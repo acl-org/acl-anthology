@@ -18,6 +18,7 @@ import datetime
 from attrs import define, field, Factory
 from enum import Enum
 from lxml import etree
+from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
 import sys
 
@@ -210,3 +211,50 @@ class Volume(SlottedDict[Paper]):
             else:
                 raise ValueError(f"Unsupported element for Volume: <{element.tag}>")
         return cls(**kwargs)
+
+    def to_xml(self, with_papers: bool = True) -> etree._Element:
+        """Serialize this volume in the Anthology XML format.
+
+        Arguments:
+            with_papers: If False, the returned `<volume>` will only contain the volume's `<meta>` block, but no contained papers.  Defaults to True.
+
+        Returns:
+            A serialization of this volume as a `<volume>` block in the Anthology XML format.
+        """
+        volume = E.volume(id=self.id, type=self.type.value)
+        if self.ingest_date is not None:
+            volume.attrib["ingest-date"] = self.ingest_date
+        meta = E.meta()
+        meta.append(self.title.to_xml("booktitle"))
+        if self.shorttitle is not None:
+            meta.append(self.shorttitle.to_xml("shortbooktitle"))
+        for name_spec in self.editors:
+            meta.append(name_spec.to_xml("editor"))
+        for tag in (
+            "publisher",
+            "address",
+            "doi",
+            "isbn",
+            "month",
+            "year",
+        ):
+            if (value := getattr(self, tag)) is not None:
+                meta.append(getattr(E, tag)(value))
+        if self.pdf is not None:
+            meta.append(self.pdf.to_xml("url"))
+        for venue in self.venue_ids:
+            meta.append(E.venue(venue))
+        for tag in (
+            "journal_volume",
+            "journal_issue",
+            "journal_title",
+        ):
+            if (value := getattr(self, tag)) is not None:
+                meta.append(getattr(E, tag.replace("_", "-"))(value))
+        volume.append(meta)
+
+        if with_papers:
+            for paper in self.values():
+                volume.append(paper.to_xml())
+
+        return volume
