@@ -50,11 +50,56 @@ test_cases_xml = (
   <bibkey>fernando-2022-strings</bibkey>
 </paper>
 """,
+    """<paper id="9">
+  <title>Briefly Noted</title>
+  <url hash="166bd6c1">J89-1009</url>
+  <bibkey>nn-1989-briefly</bibkey>
+</paper>
+""",
+    """<paper id="6">
+  <title>Domain Adaptation in Multilingual and Multi-Domain Monolingual Settings for Complex Word Identification</title>
+  <author><first>George-Eduard</first><last>Zaharia</last></author>
+  <author><first>Răzvan-Alexandru</first><last>Smădu</last></author>
+  <author><first>Dumitru</first><last>Cercel</last></author>
+  <author><first>Mihai</first><last>Dascalu</last></author>
+  <pages>70-80</pages>
+  <abstract>Complex word identification (CWI) is a cornerstone process towards proper text simplification. CWI is highly dependent on context, whereas its difficulty is augmented by the scarcity of available datasets which vary greatly in terms of domains and languages. As such, it becomes increasingly more difficult to develop a robust model that generalizes across a wide array of input examples. In this paper, we propose a novel training technique for the CWI task based on domain adaptation to improve the target character and context representations. This technique addresses the problem of working with multiple domains, inasmuch as it creates a way of smoothing the differences between the explored datasets. Moreover, we also propose a similar auxiliary task, namely text simplification, that can be used to complement lexical complexity prediction. Our model obtains a boost of up to 2.42% in terms of Pearson Correlation Coefficients in contrast to vanilla training techniques, when considering the CompLex from the Lexical Complexity Prediction 2021 dataset. At the same time, we obtain an increase of 3% in Pearson scores, while considering a cross-lingual setup relying on the Complex Word Identification 2018 dataset. In addition, our model yields state-of-the-art results in terms of Mean Absolute Error.</abstract>
+  <url hash="23e260bb">2022.acl-long.6</url>
+  <doi>10.18653/v1/2022.acl-long.6</doi>
+  <video href="2022.acl-long.6.mp4"/>
+  <bibkey>zaharia-etal-2022-domain</bibkey>
+</paper>
+""",
+    """<paper id="max" ingest-date="2023-09-30">
+  <title>This <fixed-case>P</fixed-case>aper Has All Fields That A Paper Can Have</title>
+  <author><first/><last>None</last></author>
+  <editor><first>Marcel</first><last>Bollmann</last></editor>
+  <pages>0</pages>
+  <abstract>
+    <b>Look</b> at <i>this</i>!
+  </abstract>
+  <url hash="d6a71220">2023.fake-volume.max</url>
+  <erratum id="1" hash="21a4921f">2023.fake-volume.maxe2</erratum>
+  <revision id="1" href="2023.fake-volume.max" hash="21e2f21f"/>
+  <revision id="2" href="2023.fake-volume.maxv2" hash="bc27f0f5" date="2023-10-03">Some explanation</revision>
+  <doi>10.18653/v1/2023.fake-volume.max</doi>
+  <language>Klingon</language>
+  <note>This is not a real paper, obviously.</note>
+  <attachment hash="a6a7a5a4" type="website">2023.fake-attachment</attachment>
+  <attachment hash="12345678" type="software">2023.fake-software</attachment>
+  <video href="2023.fake-video.mp4"/>
+  <award>Most ridiculous entry</award>
+  <removed date="2023-09-30">Removed immediately for being fake</removed>
+  <bibkey>why-would-you-cite-this</bibkey>
+  <pwccode url="https://github.com/acl-org/fake-repo" additional="false">acl-org/fake-repo</pwccode>
+  <pwcdataset url="https://paperswithcode.com/dataset/fake-dataset">FaKe-DaTaSeT</pwcdataset>
+</paper>
+""",
 )
 
 
 @pytest.mark.parametrize("xml", test_cases_xml)
-def test_paper_from_to_xml(xml):
+def test_paper_roundtrip_xml(xml):
     paper = Paper.from_xml(None, etree.fromstring(xml))
     out = paper.to_xml()
     indent(out)

@@ -242,8 +242,6 @@ class Paper:
 
     def to_xml(self) -> etree._Element:
         """
-        INCOMPLETE; DO NOT USE.
-
         Returns:
             A serialization of this paper as a `<paper>` block in the Anthology XML format.
         """
@@ -260,11 +258,27 @@ class Paper:
         if self.abstract is not None:
             paper.append(self.abstract.to_xml("abstract"))
         if self.pdf is not None:
-            paper.append(E.url(self.pdf.name, hash=str(self.pdf.checksum)))
+            paper.append(self.pdf.to_xml("url"))
+        for erratum in self.errata:
+            paper.append(erratum.to_xml())
+        for revision in self.revisions:
+            paper.append(revision.to_xml())
         for tag in ("doi", "language", "note"):
             if (value := getattr(self, tag)) is not None:
                 paper.append(getattr(E, tag)(value))
+        for type_, attachment in self.attachments.items():
+            elem = attachment.to_xml("attachment")
+            elem.attrib["type"] = type_
+            paper.append(elem)
+        for video in self.videos:
+            paper.append(video.to_xml("video"))
+        for award in self.awards:
+            paper.append(E.award(award))
+        if self.deletion is not None:
+            paper.append(self.deletion.to_xml())
         paper.append(E.bibkey(self.bibkey))
+        if self.paperswithcode is not None:
+            paper.extend(self.paperswithcode.to_xml_list())
         return paper
 
 
