@@ -12,11 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
 from attrs import define, field
 from collections.abc import ItemsView, KeysView, ValuesView
 from copy import copy
 from typing import TypeVar, Generic, Iterator, Optional
-from typing_extensions import Self
+
+if sys.version_info >= (3, 11):
+    from typing import Self
+else:
+    from typing_extensions import Self
 
 T = TypeVar("T")
 U = TypeVar("U")

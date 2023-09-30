@@ -14,10 +14,16 @@
 
 """Classes for representing and resolving file references."""
 
+import sys
 from attrs import define, field, Factory
 from lxml import etree
 from lxml.builder import E
-from typing import cast, Optional, Self
+from typing import cast, Optional
+
+if sys.version_info >= (3, 11):
+    from typing import Self
+else:
+    from typing_extensions import Self
 
 from .config import config
 from .utils.xml import xsd_boolean
