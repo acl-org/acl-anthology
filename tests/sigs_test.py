@@ -25,6 +25,47 @@ def test_sig_defaults():
     assert sig.url is None
 
 
+def test_sig_get_meetings_by_year():
+    sig = SIG(None, "fake", "FAKE", "Fake Interest Group", Path("fake.yaml"))
+    meeting = SIGMeeting(
+        "1984",
+        "Proceedings of the First Fakery Workshop",
+        "http://xxx.yyy.zzz.nl/~fake/",
+    )
+    sig.meetings.append(meeting)
+    sig.meetings.append("2004.fake-1")
+    assert sig.get_meetings_by_year() == {
+        "1984": [meeting],
+        "2004": ["2004.fake-1"],
+    }
+
+
+def test_sig_save(tmp_path):
+    path = tmp_path / "foo.yaml"
+    sig = SIG(None, "foo", "FOO", "Special Interest Group on Foobar", path)
+    sig.save()
+    assert path.is_file()
+    with open(path, "r") as f:
+        out = f.read()
+    expected = """Name: Special Interest Group on Foobar
+ShortName: FOO
+"""
+    assert out == expected
+
+
+def test_sig_roundtrip_yaml(anthology_stub, tmp_path):
+    yaml_in = anthology_stub.datadir / "yaml" / "sigs" / "sigsem.yaml"
+    sig = SIG.load_from_yaml(None, yaml_in)
+    yaml_out = tmp_path / "sigsem.yaml"
+    sig.save(yaml_out)
+    assert yaml_out.is_file()
+    with open(yaml_in, "r") as f, open(yaml_out, "r") as g:
+        # Comments will unfortunately be deleted upon saving ...
+        expected = "\n".join(line.split("#")[0].rstrip() for line in f.readlines()) + "\n"
+        out = g.read()
+    assert out == expected
+
+
 def test_sigindex_sigsem(anthology):
     index = SIGIndex(anthology)
     sig = index.get("sigsem")

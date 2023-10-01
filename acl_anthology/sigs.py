@@ -15,18 +15,19 @@
 from __future__ import annotations
 
 from attrs import define, field
-from collections import ChainMap
+from collections import ChainMap, defaultdict
 from os import PathLike
 from pathlib import Path
 from typing import Iterator, Optional, TYPE_CHECKING
 import yaml
 
 from .containers import SlottedDict
+from .utils import ids
 
 try:
-    from yaml import CLoader as Loader
+    from yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
-    from yaml import Loader  # type: ignore
+    from yaml import Loader, Dumper  # type: ignore
 
 if TYPE_CHECKING:
     from .anthology import Anthology
@@ -59,14 +60,26 @@ class SIG:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent
 
+    def get_meetings_by_year(self) -> dict[str, list[str | SIGMeeting]]:
+        """Get all associated meetings, grouped by year.
+
+        Returns:
+            A dictionary where keys are strings representing years, and values are meetings of this SIG in that year.
+        """
+        by_year = defaultdict(list)
+        for meeting in self.meetings:
+            year = ids.infer_year(meeting) if isinstance(meeting, str) else meeting.year
+            by_year[year].append(meeting)
+        return by_year
+
     def volumes(self) -> Iterator[Volume]:
         """Iterate over all volumes that are associated with this SIG."""
-        for event in self.meetings:
-            if isinstance(event, str):
-                volume = self.root.get_volume(event)
+        for meeting in self.meetings:
+            if isinstance(meeting, str):
+                volume = self.root.get_volume(meeting)
                 if volume is None:
                     raise KeyError(
-                        f"SIG '{self.acronym}' lists volume '{event}' which doesn't exist"
+                        f"SIG '{self.acronym}' lists volume '{meeting}' which doesn't exist"
                     )
                 yield volume
 
@@ -113,8 +126,34 @@ class SIG:
         Arguments:
             path: The filename to save to. If None, defaults to `self.path`.
         """
-        # TODO: implement and test
-        raise NotImplementedError()
+        if path is None:
+            path = self.path
+        values = {
+            "Name": self.name,
+            "ShortName": self.acronym,
+        }
+        values_meetings = []
+        if self.url:
+            values["URL"] = self.url
+        if self.meetings:
+            meetings_by_year = sorted(
+                self.get_meetings_by_year().items(), key=lambda x: x[0], reverse=True
+            )
+            for year, meetings in meetings_by_year:
+                year_meetings = []
+                for meeting in meetings:
+                    if isinstance(meeting, str):
+                        value: str | dict[str, str] = meeting
+                    else:
+                        value = {"Name": meeting.name}
+                        if meeting.url is not None:
+                            value["URL"] = meeting.url
+                    year_meetings.append(value)
+                values_meetings.append({int(year): year_meetings})
+        with open(path, "w") as f:
+            yaml.dump(values, f, Dumper=Dumper, width=999)
+            if values_meetings:
+                yaml.dump({"Meetings": values_meetings}, f, Dumper=Dumper, width=999)
 
 
 @define
