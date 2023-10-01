@@ -49,3 +49,20 @@ def test_build_id(full_id, parsed):
 @pytest.mark.parametrize("full_id, parsed", test_cases_ids)
 def test_build_id_from_tuple(full_id, parsed):
     assert ids.build_id_from_tuple(parsed) == ids.build_id_from_tuple(full_id) == full_id
+
+
+test_cases_years = (
+    ("P18-1007", "2018"),
+    ("D19-1001", "2019"),
+    ("C69-1234", "1969"),
+    ("C68-1234", "1968"),
+    ("2022.acl-main.1", "2022"),
+    ("2023.mwe-1.5", "2023"),
+    ("W99-1", "1999"),
+    ("1971.fake-entry", "1971"),
+)
+
+
+@pytest.mark.parametrize("anthology_id, year", test_cases_years)
+def test_infer_year(anthology_id, year):
+    assert ids.infer_year(anthology_id) == year

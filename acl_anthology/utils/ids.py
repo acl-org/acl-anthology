@@ -164,3 +164,26 @@ def parse_id(anthology_id: AnthologyID) -> AnthologyIDTuple:
             return (collection_id, rest[0:2].lstrip("0"), rest[2:].lstrip("0"))
         else:
             return (collection_id, rest[0], rest[1:].lstrip("0"))
+
+
+def infer_year(anthology_id: AnthologyID) -> str:
+    """Infer the year from an Anthology ID.
+
+    Parameters:
+        anthology_id: An arbitrary Anthology ID.
+
+    Returns:
+        The year of the item represented by the Anthology ID, as a four-character string.
+    """
+    collection_id, *_ = parse_id(anthology_id)
+
+    if collection_id[0].isdigit():
+        return collection_id.split(".")[0]
+
+    digits = collection_id[1:]
+    if int(digits) >= 60:
+        year = f"19{digits}"
+    else:
+        year = f"20{digits}"
+
+    return year
