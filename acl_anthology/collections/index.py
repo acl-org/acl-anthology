@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 @define
 class CollectionIndex(SlottedDict[Collection]):
-    """Index object through which all collections, volumes, events, and papers can be accessed.
+    """Index object through which all collections can be accessed.
 
     Provides dictionary-like functionality mapping collection IDs to [Collection][acl_anthology.collections.collection.Collection] objects in the Anthology.
 

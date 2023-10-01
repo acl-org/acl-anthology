@@ -303,3 +303,5 @@ class PersonIndex(SlottedDict[Person]):
                 self.similar.merge(pid_list[0], pid)
         for a, b in merge_list:
             self.similar.merge(a, b)
+
+    # TODO: Can we implement saving for `name_variants.yaml`?

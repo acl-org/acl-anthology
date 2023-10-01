@@ -16,6 +16,7 @@ from __future__ import annotations
 
 from attrs import define, field
 from lxml import etree
+from os import PathLike
 from pathlib import Path
 from typing import Iterator, Optional, cast, TYPE_CHECKING
 
@@ -147,3 +148,12 @@ class Collection(SlottedDict[Volume]):
             ] + self.event.colocated_ids
 
         self.is_data_loaded = True
+
+    def save(self, path: Optional[PathLike[str]] = None) -> None:
+        """Saves this collection as an XML file.
+
+        Arguments:
+            path: The filename to save to. If None, defaults to `self.path`.
+        """
+        # TODO: implement and test
+        raise NotImplementedError()
