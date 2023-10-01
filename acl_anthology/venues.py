@@ -15,6 +15,8 @@
 from __future__ import annotations
 
 from attrs import define, field
+from os import PathLike
+from pathlib import Path
 from typing import Optional, TYPE_CHECKING
 import yaml
 
@@ -37,6 +39,7 @@ class Venue:
         id: The venue ID, e.g. "acl".
         acronym: The venue's acronym, e.g. "ACL".
         name: The venue's name.  Should _not_ contain any indications of specific events; i.e., "Workshop on...", _not_ "The 1st Workshop on..."
+        path: The path of the YAML file representing this venue.
         is_acl: True if this is a venue organized or sponsored by the ACL.
         is_toplevel: True if this venue appears on the ACL Anthology's front page.
         oldstyle_letter: First letter of old-style Anthology IDs that is associated with this venue (e.g., "P" for ACL proceedings).
@@ -46,10 +49,38 @@ class Venue:
     id: str
     acronym: str
     name: str
+    path: Path
     is_acl: bool = field(default=False)
     is_toplevel: bool = field(default=False)
     oldstyle_letter: Optional[str] = field(default=None)
     url: Optional[str] = field(default=None)
+
+    @classmethod
+    def load_from_yaml(cls, path: PathLike[str]) -> Venue:
+        """Instantiates a venue from its YAML file.
+
+        Arguments:
+            path: The YAML file defining this venue.
+
+        Warning:
+            Currently assumes that files are named `{venue_id}.yaml`.
+        """
+        path = Path(path)
+        venue_id = path.name[:-5]
+        with open(path, "r") as f:
+            kwargs = yaml.load(f, Loader=Loader)
+        if "type" in kwargs:  # TODO: 'type' currently ignored
+            del kwargs["type"]
+        return cls(venue_id, path=path, **kwargs)
+
+    def save(self, path: Optional[PathLike[str]] = None) -> None:
+        """Saves this venue as a YAML file.
+
+        Arguments:
+            path: The filename to save to. If None, defaults to `self.path`.
+        """
+        # TODO: implement and test
+        raise NotImplementedError()
 
 
 @define
@@ -75,10 +106,6 @@ class VenueIndex(SlottedDict[Venue]):
         if self.is_data_loaded:
             return
         for yamlpath in self.parent.datadir.glob("yaml/venues/*.yaml"):
-            venue_id = yamlpath.name[:-5]
-            with open(yamlpath, "r") as f:
-                kwargs = yaml.load(f, Loader=Loader)
-            if "type" in kwargs:  # currently ignored
-                del kwargs["type"]
-            self.data[venue_id] = Venue(venue_id, **kwargs)
+            venue = Venue.load_from_yaml(yamlpath)
+            self.data[venue.id] = venue
         self.is_data_loaded = True

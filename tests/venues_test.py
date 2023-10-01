@@ -12,14 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from pathlib import Path
 from acl_anthology.venues import VenueIndex, Venue
 
 
 def test_venue_defaults():
-    venue = Venue("foo", "FOO", "Workshop on Foobar")
+    venue = Venue("foo", "FOO", "Workshop on Foobar", Path("foo.yaml"))
     assert venue.id == "foo"
     assert venue.acronym == "FOO"
     assert venue.name == "Workshop on Foobar"
+    assert venue.path.name == "foo.yaml"
     assert not venue.is_acl
     assert not venue.is_toplevel
     assert venue.oldstyle_letter is None

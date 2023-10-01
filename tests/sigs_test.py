@@ -12,14 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from pathlib import Path
 from acl_anthology.sigs import SIGIndex, SIGMeeting, SIG
 
 
 def test_sig_defaults():
-    sig = SIG(None, "foo", "FOO", "Special Interest Group on Foobar")
+    sig = SIG(None, "foo", "FOO", "Special Interest Group on Foobar", Path("foo.yaml"))
     assert sig.id == "foo"
     assert sig.acronym == "FOO"
     assert sig.name == "Special Interest Group on Foobar"
+    assert sig.path.name == "foo.yaml"
     assert sig.url is None
 
 

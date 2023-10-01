@@ -16,6 +16,8 @@ from __future__ import annotations
 
 from attrs import define, field
 from collections import ChainMap
+from os import PathLike
+from pathlib import Path
 from typing import Iterator, Optional, TYPE_CHECKING
 import yaml
 
@@ -36,29 +38,83 @@ class SIG:
     """A special interest group (SIG).
 
     Attributes:
-        parent: The parent Anthology instance.
+        parent: The parent SIGIndex instance.
         id: The SIG ID, e.g. "sigsem".
         acronym: The SIG's acronym or short name, e.g. "SIGSEM".
         name: The SIG's full name.
+        path: The path of the YAML file representing this SIG.
         url: A website URL for the SIG.
     """
 
-    parent: Anthology = field(repr=False, eq=False)
+    parent: SIGIndex = field(repr=False, eq=False)
     id: str
     acronym: str
     name: str
+    path: Path
     url: Optional[str] = field(default=None)
     meetings: list[str | SIGMeeting] = field(factory=list, repr=False)
 
+    @property
+    def root(self) -> Anthology:
+        """The Anthology instance to which this object belongs."""
+        return self.parent.parent
+
     def volumes(self) -> Iterator[Volume]:
+        """Iterate over all volumes that are associated with this SIG."""
         for event in self.meetings:
             if isinstance(event, str):
-                volume = self.parent.get_volume(event)
+                volume = self.root.get_volume(event)
                 if volume is None:
                     raise KeyError(
                         f"SIG '{self.acronym}' lists volume '{event}' which doesn't exist"
                     )
                 yield volume
+
+    @classmethod
+    def load_from_yaml(cls, parent: SIGIndex, path: PathLike[str]) -> SIG:
+        """Instantiates a SIG from its YAML file.
+
+        Arguments:
+            parent: The parent SIGIndex instance.
+            path: The YAML file defining this SIG.
+
+        Warning:
+            Currently assumes that files are named `{sig_id}.yaml`.
+        """
+        path = Path(path)
+        sig_id = path.name[:-5]
+        with open(path, "r") as f:
+            kwargs = yaml.load(f, Loader=Loader)
+        sig = cls(
+            parent,
+            id=sig_id,
+            acronym=kwargs["ShortName"],
+            name=kwargs["Name"],
+            path=path,
+            url=kwargs.get("URL"),
+        )
+        for year, meetings in ChainMap(*kwargs["Meetings"]).items():
+            for meeting in meetings:
+                if isinstance(meeting, str):
+                    sig.meetings.append(meeting)
+                else:
+                    sig.meetings.append(
+                        SIGMeeting(
+                            str(year),
+                            meeting["Name"],
+                            url=meeting.get("URL"),
+                        )
+                    )
+        return sig
+
+    def save(self, path: Optional[PathLike[str]] = None) -> None:
+        """Saves this SIG as a YAML file.
+
+        Arguments:
+            path: The filename to save to. If None, defaults to `self.path`.
+        """
+        # TODO: implement and test
+        raise NotImplementedError()
 
 
 @define
@@ -99,27 +155,6 @@ class SIGIndex(SlottedDict[SIG]):
         if self.is_data_loaded:
             return
         for yamlpath in self.parent.datadir.glob("yaml/sigs/*.yaml"):
-            sig_id = yamlpath.name[:-5]
-            with open(yamlpath, "r") as f:
-                kwargs = yaml.load(f, Loader=Loader)
-            sig = SIG(
-                self.parent,
-                id=sig_id,
-                acronym=kwargs["ShortName"],
-                name=kwargs["Name"],
-                url=kwargs.get("URL"),
-            )
-            for year, meetings in ChainMap(*kwargs["Meetings"]).items():
-                for meeting in meetings:
-                    if isinstance(meeting, str):
-                        sig.meetings.append(meeting)
-                    else:
-                        sig.meetings.append(
-                            SIGMeeting(
-                                str(year),
-                                meeting["Name"],
-                                url=meeting.get("URL"),
-                            )
-                        )
-            self.data[sig_id] = sig
+            sig = SIG.load_from_yaml(self, yamlpath)
+            self.data[sig.id] = sig
         self.is_data_loaded = True
