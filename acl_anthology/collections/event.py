@@ -113,7 +113,7 @@ class Talk:
         attachments: Links to attachments for this talk. The dictionary key specifies the type of attachment (e.g., "video" or "slides").
     """
 
-    title: str
+    title: MarkupText = field()
     type: Optional[str] = field(default=None)
     speakers: list[NameSpecification] = field(factory=list)
     attachments: dict[str, AttachmentReference] = field(factory=dict)
