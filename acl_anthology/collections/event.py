@@ -16,12 +16,13 @@ from __future__ import annotations
 
 from attrs import define, field
 from lxml import etree
+from lxml.builder import E
 from typing import Any, Optional, TYPE_CHECKING
 
 from ..files import AttachmentReference
 from ..people import NameSpecification
 from ..text import MarkupText
-from ..utils.ids import AnthologyIDTuple, parse_id
+from ..utils.ids import AnthologyIDTuple, parse_id, build_id_from_tuple
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -101,6 +102,41 @@ class Event:
                 raise ValueError(f"Unsupported element for Event: <{element.tag}>")
         return cls(**kwargs)
 
+    def to_xml(self) -> etree._Element:
+        """
+        Returns:
+            A serialization of this event as an `<event>` block in the Anthology XML format.
+        """
+        elem = E.event(id=self.id)
+        # <meta> block
+        meta = E.meta()
+        if self.title is not None:
+            meta.append(self.title.to_xml("title"))
+        if self.location is not None:
+            meta.append(E.location(self.location))
+        if self.dates is not None:
+            meta.append(E.dates(self.dates))
+        if len(meta) > 0:
+            elem.append(meta)
+        # <links> block
+        if self.links:
+            links = E.links()
+            for type_, attachment in self.links.items():
+                url = attachment.to_xml("url")
+                url.attrib["type"] = type_
+                links.append(url)
+            elem.append(links)
+        # <talk>s
+        for talk in self.talks:
+            elem.append(talk.to_xml())
+        # <colocated>
+        if self.colocated_ids:
+            colocated = E.colocated()
+            for id_tuple in self.colocated_ids:
+                colocated.append(getattr(E, "volume-id")(build_id_from_tuple(id_tuple)))
+            elem.append(colocated)
+        return elem
+
 
 @define
 class Talk:
@@ -143,7 +179,7 @@ class Talk:
         Returns:
             A serialization of this talk as a `<talk>` block in the Anthology XML format.
         """
-        elem = etree.Element("talk")
+        elem = E.talk()
         if self.type is not None:
             elem.attrib["type"] = self.type
         elem.append(self.title.to_xml("title"))

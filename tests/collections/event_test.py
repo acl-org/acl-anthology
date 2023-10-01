@@ -27,6 +27,44 @@ class AttachmentReferenceMock:
     name: str
 
 
+test_cases_event_xml = (
+    """<event id="ws-1985">
+  <colocated>
+    <volume-id>W85-01</volume-id>
+  </colocated>
+</event>
+""",
+    """<event id="acl-2022">
+  <meta>
+    <title>60th Annual Meeting of the Association for Computational Linguistics</title>
+    <location>Dublin, Ireland</location>
+    <dates>May 22–27, 2022</dates>
+  </meta>
+  <links>
+    <url type="website">https://2022.aclweb.org</url>
+    <url type="handbook">2022.acl.handbook.pdf</url>
+  </links>
+  <talk>
+    <title>Keynote 1: Language in the human brain</title>
+    <speaker><first>Angela D.</first><last>Friederici</last></speaker>
+    <url type="video">2022.acl.keynote1.mp4</url>
+  </talk>
+  <colocated>
+    <volume-id>2022.findings-acl</volume-id>
+    <volume-id>2022.bigscience-1</volume-id>
+    <volume-id>2022.wit-1</volume-id>
+  </colocated>
+</event>
+""",
+    """<event id="hypothetical-2099">
+  <meta>
+    <title>I only have a <b>fancy</b> title</title>
+  </meta>
+</event>
+""",
+)
+
+
 def test_event_minimum_attribs():
     parent = Collection("Foo", None, Path("."))
     event = Event(
@@ -65,6 +103,15 @@ def test_event_all_attribs():
     assert event.collection_id == "2023.li"
     assert event.title == event_title
     assert event.is_explicit
+
+
+@pytest.mark.parametrize("xml", test_cases_event_xml)
+def test_event_roundtrip_xml(xml):
+    element = etree.fromstring(xml)
+    event = Event.from_xml(parent=None, event=element)
+    out = event.to_xml()
+    indent(out)
+    assert etree.tostring(out, encoding="unicode") == xml
 
 
 test_cases_talk_xml = (
