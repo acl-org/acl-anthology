@@ -81,7 +81,9 @@ class Venue:
         if path is None:
             path = self.path
         # Serialize everything except "id", "path" and default values
-        values = {k: v for k, v in asdict(self).items() if k not in ("id", "path") and v}
+        values = asdict(
+            self, filter=lambda a, v: a.name not in ("id", "path") and v != a.default
+        )
         with open(path, "w") as f:
             yaml.dump(values, f, Dumper=Dumper)
 
