@@ -12,11 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from attrs import define
+from lxml import etree
 from pathlib import Path
 
 from acl_anthology.collections import Event, Talk, Collection
 from acl_anthology.text import MarkupText
+from acl_anthology.utils.xml import indent
 
 
 @define
@@ -41,15 +44,6 @@ def test_event_minimum_attribs():
     assert event.dates is None
 
 
-def test_talk_minimum_attribs():
-    title = "On the Development of Software Tests"
-    talk = Talk(title)
-    assert talk.title == title
-    assert talk.type is None
-    assert not talk.speakers
-    assert not talk.attachments
-
-
 def test_event_all_attribs():
     event_title = MarkupText.from_string("Lorem ipsum")
     parent = Collection("2023.li", None, Path("."))
@@ -71,3 +65,38 @@ def test_event_all_attribs():
     assert event.collection_id == "2023.li"
     assert event.title == event_title
     assert event.is_explicit
+
+
+test_cases_talk_xml = (
+    """<talk>
+  <title>Keynote 1: Language in the human brain</title>
+  <speaker><first>Angela D.</first><last>Friederici</last></speaker>
+  <url type="video">2022.acl.keynote1.mp4</url>
+</talk>
+""",
+    """<talk type="keynote">
+  <title>Keynote 2: Fire-side Chat with Barbara Grosz and Yejin Choi search lectures</title>
+  <speaker><first>Yejin</first><last>Choi</last></speaker>
+  <speaker><first>Barbara</first><last>Grosz</last></speaker>
+  <url type="video">2022.acl.keynote2.mp4</url>
+</talk>
+""",
+)
+
+
+def test_talk_minimum_attribs():
+    title = "On the Development of Software Tests"
+    talk = Talk(title)
+    assert talk.title == title
+    assert talk.type is None
+    assert not talk.speakers
+    assert not talk.attachments
+
+
+@pytest.mark.parametrize("xml", test_cases_talk_xml)
+def test_talk_roundtrip_xml(xml):
+    element = etree.fromstring(xml)
+    talk = Talk.from_xml(element)
+    out = talk.to_xml()
+    indent(out)
+    assert etree.tostring(out, encoding="unicode") == xml

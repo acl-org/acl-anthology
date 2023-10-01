@@ -132,11 +132,25 @@ class Talk:
             elif meta.tag == "speaker":
                 kwargs["speakers"].append(NameSpecification.from_xml(meta))
             elif meta.tag == "url":
-                checksum = meta.attrib.get("hash")
                 type_ = str(meta.attrib.get("type", "attachment"))
-                kwargs["attachments"][type_] = AttachmentReference(
-                    str(meta.text), str(checksum)
-                )
+                kwargs["attachments"][type_] = AttachmentReference.from_xml(meta)
             else:
                 raise ValueError(f"Unsupported element for Talk: <{meta.tag}>")
         return cls(**kwargs)
+
+    def to_xml(self) -> etree._Element:
+        """
+        Returns:
+            A serialization of this talk as a `<talk>` block in the Anthology XML format.
+        """
+        elem = etree.Element("talk")
+        if self.type is not None:
+            elem.attrib["type"] = self.type
+        elem.append(self.title.to_xml("title"))
+        for name_spec in self.speakers:
+            elem.append(name_spec.to_xml("speaker"))
+        for type_, attachment in self.attachments.items():
+            url = attachment.to_xml("url")
+            url.attrib["type"] = type_
+            elem.append(url)
+        return elem
