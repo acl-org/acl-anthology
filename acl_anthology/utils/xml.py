@@ -63,12 +63,12 @@ def indent(elem: etree._Element, level: int = 0, internal: bool = False) -> None
 
         # recurse
         for child in elem:
-            indent(child, level + 1, internal=oneline)
+            indent(child, level + 1, internal=(internal or oneline))
 
         # Clean up the last child
         if oneline:
             child.tail = clean_whitespace(child.tail, lambda x: x.rstrip())
-        elif not child.tail or not child.tail.strip():
+        elif not internal and (not child.tail or not child.tail.strip()):
             child.tail = "\n" + level * "  "
     else:
         elem.text = clean_whitespace(elem.text, lambda x: x.strip())

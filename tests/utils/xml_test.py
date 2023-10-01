@@ -55,6 +55,11 @@ test_cases_indent = (
 </meta>
 """,
     ),
+    (
+        "<title>With <b>nested <i>markup with subsequent closing tags</i></b></title>",
+        """<title>With <b>nested <i>markup with subsequent closing tags</i></b></title>
+""",
+    ),
 )
 
 
