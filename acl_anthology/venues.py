@@ -14,7 +14,7 @@
 
 from __future__ import annotations
 
-from attrs import define, field
+from attrs import define, field, asdict
 from os import PathLike
 from pathlib import Path
 from typing import Optional, TYPE_CHECKING
@@ -23,9 +23,9 @@ import yaml
 from .containers import SlottedDict
 
 try:
-    from yaml import CLoader as Loader
+    from yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
-    from yaml import Loader  # type: ignore
+    from yaml import Loader, Dumper  # type: ignore
 
 if TYPE_CHECKING:
     from .anthology import Anthology
@@ -54,6 +54,7 @@ class Venue:
     is_toplevel: bool = field(default=False)
     oldstyle_letter: Optional[str] = field(default=None)
     url: Optional[str] = field(default=None)
+    type: Optional[str] = field(default=None)  # TODO: should we deprecate this?
 
     @classmethod
     def load_from_yaml(cls, path: PathLike[str]) -> Venue:
@@ -69,8 +70,6 @@ class Venue:
         venue_id = path.name[:-5]
         with open(path, "r") as f:
             kwargs = yaml.load(f, Loader=Loader)
-        if "type" in kwargs:  # TODO: 'type' currently ignored
-            del kwargs["type"]
         return cls(venue_id, path=path, **kwargs)
 
     def save(self, path: Optional[PathLike[str]] = None) -> None:
@@ -79,8 +78,12 @@ class Venue:
         Arguments:
             path: The filename to save to. If None, defaults to `self.path`.
         """
-        # TODO: implement and test
-        raise NotImplementedError()
+        if path is None:
+            path = self.path
+        # Serialize everything except "id", "path" and default values
+        values = {k: v for k, v in asdict(self).items() if k not in ("id", "path") and v}
+        with open(path, "w") as f:
+            yaml.dump(values, f, Dumper=Dumper)
 
 
 @define
@@ -109,3 +112,8 @@ class VenueIndex(SlottedDict[Venue]):
             venue = Venue.load_from_yaml(yamlpath)
             self.data[venue.id] = venue
         self.is_data_loaded = True
+
+    def save(self) -> None:
+        """Saves all venue metadata to `venues/*.yaml` files."""
+        for venue in self.values():
+            venue.save()

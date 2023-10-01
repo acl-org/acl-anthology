@@ -12,8 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 from pathlib import Path
 from acl_anthology.venues import VenueIndex, Venue
+
+
+all_toy_venue_ids = ("acl", "cl", "humeval", "lrec", "nlma")
 
 
 def test_venue_defaults():
@@ -26,6 +30,32 @@ def test_venue_defaults():
     assert not venue.is_toplevel
     assert venue.oldstyle_letter is None
     assert venue.url is None
+
+
+def test_venue_save(tmp_path):
+    path = tmp_path / "foo.yaml"
+    venue = Venue("foo", "FOO", "Workshop on Foobar", path)
+    venue.save()
+    assert path.is_file()
+    with open(path, "r") as f:
+        out = f.read()
+    expected = """acronym: FOO
+name: Workshop on Foobar
+"""
+    assert out == expected
+
+
+@pytest.mark.parametrize("venue_id", all_toy_venue_ids)
+def test_venue_roundtrip_yaml(anthology_stub, tmp_path, venue_id):
+    yaml_in = anthology_stub.datadir / "yaml" / "venues" / f"{venue_id}.yaml"
+    venue = Venue.load_from_yaml(yaml_in)
+    yaml_out = tmp_path / f"{venue_id}.yaml"
+    venue.save(yaml_out)
+    assert yaml_out.is_file()
+    with open(yaml_in, "r") as f, open(yaml_out, "r") as g:
+        expected = f.read()
+        out = g.read()
+    assert out == expected
 
 
 def test_venueindex_cl(anthology):
@@ -41,5 +71,5 @@ def test_venueindex_cl(anthology):
 
 def test_venueindex_iter(anthology):
     index = VenueIndex(anthology)
-    venue_ids = set(index.keys())
-    assert venue_ids == {"acl", "cl", "humeval", "lrec", "nlma"}
+    venue_ids = index.keys()
+    assert set(venue_ids) == set(all_toy_venue_ids)
