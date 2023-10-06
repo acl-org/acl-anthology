@@ -133,7 +133,10 @@ class Event:
         if self.colocated_ids:
             colocated = E.colocated()
             for id_tuple in self.colocated_ids:
-                colocated.append(getattr(E, "volume-id")(build_id_from_tuple(id_tuple)))
+                if id_tuple[0] != self.parent.id:
+                    colocated.append(
+                        getattr(E, "volume-id")(build_id_from_tuple(id_tuple))
+                    )
             elem.append(colocated)
         return elem
 

@@ -21,13 +21,18 @@ from acl_anthology import Anthology
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
 
+@pytest.fixture
+def datadir():
+    return Path(f"{SCRIPTDIR}/toy_anthology")
+
+
 class AnthologyStub:
     datadir = Path(f"{SCRIPTDIR}/toy_anthology")
 
 
 @pytest.fixture
-def anthology():
-    return Anthology(Path(f"{SCRIPTDIR}/toy_anthology"))
+def anthology(datadir):
+    return Anthology(datadir)
 
 
 @pytest.fixture

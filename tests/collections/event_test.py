@@ -15,9 +15,8 @@
 import pytest
 from attrs import define
 from lxml import etree
-from pathlib import Path
 
-from acl_anthology.collections import Event, Talk, Collection
+from acl_anthology.collections import Event, Talk
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
 
@@ -25,6 +24,11 @@ from acl_anthology.utils.xml import indent
 @define
 class AttachmentReferenceMock:
     name: str
+
+
+@define
+class CollectionStub:
+    id: str
 
 
 test_cases_event_xml = (
@@ -66,10 +70,9 @@ test_cases_event_xml = (
 
 
 def test_event_minimum_attribs():
-    parent = Collection("Foo", None, Path("."))
     event = Event(
         "foobar-2023",
-        parent,
+        CollectionStub("Foo"),
     )
     assert event.id == "foobar-2023"
     assert event.collection_id == "Foo"
@@ -84,10 +87,9 @@ def test_event_minimum_attribs():
 
 def test_event_all_attribs():
     event_title = MarkupText.from_string("Lorem ipsum")
-    parent = Collection("2023.li", None, Path("."))
     event = Event(
         id="li-2023",
-        parent=parent,
+        parent=CollectionStub("2023.li"),
         is_explicit=True,
         title=event_title,
         location="Online",
@@ -105,10 +107,35 @@ def test_event_all_attribs():
     assert event.is_explicit
 
 
+def test_event_to_xml_dont_list_colocated_volumes_of_parent():
+    event = Event(
+        id="li-2023",
+        parent=CollectionStub("2023.li"),
+        colocated_ids=[
+            ("2023.baz", "1", None),
+            ("2023.li", "main", None),
+            ("2023.li", "side", None),
+            ("2023.ling", "1", None),
+        ],
+    )
+    out = event.to_xml()
+    indent(out)
+    assert (
+        etree.tostring(out, encoding="unicode")
+        == """<event id="li-2023">
+  <colocated>
+    <volume-id>2023.baz-1</volume-id>
+    <volume-id>2023.ling-1</volume-id>
+  </colocated>
+</event>
+"""
+    )
+
+
 @pytest.mark.parametrize("xml", test_cases_event_xml)
 def test_event_roundtrip_xml(xml):
     element = etree.fromstring(xml)
-    event = Event.from_xml(parent=None, event=element)
+    event = Event.from_xml(parent=CollectionStub("foo"), event=element)
     out = event.to_xml()
     indent(out)
     assert etree.tostring(out, encoding="unicode") == xml
