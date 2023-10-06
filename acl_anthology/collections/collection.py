@@ -22,6 +22,7 @@ from typing import Iterator, Optional, cast, TYPE_CHECKING
 
 from ..containers import SlottedDict
 from ..utils.logging import get_logger
+from ..utils import xml
 from .event import Event
 from .volume import Volume
 from .paper import Paper
@@ -155,5 +156,13 @@ class Collection(SlottedDict[Volume]):
         Arguments:
             path: The filename to save to. If None, defaults to `self.path`.
         """
-        # TODO: implement and test
-        raise NotImplementedError()
+        if path is None:
+            path = self.path
+        collection = etree.Element("collection", {"id": self.id})
+        for volume in self.volumes():
+            collection.append(volume.to_xml(with_papers=True))
+        if self.event is not None and self.event.is_explicit:
+            collection.append(self.event.to_xml())
+        xml.indent(collection)
+        with open(path, "wb") as f:
+            f.write(etree.tostring(collection, xml_declaration=True, encoding="UTF-8"))
