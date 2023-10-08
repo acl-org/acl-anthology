@@ -14,20 +14,21 @@
 
 from __future__ import annotations
 
-from attrs import define, field
+from attrs import define, field, asdict
 from collections import defaultdict
 import itertools as it
+from os import PathLike
 from pathlib import Path
 from rich.progress import track
 from scipy.cluster.hierarchy import DisjointSet  # type: ignore
 import sys
-from typing import cast, TYPE_CHECKING
+from typing import cast, Any, TYPE_CHECKING
 import yaml
 
 try:
-    from yaml import CLoader as Loader
+    from yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
-    from yaml import Loader  # type: ignore
+    from yaml import Loader, Dumper  # type: ignore
 
 from ..containers import SlottedDict
 from ..exceptions import AnthologyException, AmbiguousNameError, NameIDUndefinedError
@@ -304,4 +305,37 @@ class PersonIndex(SlottedDict[Person]):
         for a, b in merge_list:
             self.similar.merge(a, b)
 
-    # TODO: Can we implement saving for `name_variants.yaml`?
+    def save(self, path: PathLike[str]) -> None:
+        """Save the entire index.
+
+        CURRENTLY UNTESTED; DO NOT USE.
+
+        Arguments:
+            path: The filename to save to.
+        """
+        data = []
+        for person in self.values():
+            attrib: dict[str, Any] = {
+                "id": person.id,
+                "canonical": asdict(
+                    person.canonical_name,
+                    filter=lambda a, v: not (a.name == "script" and v is None),
+                ),
+            }
+            if person.item_ids:
+                attrib["items"] = list(person.item_ids)
+            if len(person.names) > 1:
+                attrib["variants"] = [
+                    asdict(
+                        name, filter=lambda a, v: not (a.name == "script" and v is None)
+                    )
+                    for name in person.names[1:]
+                ]
+            similar = self.similar.subset(person.id)
+            if len(similar) > 1:
+                attrib["similar"] = [id_ for id_ in similar if id_ != person.id]
+            if person.comment is not None:
+                attrib["comment"] = person.comment
+            data.append(attrib)
+        with open(path, "w") as f:
+            yaml.dump(data, f, Dumper=Dumper)
