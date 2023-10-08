@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Support for saving Anthology XML data, with full test coverage to ensure correctness.
+- Support for saving Anthology JSON data for venues and SIGs.
 - `MarkupText.as_xml()` removed in favor of `.to_xml()`, with slightly different
   semantics.
 
