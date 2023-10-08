@@ -18,6 +18,67 @@ from typing import Callable, Optional
 from xml.sax.saxutils import escape as xml_escape
 
 
+TAGS_WITH_MARKUP = {
+    "b",
+    "i",
+    "fixed-case",
+    "title",
+    "abstract",
+    "booktitle",
+    "shortbooktitle",
+}
+"""XML tags which contain MarkupText."""
+
+
+TAGS_WITH_UNORDERED_CHILDREN = {
+    "talk",
+    "paper",
+    "meta",
+    "frontmatter",
+    "event",
+    "colocated",
+    "author",
+    "editor",
+    "speaker",
+    "variant",
+}
+"""XML tags whose child elements can logically appear in arbitrary order."""
+
+
+def _sort_children(x: etree._Element) -> tuple[str, str]:
+    """Turn an XML element into a key for sorting purposes."""
+    return (x.tag, etree.tostring(x, encoding="unicode"))
+
+
+def assert_equals(elem: etree._Element, other: etree._Element) -> None:
+    """Assert that two Anthology XML elements are logically equivalent.
+
+    Arguments:
+        elem: The first element to compare.
+        other: The second element to compare.
+
+    Raises:
+        AssertionError: If the two elements are not logically equivalent.
+    """
+    assert elem.tag == other.tag, "Tags don't match"
+    assert elem.attrib == other.attrib, "Attributes don't match"
+    assert elem.text == other.text, "Text doesn't match"
+    if elem.tag in TAGS_WITH_MARKUP:
+        assert etree.tostring(elem, encoding="unicode") == etree.tostring(
+            other, encoding="unicode"
+        )
+    else:
+        elem_children, other_children = list(elem), list(other)
+        if elem_children and elem.tag in TAGS_WITH_UNORDERED_CHILDREN:
+            elem_children = sorted(elem_children, key=_sort_children)
+            other_children = sorted(other_children, key=_sort_children)
+        assert [child.tag for child in elem_children] == [
+            child.tag for child in other_children
+        ], "Child element tags doesn't match"
+        for elem_child, other_child in zip(elem_children, other_children):
+            assert_equals(elem_child, other_child)
+
+
 def clean_whitespace(
     text: Optional[str], func: Optional[Callable[[str], str]] = None
 ) -> Optional[str]:

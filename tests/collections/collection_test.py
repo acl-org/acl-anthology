@@ -18,6 +18,19 @@ from pathlib import Path
 
 from acl_anthology import Anthology
 from acl_anthology.collections import Collection, CollectionIndex
+from acl_anthology.utils import xml
+
+
+test_cases_xml_collections = (
+    # (filename, # volumes, # papers, has event?)
+    ("2022.acl.xml", 5, 779, True),
+    ("2022.naloma.xml", 1, 6, False),
+    ("J89.xml", 4, 62, False),
+    ("L06.xml", 1, 5, False),
+)
+
+
+test_cases_xml_roundtrip = tuple(x[0] for x in test_cases_xml_collections)
 
 
 @pytest.fixture
@@ -35,23 +48,34 @@ def test_empty_collection(collection_index):
     assert collection.get_event() is None
 
 
-def test_collection_load(collection_index, datadir):
-    infile = datadir / "xml" / "2022.acl.xml"
-    collection = Collection("2022.acl", parent=collection_index, path=infile)
+@pytest.mark.parametrize(
+    "filename, no_volumes, no_papers, has_event", test_cases_xml_collections
+)
+def test_collection_load(
+    collection_index, datadir, filename, no_volumes, no_papers, has_event
+):
+    infile = datadir / "xml" / filename
+    collection = Collection(
+        filename.replace(".xml", ""), parent=collection_index, path=infile
+    )
     collection.load()
     assert collection.is_data_loaded
-    assert len(list(collection.volumes())) == 5
-    # 774 <paper> + 5 <frontmatter>
-    assert len(list(collection.papers())) == 779
-    assert collection.get_event() is not None
+    assert len(list(collection.volumes())) == no_volumes
+    assert len(list(collection.papers())) == no_papers
+    if has_event:
+        assert collection.get_event() is not None
+    else:
+        assert collection.get_event() is None
 
 
-@pytest.mark.skip()
-def test_collection_roundtrip_save(collection_index, datadir, tmp_path):
-    infile = datadir / "xml" / "2022.acl.xml"
-    outfile = tmp_path / "2022.acl.xml"
+@pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
+def test_collection_roundtrip_save(collection_index, datadir, tmp_path, filename):
+    infile = datadir / "xml" / filename
+    outfile = tmp_path / filename
     # Load & save collection
-    collection = Collection("2022.acl", parent=collection_index, path=infile)
+    collection = Collection(
+        filename.replace(".xml", ""), parent=collection_index, path=infile
+    )
     collection.load()
     collection.save(path=outfile)
     # Compare
@@ -59,5 +83,4 @@ def test_collection_roundtrip_save(collection_index, datadir, tmp_path):
     with open(infile, "r") as f, open(outfile, "r") as g:
         expected = etree.parse(f)
         generated = etree.parse(g)
-    # TODO: how to compare two etrees in a way that conforms to our schema?
-    assert generated == expected
+    xml.assert_equals(generated.getroot(), expected.getroot())

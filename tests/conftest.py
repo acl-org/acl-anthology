@@ -16,7 +16,9 @@ import os
 import pytest
 from pathlib import Path
 
-from acl_anthology import Anthology
+pytest.register_assert_rewrite("acl_anthology.utils.xml")
+
+from acl_anthology import Anthology  # noqa: E402
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 
