@@ -102,6 +102,13 @@ test_cases_pwc = (
         True,
         [("GLUE", "https://paperswithcode.com/dataset/glue")],
     ),
+    (
+        # This happens, so it needs to be handled
+        ('<pwccode url="" additional="true"/>',),
+        (None, ""),
+        True,
+        [],
+    ),
 )
 
 

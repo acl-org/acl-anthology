@@ -142,17 +142,16 @@ class PapersWithCodeReference:
         datasets: A list of datasets on PwC, given as tuples of the form `(name, url)`.
     """
 
-    code: Optional[tuple[str, str]] = field(default=None)
+    code: Optional[tuple[str | None, str]] = field(default=None)
     community_code: bool = field(default=False)
-    datasets: list[tuple[str, str]] = Factory(list)
+    datasets: list[tuple[str | None, str]] = Factory(list)
 
     def append_from_xml(self, elem: etree._Element) -> None:
         """Appends information from a `<pwccode>` or `<pwcdataset>` block to this reference."""
-        pwc_tuple = (str(elem.text), str(elem.get("url")))
+        pwc_tuple = (elem.text, elem.get("url", ""))
         if elem.tag == "pwccode":
-            self.community_code = xsd_boolean(str(elem.get("additional")))
-            if pwc_tuple[1]:
-                self.code = pwc_tuple
+            self.community_code = xsd_boolean(elem.get("additional", ""))
+            self.code = pwc_tuple
         elif elem.tag == "pwcdataset":
             self.datasets.append(pwc_tuple)
         else:
@@ -167,13 +166,15 @@ class PapersWithCodeReference:
         """
         elements = []
         if self.code is not None:
+            args = [self.code[0]] if self.code[0] is not None else []
             elements.append(
                 E.pwccode(
-                    self.code[0],
+                    *args,
                     url=self.code[1],
                     additional=str(self.community_code).lower(),
                 )
             )
         for dataset in self.datasets:
-            elements.append(E.pwcdataset(dataset[0], url=dataset[1]))
+            args = [dataset[0]] if dataset[0] is not None else []
+            elements.append(E.pwcdataset(*args, url=dataset[1]))
         return elements
