@@ -116,13 +116,13 @@ class MarkupText:
             if sub.tag == "url":
                 if allow_url:
                     sub.tag = "a"
-                    sub.attrib["href"] = str(sub.text)
+                    sub.set("href", str(sub.text))
                 else:
                     sub.tag = "span"
-                sub.attrib["class"] = "acl-markup-url"
+                sub.set("class", "acl-markup-url")
             elif sub.tag == "fixed-case":
                 sub.tag = "span"
-                sub.attrib["class"] = "acl-fixed-case"
+                sub.set("class", "acl-fixed-case")
             elif sub.tag == "tex-math":
                 parsed_elem = TexMath.to_html(sub)
                 parsed_elem.tail = sub.tail

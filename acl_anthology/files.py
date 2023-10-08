@@ -60,7 +60,7 @@ class FileReference:
     @classmethod
     def from_xml(cls, elem: etree._Element) -> Self:
         """Instantiates a new file reference from a corresponding XML element."""
-        checksum = elem.attrib.get("hash")
+        checksum = elem.get("hash")
         return cls(name=str(elem.text), checksum=str(checksum) if checksum else None)
 
     def to_xml(self, tag: str = "url") -> etree._Element:
@@ -74,7 +74,7 @@ class FileReference:
         elem = etree.Element(tag)
         elem.text = self.name
         if self.is_local and self.checksum is not None:
-            elem.attrib["hash"] = str(self.checksum)
+            elem.set("hash", str(self.checksum))
         return elem
 
 
@@ -119,8 +119,8 @@ class VideoReference(FileReference):
 
     @classmethod
     def from_xml(cls, elem: etree._Element) -> Self:
-        name = str(elem.attrib.get("href"))
-        if (value := elem.attrib.get("permission")) is not None:
+        name = str(elem.get("href"))
+        if (value := elem.get("permission")) is not None:
             return cls(name=name, permission=xsd_boolean(str(value)))
         else:
             return cls(name=name)
@@ -128,7 +128,7 @@ class VideoReference(FileReference):
     def to_xml(self, tag: str = "video") -> etree._Element:
         elem = E.video(href=self.name)
         if not self.permission:
-            elem.attrib["permission"] = "false"
+            elem.set("permission", "false")
         return elem
 
 
@@ -148,9 +148,9 @@ class PapersWithCodeReference:
 
     def append_from_xml(self, elem: etree._Element) -> None:
         """Appends information from a `<pwccode>` or `<pwcdataset>` block to this reference."""
-        pwc_tuple = (str(elem.text), str(elem.attrib["url"]))
+        pwc_tuple = (str(elem.text), str(elem.get("url")))
         if elem.tag == "pwccode":
-            self.community_code = xsd_boolean(str(elem.attrib["additional"]))
+            self.community_code = xsd_boolean(str(elem.get("additional")))
             if pwc_tuple[1]:
                 self.code = pwc_tuple
         elif elem.tag == "pwcdataset":

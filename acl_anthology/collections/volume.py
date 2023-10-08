@@ -176,13 +176,13 @@ class Volume(SlottedDict[Paper]):
         volume = cast(etree._Element, meta.getparent())
         # type-checking kwargs is a headache
         kwargs: dict[str, Any] = {
-            "id": str(volume.attrib["id"]),
-            "type": VolumeType(volume.attrib["type"]),
+            "id": str(volume.get("id")),
+            "type": VolumeType(volume.get("type")),
             "parent": parent,
             "editors": [],
             "venue_ids": [],
         }
-        if (ingest_date := volume.attrib.get("ingest-date")) is not None:
+        if (ingest_date := volume.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
         for element in meta:
             if element.tag in (
@@ -223,7 +223,7 @@ class Volume(SlottedDict[Paper]):
         """
         volume = E.volume(id=self.id, type=self.type.value)
         if self.ingest_date is not None:
-            volume.attrib["ingest-date"] = self.ingest_date
+            volume.set("ingest-date", self.ingest_date)
         meta = E.meta()
         meta.append(self.title.to_xml("booktitle"))
         if self.shorttitle is not None:

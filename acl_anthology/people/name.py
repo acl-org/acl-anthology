@@ -111,7 +111,7 @@ class Name:
         """
         first: Optional[str] = None
         last: Optional[str] = None
-        script = variant.attrib["script"] if "script" in variant.attrib else None
+        script = variant.get("script")
 
         for element in variant:
             if element.tag == "first":
@@ -136,7 +136,7 @@ class Name:
             )
         )
         if self.script is not None:
-            elem.attrib["script"] = self.script
+            elem.set("script", self.script)
         return elem
 
 
@@ -213,7 +213,7 @@ class NameSpecification:
         """
         elem = etree.Element(tag)
         if self.id is not None:
-            elem.attrib["id"] = self.id
+            elem.set("id", self.id)
         elem.extend(
             (
                 E.first(self.first) if self.first is not None else E.first(),

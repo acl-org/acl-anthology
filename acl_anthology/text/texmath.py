@@ -147,8 +147,7 @@ class _TexMath:
             _append_text(self.cmd_map[str(code)[1:]], trg)
         # Check if command is a known function name (e.g. "log")
         elif name in FUNCTION_NAMES:
-            sx = etree.Element("span")
-            sx.attrib["class"] = "tex-math-function"
+            sx = etree.Element("span", {"class": "tex-math-function"})
             sx.text = str(name)
             trg.append(sx)
             self._parse(args, trg)
@@ -216,14 +215,12 @@ class _TexMath:
         return sxscript
 
     def _append_unparsed(self, code: TexCmd, trg: etree._Element) -> None:
-        pre = etree.Element("span")
-        pre.attrib["class"] = "tex-math-unparsed"
+        pre = etree.Element("span", {"class": "tex-math-unparsed"})
         pre.text = f"\\{code.name}{code.args}"
         trg.append(pre)
 
     def etree_to_html(self, element: etree._Element) -> etree._Element:
-        result = etree.Element("span")
-        result.attrib["class"] = "tex-math"
+        result = etree.Element("span", {"class": "tex-math"})
         result.tail = element.tail  # Preserve tail
         self._parse(TexSoup(element.text).expr.all, result)
         return result

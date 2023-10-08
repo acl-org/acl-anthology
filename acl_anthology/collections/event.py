@@ -75,7 +75,7 @@ class Event:
     def from_xml(cls, parent: Collection, event: etree._Element) -> Event:
         """Instantiates a new event from an `<event>` block in the XML."""
         kwargs: dict[str, Any] = {
-            "id": event.attrib["id"],
+            "id": event.get("id"),
             "parent": parent,
             "is_explicit": True,
             "talks": [],
@@ -90,7 +90,7 @@ class Event:
             elif element.tag == "links":
                 kwargs["links"] = {}
                 for url in element:
-                    type_ = str(url.attrib.get("type", "attachment"))
+                    type_ = str(url.get("type", "attachment"))
                     kwargs["links"][type_] = AttachmentReference.from_xml(url)
             elif element.tag == "talk":
                 kwargs["talks"].append(Talk.from_xml(element))
@@ -123,7 +123,7 @@ class Event:
             links = E.links()
             for type_, attachment in self.links.items():
                 url = attachment.to_xml("url")
-                url.attrib["type"] = type_
+                url.set("type", type_)
                 links.append(url)
             elem.append(links)
         # <talk>s
@@ -171,7 +171,7 @@ class Talk:
             elif meta.tag == "speaker":
                 kwargs["speakers"].append(NameSpecification.from_xml(meta))
             elif meta.tag == "url":
-                type_ = str(meta.attrib.get("type", "attachment"))
+                type_ = str(meta.get("type", "attachment"))
                 kwargs["attachments"][type_] = AttachmentReference.from_xml(meta)
             else:
                 raise ValueError(f"Unsupported element for Talk: <{meta.tag}>")
@@ -184,12 +184,12 @@ class Talk:
         """
         elem = E.talk()
         if self.type is not None:
-            elem.attrib["type"] = self.type
+            elem.set("type", self.type)
         elem.append(self.title.to_xml("title"))
         for name_spec in self.speakers:
             elem.append(name_spec.to_xml("speaker"))
         for type_, attachment in self.attachments.items():
             url = attachment.to_xml("url")
-            url.attrib["type"] = type_
+            url.set("type", type_)
             elem.append(url)
         return elem

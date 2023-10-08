@@ -161,7 +161,7 @@ class Paper:
             if element.tag in ("bibkey", "doi", "pages"):
                 kwargs[element.tag] = element.text
             elif element.tag == "attachment":
-                type_ = str(element.attrib.get("type", "attachment"))
+                type_ = str(element.get("type", "attachment"))
                 kwargs["attachments"][type_] = AttachmentReference.from_xml(element)
             elif element.tag == "revision":
                 if "revisions" not in kwargs:
@@ -183,19 +183,17 @@ class Paper:
             return Paper.from_frontmatter_xml(parent, paper)
         # Remainder of this function assumes paper.tag == "paper"
         kwargs: dict[str, Any] = {
-            "id": str(paper.attrib["id"]),
+            "id": str(paper.get("id")),
             "parent": parent,
             "authors": [],
             "editors": [],
             "attachments": {},
         }
-        if (ingest_date := paper.attrib.get("ingest-date")) is not None:
+        if (ingest_date := paper.get("ingest-date")) is not None:
             kwargs["ingest_date"] = str(ingest_date)
-        if paper.attrib.get("type") is not None:
+        if paper.get("type") is not None:
             # TODO: this is currently ignored
-            log.debug(
-                f"Paper {paper.attrib['id']!r}: Type attribute is currently ignored"
-            )
+            log.debug(f"Paper {paper.get('id')!r}: Type attribute is currently ignored")
             # kwargs["type"] = str(paper_type)
         for element in paper:
             if element.tag in ("bibkey", "doi", "language", "note", "pages"):
@@ -205,7 +203,7 @@ class Paper:
             elif element.tag in ("abstract", "title"):
                 kwargs[element.tag] = MarkupText.from_xml(element)
             elif element.tag == "attachment":
-                type_ = str(element.attrib.get("type", "attachment"))
+                type_ = str(element.get("type", "attachment"))
                 kwargs["attachments"][type_] = AttachmentReference.from_xml(element)
             elif element.tag == "award":
                 if "awards" not in kwargs:
@@ -234,7 +232,7 @@ class Paper:
             elif element.tag in ("issue", "journal", "mrf"):
                 # TODO: these fields are currently ignored
                 log.debug(
-                    f"Paper {paper.attrib['id']!r}: Tag '{element.tag}' is currently ignored"
+                    f"Paper {paper.get('id')!r}: Tag '{element.tag}' is currently ignored"
                 )
             else:
                 raise ValueError(f"Unsupported element for Paper: <{element.tag}>")
@@ -250,7 +248,7 @@ class Paper:
         else:
             paper = etree.Element("paper", attrib={"id": self.id})
         if self.ingest_date is not None:
-            paper.attrib["ingest-date"] = self.ingest_date
+            paper.set("ingest-date", self.ingest_date)
         if not self.is_frontmatter:
             paper.append(self.title.to_xml("title"))
             for name_spec in self.authors:
@@ -272,7 +270,7 @@ class Paper:
                 paper.append(getattr(E, tag)(value))
         for type_, attachment in self.attachments.items():
             elem = attachment.to_xml("attachment")
-            elem.attrib["type"] = type_
+            elem.set("type", type_)
             paper.append(elem)
         for video in self.videos:
             paper.append(video.to_xml("video"))
@@ -315,7 +313,7 @@ class PaperDeletionNotice:
         return cls(
             type=PaperDeletionType(str(element.tag)),
             note=str(element.text),
-            date=str(element.attrib["date"]),
+            date=str(element.get("date")),
         )
 
     def to_xml(self) -> etree._Element:
@@ -346,9 +344,9 @@ class PaperErratum:
     def from_xml(cls, element: etree._Element) -> PaperErratum:
         """Instantiates an erratum from its `<erratum>` block in the XML."""
         return cls(
-            id=str(element.attrib["id"]),
+            id=str(element.get("id")),
             pdf=PDFReference.from_xml(element),
-            date=(str(element.attrib["date"]) if "date" in element.attrib else None),
+            date=element.get("date"),
         )
 
     def to_xml(self) -> etree._Element:
@@ -358,7 +356,7 @@ class PaperErratum:
         """
         elem = E.erratum(self.pdf.name, id=self.id, hash=str(self.pdf.checksum))
         if self.date is not None:
-            elem.attrib["date"] = self.date
+            elem.set("date", self.date)
         return elem
 
 
@@ -383,10 +381,10 @@ class PaperRevision:
     def from_xml(cls, element: etree._Element) -> PaperRevision:
         """Instantiates a revision from its `<revision>` block in the XML."""
         return cls(
-            id=str(element.attrib["id"]),
+            id=str(element.get("id")),
             note=str(element.text) if element.text else None,
-            pdf=PDFReference(str(element.attrib["href"]), str(element.attrib["hash"])),
-            date=(str(element.attrib["date"]) if "date" in element.attrib else None),
+            pdf=PDFReference(str(element.get("href")), str(element.get("hash"))),
+            date=element.get("date"),
         )
 
     def to_xml(self) -> etree._Element:
@@ -402,5 +400,5 @@ class PaperRevision:
         if self.note:
             elem.text = str(self.note)
         if self.date is not None:
-            elem.attrib["date"] = self.date
+            elem.set("date", self.date)
         return elem
