@@ -611,9 +611,78 @@
       <bibkey>qian-etal-2023-challenges</bibkey>
     </paper>
   </volume>
+  <volume id="coco4mt" ingest-date="2023-10-11" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Second Workshop on Corpus Generation and Corpus Augmentation for Machine Translation</booktitle>
+      <publisher>Asia-Pacific Association for Machine Translation</publisher>
+      <address>Macau SAR, China</address>
+      <month>September</month>
+      <year>2023</year>
+      <url hash="21a69ec8">2023.mtsummit-coco4mt</url>
+      <venue>mtsummit</venue>
+    </meta>
+    <frontmatter>
+      <url hash="6ecb7eff">2023.mtsummit-coco4mt.0</url>
+      <bibkey>mtsummit-2023-corpus</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Do Not Discard – Extracting Useful Fragments from Low-Quality Parallel Data to Improve Machine Translation</title>
+      <author><first>Steinþór</first><last>Steingrímsson</last></author>
+      <author><first>Pintu</first><last>Lohar</last></author>
+      <author><first>Hrafn</first><last>Loftsson</last></author>
+      <author><first>Andy</first><last>Way</last></author>
+      <pages>1–13</pages>
+      <abstract>When parallel corpora are preprocessed for machine translation (MT) training, a part of the parallel data is commonly discarded and deemed non-parallel due to odd-length ratio, overlapping text in source and target sentences or failing some other form of a semantic equivalency test. For language pairs with limited parallel resources, this can be costly as in such cases modest amounts of acceptable data may be useful to help build MT systems that generate higher quality translations. In this paper, we refine parallel corpora for two language pairs, English–Bengali and English–Icelandic, by extracting sub-sentence fragments from sentence pairs that would otherwise have been discarded, in order to increase recall when compiling training data. We find that by including the fragments, translation quality of NMT systems trained on the data improves significantly when translating from English to Bengali and from English to Icelandic.</abstract>
+      <url hash="898f91c0">2023.mtsummit-coco4mt.1</url>
+      <bibkey>steingrimsson-etal-2023-discard</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Development of <fixed-case>U</fixed-case>rdu-<fixed-case>E</fixed-case>nglish Religious Domain Parallel Corpus</title>
+      <author><first>Sadaf</first><last>Abdul Rauf</last></author>
+      <author><first>Noor e</first><last>Hira</last></author>
+      <pages>14–21</pages>
+      <abstract>Despite the abundance of monolingual corpora accessible online, there remains a scarcity of domain specific parallel corpora. This scarcity poses a challenge in the development of robust translation systems tailored for such specialized domains. Addressing this gap, we have developed a parallel religious domain corpus for Urdu-English. This corpus consists of 18,426 parallel sentences from Sunan Daud, carefully curated to capture the unique linguistic and contextual aspects of religious texts. The developed corpus is then used to train Urdu-English religious domain Neural Machine Translation (NMT) systems, the best system scored 27.9 BLEU points</abstract>
+      <url hash="3647680a">2023.mtsummit-coco4mt.2</url>
+      <bibkey>abdul-rauf-hira-2023-development</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Findings of the <fixed-case>C</fixed-case>o<fixed-case>C</fixed-case>o4<fixed-case>MT</fixed-case> 2023 Shared Task on Corpus Construction for Machine Translation</title>
+      <author><first>Ananya</first><last>Ganesh</last></author>
+      <author><first>Marine</first><last>Carpuat</last></author>
+      <author><first>William</first><last>Chen</last></author>
+      <author><first>Katharina</first><last>Kann</last></author>
+      <author><first>Constantine</first><last>Lignos</last></author>
+      <author><first>John E.</first><last>Ortega</last></author>
+      <author><first>Jonne</first><last>Saleva</last></author>
+      <author><first>Shabnam</first><last>Tafreshi</last></author>
+      <author><first>Rodolfo</first><last>Zevallos</last></author>
+      <pages>22–27</pages>
+      <abstract>This paper provides an overview of the first shared task on choosing beneficial instances for machine translation, conducted as part of the CoCo4MT 2023 Workshop at MTSummit. This shared task was motivated by the need to make the data annotation process for machine translation more efficient, particularly for low-resource languages for which collecting human translations may be difficult or expensive. The task involved developing methods for selecting the most beneficial instances for training a machine translation system without access to an existing parallel dataset in the target language, such that the best selected instances can then be manually translated. Two teams participated in the shared task, namely the Williams team and the AST team. Submissions were evaluated by training a machine translation model on each submission’s chosen instances, and comparing their performance with the chRF++ score. The system that ranked first is by the Williams team, that finds representative instances by clustering the training data.</abstract>
+      <url hash="609155d5">2023.mtsummit-coco4mt.3</url>
+      <bibkey>ganesh-etal-2023-findings</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>W</fixed-case>illiams College’s Submission for the <fixed-case>C</fixed-case>oco4<fixed-case>MT</fixed-case> 2023 Shared Task</title>
+      <author><first>Alex</first><last>Root</last></author>
+      <author><first>Mark</first><last>Hopkins</last></author>
+      <pages>28–32</pages>
+      <abstract>Professional translation is expensive. As a consequence, when developing a translation system in the absence of a pre-existing parallel corpus, it is important to strategically choose sentences to have professionally translated for the training corpus. In our contribution to the Coco4MT 2023 Shared Task, we explore how sentence embeddings can be leveraged to choose an impactful set of sentences to translate. Based on six language pairs of the JHU Bible corpus, we demonstrate that a technique based on SimCSE embeddings outperforms a competitive suite of baselines.</abstract>
+      <url hash="6400c436">2023.mtsummit-coco4mt.4</url>
+      <bibkey>root-hopkins-2023-williams</bibkey>
+    </paper>
+    <paper id="5">
+      <title>The <fixed-case>AST</fixed-case> Submission for the <fixed-case>C</fixed-case>o<fixed-case>C</fixed-case>o4<fixed-case>MT</fixed-case> 2023 Shared Task on Corpus Construction for Low-Resource Machine Translation</title>
+      <author><first>Steinþór</first><last>Steingrímsson</last></author>
+      <pages>33–38</pages>
+      <abstract>We describe the AST submission for the CoCo4MT 2023 shared task. The aim of the task is to identify the best candidates for translation in a source data set with the aim to use the translated parallel data for fine-tuning the mBART-50 model. We experiment with three methods: scoring sentences based on n-gram coverage, using LaBSE to estimate semantic similarity and identify misalignments and mistranslations by comparing machine translated source sentences to corresponding manually translated segments in high-resource languages. We find that we obtain the best results by combining these three methods, using LaBSE and machine translation for filtering, and one of our n-gram scoring approaches for ordering sentences.</abstract>
+      <url hash="b55b8fa9">2023.mtsummit-coco4mt.5</url>
+      <bibkey>steingrimsson-2023-ast</bibkey>
+    </paper>
+  </volume>
   <event id="mtsummit-2023">
     <colocated>
       <volume-id>2023.alt-1</volume-id>
+      <volume-id>2023.wat-1</volume-id>
     </colocated>
   </event>
 </collection>
