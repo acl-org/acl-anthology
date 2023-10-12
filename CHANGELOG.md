@@ -1,9 +1,16 @@
 # Changelog
 
-## [Unreleased]
+## [0.4.0] — 2023-10-12
+
+### Added
 
 - Support for saving Anthology XML data, with full test coverage to ensure correctness.
 - Support for saving Anthology JSON data for venues and SIGs.
+  - This means that `name_variants.yaml` is the only Anthology metadata file
+    that currently cannot be programmatically changed with this library.
+
+### Changed
+
 - `MarkupText.as_xml()` removed in favor of `.to_xml()`, with slightly different
   semantics.
 
