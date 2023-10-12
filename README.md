@@ -10,8 +10,6 @@
 This package accesses data from the [ACL
 Anthology](https://github.com/acl-org/acl-anthology).
 
-:warning: **This package is still work in progress.** :warning:
-
 API documentation can already be generated locally (see below for instructions),
 more documentation (included a web-hosted version) is coming.
 
