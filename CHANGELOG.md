@@ -8,6 +8,7 @@
 - Support for saving Anthology JSON data for venues and SIGs.
   - This means that `name_variants.yaml` is the only Anthology metadata file
     that currently cannot be programmatically changed with this library.
+- Support for Python 3.12.
 
 ### Changed
 
