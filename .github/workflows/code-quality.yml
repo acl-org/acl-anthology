@@ -29,6 +29,8 @@ jobs:
         run: poetry install --with dev
       - name: Run pre-commit hooks
         run: poetry run pre-commit run --all-files
+        env:
+          SKIP: no-commit-to-branch
       - name: Run type checker
         run: poetry run mypy acl_anthology
       - name: Run tests
