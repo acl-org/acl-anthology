@@ -95,13 +95,13 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             data["comment"] = anthology.people.comments[id_]
         if id_ in anthology.people.similar:
             data["similar"] = sorted(anthology.people.similar[id_])
-        papers = anthology.people.get_papers(id_, role="author") + [
+        papers_for_id = anthology.people.get_papers(id_, role="author") + [
             paper
             for paper in anthology.people.get_papers(id_, role="editor")
             if anthology.papers.get(paper).is_volume
         ]
         data["papers"] = sorted(
-            papers,
+            papers_for_id,
             key=lambda p: anthology.papers.get(p).get("year"),
             reverse=True,
         )
