@@ -1,6 +1,6 @@
 [tool.black]
 line-length = 90
-target-version = ['py310', 'py311']
+target-version = ['py310', 'py311', 'py312']
 skip-string-normalization = false
 
 [tool.mypy]
@@ -43,7 +43,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.10,!=3.11.0"
+python = ">=3.10,<3.11.0 || >3.11.0,<3.13"
 docopt = "^0.6.2"
 latexcodec = "^2.0.1"
 lxml = "^4.9.2"
@@ -55,11 +55,12 @@ attrs = "^23.1.0"
 texsoup = ">=0.3.1,<0.4.0"
 omegaconf = "^2.3.0"
 python-slugify = {extras = ["unidecode"], version = "^8.0.1"}
+numpy = "^1.26.0"
 scipy = "^1.6.0"
 typing-extensions = {version = "^4.6.0", python = "<3.11"}
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
+black = "^23.9.0"
 pytest = "^7.3.1"
 pytest-cov = "^4.0.0"
 ruff = "^0.0.269"

@@ -16,19 +16,18 @@ repos:
       files: \.py
       args: ['--license-filepath', 'LICENSE.header', '--use-current-year']
 
-- repo: https://github.com/psf/black
-  rev: 23.3.0
+- repo: https://github.com/psf/black-pre-commit-mirror
+  rev: 23.9.1
   hooks:
     - id: black
 
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.0.270
+  rev: v0.0.292
   hooks:
     - id: ruff
 
 - repo: https://github.com/python-poetry/poetry
-  rev: '1.5.0'
+  rev: '1.6.1'
   hooks:
     - id: poetry-check
-    - id: poetry-lock
-      args: ['--check']
+      args: ['--lock']
