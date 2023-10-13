@@ -399,7 +399,11 @@ def main(args):
 
         volume_node = make_simple_element(
             "volume",
-            attrib={"id": volume_name, "ingest-date": args.ingest_date},
+            attrib={
+                "id": volume_name,
+                "ingest-date": args.ingest_date,
+                "type": "proceedings",
+            },
         )
 
         # Replace the existing one if present
