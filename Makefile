@@ -11,18 +11,19 @@ check: pre-commit typecheck
 .PHONY: test
 test: pytest
 
+.PHONY: fix-and-test
+fix-and-test: pre-commit-autofix typecheck pytest
+
 ### Package setup
 
 .PHONY: dependencies
 dependencies: .flag_installed
-
-.PHONY: setup
-setup: .flag_installed .git/hooks/pre-commit
-
-.flag_installed: pyproject.toml
+.flag_installed: pyproject.toml poetry.lock
 	poetry install --with dev
 	@touch .flag_installed
 
+.PHONY: install-hooks
+install-hooks: .git/hooks/pre-commit
 .git/hooks/pre-commit: .flag_installed .pre-commit-config.yaml
 	$(run) pre-commit install
 
@@ -52,10 +53,24 @@ typecheck: .flag_installed
 pre-commit: .flag_installed
 	$(run) pre-commit run --all-files
 
-.PHONY: autofix
-autofix: .flag_installed
-	$(run) black acl_anthology/ tests/
-	$(run) ruff check --fix-only acl_anthology/ tests/
+# Runs pre-commit twice in case of failure, so that it will pass the second time
+# if only auto-fixing hooks have triggered
+.PHONY: pre-commit-autofix
+pre-commit-autofix: .flag_installed
+	@$(run) pre-commit run --all-files || $(run) pre-commit run --all-files
+
+.PHONY: test-all-python-versions
+test-all-python-versions:
+	@for py in 3.10 3.11 3.12; do \
+	  poetry env use $$py ; \
+	  poetry install --with dev --quiet ; \
+	  poetry run pytest ; \
+	done
+
+#.PHONY: autofix
+#autofix: .flag_installed
+#	$(run) black acl_anthology/ tests/
+#	$(run) ruff check --fix-only acl_anthology/ tests/
 
 ### Documentation
 
