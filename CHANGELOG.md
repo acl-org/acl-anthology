@@ -7,6 +7,10 @@
 - ACL Anthology data can now be fetched automatically from Github, without the
   need to clone the repo manually.
 
+### Changed
+
+- Fixed an encoding problem when running on Windows.
+
 ## [0.4.0] — 2023-10-12
 
 ### Added

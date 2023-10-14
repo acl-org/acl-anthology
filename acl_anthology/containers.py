@@ -73,12 +73,13 @@ class SlottedDict(Generic[T]):
             self.load()
         self.data[key] = value
 
-    def __ior__(self, other: Self) -> None:
+    def __ior__(self, other: Self) -> Self:
         if not self.is_data_loaded:
             self.load()
         if not other.is_data_loaded:
             other.load()
         self.data |= other.data
+        return self
 
     def __or__(self, other: Self) -> Self:
         if not self.is_data_loaded:
@@ -88,6 +89,11 @@ class SlottedDict(Generic[T]):
         new_instance = copy(self)
         new_instance.data = self.data | other.data
         return new_instance
+
+    def __reversed__(self) -> Iterator[str]:
+        if not self.is_data_loaded:
+            self.load()
+        return reversed(self.data)
 
     def clear(self) -> None:
         self.is_data_loaded = True  # No need to load data if it's cleared
@@ -123,15 +129,10 @@ class SlottedDict(Generic[T]):
             self.load()
         return self.data.popitem()
 
-    def reversed(self) -> Iterator[str]:
+    def setdefault(self, key: str, default: T) -> T:
         if not self.is_data_loaded:
             self.load()
-        return reversed(self.data.keys())
-
-    def setdefault(self, key: str, default: Optional[T] = None) -> T | None:
-        if not self.is_data_loaded:
-            self.load()
-        if key in self.data or default is None:
+        if key in self.data:
             return self.data[key]
         return self.data.setdefault(key, default)
 
