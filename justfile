@@ -98,10 +98,9 @@ prepare-new-release VERSION: no-uncommitted-changes check test-all test-integrat
   sed -i "s/^## \[Unreleased\].*\$/## [Unreleased]\n\n## [$VERSION] — $DATE/" CHANGELOG.md
   # Build package
   poetry build
-  # Commit changes & create tag
+  # Commit changes
   git add CHANGELOG.md pyproject.toml
   git commit -m "Bump to version v$VERSION"
-  git tag "v$VERSION"
   # Done!
   set +x
   echo ""
@@ -109,9 +108,10 @@ prepare-new-release VERSION: no-uncommitted-changes check test-all test-integrat
   echo "### New release created: $VERSION"
   echo "#############################################################"
   echo ""
-  echo "(To undo: git tag -d v$VERSION && git reset HEAD~ )"
+  echo "(To undo: git reset HEAD~ )"
   echo ""
   echo "Next steps:"
-  echo "  1. git push --tags"
-  echo "  2. poetry publish"
-  echo "  3. Create a release on Github"
+  echo "  1. git push, then PR & merge the branch into main"
+  echo "  2. git checkout main && git tag v$VERSION && git push --tags"
+  echo "  3. poetry publish"
+  echo "  4. Create a release on Github"
