@@ -79,12 +79,18 @@ py *ARGS: _deps
   poetry run python {{ARGS}}
 
 # Check that there are no uncommited changes
-_no_uncommitted_changes:
+[private]
+no-uncommitted-changes:
   git update-index --refresh
   git diff-index --quiet HEAD --
 
+# Run checks on main branch
+[private]
+check-allow-main: _deps && typecheck
+  SKIP=no-commit-to-branch poetry run pre-commit run --all-files
+
 # Bump version, update changelog, build new package, create a tag
-prepare-new-release VERSION: _no_uncommitted_changes check test-all test-integration docs
+prepare-new-release VERSION: no-uncommitted-changes check-allow-main test-all test-integration docs
   #!/usr/bin/env bash
   set -eux
   # Set trap to revert on error
