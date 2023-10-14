@@ -1,7 +1,14 @@
 # Overview
 
 This is a Python library for accessing data from the [ACL
-Anthology](https://github.com/acl-org/acl-anthology).
+Anthology](https://aclanthology.org/).
+
+The ACL Anthology is ... something something archive ...  Metadata for all of
+its publication is stored in a [public Github
+repo](https://github.com/acl-org/acl-anthology).  This package provides
+functionality to access all of the metadata you can find on the website easily
+within Python.  If you are interested in contributing to the Anthology, you can
+even use this library to programmatically make changes to the metadata.
 
 ## How to use
 
