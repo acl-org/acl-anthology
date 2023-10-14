@@ -270,7 +270,7 @@ class PersonIndex(SlottedDict[Person]):
         """
         filename = self.parent.datadir / Path(VARIANTS_FILE)
         merge_list: list[tuple[str, str]] = []
-        with open(filename, "r") as f:
+        with open(filename, "r", encoding="utf-8") as f:
             variant_list = yaml.load(f, Loader=Loader)
         for entry in variant_list:
             # Every entry must have a "canonical" name
@@ -337,5 +337,5 @@ class PersonIndex(SlottedDict[Person]):
             if person.comment is not None:
                 attrib["comment"] = person.comment
             data.append(attrib)
-        with open(path, "w") as f:
+        with open(path, "w", encoding="utf-8") as f:
             yaml.dump(data, f, Dumper=Dumper)

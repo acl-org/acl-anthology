@@ -12,9 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import sys
-from .people import Name, NameSpecification
+from __future__ import annotations
 
+import sys
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .people import Name, NameSpecification
 
 if sys.version_info >= (3, 11):
 
@@ -58,3 +62,18 @@ class NameIDUndefinedError(AnthologyException):
     def __init__(self, name_spec: NameSpecification, message: str) -> None:
         super().__init__(message)
         self.name_spec = name_spec
+
+
+class SchemaMismatchWarning(UserWarning):
+    """Raised when the data directory contains a different XML schema as this library.
+
+    This typically means that either:
+    - The data directory is outdated, and needs to be synced with the official Anthology data.
+    - This library needs to be updated.
+    """
+
+    def __init__(self) -> None:
+        super().__init__(
+            "Data directory contains a different schema.rnc as this library; "
+            "you might need to update the data or the acl-anthology-py library."
+        )

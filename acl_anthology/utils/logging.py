@@ -67,4 +67,5 @@ def setup_rich_logging(**kwargs: object) -> SeverityTracker:
     tracker = SeverityTracker()
     cast(list[logging.Handler], log_config["handlers"]).extend([RichHandler(), tracker])
     logging.basicConfig(**log_config)  # type: ignore
+    logging.captureWarnings(True)
     return tracker

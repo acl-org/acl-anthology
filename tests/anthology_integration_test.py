@@ -12,23 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .git import clone_or_pull_from_repo
-from .ids import build_id, parse_id, AnthologyID
-from .latex import latex_encode, latex_convert_quotes
-from .logging import setup_rich_logging, get_logger
-from .text import remove_extra_whitespace
-from .xml import stringify_children
+import os
+import pytest
+from pathlib import Path
+from acl_anthology import Anthology
+
+SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+DATADIR = Path(f"{SCRIPTDIR}/.official_anthology_git")
 
 
-__all__ = [
-    "AnthologyID",
-    "build_id",
-    "clone_or_pull_from_repo",
-    "get_logger",
-    "latex_encode",
-    "latex_convert_quotes",
-    "parse_id",
-    "remove_extra_whitespace",
-    "setup_rich_logging",
-    "stringify_children",
-]
+@pytest.fixture
+def anthology_from_repo():
+    return Anthology.from_repo(path=DATADIR)
+
+
+@pytest.mark.integration
+def test_anthology_from_official_repo(anthology_from_repo):
+    anthology = anthology_from_repo
+    anthology.load_all()
+    assert len(anthology.collections) > 1145
+    assert anthology.get_paper("2023.acl-long.1") is not None

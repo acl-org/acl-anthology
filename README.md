@@ -21,21 +21,13 @@ Install via `pip`:
 $ pip install acl-anthology-py
 ```
 
-Clone the [ACL Anthology](https://github.com/acl-org/acl-anthology) repo to
-obtain the data files _(there will be an option to automate this step in a
-future version)_:
-
-```bash
-$ git clone https://github.com/acl-org/acl-anthology
-```
-
-Afterwards, the library can be instantiated as follows:
+Instantiate the library, automatically fetching data files from the [ACL
+Anthology repo](https://github.com/acl-org/acl-anthology) (requires `git` to be
+installed on your system):
 
 ```python
 from acl_anthology import Anthology
-
-# "datadir" needs to point to the "data/" folder of the acl-anthology repo
-anthology = Anthology(datadir="acl-anthology/data")
+anthology = Anthology.from_repo()
 ```
 
 Some usage examples:

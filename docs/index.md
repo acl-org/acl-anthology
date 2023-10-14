@@ -3,9 +3,40 @@
 This is a Python library for accessing data from the [ACL
 Anthology](https://github.com/acl-org/acl-anthology).
 
-!!! danger
+## How to use
 
-    **This library is WORK IN PROGRESS and not yet functional.**
+Install via `pip`:
+
+```bash
+$ pip install acl-anthology-py
+```
+
+Instantiate the library, automatically fetching data files from the [ACL
+Anthology repo](https://github.com/acl-org/acl-anthology) (requires `git` to be
+installed on your system):
+
+```python
+from acl_anthology import Anthology
+anthology = Anthology.from_repo()
+```
+
+Some usage examples:
+
+```python
+paper = anthology.get("C92-1025")
+
+print(str(paper.title))
+# Two-Level Morphology with Composition
+
+print([author.name for author in paper.authors])
+# [Name(first='Lauri', last='Karttunen'), Name(first='Ronald M.', last='Kaplan'), Name(first='Annie', last='Zaenen')]
+
+from acl_anthology.people import Name
+print(anthology.people.get_by_name(Name("Lauri", "Karttunen")))
+# [Person(id='lauri-karttunen', names=[Name(first='Lauri', last='Karttunen')],
+#         item_ids={('C94', '2', '206'), ('W05', '12', '6'), ('C69', '70', '1'),
+#                   ('J83', '2', '5'), ('C86', '1', '16'), ('C92', '1', '25'), ...})]
+```
 
 ## Developing
 

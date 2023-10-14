@@ -14,6 +14,11 @@ ignore_missing_imports = true
 module = 'latexcodec.*'
 ignore_missing_imports = true
 
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks tests on the full acl-org/acl-anthology repo"
+]
+
 [tool.ruff]
 ignore = ['E501']  # "Line too long" is black's job
 target-version = 'py310'
@@ -60,6 +65,8 @@ python-slugify = {extras = ["unidecode"], version = "^8.0.1"}
 numpy = "^1.26.0"
 scipy = "^1.6.0"
 typing-extensions = {version = "^4.6.0", python = "<3.11"}
+platformdirs = "^3.11.0"
+gitpython = "^3.1.37"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.9.0"

@@ -30,16 +30,20 @@ check: _deps && typecheck
   poetry run pre-commit run --all-files
 
 # Run checks (twice in case of failure) and all tests
-fix-and-test: _deps && test-all
+fix-and-test: _deps && typecheck test-all
   @poetry run pre-commit run -a || poetry run pre-commit run -a
 
 # Run all tests
 test-all: _deps
-  poetry run pytest
+  poetry run pytest -m "not integration"
 
 # Run all tests and generate coverage report
 test-with-coverage: _deps
-  poetry run pytest --cov=acl_anthology --cov-report=xml
+  poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml
+
+# Run tests that operate on the acl-org/acl-anthology repo
+test-integration: _deps
+  poetry run pytest -m "integration"
 
 # Run only test functions containing TERM
 test TERM: _deps
@@ -55,7 +59,7 @@ test-all-python-versions: _deps
   for py in 3.10 3.11 3.12; do
     poetry env use $py
     poetry install --with dev --quiet
-    poetry run pytest
+    poetry run pytest -m "not integration"
   done
 
 # Run type-checker only
@@ -70,13 +74,17 @@ docs: _deps
 docs-serve: _deps
   poetry run mkdocs serve
 
+# Open a Python REPL
+py *ARGS: _deps
+  poetry run python {{ARGS}}
+
 # Check that there are no uncommited changes
 _no_uncommitted_changes:
   git update-index --refresh
   git diff-index --quiet HEAD --
 
 # Bump version, update changelog, build new package, create a tag
-prepare-new-release VERSION: _no_uncommitted_changes check test-all docs
+prepare-new-release VERSION: _no_uncommitted_changes check test-all test-integration docs
   #!/usr/bin/env bash
   set -eux
   # Set trap to revert on error

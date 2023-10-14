@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import os
 import pytest
 from pathlib import Path
@@ -33,8 +34,16 @@ class AnthologyStub:
 
 
 @pytest.fixture
-def anthology(datadir):
-    return Anthology(datadir)
+def anthology(datadir, caplog):
+    logging.captureWarnings(True)
+    anthology = Anthology(datadir)
+    yield anthology
+    for when in ("setup", "call"):
+        warnings = [
+            x.message for x in caplog.get_records(when) if x.levelno == logging.WARNING
+        ]
+        if warnings:
+            pytest.fail(f"Tests on toy_anthology logged warning(s): {warnings}")
 
 
 @pytest.fixture

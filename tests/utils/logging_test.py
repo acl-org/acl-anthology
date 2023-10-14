@@ -12,23 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .git import clone_or_pull_from_repo
-from .ids import build_id, parse_id, AnthologyID
-from .latex import latex_encode, latex_convert_quotes
-from .logging import setup_rich_logging, get_logger
-from .text import remove_extra_whitespace
-from .xml import stringify_children
+import logging
+from acl_anthology.utils import logging as my_logging
 
 
-__all__ = [
-    "AnthologyID",
-    "build_id",
-    "clone_or_pull_from_repo",
-    "get_logger",
-    "latex_encode",
-    "latex_convert_quotes",
-    "parse_id",
-    "remove_extra_whitespace",
-    "setup_rich_logging",
-    "stringify_children",
-]
+def test_integrated_logging():
+    logger = my_logging.get_logger()
+    tracker = my_logging.setup_rich_logging()
+    logger.addHandler(tracker)
+    assert tracker.highest == logging.NOTSET
+    logger.warning("A warning message")
+    assert tracker.highest == logging.WARNING
+    logger.error("An error message")
+    assert tracker.highest == logging.ERROR
+    logger.warning("A warning message")
+    assert tracker.highest == logging.ERROR

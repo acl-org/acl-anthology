@@ -20,9 +20,6 @@ from acl_anthology.people import Name
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 DATADIR = Path(f"{SCRIPTDIR}/toy_anthology")
 
-# TODO: tests in this file will mostly be integration tests, which are more
-# expensive to run; can this be marked somehow?
-
 
 def test_instantiate():
     anthology = Anthology(datadir=DATADIR)

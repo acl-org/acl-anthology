@@ -9,8 +9,8 @@ fixed-case = element fixed-case { MarkupText }
 tex-math = element tex-math { text }
 MarkupText = (text | b | i | url | fixed-case | tex-math )+
 
-first = element first { text }
-last = element last { text }
+first = element first { xsd:string { pattern="(\S(.*\S)?)?" } }
+last = element last { xsd:string { pattern="\S(.*\S)?" } }
 affiliation = element affiliation { text }
 orcid = element orcid { text }
 google-scholar = element google-scholar{ text }

@@ -12,14 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import annotations
+
 import gc
 import itertools as it
+import pkgutil
+import sys
+import warnings
 from os import PathLike
 from pathlib import Path
 from rich.progress import track
+from slugify import slugify
 from typing import overload, Iterator, Optional
 
-from .config import config
+if sys.version_info >= (3, 11):
+    from typing import Self
+else:
+    from typing_extensions import Self
+
+from .config import config, dirs
+from .exceptions import SchemaMismatchWarning
+from .utils import git
 from .utils.ids import AnthologyID, parse_id
 from .collections import CollectionIndex, Collection, Volume, Paper, EventIndex
 from .people import PersonIndex, Person, NameSpecification
@@ -45,6 +58,7 @@ class Anthology:
 
         self.datadir = Path(datadir)
         self.verbose = verbose
+        self._check_schema_compatibility()
 
         self.collections = CollectionIndex(self)
         """The [CollectionIndex][acl_anthology.collections.CollectionIndex] for accessing collections, volumes, and papers."""
@@ -61,7 +75,43 @@ class Anthology:
         self.venues = VenueIndex(self)
         """The [VenueIndex][acl_anthology.venues.VenueIndex] for accessing venues."""
 
-    def load_all(self) -> None:
+    def _check_schema_compatibility(self) -> None:
+        """
+        Checks if the XML schema in the data directory is identical to
+        the one in the package directory, and emits a warning if it
+        is not."""
+        expected_schema = pkgutil.get_data("acl_anthology", "data/schema.rnc")
+        with open(self.datadir / "xml" / "schema.rnc", "rb") as f:
+            datadir_schema = f.read()
+        if datadir_schema != expected_schema:
+            warnings.warn(SchemaMismatchWarning())
+
+    @classmethod
+    def from_repo(
+        cls,
+        repo_url: str = "https://github.com/acl-org/acl-anthology.git",
+        path: Optional[PathLike[str]] = None,
+        verbose: bool = False,
+    ) -> Self:
+        """Instantiates the Anthology from a Git repo.
+
+        Arguments:
+            repo_url: The URL of a Git repo with Anthology data.  If not given, defaults to the official ACL Anthology repo.
+            path: The local path for the repo data.  If not given, automatically determines a path within the user's data directory.
+            verbose: If True, will show progress bars during longer operations.
+        """
+        if path is None:
+            path = (
+                dirs.user_data_path
+                / "git"
+                / slugify(repo_url).replace("https-github-com-", "")
+            )
+        else:
+            path = Path(path)
+        git.clone_or_pull_from_repo(repo_url, path, verbose)
+        return cls(datadir=path / "data", verbose=verbose)
+
+    def load_all(self) -> Self:
         """Load all Anthology data files.
 
         Calling this function is **not strictly necessary.** If you
@@ -77,25 +127,28 @@ class Anthology:
         if config["disable_gc"]:
             was_gc_enabled = gc.isenabled()
             gc.disable()
-        iterator = track(
-            it.chain(
-                self.collections.values(),
-                (self.people, self.events, self.sigs, self.venues),
-            ),
-            total=len(self.collections) + 4,
-            disable=(not self.verbose),
-            description="Loading Anthology data...",
-        )
-        if self.verbose:
-            self.events.verbose = False
-            self.people.verbose = False
-        for elem in iterator:
-            elem.load()  # type: ignore
-        if self.verbose:
-            self.events.verbose = True
-            self.people.verbose = True
-        if was_gc_enabled:
-            gc.enable()
+        try:
+            iterator = track(
+                it.chain(
+                    self.collections.values(),
+                    (self.people, self.events, self.sigs, self.venues),
+                ),
+                total=len(self.collections) + 4,
+                disable=(not self.verbose),
+                description="Loading Anthology data...",
+            )
+            if self.verbose:
+                self.events.verbose = False
+                self.people.verbose = False
+            for elem in iterator:
+                elem.load()  # type: ignore
+            if self.verbose:
+                self.events.verbose = True
+                self.people.verbose = True
+        finally:
+            if was_gc_enabled:
+                gc.enable()
+        return self
 
     def volumes(self, collection_id: Optional[str] = None) -> Iterator[Volume]:
         """Returns an iterator over all volumes.

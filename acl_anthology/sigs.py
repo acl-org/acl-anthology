@@ -96,7 +96,7 @@ class SIG:
         """
         path = Path(path)
         sig_id = path.name[:-5]
-        with open(path, "r") as f:
+        with open(path, "r", encoding="utf-8") as f:
             kwargs = yaml.load(f, Loader=Loader)
         sig = cls(
             parent,
@@ -150,7 +150,7 @@ class SIG:
                             value["URL"] = meeting.url
                     year_meetings.append(value)
                 values_meetings.append({int(year): year_meetings})
-        with open(path, "w") as f:
+        with open(path, "w", encoding="utf-8") as f:
             yaml.dump(values, f, Dumper=Dumper, width=999)
             if values_meetings:
                 yaml.dump({"Meetings": values_meetings}, f, Dumper=Dumper, width=999)

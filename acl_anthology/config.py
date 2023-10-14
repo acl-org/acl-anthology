@@ -16,6 +16,7 @@
 
 from attrs import define
 from omegaconf import OmegaConf
+from platformdirs import PlatformDirs
 
 
 @define
@@ -47,3 +48,6 @@ class DefaultConfig:
 
 config = OmegaConf.structured(DefaultConfig)
 """A [structured configuration instance](https://omegaconf.readthedocs.io/en/latest/structured_config.html) that is used by all `acl_anthology` classes."""
+
+dirs = PlatformDirs("acl-anthology-py")
+"""A [PlatformDirs instance](https://platformdirs.readthedocs.io/en/latest/api.html#platformdirs) that returns platform-specific directories for storing data."""

@@ -68,7 +68,7 @@ class Venue:
         """
         path = Path(path)
         venue_id = path.name[:-5]
-        with open(path, "r") as f:
+        with open(path, "r", encoding="utf-8") as f:
             kwargs = yaml.load(f, Loader=Loader)
         return cls(venue_id, path=path, **kwargs)
 
@@ -84,7 +84,7 @@ class Venue:
         values = asdict(
             self, filter=lambda a, v: a.name not in ("id", "path") and v != a.default
         )
-        with open(path, "w") as f:
+        with open(path, "w", encoding="utf-8") as f:
             yaml.dump(values, f, Dumper=Dumper)
 
 

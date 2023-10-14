@@ -41,9 +41,13 @@ clean:
 
 ### Check, test, build commands
 
+.PHONY: test-integration
+test-integration: .flag_installed
+	$(run) pytest -m "integration" --cov=acl_anthology --cov-report=xml
+
 .PHONY: pytest
 pytest: .flag_installed
-	$(run) pytest --cov=acl_anthology --cov-report=xml
+	$(run) pytest -m "not integration" --cov=acl_anthology --cov-report=xml
 
 .PHONY: typecheck
 typecheck: .flag_installed
@@ -64,7 +68,7 @@ test-all-python-versions:
 	@for py in 3.10 3.11 3.12; do \
 	  poetry env use $$py ; \
 	  poetry install --with dev --quiet ; \
-	  poetry run pytest ; \
+	  poetry run pytest -m "not integration" ; \
 	done
 
 #.PHONY: autofix
