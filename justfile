@@ -84,13 +84,8 @@ no-uncommitted-changes:
   git update-index --refresh
   git diff-index --quiet HEAD --
 
-# Run checks on main branch
-[private]
-check-allow-main: _deps && typecheck
-  SKIP=no-commit-to-branch poetry run pre-commit run --all-files
-
 # Bump version, update changelog, build new package, create a tag
-prepare-new-release VERSION: no-uncommitted-changes check-allow-main test-all test-integration docs
+prepare-new-release VERSION: no-uncommitted-changes check test-all test-integration docs
   #!/usr/bin/env bash
   set -eux
   # Set trap to revert on error
@@ -103,11 +98,18 @@ prepare-new-release VERSION: no-uncommitted-changes check-allow-main test-all te
   sed -i "s/^## \[Unreleased\].*\$/## [Unreleased]\n\n## [$VERSION] — $DATE/" CHANGELOG.md
   # Build package
   poetry build
-  # Create a tag
+  # Commit changes & create tag
+  git add CHANGELOG.md pyproject.toml
+  git commit -m "Bump to version v$VERSION"
   git tag "v$VERSION"
   # Done!
+  set +x
   echo ""
+  echo "#############################################################"
   echo "### New release created: $VERSION"
+  echo "#############################################################"
+  echo ""
+  echo "(To undo: git tag -d v$VERSION && git reset HEAD~ )"
   echo ""
   echo "Next steps:"
   echo "  1. git push --tags"

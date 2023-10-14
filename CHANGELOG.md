@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.4.1] — 2023-10-14
+
 ### Added
 
 - ACL Anthology data can now be fetched automatically from Github, without the
