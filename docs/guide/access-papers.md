@@ -12,7 +12,11 @@ For example, the [paper with the Anthology ID “2022.acl-long.220”](https://a
 
 ```mermaid
 flowchart LR
-    anth["<b>Anthology</b>"]
+    anthid("<b>Full ID:</b> <i>2022.acl-long.220</i>")
+    anthid -...-> paper
+
+    anth["<b>Anthology</b>
+    &nbsp;"]
     anth --> coll
     coll["<b>Collection</b>
     id: <i>2022.acl</i>"]
@@ -22,9 +26,6 @@ flowchart LR
     paper["<b>Paper</b>
     id: <i>220</i>"]
     vol1 --> paper
-
-    anthid("<b>Full ID:</b> <i>2022.acl-long.220</i>")
-    anthid -...-> paper
 ```
 
 The library organizes data the same way.  You can use
