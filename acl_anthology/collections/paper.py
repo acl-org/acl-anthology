@@ -73,29 +73,29 @@ class Paper:
 
     id: str
     parent: Volume = field(repr=False, eq=False)
-    bibkey: str
+    bibkey: str = field()
     title: MarkupText = field()
 
-    attachments: dict[str, AttachmentReference] = Factory(dict)
+    attachments: dict[str, AttachmentReference] = field(factory=dict, repr=False)
     authors: list[NameSpecification] = Factory(list)
-    awards: list[str] = Factory(list)
+    awards: list[str] = field(factory=list, repr=False)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: list[NameSpecification] = Factory(list)
-    errata: list[PaperErratum] = Factory(list)
-    revisions: list[PaperRevision] = Factory(list)
-    videos: list[VideoReference] = Factory(list)
+    editors: list[NameSpecification] = field(factory=list, repr=False)
+    errata: list[PaperErratum] = field(factory=list, repr=False)
+    revisions: list[PaperRevision] = field(factory=list, repr=False)
+    videos: list[VideoReference] = field(factory=list, repr=False)
 
     abstract: Optional[MarkupText] = field(default=None)
-    deletion: Optional[PaperDeletionNotice] = field(default=None)
-    doi: Optional[str] = field(default=None)
-    ingest_date: Optional[str] = field(default=None)
-    language: Optional[str] = field(default=None)
-    note: Optional[str] = field(default=None)
-    pages: Optional[str] = field(default=None)
+    deletion: Optional[PaperDeletionNotice] = field(default=None, repr=False)
+    doi: Optional[str] = field(default=None, repr=False)
+    ingest_date: Optional[str] = field(default=None, repr=False)
+    language: Optional[str] = field(default=None, repr=False)
+    note: Optional[str] = field(default=None, repr=False)
+    pages: Optional[str] = field(default=None, repr=False)
     paperswithcode: Optional[PapersWithCodeReference] = field(
-        default=None, on_setattr=attrs.setters.frozen
+        default=None, on_setattr=attrs.setters.frozen, repr=False
     )
-    pdf: Optional[PDFReference] = field(default=None)
+    pdf: Optional[PDFReference] = field(default=None, repr=False)
 
     # TODO: properties we obtain from the parent volume?
 
