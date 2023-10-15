@@ -162,3 +162,28 @@ paper.root                          # returns the Anthology, but less confusingl
 ## Looking up events
 
 {==TODO==}
+
+
+## Loading the entire Anthology data
+
+The Anthology metadata is distributed across many individual XML and YAML files
+_(over 1,500 files as of October 2023)_, and loading all of this data can take a
+bit of time and memory.  Fortunately, you normally don't need to worry about
+that, as the Anthology library only loads files on-demand as they are required.
+For example, if you access the paper with ID `2022.acl-long.220`, the library
+will load the file `xml/2022.acl.xml` from the data directory, which (hopefully)
+contains the metadata for the requested paper.
+
+However, if you know that you will eventually process the entire Anthology data
+anyway, it _can_ be faster to load the entire Anthology data at once:
+
+```python
+anthology.load_all()
+```
+
+Note that **it is _never required_** to call this function, and calling it may
+or may not provide a speed-up, depending on what kind of data you are accessing.
+
+When developing or modifying the Anthology data, this function can also be
+useful to check that the library can read and process the entirety of the data
+in the data directory without errors.

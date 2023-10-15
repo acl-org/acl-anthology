@@ -50,7 +50,11 @@ a branch of the official repo.  The argument to `datadir` needs to point to a
 data directory with the same structure as the [`data/` directory of the official
 repo](https://github.com/acl-org/acl-anthology/tree/master/data).
 
-## Accessing Data
+## Examples
+
+This section demonstrates how to use the `anthology` object by way of examples.
+
+### Finding a paper by its ID
 
 All metadata from the Anthology can be accessed through the `anthology` object.
 For example, to obtain information about a specific paper, you can call
@@ -63,13 +67,29 @@ Paper(
     id='220',
     bibkey='kitaev-etal-2022-learned',
     title=MarkupText('Learned Incremental Representations for Parsing'),
-    attachments={},
     authors=[
         NameSpecification(name=Name(first='Nikita', last='Kitaev'), id=None, affiliation=None, variants=[]),
         NameSpecification(name=Name(first='Thomas', last='Lu'), id=None, affiliation=None, variants=[]),
         NameSpecification(name=Name(first='Dan', last='Klein'), id=None, affiliation=None, variants=[])
     ],
-    awards=['Best Paper'],
     ...
 )
 ```
+
+All metadata fields are described in detail in {==TODO==}.
+
+### Finding all papers by an author
+
+{==TODO==}
+
+### Finding all papers from an event
+
+{==TODO==}
+
+### Getting the BibTeX entry for a paper
+
+{==TODO==}
+
+### Searching for papers by keywords in title
+
+{==TODO==}
