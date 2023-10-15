@@ -5,10 +5,16 @@ repo_name: mbollmann/acl-anthology-py
 
 markdown_extensions:
   - admonition
+  - def_list
   - footnotes
   - pymdownx.betterem
+  - pymdownx.critic
   - pymdownx.smartsymbols
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - toc:
@@ -21,8 +27,8 @@ theme:
     repo: fontawesome/brands/github
   palette:
     # Color of the ACL logo is: rgb(237, 28, 36)
-    primary: amber
-    accent: indigo
+    primary: indigo
+    accent: amber
   features:
     - navigation.expand
     - navigation.indexes
@@ -35,6 +41,8 @@ nav:
       - index.md
   - User Guide:
       - guide/index.md
+      - guide/getting-started.md
+      - guide/access-papers.md
   - API Documentation:
       - api/index.md
       - api/anthology.md

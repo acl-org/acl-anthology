@@ -3,23 +3,24 @@
 This is a Python library for accessing data from the [ACL
 Anthology](https://aclanthology.org/).
 
-The ACL Anthology is ... something something archive ...  Metadata for all of
-its publication is stored in a [public Github
-repo](https://github.com/acl-org/acl-anthology).  This package provides
+The ACL Anthology is a prime resource for research papers within computational
+linguistics and natural language processing.  Metadata for all of its
+publications is stored in a [public Github
+repository](https://github.com/acl-org/acl-anthology).  This package provides
 functionality to access all of the metadata you can find on the website easily
-within Python.  If you are interested in contributing to the Anthology, you can
-even use this library to programmatically make changes to the metadata.
+from within Python.  If you are interested in contributing to the Anthology, you
+can even use this library to programmatically make changes to the metadata.
 
 ## How to use
 
-Install via `pip`:
+This package requires **Python 3.10 or newer**. Install via pip:
 
 ```bash
-$ pip install acl-anthology-py
+pip install acl-anthology-py
 ```
 
 Instantiate the library, automatically fetching data files from the [ACL
-Anthology repo](https://github.com/acl-org/acl-anthology) (requires `git` to be
+Anthology repo](https://github.com/acl-org/acl-anthology) (requires Git to be
 installed on your system):
 
 ```python
