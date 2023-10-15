@@ -51,14 +51,14 @@ class PersonIndex(SlottedDict[Person]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
-        verbose: If True, will show progress bar when building the index from scratch.
+        verbose: If False, will not show progress bar when building the index from scratch.
         name_to_ids: A mapping of [Name][acl_anthology.people.name.Name] instances to person IDs.
         similar: A [disjoint-set structure][scipy.cluster.hierarchy.DisjointSet] of persons with similar names.
         is_data_loaded: A flag indicating whether the index has been constructed.
     """
 
     parent: Anthology = field(repr=False, eq=False)
-    verbose: bool = field(default=False)
+    verbose: bool = field(default=True)
     name_to_ids: dict[Name, list[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
     )

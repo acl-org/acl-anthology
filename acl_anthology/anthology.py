@@ -49,10 +49,10 @@ class Anthology:
 
     Attributes:
         datadir (PathLike[str]): The path to the data folder.
-        verbose (bool): If True, will show progress bars during longer operations.
+        verbose (bool): If False, will not show progress bars during longer operations.
     """
 
-    def __init__(self, datadir: PathLike[str], verbose: bool = False) -> None:
+    def __init__(self, datadir: PathLike[str], verbose: bool = True) -> None:
         if not Path(datadir).is_dir():
             raise FileNotFoundError(f"Not a directory: {datadir}")
 
@@ -91,14 +91,14 @@ class Anthology:
         cls,
         repo_url: str = "https://github.com/acl-org/acl-anthology.git",
         path: Optional[PathLike[str]] = None,
-        verbose: bool = False,
+        verbose: bool = True,
     ) -> Self:
         """Instantiates the Anthology from a Git repo.
 
         Arguments:
             repo_url: The URL of a Git repo with Anthology data.  If not given, defaults to the official ACL Anthology repo.
             path: The local path for the repo data.  If not given, automatically determines a path within the user's data directory.
-            verbose: If True, will show progress bars during longer operations.
+            verbose: If False, will not show progress bars during longer operations.
         """
         if path is None:
             path = (
