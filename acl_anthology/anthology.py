@@ -75,6 +75,9 @@ class Anthology:
         self.venues = VenueIndex(self)
         """The [VenueIndex][acl_anthology.venues.VenueIndex] for accessing venues."""
 
+    def __repr__(self) -> str:
+        return f"Anthology(datadir={repr(self.datadir)}, verbose={self.verbose})"
+
     def _check_schema_compatibility(self) -> None:
         """
         Checks if the XML schema in the data directory is identical to
