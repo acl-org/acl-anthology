@@ -56,8 +56,9 @@ This section demonstrates how to use the `anthology` object by way of examples.
 
 ### Finding a paper by its ID
 
-All metadata from the Anthology can be accessed through the `anthology` object.
-For example, to obtain information about a specific paper, you can call
+All metadata from the Anthology can be accessed through the
+[`anthology`][acl_anthology.anthology.Anthology] object.  For example, to obtain
+information about a specific paper, you can call
 [`anthology.get()`][acl_anthology.anthology.Anthology.get] with the paper's
 Anthology ID:
 
@@ -80,16 +81,94 @@ All metadata fields are described in detail in {==TODO==}.
 
 ### Finding all papers by an author
 
-{==TODO==}
+{==TODO: functions that take strings, i.e. don't require importing `Name`, would be nice ==}
+
+```pycon
+>>> from acl_anthology.people import Name
+>>> results = anthology.people.get_by_name(Name("Dan", "Klein"))
+>>> person = results[0]
+>>> person.item_ids
+{
+    ('P18', '2', '75'),
+    ('P17', '2', '52'),
+    ('2023.acl', 'short', '65'),
+    ('2020.emnlp', 'main', '445'),
+    ('P16', '1', '188'),
+    ('2023.acl', 'long', '91'),
+    ...
+}
+>>> for id_ in person.item_ids:
+...     print(anthology.get(id_).title)
+...
+Policy Gradient as a Proxy for Dynamic Oracles in Constituency Parsing
+Fine-Grained Entity Typing with High-Multiplicity Assignments
+Modular Visual Question Answering via Code Generation
+Digital Voicing of Silent Speech
+...
+```
 
 ### Finding all papers from an event
 
 {==TODO==}
 
+```pycon
+>>> event = anthology.events.get("acl-2022")
+>>> event
+Event(
+    id='acl-2022',
+    is_explicit=True,
+    title=MarkupText('60th Annual Meeting of the Association for Computational Linguistics'),
+    location='Dublin, Ireland',
+    dates='May 22–27, 2022'
+)
+>>> event.colocated_ids
+[
+    ('2022.acl', 'long', None),
+    ('2022.acl', 'short', None),
+    ('2022.acl', 'srw', None),
+    ('2022.acl', 'demo', None),
+    ('2022.acl', 'tutorials', None),
+    ('2022.findings', 'acl', None),
+    ('2022.bigscience', '1', None),
+    ('2022.bionlp', '1', None),
+    ...
+]
+```
+
+{==What if you don't know the event ID?=}
+
+```pycon
+>>> volume = anthology.get_volume("2022.bigscience-1")
+>>> # Currently no way to find the event that contains this!
+```
+
+
 ### Getting the BibTeX entry for a paper
 
 {==TODO==}
 
+```pycon
+>>> paper = anthology.get("2022.acl-long.220")
+>>> # TODO: Not currently possible yet
+```
+
 ### Searching for papers by keywords in title
 
 {==TODO==}
+
+```pycon
+>>> for paper in anthology.papers():
+...     if "semantic parsing" in str(paper.title).lower():
+...         print(paper.full_id, paper.title)
+...
+2007.tmi-papers.10 Learning bilingual semantic frames: shallow semantic parsing vs. semantic role projection
+2020.acl-main.427 CraftAssist Instruction Parsing: Semantic Parsing for a Voxel-World Assistant
+2020.acl-main.606 Semantic Parsing for English as a Second Language
+2020.acl-main.608 Unsupervised Dual Paraphrasing for Two-stage Semantic Parsing
+2020.acl-main.742 Exploring Unexplored Generalization Challenges for Cross-Database Semantic Parsing
+2020.acl-main.746 Universal Decompositional Semantic Parsing
+2020.acl-demos.29 Usnea: An Authorship Tool for Interactive Fiction using Retrieval Based Semantic Parsing
+2020.alta-1.16 Transformer Semantic Parsing
+2020.coling-main.226 Context Dependent Semantic Parsing: A Survey
+...
+```

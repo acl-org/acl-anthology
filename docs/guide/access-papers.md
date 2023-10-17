@@ -46,7 +46,7 @@ anthology.get("2022.acl-long.220")  # returns the Paper '2022.acl-long.220'
 
 As you can see above, Anthology IDs like `2022.acl-long.220` can be split into parts
 representing the _collection_, _volume_, and _paper_.  You can use the utility
-functions in [`utils.ids`](/api/utils/#utilsids) to convert IDs between strings
+functions in [`utils.ids`](../api/utils.md#utilsids) to convert IDs between strings
 and tuples:
 
 ```python
