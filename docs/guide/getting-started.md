@@ -135,7 +135,7 @@ Event(
 ]
 ```
 
-{==What if you don't know the event ID?=}
+{==What if you don't know the event ID?==}
 
 ```pycon
 >>> volume = anthology.get_volume("2022.bigscience-1")
