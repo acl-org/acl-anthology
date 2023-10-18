@@ -156,3 +156,19 @@ def test_name_scoring():
     assert n1.score() > n3.score()
     assert n1.score() > n4.score()
     assert n1.score() < n5.score()
+
+
+def test_name_from_string():
+    n1 = Name.from_string("André Rieu")
+    n2 = Name.from_string("Rieu, André")
+    assert n1.first == "André"
+    assert n1.last == "Rieu"
+    assert n1 == n2
+    n3 = Name.from_string("Chan, Tai Man")
+    assert n3.first == "Tai Man"
+    assert n3.last == "Chan"
+    with pytest.raises(ValueError):
+        Name.from_string("Tai Man Chan")
+    n4 = Name.from_string("Mausam")
+    assert n4.first is None
+    assert n4.last == "Mausam"

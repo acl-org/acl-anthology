@@ -82,17 +82,17 @@ class Name:
         return slug
 
     @classmethod
-    def from_dict(cls, person: dict[str, str]) -> Name:
+    def from_dict(cls, name: dict[str, str]) -> Name:
         """
         Parameters:
-            person: A dictionary with "first" and "last" keys.
+            name: A dictionary with "first" and "last" keys.
 
         Returns:
             A corresponding Name object.
         """
         return cls(
-            person.get("first"),
-            person["last"],
+            name.get("first"),
+            name["last"],
         )
 
     @classmethod
@@ -119,6 +119,32 @@ class Name:
             elif element.tag == "last":
                 last = element.text
         return cls(first, cast(str, last), script)
+
+    @classmethod
+    def from_string(cls, name: str) -> Name:
+        """Instantiate a Name from a single string.
+
+        Parameters:
+            name: A name string given as either "{first} {last}" or "{last}, {first}".
+
+        Returns:
+            A corresponding Name object.
+
+        Raises:
+            ValueError: If `name` cannot be unambiguously parsed into first/last components; in this case, you should instantiate Name directly instead.
+        """
+        name = name.strip()
+        if ", " in name:
+            components = name.split(", ")[::-1]
+        else:
+            components = name.split(" ")
+        if len(components) == 1:
+            components.insert(0, None)
+        elif len(components) > 2:
+            raise ValueError(
+                f"Name string cannot be unambiguously parsed into first/last components: {name}"
+            )
+        return cls(components[0], components[1])
 
     def to_xml(self, tag: str = "variant") -> etree._Element:
         """
