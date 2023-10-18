@@ -32,6 +32,11 @@
   <meta property="og:site_name" content="ACL Anthology" />
   <meta property="og:url" content="{{ $paper.url }}" />
   <meta property="og:description" content="{{ $paper.author_string }}. {{ $paper.booktitle }}. {{ $paper.year }}." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@aclanthology" />
+  {{ with $paper.abstract_html }}
+  <meta name="description" content="{{ . }}" />
+  {{ end }}
   <link rel="canonical" href="{{ $paper.url }}" />
 {{ end }}
 
@@ -207,12 +212,12 @@
       -->
       {{ if and (not $paper.retracted) (not $paper.removed) }}
       <dt class="acl-button-row">Bibkey:</dt>
-      <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey"><i class="far fa-clipboard"></i><span id="citePaperBibkey" class="pl-2 text-monospace">{{ . }}</span></button>{{ end }}</dd>
+      <dd class="acl-button-row">{{ with $paper.bibkey }}<button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citePaperBibkey"><i class="far fa-clipboard"></i><span id="citePaperBibkey" class="ps-2 text-monospace">{{ . }}</span></button>{{ end }}</dd>
       {{ with $paper.citation_acl }}
-      <dt>Cite (ACL):</dt><dd><span id="citeACL">{{ safeHTML . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeACL"><i class="far fa-clipboard"></i></button></dd>
+      <dt>Cite (ACL):</dt><dd><span id="citeACL">{{ safeHTML . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ms-2" data-clipboard-target="#citeACL"><i class="far fa-clipboard"></i></button></dd>
       {{ end }}
       {{ with $paper.citation }}
-      <dt>Cite (Informal):</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ml-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
+      <dt>Cite (Informal):</dt><dd><span id="citeRichText">{{ markdownify . }}</span><button type="button" class="btn btn-clipboard btn-secondary btn-sm d-none ms-2" data-clipboard-target="#citeRichText"><i class="far fa-clipboard"></i></button></dd>
       {{ end }}
       <dt class="acl-button-row">Copy Citation:</dt>
       <dd class="acl-button-row">
@@ -226,7 +231,7 @@
       {{ if $has_endf }}
         <button type="button" class="btn btn-clipboard-outside btn-secondary btn-sm d-none" data-clipboard-target="#citeEndnoteContent"><i class="far fa-clipboard pr-2"></i>Endnote</button>
       {{ end }}
-        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#citeModal">More options…</button>
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#citeModal">More options…</button>
       </dd>
       {{ end }}  <!-- if not $paper.retracted -->
 
@@ -283,34 +288,34 @@
       {{ if isset $paper "revision" }}
         {{ range last 1 $paper.revision }}
         <a class="btn btn-primary" href="{{ .url }}" title="Open latest revision PDF of '{{ $paper.title | htmlEscape }}'">
-          <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
+          <i class="far fa-file-pdf"></i><span class="ps-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
         </a>
         {{ end }}
         {{ range first 1 $paper.revision }}
         <a class="btn btn-secondary" href="{{ .url }}" title="Open original PDF of '{{ $paper.title | htmlEscape }}'">
-          <i class="far fa-file-pdf"></i><span class="pl-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
+          <i class="far fa-file-pdf"></i><span class="ps-2">PDF&nbsp;<small>(v{{ .id }})</small></span>
         </a>
         {{ end }}
       {{ else }}
         {{ with $paper.pdf }}
         <a class="btn btn-primary" href="{{ . }}" title="Open PDF of '{{ $paper.title | htmlEscape }}'">
-          <i class="far fa-file-pdf"></i><span class="pl-2">PDF</span>
+          <i class="far fa-file-pdf"></i><span class="ps-2">PDF</span>
         </a>
         {{ end }}
       {{ end }}
       {{ if and (not $paper.retracted) (not $paper.removed) (or $has_bib $has_xml $has_endf) }}
-      <a class="btn btn-secondary" title="Open dialog for exporting citations" data-toggle="modal" data-target="#citeModal" href="#">
-        <i class="fas fa-quote-left"></i><span class="pl-2">Cite</span>
+      <a class="btn btn-secondary" title="Open dialog for exporting citations" data-bs-toggle="modal" data-bs-target="#citeModal" href="#">
+        <i class="fas fa-quote-left"></i><span class="ps-2">Cite</span>
       </a>
       {{ end }}
       <a class="btn btn-secondary" href="https://www.semanticscholar.org/search?{{ (querify "q" $paper.title) | safeURL }}" title="Search for '{{ $paper.title | htmlEscape }}' on Semantic Scholar">
-        <i class="ai ai-semantic-scholar"></i><span class="pl-sm-2 d-none d-sm-inline">Search</span>
+        <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2 d-none d-sm-inline">Search</span>
       </a>
       {{ with $paper.pwccode }}
         {{ if (or (eq .additional "true") .url) }}
       <a class="btn btn-secondary d-flex flex-wrap justify-content-center" href="https://paperswithcode.com/paper/?acl={{ $anthology_id }}" title="Code for '{{ $paper.title | htmlEscape }}' on Papers with Code">
         <svg xmlns="http://www.w3.org/2000/svg" class="pwc-icon-big" viewBox="0 0 512 512"><path stroke="#4d8093" fill="#4d8093" d="M88 128h48v256H88zM232 128h48v256h-48zM160 144h48v224h-48zM304 144h48v224h-48zM376 128h48v256h-48z"></path><path stroke="#4d8093" fill="#4d8093" d="M104 104V56H16v400h88v-48H64V104zM408 56v48h40v304h-40v48h88V56z"></path></svg>
-        <span class="pl-sm-2 d-none d-sm-inline">Code</span>
+        <span class="ps-sm-2 d-none d-sm-inline">Code</span>
       </a>
         {{ end }}
       {{ end }}
@@ -335,23 +340,23 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="citeModalLabel">Export citation</h5>
-          <button class="close" data-dismiss="modal" aria-label="Close">
+          <button class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <ul class="nav nav-tabs mb-2" id="citeFormats" role="tablist">
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_bib }}disabled{{ else }}active{{ end }}" data-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="{{ if $has_bib }}true{{ else }}false{{ end }}">BibTeX</a>
+              <a class="nav-link {{ if not $has_bib }}disabled{{ else }}active{{ end }}" data-bs-toggle="list" href="#citeBibtex" role="tab" aria-controls="citeBibtex" aria-selected="{{ if $has_bib }}true{{ else }}false{{ end }}">BibTeX</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_xml }}disabled{{ end }}" data-toggle="list" href="#citeMods" role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
+              <a class="nav-link {{ if not $has_xml }}disabled{{ end }}" data-bs-toggle="list" href="#citeMods" role="tab" aria-controls="citeMods" aria-selected="false">MODS XML</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_endf }}disabled{{ end }}" data-toggle="list" href="#citeEndnote" role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
+              <a class="nav-link {{ if not $has_endf }}disabled{{ end }}" data-bs-toggle="list" href="#citeEndnote" role="tab" aria-controls="citeEndnote" aria-selected="false">Endnote</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {{ if not $has_bib }}active{{ end }}" data-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $has_bib }}false{{ else }}true{{ end }}">Preformatted</a>
+              <a class="nav-link {{ if not $has_bib }}active{{ end }}" data-bs-toggle="list" href="#citeMarkdown" role="tab" aria-controls="citeMarkdown" aria-selected="{{ if $has_bib }}false{{ else }}true{{ end }}">Preformatted</a>
             </li>
           </ul>
 

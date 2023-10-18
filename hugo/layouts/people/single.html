@@ -4,22 +4,22 @@
 <section id="main">
   <h2 id="title">
     <!-- {{- .Title -}} -->
-    <span class="font-weight-normal">{{ $person.first }}</span> <span class="font-weight-bold">{{ $person.last }}</span>
+    <span class="fw-normal">{{ $person.first }}</span> <span class="fw-bold">{{ $person.last }}</span>
   </h2>
   {{ with $person.comment }}
-  <p class="font-weight-light text-muted">{{.}}</p>
+  <p class="fw-light text-muted">{{.}}</p>
   {{ end }}
   {{ with $person.variant_entries }}
-  <p class="font-weight-light text-muted">
+  <p class="fw-light text-muted">
     <span class="font-italic">Also published as:</span>
     {{ $len := (len .) }}
     {{ range $index, $var := . }}
-    {{ $var.first }} <span class="font-weight-normal">{{ $var.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
+    {{ $var.first }} <span class="fw-normal">{{ $var.last }}</span>{{ if ne (add $index 1) $len }}, {{ end }}
     {{ end }}
   </p>
   {{ end }}
   {{ with $person.similar }}
-  <p class="font-weight-light text-muted">
+  <p class="fw-light text-muted">
     <span class="font-italic">Other people with similar names:</span>
     {{ $len := (len .) }}
     {{ range $index, $sim_id := . }}
@@ -51,7 +51,7 @@
 
     <div class="col-lg-3">
       <a class="btn btn-lg btn-secondary btn-block mb-2" href="https://www.semanticscholar.org/search?{{ (querify "q" $person.full) | safeURL }}" title="Search for '{{ $person.full | htmlEscape }}' on Semantic Scholar">
-        <i class="ai ai-semantic-scholar"></i><span class="pl-sm-2">Search</span>
+        <i class="ai ai-semantic-scholar"></i><span class="ps-sm-2">Search</span>
       </a>
 
       {{/* Basic idea of this layout: on tiny displays, these cards are stacked
@@ -67,7 +67,7 @@
               <li class="list-group-item">
                 {{ $co_id := index . 0 }}
                 {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
-                <span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                <span class="btn btn-sm btn-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               {{ if gt (len $person.coauthors) 5 }}
@@ -79,7 +79,7 @@
               <li class="list-group-item">
                 {{ $co_id := index . 0 }}
                 {{ partial "author_link.html" (dict "ctx" $ "person" (dict "id" $co_id) "class" "align-middle") }}
-                <span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                <span class="btn btn-sm btn-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               </div>
@@ -96,7 +96,7 @@
                 {{ $venue := index . 0 }}
                 <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
                   {{- $venue -}}
-                </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                </a><span class="btn btn-sm btn-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               {{ if gt (len $person.venues) 5 }}
@@ -109,7 +109,7 @@
                 {{ $venue := index . 0 }}
                 <a href="{{ relref $ (printf "/venues/%s.md" (index $.Site.Data.venues $venue "slug")) }}" class="align-middle">
                   {{- $venue -}}
-                </a><span class="badge badge-secondary align-middle ml-2">{{ index . 1 }}</span>
+                </a><span class="btn btn-sm btn-secondary align-middle ms-2">{{ index . 1 }}</span>
               </li>
               {{ end }}
               </div>

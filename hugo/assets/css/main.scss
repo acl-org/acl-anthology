@@ -10,10 +10,16 @@ $cyan: #29ABE0;
 $secondary: #dee2e6;
 $yiq-contrasted-threshold: 200;
 
-/* Required Bootstrap components */
+$input-btn-padding-y-sm: .25rem;
+$input-btn-padding-x-sm: .12rem;
+
+//@import 'vendor/bootstrap/scss/bootstrap';
+
+// /* Required Bootstrap components */
 @import 'vendor/bootstrap/scss/functions';
 @import 'vendor/bootstrap/scss/variables';
 @import 'vendor/bootstrap/scss/mixins';
+@import 'vendor/bootstrap/scss/utilities';
 
 $attachment_color: darken( $green, 10% );
 $theme-colors: map-merge(
@@ -28,7 +34,8 @@ $theme-colors: map-merge(
 @import 'vendor/bootstrap/scss/reboot';
 @import 'vendor/bootstrap/scss/type';
 @import 'vendor/bootstrap/scss/images';
-@import 'vendor/bootstrap/scss/code';
+@import 'vendor/bootstrap/scss/containers';
+// @import 'vendor/bootstrap/scss/code';
 @import 'vendor/bootstrap/scss/grid';
 @import 'vendor/bootstrap/scss/tables';
 @import 'vendor/bootstrap/scss/forms';
@@ -56,8 +63,11 @@ $theme-colors: map-merge(
 // @import 'vendor/bootstrap/scss/popover';
 // @import 'vendor/bootstrap/scss/carousel';
 // @import 'vendor/bootstrap/scss/spinners';
-@import 'vendor/bootstrap/scss/utilities';
-@import 'vendor/bootstrap/scss/print';
+// @import 'vendor/bootstrap/scss/utilities';
+// @import 'vendor/bootstrap/scss/print';
+
+@import 'vendor/bootstrap/scss/helpers';
+@import 'vendor/bootstrap/scss/utilities/api';
 
 @import 'homepage';
 @import 'info';
@@ -100,7 +110,27 @@ ul ul, ul ol, ol ul, ol ol {
   }
 }
 
+.btn-sm {
+  line-height: 1.0 !important;
+  @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-border-radius-sm);
+}
+
+// remove hover default https://stackoverflow.com/a/65480130
+a:not([class]) {
+    text-decoration: none;
+}
+
+a:not([class]):hover {
+    text-decoration: underline;
+}
+
+.btn-attachment {
+    @extend .btn;
+}
+
 .list-group-toggle-btn {
+  padding: 0.25rem 0.1rem!important;
+  line-height: 1.0!important;
   @extend .btn;
 
   &[aria-expanded=false] {

@@ -1,5 +1,3 @@
-// stylelint-disable selector-no-qualifying-type
-
 .fade {
   @include transition($transition-fade);
 
@@ -8,6 +6,7 @@
   }
 }
 
+// scss-docs-start collapse-classes
 .collapse {
   &:not(.show) {
     display: none;
@@ -15,8 +14,8 @@
 }
 
 .collapsing {
-  position: relative;
   height: 0;
   overflow: hidden;
   @include transition($transition-collapse);
 }
+// scss-docs-end collapse-classes
