@@ -172,3 +172,13 @@ def test_name_from_string():
     n4 = Name.from_string("Mausam")
     assert n4.first is None
     assert n4.last == "Mausam"
+
+
+def test_name_from_any():
+    n1 = Name.from_("Jane Doe")
+    n2 = Name.from_({"first": "Jane", "last": "Doe"})
+    n3 = Name.from_(("Jane", "Doe"))
+    n4 = Name.from_(n1)
+    assert n1 == n2 == n3 == n4
+    with pytest.raises(TypeError):
+        Name.from_(["Jane", "Doe"])  # ... but could be allowed maybe?

@@ -35,7 +35,7 @@ from .exceptions import SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
 from .collections import CollectionIndex, Collection, Volume, Paper, EventIndex
-from .people import PersonIndex, Person, NameSpecification
+from .people import PersonIndex, Person, Name, NameSpecification, ConvertableIntoName
 from .sigs import SIGIndex
 from .venues import VenueIndex
 
@@ -235,6 +235,25 @@ class Anthology:
         if volume is None or paper_id is None:
             return None
         return volume.get(paper_id)
+
+    def find_people(self, name_def: ConvertableIntoName) -> list[Person]:
+        """Find people by name.
+
+        Parameters:
+            name_def: Anything that can be resolved to a name; see below for examples.
+
+        Returns:
+            A list of [`Person`][acl_anthology.people.person.Person] objects with the given name.
+
+        Examples:
+            >>> anthology.find_persons("Doe, Jane")
+            >>> anthology.find_persons(("Jane", "Doe"))       # same as above
+            >>> anthology.find_persons({"first": "Jane",
+                                         "last": "Doe"})      # same as above
+            >>> anthology.find_persons(Name("Jane", "Doe"))   # same as above
+        """
+        name = Name.from_(name_def)
+        return self.people.get_by_name(name)
 
     @overload
     def resolve(self, name_spec: NameSpecification) -> Person:
