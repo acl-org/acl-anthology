@@ -81,11 +81,15 @@ All metadata fields are described in detail in {==TODO==}.
 
 ### Finding all papers by an author
 
-{==TODO: functions that take strings, i.e. don't require importing `Name`, would be nice ==}
+To find a person by name, you can use [`anthology.find_people()`][acl_anthology.anthology.Anthology.find_people]:
 
 ```pycon
->>> from acl_anthology.people import Name
->>> results = anthology.people.get_by_name(Name("Dan", "Klein"))
+>>> people = anthology.find_people("Dan Klein")
+```
+
+Note that this will **_always_** return a _list_ of people, as names can be ambiguous.  For now let's assume there is only one, and get all their publications:
+
+```pycon
 >>> person = results[0]
 >>> person.item_ids
 {
@@ -106,6 +110,23 @@ Modular Visual Question Answering via Code Generation
 Digital Voicing of Silent Speech
 ...
 ```
+
+If you know the internal _ID_ of the person (which is what appears in the URL for their author page, e.g., [https://aclanthology.org/people/d/dan-klein/][]), you can interact with the [`PersonIndex`][acl_anthology.people.index.PersonIndex] directly:
+
+```pycon
+>>> person = anthology.people.get("dan-klein")
+```
+
+If you want to look up a person based on the "author" or "editor" field of an existing paper, you are working with a [`NameSpecification`][acl_anthology.people.name.NameSpecification], which is a name that may additionally contain information to help disambiguate it from similar names.  In this case, you can call [`anthology.resolve()`][acl_anthology.anthology.Anthology.resolve], which will always return a single, uniquely identified person:
+
+```pycon
+>>> paper = anthology.get("2022.acl-long.220")
+>>> paper.authors[-1]
+NameSpecification(name=Name(first='Dan', last='Klein'), id=None, affiliation=None, variants=[])
+>>> person = anthology.resolve(paper.authors[-1])
+```
+
+{==TODO==} describes the intricacies of working with names and people in more detail.
 
 ### Finding all papers from an event
 
