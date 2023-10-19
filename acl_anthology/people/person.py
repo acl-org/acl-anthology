@@ -33,7 +33,9 @@ class Person:
 
     id: str
     names: list[Name] = Factory(list)
-    item_ids: set[AnthologyIDTuple] = Factory(set)
+    item_ids: set[AnthologyIDTuple] = field(
+        factory=set, repr=lambda x: f"<set of {len(x)} AnthologyIDTuple items>"
+    )
     comment: Optional[str] = field(default=None)
 
     @property

@@ -79,6 +79,7 @@ class MarkupText:
     def __str__(self) -> str:
         return self.as_text()
 
+    # TODO: This is expensive to produce; should as_html be cached?
     def __repr__(self) -> str:
         return f"MarkupText({self.as_html()!r})"
 

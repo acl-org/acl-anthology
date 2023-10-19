@@ -53,7 +53,9 @@ class Event:
     parent: Collection = field(repr=False, eq=False)
     is_explicit: bool = field(default=False)
 
-    colocated_ids: list[AnthologyIDTuple] = field(factory=list, repr=False)
+    colocated_ids: list[AnthologyIDTuple] = field(
+        factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple items>"
+    )
     links: dict[str, AttachmentReference] = field(factory=dict, repr=False)
     talks: list[Talk] = field(factory=list, repr=False)
 
