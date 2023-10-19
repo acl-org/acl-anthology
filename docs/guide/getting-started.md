@@ -111,7 +111,7 @@ Digital Voicing of Silent Speech
 ...
 ```
 
-If you know the internal _ID_ of the person (which is what appears in the URL for their author page, e.g., [https://aclanthology.org/people/d/dan-klein/][]), you can interact with the [`PersonIndex`][acl_anthology.people.index.PersonIndex] directly:
+If you know the _internal ID_ of the person (which is what appears in the URL for their author page, e.g., [https://aclanthology.org/people/d/dan-klein/][]), you can interact with the [`PersonIndex`][acl_anthology.people.index.PersonIndex] directly:
 
 ```pycon
 >>> person = anthology.people.get("dan-klein")
@@ -163,6 +163,7 @@ Event(
 >>> # Currently no way to find the event that contains this!
 ```
 
+{==What about SIGs or venues? No way to find all papers yet==}
 
 ### Getting the BibTeX entry for a paper
 
