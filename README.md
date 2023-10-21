@@ -2,10 +2,10 @@
 
 [![License](https://img.shields.io/github/license/mbollmann/acl-anthology-py)](LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/mbollmann/acl-anthology-py/code-quality.yml)](https://github.com/mbollmann/acl-anthology-py/actions/workflows/code-quality.yml)
+[![Documentation](https://img.shields.io/readthedocs/acl-anthology-py)](https://acl-anthology-py.readthedocs.io/en/latest/)
 [![Code Coverage](https://img.shields.io/codecov/c/gh/mbollmann/acl-anthology-py)](https://codecov.io/gh/mbollmann/acl-anthology-py)
 ![Supported Python Versions](https://img.shields.io/pypi/pyversions/acl-anthology-py)
 ![Development Status](https://img.shields.io/pypi/status/acl-anthology-py)
-[![Documentation](https://img.shields.io/readthedocs/acl-anthology-py)](https://acl-anthology-py.readthedocs.io/en/latest/)
 [![Package on PyPI](https://img.shields.io/pypi/v/acl-anthology-py)](https://pypi.org/project/acl-anthology-py/)
 
 This package accesses data from the [ACL
@@ -51,6 +51,9 @@ Two-Level Morphology with Composition
     )
 ]
 ```
+
+Find more examples and details on the API in the [**official
+documentation**](https://acl-anthology-py.readthedocs.io/en/latest/).
 
 ## Developing
 
