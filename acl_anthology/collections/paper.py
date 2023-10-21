@@ -35,7 +35,7 @@ from ..utils.logging import get_logger
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
-    from . import Volume
+    from . import Event, Volume
 
 log = get_logger()
 
@@ -165,6 +165,13 @@ class Paper:
         if self.editors:
             return self.editors
         return self.parent.editors
+
+    def get_events(self) -> list[Event]:
+        """
+        Returns:
+            A list of events associated with this paper.
+        """
+        return self.root.events.by_volume(self.parent.full_id_tuple)
 
     def get_ingest_date(self) -> datetime.date:
         """

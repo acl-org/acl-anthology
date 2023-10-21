@@ -202,6 +202,11 @@ def test_volume_with_nonexistent_venue(anthology):
         _ = volume.venues()
 
 
+def test_volume_get_events(anthology):
+    volume = anthology.get_volume("2022.acl-demo")
+    assert volume.get_events() == [anthology.events["acl-2022"]]
+
+
 @pytest.mark.parametrize("xml", test_cases_volume_xml)
 def test_volume_roundtrip_xml(xml):
     # Create and populate volume

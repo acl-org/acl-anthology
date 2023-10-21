@@ -33,7 +33,7 @@ from .paper import Paper
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
-    from . import Collection
+    from . import Collection, Event
 
 
 class VolumeType(Enum):
@@ -135,6 +135,13 @@ class Volume(SlottedDict[Paper]):
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent.parent
+
+    def get_events(self) -> list[Event]:
+        """
+        Returns:
+            A list of events associated with this volume.
+        """
+        return self.root.events.by_volume(self.full_id_tuple)
 
     def get_ingest_date(self) -> datetime.date:
         """
