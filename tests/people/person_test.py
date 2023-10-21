@@ -15,31 +15,31 @@
 from acl_anthology.people import Name, Person
 
 
-def test_person_names():
+def test_person_names(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
     n3 = Name("Yang X.", "Liu")
-    person = Person("yang-liu", [n1, n2])
+    person = Person("yang-liu", anthology_stub, [n1, n2])
     assert len(person.names) == 2
     assert person.has_name(n1)
     assert person.has_name(n2)
     assert not person.has_name(n3)
 
 
-def test_person_canonical_names():
+def test_person_canonical_names(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
-    person = Person("yang-liu", [n1, n2])
+    person = Person("yang-liu", anthology_stub, [n1, n2])
     assert person.canonical_name == n1
     person.set_canonical_name(n2)
     assert person.canonical_name == n2
     assert len(person.names) == 2
 
 
-def test_person_add_names():
+def test_person_add_names(anthology_stub):
     n1 = Name("Yang", "Liu")
     n2 = Name("Y.", "Liu")
-    person = Person("yang-liu", [n1])
+    person = Person("yang-liu", anthology_stub, [n1])
     assert person.canonical_name == n1
     person.set_canonical_name(n2)
     assert person.canonical_name == n2

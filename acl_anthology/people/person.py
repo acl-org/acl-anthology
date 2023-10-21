@@ -15,9 +15,12 @@
 from __future__ import annotations
 
 from attrs import define, field, Factory
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from ..utils.ids import AnthologyIDTuple
 from . import Name
+
+if TYPE_CHECKING:
+    from ..anthology import Anthology
 
 
 @define
@@ -26,15 +29,17 @@ class Person:
 
     Attributes:
         id: A unique ID for this person.
+        parent: The parent Anthology instance to which this person belongs.
         names: A list of names under which this person has published.
         item_ids: A set of volume and/or paper IDs this person has authored or edited.
         comment: A comment for disambiguation purposes; can be stored in `name_variants.yaml`.
     """
 
     id: str
+    parent: Anthology = field(repr=False, eq=False)
     names: list[Name] = Factory(list)
     item_ids: set[AnthologyIDTuple] = field(
-        factory=set, repr=lambda x: f"<set of {len(x)} AnthologyIDTuple items>"
+        factory=set, repr=lambda x: f"<set of {len(x)} AnthologyIDTuple objects>"
     )
     comment: Optional[str] = field(default=None)
 

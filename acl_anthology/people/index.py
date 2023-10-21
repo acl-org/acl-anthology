@@ -239,7 +239,7 @@ class PersonIndex(SlottedDict[Person]):
             except KeyError:
                 if create:
                     # If it doesn't, only then do we create a new perosn
-                    person = Person(id=pid, names=[name])
+                    person = Person(id=pid, parent=self.parent, names=[name])
                     self.add_person(person)
                 else:
                     raise NameIDUndefinedError(
@@ -292,7 +292,12 @@ class PersonIndex(SlottedDict[Person]):
                 Name.from_dict(var) for var in entry.get("variants", [])
             ]
             # Now we can create a new person from this entry...
-            person = Person(id=pid, names=names, comment=entry.get("comment", None))
+            person = Person(
+                id=pid,
+                parent=self.parent,
+                names=names,
+                comment=entry.get("comment", None),
+            )
             # ...and add it to the index
             self.add_person(person)
             for similar_id in entry.get("similar", []):
