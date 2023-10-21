@@ -236,6 +236,17 @@ class Anthology:
             return None
         return volume.get(paper_id)
 
+    def get_person(self, person_id: str) -> Optional[Person]:
+        """Access a person by their ID.
+
+        Parameters:
+            person_id: An ID that refers to a person.
+
+        Returns:
+            The person associated with the given ID.
+        """
+        return self.people.get(person_id)
+
     def find_people(self, name_def: ConvertableIntoName) -> list[Person]:
         """Find people by name.
 

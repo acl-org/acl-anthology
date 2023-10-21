@@ -97,6 +97,13 @@ def test_papers_by_volume_id(anthology):
     assert expected == found
 
 
+def test_get_person(anthology):
+    person = anthology.get_person("yang-liu-edinburgh")
+    assert person is not None
+    assert person.canonical_name == Name("Yang", "Liu")
+    assert person.comment == "Edinburgh"
+
+
 def test_find_people(anthology):
     people = anthology.find_people("Oliviero Stock")
     assert len(people) == 1
