@@ -48,3 +48,11 @@ def test_person_add_names(anthology_stub):
     person.add_name(n3)
     assert person.canonical_name == n2
     assert len(person.names) == 3
+
+
+def test_person_papers(anthology):
+    person = anthology.get_person("nicoletta-calzolari")
+    assert person.canonical_name == Name("Nicoletta", "Calzolari")
+    assert len(person.item_ids) == 3
+    assert len(list(person.papers())) == 2
+    assert len(list(person.volumes())) == 1

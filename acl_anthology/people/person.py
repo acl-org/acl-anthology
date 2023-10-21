@@ -15,12 +15,13 @@
 from __future__ import annotations
 
 from attrs import define, field, Factory
-from typing import Optional, TYPE_CHECKING
-from ..utils.ids import AnthologyIDTuple
+from typing import Iterator, Optional, TYPE_CHECKING
+from ..utils.ids import AnthologyIDTuple, build_id_from_tuple
 from . import Name
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..collections import Paper, Volume
 
 
 @define
@@ -90,3 +91,27 @@ class Person:
         except ValueError:
             pass
         self.names.insert(0, name)
+
+    def papers(self) -> Iterator[Paper]:
+        """Returns an iterator over all papers associated with this person."""
+        for anthology_id in self.item_ids:
+            paper_id = anthology_id[-1]
+            if paper_id is not None:
+                paper = self.parent.get_paper(anthology_id)
+                if paper is None:
+                    raise ValueError(
+                        f"Person {self.id} lists associated paper {build_id_from_tuple(anthology_id)}, which doesn't exist"
+                    )
+                yield paper
+
+    def volumes(self) -> Iterator[Volume]:
+        """Returns an iterator over all volumes this person has edited."""
+        for anthology_id in self.item_ids:
+            paper_id = anthology_id[-1]
+            if paper_id is None:
+                volume = self.parent.get_volume(anthology_id)
+                if volume is None:
+                    raise ValueError(
+                        f"Person {self.id} lists associated volume {build_id_from_tuple(anthology_id)}, which doesn't exist"
+                    )
+                yield volume
