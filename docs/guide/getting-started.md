@@ -77,17 +77,20 @@ Paper(
 )
 ```
 
-All metadata fields are described in detail in {==TODO==}.
+For more information on the provided metadata fields, see [Types of Metadata](types-of-metadata.md).
 
 ### Finding all papers by an author
 
 To find a person by name, you can use [`anthology.find_people()`][acl_anthology.anthology.Anthology.find_people]:
 
 ```pycon
->>> people = anthology.find_people("Dan Klein")
+>>> results = anthology.find_people("Dan Klein")
 ```
 
-Note that this will **_always_** return a _list_ of people, as names can be ambiguous.  For now let's assume there is only one, and get all their publications:
+Note that this will _always_ return a **list** of
+[`Person`][acl_anthology.people.person.Person] objects, as names can be
+ambiguous.  For now let's assume there is only one, and get all their
+publications:
 
 ```pycon
 >>> person = results[0]
@@ -96,76 +99,96 @@ Note that this will **_always_** return a _list_ of people, as names can be ambi
     ('P18', '2', '75'),
     ('P17', '2', '52'),
     ('2023.acl', 'short', '65'),
-    ('2020.emnlp', 'main', '445'),
-    ('P16', '1', '188'),
-    ('2023.acl', 'long', '91'),
     ...
 }
->>> for id_ in person.item_ids:
-...     print(anthology.get(id_).title)
+>>> for paper in person.papers():
+...     print(paper.title)
 ...
 Policy Gradient as a Proxy for Dynamic Oracles in Constituency Parsing
 Fine-Grained Entity Typing with High-Multiplicity Assignments
 Modular Visual Question Answering via Code Generation
-Digital Voicing of Silent Speech
 ...
 ```
 
-If you know the _internal ID_ of the person (which is what appears in the URL for their author page, e.g., [https://aclanthology.org/people/d/dan-klein/][]), you can interact with the [`PersonIndex`][acl_anthology.people.index.PersonIndex] directly:
+If you know the _internal ID_ of the person (which is what appears in the URL
+for their author page, e.g.,
+[https://aclanthology.org/people/d/dan-klein/](https://aclanthology.org/people/d/dan-klein/)),
+you can find the corresponding [`Person`][acl_anthology.people.person.Person]
+object directly:
 
 ```pycon
->>> person = anthology.people.get("dan-klein")
->>> person = anthology.get_person("dan-klein")  # equivalent
+>>> person = anthology.get_person("dan-klein")
 ```
 
-If you want to look up a person based on the "author" or "editor" field of an existing paper, you are working with a [`NameSpecification`][acl_anthology.people.name.NameSpecification], which is a name that may additionally contain information to help disambiguate it from similar names.  In this case, you can call [`anthology.resolve()`][acl_anthology.anthology.Anthology.resolve], which will always return a single, uniquely identified person:
+If you want to look up a person based on the "author" or "editor" field of an
+existing paper, you are working with a
+[`NameSpecification`][acl_anthology.people.name.NameSpecification], which is a
+name that may additionally contain information to help disambiguate it from
+similar names.  In this case, you can call
+[`anthology.resolve()`][acl_anthology.anthology.Anthology.resolve], which will
+always return a single, uniquely identified person:
 
 ```pycon
 >>> paper = anthology.get("2022.acl-long.220")
 >>> paper.authors[-1]
-NameSpecification(name=Name(first='Dan', last='Klein'), id=None, affiliation=None, variants=[])
+NameSpecification(name=Name(first='Dan', last='Klein'), ...)
 >>> person = anthology.resolve(paper.authors[-1])
 ```
 
-{==TODO==} describes the intricacies of working with names and people in more detail.
+[Accessing Authors/Editors](accessing-authors.md) describes the intricacies of
+working with names and people in more detail.
 
 ### Finding all papers from an event
 
-{==TODO==}
+Volumes that were presented at the same conference are grouped together under
+[`Event`][acl_anthology.collections.event.Event] objects.  For example, here is
+[ACL 2022](https://aclanthology.org/events/acl-2022/) and all volumes that
+belong to the conference or to colocated workshops:
 
 ```pycon
->>> event = anthology.events.get("acl-2022")
+>>> event = anthology.get_event("acl-2022")
 >>> event
 Event(
     id='acl-2022',
     is_explicit=True,
+    colocated_ids=<list of 34 AnthologyIDTuple objects>,
     title=MarkupText('60th Annual Meeting of the Association for Computational Linguistics'),
     location='Dublin, Ireland',
     dates='May 22–27, 2022'
 )
->>> event.colocated_ids
+>>> for volume in event.volumes():
+...     print(volume.title)
+...
+Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)
+Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)
+Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics: Student Research Workshop
+Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics: System Demonstrations
+Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics: Tutorial Abstracts
+Findings of the Association for Computational Linguistics: ACL 2022
+Proceedings of BigScience Episode #5 -- Workshop on Challenges & Perspectives in Creating Large Language Models
+Proceedings of the 21st Workshop on Biomedical Language Processing
+...
+```
+
+If you don't know the event ID(s), you can also get associated event IDs from a
+paper or volume.  Here, we find out that
+[2020.blackboxnlp-1](https://aclanthology.org/volumes/2020.blackboxnlp-1/)
+belongs to its "own" event (`blackboxnlp-2020`), the generic "workshops in 2020"
+event (`ws-2020`), as well as the EMNLP 2020 event.
+
+```pycon
+>>> volume = anthology.get("2020.blackboxnlp-1")
+>>> volume.get_events()
 [
-    ('2022.acl', 'long', None),
-    ('2022.acl', 'short', None),
-    ('2022.acl', 'srw', None),
-    ('2022.acl', 'demo', None),
-    ('2022.acl', 'tutorials', None),
-    ('2022.findings', 'acl', None),
-    ('2022.bigscience', '1', None),
-    ('2022.bionlp', '1', None),
-    ...
+    Event(id='blackboxnlp-2020', colocated_ids=<list of 1 AnthologyIDTuple objects>, ...),
+    Event(id='ws-2020', colocated_ids=<list of 105 AnthologyIDTuple objects>, ...),
+    Event(id='emnlp-2020', colocated_ids=<list of 27 AnthologyIDTuple objects>, ...)
 ]
 ```
 
-{==What if you don't know the event ID?==}
+<!-- {==What about SIGs or venues? No way to find all papers yet==} -->
 
-```pycon
->>> volume = anthology.get_volume("2022.bigscience-1")
->>> # Currently no way to find the event that contains this!
-```
-
-{==What about SIGs or venues? No way to find all papers yet==}
-
+<!--
 ### Getting the BibTeX entry for a paper
 
 {==TODO==}
@@ -174,11 +197,14 @@ Event(
 >>> paper = anthology.get("2022.acl-long.220")
 >>> # TODO: Not currently possible yet
 ```
+-->
 
 ### Searching for papers by keywords in title
 
-The following example prints all Anthology IDs and titles of papers that
-contain the substring "semantic parsing" in their title:
+There is no dedicated search index for paper titles, but you can iterate over
+papers and compare their titles manually.  For example, the following code finds
+all papers containing the substring "semantic parsing" in their title, and
+prints their Anthology IDs and full titles:
 
 ```pycon
 >>> for paper in anthology.papers():

@@ -102,7 +102,10 @@ anthology.get("2022.acl").get("long").get("220")  # same
 anthology.collections["2022.acl"]["long"]["220"]  # same
 ```
 
-**The rule of thumb is that all containers provide dictionary-like functionality.**
+!!! tip
+
+    **The rule of thumb is that all containers provide dictionary-like functionality.**
+
 This means that, among other things, the following all work as they would with a regular dictionary object:
 
 ```python
@@ -161,7 +164,23 @@ paper.root                          # returns the Anthology, but less confusingl
 
 ## Looking up events
 
-{==TODO==}
+Events can be accessed through
+[`anthology.get_event()`][acl_anthology.anthology.Anthology.get_event] or via
+`anthology.events`, which is the
+[`EventIndex`][acl_anthology.collections.eventindex.EventIndex]. Event IDs are
+typically of the form `{venue}-{year}`; e.g., "acl-2022" is the event ID for ACL
+2022:
+
+```python
+event = anthology.get_event("acl-2022")
+```
+
+Papers and volumes can infer their associated events via
+[`.get_events()`][acl_anthology.collections.volume.Volume.get_events]:
+
+```python
+[event.id for event in paper.get_events()]         # returns ['acl-2022']
+```
 
 
 ## Loading the entire Anthology data
@@ -181,8 +200,11 @@ anyway, it _can_ be faster to load the entire Anthology data at once:
 anthology.load_all()
 ```
 
-Note that **it is _never required_** to call this function, and calling it may
-or may not provide a speed-up, depending on what kind of data you are accessing.
+!!! warning
+
+    It is **_never required_** to call this function, and calling it **may**
+    or **may not** provide a speed-up, depending on what kind of data you are
+    accessing and in which manner.
 
 When developing or modifying the Anthology data, this function can also be
 useful to check that the library can read and process the entirety of the data

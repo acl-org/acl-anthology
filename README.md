@@ -30,55 +30,60 @@ from acl_anthology import Anthology
 anthology = Anthology.from_repo()
 ```
 
-Some usage examples:
+Some brief usage examples:
 
-```python
-paper = anthology.get("C92-1025")
-
-print(str(paper.title))
-# Two-Level Morphology with Composition
-
-print([author.name for author in paper.authors])
-# [Name(first='Lauri', last='Karttunen'), Name(first='Ronald M.', last='Kaplan'), Name(first='Annie', last='Zaenen')]
-
-from acl_anthology.people import Name
-print(anthology.people.get_by_name(Name("Lauri", "Karttunen")))
-# [Person(id='lauri-karttunen', names=[Name(first='Lauri', last='Karttunen')],
-#         item_ids={('C94', '2', '206'), ('W05', '12', '6'), ('C69', '70', '1'),
-#                   ('J83', '2', '5'), ('C86', '1', '16'), ('C92', '1', '25'), ...})]
+```pycon
+>>> paper = anthology.get("C92-1025")
+>>> str(paper.title)
+Two-Level Morphology with Composition
+>>> [author.name for author in paper.authors]
+[
+    Name(first='Lauri', last='Karttunen'),
+    Name(first='Ronald M.', last='Kaplan'),
+    Name(first='Annie', last='Zaenen')
+]
+>>> anthology.find_people("Karttunen, Lauri")
+[
+    Person(
+        id='lauri-karttunen', names=[Name(first='Lauri', last='Karttunen')],
+        item_ids=<set of 30 AnthologyIDTuple objects>, comment=None
+    )
+]
 ```
 
 ## Developing
 
-This package uses **Python 3.10+** with the
-[**Poetry**](https://python-poetry.org/) packaging system.
+This package uses the [**Poetry**](https://python-poetry.org/) packaging system.
+Development is easiest with the [**just**](https://github.com/casey/just)
+command runner; running `just -l` will list all available recipes, while `just
+-n <recipe>` will print the commands that the recipe would run.
 
-Cloning the repository and running `make` will install all dependencies via
-Poetry, run all style and type checks, run all tests, and generate the
-documentation.
+### Running checks, pre-commit hooks, and tests
 
-### Install dependencies and pre-commit hooks
+- `just check` will run [**black**](https://github.com/psf/black),
+   [**ruff**](https://github.com/charliermarsh/ruff),
+   [**mypy**](https://mypy.readthedocs.io), and some other pre-commit hooks on all
+   files in the repo.
 
-`make setup` will install all package dependencies in development mode, as well
-as install the pre-commit hooks that run on every attempted git commit.
+    - `just install-hooks` will install pre-commit hooks so they run on every
+      attempted commit.
 
-If you only want the dependencies, but not the hooks, run `make dependencies`.
+- `just test-all` will run all tests _except_ for tests that run on the full
+  Anthology data.
 
-### Running checks
+    - `just test NAME` will only run test functions with `NAME` in them.
+    - `just test-integration` will run tests on the full Anthology data.
 
-`make check` will run [black](https://github.com/psf/black),
-[ruff](https://github.com/charliermarsh/ruff), and [some other pre-commit
-hooks](.pre-commit-config.yaml), as well as the
-[mypy](https://mypy.readthedocs.io/) type checker on all files in the repo.
+- `just fix-and-test` (or `just ft` for short) will run all checks and tests,
+  additionally re-running the checks on failure, so that the checking and
+  testing will continue even if some hooks have modified files.
 
-### Running tests
-
-`make test` will run Python unit tests and integration tests.
+- The justfile defines several more useful recipes; list them with `just -l`!
 
 ### Running benchmarks
 
-The [`benchmarks/`](benchmarks/) folder collects some benchmarks intended to be
-run with the [richbench](https://github.com/tonybaloney/rich-bench) tool:
+There are some benchmark scripts intended to be run with
+[richbench](https://github.com/tonybaloney/rich-bench):
 
 ```bash
 poetry run richbench benchmarks/
@@ -86,8 +91,8 @@ poetry run richbench benchmarks/
 
 ### Generating and writing documentation
 
-- `make docs` (to generate in `site/`)
-- `make docs-serve` (to serve locally)
+- `just docs` generates the documentation in the `site/` folder.
+- `just docs-serve` serves the documentation for local browsing.
 
 Docstrings are written in [Google
 style](https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings)

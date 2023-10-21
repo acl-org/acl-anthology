@@ -268,11 +268,11 @@ class Anthology:
             A list of [`Person`][acl_anthology.people.person.Person] objects with the given name.
 
         Examples:
-            >>> anthology.find_persons("Doe, Jane")
-            >>> anthology.find_persons(("Jane", "Doe"))       # same as above
-            >>> anthology.find_persons({"first": "Jane",
+            >>> anthology.find_people("Doe, Jane")
+            >>> anthology.find_people(("Jane", "Doe"))       # same as above
+            >>> anthology.find_people({"first": "Jane",
                                          "last": "Doe"})      # same as above
-            >>> anthology.find_persons(Name("Jane", "Doe"))   # same as above
+            >>> anthology.find_people(Name("Jane", "Doe"))   # same as above
         """
         name = Name.from_(name_def)
         return self.people.get_by_name(name)
