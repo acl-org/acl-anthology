@@ -115,6 +115,7 @@ If you know the _internal ID_ of the person (which is what appears in the URL fo
 
 ```pycon
 >>> person = anthology.people.get("dan-klein")
+>>> person = anthology.get_person("dan-klein")  # equivalent
 ```
 
 If you want to look up a person based on the "author" or "editor" field of an existing paper, you are working with a [`NameSpecification`][acl_anthology.people.name.NameSpecification], which is a name that may additionally contain information to help disambiguate it from similar names.  In this case, you can call [`anthology.resolve()`][acl_anthology.anthology.Anthology.resolve], which will always return a single, uniquely identified person:
@@ -176,7 +177,8 @@ Event(
 
 ### Searching for papers by keywords in title
 
-{==TODO==}
+The following example prints all Anthology IDs and titles of papers that
+contain the substring "semantic parsing" in their title:
 
 ```pycon
 >>> for paper in anthology.papers():
@@ -194,3 +196,8 @@ Event(
 2020.coling-main.226 Context Dependent Semantic Parsing: A Survey
 ...
 ```
+
+Note how the comparison calls `str()` on `paper.title` to obtain the title as a
+string.  This is because paper titles can contain _markup_, and therefore need
+to be explicitly converted to strings first if you want to perform string
+operations on them.
