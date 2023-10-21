@@ -111,11 +111,13 @@ def test_markup(inp, out):
     assert markup.as_html() == out["html"]
     assert markup.as_latex() == out["latex"]
     assert etree.tostring(markup.to_xml("title"), encoding="unicode") == xml
+    assert markup.contains_markup == (out["text"] != out["html"])
 
 
 def test_simple_string():
     text = "Some ASCII text without markup"
     markup = MarkupText.from_string(text)
+    assert not markup.contains_markup
     assert markup.as_text() == text
     assert markup.as_html() == text
     assert markup.as_latex() == text

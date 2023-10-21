@@ -90,6 +90,11 @@ class MarkupText:
     def __rich_repr__(self) -> Iterator[str]:
         yield self.as_html()
 
+    @property
+    def contains_markup(self) -> bool:
+        """True if this text contains markup; False if it is a plain string."""
+        return isinstance(self._content, etree._Element)
+
     def as_text(self) -> str:
         """
         Returns:
