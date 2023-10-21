@@ -141,6 +141,19 @@ def test_event_roundtrip_xml(xml):
     assert etree.tostring(out, encoding="unicode") == xml
 
 
+def test_event_volumes(anthology):
+    event = anthology.events.get("cl-1989")
+    assert str(event.title) == "Computational Linguistics (1989)"
+    assert len(event.colocated_ids) == 4
+    volumes = list(event.volumes())
+    assert len(volumes) == 4
+    assert {vol.full_id_tuple for vol in volumes} == set(event.colocated_ids)
+    with pytest.raises(ValueError):
+        # acl-2022 lists co-located volumes that we don't have in the toy
+        # dataset, so trying to access them should raise an error
+        list(anthology.events.get("acl-2022").volumes())
+
+
 test_cases_talk_xml = (
     """<talk>
   <title>Keynote 1: Language in the human brain</title>

@@ -56,8 +56,13 @@ def clone_or_pull_from_repo(
         )
         # ^-- It seems that Repo.clone_from() has an incorrect type signature
         # for its progress argument...
+    if progress is not None:
+        progress.progress.update(progress.task, completed=210.0)
+        progress.progress.stop()
 
 
+# This is a bit hacky, mainly to provide a "smoother" user experience, but
+# could probably be simplified.
 class RichRemoteProgress(RemoteProgress):
     def __init__(self) -> None:
         super().__init__()

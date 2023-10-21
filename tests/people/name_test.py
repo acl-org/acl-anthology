@@ -156,3 +156,29 @@ def test_name_scoring():
     assert n1.score() > n3.score()
     assert n1.score() > n4.score()
     assert n1.score() < n5.score()
+
+
+def test_name_from_string():
+    n1 = Name.from_string("André Rieu")
+    n2 = Name.from_string("Rieu, André")
+    assert n1.first == "André"
+    assert n1.last == "Rieu"
+    assert n1 == n2
+    n3 = Name.from_string("Chan, Tai Man")
+    assert n3.first == "Tai Man"
+    assert n3.last == "Chan"
+    with pytest.raises(ValueError):
+        Name.from_string("Tai Man Chan")
+    n4 = Name.from_string("Mausam")
+    assert n4.first is None
+    assert n4.last == "Mausam"
+
+
+def test_name_from_any():
+    n1 = Name.from_("Jane Doe")
+    n2 = Name.from_({"first": "Jane", "last": "Doe"})
+    n3 = Name.from_(("Jane", "Doe"))
+    n4 = Name.from_(n1)
+    assert n1 == n2 == n3 == n4
+    with pytest.raises(TypeError):
+        Name.from_(["Jane", "Doe"])  # ... but could be allowed maybe?

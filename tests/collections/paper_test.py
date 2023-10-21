@@ -46,6 +46,12 @@ def test_paper_minimum_attribs():
     assert paper.title == paper_title
 
 
+def test_paper_get_events(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    assert paper is not None
+    assert paper.get_events() == [anthology.events["acl-2022"]]
+
+
 test_cases_xml = (
     """<frontmatter>
   <url hash="56ea4e43">2022.acl-long.0</url>

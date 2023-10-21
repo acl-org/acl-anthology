@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .name import Name, NameSpecification
+from .name import Name, NameSpecification, ConvertableIntoName
 from .person import Person
 from .index import PersonIndex
 
-__all__ = ["Name", "NameSpecification", "Person", "PersonIndex"]
+__all__ = ["ConvertableIntoName", "Name", "NameSpecification", "Person", "PersonIndex"]

@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+### Added
+
+- Many new convenience functions, such as `Anthology.get_person()`, `Anthology.find_people()`, `Volume.get_events()`, `Person.papers()`, `Person.volumes()`.
+
+### Changed
+
+- Showing progress bars (i.e. `verbose=True`) is now the default.
+- Shorter `repr()` output for many classes, sacrificing detail for better usability in interactive settings.
+- `Person` objects now require a pointer to the Anthology instance.
+
 ## [0.4.1] — 2023-10-14
 
 ### Added

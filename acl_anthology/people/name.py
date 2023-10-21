@@ -82,17 +82,17 @@ class Name:
         return slug
 
     @classmethod
-    def from_dict(cls, person: dict[str, str]) -> Name:
+    def from_dict(cls, name: dict[str, str]) -> Name:
         """
         Parameters:
-            person: A dictionary with "first" and "last" keys.
+            name: A dictionary with "first" and "last" keys.
 
         Returns:
             A corresponding Name object.
         """
         return cls(
-            person.get("first"),
-            person["last"],
+            name.get("first"),
+            name["last"],
         )
 
     @classmethod
@@ -120,6 +120,57 @@ class Name:
                 last = element.text
         return cls(first, cast(str, last), script)
 
+    @classmethod
+    def from_string(cls, name: str) -> Name:
+        """Instantiate a Name from a single string.
+
+        Parameters:
+            name: A name string given as either "{first} {last}" or "{last}, {first}".
+
+        Returns:
+            A corresponding Name object.
+
+        Raises:
+            ValueError: If `name` cannot be unambiguously parsed into first/last components; in this case, you should instantiate Name directly instead.
+        """
+        name = name.strip()
+        if ", " in name:
+            components = name.split(", ")[::-1]
+        else:
+            components = name.split(" ")
+        if len(components) == 1:
+            return cls(None, components[0])
+        elif len(components) > 2:
+            raise ValueError(
+                f"Name string cannot be unambiguously parsed into first/last components: {name}"
+            )
+        return cls(components[0], components[1])
+
+    @classmethod
+    def from_(cls, name: ConvertableIntoName) -> Name:
+        """Instantiate a Name dynamically from any type that can be converted into a Name.
+
+        Parameters:
+            name: A name as a string, dict, tuple, or Name instance.
+
+        Returns:
+            A corresponding Name object.
+
+        Raises:
+            ValueError:
+            TypeError:
+        """
+        if isinstance(name, cls):
+            return name
+        elif isinstance(name, dict):
+            return cls.from_dict(name)
+        elif isinstance(name, tuple):
+            return cls(*name)
+        elif isinstance(name, str):
+            return cls.from_string(name)
+        else:
+            raise TypeError(f"Cannot instantiate Name from {type(name)}")
+
     def to_xml(self, tag: str = "variant") -> etree._Element:
         """
         Arguments:
@@ -138,6 +189,10 @@ class Name:
         if self.script is not None:
             elem.set("script", self.script)
         return elem
+
+
+ConvertableIntoName = Name | str | tuple[Optional[str], str] | dict[str, str]
+"""A type that can be converted into a Name instance."""
 
 
 @define

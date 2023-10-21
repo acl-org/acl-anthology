@@ -55,7 +55,7 @@ def test_load_variant_list_correct_variants(index):
 
 
 def test_add_person(index):
-    p1 = Person("yang-liu", [Name("Yang", "Liu")])
+    p1 = Person("yang-liu", index.parent, [Name("Yang", "Liu")])
     index.add_person(p1)
     index.is_data_loaded = True  # to prevent it attempting to build itself
     assert "yang-liu" in index
@@ -65,7 +65,7 @@ def test_add_person(index):
     assert index.get_by_namespec(NameSpecification(Name("Yang", "Liu"))) is p1
     assert index.get("yang-liu") is p1
     with pytest.raises(KeyError):
-        index.add_person(Person("yang-liu"))
+        index.add_person(Person("yang-liu", index.parent))
 
 
 def test_get_or_create_person_with_id(index):

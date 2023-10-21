@@ -17,7 +17,7 @@ from __future__ import annotations
 from attrs import define, field
 from lxml import etree
 from lxml.builder import E
-from typing import Any, Optional, TYPE_CHECKING
+from typing import Any, Iterator, Optional, TYPE_CHECKING
 
 from ..files import AttachmentReference
 from ..people import NameSpecification
@@ -26,7 +26,7 @@ from ..utils.ids import AnthologyIDTuple, parse_id, build_id_from_tuple
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
-    from . import Collection
+    from . import Collection, Volume
 
 
 @define
@@ -53,7 +53,9 @@ class Event:
     parent: Collection = field(repr=False, eq=False)
     is_explicit: bool = field(default=False)
 
-    colocated_ids: list[AnthologyIDTuple] = field(factory=list, repr=False)
+    colocated_ids: list[AnthologyIDTuple] = field(
+        factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
+    )
     links: dict[str, AttachmentReference] = field(factory=dict, repr=False)
     talks: list[Talk] = field(factory=list, repr=False)
 
@@ -70,6 +72,17 @@ class Event:
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent.parent
+
+    def volumes(self) -> Iterator[Volume]:
+        """Returns an iterator over all volumes co-located with this event."""
+        for anthology_id in self.colocated_ids:
+            volume = self.root.get_volume(anthology_id)
+            if volume is None:
+                raise ValueError(
+                    f"Event {self.id} lists co-located volume "
+                    f"{build_id_from_tuple(anthology_id)}, which doesn't exist"
+                )
+            yield volume
 
     @classmethod
     def from_xml(cls, parent: Collection, event: etree._Element) -> Event:

@@ -51,14 +51,14 @@ class PersonIndex(SlottedDict[Person]):
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
-        verbose: If True, will show progress bar when building the index from scratch.
+        verbose: If False, will not show progress bar when building the index from scratch.
         name_to_ids: A mapping of [Name][acl_anthology.people.name.Name] instances to person IDs.
         similar: A [disjoint-set structure][scipy.cluster.hierarchy.DisjointSet] of persons with similar names.
         is_data_loaded: A flag indicating whether the index has been constructed.
     """
 
     parent: Anthology = field(repr=False, eq=False)
-    verbose: bool = field(default=False)
+    verbose: bool = field(default=True)
     name_to_ids: dict[Name, list[str]] = field(
         init=False, repr=False, factory=lambda: defaultdict(list)
     )
@@ -239,7 +239,7 @@ class PersonIndex(SlottedDict[Person]):
             except KeyError:
                 if create:
                     # If it doesn't, only then do we create a new perosn
-                    person = Person(id=pid, names=[name])
+                    person = Person(id=pid, parent=self.parent, names=[name])
                     self.add_person(person)
                 else:
                     raise NameIDUndefinedError(
@@ -292,7 +292,12 @@ class PersonIndex(SlottedDict[Person]):
                 Name.from_dict(var) for var in entry.get("variants", [])
             ]
             # Now we can create a new person from this entry...
-            person = Person(id=pid, names=names, comment=entry.get("comment", None))
+            person = Person(
+                id=pid,
+                parent=self.parent,
+                names=names,
+                comment=entry.get("comment", None),
+            )
             # ...and add it to the index
             self.add_person(person)
             for similar_id in entry.get("similar", []):

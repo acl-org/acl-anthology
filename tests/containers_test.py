@@ -15,7 +15,7 @@
 import pytest
 
 from attrs import define, field
-from acl_anthology.containers import SlottedDict
+from acl_anthology.containers import dict_type, SlottedDict
 
 
 class BlankContainer(SlottedDict[str]):
@@ -163,3 +163,9 @@ def test_container_update(demo, other):
 def test_container_values(demo):
     values = {x for x in demo.values()}
     assert values == set((1, 2))
+
+
+def test_dict_type(demo):
+    assert dict_type(demo) == "int "
+    blank = BlankContainer()
+    assert dict_type(blank) == ""  # not determinable

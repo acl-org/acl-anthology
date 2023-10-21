@@ -51,6 +51,11 @@ def test_build_id_from_tuple(full_id, parsed):
     assert ids.build_id_from_tuple(parsed) == ids.build_id_from_tuple(full_id) == full_id
 
 
+def test_build_id_wrong_type():
+    with pytest.raises(TypeError):
+        ids.build_id(("P18", "1", "7"))
+
+
 test_cases_years = (
     ("P18-1007", "2018"),
     ("D19-1001", "2019"),
