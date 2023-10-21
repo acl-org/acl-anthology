@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.4.2] — 2023-10-21
+
 ### Added
 
 - Lots of documentation, including a web-hosted version.
