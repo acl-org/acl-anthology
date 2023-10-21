@@ -47,6 +47,7 @@ def test_explicit_event(anthology):
         ("2022.acl", "tutorials", None),
         ("2022.findings", "acl", None),
         ("2022.bigscience", "1", None),
+        ("2022.naloma", "1", None),
         ("2022.wit", "1", None),
     ]
 
@@ -55,5 +56,7 @@ def test_event_by_volume(anthology):
     index = EventIndex(anthology)
     assert index.by_volume("2022.acl-demo") == [index["acl-2022"]]
     assert index.by_volume("L06-1") == [index["lrec-2006"]]
-    # This volume is defined under <colocated>, but doesn't exist in the toy data
-    assert index.by_volume("2022.bigscience-1") == []
+    events = index.by_volume("2022.naloma-1")
+    assert {event.id for event in events} == {"acl-2022", "nlma-2022"}
+    # This volume is defined under <colocated>, even though it doesn't exist in the toy data
+    assert index.by_volume("2022.bigscience-1") == [index["acl-2022"]]

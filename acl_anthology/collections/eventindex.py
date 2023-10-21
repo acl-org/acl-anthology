@@ -75,6 +75,8 @@ class EventIndex(SlottedDict[Event]):
         for collection in iterator:
             if (explicit_event := collection.get_event()) is not None:
                 self.data[explicit_event.id] = explicit_event
+                for volume_fid in explicit_event.colocated_ids:
+                    self.reverse[volume_fid].add(explicit_event.id)
 
             for volume in collection.volumes():
                 volume_fid = volume.full_id_tuple

@@ -11,6 +11,7 @@
 - Showing progress bars (i.e. `verbose=True`) is now the default.
 - Shorter `repr()` output for many classes, sacrificing detail for better usability in interactive settings.
 - `Person` objects now require a pointer to the Anthology instance.
+- Bugfix: EventIndex didn't reverse-index co-located volumes.
 
 ## [0.4.1] — 2023-10-14
 
