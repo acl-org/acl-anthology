@@ -675,7 +675,7 @@ def create_xml(
 
     volume_node = make_simple_element(
         'volume',
-        attrib={'id': volume_name, 'ingest-date': ingest_date},
+        attrib={'id': volume_name, 'ingest-date': ingest_date, "type": "proceedings"},
     )
     # Replace the existing one if present
     root_node.find(f"./volume[@id='{volume_name}']")
