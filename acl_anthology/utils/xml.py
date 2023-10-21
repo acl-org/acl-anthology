@@ -104,7 +104,7 @@ def indent(elem: etree._Element, level: int = 0, internal: bool = False) -> None
         internal: If True, assume we are within a single-line element.
 
     Note:
-        Adapted from [https://stackoverflow.com/a/33956544][].
+        Adapted from [https://stackoverflow.com/a/33956544](https://stackoverflow.com/a/33956544).
     """
     # tags that have no internal linebreaks (including children)
     oneline = elem.tag in ("author", "editor", "speaker", "title", "booktitle", "variant")

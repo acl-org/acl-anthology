@@ -34,7 +34,7 @@ from .config import config, dirs
 from .exceptions import SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
-from .collections import CollectionIndex, Collection, Volume, Paper, EventIndex
+from .collections import CollectionIndex, Collection, Volume, Paper, Event, EventIndex
 from .people import PersonIndex, Person, Name, NameSpecification, ConvertableIntoName
 from .sigs import SIGIndex
 from .venues import VenueIndex
@@ -236,6 +236,17 @@ class Anthology:
             return None
         return volume.get(paper_id)
 
+    def get_event(self, event_id: str) -> Optional[Event]:
+        """Access an event by its ID.
+
+        Parameters:
+            event_id: An ID that refers to an event, e.g. "acl-2022".
+
+        Returns:
+            The event associated with the given ID.
+        """
+        return self.events.get(event_id)
+
     def get_person(self, person_id: str) -> Optional[Person]:
         """Access a person by their ID.
 
@@ -257,11 +268,11 @@ class Anthology:
             A list of [`Person`][acl_anthology.people.person.Person] objects with the given name.
 
         Examples:
-            >>> anthology.find_persons("Doe, Jane")
-            >>> anthology.find_persons(("Jane", "Doe"))       # same as above
-            >>> anthology.find_persons({"first": "Jane",
+            >>> anthology.find_people("Doe, Jane")
+            >>> anthology.find_people(("Jane", "Doe"))       # same as above
+            >>> anthology.find_people({"first": "Jane",
                                          "last": "Doe"})      # same as above
-            >>> anthology.find_persons(Name("Jane", "Doe"))   # same as above
+            >>> anthology.find_people(Name("Jane", "Doe"))   # same as above
         """
         name = Name.from_(name_def)
         return self.people.get_by_name(name)

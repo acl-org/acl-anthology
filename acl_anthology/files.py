@@ -43,7 +43,7 @@ class FileReference:
 
     name: str = field()
     checksum: Optional[str] = field(default=None)
-    template_field: str = ""
+    template_field: str = field(repr=False, default="")
 
     @property
     def is_local(self) -> bool:
@@ -82,14 +82,14 @@ class FileReference:
 class PDFReference(FileReference):
     """Reference to a PDF file."""
 
-    template_field: str = "pdf_location_template"
+    template_field: str = field(repr=False, default="pdf_location_template")
 
 
 @define
 class PDFThumbnailReference(FileReference):
     """Reference to a PDF thumbnail image."""
 
-    template_field: str = "pdf_thumbnail_location_template"
+    template_field: str = field(repr=False, default="pdf_thumbnail_location_template")
 
 
 @define
@@ -98,14 +98,14 @@ class AttachmentReference(FileReference):
 
     # TODO: attachments must be local files according to the schema
 
-    template_field: str = "attachment_location_template"
+    template_field: str = field(repr=False, default="attachment_location_template")
 
 
 @define
 class EventFileReference(FileReference):
     """Reference to an event-related file."""
 
-    template_field: str = "event_location_template"
+    template_field: str = field(repr=False, default="event_location_template")
 
 
 @define
@@ -114,7 +114,7 @@ class VideoReference(FileReference):
 
     # TODO: videos can only be remote URLs according to the schema
 
-    template_field: str = "attachment_location_template"
+    template_field: str = field(repr=False, default="attachment_location_template")
     permission: bool = field(default=True)
 
     @classmethod
