@@ -4,6 +4,7 @@
 
 ### Added
 
+- Lots of documentation, including a web-hosted version.
 - Many new convenience functions, such as `Anthology.get_person()`, `Anthology.find_people()`, `Volume.get_events()`, `Person.papers()`, `Person.volumes()`.
 
 ### Changed
