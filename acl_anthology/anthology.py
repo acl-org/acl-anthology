@@ -34,7 +34,7 @@ from .config import config, dirs
 from .exceptions import SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
-from .collections import CollectionIndex, Collection, Volume, Paper, EventIndex
+from .collections import CollectionIndex, Collection, Volume, Paper, Event, EventIndex
 from .people import PersonIndex, Person, Name, NameSpecification, ConvertableIntoName
 from .sigs import SIGIndex
 from .venues import VenueIndex
@@ -235,6 +235,17 @@ class Anthology:
         if volume is None or paper_id is None:
             return None
         return volume.get(paper_id)
+
+    def get_event(self, event_id: str) -> Optional[Event]:
+        """Access an event by its ID.
+
+        Parameters:
+            event_id: An ID that refers to an event, e.g. "acl-2022".
+
+        Returns:
+            The event associated with the given ID.
+        """
+        return self.events.get(event_id)
 
     def get_person(self, person_id: str) -> Optional[Person]:
         """Access a person by their ID.

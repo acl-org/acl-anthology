@@ -97,6 +97,13 @@ def test_papers_by_volume_id(anthology):
     assert expected == found
 
 
+def test_get_event(anthology):
+    event = anthology.get_event("acl-2022")
+    assert event is not None
+    assert event.id == "acl-2022"
+    assert event.is_explicit
+
+
 def test_get_person(anthology):
     person = anthology.get_person("yang-liu-edinburgh")
     assert person is not None
