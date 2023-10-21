@@ -97,8 +97,6 @@ class Paper:
     )
     pdf: Optional[PDFReference] = field(default=None, repr=False)
 
-    # TODO: properties we obtain from the parent volume?
-
     @property
     def collection_id(self) -> str:
         """The collection ID this paper belongs to."""
@@ -133,6 +131,40 @@ class Paper:
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent.parent.parent
+
+    @property
+    def address(self) -> Optional[str]:
+        """The publisher's address for this paper. Inherited from the parent Volume."""
+        return self.parent.address
+
+    @property
+    def month(self) -> Optional[str]:
+        """The month of publication. Inherited from the parent Volume."""
+        return self.parent.month
+
+    @property
+    def publisher(self) -> Optional[str]:
+        """The paper's publisher. Inherited from the parent Volume."""
+        return self.parent.publisher
+
+    @property
+    def venue_ids(self) -> list[str]:
+        """List of venue IDs associated with this paper. Inherited from the parent Volume."""
+        return self.parent.venue_ids
+
+    @property
+    def year(self) -> str:
+        """The year of publication. Inherited from the parent Volume."""
+        return self.parent.year
+
+    def get_editors(self) -> list[NameSpecification]:
+        """
+        Returns:
+            `self.editors`, if not empty; the parent volume's editors otherwise.
+        """
+        if self.editors:
+            return self.editors
+        return self.parent.editors
 
     def get_ingest_date(self) -> datetime.date:
         """
