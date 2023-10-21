@@ -33,7 +33,7 @@ if TYPE_CHECKING:
 class EventIndex(SlottedDict[Event]):
     """Index object through which events can be accessed.
 
-    This is a quite inefficient implementation, intended to be temporary pending the resolution of [https://github.com/acl-org/acl-anthology/issues/2743][].  As most events are currently implicitly created, it requires loading the entire Anthology data.
+    This is a quite inefficient implementation, intended to be temporary pending the resolution of [issue #2743](https://github.com/acl-org/acl-anthology/issues/2743).  As most events are currently implicitly created, it requires loading the entire Anthology data.
 
     Attributes:
         parent: The parent Anthology instance to which this index belongs.
