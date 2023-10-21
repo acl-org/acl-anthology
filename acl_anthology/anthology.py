@@ -35,7 +35,7 @@ from .exceptions import SchemaMismatchWarning
 from .utils import git
 from .utils.ids import AnthologyID, parse_id
 from .collections import CollectionIndex, Collection, Volume, Paper, EventIndex
-from .people import PersonIndex, Person, NameSpecification
+from .people import PersonIndex, Person, Name, NameSpecification, ConvertableIntoName
 from .sigs import SIGIndex
 from .venues import VenueIndex
 
@@ -49,10 +49,10 @@ class Anthology:
 
     Attributes:
         datadir (PathLike[str]): The path to the data folder.
-        verbose (bool): If True, will show progress bars during longer operations.
+        verbose (bool): If False, will not show progress bars during longer operations.
     """
 
-    def __init__(self, datadir: PathLike[str], verbose: bool = False) -> None:
+    def __init__(self, datadir: PathLike[str], verbose: bool = True) -> None:
         if not Path(datadir).is_dir():
             raise FileNotFoundError(f"Not a directory: {datadir}")
 
@@ -75,6 +75,9 @@ class Anthology:
         self.venues = VenueIndex(self)
         """The [VenueIndex][acl_anthology.venues.VenueIndex] for accessing venues."""
 
+    def __repr__(self) -> str:
+        return f"Anthology(datadir={repr(self.datadir)}, verbose={self.verbose})"
+
     def _check_schema_compatibility(self) -> None:
         """
         Checks if the XML schema in the data directory is identical to
@@ -91,14 +94,14 @@ class Anthology:
         cls,
         repo_url: str = "https://github.com/acl-org/acl-anthology.git",
         path: Optional[PathLike[str]] = None,
-        verbose: bool = False,
+        verbose: bool = True,
     ) -> Self:
         """Instantiates the Anthology from a Git repo.
 
         Arguments:
             repo_url: The URL of a Git repo with Anthology data.  If not given, defaults to the official ACL Anthology repo.
             path: The local path for the repo data.  If not given, automatically determines a path within the user's data directory.
-            verbose: If True, will show progress bars during longer operations.
+            verbose: If False, will not show progress bars during longer operations.
         """
         if path is None:
             path = (
@@ -232,6 +235,36 @@ class Anthology:
         if volume is None or paper_id is None:
             return None
         return volume.get(paper_id)
+
+    def get_person(self, person_id: str) -> Optional[Person]:
+        """Access a person by their ID.
+
+        Parameters:
+            person_id: An ID that refers to a person.
+
+        Returns:
+            The person associated with the given ID.
+        """
+        return self.people.get(person_id)
+
+    def find_people(self, name_def: ConvertableIntoName) -> list[Person]:
+        """Find people by name.
+
+        Parameters:
+            name_def: Anything that can be resolved to a name; see below for examples.
+
+        Returns:
+            A list of [`Person`][acl_anthology.people.person.Person] objects with the given name.
+
+        Examples:
+            >>> anthology.find_persons("Doe, Jane")
+            >>> anthology.find_persons(("Jane", "Doe"))       # same as above
+            >>> anthology.find_persons({"first": "Jane",
+                                         "last": "Doe"})      # same as above
+            >>> anthology.find_persons(Name("Jane", "Doe"))   # same as above
+        """
+        name = Name.from_(name_def)
+        return self.people.get_by_name(name)
 
     @overload
     def resolve(self, name_spec: NameSpecification) -> Person:

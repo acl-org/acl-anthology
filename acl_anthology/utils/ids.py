@@ -48,6 +48,11 @@ def build_id(
     Warning:
         Does not perform any kind of input validation.
     """
+    if not isinstance(collection_id, str):
+        msg = f"collection_id must be str; got {type(collection_id)}"
+        if isinstance(collection_id, (list, tuple)):
+            msg = f"{msg}; did you mean to use build_id_from_tuple?"
+        raise TypeError(msg)
     if volume_id is None:
         return collection_id
     elif collection_id[0].isdigit():

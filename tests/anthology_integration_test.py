@@ -23,7 +23,7 @@ DATADIR = Path(f"{SCRIPTDIR}/.official_anthology_git")
 
 @pytest.fixture
 def anthology_from_repo():
-    return Anthology.from_repo(path=DATADIR, verbose=True)
+    return Anthology.from_repo(path=DATADIR, verbose=False)
 
 
 @pytest.mark.integration

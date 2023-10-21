@@ -35,7 +35,7 @@ from ..utils.logging import get_logger
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
-    from . import Volume
+    from . import Event, Volume
 
 log = get_logger()
 
@@ -73,31 +73,29 @@ class Paper:
 
     id: str
     parent: Volume = field(repr=False, eq=False)
-    bibkey: str
+    bibkey: str = field()
     title: MarkupText = field()
 
-    attachments: dict[str, AttachmentReference] = Factory(dict)
+    attachments: dict[str, AttachmentReference] = field(factory=dict, repr=False)
     authors: list[NameSpecification] = Factory(list)
-    awards: list[str] = Factory(list)
+    awards: list[str] = field(factory=list, repr=False)
     # TODO: why can a Paper ever have "editors"? it's allowed by the schema
-    editors: list[NameSpecification] = Factory(list)
-    errata: list[PaperErratum] = Factory(list)
-    revisions: list[PaperRevision] = Factory(list)
-    videos: list[VideoReference] = Factory(list)
+    editors: list[NameSpecification] = field(factory=list, repr=False)
+    errata: list[PaperErratum] = field(factory=list, repr=False)
+    revisions: list[PaperRevision] = field(factory=list, repr=False)
+    videos: list[VideoReference] = field(factory=list, repr=False)
 
     abstract: Optional[MarkupText] = field(default=None)
-    deletion: Optional[PaperDeletionNotice] = field(default=None)
-    doi: Optional[str] = field(default=None)
-    ingest_date: Optional[str] = field(default=None)
-    language: Optional[str] = field(default=None)
-    note: Optional[str] = field(default=None)
-    pages: Optional[str] = field(default=None)
+    deletion: Optional[PaperDeletionNotice] = field(default=None, repr=False)
+    doi: Optional[str] = field(default=None, repr=False)
+    ingest_date: Optional[str] = field(default=None, repr=False)
+    language: Optional[str] = field(default=None, repr=False)
+    note: Optional[str] = field(default=None, repr=False)
+    pages: Optional[str] = field(default=None, repr=False)
     paperswithcode: Optional[PapersWithCodeReference] = field(
-        default=None, on_setattr=attrs.setters.frozen
+        default=None, on_setattr=attrs.setters.frozen, repr=False
     )
-    pdf: Optional[PDFReference] = field(default=None)
-
-    # TODO: properties we obtain from the parent volume?
+    pdf: Optional[PDFReference] = field(default=None, repr=False)
 
     @property
     def collection_id(self) -> str:
@@ -133,6 +131,47 @@ class Paper:
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent.parent.parent
+
+    @property
+    def address(self) -> Optional[str]:
+        """The publisher's address for this paper. Inherited from the parent Volume."""
+        return self.parent.address
+
+    @property
+    def month(self) -> Optional[str]:
+        """The month of publication. Inherited from the parent Volume."""
+        return self.parent.month
+
+    @property
+    def publisher(self) -> Optional[str]:
+        """The paper's publisher. Inherited from the parent Volume."""
+        return self.parent.publisher
+
+    @property
+    def venue_ids(self) -> list[str]:
+        """List of venue IDs associated with this paper. Inherited from the parent Volume."""
+        return self.parent.venue_ids
+
+    @property
+    def year(self) -> str:
+        """The year of publication. Inherited from the parent Volume."""
+        return self.parent.year
+
+    def get_editors(self) -> list[NameSpecification]:
+        """
+        Returns:
+            `self.editors`, if not empty; the parent volume's editors otherwise.
+        """
+        if self.editors:
+            return self.editors
+        return self.parent.editors
+
+    def get_events(self) -> list[Event]:
+        """
+        Returns:
+            A list of events associated with this paper.
+        """
+        return self.root.events.by_volume(self.parent.full_id_tuple)
 
     def get_ingest_date(self) -> datetime.date:
         """

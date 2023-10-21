@@ -33,7 +33,7 @@ from .paper import Paper
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
-    from . import Collection
+    from . import Collection, Event
 
 
 class VolumeType(Enum):
@@ -79,27 +79,26 @@ class Volume(SlottedDict[Paper]):
 
     id: str
     parent: Collection = field(repr=False, eq=False)
-    type: VolumeType
+    type: VolumeType = field(repr=False)
     title: MarkupText = field(alias="booktitle")
-    year: str
+    year: str = field()
 
     editors: list[NameSpecification] = Factory(list)
     venue_ids: list[str] = field(factory=list)
 
-    address: Optional[str] = field(default=None)
-    doi: Optional[str] = field(default=None)
-    ingest_date: Optional[str] = field(default=None)
-    isbn: Optional[str] = field(default=None)
-    journal_issue: Optional[str] = field(default=None)
-    journal_volume: Optional[str] = field(default=None)
-    journal_title: Optional[str] = field(default=None)
-    month: Optional[str] = field(default=None)
-    pdf: Optional[PDFReference] = field(default=None)
-    publisher: Optional[str] = field(default=None)
-    shorttitle: Optional[MarkupText] = field(default=None, alias="shortbooktitle")
-
-    # def __repr__(self) -> str:
-    #    return f"Volume({self._parent_id!r}, {self._id!r})"
+    address: Optional[str] = field(default=None, repr=False)
+    doi: Optional[str] = field(default=None, repr=False)
+    ingest_date: Optional[str] = field(default=None, repr=False)
+    isbn: Optional[str] = field(default=None, repr=False)
+    journal_issue: Optional[str] = field(default=None, repr=False)
+    journal_volume: Optional[str] = field(default=None, repr=False)
+    journal_title: Optional[str] = field(default=None, repr=False)
+    month: Optional[str] = field(default=None, repr=False)
+    pdf: Optional[PDFReference] = field(default=None, repr=False)
+    publisher: Optional[str] = field(default=None, repr=False)
+    shorttitle: Optional[MarkupText] = field(
+        default=None, alias="shortbooktitle", repr=False
+    )
 
     @property
     def frontmatter(self) -> Paper | None:
@@ -136,6 +135,13 @@ class Volume(SlottedDict[Paper]):
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent.parent
+
+    def get_events(self) -> list[Event]:
+        """
+        Returns:
+            A list of events associated with this volume.
+        """
+        return self.root.events.by_volume(self.full_id_tuple)
 
     def get_ingest_date(self) -> datetime.date:
         """

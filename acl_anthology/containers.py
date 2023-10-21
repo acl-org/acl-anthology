@@ -27,6 +27,13 @@ T = TypeVar("T")
 U = TypeVar("U")
 
 
+def dict_type(x: dict[str, T]) -> str:
+    if not x:
+        return ""
+    value = next(iter(x.values()))
+    return f"{value.__class__.__name__} "
+
+
 @define
 class SlottedDict(Generic[T]):
     """A generic slotted class for dictionary-like behavior.
@@ -40,7 +47,13 @@ class SlottedDict(Generic[T]):
         is_data_loaded: Flag that defaults to True. Subclasses can set this to False to indicate that [`self.load()`][acl_anthology.containers.SlottedDict.load] must be called before any data can be accessed; in that case, they also have to implement the `load` function.
     """
 
-    data: dict[str, T] = field(init=False, repr=False, factory=dict)
+    # TODO: We would probably like to take is_data_loaded into account, but
+    # that's not really possible
+    data: dict[str, T] = field(
+        init=False,
+        repr=lambda x: f"<dict of {len(x)} {dict_type(x)}item{'' if len(x) == 1 else 's'}>",
+        factory=dict,
+    )
     is_data_loaded: bool = field(init=False, repr=False, default=True)
 
     def __contains__(self, key: str) -> bool:

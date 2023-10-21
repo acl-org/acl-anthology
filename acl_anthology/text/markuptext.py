@@ -20,7 +20,7 @@ from attrs import define, field
 from collections import defaultdict
 from copy import deepcopy
 from lxml import etree
-from typing import Iterator
+from typing import Iterator, Optional
 
 from ..utils import (
     latex_encode,
@@ -76,11 +76,16 @@ class MarkupText:
     # alternative that doesn't require deepcopy-ing XML elements at all.
     _content: etree._Element | str = field()
 
+    # For caching
+    _html: Optional[str] = field(init=False, default=None)
+    _latex: Optional[str] = field(init=False, default=None)
+    _text: Optional[str] = field(init=False, default=None)
+
     def __str__(self) -> str:
         return self.as_text()
 
     def __repr__(self) -> str:
-        return f"MarkupText({self.as_html()!r})"
+        return f"<MarkupText {self.as_html()!r}>"
 
     def __rich_repr__(self) -> Iterator[str]:
         yield self.as_html()
@@ -92,13 +97,15 @@ class MarkupText:
         """
         if isinstance(self._content, str):
             return self._content
+        if self._text is not None:
+            return self._text
         element = deepcopy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
             sub.tail = None  # tail is contained within the return value of to_unicode()
         text = etree.tostring(element, encoding="unicode", method="text")
-        text = remove_extra_whitespace(text)
-        return text
+        self._text = remove_extra_whitespace(text)
+        return self._text
 
     def as_html(self, allow_url: bool = True) -> str:
         """
@@ -111,6 +118,8 @@ class MarkupText:
         """
         if isinstance(self._content, str):
             return self._content
+        if self._html is not None:
+            return self._html
         element = deepcopy(self._content)
         for sub in element.iter():
             if sub.tag == "url":
@@ -127,18 +136,21 @@ class MarkupText:
                 parsed_elem = TexMath.to_html(sub)
                 parsed_elem.tail = sub.tail
                 sub.getparent().replace(sub, parsed_elem)  # type: ignore
-        html = remove_extra_whitespace(stringify_children(element))
-        return html
+        self._html = remove_extra_whitespace(stringify_children(element))
+        return self._html
 
     def as_latex(self) -> str:
         """
         Returns:
             Text with markup transformed into LaTeX commands."""
+        if self._latex is not None:
+            return self._latex
         if isinstance(self._content, str):
-            return latex_convert_quotes(latex_encode(self._content))
-        text = markup_to_latex(self._content)
-        text = remove_extra_whitespace(text)
-        return text
+            self._latex = latex_convert_quotes(latex_encode(self._content))
+        else:
+            latex = markup_to_latex(self._content)
+            self._latex = remove_extra_whitespace(latex)
+        return self._latex
 
     @classmethod
     def from_string(cls, text: str) -> MarkupText:
