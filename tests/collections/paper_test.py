@@ -47,7 +47,7 @@ def test_paper_minimum_attribs():
     assert paper.title == paper_title
 
 
-def test_paper_attribs(anthology):
+def test_paper_web_url(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     assert paper.web_url == "https://aclanthology.org/2022.acl-demo.2/"
 
@@ -65,6 +65,10 @@ def test_paper_bibtype():
     assert paper.bibtype == "article"
     volume.type = VolumeType.PROCEEDINGS
     assert paper.bibtype == "inproceedings"
+    paper.id = "0"
+    assert paper.bibtype == "proceedings"
+    volume.type = VolumeType.JOURNAL
+    assert paper.bibtype == "book"
 
 
 test_cases_xml = (
@@ -176,6 +180,22 @@ def test_paper_to_bibtex_inproceedings(anthology):
     assert paper.to_bibtex(with_abstract=False) == expected_without_abstract
 
 
+def test_paper_to_bibtex_proceedings(anthology):
+    paper = anthology.get("2022.acl-short.0")
+    expected = """@proceedings{acl-2022-association-linguistics,
+    title = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
+    editor = "Muresan, Smaranda  and
+      Nakov, Preslav  and
+      Villavicencio, Aline",
+    month = may,
+    year = "2022",
+    address = "Dublin, Ireland",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.acl-short.0/"
+}"""
+    assert paper.to_bibtex() == expected
+
+
 def test_paper_to_bibtex_article(anthology):
     paper = anthology.get("J89-2002")
     expected = """@article{oshaughnessy-1989-parsing,
@@ -189,6 +209,16 @@ def test_paper_to_bibtex_article(anthology):
     pages = "97--108"
 }"""
     assert paper.to_bibtex(with_abstract=True) == expected
+
+
+def test_paper_to_bibtex_journal(anthology):
+    paper = anthology.get("J89-4000")
+    expected = """@book{cl-1989-linguistics-15-number-4,
+    title = "Computational Linguistics, Volume 15, Number 4, {D}ecember 1989",
+    year = "1989",
+    url = "https://aclanthology.org/J89-4000/"
+}"""
+    assert paper.to_bibtex() == expected
 
 
 test_cases_paperdeletionnotice = (

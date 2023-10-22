@@ -186,6 +186,19 @@ class Volume(SlottedDict[Paper]):
         paper = Paper.from_xml(self, element)
         self.data[paper.id] = paper
 
+    def to_bibtex(self) -> str:
+        """Generate a BibTeX entry for this volume.
+
+        Returns:
+            The BibTeX entry for this volume as a formatted string.  Currently, this is simply the frontmatter's BibTeX.
+
+        Raises:
+            Exception: If this volume has no frontmatter.
+        """
+        if self.frontmatter is None:
+            raise Exception("Cannot generate BibTeX for volume without frontmatter.")
+        return self.frontmatter.to_bibtex()
+
     @classmethod
     def from_xml(cls, parent: Collection, meta: etree._Element) -> Volume:
         """Instantiates a new volume from its `<meta>` block in the XML."""

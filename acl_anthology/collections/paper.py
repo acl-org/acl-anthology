@@ -139,13 +139,17 @@ class Paper:
     @property
     def bibtype(self) -> str:
         """The BibTeX entry type for this paper."""
-        if self.is_frontmatter:
-            raise NotImplementedError()  # TODO:
-        match self.parent.type:
-            case VolumeType.JOURNAL:
+        match self.is_frontmatter, self.parent.type:
+            case (True, VolumeType.JOURNAL):
+                return "book"
+            case (False, VolumeType.JOURNAL):
                 return "article"
-            case VolumeType.PROCEEDINGS:
+            case (True, VolumeType.PROCEEDINGS):
+                return "proceedings"
+            case (False, VolumeType.PROCEEDINGS):
                 return "inproceedings"
+            case _:
+                raise ValueError(f"Unknown volume type: {self.parent.type}")
 
     @property
     def address(self) -> Optional[str]:
@@ -216,17 +220,18 @@ class Paper:
             ("author", self.authors),
             ("editor", self.get_editors()),
         ]
-        match self.parent.type:
-            case VolumeType.JOURNAL:
-                bibtex_fields.extend(
-                    [
-                        ("journal", self.parent.get_journal_title()),
-                        ("volume", self.parent.journal_volume),
-                        ("number", self.parent.journal_issue),
-                    ]
-                )
-            case VolumeType.PROCEEDINGS:
-                bibtex_fields.append(("booktitle", self.parent.title))
+        if not self.is_frontmatter:
+            match self.parent.type:
+                case VolumeType.JOURNAL:
+                    bibtex_fields.extend(
+                        [
+                            ("journal", self.parent.get_journal_title()),
+                            ("volume", self.parent.journal_volume),
+                            ("number", self.parent.journal_issue),
+                        ]
+                    )
+                case VolumeType.PROCEEDINGS:
+                    bibtex_fields.append(("booktitle", self.parent.title))
         bibtex_fields.extend(
             [
                 ("month", self.month),
