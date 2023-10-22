@@ -21,6 +21,8 @@ import re
 from slugify import slugify
 from typing import Optional, cast
 
+from ..utils.latex import latex_encode
+
 
 @define(frozen=True)
 class Name:
@@ -45,11 +47,27 @@ class Name:
     def as_first_last(self) -> str:
         """
         Returns:
-            The person's full name in the form '[First name] [Last name]'.
+            The person's full name in the form '{first} {last}'.
         """
         if self.first is None:
             return self.last
         return f"{self.first} {self.last}"
+
+    def as_last_first(self) -> str:
+        """
+        Returns:
+            The person's full name in the form '{last}, {first}'.
+        """
+        if self.first is None:
+            return self.last
+        return f"{self.last}, {self.first}"
+
+    def as_bibtex(self) -> str:
+        """
+        Returns:
+            The person's full name as formatted in a BibTeX entry.
+        """
+        return latex_encode(self.as_last_first())
 
     def score(self) -> int:
         """

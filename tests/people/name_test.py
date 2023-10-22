@@ -23,6 +23,8 @@ def test_name_firstlast():
     assert n1.first == "John"
     assert n1.last == "Doe"
     assert n1.as_first_last() == "John Doe"
+    assert n1.as_last_first() == "Doe, John"
+    assert n1.as_bibtex() == "Doe, John"
     n2 = Name(last="Doe", first="John")
     assert n1 == n2
     assert n2.as_first_last() == "John Doe"
@@ -37,6 +39,8 @@ def test_name_onlylast():
     assert n1.first is None
     assert n1.last == "Mausam"
     assert n1.as_first_last() == "Mausam"
+    assert n1.as_last_first() == "Mausam"
+    assert n1.as_bibtex() == "Mausam"
 
 
 def test_name_specification():
@@ -182,3 +186,8 @@ def test_name_from_any():
     assert n1 == n2 == n3 == n4
     with pytest.raises(TypeError):
         Name.from_(["Jane", "Doe"])  # ... but could be allowed maybe?
+
+
+def test_name_as_bibtex():
+    n1 = Name.from_string("André Rieu")
+    assert n1.as_bibtex() == "Rieu, Andr\\'e"
