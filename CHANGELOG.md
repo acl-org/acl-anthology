@@ -4,12 +4,13 @@
 
 ### Added
 
-- Papers can now generate their BibTeX entries via `to_bibtex()`.
+- Papers and volumes can now generate their BibTeX entries via `to_bibtex()`.  Currently, a volume's BibTeX entry is simply the BibTeX entry of its frontmatter.  (This mirrors how the old library handles it.)
 - Volumes now provide `get_journal_title()` to fetch the journal title from the venue metadata if it's not explicit set.
 - Papers now have attributes `bibtype` and `web_url`.
 
 ### Changed
 
+- A frontmatter entry now no longer inherits `authors` from the parent volume's editors.
 - Bugfix: `parse_id()` now parses old-style frontmatter IDs correctly.
 
 ## [0.4.2] — 2023-10-21
