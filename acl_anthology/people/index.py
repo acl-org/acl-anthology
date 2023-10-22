@@ -160,7 +160,14 @@ class PersonIndex(SlottedDict[Person]):
                         person.item_ids.add(volume.full_id_tuple)
                     for paper in volume.papers():
                         context = paper
-                        for name_spec in it.chain(paper.authors, paper.editors):
+                        name_specs = (
+                            # Associate explicitly given authors/editors with the paper
+                            it.chain(paper.authors, paper.editors)
+                            # For frontmatter, also associate the volume editors with it
+                            if not paper.is_frontmatter
+                            else paper.get_editors()
+                        )
+                        for name_spec in name_specs:
                             person = self.get_or_create_person(name_spec)
                             person.item_ids.add(paper.full_id_tuple)
                 except Exception as exc:

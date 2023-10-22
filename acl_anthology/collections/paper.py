@@ -253,8 +253,6 @@ class Paper:
             "parent": parent,
             # A frontmatter's title is the parent volume's title
             "title": parent.title,
-            # A volume's editors are authors for the frontmatter
-            "authors": parent.editors,
             "attachments": {},
         }
         # Frontmatter only supports a small subset of regular paper attributes,
