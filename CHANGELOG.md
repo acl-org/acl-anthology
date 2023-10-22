@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Volumes now provide `get_journal_title()` to fetch the journal title from the venue metadata if it's not explicit set.
+
 ## [0.4.2] — 2023-10-21
 
 ### Added

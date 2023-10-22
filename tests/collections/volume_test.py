@@ -161,6 +161,10 @@ def test_volume_attributes_j89(anthology):
     assert volume.venue_ids == ["cl"]
     assert volume.year == "1989"
     assert not volume.is_workshop
+    assert volume.type == VolumeType.JOURNAL
+    assert volume.journal_issue == "1"
+    assert volume.journal_volume == "15"
+    assert volume.get_journal_title() == "Computational Linguistics"
 
 
 def test_volume_attributes_naloma(anthology):

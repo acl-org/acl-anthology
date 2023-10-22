@@ -142,6 +142,26 @@ class Volume(SlottedDict[Paper]):
             return constants.UNKNOWN_INGEST_DATE
         return datetime.date.fromisoformat(self.ingest_date)
 
+    def get_journal_title(self) -> str:
+        """
+        Returns:
+            The journal title for this volume, fetching this information from the associated venue if it isn't explicit set.
+
+        Raises:
+            TypeError: If this volume doesn't represent a journal.
+            ValueError: If the journal title isn't explicitly set, but there isn't exactly one venue associated with this volume.
+        """
+        if self.type != VolumeType.JOURNAL:
+            raise TypeError("Volume is not a journal")
+        if self.journal_title is not None:
+            return self.journal_title
+        # If journal-title isn't explicit set, we fetch it from the associated venue
+        if len(self.venue_ids) != 1:
+            raise ValueError(
+                "Journal volume must have exactly one venue or an explicit <journal-title>"
+            )
+        return self.root.venues[self.venue_ids[0]].name
+
     def papers(self) -> Iterator[Paper]:
         """An iterator over all Paper objects in this volume."""
         yield from self.data.values()
