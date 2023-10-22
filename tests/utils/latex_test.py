@@ -80,7 +80,7 @@ def test_make_bibtex_entry():
     address = {"Montr\\'eal"},
     doi = "10.000.a_b_c",
     month = feb,
-    pages = "1--7",
+    pages = "1--7"
 }"""
     assert latex.make_bibtex_entry(bibtype, bibkey, fields) == expected
 

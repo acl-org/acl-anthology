@@ -4,7 +4,9 @@
 
 ### Added
 
+- Papers can now generate their BibTeX entries via `to_bibtex()`.
 - Volumes now provide `get_journal_title()` to fetch the journal title from the venue metadata if it's not explicit set.
+- Papers now have attributes `bibtype` and `web_url`.
 
 ## [0.4.2] — 2023-10-21
 

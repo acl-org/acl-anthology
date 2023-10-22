@@ -32,11 +32,13 @@ from ..files import (
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.ids import build_id, AnthologyIDTuple
+from ..utils.latex import make_bibtex_entry
 from ..utils.logging import get_logger
 from .types import VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..utils.latex import SerializableAsBibTeX
     from . import Event, Volume
 
 log = get_logger()
@@ -199,6 +201,49 @@ class Paper:
         if self.ingest_date is None:
             return self.parent.get_ingest_date()
         return datetime.date.fromisoformat(self.ingest_date)
+
+    def to_bibtex(self, with_abstract: bool = False) -> str:
+        """Generate a BibTeX entry for this paper.
+
+        Arguments:
+            with_abstract: If True, includes the abstract in the BibTeX entry.
+
+        Returns:
+            The BibTeX entry for this paper as a formatted string.
+        """
+        bibtex_fields: list[tuple[str, SerializableAsBibTeX]] = [
+            ("title", self.title),
+            ("author", self.authors),
+            ("editor", self.get_editors()),
+        ]
+        match self.parent.type:
+            case VolumeType.JOURNAL:
+                bibtex_fields.extend(
+                    [
+                        ("journal", self.parent.get_journal_title()),
+                        ("volume", self.parent.journal_volume),
+                        ("number", self.parent.journal_issue),
+                    ]
+                )
+            case VolumeType.PROCEEDINGS:
+                bibtex_fields.append(("booktitle", self.parent.title))
+        bibtex_fields.extend(
+            [
+                ("month", self.month),
+                ("year", self.year),
+                ("address", self.address),
+                ("publisher", self.publisher),
+                ("note", self.note),
+                ("url", self.web_url),
+                ("doi", self.doi),
+                ("pages", self.pages),
+                ("language", self.language),
+                ("ISBN", self.parent.isbn),
+            ]
+        )
+        if with_abstract and self.abstract is not None:
+            bibtex_fields.append(("abstract", self.abstract))
+        return make_bibtex_entry(self.bibtype, self.bibkey, bibtex_fields)
 
     @classmethod
     def from_frontmatter_xml(cls, parent: Volume, paper: etree._Element) -> Paper:

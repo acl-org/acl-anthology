@@ -137,6 +137,60 @@ def test_paper_roundtrip_xml(xml):
     assert etree.tostring(out, encoding="unicode") == xml
 
 
+def test_paper_to_bibtex_inproceedings(anthology):
+    paper = anthology.get("2022.acl-long.268")
+    expected = """@inproceedings{alvarez-mellado-lignos-2022-detecting,
+    title = "Detecting Unassimilated Borrowings in {S}panish: {A}n Annotated Corpus and Approaches to Modeling",
+    author = "\\'Alvarez-Mellado, Elena  and
+      Lignos, Constantine",
+    editor = "Muresan, Smaranda  and
+      Nakov, Preslav  and
+      Villavicencio, Aline",
+    booktitle = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = may,
+    year = "2022",
+    address = "Dublin, Ireland",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.acl-long.268/",
+    doi = "10.18653/v1/2022.acl-long.268",
+    pages = "3868--3888",
+    abstract = "This work presents a new resource for borrowing identification and analyzes the performance and errors of several models on this task. We introduce a new annotated corpus of Spanish newswire rich in unassimilated lexical borrowings---words from one language that are introduced into another without orthographic adaptation---and use it to evaluate how several sequence labeling models (CRF, BiLSTM-CRF, and Transformer-based models) perform. The corpus contains 370,000 tokens and is larger, more borrowing-dense, OOV-rich, and topic-varied than previous corpora available for this task. Our results show that a BiLSTM-CRF model fed with subword embeddings along with either Transformer-based embeddings pretrained on codeswitched data or a combination of contextualized word embeddings outperforms results obtained by a multilingual BERT-based model."
+}"""
+    assert paper.to_bibtex(with_abstract=True) == expected
+    expected_without_abstract = """@inproceedings{alvarez-mellado-lignos-2022-detecting,
+    title = "Detecting Unassimilated Borrowings in {S}panish: {A}n Annotated Corpus and Approaches to Modeling",
+    author = "\\'Alvarez-Mellado, Elena  and
+      Lignos, Constantine",
+    editor = "Muresan, Smaranda  and
+      Nakov, Preslav  and
+      Villavicencio, Aline",
+    booktitle = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = may,
+    year = "2022",
+    address = "Dublin, Ireland",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.acl-long.268/",
+    doi = "10.18653/v1/2022.acl-long.268",
+    pages = "3868--3888"
+}"""
+    assert paper.to_bibtex(with_abstract=False) == expected_without_abstract
+
+
+def test_paper_to_bibtex_article(anthology):
+    paper = anthology.get("J89-2002")
+    expected = """@article{oshaughnessy-1989-parsing,
+    title = "Parsing with a Small Dictionary for Applications such as Text to Speech",
+    author = "O'Shaughnessy, Douglas D.",
+    journal = "Computational Linguistics",
+    volume = "15",
+    number = "2",
+    year = "1989",
+    url = "https://aclanthology.org/J89-2002/",
+    pages = "97--108"
+}"""
+    assert paper.to_bibtex(with_abstract=True) == expected
+
+
 test_cases_paperdeletionnotice = (
     (
         '<retracted date="2022-05-06">Paper was intended for the non-archival track.</retracted>',

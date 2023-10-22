@@ -49,6 +49,7 @@ BIBTEX_MONTHS = {
 
 RE_OPENING_QUOTE = re.compile(r"(?<!\\)\"\b")
 RE_CLOSING_QUOTE = re.compile(r"(?<!\\)\"")
+RE_HYPHENS_BETWEEN_NUMBERS = re.compile(r"(?<=[0-9])(-|–|—)(?=[0-9])")
 
 
 def bibtex_convert_month(spec: str) -> str:
@@ -150,7 +151,7 @@ def make_bibtex_entry(
             elif key == "month":
                 value = bibtex_convert_month(value)
             elif key == "pages":
-                value = value.replace("–", "--")
+                value = RE_HYPHENS_BETWEEN_NUMBERS.sub("--", value)
         else:
             raise TypeError(f"Unsupported type for BibTeX field: {type(value)}")
         if has_unbalanced_braces(value):
@@ -163,6 +164,7 @@ def make_bibtex_entry(
             # Make sure not to use "" to quote values when they contain "
             quoted = f'"{value}"' if '"' not in value else f"{{{value}}}"
         lines.append(f"    {key} = {quoted},")
+    lines[-1] = lines[-1][:-1]  # cut off last comma
     lines.append("}")
     return "\n".join(lines)
 
