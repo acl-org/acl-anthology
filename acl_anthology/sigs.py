@@ -26,7 +26,7 @@ from .utils import ids
 
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
-except ImportError:
+except ImportError:  # pragma: no cover
     from yaml import Loader, Dumper  # type: ignore
 
 if TYPE_CHECKING:

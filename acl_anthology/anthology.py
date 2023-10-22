@@ -278,11 +278,13 @@ class Anthology:
         return self.people.get_by_name(name)
 
     @overload
-    def resolve(self, name_spec: NameSpecification) -> Person:
+    def resolve(self, name_spec: NameSpecification) -> Person:  # pragma: no cover
         ...
 
     @overload
-    def resolve(self, name_spec: Iterator[NameSpecification]) -> list[Person]:
+    def resolve(
+        self, name_spec: Iterator[NameSpecification]
+    ) -> list[Person]:  # pragma: no cover
         ...
 
     def resolve(self, name_spec: NameSpecificationOrIter) -> PersonOrList:

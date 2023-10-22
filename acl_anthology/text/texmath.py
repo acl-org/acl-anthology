@@ -226,11 +226,11 @@ class _TexMath:
         return result
 
     @overload
-    def to_html(self, element: str) -> str:
+    def to_html(self, element: str) -> str:  # pragma: no cover
         ...
 
     @overload
-    def to_html(self, element: etree._Element) -> etree._Element:
+    def to_html(self, element: etree._Element) -> etree._Element:  # pragma: no cover
         ...
 
     def to_html(self, element: str | etree._Element) -> str | etree._Element:

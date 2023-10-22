@@ -148,7 +148,7 @@ class Paper:
                 return "proceedings"
             case (False, VolumeType.PROCEEDINGS):
                 return "inproceedings"
-            case _:
+            case _:  # pragma: no cover
                 raise ValueError(f"Unknown volume type: {self.parent.type}")
 
     @property
