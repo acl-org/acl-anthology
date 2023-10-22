@@ -188,16 +188,37 @@ event (`ws-2020`), as well as the EMNLP 2020 event.
 
 <!-- {==What about SIGs or venues? No way to find all papers yet==} -->
 
-<!--
 ### Getting the BibTeX entry for a paper
 
-{==TODO==}
+To generate the BibTeX entry for a paper, simply call [`Paper.to_bibtex()`][acl_anthology.collections.paper.Paper.to_bibtex]:
 
 ```pycon
 >>> paper = anthology.get("2022.acl-long.220")
->>> # TODO: Not currently possible yet
+>>> print(paper.to_bibtex())
+@inproceedings{kitaev-etal-2022-learned,
+    title = "Learned Incremental Representations for Parsing",
+    author = "Kitaev, Nikita  and
+      Lu, Thomas  and
+      Klein, Dan",
+    editor = "Muresan, Smaranda  and
+      Nakov, Preslav  and
+      Villavicencio, Aline",
+    booktitle = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = may,
+    year = "2022",
+    address = "Dublin, Ireland",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.acl-long.220/",
+    doi = "10.18653/v1/2022.acl-long.220",
+    pages = "3086--3095"
+}
 ```
--->
+
+To also include the abstract in the BibTeX entry:
+
+```pycon
+>>> print(paper.to_bibtex(with_abstract=True))
+```
 
 ### Searching for papers by keywords in title
 
