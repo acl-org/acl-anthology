@@ -24,6 +24,9 @@ class DefaultConfig:
     url_prefix: str = "${oc.env:ANTHOLOGY_PREFIX,https://aclanthology.org}"
     """Prefix for all remote URLs. Can also be overridden with the environment variable `ANTHOLOGY_PREFIX`."""
 
+    paper_page_template: str = "${url_prefix}/{}/"
+    """URL formatting template for paper landing pages."""
+
     pdf_location_template: str = "${url_prefix}/{}.pdf"
     """URL formatting template for paper PDFs."""
 

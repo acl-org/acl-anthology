@@ -22,6 +22,7 @@ from lxml import etree
 from lxml.builder import E
 from typing import cast, Any, Optional, TYPE_CHECKING
 
+from ..config import config
 from ..files import (
     AttachmentReference,
     PapersWithCodeReference,
@@ -168,6 +169,11 @@ class Paper:
     def year(self) -> str:
         """The year of publication. Inherited from the parent Volume."""
         return self.parent.year
+
+    @property
+    def web_url(self) -> str:
+        """The URL of this paper's landing page on the ACL Anthology website."""
+        return cast(str, config["paper_page_template"]).format(self.full_id)
 
     def get_editors(self) -> list[NameSpecification]:
         """

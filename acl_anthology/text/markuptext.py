@@ -147,7 +147,8 @@ class MarkupText:
     def as_latex(self) -> str:
         """
         Returns:
-            Text with markup transformed into LaTeX commands."""
+            Text with markup transformed into LaTeX commands.
+        """
         if self._latex is not None:
             return self._latex
         if isinstance(self._content, str):

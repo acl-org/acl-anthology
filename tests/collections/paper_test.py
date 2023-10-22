@@ -47,6 +47,11 @@ def test_paper_minimum_attribs():
     assert paper.title == paper_title
 
 
+def test_paper_attribs(anthology):
+    paper = anthology.get_paper("2022.acl-demo.2")
+    assert paper.web_url == "https://aclanthology.org/2022.acl-demo.2/"
+
+
 def test_paper_get_events(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     assert paper is not None
