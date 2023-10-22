@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pytest
 import os
 from pathlib import Path
 from acl_anthology import Anthology
@@ -43,6 +44,15 @@ def test_get_paper(anthology):
     assert paper is not None
     assert paper.id == "1"
     assert paper.full_id == "2022.acl-long.1"
+
+
+@pytest.mark.parametrize(
+    "id_", ("2022.acl-short.0", "2022.naloma-1.0", "J89-4000", "L06-1000")
+)
+def test_get_frontmatter(anthology, id_):
+    paper = anthology.get_paper(id_)
+    assert paper is not None
+    assert paper.is_frontmatter
 
 
 def test_volumes(anthology):

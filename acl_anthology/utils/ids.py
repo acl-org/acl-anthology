@@ -166,9 +166,11 @@ def parse_id(anthology_id: AnthologyID) -> AnthologyIDTuple:
             or collection_id == "C69"
             or (collection_id == "D19" and int(rest[0]) >= 5)
         ):
-            return (collection_id, rest[0:2].lstrip("0"), rest[2:].lstrip("0"))
+            paper_id = rest[2:].lstrip("0")
+            return (collection_id, rest[0:2].lstrip("0"), paper_id if paper_id else "0")
         else:
-            return (collection_id, rest[0], rest[1:].lstrip("0"))
+            paper_id = rest[1:].lstrip("0")
+            return (collection_id, rest[0], paper_id if paper_id else "0")
 
 
 def infer_year(anthology_id: AnthologyID) -> str:
