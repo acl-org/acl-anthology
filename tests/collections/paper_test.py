@@ -14,6 +14,7 @@
 
 import pytest
 from acl_anthology.collections import CollectionIndex
+from acl_anthology.collections.types import VolumeType
 from acl_anthology.files import PDFReference
 from acl_anthology.text import MarkupText
 from acl_anthology.utils.xml import indent
@@ -50,6 +51,15 @@ def test_paper_get_events(anthology):
     paper = anthology.get_paper("2022.acl-demo.2")
     assert paper is not None
     assert paper.get_events() == [anthology.events["acl-2022"]]
+
+
+def test_paper_bibtype():
+    volume = VolumeStub()
+    volume.type = VolumeType.JOURNAL
+    paper = Paper("1", volume, bibkey="", title=MarkupText.from_string(""))
+    assert paper.bibtype == "article"
+    volume.type = VolumeType.PROCEEDINGS
+    assert paper.bibtype == "inproceedings"
 
 
 test_cases_xml = (

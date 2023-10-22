@@ -32,6 +32,7 @@ from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.ids import build_id, AnthologyIDTuple
 from ..utils.logging import get_logger
+from .types import VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
@@ -131,6 +132,17 @@ class Paper:
     def root(self) -> Anthology:
         """The Anthology instance to which this object belongs."""
         return self.parent.parent.parent.parent
+
+    @property
+    def bibtype(self) -> str:
+        """The BibTeX entry type for this paper."""
+        if self.is_frontmatter:
+            raise NotImplementedError()  # TODO:
+        match self.parent.type:
+            case VolumeType.JOURNAL:
+                return "article"
+            case VolumeType.PROCEEDINGS:
+                return "inproceedings"
 
     @property
     def address(self) -> Optional[str]:

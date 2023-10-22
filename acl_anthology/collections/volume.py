@@ -16,7 +16,6 @@ from __future__ import annotations
 
 import datetime
 from attrs import define, field, Factory
-from enum import Enum
 from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, cast, TYPE_CHECKING
@@ -30,20 +29,11 @@ from ..text import MarkupText
 from ..venues import Venue
 from ..utils.ids import build_id, AnthologyIDTuple
 from .paper import Paper
+from .types import VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
     from . import Collection, Event
-
-
-class VolumeType(Enum):
-    """Type of publication a volume represents."""
-
-    JOURNAL = "journal"
-    """A journal issue."""
-
-    PROCEEDINGS = "proceedings"
-    """A conference/workshop proceedings volume."""
 
 
 @define

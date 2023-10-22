@@ -12,22 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .index import CollectionIndex
-from .collection import Collection
-from .eventindex import EventIndex
-from .event import Event, Talk
-from .volume import Volume
-from .types import VolumeType
-from .paper import Paper
+from enum import Enum
 
 
-__all__ = [
-    "Collection",
-    "CollectionIndex",
-    "Event",
-    "EventIndex",
-    "Paper",
-    "Talk",
-    "Volume",
-    "VolumeType",
-]
+class VolumeType(Enum):
+    """Type of publication a volume represents."""
+
+    JOURNAL = "journal"
+    """A journal issue."""
+
+    PROCEEDINGS = "proceedings"
+    """A conference/workshop proceedings volume."""
