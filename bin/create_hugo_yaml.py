@@ -45,6 +45,9 @@ from anthology.utils import SeverityTracker, deconstruct_anthology_id
 from create_hugo_pages import check_directory
 
 
+SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+
+
 def export_anthology(anthology, outdir, clean=False, dryrun=False):
     """
     Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
@@ -53,7 +56,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     # Prepare paper index
     papers = defaultdict(dict)
     citation_styles = {
-        "acl": "association-for-computational-linguistics",
+        "acl": f"{SCRIPTDIR}/acl.csl",
         # "apa": "apa-6th-edition",
         # "mla": "modern-language-association-7th-edition",
     }
