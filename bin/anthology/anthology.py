@@ -80,7 +80,6 @@ class Anthology:
         self.sigs = SIGIndex(importdir)
         for xmlfile in (importdir / "xml").glob("*.xml"):
             self.import_file(xmlfile)
-        self.pindex.verify()
 
     def import_file(self, filename):
         tree = etree.parse(filename)

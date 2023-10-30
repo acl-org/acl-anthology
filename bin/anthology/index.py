@@ -354,30 +354,6 @@ class AnthologyIndex:
             )
         return self._similar
 
-    def verify(self):
-        ## no longer issuing a warning for unused variants
-        ## it is generally a good idea to keep them around in case they pop up again
-        ## if you want to prune them, try clean_name_variants.py
-        # for name, ids in self.name_to_ids.items():
-        #    for id_ in ids:
-        #        cname = self.id_to_canonical[id_]
-        #        if name != cname and name not in self._id_to_used[id_]:
-        #            log.warning(
-        #                "Variant name '{}' of '{}' is not used".format(
-        #                    repr(name), repr(cname)
-        #                )
-        #            )
-        if self._fast_load:
-            return  # does nothing
-        for name, d in self.name_to_papers.items():
-            # name appears with more than one explicit id and also
-            # appears without id at least once
-            if len(d[False]) > 0 and len(d[True]) > 1:
-                log.error(f"Name '{name}' is ambiguous and is used without explicit id")
-                log.error(
-                    "  Please add an id to paper(s):   {}".format(" ".join(d[False]))
-                )
-
     def personids(self):
         return self.id_to_canonical.keys()
 

@@ -45,6 +45,9 @@ from anthology.utils import SeverityTracker, deconstruct_anthology_id
 from create_hugo_pages import check_directory
 
 
+SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+
+
 def export_anthology(anthology, outdir, clean=False, dryrun=False):
     """
     Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
@@ -53,7 +56,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     # Prepare paper index
     papers = defaultdict(dict)
     citation_styles = {
-        "acl": "association-for-computational-linguistics",
+        "acl": f"{SCRIPTDIR}/acl.csl",
         # "apa": "apa-6th-edition",
         # "mla": "modern-language-association-7th-edition",
     }
@@ -97,8 +100,13 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             data["comment"] = anthology.people.comments[id_]
         if id_ in anthology.people.similar:
             data["similar"] = sorted(anthology.people.similar[id_])
+        papers_for_id = anthology.people.get_papers(id_, role="author") + [
+            paper
+            for paper in anthology.people.get_papers(id_, role="editor")
+            if anthology.papers.get(paper).is_volume
+        ]
         data["papers"] = sorted(
-            anthology.people.get_papers(id_),
+            papers_for_id,
             key=lambda p: anthology.papers.get(p).get("year"),
             reverse=True,
         )
