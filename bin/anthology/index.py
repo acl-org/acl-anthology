@@ -315,11 +315,12 @@ class AnthologyIndex:
                     if not self._fast_load:
                         self.name_to_papers[name][explicit].append(paper.full_id)
                         # Register co-author(s)
-                        for co_name, co_id in paper.get(role):
-                            if co_id is None:
-                                co_id = self.resolve_name(co_name)["id"]
-                            if co_id != id_:
-                                self._coauthors[id_][co_id] += 1
+                        if role == "author" or paper.is_volume:
+                            for co_name, co_id in paper.get(role):
+                                if co_id is None:
+                                    co_id = self.resolve_name(co_name)["id"]
+                                if co_id != id_:
+                                    self._coauthors[id_][co_id] += 1
 
     @property
     def id_to_used(self):
