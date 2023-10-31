@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Usage: create_hugo_pages.py [--dir=DIR] [-c] [-r] [--debug]
+"""Usage: create_hugo_pages.py [--dir=DIR] [-c] [--debug]
 
 Creates page stubs for the full anthology based on the YAML data files.
 
@@ -25,11 +25,9 @@ Options:
   --dir=DIR                Hugo project directory. [default: {scriptdir}/../build/]
   --debug                  Output debug-level log messages.
   -c, --clean              Delete existing files in target directory before generation.
-  -r, --replace-date       Replace unknown ingest date for papers with year and month.
   -h, --help               Display this helpful text.
 """
 
-import re
 from docopt import docopt
 from glob import glob
 from tqdm import tqdm
@@ -37,7 +35,6 @@ import logging as log
 import os
 import shutil
 import yaml
-import anthology.data as anthology_data
 
 try:
     from yaml import CLoader as Loader
@@ -70,114 +67,7 @@ def check_directory(cdir, clean=False):
     return True
 
 
-def month_to_number(month):
-    """Convert a month name to a number.
-
-    Handles misspelled and abbreviated months by checking for longest
-    match from start (>=2).
-
-    Args:
-        month: month name
-
-    Returns:
-        month number (1-12)
-    """
-    monthnames = [
-        "january",
-        "february",
-        "march",
-        "april",
-        "may",
-        "june",
-        "july",
-        "august",
-        "september",
-        "october",
-        "november",
-        "december",
-    ]
-    common = []
-    # handle misspelled and abbreviated months by checking for longest match from start (>=2)
-    for mi, m in enumerate(monthnames):
-        i = 0
-        while m[i] == month[i].lower() and i < len(month) - 1:
-            i += 1
-        common.append((mi, i))
-    return max(common, key=lambda x: x[1])[0] + 1
-
-
-def construct_date(year, month):
-    """Construct a Hugo date from a year and month.
-
-    Can handle the following month formats:
-
-    - D-D month (e.g. 1-4 January)
-    - month D-D (e.g. January 1-4)
-    - D month (e.g. 1 January)
-    - month D (e.g. January 1)
-    - month (e.g. January)
-    - month D - month D (e.g. January 30 - February 2)
-    - D month - D month (e.g. January 30 - February 2)
-    - M (e.g. 7)
-    - variants of the above with em and en dashes or multiple dashes
-    - variants of the above with capitalized or lower case month names
-
-    Args:
-        year: year field as present in the XML base data
-        month: month field as present in the XML base data
-    """
-    if not re.fullmatch(r"\d{4}", year):
-        raise Exception("Invalid year: {}".format(year))
-    y = int(year)
-    dashes = r"(?:[—–-]+|/|and|to)"
-    monthnames = [
-        "january",
-        "february",
-        "march",
-        "april",
-        "may",
-        "june",
-        "july",
-        "august",
-        "september",
-        "october",
-        "november",
-        "december",
-    ]
-    fullmonth = f"({'|'.join(monthnames)})"
-    fullmonth = r"\b([a-zA-Z]{2,})\b"
-    day = r"(\d{1,2})(?:st|nd|rd|th)?"
-    numericmonth = r"(\d{1,2})"
-    if re.fullmatch(numericmonth, month):
-        m = int(month)
-        return f"{y:04d}-{m:02d}-01"
-    if re.fullmatch(fullmonth, month, re.IGNORECASE):
-        m = month_to_number(month)
-        return f"{y:04d}-{m:02d}-01"
-    d = None
-    m = None
-    match = re.search(r"\s*".join([day, dashes, day]), month)
-    if match:
-        d, _ = match.groups()
-    else:
-        parts = re.split(dashes, month)
-        if len(parts) == 2:
-            month = parts[0]
-    match = re.search(day, month)
-    if d is None and match:
-        d = match.group(1)
-    match = re.search(fullmonth, month, re.IGNORECASE)
-    if match:
-        m = month_to_number(match.group(1))
-    if m is None:
-        log.error(f"Could not parse month: {month}")
-        m = 1
-    if d is None:
-        d = 1
-    return f"{y:04d}-{m:02d}-{int(d):02d}"
-
-
-def create_papers(srcdir, clean=False, replace_unknown_ingest_date=False):
+def create_papers(srcdir, clean=False):
     """Creates page stubs for all papers in the Anthology."""
     log.info("Creating stubs for papers...")
     if not check_directory("{}/content/papers".format(srcdir), clean=clean):
@@ -194,13 +84,7 @@ def create_papers(srcdir, clean=False, replace_unknown_ingest_date=False):
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
-                ingest_date = entry["ingest_date"]
-                date = (
-                    construct_date(entry["year"], entry.get("month", "1"))
-                    if ingest_date == anthology_data.UNKNOWN_INGEST_DATE
-                    and replace_unknown_ingest_date
-                    else ingest_date
-                )
+                date = entry["ingest_date"]
                 print("---", file=f)
                 yaml.dump(
                     {
@@ -368,9 +252,7 @@ if __name__ == "__main__":
     tracker = SeverityTracker()
     log.getLogger().addHandler(tracker)
 
-    create_papers(
-        dir_, clean=args["--clean"], replace_unknown_ingest_date=args["--replace-date"]
-    )
+    create_papers(dir_, clean=args["--clean"])
     create_volumes(dir_, clean=args["--clean"])
     create_people(dir_, clean=args["--clean"])
     create_venues(dir_, clean=args["--clean"])
