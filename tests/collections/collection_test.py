@@ -69,6 +69,15 @@ def test_collection_load(
 
 
 @pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
+def test_collection_validate_schema(collection_index, datadir, filename):
+    infile = datadir / "xml" / filename
+    collection = Collection(
+        filename.replace(".xml", ""), parent=collection_index, path=infile
+    )
+    collection.validate_schema()
+
+
+@pytest.mark.parametrize("filename", test_cases_xml_roundtrip)
 def test_collection_roundtrip_save(collection_index, datadir, tmp_path, filename):
     infile = datadir / "xml" / filename
     outfile = tmp_path / filename

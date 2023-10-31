@@ -14,6 +14,7 @@
 
 import pytest
 import os
+from lxml.etree import RelaxNG
 from pathlib import Path
 from acl_anthology import Anthology
 from acl_anthology.people import Name
@@ -25,6 +26,11 @@ DATADIR = Path(f"{SCRIPTDIR}/toy_anthology")
 def test_instantiate():
     anthology = Anthology(datadir=DATADIR)
     assert anthology.datadir == Path(DATADIR)
+
+
+def test_relaxng(anthology):
+    relaxng = anthology.relaxng
+    assert isinstance(relaxng, RelaxNG)
 
 
 def test_get_volume(anthology):

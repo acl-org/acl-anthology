@@ -14,11 +14,17 @@
 
 from __future__ import annotations
 
+import sys
 from attrs import define, field
 from lxml import etree
 from os import PathLike
 from pathlib import Path
 from typing import Iterator, Optional, cast, TYPE_CHECKING
+
+if sys.version_info >= (3, 11):
+    from typing import Self
+else:
+    from typing_extensions import Self
 
 from ..containers import SlottedDict
 from ..utils.logging import get_logger
@@ -109,6 +115,15 @@ class Collection(SlottedDict[Volume]):
         if self.event is not None:
             raise ValueError(f"Event already defined in collection {self.id}")
         self.event = Event.from_xml(self, meta)
+
+    def validate_schema(self) -> Self:
+        """Validates the XML file belonging to this collection against the RelaxNG schema.
+
+        Raises:
+            lxml.etree.DocumentInvalid: If the XML file does not validate against the schema.
+        """
+        self.root.relaxng.assertValid(etree.parse(self.path))
+        return self
 
     def load(self) -> None:
         """Loads the XML file belonging to this collection."""

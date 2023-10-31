@@ -19,11 +19,12 @@ import itertools as it
 import pkgutil
 import sys
 import warnings
+from lxml.etree import RelaxNG
 from os import PathLike
 from pathlib import Path
 from rich.progress import track
 from slugify import slugify
-from typing import overload, Iterator, Optional
+from typing import cast, overload, Iterator, Optional
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -59,6 +60,7 @@ class Anthology:
         self.datadir = Path(datadir)
         self.verbose = verbose
         self._check_schema_compatibility()
+        self._relaxng: Optional[RelaxNG] = None
 
         self.collections = CollectionIndex(self)
         """The [CollectionIndex][acl_anthology.collections.CollectionIndex] for accessing collections, volumes, and papers."""
@@ -152,6 +154,14 @@ class Anthology:
             if was_gc_enabled:
                 gc.enable()
         return self
+
+    @property
+    def relaxng(self) -> RelaxNG:
+        """The RelaxNG schema for the Anthology's XML data files."""
+        if self._relaxng is None:
+            schema = cast(bytes, pkgutil.get_data("acl_anthology", "data/schema.rnc"))
+            self._relaxng = RelaxNG.from_rnc_string(schema.decode("utf-8"))
+        return self._relaxng
 
     def volumes(self, collection_id: Optional[str] = None) -> Iterator[Volume]:
         """Returns an iterator over all volumes.

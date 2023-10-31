@@ -32,3 +32,10 @@ def test_anthology_from_official_repo(anthology_from_repo):
     anthology.load_all()
     assert len(anthology.collections) > 1145
     assert anthology.get_paper("2023.acl-long.1") is not None
+
+
+@pytest.mark.integration
+def test_anthology_validate_schema(anthology_from_repo):
+    anthology = anthology_from_repo
+    for collection in anthology.collections.values():
+        collection.validate_schema()
