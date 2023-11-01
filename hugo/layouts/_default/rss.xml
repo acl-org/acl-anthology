@@ -2,13 +2,17 @@
 {{- if .IsHome -}}{{ $pctx = .Site }}{{- end -}}
 {{- $pages := slice -}}
 {{- if or $.IsHome $.IsSection -}}
-{{- $pages = $pctx.RegularPages -}}
+  {{- $pages = $pctx.RegularPages -}}
 {{- else -}}
-{{- $pages = $pctx.Pages -}}
+  {{- $pages = $pctx.Pages -}}
 {{- end -}}
 {{- $limit := .Site.Config.Services.RSS.Limit -}}
 {{- if ge $limit 1 -}}
-{{- $pages = (sort $pages "Date" "desc") | first $limit -}}
+  <!-- First get the last page that we *would* render given the rssLimit. -->
+  {{- $last_page := (sort $pages "Date" "desc") | first $limit | last 1 -}}
+  {{- $last_page = (index $last_page 0) -}}
+  <!-- Then re-do the selection by date, including all pages with the same date as the last entry. -->
+  {{- $pages = (sort (where $pages "Date" ">=" $last_page.Date) "Date" "desc") -}}
 {{- end -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
