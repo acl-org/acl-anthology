@@ -1,6 +1,8 @@
 ---
 Title: New page for announcements and blog posts
 date: "2023-08-19"
+Description: >
+    The ACL Anthology website now has a dedicated section for blog posts and announcements as well as an RSS feed for papers. 🎉
 ---
 
 The ACL Anthology website now has a dedicated section for blog posts and announcements.
