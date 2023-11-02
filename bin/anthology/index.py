@@ -309,7 +309,7 @@ class AnthologyIndex:
                 if not self._fast_load:
                     self._id_to_used[id_].add(name)
 
-                if not dummy:
+                if not dummy and (role == "author" or paper.is_volume):
                     # Register paper
                     self.id_to_papers[id_][role].append(paper.full_id)
                     if not self._fast_load:
