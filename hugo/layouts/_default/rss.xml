@@ -44,7 +44,7 @@
       <description>
         {{- if isset .Params "anthology_id" -}}
           {{- $volume_id := index (split .Params.anthology_id "-") 0 -}}
-          {{- $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id -}}    
+          {{- $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id -}}
           {{- with $paper.author -}}
             {{- delimit (apply $paper.author "index" "." "full") ", " " and " | safeHTML -}}
           {{- end -}}
