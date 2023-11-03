@@ -21,6 +21,7 @@ import citeproc
 from citeproc.source.json import CiteProcJSON
 import citeproc_styles
 import codecs
+import os
 import re
 
 from . import latexcodec
@@ -60,9 +61,13 @@ class CiteprocFormatter:
     def load_style(cls, style):
         """Loads and returns a CSL style."""
         if style not in cls.styles:
-            cls.styles[style] = citeproc.CitationStylesStyle(
-                citeproc_styles.get_style_filepath(style)
-            )
+            if os.path.exists(style):
+                # Assume that 'style' is a filename
+                filepath = style
+            else:
+                # Assume that 'style' is the name of a style in citeproc_styles
+                filepath = citeproc_styles.get_style_filepath(style)
+            cls.styles[style] = citeproc.CitationStylesStyle(filepath)
         return cls.styles[style]
 
     @classmethod
