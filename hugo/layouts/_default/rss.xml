@@ -36,7 +36,7 @@
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       <guid><!-- Prefer anthology id if it exists, use permalink otherwise. -->
         {{- if isset .Params "anthology_id" -}}
-          {{- .Param "anthology_id" | safeHTML -}}
+          {{- .Param "anthology_id" -}}
         {{- else -}}
           {{- .Permalink -}}
         {{- end -}}
@@ -46,11 +46,11 @@
           {{- $volume_id := index (split .Params.anthology_id "-") 0 -}}
           {{- $paper := index (index $.Site.Data.papers $volume_id) .Params.anthology_id -}}
           {{- with $paper.author -}}
-            {{- delimit (apply $paper.author "index" "." "full") ", " " and " | safeHTML -}}
+            {{- delimit (apply $paper.author "index" "." "full") ", " " and " -}}
           {{- end -}}
           {{- $volume_nr := index (split (index (split .Params.anthology_id "-") 1) ".") 0 -}}
           {{- $volume := index $.Site.Data.volumes (printf "%s-%s" $volume_id $volume_nr) -}}
-          {{- printf " in %s" $volume.title | safeHTML -}}
+          {{- printf " in %s" $volume.title -}}
         {{- else -}}
           {{ .Summary | html }}
         {{- end -}}
