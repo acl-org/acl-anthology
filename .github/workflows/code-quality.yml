@@ -3,8 +3,16 @@ name: Checks
 on:
   push:
     branches:
-      - main
+      - master
+    paths:
+      - '.pre-commit-config.yaml'
+      - '.codecov.yml'
+      - 'python/**'
   pull_request:
+    paths:
+      - '.pre-commit-config.yaml'
+      - '.codecov.yml'
+      - 'python/**'
 
 jobs:
   build:
