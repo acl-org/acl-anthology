@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.4.3] — 2023-11-05
+
 ### Added
 
 - Papers and volumes can now generate their BibTeX entries via `to_bibtex()`.  Currently, a volume's BibTeX entry is simply the BibTeX entry of its frontmatter.  (This mirrors how the old library handles it.)
