@@ -14,8 +14,8 @@ repos:
   rev: v1.5.4
   hooks:
     - id: insert-license
-      files: \.py
-      args: ['--license-filepath', 'LICENSE.header', '--use-current-year']
+      files: ^python/.*\.py$
+      args: ['--license-filepath', 'python/LICENSE.header', '--use-current-year']
 
 - repo: https://github.com/psf/black-pre-commit-mirror
   rev: 23.9.1
@@ -31,4 +31,4 @@ repos:
   rev: '1.6.0'
   hooks:
     - id: poetry-check
-      args: ['--lock']
+      args: ['--lock', '--directory=python']
