@@ -8,6 +8,9 @@ on:
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: ./python
     strategy:
       fail-fast: false
       matrix:
@@ -41,7 +44,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit
-          key: pre-commit|${{ matrix.os }}|${{ matrix.python-version }}|${{ hashFiles('.pre-commit-config.yaml') }}
+          key: pre-commit|${{ matrix.os }}|${{ matrix.python-version }}|${{ hashFiles('~/.pre-commit-config.yaml') }}
 
       # Run all checks and tests
       - name: Run pre-commit hooks

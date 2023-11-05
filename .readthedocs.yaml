@@ -17,8 +17,8 @@ build:
       - pip install poetry
       - poetry config virtualenvs.create false
     post_install:
-      - poetry install --with dev
+      - poetry install --directory=python --with dev
 
 # Build documentation with MkDocs
 mkdocs:
-  configuration: mkdocs.yml
+  configuration: python/mkdocs.yml
