@@ -20,6 +20,9 @@ args = parser.parse_args()
 
 volumes = []
 for filepath in sys.stdin:
+    if filepath.startswith("python/") or not filepath.endswith(".xml"):
+        continue
+
     try:
         tree = etree.parse(filepath.rstrip())
     except Exception:
