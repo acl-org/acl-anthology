@@ -10,7 +10,7 @@ command runner; running `just -l` will list all available recipes, while `just
 - `just check` will run [**black**](https://github.com/psf/black),
    [**ruff**](https://github.com/charliermarsh/ruff),
    [**mypy**](https://mypy.readthedocs.io), and [some other pre-commit
-   hooks](https://github.com/mbollmann/acl-anthology-py/blob/main/.pre-commit-config.yaml)
+   hooks](https://github.com/acl-org/acl-anthology/blob/master/.pre-commit-config.yaml)
    on all files in the repo.
 
     - `just install-hooks` will install pre-commit hooks so they run on every

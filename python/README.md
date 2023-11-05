@@ -1,15 +1,15 @@
 # acl-anthology-py
 
-[![License](https://img.shields.io/github/license/mbollmann/acl-anthology-py)](LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/mbollmann/acl-anthology-py/code-quality.yml)](https://github.com/mbollmann/acl-anthology-py/actions/workflows/code-quality.yml)
+[![License](https://img.shields.io/github/license/acl-org/acl-anthology)](LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/acl-org/acl-anthology/code-quality.yml)](https://github.com/acl-org/acl-anthology/actions/workflows/code-quality.yml)
 [![Documentation](https://img.shields.io/readthedocs/acl-anthology-py)](https://acl-anthology-py.readthedocs.io/en/latest/)
-[![Code Coverage](https://img.shields.io/codecov/c/gh/mbollmann/acl-anthology-py)](https://codecov.io/gh/mbollmann/acl-anthology-py)
+[![Code Coverage](https://img.shields.io/codecov/c/gh/acl-org/acl-anthology)](https://codecov.io/gh/acl-org/acl-anthology)
 ![Supported Python Versions](https://img.shields.io/pypi/pyversions/acl-anthology-py)
 ![Development Status](https://img.shields.io/pypi/status/acl-anthology-py)
 [![Package on PyPI](https://img.shields.io/pypi/v/acl-anthology-py)](https://pypi.org/project/acl-anthology-py/)
 
 This package accesses data from the [ACL
-Anthology](https://github.com/acl-org/acl-anthology).
+Anthology](https://aclanthology.org).
 
 - [**Documentation**](https://acl-anthology-py.readthedocs.io/en/latest/)
 - [**Package on PyPI**](https://pypi.org/project/acl-anthology-py/)

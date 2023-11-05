@@ -15,7 +15,7 @@ pip install acl-anthology-py
 ```
 
 Alternatively, you can [download releases from
-Github](https://github.com/mbollmann/acl-anthology-py/releases/).
+Github](https://github.com/acl-org/acl-anthology/releases/).
 
 ## Instantiating the Anthology
 
