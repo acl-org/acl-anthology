@@ -1,0 +1,276 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.alp">
+  <volume id="1" ingest-date="2023-10-31" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Ancient Language Processing Workshop</booktitle>
+      <editor><first>Adam</first><last>Anderson</last></editor>
+      <editor><first>Shai</first><last>Gordin</last></editor>
+      <editor><first>Bin</first><last>Li</last></editor>
+      <editor><first>Yudong</first><last>Liu</last></editor>
+      <editor><first>Marco C.</first><last>Passarotti</last></editor>
+      <publisher>INCOMA Ltd., Shoumen, Bulgaria</publisher>
+      <address>Varna, Bulgaria</address>
+      <month>September</month>
+      <year>2023</year>
+      <url hash="12223c0d">2023.alp-1</url>
+      <venue>alp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="1dee4168">2023.alp-1.0</url>
+      <bibkey>alp-2023-ancient</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Training and Evaluation of Named Entity Recognition Models for Classical <fixed-case>L</fixed-case>atin</title>
+      <author><first>Marijke</first><last>Beersmans</last></author>
+      <author><first>Evelien</first><last>de Graaf</last></author>
+      <author><first>Tim</first><last>Van de Cruys</last></author>
+      <author><first>Margherita</first><last>Fantoli</last></author>
+      <pages>1–12</pages>
+      <abstract>We evaluate the performance of various models on the task of named entity recognition (NER) for classical Latin. Using an existing dataset, we train two transformer-based LatinBERT models and one shallow conditional random field (CRF) model. The performance is assessed using both standard metrics and a detailed manual error analysis, and compared to the results obtained by different already released Latin NER tools. Both analyses demonstrate that the BERT models achieve a better f1-score than the other models. Furthermore, we annotate new, unseen data for further evaluation of the models, and we discuss the impact of annotation choices on the results.</abstract>
+      <url hash="0b9d0cf7">2023.alp-1.1</url>
+      <bibkey>beersmans-etal-2023-training</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Sentence Embedding Models for <fixed-case>A</fixed-case>ncient <fixed-case>G</fixed-case>reek Using Multilingual Knowledge Distillation</title>
+      <author><first>Kevin</first><last>Krahn</last></author>
+      <author><first>Derrick</first><last>Tate</last></author>
+      <author><first>Andrew C.</first><last>Lamicela</last></author>
+      <pages>13–22</pages>
+      <abstract>Contextual language models have been trained on Classical languages, including Ancient Greek and Latin, for tasks such as lemmatization, morphological tagging, part of speech tagging, authorship attribution, and detection of scribal errors. However, high-quality sentence embedding models for these historical languages are significantly more difficult to achieve due to the lack of training data. In this work, we use a multilingual knowledge distillation approach to train BERT models to produce sentence embeddings for Ancient Greek text. The state-of-the-art sentence embedding approaches for high-resource languages use massive datasets, but our distillation approach allows our Ancient Greek models to inherit the properties of these models while using a relatively small amount of translated sentence data. We build a parallel sentence dataset using a sentence-embedding alignment method to align Ancient Greek documents with English translations, and use this dataset to train our models. We evaluate our models on translation search, semantic similarity, and semantic retrieval tasks and investigate translation bias. We make our training and evaluation datasets freely available.</abstract>
+      <url hash="108a15ea">2023.alp-1.2</url>
+      <bibkey>krahn-etal-2023-sentence</bibkey>
+    </paper>
+    <paper id="3">
+      <title>A Transformer-based parser for <fixed-case>S</fixed-case>yriac morphology</title>
+      <author><first>Martijn</first><last>Naaijer</last></author>
+      <author><first>Constantijn</first><last>Sikkel</last></author>
+      <author><first>Mathias</first><last>Coeckelbergs</last></author>
+      <author><first>Jisk</first><last>Attema</last></author>
+      <author><first>Willem Th.</first><last>Van Peursen</last></author>
+      <pages>23–29</pages>
+      <abstract>In this project we train a Transformer-based model from scratch, with the goal of parsing the morphology of Ancient Syriac texts as accurately as possible. Syriac is still a low resource language, only a relatively small training set was available. Therefore, the training set was expanded by adding Biblical Hebrew data to it. Five different experiments were done: the model was trained on Syriac data only, it was trained with mixed Syriac and (un)vocalized Hebrew data, and it was pretrained on (un)vocalized Hebrew data and then finetuned on Syriac data. The models trained on Hebrew and Syriac data consistently outperform the models trained on Syriac data only. This shows, that the differences between Syriac and Hebrew are small enough that it is worth adding Hebrew data to train the model for parsing Syriac morphology. Training models on different languages is an important trend in NLP, we show that this works well for relatively small datasets of Syriac and Hebrew.</abstract>
+      <url hash="9719a8cb">2023.alp-1.3</url>
+      <bibkey>naaijer-etal-2023-transformer</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Graecia capta ferum victorem cepit. Detecting <fixed-case>L</fixed-case>atin Allusions to <fixed-case>A</fixed-case>ncient <fixed-case>G</fixed-case>reek Literature</title>
+      <author><first>Frederick</first><last>Riemenschneider</last></author>
+      <author><first>Anette</first><last>Frank</last></author>
+      <pages>30–38</pages>
+      <abstract>Intertextual allusions hold a pivotal role in Classical Philology, with Latin authors frequently referencing Ancient Greek texts. Until now, the automatic identification of these intertextual references has been constrained to monolingual approaches, seeking parallels solely within Latin or Greek texts. In this study, we introduce SPhilBERTa, a trilingual Sentence-RoBERTa model tailored for Classical Philology, which excels at cross-lingual semantic comprehension and identification of identical sentences across Ancient Greek, Latin, and English. We generate new training data by automatically translating English into Ancient Greek texts. Further, we present a case study, demonstrating SPhilBERTa’s capability to facilitate automated detection of intertextual parallels. Intertextual allusions hold a pivotal role in Classical Philology, with Latin authors frequently referencing Ancient Greek texts. Until now, the automatic identification of these intertextual references has been constrained to monolingual approaches, seeking parallels solely within Latin or Greek texts. In this study, we introduce SPhilBERTa, a trilingual Sentence-RoBERTa model tailored for Classical Philology, which excels at cross-lingual semantic comprehension and identification of identical sentences across Ancient Greek, Latin, and English. We generate new training data by automatically translating English into Ancient Greek texts. Further, we present a case study, demonstrating SPhilBERTa’s capability to facilitate automated detection of intertextual parallels.</abstract>
+      <url hash="ecdaa135">2023.alp-1.4</url>
+      <bibkey>riemenschneider-frank-2023-graecia</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Larth: Dataset and Machine Translation for <fixed-case>E</fixed-case>truscan</title>
+      <author><first>Gianluca</first><last>Vico</last></author>
+      <author><first>Gerasimos</first><last>Spanakis</last></author>
+      <pages>39–48</pages>
+      <abstract>Etruscan is an ancient language spoken in Italy from the 7th century BC to the 1st century AD. There are no native speakers of the language at the present day, and its resources are scarce, as there are an estimated 12,000 known inscriptions. To the best of our knowledge, there are no publicly available Etruscan corpora for natural language processing. Therefore, we propose a dataset for machine translation from Etruscan to English, which contains 2891 translated examples from existing academic sources. Some examples are extracted manually, while others are acquired in an automatic way. Along with the dataset, we benchmark different machine translation models observing that it is possible to achieve a BLEU score of 10.1 with a small transformer model. Releasing the dataset can help enable future research on this language, similar languages or other languages with scarce resources.</abstract>
+      <url hash="ae28d3dc">2023.alp-1.5</url>
+      <bibkey>vico-spanakis-2023-larth</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Evaluation of Distributional Semantic Models of <fixed-case>A</fixed-case>ncient <fixed-case>G</fixed-case>reek: Preliminary Results and a Road Map for Future Work</title>
+      <author><first>Silvia</first><last>Stopponi</last></author>
+      <author><first>Nilo</first><last>Pedrazzini</last></author>
+      <author><first>Saskia</first><last>Peels</last></author>
+      <author><first>Barbara</first><last>McGillivray</last></author>
+      <author><first>Malvina</first><last>Nissim</last></author>
+      <pages>49–58</pages>
+      <abstract>We evaluate four count-based and predictive distributional semantic models of Ancient Greek against AGREE, a composite benchmark of human judgements, to assess their ability to retrieve semantic relatedness. On the basis of the observations deriving from the analysis of the results, we design a procedure for a larger-scale intrinsic evaluation of count-based and predictive language models, including syntactic embeddings. We also propose possible ways of exploiting the different layers of the whole AGREE benchmark (including both human- and machine-generated data) and different evaluation metrics.</abstract>
+      <url hash="f94f18b0">2023.alp-1.6</url>
+      <bibkey>stopponi-etal-2023-evaluation</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>L</fixed-case>atin Morphology through the Centuries: Ensuring Consistency for Better Language Processing</title>
+      <author><first>Federica</first><last>Gamba</last></author>
+      <author><first>Daniel</first><last>Zeman</last></author>
+      <pages>59–67</pages>
+      <abstract>This paper focuses on the process of harmonising the five Latin treebanks available in Universal Dependencies with respect to morphological annotation. We propose a workflow that allows to first spot inconsistencies and missing information, in order to detect to what extent the annotations differ, and then correct the retrieved bugs, with the goal of equalising the annotation of morphological features in the treebanks and producing more consistent linguistic data. Subsequently, we present some experiments carried out with UDPipe and Stanza in order to assess the impact of such harmonisation on parsing accuracy.</abstract>
+      <url hash="e728ac73">2023.alp-1.7</url>
+      <bibkey>gamba-zeman-2023-latin</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Cross-Lingual Constituency Parsing for <fixed-case>M</fixed-case>iddle <fixed-case>H</fixed-case>igh <fixed-case>G</fixed-case>erman: A Delexicalized Approach</title>
+      <author><first>Ercong</first><last>Nie</last></author>
+      <author><first>Helmut</first><last>Schmid</last></author>
+      <author><first>Hinrich</first><last>Schütze</last></author>
+      <pages>68–79</pages>
+      <abstract>Constituency parsing plays a fundamental role in advancing natural language processing (NLP) tasks. However, training an automatic syntactic analysis system for ancient languages solely relying on annotated parse data is a formidable task due to the inherent challenges in building treebanks for such languages. It demands extensive linguistic expertise, leading to a scarcity of available resources. To overcome this hurdle, cross-lingual transfer techniques which require minimal or even no annotated data for low-resource target languages offer a promising solution. In this study, we focus on building a constituency parser for Middle High German (MHG) under realistic conditions, where no annotated MHG treebank is available for training. In our approach, we leverage the linguistic continuity and structural similarity between MHG and Modern German (MG), along with the abundance of MG treebank resources. Specifically, by employing the delexicalization method, we train a constituency parser on MG parse datasets and perform cross-lingual transfer to MHG parsing. Our delexicalized constituency parser demonstrates remarkable performance on the MHG test set, achieving an F1-score of 67.3%. It outperforms the best zero-shot cross-lingual baseline by a margin of 28.6% points. The encouraging results underscore the practicality and potential for automatic syntactic analysis in other ancient languages that face similar challenges as MHG.</abstract>
+      <url hash="074b832b">2023.alp-1.8</url>
+      <bibkey>nie-etal-2023-cross-lingual</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Can Large Langauge Model Comprehend <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese? A Preliminary Test on <fixed-case>ACLUE</fixed-case></title>
+      <author><first>Yixuan</first><last>Zhang</last></author>
+      <author><first>Haonan</first><last>Li</last></author>
+      <pages>80–87</pages>
+      <abstract>Large language models (LLMs) have demonstrated exceptional language understanding and generation capabilities. However, their ability to comprehend ancient languages, specifically ancient Chinese, remains largely unexplored. To bridge this gap, we introduce ACLUE, an evaluation benchmark designed to assess the language abilities of models in relation to ancient Chinese. ACLUE consists of 15 tasks that cover a range of skills, including phonetic, lexical, syntactic, semantic, inference and knowledge. By evaluating 8 state-of-the-art multilingual and Chinese LLMs, we have observed a significant divergence in their performance between modern Chinese and ancient Chinese. Among the evaluated models, ChatGLM2 demonstrates the highest level of performance, achieving an average accuracy of 37.45%. We have established a leaderboard for communities to assess their models.</abstract>
+      <url hash="dc4ace81">2023.alp-1.9</url>
+      <bibkey>zhang-li-2023-large</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Unveiling Emotional Landscapes in Plautus and Terentius Comedies: A Computational Approach for Qualitative Analysis</title>
+      <author><first>Davide</first><last>Picca</last></author>
+      <author><first>Caroline</first><last>Richard</last></author>
+      <pages>88–95</pages>
+      <abstract>This ongoing study explores emotion recognition in Latin texts, specifically focusing on Latin comedies. Leveraging Natural Language Processing and classical philology insights, the project navigates the challenges of Latin’s intricate grammar and nuanced emotional expression. Despite initial challenges with lexicon translation and emotional alignment, the work provides a foundation for a more comprehensive analysis of emotions in Latin literature.</abstract>
+      <url hash="a56c6e2f">2023.alp-1.10</url>
+      <bibkey>picca-richard-2023-unveiling</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Morphological and Semantic Evaluation of <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese Machine Translation</title>
+      <author><first>Kai</first><last>Jin</last></author>
+      <author><first>Dan</first><last>Zhao</last></author>
+      <author><first>Wuying</first><last>Liu</last></author>
+      <pages>96–102</pages>
+      <abstract>Machine translation (MT) of ancient Chinese texts presents unique challenges due to the complex grammatical structures, cultural nuances, and polysemy of the language. This paper focuses on evaluating the translation quality of different platforms for ancient Chinese texts using The Analects as a case study. The evaluation is conducted using the BLEU, LMS, and ESS metrics, and the platforms compared include three machine translation platforms (Baidu Translate, Bing Microsoft Translator, and DeepL), and one language generation model ChatGPT that can engage in translation endeavors. Results show that Baidu performs the best, surpassing the other platforms in all three metrics, while ChatGPT ranks second and demonstrates unique advantages. The translations generated by ChatGPT are deemed highly valuable as references. The study contributes to understanding the challenges of MT for ancient Chinese texts and provides insights for users and researchers in this field. It also highlights the importance of considering specific domain requirements when evaluating MT systems.</abstract>
+      <url hash="4e2feee2">2023.alp-1.11</url>
+      <bibkey>jin-etal-2023-morphological</bibkey>
+    </paper>
+    <paper id="12">
+      <title>A tailored Handwritten-Text-Recognition System for Medieval <fixed-case>L</fixed-case>atin</title>
+      <author><first>Philipp</first><last>Koch</last></author>
+      <author><first>Gilary Vera</first><last>Nuñez</last></author>
+      <author><first>Esteban</first><last>Garces Arias</last></author>
+      <author><first>Christian</first><last>Heumann</last></author>
+      <author><first>Matthias</first><last>Schöffel</last></author>
+      <author><first>Alexander</first><last>Häberlin</last></author>
+      <author><first>Matthias</first><last>Assenmacher</last></author>
+      <pages>103–110</pages>
+      <abstract>The Bavarian Academy of Sciences and Humanities aims to digitize the Medieval Latin Dictionary. This dictionary entails record cards referring to lemmas in medieval Latin, a low-resource language. A crucial step of the digitization process is the handwritten text recognition (HTR) of the handwritten lemmas on the record cards. In our work, we introduce an end-to-end pipeline, tailored for the medieval Latin dictionary, for locating, extracting, and transcribing the lemmas. We employ two state-of-the-art image segmentation models to prepare the initial data set for the HTR task. Further, we experiment with different transformer-based models and conduct a set of experiments to explore the capabilities of different combinations of vision encoders with a GPT-2 decoder. Additionally, we also apply extensive data augmentation resulting in a highly competitive model. The best-performing setup achieved a character error rate of 0.015, which is even superior to the commercial Google Cloud Vision model, and shows more stable performance.</abstract>
+      <url hash="a20e2ac1">2023.alp-1.12</url>
+      <bibkey>koch-etal-2023-tailored</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Evaluating Existing Lemmatisers on Unedited Byzantine <fixed-case>G</fixed-case>reek Poetry</title>
+      <author><first>Colin</first><last>Swaelens</last></author>
+      <author><first>Ilse</first><last>De Vos</last></author>
+      <author><first>Els</first><last>Lefever</last></author>
+      <pages>111–116</pages>
+      <abstract>This paper reports on the results of a comparative evaluation in view of the development of a new lemmatizer for unedited, Byzantine Greek texts. For the experiment, the performance of four existing lemmatizers, all pre-trained on Ancient Greek texts, was evaluated on how well they could handle texts stemming from the Middle Ages and displaying quite some peculiarities. The aim of this study is to get insights into the pitfalls of existing lemmatistion approaches as well as the specific challenges of our Byzantine Greek corpus, in order to develop a lemmatizer that can cope with its peculiarities. The results of the experiment show an accuracy drop of 20pp. on our corpus, which is further investigated in a qualitative error analysis.</abstract>
+      <url hash="17ce20e1">2023.alp-1.13</url>
+      <bibkey>swaelens-etal-2023-evaluating</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Vector Based Stylistic Analysis on <fixed-case>A</fixed-case>ncient <fixed-case>C</fixed-case>hinese Books: Take the Three Commentaries on the Spring and Autumn Annals as an Example</title>
+      <author><first>Yue</first><last>Qi</last></author>
+      <author><first>Liu</first><last>Liu</last></author>
+      <author><first>Bin</first><last>Li</last></author>
+      <author><first>Dongbo</first><last>Wang</last></author>
+      <pages>117–121</pages>
+      <abstract>Commentary of Gongyang, Commentary of Guliang, and Commentary of Zuo are collectively called the Three Commentaries on the Spring and Autumn Annals, which are the supplement and interpretation of the content of Spring and Autumn Annals with value in historical and literary research. In traditional research paradigms, scholars often explored the differences between the Three Commentaries within the details in contexts. Starting from the view of computational humanities, this paper examines the differences in the language style of the Three Commentaries through the representation of language, which takes the methods of deep learning. Specifically, this study vectorizes the context at word and sentence levels. It maps them into the same plane to find the differences between the use of words and sentences in the Three Commentaries. The results show that the Commentary of Gongyang and the Commentary of Guliang are relatively similar, while the Commentary of Zuo is significantly different. This paper verifies the feasibility of deep learning methods in stylistics study under computational humanities. It provides a valuable perspective for studying the Three Commentaries on the Spring and Autumn Annals.</abstract>
+      <url hash="4b819958">2023.alp-1.14</url>
+      <bibkey>qi-etal-2023-vector</bibkey>
+    </paper>
+    <paper id="15">
+      <title>A Joint Model of Automatic Word Segmentation and Part-Of-Speech Tagging for Ancient Classical Texts Based on Radicals</title>
+      <author><first>Bolin</first><last>Chang</last></author>
+      <author><first>Yiguo</first><last>Yuan</last></author>
+      <author><first>Bin</first><last>Li</last></author>
+      <author><first>Zhixing</first><last>Xu</last></author>
+      <author><first>Minxuan</first><last>Feng</last></author>
+      <author><first>Dongbo</first><last>Wang</last></author>
+      <pages>122–132</pages>
+      <abstract>The digitization of ancient books necessitates the implementation of automatic word segmentation and part-of-speech tagging. However, the existing research on this topic encounters pressing issues, including suboptimal efficiency and precision, which require immediate resolution. This study employs a methodology that combines word segmentation and part-of-speech tagging. It establishes a correlation between fonts and radicals, trains the Radical2Vec radical vector representation model, and integrates it with the SikuRoBERTa word vector representation model. Finally, it connects the BiLSTM-CRF neural network.The study investigates the combination of word segmentation and part-of-speech tagging through an experimental approach using a specific data set. In the evaluation dataset, the F1 score for word segmentation is 95.75%, indicating a high level of accuracy. Similarly, the F1 score for part-of-speech tagging is 91.65%, suggesting a satisfactory performance in this task. This model enhances the efficiency and precision of the processing of ancient books, thereby facilitating the advancement of digitization efforts for ancient books and ensuring the preservation and advancement of ancient book heritage.</abstract>
+      <url hash="db0df686">2023.alp-1.15</url>
+      <bibkey>chang-etal-2023-joint</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Introducing an Open Source Library for <fixed-case>S</fixed-case>umerian Text Analysis</title>
+      <author><first>Hansel</first><last>Guzman-Soto</last></author>
+      <author><first>Yudong</first><last>Liu</last></author>
+      <pages>133–137</pages>
+      <abstract>The study of Sumerian texts often requires domain experts to examine a vast number of tables. However, the absence of user-friendly tools for this process poses challenges and consumes significant time. In addressing this issue, we introduce an open-source library that empowers domain experts with minimal technical expertise to automate manual and repetitive tasks using a no-code dashboard. Our library includes an information extraction module that enables the automatic extraction of names and relations based on the user-defined lists of name tags and relation types. By utilizing the tool to facilitate the creation of knowledge graphs which is a data representation method offering insights into the relationships among entities in the data, we demonstrate its practical application in the analysis of Sumerian texts.</abstract>
+      <url hash="2abe08fb">2023.alp-1.16</url>
+      <bibkey>guzman-soto-liu-2023-introducing</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Coding Design of Oracle Bone Inscriptions Input Method Based on “<fixed-case>Z</fixed-case>hong<fixed-case>H</fixed-case>ua<fixed-case>Z</fixed-case>i<fixed-case>K</fixed-case>u” Database</title>
+      <author><first>Dongxin</first><last>Hu</last></author>
+      <pages>138–147</pages>
+      <abstract>Abstract : Based on the oracle bone glyph data in the “ZhongHuaZiKu”database, this paper designs a new input method coding scheme which is easy to search in the database, and provides a feasible scheme for the design of oracle bone glyph input method software in the future. The coding scheme in this paper is based on the experience of the past oracle bone inscriptions input method design. In view of the particularity of oracle bone inscriptions, the difference factors such as component combination, sound code and shape code ( letter ) are added, and the coding format is designed as follows : The single component characters in the identified characters are arranged according to the format of " structural code + pronunciation full spelling code + tone code " ; the multi-component characters in the identified characters are arranged according to the format of " structure code + split component pronunciation full spelling code + overall glyph pronunciation full spelling code”; unidentified characters are arranged according to the format of " y + identified component pronunciation full spelling + unidentified component shape code ( letter ) ".Among them, the identified component code and the unidentified component shape code are input in turn according to the specific glyph from left to right, from top to bottom, and from outside to inside. Encoding through these coding formats, the heavy code rate is low, and the input habits of most people are also taken into account. Keywords : oracle bone inscriptions ; input method ; coding</abstract>
+      <url hash="59a90655">2023.alp-1.17</url>
+      <bibkey>hu-2023-coding</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Word Sense Disambiguation for <fixed-case>A</fixed-case>ncient <fixed-case>G</fixed-case>reek: Sourcing a training corpus through translation alignment</title>
+      <author><first>Alek</first><last>Keersmaekers</last></author>
+      <author><first>Wouter</first><last>Mercelis</last></author>
+      <author><first>Toon</first><last>Van Hal</last></author>
+      <pages>148–159</pages>
+      <abstract>This paper seeks to leverage translations of Ancient Greek texts to enhance the performance of automatic word sense disambiguation (WSD). Satisfactory WSD in Ancient Greek is achievable, provided that the system can rely on annotated data. This study, acknowledging the challenges of manually assigning meanings to every Greek lemma, explores the strategies to derive WSD data from parallel texts using sentence and word alignment. Our results suggest that, assuming the condition of high word frequency is met, this technique permits us to automatically produce a significant volume of annotated data, although there are still significant obstacles when trying to automate this process.</abstract>
+      <url hash="c3b0d93b">2023.alp-1.18</url>
+      <bibkey>keersmaekers-etal-2023-word</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Enhancing State-of-the-Art <fixed-case>NLP</fixed-case> Models for Classical <fixed-case>A</fixed-case>rabic</title>
+      <author><first>Tariq</first><last>Yousef</last></author>
+      <author><first>Lisa</first><last>Mischer</last></author>
+      <author><first>Hamid Reza</first><last>Hakimi</last></author>
+      <author><first>Maxim</first><last>Romanov</last></author>
+      <pages>160–169</pages>
+      <abstract>Classical Arabic, like all other historical languages, lacks adequate training datasets and accurate “off-the-shelf” models that can be directly employed in the processing pipelines. In this paper, we present our in-progress work in developing and training deep learning models tailored for handling diverse tasks relevant to classical Arabic texts. Specifically, we focus on Named Entities Recognition, person relationships classification, toponym sub-classification, onomastic section boundaries detection, onomastic entities classification, as well as date recognition and classification. Our work aims to address the challenges associated with these tasks and provide effective solutions for analyzing classical Arabic texts. Although this work is still in progress, the preliminary results reported in the paper indicate excellent to satisfactory performance of the fine-tuned models, effectively meeting the intended goal for which they were trained.</abstract>
+      <url hash="cc9f5102">2023.alp-1.19</url>
+      <bibkey>yousef-etal-2023-enhancing</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Logion: Machine-Learning Based Detection and Correction of Textual Errors in <fixed-case>G</fixed-case>reek Philology</title>
+      <author><first>Charlie</first><last>Cowen-Breen</last></author>
+      <author><first>Creston</first><last>Brooks</last></author>
+      <author><first>Barbara</first><last>Graziosi</last></author>
+      <author><first>Johannes</first><last>Haubold</last></author>
+      <pages>170–178</pages>
+      <abstract>We present statistical and machine-learning based techniques for detecting and correcting errors in text and apply them to the challenge of textual corruption in Greek philology. Most ancient Greek texts reach us through a long process of copying, in relay, from earlier manuscripts (now lost). In this process of textual transmission, copying errors tend to accrue. After training a BERT model on the largest premodern Greek dataset used for this purpose to date, we identify and correct previously undetected errors made by scribes in the process of textual transmission, in what is, to our knowledge, the first successful identification of such errors via machine learning. The premodern Greek BERT model we train is available for use at https://huggingface.co/cabrooks/LOGION-base.</abstract>
+      <url hash="8c5c40c5">2023.alp-1.20</url>
+      <bibkey>cowen-breen-etal-2023-logion</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Classical Philology in the Time of <fixed-case>AI</fixed-case>: Exploring the Potential of Parallel Corpora in Ancient Language</title>
+      <author><first>Tariq</first><last>Yousef</last></author>
+      <author><first>Chiara</first><last>Palladino</last></author>
+      <author><first>Farnoosh</first><last>Shamsian</last></author>
+      <pages>179–192</pages>
+      <abstract>This paper provides an overview of diverse applications of parallel corpora in ancient languages, particularly Ancient Greek. In the first part, we provide the fundamental principles of parallel corpora and a short overview of their applications in the study of ancient texts. In the second part, we illustrate how to leverage on parallel corpora to perform various NLP tasks, including automatic translation alignment, dynamic lexica induction, and Named Entity Recognition. In the conclusions, we emphasize current limitations and future work.</abstract>
+      <url hash="8630da71">2023.alp-1.21</url>
+      <bibkey>yousef-etal-2023-classical</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Using Word Embeddings for Identifying Emotions Relating to the Body in a <fixed-case>N</fixed-case>eo-<fixed-case>A</fixed-case>ssyrian Corpus</title>
+      <author><first>Ellie</first><last>Bennett</last></author>
+      <author><first>Aleksi</first><last>Sahala</last></author>
+      <pages>193–202</pages>
+      <abstract>Research into emotions is a developing field within Assyriology, and NLP tools for Akkadian texts offers a new perspective on the data. In this submission, we use PMI-based word embeddings to explore the relationship between parts of the body and emotions. Using data downloaded from Oracc, we ask which parts of the body were semantically linked to emotions. We do this through examining which of the top 10 results for a body part could be used to express emotions. After identifying two words for the body that have the most emotion words in their results list (<i>libbu</i> and <i>kabattu</i>), we then examine whether the emotion words in their results lists were indeed used in this manner in the Neo-Assyrian textual corpus. The results indicate that of the two body parts, <i>kabattu</i> was semantically linked to happiness and joy, and had a secondary emotional field of anger.</abstract>
+      <url hash="28333d83">2023.alp-1.22</url>
+      <bibkey>bennett-sahala-2023-using</bibkey>
+    </paper>
+    <paper id="23">
+      <title>A Neural Pipeline for <fixed-case>POS</fixed-case>-tagging and Lemmatizing Cuneiform Languages</title>
+      <author><first>Aleksi</first><last>Sahala</last></author>
+      <author><first>Krister</first><last>Lindén</last></author>
+      <pages>203–212</pages>
+      <abstract>We presented a pipeline for POS-tagging and lemmatizing cuneiform languages and evaluated its performance on Sumerian, first millennium Babylonian, Neo-Assyrian and Urartian texts extracted from Oracc. The system achieves a POS-tagging accuracy between 95-98% and a lemmatization accuracy of 94-96% depending on the language or dialect. For OOV words only, the current version can predict correct POS-tags for 83-91%, and lemmata for 68-84% of the input words. Compared with the earlier version, the current one has about 10% higher accuracy in OOV lemmatization and POS-tagging due to better neural network performance. We also tested the system for lemmatizing and POS-tagging the PROIEL Ancient Greek and Latin treebanks, achieving results similar to those with the cuneiform languages.</abstract>
+      <url hash="6aca81f5">2023.alp-1.23</url>
+      <bibkey>sahala-linden-2023-neural</bibkey>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>T</fixed-case>ibetan Dependency Parsing with Graph Convolutional Neural Networks</title>
+      <author><first>Bo</first><last>An</last></author>
+      <pages>213–221</pages>
+      <abstract>Dependency parsing is a syntactic analysis method to analyze the dependency relationships between words in a sentence. The interconnection between words through dependency relationships is typical graph data. Traditional Tibetan dependency parsing methods typically model dependency analysis as a transition-based or sequence-labeling task, ignoring the graph information between words. To address this issue, this paper proposes a graph neural network (GNN)-based Tibetan dependency parsing method. This method treats Tibetan words as nodes and the dependency relationships between words as edges, thereby constructing the graph data of Tibetan sentences. Specifically, we use BiLSTM to learn the word representations of Tibetan, utilize GNN to model the relationships between words and employ MLP to predict the types of relationships between words. We conduct experiments on a Tibetan dependency database, and the results show that the proposed method can achieve high-quality Tibetan dependency parsing results.</abstract>
+      <url hash="b2e24c5b">2023.alp-1.24</url>
+      <bibkey>an-2023-tibetan</bibkey>
+    </paper>
+    <paper id="25">
+      <title>On the Development of Interlinearized Ancient Literature of Ethnic Minorities: A Case Study of the Interlinearization of Ancient Written <fixed-case>T</fixed-case>ibetan Literature</title>
+      <author><first>Congjun</first><last>Long</last></author>
+      <author><first>Bo</first><last>An</last></author>
+      <pages>222–231</pages>
+      <abstract>Ancient ethnic documents are essential to China’s ancient literature and an indispensable civilizational achievement of Chinese culture. However, few research teams are involved due to language and script literacy limitations. To address these issues, this paper proposes an interlinearized annotation strategy for ancient ethnic literature. This strategy aims to alleviate text literacy difficulties, encourage interdisciplinary researchers to participate in studying ancient ethnic literature, and improve the efficiency of ancient ethnic literature development. Concretely, the interlinearized annotation consists of original, word segmentation, Latin, annotated, and translation lines. In this paper, we take ancient Tibetan literature as an example to explore the interlinearized annotation strategy. However, manually building large-scale corpus is challenging. To build a large-scale interlinearized dataset, we propose a multi-task learning-based interlinearized annotation method, which can generate interlinearized annotation lines based on the original line. Experimental results show that after training on about 10,000 sentences (lines) of data, our model achieves 70.9% and 63.2% F1 values on the segmentation lines and annotated lines, respectively, and 18.7% BLEU on the translation lines. It dramatically enhances the efficiency of data annotation, effectively speeds up interlinearized annotation, and reduces the workload of manual annotation.</abstract>
+      <url hash="30a4f98a">2023.alp-1.25</url>
+      <bibkey>long-an-2023-development</bibkey>
+    </paper>
+  </volume>
+</collection>
