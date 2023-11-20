@@ -66,9 +66,12 @@ def main(args):
             logger.info(f"Using import directory '{rootdir}'")
 
     # make sure all the following files exist
-    for file in ["papers.yml", "conference_details.yml", "front_matter.pdf", "proceedings.pdf"]:
+    for file in ["conference_details.yml", "front_matter.pdf", "proceedings.pdf"]:
         if not (path := rootdir / file).exists():
             logger.error(f"File '{path}' does not exist")
+
+    if not (rootdir / "papers.yml").exists():
+        logger.fatal(f"File '{rootdir / 'papers.yml'}' not found")
 
     # Read through papers.yml. At the top level of the file is a list
     # of papers, whose path is present under the 'file' key. Make sure
