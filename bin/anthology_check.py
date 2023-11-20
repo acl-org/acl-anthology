@@ -3,9 +3,32 @@
 """
 Sanity check for ACLPUB2 submissions to the ACL Anthology.
 If this script doesn't pass, you're not ready to submit!
+
+This script will check that the following files exist, in
+the root of your repository:
+ 
+- papers.yml
+- conference_details.yml
+- front_matter.pdf
+- proceedings.pdf
+
+It will also check that each paper listed in papers.yml has
+a corresponding PDF file, and that any attachments listed
+in papers.yml also exist.
+
+If you have a config.yml file in the root of your repository,
+this script will use the import_dir field to look for the
+above files in a different directory. For example, if you've
+built the Anthology files to a directory called "proceedings",
+then you can create a file named config.yml with the following
+contents:
+
+    import_dir: proceedings
+    
+and this script will look for the above files relative to the
+proceedings directory.
 """
 
-import os
 import sys
 import yaml
 import logging
