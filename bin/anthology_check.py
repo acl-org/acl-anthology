@@ -79,15 +79,10 @@ def main(args):
     # sure that exists.
     papers = yaml.safe_load((rootdir / "papers.yml").read_text())
     for paper in papers:
-        # The "file" line should be a relative path to a paper. Often
-        # it is a relative path from within the watermarked_pdfs directory, instead. 
-        # Here we handle that case.
-        dirs_to_try = [rootdir, rootdir / "watermarked_pdfs"]
-        for dir in dirs_to_try:
-            if (path := rootdir / dir / paper["file"]).exists():
-                break
-        else:
-            logger.error(f"Paper file '{paper['file']}' not found in any of {dirs_to_try}")
+        # For each file, there should be a file {rootdir}/watermarked_pdfs/{id}.pdf
+        path = rootdir / "watermarked_pdfs"/ f'{paper["id"].pdf}'
+        if not path.exists():
+            logger.error(f"Paper file '{path}' not found")
 
         if "attachments" in paper:
             dirs_to_try = [rootdir, rootdir / "attachments"]
