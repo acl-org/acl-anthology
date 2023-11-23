@@ -1,32 +1,65 @@
 #!/usr/bin/env python3
 
 """
+Last updated 2023-11-23 by Matt Post.
+
 Sanity check for ACLPUB2 submissions to the ACL Anthology.
 If this script doesn't pass, you're not ready to submit!
 
-This script will check that the following files exist, in
-the root of your repository:
- 
-- papers.yml
-- conference_details.yml
-- front_matter.pdf
-- proceedings.pdf
+The expected format (default from aclpub2) is as follows:
+
+    output
+    ├── attachments
+    │   ├── paper1.attachment.zip
+    │   ├── …
+    ├── inputs
+    │   ├── conference_details.yml
+    │   ├── organizing_committee.yml
+    │   ├── papers
+    │   │   ├── paper1.pax
+    │   │   ├── paper1.pdf
+    │   │   ├── paper1.attachement.zip
+    │   │   ├── …
+    │   ├── papers.yml
+    │   ├── prefaces
+    │   │   └── preface1.tex
+    │   │   └── …
+    │   ├── prefaces.yml
+    │   ├── program.yml
+    │   ├── sponsor_logos
+    │   │   ├── logo1.png
+    │   │   └── …
+    │   └── sponsors.yml
+    ├── proceedings.pdf
+    └── watermarked_pdfs
+        ├── 0.pdf
+        ├── 0R1QRKvBNJ.pdf
+        ├── …
+
+From the above structure, the script will check the following:
+
+Existence checks:
+- output/inputs/papers.yml
+- output/inputs/conference_details.yml
+- output/proceedings.pdf (optional)
+- PDFS, e.g., output/watermarked_pdfs/0.pdf (frontmatter)
+- attachments, e.g., output/attachments/paper17.attachment.pdf (optional)
 
 It will also check that each paper listed in papers.yml has
-a corresponding PDF file, and that any attachments listed
-in papers.yml also exist.
+a corresponding PDF file under output/watermarked_pdfs, and that any 
+attachments listed in papers.yml also exist under output/attachments.
 
 If you have a config.yml file in the root of your repository,
 this script will use the import_dir field to look for the
-above files in a different directory. For example, if you've
-built the Anthology files to a directory called "proceedings",
+above files in a different directory (instead of ./output). For example, 
+if you've built the Anthology files to a directory called "anthology",
 then you can create a file named config.yml with the following
 contents:
 
-    import_dir: proceedings
+    import_dir: anthology
     
 and this script will look for the above files relative to the
-proceedings directory.
+anthology directory.
 """
 
 import sys
@@ -65,19 +98,19 @@ def main(args):
             rootdir = Path(config["import_dir"])
             logger.info(f"Using import directory '{rootdir}'")
 
-    # make sure all the following files exist
-    for file in ["conference_details.yml", "front_matter.pdf", "proceedings.pdf"]:
-        if not (path := rootdir / file).exists():
-            logger.error(f"File '{path}' does not exist")
+    # conference details
+    if not (conference_details_path := rootdir / "conference_details.yml").exists():
+        logger.error(f"File '{conference_details_path}' does not exist")
 
-    if not (rootdir / "papers.yml").exists():
-        logger.fatal(f"File '{rootdir / 'papers.yml'}' not found")
+    # papers.yml
+    if not (papers_path := rootdir / "inputs" / "papers.yml").exists():
+        logger.fatal(f"File '{papers_path}' not found")
 
     # Read through papers.yml. At the top level of the file is a list
     # of papers, whose path is present under the 'file' key. Make sure
     # that file exists. Also, if a paper has a file 'attachments', make
     # sure that exists.
-    papers = yaml.safe_load((rootdir / "papers.yml").read_text())
+    papers = yaml.safe_load(papers_path.read_text())
     for paper in papers:
         # For each file, there should be a file {rootdir}/watermarked_pdfs/{id}.pdf
         path = rootdir / "watermarked_pdfs"/ f'{paper["id"].pdf}'
@@ -85,13 +118,9 @@ def main(args):
             logger.error(f"Paper file '{path}' not found")
 
         if "attachments" in paper:
-            dirs_to_try = [rootdir, rootdir / "attachments"]
             for attachment in paper["attachments"]:
-                for dir in dirs_to_try:
-                    if not (path := rootdir / dir / attachment["file"]).exists():
-                        break
-                else:
-                    logger.error(f"Attachment file '{attachment['file']}' not found in any of {dirs_to_try}")
+                if not (attachment_path := rootdir / "attachments" / attachment["file"]).exists():
+                    logger.error(f"Attachment file '{attachment_path}' not found")
 
     # If there were any warnings or errors, exit with a non-zero status
     if logger.handlers:
@@ -105,7 +134,7 @@ def main(args):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser("Script to check the integrity of a directory to be imported into the ACL Anthology")
-    parser.add_argument("--import-dir", type=str, default=".", help="Root directory for Anthology import")
+    parser.add_argument("--import-dir", type=str, default="output", help="Root directory for Anthology import")
     args = parser.parse_args()
 
     main(args)
