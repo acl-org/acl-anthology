@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-
+​
 """
 Last updated 2023-11-23 by Matt Post.
-
+​
 Sanity check for ACLPUB2 submissions to the ACL Anthology.
 If this script doesn't pass, you're not ready to submit!
-
+​
 The expected format (default from aclpub2) is as follows:
-
+​
     output
     ├── attachments
     │   ├── paper1.attachment.zip
@@ -35,40 +35,40 @@ The expected format (default from aclpub2) is as follows:
         ├── 0.pdf
         ├── 0R1QRKvBNJ.pdf
         ├── …
-
+​
 From the above structure, the script will check the following:
-
+​
 Existence checks:
 - output/inputs/papers.yml
 - output/inputs/conference_details.yml
 - output/proceedings.pdf (optional)
 - PDFS, e.g., output/watermarked_pdfs/0.pdf (frontmatter)
 - attachments, e.g., output/attachments/paper17.attachment.pdf (optional)
-
+​
 It will also check that each paper listed in papers.yml has
 a corresponding PDF file under output/watermarked_pdfs, and that any 
 attachments listed in papers.yml also exist under output/attachments.
-
+​
 If you have a config.yml file in the root of your repository,
 this script will use the import_dir field to look for the
 above files in a different directory (instead of ./output). For example, 
 if you've built the Anthology files to a directory called "anthology",
 then you can create a file named config.yml with the following
 contents:
-
+​
     import_dir: anthology
     
 and this script will look for the above files relative to the
 anthology directory.
 """
-
+​
 import sys
 import yaml
 import logging
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.WARNING)​
 
 
 def main(args):
@@ -99,7 +99,7 @@ def main(args):
             logger.info(f"Using import directory '{rootdir}'")
 
     # conference details
-    if not (conference_details_path := rootdir / "conference_details.yml").exists():
+    if not (conference_details_path := rootdir / "inputs" / "conference_details.yml").exists():
         logger.error(f"File '{conference_details_path}' does not exist")
 
     # papers.yml
@@ -113,14 +113,19 @@ def main(args):
     papers = yaml.safe_load(papers_path.read_text())
     for paper in papers:
         # For each file, there should be a file {rootdir}/watermarked_pdfs/{id}.pdf
-        path = rootdir / "watermarked_pdfs"/ f'{paper["id"].pdf}'
-        if not path.exists():
-            logger.error(f"Paper file '{path}' not found")
+        path = rootdir / "watermarked_pdfs"/ f'{paper["id"]}.pdf'
+        if not 'archival' in paper or paper['archival']:
+            if not path.exists():
+                logger.error(f"Paper file '{path}' not found")
 
         if "attachments" in paper:
             for attachment in paper["attachments"]:
                 if not (attachment_path := rootdir / "attachments" / attachment["file"]).exists():
                     logger.error(f"Attachment file '{attachment_path}' not found")
+
+    # Check for frontmatter
+    if not (frontmatter_path := rootdir / "watermarked_pdfs" / "0.pdf").exists():
+        logger.error(f"Frontmatter {frontmatter_path} not found")
 
     # If there were any warnings or errors, exit with a non-zero status
     if logger.handlers:
