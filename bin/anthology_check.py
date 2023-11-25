@@ -65,24 +65,28 @@ import yaml
 import logging
 from pathlib import Path
 
+logging.basicConfig(format="%(message)s", level=logging.INFO)
+
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.INFO)
+
+
+# Start a counter for the number of logged messages, and increment it each time there is a log message
+class CounterHandler(logging.Handler):
+    def __init__(self, level):
+        super().__init__(level)
+        self.count = 0
+
+    def emit(self, record):
+        self.count += 1
+        print(self.format(record), file=sys.stderr)
 
 
 def main(args):
-    rootdir = Path(args.import_dir)
-
-    # Start a counter for the number of logged messages, and increment it each time there is a log message
-    class CounterHandler(logging.Handler):
-        def __init__(self, level):
-            super().__init__(level)
-            self.count = 0
-
-        def emit(self, record):
-            self.count += 1
-            print(self.format(record), file=sys.stderr)
-    
     logger.addHandler(CounterHandler(logging.WARNING))
+    logger.addHandler(CounterHandler(logging.ERROR))
+
+    rootdir = Path(args.import_dir)
 
     if not rootdir.exists():
         logger.fatal(f"Import directory '{rootdir}' does not exist")
@@ -98,11 +102,15 @@ def main(args):
 
     # conference details
     if not (conference_details_path := rootdir / "inputs" / "conference_details.yml").exists():
-        logger.error(f"File '{conference_details_path}' does not exist")
+        logger.error(f"x File '{conference_details_path}' does not exist")
+    else:
+        logger.info(f"✓ Found {conference_details_path}")
 
     # papers.yml
     if not (papers_path := rootdir / "inputs" / "papers.yml").exists():
         logger.fatal(f"File '{papers_path}' not found")
+    else:
+        logger.info(f"✓ Found {papers_path}")
 
     # Read through papers.yml. At the top level of the file is a list
     # of papers, whose path is present under the 'file' key. Make sure
@@ -111,19 +119,24 @@ def main(args):
     papers = yaml.safe_load(papers_path.read_text())
     for paper in papers:
         # For each file, there should be a file {rootdir}/watermarked_pdfs/{id}.pdf
-        path = rootdir / "watermarked_pdfs"/ f'{paper["id"]}.pdf'
         if not 'archival' in paper or paper['archival']:
-            if not path.exists():
-                logger.error(f"Paper file '{path}' not found")
+            if not (pdf_path := rootdir / "watermarked_pdfs"/ f'{paper["id"]}.pdf').exists():
+                logger.error(f"Paper file '{pdf_path}' not found")
+            else:
+                logger.info(f"✓ Found PDF file {pdf_path}")
 
         if "attachments" in paper:
             for attachment in paper["attachments"]:
                 if not (attachment_path := rootdir / "attachments" / attachment["file"]).exists():
                     logger.error(f"Attachment file '{attachment_path}' not found")
-
+                else:
+                    logger.info(f"✓ Found attachment file {attachment_path}")
+    
     # Check for frontmatter
     if not (frontmatter_path := rootdir / "watermarked_pdfs" / "0.pdf").exists():
         logger.error(f"Frontmatter {frontmatter_path} not found")
+    else:
+        logger.info(f"✓ Found frontmatter at {frontmatter_path}")
 
     # If there were any warnings or errors, exit with a non-zero status
     if logger.handlers:
