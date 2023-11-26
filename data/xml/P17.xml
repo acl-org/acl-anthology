@@ -25,8 +25,7 @@
       <pages>1–10</pages>
       <url hash="89b5abc0">P17-1001</url>
       <doi>10.18653/v1/P17-1001</doi>
-      <abstract>Neural network models have shown their promising opportunities for multi-task learning, which focus on learning the shared layers to extract the common and task-invariant features. However, in most existing approaches, the extracted shared features are prone to be contaminated by task-specific features or the noise brought by other tasks. In this paper, we propose an adversarial multi-task learning framework, alleviating the shared and private latent feature spaces from interfering with each other. We conduct extensive experiments on 16 different text classification tasks, which demonstrates the benefits of our approach. Besides, we show that the shared knowledge learned by our proposed model can be regarded as off-the-shelf knowledge and easily transferred to new tasks. The datasets of all 16 tasks are publicly available at <url>http://nlp.fudan.edu.cn/data/</url>.
-    </abstract>
+      <abstract>Neural network models have shown their promising opportunities for multi-task learning, which focus on learning the shared layers to extract the common and task-invariant features. However, in most existing approaches, the extracted shared features are prone to be contaminated by task-specific features or the noise brought by other tasks. In this paper, we propose an adversarial multi-task learning framework, alleviating the shared and private latent feature spaces from interfering with each other. We conduct extensive experiments on 16 different text classification tasks, which demonstrates the benefits of our approach. Besides, we show that the shared knowledge learned by our proposed model can be regarded as off-the-shelf knowledge and easily transferred to new tasks. The datasets of all 16 tasks are publicly available at <url>http://nlp.fudan.edu.cn/data/</url>.</abstract>
       <video href="https://vimeo.com/234952967"/>
       <bibkey>liu-etal-2017-adversarial</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
@@ -113,7 +112,7 @@
       <doi>10.18653/v1/P17-1007</doi>
       <abstract>In recent years word-embedding models have gained great popularity due to their remarkable performance on several tasks, including word analogy questions and caption generation. An unexpected “side-effect” of such models is that their vectors often exhibit compositionality, i.e., <i>adding</i>
 
-two word-vectors results in a vector that is only a small angle away from the vector of a word representing the semantic composite of the original words, e.g., “man” + “royal” = “king”. This work provides a theoretical justification for the presence of additive compositionality in word vectors learned using the Skip-Gram model. In particular, it shows that additive compositionality holds in an even stricter sense (small distance rather than small angle) under certain assumptions on the process generating the corpus. As a corollary, it explains the success of vector calculus in solving word analogies. When these assumptions do not hold, this work describes the correct non-linear composition operator. Finally, this work establishes a connection between the Skip-Gram model and the Sufficient Dimensionality Reduction (SDR) framework of Globerson and Tishby: the parameters of SDR models can be obtained from those of Skip-Gram models simply by adding information on symbol frequencies. This shows that Skip-Gram embeddings are optimal in the sense of Globerson and Tishby and, further, implies that the heuristics commonly used to approximately fit Skip-Gram models can be used to fit SDR models. </abstract>
+two word-vectors results in a vector that is only a small angle away from the vector of a word representing the semantic composite of the original words, e.g., “man” + “royal” = “king”. This work provides a theoretical justification for the presence of additive compositionality in word vectors learned using the Skip-Gram model. In particular, it shows that additive compositionality holds in an even stricter sense (small distance rather than small angle) under certain assumptions on the process generating the corpus. As a corollary, it explains the success of vector calculus in solving word analogies. When these assumptions do not hold, this work describes the correct non-linear composition operator. Finally, this work establishes a connection between the Skip-Gram model and the Sufficient Dimensionality Reduction (SDR) framework of Globerson and Tishby: the parameters of SDR models can be obtained from those of Skip-Gram models simply by adding information on symbol frequencies. This shows that Skip-Gram embeddings are optimal in the sense of Globerson and Tishby and, further, implies that the heuristics commonly used to approximately fit Skip-Gram models can be used to fit SDR models.</abstract>
       <video href="https://vimeo.com/234954195"/>
       <bibkey>gittens-etal-2017-skip</bibkey>
     </paper>
@@ -779,13 +778,12 @@ two word-vectors results in a vector that is only a small angle away from the ve
       <attachment type="presentation" hash="091fd7a8">P17-1054.Presentation.pdf</attachment>
       <doi>10.18653/v1/P17-1054</doi>
       <abstract>Keyphrase provides highly-summative information that can be effectively used for understanding, organizing and retrieving text content. Though previous studies have provided many workable solutions for automated keyphrase extraction, they commonly divided the to-be-summarized content into multiple text chunks, then ranked and selected the most meaningful ones. These approaches could neither identify keyphrases that do not appear in the text, nor capture the real semantic meaning behind the text. We propose a generative model for keyphrase prediction with an encoder-decoder framework, which can effectively overcome the above drawbacks. We name it as <i>deep keyphrase generation</i> since it
-      attempts to capture the deep semantic meaning of the content with a deep
-      learning method. Empirical analysis on six datasets demonstrates that our
-      proposed model not only achieves a significant performance boost on
-      extracting keyphrases that appear in the source text, but also can
-      generate absent keyphrases based on the semantic meaning of the text. Code
-      and dataset are available at <url>https://github.com/memray/seq2seq-keyphrase</url>.
-    </abstract>
+ attempts to capture the deep semantic meaning of the content with a deep
+ learning method. Empirical analysis on six datasets demonstrates that our
+ proposed model not only achieves a significant performance boost on
+ extracting keyphrases that appear in the source text, but also can
+ generate absent keyphrases based on the semantic meaning of the text. Code
+ and dataset are available at <url>https://github.com/memray/seq2seq-keyphrase</url>.</abstract>
       <video href="https://vimeo.com/234956524"/>
       <bibkey>meng-etal-2017-deep</bibkey>
       <pwccode url="https://github.com/memray/OpenNMT-kpg-release" additional="true">memray/OpenNMT-kpg-release</pwccode>
@@ -1254,15 +1252,14 @@ two word-vectors results in a vector that is only a small angle away from the ve
       <doi>10.18653/v1/P17-1087</doi>
       <attachment type="note" hash="61090730">P17-1087.Notes.pdf</attachment>
       <abstract>Vector space representations of words capture many aspects of word similarity, but such methods tend to produce vector spaces in which antonyms (as well as synonyms) are close to each other. For spectral clustering using such word embeddings, words are points in a vector space where synonyms are linked with positive weights, while antonyms are linked with negative weights. We present a new signed spectral normalized graph cut algorithm, <i>signed clustering</i>, that overlays existing thesauri upon
-      distributionally derived vector representations of words, so that antonym
-      relationships between word pairs are represented by negative weights. Our
-      signed clustering algorithm produces clusters of words that simultaneously
-      capture distributional and synonym relations. By using randomized spectral
-      decomposition (Halko et al., 2011) and sparse matrices, our method is both
-      fast and scalable. We validate our clusters using datasets containing
-      human judgments of word pair similarities and show the benefit of using
-      our word clusters for sentiment prediction.
-    </abstract>
+ distributionally derived vector representations of words, so that antonym
+ relationships between word pairs are represented by negative weights. Our
+ signed clustering algorithm produces clusters of words that simultaneously
+ capture distributional and synonym relations. By using randomized spectral
+ decomposition (Halko et al., 2011) and sparse matrices, our method is both
+ fast and scalable. We validate our clusters using datasets containing
+ human judgments of word pair similarities and show the benefit of using
+ our word clusters for sentiment prediction.</abstract>
       <video href="https://vimeo.com/234958514"/>
       <bibkey>sedoc-etal-2017-semantic</bibkey>
     </paper>
@@ -1384,14 +1381,13 @@ two word-vectors results in a vector that is only a small angle away from the ve
       <url hash="2cd8bebc">P17-1096</url>
       <doi>10.18653/v1/P17-1096</doi>
       <abstract>We study the problem of semi-supervised question answering—utilizing unlabeled text to boost the performance of question answering models. We propose a novel training framework, the <i>Generative Domain-Adaptive Nets</i>. In this framework, we train a generative model to generate
-      questions based on the unlabeled text, and combine model-generated
-      questions with human-generated questions for training question answering
-      models. We develop novel domain adaptation algorithms, based on
-      reinforcement learning, to alleviate the discrepancy between the
-      model-generated data distribution and the human-generated data
-      distribution. Experiments show that our proposed framework obtains
-      substantial improvement from unlabeled text.
-    </abstract>
+ questions based on the unlabeled text, and combine model-generated
+ questions with human-generated questions for training question answering
+ models. We develop novel domain adaptation algorithms, based on
+ reinforcement learning, to alleviate the discrepancy between the
+ model-generated data distribution and the human-generated data
+ distribution. Experiments show that our proposed framework obtains
+ substantial improvement from unlabeled text.</abstract>
       <video href="https://vimeo.com/234955469"/>
       <bibkey>yang-etal-2017-semi</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
@@ -1406,16 +1402,15 @@ two word-vectors results in a vector that is only a small angle away from the ve
       <url hash="ed5e5c19">P17-1097</url>
       <doi>10.18653/v1/P17-1097</doi>
       <abstract>Our goal is to learn a semantic parser that maps natural language utterances into executable programs when only indirect supervision is available: examples are labeled with the correct execution result, but not the program itself. Consequently, we must search the space of programs for those that output the correct result, while not being misled by <i>spurious programs</i>: incorrect programs that coincidentally output the correct
-      result. We connect two common learning paradigms, reinforcement learning
-      (RL) and maximum marginal likelihood (MML), and then present a new
-      learning algorithm that combines the strengths of both. The new algorithm
-      guards against spurious programs by combining the systematic search
-      traditionally employed in MML with the randomized exploration of RL, and
-      by updating parameters such that probability is spread more evenly across
-      consistent programs. We apply our learning algorithm to a new neural
-      semantic parser and show significant gains over existing state-of-the-art
-      results on a recent context-dependent semantic parsing task.
-    </abstract>
+ result. We connect two common learning paradigms, reinforcement learning
+ (RL) and maximum marginal likelihood (MML), and then present a new
+ learning algorithm that combines the strengths of both. The new algorithm
+ guards against spurious programs by combining the systematic search
+ traditionally employed in MML with the randomized exploration of RL, and
+ by updating parameters such that probability is spread more evenly across
+ consistent programs. We apply our learning algorithm to a new neural
+ semantic parser and show significant gains over existing state-of-the-art
+ results on a recent context-dependent semantic parsing task.</abstract>
       <video href="https://vimeo.com/234955545"/>
       <bibkey>guu-etal-2017-language</bibkey>
       <pwccode url="https://github.com/kelvinguu/lang2program" additional="true">kelvinguu/lang2program</pwccode>
@@ -1725,7 +1720,7 @@ two word-vectors results in a vector that is only a small angle away from the ve
       <pages>1308–1319</pages>
       <url hash="60cd56f0">P17-1120</url>
       <doi>10.18653/v1/P17-1120</doi>
-      <abstract>Recently emerged intelligent assistants on smartphones and home electronics (e.g., Siri and Alexa) can be seen as novel hybrids of domain-specific task-oriented spoken dialogue systems and open-domain non-task-oriented ones. To realize such hybrid dialogue systems, this paper investigates determining whether or not a user is going to have a chat with the system. To address the lack of benchmark datasets for this task, we construct a new dataset consisting of 15,160 utterances collected from the real log data of a commercial intelligent assistant (and will release the dataset to facilitate future research activity). In addition, we investigate using tweets and Web search queries for handling open-domain user utterances, which characterize the task of chat detection. Experimental experiments demonstrated that, while simple supervised methods are effective, the use of the tweets and search queries further improves the F<tex-math>_1</tex-math>-score from 86.21 to 87.53. </abstract>
+      <abstract>Recently emerged intelligent assistants on smartphones and home electronics (e.g., Siri and Alexa) can be seen as novel hybrids of domain-specific task-oriented spoken dialogue systems and open-domain non-task-oriented ones. To realize such hybrid dialogue systems, this paper investigates determining whether or not a user is going to have a chat with the system. To address the lack of benchmark datasets for this task, we construct a new dataset consisting of 15,160 utterances collected from the real log data of a commercial intelligent assistant (and will release the dataset to facilitate future research activity). In addition, we investigate using tweets and Web search queries for handling open-domain user utterances, which characterize the task of chat detection. Experimental experiments demonstrated that, while simple supervised methods are effective, the use of the tweets and search queries further improves the F<tex-math>_1</tex-math>-score from 86.21 to 87.53.</abstract>
       <bibkey>akasaki-kaji-2017-chat</bibkey>
     </paper>
     <paper id="121">
@@ -1761,10 +1756,9 @@ two word-vectors results in a vector that is only a small angle away from the ve
       <url hash="18bc4a39">P17-1123</url>
       <doi>10.18653/v1/P17-1123</doi>
       <abstract>We study automatic question generation for sentences from text passages in reading comprehension. We introduce an attention-based sequence learning model for the task and investigate the effect of encoding sentence- vs. paragraph-level information. In contrast to all previous work, our model does not rely on hand-crafted rules or a sophisticated NLP pipeline; it is instead trainable end-to-end via sequence-to-sequence learning. Automatic evaluation results show that our system significantly outperforms the state-of-the-art rule-based system. In human evaluations, questions generated by our system are also rated as being more natural (<i>i.e.,</i>,
-      grammaticality, fluency) and as more difficult to answer (in terms of
-      syntactic and lexical divergence from the original text and reasoning
-      needed to answer).
-    </abstract>
+ grammaticality, fluency) and as more difficult to answer (in terms of
+ syntactic and lexical divergence from the original text and reasoning
+ needed to answer).</abstract>
       <bibkey>du-etal-2017-learning</bibkey>
       <pwccode url="https://github.com/xinyadu/nqg" additional="true">xinyadu/nqg</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mctest">MCTest</pwcdataset>
@@ -2213,8 +2207,7 @@ two word-vectors results in a vector that is only a small angle away from the ve
       <doi>10.18653/v1/P17-1158</doi>
       <attachment type="software" hash="091befe2">P17-1158.Software.zip</attachment>
       <attachment type="dataset" hash="de13e402">P17-1158.Datasets.zip</attachment>
-      <abstract>Network embedding (NE) is playing a critical role in network analysis, due to its ability to represent vertices with efficient low-dimensional embedding vectors. However, existing NE models aim to learn a fixed context-free embedding for each vertex and neglect the diverse roles when interacting with other vertices. In this paper, we assume that one vertex usually shows different aspects when interacting with different neighbor vertices, and should own different embeddings respectively. Therefore, we present Context-Aware Network Embedding (CANE), a novel NE model to address this issue. CANE learns context-aware embeddings for vertices with mutual attention mechanism and is expected to model the semantic relationships between vertices more precisely. In experiments, we compare our model with existing NE models on three real-world datasets. Experimental results show that CANE achieves significant improvement than state-of-the-art methods on link prediction and comparable performance on vertex classification. The source code and datasets can be obtained from <url>https://github.com/thunlp/CANE</url>.
-    </abstract>
+      <abstract>Network embedding (NE) is playing a critical role in network analysis, due to its ability to represent vertices with efficient low-dimensional embedding vectors. However, existing NE models aim to learn a fixed context-free embedding for each vertex and neglect the diverse roles when interacting with other vertices. In this paper, we assume that one vertex usually shows different aspects when interacting with different neighbor vertices, and should own different embeddings respectively. Therefore, we present Context-Aware Network Embedding (CANE), a novel NE model to address this issue. CANE learns context-aware embeddings for vertices with mutual attention mechanism and is expected to model the semantic relationships between vertices more precisely. In experiments, we compare our model with existing NE models on three real-world datasets. Experimental results show that CANE achieves significant improvement than state-of-the-art methods on link prediction and comparable performance on vertex classification. The source code and datasets can be obtained from <url>https://github.com/thunlp/CANE</url>.</abstract>
       <bibkey>tu-etal-2017-cane</bibkey>
       <pwccode url="https://github.com/thunlp/CANE" additional="false">thunlp/CANE</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cora">Cora</pwcdataset>
@@ -2272,16 +2265,15 @@ two word-vectors results in a vector that is only a small angle away from the ve
       <doi>10.18653/v1/P17-1162</doi>
       <attachment type="note" hash="b1c7a72c">P17-1162.Notes.pdf</attachment>
       <abstract>We study a <i>symmetric collaborative dialogue</i> setting in which two agents,
-      each with private knowledge, must strategically communicate to achieve a
-      common goal. The open-ended dialogue state in this setting poses new
-      challenges for existing dialogue systems. We collected a dataset of 11K
-      human-human dialogues, which exhibits interesting lexical, semantic, and
-      strategic elements. To model both structured knowledge and unstructured
-      language, we propose a neural model with dynamic knowledge graph
-      embeddings that evolve as the dialogue progresses. Automatic and human
-      evaluations show that our model is both more effective at achieving the
-      goal and more human-like than baseline neural and rule-based models.
-    </abstract>
+ each with private knowledge, must strategically communicate to achieve a
+ common goal. The open-ended dialogue state in this setting poses new
+ challenges for existing dialogue systems. We collected a dataset of 11K
+ human-human dialogues, which exhibits interesting lexical, semantic, and
+ strategic elements. To model both structured knowledge and unstructured
+ language, we propose a neural model with dynamic knowledge graph
+ embeddings that evolve as the dialogue progresses. Automatic and human
+ evaluations show that our model is both more effective at achieving the
+ goal and more human-like than baseline neural and rule-based models.</abstract>
       <bibkey>he-etal-2017-learning</bibkey>
       <pwccode url="https://worksheets.codalab.org/worksheets/0xc757f29f5c794e5eb7bfa8ca9c945573" additional="true">worksheets/0xc757f29f</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/mutualfriends">MutualFriends</pwcdataset>
@@ -2618,8 +2610,7 @@ two word-vectors results in a vector that is only a small angle away from the ve
       <pages>2037–2048</pages>
       <url hash="b72cb961">P17-1186</url>
       <doi>10.18653/v1/P17-1186</doi>
-      <abstract>We present a deep neural architecture that parses sentences into three semantic dependency graph formalisms. By using efficient, nearly arc-factored inference and a bidirectional-LSTM composed with a multi-layer perceptron, our base system is able to significantly improve the state of the art for semantic dependency parsing, without using hand-engineered features or syntax. We then explore two multitask learning approaches—one that shares parameters across formalisms, and one that uses higher-order structures to predict the graphs jointly. We find that both approaches improve performance across formalisms on average, achieving a new state of the art. Our code is open-source and available at <url>https://github.com/Noahs-ARK/NeurboParser</url>.
-    </abstract>
+      <abstract>We present a deep neural architecture that parses sentences into three semantic dependency graph formalisms. By using efficient, nearly arc-factored inference and a bidirectional-LSTM composed with a multi-layer perceptron, our base system is able to significantly improve the state of the art for semantic dependency parsing, without using hand-engineered features or syntax. We then explore two multitask learning approaches—one that shares parameters across formalisms, and one that uses higher-order structures to predict the graphs jointly. We find that both approaches improve performance across formalisms on average, achieving a new state of the art. Our code is open-source and available at <url>https://github.com/Noahs-ARK/NeurboParser</url>.</abstract>
       <bibkey>peng-etal-2017-deep</bibkey>
       <pwccode url="https://github.com/Noahs-ARK/NeurboParser" additional="false">Noahs-ARK/NeurboParser</pwccode>
     </paper>
@@ -3634,7 +3625,7 @@ two word-vectors results in a vector that is only a small angle away from the ve
       <pages>448–453</pages>
       <url hash="c0c765ed">P17-2071</url>
       <doi>10.18653/v1/P17-2071</doi>
-      <abstract>This paper introduces the concept of temporal word analogies: pairs of words which occupy the same semantic space at different points in time. One well-known property of word embeddings is that they are able to effectively model traditional word analogies (“word <tex-math>w_1</tex-math> is to word <tex-math>w_2</tex-math> as word <tex-math>w_3</tex-math> is to word <tex-math>w_4</tex-math>”) through vector addition. Here, I show that temporal word analogies (“word <tex-math>w_1</tex-math> at time <tex-math>t_\alpha</tex-math> is like word <tex-math>w_2</tex-math> at time <tex-math>t_\beta</tex-math>”) can effectively be modeled with diachronic word embeddings, provided that the independent embedding spaces from each time period are appropriately transformed into a common vector space. When applied to a diachronic corpus of news articles, this method is able to identify temporal word analogies such as “Ronald Reagan in 1987 is like Bill Clinton in 1997”, or “Walkman in 1987 is like iPod in 2007”. </abstract>
+      <abstract>This paper introduces the concept of temporal word analogies: pairs of words which occupy the same semantic space at different points in time. One well-known property of word embeddings is that they are able to effectively model traditional word analogies (“word <tex-math>w_1</tex-math> is to word <tex-math>w_2</tex-math> as word <tex-math>w_3</tex-math> is to word <tex-math>w_4</tex-math>”) through vector addition. Here, I show that temporal word analogies (“word <tex-math>w_1</tex-math> at time <tex-math>t_\alpha</tex-math> is like word <tex-math>w_2</tex-math> at time <tex-math>t_\beta</tex-math>”) can effectively be modeled with diachronic word embeddings, provided that the independent embedding spaces from each time period are appropriately transformed into a common vector space. When applied to a diachronic corpus of news articles, this method is able to identify temporal word analogies such as “Ronald Reagan in 1987 is like Bill Clinton in 1997”, or “Walkman in 1987 is like iPod in 2007”.</abstract>
       <bibkey>szymanski-2017-temporal</bibkey>
       <pwccode url="https://github.com/tdszyman/twapy" additional="false">tdszyman/twapy</pwccode>
     </paper>
