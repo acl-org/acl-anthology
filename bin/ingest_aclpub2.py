@@ -303,6 +303,7 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
         'year',
         'url',
     ]
+
     frontmatter_node = make_simple_element('frontmatter', attrib={'id': '0'})
     for field in fields:
         if field == 'editor':
@@ -605,7 +606,7 @@ def copy_pdf_and_attachment(
             # copy attachments
             if 'attachments' in paper:
                 attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
-                attachs_src_dir = Path(meta['path']) / 'attachments'
+                attachs_src_dir = meta['path'] / 'attachments'
                 # assert (
                 #     attachs_src_dir.exists()
                 # ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
