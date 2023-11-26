@@ -323,7 +323,7 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
         else:
             if field == 'url':
                 if "pdf" in frontmatter:
-                    # Only create the entry if the PDF exis
+                    # Only create the entry if the PDF exists
                     value = f'{anthology_id}'
                 else:
                     print(
@@ -447,7 +447,7 @@ def process_proceeding(
         print(f"Creating new venue '{venue_abbrev}' ({event_name})")
         venue_index.add_venue(anthology_datadir, venue_abbrev, meta['event_name'])
 
-    meta["path"] = ingestion_dir
+    meta["path"] = Path(ingestion_dir)
     meta["collection_id"] = collection_id = meta["year"] + "." + venue_slug
     volume_name = meta["volume_name"].lower()
     volume_full_id = f"{collection_id}-{volume_name}"
@@ -482,8 +482,8 @@ def copy_pdf_and_attachment(
 
     pdfs_src_dir = None
     paths_to_check = [
-        Path(meta['path']) / 'watermarked_pdfs',
-        Path(meta['path']) / 'build' / 'watermarked_pdfs',
+        meta['path'] / 'watermarked_pdfs',
+        meta['path'] / 'build' / 'watermarked_pdfs',
     ]
     for path in paths_to_check:
         if path.exists() and path.is_dir():
@@ -497,8 +497,8 @@ def copy_pdf_and_attachment(
     # copy proceedings.pdf
     proceedings_pdf_src_path = None
     paths_to_check = [
-        Path('proceedings.pdf'),
-        Path("build") / 'proceedings.pdf',
+        meta['path'] / 'proceedings.pdf',
+        meta['path'] / "build" / 'proceedings.pdf',
     ]
     for path in paths_to_check:
         if path.exists():
@@ -531,12 +531,12 @@ def copy_pdf_and_attachment(
 
     frontmatter_src_path = None
     paths_to_check = [
-        Path('front_matter.pdf'),
-        Path('0.pdf'),
-        Path("watermarked_pdfs") / 'front_matter.pdf',
-        Path("watermarked_pdfs") / '0.pdf',
-        Path("build") / 'front_matter.pdf',
-        Path("build") / '0.pdf',
+        meta['path'] / 'front_matter.pdf',
+        meta['path'] / '0.pdf',
+        meta['path'] / "watermarked_pdfs" / 'front_matter.pdf',
+        meta['path'] / "watermarked_pdfs" / '0.pdf',
+        meta['path'] / "build" / 'front_matter.pdf',
+        meta['path'] / "build" / '0.pdf',
     ]
     for path in paths_to_check:
         if path.exists():
