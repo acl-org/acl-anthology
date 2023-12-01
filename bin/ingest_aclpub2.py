@@ -400,7 +400,7 @@ def paper2xml(
                 value = f'{anthology_id}'
             elif field == 'abstract':
                 value = None
-                if "abstract" in paper_item:
+                if "abstract" in paper_item and paper_item["abstract"] is not None:
                     value = paper_item["abstract"].replace('\n', '')
             elif field == 'title':
                 value = paper_item[field]
