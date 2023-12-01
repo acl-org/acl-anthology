@@ -179,7 +179,7 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     meta['volume_name'] = str(meta['volume_name'])
     if re.match(r'^[a-z0-9]+$', meta['volume_name']) is None:
         raise Exception(
-            f"Invalid volume key '{meta['volume_name']}' in {ingestion_dir + 'inputs/conference_details.yml'}"
+            f"Invalid volume key '{meta['volume_name']}' in {ingestion_dir / 'inputs' / 'conference_details.yml'}"
         )
 
     return meta
