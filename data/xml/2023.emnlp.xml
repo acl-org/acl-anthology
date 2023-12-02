@@ -838,6 +838,980 @@
       <bibkey>bryan-etal-2023-efficientocr</bibkey>
     </paper>
   </volume>
+  <volume id="industry" ingest-date="2023-12-02" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing: Industry Track</booktitle>
+      <editor><first>Mingxuan</first><last>Wang</last></editor>
+      <editor><first>Imed</first><last>Zitouni</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Singapore</address>
+      <month>December</month>
+      <year>2023</year>
+      <url hash="31c97f25">2023.emnlp-industry</url>
+      <venue>emnlp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="76c62624">2023.emnlp-industry.0</url>
+      <bibkey>emnlp-2023-2023</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>B</fixed-case>eautiful<fixed-case>P</fixed-case>rompt: Towards Automatic Prompt Engineering for Text-to-Image Synthesis</title>
+      <author><first>Tingfeng</first><last>Cao</last></author>
+      <author><first>Chengyu</first><last>Wang</last></author>
+      <author><first>Bingyan</first><last>Liu</last></author>
+      <author><first>Ziheng</first><last>Wu</last></author>
+      <author><first>Jinhui</first><last>Zhu</last></author>
+      <author><first>Jun</first><last>Huang</last></author>
+      <pages>1-11</pages>
+      <abstract>Recently, diffusion-based deep generative models (e.g., Stable Diffusion) have shown impressive results in text-to-image synthesis. However, current text-to-image models often require multiple passes of prompt engineering by humans in order to produce satisfactory results for real-world applications. We propose BeautifulPrompt, a deep generative model to produce high-quality prompts from very simple raw descriptions, which enables diffusion-based models to generate more beautiful images. In our work, we first fine-tuned the BeautifulPrompt model over low-quality and high-quality collecting prompt pairs. Then, to ensure that our generated prompts can generate more beautiful images, we further propose a Reinforcement Learning with Visual AI Feedback technique to fine-tune our model to maximize the reward values of the generated prompts, where the reward values are calculated based on the PickScore and the Aesthetic Scores. Our results demonstrate that learning from visual AI feedback promises the potential to improve the quality of generated prompts and images significantly. We further showcase the integration of BeautifulPrompt to a cloud-native AI platform to provide better text-to-image generation service in the cloud.</abstract>
+      <url hash="7806a268">2023.emnlp-industry.1</url>
+      <bibkey>cao-etal-2023-beautifulprompt</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Enhancing Language Model with Unit Test Techniques for Efficient Regular Expression Generation</title>
+      <author><first>Chenhui</first><last>Mao</last></author>
+      <author><first>Xiexiong</first><last>Lin</last></author>
+      <author><first>Xin</first><last>Jin</last></author>
+      <author><first>Xin</first><last>Zhang</last></author>
+      <pages>12-19</pages>
+      <abstract>Recent research has investigated the use of generative language models to produce regular expressions with semantic-based approaches. However, these approaches have shown shortcomings in practical applications, particularly in terms of functional correctness, which refers to the ability to reproduce the intended function inputs by the user. To address this issue, we present a novel method called Unit-Test Driven Reinforcement Learning (UTD-RL). Our approach differs from previous methods by taking into account the crucial aspect of functional correctness and transforming it into a differentiable gradient feedback using policy gradient techniques. In which functional correctness can be evaluated through Unit Tests, a testing method that ensures regular expressions meets its design and performs as intended. Experiments conducted on three public datasets demonstrate the effectiveness of the proposed method in generating regular expressions. This method has been employed in a regulatory scenario where regular expressions can be utilized to ensure that all online content is free from non-compliant elements, thereby significantly reducing the workload of relevant personnel.</abstract>
+      <url hash="a04dc570">2023.emnlp-industry.2</url>
+      <bibkey>mao-etal-2023-enhancing</bibkey>
+    </paper>
+    <paper id="3">
+      <title>A Comparative Analysis of Task-Agnostic Distillation Methods for Compressing Transformer Language Models</title>
+      <author><first>Takuma</first><last>Udagawa</last></author>
+      <author><first>Aashka</first><last>Trivedi</last></author>
+      <author><first>Michele</first><last>Merler</last></author>
+      <author><first>Bishwaranjan</first><last>Bhattacharjee</last></author>
+      <pages>20-31</pages>
+      <abstract>Large language models have become a vital component in modern NLP, achieving state of the art performance in a variety of tasks. However, they are often inefficient for real-world deployment due to their expensive inference costs. Knowledge distillation is a promising technique to improve their efficiency while retaining most of their effectiveness. In this paper, we reproduce, compare and analyze several representative methods for task-agnostic (general-purpose) distillation of Transformer language models. Our target of study includes Output Distribution (OD) transfer, Hidden State (HS) transfer with various layer mapping strategies, and Multi-Head Attention (MHA) transfer based on MiniLMv2. Through our extensive experiments, we study the effectiveness of each method for various student architectures in both monolingual (English) and multilingual settings. Overall, we show that MHA transfer based on MiniLMv2 is generally the best option for distillation and explain the potential reasons behind its success. Moreover, we show that HS transfer remains as a competitive baseline, especially under a sophisticated layer mapping strategy, while OD transfer consistently lags behind other approaches. Findings from this study helped us deploy efficient yet effective student models for latency-critical applications.</abstract>
+      <url hash="c492b5b0">2023.emnlp-industry.3</url>
+      <bibkey>udagawa-etal-2023-comparative</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Towards Effective Automatic Debt Collection with Persona Awareness</title>
+      <author><first>Tong</first><last>Zhang</last></author>
+      <author><first>Junhong</first><last>Liu</last></author>
+      <author><first>Chen</first><last>Huang</last></author>
+      <author><first>Jia</first><last>Liu</last></author>
+      <author><first>Hongru</first><last>Liang</last></author>
+      <author><first>Zujie</first><last>Wen</last></author>
+      <author><first>Wenqiang</first><last>Lei</last></author>
+      <pages>32-45</pages>
+      <abstract>Understanding debtor personas is crucial for collectors to empathize with debtors and develop more effective collection strategies. In this paper, we take the first step towards comprehensively investigating the significance of debtor personas and present a successful commercial practice on automatic debt collection agents. Specifically, we organize the debtor personas into a taxonomy and construct a persona-aware conversation dataset. Building upon it, we implement a simple yet effective persona-aware agent called PAD. After two-month online testing, PAD increases the recovery rate by 3.31% and collects an additional ~100K RMB. Our commercial practice brings inspiration to the debt collection industry by providing an effective automatic solution.</abstract>
+      <url hash="50e834f8">2023.emnlp-industry.4</url>
+      <bibkey>zhang-etal-2023-towards-effective</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Gatekeeper to save <fixed-case>COGS</fixed-case> and improve efficiency of Text Prediction</title>
+      <author><first>Nidhi</first><last>Tiwari</last></author>
+      <author><first>Sneha</first><last>Kola</last></author>
+      <author><first>Milos</first><last>Milunovic</last></author>
+      <author><first>Si-qing</first><last>Chen</last></author>
+      <author><first>Marjan</first><last>Slavkovski</last></author>
+      <pages>46-53</pages>
+      <abstract>The text prediction (TP) workflow calls a Large Language Model (LLM), almost, after every character to get subsequent sequence of characters, till user accepts a suggestion. The confidence score of the prediction is commonly used for filtering the results to ensure that only correct predictions are shown to user. As LLMs require massive amounts of computation and storage, such an approach incurs network and high execution cost. So, we propose a Model gatekeeper (GK) to stop the LLM calls that will result in incorrect predictions at client application level itself. This way a GK can save cost of model inference and improve user experience by not showing the incorrect predictions. We demonstrate that use of a model gatekeeper saved approx 46.6% of COGS for TP, at the cost of approx 4.5% loss in character saving. Use of GK also improved the efficiency (suggestion rate) of TP model by 73%.</abstract>
+      <url hash="e1ee921e">2023.emnlp-industry.5</url>
+      <bibkey>tiwari-etal-2023-gatekeeper</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Efficient Transformer Knowledge Distillation: A Performance Review</title>
+      <author><first>Nathan</first><last>Brown</last></author>
+      <author><first>Ashton</first><last>Williamson</last></author>
+      <author><first>Tahj</first><last>Anderson</last></author>
+      <author><first>Logan</first><last>Lawrence</last></author>
+      <pages>54-65</pages>
+      <abstract>As pretrained transformer language models continue to achieve state-of-the-art performance, the Natural Language Processing community has pushed for advances in model compression and efficient attention mechanisms to address high computational requirements and limited input sequence length. Despite these separate efforts, no investigation has been done into the intersection of these two fields. In this work, we provide an evaluation of model compression via knowledge distillation on efficient attention transformers. We provide cost-performance trade-offs for the compression of state-of-the-art efficient attention architectures and the gains made in performance in comparison to their full attention counterparts. Furthermore, we introduce a new long-context Named Entity Recognition dataset, GONERD, to train and test the performance of NER models on long sequences. We find that distilled efficient attention transformers can preserve a significant amount of original model performance, preserving up to <b>98.6%</b> across short-context tasks (GLUE, SQUAD, CoNLL-2003), up to <b>94.6%</b> across long-context Question-and-Answering tasks (HotpotQA, TriviaQA), and up to <b>98.8%</b> on long-context Named Entity Recognition (GONERD), while decreasing inference times by up to <b>57.8%</b>. We find that, for most models on most tasks, performing knowledge distillation is an effective method to yield high-performing efficient attention models with low costs.</abstract>
+      <url hash="bcdcadf8">2023.emnlp-industry.6</url>
+      <bibkey>brown-etal-2023-efficient</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>CDD</fixed-case>: A Large Scale Dataset for Legal Intelligence Research</title>
+      <author><first>Changzhen</first><last>Ji</last></author>
+      <author><first>Yating</first><last>Zhang</last></author>
+      <author><first>Adam</first><last>Jatowt</last></author>
+      <author><first>Haipang</first><last>Wu</last></author>
+      <pages>66-73</pages>
+      <abstract>As an important application of Artificial Intelligence, legal intelligence has recently attracted the attention of many researchers. Previous works investigated diverse issues like predicting crimes, predicting outcomes of judicial debates, or extracting information/knowledge from various kinds of legal documents. Although many advances have been made, the research on supporting prediction of court judgments remains relatively scarce, while the lack of large-scale data resources limits the development of this research.In this paper, we present a novel, large-size Court Debate Dataset (CDD), which includes 30,481 court cases, totaling 1,144,425 utterances. CDD contains real-world conversations involving judges, plaintiffs and defendants in court trials. To construct this dataset we have invited experienced judges to design appropriate labels for data records. We then asked law school students to provide annotations based on the defined labels. The dataset can be applied to several downstream tasks, such as text summarization, dialogue generation, text classification, etc. We introduce the details of the different tasks in the rapidly developing field of legal intelligence, the research of which can be fostered thanks to our dataset, and we provide the corresponding benchmark performance.</abstract>
+      <url hash="bc380f81">2023.emnlp-industry.7</url>
+      <bibkey>ji-etal-2023-cdd</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>MUST</fixed-case>&amp;<fixed-case>P</fixed-case>-<fixed-case>SRL</fixed-case>: Multi-lingual and Unified Syllabification in Text and Phonetic Domains for Speech Representation Learning</title>
+      <author><first>Noé</first><last>Tits</last></author>
+      <pages>74-82</pages>
+      <abstract>In this paper, we present a methodology for linguistic feature extraction, focusing particularly on automatically syllabifying words in multiple languages, with a design to be compatible with a forced-alignment tool, the Montreal Forced Aligner (MFA). In both the textual and phonetic domains, our method focuses on the extraction of phonetic transcriptions from text, stress marks, and a unified automatic syllabification (in text and phonetic domains). The system was built with open-source components and resources. Through an ablation study, we demonstrate the efficacy of our approach in automatically syllabifying words from several languages (English, French and Spanish). Additionally, we apply the technique to the transcriptions of the CMU ARCTIC dataset, generating valuable annotations available online (https://github.com/noetits/MUST_P-SRL) that are ideal for speech representation learning, speech unit discovery, and disentanglement of speech factors in several speech-related fields.</abstract>
+      <url hash="47eb2159">2023.emnlp-industry.8</url>
+      <bibkey>tits-2023-must</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Personalized Dense Retrieval on Global Index for Voice-enabled Conversational Systems</title>
+      <author><first>Masha</first><last>Belyi</last></author>
+      <author><first>Charlotte</first><last>Dzialo</last></author>
+      <author><first>Chaitanya</first><last>Dwivedi</last></author>
+      <author><first>Prajit</first><last>Muppidi</last></author>
+      <author><first>Kanna</first><last>Shimizu</last></author>
+      <pages>83-92</pages>
+      <abstract>Voice-controlled AI dialogue systems are susceptible to noise from phonetic variations and failure to resolve ambiguous entities. Typically, personalized entity resolution (ER) and/or query rewrites (QR) are deployed to recover from these error modes. Previous work in this field achieves personalization by constraining retrieval search space to personalized indices built from user’s historical interactions with the device. While constrained retrieval achieves high precision, predictions are limited to entities in recent user history, which offers low coverage of future requests. Further, maintaining individual indices for millions of users is memory intensive and difficult to scale. In this work, we propose a personalized entity retrieval system that is robust to phonetic noise and ambiguity but is not limited to a personalized index. We achieve this by embedding user listening preferences into a contextual query embedding used in retrieval. We demonstrate our model’s ability to correct multiple error modes and show 91% improvement over baseline on the entity retrieval task. Finally, we optimize the end-to-end approach to fit within online latency constraints while maintaining gains in performance.</abstract>
+      <url hash="b5ec89c8">2023.emnlp-industry.9</url>
+      <bibkey>belyi-etal-2023-personalized</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>T</fixed-case>ext2<fixed-case>T</fixed-case>opic: Multi-Label Text Classification System for Efficient Topic Detection in User Generated Content with Zero-Shot Capabilities</title>
+      <author><first>Fengjun</first><last>Wang</last></author>
+      <author><first>Moran</first><last>Beladev</last></author>
+      <author><first>Ofri</first><last>Kleinfeld</last></author>
+      <author><first>Elina</first><last>Frayerman</last></author>
+      <author><first>Tal</first><last>Shachar</last></author>
+      <author><first>Eran</first><last>Fainman</last></author>
+      <author><first>Karen</first><last>Lastmann Assaraf</last></author>
+      <author><first>Sarai</first><last>Mizrachi</last></author>
+      <author><first>Benjamin</first><last>Wang</last></author>
+      <pages>93-103</pages>
+      <abstract>Multi-label text classification is a critical task in the industry. It helps to extract structured information from large amount of textual data. We propose Text to Topic (Text2Topic), which achieves high multi-label classification performance by employing a Bi-Encoder Transformer architecture that utilizes concatenation, subtraction, and multiplication of embeddings on both text and topic. Text2Topic also supports zero-shot predictions, produces domain-specific text embeddings, and enables production-scale batch-inference with high throughput. The final model achieves accurate and comprehensive results compared to state-of-the-art baselines, including large language models (LLMs). In this study, a total of 239 topics are defined, and around 1.6 million text-topic pairs annotations (in which 200K are positive) are collected on approximately 120K texts from 3 main data sources on Booking.com. The data is collected with optimized smart sampling and partial labeling. The final Text2Topic model is deployed on a real-world stream processing platform, and it outperforms other models with 92.9% micro mAP, as well as a 75.8% macro mAP score. We summarize the modeling choices which are extensively tested through ablation studies, and share detailed in-production decision-making steps.</abstract>
+      <url hash="4f3042b3">2023.emnlp-industry.10</url>
+      <bibkey>wang-etal-2023-text2topic</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Deep Metric Learning to Hierarchically Rank - An Application in Product Retrieval</title>
+      <author><first>Kee Kiat</first><last>Koo</last></author>
+      <author><first>Ashutosh</first><last>Joshi</last></author>
+      <author><first>Nishaanth</first><last>Reddy</last></author>
+      <author><first>Karim</first><last>Bouyarmane</last></author>
+      <author><first>Ismail</first><last>Tutar</last></author>
+      <author><first>Vaclav</first><last>Petricek</last></author>
+      <author><first>Changhe</first><last>Yuan</last></author>
+      <pages>104-112</pages>
+      <abstract>Most e-commerce search engines use customer behavior signals to augment lexical matching and improve search relevance. Many e-commerce companies like Amazon, Alibaba, Ebay etc. operate in multiple countries with country specific stores. However, customer behavior data is sparse in newer stores. To compensate for sparsity of behavioral data in low traffic stores, search engines often use cross-listed products in some form. However, cross-listing across stores is not uniform and in many cases itself sparse. In this paper, we develop a model to identify duplicate and near-duplicate products across stores. Such a model can be used to unify product catalogs worldwide, improve product meta-data or as in our case, use near-duplicate products across multiple to improve search relevance. To capture the product similarity hierarchy, we develop an approach that integrates retrieval and ranking tasks across multiple languages in a single step based on a novel Hierarchical Ranked Multi Similarity (HRMS) Loss that combines Multi-Similarity (MS) loss and Hierarchical Triplet Loss to learn a hierarchical metric space. Our method outperforms strong baselines in terms of catalog coverage and precision of the mappings. We also show via online A/B tests that the product mappings found by our method are successful at improving search quality in low traffic stores, measured in rate of searches with at least one click, significantly by 0.8% and improving cold start product engagement measured as new product clicks significantly by 1.72% in established stores.</abstract>
+      <url hash="ccd33c5a">2023.emnlp-industry.11</url>
+      <bibkey>koo-etal-2023-deep</bibkey>
+    </paper>
+    <paper id="12">
+      <title>A Pretrained Language Model for Cyber Threat Intelligence</title>
+      <author><first>Youngja</first><last>Park</last></author>
+      <author><first>Weiqiu</first><last>You</last></author>
+      <pages>113-122</pages>
+      <abstract>We present a new BERT model for the cybersecurity domain, CTI-BERT, which can improve the accuracy of cyber threat intelligence (CTI) extraction, enabling organizations to better defend against potential cyber threats. We provide detailed information about the domain corpus collection, the training methodology and its effectiveness for a variety of NLP tasks for the cybersecurity domain. The experiments show that CTI-BERT significantly outperforms several general-domain and security-domain models for these cybersecurity applications indicating that the training data and methodology have a significant impact on the model performance.</abstract>
+      <url hash="a4a99785">2023.emnlp-industry.12</url>
+      <bibkey>park-you-2023-pretrained</bibkey>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>SAMP</fixed-case>: A Model Inference Toolkit of Post-Training Quantization for Text Processing via Self-Adaptive Mixed-Precision</title>
+      <author><first>Rong</first><last>Tian</last></author>
+      <author><first>Zijing</first><last>Zhao</last></author>
+      <author><first>Weijie</first><last>Liu</last></author>
+      <author><first>Haoyan</first><last>Liu</last></author>
+      <author><first>Weiquan</first><last>Mao</last></author>
+      <author><first>Zhe</first><last>Zhao</last></author>
+      <author><first>Kan</first><last>Zhou</last></author>
+      <pages>123-130</pages>
+      <abstract>The latest industrial inference engines, such as FasterTransformer and TurboTransformers, have verified that half-precision floating point (FP16) and 8-bit integer (INT8) quantization can greatly improve model inference speed. However, the existing INT8 quantization methods are too complicated, and improper usage will lead to model performance damage greatly. In this paper, we develop a toolkit for users to easily quantize their models for inference, in which Self-Adaptive Mixed-Precision (SAMP) is proposed to automatically control quantization rate by a mixed-precision architecture to balance model accuracy and efficiency. Experimental results show that our SAMP toolkit has a higher speedup than PyTorch and FasterTransformer while ensuring the required accuracy. In addition, SAMP is based on a modular design, decoupling the tokenizer, embedding, encoder and target layers, which allows users to handle various downstream tasks and can be seamlessly integrated into PyTorch.</abstract>
+      <url hash="281282e3">2023.emnlp-industry.13</url>
+      <bibkey>tian-etal-2023-samp</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>KD</fixed-case>-Boost: Boosting Real-Time Semantic Matching in <fixed-case>E</fixed-case>-commerce with Knowledge Distillation</title>
+      <author><first>Sanjay</first><last>Agrawal</last></author>
+      <author><first>Vivek</first><last>Sembium</last></author>
+      <author><first>Ankith</first><last>M S</last></author>
+      <pages>131-141</pages>
+      <abstract>Real-time semantic matching is vital to web and product search. Transformer-based models have shown to be highly effective at encoding queries into an embedding space where semantically similar entities (queries or results) are in close proximity. However, the computational complexity of large transformer models limits their utilization for real-time matching. In this paper, we propose KD-Boost, a novel knowledge distillation algorithm designed for real-time semantic matching. KD-Boost trains low latency accurate student models by leveraging soft labels from a teacher model as well as ground truth via pairwise query-product and query-query signal derived from direct audits, user behavior, and taxonomy-based data using custom loss functions. Experiments on internal and external e-commerce datasets demonstrate an improvement of 2-3% ROC-AUC compared to training student models directly, outperforming teacher and SOTA knowledge distillation benchmarks. Simulated online A/B tests using KD-Boost for automated Query Reformulation (QR) indicate a 6.31% increase in query-to-query matching, 2.76% increase in product coverage, and a 2.19% improvement in relevance.</abstract>
+      <url hash="78659c3d">2023.emnlp-industry.14</url>
+      <bibkey>agrawal-etal-2023-kd</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Multi-teacher Distillation for Multilingual Spelling Correction</title>
+      <author><first>Jingfen</first><last>Zhang</last></author>
+      <author><first>Xuan</first><last>Guo</last></author>
+      <author><first>Sravan</first><last>Bodapati</last></author>
+      <author><first>Christopher</first><last>Potts</last></author>
+      <pages>142-151</pages>
+      <abstract>Accurate spelling correction is a critical step in modern search interfaces, especially in an era of mobile devices and speech-to-text interfaces. For services that are deployed around the world, this poses a significant challenge for multilingual NLP: spelling errors need to be caught and corrected in all languages, and even in queries that use multiple languages. In this paper, we tackle this challenge using multi-teacher distillation. On our approach, a monolingual teacher model is trained for each language/locale, and these individual models are distilled into a single multilingual student model intended to serve all languages/locales. In experiments using open-source data as well as customer data from a worldwide search service, we show that this leads to highly effective spelling correction models that can meet the tight latency requirements of deployed services.</abstract>
+      <url hash="735c6455">2023.emnlp-industry.15</url>
+      <bibkey>zhang-etal-2023-multi-teacher</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Does Named Entity Recognition Truly Not Scale Up to Real-world Product Attribute Extraction?</title>
+      <author><first>Wei-Te</first><last>Chen</last></author>
+      <author><first>Keiji</first><last>Shinzato</last></author>
+      <author><first>Naoki</first><last>Yoshinaga</last></author>
+      <author><first>Yandi</first><last>Xia</last></author>
+      <pages>152-159</pages>
+      <abstract>The key challenge in the attribute-value extraction (AVE) task from e-commerce sites is the scalability to diverse attributes for a large number of products in real-world e-commerce sites. To make AVE scalable to diverse attributes, recent researchers adopted a question-answering (QA)-based approach that additionally inputs the target attribute as a query to extract its values, and confirmed its advantage over a classical approach based on named-entity recognition (NER) on real-word e-commerce datasets. In this study, we argue the scalability of the NER-based approach compared to the QA-based approach, since researchers have compared BERT-based QA-based models to only a weak BiLSTM-based NER baseline trained from scratch in terms of only accuracy on datasets designed to evaluate the QA-based approach. Experimental results using a publicly available real-word dataset revealed that, under a fair setting, BERT-based NER models rival BERT-based QA models in terms of the accuracy, and their inference is faster than the QA model that processes the same product text several times to handle multiple target attributes.</abstract>
+      <url hash="e4550187">2023.emnlp-industry.16</url>
+      <bibkey>chen-etal-2023-named</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Investigating Table-to-Text Generation Capabilities of Large Language Models in Real-World Information Seeking Scenarios</title>
+      <author><first>Yilun</first><last>Zhao</last></author>
+      <author><first>Haowei</first><last>Zhang</last></author>
+      <author><first>Shengyun</first><last>Si</last></author>
+      <author><first>Linyong</first><last>Nan</last></author>
+      <author><first>Xiangru</first><last>Tang</last></author>
+      <author><first>Arman</first><last>Cohan</last></author>
+      <pages>160-175</pages>
+      <abstract>Tabular data is prevalent across various industries, necessitating significant time and effort for users to understand and manipulate for their information-seeking purposes. The advancements in large language models (LLMs) have shown enormous potential to improve user efficiency. However, the adoption of LLMs in real-world applications for table information seeking remains underexplored. In this paper, we investigate the table-to-text capabilities of different LLMs using four datasets within two real-world information seeking scenarios. These include the LogicNLG and our newly-constructed LoTNLG datasets for data insight generation, along with the FeTaQA and our newly-constructed F2WTQ datasets for query-based generation. We structure our investigation around three research questions, evaluating the performance of LLMs in table-to-text generation, automated evaluation, and feedback generation, respectively. Experimental results indicate that the current high-performing LLM, specifically GPT-4, can effectively serve as a table-to-text generator, evaluator, and feedback generator, facilitating users’ information seeking purposes in real-world scenarios. However, a significant performance gap still exists between other open-sourced LLMs (e.g., Vicuna and LLaMA-2) and GPT-4 models. Our data and code are publicly available at https://github.com/yale-nlp/LLM-T2T.</abstract>
+      <url hash="58a6df2e">2023.emnlp-industry.17</url>
+      <bibkey>zhao-etal-2023-investigating</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>TMID</fixed-case>: A Comprehensive Real-world Dataset for Trademark Infringement Detection in <fixed-case>E</fixed-case>-Commerce</title>
+      <author><first>Tongxin</first><last>Hu</last></author>
+      <author><first>Zhuang</first><last>Li</last></author>
+      <author><first>Xin</first><last>Jin</last></author>
+      <author><first>Lizhen</first><last>Qu</last></author>
+      <author><first>Xin</first><last>Zhang</last></author>
+      <pages>176-184</pages>
+      <abstract>Annually, e-commerce platforms incur substantial financial losses due to trademark infringements, making it crucial to identify and mitigate potential legal risks tied to merchant information registered to the platforms. However, the absence of high-quality datasets hampers research in this area. To address this gap, our study introduces TMID, a novel dataset to detect trademark infringement in merchant registrations. This is a real-world dataset sourced directly from Alipay, one of the world’s largest e-commerce and digital payment platforms. As infringement detection is a legal reasoning task requiring an understanding of the contexts and legal rules, we offer a thorough collection of legal rules and merchant and trademark-related contextual information with annotations from legal experts. We ensure the data quality by performing an extensive statistical analysis. Furthermore, we conduct an empirical study on this dataset to highlight its value and the key challenges. Through this study, we aim to contribute valuable resources to advance research into legal compliance related to trademark infringement within the e-commerce sphere.</abstract>
+      <url hash="2ef8dae8">2023.emnlp-industry.18</url>
+      <bibkey>hu-etal-2023-tmid</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Joint Dialogue Topic Segmentation and Categorization: A Case Study on Clinical Spoken Conversations</title>
+      <author><first>Zhengyuan</first><last>Liu</last></author>
+      <author><first>Siti Umairah</first><last>Md Salleh</last></author>
+      <author><first>Hong Choon</first><last>Oh</last></author>
+      <author><first>Pavitra</first><last>Krishnaswamy</last></author>
+      <author><first>Nancy</first><last>Chen</last></author>
+      <pages>185-193</pages>
+      <abstract>Utilizing natural language processing techniques in clinical conversations is effective to improve the efficiency of health management workflows for medical staff and patients. Dialogue segmentation and topic categorization are two fundamental steps for processing verbose spoken conversations and highlighting informative spans for downstream tasks. However, in practical use cases, due to the variety of segmentation granularity and topic definition, and the lack of diverse annotated corpora, no generic models are readily applicable for domain-specific applications. In this work, we introduce and adopt a joint model for dialogue segmentation and topic categorization, and conduct a case study on healthcare follow-up calls for diabetes management; we provide insights from both data and model perspectives toward performance and robustness.</abstract>
+      <url hash="4a7c2ee2">2023.emnlp-industry.19</url>
+      <bibkey>liu-etal-2023-joint</bibkey>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>A</fixed-case>dapter<fixed-case>D</fixed-case>istillation: Non-Destructive Task Composition with Knowledge Distillation</title>
+      <author><first>Junjie</first><last>Wang</last></author>
+      <author><first>Yicheng</first><last>Chen</last></author>
+      <author><first>Wangshu</first><last>Zhang</last></author>
+      <author><first>Sen</first><last>Hu</last></author>
+      <author><first>Teng</first><last>Xu</last></author>
+      <author><first>Jing</first><last>Zheng</last></author>
+      <pages>194-201</pages>
+      <abstract>Leveraging knowledge from multiple tasks through introducing a small number of task specific parameters into each transformer layer, also known as adapters, receives much attention recently. However, adding an extra fusion layer to implement knowledge composition not only increases the inference time but also is non-scalable for some applications. To avoid these issues, we propose a two-stage knowledge distillation algorithm called AdapterDistillation. In the first stage, we extract task specific knowledge by using local data to train a student adapter. In the second stage, we distill the knowledge from the existing teacher adapters into the student adapter to help its inference. Extensive experiments on frequently asked question retrieval in task-oriented dialog systems validate the efficiency of AdapterDistillation. We show that AdapterDistillation outperforms existing algorithms in terms of accuracy, resource consumption and inference time.</abstract>
+      <url hash="ebdadbba">2023.emnlp-industry.20</url>
+      <bibkey>wang-etal-2023-adapterdistillation</bibkey>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>PROMINET</fixed-case>: Prototype-based Multi-View Network for Interpretable Email Response Prediction</title>
+      <author><first>Yuqing</first><last>Wang</last></author>
+      <author><first>Prashanth</first><last>Vijayaraghavan</last></author>
+      <author><first>Ehsan</first><last>Degan</last></author>
+      <pages>202-215</pages>
+      <abstract>Email is a widely used tool for business communication, and email marketing has emerged as a cost-effective strategy for enterprises. While previous studies have examined factors affecting email marketing performance, limited research has focused on understanding email response behavior by considering email content and metadata. This study proposes a Prototype-based Multi-view Network (PROMINET) that incorporates semantic and structural information from email data. By utilizing prototype learning, the PROMINET model generates latent exemplars, enabling interpretable email response prediction. The model maps learned semantic and structural exemplars to observed samples in the training data at different levels of granularity, such as document, sentence, or phrase. The approach is evaluated on two real-world email datasets: the Enron corpus and an in-house Email Marketing corpus. Experimental results demonstrate that the PROMINET model outperforms baseline models, achieving a ~3% improvement in F1 score on both datasets. Additionally, the model provides interpretability through prototypes at different granularity levels while maintaining comparable performance to non-interpretable models. The learned prototypes also show potential for generating suggestions to enhance email text editing and improve the likelihood of effective email responses. This research contributes to enhancing sender-receiver communication and customer engagement in email interactions.</abstract>
+      <url hash="07898311">2023.emnlp-industry.21</url>
+      <bibkey>wang-etal-2023-prominet</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Retrieval-Enhanced Dual Encoder Training for Product Matching</title>
+      <author><first>Justin</first><last>Chiu</last></author>
+      <pages>216-222</pages>
+      <abstract>Product matching is the task of matching a seller-listed item to an appropriate product. It is a critical task for an e-commerce platform, and the approach needs to be efficient to run in a large-scale setting. A dual encoder approach has been a common practice for product matching recently, due to its high performance and computation efficiency. In this paper, we propose a two-stage training for the dual encoder model. Stage 1 trained a dual encoder to identify the more informative training data. Stage 2 then train on the more informative data to get a better dual encoder model. This technique is a learned approach for building training data. We evaluate the retrieval-enhanced training on two different datasets: a publicly available Large-Scale Product Matching dataset and a real-world e-commerce dataset containing 47 million products. Experiment results show that our approach improved by 2% F1 on the public dataset and 9% F1 on the real-world e-commerce dataset.</abstract>
+      <url hash="f372ee86">2023.emnlp-industry.22</url>
+      <bibkey>chiu-2023-retrieval</bibkey>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>W</fixed-case>ord<fixed-case>A</fixed-case>rt Designer: User-Driven Artistic Typography Synthesis using Large Language Models</title>
+      <author><first>Jun-Yan</first><last>He</last></author>
+      <author><first>Zhi-Qi</first><last>Cheng</last></author>
+      <author><first>Chenyang</first><last>Li</last></author>
+      <author><first>Jingdong</first><last>Sun</last></author>
+      <author><first>Wangmeng</first><last>Xiang</last></author>
+      <author><first>Xianhui</first><last>Lin</last></author>
+      <author><first>Xiaoyang</first><last>Kang</last></author>
+      <author><first>Zengke</first><last>Jin</last></author>
+      <author><first>Yusen</first><last>Hu</last></author>
+      <author><first>Bin</first><last>Luo</last></author>
+      <author><first>Yifeng</first><last>Geng</last></author>
+      <author><first>Xuansong</first><last>Xie</last></author>
+      <pages>223-232</pages>
+      <abstract>This paper introduces WordArt Designer, a user-driven framework for artistic typography synthesis, relying on the Large Language Model (LLM). The system incorporates four key modules: the LLM Engine, SemTypo, StyTypo, and TexTypo modules. 1) The LLM Engine, empowered by the LLM (e.g. GPT-3.5), interprets user inputs and generates actionable prompts for the other modules, thereby transforming abstract concepts into tangible designs. 2) The SemTypo module optimizes font designs using semantic concepts, striking a balance between artistic transformation and readability. 3) Building on the semantic layout provided by the SemTypo module, the StyTypo module creates smooth, refined images. 4) The TexTypo module further enhances the design’s aesthetics through texture rendering, enabling the generation of inventive textured fonts. Notably, WordArt Designer highlights the fusion of generative AI with artistic typography. Experience its capabilities on ModelScope: https://www.modelscope.cn/studios/WordArt/WordArt.</abstract>
+      <url hash="fac8b80f">2023.emnlp-industry.23</url>
+      <bibkey>he-etal-2023-wordart</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Lattice Path Edit Distance: A <fixed-case>R</fixed-case>omanization-aware Edit Distance for Extracting Misspelling-Correction Pairs from <fixed-case>J</fixed-case>apanese Search Query Logs</title>
+      <author><first>Nobuhiro</first><last>Kaji</last></author>
+      <pages>233-242</pages>
+      <abstract>Edit distance has been successfully used to extract training data, i.e., misspelling-correction pairs, of spelling correction models from search query logs in languages including English. However, the success does not readily apply to Japanese, where misspellings are often dissimilar to correct spellings due to the romanization-based input methods. To address this problem, we introduce lattice path edit distance, which utilizes romanization lattices to efficiently consider all possible romanized forms of input strings. Empirical experiments using Japanese search query logs demonstrated that the lattice path edit distance outperformed baseline methods including the standard edit distance combined with an existing transliterator and morphological analyzer. A training data collection pipeline that uses the lattice path edit distance has been deployed in production at our search engine for over a year.</abstract>
+      <url hash="6cad2b44">2023.emnlp-industry.24</url>
+      <bibkey>kaji-2023-lattice</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Learning Multilingual Sentence Representations with Cross-lingual Consistency Regularization</title>
+      <author><first>Pengzhi</first><last>Gao</last></author>
+      <author><first>Liwen</first><last>Zhang</last></author>
+      <author><first>Zhongjun</first><last>He</last></author>
+      <author><first>Hua</first><last>Wu</last></author>
+      <author><first>Haifeng</first><last>Wang</last></author>
+      <pages>243-262</pages>
+      <abstract>Multilingual sentence representations are the foundation for similarity-based bitext mining, which is crucial for scaling multilingual neural machine translation (NMT) system to more languages. In this paper, we introduce MuSR: a one-for-all Multilingual Sentence Representation model that supports 223 languages. Leveraging billions of English-centric parallel corpora, we train a multilingual Transformer encoder, coupled with an auxiliary Transformer decoder, by adopting a multilingual NMT framework with CrossConST, a cross-lingual consistency regularization technique proposed in Gao et al. (2023). Experimental results on multilingual similarity search and bitext mining tasks show the effectiveness of our approach. Specifically, MuSR achieves superior performance over LASER3 (Heffernan et al., 2022) which consists of 148 independent multilingual sentence encoders.</abstract>
+      <url hash="ed2d8e4f">2023.emnlp-industry.25</url>
+      <bibkey>gao-etal-2023-learning-multilingual</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Unveiling Identity Biases in Toxicity Detection : A Game-Focused Dataset and Reactivity Analysis Approach</title>
+      <author><first>Josiane</first><last>Van Dorpe</last></author>
+      <author><first>Zachary</first><last>Yang</last></author>
+      <author><first>Nicolas</first><last>Grenon-Godbout</last></author>
+      <author><first>Grégoire</first><last>Winterstein</last></author>
+      <pages>263-274</pages>
+      <abstract>Identity biases arise commonly from annotated datasets, can be propagated in language models and can cause further harm to marginal groups. Existing bias benchmarking datasets are mainly focused on gender or racial biases and are made to pinpoint which class the model is biased towards. They also are not designed for the gaming industry, a concern for models built for toxicity detection in videogames’ chat. We propose a dataset and a method to highlight oversensitive terms using reactivity analysis and the model’s performance. We test our dataset against ToxBuster, a language model developed by Ubisoft fine-tuned for toxicity detection on multiplayer videogame’s written chat, and Perspective API. We find that these toxicity models often automatically tag terms related to a community’s identity as toxic, which prevents members of already marginalized groups to make their presence known or have a mature / normal conversation. Through this process, we have generated an interesting list of terms that trigger the models to varying degrees, along with insights on establishing a baseline through human annotations.</abstract>
+      <url hash="72c7e8c4">2023.emnlp-industry.26</url>
+      <bibkey>van-dorpe-etal-2023-unveiling</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>ORANGE</fixed-case>: Text-video Retrieval via Watch-time-aware Heterogeneous Graph Contrastive Learning</title>
+      <author><first>Yucheng</first><last>Lin</last></author>
+      <author><first>Tim</first><last>Chang</last></author>
+      <author><first>Yaning</first><last>Chang</last></author>
+      <author><first>Jianqiang</first><last>Ma</last></author>
+      <author><first>Donghui</first><last>Li</last></author>
+      <author><first>Ting</first><last>Peng</last></author>
+      <author><first>Zang</first><last>Li</last></author>
+      <author><first>Zhiyi</first><last>Zhou</last></author>
+      <author><first>Feng</first><last>Wang</last></author>
+      <pages>275-283</pages>
+      <abstract>With the explosive growth of short-video data on industrial video-sharing platforms such as TikTok and YouTube, text-video retrieval techniques have become increasingly important. Most existing works for text-video retrieval focus on designing informative representation learning methods and delicate matching mechanisms, which leverage the content information of queries and videos themselves (i.e., textual information of queries and multimodal information of videos). However, real-world scenarios often involve brief, ambiguous queries and low-quality videos, making content-based retrieval less effective. In order to accommodate various search requirements and enhance user satisfaction, this study introduces a novel Text-video Retrieval method via Watch-time-aware Heterogeneous Graph Contrastive Learning (termed ORANGE). This approach aims to learn informative embeddings for queries and videos by leveraging both content information and the abundant relational information present in video-search scenarios. Specifically, we first construct a heterogeneous information graph where nodes represent domain objects (e.g., query, video, tag) and edges represent rich relations among these objects. Afterwards, a meta-path-guided heterogeneous graph attention encoder with the awareness of video watch time is devised to encode various semantic aspects of query and video nodes. To train our model, we introduce a meta-path-wise contrastive learning paradigm that facilitates capturing dependencies across multiple semantic relations, thereby enhancing the obtained embeddings. Finally, when deployed online, for new queries non-existent in the constructed graph, a bert-based query encoder distilled from our ORANGE is employed. Offline experiments conducted on a real-world dataset demonstrate the effectiveness of our ORANGE. Moreover, it has been implemented in the matching stage of an industrial online video-search service, where it exhibited statistically significant improvements over the online baseline in an A/B test.</abstract>
+      <url hash="ca3897f3">2023.emnlp-industry.27</url>
+      <bibkey>lin-etal-2023-orange</bibkey>
+    </paper>
+    <paper id="28">
+      <title>Compute-Efficient Churn Reduction for Conversational Agents</title>
+      <author><first>Christopher</first><last>Hidey</last></author>
+      <author><first>Sarthak</first><last>Sarthak</last></author>
+      <pages>284-293</pages>
+      <abstract>Model churn occurs when re-training a model yields different predictions despite using the same data and hyper-parameters. Churn reduction is crucial for industry conversational systems where users expect consistent results for the same queries. In this setting, compute resources are often limited due to latency requirements during serving and overall time constraints during re-training. To address this issue, we propose a compute-efficient method that mitigates churn without requiring extra resources for training or inference. Our approach involves a lightweight data pre-processing step that pairs semantic parses based on their “function call signature” and encourages similarity through an additional loss based on Jensen-Shannon Divergence. We validate the effectiveness of our method in three scenarios: academic (+3.93 percent improvement on average in a churn reduction metric), simulated noisy data (+8.09), and industry (+5.28) settings.</abstract>
+      <url hash="53521dfe">2023.emnlp-industry.28</url>
+      <bibkey>hidey-sarthak-2023-compute</bibkey>
+    </paper>
+    <paper id="29">
+      <title>Empower Large Language Model to Perform Better on Industrial Domain-Specific Question Answering</title>
+      <author><first>Fangkai</first><last>Yang</last></author>
+      <author><first>Pu</first><last>Zhao</last></author>
+      <author><first>Zezhong</first><last>Wang</last></author>
+      <author><first>Lu</first><last>Wang</last></author>
+      <author><first>Bo</first><last>Qiao</last></author>
+      <author><first>Jue</first><last>Zhang</last></author>
+      <author><first>Mohit</first><last>Garg</last></author>
+      <author><first>Qingwei</first><last>Lin</last></author>
+      <author><first>Saravan</first><last>Rajmohan</last></author>
+      <author><first>Dongmei</first><last>Zhang</last></author>
+      <pages>294-312</pages>
+      <abstract>Large Language Model (LLM) has gained popularity and achieved remarkable results in open-domain tasks, but its performance in real industrial domain-specific scenarios is average due to its lack of specific domain knowledge. This issue has attracted widespread attention, but there are few relevant benchmarks available. In this paper, we provide a benchmark Question Answering (QA) dataset named MSQA, centered around Microsoft products and IT technical problems encountered by customers. This dataset contains industry cloud-specific QA knowledge, an area not extensively covered in general LLMs, making it well-suited for evaluating methods aiming to enhance LLMs’ domain-specific capabilities. In addition, we propose a new model interaction paradigm that can empower LLM to achieve better performance on domain-specific tasks where it is not proficient. Extensive experiments demonstrate that the approach following our method outperforms the commonly used LLM with retrieval methods. We make our source code and sample data available at: https://aka.ms/Microsoft_QA.</abstract>
+      <url hash="ae206fdc">2023.emnlp-industry.29</url>
+      <bibkey>yang-etal-2023-empower</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Enhancing Extreme Multi-Label Text Classification: Addressing Challenges in Model, Data, and Evaluation</title>
+      <author><first>Dan</first><last>Li</last></author>
+      <author><first>Zi Long</first><last>Zhu</last></author>
+      <author><first>Janneke</first><last>van de Loo</last></author>
+      <author><first>Agnes</first><last>Masip Gomez</last></author>
+      <author><first>Vikrant</first><last>Yadav</last></author>
+      <author><first>Georgios</first><last>Tsatsaronis</last></author>
+      <author><first>Zubair</first><last>Afzal</last></author>
+      <pages>313-321</pages>
+      <abstract>Extreme multi-label text classification is a prevalent task in industry, but it frequently encounters challenges in terms of machine learning perspectives, including model limitations, data scarcity, and time-consuming evaluation. This paper aims to mitigate these issues by introducing novel approaches. Firstly, we propose a label ranking model as an alternative to the conventional SciBERT-based classification model, enabling efficient handling of large-scale labels and accommodating new labels. Secondly, we present an active learning-based pipeline that addresses the data scarcity of new labels during the update of a classification system. Finally, we introduce ChatGPT to assist with model evaluation. Our experiments demonstrate the effectiveness of these techniques in enhancing the extreme multi-label text classification task.</abstract>
+      <url hash="2881b513">2023.emnlp-industry.30</url>
+      <bibkey>li-etal-2023-enhancing-extreme</bibkey>
+    </paper>
+    <paper id="31">
+      <title>Query-aware Multi-modal based Ranking Relevance in Video Search</title>
+      <author><first>Chengcan</first><last>Ye</last></author>
+      <author><first>Ting</first><last>Peng</last></author>
+      <author><first>Tim</first><last>Chang</last></author>
+      <author><first>Zhiyi</first><last>Zhou</last></author>
+      <author><first>Feng</first><last>Wang</last></author>
+      <pages>322-330</pages>
+      <abstract>Relevance ranking system plays a crucial role in video search on streaming platforms. Most relevance ranking methods focus on text modality, incapable of fully exploiting cross-modal cues present in video. Recent multi-modal models have demonstrated promise in various vision-language tasks but provide limited help for downstream query-video relevance tasks due to the discrepency between relevance ranking-agnostic pre-training objectives and the real video search scenarios that demand comprehensive relevance modeling. To address these challenges, we propose a QUery-Aware pre-training model with multi-modaLITY (QUALITY) that incorporates hard-mined query information as alignment targets and utilizes video tag information for guidance. QUALITY is integrated into our relevance ranking model, which leverages multi-modal knowledge and improves ranking optimization method based on ordinal regression. Extensive experiments show our proposed model significantly enhances video search performance.</abstract>
+      <url hash="1901f3dd">2023.emnlp-industry.31</url>
+      <bibkey>ye-etal-2023-query</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Coordinated Replay Sample Selection for Continual Federated Learning</title>
+      <author><first>Jack</first><last>Good</last></author>
+      <author><first>Jimit</first><last>Majmudar</last></author>
+      <author><first>Christophe</first><last>Dupuy</last></author>
+      <author><first>Jixuan</first><last>Wang</last></author>
+      <author><first>Charith</first><last>Peris</last></author>
+      <author><first>Clement</first><last>Chung</last></author>
+      <author><first>Richard</first><last>Zemel</last></author>
+      <author><first>Rahul</first><last>Gupta</last></author>
+      <pages>331-342</pages>
+      <abstract>Continual Federated Learning (CFL) combines Federated Learning (FL), the decentralized learning of a central model on a number of client devices that may not communicate their data, and Continual Learning (CL), the learning of a model from a continual stream of data without keeping the entire history. In CL, the main challenge is forgetting what was learned from past data. While replay-based algorithms that keep a small pool of past training data are effective to reduce forgetting, only simple replay sample selection strategies have been applied to CFL in prior work, and no previous work has explored coordination among clients for better sample selection. To bridge this gap, we adapt a replay sample selection objective based on loss gradient diversity to CFL and propose a new relaxation-based selection of samples to optimize the objective. Next, we propose a practical algorithm to coordinate gradient-based replay sample selection across clients without communicating private data. We benchmark our coordinated and uncoordinated replay sample selection algorithms against random sampling-based baselines with language models trained on a large scale de-identified real-world text dataset. We show that gradient-based sample selection methods both boost performance and reduce forgetting compared to random sampling methods, with our coordination method showing gains early in the low replay size regime (when the budget for storing past data is small).</abstract>
+      <url hash="234cc8d2">2023.emnlp-industry.32</url>
+      <bibkey>good-etal-2023-coordinated</bibkey>
+    </paper>
+    <paper id="33">
+      <title>Building Real-World Meeting Summarization Systems using Large Language Models: A Practical Perspective</title>
+      <author><first>Md Tahmid Rahman</first><last>Laskar</last></author>
+      <author><first>Xue-Yong</first><last>Fu</last></author>
+      <author><first>Cheng</first><last>Chen</last></author>
+      <author><first>Shashi</first><last>Bhushan TN</last></author>
+      <pages>343-352</pages>
+      <abstract>This paper studies how to effectively build meeting summarization systems for real-world usage using large language models (LLMs). For this purpose, we conduct an extensive evaluation and comparison of various closed-source and open-source LLMs, namely, GPT-4, GPT-3.5, PaLM-2, and LLaMA-2. Our findings reveal that most closed-source LLMs are generally better in terms of performance. However, much smaller open-source models like LLaMA-2 (7B and 13B) could still achieve performance comparable to the large closed-source models even in zero-shot scenarios. Considering the privacy concerns of closed-source models for only being accessible via API, alongside the high cost associated with using fine-tuned versions of the closed-source models, the opensource models that can achieve competitive performance are more advantageous for industrial use. Balancing performance with associated costs and privacy concerns, the LLaMA-2-7B model looks more promising for industrial usage. In sum, this paper offers practical insights on using LLMs for real-world business meeting summarization, shedding light on the trade-offs between performance and cost.</abstract>
+      <url hash="9166ae2b">2023.emnlp-industry.33</url>
+      <bibkey>laskar-etal-2023-building</bibkey>
+    </paper>
+    <paper id="34">
+      <title>Creator Context for Tweet Recommendation</title>
+      <author><first>Spurthi</first><last>Amba Hombaiah</last></author>
+      <author><first>Tao</first><last>Chen</last></author>
+      <author><first>Mingyang</first><last>Zhang</last></author>
+      <author><first>Michael</first><last>Bendersky</last></author>
+      <author><first>Marc</first><last>Najork</last></author>
+      <author><first>Matt</first><last>Colen</last></author>
+      <author><first>Sergey</first><last>Levi</last></author>
+      <author><first>Vladimir</first><last>Ofitserov</last></author>
+      <author><first>Tanvir</first><last>Amin</last></author>
+      <pages>353-363</pages>
+      <abstract>When discussing a tweet, people usually not only refer to the content it delivers, but also to the person behind the tweet. In other words, grounding the interpretation of the tweet in the context of its creator plays an important role in deciphering the true intent and the importance of the tweet. In this paper, we attempt to answer the question of how creator context should be used to advance tweet understanding. Specifically, we investigate the usefulness of different types of creator context, and examine different model structures for incorporating creator context in tweet modeling. We evaluate our tweet understanding models on a practical use case – recommending relevant tweets to news articles. This use case already exists in popular news apps, and can also serve as a useful assistive tool for journalists. We discover that creator context is essential for tweet understanding, and can improve application metrics by a large margin. However, we also observe that not all creator contexts are equal. Creator context can be time sensitive and noisy. Careful creator context selection and deliberate model structure design play an important role in creator context effectiveness.</abstract>
+      <url hash="472b6e44">2023.emnlp-industry.34</url>
+      <bibkey>amba-hombaiah-etal-2023-creator</bibkey>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>A</fixed-case>da<fixed-case>BERT</fixed-case>-<fixed-case>CTC</fixed-case>: Leveraging <fixed-case>BERT</fixed-case>-<fixed-case>CTC</fixed-case> for Text-Only Domain Adaptation in <fixed-case>ASR</fixed-case></title>
+      <author><first>Tyler</first><last>Vuong</last></author>
+      <author><first>Karel</first><last>Mundnich</last></author>
+      <author><first>Dhanush</first><last>Bekal</last></author>
+      <author><first>Veera</first><last>Elluru</last></author>
+      <author><first>Srikanth</first><last>Ronanki</last></author>
+      <author><first>Sravan</first><last>Bodapati</last></author>
+      <pages>364-371</pages>
+      <abstract>End-to-end (E2E) automatic speech recognition (ASR) models are becoming increasingly popular in commercial applications, such as virtual assistants, closed captioning, and dictation systems. The accuracy of the ASR is crucial to their success. However, E2E models still struggle to recognize out-of-domain words such as proper nouns and domain-specific terms. In this paper we introduce AdaBERT-CTC, a domain adaptation technique that relies solely on textual data. Our method allows for text-only adaptation by fine-tuning a pre-trained self-supervised text encoder model. Additionally, we show that our method can be made parameter-efficient by adding bottleneck adapters to the pre-trained model. This allows for adaptation with less than a 5% increase in parameters and minimal computational overhead during inference. We demonstrate that our approach outperforms the base BERT-CTC model by up to 14% relative word error rate improvement on several out-of-domain, publicly available datasets.</abstract>
+      <url hash="67d641d7">2023.emnlp-industry.35</url>
+      <bibkey>vuong-etal-2023-adabert</bibkey>
+    </paper>
+    <paper id="36">
+      <title>Conversing with databases: Practical Natural Language Querying</title>
+      <author><first>Denis</first><last>Kochedykov</last></author>
+      <author><first>Fenglin</first><last>Yin</last></author>
+      <author><first>Sreevidya</first><last>Khatravath</last></author>
+      <pages>372-379</pages>
+      <abstract>In this work, we designed, developed and released in production DataQue – a hybrid NLQ (Natural Language Querying) system for conversational DB querying. We address multiple practical problems that are not accounted for in public Text-to-SQL solutions – numerous complex implied conditions in user questions, jargon and abbreviations, custom calculations, non-SQL operations, a need to inject all those into pipeline fast and to have guaranteed parsing results for demanding users, cold-start problem. The DataQue processing pipeline for Text-to-SQL translation consists of 10-15 model-based and rule-based components that allows to tightly control the processing.</abstract>
+      <url hash="3c3e3865">2023.emnlp-industry.36</url>
+      <bibkey>kochedykov-etal-2023-conversing</bibkey>
+    </paper>
+    <paper id="37">
+      <title><fixed-case>AART</fixed-case>: <fixed-case>AI</fixed-case>-Assisted Red-Teaming with Diverse Data Generation for New <fixed-case>LLM</fixed-case>-powered Applications</title>
+      <author><first>Bhaktipriya</first><last>Radharapu</last></author>
+      <author><first>Kevin</first><last>Robinson</last></author>
+      <author><first>Lora</first><last>Aroyo</last></author>
+      <author><first>Preethi</first><last>Lahoti</last></author>
+      <pages>380-395</pages>
+      <abstract>Adversarially testing large language models (LLMs) is crucial for their safe and responsible deployment in practice. We introduce an AI-assisted approach for automated generation of adversarial evaluation datasets to test the safety of LLM generations on new downstream applications. We call it AART AI-assisted Red-Teaming - an automated alternative to current manual red-teaming efforts. AART offers a data generation and augmentation pipeline of reusable and customizable recipes that reduce significantly human effort and enable integration of adversarial testing earlier in new product development. AART generates evaluation datasets with high diversity of content characteristics critical for effective adversarial testing (e.g. sensitive and harmful concepts, specific to a wide range of cultural and geographic regions and application scenarios). The data generation is steered by AI-assisted recipes to define, scope and prioritize diversity within a new application context. This feeds into a structured LLM-generation process that scales up evaluation priorities. This provides transparency of developers evaluation intentions and enables quick adaptation to new use cases and newly discovered model weaknesses. Compared to some of the state-of-the-art tools AART shows promising results in terms of concept coverage and data quality.</abstract>
+      <url hash="758bea50">2023.emnlp-industry.37</url>
+      <bibkey>radharapu-etal-2023-aart</bibkey>
+    </paper>
+    <paper id="38">
+      <title>Speakerly: A Voice-based Writing Assistant for Text Composition</title>
+      <author><first>Dhruv</first><last>Kumar</last></author>
+      <author><first>Vipul</first><last>Raheja</last></author>
+      <author><first>Alice</first><last>Kaiser-Schatzlein</last></author>
+      <author><first>Robyn</first><last>Perry</last></author>
+      <author><first>Apurva</first><last>Joshi</last></author>
+      <author><first>Justin</first><last>Hugues-Nuger</last></author>
+      <author><first>Samuel</first><last>Lou</last></author>
+      <author><first>Navid</first><last>Chowdhury</last></author>
+      <pages>396-407</pages>
+      <abstract>We present Speakerly, a new real-time voice-based writing assistance system that helps users with text composition across various use cases such as emails, instant messages, and notes. The user can interact with the system through instructions or dictation, and the system generates a well-formatted and coherent document. We describe the system architecture and detail how we address the various challenges while building and deploying such a system at scale. More specifically, our system uses a combination of small, task-specific models as well as pre-trained language models for fast and effective text composition while supporting a variety of input modes for better usability.</abstract>
+      <url hash="48709cfb">2023.emnlp-industry.38</url>
+      <bibkey>kumar-etal-2023-speakerly</bibkey>
+    </paper>
+    <paper id="39">
+      <title>Are <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> and <fixed-case>GPT</fixed-case>-4 General-Purpose Solvers for Financial Text Analytics? A Study on Several Typical Tasks</title>
+      <author><first>Xianzhi</first><last>Li</last></author>
+      <author><first>Samuel</first><last>Chan</last></author>
+      <author><first>Xiaodan</first><last>Zhu</last></author>
+      <author><first>Yulong</first><last>Pei</last></author>
+      <author><first>Zhiqiang</first><last>Ma</last></author>
+      <author><first>Xiaomo</first><last>Liu</last></author>
+      <author><first>Sameena</first><last>Shah</last></author>
+      <pages>408-422</pages>
+      <abstract>The most recent large language models (LLMs) such as ChatGPT and GPT-4 have shown exceptional capabilities of generalist models, achieving state-of-the-art performance on a wide range of NLP tasks with little or no adaptation. How effective are such models in the finance domain? Understanding this basic question would have a significant impact on many downstream financial analytical tasks. In this paper, we conduct empirical studies and provide experimental evidences of their performance on a wide variety of financial text analytical problems, using eight benchmark datasets from five categories of tasks. We report both the strengths and limitations of the current models by comparing them to the state-of-the-art fine-tuned approaches and the recently released domain-specific pretrained models. We hope our study can help to understand the capability of the existing models in the financial domain and facilitate further improvements.</abstract>
+      <url hash="97881fc8">2023.emnlp-industry.39</url>
+      <bibkey>li-etal-2023-chatgpt</bibkey>
+    </paper>
+    <paper id="40">
+      <title><fixed-case>CL</fixed-case>-<fixed-case>QR</fixed-case>: Cross-Lingual Enhanced Query Reformulation for Multi-lingual Conversational <fixed-case>AI</fixed-case> Agents</title>
+      <author><first>Zhongkai</first><last>Sun</last></author>
+      <author><first>Zhengyang</first><last>Zhao</last></author>
+      <author><first>Sixing</first><last>Lu</last></author>
+      <author><first>Chengyuan</first><last>Ma</last></author>
+      <author><first>Xiaohu</first><last>Liu</last></author>
+      <author><first>Xing</first><last>Fan</last></author>
+      <author><first>Wei</first><last>Shen</last></author>
+      <author><first>Chenlei</first><last>Guo</last></author>
+      <pages>423-431</pages>
+      <abstract>The growing popularity of conversational AI agents such as Alexa, Google Assistant, and Siri rely on accurate spoken language comprehension. The query reformulation (QR) method, which reformulates defective user queries, has been broadly adopted to mitigate the challenges posed by understanding user’s intent from imperfect spoken recognition result. However, due to the scarcity of non-English QR labels, providing high-quality QR for non-English users still remains a challenge. This work proposes a novel cross-lingual QR framework, CL-QR, to leverage the abundant reformulation resources in English to improve non-English QR performance. The proposed work also proposes a Module-wise Mutually-supervised Feedback learning (MMF) algorithm to enable the continually self-improving of the CL-QR, which alleviates the lack of cross-lingual QR training data and enhances the delivery of high-quality reformulations learned in English for multilingual queries. Both offline evaluation and online A/B testing demonstrates the effectiveness of the proposed method.</abstract>
+      <url hash="9fa12227">2023.emnlp-industry.40</url>
+      <bibkey>sun-etal-2023-cl</bibkey>
+    </paper>
+    <paper id="41">
+      <title>Improving Contextual Query Rewrite for Conversational <fixed-case>AI</fixed-case> Agents through User-preference Feedback Learning</title>
+      <author><first>Zhongkai</first><last>Sun</last></author>
+      <author><first>Yingxue</first><last>Zhou</last></author>
+      <author><first>Jie</first><last>Hao</last></author>
+      <author><first>Xing</first><last>Fan</last></author>
+      <author><first>Yanbin</first><last>Lu</last></author>
+      <author><first>Chengyuan</first><last>Ma</last></author>
+      <author><first>Wei</first><last>Shen</last></author>
+      <author><first>Chenlei</first><last>Guo</last></author>
+      <pages>432-439</pages>
+      <abstract>Contextual query rewriting (CQR) is a crucial component in Conversational AI agents, leveraging the contextual information from previous user-agent conversations to improve the comprehension of current user intent. However, traditional CQR methods often concentrate on supervised fine-tuning only, neglecting the opportunities to learn from user feedback to align with user preferences. Inspired by recent advances in learning from human feedback (LHF), this paper proposes a novel Preference Aligned Contextual Query Rewriting (PA-CQR) framework to enhance the CQR model’s capability in generating user preference-aligned rewrites. This paper also investigates the efficacy of various state-of-the-art feedback learning algorithms on the CQR task, and proposes a novel Dynamic Direct Preference Optimization (Dynamic DPO) algorithm to better adapt the DPO algorithm to large-scale CQR training. Experiments on large-scale real-world CQR data set demonstrate the superiority of the proposed PA-CQR framework and the Dynamic DPO.</abstract>
+      <url hash="0b1ac51c">2023.emnlp-industry.41</url>
+      <bibkey>sun-etal-2023-improving</bibkey>
+    </paper>
+    <paper id="42">
+      <title>Scaling Neural <fixed-case>ITN</fixed-case> for Numbers and Temporal Expressions in <fixed-case>T</fixed-case>amil: Findings for an Agglutinative Low-resource Language</title>
+      <author><first>Bhavuk</first><last>Singhal</last></author>
+      <author><first>Sindhuja</first><last>Gopalan</last></author>
+      <author><first>Amrith</first><last>Krishna</last></author>
+      <author><first>Malolan</first><last>Chetlur</last></author>
+      <pages>440-450</pages>
+      <abstract>ITN involves rewriting the verbalised form of text from spoken transcripts to its corresponding written form. The task inherently expects challenges in identifying ITN entries due to spelling variations in words arising out of dialects, transcription errors etc. Additionally, in Tamil, word boundaries between adjacent words in a sentence often get obscured due to Punarchi, i.e. phonetic transformation of these boundaries. Being morphologically rich, the words in Tamil show a high degree of agglutination due to inflection and clitics. The combination of such factors leads to a high degree of surface-form variations, making scalability with pure rule-based approaches difficult. Instead, we experiment with fine-tuning three pre-trained neural LMs, consisting of a seq2seq model (s2s), a non-autoregressive text editor (NAR) and a sequence tagger + rules combination (tagger). While the tagger approach works best in a fully-supervised setting, s2s performs the best (98.05 F-Score) when augmented with additional data, via bootstrapping and data augmentation (DA&amp;B). S2S reports a cumulative percentage improvement of 20.1 %, and statistically significant gains for all our models with DA&amp;B. Compared to a fully supervised setup, bootstrapping alone reports a percentage improvement as high as 14.12 %, even with a small seed set of 324 ITN entries.</abstract>
+      <url hash="ed87d6e8">2023.emnlp-industry.42</url>
+      <bibkey>singhal-etal-2023-scaling</bibkey>
+    </paper>
+    <paper id="43">
+      <title><fixed-case>EELBERT</fixed-case>: Tiny Models through Dynamic Embeddings</title>
+      <author><first>Gabrielle</first><last>Cohn</last></author>
+      <author><first>Rishika</first><last>Agarwal</last></author>
+      <author><first>Deepanshu</first><last>Gupta</last></author>
+      <author><first>Siddharth</first><last>Patwardhan</last></author>
+      <pages>451-459</pages>
+      <abstract>We introduce EELBERT, an approach for compression of transformer-based models (e.g., BERT), with minimal impact on the accuracy of downstream tasks. This is achieved by replacing the input embedding layer of the model with dynamic, i.e. on-the-fly, embedding computations. Since the input embedding layer occupies a large portion of the model size, especially for the smaller BERT variants, replacing this layer with an embedding computation function helps us reduce the model size significantly. Empirical evaluation on the GLUE benchmark shows that our BERT variants (EELBERT) suffer minimal regression compared to the traditional BERT models. Through this approach, we are able to develop our smallest model UNO-EELBERT, which achieves a GLUE score within 4% of fully trained BERT-tiny, while being 15x smaller (1.2 MB) in size.</abstract>
+      <url hash="42fb9503">2023.emnlp-industry.43</url>
+      <bibkey>cohn-etal-2023-eelbert</bibkey>
+    </paper>
+    <paper id="44">
+      <title>Gold Standard <fixed-case>B</fixed-case>angla <fixed-case>OCR</fixed-case> Dataset: An In-Depth Look at Data Preprocessing and Annotation Processes</title>
+      <author><first>Hasmot</first><last>Ali</last></author>
+      <author><first>AKM Shahariar Azad</first><last>Rabby</last></author>
+      <author><first>Md Majedul</first><last>Islam</last></author>
+      <author><first>A.k.m</first><last>Mahamud</last></author>
+      <author><first>Nazmul</first><last>Hasan</last></author>
+      <author><first>Fuad</first><last>Rahman</last></author>
+      <pages>460-470</pages>
+      <abstract>This research paper focuses on developing an improved Bangla Optical Character Recognition (OCR) system, addressing the challenges posed by the complexity of Bangla text structure, diverse handwriting styles, and the scarcity of comprehensive datasets. Leveraging recent advancements in Deep Learning and OCR techniques, we anticipate a significant enhancement in the performance of Bangla OCR by utilizing a large and diverse collection of labeled Bangla text image datasets. This study introduces the most extensive gold standard corpus for Bangla characters and words, comprising over 4 million human-annotated images. Our dataset encompasses various document types, such as Computer Compose, Letterpress, Typewriters, Outdoor Banner-Poster, and Handwritten documents, gathered from diverse sources. The entire corpus has undergone meticulous human annotation, employing a controlled annotation procedure consisting of three-step annotation and one-step validation, ensuring adherence to gold standard criteria. This paper provides a comprehensive overview of the complete data collection procedure. The ICT Division, Government of the People’s Republic of Bangladesh, will make the dataset publicly available, facilitating further research and development in Bangla OCR and related domains.</abstract>
+      <url hash="f1594ba0">2023.emnlp-industry.44</url>
+      <bibkey>ali-etal-2023-gold</bibkey>
+    </paper>
+    <paper id="45">
+      <title><fixed-case>PILLOW</fixed-case>: Enhancing Efficient Instruction Fine-tuning via Prompt Matching</title>
+      <author><first>Zhenting</first><last>Qi</last></author>
+      <author><first>Xiaoyu</first><last>Tan</last></author>
+      <author><first>Shaojie</first><last>Shi</last></author>
+      <author><first>Chao</first><last>Qu</last></author>
+      <author><first>Yinghui</first><last>Xu</last></author>
+      <author><first>Yuan</first><last>Qi</last></author>
+      <pages>471-482</pages>
+      <abstract>Instruction fine-tuning has conventionally been employed to adapt Large Language Models (LLMs) to a variety of diverse tasks. Nonetheless, this technique often necessitates substantial computational resources, making it impractical for deployment by individuals or small-scale entities. Recently, Low-Rank Adaptation (LoRA) has become a promising alternative, offering tuning capabilities with reduced resource overhead. However, attaining satisfactory performance through the fine-tuning of LoRA is a non-trivial challenge. In this paper, we propose PILLOW, which aims to improve LoRA’s performance by leveraging LLM’s in-context learning capability through prompt matching via reinforcement learning in resource-constrained environments. Specifically, PILLOW incorporates a matching network that selects prompts from a user-defined pool, concatenates the optimal prompts given the user instruction, and performs inference using the LoRA-fine-tuned LLMs. Compared with typical instruction fine-tuning methods, PILLOW exhibits commensurate performance on various evaluation metrics, utilizing only consumer-grade GPU resources and exhibiting a large increase in training efficiency.</abstract>
+      <url hash="1c51c976">2023.emnlp-industry.45</url>
+      <bibkey>qi-etal-2023-pillow</bibkey>
+    </paper>
+    <paper id="46">
+      <title>Welcome to the Real World: Efficient, Incremental and Scalable Key Point Analysis</title>
+      <author><first>Lilach</first><last>Eden</last></author>
+      <author><first>Yoav</first><last>Kantor</last></author>
+      <author><first>Matan</first><last>Orbach</last></author>
+      <author><first>Yoav</first><last>Katz</last></author>
+      <author><first>Noam</first><last>Slonim</last></author>
+      <author><first>Roy</first><last>Bar-Haim</last></author>
+      <pages>483-491</pages>
+      <abstract>Key Point Analysis (KPA) is an emerging summarization framework, which extracts the main points from a collection of opinions, and quantifies their prevalence. It has been successfully applied to diverse types of data, including arguments, user reviews and survey responses. Despite the growing academic interest in KPA, little attention has been given to the practical challenges of implementing a KPA system in production. This work presents a deployed KPA system, which regularly serves multiple teams in our organization. We discuss the main challenges we faced while building a real-world KPA system, as well as the architecture and algorithmic improvements we developed to address these challenges. Specifically, we focus on efficient matching of sentences to key points, incremental processing, scalability and resiliency. The value of our contributions is demonstrated in an extensive set of experiments, over five existing and novel datasets. Finally, we describe several use cases of the deployed system, which illustrate its practical value.</abstract>
+      <url hash="79108170">2023.emnlp-industry.46</url>
+      <bibkey>eden-etal-2023-welcome</bibkey>
+    </paper>
+    <paper id="47">
+      <title>Automatic Linking of Judgements to <fixed-case>UK</fixed-case> <fixed-case>S</fixed-case>upreme <fixed-case>C</fixed-case>ourt Hearings</title>
+      <author><first>Hadeel</first><last>Saadany</last></author>
+      <author><first>Constantin</first><last>Orasan</last></author>
+      <pages>492-500</pages>
+      <abstract>One the most important archived legal material in the UK is the Supreme Court published judgements and video recordings of court sittings for the decided cases. The impact of Supreme Court published material extends far beyond the parties involved in any given case as it provides landmark rulings on arguable points of law of the greatest public and constitutional importance. However, the recordings of a case are usually very long which makes it both time and effort consuming for legal professionals to study the critical arguments in the legal deliberations. In this research, we summarise the second part of a combined research-industrial project for building an automated tool designed specifically to link segments in the text judgement to semantically relevant timespans in the videos of the hearings. The tool is employed as a User-Interface (UI) platform that provides a better access to justice by bookmarking the timespans in the videos which contributed to the final judgement of the case. We explain how we employ AI generative technology to retrieve the relevant links and show that the customisation of the GPT text embeddings to our dataset achieves the best accuracy for our automatic linking system.</abstract>
+      <url hash="539c3dca">2023.emnlp-industry.47</url>
+      <bibkey>saadany-orasan-2023-automatic</bibkey>
+    </paper>
+    <paper id="48">
+      <title>Automatic Marketing Theme and Commodity Construction System for <fixed-case>E</fixed-case>-commerce</title>
+      <author><first>Zhiping</first><last>Wang</last></author>
+      <author><first>Peng</first><last>Lin</last></author>
+      <author><first>Hainan</first><last>Zhang</last></author>
+      <author><first>Hongshen</first><last>Chen</last></author>
+      <author><first>Tianhao</first><last>Li</last></author>
+      <author><first>Zhuoye</first><last>Ding</last></author>
+      <author><first>Sulong</first><last>Xu</last></author>
+      <author><first>Jinghe</first><last>Hu</last></author>
+      <pages>501-508</pages>
+      <abstract>When consumers’ shopping needs are concentrated, they are more interested in the collection of commodities under the specific marketing theme. Therefore, mining marketing themes and their commodities collections can help customers save shopping costs and improve user clicks and purchases for recommendation system. However, the current system invites experts to write marketing themes and select the relevant commodities, which suffer from difficulty in mass production, poor timeliness and low online indicators. Therefore, we propose a automatic marketing theme and commodity construction system, which can not only generate popular marketing themes and select the relevant commodities automatically, but also improve the theme online effectiveness in the recommendation system. Specifically, we firstly utilize the pretrained language model to generate the marketing themes. And then, we utilize the theme-commodity consistency module to select the relevant commodities for the above generative theme. What’s more, we also build the indicator simulator to evaluate the effectiveness of the above generative theme. When the indicator is lower, the above selective commodities will be input into the theme-rewriter module to generate more efficient marketing themes. Finally, we utilize the human screening to control the system quality. Both the offline experiments and online A/B test demonstrate the superior performance of our proposed system compared with state-of-the-art methods.</abstract>
+      <url hash="f4dd5735">2023.emnlp-industry.48</url>
+      <bibkey>wang-etal-2023-automatic</bibkey>
+    </paper>
+    <paper id="49">
+      <title>Towards Safer Operations: An Expert-involved Dataset of High-Pressure Gas Incidents for Preventing Future Failures</title>
+      <author><first>Shumpei</first><last>Inoue</last></author>
+      <author><first>Minh-Tien</first><last>Nguyen</last></author>
+      <author><first>Hiroki</first><last>Mizokuchi</last></author>
+      <author><first>Tuan-Anh</first><last>Nguyen</last></author>
+      <author><first>Huu-Hiep</first><last>Nguyen</last></author>
+      <author><first>Dung</first><last>Le</last></author>
+      <pages>509-521</pages>
+      <abstract>This paper introduces a new IncidentAI dataset for safety prevention. Different from prior corpora that usually contain a single task, our dataset comprises three tasks: named entity recognition, cause-effect extraction, and information retrieval. The dataset is annotated by domain experts who have at least six years of practical experience as high-pressure gas conservation managers. We validate the contribution of the dataset in the scenario of safety prevention. Preliminary results on the three tasks show that NLP techniques are beneficial for analyzing incident reports to prevent future failures. The dataset facilitates future research in NLP and incident management communities. The access to the dataset is also provided (The IncidentAI dataset is available at: https://github.com/Cinnamon/incident-ai-dataset).</abstract>
+      <url hash="2a0904d2">2023.emnlp-industry.49</url>
+      <bibkey>inoue-etal-2023-towards</bibkey>
+    </paper>
+    <paper id="50">
+      <title>An Auxiliary Task Boosted Multi-task Learning Method for Service Account Retrieval with Limited Human Annotation</title>
+      <author><first>Yuanzhou</first><last>Yao</last></author>
+      <author><first>Zhao</first><last>Zhang</last></author>
+      <author><first>Kaijia</first><last>Yang</last></author>
+      <author><first>Huasheng</first><last>Liang</last></author>
+      <author><first>Qiang</first><last>Yan</last></author>
+      <author><first>Yongjun</first><last>Xu</last></author>
+      <pages>522-531</pages>
+      <abstract>Service accounts, including organizations’ official accounts and mini-programs, provide various convenient services for users, and have become crucial components of a number of applications. Therefore, retrieving service accounts quickly and accurately is vital. However, this task suffers from the problem of limited human annotation, i.e., manually assessing account functionality and assigning ratings based on user experience is both labor-intensive and time-consuming. To this end, this paper proposes a novel approach, the Auxiliary task Boosted Multi-Task Learning method (AuxBoost-MTL). Specifically, the proposed method introduces multiple auxiliary tasks, which is able to utilized the log data from our application as supervision, and enhance the performance of the main task, service account retrieval. Furthermore, we introduce an Adaptive Hierarchical Fusion Module (AHF module) into our approach. This module is designed to adaptively perform hierarchical fusion of embeddings from auxiliary tasks into the main task, thereby enhancing the model efficacy. Experiments on two real-world industrial datasets demonstrate the effectiveness of our proposed approach.</abstract>
+      <url hash="69a261d9">2023.emnlp-industry.50</url>
+      <bibkey>yao-etal-2023-auxiliary</bibkey>
+    </paper>
+    <paper id="51">
+      <title><fixed-case>VKIE</fixed-case>: The Application of Key Information Extraction on Video Text</title>
+      <author><first>Siyu</first><last>An</last></author>
+      <author><first>Ye</first><last>Liu</last></author>
+      <author><first>Haoyuan</first><last>Peng</last></author>
+      <author><first>Di</first><last>Yin</last></author>
+      <pages>532-540</pages>
+      <abstract>Extracting structured information from videos is critical for numerous downstream applications in the industry. In this paper, we define a significant task of extracting hierarchical key information from visual texts on videos. To fulfill this task, we decouple it into four subtasks and introduce two implementation solutions called PipVKIE and UniVKIE. PipVKIE sequentially completes the four subtasks in continuous stages, while UniVKIE is improved by unifying all the subtasks into one backbone. Both PipVKIE and UniVKIE leverage multimodal information from vision, text, and coordinates for feature representation. Extensive experiments on one well-defined dataset demonstrate that our solutions can achieve remarkable performance and efficient inference speed.</abstract>
+      <url hash="e7fefe21">2023.emnlp-industry.51</url>
+      <bibkey>an-etal-2023-vkie</bibkey>
+    </paper>
+    <paper id="52">
+      <title>Investigating the Role and Impact of Disfluency on Summarization</title>
+      <author><first>Varun</first><last>Nathan</last></author>
+      <author><first>Ayush</first><last>Kumar</last></author>
+      <author><first>Jithendra</first><last>Vepa</last></author>
+      <pages>541-551</pages>
+      <abstract>Contact centers handle both chat and voice calls for the same domain. As part of their workflow, it is a standard practice to summarize the conversations once they conclude. A significant distinction between chat and voice communication lies in the presence of disfluencies in voice calls, such as repetitions, restarts, and replacements. These disfluencies are generally considered noise for downstream natural language understanding (NLU) tasks. While a separate summarization model for voice calls can be trained in addition to chat specific model for the same domain, it requires manual annotations for both the channels and adds complexity arising due to maintaining two models. Therefore, it’s crucial to investigate if a model trained on fluent data can handle disfluent data effectively. While previous research explored impact of disfluency on question-answering and intent detection, its influence on summarization is inadequately studied. Our experiments reveal up to 6.99-point degradation in Rouge-L score, along with reduced fluency, consistency, and relevance when a fluent-trained model handles disfluent data. Replacement disfluencies have the highest negative impact. To mitigate this, we examine Fused-Fine Tuning by training the model with a combination of fluent and disfluent data, resulting in improved performance on both public and real-life datasets. Our work highlights the significance of incorporating disfluency in training summarization models and its advantages in an industrial setting.</abstract>
+      <url hash="7e4e720c">2023.emnlp-industry.52</url>
+      <bibkey>nathan-etal-2023-investigating</bibkey>
+    </paper>
+    <paper id="53">
+      <title><fixed-case>I</fixed-case>nsight<fixed-case>N</fixed-case>et : Structured Insight Mining from Customer Feedback</title>
+      <author><first>Sandeep Sricharan</first><last>Mukku</last></author>
+      <author><first>Manan</first><last>Soni</last></author>
+      <author><first>Chetan</first><last>Aggarwal</last></author>
+      <author><first>Jitenkumar</first><last>Rana</last></author>
+      <author><first>Promod</first><last>Yenigalla</last></author>
+      <author><first>Rashmi</first><last>Patange</last></author>
+      <author><first>Shyam</first><last>Mohan</last></author>
+      <pages>552-566</pages>
+      <abstract>We propose InsightNet, a novel approach for the automated extraction of structured insights from customer reviews. Our end-to-end machine learning framework is designed to overcome the limitations of current solutions, including the absence of structure for identified topics, non-standard aspect names, and lack of abundant training data. The proposed solution builds a semi-supervised multi-level taxonomy from raw reviews, a semantic similarity heuristic approach to generate labelled data and employs a multi-task insight extraction architecture by fine-tuning an LLM. InsightNet identifies granular actionable topics with customer sentiments and verbatim for each topic. Evaluations on real-world customer review data show that InsightNet performs better than existing solutions in terms of structure, hierarchy and completeness. We empirically demonstrate that InsightNet outperforms the current state-of-the-art methods in multi-label topic classification, achieving an F1 score of 0.85, which is an improvement of 11% F1-score over the previous best results. Additionally, InsightNet generalises well for unseen aspects and suggests new topics to be added to the taxonomy.</abstract>
+      <url hash="bf643bfc">2023.emnlp-industry.53</url>
+      <bibkey>mukku-etal-2023-insightnet</bibkey>
+    </paper>
+    <paper id="54">
+      <title><fixed-case>E</fixed-case>2<fixed-case>E</fixed-case> Spoken Entity Extraction for Virtual Agents</title>
+      <author><first>Karan</first><last>Singla</last></author>
+      <author><first>Yeon-Jun</first><last>Kim</last></author>
+      <author><first>Srinivas</first><last>Bangalore</last></author>
+      <pages>567-574</pages>
+      <abstract>In human-computer conversations, extracting entities such as names, street addresses and email addresses from speech is a challenging task. In this paper, we study the impact of fine-tuning pre-trained speech encoders on extracting spoken entities in human-readable form directly from speech without the need for text transcription. We illustrate that such a direct approach optimizes the encoder to transcribe only the entity relevant portions of speech ignoring the superfluous portions such as carrier phrases, or spell name entities. In the context of dialog from an enterprise virtual agent, we demonstrate that the 1-step approach outperforms the typical 2-step approach which first generates lexical transcriptions followed by text-based entity extraction for identifying spoken entities.</abstract>
+      <url hash="7eb034ca">2023.emnlp-industry.54</url>
+      <bibkey>singla-etal-2023-e2e</bibkey>
+    </paper>
+    <paper id="55">
+      <title>Generative Models for Product Attribute Extraction</title>
+      <author><first>Ansel</first><last>Blume</last></author>
+      <author><first>Nasser</first><last>Zalmout</last></author>
+      <author><first>Heng</first><last>Ji</last></author>
+      <author><first>Xian</first><last>Li</last></author>
+      <pages>575-585</pages>
+      <abstract>Product attribute extraction is an emerging field in information extraction and e-commerce, with applications including knowledge base construction, product recommendation, and enhancing customer experiences. In this work, we explore the use of generative models for product attribute extraction. We analyze their utility with hard and soft prompting methods, and demonstrate their ability to generate implicit attribute values, which state-of-the-art sequence tagging models are unable to extract. We perform a wide range of experiments on Amazon and MAVE product attribute datasets, and are the first to present results on multilingual attribute extraction. Our results show that generative models can outperform state- of-the-art tagging models for explicit product attribute extraction while having greater data efficiency, that they have the unique ability to perform implicit attribute extraction, and that in certain settings large language models can perform competitively with finetuned models with as little as two in-context examples.</abstract>
+      <url hash="94ed2df2">2023.emnlp-industry.55</url>
+      <bibkey>blume-etal-2023-generative</bibkey>
+    </paper>
+    <paper id="56">
+      <title><fixed-case>C</fixed-case>ar<fixed-case>E</fixed-case>xpert: Leveraging Large Language Models for In-Car Conversational Question Answering</title>
+      <author><first>Md Rashad Al Hasan</first><last>Rony</last></author>
+      <author><first>Christian</first><last>Suess</last></author>
+      <author><first>Sinchana Ramakanth</first><last>Bhat</last></author>
+      <author><first>Viju</first><last>Sudhi</last></author>
+      <author><first>Julia</first><last>Schneider</last></author>
+      <author><first>Maximilian</first><last>Vogel</last></author>
+      <author><first>Roman</first><last>Teucher</last></author>
+      <author><first>Ken</first><last>Friedl</last></author>
+      <author><first>Soumya</first><last>Sahoo</last></author>
+      <pages>586-604</pages>
+      <abstract>Large language models (LLMs) have demonstrated remarkable performance by following natural language instructions without fine-tuning them on domain-specific tasks and data. However, leveraging LLMs for domain-specific question answering suffers from severe limitations. The generated answer tends to hallucinate due to the training data collection time (when using off-the-shelf), complex user utterance and wrong retrieval (in retrieval-augmented generation). Furthermore, due to the lack of awareness about the domain and expected output, such LLMs may generate unexpected and unsafe answers that are not tailored to the target domain. In this paper, we propose CarExpert, an in-car retrieval-augmented conversational question-answering system leveraging LLMs for different tasks. Specifically, CarExpert employs LLMs to control the input, provide domain-specific documents to the extractive and generative answering components, and controls the output to ensure safe and domain-specific answers. A comprehensive empirical evaluation exhibits that CarExpert outperforms state-of-the-art LLMs in generating natural, safe and car-specific answers.</abstract>
+      <url hash="ec6cfe2c">2023.emnlp-industry.56</url>
+      <bibkey>rony-etal-2023-carexpert</bibkey>
+    </paper>
+    <paper id="57">
+      <title><fixed-case>BUSTER</fixed-case>: a “<fixed-case>BUS</fixed-case>iness Transaction Entity Recognition” dataset</title>
+      <author><first>Andrea</first><last>Zugarini</last></author>
+      <author><first>Andrew</first><last>Zamai</last></author>
+      <author><first>Marco</first><last>Ernandes</last></author>
+      <author><first>Leonardo</first><last>Rigutini</last></author>
+      <pages>605-611</pages>
+      <abstract>Albeit Natural Language Processing has seen major breakthroughs in the last few years, transferring such advances into real-world business cases can be challenging. One of the reasons resides in the displacement between popular benchmarks and actual data. Lack of supervision, unbalanced classes, noisy data and long documents often affect real problems in vertical domains such as finance, law and health. To support industry-oriented research, we present BUSTER, a BUSiness Transaction Entity Recognition dataset. The dataset consists of 3779 manually annotated documents on financial transactions. We establish several baselines exploiting both general-purpose and domain-specific language models. The best performing model is also used to automatically annotate 6196 documents, which we release as an additional silver corpus to BUSTER.</abstract>
+      <url hash="348efbd6">2023.emnlp-industry.57</url>
+      <bibkey>zugarini-etal-2023-buster</bibkey>
+    </paper>
+    <paper id="58">
+      <title>Multi-word Tokenization for Sequence Compression</title>
+      <author><first>Leonidas</first><last>Gee</last></author>
+      <author><first>Leonardo</first><last>Rigutini</last></author>
+      <author><first>Marco</first><last>Ernandes</last></author>
+      <author><first>Andrea</first><last>Zugarini</last></author>
+      <pages>612-621</pages>
+      <abstract>Large Language Models have proven highly successful at modelling a variety of tasks. However, this comes at a steep computational cost that hinders wider industrial uptake. In this paper, we present MWT: a Multi-Word Tokenizer that goes beyond word boundaries by representing frequent multi-word expressions as single tokens. MWTs produce a more compact and efficient tokenization that yields two benefits: (1) Increase in performance due to a greater coverage of input data given a fixed sequence length budget; (2) Faster and lighter inference due to the ability to reduce the sequence length with negligible drops in performance. Our results show that MWT is more robust across shorter sequence lengths, thus allowing for major speedups via early sequence truncation.</abstract>
+      <url hash="61dac16f">2023.emnlp-industry.58</url>
+      <bibkey>gee-etal-2023-multi</bibkey>
+    </paper>
+    <paper id="59">
+      <title><fixed-case>J</fixed-case>arvi<fixed-case>X</fixed-case>: A <fixed-case>LLM</fixed-case> No code Platform for Tabular Data Analysis and Optimization</title>
+      <author><first>Shang-Ching</first><last>Liu</last></author>
+      <author><first>ShengKun</first><last>Wang</last></author>
+      <author><first>Tsungyao</first><last>Chang</last></author>
+      <author><first>Wenqi</first><last>Lin</last></author>
+      <author><first>Chung-Wei</first><last>Hsiung</last></author>
+      <author><first>Yi-Chen</first><last>Hsieh</last></author>
+      <author><first>Yu-Ping</first><last>Cheng</last></author>
+      <author><first>Sian-Hong</first><last>Luo</last></author>
+      <author><first>Jianwei</first><last>Zhang</last></author>
+      <pages>622-630</pages>
+      <abstract>In this study, we introduce JarviX, a sophisticated data analytics framework. JarviX is designed to employ Large Language Models (LLMs) to facilitate an automated guide and execute high-precision data analyzes on tabular datasets. This framework emphasizes the significance of varying column types, capitalizing on state-of-the-art LLMs to generate concise data insight summaries, propose relevant analysis inquiries, visualize data effectively, and provide comprehensive explanations for results drawn from an extensive data analysis pipeline. Moreover, JarviX incorporates an automated machine learning (AutoML) pipeline for predictive modeling. This integration forms a comprehensive and automated optimization cycle, which proves particularly advantageous for optimizing machine configuration. The efficacy and adaptability of JarviX are substantiated through a series of practical use case studies.</abstract>
+      <url hash="a0c92bbe">2023.emnlp-industry.59</url>
+      <bibkey>liu-etal-2023-jarvix</bibkey>
+    </paper>
+    <paper id="60">
+      <title>Retrieve and Copy: Scaling <fixed-case>ASR</fixed-case> Personalization to Large Catalogs</title>
+      <author><first>Sai Muralidhar</first><last>Jayanthi</last></author>
+      <author><first>Devang</first><last>Kulshreshtha</last></author>
+      <author><first>Saket</first><last>Dingliwal</last></author>
+      <author><first>Srikanth</first><last>Ronanki</last></author>
+      <author><first>Sravan</first><last>Bodapati</last></author>
+      <pages>631-639</pages>
+      <abstract>Personalization of automatic speech recognition (ASR) models is a widely studied topic because of its many practical applications. Most recently, attention-based contextual biasing techniques are used to improve the recognition of rare words and/or domain specific entities. However, due to performance constraints, the biasing is often limited to a few thousand entities, restricting real-world usability. To address this, we first propose a “Retrieve and Copy” mechanism to improve latency while retaining the accuracy even when scaled to a large catalog. We also propose a training strategy to overcome the degradation in recall at such scale due to an increased number of confusing entities. Overall, our approach achieves up to 6% more Word Error Rate reduction (WERR) and 3.6% absolute improvement in F1 when compared to a strong baseline. Our method also allows for large catalog sizes of up to 20K without significantly affecting WER and F1-scores, while achieving at least 20% inference speedup per acoustic frame.</abstract>
+      <url hash="338a760e">2023.emnlp-industry.60</url>
+      <bibkey>jayanthi-etal-2023-retrieve</bibkey>
+    </paper>
+    <paper id="61">
+      <title><fixed-case>STEER</fixed-case>: Semantic Turn Extension-Expansion Recognition for Voice Assistants</title>
+      <author><first>Leon</first><last>Zhang</last></author>
+      <author><first>Jiarui</first><last>Lu</last></author>
+      <author><first>Joel Ruben Antony</first><last>Moniz</last></author>
+      <author><first>Aditya</first><last>Kulkarni</last></author>
+      <author><first>Dhivya</first><last>Piraviperumal</last></author>
+      <author><first>Tien Dung</first><last>Tran</last></author>
+      <author><first>Nick</first><last>Tzou</last></author>
+      <author><first>Hong</first><last>Yu</last></author>
+      <pages>640-649</pages>
+      <abstract>In the context of a voice assistant system, steering refers to the phenomenon in which a user issues a follow-up command attempting to direct or clarify a previous turn. We propose STEER, a steering detection model that predicts whether a follow-up turn is a user’s attempt to steer the previous command. Constructing a training dataset for steering use cases poses challenges due to the cold-start problem. To overcome this, we developed heuristic rules to sample opt-in usage data, approximating positive and negative samples without any annotation. Our experimental results show promising performance in identifying steering intent, with over 95% accuracy on our sampled data. Moreover, STEER, in conjunction with our sampling strategy, aligns effectively with real-world steering scenarios, as evidenced by its strong zero-shot performance on a human-graded evaluation set. In addition to relying solely on user transcripts as input, we introduce STEER+, an enhanced version of the model. STEER+ utilizes a semantic parse tree to provide more context on out-of-vocabulary words, such as named entities that often occur at the sentence boundary. This further improves model performance, reducing error rate in domains where entities frequently appear, such as messaging. Lastly, we present a data analysis that highlights the improvement in user experience when voice assistants support steering use cases.</abstract>
+      <url hash="2b7961e2">2023.emnlp-industry.61</url>
+      <bibkey>zhang-etal-2023-steer</bibkey>
+    </paper>
+    <paper id="62">
+      <title>Self-Criticism: Aligning Large Language Models with their Understanding of Helpfulness, Honesty, and Harmlessness</title>
+      <author><first>Xiaoyu</first><last>Tan</last></author>
+      <author><first>Shaojie</first><last>Shi</last></author>
+      <author><first>Xihe</first><last>Qiu</last></author>
+      <author><first>Chao</first><last>Qu</last></author>
+      <author><first>Zhenting</first><last>Qi</last></author>
+      <author><first>Yinghui</first><last>Xu</last></author>
+      <author><first>Yuan</first><last>Qi</last></author>
+      <pages>650-662</pages>
+      <abstract>Recently, there has been a notable surge in the significance of large language models (LLMs) that engage in conversational-style interactions, such as ChatGPT and Claude, as they contribute significantly to the progress of artificial general intelligence (AGI). Typically, these models undergo a two-phase fine-tuning process: instruction fine-tuning (IF) and reinforcement learning from human feedback (RLHF). These methods aim to align the LLMs to be helpful, honest, and harmless (HHH). However, RLHF, which incorporates independent reward models trained on high-quality human feedback datasets, incurs high costs in terms of hardware resources and human efforts. Therefore, we explore the possibility of aligning LLMs with their own understanding of HHH through IF and in-context learning (ICL). In this study, we propose a novel framework called Self-Criticism, which allows LLMs to align themselves with HHH based on the definition they learned from a large-scale text corpus. We begin by employing IF on a given instruction set and learning HHH discrimination through few-shot ICL. Subsequently, the LLMs evaluate their own generated responses and learn to produce “better” responses based on self-judgment. Finally, the model is retrained based on the self-generated responses to distill the whole process. By analyzing our proposed method, we also find interesting connections between Self-Criticism and goal-conditioned reinforcement learning, and pseudo-labeling. Experimental results demonstrate that this method achieves nearly identical performance to RLHF in terms of both human evaluation and evaluation by other LLMs, with only a minimal alignment tax.</abstract>
+      <url hash="f358f0f0">2023.emnlp-industry.62</url>
+      <bibkey>tan-etal-2023-self</bibkey>
+    </paper>
+    <paper id="63">
+      <title><fixed-case>I</fixed-case>nstruct<fixed-case>PTS</fixed-case>: Instruction-Tuning <fixed-case>LLM</fixed-case>s for Product Title Summarization</title>
+      <author><first>Besnik</first><last>Fetahu</last></author>
+      <author><first>Zhiyu</first><last>Chen</last></author>
+      <author><first>Oleg</first><last>Rokhlenko</last></author>
+      <author><first>Shervin</first><last>Malmasi</last></author>
+      <pages>663-674</pages>
+      <abstract>E-commerce product catalogs contain billions of items. Most products have lengthy titles, as sellers pack them with product attributes to improve retrieval, and highlight key product aspects. This results in a gap between such unnatural products titles, and how customers refer to them. It also limits how e-commerce stores can use these seller-provided titles for recommendation, QA, or review summarization. Inspired by recent work on instruction-tuned LLMs, we present InstructPTS, a controllable approach for the task of Product Title Summarization (PTS). Trained using a novel instruction fine-tuning strategy, our approach is able to summarize product titles according to various criteria (e.g. number of words in a summary, inclusion of specific phrases, etc.). Extensive evaluation on a real-world e-commerce catalog shows that compared to simple fine-tuning of LLMs, our proposed approach can generate more accurate product name summaries, with an improvement of over 14 and 8 BLEU and ROUGE points, respectively.</abstract>
+      <url hash="8525bcfb">2023.emnlp-industry.63</url>
+      <bibkey>fetahu-etal-2023-instructpts</bibkey>
+    </paper>
+    <paper id="64">
+      <title><fixed-case>LLM</fixed-case>4<fixed-case>V</fixed-case>is: Explainable Visualization Recommendation using <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case></title>
+      <author><first>Lei</first><last>Wang</last></author>
+      <author><first>Songheng</first><last>Zhang</last></author>
+      <author><first>Yun</first><last>Wang</last></author>
+      <author><first>Ee-Peng</first><last>Lim</last></author>
+      <author><first>Yong</first><last>Wang</last></author>
+      <pages>675-692</pages>
+      <abstract>Data visualization is a powerful tool for exploring and communicating insights in various domains. To automate visualization choice for datasets, a task known as visualization recommendation has been proposed. Various machine-learning-based approaches have been developed for this purpose, but they often require a large corpus of dataset-visualization pairs for training and lack natural explanations for their results. To address this research gap, we propose LLM4Vis, a novel ChatGPT-based prompting approach to perform visualization recommendation and return human-like explanations using very few demonstration examples. Our approach involves feature description, demonstration example selection, explanation generation, demonstration example construction, and inference steps. To obtain demonstration examples with high-quality explanations, we propose a new explanation generation bootstrapping to iteratively refine generated explanations by considering the previous generation and template-based hint. Evaluations on the VizML dataset show that LLM4Vis outperforms or performs similarly to supervised learning models like Random Forest, Decision Tree, and MLP, in both few-shot and zero-shot settings. The qualitative evaluation also shows the effectiveness of explanations generated by LLM4Vis.</abstract>
+      <url hash="42f2a10e">2023.emnlp-industry.64</url>
+      <bibkey>wang-etal-2023-llm4vis</bibkey>
+    </paper>
+    <paper id="65">
+      <title><fixed-case>DUBLIN</fixed-case>: Visual Document Understanding By Language-Image Network</title>
+      <author><first>Kriti</first><last>Aggarwal</last></author>
+      <author><first>Aditi</first><last>Khandelwal</last></author>
+      <author><first>Kumar</first><last>Tanmay</last></author>
+      <author><first>Owais Khan</first><last>Mohammed</last></author>
+      <author><first>Qiang</first><last>Liu</last></author>
+      <author><first>Monojit</first><last>Choudhury</last></author>
+      <author><first>Hardik</first><last>Chauhan</last></author>
+      <author><first>Subhojit</first><last>Som</last></author>
+      <author><first>Vishrav</first><last>Chaudhary</last></author>
+      <author><first>Saurabh</first><last>Tiwary</last></author>
+      <pages>693-706</pages>
+      <abstract>In this paper, we present DUBLIN, a pixel-based model for visual document understanding that does not rely on OCR. DUBLIN can process both images and texts in documents just by the pixels and handle diverse document types and tasks. DUBLIN is pretrained on a large corpus of document images with novel tasks that enhance its visual and linguistic abilities. We evaluate DUBLIN on various benchmarks and show that it achieves state-of-the-art performance on extractive tasks such as DocVQA, InfoVQA, AI2D, OCR-VQA, RefExp, and CORD, as well as strong performance on abstraction datasets such as VisualMRC and text captioning. Our model demonstrates the potential of OCR-free document processing and opens new avenues for applications and research.</abstract>
+      <url hash="c07b060c">2023.emnlp-industry.65</url>
+      <bibkey>aggarwal-etal-2023-dublin</bibkey>
+    </paper>
+    <paper id="66">
+      <title><fixed-case>D</fixed-case>ocument<fixed-case>N</fixed-case>et: Bridging the Data Gap in Document Pre-training</title>
+      <author><first>Lijun</first><last>Yu</last></author>
+      <author><first>Jin</first><last>Miao</last></author>
+      <author><first>Xiaoyu</first><last>Sun</last></author>
+      <author><first>Jiayi</first><last>Chen</last></author>
+      <author><first>Alexander</first><last>Hauptmann</last></author>
+      <author><first>Hanjun</first><last>Dai</last></author>
+      <author><first>Wei</first><last>Wei</last></author>
+      <pages>707-722</pages>
+      <abstract>Document understanding tasks, in particular, Visually-rich Document Entity Retrieval (VDER), have gained significant attention in recent years thanks to their broad applications in enterprise AI. However, publicly available data have been scarce for these tasks due to strict privacy constraints and high annotation costs. To make things worse, the non-overlapping entity spaces from different datasets hinder the knowledge transfer between document types. In this paper, we propose a method to collect massive-scale and weakly labeled data from the web to benefit the training of VDER models. The collected dataset, named DocumentNet, does not depend on specific document types or entity sets, making it universally applicable to all VDER tasks. The current DocumentNet consists of 30M documents spanning nearly 400 document types organized in a four-level ontology. Experiments on a set of broadly adopted VDER tasks show significant improvements when DocumentNet is incorporated into the pre-training for both classic and few-shot learning settings. With the recent emergence of large language models (LLMs), DocumentNet provides a large data source to extend their multimodal capabilities for VDER.</abstract>
+      <url hash="64760a93">2023.emnlp-industry.66</url>
+      <bibkey>yu-etal-2023-documentnet</bibkey>
+    </paper>
+    <paper id="67">
+      <title>Relevance-assisted Generation for Robust Zero-shot Retrieval</title>
+      <author><first>Jihyuk</first><last>Kim</last></author>
+      <author><first>Minsoo</first><last>Kim</last></author>
+      <author><first>Joonsuk</first><last>Park</last></author>
+      <author><first>Seung-won</first><last>Hwang</last></author>
+      <pages>723-731</pages>
+      <abstract>Zero-shot retrieval tasks such as the BEIR benchmark reveal out-of-domain generalization as a key weakness of high-performance dense retrievers. As a solution, domain adaptation for dense retrievers has been actively studied. A notable approach is synthesizing domain-specific data, by generating pseudo queries (PQ), for fine-tuning with domain-specific relevance between PQ and documents. Our contribution is showing that key biases can cause sampled PQ to be irrelevant, negatively contributing to generalization. We propose to preempt their generation, by dividing the generation into simpler subtasks, of generating relevance explanations and guiding the generation to avoid negative generalization. Experiment results show that our proposed approach is more robust to domain shifts, validated on challenging BEIR zero-shot retrieval tasks.</abstract>
+      <url hash="3027e24c">2023.emnlp-industry.67</url>
+      <bibkey>kim-etal-2023-relevance</bibkey>
+    </paper>
+    <paper id="68">
+      <title>Too much of product information : Don’t worry, let’s look for evidence!</title>
+      <author><first>Aryan</first><last>Jain</last></author>
+      <author><first>Jitenkumar</first><last>Rana</last></author>
+      <author><first>Chetan</first><last>Aggarwal</last></author>
+      <pages>732-738</pages>
+      <abstract>Product question answering (PQA) aims to provide an instant response to customer questions posted on shopping message boards, social media, brand websites and retail stores. In this paper, we propose a distantly supervised solution to answer customer questions by using product information. Auto-answering questions using product information poses two main challenges:(i) labelled data is not readily available (ii)lengthy product information requires attending to various parts of the text to answer the question. To this end, we first propose a novel distant supervision based NLI model to prepare training data without any manual efforts. To deal with lengthy context, we factorize answer generation into two sub-problems. First, given product information, model extracts evidence spans relevant to question. Then, model leverages evidence spans to generate answer. Further, we propose two novelties in fine-tuning approach: (i) First, we jointly fine-tune model for both the tasks in end-to-end manner and showcase that it outperforms standard multi-task fine-tuning. (ii) Next, we introduce an auxiliary contrastive loss for evidence extraction. We show that combination of these two ideas achieves an absolute improvement of 6% in accuracy (human evaluation) over baselines.</abstract>
+      <url hash="f7aa4029">2023.emnlp-industry.68</url>
+      <bibkey>jain-etal-2023-much</bibkey>
+    </paper>
+    <paper id="69">
+      <title>Harnessing <fixed-case>LLM</fixed-case>s for Temporal Data - A Study on Explainable Financial Time Series Forecasting</title>
+      <author><first>Xinli</first><last>Yu</last></author>
+      <author><first>Zheng</first><last>Chen</last></author>
+      <author><first>Yanbin</first><last>Lu</last></author>
+      <pages>739-753</pages>
+      <abstract>Applying machine learning to financial time series has been an active area of industrial research enabling innovation in market insights, risk management, strategic decision-making, and policy formation. This paper explores the novel use of Large Language Models (LLMs) for explainable financial time series forecasting, addressing challenges in cross-sequence reasoning, multi-modal data integration, and result interpretation that are inherent in traditional approaches. Focusing on NASDAQ-100 stocks, we utilize public historical stock data, company metadata, and economic/financial news. Our experiments employ GPT-4 for zero-shot/few-shot inference and Open LLaMA for instruction-based fine-tuning. The study demonstrates LLMs’ ability to generate well-reasoned decisions by leveraging cross-sequence information and extracting insights from text and price time series. We show that our LLM-based approach outperforms classic ARMA-GARCH and gradient-boosting tree models. Furthermore, fine-tuned public LLMs, such as Open-LLaMA, can generate reasonable and explainable forecasts, although they underperform compared to GPT-4.</abstract>
+      <url hash="48105f1b">2023.emnlp-industry.69</url>
+      <bibkey>yu-etal-2023-harnessing</bibkey>
+    </paper>
+    <paper id="70">
+      <title><fixed-case>V</fixed-case>i<fixed-case>GPTQA</fixed-case> - State-of-the-Art <fixed-case>LLM</fixed-case>s for <fixed-case>V</fixed-case>ietnamese Question Answering: System Overview, Core Models Training, and Evaluations</title>
+      <author><first>Minh Thuan</first><last>Nguyen</last></author>
+      <author><first>Khanh Tung</first><last>Tran</last></author>
+      <author><first>Nhu Van</first><last>Nguyen</last></author>
+      <author><first>Xuan-Son</first><last>Vu</last></author>
+      <pages>754-764</pages>
+      <abstract>Large language models (LLMs) and their applications in low-resource languages (such as in Vietnamese) are limited due to lack of training data and benchmarking datasets. This paper introduces a practical real-world implementation of a question answering system for Vietnamese, called ViGPTQA, leveraging the power of LLM. Since there is no effective LLM in Vietnamese to date, we also propose, evaluate, and open-source an instruction-tuned LLM for Vietnamese, named ViGPT. ViGPT demonstrates exceptional performances, especially on real-world scenarios. We curate a new set of benchmark datasets that encompass both AI and human-generated data, providing a comprehensive evaluation framework for Vietnamese LLMs. By achieving state-of-the-art results and approaching other multilingual LLMs, our instruction-tuned LLM underscores the need for dedicated Vietnamese-specific LLMs. Our open-source model supports customized and privacy-fulfilled Vietnamese language processing systems.</abstract>
+      <url hash="4ae7610a">2023.emnlp-industry.70</url>
+      <bibkey>nguyen-etal-2023-vigptqa</bibkey>
+    </paper>
+    <paper id="71">
+      <title>An Integrated Search System for <fixed-case>K</fixed-case>orea Weather Data</title>
+      <author><first>Jinkyung</first><last>Jo</last></author>
+      <author><first>Dayeon</first><last>Ki</last></author>
+      <author><first>Soyoung</first><last>Yoon</last></author>
+      <author><first>Minjoon</first><last>Seo</last></author>
+      <pages>765-774</pages>
+      <abstract>We introduce WeatherSearch, an integrated search system deployed at the Korea Meteorological Administration (KMA). WeatherSearch enables users to retrieve all the relevant data for weather forecasting from a massive weather database with simple natural language queries. We carefully design and conduct multiple expert surveys and interviews for template creation and apply data augmentation techniques including template filling to collect 4 million data points with minimal human labors. We then finetune mT5 on the collected dataset and achieve an average MRR of 0.66 and an average Recall of 0.82. We also discuss weather-data-specific characteristics that should be taken into account for creating such a system. We hope our paper serves as a simple and effective guideline for those designing similar systems in other regions of the world.</abstract>
+      <url hash="a9a7b3d4">2023.emnlp-industry.71</url>
+      <bibkey>jo-etal-2023-integrated</bibkey>
+    </paper>
+    <paper id="72">
+      <title>Adaptive Hyper-parameter Learning for Deep Semantic Retrieval</title>
+      <author><first>Mingming</first><last>Li</last></author>
+      <author><first>Chunyuan</first><last>Yuan</last></author>
+      <author><first>Huimu</first><last>Wang</last></author>
+      <author><first>Peng</first><last>Wang</last></author>
+      <author><first>Jingwei</first><last>Zhuo</last></author>
+      <author><first>Binbin</first><last>Wang</last></author>
+      <author><first>Lin</first><last>Liu</last></author>
+      <author><first>Sulong</first><last>Xu</last></author>
+      <pages>775-782</pages>
+      <abstract>Deep semantic retrieval has achieved remarkable success in online E-commerce applications. The majority of methods aim to distinguish positive items and negative items for each query by utilizing margin loss or softmax loss. Despite their decent performance, these methods are highly sensitive to hyper-parameters, i.e., margin and temperature <tex-math>\tau</tex-math>, which measure the similarity of negative pairs and affect the distribution of items in metric space. How to design and choose adaptively parameters for different pairs is still an open challenge. Recently several methods have attempted to alleviate the above problem by learning each parameter through trainable/statistical methods in the recommendation. We argue that those are not suitable for retrieval scenarios, due to the agnosticism and diversity of the queries. To fully overcome this limitation, we propose a novel adaptive metric learning method that designs a simple and universal hyper-parameter-free learning method to improve the performance of retrieval. Specifically, we first propose a method that adaptive obtains the hyper-parameters by relying on the batch similarity without fixed or extra-trainable hyper-parameters. Subsequently, we adopt a symmetric metric learning method to mitigate model collapse issues. Furthermore, the proposed method is general and sheds a highlight on other fields. Extensive experiments demonstrate our method significantly outperforms previous methods on a real-world dataset, highlighting the superiority and effectiveness of our method. This method has been successfully deployed on an online E-commerce search platform and brought substantial economic benefits.</abstract>
+      <url hash="914f5ba5">2023.emnlp-industry.72</url>
+      <bibkey>li-etal-2023-adaptive</bibkey>
+    </paper>
+    <paper id="73">
+      <title>On Sample-Efficient Code Generation</title>
+      <author><first>Hojae</first><last>Han</last></author>
+      <author><first>Yu Jin</first><last>Kim</last></author>
+      <author><first>Byoungjip</first><last>Kim</last></author>
+      <author><first>Youngwon</first><last>Lee</last></author>
+      <author><first>Kyungjae</first><last>Lee</last></author>
+      <author><first>Kyungmin</first><last>Lee</last></author>
+      <author><first>Moontae</first><last>Lee</last></author>
+      <author><first>Kyunghoon</first><last>Bae</last></author>
+      <author><first>Seung-won</first><last>Hwang</last></author>
+      <pages>783-791</pages>
+      <abstract>Large language models often struggle to predict runtime behavior in code generation tasks, leading to a reliance on rejection sampling (best-of-n) to generate multiple code snippets then select the best. Our distinction is reducing sampling costs, without compromising generation quality. We introduce EFFICODE, a novel framework that prioritizes sampling on test problems that models can solve. We show how EFFICODE estimates solvability to optimize computational costs during multiple sampling. Based on empirical evidence, EFFICODE consistently demonstrates reduced sampling budgets while maintaining comparable code generation performance, especially when problems are challenging. In addition, utilizing EFFICODE to rank sampled code snippets also shows its effectiveness in answer code selection for reducing temporal costs, by not requiring any execution or test case generation.</abstract>
+      <url hash="0d3d8114">2023.emnlp-industry.73</url>
+      <bibkey>han-etal-2023-sample</bibkey>
+    </paper>
+    <paper id="74">
+      <title>Batch Prompting: Efficient Inference with Large Language Model <fixed-case>API</fixed-case>s</title>
+      <author><first>Zhoujun</first><last>Cheng</last></author>
+      <author><first>Jungo</first><last>Kasai</last></author>
+      <author><first>Tao</first><last>Yu</last></author>
+      <pages>792-810</pages>
+      <abstract>Performing inference on large volumes of samples with large language models (LLMs) can be computationally and financially costly in industry and real-world use. We propose batch prompting, a simple yet effective prompting approach that enables the LLM to run inference in batches, instead of one sample at a time. Our method reduces both token and time costs while retaining downstream performance. We theoretically demonstrate that under a few-shot in-context learning setting, the inference costs decrease almost inverse linearly with the number of samples in each batch. We extensively validate the effectiveness of batch prompting on ten datasets across commonsense QA, arithmetic reasoning, and NLI/NLU: batch prompting significantly (up to <tex-math>5\times</tex-math> with six samples in batch) reduces the LLM (Codex) inference token and time costs while achieving better or comparable performance. For state-of-the-art Chat-based LLMs, e.g., GPT-3.5 and GPT-4, we show the benefits of batch prompting also hold. Further analysis shows that the number of samples in each batch and the complexity of tasks affect its performance. Moreover, batch prompting can be applied across different reasoning methods using LLMs. Our code is released at the site https://github.com/xlang-ai/batch-prompting.</abstract>
+      <url hash="1c06fac5">2023.emnlp-industry.74</url>
+      <bibkey>cheng-etal-2023-batch</bibkey>
+    </paper>
+    <paper id="75">
+      <title>Graph Meets <fixed-case>LLM</fixed-case>: A Novel Approach to Collaborative Filtering for Robust Conversational Understanding</title>
+      <author><first>Zheng</first><last>Chen</last></author>
+      <author><first>Ziyan</first><last>Jiang</last></author>
+      <author><first>Fan</first><last>Yang</last></author>
+      <author><first>Eunah</first><last>Cho</last></author>
+      <author><first>Xing</first><last>Fan</last></author>
+      <author><first>Xiaojiang</first><last>Huang</last></author>
+      <author><first>Yanbin</first><last>Lu</last></author>
+      <author><first>Aram</first><last>Galstyan</last></author>
+      <pages>811-819</pages>
+      <abstract>A Personalized Query Rewriting system strives to minimize defective queries to ensure robust conversational functionality by considering individual user behavior and preferences. It’s designed as a search-based system, maintaining a user index of past successful interactions with the conversational AI. However, this method faces challenges with unseen interactions, which refers to novel user interactions not covered by the user’s historical index. This paper introduces our Collaborative Query Rewriting approach, which utilizes underlying topological information to assist in rewriting defective queries arising from unseen user interactions. This approach begins by constructing a “User Feedback Interaction Graph” (FIG) using historical user-entity interactions. Subsequently, we traverse through the graph edges to establish an enhanced user index, referred to as the “collaborative user index”. This paper then further explores the use of Large Language Models (LLMs) in conjunction with graph traversal, leading to a significant increase in index coverage for unseen interactions. The effectiveness of our proposed approach has been proven through experiments on a large-scale real-world dataset and online A/B experiments.</abstract>
+      <url hash="63baa97a">2023.emnlp-industry.75</url>
+      <bibkey>chen-etal-2023-graph</bibkey>
+    </paper>
+    <paper id="76">
+      <title><fixed-case>DELPHI</fixed-case>: Data for Evaluating <fixed-case>LLM</fixed-case>s’ Performance in Handling Controversial Issues</title>
+      <author><first>David</first><last>Sun</last></author>
+      <author><first>Artem</first><last>Abzaliev</last></author>
+      <author><first>Hadas</first><last>Kotek</last></author>
+      <author><first>Christopher</first><last>Klein</last></author>
+      <author><first>Zidi</first><last>Xiu</last></author>
+      <author><first>Jason</first><last>Williams</last></author>
+      <pages>820-827</pages>
+      <abstract>Controversy is a reflection of our zeitgeist, and an important aspect to any discourse. The rise of large language models (LLMs) as conversational systems has increased public reliance on these systems for answers to their various questions. Consequently, it is crucial to systematically examine how these models respond to questions that pertaining to ongoing debates. However, few such datasets exist in providing human-annotated labels reflecting the contemporary discussions. To foster research in this area, we propose a novel construction of a controversial questions dataset, expanding upon the publicly released Quora Question Pairs Dataset. This dataset presents challenges concerning knowledge recency, safety, fairness, and bias. We evaluate different LLMs using a subset of this dataset, illuminating how they handle controversial issues and the stances they adopt. This research ultimately contributes to our understanding of LLMs’ interaction with controversial issues, paving the way for improvements in their comprehension and handling of complex societal debates.</abstract>
+      <url hash="da8fee6e">2023.emnlp-industry.76</url>
+      <bibkey>sun-etal-2023-delphi</bibkey>
+    </paper>
+    <paper id="77">
+      <title>Angel: Enterprise Search System for the Non-Profit Industry</title>
+      <author><first>Saiful</first><last>Haq</last></author>
+      <author><first>Ashutosh</first><last>Sharma</last></author>
+      <author><first>Pushpak</first><last>Bhattacharyya</last></author>
+      <pages>828-835</pages>
+      <abstract>Non-profit industry need a system for accurately matching fund-seekers (e.g., AMERICAN NATIONAL RED CROSS) with fund-givers (e.g., BILL AND MELINDA GATES FOUNDATION) aligned in cause (e.g., cancer) and target beneficiary group (e.g., children). In this paper, we create an enterprise search system “ANGEL” for the non-profit industry that takes a fund-giver’s mission description as input and returns a ranked list of fund-seekers as output, and vice-versa. ANGEL employs ColBERT, a neural information retrieval model, which we enhance by exploiting the two techniques of (a) Syntax-aware local attention (SLA) to combine syntactic information in the mission description with multi-head self-attention and (b) Dense Pseudo Relevance Feedback (DPRF) for augmentation of short mission descriptions. We create a mapping dictionary “non-profit-dict” to curate a “non-profit-search database” containing information on 594K fund-givers and 194K fund-seekers from IRS-990 filings for the non-profit industry search engines . We also curate a “non-profit-evaluation” dataset containing scored matching between 463 fund-givers and 100 fund-seekers. The research is in collaboration with a philanthropic startup that identifies itself as an “AI matching platform, fundraising assistant, and philanthropy search base.” Domain experts at the philanthropic startup annotate the non-profit evaluation dataset and continuously evaluate the performance of ANGEL. ANGEL achieves an improvement of 0.14 MAP@10 and 0.16 MRR@10 over the state-of-the-art baseline on the non-profit evaluation dataset. To the best of our knowledge, ours is the first effort at building an enterprise search engine based on neural information retrieval for the non-profit industry.</abstract>
+      <url hash="a59a79c9">2023.emnlp-industry.77</url>
+      <bibkey>haq-etal-2023-angel</bibkey>
+    </paper>
+  </volume>
   <event id="emnlp-2023">
     <meta>
       <title>The 2023 Conference on Empirical Methods in Natural Language Processing</title>
