@@ -442,9 +442,12 @@ def process_proceeding(
 
     if venue_slug not in venue_keys:
         event_name = meta['event_name']
-        assert (
-            re.match(r'(.)* [Ww]orkshop', event_name) is None
-        ), f"event name should start with Workshop, instead it started with {re.match(r'(.)* [Ww]orkshop', event_name)[0]}"
+        if re.match(r'(.)* [Ww]orkshop', event_name) is None:
+            print(
+                "* Warning: event name should start with Workshop, instead it started with",
+                re.match(r'(.)* [Ww]orkshop', event_name)[0],
+                file=sys.stderr,
+            )
         print(f"Creating new venue '{venue_abbrev}' ({event_name})")
         venue_index.add_venue(anthology_datadir, venue_abbrev, meta['event_name'])
 
