@@ -6,7 +6,7 @@ weight: 5
 The following papers provide overviews of the Anthology infrastructure at different points in time:
 
 - [Two Decades of the ACL Anthology: Development, Impact, and Open Challenges](https://aclanthology.org/2023.nlposs-1.10) (Bollmann et al., NLPOSS-WS 2023).
-- [The ACL Anthology: Current State and Future Directions](https://aclanthology.org/W18-2504) (Gildea et al., NLPOSS 2018). 
+- [The ACL Anthology: Current State and Future Directions](https://aclanthology.org/W18-2504) (Gildea et al., NLPOSS 2018).
   It is now out of date, but helped direct changes to the Anthology that occurred in 2019.
 
 There are also many papers that make use of the Anthology's data.
