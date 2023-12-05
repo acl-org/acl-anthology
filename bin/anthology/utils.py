@@ -507,7 +507,7 @@ def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=Non
         else etree.SubElement(parent, tag)
     )
     if text:
-        el.text = text
+        el.text = str(text)
     if attrib:
         for key, value in attrib.items():
             el.attrib[key] = value
