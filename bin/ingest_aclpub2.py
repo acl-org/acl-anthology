@@ -107,10 +107,11 @@ def correct_caps(name):
     if name is not None and (name.islower() or name.isupper()):
         # capitalize all parts
         corrected = " ".join(list(map(lambda x: x.capitalize(), name.split())))
-        print(
-            f"-> Correcting capitalization of '{name}' to '{corrected}'",
-            file=sys.stderr,
-        )
+        if name != corrected:
+            print(
+                f"-> Correcting capitalization of '{name}' to '{corrected}'",
+                file=sys.stderr,
+            )
         name = corrected
     return name
 
@@ -412,11 +413,14 @@ def paper2xml(
             try:
                 if value is not None:
                     make_simple_element(field, text=value, parent=paper)
-            except Exception:
+            except Exception as e:
+                print("* ERROR:", e, file=sys.stderr)
                 print(
-                    f"Couldn't process {paper} for {anthology_id}, please check the abstract in the papers.yaml file for this paper",
+                    f"* Couldn't process {field}='{value}' for {anthology_id}, please check the abstract in the papers.yaml file for this paper",
                     file=sys.stderr,
                 )
+                for key, value in paper_item.items():
+                    print(f"* -> {key} => {value}", file=sys.stderr)
                 sys.exit(2)
     return paper
 
