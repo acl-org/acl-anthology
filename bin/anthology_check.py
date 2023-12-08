@@ -3,6 +3,11 @@
 """
 Last updated 2023-11-23 by Matt Post.
 
+TODO:
+- Ensure no LaTeX in titles (e.g., \emph{...})
+- If there is only a single name, it should be the last name, not the first
+- Clean TeX from abstracts, too (e.g., 2023.findings-emnlp.439)
+
 Sanity check for ACLPUB2 submissions to the ACL Anthology.
 If this script doesn't pass, you're not ready to submit!
 The expected format (default from aclpub2) is as follows:
