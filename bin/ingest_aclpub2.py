@@ -149,8 +149,8 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     ingestion_dir = Path(ingestion_dir)
 
     paths_to_check = [
-        ingestion_dir / 'conference_details.yml',
         ingestion_dir / 'inputs' / 'conference_details.yml',
+        ingestion_dir / 'conference_details.yml',
     ]
     meta = None
     for path in paths_to_check:
@@ -193,8 +193,8 @@ def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
     ingestion_dir = Path(ingestion_dir)
 
     paths_to_check = [
-        ingestion_dir / 'papers.yml',
         ingestion_dir / 'inputs' / 'papers.yml',
+        ingestion_dir / 'papers.yml',
     ]
     papers = None
     for path in paths_to_check:
@@ -236,8 +236,6 @@ def add_paper_nums_in_paper_yaml(
         paths_to_check = [
             ingestion_dir / "watermarked_pdfs" / paper_path,
             ingestion_dir / "watermarked_pdfs" / f"{paper_id}.pdf",
-            ingestion_dir / "build" / "watermarked_pdfs" / paper_path,
-            ingestion_dir / "build" / "watermarked_pdfs" / f"{paper_id}.pdf",
         ]
         paper_need_read_path = None
         for path in paths_to_check:
@@ -491,7 +489,6 @@ def copy_pdf_and_attachment(
     pdfs_src_dir = None
     paths_to_check = [
         meta['path'] / 'watermarked_pdfs',
-        meta['path'] / 'build' / 'watermarked_pdfs',
     ]
     for path in paths_to_check:
         if path.exists() and path.is_dir():
@@ -540,15 +537,13 @@ def copy_pdf_and_attachment(
     frontmatter_src_path = None
     paths_to_check = [
         meta['path'] / 'front_matter.pdf',
-        meta['path'] / '0.pdf',
         meta['path'] / "watermarked_pdfs" / 'front_matter.pdf',
         meta['path'] / "watermarked_pdfs" / '0.pdf',
-        meta['path'] / "build" / 'front_matter.pdf',
-        meta['path'] / "build" / '0.pdf',
     ]
     for path in paths_to_check:
         if path.exists():
             frontmatter_src_path = str(path)
+            print(f"Found frontmatter at {frontmatter_src_path}", file=sys.stderr)
             break
     else:
         print(
