@@ -81,7 +81,7 @@ DONT_PARSE_ELEMENTS = (
 )
 
 # Constants associated with DOI assignation
-DOI_URL_PREFIX = "https://dx.doi.org/"
+DOI_URL_PREFIX = "https://doi.org/"
 DOI_PREFIX = "10.18653/v1/"
 
 # Default ingestion date (= unknown)
