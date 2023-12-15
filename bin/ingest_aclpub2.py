@@ -849,7 +849,7 @@ def create_xml(
     help='Ingestion date',
 )
 def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, ingest_date):
-    # anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
+    anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
     # anthology = Anthology(
     #     importdir=anthology_datadir, require_bibkeys=False
     # )
