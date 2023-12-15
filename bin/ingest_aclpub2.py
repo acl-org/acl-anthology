@@ -64,7 +64,6 @@ from typing import Dict, List, Tuple, Any, Optional
 from ingest import maybe_copy
 
 from normalize_anth import normalize
-from anthology import Anthology
 from anthology.index import AnthologyIndex
 from anthology.venues import VenueIndex
 from anthology.people import PersonName
@@ -890,6 +889,7 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
         people=people,
         papers=papers,
     )
+
 
 if __name__ == '__main__':
     main()
