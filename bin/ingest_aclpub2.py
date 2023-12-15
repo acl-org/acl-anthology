@@ -64,6 +64,7 @@ from typing import Dict, List, Tuple, Any, Optional
 from ingest import maybe_copy
 
 from normalize_anth import normalize
+from anthology import Anthology
 from anthology.index import AnthologyIndex
 from anthology.venues import VenueIndex
 from anthology.people import PersonName
@@ -696,8 +697,15 @@ def create_xml(
         # print(f'creating xml for paper name {paper}, in papers {papers[paper_num-1]}')
         if paper_num == 0:
             paper_node = proceeding2xml(paper_id_full, meta, volume[0])
+            # year, venue = collection_id.split(".")
+            # bibkey = f"{venue}-{year}-{volume_name}"
         else:
             paper_node = paper2xml(papers[paper_num - 1], paper_num, paper_id_full, meta)
+            # bibkey = anthology.pindex.create_bibkey(paper_node, vidx=anthology.venues)
+
+        # Ideally this would be here, but it requires a Paper object, which requires a Volume object, etc
+        # Just a little bit complicated
+        # make_simple_element("bibkey", "", parent=paper)
 
         paper_id = paper_node.attrib['id']
         if paper_id == '0':
@@ -842,8 +850,7 @@ def create_xml(
     help='Ingestion date',
 )
 def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, ingest_date):
-    anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
-
+    # anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
     # anthology = Anthology(
     #     importdir=anthology_datadir, require_bibkeys=False
     # )
@@ -883,7 +890,6 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
         people=people,
         papers=papers,
     )
-
 
 if __name__ == '__main__':
     main()
