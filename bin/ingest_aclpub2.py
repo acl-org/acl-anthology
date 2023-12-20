@@ -447,7 +447,7 @@ def process_proceeding(
         if re.match(r'(.)* [Ww]orkshop', event_name) is None:
             print(
                 "* Warning: event name should start with Workshop, instead it started with",
-                re.match(r'(.)* [Ww]orkshop', event_name)[0],
+                re.match(r'(.)* [Ww]orkshop', event_name),
                 file=sys.stderr,
             )
         print(f"Creating new venue '{venue_abbrev}' ({event_name})")
