@@ -529,5 +529,531 @@
       <url hash="bc0293ec">2023.tacl-1.42</url>
       <bibkey>wang-etal-2023-supervised</bibkey>
     </paper>
+    <paper id="43">
+      <title><fixed-case>C</fixed-case>hinese Idiom Paraphrasing</title>
+      <author><first>Jipeng</first><last>Qiang</last></author>
+      <author><first>Yang</first><last>Li</last></author>
+      <author><first>Chaowei</first><last>Zhang</last></author>
+      <author><first>Yun</first><last>Li</last></author>
+      <author><first>Yi</first><last>Zhu</last></author>
+      <author><first>Yunhao</first><last>Yuan</last></author>
+      <author><first>Xindong</first><last>Wu</last></author>
+      <doi>10.1162/tacl_a_00572</doi>
+      <abstract>Idioms are a kind of idiomatic expression in Chinese, most of which consist of four Chinese characters. Due to the properties of non-compositionality and metaphorical meaning, Chinese idioms are hard to be understood by children and non-native speakers. This study proposes a novel task, denoted as Chinese Idiom Paraphrasing (CIP). CIP aims to rephrase idiom-containing sentences to non-idiomatic ones under the premise of preserving the original sentence’s meaning. Since the sentences without idioms are more easily handled by Chinese NLP systems, CIP can be used to pre-process Chinese datasets, thereby facilitating and improving the performance of Chinese NLP tasks, e.g., machine translation systems, Chinese idiom cloze, and Chinese idiom embeddings. In this study, we can treat the CIP task as a special paraphrase generation task. To circumvent difficulties in acquiring annotations, we first establish a large-scale CIP dataset based on human and machine collaboration, which consists of 115,529 sentence pairs. In addition to three sequence-to-sequence methods as the baselines, we further propose a novel infill-based approach based on text infilling. The results show that the proposed method has better performance than the baselines based on the established CIP dataset.</abstract>
+      <pages>740–754</pages>
+      <url hash="a56fbdca">2023.tacl-1.43</url>
+      <bibkey>qiang-etal-2023-chinese-idiom</bibkey>
+    </paper>
+    <paper id="44">
+      <title>Evaluating Transformer Models and Human Behaviors on <fixed-case>C</fixed-case>hinese Character Naming</title>
+      <author><first>Xiaomeng</first><last>Ma</last></author>
+      <author><first>Lingyu</first><last>Gao</last></author>
+      <doi>10.1162/tacl_a_00573</doi>
+      <abstract>Neural network models have been proposed to explain the grapheme-phoneme mapping process in humans for many alphabet languages. These models not only successfully learned the correspondence of the letter strings and their pronunciation, but also captured human behavior in nonce word naming tasks. How would the neural models perform for a non-alphabet language (e.g., Chinese) unknown character task? How well would the model capture human behavior? In this study, we first collect human speakers’ answers on unknown Character naming tasks and then evaluate a set of transformer models by comparing their performance with human behaviors on an unknown Chinese character naming task. We found that the models and humans behaved very similarly, that they had similar accuracy distribution for each character, and had a substantial overlap in answers. In addition, the models’ answers are highly correlated with humans’ answers. These results suggested that the transformer models can capture humans’ character naming behavior well.1</abstract>
+      <pages>755–770</pages>
+      <url hash="e269920b">2023.tacl-1.44</url>
+      <bibkey>ma-gao-2023-evaluating</bibkey>
+    </paper>
+    <paper id="45">
+      <title>Rank-Aware Negative Training for Semi-Supervised Text Classification</title>
+      <author><first>Ahmed</first><last>Murtadha</last></author>
+      <author><first>Shengfeng</first><last>Pan</last></author>
+      <author><first>Wen</first><last>Bo</last></author>
+      <author><first>Jianlin</first><last>Su</last></author>
+      <author><first>Xinxin</first><last>Cao</last></author>
+      <author><first>Wenze</first><last>Zhang</last></author>
+      <author><first>Yunfeng</first><last>Liu</last></author>
+      <doi>10.1162/tacl_a_00574</doi>
+      <abstract>Semi-supervised text classification-based paradigms (SSTC) typically employ the spirit of self-training. The key idea is to train a deep classifier on limited labeled texts and then iteratively predict the unlabeled texts as their pseudo-labels for further training. However, the performance is largely affected by the accuracy of pseudo-labels, which may not be significant in real-world scenarios. This paper presents a Rank-aware Negative Training (RNT) framework to address SSTC in learning with noisy label settings. To alleviate the noisy information, we adapt a reasoning with uncertainty-based approach to rank the unlabeled texts based on the evidential support received from the labeled texts. Moreover, we propose the use of negative training to train RNT based on the concept that “the input instance does not belong to the complementary label”. A complementary label is randomly selected from all labels except the label on-target. Intuitively, the probability of a true label serving as a complementary label is low and thus provides less noisy information during the training, resulting in better performance on the test data. Finally, we evaluate the proposed solution on various text classification benchmark datasets. Our extensive experiments show that it consistently overcomes the state-of-the-art alternatives in most scenarios and achieves competitive performance in the others. The code of RNT is publicly available on GitHub.</abstract>
+      <pages>771–786</pages>
+      <url hash="f747494b">2023.tacl-1.45</url>
+      <bibkey>murtadha-etal-2023-rank</bibkey>
+    </paper>
+    <paper id="46">
+      <title><fixed-case>MACS</fixed-case>um: Controllable Summarization with Mixed Attributes</title>
+      <author><first>Yusen</first><last>Zhang</last></author>
+      <author id="yang-liu-edinburgh"><first>Yang</first><last>Liu</last></author>
+      <author><first>Ziyi</first><last>Yang</last></author>
+      <author><first>Yuwei</first><last>Fang</last></author>
+      <author><first>Yulong</first><last>Chen</last></author>
+      <author><first>Dragomir</first><last>Radev</last></author>
+      <author><first>Chenguang</first><last>Zhu</last></author>
+      <author><first>Michael</first><last>Zeng</last></author>
+      <author><first>Rui</first><last>Zhang</last></author>
+      <doi>10.1162/tacl_a_00575</doi>
+      <abstract>Controllable summarization allows users to generate customized summaries with specified attributes. However, due to the lack of designated annotations of controlled summaries, existing work has to craft pseudo datasets by adapting generic summarization benchmarks. Furthermore, most research focuses on controlling single attributes individually (e.g., a short summary or a highly abstractive summary) rather than controlling a mix of attributes together (e.g., a short and highly abstractive summary). In this paper, we propose MACSum, the first human-annotated summarization dataset for controlling mixed attributes. It contains source texts from two domains, news articles and dialogues, with human-annotated summaries controlled by five designed attributes (Length, Extractiveness, Specificity, Topic, and Speaker). We propose two simple and effective parameter-efficient approaches for the new task of mixed controllable summarization based on hard prompt tuning and soft prefix tuning. Results and analysis demonstrate that hard prompt models yield the best performance on most metrics and human evaluations. However, mixed-attribute control is still challenging for summarization tasks. Our dataset and code are available at https://github.com/psunlpgroup/MACSum.</abstract>
+      <pages>787–803</pages>
+      <url hash="d43a0b75">2023.tacl-1.46</url>
+      <bibkey>zhang-etal-2023-macsum</bibkey>
+    </paper>
+    <paper id="47">
+      <title><fixed-case>MENLI</fixed-case>: Robust Evaluation Metrics from Natural Language Inference</title>
+      <author><first>Yanran</first><last>Chen</last></author>
+      <author><first>Steffen</first><last>Eger</last></author>
+      <doi>10.1162/tacl_a_00576</doi>
+      <abstract>Recently proposed BERT-based evaluation metrics for text generation perform well on standard benchmarks but are vulnerable to adversarial attacks, e.g., relating to information correctness. We argue that this stems (in part) from the fact that they are models of semantic similarity. In contrast, we develop evaluation metrics based on Natural Language Inference (NLI), which we deem a more appropriate modeling. We design a preference-based adversarial attack framework and show that our NLI based metrics are much more robust to the attacks than the recent BERT-based metrics. On standard benchmarks, our NLI based metrics outperform existing summarization metrics, but perform below SOTA MT metrics. However, when combining existing metrics with our NLI metrics, we obtain both higher adversarial robustness (15%–30%) and higher quality metrics as measured on standard benchmarks (+5% to 30%).</abstract>
+      <pages>804–825</pages>
+      <url hash="653ee02e">2023.tacl-1.47</url>
+      <bibkey>chen-eger-2023-menli</bibkey>
+    </paper>
+    <paper id="48">
+      <title>Efficient Methods for Natural Language Processing: A Survey</title>
+      <author><first>Marcos</first><last>Treviso</last></author>
+      <author><first>Ji-Ung</first><last>Lee</last></author>
+      <author><first>Tianchu</first><last>Ji</last></author>
+      <author><first>Betty</first><last>van Aken</last></author>
+      <author><first>Qingqing</first><last>Cao</last></author>
+      <author><first>Manuel R.</first><last>Ciosici</last></author>
+      <author><first>Michael</first><last>Hassid</last></author>
+      <author><first>Kenneth</first><last>Heafield</last></author>
+      <author><first>Sara</first><last>Hooker</last></author>
+      <author><first>Colin</first><last>Raffel</last></author>
+      <author><first>Pedro H.</first><last>Martins</last></author>
+      <author><first>André F. T.</first><last>Martins</last></author>
+      <author><first>Jessica Zosa</first><last>Forde</last></author>
+      <author><first>Peter</first><last>Milder</last></author>
+      <author><first>Edwin</first><last>Simpson</last></author>
+      <author><first>Noam</first><last>Slonim</last></author>
+      <author><first>Jesse</first><last>Dodge</last></author>
+      <author><first>Emma</first><last>Strubell</last></author>
+      <author><first>Niranjan</first><last>Balasubramanian</last></author>
+      <author><first>Leon</first><last>Derczynski</last></author>
+      <author><first>Iryna</first><last>Gurevych</last></author>
+      <author><first>Roy</first><last>Schwartz</last></author>
+      <doi>10.1162/tacl_a_00577</doi>
+      <abstract>Recent work in natural language processing (NLP) has yielded appealing results from scaling model parameters and training data; however, using only scale to improve performance means that resource consumption also grows. Such resources include data, time, storage, or energy, all of which are naturally limited and unevenly distributed. This motivates research into efficient methods that require fewer resources to achieve similar results. This survey synthesizes and relates current methods and findings in efficient NLP. We aim to provide both guidance for conducting NLP under limited resources, and point towards promising research directions for developing more efficient methods.</abstract>
+      <pages>826–860</pages>
+      <url hash="1f498657">2023.tacl-1.48</url>
+      <bibkey>treviso-etal-2023-efficient</bibkey>
+    </paper>
+    <paper id="49">
+      <title>Abstractive Meeting Summarization: A Survey</title>
+      <author><first>Virgile</first><last>Rennard</last></author>
+      <author><first>Guokan</first><last>Shang</last></author>
+      <author><first>Julie</first><last>Hunter</last></author>
+      <author><first>Michalis</first><last>Vazirgiannis</last></author>
+      <doi>10.1162/tacl_a_00578</doi>
+      <abstract>A system that could reliably identify and sum up the most important points of a conversation would be valuable in a wide variety of real-world contexts, from business meetings to medical consultations to customer service calls. Recent advances in deep learning, and especially the invention of encoder-decoder architectures, has significantly improved language generation systems, opening the door to improved forms of abstractive summarization—a form of summarization particularly well-suited for multi-party conversation. In this paper, we provide an overview of the challenges raised by the task of abstractive meeting summarization and of the data sets, models, and evaluation metrics that have been used to tackle the problems.</abstract>
+      <pages>861–884</pages>
+      <url hash="45c1eeb4">2023.tacl-1.49</url>
+      <bibkey>rennard-etal-2023-abstractive</bibkey>
+    </paper>
+    <paper id="50">
+      <title>Expectations over Unspoken Alternatives Predict Pragmatic Inferences</title>
+      <author><first>Jennifer</first><last>Hu</last></author>
+      <author><first>Roger</first><last>Levy</last></author>
+      <author><first>Judith</first><last>Degen</last></author>
+      <author><first>Sebastian</first><last>Schuster</last></author>
+      <doi>10.1162/tacl_a_00579</doi>
+      <abstract>Scalar inferences (SI) are a signature example of how humans interpret language based on unspoken alternatives. While empirical studies have demonstrated that human SI rates are highly variable—both within instances of a single scale, and across different scales—there have been few proposals that quantitatively explain both cross- and within-scale variation. Furthermore, while it is generally assumed that SIs arise through reasoning about unspoken alternatives, it remains debated whether humans reason about alternatives as linguistic forms, or at the level of concepts. Here, we test a shared mechanism explaining SI rates within and across scales: context-driven expectations about the unspoken alternatives. Using neural language models to approximate human predictive distributions, we find that SI rates are captured by the expectedness of the strong scalemate as an alternative. Crucially, however, expectedness robustly predicts cross-scale variation only under a meaning-based view of alternatives. Our results suggest that pragmatic inferences arise from context-driven expectations over alternatives, and these expectations operate at the level of concepts.1</abstract>
+      <pages>885–901</pages>
+      <url hash="ceda94e2">2023.tacl-1.50</url>
+      <bibkey>hu-etal-2023-expectations</bibkey>
+    </paper>
+    <paper id="51">
+      <title>Reasoning over Public and Private Data in Retrieval-Based Systems</title>
+      <author><first>Simran</first><last>Arora</last></author>
+      <author><first>Patrick</first><last>Lewis</last></author>
+      <author><first>Angela</first><last>Fan</last></author>
+      <author><first>Jacob</first><last>Kahn</last></author>
+      <author><first>Christopher</first><last>Ré</last></author>
+      <doi>10.1162/tacl_a_00580</doi>
+      <abstract>Users an organizations are generating ever-increasing amounts of private data from a wide range of sources. Incorporating private context is important to personalize open-domain tasks such as question-answering, fact-checking, and personal assistants. State-of-the-art systems for these tasks explicitly retrieve information that is relevant to an input question from a background corpus before producing an answer. While today’s retrieval systems assume relevant corpora are fully (e.g., publicly) accessible, users are often unable or unwilling to expose their private data to entities hosting public data. We define the Split Iterative Retrieval (SPIRAL) problem involving iterative retrieval over multiple privacy scopes. We introduce a foundational benchmark with which to study SPIRAL, as no existing benchmark includes data from a private distribution. Our dataset, ConcurrentQA, includes data from distinct public and private distributions and is the first textual QA benchmark requiring concurrent retrieval over multiple distributions. Finally, we show that existing retrieval approaches face significant performance degradations when applied to our proposed retrieval setting and investigate approaches with which these tradeoffs can be mitigated. We release the new benchmark and code to reproduce the results.1</abstract>
+      <pages>902–921</pages>
+      <url hash="974618ef">2023.tacl-1.51</url>
+      <bibkey>arora-etal-2023-reasoning</bibkey>
+    </paper>
+    <paper id="52">
+      <title>Multilingual Coreference Resolution in Multiparty Dialogue</title>
+      <author><first>Boyuan</first><last>Zheng</last></author>
+      <author><first>Patrick</first><last>Xia</last></author>
+      <author><first>Mahsa</first><last>Yarmohammadi</last></author>
+      <author><first>Benjamin</first><last>Van Durme</last></author>
+      <doi>10.1162/tacl_a_00581</doi>
+      <abstract>Existing multiparty dialogue datasets for entity coreference resolution are nascent, and many challenges are still unaddressed. We create a large-scale dataset, Multilingual Multiparty Coref (MMC), for this task based on TV transcripts. Due to the availability of gold-quality subtitles in multiple languages, we propose reusing the annotations to create silver coreference resolution data in other languages (Chinese and Farsi) via annotation projection. On the gold (English) data, off-the-shelf models perform relatively poorly on MMC, suggesting that MMC has broader coverage of multiparty coreference than prior datasets. On the silver data, we find success both using it for data augmentation and training from scratch, which effectively simulates the zero-shot cross-lingual setting.</abstract>
+      <pages>922–940</pages>
+      <url hash="cd3ec468">2023.tacl-1.52</url>
+      <bibkey>zheng-etal-2023-multilingual</bibkey>
+    </paper>
+    <paper id="53">
+      <title>Directed Acyclic Transformer Pre-training for High-quality Non-autoregressive Text Generation</title>
+      <author><first>Fei</first><last>Huang</last></author>
+      <author><first>Pei</first><last>Ke</last></author>
+      <author><first>Minlie</first><last>Huang</last></author>
+      <doi>10.1162/tacl_a_00582</doi>
+      <abstract>Non-AutoRegressive (NAR) text generation models have drawn much attention because of their significantly faster decoding speed and good generation quality in machine translation. However, in a wider range of text generation tasks, existing NAR models lack proper pre-training, making them still far behind the pre-trained autoregressive models. In this paper, we propose Pre-trained Directed Acyclic Transformer (PreDAT) and a novel pre-training task to promote prediction consistency in NAR generation. Experiments on five text generation tasks show that our PreDAT remarkably outperforms existing pre-trained NAR models (+4.2 score on average) and even achieves better results than pre-trained autoregressive baselines in n-gram-based metrics, along with 17 times speedup in throughput. Further analysis shows that PreDAT benefits from the unbiased prediction order that alleviates the error accumulation problem in autoregressive generation, which provides new insights into the advantages of NAR generation.1</abstract>
+      <pages>941–959</pages>
+      <url hash="1505a953">2023.tacl-1.53</url>
+      <bibkey>huang-etal-2023-directed</bibkey>
+    </paper>
+    <paper id="54">
+      <title>Time-and-Space-Efficient Weighted Deduction</title>
+      <author><first>Jason</first><last>Eisner</last></author>
+      <doi>10.1162/tacl_a_00588</doi>
+      <abstract>Many NLP algorithms have been described in terms of deduction systems. Unweighted deduction allows a generic forward-chaining execution strategy. For weighted deduction, however, efficient execution should propagate the weight of each item only after it has converged. This means visiting the items in topologically sorted order (as in dynamic programming). Toposorting is fast on a materialized graph; unfortunately, materializing the graph would take extra space. Is there a generic weighted deduction strategy which, for every acyclic deduction system and every input, uses only a constant factor more time and space than generic unweighted deduction? After reviewing past strategies, we answer this question in the affirmative by combining ideas of Goodman (1999) and Kahn (1962). We also give an extension to cyclic deduction systems, based on Tarjan (1972).</abstract>
+      <pages>960–973</pages>
+      <url hash="6e71f2e2">2023.tacl-1.54</url>
+      <bibkey>eisner-2023-time</bibkey>
+    </paper>
+    <paper id="55">
+      <title>Conditional Generation with a Question-Answering Blueprint</title>
+      <author><first>Shashi</first><last>Narayan</last></author>
+      <author><first>Joshua</first><last>Maynez</last></author>
+      <author><first>Reinald Kim</first><last>Amplayo</last></author>
+      <author><first>Kuzman</first><last>Ganchev</last></author>
+      <author><first>Annie</first><last>Louis</last></author>
+      <author><first>Fantine</first><last>Huot</last></author>
+      <author><first>Anders</first><last>Sandholm</last></author>
+      <author><first>Dipanjan</first><last>Das</last></author>
+      <author><first>Mirella</first><last>Lapata</last></author>
+      <doi>10.1162/tacl_a_00583</doi>
+      <abstract>The ability to convey relevant and faithful information is critical for many tasks in conditional generation and yet remains elusive for neural seq-to-seq models whose outputs often reveal hallucinations and fail to correctly cover important details. In this work, we advocate planning as a useful intermediate representation for rendering conditional generation less opaque and more grounded. We propose a new conceptualization of text plans as a sequence of question-answer (QA) pairs and enhance existing datasets (e.g., for summarization) with a QA blueprint operating as a proxy for content selection (i.e., what to say) and planning (i.e., in what order). We obtain blueprints automatically by exploiting state-of-the-art question generation technology and convert input-output pairs into input-blueprint-output tuples. We develop Transformer-based models, each varying in how they incorporate the blueprint in the generated output (e.g., as a global plan or iteratively). Evaluation across metrics and datasets demonstrates that blueprint models are more factual than alternatives which do not resort to planning and allow tighter control of the generation output.</abstract>
+      <pages>974–996</pages>
+      <url hash="2e3ee8db">2023.tacl-1.55</url>
+      <bibkey>narayan-etal-2023-conditional</bibkey>
+    </paper>
+    <paper id="56">
+      <title>Collective Human Opinions in Semantic Textual Similarity</title>
+      <author><first>Yuxia</first><last>Wang</last></author>
+      <author><first>Shimin</first><last>Tao</last></author>
+      <author><first>Ning</first><last>Xie</last></author>
+      <author><first>Hao</first><last>Yang</last></author>
+      <author><first>Timothy</first><last>Baldwin</last></author>
+      <author><first>Karin</first><last>Verspoor</last></author>
+      <doi>10.1162/tacl_a_00584</doi>
+      <abstract>Despite the subjective nature of semantic textual similarity (STS) and pervasive disagreements in STS annotation, existing benchmarks have used averaged human ratings as gold standard. Averaging masks the true distribution of human opinions on examples of low agreement, and prevents models from capturing the semantic vagueness that the individual ratings represent. In this work, we introduce USTS, the first Uncertainty-aware STS dataset with ∼15,000 Chinese sentence pairs and 150,000 labels, to study collective human opinions in STS. Analysis reveals that neither a scalar nor a single Gaussian fits a set of observed judgments adequately. We further show that current STS models cannot capture the variance caused by human disagreement on individual instances, but rather reflect the predictive confidence over the aggregate dataset.</abstract>
+      <pages>997–1013</pages>
+      <url hash="61557a12">2023.tacl-1.56</url>
+      <bibkey>wang-etal-2023-collective</bibkey>
+    </paper>
+    <paper id="57">
+      <title>Design Choices for Crowdsourcing Implicit Discourse Relations: Revealing the Biases Introduced by Task Design</title>
+      <author><first>Valentina</first><last>Pyatkin</last></author>
+      <author><first>Frances</first><last>Yung</last></author>
+      <author><first>Merel C. J.</first><last>Scholman</last></author>
+      <author><first>Reut</first><last>Tsarfaty</last></author>
+      <author><first>Ido</first><last>Dagan</last></author>
+      <author><first>Vera</first><last>Demberg</last></author>
+      <doi>10.1162/tacl_a_00586</doi>
+      <abstract>Disagreement in natural language annotation has mostly been studied from a perspective of biases introduced by the annotators and the annotation frameworks. Here, we propose to analyze another source of bias—task design bias, which has a particularly strong impact on crowdsourced linguistic annotations where natural language is used to elicit the interpretation of lay annotators. For this purpose we look at implicit discourse relation annotation, a task that has repeatedly been shown to be difficult due to the relations’ ambiguity. We compare the annotations of 1,200 discourse relations obtained using two distinct annotation tasks and quantify the biases of both methods across four different domains. Both methods are natural language annotation tasks designed for crowdsourcing. We show that the task design can push annotators towards certain relations and that some discourse relation senses can be better elicited with one or the other annotation approach. We also conclude that this type of bias should be taken into account when training and testing models.</abstract>
+      <pages>1014–1032</pages>
+      <url hash="62eebfb4">2023.tacl-1.57</url>
+      <bibkey>pyatkin-etal-2023-design</bibkey>
+    </paper>
+    <paper id="58">
+      <title>Communication Drives the Emergence of Language Universals in Neural Agents: Evidence from the Word-order/Case-marking Trade-off</title>
+      <author><first>Yuchen</first><last>Lian</last></author>
+      <author><first>Arianna</first><last>Bisazza</last></author>
+      <author><first>Tessa</first><last>Verhoef</last></author>
+      <doi>10.1162/tacl_a_00587</doi>
+      <abstract>Artificial learners often behave differently from human learners in the context of neural agent-based simulations of language emergence and change. A common explanation is the lack of appropriate cognitive biases in these learners. However, it has also been proposed that more naturalistic settings of language learning and use could lead to more human-like results. We investigate this latter account, focusing on the word-order/case-marking trade-off, a widely attested language universal that has proven particularly hard to simulate. We propose a new Neural-agent Language Learning and Communication framework (NeLLCom) where pairs of speaking and listening agents first learn a miniature language via supervised learning, and then optimize it for communication via reinforcement learning. Following closely the setup of earlier human experiments, we succeed in replicating the trade-off with the new framework without hard-coding specific biases in the agents. We see this as an essential step towards the investigation of language universals with neural learners.</abstract>
+      <pages>1033–1047</pages>
+      <url hash="103bc8ca">2023.tacl-1.58</url>
+      <bibkey>lian-etal-2023-communication</bibkey>
+    </paper>
+    <paper id="59">
+      <title>A Cross-Linguistic Pressure for <fixed-case>U</fixed-case>niform <fixed-case>I</fixed-case>nformation <fixed-case>D</fixed-case>ensity in Word Order</title>
+      <author><first>Thomas Hikaru</first><last>Clark</last></author>
+      <author><first>Clara</first><last>Meister</last></author>
+      <author><first>Tiago</first><last>Pimentel</last></author>
+      <author><first>Michael</first><last>Hahn</last></author>
+      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author><first>Richard</first><last>Futrell</last></author>
+      <author><first>Roger</first><last>Levy</last></author>
+      <doi>10.1162/tacl_a_00589</doi>
+      <abstract>While natural languages differ widely in both canonical word order and word order flexibility, their word orders still follow shared cross-linguistic statistical patterns, often attributed to functional pressures. In the effort to identify these pressures, prior work has compared real and counterfactual word orders. Yet one functional pressure has been overlooked in such investigations: The uniform information density (UID) hypothesis, which holds that information should be spread evenly throughout an utterance. Here, we ask whether a pressure for UID may have influenced word order patterns cross-linguistically. To this end, we use computational models to test whether real orders lead to greater information uniformity than counterfactual orders. In our empirical study of 10 typologically diverse languages, we find that: (i) among SVO languages, real word orders consistently have greater uniformity than reverse word orders, and (ii) only linguistically implausible counterfactual orders consistently exceed the uniformity of real orders. These findings are compatible with a pressure for information uniformity in the development and usage of natural languages.1</abstract>
+      <pages>1048–1065</pages>
+      <url hash="1f2bea66">2023.tacl-1.59</url>
+      <bibkey>clark-etal-2023-cross</bibkey>
+    </paper>
+    <paper id="60">
+      <title>Cross-functional Analysis of Generalization in Behavioral Learning</title>
+      <author><first>Pedro Henrique</first><last>Luz de Araujo</last></author>
+      <author><first>Benjamin</first><last>Roth</last></author>
+      <doi>10.1162/tacl_a_00590</doi>
+      <abstract>In behavioral testing, system functionalities underrepresented in the standard evaluation setting (with a held-out test set) are validated through controlled input-output pairs. Optimizing performance on the behavioral tests during training (behavioral learning) would improve coverage of phenomena not sufficiently represented in the i.i.d. data and could lead to seemingly more robust models. However, there is the risk that the model narrowly captures spurious correlations from the behavioral test suite, leading to overestimation and misrepresentation of model performance—one of the original pitfalls of traditional evaluation. In this work, we introduce BeLUGA, an analysis method for evaluating behavioral learning considering generalization across dimensions of different granularity levels. We optimize behavior-specific loss functions and evaluate models on several partitions of the behavioral test suite controlled to leave out specific phenomena. An aggregate score measures generalization to unseen functionalities (or overfitting). We use BeLUGA to examine three representative NLP tasks (sentiment analysis, paraphrase identification, and reading comprehension) and compare the impact of a diverse set of regularization and domain generalization methods on generalization performance.1</abstract>
+      <pages>1066–1081</pages>
+      <url hash="9a7a55f7">2023.tacl-1.60</url>
+      <bibkey>luz-de-araujo-roth-2023-cross</bibkey>
+    </paper>
+    <paper id="61">
+      <title>Exploring Contrast Consistency of Open-Domain Question Answering Systems on Minimally Edited Questions</title>
+      <author><first>Zhihan</first><last>Zhang</last></author>
+      <author><first>Wenhao</first><last>Yu</last></author>
+      <author><first>Zheng</first><last>Ning</last></author>
+      <author><first>Mingxuan</first><last>Ju</last></author>
+      <author><first>Meng</first><last>Jiang</last></author>
+      <doi>10.1162/tacl_a_00591</doi>
+      <abstract>Contrast consistency, the ability of a model to make consistently correct predictions in the presence of perturbations, is an essential aspect in NLP. While studied in tasks such as sentiment analysis and reading comprehension, it remains unexplored in open-domain question answering (OpenQA) due to the difficulty of collecting perturbed questions that satisfy factuality requirements. In this work, we collect minimally edited questions as challenging contrast sets to evaluate OpenQA models. Our collection approach combines both human annotation and large language model generation. We find that the widely used dense passage retriever (DPR) performs poorly on our contrast sets, despite fitting the training set well and performing competitively on standard test sets. To address this issue, we introduce a simple and effective query-side contrastive loss with the aid of data augmentation to improve DPR training. Our experiments on the contrast sets demonstrate that DPR’s contrast consistency is improved without sacrificing its accuracy on the standard test sets.1</abstract>
+      <pages>1082–1096</pages>
+      <url hash="67262187">2023.tacl-1.61</url>
+      <bibkey>zhang-etal-2023-exploring-contrast</bibkey>
+    </paper>
+    <paper id="62">
+      <title>Compositional Zero-Shot Domain Transfer with Text-to-Text Models</title>
+      <author><first>Fangyu</first><last>Liu</last></author>
+      <author><first>Qianchu</first><last>Liu</last></author>
+      <author><first>Shruthi</first><last>Bannur</last></author>
+      <author><first>Fernando</first><last>Pérez-García</last></author>
+      <author><first>Naoto</first><last>Usuyama</last></author>
+      <author><first>Sheng</first><last>Zhang</last></author>
+      <author><first>Tristan</first><last>Naumann</last></author>
+      <author><first>Aditya</first><last>Nori</last></author>
+      <author><first>Hoifung</first><last>Poon</last></author>
+      <author><first>Javier</first><last>Alvarez-Valle</last></author>
+      <author><first>Ozan</first><last>Oktay</last></author>
+      <author><first>Stephanie L.</first><last>Hyland</last></author>
+      <doi>10.1162/tacl_a_00585</doi>
+      <abstract>Label scarcity is a bottleneck for improving task performance in specialized domains. We propose a novel compositional transfer learning framework (DoT51) for zero-shot domain transfer. Without access to in-domain labels, DoT5 jointly learns domain knowledge (from masked language modelling of unlabelled in-domain free text) and task knowledge (from task training on more readily available general-domain data) in a multi-task manner. To improve the transferability of task training, we design a strategy named NLGU: We simultaneously train natural language generation (NLG) for in-domain label-to-data generation, which enables data augmentation for self-finetuning and natural language understanding (NLU) for label prediction. We evaluate DoT5 on the biomedical domain and the resource-lean subdomain of radiology, focusing on natural language inference, text summarization, and embedding learning. DoT5 demonstrates the effectiveness of compositional transfer learning through multi-task learning. In particular, DoT5 outperforms the current state-of-the-art in zero-shot transfer by over 7 absolute points in accuracy on RadNLI. We validate DoT5 with ablations and a case study demonstrating its ability to solve challenging NLI examples requiring in-domain expertise.</abstract>
+      <pages>1097–1113</pages>
+      <url hash="7d02ecb9">2023.tacl-1.62</url>
+      <bibkey>liu-etal-2023-compositional</bibkey>
+    </paper>
+    <paper id="63">
+      <title><fixed-case>MIRACL</fixed-case>: A Multilingual Retrieval Dataset Covering 18 Diverse Languages</title>
+      <author><first>Xinyu</first><last>Zhang</last></author>
+      <author><first>Nandan</first><last>Thakur</last></author>
+      <author><first>Odunayo</first><last>Ogundepo</last></author>
+      <author><first>Ehsan</first><last>Kamalloo</last></author>
+      <author><first>David</first><last>Alfonso-Hermelo</last></author>
+      <author><first>Xiaoguang</first><last>Li</last></author>
+      <author><first>Qun</first><last>Liu</last></author>
+      <author><first>Mehdi</first><last>Rezagholizadeh</last></author>
+      <author><first>Jimmy</first><last>Lin</last></author>
+      <doi>10.1162/tacl_a_00595</doi>
+      <abstract>MIRACL is a multilingual dataset for ad hoc retrieval across 18 languages that collectively encompass over three billion native speakers around the world. This resource is designed to support monolingual retrieval tasks, where the queries and the corpora are in the same language. In total, we have gathered over 726k high-quality relevance judgments for 78k queries over Wikipedia in these languages, where all annotations have been performed by native speakers hired by our team. MIRACL covers languages that are both typologically close as well as distant from 10 language families and 13 sub-families, associated with varying amounts of publicly available resources. Extensive automatic heuristic verification and manual assessments were performed during the annotation process to control data quality. In total, MIRACL represents an investment of around five person-years of human annotator effort. Our goal is to spur research on improving retrieval across a continuum of languages, thus enhancing information access capabilities for diverse populations around the world, particularly those that have traditionally been underserved. MIRACL is available at http://miracl.ai/.</abstract>
+      <pages>1114–1131</pages>
+      <url hash="fd740972">2023.tacl-1.63</url>
+      <bibkey>zhang-etal-2023-miracl</bibkey>
+    </paper>
+    <paper id="64">
+      <title><fixed-case>DMDD</fixed-case>: A Large-Scale Dataset for Dataset Mentions Detection</title>
+      <author><first>Huitong</first><last>Pan</last></author>
+      <author><first>Qi</first><last>Zhang</last></author>
+      <author><first>Eduard</first><last>Dragut</last></author>
+      <author><first>Cornelia</first><last>Caragea</last></author>
+      <author><first>Longin Jan</first><last>Latecki</last></author>
+      <doi>10.1162/tacl_a_00592</doi>
+      <abstract>The recognition of dataset names is a critical task for automatic information extraction in scientific literature, enabling researchers to understand and identify research opportunities. However, existing corpora for dataset mention detection are limited in size and naming diversity. In this paper, we introduce the Dataset Mentions Detection Dataset (DMDD), the largest publicly available corpus for this task. DMDD consists of the DMDD main corpus, comprising 31,219 scientific articles with over 449,000 dataset mentions weakly annotated in the format of in-text spans, and an evaluation set, which comprises 450 scientific articles manually annotated for evaluation purposes. We use DMDD to establish baseline performance for dataset mention detection and linking. By analyzing the performance of various models on DMDD, we are able to identify open problems in dataset mention detection. We invite the community to use our dataset as a challenge to develop novel dataset mention detection models.</abstract>
+      <pages>1132–1146</pages>
+      <url hash="e6ca4de1">2023.tacl-1.64</url>
+      <bibkey>pan-etal-2023-dmdd</bibkey>
+    </paper>
+    <paper id="65">
+      <title><fixed-case>T</fixed-case>3<fixed-case>L</fixed-case>: Translate-and-Test Transfer Learning for Cross-Lingual Text Classification</title>
+      <author><first>Inigo Jauregi</first><last>Unanue</last></author>
+      <author><first>Gholamreza</first><last>Haffari</last></author>
+      <author><first>Massimo</first><last>Piccardi</last></author>
+      <doi>10.1162/tacl_a_00593</doi>
+      <abstract>Cross-lingual text classification leverages text classifiers trained in a high-resource language to perform text classification in other languages with no or minimal fine-tuning (zero/ few-shots cross-lingual transfer). Nowadays, cross-lingual text classifiers are typically built on large-scale, multilingual language models (LMs) pretrained on a variety of languages of interest. However, the performance of these models varies significantly across languages and classification tasks, suggesting that the superposition of the language modelling and classification tasks is not always effective. For this reason, in this paper we propose revisiting the classic “translate-and-test” pipeline to neatly separate the translation and classification stages. The proposed approach couples 1) a neural machine translator translating from the targeted language to a high-resource language, with 2) a text classifier trained in the high-resource language, but the neural machine translator generates “soft” translations to permit end-to-end backpropagation during fine-tuning of the pipeline. Extensive experiments have been carried out over three cross-lingual text classification datasets (XNLI, MLDoc, and MultiEURLEX), with the results showing that the proposed approach has significantly improved performance over a competitive baseline.</abstract>
+      <pages>1147–1161</pages>
+      <url hash="a584faa7">2023.tacl-1.65</url>
+      <bibkey>unanue-etal-2023-t3l</bibkey>
+    </paper>
+    <paper id="66">
+      <title>Introduction to Mathematical Language Processing: Informal Proofs, Word Problems, and Supporting Tasks</title>
+      <author><first>Jordan</first><last>Meadows</last></author>
+      <author><first>André</first><last>Freitas</last></author>
+      <doi>10.1162/tacl_a_00594</doi>
+      <abstract>Automating discovery in mathematics and science will require sophisticated methods of information extraction and abstract reasoning, including models that can convincingly process relationships between mathematical elements and natural language, to produce problem solutions of real-world value. We analyze mathematical language processing methods across five strategic sub-areas (identifier-definition extraction, formula retrieval, natural language premise selection, math word problem solving, and informal theorem proving) from recent years, highlighting prevailing methodologies, existing limitations, overarching trends, and promising avenues for future research.</abstract>
+      <pages>1162–1184</pages>
+      <url hash="f25ae2ed">2023.tacl-1.66</url>
+      <bibkey>meadows-freitas-2023-introduction</bibkey>
+    </paper>
+    <paper id="67">
+      <title>Evaluating a Century of Progress on the Cognitive Science of Adjective Ordering</title>
+      <author><first>William</first><last>Dyer</last></author>
+      <author><first>Charles</first><last>Torres</last></author>
+      <author><first>Gregory</first><last>Scontras</last></author>
+      <author><first>Richard</first><last>Futrell</last></author>
+      <doi>10.1162/tacl_a_00596</doi>
+      <abstract>The literature on adjective ordering abounds with proposals meant to account for why certain adjectives appear before others in multi-adjective strings (e.g., the small brown box). However, these proposals have been developed and tested primarily in isolation and based on English; few researchers have looked at the combined performance of multiple factors in the determination of adjective order, and few have evaluated predictors across multiple languages. The current work approaches both of these objectives by using technologies and datasets from natural language processing to look at the combined performance of existing proposals across 32 languages. Comparing this performance with both random and idealized baselines, we show that the literature on adjective ordering has made significant meaningful progress across its many decades, but there remains quite a gap yet to be explained.</abstract>
+      <pages>1185–1200</pages>
+      <url hash="e7b0a462">2023.tacl-1.67</url>
+      <bibkey>dyer-etal-2023-evaluating</bibkey>
+    </paper>
+    <paper id="68">
+      <title>Improving Multitask Retrieval by Promoting Task Specialization</title>
+      <author><first>Wenzheng</first><last>Zhang</last></author>
+      <author><first>Chenyan</first><last>Xiong</last></author>
+      <author><first>Karl</first><last>Stratos</last></author>
+      <author><first>Arnold</first><last>Overwijk</last></author>
+      <doi>10.1162/tacl_a_00597</doi>
+      <abstract>In multitask retrieval, a single retriever is trained to retrieve relevant contexts for multiple tasks. Despite its practical appeal, naive multitask retrieval lags behind task-specific retrieval, in which a separate retriever is trained for each task. We show that it is possible to train a multitask retriever that outperforms task-specific retrievers by promoting task specialization. The main ingredients are: (1) a better choice of pretrained model—one that is explicitly optimized for multitasking—along with compatible prompting, and (2) a novel adaptive learning method that encourages each parameter to specialize in a particular task. The resulting multitask retriever is highly performant on the KILT benchmark. Upon analysis, we find that the model indeed learns parameters that are more task-specialized compared to naive multitasking without prompting or adaptive learning.1</abstract>
+      <pages>1201–1212</pages>
+      <url hash="e0ac4220">2023.tacl-1.68</url>
+      <bibkey>zhang-etal-2023-improving-multitask</bibkey>
+    </paper>
+    <paper id="69">
+      <title>Calibrated Interpretation: Confidence Estimation in Semantic Parsing</title>
+      <author><first>Elias</first><last>Stengel-Eskin</last></author>
+      <author><first>Benjamin</first><last>Van Durme</last></author>
+      <doi>10.1162/tacl_a_00598</doi>
+      <abstract>Sequence generation models are increasingly being used to translate natural language into programs, i.e., to perform executable semantic parsing. The fact that semantic parsing aims to predict programs that can lead to executed actions in the real world motivates developing safe systems. This in turn makes measuring calibration—a central component to safety—particularly important. We investigate the calibration of popular generation models across four popular semantic parsing datasets, finding that it varies across models and datasets. We then analyze factors associated with calibration error and release new confidence-based challenge splits of two parsing datasets. To facilitate the inclusion of calibration in semantic parsing evaluations, we release a library for computing calibration metrics.1</abstract>
+      <pages>1213–1231</pages>
+      <url hash="6cdb729d">2023.tacl-1.69</url>
+      <bibkey>stengel-eskin-van-durme-2023-calibrated</bibkey>
+    </paper>
+    <paper id="70">
+      <title>Intent-calibrated Self-training for Answer Selection in Open-domain Dialogues</title>
+      <author><first>Wentao</first><last>Deng</last></author>
+      <author><first>Jiahuan</first><last>Pei</last></author>
+      <author><first>Zhaochun</first><last>Ren</last></author>
+      <author><first>Zhumin</first><last>Chen</last></author>
+      <author><first>Pengjie</first><last>Ren</last></author>
+      <doi>10.1162/tacl_a_00599</doi>
+      <abstract>Answer selection in open-domain dialogues aims to select an accurate answer from candidates. The recent success of answer selection models hinges on training with large amounts of labeled data. However, collecting large-scale labeled data is labor-intensive and time-consuming. In this paper, we introduce the predicted intent labels to calibrate answer labels in a self-training paradigm. Specifically, we propose intent-calibrated self-training (ICAST) to improve the quality of pseudo answer labels through the intent-calibrated answer selection paradigm, in which we employ pseudo intent labels to help improve pseudo answer labels. We carry out extensive experiments on two benchmark datasets with open-domain dialogues. The experimental results show that ICAST outperforms baselines consistently with 1%, 5%, and 10% labeled data. Specifically, it improves 2.06% and 1.00% of F1 score on the two datasets, compared with the strongest baseline with only 5% labeled data.</abstract>
+      <pages>1232–1249</pages>
+      <url hash="153cec7c">2023.tacl-1.70</url>
+      <bibkey>deng-etal-2023-intent</bibkey>
+    </paper>
+    <paper id="71">
+      <title>Benchmarking the Generation of Fact Checking Explanations</title>
+      <author><first>Daniel</first><last>Russo</last></author>
+      <author><first>Serra Sinem</first><last>Tekiroğlu</last></author>
+      <author><first>Marco</first><last>Guerini</last></author>
+      <doi>10.1162/tacl_a_00601</doi>
+      <abstract>Fighting misinformation is a challenging, yet crucial, task. Despite the growing number of experts being involved in manual fact-checking, this activity is time-consuming and cannot keep up with the ever-increasing amount of fake news produced daily. Hence, automating this process is necessary to help curb misinformation. Thus far, researchers have mainly focused on claim veracity classification. In this paper, instead, we address the generation of justifications (textual explanation of why a claim is classified as either true or false) and benchmark it with novel datasets and advanced baselines. In particular, we focus on summarization approaches over unstructured knowledge (i.e., news articles) and we experiment with several extractive and abstractive strategies. We employed two datasets with different styles and structures, in order to assess the generalizability of our findings. Results show that in justification production summarization benefits from the claim information, and, in particular, that a claim-driven extractive step improves abstractive summarization performances. Finally, we show that although cross-dataset experiments suffer from performance degradation, a unique model trained on a combination of the two datasets is able to retain style information in an efficient manner.</abstract>
+      <pages>1250–1264</pages>
+      <url hash="d9e1b27f">2023.tacl-1.71</url>
+      <bibkey>russo-etal-2023-benchmarking</bibkey>
+    </paper>
+    <paper id="72">
+      <title><fixed-case>T</fixed-case> 2 -<fixed-case>NER</fixed-case>: A Two-Stage Span-Based Framework for Unified Named Entity Recognition with Templates</title>
+      <author><first>Peixin</first><last>Huang</last></author>
+      <author><first>Xiang</first><last>Zhao</last></author>
+      <author><first>Minghao</first><last>Hu</last></author>
+      <author><first>Zhen</first><last>Tan</last></author>
+      <author><first>Weidong</first><last>Xiao</last></author>
+      <doi>10.1162/tacl_a_00602</doi>
+      <abstract>Named Entity Recognition (NER) has so far evolved from the traditional flat NER to overlapped and discontinuous NER. They have mostly been solved separately, with only several exceptions that concurrently tackle three tasks with a single model. The current best-performing method formalizes the unified NER as word-word relation classification, which barely focuses on mention content learning and fails to detect entity mentions comprising a single word. In this paper, we propose a two-stage span-based framework with templates, namely, T2-NER, to resolve the unified NER task. The first stage is to extract entity spans, where flat and overlapped entities can be recognized. The second stage is to classify over all entity span pairs, where discontinuous entities can be recognized. Finally, multi-task learning is used to jointly train two stages. To improve the efficiency of span-based model, we design grouped templates and typed templates for two stages to realize batch computations. We also apply an adjacent packing strategy and a latter packing strategy to model discriminative boundary information and learn better span (pair) representation. Moreover, we introduce the syntax information to enhance our span representation. We perform extensive experiments on eight benchmark datasets for flat, overlapped, and discontinuous NER, where our model beats all the current competitive baselines, obtaining the best performance of unified NER.</abstract>
+      <pages>1265–1282</pages>
+      <url hash="b1258ac3">2023.tacl-1.72</url>
+      <bibkey>huang-etal-2023-2</bibkey>
+    </paper>
+    <paper id="73">
+      <title><fixed-case>PASTA</fixed-case>: A Dataset for Modeling <fixed-case>PA</fixed-case>rticipant <fixed-case>STA</fixed-case>tes in Narratives</title>
+      <author><first>Sayontan</first><last>Ghosh</last></author>
+      <author><first>Mahnaz</first><last>Koupaee</last></author>
+      <author><first>Isabella</first><last>Chen</last></author>
+      <author><first>Francis</first><last>Ferraro</last></author>
+      <author><first>Nathanael</first><last>Chambers</last></author>
+      <author><first>Niranjan</first><last>Balasubramanian</last></author>
+      <doi>10.1162/tacl_a_00600</doi>
+      <abstract>The events in a narrative are understood as a coherent whole via the underlying states of their participants. Often, these participant states are not explicitly mentioned, instead left to be inferred by the reader. A model that understands narratives should likewise infer these implicit states, and even reason about the impact of changes to these states on the narrative. To facilitate this goal, we introduce a new crowdsourced English-language, Participant States dataset, PASTA. This dataset contains inferable participant states; a counterfactual perturbation to each state; and the changes to the story that would be necessary if the counterfactual were true. We introduce three state-based reasoning tasks that test for the ability to infer when a state is entailed by a story, to revise a story conditioned on a counterfactual state, and to explain the most likely state change given a revised story. Experiments show that today’s LLMs can reason about states to some degree, but there is large room for improvement, especially in problems requiring access and ability to reason with diverse types of knowledge (e.g., physical, numerical, factual).1</abstract>
+      <pages>1283–1300</pages>
+      <url hash="63d8bdcb">2023.tacl-1.73</url>
+      <bibkey>ghosh-etal-2023-pasta</bibkey>
+    </paper>
+    <paper id="74">
+      <title><fixed-case>U</fixed-case>-<fixed-case>CORE</fixed-case>: A Unified Deep Cluster-wise Contrastive Framework for Open Relation Extraction</title>
+      <author><first>Jie</first><last>Zhou</last></author>
+      <author><first>Shenpo</first><last>Dong</last></author>
+      <author><first>Yunxin</first><last>Huang</last></author>
+      <author><first>Meihan</first><last>Wu</last></author>
+      <author><first>Haili</first><last>Li</last></author>
+      <author><first>Jingnan</first><last>Wang</last></author>
+      <author><first>Hongkui</first><last>Tu</last></author>
+      <author><first>Xiaodong</first><last>Wang</last></author>
+      <doi>10.1162/tacl_a_00604</doi>
+      <abstract>Within Open Relation Extraction (ORE) tasks, the Zero-shot ORE method is to generalize undefined relations from predefined relations, while the Unsupervised ORE method is to extract undefined relations without the need for annotations. However, despite the possibility of overlap between predefined and undefined relations in the training data, a unified framework for both Zero-shot and Unsupervised ORE has yet to be established. To address this gap, we propose U-CORE: A Unified Deep Cluster-wise Contrastive Framework for both Zero-shot and Unsupervised ORE, by leveraging techniques from Contrastive Learning (CL) and Clustering.1 U-CORE overcomes the limitations of CL-based Zero-shot ORE methods by employing Cluster-wise CL that preserves both local smoothness as well as global semantics. Additionally, we employ a deep-cluster-based updater that optimizes the cluster center, thus enhancing the accuracy and efficiency of the model. To increase the stability of the model, we adopt Adaptive Self-paced Learning that effectively addresses the data-shifting problems. Experimental results on three well-known datasets demonstrate that U-CORE significantly improves upon existing methods by showing an average improvement of 7.35% ARI on Zero-shot ORE tasks and 15.24% ARI on Unsupervised ORE tasks.</abstract>
+      <pages>1301–1315</pages>
+      <url hash="e17680b6">2023.tacl-1.74</url>
+      <bibkey>zhou-etal-2023-u</bibkey>
+    </paper>
+    <paper id="75">
+      <title>In-Context Retrieval-Augmented Language Models</title>
+      <author><first>Ori</first><last>Ram</last></author>
+      <author><first>Yoav</first><last>Levine</last></author>
+      <author><first>Itay</first><last>Dalmedigos</last></author>
+      <author><first>Dor</first><last>Muhlgay</last></author>
+      <author><first>Amnon</first><last>Shashua</last></author>
+      <author><first>Kevin</first><last>Leyton-Brown</last></author>
+      <author><first>Yoav</first><last>Shoham</last></author>
+      <doi>10.1162/tacl_a_00605</doi>
+      <abstract>Retrieval-Augmented Language Modeling (RALM) methods, which condition a language model (LM) on relevant documents from a grounding corpus during generation, were shown to significantly improve language modeling performance. In addition, they can mitigate the problem of factually inaccurate text generation and provide natural source attribution mechanism. Existing RALM approaches focus on modifying the LM architecture in order to facilitate the incorporation of external information, significantly complicating deployment. This paper considers a simple alternative, which we dub In-Context RALM: leaving the LM architecture unchanged and prepending grounding documents to the input, without any further training of the LM. We show that In-Context RALM that builds on off-the-shelf general purpose retrievers provides surprisingly large LM gains across model sizes and diverse corpora. We also demonstrate that the document retrieval and ranking mechanism can be specialized to the RALM setting to further boost performance. We conclude that In-Context RALM has considerable potential to increase the prevalence of LM grounding, particularly in settings where a pretrained LM must be used without modification or even via API access.1</abstract>
+      <pages>1316–1331</pages>
+      <url hash="8defbb26">2023.tacl-1.75</url>
+      <bibkey>ram-etal-2023-context</bibkey>
+    </paper>
+    <paper id="76">
+      <title>Learning to Paraphrase Sentences to Different Complexity Levels</title>
+      <author><first>Alison</first><last>Chi</last></author>
+      <author><first>Li-Kuang</first><last>Chen</last></author>
+      <author><first>Yi-Chen</first><last>Chang</last></author>
+      <author><first>Shu-Hui</first><last>Lee</last></author>
+      <author><first>Jason S.</first><last>Chang</last></author>
+      <doi>10.1162/tacl_a_00606</doi>
+      <abstract>While sentence simplification is an active research topic in NLP, its adjacent tasks of sentence complexification and same-level paraphrasing are not. To train models on all three tasks, we present two new unsupervised datasets. We compare these datasets, one labeled by a weak classifier and the other by a rule-based approach, with a single supervised dataset. Using these three datasets for training, we perform extensive experiments on both multitasking and prompting strategies. Compared to other systems trained on unsupervised parallel data, models trained on our weak classifier labeled dataset achieve state-of-the-art performance on the ASSET simplification benchmark. Our models also outperform previous work on sentence-level targeting. Finally, we establish how a handful of Large Language Models perform on these tasks under a zero-shot setting.</abstract>
+      <pages>1332–1354</pages>
+      <url hash="8be9573a">2023.tacl-1.76</url>
+      <bibkey>chi-etal-2023-learning</bibkey>
+    </paper>
+    <paper id="77">
+      <title>Direct Speech Translation for Automatic Subtitling</title>
+      <author><first>Sara</first><last>Papi</last></author>
+      <author><first>Marco</first><last>Gaido</last></author>
+      <author><first>Alina</first><last>Karakanta</last></author>
+      <author><first>Mauro</first><last>Cettolo</last></author>
+      <author><first>Matteo</first><last>Negri</last></author>
+      <author><first>Marco</first><last>Turchi</last></author>
+      <doi>10.1162/tacl_a_00607</doi>
+      <abstract>Automatic subtitling is the task of automatically translating the speech of audiovisual content into short pieces of timed text, i.e., subtitles and their corresponding timestamps. The generated subtitles need to conform to space and time requirements, while being synchronized with the speech and segmented in a way that facilitates comprehension. Given its considerable complexity, the task has so far been addressed through a pipeline of components that separately deal with transcribing, translating, and segmenting text into subtitles, as well as predicting timestamps. In this paper, we propose the first direct speech translation model for automatic subtitling that generates subtitles in the target language along with their timestamps with a single model. Our experiments on 7 language pairs show that our approach outperforms a cascade system in the same data condition, also being competitive with production tools on both in-domain and newly released out-domain benchmarks covering new scenarios.</abstract>
+      <pages>1355–1376</pages>
+      <url hash="30bc04d5">2023.tacl-1.77</url>
+      <bibkey>papi-etal-2023-direct-speech</bibkey>
+    </paper>
+    <paper id="78">
+      <title>How Abstract Is Linguistic Generalization in Large Language Models? Experiments with Argument Structure</title>
+      <author><first>Michael</first><last>Wilson</last></author>
+      <author><first>Jackson</first><last>Petty</last></author>
+      <author><first>Robert</first><last>Frank</last></author>
+      <doi>10.1162/tacl_a_00608</doi>
+      <abstract>Language models are typically evaluated on their success at predicting the distribution of specific words in specific contexts. Yet linguistic knowledge also encodes relationships between contexts, allowing inferences between word distributions. We investigate the degree to which pre-trained transformer-based large language models (LLMs) represent such relationships, focusing on the domain of argument structure. We find that LLMs perform well in generalizing the distribution of a novel noun argument between related contexts that were seen during pre-training (e.g., the active object and passive subject of the verb spray), succeeding by making use of the semantically organized structure of the embedding space for word embeddings. However, LLMs fail at generalizations between related contexts that have not been observed during pre-training, but which instantiate more abstract, but well-attested structural generalizations (e.g., between the active object and passive subject of an arbitrary verb). Instead, in this case, LLMs show a bias to generalize based on linear order. This finding points to a limitation with current models and points to a reason for which their training is data-intensive.1</abstract>
+      <pages>1377–1395</pages>
+      <url hash="d31c438d">2023.tacl-1.78</url>
+      <bibkey>wilson-etal-2023-abstract</bibkey>
+    </paper>
+    <paper id="79">
+      <title>Multi 3 <fixed-case>WOZ</fixed-case>: A Multilingual, Multi-Domain, Multi-Parallel Dataset for Training and Evaluating Culturally Adapted Task-Oriented Dialog Systems</title>
+      <author><first>Songbo</first><last>Hu</last></author>
+      <author><first>Han</first><last>Zhou</last></author>
+      <author><first>Mete</first><last>Hergul</last></author>
+      <author><first>Milan</first><last>Gritta</last></author>
+      <author><first>Guchun</first><last>Zhang</last></author>
+      <author><first>Ignacio</first><last>Iacobacci</last></author>
+      <author><first>Ivan</first><last>Vulić</last></author>
+      <author><first>Anna</first><last>Korhonen</last></author>
+      <doi>10.1162/tacl_a_00609</doi>
+      <abstract>Creating high-quality annotated data for task-oriented dialog (ToD) is known to be notoriously difficult, and the challenges are amplified when the goal is to create equitable, culturally adapted, and large-scale ToD datasets for multiple languages. Therefore, the current datasets are still very scarce and suffer from limitations such as translation-based non-native dialogs with translation artefacts, small scale, or lack of cultural adaptation, among others. In this work, we first take stock of the current landscape of multilingual ToD datasets, offering a systematic overview of their properties and limitations. Aiming to reduce all the detected limitations, we then introduce Multi3WOZ, a novel multilingual, multi-domain, multi-parallel ToD dataset. It is large-scale and offers culturally adapted dialogs in 4 languages to enable training and evaluation of multilingual and cross-lingual ToD systems. We describe a complex bottom–up data collection process that yielded the final dataset, and offer the first sets of baseline scores across different ToD-related tasks for future reference, also highlighting its challenging nature.</abstract>
+      <pages>1396–1415</pages>
+      <url hash="ce32d0ca">2023.tacl-1.79</url>
+      <bibkey>hu-etal-2023-multi-3</bibkey>
+    </paper>
+    <paper id="80">
+      <title>Can Authorship Representation Learning Capture Stylistic Features?</title>
+      <author><first>Andrew</first><last>Wang</last></author>
+      <author><first>Cristina</first><last>Aggazzotti</last></author>
+      <author><first>Rebecca</first><last>Kotula</last></author>
+      <author><first>Rafael Rivera</first><last>Soto</last></author>
+      <author><first>Marcus</first><last>Bishop</last></author>
+      <author><first>Nicholas</first><last>Andrews</last></author>
+      <doi>10.1162/tacl_a_00610</doi>
+      <abstract>Automatically disentangling an author’s style from the content of their writing is a longstanding and possibly insurmountable problem in computational linguistics. At the same time, the availability of large text corpora furnished with author labels has recently enabled learning authorship representations in a purely data-driven manner for authorship attribution, a task that ostensibly depends to a greater extent on encoding writing style than encoding content. However, success on this surrogate task does not ensure that such representations capture writing style since authorship could also be correlated with other latent variables, such as topic. In an effort to better understand the nature of the information these representations convey, and specifically to validate the hypothesis that they chiefly encode writing style, we systematically probe these representations through a series of targeted experiments. The results of these experiments suggest that representations learned for the surrogate authorship prediction task are indeed sensitive to writing style. As a consequence, authorship representations may be expected to be robust to certain kinds of data shift, such as topic drift over time. Additionally, our findings may open the door to downstream applications that require stylistic representations, such as style transfer.</abstract>
+      <pages>1416–1431</pages>
+      <url hash="8393e2d5">2023.tacl-1.80</url>
+      <bibkey>wang-etal-2023-authorship</bibkey>
+    </paper>
+    <paper id="81">
+      <title>Optimal Transport Posterior Alignment for Cross-lingual Semantic Parsing</title>
+      <author><first>Tom</first><last>Sherborne</last></author>
+      <author><first>Tom</first><last>Hosking</last></author>
+      <author><first>Mirella</first><last>Lapata</last></author>
+      <doi>10.1162/tacl_a_00611</doi>
+      <abstract>Cross-lingual semantic parsing transfers parsing capability from a high-resource language (e.g., English) to low-resource languages with scarce training data. Previous work has primarily considered silver-standard data augmentation or zero-shot methods; exploiting few-shot gold data is comparatively unexplored. We propose a new approach to cross-lingual semantic parsing by explicitly minimizing cross-lingual divergence between probabilistic latent variables using Optimal Transport. We demonstrate how this direct guidance improves parsing from natural languages using fewer examples and less training. We evaluate our method on two datasets, MTOP and MultiATIS++SQL, establishing state-of-the-art results under a few-shot cross-lingual regime. Ablation studies further reveal that our method improves performance even without parallel input translations. In addition, we show that our model better captures cross-lingual structure in the latent space to improve semantic representation similarity.1</abstract>
+      <pages>1432–1450</pages>
+      <url hash="fa7aef63">2023.tacl-1.81</url>
+      <bibkey>sherborne-etal-2023-optimal</bibkey>
+    </paper>
   </volume>
 </collection>

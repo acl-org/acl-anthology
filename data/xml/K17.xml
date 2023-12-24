@@ -849,18 +849,17 @@
       <url hash="5688fe27">K17-3005</url>
       <doi>10.18653/v1/K17-3005</doi>
       <abstract>This paper describes our system (HIT-SCIR) for the CoNLL 2017 shared task: Multilingual Parsing from Raw Text to Universal Dependencies. Our system includes three pipelined components: <i>tokenization</i>,
-      <i>Part-of-Speech</i> (POS) <i>tagging</i> and <i>dependency parsing</i>.
-      We use character-based bidirectional long short-term memory (LSTM) networks for
-      both tokenization and POS tagging.
-      Afterwards, we employ a list-based transition-based algorithm for general
-      non-projective parsing and present an improved Stack-LSTM-based architecture
-      for representing each transition state and making predictions.
-      Furthermore, to parse low/zero-resource languages and cross-domain data, we use
-      a model transfer approach to make effective use of existing resources.
-      We demonstrate substantial gains against the UDPipe baseline, with an average
-      improvement of 3.76% in LAS of all languages. And finally, we rank the 4th
-      place on the official test sets.
-    </abstract>
+ <i>Part-of-Speech</i> (POS) <i>tagging</i> and <i>dependency parsing</i>.
+ We use character-based bidirectional long short-term memory (LSTM) networks for
+ both tokenization and POS tagging.
+ Afterwards, we employ a list-based transition-based algorithm for general
+ non-projective parsing and present an improved Stack-LSTM-based architecture
+ for representing each transition state and making predictions.
+ Furthermore, to parse low/zero-resource languages and cross-domain data, we use
+ a model transfer approach to make effective use of existing resources.
+ We demonstrate substantial gains against the UDPipe baseline, with an average
+ improvement of 3.76% in LAS of all languages. And finally, we rank the 4th
+ place on the official test sets.</abstract>
       <bibkey>che-etal-2017-hit</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
     </paper>
@@ -965,8 +964,7 @@
       <pages>134–142</pages>
       <url hash="9cacfef4">K17-3014</url>
       <doi>10.18653/v1/K17-3014</doi>
-      <abstract>We present a novel neural network model that learns POS tagging and graph-based dependency parsing jointly. Our model uses bidirectional LSTMs to learn feature representations shared for both POS tagging and dependency parsing tasks, thus handling the feature-engineering problem. Our extensive experiments, on 19 languages from the Universal Dependencies project, show that our model outperforms the state-of-the-art neural network-based Stack-propagation model for joint POS tagging and transition-based dependency parsing, resulting in a new state of the art. Our code is open-source and available together with pre-trained models at: <url>https://github.com/datquocnguyen/jPTDP</url>
-      </abstract>
+      <abstract>We present a novel neural network model that learns POS tagging and graph-based dependency parsing jointly. Our model uses bidirectional LSTMs to learn feature representations shared for both POS tagging and dependency parsing tasks, thus handling the feature-engineering problem. Our extensive experiments, on 19 languages from the Universal Dependencies project, show that our model outperforms the state-of-the-art neural network-based Stack-propagation model for joint POS tagging and transition-based dependency parsing, resulting in a new state of the art. Our code is open-source and available together with pre-trained models at: <url>https://github.com/datquocnguyen/jPTDP</url></abstract>
       <bibkey>nguyen-etal-2017-novel</bibkey>
       <pwccode url="https://github.com/datquocnguyen/jPTDP" additional="false">datquocnguyen/jPTDP</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
@@ -988,8 +986,7 @@
       <pages>152–162</pages>
       <url hash="d7fdf70a">K17-3016</url>
       <doi>10.18653/v1/K17-3016</doi>
-      <abstract>The LyS-FASTPARSE team present BIST-COVINGTON, a neural implementation of the Covington (2001) algorithm for non-projective dependency parsing. The bidirectional LSTM approach by Kiperwasser and Goldberg (2016) is used to train a greedy parser with a dynamic oracle to mitigate error propagation. The model participated in the CoNLL 2017 UD Shared Task. In spite of not using any ensemble methods and using the baseline segmentation and PoS tagging, the parser obtained good results on both macro-average LAS and UAS in the big treebanks category (55 languages), ranking 7th out of 33 teams. In the all treebanks category (LAS and UAS) we ranked 16th and 12th. The gap between the all and big categories is mainly due to the poor performance on four parallel PUD treebanks, suggesting that some ‘suffixed’ treebanks (e.g. Spanish-AnCora) perform poorly on cross-treebank settings, which does not occur with the corresponding ‘unsuffixed’ treebank (e.g. Spanish). By changing that, we obtain the 11th best LAS among all runs (official and unofficial). The code is made available at <url>https://github.com/CoNLL-UD-2017/LyS-FASTPARSE</url>
-      </abstract>
+      <abstract>The LyS-FASTPARSE team present BIST-COVINGTON, a neural implementation of the Covington (2001) algorithm for non-projective dependency parsing. The bidirectional LSTM approach by Kiperwasser and Goldberg (2016) is used to train a greedy parser with a dynamic oracle to mitigate error propagation. The model participated in the CoNLL 2017 UD Shared Task. In spite of not using any ensemble methods and using the baseline segmentation and PoS tagging, the parser obtained good results on both macro-average LAS and UAS in the big treebanks category (55 languages), ranking 7th out of 33 teams. In the all treebanks category (LAS and UAS) we ranked 16th and 12th. The gap between the all and big categories is mainly due to the poor performance on four parallel PUD treebanks, suggesting that some ‘suffixed’ treebanks (e.g. Spanish-AnCora) perform poorly on cross-treebank settings, which does not occur with the corresponding ‘unsuffixed’ treebank (e.g. Spanish). By changing that, we obtain the 11th best LAS among all runs (official and unofficial). The code is made available at <url>https://github.com/CoNLL-UD-2017/LyS-FASTPARSE</url></abstract>
       <bibkey>vilares-gomez-rodriguez-2017-non</bibkey>
       <pwccode url="https://github.com/CoNLL-UD-2017/LyS-FASTPARSE" additional="false">CoNLL-UD-2017/LyS-FASTPARSE</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
@@ -1050,7 +1047,7 @@
       <pages>198–206</pages>
       <url hash="643eeff0">K17-3021</url>
       <doi>10.18653/v1/K17-3021</doi>
-      <abstract>This paper describes UALing’s approach to the <i>CoNLL 2017 UD Shared Task</i> using corpus selection techniques to reduce training data size. The methodology is simple: we use similarity measures to select a corpus from available training data (even from multiple corpora for surprise languages) and use the resulting corpus to complete the parsing task. The training and parsing is done with the baseline UDPipe system (Straka et al., 2016). While our approach reduces the size of training data significantly, it retains performance within 0.5% of the baseline system. Due to the reduction in training data size, our system performs faster than the naïve, complete corpus method. Specifically, our system runs in less than 10 minutes, ranking it among the fastest entries for this task. Our system is available at <url>https://github.com/CoNLL-UD-2017/UALING</url>. </abstract>
+      <abstract>This paper describes UALing’s approach to the <i>CoNLL 2017 UD Shared Task</i> using corpus selection techniques to reduce training data size. The methodology is simple: we use similarity measures to select a corpus from available training data (even from multiple corpora for surprise languages) and use the resulting corpus to complete the parsing task. The training and parsing is done with the baseline UDPipe system (Straka et al., 2016). While our approach reduces the size of training data significantly, it retains performance within 0.5% of the baseline system. Due to the reduction in training data size, our system performs faster than the naïve, complete corpus method. Specifically, our system runs in less than 10 minutes, ranking it among the fastest entries for this task. Our system is available at <url>https://github.com/CoNLL-UD-2017/UALING</url>.</abstract>
       <bibkey>hornby-etal-2017-corpus</bibkey>
       <pwccode url="https://github.com/CoNLL-UD-2017/UALING" additional="false">CoNLL-UD-2017/UALING</pwccode>
     </paper>

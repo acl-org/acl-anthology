@@ -380,7 +380,15 @@ def indent(elem, level=0, internal=False):
     Adapted from https://stackoverflow.com/a/33956544 .
     """
     # tags that have no internal linebreaks (including children)
-    oneline = elem.tag in ("author", "editor", "speaker", "title", "booktitle", "variant")
+    oneline = elem.tag in (
+        "author",
+        "editor",
+        "speaker",
+        "title",
+        "booktitle",
+        "variant",
+        "abstract",
+    )
 
     elem.text = clean_whitespace(elem.text)
 
@@ -397,12 +405,12 @@ def indent(elem, level=0, internal=False):
 
         # recurse
         for child in elem:
-            indent(child, level + 1, internal=oneline)
+            indent(child, level + 1, internal=(internal or oneline))
 
         # Clean up the last child
         if oneline:
             child.tail = clean_whitespace(child.tail, strip="right")
-        elif not child.tail or not child.tail.strip():
+        elif not internal and (not child.tail or not child.tail.strip()):
             child.tail = "\n" + level * "  "
     else:
         elem.text = clean_whitespace(elem.text, strip="both")
@@ -507,7 +515,7 @@ def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=Non
         else etree.SubElement(parent, tag)
     )
     if text:
-        el.text = text
+        el.text = str(text)
     if attrib:
         for key, value in attrib.items():
             el.attrib[key] = value

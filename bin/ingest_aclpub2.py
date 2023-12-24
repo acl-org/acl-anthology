@@ -107,10 +107,11 @@ def correct_caps(name):
     if name is not None and (name.islower() or name.isupper()):
         # capitalize all parts
         corrected = " ".join(list(map(lambda x: x.capitalize(), name.split())))
-        print(
-            f"-> Correcting capitalization of '{name}' to '{corrected}'",
-            file=sys.stderr,
-        )
+        if name != corrected:
+            print(
+                f"-> Correcting capitalization of '{name}' to '{corrected}'",
+                file=sys.stderr,
+            )
         name = corrected
     return name
 
@@ -148,8 +149,8 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     ingestion_dir = Path(ingestion_dir)
 
     paths_to_check = [
-        ingestion_dir / 'conference_details.yml',
         ingestion_dir / 'inputs' / 'conference_details.yml',
+        ingestion_dir / 'conference_details.yml',
     ]
     meta = None
     for path in paths_to_check:
@@ -179,7 +180,7 @@ def parse_conf_yaml(ingestion_dir: str) -> Dict[str, Any]:
     meta['volume_name'] = str(meta['volume_name'])
     if re.match(r'^[a-z0-9]+$', meta['volume_name']) is None:
         raise Exception(
-            f"Invalid volume key '{meta['volume_name']}' in {ingestion_dir + 'inputs/conference_details.yml'}"
+            f"Invalid volume key '{meta['volume_name']}' in {ingestion_dir / 'inputs' / 'conference_details.yml'}"
         )
 
     return meta
@@ -192,8 +193,8 @@ def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
     ingestion_dir = Path(ingestion_dir)
 
     paths_to_check = [
-        ingestion_dir / 'papers.yml',
         ingestion_dir / 'inputs' / 'papers.yml',
+        ingestion_dir / 'papers.yml',
     ]
     papers = None
     for path in paths_to_check:
@@ -235,8 +236,6 @@ def add_paper_nums_in_paper_yaml(
         paths_to_check = [
             ingestion_dir / "watermarked_pdfs" / paper_path,
             ingestion_dir / "watermarked_pdfs" / f"{paper_id}.pdf",
-            ingestion_dir / "build" / "watermarked_pdfs" / paper_path,
-            ingestion_dir / "build" / "watermarked_pdfs" / f"{paper_id}.pdf",
         ]
         paper_need_read_path = None
         for path in paths_to_check:
@@ -303,6 +302,7 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
         'year',
         'url',
     ]
+
     frontmatter_node = make_simple_element('frontmatter', attrib={'id': '0'})
     for field in fields:
         if field == 'editor':
@@ -323,7 +323,7 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
         else:
             if field == 'url':
                 if "pdf" in frontmatter:
-                    # Only create the entry if the PDF exis
+                    # Only create the entry if the PDF exists
                     value = f'{anthology_id}'
                 else:
                     print(
@@ -399,7 +399,7 @@ def paper2xml(
                 value = f'{anthology_id}'
             elif field == 'abstract':
                 value = None
-                if "abstract" in paper_item:
+                if "abstract" in paper_item and paper_item["abstract"] is not None:
                     value = paper_item["abstract"].replace('\n', '')
             elif field == 'title':
                 value = paper_item[field]
@@ -411,11 +411,14 @@ def paper2xml(
             try:
                 if value is not None:
                     make_simple_element(field, text=value, parent=paper)
-            except Exception:
+            except Exception as e:
+                print("* ERROR:", e, file=sys.stderr)
                 print(
-                    f"Couldn't process {paper} for {anthology_id}, please check the abstract in the papers.yaml file for this paper",
+                    f"* Couldn't process {field}='{value}' for {anthology_id}, please check the abstract in the papers.yaml file for this paper",
                     file=sys.stderr,
                 )
+                for key, value in paper_item.items():
+                    print(f"* -> {key} => {value}", file=sys.stderr)
                 sys.exit(2)
     return paper
 
@@ -441,13 +444,16 @@ def process_proceeding(
 
     if venue_slug not in venue_keys:
         event_name = meta['event_name']
-        assert (
-            re.match(r'(.)* [Ww]orkshop', event_name) is None
-        ), f"event name should start with Workshop, instead it started with {re.match(r'(.)* [Ww]orkshop', event_name)[0]}"
+        if re.match(r'(.)* [Ww]orkshop', event_name) is None:
+            print(
+                "* Warning: event name should start with Workshop, instead it started with",
+                re.match(r'(.)* [Ww]orkshop', event_name)[0],
+                file=sys.stderr,
+            )
         print(f"Creating new venue '{venue_abbrev}' ({event_name})")
         venue_index.add_venue(anthology_datadir, venue_abbrev, meta['event_name'])
 
-    meta["path"] = ingestion_dir
+    meta["path"] = Path(ingestion_dir)
     meta["collection_id"] = collection_id = meta["year"] + "." + venue_slug
     volume_name = meta["volume_name"].lower()
     volume_full_id = f"{collection_id}-{volume_name}"
@@ -482,8 +488,7 @@ def copy_pdf_and_attachment(
 
     pdfs_src_dir = None
     paths_to_check = [
-        Path(meta['path']) / 'watermarked_pdfs',
-        Path(meta['path']) / 'build' / 'watermarked_pdfs',
+        meta['path'] / 'watermarked_pdfs',
     ]
     for path in paths_to_check:
         if path.exists() and path.is_dir():
@@ -497,8 +502,8 @@ def copy_pdf_and_attachment(
     # copy proceedings.pdf
     proceedings_pdf_src_path = None
     paths_to_check = [
-        Path('proceedings.pdf'),
-        Path("build") / 'proceedings.pdf',
+        meta['path'] / 'proceedings.pdf',
+        meta['path'] / "build" / 'proceedings.pdf',
     ]
     for path in paths_to_check:
         if path.exists():
@@ -531,16 +536,14 @@ def copy_pdf_and_attachment(
 
     frontmatter_src_path = None
     paths_to_check = [
-        Path('front_matter.pdf'),
-        Path('0.pdf'),
-        Path("watermarked_pdfs") / 'front_matter.pdf',
-        Path("watermarked_pdfs") / '0.pdf',
-        Path("build") / 'front_matter.pdf',
-        Path("build") / '0.pdf',
+        meta['path'] / 'front_matter.pdf',
+        meta['path'] / "watermarked_pdfs" / 'front_matter.pdf',
+        meta['path'] / "watermarked_pdfs" / '0.pdf',
     ]
     for path in paths_to_check:
         if path.exists():
             frontmatter_src_path = str(path)
+            print(f"Found frontmatter at {frontmatter_src_path}", file=sys.stderr)
             break
     else:
         print(
@@ -605,7 +608,7 @@ def copy_pdf_and_attachment(
             # copy attachments
             if 'attachments' in paper:
                 attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
-                attachs_src_dir = Path(meta['path']) / 'attachments'
+                attachs_src_dir = meta['path'] / 'attachments'
                 # assert (
                 #     attachs_src_dir.exists()
                 # ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
@@ -693,8 +696,15 @@ def create_xml(
         # print(f'creating xml for paper name {paper}, in papers {papers[paper_num-1]}')
         if paper_num == 0:
             paper_node = proceeding2xml(paper_id_full, meta, volume[0])
+            # year, venue = collection_id.split(".")
+            # bibkey = f"{venue}-{year}-{volume_name}"
         else:
             paper_node = paper2xml(papers[paper_num - 1], paper_num, paper_id_full, meta)
+            # bibkey = anthology.pindex.create_bibkey(paper_node, vidx=anthology.venues)
+
+        # Ideally this would be here, but it requires a Paper object, which requires a Volume object, etc
+        # Just a little bit complicated
+        # make_simple_element("bibkey", "", parent=paper)
 
         paper_id = paper_node.attrib['id']
         if paper_id == '0':
@@ -840,7 +850,6 @@ def create_xml(
 )
 def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, ingest_date):
     anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
-
     # anthology = Anthology(
     #     importdir=anthology_datadir, require_bibkeys=False
     # )
