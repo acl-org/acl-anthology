@@ -5,7 +5,11 @@ repos:
     hooks:
     -   id: check-yaml
     -   id: check-xml
-        exclude: ^hugo/layouts/sitemap.xml$
+        exclude: |
+          (?x)^(
+              hugo/layouts/sitemap.xml|
+              hugo/layouts/_default/rss.xml
+          )$
     -   id: end-of-file-fixer
     -   id: no-commit-to-branch
         args: [--branch, master]
