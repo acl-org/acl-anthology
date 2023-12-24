@@ -64,6 +64,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
+        if paper.parent_volume.ingest_date:
+            data["ingest_date"] = paper.parent_volume.ingest_date
         data["title_html"] = paper.get_title("html")
         if "xml_title" in data:
             del data["xml_title"]
