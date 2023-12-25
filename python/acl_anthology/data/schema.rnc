@@ -1,0 +1,156 @@
+# default namespace = ""
+
+b = element b { MarkupText }
+i = element i { MarkupText }
+url = element url {
+  attribute type { xsd:NCName }? & xsd:anyURI
+}
+fixed-case = element fixed-case { MarkupText }
+tex-math = element tex-math { text }
+MarkupText = (text | b | i | url | fixed-case | tex-math )+
+
+first = element first { xsd:string { pattern="(\S(.*\S)?)?" } }
+last = element last { xsd:string { pattern="\S(.*\S)?" } }
+affiliation = element affiliation { text }
+orcid = element orcid { text }
+google-scholar = element google-scholar{ text }
+semantic-scholar = element semantic-scholar { text }
+Variant = element variant { attribute script { xsd:string }, (first? & last) }
+Person = attribute id { xsd:NCName }?, (first? & last & Variant? & affiliation? & orcid? & google-scholar? & semantic-scholar? )
+
+local-filename = xsd:string { pattern="[A-Za-z0-9._\-]+" }
+bibtex-key = xsd:string { pattern="[A-Za-z0-9\-]+" }
+checksum = attribute hash { xsd:string {minLength="8" maxLength="8" pattern="[0-9a-f]*"} }
+url-with-checksum = element url {
+    xsd:anyURI {pattern="https?://.*"} |
+    (local-filename, checksum)
+}
+attachment = element attachment {
+    attribute type { xsd:NCName }?,
+    checksum,
+    local-filename
+}
+
+Revision = element revision {
+  attribute id { xsd:positiveInteger },
+  attribute href { local-filename },
+  attribute date { xsd:date }?,
+  checksum,
+  text
+}
+
+Talk = element talk {
+  attribute type { xsd:string }?,
+  (element title { MarkupText }
+   & element speaker { Person }*
+   & url?
+  )
+ }
+
+Paper = element paper {
+  attribute id { xsd:positiveInteger },
+  attribute ingest-date { xsd:date }?,
+  attribute type { xsd:string }?,
+  (element abstract { MarkupText }?
+   & attachment*
+   & element bibkey { bibtex-key }
+   & element author { Person }*
+   & element doi { xsd:anyURI }?
+   & element editor { Person }*
+   & Revision*
+   & element erratum {
+       attribute id { xsd:positiveInteger },
+       attribute date { xsd:date }?,
+       checksum,
+       local-filename
+     }*
+   & element retracted {
+       attribute date { xsd:date },
+       text
+     }?
+   & element removed {
+       attribute date { xsd:date },
+       text
+     }?
+   & element issue { xsd:nonNegativeInteger }?
+   & element journal { text }?
+   & element mrf {
+       attribute src { xsd:NCName },
+       xsd:NCName
+     }?
+   & element note { text }?
+   & element pages { text }?
+   & element title { MarkupText }
+   & url-with-checksum?
+   & element video {
+       attribute href { xsd:anyURI },
+       attribute permission { xsd:boolean }?
+     }*
+   & element language { xsd:language }?
+   & element award { text }*
+   & element pwcdataset {
+       attribute url { xsd:anyURI },
+       text
+     }*
+   & element pwccode {
+       attribute url { xsd:anyURI },
+       attribute additional { xsd:boolean },
+       text
+     }?
+   )
+}
+Meta = element meta {
+  (element booktitle { MarkupText }
+   & element shortbooktitle { MarkupText }?
+   & element editor { Person }*
+   & element publisher { text }?
+   & element address { text }?
+   & element month { text }?
+   & element year { xsd:gYear }
+   & element isbn { xsd:NMTOKEN }?
+   & url-with-checksum?
+   & element doi { xsd:anyURI }?
+   & element venue { text }+
+   & element journal-volume { xsd:string }?
+   & element journal-issue { xsd:string }?
+   & element journal-title { xsd:string }?
+  )
+}
+Frontmatter = element frontmatter {
+  (url-with-checksum?
+   & element pages { text }?
+   & element bibkey { bibtex-key }
+   & Revision*
+   & attachment*
+   & element doi { xsd:anyURI }?
+  )
+}
+Volume = element volume {
+  attribute id { xsd:string },
+  attribute type { "journal" | "proceedings" },
+  attribute ingest-date { xsd:date }?,
+  Meta,
+  Frontmatter?,
+  Paper*
+}
+Event = element event {
+  attribute id { xsd:string },
+  (element meta {
+    (element title { MarkupText }?
+     & element location { text }?
+     & element dates { text }?
+    )
+  }?
+   & element links { url* }?
+   & Talk*
+   & element colocated {
+       element volume-id { text }*
+     }?
+ )
+}
+Collection = element collection {
+  attribute id { xsd:string },
+  Volume*,
+  Event?
+}
+start = Collection

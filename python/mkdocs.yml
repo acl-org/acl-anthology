@@ -1,0 +1,110 @@
+site_name: acl-anthology-py
+site_author: Marcel Bollmann
+repo_url: https://github.com/acl-org/acl-anthology
+repo_name: acl-org/acl-anthology
+
+markdown_extensions:
+  - admonition
+  - def_list
+  - footnotes
+  - pymdownx.betterem
+  - pymdownx.critic
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - toc:
+      permalink: true
+
+theme:
+  name: material
+  logo: assets/acl-logo.svg
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    # Color of the ACL logo is: rgb(237, 28, 36)
+    primary: indigo
+    accent: amber
+  features:
+    - navigation.expand
+    - navigation.indexes
+    - content.code.copy
+    #- navigation.sections
+    #- navigation.tabs
+
+nav:
+  - Overview:
+      - index.md
+      - developing.md
+  - User Guide:
+      - guide/index.md
+      - guide/getting-started.md
+      - guide/accessing-publications.md
+      - guide/types-of-metadata.md
+      - guide/accessing-authors.md
+      - guide/modifying-data.md
+  - API Documentation:
+      - api/index.md
+      - api/anthology.md
+      - api/config.md
+      - api/constants.md
+      - api/containers.md
+      - collections:
+          - api/collectionindex.md
+          - api/collection.md
+          - api/volume.md
+          - api/paper.md
+          - api/eventindex.md
+          - api/event.md
+      - api/files.md
+      - api/people.md
+      - api/sigs.md
+      - api/text.md
+      - api/utils.md
+      - api/venues.md
+  - Contributing:
+      - contributing/design.md
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          import:
+            - https://docs.python.org/3/objects.inv
+            - https://lxml.de/apidoc/objects.inv
+            - https://omegaconf.readthedocs.io/en/latest/objects.inv
+            - https://docs.scipy.org/doc/scipy/objects.inv
+          options:
+            docstring_style: google
+            docstring_section_style: table  # from: {list, table, spacy}
+            separate_signature: true
+            signature_crossrefs: true  # doesn't work?
+            merge_init_into_class: true
+            docstring_options:
+              ignore_init_summary: true
+            show_source: false
+            show_root_heading: false
+            show_root_toc_entry: false
+            heading_level: 3
+            filters:
+              - "!^_"
+              - "^__init__$"
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/acl-org/acl-anthology
+      name: acl-anthology-py on Github
+    - icon: material/web
+      link: https://aclanthology.org/
+      name: ACL Anthology Website
+
+watch:
+  - acl_anthology/
