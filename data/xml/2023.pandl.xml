@@ -32,6 +32,7 @@
       <abstract>Relation extraction (RE) has achieved remarkable progress with the help of pre-trained language models. However, existing RE models are usually incapable of handling two situations: implicit expressions and long-tail relation classes, caused by language complexity and data sparsity. Further, these approaches and models are largely inaccessible to users who don’t have direct access to large language models (LLMs) and/or infrastructure for supervised training or fine-tuning. Rule-based systems also struggle with implicit expressions. Apart from this, Real world financial documents such as various 10-X reports (including 10-K, 10-Q, etc.) of publicly traded companies pose another challenge to rule-based systems in terms of longer and complex sentences. In this paper, we introduce a simple approach that consults training relations at test time through a nearest-neighbor search over dense vectors of lexico-syntactic patterns and provides a simple yet effective means to tackle the above issues. We evaluate our approach on REFinD and show that our method achieves state-of-the-art performance. We further show that it can provide a good start for human in the loop setup when a small number of annotations are available and it is also beneficial when domain experts can provide high quality patterns. Our code is available at 1.</abstract>
       <url hash="7d6a888f">2023.pandl-1.1</url>
       <bibkey>rajpoot-parikh-2023-nearest</bibkey>
+      <doi>10.18653/v1/2023.pandl-1.1</doi>
     </paper>
     <paper id="2">
       <title><fixed-case>LEAF</fixed-case>: Linguistically Enhanced Event Temporal Relation Framework</title>
@@ -42,6 +43,7 @@
       <abstract>Linguistic structures can implicitly imply diverse types of event relations that have been previously underexplored. For example, the sentence “John was cooking freshly made noodles for the family gathering” contains no explicit temporal indicators between the events, such as before. Despite this, it is easy for humans to conclude, based on syntax, that the noodles were made before John started cooking, and that the family gathering starts after John starts cooking. We introduce Linguistically enhanced Event TemporAl relation Framework (LEAF), a simple and effective approach to acquiring rich temporal knowledge of events from large-scale corpora. This method improves pre-trained language models by automatically extracting temporal relation knowledge from unannotated corpora using diverse temporal knowledge patterns. We begin by manually curating a comprehensive list of atomic patterns that imply temporal relations between events. These patterns involve event pairs in which one event is contained within the argument of the other. Using transitivity, we discover compositional patterns and assign labels to event pairs involving these patterns. Finally, we make language models learn the rich knowledge by pre-training with the acquired temporal relation supervision. Experiments show that our method outperforms or rivals previous models on two event relation datasets: MATRES and TB-Dense. Our approach is also simpler from past works and excels at identifying complex compositional event relations.</abstract>
       <url hash="2bcb0a9e">2023.pandl-1.2</url>
       <bibkey>lim-etal-2023-leaf</bibkey>
+      <doi>10.18653/v1/2023.pandl-1.2</doi>
     </paper>
     <paper id="3">
       <title>A Graph-Guided Reasoning Approach for Open-ended Commonsense Question Answering</title>
@@ -52,6 +54,7 @@
       <abstract>Recently, end-to-end trained models for multiple-choice commonsense question answering (QA) have delivered promising results. However, such question-answering systems cannot be directly applied in real-world scenarios where answer candidates are not provided. Hence, a new benchmark challenge set for open-ended commonsense reasoning (OpenCSR) has been recently released, which contains natural science questions without any predefined choices. On the OpenCSR challenge set, many questions require implicit multi-hop reasoning and have a large decision space, reflecting the difficult nature of this task. Existing work on OpenCSR sorely focuses on improving the retrieval process, which extracts relevant factual sentences from a textual knowledge base, leaving the important and non-trivial reasoning task outside the scope. In this work, we extend the scope to include a reasoner that constructs a question-dependent open knowledge graph based on retrieved supporting facts and employs a sequential subgraph reasoning process to predict the answer. The subgraph can be seen as a concise and compact graphical explanation of the prediction. Experiments on two OpenCSR datasets show that the proposed model achieves great performance on benchmark OpenCSR datasets.</abstract>
       <url hash="3e86c541">2023.pandl-1.3</url>
       <bibkey>han-etal-2023-graph</bibkey>
+      <doi>10.18653/v1/2023.pandl-1.3</doi>
     </paper>
     <paper id="4">
       <title>Generating <fixed-case>I</fixed-case>rish Text with a Flexible Plug-and-Play Architecture</title>
@@ -65,6 +68,7 @@
       <abstract>In this paper, we describe M-FleNS, a multilingual flexible plug-and-play architecture designed to accommodate neural and symbolic modules, and initially instantiated with rule-based modules. We focus on using M-FleNS for the specific purpose of building new resources for Irish, a language currently under-represented in the NLP landscape. We present the general M-FleNS framework and how we use it to build an Irish Natural Language Generation system for verbalising part of the DBpedia ontology and building a multilayered dataset with rich linguistic annotations. Via automatic and human assessments of the output texts we show that with very limited resources we are able to create a system that reaches high levels of fluency and semantic accuracy, while having very low energy and memory requirements.</abstract>
       <url hash="47d81baa">2023.pandl-1.4</url>
       <bibkey>mille-etal-2023-generating</bibkey>
+      <doi>10.18653/v1/2023.pandl-1.4</doi>
     </paper>
     <paper id="5">
       <title>Symbolic Planning and Code Generation for Grounded Dialogue</title>
@@ -78,6 +82,7 @@
       <abstract>Large language models (LLMs) excel at processing and generating both text and code. However, LLMs have had limited applicability in grounded task-oriented dialogue as they are difficult to steer toward task objectives and fail to handle novel grounding. We present a modular and interpretable grounded dialogue system that addresses these shortcomings by composing LLMs with a symbolic planner and grounded code execution. Our system consists of a reader and planner: the reader leverages an LLM to convert partner utterances into executable code, calling functions that perform grounding. The translated code’s output is stored to track dialogue state, while a symbolic planner determines the next appropriate response. We evaluate our system’s performance on the demanding OneCommon dialogue task, involving collaborative reference resolution on abstract images of scattered dots. Our system substantially outperforms the previous state-of-the-art, including improving task success in human evaluations from 56% to 69% in the most challenging setting.</abstract>
       <url hash="78436335">2023.pandl-1.5</url>
       <bibkey>chiu-etal-2023-symbolic</bibkey>
+      <doi>10.18653/v1/2023.pandl-1.5</doi>
     </paper>
     <paper id="6">
       <title>Towards Zero-Shot Frame Semantic Parsing with Task Agnostic Ontologies and Simple Labels</title>
@@ -92,6 +97,7 @@
       <abstract>Frame semantic parsing is an important component of task-oriented dialogue systems. Current models rely on a significant amount training data to successfully identify the intent and slots in the user’s input utterance. This creates a significant barrier for adding new domains to virtual assistant capabilities, as creation of this data requires highly specialized NLP expertise. In this work we propose OpenFSP, a framework that allows for easy creation of new domains from a handful of simple labels that can be generated without specific NLP knowledge. Our approach relies on creating a small, but expressive, set of domain agnostic slot types that enables easy annotation of new domains. Given such annotation, a matching algorithm relying on sentence encoders predicts the intent and slots for domains defined by end-users. Experiments on the TopV2 dataset shows that our model trained on these simple labels have strong performance against supervised baselines.</abstract>
       <url hash="ea386efa">2023.pandl-1.6</url>
       <bibkey>neves-ribeiro-etal-2023-towards</bibkey>
+      <doi>10.18653/v1/2023.pandl-1.6</doi>
     </paper>
     <paper id="7">
       <title>Co-evolving data-driven and <fixed-case>NLU</fixed-case>-driven Synthesizers for Generating Code in Domain Growth and Data Scarcity</title>
@@ -104,6 +110,7 @@
       <abstract>Natural language programming automatically generates code based on a user’s text query. Recent solutions are either data-driven or natural language understanding (NLU)-driven. However, the data-driven synthesizer requires a large number of query-code pairs for training, which hinders its application to low-resource programming languages with growing domains whose functionality and grammar can be actively updated. NLU-driven synthesizers solve this problem, but their code generation is slow and their performance rapidly saturates in the presence of ever-increasing data. In this paper, we propose a circular training framework, Colead, which co-evolves both the data-driven synthesizer and the NLU-driven synthesizer to achieve high-quality code generation in the presence of data scarcity and domain growth. The NLU-driven synthesizer generates query-code pairs to update the data-driven synthesizer, which shares a part of its updated model to improve the NLU-driven synthesizers, enabling the co-evolution of both. Experiments show that Colead gives better results than the baselines in the presence of domain growth and data scarcity, and Colead consistently improves the performance of both data-driven and NLU-driven synthesizers over the co-evolvement.</abstract>
       <url hash="a069a13f">2023.pandl-1.7</url>
       <bibkey>gu-etal-2023-co</bibkey>
+      <doi>10.18653/v1/2023.pandl-1.7</doi>
     </paper>
     <paper id="8">
       <title>Complementary Roles of Inference and Language Models in <fixed-case>QA</fixed-case></title>
@@ -115,6 +122,7 @@
       <url hash="16ee5628">2023.pandl-1.8</url>
       <attachment type="Software" hash="f20461fe">2023.pandl-1.8.Software.zip</attachment>
       <bibkey>cheng-etal-2023-complementary</bibkey>
+      <doi>10.18653/v1/2023.pandl-1.8</doi>
     </paper>
     <paper id="9">
       <title>Controlled Data Augmentation for Training Task-Oriented Dialog Systems with Low Resource Data</title>
@@ -125,6 +133,7 @@
       <abstract>Modern dialog systems rely on Deep Learning to train transformer-based model architectures. These notoriously rely on large amounts of training data. However, the collection of conversational data is often a tedious and costly process. This is especially true for Task-Oriented Dialogs, where the system ought to help the user achieve specific tasks, such as making reservations. We investigate a controlled strategy for dialog synthesis. Our method generates utterances based on dialog annotations in a sequence-to-sequence manner. Besides exploring the viability of the approach itself, we also explore the effect of constrained beam search on the generation capabilities. Moreover, we analyze the effectiveness of the proposed method as a data augmentation by studying the impact the synthetic dialogs have on training dialog systems. We perform the experiments in multiple settings, simulating various amounts of ground-truth data. Our work shows that a controlled generation approach is a viable method to synthesize Task-Oriented Dialogs, that can in turn be used to train dialog systems. We were able to improve this process by utilizing constrained beam search.</abstract>
       <url hash="9106a08b">2023.pandl-1.9</url>
       <bibkey>steindl-etal-2023-controlled</bibkey>
+      <doi>10.18653/v1/2023.pandl-1.9</doi>
     </paper>
     <paper id="10">
       <title>A Hybrid of Rule-based and Transformer-based Approaches for Relation Extraction in Biodiversity Literature</title>
@@ -139,6 +148,7 @@
       <abstract>Relation extraction (RE) is one of the tasks behind many relevant natural language processing (NLP) applications. Exploiting the information hidden in millions of scholarly articles by leveraging NLP, specifically RE, systems could benefit studies in specialized domains, e.g. biomedicine and biodiversity. Although deep learning (DL)-based methods have shown state-of-the-art performance in many NLP tasks including RE, DL for domain-specific RE systems has been hindered by the lack of expert-labeled datasets which are typically required to train such methods. In this paper, we take advantage of the zero-shot (i.e., not requiring any labeled data) capability of pattern-based methods for RE using a rule-based approach, combined with templates for natural language inference (NLI) transformer models. We present our hybrid method for RE that exploits the advantages of both methods, i.e., interpretability of rules and transferability of transformers. Evaluated on a corpus of biodiversity literature with annotated relations, our hybrid method demonstrated an improvement of up to 15 percentage points in recall and best performance over solely rule-based and transformer-based methods with F1-scores ranging from 89.61% to 96.75% for reproductive condition - temporal expression relations, and ranging from 85.39% to 89.90% for habitat - geographic location relations.</abstract>
       <url hash="034fd1bf">2023.pandl-1.10</url>
       <bibkey>gabud-etal-2023-hybrid</bibkey>
+      <doi>10.18653/v1/2023.pandl-1.10</doi>
     </paper>
   </volume>
 </collection>
