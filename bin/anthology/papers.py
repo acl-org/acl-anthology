@@ -178,7 +178,9 @@ class Paper:
         # a better way to do this.
         if "retracted" in paper.attrib and paper.attrib["retracted"] is None:
             paper.attrib["retracted"] = " "
-            paper.attrib["xml_title"].text = "[RETRACTED] " + paper.attrib["xml_title"].text
+            paper.attrib["xml_title"].text = (
+                "[RETRACTED] " + paper.attrib["xml_title"].text
+            )
 
         if "removed" in paper.attrib and paper.attrib["removed"] is None:
             paper.attrib["removed"] = " "
