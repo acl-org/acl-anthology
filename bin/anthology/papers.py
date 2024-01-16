@@ -178,9 +178,11 @@ class Paper:
         # a better way to do this.
         if "retracted" in paper.attrib and paper.attrib["retracted"] is None:
             paper.attrib["retracted"] = " "
+            paper.attrib["xml_title"].text = "[RETRACTED] " + paper.attrib["xml_title"].text
 
         if "removed" in paper.attrib and paper.attrib["removed"] is None:
             paper.attrib["removed"] = " "
+            paper.attrib["xml_title"].text = "[REMOVED] " + paper.attrib["xml_title"].text
 
         return paper
 
@@ -299,7 +301,6 @@ class Paper:
 
     def get_title(self, form="xml"):
         """Returns the paper title, optionally formatting it.
-        If the paper has been retracted, [RETRACTED] will be prepended.
 
         Accepted formats:
           - xml:   Include any contained XML tags unchanged
@@ -307,10 +308,7 @@ class Paper:
           - html:  Convert XML tags into valid HTML tags
           - latex: Convert XML tags into LaTeX commands
         """
-        text = self.get("xml_title")
-        if self.attrib.get("retracted", None) is not None:
-            text = f"[RETRACTED] {text}"
-        return self.formatter(text, form)
+        return self.formatter(self.get("xml_title"), form)
 
     def get_abstract(self, form="xml"):
         """Returns the abstract, optionally formatting it.
