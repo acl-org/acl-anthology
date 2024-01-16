@@ -299,6 +299,7 @@ class Paper:
 
     def get_title(self, form="xml"):
         """Returns the paper title, optionally formatting it.
+        If the paper has been retracted, [RETRACTED] will be prepended.
 
         Accepted formats:
           - xml:   Include any contained XML tags unchanged
@@ -306,7 +307,10 @@ class Paper:
           - html:  Convert XML tags into valid HTML tags
           - latex: Convert XML tags into LaTeX commands
         """
-        return self.formatter(self.get("xml_title"), form)
+        text = self.get("xml_title")
+        if self.attrib.get("retracted", None) is not None:
+            text = f"[RETRACTED] {text}"
+        return self.formatter(text, form)
 
     def get_abstract(self, form="xml"):
         """Returns the abstract, optionally formatting it.
