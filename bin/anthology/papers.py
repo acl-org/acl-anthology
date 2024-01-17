@@ -178,6 +178,9 @@ class Paper:
         # a better way to do this.
         if "retracted" in paper.attrib and paper.attrib["retracted"] is None:
             paper.attrib["retracted"] = " "
+
+        # Adjust the title for retracted papers
+        if "retracted" in paper.attrib:
             paper.attrib["xml_title"].text = (
                 "[RETRACTED] " + paper.attrib["xml_title"].text
             )
