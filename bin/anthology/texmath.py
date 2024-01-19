@@ -230,4 +230,4 @@ class TexMath:
         HTML tags afterwards.
         """
         element = self.to_html(element)
-        return etree.tostring(element, encoding="unicode", method="text")
+        return etree.tostring(element, encoding="unicode", method="text", with_tail=False)
