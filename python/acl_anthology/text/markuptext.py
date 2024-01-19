@@ -107,7 +107,6 @@ class MarkupText:
         element = deepcopy(self._content)
         for sub in element.iterfind(".//tex-math"):
             sub.text = TexMath.to_unicode(sub)
-            sub.tail = None  # tail is contained within the return value of to_unicode()
         text = etree.tostring(element, encoding="unicode", method="text")
         self._text = remove_extra_whitespace(text)
         return self._text

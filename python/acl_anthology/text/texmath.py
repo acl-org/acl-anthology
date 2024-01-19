@@ -267,7 +267,7 @@ class _TexMath:
         if not self.loaded:
             self.load_symbols()
         element = self.to_html(element)
-        return etree.tostring(element, encoding="unicode", method="text")
+        return etree.tostring(element, encoding="unicode", method="text", with_tail=False)
 
 
 TexMath = _TexMath()

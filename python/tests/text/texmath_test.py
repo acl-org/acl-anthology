@@ -275,6 +275,8 @@ def test_unicode(inp, out):
     element = etree.fromstring(f"<span>{inp}</span>")
     math_element = element.find(".//tex-math")
     actual_out = TexMath.to_unicode(math_element)
+    if math_element.tail:
+        actual_out += math_element.tail
     assert actual_out == out
 
 
