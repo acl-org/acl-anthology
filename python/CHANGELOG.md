@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Bugfix: Converting a `<texmath>` expression to Unicode no longer serializes the tail of the XML tag, but only the TeX math expression itself.
+
 ## [0.4.3] — 2023-11-05
 
 ### Added
