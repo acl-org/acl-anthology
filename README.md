@@ -1,9 +1,26 @@
 # ACL Anthology
 
-These are basic instructions on generating the ACL Anthology website as seen on <https://aclanthology.org/>.
+[![ACL Anthology Website](https://img.shields.io/badge/ACL_Anthology_Website-grey.svg?style=flat&logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgo8c3ZnCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgdmVyc2lvbj0iMS4wIgogICB3aWR0aD0iNjgiCiAgIGhlaWdodD0iNjgiCiAgIGlkPSJzdmcyIj4KICA8ZGVmcwogICAgIGlkPSJkZWZzNCIgLz4KICA8cGF0aAogICAgIGQ9Ik0gNDEuOTc3NTUzLC0yLjg0MjE3MDllLTAxNCBDIDQxLjk3NzU1MywxLjc2MTc4IDQxLjk3NzU1MywxLjQ0MjExIDQxLjk3NzU1MywzLjAxNTggTCA3LjQ4NjkwNTQsMy4wMTU4IEwgMCwzLjAxNTggTCAwLDEwLjUwMDc5IEwgMCwzOC40Nzg2NyBMIDAsNDYgTCA3LjQ4NjkwNTQsNDYgTCA0OS41MDA4MDIsNDYgTCA1Ni45ODc3MDgsNDYgTCA2OCw0NiBMIDY4LDMwLjk5MzY4IEwgNTYuOTg3NzA4LDMwLjk5MzY4IEwgNTYuOTg3NzA4LDEwLjUwMDc5IEwgNTYuOTg3NzA4LDMuMDE1OCBDIDU2Ljk4NzcwOCwxLjQ0MjExIDU2Ljk4NzcwOCwxLjc2MTc4IDU2Ljk4NzcwOCwtMi44NDIxNzA5ZS0wMTQgTCA0MS45Nzc1NTMsLTIuODQyMTcwOWUtMDE0IHogTSAxNS4wMTAxNTUsMTcuOTg1NzggTCA0MS45Nzc1NTMsMTcuOTg1NzggTCA0MS45Nzc1NTMsMzAuOTkzNjggTCAxNS4wMTAxNTUsMzAuOTkzNjggTCAxNS4wMTAxNTUsMTcuOTg1NzggeiAiCiAgICAgc3R5bGU9ImZpbGw6I2VkMWMyNDtmaWxsLW9wYWNpdHk6MTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6bm9uZTtzdHJva2Utd2lkdGg6MTIuODk1NDExNDk7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW1pdGVybGltaXQ6NDtzdHJva2UtZGFzaGFycmF5Om5vbmU7c3Ryb2tlLWRhc2hvZmZzZXQ6MDtzdHJva2Utb3BhY2l0eToxIgogICAgIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAsIDExKSIKICAgICBpZD0icmVjdDIxNzgiIC8+Cjwvc3ZnPgo=)](https://aclanthology.org)
+[![GitHub contributors](https://img.shields.io/github/contributors/acl-org/acl-anthology)](https://github.com/acl-org/acl-anthology/graphs/contributors)
+[![Good first project issues](https://img.shields.io/github/issues/acl-org/acl-anthology/good%20first%20project)](https://github.com/acl-org/acl-anthology/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22good+first+project%22)
+[![License](https://img.shields.io/github/license/acl-org/acl-anthology)](LICENSE)
+[![acl-anthology-py on PyPI](https://img.shields.io/pypi/v/acl-anthology-py?logo=python&label=acl-anthology-py&labelColor=lightgray&color=3776AB)](https://pypi.org/project/acl-anthology-py/)
+
+This repository contains:
+
+- [**Metadata for all papers, authors, and venues**](data/) on the [ACL Anthology website](https://aclanthology.org/).
+- **Code and instructions** for generating the website.
+- [**A Python package for accessing the metadata**](python/), also available on PyPI.
+
 The official home of this repository is <https://github.com/acl-org/acl-anthology>.
 
-## Generating the Anthology
+## Using the acl-anthology-py Python package
+
+Please see the separate [README for the Python package](python/README.md) for detailed information.
+
+## Generating the Anthology website
+
+These are basic instructions on generating the ACL Anthology website as seen on <https://aclanthology.org/>.
 
 ### Prerequisites
 
@@ -67,7 +84,7 @@ about a minute to start.
 
 ## Hosting a mirror of the ACL anthology
 
-First, creating a mirror is slow and stresses the ACL anthology
+First, creating a mirror is slow and stresses the ACL Anthology
 infrastructure because on initial setup you have to download every
 single file of the anthology from the official webserver.  This can
 take up to 8 hours no matter how fast *your* connection is.  So please
