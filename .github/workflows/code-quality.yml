@@ -1,0 +1,74 @@
+name: Checks
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.pre-commit-config.yaml'
+      - '.codecov.yml'
+      - 'python/**'
+  pull_request:
+    paths:
+      - '.pre-commit-config.yaml'
+      - '.codecov.yml'
+      - 'python/**'
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: ./python
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+        poetry-version: ["1.7.1"]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      # Setup all dependencies
+      - uses: actions/checkout@v3
+      - name: Install Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+      - name: Setup a local virtual environment (if no poetry.toml file)
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+      - uses: actions/cache@v3
+        name: Cache virtual environment based on Poetry lockfile
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
+      - name: Install dependencies
+        run: poetry install --with dev --verbose
+      - name: Cache pre-commit hooks based on pre-commit config
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit|${{ matrix.os }}|${{ matrix.python-version }}|${{ hashFiles('~/.pre-commit-config.yaml') }}
+
+      # Run all checks and tests
+      - name: Run pre-commit hooks
+        run: poetry run pre-commit run --all-files
+        env:
+          SKIP: no-commit-to-branch
+      - name: Run type checker
+        run: poetry run mypy acl_anthology
+      - name: Run tests
+        run: poetry run pytest -m "not integration" --cov=acl_anthology --cov-report=xml
+
+      # Run integration tests, but only run on latest Python version to save time
+      - name: Run integration tests
+        if: ${{ matrix.python-version == '3.12' }}
+        run: poetry run pytest -m "integration" --cov=acl_anthology --cov-report=xml --cov-append
+
+      # Coverage report
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
