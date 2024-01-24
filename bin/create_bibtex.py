@@ -28,11 +28,14 @@ Options:
 """
 
 import re
-from docopt import docopt
-from tqdm import tqdm
 import gzip
 import logging as log
 import os
+import datetime
+
+from docopt import docopt
+from tqdm import tqdm
+from pathlib import Path
 
 from anthology import Anthology
 from anthology.utils import SeverityTracker, deconstruct_anthology_id, infer_year
@@ -71,6 +74,15 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
     ) as file_anthology, gzip.open(
         "{}/anthology+abstracts.bib.gz".format(trgdir), "wt", encoding="utf-8"
     ) as file_anthology_with_abstracts:
+        # Add a header to the consolidated bibfiles
+        for outfh in file_anthology_raw, file_anthology, file_anthology_with_abstracts:
+            # get basename with extension
+            os.path.basename(outfh.name)
+            print(
+                f"% https://aclanthology.org/{Path(outfh.name).name} generated on {datetime.date.today().isoformat()}\n",
+                file=outfh,
+            )
+
         # Add some shortcuts to the consolidated bib file
         print(
             "@string{acl = {Association for Computational Linguistics}}",
@@ -148,7 +160,7 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                             )
 
                         # Remove newlines, indentations, and double-spaces around author separators
-                        concise_contents = re.sub(r"\s+", " ", concise_contents)
+                        concise_contents = re.sub(r"\n    ", "\n\t", concise_contents)
 
                         print(concise_contents, file=file_anthology_raw)
 
