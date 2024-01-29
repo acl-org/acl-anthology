@@ -28,11 +28,14 @@ Options:
 """
 
 import re
-from docopt import docopt
-from tqdm import tqdm
 import gzip
 import logging as log
 import os
+import datetime
+
+from docopt import docopt
+from tqdm import tqdm
+from pathlib import Path
 
 from anthology import Anthology
 from anthology.utils import SeverityTracker, deconstruct_anthology_id, infer_year
@@ -71,7 +74,14 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
     ) as file_anthology, gzip.open(
         "{}/anthology+abstracts.bib.gz".format(trgdir), "wt", encoding="utf-8"
     ) as file_anthology_with_abstracts:
-        # Add some shortcuts to the consolidated bib file
+        # Add a header to each consolidated bibfile
+        for outfh in file_anthology_raw, file_anthology, file_anthology_with_abstracts:
+            print(
+                f"% https://aclanthology.org/{Path(outfh.name).name} generated on {datetime.date.today().isoformat()}\n",
+                file=outfh,
+            )
+
+        # Add some shortcuts to the uncompressed consolidated bib file
         print(
             "@string{acl = {Association for Computational Linguistics}}",
             file=file_anthology_raw,
@@ -104,9 +114,9 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                         print(concise_contents, file=file_volume)
                         print(concise_contents, file=file_anthology)
 
-                        # Space saver (https://github.com/acl-org/acl-anthology/issues/3016)
+                        # Space saver (https://github.com/acl-org/acl-anthology/issues/3016) for the
+                        # uncompressed consolidated bibfile.
                         # Replace verbose text with abbreviations to get the file under 50 MB for Overleaf
-
                         concise_contents = concise_contents.replace(
                             'publisher = "Association for Computational Linguistics",',
                             "publisher = acl,",
@@ -147,8 +157,8 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                                 concise_contents,
                             )
 
-                        # Remove newlines, indentations, and double-spaces around author separators
-                        concise_contents = re.sub(r"\s+", " ", concise_contents)
+                        # Convert spaces to tabs to save a bit of space
+                        concise_contents = re.sub(r"\n    ", "\n\t", concise_contents)
 
                         print(concise_contents, file=file_anthology_raw)
 
