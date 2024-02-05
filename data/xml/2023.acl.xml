@@ -1157,10 +1157,11 @@
       <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>1437-1455</pages>
       <abstract>Sampling-based decoding strategies are widely employed for generating text from probabilistic models, yet standard ancestral sampling often results in text that is degenerate or incoherent. To alleviate this issue, various modifications to a model’s sampling distribution, such as top-p or top-k sampling, have been introduced and are now ubiquitously used in language generation systems. We propose a unified framework for understanding these techniques, which we term sampling adapters. Sampling adapters often lead to qualitatively better text, which raises the question: From a formal perspective, how are they changing the token-level distributions of language generation models? And why do these local changes lead to higher-quality text? We argue that the shift they enforce can be viewed as a trade-off between precision and recall: while the model loses its ability to produce certain strings, its precision rate on desirable text increases. While this trade-off is not reflected in standard metrics of distribution quality (such as perplexity), we find that several precision-emphasizing measures indeed indicate that sampling adapters can lead to probability distributions more aligned with the true distribution. Further, these measures correlate with higher sequence-level quality scores, specifically, Mauve.</abstract>
-      <url hash="67abc248">2023.acl-long.80</url>
+      <url hash="c7b7f4b1">2023.acl-long.80</url>
       <bibkey>meister-etal-2023-efficacy</bibkey>
       <doi>10.18653/v1/2023.acl-long.80</doi>
-      <video href="2023.acl-long.80.mp4"/>
+      <revision id="1" href="2023.acl-long.80v1" hash="67abc248"/>
+      <revision id="2" href="2023.acl-long.80v2" hash="c7b7f4b1" date="2024-01-07">Corrects Eq. 2.</revision>
     </paper>
     <paper id="81">
       <title>Cross-Domain Data Augmentation with Domain-Adaptive Language Modeling for Aspect-Based Sentiment Analysis</title>
@@ -4007,10 +4008,11 @@
       <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich</affiliation></author>
       <pages>5184-5207</pages>
       <abstract>Subword tokenization is a key part of most NLP pipelines. However, little is known about why some tokenizer and hyperparameter combinations lead to improved downstream model performance over others. We propose that good tokenizers lead to efficient channel usage, where the channel is the means by which some input is conveyed to the model and efficiency can be quantified in information-theoretic terms as the ratio of the Shannon entropy to the maximum entropy of the subword distribution. Nevertheless, an optimal encoding according to Shannon entropy assigns extremely long codes to low-frequency subwords and very short codes to high-frequency subwords.Defining efficiency in terms of Rényi entropy, on the other hand, penalizes distributions with either very high or very low-frequency subwords.We posit that (1) extremely high-frequency subwords are problematic because their meaning is not distinct and (2) that low-frequency subwords may not appear frequently enough for their meaning to be learned properly; encodings that induce unigram distributions with either can harm model performance. In machine translation, we find that across multiple tokenizers, the Rényi entropy has a very strong correlation with BLEU: 0.82 in comparison to just -0.30 for compressed length.</abstract>
-      <url hash="b6833d4a">2023.acl-long.284</url>
+      <url hash="cbb650d1">2023.acl-long.284</url>
       <bibkey>zouhar-etal-2023-tokenization</bibkey>
       <doi>10.18653/v1/2023.acl-long.284</doi>
-      <video href="2023.acl-long.284.mp4"/>
+      <revision id="1" href="2023.acl-long.284v1" hash="b6833d4a"/>
+      <revision id="2" href="2023.acl-long.284v2" hash="cbb650d1" date="2024-01-07">Updated figures.</revision>
     </paper>
     <paper id="285">
       <title>Contextual Distortion Reveals Constituency: Masked Language Models are Implicit Parsers</title>
@@ -5203,7 +5205,7 @@
     </paper>
     <paper id="366">
       <title>Multiview Identifiers Enhanced Generative Retrieval</title>
-      <author><first>Yongqi</first><last>Li</last><affiliation>The Hong Kong Polytechnic University</affiliation></author>
+      <author id="yongqi-li-hk"><first>Yongqi</first><last>Li</last><affiliation>The Hong Kong Polytechnic University</affiliation></author>
       <author><first>Nan</first><last>Yang</last><affiliation>Microsoft Research</affiliation></author>
       <author><first>Liang</first><last>Wang</last><affiliation>Microsoft Research</affiliation></author>
       <author><first>Furu</first><last>Wei</last><affiliation>Microsoft Research</affiliation></author>
@@ -7200,10 +7202,12 @@
       <author><first>Maarten</first><last>Sap</last><affiliation>Carnegie Mellon University</affiliation></author>
       <pages>9080-9102</pages>
       <abstract>Design biases in NLP systems, such as performance differences for different populations, often stem from their creator’s positionality, i.e., views and lived experiences shaped by identity and background. Despite the prevalence and risks of design biases, they are hard to quantify because researcher, system, and dataset positionality is often unobserved. We introduce NLPositionality, a framework for characterizing design biases and quantifying the positionality of NLP datasets and models. Our framework continuously collects annotations from a diverse pool of volunteer participants on LabintheWild, and statistically quantifies alignment with dataset labels and model predictions. We apply NLPositionality to existing datasets and models for two tasks—social acceptability and hate speech detection. To date, we have collected 16,299 annotations in over a year for 600 instances from 1,096 annotators across 87 countries. We find that datasets and models align predominantly with Western, White, college-educated, and younger populations. Additionally, certain groups, such as non-binary people and non-native English speakers, are further marginalized by datasets and models as they rank least in alignment across all tasks. Finally, we draw from prior literature to discuss how researchers can examine their own positionality and that of their datasets and models, opening the door for more inclusive NLP systems.</abstract>
-      <url hash="369520ad">2023.acl-long.505</url>
+      <url hash="91c633fb">2023.acl-long.505</url>
       <bibkey>santy-etal-2023-nlpositionality</bibkey>
       <doi>10.18653/v1/2023.acl-long.505</doi>
       <video href="2023.acl-long.505.mp4"/>
+      <revision id="1" href="2023.acl-long.505v1" hash="369520ad"/>
+      <revision id="2" href="2023.acl-long.505v2" hash="91c633fb" date="2024-01-29">Added acknowledgements.</revision>
     </paper>
     <paper id="506">
       <title>Backpack Language Models</title>
@@ -7308,6 +7312,7 @@
       <author><first>Gunnar</first><last>Sigurdsson</last><affiliation>Amazon</affiliation></author>
       <author><first>Chenyang</first><last>Tao</last><affiliation>Amazon</affiliation></author>
       <author><first>Wenbo</first><last>Zhao</last><affiliation>Amazon</affiliation></author>
+      <author><first>Yiwen</first><last>Chen</last><affiliation>University of Cambridge</affiliation></author>
       <author><first>Tagyoung</first><last>Chung</last><affiliation>Amazon Alexa AI</affiliation></author>
       <author><first>Jing</first><last>Huang</last><affiliation>Amazon</affiliation></author>
       <author><first>Nanyun</first><last>Peng</last><affiliation>University of California, Los Angeles</affiliation></author>
@@ -13196,7 +13201,7 @@
       <video href="2023.acl-short.10.mp4"/>
     </paper>
     <paper id="11">
-      <title>Graph Propagation based Data Augmentation for Named Entity Recognition</title>
+      <title>Improving Low-resource Named Entity Recognition with Graph Propagated Data Augmentation</title>
       <author><first>Jiong</first><last>Cai</last><affiliation>ShanghaiTech University</affiliation></author>
       <author><first>Shen</first><last>Huang</last><affiliation>Alibaba DAMO NLP Group</affiliation></author>
       <author><first>Yong</first><last>Jiang</last><affiliation>Alibaba DAMO Academy</affiliation></author>
