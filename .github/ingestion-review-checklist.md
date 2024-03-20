@@ -1,3 +1,5 @@
+1. [ ] In the Github sidebar, add workshop to work items and the current milestone
+1. [ ] In the Github sidebar, make sure to link to a corresponding PR under "Development"
 1. [ ] Make sure the branch is merged with the latest `master` branch
 1. [ ] Ensure that there are editors listed in the `<meta>` block
 1. [ ] If it's a workshop, add a `<venue>ws</venue>` tag
@@ -6,4 +8,4 @@
 1. [ ] Navigate to the event page preview (e.g., https://preview.aclanthology.org/icnlsp-ingestion/events/icnlsp-2021/), and page through, to see if there are any glaring mistakes
 1. [ ] Skim through the complete listing, looking for mis-parsed author names.
 1. [ ] Download the frontmatter and verify that the table of contents matches at least three randomly-selected papers
-1. [ ] Download 3–5 PDFs (including the first and last one) and make sure they are correct (title, authors, page numbers).
+1. [ ] Download 
