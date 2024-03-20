@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.scalellm">
+  <volume id="1" ingest-date="2024-03-04" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the First edition of the Workshop on the Scaling Behavior of Large Language Models (SCALE-LLM 2024)</booktitle>
+      <editor><first>Antonio Valerio</first><last>Miceli-Barone</last></editor>
+      <editor><first>Fazl</first><last>Barez</last></editor>
+      <editor><first>Shay</first><last>Cohen</last></editor>
+      <editor><first>Elena</first><last>Voita</last></editor>
+      <editor><first>Ulrich</first><last>Germann</last></editor>
+      <editor><first>Michal</first><last>Lukasik</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>St. Julian’s, Malta</address>
+      <month>March</month>
+      <year>2024</year>
+      <url hash="85c16591">2024.scalellm-1</url>
+      <venue>scalellm</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="4899a6da">2024.scalellm-1.0</url>
+      <bibkey>scale-llm-2024-edition</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>A Proposal for Scaling the Scaling Laws</title>
+      <author><first>Wout</first><last>Schellaert</last></author>
+      <author><first>Ronan</first><last>Hamon</last><affiliation>JRC</affiliation></author>
+      <author><first>Fernando</first><last>Martínez-Plumed</last><affiliation>Universitat Politècnica de València</affiliation></author>
+      <author><first>Jose</first><last>Hernandez-Orallo</last><affiliation>Universitat Politecnica de Valencia</affiliation></author>
+      <pages>1-8</pages>
+      <abstract>Scaling laws are predictable relations between the performance of AI systems and various scalable design choices such as model or dataset size. In order to keep predictions interpretable, scaling analysis has traditionally relied on heavy summarisation of both the system design and its performance. We argue this summarisation and aggregation is a major source of predictive inaccuracy and lack of generalisation. With a synthetic example we show how scaling analysis needs to be _instance-based_ to accurately model realistic benchmark behaviour, highlighting the need for richer evaluation datasets and more complex inferential tools, for which we outline an actionable proposal.</abstract>
+      <url hash="3521f1d2">2024.scalellm-1.1</url>
+      <bibkey>schellaert-etal-2024-proposal</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Scaling Behavior of Machine Translation with Large Language Models under Prompt Injection Attacks</title>
+      <author><first>Zhifan</first><last>Sun</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>Antonio Valerio</first><last>Miceli-Barone</last><affiliation>University of Edinburgh</affiliation></author>
+      <pages>9-23</pages>
+      <abstract>Large Language Models (LLMs) are increasingly becoming the preferred foundation platforms for many Natural Language Processing tasks such as Machine Translation, owing to their quality often comparable to or better than task-specific models, and the simplicity of specifying the task through natural language instructions or in-context examples.Their generality, however, opens them up to subversion by end users who may embed into their requests instructions that cause the model to behave in unauthorized and possibly unsafe ways.In this work we study these Prompt Injection Attacks (PIAs) on multiple families of LLMs on a Machine Translation task, focusing on the effects of model size on the attack success rates.We introduce a new benchmark data set and we discover that on multiple language pairs and injected prompts written in English, larger models under certain conditions may become more susceptible to successful attacks, an instance of the Inverse Scaling phenomenon (McKenzie et al., 2023).To our knowledge, this is the first work to study non-trivial LLM scaling behaviour in a multi-lingual setting.</abstract>
+      <url hash="c0e4e9d0">2024.scalellm-1.2</url>
+      <bibkey>sun-miceli-barone-2024-scaling</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Can Large Language Models Reason About Goal-Oriented Tasks?</title>
+      <author><first>Filippos</first><last>Bellos</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author><first>Yayuan</first><last>Li</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author><first>Wuao</first><last>Liu</last></author>
+      <author><first>Jason</first><last>Corso</last><affiliation>University of Michigan, University of Michigan and Voxel51</affiliation></author>
+      <pages>24-34</pages>
+      <abstract>Most adults can complete a sequence of steps to achieve a certain goal, such as making a sandwich or repairing a bicycle tire. In completing these goal-oriented tasks, or simply tasks in this paper, one must use sequential reasoning to understand the relationship between the sequence of steps and the goal. LLMs have shown impressive capabilities across various natural language understanding tasks. However, prior work has mainlyfocused on logical reasoning tasks (e.g. arithmetic, commonsense QA); how well LLMs can perform on more complex reasoning tasks like sequential reasoning is not clear. In this paper, we address this gap and conduct a comprehensive evaluation of how well LLMs are able to conduct this reasoning for tasks and how they scale w.r.t multiple dimensions(e.g. adaptive prompting strategies, number of in-context examples, varying complexity of the sequential task). Our findings reveal that while Chain of Thought (CoT) prompting can significantly enhance LLMs’ sequential reasoning in certain scenarios, it can also be detrimental in others, whereas Tree of Thoughts (ToT) reasoning is less effective for this type of task. Additionally, we discover that an increase in model size or in-context examples does not consistently lead to improved performance.</abstract>
+      <url hash="96fa1937">2024.scalellm-1.3</url>
+      <bibkey>bellos-etal-2024-large</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>I</fixed-case>nstruct<fixed-case>E</fixed-case>val: Towards Holistic Evaluation of Instruction-Tuned Large Language Models</title>
+      <author><first>Yew Ken</first><last>Chia</last></author>
+      <author><first>Pengfei</first><last>Hong</last></author>
+      <author><first>Lidong</first><last>Bing</last><affiliation>Alibaba Group</affiliation></author>
+      <author><first>Soujanya</first><last>Poria</last><affiliation>Singapore University of Technology and Design</affiliation></author>
+      <pages>35-64</pages>
+      <abstract>Instruction-tuned large language models have revolutionized natural language processing and have shown great potential in applications such as conversational agents. These models, such as GPT-4, can not only master language but also solve complex tasks in areas like mathematics, coding, medicine, and law. However, there is still a lack of comprehensive understanding regarding their full potential, primarily due to the black-box nature of many models and lack of holistic evaluation. To address these challenges, we present InstructEval, a more comprehensive evaluation suite designed specifically for instruction-tuned large language models. Unlike previous works, our evaluation involves a rigorous assessment of models based on problem-solving, writing ability, and alignment to human values. We take a holistic approach to analyze various factors affecting model performance, including the pretraining foundation, instruction-tuning data, and training methods. Our findings reveal that the quality of instruction data is a crucial factor in scaling model performance. While open-source models demonstrate impressive writing abilities, there is substantial room for improvement in problem-solving and alignment.</abstract>
+      <url hash="89a31fa0">2024.scalellm-1.4</url>
+      <bibkey>chia-etal-2024-instructeval</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Detecting Mode Collapse in Language Models via Narration</title>
+      <author><first>Sil</first><last>Hamilton</last></author>
+      <pages>65-72</pages>
+      <abstract>No two authors write alike. Personal flourishes invoked in written narratives, from lexicon to rhetorical devices, imply a particular author—what literary theorists label the implied or virtual author; distinct from the real author or narrator of a text. Early large language models trained on unfiltered training sets drawn from a variety of discordant sources yielded incoherent personalities, problematic for conversational tasks but proving useful for sampling literature from multiple perspectives. Successes in alignment research in recent years have allowed researchers to impose subjectively consistent personae on language models via instruction tuning and reinforcement learning from human feedback (RLHF), but whether aligned models retain the ability to model an arbitrary virtual author has received little scrutiny. By studying 4,374 stories sampled from three OpenAI language models, we show successive versions of GPT-3 suffer from increasing degrees of “mode collapse” whereby overfitting the model during alignment constrains it from generalizing over authorship: models suffering from mode collapse become unable to assume a multiplicity of perspectives. Our method and results are significant for researchers seeking to employ language models in sociological simulations.</abstract>
+      <url hash="c435731e">2024.scalellm-1.5</url>
+      <bibkey>hamilton-2024-detecting</bibkey>
+    </paper>
+  </volume>
+</collection>
