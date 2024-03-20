@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.uncertainlp">
+  <volume id="1" ingest-date="2024-03-04" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 1st Workshop on Uncertainty-Aware NLP (UncertaiNLP 2024)</booktitle>
+      <editor><first>Raúl</first><last>Vázquez</last></editor>
+      <editor><first>Hande</first><last>Celikkanat</last></editor>
+      <editor><first>Dennis</first><last>Ulmer</last></editor>
+      <editor><first>Jörg</first><last>Tiedemann</last></editor>
+      <editor><first>Swabha</first><last>Swayamdipta</last></editor>
+      <editor><first>Wilker</first><last>Aziz</last></editor>
+      <editor><first>Barbara</first><last>Plank</last></editor>
+      <editor><first>Joris</first><last>Baan</last></editor>
+      <editor><first>Marie-Catherine</first><last>de Marneffe</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>St Julians, Malta</address>
+      <month>March</month>
+      <year>2024</year>
+      <url hash="1a47ca59">2024.uncertainlp-1</url>
+      <venue>uncertainlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="1132ff9b">2024.uncertainlp-1.0</url>
+      <bibkey>uncertainlp-2024-uncertainty</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Calibration-Tuning: Teaching Large Language Models to Know What They Don’t Know</title>
+      <author><first>Sanyam</first><last>Kapoor</last><affiliation>New York University</affiliation></author>
+      <author><first>Nate</first><last>Gruver</last></author>
+      <author><first>Manley</first><last>Roberts</last><affiliation>Abacus.AI</affiliation></author>
+      <author><first>Arka</first><last>Pal</last></author>
+      <author><first>Samuel</first><last>Dooley</last><affiliation>Department of Computer Science, University of Maryland, College Park and Abacus.AI</affiliation></author>
+      <author><first>Micah</first><last>Goldblum</last><affiliation>New York University</affiliation></author>
+      <author><first>Andrew</first><last>Wilson</last><affiliation>Cornell University and New York University</affiliation></author>
+      <pages>1-14</pages>
+      <abstract>Large language models are increasingly deployed for high-stakes decision making, for example in financial and medical applications. In such applications, it is imperative that we be able to estimate our confidence in the answers output by a language model in order to assess risks. Although we can easily compute the probability assigned by a language model to the sequence of tokens that make up an answer, we cannot easily compute the probability of the answer itself, which could be phrased in numerous ways.While other works have engineered ways of assigning such probabilities to LLM outputs, a key problem remains: existing language models are poorly calibrated, often confident when they are wrong or unsure when they are correct. In this work, we devise a protocol called *calibration tuning* for finetuning LLMs to output calibrated probabilities. Calibration-tuned models demonstrate superior calibration performance compared to existing language models on a variety of question-answering tasks, including open-ended generation, without affecting accuracy. We further show that this ability transfers to new domains outside of the calibration-tuning train set.</abstract>
+      <url hash="9eb3ff58">2024.uncertainlp-1.1</url>
+      <bibkey>kapoor-etal-2024-calibration</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Context Tuning for Retrieval Augmented Generation</title>
+      <author><first>Raviteja</first><last>Anantha</last><affiliation>Apple</affiliation></author>
+      <author><first>Danil</first><last>Vodianik</last><affiliation>Apple</affiliation></author>
+      <pages>15-22</pages>
+      <abstract>Large language models (LLMs) have the remarkable ability to solve new tasks with just a few examples, but they need access to the right tools. Retrieval Augmented Generation (RAG) addresses this problem by retrieving a list of relevant tools for a given task. However, RAG’s tool retrieval step requires all the required information to be explicitly present in the query. This is a limitation, as semantic search, the widely adopted tool retrieval method, can fail when the query is incomplete or lacks context. To address this limitation, we propose Context Tuning for RAG, which employs a smart context retrieval system to fetch relevant information that improves both tool retrieval and plan generation. Our lightweight context retrieval model uses numerical, categorical, and habitual usage signals to retrieve and rank context items. Our empirical results demonstrate that context tuning significantly enhances semantic search, achieving a 3.5-fold and 1.5-fold improvement in Recall@K for context retrieval and tool retrieval tasks respectively, and resulting in an 11.6% increase in LLM-based planner accuracy. Additionally, we show that our proposed lightweight model using Reciprocal Rank Fusion (RRF) with LambdaMART outperforms GPT-4 based retrieval. Moreover, we observe context augmentation at plan generation, even after tool retrieval, reduces hallucination.</abstract>
+      <url hash="8fd964fe">2024.uncertainlp-1.2</url>
+      <bibkey>anantha-vodianik-2024-context</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Optimizing Relation Extraction in Medical Texts through Active Learning: A Comparative Analysis of Trade-offs</title>
+      <author><first>Siting</first><last>Liang</last><affiliation>German Research Center for AI</affiliation></author>
+      <author><first>Pablo</first><last>Sánchez</last></author>
+      <author><first>Daniel</first><last>Sonntag</last><affiliation>German Research Center for AI and Carl von Ossietzky Universität Oldenburg</affiliation></author>
+      <pages>23-34</pages>
+      <abstract>This work explores the effectiveness of employing Clinical BERT for Relation Extraction (RE) tasks in medical texts within an Active Learning (AL) framework. Our main objective is to optimize RE in medical texts through AL while examining the trade-offs between performance and computation time, comparing it with alternative methods like Random Forest and BiLSTM networks. Comparisons extend to feature engineering requirements, performance metrics, and considerations of annotation costs, including AL step times and annotation rates. The utilization of AL strategies aligns with our broader goal of enhancing the efficiency of relation classification models, particularly when dealing with the challenges of annotating complex medical texts in a Human-in-the-Loop (HITL) setting. The results indicate that uncertainty-based sampling achieves comparable performance with significantly fewer annotated samples across three categories of supervised learning methods, thereby reducing annotation costs for clinical and biomedical corpora. While Clinical BERT exhibits clear performance advantages across two different corpora, the trade-off involves longer computation times in interactive annotation processes. In real-world applications, where practical feasibility and timely results are crucial, optimizing this trade-off becomes imperative.</abstract>
+      <url hash="d4d25d98">2024.uncertainlp-1.3</url>
+      <bibkey>liang-etal-2024-optimizing</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Linguistic Obfuscation Attacks and Large Language Model Uncertainty</title>
+      <author><first>Sebastian</first><last>Steindl</last><affiliation>Ostbayerische Technische Hochschule Amberg-Weiden</affiliation></author>
+      <author><first>Ulrich</first><last>Schäfer</last><affiliation>Ostbayerische Technische Hochschule Amberg-Weiden</affiliation></author>
+      <author><first>Bernd</first><last>Ludwig</last><affiliation>Universität Regensburg</affiliation></author>
+      <author><first>Patrick</first><last>Levi</last><affiliation>Ostbayerische Technische Hochschule Amberg-Weiden</affiliation></author>
+      <pages>35-40</pages>
+      <abstract>Large Language Models (LLMs) have taken the research field of Natural Language Processing by storm. Researchers are not only investigating their capabilities and possible applications, but also their weaknesses and how they may be exploited.This has resulted in various attacks and “jailbreaking” approaches that have gained large interest within the community.The vulnerability of LLMs to certain types of input may pose major risks regarding the real-world usage of LLMs in productive operations.We therefore investigate the relationship between a LLM’s uncertainty and its vulnerability to jailbreaking attacks.To this end, we focus on a probabilistic point of view of uncertainty and employ a state-of-the art open-source LLM.We investigate an attack that is based on linguistic obfuscation.Our results indicate that the model is subject to a higher level of uncertainty when confronted with manipulated prompts that aim to evade security mechanisms.This study lays the foundation for future research into the link between model uncertainty and its vulnerability to jailbreaks.</abstract>
+      <url hash="fa58385a">2024.uncertainlp-1.4</url>
+      <bibkey>steindl-etal-2024-linguistic</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Aligning Uncertainty: Leveraging <fixed-case>LLM</fixed-case>s to Analyze Uncertainty Transfer in Text Summarization</title>
+      <author><first>Zahra</first><last>Kolagar</last><affiliation>Fraunhofer IIS</affiliation></author>
+      <author><first>Alessandra</first><last>Zarcone</last><affiliation>Hochschule Augsburg</affiliation></author>
+      <pages>41-61</pages>
+      <abstract>Automatically generated summaries can be evaluated along different dimensions, one being how faithfully the uncertainty from the source text is conveyed in the summary. We present a study on uncertainty alignment in automatic summarization, starting from a two-tier lexical and semantic categorization of linguistic expression of uncertainty, which we used to annotate source texts and automatically generate summaries. We collected a diverse dataset including news articles and personal blogs and generated summaries using GPT-4. Source texts and summaries were annotated based on our two-tier taxonomy using a markup language. The automatic annotation was refined and validated by subsequent iterations based on expert input. We propose a method to evaluate the fidelity of uncertainty transfer in text summarization. The method capitalizes on a small amount of expert annotations and on the capabilities of Large language models (LLMs) to evaluate how the uncertainty of the source text aligns with the uncertainty expressions in the summary.</abstract>
+      <url hash="c8d3e176">2024.uncertainlp-1.5</url>
+      <bibkey>kolagar-zarcone-2024-aligning</bibkey>
+    </paper>
+    <paper id="6">
+      <title>How Does Beam Search improve Span-Level Confidence Estimation in Generative Sequence Labeling?</title>
+      <author><first>Kazuma</first><last>Hashimoto</last><affiliation>Google Research</affiliation></author>
+      <author><first>Iftekhar</first><last>Naim</last><affiliation>Google</affiliation></author>
+      <author><first>Karthik</first><last>Raman</last><affiliation>Google</affiliation></author>
+      <pages>62-69</pages>
+      <abstract>Sequence labeling is a core task in text understanding for IE/IR systems. Text generation models have increasingly become the go-to solution for such tasks (e.g., entity extraction and dialog slot filling). While most research has focused on the labeling accuracy, a key aspect – of vital practical importance – has slipped through the cracks: understanding model confidence. More specifically, we lack a principled understanding of how to reliably gauge the confidence of a model in its predictions for each labeled span. This paper aims to provide some empirical insights on estimating model confidence for generative sequence labeling. Most notably, we find that simply using the decoder’s output probabilities <b>is not</b> the best in realizing well-calibrated confidence estimates. As verified over six public datasets of different tasks, we show that our proposed approach – which leverages statistics from top-<tex-math>k</tex-math> predictions by a beam search – significantly reduces calibration errors of the predictions of a generative sequence labeling model.</abstract>
+      <url hash="5cc64ed0">2024.uncertainlp-1.6</url>
+      <bibkey>hashimoto-etal-2024-beam</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Efficiently Acquiring Human Feedback with <fixed-case>B</fixed-case>ayesian Deep Learning</title>
+      <author><first>Haishuo</first><last>Fang</last><affiliation>Technische Universität Darmstadt</affiliation></author>
+      <author><first>Jeet</first><last>Gor</last></author>
+      <author><first>Edwin</first><last>Simpson</last><affiliation>University of Bristol</affiliation></author>
+      <pages>70-80</pages>
+      <abstract>Learning from human feedback can improve models for text generation or passage ranking, aligning them better to a user’s needs. Data is often collected by asking users to compare alternative outputs to a given input, which may require a large number of comparisons to learn a ranking function. The amount of comparisons needed can be reduced using Bayesian Optimisation (BO) to query the user about only the most promising candidate outputs. Previous applications of BO to text ranking relied on shallow surrogate models to learn ranking functions over candidate outputs,and were therefore unable to fine-tune rankers based on deep, pretrained language models. This paper leverages Bayesian deep learning (BDL) to adapt pretrained language models to highly specialised text ranking tasks, using BO to tune the model with a small number of pairwise preferences between candidate outputs. We apply our approach to community question answering (cQA) and extractive multi-document summarisation (MDS) with simulated noisy users, finding that our BDL approach significantly outperforms both a shallow Gaussian process model and traditional active learning with a standard deep neural network, while remaining robust to noise in the user feedback.</abstract>
+      <url hash="7ac88df7">2024.uncertainlp-1.7</url>
+      <bibkey>fang-etal-2024-efficiently</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Order Effects in Annotation Tasks: Further Evidence of Annotation Sensitivity</title>
+      <author><first>Jacob</first><last>Beck</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author><first>Stephanie</first><last>Eckman</last><affiliation>Amazon</affiliation></author>
+      <author><first>Bolei</first><last>Ma</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author><first>Rob</first><last>Chew</last></author>
+      <author><first>Frauke</first><last>Kreuter</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <pages>81-86</pages>
+      <abstract>The data-centric revolution in AI has revealed the importance of high-quality training data for developing successful AI models. However, annotations are sensitive to annotator characteristics, training materials, and to the design and wording of the data collection instrument. This paper explores the impact of observation order on annotations. We find that annotators’ judgments change based on the order in which they see observations. We use ideas from social psychology to motivate hypotheses about why this order effect occurs. We believe that insights from social science can help AI researchers improve data and model quality.</abstract>
+      <url hash="9a9d990c">2024.uncertainlp-1.8</url>
+      <bibkey>beck-etal-2024-order</bibkey>
+    </paper>
+    <paper id="9">
+      <title>The Effect of Generalisation on the Inadequacy of the Mode</title>
+      <author><first>Bryan</first><last>Eikema</last></author>
+      <pages>87-92</pages>
+      <abstract>The highest probability sequences of most neural language generation models tend to be degenerate in some way, a problem known as the inadequacy of the mode. While many approaches to tackling particular aspects of the problem exist, such as dealing with too short sequences or excessive repetitions, explanations of why it occurs in the first place are rarer and do not agree with each other. We believe none of the existing explanations paint a complete picture. In this position paper, we want to bring light to the incredible complexity of the modelling task and the problems that generalising to previously unseen contexts bring. We argue that our desire for models to generalise to contexts it has never observed before is exactly what leads to spread of probability mass and inadequate modes. While we do not claim that adequate modes are impossible, we argue that they are not to be expected either.</abstract>
+      <url hash="7d23608e">2024.uncertainlp-1.9</url>
+      <bibkey>eikema-2024-effect</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Uncertainty Resolution in Misinformation Detection</title>
+      <author><first>Yury</first><last>Orlovskiy</last></author>
+      <author><first>Camille</first><last>Thibault</last></author>
+      <author><first>Anne</first><last>Imouza</last></author>
+      <author><first>Jean-François</first><last>Godbout</last></author>
+      <author><first>Reihaneh</first><last>Rabbany</last><affiliation>McGill University and Montreal Institute for Learning Algorithms, University of Montreal, University of Montreal</affiliation></author>
+      <author><first>Kellin</first><last>Pelrine</last></author>
+      <pages>93-101</pages>
+      <abstract>Misinformation poses a variety of risks, such as undermining public trust and distorting factual discourse. Large Language Models (LLMs) like GPT-4 have been shown effective in mitigating misinformation, particularly in handling statements where enough context is provided. However, they struggle to assess ambiguous or context-deficient statements accurately. This work introduces a new method to resolve uncertainty in such statements. We propose a framework to categorize missing information and publish category labels for the LIAR-New dataset, which is adaptable to cross-domain content with missing information. We then leverage this framework to generate effective user queries for missing context. Compared to baselines, our method improves the rate at which generated questions are answerable by the user by 38 percentage points and classification performance by over 10 percentage points macro F1. Thus, this approach may provide a valuable component for future misinformation mitigation pipelines.</abstract>
+      <url hash="839bcd57">2024.uncertainlp-1.10</url>
+      <bibkey>orlovskiy-etal-2024-uncertainty</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Don’t Blame the Data, Blame the Model: Understanding Noise and Bias When Learning from Subjective Annotations</title>
+      <author><first>Abhishek</first><last>Anand</last></author>
+      <author><first>Negar</first><last>Mokhberian</last></author>
+      <author><first>Prathyusha</first><last>Kumar</last></author>
+      <author><first>Anweasha</first><last>Saha</last></author>
+      <author><first>Zihao</first><last>He</last></author>
+      <author><first>Ashwin</first><last>Rao</last></author>
+      <author><first>Fred</first><last>Morstatter</last><affiliation>University of Southern California and USC/ISI</affiliation></author>
+      <author><first>Kristina</first><last>Lerman</last><affiliation>University of Southern California and USC Information Sciences Institute</affiliation></author>
+      <pages>102-113</pages>
+      <abstract>Researchers have raised awareness about the harms of aggregating labels especially in subjective tasks that naturally contain disagreements among human annotators. In this work we show that models that are only provided aggregated labels show low confidence on high-disagreement data instances. While previous studies consider such instances as mislabeled, we argue that the reason the high-disagreement text instances have been hard-to-learn is that the conventional aggregated models underperform in extracting useful signals from subjective tasks. Inspired by recent studies demonstrating the effectiveness of learning from raw annotations, we investigate classifying using Multiple Ground Truth (Multi-GT) approaches. Our experiments show an improvement of confidence for the high-disagreement instances.</abstract>
+      <url hash="9df0d8bd">2024.uncertainlp-1.11</url>
+      <bibkey>anand-etal-2024-dont</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Combining Confidence Elicitation and Sample-based Methods for Uncertainty Quantification in Misinformation Mitigation</title>
+      <author><first>Mauricio</first><last>Rivera</last></author>
+      <author><first>Jean-François</first><last>Godbout</last></author>
+      <author><first>Reihaneh</first><last>Rabbany</last><affiliation>McGill University and Montreal Institute for Learning Algorithms, University of Montreal, University of Montreal</affiliation></author>
+      <author><first>Kellin</first><last>Pelrine</last></author>
+      <pages>114-126</pages>
+      <abstract>Large Language Models have emerged as prime candidates to tackle misinformation mitigation. However, existing approaches struggle with hallucinations and overconfident predictions. We propose an uncertainty quantification framework that leverages both direct confidence elicitation and sampled-based consistency methods to provide better calibration for NLP misinformation mitigation solutions. We first investigate the calibration of sample-based consistency methods that exploit distinct features of consistency across sample sizes and stochastic levels. Next, we evaluate the performance and distributional shift of a robust numeric verbalization prompt across single vs. two-step confidence elicitation procedure. We also compare the performance of the same prompt with different versions of GPT and different numerical scales. Finally, we combine the sample-based consistency and verbalized methods to propose a hybrid framework that yields a better uncertainty estimation for GPT models. Overall, our work proposes novel uncertainty quantification methods that will improve the reliability of Large Language Models in misinformation mitigation applications.</abstract>
+      <url hash="34acae3a">2024.uncertainlp-1.12</url>
+      <bibkey>rivera-etal-2024-combining</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Linguistically Communicating Uncertainty in Patient-Facing Risk Prediction Models</title>
+      <author><first>Adarsa</first><last>Sivaprasad</last></author>
+      <author><first>Ehud</first><last>Reiter</last><affiliation>University of Aberdeen</affiliation></author>
+      <pages>127-132</pages>
+      <abstract>This paper addresses the unique challenges associated with uncertainty quantification in AI models when applied to patient-facing contexts within healthcare. Unlike traditional eXplainable Artificial Intelligence (XAI) methods tailored for model developers or domain experts, additional considerations of communicating in natural language, its presentation and evaluating understandability are necessary. We identify the challenges in communication model performance, confidence, reasoning and unknown knowns using natural language in the context of risk prediction. We propose a design aimed at addressing these challenges, focusing on the specific application of in-vitro fertilisation outcome prediction.</abstract>
+      <url hash="0aa99ba7">2024.uncertainlp-1.13</url>
+      <bibkey>sivaprasad-reiter-2024-linguistically</bibkey>
+    </paper>
+  </volume>
+</collection>
