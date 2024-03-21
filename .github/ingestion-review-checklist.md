@@ -8,4 +8,5 @@
 1. [ ] Navigate to the event page preview (e.g., https://preview.aclanthology.org/icnlsp-ingestion/events/icnlsp-2021/), and page through, to see if there are any glaring mistakes
 1. [ ] Skim through the complete listing, looking for mis-parsed author names.
 1. [ ] Download the frontmatter and verify that the table of contents matches at least three randomly-selected papers
-1. [ ] Download 
+1. [ ] Download 3–5 PDFs (including the first and last one) and make sure they are correct (title, authors, page numbers).
+
