@@ -61,6 +61,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         # "mla": "modern-language-association-7th-edition",
     }
 
+    # Load paper information
     for id_, paper in anthology.papers.items():
         log.debug("export_anthology: processing paper '{}'".format(id_))
         data = paper.as_dict()
@@ -202,6 +203,7 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                 # the alphabetically-earliest volume
                 return min(volumes[volume]["venues"])
 
+        # sort volumes
         event_data["volumes"] = sorted(event_data["volumes"], key=volume_sorter)
 
         events[event_name] = event_data
