@@ -20,6 +20,7 @@ args = parser.parse_args()
 
 volumes = []
 for filepath in sys.stdin:
+    filepath = filepath.rstrip()
     if filepath.startswith("python/") or not filepath.endswith(".xml"):
         continue
 
