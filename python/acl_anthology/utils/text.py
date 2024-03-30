@@ -13,6 +13,24 @@
 # limitations under the License.
 
 
+from typing import cast
+
+
+def interpret_pages(text: str) -> tuple[str, str]:
+    """Splits up a 'pages' field into first and last page.
+
+    Arguments:
+        text: A text string representing a page range.
+
+    Returns:
+        A tuple `(first_page, last_page)`; if a known separator was found, this is the result of splitting the input on the separator; otherwise, we assume that the field contains a single page.
+    """
+    for s in ("--", "-", "–"):
+        if text.count(s) == 1:
+            return cast(tuple[str, str], tuple(text.split(s)))
+    return (text, text)
+
+
 def remove_extra_whitespace(text: str) -> str:
     """
     Arguments:
