@@ -34,6 +34,7 @@ from .types import VolumeType
 
 if TYPE_CHECKING:
     from ..anthology import Anthology
+    from ..sigs import SIG
     from . import Collection, Event
 
 
@@ -172,6 +173,13 @@ class Volume(SlottedDict[Paper]):
                 "Journal volume must have exactly one venue or an explicit <journal-title>"
             )
         return self.root.venues[self.venue_ids[0]].name
+
+    def get_sigs(self) -> list[SIG]:
+        """
+        Returns:
+            A list of SIGs associated with this volume.
+        """
+        return self.root.sigs.by_volume(self.full_id_tuple)
 
     def papers(self) -> Iterator[Paper]:
         """An iterator over all Paper objects in this volume."""

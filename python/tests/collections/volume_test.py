@@ -211,6 +211,13 @@ def test_volume_get_events(anthology):
     assert volume.get_events() == [anthology.events["acl-2022"]]
 
 
+def test_volume_get_sigs(anthology):
+    volume = anthology.get_volume("2022.acl-demo")
+    assert volume.get_sigs() == [anthology.sigs["sigdat"]]
+    volume = anthology.get_volume("2022.acl-long")
+    assert volume.get_sigs() == []
+
+
 @pytest.mark.parametrize("xml", test_cases_volume_xml)
 def test_volume_roundtrip_xml(xml):
     # Create and populate volume
