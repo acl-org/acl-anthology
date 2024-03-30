@@ -94,6 +94,8 @@ class Paper:
     deletion: Optional[PaperDeletionNotice] = field(default=None, repr=False)
     doi: Optional[str] = field(default=None, repr=False)
     ingest_date: Optional[str] = field(default=None, repr=False)
+    # TODO: previously, we used "langcodes" to map this to a language name
+    #       `langcodes.Language.get(self.langcode).display_name()`
     language: Optional[str] = field(default=None, repr=False)
     note: Optional[str] = field(default=None, repr=False)
     pages: Optional[str] = field(default=None, repr=False)

@@ -5,6 +5,7 @@
 ### Added
 
 - Papers now have attribute `thumbnail`.
+- Volumes now have attributes `has_abstracts` and `web_url`.
 
 ### Changed
 
