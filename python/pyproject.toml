@@ -21,8 +21,10 @@ markers = [
 testpaths = ["tests"]
 
 [tool.ruff]
-ignore = ['E501']  # "Line too long" is black's job
 target-version = 'py310'
+
+[tool.ruff.lint]
+ignore = ['E501']  # "Line too long" is black's job
 
 [tool.poetry]
 name = "acl-anthology-py"
