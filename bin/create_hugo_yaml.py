@@ -182,11 +182,12 @@ def volume_to_dict(volume):
         ]
     if events := volume.get_events():
         data["events"] = [event.id for event in events]
+    if sigs := volume.get_sigs():
+        data["sigs"] = [sig.acronym for sig in sigs]
     if volume.type == VolumeType.JOURNAL:
         data["meta_journal_title"] = volume.get_journal_title()
         data["meta_issue"] = volume.journal_issue
         data["meta_volume"] = volume.journal_volume
-    # TODO: sigs
     if volume.pdf is not None:
         data["pdf"] = volume.pdf.url
 
