@@ -27,11 +27,15 @@ Options:
   -h, --help               Display this helpful text.
 """
 
-from docopt import docopt
-from tqdm import tqdm
+import re
 import gzip
 import logging as log
 import os
+import datetime
+
+from docopt import docopt
+from tqdm import tqdm
+from pathlib import Path
 
 from anthology import Anthology
 from anthology.utils import SeverityTracker, deconstruct_anthology_id, infer_year
@@ -70,9 +74,27 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
     ) as file_anthology, gzip.open(
         "{}/anthology+abstracts.bib.gz".format(trgdir), "wt", encoding="utf-8"
     ) as file_anthology_with_abstracts:
+        # Add a header to each consolidated bibfile
+        for outfh in file_anthology_raw, file_anthology, file_anthology_with_abstracts:
+            print(
+                f"% https://aclanthology.org/{Path(outfh.name).name} generated on {datetime.date.today().isoformat()}\n",
+                file=outfh,
+            )
+
+        # Add some shortcuts to the uncompressed consolidated bib file
+        print(
+            "@string{acl = {Association for Computational Linguistics}}",
+            file=file_anthology_raw,
+        )
+        print("@string{anth = {https://aclanthology.org/}}", file=file_anthology_raw)
+        print(file=file_anthology_raw)
+
         for volume_id, volume in tqdm(
             sorted(anthology.volumes.items(), key=volume_sorter, reverse=True)
         ):
+            # reset this each time
+            abbrev = None
+
             volume_dir = trgdir
             if not os.path.exists(volume_dir):
                 os.makedirs(volume_dir)
@@ -91,6 +113,53 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                         concise_contents = paper.as_bibtex(concise=True)
                         print(concise_contents, file=file_volume)
                         print(concise_contents, file=file_anthology)
+
+                        # Space saver (https://github.com/acl-org/acl-anthology/issues/3016) for the
+                        # uncompressed consolidated bibfile.
+                        # Replace verbose text with abbreviations to get the file under 50 MB for Overleaf
+                        concise_contents = concise_contents.replace(
+                            'publisher = "Association for Computational Linguistics",',
+                            "publisher = acl,",
+                        )
+                        concise_contents = re.sub(
+                            r'url = "https://aclanthology.org/(.*)"',
+                            r"url = anth # {\1}",
+                            concise_contents,
+                        )
+
+                        # Abbreviate the booktitle by extracting it and printing it before
+                        # the first entry in each volume
+                        if concise_contents.startswith("@proceedings"):
+                            # Grab the title string and create the alias
+                            abbrev = f"{volume.get_venues()[0].upper()}:{infer_year(volume.collection_id)}:{volume.volume_id}"
+                            try:
+                                booktitle = re.search(
+                                    r"    title = \"(.*)\",", concise_contents
+                                ).group(1)
+                                print(
+                                    f"@string{{{abbrev} = {{{booktitle}}}}}",
+                                    file=file_anthology_raw,
+                                )
+                            except AttributeError:
+                                import sys
+
+                                print(
+                                    f"Could not find title for {volume_id}",
+                                    file=sys.stderr,
+                                )
+                                abbrev = None
+
+                        if abbrev is not None and "booktitle" in concise_contents:
+                            # substitute the alias for the booktitle
+                            concise_contents = re.sub(
+                                r"    booktitle = (\".*\"),",
+                                f"    booktitle = {abbrev},",
+                                concise_contents,
+                            )
+
+                        # Convert spaces to tabs to save a bit of space
+                        concise_contents = re.sub(r"\n    ", "\n\t", concise_contents)
+
                         print(concise_contents, file=file_anthology_raw)
 
 
