@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Copyright 2019 Marcel Bollmann <marcel@bollmann.me>
+# Copyright 2019-2024 Marcel Bollmann <marcel@bollmann.me>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,9 +30,10 @@ Options:
 
 from docopt import docopt
 from collections import defaultdict
-from tqdm import tqdm
 import logging as log
 import os
+from rich.logging import RichHandler
+from rich.progress import Progress
 import yaml
 
 try:
@@ -40,12 +41,154 @@ try:
 except ImportError:
     from yaml import SafeDumper as Dumper
 
-from anthology import Anthology
-from anthology.utils import SeverityTracker, deconstruct_anthology_id
+from acl_anthology import Anthology
+from acl_anthology.collections.paper import PaperDeletionType
+from acl_anthology.collections.volume import VolumeType
+from acl_anthology.utils.logging import SeverityTracker
+from acl_anthology.utils.text import interpret_pages, month_str2num
 from create_hugo_pages import check_directory
 
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+
+
+def person_to_dict(person):
+    name = person.canonical_name
+    return {
+        "id": person.id,
+        "first": name.first,
+        "last": name.last,
+        "full": name.as_first_last(),
+    }
+
+
+def paper_to_dict(paper):
+    """
+    Turn a single paper into a dictionary suitable for YAML export as expected by Hugo.
+    """
+    data = {
+        "author": [person_to_dict(paper.root.resolve(ns)) for ns in paper.authors],
+        "bibkey": paper.bibkey,
+        "bibtype": paper.bibtype,
+        "editor": [person_to_dict(paper.root.resolve(ns)) for ns in paper.get_editors()],
+        "paper_id": paper.id,
+        "title": paper.title.as_text(),
+        "title_html": paper.title.as_html(),
+        "url": paper.web_url,
+    }
+    data["author_string"] = ", ".join(author["full"] for author in data["author"])
+    # TODO: missing citations!
+    for key in ("doi", "language", "note"):
+        if (value := getattr(paper, key)) is not None:
+            data[key] = value
+    if (abstract := paper.abstract) is not None:
+        data["abstract_html"] = abstract.as_html()
+    if paper.attachments:
+        data["attachment"] = [
+            {
+                "filename": attachment[1].name,
+                "type": attachment[0].capitalize(),
+                "url": attachment[1].url,
+            }
+            for attachment in paper.attachments.items()
+        ]
+    if paper.awards:
+        data["award"] = paper.awards
+    if paper.deletion:
+        match paper.deletion.type:
+            case PaperDeletionType.RETRACTED:
+                data["retracted"] = paper.deletion.note
+                data["title"] = f"[RETRACTED] {data['title']}"
+                data["title_html"] = f"[RETRACTED] {data['title_html']}"
+            case PaperDeletionType.REMOVED:
+                data["removed"] = paper.deletion.note
+                data["title"] = f"[REMOVED] {data['title']}"
+                data["title_html"] = f"[REMOVED] {data['title_html']}"
+    if paper.pages is not None:
+        page_first, page_last = interpret_pages(paper.pages)
+        data["page_first"] = page_first
+        data["page_last"] = page_last
+        if page_first != page_last:
+            # Ensures consistent formatting of page range strings
+            data["pages"] = f"{page_first}–{page_last}"
+        else:
+            data["pages"] = paper.pages
+    if paper.pdf is not None:
+        data["pdf"] = paper.pdf.url
+        data["thumbnail"] = paper.thumbnail.url
+    if paper.errata:
+        data["erratum"] = [
+            {
+                "id": erratum.id,
+                "url": erratum.pdf.url,
+                "value": erratum.pdf.name,
+            }
+            for erratum in paper.errata
+        ]
+    if (pwc := paper.paperswithcode) is not None:
+        if pwc.code is not None:
+            data["pwccode"] = {
+                "additional": pwc.community_code,
+                "name": pwc.code[0],
+                "url": pwc.code[1],
+            }
+        if pwc.datasets:
+            data["pwcdataset"] = [
+                {
+                    "name": dataset[0],
+                    "url": dataset[1],
+                }
+                for dataset in pwc.datasets
+            ]
+    if paper.revisions:
+        data["revision"] = [
+            {
+                "explanation": revision.note,
+                "id": revision.id,
+                "url": revision.pdf.url,
+                "value": revision.pdf.name,
+            }
+            for revision in paper.revisions
+        ]
+    if paper.videos:
+        data["video"] = [video.url for video in paper.videos]
+    return data
+
+
+def volume_to_dict(volume):
+    """
+    Turn a single volume into a dictionary suitable for YAML export as expected by Hugo.
+    """
+    data = {
+        "has_abstracts": volume.has_abstracts,
+        "meta_date": volume.year,  # may be overwritten below
+        "papers": [paper.full_id for paper in volume.papers()],
+        "title": volume.title.as_text(),
+        "title_html": volume.title.as_html(),
+        "year": volume.year,
+        "url": volume.web_url,
+        "venues": volume.venue_ids,
+    }
+    for key in ("address", "doi", "isbn", "publisher"):
+        if (value := getattr(volume, key)) is not None:
+            data[key] = value
+    if volume.month:
+        data["month"] = volume.month
+        if (month_str := month_str2num(volume.month)) is not None:
+            data["meta_date"] = f"{volume.year}/{month_str}"
+    if volume.editors:
+        data["editor"] = [
+            person_to_dict(volume.root.resolve(ns)) for ns in volume.editors
+        ]
+    if events := volume.get_events():
+        data["events"] = [event.id for event in events]
+    if volume.type == VolumeType.JOURNAL:
+        data["meta_journal_title"] = volume.get_journal_title()
+        data["meta_issue"] = volume.journal_issue
+        data["meta_volume"] = volume.journal_volume
+    # TODO: sigs
+    if volume.pdf is not None:
+        data["pdf"] = volume.pdf.url
 
 
 def export_anthology(anthology, outdir, clean=False, dryrun=False):
@@ -53,39 +196,66 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
     page stubs created by create_hugo_pages.py to instantiate Hugo templates.
     """
-    # Prepare paper index
-    papers = defaultdict(dict)
+    # Citation styles that we're generating
     citation_styles = {
         "acl": f"{SCRIPTDIR}/acl.csl",
         # "apa": "apa-6th-edition",
         # "mla": "modern-language-association-7th-edition",
     }
 
-    for id_, paper in anthology.papers.items():
-        log.debug("export_anthology: processing paper '{}'".format(id_))
-        data = paper.as_dict()
-        data["title_html"] = paper.get_title("html")
-        if "xml_title" in data:
-            del data["xml_title"]
-        if "xml_booktitle" in data:
-            data["booktitle_html"] = paper.get_booktitle("html")
-            del data["xml_booktitle"]
-        if "xml_abstract" in data:
-            data["abstract_html"] = paper.get_abstract("html")
-            del data["xml_abstract"]
-        if "xml_url" in data:
-            del data["xml_url"]
-        if "author" in data:
-            data["author"] = [
-                anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
-            ]
-        if "editor" in data:
-            data["editor"] = [
-                anthology.people.resolve_name(name, id_) for name, id_ in data["editor"]
-            ]
-        for abbrev, style in citation_styles.items():
-            data[f"citation_{abbrev}"] = paper.as_citation_html(style)
-        papers[paper.collection_id][paper.full_id] = data
+    # Create directories
+    if not dryrun:
+        for subdir in ("", "papers", "people"):
+            target_dir = "{}/{}".format(outdir, subdir)
+            if not check_directory(target_dir, clean=clean):
+                return
+
+    # Export papers
+    with Progress() as progress:
+        paper_count = sum(1 for _ in anthology.papers())
+        task = progress.add_task("Exporting papers to YAML...", total=paper_count)
+        all_volumes = {}
+        for collection in anthology.collections.values():
+            collection_papers = {}
+            for volume in collection.volumes():
+                # Compute volume-level information that gets appended to every paper
+                # TODO: Could this be changed in the Hugo templates to
+                # fetch the information from the volume, instead of duplicating
+                # this information on every paper?
+                volume_data = {
+                    "address": volume.address,
+                    "booktitle": volume.title.as_text(),
+                    "parent_volume_id": volume.full_id,
+                    "publisher": volume.publisher,
+                    "month": volume.month,
+                    "year": volume.year,
+                }
+                if events := volume.get_events():
+                    # TODO: This information is currently not used on paper templates
+                    volume_data["events"] = [event.id for event in events]
+
+                # Now build the data for every paper
+                for paper in volume.papers():
+                    data = paper_to_dict(paper)
+                    data.update(volume_data)
+                    collection_papers[paper.full_id] = data
+
+                # We build the volume data separately since it uses slightly
+                # different fields than what gets attached to papers
+                all_volumes[volume.full_id] = volume_to_dict(volume)
+
+            if not dryrun:
+                with open(f"{outdir}/papers/{collection.id}.yaml", "w") as f:
+                    yaml.dump(collection_papers, Dumper=Dumper, stream=f)
+
+            progress.update(task, advance=len(collection_papers))
+
+    # Export volumes
+    with open(f"{outdir}/volumes.yaml", "w") as f:
+        yaml.dump(all_volumes, Dumper=Dumper, stream=f)
+
+    exit(35)
+    ##### NOT PORTED YET BEYOND THIS POINT
 
     # Prepare people index
     people = defaultdict(dict)
@@ -129,30 +299,6 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         if len(variants) > 0:
             data["variant_entries"] = [name.as_dict() for name in sorted(variants)]
         people[id_[0]][id_] = data
-
-    # Prepare volume index
-    volumes = {}
-    for id_, volume in anthology.volumes.items():
-        log.debug("export_anthology: processing volume '{}'".format(id_))
-        data = volume.as_dict()
-        data["title_html"] = volume.get_title("html")
-        del data["xml_booktitle"]
-        if "xml_abstract" in data:
-            del data["xml_abstract"]
-        if "xml_url" in data:
-            del data["xml_url"]
-        data["has_abstracts"] = volume.has_abstracts
-        data["papers"] = volume.paper_ids
-        data["venues"] = volume.get_venues()
-        if "author" in data:
-            data["author"] = [
-                anthology.people.resolve_name(name, id_) for name, id_ in data["author"]
-            ]
-        if "editor" in data:
-            data["editor"] = [
-                anthology.people.resolve_name(name, id_) for name, id_ in data["editor"]
-            ]
-        volumes[volume.full_id] = data
 
     # Prepare venue index
     venues = {}
@@ -220,22 +366,6 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
 
     # Dump all
     if not dryrun:
-        # Create directories
-        for subdir in ("", "papers", "people"):
-            target_dir = "{}/{}".format(outdir, subdir)
-            if not check_directory(target_dir, clean=clean):
-                return
-
-        progress = tqdm(total=len(papers) + len(people) + 7)
-        for collection_id, paper_list in papers.items():
-            with open("{}/papers/{}.yaml".format(outdir, collection_id), "w") as f:
-                yaml.dump(paper_list, Dumper=Dumper, stream=f)
-            progress.update()
-
-        with open("{}/volumes.yaml".format(outdir), "w") as f:
-            yaml.dump(volumes, Dumper=Dumper, stream=f)
-        progress.update(5)
-
         with open("{}/venues.yaml".format(outdir), "w") as f:
             yaml.dump(venues, Dumper=Dumper, stream=f)
         progress.update()
@@ -268,14 +398,13 @@ if __name__ == "__main__":
         )
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
     tracker = SeverityTracker()
-    log.getLogger().addHandler(tracker)
+    log.basicConfig(
+        format="%(message)s", level=log_level, handlers=[RichHandler(), tracker]
+    )
 
-    log.info("Reading the Anthology data...")
-    anthology = Anthology(importdir=args["--importdir"])
-
-    log.info("Exporting to YAML...")
+    anthology = Anthology(datadir=args["--importdir"])
+    anthology.load_all()
     export_anthology(
         anthology, args["--exportdir"], clean=args["--clean"], dryrun=args["--dry-run"]
     )

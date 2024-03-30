@@ -42,7 +42,7 @@ except ImportError:
     log.info("Can't load yaml C bindings, reverting to slow pure Python version")
     from yaml import Loader
 
-from anthology.utils import SeverityTracker
+from acl_anthology.utils.logging import SeverityTracker
 
 
 def check_directory(cdir, clean=False):
