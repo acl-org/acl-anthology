@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Papers now have attribute `thumbnail`.
+
 ### Changed
 
 - Bugfix: Converting a `<texmath>` expression to Unicode no longer serializes the tail of the XML tag, but only the TeX math expression itself.

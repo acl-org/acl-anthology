@@ -27,6 +27,7 @@ from ..files import (
     AttachmentReference,
     PapersWithCodeReference,
     PDFReference,
+    PDFThumbnailReference,
     VideoReference,
 )
 from ..people import NameSpecification
@@ -165,6 +166,13 @@ class Paper:
     def publisher(self) -> Optional[str]:
         """The paper's publisher. Inherited from the parent Volume."""
         return self.parent.publisher
+
+    @property
+    def thumbnail(self) -> Optional[PDFThumbnailReference]:
+        """A reference to a thumbnail image of the paper's PDF."""
+        if self.pdf is not None:
+            return PDFThumbnailReference(self.full_id)
+        return None
 
     @property
     def venue_ids(self) -> list[str]:
