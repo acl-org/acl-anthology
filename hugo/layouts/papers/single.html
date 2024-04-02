@@ -81,7 +81,7 @@
 {{ $has_xml := fileExists (printf "/data-export/%s.xml" $anthology_id) }}
 {{ $has_endf := fileExists (printf "/data-export/%s.endf" $anthology_id) }}
 <section id="main">
-  <div {{ if or $paper.retracted $paper.removed }} style="text-decoration: line-through" {{ end }}>
+  <div>
   <h2 id="title">
     {{ with $paper.pdf }}
     <a href="{{ . }}">{{ $paper.title_html | safeHTML }}</a>
@@ -161,6 +161,16 @@
       <dt>Address:</dt>
       <dd>{{ with $paper.address }}{{ . }}{{ end }}</dd>
 
+      {{ with $paper.editor }}
+        {{ $len := (len .) }}
+        <dt>Editor{{ if gt $len 1 }}s{{ end }}:</dt>
+        <dd>
+        {{ range $index, $person := . }}
+          {{ partial "author_link.html" (dict "ctx" $ "person" $person) | chomp }}{{ if ne (add $index 1) $len }}, {{ end }}
+        {{ end }}
+        </dd>
+      {{ end }}
+
       {{ with $paper.parent_volume_id }}
       {{ $volume := index $.Site.Data.volumes . }}
       <dt>{{ if gt (len $volume.venues) 1 }}Venues:{{ else }}Venue:{{ end }}</dt>
@@ -196,7 +206,7 @@
       <dt>URL:</dt>
       <dd><a href="{{ $paper.url }}">{{ $paper.url }}</a></dd>
       <dt>DOI:</dt>
-      <dd>{{ with $paper.doi }}<a href="http://dx.doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
+      <dd>{{ with $paper.doi }}<a href="https://doi.org/{{ . }}" title="To the current version of the paper by DOI">{{ . }}</a>{{ end }}</dd>
       {{ range $paper.award }}
       <dt>Award:</dt>
       <dd><i class="fas fa-award"></i>&nbsp;{{ . }}</dd>

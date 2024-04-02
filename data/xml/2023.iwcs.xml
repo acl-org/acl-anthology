@@ -1,0 +1,354 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.iwcs">
+  <volume id="1" ingest-date="2023-10-22" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 15th International Conference on Computational Semantics</booktitle>
+      <editor><first>Maxime</first><last>Amblard</last></editor>
+      <editor><first>Ellen</first><last>Breitholtz</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Nancy, France</address>
+      <month>June</month>
+      <year>2023</year>
+      <url hash="a4a82500">2023.iwcs-1</url>
+      <venue>iwcs</venue>
+    </meta>
+    <frontmatter>
+      <url hash="d5dcd2dc">2023.iwcs-1.0</url>
+      <bibkey>iwcs-2023-international</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Can current <fixed-case>NLI</fixed-case> systems handle <fixed-case>G</fixed-case>erman word order? Investigating language model performance on a new <fixed-case>G</fixed-case>erman challenge set of minimal pairs</title>
+      <author><first>Ines</first><last>Reinig</last></author>
+      <author><first>Katja</first><last>Markert</last></author>
+      <pages>1–15</pages>
+      <abstract>Compared to English, German word order is freer and therefore poses additional challenges for natural language inference (NLI). We create WOGLI (Word Order in German Language Inference), the first adversarial NLI dataset for German word order that has the following properties: (i) each premise has an entailed and a non-entailed hypothesis; (ii) premise and hypotheses differ only in word order and necessary morphological changes to mark case and number. In particular, each premise and its two hypotheses contain exactly the same lemmata. Our adversarial examples require the model to use morphological markers in order to recognise or reject entailment. We show that current German autoencoding models fine-tuned on translated NLI data can struggle on this challenge set, reflecting the fact that translated NLI datasets will not mirror all necessary language phenomena in the target language. We also examine performance after data augmentation as well as on related word order phenomena derived from WOGLI. Our datasets are publically available at https://github.com/ireinig/wogli.</abstract>
+      <url hash="91766316">2023.iwcs-1.1</url>
+      <bibkey>reinig-markert-2023-current</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Contextual Variability depends on Categorical Specificity rather than Conceptual Concreteness: A Distributional Investigation on <fixed-case>I</fixed-case>talian data</title>
+      <author><first>Giulia</first><last>Rambelli</last></author>
+      <author><first>Marianna</first><last>Bolognesi</last></author>
+      <pages>16–27</pages>
+      <abstract>A large amount of literature on conceptual abstraction has investigated the differences in contextual distribution (namely “contextual variability”) between abstract and concrete concept words (“joy” vs. “apple”), showing that abstract words tend to be used in a wide variety of linguistic contexts. In contrast, concrete words usually occur in a few very similar contexts. However, these studies do not take into account another process that affects both abstract and concrete concepts alike: “specificity, that is, how inclusive a category is (“ragdoll” vs. “mammal”). We argue that the more a word is specific, the more its usage is tied to specific domains, and therefore its contextual variability is more limited compared to generic words. In this work, we used distributional semantic models to model the interplay between contextual variability measures and i) concreteness, ii) specificity, and iii) the interaction between the two variables. Distributional analyses on 662 Italian nouns showed that contextual variability is mainly explainable in terms of specificity or by the interaction between concreteness and specificity. In particular, the more specific a word is, the more its contexts will be close to it. In contrast, generic words have less related contexts, regardless of whether they are concrete or abstract.</abstract>
+      <url hash="8c70b64c">2023.iwcs-1.2</url>
+      <bibkey>rambelli-bolognesi-2023-contextual</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Probing <fixed-case>BERT</fixed-case>’s ability to encode sentence modality and modal verb sense across varieties of <fixed-case>E</fixed-case>nglish</title>
+      <author><first>Jonas</first><last>Wagner</last></author>
+      <author><first>Sina</first><last>Zarrieß</last></author>
+      <pages>28–38</pages>
+      <abstract>In this research, we investigate whether BERT can differentiate between modal verb senses and sentence modalities and whether it performs equally well on different varieties of English. We fit probing classifiers under two conditions: contextualised embeddings of modal verbs and sentence embeddings. We also investigate BERT’s ability to predict masked modal verbs. Additionally, we classify separately for each modal verb to investigate whether BERT encodes different representations of senses for each individual verb. Lastly, we employ classifiers on data from different varieties of English to determine whether non-American English data is an additional hurdle. Results indicate that BERT has different representations for distinct senses for each modal verb, but does not represent modal sense independently from modal verbs. We also show that performance in different varieties of English is not equal, pointing to a necessary shift in the way we train large language models towards more linguistic diversity. We make our annotated dataset of modal sense in different varieties of English available at https://github.com/wagner-jonas/VEM.</abstract>
+      <url hash="97483327">2023.iwcs-1.3</url>
+      <bibkey>wagner-zarriess-2023-probing</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Dense Paraphrasing for Textual Enrichment</title>
+      <author><first>Jingxuan</first><last>Tu</last></author>
+      <author><first>Kyeongmin</first><last>Rim</last></author>
+      <author><first>Eben</first><last>Holderness</last></author>
+      <author><first>Bingyang</first><last>Ye</last></author>
+      <author><first>James</first><last>Pustejovsky</last></author>
+      <pages>39–49</pages>
+      <abstract>Understanding inferences from text requires more than merely recovering surface arguments, adjuncts, or strings associated with the query terms. As humans, we interpret sentences as contextualized components of a narrative or discourse, by both filling in missing information, and reasoning about event consequences. In this paper, we define the process of rewriting a textual expression (lexeme or phrase) such that it reduces ambiguity while also making explicit the underlying semantics that is not (necessarily) expressed in the economy of sentence structure as Dense Paraphrasing (DP). We apply the DP techniques on the English procedural texts from the cooking recipe domain, and provide the scope and design of the application that involves creating a graph representation of events and generating hidden arguments through paraphrasing. We provide insights on how this DP process can enrich a source text by showing that the dense-paraphrased event graph is a good resource to large LLMs such as GPT-3 to generate reliable paraphrases; and by experimenting baselines for automaticDP generation. Finally, we demonstrate the utility of the dataset and event graph structure by providing a case study on the out-of-domain modeling and different DP prompts and GPT models for paraphrasing.</abstract>
+      <url hash="af822f5b">2023.iwcs-1.4</url>
+      <bibkey>tu-etal-2023-dense</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Towards Unsupervised Compositional Entailment with Multi-Graph Embedding Models</title>
+      <author><first>Lorenzo</first><last>Bertolini</last></author>
+      <author><first>Julie</first><last>Weeds</last></author>
+      <author><first>David</first><last>Weir</last></author>
+      <pages>50–61</pages>
+      <abstract>Compositionality and inference are essential features of human language, and should hence be simultaneously accessible to a model of meaning. Despite being theory-grounded, distributional models can only be directly tested on compositionality, usually through similarity judgements, while testing for inference requires external resources. Recent work has shown that knowledge graph embeddings (KGE) architectures can be used to train distributional models capable of learning syntax-aware compositional representations, by training on syntactic graphs. We propose to expand such work with Multi-Graphs embedding (MuG) models, a new set of models learning from syntactic and knowledge-graphs. Using a phrase-level inference task, we show how MuGs can simultaneously handle syntax-aware composition and inference, and remain competitive distributional models with respect to lexical and compositional similarity.</abstract>
+      <url hash="2cbeb3d6">2023.iwcs-1.5</url>
+      <bibkey>bertolini-etal-2023-towards</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Gender-tailored Semantic Role Profiling for <fixed-case>G</fixed-case>erman</title>
+      <author><first>Manfred</first><last>Klenner</last></author>
+      <author><first>Anne</first><last>Göhring</last></author>
+      <author><first>Alison</first><last>Kim</last></author>
+      <author><first>Dylan</first><last>Massey</last></author>
+      <pages>62–66</pages>
+      <abstract>In this short paper, we combine the semantic perspective of particular verbs as casting a positive or negative relationship between their role fillers with a pragmatic examination of how the distribution of particular vulnerable role filler subtypes (children, migrants, etc.) looks like. We focus on the gender subtype and strive to extract gender-specific semantic role profiles: who are the predominant sources and targets of which polar events - men or women. Such profiles might reveal gender stereotypes or biases (of the media), but as well could be indicative of our social reality.</abstract>
+      <url hash="486a137c">2023.iwcs-1.6</url>
+      <bibkey>klenner-etal-2023-gender</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Implicit causality in <fixed-case>GPT</fixed-case>-2: a case study</title>
+      <author><first>Minh Hien</first><last>Huynh</last></author>
+      <author><first>Tomas</first><last>Lentz</last></author>
+      <author><first>Emiel</first><last>van Miltenburg</last></author>
+      <pages>67–77</pages>
+      <abstract>This case study investigates the extent to which a language model (GPT-2) is able to capture native speakers’ intuitions about implicit causality in a sentence completion task. Study 1 reproduces earlier results (showing that the model’s surprisal values correlate with the implicit causality bias of the verb; Davis and van Schijndel 2021), and then examine the effects of gender and verb frequency on model performance. Study 2 examines the reasoning ability of GPT-2: Is the model able to produce more sensible motivations for why the subject VERBed the object if the verbs have stronger causality biases? For this study we took care to avoid human raters being biased by obscenities and disfluencies generated by the model.</abstract>
+      <url hash="9e1e73ae">2023.iwcs-1.7</url>
+      <bibkey>huynh-etal-2023-implicit</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Multi-purpose neural network for <fixed-case>F</fixed-case>rench categorial grammars</title>
+      <author><first>Gaëtan</first><last>Margueritte</last></author>
+      <author><first>Daisuke</first><last>Bekki</last></author>
+      <author><first>Koji</first><last>Mineshima</last></author>
+      <pages>78–82</pages>
+      <abstract>Categorial grammar (CG) is a lexicalized grammar formalism that can be used to identify and extract the semantics of natural language sentences. However, despite being used actively to solve natural language understanding tasks such as natural language inference or recognizing textual entailment, most of the tools exploiting the capacities of CG are available in a limited set of languages. This paper proposes a first step toward developing a set of tools enabling the use of CG for the French language by proposing a neural network tailored for part-of-speech and type-logical-grammar supertagging, located at the frontier between computational linguistics and artificial intelligence. Experiments show that our model can compete with state-of-the art models while retaining a simple architecture.</abstract>
+      <url hash="361d908d">2023.iwcs-1.8</url>
+      <bibkey>margueritte-etal-2023-multi</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Experiments in training transformer sequence-to-sequence <fixed-case>DRS</fixed-case> parsers</title>
+      <author><first>Ahmet</first><last>Yildirim</last></author>
+      <author><first>Dag</first><last>Haug</last></author>
+      <pages>83–88</pages>
+      <abstract>This work experiments with various configurations of transformer-based sequence-to-sequence neural networks in training a Discourse Representation Structure (DRS) parser, and presents the results along with the code to reproduce our experiments for use by the community working on DRS parsing. These are configurations that have not been tested in prior work on this task. The Parallel Meaning Bank (PMB) English data sets are used to train the models. The results are evaluated on the PMB test sets using Counter, the standard Evaluation tool for DRSs. We show that the performance improves upon the previous state of the art by 0.5 (F1 %) for PMB 2.2.0 and 1.02 (F1 %) for PMB 3.0.0 test sets. We also present results on PMB 4.0.0, which has not been evaluated using Counter in previous research.</abstract>
+      <url hash="538f526a">2023.iwcs-1.9</url>
+      <bibkey>yildirim-haug-2023-experiments</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Unsupervised Semantic Frame Induction Revisited</title>
+      <author><first>Younes</first><last>Samih</last></author>
+      <author><first>Laura</first><last>Kallmeyer</last></author>
+      <pages>89–93</pages>
+      <abstract>This paper addresses the task of semantic frame induction based on pre-trained language models (LMs). The current state of the art is to directly use contextualized embeddings from models such as BERT and to cluster them in a two step clustering process (first lemma-internal, then over all verb tokens in the data set). We propose not to use the LM’s embeddings as such but rather to refine them via some transformer-based denoising autoencoder. The resulting embeddings allow to obtain competitive results while clustering them in a single pass. This shows clearly that the autoendocer allows to already concentrate on the information that is relevant for distinguishing event types.</abstract>
+      <url hash="1a20799d">2023.iwcs-1.10</url>
+      <bibkey>samih-kallmeyer-2023-unsupervised</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Towards Ontologically Grounded and Language-Agnostic Knowledge Graphs</title>
+      <author><first>Walid</first><last>Saba</last></author>
+      <pages>94–98</pages>
+      <abstract>Knowledge graphs (KGs) have become the standard technology for the representation of factual information in applications such as recommendation engines, search, and question-answering systems. However, the continual updating of KGs, as well as the integration of KGs from different domains and KGs in different languages, remains to be a major challenge. What we suggest here is that by a reification of abstract objects and by acknowledging the ontological distinction between concepts and types, we arrive at an ontologically grounded and language-agnostic representation that can alleviate the difficulties in KG integration.</abstract>
+      <url hash="cf75aba3">2023.iwcs-1.11</url>
+      <bibkey>saba-2023-towards</bibkey>
+    </paper>
+    <paper id="12">
+      <title>The Universe of Utterances According to <fixed-case>BERT</fixed-case></title>
+      <author><first>Dmitry</first><last>Nikolaev</last></author>
+      <author><first>Sebastian</first><last>Padó</last></author>
+      <pages>99–105</pages>
+      <abstract>It has been argued that BERT “rediscovers the traditional NLP pipeline”, with lower layers extracting morphosyntactic features and higher layers creating holistic sentence-level representations. In this paper, we critically examine this assumption through a principle-component-guided analysis, extracing sets of inputs that correspond to specific activation patterns in BERT sentence representations. We find that even in higher layers, the model mostly picks up on a variegated bunch of low-level features, many related to sentence complexity, that presumably arise from its specific pre-training objectives.</abstract>
+      <url hash="0fce0a15">2023.iwcs-1.12</url>
+      <bibkey>nikolaev-pado-2023-universe</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Sparser is better: one step closer to word embedding interpretability</title>
+      <author><first>Simon</first><last>Guillot</last></author>
+      <author><first>Thibault</first><last>Prouteau</last></author>
+      <author><first>Nicolas</first><last>Dugue</last></author>
+      <pages>106–115</pages>
+      <abstract>Sparse word embeddings models (SPINE, SINr) are designed to embed words in interpretable dimensions. An interpretable dimension is such that a human can interpret the semantic (or syntactic) relations between words active for a dimension. These models are useful for critical downstream tasks in natural language processing (e.g. medical or legal NLP), and digital humanities applications. This work extends interpretability at the vector level with a more manageable number of activated dimensions following recommendations from psycholinguistics. Subsequently, one of the key criteria to an interpretable model is sparsity: in order to be interpretable, not every word should be represented by all the features of the model, especially if humans have to interpret these features and their relations. This raises one question: to which extent is sparsity sustainable with regard to performance? We thus introduce a sparsification procedure to evaluate its impact on two interpretable methods (SPINE and SINr) to tend towards sustainable vector interpretability. We also introduce stability as a new criterion to interpretability. Our stability evaluations show little albeit non-zero variation for SPINE and SINr embeddings. We then show that increasing sparsity does not necessarily interfere with performance. These results are encouraging and pave the way towards intrinsically interpretable word vectors.</abstract>
+      <url hash="3029992e">2023.iwcs-1.13</url>
+      <bibkey>guillot-etal-2023-sparser</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Semantically Informed Data Augmentation for Unscoped Episodic Logical Forms</title>
+      <author><first>Mandar</first><last>Juvekar</last></author>
+      <author><first>Gene</first><last>Kim</last></author>
+      <author><first>Lenhart</first><last>Schubert</last></author>
+      <pages>116–133</pages>
+      <abstract>Unscoped Logical Form (ULF) of Episodic Logic is a meaning representation format that captures the overall semantic type structure of natural language while leaving certain finer details, such as word sense and quantifier scope, underspecified for ease of parsing and annotation. While a learned parser exists to convert English to ULF, its performance is severely limited by the lack of a large dataset to train the system. We present a ULF dataset augmentation method that samples type-coherent ULF expressions using the ULF semantic type system and filters out samples corresponding to implausible English sentences using a pretrained language model. Our data augmentation method is configurable with parameters that trade off between plausibility of samples with sample novelty and augmentation size. We find that the best configuration of this augmentation method substantially improves parser performance beyond using the existing unaugmented dataset.</abstract>
+      <url hash="beca199d">2023.iwcs-1.14</url>
+      <bibkey>juvekar-etal-2023-semantically</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Meaning-Text Theory within Abstract Categorial Grammars: Toward Paraphrase and Lexical Function Modeling for Text Generation</title>
+      <author><first>Marie</first><last>Cousin</last></author>
+      <pages>134–143</pages>
+      <abstract>The meaning-text theory is a linguistic theory aiming to describe the correspondence between the meaning and the surface form of an utterance with a formal device simulating the linguistic activity of a native speaker. We implement a version of a model of this theory with abstract categorial grammars, a grammatical formalism based on lambda-calculus. This implementation covers the syntax-semantic interface of the meaning-text theory, i.e., not only the three semantic, deep-syntactic and surface-syntactic representation levels of the theory, but also their interface (i.e., the transformation from one level to another). This implementation hinges upon abstract categorial grammars composition in order to encode level interfaces as transduction operate.</abstract>
+      <url hash="1479e57f">2023.iwcs-1.15</url>
+      <bibkey>cousin-2023-meaning</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Measuring Fine-Grained Semantic Equivalence with <fixed-case>A</fixed-case>bstract <fixed-case>M</fixed-case>eaning <fixed-case>R</fixed-case>epresentation</title>
+      <author><first>Shira</first><last>Wein</last></author>
+      <author><first>Zhuxin</first><last>Wang</last></author>
+      <author><first>Nathan</first><last>Schneider</last></author>
+      <pages>144–154</pages>
+      <abstract>Identifying semantically equivalent sentences is important for many NLP tasks. Current approaches to semantic equivalence take a loose, sentence-level approach to “equivalence,” despite evidence that fine-grained differences and implicit content have an effect on human understanding and system performance. In this work, we introduce a novel, more sensitive method of characterizing cross-lingual semantic equivalence that leverages Abstract Meaning Representation graph structures. We find that parsing sentences into AMRs and comparing the AMR graphs enables finer-grained equivalence measurement than comparing the sentences themselves. We demonstrate that when using gold or even automatically parsed AMR annotations, our solution is finer-grained than existing corpus filtering methods and more accurate at predicting strictly equivalent sentences than existing semantic similarity metrics.</abstract>
+      <url hash="edc8c013">2023.iwcs-1.16</url>
+      <bibkey>wein-etal-2023-measuring</bibkey>
+    </paper>
+    <paper id="17">
+      <title>The Importance of Context in the Evaluation of Word Embeddings: The Effects of Antonymy and Polysemy</title>
+      <author><first>James</first><last>Fodor</last></author>
+      <author><first>Simon</first><last>De Deyne</last></author>
+      <author><first>Shinsuke</first><last>Suzuki</last></author>
+      <pages>155–172</pages>
+      <abstract>Word embeddings are widely used for diverse applications in natural language processing. Despite extensive research, it is unclear when they succeed or fail to capture human judgements of semantic relatedness and similarity. In this study, we examine a range of models and experimental datasets, showing that while current embeddings perform reasonably well overall, they are unable to account for human judgements of antonyms and polysemy. We suggest that word embeddings perform poorly in representing polysemy and antonymy because they do not consider the context in which humans make word similarity judgements. In support of this, we further show that incorporating additional context into transformer embeddings using general corpora and lexical dictionaries significantly improves the fit with human judgments. Our results provide insight into two key inadequacies of word embeddings, and highlight the importance of incorporating word context into representations of word meaning when accounting for context-free human similarity judgments.</abstract>
+      <url hash="253bee84">2023.iwcs-1.17</url>
+      <bibkey>fodor-etal-2023-importance</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>R</fixed-case>a<fixed-case>TE</fixed-case>: a Reproducible automatic Taxonomy Evaluation by Filling the Gap</title>
+      <author><first>Phillippe</first><last>Langlais</last></author>
+      <author><first>Tianjian Lucas</first><last>Gao</last></author>
+      <pages>173–182</pages>
+      <abstract>Taxonomies are an essential knowledge representation, yet most studies on automatic taxonomy construction (ATC) resort to manual evaluation to score proposed algorithms. We argue that automatic taxonomy evaluation (ATE) is just as important as taxonomy construction. We propose RaTE, an automatic label-free taxonomy scoring procedure, which relies on a large pre-trained language model. We apply our evaluation procedure to three state-of-the-art ATC algorithms with which we built seven taxonomies from the Yelp domain, and show that 1) RaTE correlates well with human judgments and 2) artificially degrading a taxonomy leads to decreasing RaTE score.</abstract>
+      <url hash="9196da4c">2023.iwcs-1.18</url>
+      <bibkey>langlais-gao-2023-rate</bibkey>
+    </paper>
+    <paper id="19">
+      <title>The Universal Anaphora Scorer 2.0</title>
+      <author><first>Juntao</first><last>Yu</last></author>
+      <author><first>Michal</first><last>Novák</last></author>
+      <author><first>Abdulrahman</first><last>Aloraini</last></author>
+      <author><first>Nafise Sadat</first><last>Moosavi</last></author>
+      <author><first>Silviu</first><last>Paun</last></author>
+      <author><first>Sameer</first><last>Pradhan</last></author>
+      <author><first>Massimo</first><last>Poesio</last></author>
+      <pages>183–194</pages>
+      <abstract>The aim of the Universal Anaphora initiative is to push forward the state of the art both in anaphora (coreference) annotation and in the evaluation of models for anaphora resolution. The first release of the Universal Anaphora Scorer (Yu et al., 2022b) supported the scoring not only of identity anaphora as in the Reference Coreference Scorer (Pradhan et al., 2014) but also of split antecedent anaphoric reference, bridging references, and discourse deixis. That scorer was used in the CODI-CRAC 2021/2022 Shared Tasks on Anaphora Resolution in Dialogues (Khosla et al., 2021; Yu et al., 2022a). A modified version of the scorer supporting discontinuous markables and the COREFUD markup format was also used in the CRAC 2022 Shared Task on Multilingual Coreference Resolution (Zabokrtsky et al., 2022). In this paper, we introduce the second release of the scorer, merging the two previous versions, which can score reference with discontinuous markables and zero anaphora resolution.</abstract>
+      <url hash="b6eaf1be">2023.iwcs-1.19</url>
+      <bibkey>yu-etal-2023-universal</bibkey>
+    </paper>
+    <paper id="20">
+      <title>The Sequence Notation: Catching Complex Meanings in Simple Graphs</title>
+      <author><first>Johan</first><last>Bos</last></author>
+      <pages>195–208</pages>
+      <abstract>Current symbolic semantic representations proposed to capture the semantics of human language have served well to give us insight in how meaning is expressed. But they are either too complicated for large-scale annotation tasks or lack expressive power to play a role in inference tasks. What we propose is a meaning representation system that it is interlingual, model-theoretic, and variable-free. It divides the labour involved in representing meaning along three levels: concept, roles, and contexts. As natural languages are expressed as sequences of phonemes or words, the meaning representations that we propose are likewise sequential. However, the resulting meaning representations can also be visualised as directed acyclic graphs.</abstract>
+      <url hash="b1f46e29">2023.iwcs-1.20</url>
+      <bibkey>bos-2023-sequence</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Bridging Semantic Frameworks: mapping <fixed-case>DRS</fixed-case> onto <fixed-case>AMR</fixed-case></title>
+      <author><first>Siyana</first><last>Pavlova</last></author>
+      <author><first>Maxime</first><last>Amblard</last></author>
+      <author><first>Bruno</first><last>Guillaume</last></author>
+      <pages>209–222</pages>
+      <abstract>A number of graph-based semantic representation frameworks have emerged in recent years, but there are few parallel annotated corpora across them. We want to explore the viability of transforming graphs from one framework into another to construct parallel datasets. In this work, we consider graph rewriting from Discourse Representation Structures (Parallel Meaning Bank (PMB) variant) to Abstract Meaning Representation (AMR). We first build a gold AMR corpus of 102 sentences from the PMB. We then construct a rule base, aided by a further 95 sentences. No benchmark for this task exists, so we compare our system’s output to that of state-of-the-art AMR parsers, and explore the more challenging cases. Finally, we discuss where the two frameworks diverge in encoding semantic phenomena.</abstract>
+      <url hash="18cd7b79">2023.iwcs-1.21</url>
+      <bibkey>pavlova-etal-2023-bridging</bibkey>
+    </paper>
+    <paper id="22">
+      <title>Data-Driven Frame-Semantic Parsing with Tree Wrapping Grammar</title>
+      <author><first>Tatiana</first><last>Bladier</last></author>
+      <author><first>Laura</first><last>Kallmeyer</last></author>
+      <author><first>Kilian</first><last>Evang</last></author>
+      <pages>223–232</pages>
+      <abstract>We describe the first experimental results for data-driven semantic parsing with Tree Rewriting Grammars (TRGs) and semantic frames. While several theoretical papers previously discussed approaches for modeling frame semantics in the context of TRGs, this is the first data-driven implementation of such a parser. We experiment with Tree Wrapping Grammar (TWG), a grammar formalism closely related to Tree Adjoining Grammar (TAG), developed for formalizing the typologically inspired linguistic theory of Role and Reference Grammar (RRG). We use a transformer-based multi-task architecture to predict semantic supertags which are then decoded into RRG trees augmented with semantic feature structures. We present experiments for sentences in different genres for English data. We also discuss our compositional semantic analyses using TWG for several linguistic phenomena.</abstract>
+      <url hash="382d8494">2023.iwcs-1.22</url>
+      <bibkey>bladier-etal-2023-data</bibkey>
+    </paper>
+    <paper id="23">
+      <title>The argument–adjunct distinction in <fixed-case>BERT</fixed-case>: A <fixed-case>F</fixed-case>rame<fixed-case>N</fixed-case>et-based investigation</title>
+      <author><first>Dmitry</first><last>Nikolaev</last></author>
+      <author><first>Sebastian</first><last>Padó</last></author>
+      <pages>233–239</pages>
+      <abstract>The distinction between arguments and adjuncts is a fundamental assumption of several linguistic theories. In this study, we investigate to what extent this distinction is picked up by a Transformer-based language model. We use BERT as a case study, operationalizing arguments and adjuncts as core and non-core FrameNet frame elements, respectively, and tying them to activations of particular BERT neurons. We present evidence, from English and Korean, that BERT learns more dedicated representations for arguments than for adjuncts when fine-tuned on the FrameNet frame-identification task. We also show that this distinction is already present in a weaker form in the vanilla pre-trained model.</abstract>
+      <url hash="4becba3d">2023.iwcs-1.23</url>
+      <bibkey>nikolaev-pado-2023-argument</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Collecting and Predicting Neurocognitive Norms for <fixed-case>M</fixed-case>andarin <fixed-case>C</fixed-case>hinese</title>
+      <author><first>Le</first><last>Qiu</last></author>
+      <author><first>Yu-Yin</first><last>Hsu</last></author>
+      <author><first>Emmanuele</first><last>Chersoni</last></author>
+      <pages>240–245</pages>
+      <abstract>Language researchers have long assumed that concepts can be represented by sets of semantic features, and have traditionally encountered challenges in identifying a feature set that could be sufficiently general to describe the human conceptual experience in its entirety. In the dataset of English norms presented by Binder et al. (2016), also known as Binder norms, the authors introduced a new set of neurobiologically motivated semantic features in which conceptual primitives were defined in terms of modalities of neural information processing. However, no comparable norms are currently available for other languages. In our work, we built the Mandarin Chinese norm by translating the stimuli used in the original study and developed a comparable collection of human ratings for Mandarin Chinese. We also conducted some experiments on the automatic prediction of the Chinese Binder Norms based on the word embeddings of the corresponding words to assess the feasibility of modeling experiential semantic features via corpus-based representations.</abstract>
+      <url hash="c9759c9f">2023.iwcs-1.24</url>
+      <bibkey>qiu-etal-2023-collecting</bibkey>
+    </paper>
+    <paper id="25">
+      <title>Error Exploration for Automatic <fixed-case>A</fixed-case>bstract <fixed-case>M</fixed-case>eaning <fixed-case>R</fixed-case>epresentation Parsing</title>
+      <author><first>Maria</first><last>Boritchev</last></author>
+      <author><first>Johannes</first><last>Heinecke</last></author>
+      <pages>246–251</pages>
+      <abstract>Following the data-driven methods of evaluation and error analysis in meaning representation parsing presented in (Buljan et al., 2022), we performed an error exploration of an Abstract Meaning Representation (AMR) parser. Our aim is to perform a diagnosis of the types of errors found in the output of the tool in order to implement adaptation and correction strategies to accommodate these errors. This article presents the exploration, its results, the strategies we implemented and the effect of these strategies on the performances of the tool. Though we did not observe a significative rise on average in the performances of the tool, we got much better results in some cases using our adaptation techniques.</abstract>
+      <url hash="3c8873ee">2023.iwcs-1.25</url>
+      <bibkey>boritchev-heinecke-2023-error</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Unsupervised Methods for Domain Specific Ambiguity Detection. The Case of <fixed-case>G</fixed-case>erman Physics Language</title>
+      <author><first>Vitor</first><last>Fontanella</last></author>
+      <author><first>Christian</first><last>Wartena</last></author>
+      <author><first>Gunnar</first><last>Friege</last></author>
+      <pages>252–257</pages>
+      <abstract>Many terms used in physics have a different meaning or usage pattern in general language, constituting a learning barrier in physics teaching. The systematic identification of such terms is considered to be useful for science education as well as for terminology extraction. This article compares three methods based on vector semantics and a simple frequency-based baseline for automatically identifying terms used in general language with domain-specific use in physics. For evaluation, we use ambiguity scores from a survey among physicists and data about the number of term senses from Wiktionary. We show that the so-called Vector Initialization method obtains the best results.</abstract>
+      <url hash="512a591e">2023.iwcs-1.26</url>
+      <bibkey>fontanella-etal-2023-unsupervised</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Definition Modeling : To model definitions. Generating Definitions With Little to No Semantics</title>
+      <author><first>Vincent</first><last>Segonne</last></author>
+      <author><first>Timothee</first><last>Mickus</last></author>
+      <pages>258–266</pages>
+      <abstract>Definition Modeling, the task of generating definitions, was first proposed as a means to evaluate the semantic quality of word embeddings—a coherent lexical semantic representations of a word in context should contain all the information necessary to generate its definition. The relative novelty of this task entails that we do not know which factors are actually relied upon by a Definition Modeling system. In this paper, we present evidence that the task may not involve as much semantics as one might expect: we show how an earlier model from the literature is both rather insensitive to semantic aspects such as explicit polysemy, as well as reliant on formal similarities between headwords and words occurring in its glosses, casting doubt on the validity of the task as a means to evaluate embeddings.</abstract>
+      <url hash="85cc90e1">2023.iwcs-1.27</url>
+      <bibkey>segonne-mickus-2023-definition</bibkey>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>SMARAGD</fixed-case>: Learning <fixed-case>SM</fixed-case>atch for Accurate and Rapid Approximate Graph Distance</title>
+      <author><first>Juri</first><last>Opitz</last></author>
+      <author><first>Philipp</first><last>Meier</last></author>
+      <author><first>Anette</first><last>Frank</last></author>
+      <pages>267–274</pages>
+      <abstract>The similarity of graph structures, such as Meaning Representations (MRs), is often assessed via structural matching algorithms, such as Smatch (Cai &amp; Knight 2013). However, Smatch involves a combinatorial problem that suffers from NP-completeness, making large-scale applications, e.g., graph clustering or search, infeasible. To alleviate this issue, we learn SMARAGD: Semantic Match for Accurate and Rapid Approximate Graph Distance. We show the potential of neural networks to approximate Smatch scores, i) in linear time using a machine translation framework to predict alignments, or ii) in constant time using a Siamese CNN to directly predict Smatch scores. We show that the approximation error can be substantially reduced through data augmentation and graph anonymization.</abstract>
+      <url hash="0f3717fd">2023.iwcs-1.28</url>
+      <bibkey>opitz-etal-2023-smaragd</bibkey>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>AMR</fixed-case>4<fixed-case>NLI</fixed-case>: Interpretable and robust <fixed-case>NLI</fixed-case> measures from semantic graphs</title>
+      <author><first>Juri</first><last>Opitz</last></author>
+      <author><first>Shira</first><last>Wein</last></author>
+      <author><first>Julius</first><last>Steen</last></author>
+      <author><first>Anette</first><last>Frank</last></author>
+      <author><first>Nathan</first><last>Schneider</last></author>
+      <pages>275–283</pages>
+      <abstract>The task of natural language inference (NLI) asks whether a given premise (expressed in NL) entails a given NL hypothesis. NLI benchmarks contain human ratings of entailment, but the meaning relationships driving these ratings are not formalized. Can the underlying sentence pair relationships be made more explicit in an interpretable yet robust fashion? We compare semantic structures to represent premise and hypothesis, including sets of *contextualized embeddings* and *semantic graphs* (Abstract Meaning Representations), and measure whether the hypothesis is a semantic substructure of the premise, utilizing interpretable metrics. Our evaluation on three English benchmarks finds value in both contextualized embeddings and semantic graphs; moreover, they provide complementary signals, and can be leveraged together in a hybrid model.</abstract>
+      <url hash="1a5ef74f">2023.iwcs-1.29</url>
+      <bibkey>opitz-etal-2023-amr4nli</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Use Defines Possibilities: Reasoning about Object Function to Interpret and Execute Robot Instructions</title>
+      <author><first>Mollie</first><last>Shichman</last></author>
+      <author><first>Claire</first><last>Bonial</last></author>
+      <author><first>Austin</first><last>Blodgett</last></author>
+      <author><first>Taylor</first><last>Hudson</last></author>
+      <author><first>Francis</first><last>Ferraro</last></author>
+      <author><first>Rachel</first><last>Rudinger</last></author>
+      <pages>284–292</pages>
+      <abstract>Language models have shown great promise in common-sense related tasks. However, it remains unseen how they would perform in the context of physically situated human-robot interactions, particularly in disaster-relief sce- narios. In this paper, we develop a language model evaluation dataset with more than 800 cloze sentences, written to probe for the func- tion of over 200 objects. The sentences are divided into two tasks: an “easy” task where the language model has to choose between vo- cabulary with different functions (Task 1), and a “challenge” where it has to choose between vocabulary with the same function, yet only one vocabulary item is appropriate given real world constraints on functionality (Task 2). Dis- tilBERT performs with about 80% accuracy for both tasks. To investigate how annotator variability affected those results, we developed a follow-on experiment where we compared our original results with wrong answers chosen based on embedding vector distances. Those results showed increased precision across docu- ments but a 15% decrease in accuracy. We con- clude that language models do have a strong knowledge basis for object reasoning, but will require creative fine-tuning strategies in order to be successfully deployed.</abstract>
+      <url hash="a74c0afa">2023.iwcs-1.30</url>
+      <bibkey>shichman-etal-2023-use</bibkey>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>S</fixed-case>imple<fixed-case>MTOD</fixed-case>: A Simple Language Model for Multimodal Task-Oriented Dialogue with Symbolic Scene Representation</title>
+      <author><first>Bhathiya</first><last>Hemanthage</last></author>
+      <author><first>Christian</first><last>Dondrup</last></author>
+      <author><first>Phil</first><last>Bartie</last></author>
+      <author><first>Oliver</first><last>Lemon</last></author>
+      <pages>293–304</pages>
+      <abstract>SimpleMTOD is a simple language model which recasts several sub-tasks in multimodal task-oriented dialogues as sequence prediction tasks. SimpleMTOD is built on a large-scale transformer-based auto-regressive architecture, which has already proven to be successful in uni-modal task-oriented dialogues, and effectively leverages transfer learning from pretrained GPT-2. In-order to capture the semantics of visual scenes, we introduce both local and de-localized tokens for objects within a scene. De-localized tokens represent the type of an object rather than the specific object itself and so possess a consistent meaning across the dataset. SimpleMTOD achieves a state-of-the-art BLEU score (0.327) in the Response Generation sub-task of the SIMMC 2.0 test-std dataset while performing on par in other multimodal sub-tasks: Disambiguation, Coreference Resolution, and Dialog State Tracking. This is despite taking a minimalist approach for extracting visual (and non-visual) informa- tion. In addition the model does not rely on task-specific architectural changes such as classification heads.</abstract>
+      <url hash="bea78fb1">2023.iwcs-1.31</url>
+      <bibkey>hemanthage-etal-2023-simplemtod</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Grounding and Distinguishing Conceptual Vocabulary Through Similarity Learning in Embodied Simulations</title>
+      <author><first>Sadaf</first><last>Ghaffari</last></author>
+      <author><first>Nikhil</first><last>Krishnaswamy</last></author>
+      <pages>305–317</pages>
+      <abstract>We present a novel method for using agent experiences gathered through an embodied simulation to ground contextualized word vectors to object representations. We use similarity learning to make comparisons between different object types based on their properties when interacted with, and to extract common features pertaining to the objects’ behavior. We then use an affine transformation to calculate a projection matrix that transforms contextualized word vectors from different transformer-based language models into this learned space, and evaluate whether new test instances of transformed token vectors identify the correct concept in the object embedding space. Our results expose properties of the embedding spaces of four different transformer models and show that grounding object token vectors is usually more helpful to grounding verb and attribute token vectors than the reverse, which reflects earlier conclusions in the analogical reasoning and psycholinguistic literature.</abstract>
+      <url hash="76b7bd3d">2023.iwcs-1.32</url>
+      <bibkey>ghaffari-krishnaswamy-2023-grounding</bibkey>
+    </paper>
+    <paper id="33">
+      <title>Interactive Acquisition of Fine-grained Visual Concepts by Exploiting Semantics of Generic Characterizations in Discourse</title>
+      <author><first>Jonghyuk</first><last>Park</last></author>
+      <author><first>Alex</first><last>Lascarides</last></author>
+      <author><first>Subramanian</first><last>Ramamoorthy</last></author>
+      <pages>318–331</pages>
+      <abstract>Interactive Task Learning (ITL) concerns learning about unforeseen domain concepts via natural interactions with human users. The learner faces a number of significant constraints: learning should be online, incremental and few-shot, as it is expected to perform tangible belief updates right after novel words denoting unforeseen concepts are introduced. In this work, we explore a challenging symbol grounding task—discriminating among object classes that look very similar—within the constraints imposed by ITL. We demonstrate empirically that more data-efficient grounding results from exploiting the truth-conditions of the teacher’s generic statements (e.g., “Xs have attribute Z.”) and their implicatures in context (e.g., as an answer to “How are Xs and Ys different?”, one infers Y lacks attribute Z).</abstract>
+      <url hash="d0123d65">2023.iwcs-1.33</url>
+      <bibkey>park-etal-2023-interactive</bibkey>
+    </paper>
+  </volume>
+  <event id="iwcs-2023">
+    <colocated>
+      <volume-id>2023.dmr-1</volume-id>
+      <volume-id>2023.isa-1</volume-id>
+      <volume-id>2023.inqbnb-1</volume-id>
+      <volume-id>2023.naloma-1</volume-id>
+    </colocated>
+  </event>
+</collection>

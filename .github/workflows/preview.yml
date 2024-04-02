@@ -8,6 +8,7 @@ on:
     branches:
     - '*'
     - '!master'
+    - '!python-dev'
 
 # only run one at a time per branch
 concurrency:
@@ -17,10 +18,11 @@ concurrency:
 jobs:
   preview:
     if: github.repository == 'acl-org/acl-anthology'
-    runs-on: ubuntu-22.04
+    runs-on:
+      labels: ubuntu-latest-m
     steps:
     - name: install hugo
-      run: wget https://github.com/gohugoio/hugo/releases/download/v0.108.0/hugo_extended_0.108.0_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
+      run: wget https://github.com/gohugoio/hugo/releases/download/v0.118.2/hugo_extended_0.118.2_linux-amd64.deb && sudo dpkg -i hugo_extended*.deb
     - name: update
       run: sudo apt-get update
     - name: install other deps

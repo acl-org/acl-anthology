@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.matching">
+  <volume id="1" ingest-date="2023-07-21" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the First Workshop on Matching From Unstructured and Structured Data (MATCHING 2023)</booktitle>
+      <editor><first>Estevam</first><last>Hruschka</last></editor>
+      <editor><first>Tom</first><last>Mitchell</last></editor>
+      <editor><first>Sajjadur</first><last>Rahman</last></editor>
+      <editor><first>Dunja</first><last>Mladenić</last></editor>
+      <editor><first>Marko</first><last>Grobelnik</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Toronto, ON, Canada</address>
+      <month>July</month>
+      <year>2023</year>
+      <url hash="db46de4c">2023.matching-1</url>
+      <venue>matching</venue>
+    </meta>
+    <frontmatter>
+      <url hash="d5a9ead6">2023.matching-1.0</url>
+      <bibkey>matching-2023-matching</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Text-To-<fixed-case>KG</fixed-case> Alignment: Comparing Current Methods on Classification Tasks</title>
+      <author><first>Sondre</first><last>Wold</last></author>
+      <author><first>Lilja</first><last>Øvrelid</last></author>
+      <author><first>Erik</first><last>Velldal</last></author>
+      <pages>1-13</pages>
+      <abstract>In contrast to large text corpora, knowledge graphs (KG) provide dense and structured representations of factual information. This makes them attractive for systems that supplement or ground the knowledge found in pre-trained language models with an external knowledge source. This has especially been the case for classification tasks, where recent work has focused on creating pipeline models that retrieve information from KGs like ConceptNet as additional context. Many of these models consist of multiple components, and although they differ in the number and nature of these parts, they all have in common that for some given text query, they attempt to identify and retrieve a relevant subgraph from the KG. Due to the noise and idiosyncrasies often found in KGs, it is not known how current methods compare to a scenario where the aligned subgraph is completely relevant to the query. In this work, we try to bridge this knowledge gap by reviewing current approaches to text-to-KG alignment and evaluating them on two datasets where manually created graphs are available, providing insights into the effectiveness of current methods. We release our code for reproducibility.</abstract>
+      <url hash="f1ce578d">2023.matching-1.1</url>
+      <bibkey>wold-etal-2023-text</bibkey>
+      <doi>10.18653/v1/2023.matching-1.1</doi>
+      <video href="2023.matching-1.1.mp4"/>
+    </paper>
+    <paper id="2">
+      <title>Identifying Quantifiably Verifiable Statements from Text</title>
+      <author><first>Pegah</first><last>Jandaghi</last></author>
+      <author><first>Jay</first><last>Pujara</last></author>
+      <pages>14-22</pages>
+      <abstract>Humans often describe complex quantitative data using trend-based patterns. Trend-based patterns can be interpreted as higher order functions and relations over numerical data such as extreme values, rates of change, or cyclical repetition. One application where trends abound are descriptions of numerical tabular data. Therefore, the alignment of numerical tables and textual description of trends enables easier interpretations of tables. Most existing approaches can align quantities in text with tabular data but are unable to detect and align trend-based patterns about data. In this paper, we introduce the initial steps for aligning trend-based patterns about the data, i.e. the detection of textual description of trends and the alignment of trends with a relevant table. We introduce the problem of identifying quantifiably verifiable statements (QVS) in the text and aligning them with tables and datasets. We define the structure of these statements and implement a structured based detection. In our experiments, we demonstrate our method can detect and align these statements from several domains and compare favorably with traditional sequence labeling methods.</abstract>
+      <url hash="b70d9132">2023.matching-1.2</url>
+      <bibkey>jandaghi-pujara-2023-identifying</bibkey>
+      <doi>10.18653/v1/2023.matching-1.2</doi>
+      <video href="2023.matching-1.2.mp4"/>
+    </paper>
+    <paper id="3">
+      <title>Toward Consistent and Informative Event-Event Temporal Relation Extraction</title>
+      <author><first>Xiaomeng</first><last>Jin</last></author>
+      <author><first>Haoyang</first><last>Wen</last></author>
+      <author><first>Xinya</first><last>Du</last></author>
+      <author><first>Heng</first><last>Ji</last></author>
+      <pages>23-32</pages>
+      <abstract>Event-event temporal relation extraction aims to extract the temporal order between a pair of event mentions, which is usually used to construct temporal event graphs. However, event graphs generated by existing methods are usually globally inconsistent (event graphs containing cycles), semantically irrelevant (two unrelated events having temporal links), and context unaware (neglecting neighborhood information of an event node). In this paper, we propose a novel event-event temporal relation extraction method to address these limitations. Our model combines a pretrained language model and a graph neural network to output event embeddings, which captures the contextual information of event graphs. Moreover, to achieve global consistency and semantic relevance, (1) event temporal order should be in accordance with the norm of their embeddings, and (2) two events have temporal relation only if their embeddings are close enough. Experimental results on a real-world event dataset demonstrate that our method achieves state-of-the-art performance and generates high-quality event graphs.</abstract>
+      <url hash="6086fb49">2023.matching-1.3</url>
+      <bibkey>jin-etal-2023-toward</bibkey>
+      <doi>10.18653/v1/2023.matching-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>COFFEE</fixed-case>: A Contrastive Oracle-Free Framework for Event Extraction</title>
+      <author><first>Meiru</first><last>Zhang</last></author>
+      <author><first>Yixuan</first><last>Su</last></author>
+      <author><first>Zaiqiao</first><last>Meng</last></author>
+      <author><first>Zihao</first><last>Fu</last></author>
+      <author><first>Nigel</first><last>Collier</last></author>
+      <pages>33-44</pages>
+      <abstract>Event extraction is a complex task that involves extracting events from unstructured text. Prior classification-based methods require comprehensive entity annotations for joint training, while newer generation-based methods rely on heuristic templates containing oracle information such as event type, which is often unavailable in real-world scenarios. In this study, we consider a more realistic task setting, namely the Oracle-Free Event Extraction (OFEE) task, where only the input context is given, without any oracle information including event type, event ontology, or trigger word. To address this task, we propose a new framework, COFFEE. This framework extracts events solely based on the document context, without referring to any oracle information. In particular, COFFEE introduces a contrastive selection model to refine the generated triggers and handle multi-event instances. Our proposed COFFEE outperforms state-of-the-art approaches in the oracle-free setting of the event extraction task, as evaluated on two public variants of the ACE05 benchmark. The code used in our study has been made publicly available.</abstract>
+      <url hash="d7b4cb59">2023.matching-1.4</url>
+      <bibkey>zhang-etal-2023-coffee</bibkey>
+      <doi>10.18653/v1/2023.matching-1.4</doi>
+      <video href="2023.matching-1.4.mp4"/>
+    </paper>
+    <paper id="5">
+      <title>Corpus-Based Task-Specific Relation Discovery</title>
+      <author><first>Karthik</first><last>Ramanan</last></author>
+      <pages>45-57</pages>
+      <abstract>Relation extraction is a crucial language processing task for various downstream applications, including knowledge base completion, question answering, and summarization. Traditional relation-extraction techniques, however, rely on a predefined set of relations and model the extraction as a classification task. Consequently, such closed-world extraction methods are insufficient for inducing novel relations from a corpus. Unsupervised techniques like OpenIE, which extract &lt;head, relation, tail&gt; triples, generate relations that are too general for practical information extraction applications. In this work, we contribute the following: 1) We motivate and introduce a new task, corpus-based task-specific relation discovery. 2) We adapt existing data sources to create Wiki-Art, a novel dataset for task-specific relation discovery. 3) We develop a novel framework for relation discovery using zero-shot entity linking, prompting, and type-specific clustering. Our approach effectively connects unstructured text spans to their shared underlying relations, bridging the data-representation gap and significantly outperforming baselines on both quantitative and qualitative metrics. Our code and data are available in our GitHub repository.</abstract>
+      <url hash="51469e2d">2023.matching-1.5</url>
+      <bibkey>ramanan-2023-corpus</bibkey>
+      <doi>10.18653/v1/2023.matching-1.5</doi>
+      <video href="2023.matching-1.5.mp4"/>
+    </paper>
+    <paper id="6">
+      <title>On the Surprising Effectiveness of Name Matching Alone in Autoregressive Entity Linking</title>
+      <author><first>Elliot</first><last>Schumacher</last></author>
+      <author><first>James</first><last>Mayfield</last></author>
+      <author><first>Mark</first><last>Dredze</last></author>
+      <pages>58-69</pages>
+      <abstract>Fifteen years of work on entity linking has established the importance of different information sources in making linking decisions: mention and entity name similarity, contextual relevance, and features of the knowledge base. Modern state-of-the-art systems build on these features, including through neural representations (Wu et al., 2020). In contrast to this trend, the autoregressive language model GENRE (De Cao et al., 2021) generates normalized entity names for mentions and beats many other entity linking systems, despite making no use of knowledge base (KB) information. How is this possible? We analyze the behavior of GENRE on several entity linking datasets and demonstrate that its performance stems from memorization of name patterns. In contrast, it fails in cases that might benefit from using the KB. We experiment with a modification to the model to enable it to utilize KB information, highlighting challenges to incorporating traditional entity linking information sources into autoregressive models.</abstract>
+      <url hash="1e7af636">2023.matching-1.6</url>
+      <bibkey>schumacher-etal-2023-surprising</bibkey>
+      <doi>10.18653/v1/2023.matching-1.6</doi>
+      <video href="2023.matching-1.6.mp4"/>
+    </paper>
+    <paper id="7">
+      <title>Knowledge-Augmented Language Model Prompting for Zero-Shot Knowledge Graph Question Answering</title>
+      <author><first>Jinheon</first><last>Baek</last></author>
+      <author><first>Alham</first><last>Aji</last></author>
+      <author><first>Amir</first><last>Saffari</last></author>
+      <pages>70-98</pages>
+      <abstract>Large Language Models (LLMs) are capable of performing zero-shot closed-book question answering tasks, based on their internal knowledge stored in parameters during pre-training. However, such internalized knowledge might be insufficient and incorrect, which could lead LLMs to generate factually wrong answers. Furthermore, fine-tuning LLMs to update their knowledge is expensive. To this end, we propose to augment the knowledge directly in the input of LLMs. Specifically, we first retrieve the relevant facts to the input question from the knowledge graph based on semantic similarities between the question and its associated facts. After that, we prepend the retrieved facts to the input question in the form of the prompt, which is then forwarded to LLMs to generate the answer. Our framework, Knowledge-Augmented language model PromptING (KAPING), requires no model training, thus completely zero-shot. We validate the performance of our KAPING framework on the knowledge graph question answering task, that aims to answer the user’s question based on facts over a knowledge graph, on which ours outperforms relevant zero-shot baselines by up to 48% in average, across multiple LLMs of various sizes.</abstract>
+      <url hash="8a6b53d0">2023.matching-1.7</url>
+      <bibkey>baek-etal-2023-knowledge-augmented</bibkey>
+      <doi>10.18653/v1/2023.matching-1.7</doi>
+      <video href="2023.matching-1.7.mp4"/>
+    </paper>
+    <paper id="8">
+      <title>Knowledge Base Completion for Long-Tail Entities</title>
+      <author><first>Lihu</first><last>Chen</last></author>
+      <author><first>Simon</first><last>Razniewski</last></author>
+      <author><first>Gerhard</first><last>Weikum</last></author>
+      <pages>99-108</pages>
+      <abstract>Despite their impressive scale, knowledge bases (KBs), such as Wikidata, still contain significant gaps. Language models (LMs) have been proposed as a source for filling these gaps. However, prior works have focused on prominent entities with rich coverage by LMs, neglecting the crucial case of long-tail entities. In this paper, we present a novel method for LM-based-KB completion that is specifically geared for facts about long-tail entities. The method leverages two different LMs in two stages: for candidate retrieval and for candidate verification and disambiguation. To evaluate our method and various baselines, we introduce a novel dataset, called MALT, rooted in Wikidata. Our method outperforms all baselines in F1, with major gains especially in recall.</abstract>
+      <url hash="f8600fe3">2023.matching-1.8</url>
+      <bibkey>chen-etal-2023-knowledge</bibkey>
+      <doi>10.18653/v1/2023.matching-1.8</doi>
+      <video href="2023.matching-1.8.mp4"/>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>C</fixed-case>o<fixed-case>S</fixed-case>i<fixed-case>NES</fixed-case>: Contrastive <fixed-case>S</fixed-case>iamese Network for Entity Standardization</title>
+      <author><first>Jiaqing</first><last>Yuan</last></author>
+      <author><first>Michele</first><last>Merler</last></author>
+      <author><first>Mihir</first><last>Choudhury</last></author>
+      <author><first>Raju</first><last>Pavuluri</last></author>
+      <author><first>Munindar</first><last>Singh</last></author>
+      <author><first>Maja</first><last>Vukovic</last></author>
+      <pages>109-119</pages>
+      <abstract>Entity standardization maps noisy mentions from free-form text to standard entities in a knowledge base. The unique challenge of this task relative to other entity-related tasks is the lack of surrounding context and numerous variations in the surface form of the mentions, especially when it comes to generalization across domains where labeled data is scarce. Previous research mostly focuses on developing models either heavily relying on context, or dedicated solely to a specific domain. In contrast, we propose CoSiNES, a generic and adaptable framework with Contrastive Siamese Network for Entity Standardization that effectively adapts a pretrained language model to capture the syntax and semantics of the entities in a new domain. We construct a new dataset in the technology domain, which contains 640 technical stack entities and 6,412 mentions collected from industrial content management systems. We demonstrate that CoSiNES yields higher accuracy and faster runtime than baselines derived from leading methods in this domain. CoSiNES also achieves competitive performance in four standard datasets from the chemistry, medicine, and biomedical domains, demonstrating its cross-domain applicability. Code and data is available at <url>https://github.com/konveyor/tackle-container-advisor/tree/main/entity_standardizer/cosines</url></abstract>
+      <url hash="cfe039fd">2023.matching-1.9</url>
+      <bibkey>yuan-etal-2023-cosines</bibkey>
+      <doi>10.18653/v1/2023.matching-1.9</doi>
+      <video href="2023.matching-1.9.mp4"/>
+    </paper>
+  </volume>
+</collection>

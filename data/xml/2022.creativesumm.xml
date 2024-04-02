@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.creativesumm">
-  <volume id="1" ingest-date="2022-10-06">
+  <volume id="1" ingest-date="2022-10-06" type="proceedings">
     <meta>
       <booktitle>Proceedings of The Workshop on Automatic Summarization for Creative Writing</booktitle>
       <editor><first>Kathleen</first><last>Mckeown</last></editor>
@@ -54,6 +54,7 @@
       <abstract>This system description paper details TEAM UFAL’s approach for the SummScreen, TVMegasite subtask of the CreativeSumm shared task. The subtask deals with creating summaries for dialogues from TV Soap operas. We utilized BART based pre-trained model fine-tuned on SamSum dialouge summarization dataset. Few examples from AutoMin dataset and the dataset provided by the organizers were also inserted into the data as a few-shot learning objective. The additional data was manually broken into chunks based on different boundaries in summary and the dialogue file. For inference we choose a similar strategy as the top-performing team at AutoMin 2021, where the data is split into chunks, either on [SCENE_CHANGE] or exceeding a pre-defined token length, to accommodate the maximum token possible in the pre-trained model for one example. The final training strategy was chosen based on how natural the responses looked instead of how well the model performed on an automated evaluation metrics such as ROGUE.</abstract>
       <url hash="9b5de168">2022.creativesumm-1.4</url>
       <bibkey>kumar-rosa-2022-team</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/summscreen">SummScreen</pwcdataset>
     </paper>
     <paper id="5">
       <title>Long Input Dialogue Summarization with Sketch Supervision for Summarization of Primetime Television Transcripts</title>
@@ -65,6 +66,7 @@
       <abstract>This paper presents our entry to the CreativeSumm 2022 shared task. Specifically tackling the problem of prime-time television screenplay summarization based on the SummScreen Forever Dreaming dataset. Our approach utilizes extended Longformers combined with sketch supervision including categories specifically for scene descriptions. Our system was able to produce the shortest summaries out of all submissions. While some problems with factual consistency still remain, the system was scoring highest among competitors in the ROUGE and BERTScore evaluation categories.</abstract>
       <url hash="529fa29e">2022.creativesumm-1.5</url>
       <bibkey>kees-etal-2022-long</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/summscreen">SummScreen</pwcdataset>
     </paper>
     <paper id="6">
       <title><fixed-case>AMRTVS</fixed-case>umm: <fixed-case>AMR</fixed-case>-augmented Hierarchical Network for <fixed-case>TV</fixed-case> Transcript Summarization</title>
@@ -87,6 +89,7 @@
       <abstract>This paper documents our approach for the Creative-Summ 2022 shared task for Automatic Summarization of Creative Writing. For this purpose, we develop an automatic summarization pipeline where we leverage a denoising autoencoder for pretraining sequence-to-sequence models and fine-tune it on a large-scale abstractive screenplay summarization dataset to summarize TV transcripts from primetime shows. Our pipeline divides the input transcript into smaller conversational blocks, removes redundant text, summarises the conversational blocks, obtains the block-wise summaries, cleans, structures, and then integrates the summaries to create the meeting minutes. Our proposed system achieves some of the best scores across multiple metrics(lexical, semantical) in the Creative-Summ shared task.</abstract>
       <url hash="01b6fdde">2022.creativesumm-1.7</url>
       <bibkey>upadhyay-etal-2022-automatic</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/summscreen">SummScreen</pwcdataset>
     </paper>
     <paper id="8">
       <title>The <fixed-case>C</fixed-case>reative<fixed-case>S</fixed-case>umm 2022 Shared Task: A Two-Stage Summarization Model using Scene Attributes</title>
@@ -130,6 +133,7 @@
       <url hash="4c801c44">2022.creativesumm-1.10</url>
       <bibkey>agarwal-etal-2022-creativesumm</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/scrolls">SCROLLS</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/summscreen">SummScreen</pwcdataset>
     </paper>
   </volume>
 </collection>

@@ -1,0 +1,1591 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.jeptalnrecital">
+  <volume id="long" ingest-date="2023-08-31" type="proceedings">
+    <meta>
+      <booktitle>Actes de CORIA-TALN 2023. Actes de la 30e Conférence sur le Traitement Automatique des Langues Naturelles (TALN), volume 1 : travaux de recherche originaux -- articles longs</booktitle>
+      <editor><first>Christophe</first><last>Servan</last></editor>
+      <editor><first>Anne</first><last>Vilnat</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Paris, France</address>
+      <month>6</month>
+      <year>2023</year>
+      <venue>jeptalnrecital</venue>
+    </meta>
+    <frontmatter>
+      <url hash="30f86c6c">2023.jeptalnrecital-long.0</url>
+      <bibkey>jep-taln-recital-2023-actes-de-coria-taln-2023</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Étude de méthodes d’augmentation de données pour la reconnaissance d’entités nommées en astrophysique</title>
+      <author><first>Atilla Kaan</first><last>Alkan</last></author>
+      <author><first>Cyril</first><last>Grouin</last></author>
+      <author><first>Pierre</first><last>Zweigenbaum</last></author>
+      <pages>1–13</pages>
+      <abstract>Dans cet article nous étudions l’intérêt de l’augmentation de données pour le repérage d’entités nommées en domaine de spécialité : l’astrophysique. Pour cela, nous comparons trois méthodes d’augmentation en utilisant deux récents corpus annotés du domaine : DEAL et TDAC, tous deux en anglais. Nous avons générés les données artificielles en utilisant des méthodes à base de règles et à base de modèles de langue. Les données ont ensuite été ajoutées de manière itérative pour affiner un système de détection d’entités. Les résultats permettent de constater un effet de seuil : ajouter des données artificielles au-delà d’une certaine quantité ne présente plus d’intérêt et peut dégrader la F-mesure. Sur les deux corpus, le seuil varie selon la méthode employée, et en fonction du modèle de langue utilisé. Cette étude met également en évidence que l’augmentation de données est plus efficace sur de petits corpus, ce qui est cohérent avec d’autres études antérieures. En effet, nos expériences montrent qu’il est possible d’améliorer de 1 point la F-mesure sur le corpus DEAL, et jusqu’à 2 points sur le corpus TDAC.</abstract>
+      <url hash="34b9084e">2023.jeptalnrecital-long.1</url>
+      <language>fra</language>
+      <bibkey>alkan-etal-2023-etude</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Towards a Robust Detection of Language Model-Generated Text: Is <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> that easy to detect?</title>
+      <author><first>Wissam</first><last>Antoun</last></author>
+      <author><first>Virginie</first><last>Mouilleron</last></author>
+      <author><first>Benoît</first><last>Sagot</last></author>
+      <author><first>Djamé</first><last>Seddah</last></author>
+      <pages>14–27</pages>
+      <abstract>Recent advances in natural language processing (NLP) have led to the development of large language models (LLMs) such as ChatGPT. This paper proposes a methodology for developing and evaluating ChatGPT detectors for French text, with a focus on investigating their robustness on out-of-domain data and against common attack schemes. The proposed method involves translating an English dataset into French and training a classifier on the translated data. Results show that the detectors can effectively detect ChatGPT-generated text, with a degree of robustness against basic attack techniques in in-domain settings. However, vulnerabilities are evident in out-of-domain contexts, highlighting the challenge of detecting adversarial text. The study emphasizes caution when applying in-domain testing results to a wider variety of content. We provide our translated datasets and models as open-source resources.</abstract>
+      <url hash="9a58daa5">2023.jeptalnrecital-long.2</url>
+      <bibkey>antoun-etal-2023-towards</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Cross-lingual Strategies for Low-resource Language Modeling: A Study on Five <fixed-case>I</fixed-case>ndic Dialects</title>
+      <author><first>Niyati</first><last>Bafna</last></author>
+      <author><first>Cristina</first><last>España-Bonet</last></author>
+      <author><first>Josef</first><last>Van Genabith</last></author>
+      <author><first>Benoît</first><last>Sagot</last></author>
+      <author><first>Rachel</first><last>Bawden</last></author>
+      <pages>28–42</pages>
+      <abstract>Neural language models play an increasingly central role for language processing, given their success for a range of NLP tasks. In this study, we compare some canonical strategies in language modeling for low-resource scenarios, evaluating all models by their (finetuned) performance on a POS-tagging downstream task. We work with five (extremely) low-resource dialects from the Indic dialect continuum (Braj, Awadhi, Bhojpuri, Magahi, Maithili), which are closely related to each other and the standard mid-resource dialect, Hindi. The strategies we evaluate broadly include from-scratch pretraining, and cross-lingual transfer between the dialects as well as from different kinds of off-the- shelf multilingual models; we find that a model pretrained on other mid-resource Indic dialects and languages, with extended pretraining on target dialect data, consistently outperforms other models. We interpret our results in terms of dataset sizes, phylogenetic relationships, and corpus statistics, as well as particularities of this linguistic system.</abstract>
+      <url hash="67838383">2023.jeptalnrecital-long.3</url>
+      <bibkey>bafna-etal-2023-cross</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Pauzee : Prédiction des pauses dans la lecture d’un texte</title>
+      <author><first>Marion</first><last>Baranes</last></author>
+      <author><first>Karl</first><last>Hayek</last></author>
+      <author><first>Romain</first><last>Hennequin</last></author>
+      <author><first>Elena V.</first><last>Epure</last></author>
+      <pages>43–55</pages>
+      <abstract>Les pauses silencieuses jouent un rôle crucial en synthèse vocale où elles permettent d’obtenir un rendu plus naturel. Dans ce travail, notre objectif consiste à prédire ces pauses silencieuses, à partir de textes, afin d’améliorer les systèmes de lecture automatique. Cette tâche n’ayant pas fait l’objet de nombreuses études pour le français, constituer des données d’apprentissage dédiées à la prédiction de pauses est nécessaire. Nous proposons une stratégie d’inférence de pauses, reposant sur des informations temporelles issues de données orales transcrites, afin d’obtenir un tel corpus. Nous montrons ensuite qu’à l’aide d’un modèle basé sur des transformeurs et des données adaptées, il est possible d’obtenir des résultats prometteurs pour la prédiction des pauses produites par un locuteur lors de la lecture d’un document.</abstract>
+      <url hash="834b9d7f">2023.jeptalnrecital-long.4</url>
+      <language>fra</language>
+      <bibkey>baranes-etal-2023-pauzee</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Reconnaissance de défigements dans des tweets en français par des mesures de similarité sur des alignements textuels</title>
+      <author><first>Julien</first><last>Bezançon</last></author>
+      <author><first>Gaël</first><last>Lejeune</last></author>
+      <pages>56–67</pages>
+      <abstract>Cet article propose une première approche permettant la reconnaissance automatique de défigements linguistiques dans un corpus de tweets. Les recherches portant sur le domaine du figement ont gagné en popularité depuis quelques décennies. De nombreux travaux dérivés de cette notion sont également apparus, portant sur le phénomène corollaire du défigement. Alors que les linguistes essayent de décrypter les modes de construction de ces exemples de créativité lexicale, peu de travaux de recherche en TAL s’y sont intéressés. La problématique qu’offre le cas du défigement est pourtant intéressante~: des outils informatiques peuvent-ils être en mesure de reconnaître automatiquement un défigement ? Nous présentons ici une méthodologie basée sur des alignements de séquences réalisés sur diverses couches d’informations linguistiques. Cette méthodologie permet l’isolement de potentiels défigements au sein d’un corpus de tweets. Nous expérimentons ensuite une méthode de tri par similarité des défigements potentiels isolés.</abstract>
+      <url hash="10812830">2023.jeptalnrecital-long.5</url>
+      <language>fra</language>
+      <bibkey>bezancon-lejeune-2023-reconnaissance</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Tri-apprentissage génératif : génération de données pour de la reconnaissance d’entitées nommées semi-supervisé</title>
+      <author><first>Hugo</first><last>Boulanger</last></author>
+      <author><first>Thomas</first><last>Lavergne</last></author>
+      <author><first>Sophie</first><last>Rosset</last></author>
+      <pages>68–79</pages>
+      <abstract>Le développement de solutions de traitement automatique de la langue pour de nouvelles tâches nécessite des données, dont l’obtention est coûteuses. L’accès aux données peut être limité en raison de la nature sensible des données. La plupart des travaux récents ont exploité de grands modèles pré-entraînés pour initialiser des versions spécialisées de ceux-ci. La spécialisation d’un tel modèle nécessite toujours une quantité élevée de données étiquetées spécifiques à la tâche cible. Nous utilisons l’apprentissage semi-supervisé pour entraîner des modèles dans un contexte où le nombre d’exemples étiquetés est limité et le nombre de données non étiquetées est nul. Nous étudions plusieurs méthodes pour générer le corpus non étiqueté nécessaire à l’utilisation de l’apprentissage semi-supervisé. Nous introduisons les méthodes de génération entre les épisodes d’entraînement et utilisons les modèles entraînés pour filtrer les exemples générés. Nous testons cette génération avec le tri-apprentissage et l’auto-apprentissage sur des corpus Anglais et Français.</abstract>
+      <url hash="578633a9">2023.jeptalnrecital-long.6</url>
+      <language>fra</language>
+      <bibkey>boulanger-etal-2023-tri</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Évaluation d’un générateur automatique de reformulations médicales</title>
+      <author><first>Ioana</first><last>Buhnila</last></author>
+      <author><first>Amalia</first><last>Todirascu</last></author>
+      <pages>80–93</pages>
+      <abstract>Les textes médicaux sont difficiles à comprendre pour le grand public à cause des termes de spécialité. Ces notions médicales ont besoin d’être reformulées en utilisant des mots de la langue commune. La reformulation représente le processus de réécriture qui a le rôle d’expliquer ou simplifier une phrase ou syntagme. Nous présentons la méthodologie de construction d’un jeu de données original (termes et reformulations) permettant la détection et génération des nouvelles reformulations médicales. Pour compléter ce corpus, nous menons des expériences de génération automatique de reformulations médicales sous-phrastiques avec l’outil APT (Nighojkar &amp; Licato, 2021), qui s’appuie sur des techniques d’apprentissage profond. Nous adaptons le modèle de langue de type Transformer T5 (Raffel et al., 2020) avec des termes médicaux et leur reformulations annotés manuellement en français et en roumain, langue romane peu dotée en ressources pour le TAL. Nous présentons une analyse détaillée des résultats de la génération automatique des paraphrases.</abstract>
+      <url hash="1cb0ca5f">2023.jeptalnrecital-long.7</url>
+      <language>fra</language>
+      <bibkey>buhnila-todirascu-2023-evaluation</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Étude comparative des plongements lexicaux pour l’extraction d’entités nommées en français</title>
+      <author><first>Danrun</first><last>Cao</last></author>
+      <author><first>Nicolat</first><last>Béchet</last></author>
+      <author><first>Pierre-François</first><last>Marteau</last></author>
+      <pages>94–104</pages>
+      <abstract>Dans ce papier nous présentons une étude comparative des méthodes de plongements lexicaux pour le français sur la tâche de Reconnaissance d’entités nommées (REN). L’objectif est de comparer la performance de chaque méthode sur la même tâche et sous les mêmes conditions de travail. Nous utilisons comme corpus d’étude la proportion française du corpus WikiNER. Il s’agit d’un corpus de 3,5 millions tokens avec 4 types d’entités. 10 types de plongements lexicaux sont étudiés, y compris les plongements non-contextuels, des contextuels et éventuellement ceux à base de transformer. Pour chaque plongement, nous entraînons un BiLSTM-CRF comme classifieur. Pour les modèles à base de transformer, nous comparons également leur performance sous un autre cas d’usage: fine-tuning.</abstract>
+      <url hash="81dfe71d">2023.jeptalnrecital-long.8</url>
+      <language>fra</language>
+      <bibkey>cao-etal-2023-etude</bibkey>
+    </paper>
+    <paper id="9">
+      <title>“Honey, Tell Me What’s Wrong”, Explicabilité Globale des Modèles de <fixed-case>TAL</fixed-case> par la Génération Coopérative</title>
+      <author><first>Antoine</first><last>Chaffin</last></author>
+      <author><first>Julien</first><last>Delaunay</last></author>
+      <pages>105–122</pages>
+      <abstract>L’omniprésence de l’apprentissage automatique a mis en lumière l’importance des algorithmes d’explicabilité. Parmi ces algorithmes, les méthodes agnostiques au type de modèle génèrent des exemples artificiels en modifiant légèrement les données originales. Elles observent ensuite les changements de décision du modèle sur ces exemples artificiels. Cependant, de telles méthodes nécessitent d’avoir des exemples initiaux et fournissent des explications uniquement sur la décision pour ces derniers. Pour répondre à ces problématiques, nous proposons Therapy, la première méthode d’explicabilité modèle-agnostique pour les modèles de langue qui ne nécessite pas de données en entrée. Cette méthode génère des textes qui suivent la distribution apprise par le classifieur à expliquer grâce à la génération coopérative. Ne pas dépendre d’exemples initiaux permet, en plus d’être applicable lorsqu’aucune donnée n’est disponible (e.g, pour des raisons de confidentialité), de fournir des explications sur le fonctionnement global du modèle au lieu de plusieurs explications locales, offrant ainsi une vue d’ensemble du fonctionnement du modèle. Nos expériences montrent que, même sans données en entrée, Therapy fournit des informations instructives sur les caractéristiques des textes utilisées par le classifieur qui sont compétitives avec celles fournies par les méthodes utilisant des données.</abstract>
+      <url hash="bd5ea41a">2023.jeptalnrecital-long.9</url>
+      <language>fra</language>
+      <bibkey>chaffin-delaunay-2023-honey</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Extraction de relations sémantiques et modèles de langue : pour une relation à double sens</title>
+      <author><first>Olivier</first><last>Ferret</last></author>
+      <pages>123–136</pages>
+      <abstract>Les modèles de langue contextuels se sont rapidement imposés comme des outils essentiels du Traitement Automatique des Langues. Néanmoins, certains travaux ont montré que leurs capacités en termes de sémantique lexicale ne les distinguent pas vraiment sur ce plan de modèles plus anciens, comme les modèles statiques ou les modèles à base de comptes. Une des façons d’améliorer ces capacités est d’injecter dans les modèles contextuels des connaissances sémantiques. Dans cet article, nous proposons une méthode pour réaliser cette injection en nous appuyant sur des connaissances extraites automatiquement. Par ailleurs, nous proposons d’extraire de telles connaissances par deux voies différentes, l’une s’appuyant sur un modèle de langue statique, l’autre sur un modèle contextuel. Des évaluations réalisées pour l’anglais et focalisées sur la similarité sémantique ont montré l’intérêt de cette démarche, permettant d’enrichir sémantiquement un modèle de type BERT sans utilisation de ressources sémantiques externes.</abstract>
+      <url hash="cbd343fa">2023.jeptalnrecital-long.10</url>
+      <language>fra</language>
+      <bibkey>ferret-2023-extraction</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Géométrie de l’auto-attention en classification : quand la géométrie remplace l’attention</title>
+      <author><first>Loïc</first><last>Fosse</last></author>
+      <author><first>Duc Hau</first><last>Nguyen</last></author>
+      <author><first>Pascale</first><last>Sébillot</last></author>
+      <author><first>Guillaume</first><last>Gravier</last></author>
+      <pages>137–150</pages>
+      <abstract>Plusieurs études ont mis en évidence l’anisotropie des plongements issus d’un modèle BERT au sein d’un énoncé, c’est-à-dire leur concentration dans une direction donnée, notamment dans une tâche de classification. Dans cet article, nous cherchons à mieux comprendre ce phénomène et comment cette convergence se construit en analysant finement les propriétés géométriques des plongements, des clés et des valeurs dans une couche d’auto-attention. Nous montrons que la direction vers laquelle les plongements s’alignent caractérise la classe d’appartenance de l’énoncé. Nous étudions ensuite le fonctionnement intrinsèque de la couche d’auto-attention et les mécanismes en jeu entre clés et valeurs pour garantir la construction d’une représentation anisotrope. Cette construction se fait de manière progressive lorsque plusieurs couches sont empilés. Elle s’avère également robuste à des contraintes externes sur la distribution des poids d’attention, compensées par le modèle en jouant sur les valeurs et les clés.</abstract>
+      <url hash="59a68b57">2023.jeptalnrecital-long.11</url>
+      <language>fra</language>
+      <bibkey>fosse-etal-2023-geometrie</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Un traitement hybride du vague textuel : du système expert <fixed-case>VAGO</fixed-case> à son clone neuronal</title>
+      <author><first>Benjamin</first><last>Icard</last></author>
+      <author><first>Vincent</first><last>Claveau</last></author>
+      <author><first>Ghislain</first><last>Atemezing</last></author>
+      <author><first>Paul</first><last>Egré</last></author>
+      <pages>151–163</pages>
+      <abstract>L’outil VAGO est un système expert de détection du vague lexical qui mesure aussi le degré de subjectivité du discours, ainsi que son niveau de détail. Dans cet article, nous construisons un clone neuronal de VAGO, fondé sur une architecture de type BERT, entraîné à partir des scores du VAGO symbolique sur un corpus de presse française (FreSaDa). L’analyse qualitative et quantitative montre la fidélité de la version neuronale. En exploitant des outils d’explicabilité (LIME), nous montrons ensuite l’intérêt de cette version neuronale d’une part pour l’enrichissement des lexiques de la version symbolique, et d’autre part pour la production de versions dans d’autres langues.</abstract>
+      <url hash="175c944c">2023.jeptalnrecital-long.12</url>
+      <language>fra</language>
+      <bibkey>icard-etal-2023-un</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Uniformité de la densité informationnelle: le cas du redoublement du sujet</title>
+      <author><first>Yiming</first><last>Liang</last></author>
+      <author><first>Pascal</first><last>Amsili</last></author>
+      <author><first>Heather</first><last>Burnett</last></author>
+      <pages>164–176</pages>
+      <abstract>Nous présentons les résultats d’une expérience visant à savoir si la densité d’information (ou de surprise) affecte le redoublement du sujet dans des conversations spontanées. En utilisant la version française de GPT, nous estimons la surprise lexicale du sujet NP étant donné un contexte précédent et vérifions si la surprise du sujet affecte son redoublement. L’analyse de régression à effet mixte montre que, en plus des facteurs qui ont été montrés comme affectant le redoublement du sujet dans la littérature, la prévisibilité du sujet nominal est un prédicteur important du non-redoublement. Les sujets nominaux moins prédictibles tendent à être redoublés par rapport à ceux qui sont plus prédictibles. Notre travail confirme l’intérêt de l’hypothèse de l’Uniformité de la densité informationnelle (UID) pour le français et illustre l’opérationalisation de la densité informationnelle à l’aide de grands modèles neuronaux de langage.</abstract>
+      <url hash="dc609ad5">2023.jeptalnrecital-long.13</url>
+      <language>fra</language>
+      <bibkey>liang-etal-2023-uniformite</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Augmentation des modèles de langage français par graphes de connaissances pour la reconnaissance des entités biomédicales</title>
+      <author><first>Aidan</first><last>Mannion</last></author>
+      <author><first>Schwab</first><last>Didier</last></author>
+      <author><first>Lorraine</first><last>Goeuriot</last></author>
+      <author><first>Thierry</first><last>Chevalier</last></author>
+      <pages>177–189</pages>
+      <abstract>Des travaux récents dans le domaine du traitement du langage naturel ont démontré l’efficacité des modèles de langage pré-entraînés pour une grande variété d’applications générales. Les modèles de langage à grande échelle acquièrent généralement ces capacités en modélisant la distribution statistique des mots par un apprentissage auto-supervisé sur de grandes quantités de texte. Toutefois, pour les domaines spécialisés à faibles ressources, tels que le traitement de documents cliniques, en particulier dans des langues autres que l’anglais, la nécessité d’intégrer des connaissances structurées reste d’une grande importance. Cet article se concentre sur l’une de ces applications spécialisées de la modélisation du langage à partir de ressources limitées : l’extraction d’informations à partir de documents biomédicaux et cliniques en français. En particulier, nous montrons qu’en complétant le pré-entraînement en mots masqués des réseaux neuronaux transformer par des objectifs de prédiction extraits d’une base de connaissances biomédicales, leurs performances sur deux tâches différentes de reconnaissance d’entités nommées en français peuvent être augmentées.</abstract>
+      <url hash="a5fa36c0">2023.jeptalnrecital-long.14</url>
+      <language>fra</language>
+      <bibkey>mannion-etal-2023-augmentation</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Annotation d’entités cliniques en utilisant les Larges Modèles de Langue</title>
+      <author><first>Simon</first><last>Meoni</last></author>
+      <author><first>Théo</first><last>Ryffel</last></author>
+      <author><first>Eric</first><last>De La Clergerie</last></author>
+      <pages>190–203</pages>
+      <abstract>Dans le domaine clinique et dans d’autres domaines spécialisés, les données sont rares du fait de leur caractère confidentiel. Ce manque de données est un problème majeur lors du fine-tuning de modèles de langue.Par ailleurs, les modèles de langue de très grande taille (LLM) ont des performances prometteuses dans le domaine médical. Néanmoins, ils ne peuvent pas être utilisés directement dans les infrastructures des établissements de santé pour des raisons de confidentialité des données. Nous explorons une approche d’annotation des données d’entraînement avec des LLMs pour entraîner des modèles de moins grandes tailles mieux adaptés à notre problématique. Cette méthode donne des résultats prometteurs pour des tâches d’extraction d’information</abstract>
+      <url hash="4ad246da">2023.jeptalnrecital-long.15</url>
+      <language>fra</language>
+      <bibkey>meoni-etal-2023-annotation</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Classification de tweets en situation d’urgence pour la gestion de crises</title>
+      <author><first>Romain</first><last>Meunier</last></author>
+      <author><first>Leila</first><last>Moudjari</last></author>
+      <author><first>Farah</first><last>Benamara</last></author>
+      <author><first>Véronique</first><last>Moriceau</last></author>
+      <author><first>Alda</first><last>Mari</last></author>
+      <author><first>Patricia</first><last>Stolf</last></author>
+      <pages>204–216</pages>
+      <abstract>Le traitement de données provenant de réseaux sociaux en temps réel est devenu une outil attractifdans les situations d’urgence, mais la surcharge d’informations reste un défi à relever. Dans cet article,nous présentons un nouveau jeu de données en français annoté manuellement pour la gestion de crise.Nous testons également plusieurs modèles d’apprentissage automatique pour classer des tweets enfonction de leur pertinence, de l’urgence et de l’intention qu’ils véhiculent afin d’aider au mieux lesservices de secours durant les crises selon des méthodes d’évaluation spécifique à la gestion de crise.Nous évaluons également nos modèles lorsqu’ils sont confrontés à de nouvelles crises ou même denouveaux types de crises, avec des résultats encourageants</abstract>
+      <url hash="dedb90cb">2023.jeptalnrecital-long.16</url>
+      <language>fra</language>
+      <bibkey>meunier-etal-2023-classification</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Outiller l’occitan : nouvelles ressources et lemmatisation</title>
+      <author><first>Aleksandra</first><last>Miletić</last></author>
+      <pages>217–231</pages>
+      <abstract>Ce travail présente des contributions récentes à l’effort de doter l’occitan de ressources et outils pour le TAL. Plusieurs ressources existantes ont été modifiées ou adaptées, notamment un tokéniseur à base de règles, un lexique morphosyntaxique et un corpus arboré. Ces ressources ont été utilisées pour entraîner et évaluer des modèles neuronaux pour la lemmatisation. Dans le cadre de ces expériences, un nouveau corpus plus large (2 millions de tokens) provenant du Wikipédia a été annoté en parties du discours, lemmatisé et diffusé.</abstract>
+      <url hash="2a223611">2023.jeptalnrecital-long.17</url>
+      <language>fra</language>
+      <bibkey>miletic-2023-outiller</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Stratégies d’apprentissage actif pour la reconnaissance d’entités nommées en français</title>
+      <author><first>Marco</first><last>Naguib</last></author>
+      <author><first>Aurélie</first><last>Névéol</last></author>
+      <author><first>Xavier</first><last>Tannier</last></author>
+      <pages>232–247</pages>
+      <abstract>L’annotation manuelle de corpus est un processus coûteux et lent, notamment pour la tâche de re-connaissance d’entités nommées. L’apprentissage actif vise à rendre ce processus plus efficace, ensélectionnant les portions les plus pertinentes à annoter. Certaines stratégies visent à sélectionner lesportions les plus représentatives du corpus, d’autres, les plus informatives au modèle de langage.Malgré un intérêt grandissant pour l’apprentissage actif, rares sont les études qui comparent cesdifférentes stratégies dans un contexte de reconnaissance d’entités nommées médicales. Nous pro-posons une comparaison de ces stratégies en fonction des performances de chacune sur 3 corpus dedocuments cliniques en langue française : MERLOT, QuaeroFrenchMed et E3C. Nous comparonsles stratégies de sélection mais aussi les différentes façons de les évaluer. Enfin, nous identifions lesstratégies qui semblent les plus efficaces et mesurons l’amélioration qu’elles présentent, à différentesphases de l’apprentissage.</abstract>
+      <url hash="e3004389">2023.jeptalnrecital-long.18</url>
+      <language>fra</language>
+      <bibkey>naguib-etal-2023-strategies</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Détecter une erreur dans les phrases coordonnées au sein des rédactions universitaires</title>
+      <author><first>Laura</first><last>Noreskal</last></author>
+      <author><first>Iris</first><last>Eshkol-Taravella</last></author>
+      <author><first>Marianne</first><last>Desmets</last></author>
+      <pages>248–261</pages>
+      <abstract>Beaucoup d’étudiants rencontrent des difficultés dans la maîtrise du français écrit. Sur la base d’une enquête linguistique préliminaire, il est apparu que les constructions syntaxiques comprenant des coordinations et des constructions elliptiques forment des contextes linguistiques sensibles aux erreurs ou aux maladresses dans les écrits des étudiants. Notre recherche vise à développer un outil de détection automatique de phrases coordonnées erronées dans les rédactions des étudiants afin de leur permettre de s’auto-former en expression écrite. Après avoir constitué le corpus de phrases coordonnées extraites des différents écrits universitaires (exercices, examens, devoirs, rapports de stage et mémoires), nous avons établi une typologie des erreurs qui a servi de modèle pour l’annotation du corpus. Nous avons entrainé premièrement des classifieurs afin de détecter deux étiquettes: erronée et correcte puis, dans un second temps, un classifieur multi-label pour diagnostiquer l’erreur.</abstract>
+      <url hash="6c08eff3">2023.jeptalnrecital-long.19</url>
+      <language>fra</language>
+      <bibkey>noreskal-etal-2023-detecter</bibkey>
+    </paper>
+    <paper id="20">
+      <title>Production automatique de gloses interlinéaires à travers un modèle probabiliste exploitant des alignements</title>
+      <author><first>Shu</first><last>Okabe</last></author>
+      <author><first>François</first><last>Yvon</last></author>
+      <pages>262–274</pages>
+      <abstract>La production d’annotations linguistiques ou gloses interlinéaires explicitant le sens ou la fonction de chaque unité repérée dans un enregistrement source (ou dans sa transcription) est une étape importante du processus de documentation des langues. Ces gloses exigent une très grande expertise de la langue documentée et un travail d’annotation fastidieux. Notre étude s’intéresse à l’automatisation partielle de ce processus. Il s’appuie sur la partition des gloses en deux types : les gloses grammaticales exprimant une fonction grammaticale, les gloses lexicales indiquant les unités de sens. Notre approche repose sur l’hypothèse d’un alignement entre les gloses lexicales et une traduction ainsi que l’utilisation de Lost, un modèle probabiliste de traduction automatique. Nos expériences sur une langue en cours de documentation, le tsez, montrent que cet apprentissage est effectif même avec un faible nombre de phrases de supervision.</abstract>
+      <url hash="cfe0b677">2023.jeptalnrecital-long.20</url>
+      <language>fra</language>
+      <bibkey>okabe-yvon-2023-production</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Intégration de connaissances structurées par synthèse de texte spécialisé</title>
+      <author><first>Guilhem</first><last>Piat</last></author>
+      <author><first>Ellington</first><last>Kirby</last></author>
+      <author><first>Julien</first><last>Tourille</last></author>
+      <author><first>Nasredine</first><last>Semmar</last></author>
+      <author><first>Alexandre</first><last>Allauzen</last></author>
+      <author><first>Hassane</first><last>Essafi</last></author>
+      <pages>275–284</pages>
+      <abstract>Les modèles de langue de type Transformer peinent à incorporer les modifications ayant pour but d’intégrer des formats de données structurés non-textuels tels que les graphes de connaissances. Les exemples où cette intégration est faite avec succès requièrent généralement que le problème de désambiguïsation d’entités nommées soit résolu en amont, ou bien l’ajout d’une quantité importante de texte d’entraînement, généralement annotée. Ces contraintes rendent l’exploitation de connaissances structurées comme source de données difficile et parfois même contre-productive. Nous cherchons à adapter un modèle de langage au domaine biomédical en l’entraînant sur du texte de synthèse issu d’un graphe de connaissances, de manière à exploiter ces informations dans le cadre d’une modalité maîtrisée par le modèle de langage.</abstract>
+      <url hash="d8d1536f">2023.jeptalnrecital-long.21</url>
+      <language>fra</language>
+      <bibkey>piat-etal-2023-integration</bibkey>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>DACCORD</fixed-case> : un jeu de données pour la Détection Automatique d’énon<fixed-case>C</fixed-case>és <fixed-case>CO</fixed-case>nt<fixed-case>R</fixed-case>a<fixed-case>D</fixed-case>ictoires en français</title>
+      <author><first>Maximos</first><last>Skandalis</last></author>
+      <author><first>Richard</first><last>Moot</last></author>
+      <author><first>Simon</first><last>Robillard</last></author>
+      <pages>285–297</pages>
+      <abstract>La tâche de détection automatique de contradictions logiques entre énoncés en TALN est une tâche de classification binaire, où chaque paire de phrases reçoit une étiquette selon que les deux phrases se contredisent ou non. Elle peut être utilisée afin de lutter contre la désinformation. Dans cet article, nous présentons DACCORD, un jeu de données dédié à la tâche de détection automatique de contradictions entre phrases en français. Le jeu de données élaboré est actuellement composé de 1034 paires de phrases. Il couvre les thématiques de l’invasion de la Russie en Ukraine en 2022, de la pandémie de Covid-19 et de la crise climatique. Pour mettre en avant les possibilités de notre jeu de données, nous évaluons les performances de certains modèles de transformeurs sur lui. Nous constatons qu’il constitue pour eux un défi plus élevé que les jeux de données existants pour le français, qui sont déjà peu nombreux. In NLP, the automatic detection of logical contradictions between statements is a binary classification task, in which a pair of sentences receives a label according to whether or not the two sentences contradict each other. This task has many potential applications, including combating disinformation. In this article, we present DACCORD, a new dataset dedicated to the task of automatically detecting contradictions between sentences in French. The dataset is currently composed of 1034 sentence pairs. It covers the themes of Russia’s invasion of Ukraine in 2022, the Covid-19 pandemic, and the climate crisis. To highlight the possibilities of our dataset, we evaluate the performance of some recent Transformer models on it. We conclude that our dataset is considerably more challenging than the few existing datasets for French.</abstract>
+      <url hash="dd6b625f">2023.jeptalnrecital-long.22</url>
+      <language>fra</language>
+      <bibkey>skandalis-etal-2023-daccord</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Exploitation de plongements de graphes pour l’extraction de relations biomédicales</title>
+      <author><first>Anfu</first><last>Tang</last></author>
+      <author><first>Robert</first><last>Bossy</last></author>
+      <author><first>Louise</first><last>Deléger</last></author>
+      <author><first>Claire</first><last>Nédellec</last></author>
+      <author><first>Pierre</first><last>Zweigenbaum</last></author>
+      <pages>298–310</pages>
+      <abstract>L’intégration de connaissances externes dans les modèles neuronaux est très étudiée pour améliorer les performances des modèles de langue pré-entraînés, notamment en domaine biomédical. Dans cet article, nous explorons la contribution de plongements de bases de connaissances à une tâche d’extraction de relations. Pour deux mentions d’entités candidates dans un texte, nous faisons l’hypothèse que la connaissance de relations entre elles, issue d’une base de connaissances (BC) externe, aide à prédire l’existence d’une relation dans le texte, y compris lorsque les relations de BC sont différentes de celles du texte. Notre approche consiste à calculer des plongements du graphe de BC et à estimer la possibilité pour chaque paire d’entité du texte qu’elle soit reliée par une relation de BC. Les expériences menées sur trois tâches d’extraction de relations en domaine biomédical montrent que notre méthode surpasse le modèle PubMedBERT de base et donne des performances comparables aux méthodes de l’état de l’art.</abstract>
+      <url hash="24effcf5">2023.jeptalnrecital-long.23</url>
+      <language>fra</language>
+      <bibkey>tang-etal-2023-exploitation</bibkey>
+    </paper>
+    <paper id="24">
+      <title>Derrière les plongements de relations</title>
+      <author><first>Hugo</first><last>Thomas</last></author>
+      <author><first>Guillaume</first><last>Gravier</last></author>
+      <author><first>Pascale</first><last>Sébillot</last></author>
+      <pages>311–322</pages>
+      <abstract>Dans cet article, plutôt que nous arrêter aux scores de performance habituellement fournis (par ex. mesure F1), nous proposons une analyse approfondie, selon différents critères, des modélisations de relations employées par plusieurs architectures de modèles de typage de relations. Cette analyse vise à mieux comprendre l’organisation de l’espace latent des modélisations et ses propriétés, enjeu important pour les modèles se fondant sur les distances dans cet espace. Dans cet objectif d’analyse des plongements, nous étudions l’influence, sur ces modélisations, du vocabulaire, de la syntaxe, de la sémantique des relations, de la représentation des entités nommées liées, ainsi que la géométrie de leur espace latent. Il en ressort que les modélisations de relations sont apprises de manière inégale d’un modèle à un autre entraînés de la même manière ; dans ce cas, les indicateurs que nous proposons sont de nouveaux éléments de compréhension de l’espace latent d’un modèle afin de mieux exploiter ses propriétés.</abstract>
+      <url hash="2f42179f">2023.jeptalnrecital-long.24</url>
+      <language>fra</language>
+      <bibkey>thomas-etal-2023-derriere</bibkey>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>C</fixed-case>amem<fixed-case>BERT</fixed-case>-bio : Un modèle de langue français savoureux et meilleur pour la santé</title>
+      <author><first>Rian</first><last>Touchent</last></author>
+      <author><first>Laurent</first><last>Romary</last></author>
+      <author><first>Eric</first><last>De La Clergerie</last></author>
+      <pages>323–334</pages>
+      <abstract>Les données cliniques dans les hôpitaux sont de plus en plus accessibles pour la recherche à travers les entrepôts de données de santé, cependant ces documents sont non-structurés. Il est donc nécessaire d’extraire les informations des comptes-rendus médicaux. L’utilisation du transfert d’apprentissage grâce à des modèles de type BERT comme CamemBERT ont permis des avancées majeures, notamment pour la reconnaissance d’entités nommées. Cependant, ces modèles sont entraînés pour le langage courant et sont moins performants sur des données biomédicales. C’est pourquoi nous proposons un nouveau jeu de données biomédical public français sur lequel nous avons poursuivi le pré-entraînement de CamemBERT. Ainsi, nous présentons une première version de CamemBERT-bio, un modèle public spécialisé pour le domaine biomédical français qui montre un gain de 2,54 points de F-mesure en moyenne sur différents jeux d’évaluations de reconnaissance d’entités nommées biomédicales.</abstract>
+      <url hash="72c1ce77">2023.jeptalnrecital-long.25</url>
+      <language>fra</language>
+      <bibkey>touchent-etal-2023-camembert</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Protocole d’annotation multi-label pour une nouvelle approche à la génération de réponse socio-émotionnelle orientée-tâche</title>
+      <author><first>Lorraine</first><last>Vanel</last></author>
+      <author><first>Alya</first><last>Yacoubi</last></author>
+      <author><first>Chloe</first><last>Clavel</last></author>
+      <pages>335–348</pages>
+      <abstract>Depuis l’apparition des systèmes conversationnels, la modélisation des comportements humains constitue un axe de recherche majeur afin de renforcer l’expression des attributs émotionnels de ces systèmes. En nous intéressant aux agents conversationnels génératifs orientés-tâches, nous proposons une nouvelle approche pour rendre la réponse générée plus pertinente au contexte émotionnel de l’interlocuteur. Cette approche consiste à ajouter une étape supplémentaire de prédiction de labels pour conditionner la réponse générée et assurer sa pertinence au contexte socio-émotionnel de l’utilisateur. Nous proposons une formulation de cette nouvelle tâche de prédiction en nous appuyant sur un protocole d’annotation de données que nous avons conçu et implémenté. À travers cet article, nous apportons les contributions suivantes: la formulation de la tâche de prédiction de labels socio-émotionnels et la description du protocole d’annotation associé. Avec cette méthodologie, nous visons à développer des systèmes conversationnels socialement pertinents et indépendants.</abstract>
+      <url hash="d7a57d20">2023.jeptalnrecital-long.26</url>
+      <language>fra</language>
+      <bibkey>vanel-etal-2023-protocole</bibkey>
+    </paper>
+    <paper id="27">
+      <title>Exploring Data-Centric Strategies for <fixed-case>F</fixed-case>rench Patent Classification: A Baseline and Comparisons</title>
+      <author><first>You</first><last>Zuo</last></author>
+      <author><first>Benoît</first><last>Sagot</last></author>
+      <author><first>Kim</first><last>Gerdes</last></author>
+      <author><first>Houda</first><last>Mouzoun</last></author>
+      <author><first>Samir</first><last>Ghamri Doudane</last></author>
+      <pages>349–365</pages>
+      <abstract>This paper proposes a novel approach to French patent classification leveraging data-centric strategies. We compare different approaches for the two deepest levels of the IPC hierarchy: the IPC group and subgroups. Our experiments show that while simple ensemble strategies work for shallower levels, deeper levels require more sophisticated techniques such as data augmentation, clustering, and negative sampling. Our research highlights the importance of language-specific features and data-centric strategies for accurate and reliable French patent classification. It provides valuable insights and solutions for researchers and practitioners in the field of patent classification, advancing research in French patent classification.</abstract>
+      <url hash="ab5ad999">2023.jeptalnrecital-long.27</url>
+      <bibkey>zuo-etal-2023-exploring</bibkey>
+    </paper>
+  </volume>
+  <volume id="short" ingest-date="2023-08-31" type="proceedings">
+    <meta>
+      <booktitle>Actes de CORIA-TALN 2023. Actes de la 30e Conférence sur le Traitement Automatique des Langues Naturelles (TALN), volume 2 : travaux de recherche originaux -- articles courts</booktitle>
+      <editor><first>Christophe</first><last>Servan</last></editor>
+      <editor><first>Anne</first><last>Vilnat</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Paris, France</address>
+      <month>6</month>
+      <year>2023</year>
+      <venue>jeptalnrecital</venue>
+    </meta>
+    <frontmatter>
+      <url hash="53654372">2023.jeptalnrecital-short.0</url>
+      <bibkey>jep-taln-recital-2023-actes-de-coria-taln-2023-actes</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Positionnement temporel indépendant des évènements : application à des textes cliniques en français</title>
+      <author><first>Nesrine</first><last>Bannour</last></author>
+      <author><first>Xavier</first><last>Tannier</last></author>
+      <author><first>Bastien</first><last>Rance</last></author>
+      <author><first>Aurélie</first><last>Névéol</last></author>
+      <pages>1–14</pages>
+      <abstract>L’extraction de relations temporelles consiste à identifier et classifier la relation entre deux mentions. Néanmoins, la définition des mentions temporelles dépend largement du type du texte et du domained’application. En particulier, le texte clinique est complexe car il décrit des évènements se produisant à des moments différents et contient des informations redondantes et diverses expressions temporellesspécifiques au domaine. Dans cet article, nous proposons une nouvelle représentation des relations temporelles, qui est indépendante du domaine et de l’objectif de la tâche d’extraction. Nous nousintéressons à extraire la relation entre chaque portion du texte et la date de création du document. Nous formulons l’extraction de relations temporelles comme une tâche d’étiquetage de séquences.Une macro F-mesure de 0,8 est obtenue par un modèle neuronal entraîné sur des textes cliniques, écrits en français. Nous évaluons notre représentation temporelle par le positionnement temporel desévènements de toxicité des chimiothérapies.</abstract>
+      <url hash="b9673c07">2023.jeptalnrecital-short.1</url>
+      <language>fra</language>
+      <bibkey>bannour-etal-2023-positionnement</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Une grammaire formelle pour les langues des signes basée sur <fixed-case>AZ</fixed-case>ee : une proposition établie sur une étude de corpus</title>
+      <author><first>Camille</first><last>Challant</last></author>
+      <author><first>Michael</first><last>Filhol</last></author>
+      <pages>15–22</pages>
+      <abstract>Cet article propose de premières réflexions quant à l’élaboration d’une grammaire formelle pour les langues des signes, basée sur l’approche AZee. Nous avons mené une étude statistique sur un corpus d’expressions AZee, qui décrivent des discours en langue des signes française. Cela nous permet d’entrevoir des contraintes sur ces expressions, qui reflètent plus généralement les contraintes de la langue des signes française. Nous présentons quelques contraintes et positionnons théoriquement notre ébauche de grammaire au sein des différentes grammaires formelles existantes.</abstract>
+      <url hash="4f4ca2b4">2023.jeptalnrecital-short.2</url>
+      <language>fra</language>
+      <bibkey>challant-filhol-2023-une</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Des ressources lexicales du français et de leur utilisation en <fixed-case>TAL</fixed-case> : étude des actes de <fixed-case>TALN</fixed-case></title>
+      <author><first>Hee-Soo</first><last>Choi</last></author>
+      <author><first>Karën</first><last>Fort</last></author>
+      <author><first>Bruno</first><last>Guillaume</last></author>
+      <author><first>Mathieu</first><last>Constant</last></author>
+      <pages>23–36</pages>
+      <abstract>Au début du XXIe siècle, le français faisait encore partie des langues peu dotées. Grâce aux efforts de la communauté française du traitement automatique des langues (TAL), de nombreuses ressources librement disponibles ont été produites, dont des lexiques du français. À travers cet article, nous nous intéressons à leur devenir dans la communauté par le prisme des actes de la conférence TALN sur une période de 20 ans.</abstract>
+      <url hash="333fe639">2023.jeptalnrecital-short.3</url>
+      <language>fra</language>
+      <bibkey>choi-etal-2023-des</bibkey>
+      <revision id="1" href="2023.jeptalnrecital-short.3v1" hash="e4810774"/>
+      <revision id="2" href="2023.jeptalnrecital-short.3v2" hash="333fe639" date="2023-12-15">This version corrects a typo in the English abstract (ill-formed translation from the original abstract in French).</revision>
+    </paper>
+    <paper id="4">
+      <title>Attention sur les spans pour l’analyse syntaxique en constituants</title>
+      <author><first>Nicolas</first><last>Floquet</last></author>
+      <author><first>Nadi</first><last>Tomeh</last></author>
+      <author><first>Joseph</first><last>Le Roux</last></author>
+      <author><first>Thierry</first><last>Charnois</last></author>
+      <pages>37–45</pages>
+      <abstract>Nous présentons une extension aux analyseurs syntaxiques en constituants neuronaux modernes qui consiste à doter les constituants potentiels d’une représentation vectorielle affinée en fonction du contexte par plusieurs applications successives d’un module de type transformer efficace (pooling par attention puis transformation non-linéaire).Nous appliquons cette extension à l’analyseur CRF de Yu Zhang &amp; Al.Expérimentalement, nous testons cette extension sur deux corpus (PTB et FTB) avec ou sans vecteurs de mots dynamiques: cette extension permet d’avoir un gain constant dans toutes les configurations.</abstract>
+      <url hash="4ac1911f">2023.jeptalnrecital-short.4</url>
+      <language>fra</language>
+      <bibkey>floquet-etal-2023-attention</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Les textes cliniques français générés sont-ils dangereusement similaires à leur source ? Analyse par plongements de phrases</title>
+      <author><first>Nicolas</first><last>Hiebel</last></author>
+      <author><first>Ferret</first><last>Olivier</last></author>
+      <author><first>Karën</first><last>Fort</last></author>
+      <author><first>Aurélie</first><last>Névéol</last></author>
+      <pages>46–54</pages>
+      <abstract>Les ressources textuelles disponibles dans le domaine biomédical sont rares pour des raisons de confidentialité. Des données existent mais ne sont pas partageables, c’est pourquoi il est intéressant de s’inspirer de ces données pour en générer de nouvelles sans contrainte de partage. Une difficulté majeure de la génération de données médicales est que les données générées doivent ressembler aux données originales sans compromettre leur confidentialité. L’évaluation de cette tâche est donc difficile. Dans cette étude, nous étendons l’évaluation de corpus cliniques générés en français en y ajoutant une dimension sémantique à l’aide de plongements de phrases. Nous recherchons des phrases proches à l’aide de similarité cosinus entre plongements, et analysons les scores de similarité. Nous observons que les phrases synthétiques sont thématiquement proches du corpus original, mais suffisamment éloignées pour ne pas être de simples reformulations qui compromettraient la confidentialité.</abstract>
+      <url hash="f64bfee9">2023.jeptalnrecital-short.5</url>
+      <language>fra</language>
+      <bibkey>hiebel-etal-2023-les</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Analyse sémantique <fixed-case>AMR</fixed-case> pour le français par transfert translingue</title>
+      <author><first>Jeongwoo</first><last>Kang</last></author>
+      <author><first>Maximin</first><last>Coavoux</last></author>
+      <author><first>Didier</first><last>Schwab</last></author>
+      <author><first>Cédric</first><last>Lopez</last></author>
+      <pages>55–62</pages>
+      <abstract>Abstract Meaning Representation (AMR) est un formalisme permettant de représenter la sémantique d’une phrase sous la forme d’un graphe, dont les nœuds sont des concepts sémantiques et les arcs des relations typées. Dans ce travail, nous construisons un analyseur AMR pour le français en étendant une méthode translingue zéro-ressource proposée par Procopio et al. (2021). Nous comparons l’utilisation d’un transfert bilingue à un transfert multi-cibles pour l’analyse sémantique AMR translingue. Nous construisons également des données d’évaluation pour l’AMR français. Nous présentons enfin les premiers résultats d’analyse AMR automatique pour le français. Selon le jeu de test utilisé, notre parseur AMR entraîné de manière zéro-ressource, c’est-à-dire sans données d’entraînement, obtient des scores Smatch qui se situent entre 54,2 et 66,0.</abstract>
+      <url hash="efe03f83">2023.jeptalnrecital-short.6</url>
+      <language>fra</language>
+      <bibkey>kang-etal-2023-analyse</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>DWIE</fixed-case>-<fixed-case>FR</fixed-case> : Un nouveau jeu de données en français annoté en entités nommées</title>
+      <author><first>Sylvain</first><last>Verdy</last></author>
+      <author><first>Maxime</first><last>Prieur</last></author>
+      <author><first>Guillaume</first><last>Gadek</last></author>
+      <author><first>Cédric</first><last>Lopez</last></author>
+      <pages>63–72</pages>
+      <abstract>Ces dernières années, les contributions majeures qui ont eu lieu en apprentissage automatique supervisé ont mis en evidence la nécessité de disposer de grands jeux de données annotés de haute qualité. Les recherches menées sur la tâche de reconnaissance d’entités nommées dans des textes en français font face à l’absence de jeux de données annotés “à grande échelle” et avec de nombreuses classes d’entités hiérarchisées. Dans cet article, nous proposons une approche pour obtenir un tel jeu de données qui s’appuie sur des étapes de traduction puis d’annotation des données textuelles en anglais vers une langue cible (ici au français). Nous évaluons la qualité de l’approche proposée et mesurons les performances de quelques modèles d’apprentissage automatique sur ces données.</abstract>
+      <url hash="d768508f">2023.jeptalnrecital-short.7</url>
+      <language>fra</language>
+      <bibkey>verdy-etal-2023-dwie</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Evaluating the Generalization Property of Prefix-based Methods for Data-to-text Generation</title>
+      <author><first>Clarine</first><last>Vongpaseut</last></author>
+      <author><first>Alberto</first><last>Lumbreras</last></author>
+      <author><first>Mike</first><last>Gartrell</last></author>
+      <author><first>Patrick</first><last>Gallinari</last></author>
+      <pages>73–81</pages>
+      <abstract>Fine-tuning is the prevalent paradigm to adapt pre-trained language models to downstream tasks. Lightweight fine-tuning methods, such as prefix-tuning, only tune a small set of parameters which alleviates cost. Such methods were shown to achieve results similar to fine-tuning; however, performance can decrease when the inputs get farther from the training domain. Moreover, latest works questioned the efficiency of recent lightweight fine-tuning techniques depending on the task and the size of the model. In this paper, we propose to evaluate the generalization property of prefix-based methods depending on the size of the pre-trained language model in the multi-domain setting on data-to-text generation. We found that their performance depends heavily on the size of the model.</abstract>
+      <url hash="2c8b6e69">2023.jeptalnrecital-short.8</url>
+      <bibkey>vongpaseut-etal-2023-evaluating</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Auto-apprentissage et renforcement pour une analyse jointe sur données disjointes : étiquetage morpho-syntaxique et analyse syntaxique</title>
+      <author><first>Fang</first><last>Zhao</last></author>
+      <author><first>Timothée</first><last>Bernard</last></author>
+      <pages>82–90</pages>
+      <abstract>Cet article se penche sur l’utilisation de données disjointes pour entraîner un système d’analyse jointe du langage naturel. Dans cette étude exploratoire, nous entraînons un système à prédire un étiquetage morpho-syntaxique et une analyse syntaxique en dépendances à partir de phrases annotées soit pour l’une de ces tâches, soit pour l’autre. Deux méthodes sont considérées : l’auto-apprentissage et l’apprentissage par renforcement, pour lequel nous définissons une fonction de récompense encourageant le système à effectuer des prédictions même sans supervision. Nos résultats indiquent de bonnes performances dans le cas où les données disjointes sont issues d’un même domaine, mais sont moins satisfaisants dans le cas contraire. Nous identifions des limitations de notre implémentation actuelle et proposons en conséquence des pistes d’amélioration.</abstract>
+      <url hash="a7154521">2023.jeptalnrecital-short.9</url>
+      <language>fra</language>
+      <bibkey>zhao-bernard-2023-auto</bibkey>
+    </paper>
+  </volume>
+  <volume id="statement" ingest-date="2023-08-31" type="proceedings">
+    <meta>
+      <booktitle>Actes de CORIA-TALN 2023. Actes de la 30e Conférence sur le Traitement Automatique des Langues Naturelles (TALN), volume 3 : prises de position en TAL</booktitle>
+      <editor><first>Christophe</first><last>Servan</last></editor>
+      <editor><first>Anne</first><last>Vilnat</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Paris, France</address>
+      <month>6</month>
+      <year>2023</year>
+      <venue>jeptalnrecital</venue>
+    </meta>
+    <frontmatter>
+      <url hash="165f19d7">2023.jeptalnrecital-statement.0</url>
+      <bibkey>jep-taln-recital-2023-actes-de-coria-taln-2023-actes-de</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Quelques observations sur la notion de biais dans les modèles de langue</title>
+      <author><first>Romane</first><last>Gallienne</last></author>
+      <author><first>Thierry</first><last>Poibeau</last></author>
+      <pages>1–13</pages>
+      <abstract>Cet article revient sur la notion de biais dans les modèles de langue. On montre à partir d’exemples tirés de modèles génératifs pour le français (de type GPT) qu’il est facile d’orienter, à partir de prompts précis, les textes générés vers des résultats potentiellement problématiques (avec des stéréotypes, des biais, etc.). Mais les actions à accomplir à partir de là ne sont pas neutres : le fait de débiaiser les modèles a un aspect positif mais pose aussi de nombreuses questions (comment décider ce qu’il faut corriger ? qui peut ou doit le décider ? par rapport à quelle norme?). Finalement, on montre que les questions posées ne sont pas seulement technologiques, mais avant tout sociales, et liées au contexte d’utilisation des applications visées.</abstract>
+      <url hash="c219468d">2023.jeptalnrecital-statement.1</url>
+      <language>fra</language>
+      <bibkey>gallienne-poibeau-2023-quelques</bibkey>
+    </paper>
+    <paper id="2">
+      <title>État des lieux des Transformers Vision-Langage : Un éclairage sur les données de pré-entraînement</title>
+      <author><first>Emmanuelle</first><last>Salin</last></author>
+      <pages>14–29</pages>
+      <abstract>Après avoir été développée en traitement automatique du langage, l’architecture Transformer s’est démocratisée dans de nombreux domaines de l’apprentissage automatique. Elle a permis de surpasser l’état de l’art dans de nombreuses tâches et a conduit à la création de très grands jeux de données afin d’améliorer les performances des modèles. En multimodalité vision-langage, les résultats encourageants des Transformers favorisent la collecte de données image-texte à très grande échelle. Cependant, il est difficile d’évaluer la qualité de ces nouveaux jeux de données, ainsi que leur influence sur la performance de ces modèles, car notre compréhension des Transformers vision-langage est encore limitée. Nous explorons les études du domaine pour mieux comprendre les processus de collecte des jeux de données, les caractéristiques de ces données et leurs impacts sur les performances des modèles.</abstract>
+      <url hash="40c79901">2023.jeptalnrecital-statement.2</url>
+      <language>fra</language>
+      <bibkey>salin-2023-etat</bibkey>
+    </paper>
+  </volume>
+  <volume id="international" ingest-date="2023-08-31" type="proceedings">
+    <meta>
+      <booktitle>Actes de CORIA-TALN 2023. Actes de la 30e Conférence sur le Traitement Automatique des Langues Naturelles (TALN), volume 4 : articles déjà soumis ou acceptés en conférence internationale</booktitle>
+      <editor><first>Christophe</first><last>Servan</last></editor>
+      <editor><first>Anne</first><last>Vilnat</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Paris, France</address>
+      <month>6</month>
+      <year>2023</year>
+      <venue>jeptalnrecital</venue>
+    </meta>
+    <frontmatter>
+      <url hash="a1fe5ea3">2023.jeptalnrecital-international.0</url>
+      <bibkey>jep-taln-recital-2023-actes-de-coria-taln-2023-actes-de-la</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Questionner pour expliquer: construction de liens explicites entre documents par la génération automatique de questions</title>
+      <author><first>Elie</first><last>Antoine</last></author>
+      <author><first>Hyun Jung</first><last>Kang</last></author>
+      <author><first>Ismaël</first><last>Rousseau</last></author>
+      <author><first>Ghislaine</first><last>Azémard</last></author>
+      <author><first>Frédéric</first><last>Béchet</last></author>
+      <author><first>Géraldine</first><last>Damnati</last></author>
+      <pages>1–9</pages>
+      <abstract>Cette article présente une méthode d’exploration de documents basée sur la création d’un ensemble synthétique de questions et de réponses portant sur le corpus, ensemble qui est ensuite utilisé pour établir des liens explicables entre les documents. Nous menons une évaluation quantitative et qualitative des questions automatiquement générées en termes de leur forme et de leur pertinence pour l’exploration de la collection. De plus, nous présentons une étude quantitative des liens obtenus grâce à notre méthode sur une collection de document provenant d’archives numérisés.</abstract>
+      <url hash="81930ce1">2023.jeptalnrecital-international.1</url>
+      <language>fra</language>
+      <bibkey>antoine-etal-2023-questionner</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>HATS</fixed-case> : Un jeu de données intégrant la perception humaine appliquée à l’évaluation des métriques de transcription de la parole</title>
+      <author><first>Thibault</first><last>Bañeras-Roux</last></author>
+      <author><first>Jane</first><last>Wottawa</last></author>
+      <author><first>Mickael</first><last>Rouvier</last></author>
+      <author><first>Teva</first><last>Merlin</last></author>
+      <author><first>Richard</first><last>Dufour</last></author>
+      <pages>10–18</pages>
+      <abstract>Traditionnellement, les systèmes de reconnaissance automatique de la parole (RAP) sont évalués sur leur capacité à reconnaître correctement chaque mot contenu dans un signal vocal. Dans ce contexte, la mesure du taux d’erreur-mot est la référence pour évaluer les transcriptions vocales. Plusieurs études ont montré que cette mesure est trop limitée pour évaluer correctement un système de RAP, ce qui a conduit à la proposition d’autres variantes et d’autres métriques. Cependant, toutes ces métriques restent orientées “système” alors même que les transcriptions sont destinées à des humains. Dans cet article, nous proposons un jeu de données original annoté manuellement en termes de perception humaine des erreurs de transcription produites par divers systèmes de RAP. Plus de 120 humains ont été invités à choisir la meilleure transcription automatique entre deux hypothèses. Nous étudions la relation entre les préférences humaines et diverses mesures d’évaluation pour les systèmes de RAP, y compris les mesures lexicales et celles fondées sur les plongements de mots.</abstract>
+      <url hash="dda7f6b1">2023.jeptalnrecital-international.2</url>
+      <language>fra</language>
+      <bibkey>baneras-roux-etal-2023-hats</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Résumé automatique multi-documents guidé par une base de résumés similaires</title>
+      <author><first>Florian</first><last>Baud</last></author>
+      <author><first>Alexandre</first><last>Aussem</last></author>
+      <pages>19–27</pages>
+      <abstract>Le résumé multi-documents est une tâche difficile en traitement automatique du langage, ayant pour objectif de résumer les informations de plusieurs documents. Cependant, les documents sources sont souvent insuffisants pour obtenir un résumé qualitatif. Nous proposons un modèle guidé par un système de recherche d’informations combiné avec une mémoire non paramétrique pour la génération de résumés. Ce modèle récupère des candidats pertinents dans une base de données, puis génère le résumé en prenant en compte les candidats avec un mécanisme de copie et les documents sources. Cette mémoire non paramétrique est implémentée avec la recherche approximative des plus proches voisins afin de faire des recherches dans de grandes bases de données. Notre méthode est évalué sur le jeu de données MultiXScience qui regroupe des articles scientifiques. Enfin, nous discutons de nos résultats et des orientations possibles pour de futurs travaux.</abstract>
+      <url hash="a6b4f8ce">2023.jeptalnrecital-international.3</url>
+      <language>fra</language>
+      <bibkey>baud-aussem-2023-resume</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Traduction à base d’exemples du texte vers une représentation hiérarchique de la langue des signes</title>
+      <author><first>Elise</first><last>Bertin-Lemée</last></author>
+      <author><first>Annelies</first><last>Braffort</last></author>
+      <author><first>Camille</first><last>Challant</last></author>
+      <author><first>Claire</first><last>Danet</last></author>
+      <author><first>Michael</first><last>Filhol</last></author>
+      <pages>28–34</pages>
+      <abstract>Cet article présente une expérimentation de traduction automatique de texte vers la langue des signes (LS). Comme nous ne disposons pas de corpus aligné de grande taille, nous avons exploré une approche à base d’exemples, utilisant AZee, une représentation intermédiaire du discours en LS sous la forme d’expressions hiérarchisées</abstract>
+      <url hash="2e05ae68">2023.jeptalnrecital-international.4</url>
+      <language>fra</language>
+      <bibkey>bertin-lemee-etal-2023-traduction</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Annotation Linguistique pour l’Évaluation de la Simplification Automatique de Textes</title>
+      <author><first>Rémi</first><last>Cardon</last></author>
+      <author><first>Adrien</first><last>Bibal</last></author>
+      <author><first>Rodrigo</first><last>Wilkens</last></author>
+      <author><first>David</first><last>Alfter</last></author>
+      <author><first>Magali</first><last>Norré</last></author>
+      <author><first>Adeline</first><last>Müller</last></author>
+      <author><first>Patrick</first><last>Watrin</last></author>
+      <author><first>Thomas</first><last>François</last></author>
+      <pages>35–48</pages>
+      <abstract>L’évaluation des systèmes de simplification automatique de textes (SAT) est une tâche difficile, accomplie à l’aide de métriques automatiques et du jugement humain. Cependant, d’un point de vue linguistique, savoir ce qui est concrètement évalué n’est pas clair. Nous proposons d’annoter un des corpus de référence pour la SAT, ASSET, que nous utilisons pour éclaircir cette question. En plus de la contribution que constitue la ressource annotée, nous montrons comment elle peut être utilisée pour analyser le comportement de SARI, la mesure d’évaluation la plus populaire en SAT. Nous présentons nos conclusions comme une étape pour améliorer les protocoles d’évaluation en SAT à l’avenir.</abstract>
+      <url hash="17d22e2e">2023.jeptalnrecital-international.5</url>
+      <language>fra</language>
+      <bibkey>cardon-etal-2023-annotation</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Un mot, deux facettes : traces des opinions dans les représentations contextualisées des mots</title>
+      <author><first>Aina</first><last>Garí Soler</last></author>
+      <author><first>Matthieu</first><last>Labeau</last></author>
+      <author><first>Chloe</first><last>Clavel</last></author>
+      <pages>49–57</pages>
+      <abstract>La façon dont nous utilisons les mots est influencée par notre opinion. Nous cherchons à savoir si cela se reflète dans les plongements de mots contextualisés. Par exemple, la représentation d’ « animal » est-elle différente pour les gens qui voudraient abolir les zoos et ceux qui ne le voudraient pas ? Nous explorons cette question du point de vue du changement sémantique des mots. Nos expériences avec des représentations dérivées d’ensembles de données annotés avec les points de vue révèlent des différences minimes, mais significatives, entre postures opposées.</abstract>
+      <url hash="e1f417f1">2023.jeptalnrecital-international.6</url>
+      <language>fra</language>
+      <bibkey>gari-soler-etal-2023-un</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>P</fixed-case>rompt<fixed-case>ORE</fixed-case> – Vers l’Extraction de Relations non-supervisée</title>
+      <author><first>Pierre-Yves</first><last>Genest</last></author>
+      <author><first>Pierre-Edouard</first><last>Portier</last></author>
+      <author><first>Előd</first><last>Egyed-Zsigmond</last></author>
+      <author><first>Laurent-Walter</first><last>Goix</last></author>
+      <pages>58–64</pages>
+      <abstract>L’extraction de relations non-supervisée vise à identifier les relations qui lient les entités dans un texte sans utiliser de données annotées pendant l’entraînement. Cette tâche est utile en monde ouvert, où les types de relations et leur nombre sont inconnus. Bien que des modèles récents obtiennent des résultats prometteurs, ils dépendent fortement d’hyper-paramètres dont l’ajustement nécessite des données annotées, signifiant que ces modèles ne sont pas complètement non-supervisés.Pour résoudre ce problème, nous proposons PromptORE, à notre connaissance le premier modèle d’extraction de relations non-supervisé qui ne nécessite pas d’ajuster d’hyper-paramètre. Pour cela, nous adaptons le principe du prompt-tuning pour fonctionner sans supervision. Les résultats montrent que PromptORE surpasse largement les méthodes à l’état de l’art, avec un gain relatif de 20-40% en B3, V-measure et ARI.Le code source est accessible.</abstract>
+      <url hash="560cf1c3">2023.jeptalnrecital-international.7</url>
+      <language>fra</language>
+      <bibkey>genest-etal-2023-promptore</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Injection de connaissances temporelles dans la reconnaissance d’entités nommées historiques</title>
+      <author><first>Carlos-Emiliano</first><last>González-Gallardo</last></author>
+      <author><first>Emanuela</first><last>Boros</last></author>
+      <author><first>Edward</first><last>Giamphy</last></author>
+      <author><first>Ahmed</first><last>Hamdi</last></author>
+      <author><first>Jose</first><last>Moreno</last></author>
+      <author><first>Antoine</first><last>Doucet</last></author>
+      <pages>65–73</pages>
+      <abstract>Dans cet article, nous abordons la reconnaissance d’entités nommées dans des documents historiques multilingues. Cette tâche présente des multiples défis tels que les erreurs générées suite à la numérisa- tion et la reconnaissance optique des caractères de ces documents. En outre, les documents historiques posent un autre défi puisque leurs collections sont distribuées sur une période de temps assez longue et suivent éventuellement plusieurs conventions orthographiques qui évoluent au fil du temps. Nous explorons, dans ce travail, l’idée d’injecter des connaissance temporelles à l’aide de graphes pour une reconnaissance d’entités nommées plus performante. Plus précisément, nous récupérons des contextes supplémentaires, sémantiquement pertinents, en explorant les informations temporelles fournies par les collections historiques et nous les incluons en tant que représentations mises en commun dans un modèle NER basé sur un transformeur. Nous expérimentons avec deux collections récentes en anglais, français et allemand, composées de journaux historiques (19C-20C) et de commentaires classiques (19C). Les résultats montrent l’efficacité de l’injection de connaissances temporelles dans des ensembles de données, des langues et des types d’entités différents.</abstract>
+      <url hash="ccdef98f">2023.jeptalnrecital-international.8</url>
+      <language>fra</language>
+      <bibkey>gonzalez-gallardo-etal-2023-injection</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Oui mais... <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> peut-il identifier des entités dans des documents historiques ?</title>
+      <author><first>Carlos-Emiliano</first><last>González-Gallardo</last></author>
+      <author><first>Emanuela</first><last>Boros</last></author>
+      <author><first>Nancy</first><last>Girdhar</last></author>
+      <author><first>Ahmed</first><last>Hamdi</last></author>
+      <author><first>Jose</first><last>Moreno</last></author>
+      <author><first>Antoine</first><last>Doucet</last></author>
+      <pages>74–82</pages>
+      <abstract>Les modèles de langage de grande taille (LLM) sont exploités depuis plusieurs années maintenant, obtenant des performances de pointe dans la reconnaissance d’entités à partir de documents modernes. Depuis quelques mois, l’agent conversationnel ChatGPT a suscité beaucoup d’intérêt auprès de la communauté scientifique et du grand public en raison de sa capacité à générer des réponses plausibles. Dans cet article, nous explorons cette compétence à travers la tâche de reconnaissance et de classification d’entités nommées (NERC) dans des sources primaires (des journaux historiques et des commentaires classiques) d’une manière zero-shot et en la comparant avec les systèmes de pointe basés sur des modèles de langage. Nos résultats indiquent plusieurs lacunes dans l’identification des entités dans le texte historique, qui concernant la cohérence des guidelines d’annotation des entités, la complexité des entités et du changement de code et la spécificité du prompt. De plus, comme prévu, l’inaccessibilité des archives historiques a également un impact sur les performances de ChatGPT.</abstract>
+      <url hash="630455e4">2023.jeptalnrecital-international.9</url>
+      <language>fra</language>
+      <bibkey>gonzalez-gallardo-etal-2023-oui</bibkey>
+    </paper>
+    <paper id="10">
+      <title>De l’interprétabilité des dimensions à l’interprétabilité du vecteur : parcimonie et stabilité</title>
+      <author><first>Simon</first><last>Guillot</last></author>
+      <author><first>Thibault</first><last>Prouteau</last></author>
+      <author><first>Nicolas</first><last>Dugue</last></author>
+      <pages>83–91</pages>
+      <abstract>Les modèles d’apprentissage de plongements parcimonieux (SPINE, SINr) ont pour objectif de produire un espace dont les dimensions peuvent être interprétées. Ces modèles visent des cas d’application critiques du traitement de la langue naturelle (usages médicaux ou judiciaires) et une utilisation des représentations dans le cadre des humanités numériques. Nous proposons de considérer non plus seulement l’interprétabilité des dimensions de l’espace de description, mais celle des vecteurs de mots en eux-mêmes. Pour cela, nous introduisons un cadre d’évaluation incluant le critère de stabilité, et redéfinissant celui de la parcimonie en accord avec les théories psycholinguistiques. Tout d’abord, les évaluations en stabilité indiquent une faible variabilité sur les modèles considérés. Ensuite, pour redéfinir le critère de parcimonie, nous proposons une méthode d’éparsification des vecteurs de plongements en gardant les composantes les plus fortement activées de chaque vecteur. Il apparaît que pour les deux modèles SPINE et SINr, de bonnes performances en similarité sont permises par des vecteurs avec un très faible nombre de dimensions activées. Ces résultats permettent d’envisager l’interprétabilité de représentations éparses sans remettre en cause les performances.</abstract>
+      <url hash="43db1e29">2023.jeptalnrecital-international.10</url>
+      <language>fra</language>
+      <bibkey>guillot-etal-2023-de</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Effet de l’anthropomorphisme des machines sur le français adressé aux robots: Étude du débit de parole et de la fluence</title>
+      <author><first>Natalia</first><last>Kalashnikova</last></author>
+      <author><first>Mathilde</first><last>Hutin</last></author>
+      <author><first>Ioana</first><last>Vasilescu</last></author>
+      <author><first>Laurence</first><last>Devillers</last></author>
+      <pages>92–100</pages>
+      <abstract>“Robot-directed speech” désigne la parole adressée à un appareil robotique, des petites enceintes domestiques aux robots humanoïdes grandeur-nature. Les études passées ont analysé les propriétés phonétiques et linguistiques de ce type de parole ou encore l’effet de l’anthropomorphisme des appareils sur la sociabilité des interactions, mais l’effet de l’anthropomorphisme sur les réalisations linguistiques n’a encore jamais été exploré. Notre étude propose de combler ce manque avec l’analyse d’un paramètre phonétique (débit de parole) et d’un paramètre linguistique (fréquence des pauses remplies) sur la parole adressée à l’enceinte vs. au robot humanoïde vs. à l’humain. Les données de 71 francophones natifs indiquent que les énoncés adressés aux humains sont plus longs, plus rapides et plus dysfluents que ceux adressés à l’enceinte et au robot. La parole adressée à l’enceinte et au robot est significativement différente de la parole adressée à l’humain, mais pas l’une de l’autre, indiquant l’existence d’un type particulier de la parole adressée aux machines.</abstract>
+      <url hash="b361b65a">2023.jeptalnrecital-international.11</url>
+      <language>fra</language>
+      <bibkey>kalashnikova-etal-2023-effet</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Détection de la nasalité du locuteur à partir de réseaux de neurones convolutifs et validation par des données aérodynamiques</title>
+      <author><first>Lila</first><last>Kim</last></author>
+      <author><first>Cedric</first><last>Gendrot</last></author>
+      <author><first>Amélie</first><last>Elmerich</last></author>
+      <author><first>Angelique</first><last>Amelot</last></author>
+      <author><first>Shinji</first><last>Maeda</last></author>
+      <pages>101–108</pages>
+      <abstract>Ce travail se positionne dans le domaine de la recherche d’informations sur le locuteur, reconnue comme une des tâches inhérentes au traitement automatique de la parole. A partir d’un nouveau masque pneumotachographe acoustiquement transparent, nous avons enregistré simultanément des données aérodynamiques (débit d’air oral et nasal) et acoustiques pour 6 locuteurs masculins français, impliquant des consonnes et voyelles orales et nasales sur des logatomes. Un CNN entraîné sur d’autres corpus acoustiques en français a été testé sur les données recueillies à partir du masque pour la distinction de nasalité phonémique, avec une classification correcte de 88% en moyenne. Nous avons comparé ces résultats CNN avec les débit d’air nasal et oral captés par le masque afin de quantifier la nasalité présente par locuteur. Les résultats montrent une corrélation significative entre les erreurs produites par le CNN et des distinctions moins nettes de débit d’air du masque entre nasales et orales.</abstract>
+      <url hash="5a24b77f">2023.jeptalnrecital-international.12</url>
+      <language>fra</language>
+      <bibkey>kim-etal-2023-detection</bibkey>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>D</fixed-case>r<fixed-case>BERT</fixed-case>: Un modèle robuste pré-entraîné en français pour les domaines biomédical et clinique</title>
+      <author><first>Yanis</first><last>Labrak</last></author>
+      <author><first>Adrien</first><last>Bazoge</last></author>
+      <author><first>Richard</first><last>Dufour</last></author>
+      <author><first>Mickael</first><last>Rouvier</last></author>
+      <author><first>Emmanuel</first><last>Morin</last></author>
+      <author><first>Béatrice</first><last>Daille</last></author>
+      <author><first>Pierre-Antoine</first><last>Gourraud</last></author>
+      <pages>109–120</pages>
+      <abstract>Ces dernières années, les modèles de langage pré-entraînés ont obtenu les meilleures performances sur un large éventail de tâches de traitement automatique du langage naturel (TALN). Alors que les premiers modèles ont été entraînés sur des données issues de domaines généraux, des modèles spécialisés sont apparus pour traiter plus efficacement des domaines spécifiques. Dans cet article, nous proposons une étude originale de modèles de langue dans le domaine médical en français. Nous comparons pour la première fois les performances de modèles entraînés sur des données publiques issues du web et sur des données privées issues d’établissements de santé. Nous évaluons également différentes stratégies d’apprentissage sur un ensemble de tâches biomédicales. Enfin, nous publions les premiers modèles spécialisés pour le domaine biomédical en français, appelés DrBERT, ainsi que le plus grand corpus de données médicales sous licence libre sur lequel ces modèles sont entraînés.</abstract>
+      <url hash="18d424a7">2023.jeptalnrecital-international.13</url>
+      <language>fra</language>
+      <bibkey>labrak-etal-2023-drbert-un</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Classification automatique de données déséquilibrées et bruitées : application aux exercices de manuels scolaires</title>
+      <author><first>Elise</first><last>Lincker</last></author>
+      <author><first>Camille</first><last>Guinaudeau</last></author>
+      <author><first>Olivier</first><last>Pons</last></author>
+      <author><first>Jérôme</first><last>Dupire</last></author>
+      <author><first>Isabelle</first><last>Barbet</last></author>
+      <author><first>Céline</first><last>Hudelot</last></author>
+      <author><first>Vincent</first><last>Mousseau</last></author>
+      <author><first>Caroline</first><last>Huron</last></author>
+      <pages>121–130</pages>
+      <abstract>Pour faciliter l’inclusion scolaire, il est indispensable de pouvoir adapter de manière automatique les manuels scolaires afin de les rendre accessibles aux enfants dyspraxiques. Dans ce contexte, nous proposons une tâche de classification des exercices selon leur type d’adaptation à la dyspraxie. Nous introduisons un corpus d’exercices extraits de manuels de français de niveau élémentaire, qui soulève certains défis de par sa petite taille et son contenu déséquilibré et bruité. Afin de tirer profit des modalités textuelles, structurelles et visuelles présentes dans nos données, nous combinons des modèles état de l’art par des stratégies de fusion précoce et tardive. Notre approche atteint une exactitude globale de 0.802. Toutefois, les expériences témoignent de la difficulté de la tâche, particulièrement pour les classes minoritaires, pour lesquelles l’exactitude tombe à 0.583.</abstract>
+      <url hash="c24c5ee6">2023.jeptalnrecital-international.14</url>
+      <language>fra</language>
+      <bibkey>lincker-etal-2023-classification</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Détection de faux tickets de caisse à l’aide d’entités et de relations basées sur une ontologie de domaine</title>
+      <author><first>Beatriz</first><last>Martínez Tornés</last></author>
+      <author><first>Emanuela</first><last>Boros</last></author>
+      <author><first>Petra</first><last>Gomez-Krämer</last></author>
+      <author><first>Antoine</first><last>Doucet</last></author>
+      <author><first>Jean-Marc</first><last>Ogier</last></author>
+      <pages>131–139</pages>
+      <abstract>Dans cet article, nous nous attaquons à la tâche de détection de fraude documentaire. Nous considérons que cette tâche peut être abordée avec des techniques de traitement automatique du langage naturel (TALN). Nous utilisons une approche basée sur la régression, en tirant parti d’un modèle de langage pré-entraîné afin de représenter le contenu textuel, et en enrichissant la représentation avec des entités et des relations basées sur une ontologie spécifique au domaine. Nous émulons une approche basée sur les entités en comparant différents types d’entrée : texte brut, entités extraites et une reformulation du contenu du document basée sur des triplets. Pour notre configuration expérimentale, nous utilisons le seul ensemble de données librement disponible de faux tickets de caisse, et nous fournissons une analyse approfondie de nos résultats. Ils montrent des corrélations intéressantes entre les types de relations ontologiques, les types d’entités (produit, entreprise, etc.) et la performance d’un modèle de langage basé sur la régression qui pourrait aider à étudier le transfert d’apprentissage à partir de méthodes de traitement du langage naturel (TALN) pour améliorer la performance des systèmes de détection de fraude existants.</abstract>
+      <url hash="cc1c59d7">2023.jeptalnrecital-international.15</url>
+      <language>fra</language>
+      <bibkey>martinez-tornes-etal-2023-detection</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Jeu de données de tickets de caisse pour la détection de fraude documentaire</title>
+      <author><first>Beatriz</first><last>Martínez Tornés</last></author>
+      <author><first>Théo</first><last>Taburet</last></author>
+      <author><first>Emanuela</first><last>Boros</last></author>
+      <author><first>Kais</first><last>Rouis</last></author>
+      <author><first>Petra</first><last>Gomez-Krämer</last></author>
+      <author><first>Nicolas</first><last>Sidere</last></author>
+      <author><first>Antoine</first><last>Doucet</last></author>
+      <author><first>Vincent</first><last>Poulain D’andecy</last></author>
+      <pages>140–147</pages>
+      <abstract>L’utilisation généralisée de documents numériques non sécurisés par les entreprises et les administrations comme pièces justificatives les rend vulnérables à la falsification. En outre, les logiciels de retouche d’images et les possibilités qu’ils offrent compliquent les tâches de la détection de fraude d’images numériques. Néanmoins, la recherche dans ce domaine se heurte au manque de données réalistes accessibles au public. Dans cet article, nous proposons un nouveau jeu de données pour la détection des faux tickets contenant 988 images numérisées de tickets et leurs transcriptions, provenant du jeu de données SROIE (scanned receipts OCR and information extraction). 163 images et leurs transcriptions ont subi des modifications frauduleuses réalistes et ont été annotées. Nous décrivons en détail le jeu de données, les falsifications et leurs annotations et fournissons deux baselines (basées sur l’image et le texte) sur la tâche de détection de la fraude.</abstract>
+      <url hash="57b21668">2023.jeptalnrecital-international.16</url>
+      <language>fra</language>
+      <bibkey>martinez-tornes-etal-2023-jeu</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Portabilité linguistique des modèles de langage pré-appris appliqués à la tâche de dialogue humain-machine en français</title>
+      <author><first>Ahmed</first><last>Njifenjou</last></author>
+      <author><first>Virgile</first><last>Sucal</last></author>
+      <author><first>Bassam</first><last>Jabaian</last></author>
+      <author><first>Fabrice</first><last>Lefèvre</last></author>
+      <pages>148–158</pages>
+      <abstract>Dans cet article, nous proposons une étude de la portabilité linguistique des modèles de langage pré-appris (MLPs) appliqués à une tâche de dialogue à domaine ouvert. La langue cible (L_T) retenue dans cette étude est le français. Elle dispose de peu de ressources spécifiques pour la tâche considérée et nous permet de réaliser une évaluation humaine. La langue source (L_S) est l’anglais qui concentre la majorité des travaux récents dans ce domaine. Construire des MLPs spécifiques pour chaque langue nécessite de collecter de nouveaux jeux de données et cela est coûteux. Ainsi, à partir des ressources disponibles en L_S et L_T, nous souhaitons évaluer les performances atteignables par un système de conversation en L_T . Pour cela, nous proposons trois approches : TrainOnTarget où le corpus L_S est traduit vers L_T avant l’affinage du modèle, TestOnSource où un modèle L_S est couplé avec des modules de traduction au moment du décodage et TrainOnSourceAdaptOnTarget, qui utilise un MLP multilingue - ici BLOOM (BigScience Workshop, 2022) - avec l’architecture MAD-X Adapter (Pfeiffer et al., 2020) pour apprendre la tâche en L_S et l’adapter à L_T . Les modèles sont évalués dans des conditions de dialogue oral et les stratégies sont comparées en termes de qualité perçue lors l’interaction.</abstract>
+      <url hash="bffdaaf9">2023.jeptalnrecital-international.17</url>
+      <language>fra</language>
+      <bibkey>njifenjou-etal-2023-portabilite</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Détection d’événements à partir de peu d’exemples par seuillage dynamique</title>
+      <author><first>Aboubacar</first><last>Tuo</last></author>
+      <author><first>Romaric</first><last>Besançon</last></author>
+      <author><first>Olivier</first><last>Ferret</last></author>
+      <author><first>Julien</first><last>Tourille</last></author>
+      <pages>159–168</pages>
+      <abstract>Les études récentes abordent la détection d’événements à partir de peu de données comme une tâche d’annotation de séquences en utilisant des réseaux prototypiques. Dans ce contexte, elles classifient chaque mot d’une phrase donnée en fonction de leurs similarités avec des prototypes construits pour chaque type d’événement et pour la classe nulle “non-événement”. Cependant, le prototype de la classe nulle agrège par définition un ensemble de mots sémantiquement hétérogènes, ce qui nuit à la discrimination entre les mots déclencheurs et non déclencheurs. Dans cet article, nous abordons ce problème en traitant la détection des mots non-déclencheurs comme un problème de détection d’exemples “hors-domaine” et proposons une méthode pour fixer dynamiquement un seuil de similarité pour cette détection.</abstract>
+      <url hash="e5a22702">2023.jeptalnrecital-international.18</url>
+      <language>fra</language>
+      <bibkey>tuo-etal-2023-detection</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Sélection globale de segments pour la reconnaissance d’entités nommées</title>
+      <author><first>Urchade</first><last>Zaratiana</last></author>
+      <author><first>Niama</first><last>El Khbir</last></author>
+      <author><first>Pierre</first><last>Holat</last></author>
+      <author><first>Nadi</first><last>Tomeh</last></author>
+      <author><first>Thierry</first><last>Charnois</last></author>
+      <pages>169–177</pages>
+      <abstract>La reconnaissance d’entités nommées est une tâche importante en traitement automatique du langage naturel avec des applications dans de nombreux domaines. Dans cet article, nous décrivons une nouvelle approche pour la reconnaissance d’entités nommées, dans laquelle nous produisons un ensemble de segmentations en maximisant un score global. Pendant l’entraînement, nous optimisons notre modèle en maximisant la probabilité de la segmentation correcte. Pendant l’inférence, nous utilisons la programmation dynamique pour sélectionner la meilleure segmentation avec une complexité linéaire. Nous prouvons que notre approche est supérieure aux modèles champs de Markov conditionnels et semi-CMC pour la reconnaissance d’entités nommées.</abstract>
+      <url hash="805d555c">2023.jeptalnrecital-international.19</url>
+      <language>fra</language>
+      <bibkey>zaratiana-etal-2023-selection</bibkey>
+    </paper>
+  </volume>
+  <volume id="coria" ingest-date="2023-06-25" type="proceedings">
+    <meta>
+      <booktitle>Actes de CORIA-TALN 2023. Actes de la 18e Conférence en Recherche d'Information et Applications (CORIA)</booktitle>
+      <editor><first>Haïfa</first><last>Zargayouna</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Paris, France</address>
+      <month>6</month>
+      <year>2023</year>
+      <venue>jeptalnrecital</venue>
+    </meta>
+    <frontmatter>
+      <url hash="50d313b5">2023.jeptalnrecital-coria.0</url>
+      <bibkey>jep-taln-recital-2023-actes</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Impact de l’apprentissage multi-labels actif appliqué aux transformers</title>
+      <author><first>Maxime</first><last>Arens</last></author>
+      <author><first>Charles</first><last>Teissèdre</last></author>
+      <author><first>Lucile</first><last>Callebert</last></author>
+      <author><first>Jose G</first><last>Moreno</last></author>
+      <author><first>Mohand</first><last>Boughanem</last></author>
+      <pages>2–17</pages>
+      <abstract>L’Apprentissage Actif (AA) est largement utilisé en apprentissage automatique afin de réduire l’effort d’annotation. Bien que la plupart des travaux d’AA soient antérieurs aux transformers, le succès récent de ces architectures a conduit la communauté à revisiter l’AA dans le contexte des modèles de langues pré-entraînés.De plus, le mécanisme de fine-tuning, où seules quelques données annotées sont utilisées pour entraîner le modèle sur une nouvelle tâche, est parfaitement en accord avec l’objectif de l’AA. Nous proposons d’étudier l’impact de l’AA dans le contexte des transformers pour la tâche de classification multi-labels. Or la plupart des stratégies AA, lorsqu’elles sont appliquées à ces modèles, conduisent à des temps de calcul excessifs, ce qui empêche leur utilisation au cours d’une interaction homme-machine en temps réel. Afin de pallier ce problème, nous utilisons des stratégies d’AA basées sur l’incertitude. L’article compare six stratégies d’AA basées sur l’incertitude dans le contexte des transformers et montre que si deux stratégies améliorent invariablement les performances, les autres ne surpassent pas l’échantillonnage aléatoire. L’étude montre également que les stratégies performantes ont tendance à sélectionner des ensembles d’instances plus diversifiées pour l’annotation.</abstract>
+      <url hash="58e2263e">2023.jeptalnrecital-coria.1</url>
+      <language>fra</language>
+      <bibkey>arens-etal-2023-impact</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Quelles évolutions sur cette loi ? Entre abstraction et hallucination dans le domaine du résumé de textes juridiques</title>
+      <author><first>Nihed</first><last>Bendahman</last></author>
+      <author><first>Karen</first><last>Pinel-Sauvagnat</last></author>
+      <author><first>Gilles</first><last>Hubert</last></author>
+      <author><first>Mokhtar Boumedyen</first><last>Billami</last></author>
+      <pages>18–36</pages>
+      <abstract>Résumer automatiquement des textes juridiques permettrait aux chargés de veille d’éviter une surcharge informationnelle et de gagner du temps sur une activité particulièrement chronophage. Dans cet article, nous présentons un corpus de textes juridiques en français associés à des résumés de référence produits par des experts, et cherchons à établir quels modèles génératifs de résumé sont les plus intéressants sur ces documents possédant de fortes spécificités métier. Nous étudions quatre modèles de l’état de l’art, que nous commençons à évaluer avec des métriques traditionnelles. Afin de comprendre en détail la capacité des modèles à transcrire les spécificités métiers, nous effectuons une analyse plus fine sur les entités d’intérêt. Nous évaluons notamment la couverture des résumés en termes d’entités, mais aussi l’apparition d’informations non présentes dans les documents d’origine, dites hallucinations. Les premiers résultats montrent que le contrôle des hallucinations est crucial dans les domaines de spécialité, particulièrement le juridique.</abstract>
+      <url hash="c0917a39">2023.jeptalnrecital-coria.2</url>
+      <language>fra</language>
+      <bibkey>bendahman-etal-2023-quelles</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Augmentation de jeux de données <fixed-case>RI</fixed-case> pour la recherche conversationnelle à initiative mixte</title>
+      <author><first>Pierre</first><last>Erbacher</last></author>
+      <author><first>Philippe</first><last>Preux</last></author>
+      <author><first>Jian-Yun</first><last>Nie</last></author>
+      <author><first>Laure</first><last>Soulier</last></author>
+      <pages>37–58</pages>
+      <abstract>Une des particularités des systèmes de recherche conversationnelle est qu’ils impliquent des initiatives mixtes telles que des questions de clarification des requêtes générées par le système pour mieux comprendre le besoin utilisateur. L’évaluation de ces systèmes à grande échelle sur la tâche finale de RI est très difficile et nécessite des ensembles de données adéquats contenant de telles interactions. Cependant, les jeux de données actuels se concentrent uniquement sur les tâches traditionnelles de RI ad hoc ou sur les tâches de clarification de la requête. Pour combler cette lacune, nous proposons une méthodologie pour construire automatiquement des ensembles de données de RI conversationnelle à grande échelle à partir d’ensembles de données de RI ad hoc afin de faciliter les explorations sur la RI conversationnelle. Nous effectuons une évaluation approfondie montrant la qualité et la pertinence des interactions générées pour chaque requête initiale. Cet article montre la faisabilité et l’utilité de l’augmentation des ensembles de données de RI ad-hoc pour la RI conversationnelle.</abstract>
+      <url hash="3aeecf1a">2023.jeptalnrecital-coria.3</url>
+      <language>fra</language>
+      <bibkey>erbacher-etal-2023-augmentation</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Apprentissage de sous-espaces de préfixes</title>
+      <author><first>Louis</first><last>Falissard</last></author>
+      <author><first>Vincent</first><last>Guigue</last></author>
+      <author><first>Laure</first><last>Soulier</last></author>
+      <pages>59–73</pages>
+      <abstract>Cet article propose une nouvelle façon d’ajuster des modèles de langue en “Few-shot learning” se basant sur une méthode d’optimisation récemment introduite en vision informatique, l’apprentissage de sous-espaces de modèles. Cette méthode, permettant de trouver non pas un point minimum local de la fonction coût dans l’espace des paramètres du modèle, mais tout un simplexe associé à des valeurs basses, présente typiquement des capacités de généralisation supérieures aux solutions obtenues par ajustement traditionnel. L’adaptation de cette méthode aux gros modèles de langue n’est pas triviale mais son application aux méthodes d’ajustement dites “Parameter Efficient” est quant à elle relativement naturelle. On propose de plus une façon innovante d’utiliser le simplexe de solution étudié afin de revisiter la notion de guidage de l’ajustement d’un modèle par l’inférence d’une métrique de validation, problématique d’actualité en “few-shot learning”. On montre finalement que ces différentes contributions centrées autour de l’ajustement de sous-espaces de modèles est empiriquement associée à un gain considérable en performances de généralisation sur les tâches de compréhension du langage du benchmark GLUE, dans un contexte de “few-shot learning”.</abstract>
+      <url hash="63b2ee0a">2023.jeptalnrecital-coria.4</url>
+      <language>fra</language>
+      <bibkey>falissard-etal-2023-apprentissage</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Recherche cross-modale pour répondre à des questions visuelles</title>
+      <author><first>Paul</first><last>Lerner</last></author>
+      <author><first>Ferret</first><last>Olivier</last></author>
+      <author><first>Camille</first><last>Guinaudeau</last></author>
+      <pages>74–92</pages>
+      <abstract>Répondre à des questions visuelles à propos d’entités nommées (KVQAE) est une tâche difficile qui demande de rechercher des informations dans une base de connaissances multimodale. Nous étudions ici comment traiter cette tâche avec une recherche cross-modale et sa combinaison avec une recherche mono-modale, en se focalisant sur le modèle CLIP, un modèle multimodal entraîné sur des images appareillées à leur légende textuelle. Nos résultats démontrent la supériorité de la recherche cross-modale, mais aussi la complémentarité des deux, qui peuvent être combinées facilement. Nous étudions également différentes manières d’ajuster CLIP et trouvons que l’optimisation cross-modale est la meilleure solution, étant en adéquation avec son pré-entraînement. Notre méthode surpasse les approches précédentes, tout en étant plus simple et moins coûteuse. Ces gains de performance sont étudiés intrinsèquement selon la pertinence des résultats de la recherche et extrinsèquement selon l’exactitude de la réponse extraite par un module externe. Nous discutons des différences entre ces métriques et de ses implications pour l’évaluation de la KVQAE.</abstract>
+      <url hash="b6101ed9">2023.jeptalnrecital-coria.5</url>
+      <language>fra</language>
+      <bibkey>lerner-etal-2023-recherche</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Adaptation de domaine pour la recherche dense par annotation automatique</title>
+      <author><first>Minghan</first><last>Li</last></author>
+      <author><first>Eric</first><last>Gaussier</last></author>
+      <pages>93–110</pages>
+      <abstract>Bien que la recherche d’information neuronale ait connu des améliorations, les modèles de recherche dense ont une capacité de généralisation à de nouveaux domaines limitée, contrairement aux modèles basés sur l’interaction. Les approches d’apprentissage adversarial et de génération de requêtes n’ont pas résolu ce problème. Cet article propose une approche d’auto-supervision utilisant des étiquettes de pseudo-pertinence automatiquement générées pour le domaine cible. Le modèle T53B est utilisé pour réordonner une liste de documents fournie par BM25 afin d’obtenir une annotation des exemples positifs. L’extraction des exemples négatifs est effectuée en explorant différentes stratégies. Les expériences montrent que cette approche aide le modèle dense sur le domaine cible et améliore l’approche de génération de requêtes GPL.</abstract>
+      <url hash="a1018d15">2023.jeptalnrecital-coria.6</url>
+      <language>fra</language>
+      <bibkey>li-gaussier-2023-adaptation</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Extraction d’entités nommées à partir de descriptions d’espèces</title>
+      <author><first>Maya</first><last>Sahraoui</last></author>
+      <author><first>Vincent</first><last>Guigue</last></author>
+      <author><first>Régine</first><last>Vignes-Lebbe</last></author>
+      <author><first>Marc</first><last>Pignal</last></author>
+      <pages>111–126</pages>
+      <abstract>Les descriptions d’espèces contiennent des informations importantes sur les caractéristiques morphologiques des espèces, mais l’extraction de connaissances structurées à partir de ces descriptions est souvent chronophage. Nous proposons un modèle texte-graphe adapté aux descriptions d’espèces en utilisant la reconnaissance d’entités nommées (NER) faiblement supervisée. Après avoir extrait les entités nommées, nous reconstruisons les triplets en utilisant des règles de dépendance pour créer le graphe. Notre méthode permet de comparer différentes espèces sur la base de caractères morphologiques et de relier différentes sources de données. Les résultats de notre étude se concentrent sur notre modèle NER et démontrent qu’il est plus performant que les modèles de référence et qu’il constitue un outil précieux pour la communauté de l’écologie et de la biodiversité.</abstract>
+      <url hash="8817be75">2023.jeptalnrecital-coria.7</url>
+      <language>fra</language>
+      <bibkey>sahraoui-etal-2023-extraction</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Le théâtre français du <fixed-case>XVII</fixed-case>e siècle : une expérience en catégorisation de textes</title>
+      <author><first>Jacques</first><last>Savoy</last></author>
+      <pages>127–138</pages>
+      <abstract>La catégorisation de documents (attribution d’un texte à une ou plusieurs catégories prédéfinies) possède de multiples applications. Cette communication se focalise sur l’attribution d’auteur en analysant le style de vingt pièces de théâtre du XVIIe siècle. L’hypothèse que nous souhaitons vérifier admet que le véritable auteur est le nom apparaissant sur la couverture. Afin de vérifier la qualité de deux méthodes d’attribution, nous avons repris deux corpus additionnels basés sur des romans écrits en français et italien. Nous proposons une amélioration de la méthode Delta ainsi qu’une nouvelle grille d’analyse pour cette approche. Ensuite, nous avons appliqué ces approches sur notre collection de comédies. Les résultats démontrent que l’hypothèse de base doit être écartée. De plus, ces œuvres présentent des styles proches rendant toute attribution difficile.</abstract>
+      <url hash="b18d8cf5">2023.jeptalnrecital-coria.8</url>
+      <language>fra</language>
+      <bibkey>savoy-2023-le</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Enrichissement des modèles de langue pré-entraînés par la distillation mutuelle des connaissances</title>
+      <author><first>Raphaël</first><last>Sourty</last></author>
+      <author><first>Jose G</first><last>Moreno</last></author>
+      <author><first>François-Paul</first><last>Servant</last></author>
+      <author><first>Lynda</first><last>Tamine</last></author>
+      <pages>139–156</pages>
+      <abstract>Les bases de connaissances sont des ressources essentielles dans un large éventail d’applications à forte intensité de connaissances. Cependant, leur incomplétude limite intrinsèquement leur utilisation et souligne l’importance de les compléter. À cette fin, la littérature a récemment adopté un point de vue de monde ouvert en associant la capacité des bases de connaissances à représenter des connaissances factuelles aux capacités des modèles de langage pré-entraînés (PLM) à capturer des connaissances linguistiques de haut niveau et contextuelles à partir de corpus de textes. Dans ce travail, nous proposons un cadre de distillation pour la complétion des bases de connaissances où les PLMs exploitent les étiquettes souples sous la forme de prédictions d’entités et de relations fournies par un modèle de plongements de bases de connaissances, tout en conservant leur pouvoir de prédiction d’entités sur de grandes collections des textes. Pour mieux s’adapter à la tâche de complétion des connaissances, nous étendons la modélisation traditionnelle du langage masqué des PLM à la prédiction d’entités et d’entités liées dans le contexte. Des expériences utilisant les tâches à forte intensité de connaissances dans le cadre du benchmark d’évaluation KILT montrent le potentiel de notre approche.</abstract>
+      <url hash="2323fe21">2023.jeptalnrecital-coria.9</url>
+      <language>fra</language>
+      <bibkey>sourty-etal-2023-enrichissement</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Constitution de sous-fils de conversations d’emails</title>
+      <author><first>Lionel</first><last>Tadonfouet Tadjou</last></author>
+      <author><first>Eric</first><last>De La Clergerie</last></author>
+      <author><first>Fabrice</first><last>Bourge</last></author>
+      <author><first>Tiphaine</first><last>Marie</last></author>
+      <pages>157–171</pages>
+      <abstract>Les conversations d’emails en entreprise sont parfois difficiles à suivre par les collaborateurs car elles peuvent traiter de plusieurs sujets à la fois et impliquer de nombreux interlocuteurs. Pour faciliter la compréhension des messages clés, il est utile de créer des sous-fils de conversations. Dans notre étude, nous proposons un pipeline en deux étapes pour reconnaître les actes de dialogue dans les segments de texte d’une conversation et les relier pour améliorer l’accessibilité de l’information. Ce pipeline construit ainsi des paires de segments de texte transverses sur les emails d’une conversationfacilitant ainsi la compréhension des messages clés inhérents à celle-ci. A notre connaissance, c’est la première fois que cette problématique de constitution de fils de conversations est abordée sur les conversations d’emails. Nous avons annoté le corpus d’emails BC3 en actes de dialogues et mis enrelation les segments de texte de conversation d’emails de BC3.</abstract>
+      <url hash="9552bf01">2023.jeptalnrecital-coria.10</url>
+      <language>fra</language>
+      <bibkey>tadonfouet-tadjou-etal-2023-constitution</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Intégration du raisonnement numérique dans les modèles de langue : État de l’art et direction de recherche</title>
+      <author><first>Sarah</first><last>Abchiche</last></author>
+      <author><first>Lynda</first><last>Said Lhadj</last></author>
+      <author><first>Vincent</first><last>Guigue</last></author>
+      <author><first>Laure</first><last>Soulier</last></author>
+      <pages>173–184</pages>
+      <abstract>Ces dernières années, les modèles de langue ont connu une évolution galopante grâce à l’augmentation de la puissance de calcul qui a rendu possible l’utilisation des réseaux de neurones. Parallèlement, l’intégration du raisonnement numérique dans les modèles de langue a suscité un intérêt grandissant. Pourtant, bien que l’entraînement des modèles de langue sur des données numériques soit devenu un paradigme courant, les modèles actuels ne parviennent pas à effectuer des calculs de manière satisfaisante. Pour y remédier, une solution est d’entraîner les modèles de langue à utiliser des outils externes tels qu’une calculatrice ou un “runtime” de code python pour effectuer le raisonnement numérique. L’objectif de ce papier est double, dans un premier temps nous passons en revue les travaux de l’état de l’art sur le raisonnement numérique dans les modèles de langue et dans un second temps nous discutons des différentes perspectives de recherche pour augmenter les compétences numériques des modèles.</abstract>
+      <url hash="84894bd1">2023.jeptalnrecital-coria.11</url>
+      <language>fra</language>
+      <bibkey>abchiche-etal-2023-integration</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Reconnaissance d’Entités Nommées fondée sur des Modèles de Langue Enrichis avec des Définitions des Types d’Entités</title>
+      <author><first>Jesús</first><last>Lovón Melgarejo</last></author>
+      <author><first>Jose</first><last>Moreno</last></author>
+      <author><first>Romaric</first><last>Besançon</last></author>
+      <author><first>Olivier</first><last>Ferret</last></author>
+      <author><first>Lynda</first><last>Tamine</last></author>
+      <pages>185–194</pages>
+      <abstract>Des études récentes ont identifié de nouveaux défis dans la tâche de reconnaissance d’entités nommées (NER), tels que la reconnaissance d’entités complexes qui ne sont pas des phrases nominales simples et/ou figurent dans des entrées textuelles courtes, avec une faible quantité d’informations contextuelles. Cet article propose une nouvelle approche qui relève ce défi, en se basant sur des modèles de langues pré-entraînés par enrichissement des définitions des types d’entités issus d’une base de connaissances. Les expériences menées dans le cadre de la tâche MultiCoNER I de SemEval ont montré que l’approche proposée permet d’atteindre des gains en performance par rapport aux modèles de référence de la tâche.</abstract>
+      <url hash="b743ee36">2023.jeptalnrecital-coria.12</url>
+      <language>fra</language>
+      <bibkey>lovon-melgarejo-etal-2023-reconnaissance</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Entity Enhanced Attention Graph-Based Passages Retrieval</title>
+      <author><first>Lucas</first><last>Albarede</last></author>
+      <author><first>Lorraine</first><last>Goeuriot</last></author>
+      <author><first>Philippe</first><last>Mulhem</last></author>
+      <author><first>Claude</first><last>Le Pape-Gardeux</last></author>
+      <author><first>Sylvain</first><last>Marie</last></author>
+      <author><first>Trinidad</first><last>Chardin-Segui</last></author>
+      <pages>196–200</pages>
+      <abstract>Passage retrieval is crucial in specialized domains where documents are long and complex, such as patents, legal documents, scientific reports, etc. We explore in this paper the integration of Entities and passages in Heterogeneous Attention Graph Models dedicated to passage retrieval. We use the two passage retrieval architectures based on re-ranking proposed in [1]. We experiment our proposal on the TREC CAR Y3 Passage Retrieval Task. The results obtained show an improvement over state-of-the-art techniques and proves the effectiveness of the approach. Our experiments also show the importance of using adequate parameters for such approach.</abstract>
+      <url hash="2a56f989">2023.jeptalnrecital-coria.13</url>
+      <bibkey>albarede-etal-2023-entity</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Highlighting exact matching via marking strategies for ad hoc document ranking with pretrained contextualized language models</title>
+      <author><first>Lila</first><last>Boualili</last></author>
+      <author><first>Jose</first><last>Moreno</last></author>
+      <author><first>Mohand</first><last>Boughanem</last></author>
+      <pages>201–201</pages>
+      <abstract>Les modèles de langue pré-entraînés (MLPs) à l’instar de BERT se sont révélés remarquablement efficaces pour le classement ad hoc. Contrairement aux modèles antérieurs à BERT qui nécessitent des composants neuronaux spécialisés pour capturer les différents aspects de la pertinence entre la requête et le document, les MLPs sont uniquement basés sur des blocs de “transformers” où l’attention est le seul mécanisme utilisé pour extraire des signaux à partir des interactions entre les termes de la requête et le document. Grâce à l’attention croisée du “transformer”, BERT s’est avéré être un modèle d’appariement sémantique efficace. Cependant, l’appariement exact reste un signal essentiel pour évaluer la pertinence d’un document par rapport à une requête de recherche d’informations, en dehors de l’appariement sémantique. Dans cet article, nous partons de l’hypothèse que BERT pourrait bénéficier d’indices explicites d’appariement exact pour mieux s’adapter à la tâche d’estimation de pertinence. Dans ce travail, nous explorons des stratégies d’intégration des signaux d’appariement exact en utilisant des “tokens” de marquage permettant de mettre en évidence les correspondances exactes entre les termes de la requête et ceux du document. Nous constatons que cette approche de marquage simple améliore de manière significative le modèle BERT vanille de référence. Nous démontrons empiriquement l’efficacité de notre approche par le biais d’expériences exhaustives sur trois collections standards en recherche d’information (RI). Les résultats montrent que les indices explicites de correspondance exacte transmis par le marquage sont bénéfiques pour des MLPs aussi bien BERT que pour ELECTRA. Nos résultats confirment que les indices traditionnels de RI, tels que la correspondance exacte de termes, sont toujours utiles pour les nouveaux modèles contextualisés pré-entraînés tels que BERT.</abstract>
+      <url hash="f31af2c8">2023.jeptalnrecital-coria.14</url>
+      <bibkey>boualili-etal-2023-highlighting</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Vers l’évaluation continue des systèmes de recherche d’information.</title>
+      <author><first>Petra</first><last>Galuscakova</last></author>
+      <author><first>Romain</first><last>Deveaud</last></author>
+      <author><first>Gabriela</first><last>Gonzalez-Saez</last></author>
+      <author><first>Philippe</first><last>Mulhem</last></author>
+      <author><first>Lorraine</first><last>Goeuriot</last></author>
+      <author><first>Florina</first><last>Piroi</last></author>
+      <author><first>Martin</first><last>Popel</last></author>
+      <pages>202–206</pages>
+      <abstract>Cet article présente le corpus de données associé à la première campagne évaluation LongEval dans le cadre de CLEF 2023. L’objectif de cette évaluation est d’étudier comment les systèmes de recherche d’informations réagissent à l’évolution des données qu’ils manipulent (notamment les documents et les requêtes). Nous détaillons les objectifs de la tâche, le processus d’acquisition des données et les mesures d’évaluation utilisées.</abstract>
+      <url hash="344e039f">2023.jeptalnrecital-coria.15</url>
+      <language>fra</language>
+      <bibkey>galuscakova-etal-2023-vers</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>C</fixed-case>o<fixed-case>SPLADE</fixed-case> : Adaptation d’un Modèle Neuronal Basé sur des Représentations Parcimonieuses pour la Recherche d’Information Conversationnelle</title>
+      <author><first>Nam</first><last>Le Hai</last></author>
+      <author><first>Thomas</first><last>Gerald</last></author>
+      <author><first>Thibault</first><last>Formal</last></author>
+      <author><first>Jian-Yun</first><last>Nie</last></author>
+      <author><first>Benjamin</first><last>Piwowarksi</last></author>
+      <author><first>Laure</first><last>Soulier</last></author>
+      <pages>207–212</pages>
+      <abstract>La recherche conversationnelle est une tâche qui vise à retrouver des documents à partir de la questioncourante de l’utilisateur ainsi que l’historique complet de la conversation. La plupart des méthodesantérieures sont basées sur une approche multi-étapes reposant sur une reformulation de la question.Cette étape de reformulation est critique, car elle peut conduire à un classement sous-optimal des do-cuments. D’autres approches ont essayé d’ordonner directement les documents, mais s’appuient pourla plupart sur un jeu de données contenant des pseudo-labels. Dans ce travail, nous proposons une tech-nique d’apprentissage à la fois “légère” et innovante pour un modèle contextualisé d’ordonnancementbasé sur SPLADE. En s’appuyant sur les représentations parcimonieuses de SPLADE, nous montronsque notre modèle, lorsqu’il est combiné avec le modèle de ré-ordonnancement T5Mono, obtient desrésultats qui sont compétitifs avec ceux obtenus par les participants des campagnes d’évaluation TRECCAsT 2020 et 2021. Le code source est disponible sur https://github.com/anonymous.</abstract>
+      <url hash="76554917">2023.jeptalnrecital-coria.16</url>
+      <language>fra</language>
+      <bibkey>le-hai-etal-2023-cosplade</bibkey>
+    </paper>
+    <paper id="17">
+      <title>The Power of Selecting Key Blocks with Local Pre-ranking for Long Document Information Retrieval</title>
+      <author><first>Minghan</first><last>Li</last></author>
+      <author><first>Diana Nicoleta</first><last>Popa</last></author>
+      <author><first>Johan</first><last>Chagnon</last></author>
+      <author><first>Yagmur Gizem</first><last>Cinar</last></author>
+      <author><first>Eric</first><last>Gaussier</last></author>
+      <pages>213–213</pages>
+      <abstract>Les réseaux neuronaux profonds et les modèles fondés sur les transformeurs comme BERT ont envahi le domaine de la recherche d’informations (RI) ces dernières années. Leur succès est lié au mécanisme d’auto-attention qui permet de capturer les dépendances entre les mots indépendamment de leur distance. Cependant, en raison de sa complexité quadratique dans le nombre de mots, ce mécanisme ne peut être directement utilisé sur de longues séquences, ce qui ne permet pas de déployer entièrement les modèles neuronaux sur des documents longs pouvant contenir des milliers de mots. Trois stratégies standard ont été adoptées pour contourner ce problème. La première consiste à tronquer les documents longs, la deuxième à segmenter les documents longs en passages plus courts et la dernière à remplacer le module d’auto-attention par des modules d’attention parcimonieux. Dans le premier cas, des informations importantes peuvent être perdues et le jugement de pertinence n’est fondé que sur une partie de l’information contenue dans le document. Dans le deuxième cas, une architecture hiérarchique peut être adoptée pour construire une représentation du document sur la base des représentations de chaque passage. Cela dit, malgré ses résultats prometteurs, cette stratégie reste coûteuse en temps, en mémoire et en énergie. Dans le troisième cas, les contraintes de parcimonie peuvent conduire à manquer des dépendances importantes et, in fine, à des résultats sous-optimaux. L’approche que nous proposons est légèrement différente de ces stratégies et vise à capturer, dans les documents longs, les blocs les plus importants permettant de décider du statut, pertinent ou non, de l’ensemble du document. Elle repose sur trois étapes principales : (a) la sélection de blocs clés (c’est-à-dire susceptibles d’être pertinents) avec un pré-classement local en utilisant soit des modèles de RI classiques, soit un module d’apprentissage, (b) l’apprentissage d’une représentation conjointe des requêtes et des blocs clés à l’aide d’un modèle BERT standard, et (c) le calcul d’un score de pertinence final qui peut être considéré comme une agrégation d’informations de pertinence locale. Dans cet article, nous menons tout d’abord une analyse qui révèle que les signaux de pertinence peuvent apparaître à différents endroits dans les documents et que de tels signaux sont mieux capturés par des relations sémantiques que par des correspondances exactes. Nous examinons ensuite plusieurs méthodes pour sélectionner les blocs pertinents et montrons comment intégrer ces méthodes dans les modèles récents de RI.</abstract>
+      <url hash="43d3316e">2023.jeptalnrecital-coria.17</url>
+      <bibkey>li-etal-2023-power</bibkey>
+    </paper>
+    <paper id="18">
+      <title>i<fixed-case>QPP</fixed-case>: Une Référence pour la Prédiction de Performances des Requêtes d’Images</title>
+      <author><first>Eduard</first><last>Poesina</last></author>
+      <author><first>Radu Tudor</first><last>Ionescu</last></author>
+      <author><first>Josiane</first><last>Mothe</last></author>
+      <pages>214–220</pages>
+      <abstract>La prédiction de la performance des requêtes (QPP) dans le contexte de la recherche d’images basée sur le contenu reste une tâche largement inexplorée, en particulier dans le scénario de la recherche par l’exemple, où la requête est une image. Pour stimuler les recherches dans ce domaine, nous proposons la première collection de référence. Nous proposons un ensemble de quatre jeux de données (PASCAL VOC 2012, Caltech-101, ROxford5k et RParis6k) avec les performances attendues pour chaque requête à l’aide de deux modèles de recherche d’images état de l’art. Nous proposons également de nouveaux prédicteurs pré et post-recherche. Les résultats empiriques montrent que la plupart des prédicteurs ne se généralisent pas aux différents scénarios d’évaluation. Nos expériences exhaustives indiquent que l’iQPP est une référence difficile, révélant une importante lacune dans la recherche qui doit être abordée dans les travaux futurs. Nous publions notre code et nos données.</abstract>
+      <url hash="00b98e85">2023.jeptalnrecital-coria.18</url>
+      <language>fra</language>
+      <bibkey>poesina-etal-2023-iqpp</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>XPMIR</fixed-case>: Une bibliothèque modulaire pour l’apprentissage d’ordonnancement et les expériences de <fixed-case>RI</fixed-case> neuronale</title>
+      <author><first>Yuxuan</first><last>Zong</last></author>
+      <author><first>Benjamin</first><last>Piwowarski</last></author>
+      <pages>222–233</pages>
+      <abstract>Ces dernières années, plusieurs librairies pour la recherche d’information (neuronale) ont été proposées. Cependant, bien qu’elles permettent de reproduire des résultats déjà publiés, il est encore très difficile de réutiliser certaines parties des chaînes de traitement d’apprentissage, comme par exemple le pré-entraînement, la stratégie d’échantillonnage ou la définition du coût dans les modèles nouvellement développés. Il est également difficile d’utiliser de nouvelles techniques d’apprentissage avec d’anciens modèles, ce qui complique l’évaluation de l’utilité des nouvelles idées pour les différents modèles de RI neuronaux. Cela ralentit l’adoption de nouvelles techniques et, par conséquent, le développement du domaine de la RI. Dans cet article, nous présentons XPMIR, une librairie Python définissant un ensemble réutilisable de composants expérimentaux. La bibliothèque contient déjà des modèles et des techniques d’indexation de pointe, et est intégrée au hub HuggingFace.</abstract>
+      <url hash="1ee7b885">2023.jeptalnrecital-coria.19</url>
+      <language>fra</language>
+      <bibkey>zong-piwowarski-2023-xpmir</bibkey>
+    </paper>
+  </volume>
+  <volume id="rjc" ingest-date="2023-06-25" type="proceedings">
+    <meta>
+      <booktitle>Actes de CORIA-TALN 2023. Actes des 16e Rencontres Jeunes Chercheurs en RI (RJCRI) et 25e Rencontre des Étudiants Chercheurs en Informatique pour le Traitement Automatique des Langues (RÉCITAL)</booktitle>
+      <editor><first>Marie</first><last>Candito</last></editor>
+      <editor><first>Thomas</first><last>Gerald</last></editor>
+      <editor><first>José G</first><last>Moreno</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Paris, France</address>
+      <month>6</month>
+      <year>2023</year>
+      <venue>jeptalnrecital</venue>
+    </meta>
+    <frontmatter>
+      <url hash="67f0e382">2023.jeptalnrecital-rjc.0</url>
+      <bibkey>jep-taln-recital-2023-actes-de</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Les jeux de données en compréhension du langage naturel et parlé : paradigmes d’annotation et représentations sémantiques</title>
+      <author><first>Rim</first><last>Abrougui</last></author>
+      <pages>1–20</pages>
+      <abstract>La compréhension du langage naturel et parlé (NLU/SLU) couvre le problème d’extraire et d’annoter la structure sémantique, à partir des énoncés des utilisateurs dans le contexte des interactions humain/machine, telles que les systèmes de dialogue. Elle se compose souvent de deux tâches principales : la détection des intentions et la classification des concepts. Dans cet article, différents corpora SLU sont étudiés au niveau formel et sémantique : leurs différents formats d’annotations (à plat et structuré) et leurs ontologies ont été comparés et discutés. Avec leur pouvoir expressif gardant la hiérarchie sémantique entre les intentions et les concepts, les représentations sémantiques structurées sous forme de graphe ont été mises en exergue. En se positionnant vis à vis de la littérature et pour les futures études, une projection sémantique et une modification au niveau de l’ontologie du corpus MultiWOZ ont été proposées.</abstract>
+      <url hash="ea655370">2023.jeptalnrecital-rjc.1</url>
+      <language>fra</language>
+      <bibkey>abrougui-2023-les</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Étude de la fidélité des entités dans les résumés par abstraction</title>
+      <author><first>Eunice</first><last>Akani</last></author>
+      <pages>21–36</pages>
+      <abstract>L’un des problèmes majeurs dans le résumé automatique de texte par abstraction est la fidélité du résumé généré vis-à-vis du document. Les systèmes peuvent produire des informations incohérentes vis-à-vis du document. Ici, nous mettons l’accent sur ce phénomène en restant focalisé sur les entités nommées. L’objectif est de réduire les hallucinations sur celles-ci. Ainsi, nous avons généré des résumés par sampling et avons sélectionné, à l’aide d’un critère basé sur le risque d’hallucination sur les entités et les performances du modèle, ceux qui minimisent les hallucinations sur les entités. Une étude empirique du critère montre son adaptabilité pour la sélection de résumé. Nous avons proposé des heuristiques pour la détection des entités qui sont des variations ou flexions d’autres entités. Les résultats obtenus montrent que le critère réduit les hallucinations sur les entités nommées en gardant un score ROUGE comparable pour CNN/DM.</abstract>
+      <url hash="878b64b7">2023.jeptalnrecital-rjc.2</url>
+      <language>fra</language>
+      <bibkey>akani-2023-etude</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Mise en place d’un modèle compact à architecture Transformer pour la détection jointe des intentions et des concepts dans le cadre d’un système interactif de questions-réponses</title>
+      <author><first>Nadège</first><last>Alavoine</last></author>
+      <author><first>Arthur</first><last>Babin</last></author>
+      <pages>37–56</pages>
+      <abstract>Les tâches de détection d’intention et d’identification des concepts sont toutes deux des éléments importants de la compréhension de la parole. Elles sont souvent réalisées par deux modules différents au sein d’un pipeline. L’apparition de modèles réalisant conjointement ces deux tâches a permis d’exploiter les dépendances entre elles et d’améliorer les performances obtenues. Plus récemment, des modèles de détection jointe reposant sur des architectures Transformer ont été décrits dans la littérature. Par ailleurs, avec la popularité et taille croissante des modèles Transformer ainsi que les inquiétudes ergonomiques et écologiques grandissantes, des modèles compacts ont été proposés. Dans cet article, nous présentons la mise en place et l’évaluation d’un modèle compact pour la détection jointe de l’intention et des concepts. Notre contexte applicatif est celui d’un système interactif de questions-réponses français.</abstract>
+      <url hash="5573a1e0">2023.jeptalnrecital-rjc.3</url>
+      <language>fra</language>
+      <bibkey>alavoine-babin-2023-mise</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Utiliser les syntagmes nominaux complexes anglais pour évaluer la robustesse des systèmes de traduction anglais-français en langue de spécialité</title>
+      <author><first>Maud</first><last>Bénard</last></author>
+      <pages>57–71</pages>
+      <abstract>Nous défendons l’idée que l’analyse des erreurs faites lors de la traduction des syntagmes nominaux complexes présente un intérêt pour évaluer la robustesse des systèmes de traduction automatique anglais-français en langue de spécialité. Ces constructions syntaxiques impliquent des questions de syntaxe et de lexique qui constituent un obstacle important à leur compréhension et leur production pour les locuteurs d’anglais non natifs. Nous soutenons que ces analyses contribueraient à garantir que les systèmes de TA répondent aux exigences linguistiques des utilisateurs finaux auxquels ils sont destinés.</abstract>
+      <url hash="31c45ca1">2023.jeptalnrecital-rjc.4</url>
+      <language>fra</language>
+      <bibkey>benard-2023-utiliser</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Vers une implémentation de la théorie sens-texte avec les grammaires catégorielles abstraites</title>
+      <author><first>Marie</first><last>Cousin</last></author>
+      <pages>72–86</pages>
+      <abstract>La théorie sens-texte est une théorie linguistique visant à décrire la correspondance entre le sens et le texte d’un énoncé à l’aide d’un outil formel qui simule l’activité langagière d’un locuteur natif. Nous avons mis en place une premiere implémentation de cette théorie à l’aide des grammaires catégorielles abstraites, qui sont un formalisme grammatical basé sur le lambda-calcul. Cette implémentation représente les trois niveaux de représentation sémantique, syntaxique profonde et syntaxique de surface de la théorie sens-texte. Elle montre que la transition de l’un à l’autre de ces niveaux (en particulier la génération d’une représentation de syntaxe de surface à partir d’une représentation sémantique d’un même énoncé) peut être implémentée en utilisant les propriétés avantageuses des grammaires catégorielles abstraites, dont la transduction.</abstract>
+      <url hash="21ac028c">2023.jeptalnrecital-rjc.5</url>
+      <language>fra</language>
+      <bibkey>cousin-2023-vers</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Analyse de la légitimité des start-ups</title>
+      <author><first>Asmaa</first><last>Lagrid</last></author>
+      <pages>87–100</pages>
+      <abstract>La légitimité est un élément crucial pour la stabilité et la survie des startups en phase de croissance. Ce concept est défini dans la littérature comme étant la perception de l’adéquation d’une organisation à un système social en termes de règles, valeurs, normes et définitions. En d’autres termes, la légitimité des startups repose sur l’alignement des jugements subjectifs avec les jugements objectifs des experts, basés sur les performances des startups. Cette mesure de la subjectivité de la légitimité est très similaire à l’analyse des sentiments financiers réalisée sur les entreprises pour évaluer leur santé financière et prendre des décisions d’investissement. Dans ce travail, nous présentons les travaux sur la légitimité et les avancées de l’analyse des sentiments qui peuvent nous aider à analyser la légitimité. Nous examinons également les similitudes et les différences entre la légitimité et l’analyse des sentiments financiers. Nous présentons une première expérimentation sur les annonces de projets sur une plateforme de crowdfunding, en utilisant le modèle DistilBERT, qui a déjà été largement utilisé pour la classification de texte. En conclusion, nous discutons des perspectives de notre recherche pour mesurer la légitimité des startups.</abstract>
+      <url hash="6b752481">2023.jeptalnrecital-rjc.6</url>
+      <language>fra</language>
+      <bibkey>lagrid-2023-analyse</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Approches neuronales pour la détection des chaînes de coréférences : un état de l’art</title>
+      <author><first>Fabien</first><last>Lopez</last></author>
+      <pages>101–113</pages>
+      <abstract>La résolution des liens de coréférences est une tâche importante du TALN impliquant cohérence et compréhension d’un texte. Nous présenterons dans ce papier une vision actuelle de l’état de l’art sur la résolution des liens de coréférence depuis 2013 et l’avènement des modèles neuronaux pour cette tâche. Cela comprend les corpus disponibles en français, les méthodes d’évaluation ainsi que les différentes architectures et leur approche. Enfin nous détaillerons les résultats, témoignant de l’évolution de méthodes de résolutions des liens de coréférences.</abstract>
+      <url hash="56498cc4">2023.jeptalnrecital-rjc.7</url>
+      <language>fra</language>
+      <bibkey>lopez-2023-approches</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Etudes sur la géolocalisation de Tweets</title>
+      <author><first>Thibaud</first><last>Martin</last></author>
+      <pages>114–130</pages>
+      <abstract>La géolocalisation de textes non structurés est un problème de recherche consistant à extraire uncontexte géographique d’un texte court. Sa résolution passe typiquement par une recherche de termesspatiaux et de la désambiguïsation. Dans cet article, nous proposons une analyse du problème, ainsi que deux méthodes d’inférence pourdéterminer le lieu dont traite un texte : 1. Comparaison de termes spatiaux à un index géographique2. Géolocalisation de textes sans information géographique à partir d’un graphe de co-occurrencede termes (avec et sans composante temporelle) Nos recherches sont basées sur un dataset de 10 millions de Tweets traitant de lieux français, dont57 830 possèdent une coordonnée géographique.</abstract>
+      <url hash="4099995c">2023.jeptalnrecital-rjc.8</url>
+      <language>fra</language>
+      <bibkey>martin-2023-etudes</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>IR</fixed-case>-<fixed-case>S</fixed-case>en<fixed-case>T</fixed-case>rans<fixed-case>B</fixed-case>io: Modèles Neuronaux Siamois pour la Recherche d’Information Biomédicale</title>
+      <author><first>Safaa</first><last>Menad</last></author>
+      <pages>131–142</pages>
+      <abstract>L’entraînement de modèles transformeurs de langages sur des données biomédicales a permis d’obtenir des résultats prometteurs. Cependant, ces modèles de langage nécessitent pour chaque tâche un affinement (fine-tuning) sur des données supervisées très spécifiques qui sont peu disponibles dans le domaine biomédical. Dans le cadre de la classification d’articles scientifiques et les réponses aux questions biomédicales, nous proposons d’utiliser de nouveaux modèles neuronaux siamois (sentence transformers) qui plongent des textes à comparer dans un espace vectoriel. Nos modèles optimisent une fonction objectif d’apprentissage contrastif auto-supervisé sur des articles issus de la base de données bibliographique MEDLINE associés à leurs mots-clés MeSH (Medical Subject Headings). Les résultats obtenus sur plusieurs benchmarks montrent que les modèles proposés permettent de résoudre ces tâches sans exemples (zero-shot) et sont comparables à des modèles transformeurs biomédicaux affinés sur des données supervisés spécifiques aux problèmes traités. De plus, nous exploitons nos modèles dans la tâche de la recherche d’information biomédicale. Nous montrons que la combinaison de la méthode BM25 et de nos modèles permet d’obtenir des améliorations supplémentaires dans ce cadre.</abstract>
+      <url hash="27e38187">2023.jeptalnrecital-rjc.9</url>
+      <language>fra</language>
+      <bibkey>menad-2023-ir</bibkey>
+    </paper>
+    <paper id="10">
+      <title>L’évaluation de la traduction automatique du caractère au document : un état de l’art</title>
+      <author><first>Mariam</first><last>Nakhlé</last></author>
+      <pages>143–159</pages>
+      <abstract>Ces dernières années l’évaluation de la traduction automatique, qu’elle soit humaine ou automatique,a rencontré des difficultés. Face aux importantes avancées en matière de traduction automatiqueneuronale, l’évaluation s’est montrée peu fiable. De nombreuses nouvelles approches ont été pro-posées pour améliorer les protocoles d’évaluation. L’objectif de ce travail est de proposer une vued’ensemble sur l’état global de l’évaluation de la Traduction Automatique (TA). Nous commenceronspar exposer les approches d’évaluation humaine, ensuite nous présenterons les méthodes d’évaluationautomatiques tout en différenciant entre les familles d’approches (métriques superficielles et apprises)et nous prêterons une attention particulière à l’évaluation au niveau du document qui prend comptedu contexte. Pour terminer, nous nous concentrerons sur la méta-évaluation des méthodes.</abstract>
+      <url hash="4dc49e75">2023.jeptalnrecital-rjc.10</url>
+      <language>fra</language>
+      <bibkey>nakhle-2023-levaluation</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Normalisation lexicale de contenus générés par les utilisateurs sur les réseaux sociaux</title>
+      <author><first>Lydia</first><last>Nishimwe</last></author>
+      <pages>160–183</pages>
+      <abstract>L’essor du traitement automatique des langues (TAL) se vit dans un monde où l’on produit de plus en plus de contenus en ligne. En particulier sur les réseaux sociaux, les textes publiés par les internautes sont remplis de phénomènes « non standards » tels que les fautes d’orthographe, l’argot, les marques d’expressivité, etc. Ainsi, les modèles de TAL, en grande partie entraînés sur des données « standards », voient leur performance diminuer lorsqu’ils sont appliqués aux contenus générés par les utilisateurs (CGU). L’une des approches pour atténuer cette dégradation est la normalisation lexicale : les mots non standards sont remplacés par leurs formes standards. Dans cet article, nous réalisons un état de l’art de la normalisation lexicale des CGU, ainsi qu’une étude expérimentale préliminaire pour montrer les avantages et les difficultés de cette tâche.</abstract>
+      <url hash="76606a4b">2023.jeptalnrecital-rjc.11</url>
+      <language>fra</language>
+      <bibkey>nishimwe-2023-normalisation</bibkey>
+    </paper>
+  </volume>
+  <volume id="arts" ingest-date="2023-06-25" type="proceedings">
+    <meta>
+      <booktitle>Actes de CORIA-TALN 2023. Actes de l'atelier "Analyse et Recherche de Textes Scientifiques" (ARTS)@TALN 2023</booktitle>
+      <editor><first>Florian</first><last>Boudin</last></editor>
+      <editor><first>Béatrice</first><last>Daille</last></editor>
+      <editor><first>Richard</first><last>Dufour</last></editor>
+      <editor><first>Oumaima</first><last>El</last></editor>
+      <editor><first>Maël</first><last>Houbre</last></editor>
+      <editor><first>Léane</first><last>Jourdan</last></editor>
+      <editor><first>Nihel</first><last>Kooli</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Paris, France</address>
+      <month>6</month>
+      <year>2023</year>
+      <venue>jeptalnrecital</venue>
+    </meta>
+    <frontmatter>
+      <url hash="155c2d66">2023.jeptalnrecital-arts.0</url>
+      <bibkey>jep-taln-recital-2023-actes-de-coria</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>La pré-annotation automatique de textes cliniques comme support au dialogue avec les experts du domaine lors de la mise au point d’un schéma d’annotation</title>
+      <author><first>Virgile</first><last>Barthet</last></author>
+      <author><first>Marie-José</first><last>Aroulanda</last></author>
+      <author><first>Laura</first><last>Monceaux-Cachard</last></author>
+      <author><first>Christine</first><last>Jacquin</last></author>
+      <author><first>Cyril</first><last>Grouin</last></author>
+      <author><first>Johann</first><last>Gutton</last></author>
+      <author><first>Guillaume</first><last>Hocquet</last></author>
+      <author><first>Pascal</first><last>De Groote</last></author>
+      <author><first>Michel</first><last>Komajda</last></author>
+      <author><first>Emmanuel</first><last>Morin</last></author>
+      <author><first>Pierre</first><last>Zweigenbaum</last></author>
+      <pages>1–7</pages>
+      <abstract>La pré-annotation automatique de textes est une tâche essentielle qui peut faciliter l’annotationd’un corpus de textes. Dans le contexte de la cardiologie, l’annotation est une tâche complexe quinécessite des connaissances approfondies dans le domaine et une expérience pratique dans le métier.Pré-annoter les textes vise à diminuer le temps de sollicitation des experts, facilitant leur concentrationsur les aspects plus critiques de l’annotation. Nous rapportons ici une expérience de pré-annotationde textes cliniques en cardiologie : nous présentons ses modalités et les observations que nous enretirons sur l’interaction avec les experts du domaine et la mise au point du schéma d’an</abstract>
+      <url hash="65830462">2023.jeptalnrecital-arts.1</url>
+      <language>fra</language>
+      <bibkey>barthet-etal-2023-la</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>M</fixed-case>a<fixed-case>TOS</fixed-case>: Traduction automatique pour la science ouverte</title>
+      <author><first>Maud</first><last>Bénard</last></author>
+      <author><first>Alexandra</first><last>Mestivier</last></author>
+      <author><first>Natalie</first><last>Kubler</last></author>
+      <author><first>Lichao</first><last>Zhu</last></author>
+      <author><first>Rachel</first><last>Bawden</last></author>
+      <author><first>Eric</first><last>De La Clergerie</last></author>
+      <author><first>Laurent</first><last>Romary</last></author>
+      <author><first>Mathilde</first><last>Huguin</last></author>
+      <author><first>Jean-François</first><last>Nominé</last></author>
+      <author><first>Ziqian</first><last>Peng</last></author>
+      <author><first>François</first><last>Yvon</last></author>
+      <pages>8–15</pages>
+      <abstract>Cette contribution présente le projet MaTOS (Machine Translation for Open Science), qui vise à développer de nouvelles méthodes pour la traduction automatique (TA) intégrale de documents scientifiques entre le français et l’anglais, ainsi que des métriques automatiques pour évaluer la qualité des traductions produites. Pour ce faire, MaTOS s’intéresse (a) au recueil de ressources ouvertes pour la TA spécialisée; (b) à la description des marqueurs de cohérence textuelle pour les articles scientifiques; (c) au développement de nouvelles méthodes de traitement multilingue pour les documents; (d) aux métriques mesurant les progrès de la traduction de documents complets.</abstract>
+      <url hash="43188435">2023.jeptalnrecital-arts.2</url>
+      <language>fra</language>
+      <bibkey>benard-etal-2023-matos</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Projet <fixed-case>N</fixed-case>avi<fixed-case>T</fixed-case>erm : navigation terminologique pour une montée en compétence rapide et personnalisée sur un domaine de recherche</title>
+      <author><first>Florian</first><last>Boudin</last></author>
+      <author><first>Richard</first><last>Dufour</last></author>
+      <author><first>Béatrice</first><last>Daille</last></author>
+      <pages>16–20</pages>
+      <abstract>Cet article présente le projet NaviTerm dont l’objectif est d’accélérer la montée en compétence des chercheurs sur un domaine de recherche par la création automatique de représentations terminologiques synthétiques et navigables des connaissances scientifiques.</abstract>
+      <url hash="9a25e0bd">2023.jeptalnrecital-arts.3</url>
+      <language>fra</language>
+      <bibkey>boudin-etal-2023-projet</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Annotation d’interactions hôte-microbiote dans des articles scientifiques par similarité sémantique avec une ontologie</title>
+      <author><first>Oumaima</first><last>El Khettari</last></author>
+      <author><first>Solen</first><last>Quiniou</last></author>
+      <author><first>Samuel</first><last>Chaffron</last></author>
+      <pages>21–26</pages>
+      <abstract>Nous nous intéressons à l’extraction de relations, dans des articles scientifiques, portant sur le microbiome humain. Afin de construire un corpus annoté, nous avons évalué l’utilisation de l’ontologie OHMI pour détecter les relations présentes dans les phrases des articles scientifiques, en calculant la similarité sémantique entre les relations définies dans l’ontologie et les phrases des articles. Le modèle BERT et trois variantes biomédicales sont utilisés pour obtenir les représentations des relations et des phrases. Ces modèles sont comparés sur un corpus construit à partir d’articles scientifiques complets issus de la plateforme ISTEX, dont une sous-partie a été annotée manuellement.</abstract>
+      <url hash="f6fa6285">2023.jeptalnrecital-arts.4</url>
+      <language>fra</language>
+      <bibkey>el-khettari-etal-2023-annotation</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Quand des Non-Experts Recherchent des Textes Scientifiques Rapport sur l’action <fixed-case>CLEF</fixed-case> 2023 <fixed-case>S</fixed-case>imple<fixed-case>T</fixed-case>ext</title>
+      <author><first>Liana</first><last>Ermakova</last></author>
+      <author><first>Stéphane</first><last>Huet</last></author>
+      <author><first>Eric</first><last>Sanjuan</last></author>
+      <author><first>Hosein</first><last>Azarbonyad</last></author>
+      <author><first>Olivier</first><last>Augereau</last></author>
+      <author><first>Jaap</first><last>Kamps</last></author>
+      <pages>27–33</pages>
+      <abstract>Le grand public a tendance à éviter les sources fiables telles que la littérature scientifique en raison de leur langage complexe et du manque de connaissances nécessaires. Au lieu de cela, il s’appuie sur des sources superficielles, trouvées sur internet ou dans les médias sociaux et qui sont pourtant souvent publiées pour des raisons commerciales ou politiques, plutôt que pour leur valeur informative. La simplification des textes peut-elle contribuer à supprimer certains de ces obstacles à l’accès ? Cet article présente l’action « CLEF 2023 SimpleText » qui aborde les défis techniques et d’évaluation de l’accès à l’information scientifique pour le grand public. Nous fournissons des données réutilisables et des critères de référence pour la simplification des textes scientifiques et encourageons les recherches visant à faciliter à la compréhension des textes complexes.</abstract>
+      <url hash="a015a360">2023.jeptalnrecital-arts.5</url>
+      <language>fra</language>
+      <bibkey>ermakova-etal-2023-quand</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Apprentissage de dépendances entre labels pour la classification multi-labels à l’aide de transformeurs</title>
+      <author><first>Haytame</first><last>Fallah</last></author>
+      <author><first>Elisabeth</first><last>Murisasco</last></author>
+      <author><first>Emmanuel</first><last>Bruno</last></author>
+      <author><first>Patrice</first><last>Bellot</last></author>
+      <pages>34–40</pages>
+      <abstract>Dans cet article, nous proposons des approches pour améliorer les architectures basées sur des transformeurs pour la classification de documents multi-labels. Les dépendances entre les labels sont cruciales dans ce contexte. Notre méthode, appelée DepReg, ajoute un terme de régularisation à la fonction de perte pour encourager le modèle à prédire des labels susceptibles de coexister. Nous introduisons également un nouveau jeu de données nommé “arXiv-ACM”, composé de résumés scientifiques de la bibliothèque numérique arXiv, étiquetés avec les mots-clés ACM correspondants.</abstract>
+      <url hash="310f8dec">2023.jeptalnrecital-arts.6</url>
+      <language>fra</language>
+      <bibkey>fallah-etal-2023-apprentissage</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Elaboration d’un corpus d’apprentissage à partir d’articles de recherche en chimie</title>
+      <author><first>Bénédicte</first><last>Goujon</last></author>
+      <pages>41–46</pages>
+      <abstract>Dans le cadre d’un projet mené en 2021, un objectif consistait à extraire automatiquement des informations à partir d’articles de recherche en chimie des matériaux : des valeurs associées à des propriétés pour différents composants chimiques. Le travail présenté ici décrit les étapes de la construction du corpus textuel d’apprentissage, annoté manuellement par des experts du domaine selon les besoins identifiés dans le projet, pour une utilisation ultérieure par des outils d’extraction d’informations.</abstract>
+      <url hash="2acc1603">2023.jeptalnrecital-arts.7</url>
+      <language>fra</language>
+      <bibkey>goujon-2023-elaboration</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Classification de relation pour la génération de mots-clés absents</title>
+      <author><first>Maël</first><last>Houbre</last></author>
+      <author><first>Florian</first><last>Boudin</last></author>
+      <author><first>Béatrice</first><last>Daille</last></author>
+      <pages>47–53</pages>
+      <abstract>Les modèles encodeur-décodeur constituent l’état de l’art en génération de mots-clés. Cependant, malgré de nombreuses adaptations de cette architecture, générer des mots-clés absents du texte du document est toujours une tâche difficile. Cette étude montre qu’entraîner au préalable un modèle sur une tâche de classification de relation entre un document et un mot-clé, permet d’améliorer la génération de mots-clés absents.</abstract>
+      <url hash="fd9f171e">2023.jeptalnrecital-arts.8</url>
+      <language>fra</language>
+      <bibkey>houbre-etal-2023-classification</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Le corpus « Machine Translation » : une exploration diachronique des (méta)données Istex</title>
+      <author><first>Mathilde</first><last>Huguin</last></author>
+      <author><first>Sabine</first><last>Barreaux</last></author>
+      <pages>54–59</pages>
+      <abstract>Le corpus Machine Translation se compose de publications scientifiques issues du réservoir Istex. Conçu comme un cas d’usage, il permet d’explorer l’histoire de la traduction automatique au travers des métadonnées et des textes intégraux disponibles pour chacun de ses documents. D’une part, les métadonnées permettent d’apporter un premier regard sur le paysage de la traduction automatique grâce à des tableaux de bord bibliométriques. D’autre part, l’utilisation d’outils de fouille de textes sur le texte intégral rend saillantes des informations inaccessibles sans une lecture approfondie des articles. L’exploration du corpus est réalisée grâce à Lodex, logiciel open source dédié à la valorisation de données structurées.</abstract>
+      <url hash="7333cf63">2023.jeptalnrecital-arts.9</url>
+      <language>fra</language>
+      <bibkey>huguin-barreaux-2023-le</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>CASIMIR</fixed-case> : un Corpus d’Articles Scientifiques Intégrant les <fixed-case>M</fixed-case>od<fixed-case>I</fixed-case>fications et Révisions des auteurs</title>
+      <author><first>Léane</first><last>Jourdan</last></author>
+      <author><first>Florian</first><last>Boudin</last></author>
+      <author><first>Richard</first><last>Dufour</last></author>
+      <author><first>Nicolas</first><last>Hernandez</last></author>
+      <pages>60–65</pages>
+      <abstract>Écrire un article scientifique est une tâche difficile. L’écriture scientifique étant un genre très codifié, de bonnes compétences d’écriture sont essentielles pour transmettre ses idées et les résultats de ses recherches. Cet article décrit les motivations et les travaux préliminaires de la création du corpus CASIMIR dont l’objectif est d’offrir une ressource sur l’étape de révision du processus d’écriture d’un article scientifique. CASIMIR est un corpus des multiples versions de 26 355 articles scientifiques provenant d’OpenReview accompagné des relectures par les pairs.</abstract>
+      <url hash="0e93ebe2">2023.jeptalnrecital-arts.10</url>
+      <language>fra</language>
+      <bibkey>jourdan-etal-2023-casimir</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>MORFITT</fixed-case> : Un corpus multi-labels d’articles scientifiques français dans le domaine biomédical</title>
+      <author><first>Yanis</first><last>Labrak</last></author>
+      <author><first>Mickael</first><last>Rouvier</last></author>
+      <author><first>Richard</first><last>Dufour</last></author>
+      <pages>66–70</pages>
+      <abstract>Cet article présente MORFITT, le premier corpus multi-labels en français annoté en spécialités dans le domaine médical. MORFITT est composé de 3 624 résumés d’articles scientifiques issus de PubMed, annotés en 12 spécialités pour un total de 5 116 annotations. Nous détaillons le corpus, les expérimentations et les résultats préliminaires obtenus à l’aide d’un classifieur fondé sur le modèle de langage pré-entraîné CamemBERT. Ces résultats préliminaires démontrent la difficulté de la tâche, avec un F-score moyen pondéré de 61,78%.</abstract>
+      <url hash="6899cf91">2023.jeptalnrecital-arts.11</url>
+      <language>fra</language>
+      <bibkey>labrak-etal-2023-morfitt</bibkey>
+    </paper>
+    <paper id="12">
+      <title>La détection de textes générés par des modèles de langue : une tâche complexe? Une étude sur des textes académiques</title>
+      <author><first>Vijini</first><last>Liyanage</last></author>
+      <author><first>Davide</first><last>Buscaldi</last></author>
+      <pages>71–78</pages>
+      <abstract>L’émergence de modèles de langage très puissants tels que GPT-3 a sensibilisé les chercheurs à la problématique de la détection de textes académiques générés automatiquement, principalement dans un souci de prévention de plagiat. Plusieurs études ont montré que les modèles de détection actuels ont une précision élevée, en donnant l’impression que la tâche soit résolue. Cependant, nous avons observé que les ensembles de données utilisés pour ces expériences contiennent des textes générés automatiquement à partir de modèles pré-entraînés. Une utilisation plus réaliste des modèles de langage consisterait à effectuer un fine-tuning sur un texte écrit par un humain pour compléter les parties manquantes. Ainsi, nous avons constitué un corpus de textes générés de manière plus réaliste et mené des expériences avec plusieurs modèles de classification. Nos résultats montrent que lorsque les ensembles de données sont générés de manière réaliste pour simuler l’utilisation de modèles de langage par les chercheurs, la détection de ces textes devient une tâche assez difficile.</abstract>
+      <url hash="d150b643">2023.jeptalnrecital-arts.12</url>
+      <language>fra</language>
+      <bibkey>liyanage-buscaldi-2023-la</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Construction d’un jeu de données de publications scientifiques pour le <fixed-case>TAL</fixed-case> et la fouille de textes à partir d’<fixed-case>ISTEX</fixed-case></title>
+      <author><first>Constant</first><last>Mathieu</last></author>
+      <pages>79–79</pages>
+      <abstract>La plateforme ISTEX (https://www.istex.fr/) permet d’accéder à une large base d’archives scientifiques comptant plus de 25 millions de documents de tous les grands domaines scientifiques. Les documents incluent non seulement les métadonnées mais aussi le texte plein, et ont été prétraités de manière homogène pour faciliter leur traitement automatique. Dans cet exposé, nous présenterons une initiative pour créer une dynamique de recherche en TAL et TDM autour de ces données. En particulier, nous présenterons les travaux en cours pour la construction d’un jeu de données dédié au TAL et la fouille de textes.</abstract>
+      <url hash="626f7c8d">2023.jeptalnrecital-arts.13</url>
+      <language>fra</language>
+      <bibkey>mathieu-2023-construction</bibkey>
+    </paper>
+    <paper id="14">
+      <title>What shall we read : the article or the citations? - A case study on scientific language understanding</title>
+      <author><first>Aman</first><last>Sinha</last></author>
+      <author><first>Sam</first><last>Bigeard</last></author>
+      <author><first>Marianne</first><last>Clausel</last></author>
+      <author><first>Mathieu</first><last>Constant</last></author>
+      <pages>80–85</pages>
+      <abstract>The number of scientific articles is increasing tremendously across all domains to such an extent that it has become hard for researchers to remain up-to-date. Evidently, scientific language understanding systems and Information Extraction (IE) systems, with the advancement of Natural Language Processing (NLP) techniques, are benefiting the needs of users. Although the majority of the practices for building such systems are data-driven, advocating the idea of “The more, the better”. In this work, we revisit the paradigm - questioning what type of data : text (title, abstract) or citations, can have more impact on the performance of scientific language understanding systems.</abstract>
+      <url hash="2e0b2dd3">2023.jeptalnrecital-arts.14</url>
+      <bibkey>sinha-etal-2023-shall</bibkey>
+    </paper>
+  </volume>
+  <volume id="deft" ingest-date="2023-06-25" type="proceedings">
+    <meta>
+      <booktitle>Actes de CORIA-TALN 2023. Actes du Défi Fouille de Textes@TALN2023</booktitle>
+      <editor><first>Adrien</first><last>Bazoge</last></editor>
+      <editor><first>Béatrice</first><last>Daille</last></editor>
+      <editor><first>Richard</first><last>Dufour</last></editor>
+      <editor><first>Yanis</first><last>Labrak</last></editor>
+      <editor><first>Emmanuel</first><last>Morin</last></editor>
+      <editor><first>Mickael</first><last>Rouvier</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Paris, France</address>
+      <month>6</month>
+      <year>2023</year>
+      <venue>jeptalnrecital</venue>
+    </meta>
+    <frontmatter>
+      <url hash="3e86fefb">2023.jeptalnrecital-deft.0</url>
+      <bibkey>jep-taln-recital-2023-actes-de-coria-taln</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Qui de <fixed-case>D</fixed-case>r<fixed-case>BERT</fixed-case>, Wikipédia ou Flan-T5 s’y connaît le plus en questions médicales ?</title>
+      <author><first>Clément</first><last>Besnard</last></author>
+      <author><first>Mohamed</first><last>Ettaleb</last></author>
+      <author><first>Christian</first><last>Raymond</last></author>
+      <author><first>Nathalie</first><last>Camelin</last></author>
+      <pages>1–10</pages>
+      <abstract>Ce papier décrit la participation de l’équipe LIUM-IRISA à la campagne d’évaluation DEFT 2023.Notre équipe a participé à la tâche principale. Cette année, celle-ci consiste à la mise en placed’approches afin de répondre automatiquement à des questions à choix multiples. Nous avons mis enplace plusieurs systèmes, un premier avec une base de connaissances, un second système utilisant unmodèle génératif, un système à base de similarité et un dernier système combinant un ensemble dedescripteurs.</abstract>
+      <url hash="82620982">2023.jeptalnrecital-deft.1</url>
+      <language>fra</language>
+      <bibkey>besnard-etal-2023-qui</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>SPQR</fixed-case>@Deft2023: Similarité Sorbonne Pour les Systèmes de Question Réponse</title>
+      <author><first>Julien</first><last>Bezançon</last></author>
+      <author><first>Toufik</first><last>Boubehziz</last></author>
+      <author><first>Corina</first><last>Chutaux</last></author>
+      <author><first>Oumaima</first><last>Zine</last></author>
+      <author><first>Laurie</first><last>Acensio</last></author>
+      <author><first>Ibtihel</first><last>Ben Ltaifa</last></author>
+      <author><first>Nour El Houda</first><last>Ben Chaabene</last></author>
+      <author><first>Caroline</first><last>Koudoro-Parfait</last></author>
+      <author><first>Andrea</first><last>Briglia</last></author>
+      <author><first>Gaël</first><last>Lejeune</last></author>
+      <pages>11–22</pages>
+      <abstract>Nous présentons le travail de SPQR (Sorbonne Question-Réponses) au DÉfi Fouille de Textes 2023 sur la réponse automatique à des questionnaires à choix multiples dans le domaine de la pharmacologie. Nous proposons une approche fondée sur la constitution de corpus de spécialité et la recherche de phrases similaires entre ces corpus et les différentes réponses possibles à une question. Nous calculons une similarité cosinus sur des vecteurs en n-grammes de caractères pour déterminer les bonnes réponses. Cette approche a obtenu un score maximal en Hamming de 0,249 sur les données de test (0,305 sur le dev) et de 0,0997 en Exact Match Ratio (0,16 sur le dev).</abstract>
+      <url hash="334255ae">2023.jeptalnrecital-deft.2</url>
+      <language>fra</language>
+      <bibkey>bezancon-etal-2023-spqr</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Participation de l’équipe <fixed-case>TTGV</fixed-case> à <fixed-case>DEFT</fixed-case> 2023~: Réponse automatique à des <fixed-case>QCM</fixed-case> issus d’examens en pharmacie</title>
+      <author><first>Andréa</first><last>Blivet</last></author>
+      <author><first>Solène</first><last>Degrutère</last></author>
+      <author><first>Barbara</first><last>Gendron</last></author>
+      <author><first>Aurélien</first><last>Renault</last></author>
+      <author><first>Cyrille</first><last>Siouffi</last></author>
+      <author><first>Vanessa</first><last>Gaudray Bouju</last></author>
+      <author><first>Christophe</first><last>Cerisara</last></author>
+      <author><first>Hélène</first><last>Flamein</last></author>
+      <author><first>Gaël</first><last>Guibon</last></author>
+      <author><first>Matthieu</first><last>Labeau</last></author>
+      <author><first>Tom</first><last>Rousseau</last></author>
+      <pages>23–38</pages>
+      <abstract>Cet article présente l’approche de l’équipe TTGV dans le cadre de sa participation aux deux tâches proposées lors du DEFT 2023 : l’identification du nombre de réponses supposément justes à un QCM et la prédiction de l’ensemble de réponses correctes parmi les cinq proposées pour une question donnée. Cet article présente les différentes méthodologies mises en oeuvre, explorant ainsi un large éventail d’approches et de techniques pour aborder dans un premier temps la distinction entre les questions appelant une seule ou plusieurs réponses avant de s’interroger sur l’identification des réponses correctes. Nous détaillerons les différentes méthodes utilisées, en mettant en exergue leurs avantages et leurs limites respectives. Ensuite, nous présenterons les résultats obtenus pour chaque approche. Enfin, nous discuterons des limitations intrinsèques aux tâches elles-mêmes ainsi qu’aux approches envisagées dans cette contribution.</abstract>
+      <url hash="95a3a9ba">2023.jeptalnrecital-deft.3</url>
+      <language>fra</language>
+      <bibkey>blivet-etal-2023-participation</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Participation d’<fixed-case>EDF</fixed-case> <fixed-case>R</fixed-case>&amp;<fixed-case>D</fixed-case> au défi <fixed-case>DEFT</fixed-case> 2023 : réponses automatiques à des questionnaires à choix multiples à l’aide de « Larges Modèles de Langue »</title>
+      <author><first>Meryl</first><last>Bothua</last></author>
+      <author><first>Leila</first><last>Hassani</last></author>
+      <author><first>Marie</first><last>Jubault</last></author>
+      <author><first>Philippe</first><last>Suignard</last></author>
+      <pages>39–45</pages>
+      <abstract>Ce papier présente la participation d’EDF R&amp;D à la campagne d’évaluation DEFT 2023. Notre équipe a participé à la tâche de réponse automatique à des questions à choix multiples issus d’annales d’examens en pharmacie en français. Le corpus utilisé est FrenchMedMCQA. Nous avons testé des Large Language Models pour générer des réponses. Notre équipe s’est classée A COMPLETER.</abstract>
+      <url hash="5ec05807">2023.jeptalnrecital-deft.4</url>
+      <language>fra</language>
+      <bibkey>bothua-etal-2023-participation</bibkey>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>LIS</fixed-case>@<fixed-case>DEFT</fixed-case>’23 : les <fixed-case>LLM</fixed-case>s peuvent-ils répondre à des <fixed-case>QCM</fixed-case> ? (a) oui; (b) non; (c) je ne sais pas.</title>
+      <author><first>Benoit</first><last>Favre</last></author>
+      <pages>46–56</pages>
+      <abstract>Cet article présente un ensemble d’expériences sur la tâche de réponse à des questions à choix multiple de DEFT 2023. Des grands modèles de langage sont amorcés avec les questions afin de collecter les réponses générées. Les résultats montrent que les modèles ouverts sans affinage obtiennent des performances similaires à celles d’un système supervisé fondé sur BERT, et que l’affinage sur les données de la tâche apporte des améliorations.</abstract>
+      <url hash="b0d07bb3">2023.jeptalnrecital-deft.5</url>
+      <language>fra</language>
+      <bibkey>favre-2023-lis</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Tâches et systèmes de détection automatique des réponses correctes dans des <fixed-case>QCM</fixed-case>s liés au domaine médical : Présentation de la campagne <fixed-case>DEFT</fixed-case> 2023</title>
+      <author><first>Yanis</first><last>Labrak</last></author>
+      <author><first>Adrien</first><last>Bazoge</last></author>
+      <author><first>Béatrice</first><last>Daille</last></author>
+      <author><first>Richard</first><last>Dufour</last></author>
+      <author><first>Emmanuel</first><last>Morin</last></author>
+      <author><first>Mickael</first><last>Rouvier</last></author>
+      <pages>57–67</pages>
+      <abstract>L’édition 2023 du DÉfi Fouille de Textes (DEFT) s’est concentrée sur le développement de méthodes permettant de choisir automatiquement des réponses dans des questions à choix multiples (QCMs) en français. Les approches ont été évaluées sur le corpus FrenchMedMCQA, intégrant un ensemble de QCMs avec, pour chaque question, cinq réponses potentielles, dans le cadre d’annales d’examens de pharmacie.Deux tâches ont été proposées. La première consistait à identifier automatiquement l’ensemble des réponses correctes à une question. Les résultats obtenus, évalués selon la métrique de l’Exact Match Ratio (EMR), variaient de 9,97% à 33,76%, alors que les performances en termes de distance de Hamming s’échelonnaient de 24,93 à 52,94. La seconde tâche visait à identifier automatiquement le nombre exact de réponses correctes. Les résultats, quant à eux, étaient évalués d’une part avec la métrique de F1-Macro, variant de 13,26% à 42,42%, et la métrique (Accuracy), allant de 47,43% à 68,65%. Parmi les approches variées proposées par les six équipes participantes à ce défi, le meilleur système s’est appuyé sur un modèle de langage large de type LLaMa affiné en utilisant la méthode d’adaptation LoRA.</abstract>
+      <url hash="225f186f">2023.jeptalnrecital-deft.6</url>
+      <language>fra</language>
+      <bibkey>labrak-etal-2023-taches</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Passe ta pharma d’abord !</title>
+      <author><first>Simon</first><last>Meoni</last></author>
+      <author><first>Rian</first><last>Touchent</last></author>
+      <author><first>Eric</first><last>De La Clergerie</last></author>
+      <pages>68–76</pages>
+      <abstract>Nous présentons les 3 expériences menées par l’équipe ALMAnaCH - Arkhn et leurs résultats pour le DÉfi Fouille de Textes (DEFT) 2023. Les scores sont encourageants mais suggèrent surtout de nouveaux éléments à prendre en compte pour réussir ce défi. Nous avons exploré différentes approches avec des modèles de tailles variables et modélisé la tâche de différentes manières (classification multi-labels, implication textuelle, séquence à séquence). Nous n’avons pas observé des gains de performance significatifs. Nos expériences semblent montrer la nécessité de l’utilisation de bases de connaissances externes pour obtenir de bons résultats sur ce type de tâche.</abstract>
+      <url hash="4b6c028c">2023.jeptalnrecital-deft.7</url>
+      <bibkey>meoni-etal-2023-passe</bibkey>
+    </paper>
+  </volume>
+  <volume id="demos" ingest-date="2023-10-05" type="proceedings">
+    <meta>
+      <booktitle>Actes de CORIA-TALN 2023. Actes de la 30e Conférence sur le Traitement Automatique des Langues Naturelles (TALN), volume 5 : démonstrations</booktitle>
+      <editor><first>Christophe</first><last>Servan</last></editor>
+      <editor><first>Anne</first><last>Vilnat</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Paris, France</address>
+      <month>6</month>
+      <year>2023</year>
+      <venue>jeptalnrecital</venue>
+    </meta>
+    <frontmatter>
+      <url hash="99ed3c23">2023.jeptalnrecital-demos.0</url>
+      <bibkey>jep-taln-recital-2023-actes-de-coria-taln-2023-actes-de-la-30e</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Génération automatique de jeux de mots à base de prénoms</title>
+      <author><first>Mathieu</first><last>Dehouck</last></author>
+      <author><first>Marine</first><last>Delaborde</last></author>
+      <pages>1–2</pages>
+      <abstract>Nous présentons un système automatique de génération de blagues au format « Monsieur et Madame ».Ces blagues seront ensuite rendues accessibles sur un site internet où les visiteurs seront invités à lesnoter. Le tout servira ensuite à créer un corpus pour des études ultérieures.</abstract>
+      <url hash="c2b38e00">2023.jeptalnrecital-demos.1</url>
+      <language>fra</language>
+      <bibkey>dehouck-delaborde-2023-generation</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Éditeur logiciel pour une représentation graphique de la langue des signes française</title>
+      <author><first>Michael</first><last>Filhol</last></author>
+      <author><first>Thomas</first><last>Von Ascheberg</last></author>
+      <pages>3–5</pages>
+      <abstract>Démonstration d’un logiciel d’édition d’AZVD, un formalisme graphique pour la langue des signes française. Basé sur des productions spontanées de locuteurs, AZVD est conçu pour maximiser son adoptabilité par la communauté signante.</abstract>
+      <url hash="0d8c8fe1">2023.jeptalnrecital-demos.2</url>
+      <language>fra</language>
+      <bibkey>filhol-von-ascheberg-2023-editeur</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Plateformes pour la création de données en pictogrammes</title>
+      <author><first>Cécile</first><last>Macaire</last></author>
+      <author><first>Jordan</first><last>Arrigo</last></author>
+      <author><first>Chloé</first><last>Dion</last></author>
+      <author><first>Claire</first><last>Lemaire</last></author>
+      <author><first>Emmanuelle</first><last>Esperança-Rodier</last></author>
+      <author><first>Benjamin</first><last>Lecouteux</last></author>
+      <author><first>Didier</first><last>Schwab</last></author>
+      <pages>6–9</pages>
+      <abstract>Nous présentons un ensemble de trois interfaces web pour la création de données en pictogrammes dans le cadre du projet ANR Propicto. Chacune a un objectif précis : annoter des données textuelles en pictogrammes ARASAAC, créer un vocabulaire en pictogrammes, et post-éditer des phrases annotées en pictogrammes. Bien que nécessaire pour des outils de traduction automatique vers les unités pictographiques, actuellement, presque aucune ressource annotée n’existe. Cet article présente les spécificités de ces plateformes web (disponibles en ligne gratuitement) et leur utilité.</abstract>
+      <url hash="fe19202e">2023.jeptalnrecital-demos.3</url>
+      <language>fra</language>
+      <bibkey>macaire-etal-2023-plateformes</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>V</fixed-case>oice2<fixed-case>P</fixed-case>icto : un système de traduction automatique de la parole vers des pictogrammes</title>
+      <author><first>Cécile</first><last>Macaire</last></author>
+      <author><first>Emmanuelle</first><last>Esperança-Rodier</last></author>
+      <author><first>Benjamin</first><last>Lecouteux</last></author>
+      <author><first>Didier</first><last>Schwab</last></author>
+      <pages>10–13</pages>
+      <abstract>Nous présentons Voice2Picto, un système de traduction permettant, à partir de l’oral, de proposer une séquence de pictogrammes correspondants. S’appuyant sur des technologies du traitement automatique du langage naturel, l’outil a deux objectifs : améliorer l’accès à la communication pour (1) les personnes allophones dans un contexte d’urgence médicale, et (2) pour les personnes avec des difficultés de parole. Il permettra aux personnes des services hospitaliers, et aux familles de véhiculer un message en pictogrammes facilement compréhensible auprès de personnes ne pouvant communiquer via les canaux traditionnels de communication (parole, gestes, langue des signes). Dans cet article, nous décrivons l’architecture du système de Voice2Picto et les pistes futures. L’application est en open-source via un dépôt Git : https://github.com/macairececile/Voice2Picto.</abstract>
+      <url hash="30fb95c0">2023.jeptalnrecital-demos.4</url>
+      <language>fra</language>
+      <bibkey>macaire-etal-2023-voice2picto</bibkey>
+    </paper>
+  </volume>
+  <volume id="projet" ingest-date="2023-10-05" type="proceedings">
+    <meta>
+      <booktitle>Actes de CORIA-TALN 2023. Actes de la 30e Conférence sur le Traitement Automatique des Langues Naturelles (TALN), volume 6 : projets</booktitle>
+      <editor><first>Christophe</first><last>Servan</last></editor>
+      <editor><first>Anne</first><last>Vilnat</last></editor>
+      <publisher>ATALA</publisher>
+      <address>Paris, France</address>
+      <month>6</month>
+      <year>2023</year>
+      <venue>jeptalnrecital</venue>
+    </meta>
+    <frontmatter>
+      <url hash="918c5662">2023.jeptalnrecital-projet.0</url>
+      <bibkey>jep-taln-recital-2023-actes-de-coria-taln-2023-actes-de-la-30e-sur</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Les jeux de données en compréhension du langage naturel et parlé : paradigmes d’annotation et représentations sémantiques</title>
+      <author><first>Rim</first><last>Abrougui</last></author>
+      <pages>1–20</pages>
+      <abstract>La compréhension du langage naturel et parlé (NLU/SLU) couvre le problème d’extraire et d’annoter la structure sémantique, à partir des énoncés des utilisateurs dans le contexte des interactions humain/machine, telles que les systèmes de dialogue. Elle se compose souvent de deux tâches principales : la détection des intentions et la classification des concepts. Dans cet article, différents corpora SLU sont étudiés au niveau formel et sémantique : leurs différents formats d’annotations (à plat et structuré) et leurs ontologies ont été comparés et discutés. Avec leur pouvoir expressif gardant la hiérarchie sémantique entre les intentions et les concepts, les représentations sémantiques structurées sous forme de graphe ont été mises en exergue. En se positionnant vis à vis de la littérature et pour les futures études, une projection sémantique et une modification au niveau de l’ontologie du corpus MultiWOZ ont été proposées.</abstract>
+      <url hash="ebb17ed0">2023.jeptalnrecital-projet.1</url>
+      <language>fra</language>
+      <bibkey>abrougui-2023-les-jeux</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Projet Gender Equality Monitor (<fixed-case>GEM</fixed-case>)</title>
+      <author><first>Gilles</first><last>Adda</last></author>
+      <author><first>François</first><last>Buet</last></author>
+      <author><first>Sahar</first><last>Ghannay</last></author>
+      <author><first>Cyril</first><last>Grouin</last></author>
+      <author><first>Camille</first><last>Guinaudeau</last></author>
+      <author><first>Lufei</first><last>Liu</last></author>
+      <author><first>Aurélie</first><last>Névéol</last></author>
+      <author><first>Albert</first><last>Rilliard</last></author>
+      <author><first>Uro</first><last>Rémi</last></author>
+      <pages>21–21</pages>
+      <abstract>Le projet ANR Gender Equality Monitor (GEM) est coordonné par l’Institut National de l’Audiovisuel(INA) et vise à étudier la place des femmes dans les médias (radio et télévision). Dans cette soumission,nous présentons le travail réalisé au LISN : (i) étude diachronique des caractéristiques acoustiquesde la voix en fonction du genre et de l’âge, (ii) comparaison acoustique de la voix des femmeset hommes politiques montrant une incohérence entre performance vocale et commentaires sur lavoix, (iii) réalisation d’un système automatique d’estimation de la féminité perçue à partir descaractéristiques vocales, (iv) comparaison de systèmes de segmentation thématique de transcriptionsautomatiques de données audiovisuelles, (v) mesure des biais sociétaux dans les modèles de languedans un contexte multilingue et multi-culturel, et (vi) premiers essais d’identification de la publicitéen fonction du genre du locuteur.</abstract>
+      <url hash="31174c01">2023.jeptalnrecital-projet.2</url>
+      <bibkey>adda-etal-2023-projet</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>CEN</fixed-case>-<fixed-case>CENELEC</fixed-case> <fixed-case>JTC</fixed-case> 21 : La standardisation en <fixed-case>TALN</fixed-case> au service du règlement européen sur l’<fixed-case>IA</fixed-case></title>
+      <author><first>Lauriane</first><last>Aufrant</last></author>
+      <pages>22–22</pages>
+      <abstract>Cette contribution présente les travaux du comité européen de standardisation de l’IA en matière de TALN. Le comité CEN-CENELEC JTC 21 a été mandaté par la Commission européenne pour développer les standards techniques permettant la mise en application du futur règlement européen sur l’IA : performance, robustesse, transparence, etc. Dans ce contexte, le TALN a été identifié comme un volet spécifique de l’IA, méritant ses propres outils, critères et bonnes pratiques. Ce constat a mené au développement d’une feuille de route ambitieuse incluant plusieurs projets de standardisation en TALN.À ce jour, un premier travail d’inventaire et de définition des tâches de TALN a déjà été initié, et la rédaction d’un standard sur les métriques d’évaluation débute. Ces travaux ont aussi été l’occasion d’une réflexion plus large sur les besoins en standardisation du TALN, incluant une taxonomie des méthodes et des travaux sur les formats d’annotation et l’interopérabilité.</abstract>
+      <url hash="7549f0ff">2023.jeptalnrecital-projet.3</url>
+      <language>fra</language>
+      <bibkey>aufrant-2023-cen</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>TEMITALC</fixed-case> : Text Mining et <fixed-case>TAL</fixed-case> pour Analyser le Langage des Cachalots</title>
+      <author><first>Jose</first><last>Coch</last></author>
+      <author><first>Olivier</first><last>Adam</last></author>
+      <pages>23–25</pages>
+      <abstract>Les cachalots (Physeter macrocephalus) sont les plus grands des cétacés à dents. Comme tous les cétacés, ils communiquent notamment par des émissions vocales. Les cachalots produisent des clics au cours de leurs activités vitales et leurs interactions sociales. Certains de ces sons sont organisés en séquences temporelles, appelées « codas ». Depuis plus d’une dizaine d’années, des échanges audio ou « conversations » entre cachalots sont enregistrés dans de nombreux endroits dans le monde, par exemple dans l’Océan Pacifique, dans les Caraïbes et dans l’Océan Indien. La particularité des échanges vocaux entre cachalots fait que ces codas sont numérisables relativement facilement. Ainsi, il existe des corpus de transcriptions de conversations en particulier venant des origines géographiques citées. Durant 2022, une collaboration entre le Service NLP de Dassault Systèmes et l’équipe Bioacoustique de Sorbonne Université, basée sur les enregistrements sonores collectés et mis à disposition par Longitude 181 et Label Bleu Production, nous a permis d’initier un projet d’application des techniques de Text Mining et Traitement Automatique du Langage à l’étude du langage des cachalots. Nous avons exposé les premiers résultats du projet dans un article publié dans les Actes de l’atelier TextMine’23 de la conférence EGC’2023 concernant un corpus de cachalots résidents au large de l’Ile Maurice et identifiés individuellement. Nous utilisons dans ce projet le logiciel Proxem Studio, qui a la particularité de pouvoir être appliqué sans modèle de langue préalable car il peut construire des modèles de langue à partir des corpus à analyser. L’objectif du projet couvre les points suivants : - Optimiser et automatiser la transcription en codas des échanges audio entre cachalots, - Analyser les propriétés formelles du langage des cachalots : mettre en évidence que l’ordre entre codas a une importance, et découvrir s‘il est possible de décrire une proto-syntaxe de ce langage, - Mettre au point un référentiel d’éléments non linguistiques (comportements sociaux, données démographiques, relations familiales) et identifier des codas ou des séquences de codas montrant une corrélation avec ces éléments non linguistiques, et in fine, avancer des hypothèses sur la fonction de certaines codas ou séquences de codas, - Etudier les corrélations entre les participants à chaque conversation et les codas émis afin de déterminer si des codas ou séquences de codas peuvent être associées à des individus. Le projet bénéficie d’un financement de Dassault Systèmes et de Sorbonne Université. La fin du projet est prévue pour décembre 2024. Nos résultats vont contribuer ainsi à décrire le sophistiqué langage d’une espèce non-humaine.</abstract>
+      <url hash="4b27a85d">2023.jeptalnrecital-projet.4</url>
+      <language>fra</language>
+      <bibkey>coch-adam-2023-temitalc</bibkey>
+    </paper>
+    <paper id="5">
+      <title>mu<fixed-case>D</fixed-case>ial<fixed-case>B</fixed-case>ot, vers l’interaction humain-robot multimodale pro-active</title>
+      <author><first>Fabrice</first><last>Lefèvre</last></author>
+      <author><first>Timothée</first><last>Dhaussy</last></author>
+      <author><first>Bassam</first><last>Jabaian</last></author>
+      <author><first>Ahmed</first><last>Njifenjou</last></author>
+      <author><first>Virgile</first><last>Sucal</last></author>
+      <pages>26–29</pages>
+      <abstract>Dans le projet ANR muDialBot, notre ambition est d’incorporer pro-activement des traits de comportements humains dans la communication parlée. Nous projetons d’atteindre une nouvelle étape de l’exploitation de l’information riche fournie par les flux de données audio et visuelles venant des humains. En particulier en extraire des événements verbaux et non-verbaux devra permettre d’accroître les capacités de décision des robots afin de gérer les tours de parole plus naturellement et aussi de pouvoir basculer d’interactions de groupe à des dialogues en face-à-face selon la situation. Récemment on a vu croître l’intérêt pour les robots compagnons capable d’assister les individus dans leur vie quotidienne et de communiquer efficacement avec eux. Ces robots sont perçus comme des entités sociales et leur pertinence pour la santé et le bien-être psychologique a été mise en avant dans des études. Les patients, leurs familles et les professionels de santé pourront mieux apprécier le potentiel de ces robots, dans la mesure où certaines limites seront rapidement affranchies, telles leur capacité de mouvement, vision et écoute afin de communiquer naturellement avec les humains, aù-délà de ce que permettent déjà les écrans tactiles et les commandes vocales seuls. Les résultats scientifiques et technologiques du projet seront implémentés sur un robot social commercial et seront testés et validés avec plusieurs cas d’usage dans le contexte d’une unité d’hôpital de jour. Une collecte de données à grande échelle viendra compléter les test in-situ pour nourrir les recherches futures. Consoritium : LIA (porteur), INRIA Grenoble, Lab Hubert Curien, AP-HP Broca, ERM Automatismes</abstract>
+      <url hash="2bb8ace4">2023.jeptalnrecital-projet.5</url>
+      <bibkey>lefevre-etal-2023-mudialbot</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Projet <fixed-case>ANR</fixed-case> <fixed-case>MALIN</fixed-case> : <fixed-case>MA</fixed-case>nuels sco<fixed-case>L</fixed-case>aires <fixed-case>IN</fixed-case>clusifs</title>
+      <author><first>Olivier</first><last>Pons</last></author>
+      <author><first>Isabelle</first><last>Barbet</last></author>
+      <author><first>Jérôme</first><last>Dupire</last></author>
+      <author><first>Valérie</first><last>Grembi</last></author>
+      <author><first>Camille</first><last>Guinaudeau</last></author>
+      <author><first>Céline</first><last>Hudelot</last></author>
+      <author><first>Caroline</first><last>Huron</last></author>
+      <author><first>Elise</first><last>Lincker</last></author>
+      <author><first>Vincent</first><last>Mousseau</last></author>
+      <author><first>Léa</first><last>Pacini</last></author>
+      <pages>30–31</pages>
+      <abstract>L’école joue un rôle essentiel dans la vie des enfants. La restriction de la participation à l’école en raison d’un handicap réduit la qualité de vie. Une difficulté est l’inaccessibilité des manuels scolaires systématiquement utilisés en France pour accompagner les apprentissages. Notre projet vise à les rendre accessibles aux élèves en situation de handicap en innovant pour automatiser leur adaptation. Il s’appuie sur le croisement d’expertises médicale, pédagogique et de psychologie cognitive d’une part, d’expertises en interactions/interfaces homme-machine, accessibilité numérique, traitement de la langue et en conception de systèmes intelligents, d’autre part. Il s’agira de concevoir une plate-forme qui, en partant d’un manuel au format PDF (ou EPUB), mettra en oeuvre, via des modèles structurels et sémantiques du manuel, les adaptations et interfaces qui sont aujourd’hui principalement faites manuellement par les organismes de transposition. Ce travail est financé par l’ANR (financement ANR-21-CE38-0014).</abstract>
+      <url hash="352b54c0">2023.jeptalnrecital-projet.6</url>
+      <language>fra</language>
+      <bibkey>pons-etal-2023-projet</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>PROPICTO</fixed-case> : Développer des systèmes de traduction de la parole vers des séquences de pictogrammes pour améliorer l’accessibilité de la communication</title>
+      <author><first>Didier</first><last>Schwab</last></author>
+      <pages>32–35</pages>
+      <abstract>PROPICTO est un projet financé par l’Agence nationale de la recherche française et le Fonds national suisse de la recherche scientifique, qui vise à créer des systèmes de traduction de la parole en pictogramme avec le français comme langue d’entrée. En développant de telles technologies, nous avons l’intention d’améliorer l’accès à la communication pour les patients non francophones et les personnes souffrant de troubles cognitifs.</abstract>
+      <url hash="5079f785">2023.jeptalnrecital-projet.7</url>
+      <language>fra</language>
+      <bibkey>schwab-2023-propicto</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Recherche d’information conversationnelle</title>
+      <author><first>Laure</first><last>Soulier</last></author>
+      <author><first>Pierre</first><last>Erbacher</last></author>
+      <author><first>Thomas</first><last>Gerald</last></author>
+      <author><first>Hanane</first><last>Djeddal</last></author>
+      <author><first>Jian-Yun</first><last>Nie</last></author>
+      <author><first>Philippe</first><last>Preux</last></author>
+      <pages>36–36</pages>
+      <abstract>Le projet ANR JCJC SESAMS s’intéresse depuis 2018 au paradigme désormais actuels des systèmes de recherche d’information conversationnels. L’objectif est de formaliser des modèles de recherche d’information capables de fluidifier les interactions avec les utilisateurs pendant une session de recherche. Nous abordons différents enjeux : la prise en compte d’une conversation en langage naturel en contexte d’une recherche d’information, la génération d’interactions permettant de clarifier les besoins en information, la génération de réponse en langage naturel, ainsi que l’apprentissage continu pour s’adapter aux nouveaux besoins des utilisateurs. Nous présenterons dans ce poster ces différents enjeux et les contributions associées. Nous pourrons également discuter les perspectives de recherche dans ce domaine suite au développement récents des gros modèles de langue.</abstract>
+      <url hash="8ed0360e">2023.jeptalnrecital-projet.8</url>
+      <bibkey>soulier-etal-2023-recherche</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Autogramm : développement simultané de treebanks et de grammaires à partir de corpus</title>
+      <author><first>Sylvain</first><last>Kahane</last></author>
+      <author><first>Santiago</first><last>Herrera</last></author>
+      <author><first>Bruno</first><last>Guillaume</last></author>
+      <author><first>Kim</first><last>Gerdes</last></author>
+      <pages>37–42</pages>
+      <abstract>Ce projet de recherche vise à créer de nouveaux treebanks en dépendance pour des langues sous-dotées, en unifiant autant que possible leur développement avec celui de grammaires descriptives quantitatives. Nous présenterons notre chaîne de traitement et de développement de treebanks et nous discuterons du type de grammaire que nous voulons extraire. Enfin, nous examinerons l’utilisation de ces ressources en typologie quantitative.</abstract>
+      <url hash="a52b7031">2023.jeptalnrecital-projet.9</url>
+      <language>fra</language>
+      <bibkey>kahane-etal-2023-autogramm</bibkey>
+    </paper>
+  </volume>
+</collection>

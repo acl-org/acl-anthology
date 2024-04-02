@@ -1,0 +1,854 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.conll">
+  <volume id="1" ingest-date="2023-11-30" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 27th Conference on Computational Natural Language Learning (CoNLL)</booktitle>
+      <editor><first>Jing</first><last>Jiang</last></editor>
+      <editor><first>David</first><last>Reitter</last></editor>
+      <editor><first>Shumin</first><last>Deng</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Singapore</address>
+      <month>December</month>
+      <year>2023</year>
+      <url hash="7b1c4ded">2023.conll-1</url>
+      <venue>conll</venue>
+    </meta>
+    <frontmatter>
+      <url hash="4afd7925">2023.conll-1.0</url>
+      <bibkey>conll-2023-natural</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Can Language Models Be Tricked by Language Illusions? Easier with Syntax, Harder with Semantics</title>
+      <author><first>Yuhan</first><last>Zhang</last></author>
+      <author><first>Edward</first><last>Gibson</last></author>
+      <author><first>Forrest</first><last>Davis</last></author>
+      <pages>1–14</pages>
+      <abstract>Language models (LMs) have been argued to overlap substantially with human beings in grammaticality judgment tasks. But when humans systematically make errors in language processing, should we expect LMs to behave like cognitive models of language and mimic human behavior? We answer this question by investigating LMs’ more subtle judgments associated with “language illusions” – sentences that are vague in meaning, implausible, or ungrammatical but receive unexpectedly high acceptability judgments by humans. We looked at three illusions: the comparative illusion (e.g. “More people have been to Russia than I have”), the depth-charge illusion (e.g. “No head injury is too trivial to be ignored”), and the negative polarity item (NPI) illusion (e.g. “The hunter who no villager believed to be trustworthy will ever shoot a bear”). We found that probabilities represented by LMs were more likely to align with human judgments of being “tricked” by the NPI illusion which examines a structural dependency, compared to the comparative and the depth-charge illusions which require sophisticated semantic understanding. No single LM or metric yielded results that are entirely consistent with human behavior. Ultimately, we show that LMs are limited both in their construal as cognitive models of human language processing and in their capacity to recognize nuanced but critical information in complicated language materials.</abstract>
+      <url hash="f0945ac2">2023.conll-1.1</url>
+      <bibkey>zhang-etal-2023-language</bibkey>
+      <doi>10.18653/v1/2023.conll-1.1</doi>
+      <video href="2023.conll-1.1.mp4"/>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>T</fixed-case>o<fixed-case>MC</fixed-case>hallenges: A Principle-Guided Dataset and Diverse Evaluation Tasks for Exploring Theory of Mind</title>
+      <author><first>Xiaomeng</first><last>Ma</last></author>
+      <author><first>Lingyu</first><last>Gao</last></author>
+      <author><first>Qihui</first><last>Xu</last></author>
+      <pages>15–26</pages>
+      <abstract>Theory of Mind (ToM), the capacity to comprehend the mental states of distinct individuals, is essential for numerous practical applications. With the development of large language models (LLMs), there is a heated debate about whether they are able to perform ToM tasks. Previous studies have used different tasks and prompts to test the ToM on LLMs and the results are inconsistent: some studies asserted these models are capable of exhibiting ToM, while others suggest the opposite. In this study, We present ToMChallenges, a dataset for comprehensively evaluating the Theory of Mind based on Sally-Anne and Smarties tests with a diverse set of tasks. In addition, we also propose an auto-grader to streamline the answer evaluation process. We tested three models: davinci, turbo, and gpt-4. Our evaluation results and error analyses show that LLMs have inconsistent behaviors across prompts and tasks. Performing the ToM tasks robustly remains a challenge for the LLMs. In addition, our paper wants to raise awareness in evaluating the ToM in LLMs and we want to invite more discussion on how to design the prompts and tasks for ToM tasks that can better access the LLMs’ ability.</abstract>
+      <url hash="a21b3564">2023.conll-1.2</url>
+      <bibkey>ma-etal-2023-tomchallenges</bibkey>
+      <doi>10.18653/v1/2023.conll-1.2</doi>
+      <video href="2023.conll-1.2.mp4"/>
+    </paper>
+    <paper id="3">
+      <title>The <fixed-case>Z</fixed-case>ipfian Challenge: Learning the statistical fingerprint of natural languages</title>
+      <author><first>Christian</first><last>Bentz</last></author>
+      <pages>27–37</pages>
+      <abstract>Human languages are often claimed to fundamentally differ from other communication systems. But what is it exactly that unites them as a separate category? This article proposes to approach this problem – here termed the Zipfian Challenge – as a standard classification task. A corpus with textual material from diverse writing systems and languages, as well as other symbolic and non-symbolic systems, is provided. These are subsequently used to train and test binary classification algorithms, assigning labels “writing” and “non-writing” to character strings of the test sets. The performance is generally high, reaching 98% accuracy for the best algorithms. Human languages emerge to have a statistical fingerprint: large unit inventories, high entropy, and few repetitions of adjacent units. This fingerprint can be used to tease them apart from other symbolic and non-symbolic systems.</abstract>
+      <url hash="dada492f">2023.conll-1.3</url>
+      <attachment type="Software" hash="4551678f">2023.conll-1.3.Software.pdf</attachment>
+      <bibkey>bentz-2023-zipfian</bibkey>
+      <doi>10.18653/v1/2023.conll-1.3</doi>
+      <video href="2023.conll-1.3.mp4"/>
+    </paper>
+    <paper id="4">
+      <title>On the Effects of Structural Modeling for Neural Semantic Parsing</title>
+      <author><first>Xiang</first><last>Zhang</last></author>
+      <author><first>Shizhu</first><last>He</last></author>
+      <author><first>Kang</first><last>Liu</last></author>
+      <author><first>Jun</first><last>Zhao</last></author>
+      <pages>38–57</pages>
+      <abstract>Semantic parsing aims to map natural language sentences to predefined formal languages, such as logic forms and programming languages, as the semantic annotation. From the theoretic views of linguistic and programming language, structures play an important role in both languages, which had motivated semantic parsers since the task was proposed in the beginning. But in the neural era, semantic parsers treating both natural and formal language as sequences, such as Seq2Seq and LLMs, have got more attentions. On the other side, lots of neural progress have been made for grammar induction, which only focuses on natural languages. Although closely related in the sense of structural modeling, these techniques hadn’t been jointly analyzed on the semantic parsing testbeds. To gain the better understanding on structures for semantic parsing, we design a taxonomy of structural modeling methods, and evaluate some representative techniques on semantic parsing, including both compositional and i.i.d. generalizations. In addition to the previous opinion that structures will help in general, we find that (1) structures must be designed for the specific dataset and generalization level, and (2) what really matters is not the structure choice of either source or target side, but the choice combination of both sides. Based on the finding, we further propose a metric that can evaluate the structure choice, which we believe can boost the automation of grammar designs for specific datasets and domains.</abstract>
+      <url hash="d96f511a">2023.conll-1.4</url>
+      <attachment type="Software" hash="d3a639fc">2023.conll-1.4.Software.zip</attachment>
+      <bibkey>zhang-etal-2023-effects</bibkey>
+      <doi>10.18653/v1/2023.conll-1.4</doi>
+      <video href="2023.conll-1.4.mp4"/>
+    </paper>
+    <paper id="5">
+      <title>Humans and language models diverge when predicting repeating text</title>
+      <author><first>Aditya</first><last>Vaidya</last></author>
+      <author><first>Javier</first><last>Turek</last></author>
+      <author><first>Alexander</first><last>Huth</last></author>
+      <pages>58–69</pages>
+      <abstract>Language models that are trained on the next-word prediction task have been shown to accurately model human behavior in word prediction and reading speed. In contrast with these findings, we present a scenario in which the performance of humans and LMs diverges. We collected a dataset of human next-word predictions for five stimuli that are formed by repeating spans of text. Human and GPT-2 LM predictions are strongly aligned in the first presentation of a text span, but their performance quickly diverges when memory (or in-context learning) begins to play a role. We traced the cause of this divergence to specific attention heads in a middle layer. Adding a power-law recency bias to these attention heads yielded a model that performs much more similarly to humans. We hope that this scenario will spur future work in bringing LMs closer to human behavior.</abstract>
+      <url hash="278c5003">2023.conll-1.5</url>
+      <bibkey>vaidya-etal-2023-humans</bibkey>
+      <doi>10.18653/v1/2023.conll-1.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Investigating the Nature of Disagreements on Mid-Scale Ratings: A Case Study on the Abstractness-Concreteness Continuum</title>
+      <author><first>Urban</first><last>Knupleš</last></author>
+      <author><first>Diego</first><last>Frassinelli</last></author>
+      <author><first>Sabine</first><last>Schulte im Walde</last></author>
+      <pages>70–86</pages>
+      <abstract>Humans tend to strongly agree on ratings on a scale for extreme cases (e.g., a CAT is judged as very concrete), but judgements on mid-scale words exhibit more disagreement. Yet, collected rating norms are heavily exploited across disciplines. Our study focuses on concreteness ratings and (i) implements correlations and supervised classification to identify salient multi-modal characteristics of mid-scale words, and (ii) applies a hard clustering to identify patterns of systematic disagreement across raters. Our results suggest to either fine-tune or filter mid-scale target words before utilising them.</abstract>
+      <url hash="4993d99d">2023.conll-1.6</url>
+      <bibkey>knuples-etal-2023-investigating</bibkey>
+      <doi>10.18653/v1/2023.conll-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>A</fixed-case>rch<fixed-case>BERT</fixed-case>: Bi-Modal Understanding of Neural Architectures and Natural Languages</title>
+      <author><first>Mohammad</first><last>Akbari</last></author>
+      <author><first>Saeed</first><last>Ranjbar Alvar</last></author>
+      <author><first>Behnam</first><last>Kamranian</last></author>
+      <author><first>Amin</first><last>Banitalebi-Dehkordi</last></author>
+      <author><first>Yong</first><last>Zhang</last></author>
+      <pages>87–107</pages>
+      <abstract>Building multi-modal language models has been a trend in the recent years, where additional modalities such as image, video, speech, etc. are jointly learned along with natural languages (i.e., textual information). Despite the success of these multi-modal language models with different modalities, there is no existing solution for neural network architectures and natural languages. Providing neural architectural information as a new modality allows us to provide fast architecture-2-text and text-2-architecture retrieval/generation services on the cloud with a single inference. Such solution is valuable in terms of helping beginner and intermediate ML users to come up with better neural architectures or AutoML approaches with a simple text query. In this paper, we propose ArchBERT, a bi-modal model for joint learning and understanding of neural architectures and natural languages, which opens up new avenues for research in this area. We also introduce a pre-training strategy named Masked Architecture Modeling (MAM) for a more generalized joint learning. Moreover, we introduce and publicly release two new bi-modal datasets for training and validating our methods. The ArchBERT’s performance is verified through a set of numerical experiments on different downstream tasks such as architecture-oriented reasoning, question answering, and captioning (summarization). Datasets, codes, and demos are available as supplementary materials.</abstract>
+      <url hash="be175a75">2023.conll-1.7</url>
+      <attachment type="Software" hash="0e058b29">2023.conll-1.7.Software.zip</attachment>
+      <bibkey>akbari-etal-2023-archbert</bibkey>
+      <doi>10.18653/v1/2023.conll-1.7</doi>
+    </paper>
+    <paper id="8">
+      <title>A Comparative Study on Textual Saliency of Styles from Eye Tracking, Annotations, and Language Models</title>
+      <author><first>Karin</first><last>de Langis</last></author>
+      <author><first>Dongyeop</first><last>Kang</last></author>
+      <pages>108–121</pages>
+      <abstract>There is growing interest in incorporating eye-tracking data and other implicit measures of human language processing into natural language processing (NLP) pipelines. The data from human language processing contain unique insight into human linguistic understanding that could be exploited by language models. However, many unanswered questions remain about the nature of this data and how it can best be utilized in downstream NLP tasks. In this paper, we present EyeStyliency, an eye-tracking dataset for human processing of stylistic text (e.g., politeness). We develop an experimental protocol to collect these style-specific eye movements. We further investigate how this saliency data compares to both human annotation methods and model-based interpretability metrics. We find that while eye-tracking data is unique, it also intersects with both human annotations and model-based importance scores, providing a possible bridge between human- and machine-based perspectives. We propose utilizing this type of data to evaluate the cognitive plausibility of models that interpret style. Our eye-tracking data and processing code are publicly available.</abstract>
+      <url hash="fb2deda8">2023.conll-1.8</url>
+      <bibkey>de-langis-kang-2023-comparative</bibkey>
+      <doi>10.18653/v1/2023.conll-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>PROPRES</fixed-case>: Investigating the Projectivity of Presupposition with Various Triggers and Environments</title>
+      <author><first>Daiki</first><last>Asami</last></author>
+      <author><first>Saku</first><last>Sugawara</last></author>
+      <pages>122–137</pages>
+      <abstract>What makes a presupposition of an utterance —information taken for granted by its speaker— different from other pragmatic inferences such as an entailment is projectivity (e.g., the negative sentence the boy did not stop shedding tears presupposes the boy had shed tears before). The projectivity may vary depending on the combination of presupposition triggers and environments. However, prior natural language understanding studies fail to take it into account as they either use no human baseline or include only negation as an entailment-canceling environment to evaluate models’ performance. The current study attempts to reconcile these issues. We introduce a new dataset, projectivity of presupposition (PROPRES), which includes 12k premise–hypothesis pairs crossing six triggers involving some lexical variety with five environments. Our human evaluation reveals that humans exhibit variable projectivity in some cases. However, the model evaluation shows that the best-performed model, DeBERTa, does not fully capture it. Our findings suggest that probing studies on pragmatic inferences should take extra care of the human judgment variability and the combination of linguistic items.</abstract>
+      <url hash="3f6863c9">2023.conll-1.9</url>
+      <bibkey>asami-sugawara-2023-propres</bibkey>
+      <doi>10.18653/v1/2023.conll-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>A Minimal Approach for Natural Language Action Space in Text-based Games</title>
+      <author><first>Dongwon</first><last>Ryu</last></author>
+      <author><first>Meng</first><last>Fang</last></author>
+      <author><first>Gholamreza</first><last>Haffari</last></author>
+      <author><first>Shirui</first><last>Pan</last></author>
+      <author><first>Ehsan</first><last>Shareghi</last></author>
+      <pages>138–154</pages>
+      <abstract>Text-based games (TGs) are language-based interactive environments for reinforcement learning. While language models (LMs) and knowledge graphs (KGs) are commonly used for handling large action space in TGs, it is unclear whether these techniques are necessary or overused. In this paper, we revisit the challenge of exploring the action space in TGs and propose <tex-math>\epsilon</tex-math>-admissible exploration, a minimal approach of utilizing admissible actions, for training phase. Additionally, we present a text-based actor-critic (TAC) agent that produces textual commands for game, solely from game observations, without requiring any KG or LM. Our method, on average across 10 games from Jericho, outperforms strong baselines and state-of-the-art agents that use LM and KG. Our approach highlights that a much lighter model design, with a fresh perspective on utilizing the information within the environments, suffices for an effective exploration of exponentially large action spaces.</abstract>
+      <url hash="a77cdb8b">2023.conll-1.10</url>
+      <bibkey>ryu-etal-2023-minimal</bibkey>
+      <doi>10.18653/v1/2023.conll-1.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Structural Ambiguity and its Disambiguation in Language Model Based Parsers: the Case of <fixed-case>D</fixed-case>utch Clause Relativization</title>
+      <author><first>Gijs</first><last>Wijnholds</last></author>
+      <author><first>Michael</first><last>Moortgat</last></author>
+      <pages>155–164</pages>
+      <abstract>This paper addresses structural ambiguity in Dutch relative clauses. By investigating the task of disambiguation by grounding, we study how the presence of a prior sentence can resolve relative clause ambiguities. We apply this method to two parsing architectures in an attempt to demystify the parsing and language model components of two present-day neural parsers. Results show that a neurosymbolic parser, based on proof nets, is more open to data bias correction than an approach based on universal dependencies, although both set-ups suffer from a comparable initial data bias.</abstract>
+      <url hash="bb584b1a">2023.conll-1.11</url>
+      <bibkey>wijnholds-moortgat-2023-structural</bibkey>
+      <doi>10.18653/v1/2023.conll-1.11</doi>
+    </paper>
+    <paper id="12">
+      <title>On the utility of enhancing <fixed-case>BERT</fixed-case> syntactic bias with Token Reordering Pretraining</title>
+      <author><first>Yassir</first><last>El Mesbahi</last></author>
+      <author><first>Atif</first><last>Mahmud</last></author>
+      <author><first>Abbas</first><last>Ghaddar</last></author>
+      <author><first>Mehdi</first><last>Rezagholizadeh</last></author>
+      <author><first>Phillippe</first><last>Langlais</last></author>
+      <author><first>Prasanna</first><last>Parthasarathi</last></author>
+      <pages>165–182</pages>
+      <abstract>Self-supervised Language Modelling (LM) objectives —like BERT masked LM— have become the default choice for pretraining language models. TOken Reordering (TOR) pretraining objectives, beyond token prediction, have not been extensively studied yet. In this work, we explore challenges that underlie the development and usefulness of such objectives on downstream language tasks. In particular, we design a novel TOR pretraining objective which predicts whether two tokens are adjacent or not given a partial bag-of-tokens input. In addition, we investigate the usefulness of Graph Isomorphism Network (GIN), when placed on top of the BERT encoder, in order to enhance the overall model ability to leverage topological signal from the encoded representations. We compare language understanding abilities of TOR to the one of MLM on word-order sensitive (e.g. Dependency Parsing) and insensitive (e.g. text classification) tasks in both full training and few-shot settings. Our results indicate that TOR is competitive to MLM on the GLUE language understanding benchmark, and slightly superior on syntax-dependent datasets, especially in the few-shot setting.</abstract>
+      <url hash="def73e96">2023.conll-1.12</url>
+      <bibkey>el-mesbahi-etal-2023-utility</bibkey>
+      <doi>10.18653/v1/2023.conll-1.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Quirk or Palmer: A Comparative Study of Modal Verb Frameworks with Annotated Datasets</title>
+      <author><first>Risako</first><last>Owan</last></author>
+      <author><first>Maria</first><last>Gini</last></author>
+      <author><first>Dongyeop</first><last>Kang</last></author>
+      <pages>183–199</pages>
+      <abstract>Modal verbs, such as can, may, and must, are commonly used in daily communication to convey the speaker’s perspective related to the likelihood and/or mode of the proposition. They can differ greatly in meaning depending on how they’re used and the context of a sentence (e.g. “They must help each other out.” vs. “They must have helped each other out.”). Despite their practical importance in natural language understanding, linguists have yet to agree on a single, prominent framework for the categorization of modal verb senses. This lack of agreement stems from high degrees of flexibility and polysemy from the modal verbs, making it more difficult for researchers to incorporate insights from this family of words into their work. As a tool to help navigate this issue, this work presents MoVerb, a dataset consisting of 27,240 annotations of modal verb senses over 4,540 utterances containing one or more sentences from social conversations. Each utterance is annotated by three annotators using two different theoretical frameworks (i.e., Quirk and Palmer) of modal verb senses. We observe that both frameworks have similar inter-annotator agreements, despite having a different number of sense labels (eight for Quirk and three for Palmer). With RoBERTa-based classifiers fine-tuned on MoVerb, we achieve F1 scores of 82.2 and 78.3 on Quirk and Palmer, respectively, showing that modal verb sense disambiguation is not a trivial task.</abstract>
+      <url hash="1f30e48a">2023.conll-1.13</url>
+      <bibkey>owan-etal-2023-quirk</bibkey>
+      <doi>10.18653/v1/2023.conll-1.13</doi>
+    </paper>
+    <paper id="14">
+      <title>Quantifying Information of Tokens for Simple and Flexible Simultaneous Machine Translation</title>
+      <author><first>DongHyun</first><last>Lee</last></author>
+      <author><first>Minkyung</first><last>Park</last></author>
+      <author><first>Byung-Jun</first><last>Lee</last></author>
+      <pages>200–210</pages>
+      <abstract>Simultaneous Translation (ST) involves translating with only partial source inputs instead of the entire source inputs, a process that can potentially result in translation quality degradation. Previous approaches to balancing translation quality and latency have demonstrated that it is more efficient and effective to leverage an offline model with a reasonable policy. However, using an offline model also leads to a distribution shift since it is not trained with partial source inputs, and it can be improved by training an additional module that informs us when to translate. In this paper, we propose an Information Quantifier (IQ) that models source and target information to determine whether the offline model has sufficient information for translation, trained with oracle action sequences generated from the offline model. IQ, by quantifying information, helps in formulating a suitable policy for Simultaneous Translation that better generalizes and also allows us to control the trade-off between quality and latency naturally. Experiments on various language pairs show that our proposed model outperforms baselines.</abstract>
+      <url hash="9c963877">2023.conll-1.14</url>
+      <attachment type="Software" hash="b20b196d">2023.conll-1.14.Software.zip</attachment>
+      <bibkey>lee-etal-2023-quantifying</bibkey>
+      <doi>10.18653/v1/2023.conll-1.14</doi>
+      <video href="2023.conll-1.14.mp4"/>
+    </paper>
+    <paper id="15">
+      <title>Enhancing Code-mixed Text Generation Using Synthetic Data Filtering in Neural Machine Translation</title>
+      <author><first>Dama</first><last>Sravani</last></author>
+      <author><first>Radhika</first><last>Mamidi</last></author>
+      <pages>211–220</pages>
+      <abstract>Code-Mixing, the act of mixing two or more languages, is a common communicative phenomenon in multi-lingual societies. The lack of quality in code-mixed data is a bottleneck for NLP systems. On the other hand, Monolingual systems perform well due to ample high-quality data. To bridge the gap, creating coherent translations of monolingual sentences to their code-mixed counterparts can improve accuracy in code-mixed settings for NLP downstream tasks. In this paper, we propose a neural machine translation approach to generate high-quality code-mixed sentences by leveraging human judgements. We train filters based on human judgements to identify natural code-mixed sentences from a larger synthetically generated code-mixed corpus, resulting in a three-way silver parallel corpus between monolingual English, monolingual Indian language and code-mixed English with an Indian language. Using these corpora, we fine-tune multi-lingual encoder-decoder models viz, mT5 and mBART, for the translation task. Our results indicate that our approach of using filtered data for training outperforms the current systems for code-mixed generation in Hindi-English. Apart from Hindi-English, the approach performs well when applied to Telugu, a low-resource language, to generate Telugu-English code-mixed sentences.</abstract>
+      <url hash="674266bd">2023.conll-1.15</url>
+      <bibkey>sravani-mamidi-2023-enhancing</bibkey>
+      <doi>10.18653/v1/2023.conll-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Towards Better Evaluation of Instruction-Following: A Case-Study in Summarization</title>
+      <author><first>Ondrej</first><last>Skopek</last></author>
+      <author><first>Rahul</first><last>Aralikatte</last></author>
+      <author><first>Sian</first><last>Gooding</last></author>
+      <author><first>Victor</first><last>Carbune</last></author>
+      <pages>221–237</pages>
+      <abstract>Despite recent advances, evaluating how well large language models (LLMs) follow user instructions remains an open problem. While evaluation methods of language models have seen a rise in prompt-based approaches, limited work on the correctness of these methods has been conducted. In this work, we perform a meta-evaluation of a variety of metrics to quantify how accurately they measure the instruction-following abilities of LLMs. Our investigation is performed on grounded query-based summarization by collecting a new short-form, real-world dataset riSum, containing 300 document-instruction pairs with 3 answers each. All 900 answers are rated by 3 human annotators. Using riSum, we analyze the agreement between evaluation methods and human judgment. Finally, we propose new LLM-based reference-free evaluation methods that improve upon established baselines and perform on par with costly reference-based metrics that require high-quality summaries.</abstract>
+      <url hash="18fa7d39">2023.conll-1.16</url>
+      <bibkey>skopek-etal-2023-towards</bibkey>
+      <doi>10.18653/v1/2023.conll-1.16</doi>
+    </paper>
+    <paper id="17">
+      <title>Syntactic Inductive Bias in Transformer Language Models: Especially Helpful for Low-Resource Languages?</title>
+      <author><first>Luke</first><last>Gessler</last></author>
+      <author><first>Nathan</first><last>Schneider</last></author>
+      <pages>238–253</pages>
+      <abstract>A line of work on Transformer-based language models such as BERT has attempted to use syntactic inductive bias to enhance the pretraining process, on the theory that building syntactic structure into the training process should reduce the amount of data needed for training. But such methods are often tested for high-resource languages such as English. In this work, we investigate whether these methods can compensate for data sparseness in low-resource languages, hypothesizing that they ought to be more effective for low-resource languages. We experiment with five low-resource languages: Uyghur, Wolof, Maltese, Coptic, and Ancient Greek. We find that these syntactic inductive bias methods produce uneven results in low-resource settings, and provide surprisingly little benefit in most cases.</abstract>
+      <url hash="22bdf929">2023.conll-1.17</url>
+      <bibkey>gessler-schneider-2023-syntactic</bibkey>
+      <doi>10.18653/v1/2023.conll-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Attribution and Alignment: Effects of Local Context Repetition on Utterance Production and Comprehension in Dialogue</title>
+      <author><first>Aron</first><last>Molnar</last></author>
+      <author><first>Jaap</first><last>Jumelet</last></author>
+      <author><first>Mario</first><last>Giulianelli</last></author>
+      <author><first>Arabella</first><last>Sinclair</last></author>
+      <pages>254–273</pages>
+      <abstract>Language models are often used as the backbone of modern dialogue systems. These models are pre-trained on large amounts of written fluent language. Repetition is typically penalised when evaluating language model generations. However, it is a key component of dialogue. Humans use local and partner specific repetitions; these are preferred by human users and lead to more successful communication in dialogue. In this study, we evaluate (a) whether language models produce human-like levels of repetition in dialogue, and (b) what are the processing mechanisms related to lexical re-use they use during comprehension. We believe that such joint analysis of model production and comprehension behaviour can inform the development of cognitively inspired dialogue generation systems.</abstract>
+      <url hash="87c082df">2023.conll-1.18</url>
+      <bibkey>molnar-etal-2023-attribution</bibkey>
+      <doi>10.18653/v1/2023.conll-1.18</doi>
+    </paper>
+    <paper id="19">
+      <title>The Validity of Evaluation Results: Assessing Concurrence Across Compositionality Benchmarks</title>
+      <author><first>Kaiser</first><last>Sun</last></author>
+      <author><first>Adina</first><last>Williams</last></author>
+      <author><first>Dieuwke</first><last>Hupkes</last></author>
+      <pages>274–293</pages>
+      <abstract>NLP models have progressed drastically in recent years, according to numerous datasets proposed to evaluate performance. Questions remain, however, about how particular dataset design choices may impact the conclusions we draw about model capabilities. In this work, we investigate this question in the domain of compositional generalization. We examine the performance of six modeling approaches across 4 datasets, split according to 8 compositional splitting strategies, ranking models by 18 compositional generalization splits in total. Our results show that: i) the datasets, although all designed to evaluate compositional generalization, rank modeling approaches differently; ii) datasets generated by humans align better with each other than with synthetic datasets, or than the latter among themselves; iii) generally, whether datasets are sampled from the same source is more predictive of the resulting model ranking than whether they maintain the same interpretation of compositionality; and iv) specific lexical items in dataset impacts the measurement consistency. Overall, our results demonstrate that much work remains to be done when it comes to assessing whether popular evaluation datasets measure what they intend to measure, and suggests that elucidating more rigorous standards for establishing the validity of evaluation sets could benefit the field.</abstract>
+      <url hash="51f8773f">2023.conll-1.19</url>
+      <bibkey>sun-etal-2023-validity</bibkey>
+      <doi>10.18653/v1/2023.conll-1.19</doi>
+      <video href="2023.conll-1.19.mp4"/>
+    </paper>
+    <paper id="20">
+      <title>Mind the instructions: a holistic evaluation of consistency and interactions in prompt-based learning</title>
+      <author><first>Lucas</first><last>Weber</last></author>
+      <author><first>Elia</first><last>Bruni</last></author>
+      <author><first>Dieuwke</first><last>Hupkes</last></author>
+      <pages>294–313</pages>
+      <abstract>Finding the best way of adapting pre-trained language models to a task is a big challenge in current NLP. Just like the previous generation of <i>task-tuned</i> models (TT), models that are adapted to tasks via in-context-learning (ICL) or instruction tuning (IT) are robust in some setups, but not in others. Here, we present a detailed analysis of which design choices cause instabilities and inconsistencies in LLM predictions. First, we show how spurious correlations between input distributions and labels – a known issue in TT models – form only a minor problem for prompted models. Then we engage in a systematic, holistic evaluation of different factors that have been found to influence predictions in a prompting setup. We test all possible combinations of a range of factors on both vanilla and instruction-tuned LLMs of different scale, and statistically analyse the results to show which factors are the most influential, the most interactive or the most stable. From our results, we deduce which factors can be used without precautions, should be avoided or handled with care in most settings.</abstract>
+      <url hash="aeb35f01">2023.conll-1.20</url>
+      <bibkey>weber-etal-2023-mind</bibkey>
+      <doi>10.18653/v1/2023.conll-1.20</doi>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>M</fixed-case>ed-<fixed-case>HALT</fixed-case>: Medical Domain Hallucination Test for Large Language Models</title>
+      <author><first>Ankit</first><last>Pal</last></author>
+      <author><first>Logesh Kumar</first><last>Umapathi</last></author>
+      <author><first>Malaikannan</first><last>Sankarasubbu</last></author>
+      <pages>314–334</pages>
+      <abstract>This research paper focuses on the challenges posed by hallucinations in large language models (LLMs), particularly in the context of the medical domain. Hallucination, wherein these models generate plausible yet unverified or incorrect information, can have serious consequences in healthcare applications. We propose a new benchmark and dataset, Med-HALT (Medical Domain Hallucination Test), designed specifically to evaluate and reduce hallucinations. Med-HALT provides a diverse multinational dataset derived from medical examinations across various countries and includes multiple innovative testing modalities. Med-HALT includes two categories of tests reasoning and memory-based hallucination tests, designed to assess LLMs’ problem-solving and information retrieval abilities. Our study evaluated leading LLMs, including Text Davinci, GPT-3.5, LlaMa-2, MPT, and Falcon, revealing significant differences in their performance. The paper provides detailed insights into the dataset, promoting transparency and reproducibility. Through this work, we aim to contribute to the development of safer and more reliable language models in healthcare. Our benchmark can be found at medhalt.github.io</abstract>
+      <url hash="dd5a9404">2023.conll-1.21</url>
+      <bibkey>pal-etal-2023-med</bibkey>
+      <doi>10.18653/v1/2023.conll-1.21</doi>
+    </paper>
+    <paper id="22">
+      <title>Revising with a Backward Glance: Regressions and Skips during Reading as Cognitive Signals for Revision Policies in Incremental Processing</title>
+      <author><first>Brielen</first><last>Madureira</last></author>
+      <author><first>Pelin</first><last>Çelikkol</last></author>
+      <author><first>David</first><last>Schlangen</last></author>
+      <pages>335–351</pages>
+      <abstract>In NLP, incremental processors produce output in instalments, based on incoming prefixes of the linguistic input. Some tokens trigger revisions, causing edits to the output hypothesis, but little is known about why models revise when they revise. A policy that detects the time steps where revisions should happen can improve efficiency. Still, retrieving a suitable signal to train a revision policy is an open problem, since it is not naturally available in datasets. In this work, we investigate the appropriateness of regressions and skips in human reading eye-tracking data as signals to inform revision policies in incremental sequence labelling. Using generalised mixed-effects models, we find that the probability of regressions and skips by humans can potentially serve as useful predictors for revisions in BiLSTMs and Transformer models, with consistent results for various languages.</abstract>
+      <url hash="7af59754">2023.conll-1.22</url>
+      <bibkey>madureira-etal-2023-revising</bibkey>
+      <doi>10.18653/v1/2023.conll-1.22</doi>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>C</fixed-case>hi<fixed-case>SC</fixed-case>or: A Corpus of Freely-Told Fantasy Stories by <fixed-case>D</fixed-case>utch Children for Computational Linguistics and Cognitive Science</title>
+      <author><first>Bram</first><last>van Dijk</last></author>
+      <author><first>Max</first><last>van Duijn</last></author>
+      <author><first>Suzan</first><last>Verberne</last></author>
+      <author><first>Marco</first><last>Spruit</last></author>
+      <pages>352–363</pages>
+      <abstract>In this resource paper we release ChiSCor, a new corpus containing 619 fantasy stories, told freely by 442 Dutch children aged 4-12. ChiSCor was compiled for studying how children render character perspectives, and unravelling language and cognition in development, with computational tools. Unlike existing resources, ChiSCor’s stories were produced in natural contexts, in line with recent calls for more ecologically valid datasets. ChiSCor hosts text, audio, and annotations for character complexity and linguistic complexity. Additional metadata (e.g. education of caregivers) is available for one third of the Dutch children. ChiSCor also includes a small set of 62 English stories. This paper details how ChiSCor was compiled and shows its potential for future work with three brief case studies: i) we show that the syntactic complexity of stories is strikingly stable across children’s ages; ii) we extend work on Zipfian distributions in free speech and show that ChiSCor obeys Zipf’s law closely, reflecting its social context; iii) we show that even though ChiSCor is relatively small, the corpus is rich enough to train informative lemma vectors that allow us to analyse children’s language use. We end with a reflection on the value of narrative datasets in computational linguistics.</abstract>
+      <url hash="e4932424">2023.conll-1.23</url>
+      <bibkey>van-dijk-etal-2023-chiscor</bibkey>
+      <doi>10.18653/v1/2023.conll-1.23</doi>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>HNC</fixed-case>: Leveraging Hard Negative Captions towards Models with Fine-Grained Visual-Linguistic Comprehension Capabilities</title>
+      <author><first>Esra</first><last>Dönmez</last></author>
+      <author><first>Pascal</first><last>Tilli</last></author>
+      <author><first>Hsiu-Yu</first><last>Yang</last></author>
+      <author><first>Ngoc Thang</first><last>Vu</last></author>
+      <author><first>Carina</first><last>Silberer</last></author>
+      <pages>364–388</pages>
+      <abstract>Image-Text-Matching (ITM) is one of the defacto methods of learning generalized representations from a large corpus in Vision and Language (VL). However, due to the weak association between the web-collected image–text pairs, models fail to show fine-grained understanding of the combined semantics of these modalities. To this end, we propose Hard Negative Captions (HNC): an automatically created dataset containing foiled hard negative captions for ITM training towards achieving fine-grained cross-modal comprehension in VL. Additionally, we provide a challenging manually-created test set for benchmarking models on a fine-grained cross-modal mismatch with varying levels of compositional complexity. Our results show the effectiveness of training on HNC by improving the models’ zero-shot capabilities in detecting mismatches on diagnostic tasks and performing robustly under noisy visual input scenarios. Also, we demonstrate that HNC models yield a comparable or better initialization for fine-tuning. Our code and data are publicly available.</abstract>
+      <url hash="da89de6f">2023.conll-1.24</url>
+      <bibkey>donmez-etal-2023-hnc</bibkey>
+      <doi>10.18653/v1/2023.conll-1.24</doi>
+      <video href="2023.conll-1.24.mp4"/>
+    </paper>
+    <paper id="25">
+      <title>Theory of Mind in Large Language Models: Examining Performance of 11 State-of-the-Art models vs. Children Aged 7-10 on Advanced Tests</title>
+      <author><first>Max</first><last>van Duijn</last></author>
+      <author><first>Bram</first><last>van Dijk</last></author>
+      <author><first>Tom</first><last>Kouwenhoven</last></author>
+      <author><first>Werner</first><last>de Valk</last></author>
+      <author><first>Marco</first><last>Spruit</last></author>
+      <author><first>Peter</first><last>van der Putten</last></author>
+      <pages>389–402</pages>
+      <abstract>To what degree should we ascribe cognitive capacities to Large Language Models (LLMs), such as the ability to reason about intentions and beliefs known as Theory of Mind (ToM)? Here we add to this emerging debate by (i) testing 11 base- and instruction-tuned LLMs on capabilities relevant to ToM beyond the dominant false-belief paradigm, including non-literal language usage and recursive intentionality; (ii) using newly rewritten versions of standardized tests to gauge LLMs’ robustness; (iii) prompting and scoring for open besides closed questions; and (iv) benchmarking LLM performance against that of children aged 7-10 on the same tasks. We find that instruction-tuned LLMs from the GPT family outperform other models, and often also children. Base-LLMs are mostly unable to solve ToM tasks, even with specialized prompting. We suggest that the interlinked evolution and development of language and ToM may help explain what instruction-tuning adds: rewarding cooperative communication that takes into account interlocutor and context. We conclude by arguing for a nuanced perspective on ToM in LLMs.</abstract>
+      <url hash="0fba4f8b">2023.conll-1.25</url>
+      <bibkey>van-duijn-etal-2023-theory</bibkey>
+      <doi>10.18653/v1/2023.conll-1.25</doi>
+    </paper>
+    <paper id="26">
+      <title>A Block Metropolis-Hastings Sampler for Controllable Energy-based Text Generation</title>
+      <author><first>Jarad</first><last>Forristal</last></author>
+      <author><first>Fatemehsadat</first><last>Mireshghallah</last></author>
+      <author><first>Greg</first><last>Durrett</last></author>
+      <author><first>Taylor</first><last>Berg-Kirkpatrick</last></author>
+      <pages>403–413</pages>
+      <abstract>Recent work has shown that energy-based language modeling is an effective framework for controllable text generation because it enables flexible integration of arbitrary discriminators. However, because energy-based LMs are globally normalized, approximate techniques like Metropolis-Hastings (MH) are required for inference. Past work has largely explored simple proposal distributions that modify a single token at a time, like in Gibbs sampling. In this paper, we develop a novel MH sampler that, in contrast, proposes re-writes of the entire sequence in each step via iterative prompting of a large language model. Our new sampler (a) allows for more efficient and accurate sampling from a target distribution and (b) allows generation length to be determined through the sampling procedure rather than fixed in advance, as past work has required. We perform experiments on two controlled generation tasks, showing both downstream performance gains and more accurate target distribution sampling in comparison with single-token proposal techniques.</abstract>
+      <url hash="1351f125">2023.conll-1.26</url>
+      <bibkey>forristal-etal-2023-block</bibkey>
+      <doi>10.18653/v1/2023.conll-1.26</doi>
+    </paper>
+    <paper id="27">
+      <title>How Fragile is Relation Extraction under Entity Replacements?</title>
+      <author><first>Yiwei</first><last>Wang</last></author>
+      <author><first>Bryan</first><last>Hooi</last></author>
+      <author><first>Fei</first><last>Wang</last></author>
+      <author><first>Yujun</first><last>Cai</last></author>
+      <author><first>Yuxuan</first><last>Liang</last></author>
+      <author><first>Wenxuan</first><last>Zhou</last></author>
+      <author><first>Jing</first><last>Tang</last></author>
+      <author><first>Manjuan</first><last>Duan</last></author>
+      <author><first>Muhao</first><last>Chen</last></author>
+      <pages>414–423</pages>
+      <abstract>Relation extraction (RE) aims to extract the relations between entity names from the textual context. In principle, textual context determines the ground-truth relation and the RE models should be able to correctly identify the relations reflected by the textual context. However, existing work has found that the RE models memorize the entity name patterns to make RE predictions while ignoring the textual context. This motivates us to raise the question: are RE models robust to the entity replacements? In this work, we operate the random and type-constrained entity replacements over the RE instances in TACRED and evaluate the state-of-the-art RE models under the entity replacements. We observe the 30% - 50% F1 score drops on the state-of-the-art RE models under entity replacements. These results suggest that we need more efforts to develop effective RE models robust to entity replacements. We release the source code at https://github.com/wangywUST/RobustRE.</abstract>
+      <url hash="3961df60">2023.conll-1.27</url>
+      <bibkey>wang-etal-2023-fragile</bibkey>
+      <doi>10.18653/v1/2023.conll-1.27</doi>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>J</fixed-case>a<fixed-case>SPICE</fixed-case>: Automatic Evaluation Metric Using Predicate-Argument Structures for Image Captioning Models</title>
+      <author><first>Yuiga</first><last>Wada</last></author>
+      <author><first>Kanta</first><last>Kaneda</last></author>
+      <author><first>Komei</first><last>Sugiura</last></author>
+      <pages>424–435</pages>
+      <abstract>Image captioning studies heavily rely on automatic evaluation metrics such as BLEU and METEOR. However, such n-gram-based metrics have been shown to correlate poorly with human evaluation, leading to the proposal of alternative metrics such as SPICE for English; however, no equivalent metrics have been established for other languages. Therefore, in this study, we propose an automatic evaluation metric called JaSPICE, which evaluates Japanese captions based on scene graphs. The proposed method generates a scene graph from dependencies and the predicate-argument structure, and extends the graph using synonyms. We conducted experiments employing 10 image captioning models trained on STAIR Captions and PFN-PIC and constructed the Shichimi dataset, which contains 103,170 human evaluations. The results showed that our metric outperformed the baseline metrics for the correlation coefficient with the human evaluation.</abstract>
+      <url hash="944b94ce">2023.conll-1.28</url>
+      <bibkey>wada-etal-2023-jaspice</bibkey>
+      <doi>10.18653/v1/2023.conll-1.28</doi>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>M</fixed-case>u<fixed-case>LER</fixed-case>: Detailed and Scalable Reference-based Evaluation</title>
+      <author><first>Taelin</first><last>Karidi</last></author>
+      <author><first>Leshem</first><last>Choshen</last></author>
+      <author><first>Gal</first><last>Patel</last></author>
+      <author><first>Omri</first><last>Abend</last></author>
+      <pages>436–455</pages>
+      <abstract>We propose a novel methodology (namely, MuLER) that transforms any reference-based evaluation metric for text generation, such as machine translation (MT) into a fine-grained analysis tool. Given a system and a metric, MuLER quantifies how much the chosen metric penalizes specific error types (e.g., errors in translating names of locations). MuLER thus enables a detailed error analysis which can lead to targeted improvement efforts for specific phenomena. We perform experiments in both synthetic and naturalistic settings to support MuLER’s validity and showcase its usability in MT evaluation, and other tasks, such as summarization. Analyzing all submissions to WMT in 2014-2020, we find consistent trends. For example, nouns and verbs are among the most frequent POS tags. However, they are among the hardest to translate. Performance on most POS tags improves with overall system performance, but a few are not thus correlated (their identity changes from language to language). Preliminary experiments with summarization reveal similar trends.</abstract>
+      <url hash="3ee0c00d">2023.conll-1.29</url>
+      <bibkey>karidi-etal-2023-muler</bibkey>
+      <doi>10.18653/v1/2023.conll-1.29</doi>
+    </paper>
+    <paper id="30">
+      <title>The Impact of Familiarity on Naming Variation: A Study on Object Naming in <fixed-case>M</fixed-case>andarin <fixed-case>C</fixed-case>hinese</title>
+      <author><first>Yunke</first><last>He</last></author>
+      <author><first>Xixian</first><last>Liao</last></author>
+      <author><first>Jialing</first><last>Liang</last></author>
+      <author><first>Gemma</first><last>Boleda</last></author>
+      <pages>456–475</pages>
+      <abstract>Different speakers often produce different names for the same object or entity (e.g., “woman” vs. “tourist” for a female tourist). The reasons behind variation in naming are not well understood. We create a Language and Vision dataset for Mandarin Chinese that provides an average of 20 names for 1319 naturalistic images, and investigate how familiarity with a given kind of object relates to the degree of naming variation it triggers across subjects. We propose that familiarity influences naming variation in two competing ways: increasing familiarity can either expand vocabulary, leading to higher variation, or promote convergence on conventional names, thereby reducing variation. We find evidence for both factors being at play. Our study illustrates how computational resources can be used to address research questions in Cognitive Science.</abstract>
+      <url hash="7bd3e354">2023.conll-1.30</url>
+      <bibkey>he-etal-2023-impact</bibkey>
+      <doi>10.18653/v1/2023.conll-1.30</doi>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>PSST</fixed-case>! Prosodic Speech Segmentation with Transformers</title>
+      <author><first>Nathan</first><last>Roll</last></author>
+      <author><first>Calbert</first><last>Graham</last></author>
+      <author><first>Simon</first><last>Todd</last></author>
+      <pages>476–487</pages>
+      <abstract>We develop and probe a model for detecting the boundaries of prosodic chunks in untranscribed conversational English speech. The model is obtained by fine-tuning a Transformer-based speech-to-text (STT) model to integrate the identification of Intonation Unit (IU) boundaries with the STT task. The model shows robust performance, both on held-out data and on out-of-distribution data representing different dialects and transcription protocols. By evaluating the model on degraded speech data, and comparing it with alternatives, we establish that it relies heavily on lexico-syntactic information inferred from audio, and not solely on acoustic information typically understood to cue prosodic structure. We release our model as both a transcription tool and a baseline for further improvements in prosodic segmentation.</abstract>
+      <url hash="5501f929">2023.conll-1.31</url>
+      <attachment type="Software" hash="2fe3c342">2023.conll-1.31.Software.zip</attachment>
+      <bibkey>roll-etal-2023-psst</bibkey>
+      <doi>10.18653/v1/2023.conll-1.31</doi>
+    </paper>
+    <paper id="32">
+      <title>Alignment via Mutual Information</title>
+      <author><first>Shinjini</first><last>Ghosh</last></author>
+      <author><first>Yoon</first><last>Kim</last></author>
+      <author><first>Ramon</first><last>Fernandez Astudillo</last></author>
+      <author><first>Tahira</first><last>Naseem</last></author>
+      <author><first>Jacob</first><last>Andreas</last></author>
+      <pages>488–497</pages>
+      <abstract>Many language learning tasks require learners to infer correspondences between data in two modalities. Often, these alignments are many-to-many and context-sensitive. For example, translating into morphologically rich languages requires learning not just how words, but morphemes, should be translated; words and morphemes may have different meanings (or groundings) depending on the context in which they are used. We describe an information-theoretic approach to context-sensitive, many-to-many alignment. Our approach first trains a masked sequence model to place distributions over missing spans in (source, target) sequences. Next, it uses this model to compute pointwise mutual information between source and target spans conditional on context. Finally, it aligns spans with high mutual information. We apply this approach to two learning problems: character-based word translation (using alignments for joint morphological segmentation and lexicon learning) and visually grounded reference resolution (using alignments to jointly localize referents and learn word meanings). In both cases, our proposed approach outperforms both structured and neural baselines, showing that conditional mutual information offers an effective framework for formalizing alignment problems in general domains.</abstract>
+      <url hash="6f0623fc">2023.conll-1.32</url>
+      <bibkey>ghosh-etal-2023-alignment</bibkey>
+      <doi>10.18653/v1/2023.conll-1.32</doi>
+    </paper>
+    <paper id="33">
+      <title>Challenging the “One Single Vector per Token” Assumption</title>
+      <author><first>Mathieu</first><last>Dehouck</last></author>
+      <pages>498–507</pages>
+      <abstract>In this paper we question the almost universal assumption that in neural networks each token should be represented by a single vector. In fact, it is so natural to use one vector per word that most people do not even consider it as an assumption of their various models. Via a series of experiments on dependency parsing, in which we let each token in a sentence be represented by a sequence of vectors, we show that the “one single vector per token” assumption might be too strong for recurrent neural networks. Indeed, biaffine parsers seem to work better when their encoder accesses its input’s tokens’ representations in several time steps rather than all at once. This seems to indicate that having only one occasion to look at a token through its vector is too strong a constraint for recurrent neural networks and calls for further studies on the way tokens are fed to neural networks.</abstract>
+      <url hash="2b2bdd53">2023.conll-1.33</url>
+      <bibkey>dehouck-2023-challenging</bibkey>
+      <doi>10.18653/v1/2023.conll-1.33</doi>
+    </paper>
+    <paper id="34">
+      <title>Strategies to Improve Low-Resource Agglutinative Languages Morphological Inflection</title>
+      <author><first>Gulinigeer</first><last>Abudouwaili</last></author>
+      <author><first>Wayit</first><last>Ablez</last></author>
+      <author><first>Kahaerjiang</first><last>Abiderexiti</last></author>
+      <author><first>Aishan</first><last>Wumaier</last></author>
+      <author><first>Nian</first><last>Yi</last></author>
+      <pages>508–520</pages>
+      <abstract>Morphological inflection is a crucial task in the field of morphology and is typically considered a sequence transduction task. In recent years, it has received substantial attention from researchers and made significant progress. Models have achieved impressive performance levels for both high- and low-resource languages. However, when the distribution of instances in the training dataset changes, or novel lemma or feature labels are predicted, the model’s accuracy declines. In agglutinative languages, morphological inflection involves phonological phenomena while generating new words, which can alter the syllable patterns at the boundary between the lemma and the suffixes. This paper proposes four strategies for low-resource agglutinative languages to enhance the model’s generalization ability. Firstly, a convolution module extracts syllable-like units from lemmas, allowing the model to learn syllable features. Secondly, the lemma and feature labels are represented separately in the input, and the position encoding of the feature labels is marked so that the model learns the order between suffixes and labels. Thirdly, the model recognizes the common substrings in lemmas through two special characters and copies them into words. Finally, combined with syllable features, we improve the data augmentation method. A series of experiments show that the proposed model in this paper is superior to other baseline models.</abstract>
+      <url hash="926f7136">2023.conll-1.34</url>
+      <bibkey>abudouwaili-etal-2023-strategies</bibkey>
+      <doi>10.18653/v1/2023.conll-1.34</doi>
+    </paper>
+    <paper id="35">
+      <title>Exploring Transformers as Compact, Data-efficient Language Models</title>
+      <author><first>Clayton</first><last>Fields</last></author>
+      <author><first>Casey</first><last>Kennington</last></author>
+      <pages>521–531</pages>
+      <abstract>Large scale transformer models, trained with massive datasets have become the standard in natural language processing. The huge size of most transformers make research with these models impossible for those with limited computational resources. Additionally, the enormous pretraining data requirements of transformers exclude pretraining them with many smaller datasets that might provide enlightening results. In this study, we show that transformers can be significantly reduced in size, with as few as 5.7 million parameters, and still retain most of their downstream capability. Further we show that transformer models can retain comparable results when trained on human-scale datasets, as few as 5 million words of pretraining data. Overall, the results of our study suggest transformers function well as compact, data efficient language models and that complex model compression methods, such as model distillation are not necessarily superior to pretraining reduced size transformer models from scratch.</abstract>
+      <url hash="fd949d1d">2023.conll-1.35</url>
+      <bibkey>fields-kennington-2023-exploring</bibkey>
+      <doi>10.18653/v1/2023.conll-1.35</doi>
+    </paper>
+    <paper id="36">
+      <title>Tree-shape Uncertainty for Analyzing the Inherent Branching Bias of Unsupervised Parsing Models</title>
+      <author><first>Taiga</first><last>Ishii</last></author>
+      <author><first>Yusuke</first><last>Miyao</last></author>
+      <pages>532–547</pages>
+      <abstract>This paper presents the formalization of tree-shape uncertainty that enables us to analyze the inherent branching bias of unsupervised parsing models using raw texts alone. Previous work analyzed the branching bias of unsupervised parsing models by comparing the outputs of trained parsers with gold syntactic trees. However, such approaches do not consider the fact that texts can be generated by different grammars with different syntactic trees, possibly failing to clearly separate the inherent bias of the model and the bias in train data learned by the model. To this end, we formulate tree-shape uncertainty and derive sufficient conditions that can be used for creating texts that are expected to contain no biased information on branching. In the experiment, we show that training parsers on such unbiased texts can effectively detect the branching bias of existing unsupervised parsing models. Such bias may depend only on the algorithm, or it may depend on seemingly unrelated dataset statistics such as sequence length and vocabulary size.</abstract>
+      <url hash="342a18cf">2023.conll-1.36</url>
+      <bibkey>ishii-miyao-2023-tree</bibkey>
+      <doi>10.18653/v1/2023.conll-1.36</doi>
+    </paper>
+    <paper id="37">
+      <title>Future Lens: Anticipating Subsequent Tokens from a Single Hidden State</title>
+      <author><first>Koyena</first><last>Pal</last></author>
+      <author><first>Jiuding</first><last>Sun</last></author>
+      <author><first>Andrew</first><last>Yuan</last></author>
+      <author><first>Byron</first><last>Wallace</last></author>
+      <author><first>David</first><last>Bau</last></author>
+      <pages>548–560</pages>
+      <abstract>We conjecture that hidden state vectors corresponding to individual input tokens encode information sufficient to accurately predict several tokens ahead. More concretely, in this paper we ask: Given a hidden (internal) representation of a single token at position t in an input, can we reliably anticipate the tokens that will appear at positions ≥ t + 2? To test this, we measure linear approximation and causal intervention methods in GPT-J-6B to evaluate the degree to which individual hidden states in the network contain signal rich enough to predict future hidden states and, ultimately, token outputs. We find that, at some layers, we can approximate a model’s output with more than 48% accuracy with respect to its prediction of subsequent tokens through a single hidden state. Finally we present a “Future Lens” visualization that uses these methods to create a new view of transformer states.</abstract>
+      <url hash="86ce6db2">2023.conll-1.37</url>
+      <bibkey>pal-etal-2023-future</bibkey>
+      <doi>10.18653/v1/2023.conll-1.37</doi>
+    </paper>
+    <paper id="38">
+      <title>Cross-Document Event Coreference Resolution: Instruct Humans or Instruct <fixed-case>GPT</fixed-case>?</title>
+      <author><first>Jin</first><last>Zhao</last></author>
+      <author><first>Nianwen</first><last>Xue</last></author>
+      <author><first>Bonan</first><last>Min</last></author>
+      <pages>561–574</pages>
+      <abstract>This paper explores utilizing Large Language Models (LLMs) to perform Cross-Document Event Coreference Resolution (CDEC) annotations and evaluates how they fare against human annotators with different levels of training. Specifically, we formulate CDEC as a multi-category classification problem on pairs of events that are represented as decontextualized sentences, and compare the predictions of GPT-4 with the judgment of fully trained annotators and crowdworkers on the same data set. Our study indicates that GPT-4 with zero-shot learning outperformed crowd-workers by a large margin and exhibits a level of performance comparable to trained annotators. Upon closer analysis, GPT-4 also exhibits tendencies of being overly confident, and force annotation decisions even when such decisions are not warranted due to insufficient information. Our results have implications on how to perform complicated annotations such as CDEC in the age of LLMs, and show that the best way to acquire such annotations might be to combine the strengths of LLMs and trained human annotators in the annotation process, and using untrained or undertrained crowdworkers is no longer a viable option to acquire high-quality data to advance the state of the art for such problems.</abstract>
+      <url hash="73d6d228">2023.conll-1.38</url>
+      <bibkey>zhao-etal-2023-cross</bibkey>
+      <doi>10.18653/v1/2023.conll-1.38</doi>
+    </paper>
+    <paper id="39">
+      <title>Implications of Annotation Artifacts in Edge Probing Test Datasets</title>
+      <author><first>Sagnik</first><last>Ray Choudhury</last></author>
+      <author><first>Jushaan</first><last>Kalra</last></author>
+      <pages>575–586</pages>
+      <abstract>Edge probing tests are classification tasks that test for grammatical knowledge encoded in token representations coming from contextual encoders such as large language models (LLMs). Many LLM encoders have shown high performance in EP tests, leading to conjectures about their ability to encode linguistic knowledge. However, a large body of research claims that the tests necessarily do not measure the LLM’s capacity to encode knowledge, but rather reflect the classifiers’ ability to learn the problem. Much of this criticism stems from the fact that often the classifiers have very similar accuracy when an LLM vs a random encoder is used. Consequently, several modifications to the tests have been suggested, including information theoretic probes. We show that commonly used edge probing test datasets have various biases including memorization. When these biases are removed, the LLM encoders do show a significant difference from the random ones, even with the simple non-information theoretic probes.</abstract>
+      <url hash="e6599c00">2023.conll-1.39</url>
+      <attachment type="Software" hash="95fc2b20">2023.conll-1.39.Software.zip</attachment>
+      <bibkey>ray-choudhury-kalra-2023-implications</bibkey>
+      <doi>10.18653/v1/2023.conll-1.39</doi>
+    </paper>
+    <paper id="40">
+      <title><fixed-case>REFER</fixed-case>: An End-to-end Rationale Extraction Framework for Explanation Regularization</title>
+      <author><first>Mohammad Reza</first><last>Ghasemi Madani</last></author>
+      <author><first>Pasquale</first><last>Minervini</last></author>
+      <pages>587–602</pages>
+      <abstract>Human-annotated textual explanations are becoming increasingly important in Explainable Natural Language Processing. Rationale extraction aims to provide faithful (i.e. reflective of the behavior of the model) and plausible (i.e. convincing to humans) explanations by highlighting the inputs that had the largest impact on the prediction without compromising the performance of the task model. In recent works, the focus of training rationale extractors was primarily on optimizing for plausibility using human highlights, while the task model was trained on jointly optimizing for task predictive accuracy and faithfulness. We propose REFER, a framework that employs a differentiable rationale extractor that allows to back-propagate through the rationale extraction process. We analyze the impact of using human highlights during training by jointly training the task model and the rationale extractor. In our experiments, REFER yields significantly better results in terms of faithfulness, plausibility, and downstream task accuracy on both in-distribution and out-of-distribution data. On both e-SNLI and CoS-E, our best setting produces better results in terms of composite normalized relative gain than the previous baselines by 11% and 3%, respectively.</abstract>
+      <url hash="4c4d4d59">2023.conll-1.40</url>
+      <bibkey>ghasemi-madani-minervini-2023-refer</bibkey>
+      <doi>10.18653/v1/2023.conll-1.40</doi>
+      <video href="2023.conll-1.40.mp4"/>
+    </paper>
+  </volume>
+  <volume id="babylm" ingest-date="2023-12-07" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the BabyLM Challenge at the 27th Conference on Computational Natural Language Learning</booktitle>
+      <editor><first>Alex</first><last>Warstadt</last></editor>
+      <editor><first>Aaron</first><last>Mueller</last></editor>
+      <editor><first>Leshem</first><last>Choshen</last></editor>
+      <editor><first>Ethan</first><last>Wilcox</last></editor>
+      <editor><first>Chengxu</first><last>Zhuang</last></editor>
+      <editor><first>Juan</first><last>Ciro</last></editor>
+      <editor><first>Rafael</first><last>Mosquera</last></editor>
+      <editor><first>Bhargavi</first><last>Paranjabe</last></editor>
+      <editor><first>Adina</first><last>Williams</last></editor>
+      <editor><first>Tal</first><last>Linzen</last></editor>
+      <editor><first>Ryan</first><last>Cotterell</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Singapore</address>
+      <month>December</month>
+      <year>2023</year>
+      <url hash="cf3d3522">2023.conll-babylm</url>
+      <venue>conll</venue>
+    </meta>
+    <frontmatter>
+      <url hash="ff2b8372">2023.conll-babylm.0</url>
+      <bibkey>conll-2023-babylm</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Findings of the <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Challenge: Sample-Efficient Pretraining on Developmentally Plausible Corpora</title>
+      <author><first>Alex</first><last>Warstadt</last><affiliation>ETH Zürich, Switzerland</affiliation></author>
+      <author><first>Aaron</first><last>Mueller</last><affiliation>Northeastern University</affiliation></author>
+      <author><first>Leshem</first><last>Choshen</last><affiliation>MIT, IBM</affiliation></author>
+      <author><first>Ethan</first><last>Wilcox</last><affiliation>ETH Zürich, Switzerland</affiliation></author>
+      <author><first>Chengxu</first><last>Zhuang</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <author><first>Juan</first><last>Ciro</last><affiliation>MLCommons</affiliation></author>
+      <author><first>Rafael</first><last>Mosquera</last><affiliation>MLCommons</affiliation></author>
+      <author><first>Bhargavi</first><last>Paranjabe</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Adina</first><last>Williams</last><affiliation>Meta AI (FAIR)</affiliation></author>
+      <author><first>Tal</first><last>Linzen</last><affiliation>New York University</affiliation></author>
+      <author><first>Ryan</first><last>Cotterell</last><affiliation>ETH Zürich, Switzerland</affiliation></author>
+      <pages>1-34</pages>
+      <url hash="b66644ef">2023.conll-babylm.1</url>
+      <bibkey>warstadt-etal-2023-findings</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.1</doi>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>GPT</fixed-case>-wee: How Small Can a Small Language Model Really Get?</title>
+      <author><first>Bastian</first><last>Bunzeck</last></author>
+      <author><first>Sina</first><last>Zarrieß</last></author>
+      <pages>35-46</pages>
+      <url hash="18256e8d">2023.conll-babylm.2</url>
+      <bibkey>bunzeck-zarriess-2023-gpt</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Tiny Language Models Enriched with Multimodal Knowledge from Multiplex Networks</title>
+      <author><first>Clayton</first><last>Fields</last><affiliation>Boise State University</affiliation></author>
+      <author><first>Osama</first><last>Natouf</last><affiliation>Boise State University</affiliation></author>
+      <author><first>Andrew</first><last>McMains</last><affiliation>Boise State University</affiliation></author>
+      <author><first>Catherine</first><last>Henry</last><affiliation>Boise State University</affiliation></author>
+      <author><first>Casey</first><last>Kennington</last><affiliation>Boise State University</affiliation></author>
+      <pages>47-57</pages>
+      <url hash="b53e5300">2023.conll-babylm.3</url>
+      <bibkey>fields-etal-2023-tiny</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Mini Minds: Exploring Bebeshka and Zlata Baby Models</title>
+      <author><first>Irina</first><last>Proskurina</last><affiliation>University Lyon 2</affiliation></author>
+      <author><first>Guillaume</first><last>Metzler</last><affiliation>University Lyon 2</affiliation></author>
+      <author><first>Julien</first><last>Velcin</last><affiliation>University Lyon 2</affiliation></author>
+      <pages>58-68</pages>
+      <url hash="654f0c50">2023.conll-babylm.4</url>
+      <bibkey>proskurina-etal-2023-mini</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.4</doi>
+    </paper>
+    <paper id="5">
+      <title>Grammar induction pretraining for language modeling in low resource contexts</title>
+      <author><first>Xuanda</first><last>Chen</last><affiliation>McGill University</affiliation></author>
+      <author><first>Eva</first><last>Portelance</last><affiliation>McGill University</affiliation></author>
+      <pages>69-73</pages>
+      <url hash="f7307229">2023.conll-babylm.5</url>
+      <bibkey>chen-portelance-2023-grammar</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.5</doi>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>C</fixed-case>hap<fixed-case>GTP</fixed-case>, <fixed-case>ILLC</fixed-case>’s Attempt at Raising a <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>: Improving Data Efficiency by Automatic Task Formation</title>
+      <author><first>Jaap</first><last>Jumelet</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Michael</first><last>Hanna</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Marianne</first><last>de Heer Kloots</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Anna</first><last>Langedijk</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Charlotte</first><last>Pouw</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Oskar</first><last>van der Wal</last><affiliation>University of Amsterdam</affiliation></author>
+      <pages>74-85</pages>
+      <url hash="84e6d014">2023.conll-babylm.6</url>
+      <bibkey>jumelet-etal-2023-chapgtp</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.6</doi>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>P</fixed-case>enn &amp; <fixed-case>BGU</fixed-case> <fixed-case>B</fixed-case>aby<fixed-case>BERT</fixed-case>a+ for Strict-Small <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Challenge</title>
+      <author><first>Yahan</first><last>Yang</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Elior</first><last>Sulem</last><affiliation>Ben-Gurion University</affiliation></author>
+      <author><first>Insup</first><last>Lee</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Dan</first><last>Roth</last><affiliation>University of Pennsylvania</affiliation></author>
+      <pages>86-88</pages>
+      <url hash="0eb6ace5">2023.conll-babylm.7</url>
+      <bibkey>yang-etal-2023-penn</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Too Much Information: Keeping Training Simple for <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case>s</title>
+      <author><first>Lukas</first><last>Edman</last><affiliation>University of Groningen</affiliation></author>
+      <author><first>Lisa</first><last>Bylinina</last><affiliation>University of Groningen</affiliation></author>
+      <pages>89-97</pages>
+      <url hash="67a1b592">2023.conll-babylm.8</url>
+      <bibkey>edman-bylinina-2023-much</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Can training neural language models on a curriculum with developmentally plausible data improve alignment with human reading behavior?</title>
+      <author><first>Aryaman</first><last>Chobey</last><affiliation>Colgate University</affiliation></author>
+      <author><first>Oliver</first><last>Smith</last><affiliation>Colgate University</affiliation></author>
+      <author><first>Anzi</first><last>Wang</last><affiliation>Colgate University</affiliation></author>
+      <author><first>Grusha</first><last>Prasad</last><affiliation>Colgate University</affiliation></author>
+      <pages>98-111</pages>
+      <url hash="e47332f8">2023.conll-babylm.9</url>
+      <bibkey>chobey-etal-2023-training</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.9</doi>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>CLIMB</fixed-case> – Curriculum Learning for Infant-inspired Model Building</title>
+      <author><first>Richard Diehl</first><last>Martinez</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Hope</first><last>McGovern</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Zebulon</first><last>Goriely</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Christopher</first><last>Davis</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Andrew</first><last>Caines</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Paula</first><last>Buttery</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Lisa</first><last>Beinborn</last><affiliation>University of Amsterdam</affiliation></author>
+      <pages>112-127</pages>
+      <url hash="bd39d987">2023.conll-babylm.10</url>
+      <bibkey>martinez-etal-2023-climb</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.10</doi>
+    </paper>
+    <paper id="11">
+      <title>Acquiring Linguistic Knowledge from Multimodal Input</title>
+      <author><first>Theodor</first><last>Amariucai</last><affiliation>ETH Zürich</affiliation></author>
+      <author><first>Alexander Scott</first><last>Warstadt</last><affiliation>ETH Zürich</affiliation></author>
+      <pages>128-141</pages>
+      <url hash="fde241d4">2023.conll-babylm.11</url>
+      <bibkey>amariucai-warstadt-2023-acquiring</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.11</doi>
+    </paper>
+    <paper id="12">
+      <title>Large <fixed-case>GPT</fixed-case>-like Models are Bad Babies: A Closer Look at the Relationship between Linguistic Competence and Psycholinguistic Measures</title>
+      <author><first>Julius</first><last>Steuer</last><affiliation>Saarland University</affiliation></author>
+      <author><first>Marius</first><last>Mosbach</last><affiliation>Saarland University</affiliation></author>
+      <author><first>Dietrich</first><last>Klakow</last><affiliation>Saarland University</affiliation></author>
+      <pages>142-157</pages>
+      <url hash="d401583c">2023.conll-babylm.12</url>
+      <bibkey>steuer-etal-2023-large</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Baby’s <fixed-case>C</fixed-case>o<fixed-case>T</fixed-case>hought: Leveraging Large Language Models for Enhanced Reasoning in Compact Models</title>
+      <author><first>Zheyu</first><last>Zhang</last><affiliation>LMU Munich</affiliation></author>
+      <author><first>Han</first><last>Yang</last><affiliation>LMU Munich</affiliation></author>
+      <author><first>Bolei</first><last>Ma</last><affiliation>LMU Munich</affiliation></author>
+      <author><first>David</first><last>Rügamer</last><affiliation>LMU Munich</affiliation></author>
+      <author><first>Ercong</first><last>Nie</last><affiliation>LMU Munich</affiliation></author>
+      <pages>158-170</pages>
+      <url hash="baebc21e">2023.conll-babylm.13</url>
+      <bibkey>zhang-etal-2023-babys</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.13</doi>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>T</fixed-case>oddler<fixed-case>BERT</fixed-case>a: Exploiting <fixed-case>B</fixed-case>aby<fixed-case>BERT</fixed-case>a for Grammar Learning and Language Understanding</title>
+      <author><first>Ömer</first><last>Veysel Çağatan</last></author>
+      <pages>171-179</pages>
+      <url hash="5efcdeae">2023.conll-babylm.14</url>
+      <bibkey>veysel-cagatan-2023-toddlerberta</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.14</doi>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>C</fixed-case>og<fixed-case>M</fixed-case>em<fixed-case>LM</fixed-case>: Human-Like Memory Mechanisms Improve Performance and Cognitive Plausibility of <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Lukas</first><last>Thoma</last><affiliation>University of Vienna</affiliation></author>
+      <author><first>Ivonne</first><last>Weyers</last><affiliation>University of Vienna</affiliation></author>
+      <author><first>Erion</first><last>Çano</last><affiliation>University of Vienna</affiliation></author>
+      <author><first>Stefan</first><last>Schweter</last><affiliation>schweter.ml</affiliation></author>
+      <author><first>Jutta L</first><last>Mueller</last><affiliation>University of Vienna</affiliation></author>
+      <author><first>Benjamin</first><last>Roth</last><affiliation>University of Vienna</affiliation></author>
+      <pages>180-185</pages>
+      <url hash="bd4004b1">2023.conll-babylm.15</url>
+      <bibkey>thoma-etal-2023-cogmemlm</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.15</doi>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>B</fixed-case>aby<fixed-case>S</fixed-case>tories: Can Reinforcement Learning Teach Baby Language Models to Write Better Stories?</title>
+      <author><first>Xingmeng</first><last>Zhao</last><affiliation>University of Texas at San Antonio</affiliation></author>
+      <author><first>Tongnian</first><last>Wang</last><affiliation>University of Texas at San Antonio</affiliation></author>
+      <author><first>Sheri</first><last>Osborn</last><affiliation>University of Texas at San Antonio</affiliation></author>
+      <author><first>Anthony</first><last>Rios</last><affiliation>University of Texas at San Antonio</affiliation></author>
+      <pages>186-197</pages>
+      <url hash="27258bf4">2023.conll-babylm.16</url>
+      <bibkey>zhao-etal-2023-babystories</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.16</doi>
+    </paper>
+    <paper id="17">
+      <title>Byte-ranked Curriculum Learning for <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Strict-small Shared Task 2023</title>
+      <author><first>Justin</first><last>DeBenedetto</last><affiliation>Villanova University</affiliation></author>
+      <pages>198-206</pages>
+      <url hash="4e3160b3">2023.conll-babylm.17</url>
+      <bibkey>debenedetto-2023-byte</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.17</doi>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>M</fixed-case>c<fixed-case>G</fixed-case>ill <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Shared Task Submission: The Effects of Data Formatting and Structural Biases</title>
+      <author><first>Ziling</first><last>Cheng</last><affiliation>McGill University</affiliation></author>
+      <author><first>Rahul</first><last>Aralikatte</last><affiliation>McGill University</affiliation></author>
+      <author><first>Ian</first><last>Porada</last><affiliation>McGill University</affiliation></author>
+      <author><first>Cesare</first><last>Spinoso-Di Piano</last><affiliation>McGill University</affiliation></author>
+      <author><first>Jackie CK</first><last>Cheung</last><affiliation>McGill University</affiliation></author>
+      <pages>207-220</pages>
+      <url hash="7b4ef838">2023.conll-babylm.18</url>
+      <bibkey>cheng-etal-2023-mcgill</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.18</doi>
+    </paper>
+    <paper id="19">
+      <title>Mean <fixed-case>BERT</fixed-case>s make erratic language teachers: the effectiveness of latent bootstrapping in low-resource settings</title>
+      <author><first>David</first><last>Samuel</last><affiliation>University of Oslo</affiliation></author>
+      <pages>221-237</pages>
+      <url hash="91524190">2023.conll-babylm.19</url>
+      <bibkey>samuel-2023-mean</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.19</doi>
+    </paper>
+    <paper id="20">
+      <title>Not all layers are equally as important: Every Layer Counts <fixed-case>BERT</fixed-case></title>
+      <author><first>Lucas</first><last>Georges Gabriel Charpentier</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>David</first><last>Samuel</last><affiliation>University of Oslo</affiliation></author>
+      <pages>238-252</pages>
+      <url hash="9da3e3cd">2023.conll-babylm.20</url>
+      <bibkey>georges-gabriel-charpentier-samuel-2023-layers</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.20</doi>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>W</fixed-case>his<fixed-case>BERT</fixed-case>: Multimodal Text-Audio Language Modeling on 100<fixed-case>M</fixed-case> Words</title>
+      <author><first>Lukas</first><last>Wolf</last><affiliation>ETH Zürich</affiliation></author>
+      <author><first>Klemen</first><last>Kotar</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Greta</first><last>Tuckute</last><affiliation>MIT</affiliation></author>
+      <author><first>Eghbal</first><last>Hosseini</last><affiliation>MIT</affiliation></author>
+      <author><first>Tamar</first><last>I. Regev</last><affiliation>MIT</affiliation></author>
+      <author><first>Ethan</first><last>Gotlieb Wilcox</last><affiliation>ETH Zürich</affiliation></author>
+      <author><first>Alexander Scott</first><last>Warstadt</last><affiliation>ETH Zürich</affiliation></author>
+      <pages>253-258</pages>
+      <url hash="70ed679d">2023.conll-babylm.21</url>
+      <bibkey>wolf-etal-2023-whisbert</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.21</doi>
+    </paper>
+    <paper id="22">
+      <title>A surprisal oracle for active curriculum language modeling</title>
+      <author><first>Xudong</first><last>Hong</last><affiliation>Saarland University</affiliation></author>
+      <author><first>Sharid</first><last>Loáiciga</last><affiliation>University of Gothenburg</affiliation></author>
+      <author><first>Asad</first><last>Sayeed</last><affiliation>University of Gothenburg</affiliation></author>
+      <pages>259-268</pages>
+      <url hash="558af208">2023.conll-babylm.22</url>
+      <bibkey>hong-etal-2023-surprisal</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.22</doi>
+    </paper>
+    <paper id="23">
+      <title>Mmi01 at The <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Challenge: Linguistically Motivated Curriculum Learning for Pretraining in Low-Resource Settings</title>
+      <author><first>Maggie</first><last>Mi</last><affiliation>The University of Sheffield</affiliation></author>
+      <pages>269-278</pages>
+      <url hash="8439d170">2023.conll-babylm.23</url>
+      <bibkey>mi-2023-mmi01</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Baby Llama: knowledge distillation from an ensemble of teachers trained on a small dataset with no performance penalty</title>
+      <author><first>Inar</first><last>Timiryasov</last><affiliation>University of Copenhagen</affiliation></author>
+      <author><first>Jean-Loup</first><last>Tastet</last><affiliation>Universidad Autónoma de Madrid</affiliation></author>
+      <pages>279-289</pages>
+      <url hash="a9c6c612">2023.conll-babylm.24</url>
+      <bibkey>timiryasov-tastet-2023-baby</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.24</doi>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Challenge: Curriculum learning based on sentence complexity approximating language acquisition</title>
+      <author><first>Miyu</first><last>Oba</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Akari</first><last>Haga</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Akiyo</first><last>Fukatsu</last><affiliation>The University of Tokyo</affiliation></author>
+      <author><first>Yohei</first><last>Oseki</last><affiliation>The University of Tokyo</affiliation></author>
+      <pages>290-297</pages>
+      <url hash="887634cf">2023.conll-babylm.25</url>
+      <bibkey>oba-etal-2023-babylm</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.25</doi>
+    </paper>
+    <paper id="26">
+      <title>Better Together: Jointly Using Masked Latent Semantic Modeling and Masked Language Modeling for Sample Efficient Pre-training</title>
+      <author><first>Gábor</first><last>Berend</last><affiliation>University of Szeged</affiliation></author>
+      <pages>298-307</pages>
+      <url hash="6e63af5d">2023.conll-babylm.26</url>
+      <bibkey>berend-2023-better</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Lil-Bevo: Explorations of Strategies for Training Language Models in More Humanlike Ways</title>
+      <author><first>Venkata S</first><last>Govindarajan</last><affiliation>University of Texas at Austin</affiliation></author>
+      <author><first>Juan Diego</first><last>Rodriguez</last><affiliation>University of Texas at Austin</affiliation></author>
+      <author><first>Kaj</first><last>Bostrom</last><affiliation>University of Texas at Austin</affiliation></author>
+      <author><first>Kyle</first><last>Mahowald</last><affiliation>University of Texas at Austin</affiliation></author>
+      <pages>308-316</pages>
+      <url hash="87af10a2">2023.conll-babylm.27</url>
+      <bibkey>govindarajan-etal-2023-lil</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.27</doi>
+    </paper>
+    <paper id="28">
+      <title>Towards more Human-like Language Models based on Contextualizer Pretraining Strategy</title>
+      <author><first>Chenghao</first><last>Xiao</last><affiliation>Durham University</affiliation></author>
+      <author><first>G Thomas</first><last>Hudson</last><affiliation>Durham University</affiliation></author>
+      <author><first>Noura</first><last>Al Moubayed</last><affiliation>Durham University</affiliation></author>
+      <pages>317-326</pages>
+      <url hash="c1a4a01d">2023.conll-babylm.28</url>
+      <bibkey>xiao-etal-2023-towards</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.28</doi>
+    </paper>
+    <paper id="29">
+      <title>Increasing The Performance of Cognitively Inspired Data-Efficient Language Models via Implicit Structure Building</title>
+      <author><first>Omar</first><last>Momen</last><affiliation>Heinrich Heine University</affiliation></author>
+      <author><first>David</first><last>Arps</last><affiliation>Heinrich Heine University</affiliation></author>
+      <author><first>Laura</first><last>Kallmeyer</last><affiliation>Heinrich Heine University</affiliation></author>
+      <pages>327-338</pages>
+      <url hash="17886f38">2023.conll-babylm.29</url>
+      <bibkey>momen-etal-2023-increasing</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.29</doi>
+    </paper>
+    <paper id="30">
+      <title>Pre-training <fixed-case>LLM</fixed-case>s using human-like development data corpus</title>
+      <author><first>Khushi</first><last>Bhardwaj</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Raj Sanjay</first><last>Shah</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <author><first>Sashank</first><last>Varma</last><affiliation>Georgia Institute of Technology</affiliation></author>
+      <pages>339-345</pages>
+      <url hash="0946b675">2023.conll-babylm.30</url>
+      <bibkey>bhardwaj-etal-2023-pre</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.30</doi>
+    </paper>
+    <paper id="31">
+      <title>On the effect of curriculum learning with developmental data for grammar acquisition</title>
+      <author><first>Mattia</first><last>Opper</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>J.</first><last>Morrison</last><affiliation>University of Edinburgh; University of St Andrews</affiliation></author>
+      <author><first>N.</first><last>Siddharth</last><affiliation>University of Edinburgh; The Alan Turing Institute</affiliation></author>
+      <pages>346-355</pages>
+      <url hash="962a5bd5">2023.conll-babylm.31</url>
+      <bibkey>opper-etal-2023-effect</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.31</doi>
+    </paper>
+    <paper id="32">
+      <title>Optimizing <fixed-case>GPT</fixed-case>-2 Pretraining on <fixed-case>B</fixed-case>aby<fixed-case>LM</fixed-case> Corpus with Difficulty-based Sentence Reordering</title>
+      <author><first>Nasim</first><last>Borazjanizadeh</last><affiliation>Williams College</affiliation></author>
+      <pages>356-365</pages>
+      <url hash="9b529b29">2023.conll-babylm.32</url>
+      <bibkey>borazjanizadeh-2023-optimizing</bibkey>
+      <doi>10.18653/v1/2023.conll-babylm.32</doi>
+    </paper>
+  </volume>
+</collection>

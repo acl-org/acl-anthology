@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.clasp">
+  <volume id="1" ingest-date="2023-08-31" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 2023 CLASP Conference on Learning with Small Data (LSD)</booktitle>
+      <editor><first>Ellen</first><last>Breitholtz</last></editor>
+      <editor><first>Shalom</first><last>Lappin</last></editor>
+      <editor><first>Sharid</first><last>Loaiciga</last></editor>
+      <editor><first>Nikolai</first><last>Ilinykh</last></editor>
+      <editor><first>Simon</first><last>Dobnik</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Gothenburg, Sweden</address>
+      <month>September</month>
+      <year>2023</year>
+      <url hash="179614a4">2023.clasp-1</url>
+      <venue>clasp</venue>
+    </meta>
+    <frontmatter>
+      <url hash="e22138c2">2023.clasp-1.0</url>
+      <bibkey>clasp-2023-2023</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Improving Few-Shot Learning with Multilingual Transfer and <fixed-case>M</fixed-case>onte <fixed-case>C</fixed-case>arlo Training Set Selection</title>
+      <author><first>Antonis</first><last>Maronikolakis</last></author>
+      <author><first>Paul</first><last>O’Grady</last></author>
+      <author><first>Hinrich</first><last>Schütze</last></author>
+      <author><first>Matti</first><last>Lyra</last></author>
+      <pages>1–10</pages>
+      <abstract>In industry settings, machine learning is an attractive tool to automatize processes. Unfortunately, annotated and high-quality data is expensive to source. This problem is exacerbated in settings spanning multiple markets and languages. Thus, developing solutions for multilingual tasks with little available data is challenging. Few-shot learning is a compelling approach when building solutions in multilingual and low-resource settings, since the method not only requires just a few training examples to achieve high performance, but is also a technique agnostic to language. Even though the technique can be applied to multilingual settings, optimizing performance is an open question. In our work we show that leveraging higher-resource, task-specific language data can boost overall performance and we propose a method to select training examples per their average performance in a Monte Carlo simulation, resulting in a training set more conducive to learning. We demonstrate the effectiveness of our methods in fashion text reviews moderation, classifying reviews as related or unrelated to the given product. We show that our methodology boosts performance in multilingual (English, French, German) settings, increasing F1 score and significantly decreasing false positives.</abstract>
+      <url hash="8c749736">2023.clasp-1.1</url>
+      <bibkey>maronikolakis-etal-2023-improving</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Smooth Sailing: Improving Active Learning for Pre-trained Language Models with Representation Smoothness Analysis</title>
+      <author><first>Josip</first><last>Jukić</last></author>
+      <author><first>Jan</first><last>Snajder</last></author>
+      <pages>11–24</pages>
+      <abstract>Developed to alleviate prohibitive labeling costs, active learning (AL) methods aim to reduce label complexity in supervised learning. While recent work has demonstrated the benefit of using AL in combination with large pre-trained language models (PLMs), it has often overlooked the practical challenges that hinder the effectiveness of AL. We address these challenges by leveraging representation smoothness analysis to ensure AL is feasible, that is, both effective and practicable. Firstly, we propose an early stopping technique that does not require a validation set – often unavailable in realistic AL conditions – and observe significant improvements over random sampling across multiple datasets and AL methods. Further, we find that task adaptation improves AL, whereas standard short fine-tuning in AL does not provide improvements over random sampling. Our work demonstrates the usefulness of representation smoothness analysis for AL and introduces an AL stopping criterion that reduces label complexity.</abstract>
+      <url hash="3612888a">2023.clasp-1.2</url>
+      <bibkey>jukic-snajder-2023-smooth</bibkey>
+      <revision id="1" href="2023.clasp-1.2v1" hash="8dc24535"/>
+      <revision id="2" href="2023.clasp-1.2v2" hash="3612888a" date="2023-10-05">Corrcted typo in Table 1.</revision>
+    </paper>
+    <paper id="3">
+      <title>Entrenchment Matters: Investigating Positional and Constructional Sensitivity in Small and Large Language Models</title>
+      <author><first>Bastian</first><last>Bunzeck</last></author>
+      <author><first>Sina</first><last>Zarrieß</last></author>
+      <pages>25–37</pages>
+      <abstract>The success of large language models (LMs) has also prompted a push towards smaller models, but the differences in functionality and encodings between these two types of models are not yet well understood. In this paper, we employ a perturbed masking approach to investigate differences in token influence patterns on the sequence embeddings of larger and smaller RoBERTa models. Specifically, we explore how token properties like position, length or part of speech influence their sequence embeddings. We find that there is a general tendency for sequence-final tokens to exert a higher influence. Among part-of-speech tags, nouns, numerals and punctuation marks are the most influential, with smaller deviations for individual models. These findings also align with usage-based linguistic evidence on the effect of entrenchment. Finally, we show that the relationship between data size and model size influences the variability and brittleness of these effects, hinting towards a need for holistically balanced models.</abstract>
+      <url hash="86df8b33">2023.clasp-1.3</url>
+      <bibkey>bunzeck-zarriess-2023-entrenchment</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Facilitating learning outcome assessment– development of new datasets and analysis of pre-trained language models</title>
+      <author><first>Akriti</first><last>Jindal</last></author>
+      <author><first>Kaylin</first><last>Kainulainen</last></author>
+      <author><first>Andrew</first><last>Fisher</last></author>
+      <author><first>Vijay</first><last>Mago</last></author>
+      <pages>38–47</pages>
+      <abstract>Student mobility reflects academic transfer from one postsecondary institution to another and facilitates students’ educational goals of obtaining multiple credentials and/or advanced training in their field. This process often relies on transfer credit assessment, based on the similarity between learning outcomes, to determine what knowledge and skills were obtained at the sending institution as well as what knowledge and skills need to still be acquired at the receiving institution. As human evaluation can be both a challenging and time-consuming process, algorithms based on natural language processing can be a reliable tool for assessing transfer credit. In this article, we propose two novel datasets in the fields of Anatomy and Computer Science. Our aim is to probe the similarity between learning outcomes utilising pre-trained embedding models and compare their performance to human-annotated results. We found that ALBERT, MPNeT and DistilRoBERTa demonstrated the best ability to predict the similarity between pairs of learning outcomes. However, Davinci - a GPT-3 model which is expected to predict better results - is only able to provide a good qualitative explanation and not an accurate similarity score. The codes and datasets are available at <url>https://github.com/JAkriti/New-Dataset-and-Performance-of-Embedding-Models</url>.</abstract>
+      <url hash="1a0a77d7">2023.clasp-1.4</url>
+      <bibkey>jindal-etal-2023-facilitating</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Because is why: Children’s acquisition of topoi through why questions</title>
+      <author><first>Christine</first><last>Howes</last></author>
+      <author><first>Ellen</first><last>Breitholtz</last></author>
+      <author><first>Vladislav</first><last>Maraev</last></author>
+      <pages>48–54</pages>
+      <abstract>In this paper we look at how children learn the underlying principles of commonsense reasoning, sometimes referred to as topoi, which are prevalent in everyday dialogue. By examining the utterances of two children in the CHILDES corpus for whom there is extensive longitudinal data, we show how children can elicit topoi from their parents by asking why-questions. This strategy for the rapid acquisition of topoi peaks at around age three, suggesting that it is a critical step in becoming a fully competent language user.</abstract>
+      <url hash="7d1d4780">2023.clasp-1.5</url>
+      <bibkey>howes-etal-2023-childrens</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Do Language Models discriminate between relatives and pseudorelatives?</title>
+      <author><first>Adele</first><last>Henot-Mortier</last></author>
+      <pages>55–61</pages>
+      <abstract>Large Language Models (LLMs) are often evaluated against massive benchmarks based on general-purpose tasks, which, despite being useful for concrete applications, tell us very little about the capacity of LLMs to learn specific and challenging aspects of the grammar. Here, we evaluate whether LLMs learn to identify a particular structure attested in Romance (and French in particular), called the pseudorelative. This structure, which is often surface-similar to a relative clause, is linked to robust syntactic and semantic restrictions. We present a series of experiments to test if LLMs pretrained on massive yet general corpora, manage to learn those various restrictions. Our results suggest that LLMs learn some but not all of these properties, but crucially fail at recognizing the most specific of them: cliticization.</abstract>
+      <url hash="9be47390">2023.clasp-1.6</url>
+      <bibkey>henot-mortier-2023-language</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Preparing a corpus of spoken <fixed-case>X</fixed-case>hosa</title>
+      <author><first>Eva-Marie</first><last>Bloom Ström</last></author>
+      <author><first>Onelisa</first><last>Slater</last></author>
+      <author><first>Aron</first><last>Zahran</last></author>
+      <author><first>Aleksandrs</first><last>Berdicevskis</last></author>
+      <author><first>Anne</first><last>Schumacher</last></author>
+      <pages>62–67</pages>
+      <abstract>The aim of this paper is to describe ongoing work on an annotated corpus of spoken Xhosa. The data consists of natural spoken language and includes regional and social variation. We discuss encountered challenges with preparing such data from a lower-resourced language for corpus use. We describe the annotation, the search interface and the pilot experiments on automatic glossing of this highly agglutinative language.</abstract>
+      <url hash="ed018e0b">2023.clasp-1.7</url>
+      <bibkey>bloom-strom-etal-2023-preparing</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Machine Translation of Folktales: small-data-driven and <fixed-case>LLM</fixed-case>-based approaches</title>
+      <author><first>Olena</first><last>Burda-Lassen</last></author>
+      <pages>68–71</pages>
+      <abstract>Can Large Language Models translate texts with rich cultural elements? How “cultured” are they? This paper provides an overview of an experiment in Machine Translation of Ukrainian folktales using Large Language Models (Open AI), Google Cloud Translation API, and Opus MT. After benchmarking their performance, we have fine-tuned an Opus MT model on a domain-specific small dataset specially created to translate folktales from Ukrainian to English. We have also tested various prompt engineering techniques on the new Open AI models to generate translations of our test dataset (folktale ‘The Mitten’) and have observed promising results. This research explores the importance of both small data and Large Language Models in Machine Learning, specifically in Machine Translation of literary texts, on the example of Ukrainian folktales.</abstract>
+      <url hash="497e14e2">2023.clasp-1.8</url>
+      <bibkey>burda-lassen-2023-machine</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Example-Based Machine Translation with a Multi-Sentence Construction Transformer Architecture</title>
+      <author><first>Haozhe</first><last>Xiao</last></author>
+      <author><first>Yifei</first><last>Zhou</last></author>
+      <author><first>Yves</first><last>Lepage</last></author>
+      <pages>72–80</pages>
+      <abstract>Neural Machine Translation (NMT) has now attained state-of-art performance on large-scale data. However, it does not achieve the best translation results on small data sets. Example-Based Machine Translation (EBMT) is an approach to machine translation in which existing examples in a database are retrieved and modified to generate new translations. To combine EBMT with NMT, an architecture based on the Transformer model is proposed. We conduct two experiments respectively using limited amounts of data, one on an English-French bilingual dataset and the other one on a multilingual dataset with six languages (English, French, German, Chinese, Japanese and Russian). On the bilingual task, our method achieves an accuracy of 96.5 and a BLEU score of 98.8. On the multilingual task, it also outperforms OpenNMT in terms of BLEU scores.</abstract>
+      <url hash="703688de">2023.clasp-1.9</url>
+      <bibkey>xiao-etal-2023-example</bibkey>
+    </paper>
+    <paper id="10">
+      <title>Reconstruct to Retrieve: Identifying interesting news in a Cross-lingual setting</title>
+      <author><first>Boshko</first><last>Koloski</last></author>
+      <author><first>Blaz</first><last>Skrlj</last></author>
+      <author><first>Nada</first><last>Lavrac</last></author>
+      <author><first>Senja</first><last>Pollak</last></author>
+      <pages>81–89</pages>
+      <abstract>An important and resource-intensive task in journalism is retrieving relevant foreign news and its adaptation for local readers. Given the vast amount of foreign articles published and the limited number of journalists available to evaluate their interestingness, this task can be particularly challenging, especially when dealing with smaller languages and countries. In this work, we propose a novel method for large-scale retrieval of potentially translation-worthy articles based on an auto-encoder neural network trained on a limited corpus of relevant foreign news. We hypothesize that the representations of interesting news can be reconstructed very well by an auto-encoder, while irrelevant news would have less adequate reconstructions since they are not used for training the network. Specifically, we focus on extracting articles from the Latvian media for Estonian news media houses. It is worth noting that the available corpora for this task are particularly limited, which adds an extra layer of difficulty to our approach. To evaluate the proposed method, we rely on manual evaluation by an Estonian journalist at Ekspress Meedia and automatic evaluation on a gold standard test set.</abstract>
+      <url hash="67520459">2023.clasp-1.10</url>
+      <bibkey>koloski-etal-2023-reconstruct</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Linguistic Pattern Analysis in the Climate Change-Related Tweets from <fixed-case>UK</fixed-case> and <fixed-case>N</fixed-case>igeria</title>
+      <author><first>Ifeoluwa</first><last>Wuraola</last></author>
+      <author><first>Nina</first><last>Dethlefs</last></author>
+      <author><first>Daniel</first><last>Marciniak</last></author>
+      <pages>90–97</pages>
+      <abstract>To understand the global trends of human opinion on climate change in specific geographical areas, this research proposes a framework to analyse linguistic features and cultural differences in climate-related tweets. Our study combines transformer networks with linguistic feature analysis to address small dataset limitations and gain insights into cultural differences in tweets from the UK and Nigeria. Our study found that Nigerians use more leadership language and informal words in discussing climate change on Twitter compared to the UK, as these topics are treated as an issue of salience and urgency. In contrast, the UK’s discourse about climate change on Twitter is characterised by using more formal, logical, and longer words per sentence compared to Nigeria. Also, we confirm the geographical identifiability of tweets through a classification task using DistilBERT, which achieves 83% of accuracy.</abstract>
+      <url hash="54891093">2023.clasp-1.11</url>
+      <bibkey>wuraola-etal-2023-linguistic</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Nut-cracking Sledgehammers: Prioritizing Target Language Data over Bigger Language Models for Cross-Lingual Metaphor Detection</title>
+      <author><first>Jakob</first><last>Schuster</last></author>
+      <author><first>Katja</first><last>Markert</last></author>
+      <pages>98–106</pages>
+      <abstract>In this work, we investigate cross-lingual methods for metaphor detection of adjective-noun phrases in three languages (English, German and Polish). We explore the potential of minimalistic neural networks supported by static embeddings as a light-weight alternative for large transformer-based language models. We measure performance in zero-shot experiments without access to annotated target language data and aim to find low-resource improvements for them by mainly focusing on a k-shot paradigm. Even by incorporating a small number of phrases from the target language, the gap in accuracy between our small networks and large transformer architectures can be bridged. Lastly, we suggest that the k-shot paradigm can even be applied to models using machine translation of training data.</abstract>
+      <url hash="9d610c8d">2023.clasp-1.12</url>
+      <bibkey>schuster-markert-2023-nut</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Geometry-Aware Supertagging with Heterogeneous Dynamic Convolutions</title>
+      <author><first>Konstantinos</first><last>Kogkalidis</last></author>
+      <author><first>Michael</first><last>Moortgat</last></author>
+      <pages>107–119</pages>
+      <abstract>The syntactic categories of categorial grammar formalisms are structured units made of smaller, indivisible primitives, bound together by the underlying grammar’s category formation rules. In the trending approach of constructive supertagging, neural models are increasingly made aware of the internal category structure. In turn, this enables them to more reliably predict rare and out-of-vocabulary categories. with significant implications for grammars previously deemed too complex to find practical use. In this work, we revisit constructive supertagging from a graph-theoretic perspective, and propose a framework based on heterogeneous dynamic graph convolutions, aimed at exploiting the distinctive structure of a supertagger’s output space. We test our approach on a number of categorial grammar datasets spanning different languages and grammar formalisms, achieving substantial improvements over previous state of the art scores.</abstract>
+      <url hash="b7a8076d">2023.clasp-1.13</url>
+      <bibkey>kogkalidis-moortgat-2023-geometry</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>U</fixed-case>se<fixed-case>C</fixed-case>lean: learning from complex noisy labels in named entity recognition</title>
+      <author><first>Jinjin</first><last>Tian</last></author>
+      <author><first>Kun</first><last>Zhou</last></author>
+      <author><first>Meiguo</first><last>Wang</last></author>
+      <author><first>Yu</first><last>Zhang</last></author>
+      <author><first>Benjamin</first><last>Yao</last></author>
+      <author><first>Xiaohu</first><last>Liu</last></author>
+      <author><first>Chenlei</first><last>Guo</last></author>
+      <pages>120–130</pages>
+      <abstract>We investigate and refine denoising methods for NER task on data that potentially contains extremely noisy labels from multi-sources. In this paper, we first summarized all possible noise types and noise generation schemes, based on which we built a thorough evaluation system. We then pinpoint the bottleneck of current state-of-art denoising methods using our evaluation system. Correspondingly, we propose several refinements, including using a two-stage framework to avoid error accumulation; a novel confidence score utilizing minimal clean supervision to increase predictive power; an automatic cutoff fitting to save extensive hyper-parameter tuning; a warm started weighted partial CRF to better learn on the noisy tokens. Additionally, we propose to use adaptive sampling to further boost the performance in long-tailed entity settings. Our method improves F1 score by on average at least 5 10% over current state-of-art across extensive experiments.</abstract>
+      <url hash="a9d67de5">2023.clasp-1.14</url>
+      <attachment type="OptionalSupplementaryMaterial" hash="f78a3e13">2023.clasp-1.14.OptionalSupplementaryMaterial.pdf</attachment>
+      <bibkey>tian-etal-2023-useclean</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Benchmarking Neural Network Generalization for Grammar Induction</title>
+      <author><first>Nur</first><last>Lan</last></author>
+      <author><first>Emmanuel</first><last>Chemla</last></author>
+      <author><first>Roni</first><last>Katzir</last></author>
+      <pages>131–140</pages>
+      <abstract>How well do neural networks generalize? Even for grammar induction tasks, where the target generalization is fully known, previous works have left the question open, testing very limited ranges beyond the training set and using different success criteria. We provide a measure of neural network generalization based on fully specified formal languages. Given a model and a formal grammar, the method assigns a generalization score representing how well a model generalizes to unseen samples in inverse relation to the amount of data it was trained on. The benchmark includes languages such as <tex-math>a^nb^n</tex-math>, <tex-math>a^nb^nc^n</tex-math>, <tex-math>a^nb^mc^{n+m}</tex-math>, and Dyck-1 and 2. We evaluate selected architectures using the benchmark and find that networks trained with a Minimum Description Length objective (MDL) generalize better and using less data than networks trained using standard loss functions. The benchmark is available at <url>https://github.com/taucompling/bliss</url>.</abstract>
+      <url hash="f5df7ceb">2023.clasp-1.15</url>
+      <bibkey>lan-etal-2023-benchmarking</bibkey>
+    </paper>
+    <paper id="16">
+      <title>A <fixed-case>S</fixed-case>anskrit grammar-based approach to identify and address gaps in <fixed-case>G</fixed-case>oogle <fixed-case>T</fixed-case>ranslate’s <fixed-case>S</fixed-case>anskrit-<fixed-case>E</fixed-case>nglish zero-shot <fixed-case>NMT</fixed-case></title>
+      <author><first>Amit</first><last>Rao</last></author>
+      <author><first>Kanchi</first><last>Gopinath</last></author>
+      <pages>141–166</pages>
+      <abstract>In this work, we test the working of Google Translate’s recently introduced Sanskrit-English translation system using a relatively small set of probe test cases designed to focus on those areas that we expect, based on a knowledge of Sanskrit and English grammar, to pose a challenge for translation between Sanskrit and English. We summarize the findings that point to significant gaps in the current Zero-Shot Neural Multilingual Translation (Zero-Shot NMT) approach to Sanskrit-English translation. We then suggest an approach based on Sanskrit grammar to create a differential parallel corpus as a corrective training data to address such gaps. This approach should also generalize to other pairs of languages that have low availability of learning resources, but a good grammar theory.</abstract>
+      <url hash="8ace0231">2023.clasp-1.16</url>
+      <bibkey>rao-gopinath-2023-sanskrit</bibkey>
+      <revision id="1" href="2023.clasp-1.16v1" hash="535c46dc"/>
+      <revision id="2" href="2023.clasp-1.16v2" hash="8ace0231" date="2023-09-09">Reference update.</revision>
+    </paper>
+    <paper id="17">
+      <title>From web to dialects: how to enhance non-standard <fixed-case>R</fixed-case>ussian lects lemmatisation?</title>
+      <author><first>Ilia</first><last>Afanasev</last></author>
+      <author><first>Olga</first><last>Lyashevskaya</last></author>
+      <pages>167–175</pages>
+      <abstract>The growing need for using small data distinguished by a set of distributional properties becomes all the more apparent in the era of large language models (LLM). In this paper, we show that for the lemmatisation of the web as corpora texts, heterogeneous social media texts, and dialect texts, the morphological tagging by a model trained on a small dataset with specific properties generally works better than the morphological tagging by a model trained on a large dataset. The material we use is Russian non-standard texts and interviews with dialect speakers. The sequence-to-sequence lemmatisation with the help of taggers trained on smaller linguistically aware datasets achieves the average results of 85 to 90 per cent. These results are consistently (but not always), by 1-2 per cent. higher than the results of lemmatisation with the help of the large-dataset-trained taggers. We analyse these results and outline the possible further research directions.</abstract>
+      <url hash="f9e73001">2023.clasp-1.17</url>
+      <bibkey>afanasev-lyashevskaya-2023-web</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Improving <fixed-case>BERT</fixed-case> Pretraining with Syntactic Supervision</title>
+      <author><first>Georgios</first><last>Tziafas</last></author>
+      <author><first>Konstantinos</first><last>Kogkalidis</last></author>
+      <author><first>Gijs</first><last>Wijnholds</last></author>
+      <author><first>Michael</first><last>Moortgat</last></author>
+      <pages>176–184</pages>
+      <abstract>Bidirectional masked Transformers have become the core theme in the current NLP landscape. Despite their impressive benchmarks, a recurring theme in recent research has been to question such models’ capacity for syntactic generalization. In this work, we seek to address this question by adding a supervised, token-level supertagging objective to standard unsupervised pretraining, enabling the explicit incorporation of syntactic biases into the network’s training dynamics. Our approach is straightforward to implement, induces a marginal computational overhead and is general enough to adapt to a variety of settings. We apply our methodology on Lassy Large, an automatically annotated corpus of written Dutch. Our experiments suggest that our syntax-aware model performs on par with established baselines, despite Lassy Large being one order of magnitude smaller than commonly used corpora.</abstract>
+      <url hash="a0c6830e">2023.clasp-1.18</url>
+      <bibkey>tziafas-etal-2023-improving</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>MAP</fixed-case>: Low-data Regime Multimodal Learning with Adapter-based Pre-training and Prompting</title>
+      <author><first>Wenyan</first><last>Li</last></author>
+      <author><first>Dong</first><last>Li</last></author>
+      <author><first>Wanjing</first><last>Li</last></author>
+      <author><first>Yuanjie</first><last>Wang</last></author>
+      <author><first>Hai</first><last>Jie</last></author>
+      <author><first>Yiran</first><last>Zhong</last></author>
+      <pages>185–190</pages>
+      <abstract>Pretrained vision-language (VL) models have shown impressive results on various multi-modal downstream tasks recently. Many of the benchmark models build on pretrained causal language models (LMs), leveraging the original few-shot learning and generalization capability of the LMs trained with large text corpora. However, these models are often gigantic and require large-scale image and text data with high computational cost to train. This paper introduces a moderate-size model called MAP for efficient VL transfer learning through adapter-based pretraining and prompting. We aim to answer the question of how much we can complete through VL pretraining within the low-data regime while maximizing efficiency in transferring knowledge of a moderate-size frozen LM. Our experiments demonstrate that MAP achieves substantially better zero-shot and few-shot performance on downstream VL tasks with only 10% the size of pretraining data and a 30x lighter pretrained LM backbone compared to Frozen. MAP also outperforms fully trained models of comparable size at retaining its transfer learning ability when the amount of training data reduces.</abstract>
+      <url hash="9dc06f17">2023.clasp-1.19</url>
+      <bibkey>li-etal-2023-map</bibkey>
+    </paper>
+    <paper id="20">
+      <title>On the role of resources in the age of large language models</title>
+      <author><first>Simon</first><last>Dobnik</last></author>
+      <author><first>John</first><last>Kelleher</last></author>
+      <pages>191–197</pages>
+      <abstract>We evaluate the role of expert-based domain knowledge and resources in relation to training large language models by referring to our work on training and evaluating neural models, also in under-resourced scenarios which we believe also informs training models for “well-resourced” languages and domains. We argue that our community needs both large-scale datasets and small but high-quality data based on expert knowledge and that both activities should work hand-in-hand.</abstract>
+      <url hash="97a91907">2023.clasp-1.20</url>
+      <bibkey>dobnik-kelleher-2023-role</bibkey>
+    </paper>
+  </volume>
+</collection>

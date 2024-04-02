@@ -1,13 +1,43 @@
 exclude: ^hugo/static/.*$
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.4.0
-    hooks:
-    -   id: check-yaml
-    -   id: check-xml
-        exclude: ^hugo/layouts/sitemap.xml$
-    -   id: end-of-file-fixer
-    -   id: no-commit-to-branch
-        args: [--branch, master]
-    -   id: requirements-txt-fixer
-    -   id: trailing-whitespace
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.5.0
+  hooks:
+    - id: check-ast
+    - id: check-merge-conflict
+    - id: check-xml
+      exclude: ^hugo/layouts/sitemap.xml$
+    - id: check-yaml
+      exclude: ^python/mkdocs.yml$
+    - id: end-of-file-fixer
+    - id: name-tests-test
+      files: ^python/tests/.*\.py$
+    - id: no-commit-to-branch
+    - id: trailing-whitespace
+
+- repo: https://github.com/Lucas-C/pre-commit-hooks
+  rev: v1.5.4
+  hooks:
+    - id: insert-license
+      files: ^python/.*\.py$
+      args: ['--license-filepath', 'python/LICENSE.header', '--use-current-year']
+
+- repo: https://github.com/psf/black-pre-commit-mirror
+  rev: 23.9.1
+  hooks:
+    - id: black
+      files: ^python/.*\.py$
+      args: ['--config', 'python/pyproject.toml']
+
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.0.292
+  hooks:
+    - id: ruff
+      files: ^python/.*\.py$
+      args: ['--config', 'python/pyproject.toml']
+
+- repo: https://github.com/python-poetry/poetry
+  rev: '1.6.0'
+  hooks:
+    - id: poetry-check
+      args: ['--lock', '--directory=python']

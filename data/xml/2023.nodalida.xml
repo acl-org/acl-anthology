@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2023.nodalida">
-  <volume id="1" ingest-date="2023-05-05">
+  <volume id="1" ingest-date="2023-05-05" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 24th Nordic Conference on Computational Linguistics (NoDaLiDa)</booktitle>
       <editor><first>Tanel</first><last>Alumäe</last></editor>
@@ -372,7 +372,7 @@
       <author><first>Thomas</first><last>Vakili</last><affiliation>Stockholm University</affiliation></author>
       <author><first>Hercules</first><last>Dalianis</last><affiliation>Stockholm University</affiliation></author>
       <pages>318-323</pages>
-      <abstract>Large pre-trained language models dominate the current state-of-the-art for many natural language processing applications, including the field of clinical NLP. Several studies have found that these can be susceptible to privacy attacks that are unacceptable in the clinical domain where personally identifiable information (PII) must not be exposed.However, there is no consensus regarding how to quantify the privacy risks of different models. One prominent suggestion is to quantify these risks using membership inference attacks. In this study, we show that a state-of-the-art membership inference attack on a clinical BERT model fails to detect the privacy benefits from pseudonymizing data. This suggests that such attacks may be inadequate for evaluating token-level privacy preservation of PIIs.</abstract>
+      <abstract>Large pre-trained language models dominate the current state-of-the-art for many natural language processing applications, including the field of clinical NLP. Several studies have found that these can be susceptible to privacy attacks that are unacceptable in the clinical domain where personally identifiable information (PII) must not be exposed. However, there is no consensus regarding how to quantify the privacy risks of different models. One prominent suggestion is to quantify these risks using membership inference attacks. In this study, we show that a state-of-the-art membership inference attack on a clinical BERT model fails to detect the privacy benefits from pseudonymizing data. This suggests that such attacks may be inadequate for evaluating token-level privacy preservation of PIIs.</abstract>
       <url hash="52286dbc">2023.nodalida-1.33</url>
       <bibkey>vakili-dalianis-2023-using</bibkey>
     </paper>
@@ -430,7 +430,7 @@
     </paper>
     <paper id="39">
       <title>Low-resource Bilingual Dialect Lexicon Induction with Large Language Models</title>
-      <author><first>Katya</first><last>Artemova</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
+      <author><first>Ekaterina</first><last>Artemova</last><affiliation>Ludwig-Maximilians-Universität München</affiliation></author>
       <author><first>Barbara</first><last>Plank</last><affiliation>Ludwig-Maximilians-Universität München and IT University of Copenhagen</affiliation></author>
       <pages>371-385</pages>
       <abstract>Bilingual word lexicons map words in one language to their synonyms in another language. Numerous papers have explored bilingual lexicon induction (BLI) in high-resource scenarios, framing a typical pipeline that consists of two steps: (i) unsupervised bitext mining and (ii) unsupervised word alignment. At the core of those steps are pre-trained large language models (LLMs).In this paper we present the analysis of the BLI pipeline for German and two of its dialects, Bavarian and Alemannic. This setup poses a number of unique challenges, attributed to the scarceness of resources, relatedness of the languages and lack of standardization in the orthography of dialects. We analyze the BLI outputs with respect to word frequency and the pairwise edit distance. Finally, we release an evaluation dataset consisting of manual annotations for 1K bilingual word pairs labeled according to their semantic similarity.</abstract>
@@ -583,7 +583,7 @@
       <author><first>Marie</first><last>Candito</last><affiliation>Université de Paris</affiliation></author>
       <author><first>Pascal</first><last>Amsili</last><affiliation>Sorbonne Nouvelle (Paris 3)</affiliation></author>
       <pages>541-554</pages>
-      <abstract>Contradictory results about the encoding of the semantic impact of negation in pretrained language models (PLMs) have been drawn recently (e.g. Kassner and Schütze (2020); Gubelmann and Handschuh (2022)).In this paper we focus rather on the way PLMs encode negation and its formal impact, through the phenomenon of the Negative Polarity Item (NPI) licensing in English.More precisely, we use probes to identify which contextual representations best encode 1) the presence of negation in a sentence, and 2) the polarity of a neighboring masked polarity item.We find that contextual representations of tokens inside the negation scope do allow for (i) a better prediction of the presence of “not” compared to those outside the scope and (ii) a better prediction of the right polarity of a masked polarity item licensed by “not”, although the magnitude of the difference varies from PLM to PLM. Importantly, in both cases the trend holds even when controlling for distance to “not”.This tends to indicate that the embeddings of these models do reflect the notion of negation scope, and do encode the impact of negation on NPI licensing. Yet, further control experiments reveal that the presence of other lexical items is also better captured when using the contextual representation of a token within the same syntactic clause than outside from it, suggesting that PLMs simply capture the more general notion of syntactic clause.</abstract>
+      <abstract>Contradictory results about the encoding of the semantic impact of negation in pretrained language models (PLMs) have been drawn recently (e.g. Kassner and Schütze (2020); Gubelmann and Handschuh (2022)).In this paper we focus rather on the way PLMs encode negation and its formal impact, through the phenomenon of the Negative Polarity Item (NPI) licensing in English.More precisely, we use probes to identify which contextual representations best encode 1) the presence of negation in a sentence, and 2) the polarity of a neighboring masked polarity item. We find that contextual representations of tokens inside the negation scope do allow for (i) a better prediction of the presence of “not” compared to those outside the scope and (ii) a better prediction of the right polarity of a masked polarity item licensed by “not”, although the magnitude of the difference varies from PLM to PLM. Importantly, in both cases the trend holds even when controlling for distance to “not”.This tends to indicate that the embeddings of these models do reflect the notion of negation scope, and do encode the impact of negation on NPI licensing. Yet, further control experiments reveal that the presence of other lexical items is also better captured when using the contextual representation of a token within the same syntactic clause than outside from it, suggesting that PLMs simply capture the more general notion of syntactic clause.</abstract>
       <url hash="a35f4d07">2023.nodalida-1.54</url>
       <bibkey>kletz-etal-2023-probing</bibkey>
     </paper>
@@ -664,7 +664,7 @@
       <author><first>Oskar</first><last>Holmström</last></author>
       <author><first>Ehsan</first><last>Doostmohammadi</last></author>
       <pages>634-642</pages>
-      <abstract>In recent years, instruction finetuning models have received increased attention due to their remarkable zero-shot and generalization capabilities. However, the widespread implementation of these models has been limited to the English language, largely due to the costs and challenges associated with creating instruction datasets. To overcome this, automatic instruction generation has been proposed as a resourceful alternative. We see this as an opportunity for the adoption of instruction finetuning for other languages.In this paper we explore the viability of instruction finetuning for Swedish. We translate a dataset of generated instructions from English to Swedish, using it to finetune both Swedish and non-Swedish models. Results indicate that the use of translated instructions significantly improves the models’ zero-shot performance, even on unseen data, while staying competitive with strong baselines ten times in size. We see this paper is a first step and a proof of concept that instruction finetuning for Swedish is within reach, through resourceful means, and that there exist several directions for further improvements.</abstract>
+      <abstract>In recent years, instruction finetuning models have received increased attention due to their remarkable zero-shot and generalization capabilities. However, the widespread implementation of these models has been limited to the English language, largely due to the costs and challenges associated with creating instruction datasets. To overcome this, automatic instruction generation has been proposed as a resourceful alternative. We see this as an opportunity for the adoption of instruction finetuning for other languages. In this paper we explore the viability of instruction finetuning for Swedish. We translate a dataset of generated instructions from English to Swedish, using it to finetune both Swedish and non-Swedish models. Results indicate that the use of translated instructions significantly improves the models’ zero-shot performance, even on unseen data, while staying competitive with strong baselines ten times in size. We see this paper is a first step and a proof of concept that instruction finetuning for Swedish is within reach, through resourceful means, and that there exist several directions for further improvements.</abstract>
       <url hash="9c42424e">2023.nodalida-1.62</url>
       <bibkey>holmstrom-doostmohammadi-2023-making</bibkey>
     </paper>
@@ -736,7 +736,7 @@
       <author><first>Þórunn</first><last>Arnardóttir</last><affiliation>University of Iceland</affiliation></author>
       <author><first>Hinrik</first><last>Hafsteinsson</last></author>
       <author><first>Atli</first><last>Jasonarson</last><affiliation>The Árni Magnússon Institute for Icelandic Studies</affiliation></author>
-      <author><first>Anton</first><last>Ingaon</last></author>
+      <author><first>Anton</first><last>Ingason</last></author>
       <author><first>Steinþór</first><last>Steingrímsson</last></author>
       <pages>698-704</pages>
       <abstract>We describe the evaluation and development of a rule-based treebank conversion tool, UDConverter, which converts treebanks from the constituency-based PPCHE annotation scheme to the dependency-based Universal Dependencies (UD) scheme. The tool has already been used in the production of three UD treebanks, although no formal evaluation of the tool has been carried out as of yet. By manually correcting new output files from the converter and comparing them to the raw output, we measured the labeled attachment score (LAS) and unlabeled attachment score (UAS) of the converted texts. We obtain an LAS of 82.87 and a UAS of 87.91. In comparison to other tools, UDConverter currently provides the best results in automatic UD treebank creation for Icelandic.</abstract>
@@ -790,7 +790,7 @@
       <author><first>Goran</first><last>Glavaš</last><affiliation>Julius-Maximilians-Universität Würzburg</affiliation></author>
       <author><first>Ivan</first><last>Vulić</last><affiliation>University of Cambridge and PolyAI Limited</affiliation></author>
       <pages>728-737</pages>
-      <abstract>Multilingual language models have pushed state-of-the-art in cross-lingual NLP transfer. The majority of zero-shot cross-lingual transfer, however, use one and the same massively multilingual transformer (e.g., mBERT or XLM-R) to transfer to all target languages, irrespective of their typological, etymological, and phylogenetic relations to other languages. In particular, readily available data and models of resource-rich sibling languages are often ignored. In this work, we empirically show, in a case study for Faroese – a low-resource language from a high-resource language family – that by leveraging the phylogenetic information and departing from the ‘one-size-fits-all’ paradigm, one can improve cross-lingual transfer to low-resource languages. In particular, we leverage abundant resources of other Scandinavian languages (i.e., Danish, Norwegian, Swedish, and Icelandic) for the benefit of Faroese. Our evaluation results show that we can substantially improve the transfer performance to Faroese by exploiting data and models of closely-related high-resource languages.Further, we release a new web corpus of Faroese and Faroese datasets for named entity recognition (NER), semantic text similarity (STS), and new language models trained on all Scandinavian languages.</abstract>
+      <abstract>Multilingual language models have pushed state-of-the-art in cross-lingual NLP transfer. The majority of zero-shot cross-lingual transfer, however, use one and the same massively multilingual transformer (e.g., mBERT or XLM-R) to transfer to all target languages, irrespective of their typological, etymological, and phylogenetic relations to other languages. In particular, readily available data and models of resource-rich sibling languages are often ignored. In this work, we empirically show, in a case study for Faroese – a low-resource language from a high-resource language family – that by leveraging the phylogenetic information and departing from the ‘one-size-fits-all’ paradigm, one can improve cross-lingual transfer to low-resource languages. In particular, we leverage abundant resources of other Scandinavian languages (i.e., Danish, Norwegian, Swedish, and Icelandic) for the benefit of Faroese. Our evaluation results show that we can substantially improve the transfer performance to Faroese by exploiting data and models of closely-related high-resource languages. Further, we release a new web corpus of Faroese and Faroese datasets for named entity recognition (NER), semantic text similarity (STS), and new language models trained on all Scandinavian languages.</abstract>
       <url hash="b71984e9">2023.nodalida-1.74</url>
       <bibkey>snaebjarnarson-etal-2023-transfer</bibkey>
     </paper>
@@ -840,6 +840,89 @@
       <abstract>Second and foreign language (L2) learners often make specific spelling errors compared to native speakers. Language-independent spell-checking algorithms that rely on n-gram models can offer a simple solution for improving learner error detection and correction due to context-sensitivity. As the open-source speller previously available for Estonian is rule-based, our aim was to evaluate the performance of bi- and trigram-based statistical spelling correctors on an error-tagged set of A2–C1-level texts written by L2 learners of Estonian. The newly trained spell-checking models were compared to existing correction tools (open-source and commercial). Then, the best-performing Jamspell corrector was trained on various datasets to analyse their effect on the correction results.</abstract>
       <url hash="f2c1d9f8">2023.nodalida-1.79</url>
       <bibkey>allkivi-metsoja-kippar-2023-spelling</bibkey>
+    </paper>
+  </volume>
+  <volume id="cgmta" ingest-date="2023-12-19" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the NoDaLiDa 2023 Workshop on Constraint Grammar - Methods, Tools and Applications</booktitle>
+      <editor><first>Eckhard</first><last>Bick</last></editor>
+      <editor><first>Trond</first><last>Trosterud</last></editor>
+      <editor><first>Tanel</first><last>Alumäe</last></editor>
+      <publisher>Association of Computational Linguistics</publisher>
+      <address>Tórshavn, Faroe Islands</address>
+      <month>May</month>
+      <year>2023</year>
+      <url hash="97ad1022">2023.nodalida-cgmta</url>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="8592bfac">2023.nodalida-cgmta.0</url>
+      <bibkey>cgmta-2023-nodalida</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Attribution of Quoted Speech in <fixed-case>P</fixed-case>ortuguese Text</title>
+      <author><first>Eckhard</first><last>Bick</last></author>
+      <pages>1-9</pages>
+      <abstract>This paper describes and evaluates a rule-based system implementing a novel method for quote attribution in Portuguese text, working on top of a Constraint-Grammar parse. Both direct and indirect speech are covered, as well as certain other text- embedded quote sources. In a first step, the system performs quote segmentation and identifies speech verbs, taking into account the different styles used in literature and news text. Speakers are then identified using syntactically and semantically grounded Constraint-Grammar rules. We rely on relational links and stream variables to handle anaphorical mentions and to recover the names of implied or underspecified speakers. In an evaluation including both literature and news text, the system performed well on both the segmentation and attribution tasks, achieving F-scores of 98-99% for the former and 89-94% for the latter.</abstract>
+      <url hash="90bda547">2023.nodalida-cgmta.1</url>
+      <bibkey>bick-2023-attribution</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>WITH</fixed-case> Context: Adding Rule-Grouping to <fixed-case>VISL</fixed-case> <fixed-case>CG</fixed-case>-3</title>
+      <author><first>Daniel</first><last>Swanson</last></author>
+      <author><first>Tino</first><last>Didriksen</last></author>
+      <author><first>Francis M.</first><last>Tyers</last></author>
+      <pages>10-14</pages>
+      <abstract>This paper presents an extension to the VISL CG-3 compiler and processor which enables complex contexts to be shared between rules. This sharing substantially improves the readability and maintainability of sets of rules performing multi-step operations.</abstract>
+      <url hash="0075725b">2023.nodalida-cgmta.2</url>
+      <bibkey>swanson-etal-2023-context</bibkey>
+    </paper>
+    <paper id="3">
+      <title>To ð or not to ð - A <fixed-case>F</fixed-case>aroese <fixed-case>CG</fixed-case>-based grammar checker targeting ð errors</title>
+      <author><first>Trond</first><last>Trosterud</last></author>
+      <pages>15-19</pages>
+      <abstract>Many errors in Faroese writing are linked to the letter ð, a letter which has no corresponding phoneme, and is always omitted intervocally and wordfinally after a vowel. It plays an important role in the written language, disambiguating homophone but not homograph forms like infinitive kasta ‘throw’ from its participle kastað. Since adding a hypercorrect ð or erroneously omitting it often results in an existing word, these errors cannot be captured by ordinary spellcheckers. The article presents a grammar checker targeting ð errors, and discusses challenges related to false alarms.</abstract>
+      <url hash="3abb03b3">2023.nodalida-cgmta.3</url>
+      <bibkey>trosterud-2023-faroese</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Towards automatic essay scoring of <fixed-case>B</fixed-case>asque language texts from a rule-based approach based on curriculum-aware systems</title>
+      <author><first>Jose Maria</first><last>Arriola</last></author>
+      <author><first>Mikel</first><last>Iruskieta</last></author>
+      <author><first>Ekain</first><last>Arrieta</last></author>
+      <author><first>Jon</first><last>Alkorta</last></author>
+      <pages>20-28</pages>
+      <abstract>Although the Basque Education Law mentions that students must finish secondary compulsory education at B2 Basque level and their undergraduate studies at the C1 level, there are no objective tests or tools that can discriminate between these levels. This work presents the first rule-based method to grade written Basque learner texts. We adapt the adult Basque learner curriculum based on the CEFR to create a rule-based grammar for Basque. This paper summarises the results obtained in different classification tasks by combining information formalised through CG3 and different machine learning algorithms used in text classification. Besides, we perform a manual evaluation of the grammar. Finally, we discuss the informa- tiveness of these rules and some ways to further improve assisted text grading and combine rule-based approaches with other approaches based on readability and complexity measures.</abstract>
+      <url hash="8724e434">2023.nodalida-cgmta.4</url>
+      <bibkey>arriola-etal-2023-towards</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Correcting well-known interference errors – Towards a <fixed-case>L</fixed-case>2 grammar checker for Inari Saami</title>
+      <author><first>Trond</first><last>Trosterud</last></author>
+      <author><first>Marja-Liisa</first><last>Olthuis</last></author>
+      <author><first>Linda</first><last>Wiechetek</last></author>
+      <pages>29-36</pages>
+      <abstract>We present GramDivvun, the first Inari Saami grammar checker for L2 users. The grammar checker is an important tool in the revitalisation of the language, in particular for strengthening the literary language. As the Inari Saami language community needs language tools predominantly for language learners, the focus is on grammatical interference errors made by (mostly Finnish-speaking) learners. Six of these errors are featured in the first version of the grammar checker. For non-proofread text written by inexperienced writers, precision is good, 73%. With experienced text and proofread text, alarms are rare but precision considerably lower, 19.5 % on average, but varying considerably between the error types. The paper discusses reasons for this variation. Future plans are improving results by means of increased testing, especially for complex sentences, and eventually also including more error types.</abstract>
+      <url hash="25793c8b">2023.nodalida-cgmta.5</url>
+      <bibkey>trosterud-etal-2023-correcting</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Supporting Language Users - Releasing a Full-fledged <fixed-case>L</fixed-case>ule <fixed-case>S</fixed-case>ámi Grammar Checker</title>
+      <author><first>Inga Lill Sigga</first><last>Mikkelsen</last></author>
+      <author><first>Linda</first><last>Wiechetek</last></author>
+      <pages>37-45</pages>
+      <abstract>We present the first rule-based L1 grammar checker for Lule Sámi. Releasing a Lule Sámi grammar checker has direct consequences for language revitalization. Our primary intention is therefore to support language users in their writing and their confidence to use the language. We release a version of the tool for MS Word and GoogleDocs that corrects six grammatical error types. For the benefit of the user, the selection of error types is based on frequency of the errors and the quality of our tool. Our most successful error correction, for a phonetically and syntactically motivated copula error, reaches a precision of 96%.</abstract>
+      <url hash="90c527c3">2023.nodalida-cgmta.6</url>
+      <bibkey>mikkelsen-wiechetek-2023-supporting</bibkey>
+    </paper>
+    <paper id="7">
+      <title>A <fixed-case>S</fixed-case>outh <fixed-case>S</fixed-case>ámi Grammar Checker For Stopping Language Change</title>
+      <author><first>Linda</first><last>Wiechetek</last></author>
+      <author><first>Maja Lisa</first><last>Kappfjell</last></author>
+      <pages>46-54</pages>
+      <abstract>We have released and evaluated the first South Sámi grammar checker GramDivvun. It corrects two frequent error types that are caused by and causing language change and a loss of the language’s morphological richness. These general error types comprise a number of errors regarding the adjective paradigm (confusion of attributive and predicative forms) and the negation paradigm. In addition, our work includes a classification of common error types regarding the adjective and negation paradigms and lead to extensive grammatical error mark-up of our gold corpus. We achieve precisions above 71% for both adjective and negation error correction.</abstract>
+      <url hash="84efec22">2023.nodalida-cgmta.7</url>
+      <bibkey>wiechetek-kappfjell-2023-south</bibkey>
     </paper>
   </volume>
   <event id="nodalida-2023">

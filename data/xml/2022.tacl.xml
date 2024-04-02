@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2022.tacl">
-  <volume id="1">
+  <volume id="1" type="journal">
     <meta>
       <booktitle>Transactions of the Association for Computational Linguistics, Volume 10</booktitle>
       <editor><last>Roark</last><first>Brian</first></editor>
@@ -9,6 +9,7 @@
       <address>Cambridge, MA</address>
       <year>2022</year>
       <venue>tacl</venue>
+      <journal-volume>10</journal-volume>
     </meta>
     <paper id="1">
       <title>Word Acquisition in Neural Language Models</title>
@@ -134,7 +135,7 @@
     </paper>
     <paper id="6">
       <title>Dealing with Disagreements: Looking Beyond the Majority Vote in Subjective Annotations</title>
-      <author><first>Aida Mostafazadeh</first><last>Davani</last></author>
+      <author><first>Aida</first><last>Mostafazadeh Davani</last></author>
       <author><first>Mark</first><last>Díaz</last></author>
       <author><first>Vinodkumar</first><last>Prabhakaran</last></author>
       <doi>10.1162/tacl_a_00449</doi>
@@ -285,7 +286,7 @@
       <author><first>Sebastian</first><last>Riedel</last></author>
       <author><first>Fabio</first><last>Petroni</last></author>
       <doi>10.1162/tacl_a_00460</doi>
-      <abstract>We present mGENRE, a sequence-to- sequence system for the Multilingual Entity Linking (MEL) problem—the task of resolving language-specific mentions to a multilingual Knowledge Base (KB). For a mention in a given language, mGENRE predicts the name of the target entity left-to-right, token-by-token in an autoregressive fashion. The autoregressive formulation allows us to effectively cross-encode mention string and entity names to capture more interactions than the standard dot product between mention and entity vectors. It also enables fast search within a large KB even for mentions that do not appear in mention tables and with no need for large-scale vector indices. While prior MEL works use a single representation for each entity, we match against entity names of as many languages as possible, which allows exploiting language connections between source input and target name. Moreover, in a zero-shot setting on languages with no training data at all, mGENRE treats the target language as a latent variable that is marginalized at prediction time. This leads to over 50% improvements in average accuracy. We show the efficacy of our approach through extensive evaluation including experiments on three popular MEL benchmarks where we establish new state-of-the-art results. Source code available at https://github.com/facebookresearch/GENRE.</abstract>
+      <abstract>We present mGENRE, a sequence-to- sequence system for the Multilingual Entity Linking (MEL) problem—the task of resolving language-specific mentions to a multilingual Knowledge Base (KB). For a mention in a given language, mGENRE predicts the name of the target entity left-to-right, token-by-token in an autoregressive fashion. The autoregressive formulation allows us to effectively cross-encode mention string and entity names to capture more interactions than the standard dot product between mention and entity vectors. It also enables fast search within a large KB even for mentions that do not appear in mention tables and with no need for large-scale vector indices. While prior MEL works use a single representation for each entity, we match against entity names of as many languages as possible, which allows exploiting language connections between source input and target name. Moreover, in a zero-shot setting on languages with no training data at all, mGENRE treats the target language as a latent variable that is marginalized at prediction time. This leads to over 50% improvements in average accuracy. We show the efficacy of our approach through extensive evaluation including experiments on three popular MEL benchmarks where we establish new state-of-the-art results. Source code available at <url>https://github.com/facebookresearch/GENRE</url>.</abstract>
       <pages>274–290</pages>
       <url hash="376b497c">2022.tacl-1.16</url>
       <bibkey>de-cao-etal-2022-multilingual</bibkey>
@@ -338,7 +339,7 @@
       <author><first>Linfeng</first><last>Song</last></author>
       <author><first>Pengtao</first><last>Xie</last></author>
       <doi>10.1162/tacl_a_00464</doi>
-      <abstract>Text augmentation is an effective technique in alleviating overfitting in NLP tasks. In existing methods, text augmentation and downstream tasks are mostly performed separately. As a result, the augmented texts may not be optimal to train the downstream model. To address this problem, we propose a three-level optimization framework to perform text augmentation and the downstream task end-to- end. The augmentation model is trained in a way tailored to the downstream task. Our framework consists of three learning stages. A text summarization model is trained to perform data augmentation at the first stage. Each summarization example is associated with a weight to account for its domain difference with the text classification data. At the second stage, we use the model trained at the first stage to perform text augmentation and train a text classification model on the augmented texts. At the third stage, we evaluate the text classification model trained at the second stage and update weights of summarization examples by minimizing the validation loss. These three stages are performed end-to-end. We evaluate our method on several text classification datasets where the results demonstrate the effectiveness of our method. Code is available at https://github.com/Sai-Ashish/End-to-End-Text-Augmentation.</abstract>
+      <abstract>Text augmentation is an effective technique in alleviating overfitting in NLP tasks. In existing methods, text augmentation and downstream tasks are mostly performed separately. As a result, the augmented texts may not be optimal to train the downstream model. To address this problem, we propose a three-level optimization framework to perform text augmentation and the downstream task end-to- end. The augmentation model is trained in a way tailored to the downstream task. Our framework consists of three learning stages. A text summarization model is trained to perform data augmentation at the first stage. Each summarization example is associated with a weight to account for its domain difference with the text classification data. At the second stage, we use the model trained at the first stage to perform text augmentation and train a text classification model on the augmented texts. At the third stage, we evaluate the text classification model trained at the second stage and update weights of summarization examples by minimizing the validation loss. These three stages are performed end-to-end. We evaluate our method on several text classification datasets where the results demonstrate the effectiveness of our method. Code is available at <url>https://github.com/Sai-Ashish/End-to-End-Text-Augmentation</url>.</abstract>
       <pages>343–358</pages>
       <url hash="e250d290">2022.tacl-1.20</url>
       <bibkey>somayajula-etal-2022-multi</bibkey>
@@ -370,7 +371,7 @@
       <author><first>Daniel S.</first><last>Weld</last></author>
       <author><first>Doug</first><last>Downey</last></author>
       <doi>10.1162/tacl_a_00466</doi>
-      <abstract>Accurately extracting structured content from PDFs is a critical first step for NLP over scientific papers. Recent work has improved extraction accuracy by incorporating elementary layout information, for example, each token’s 2D position on the page, into language model pretraining. We introduce new methods that explicitly model VIsual LAyout (VILA) groups, that is, text lines or text blocks, to further improve performance. In our I-VILA approach, we show that simply inserting special tokens denoting layout group boundaries into model inputs can lead to a 1.9% Macro F1 improvement in token classification. In the H-VILA approach, we show that hierarchical encoding of layout-groups can result in up to 47% inference time reduction with less than 0.8% Macro F1 loss. Unlike prior layout-aware approaches, our methods do not require expensive additional pretraining, only fine-tuning, which we show can reduce training cost by up to 95%. Experiments are conducted on a newly curated evaluation suite, S2-VLUE, that unifies existing automatically labeled datasets and includes a new dataset of manual annotations covering diverse papers from 19 scientific disciplines. Pre-trained weights, benchmark datasets, and source code are available at https://github.com/allenai/VILA.</abstract>
+      <abstract>Accurately extracting structured content from PDFs is a critical first step for NLP over scientific papers. Recent work has improved extraction accuracy by incorporating elementary layout information, for example, each token’s 2D position on the page, into language model pretraining. We introduce new methods that explicitly model VIsual LAyout (VILA) groups, that is, text lines or text blocks, to further improve performance. In our I-VILA approach, we show that simply inserting special tokens denoting layout group boundaries into model inputs can lead to a 1.9% Macro F1 improvement in token classification. In the H-VILA approach, we show that hierarchical encoding of layout-groups can result in up to 47% inference time reduction with less than 0.8% Macro F1 loss. Unlike prior layout-aware approaches, our methods do not require expensive additional pretraining, only fine-tuning, which we show can reduce training cost by up to 95%. Experiments are conducted on a newly curated evaluation suite, S2-VLUE, that unifies existing automatically labeled datasets and includes a new dataset of manual annotations covering diverse papers from 19 scientific disciplines. Pre-trained weights, benchmark datasets, and source code are available at <url>https://github.com/allenai/VILA</url>.</abstract>
       <pages>376–392</pages>
       <url hash="7766e7cf">2022.tacl-1.22</url>
       <bibkey>shen-etal-2022-vila</bibkey>
@@ -421,7 +422,7 @@
       <author><first>Jana</first><last>Straková</last></author>
       <author><first>Alexandr</first><last>Rosen</last></author>
       <doi>10.1162/tacl_a_00470</doi>
-      <abstract>We introduce a large and diverse Czech corpus annotated for grammatical error correction (GEC) with the aim to contribute to the still scarce data resources in this domain for languages other than English. The Grammar Error Correction Corpus for Czech (GECCC) offers a variety of four domains, covering error distributions ranging from high error density essays written by non-native speakers, to website texts, where errors are expected to be much less common. We compare several Czech GEC systems, including several Transformer-based ones, setting a strong baseline to future research. Finally, we meta-evaluate common GEC metrics against human judgments on our data. We make the new Czech GEC corpus publicly available under the CC BY-SA 4.0 license at http://hdl.handle.net/11234/1-4639.</abstract>
+      <abstract>We introduce a large and diverse Czech corpus annotated for grammatical error correction (GEC) with the aim to contribute to the still scarce data resources in this domain for languages other than English. The Grammar Error Correction Corpus for Czech (GECCC) offers a variety of four domains, covering error distributions ranging from high error density essays written by non-native speakers, to website texts, where errors are expected to be much less common. We compare several Czech GEC systems, including several Transformer-based ones, setting a strong baseline to future research. Finally, we meta-evaluate common GEC metrics against human judgments on our data. We make the new Czech GEC corpus publicly available under the CC BY-SA 4.0 license at <url>http://hdl.handle.net/11234/1-4639</url>.</abstract>
       <pages>452–467</pages>
       <url hash="720b2c4e">2022.tacl-1.26</url>
       <bibkey>naplava-etal-2022-czech</bibkey>
@@ -435,7 +436,7 @@
       <author><first>Harm</first><last>de Vries</last></author>
       <author><first>Siva</first><last>Reddy</last></author>
       <doi>10.1162/tacl_a_00471</doi>
-      <abstract>In a conversational question answering scenario, a questioner seeks to extract information about a topic through a series of interdependent questions and answers. As the conversation progresses, they may switch to related topics, a phenomenon commonly observed in information-seeking search sessions. However, current datasets for conversational question answering are limiting in two ways: 1) they do not contain topic switches; and 2) they assume the reference text for the conversation is given, that is, the setting is not open-domain. We introduce TopiOCQA (pronounced Tapioca), an open-domain conversational dataset with topic switches based on Wikipedia. TopiOCQA contains 3,920 conversations with information-seeking questions and free-form answers. On average, a conversation in our dataset spans 13 question-answer turns and involves four topics (documents). TopiOCQA poses a challenging test-bed for models, where efficient retrieval is required on multiple turns of the same conversation, in conjunction with constructing valid responses using conversational history. We evaluate several baselines, by combining state-of-the-art document retrieval methods with neural reader models. Our best model achieves F1 of 55.8, falling short of human performance by 14.2 points, indicating the difficulty of our dataset. Our dataset and code are available at https://mcgill-nlp.github.io/topiocqa.</abstract>
+      <abstract>In a conversational question answering scenario, a questioner seeks to extract information about a topic through a series of interdependent questions and answers. As the conversation progresses, they may switch to related topics, a phenomenon commonly observed in information-seeking search sessions. However, current datasets for conversational question answering are limiting in two ways: 1) they do not contain topic switches; and 2) they assume the reference text for the conversation is given, that is, the setting is not open-domain. We introduce TopiOCQA (pronounced Tapioca), an open-domain conversational dataset with topic switches based on Wikipedia. TopiOCQA contains 3,920 conversations with information-seeking questions and free-form answers. On average, a conversation in our dataset spans 13 question-answer turns and involves four topics (documents). TopiOCQA poses a challenging test-bed for models, where efficient retrieval is required on multiple turns of the same conversation, in conjunction with constructing valid responses using conversational history. We evaluate several baselines, by combining state-of-the-art document retrieval methods with neural reader models. Our best model achieves F1 of 55.8, falling short of human performance by 14.2 points, indicating the difficulty of our dataset. Our dataset and code are available at <url>https://mcgill-nlp.github.io/topiocqa</url>.</abstract>
       <pages>468–483</pages>
       <url hash="78eee5a1">2022.tacl-1.27</url>
       <bibkey>adlakha-etal-2022-topiocqa</bibkey>
@@ -825,7 +826,7 @@
       <author><first>Clara</first><last>Meister</last></author>
       <author><first>Ryan</first><last>Cotterell</last></author>
       <doi>10.1162/tacl_a_00502</doi>
-      <abstract>When generating text from probabilistic models, the chosen decoding strategy has a profound effect on the resulting text. Yet the properties elicited by various decoding strategies do not always transfer across natural language generation tasks. For example, while mode-seeking methods like beam search perform remarkably well for machine translation, they have been observed to lead to incoherent and repetitive text in story generation. Despite such observations, the effectiveness of decoding strategies is often assessed on only a single task. This work—in contrast—provides a comprehensive analysis of the interaction between language generation tasks and decoding strategies. Specifically, we measure changes in attributes of generated text as a function of both decoding strategy and task using human and automatic evaluation. Our results reveal both previously observed and novel findings. For example, the nature of the diversity–quality trade-off in language generation is very task-specific; the length bias often attributed to beam search is not constant across tasks. https://github.com/gianwiher/decoding-NLG</abstract>
+      <abstract>When generating text from probabilistic models, the chosen decoding strategy has a profound effect on the resulting text. Yet the properties elicited by various decoding strategies do not always transfer across natural language generation tasks. For example, while mode-seeking methods like beam search perform remarkably well for machine translation, they have been observed to lead to incoherent and repetitive text in story generation. Despite such observations, the effectiveness of decoding strategies is often assessed on only a single task. This work—in contrast—provides a comprehensive analysis of the interaction between language generation tasks and decoding strategies. Specifically, we measure changes in attributes of generated text as a function of both decoding strategy and task using human and automatic evaluation. Our results reveal both previously observed and novel findings. For example, the nature of the diversity–quality trade-off in language generation is very task-specific; the length bias often attributed to beam search is not constant across tasks. <url>https://github.com/gianwiher/decoding-NLG</url></abstract>
       <pages>997–1012</pages>
       <url hash="8fb7789c">2022.tacl-1.58</url>
       <bibkey>wiher-etal-2022-decoding</bibkey>
@@ -870,6 +871,7 @@
       <pages>1051–1065</pages>
       <url hash="349f7b43">2022.tacl-1.61</url>
       <bibkey>algayres-etal-2022-dp</bibkey>
+      <video href="2022.tacl-1.61.mp4"/>
     </paper>
     <paper id="62">
       <title>Evaluating Attribution in Dialogue Systems: The <fixed-case>BEGIN</fixed-case> Benchmark</title>
@@ -878,7 +880,7 @@
       <author><first>Tal</first><last>Linzen</last></author>
       <author><first>David</first><last>Reitter</last></author>
       <doi>10.1162/tacl_a_00506</doi>
-      <abstract>Knowledge-grounded dialogue systems powered by large language models often generate responses that, while fluent, are not attributable to a relevant source of information. Progress towards models that do not exhibit this issue requires evaluation metrics that can quantify its prevalence. To this end, we introduce the Benchmark for Evaluation of Grounded INteraction (Begin), comprising 12k dialogue turns generated by neural dialogue systems trained on three knowledge-grounded dialogue corpora. We collect human annotations assessing the extent to which the models’ responses can be attributed to the given background information. We then use Begin to analyze eight evaluation metrics. We find that these metrics rely on spurious correlations, do not reliably distinguish attributable abstractive responses from unattributable ones, and perform substantially worse when the knowledge source is longer. Our findings underscore the need for more sophisticated and robust evaluation metrics for knowledge-grounded dialogue. We make Begin publicly available at https://github.com/google/BEGIN-dataset.</abstract>
+      <abstract>Knowledge-grounded dialogue systems powered by large language models often generate responses that, while fluent, are not attributable to a relevant source of information. Progress towards models that do not exhibit this issue requires evaluation metrics that can quantify its prevalence. To this end, we introduce the Benchmark for Evaluation of Grounded INteraction (Begin), comprising 12k dialogue turns generated by neural dialogue systems trained on three knowledge-grounded dialogue corpora. We collect human annotations assessing the extent to which the models’ responses can be attributed to the given background information. We then use Begin to analyze eight evaluation metrics. We find that these metrics rely on spurious correlations, do not reliably distinguish attributable abstractive responses from unattributable ones, and perform substantially worse when the knowledge source is longer. Our findings underscore the need for more sophisticated and robust evaluation metrics for knowledge-grounded dialogue. We make Begin publicly available at <url>https://github.com/google/BEGIN-dataset</url>.</abstract>
       <pages>1066–1083</pages>
       <url hash="c657c8d6">2022.tacl-1.62</url>
       <bibkey>dziri-etal-2022-evaluating</bibkey>
@@ -1027,6 +1029,7 @@
       <pages>1266–1284</pages>
       <url hash="7235c565">2022.tacl-1.73</url>
       <bibkey>yanaka-mineshima-2022-compositional</bibkey>
+      <video href="2022.tacl-1.73.mp4"/>
     </paper>
     <paper id="74">
       <title>Neuron-level Interpretation of Deep <fixed-case>NLP</fixed-case> Models: A Survey</title>
@@ -1038,6 +1041,7 @@
       <pages>1285–1303</pages>
       <url hash="87add379">2022.tacl-1.74</url>
       <bibkey>sajjad-etal-2022-neuron</bibkey>
+      <video href="2022.tacl-1.74.mp4"/>
     </paper>
     <paper id="75">
       <title>A Survey on Cross-Lingual Summarization</title>
@@ -1079,7 +1083,7 @@
     <paper id="78">
       <title>Investigating Reasons for Disagreement in Natural Language Inference</title>
       <author><first>Nan-Jiang</first><last>Jiang</last></author>
-      <author><first>Marie-Catherine de</first><last>Marneffe</last></author>
+      <author><first>Marie-Catherine</first><last>de Marneffe</last></author>
       <doi>10.1162/tacl_a_00523</doi>
       <abstract>We investigate how disagreement in natural language inference (NLI) annotation arises. We developed a taxonomy of disagreement sources with 10 categories spanning 3 high- level classes. We found that some disagreements are due to uncertainty in the sentence meaning, others to annotator biases and task artifacts, leading to different interpretations of the label distribution. We explore two modeling approaches for detecting items with potential disagreement: a 4-way classification with a “Complicated” label in addition to the three standard NLI labels, and a multilabel classification approach. We found that the multilabel classification is more expressive and gives better recall of the possible interpretations in the data.</abstract>
       <pages>1357–1374</pages>
@@ -1157,6 +1161,7 @@
       <pages>1473–1490</pages>
       <url hash="483de8d1">2022.tacl-1.84</url>
       <bibkey>dziri-etal-2022-faithdial</bibkey>
+      <video href="2022.tacl-1.84.mp4"/>
     </paper>
   </volume>
 </collection>

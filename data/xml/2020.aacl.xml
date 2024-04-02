@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <collection id="2020.aacl">
-  <volume id="main" ingest-date="2020-12-02">
+  <volume id="main" ingest-date="2020-12-02" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 1st Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics and the 10th International Joint Conference on Natural Language Processing</booktitle>
       <editor><first>Kam-Fai</first><last>Wong</last></editor>
@@ -126,6 +126,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="10">
       <title>A Simple and Effective Usage of Word Clusters for <fixed-case>CBOW</fixed-case> Model</title>
@@ -152,6 +153,7 @@
       <bibkey>hao-etal-2020-investigating</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="12">
       <title>Second-Order Neural Dependency Parsing with Message Passing and End-to-End Training</title>
@@ -217,7 +219,7 @@
       <author><first>Seongbo</first><last>Jang</last></author>
       <author><first>Dawoon</first><last>Jung</last></author>
       <pages>133–142</pages>
-      <abstract>Typically, tokenization is the very first step in most text processing works. As a token serves as an atomic unit that embeds the contextual information of text, how to define a token plays a decisive role in the performance of a model. Even though Byte Pair Encoding (BPE) has been considered the de facto standard tokenization method due to its simplicity and universality, it still remains unclear whether BPE works best across all languages and tasks. In this paper, we test several tokenization strategies in order to answer our primary research question, that is, “What is the best tokenization strategy for Korean NLP tasks?” Experimental results demonstrate that a hybrid approach of morphological segmentation followed by BPE works best in Korean to/from English machine translation and natural language understanding tasks such as KorNLI, KorSTS, NSMC, and PAWS-X. As an exception, for KorQuAD, the Korean extension of SQuAD, BPE segmentation turns out to be the most effective. Our code and pre-trained models are publicly available at https://github.com/kakaobrain/kortok.</abstract>
+      <abstract>Typically, tokenization is the very first step in most text processing works. As a token serves as an atomic unit that embeds the contextual information of text, how to define a token plays a decisive role in the performance of a model. Even though Byte Pair Encoding (BPE) has been considered the de facto standard tokenization method due to its simplicity and universality, it still remains unclear whether BPE works best across all languages and tasks. In this paper, we test several tokenization strategies in order to answer our primary research question, that is, “What is the best tokenization strategy for Korean NLP tasks?” Experimental results demonstrate that a hybrid approach of morphological segmentation followed by BPE works best in Korean to/from English machine translation and natural language understanding tasks such as KorNLI, KorSTS, NSMC, and PAWS-X. As an exception, for KorQuAD, the Korean extension of SQuAD, BPE segmentation turns out to be the most effective. Our code and pre-trained models are publicly available at <url>https://github.com/kakaobrain/kortok</url>.</abstract>
       <url hash="5c4b3742">2020.aacl-main.17</url>
       <bibkey>park-etal-2020-empirical</bibkey>
       <pwccode url="https://github.com/kakaobrain/kortok" additional="false">kakaobrain/kortok</pwccode>
@@ -268,7 +270,7 @@
       <author><first>Peng</first><last>Li</last></author>
       <author><first>Jie</first><last>Zhou</last></author>
       <pages>169–180</pages>
-      <abstract>Event Argument Extraction (EAE) aims at predicting event argument roles of entities in text, which is a crucial subtask and bottleneck of event extraction. Existing EAE methods either extract each event argument roles independently or sequentially, which cannot adequately model the joint probability distribution among event arguments and their roles. In this paper, we propose a Bayesian model named Neural Gibbs Sampling (NGS) to jointly extract event arguments. Specifically, we train two neural networks to model the prior distribution and conditional distribution over event arguments respectively and then use Gibbs sampling to approximate the joint distribution with the learned distributions. For overcoming the shortcoming of the high complexity of the original Gibbs sampling algorithm, we further apply simulated annealing to efficiently estimate the joint probability distribution over event arguments and make predictions. We conduct experiments on the two widely-used benchmark datasets ACE 2005 and TAC KBP 2016. The Experimental results show that our NGS model can achieve comparable results to existing state-of-the-art EAE methods. The source code can be obtained from https://github.com/THU-KEG/NGS.</abstract>
+      <abstract>Event Argument Extraction (EAE) aims at predicting event argument roles of entities in text, which is a crucial subtask and bottleneck of event extraction. Existing EAE methods either extract each event argument roles independently or sequentially, which cannot adequately model the joint probability distribution among event arguments and their roles. In this paper, we propose a Bayesian model named Neural Gibbs Sampling (NGS) to jointly extract event arguments. Specifically, we train two neural networks to model the prior distribution and conditional distribution over event arguments respectively and then use Gibbs sampling to approximate the joint distribution with the learned distributions. For overcoming the shortcoming of the high complexity of the original Gibbs sampling algorithm, we further apply simulated annealing to efficiently estimate the joint probability distribution over event arguments and make predictions. We conduct experiments on the two widely-used benchmark datasets ACE 2005 and TAC KBP 2016. The Experimental results show that our NGS model can achieve comparable results to existing state-of-the-art EAE methods. The source code can be obtained from <url>https://github.com/THU-KEG/NGS</url>.</abstract>
       <url hash="2b011dd8">2020.aacl-main.21</url>
       <bibkey>wang-etal-2020-neural</bibkey>
       <pwccode url="https://github.com/THU-KEG/NGS" additional="false">THU-KEG/NGS</pwccode>
@@ -528,7 +530,7 @@
       <abstract>Recent work in unsupervised parsing has tried to incorporate visual information into learning, but results suggest that these models need linguistic bias to compete against models that only rely on text. This work proposes grammar induction models which use visual information from images for labeled parsing, and achieve state-of-the-art results on grounded grammar induction on several languages. Results indicate that visual information is especially helpful in languages where high frequency words are more broadly distributed. Comparison between models with and without visual information shows that the grounded models are able to use visual information for proposing noun phrases, gathering useful information from images for unknown words, and achieving better performance at prepositional phrase attachment prediction.</abstract>
       <url hash="bba4f1ed">2020.aacl-main.42</url>
       <bibkey>jin-schuler-2020-grounded</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="43">
       <title>Heads-up! Unsupervised Constituency Parsing via Self-Attention Heads</title>
@@ -621,6 +623,7 @@
       <url hash="545b660a">2020.aacl-main.49</url>
       <bibkey>gao-etal-2020-systematic</bibkey>
       <pwccode url="https://github.com/HQ01/gSCAN_with_language_conditioned_embedding" additional="true">HQ01/gSCAN_with_language_conditioned_embedding</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/gscan">GSCAN</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/scan">SCAN</pwcdataset>
     </paper>
     <paper id="50">
@@ -632,7 +635,7 @@
       <abstract>Many top-performing image captioning models rely solely on object features computed with an object detection model to generate image descriptions. However, recent studies propose to directly use scene graphs to introduce information about object relations into captioning, hoping to better describe interactions between objects. In this work, we thoroughly investigate the use of scene graphs in image captioning. We empirically study whether using additional scene graph encoders can lead to better image descriptions and propose a conditional graph attention network (C-GAT), where the image captioning decoder state is used to condition the graph updates. Finally, we determine to what extent noise in the predicted scene graphs influence caption quality. Overall, we find no significant difference between models that use scene graph features and models that only use object detection features across different captioning metrics, which suggests that existing scene graph generation models are still too noisy to be useful in image captioning. Moreover, although the quality of predicted scene graphs is very low in general, when using high quality scene graphs we obtain gains of up to 3.3 CIDEr compared to a strong Bottom-Up Top-Down baseline.</abstract>
       <url hash="fcacefff">2020.aacl-main.50</url>
       <bibkey>milewski-etal-2020-scene</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="51">
       <title>Systematically Exploring Redundancy Reduction in Summarizing Long Documents</title>
@@ -643,9 +646,9 @@
       <url hash="2c00c7e2">2020.aacl-main.51</url>
       <bibkey>xiao-carenini-2020-systematically</bibkey>
       <pwccode url="https://github.com/Wendy-Xiao/redundancy_reduction_longdoc" additional="false">Wendy-Xiao/redundancy_reduction_longdoc</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/arxiv">Arxiv HEP-TH citation graph</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/cnn-daily-mail-1">CNN/Daily Mail</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/pubmed">Pubmed</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/arxiv">arXiv</pwcdataset>
     </paper>
     <paper id="52">
       <title>A Cascade Approach to Neural Abstractive Summarization with Content Selection and Fusion</title>
@@ -722,7 +725,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/swag">SWAG</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDi QA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDiQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/tydiqa-goldp">TyDiQA-GoldP</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xquad">XQuAD</pwcdataset>
@@ -968,7 +971,7 @@
       <url hash="bb1e00d7">2020.aacl-main.75</url>
       <bibkey>han-etal-2020-data</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/fewrel">FewRel</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task 8</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task-8</pwcdataset>
     </paper>
     <paper id="76">
       <title>Robustness and Reliability of Gender Bias Assessment in Word Embeddings: The Role of Base Pairs</title>
@@ -1163,7 +1166,7 @@
       <url hash="55f2bbad">2020.aacl-main.90</url>
       <bibkey>gupta-etal-2020-unified</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/mcvqa">MCVQA</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-question-answering">Visual Question Answering</pwcdataset>
     </paper>
     <paper id="91">
@@ -1191,7 +1194,7 @@
       <bibkey>scarton-etal-2020-measuring</bibkey>
     </paper>
   </volume>
-  <volume id="srw" ingest-date="2020-12-02">
+  <volume id="srw" ingest-date="2020-12-02" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 1st Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics and the 10th International Joint Conference on Natural Language Processing: Student Research Workshop</booktitle>
       <editor><first>Boaz</first><last>Shmueli</last></editor>
@@ -1389,6 +1392,7 @@
       <abstract>Aspect extraction is a widely researched field of natural language processing in which aspects are identified from the text as a means for information. For example, in aspect-based sentiment analysis (ABSA), aspects need to be first identified. Previous studies have introduced various approaches to increasing accuracy, although leaving room for further improvement. In a practical situation where the examined dataset is lacking labels, to fine-tune the process a novel unsupervised approach is proposed, combining a lexical rule-based approach with coreference resolution. The model increases accuracy through the recognition and removal of coreferring aspects. Experimental evaluations are performed on two benchmark datasets, demonstrating the greater performance of our approach to extracting coherent aspects through outperforming the baseline approaches.</abstract>
       <url hash="96563206">2020.aacl-srw.18</url>
       <bibkey>mai-zhang-2020-aspect</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2014-task-4-sub-task-2">SemEval-2014 Task-4</pwcdataset>
     </paper>
     <paper id="19">
       <title><fixed-case>GRUBERT</fixed-case>: A <fixed-case>GRU</fixed-case>-Based Method to Fuse <fixed-case>BERT</fixed-case> Hidden Layers for <fixed-case>T</fixed-case>witter Sentiment Analysis</title>
@@ -1449,6 +1453,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/paws">PAWS</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="24">
       <title>Generating Inflectional Errors for Grammatical Error Correction in <fixed-case>H</fixed-case>indi</title>
@@ -1464,7 +1469,7 @@
       <bibkey>sonawane-etal-2020-generating</bibkey>
     </paper>
   </volume>
-  <volume id="demo" ingest-date="2020-12-02">
+  <volume id="demo" ingest-date="2020-12-02" type="proceedings">
     <meta>
       <booktitle>Proceedings of the 1st Conference of the Asia-Pacific Chapter of the Association for Computational Linguistics and the 10th International Joint Conference on Natural Language Processing: System Demonstrations</booktitle>
       <editor><first>Derek</first><last>Wong</last></editor>
@@ -1545,10 +1550,10 @@
       <author><first>Dmytro</first><last>Okhonko</last></author>
       <author><first>Juan</first><last>Pino</last></author>
       <pages>33–39</pages>
-      <abstract>We introduce fairseq S2T, a fairseq extension for speech-to-text (S2T) modeling tasks such as end-to-end speech recognition and speech-to-text translation. It follows fairseq’s careful design for scalability and extensibility. We provide end-to-end workflows from data pre-processing, model training to offline (online) inference. We implement state-of-the-art RNN-based as well as Transformer-based models and open-source detailed training recipes. Fairseq’s machine translation models and language models can be seamlessly integrated into S2T workflows for multi-task learning or transfer learning. Fairseq S2T is available at https://github.com/pytorch/fairseq/tree/master/examples/speech_to_text.</abstract>
+      <abstract>We introduce fairseq S2T, a fairseq extension for speech-to-text (S2T) modeling tasks such as end-to-end speech recognition and speech-to-text translation. It follows fairseq’s careful design for scalability and extensibility. We provide end-to-end workflows from data pre-processing, model training to offline (online) inference. We implement state-of-the-art RNN-based as well as Transformer-based models and open-source detailed training recipes. Fairseq’s machine translation models and language models can be seamlessly integrated into S2T workflows for multi-task learning or transfer learning. Fairseq S2T is available at <url>https://github.com/pytorch/fairseq/tree/master/examples/speech_to_text</url>.</abstract>
       <url hash="ba6e2aa3">2020.aacl-demo.6</url>
       <bibkey>wang-etal-2020-fairseq</bibkey>
-      <pwccode url="https://github.com/pytorch/fairseq" additional="true">pytorch/fairseq</pwccode>
+      <pwccode url="https://github.com/pytorch/fairseq/tree/master/examples/speech_to_text" additional="true">pytorch/fairseq</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/librispeech">LibriSpeech</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/must-c">MuST-C</pwcdataset>
     </paper>

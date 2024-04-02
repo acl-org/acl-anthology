@@ -10,6 +10,16 @@ The Anthology website is generated using the [Hugo](https://gohugo.io) static
 site generator.  However, before we can actually invoke Hugo, we need to prepare
 the contents of the website.  The following steps describe what happens
 behind the scenes.  All the steps have a corresponding `make` target as well.
+If you are on a system that uses `apt` for installing packages, you can therefore
+just run the following commands:
+
+```bash
+sudo apt install jing libyaml-dev bibutils hugo
+make all
+```
+
+If this doesn't work, you can instead use the following instructions to go through
+the process step by step and observe the expected outputs.
 
 ### Step 0: Install required Python packages
 To build the anthology, the packages listed in
@@ -58,7 +68,7 @@ This is achieved by calling:
 $ python3 bin/create_hugo_pages.py
 ```
 
-This script will produce *a lot* of files in the `hugo/content/` subdirectory
+This script will produce *a lot* of files in the `build/content/` subdirectory
 (most prominently, one for each paper in the Anthology).
 
 ### Step 3: Create bibliography export files for papers
@@ -70,14 +80,14 @@ the Anthology.  This is achieved by calling:
 $ python3 bin/create_bibtex.py
 ```
 
-The exported files will be written to the `hugo/data-export/` subdirectory.
+The exported files will be written to the `build/data-export/` subdirectory.
 
 For other export formats, we rely on the
 [`bibutils`](https://sourceforge.net/p/bibutils/home/Bibutils/) suite by
 first converting the generated `.bib` files to MODS XML:
 
 ```bash
-$ find hugo/data-export -name '*.bib' -exec bin/bib2xml_wrapper {} \; >/dev/null
+$ find build/data-export -name '*.bib' -exec bin/bib2xml_wrapper {} \; >/dev/null
 ```
 
 This creates a corresponding `.xml` file in MODS format for every `.bib` file
@@ -85,9 +95,14 @@ generated previously.
 
 ### Step 4: Run Hugo
 
-After all necessary files have been created, the website can be built by simply
-invoking Hugo from the `build/` subdirectory.  Optionally, the `--minify` flag
-can be used to create minified HTML output:
+The files that were generated so far are in the `build/` subdirectory, in which
+Hugo will be invoked. Before doing this, however, you need to also copy the
+content of the `hugo/` subdirectory into `build/` so that all the configuration
+files and the page structure is accessible to the engine.
+
+After doing so, the website can be built by simply invoking Hugo from the `build/`
+subdirectory.  Optionally, the `--minify` flag can be used to create minified
+HTML output:
 
 ```bash
 $ hugo --minify

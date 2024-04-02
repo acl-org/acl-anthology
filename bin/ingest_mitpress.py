@@ -413,7 +413,7 @@ def main(args):
             if volume_xml is None:
                 # xml volume = journal issue
                 volume_xml = make_simple_element(
-                    "volume", attrib={"id": issue}, parent=collection
+                    "volume", attrib={"id": issue, "type": "journal"}, parent=collection
                 )
                 volume_xml.append(
                     issue_info_to_node(issue_info, year, collection_id, venue)

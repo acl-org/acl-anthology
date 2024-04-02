@@ -40,18 +40,6 @@ def is_newstyle_id(anthology_id):
     return anthology_id[0].isdigit()  # New-style IDs are year-first
 
 
-def is_journal(anthology_id):
-    if is_newstyle_id(anthology_id):
-        # TODO: this function is sometimes called with "full_id", sometimes with
-        # "collection_id", so we're not using `deconstruct_anthology_id` here at
-        # the moment
-        venue = anthology_id.split("-")[0].split(".")[-1]
-        # TODO: this is currently hard-coded, but should be moved to the XML representation
-        return venue in data.JOURNAL_IDS
-    else:
-        return anthology_id[0] in ("J", "Q")
-
-
 def is_volume_id(anthology_id):
     collection_id, volume_id, paper_id = deconstruct_anthology_id(anthology_id)
     return paper_id == "0"
@@ -392,7 +380,15 @@ def indent(elem, level=0, internal=False):
     Adapted from https://stackoverflow.com/a/33956544 .
     """
     # tags that have no internal linebreaks (including children)
-    oneline = elem.tag in ("author", "editor", "speaker", "title", "booktitle", "variant")
+    oneline = elem.tag in (
+        "author",
+        "editor",
+        "speaker",
+        "title",
+        "booktitle",
+        "variant",
+        "abstract",
+    )
 
     elem.text = clean_whitespace(elem.text)
 
@@ -409,12 +405,12 @@ def indent(elem, level=0, internal=False):
 
         # recurse
         for child in elem:
-            indent(child, level + 1, internal=oneline)
+            indent(child, level + 1, internal=(internal or oneline))
 
         # Clean up the last child
         if oneline:
             child.tail = clean_whitespace(child.tail, strip="right")
-        elif not child.tail or not child.tail.strip():
+        elif not internal and (not child.tail or not child.tail.strip()):
             child.tail = "\n" + level * "  "
     else:
         elem.text = clean_whitespace(elem.text, strip="both")
@@ -445,6 +441,9 @@ def parse_element(
         return attrib
 
     for element in xml_element:
+        if element.tag is etree.Comment:
+            continue
+
         # parse value
         tag = element.tag.lower()
         if tag in dont_parse_elements:
@@ -516,7 +515,7 @@ def make_simple_element(tag, text=None, attrib=None, parent=None, namespaces=Non
         else etree.SubElement(parent, tag)
     )
     if text:
-        el.text = text
+        el.text = str(text)
     if attrib:
         for key, value in attrib.items():
             el.attrib[key] = value

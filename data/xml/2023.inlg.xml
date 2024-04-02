@@ -1,0 +1,766 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.inlg">
+  <volume id="main" ingest-date="2023-09-18" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 16th International Natural Language Generation Conference</booktitle>
+      <editor><first>C. Maria</first><last>Keet</last></editor>
+      <editor><first>Hung-Yi</first><last>Lee</last></editor>
+      <editor><first>Sina</first><last>Zarrieß</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Prague, Czechia</address>
+      <month>September</month>
+      <year>2023</year>
+      <url hash="3cb011a9">2023.inlg-main</url>
+      <venue>inlg</venue>
+      <venue>sigdial</venue>
+    </meta>
+    <frontmatter>
+      <url hash="4b35a8fd">2023.inlg-main.0</url>
+      <bibkey>inlg-2023-international</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Guided Beam Search to Improve Generalization in Low-Resource Data-to-Text Generation</title>
+      <author><first>Nicolas</first><last>Garneau</last></author>
+      <author><first>Luc</first><last>Lamontagne</last></author>
+      <pages>1–14</pages>
+      <abstract>In this paper, we introduce a new beam search algorithm that improves the generalization of neural generators to unseen examples, especially in low-resource data-to-text settings. Our algorithm aims to reduce the number of omissions and hallucinations during the decoding process. For this purpose, it relies on two regression models to explicitly characterize factual errors. We explain how to create a new dataset to train these models given an original training set of less than a thousand data points. We apply our approach in the low-resource, legal setting using the French Plum2Text dataset, as well as in English using WebNLG. We observe in our experiment that this combination improves the faithfulness of pre-trained neural text generators using both human and automatic evaluation. Moreover, our approach offers a level of interpretability by predicting the number of omissions and hallucinations present in a given generation with respect to the input data. Finally, we visualize our algorithm’s exploration of the hypothesis space at different steps during the decoding process.</abstract>
+      <url hash="b759b498">2023.inlg-main.1</url>
+      <bibkey>garneau-lamontagne-2023-guided</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.1</doi>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>XF</fixed-case>2<fixed-case>T</fixed-case>: Cross-lingual Fact-to-Text Generation for Low-Resource Languages</title>
+      <author><first>Shivprasad</first><last>Sagare</last></author>
+      <author><first>Tushar</first><last>Abhishek</last></author>
+      <author><first>Bhavyajeet</first><last>Singh</last></author>
+      <author><first>Anubhav</first><last>Sharma</last></author>
+      <author><first>Manish</first><last>Gupta</last></author>
+      <author><first>Vasudeva</first><last>Varma</last></author>
+      <pages>15–27</pages>
+      <abstract>Multiple business scenarios require an automated generation of descriptive human-readable text from structured input data. This has resulted into substantial work on fact-to-text generation systems recently. Unfortunately, previous work on fact-to-text (F2T) generation has focused primarily on English mainly due to the high availability of relevant datasets. Only recently, the problem of cross-lingual fact-to-text (XF2T) was proposed for generation across multiple languages alongwith a dataset, XAlign for eight languages. However, there has been no rigorous work on the actual XF2T generation problem. We extend XAlign dataset with annotated data for four more languages: Punjabi, Malayalam, Assamese and Oriya. We conduct an extensive study using popular Transformer-based text generation models on our extended multi-lingual dataset, which we call XAlignV2. Further, we investigate the performance of different text generation strategies: multiple variations of pretraining, fact-aware embeddings and structure-aware input encoding. Our extensive experiments show that a multi-lingual mT5 model which uses fact-aware embeddings with structure-aware input encoding leads to best results (30.90 BLEU, 55.12 METEOR and 59.17 chrF++) across the twelve languages. We make our code, dataset and model publicly available, and hope that this will help advance further research in this critical area.</abstract>
+      <url hash="97fc12c4">2023.inlg-main.2</url>
+      <bibkey>sagare-etal-2023-xf2t</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.2</doi>
+    </paper>
+    <paper id="3">
+      <title>Preventing Generation of Verbatim Memorization in Language Models Gives a False Sense of Privacy</title>
+      <author><first>Daphne</first><last>Ippolito</last></author>
+      <author><first>Florian</first><last>Tramer</last></author>
+      <author><first>Milad</first><last>Nasr</last></author>
+      <author><first>Chiyuan</first><last>Zhang</last></author>
+      <author><first>Matthew</first><last>Jagielski</last></author>
+      <author><first>Katherine</first><last>Lee</last></author>
+      <author><first>Christopher</first><last>Choquette Choo</last></author>
+      <author><first>Nicholas</first><last>Carlini</last></author>
+      <pages>28–53</pages>
+      <abstract>Studying data memorization in neural language models helps us understand the risks (e.g., to privacy or copyright) associated with models regurgitating training data and aids in the development of countermeasures. Many prior works—and some recently deployed defenses—focus on “verbatim memorization”, defined as a model generation that exactly matches a substring from the training set. We argue that verbatim memorization definitions are too restrictive and fail to capture more subtle forms of memorization. Specifically, we design and implement an efficient defense that _perfectly_ prevents all verbatim memorization. And yet, we demonstrate that this “perfect” filter does not prevent the leakage of training data. Indeed, it is easily circumvented by plausible and minimally modified “style-transfer” prompts—and in some cases even the non-modified original prompts—to extract memorized information. We conclude by discussing potential alternative definitions and why defining memorization is a difficult yet crucial open question for neural language models.</abstract>
+      <url hash="be51a5e1">2023.inlg-main.3</url>
+      <bibkey>ippolito-etal-2023-preventing</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Fine-Tuning <fixed-case>GPT</fixed-case>-3 for Synthetic <fixed-case>D</fixed-case>anish News Generation</title>
+      <author><first>Mina</first><last>Almasi</last></author>
+      <author><first>Anton</first><last>Schiønning</last></author>
+      <pages>54–68</pages>
+      <abstract>While GPT-3 has garnered significant attention for its capabilities in natural language generation, research on its use outside of English is still relatively limited. We focus on how GPT-3 can be fine-tuned for generating synthetic news articles in a low-resource language, namely Danish. The model’s performance is evaluated on the dimensions of human and machine detection in two separate experiments. When presented with either a real or GPT-3 generated news article, human participants achieve a 58.1% classification accuracy. Contrarily, a fine-tuned BERT classifier obtains a 92.7% accuracy on the same task. This discrepancy likely pertains to the fine-tuned GPT-3 model oversampling high-likelihood tokens in its text generation. Although this is undetectable to the human eye, it leaves a statistical discrepancy for machine classifiers to detect. We address how decisions in the experimental design favoured the machine classifiers over the human evaluators, and whether the produced synthetic articles are applicable in a real-world context.</abstract>
+      <url hash="7a898dbc">2023.inlg-main.4</url>
+      <bibkey>almasi-schionning-2023-fine</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.4</doi>
+    </paper>
+    <paper id="5">
+      <title><fixed-case>GAN</fixed-case>-<fixed-case>LM</fixed-case>: Generative Adversarial Network using Language Models for Downstream Applications</title>
+      <author><first>Dae Yon</first><last>Hwang</last></author>
+      <author><first>Yaroslav</first><last>Nechaev</last></author>
+      <author><first>Cyprien</first><last>de Lichy</last></author>
+      <author><first>Renxian</first><last>Zhang</last></author>
+      <pages>69–79</pages>
+      <abstract>In this work, we investigate Data Augmentation methods to improve the performance of state-of-the-art models for four different downstream tasks. Specifically, we propose Generative Adversarial Network using Language Models (GAN-LM) approach that combines a deep generative model with a pre-trained language model to produce diverse augmentations. We compare the GAN-LM to various conventional methods in non-contextual- and contextual-levels on four public datasets: ZESHEL for zero-shot entity linking, TREC for question classification, STS-B for sentence pairs semantic textual similarity (STS), and mSTS for multilingual sentence pairs STS. Additionally, we subsample these datasets to study the impact of such augmentations in low-resource settings where limited amounts of training data is available. Compared to the state-of-the-art methods in downstream tasks, we mostly achieve the best performance using GAN-LM approach. Finally, we investigate the way of combining the GAN-LM with other augmentation methods to complement our proposed approach. The developed code for reproducibility is included in the supplementary material.</abstract>
+      <url hash="fb4baf53">2023.inlg-main.5</url>
+      <attachment type="Supplementary_Attachment" hash="2b2a986a">2023.inlg-main.5.Supplementary_Attachment.zip</attachment>
+      <bibkey>hwang-etal-2023-gan</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.5</doi>
+    </paper>
+    <paper id="6">
+      <title>Summaries as Captions: Generating Figure Captions for Scientific Documents with Automated Text Summarization</title>
+      <author><first>Chieh-Yang</first><last>Huang</last></author>
+      <author><first>Ting-Yao</first><last>Hsu</last></author>
+      <author><first>Ryan</first><last>Rossi</last></author>
+      <author><first>Ani</first><last>Nenkova</last></author>
+      <author><first>Sungchul</first><last>Kim</last></author>
+      <author><first>Gromit Yeuk-Yin</first><last>Chan</last></author>
+      <author><first>Eunyee</first><last>Koh</last></author>
+      <author><first>C Lee</first><last>Giles</last></author>
+      <author><first>Ting-Hao</first><last>Huang</last></author>
+      <pages>80–92</pages>
+      <abstract>Good figure captions help paper readers understand complex scientific figures. Unfortunately, even published papers often have poorly written captions. Automatic caption generation could aid paper writers by providing good starting captions that can be refined for better quality. Prior work often treated figure caption generation as a vision-to-language task. In this paper, we show that it can be more effectively tackled as a text summarization task in scientific documents. We fine-tuned PEGASUS, a pre-trained abstractive summarization model, to specifically summarize figure-referencing paragraphs (e.g., “Figure 3 shows...”) into figure captions. Experiments on large-scale arXiv figures show that our method outperforms prior vision methods in both automatic and human evaluations. We further conducted an in-depth investigation focused on two key challenges: (i) the common presence of low-quality author-written captions and (ii) the lack of clear standards for good captions. Our code and data are available at: https://github.com/Crowd-AI-Lab/Generating-Figure-Captions-as-a-Text-Summarization-Task.</abstract>
+      <url hash="a86436c2">2023.inlg-main.6</url>
+      <attachment type="Supplementary_Attachment" hash="83583473">2023.inlg-main.6.Supplementary_Attachment.pdf</attachment>
+      <bibkey>huang-etal-2023-summaries</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Models of reference production: How do they withstand the test of time?</title>
+      <author><first>Fahime</first><last>Same</last></author>
+      <author><first>Guanyi</first><last>Chen</last></author>
+      <author><first>Kees</first><last>van Deemter</last></author>
+      <pages>93–105</pages>
+      <abstract>In recent years, many NLP studies have focused solely on performance improvement. In this work, we focus on the linguistic and scientific aspects of NLP. We use the task of generating referring expressions in context (REG-in-context) as a case study and start our analysis from GREC, a comprehensive set of shared tasks in English that addressed this topic over a decade ago. We ask what the performance of models would be if we assessed them (1) on more realistic datasets, and (2) using more advanced methods. We test the models using different evaluation metrics and feature selection experiments. We conclude that GREC can no longer be regarded as offering a reliable assessment of models’ ability to mimic human reference production, because the results are highly impacted by the choice of corpus and evaluation metrics. Our results also suggest that pre-trained language models are less dependent on the choice of corpus than classic Machine Learning models, and therefore make more robust class predictions.</abstract>
+      <url hash="6c4e84b2">2023.inlg-main.7</url>
+      <bibkey>same-etal-2023-models</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.7</doi>
+    </paper>
+    <paper id="8">
+      <title>Generating Faithful Text From a Knowledge Graph with Noisy Reference Text</title>
+      <author><first>Tahsina</first><last>Hashem</last></author>
+      <author><first>Weiqing</first><last>Wang</last></author>
+      <author><first>Derry Tanti</first><last>Wijaya</last></author>
+      <author><first>Mohammed Eunus</first><last>Ali</last></author>
+      <author><first>Yuan-Fang</first><last>Li</last></author>
+      <pages>106–122</pages>
+      <abstract>Knowledge Graph (KG)-to-Text generation aims at generating fluent natural-language text that accurately represents the information of a given knowledge graph. While significant progress has been made in this task by exploiting the power of pre-trained language models (PLMs) with appropriate graph structure-aware modules, existing models still fall short of generating faithful text, especially when the ground-truth natural-language text contains additional information that is not present in the graph. In this paper, we develop a KG-to-text generation model that can generate faithful natural-language text from a given graph, in the presence of noisy reference text. Our framework incorporates two core ideas: Firstly, we utilize contrastive learning to enhance the model’s ability to differentiate between faithful and hallucinated information in the text, thereby encouraging the decoder to generate text that aligns with the input graph. Secondly, we empower the decoder to control the level of hallucination in the generated text by employing a controllable text generation technique. We evaluate our model’s performance through the standard quantitative metrics as well as a ChatGPT-based quantitative and qualitative analysis. Our evaluation demonstrates the superior performance of our model over state-of-the-art KG-to-text models on faithfulness.</abstract>
+      <url hash="cac4b0a7">2023.inlg-main.8</url>
+      <attachment type="Supplementary_Attachment" hash="292495ae">2023.inlg-main.8.Supplementary_Attachment.pdf</attachment>
+      <bibkey>hashem-etal-2023-generating</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Entropy-based Sampling for Abstractive Multi-document Summarization in Low-resource Settings</title>
+      <author><first>Laura</first><last>Mascarell</last></author>
+      <author><first>Ribin</first><last>Chalumattu</last></author>
+      <author><first>Julien</first><last>Heitmann</last></author>
+      <pages>123–133</pages>
+      <abstract>Research in Multi-document Summarization (MDS) mostly focuses on the English language and depends on large MDS datasets that are not available for other languages. Some of these approaches concatenate the source documents, resulting in overlong model inputs. Existing transformer architectures are unable to process such long inputs entirely, omitting documents in the summarization process. Other solutions address this issue by implementing multi-stage approaches that also require changes in the model architecture. In this paper, we introduce various sampling approaches based on information entropy that allow us to perform MDS in a single stage. These approaches also consider all source documents without using MDS training data nor changing the model’s architecture. Besides, we build a MDS test set of German news articles to assess the performance of our methods on abstractive multi-document summaries. Experimental results show that our entropy-based approaches outperform previous state-of-the-art on German MDS, while still remaining primarily abstractive. We release our code and MDS test set to encourage further research in German abstractive MDS.</abstract>
+      <url hash="3959a88a">2023.inlg-main.9</url>
+      <bibkey>mascarell-etal-2023-entropy</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Claim Optimization in Computational Argumentation</title>
+      <author><first>Gabriella</first><last>Skitalinskaya</last></author>
+      <author><first>Maximilian</first><last>Spliethöver</last></author>
+      <author><first>Henning</first><last>Wachsmuth</last></author>
+      <pages>134–152</pages>
+      <abstract>An optimal delivery of arguments is key to persuasion in any debate, both for humans and for AI systems. This requires the use of clear and fluent claims relevant to the given debate. Prior work has studied the automatic assessment of argument quality extensively. Yet, no approach actually improves the quality so far. To fill this gap, this paper proposes the task of claim optimization: to rewrite argumentative claims in order to optimize their delivery. As multiple types of optimization are possible, we approach this task by first generating a diverse set of candidate claims using a large language model, such as BART, taking into account contextual information. Then, the best candidate is selected using various quality metrics. In automatic and human evaluation on an English-language corpus, our quality-based candidate selection outperforms several baselines, improving 60% of all claims (worsening 16% only). Follow-up analyses reveal that, beyond copy editing, our approach often specifies claims with details, whereas it adds less evidence than humans do. Moreover, its capabilities generalize well to other domains, such as instructional texts.</abstract>
+      <url hash="6623f0a4">2023.inlg-main.10</url>
+      <bibkey>skitalinskaya-etal-2023-claim</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.10</doi>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case>’s Information Seeking Strategy: Insights from the 20-Questions Game</title>
+      <author><first>Leonardo</first><last>Bertolazzi</last></author>
+      <author><first>Davide</first><last>Mazzaccara</last></author>
+      <author><first>Filippo</first><last>Merlo</last></author>
+      <author><first>Raffaella</first><last>Bernardi</last></author>
+      <pages>153–162</pages>
+      <abstract>Large Language Models, and ChatGPT in particular, have recently grabbed the attention of the community and the media. Having reached high language proficiency, attention has been shifting toward its reasoning capabilities. In this paper, our main aim is to evaluate ChatGPT’s question generation in a task where language production should be driven by an implicit reasoning process. To this end, we employ the 20-Questions game, traditionally used within the Cognitive Science community to inspect the information seeking-strategy’s development. This task requires a series of interconnected skills: asking informative questions, stepwise updating the hypothesis space, and stopping asking questions when enough information has been collected. We build hierarchical hypothesis spaces, exploiting feature norms collected from humans vs. ChatGPT itself, and we inspect the efficiency and informativeness of ChatGPT’s strategy. Our results show that ChatGPT’s performance gets closer to an optimal agent only when prompted to explicitly list the updated space stepwise.</abstract>
+      <url hash="9e0a8c6c">2023.inlg-main.11</url>
+      <attachment type="Supplementary_Attachment" hash="36927300">2023.inlg-main.11.Supplementary_Attachment.pdf</attachment>
+      <bibkey>bertolazzi-etal-2023-chatgpts</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.11</doi>
+    </paper>
+    <paper id="12">
+      <title>This is not correct! Negation-aware Evaluation of Language Generation Systems</title>
+      <author><first>Miriam</first><last>Anschütz</last></author>
+      <author><first>Diego</first><last>Miguel Lozano</last></author>
+      <author><first>Georg</first><last>Groh</last></author>
+      <pages>163–175</pages>
+      <abstract>Large language models underestimate the impact of negations on how much they change the meaning of a sentence. Therefore, learned evaluation metrics based on these models are insensitive to negations. In this paper, we propose NegBLEURT, a negation-aware version of the BLEURT evaluation metric. For that, we designed a rule-based sentence negation tool and used it to create the CANNOT negation evaluation dataset. Based on this dataset, we fine-tuned a sentence transformer and an evaluation metric to improve their negation sensitivity. Evaluating these models on existing benchmarks shows that our fine-tuned models outperform existing metrics on the negated sentences by far while preserving their base models’ performances on other perturbations.</abstract>
+      <url hash="f87d6996">2023.inlg-main.12</url>
+      <bibkey>anschutz-etal-2023-correct</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.12</doi>
+    </paper>
+    <paper id="13">
+      <title>Guidance in Radiology Report Summarization: An Empirical Evaluation and Error Analysis</title>
+      <author><first>Jan</first><last>Trienes</last></author>
+      <author><first>Paul</first><last>Youssef</last></author>
+      <author><first>Jörg</first><last>Schlötterer</last></author>
+      <author><first>Christin</first><last>Seifert</last></author>
+      <pages>176–195</pages>
+      <abstract>Automatically summarizing radiology reports into a concise impression can reduce the manual burden of clinicians and improve the consistency of reporting. Previous work aimed to enhance content selection and factuality through guided abstractive summarization. However, two key issues persist. First, current methods heavily rely on domain-specific resources to extract the guidance signal, limiting their transferability to domains and languages where those resources are unavailable. Second, while automatic metrics like ROUGE show progress, we lack a good understanding of the errors and failure modes in this task. To bridge these gaps, we first propose a domain-agnostic guidance signal in form of variable-length extractive summaries. Our empirical results on two English benchmarks demonstrate that this guidance signal improves upon unguided summarization while being competitive with domain-specific methods. Additionally, we run an expert evaluation of four systems according to a taxonomy of 11 fine-grained errors. We find that the most pressing differences between automatic summaries and those of radiologists relate to content selection including omissions (up to 52%) and additions (up to 57%). We hypothesize that latent reporting factors and corpus-level inconsistencies may limit models to reliably learn content selection from the available data, presenting promising directions for future work.</abstract>
+      <url hash="8896b2c9">2023.inlg-main.13</url>
+      <bibkey>trienes-etal-2023-guidance</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.13</doi>
+    </paper>
+    <paper id="14">
+      <title>A Zero-Shot Approach for Multi-User Task-Oriented Dialog Generation</title>
+      <author><first>Shiv</first><last>Surya</last></author>
+      <author><first>Yohan</first><last>Jo</last></author>
+      <author><first>Arijit</first><last>Biswas</last></author>
+      <author><first>Alexandros</first><last>Potamianos</last></author>
+      <pages>196–205</pages>
+      <abstract>Prior art investigating task-oriented dialog and automatic generation of such dialogs have focused on single-user dialogs between a single user and an agent. However, there is limited study on adapting such AI agents to multi-user conversations (involving multiple users and an agent). Multi-user conversations are richer than single-user conversations containing social banter and collaborative decision making. The most significant challenge impeding such studies is the lack of suitable multi-user task-oriented dialogs with annotations of user belief states and system actions. One potential solution is multi-user dialog generation from single-user data. Many single-user dialogs datasets already contain dialog state information (intents, slots), thus making them suitable candidates. In this work, we propose a novel approach for expanding single-user task-oriented dialogs (e.g. MultiWOZ) to multi-user dialogs in a zero-shot setting.</abstract>
+      <url hash="458c648e">2023.inlg-main.14</url>
+      <attachment type="Supplementary_Attachment" hash="d7a06a1d">2023.inlg-main.14.Supplementary_Attachment.pdf</attachment>
+      <bibkey>surya-etal-2023-zero</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.14</doi>
+    </paper>
+    <paper id="15">
+      <title>Beyond the Bias: Unveiling the Quality of Implicit Causality Prompt Continuations in Language Models</title>
+      <author><first>Judith</first><last>Sieker</last></author>
+      <author><first>Oliver</first><last>Bott</last></author>
+      <author><first>Torgrim</first><last>Solstad</last></author>
+      <author><first>Sina</first><last>Zarrieß</last></author>
+      <pages>206–220</pages>
+      <abstract>Recent studies have used human continuations of Implicit Causality (IC) prompts collected in linguistic experiments to evaluate discourse understanding in large language models (LLMs), focusing on the well-known IC coreference bias in the LLMs’ predictions of the next word following the prompt. In this study, we investigate how continuations of IC prompts can be used to evaluate the text generation capabilities of LLMs in a linguistically controlled setting. We conduct an experiment using two open-source GPT-based models, employing human evaluation to assess different aspects of continuation quality. Our findings show that LLMs struggle in particular with generating coherent continuations in this rather simple setting, indicating a lack of discourse knowledge beyond the well-known IC bias. Our results also suggest that a bias congruent continuation does not necessarily equate to a higher continuation quality. Furthermore, our study draws upon insights from the Uniform Information Density hypothesis, testing different prompt modifications and decoding procedures and showing that sampling-based methods are particularly sensitive to the information density of the prompts.</abstract>
+      <url hash="65ffcd43">2023.inlg-main.15</url>
+      <bibkey>sieker-etal-2023-beyond</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Enhancing factualness and controllability of Data-to-Text Generation via data Views and constraints</title>
+      <author><first>Craig</first><last>Thomson</last></author>
+      <author><first>Clement</first><last>Rebuffel</last></author>
+      <author><first>Ehud</first><last>Reiter</last></author>
+      <author><first>Laure</first><last>Soulier</last></author>
+      <author><first>Somayajulu</first><last>Sripada</last></author>
+      <author><first>Patrick</first><last>Gallinari</last></author>
+      <pages>221–236</pages>
+      <abstract>Neural data-to-text systems lack the control and factual accuracy required to generate useful and insightful summaries of multidimensional data. We propose a solution in the form of data views, where each view describes an entity and its attributes along specific dimensions. A sequence of views can then be used as a high-level schema for document planning, with the neural model handling the complexities of micro-planning and surface realization. We show that our view-based system retains factual accuracy while offering high-level control of output that can be tailored based on user preference or other norms within the domain.</abstract>
+      <url hash="ca1e2fd2">2023.inlg-main.16</url>
+      <attachment type="Supplementary_Attachment" hash="3c966389">2023.inlg-main.16.Supplementary_Attachment.pdf</attachment>
+      <bibkey>thomson-etal-2023-enhancing</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.16</doi>
+    </paper>
+    <paper id="17">
+      <title>Memories for Virtual <fixed-case>AI</fixed-case> Characters</title>
+      <author><first>Fabian</first><last>Landwehr</last></author>
+      <author><first>Erika</first><last>Varis Doggett</last></author>
+      <author><first>Romann M.</first><last>Weber</last></author>
+      <pages>237–252</pages>
+      <abstract>In this paper, we present a system for augmenting virtual AI characters with long-term memory, enabling them to remember facts about themselves, their world, and past experiences. We propose a memory-creation pipeline that converts raw text into condensed memories and a memory-retrieval system that utilizes these memories to generate character responses. Using a fact-checking pipeline based on GPT-4, our evaluation demonstrates that the character responses are grounded in the retrieved memories and maintain factual accuracy. We discuss the implications of our system for creating engaging and consistent virtual characters and highlight areas for future research, including large language model (LLM) guardrailing and virtual character personality development.</abstract>
+      <url hash="30c577a9">2023.inlg-main.17</url>
+      <bibkey>landwehr-etal-2023-memories</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Metric-Based In-context Learning: A Case Study in Text Simplification</title>
+      <author><first>Subhadra</first><last>Vadlamannati</last></author>
+      <author><first>Gözde</first><last>Şahin</last></author>
+      <pages>253–268</pages>
+      <abstract>In-context learning (ICL) for large language models has proven to be a powerful approach for many natural language processing tasks. However, determining the best method to select examples for ICL is nontrivial as the results can vary greatly depending on the quality, quantity, and order of examples used. In this paper, we conduct a case study on text simplification (TS) to investigate how to select the best and most robust examples for ICL. We propose Metric-Based in-context Learning (MBL) method that utilizes commonly used TS metrics such as SARI, compression ratio, and BERT-Precision for selection. Through an extensive set of experiments with various-sized GPT models on standard TS benchmarks such as TurkCorpus and ASSET, we show that examples selected by the top SARI scores perform the best on larger models such as GPT-175B, while the compression ratio generally performs better on smaller models such as GPT-13B and GPT-6.7B. Furthermore, we demonstrate that MBL is generally robust to example orderings and out-of-domain test sets, and outperforms strong baselines and state-of-the-art finetuned language models. Finally, we show that the behavior of large GPT models can be implicitly controlled by the chosen metric. Our research provides a new framework for selecting examples in ICL, and demonstrates its effectiveness in text simplification tasks, breaking new ground for more accurate and efficient NLG systems.</abstract>
+      <url hash="a46468c1">2023.inlg-main.18</url>
+      <bibkey>vadlamannati-sahin-2023-metric</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.18</doi>
+    </paper>
+    <paper id="19">
+      <title>Exploring the Naturalness of Cognitive Status-Informed Referring Form Selection Models</title>
+      <author><first>Gabriel</first><last>Del Castillo</last></author>
+      <author><first>Grace</first><last>Clark</last></author>
+      <author><first>Zhao</first><last>Han</last></author>
+      <author><first>Tom</first><last>Williams</last></author>
+      <pages>269–278</pages>
+      <abstract>Language-capable robots must be able to efficiently and naturally communicate about objects in the environment. A key part of communication is Referring Form Selection (RFS): the process of selecting a form like it, that, or the N to use when referring to an object. Recent cognitive status-informed computational RFS models have been evaluated in terms of goodness-of-fit to human data. But it is as yet unclear whether these models actually select referring forms that are any more natural than baseline alternatives, regardless of goodness-of-fit. Through a human subject study designed to assess this question, we show that even though cognitive status-informed referring selection models achieve good fit to human data, they do not (yet) produce concrete benefits in terms of naturality. On the other hand, our results show that human utterances also had high variability in perceived naturality, demonstrating the challenges of evaluating RFS naturality.</abstract>
+      <url hash="8bd423c9">2023.inlg-main.19</url>
+      <bibkey>del-castillo-etal-2023-exploring</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.19</doi>
+    </paper>
+    <paper id="20">
+      <title>System-Initiated Transitions from Chit-Chat to Task-Oriented Dialogues with Transition Info Extractor and Transition Sentence Generator</title>
+      <author><first>Ye</first><last>Liu</last></author>
+      <author><first>Stefan</first><last>Ultes</last></author>
+      <author><first>Wolfgang</first><last>Minker</last></author>
+      <author><first>Wolfgang</first><last>Maier</last></author>
+      <pages>279–292</pages>
+      <abstract>In this work, we study dialogue scenarios that start from chit-chat but eventually switch to task-related services, and investigate how a unified dialogue model, which can engage in both chit-chat and task-oriented dialogues, takes the initiative during the dialogue mode transition from chit-chat to task-oriented in a coherent and cooperative manner. We firstly build a <i>transition info extractor</i> (TIE) that keeps track of the preceding chit-chat interaction and detects the potential user intention to switch to a task-oriented service. Meanwhile, in the unified model, a <i>transition sentence generator</i> (TSG) is extended through efficient Adapter tuning and transition prompt learning. When the TIE successfully finds task-related information from the preceding chit-chat, such as a transition domain (“train” in Figure fig: system-initiated transition from chit-chat to task-oriented.), then the TSG is activated automatically in the unified model to initiate this transition by generating a transition sentence under the guidance of transition information extracted by TIE. The experimental results show promising performance regarding the proactive transitions. We achieve an additional large improvement on TIE model by utilizing Conditional Random Fields (CRF). The TSG can flexibly generate transition sentences while maintaining the unified capabilities of normal chit-chat and task-oriented response generation.</abstract>
+      <url hash="200309f4">2023.inlg-main.20</url>
+      <bibkey>liu-etal-2023-system-initiated</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.20</doi>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>HL</fixed-case> Dataset: Visually-grounded Description of Scenes, Actions and Rationales</title>
+      <author><first>Michele</first><last>Cafagna</last></author>
+      <author><first>Kees</first><last>van Deemter</last></author>
+      <author><first>Albert</first><last>Gatt</last></author>
+      <pages>293–312</pages>
+      <abstract>Current captioning datasets focus on object-centric captions, describing the visible objects in the image, often ending up stating the obvious (for humans), e.g. “people eating food in a park”. Although these datasets are useful to evaluate the ability of Vision &amp; Language models to recognize and describe visual content, they do not support controlled experiments involving model testing or fine-tuning, with more high-level captions, which humans find easy and natural to produce. For example, people often describe images based on the type of scene they depict (“people at a holiday resort”) and the actions they perform (“people having a picnic”). Such concepts are based on personal experience and contribute to forming common sense assumptions. We present the High-Level Dataset, a dataset extending 14997 images from the COCO dataset, aligned with a new set of 134,973 human-annotated (high-level) captions collected along three axes: scenes, actions and rationales. We further extend this dataset with confidence scores collected from an independent set of readers, as well as a set of narrative captions generated synthetically, by combining each of the three axes. We describe this dataset and analyse it extensively. We also present baseline results for the High-Level Captioning task.</abstract>
+      <url hash="75aa7325">2023.inlg-main.21</url>
+      <bibkey>cafagna-etal-2023-hl</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.21</doi>
+      <revision id="1" href="2023.inlg-main.21v1" hash="788340bd"/>
+      <revision id="2" href="2023.inlg-main.21v2" hash="75aa7325" date="2023-12-09">Updated Acknowledgments.</revision>
+    </paper>
+    <paper id="22">
+      <title>Validating Predictive Models Of Evaluative Language For Controllable <fixed-case>D</fixed-case>ata2<fixed-case>T</fixed-case>ext Generation</title>
+      <author><first>Maurice</first><last>Langner</last></author>
+      <author><first>Ralf</first><last>Klabunde</last></author>
+      <pages>313–322</pages>
+      <abstract>In data2text generation, tabular data is transformed into a text that expresses information from that source domain. While some text types, such as instructions, demand objective and neutral language without any expressive and evaluative content, many other text types are expected to provide expressions for these kinds of subjective meanings. In controllable, pipelined neural NLG separate learning models, notably regression models, can be used to predict whether some feature deviates sufficiently strongly from an expected value, so that evaluative language would be appropriate for verbalizing this finding. In this paper, we present an empirical study on the comprehension of evaluative adverbs and adjectival modifiers in car reviews, a text type that is characterized by a mixture of factual information with evaluations expressing positive or negative surprise. We show to what extend regression-based decision boundaries for producing evaluative content in controllable data2text NLG match the reader’s expectations that are raised by those evaluative markers. Finally we show that regression values in combination with standard deviation of the technical input data constitute reasonable Boolean thresholds for both positive and negative surprise, which provide the basis for the development of more complex models that also include the scalar base of adverbs and modifiers.</abstract>
+      <url hash="a2b44f4d">2023.inlg-main.22</url>
+      <attachment type="Supplementary_Attachment" hash="0ac99d8c">2023.inlg-main.22.Supplementary_Attachment.zip</attachment>
+      <bibkey>langner-klabunde-2023-validating</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.22</doi>
+    </paper>
+    <paper id="23">
+      <title>The Next Chapter: A Study of Large Language Models in Storytelling</title>
+      <author><first>Zhuohan</first><last>Xie</last></author>
+      <author><first>Trevor</first><last>Cohn</last></author>
+      <author><first>Jey Han</first><last>Lau</last></author>
+      <pages>323–351</pages>
+      <abstract>To enhance the quality of generated stories, recent story generation models have been investigating the utilization of higher-level attributes like plots or commonsense knowledge. The application of prompt-based learning with large language models (LLMs), exemplified by GPT-3, has exhibited remarkable performance in diverse natural language processing (NLP) tasks. This paper conducts a comprehensive investigation, utilizing both automatic and human evaluation, to compare the story generation capacity of LLMs with recent models across three datasets with variations in style, register, and length of stories. The results demonstrate that LLMs generate stories of significantly higher quality compared to other story generation models. Moreover, they exhibit a level of performance that competes with human authors, albeit with the preliminary observation that they tend to replicate real stories in situations involving world knowledge, resembling a form of plagiarism.</abstract>
+      <url hash="cfef4c09">2023.inlg-main.23</url>
+      <attachment type="Supplementary_Attachment" hash="f494d13b">2023.inlg-main.23.Supplementary_Attachment.pdf</attachment>
+      <bibkey>xie-etal-2023-next</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.23</doi>
+    </paper>
+    <paper id="24">
+      <title>Trustworthiness of Children Stories Generated by Large Language Models</title>
+      <author><first>Prabin</first><last>Bhandari</last></author>
+      <author><first>Hannah</first><last>Brennan</last></author>
+      <pages>352–361</pages>
+      <abstract>Large Language Models (LLMs) have shown a tremendous capacity for generating literary text. However, their effectiveness in generating children’s stories has yet to be thoroughly examined. In this study, we evaluate the trustworthiness of children’s stories generated by LLMs using various measures, and we compare and contrast our results with both old and new children’s stories to better assess their significance. Our findings suggest that LLMs still struggle to generate children’s stories at the level of quality and nuance found in actual stories.</abstract>
+      <url hash="0fea507b">2023.inlg-main.24</url>
+      <bibkey>bhandari-brennan-2023-trustworthiness</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.24</doi>
+    </paper>
+    <paper id="25">
+      <title>On Text Style Transfer via Style-Aware Masked Language Models</title>
+      <author><first>Sharan</first><last>Narasimhan</last></author>
+      <author><first>Pooja</first><last>H</last></author>
+      <author><first>Suvodip</first><last>Dey</last></author>
+      <author><first>Maunendra Sankar</first><last>Desarkar</last></author>
+      <pages>362–374</pages>
+      <abstract>Text Style Transfer (TST) is performable through approaches such as latent space disentanglement, cycle-consistency losses, prototype editing etc. The prototype editing approach, which is known to be quite successful in TST, involves two key phases a) Masking of source style-associated tokens and b) Reconstruction of this source-style masked sentence conditioned with the target style. We follow a similar transduction method, in which we transpose the more difficult direct source to target TST task to a simpler Style-Masked Language Model (SMLM) Task, wherein, similar to BERT (CITATION), the goal of our model is now to reconstruct the source sentence from its style-masked version. We arrive at the SMLM mechanism naturally by formulating prototype editing/ transduction methods in a probabilistic framework, where TST resolves into estimating a hypothetical parallel dataset from a partially observed parallel dataset, wherein each domain is assumed to have a common latent style-masked prior. To generate this style-masked prior, we use “Explainable Attention” as our choice of attribution for a more precise style-masking step and also introduce a cost-effective and accurate “Attribution-Surplus” method of determining the position of masks from any arbitrary attribution model in O(1) time. We empirically show that this non-generational approach well suites the “content preserving” criteria for a task like TST, even for a complex style like Discourse Manipulation. Our model, the Style MLM, outperforms strong TST baselines and is on par with state-of-the-art TST models, which use complex architectures and orders of more parameters.</abstract>
+      <url hash="12fa2e6f">2023.inlg-main.25</url>
+      <bibkey>narasimhan-etal-2023-text</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.25</doi>
+    </paper>
+    <paper id="26">
+      <title>Affective Natural Language Generation of Event Descriptions through Fine-grained Appraisal Conditions</title>
+      <author><first>Yarik</first><last>Menchaca Resendiz</last></author>
+      <author><first>Roman</first><last>Klinger</last></author>
+      <pages>375–387</pages>
+      <abstract>Models for affective text generation have shown a remarkable progress, but they commonly rely only on basic emotion theories or valance/arousal values as conditions. This is appropriate when the goal is to create explicit emotion statements (“The kid is happy.”). Emotions are, however, commonly communicated implicitly. For instance, the emotional interpretation of an event (“Their dog died.”) does often not require an explicit emotion statement. In psychology, appraisal theories explain the link between a cognitive evaluation of an event and the potentially developed emotion. They put the assessment of the situation on the spot, for instance regarding the own control or the responsibility for what happens. We hypothesize and subsequently show that including appraisal variables as conditions in a generation framework comes with two advantages. (1) The generation model is informed in greater detail about what makes a specific emotion and what properties it has. This leads to text generation that better fulfills the condition. (2) The variables of appraisal allow a user to perform a more fine-grained control of the generated text, by stating properties of a situation instead of only providing the emotion category. Our Bart and T5-based experiments with 7 emotions (Anger, Disgust, Fear, Guilt, Joy, Sadness, Shame), and 7 appraisals (Attention, Responsibility, Control, Circumstance, Pleasantness, Effort, Certainty) show that (1) adding appraisals during training improves the accurateness of the generated texts by 10 pp in F1. Further, (2) the texts with appraisal variables are longer and contain more details. This exemplifies the greater control for users.</abstract>
+      <url hash="a25a3456">2023.inlg-main.26</url>
+      <bibkey>menchaca-resendiz-klinger-2023-affective</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.26</doi>
+    </paper>
+    <paper id="27">
+      <title>Leveraging Low-resource Parallel Data for Text Style Transfer</title>
+      <author><first>Sourabrata</first><last>Mukherjee</last></author>
+      <author><first>Ondrej</first><last>Dusek</last></author>
+      <pages>388–395</pages>
+      <abstract>Text style transfer (TST) involves transforming a text into a desired style while approximately preserving its content. The biggest challenge in TST in the general lack of parallel data. Many existing approaches rely on complex models using substantial non-parallel data, with mixed results. In this paper, we leverage a pretrained BART language model with minimal parallel data and incorporate low-resource methods such as hyperparameter tuning, data augmentation, and self-training, which have not been explored in TST. We further include novel style-based rewards in the training loss. Through extensive experiments in sentiment transfer, a sub-task of TST, we demonstrate that our simple yet effective approaches achieve well-balanced results, surpassing non-parallel approaches and highlighting the usefulness of parallel data even in small amounts.</abstract>
+      <url hash="af4396f3">2023.inlg-main.27</url>
+      <bibkey>mukherjee-dusek-2023-leveraging</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.27</doi>
+    </paper>
+    <paper id="28">
+      <title>Reverse-Engineering Decoding Strategies Given Blackbox Access to a Language Generation System</title>
+      <author><first>Daphne</first><last>Ippolito</last></author>
+      <author><first>Nicholas</first><last>Carlini</last></author>
+      <author><first>Katherine</first><last>Lee</last></author>
+      <author><first>Milad</first><last>Nasr</last></author>
+      <author><first>Yun William</first><last>Yu</last></author>
+      <pages>396–406</pages>
+      <abstract>Neural language models are increasingly deployed into APIs and websites that allow a user to pass in a prompt and receive generated text. Many of these systems do not reveal generation parameters. In this paper, we present methods to reverse-engineer the decoding method used to generate text (i.e., top-_k_ or nucleus sampling). Our ability to discover which decoding strategy was used has implications for detecting generated text. Additionally, the process of discovering the decoding strategy can reveal biases caused by selecting decoding settings which severely truncate a model’s predicted distributions. We perform our attack on several families of open-source language models, as well as on production systems (e.g., ChatGPT).</abstract>
+      <url hash="6aceabd9">2023.inlg-main.28</url>
+      <bibkey>ippolito-etal-2023-reverse</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.28</doi>
+    </paper>
+    <paper id="29">
+      <title>Controlling keywords and their positions in text generation</title>
+      <author><first>Yuichi</first><last>Sasazawa</last></author>
+      <author><first>Terufumi</first><last>Morishita</last></author>
+      <author><first>Hiroaki</first><last>Ozaki</last></author>
+      <author><first>Osamu</first><last>Imaichi</last></author>
+      <author><first>Yasuhiro</first><last>Sogawa</last></author>
+      <pages>407–413</pages>
+      <abstract>One of the challenges in text generation is to control text generation as intended by the user. Previous studies proposed specifying the keywords that should be included in the generated text. However, this approach is insufficient to generate text that reflect the user’s intent. For example, placing an important keyword at the beginning of the text would help attract the reader’s attention; however, existing methods do not enable such flexible control. In this paper, we tackle a novel task of controlling not only keywords but also the position of each keyword in the text generation. To this end, we propose a task-independent method that uses special tokens to control the relative position of keywords. Experimental results on summarization and story generation tasks show that the proposed method can control keywords and their positions. The experimental results also demonstrate that controlling the keyword positions can generate summary texts that are closer to the user’s intent than baseline.</abstract>
+      <url hash="ec9dc713">2023.inlg-main.29</url>
+      <attachment type="Supplementary_Attachment" hash="b11d55f9">2023.inlg-main.29.Supplementary_Attachment.pdf</attachment>
+      <bibkey>sasazawa-etal-2023-controlling</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.29</doi>
+    </paper>
+    <paper id="30">
+      <title>Tackling Hallucinations in Neural Chart Summarization</title>
+      <author><first>Saad</first><last>Obaid ul Islam</last></author>
+      <author><first>Iza</first><last>Škrjanec</last></author>
+      <author><first>Ondrej</first><last>Dusek</last></author>
+      <author><first>Vera</first><last>Demberg</last></author>
+      <pages>414–423</pages>
+      <abstract>Hallucinations in text generation occur when the system produces text that is not grounded in the input. In this work, we tackle the problem of hallucinations in neural chart summarization. Our analysis shows that the target side of chart summarization training datasets often contains additional information, leading to hallucinations. We propose a natural language inference (NLI) based method to preprocess the training data and show through human evaluation that our method significantly reduces hallucinations. We also found that shortening long-distance dependencies in the input sequence and adding chart-related information like title and legends improves the overall performance.</abstract>
+      <url hash="3e939e29">2023.inlg-main.30</url>
+      <bibkey>obaid-ul-islam-etal-2023-tackling</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.30</doi>
+    </paper>
+    <paper id="31">
+      <title>Learning Disentangled Meaning and Style Representations for Positive Text Reframing</title>
+      <author><first>Xu</first><last>Sheng</last></author>
+      <author><first>Fumiyo</first><last>Fukumoto</last></author>
+      <author><first>Jiyi</first><last>Li</last></author>
+      <author><first>Go</first><last>Kentaro</last></author>
+      <author><first>Yoshimi</first><last>Suzuki</last></author>
+      <pages>424–430</pages>
+      <abstract>The positive text reframing (PTR) task which generates a text giving a positive perspective with preserving the sense of the input text, has attracted considerable attention as one of the NLP applications. Due to the significant representation capability of the pre-trained language model (PLM), a beneficial baseline can be easily obtained by just fine-tuning the PLM. However, how to interpret a diversity of contexts to give a positive perspective is still an open problem. Especially, it is more serious when the size of the training data is limited. In this paper, we present a PTR framework, that learns representations where the meaning and style of text are structurally disentangled. The method utilizes pseudo-positive reframing datasets which are generated with two augmentation strategies. A simple but effective multi-task learning-based model is learned to fuse the generation capabilities from these datasets. Experimental results on Positive Psychology Frames (PPF) dataset, show that our approach outperforms the baselines, BART by five and T5 by six evaluation metrics. Our source codes and data are available online.</abstract>
+      <url hash="efc08cfb">2023.inlg-main.31</url>
+      <bibkey>sheng-etal-2023-learning</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.31</doi>
+    </paper>
+    <paper id="32">
+      <title>Generating clickbait spoilers with an ensemble of large language models</title>
+      <author><first>Mateusz</first><last>Woźny</last></author>
+      <author><first>Mateusz</first><last>Lango</last></author>
+      <pages>431–436</pages>
+      <abstract>Clickbait posts are a widespread problem in the webspace. The generation of spoilers, i.e. short texts that neutralize clickbait by providing information that makes it uninteresting, is one of the proposed solutions to the problem. Current state-of-the-art methods are based on passage retrieval or question answering approaches and are limited to generating spoilers only in the form of a phrase or a passage. In this work, we propose an ensemble of fine-tuned large language models for clickbait spoiler generation. Our approach is not limited to phrase or passage spoilers, but is also able to generate multipart spoilers that refer to several non-consecutive parts of text. Experimental evaluation demonstrates that the proposed ensemble model outperforms the baselines in terms of BLEU, METEOR and BERTScore metrics.</abstract>
+      <url hash="157a1f5e">2023.inlg-main.32</url>
+      <bibkey>wozny-lango-2023-generating</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.32</doi>
+    </paper>
+    <paper id="33">
+      <title>Reducing named entity hallucination risk to ensure faithful summary generation</title>
+      <author><first>Eunice</first><last>Akani</last></author>
+      <author><first>Benoit</first><last>Favre</last></author>
+      <author><first>Frederic</first><last>Bechet</last></author>
+      <author><first>Romain</first><last>Gemignani</last></author>
+      <pages>437–442</pages>
+      <abstract>The faithfulness of abstractive text summarization at the named entities level is the focus of this study. We propose to add a new criterion to the summary selection method based on the “risk” of generating entities that do not belong to the source document. This method is based on the assumption that Out-Of-Document entities are more likely to be hallucinations. This assumption was verified by a manual annotation of the entities occurring in a set of generated summaries on the CNN/DM corpus. This study showed that only 29% of the entities outside the source document were inferrable by the annotators, leading to 71% of hallucinations among OOD entities. We test our selection method on the CNN/DM corpus and show that it significantly reduces the hallucination risk on named entities while maintaining competitive results with respect to automatic evaluation metrics like ROUGE.</abstract>
+      <url hash="9796be57">2023.inlg-main.33</url>
+      <attachment type="Supplementary_Attachment" hash="ea1b5bb4">2023.inlg-main.33.Supplementary_Attachment.pdf</attachment>
+      <bibkey>akani-etal-2023-reducing</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.33</doi>
+    </paper>
+    <paper id="34">
+      <title>Building a dual dataset of text- and image-grounded conversations and summarisation in Gàidhlig (<fixed-case>S</fixed-case>cottish <fixed-case>G</fixed-case>aelic)</title>
+      <author><first>David M.</first><last>Howcroft</last></author>
+      <author><first>William</first><last>Lamb</last></author>
+      <author><first>Anna</first><last>Groundwater</last></author>
+      <author><first>Dimitra</first><last>Gkatzia</last></author>
+      <pages>443–448</pages>
+      <abstract>Gàidhlig (Scottish Gaelic; gd) is spoken by about 57k people in Scotland, but remains an under-resourced language with respect to natural language processing in general and natural language generation (NLG) in particular. To address this gap, we developed the first datasets for Scottish Gaelic NLG, collecting both conversational and summarisation data in a single setting. Our task setup involves dialogues between a pair of speakers discussing museum exhibits, grounding the conversation in images and texts. Then, both interlocutors summarise the dialogue resulting in a secondary dialogue summarisation dataset. This paper presents the dialogue and summarisation corpora, as well as the software used for data collection. The corpus consists of 43 conversations (13.7k words) and 61 summaries (2.0k words), and will be released along with the data collection interface.</abstract>
+      <url hash="6d0d7087">2023.inlg-main.34</url>
+      <attachment type="Supplementary_Attachment" hash="8a897a3d">2023.inlg-main.34.Supplementary_Attachment.pdf</attachment>
+      <bibkey>howcroft-etal-2023-building</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.34</doi>
+    </paper>
+    <paper id="35">
+      <title>Generating Multiple Questions from Presentation Transcripts: A Pilot Study on Earnings Conference Calls</title>
+      <author><first>Yining</first><last>Juan</last></author>
+      <author><first>Chung-Chi</first><last>Chen</last></author>
+      <author><first>Hen-Hsen</first><last>Huang</last></author>
+      <author><first>Hsin-Hsi</first><last>Chen</last></author>
+      <pages>449–454</pages>
+      <abstract>In various scenarios, such as conference oral presentations, company managers’ talks, and politicians’ speeches, individuals often contemplate the potential questions that may arise from their presentations. This common practice prompts the research question addressed in this study: to what extent can models generate multiple questions based on a given presentation transcript? To investigate this, we conduct pilot explorations using earnings conference call transcripts, which serve as regular meetings between professional investors and company managers. We experiment with different task settings and methods and evaluate the results from various perspectives. Our findings highlight that incorporating key points retrieval techniques enhances the accuracy and diversity of the generated questions.</abstract>
+      <url hash="8bf2af18">2023.inlg-main.35</url>
+      <bibkey>juan-etal-2023-generating</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.35</doi>
+    </paper>
+    <paper id="36">
+      <title>Mod-<fixed-case>D</fixed-case>2<fixed-case>T</fixed-case>: A Multi-layer Dataset for Modular Data-to-Text Generation</title>
+      <author><first>Simon</first><last>Mille</last></author>
+      <author><first>Francois</first><last>Lareau</last></author>
+      <author><first>Stamatia</first><last>Dasiopoulou</last></author>
+      <author><first>Anya</first><last>Belz</last></author>
+      <pages>455–466</pages>
+      <abstract>Rule-based text generators lack the coverage and fluency of their neural counterparts, but have two big advantages over them: (i) they are entirely controllable and do not hallucinate; and (ii) they can fully explain how an output was generated from an input. In this paper we leverage these two advantages to create large and reliable synthetic datasets with multiple human-intelligible intermediate representations. We present the Modular Data-to-Text (Mod-D2T) Dataset which incorporates ten intermediate-level representations between input triple sets and output text; the mappings from one level to the next can broadly be interpreted as the traditional modular tasks of an NLG pipeline. We describe the Mod-D2T dataset, evaluate its quality via manual validation and discuss its applications and limitations. Data, code and documentation are available at https://github.com/mille-s/Mod-D2T.</abstract>
+      <url hash="1ad1c710">2023.inlg-main.36</url>
+      <bibkey>mille-etal-2023-mod</bibkey>
+      <doi>10.18653/v1/2023.inlg-main.36</doi>
+    </paper>
+  </volume>
+  <volume id="demos" ingest-date="2023-09-01" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 16th International Natural Language Generation Conference: System Demonstrations</booktitle>
+      <editor><first>C. Maria</first><last>Keet</last></editor>
+      <editor><first>Hung-Yi</first><last>Lee</last></editor>
+      <editor><first>Sina</first><last>Zarrieß</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Prague, Czechia</address>
+      <month>September</month>
+      <year>2023</year>
+      <url hash="a80fc181">2023.inlg-demos</url>
+      <venue>inlg</venue>
+      <venue>sigdial</venue>
+    </meta>
+    <frontmatter>
+      <url hash="fe93f881">2023.inlg-demos.0</url>
+      <bibkey>inlg-2023-international-natural</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Overview of <fixed-case>M</fixed-case>i<fixed-case>R</fixed-case>eportor: Generating Reports for Multimodal Medical Images</title>
+      <author><first>Xuwen</first><last>Wang</last></author>
+      <author><first>Hetong</first><last>Ma</last></author>
+      <author><first>Zhen</first><last>Guo</last></author>
+      <author><first>Jiao</first><last>Li</last></author>
+      <pages>1–3</pages>
+      <abstract>This demo paper presents a brief introduction of MiReportor, a computer-aided medical imaging report generator, which leverages a unified framework of medical image understanding and generation to predict readable descriptions for medical images, and assists radiologists in imaging reports writing.</abstract>
+      <url hash="3b290c47">2023.inlg-demos.1</url>
+      <attachment type="Supplementary_Attachment" hash="7b7a466e">2023.inlg-demos.1.Supplementary_Attachment.zip</attachment>
+      <bibkey>wang-etal-2023-overview</bibkey>
+    </paper>
+    <paper id="2">
+      <title>enunlg: a Python library for reproducible neural data-to-text experimentation</title>
+      <author><first>David M.</first><last>Howcroft</last></author>
+      <author><first>Dimitra</first><last>Gkatzia</last></author>
+      <pages>4–5</pages>
+      <abstract>Over the past decade, a variety of neural architectures for data-to-text generation (NLG) have been proposed. However, each system typically has its own approach to pre- and post-processing and other implementation details. Diversity in implementations is desirable, but it also confounds attempts to compare model performance: are the differences due to the proposed architectures or are they a byproduct of the libraries used or a result of pre- and post-processing decisions made? To improve reproducibility, we re-implement several pre-Transformer neural models for data-to-text NLG within a single framework to facilitate direct comparisons of the models themselves and better understand the contributions of other design choices. We release our library at https://github.com/NapierNLP/enunlg to serve as a baseline for ongoing work in this area including research on NLG for low-resource languages where transformers might not be optimal.</abstract>
+      <url hash="5d9c149d">2023.inlg-demos.2</url>
+      <bibkey>howcroft-gkatzia-2023-enunlg</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>V</fixed-case>isua<fixed-case>LLM</fixed-case>: Easy Web-based Visualization for Neural Language Generation</title>
+      <author><first>František</first><last>Trebuňa</last></author>
+      <author><first>Ondrej</first><last>Dusek</last></author>
+      <pages>6–8</pages>
+      <abstract>VisuaLLM is a Python library that enables interactive visualization of common tasks in natural language generation with pretrained language models (using HuggingFace’s model API), with tight integration of benchmark datasets and fine-grained generation control. The system runs as a local generation backend server and features a web-based frontend, allowing simple interface configuration by minimal Python code. The currently implemented views include data visualization, next-token prediction with probability distributions, and decoding parameter control, with simple extension to additional tasks.</abstract>
+      <url hash="c6e9aa28">2023.inlg-demos.3</url>
+      <bibkey>trebuna-dusek-2023-visuallm</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Audio Commentary System for Real-Time Racing Game Play</title>
+      <author><first>Tatsuya</first><last>Ishigaki</last></author>
+      <author><first>Goran</first><last>Topić</last></author>
+      <author><first>Yumi</first><last>Hamazono</last></author>
+      <author><first>Ichiro</first><last>Kobayashi</last></author>
+      <author><first>Yusuke</first><last>Miyao</last></author>
+      <author><first>Hiroya</first><last>Takamura</last></author>
+      <pages>9–10</pages>
+      <abstract>Live commentaries are essential for enhancing spectators’ enjoyment and understanding during sports events or e-sports streams. We introduce a live audio commentator system designed specifically for a racing game, driven by the high demand in the e-sports field. While a player is playing a racing game, our system tracks real-time user play data including speed and steer rotations, and generates commentary to accompany the live stream. Human evaluation suggested that generated commentary enhances enjoyment and understanding of races compared to streams without commentary. Incorporating additional modules to improve diversity and detect irregular events, such as course-outs and collisions, further increases the preference for the output commentaries.</abstract>
+      <url hash="e417e5a6">2023.inlg-demos.4</url>
+      <bibkey>ishigaki-etal-2023-audio</bibkey>
+    </paper>
+  </volume>
+  <volume id="genchal" ingest-date="2023-09-01" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 16th International Natural Language Generation Conference: Generation Challenges</booktitle>
+      <editor><first>Simon</first><last>Mille</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Prague, Czechia</address>
+      <month>September</month>
+      <year>2023</year>
+      <url hash="c51d3134">2023.inlg-genchal</url>
+      <venue>inlg</venue>
+      <venue>sigdial</venue>
+    </meta>
+    <frontmatter>
+      <url hash="45e0e62c">2023.inlg-genchal.0</url>
+      <bibkey>inlg-2023-international-natural-language</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>LOWRECORP</fixed-case>: the Low-Resource <fixed-case>NLG</fixed-case> Corpus Building Challenge</title>
+      <author><first>Khyathi Raghavi</first><last>Chandu</last></author>
+      <author><first>David M.</first><last>Howcroft</last></author>
+      <author><first>Dimitra</first><last>Gkatzia</last></author>
+      <author><first>Yi-Ling</first><last>Chung</last></author>
+      <author><first>Yufang</first><last>Hou</last></author>
+      <author><first>Chris Chinenye</first><last>Emezue</last></author>
+      <author><first>Pawan</first><last>Rajpoot</last></author>
+      <author><first>Tosin</first><last>Adewumi</last></author>
+      <pages>1–9</pages>
+      <abstract>Most languages in the world do not have sufficient data available to develop neural-network-based natural language generation (NLG) systems. To alleviate this resource scarcity, we propose a novel challenge for the NLG community: low-resource language corpus development (LOWRECORP). We present an innovative framework to collect a single dataset with dual tasks to maximize the efficiency of data collection efforts and respect language consultant time. Specifically, we focus on a text-chat-based interface for two generation tasks – conversational response generation grounded in a source document and/or image and dialogue summarization (from the former task). The goal of this shared task is to collectively develop grounded datasets for local and low-resourced languages. To enable data collection, we make available web-based software that can be used to collect these grounded conversations and summaries. Submissions will be assessed for the size, complexity, and diversity of the corpora to ensure quality control of the datasets as well as any enhancements to the interface or novel approaches to grounding conversations.</abstract>
+      <url hash="52cabb33">2023.inlg-genchal.1</url>
+      <bibkey>chandu-etal-2023-lowrecorp</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Long Story Generation Challenge</title>
+      <author><first>Nikolay</first><last>Mikhaylovskiy</last></author>
+      <pages>10–16</pages>
+      <abstract>We propose a shared task of human-like long story generation, LSG Challenge, that asks models to output a consistent human-like long story (a Harry Potter generic audience fanfic in English), given a prompt of about 1K tokens. We suggest a novel statistical metric of the text structuredness, GloVe Autocorrelations Power/ Exponential Law Mean Absolute Percentage Error Ratio (GAPELMAPER) and the use of previously-known UNION metric and a human evaluation protocol. We hope that LSG can open new avenues for researchers to investigate sampling approaches, prompting strategies, autoregressive and non-autoregressive text generation architectures and break the barrier to generate consistent long (40K+ word) texts.</abstract>
+      <url hash="db9a5833">2023.inlg-genchal.2</url>
+      <bibkey>mikhaylovskiy-2023-long</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Visually Grounded Story Generation Challenge</title>
+      <author><first>Xudong</first><last>Hong</last></author>
+      <author><first>Khushboo</first><last>Mehra</last></author>
+      <author><first>Asad</first><last>Sayeed</last></author>
+      <author><first>Vera</first><last>Demberg</last></author>
+      <pages>17–22</pages>
+      <abstract>Recent large pre-trained models have achieved strong performance in multimodal language generation, which requires a joint effort of vision and language modeling. However, most previous generation tasks are based on single image input and produce short text descriptions that are not grounded on the input images. In this work, we propose a shared task on visually grounded story generation. The input is an image sequence, and the output is a story that is conditioned on the input images. This task is particularly challenging because: 1) the protagonists in the generated stories need to be grounded in the images and 2) the output story should be a coherent long-form text. We aim to advance the study of vision-based story generation by accepting submissions that propose new methods as well as new evaluation measures.</abstract>
+      <url hash="6421763c">2023.inlg-genchal.3</url>
+      <bibkey>hong-etal-2023-visually</bibkey>
+    </paper>
+    <paper id="4">
+      <title>The <fixed-case>VDG</fixed-case> Challenge: Response Generation and Evaluation in Collaborative Visual Dialogue</title>
+      <author><first>Nikolai</first><last>Ilinykh</last></author>
+      <author><first>Simon</first><last>Dobnik</last></author>
+      <pages>23–30</pages>
+      <abstract>We propose the VDG Challenge: a shared task that addresses and benchmarks the task of utterance generation in collaborative visual dialogue. The task features two challenging datasets, an evaluation protocol and a tentative schedule. Our shared task will allow researchers to unravel problems of modelling multi-modal interaction and fit of the existing approaches in the NLP and NLG communities.</abstract>
+      <url hash="8e61b2ea">2023.inlg-genchal.4</url>
+      <bibkey>ilinykh-dobnik-2023-vdg</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Identifying Feedback Types to Augment Feedback Comment Generation</title>
+      <author><first>Maja</first><last>Stahl</last></author>
+      <author><first>Henning</first><last>Wachsmuth</last></author>
+      <pages>31–36</pages>
+      <abstract>In the context of language learning, feedback comment generation is the task of generating hints or explanatory notes for learner texts that help understand why a part of text is erroneous. This paper presents our approach to the Feedback Comment Generation Shared Task, collocated with the 16th International Natural Language Generation Conference (INLG 2023). The approach augments the generation of feedback comments by a self-supervised identification of feedback types in a multitasklearning setting. Within the shared task, other approaches performed more effective, yet the combined modeling of feedback type classification and feedback comment generation is superior to performing eedback generation only.</abstract>
+      <url hash="50e93f12">2023.inlg-genchal.5</url>
+      <bibkey>stahl-wachsmuth-2023-identifying</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Error syntax aware augmentation of feedback comment generation dataset</title>
+      <author><first>Nikolay</first><last>Babakov</last></author>
+      <author><first>Maria</first><last>Lysyuk</last></author>
+      <author><first>Alexander</first><last>Shvets</last></author>
+      <author><first>Lilya</first><last>Kazakova</last></author>
+      <author><first>Alexander</first><last>Panchenko</last></author>
+      <pages>37–44</pages>
+      <abstract>This paper presents a solution to the GenChal 2022 shared task dedicated to feedback comment generation for writing learning. In terms of this task given a text with an error and a span of the error, a system generates an explanatory note that helps the writer (language learner) to improve their writing skills. Our solution is based on fine-tuning the T5 model on the initial dataset augmented according to syntactical dependencies of the words located within indicated error span. The solution of our team ‘nigula’ obtained second place according to manual evaluation by the organizers.</abstract>
+      <url hash="60649887">2023.inlg-genchal.6</url>
+      <bibkey>babakov-etal-2023-error</bibkey>
+    </paper>
+    <paper id="7">
+      <title>A Report on <fixed-case>FCG</fixed-case> <fixed-case>G</fixed-case>en<fixed-case>C</fixed-case>hal 2022: Shared Task on Feedback Comment Generation for Language Learners</title>
+      <author><first>Ryo</first><last>Nagata</last></author>
+      <author><first>Masato</first><last>Hagiwara</last></author>
+      <author><first>Kazuaki</first><last>Hanawa</last></author>
+      <author><first>Masato</first><last>Mita</last></author>
+      <pages>45–52</pages>
+      <abstract>We report on the results of the first ever shared task on feedback comment generation for language learners held as Generation Challenge (GenChal) in INLG 2022, which we call FCG GenChal. Feedback comment generation for language learners is a task where, given a text and a span, a system generates, for the span, an explanatory note that helps the writer (language learner) improve their writing skills. We show how well we can generate feedback comments with present techniques. We also shed light on the task properties and the difficulties in this task, with insights into the task including data development, evaluation, and comparisons of generation systems.</abstract>
+      <url hash="de342e33">2023.inlg-genchal.7</url>
+      <bibkey>nagata-etal-2023-report</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Sentence-level Feedback Generation for <fixed-case>E</fixed-case>nglish Language Learners: Does Data Augmentation Help?</title>
+      <author><first>Shabnam</first><last>Behzad</last></author>
+      <author><first>Amir</first><last>Zeldes</last></author>
+      <author><first>Nathan</first><last>Schneider</last></author>
+      <pages>53–59</pages>
+      <abstract>In this paper, we present strong baselines for the task of Feedback Comment Generation for Writing Learning. Given a sentence and an error span, the task is to generate a feedback comment explaining the error. Sentences and feedback comments are both in English. We experiment with LLMs and also create multiple pseudo datasets for the task, investigating how it affects the performance of our system. We present our results for the task along with extensive analysis of the generated comments with the aim of aiding future studies in feedback comment generation for English language learners.</abstract>
+      <url hash="7782a14b">2023.inlg-genchal.8</url>
+      <bibkey>behzad-etal-2023-sentence</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Retrieval, Masking, and Generation: Feedback Comment Generation using Masked Comment Examples</title>
+      <author><first>Mana</first><last>Ihori</last></author>
+      <author><first>Hiroshi</first><last>Sato</last></author>
+      <author><first>Tomohiro</first><last>Tanaka</last></author>
+      <author><first>Ryo</first><last>Masumura</last></author>
+      <pages>60–67</pages>
+      <abstract>In this paper, we propose a novel method, retrieval, masking, and generation, for feedback comment generation. Feedback comment generation is a task in which a system generates feedback comments such as hints or explanatory notes for language learners, given input text and position showing where to comment. In the conventional study, the retrieve-and-edit method for retrieving feedback comments in the data pool and editing the comments has been thought effective for this task. However, the performance of this method does not perform as well as other conventional methods because its model learns to edit tokens that do not need to be rewritten in the retrieved comments. To mitigate this problem, we propose a method for combining retrieval, masking, and generation based on the retrieve-and-edit method. Specifically, tokens of feedback comments retrieved from the data pool are masked, and this masked feedback comment is used as a template to generate feedback comments. The proposed method should prevent unnecessary conversion by using not retrieved feedback comments directly but masking them. Our experiments on feedback comment generation demonstrate that the proposed method outperforms conventional methods.</abstract>
+      <url hash="d9a2d4c9">2023.inlg-genchal.9</url>
+      <bibkey>ihori-etal-2023-retrieval</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>TMU</fixed-case> Feedback Comment Generation System Using Pretrained Sequence-to-Sequence Language Models</title>
+      <author><first>Naoya</first><last>Ueda</last></author>
+      <author><first>Mamoru</first><last>Komachi</last></author>
+      <pages>68–73</pages>
+      <abstract>In this paper, we introduce our Tokyo Metropolitan University Feedback Comment Generation system submitted to the feedback comment generation task for INLG 2023 Generation Challenge. In this task, a source sentence and offset range of preposition uses are given as the input. Then, a system generates hints or explanatory notes about preposition uses as the output. To tackle this generation task, we finetuned pretrained sequence-to-sequence language models. The models using BART and T5 showed significant improvement in BLEU score, demonstrating the effectiveness of the pretrained sequence-to-sequence language models in this task. We found that using part-of-speech tag information as an auxiliary input improves the generation quality of feedback comments. Furthermore, we adopt a simple postprocessing method that can enhance the reliability of the generation. As a result, our system achieved the F1 score of 47.4 points in BLEU-based evaluation and 60.9 points in manual evaluation, which ranked second and third on the leaderboard.</abstract>
+      <url hash="14b0f1aa">2023.inlg-genchal.10</url>
+      <bibkey>ueda-komachi-2023-tmu</bibkey>
+    </paper>
+    <paper id="11">
+      <title>The <fixed-case>T</fixed-case>okyo Tech and <fixed-case>AIST</fixed-case> System at the <fixed-case>G</fixed-case>en<fixed-case>C</fixed-case>hal 2022 Shared Task on Feedback Comment Generation</title>
+      <author><first>Shota</first><last>Koyama</last></author>
+      <author><first>Hiroya</first><last>Takamura</last></author>
+      <author><first>Naoaki</first><last>Okazaki</last></author>
+      <pages>74–78</pages>
+      <abstract>This paper describes the Tokyo Tech and AIST system in the GenChal 2022 shared task, which is the first shared task of feedback comment generation. We adopted five methods: data cleaning, fine-tuning pre-trained models, correcting errors in learners’ sentences, appending a correcting operation, and filtering out irrelevant outputs. Our system achieved F1 = 43.4 on the test dataset.</abstract>
+      <url hash="22b99e21">2023.inlg-genchal.11</url>
+      <bibkey>koyama-etal-2023-tokyo</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Feedback comment generation using predicted grammatical terms</title>
+      <author><first>Kunitaka</first><last>Jimichi</last></author>
+      <author><first>Kotaro</first><last>Funakoshi</last></author>
+      <author><first>Manabu</first><last>Okumura</last></author>
+      <pages>79–83</pages>
+      <abstract>The purpose of feedback comment generation is to provide useful feedback comments for a wide range of errors in learners’ essays from a language learning perspective. Since it is difficult to obtain appropriate comments at a practical level with rule-based or retrieval- based methods, we explore neural-based gen- erative methods with pre-trained models. We further assume the effectiveness of consider- ing grammatical terms in generating feedback comments. Specifically, this paper proposes T5-based models using predicted grammati- cal terms, submitted to FCG GenChal, and presents their results. By using correct gram- matical terms, our model could improve the BLEU score by 19.0 points, compared with the baseline T5 without grammatical terms on the development dataset. Furthermore, by using predicted grammatical terms, our model could improve the manual evaluation score by 2.33 points, compared with the baseline T5 without grammatical terms on the test dataset.</abstract>
+      <url hash="37624194">2023.inlg-genchal.12</url>
+      <bibkey>jimichi-etal-2023-feedback</bibkey>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>AIW</fixed-case>olf<fixed-case>D</fixed-case>ial 2023: Summary of Natural Language Division of 5th International <fixed-case>AIW</fixed-case>olf Contest</title>
+      <author><first>Yoshinobu</first><last>Kano</last></author>
+      <author><first>Neo</first><last>Watanabe</last></author>
+      <author><first>Kaito</first><last>Kagaminuma</last></author>
+      <author><first>Claus</first><last>Aranha</last></author>
+      <author><first>Jaewon</first><last>Lee</last></author>
+      <author><first>Benedek</first><last>Hauer</last></author>
+      <author><first>Hisaichi</first><last>Shibata</last></author>
+      <author><first>Soichiro</first><last>Miki</last></author>
+      <author><first>Yuta</first><last>Nakamura</last></author>
+      <author><first>Takuya</first><last>Okubo</last></author>
+      <author><first>Soga</first><last>Shigemura</last></author>
+      <author><first>Rei</first><last>Ito</last></author>
+      <author><first>Kazuki</first><last>Takashima</last></author>
+      <author><first>Tomoki</first><last>Fukuda</last></author>
+      <author><first>Masahiro</first><last>Wakutani</last></author>
+      <author><first>Tomoya</first><last>Hatanaka</last></author>
+      <author><first>Mami</first><last>Uchida</last></author>
+      <author><first>Mikio</first><last>Abe</last></author>
+      <author><first>Akihiro</first><last>Mikami</last></author>
+      <author><first>Takashi</first><last>Otsuki</last></author>
+      <author><first>Zhiyang</first><last>Qi</last></author>
+      <author><first>Kei</first><last>Harada</last></author>
+      <author><first>Michimasa</first><last>Inaba</last></author>
+      <author><first>Daisuke</first><last>Katagami</last></author>
+      <author><first>Hirotaka</first><last>Osawa</last></author>
+      <author><first>Fujio</first><last>Toriumi</last></author>
+      <pages>84–100</pages>
+      <abstract>We held our 5th annual AIWolf international contest to automatically play the Werewolf game “Mafia”, where players try finding liars via conversations, aiming at promoting developments in creating agents of more natural conversations in higher level, such as longer contexts, personal relationships, semantics, pragmatics, and logics, revealing the capabilities and limits of the generative AIs. In our Natural Language Division of the contest, we had six Japanese speaking agents from five teams, and three English speaking agents, to mutually run games. By using the game logs, We performed human subjective evaluations and detailed log analysis. We found that the entire system performance has largely improved over the previous year, due to the recent advantages of the LLMs. However, it is not perfect at all yet; the generated talks are sometimes inconsistent with the game actions, it is still doubtful that the agents could infer roles by logics rather than superficial utterance generations. It is not explicitly observed in this log but it would be still difficult to make an agent telling a lie, pretend as a villager but it has an opposite goal inside. Our future work includes to reveal the capability of the LLMs, whether they can make the duality of the “liar”, in other words, holding a “true” and a “false” circumstances of the agent at the same time, even holding what these circumstances look like from other agents.</abstract>
+      <url hash="25e63783">2023.inlg-genchal.13</url>
+      <bibkey>kano-etal-2023-aiwolfdial</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Team Zoom @ <fixed-case>A</fixed-case>uto<fixed-case>M</fixed-case>in 2023: Utilizing Topic Segmentation And <fixed-case>LLM</fixed-case> Data Augmentation For Long-Form Meeting Summarization</title>
+      <author><first>Felix</first><last>Schneider</last></author>
+      <author><first>Marco</first><last>Turchi</last></author>
+      <pages>101–107</pages>
+      <abstract>This paper describes Zoom’s submission to the Second Shared Task on Automatic Minuting at INLG 2023. We participated in Task A: generating abstractive summaries of meetings. Our final submission was a transformer model utilizing data from a similar domain and data augmentation by large language models, as well as content-based segmentation. The model produces summaries covering meeting topics and next steps and performs comparably to a large language model at a fraction of the cost. We also find that re-summarizing the summaries with the same model allows for an alternative, shorter summary.</abstract>
+      <url hash="65c121d6">2023.inlg-genchal.14</url>
+      <bibkey>schneider-turchi-2023-team</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Team Synapse @ <fixed-case>A</fixed-case>uto<fixed-case>M</fixed-case>in 2023: Leveraging <fixed-case>BART</fixed-case>-Based Models for Automatic Meeting Minuting</title>
+      <author><first>Kristýna</first><last>Klesnilová</last></author>
+      <author><first>Michelle</first><last>Elizabeth</last></author>
+      <pages>108–113</pages>
+      <abstract>This paper describes the approach we followed for our submission to the Second Run of the Automatic Minuting Shared Task. Our methodology centers around employing BART-based models fine-tuned on diverse summarization corpora. The segmented meeting transcripts are fed into the models, generating summaries that are subsequently combined and formatted into the final meeting minutes.</abstract>
+      <url hash="086266f8">2023.inlg-genchal.15</url>
+      <bibkey>klesnilova-elizabeth-2023-team</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Team Iterate @ <fixed-case>A</fixed-case>uto<fixed-case>M</fixed-case>in 2023 - Experiments with Iterative Minuting</title>
+      <author><first>František</first><last>Kmječ</last></author>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <pages>114–120</pages>
+      <abstract>This report describes the development of our system for automatic minuting created for the AutoMin 2023 Task A. As a baseline, we utilize a system based on the BART encoder-decoder model paired with a preprocessing pipeline similar to the one introduced by the winning solutions at AutoMin 2021. We then further explore the possibilities for iterative summarization by constructing an iterative minuting dataset from the provided data, finetuning on it and feeding the model previously generated minutes. We also experiment with adding more context by utilizing the Longformer encoder-decoder model and finetuning it on the SAMSum dataset. Our submitted solution is of the baseline approach, since we were unable to match its performance with our iterative variants. With the baseline, we achieve a ROUGE-1 score of 0.368 on the ELITR minuting corpus development set. We finally explore the performance of Vicuna 13B quantized language model for summarization.</abstract>
+      <url hash="de714ff8">2023.inlg-genchal.16</url>
+      <bibkey>kmjec-bojar-2023-team</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Darbarer @ <fixed-case>A</fixed-case>uto<fixed-case>M</fixed-case>in2023: Transcription simplification for concise minute generation from multi-party conversations</title>
+      <author><first>Ismaël</first><last>Rousseau</last></author>
+      <author><first>Loïc</first><last>Fosse</last></author>
+      <author><first>Youness</first><last>Dkhissi</last></author>
+      <author><first>Geraldine</first><last>Damnati</last></author>
+      <author><first>Gwénolé</first><last>Lecorvé</last></author>
+      <pages>121–131</pages>
+      <abstract>This document reports the approach of our team Darbarer for the main task (Task A) of the AutoMin 2023 challenge. Our system is composed of four main modules. The first module relies on a text simplification model aiming at standardizing the utterances of the conversation and compressing the input in order to focus on informative content. The second module handles summarization by employing a straightforward segmentation strategy and a fine-tuned BART-based generative model. Then a titling module has been trained in order to propose a short description of each summarized block. Lastly, we apply a post-processing step aimed at enhancing readability through specific formatting rules. Our contributions lie in the first, third and last steps. Our system generates precise and concise minutes. We provide a detailed description of our modules, discuss the difficulty of evaluating their impact and propose an analysis of observed errors in our generated minutes.</abstract>
+      <url hash="5d628e59">2023.inlg-genchal.17</url>
+      <bibkey>rousseau-etal-2023-darbarer</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Team <fixed-case>NTR</fixed-case> @ <fixed-case>A</fixed-case>uto<fixed-case>M</fixed-case>in 2023: Dolly <fixed-case>LLM</fixed-case> Improves Minuting Performance, Semantic Segmentation Doesn’t</title>
+      <author><first>Eugene</first><last>Borisov</last></author>
+      <author><first>Nikolay</first><last>Mikhaylovskiy</last></author>
+      <pages>132–137</pages>
+      <abstract>This paper documents the approach of Team NTR for the Second Shared Task on Automatic Minuting (AutoMin) at INLG 2023. The goal of this work is to develop a module for automatic generation of meeting minutes based on a meeting transcript text produced by an Automated Speech Recognition (ASR) system (Task A). We consider minuting as a supervised machine learning task on pairs of texts: the transcript of the meeting and its minutes. We use a two-staged minuting pipeline that consists of segmentation and summarization. We experiment with semantic segmentation and multi-language approaches and Large Language Model Dolly, and achieve Rouge1-F of 0.2455 and BERT-Score of 0.8063 on the English part of ELITR test set and Rouge1-F of 0.2430 and BERT-Score of 0.8332 on the EuroParl dev set with the submitted Naive Segmentation + Dolly7b pipeline.</abstract>
+      <url hash="6526e023">2023.inlg-genchal.18</url>
+      <bibkey>borisov-mikhaylovskiy-2023-team</bibkey>
+    </paper>
+    <paper id="19">
+      <title>Overview of the Second Shared Task on Automatic Minuting (<fixed-case>A</fixed-case>uto<fixed-case>M</fixed-case>in) at <fixed-case>INLG</fixed-case> 2023</title>
+      <author><first>Tirthankar</first><last>Ghosal</last></author>
+      <author><first>Ondřej</first><last>Bojar</last></author>
+      <author><first>Marie</first><last>Hledíková</last></author>
+      <author><first>Tom</first><last>Kocmi</last></author>
+      <author><first>Anna</first><last>Nedoluzhko</last></author>
+      <pages>138–167</pages>
+      <abstract>In this article, we report the findings of the second shared task on Automatic Minuting (AutoMin) held as a Generation Challenge at the 16th International Natural Language Generation (INLG) Conference 2023. The second Automatic Minuting shared task is a successor to the first AutoMin which took place in 2021. The primary objective of the AutoMin shared task is to garner participation of the speech and natural language processing and generation community to create automatic methods for generating minutes from multi-party meetings. Five teams from diverse backgrounds participated in the shared task this year. A lot has changed in the Generative AI landscape since the last AutoMin especially with the emergence and wide adoption of Large Language Models (LLMs) to different downstream tasks. Most of the contributions are based on some form of an LLM and we are also adding current outputs of GPT4 as a benchmark. Furthermore, we examine the applicability of GPT-4 for automatic scoring of minutes. Compared to the previous instance of AutoMin, we also add another domain, the minutes for EU Parliament sessions, and we experiment with a more fine-grained manual evaluation. More details on the event can be found at https://ufal.github.io/automin-2023/.</abstract>
+      <url hash="2744c60b">2023.inlg-genchal.19</url>
+      <bibkey>ghosal-etal-2023-overview</bibkey>
+    </paper>
+  </volume>
+  <event id="inlg-2023">
+    <colocated>
+      <volume-id>2023.dstc-1</volume-id>
+      <volume-id>2023.icard-1</volume-id>
+      <volume-id>2023.cs4oa-1</volume-id>
+      <volume-id>2023.mmnlg-1</volume-id>
+    </colocated>
+  </event>
+</collection>
