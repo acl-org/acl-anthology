@@ -134,6 +134,11 @@ class Volume(SlottedDict[Paper]):
         return self.parent.parent.parent
 
     @property
+    def venue_acronym(self) -> str:
+        """The acronym of the venue(s) associated with this volume.  In case of multiple venues, this will be a concatenation of the individual venue acronyms."""
+        return "-".join(venue.acronym for venue in self.venues())
+
+    @property
     def web_url(self) -> str:
         """The URL of this volume's landing page on the ACL Anthology website."""
         return cast(str, config["volume_page_template"]).format(self.full_id)
