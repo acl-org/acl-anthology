@@ -15,7 +15,12 @@
 """Functions for generating citation references."""
 
 import citeproc
-from citeproc import Citation, CitationItem, CitationStylesBibliography, CitationStylesStyle
+from citeproc import (
+    Citation,
+    CitationItem,
+    CitationStylesBibliography,
+    CitationStylesStyle,
+)
 from citeproc.source.json import CiteProcJSON
 from citeproc_styles import get_style_filepath
 from pathlib import Path
@@ -36,7 +41,9 @@ class CitationStyleDict(dict[str | Path, Any]):
                 # Assume that key is the name of a style in citeproc-py-styles
                 filename = get_style_filepath(key)
             if not Path(filename).is_file():
-                raise KeyError(f"Could not resolve '{key}' to a filename of a citation style")
+                raise KeyError(
+                    f"Could not resolve '{key}' to a filename of a citation style"
+                )
             style = CitationStylesStyle(filename)
             self.__setitem__(key, style)
         return style
@@ -46,7 +53,11 @@ citation_styles = CitationStyleDict()
 """Global object for accessing `citeproc.CitationStylesStyle` objects."""
 
 
-def citeproc_render_html(citeproc_dict: dict[str, Any], style: Optional[str | Path] = None, link_title: bool = True) -> str:
+def citeproc_render_html(
+    citeproc_dict: dict[str, Any],
+    style: Optional[str | Path] = None,
+    link_title: bool = True,
+) -> str:
     """Render a bibliography entry with a given CSL style.
 
     Arguments:
@@ -65,13 +76,14 @@ def citeproc_render_html(citeproc_dict: dict[str, Any], style: Optional[str | Pa
 
     source = CiteProcJSON([citeproc_dict])
     item = CitationItem(citeproc_dict["id"])
-    bib = CitationStylesBibliography(citation_styles[style], source, citeproc.formatter.html)
+    bib = CitationStylesBibliography(
+        citation_styles[style], source, citeproc.formatter.html
+    )
     bib.register(Citation([item]))
     rendered_list = bib.style.render_bibliography([item])[0]
     if link_title:
         link_text = f'<a href="{citeproc_dict["URL"]}">{citeproc_dict["title"]}</a>'
         rendered_list = [
-            str(x) if x != citeproc_dict["title"] else link_text
-            for x in rendered_list
+            str(x) if x != citeproc_dict["title"] else link_text for x in rendered_list
         ]
     return "".join(rendered_list)
