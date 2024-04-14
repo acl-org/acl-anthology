@@ -266,6 +266,8 @@ class Paper:
         Returns:
             The BibTeX entry for this paper as a formatted string.
         """
+        # Note: Fields are added in the order in which they will appear in the
+        # BibTeX entry, for reproducibility
         bibtex_fields: list[tuple[str, SerializableAsBibTeX]] = [
             ("title", self.title),
             ("author", self.authors),
@@ -311,6 +313,29 @@ class Paper:
             The generated citation reference as a single string with HTML markup.  See [`citeproc_render_html()`][acl_anthology.utils.citation.citeproc_render_html] for the rationale behind returning a single string here.
         """
         return citeproc_render_html(self.citeproc_dict, style)
+
+    def to_markdown_citation(self) -> str:
+        """Generate a brief citation (reference) in Markdown for this paper.
+
+        Returns:
+            The generated citation reference as a single string with Markdown markup.
+        """
+        namespecs = self.authors if not self.is_frontmatter else self.get_editors()
+        if len(namespecs) == 0:
+            name = "N.N."
+        elif len(namespecs) == 1:
+            name = namespecs[0].last
+        elif len(namespecs) == 2:
+            name = f"{namespecs[0].last} & {namespecs[1].last}"
+        else:
+            name = f"{namespecs[0].last} et al."
+
+        venue_year = (
+            f"{self.year}"
+            if "ws" in self.venue_ids
+            else f"{self.parent.venue_acronym} {self.year}"
+        )
+        return f"[{self.title.as_text()}]({self.web_url}) ({name}, {venue_year})"
 
     @classmethod
     def from_frontmatter_xml(cls, parent: Volume, paper: etree._Element) -> Paper:

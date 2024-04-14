@@ -257,6 +257,33 @@ def test_paper_to_citation(anthology, full_id, expected):
     assert citation == expected
 
 
+test_cases_papercitation_markdown = (
+    (
+        "J89-4001",
+        "[A Parsing Algorithm for Unification Grammar](https://aclanthology.org/J89-4001/) (Haas, CL 1989)",
+    ),
+    (
+        "2022.acl-short.0",
+        "[Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)](https://aclanthology.org/2022.acl-short.0/) (Muresan et al., ACL 2022)",
+    ),
+    (
+        "2022.acl-long.268",
+        "[Detecting Unassimilated Borrowings in Spanish: An Annotated Corpus and Approaches to Modeling](https://aclanthology.org/2022.acl-long.268/) (Álvarez-Mellado & Lignos, ACL 2022)",
+    ),
+    (
+        "L06-1060",
+        "[SParseval: Evaluation Metrics for Parsing Speech](https://aclanthology.org/L06-1060/) (Roark et al., LREC 2006)",
+    ),
+)
+
+
+@pytest.mark.parametrize("full_id, expected", test_cases_papercitation_markdown)
+def test_paper_to_markdown_citation(anthology, full_id, expected):
+    paper = anthology.get(full_id)
+    citation = paper.to_markdown_citation()
+    assert citation == expected
+
+
 test_cases_paperdeletionnotice = (
     (
         '<retracted date="2022-05-06">Paper was intended for the non-archival track.</retracted>',

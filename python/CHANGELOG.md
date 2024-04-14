@@ -5,6 +5,7 @@
 ### Added
 
 - Papers can now generate citation reference strings in any CSL-supported style via `to_citation()`.  Calling `to_citation()` without any arguments will produce ACL-formatted reference entries.
+- Papers can now generate brief markdown reference strings via `to_markdown_citation()`.
 - SIGIndex now reverse-indexes co-located volumes, so it is now possible to get SIGs associated with volumes, e.g. via `Volume.get_sigs()`.
 - Papers now have attribute `thumbnail`.
 - Volumes now have attributes `has_abstracts`, `venue_acronym`, and `web_url`.
