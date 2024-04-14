@@ -49,6 +49,13 @@ def test_name_specification():
     assert n1 == n2
 
 
+def test_name_spec_citeproc():
+    n1 = NameSpecification(Name("John", "Doe"))
+    assert n1.citeproc_dict == {"family": "Doe", "given": "John"}
+    n2 = NameSpecification(Name(None, "Mausam"))
+    assert n2.citeproc_dict == {"family": "Mausam"}
+
+
 def test_name_spec_with_affiliation():
     name = Name("John", "Doe")
     ns1 = NameSpecification(name)
