@@ -4,6 +4,7 @@
 
 ### Added
 
+- Papers can now generate citation reference strings in any CSL-supported style via `to_citation()`.
 - SIGIndex now reverse-indexes co-located volumes, so it is now possible to get SIGs associated with volumes, e.g. via `Volume.get_sigs()`.
 - Papers now have attribute `thumbnail`.
 - Volumes now have attributes `has_abstracts` and `web_url`.

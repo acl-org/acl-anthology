@@ -14,6 +14,14 @@ ignore_missing_imports = true
 module = 'latexcodec.*'
 ignore_missing_imports = true
 
+[[tool.mypy.overrides]]
+module = 'citeproc.*'
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = 'citeproc_styles.*'
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 markers = [
     "integration: marks tests on the full acl-org/acl-anthology repo"

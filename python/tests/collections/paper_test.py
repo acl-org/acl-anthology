@@ -221,6 +221,33 @@ def test_paper_to_bibtex_journal(anthology):
     assert paper.to_bibtex() == expected
 
 
+test_cases_papercitation = (
+    (
+        "J89-4001",
+        'Andrew Haas. 1989. <a href="https://aclanthology.org/J89-4001/">A Parsing Algorithm for Unification Grammar</a>. <i>Computational Linguistics</i>, 15(4):219–232.',
+    ),
+    (
+        "2022.acl-short.0",
+        "Smaranda Muresan, Preslav Nakov, and Aline Villavicencio. 2022. <i>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</i>. Association for Computational Linguistics, Dublin, Ireland.",
+    ),
+    (
+        "2022.acl-long.268",
+        'Elena Álvarez-Mellado and Constantine Lignos. 2022. <a href="https://aclanthology.org/2022.acl-long.268/">Detecting Unassimilated Borrowings in Spanish: An Annotated Corpus and Approaches to Modeling</a>. In <i>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</i>, pages 3868–3888, Dublin, Ireland. Association for Computational Linguistics.',
+    ),
+    (
+        "L06-1060",
+        'Brian Roark, Mary Harper, Eugene Charniak, Bonnie Dorr, Mark Johnson, Jeremy Kahn, Yang Liu, Mari Ostendorf, John Hale, Anna Krasnyanskaya, Matthew Lease, Izhak Shafran, Matthew Snover, Robin Stewart, and Lisa Yung. 2006. <a href="https://aclanthology.org/L06-1060/">SParseval: Evaluation Metrics for Parsing Speech</a>. In <i>Proceedings of the Fifth International Conference on Language Resources and Evaluation (LREC’06)</i>, Genoa, Italy. European Language Resources Association (ELRA).',
+    ),
+)
+
+
+@pytest.mark.parametrize("full_id, expected", test_cases_papercitation)
+def test_paper_to_citation(anthology, full_id, expected):
+    paper = anthology.get(full_id)
+    citation = paper.to_citation()
+    assert citation == expected
+
+
 test_cases_paperdeletionnotice = (
     (
         '<retracted date="2022-05-06">Paper was intended for the non-archival track.</retracted>',

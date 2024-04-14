@@ -18,6 +18,7 @@ import attrs
 import datetime
 from attrs import define, field, Factory
 from enum import Enum
+from functools import cached_property
 from lxml import etree
 from lxml.builder import E
 from typing import cast, Any, Optional, TYPE_CHECKING
@@ -32,6 +33,7 @@ from ..files import (
 )
 from ..people import NameSpecification
 from ..text import MarkupText
+from ..utils.citation import citeproc_render_html
 from ..utils.ids import build_id, AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
 from ..utils.logging import get_logger
@@ -155,6 +157,45 @@ class Paper:
                 raise ValueError(f"Unknown volume type: {self.parent.type}")
 
     @property
+    def csltype(self) -> str:
+        """The [CSL type](https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types) for this paper."""
+        if self.is_frontmatter:
+            return "book"
+        if self.parent.type == VolumeType.JOURNAL:
+            return "article-journal"
+        # else:
+        return "paper-conference"
+
+    @cached_property
+    def citeproc_dict(self) -> dict[str, Any]:
+        """The citation object corresponding to this paper for use with CiteProcJSON."""
+        data: dict[str, Any] = {
+            "id": self.bibkey,
+            "title": self.title.as_text(),
+            "type": self.csltype,
+            "author": [namespec.citeproc_dict for namespec in self.authors],
+            "editor": [namespec.citeproc_dict for namespec in self.get_editors()],
+            "publisher": self.publisher,
+            "publisher-place": self.address,
+            # TODO: month currently not included
+            "issued": {"date-parts": [[self.year]]},
+            "URL": self.web_url,
+            "DOI": self.doi,
+            "ISBN": self.parent.isbn,
+            "page": self.pages,
+        }
+        if self.is_frontmatter:
+            data["author"] = data["editor"]
+        match self.parent.type:
+            case VolumeType.JOURNAL:
+                data["container-title"] = self.parent.get_journal_title()
+                data["volume"] = self.parent.journal_volume
+                data["issue"] = self.parent.journal_issue
+            case VolumeType.PROCEEDINGS:
+                data["container-title"] = self.parent.title.as_text()
+        return {k: v for k, v in data.items() if v is not None}
+
+    @property
     def address(self) -> Optional[str]:
         """The publisher's address for this paper. Inherited from the parent Volume."""
         return self.parent.address
@@ -259,6 +300,17 @@ class Paper:
         if with_abstract and self.abstract is not None:
             bibtex_fields.append(("abstract", self.abstract))
         return make_bibtex_entry(self.bibtype, self.bibkey, bibtex_fields)
+
+    def to_citation(self, style: Optional[str] = None) -> str:
+        """Generate a citation (reference) for this paper.
+
+        Arguments:
+            style: Any citation style supported by [`citeproc-py-styles`](https://github.com/inveniosoftware/citeproc-py-styles) or a path to a CSL file.  If None (default), uses the built-in ACL citation style.
+
+        Returns:
+            The generated citation reference as a single string with HTML markup.  See [`citeproc_render_html()`][acl_anthology.utils.citation.citeproc_render_html] for the rationale behind returning a single string here.
+        """
+        return citeproc_render_html(self.citeproc_dict, style)
 
     @classmethod
     def from_frontmatter_xml(cls, parent: Volume, paper: etree._Element) -> Paper:
