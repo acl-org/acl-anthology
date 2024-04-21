@@ -93,7 +93,11 @@ class Person:
         self.names.insert(0, name)
 
     def papers(self) -> Iterator[Paper]:
-        """Returns an iterator over all papers associated with this person."""
+        """Returns an iterator over all papers associated with this person.
+
+        Note:
+            This will return papers where this person is an author, as well as frontmatter of volumes where they are an editor. It will _not_ include all other papers in volumes they have edited.
+        """
         for anthology_id in self.item_ids:
             paper_id = anthology_id[-1]
             if paper_id is not None:

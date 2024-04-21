@@ -29,9 +29,10 @@ Options:
 """
 
 from docopt import docopt
-from collections import defaultdict
+from collections import Counter, defaultdict
 import logging as log
 import os
+from rich import print
 from rich.logging import RichHandler
 from rich.progress import Progress
 import yaml
@@ -246,54 +247,49 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             progress.update(task, advance=len(collection_papers))
 
     # Export volumes
-    with open(f"{outdir}/volumes.yaml", "w") as f:
-        yaml.dump(all_volumes, Dumper=Dumper, stream=f)
+    if not dryrun:
+        with open(f"{outdir}/volumes.yaml", "w") as f:
+            yaml.dump(all_volumes, Dumper=Dumper, stream=f)
+
+    # Export people
+    people = defaultdict(dict)
+    for person_id, person in anthology.people.items():
+        cname = person.canonical_name
+        papers = sorted(
+            person.papers(),
+            key=lambda paper: paper.year,
+            reverse=True,
+        )
+        data = {
+            "first": cname.first,
+            "last": cname.last,
+            "full": cname.as_first_last(),
+            "slug": person_id,
+            "papers": [paper.full_id for paper in papers],
+            "coauthors": anthology.people.find_coauthors_counter(person).most_common(),
+            "venues": Counter(
+                venue for paper in papers for venue in paper.venue_ids
+            ).most_common(),
+        }
+        if len(person.names) > 1:
+            data["variant_entries"] = [
+                {"first": n.first, "last": n.last, "full": n.as_first_last()}
+                for n in person.names[1:]
+            ]
+        if person.comment is not None:
+            data["comment"] = person.comment
+        similar = anthology.people.similar.subset(person_id)
+        if len(similar) > 1:
+            data["similar"] = list(similar - {person_id})
+        people[person_id[0]][person_id] = data
+
+    if not dryrun:
+        for first_letter, people_list in people.items():
+            with open(f"{outdir}/people/{first_letter}.yaml", "w") as f:
+                yaml.dump(people_list, Dumper=Dumper, stream=f)
 
     exit(35)
     ##### NOT PORTED YET BEYOND THIS POINT
-
-    # Prepare people index
-    people = defaultdict(dict)
-    for id_ in anthology.people.personids():
-        name = anthology.people.get_canonical_name(id_)
-        log.debug("export_anthology: processing person '{}'".format(repr(name)))
-        data = name.as_dict()
-        data["slug"] = id_
-        if id_ in anthology.people.comments:
-            data["comment"] = anthology.people.comments[id_]
-        if id_ in anthology.people.similar:
-            data["similar"] = sorted(anthology.people.similar[id_])
-        papers_for_id = anthology.people.get_papers(id_, role="author") + [
-            paper
-            for paper in anthology.people.get_papers(id_, role="editor")
-            if anthology.papers.get(paper).is_volume
-        ]
-        data["papers"] = sorted(
-            papers_for_id,
-            key=lambda p: anthology.papers.get(p).get("year"),
-            reverse=True,
-        )
-        data["coauthors"] = sorted(
-            [[co_id, count] for (co_id, count) in anthology.people.get_coauthors(id_)],
-            key=lambda p: p[1],
-            reverse=True,
-        )
-        data["venues"] = sorted(
-            [
-                [venue, count]
-                for (venue, count) in anthology.people.get_venues(id_).items()
-            ],
-            key=lambda p: p[1],
-            reverse=True,
-        )
-        variants = [
-            n
-            for n in anthology.people.get_used_names(id_)
-            if n.first != name.first or n.last != name.last
-        ]
-        if len(variants) > 0:
-            data["variant_entries"] = [name.as_dict() for name in sorted(variants)]
-        people[id_[0]][id_] = data
 
     # Prepare venue index
     venues = {}
@@ -373,10 +369,6 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             yaml.dump(sigs, Dumper=Dumper, stream=f)
         progress.update()
 
-        for first_letter, people_list in people.items():
-            with open("{}/people/{}.yaml".format(outdir, first_letter), "w") as f:
-                yaml.dump(people_list, Dumper=Dumper, stream=f)
-            progress.update()
         progress.close()
 
 
