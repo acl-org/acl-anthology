@@ -163,6 +163,24 @@ def test_get_person_coauthors(index_with_full_anthology):
     assert len(coauthors) == 1
     assert coauthors[0].canonical_name == Name("Joyce", "McDowell")
 
+    person = index.get_by_name(Name("Preslav", "Nakov"))[0]
+    coauthors = index.find_coauthors(person)
+    assert len(coauthors) == 2
+
+
+def test_get_person_coauthors_counter(index_with_full_anthology):
+    index = index_with_full_anthology
+    person = index.get_by_name(Name("Kathleen", "Dahlgren"))[0]
+    coauthors = index.find_coauthors_counter(person)
+    assert len(coauthors) == 1
+    assert coauthors["joyce-mcdowell"] == 1
+
+    person = index.get_by_name(Name("Preslav", "Nakov"))[0]
+    coauthors = index.find_coauthors_counter(person)
+    assert len(coauthors) == 2
+    assert coauthors["joyce-mcdowell"] == 0
+    assert coauthors["aline-villavicencio"] == 2
+
 
 def test_get_by_namespec(index_with_full_anthology):
     index = index_with_full_anthology

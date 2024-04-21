@@ -15,7 +15,7 @@
 from __future__ import annotations
 
 from attrs import define, field, asdict
-from collections import defaultdict
+from collections import Counter, defaultdict
 import itertools as it
 from os import PathLike
 from pathlib import Path
@@ -102,22 +102,34 @@ class PersonIndex(SlottedDict[Person]):
         Returns:
             A list of all persons who are co-authors; can be empty.
         """
+        coauthors = self.find_coauthors_counter(person)
+        return [self.data[pid] for pid in coauthors]
+
+    def find_coauthors_counter(self, person: str | Person) -> Counter[str]:
+        """Find the count of co-authored or co-edited items per person.
+
+        Parameters:
+            person: A person ID _or_ Person instance.
+
+        Returns:
+            A Counter mapping **IDs** of other persons Y to the number of papers this person has co-authored with Y.
+        """
         if not self.is_data_loaded:
             self.load()
         if isinstance(person, str):
             person = self.data[person]
-        coauthors = set()
+        coauthors: Counter[str] = Counter()
         for item_id in person.item_ids:
             item = cast("Volume | Paper", self.parent.get(item_id))
-            coauthors |= set(
+            coauthors.update(
                 self.get_or_create_person(ns, create=False).id for ns in item.editors
             )
             if hasattr(item, "authors"):
-                coauthors |= set(
+                coauthors.update(
                     self.get_or_create_person(ns, create=False).id for ns in item.authors
                 )
-        coauthors.remove(person.id)
-        return [self.data[pid] for pid in coauthors]
+        del coauthors[person.id]
+        return coauthors
 
     def load(self) -> None:
         """Loads or builds the index."""
