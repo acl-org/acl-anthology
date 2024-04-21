@@ -75,9 +75,10 @@ def paper_to_dict(paper):
         "title": paper.title.as_text(),
         "title_html": paper.title.as_html(),
         "url": paper.web_url,
+        "citation": paper.to_markdown_citation(),
+        "citation_acl": paper.to_citation(),
     }
     data["author_string"] = ", ".join(author["full"] for author in data["author"])
-    # TODO: missing citations!
     for key in ("doi", "language", "note"):
         if (value := getattr(paper, key)) is not None:
             data[key] = value
@@ -197,13 +198,6 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
     Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
     page stubs created by create_hugo_pages.py to instantiate Hugo templates.
     """
-    # Citation styles that we're generating
-    citation_styles = {
-        "acl": f"{SCRIPTDIR}/acl.csl",
-        # "apa": "apa-6th-edition",
-        # "mla": "modern-language-association-7th-edition",
-    }
-
     # Create directories
     if not dryrun:
         for subdir in ("", "papers", "people"):

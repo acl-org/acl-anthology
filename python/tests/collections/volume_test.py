@@ -151,6 +151,7 @@ def test_volume_attributes_2022acl(anthology):
     assert volume.pdf.name == "2022.acl-long"
     assert volume.pdf.checksum == "b8317652"
     assert volume.venue_ids == ["acl"]
+    assert volume.venue_acronym == "ACL"
     assert not volume.is_workshop
 
 
@@ -159,6 +160,7 @@ def test_volume_attributes_j89(anthology):
     assert isinstance(volume, Volume)
     assert volume.id == "1"
     assert volume.venue_ids == ["cl"]
+    assert volume.venue_acronym == "CL"
     assert volume.year == "1989"
     assert not volume.is_workshop
     assert volume.type == VolumeType.JOURNAL
@@ -204,6 +206,25 @@ def test_volume_with_nonexistent_venue(anthology):
     )
     with pytest.raises(KeyError):
         _ = volume.venues()
+
+
+def test_volume_with_multiple_venues(anthology):
+    volume_title = MarkupText.from_string(
+        "Joint conference of ACL and LREC (hypothetical)"
+    )
+    parent = Collection("acl.2092", CollectionIndexStub(anthology), Path("."))
+    volume = Volume(
+        "1",
+        parent,
+        type=VolumeType.PROCEEDINGS,
+        booktitle=volume_title,
+        venue_ids=["acl", "lrec"],
+        year="2092",
+    )
+    assert volume.full_id == "acl.2092-1"
+    assert volume.title == volume_title
+    assert volume.venue_ids == ["acl", "lrec"]
+    assert volume.venue_acronym == "ACL-LREC"
 
 
 def test_volume_get_events(anthology):

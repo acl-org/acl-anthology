@@ -141,9 +141,11 @@ def test_paper_roundtrip_xml(xml):
     assert etree.tostring(out, encoding="unicode") == xml
 
 
-def test_paper_to_bibtex_inproceedings(anthology):
-    paper = anthology.get("2022.acl-long.268")
-    expected = """@inproceedings{alvarez-mellado-lignos-2022-detecting,
+test_cases_paper_to_bibtex = (
+    (
+        "2022.acl-long.268",
+        True,
+        """@inproceedings{alvarez-mellado-lignos-2022-detecting,
     title = "Detecting Unassimilated Borrowings in {S}panish: {A}n Annotated Corpus and Approaches to Modeling",
     author = "\\'Alvarez-Mellado, Elena  and
       Lignos, Constantine",
@@ -159,9 +161,12 @@ def test_paper_to_bibtex_inproceedings(anthology):
     doi = "10.18653/v1/2022.acl-long.268",
     pages = "3868--3888",
     abstract = "This work presents a new resource for borrowing identification and analyzes the performance and errors of several models on this task. We introduce a new annotated corpus of Spanish newswire rich in unassimilated lexical borrowings---words from one language that are introduced into another without orthographic adaptation---and use it to evaluate how several sequence labeling models (CRF, BiLSTM-CRF, and Transformer-based models) perform. The corpus contains 370,000 tokens and is larger, more borrowing-dense, OOV-rich, and topic-varied than previous corpora available for this task. Our results show that a BiLSTM-CRF model fed with subword embeddings along with either Transformer-based embeddings pretrained on codeswitched data or a combination of contextualized word embeddings outperforms results obtained by a multilingual BERT-based model."
-}"""
-    assert paper.to_bibtex(with_abstract=True) == expected
-    expected_without_abstract = """@inproceedings{alvarez-mellado-lignos-2022-detecting,
+}""",
+    ),
+    (
+        "2022.acl-long.268",
+        False,
+        """@inproceedings{alvarez-mellado-lignos-2022-detecting,
     title = "Detecting Unassimilated Borrowings in {S}panish: {A}n Annotated Corpus and Approaches to Modeling",
     author = "\\'Alvarez-Mellado, Elena  and
       Lignos, Constantine",
@@ -176,13 +181,12 @@ def test_paper_to_bibtex_inproceedings(anthology):
     url = "https://aclanthology.org/2022.acl-long.268/",
     doi = "10.18653/v1/2022.acl-long.268",
     pages = "3868--3888"
-}"""
-    assert paper.to_bibtex(with_abstract=False) == expected_without_abstract
-
-
-def test_paper_to_bibtex_proceedings(anthology):
-    paper = anthology.get("2022.acl-short.0")
-    expected = """@proceedings{acl-2022-association-linguistics,
+}""",
+    ),
+    (
+        "2022.acl-short.0",
+        False,
+        """@proceedings{acl-2022-association-linguistics,
     title = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)",
     editor = "Muresan, Smaranda  and
       Nakov, Preslav  and
@@ -192,13 +196,12 @@ def test_paper_to_bibtex_proceedings(anthology):
     address = "Dublin, Ireland",
     publisher = "Association for Computational Linguistics",
     url = "https://aclanthology.org/2022.acl-short.0/"
-}"""
-    assert paper.to_bibtex() == expected
-
-
-def test_paper_to_bibtex_article(anthology):
-    paper = anthology.get("J89-2002")
-    expected = """@article{oshaughnessy-1989-parsing,
+}""",
+    ),
+    (
+        "J89-2002",
+        True,
+        """@article{oshaughnessy-1989-parsing,
     title = "Parsing with a Small Dictionary for Applications such as Text to Speech",
     author = "O'Shaughnessy, Douglas D.",
     journal = "Computational Linguistics",
@@ -207,18 +210,78 @@ def test_paper_to_bibtex_article(anthology):
     year = "1989",
     url = "https://aclanthology.org/J89-2002/",
     pages = "97--108"
-}"""
-    assert paper.to_bibtex(with_abstract=True) == expected
-
-
-def test_paper_to_bibtex_journal(anthology):
-    paper = anthology.get("J89-4000")
-    expected = """@book{cl-1989-linguistics-15-number-4,
+}""",
+    ),
+    (
+        "J89-4000",
+        False,
+        """@book{cl-1989-linguistics-15-number-4,
     title = "Computational Linguistics, Volume 15, Number 4, {D}ecember 1989",
     year = "1989",
     url = "https://aclanthology.org/J89-4000/"
-}"""
-    assert paper.to_bibtex() == expected
+}""",
+    ),
+)
+
+
+@pytest.mark.parametrize("full_id, with_abstract, expected", test_cases_paper_to_bibtex)
+def test_paper_to_bibtex(anthology, full_id, with_abstract, expected):
+    paper = anthology.get(full_id)
+    assert paper.to_bibtex(with_abstract=with_abstract) == expected
+
+
+test_cases_papercitation = (
+    (
+        "J89-4001",
+        'Andrew Haas. 1989. <a href="https://aclanthology.org/J89-4001/">A Parsing Algorithm for Unification Grammar</a>. <i>Computational Linguistics</i>, 15(4):219–232.',
+    ),
+    (
+        "2022.acl-short.0",
+        "Smaranda Muresan, Preslav Nakov, and Aline Villavicencio. 2022. <i>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</i>. Association for Computational Linguistics, Dublin, Ireland.",
+    ),
+    (
+        "2022.acl-long.268",
+        'Elena Álvarez-Mellado and Constantine Lignos. 2022. <a href="https://aclanthology.org/2022.acl-long.268/">Detecting Unassimilated Borrowings in Spanish: An Annotated Corpus and Approaches to Modeling</a>. In <i>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)</i>, pages 3868–3888, Dublin, Ireland. Association for Computational Linguistics.',
+    ),
+    (
+        "L06-1060",
+        'Brian Roark, Mary Harper, Eugene Charniak, Bonnie Dorr, Mark Johnson, Jeremy Kahn, Yang Liu, Mari Ostendorf, John Hale, Anna Krasnyanskaya, Matthew Lease, Izhak Shafran, Matthew Snover, Robin Stewart, and Lisa Yung. 2006. <a href="https://aclanthology.org/L06-1060/">SParseval: Evaluation Metrics for Parsing Speech</a>. In <i>Proceedings of the Fifth International Conference on Language Resources and Evaluation (LREC’06)</i>, Genoa, Italy. European Language Resources Association (ELRA).',
+    ),
+)
+
+
+@pytest.mark.parametrize("full_id, expected", test_cases_papercitation)
+def test_paper_to_citation(anthology, full_id, expected):
+    paper = anthology.get(full_id)
+    citation = paper.to_citation()
+    assert citation == expected
+
+
+test_cases_papercitation_markdown = (
+    (
+        "J89-4001",
+        "[A Parsing Algorithm for Unification Grammar](https://aclanthology.org/J89-4001/) (Haas, CL 1989)",
+    ),
+    (
+        "2022.acl-short.0",
+        "[Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)](https://aclanthology.org/2022.acl-short.0/) (Muresan et al., ACL 2022)",
+    ),
+    (
+        "2022.acl-long.268",
+        "[Detecting Unassimilated Borrowings in Spanish: An Annotated Corpus and Approaches to Modeling](https://aclanthology.org/2022.acl-long.268/) (Álvarez-Mellado & Lignos, ACL 2022)",
+    ),
+    (
+        "L06-1060",
+        "[SParseval: Evaluation Metrics for Parsing Speech](https://aclanthology.org/L06-1060/) (Roark et al., LREC 2006)",
+    ),
+)
+
+
+@pytest.mark.parametrize("full_id, expected", test_cases_papercitation_markdown)
+def test_paper_to_markdown_citation(anthology, full_id, expected):
+    paper = anthology.get(full_id)
+    citation = paper.to_markdown_citation()
+    assert citation == expected
 
 
 test_cases_paperdeletionnotice = (

@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 from attrs import define, field, Factory
+from functools import cached_property
 from lxml import etree
 from lxml.builder import E
 import re
@@ -244,6 +245,13 @@ class NameSpecification:
     def last(self) -> str:
         """The last name component."""
         return self.name.last
+
+    @cached_property
+    def citeproc_dict(self) -> dict[str, str]:
+        """A citation object corresponding to this name for use with CiteProcJSON."""
+        if not self.name.first:
+            return {"family": self.name.last}
+        return {"family": self.name.last, "given": self.name.first}
 
     @classmethod
     def from_xml(cls, person: etree._Element) -> NameSpecification:
