@@ -250,7 +250,9 @@ class PersonIndex(SlottedDict[Person]):
                 person = self.data[pid]
                 # If the name scores higher than the current canonical one, we
                 # also assume we should set this as the canonical one
-                if name.score() > person.canonical_name.score():
+                if (not person.is_explicit) and (
+                    name.score() > person.canonical_name.score()
+                ):
                     person.set_canonical_name(name)
                 else:
                     person.add_name(name)
@@ -316,6 +318,7 @@ class PersonIndex(SlottedDict[Person]):
                 parent=self.parent,
                 names=names,
                 comment=entry.get("comment", None),
+                is_explicit=True,
             )
             # ...and add it to the index
             self.add_person(person)

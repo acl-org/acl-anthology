@@ -14,6 +14,7 @@
 ### Changed
 
 - Bugfix: Converting a `<texmath>` expression to Unicode no longer serializes the tail of the XML tag, but only the TeX math expression itself.
+- Bugfix: Heuristic scoring of name variants will no longer overwrite canonical names that are explicitly defined in `name_variants.yaml`.
 
 ## [0.4.3] — 2023-11-05
 
