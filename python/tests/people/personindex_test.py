@@ -122,6 +122,23 @@ def test_get_or_create_person_with_name_merging(index):
     assert person2.canonical_name == ns2.name
 
 
+def test_get_or_create_person_with_explicit_canonical_name(index):
+    index._load_variant_list()
+    # This name is defined as canonical in the variants list
+    ns1 = NameSpecification(Name("Emily", "Prud’hommeaux"))
+    # This one is not, but scores higher according to our heuristics
+    ns2 = NameSpecification(Name("Emily", "Prud’Hommeaux"))
+    assert ns2.name.score() > ns1.name.score(), \
+        "This test assumes that `ns2` will score higher than `ns1`."
+    person1 = index.get_or_create_person(ns1)
+    person2 = index.get_or_create_person(ns2)
+    assert person1 is person2
+    assert person2.has_name(ns1.name)
+    assert person2.has_name(ns2.name)
+    # Canonical name should still be the one defined in variants list
+    assert person2.canonical_name == ns1.name
+
+
 def test_similar_names_defined_in_variant_list(index):
     index._load_variant_list()
     similar = index.similar.subset("pranav-a")
