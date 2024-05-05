@@ -1,0 +1,409 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.case">
+  <volume id="1" ingest-date="2024-03-04" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 7th Workshop on Challenges and Applications of Automated Extraction of Socio-political Events from Text (CASE 2024)</booktitle>
+      <editor><first>Ali</first><last>Hürriyetoğlu</last></editor>
+      <editor><first>Hristo</first><last>Tanev</last></editor>
+      <editor><first>Surendrabikram</first><last>Thapa</last></editor>
+      <editor><first>Gökçe</first><last>Uludoğan</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>St. Julians, Malta</address>
+      <month>March</month>
+      <year>2024</year>
+      <url hash="688dfa33">2024.case-1</url>
+      <venue>case</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="08466f32">2024.case-1.0</url>
+      <bibkey>case-2024-challenges</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>The Future of Web Data Mining: Insights from Multimodal and Code-based Extraction Methods</title>
+      <author><first>Evan</first><last>Fellman</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Jacob</first><last>Tyo</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <author><first>Zachary</first><last>Lipton</last><affiliation>Carnegie Mellon University</affiliation></author>
+      <pages>1-5</pages>
+      <abstract>The extraction of structured data from websites is critical for numerous Artificial Intelligence applications, but modern web design increasingly stores information visually in images rather than in text. This shift calls into question the optimal technique, as language-only models fail without textual cues while new multimodal models like GPT-4 promise image understanding abilities. We conduct the first rigorous comparison between text-based and vision-based models for extracting event metadata harvested from comic convention websites. Surprisingly, our results between GPT-4 Vision and GPT-4 Text uncover a significant accuracy advantage for vision-based methods in an applies-to-apples setting, indicating that vision models may be outpacing language-alone techniques in the task of information extraction from websites. We release our dataset and provide a qualitative analysis to guide further research in multi-modal models for web information extraction.</abstract>
+      <url hash="bdb15e0c">2024.case-1.1</url>
+      <attachment type="SupplementaryMaterial" hash="629ad37b">2024.case-1.1.SupplementaryMaterial.txt</attachment>
+      <bibkey>fellman-etal-2024-future</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Fine-Tuning Language Models on <fixed-case>D</fixed-case>utch Protest Event Tweets</title>
+      <author><first>Meagan</first><last>Loerakker</last><affiliation>Netherlands Police</affiliation></author>
+      <author><first>Laurens</first><last>Müter</last><affiliation>Netherlands Police, Utrecht, the Netherlands</affiliation></author>
+      <author><first>Marijn</first><last>Schraagen</last><affiliation>Utrecht University</affiliation></author>
+      <pages>6-23</pages>
+      <abstract>Being able to obtain timely information about an event, like a protest, becomes increasingly more relevant with the rise of affective polarisation and social unrest over the world. Nowadays, large-scale protests tend to be organised and broadcast through social media. Analysing social media platforms like X has proven to be an effective method to follow events during a protest. Thus, we trained several language models on Dutch tweets to analyse their ability to classify if a tweet expresses discontent, considering these tweets may contain practical information about a protest. Our results show that models pre-trained on Twitter data, including Bernice and TwHIN-BERT, outperform models that are not. Additionally, the results showed that Sentence Transformers is a promising model. The added value of oversampling is greater for models that were not trained on Twitter data. In line with previous work, pre-processing the data did not help a transformer language model to make better predictions.</abstract>
+      <url hash="ce4afb86">2024.case-1.2</url>
+      <attachment type="SupplementaryMaterial" hash="d0cf0f21">2024.case-1.2.SupplementaryMaterial.txt</attachment>
+      <bibkey>loerakker-etal-2024-fine</bibkey>
+      <revision id="1" href="2024.case-1.2v1" hash="40e7e018"/>
+      <revision id="2" href="2024.case-1.2v2" hash="ce4afb86" date="2024-03-27">Various updates.</revision>
+    </paper>
+    <paper id="3">
+      <title>Timeline Extraction from Decision Letters Using <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case></title>
+      <author><first>Femke</first><last>Bakker</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Ruben</first><last>Van Heusden</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Maarten</first><last>Marx</last><affiliation>Universiteit van Amsterdam</affiliation></author>
+      <pages>24-31</pages>
+      <abstract>Freedom of Information Act (FOIA) legislation grants citizens the right to request information from various levels of the government, and aims to promote the transparency of governmental agencies. However, the processing of these requests is often met with delays, due to the inherent complexity of gathering the required documents. To obtain accurate estimates of the processing times of requests, and to identify bottlenecks in the process, this research proposes a pipeline to automatically extract these timelines from decision letters of Dutch FOIA requests. These decision letters are responses to requests, and contain an overview of the process, including when the request was received, and possible communication between the requester and the relevant agency. The proposed pipeline can extract dates with an accuracy of .94, extract event phrases with a mean ROUGE- L F1 score of .80 and can classify events with a macro F1 score of .79.Out of the 50 decision letters used for testing (each letter containing one timeline), the model correctly classified 10 of the timelines completely correct, with an average of 3.1 mistakes per decision letter.</abstract>
+      <url hash="27288ed8">2024.case-1.3</url>
+      <attachment type="SupplementaryMaterial" hash="f3f99fb0">2024.case-1.3.SupplementaryMaterial.txt</attachment>
+      <bibkey>bakker-etal-2024-timeline</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Leveraging Approximate Pattern Matching with <fixed-case>BERT</fixed-case> for Event Detection</title>
+      <author><first>Hristo</first><last>Tanev</last><affiliation>Joint Research Centre, European Commission</affiliation></author>
+      <pages>32-39</pages>
+      <abstract>We describe a new weakly supervised method for sentence-level event detection, based exclusively on linear prototype patterns like “people got sick” or “a roadside bomb killed people”. We propose a new BERT based algorithm for approximate pattern matching to identify event phrases, semantically similar to these prototypes. To the best of our knowledge, a similar approach has not been used in the context of event detection. We experimented with two event corpora in the area of disease outbreaks and terrorism and we achieved promising results in sentence level event identification: 0.78 F1 score for new disease cases detection and 0.68 F1 in detecting terrorist attacks. Results were in line with some state-of-the-art systems.</abstract>
+      <url hash="03ea347e">2024.case-1.4</url>
+      <attachment type="SupplementaryMaterial" hash="45f30892">2024.case-1.4.SupplementaryMaterial.txt</attachment>
+      <bibkey>tanev-2024-leveraging</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Socio-political Events of Conflict and Unrest: A Survey of Available Datasets</title>
+      <author><first>Helene</first><last>Olsen</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Étienne</first><last>Simon</last><affiliation>LTG, UiO</affiliation></author>
+      <author><first>Erik</first><last>Velldal</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Lilja</first><last>Øvrelid</last><affiliation>University of Oslo</affiliation></author>
+      <pages>40-53</pages>
+      <abstract>There is a large and growing body of literature on datasets created to facilitate the study of socio-political events of conflict and unrest. However, the datasets, and the approaches taken to create them, vary a lot depending on the type of research they are intended to support. For example, while scholars from natural language processing (NLP) tend to focus on annotating specific spans of text indicating various components of an event, scholars from the disciplines of political science and conflict studies tend to focus on creating databases that code an abstract but structured representation of the event, less tied to a specific source text.The survey presented in this paper aims to map out the current landscape of available event datasets within the domain of social and political conflict and unrest – both from the NLP and political science communities – offering a unified view of the work done across different disciplines.</abstract>
+      <url hash="12548161">2024.case-1.5</url>
+      <attachment type="SupplementaryMaterial" hash="83a6bd3c">2024.case-1.5.SupplementaryMaterial.txt</attachment>
+      <bibkey>olsen-etal-2024-socio</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Evaluating <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case>’s Ability to Detect Hate Speech in <fixed-case>T</fixed-case>urkish Tweets</title>
+      <author><first>Somaiyeh</first><last>Dehghan</last><affiliation>Sabanci University</affiliation></author>
+      <author><first>Berrin</first><last>Yanikoglu</last><affiliation>Sabanci University</affiliation></author>
+      <pages>54-59</pages>
+      <abstract>ChatGPT, developed by OpenAI, has made a significant impact on the world, mainly on how people interact with technology. In this study, we evaluate ChatGPT’s ability to detect hate speech in Turkish tweets and measure its strength using zero- and few-shot paradigms and compare the results to the supervised fine-tuning BERT model. On evaluations with the SIU2023-NST dataset, ChatGPT achieved 65.81% accuracy in detecting hate speech for the few-shot setting, while BERT with supervised fine-tuning achieved 82.22% accuracy. This results supports previous findings that show that, despite its much smaller size, BERT is more suitable for natural language classifications tasks such as hate speech detection.</abstract>
+      <url hash="f3c26de6">2024.case-1.6</url>
+      <attachment type="SupplementaryMaterial" hash="d99d3ee1">2024.case-1.6.SupplementaryMaterial.txt</attachment>
+      <bibkey>dehghan-yanikoglu-2024-evaluating</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>YY</fixed-case>ama@Multimodal Hate Speech Event Detection 2024: Simpler Prompts, Better Results - Enhancing Zero-shot Detection with a Large Multimodal Model</title>
+      <author><first>Yosuke</first><last>Yamagishi</last><affiliation>The University of Tokyo</affiliation></author>
+      <pages>60-66</pages>
+      <abstract>This paper introduces a zero-shot hate detection experiment using a multimodal large model. Although the implemented model comprises an unsupervised method, results demonstrate that its performance is comparable to previous supervised methods. Furthemore, this study proposed experiments with various prompts and demonstrated that simpler prompts, as opposed to the commonly used detailed prompts in large language models, led to better performance for multimodal hate speech event detection tasks. While supervised methods offer high performance, they require significant computational resources for training, and the approach proposed here can mitigate this issue.The code is publicly available at https://github.com/yamagishi0824/zeroshot-hate-detect.</abstract>
+      <url hash="178aaa3e">2024.case-1.7</url>
+      <attachment type="SupplementaryMaterial" hash="c7a427a5">2024.case-1.7.SupplementaryMaterial.txt</attachment>
+      <bibkey>yamagishi-2024-yyama</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>RACAI</fixed-case> at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Improving Detection of Hate Speech by Extending <fixed-case>LLM</fixed-case> Predictions with Handcrafted Features</title>
+      <author><first>Vasile</first><last>Păiș</last><affiliation>Research Institute for Artificial Intelligence, Romanian Academy</affiliation></author>
+      <pages>67-72</pages>
+      <abstract>This paper describes the system that participated in the Climate Activism Stance and Hate Event Detection shared task organized at The 7th Workshop on Challenges and Applications of Automated Extraction of Socio-political Events from Text (CASE 2024). The system tackles the important task of hate speech detection by combining large language model predictions with manually designed features, while trying to explain where the LLM approach fails to predict the correct results.</abstract>
+      <url hash="0fc1708e">2024.case-1.8</url>
+      <attachment type="SupplementaryMaterial" hash="1dc8a65f">2024.case-1.8.SupplementaryMaterial.txt</attachment>
+      <bibkey>pais-2024-racai</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>CLTL</fixed-case>@Multimodal Hate Speech Event Detection 2024: The Winning Approach to Detecting Multimodal Hate Speech and Its Targets</title>
+      <author><first>Yeshan</first><last>Wang</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
+      <author><first>Ilia</first><last>Markov</last><affiliation>Vrije Universiteit Amsterdam, CLTL</affiliation></author>
+      <pages>73-78</pages>
+      <abstract>In the context of the proliferation of multimodal hate speech related to the Russia-Ukraine conflict, we introduce a unified multimodal fusion system for detecting hate speech and its targets in text-embedded images. Our approach leverages the Twitter-based RoBERTa and Swin Transformer V2 models to encode textual and visual modalities, and employs the Multilayer Perceptron (MLP) fusion mechanism for classification. Our system achieved macro F1 scores of 87.27% for hate speech detection and 80.05% for hate speech target detection in the Multimodal Hate Speech Event Detection Challenge 2024, securing the 1st rank in both subtasks. We open-source the trained models at https://huggingface.co/Yestin-Wang</abstract>
+      <url hash="a917423c">2024.case-1.9</url>
+      <attachment type="SupplementaryMaterial" hash="c7dbc61a">2024.case-1.9.SupplementaryMaterial.txt</attachment>
+      <bibkey>wang-markov-2024-cltl</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>HAM</fixed-case>i<fixed-case>S</fixed-case>o<fixed-case>N</fixed-case>-Generative at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Stance Detection using generative large language models</title>
+      <author><first>Jesus M.</first><last>Fraile-Hernandez</last><affiliation>NLP &amp; IR Group, UNED</affiliation></author>
+      <author><first>Anselmo</first><last>Peñas</last><affiliation>NLP &amp; IR Group, UNED</affiliation></author>
+      <pages>79-84</pages>
+      <abstract>CASE in EACL 2024 proposes the shared task on Hate Speech and Stance Detection during Climate Activism. In our participation in the stance detection task, we have tested different approaches using LLMs for this classification task. We have tested a generative model using the classical seq2seq structure. Subsequently, we have considerably improved the results by replacing the last layer of these LLMs with a classifier layer. We have also studied how the performance is affected by the amount of data used in training. For this purpose, a partition of the dataset has been used and external data from posture detection tasks has been added.</abstract>
+      <url hash="c2c88bff">2024.case-1.10</url>
+      <attachment type="SupplementaryMaterial" hash="3a3140d9">2024.case-1.10.SupplementaryMaterial.txt</attachment>
+      <bibkey>fraile-hernandez-penas-2024-hamison</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>JRC</fixed-case> at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Lexicon-based Detection of Hate Speech</title>
+      <author><first>Hristo</first><last>Tanev</last><affiliation>Joint Research Centre, European Commission</affiliation></author>
+      <pages>85-88</pages>
+      <abstract>In this paper we describe the participation of the JRC team in the Sub-task A: “Hate Speech Detection” in the Shared task on Hate Speech and Stance Detection during Climate Activism at the CASE 2024 workshop. Our system is purely lexicon (keyword) based and does not use any statistical classifier. The system ranked 18 out of 22 participants with F1 of 0.83, only one point below a system, based on LLM. Our system also obtained one the highest achieved precision scores among all participating algo- rithms.</abstract>
+      <url hash="cd72c037">2024.case-1.11</url>
+      <attachment type="SupplementaryMaterial" hash="ad4999ee">2024.case-1.11.SupplementaryMaterial.txt</attachment>
+      <bibkey>tanev-2024-jrc</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>HAM</fixed-case>i<fixed-case>S</fixed-case>o<fixed-case>N</fixed-case>-<fixed-case>MTL</fixed-case> at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Detection of Hate Speech, Targets, and Stance using Multi-task Learning</title>
+      <author><first>Raquel</first><last>Rodriguez-Garcia</last><affiliation>NLP &amp; IR Group, UNED</affiliation></author>
+      <author><first>Roberto</first><last>Centeno</last><affiliation>UNED</affiliation></author>
+      <pages>89-95</pages>
+      <abstract>The automatic identification of hate speech constitutes an important task, playing a relevant role towards inclusivity. In these terms, the shared task on Climate Activism Stance and Hate Event Detection at CASE 2024 proposes the analysis of Twitter messages related to climate change activism for three subtasks. Subtasks A and C aim at detecting hate speech and establishing the stance of the tweet, respectively, while subtask B seeks to determine the target of the hate speech. In this paper, we describe our approach to the given subtasks. Our systems leverage transformer-based multi-task learning. Additionally, since the dataset contains a low number of tweets, we have studied the effect of adding external data to increase the learning of the model. With our approach we achieve the fourth position on subtask C on the final leaderboard, with minimal difference from the first position, showcasing the strength of multi-task learning.</abstract>
+      <url hash="7fee1627">2024.case-1.12</url>
+      <attachment type="SupplementaryMaterial" hash="854915c7">2024.case-1.12.SupplementaryMaterial.txt</attachment>
+      <bibkey>rodriguez-garcia-centeno-2024-hamison</bibkey>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>NLPD</fixed-case>ame at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Mistral Sequence Classification with <fixed-case>PEFT</fixed-case> for Hate Speech, Targets and Stance Event Detection</title>
+      <author><first>Christina</first><last>Christodoulou</last><affiliation>Institute of Informatics &amp; Telecommunications, National Centre for Scientific Research, “Demokritos”</affiliation></author>
+      <pages>96-104</pages>
+      <abstract>The paper presents the approach developed for the “Climate Activism Stance and Hate Event Detection” Shared Task at CASE 2024, comprising three sub-tasks. The Shared Task aimed to create a system capable of detecting hate speech, identifying the targets of hate speech, and determining the stance regarding climate change activism events in English tweets. The approach involved data cleaning and pre-processing, addressing data imbalance, and fine-tuning the “mistralai/Mistral-7B-v0.1” LLM for sequence classification using PEFT (Parameter-Efficient Fine-Tuning). The LLM was fine-tuned using two PEFT methods, namely LoRA and prompt tuning, for each sub-task, resulting in the development of six Mistral-7B fine-tuned models in total. Although both methods surpassed the baseline model scores of the task organizers, the prompt tuning method yielded the highest results. Specifically, the prompt tuning method achieved a Macro-F1 score of 0.8649, 0.6106 and 0.6930 in the test data of sub-tasks A, B and C, respectively.</abstract>
+      <url hash="4cd13d3b">2024.case-1.13</url>
+      <attachment type="SupplementaryMaterial" hash="58f41c6f">2024.case-1.13.SupplementaryMaterial.txt</attachment>
+      <bibkey>christodoulou-2024-nlpdame</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>AAST</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Ensemble-Based Climate Activism Stance and Hate Speech Detection : Leveraging Pretrained Language Models</title>
+      <author><first>Ahmed</first><last>El-Sayed</last><affiliation>Arab Academy For Science and Technology</affiliation></author>
+      <author><first>Omar</first><last>Nasr</last><affiliation>Arab Academy For Science and Technology</affiliation></author>
+      <pages>105-110</pages>
+      <abstract>Climate activism has emerged as a powerful force in addressing the urgent challenges posed by climate change. Individuals and organizations passionate about environmental issues use platforms like Twitter to mobilize support, share information, and advocate for policy changes. Unfortunately, amidst the passionate discussions, there has been an unfortunate rise in the prevalence of hate speech on the platform. Some users resort to personal attacks and divisive language, undermining the constructive efforts of climate activists. In this paper, we describe our approaches for three subtasks of ClimateActivism at CASE 2024. For all the three subtasks, we utilize pretrained language models enhanced by ensemble learning. Regarding the second subtask, dedicated to target detection, we experimented with incorporating Named Entity Recognition in the pipeline. Additionally, our models secure the second, third and fifth ranks in the three subtasks respectively.</abstract>
+      <url hash="7ae52ba3">2024.case-1.14</url>
+      <attachment type="SupplementaryMaterial" hash="32bc3c17">2024.case-1.14.SupplementaryMaterial.txt</attachment>
+      <bibkey>el-sayed-nasr-2024-aast</bibkey>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>ARC</fixed-case>-<fixed-case>NLP</fixed-case> at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Stance and Hate Speech Detection by Generative and Encoder Models Optimized with Tweet-Specific Elements</title>
+      <author><first>Ahmet</first><last>Kaya</last><affiliation>Aselsan</affiliation></author>
+      <author><first>Oguzhan</first><last>Ozcelik</last><affiliation>Aselsan Research Center</affiliation></author>
+      <author><first>Cagri</first><last>Toraman</last><affiliation>Aselsan Research Center</affiliation></author>
+      <pages>111-117</pages>
+      <abstract>Social media users often express hate speech towards specific targets and may either support or refuse activist movements. The automated detection of hate speech, which involves identifying both targets and stances, plays a critical role in event identification to mitigate its negative effects. In this paper, we present our methods for three subtasks of the Climate Activism Stance and Hate Event Detection Shared Task at CASE 2024. For each subtask (i) hate speech identification (ii) targets of hate speech identification (iii) stance detection, we experiment with optimized Transformer-based architectures that focus on tweet-specific features such as hashtags, URLs, and emojis. Furthermore, we investigate generative large language models, such as Llama2, using specific prompts for the first two subtasks. Our experiments demonstrate better performance of our models compared to baseline models in each subtask. Our solutions also achieve third, fourth, and first places respectively in the subtasks.</abstract>
+      <url hash="a9015d2a">2024.case-1.15</url>
+      <attachment type="SupplementaryMaterial" hash="7ec4b660">2024.case-1.15.SupplementaryMaterial.txt</attachment>
+      <bibkey>kaya-etal-2024-arc</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>HAM</fixed-case>i<fixed-case>S</fixed-case>o<fixed-case>N</fixed-case>-Ensemble at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Ensemble of <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a, Llama 2, and Multi-task for Stance Detection</title>
+      <author><first>Raquel</first><last>Rodriguez-Garcia</last><affiliation>NLP &amp; IR Group, UNED</affiliation></author>
+      <author><first>Julio</first><last>Reyes Montesinos</last><affiliation>NLP &amp; IR Group, UNED</affiliation></author>
+      <author><first>Jesus M.</first><last>Fraile-Hernandez</last><affiliation>NLP &amp; IR Group, UNED</affiliation></author>
+      <author><first>Anselmo</first><last>Peñas</last><affiliation>NLP &amp; IR Group, UNED</affiliation></author>
+      <pages>118-124</pages>
+      <abstract>CASE @ EACL 2024 proposes a shared task on Stance and Hate Event Detection for Climate Activism discourse. For our participation in the stance detection task, we propose an ensemble of different approaches: a transformer-based model (RoBERTa), a generative Large Language Model (Llama 2), and a Multi-Task Learning model. Our main goal is twofold: to study the effect of augmenting the training data with external datasets, and to examine the contribution of several, diverse models through a voting ensemble. The results show that if we take the best configuration during training for each of the three models (RoBERTa, Llama 2 and MTL), the ensemble would have ranked first with the highest F1 on the leaderboard for the stance detection subtask.</abstract>
+      <url hash="34b85316">2024.case-1.16</url>
+      <attachment type="SupplementaryMaterial" hash="6e2eb695">2024.case-1.16.SupplementaryMaterial.txt</attachment>
+      <bibkey>rodriguez-garcia-etal-2024-hamison</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>M</fixed-case>ason<fixed-case>P</fixed-case>erplexity at Multimodal Hate Speech Event Detection 2024: Hate Speech and Target Detection Using Transformer Ensembles</title>
+      <author><first>Amrita</first><last>Ganguly</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Al Nahian</first><last>Bin Emran</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Sadiya Sayara Chowdhury</first><last>Puspo</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Md Nishat</first><last>Raihan</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Dhiman</first><last>Goswami</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Marcos</first><last>Zampieri</last><affiliation>George Mason University</affiliation></author>
+      <pages>125-131</pages>
+      <abstract>The automatic identification of offensive language such as hate speech is important to keep discussions civil in online communities. Identifying hate speech in multimodal content is a particularly challenging task because offensiveness can be manifested in either words or images or a juxtaposition of the two. This paper presents the MasonPerplexity submission for the Shared Task on Multimodal Hate Speech Event Detection at CASE 2024 at EACL 2024. The task is divided into two sub-tasks: sub-task A focuses on the identification of hate speech and sub-task B focuses on the identification of targets in text-embedded images during political events. We use an XLM-roBERTa-large model for sub-task A and an ensemble approach combining XLM-roBERTa-base, BERTweet-large, and BERT-base for sub-task B. Our approach obtained 0.8347 F1-score in sub-task A and 0.6741 F1-score in sub-task B ranking 3rd on both sub-tasks.</abstract>
+      <url hash="bfc479b7">2024.case-1.17</url>
+      <attachment type="SupplementaryMaterial" hash="9c6c8c22">2024.case-1.17.SupplementaryMaterial.txt</attachment>
+      <bibkey>ganguly-etal-2024-masonperplexity</bibkey>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>M</fixed-case>ason<fixed-case>P</fixed-case>erplexity at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Integrating Advanced Ensemble Techniques and Data Augmentation for Climate Activism Stance and Hate Event Identification</title>
+      <author><first>Al Nahian</first><last>Bin Emran</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Amrita</first><last>Ganguly</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Sadiya Sayara Chowdhury</first><last>Puspo</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Dhiman</first><last>Goswami</last><affiliation>George Mason University</affiliation></author>
+      <author><first>Md Nishat</first><last>Raihan</last><affiliation>George Mason University</affiliation></author>
+      <pages>132-138</pages>
+      <abstract>The task of identifying public opinions on social media, particularly regarding climate activism and the detection of hate events, has emerged as a critical area of research in our rapidly changing world. With a growing number of people voicing either to support or oppose to climate-related issues - understanding these diverse viewpoints has become increasingly vital. Our team, MasonPerplexity, participates in a significant research initiative focused on this subject. We extensively test various models and methods, discovering that our most effective results are achieved through ensemble modeling, enhanced by data augmentation techniques like back-translation. In the specific components of this research task, our team achieved notable positions, ranking 5th, 1st, and 6th in the respective sub-tasks, thereby illustrating the effectiveness of our approach in this important field of study.</abstract>
+      <url hash="1ef9fe9b">2024.case-1.18</url>
+      <attachment type="SupplementaryMaterial" hash="b644eed8">2024.case-1.18.SupplementaryMaterial.txt</attachment>
+      <bibkey>bin-emran-etal-2024-masonperplexity</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>AAST</fixed-case>-<fixed-case>NLP</fixed-case> at Multimodal Hate Speech Event Detection 2024 : A Multimodal Approach for Classification of Text-Embedded Images Based on <fixed-case>CLIP</fixed-case> and <fixed-case>BERT</fixed-case>-Based Models.</title>
+      <author><first>Ahmed</first><last>El-Sayed</last><affiliation>Arab Academy For Science and Technology</affiliation></author>
+      <author><first>Omar</first><last>Nasr</last><affiliation>Arab Academy For Science and Technology</affiliation></author>
+      <pages>139-144</pages>
+      <abstract>With the rapid rise of social media platforms, communities have been able to share their passions and interests with the world much more conveniently. This, in turn, has led to individuals being able to spread hateful messages through the use of memes. The classification of such materials requires not only looking at the individual images but also considering the associated text in tandem. Looking at the images or the text separately does not provide the full context. In this paper, we describe our approach to hateful meme classification for the Multimodal Hate Speech Shared Task at CASE 2024. We utilized the same approach in the two subtasks, which involved a classification model based on text and image features obtained using Contrastive Language-Image Pre-training (CLIP) in addition to utilizing BERT-Based models. We then utilize predictions created by both models in an ensemble approach. This approach ranked second in both subtasks, respectively.</abstract>
+      <url hash="226b4c09">2024.case-1.19</url>
+      <attachment type="SupplementaryMaterial" hash="eb095851">2024.case-1.19.SupplementaryMaterial.txt</attachment>
+      <bibkey>el-sayed-nasr-2024-aast-nlp</bibkey>
+    </paper>
+    <paper id="20">
+      <title><fixed-case>CUET</fixed-case>_<fixed-case>B</fixed-case>inary_<fixed-case>H</fixed-case>ackers at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: A Comprehensive Evaluation and Superior Performance of Transformer-Based Models in Hate Speech Event Detection and Stance Classification for Climate Activism</title>
+      <author><first>Salman</first><last>Farsi</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Asrarul Hoque</first><last>Eusha</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Mohammad Shamsul</first><last>Arefin</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <pages>145-155</pages>
+      <abstract>The escalating impact of climate change on our environment and lives has spurred a global surge in climate change activism. However, the misuse of social media platforms like Twitter has opened the door to the spread of hatred against activism, targeting individuals, organizations, or entire communities. Also, the identification of the stance in a tweet holds paramount significance, especially in the context of understanding the success of activism. So, to address the challenge of detecting such hate tweets, identifying their targets, and classifying stances from tweets, this shared task introduced three sub-tasks, each aiming to address exactly one mentioned issue. We participated in all three sub-tasks and in this paper, we showed a comparative analysis between the different machine learning (ML), deep learning (DL), hybrid, and transformer models. Our approach involved proper hyper-parameter tuning of models and effectively handling class imbalance datasets through data oversampling. Notably, our fine-tuned m-BERT achieved a macro-average $f1$ score of 0.91 in sub-task A (Hate Speech Detection) and 0.74 in sub-task B (Target Identification). On the other hand, Climate-BERT achieved a $f1$ score of 0.67 in sub-task C. These scores positioned us at the forefront, securing 1st, 6th, and 15th ranks in the respective sub-tasks. The detailed implementation information for the tasks is available in the GitHub.</abstract>
+      <url hash="c1f36eb9">2024.case-1.20</url>
+      <attachment type="SupplementaryMaterial" hash="7ef0f063">2024.case-1.20.SupplementaryMaterial.txt</attachment>
+      <bibkey>farsi-etal-2024-cuet</bibkey>
+    </paper>
+    <paper id="21">
+      <title><fixed-case>HAM</fixed-case>i<fixed-case>S</fixed-case>o<fixed-case>N</fixed-case>-baselines at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: A Study on the Use of External Data for Hate Speech and Stance Detection</title>
+      <author><first>Julio</first><last>Reyes Montesinos</last><affiliation>NLP &amp; IR Group, UNED</affiliation></author>
+      <author><first>Alvaro</first><last>Rodrigo</last><affiliation>NLP and IR group at UNED</affiliation></author>
+      <pages>156-160</pages>
+      <abstract>The CASE@EACL2024 Shared Task addresses Climate Activism online through three subtasks that focus on hate speech detection (Subtask A), hate speech target classification (Subtask B), and stance detection (Subtask C) respectively.Our contribution examines the effect of fine-tuning on external data for each of these subtasks. For the two subtasks that focus on hate speech, we augment the training data with the OLID dataset, whereas for the stance subtask we harness the SemEval-2016 Stance dataset. We fine-tune RoBERTa and DeBERTa models for each of the subtasks, with and without external training data.For the hate speech detection and stance detection subtasks, our RoBERTa models came up third and first on the leaderboard, respectively. While the use of external data was not relevant on those tasks, we found that it greatly improved the performance on the hate speech target categorization.</abstract>
+      <url hash="8c88ca45">2024.case-1.21</url>
+      <attachment type="SupplementaryMaterial" hash="3c81be9f">2024.case-1.21.SupplementaryMaterial.txt</attachment>
+      <bibkey>reyes-montesinos-rodrigo-2024-hamison</bibkey>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>Z</fixed-case>-<fixed-case>AGI</fixed-case> Labs at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Stance and Hate Event Detection on Social Media</title>
+      <author><first>Nikhil</first><last>Narayan</last><affiliation>Z-AGI Labs</affiliation></author>
+      <author><first>Mrutyunjay</first><last>Biswal</last><affiliation>Z-AGI Labs</affiliation></author>
+      <pages>161-165</pages>
+      <abstract>In the digital realm, rich data serves as a crucial source of insights into the complexities of social, political, and economic landscapes. Addressing the growing need for high-quality information on events and the imperative to combat hate speech, this research led to the establishment of the Shared Task on Climate Activism Stance and Hate Event Detection at CASE 2024. Focused on climate activists contending with hate speech on social media, our study contributes to hate speech identification from tweets. Analyzing three sub-tasks - Hate Speech Detection (Sub-task A), Targets of Hate Speech Identification (Sub-task B), and Stance Detection (Sub-task C) - Team Z-AGI Labs evaluated various models, including LSTM, Xgboost, and LGBM based on Tf-Idf. Results unveiled intriguing variations, with Catboost excelling in Subtask-B (F1: 0.5604) and Subtask-C (F1: 0.7081), while LGBM emerged as the top-performing model for Subtask-A (F1: 0.8684). This research provides valuable insights into the suitability of classical machine learning models for climate hate speech and stance detection, aiding informed model selection for robust mechanisms.</abstract>
+      <url hash="12506530">2024.case-1.22</url>
+      <attachment type="SupplementaryMaterial" hash="b7a9a419">2024.case-1.22.SupplementaryMaterial.txt</attachment>
+      <bibkey>narayan-biswal-2024-z</bibkey>
+    </paper>
+    <paper id="23">
+      <title>Bryndza at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Stance, Target and Hate Event Detection via Retrieval-Augmented <fixed-case>GPT</fixed-case>-4 and <fixed-case>LL</fixed-case>a<fixed-case>MA</fixed-case></title>
+      <author><first>Marek</first><last>Suppa</last><affiliation>Comenius University in Bratislava</affiliation></author>
+      <author><first>Daniel</first><last>Skala</last><affiliation>Slido / Cisco / University of Groningen</affiliation></author>
+      <author><first>Daniela</first><last>Jass</last><affiliation>Slido / Cisco</affiliation></author>
+      <author><first>Samuel</first><last>Sucik</last><affiliation>Slido / Cisco</affiliation></author>
+      <author><first>Andrej</first><last>Svec</last><affiliation>Slido / Cisco</affiliation></author>
+      <author><first>Peter</first><last>Hraska</last><affiliation>Slido / Cisco</affiliation></author>
+      <pages>166-177</pages>
+      <abstract>This study details our approach for the CASE 2024 Shared Task on Climate Activism Stance and Hate Event Detection, focusing on Hate Speech Detection, Hate Speech Target Identification, and Stance Detection as classification challenges. We explored the capability of Large Language Models (LLMs), particularly GPT-4, in zero- or few-shot settings enhanced by retrieval augmentation and re-ranking for Tweet classification. Our goal was to determine if LLMs could match or surpass traditional methods in this context. We conducted an ablation study with LLaMA for comparison, and our results indicate that our models significantly outperformed the baselines, securing second place in the Target Detection task. The code for our submission is available at https://github.com/NaiveNeuron/bryndza-case-2024</abstract>
+      <url hash="62d8e0bd">2024.case-1.23</url>
+      <attachment type="SupplementaryMaterial" hash="88de26ab">2024.case-1.23.SupplementaryMaterial.txt</attachment>
+      <bibkey>suppa-etal-2024-bryndza</bibkey>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>IUST</fixed-case> at <fixed-case>C</fixed-case>limate<fixed-case>A</fixed-case>ctivism 2024: Towards Optimal Stance Detection: A Systematic Study of Architectural Choices and Data Cleaning Techniques</title>
+      <author><first>Ghazaleh</first><last>Mahmoudi</last><affiliation>Iran University of Science and Technology</affiliation></author>
+      <author><first>Sauleh</first><last>Eetemadi</last><affiliation>Iran University of Science and Technology</affiliation></author>
+      <pages>178-184</pages>
+      <abstract>This work presents a systematic search of various model architecture configurations and data cleaning methods. The study evaluates the impact of data cleaning methods on the obtained results. Additionally, we demonstrate that a combination of CNN and Encoder-only models such as BERTweet outperforms FNNs. Moreover, by utilizing data augmentation, we are able to overcome the challenge of data imbalance.</abstract>
+      <url hash="4988c4f3">2024.case-1.24</url>
+      <attachment type="SupplementaryMaterial" hash="594789b8">2024.case-1.24.SupplementaryMaterial.txt</attachment>
+      <bibkey>mahmoudi-eetemadi-2024-iust</bibkey>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>VRLL</fixed-case>ab at <fixed-case>HSD</fixed-case>-2<fixed-case>L</fixed-case>ang 2024: <fixed-case>T</fixed-case>urkish Hate Speech Detection Online with <fixed-case>T</fixed-case>urkish<fixed-case>BERT</fixed-case>weet</title>
+      <author><first>Ali</first><last>Najafi</last><affiliation>Sabanci University</affiliation></author>
+      <author><first>Onur</first><last>Varol</last><affiliation>Sabanci University</affiliation></author>
+      <pages>185-189</pages>
+      <abstract>Social media platforms like Twitter - recently rebranded as X - produce nearly half a billion tweets daily and host a significant number of users that can be affected by content that are not properly moderated. In this work, we present an approach that ranked third at the HSD-2Lang 2024 competition’s subtask-A along with additional methodology developed for this task and evaluation of different approaches. We utilize three different models and the best performing approach use publicly-available TurkishBERTweet model with low-rank adaptation (LoRA) for fine tuning. We also experiment with another publicly available model and a novel methodology to ensemble different hand-crafted features and outcomes of different models. Finally, we report the experimental results, competition scores, and discussion to improve this effort further.</abstract>
+      <url hash="3e32fc2b">2024.case-1.25</url>
+      <attachment type="SupplementaryMaterial" hash="2b08047f">2024.case-1.25.SupplementaryMaterial.txt</attachment>
+      <bibkey>najafi-varol-2024-vrllab</bibkey>
+    </paper>
+    <paper id="26">
+      <title>Transformers at <fixed-case>HSD</fixed-case>-2<fixed-case>L</fixed-case>ang 2024: Hate Speech Detection in <fixed-case>A</fixed-case>rabic and <fixed-case>T</fixed-case>urkish Tweets Using <fixed-case>BERT</fixed-case> Based Architectures</title>
+      <author><first>Kriti</first><last>Singhal</last><affiliation>Thapar Institute of Engineering and Technology</affiliation></author>
+      <author><first>Jatin</first><last>Bedi</last><affiliation>Thapar University</affiliation></author>
+      <pages>190-194</pages>
+      <abstract>Over the past years, researchers across the globe have made significant efforts to develop systems capable of identifying the presence of hate speech in different languages. This paper describes the team Transformers’ submission to the subtasks: Hate Speech Detection in Turkish across Various Contexts and Hate Speech Detection with Limited Data in Arabic, organized by HSD-2Lang in conjunction with CASE at EACL 2024. A BERT based architecture was employed in both the subtasks. We achieved an F1 score of 0.63258 using XLM RoBERTa and 0.48101 using mBERT, hence securing the 6th rank and the 5th rank in the first and the second subtask, respectively.</abstract>
+      <url hash="2229bc15">2024.case-1.26</url>
+      <attachment type="SupplementaryMaterial" hash="7908c8cf">2024.case-1.26.SupplementaryMaterial.txt</attachment>
+      <bibkey>singhal-bedi-2024-transformers</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>R</fixed-case>e<fixed-case>BERT</fixed-case> at <fixed-case>HSD</fixed-case>-2<fixed-case>L</fixed-case>ang 2024: Fine-Tuning <fixed-case>BERT</fixed-case> with <fixed-case>A</fixed-case>dam<fixed-case>W</fixed-case> for Hate Speech Detection in <fixed-case>A</fixed-case>rabic and <fixed-case>T</fixed-case>urkish</title>
+      <author><first>Utku</first><last>Yagci</last><affiliation>Middle East Technical University</affiliation></author>
+      <author><first>Egemen</first><last>Iscan</last><affiliation>King’s Business School</affiliation></author>
+      <author><first>Ahmet</first><last>Kolcak</last><affiliation>Istanbul Technical University</affiliation></author>
+      <pages>195-198</pages>
+      <abstract>Identifying hate speech is a challenging specialization in the natural language processing field (NLP). Particularly in fields with differing linguistics, it becomes more demanding to construct a well-performing classifier for the betterment of the community. In this paper, we leveraged the performances of pre-trained models on the given hate speech detection dataset. By conducting a hyperparameter search, we computed the feasible setups for fine-tuning and trained effective classifiers that performed well in both subtasks in the HSD-2Lang 2024 contest.</abstract>
+      <url hash="17125fc1">2024.case-1.27</url>
+      <attachment type="SupplementaryMaterial" hash="7bda495b">2024.case-1.27.SupplementaryMaterial.txt</attachment>
+      <bibkey>yagci-etal-2024-rebert</bibkey>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>D</fixed-case>etective<fixed-case>R</fixed-case>e<fixed-case>DAS</fixed-case>ers at <fixed-case>HSD</fixed-case>-2<fixed-case>L</fixed-case>ang 2024: A New Pooling Strategy with Cross-lingual Augmentation and Ensembling for Hate Speech Detection in Low-resource Languages</title>
+      <author><first>Fatima Zahra</first><last>Qachfar</last><affiliation>University of Houston</affiliation></author>
+      <author><first>Bryan</first><last>Tuck</last><affiliation>University of Houston</affiliation></author>
+      <author><first>Rakesh</first><last>Verma</last><affiliation>University of Houston</affiliation></author>
+      <pages>199-204</pages>
+      <abstract>This paper addresses hate speech detection in Turkish and Arabic tweets, contributing to the HSD-2Lang Shared Task. We propose a specialized pooling strategy within a soft-voting ensemble framework to improve classification in Turkish and Arabic language models. Our approach also includes expanding the training sets through cross-lingual translation, introducing a broader spectrum of hate speech examples. Our method attains F1-Macro scores of 0.6964 for Turkish (Subtask A) and 0.7123 for Arabic (Subtask B). While achieving these results, we also consider the computational overhead, striking a balance between the effectiveness of our unique pooling strategy, data augmentation, and soft-voting ensemble. This approach advances the practical application of language models in low-resource languages for hate speech detection.</abstract>
+      <url hash="c9194c6c">2024.case-1.28</url>
+      <attachment type="SupplementaryMaterial" hash="997170c1">2024.case-1.28.SupplementaryMaterial.txt</attachment>
+      <bibkey>qachfar-etal-2024-detectiveredasers</bibkey>
+    </paper>
+    <paper id="29">
+      <title>Detecting Hate Speech in <fixed-case>T</fixed-case>urkish Print Media: A Corpus and A Hybrid Approach with Target-oriented Linguistic Knowledge</title>
+      <author><first>Gökçe</first><last>Uludoğan</last><affiliation>Bogazici University</affiliation></author>
+      <author><first>Atıf Emre</first><last>Yüksel</last><affiliation>Boğaziçi University</affiliation></author>
+      <author><first>Ümit</first><last>Tunçer</last><affiliation>Boğaziçi University</affiliation></author>
+      <author><first>Burak</first><last>Işık</last><affiliation>Boğaziçi University</affiliation></author>
+      <author><first>Yasemin</first><last>Korkmaz</last><affiliation>Hrant Dink Foundation</affiliation></author>
+      <author><first>Didar</first><last>Akar</last><affiliation>Bogazici University</affiliation></author>
+      <author><first>Arzucan</first><last>Özgür</last><affiliation>Bogazici University</affiliation></author>
+      <pages>205-214</pages>
+      <abstract>The use of hate speech targeting ethnicity, nationalities, religious identities, and specific groups has been on the rise in the news media. However, most existing automatic hate speech detection models focus on identifying hate speech, often neglecting the target group-specific language that is common in news articles. To address this problem, we first compile a hate speech dataset, TurkishHatePrintCorpus, derived from Turkish news articles and annotate it specifically for the language related to the targeted group. We then introduce the HateTargetBERT model, which integrates the target-centric linguistic features extracted in this study into the BERT model, and demonstrate its effectiveness in detecting hate speech while allowing the model’s classification decision to be explained. We have made the dataset and source code publicly available at url{https://github.com/boun-tabi/HateTargetBERT-TR}.</abstract>
+      <url hash="e304fe62">2024.case-1.29</url>
+      <attachment type="SupplementaryMaterial" hash="720c49f9">2024.case-1.29.SupplementaryMaterial.txt</attachment>
+      <bibkey>uludogan-etal-2024-detecting</bibkey>
+    </paper>
+    <paper id="30">
+      <title>Team Curie at <fixed-case>HSD</fixed-case>-2<fixed-case>L</fixed-case>ang 2024: Hate Speech Detection in <fixed-case>T</fixed-case>urkish and <fixed-case>A</fixed-case>rabic Tweets using <fixed-case>BERT</fixed-case>-based models</title>
+      <author><first>Ehsan</first><last>Barkhodar</last><affiliation>Koç University</affiliation></author>
+      <author><first>Işık</first><last>Topçu</last><affiliation>Koç University</affiliation></author>
+      <author><first>Ali</first><last>Hürriyetoğlu</last><affiliation>Wageningen Food Safety Research (WFSR)</affiliation></author>
+      <pages>215-220</pages>
+      <abstract>Team Curie at HSD-2Lang 2024: Team Curie at HSD-2Lang 2024: Hate Speech Detection in Turkish and Arabic Tweets using BERT-based models This paper has presented our methodologies and findings in tackling hate speech detection in Turkish and Arabic tweets as part of the HSD-2Lang 2024 contest. Through innovative approaches and the fine-tuning of BERT-based models, we have achieved notable F1 scores, demonstrating the potential of our models in addressing the linguistic challenges inherent in Turkish and Arabic languages. The ablation study for Subtask A provided valuable insights into the impact of preprocessing and data balancing on model performance, guiding future enhancements. Our work contributes to the broader goal of improving online content moderation and safety, with future research directions including the expansion to more languages and the integration of multi-modal data and explainable AI techniques.</abstract>
+      <url hash="1fe24c7a">2024.case-1.30</url>
+      <attachment type="SupplementaryMaterial" hash="a75d206a">2024.case-1.30.SupplementaryMaterial.txt</attachment>
+      <bibkey>barkhodar-etal-2024-team</bibkey>
+    </paper>
+    <paper id="31">
+      <title>Extended Multimodal Hate Speech Event Detection During <fixed-case>R</fixed-case>ussia-<fixed-case>U</fixed-case>kraine Crisis - Shared Task at <fixed-case>CASE</fixed-case> 2024</title>
+      <author><first>Surendrabikram</first><last>Thapa</last><affiliation>Virginia Tech</affiliation></author>
+      <author><first>Kritesh</first><last>Rauniyar</last><affiliation>B. Tech in Computer Engineering, Delhi Technological University</affiliation></author>
+      <author><first>Farhan</first><last>Jafri</last><affiliation>Electronics and Communication Engineering, Jamia Millia Islamia</affiliation></author>
+      <author><first>Hariram</first><last>Veeramani</last><affiliation>UCLA</affiliation></author>
+      <author><first>Raghav</first><last>Jain</last><affiliation>NLP Researcher</affiliation></author>
+      <author><first>Sandesh</first><last>Jain</last><affiliation>PhD Student</affiliation></author>
+      <author><first>Francielle</first><last>Vargas</last><affiliation>University of São Paulo</affiliation></author>
+      <author><first>Ali</first><last>Hürriyetoğlu</last><affiliation>KNAW</affiliation></author>
+      <author><first>Usman</first><last>Naseem</last><affiliation>University of Sydney</affiliation></author>
+      <pages>221-228</pages>
+      <abstract>Addressing the need for effective hate speech moderation in contemporary digital discourse, the Multimodal Hate Speech Event Detection Shared Task made its debut at CASE 2023, co-located with RANLP 2023. Building upon its success, an extended version of the shared task was organized at the CASE workshop in EACL 2024. Similar to the earlier iteration, in this shared task, participants address hate speech detection through two subtasks. Subtask A is a binary classification problem, assessing whether text-embedded images contain hate speech. Subtask B goes further, demanding the identification of hate speech targets, such as individuals, communities, and organizations within text-embedded images. Performance is evaluated using the macro F1-score metric in both subtasks. With a total of 73 registered participants, the shared task witnessed remarkable achievements, with the best F1-scores in Subtask A and Subtask B reaching 87.27% and 80.05%, respectively, surpassing the leaderboard of the previous CASE 2023 shared task. This paper provides a comprehensive overview of the performance of seven teams that submitted results for Subtask A and five teams for Subtask B.</abstract>
+      <url hash="80c1e339">2024.case-1.31</url>
+      <attachment type="SupplementaryMaterial" hash="49f8c01b">2024.case-1.31.SupplementaryMaterial.txt</attachment>
+      <bibkey>thapa-etal-2024-extended</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Overview of the Hate Speech Detection in <fixed-case>T</fixed-case>urkish and <fixed-case>A</fixed-case>rabic Tweets (<fixed-case>HSD</fixed-case>-2<fixed-case>L</fixed-case>ang) Shared Task at <fixed-case>CASE</fixed-case> 2024</title>
+      <author><first>Gökçe</first><last>Uludoğan</last><affiliation>Bogazici University</affiliation></author>
+      <author><first>Somaiyeh</first><last>Dehghan</last><affiliation>Sabanci University</affiliation></author>
+      <author><first>Inanc</first><last>Arin</last><affiliation>Sabanci University</affiliation></author>
+      <author><first>Elif</first><last>Erol</last><affiliation>Hrant Dink Foundation</affiliation></author>
+      <author><first>Berrin</first><last>Yanikoglu</last><affiliation>Sabanci University</affiliation></author>
+      <author><first>Arzucan</first><last>Özgür</last><affiliation>Bogazici University</affiliation></author>
+      <pages>229-233</pages>
+      <abstract>This paper offers an overview of Hate Speech Detection in Turkish and Arabic Tweets (HSD-2Lang) Shared Task at CASE workshop to be held jointly with EACL 2024. The task was divided into two subtasks: Subtask A, targeting hate speech detection in various Turkish contexts, and Subtask B, addressing hate speech detection in Arabic with limited data. The shared task attracted significant attention with 33 teams that registered and 10 teams that participated in at least one task. In this paper, we provide the details of the tasks and the approaches adopted by the participant along with an analysis of the results obtained from this shared task.</abstract>
+      <url hash="9a039c4b">2024.case-1.32</url>
+      <attachment type="SupplementaryMaterial" hash="a5f07f9f">2024.case-1.32.SupplementaryMaterial.txt</attachment>
+      <bibkey>uludogan-etal-2024-overview</bibkey>
+    </paper>
+    <paper id="33">
+      <title>Stance and Hate Event Detection in Tweets Related to Climate Activism - Shared Task at <fixed-case>CASE</fixed-case> 2024</title>
+      <author><first>Surendrabikram</first><last>Thapa</last><affiliation>Virginia Tech</affiliation></author>
+      <author><first>Kritesh</first><last>Rauniyar</last><affiliation>B. Tech in Computer Engineering, Delhi Technological University</affiliation></author>
+      <author><first>Farhan</first><last>Jafri</last><affiliation>Electronics and Communication Engineering, Jamia Millia Islamia</affiliation></author>
+      <author><first>Shuvam</first><last>Shiwakoti</last><affiliation>DelhiTechnologicalUniversity</affiliation></author>
+      <author><first>Hariram</first><last>Veeramani</last><affiliation>UCLA</affiliation></author>
+      <author><first>Raghav</first><last>Jain</last><affiliation>NLP Researcher</affiliation></author>
+      <author><first>Guneet Singh</first><last>Kohli</last><affiliation>Thapar University</affiliation></author>
+      <author><first>Ali</first><last>Hürriyetoğlu</last><affiliation>KNAW</affiliation></author>
+      <author><first>Usman</first><last>Naseem</last><affiliation>University of Sydney</affiliation></author>
+      <pages>234-247</pages>
+      <abstract>Social media plays a pivotal role in global discussions, including on climate change. The variety of opinions expressed range from supportive to oppositional, with some instances of hate speech. Recognizing the importance of understanding these varied perspectives, the 7th Workshop on Challenges and Applications of Automated Extraction of Socio-political Events from Text (CASE) at EACL 2024 hosted a shared task focused on detecting stances and hate speech in climate activism-related tweets. This task was divided into three subtasks: subtasks A and B concentrated on identifying hate speech and its targets, while subtask C focused on stance detection. Participants’ performance was evaluated using the macro F1-score. With over 100 teams participating, the highest F1 scores achieved were 91.44% in subtask C, 78.58% in subtask B, and 74.83% in subtask A. This paper details the methodologies of 24 teams that submitted their results to the competition’s leaderboard.</abstract>
+      <url hash="6429a831">2024.case-1.33</url>
+      <attachment type="SupplementaryMaterial" hash="f7165bef">2024.case-1.33.SupplementaryMaterial.txt</attachment>
+      <bibkey>thapa-etal-2024-stance</bibkey>
+    </paper>
+    <paper id="34">
+      <title>A Concise Report of the 7th Workshop on Challenges and Applications of Automated Extraction of Socio-political Events from Text</title>
+      <author><first>Ali</first><last>Hürriyetoğlu</last><affiliation>KNAW</affiliation></author>
+      <author><first>Surendrabikram</first><last>Thapa</last><affiliation>Virginia Tech</affiliation></author>
+      <author><first>Gökçe</first><last>Uludoğan</last><affiliation>Bogazici University</affiliation></author>
+      <author><first>Somaiyeh</first><last>Dehghan</last><affiliation>Sabanci University</affiliation></author>
+      <author><first>Hristo</first><last>Tanev</last><affiliation>Joint Research Centre, European Commission</affiliation></author>
+      <pages>248-255</pages>
+      <abstract>In this paper, we provide a brief overview of the 7th workshop on Challenges and Applications of Automated Extraction of Socio-political Events from Text (CASE) co-located with EACL 2024. This workshop consisted of regular papers, system description papers submitted by shared task participants, and overview papers of shared tasks held. This workshop series has been bringing together experts and enthusiasts from technical and social science fields, providing a platform for better understanding event information. This workshop not only advances text-based event extraction but also facilitates research in event extraction in multimodal settings.</abstract>
+      <url hash="1115272d">2024.case-1.34</url>
+      <attachment type="SupplementaryMaterial" hash="10374163">2024.case-1.34.SupplementaryMaterial.txt</attachment>
+      <bibkey>hurriyetoglu-etal-2024-concise</bibkey>
+    </paper>
+  </volume>
+</collection>

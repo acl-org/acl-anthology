@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2023.genbench">
+  <volume id="1" ingest-date="2023-12-07" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 1st GenBench Workshop on (Benchmarking) Generalisation in NLP</booktitle>
+      <editor><first>Dieuwke</first><last>Hupkes</last></editor>
+      <editor><first>Verna</first><last>Dankers</last></editor>
+      <editor><first>Khuyagbaatar</first><last>Batsuren</last></editor>
+      <editor><first>Koustuv</first><last>Sinha</last></editor>
+      <editor><first>Amirhossein</first><last>Kazemnejad</last></editor>
+      <editor><first>Christos</first><last>Christodoulopoulos</last></editor>
+      <editor><first>Ryan</first><last>Cotterell</last></editor>
+      <editor><first>Elia</first><last>Bruni</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Singapore</address>
+      <month>December</month>
+      <year>2023</year>
+      <url hash="5a96f1a9">2023.genbench-1</url>
+      <venue>genbench</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="20a8d337">2023.genbench-1.0</url>
+      <bibkey>genbench-2023-genbench</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>90% F1 Score in Relation Triple Extraction: Is it Real?</title>
+      <author><first>Pratik</first><last>Saini</last><affiliation>TCS Research, India</affiliation></author>
+      <author><first>Samiran</first><last>Pal</last><affiliation>TCS Research, India</affiliation></author>
+      <author><first>Tapas</first><last>Nayak</last><affiliation>TCS Research, India</affiliation></author>
+      <author><first>Indrajit</first><last>Bhattacharya</last><affiliation>TCS Research, India</affiliation></author>
+      <pages>1-11</pages>
+      <abstract>Extracting relational triples from text is a crucial task for constructing knowledge bases. Recent advancements in joint entity and relation extraction models have demonstrated remarkable F1 scores (≥ 90%) in accurately extracting relational triples from free text. However, these models have been evaluated under restrictive experimental settings and unrealistic datasets. They overlook sentences with zero triples (zerocardinality), thereby simplifying the task. In this paper, we present a benchmark study of state-of-the-art joint entity and relation extraction models under a more realistic setting. We include sentences that lack any triples in our experiments, providing a comprehensive evaluation. Our findings reveal a significant decline (approximately 10-15% in one dataset and 6-14% in another dataset) in the models’ F1 scores within this realistic experimental setup. Furthermore, we propose a two-step modeling approach that utilizes a simple BERT-based classifier. This approach leads to overall performance improvement in these models within the realistic experimental setting.</abstract>
+      <url hash="601372f0">2023.genbench-1.1</url>
+      <bibkey>saini-etal-2023-90</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.1</doi>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>G</fixed-case>en<fixed-case>C</fixed-case>ode<fixed-case>S</fixed-case>earch<fixed-case>N</fixed-case>et: A Benchmark Test Suite for Evaluating Generalization in Programming Language Understanding</title>
+      <author><first>Andor</first><last>Diera</last><affiliation>Ulm University</affiliation></author>
+      <author><first>Abdelhalim</first><last>Dahou</last><affiliation>GESIS - Institute for Social Sciences</affiliation></author>
+      <author><first>Lukas</first><last>Galke</last><affiliation>Max Planck Institute for Psycholinguistics</affiliation></author>
+      <author><first>Fabian</first><last>Karl</last><affiliation>Ulm University</affiliation></author>
+      <author><first>Florian</first><last>Sihler</last><affiliation>Ulm University</affiliation></author>
+      <author><first>Ansgar</first><last>Scherp</last><affiliation>Ulm University</affiliation></author>
+      <pages>12-24</pages>
+      <abstract>Language models can serve as a valuable tool for software developers to increase productivity. Large generative models can be used for code generation and code completion, while smaller encoder-only models are capable of performing code search tasks using natural language queries. These capabilities are heavily influenced by the quality and diversity of the available training data. Source code datasets used for training usually focus on the most popular languages and testing is mostly conducted on the same distributions, often overlooking low-resource programming languages. Motivated by the NLP generalization taxonomy proposed by Hupkes et.,al., we propose a new benchmark dataset called GenCodeSearchNet (GeCS) which builds upon existing natural language code search datasets to systemically evaluate the programming language understanding generalization capabilities of language models. As part of the full dataset, we introduce a new, manually curated subset StatCodeSearch that focuses on R, a popular but so far underrepresented programming language that is often used by researchers outside the field of computer science. For evaluation and comparison, we collect several baseline results using fine-tuned BERT-style models and GPT-style large language models in a zero-shot setting.</abstract>
+      <url hash="19a3d561">2023.genbench-1.2</url>
+      <bibkey>diera-etal-2023-gencodesearchnet</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.2</doi>
+      <video href="2023.genbench-1.2.mp4"/>
+    </paper>
+    <paper id="3">
+      <title>Adapt and Decompose: Efficient Generalization of Text-to-<fixed-case>SQL</fixed-case> via Domain Adapted Least-To-Most Prompting</title>
+      <author><first>Aseem</first><last>Arora</last><affiliation>TCS Research, India</affiliation></author>
+      <author><first>Shabbirhussain</first><last>Bhaisaheb</last><affiliation>TCS Research, India</affiliation></author>
+      <author><first>Harshit</first><last>Nigam</last><affiliation>TCS Research, India</affiliation></author>
+      <author><first>Manasi</first><last>Patwardhan</last><affiliation>TCS Research, India</affiliation></author>
+      <author><first>Lovekesh</first><last>Vig</last><affiliation>TCS Research, India</affiliation></author>
+      <author><first>Gautam</first><last>Shroff</last><affiliation>TCS Research, India</affiliation></author>
+      <pages>25-47</pages>
+      <abstract>Cross-domain and cross-compositional generalization of Text-to-SQL semantic parsing is a challenging task. Existing Large Language Model (LLM) based solutions rely on inference-time retrieval of few-shot exemplars from the training set to synthesize a run-time prompt for each Natural Language (NL) test query. In contrast, we devise an algorithm which performs offline sampling of a minimal set-of few-shots from the training data, with complete coverage of SQL clauses, operators and functions, and maximal domain coverage within the allowed token length. This allows for synthesis of a fixed Generic Prompt (GP), with a diverse set-of exemplars common across NL test queries, avoiding expensive test time exemplar retrieval. We further auto-adapt the GP to the target database domain (DA-GP), to better handle cross-domain generalization; followed by a decomposed Least-To-Most-Prompting (LTMP-DA-GP) to handle cross-compositional generalization. The synthesis of LTMP-DA-GP is an offline task, to be performed one-time per new database with minimal human intervention. Our approach demonstrates superior performance on the KaggleDBQA dataset, designed to evaluate generalizability for the Text-to-SQL task. We further showcase consistent performance improvement of LTMP-DA-GP over GP, across LLMs and databases of KaggleDBQA, highlighting the efficacy and model agnostic benefits of our prompt based adapt and decompose approach.</abstract>
+      <url hash="8e088172">2023.genbench-1.3</url>
+      <bibkey>arora-etal-2023-adapt</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.3</doi>
+    </paper>
+    <paper id="4">
+      <title>Evaluating Neural Language Models as Cognitive Models of Language Acquisition</title>
+      <author><first>Héctor</first><last>Vázquez Martínez</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Annika</first><last>Lea Heuser</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Charles</first><last>Yang</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Jordan</first><last>Kodner</last><affiliation>Stony Brook University</affiliation></author>
+      <pages>48-64</pages>
+      <abstract>The success of neural language models (LMs) on many technological tasks has brought about their potential relevance as scientific theories of language despite some clear differences between LM training and child language acquisition. In this paper we argue that some of the most prominent benchmarks for evaluating the syntactic capacities of LMs may not be sufficiently rigorous. In particular, we show that the template-based benchmarks lack the structural diversity commonly found in the theoretical and psychological studies of language. When trained on small-scale data modeling child language acquisition, the LMs can be readily matched by simple baseline models. We advocate for the use of the readily available, carefully curated datasets that have been evaluated for gradient acceptability by large pools of native speakers and are designed to probe the structural basis of grammar specifically. On one such dataset, the LI-Adger dataset, LMs evaluate sentences in a way inconsistent with human language users. We conclude with suggestions for better connecting LMs with the empirical study of child language acquisition.</abstract>
+      <url hash="6ddbaed4">2023.genbench-1.4</url>
+      <bibkey>javier-vazquez-martinez-etal-2023-evaluating</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.4</doi>
+      <video href="2023.genbench-1.4.mp4"/>
+    </paper>
+    <paper id="5">
+      <title>Robust Code Summarization</title>
+      <author><first>Debanjan</first><last>Mondal</last><affiliation>University of Massachusetts Amherst</affiliation></author>
+      <author><first>Abhilasha</first><last>Lodha</last><affiliation>University of Massachusetts Amherst</affiliation></author>
+      <author><first>Ankita</first><last>Sahoo</last><affiliation>University of Massachusetts Amherst</affiliation></author>
+      <author><first>Beena</first><last>Kumari</last><affiliation>University of Massachusetts Amherst</affiliation></author>
+      <pages>65-75</pages>
+      <abstract>This paper delves into the intricacies of code summarization using advanced transformer-based language models. Through empirical studies, we evaluate the efficacy of code summarization by altering function and variable names to explore whether models truly understand code semantics or merely rely on textual cues. We have also introduced adversaries like dead code and commented code across three programming languages (Python, Javascript, and Java) to further scrutinize the model’s understanding. Ultimately, our research aims to offer valuable insights into the inner workings of transformer-based LMs, enhancing their ability to understand code and contributing to more efficient software development practices and maintenance workflows.</abstract>
+      <url hash="094fb5d0">2023.genbench-1.5</url>
+      <bibkey>mondal-etal-2023-robust</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.5</doi>
+      <video href="2023.genbench-1.5.mp4"/>
+    </paper>
+    <paper id="6">
+      <title>Temporal Generalizability in Multimodal Misinformation Detection</title>
+      <author><first>Nataliya</first><last>Stepanova</last><affiliation>University of Edinburgh</affiliation></author>
+      <author><first>Björn</first><last>Ross</last><affiliation>University of Edinburgh</affiliation></author>
+      <pages>76-88</pages>
+      <abstract>Misinformation detection models degrade in performance over time, but the precise causes of this remain under-researched, in particular for multimodal models. We present experiments investigating the impact of temporal shift on performance of multimodal automatic misinformation detection classifiers. Working with the r/Fakeddit dataset, we found that evaluating models on temporally out-of-domain data (i.e. data from time stretches unseen in training) results in a non-linear, 7-8% drop in macro F1 as compared to traditional evaluation strategies (which do not control for the effect of content change over time). Focusing on two factors that make temporal generalizability in misinformation detection difficult, content shift and class distribution shift, we found that content shift has a stronger effect on recall. Within the context of coarse-grained vs. fine-grained misinformation detection with r/Fakeddit, we find that certain misinformation classes seem to be more stable with respect to content shift (e.g. Manipulated and Misleading Content). Our results indicate that future research efforts need to explicitly account for the temporal nature of misinformation to ensure that experiments reflect expected real-world performance.</abstract>
+      <url hash="ef59dcbb">2023.genbench-1.6</url>
+      <bibkey>stepanova-ross-2023-temporal</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.6</doi>
+    </paper>
+    <paper id="7">
+      <title>Robust Generalization Strategies for Morpheme Glossing in an Endangered Language Documentation Context</title>
+      <author><first>Michael</first><last>Ginn</last><affiliation>University of Colorado</affiliation></author>
+      <author><first>Alexis</first><last>Palmer</last><affiliation>University of Colorado</affiliation></author>
+      <pages>89-98</pages>
+      <abstract>Generalization is of particular importance in resource-constrained settings, where the available training data may represent only a small fraction of the distribution of possible texts. We investigate the ability of morpheme labeling models to generalize by evaluating their performance on unseen genres of text, and we experiment with strategies for closing the gap between performance on in-distribution and out-of-distribution data. Specifically, we use weight decay optimization, output denoising, and iterative pseudo-labeling, and achieve a 2% improvement on a test set containing texts from unseen genres. All experiments are performed using texts written in the Mayan language Uspanteko.</abstract>
+      <url hash="bc9076ae">2023.genbench-1.7</url>
+      <bibkey>ginn-palmer-2023-robust</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.7</doi>
+      <video href="2023.genbench-1.7.mp4"/>
+    </paper>
+    <paper id="8">
+      <title>Walking a Tightrope – Evaluating Large Language Models in High-Risk Domains</title>
+      <author><first>Chia-Chien</first><last>Hung</last><affiliation>NEC Laboratories Europe, Heidelberg</affiliation></author>
+      <author><first>Wiem</first><last>Ben Rim</last><affiliation>NEC Laboratories Europe, Heidelberg</affiliation></author>
+      <author><first>Lindsay</first><last>Frost</last><affiliation>NEC Laboratories Europe, Heidelberg</affiliation></author>
+      <author><first>Lars</first><last>Bruckner</last><affiliation>NEC Europe Ltd, EU Public Affairs Office</affiliation></author>
+      <author><first>Carolin</first><last>Lawrence</last><affiliation>NEC Laboratories Europe, Heidelberg</affiliation></author>
+      <pages>99-111</pages>
+      <abstract>High-risk domains pose unique challenges that require language models to provide accurate and safe responses. Despite the great success of large language models (LLMs), such as ChatGPT and its variants, their performance in high-risk domains remains unclear. Our study delves into an in-depth analysis of the performance of instruction-tuned LLMs, focusing on factual accuracy and safety adherence. To comprehensively assess the capabilities of LLMs, we conduct experiments on six NLP datasets including question answering and summarization tasks within two high-risk domains: legal and medical. Further qualitative analysis highlights the existing limitations inherent in current LLMs when evaluating in high-risk domains. This underscores the essential nature of not only improving LLM capabilities but also prioritizing the refinement of domain-specific metrics, and embracing a more human-centric approach to enhance safety and factual reliability. Our findings advance the field toward the concerns of properly evaluating LLMs in high-risk domains, aiming to steer the adaptability of LLMs in fulfilling societal obligations and aligning with forthcoming regulations, such as the EU AI Act.</abstract>
+      <url hash="0659d3ff">2023.genbench-1.8</url>
+      <bibkey>hung-etal-2023-walking</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.8</doi>
+    </paper>
+    <paper id="9">
+      <title>Latent Feature-based Data Splits to Improve Generalisation Evaluation: A Hate Speech Detection Case Study</title>
+      <author><first>Maike</first><last>Züfle</last><affiliation>ILCC, University of Edinburgh</affiliation></author>
+      <author><first>Verna</first><last>Dankers</last><affiliation>ILCC, University of Edinburgh</affiliation></author>
+      <author><first>Ivan</first><last>Titov</last><affiliation>ILCC, University of Edinburgh and ILLC, University of Amsterdam</affiliation></author>
+      <pages>112-129</pages>
+      <abstract>With the ever-growing presence of social media platforms comes the increased spread of harmful content and the need for robust hate speech detection systems. Such systems easily overfit to specific targets and keywords, and evaluating them without considering distribution shifts that might occur between train and test data overestimates their benefit. We challenge hate speech models via new train-test splits of existing datasets that rely on the clustering of models’ hidden representations. We present two split variants (Subset-Sum-Split and Closest-Split) that, when applied to two datasets using four pretrained models, reveal how models catastrophically fail on blind spots in the latent space. This result generalises when developing a split with one model and evaluating it on another. Our analysis suggests that there is no clear surface-level property of the data split that correlates with the decreased performance, which underscores that task difficulty is not always humanly interpretable. We recommend incorporating latent feature-based splits in model development and release two splits via the GenBench benchmark.</abstract>
+      <url hash="cb34e202">2023.genbench-1.9</url>
+      <bibkey>zufle-etal-2023-latent</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.9</doi>
+    </paper>
+    <paper id="10">
+      <title>Syntax-Guided Transformers: Elevating Compositional Generalization and Grounding in Multimodal Environments</title>
+      <author><first>Danial</first><last>Kamali</last><affiliation>Michigan State University</affiliation></author>
+      <author><first>Parisa</first><last>Kordjamshidi</last><affiliation>Michigan State University</affiliation></author>
+      <pages>130-142</pages>
+      <abstract>Compositional generalization, the ability of intelligent models to extrapolate understanding of components to novel compositions, is a fundamental yet challenging facet in AI research, especially within multimodal environments. In this work, we address this challenge by exploiting the syntactic structure of language to boost compositional generalization. This paper elevates the importance of syntactic grounding, particularly through attention masking techniques derived from text input parsing. We introduce and evaluate the merits of using syntactic information in the multimodal grounding problem. Our results on grounded compositional generalization underscore the positive impact of dependency parsing across diverse tasks when utilized with Weight Sharing across the Transformer encoder. The results push the state-of-the-art in multimodal grounding and parameter-efficient modeling and provide insights for future research.</abstract>
+      <url hash="c9feae0a">2023.genbench-1.10</url>
+      <bibkey>kamali-kordjamshidi-2023-syntax</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.10</doi>
+      <video href="2023.genbench-1.10.mp4"/>
+    </paper>
+    <paper id="11">
+      <title>m<fixed-case>SCAN</fixed-case>: A Dataset for Multilingual Compositional Generalisation Evaluation</title>
+      <author><first>Amélie</first><last>Reymond</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Shane</first><last>Steinert-Threlkeld</last><affiliation>University of Washington</affiliation></author>
+      <pages>143-151</pages>
+      <abstract>Language models achieve remarkable results on a variety of tasks, yet still struggle on compositional generalisation benchmarks. The majority of these benchmarks evaluate performance in English only, leaving us with the question of whether these results generalise to other languages. As an initial step to answering this question, we introduce mSCAN, a multilingual adaptation of the SCAN dataset. It was produced by a rule-based translation, developed in cooperation with native speakers. We then showcase this novel dataset on some in-context learning experiments, and GPT3.5 and the multilingual large language model BLOOM</abstract>
+      <url hash="d36cfbec">2023.genbench-1.11</url>
+      <bibkey>reymond-steinert-threlkeld-2023-mscan</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.11</doi>
+      <video href="2023.genbench-1.11.mp4"/>
+    </paper>
+    <paper id="12">
+      <title>Inductive Bias Is in the Eye of the Beholder</title>
+      <author><first>Michael</first><last>Wilson</last><affiliation>University of Delaware</affiliation></author>
+      <author><first>Robert</first><last>Frank</last><affiliation>Yale University</affiliation></author>
+      <pages>152-162</pages>
+      <abstract>Due to the finite nature of any evidence used in learning, systematic generalization is crucially reliant on the presence of inductive bias (Mitchell, 1980). We examine inductive biases in different types of sequence-to-sequence neural network models, including CNNs, LSTMs (with and without attention), and transformers, inspired by Kharitonov and Chaabouni (2021). Crucially, however, we consider a wider range of possible inductive biases than their study did. Investigating preferences for hierarchical generalization compared to other types of generalization, we find that, contrary to their results, transformers display no preference for hierarchical generalization, but instead prefer a counting strategy. We also investigate biases toward different types of compositionality. By controlling for a confound in Kharitonov and Chaabouni (2021)’s test set, we find much less consistent generalization overall, and find that a large number of responses were among types other than the two types of generalization they had considered. Nevertheless, we observe consistent compositional generalization to held out combinations of primitives and functions on a SCAN task (Lake and Baroni, 2017) by models of all types, but only when primitives occur with other functions in the training set. The pattern of success indicates generalization in models of these types is highly sensitive to distributional properties of their training data.</abstract>
+      <url hash="b48952c1">2023.genbench-1.12</url>
+      <bibkey>wilson-frank-2023-inductive</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.12</doi>
+      <video href="2023.genbench-1.12.mp4"/>
+    </paper>
+    <paper id="13">
+      <title>Blackbird Language Matrices Tasks for Generalization</title>
+      <author><first>Paola</first><last>Merlo</last><affiliation>University of Geneva</affiliation></author>
+      <author><first>Chunyang</first><last>Jiang</last><affiliation>University of Geneva</affiliation></author>
+      <author><first>Giuseppe</first><last>Samo</last><affiliation>University of Geneva</affiliation></author>
+      <author><first>Vivi</first><last>Nastase</last><affiliation>University of Geneva</affiliation></author>
+      <pages>163-172</pages>
+      <abstract>To develop a system with near-human language capabilities, we need to understand current systems’ generalisation and compositional abilities. We approach this by generating compositional, structured data, inspired from visual intelligence tests, that depend on the problem-solvers being able to disentangle objects and their absolute and relative properties in a sequence of images. We design an analogous task and develop the corresponding datasets that capture specific linguistic phenomena and their properties. Solving each problem instance depends on detecting the relevant linguistic objects and generative rules of the problem. We propose two datasets modelling two linguistic phenomena – subject-verb agreement in French, and verb alternations in English. The datasets can be used to investigate how LLMs encode linguistic objects, such as phrases, their grammatical and semantic properties, such as number or semantic role, and how such information is combined to correctly solve each problem. Specifically generated error types help investigate the behaviour of the system, which important information it is able to detect, and which structures mislead it.</abstract>
+      <url hash="497d3b29">2023.genbench-1.13</url>
+      <bibkey>merlo-etal-2023-blackbird</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.13</doi>
+      <video href="2023.genbench-1.13.mp4"/>
+    </paper>
+    <paper id="14">
+      <title>In-Context Learning for Text Classification with Many Labels</title>
+      <author><first>Aristides</first><last>Milios</last><affiliation>Mila and McGill University</affiliation></author>
+      <author><first>Siva</first><last>Reddy</last><affiliation>Mila and McGill University; ServiceNOW Research; Facebook CIFAR AI Chair</affiliation></author>
+      <author><first>Dzmitry</first><last>Bahdanau</last><affiliation>Mila and McGill University; ServiceNOW Research</affiliation></author>
+      <pages>173-184</pages>
+      <abstract>In-context learning (ICL) using large language models for tasks with many labels is challenging due to the limited context window, which makes it difficult to fit a sufficient number of examples in the prompt. In this paper, we use a pre-trained dense retrieval model to bypass this limitation, giving the model only a partial view of the full label space for each inference call. Testing with recent open-source LLMs (OPT, LLaMA), we set new state of the art performance in few-shot settings for three common intent classification datasets, with no fine-tuning. We also surpass fine-tuned performance on fine-grained sentiment classification in certain cases. We analyze the performance across number of in-context examples and different model scales, showing that larger models are necessary to effectively make use of larger context lengths for ICL. By running several ablations, we analyze the model’s use of: a) the similarity of the in-context examples to the current input, b) the semantic content of the class names, and c) the correct correspondence between examples and labels. We demonstrate that all three are needed to varying degrees depending on the domain, contrary to certain recent works.</abstract>
+      <url hash="b6e1723d">2023.genbench-1.14</url>
+      <bibkey>milios-etal-2023-context</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.14</doi>
+    </paper>
+    <paper id="15">
+      <title><fixed-case>GQG</fixed-case>: Generalized Quantifier Generalization - A Dataset for Evaluating Quantifier Semantics Understanding in Language Models</title>
+      <author><first>Leroy</first><last>Zhifei Wang</last><affiliation>University of Washington</affiliation></author>
+      <author><first>Shane</first><last>Steinert-Threlkeld</last><affiliation>University of Washington</affiliation></author>
+      <pages>185-192</pages>
+      <abstract>We present a new dataset consisting of various quantifier expressions to evaluate the generalization abilities of language models. The dataset contains 18,360 prompts encompassing diverse quantifiers, forming the basis of a new framework for assessing semantic understanding in this domain. We test the effectiveness of our dataset using Pythia models, ranging from 410 million to 6.9 billion, showing that quantifier-based tasks can be challenging for current language models. We make our code and data publicly available, such that the dataset can be easily extended or updated based on different evaluation needs.</abstract>
+      <url hash="8723fca9">2023.genbench-1.15</url>
+      <bibkey>zhifei-wang-steinert-threlkeld-2023-gqg</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.15</doi>
+    </paper>
+    <paper id="16">
+      <title>Cross-Lingual Data Augmentation For <fixed-case>T</fixed-case>hai Question-Answering</title>
+      <author><first>Parinthapat</first><last>Pengpun</last><affiliation>Bangkok Christian International School</affiliation></author>
+      <author><first>Can</first><last>Udomcharoenchaikit</last><affiliation>School of Information Science and Technology, VISTEC</affiliation></author>
+      <author><first>Weerayut</first><last>Buaphet</last><affiliation>School of Information Science and Technology, VISTEC</affiliation></author>
+      <author><first>Peerat</first><last>Limkonchotiwat</last><affiliation>School of Information Science and Technology, VISTEC</affiliation></author>
+      <pages>193-203</pages>
+      <abstract>This paper presents an innovative data augmentation framework with data quality control designed to enhance the robustness of Question Answering (QA) models in low-resource languages, particularly Thai. Recognizing the challenges posed by the scarcity and quality of training data, we leverage data augmentation techniques in both monolingual and cross-lingual settings. Our approach augments and enriches the original dataset, thereby increasing its linguistic diversity and robustness. We evaluate the robustness of our framework on Machine Reading Comprehension, and the experimental results illustrate the potential of data augmentation to effectively increase training data and improve model generalization in low-resource language settings, offering a promising direction for the data augmentation manner.</abstract>
+      <url hash="b76d457f">2023.genbench-1.16</url>
+      <bibkey>pengpun-etal-2023-cross</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.16</doi>
+      <video href="2023.genbench-1.16.mp4"/>
+    </paper>
+    <paper id="17">
+      <title>On using distribution-based compositionality assessment to evaluate compositional generalisation in machine translation</title>
+      <author><first>Anssi</first><last>Moisio</last><affiliation>Aalto University; University of Helsinki</affiliation></author>
+      <author><first>Mathias</first><last>Creutz</last><affiliation>University of Helsinki</affiliation></author>
+      <author><first>Mikko</first><last>Kurimo</last><affiliation>Aalto University</affiliation></author>
+      <pages>204-213</pages>
+      <abstract>Compositional generalisation (CG), in NLP and in machine learning more generally, has been assessed mostly using artificial datasets. It is important to develop benchmarks to assess CG also in real-world natural language tasks in order to understand the abilities and limitations of systems deployed in the wild. To this end, our GenBench Collaborative Benchmarking Task submission utilises the distribution-based compositionality assessment (DBCA) framework to split the Europarl translation corpus into a training and a test set in such a way that the test set requires compositional generalisation capacity. Specifically, the training and test sets have divergent distributions of dependency relations, testing NMT systems’ capability of translating dependencies that they have not been trained on. This is a fully-automated procedure to create natural language compositionality benchmarks, making it simple and inexpensive to apply it further to other datasets and languages. The code and data for the experiments is available at https://github.com/aalto-speech/dbca.</abstract>
+      <url hash="e855f382">2023.genbench-1.17</url>
+      <bibkey>moisio-etal-2023-using</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.17</doi>
+    </paper>
+    <paper id="18">
+      <title>Shifted <fixed-case>PAUQ</fixed-case>: Distribution shift in text-to-<fixed-case>SQL</fixed-case></title>
+      <author><first>Oleg</first><last>Somov</last></author>
+      <author><first>Elena</first><last>Tutubalina</last></author>
+      <pages>214-220</pages>
+      <abstract>Semantic parsing plays a pivotal role in advancing the accessibility of human-computer interaction on a large scale. Spider, a widely recognized dataset for text2SQL, contains a wide range of natural language (NL) questions in English and corresponding SQL queries. Original splits of Spider and its adapted to Russian language and improved version, PAUQ, assume independence and identical distribution of training and testing data (i.i.d split). In this work, we propose a target length split and multilingual i.i.d split to measure compositionality and cross-language generalization. We present experimental results of popular text2SQL models on original, multilingual, and target length splits. We also construct a context-free grammar for the evaluation of compositionality in text2SQL in an out-of-distribution setting. We make the splits publicly available on HuggingFace hub via https://huggingface.co/datasets/composite/pauq</abstract>
+      <url hash="a6ebd9cc">2023.genbench-1.18</url>
+      <bibkey>somov-tutubalina-2023-shifted</bibkey>
+      <doi>10.18653/v1/2023.genbench-1.18</doi>
+    </paper>
+  </volume>
+</collection>

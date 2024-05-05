@@ -864,6 +864,8 @@
       <abstract>The state of bridging resolution research is rather unsatisfactory: not only are state-of-the-art resolvers evaluated in unrealistic settings, but the neural models underlying these resolvers are weaker than those used for entity coreference resolution. In light of these problems, we evaluate bridging resolvers in an end-to-end setting, strengthen them with better encoders, and attempt to gain a better understanding of them via perturbation experiments and a manual analysis of their outputs.</abstract>
       <url hash="744238eb">2022.coling-1.64</url>
       <bibkey>kobayashi-etal-2022-end</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/bashi">BASHI</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/isnotes">ISNotes</pwcdataset>
     </paper>
     <paper id="65">
       <title>Investigating the Performance of Transformer-Based <fixed-case>NLI</fixed-case> Models on Presuppositional Inferences</title>
@@ -886,6 +888,7 @@
       <abstract>We present a corrected version of a subset of the FactBank data set. Previously published results on FactBank are no longer valid. We perform experiments on FactBank using multiple training paradigms, data smoothing techniques, and polarity classifiers. We argue that f-measure is an important alternative evaluation metric for factuality. We provide new state-of-the-art results for four corpora including FactBank. We perform an error analysis on Factbank combined with two similar corpora.</abstract>
       <url hash="ebddb68f">2022.coling-1.66</url>
       <bibkey>murzaku-etal-2022-examining</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/megaveridicality">MegaVeridicality</pwcdataset>
     </paper>
     <paper id="67">
       <title>The Role of Context and Uncertainty in Shallow Discourse Parsing</title>
@@ -910,7 +913,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/copa">COPA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/commonsenseqa">CommonsenseQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wsc">WSC</pwcdataset>
     </paper>
     <paper id="69">
@@ -998,6 +1000,7 @@
       <abstract>Conversational discourse parsing aims to construct an implicit utterance dependency tree to reflect the turn-taking in a multi-party conversation. Existing works are generally divided into two lines: graph-based and transition-based paradigms, which perform well for short-distance and long-distance dependency links, respectively. However, there is no study to consider the advantages of both paradigms to facilitate conversational discourse parsing. As a result, we propose a distance-aware multi-task framework DAMT that incorporates the strengths of transition-based paradigm to facilitate the graph-based paradigm from the encoding and decoding process. To promote multi-task learning on two paradigms, we first introduce an Encoding Interactive Module (EIM) to enhance the flow of semantic information between both two paradigms during the encoding step. And then we apply a Distance-Aware Graph Convolutional Network (DAGCN) in the decoding process, which can incorporate the different-distance dependency links predicted by the transition-based paradigm to facilitate the decoding of the graph-based paradigm. The experimental results on the datasets STAC and Molweni show that our method can significantly improve the performance of the SOTA graph-based paradigm on long-distance dependency links.</abstract>
       <url hash="04f0fd8e">2022.coling-1.76</url>
       <bibkey>fan-etal-2022-distance</bibkey>
+      <pwccode url="https://github.com/yxfansuda/damt" additional="false">yxfansuda/damt</pwccode>
     </paper>
     <paper id="77">
       <title>Linguistically Motivated Features for Classifying Shorter Text into Fiction and Non-Fiction Genre</title>
@@ -1009,6 +1012,7 @@
       <abstract>This work deploys linguistically motivated features to classify paragraph-level text into fiction and non-fiction genre using a logistic regression model and infers lexical and syntactic properties that distinguish the two genres. Previous works have focused on classifying document-level text into fiction and non-fiction genres, while in this work, we deal with shorter texts which are closer to real-world applications like sentiment analysis of tweets. Going beyond simple POS tag ratios proposed in Qureshi et al.(2019) for document-level classification, we extracted multiple linguistically motivated features belonging to four categories: Lexical features, POS ratio features, Syntactic features and Raw features. For the task of short-text classification, a model containing 28 best-features (selected via Recursive feature elimination with cross-validation; RFECV) confers an accuracy jump of 15.56 % over a baseline model consisting of 2 POS-ratio features found effective in previous work (cited above). The efficacy of the above model containing a linguistically motivated feature set also transfers over to another dataset viz, Baby BNC corpus. We also compared the classification accuracy of the logistic regression model with two deep-learning models. A 1D CNN model gives an increase of 2% accuracy over the logistic Regression classifier on both corpora. And the BERT-base-uncased model gives the best classification accuracy of 97% on Brown corpus and 98% on Baby BNC corpus. Although both the deep learning models give better results in terms of classification accuracy, the problem of interpreting these models remains unsolved. In contrast, regression model coefficients revealed that fiction texts tend to have more character-level diversity and have lower lexical density (quantified using content-function word ratios) compared to non-fiction texts. Moreover, subtle differences in word order exist between the two genres, i.e., in fiction texts Verbs precede Adverbs (inter-alia).</abstract>
       <url hash="ea6b6c2c">2022.coling-1.77</url>
       <bibkey>kazmi-etal-2022-linguistically</bibkey>
+      <pwccode url="https://github.com/armankazmi/linguistic-features-of-text" additional="false">armankazmi/linguistic-features-of-text</pwccode>
     </paper>
     <paper id="78">
       <title>Semantic Sentence Matching via Interacting Syntax Graphs</title>
@@ -1143,6 +1147,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="88">
       <title>Attribute Injection for Pretrained Language Models: A New Benchmark and an Efficient Method</title>
@@ -1241,6 +1246,7 @@
       <abstract>Hierarchical Text Classification (HTC), which aims to predict text labels organized in hierarchical space, is a significant task lacking in investigation in natural language processing. Existing methods usually encode the entire hierarchical structure and fail to construct a robust label-dependent model, making it hard to make accurate predictions on sparse lower-level labels and achieving low Macro-F1. In this paper, we explore the level dependency and path dependency of the label hierarchy in a generative way for building the knowledge of upper-level labels of current path into lower-level ones, and thus propose a novel PAAM-HiA-T5 model for HTC: a hierarchy-aware T5 model with path-adaptive attention mechanism. Specifically, we generate a multi-level sequential label structure to exploit hierarchical dependency across different levels with Breadth-First Search (BFS) and T5 model. To further improve label dependency prediction within each path, we then propose an original path-adaptive attention mechanism (PAAM) to lead the model to adaptively focus on the path where the currently generated label is located, shielding the noise from other paths. Comprehensive experiments on three benchmark datasets show that PAAM-HiA-T5 greatly outperforms all state-of-the-art HTC approaches especially in Macro-F1.</abstract>
       <url hash="b5dd2c64">2022.coling-1.95</url>
       <bibkey>huang-etal-2022-exploring</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/new-york-times-annotated-corpus">New York Times Annotated Corpus</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/rcv1">RCV1</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/web-of-science-dataset">WOS</pwcdataset>
     </paper>
@@ -1291,6 +1297,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/c4">C4</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="100">
       <title><fixed-case>C</fixed-case>on<fixed-case>T</fixed-case>ext<fixed-case>ING</fixed-case>: Granting Document-Wise Contextual Embeddings to Graph Neural Networks for Inductive Text Classification</title>
@@ -1464,6 +1471,7 @@
       <abstract>Ethical judgment aims to determine if a person in a narrative situation acts under people’s social norms under a culture, so it is crucial to understand actions in narratives and achieve machine ethics. Recent works depend on data-driven methods to directly judge the ethics of complex real-world narratives but face two major challenges. First, they cannot well handle dilemma situations due to a lack of basic knowledge about social norms. Second, they focus merely on sparse situation-level judgment regardless of the social norms involved during the judgment, leading to a black box. In this work, inspired by previous knowledge-grounded and -augmented paradigms, we propose to complement a complex situation with grounded social norms. Besides a norm-grounding knowledge model, we present a novel norm-supported ethical judgment model in line with neural module networks to alleviate dilemma situations and improve norm-level explainability. Empirically, our model improves state-of-the-art performance on two narrative judgment benchmarks.</abstract>
       <url hash="07e6b33f">2022.coling-1.114</url>
       <bibkey>shen-etal-2022-social</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/social-chemistry-101">Social Chemistry 101</pwcdataset>
     </paper>
     <paper id="115">
       <title>Bias at a Second Glance: A Deep Dive into Bias for <fixed-case>G</fixed-case>erman Educational Peer-Review Data Modeling</title>
@@ -1475,7 +1483,7 @@
       <abstract>Natural Language Processing (NLP) has become increasingly utilized to provide adaptivity in educational applications. However, recent research has highlighted a variety of biases in pre-trained language models. While existing studies investigate bias in different domains, they are limited in addressing fine-grained analysis on educational corpora and text that is not English. In this work, we analyze bias across text and through multiple architectures on a corpus of 9,165 German peer-reviews collected from university students over five years. Notably, our corpus includes labels such as helpfulness, quality, and critical aspect ratings from the peer-review recipient as well as demographic attributes. We conduct a Word Embedding Association Test (WEAT) analysis on (1) our collected corpus in connection with the clustered labels, (2) the most common pre-trained German language models (T5, BERT, and GPT-2) and GloVe embeddings, and (3) the language models after fine-tuning on our collected data-set. In contrast to our initial expectations, we found that our collected corpus does not reveal many biases in the co-occurrence analysis or in the GloVe embeddings. However, the pre-trained German language models find substantial conceptual, racial, and gender bias and have significant changes in bias across conceptual and racial axes during fine-tuning on the peer-review data. With our research, we aim to contribute to the fourth UN sustainability goal (quality education) with a novel dataset, an understanding of biases in natural language education data, and the potential harms of not counteracting biases in language models for educational tasks.</abstract>
       <url hash="175f055c">2022.coling-1.115</url>
       <bibkey>wambsganss-etal-2022-bias</bibkey>
-      <pwccode url="https://github.com/epfl-ml4ed/bias-at-a-second-glance" additional="false">epfl-ml4ed/bias-at-a-second-glance</pwccode>
+      <pwccode url="https://github.com/epfl-ml4ed/bias-at-a-second-glance" additional="true">epfl-ml4ed/bias-at-a-second-glance</pwccode>
     </paper>
     <paper id="116">
       <title>Dynamic Relevance Graph Network for Knowledge-Aware Question Answering</title>
@@ -1585,6 +1593,7 @@
       <pwccode url="https://github.com/israa-alghanmi/intermediate-ft-biomedical-lms" additional="false">israa-alghanmi/intermediate-ft-biomedical-lms</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/diskne">DisKnE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/headqa">HeadQA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/medqa-usmle">MedQA</pwcdataset>
     </paper>
     <paper id="124">
       <title>Evaluating and Mitigating Inherent Linguistic Bias of <fixed-case>A</fixed-case>frican <fixed-case>A</fixed-case>merican <fixed-case>E</fixed-case>nglish through Inference</title>
@@ -1731,7 +1740,6 @@
       <abstract>Most of the contemporary approaches for multi-hop Natural Language Inference (NLI) construct explanations considering each test case in isolation. However, this paradigm is known to suffer from semantic drift, a phenomenon that causes the construction of spurious explanations leading to wrong conclusions. In contrast, this paper proposes an abductive framework for multi-hop NLI exploring the retrieve-reuse-refine paradigm in Case-Based Reasoning (CBR). Specifically, we present Case-Based Abductive Natural Language Inference (CB-ANLI), a model that addresses unseen inference problems by analogical transfer of prior explanations from similar examples. We empirically evaluate the abductive framework on commonsense and scientific question answering tasks, demonstrating that CB-ANLI can be effectively integrated with sparse and dense pre-trained encoders to improve multi-hop inference, or adopted as an evidence retriever for Transformers. Moreover, an empirical analysis of semantic drift reveals that the CBR paradigm boosts the quality of the most challenging explanations, a feature that has a direct impact on robustness and accuracy in downstream inference tasks.</abstract>
       <url hash="4a203bcf">2022.coling-1.134</url>
       <bibkey>valentino-etal-2022-case</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/worldtree">Worldtree</pwcdataset>
     </paper>
     <paper id="135">
@@ -1773,6 +1781,7 @@
       <abstract>Most attempts on Text-to-SQL task using encoder-decoder approach show a big problem of dramatic decline in performance for new databases. For the popular Spider dataset, despite models achieving 70% accuracy on its development or test sets, the same models show a huge decline below 20% accuracy for unseen databases. The root causes for this problem are complex and they cannot be easily fixed by adding more manually created training. In this paper we address the problem and propose a solution that is a hybrid system using automated training-data augmentation technique. Our system consists of a rule-based and a deep learning components that interact to understand crucial information in a given query and produce correct SQL as a result. It achieves double-digit percentage improvement for databases that are not part of the Spider corpus.</abstract>
       <url hash="ff9f43b0">2022.coling-1.137</url>
       <bibkey>popescu-etal-2022-addressing</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/spider-realistic">Spider-Realistic</pwcdataset>
     </paper>
     <paper id="138">
       <title>Mintaka: A Complex, Natural, and Multilingual Dataset for End-to-End Question Answering</title>
@@ -1808,7 +1817,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/multirc">MultiRC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/quoref">Quoref</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/record">ReCoRD</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="140">
       <title>Conversational <fixed-case>QA</fixed-case> Dataset Generation with Answer Revision</title>
@@ -2370,7 +2378,7 @@
       <bibkey>yu-etal-2022-stad</bibkey>
       <pwccode url="https://github.com/jjyunlp/stad" additional="false">jjyunlp/stad</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/re-tacred">Re-TACRED</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task 8</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2010-task-8">SemEval-2010 Task-8</pwcdataset>
     </paper>
     <paper id="179">
       <title>Flat Multi-modal Interaction Transformer for Named Entity Recognition</title>
@@ -2541,6 +2549,7 @@
       <url hash="1d872680">2022.coling-1.191</url>
       <bibkey>wang-etal-2022-mrc</bibkey>
       <pwccode url="https://github.com/shannonai/mrc-srl" additional="false">shannonai/mrc-srl</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-1">CoNLL</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
     </paper>
     <paper id="192">
@@ -2784,7 +2793,7 @@
       <url hash="adb4764d">2022.coling-1.209</url>
       <bibkey>chen-etal-2022-lightner</bibkey>
       <pwccode url="https://github.com/zjunlp/DeepKE/tree/main/example/ner/few-shot" additional="false">zjunlp/DeepKE</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="210">
       <title>Cross-modal Contrastive Attention Model for Medical Report Generation</title>
@@ -2896,7 +2905,6 @@
       <abstract>Existing studies typically handle aspect-based sentiment analysis by stacking multiple neural modules, which inevitably result in severe error propagation. Instead, we propose a novel end-to-end framework, MRCOOL: MRC-PrOmpt mOdeL framework, where numerous sentiment aspects are elicited by a machine reading comprehension (MRC) model and their corresponding sentiment polarities are classified in a prompt learning way. Experiments show that our end-to-end framework consistently yields promising results on widely-used benchmark datasets which significantly outperform existing state-of-the-art models or achieve comparable performance.</abstract>
       <url hash="9033363f">2022.coling-1.217</url>
       <bibkey>yang-zhao-2022-aspect</bibkey>
-      <pwccode url="https://github.com/yangyifei729/mrc4absa" additional="false">yangyifei729/mrc4absa</pwccode>
     </paper>
     <paper id="218">
       <title>Nested Named Entity Recognition as Corpus Aware Holistic Structure Parsing</title>
@@ -2907,7 +2915,6 @@
       <abstract>As a fundamental natural language processing task and one of core knowledge extraction techniques, named entity recognition (NER) is widely used to extract information from texts for downstream tasks. Nested NER is a branch of NER in which the named entities (NEs) are nested with each other. However, most of the previous studies on nested NER usually apply linear structure to model the nested NEs which are actually accommodated in a hierarchical structure. Thus in order to address this mismatch, this work models the full nested NEs in a sentence as a holistic structure, then we propose a holistic structure parsing algorithm to disclose the entire NEs once for all. Besides, there is no research on applying corpus-level information to NER currently. To make up for the loss of this information, we introduce Point-wise Mutual Information (PMI) and other frequency features from corpus-aware statistics for even better performance by holistic modeling from sentence-level to corpus-level. Experiments show that our model yields promising results on widely-used benchmarks which approach or even achieve state-of-the-art. Further empirical studies show that our proposed corpus-aware features can substantially improve NER domain adaptation, which demonstrates the surprising advantage of our proposed corpus-level holistic structure modeling.</abstract>
       <url hash="b35e1f2e">2022.coling-1.218</url>
       <bibkey>yang-etal-2022-nested</bibkey>
-      <pwccode url="https://github.com/yangyifei729/nerasparsing" additional="false">yangyifei729/nerasparsing</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/genia">GENIA</pwcdataset>
     </paper>
     <paper id="219">
@@ -2997,7 +3004,7 @@
       <url hash="02e5f58e">2022.coling-1.224</url>
       <bibkey>yang-etal-2022-see</bibkey>
       <pwccode url="https://github.com/unveiled-the-red-hat/SEE-Few" additional="false">unveiled-the-red-hat/SEE-Few</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/weibo-ner">Weibo NER</pwcdataset>
     </paper>
     <paper id="225">
@@ -3383,6 +3390,7 @@
       <bibkey>zheng-etal-2022-plugat</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="254">
       <title>Automatic <fixed-case>ICD</fixed-case> Coding Exploiting Discourse Structure and Reconciled Code Embeddings</title>
@@ -3785,7 +3793,7 @@
       <url hash="cee37c2a">2022.coling-1.284</url>
       <bibkey>ding-etal-2022-cogbert</bibkey>
       <pwccode url="https://github.com/PosoSAgapo/cogbert" additional="false">PosoSAgapo/cogbert</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
     </paper>
@@ -3814,6 +3822,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/clue">CLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/chid">ChID</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/eprstmt">EPRSTMT</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/fewclue">FewCLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mpqa-opinion-corpus">MPQA Opinion Corpus</pwcdataset>
@@ -3822,6 +3831,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="287">
       <title><fixed-case>M</fixed-case>eta<fixed-case>P</fixed-case>rompting: Learning to Learn Better Prompts</title>
@@ -4091,6 +4101,7 @@
       <url hash="c6ad77f1">2022.coling-1.305</url>
       <bibkey>piedboeuf-langlais-2022-effective</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="306">
       <title><fixed-case>NLG</fixed-case>-Metricverse: An End-to-End Library for Evaluating Natural Language Generation</title>
@@ -4142,7 +4153,7 @@
       <url hash="f94530b1">2022.coling-1.309</url>
       <bibkey>abonizio-etal-2022-monobyte</bibkey>
       <pwccode url="https://github.com/lersouza/lang-agnostic" additional="false">lersouza/lang-agnostic</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDi QA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDiQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mc4">mC4</pwcdataset>
     </paper>
@@ -4304,8 +4315,8 @@
       <abstract>Recent breakthroughs in NLP research, such as the advent of Transformer models have indisputably contributed to major advancements in several tasks. However, few works research robustness and explainability issues of their evaluation strategies. In this work, we examine the behavior of high-performing pre-trained language models, focusing on the task of semantic similarity for visual vocabularies. First, we address the need for explainable evaluation metrics, necessary for understanding the conceptual quality of retrieved instances. Our proposed metrics provide valuable insights in local and global level, showcasing the inabilities of widely used approaches. Secondly, adversarial interventions on salient query semantics expose vulnerabilities of opaque metrics and highlight patterns in learned linguistic representations.</abstract>
       <url hash="007ffb51">2022.coling-1.321</url>
       <bibkey>lymperaiou-etal-2022-towards</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/flickr30k">Flickr30k</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-genome">Visual Genome</pwcdataset>
     </paper>
     <paper id="322">
@@ -4341,10 +4352,11 @@
       <pwccode url="https://github.com/mj-jang/becel" additional="false">mj-jang/becel</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wic">WiC</pwcdataset>
     </paper>
     <paper id="325">
@@ -4362,7 +4374,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/copa">COPA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/hellaswag">HellaSwag</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wic">WiC</pwcdataset>
     </paper>
     <paper id="326">
@@ -4378,6 +4389,7 @@
       <url hash="995d4a9e">2022.coling-1.326</url>
       <bibkey>landes-etal-2022-new</bibkey>
       <pwccode url="https://github.com/uic-nlp-lab/medsecid" additional="false">uic-nlp-lab/medsecid</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/medsecid">MedSecId</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mimic-iii">MIMIC-III</pwcdataset>
     </paper>
     <paper id="327">
@@ -4388,7 +4400,7 @@
       <abstract>Named entity recognition has become an increasingly useful tool for digital humanities research, specially when it comes to historical texts. However, historical texts pose a wide range of challenges to both named entity recognition and natural language processing in general that are still difficult to address even with modern neural methods. In this article we focus in named entity recognition for historical French, and in particular for Early Modern French (16th-18th c.), i.e. Ancien Régime French. However, instead of developing a specialised architecture to tackle the particularities of this state of language, we opt for a data-driven approach by developing a new corpus with fine-grained entity annotation, covering three centuries of literature corresponding to the early modern period; we try to annotate as much data as possible producing a corpus that is many times bigger than the most popular NER evaluation corpora for both Contemporary English and French. We then fine-tune existing state-of-the-art architectures for Early Modern and Contemporary French, obtaining results that are on par with those of the current state-of-the-art NER systems for Contemporary English. Both the corpus and the fine-tuned models are released.</abstract>
       <url hash="4253486c">2022.coling-1.327</url>
       <bibkey>ortiz-suarez-gabay-2022-data</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
     </paper>
     <paper id="328">
       <title>Reproducibility and Automation of the Appraisal Taxonomy</title>
@@ -4464,6 +4476,7 @@
       <url hash="f1e70eca">2022.coling-1.333</url>
       <bibkey>zhang-etal-2022-dynamic</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="334">
       <title><fixed-case>M</fixed-case>ulti<fixed-case>C</fixed-case>o<fixed-case>NER</fixed-case>: A Large-scale Multilingual Dataset for Complex Named Entity Recognition</title>
@@ -4525,6 +4538,7 @@
       <bibkey>cha-etal-2022-noun</bibkey>
       <revision id="1" href="2022.coling-1.338v1" hash="cfe53195"/>
       <revision id="2" href="2022.coling-1.338v2" hash="eb56f44d" date="2022-11-01">Adds corresponding author information.</revision>
+      <pwcdataset url="https://paperswithcode.com/dataset/asdiv">ASDiv</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mawps">MAWPS</pwcdataset>
     </paper>
     <paper id="339">
@@ -4571,6 +4585,7 @@
       <url hash="87200e66">2022.coling-1.341</url>
       <bibkey>hao-etal-2022-parazh</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/clue">CLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/cmnli">CMNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/parabank">ParaBank</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/paracrawl">ParaCrawl</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/united-nations-parallel-corpus">United Nations Parallel Corpus</pwcdataset>
@@ -4615,8 +4630,8 @@
       <abstract>Scientific literature serves as a high-quality corpus, supporting a lot of Natural Language Processing (NLP) research. However, existing datasets are centered around the English language, which restricts the development of Chinese scientific NLP. In this work, we present CSL, a large-scale Chinese Scientific Literature dataset, which contains the titles, abstracts, keywords and academic fields of 396k papers. To our knowledge, CSL is the first scientific document dataset in Chinese. The CSL can serve as a Chinese corpus. Also, this semi-structured data is a natural annotation that can constitute many supervised NLP tasks. Based on CSL, we present a benchmark to evaluate the performance of models across scientific domain tasks, i.e., summarization, keyword generation and text classification. We analyze the behavior of existing text-to-text models on the evaluation tasks and reveal the challenges for Chinese scientific NLP tasks, which provides a valuable reference for future research. Data and code will be publicly available.</abstract>
       <url hash="294b995f">2022.coling-1.344</url>
       <bibkey>li-etal-2022-csl</bibkey>
-      <pwccode url="https://github.com/ydli-ai/csl" additional="true">ydli-ai/csl</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/csl-2022">CSL-2022</pwcdataset>
+      <pwccode url="https://github.com/ydli-ai/csl" additional="false">ydli-ai/csl</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/csl-2022">CSL (Chinese Scientific Literature)</pwcdataset>
     </paper>
     <paper id="345">
       <title><fixed-case>S</fixed-case>inglish Message Paraphrasing: A Joint Task of Creole Translation and Text Normalization</title>
@@ -4681,7 +4696,7 @@
       <pwccode url="https://github.com/amitgajbhiye/biencoder_concept_property" additional="false">amitgajbhiye/biencoder_concept_property</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/conceptnet">ConceptNet</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/genericskb">GenericsKB</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2018-task-9-hypernym-discovery">SemEval-2018 Task 9: Hypernym Discovery</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2018-task-9-hypernym-discovery">SemEval-2018 Task-9</pwcdataset>
     </paper>
     <paper id="350">
       <title><fixed-case>COIN</fixed-case> – an Inexpensive and Strong Baseline for Predicting Out of Vocabulary Word Embeddings</title>
@@ -4779,6 +4794,7 @@
       <abstract>Word sense disambiguation (WSD), identifying the most suitable meaning of ambiguous words in the given contexts according to a predefined sense inventory, is one of the most classical and challenging tasks in natural language processing. Benefiting from the powerful ability of deep neural networks, WSD has achieved a great advancement in recent years. Reformulating WSD as a text span extraction task is an effective approach, which accepts a sentence context of an ambiguous word together with all definitions of its candidate senses simultaneously, and requires to extract the text span corresponding with the right sense. However, the approach merely depends on a short definition to learn sense representation, which neglects abundant semantic knowledge from related senses and leads to data-inefficient learning and suboptimal WSD performance. To address the limitations, we propose a novel WSD method with Knowledge-Enhanced and Local Self-Attention-based Extractive Sense Comprehension (KELESC). Specifically, a knowledge-enhanced method is proposed to enrich semantic representation by incorporating additional examples and definitions of the related senses in WordNet. Then, in order to avoid the huge computing complexity induced by the additional information, a local self-attention mechanism is utilized to constrain attention to be local, which allows longer input texts without large-scale computing burdens. Extensive experimental results demonstrate that KELESC achieves better performance than baseline models on public benchmark datasets.</abstract>
       <url hash="e1558fde">2022.coling-1.357</url>
       <bibkey>zhang-etal-2022-word</bibkey>
+      <pwccode url="https://github.com/stubborn-z/kelesc" additional="false">stubborn-z/kelesc</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/word-sense-disambiguation-a-unified">Word Sense Disambiguation: a Unified Evaluation Framework and Empirical Comparison</pwcdataset>
     </paper>
     <paper id="358">
@@ -4826,7 +4842,6 @@
       <abstract>Previous works have demonstrated the effectiveness of utilising pre-trained sentence encoders based on their sentence representations for meaning comparison tasks. Though such representations are shown to capture hidden syntax structures, the direct similarity comparison between them exhibits weak sensitivity to word order and structural differences in given sentences. A single similarity score further makes the comparison process hard to interpret. Therefore, we here propose to combine sentence encoders with an alignment component by representing each sentence as a list of predicate-argument spans (where their span representations are derived from sentence encoders), and decomposing the sentence-level meaning comparison into the alignment between their spans for paraphrase identification tasks. Empirical results show that the alignment component brings in both improved performance and interpretability for various sentence encoders. After closer investigation, the proposed approach indicates increased sensitivity to structural difference and enhanced ability to distinguish non-paraphrases with high lexical overlap.</abstract>
       <url hash="18e78903">2022.coling-1.361</url>
       <bibkey>peng-etal-2022-towards</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/paws">PAWS</pwcdataset>
     </paper>
     <paper id="362">
@@ -4937,6 +4952,7 @@
       <url hash="9f707354">2022.coling-1.370</url>
       <bibkey>zhang-etal-2022-semantic</bibkey>
       <pwccode url="https://github.com/yzhangcs/crfsrl" additional="false">yzhangcs/crfsrl</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-1">CoNLL</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2012-1">CoNLL-2012</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ontonotes-5-0">OntoNotes 5.0</pwcdataset>
     </paper>
@@ -4980,7 +4996,7 @@
       <abstract>Few-shot Question Generation (QG) is an important and challenging problem in the Natural Language Generation (NLG) domain. Multilingual BERT (mBERT) has been successfully used in various Natural Language Understanding (NLU) applications. However, the question of how to utilize mBERT for few-shot QG, possibly with cross-lingual transfer, remains. In this paper, we try to explore how mBERT performs in few-shot QG (cross-lingual transfer) and also whether applying meta-learning on mBERT further improves the results. In our setting, we consider mBERT as the base model and fine-tune it using a seq-to-seq language modeling framework in a cross-lingual setting. Further, we apply the model agnostic meta-learning approach to our base model. We evaluate our model for two low-resource Indian languages, Bengali and Telugu, using the TyDi QA dataset. The proposed approach consistently improves the performance of the base model in few-shot settings and even works better than some heavily parameterized models. Human evaluation also confirms the effectiveness of our approach.</abstract>
       <url hash="c2551bee">2022.coling-1.373</url>
       <bibkey>roy-etal-2022-meta</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDi QA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDiQA</pwcdataset>
     </paper>
     <paper id="374">
       <title>Revisiting Syllables in Language Modelling and Their Application on Low-Resource Machine Translation</title>
@@ -5384,6 +5400,7 @@
       <pwccode url="https://github.com/glanceable-io/ordinal-log-loss" additional="false">glanceable-io/ordinal-log-loss</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-5">SST-5</pwcdataset>
     </paper>
     <paper id="408">
       <title>Ask Question First for Enhancing Lifelong Language Learning</title>
@@ -5414,6 +5431,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="410">
       <title>Large Sequence Representation Learning via Multi-Stage Latent Transformers</title>
@@ -5437,6 +5455,8 @@
       <pwcdataset url="https://paperswithcode.com/dataset/bookcorpus">BookCorpus</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-5">SST-5</pwcdataset>
     </paper>
     <paper id="412">
       <title>Equivariant Transduction through Invariant Alignment</title>
@@ -5470,8 +5490,10 @@
       <bibkey>kong-etal-2022-accelerating</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="415">
       <title>Topology Imbalance and Relation Inauthenticity Aware Hierarchical Graph Attention Networks for Fake News Detection</title>
@@ -5640,6 +5662,7 @@
       <abstract>Recent work in black-box adversarial attacks for NLP systems has attracted attention. Prior black-box attacks assume that attackers can observe output labels from target models based on selected inputs. In this work, inspired by adversarial transferability, we propose a new type of black-box NLP adversarial attack that an attacker can choose a similar domain and transfer the adversarial examples to the target domain and cause poor performance in target model. Based on domain adaptation theory, we then propose a defensive strategy, called Learn2Weight, which trains to predict the weight adjustments for target model in order to defense the attack of similar-domain adversarial examples. Using Amazon multi-domain sentiment classification dataset, we empirically show that Learn2Weight model is effective against the attack compared to standard black-box defense methods such as adversarial training and defense distillation. This work contributes to the growing literature on machine learning safety.</abstract>
       <url hash="3c32eaca">2022.coling-1.427</url>
       <bibkey>datta-2022-learn2weight</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/multi-domain-sentiment-dataset-v2-0">Multi-Domain Sentiment</pwcdataset>
     </paper>
     <paper id="428">
       <title>Sentence-aware Adversarial Meta-Learning for Few-Shot Text Classification</title>
@@ -5681,6 +5704,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/klue">KLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="431">
       <title>Adaptive Meta-learner via Gradient Similarity for Few-shot Text Classification</title>
@@ -5693,6 +5717,7 @@
       <abstract>Few-shot text classification aims to classify the text under the few-shot scenario. Most of the previous methods adopt optimization-based meta learning to obtain task distribution. However, due to the neglect of matching between the few amount of samples and complicated models, as well as the distinction between useful and useless task features, these methods suffer from the overfitting issue. To address this issue, we propose a novel Adaptive Meta-learner via Gradient Similarity (AMGS) method to improve the model generalization ability to a new task. Specifically, the proposed AMGS alleviates the overfitting based on two aspects: (i) acquiring the potential semantic representation of samples and improving model generalization through the self-supervised auxiliary task in the inner loop, (ii) leveraging the adaptive meta-learner via gradient similarity to add constraints on the gradient obtained by base-learner in the outer loop. Moreover, we make a systematic analysis of the influence of regularization on the entire framework. Experimental results on several benchmarks demonstrate that the proposed AMGS consistently improves few-shot text classification performance compared with the state-of-the-art optimization-based meta-learning approaches. The code is available at: <url>https://github.com/Tianyi-Lei</url>.</abstract>
       <url hash="febb5438">2022.coling-1.431</url>
       <bibkey>lei-etal-2022-adaptive</bibkey>
+      <pwccode url="https://github.com/Tianyi-Lei/Adaptive-Meta-learner-via-Gradient-Similarity-for-Few-shot-Text-Classification" additional="false">Tianyi-Lei/Adaptive-Meta-learner-via-Gradient-Similarity-for-Few-shot-Text-Classification</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/banking77">BANKING77</pwcdataset>
     </paper>
     <paper id="432">
@@ -5747,6 +5772,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="436">
       <title><fixed-case>R</fixed-case>otate<fixed-case>CT</fixed-case>: Knowledge Graph Embedding by Rotation and Coordinate Transformation in Complex Space</title>
@@ -5786,6 +5812,7 @@
       <abstract>A common recent approach to semantic parsing augments sequence-to-sequence models by retrieving and appending a set of training samples, called exemplars. The effectiveness of this recipe is limited by the ability to retrieve informative exemplars that help produce the correct parse, which is especially challenging in low-resource settings. Existing retrieval is commonly based on similarity of query and exemplar inputs. We propose GandR, a retrieval procedure that retrieves exemplars for which outputs are also similar. GandR first generates a preliminary prediction with input-based retrieval. Then, it retrieves exemplars with outputs similar to the preliminary prediction which are used to generate a final prediction. GandR sets the state of the art on multiple low-resource semantic parsing tasks.</abstract>
       <url hash="c0ed7975">2022.coling-1.438</url>
       <bibkey>zemlyanskiy-etal-2022-generate</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/mtop">MTOP</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/topv2">TOPv2</pwcdataset>
     </paper>
     <paper id="439">
@@ -5815,7 +5842,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="440">
       <title>Automatic Label Sequence Generation for Prompting Sequence-to-sequence Models</title>
@@ -5832,11 +5859,12 @@
       <bibkey>yu-etal-2022-automatic-label</bibkey>
       <pwccode url="https://github.com/thunlp/seq2seq-prompt" additional="false">thunlp/seq2seq-prompt</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multirc">MultiRC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/record">ReCoRD</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/snli">SNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wsc">WSC</pwcdataset>
     </paper>
     <paper id="441">
@@ -6006,6 +6034,7 @@
       <abstract>We explore Interactive Post-Editing (IPE) models for human-in-loop translation to help correct translation errors and rephrase it with a desired style variation. We specifically study verbosity for style variations and build on top of multi-source transformers that can read source and hypothesis to improve the latter with user inputs. Token-level interaction inputs for error corrections and length interaction inputs for verbosity control are used by the model to generate a suitable translation. We report BERTScore to evaluate semantic quality with other relevant metrics for translations from English to German, French and Spanish languages. Our model achieves superior BERTScore over state-of-the-art machine translation models while maintaining the desired token-level and verbosity preference.</abstract>
       <url hash="1e54ed34">2022.coling-1.454</url>
       <bibkey>gupta-etal-2022-interactive</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/opus-mt">OPUS-MT</pwcdataset>
     </paper>
     <paper id="455">
       <title>Addressing Asymmetry in Multilingual Neural Machine Translation with Fuzzy Task Clustering</title>
@@ -6306,6 +6335,7 @@
       <url hash="b906e58a">2022.coling-1.479</url>
       <bibkey>kim-2022-revisiting</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="480">
       <title>Position Offset Label Prediction for Grammatical Error Correction</title>
@@ -6431,7 +6461,7 @@
       <abstract>Attention based methods for image-text generation often focus on visual features individually, while ignoring relationship information among image features that provides important guidance for generating sentences. To alleviate this issue, in this work we propose the Joint Relationship Attention Network (JRAN) that novelly explores the relationships among the features. Specifically, different from the previous relationship based approaches that only explore the single relationship in the image, our JRAN can effectively learn two relationships, the visual relationships among region features and the visual-semantic relationships between region features and semantic features, and further make a dynamic trade-off between them during outputting the relationship representation. Moreover, we devise a new relationship based attention, which can adaptively focus on the output relationship representation when predicting different words. Extensive experiments on large-scale MSCOCO and small-scale Flickr30k datasets show that JRAN achieves state-of-the-art performance. More remarkably, JRAN achieves new 28.3% and 58.2% performance in terms of BLEU4 and CIDEr metric on Flickr30k dataset.</abstract>
       <url hash="fb44106c">2022.coling-1.489</url>
       <bibkey>wang-gu-2022-building</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="490">
       <title>Learning to Focus on the Foreground for Temporal Sentence Grounding</title>
@@ -6487,10 +6517,9 @@
       <url hash="3eb44d1d">2022.coling-1.494</url>
       <bibkey>hagstrom-johansson-2022-adapt</bibkey>
       <pwccode url="https://github.com/lovhag/adapt-pre-trained-vl-models-to-text" additional="false">lovhag/adapt-pre-trained-vl-models-to-text</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
     </paper>
     <paper id="495">
       <title><fixed-case>ACT</fixed-case>-Thor: A Controlled Benchmark for Embodied Action Understanding in Simulated Environments</title>
@@ -6599,7 +6628,7 @@
       <abstract>A scene graph is a semantic representation that expresses the objects, attributes, and relationships between objects in a scene. Scene graphs play an important role in many cross modality tasks, as they are able to capture the interactions between images and texts. In this paper, we focus on scene graph modification (SGM), where the system is required to learn how to update an existing scene graph based on a natural language query. Unlike previous approaches that rebuilt the entire scene graph, we frame SGM as a graph expansion task by introducing the incremental structure expanding (ISE). ISE constructs the target graph by incrementally expanding the source graph without changing the unmodified structure. Based on ISE, we further propose a model that iterates between nodes prediction and edges prediction, inferring more accurate and harmonious expansion decisions progressively. In addition, we construct a challenging dataset that contains more complicated queries and larger scene graphs than existing datasets. Experiments on four benchmarks demonstrate the effectiveness of our approach, which surpasses the previous state-of-the-art model by large margins.</abstract>
       <url hash="4e98716e">2022.coling-1.502</url>
       <bibkey>hu-etal-2022-scene</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/rsicd">RSICD</pwcdataset>
     </paper>
     <paper id="503">
@@ -6631,10 +6660,10 @@
       <bibkey>lee-etal-2022-efficient</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/ccmatrix">CCMatrix</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/cifar-100">CIFAR-100</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/flickr30k">Flickr30k</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/food-101">Food-101</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="505">
       <title><fixed-case>LOV</fixed-case>i<fixed-case>S</fixed-case>: Learning Orientation and Visual Signals for Vision and Language Navigation</title>
@@ -6830,6 +6859,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/sst">SST</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/sst-2">SST-2</pwcdataset>
     </paper>
     <paper id="521">
       <title>Boosting Code Summarization by Embedding Code Structures</title>
@@ -6890,6 +6920,7 @@
       <revision id="1" href="2022.coling-1.525v1" hash="6754108c"/>
       <revision id="2" href="2022.coling-1.525v2" hash="602a0e58" date="2023-07-31">Various corrections.</revision>
       <pwccode url="https://github.com/valvoda/neuraltransducer" additional="false">valvoda/neuraltransducer</pwccode>
+      <pwcdataset url="https://paperswithcode.com/dataset/gscan">GSCAN</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/scan">SCAN</pwcdataset>
     </paper>
     <paper id="526">
@@ -6912,6 +6943,7 @@
       <bibkey>steen-markert-2022-find</bibkey>
       <pwccode url="https://github.com/julmaxi/summary_coherence_evaluation" additional="false">julmaxi/summary_coherence_evaluation</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/cola">CoLA</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/summeval">SummEval</pwcdataset>
     </paper>
     <paper id="528">
       <title>Summarizing Dialogues with Negative Cues</title>
@@ -6961,6 +6993,7 @@
       <pwcdataset url="https://paperswithcode.com/dataset/dialogsum">DialogSum</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/molweni">Molweni</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qaconv">QAConv</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/summscreen">SummScreen</pwcdataset>
     </paper>
     <paper id="532">
       <title>Denoising Large-Scale Image Captioning from Alt-text Data Using Content Selection Models</title>
@@ -6973,8 +7006,8 @@
       <abstract>Training large-scale image captioning (IC) models demands access to a rich and diverse set of training examples that are expensive to curate both in terms of time and man-power. Instead, alt-text based captions gathered from the web is a far cheaper alternative to scale with the downside of being noisy. Recent modeling approaches to IC often fall short in terms of performance in leveraging these noisy datasets in favor of clean annotations. We address this problem with a simple yet effective technique of breaking down the task into two smaller, more controllable tasks – skeleton prediction and skeleton-based caption generation. Specifically, we show that sub-selecting content words as skeletons helps in generating improved and denoised captions when leveraging rich yet noisy alt-text–based uncurated datasets. We also show that the predicted English skeletons can further cross-lingually be leveraged to generate non-English captions, and present experimental results covering caption generation in French, Italian, German, Spanish and Hindi. We also show that skeleton-based prediction allows for better control of certain caption properties, such as length, content, and gender expression, providing a handle to perform human-in-the-loop interpretable semi-automatic corrections.</abstract>
       <url hash="1dc07226">2022.coling-1.532</url>
       <bibkey>chandu-etal-2022-denoising</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conceptual-captions">Conceptual Captions</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="533">
       <title>Meta-<fixed-case>CQG</fixed-case>: A Meta-Learning Framework for Complex Question Generation over Knowledge Bases</title>
@@ -7181,7 +7214,7 @@
       <bibkey>kim-etal-2022-mind</bibkey>
       <pwccode url="https://github.com/SeungoneKim/SICK_Summarization" additional="false">SeungoneKim/SICK_Summarization</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/dialogsum">DialogSum</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/samsum-corpus">SAMSum Corpus</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/samsum-corpus">SAMSum</pwcdataset>
     </paper>
     <paper id="549">
       <title>Type-dependent Prompt <fixed-case>C</fixed-case>ycle<fixed-case>QAG</fixed-case> : Cycle Consistency for Multi-hop Question Generation</title>
@@ -7276,7 +7309,7 @@
       <abstract>In this paper, we propose a new paradigm for paraphrase generation by treating the task as unsupervised machine translation (UMT) based on the assumption that there must be pairs of sentences expressing the same meaning in a large-scale unlabeled monolingual corpus. The proposed paradigm first splits a large unlabeled corpus into multiple clusters, and trains multiple UMT models using pairs of these clusters. Then based on the paraphrase pairs produced by these UMT models, a unified surrogate model can be trained to serve as the final model to generate paraphrases, which can be directly used for test in the unsupervised setup, or be finetuned on labeled datasets in the supervised setup. The proposed method offers merits over machine-translation-based paraphrase generation methods, as it avoids reliance on bilingual sentence pairs. It also allows human intervene with the model so that more diverse paraphrases can be generated using different filtering criteria. Extensive experiments on existing paraphrase dataset for both the supervised and unsupervised setups demonstrate the effectiveness the proposed paradigm.</abstract>
       <url hash="31c23c8c">2022.coling-1.555</url>
       <bibkey>sun-etal-2022-paraphrase</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/coco">COCO</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
     </paper>
     <paper id="556">
       <title>Summarize, Outline, and Elaborate: Long-Text Generation via Hierarchical Supervision from Extractive Summaries</title>
@@ -7453,7 +7486,7 @@
       <abstract>Pre-trained models have brought remarkable success on the text summarization task. For dialogue summarization, the subdomain of text summarization, utterances are concatenated to flat text before being processed. As a result, existing summarization systems based on pre-trained models are unable to recognize the unique format of the speaker-utterance pair well in the dialogue. To investigate this issue, we conduct probing tests and manual analysis, and find that the powerful pre-trained model can not identify different speakers well in the conversation, which leads to various factual errors. Moreover, we propose three speaker-aware supervised contrastive learning (SCL) tasks: Token-level SCL, Turn-level SCL, and Global-level SCL. Comprehensive experiments demonstrate that our methods achieve significant performance improvement on two mainstream dialogue summarization datasets. According to detailed human evaluations, pre-trained models equipped with SCL tasks effectively generate summaries with better factual consistency.</abstract>
       <url hash="9704f443">2022.coling-1.569</url>
       <bibkey>geng-etal-2022-improving-abstractive</bibkey>
-      <pwcdataset url="https://paperswithcode.com/dataset/samsum-corpus">SAMSum Corpus</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/samsum-corpus">SAMSum</pwcdataset>
     </paper>
     <paper id="570">
       <title>Diversifying Neural Text Generation with Part-of-Speech Guided Softmax and Sampling</title>
@@ -7568,6 +7601,7 @@
       <abstract>State-of-the-art approaches for hate-speech detection usually exhibit poor performance in out-of-domain settings. This occurs, typically, due to classifiers overemphasizing source-specific information that negatively impacts its domain invariance. Prior work has attempted to penalize terms related to hate-speech from manually curated lists using feature attribution methods, which quantify the importance assigned to input terms by the classifier when making a prediction. We, instead, propose a domain adaptation approach that automatically extracts and penalizes source-specific terms using a domain classifier, which learns to differentiate between domains, and feature-attribution scores for hate-speech classes, yielding consistent improvements in cross-domain evaluation.</abstract>
       <url hash="b8eedf01">2022.coling-1.578</url>
       <bibkey>bose-etal-2022-domain</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/hateval">HatEval</pwcdataset>
     </paper>
     <paper id="579">
       <title>Generalizable Implicit Hate Speech Detection Using Contrastive Learning</title>
@@ -7712,7 +7746,6 @@
       <bibkey>ronningstad-etal-2022-entity</bibkey>
       <pwccode url="https://github.com/egilron/elsa-introduction" additional="false">egilron/elsa-introduction</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/norec">NoReC</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/norec-fine">NoReC_fine</pwcdataset>
     </paper>
     <paper id="590">
       <title>Learning from Adjective-Noun Pairs: A Knowledge-enhanced Framework for Target-Oriented Multimodal Sentiment Classification</title>
@@ -7727,7 +7760,7 @@
       <url hash="a964915b">2022.coling-1.590</url>
       <bibkey>zhao-etal-2022-learning-adjective</bibkey>
       <pwccode url="https://github.com/1429904852/kef" additional="false">1429904852/kef</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2014-task-4-sub-task-2">SemEval 2014 Task 4 Sub Task 2</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2014-task-4-sub-task-2">SemEval-2014 Task-4</pwcdataset>
     </paper>
     <paper id="591">
       <title>Towards Exploiting Sticker for Multimodal Sentiment Analysis in Social Media: A New Dataset and Baseline</title>
@@ -7812,7 +7845,6 @@
       <url hash="e3723b9f">2022.coling-1.597</url>
       <bibkey>rodrigues-branco-2022-transferring</bibkey>
       <pwccode url="https://github.com/nlx-group/transfer-am" additional="false">nlx-group/transfer-am</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/copa">COPA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/cola">CoLA</pwcdataset>
@@ -7825,7 +7857,6 @@
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/ropes">ROPES</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/superglue">SuperGLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wsc">WSC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wic">WiC</pwcdataset>
     </paper>
@@ -8072,7 +8103,7 @@
       <url hash="a6cbbd59">2022.coling-1.615</url>
       <bibkey>zhou-etal-2022-making</bibkey>
       <pwccode url="https://github.com/xzhou20/plugin-tuning" additional="false">xzhou20/plugin-tuning</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL-2003</pwcdataset>
+      <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
@@ -8114,6 +8145,7 @@
       <abstract>Dependency tree-based methods might be susceptible to the dependency tree due to that they inevitably introduce noisy information and neglect the rich relation information between words. In this paper, we propose a learnable dependency-based double graph (LD2G) model for aspect-based sentiment classification. We use multi-task learning for domain adaptive pretraining, which combines Biaffine Attention and Mask Language Model by incorporating features such as structure, relations and linguistic features in the sentiment text. Then we utilize the dependency enhanced double graph-based MPNN to deeply fuse structure features and relation features that are affected with each other for ASC. Experiment on four benchmark datasets shows that our model is superior to the state-of-the-art approaches.</abstract>
       <url hash="995d1df9">2022.coling-1.618</url>
       <bibkey>ma-pang-2022-learnable</bibkey>
+      <pwcdataset url="https://paperswithcode.com/dataset/semeval-2014-task-4-sub-task-2">SemEval-2014 Task-4</pwcdataset>
     </paper>
     <paper id="619">
       <title>A Structure-Aware Argument Encoder for Literature Discourse Analysis</title>

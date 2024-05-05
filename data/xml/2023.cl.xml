@@ -70,6 +70,7 @@
       <pages>199–243</pages>
       <url hash="90bde0e2">2023.cl-1.5</url>
       <bibkey>kalouli-etal-2023-curing</bibkey>
+      <video href="2023.cl-1.5.mp4"/>
     </paper>
     <paper id="6">
       <title>Finite-State Text Processing</title>
@@ -117,13 +118,14 @@
     </meta>
     <paper id="1">
       <title>Data-driven Cross-lingual Syntax: An Agreement Study with Massively Multilingual Models</title>
-      <author><first>Andrea Gregor de</first><last>Varda</last></author>
+      <author><first>Andrea Gregor</first><last>de Varda</last></author>
       <author><first>Marco</first><last>Marelli</last></author>
       <doi>10.1162/coli_a_00472</doi>
       <abstract>Massively multilingual models such as mBERT and XLM-R are increasingly valued in Natural Language Processing research and applications, due to their ability to tackle the uneven distribution of resources available for different languages. The models’ ability to process multiple languages relying on a shared set of parameters raises the question of whether the grammatical knowledge they extracted during pre-training can be considered as a data-driven cross-lingual grammar. The present work studies the inner workings of mBERT and XLM-R in order to test the cross-lingual consistency of the individual neural units that respond to a precise syntactic phenomenon, that is, number agreement, in five languages (English, German, French, Hebrew, Russian). We found that there is a significant overlap in the latent dimensions that encode agreement across the languages we considered. This overlap is larger (a) for long- vis-à-vis short-distance agreement and (b) when considering XLM-R as compared to mBERT, and peaks in the intermediate layers of the network. We further show that a small set of syntax-sensitive neurons can capture agreement violations across languages; however, their contribution is not decisive in agreement processing.</abstract>
       <pages>261–299</pages>
       <url hash="1899ddbd">2023.cl-2.1</url>
       <bibkey>varda-marelli-2023-data</bibkey>
+      <video href="2023.cl-2.1.mp4"/>
     </paper>
     <paper id="2">
       <title>Gradual Modifications and Abrupt Replacements: Two Stochastic Lexical Ingredients of Language Evolution</title>
@@ -193,6 +195,112 @@
       <pages>465–523</pages>
       <url hash="d88c77a7">2023.cl-2.7</url>
       <bibkey>apidianaki-2023-word</bibkey>
+    </paper>
+  </volume>
+  <volume id="3" type="journal">
+    <meta>
+      <booktitle>Computational Linguistics, Volume 49, Issue 3 - September 2023</booktitle>
+      <publisher>MIT Press</publisher>
+      <address>Cambridge, MA</address>
+      <month>September</month>
+      <year>2023</year>
+      <venue>cl</venue>
+    </meta>
+    <paper id="1">
+      <title>Comparing Selective Masking Methods for Depression Detection in Social Media</title>
+      <author><first>Chanapa</first><last>Pananookooln</last></author>
+      <author><first>Jakrapop</first><last>Akaranee</last></author>
+      <author><first>Chaklam</first><last>Silpasuwanchai</last></author>
+      <doi>10.1162/coli_a_00479</doi>
+      <abstract>Identifying those at risk for depression is a crucial issue and social media provides an excellent platform for examining the linguistic patterns of depressed individuals. A significant challenge in depression classification problems is ensuring that prediction models are not overly dependent on topic keywords (i.e., depression keywords) such that it fails to predict when such keywords are unavailable. One promising approach is masking—that is, by selectively masking various words and asking the model to predict the masked words, the model is forced to learn the inherent language patterns of depression. This study evaluates seven masking techniques. Moreover, predicting the masked words during the pre-training or fine-tuning phase was also examined. Last, six class imbalanced ratios were compared to determine the robustness of masked words selection methods. Key findings demonstrate that selective masking outperforms random masking in terms of F1-score. The most accurate and robust models are identified. Our research also indicates that reconstructing the masked words during the pre-training phase is more advantageous than during the fine-tuning phase. Further discussion and implications are discussed. This is the first study to comprehensively compare masked words selection methods, which has broad implications for the field of depression classification and general NLP. Our code can be found at: https://github.com/chanapapan/Depression-Detection.</abstract>
+      <pages>525–553</pages>
+      <url hash="eb3274af">2023.cl-3.1</url>
+      <bibkey>pananookooln-etal-2023-comparing</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Neural Data-to-Text Generation Based on Small Datasets: Comparing the Added Value of Two Semi-Supervised Learning Approaches on Top of a Large Language Model</title>
+      <author><first>Chris</first><last>van der Lee</last></author>
+      <author><first>Thiago</first><last>Castro Ferreira</last></author>
+      <author><first>Chris</first><last>Emmery</last></author>
+      <author><first>Travis J.</first><last>Wiltshire</last></author>
+      <author><first>Emiel</first><last>Krahmer</last></author>
+      <doi>10.1162/coli_a_00484</doi>
+      <abstract>This study discusses the effect of semi-supervised learning in combination with pretrained language models for data-to-text generation. It is not known whether semi-supervised learning is still helpful when a large-scale language model is also supplemented. This study aims to answer this question by comparing a data-to-text system only supplemented with a language model, to two data-to-text systems that are additionally enriched by a data augmentation or a pseudo-labeling semi-supervised learning approach. Results show that semi-supervised learning results in higher scores on diversity metrics. In terms of output quality, extending the training set of a data-to-text system with a language model using the pseudo-labeling approach did increase text quality scores, but the data augmentation approach yielded similar scores to the system without training set extension. These results indicate that semi-supervised learning approaches can bolster output quality and diversity, even when a language model is also present.</abstract>
+      <pages>555–611</pages>
+      <url hash="3f3edfd0">2023.cl-3.2</url>
+      <bibkey>van-der-lee-etal-2023-neural</bibkey>
+      <video href="2023.cl-3.2.mp4"/>
+    </paper>
+    <paper id="3">
+      <title>Cross-Lingual Transfer with Language-Specific Subnetworks for Low-Resource Dependency Parsing</title>
+      <author><first>Rochelle</first><last>Choenni</last></author>
+      <author><first>Dan</first><last>Garrette</last></author>
+      <author><first>Ekaterina</first><last>Shutova</last></author>
+      <doi>10.1162/coli_a_00482</doi>
+      <abstract>Large multilingual language models typically share their parameters across all languages, which enables cross-lingual task transfer, but learning can also be hindered when training updates from different languages are in conflict. In this article, we propose novel methods for using language-specific subnetworks, which control cross-lingual parameter sharing, to reduce conflicts and increase positive transfer during fine-tuning. We introduce dynamic subnetworks, which are jointly updated with the model, and we combine our methods with meta-learning, an established, but complementary, technique for improving cross-lingual transfer. Finally, we provide extensive analyses of how each of our methods affects the models.</abstract>
+      <pages>613–641</pages>
+      <url hash="42e5973d">2023.cl-3.3</url>
+      <bibkey>choenni-etal-2023-cross</bibkey>
+      <video href="2023.cl-3.3.mp4"/>
+    </paper>
+    <paper id="4">
+      <title>Grammatical Error Correction: A Survey of the State of the Art</title>
+      <author><first>Christopher</first><last>Bryant</last></author>
+      <author><first>Zheng</first><last>Yuan</last></author>
+      <author><first>Muhammad Reza</first><last>Qorib</last></author>
+      <author><first>Hannan</first><last>Cao</last></author>
+      <author><first>Hwee Tou</first><last>Ng</last></author>
+      <author><first>Ted</first><last>Briscoe</last></author>
+      <doi>10.1162/coli_a_00478</doi>
+      <abstract>Grammatical Error Correction (GEC) is the task of automatically detecting and correcting errors in text. The task not only includes the correction of grammatical errors, such as missing prepositions and mismatched subject–verb agreement, but also orthographic and semantic errors, such as misspellings and word choice errors, respectively. The field has seen significant progress in the last decade, motivated in part by a series of five shared tasks, which drove the development of rule-based methods, statistical classifiers, statistical machine translation, and finally neural machine translation systems, which represent the current dominant state of the art. In this survey paper, we condense the field into a single article and first outline some of the linguistic challenges of the task, introduce the most popular datasets that are available to researchers (for both English and other languages), and summarize the various methods and techniques that have been developed with a particular focus on artificial error generation. We next describe the many different approaches to evaluation as well as concerns surrounding metric reliability, especially in relation to subjective human judgments, before concluding with an overview of recent progress and suggestions for future work and remaining challenges. We hope that this survey will serve as a comprehensive resource for researchers who are new to the field or who want to be kept apprised of recent developments.</abstract>
+      <pages>643–701</pages>
+      <url hash="4d2b17c9">2023.cl-3.4</url>
+      <bibkey>bryant-etal-2023-grammatical</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Machine Learning for Ancient Languages: A Survey</title>
+      <author><first>Thea</first><last>Sommerschield</last></author>
+      <author><first>Yannis</first><last>Assael</last></author>
+      <author><first>John</first><last>Pavlopoulos</last></author>
+      <author><first>Vanessa</first><last>Stefanak</last></author>
+      <author><first>Andrew</first><last>Senior</last></author>
+      <author><first>Chris</first><last>Dyer</last></author>
+      <author><first>John</first><last>Bodel</last></author>
+      <author><first>Jonathan</first><last>Prag</last></author>
+      <author><first>Ion</first><last>Androutsopoulos</last></author>
+      <author><first>Nando</first><last>de Freitas</last></author>
+      <doi>10.1162/coli_a_00481</doi>
+      <abstract>Ancient languages preserve the cultures and histories of the past. However, their study is fraught with difficulties, and experts must tackle a range of challenging text-based tasks, from deciphering lost languages to restoring damaged inscriptions, to determining the authorship of works of literature. Technological aids have long supported the study of ancient texts, but in recent years advances in artificial intelligence and machine learning have enabled analyses on a scale and in a detail that are reshaping the field of humanities, similarly to how microscopes and telescopes have contributed to the realm of science. This article aims to provide a comprehensive survey of published research using machine learning for the study of ancient texts written in any language, script, and medium, spanning over three and a half millennia of civilizations around the ancient world. To analyze the relevant literature, we introduce a taxonomy of tasks inspired by the steps involved in the study of ancient documents: digitization, restoration, attribution, linguistic analysis, textual criticism, translation, and decipherment. This work offers three major contributions: first, mapping the interdisciplinary field carved out by the synergy between the humanities and machine learning; second, highlighting how active collaboration between specialists from both fields is key to producing impactful and compelling scholarship; third, highlighting promising directions for future work in this field. Thus, this work promotes and supports the continued collaborative impetus between the humanities and machine learning.</abstract>
+      <pages>703–747</pages>
+      <url hash="14a7e8a2">2023.cl-3.5</url>
+      <bibkey>sommerschield-etal-2023-machine</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Dimensions of Explanatory Value in <fixed-case>NLP</fixed-case> Models</title>
+      <author><first>Kees</first><last>van Deemter</last></author>
+      <doi>10.1162/coli_a_00480</doi>
+      <abstract>Performance on a dataset is often regarded as the key criterion for assessing NLP models. I argue for a broader perspective, which emphasizes scientific explanation. I draw on a long tradition in the philosophy of science, and on the Bayesian approach to assessing scientific theories, to argue for a plurality of criteria for assessing NLP models. To illustrate these ideas, I compare some recent models of language production with each other. I conclude by asking what it would mean for institutional policies if the NLP community took these ideas onboard.</abstract>
+      <pages>749–761</pages>
+      <url hash="846400d0">2023.cl-3.6</url>
+      <bibkey>deemter-2023-dimensions</bibkey>
+    </paper>
+    <paper id="7">
+      <title>Statistical Methods for Annotation Analysis</title>
+      <author><first>Rodrigo</first><last>Wilkens</last></author>
+      <doi>10.1162/coli_r_00483</doi>
+      <pages>763–765</pages>
+      <url hash="501b582f">2023.cl-3.7</url>
+      <bibkey>wilkens-2023-statistical</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Obituary: <fixed-case>Y</fixed-case>orick <fixed-case>W</fixed-case>ilks</title>
+      <author><first>John</first><last>Tait</last></author>
+      <author><first>Robert</first><last>Gaizauskas</last></author>
+      <author><first>Kalina</first><last>Bontcheva</last></author>
+      <doi>10.1162/coli_a_00485</doi>
+      <pages>767–772</pages>
+      <url hash="1eb3e896">2023.cl-3.8</url>
+      <bibkey>tait-etal-2023-obituary</bibkey>
     </paper>
   </volume>
 </collection>
