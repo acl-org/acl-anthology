@@ -1,27 +1,16 @@
 exclude: ^hugo/static/.*$
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.4.0
-    hooks:
-    -   id: check-yaml
-    -   id: check-xml
-        exclude: |
-          (?x)^(
-              hugo/layouts/sitemap.xml|
-              hugo/layouts/_default/rss.xml
-          )$
-    -   id: end-of-file-fixer
-    -   id: no-commit-to-branch
-        args: [--branch, master]
-    -   id: requirements-txt-fixer
-    -   id: trailing-whitespace
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.5.0
   hooks:
     - id: check-ast
     - id: check-merge-conflict
     - id: check-xml
-      exclude: ^hugo/layouts/sitemap.xml$
+      exclude: |
+          (?x)^(
+              hugo/layouts/sitemap.xml|
+              hugo/layouts/_default/rss.xml
+          )$
     - id: check-yaml
       exclude: ^python/mkdocs.yml$
     - id: end-of-file-fixer
