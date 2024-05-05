@@ -34,6 +34,8 @@ class Person:
         names: A list of names under which this person has published.
         item_ids: A set of volume and/or paper IDs this person has authored or edited.
         comment: A comment for disambiguation purposes; can be stored in `name_variants.yaml`.
+        is_explicit: True if this person is explicitly defined in the metadata
+            (i.e. `name_variants.yaml`), rather than implicitly created.
     """
 
     id: str
@@ -43,6 +45,7 @@ class Person:
         factory=set, repr=lambda x: f"<set of {len(x)} AnthologyIDTuple objects>"
     )
     comment: Optional[str] = field(default=None)
+    is_explicit: Optional[bool] = field(default=False)
 
     @property
     def canonical_name(self) -> Name:

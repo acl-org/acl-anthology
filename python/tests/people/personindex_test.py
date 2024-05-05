@@ -128,8 +128,9 @@ def test_get_or_create_person_with_explicit_canonical_name(index):
     ns1 = NameSpecification(Name("Emily", "Prud’hommeaux"))
     # This one is not, but scores higher according to our heuristics
     ns2 = NameSpecification(Name("Emily", "Prud’Hommeaux"))
-    assert ns2.name.score() > ns1.name.score(), \
-        "This test assumes that `ns2` will score higher than `ns1`."
+    assert (
+        ns2.name.score() > ns1.name.score()
+    ), "This test assumes that `ns2` will score higher than `ns1`."
     person1 = index.get_or_create_person(ns1)
     person2 = index.get_or_create_person(ns2)
     assert person1 is person2
