@@ -51,6 +51,8 @@
           {{- $volume_nr := index (split (index (split .Params.anthology_id "-") 1) ".") 0 -}}
           {{- $volume := index $.Site.Data.volumes (printf "%s-%s" $volume_id $volume_nr) -}}
           {{- printf " in %s" $volume.title -}}
+        {{- else if .Description -}}
+          {{ .Description | html }}
         {{- else -}}
           {{ .Summary | html }}
         {{- end -}}
