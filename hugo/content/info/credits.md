@@ -7,7 +7,7 @@ We are grateful to all our contributors whose work makes this collection of scho
 
 ### Active Volunteers
 
-+ **Director** [Matt Post](http://waypost.net/) (2019&ndash;)
++ **Director** [Matt Post](http://post3.net/) (2019&ndash;)
 + **Indexing Lead**: [A. Seza Doğruöz](https://lt3.ugent.be/people/as-dogruoz/) (Universiteit Gent)
 + **Site Development Lead**: [Marcel Bollmann](https://marcel.bollmann.me/) (Jönköping University)
 + [David Chiang](https://www3.nd.edu/~dchiang/) (University of Notre Dame)
