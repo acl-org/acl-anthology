@@ -47,6 +47,7 @@ jobs:
       run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
       id: extract_branch
     # - name: link to checklist
+    #   if: ${{ github.event_name == 'pull_request' && github.event.action == 'opened' && startsWith(github.event.pull_request.title, 'ingestion') == true}}
     #   uses: trixi-framework/add-pr-review-checklist@v1
     #   with:
     #     file: '.github/ingestion-review-checklist.md'
