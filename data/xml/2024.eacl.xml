@@ -77,6 +77,7 @@
       <abstract>Natural Language Processing (NLP) research is increasingly focusing on the use of Large Language Models (LLMs), with some of the most popular ones being either fully or partially closed-source. The lack of access to model details, especially regarding training data, has repeatedly raised concerns about data contamination among researchers. Several attempts have been made to address this issue, but they are limited to anecdotal evidence and trial and error. Additionally, they overlook the problem of indirect data leaking, where modelsare iteratively improved by using data coming from users. In this work, we conduct the first systematic analysis of work using OpenAI’s GPT-3.5 and GPT-4, the most prominently used LLMs today, in the context of data contamination. By analysing 255 papers and considering OpenAI’s data usage policy, we extensively document the amount of data leaked to these models during the first year after the model’s release. We report that these models have been globally exposed to ∼4.7M samples from 263 benchmarks. At the same time, we document a number of evaluation malpractices emerging in the reviewed papers, such as unfair or missing baseline comparisons and reproducibility issues. We release our results as a collaborative project on https://leak-llm.github.io/, where other researchers can contribute to our efforts.</abstract>
       <url hash="59105272">2024.eacl-long.5</url>
       <bibkey>balloccu-etal-2024-leak</bibkey>
+      <award>Best Non-publicized Paper Award</award>
     </paper>
     <paper id="6">
       <title>Archer: A Human-Labeled Text-to-<fixed-case>SQL</fixed-case> Dataset with Arithmetic, Commonsense and Hypothetical Reasoning</title>
@@ -329,6 +330,7 @@
       <abstract>Recent studies of the emergent capabilities of transformer-based Natural Language Understanding (NLU) models have indicated that they have an understanding of lexical and compositional semantics. We provide evidence that suggests these claims should be taken with a grain of salt: we find that state-of-the-art Natural Language Inference (NLI) models are sensitive towards minor semantics preserving surface-form variations, which lead to sizable inconsistent model decisions during inference. Notably, this behaviour differs from valid and in-depth comprehension of compositional semantics, however does neither emerge when evaluating model accuracy on standard benchmarks nor when probing for syntactic, monotonic, and logically robust reasoning. We propose a novel framework to measure the extent of semantic sensitivity. To this end, we evaluate NLI models on adversarially generated examples containing minor semantics-preserving surface-form input noise. This is achieved using conditional text generation, with the explicit condition that the NLI model predicts the relationship between the original and adversarial inputs as a symmetric equivalence entailment. We systematically study the effects of the phenomenon across NLI models for <tex-math>\text{\emph{in-}}</tex-math> and <tex-math>\text{\emph{out-of-}}</tex-math> domain settings. Our experiments show that semantic sensitivity causes performance degradations of 12.92% and 23.71% average over <tex-math>\text{\emph{in-}}</tex-math> and <tex-math>\text{\emph{out-of-}}</tex-math> domain settings, respectively. We further perform ablation studies, analysing this phenomenon across models, datasets, and variations in inference and show that semantic sensitivity can lead to major inconsistency within model predictions.</abstract>
       <url hash="98c94193">2024.eacl-long.27</url>
       <bibkey>arakelyan-etal-2024-semantic</bibkey>
+      <award>Outstanding Paper Award</award>
     </paper>
     <paper id="28">
       <title>Exploring the Robustness of Task-oriented Dialogue Systems for Colloquial <fixed-case>G</fixed-case>erman Varieties</title>
@@ -381,7 +383,7 @@
     <paper id="31">
       <title><fixed-case>S</fixed-case>entence<fixed-case>LDA</fixed-case>: Discriminative and Robust Document Representation with Sentence Level Topic Model</title>
       <author><first>Taehun</first><last>Cha</last><affiliation>Korea University</affiliation></author>
-      <author><first>Donghun</first><last>Lee</last><affiliation>Korea University</affiliation></author>
+      <author id="donghun-lee-ku"><first>Donghun</first><last>Lee</last><affiliation>Korea University</affiliation></author>
       <pages>521-538</pages>
       <abstract>A subtle difference in context results in totally different nuances even for lexically identical words. On the other hand, two words can convey similar meanings given a homogeneous context. As a result, considering only word spelling information is not sufficient to obtain quality text representation. We propose SentenceLDA, a sentence-level topic model. We combine modern SentenceBERT and classical LDA to extend the semantic unit from word to sentence. By extending the semantic unit, we verify that SentenceLDA returns more discriminative document representation than other topic models, while maintaining LDA’s elegant probabilistic interpretability. We also verify the robustness of SentenceLDA by comparing the inference results on original and paraphrased texts. Additionally, we implement one possible application of SentenceLDA on corpus-level key opinion mining by applying SentenceLDA on an argumentative corpus, DebateSum.</abstract>
       <url hash="44628ed9">2024.eacl-long.31</url>
@@ -420,7 +422,7 @@
     <paper id="35">
       <title><fixed-case>NNOSE</fixed-case>: Nearest Neighbor Occupational Skill Extraction</title>
       <author><first>Mike</first><last>Zhang</last><affiliation>IT University of Copenhagen</affiliation></author>
-      <author><first>Rob</first><last>Goot</last></author>
+      <author><first>Rob</first><last>van der Goot</last></author>
       <author><first>Min-Yen</first><last>Kan</last><affiliation>National University of Singapore</affiliation></author>
       <author><first>Barbara</first><last>Plank</last><affiliation>Ludwig-Maximilians-Universität München and IT University of Copenhagen</affiliation></author>
       <pages>589-608</pages>
@@ -474,7 +476,7 @@
       <title>Quantifying the Hyperparameter Sensitivity of Neural Networks for Character-level Sequence-to-Sequence Tasks</title>
       <author><first>Adam</first><last>Wiemerslage</last><affiliation>University of Colorado, Boulder</affiliation></author>
       <author><first>Kyle</first><last>Gorman</last><affiliation>The Graduate Center, City University of New York and Google</affiliation></author>
-      <author><first>Katharina</first><last>Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
+      <author><first>Katharina</first><last>von der Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
       <pages>674-689</pages>
       <abstract>Hyperparameter tuning, the process of searching for suitable hyperparameters, becomes more difficult as the computing resources required to train neural networks continue to grow. This topic continues to receive little attention and discussion—much of it hearsay—despite its obvious importance. We attempt to formalize hyperparameter sensitivity using two metrics: similarity-based sensitivity and performance-based sensitivity. We then use these metrics to quantify two such claims: (1) transformers are more sensitive to hyperparameter choices than LSTMs and (2) transformers are particularly sensitive to batch size. We conduct experiments on two different character-level sequence-to-sequence tasks and find that, indeed, the transformer is slightly more sensitive to hyperparameters according to both of our metrics. However, we do not find that it is more sensitive to batch size in particular.</abstract>
       <url hash="1f7882b9">2024.eacl-long.40</url>
@@ -539,7 +541,7 @@
       <author><first>Sagi</first><last>Shaier</last></author>
       <author><first>Kevin</first><last>Bennett</last><affiliation>Memorial Healthcare System</affiliation></author>
       <author><first>Lawrence</first><last>Hunter</last><affiliation>University of Colorado at Denver</affiliation></author>
-      <author><first>Katharina</first><last>Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
+      <author><first>Katharina</first><last>von der Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
       <pages>766-776</pages>
       <abstract>The differences between cloze-task language model (LM) probing with 1) expert-made templates and 2) naturally-occurring text have often been overlooked. Here, we evaluate 16 different LMs on 10 probing English datasets – 4 template-based and 6 template-free – in general and biomedical domains to answer the following research questions: (RQ1) Do model rankings differ between the two approaches? (RQ2) Do models’ absolute scores differ between the two approaches? (RQ3) Do the answers to RQ1 and RQ2 differ between general and domain-specific models? Our findings are: 1) Template-free and template-based approaches often rank models differently, except for the top domain- specific models. 2) Scores decrease by up to 42% Acc@1 when comparing parallel template-free and template-based prompts. 3) Perplexity is negatively correlated with accuracy in the template-free approach, but, counter-intuitively, they are positively correlated for template-based probing. 4) Models tend to predict the same answers frequently across prompts for template-based probing, which is less common when employing template-free techniques.</abstract>
       <url hash="1e17a564">2024.eacl-long.46</url>
@@ -549,7 +551,7 @@
       <title>Desiderata For The Context Use Of Question Answering Systems</title>
       <author><first>Sagi</first><last>Shaier</last></author>
       <author><first>Lawrence</first><last>Hunter</last><affiliation>University of Colorado at Denver</affiliation></author>
-      <author><first>Katharina</first><last>Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
+      <author><first>Katharina</first><last>von der Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
       <pages>777-792</pages>
       <abstract>Prior work has uncovered a set of common problems in state-of-the-art context-based question answering (QA) systems: a lack of attention to the context when the latter conflicts with a model’s parametric knowledge, little robustness to noise, and a lack of consistency with their answers. However, most prior work focus on one or two of those problems in isolation, which makes it difficult to see trends across them. We aim to close this gap, by first outlining a set of – previously discussed as well as novel – desiderata for QA models. We then survey relevant analysis and methods papers to provide an overview of the state of the field. The second part of our work presents experiments where we evaluate 15 QA systems on 5 datasets according to all desiderata at once. We find many novel trends, including (1) systems that are less susceptible to noise are not necessarily more consistent with their answers when given irrelevant context; (2) most systems that are more susceptible to noise are more likely to correctly answer according to a context that conflicts with their parametric knowledge; and (3) the combination of conflicting knowledge and noise can reduce system performance by up to 96%. As such, our desiderata help increase our understanding of how these models work and reveal potential avenues for improvements.</abstract>
       <url hash="cc1dac2e">2024.eacl-long.47</url>
@@ -587,6 +589,7 @@
       <abstract>How can NLP/AI practitioners engage with oral societies and develop locally appropriate language technologies? We report on our experience of working together over five years in a remote community in the far north of Australia, and how we prototyped simple language technologies to support our collaboration. We navigated different understandings of language, the functional differentiation of oral vs institutional languages, and the distinct technology opportunities for each. Our collaboration unsettled the first author’s western framing of language as data for exploitation by machines, and we devised a design pattern that seems better aligned with local interests and aspirations. We call for new collaborations on the design of locally appropriate technologies for languages with primary orality.</abstract>
       <url hash="746b433a">2024.eacl-long.50</url>
       <bibkey>bird-yibarbuk-2024-centering</bibkey>
+      <award>Outstanding Paper Award</award>
     </paper>
     <paper id="51">
       <title>Improving the <fixed-case>TENOR</fixed-case> of Labeling: Re-evaluating Topic Models for Content Analysis</title>
@@ -614,6 +617,7 @@
       <abstract>We conducted a detailed analysis on the quality of web-mined corpora for two low-resource languages (making three language pairs, English-Sinhala, English-Tamil and Sinhala-Tamil). We ranked each corpus according to a similarity measure and carried out an intrinsic and extrinsic evaluation on different portions of this ranked corpus. We show that there are significant quality differences between different portions of web-mined corpora and that the quality varies across languages and datasets. We also show that, for some web-mined datasets, Neural Machine Translation (NMT) models trained with their highest-ranked 25k portion can be on par with human-curated datasets.</abstract>
       <url hash="fc413046">2024.eacl-long.52</url>
       <bibkey>ranathunga-etal-2024-quality</bibkey>
+      <award>Low-Resource Paper Award</award>
     </paper>
     <paper id="53">
       <title><fixed-case>VOLTAGE</fixed-case>: A Versatile Contrastive Learning based <fixed-case>OCR</fixed-case> Methodology for ultra low-resource scripts through Auto Glyph Feature Extraction</title>
@@ -823,8 +827,11 @@
       <author><first>Patrick</first><last>Gallinari</last><affiliation>Criteo AI Lab and Sorbonne Universite</affiliation></author>
       <pages>1144-1159</pages>
       <abstract>State-space models are a low-complexity alternative to transformers for encoding long sequences and capturing long-term dependencies. We propose LOCOST: an encoder-decoder architecture based on state-space models for conditional text generation with long context inputs. With a computational complexity of <tex-math>\mathcal{O}(L \log L)</tex-math>, this architecture can handle significantly longer sequences than state-of-the-art models that are based on sparse attention patterns. We evaluate our model on a series of long document abstractive summarization tasks. The model reaches a performance level that is 93-96% comparable to the top-performing sparse transformers of the same size while saving up to 50% memory during training and up to 87% during inference. Additionally, LOCOST effectively handles input texts exceeding 600K tokens at inference time, setting new state-of-the-art results on full-book summarization and opening new perspectives for long input processing.</abstract>
-      <url hash="7d28d719">2024.eacl-long.69</url>
+      <url hash="e4b40864">2024.eacl-long.69</url>
       <bibkey>le-bronnec-etal-2024-locost</bibkey>
+      <revision id="1" href="2024.eacl-long.69v1" hash="7d28d719"/>
+      <revision id="2" href="2024.eacl-long.69v2" hash="e4b40864" date="2024-03-21">Add an extra acknowlegement.</revision>
+      <award>Best Paper Award</award>
     </paper>
     <paper id="70">
       <title>A Classification-Guided Approach for Adversarial Attacks against Neural Machine Translation</title>
@@ -927,10 +934,12 @@
       <author><first>Ngan</first><last>Nguyen</last></author>
       <pages>1310-1324</pages>
       <abstract>This paper presents the development process of a Vietnamese spoken language corpus for machine reading comprehension (MRC) tasks and provides insights into the challenges and opportunities associated with using real-world data for machine reading comprehension tasks. The existing MRC corpora in Vietnamese mainly focus on formal written documents such as Wikipedia articles, online newspapers, or textbooks. In contrast, the VlogQA consists of 10,076 question-answer pairs based on 1,230 transcript documents sourced from YouTube – an extensive source of user-uploaded content, covering the topics of food and travel. By capturing the spoken language of native Vietnamese speakers in natural settings, an obscure corner overlooked in Vietnamese research, the corpus provides a valuable resource for future research in reading comprehension tasks for the Vietnamese language. Regarding performance evaluation, our deep-learning models achieved the highest F1 score of 75.34% on the test set, indicating significant progress in machine reading comprehension for Vietnamese spoken language data. In terms of EM, the highest score we accomplished is 53.97%, which reflects the challenge in processing spoken-based content and highlights the need for further improvement.</abstract>
-      <url hash="8aa9495f">2024.eacl-long.79</url>
+      <url hash="ca4a50d7">2024.eacl-long.79</url>
       <attachment type="software" hash="2c8e4a99">2024.eacl-long.79.software.zip</attachment>
       <attachment type="note" hash="7fc74a90">2024.eacl-long.79.note.zip</attachment>
       <bibkey>ngo-etal-2024-vlogqa</bibkey>
+      <revision id="1" href="2024.eacl-long.79v1" hash="8aa9495f"/>
+      <revision id="2" href="2024.eacl-long.79v2" hash="ca4a50d7" date="2024-03-17">Minor updates.</revision>
     </paper>
     <paper id="80">
       <title><fixed-case>CEV</fixed-case>-<fixed-case>LM</fixed-case>: Controlled Edit Vector Language Model for Shaping Natural Language Generations</title>
@@ -991,6 +1000,7 @@
       <abstract>Large language models (LLMs) have demonstrated remarkable capability to generate fluent responses to a wide variety of user queries. However, this has also raised concerns about the potential misuse of such texts in journalism, education, and academia. In this study, we strive to create automated systems that can detect machine-generated texts and pinpoint potential misuse. We first introduce a large-scale benchmark M4, which is a multi-generator, multi-domain, and multi-lingual corpus for machine-generated text detection. Through an extensive empirical study of this dataset, we show that it is challenging for detectors to generalize well on instances from unseen domains or LLMs. In such cases, detectors tend to misclassify machine-generated text as human-written. These results show that the problem is far from solved and that there is a lot of room for improvement. We believe that our dataset will enable future research towards more robust approaches to this pressing societal problem. The dataset is available at https://github.com/mbzuai-nlp/M4</abstract>
       <url hash="3ba47fcc">2024.eacl-long.83</url>
       <bibkey>wang-etal-2024-m4</bibkey>
+      <award>Resource Paper Award</award>
     </paper>
     <paper id="84">
       <title>A Truly Joint Neural Architecture for Segmentation and Parsing</title>
@@ -1022,6 +1032,7 @@
       <abstract>Recently, continuous diffusion models (CDM) have been introduced into non-autoregressive (NAR) text-to-text generation. However, the discrete nature of text increases the difficulty of CDM to generate coherent and fluent texts, and also causes the incompatibility problem between CDM and advanced NLP techniques, especially the popular pre-trained language models (PLMs).To solve it, we propose Diffusion-NAT, which introduces discrete diffusion models (DDM) into NAR text-to-text generation and integrates BART to improve the performance.By revising the decoding process of BART and the typical settings of DDM, we unify the inference process of BART and the denoising process of DDM into the same NAR masked tokens recovering task.In this way, DDM can rely on BART to perform denoising, which can benefit from both the rich pre-learned knowledge of BART and the iterative refining paradigm of DDM.Besides, we also propose the iterative self-prompting strategy to further improve the generation quality.Experimental results on 7 datasets show that our approach can outperform competitive NAR methods, and even surpass autoregressive methods.Our code and data are released at <url>https://github.com/RUCAIBox/DiffusionNAT</url>.</abstract>
       <url hash="3e9bbf92">2024.eacl-long.86</url>
       <bibkey>zhou-etal-2024-diffusion</bibkey>
+      <award>Evaluation and Model Insight Award</award>
     </paper>
     <paper id="87">
       <title>Unleashing the Power of Discourse-Enhanced Transformers for Propaganda Detection</title>
@@ -1158,7 +1169,7 @@
     </paper>
     <paper id="99">
       <title><fixed-case>WSC</fixed-case>+: Enhancing The <fixed-case>W</fixed-case>inograd Schema Challenge Using Tree-of-Experts</title>
-      <author><first>Pardis</first><last>Zahraei</last></author>
+      <author><first>Pardis Sadat</first><last>Zahraei</last></author>
       <author><first>Ali</first><last>Emami</last><affiliation>Brock University</affiliation></author>
       <pages>1650-1671</pages>
       <abstract>The Winograd Schema Challenge (WSC) serves as a prominent benchmark for evaluating machine understanding. While Large Language Models (LLMs) excel at answering WSC questions, their ability to generate such questions remains less explored. In this work, we propose Tree-of-Experts (ToE), a novel prompting method which enhances the generation of WSC instances (50% valid cases vs. 10% in recent methods). Using this approach, we introduce WSC+, a novel dataset comprising 3,026 LLM-generated sentences. Notably, we extend the WSC framework by incorporating new ‘ambiguous’ and ‘offensive’ categories, providing a deeper insight into model overconfidence and bias. Our analysis reveals nuances in generation-evaluation consistency, suggesting that LLMs may not always outperform in evaluating their own generated questions when compared to those crafted by other models. On WSC+, GPT-4, the top-performing LLM, achieves an accuracy of 68.7%, significantly below the human benchmark of 95.1%.</abstract>
@@ -1166,7 +1177,7 @@
       <bibkey>zahraei-emami-2024-wsc</bibkey>
     </paper>
     <paper id="100">
-      <title>Kardeş-<fixed-case>NLU</fixed-case>: Transfer to Low-Resource Languages with Big Brother’s Help – A Benchmark and Evaluation for <fixed-case>T</fixed-case>urkic Languages</title>
+      <title>Kardeş-<fixed-case>NLU</fixed-case>: Transfer to Low-Resource Languages with the Help of a High-Resource Cousin – A Benchmark and Evaluation for <fixed-case>T</fixed-case>urkic Languages</title>
       <author><first>Lütfi Kerem</first><last>Senel</last><affiliation>Ludwig Maximilian University of Munich and The Center for Information and Language Processing</affiliation></author>
       <author><first>Benedikt</first><last>Ebing</last><affiliation>Bayerische Julius-Maximilians-Universität Würzburg</affiliation></author>
       <author><first>Konul</first><last>Baghirova</last></author>
@@ -1174,9 +1185,12 @@
       <author><first>Goran</first><last>Glavaš</last><affiliation>Julius-Maximilians-Universität Würzburg</affiliation></author>
       <pages>1672-1688</pages>
       <abstract>Cross-lingual transfer (XLT) driven by massively multilingual language models (mmLMs) has been shown largely ineffective for low-resource (LR) target languages with little (or no) representation in mmLM’s pretraining, especially if they are linguistically distant from the high-resource (HR) source language. Much of the recent focus in XLT research has been dedicated to <i>LR language families</i>, i.e., families without any HR languages (e.g., families of African languages or indigenous languages of the Americas). In this work, in contrast, we investigate a configuration that is arguably of practical relevance for more of the world’s languages: XLT to LR languages that do have a close HR relative. To explore the extent to which a HR language can facilitate transfer to its LR relatives, we (1) introduce Kardeş-NLU, an evaluation benchmark with language understanding datasets in five LR Turkic languages: Azerbaijani, Kazakh, Kyrgyz, Uzbek, and Uyghur; and (2) investigate (a) intermediate training and (b) fine-tuning strategies that leverage Turkish in XLT to these target languages. Our experimental results show that both - integrating Turkish in intermediate training and in downstream fine-tuning - yield substantial improvements in XLT to LR Turkic languages. Finally, we benchmark cutting-edge instruction-tuned large language models on Kardeş-NLU, showing that their performance is highly task- and language-dependent.</abstract>
-      <url hash="e31fcfaf">2024.eacl-long.100</url>
+      <url hash="9e3df1c2">2024.eacl-long.100</url>
       <attachment type="software" hash="34f32387">2024.eacl-long.100.software.zip</attachment>
       <bibkey>senel-etal-2024-kardes</bibkey>
+      <revision id="1" href="2024.eacl-long.100v1" hash="e31fcfaf"/>
+      <revision id="2" href="2024.eacl-long.100v2" hash="9e3df1c2" date="2024-03-25">The revision changes the title due to ethical considerations.</revision>
+      <award>Outstanding Paper Award</award>
     </paper>
     <paper id="101">
       <title>Chaining Event Spans for Temporal Relation Grounding</title>
@@ -1559,16 +1573,18 @@
       <bibkey>kang-cho-2024-improving</bibkey>
     </paper>
     <paper id="135">
-      <title>Neuralign: A Context-Aware, Cross-Lingual and Fully-Neural Sentence Alignment System for Long Texts</title>
+      <title>CroCoAlign: A Cross-Lingual, Context-Aware and Fully-Neural Sentence Alignment System for Long Texts</title>
       <author><first>Francesco</first><last>Molfese</last><affiliation>University of Roma “La Sapienza”</affiliation></author>
       <author><first>Andrei</first><last>Bejgu</last><affiliation>University of Roma “La Sapienza”</affiliation></author>
       <author><first>Simone</first><last>Tedeschi</last></author>
       <author><first>Simone</first><last>Conia</last><affiliation>Sapienza University of Rome</affiliation></author>
       <author><first>Roberto</first><last>Navigli</last><affiliation>Sapienza University of Rome</affiliation></author>
       <pages>2209-2220</pages>
-      <abstract>Sentence alignment – establishing links between corresponding sentences in two related documents – is an important NLP task with several downstream applications, such as machine translation (MT).Despite the fact that existing sentence alignment systems have achieved promising results, their effectiveness is based on auxiliary information such as document metadata or machine-generated translations, as well as hyperparameter-sensitive techniques. Moreover, these systems often overlook the crucial role that context plays in the alignment process.In this paper, we address the aforementioned issues and propose Neuralign: the first context-aware, end-to-end and fully-neural architecture for sentence alignment. Our system maps source and target sentences in long documents by contextualizing their sentence embeddings with respect to the other sentences in the document. We extensively evaluate Neuralign on a multilingual dataset consisting of 20 language pairs derived from the Opus project, and demonstrate that our model achieves state-of-the-art performance. To ensure reproducibility, we release our code and model checkpoints at https://github.com/Babelscape/Neuralign.</abstract>
-      <url hash="c49fbf28">2024.eacl-long.135</url>
+      <abstract>Sentence alignment – establishing links between corresponding sentences in two related documents – is an important NLP task with several downstream applications, such as machine translation (MT). Despite the fact that existing sentence alignment systems have achieved promising results, their effectiveness is based on auxiliary information such as document metadata or machine-generated translations, as well as hyperparameter-sensitive techniques. Moreover, these systems often overlook the crucial role that context plays in the alignment process. In this paper, we address the aforementioned issues and propose CroCoAlign: the first context-aware, end-to-end and fully neural architecture for sentence alignment. Our system maps source and target sentences in long documents by contextualizing their sentence embeddings with respect to the other sentences in the document. We extensively evaluate CroCoAlign on a multilingual dataset consisting of 20 language pairs derived from the Opus project, and demonstrate that our model achieves state-of-the-art performance. To ensure reproducibility, we release our code and model checkpoints at https://github.com/Babelscape/CroCoAlign.</abstract>
+      <url hash="37cdec45">2024.eacl-long.135</url>
       <bibkey>molfese-etal-2024-neuralign</bibkey>
+      <revision id="1" href="2024.eacl-long.135v1" hash="c49fbf28"/>
+      <revision id="2" href="2024.eacl-long.135v2" hash="37cdec45" date="2024-03-19">Update CroCoAlign.</revision>
     </paper>
     <paper id="136">
       <title>Explaining Speech Classification Models via Word-Level Audio Segments and Paralinguistic Features</title>
@@ -1865,6 +1881,7 @@
       <abstract>Annotators’ sociodemographic backgrounds (i.e., the individual compositions of their gender, age, educational background, etc.) have a strong impact on their decisions when working on subjective NLP tasks, such as toxic language detection. Often, heterogeneous backgrounds result in high disagreements. To model this variation, recent work has explored sociodemographic prompting, a technique, which steers the output of prompt-based models towards answers that humans with specific sociodemographic profiles would give. However, the available NLP literature disagrees on the efficacy of this technique — it remains unclear for which tasks and scenarios it can help, and the role of the individual factors in sociodemographic prompting is still unexplored. We address this research gap by presenting the largest and most comprehensive study of sociodemographic prompting today. We use it to analyze its influence on model sensitivity, performance and robustness across seven datasets and six instruction-tuned model families. We show that sociodemographic information affects model predictions and can be beneficial for improving zero-shot learning in subjective NLP tasks.However, its outcomes largely vary for different model types, sizes, and datasets, and are subject to large variance with regards to prompt formulations. Most importantly, our results show that sociodemographic prompting should be used with care when used for data annotation or studying LLM alignment.</abstract>
       <url hash="b5ed6d7b">2024.eacl-long.159</url>
       <bibkey>beck-etal-2024-sensitivity</bibkey>
+      <award>Social Impact Award</award>
     </paper>
     <paper id="160">
       <title>Threat Behavior Textual Search by Attention Graph Isomorphism</title>
@@ -1921,8 +1938,10 @@
       <author><first>Hinrich</first><last>Schuetze</last></author>
       <pages>2685-2702</pages>
       <abstract>Prompt-based methods have been successfully applied to multilingual pretrained language models for zero-shot cross-lingual understanding. However, most previous studies primarily focused on sentence-level classification tasks, and only a few considered token-level labeling tasks such as Named Entity Recognition (NER) and Part-of-Speech (POS) tagging. In this paper, we propose Token-Level Prompt Decomposition (ToPro), which facilitates the prompt-based method for token-level sequence labeling tasks. The ToPro method decomposes an input sentence into single tokens and applies one prompt template to each token. Our experiments on multilingual NER and POS tagging datasets demonstrate that ToPro-based fine-tuning outperforms Vanilla fine-tuning and Prompt-Tuning in zero-shot cross-lingual transfer, especially for languages that are typologically different from the source language English. Our method also attains state-of-the-art performance when employed with the mT5 model. Besides, our exploratory study in multilingual large language models shows that ToPro performs much better than the current in-context learning method. Overall, the performance improvements show that ToPro could potentially serve as a novel and simple benchmarking method for sequence labeling tasks.</abstract>
-      <url hash="fef9e762">2024.eacl-long.164</url>
+      <url hash="744e06d3">2024.eacl-long.164</url>
       <bibkey>ma-etal-2024-topro</bibkey>
+      <revision id="1" href="2024.eacl-long.164v1" hash="fef9e762"/>
+      <revision id="2" href="2024.eacl-long.164v2" hash="744e06d3" date="2024-03-25">Minor updates.</revision>
     </paper>
     <paper id="165">
       <title>Small Language Models Improve Giants by Rewriting Their Outputs</title>
@@ -2101,6 +2120,7 @@
       <abstract>The field of machine learning (ML) has gained widespread adoption, leading to significant demand for adapting ML to specific scenarios, which is yet expensive and non-trivial. The predominant approaches towards the automation of solving ML tasks (e.g., AutoML) are often time-consuming and hard to understand for human developers. In contrast, though human engineers have the incredible ability to understand tasks and reason about solutions, their experience and knowledge are often sparse and difficult to utilize by quantitative approaches. In this paper, we aim to bridge the gap between machine intelligence and human knowledge by introducing a novel framework MLCopilot, which leverages the state-of-the-art large language models to develop ML solutions for novel tasks. We showcase the possibility of extending the capability of LLMs to comprehend structured inputs and perform thorough reasoning for solving novel ML tasks. And we find that, after some dedicated design, the LLM can (i) observe from the existing experiences of ML tasks and (ii) reason effectively to deliver promising results for new tasks. The solution generated can be used directly to achieve high levels of competitiveness.</abstract>
       <url hash="24fa996c">2024.eacl-long.179</url>
       <bibkey>zhang-etal-2024-mlcopilot</bibkey>
+      <award>Outstanding Paper Award</award>
     </paper>
     <paper id="180">
       <title>Text-Guided Image Clustering</title>
@@ -2175,9 +2195,11 @@
       <author><first>Gary</first><last>Lee</last></author>
       <pages>14-20</pages>
       <abstract>This paper explores the task of language-agnostic speaker replication, a novel endeavor that seeks to replicate a speaker’s voice irrespective of the language they are speaking. Towards this end, we introduce a multi-level attention aggregation approach that systematically probes and amplifies various speaker-specific attributes in a hierarchical manner. Through rigorous evaluations across a wide range of scenarios including seen and unseen speakers conversing in seen and unseen lingua, we establish that our proposed model is able to achieve substantial speaker similarity, and is able to generalize to out-of-domain (OOD) cases.</abstract>
-      <url hash="5a2d7aa2">2024.eacl-short.3</url>
+      <url hash="97db6d33">2024.eacl-short.3</url>
       <attachment type="software" hash="e7995468">2024.eacl-short.3.software.zip</attachment>
       <bibkey>jeon-lee-2024-multi</bibkey>
+      <revision id="1" href="2024.eacl-short.3v1" hash="5a2d7aa2"/>
+      <revision id="2" href="2024.eacl-short.3v2" hash="97db6d33" date="2024-03-30">This revision corrects a typo in Equation 1.</revision>
     </paper>
     <paper id="4">
       <title>Mitigating Hallucinations and Off-target Machine Translation with Source-Contrastive and Language-Contrastive Decoding</title>
@@ -2321,7 +2343,7 @@
     </paper>
     <paper id="17">
       <title>The Parrot Dilemma: Human-Labeled vs. <fixed-case>LLM</fixed-case>-augmented Data in Classification Tasks</title>
-      <author><first>Anders</first><last>Møller</last><affiliation>IT University of Copenhagen</affiliation></author>
+      <author><first>Anders Giovanni</first><last>Møller</last><affiliation>IT University of Copenhagen</affiliation></author>
       <author><first>Arianna</first><last>Pera</last><affiliation>IT University of Copenhagen</affiliation></author>
       <author><first>Jacob</first><last>Dalsgaard</last></author>
       <author><first>Luca</first><last>Aiello</last><affiliation>IT University of Copenhagen</affiliation></author>
@@ -2377,8 +2399,10 @@
       <author><first>Wilker</first><last>Aziz</last><affiliation>University of Amsterdam</affiliation></author>
       <pages>234-255</pages>
       <abstract>Language models (LMs) are statistical models trained to assign probability to human-generated text. As such, it is reasonable to question whether they approximate linguistic variability exhibited by humans well. This form of statistical assessment is difficult to perform at the passage level, for it requires acceptability judgments (i.e., human evaluation) or a robust automated proxy (which is non-trivial). At the word level, however, given some context, samples from an LM can be assessed via exact matching against a prerecorded dataset of alternative single-word continuations of the available context. We exploit this fact and evaluate the LM’s ability to reproduce variability that humans (in particular, a population of English speakers) exhibit in the ‘next word prediction’ task. This can be seen as assessing a form of calibration, which, in the context of text classification, Baan et al. (2022) termed calibration to human uncertainty. We assess GPT2, BLOOM and ChatGPT and find that they exhibit fairly low calibration to human uncertainty. We also verify the failure of expected calibration error (ECE) to reflect this, and as such, advise the community against relying on it in this setting.</abstract>
-      <url hash="ca3d147e">2024.eacl-short.22</url>
+      <url hash="ccf7f5d5">2024.eacl-short.22</url>
       <bibkey>ilia-aziz-2024-predict</bibkey>
+      <revision id="1" href="2024.eacl-short.22v1" hash="ca3d147e"/>
+      <revision id="2" href="2024.eacl-short.22v2" hash="ccf7f5d5" date="2024-04-29">Figure 3 was plotting variances instead of standard deviations. A relevant footnote was also added to explain this.</revision>
     </paper>
     <paper id="23">
       <title>A Prompt Response to the Demand for Automatic Gender-Neutral Translation</title>
@@ -2590,8 +2614,10 @@
       <author><first>H.</first><last>Schwartz</last><affiliation>Stony Brook University (SUNY)</affiliation></author>
       <pages>454-468</pages>
       <abstract>Social science NLP tasks, such as emotion or humor detection, are required to capture the semantics along with the implicit pragmatics from text, often with limited amounts of training data. Instruction tuning has been shown to improve the many capabilities of large language models (LLMs) such as commonsense reasoning, reading comprehension, and computer programming. However, little is known about the effectiveness of instruction tuning on the social domain where implicit pragmatic cues are often needed to be captured. We explore the use of instruction tuning for social science NLP tasks and introduce Socialite-Llama — an open-source, instruction-tuned Llama. On a suite of 20 social science tasks, Socialite-Llama improves upon the performance of Llama as well as matches or improves upon the performance of a state-of-the-art, multi-task finetuned model on a majority of them. Further, Socialite-Llama also leads to improvement on 5 out of 6 related social tasks as compared to Llama, suggesting instruction tuning can lead to generalized social understanding. All resources including our code, model and dataset can be found through [bit.ly/socialitellama](https://bit.ly/socialitellama/).</abstract>
-      <url hash="40eaf18d">2024.eacl-short.40</url>
+      <url hash="91eb1d08">2024.eacl-short.40</url>
       <bibkey>dey-etal-2024-socialite</bibkey>
+      <revision id="1" href="2024.eacl-short.40v1" hash="40eaf18d"/>
+      <revision id="2" href="2024.eacl-short.40v2" hash="91eb1d08" date="2024-03-16">Added a sponsor.</revision>
     </paper>
     <paper id="41">
       <title>Pre-Training Methods for Question Reranking</title>
@@ -2729,6 +2755,7 @@
       <abstract>We have deployed an LLM-based spoken dialogue system in a real hospital. The ARI social robot embodies our system, which patients and their companions can have multi-party conversations with together. In order to enable this multi-party ability, multimodality is critical. Our system, therefore, receives speech and video as input, and generates both speech and gestures (arm, head, and eye movements). In this paper, we describe our complex setting and the architecture of our dialogue system. Each component is detailed, and a video of the full system is available with the appropriate components highlighted in real-time. Our system decides when it should take its turn, generates human-like clarification requests when the patient pauses mid-utterance, answers in-domain questions (grounding to the in-prompt knowledge), and responds appropriately to out-of-domain requests (like generating jokes or quizzes). This latter feature is particularly remarkable as real patients often utter unexpected sentences that could not be handled previously.</abstract>
       <url hash="9e81e1d3">2024.eacl-demo.8</url>
       <bibkey>addlesee-etal-2024-multi</bibkey>
+      <award>Best Demo Award</award>
     </paper>
     <paper id="9">
       <title><fixed-case>S</fixed-case>cam<fixed-case>S</fixed-case>pot: Fighting Financial Fraud in <fixed-case>I</fixed-case>nstagram Comments</title>
@@ -2899,6 +2926,14 @@
       <author><first>Osama</first><last>Afzal</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <author><first>Qisheng</first><last>Liao</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <author><first>Tarek</first><last>Mahmoud</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author><first>Zain</first><last>Muhammad Mujahid</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author><first>Muhammad</first><last>Umar Salman</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author><first>Muhammad</first><last>Arslan Manzoor</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author><first>Massa</first><last>Baali</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author><first>Jakub</first><last>Piskorski</last><affiliation>Polish Academy of Sciences</affiliation></author>
+      <author><first>Nicolas</first><last>Stefanovitch</last><affiliation>European Commission Joint Research Centre</affiliation></author>
+      <author><first>Giovanni</first><last>Da San Martino</last><affiliation>University of Padova</affiliation></author>
+      <author><first>Preslav</first><last>Nakov</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
       <pages>207-213</pages>
       <abstract>The abundance of news sources and the urgent demand for reliable information have led to serious concerns about the threat of misleading information. In this paper, we present FRAPPE, a FRAming, Persuasion, and Propaganda Explorer system. FRAPPE goes beyond conventional news analysis of articles and unveils the intricate linguistic techniques used to shape readers’ opinions and emotions. Our system allows users not only to analyze individual articles for their genre, framings, and use of persuasion techniques, but also to draw comparisons between the strategies of persuasion and framing adopted by a diverse pool of news outlets and countries across multiple languages for different topics, thus providing a comprehensive understanding of how information is presented and manipulated. FRAPPE is publicly accessible at https://frappe.streamlit.app/ and a video explaining our system is available at https://www.youtube.com/watch?v=3RlTfSVnZmk</abstract>
       <url hash="e66c3473">2024.eacl-demo.22</url>
@@ -2994,7 +3029,7 @@
     </paper>
     <paper id="4">
       <title>Can Stanza be Used for Part-of-Speech Tagging Historical <fixed-case>P</fixed-case>olish?</title>
-      <author><first>Maria</first><last>Szawerna</last><affiliation>Göteborg University</affiliation></author>
+      <author><first>Maria Irena</first><last>Szawerna</last><affiliation>Göteborg University</affiliation></author>
       <pages>44-49</pages>
       <abstract>The goal of this paper is to evaluate the performance of Stanza, a part-of-speech (POS) tagger developed for modern Polish, on historical text to assess its possible use for automating the annotation of other historical texts. While the issue of the reliability of utilizing POS taggers on historical data has been previously discussed, most of the research focuses on languages whose grammar differs from Polish, meaning that their results need not be fully applicable in this case. The evaluation of Stanza is conducted on two sets of 10286 and 3270 manually annotated tokens from a piece of historical Polish writing (1899), and the errors are analyzed qualitatively and quantitatively. The results show a good performance of the tagger, especially when it comes to Universal Part-of-Speech (UPOS) tags, which is promising for utilizing the tagger for automatic annotation in larger projects, and pinpoint some common features of misclassified tokens.</abstract>
       <url hash="e05a57e9">2024.eacl-srw.4</url>
@@ -3130,7 +3165,7 @@
     </paper>
     <paper id="18">
       <title>Representation and Generation of Machine Learning Test Functions</title>
-      <author><first>Souha</first><last>Hassine</last></author>
+      <author><first>Souha</first><last>Ben Hassine</last></author>
       <author><first>Steven</first><last>Wilson</last><affiliation>Oakland University (Michigan)</affiliation></author>
       <pages>238-247</pages>
       <abstract>Writing tests for machine learning (ML) code is a crucial step towards ensuring the correctness and reliability of ML software. At the same time, Large Language Models (LLMs) have been adopted at a rapid pace for various code generation tasks, making it a natural choice for many developers who need to write ML tests. However, the implications of using these models, and how the LLM-generated tests differ from human-written ones, are relatively unexplored. In this work, we examine the use of LLMs to extract representations of ML source code and tests in order to understand the semantic relationships between human-written test functions and LLM-generated ones, and annotate a set of LLM-generated tests for several important qualities including usefulness, documentation, and correctness. We find that programmers prefer LLM-generated tests to those selected using retrieval-based methods, and in some cases, to those written by other humans.</abstract>
