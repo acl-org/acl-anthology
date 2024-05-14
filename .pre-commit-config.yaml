@@ -6,7 +6,11 @@ repos:
     - id: check-ast
     - id: check-merge-conflict
     - id: check-xml
-      exclude: ^hugo/layouts/sitemap.xml$
+      exclude: |
+          (?x)^(
+              hugo/layouts/sitemap.xml|
+              hugo/layouts/_default/rss.xml
+          )$
     - id: check-yaml
       exclude: ^python/mkdocs.yml$
     - id: end-of-file-fixer
