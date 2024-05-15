@@ -18,6 +18,7 @@ jobs:
       - name: Add review checklist
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const review_checklist = fs.readFileSync('.github/ingestion-review-checklist.md', 'utf8');
