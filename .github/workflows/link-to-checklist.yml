@@ -2,12 +2,11 @@ name: link-to-checklist
 
 on:
   workflow_dispatch:
-  push:
   pull_request_target:
     types: [opened]
 
-permissions:
-  pull-requests: write
+# permissions:
+#   pull-requests: write
 
 jobs:
   add-review-checklist:
@@ -18,7 +17,7 @@ jobs:
       - name: Add review checklist
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const review_checklist = fs.readFileSync('.github/ingestion-review-checklist.md', 'utf8');
