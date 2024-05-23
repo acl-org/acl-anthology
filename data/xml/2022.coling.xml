@@ -5488,6 +5488,7 @@
       <abstract>Conditional computation algorithms, such as the early exiting (EE) algorithm, can be applied to accelerate the inference of pretrained language models (PLMs) while maintaining competitive performance on resource-constrained devices. However, this approach is only applied to the vertical architecture to decide which layers should be used for inference. Conversely, the operation of the horizontal perspective is ignored, and the determination of which tokens in each layer should participate in the computation fails, leading to a high redundancy for adaptive inference. To address this limitation, a unified horizontal and vertical multi-perspective early exiting (MPEE) framework is proposed in this study to accelerate the inference of transformer-based models. Specifically, the vertical architecture uses recycling EE classifier memory and weighted self-distillation to enhance the performance of the EE classifiers. Then, the horizontal perspective uses recycling class attention memory to emphasize the informative tokens. Conversely, the tokens with less information are truncated by weighted fusion and isolated from the following computation. Based on this, both horizontal and vertical EE are unified to obtain a better tradeoff between performance and efficiency. Extensive experimental results show that MPEE can achieve higher acceleration inference with competent performance than existing competitive methods.</abstract>
       <url hash="ab68f362">2022.coling-1.414</url>
       <bibkey>kong-etal-2022-accelerating</bibkey>
+      <pwccode url="https://github.com/junkong5/mpee" additional="false">junkong5/mpee</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
@@ -6724,7 +6725,7 @@
       <abstract>Research on Automatic Story Generation (ASG) relies heavily on human and automatic evaluation. However, there is no consensus on which human evaluation criteria to use, and no analysis of how well automatic criteria correlate with them. In this paper, we propose to re-evaluate ASG evaluation. We introduce a set of 6 orthogonal and comprehensive human criteria, carefully motivated by the social sciences literature. We also present HANNA, an annotated dataset of 1,056 stories produced by 10 different ASG systems. HANNA allows us to quantitatively evaluate the correlations of 72 automatic metrics with human criteria. Our analysis highlights the weaknesses of current metrics for ASG and allows us to formulate practical recommendations for ASG evaluation.</abstract>
       <url hash="b029c210">2022.coling-1.509</url>
       <bibkey>chhun-etal-2022-human</bibkey>
-      <pwccode url="https://github.com/dig-team/hanna-benchmark-asg" additional="true">dig-team/hanna-benchmark-asg</pwccode>
+      <pwccode url="https://github.com/lashoun/hanna-benchmark-asg" additional="false">lashoun/hanna-benchmark-asg</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/hanna">HANNA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/writingprompts">WritingPrompts</pwcdataset>
     </paper>
@@ -6871,6 +6872,7 @@
       <abstract>Recent research on code summarization relies on the structural information from the abstract syntax tree (AST) of source codes. It is, however, questionable whether it is the most effective to use AST for expressing the structural information. We find that a program dependency graph (PDG) can represent the structure of a code more effectively. We propose PDG Boosting Module (PBM) that encodes PDG into graph embedding and the framework to implement the proposed PBM with the existing models. PBM achieves improvements of 6.67% (BLEU) and 7.47% (ROUGE) on average. We then analyze the experimental results, and examine how PBM helps the training of baseline models and its performance robustness. For the validation of robustness, we measure the performance of an out-of-domain benchmark dataset, and confirm its robustness. In addition, we apply a new evaluation measure, SBERT score, to evaluate the semantic performance. The models implemented with PBM improve the performance of SBERT score. This implies that they generate summaries that are semantically more similar to the reference summary.</abstract>
       <url hash="e7d8dbbd">2022.coling-1.521</url>
       <bibkey>son-etal-2022-boosting</bibkey>
+      <pwccode url="https://github.com/sjk0825/coling2022" additional="false">sjk0825/coling2022</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/codesearchnet">CodeSearchNet</pwcdataset>
     </paper>
     <paper id="522">
