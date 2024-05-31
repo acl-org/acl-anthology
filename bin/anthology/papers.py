@@ -180,10 +180,7 @@ class Paper:
             paper.attrib["retracted"] = " "
 
         # Adjust the title for retracted papers
-        if (
-            "retracted" in paper.attrib
-            and "xml_title" in paper.attrib
-        ):
+        if "retracted" in paper.attrib and "xml_title" in paper.attrib:
             paper.add_prefix_to_title("[RETRACTED] ")
 
         if "removed" in paper.attrib and paper.attrib["removed"] is None:
@@ -305,7 +302,7 @@ class Paper:
             return default
 
     def add_prefix_to_title(self, prefix):
-        """Add a prefix to the title of the paper. 
+        """Add a prefix to the title of the paper.
         The attrib is an lxml Element object."""
         if self.attrib["xml_title"].text is None:
             self.attrib["xml_title"].text = ""
