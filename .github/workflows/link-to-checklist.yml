@@ -10,6 +10,7 @@ on:
 
 jobs:
   add-review-checklist:
+    if : ${{ github.event_name == 'pull_request' && github.event.action == 'opened' && startsWith(github.event.pull_request.title, 'ingestion') == true}}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
