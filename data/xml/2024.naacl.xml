@@ -5455,4 +5455,815 @@
       <url hash="cd418f93">2024.naacl-long.486</url>
     </paper>
   </volume>
+  <volume id="short" ingest-date="2024-06-10" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 2: Short Papers)</booktitle>
+      <editor><first>Kevin</first><last>Duh</last></editor>
+      <editor><first>Helena</first><last>Gomez</last></editor>
+      <editor><first>Steve</first><last>Bethard</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Mexico City, Mexico</address>
+      <month>June</month>
+      <year>2024</year>
+      <url hash="d93dd6c6">2024.naacl-short</url>
+      <venue>naacl</venue>
+    </meta>
+    <frontmatter>
+      <url hash="a9ab1d25">2024.naacl-short.0</url>
+    </frontmatter>
+    <paper id="1">
+      <title>Revisiting Zero-Shot Abstractive Summarization in the Era of Large Language Models from the Perspective of Position Bias</title>
+      <author><first>Anshuman</first><last>Chhabra</last><affiliation>University of California, Davis</affiliation></author>
+      <author><first>Hadi</first><last>Askari</last></author>
+      <author><first>Prasant</first><last>Mohapatra</last><affiliation>University of South Florida</affiliation></author>
+      <pages>1-11</pages>
+      <abstract>We characterize and study zero-shot abstractive summarization in Large Language Models (LLMs) by measuring position bias, which we propose as a general formulation of the more restrictive lead bias phenomenon studied previously in the literature. Position bias captures the tendency of a model unfairly prioritizing information from certain parts of the input text over others, leading to undesirable behavior. Through numerous experiments on four diverse real-world datasets, we study position bias in multiple LLM models such as GPT 3.5-Turbo, Llama-2, and Dolly-v2, as well as state-of-the-art pretrained encoder-decoder abstractive summarization models such as Pegasus and BART. Our findings lead to novel insights and discussion on performance and position bias of models for zero-shot summarization tasks.</abstract>
+      <url hash="1ccdae23">2024.naacl-short.1</url>
+    </paper>
+    <paper id="2">
+      <title>Struc-Bench: Are Large Language Models Good at Generating Complex Structured Tabular Data?</title>
+      <author><first>Xiangru</first><last>Tang</last><affiliation>Yale University</affiliation></author>
+      <author><first>Yiming</first><last>Zong</last></author>
+      <author><first>Jason</first><last>Phang</last><affiliation>OpenAI</affiliation></author>
+      <author><first>Yilun</first><last>Zhao</last><affiliation>Yale University</affiliation></author>
+      <author><first>Wangchunshu</first><last>Zhou</last><affiliation>AIWaves Inc.</affiliation></author>
+      <author><first>Arman</first><last>Cohan</last><affiliation>Yale University and Allen Institute for Artificial Intelligence</affiliation></author>
+      <author><first>Mark</first><last>Gerstein</last><affiliation>Yale University</affiliation></author>
+      <pages>12-34</pages>
+      <abstract>Despite the remarkable capabilities of Large Language Models (LLMs) like GPT-4, producing complex, structured tabular data remains challenging. Our study assesses LLMs’ proficiency in structuring tables and introduces a novel fine-tuning method, cognizant of data structures, to bolster their performance. We unveil Struc-Bench, a comprehensive benchmark featuring prominent LLMs (GPT-NeoX-20B, GPT-3.5, GPT-4, and Vicuna), which spans text tables, HTML, and LaTeX formats. Our proposed FormatCoT aids in crafting format-specific instructions from the intended outputs to populate this benchmark. Addressing the gap in task-centered evaluation, we propose two innovative metrics, P-Score (Prompting Score) and H-Score (Heuristical Score), to more accurately gauge LLM performance. Our experiments show that applying our structure-aware fine-tuning to LLaMA-7B leads to substantial performance gains, outshining its LLM counterparts across most measures. In-depth error analysis and creating an ability map across six dimensions, coverage, formatting, reasoning, comprehension, pragmatics, and hallucination, highlight areas for future enhancements and suggest forthcoming research trajectories. Our code and models can be found at https://github.com/gersteinlab/Struc-Bench.</abstract>
+      <url hash="691432e8">2024.naacl-short.2</url>
+    </paper>
+    <paper id="3">
+      <title>Improving Toponym Resolution by Predicting Attributes to Constrain Geographical Ontology Entries</title>
+      <author><first>Zeyu</first><last>Zhang</last><affiliation>Amazon AGI</affiliation></author>
+      <author><first>Egoitz</first><last>Laparra</last><affiliation>University of Arizona</affiliation></author>
+      <author><first>Steven</first><last>Bethard</last><affiliation>University of Arizona</affiliation></author>
+      <pages>35-44</pages>
+      <abstract>Geocoding is the task of converting location mentions in text into structured geospatial data.We propose a new prompt-based paradigm for geocoding, where the machine learning algorithm encodes only the location mention and its context.We design a transformer network for predicting the country, state, and feature class of a location mention, and a deterministic algorithm that leverages the country, state, and feature class predictions as constraints in a search for compatible entries in the ontology.Our architecture, GeoPLACE, achieves new state-of-the-art performance on multiple datasets.Code and models are available at <url>https://github.com/clulab/geonorm</url>.</abstract>
+      <url hash="a1e2ab93">2024.naacl-short.3</url>
+    </paper>
+    <paper id="4">
+      <title>Advancing Regular Language Reasoning in Linear Recurrent Neural Networks</title>
+      <author><first>Ting-Han</first><last>Fan</last></author>
+      <author><first>Ta-Chung</first><last>Chi</last></author>
+      <author><first>Alexander</first><last>Rudnicky</last><affiliation>Carnegie Mellon University and Carnegie Mellon University</affiliation></author>
+      <pages>45-53</pages>
+      <abstract>In recent studies, linear recurrent neural networks (LRNNs) have achieved Transformer-level performance in natural language and long-range modeling, while offering rapid parallel training and constant inference cost. With the resurgence of interest in LRNNs, we study whether they can learn the hidden rules in training sequences, such as the grammatical structures of regular language. We theoretically analyze some existing LRNNs and discover their limitations in modeling regular language. Motivated by this analysis, we propose a new LRNN equipped with a block-diagonal and input-dependent transition matrix. Experiments suggest that the proposed model is the only LRNN capable of performing length extrapolation on regular language tasks such as Sum, Even Pair, and Modular Arithmetic. The code is released at <url>https://github.com/tinghanf/RegluarLRNN</url>.</abstract>
+      <url hash="b16b30f3">2024.naacl-short.4</url>
+    </paper>
+    <paper id="5">
+      <title>Extracting Lexical Features from Dialects via Interpretable Dialect Classifiers</title>
+      <author><first>Roy</first><last>Xie</last></author>
+      <author><first>Orevaoghene</first><last>Ahia</last></author>
+      <author><first>Yulia</first><last>Tsvetkov</last><affiliation>Department of Computer Science, University of Washington</affiliation></author>
+      <author><first>Antonios</first><last>Anastasopoulos</last><affiliation>Athena Research Center and George Mason University</affiliation></author>
+      <pages>54-69</pages>
+      <abstract>Identifying linguistic differences between dialects of a language often requires expert knowledge and meticulous human analysis. This is largely due to the complexity and nuance involved in studying various dialects. We present a novel approach to extract distinguishing lexical features of dialects by utilizing interpretable dialect classifiers, even in the absence of human experts. We explore both post-hoc and intrinsic approaches to interpretability, conduct experiments on Mandarin, Italian, and Low Saxon, and experimentally demonstrate that our method successfully identifies key language-specific lexical features that contribute to dialectal variations.</abstract>
+      <url hash="15e7e320">2024.naacl-short.5</url>
+    </paper>
+    <paper id="6">
+      <title>Clear Up Confusion: Advancing Cross-Domain Few-Shot Relation Extraction through Relation-Aware Prompt Learning</title>
+      <author><first>Ge</first><last>Bai</last></author>
+      <author><first>Chenji</first><last>Lu</last></author>
+      <author><first>Daichi</first><last>Guo</last></author>
+      <author><first>Shilong</first><last>Li</last></author>
+      <author><first>Ying</first><last>Liu</last></author>
+      <author><first>Zhang</first><last>Zhang</last></author>
+      <author><first>Guanting</first><last>Dong</last></author>
+      <author><first>Ruifang</first><last>Liu</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
+      <author><first>Sun</first><last>Yong</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
+      <pages>70-78</pages>
+      <abstract>Cross-domain few-shot Relation Extraction (RE) aims to transfer knowledge from a source domain to a different target domain to address low-resource problems.Previous work utilized label descriptions and entity information to leverage the knowledge of the source domain.However, these models are prone to confusion when directly applying this knowledge to a target domain with entirely new types of relations, which becomes particularly pronounced when facing similar relations.In this work, we propose a relation-aware prompt learning method with pre-training.Specifically, we empower the model to clear confusion by decomposing various relation types through an innovative label prompt, while a context prompt is employed to capture differences in different scenarios, enabling the model to further discern confusion. Two pre-training tasks are designed to leverage the prompt knowledge and paradigm.Experiments show that our method outperforms previous sota methods, yielding significantly better results on cross-domain few-shot RE tasks.</abstract>
+      <url hash="b12dfc09">2024.naacl-short.6</url>
+    </paper>
+    <paper id="7">
+      <title>Fusion Makes Perfection: An Efficient Multi-Grained Matching Approach for Zero-Shot Relation Extraction</title>
+      <author><first>Shilong</first><last>Li</last></author>
+      <author><first>Ge</first><last>Bai</last></author>
+      <author><first>Zhang</first><last>Zhang</last></author>
+      <author><first>Ying</first><last>Liu</last></author>
+      <author><first>Chenji</first><last>Lu</last></author>
+      <author><first>Daichi</first><last>Guo</last></author>
+      <author><first>Ruifang</first><last>Liu</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
+      <author><first>Sun</first><last>Yong</last><affiliation>Beijing University of Posts and Telecommunications</affiliation></author>
+      <pages>79-85</pages>
+      <abstract>Predicting unseen relations that cannot be observed during the training phase is a challenging task in relation extraction. Previous works have made progress by matching the semantics between input instances and label descriptions. However, fine-grained matching often requires laborious manual annotation, and rich interactions between instances and label descriptions come with significant computational overhead. In this work, we propose an efficient multi-grained matching approach that uses virtual entity matching to reduce manual annotation cost, and fuses coarse-grained recall and fine-grained classification for rich interactions with guaranteed inference speed.Experimental results show that our approach outperforms the previous State Of The Art (SOTA) methods, and achieves a balance between inference efficiency and prediction accuracy in zero-shot relation extraction tasks.Our code is available at https://github.com/longls777/EMMA.</abstract>
+      <url hash="a1199410">2024.naacl-short.7</url>
+    </paper>
+    <paper id="8">
+      <title>Personalized Review Recommendation based on Implicit dimension mining</title>
+      <author><first>Bei</first><last>Xu</last></author>
+      <author><first>Yifan</first><last>Xu</last></author>
+      <pages>86-91</pages>
+      <abstract>Users usually browse product reviews before buying products from e-commerce websites. Lots of e-commerce websites can recommend reviews. However, existing research on review recommendation mainly focuses on the general usefulness of reviews and ignores personalized and implicit requirements. To address the issue, we propose a Large language model driven Personalized Review Recommendation model based on Implicit dimension mining (PRR-LI). The model mines implicit dimensions from reviews and requirements, and encodes them in the form of “text + dimension”. The experiments show that our model significantly outperforms other state-of-the-art textual models on the Amazon-MRHP dataset, with some of the metrics outperforming the state-of-the-art multimodal models. And we prove that encoding “text + dimension” is better than encoding “text” and “dimension” separately in review recommendation.</abstract>
+      <url hash="a511d455">2024.naacl-short.8</url>
+    </paper>
+    <paper id="9">
+      <title>Unlocking Structure Measuring: Introducing <fixed-case>PDD</fixed-case>, an Automatic Metric for Positional Discourse Coherence</title>
+      <author><first>Yinhong</first><last>Liu</last></author>
+      <author><first>Yixuan</first><last>Su</last><affiliation>Cohere</affiliation></author>
+      <author><first>Ehsan</first><last>Shareghi</last><affiliation>Monash University and University of Cambridge</affiliation></author>
+      <author><first>Nigel</first><last>Collier</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>92-100</pages>
+      <abstract>Recent large language models (LLMs) have shown remarkable performance in aligning generated text with user intentions across various tasks. When it comes to long-form text generation, there has been a growing interest in generation from a discourse coherence perspective.However, existing lexical or semantic metrics such as BLEU, ROUGE, BertScore cannot effectively capture the discourse coherence.The development of discourse-specific automatic evaluation methods for assessing the output of LLMs warrants greater focus and exploration. In this paper, we present a novel automatic metric designed to quantify the discourse divergence between two long-form articles.Extensive experiments on three datasets from representative domains demonstrate that our metric aligns more closely with human preferences and GPT-4 coherence evaluation, outperforming existing evaluation methods.</abstract>
+      <url hash="36c4e643">2024.naacl-short.9</url>
+    </paper>
+    <paper id="10">
+      <title>Returning to the Start: Generating Narratives with Related Endpoints</title>
+      <author><first>Anneliese</first><last>Brei</last><affiliation>University of North Carolina at Chapel Hill</affiliation></author>
+      <author><first>Chao</first><last>Zhao</last><affiliation>Bloomberg</affiliation></author>
+      <author><first>Snigdha</first><last>Chaturvedi</last><affiliation>Department of Computer Science, University of North Carolina, Chapel Hill</affiliation></author>
+      <pages>101-112</pages>
+      <abstract>Human writers often *bookend* their writing with ending sentences that relate back to the beginning sentences in order to compose a satisfying narrative that “closes the loop.” Motivated by this observation, we propose RENarGen, a controllable story-generation paradigm that generates narratives by ensuring the first and last sentences are related and then infilling the middle sentences. Our contributions include an initial exploration of how various methods of bookending from Narratology affect language modeling for stories. Automatic and human evaluations indicate RENarGen produces better stories with more narrative closure than current autoregressive models.</abstract>
+      <url hash="1fc97055">2024.naacl-short.10</url>
+    </paper>
+    <paper id="11">
+      <title>Unified Examination of Entity Linking in Absence of Candidate Sets</title>
+      <author><first>Nicolas</first><last>Ong</last></author>
+      <author><first>Hassan</first><last>Shavarani</last></author>
+      <author><first>Anoop</first><last>Sarkar</last><affiliation>Simon Fraser University</affiliation></author>
+      <pages>113-123</pages>
+      <abstract>Despite remarkable strides made in the development of entity linking systems in recent years, a comprehensive comparative analysis of these systems using a unified framework is notably absent. This paper addresses this oversight by introducing a new black-box benchmark and conducting a comprehensive evaluation of all state-of-the-art entity linking methods. We use an ablation study to investigate the impact of candidate sets on the performance of entity linking. Our findings uncover exactly how much such entity linking systems depend on candidate sets, and how much this limits the general applicability of each system. We present an alternative approach to candidate sets, demonstrating that leveraging the entire in-domain candidate set can serve as a viable substitute for certain models. We show the trade-off between less restrictive candidate sets, increased inference time and memory footprint for some models.</abstract>
+      <url hash="4aca5f80">2024.naacl-short.11</url>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>M</fixed-case>ulti<fixed-case>P</fixed-case>ara<fixed-case>D</fixed-case>etox: Extending Text Detoxification with Parallel Data to New Languages</title>
+      <author><first>Daryna</first><last>Dementieva</last></author>
+      <author><first>Nikolay</first><last>Babakov</last><affiliation>Univesity of Santiago de Compostela</affiliation></author>
+      <author><first>Alexander</first><last>Panchenko</last><affiliation>Skoltech</affiliation></author>
+      <pages>124-140</pages>
+      <abstract>Text detoxification is a textual style transfer (TST) task where a text is paraphrased from a toxic surface form, e.g. featuring rude words, to the neutral register. Recently, text detoxification methods found their applications in various task such as detoxification of Large Language Models (LLMs) (Leong et al., 2023; He et al., 2024; Tang et al., 2023) and toxic speech combating in social networks (Deng et al., 2023; Mun et al., 2023; Agarwal et al., 2023). All these applications are extremely important to ensure safe communication in modern digital worlds. However, the previous approaches for parallel text detoxification corpora collection—ParaDetox (Logacheva et al., 2022) and APPADIA (Atwell et al., 2022)—were explored only in monolingual setup. In this work, we aim to extend ParaDetox pipeline to multiple languages presenting MultiParaDetox to automate parallel detoxification corpus collection for potentially any language. Then, we experiment with different text detoxification models—from unsupervised baselines to LLMs and fine-tuned models on the presented parallel corpora—showing the great benefit of parallel corpus presence to obtain state-of-the-art text detoxification models for any language.</abstract>
+      <url hash="84144206">2024.naacl-short.12</url>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>SKICSE</fixed-case>: Sentence Knowable Information Prompted by <fixed-case>LLM</fixed-case>s Improves Contrastive Sentence Embeddings</title>
+      <author><first>Fangwei</first><last>Ou</last></author>
+      <author><first>Jinan</first><last>Xu</last><affiliation>Beijing Jiaotong University</affiliation></author>
+      <pages>141-146</pages>
+      <abstract>Contrastive learning, which utilizes positive pairs and in-batch negatives to optimize the loss objective, has been proven to be an effective method for learning sentence embeddings. However, we argue that the previous methods of constructing positive pairs only through dropout perturbation or entailment relation are limited. Since there is more sentence knowable information (SKI) to be mined, such as sentence external knowledge, semantic analysis, and grammatical description. In this work, we first hand-craft a simple and effective prompt template that is able to obtain the knowable information of input sentences from LLMs (e.g., LLaMA). Then we combine the original sentence and its knowable information to form a positive pair for contrastive learning. We evaluate our method on standard semantic textual similarity (STS) tasks. Experimental results show that our unsupervised and supervised models using <tex-math>\text{BERT}_\text{base}</tex-math> achieve an average of 78.65% and 82.45% Spearman’s correlation respectively, a 2.40% and 0.88% improvement compared to SimCSE. Our model outperforms the previous state-of-the-art model PromptBERT in both unsupervised and supervised settings and specifically yields a new state-of-the-art performance in supervised setting.</abstract>
+      <url hash="195cc592">2024.naacl-short.13</url>
+    </paper>
+    <paper id="14">
+      <title>A Multi-Aspect Framework for Counter Narrative Evaluation using Large Language Models</title>
+      <author><first>Jaylen</first><last>Jones</last><affiliation>Ohio State University, Columbus</affiliation></author>
+      <author><first>Lingbo</first><last>Mo</last></author>
+      <author><first>Eric</first><last>Fosler-Lussier</last><affiliation>Ohio State University</affiliation></author>
+      <author><first>Huan</first><last>Sun</last><affiliation>Ohio State University, Columbus</affiliation></author>
+      <pages>147-168</pages>
+      <abstract>Counter narratives - informed responses to hate speech contexts designed to refute hateful claims and de-escalate encounters - have emerged as an effective hate speech intervention strategy. While previous work has proposed automatic counter narrative generation methods to aid manual interventions, the evaluation of these approaches remains underdeveloped. Previous automatic metrics for counter narrative evaluation lack alignment with human judgment as they rely on superficial reference comparisons instead of incorporating key aspects of counter narrative quality as evaluation criteria. To address prior evaluation limitations, we propose a novel evaluation framework prompting LLMs to provide scores and feedback for generated counter narrative candidates using 5 defined aspects derived from guidelines from counter narrative specialized NGOs. We found that LLM evaluators achieve strong alignment to human-annotated scores and feedback and outperform alternative metrics, indicating their potential as multi-aspect, reference-free and interpretable evaluators for counter narrative evaluation.</abstract>
+      <url hash="b050e8ea">2024.naacl-short.14</url>
+    </paper>
+    <paper id="15">
+      <title>How does Multi-Task Training Affect Transformer In-Context Capabilities? Investigations with Function Classes</title>
+      <author><first>Harmon</first><last>Bhasin</last></author>
+      <author><first>Timothy</first><last>Ossowski</last></author>
+      <author><first>Yiqiao</first><last>Zhong</last><affiliation>University of Wisconsin - Madison</affiliation></author>
+      <author><first>Junjie</first><last>Hu</last><affiliation>University of Wisconsin, Madison</affiliation></author>
+      <pages>169-187</pages>
+      <abstract>Large language models (LLM) have recently shown the extraordinary ability to perform unseen tasks based on few-shot examples provided as text, also known as in-context learning (ICL). While recent works have attempted to understand the mechanisms driving ICL, few have explored training strategies that incentivize these models to generalize to multiple tasks. Multi-task learning (MTL) for generalist models is a promising direction that offers transfer learning potential, enabling large parameterized models to be trained from simpler, related tasks. In this work, we investigate the combination of MTL with ICL to build models that efficiently learn tasks while being robust to out-of-distribution examples. We propose several effective curriculum learning strategies that allow ICL models to achieve higher data efficiency and more stable convergence. Our experiments reveal that ICL models can effectively learn difficult tasks by training on progressively harder tasks while mixing in prior tasks, denoted as mixed curriculum in this work.</abstract>
+      <url hash="7cf263cd">2024.naacl-short.15</url>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>CELI</fixed-case>: Simple yet Effective Approach to Enhance Out-of-Domain Generalization of Cross-Encoders.</title>
+      <author><first>Crystina</first><last>Zhang</last><affiliation>University of Waterloo</affiliation></author>
+      <author><first>Minghan</first><last>Li</last></author>
+      <author><first>Jimmy</first><last>Lin</last><affiliation>University of Waterloo</affiliation></author>
+      <pages>188-196</pages>
+      <abstract>In text ranking, it is generally believed that the cross-encoders already gather sufficient token interaction information via the attention mechanism in the hidden layers. However, our results show that the cross-encoders can consistently benefit from additional token interaction in the similarity computation at the last layer. We introduce CELI (Cross-Encoder with Late Interaction), which incorporates a late interaction layer into the current cross-encoder models. This simple method brings 5% improvement on BEIR without compromising in-domain effectiveness or search latency. Extensive experiments show that this finding is consistent across different sizes of the cross-encoder models and the first-stage retrievers. Our findings suggest that boiling all information into the [CLS] token is a suboptimal use for cross-encoders, and advocate further studies to investigate its relevance score mechanism.</abstract>
+      <url hash="c3abb384">2024.naacl-short.16</url>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>C</fixed-case>ontrastive<fixed-case>M</fixed-case>ix: Overcoming Code-Mixing Dilemma in Cross-Lingual Transfer for Information Retrieval</title>
+      <author><first>Junggeun</first><last>Do</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Jaeseong</first><last>Lee</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Seung-won</first><last>Hwang</last><affiliation>Seoul National University</affiliation></author>
+      <pages>197-204</pages>
+      <abstract>Multilingual pretrained language models (mPLMs) have been widely adopted in cross-lingual transfer, and code-mixing has demonstrated effectiveness across various tasks in the absence of target language data. Our contribution involves an in-depth investigation into the counterproductive nature of training mPLMs on code-mixed data for information retrieval (IR). Our finding is that while code-mixing demonstrates a positive effect in aligning representations across languages, it hampers the IR-specific objective of matching representations between queries and relevant passages. To balance between positive and negative effects, we introduce ContrastiveMix, which disentangles contrastive loss between these conflicting objectives, thereby enhancing zero-shot IR performance. Specifically, we leverage both English and code-mixed data and employ two contrastive loss functions, by adding an additional contrastive loss that aligns embeddings of English data with their code-mixed counterparts in the query encoder. Our proposed ContrastiveMix exhibits statistically significant outperformance compared to mDPR, particularly in scenarios involving lower linguistic similarity, where the conflict between goals is more pronounced.</abstract>
+      <url hash="698fba4b">2024.naacl-short.17</url>
+    </paper>
+    <paper id="18">
+      <title><fixed-case>SLIDE</fixed-case>: Reference-free Evaluation for Machine Translation using a Sliding Document Window</title>
+      <author><first>Vikas</first><last>Raunak</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Tom</first><last>Kocmi</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Matt</first><last>Post</last><affiliation>Microsoft and Johns Hopkins University</affiliation></author>
+      <pages>205-211</pages>
+      <abstract>Reference-based metrics that operate at the sentence-level typically outperform quality estimation metrics, which have access only to the source and system output.This is unsurprising, since references resolve ambiguities that may be present in the source.In this paper, we investigate whether additional source context can effectively substitute for a reference.We present a metric named SLIDE (SLIding Document Evaluator), which operates on blocks of sentences. SLIDE leverages a moving window that slides over each document in the test set, feeding each chunk of sentences into an unmodified, off-the-shelf quality estimation model.We find that SLIDE obtains significantly higher pairwise system accuracy than its sentence-level baseline, in some cases even eliminating the gap with reference-base metrics.This suggests that source context may provide the same information as a human reference in disambiguating source ambiguities. This finding is especially pertinent for reference-free document-level evaluation, wherein SLIDE could provide higher-quality pairwise system assessments while only requiring document boundary annotations.</abstract>
+      <url hash="e77e6f6f">2024.naacl-short.18</url>
+    </paper>
+    <paper id="19">
+      <title>Separately Parameterizing Singleton Detection Improves End-to-end Neural Coreference Resolution</title>
+      <author><first>Xiyuan</first><last>Zou</last></author>
+      <author><first>Yiran</first><last>Li</last></author>
+      <author><first>Ian</first><last>Porada</last><affiliation>McGill University</affiliation></author>
+      <author><first>Jackie</first><last>Cheung</last><affiliation>McGill University, Mila Research Institute and Microsoft</affiliation></author>
+      <pages>212-219</pages>
+      <abstract>Current end-to-end coreference resolution models combine detection of singleton mentions and antecedent linking into a single step. In contrast, singleton detection was often treated as a separate step in the pre-neural era. In this work, we show that separately parameterizing these two sub-tasks also benefits end-to-end neural coreference systems. Specifically, we add a singleton detector to the coarse-to-fine (C2F) coreference model, and design an anaphoricity-aware span embedding and singleton detection loss. Our method significantly improves model performance on OntoNotes and four additional datasets.</abstract>
+      <url hash="4801ec1b">2024.naacl-short.19</url>
+    </paper>
+    <paper id="20">
+      <title>Unveiling Divergent Inductive Biases of <fixed-case>LLM</fixed-case>s on Temporal Data</title>
+      <author><first>Sindhu</first><last>Kishore</last></author>
+      <author><first>Hangfeng</first><last>He</last><affiliation>University of Rochester</affiliation></author>
+      <pages>220-228</pages>
+      <abstract>Unraveling the intricate details of events in natural language necessitates a subtle understanding of temporal dynamics. Despite the adeptness of Large Language Models (LLMs) in discerning patterns and relationships from data, their inherent comprehension of temporal dynamics remains a formidable challenge. This research meticulously explores these intrinsic challenges within LLMs, with a specific emphasis on evaluating the performance of GPT-3.5 and GPT-4 models in the analysis of temporal data. Employing two distinct prompt types, namely Question Answering (QA) format and Textual Entailment (TE) format, our analysis probes into both implicit and explicit events. The findings underscore noteworthy trends, revealing disparities in the performance of GPT-3.5 and GPT-4. Notably, biases toward specific temporal relationships come to light, with GPT-3.5 demonstrating a preference for “AFTER” in the QA format for both implicit and explicit events, while GPT-4 leans towards “BEFORE”. Furthermore, a consistent pattern surfaces wherein GPT-3.5 tends towards “TRUE”, and GPT-4 exhibits a preference for “FALSE” in the TE format for both implicit and explicit events. This persistent discrepancy between GPT-3.5 and GPT-4 in handling temporal data highlights the intricate nature of inductive bias in LLMs, suggesting that the evolution of these models may not merely mitigate bias but may introduce new layers of complexity.</abstract>
+      <url hash="7f8a21cc">2024.naacl-short.20</url>
+    </paper>
+    <paper id="21">
+      <title>On Retrieval Augmentation and the Limitations of Language Model Training</title>
+      <author><first>Ting-Rui</first><last>Chiang</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Xinyan</first><last>Yu</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Joshua</first><last>Robinson</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Ollie</first><last>Liu</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Isabelle</first><last>Lee</last><affiliation>University of Southern California</affiliation></author>
+      <author><first>Dani</first><last>Yogatama</last><affiliation>Google DeepMind and DeepMind</affiliation></author>
+      <pages>229-238</pages>
+      <abstract>Augmenting a language model (LM) with <tex-math>k</tex-math>-nearest neighbors (<tex-math>k</tex-math>NN) retrieval on its training data alone can decrease its perplexity, though the underlying reasons for this remain elusive. In this work, we rule out one previously posited possibility — the “softmax bottleneck.” We then create a new dataset to evaluate LM generalization ability in the setting where training data contains additional information that is not causally relevant. This task is challenging even for GPT-3.5 Turbo. We show that, for both GPT-2 and Mistral 7B, <tex-math>k</tex-math>NN retrieval augmentation consistently improves per formance in this setting. Finally, to make <tex-math>k</tex-math>NN retrieval more accessible, we propose using amulti-layer perceptron model that maps datastore keys to values as a drop-in replacement for traditional retrieval. This reduces storage costsby over 25x.</abstract>
+      <url hash="e55c8831">2024.naacl-short.21</url>
+    </paper>
+    <paper id="22">
+      <title><fixed-case>G</fixed-case>en<fixed-case>D</fixed-case>ecider: Integrating “None of the Candidates” Judgments in Zero-Shot Entity Linking Re-ranking</title>
+      <author><first>Kang</first><last>Zhou</last></author>
+      <author><first>Yuepei</first><last>Li</last></author>
+      <author><first>Qing</first><last>Wang</last><affiliation>Iowa State University</affiliation></author>
+      <author><first>Qiao</first><last>Qiao</last><affiliation>Iowa State University</affiliation></author>
+      <author><first>Qi</first><last>Li</last><affiliation>Iowa State University</affiliation></author>
+      <pages>239-245</pages>
+      <abstract>We introduce GenDecider, a novel re-ranking approach for Zero-Shot Entity Linking (ZSEL), built on the Llama model. It innovatively detects scenarios where the correct entity is not among the retrieved candidates, a common oversight in existing re-ranking methods. By autoregressively generating outputs based on the context of the entity mention and the candidate entities, GenDecider significantly enhances disambiguation, improving the accuracy and reliability of ZSEL systems, as demonstrated on the benchmark ZESHEL dataset. Our code is available at https://github.com/kangISU/GenDecider.</abstract>
+      <url hash="5197126f">2024.naacl-short.22</url>
+    </paper>
+    <paper id="23">
+      <title>Advancing the Robustness of Large Language Models through Self-Denoised Smoothing</title>
+      <author><first>Jiabao</first><last>Ji</last><affiliation>University of California, Santa Barbara</affiliation></author>
+      <author><first>Bairu</first><last>Hou</last></author>
+      <author><first>Zhen</first><last>Zhang</last><affiliation>University of California, Santa Barbara</affiliation></author>
+      <author><first>Guanhua</first><last>Zhang</last><affiliation>Max Planck Institute for Intelligent Systems, Max-Planck Institute</affiliation></author>
+      <author><first>Wenqi</first><last>Fan</last><affiliation>Hong Kong Polytechnic University</affiliation></author>
+      <author><first>Qing</first><last>Li</last><affiliation>The Hong Kong Polytechnic University, Hong Kong Polytechnic University</affiliation></author>
+      <author><first>Yang</first><last>Zhang</last></author>
+      <author><first>Gaowen</first><last>Liu</last></author>
+      <author><first>Sijia</first><last>Liu</last><affiliation>Michigan State University</affiliation></author>
+      <author><first>Shiyu</first><last>Chang</last><affiliation>UC Santa Barbara</affiliation></author>
+      <pages>246-257</pages>
+      <abstract>Although large language models (LLMs) have achieved significant success, their vulnerability to adversarial perturbations, including recent jailbreak attacks, has raised considerable concerns. However, the increasing size of these models and their limited access make improving their robustness a challenging task. Among various defense strategies, randomized smoothing has shown great potential for LLMs, as it does not require full access to the model’s parameters or fine-tuning via adversarial training. However, randomized smoothing involves adding noise to the input before model prediction, and the final model’s robustness largely depends on the model’s performance on these noise-corrupted data. Its effectiveness is often limited by the model’s sub-optimal performance on noisy data. To address this issue, we propose to leverage the multitasking nature of LLMs to first denoise the noisy inputs and then to make predictions based on these denoised versions. We call this procedure self-denoised smoothing. Unlike previous denoised smoothing techniques in computer vision, which require training a separate model to enhance the robustness of LLMs, our method offers significantly better efficiency and flexibility. Our experimental results indicate that our method surpasses existing methods in both empirical and certified robustness in defending against adversarial attacks for both downstream tasks and human alignments (i.e., jailbreak attacks). Our code is publicly available at https://github.com/UCSB-NLP-Chang/SelfDenoise.</abstract>
+      <url hash="fc076f2c">2024.naacl-short.23</url>
+    </paper>
+    <paper id="24">
+      <title>Can <fixed-case>LLM</fixed-case>’s Generate Human-Like Wayfinding Instructions? Towards Platform-Agnostic Embodied Instruction Synthesis</title>
+      <author><first>Vishnu Sashank</first><last>Dorbala</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author><first>Sanjoy</first><last>Chowdhury</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author><first>Dinesh</first><last>Manocha</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <pages>258-271</pages>
+      <abstract>We present a novel approach to automatically synthesize “wayfinding instructions” for an embodied robot agent. In contrast to prior approaches that are heavily reliant on human-annotated datasets designed exclusively for specific simulation platforms, our algorithm uses in-context learning to condition an LLM to generate instructions using just a few references. Using an LLM-based Visual Question Answering strategy, we gather detailed information about the environment which is used by the LLM for instruction synthesis. We implement our approach on multiple simulation platforms including Matterport3D, AI Habitat and ThreeDWorld, thereby demonstrating its platform-agnostic nature. We subjectively evaluate our approach via a user study and observe that 83.3% of users find the synthesized instructions accurately capture the details of the environment and show characteristics similar to those of human-generated instructions. Further, we conduct zero-shot navigation with multiple approaches on the REVERIE dataset using the generated instructions, and observe very close correlation with the baseline on standard success metrics (&lt; 1% change in SR), quantifying the viability of generated instructions in replacing human-annotated data. We finally discuss the applicability of our approach in enabling a generalizable evaluation of embodied navigation policies. To the best of our knowledge, ours is the first LLM-driven approach capable of generating “human-like” instructions in a platform-agnostic manner, without training.</abstract>
+      <url hash="c9a3301a">2024.naacl-short.24</url>
+    </paper>
+    <paper id="25">
+      <title>On the Role of Summary Content Units in Text Summarization Evaluation</title>
+      <author><first>Marcel</first><last>Nawrath</last></author>
+      <author><first>Agnieszka</first><last>Nowak</last></author>
+      <author><first>Tristan</first><last>Ratz</last></author>
+      <author><first>Danilo</first><last>Walenta</last></author>
+      <author><first>Juri</first><last>Opitz</last><affiliation>Ruprecht-Karls-Universität Heidelberg and University of Zurich</affiliation></author>
+      <author><first>Leonardo</first><last>Ribeiro</last><affiliation>Amazon</affiliation></author>
+      <author><first>João</first><last>Sedoc</last><affiliation>New York University</affiliation></author>
+      <author><first>Daniel</first><last>Deutsch</last><affiliation>Google</affiliation></author>
+      <author><first>Simon</first><last>Mille</last></author>
+      <author><first>Yixin</first><last>Liu</last><affiliation>Yale University</affiliation></author>
+      <author><first>Sebastian</first><last>Gehrmann</last><affiliation>Bloomberg</affiliation></author>
+      <author><first>Lining</first><last>Zhang</last></author>
+      <author><first>Saad</first><last>Mahamood</last><affiliation>trivago N.V.</affiliation></author>
+      <author><first>Miruna</first><last>Clinciu</last></author>
+      <author><first>Khyathi</first><last>Chandu</last></author>
+      <author><first>Yufang</first><last>Hou</last><affiliation>Technische Universität Darmstadt and IBM Research Ireland</affiliation></author>
+      <pages>272-281</pages>
+      <abstract>At the heart of the Pyramid evaluation method for text summarization lie human written summary content units (SCUs). These SCUs areconcise sentences that decompose a summary into small facts. Such SCUs can be used to judge the quality of a candidate summary, possibly partially automated via natural language inference (NLI) systems. Interestingly, with the aim to fully automate the Pyramid evaluation, Zhang and Bansal (2021) show that SCUs can be approximated by automatically generated semantic role triplets (STUs). However, several questions currently lack answers, in particular: i) Are there other ways of approximating SCUs that can offer advantages?ii) Under which conditions are SCUs (or their approximations) offering the most value? In this work, we examine two novel strategiesto approximate SCUs: generating SCU approximations from AMR meaning representations (SMUs) and from large language models (SGUs), respectively. We find that while STUs and SMUs are competitive, the best approximation quality is achieved by SGUs. We also show through a simple sentence-decomposition baseline (SSUs) that SCUs (and their approximations) offer the most value when rankingshort summaries, but may not help as much when ranking systems or longer summaries.</abstract>
+      <url hash="6fab26b7">2024.naacl-short.25</url>
+    </paper>
+    <paper id="26">
+      <title>More room for language: Investigating the effect of retrieval on language models</title>
+      <author><first>David</first><last>Samuel</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Lucas</first><last>Charpentier</last><affiliation>University of Oslo</affiliation></author>
+      <author><first>Sondre</first><last>Wold</last></author>
+      <pages>282-305</pages>
+      <abstract>Retrieval-augmented language models pose a promising alternative to standard language modeling. During pretraining, these models search in a corpus of documents for contextually relevant information that could aid the language modeling objective. We introduce an ‘ideal retrieval’ methodology to study these models in a fully controllable setting. We conduct an extensive evaluation to examine how retrieval augmentation affects the behavior of the underlying language model. Among other things, we observe that these models: (i) save substantially less world knowledge in their weights, (ii) are better at understanding local context and inter-word dependencies, but (iii) are worse at comprehending global context.</abstract>
+      <url hash="7d6fa669">2024.naacl-short.26</url>
+    </paper>
+    <paper id="27">
+      <title>Discourse-Aware In-Context Learning for Temporal Expression Normalization</title>
+      <author><first>Akash</first><last>Gautam</last></author>
+      <author><first>Lukas</first><last>Lange</last><affiliation>Robert Bosch GmbH, Bosch</affiliation></author>
+      <author><first>Jannik</first><last>Strötgen</last><affiliation>Karlsruhe University of Applied Sciences</affiliation></author>
+      <pages>306-315</pages>
+      <abstract>Temporal expression (TE) normalization is a well-studied problem. However, the predominately used rule-based systems are highly restricted to specific settings, and upcoming machine learning approaches suffer from a lack of labeled data. In this work, we explore the feasibility of proprietary and open-source large language models (LLMs) for TE normalization using in-context learning to inject task, document, and example information into the model. We explore various sample selection strategies to retrieve the most relevant set of examples. By using a window-based prompt design approach, we can perform TE normalization across sentences, while leveraging the LLM knowledge without training the model.Our experiments show competitive results to models designed for this task. In particular, our method achieves large performance improvements for non-standard settings by dynamically including relevant examples during inference.</abstract>
+      <url hash="56f30442">2024.naacl-short.27</url>
+    </paper>
+    <paper id="28">
+      <title>Contextualizing Argument Quality Assessment with Relevant Knowledge</title>
+      <author><first>Darshan</first><last>Deshpande</last></author>
+      <author><first>Zhivar</first><last>Sourati</last></author>
+      <author><first>Filip</first><last>Ilievski</last><affiliation>Vrije Universiteit Amsterdam</affiliation></author>
+      <author><first>Fred</first><last>Morstatter</last><affiliation>University of Southern California and USC/ISI</affiliation></author>
+      <pages>316-326</pages>
+      <abstract>Automatic assessment of the quality of arguments has been recognized as a challenging task with significant implications for misinformation and targeted speech. While real-world arguments are tightly anchored in context, existing computational methods analyze their quality in isolation, which affects their accuracy and generalizability. We propose SPARK: a novel method for scoring argument quality based on contextualization via relevant knowledge. We devise four augmentations that leverage large language models to provide feedback, infer hidden assumptions, supply a similar-quality argument, or give a counter-argument. SPARK uses a dual-encoder Transformer architecture to enable the original argument and its augmentation to be considered jointly. Our experiments in both in-domain and zero-shot setups show that SPARK consistently outperforms existing techniques across multiple metrics</abstract>
+      <url hash="e17c9fec">2024.naacl-short.28</url>
+    </paper>
+    <paper id="29">
+      <title>Selective Perception: Learning Concise State Descriptions for Language Model Actors</title>
+      <author><first>Kolby</first><last>Nottingham</last></author>
+      <author><first>Yasaman</first><last>Razeghi</last></author>
+      <author><first>Kyungmin</first><last>Kim</last><affiliation>University of California, Irvine</affiliation></author>
+      <author><first>Jb</first><last>Lanier</last><affiliation>University of California, Irvine</affiliation></author>
+      <author><first>Pierre</first><last>Baldi</last></author>
+      <author><first>Roy</first><last>Fox</last><affiliation>University of California, Irvine</affiliation></author>
+      <author><first>Sameer</first><last>Singh</last><affiliation>University of California, Irvine and Allen Institute for Artificial Intelligence</affiliation></author>
+      <pages>327-341</pages>
+      <abstract>The latest large language models (LMs) support increasingly longer contexts. While this trend permits using substantial amounts of text with SOTA LMs, requiring these large LMs to process potentially redundant or irrelevant data needlessly increases inference time and cost. To remedy this problem, we propose BLINDER, a method that leverages a small finetuned LM to sample the minimal set of input features that maximizes the performance of a downstream LM. BLINDER trains an LM with a value head to estimate the likelihood of optimal outputs from a downstream LM given an input. We evaluate BLINDER on embodied decision making tasks with notoriously verbose state descriptions: NetHack and robot planning. BLINDER reduces the length of LM actor input by 87% and 99% while improving task success rates by 158% and 54% on NetHack and robot planning respectively which represents substantial inference cost savings while actually increasing performance.</abstract>
+      <url hash="b39bef5a">2024.naacl-short.29</url>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>ALOH</fixed-case>a: A New Measure for Hallucination in Captioning Models</title>
+      <author><first>Suzanne</first><last>Petryk</last><affiliation>University of California Berkeley</affiliation></author>
+      <author><first>David</first><last>Chan</last><affiliation>University of California Berkeley</affiliation></author>
+      <author><first>Anish</first><last>Kachinthaya</last></author>
+      <author><first>Haodi</first><last>Zou</last></author>
+      <author><first>John</first><last>Canny</last><affiliation>University of California - Berkeley and University of California Berkeley</affiliation></author>
+      <author><first>Joseph</first><last>Gonzalez</last><affiliation>University of California - Berkeley, University of California-Berkeley and UC Berkeley, University of California Berkeley</affiliation></author>
+      <author><first>Trevor</first><last>Darrell</last><affiliation>Electrical Engineering &amp; Computer Science Department</affiliation></author>
+      <pages>342-357</pages>
+      <abstract>Despite recent advances in multimodal pre-training for visual description, state-of-the-art models still produce captions containing errors, such as hallucinating objects not present in a scene. The existing prominent metric for object hallucination, CHAIR, is limited to a fixed set of MS COCO objects and synonyms. In this work, we propose a modernized open-vocabulary metric, ALOHa, which leverages large language models (LLMs) to measure object hallucinations. Specifically, we use an LLM to extract groundable objects from a candidate caption, measure their semantic similarity to reference objects from captions and object detections, and use Hungarian matching to produce a final hallucination score. We show that ALOHa correctly identifies 13.6% more hallucinated objects than CHAIR on HAT, a new gold-standard subset of MS COCO Captions annotated for hallucinations, and 30.8% more on nocaps, where objects extend beyond MS COCO categories.</abstract>
+      <url hash="70dd39d7">2024.naacl-short.30</url>
+    </paper>
+    <paper id="31">
+      <title>Beyond Yes and No: Improving Zero-Shot <fixed-case>LLM</fixed-case> Rankers via Scoring Fine-Grained Relevance Labels</title>
+      <author><first>Honglei</first><last>Zhuang</last><affiliation>Google Research</affiliation></author>
+      <author><first>Zhen</first><last>Qin</last><affiliation>Google</affiliation></author>
+      <author><first>Kai</first><last>Hui</last><affiliation>Google</affiliation></author>
+      <author><first>Junru</first><last>Wu</last><affiliation>Google Research</affiliation></author>
+      <author><first>Le</first><last>Yan</last><affiliation>Google</affiliation></author>
+      <author><first>Xuanhui</first><last>Wang</last><affiliation>Google</affiliation></author>
+      <author><first>Michael</first><last>Bendersky</last><affiliation>Google</affiliation></author>
+      <pages>358-370</pages>
+      <abstract>Zero-shot text rankers powered by recent LLMs achieve remarkable ranking performance by simply prompting. Existing prompts for pointwise LLM rankers mostly ask the model to choose from binary relevance labels like “Yes” and “No”. However, the lack of intermediate relevance label options may cause the LLM to provide noisy or biased answers for documents that are partially relevant to the query. We propose to incorporate fine-grained relevance labels into the prompt for LLM rankers, enabling them to better differentiate among documents with different levels of relevance to the query and thus derive a more accurate ranking. We study two variants of the prompt template, coupled with different numbers of relevance levels. Our experiments on 8 BEIR data sets show that adding fine-grained relevance labels significantly improves the performance of LLM rankers.</abstract>
+      <url hash="1a899aa7">2024.naacl-short.31</url>
+    </paper>
+    <paper id="32">
+      <title><fixed-case>LLM</fixed-case>-Driven Knowledge Injection Advances Zero-Shot and Cross-Target Stance Detection</title>
+      <author><first>Zhao</first><last>Zhang</last></author>
+      <author><first>Yiming</first><last>Li</last></author>
+      <author><first>Jin</first><last>Zhang</last><affiliation>, Chinese Academy of Sciences</affiliation></author>
+      <author><first>Hui</first><last>Xu</last><affiliation>Chinese Academy of Sciences</affiliation></author>
+      <pages>371-378</pages>
+      <abstract>Stance detection aims at inferring an author’s attitude towards a specific target in a text. Prior methods mainly consider target-related background information for a better understanding of targets while neglecting the accompanying input texts. In this study, we propose to prompt Large Language Models (LLMs) to explicitly extract the relationship between paired text and target as contextual knowledge. We then inject such LLM-driven knowledge into a generation model BART to exploit the rich contexts and semantics. Moreover, to further enhance the decoding capability of BART, a novel prototypical contrastive scheme is designed to align input contents with stance labels. Our experimental results demonstrate the state-of-the-art performance across several publicly available datasets, showcasing effectiveness in both zero-shot and cross-target stance detection scenarios. We publicly release our code to facilitate future research.</abstract>
+      <url hash="a10f295e">2024.naacl-short.32</url>
+    </paper>
+    <paper id="33">
+      <title>Leveraging Prototypical Representations for Mitigating Social Bias without Demographic Information</title>
+      <author><first>Shadi</first><last>Iskander</last></author>
+      <author><first>Kira</first><last>Radinsky</last><affiliation>Computer Science Departmen, Technion-Israel Institute of Technology</affiliation></author>
+      <author><first>Yonatan</first><last>Belinkov</last><affiliation>Technion, Technion</affiliation></author>
+      <pages>379-390</pages>
+      <abstract>Mitigating social biases typically requires identifying the social groups associated with each data sample. In this paper, we present DAFair, a novel approach to address social bias in language models. Unlike traditional methods that rely on explicit demographic labels, our approach does not require any such information. Instead, we leverage predefined prototypical demographic texts and incorporate a regularization term during the fine-tuning process to mitigate bias in the model’s representations. Our empirical results across two tasks and two models demonstrate the effectiveness of our method compared to previous approaches that do not rely on labeled data. Moreover, with limited demographic-annotated data, our approach outperforms common debiasing approaches.</abstract>
+      <url hash="c9f2aeb4">2024.naacl-short.33</url>
+    </paper>
+    <paper id="34">
+      <title>Direct Preference Optimization for Neural Machine Translation with Minimum <fixed-case>B</fixed-case>ayes Risk Decoding</title>
+      <author><first>Guangyu</first><last>Yang</last></author>
+      <author><first>Jinghong</first><last>Chen</last></author>
+      <author><first>Weizhe</first><last>Lin</last></author>
+      <author id="bill-byrne"><first>Bill</first><last>Byrne</last><affiliation>Amazon and University of Cambridge</affiliation></author>
+      <pages>391-398</pages>
+      <abstract>Minimum Bayes Risk (MBR) decoding can significantly improve translation performance of Multilingual Large Language Models (MLLMs). However, MBR decoding is computationally expensive. We show how the recently developed Reinforcement Learning technique, Direct Preference Optimization (DPO), can fine-tune MLLMs to get the gains of MBR without any additional computation in inference. Our method uses only a small monolingual fine-tuning set and yields significantly improved performance on multiple NMT test sets compared to MLLMs without DPO.</abstract>
+      <url hash="0aefb51d">2024.naacl-short.34</url>
+    </paper>
+    <paper id="35">
+      <title><fixed-case>E</fixed-case>cho<fixed-case>P</fixed-case>rompt: Instructing the Model to Rephrase Queries for Improved In-context Learning</title>
+      <author><first>Raja Sekhar Reddy</first><last>Mekala</last></author>
+      <author><first>Yasaman</first><last>Razeghi</last></author>
+      <author><first>Sameer</first><last>Singh</last><affiliation>University of California, Irvine and Allen Institute for Artificial Intelligence</affiliation></author>
+      <pages>399-432</pages>
+      <abstract>Language models are achieving impressive performance on various tasks by aggressively adopting inference-time prompting techniques,such as zero-shot and few-shot prompting. In this work, we introduce EchoPrompt, a simple yet effective approach that prompts the model to rephrase its queries before answering them. EchoPrompt is tailored for four scenarios, including standard and chain-of-thought prompting, in both zero-shot and few-shot settings. Experimental results show that EchoPrompt yields substantial improvementsacross all these settings for four families of causal language models. These improvements are observed across various numerical reasoning (e.g., GSM8K, SVAMP), reading comprehension (e.g., DROP), and logical reasoning (e.g., Coin flipping) tasks. On average, EchoPrompt improves the Zero-shot-CoT performance of code-davinci-002 by 5% in numerical tasks and 13% in reading comprehension tasks. Our empirical results indicate that EchoPrompt is an effective technique that enhances in-context learning performance.</abstract>
+      <url hash="7aea025b">2024.naacl-short.35</url>
+    </paper>
+    <paper id="36">
+      <title><fixed-case>LEAF</fixed-case>: Language Learners’ <fixed-case>E</fixed-case>nglish Essays and Feedback Corpus</title>
+      <author><first>Shabnam</first><last>Behzad</last></author>
+      <author><first>Omid</first><last>Kashefi</last><affiliation>Educational Testing Service</affiliation></author>
+      <author><first>Swapna</first><last>Somasundaran</last></author>
+      <pages>433-442</pages>
+      <abstract>This paper addresses the issue of automated feedback generation for English language learners by presenting a corpus of English essays and their corresponding feedback, called LEAF, collected from the “essayforum” website. The corpus comprises approximately 6K essay-feedback pairs, offering a diverse and valuable resource for developing personalized feedback generation systems that address the critical deficiencies within essays, spanning from rectifying grammatical errors to offering insights on argumentative aspects and organizational coherence. Using this corpus, we present and compare multiple feedback generation baselines. Our findings shed light on the challenges of providing personalized feedback and highlight the potential of the LEAF corpus in advancing automated essay evaluation.</abstract>
+      <url hash="66a9e92d">2024.naacl-short.36</url>
+    </paper>
+    <paper id="37">
+      <title>Zero-Shot vs. Translation-Based Cross-Lingual Transfer: The Case of Lexical Gaps</title>
+      <author><first>Abteen</first><last>Ebrahimi</last><affiliation>University of Colorado, Boulder</affiliation></author>
+      <author><first>Katharina</first><last>Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
+      <pages>443-458</pages>
+      <abstract>Cross-lingual transfer can be achieved through two main approaches: zero-shot transfer or machine translation (MT). While the former has been the dominant approach, both have been shown to be competitive. In this work, we compare the current performance and long-term viability of these methods. We leverage lexical gaps to create a multilingual question answering dataset, which provides a difficult domain for evaluation. Both approaches struggle in this setting, though zero-shot transfer performs better, as current MT outputs are not specific enough for the task. Using oracle translation offers the best performance, showing that this approach can perform well long-term, however current MT quality is a bottleneck. We also conduct an exploratory study to see if humans produce translations sufficient for the task with only general instructions. We find this to be true for the majority of translators, but not all. This indicates that while translation has the potential to outperform zero-shot approaches, creating MT models that generate accurate task-specific translations may not be straightforward.</abstract>
+      <url hash="eb4b1b5c">2024.naacl-short.37</url>
+    </paper>
+    <paper id="38">
+      <title>On the True Distribution Approximation of Minimum <fixed-case>B</fixed-case>ayes-Risk Decoding</title>
+      <author><first>Atsumoto</first><last>Ohashi</last><affiliation>Nagoya University</affiliation></author>
+      <author><first>Ukyo</first><last>Honda</last><affiliation>CyberAgent, Inc.</affiliation></author>
+      <author><first>Tetsuro</first><last>Morimura</last><affiliation>CyberAgent, Inc.</affiliation></author>
+      <author><first>Yuu</first><last>Jinnai</last><affiliation>CyberAgent, Inc.</affiliation></author>
+      <pages>459-468</pages>
+      <abstract>Minimum Bayes-risk (MBR) decoding has recently gained renewed attention in text generation.MBR decoding considers texts sampled from a model as pseudo-references and selects the text with the highest similarity to the others.Therefore, sampling is one of the key elements of MBR decoding, and previous studies reported that the performance varies by sampling methods.From a theoretical standpoint, this performance variation is likely tied to how closely the samples approximate the true distribution of references.However, this approximation has not been the subject of in-depth study.In this study, we propose using anomaly detection to measure the degree of approximation.We first closely examine the performance variation and then show that previous hypotheses about samples do not correlate well with the variation, but our introduced anomaly scores do.The results are the first to empirically support the link between the performance and the core assumption of MBR decoding.</abstract>
+      <url hash="e470430d">2024.naacl-short.38</url>
+    </paper>
+    <paper id="39">
+      <title>Rehearsal-Free Modular and Compositional Continual Learning for Language Models</title>
+      <author><first>Mingyang</first><last>Wang</last></author>
+      <author><first>Heike</first><last>Adel</last><affiliation>Hochschule der Medien (University of Applied Sciences)</affiliation></author>
+      <author><first>Lukas</first><last>Lange</last><affiliation>Robert Bosch GmbH, Bosch</affiliation></author>
+      <author><first>Jannik</first><last>Strötgen</last><affiliation>Karlsruhe University of Applied Sciences</affiliation></author>
+      <author><first>Hinrich</first><last>Schuetze</last></author>
+      <pages>469-480</pages>
+      <abstract>Continual learning aims at incrementally acquiring new knowledge while not forgetting existing knowledge. To overcome catastrophic forgetting, methods are either rehearsal-based, i.e., store data examples from previous tasks for data replay, or isolate parameters dedicated to each task. However, rehearsal-based methods raise privacy and memory issues, and parameter-isolation continual learning does not consider interaction between tasks, thus hindering knowledge transfer. In this work, we propose MoCL, a rehearsal-free **Mo**dular and **C**ompositional Continual **L**earning framework which continually adds new modules to language models and composes them with existing modules. Experiments on various benchmarks show that MoCL outperforms state of the art and effectively facilitates knowledge transfer.</abstract>
+      <url hash="304faeff">2024.naacl-short.39</url>
+    </paper>
+    <paper id="40">
+      <title>Llama meets <fixed-case>EU</fixed-case>: Investigating the <fixed-case>E</fixed-case>uropean political spectrum through the lens of <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Ilias</first><last>Chalkidis</last></author>
+      <author><first>Stephanie</first><last>Brandl</last><affiliation>Københavns Universitet</affiliation></author>
+      <pages>481-498</pages>
+      <abstract>Instruction-finetuned Large Language Models inherit clear political leanings that have been shown to influence downstream task performance. We expand this line of research beyond the two-party system in the US and audit Llama Chat in the context of EU politics in various settings to analyze the model’s political knowledge and its ability to reason in context. We adapt, i.e., further fine-tune, Llama Chat on speeches of individual euro-parties from debates in the European Parliament to reevaluate its political leaning based on the EUandI questionnaire. Llama Chat shows considerable knowledge of national parties’ positions and is capable of reasoning in context. The adapted, party-specific, models are substantially re-aligned towards respective positions which we see as a starting point for using chat-based LLMs as data-driven conversational engines to assist research in political science.</abstract>
+      <url hash="7210edab">2024.naacl-short.40</url>
+    </paper>
+    <paper id="41">
+      <title><fixed-case>M</fixed-case>3<fixed-case>T</fixed-case>: A New Benchmark Dataset for Multi-Modal Document-Level Machine Translation</title>
+      <author><first>Benjamin</first><last>Hsu</last><affiliation>Amazon</affiliation></author>
+      <author><first>Xiaoyu</first><last>Liu</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <author><first>Huayang</first><last>Li</last></author>
+      <author><first>Yoshinari</first><last>Fujinuma</last><affiliation>AWS AI Labs</affiliation></author>
+      <author><first>Maria</first><last>Nadejde</last><affiliation>Amazon</affiliation></author>
+      <author><first>Xing</first><last>Niu</last><affiliation>Amazon</affiliation></author>
+      <author><first>Ron</first><last>Litman</last><affiliation>Amazon</affiliation></author>
+      <author><first>Yair</first><last>Kittenplon</last><affiliation>Amazon</affiliation></author>
+      <author><first>Raghavendra</first><last>Pappagari</last></author>
+      <pages>499-507</pages>
+      <abstract>Document translation poses a challenge for Neural Machine Translation (NMT) systems. Most document-level NMT systems rely on meticulously curated sentence-level parallel data, assuming flawless extraction of text from documents along with their precise reading order. These systems also tend to disregard additional visual cues such as the document layout, deeming it irrelevant. However, real-world documents often possess intricate text layouts that defy these assumptions. Extracting information from Optical Character Recognition (OCR) or heuristic rules can result in errors, and the layout (e.g., paragraphs, headers) may convey relationships between distant sections of text. This complexity is particularly evident in widely used PDF documents, which represent information visually. This paper addresses this gap by introducing M3T a novel benchmark dataset tailored to evaluate NMT systems on the comprehensive task of translating semi-structured documents. This dataset aims to bridge the evaluation gap in document-level NMT systems, acknowledging the challenges posed by rich text layouts in real-world applications.</abstract>
+      <url hash="96801bd6">2024.naacl-short.41</url>
+    </paper>
+    <paper id="42">
+      <title>Control-<fixed-case>DAG</fixed-case>: Constrained Decoding for Non-Autoregressive Directed Acyclic T5 using Weighted Finite State Automata</title>
+      <author><first>Jinghong</first><last>Chen</last></author>
+      <author><first>Weizhe</first><last>Lin</last></author>
+      <author><first>Jingbiao</first><last>Mei</last></author>
+      <author id="bill-byrne"><first>Bill</first><last>Byrne</last><affiliation>Amazon and University of Cambridge</affiliation></author>
+      <pages>508-518</pages>
+      <abstract>The Directed Acyclic Transformer is a fast non-autoregressive (NAR) model that performs well in Neural Machine Translation. Two issues prevent its application to general Natural Language Generation (NLG) tasks: frequent Out-Of-Vocabulary (OOV) errors and the inability to faithfully generate entity names. We introduce Control-DAG, a constrained decoding algorithm for our Directed Acyclic T5 (DA-T5) model which offers lexical, vocabulary and length control. We show that Control-DAG significantly enhances DA-T5 on the Schema Guided Dialogue and the DART datasets, establishing strong NAR results for Task-Oriented Dialogue and Data-to-Text NLG.</abstract>
+      <url hash="7ac97512">2024.naacl-short.42</url>
+    </paper>
+    <paper id="43">
+      <title>Do Vision-Language Models Understand Compound Nouns?</title>
+      <author><first>Sonal</first><last>Kumar</last></author>
+      <author><first>Sreyan</first><last>Ghosh</last></author>
+      <author><first>S</first><last>Sakshi</last></author>
+      <author><first>Utkarsh</first><last>Tyagi</last></author>
+      <author><first>Dinesh</first><last>Manocha</last><affiliation>University of Maryland, College Park</affiliation></author>
+      <pages>519-527</pages>
+      <abstract>Open-vocabulary vision-language models (VLMs) like CLIP, trained using contrastive loss, have emerged as a promising new paradigm for text-to-image retrieval. However, do VLMs understand compound nouns (CNs) (e.g., *lab coat*) as well as they understand nouns (e.g., *lab*)? We curate Compun, a novel benchmark with 400 unique and commonly used CNs, to evaluate the effectiveness of VLMs in interpreting CNs. The Compun benchmark challenges a VLM for text-to-image retrieval where, given a text prompt with a CN, the task is to select the correct image that shows the CN among a pair of distractor images that show the constituent nouns that make up the CN. Next, we perform an in-depth analysis to highlight CLIPs’ limited understanding of certain types of CNs. Finally, we present an alternative framework that moves beyond hand-written templates for text prompts widely used by CLIP-like models. We employ a Large Language Model to generate multiple diverse captions that include the CN as an object in the scene described by the caption. Our proposed method improves CN understanding of CLIP by 8.25% on Compun. Code and benchmark are available.</abstract>
+      <url hash="0c52eb9d">2024.naacl-short.43</url>
+    </paper>
+    <paper id="44">
+      <title>Is Prompt Transfer Always Effective? An Empirical Study of Prompt Transfer for Question Answering</title>
+      <author><first>Minji</first><last>Jung</last></author>
+      <author><first>Soyeon</first><last>Park</last><affiliation>Hanyang University</affiliation></author>
+      <author><first>Jeewoo</first><last>Sul</last><affiliation>LG Corporation</affiliation></author>
+      <author><first>Yong Suk</first><last>Choi</last><affiliation>Hanyang University</affiliation></author>
+      <pages>528-539</pages>
+      <abstract>Prompt tuning, which freezes all parameters of a pre-trained model and only trains a soft prompt, has emerged as a parameter-efficient approach. For the reason that the prompt initialization becomes sensitive when the model size is small, the prompt transfer that uses the trained prompt as an initialization for the target task has recently been introduced. Since previous works have compared tasks in large categories (e.g., summarization, sentiment analysis), the factors that influence prompt transfer have not been sufficiently explored. In this paper, we characterize the question answering task based on features such as answer format and empirically investigate the transferability of soft prompts for the first time. We analyze the impact of initialization during prompt transfer and find that the train dataset size of source and target tasks have the influence significantly. Furthermore, we propose a novel approach for measuring catastrophic forgetting and investigate how it occurs in terms of the amount of evidence. Our findings can help deeply understand transfer learning in prompt tuning.</abstract>
+      <url hash="bef5c9a0">2024.naacl-short.44</url>
+    </paper>
+    <paper id="45">
+      <title>Lost in Space: Probing Fine-grained Spatial Understanding in Vision and Language Resamplers</title>
+      <author><first>Georgios</first><last>Pantazopoulos</last></author>
+      <author><first>Alessandro</first><last>Suglia</last><affiliation>Heriot-Watt University</affiliation></author>
+      <author><first>Oliver</first><last>Lemon</last><affiliation>Heriot-Watt University</affiliation></author>
+      <author><first>Arash</first><last>Eshghi</last><affiliation>Heriot-Watt University</affiliation></author>
+      <pages>540-549</pages>
+      <abstract>An effective method for combining frozen large language models (LLM) and visual encoders involves a resampler module that creates a ‘visual prompt’ which is provided to the LLM, along with the textual prompt. While this approach has enabled impressive performance across many coarse-grained tasks like image captioning and visual question answering, more fine-grained tasks that require spatial understanding have not been thoroughly examined. In this paper, we use diagnostic classifiers to measure the extent to which the visual prompt produced by the resampler encodes spatial information. Our results show that this information is largely absent from the resampler output when kept frozen during training of the classifiers. However, when the resampler and classifier are trained jointly, we observe a significant performance boost. This shows that the compression achieved by the resamplers can in principle encode the requisite spatial information, but that more object-aware objectives are needed at the pretraining stage to facilitate this capability.</abstract>
+      <url hash="3f45fc94">2024.naacl-short.45</url>
+    </paper>
+    <paper id="46">
+      <title>Do Multilingual Language Models Think Better in <fixed-case>E</fixed-case>nglish?</title>
+      <author><first>Julen</first><last>Etxaniz</last><affiliation>HiTZ Center, University of the Basque Country (UPV/EHU)</affiliation></author>
+      <author><first>Gorka</first><last>Azkune</last><affiliation>Universidad del País Vasco</affiliation></author>
+      <author><first>Aitor</first><last>Soroa</last><affiliation>University of the Basque Country. UPV/EHU.</affiliation></author>
+      <author><first>Oier</first><last>Lacalle</last></author>
+      <author><first>Mikel</first><last>Artetxe</last><affiliation>Reka AI</affiliation></author>
+      <pages>550-564</pages>
+      <abstract>Translate-test is a popular technique to improve the performance of multilingual language models. This approach works by translating the input into English using an external machine translation system before running inference. However, these improvements can be attributed to the use of a separate translation system, which is typically trained on large amounts of parallel data not seen by the language model. In this work, we introduce a new approach called self-translate that leverages the few-shot translation capabilities of multilingual language models. This allows us to analyze the effect of translation in isolation. Experiments over 5 tasks show that self-translate consistently outperforms direct inference, demonstrating that language models are unable to leverage their full multilingual potential when prompted in non-English languages. Our code is available at https://github.com/juletx/self-translate.</abstract>
+      <url hash="852a1847">2024.naacl-short.46</url>
+    </paper>
+    <paper id="47">
+      <title>A Continued Pretrained <fixed-case>LLM</fixed-case> Approach for Automatic Medical Note Generation</title>
+      <author><first>Dong</first><last>Yuan</last></author>
+      <author><first>Eti</first><last>Rastogi</last><affiliation>DeepScribe</affiliation></author>
+      <author><first>Gautam</first><last>Naik</last></author>
+      <author><first>Sree Prasanna</first><last>Rajagopal</last></author>
+      <author><first>Sagar</first><last>Goyal</last></author>
+      <author><first>Fen</first><last>Zhao</last></author>
+      <author><first>Bharath</first><last>Chintagunta</last></author>
+      <author><first>Jeffrey</first><last>Ward</last><affiliation>DeepScribe</affiliation></author>
+      <pages>565-571</pages>
+      <abstract>LLMs are revolutionizing NLP tasks. However, the use of the most advanced LLMs, such as GPT-4, is often prohibitively expensive for most specialized fields. We introduce HEAL, the first continuously trained 13B LLaMA2-based LLM that is purpose-built for medical conversations and measured on automated scribing. Our results demonstrate that HEAL outperforms GPT-4 and PMC-LLaMA in PubMedQA, with an accuracy of 78.4%. It also achieves parity with GPT-4 in generating medical notes. Remarkably, HEAL surpasses GPT-4 and Med-PaLM 2 in identifying more correct medical concepts and exceeds the performance of human scribes and other comparable models in correctness and completeness.</abstract>
+      <url hash="efd600a8">2024.naacl-short.47</url>
+    </paper>
+    <paper id="48">
+      <title>Lost in Translation? Translation Errors and Challenges for Fair Assessment of Text-to-Image Models on Multilingual Concepts</title>
+      <author><first>Michael</first><last>Saxon</last></author>
+      <author><first>Yiran</first><last>Luo</last><affiliation>Arizona State University</affiliation></author>
+      <author><first>Sharon</first><last>Levy</last><affiliation>Johns Hopkins University</affiliation></author>
+      <author><first>Chitta</first><last>Baral</last><affiliation>Arizona State University, Arizona State University and Arizona State University</affiliation></author>
+      <author><first>Yezhou</first><last>Yang</last><affiliation>Arizona State University</affiliation></author>
+      <author><first>William Yang</first><last>Wang</last><affiliation>UC Santa Barbara</affiliation></author>
+      <pages>572-582</pages>
+      <abstract>Benchmarks of the multilingual capabilities of text-to-image (T2I) models compare generated images prompted in a test language to an expected image distribution over a concept set. One such benchmark, “Conceptual Coverage Across Languages” (CoCo-CroLa), assesses the tangible noun inventory of T2I models by prompting them to generate pictures from a concept list translated to seven languages and comparing the output image populations. Unfortunately, we find that this benchmark contains translation errors of varying severity in Spanish, Japanese, and Chinese. We provide corrections for these errors and analyze how impactful they are on the utility and validity of CoCo-CroLa as a benchmark. We reassess multiple baseline T2I models with the revisions, compare the outputs elicited under the new translations to those conditioned on the old, and show that a correction’s impactfulness on the image-domain benchmark results can be predicted in the text domain with similarity scores. Our findings will guide the future development of T2I multilinguality metrics by providing analytical tools for practical translation decisions.</abstract>
+      <url hash="345671cc">2024.naacl-short.48</url>
+    </paper>
+    <paper id="49">
+      <title>Self-Improving for Zero-Shot Named Entity Recognition with Large Language Models</title>
+      <author><first>Tingyu</first><last>Xie</last><affiliation>Zhejiang University</affiliation></author>
+      <author><first>Qi</first><last>Li</last></author>
+      <author><first>Yan</first><last>Zhang</last><affiliation>Tencent</affiliation></author>
+      <author><first>Zuozhu</first><last>Liu</last><affiliation>Zhejiang University</affiliation></author>
+      <author><first>Hongwei</first><last>Wang</last><affiliation>Zhejiang University</affiliation></author>
+      <pages>583-593</pages>
+      <abstract>Exploring the application of powerful large language models (LLMs) on the named entity recognition (NER) task has drawn much attention recently. This work pushes the performance boundary of zero-shot NER with LLMs by proposing a training-free self-improving framework, which utilizes an unlabeled corpus to stimulate the self-learning ability of LLMs. First, we use the LLM to make predictions on the unlabeled corpus using self-consistency and obtain a self-annotated dataset. Second, we explore various strategies to select reliable annotations to form a reliable self-annotated dataset. Finally, for each test input, we retrieve demonstrations from the reliable self-annotated dataset and perform inference via in-context learning. Experiments on four benchmarks show substantial performance improvements achieved by our framework. Through comprehensive experimental analysis, we find that increasing the size of unlabeled corpus or iterations of self-improving does not guarantee further improvement, but the performance might be boosted via more advanced strategies for reliable annotation selection.</abstract>
+      <url hash="c6f50ee1">2024.naacl-short.49</url>
+    </paper>
+    <paper id="50">
+      <title>Lifelong Event Detection with Embedding Space Separation and Compaction</title>
+      <author><first>Chengwei</first><last>Qin</last><affiliation>Nanyang Technological University</affiliation></author>
+      <author><first>Ruirui</first><last>Chen</last><affiliation>Institute of High Performance Computing, Singapore, A*STAR</affiliation></author>
+      <author><first>Ruochen</first><last>Zhao</last></author>
+      <author><first>Wenhan</first><last>Xia</last></author>
+      <author><first>Shafiq</first><last>Joty</last><affiliation>SalesForce.com and Nanyang Technological University</affiliation></author>
+      <pages>594-602</pages>
+      <abstract>To mitigate forgetting, existing lifelong event detection methods typically maintain a memory module and replay the stored memory data during the learning of a new task. However, the simple combination of memory data and new-task samples can still result in substantial forgetting of previously acquired knowledge, which may occur due to the potential overlap between the feature distribution of new data and the previously learned embedding space. Moreover, the model suffers from overfitting on the few memory samples rather than effectively remembering learned patterns. To address the challenges of forgetting and overfitting, we propose a novel method based on embedding space separation and compaction. Our method alleviates forgetting of previously learned tasks by forcing the feature distribution of new data away from the previous embedding space. It also mitigates overfitting by a memory calibration mechanism that encourages memory data to be close to its prototype to enhance intra-class compactness. In addition, the learnable parameters of the new task are initialized by drawing upon acquired knowledge from the previously learned task to facilitate forward knowledge transfer. With extensive experiments, we demonstrate that our method can significantly outperform previous state-of-the-art approaches.</abstract>
+      <url hash="0b18f53e">2024.naacl-short.50</url>
+    </paper>
+    <paper id="51">
+      <title>Language Models (Mostly) Do Not Consider Emotion Triggers When Predicting Emotion</title>
+      <author><first>Smriti</first><last>Singh</last></author>
+      <author><first>Cornelia</first><last>Caragea</last><affiliation>University of Illinois, Chicago</affiliation></author>
+      <author><first>Junyi Jessy</first><last>Li</last><affiliation>University of Texas, Austin</affiliation></author>
+      <pages>603-614</pages>
+      <abstract>Situations and events evoke emotions in humans, but to what extent do they inform the prediction of emotion detection models? This work investigates how well human-annotated emotion triggers correlate with features that models deemed salient in their prediction of emotions. First, we introduce a novel dataset EmoTrigger, consisting of 900 social media posts sourced from three different datasets; these were annotated by experts for emotion triggers with high agreement. Using EmoTrigger, we evaluate the ability of large language models (LLMs) to identify emotion triggers, and conduct a comparative analysis of the features considered important for these tasks between LLMs and fine-tuned models. Our analysis reveals that emotion triggers are largely not considered salient features for emotion prediction models, instead there is intricate interplay between various features and the task of emotion detection.</abstract>
+      <url hash="9420d6fa">2024.naacl-short.51</url>
+    </paper>
+    <paper id="52">
+      <title><fixed-case>CP</fixed-case>op<fixed-case>QA</fixed-case>: Ranking Cultural Concept Popularity by <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Ming</first><last>Jiang</last><affiliation>Indiana University</affiliation></author>
+      <author><first>Mansi</first><last>Joshi</last></author>
+      <pages>615-630</pages>
+      <abstract>Many recent studies examining the knowledge capacity of large language models (LLM) have focused on knowledge explicitly learned from the pretraining data or implicitly inferable from similar contexts. However, the extent to which an LLM effectively captures corpus-level statistical trends of concepts for reasoning, especially long-tail ones, is largely underexplored. In this study, we introduce a novel few-shot question-answering task (CPopQA) that examines LLMs’ statistical ranking abilities for long-tail cultural concepts (e.g., holidays), particularly focusing on these concepts’ popularity in the United States and the United Kingdom, respectively. We curate a dataset of 457 holidays across 58 countries, generating a total of 9,000 QA testing pairs. Experiments on four strong LLMs show that open-sourced LLMs still lag way behind close LLM API (e.g., GPT-3.5) in statistical ranking of cultural concepts. Notably, GPT-3.5 exhibited its potential to identify geo-cultural proximity across continents.</abstract>
+      <url hash="0237b9c2">2024.naacl-short.52</url>
+    </paper>
+    <paper id="53">
+      <title>The Impact of Language on Arithmetic Proficiency: A Multilingual Investigation with Cross-Agent Checking Computation</title>
+      <author><first>Chung-Chi</first><last>Chen</last><affiliation>AIST, National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>Hiroya</first><last>Takamura</last><affiliation>AIST, National Institute of Advanced Industrial Science and Technology</affiliation></author>
+      <author><first>Ichiro</first><last>Kobayashi</last><affiliation>Ochanomizu University</affiliation></author>
+      <author><first>Yusuke</first><last>Miyao</last><affiliation>The University of Tokyo</affiliation></author>
+      <pages>631-637</pages>
+      <abstract>This paper critically examines the arithmetic capabilities of Large Language Models (LLMs), uncovering significant limitations in their performance. Our research reveals a notable decline in accuracy for complex calculations involving large numbers, with addition and subtraction tasks showing varying degrees of proficiency. Additionally, we challenge the notion that arithmetic is language-independent, finding up to a 10% difference in performance across twenty languages. The study also compares self-verification methods with cross-agent collaborations, showing that a single model often outperforms collaborative approaches in basic arithmetic tasks. These findings suggest a need to reassess the effectiveness of LLMs in tasks requiring numerical accuracy and precision.</abstract>
+      <url hash="11ae5603">2024.naacl-short.53</url>
+    </paper>
+    <paper id="54">
+      <title>Efficient Information Extraction in Few-Shot Relation Classification through Contrastive Representation Learning</title>
+      <author><first>Philipp</first><last>Borchert</last><affiliation>IÉSEG School of Management and KU Leuven</affiliation></author>
+      <author><first>Jochen</first><last>De Weerdt</last><affiliation>KU Leuven</affiliation></author>
+      <author><first>Marie-Francine</first><last>Moens</last><affiliation>KU Leuven, KU Leuven</affiliation></author>
+      <pages>638-646</pages>
+      <abstract>Differentiating relationships between entity pairs with limited labeled instances poses a significant challenge in few-shot relation classification. Representations of textual data extract rich information spanning the domain, entities, and relations. In this paper, we introduce a novel approach to enhance information extraction combining multiple sentence representations and contrastive learning. While representations in relation classification are commonly extracted using entity marker tokens, we argue that substantial information within the internal model representations remains untapped. To address this, we propose aligning multiple sentence representations, such as the CLS] token, the [MASK] token used in prompting, and entity marker tokens. Our method employs contrastive learning to extract complementary discriminative information from these individual representations. This is particularly relevant in low-resource settings where information is scarce. Leveraging multiple sentence representations is especially effective in distilling discriminative information for relation classification when additional information, like relation descriptions, are not available. We validate the adaptability of our approach, maintaining robust performance in scenarios that include relation descriptions, and showcasing its flexibility to adapt to different resource constraints.</abstract>
+      <url hash="8088e77f">2024.naacl-short.54</url>
+    </paper>
+    <paper id="55">
+      <title>A diverse Multilingual News Headlines Dataset from around the World</title>
+      <author><first>Felix</first><last>Leeb</last><affiliation>Max Planck Institute for Intelligent Systems, Max-Planck Institute</affiliation></author>
+      <author><first>Bernhard</first><last>Schölkopf</last><affiliation>ELLIS Institute and Max Planck Institute for Intelligent Systems, Max-Planck Institute</affiliation></author>
+      <pages>647-652</pages>
+      <abstract>Babel Briefings is a novel dataset featuring 4.7 million news headlines from August 2020 to November 2021, across 30 languages and 54 locations worldwide with English translations of all articles included. Designed for natural language processing and media studies, it serves as a high-quality dataset for training or evaluating language models as well as offering a simple, accessible collection of articles, for example, to analyze global news coverage and cultural narratives. As a simple demonstration of the analyses facilitated by this dataset, we use a basic procedure using a TF-IDF weighted similarity metric to group articles into clusters about the same event. We then visualize the <i>event signatures</i> of the event showing articles of which languages appear over time, revealing intuitive features based on the proximity of the event and unexpectedness of the event. The dataset is available on [Kaggle](https://www.kaggle.com/datasets/felixludos/babel-briefings) and [HuggingFace](https://huggingface.co/datasets/felixludos/babel-briefings) with accompanying [GitHub](https://github.com/felixludos/babel-briefings) code.</abstract>
+      <url hash="a2cfc686">2024.naacl-short.55</url>
+    </paper>
+    <paper id="56">
+      <title>The Unreasonable Effectiveness of Random Target Embeddings for Continuous-Output Neural Machine Translation</title>
+      <author><first>Evgeniia</first><last>Tokarchuk</last><affiliation>University of Amsterdam</affiliation></author>
+      <author><first>Vlad</first><last>Niculae</last><affiliation>University of Amsterdam</affiliation></author>
+      <pages>653-662</pages>
+      <abstract>Continuous-output neural machine translation (CoNMT) replaces the discrete next-word prediction problem with an embedding prediction.The semantic structure of the target embedding space (*i.e.*, closeness of related words) is intuitively believed to be crucial. We challenge this assumption and show that completely random output embeddings can outperform laboriously pre-trained ones, especially on larger datasets. Further investigation shows this surprising effect is strongest for rare words, due to the geometry of their embeddings. We shed further light on this finding by designing a mixed strategy that combines random and pre-trained embeddings, and that performs best overall.</abstract>
+      <url hash="9c650294">2024.naacl-short.56</url>
+    </paper>
+    <paper id="57">
+      <title>Efficient Sample-Specific Encoder Perturbations</title>
+      <author><first>Yassir</first><last>Fathullah</last><affiliation>University of Cambridge</affiliation></author>
+      <author><first>Mark</first><last>Gales</last><affiliation>University of Cambridge</affiliation></author>
+      <pages>663-671</pages>
+      <abstract>Encoder-decoder foundation models have displayed state-of-the-art performance on a range of autoregressive sequence tasks. This paper proposes a simple and lightweight modification to such systems to control the behaviour according to a specific attribute of interest. This paper proposes a novel inference-efficient approach to modifying the behaviour of an encoder-decoder system according to a specific attribute of interest. Specifically, we show that a small proxy network can be used to find a sample-by-sample perturbation of the encoder output of a frozen foundation model to trigger the decoder to generate improved decodings. This work explores a specific realization of this framework focused on improving the COMET performance of Flan-T5 on Machine Translation and the WER of Whisper foundation models on Speech Recognition. Results display consistent improvements in performance evaluated through COMET and WER respectively. Furthermore, experiments also show that the proxies are robust to the exact nature of the data used to train them and can extend to other domains.</abstract>
+      <url hash="75228d34">2024.naacl-short.57</url>
+    </paper>
+    <paper id="58">
+      <title>Diverse Perspectives, Divergent Models: Cross-Cultural Evaluation of Depression Detection on <fixed-case>T</fixed-case>witter</title>
+      <author><first>Nuredin Ali</first><last>Abdelkadir</last></author>
+      <author><first>Charles</first><last>Zhang</last></author>
+      <author><first>Ned</first><last>Mayo</last></author>
+      <author><first>Stevie</first><last>Chancellor</last><affiliation>University of Minnesota - Twin Cities</affiliation></author>
+      <pages>672-680</pages>
+      <abstract>Social media data has been used for detecting users with mental disorders, such as depression. Despite the global significance of cross-cultural representation and its potential impact on model performance, publicly available datasets often lack crucial metadata relatedto this aspect. In this work, we evaluate the generalization of benchmark datasets to build AI models on cross-cultural Twitter data. We gather a custom geo-located Twitter dataset of depressed users from seven countries as a test dataset. Our results show that depressiondetection models do not generalize globally. The models perform worse on Global South users compared to Global North. Pre-trainedlanguage models achieve the best generalization compared to Logistic Regression, though still show significant gaps in performance on depressed and non-Western users. We quantify our findings and provide several actionable suggestions to mitigate this issue</abstract>
+      <url hash="8394abf3">2024.naacl-short.58</url>
+    </paper>
+    <paper id="59">
+      <title>Removing <fixed-case>RLHF</fixed-case> Protections in <fixed-case>GPT</fixed-case>-4 via Fine-Tuning</title>
+      <author><first>Qiusi</first><last>Zhan</last><affiliation>University of Illinois Urbana-Champaign</affiliation></author>
+      <author><first>Richard</first><last>Fang</last></author>
+      <author><first>Rohan</first><last>Bindu</last></author>
+      <author><first>Akul</first><last>Gupta</last></author>
+      <author><first>Tatsunori</first><last>Hashimoto</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Daniel</first><last>Kang</last><affiliation>Department of Computer Science</affiliation></author>
+      <pages>681-687</pages>
+      <abstract>As large language models (LLMs) have increased in their capabilities, so doestheir potential for dual use. To reduce harmful outputs, produces and vendors ofLLMs have used reinforcement learning with human feedback (RLHF). In tandem,LLM vendors have been increasingly enabling fine-tuning of their most powerfulmodels. However, concurrent work has shown that fine-tuning can remove RLHFprotections. We may expect that the most powerful models currently available(GPT-4) are less susceptible to fine-tuning attacks. In this work, we show the contrary: fine-tuning allows attackers to remove RLHFprotections with as few as 340 examples and a 95% success rate. These trainingexamples can be automatically generated with weaker models. We further show thatremoving RLHF protections does not decrease usefulness on non-censored outputs,providing evidence that our fine-tuning strategy does not decrease usefulnessdespite using weaker models to generate training data. Our results show the needfor further research on protections on LLMs.</abstract>
+      <url hash="74cb7dee">2024.naacl-short.59</url>
+    </paper>
+    <paper id="60">
+      <title><fixed-case>L</fixed-case>ife<fixed-case>T</fixed-case>ox: Unveiling Implicit Toxicity in Life Advice</title>
+      <author><first>Minbeom</first><last>Kim</last></author>
+      <author><first>Jahyun</first><last>Koo</last><affiliation>Seoul National University</affiliation></author>
+      <author><first>Hwanhee</first><last>Lee</last><affiliation>Chung-Ang University</affiliation></author>
+      <author><first>Joonsuk</first><last>Park</last><affiliation>University of Richmond</affiliation></author>
+      <author><first>Hwaran</first><last>Lee</last><affiliation>NAVER AI Lab</affiliation></author>
+      <author><first>Kyomin</first><last>Jung</last></author>
+      <pages>688-698</pages>
+      <abstract>As large language models become increasingly integrated into daily life, detecting implicit toxicity across diverse contexts is crucial. To this end, we introduce <tex-math>\texttt{LifeTox}</tex-math>, a dataset designed for identifying implicit toxicity within a broad range of advice-seeking scenarios. Unlike existing safety datasets, <tex-math>\texttt{LifeTox}</tex-math> comprises diverse contexts derived from personal experiences through open-ended questions. Our experiments demonstrate that RoBERTa fine-tuned on <tex-math>\texttt{LifeTox}</tex-math> matches or surpasses the zero-shot performance of large language models in toxicity classification tasks. These results underscore the efficacy of <tex-math>\texttt{LifeTox}</tex-math> in addressing the complex challenges inherent in implicit toxicity. We open-sourced the dataset and the <tex-math>\texttt{LifeTox}</tex-math> moderator family; 350M, 7B, and 13B.</abstract>
+      <url hash="39d65311">2024.naacl-short.60</url>
+    </paper>
+    <paper id="61">
+      <title>Arithmetic Reasoning with <fixed-case>LLM</fixed-case>: <fixed-case>P</fixed-case>rolog Generation &amp; Permutation</title>
+      <author><first>Xiaocheng</first><last>Yang</last></author>
+      <author><first>Bingsen</first><last>Chen</last></author>
+      <author><first>Yik-Cheung</first><last>Tam</last><affiliation>New York University</affiliation></author>
+      <pages>699-710</pages>
+      <abstract>Instructing large language models (LLMs) to solve elementary school math problems has shown great success using Chain of Thought (CoT). However, the CoT approach relies on an LLM to generate a sequence of arithmetic calculations which can be prone to cascaded calculation errors. We hypothesize that an LLM should focus on extracting predicates and generating symbolic formulas from the math problem description so that the underlying calculation can be done via an external code interpreter. We investigate using LLM to generate Prolog programs to solve mathematical questions. Experimental results show that our Prolog-based arithmetic problem-solving outperforms CoT generation in the GSM8K benchmark across three distinct LLMs. In addition, given the insensitive ordering of predicates and symbolic formulas in Prolog, we propose to permute the ground truth predicates for more robust LLM training via data augmentation.</abstract>
+      <url hash="27611f77">2024.naacl-short.61</url>
+    </paper>
+    <paper id="62">
+      <title>Verifying Claims About Metaphors with Large-Scale Automatic Metaphor Identification</title>
+      <author><first>Kotaro</first><last>Aono</last></author>
+      <author><first>Ryohei</first><last>Sasano</last><affiliation>Nagoya University</affiliation></author>
+      <author><first>Koichi</first><last>Takeda</last><affiliation>Nagoya University</affiliation></author>
+      <pages>711-719</pages>
+      <abstract>There are several linguistic claims about situations where words are more likely to be used as metaphors.However, few studies have sought to verify such claims with large corpora.This study entails a large-scale, corpus-based analysis of certain existing claims about verb metaphors, by applying metaphor detection to sentences extracted from Common Crawl and using the statistics obtained from the results.The verification results indicate that the direct objects of verbs used as metaphors tend to have lower degrees of concreteness, imageability, and familiarity, and that metaphors are more likely to be used in emotional and subjective sentences.</abstract>
+      <url hash="f1543510">2024.naacl-short.62</url>
+    </paper>
+    <paper id="63">
+      <title><fixed-case>I</fixed-case>nstruct<fixed-case>ABSA</fixed-case>: Instruction Learning for Aspect Based Sentiment Analysis</title>
+      <author><first>Kevin</first><last>Scaria</last></author>
+      <author><first>Himanshu</first><last>Gupta</last><affiliation>Amazon</affiliation></author>
+      <author><first>Siddharth</first><last>Goyal</last></author>
+      <author><first>Saurabh</first><last>Sawant</last></author>
+      <author><first>Swaroop</first><last>Mishra</last><affiliation>Google</affiliation></author>
+      <author><first>Chitta</first><last>Baral</last><affiliation>Arizona State University, Arizona State University and Arizona State University</affiliation></author>
+      <pages>720-736</pages>
+      <abstract>We introduce InstructABSA, an instruction learning paradigm for Aspect-Based Sentiment Analysis (ABSA) subtasks.Our method introduces positive, negative, and neutral examples to each training sample, and instruction tune the model (T<tex-math>k</tex-math>-Instruct) for ABSA subtasks, yielding significant performance improvements. Experimental results on the Sem Eval 2014, 15, and 16 datasets demonstrate that InstructABSA outperforms the previous state-of-the-art (SOTA) approaches on Term Extraction (ATE), Sentiment Classification(ATSC) and Sentiment Pair Extraction (ASPE) subtasks.In particular, InstructABSA outperforms the previous state-of-the-art (SOTA) on the Rest14 ATE subtask by 5.69% points, the Rest15 ATSC subtask by 9.59% points, and the Lapt14 AOPE subtask by 3.37% points, surpassing 7x larger models.We get competitive results on AOOE, AOPE, AOSTE, and ACOSQE subtasks indicating strong generalization ability to all subtasks. Exploring sample efficiency reveals that just 50% train data is required to get competitive results with other instruction tuning approaches. Lastly, we assess the quality of instructions and observe that InstructABSA’s performance experiences a decline of ~10% when adding misleading examples</abstract>
+      <url hash="beffe860">2024.naacl-short.63</url>
+    </paper>
+    <paper id="64">
+      <title><fixed-case>MEMORY</fixed-case>-<fixed-case>VQ</fixed-case>: Compression for Tractable <fixed-case>I</fixed-case>nternet-Scale Memory</title>
+      <author><first>Yury</first><last>Zemlyanskiy</last></author>
+      <author><first>Michiel</first><last>De Jong</last><affiliation>Augment Computing</affiliation></author>
+      <author><first>Luke</first><last>Vilnis</last><affiliation>Google</affiliation></author>
+      <author><first>Santiago</first><last>Ontanon</last><affiliation>Google and Drexel University</affiliation></author>
+      <author><first>William</first><last>Cohen</last><affiliation>Google DeepMind</affiliation></author>
+      <author><first>Sumit</first><last>Sanghai</last><affiliation>Research, Google</affiliation></author>
+      <author><first>Joshua</first><last>Ainslie</last><affiliation>Google</affiliation></author>
+      <pages>737-744</pages>
+      <abstract>Retrieval augmentation is a powerful but expensive method to make language models more knowledgeable about the world. Memory-based methods like LUMEN (de Jong et al., 2023a) pre-compute token representations for retrieved passages to drastically speed up inference. However, memory also leads to much greater storage requirements from storing pre-computed representations. We propose MEMORY-VQ, a new method to reduce storage requirements of memory-augmented models without sacrificing performance. Our method uses a vector quantization variational autoencoder (VQ-VAE) to compress token representations. We apply MEMORY-VQ to the LUMEN model to obtain LUMEN-VQ, a memory model that achieves a 16x compression rate with comparable performance on the KILT benchmark. LUMEN-VQ enables practical retrieval augmentation even for extremely large retrieval corpora.</abstract>
+      <url hash="361f3a5e">2024.naacl-short.64</url>
+    </paper>
+    <paper id="65">
+      <title>Unveiling the Magic: Investigating Attention Distillation in Retrieval-Augmented Generation</title>
+      <author><first>Zizhong</first><last>Li</last><affiliation>University of California, Davis</affiliation></author>
+      <author><first>Haopeng</first><last>Zhang</last></author>
+      <author><first>Jiawei</first><last>Zhang</last><affiliation>University of California, Davis</affiliation></author>
+      <pages>745-754</pages>
+      <abstract>Retrieval-augmented generation framework addresses the limitations of large language models by enabling real-time knowledge updates for more accurate answers. An efficient way in the training phase of retrieval-augmented models is attention distillation, which uses attention scores as supervision signals instead of manually annotated query-document pairs. Despite its growing popularity, the detailed mechanisms behind the success of attention distillation remain unexplored, particularly the specific patterns it leverages to benefit training. In this paper, we address this gap by conducting a comprehensive investigation of attention distillation workflow and identifying key factors influencing the learning performance of retrieval-augmented language models. We further propose several insightful indicators for optimizing models’ training methods and avoiding ineffective training.</abstract>
+      <url hash="21e1fd2e">2024.naacl-short.65</url>
+    </paper>
+    <paper id="66">
+      <title>Improving Factuality in Clinical Abstractive Multi-Document Summarization by Guided Continued Pre-training</title>
+      <author><first>Ahmed</first><last>Elhady</last></author>
+      <author><first>Khaled</first><last>Elsayed</last><affiliation>Cairo University</affiliation></author>
+      <author><first>Eneko</first><last>Agirre</last><affiliation>University of the Basque Country (UPV/EHU)</affiliation></author>
+      <author><first>Mikel</first><last>Artetxe</last><affiliation>Reka AI</affiliation></author>
+      <pages>755-761</pages>
+      <abstract>Factual accuracy is an important property of neural abstractive summarization models, especially in fact-critical domains such as the clinical literature. In this work, we introduce a guided continued pre-training stage for encoder-decoder models that improves their understanding of the factual attributes of documents, which is followed by supervised fine-tuning on summarization. Our approach extends the pre-training recipe of BART to incorporate 3 additional objectives based on PICO spans, which capture the population, intervention, comparison, and outcomes related to a clinical study. Experiments on multi-document summarization in the clinical domain demonstrate that our approach is competitive with prior work, improving the quality and factuality of the summaries and achieving the best-published results in factual accuracy on the MSLR task.</abstract>
+      <url hash="73fdf0b0">2024.naacl-short.66</url>
+    </paper>
+    <paper id="67">
+      <title><fixed-case>M</fixed-case>u<fixed-case>L</fixed-case>an: A Study of Fact Mutability in Language Models</title>
+      <author><first>Constanza</first><last>Fierro</last><affiliation>Copenhagen University</affiliation></author>
+      <author><first>Nicolas</first><last>Garneau</last></author>
+      <author><first>Emanuele</first><last>Bugliarello</last><affiliation>Google</affiliation></author>
+      <author><first>Yova</first><last>Kementchedjhieva</last><affiliation>Mohamed bin Zayed University of Artificial Intelligence</affiliation></author>
+      <author><first>Anders</first><last>Søgaard</last><affiliation>Copenhagen University</affiliation></author>
+      <pages>762-771</pages>
+      <abstract>Facts are subject to contingencies and can be true or false in different circumstances. One such contingency is time, wherein some facts mutate over a given period, e.g., the president of a country or the winner of a championship. Trustworthy language models ideally identify mutable facts as such and process them accordingly. We create MuLan, a benchmark for evaluating the ability of English language models to anticipate time-contingency, covering both 1:1 and 1:N relations. We hypothesize that mutable facts are encoded differently than immutable ones, hence being easier to update. In a detailed evaluation of six popular large language models, we consistently find differences in the LLMs’ confidence, representations, and update behavior, depending on the mutability of a fact. Our findings should inform future work on the injection of and induction of time-contingent knowledge to/from LLMs.</abstract>
+      <url hash="757c9127">2024.naacl-short.67</url>
+    </paper>
+    <paper id="68">
+      <title>Language-Independent Representations Improve Zero-Shot Summarization</title>
+      <author><first>Vladimir</first><last>Solovyev</last></author>
+      <author><first>Danni</first><last>Liu</last><affiliation>Karlsruher Institut für Technologie</affiliation></author>
+      <author><first>Jan</first><last>Niehues</last></author>
+      <pages>772-782</pages>
+      <abstract>Finetuning pretrained models on downstream generation tasks often leads to catastrophic forgetting in zero-shot conditions. In this work, we focus on summarization and tackle the problem through the lens of language-independent representations. After training on monolingual summarization, we perform zero-shot transfer to new languages or language pairs. We first show naively finetuned models are highly language-specific in both output behavior and internal representations, resulting in poor zero-shot performance. Next, we propose query-key (QK) finetuning to decouple task-specific knowledge from the pretrained language generation abilities. Then, after showing downsides of the standard adversarial language classifier, we propose a balanced variant that more directly enforces language-agnostic representations. Moreover, our qualitative analyses show removing source language identity correlates to zero-shot summarization performance. Our code is openly available.</abstract>
+      <url hash="7a870815">2024.naacl-short.68</url>
+    </paper>
+    <paper id="69">
+      <title>Trusting Your Evidence: Hallucinate Less with Context-aware Decoding</title>
+      <author><first>Weijia</first><last>Shi</last></author>
+      <author><first>Xiaochuang</first><last>Han</last><affiliation>Department of Computer Science, University of Washington</affiliation></author>
+      <author><first>Mike</first><last>Lewis</last><affiliation>Facebook AI Research</affiliation></author>
+      <author><first>Yulia</first><last>Tsvetkov</last><affiliation>Department of Computer Science, University of Washington</affiliation></author>
+      <author><first>Luke</first><last>Zettlemoyer</last><affiliation>University of Washington, Facebook and Meta</affiliation></author>
+      <author><first>Wen-tau</first><last>Yih</last><affiliation>Meta Platforms, Inc.</affiliation></author>
+      <pages>783-791</pages>
+      <abstract>Language models (LMs) often struggle to pay enough attention to the input context, and generate texts that are unfaithful or contain hallucinations. To mitigate this issue, we present context-aware decoding (CAD), which follows a contrastive output distribution that amplifies the difference between the output probabilities when a model is used with and without context. Our experiments show that CAD, without additional training, significantly improves the faithfulness of different LM families, including OPT, GPT, LLaMA, and FLAN-T5 for summarization tasks (e.g., 14.3% gain for LLaMA in factuality metrics). Furthermore, CAD is particularly effective in overriding a model’s prior knowledge when it contradicts the provided context, leading to substantial improvements in tasks where resolving the knowledge conflict is essential. Our code is publicly released at https://github.com/xhan77/context-aware-decoding.</abstract>
+      <url hash="02f6eacb">2024.naacl-short.69</url>
+    </paper>
+    <paper id="70">
+      <title><fixed-case>G</fixed-case>uy<fixed-case>L</fixed-case>ingo: The <fixed-case>R</fixed-case>epublic of <fixed-case>G</fixed-case>uyana Creole Corpora</title>
+      <author><first>Christopher</first><last>Clarke</last><affiliation>University of Michigan - Ann Arbor and University of Guyana</affiliation></author>
+      <author><first>Roland</first><last>Daynauth</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author><first>Jason</first><last>Mars</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <author><first>Charlene</first><last>Wilkinson</last></author>
+      <author><first>Hubert</first><last>Devonish</last></author>
+      <pages>792-798</pages>
+      <abstract>While major languages often enjoy substantial attention and resources, the linguistic diversity across the globe encompasses a multitude of smaller, indigenous, and regional languages that lack the same level of computational support. One such region is the Caribbean. While commonly labeled as “English speaking”, the ex-British Caribbean region consists of a myriad of Creole languages thriving alongside English. In this paper, we present Guylingo: a comprehensive corpus designed for advancing NLP research in the domain of Creolese (Guyanese English-lexicon Creole), the most widely spoken language in the culturally rich nation of Guyana. We first outline our framework for gathering and digitizing this diverse corpus, inclusive of colloquial expressions, idioms, and regional variations in a low-resource language. We then demonstrate the challenges of training and evaluating NLP models for machine translation for Creolese. Lastly, we discuss the unique opportunities presented by recent NLP advancements for accelerating the formal adoption of Creole languages as official languages in the Caribbean.</abstract>
+      <url hash="498097d7">2024.naacl-short.70</url>
+    </paper>
+    <paper id="71">
+      <title><fixed-case>D</fixed-case>ouble<fixed-case>L</fixed-case>ingo: Causal Estimation with Large Language Models</title>
+      <author><first>Marko</first><last>Veljanovski</last></author>
+      <author><first>Zach</first><last>Wood-Doughty</last><affiliation>Northwestern University</affiliation></author>
+      <pages>799-807</pages>
+      <abstract>Estimating causal effects from non-randomized data requires assumptions about the underlying data-generating process. To achieve unbiased estimates of the causal effect of a treatment on an outcome, we typically adjust for any confounding variables that influence both treatment and outcome. When such confounders include text data, existing causal inference methods struggle due to the high dimensionality of the text. The simple statistical models which have sufficient convergence criteria for causal estimation are not well-equipped to handle noisy unstructured text, but flexible large language models that excel at predictive tasks with text data do not meet the statistical assumptions necessary for causal estimation. Our method enables theoretically consistent estimation of causal effects using LLM-based nuisance models by incorporating them within the framework of Double Machine Learning. On the best available dataset for evaluating such methods, we obtain a 10.4% reduction in the relative absolute error for the estimated causal effect over existing methods.</abstract>
+      <url hash="62e28bfb">2024.naacl-short.71</url>
+    </paper>
+    <paper id="72">
+      <title>Improved Text Emotion Prediction Using Combined Valence and Arousal Ordinal Classification</title>
+      <author><first>Michail</first><last>Mitsios</last></author>
+      <author><first>Georgios</first><last>Vamvoukakis</last><affiliation>Samsung</affiliation></author>
+      <author><first>Georgia</first><last>Maniati</last><affiliation>Samsung</affiliation></author>
+      <author><first>Nikolaos</first><last>Ellinas</last><affiliation>Samsung</affiliation></author>
+      <author><first>Georgios</first><last>Dimitriou</last><affiliation>Samsung</affiliation></author>
+      <author><first>Konstantinos</first><last>Markopoulos</last></author>
+      <author><first>Panos</first><last>Kakoulidis</last><affiliation>University of Athens</affiliation></author>
+      <author><first>Alexandra</first><last>Vioni</last><affiliation>Innoetics, Samsung Electronics</affiliation></author>
+      <author><first>Myrsini</first><last>Christidou</last></author>
+      <author><first>Junkwang</first><last>Oh</last></author>
+      <author><first>Gunu</first><last>Jho</last></author>
+      <author><first>Inchul</first><last>Hwang</last></author>
+      <author><first>Georgios</first><last>Vardaxoglou</last></author>
+      <author><first>Aimilios</first><last>Chalamandaris</last></author>
+      <author><first>Pirros</first><last>Tsiakoulis</last></author>
+      <author><first>Spyros</first><last>Raptis</last></author>
+      <pages>808-813</pages>
+      <abstract>Emotion detection in textual data has received growing interest in recent years, as it is pivotal for developing empathetic human-computer interaction systems.This paper introduces a method for categorizing emotions from text, which acknowledges and differentiates between the diversified similarities and distinctions of various emotions.Initially, we establish a baseline by training a transformer-based model for standard emotion classification, achieving state-of-the-art performance. We argue that not all misclassifications are of the same importance, as there are perceptual similarities among emotional classes.We thus redefine the emotion labeling problem by shifting it from a traditional classification model to an ordinal classification one, where discrete emotions are arranged in a sequential order according to their valence levels.Finally, we propose a method that performs ordinal classification in the two-dimensional emotion space, considering both valence and arousal scales.The results show that our approach not only preserves high accuracy in emotion prediction but also significantly reduces the magnitude of errors in cases of misclassification.</abstract>
+      <url hash="76d2fede">2024.naacl-short.72</url>
+    </paper>
+    <paper id="73">
+      <title>On Narrative Question Answering Skills</title>
+      <author><first>Emil</first><last>Kalbaliyev</last></author>
+      <author><first>Kairit</first><last>Sirts</last><affiliation>institute of computer science, University of Tartu</affiliation></author>
+      <pages>814-820</pages>
+      <abstract>Narrative Question Answering is an important task for evaluating and improving reading comprehension abilities in both humans and machines. However, there is a lack of consensus on the skill taxonomy that would enable systematic and comprehensive assessment and learning of the various aspects of Narrative Question Answering. Existing task-level skill views oversimplify the multidimensional nature of tasks, while question-level taxonomies face issues in evaluation and methodology. To address these challenges, we introduce a more inclusive skill taxonomy that synthesizes and redefines narrative understanding skills from previous taxonomies and includes a generation skill dimension from the answering perspective.</abstract>
+      <url hash="93e0a776">2024.naacl-short.73</url>
+    </paper>
+    <paper id="74">
+      <title>Order-Based Pre-training Strategies for Procedural Text Understanding</title>
+      <author><first>Abhilash</first><last>Nandy</last><affiliation>Indian Institute of Technology Kharagpur</affiliation></author>
+      <author><first>Yash</first><last>Kulkarni</last></author>
+      <author><first>Pawan</first><last>Goyal</last><affiliation>IIT Kharagpur</affiliation></author>
+      <author><first>Niloy</first><last>Ganguly</last><affiliation>Indian Institute of Technology Kharagpur,</affiliation></author>
+      <pages>821-828</pages>
+      <abstract>In this paper, we propose sequence-based pre-training methods to enhance procedural understanding in natural language processing. Procedural text, containing sequential instructions to accomplish a task, is difficult to understand due to the changing attributes of entities in the context. We focus on recipes as they are commonly represented as ordered instructions, and use this order as a supervision signal. Our work is one of the first to compare several ‘order-as-supervision’ transformer pre-training methods, including Permutation Classification, Embedding Regression, and Skip-Clip, and show that these methods give improved results compared to baselines and SoTA LLMs on two downstream Entity-Tracking datasets: NPN-Cooking dataset in recipe domain and ProPara dataset in open domain. Our proposed methods address the non-trivial Entity Tracking Task that requires prediction of entity states across procedure steps, which requires understanding the order of steps. These methods show an improvement over the best baseline by 1.6% and 7-9% on NPN-Cooking and ProPara Datasets respectively across metrics.</abstract>
+      <url hash="6f8ad1b3">2024.naacl-short.74</url>
+    </paper>
+    <paper id="75">
+      <title>Breaking the Language Barrier: Can Direct Inference Outperform Pre-Translation in Multilingual <fixed-case>LLM</fixed-case> Applications?</title>
+      <author><first>Yotam</first><last>Intrator</last></author>
+      <author><first>Matan</first><last>Halfon</last></author>
+      <author><first>Roman</first><last>Goldenberg</last></author>
+      <author><first>Reut</first><last>Tsarfaty</last><affiliation>Google and Bar-Ilan University, Technion</affiliation></author>
+      <author><first>Matan</first><last>Eyal</last><affiliation>Allen Institute for Artificial Intelligence</affiliation></author>
+      <author><first>Ehud</first><last>Rivlin</last><affiliation>Technion, Technion</affiliation></author>
+      <author><first>Yossi</first><last>Matias</last><affiliation>Google and Tel Aviv University</affiliation></author>
+      <author><first>Natalia</first><last>Aizenberg</last></author>
+      <pages>829-844</pages>
+      <abstract>Large language models hold significant promise in multilingual applications. However, inherent biases stemming from predominantly English-centric pre-training have led to the widespread practice of pre-translation, i.e., translating non-English inputs to English before inference, leading to complexity and information loss. This study re-evaluates the need for pre-translation in the context of PaLM2 models, which have been established as highly performant in multilingual tasks. We offer a comprehensive investigation across 108 languages and 6 diverse benchmarks, including open-end generative tasks, which were excluded from previous similar studies. Our findings challenge the pre-translation paradigm established in prior research, highlighting the advantages of direct inference in PaLM2. Specifically, PaLM2-L consistently outperforms pre-translation in 94 out of 108 languages. These findings pave the way for more efficient and effective multilingual applications, alleviating the limitations associated with pre-translation and unlocking linguistic authenticity.</abstract>
+      <url hash="1db19c97">2024.naacl-short.75</url>
+    </paper>
+  </volume>
 </collection>
