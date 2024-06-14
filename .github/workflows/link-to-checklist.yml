@@ -12,27 +12,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-      # - name: Add review checklist
-      #   uses: actions/github-script@v6
-      #   with:
-      #     # github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     script: |
-      #       const fs = require('fs');
-      #       const review_checklist = fs.readFileSync('.github/ingestion-review-checklist.md', 'utf8');
-
-      #       github.rest.issues.createComment({
-      #         issue_number: context.issue.number,
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         body: review_checklist,
-      #       })
-      - name: Add review checklist to pr description
+      - name: Add review checklist
         uses: actions/github-script@v6
         with:
+          # github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const review_checklist = fs.readFileSync('.github/ingestion-review-checklist.md', 'utf8');
-
             github.rest.pulls.update({
               pull_number: context.issue.number,
               owner: context.repo.owner,
