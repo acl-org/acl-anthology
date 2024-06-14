@@ -5,9 +5,6 @@ on:
   pull_request_target:
     types: [opened]
 
-# permissions:
-#   pull-requests: write
-
 jobs:
   add-review-checklist:
     if : ${{ github.event_name == 'pull_request' && github.event.action == 'opened' && startsWith(github.event.pull_request.title, 'ingestion') == true}}
@@ -15,17 +12,32 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-      - name: Add review checklist
+      # - name: Add review checklist
+      #   uses: actions/github-script@v6
+      #   with:
+      #     # github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     script: |
+      #       const fs = require('fs');
+      #       const review_checklist = fs.readFileSync('.github/ingestion-review-checklist.md', 'utf8');
+
+      #       github.rest.issues.createComment({
+      #         issue_number: context.issue.number,
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         body: review_checklist,
+      #       })
+      - name: Add review checklist to pr description
         uses: actions/github-script@v6
         with:
-          # github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             const review_checklist = fs.readFileSync('.github/ingestion-review-checklist.md', 'utf8');
 
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            github.rest.pulls.update({
+              pull_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: review_checklist,
+              body: context.payload.pull_request.body + review_checklist,
             });
+      
+      
