@@ -72,21 +72,25 @@ def add_doi(xml_node, collection_id, volume_id, force=False):
 
     doi_url = f"{data.DOI_URL_PREFIX}{data.DOI_PREFIX}{anth_id}"
     for tries in [1, 2, 3]:  # lots of random failures
-        result = test_url_code(doi_url)
-        if result.status_code == 200:
-            doi = make_simple_element("doi", text=new_doi_text)
-            print(f"-> Adding DOI {new_doi_text}", file=sys.stderr)
-            xml_node.append(doi)
-            return True
-        elif result.status_code == 429:  # too many requests
-            pause_for = int(result.headers["Retry-After"])
-            print(f"--> Got 429, pausing for {pause_for} seconds", file=sys.stderr)
-            sleep(pause_for + 1)
-        elif result.status_code == 404:  # not found
-            print("--> Got 404", file=sys.stderr)
-            break
-        else:
-            print(f"--> Other problem: {result}", file=sys.stderr)
+        try:
+            result = test_url_code(doi_url)
+            if result.status_code == 200:
+                doi = make_simple_element("doi", text=new_doi_text)
+                print(f"-> Adding DOI {new_doi_text}", file=sys.stderr)
+                xml_node.append(doi)
+                return True
+            elif result.status_code == 429:  # too many requests
+                pause_for = int(result.headers["Retry-After"])
+                print(f"--> Got 429, pausing for {pause_for} seconds", file=sys.stderr)
+                sleep(pause_for + 1)
+            elif result.status_code == 404:  # not found
+                print("--> Got 404", file=sys.stderr)
+                break
+            else:
+                print(f"--> Other problem: {result}", file=sys.stderr)
+
+        except Exception as e:
+            print(e)
 
     print(f"-> Couldn't add DOI for {doi_url}", file=sys.stderr)
     return False
