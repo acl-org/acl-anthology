@@ -27,10 +27,13 @@
       <author><first>Heng</first><last>Ji</last><affiliation>University of Illinois, Urbana-Champaign</affiliation></author>
       <pages>1-16</pages>
       <abstract>Fine-grained few-shot entity extraction in the chemical domain faces two unique challenges. First, compared with entity extraction tasks in the general domain, sentences from chemical papers usually contain more entities. Moreover, entity extraction models usually have difficulty extracting entities of long-tailed types. In this paper, we propose Chem-FINESE, a novel sequence-to-sequence (seq2seq) based few-shot entity extraction approach, to address these two challenges. Our Chem-FINESE has two components: a seq2seq entity extractor to extract named entities from the input sentence and a seq2seq self-validation module to reconstruct the original input sentence from extracted entities. Inspired by the fact that a good entity extraction system needs to extract entities faithfully, our new self-validation module leverages entity extraction results to reconstruct the original input sentence. Besides, we design a new contrastive loss to reduce excessive copying during the extraction process. Finally, we release ChemNER+, a new fine-grained chemical entity extraction dataset that is annotated by domain experts with the ChemNER schema. Experiments in few-shot settings with both ChemNER+ and CHEMET datasets show that our newly proposed framework has contributed up to 8.26% and 6.84% absolute F1-score gains respectively.</abstract>
-      <url hash="b832457e">2024.findings-eacl.1</url>
+      <url hash="d115d641">2024.findings-eacl.1</url>
       <attachment type="software" hash="4203c223">2024.findings-eacl.1.software.zip</attachment>
       <attachment type="note" hash="c244f46e">2024.findings-eacl.1.note.zip</attachment>
       <bibkey>wang-etal-2024-chem</bibkey>
+      <video href="2024.findings-eacl.1.mp4"/>
+      <revision id="1" href="2024.findings-eacl.1v1" hash="b832457e"/>
+      <revision id="2" href="2024.findings-eacl.1v2" hash="d115d641" date="2024-05-30">Fix two typos in equation 2 and 4.</revision>
     </paper>
     <paper id="2">
       <title><fixed-case>GPT</fixed-case>s Are Multilingual Annotators for Sequence Generation Tasks</title>
@@ -44,6 +47,7 @@
       <attachment type="software" hash="fff5e2cf">2024.findings-eacl.2.software.zip</attachment>
       <attachment type="note" hash="cce955c1">2024.findings-eacl.2.note.zip</attachment>
       <bibkey>choi-etal-2024-gpts</bibkey>
+      <video href="2024.findings-eacl.2.mp4"/>
     </paper>
     <paper id="3">
       <title>Next Visit Diagnosis Prediction via Medical Code-Centric Multimodal Contrastive <fixed-case>EHR</fixed-case> Modelling with Hierarchical Regularisation</title>
@@ -52,6 +56,7 @@
       <abstract>Predicting next visit diagnosis using Electronic Health Records (EHR) is an essential task in healthcare, critical for devising proactive future plans for both healthcare providers and patients. Nonetheless, many preceding studies have not sufficiently addressed the heterogeneous and hierarchical characteristics inherent in EHR data, inevitably leading to sub-optimal performance. To this end, we propose NECHO, a novel medical code-centric multimodal contrastive EHR learning framework with hierarchical regularisation. First, we integrate multifaceted information encompassing medical codes, demographics, and clinical notes using a tailored network design and a pair of bimodal contrastive losses, all of which pivot around a medical codes representation. We also regularise modality-specific encoders using a parental level information in medical ontology to learn hierarchical structure of EHR data. A series of experiments on MIMIC-III data demonstrates effectiveness of our approach.</abstract>
       <url hash="27b828b0">2024.findings-eacl.3</url>
       <bibkey>koo-2024-next</bibkey>
+      <video href="2024.findings-eacl.3.mp4"/>
     </paper>
     <paper id="4">
       <title><fixed-case>F</fixed-case>lexi<fixed-case>QA</fixed-case>: Leveraging <fixed-case>LLM</fixed-case>’s Evaluation Capabilities for Flexible Knowledge Selection in Open-domain Question Answering</title>
@@ -62,6 +67,7 @@
       <abstract>Nowadays, large language models (LLMs) have demonstrated their ability to be a powerful knowledge generator of generate-then-read paradigm for open-domain question answering (ODQA). However this new paradigm mainly suffers from the “hallucination” and struggles to handle time-sensitive issue because of its expensive knowledge update costs. On the other hand, retrieve-then-read, as a traditional paradigm, is more limited by the relevance of acquired knowledge to the given question. In order to combine the strengths of both paradigms, and overcome their respective shortcomings, we design a new pipeline called “FlexiQA”, in which we utilize the diverse evaluation capabilities of LLMs to select knowledge effectively and flexibly. First, given a question, we prompt a LLM as a discriminator to identify whether it is time-sensitive. For time-sensitive questions, we follow the retrieve-then-read paradigm to obtain the answer. For the non time-sensitive questions, we further prompt the LLM as an evaluator to select a better document from two perspectives: factuality and relevance. Based on the selected document, we leverage a reader to get the final answer. We conduct extensive experiments on three widely-used ODQA benchmarks, the experimental results fully confirm the effectiveness of our approach.</abstract>
       <url hash="cbe0ec51">2024.findings-eacl.4</url>
       <bibkey>chen-etal-2024-flexiqa</bibkey>
+      <video href="2024.findings-eacl.4.mp4"/>
     </paper>
     <paper id="5">
       <title>Hyper-<fixed-case>BTS</fixed-case> Dataset: Scalability and Enhanced Analysis of Back <fixed-case>T</fixed-case>ran<fixed-case>S</fixed-case>cription (<fixed-case>BTS</fixed-case>) for <fixed-case>ASR</fixed-case> Post-Processing</title>
@@ -77,6 +83,7 @@
       <abstract>The recent advancements in the realm of Automatic Speech Recognition (ASR) post-processing have been primarily driven by sequence-to-sequence paradigms. Despite their effectiveness, these methods often demand substantial amounts of data, necessitating the expensive recruitment of phonetic transcription experts to rectify the erroneous outputs of ASR systems, thereby creating the desired training data. Back TranScription (BTS) alleviates this issue by generating ASR inputs from clean text via a Text-to-Speech (TTS) system. While initial studies on BTS exhibited promise, they were constrained by a limited dataset of just 200,000 sentence pairs, leaving the scalability of this method in question. In this study, we delve into the potential scalability of BTS. We introduce the “Hyper-BTS” dataset, a corpus approximately five times larger than that utilized in prior research. Additionally, we present innovative criteria for categorizing error types within ASR post-processing. This not only facilitates a more comprehensive qualitative analysis, which was absent in preceding studies, but also enhances the understanding of ASR error patterns. Our empirical results, both quantitative and qualitative, suggest that the enlarged scale of the Hyper-BTS dataset sufficiently addresses a vast majority of the ASR error categories. We make the Hyper-BTS dataset publicly available.</abstract>
       <url hash="822de166">2024.findings-eacl.5</url>
       <bibkey>park-etal-2024-hyper</bibkey>
+      <video href="2024.findings-eacl.5.mp4"/>
     </paper>
     <paper id="6">
       <title><fixed-case>P</fixed-case>arrot<fixed-case>TTS</fixed-case>: Text-to-speech synthesis exploiting disentangled self-supervised representations</title>
@@ -90,6 +97,7 @@
       <abstract>We present ParrotTTS, a modularized text-to-speech synthesis model leveraging disentangled self-supervised speech representations. It can train a multi-speaker variant effectively using transcripts from a single speaker. ParrotTTS adapts to a new language in low resource setup and generalizes to languages not seen while training the self-supervised backbone. Moreover, without training on bilingual or parallel examples, ParrotTTS can transfer voices across languages while preserving the speaker-specific characteristics, e.g., synthesizing fluent Hindi speech using a French speaker’s voice and accent. We present extensive results in monolingual and multi-lingual scenarios. ParrotTTS outperforms state-of-the-art multi-lingual text-to-speech (TTS) models using only a fraction of paired data as latter. Speech samples from ParrotTTS and code can be found at https://parrot-tts.github.io/tts/</abstract>
       <url hash="1104692c">2024.findings-eacl.6</url>
       <bibkey>shah-etal-2024-parrottts</bibkey>
+      <video href="2024.findings-eacl.6.mp4"/>
     </paper>
     <paper id="7">
       <title><fixed-case>N</fixed-case>av<fixed-case>H</fixed-case>int: Vision and Language Navigation Agent with a Hint Generator</title>
@@ -100,6 +108,7 @@
       <abstract>The existing work on vision and language navigation mainly relies on navigation-related losses to establish the connection between vision and language modalities, neglecting aspects of helping the navigation agent build a deep understanding of the visual environment.In our work, we provide indirect supervision to the navigation agent through a hint generator that provides detailed visual descriptions.The hint generator assists the navigation agent in developing a global understanding of the visual environment. It directs the agent’s attention toward related navigation details, including the relevant sub-instruction, potential challenges in recognition and ambiguities in grounding, and the targeted viewpoint description. To train the hint generator, we construct a synthetic dataset based on landmarks in the instructions and visible and distinctive objects in the visual environment.We evaluate our method on the R2R and R4R datasets and achieve state-of-the-art on several metrics. The experimental results demonstrate that generating hints not only enhances the navigation performance but also helps improve the agent’s interpretability.</abstract>
       <url hash="63815ab4">2024.findings-eacl.7</url>
       <bibkey>zhang-etal-2024-navhint</bibkey>
+      <video href="2024.findings-eacl.7.mp4"/>
     </paper>
     <paper id="8">
       <title>Text or Image? What is More Important in Cross-Domain Generalization Capabilities of Hate Meme Detection Models?</title>
@@ -121,6 +130,7 @@
       <url hash="e9d06d61">2024.findings-eacl.9</url>
       <attachment type="software" hash="4898d0e8">2024.findings-eacl.9.software.tgz</attachment>
       <bibkey>goot-2024-still</bibkey>
+      <video href="2024.findings-eacl.9.mp4"/>
     </paper>
     <paper id="10">
       <title>A Methodology for Generative Spelling Correction via Natural Spelling Errors Emulation across Multiple Domains and Languages</title>
@@ -148,6 +158,7 @@
       <abstract>Fine-tuning large language models is becoming ever more impractical due to their rapidly-growing scale. This motivates the use of parameter-efficient adaptation methods such as prompt tuning (PT), which adds a small number of tunable embeddings to an otherwise frozen model, and in-context learning (ICL), in which demonstrations of the task are provided to the model in natural language without any additional training. Recently, (CITATION) propose “instruction prompt tuning” (IPT), which combines PT with ICL by concatenating a natural language demonstration with learned prompt embeddings. While all of these methods have proven effective on different tasks, how they interact with each other remains unexplored. In this paper, we empirically study when and how in-context examples improve prompt tuning by measuring the effectiveness of ICL, PT, and IPT on five text generation tasks with multiple base language models. We observe that (1) IPT does <i>not</i> always outperform PT, and in fact requires the in-context demonstration to be semantically similar to the test input to yield improvements; (2) PT is unstable and exhibits high variance, but combining PT and ICL (into IPT) consistently reduces variance across all five tasks; and(3) prompts learned for a specific source task via PT exhibit positive transfer when paired with in-context examples of a different target task. Our results offer actionable insights on choosing a suitable parameter-efficient adaptation method for a given task.</abstract>
       <url hash="a17235c9">2024.findings-eacl.11</url>
       <bibkey>sun-etal-2024-context</bibkey>
+      <video href="2024.findings-eacl.11.mp4"/>
     </paper>
     <paper id="12">
       <title>Large Language Models for Psycholinguistic Plausibility Pretesting</title>
@@ -160,6 +171,7 @@
       <attachment type="software" hash="d5b10b6a">2024.findings-eacl.12.software.zip</attachment>
       <attachment type="note" hash="6832e347">2024.findings-eacl.12.note.zip</attachment>
       <bibkey>amouyal-etal-2024-large</bibkey>
+      <video href="2024.findings-eacl.12.mp4"/>
     </paper>
     <paper id="13">
       <title>Modeling Aspect Sentiment Coherency via Local Sentiment Aggregation</title>
@@ -171,6 +183,7 @@
       <attachment type="software" hash="7abddaeb">2024.findings-eacl.13.software.zip</attachment>
       <attachment type="note" hash="7abddaeb">2024.findings-eacl.13.note.zip</attachment>
       <bibkey>yang-li-2024-modeling</bibkey>
+      <video href="2024.findings-eacl.13.mp4"/>
     </paper>
     <paper id="14">
       <title>An Examination of the Robustness of Reference-Free Image Captioning Evaluation Metrics</title>
@@ -180,6 +193,7 @@
       <abstract>Recently, reference-free metrics such as CLIPScore (Hessel et al., 2021), UMIC (Lee et al., 2021), and PAC-S (Sarto et al., 2023) have been proposed for automatic reference-free evaluation of image captions. Our focus lies in evaluating the robustness of these metrics in scenarios that require distinguishing between two captions with high lexical overlap but very different meanings. Our findings reveal that despite their high correlation with human judgments, CLIPScore, UMIC, and PAC-S struggle to identify fine-grained errors. While all metrics exhibit strong sensitivity to visual grounding errors, their sensitivity to caption implausibility errors is limited. Furthermore, we found that all metrics are sensitive to variations in the size of image-relevant objects mentioned in the caption, while CLIPScore and PAC-S are also sensitive to the number of mentions of image-relevant objects in the caption. Regarding linguistic aspects of a caption, all metrics show weak comprehension of negation, and CLIPScore and PAC-S are insensitive to the structure of the caption to a great extent. We hope our findings will guide further improvements in reference-free evaluation of image captioning.</abstract>
       <url hash="98d0754c">2024.findings-eacl.14</url>
       <bibkey>ahmadi-agrawal-2024-examination</bibkey>
+      <video href="2024.findings-eacl.14.mp4"/>
     </paper>
     <paper id="15">
       <title>Barriers to Effective Evaluation of Simultaneous Interpretation</title>
@@ -193,6 +207,7 @@
       <abstract>Simultaneous interpretation is an especially challenging form of translation because it requires converting speech from one language to another in real-time. Though prior work has relied on out-of-the-box machine translation metrics to evaluate interpretation data, we hypothesize that strategies common in high-quality human interpretations, such as summarization, may not be handled well by standard machine translation metrics. In this work, we examine both qualitatively and quantitatively four potential barriers to evaluation of interpretation: disfluency, summarization, paraphrasing, and segmentation. Our experiments reveal that, while some machine translation metrics correlate fairly well with human judgments of interpretation quality, much work is still needed to account for strategies of interpretation during evaluation. As a first step to address this, we develop a fine-tuned model for interpretation evaluation, and achieve better correlation with human judgments than the state-of-the-art machine translation metrics.</abstract>
       <url hash="2ec8040a">2024.findings-eacl.15</url>
       <bibkey>wein-etal-2024-barriers</bibkey>
+      <video href="2024.findings-eacl.15.mp4"/>
     </paper>
     <paper id="16">
       <title>Inconsistent dialogue responses and how to recover from them</title>
@@ -227,6 +242,7 @@
       <url hash="b7def7f3">2024.findings-eacl.18</url>
       <attachment type="software" hash="300fc956">2024.findings-eacl.18.software.zip</attachment>
       <bibkey>benedek-wolf-2024-prilora</bibkey>
+      <video href="2024.findings-eacl.18.mp4"/>
     </paper>
     <paper id="19">
       <title>Revamping Multilingual Agreement Bidirectionally via Switched Back-translation for Multilingual Neural Machine Translation</title>
@@ -251,6 +267,7 @@
       <abstract>Recent multilingual pretrained language models (mPLMs) have been shown to encode strong language-specific signals, which are not explicitly provided during pretraining. It remains an open question whether it is feasible to employ mPLMs to measure language similarity, and subsequently use the similarity results to select source languages for boosting cross-lingual transfer. To investigate this, we propose mPLM-Sim, a language similarity measure that induces the similarities across languages from mPLMs using multi-parallel corpora. Our study shows that mPLM-Sim exhibits moderately high correlations with linguistic similarity measures, such as lexicostatistics, genealogical language family, and geographical sprachbund. We also conduct a case study on languages with low correlation and observe that mPLM-Sim yields more accurate similarity results. Additionally, we find that similarity results vary across different mPLMs and different layers within an mPLM. We further investigate whether mPLM-Sim is effective for zero-shot cross-lingual transfer by conducting experiments on both low-level syntactic tasks and high-level semantic tasks. The experimental results demonstrate that mPLM-Sim is capable of selecting better source languages than linguistic measures, resulting in a 1%-2% improvement in zero-shot cross-lingual transfer performance.</abstract>
       <url hash="accddcb1">2024.findings-eacl.20</url>
       <bibkey>lin-etal-2024-mplm</bibkey>
+      <video href="2024.findings-eacl.20.mp4"/>
     </paper>
     <paper id="21">
       <title><fixed-case>OYXOY</fixed-case>: A <fixed-case>M</fixed-case>odern <fixed-case>NLP</fixed-case> Test Suite for <fixed-case>M</fixed-case>odern <fixed-case>G</fixed-case>reek</title>
@@ -282,6 +299,7 @@
       <url hash="85cb68ea">2024.findings-eacl.22</url>
       <attachment type="software" hash="2f3e1abc">2024.findings-eacl.22.software.zip</attachment>
       <bibkey>bowen-etal-2024-comprehensive</bibkey>
+      <video href="2024.findings-eacl.22.mp4"/>
     </paper>
     <paper id="23">
       <title>Towards efficient self-supervised representation learning in speech processing</title>
@@ -314,6 +332,7 @@
       <url hash="5bf9f38e">2024.findings-eacl.25</url>
       <attachment type="note" hash="c0b2ed72">2024.findings-eacl.25.note.tgz</attachment>
       <bibkey>nguyen-etal-2024-noise</bibkey>
+      <video href="2024.findings-eacl.25.mp4"/>
     </paper>
     <paper id="26">
       <title>Large Language Models for Scientific Information Extraction: An Empirical Study for Virology</title>
@@ -326,6 +345,7 @@
       <attachment type="software" hash="bce15d0c">2024.findings-eacl.26.software.zip</attachment>
       <attachment type="note" hash="27bd030b">2024.findings-eacl.26.note.zip</attachment>
       <bibkey>shamsabadi-etal-2024-large</bibkey>
+      <video href="2024.findings-eacl.26.mp4"/>
     </paper>
     <paper id="27">
       <title>Re3val: Reinforced and Reranked Generative Retrieval</title>
@@ -338,6 +358,7 @@
       <abstract>Generative retrieval models encode pointers to information in a corpus as an index within the model’s parameters. These models serve as part of a larger pipeline, where retrieved information conditions generation for knowledge-intensive NLP tasks. However, we identify two limitations: the generative retrieval does not account for contextual information. Secondly, the retrieval can’t be tuned for the downstream readers as decoding the page title is a non-differentiable operation. This paper introduces Re3val, trained with generative reranking and reinforcement learning using limited data. Re3val leverages context acquired via Dense Passage Retrieval to rerank the retrieved page titles and utilizes REINFORCE to maximize rewards generated by constrained decoding. Additionally, we generate questions from our pre-training dataset to mitigate epistemic uncertainty and bridge the domain gap between the pre-training and fine-tuning datasets. Subsequently, we extract and rerank contexts from the KILT database using the rerank page titles. Upon grounding the top five reranked contexts, Re3val demonstrates the Top 1 KILT scores compared to all other generative retrieval models across five KILT datasets.</abstract>
       <url hash="9e63f5ec">2024.findings-eacl.27</url>
       <bibkey>song-etal-2024-re3val</bibkey>
+      <video href="2024.findings-eacl.27.mp4"/>
     </paper>
     <paper id="28">
       <title>Entity Linking in the Job Market Domain</title>
@@ -348,6 +369,7 @@
       <abstract>In Natural Language Processing, entity linking (EL) has centered around Wikipedia, but yet remains underexplored for the job market domain. Disambiguating skill mentions can help us get insight into the current labor market demands. In this work, we are the first to explore EL in this domain, specifically targeting the linkage of occupational skills to the ESCO taxonomy (le Vrang et al., 2014). Previous efforts linked coarse-grained (full) sentences to a corresponding ESCO skill. In this work, we link more fine-grained span-level mentions of skills. We tune two high-performing neural EL models, a bi-encoder (Wu et al., 2020) and an autoregressive model (Cao et al., 2021), on a synthetically generated mention–skill pair dataset and evaluate them on a human-annotated skill-linking benchmark. Our findings reveal that both models are capable of linking implicit mentions of skills to their correct taxonomy counterparts. Empirically, BLINK outperforms GENRE in strict evaluation, but GENRE performs better in loose evaluation (accuracy@k).</abstract>
       <url hash="21d3a5dd">2024.findings-eacl.28</url>
       <bibkey>zhang-etal-2024-entity</bibkey>
+      <video href="2024.findings-eacl.28.mp4"/>
     </paper>
     <paper id="29">
       <title>(Chat)<fixed-case>GPT</fixed-case> v <fixed-case>BERT</fixed-case> Dawn of Justice for Semantic Change Detection</title>
@@ -369,6 +391,7 @@
       <abstract>Thanks to the recent progress in vision-language modeling and the evolving nature of news consumption, the tasks of automatic summarization and headline generation based on multimodal news articles have been gaining popularity. One of the limitations of the current approaches is caused by the commonly used sophisticated modular architectures built upon hierarchical cross-modal encoders and modality-specific decoders, which restrict the model’s applicability to specific data modalities – once trained on, e.g., text+video pairs there is no straightforward way to apply the model to text+image or text-only data. In this work, we propose a unified task formulation that utilizes a simple encoder-decoder model to generate headlines from uni- and multi-modal news articles. This model is trained jointly on data of several modalities and extends the textual decoder to handle the multimodal output.</abstract>
       <url hash="3aed0449">2024.findings-eacl.30</url>
       <bibkey>krubinski-pecina-2024-towards</bibkey>
+      <video href="2024.findings-eacl.30.mp4"/>
     </paper>
     <paper id="31">
       <title>On the Relationship between Sentence Analogy Identification and Sentence Structure Encoding in Large Language Models</title>
@@ -383,6 +406,7 @@
       <abstract>The ability of Large Language Models (LLMs) to encode syntactic and semantic structures of language is well examined in NLP. Additionally, analogy identification, in the form of word analogies are extensively studied in the last decade of language modeling literature. In this work we specifically look at how LLMs’ abilities to capture sentence analogies (sentences that convey analogous meaning to each other) vary with LLMs’ abilities to encode syntactic and semantic structures of sentences. Through our analysis, we find that LLMs’ ability to identify sentence analogies is positively correlated with their ability to encode syntactic and semantic structures of sentences. Specifically, we find that the LLMs which capture syntactic structures better, also have higher abilities in identifying sentence analogies.</abstract>
       <url hash="6fe2b6ac">2024.findings-eacl.31</url>
       <bibkey>wijesiriwardene-etal-2024-relationship</bibkey>
+      <video href="2024.findings-eacl.31.mp4"/>
     </paper>
     <paper id="32">
       <title>Contextualization Distillation from Large Language Model for Knowledge Graph Completion</title>
@@ -396,6 +420,7 @@
       <bibkey>li-etal-2024-contextualization</bibkey>
       <revision id="1" href="2024.findings-eacl.32v1" hash="7f273319"/>
       <revision id="2" href="2024.findings-eacl.32v2" hash="4b81611d" date="2024-03-30">This revision corrects the citation display problem in the Appendix.</revision>
+      <video href="2024.findings-eacl.32.mp4"/>
     </paper>
     <paper id="33">
       <title>Differentially Private Natural Language Models: Recent Advances and Future Directions</title>
@@ -407,6 +432,7 @@
       <abstract>Recent developments in deep learning have led to great success in various natural language processing (NLP) tasks. However, these applications may involve data that contain sensitive information. Therefore, how to achieve good performance while also protecting the privacy of sensitive data is a crucial challenge in NLP. To preserve privacy, Differential Privacy (DP), which can prevent reconstruction attacks and protect against potential side knowledge, is becoming a de facto technique for private data analysis. In recent years, NLP in DP models (DP-NLP) has been studied from different perspectives, which deserves a comprehensive review. In this paper, we provide the first systematic review of recent advances in DP deep learning models in NLP. In particular, we first discuss some differences and additional challenges of DP-NLP compared with the standard DP deep learning. Then, we investigate some existing work on DP-NLP andpresent its recent developments from three aspects: gradient perturbation based methods, embedding vector perturbation based methods, and ensemble model based methods. We also discuss some challenges and future directions.</abstract>
       <url hash="25234848">2024.findings-eacl.33</url>
       <bibkey>hu-etal-2024-differentially</bibkey>
+      <video href="2024.findings-eacl.33.mp4"/>
     </paper>
     <paper id="34">
       <title>Learning to Compare Financial Reports for Financial Forecasting</title>
@@ -446,6 +472,7 @@
       <url hash="fbd74890">2024.findings-eacl.36</url>
       <attachment type="software" hash="6164d06c">2024.findings-eacl.36.software.zip</attachment>
       <bibkey>cao-jiang-2024-knowledge</bibkey>
+      <video href="2024.findings-eacl.36.mp4"/>
     </paper>
     <paper id="37">
       <title>Simple Temperature Cool-down in Contrastive Framework for Unsupervised Sentence Representation Learning</title>
@@ -456,6 +483,7 @@
       <abstract>In this paper, we proposes a simple, tricky method to improve sentence representation of unsupervised contrastive learning. Even though contrastive learning has achieved great performances in both visual representation learning (VRL) and sentence representation learning (SRL) fields, we focus on the fact that there is a gap between characteristics and training dynamics of VRL and SRL. We first examine the role of temperature to bridge the gap between VRL and SRL, and find some temperature-dependent elements in SRL; <i>i.e.</i>, a higher temperature causes overfitting of the uniformity while improving the alignment in earlier phase of training. Then, we design a <i>temperature cool-down</i> technique based on this observation, which helps PLMs to be more suitable for contrastive learning via preparation of uniform representation space. Our experimental results on widely-utilized benchmarks demonstrate the effectiveness and extensiblity of our method.</abstract>
       <url hash="13d445d4">2024.findings-eacl.37</url>
       <bibkey>jeong-etal-2024-simple</bibkey>
+      <video href="2024.findings-eacl.37.mp4"/>
     </paper>
     <paper id="38">
       <title>Bootstrap Your Own <fixed-case>PLM</fixed-case>: Boosting Semantic Features of <fixed-case>PLM</fixed-case>s for Unsuperivsed Contrastive Learning</title>
@@ -466,6 +494,7 @@
       <abstract>This paper aims to investigate the possibility of exploiting original semantic features of PLMs (pre-trained language models) during contrastive learning in the context of SRL (sentence representation learning). In the context of feature modification, we identified a method called IFM (implicit feature modification), which reduces the tendency of contrastive models for VRL (visual representation learning) to rely on feature-suppressing shortcut solutions. We observed that IFM did not work well for SRL, which may be due to differences between the nature of VRL and SRL. We propose BYOP, which boosts well-represented features, taking the opposite idea of IFM, under the assumption that SimCSE’s dropout-noise-based augmentation may be too simple to modify high-level semantic features, and that the features learned by PLMs are semantically meaningful and should be boosted, rather than removed. Extensive experiments lend credence to the logic of BYOP, which considers the nature of SRL.</abstract>
       <url hash="10ca921c">2024.findings-eacl.38</url>
       <bibkey>jeong-etal-2024-bootstrap</bibkey>
+      <video href="2024.findings-eacl.38.mp4"/>
     </paper>
     <paper id="39">
       <title>Personalized Abstractive Summarization by Tri-agent Generation Pipeline</title>
@@ -477,6 +506,7 @@
       <abstract>Tailoring outputs from large language models, like ChatGPT, to implicit user preferences remains a challenge despite their impressive generative capabilities. In this paper, we propose a tri-agent generation pipeline comprising a generator, an instructor, and an editor to enhance output personalization. The generator produces an initial output, the instructor automatically generates editing instructions based on user preferences, and the editor refines the output to align with those preferences. The inference-only large language model (ChatGPT) serves as both the generator and editor, with a smaller model acting as the instructor to guide output generation. We train the instructor using editor-steered reinforcement learning, leveraging feedback from a large-scale editor model to optimize instruction generation. Experimental results on two abstractive summarization datasets demonstrate the effectiveness of our approach in generating outputs that better meet user expectations.</abstract>
       <url hash="17757746">2024.findings-eacl.39</url>
       <bibkey>xiao-etal-2024-personalized</bibkey>
+      <video href="2024.findings-eacl.39.mp4"/>
     </paper>
     <paper id="40">
       <title>Revisiting the <fixed-case>M</fixed-case>arkov Property for Machine Translation</title>
@@ -488,6 +518,7 @@
       <abstract>In this paper, we re-examine the Markov property in the context of neural machine translation. We design a Markov Autoregressive Transformer (MAT) and undertake a comprehensive assessment of its performance across four WMT benchmarks. Our findings indicate that MAT with an order larger than 4 can generate translations with quality on par with that of conventional autoregressive transformers. In addition, counter-intuitively, we also find that the advantages of utilizing a higher-order MAT do not specifically contribute to the translation of longer sentences.</abstract>
       <url hash="df419ec5">2024.findings-eacl.40</url>
       <bibkey>du-etal-2024-revisiting</bibkey>
+      <video href="2024.findings-eacl.40.mp4"/>
     </paper>
     <paper id="41">
       <title>Reward Engineering for Generating Semi-structured Explanation</title>
@@ -498,6 +529,7 @@
       <abstract>Semi-structured explanation depicts the implicit process of a reasoner with an explicit representation. This explanation highlights how available information in a specific query is utilised and supplemented with information a reasoner produces from its internal weights towards generating an answer. Despite the recent improvements in generative capabilities of language models, producing structured explanations to verify a model’s true reasoning capabilities remains a challenge. This issue is particularly pronounced for not-so-large LMs (e.g., FLAN-T5-XXL). In this work, we first underscore the limitations of supervised fine-tuning (SFT) in tackling this challenge, and then introduce a carefully crafted reward engineering method in reinforcement learning (RL) to better address this problem. We investigate multiple reward aggregation methods and provide a detailed discussion which sheds light on the promising potential of RL for future research. Our proposed method on two semi-structured explanation generation benchmarks (ExplaGraph and COPA-SSE) achieves new state-of-the-art results.</abstract>
       <url hash="b3d3ccc3">2024.findings-eacl.41</url>
       <bibkey>han-etal-2024-reward</bibkey>
+      <video href="2024.findings-eacl.41.mp4"/>
     </paper>
     <paper id="42">
       <title>Towards Context-Based Violence Detection: A <fixed-case>K</fixed-case>orean Crime Dialogue Dataset</title>
@@ -520,6 +552,7 @@
       <abstract>Deriving meaningful sentence embeddings is crucial in capturing the semantic relationship between texts. Recent advances in building sentence embedding models have centered on replacing traditional human-generated text datasets with those generated by LLMs. However, the properties of these widely used LLM-generated texts remain largely unexplored. Here, we evaluate the quality of the LLM-generated texts from four perspectives (Positive Text Repetition, Length Difference Penalty, Positive Score Compactness, and Negative Text Implausibility) and find that there exists an inherent difference between human and LLM-generated datasets. To further enhance sentence embeddings using both human and LLM-generated datasets, we propose a novel loss function that incorporates Positive-Negative sample Augmentation (PNA) within the contrastive learning objective. Our results demonstrate that PNA effectively mitigates the sentence anisotropy problem in Wikipedia corpus (-7% compared to CLHAIF) and simultaneously improves the Spearman’s correlation in standard Semantic Textual Similarity (STS) tasks (+1.47% compared to CLHAIF).</abstract>
       <url hash="5023b599">2024.findings-eacl.43</url>
       <bibkey>an-etal-2024-capturing</bibkey>
+      <video href="2024.findings-eacl.43.mp4"/>
     </paper>
     <paper id="44">
       <title>Harmonizing Code-mixed Conversations: Personality-assisted Code-mixed Response Generation in Dialogues</title>
@@ -529,6 +562,7 @@
       <abstract>Code-mixing, the blending of multiple languages within a single conversation, introduces a distinctive challenge, particularly in the context of response generation. Capturing the intricacies of code-mixing proves to be a formidable task, given the wide-ranging variations influenced by individual speaking styles and cultural backgrounds. In this study, we explore response generation within code-mixed conversations. We introduce a novel approach centered on harnessing the Big Five personality traits acquired in an unsupervised manner from the conversations to bolster the performance of response generation. These inferred personality attributes are seamlessly woven into the fabric of the dialogue context, using a novel fusion mechanism, . It uses an effective two-step attention formulation to fuse the dialogue and personality information. This fusion not only enhances the contextual relevance of generated responses but also elevates the overall performance of the model. Our experimental results, grounded in a dataset comprising of multi-party Hindi-English code-mix conversations, highlight the substantial advantages offered by personality-infused models over their conventional counterparts. This is evident in the increase observed in ROUGE and BLUE scores for the response generation task when the identified personality is seamlessly integrated into the dialogue context. Qualitative assessment for personality identification and response generation aligns well with our quantitative results.</abstract>
       <url hash="6210c1f5">2024.findings-eacl.44</url>
       <bibkey>kumar-chakraborty-2024-harmonizing</bibkey>
+      <video href="2024.findings-eacl.44.mp4"/>
     </paper>
     <paper id="45">
       <title>Morality is Non-Binary: Building a Pluralist Moral Sentence Embedding Space using Contrastive Learning</title>
@@ -540,6 +574,7 @@
       <url hash="7a5007bf">2024.findings-eacl.45</url>
       <attachment type="software" hash="935b473d">2024.findings-eacl.45.software.zip</attachment>
       <bibkey>park-etal-2024-morality</bibkey>
+      <video href="2024.findings-eacl.45.mp4"/>
     </paper>
     <paper id="46">
       <title>Prosody in Cascade and Direct Speech-to-Text Translation: a case study on <fixed-case>K</fixed-case>orean Wh-Phrases</title>
@@ -551,6 +586,7 @@
       <abstract>Speech-to-Text Translation (S2TT) has typically been addressed with cascade systems, where speech recognition systems generate a transcription that is subsequently passed to a translation model. While there has been a growing interest in developing direct speech translation systems to avoid propagating errors and losing non-verbal content, prior work in direct S2TT has struggled to conclusively establish the advantages of integrating the acoustic signal directly into the translation process. This work proposes using contrastive evaluation to quantitatively measure the ability of direct S2TT systems to disambiguate utterances where prosody plays a crucial role. Specifically, we evaluated Korean-English translation systems on a test set containing wh-phrases, for which prosodic features are necessary to produce translations with the correct intent, whether it’s a statement, a yes/no question, a wh-question, and more. Our results clearly demonstrate the value of direct translation systems over cascade translation models, with a notable 12.9% improvement in overall accuracy in ambiguous cases, along with up to a 15.6% increase in F1 scores for one of the major intent categories. To the best of our knowledge, this work stands as the first to provide quantitative evidence that direct S2TT models can effectively leverage prosody. The code for our evaluation is openly accessible and freely available for review and utilisation.</abstract>
       <url hash="5135cf37">2024.findings-eacl.46</url>
       <bibkey>zhou-etal-2024-prosody</bibkey>
+      <video href="2024.findings-eacl.46.mp4"/>
     </paper>
     <paper id="47">
       <title>Exploring the Potential of <fixed-case>C</fixed-case>hat<fixed-case>GPT</fixed-case> on Sentence Level Relations: A Focus on Temporal, Causal, and Discourse Relations</title>
@@ -565,6 +601,7 @@
       <abstract>This paper aims to quantitatively evaluate the performance of ChatGPT, an interactive large language model, on inter-sentential relations such as temporal relations, causal relations, and discourse relations. Given ChatGPT’s promising performance across various tasks, we proceed to carry out thorough evaluations on the whole test sets of 11 datasets, including temporal and causal relations, PDTB2.0-based, and dialogue-based discourse relations. To ensure the reliability of our findings, we employ three tailored prompt templates for each task, including the zero-shot prompt template, zero-shot prompt engineering (PE) template, and in-context learning (ICL) prompt template, to establish the initial baseline scores for all popular sentence-pair relation classification tasks for the first time. Through our study, we discover that ChatGPT exhibits exceptional proficiency in detecting and reasoning about causal relations, albeit it may not possess the same level of expertise in identifying the temporal order between two events. While it is capable of identifying the majority of discourse relations with existing explicit discourse connectives, the implicit discourse relation remains a formidable challenge. Concurrently, ChatGPT demonstrates subpar performance in the dialogue discourse parsing task that requires structural understanding in a dialogue before being aware of the discourse relation.</abstract>
       <url hash="375a167d">2024.findings-eacl.47</url>
       <bibkey>chan-etal-2024-exploring</bibkey>
+      <video href="2024.findings-eacl.47.mp4"/>
     </paper>
     <paper id="48">
       <title>Backtracing: Retrieving the Cause of the Query</title>
@@ -577,6 +614,7 @@
       <abstract>Many online content portals allow users to ask questions to supplement their understanding (e.g., of lectures). While information retrieval (IR) systems may provide answers for such user queries, they do not directly assist content creators—such as lecturers who want to improve their content—identify segments that caused a user to ask those questions.We introduce the task of backtracing, in which systems retrieve the text segment that most likely caused a user query.We formalize three real-world domains for which backtracing is important in improving content delivery and communication: understanding the cause of (a) student confusion in the Lecture domain, (b) reader curiosity in the News Article domain, and (c) user emotion in the Conversation domain.We evaluate the zero-shot performance of popular information retrieval methods and language modeling methods, including bi-encoder, re-ranking and likelihood-based methods and ChatGPT.While traditional IR systems retrieve semantically relevant information (e.g., details on “projection matrices” for a query “does projecting multiple times still lead to the same point?”), they often miss the causally relevant context (e.g., the lecturer states “projecting twice gets me the same answer as one projection”). Our results show that there is room for improvement on backtracing and it requires new retrieval approaches.We hope our benchmark serves to improve future retrieval systems for backtracing, spawning systems that refine content generation and identify linguistic triggers influencing user queries.</abstract>
       <url hash="b176d238">2024.findings-eacl.48</url>
       <bibkey>wang-etal-2024-backtracing</bibkey>
+      <video href="2024.findings-eacl.48.mp4"/>
     </paper>
     <paper id="49">
       <title>Unsupervised Multilingual Dense Retrieval via Generative Pseudo Labeling</title>
@@ -590,6 +628,7 @@
       <url hash="9afec971">2024.findings-eacl.49</url>
       <attachment type="software" hash="a6b3b82e">2024.findings-eacl.49.software.zip</attachment>
       <bibkey>huang-etal-2024-unsupervised</bibkey>
+      <video href="2024.findings-eacl.49.mp4"/>
     </paper>
     <paper id="50">
       <title>Investigating grammatical abstraction in language models using few-shot learning of novel noun gender</title>
@@ -615,6 +654,7 @@
       <attachment type="software" hash="f0ea4f26">2024.findings-eacl.51.software.zip</attachment>
       <attachment type="note" hash="7205c223">2024.findings-eacl.51.note.zip</attachment>
       <bibkey>fang-etal-2024-fly</bibkey>
+      <video href="2024.findings-eacl.51.mp4"/>
     </paper>
     <paper id="52">
       <title>Style Vectors for Steering Generative Large Language Models</title>
@@ -631,6 +671,7 @@
       <url hash="a02d4eb5">2024.findings-eacl.52</url>
       <attachment type="software" hash="29f876dd">2024.findings-eacl.52.software.zip</attachment>
       <bibkey>konen-etal-2024-style</bibkey>
+      <video href="2024.findings-eacl.52.mp4"/>
     </paper>
     <paper id="53">
       <title>Consistent Joint Decision-Making with Heterogeneous Learning Models</title>
@@ -640,6 +681,7 @@
       <abstract>This paper introduces a novel decision-making framework that promotes consistency among decisions made by diverse models while utilizing external knowledge. Leveraging the Integer Linear Programming(ILP) framework, we map predictions from various models into globally normalized and comparable values by incorporating information about decisions’ prior probability, confidence (uncertainty), and the models’ expected accuracy. Our empirical study demonstrates the superiority of our approach over conventional baselines on multiple datasets.</abstract>
       <url hash="4dc934db">2024.findings-eacl.53</url>
       <bibkey>rajaby-faghihi-kordjamshidi-2024-consistent</bibkey>
+      <video href="2024.findings-eacl.53.mp4"/>
     </paper>
     <paper id="54">
       <title>Quantifying Association Capabilities of Large Language Models and Its Implications on Privacy Leakage</title>
@@ -664,6 +706,7 @@
       <url hash="9b9e33fb">2024.findings-eacl.55</url>
       <attachment type="software" hash="5e4d61a2">2024.findings-eacl.55.software.zip</attachment>
       <bibkey>masud-etal-2024-probing</bibkey>
+      <video href="2024.findings-eacl.55.mp4"/>
     </paper>
     <paper id="56">
       <title>Embible: Reconstruction of <fixed-case>A</fixed-case>ncient <fixed-case>H</fixed-case>ebrew and <fixed-case>A</fixed-case>ramaic Texts Using Transformers</title>
@@ -676,6 +719,7 @@
       <abstract>Hebrew and Aramaic inscriptions serve as an essential source of information on the ancient history of the Near East. Unfortunately, some parts of the inscribed texts become illegible over time. Special experts, called epigraphists, use time-consuming manual procedures to estimate the missing content. This problem can be considered an extended masked language modeling task, where the damaged content can comprise single characters, character n-grams (partial words), single complete words, and multi-word n-grams.This study is the first attempt to apply the masked language modeling approach to corrupted inscriptions in Hebrew and Aramaic languages, both using the Hebrew alphabet consisting mostly of consonant symbols. In our experiments, we evaluate several transformer-based models, which are fine-tuned on the Biblical texts and tested on three different percentages of randomly masked parts in the testing corpus. For any masking percentage, the highest text completion accuracy is obtained with a novel ensemble of word and character prediction models.</abstract>
       <url hash="a4fcfdf5">2024.findings-eacl.56</url>
       <bibkey>fono-etal-2024-embible</bibkey>
+      <video href="2024.findings-eacl.56.mp4"/>
     </paper>
     <paper id="57">
       <title>Stateful Memory-Augmented Transformers for Efficient Dialogue Modeling</title>
@@ -699,6 +743,7 @@
       <abstract>In this study, we present an investigation into the anisotropy dynamics and intrinsic dimension of embeddings in transformer architectures, focusing on the dichotomy between encoders and decoders. Our findings reveal that the anisotropy profile in transformer decoders exhibits a distinct bell-shaped curve, with the highest anisotropy concentrations in the middle layers. This pattern diverges from the more uniformly distributed anisotropy observed in encoders. In addition, we found that the intrinsic dimension of embeddings increases in the initial phases of training, indicating an expansion into higher-dimensional space. This fact is then followed by a compression phase towards the end of training with dimensionality decrease, suggesting a refinement into more compact representations. Our results provide fresh insights to the understanding of encoders and decoders embedding properties.</abstract>
       <url hash="3436b782">2024.findings-eacl.58</url>
       <bibkey>razzhigaev-etal-2024-shape</bibkey>
+      <video href="2024.findings-eacl.58.mp4"/>
     </paper>
     <paper id="59">
       <title><fixed-case>MED</fixed-case>s for <fixed-case>PET</fixed-case>s: Multilingual Euphemism Disambiguation for Potentially Euphemistic Terms</title>
@@ -727,6 +772,7 @@
       <url hash="fd7afc75">2024.findings-eacl.60</url>
       <attachment type="software" hash="e7e35714">2024.findings-eacl.60.software.zip</attachment>
       <bibkey>feng-etal-2024-promptexplainer</bibkey>
+      <video href="2024.findings-eacl.60.mp4"/>
     </paper>
     <paper id="61">
       <title>Do-Not-Answer: Evaluating Safeguards in <fixed-case>LLM</fixed-case>s</title>
@@ -739,6 +785,7 @@
       <abstract>With the rapid evolution of large language models (LLMs), new and hard-to-predict harmful capabilities are emerging. This requires developers to identify potential risks through the evaluation of “dangerous capabilities” in order to responsibly deploy LLMs. Here we aim to facilitate this process. In particular, we collect an open-source dataset to evaluate the safeguards in LLMs, to facilitate the deployment of safer open-source LLMs at a low cost. Our dataset is curated and filtered to consist only of instructions that responsible language models should not follow. We assess the responses of six popular LLMs to these instructions, and we find that simple BERT-style classifiers can achieve results that are comparable to GPT-4 on automatic safety evaluation. Our data and code are available at https://github.com/Libr-AI/do-not-answer</abstract>
       <url hash="3329c299">2024.findings-eacl.61</url>
       <bibkey>wang-etal-2024-answer</bibkey>
+      <video href="2024.findings-eacl.61.mp4"/>
     </paper>
     <paper id="62">
       <title>Do Language Models Know When They’re Hallucinating References?</title>
@@ -752,6 +799,7 @@
       <attachment type="software" hash="2c355a56">2024.findings-eacl.62.software.zip</attachment>
       <attachment type="note" hash="35db54a9">2024.findings-eacl.62.note.zip</attachment>
       <bibkey>agrawal-etal-2024-language</bibkey>
+      <video href="2024.findings-eacl.62.mp4"/>
     </paper>
     <paper id="63">
       <title>Bridging Cultural Nuances in Dialogue Agents through Cultural Value Surveys</title>
@@ -782,6 +830,7 @@
       <abstract>Recent years, have seen the rise of large language models (LLMs), where practitioners use task-specific prompts; this was shown to be effective for a variety of tasks. However, when applied to semantic textual similarity (STS) and natural language inference (NLI), the effectiveness of LLMs turns out to be limited by low-resource domain accuracy, model overconfidence, and difficulty to capture the disagreements between human judgements. With this in mind, here we try to rethink STS and NLI in the era of LLMs. We first evaluate the performance of STS and NLI in the clinical/biomedical domain, and then we assess LLMs’ predictive confidence and their capability of capturing collective human opinions. We find that these old problems are still to be properly addressed in the era of LLMs.</abstract>
       <url hash="4cbaa3d3">2024.findings-eacl.65</url>
       <bibkey>wang-etal-2024-rethinking</bibkey>
+      <video href="2024.findings-eacl.65.mp4"/>
     </paper>
     <paper id="66">
       <title>Learning High-Quality and General-Purpose Phrase Representations</title>
@@ -793,6 +842,7 @@
       <url hash="da034f83">2024.findings-eacl.66</url>
       <attachment type="software" hash="55439295">2024.findings-eacl.66.software.zip</attachment>
       <bibkey>chen-etal-2024-learning</bibkey>
+      <video href="2024.findings-eacl.66.mp4"/>
     </paper>
     <paper id="67">
       <title>Explaining Language Model Predictions with High-Impact Concepts</title>
@@ -815,6 +865,7 @@
       <abstract>Recent research has revealed that machine learning models have a tendency to leverage spurious correlations that exist in the training set but may not hold true in general circumstances. For instance, a sentiment classifier may erroneously learn that the token “performances” is commonly associated with positive movie reviews.Relying on these spurious correlations degrades the classifier’s performance when it deploys on out-of-distribution data.In this paper, we examine the implications of spurious correlations through a novel perspective called neighborhood analysis. The analysis uncovers how spurious correlations lead unrelated words to erroneously cluster together in the embedding space. Driven by the analysis, we design a metric to detect spurious tokens and also propose a family of regularization methods, NFL (doN’t Forget your Language) to mitigate spurious correlations in text classification.Experiments show that NFL can effectively prevent erroneous clusters and significantly improve the robustness of classifiers without auxiliary data. The code is publicly available at https://github.com/oscarchew/doNt-Forget-your-Language.</abstract>
       <url hash="ac912e09">2024.findings-eacl.68</url>
       <bibkey>chew-etal-2024-understanding</bibkey>
+      <video href="2024.findings-eacl.68.mp4"/>
     </paper>
     <paper id="69">
       <title>On the Intractability to Synthesize Factual Inconsistencies in Summarization</title>
@@ -840,6 +891,7 @@
       <abstract>This study focuses on media bias detection, crucial in today’s era of influential social media platforms shaping individual attitudes and opinions. In contrast to prior work that primarily relies on training specific models tailored to particular datasets, resulting in limited adaptability and subpar performance on out-of-domain data, we introduce a general bias detection framework, IndiVec, built upon large language models. IndiVec begins by constructing a fine-grained media bias database, leveraging the robust instruction-following capabilities of large language models and vector database techniques. When confronted with new input for bias detection, our framework automatically selects the most relevant indicator from the vector database and employs majority voting to determine the input’s bias label. IndiVec excels compared to previous methods due to its adaptability (demonstrating consistent performance across diverse datasets from various sources) and explainability (providing explicit top-k indicators to interpret bias predictions). Experimental results on four political bias datasets highlight IndiVec’s significant superiority over baselines. Furthermore, additional experiments and analysis provide profound insights into the framework’s effectiveness.</abstract>
       <url hash="05911d09">2024.findings-eacl.70</url>
       <bibkey>lin-etal-2024-indivec</bibkey>
+      <video href="2024.findings-eacl.70.mp4"/>
     </paper>
     <paper id="71">
       <title>Are Large Language Model-based Evaluators the Solution to Scaling Up Multilingual Evaluation?</title>
@@ -855,6 +907,7 @@
       <abstract>Large Language Models (LLMs) excel in various Natural Language Processing (NLP) tasks, yet their evaluation, particularly in languages beyond the top 20, remains inadequate due to existing benchmarks and metrics limitations. Employing LLMs as evaluators to rank or score other models’ outputs emerges as a viable solution, addressing the constraints tied to human annotators and established benchmarks. In this study, we explore the potential of LLM-based evaluators in enhancing multilingual evaluation by calibrating them against 20K human judgments across three text-generation tasks, five metrics, and eight languages. Our analysis reveals a bias in LLM-based evaluators towards higher scores, underscoring the necessity of calibration with native speaker judgments, especially in low-resource and non-Latin script languages, to ensure accurate evaluation of LLM performance across diverse languages.</abstract>
       <url hash="24bd4a12">2024.findings-eacl.71</url>
       <bibkey>hada-etal-2024-large</bibkey>
+      <video href="2024.findings-eacl.71.mp4"/>
     </paper>
     <paper id="72">
       <title>Computational Morphology and Lexicography Modeling of <fixed-case>M</fixed-case>odern <fixed-case>S</fixed-case>tandard <fixed-case>A</fixed-case>rabic Nominals</title>
@@ -867,6 +920,7 @@
       <abstract>Modern Standard Arabic (MSA) nominals present many morphological and lexical modeling challenges that have not been consistently addressed previously. This paper attempts to define the space of such challenges, and leverage a recently proposed morphological framework to build a comprehensive and extensible model for MSA nominals. Our model design addresses the nominals’ intricate morphotactics, as well as their paradigmatic irregularities. Our implementation showcases enhanced accuracy and consistency compared to a commonly used MSA morphological analyzer and generator. We make our models publicly available.</abstract>
       <url hash="4372130f">2024.findings-eacl.72</url>
       <bibkey>khairallah-etal-2024-computational</bibkey>
+      <video href="2024.findings-eacl.72.mp4"/>
     </paper>
     <paper id="73">
       <title>Relabeling Minimal Training Subset to Flip a Prediction</title>
@@ -877,6 +931,7 @@
       <abstract>When facing an unsatisfactory prediction from a machine learning model, users can be interested in investigating the underlying reasons and exploring the potential for reversing the outcome. We ask: To flip the prediction on a test point <tex-math>x_t</tex-math>, how to identify the smallest training subset <tex-math>\mathcal{S}_t</tex-math> that we need to relabel?We propose an efficient algorithm to identify and relabel such a subset via an extended influence function for binary classification models with convex loss.We find that relabeling fewer than 2% of the training points can always flip a prediction.This mechanism can serve multiple purposes: (1) providing an approach to challenge a model prediction by altering training points; (2) evaluating model robustness with the cardinality of the subset (i.e., <tex-math>|\mathcal{S}_t|</tex-math>); we show that <tex-math>|\mathcal{S}_t|</tex-math> is highly related to the noise ratio in the training set and <tex-math>|\mathcal{S}_t|</tex-math> is correlated with but complementary to predicted probabilities; and (3) revealing training points lead to group attribution bias. To the best of our knowledge, we are the first to investigate identifying and relabeling the minimal training subset required to flip a given prediction.</abstract>
       <url hash="57da3035">2024.findings-eacl.73</url>
       <bibkey>yang-etal-2024-relabeling</bibkey>
+      <video href="2024.findings-eacl.73.mp4"/>
     </paper>
     <paper id="74">
       <title>Why Generate When You Can Discriminate? A Novel Technique for Text Classification using Language Models</title>
@@ -889,6 +944,7 @@
       <abstract>In this paper, we propose a novel two-step technique for text classification using autoregressive Language Models (LM). In the first step, a set of perplexity and log-likelihood based numeric features are elicited from an LM for a text instance to be classified. Then, in the second step, a classifier based on these features is trained to predict the final label. The classifier used is usually a simple machine learning classifier like Support Vector Machine (SVM) or Logistic Regression (LR) and it is trained using a small set of training examples. We believe, our technique presents a whole new way of exploiting the available training instances, in addition to the existing ways like fine-tuning LMs or in-context learning. Our approach stands out by eliminating the need for parameter updates in LMs, as required in fine-tuning, and does not impose limitations on the number of training examples faced while building prompts for in-context learning. We evaluate our technique across 5 different datasets and compare with multiple competent baselines.</abstract>
       <url hash="c83c1003">2024.findings-eacl.74</url>
       <bibkey>pawar-etal-2024-generate</bibkey>
+      <video href="2024.findings-eacl.74.mp4"/>
     </paper>
     <paper id="75">
       <title>Autism Detection in Speech – A Survey</title>
@@ -898,6 +954,7 @@
       <abstract>There has been a range of studies of how autism is displayed in voice, speech, and language. We analyse studies from the biomedical, as well as the psychological domain, but also from the NLP domain in order to find linguistic, prosodic and acoustic cues. Our survey looks at all three domains. We define autism and which comorbidities might influence the correct detection of the disorder. We especially look at observations such as verbal and semantic fluency, prosodic features, but also disfluencies and speaking rate. We also show word-based approaches and describe machine learning and transformer-based approaches both on the audio data as well as the transcripts. Lastly, we conclude, while there already is a lot of research, female patients seem to be severely under-researched. Also, most NLP research focuses on traditional machine learning methods instead of transformers. Additionally, we were unable to find research combining both features from audio and transcripts.</abstract>
       <url hash="51af6a1c">2024.findings-eacl.75</url>
       <bibkey>probol-mieskes-2024-autism</bibkey>
+      <video href="2024.findings-eacl.75.mp4"/>
     </paper>
     <paper id="76">
       <title>Improving Multimodal Classification of Social Media Posts by Leveraging Image-Text Auxiliary Tasks</title>
@@ -920,6 +977,7 @@
       <url hash="1265d531">2024.findings-eacl.77</url>
       <attachment type="software" hash="a178fa2c">2024.findings-eacl.77.software.zip</attachment>
       <bibkey>holtermann-etal-2024-weight</bibkey>
+      <video href="2024.findings-eacl.77.mp4"/>
     </paper>
     <paper id="78">
       <title><fixed-case>I</fixed-case>ndi<fixed-case>F</fixed-case>ood<fixed-case>VQA</fixed-case>: Advancing Visual Question Answering and Reasoning with a Knowledge-Infused Synthetic Data Generation Pipeline</title>
@@ -942,6 +1000,7 @@
       <attachment type="software" hash="19d09dc0">2024.findings-eacl.79.software.zip</attachment>
       <attachment type="note" hash="60b3c1f3">2024.findings-eacl.79.note.zip</attachment>
       <bibkey>zeng-zubiaga-2024-maple</bibkey>
+      <video href="2024.findings-eacl.79.mp4"/>
     </paper>
     <paper id="80">
       <title>Leveraging Open Information Extraction for More Robust Domain Transfer of Event Trigger Detection</title>
@@ -953,6 +1012,7 @@
       <abstract>Event detection is a crucial information extraction task in many domains, such as Wikipedia or news. The task typically relies on trigger detection (TD) – identifying token spans in the text that evoke specific events. While the notion of triggers should ideally be universal across domains, domain transfer for TD from high- to low-resource domains results in significant performance drops. We address the problem of negative transfer in TD by coupling triggers between domains using subject-object relations obtained from a rule-based open information extraction (OIE) system. We demonstrate that OIE relations injected through multi-task training can act as mediators between triggers in different domains, enhancing zero- and few-shot TD domain transfer and reducing performance drops, in particular when transferring from a high-resource source domain (Wikipedia) to a low(er)-resource target domain (news). Additionally, we combine this improved transfer with masked language modeling on the target domain, observing further TD transfer gains. Finally, we demonstrate that the gains are robust to the choice of the OIE system.</abstract>
       <url hash="32442344">2024.findings-eacl.80</url>
       <bibkey>dukic-etal-2024-leveraging</bibkey>
+      <video href="2024.findings-eacl.80.mp4"/>
     </paper>
     <paper id="81">
       <title>Exploring efficient zero-shot synthetic dataset generation for Information Retrieval</title>
@@ -974,6 +1034,7 @@
       <abstract>Keyphrase extraction is the task of identifying a set of keyphrases present in a document that captures its most salient topics. Scientific domain-specific pre-training has led to achieving state-of-the-art keyphrase extraction performance with a majority of benchmarks being within the domain. In this work, we explore how to effectively enable the cross-domain generalization capabilities of such models without requiring the same scale of data. We primarily focus on the few-shot setting in non-scientific domain datasets such as OpenKP from the Web domain &amp; StackEx from the StackExchange forum. We propose to leverage topic information intrinsically available in the data, to build a novel clustering-based sampling approach that facilitates selecting a few samples to label from the target domain facilitating building robust and performant models. This approach leads to large gains in performance of up to 26.35 points in F1 when compared to selecting few-shot samples uniformly at random. We also explore the setting where we have access to labeled data from the model’s pretraining domain corpora and perform gradual training which involves slowly folding in target domain data to the source domain data. Here we demonstrate further improvements in the model performance by up to 12.76 F1 points.</abstract>
       <url hash="91306589">2024.findings-eacl.82</url>
       <bibkey>mishra-etal-2024-clustering</bibkey>
+      <video href="2024.findings-eacl.82.mp4"/>
     </paper>
     <paper id="83">
       <title>Random Smooth-based Certified Defense against Text Adversarial Attack</title>
@@ -985,6 +1046,7 @@
       <abstract>Certified defense methods have identified their effectiveness against textual adversarial examples, which train models on the worst-case text generated by substituting words in original texts with synonyms. However, due to the discrete word embedding representations, the large search space hinders the robust training efficiency, resulting in significant time consumption. To overcome this challenge, motivated by the observation that synonym embedding has a small distance, we propose to treat the word substitution as a continuous perturbation on the word embedding representation. The proposed method Text-RS applies random smooth techniques to approximate the word substitution operation, offering a computationally efficient solution that outperforms conventional discrete methods and improves the robustness in training. The evaluation results demonstrate its effectiveness in defending against multiple textual adversarial attacks.</abstract>
       <url hash="563c62a2">2024.findings-eacl.83</url>
       <bibkey>zhang-etal-2024-random</bibkey>
+      <video href="2024.findings-eacl.83.mp4"/>
     </paper>
     <paper id="84">
       <title>Clarifying the Path to User Satisfaction: An Investigation into Clarification Usefulness</title>
@@ -1011,6 +1073,7 @@
       <abstract>Cross-lingual transfer of language models trained on high-resource languages like English has been widely studied for many NLP tasks, but focus on conversational tasks has been rather limited. This is partly due to the high cost of obtaining non-English conversational data, which results in limited coverage. In this work, we introduce for cross-lingual alignment pretraining, a parallel and large-scale multilingual conversation dataset that we created by translating the English-only Schema-Guided Dialogue (SGD) dataset (Rastogi et al., 2020) into 105 other languages. XSGD contains about 330k utterances per language. To facilitate aligned cross-lingual representations, we develop an efficient prompt-tuning-based method for learning alignment prompts. We also investigate two different classifiers: NLI-based and vanilla classifiers, and test cross-lingual capability enabled by the aligned prompts. We evaluate our model’s cross-lingual generalization capabilities on two conversation tasks: slot-filling and intent classification. Our results demonstrate strong and efficient modeling ability of NLI-based classifiers and the large cross-lingual transfer improvements achieved by our aligned prompts, particularly in few-shot settings. We also conduct studies on large language models (LLMs) such as text-davinci-003 and ChatGPT in both zero- and few-shot settings. While LLMs exhibit impressive performance in English, their cross-lingual capabilities in other languages, particularly low-resource ones, are limited.</abstract>
       <url hash="26a32271">2024.findings-eacl.85</url>
       <bibkey>tu-etal-2024-efficiently</bibkey>
+      <video href="2024.findings-eacl.85.mp4"/>
     </paper>
     <paper id="86">
       <title>Correcting Language Model Outputs by Editing Salient Layers</title>
@@ -1036,6 +1099,7 @@
       <abstract>Many approaches to Natural Language Processing tasks often treat them as single-step problems, where an agent receives an instruction, executes it, and is evaluated based on the final outcome. However, language is inherently interactive, as evidenced by the back-and-forth nature of human conversations. In light of this, we posit that human-AI collaboration should also be interactive, with humans monitoring the work of AI agents and providing feedback that the agent can understand and utilize. Further, the AI agent should be able to detect when it needs additional information and proactively ask for help. Enabling this scenario would lead to more natural, efficient, and engaging human-AI collaboration.In this paper, we investigate these directions using the challenging task established by the IGLU competition, an interactive grounded language understanding task in a MineCraft-like world. We delve into multiple types of help players can give to the AI to guide it and analyze the impact of this help on behavior, resulting in performance improvements and an end-to-end interactive system.</abstract>
       <url hash="49597c49">2024.findings-eacl.87</url>
       <bibkey>mehta-etal-2024-improving</bibkey>
+      <video href="2024.findings-eacl.87.mp4"/>
     </paper>
     <paper id="88">
       <title>Goodhart’s Law Applies to <fixed-case>NLP</fixed-case>’s Explanation Benchmarks</title>
@@ -1047,6 +1111,7 @@
       <abstract>Despite the rising popularity of saliency-based explanations, the research community remains at an impasse, facing doubts concerning their purpose, efficacy, and tendency to contradict each other. Seeking to unite the community’s efforts around common goals, several recent works have proposed evaluation metrics. In this paper, we critically examine two sets of metrics: the ERASER metrics (comprehensiveness and sufficiency) and the EVAL-X metrics, focusing our inquiry on natural language processing. First, we show that we can inflate a model’s comprehensiveness and sufficiency scores dramatically without altering its predictions or explanations on in-distribution test inputs. Our strategy exploits the tendency for extracted explanations and their complements to be “out-of-support” relative to each other and in-distribution inputs. Next, we demonstrate that the EVAL-X metrics can be inflated arbitrarily by a simple method that encodes the label, even though EVAL-X is precisely motivated to address such exploits. Our results raise doubts about the ability of current metrics to guide explainability research, underscoring the need for a broader reassessment of what precisely these metrics are intended to capture.</abstract>
       <url hash="e6cc8838">2024.findings-eacl.88</url>
       <bibkey>hsia-etal-2024-goodharts</bibkey>
+      <video href="2024.findings-eacl.88.mp4"/>
     </paper>
     <paper id="89">
       <title>Syllable-level lyrics generation from melody exploiting character-level language model</title>
@@ -1058,6 +1123,7 @@
       <abstract>The generation of lyrics tightly connected to accompanying melodies involves establishing a mapping between musical notes and syllables of lyrics. This process requires a deep understanding of music constraints and semantic patterns at syllable-level, word-level, and sentence-level semantic meanings. However, pre-trained language models specifically designed at the syllable level are publicly unavailable. To solve these challenging issues, we propose to exploit fine-tuning character-level language models for syllable-level lyrics generation from symbolic melody. In particular, our method aims to fine-tune a character-level pre-trained language model, allowing to incorporation of linguistic knowledge of the language model into the beam search process of a syllable-level Transformer generator network. Besides, by exploring ChatGPT-based evaluation of generated lyrics in addition to human subjective evaluation, we prove that our approach improves the coherence and correctness of generated lyrics, without the need to train expensive new language models.</abstract>
       <url hash="5a393d93">2024.findings-eacl.89</url>
       <bibkey>zhang-etal-2024-syllable</bibkey>
+      <video href="2024.findings-eacl.89.mp4"/>
     </paper>
     <paper id="90">
       <title>Monolingual or Multilingual Instruction Tuning: Which Makes a Better Alpaca</title>
@@ -1071,6 +1137,7 @@
       <abstract>Foundational large language models (LLMs) can be instruction-tuned to perform open-domain question answering, facilitating applications like chat assistants. While such efforts are often carried out in a single language, we empirically analyze cost-efficient strategies for multilingual scenarios. Our study employs the Alpaca dataset and machine translations of it to form multilingual data, which is then used to tune LLMs through either low-rank adaptation or full-parameter training. Under a controlled computation budget, comparisons show that multilingual tuning is on par or better than tuning a model for each language. Furthermore, multilingual tuning with downsampled data can be as powerful and more robust. Our findings serve as a guide for expanding language support through instruction tuning.</abstract>
       <url hash="f30017a2">2024.findings-eacl.90</url>
       <bibkey>chen-etal-2024-monolingual</bibkey>
+      <video href="2024.findings-eacl.90.mp4"/>
     </paper>
     <paper id="91">
       <title>Prompt Perturbation Consistency Learning for Robust Language Models</title>
@@ -1085,6 +1152,7 @@
       <abstract>Large language models (LLMs) have demonstrated impressive performance on a number of natural language processing tasks, such as question answering and text summarization. However, their performance on sequence labeling tasks such as intent classification and slot filling (IC-SF), which is a central component in personal assistant systems, lags significantly behind discriminative models. Furthermore, there is a lack of substantive research on robustness of LLMs to various perturbations in the input prompts. The contributions of this paper are three-fold. First, we show that fine-tuning sufficiently large LLMs can produce IC-SF performance comparable to discriminative models. Next, we systematically analyze the performance deterioration of those fine-tuned models due to three distinct yet relevant types of input perturbations - oronyms, synonyms, and paraphrasing. Finally, we propose an efficient mitigation approach, Prompt Perturbation Consistency Learning (PPCL), which works by regularizing the divergence between losses from clean and perturbed samples. Our experiments show that PPCL can recover on an average 59% and 69% of the performance drop for IC and SF tasks, respectively. Furthermore, PPCL beats data augmentation approach while using ten times fewer augmented data samples.</abstract>
       <url hash="90de46fe">2024.findings-eacl.91</url>
       <bibkey>qiang-etal-2024-prompt</bibkey>
+      <video href="2024.findings-eacl.91.mp4"/>
     </paper>
     <paper id="92">
       <title>Enhancing Society-Undermining Disinformation Detection through Fine-Grained Sentiment Analysis Pre-Finetuning</title>
@@ -1096,6 +1164,7 @@
       <abstract>In the era of the digital world, while freedom of speech has been flourishing, it has also paved the way for disinformation, causing detrimental effects on society. Legal and ethical criteria are insufficient to address this concern, thus necessitating technological intervention. This paper presents a novel method leveraging pre-finetuning concept for efficient detection and removal of disinformation that may undermine society, as deemed by judicial entities. We argue the importance of detecting this type of disinformation and validate our approach with real-world data derived from court orders. Following a study that highlighted four areas of interest for rumor analysis, our research proposes the integration of a fine-grained sentiment analysis task in the pre-finetuning phase of language models, using the GoEmotions dataset. Our experiments validate the effectiveness of our approach in enhancing performance significantly. Furthermore, we explore the application of our approach across different languages using multilingual language models, showing promising results. To our knowledge, this is the first study that investigates the role of sentiment analysis pre-finetuning in disinformation detection.</abstract>
       <url hash="64499bf9">2024.findings-eacl.92</url>
       <bibkey>pan-etal-2024-enhancing</bibkey>
+      <video href="2024.findings-eacl.92.mp4"/>
     </paper>
     <paper id="93">
       <title>Minimal Distillation Schedule for Extreme Language Model Compression</title>
@@ -1162,6 +1231,7 @@
       <abstract>The performance of NLP methods for severely under-resourced languages cannot currently hope to match the state of the art in NLP methods for well resourced languages. We explore the extent to which pretrained large language models (LLMs) can bridge this gap, via the example of data-to-text generation for Irish, Welsh, Breton and Maltese. We test LLMs on these under-resourced languages and English, in a range of scenarios. We find that LLMs easily set the state of the art for the under-resourced languages by substantial margins, as measured by both automatic and human evaluations. For all our languages, human evaluation shows on-a-par performance with humans for our best systems, but BLEU scores collapse compared to English, casting doubt on the metric’s suitability for evaluating non-task-specific systems. Overall, our results demonstrate the great potential of LLMs to bridge the performance gap for under-resourced languages.</abstract>
       <url hash="6a16680d">2024.findings-eacl.98</url>
       <bibkey>lorandi-belz-2024-high</bibkey>
+      <video href="2024.findings-eacl.98.mp4"/>
     </paper>
     <paper id="99">
       <title>Antonym vs Synonym Distinction using <fixed-case>I</fixed-case>nterla<fixed-case>C</fixed-case>ed Encoder <fixed-case>NET</fixed-case>works (<fixed-case>ICE</fixed-case>-<fixed-case>NET</fixed-case>)</title>
@@ -1193,6 +1263,7 @@
       <bibkey>khiu-etal-2024-predicting</bibkey>
       <revision id="1" href="2024.findings-eacl.100v1" hash="02411aaa"/>
       <revision id="2" href="2024.findings-eacl.100v2" hash="144d271f" date="2024-03-25">Include authors email address.</revision>
+      <video href="2024.findings-eacl.100.mp4"/>
     </paper>
     <paper id="101">
       <title>Does <fixed-case>CLIP</fixed-case> Bind Concepts? Probing Compositionality in Large Image Models</title>
@@ -1208,6 +1279,7 @@
       <url hash="88b32c5a">2024.findings-eacl.101</url>
       <attachment type="software" hash="88b0c508">2024.findings-eacl.101.software.zip</attachment>
       <bibkey>lewis-etal-2024-clip</bibkey>
+      <video href="2024.findings-eacl.101.mp4"/>
     </paper>
     <paper id="102">
       <title>Code-Switching and Back-Transliteration Using a Bilingual Model</title>
@@ -1245,6 +1317,7 @@
       <attachment type="software" hash="9c7db982">2024.findings-eacl.104.software.zip</attachment>
       <attachment type="note" hash="f185d42a">2024.findings-eacl.104.note.zip</attachment>
       <bibkey>he-etal-2024-reading</bibkey>
+      <video href="2024.findings-eacl.104.mp4"/>
     </paper>
     <paper id="105">
       <title>Unified Embeddings for Multimodal Retrieval via Frozen <fixed-case>LLM</fixed-case>s</title>
@@ -1257,6 +1330,7 @@
       <abstract>In this work, We present Unified Embeddings for Multimodal Retrieval (UniMuR), a simple but effective approach that embeds multimodal inputs and retrieves visual and textual outputs via frozen Large Language Models (LLMs). Specifically, UniMuR jointly retrieves multimodal outputs via a unified multimodal embedding and applies dual alignment training to account for both visual and textual semantics. Thus, unlike previous approaches, UniMuR significantly reduces LLM’s modality bias towards generating text-only outputs. Meanwhile, the proposed unified multimodal embedding mitigates the inconsistency between visual and textual outputs and provides coherent multimodal outputs. Furthermore, benefiting from the joint training of visual and textual semantics, UniMuR also achieves strong image/text retrieval ability. Compared to existing approaches, UniMuR achieves better zero-shot multimodal response retrieval performance on MMDialog, improving the overall R@1 by 6.5% while boosting the image retrieval rate and having better cross-modal consistency on multimodal outputs. UniMuR also achieves 2.4% and 3.9% improvement on context-based image retrieval tasks on MMDialog and VisDial respectively when compared to previous approaches, validating its generalization ability across multiple tasks.</abstract>
       <url hash="7ee77965">2024.findings-eacl.105</url>
       <bibkey>wang-etal-2024-unified</bibkey>
+      <video href="2024.findings-eacl.105.mp4"/>
     </paper>
     <paper id="106">
       <title>Assessing the Portability of Parameter Matrices Trained by Parameter-Efficient Finetuning Methods</title>
@@ -1275,6 +1349,7 @@
       <abstract>Sentence-level attacks craft adversarial sentences that are synonymous with correctly-classified sentences but are misclassified by the text classifiers. Under the black-box setting, classifiers are only accessible through their feedback to queried inputs, which is predominately available in the form of class probabilities. Even though utilizing class probabilities results in stronger attacks, due to the challenges of using them for sentence-level attacks, existing attacks use either no feedback or only the class labels. Overcoming the challenges, we develop a novel algorithm that uses class probabilities for black-box sentence-level attacks, investigate the effectiveness of using class probabilities on the attack’s success, and examine the question if it is worthy or practical to use class probabilities by black-box sentence-level attacks. We conduct extensive evaluations of the proposed attack comparing with the baselines across various classifiers and benchmark datasets.</abstract>
       <url hash="973ff83c">2024.findings-eacl.107</url>
       <bibkey>moraffah-liu-2024-exploiting</bibkey>
+      <video href="2024.findings-eacl.107.mp4"/>
     </paper>
     <paper id="108">
       <title>Learning Label Hierarchy with Supervised Contrastive Learning</title>
@@ -1285,6 +1360,7 @@
       <abstract>Supervised contrastive learning (SCL) frameworks treat each class as independent and thus consider all classes to be equally important. This neglects the common scenario in which label hierarchy exists, where fine-grained classes under the same category show more similarity than very different ones. This paper introduces a family of Label-Aware SCL methods (LA-SCL) that incorporates hierarchical information to SCL by leveraging similarities between classes, resulting in creating a more well-structured and discriminative feature space. This is achieved by first adjusting the distance between instances based on measures of the proximity of their classes with the scaled instance-instance-wise contrastive. An additional instance-center-wise contrastive is introduced to move within-class examples closer to their centers, which are represented by a set of learnable label parameters. The learned label parameters can be directly used as a nearest neighbor classifier without further finetuning. In this way, a better feature representation is generated with improvements of intra-cluster compactness and inter-cluster separation. Experiments on three datasets show that the proposed LA-SCL works well on text classification of distinguishing a single label among multi-labels, outperforming the baseline supervised approaches. Our code is publicly available <tex-math>^1</tex-math>.</abstract>
       <url hash="2d0f13d7">2024.findings-eacl.108</url>
       <bibkey>lian-etal-2024-learning</bibkey>
+      <video href="2024.findings-eacl.108.mp4"/>
     </paper>
     <paper id="109">
       <title><fixed-case>G</fixed-case>roun<fixed-case>D</fixed-case>ial: Human-norm Grounded Safe Dialog Response Generation</title>
@@ -1323,6 +1399,7 @@
       <url hash="419ea91d">2024.findings-eacl.111</url>
       <attachment type="note" hash="8bdbf9b3">2024.findings-eacl.111.note.zip</attachment>
       <bibkey>das-etal-2024-low</bibkey>
+      <video href="2024.findings-eacl.111.mp4"/>
     </paper>
     <paper id="112">
       <title>Teaching Probabilistic Logical Reasoning to Transformers</title>
@@ -1335,6 +1412,7 @@
       <attachment type="software" hash="ea1e1ac9">2024.findings-eacl.112.software.zip</attachment>
       <attachment type="note" hash="ea47095c">2024.findings-eacl.112.note.zip</attachment>
       <bibkey>nafar-etal-2024-teaching</bibkey>
+      <video href="2024.findings-eacl.112.mp4"/>
     </paper>
     <paper id="113">
       <title>On Measuring Context Utilization in Document-Level <fixed-case>MT</fixed-case> Systems</title>
@@ -1344,6 +1422,7 @@
       <abstract>Document-level translation models are usually evaluated using general metrics such as BLEU, which are not informative about the benefits of context. Current work on context-aware evaluation, such as contrastive methods, only measure translation accuracy on words that need context for disambiguation. Such measures cannot reveal whether the translation model uses the correct supporting context. We propose to complement accuracy-based evaluation with measures of context utilization. We find that perturbation-based analysis (comparing models’ performance when provided with correct versus random context) is an effective measure of overall context utilization. For a finer-grained phenomenon-specific evaluation, we propose to measure how much the supporting context contributes to handling context-dependent discourse phenomena. We show that automatically-annotated supporting context gives similar conclusions to human-annotated context and can be used as alternative for cases where human annotations are not available. Finally, we highlight the importance of using discourse-rich datasets when assessing context utilization.</abstract>
       <url hash="d45369b7">2024.findings-eacl.113</url>
       <bibkey>mohammed-niculae-2024-measuring</bibkey>
+      <video href="2024.findings-eacl.113.mp4"/>
     </paper>
     <paper id="114">
       <title>Solving <fixed-case>NLP</fixed-case> Problems through Human-System Collaboration: A Discussion-based Approach</title>
@@ -1365,6 +1444,7 @@
       <abstract>Recently, encoder-only pre-trained models such as BERT have been successfully applied in automated essay scoring (AES) to predict a single overall score. However, studies have yet to explore these models in multi-trait AES, possibly due to the inefficiency of replicating BERT-based models for each trait. Breaking away from the existing sole use of *encoder*, we propose an autoregressive prediction of multi-trait scores (ArTS), incorporating a *decoding* process by leveraging the pre-trained T5. Unlike prior regression or classification methods, we redefine AES as a score-generation task, allowing a single model to predict multiple scores. During decoding, the subsequent trait prediction can benefit by conditioning on the preceding trait scores. Experimental results proved the efficacy of ArTS, showing over 5% average improvements in both prompts and traits.</abstract>
       <url hash="ae5946d1">2024.findings-eacl.115</url>
       <bibkey>do-etal-2024-autoregressive</bibkey>
+      <video href="2024.findings-eacl.115.mp4"/>
     </paper>
     <paper id="116">
       <title><fixed-case>CMA</fixed-case>-<fixed-case>R</fixed-case>: Causal Mediation Analysis for Explaining Rumour Detection</title>
@@ -1384,6 +1464,7 @@
       <abstract>Terminology-constrained NMT systems facilitate the forced translation of domain-specific vocabulary. A notable method in this context is the “copy-and-inflect” approach, which appends the target term lemmas of constraints to their corresponding source terms in the input sentence. In this work, we propose a novel adaptation of the “copy-and-inflect” method, referred to as “morph-masking”. Our method involves masking the source terms of the constraints from the input sentence while retaining essential grammatical information. Our approach is based on the hypothesis that “copy-and-inflect” systems have access to both source and target terms, allowing them to generate the correct surface form of the constraint by either translating the source term itself or properly inflecting the target term lemma. Through extensive validation of our method in two translation directions with different levels of source morphological complexity, Basque to Spanish and English to German, we have demonstrated that “morph-masking” is capable of providing a harder constraint signal, resulting in a notable improvement over the “copy-and-inflect” method (up to 38% in term accuracy), especially in challenging constraint scenarios.</abstract>
       <url hash="f037957d">2024.findings-eacl.117</url>
       <bibkey>corral-saralegi-2024-morphology</bibkey>
+      <video href="2024.findings-eacl.117.mp4"/>
     </paper>
     <paper id="118">
       <title>Improving Backchannel Prediction Leveraging Sequential and Attentive Context Awareness</title>
@@ -1396,6 +1477,7 @@
       <url hash="0120613a">2024.findings-eacl.118</url>
       <attachment type="software" hash="747f9bcc">2024.findings-eacl.118.software.zip</attachment>
       <bibkey>park-etal-2024-improving</bibkey>
+      <video href="2024.findings-eacl.118.mp4"/>
     </paper>
     <paper id="119">
       <title><fixed-case>SENSE</fixed-case>-<fixed-case>LM</fixed-case> : A Synergy between a Language Model and Sensorimotor Representations for Auditory and Olfactory Information Extraction</title>
@@ -1407,6 +1489,7 @@
       <abstract>The five human senses – vision, taste, smell, hearing, and touch – are key concepts that shape human perception of the world. The extraction of sensory references (i.e., expressions that evoke the presence of a sensory experience) in textual corpus is a challenge of high interest, with many applications in various areas. In this paper, we propose SENSE-LM, an information extraction system tailored for the discovery of sensory references in large collections of textual documents. Based on the novel idea of combining the strength of large language models and linguistic resources such as sensorimotor norms, it addresses the task of sensory information extraction at a coarse-grained (sentence binary classification) and fine-grained (sensory term extraction) level.Our evaluation of SENSE-LM for two sensory functions, Olfaction and Audition, and comparison with state-of-the-art methods emphasize a significant leap forward in automating these complex tasks.</abstract>
       <url hash="1b5a5d95">2024.findings-eacl.119</url>
       <bibkey>boscher-etal-2024-sense</bibkey>
+      <video href="2024.findings-eacl.119.mp4"/>
     </paper>
     <paper id="120">
       <title>Analyzing the Role of Part-of-Speech in Code-Switching: A Corpus-Based Study</title>
@@ -1416,6 +1499,7 @@
       <abstract>Code-switching (CS) is a common linguistic phenomenon wherein speakers fluidly transition between languages in conversation. While the cognitive processes driving CS remain a complex domain, earlier investigations have shed light on its multifaceted triggers. This study delves into the influence of Part-of-Speech (POS) on the propensity of bilinguals to engage in CS, employing a comprehensive analysis of Spanish-English and Mandarin-English corpora. Compared with prior research, our findings not only affirm the existence of a statistically significant connection between POS and the likelihood of CS across language pairs, but notably find this relationship exhibits its maximum strength in proximity to CS instances, progressively diminishing as tokens distance themselves from these CS points.</abstract>
       <url hash="cdc4e20a">2024.findings-eacl.120</url>
       <bibkey>chi-bell-2024-analyzing</bibkey>
+      <video href="2024.findings-eacl.120.mp4"/>
     </paper>
     <paper id="121">
       <title>In-Contextual Gender Bias Suppression for Large Language Models</title>
@@ -1426,6 +1510,7 @@
       <abstract>Despite their impressive performance in a wide range of NLP tasks, Large Language Models (LLMs) have been reported to encode worrying-levels of gender biases. Prior work has proposed debiasing methods that require human labelled examples, data augmentation and fine-tuning of LLMs, which are computationally costly. Moreover, one might not even have access to the model parameters for performing debiasing such as in the case of closed LLMs such as GPT-4. To address this challenge, we propose bias suppression that prevents biased generations of LLMs by simply providing textual preambles constructed from manually designed templates and real-world statistics, without accessing to model parameters. We show that, using CrowsPairs dataset, our textual preambles covering counterfactual statements can suppress gender biases in English LLMs such as LLaMA2. Moreover, we find that gender-neutral descriptions of gender-biased objects can also suppress their gender biases. Moreover, we show that bias suppression has acceptable adverse effect on downstream task performance with HellaSwag and COPA.</abstract>
       <url hash="5dd0284b">2024.findings-eacl.121</url>
       <bibkey>oba-etal-2024-contextual</bibkey>
+      <video href="2024.findings-eacl.121.mp4"/>
     </paper>
     <paper id="122">
       <title>Parameter-Efficient Fine-Tuning: Is There An Optimal Subset of Parameters to Tune?</title>
@@ -1435,6 +1520,7 @@
       <abstract>The ever-growing size of pretrained language models (PLM) presents a significant challenge for efficiently fine-tuning and deploying these models for diverse sets of tasks within memory-constrained environments.In light of this, recent research has illuminated the possibility of selectively updating only a small subset of a model’s parameters during the fine-tuning process.Since no new parameters or modules are added, these methods retain the inference speed of the original model and come at no additional computational cost. However, an open question pertains to which subset of parameters should best be tuned to maximize task performance and generalizability. To investigate, this paper presents comprehensive experiments covering a large spectrum of subset selection strategies. We comparatively evaluate their impact on model performance as well as the resulting model’s capability to generalize to different tasks.Surprisingly, we find that the gains achieved in performance by elaborate selection strategies are, at best, marginal when compared to the outcomes obtained by tuning a random selection of parameter subsets. Our experiments also indicate that selection-based tuning impairs generalizability to new tasks.</abstract>
       <url hash="da50d04e">2024.findings-eacl.122</url>
       <bibkey>ploner-akbik-2024-parameter</bibkey>
+      <video href="2024.findings-eacl.122.mp4"/>
     </paper>
     <paper id="123">
       <title>Contextualized Topic Coherence Metrics</title>
@@ -1449,6 +1535,7 @@
       <url hash="f7168365">2024.findings-eacl.123</url>
       <attachment type="software" hash="3868254e">2024.findings-eacl.123.software.zip</attachment>
       <bibkey>rahimi-etal-2024-contextualized</bibkey>
+      <video href="2024.findings-eacl.123.mp4"/>
     </paper>
     <paper id="124">
       <title><fixed-case>P</fixed-case>ro<fixed-case>MIS</fixed-case>e: A Proactive Multi-turn Dialogue Dataset for Information-seeking Intent Resolution</title>
@@ -1491,6 +1578,7 @@
       <abstract>Context-aware Machine Translation aims to improve translations of sentences by incorporating surrounding sentences as context. Towards this task, two main architectures have been applied, namely single-encoder (based on concatenation) and multi-encoder models. In this study, we show that a special case of multi-encoder architecture, where the latent representation of the source sentence is cached and reused as the context in the next step, achieves higher accuracy on the contrastive datasets (where the models have to rank the correct translation among the provided sentences) and comparable BLEU and COMET scores as the single- and multi-encoder approaches. Furthermore, we investigate the application of Sequence Shortening to the cached representations. We test three pooling-based shortening techniques and introduce two novel methods - Latent Grouping and Latent Selecting, where the network learns to group tokens or selects the tokens to be cached as context. Our experiments show that the two methods achieve competitive BLEU and COMET scores and accuracies on the contrastive datasets to the other tested methods while potentially allowing for higher interpretability and reducing the growth of memory requirements with increased context size.</abstract>
       <url hash="774a45f4">2024.findings-eacl.127</url>
       <bibkey>maka-etal-2024-sequence</bibkey>
+      <video href="2024.findings-eacl.127.mp4"/>
     </paper>
     <paper id="128">
       <title>Jigsaw Pieces of Meaning: Modeling Discourse Coherence with Informed Negative Sample Synthesis</title>
@@ -1509,6 +1597,7 @@
       <abstract>Quantifying uncertainty in automatically generated text is important for letting humans check potential hallucinations and making systems more reliable. Conformal prediction is an attractive framework to provide predictions imbued with statistical guarantees, however, its application to text generation is challenging since any i.i.d. assumptions are not realistic. In this paper, we bridge this gap by leveraging recent results on *non-exchangeable* conformal prediction, which still ensures bounds on coverage. The result, *non-exchangeable conformal nucleus sampling*, is a novel extension of the conformal prediction framework to generation based on nearest neighbors. Our method can be used post-hoc for an arbitrary model without extra training and supplies token-level, calibrated prediction sets equipped with statistical guarantees. Experiments in machine translation and language modeling show encouraging results in generation quality. By also producing tighter prediction sets with good coverage, we thus give a more theoretically principled way to perform sampling with conformal guarantees.</abstract>
       <url hash="74ae0a2d">2024.findings-eacl.129</url>
       <bibkey>ulmer-etal-2024-non</bibkey>
+      <video href="2024.findings-eacl.129.mp4"/>
     </paper>
     <paper id="130">
       <title>Evidentiality-aware Retrieval for Overcoming Abstractiveness in Open-Domain Question Answering</title>
@@ -1523,6 +1612,7 @@
       <abstract>The long-standing goal of dense retrievers in abtractive open-domain question answering (ODQA) tasks is to learn to capture evidence passages among relevant passages for any given query, such that the reader produce factually correct outputs from evidence passages. One of the key challenge is the insufficient amount of training data with the supervision of the answerability of the passages. Recent studies rely on iterative pipelines to annotate answerability using signals from the reader, but their high computational costs hamper practical applications. In this paper, we instead focus on a data-driven approach and propose Evidentiality-Aware Dense Passage Retrieval (EADPR), which leverages synthetic distractor samples to learn to discriminate evidence passages from distractors. We conduct extensive experiments to validate the effectiveness of our proposed method on multiple abstractive ODQA tasks.</abstract>
       <url hash="021372bf">2024.findings-eacl.130</url>
       <bibkey>song-etal-2024-evidentiality</bibkey>
+      <video href="2024.findings-eacl.130.mp4"/>
     </paper>
     <paper id="131">
       <title>Self-training Strategies for Sentiment Analysis: An Empirical Study</title>
@@ -1535,6 +1625,7 @@
       <abstract>Sentiment analysis is a crucial task in natural language processing that involves identifying and extracting subjective sentiment from text. Self-training has recently emerged as an economical and efficient technique for developing sentiment analysis models by leveraging a small amount of labeled data and a large amount of unlabeled data. However, given a set of training data, how to utilize them to conduct self-training makes a significant difference in the final performance of the model. We refer to this methodology as the self-training strategy. In this paper, we present an empirical study of various self-training strategies for sentiment analysis. First, we investigate the influence of the self-training strategy and hyper-parameters on the performance of traditional small language models (SLMs) in various few-shot settings. Second, we also explore the feasibility of leveraging large language models (LLMs) to help self-training. We propose and empirically compare several self-training strategies with the intervention of LLMs. Extensive experiments are conducted on three real-world sentiment analysis datasets.</abstract>
       <url hash="10c2026e">2024.findings-eacl.131</url>
       <bibkey>liu-etal-2024-self</bibkey>
+      <video href="2024.findings-eacl.131.mp4"/>
     </paper>
     <paper id="132">
       <title>Language is All a Graph Needs</title>
@@ -1573,6 +1664,7 @@
       <abstract>Using large language models (LMs) for query or document expansion can improve generalization in information retrieval. However, it is unknown whether these techniques are universally beneficial or only effective in specific settings, such as for particular retrieval models, dataset domains, or query types. To answer this, we conduct the first comprehensive analysis of LM-based expansion. We find that there exists a strong negative correlation between retriever performance and gains from expansion: expansion improves scores for weaker models, but generally harms stronger models. We show this trend holds across a set of eleven expansion techniques, twelve datasets with diverse distribution shifts, and twenty-four retrieval models. Through qualitative error analysis, we hypothesize that although expansions provide extra information (potentially improving recall), they add additional noise that makes it difficult to discern between the top relevant documents (thus introducing false positives). Our results suggest the following recipe: use expansions for weaker models or when the target dataset significantly differs from training corpus in format; otherwise, avoid expansions to keep the relevance signal clear.</abstract>
       <url hash="74f3c4d7">2024.findings-eacl.134</url>
       <bibkey>weller-etal-2024-generative</bibkey>
+      <video href="2024.findings-eacl.134.mp4"/>
     </paper>
     <paper id="135">
       <title>Can Large Language Models Understand Context?</title>
@@ -1589,6 +1681,7 @@
       <abstract>Understanding context is key to understanding human language, an ability which Large Language Models (LLMs) have been increasingly seen to demonstrate to an impressive extent. However, though the evaluation of LLMs encompasses various domains within the realm of Natural Language Processing, limited attention has been paid to probing their linguistic capability of understanding contextual features. This paper introduces a context understanding benchmark by adapting existing datasets to suit the evaluation of generative models. This benchmark comprises of four distinct tasks and nine datasets, all featuring prompts designed to assess the models’ ability to understand context. First, we evaluate the performance of LLMs under the in-context learning pretraining scenario. Experimental results indicate that pre-trained dense models struggle with understanding more nuanced contextual features when compared to state-of-the-art fine-tuned models. Second, as LLM compression holds growing significance in both research and real-world applications, we assess the context understanding of quantized models under in-context-learning settings. We find that 3-bit post-training quantization leads to varying degrees of performance reduction on our benchmark. We conduct an extensive analysis of these scenarios to substantiate our experimental results.</abstract>
       <url hash="400d0d77">2024.findings-eacl.135</url>
       <bibkey>zhu-etal-2024-large</bibkey>
+      <video href="2024.findings-eacl.135.mp4"/>
     </paper>
     <paper id="136">
       <title>Let’s Negotiate! A Survey of Negotiation Dialogue Systems</title>
@@ -1637,6 +1730,7 @@
       <abstract>In the months since its release, ChatGPT and its underlying model, GPT3.5, have garnered massive attention, due to their potent mix of capability and accessibility. While a niche industry of papers have emerged examining the scope of capabilities these models possess, language — whether natural or stylized like code — has been the vehicle to exchange information with the network. Drawing inspiration from the multi-modal knowledge we’d expect an agent with true understanding to possess, we examine GPT3.5’s aptitude for visual tasks, where the inputs feature ASCII-art without overt distillation into a lingual summary. In particular, we scrutinize its performance on carefully designed image recognition and generation tasks. An extended version of this write-up is available at: https://arxiv.org/abs/2307.16806 .</abstract>
       <url hash="f92e7ca9">2024.findings-eacl.139</url>
       <bibkey>bayani-2024-testing</bibkey>
+      <video href="2024.findings-eacl.139.mp4"/>
     </paper>
     <paper id="140">
       <title>Cross-lingual Editing in Multilingual Language Models</title>
@@ -1647,6 +1741,7 @@
       <abstract>The training of large language models (LLMs) necessitates substantial data and computational resources, and updating outdated LLMs entails significant efforts and resources. While numerous model editing techniques (METs) have emerged to efficiently update model outputs without retraining, their effectiveness in multilingual LLMs, where knowledge is stored in diverse languages, remains an underexplored research area. This research paper introduces the cross-lingual model editing (XME) paradigm, wherein a fact is edited in one language, and the subsequent update propagation is observed across other languages. To investigate the XME paradigm, we conducted experiments using BLOOM, mBERT, and XLM-RoBERTa using the two writing scripts: Latin (English, French, and Spanish) and Indic (Hindi, Gujarati, and Bengali). The results reveal notable performance limitations of state-of-the-art METs under the XME setting, mainly when the languages involved belong to two distinct script families. These findings highlight the need for further research and development of XME techniques to address these challenges. For more comprehensive information, the dataset used in this research and the associated code are publicly available at the following [URL](https://github.com/lingo-iitgn/XME).</abstract>
       <url hash="4343bb32">2024.findings-eacl.140</url>
       <bibkey>beniwal-etal-2024-cross</bibkey>
+      <video href="2024.findings-eacl.140.mp4"/>
     </paper>
     <paper id="141">
       <title>Sorted <fixed-case>LL</fixed-case>a<fixed-case>MA</fixed-case>: Unlocking the Potential of Intermediate Layers of Large Language Models for Dynamic Inference</title>
@@ -1660,6 +1755,7 @@
       <abstract>Large language models (LLMs) have revolutionized natural language processing (NLP) by excelling at understanding and generating human-like text. However, their widespread deployment can be prohibitively expensive. SortedNet is a recent training technique for enabling dynamic inference by leveraging the modularity in networks and sorting sub-models based on computation/accuracy in a nested manner. We extend SortedNet to generative NLP tasks, making large language models dynamic without any Pre-Training and by only replacing Standard Fine-Tuning (SFT) with Sorted Fine-Tuning (SoFT). Our approach boosts model efficiency, eliminating the need for multiple models for various scenarios during inference. We show that this approach can unlock the potential of intermediate layers of transformers in generating the target output. Our sub-models remain integral components of the original model, minimizing storage requirements and transition costs between different computational/latency budgets. The efficacy of our proposed method was demonstrated by applying it to tune LLaMA 2 13B on the Stanford Alpaca dataset for instruction following and TriviaQA for closed-book question answering. Our results show the superior performance of sub-models in comparison to Standard Fine-Tuning and SFT+ICT (Early-Exit), all achieved with very efficient tuning and without additional memory usage during inference.</abstract>
       <url hash="7cadd98a">2024.findings-eacl.141</url>
       <bibkey>kavehzadeh-etal-2024-sorted</bibkey>
+      <video href="2024.findings-eacl.141.mp4"/>
     </paper>
     <paper id="142">
       <title><fixed-case>A</fixed-case>ccent<fixed-case>F</fixed-case>old: A Journey through <fixed-case>A</fixed-case>frican Accents for Zero-Shot <fixed-case>ASR</fixed-case> Adaptation to Target Accents</title>
@@ -1683,6 +1779,7 @@
       <abstract>Long prompts present a significant challenge for practical LLM-based systems that need to operate with low latency and limited resources. We investigate prompt compression for zero-shot dialogue systems that learn to use unseen APIs directly in-context from their documentation, which may take up hundreds of prompt tokens per API. We start from a recently introduced approach (Mu et al., 2023) that learns to compress the prompt into a few “gist token” activations during finetuning. However, this simple idea is ineffective in compressing API documentation, resulting in low accuracy compared to the baseline using an uncompressed prompt. In this work, we introduce two major improvements. First, we specialize gist tokens for different hierarchies within an API: we use one <tex-math>\mathrm{Gist}_{\mathrm{arg}}</tex-math> token for compressing an argument and one <tex-math>\mathrm{Gist}_{\mathrm{value}}</tex-math> token for compressing an acceptable value of a categorical argument. We then dynamically reveal <tex-math>\mathrm{Gist}_{\mathrm{value}}</tex-math> tokens only when they are needed. Second, we add a reconstruction loss to predict the API documentation from the gist tokens. On multiple API-calling tasks, our proposed system keeps the simplicity, efficiency, and large compression factor (20x on SGD) of the gist token approach while achieving significantly better accuracy.</abstract>
       <url hash="8c1adec3">2024.findings-eacl.143</url>
       <bibkey>jiang-etal-2024-hierarchical</bibkey>
+      <video href="2024.findings-eacl.143.mp4"/>
     </paper>
     <paper id="144">
       <title>Fine-tuning <fixed-case>CLIP</fixed-case> Text Encoders with Two-step Paraphrasing</title>
@@ -1711,6 +1808,7 @@
       <url hash="7a40f6e9">2024.findings-eacl.145</url>
       <attachment type="software" hash="0e3e8735">2024.findings-eacl.145.software.zip</attachment>
       <bibkey>moon-etal-2024-generative</bibkey>
+      <video href="2024.findings-eacl.145.mp4"/>
     </paper>
     <paper id="146">
       <title>Dive into the Chasm: Probing the Gap between In- and Cross-Topic Generalization</title>
@@ -1721,6 +1819,7 @@
       <abstract>Pre-trained language models (PLMs) perform well in In-Topic setups, where training and testing data come from the same topics. However, they face challenges in Cross-Topic scenarios where testing data is derived from distinct topics. This paper analyzes various PLMs with three probing-based experiments to better understand the reasons behind such generalization gaps. For the first time, we demonstrate that the extent of these generalization gaps and the sensitivity to token-level interventions vary significantly across PLMs. By evaluating large language models (LLMs), we show the usefulness of our analysis for these recent models. Overall, we observe diverse pre-training objectives and architectural regularization contribute to more robust PLMs and mitigate generalization gaps. Our research contributes to a deeper understanding and comparison of language models across different generalization scenarios.</abstract>
       <url hash="a4646e90">2024.findings-eacl.146</url>
       <bibkey>waldis-etal-2024-dive</bibkey>
+      <video href="2024.findings-eacl.146.mp4"/>
     </paper>
     <paper id="147">
       <title><fixed-case>LLM</fixed-case>-<fixed-case>GE</fixed-case>m: Large Language Model-Guided Prediction of People’s Empathy Levels towards Newspaper Article</title>
@@ -1736,6 +1835,7 @@
       <bibkey>hasan-etal-2024-llm</bibkey>
       <revision id="1" href="2024.findings-eacl.147v1" hash="d405c649"/>
       <revision id="2" href="2024.findings-eacl.147v2" hash="ac47d4fc" date="2024-05-02">Minor updates.</revision>
+      <video href="2024.findings-eacl.147.mp4"/>
     </paper>
     <paper id="148">
       <title><fixed-case>ICE</fixed-case>-Score: Instructing Large Language Models to Evaluate Code</title>
@@ -1759,6 +1859,7 @@
       <url hash="9b808224">2024.findings-eacl.149</url>
       <attachment type="note" hash="a01f614e">2024.findings-eacl.149.note.zip</attachment>
       <bibkey>kim-etal-2024-crese</bibkey>
+      <video href="2024.findings-eacl.149.mp4"/>
     </paper>
     <paper id="150">
       <title><fixed-case>BMX</fixed-case>: Boosting Natural Language Generation Metrics with Explainability</title>
@@ -1771,6 +1872,7 @@
       <attachment type="software" hash="bb92b528">2024.findings-eacl.150.software.zip</attachment>
       <attachment type="note" hash="8c28b8db">2024.findings-eacl.150.note.zip</attachment>
       <bibkey>leiter-etal-2024-bmx</bibkey>
+      <video href="2024.findings-eacl.150.mp4"/>
     </paper>
     <paper id="151">
       <title>Joint Inference of Retrieval and Generation for Passage Re-ranking</title>
@@ -1782,6 +1884,7 @@
       <url hash="b861c24e">2024.findings-eacl.151</url>
       <attachment type="software" hash="45613d80">2024.findings-eacl.151.software.zip</attachment>
       <bibkey>fang-etal-2024-joint</bibkey>
+      <video href="2024.findings-eacl.151.mp4"/>
     </paper>
     <paper id="152">
       <title><fixed-case>D</fixed-case>ialog<fixed-case>S</fixed-case>tudio: Towards Richest and Most Diverse Unified Dataset Collection for Conversational <fixed-case>AI</fixed-case></title>
@@ -1813,6 +1916,7 @@
       <abstract>Linguistic features have a strong contribution in the context of the automatic assessment of text readability (ARA). They have been one of the anchors between the computational and theoretical models. With the development in the ARA field, the research moved to Deep Learning (DL). In an attempt to reconcile the mixed results reported in this context, we present a systematic comparison of 6 hybrid approaches along with standard Machine Learning and DL approaches, on 4 corpora (different languages and target audiences). The various experiments clearly highlighted two rather simple hybridization methods (soft label and simple concatenation). They also appear to be the most robust on smaller datasets and across various tasks and languages. This study stands out as the first to systematically compare different architectures and approaches to feature hybridization in DL, as well as comparing performance in terms of two languages and two target audiences of the text, which leads to a clearer pattern of results.</abstract>
       <url hash="4f4857c4">2024.findings-eacl.153</url>
       <bibkey>wilkens-etal-2024-exploring</bibkey>
+      <video href="2024.findings-eacl.153.mp4"/>
     </paper>
     <paper id="154">
       <title>Establishing degrees of closeness between audio recordings along different dimensions using large-scale cross-lingual models</title>
@@ -1825,6 +1929,7 @@
       <abstract>In the highly constrained context of low-resource language studies, we explore vector representations of speech from a pretrained model to determine their level of abstraction with regard to the audio signal. We propose a new unsupervised method using ABX tests on audio recordings with carefully curated metadata to shed light on the type of information present in the representations. ABX tests determine whether the representations computed by a multilingual speech model encode a given characteristic. Three experiments are devised: one on room acoustics aspects, one on linguistic genre, and one on phonetic aspects. The results confirm that the representations extracted from recordings with different linguistic/extra-linguistic characteristics differ along the same lines. Embedding more audio signal in one vector better discriminates extra-linguistic characteristics, whereas shorter snippets are better to distinguish segmental information. The method is fully unsupervised, potentially opening new research avenues for comparative work on under-documented languages.</abstract>
       <url hash="be4bc756">2024.findings-eacl.154</url>
       <bibkey>fily-etal-2024-establishing</bibkey>
+      <video href="2024.findings-eacl.154.mp4"/>
     </paper>
     <paper id="155">
       <title>The Queen of <fixed-case>E</fixed-case>ngland is not <fixed-case>E</fixed-case>ngland’s Queen: On the Lack of Factual Coherency in <fixed-case>PLM</fixed-case>s</title>
@@ -1835,6 +1940,7 @@
       <abstract>Factual knowledge encoded in Pre-trained Language Models (PLMs) enriches their representations and justifies their use as knowledge bases. Previous work has focused on probing PLMs for factual knowledge by measuring how often they can correctly predict an _object_ entity given a subject and a relation, and improving fact retrieval by optimizing the prompts used for querying PLMs. In this work, we consider a complementary aspect, namely the coherency of factual knowledge in PLMs, i.e., how often can PLMs predict the _subject_ entity given its initial prediction of the object entity. This goes beyond evaluating how much PLMs know, and focuses on the internal state of knowledge inside them. Our results indicate that PLMs have low coherency using manually written, optimized and paraphrased prompts, but including an evidence paragraph leads to substantial improvement. This shows that PLMs fail to model inverse relations and need further enhancements to be able to handle retrieving facts from their parameters in a coherent manner, and to be considered as knowledge bases.</abstract>
       <url hash="5a44cdb4">2024.findings-eacl.155</url>
       <bibkey>youssef-etal-2024-queen</bibkey>
+      <video href="2024.findings-eacl.155.mp4"/>
     </paper>
     <paper id="156">
       <title><fixed-case>H</fixed-case>ierarchy<fixed-case>N</fixed-case>et: Learning to Summarize Source Code with Heterogeneous Representations</title>
@@ -1847,6 +1953,7 @@
       <abstract>Code representation is important to machine learning models in the code-related applications. Existing code summarization approaches primarily leverage Abstract Syntax Trees (ASTs) and sequential information from source code to generate code summaries while often overlooking the critical consideration of the interplay of dependencies among code elements and code hierarchy. However, effective summarization necessitates a holistic analysis of code snippets from three distinct aspects: lexical, syntactic, and semantic information. In this paper, we propose a novel code summarization approach utilizing Heterogeneous Code Representations (HCRs) and our specially designed HierarchyNet. HCRs adeptly capture essential code features at lexical, syntactic, and semantic levels within a hierarchical structure. HierarchyNet processes each layer of the HCR separately, employing a Heterogeneous Graph Transformer, a Tree-based CNN, and a Transformer Encoder. In addition, HierarchyNet demonstrates superior performance compared to fine-tuned pre-trained models, including CodeT5, and CodeBERT, as well as large language models that employ zero/few-shot settings, such as CodeLlama, StarCoder, and CodeGen. Implementation details can be found at https://github.com/FSoft-AI4Code/HierarchyNet.</abstract>
       <url hash="3eef3fbe">2024.findings-eacl.156</url>
       <bibkey>nguyen-etal-2024-hierarchynet</bibkey>
+      <video href="2024.findings-eacl.156.mp4"/>
     </paper>
     <paper id="157">
       <title>Understanding the effects of language-specific class imbalance in multilingual fine-tuning</title>
@@ -1856,6 +1963,7 @@
       <abstract>We study the effect of one type of imbalance often present in real-life multilingual classification datasets: an uneven distribution of labels across languages. We show evidence that fine-tuning a transformer-based Large Language Model (LLM) on a dataset with this imbalance leads to worse performance, a more pronounced separation of languages in the latent space, and the promotion of uninformative features. We modify the traditional class weighing approach to imbalance by calculating class weights separately for each language and show that this helps mitigate those detrimental effects. These results create awareness of the negative effects of language-specific class imbalance in multilingual fine-tuning and the way in which the model learns to rely on the separation of languages to perform the task.</abstract>
       <url hash="a17b7cc2">2024.findings-eacl.157</url>
       <bibkey>jung-plas-2024-understanding</bibkey>
+      <video href="2024.findings-eacl.157.mp4"/>
     </paper>
     <paper id="158">
       <title><fixed-case>NL</fixed-case>2<fixed-case>F</fixed-case>ormula: Generating Spreadsheet Formulas from Natural Language Queries</title>

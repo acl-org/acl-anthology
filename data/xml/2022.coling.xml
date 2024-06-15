@@ -3344,6 +3344,7 @@
       <abstract>Social media spreads both real news and fake news in various domains including politics, health, entertainment, etc. It is crucial to automatically detect fake news, especially for news of influential domains like politics and health because they may lead to serious social impact, e.g., panic in the COVID-19 pandemic. Some studies indicate the correlation between domains and perform multi-domain fake news detection. However, these multi-domain methods suffer from a seesaw problem that the performance of some domains is often improved by hurting the performance of other domains, which could lead to an unsatisfying performance in the specific target domains. To address this issue, we propose a Domain- and Instance-level Transfer Framework for Fake News Detection (DITFEND), which could improve the performance of specific target domains. To transfer coarse-grained domain-level knowledge, we train a general model with data of all domains from the meta-learning perspective. To transfer fine-grained instance-level knowledge and adapt the general model to a target domain, a language model is trained on the target domain to evaluate the transferability of each data instance in source domains and re-weight the instance’s contribution. Experiments on two real-world datasets demonstrate the effectiveness of DITFEND. According to both offline and online experiments, the DITFEND shows superior effectiveness for fake news detection.</abstract>
       <url hash="4a7dbef5">2022.coling-1.250</url>
       <bibkey>nan-etal-2022-improving</bibkey>
+      <pwccode url="https://github.com/ICTMCG/DITFEND" additional="false">ICTMCG/DITFEND</pwccode>
     </paper>
     <paper id="251">
       <title>Student Surpasses Teacher: Imitation Attack for Black-Box <fixed-case>NLP</fixed-case> <fixed-case>API</fixed-case>s</title>
@@ -4112,8 +4113,11 @@
       <author><first>Marco</first><last>Avagnano</last></author>
       <pages>3465–3479</pages>
       <abstract>Driven by deep learning breakthroughs, natural language generation (NLG) models have been at the center of steady progress in the last few years, with a ubiquitous task influence. However, since our ability to generate human-indistinguishable artificial text lags behind our capacity to assess it, it is paramount to develop and apply even better automatic evaluation metrics. To facilitate researchers to judge the effectiveness of their models broadly, we introduce NLG-Metricverse—an end-to-end open-source library for NLG evaluation based on Python. Our framework provides a living collection of NLG metrics in a unified and easy-to-use environment, supplying tools to efficiently apply, analyze, compare, and visualize them. This includes (i) the extensive support to heterogeneous automatic metrics with n-arity management, (ii) the meta-evaluation upon individual performance, metric-metric and metric-human correlations, (iii) graphical interpretations for helping humans better gain score intuitions, (iv) formal categorization and convenient documentation to accelerate metrics understanding. NLG-Metricverse aims to increase the comparability and replicability of NLG research, hopefully stimulating new contributions in the area.</abstract>
-      <url hash="a4f10700">2022.coling-1.306</url>
+      <url hash="7d4a0d2f">2022.coling-1.306</url>
       <bibkey>frisoni-etal-2022-nlg</bibkey>
+      <revision id="1" href="2022.coling-1.306v1" hash="a4f10700"/>
+      <revision id="2" href="2022.coling-1.306v2" hash="7d4a0d2f" date="2024-05-21">Retracted by the COLING 2022 PC chairs.</revision>
+      <retracted date="2024-05-21">Retracted by the COLING 2022 PC chairs.</retracted>
     </paper>
     <paper id="307">
       <title><fixed-case>T</fixed-case>est<fixed-case>A</fixed-case>ug: A Framework for Augmenting Capability-based <fixed-case>NLP</fixed-case> Tests</title>
@@ -4153,7 +4157,6 @@
       <url hash="f94530b1">2022.coling-1.309</url>
       <bibkey>abonizio-etal-2022-monobyte</bibkey>
       <pwccode url="https://github.com/lersouza/lang-agnostic" additional="false">lersouza/lang-agnostic</pwccode>
-      <pwcdataset url="https://paperswithcode.com/dataset/tydi-qa">TyDiQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/xnli">XNLI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mc4">mC4</pwcdataset>
     </paper>
@@ -5488,6 +5491,7 @@
       <abstract>Conditional computation algorithms, such as the early exiting (EE) algorithm, can be applied to accelerate the inference of pretrained language models (PLMs) while maintaining competitive performance on resource-constrained devices. However, this approach is only applied to the vertical architecture to decide which layers should be used for inference. Conversely, the operation of the horizontal perspective is ignored, and the determination of which tokens in each layer should participate in the computation fails, leading to a high redundancy for adaptive inference. To address this limitation, a unified horizontal and vertical multi-perspective early exiting (MPEE) framework is proposed in this study to accelerate the inference of transformer-based models. Specifically, the vertical architecture uses recycling EE classifier memory and weighted self-distillation to enhance the performance of the EE classifiers. Then, the horizontal perspective uses recycling class attention memory to emphasize the informative tokens. Conversely, the tokens with less information are truncated by weighted fusion and isolated from the following computation. Based on this, both horizontal and vertical EE are unified to obtain a better tradeoff between performance and efficiency. Extensive experimental results show that MPEE can achieve higher acceleration inference with competent performance than existing competitive methods.</abstract>
       <url hash="ab68f362">2022.coling-1.414</url>
       <bibkey>kong-etal-2022-accelerating</bibkey>
+      <pwccode url="https://github.com/junkong5/mpee" additional="false">junkong5/mpee</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/mrpc">MRPC</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
@@ -6724,7 +6728,7 @@
       <abstract>Research on Automatic Story Generation (ASG) relies heavily on human and automatic evaluation. However, there is no consensus on which human evaluation criteria to use, and no analysis of how well automatic criteria correlate with them. In this paper, we propose to re-evaluate ASG evaluation. We introduce a set of 6 orthogonal and comprehensive human criteria, carefully motivated by the social sciences literature. We also present HANNA, an annotated dataset of 1,056 stories produced by 10 different ASG systems. HANNA allows us to quantitatively evaluate the correlations of 72 automatic metrics with human criteria. Our analysis highlights the weaknesses of current metrics for ASG and allows us to formulate practical recommendations for ASG evaluation.</abstract>
       <url hash="b029c210">2022.coling-1.509</url>
       <bibkey>chhun-etal-2022-human</bibkey>
-      <pwccode url="https://github.com/dig-team/hanna-benchmark-asg" additional="true">dig-team/hanna-benchmark-asg</pwccode>
+      <pwccode url="https://github.com/lashoun/hanna-benchmark-asg" additional="false">lashoun/hanna-benchmark-asg</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/hanna">HANNA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/writingprompts">WritingPrompts</pwcdataset>
     </paper>
@@ -6871,6 +6875,7 @@
       <abstract>Recent research on code summarization relies on the structural information from the abstract syntax tree (AST) of source codes. It is, however, questionable whether it is the most effective to use AST for expressing the structural information. We find that a program dependency graph (PDG) can represent the structure of a code more effectively. We propose PDG Boosting Module (PBM) that encodes PDG into graph embedding and the framework to implement the proposed PBM with the existing models. PBM achieves improvements of 6.67% (BLEU) and 7.47% (ROUGE) on average. We then analyze the experimental results, and examine how PBM helps the training of baseline models and its performance robustness. For the validation of robustness, we measure the performance of an out-of-domain benchmark dataset, and confirm its robustness. In addition, we apply a new evaluation measure, SBERT score, to evaluate the semantic performance. The models implemented with PBM improve the performance of SBERT score. This implies that they generate summaries that are semantically more similar to the reference summary.</abstract>
       <url hash="e7d8dbbd">2022.coling-1.521</url>
       <bibkey>son-etal-2022-boosting</bibkey>
+      <pwccode url="https://github.com/sjk0825/coling2022" additional="false">sjk0825/coling2022</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/codesearchnet">CodeSearchNet</pwcdataset>
     </paper>
     <paper id="522">
@@ -7324,7 +7329,6 @@
       <bibkey>sun-etal-2022-summarize</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/bookcorpus">BookCorpus</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/writingprompts">WritingPrompts</pwcdataset>
     </paper>
     <paper id="557">
@@ -7500,7 +7504,6 @@
       <pwccode url="https://github.com/fadedcosine/pos-guided-neural-text-generation" additional="false">fadedcosine/pos-guided-neural-text-generation</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/paranmt-50m">PARANMT-50M</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/wikitext-103">WikiText-103</pwcdataset>
-      <pwcdataset url="https://paperswithcode.com/dataset/wikitext-2">WikiText-2</pwcdataset>
     </paper>
     <paper id="571">
       <title>Enhancing Pre-trained Models with Text Structure Knowledge for Question Generation</title>
