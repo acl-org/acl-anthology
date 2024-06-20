@@ -6,7 +6,8 @@ on:
     types: [opened]
 
 jobs:
-  add-review-checklist:
+  print_info:
+    if: ${{ github.event_name == 'pull_request_target' && github.event.action == 'opened' && startsWith(github.event.pull_request.title, 'ingestion') }}
     runs-on: ubuntu-latest
     steps:
       - name: Print event details
