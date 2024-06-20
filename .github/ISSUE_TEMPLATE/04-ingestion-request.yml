@@ -25,11 +25,18 @@ body:
     validations:
       required: true
   - type: input
+    id: venue_sig
+    attributes:
+      label: "ACL SIG(s) sponsoring or endorsing the whole venue"
+      description: |
+        Provide a comma-separated list of any SIGs that apply to the whole venue. If there are multiple subvenues/volumes with different SIGs, provide the mapping under Supporting Information.
+      placeholder: ex. SIGLEX, SIGSEM
+  - type: input
     id: volume_title
     attributes:
       label: Volume Title
       description: |
-        What is the title of the volume that should be published?
+        What is the title of the (main) volume that should be published?
       placeholder: ex. Proceedings of the 2019 Meeting of the Conference on Empirical Methods in Natural Language Processing (EMNLP)
     validations:
       required: true
@@ -54,9 +61,16 @@ body:
       description: |
         When would you like the material to be published on the ACL Anthology? If you are submitting material that can be published immediately (e.g. for conferences that already happened in the past), you can leave this field blank.
       placeholder: ex. 2023-12-31
+  - type: input
+    id: volume_address
+    attributes:
+      label: Location
+      description: |
+        What address should be included in bibliography entries, if any? For conferences this is the location of the conference. For a fully-online event use "Online", optionally following the host team location. Ensure the address field is consistent across submitted volumes.
+      placeholder: ex. Barcelona, Spain (Online)
   - type: textarea
     id: ingestion_information
     attributes:
       label: Supporting Information
       description: |
-        If there is anything else we should know about this ingestion request, please provide the information here.  You can also use this field to **provide links or attach files** of the material, if you already have them.
+        If there is anything else we should know about this ingestion request, please provide the information here. E.g. for venues with multiple volumes, list them with the volume identifier, volume title, and any SIGs for the volume. You can also use this field to **provide links or attach files** of the material, if you already have them.
