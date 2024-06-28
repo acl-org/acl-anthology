@@ -54,6 +54,7 @@ class EventIndex:
                 "year": year,
                 "title": f"{venue_name} ({year})",
                 "links": [],
+                "talks": [],
                 "volumes": [],
             }
 
@@ -70,6 +71,8 @@ class EventIndex:
             list_elements=["url", "volume-id"],
             dont_parse_elements=["meta", "links", "colocated"],
         )
+        # parse_element does not play nicely with "talk" so add here
+        event_data["talk"] = event_xml.findall("talk")
 
         # copy over on top of default values
         for key, value in event_data.items():
@@ -107,11 +110,21 @@ class EventIndex:
                 ):
                     self.register_volume(volume_id, event_id)
 
+            elif key == "talk":
+                for talk in value:
+                    parsed_talk = parse_element(talk, list_elements=["speaker"])
+                    self.events[event_id]["talks"].append(
+                        {
+                            "title": parsed_talk["xml_title"].text,
+                            "speaker": parsed_talk["speaker"],
+                            "video": parsed_talk["video"],
+                        }
+                    )   
+
             else:
                 # all other keys
                 self.events[event_id][key] = value
 
-        # print(event_id, self.events[event_id])
 
     def register_volume(self, volume: str, event_id: str):
         """
