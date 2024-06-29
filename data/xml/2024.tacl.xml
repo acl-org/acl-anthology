@@ -7,7 +7,7 @@
       <address>Cambridge, MA</address>
       <year>2024</year>
       <venue>tacl</venue>
-      <journal-volume>11</journal-volume>
+      <journal-volume>12</journal-volume>
     </meta>
     <paper id="1">
       <title><fixed-case>A</fixed-case>mbi<fixed-case>FC</fixed-case>: Fact-Checking Ambiguous Claims with Evidence</title>
@@ -492,6 +492,78 @@
       <pages>681–699</pages>
       <url hash="56cf2300">2024.tacl-1.38</url>
       <bibkey>adlakha-etal-2024-evaluating</bibkey>
+    </paper>
+    <paper id="39">
+      <title>The Ethics of Automating Legal Actors</title>
+      <author><first>Josef</first><last>Valvoda</last></author>
+      <author><first>Alec</first><last>Thompson</last></author>
+      <author><first>Ryan</first><last>Cotterell</last></author>
+      <author><first>Simone</first><last>Teufel</last></author>
+      <doi>10.1162/tacl_a_00668</doi>
+      <abstract>The introduction of large public legal datasets has brought about a renaissance in legal NLP. Many of these datasets are composed of legal judgments—the product of judges deciding cases. Since ML algorithms learn to model the data they are trained on, several legal NLP models are models of judges. While some have argued for the automation of judges, in this position piece, we argue that automating the role of the judge raises difficult ethical challenges, in particular for common law legal systems. Our argument follows from the social role of the judge in actively shaping the law, rather than merely applying it. Since current NLP models are too far away from having the facilities necessary for this task, they should not be used to automate judges. Furthermore, even in the case that the models could achieve human-level capabilities, there would still be remaining ethical concerns inherent in the automation of the legal process.</abstract>
+      <pages>700–720</pages>
+      <url hash="cdeed0bf">2024.tacl-1.39</url>
+      <bibkey>valvoda-etal-2024-ethics</bibkey>
+    </paper>
+    <paper id="40">
+      <title>Source-Free Domain Adaptation for Question Answering with Masked Self-training</title>
+      <author><first>Maxwell J.</first><last>Yin</last></author>
+      <author><first>Boyu</first><last>Wang</last></author>
+      <author><first>Yue</first><last>Dong</last></author>
+      <author><first>Charles</first><last>Ling</last></author>
+      <doi>10.1162/tacl_a_00669</doi>
+      <abstract>Previous unsupervised domain adaptation (UDA) methods for question answering (QA) require access to source domain data while fine-tuning the model for the target domain. Source domain data may, however, contain sensitive information and should be protected. In this study, we investigate a more challenging setting, source-free UDA, in which we have only the pretrained source model and target domain data, without access to source domain data. We propose a novel self-training approach to QA models that integrates a specially designed mask module for domain adaptation. The mask is auto-adjusted to extract key domain knowledge when trained on the source domain. To maintain previously learned domain knowledge, certain mask weights are frozen during adaptation, while other weights are adjusted to mitigate domain shifts with pseudo-labeled samples generated in the target domain. Our empirical results on four benchmark datasets suggest that our approach significantly enhances the performance of pretrained QA models on the target domain, and even outperforms models that have access to the source data during adaptation.</abstract>
+      <pages>721–737</pages>
+      <url hash="2580a8ab">2024.tacl-1.40</url>
+      <bibkey>yin-etal-2024-source-free</bibkey>
+    </paper>
+    <paper id="41">
+      <title>Scope Ambiguities in Large Language Models</title>
+      <author><first>Gaurav</first><last>Kamath</last></author>
+      <author><first>Sebastian</first><last>Schuster</last></author>
+      <author><first>Sowmya</first><last>Vajjala</last></author>
+      <author><first>Siva</first><last>Reddy</last></author>
+      <doi>10.1162/tacl_a_00670</doi>
+      <abstract>Sentences containing multiple semantic operators with overlapping scope often create ambiguities in interpretation, known as scope ambiguities. These ambiguities offer rich insights into the interaction between semantic structure and world knowledge in language processing. Despite this, there has been little research into how modern large language models treat them. In this paper, we investigate how different versions of certain autoregressive language models—GPT-2, GPT-3/3.5, Llama 2, and GPT-4—treat scope ambiguous sentences, and compare this with human judgments. We introduce novel datasets that contain a joint total of almost 1,000 unique scope-ambiguous sentences, containing interactions between a range of semantic operators, and annotated for human judgments. Using these datasets, we find evidence that several models (i) are sensitive to the meaning ambiguity in these sentences, in a way that patterns well with human judgments, and (ii) can successfully identify human-preferred readings at a high level of accuracy (over 90% in some cases).1</abstract>
+      <pages>738–754</pages>
+      <url hash="cbd94e1a">2024.tacl-1.41</url>
+      <bibkey>kamath-etal-2024-scope</bibkey>
+    </paper>
+    <paper id="42">
+      <title>Visually Grounded Speech Models Have a Mutual Exclusivity Bias</title>
+      <author><first>Leanne</first><last>Nortje</last></author>
+      <author><first>Dan</first><last>Oneaţă</last></author>
+      <author><first>Yevgen</first><last>Matusevych</last></author>
+      <author><first>Herman</first><last>Kamper</last></author>
+      <doi>10.1162/tacl_a_00672</doi>
+      <abstract>When children learn new words, they employ constraints such as the mutual exclusivity (ME) bias: A novel word is mapped to a novel object rather than a familiar one. This bias has been studied computationally, but only in models that use discrete word representations as input, ignoring the high variability of spoken words. We investigate the ME bias in the context of visually grounded speech models that learn from natural images and continuous speech audio. Concretely, we train a model on familiar words and test its ME bias by asking it to select between a novel and a familiar object when queried with a novel word. To simulate prior acoustic and visual knowledge, we experiment with several initialization strategies using pretrained speech and vision networks. Our findings reveal the ME bias across the different initialization approaches, with a stronger bias in models with more prior (in particular, visual) knowledge. Additional tests confirm the robustness of our results, even when different loss functions are considered. Based on detailed analyses to piece out the model’s representation space, we attribute the ME bias to how familiar and novel classes are distinctly separated in the resulting space.</abstract>
+      <pages>755–770</pages>
+      <url hash="72f755b3">2024.tacl-1.42</url>
+      <bibkey>nortje-etal-2024-visually</bibkey>
+    </paper>
+    <paper id="43">
+      <title>Instructed to Bias: Instruction-Tuned Language Models Exhibit Emergent Cognitive Bias</title>
+      <author><first>Itay</first><last>Itzhak</last></author>
+      <author><first>Gabriel</first><last>Stanovsky</last></author>
+      <author><first>Nir</first><last>Rosenfeld</last></author>
+      <author><first>Yonatan</first><last>Belinkov</last></author>
+      <doi>10.1162/tacl_a_00673</doi>
+      <abstract>Recent studies show that instruction tuning (IT) and reinforcement learning from human feedback (RLHF) improve the abilities of large language models (LMs) dramatically. While these tuning methods can help align models with human objectives and generate high-quality text, not much is known about their potential adverse effects. In this work, we investigate the effect of IT and RLHF on decision making and reasoning in LMs, focusing on three cognitive biases—the decoy effect, the certainty effect, and the belief bias—all of which are known to influence human decision-making and reasoning. Our findings highlight the presence of these biases in various models from the GPT-3, Mistral, and T5 families. Notably, we find a stronger presence of biases in models that have undergone instruction tuning, such as Flan-T5, Mistral-Instruct, GPT3.5, and GPT4. Our work constitutes a step toward comprehending cognitive biases in instruction-tuned LMs, which is crucial for the development of more reliable and unbiased language models.1</abstract>
+      <pages>771–785</pages>
+      <url hash="3e4e4f2f">2024.tacl-1.43</url>
+      <bibkey>itzhak-etal-2024-instructed</bibkey>
+    </paper>
+    <paper id="44">
+      <title>Beyond Boundaries: A Human-like Approach for Question Answering over Structured and Unstructured Information Sources</title>
+      <author><first>Jens</first><last>Lehmann</last></author>
+      <author><first>Dhananjay</first><last>Bhandiwad</last></author>
+      <author><first>Preetam</first><last>Gattogi</last></author>
+      <author><first>Sahar</first><last>Vahdati</last></author>
+      <doi>10.1162/tacl_a_00671</doi>
+      <abstract>Answering factual questions from heterogenous sources, such as graphs and text, is a key capacity of intelligent systems. Current approaches either (i) perform question answering over text and structured sources as separate pipelines followed by a merge step or (ii) provide an early integration, giving up the strengths of particular information sources. To solve this problem, we present “HumanIQ”, a method that teaches language models to dynamically combine retrieved information by imitating how humans use retrieval tools. Our approach couples a generic method for gathering human demonstrations of tool use with adaptive few-shot learning for tool augmented models. We show that HumanIQ confers significant benefits, including i) reducing the error rate of our strongest baseline (GPT-4) by over 50% across 3 benchmarks, (ii) improving human preference over responses from vanilla GPT-4 (45.3% wins, 46.7% ties, 8.0% loss), and (iii) outperforming numerous task-specific baselines.</abstract>
+      <pages>786–802</pages>
+      <url hash="a64ff5ef">2024.tacl-1.44</url>
+      <bibkey>lehmann-etal-2024-beyond</bibkey>
     </paper>
   </volume>
 </collection>
