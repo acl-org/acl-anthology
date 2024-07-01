@@ -461,7 +461,7 @@ def parse_element(
                 "type": element.get("type", "attachment"),
                 "url": element.text,
             }
-        elif tag in ("author", "editor"):
+        elif tag in ("author", "editor", "speaker"):
             id_ = element.attrib.get("id", None)
             value = (PersonName.from_element(element), id_)
         elif tag == "erratum":
