@@ -25,6 +25,7 @@ jobs:
             const fs = require('fs');
             const review_checklist = fs.readFileSync('.github/ingestion-review-checklist.md', 'utf8');
             const old_description = context.payload.pull_request.body || '';
+            console.log('Old description:', old_description);
             if (!old_description.trim()) {
               await github.rest.pulls.update({
                 pull_number: context.issue.number,
