@@ -24,9 +24,15 @@ jobs:
           script: |
             const fs = require('fs');
             const review_checklist = fs.readFileSync('.github/ingestion-review-checklist.md', 'utf8');
+            const new_description = '';
+            if (context.payload.pull_request.body == null) {
+              new_description = review_checklist;
+            } else {
+              new_description = context.payload.pull_request.body + review_checklist;
+            }
             github.rest.pulls.update({
               pull_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: context.payload.pull_request.body + review_checklist,
+              body: new_description,
             });
