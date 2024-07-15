@@ -35,21 +35,12 @@ jobs:
             console.log('Reading checklist file...');
             const review_checklist = fs.readFileSync('.github/ingestion-review-checklist.md', 'utf8');
             const old_description = context.payload.pull_request.body || '';
-            console.log('Old description:', ${ old_description });
-            if (!old_description.trim()) {
-              await github.rest.pulls.update({
+            console.log('Old description:', old_description);
+            const updated_body = !old_description.trim() ? review_checklist : old_description + "\n\n" + review_checklist;
+            github.rest.pulls.update({
                 pull_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: review_checklist,
+                body: updated_body,
               });
-              console.log('Pull request description was empty. Updated with review checklist.');
-            } else {
-              await github.rest.pulls.update({
-                pull_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: context.payload.pull_request.body + review_checklist,
-              });
-              console.log('Pull request description was not empty. Appended review checklist.');
-            }
+              console.log('Updated body:', updated_body); 
