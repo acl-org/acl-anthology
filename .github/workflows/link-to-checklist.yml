@@ -18,6 +18,15 @@ jobs:
           echo "Action: ${{ github.event.action }}"
           echo "PR Title: ${{ github.event.pull_request.title }}"
           echo "Starts with ingestion: ${{ startsWith(github.event.pull_request.title, 'ingestion') }}"
+      - name: Log from GitHub script
+        uses: actions/github-script@v6
+        with:
+          script: |
+            console.log('This is a test log.');
+            console.log('Event Name:', context.eventName);
+            console.log('Action:', context.payload.action);
+            console.log('PR Title:', context.payload.pull_request.title);
+            console.log('Starts with ingestion:', context.payload.pull_request.title.startsWith('ingestion'));
       - name: Add review checklist
         uses: actions/github-script@v6
         with:
