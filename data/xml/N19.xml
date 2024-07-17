@@ -237,7 +237,6 @@
       <abstract>Constituent parsing has been studied extensively in the last decades. Chomsky-Schützenberger parsing as an approach to constituent parsing has only been investigated theoretically, yet. It uses the decomposition of a language into a regular language, a homomorphism, and a bracket language to divide the parsing problem into simpler subproblems. We provide the first implementation of Chomsky-Schützenberger parsing. It employs multiple context-free grammars and incorporates many refinements to achieve feasibility. We compare its performance to state-of-the-art grammar-based parsers.</abstract>
       <url hash="bd329975">N19-1016</url>
       <doi>10.18653/v1/N19-1016</doi>
-      <video href="https://vimeo.com/360467719"/>
       <bibkey>ruprecht-denkinger-2019-implementation</bibkey>
     </paper>
     <paper id="17">
@@ -248,7 +247,6 @@
       <abstract>Languages evolve and diverge over time. Their evolutionary history is often depicted in the shape of a phylogenetic tree. Assuming parsing models are representations of their languages grammars, their evolution should follow a structure similar to that of the phylogenetic tree. In this paper, drawing inspiration from multi-task learning, we make use of the phylogenetic tree to guide the learning of multi-lingual dependency parsers leveraging languages structural similarities. Experiments on data from the Universal Dependency project show that phylogenetic training is beneficial to low resourced languages and to well furnished languages families. As a side product of phylogenetic training, our model is able to perform zero-shot parsing of previously unseen languages.</abstract>
       <url hash="6c769f1a">N19-1017</url>
       <doi>10.18653/v1/N19-1017</doi>
-      <video href="https://vimeo.com/360481999"/>
       <bibkey>dehouck-denis-2019-phylogenic</bibkey>
     </paper>
     <paper id="18">
@@ -259,7 +257,6 @@
       <abstract>We introduce a novel transition system for discontinuous constituency parsing. Instead of storing subtrees in a stack –i.e. a data structure with linear-time sequential access– the proposed system uses a set of parsing items, with constant-time random access. This change makes it possible to construct any discontinuous constituency tree in exactly <tex-math>4n–2</tex-math> transitions for a sentence of length n. At each parsing step, the parser considers every item in the set to be combined with a focus item and to construct a new constituent in a bottom-up fashion. The parsing strategy is based on the assumption that most syntactic structures can be parsed incrementally and that the set –the memory of the parser– remains reasonably small on average. Moreover, we introduce a provably correct dynamic oracle for the new transition system, and present the first experiments in discontinuous constituency parsing using a dynamic oracle. Our parser obtains state-of-the-art results on three English and German discontinuous treebanks.</abstract>
       <url hash="78e32d04">N19-1018</url>
       <doi>10.18653/v1/N19-1018</doi>
-      <video href="https://vimeo.com/360494509"/>
       <bibkey>coavoux-cohen-2019-discontinuous</bibkey>
       <pwccode url="https://gitlab.com/mcoavoux/discoparset" additional="false">mcoavoux/discoparset</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
@@ -272,7 +269,6 @@
       <abstract>The performance of Part-of-Speech tagging varies significantly across the treebanks of the Universal Dependencies project. This work points out that these variations may result from divergences between the annotation of train and test sets. We show how the annotation variation principle, introduced by Dickinson and Meurers (2003) to automatically detect errors in gold standard, can be used to identify inconsistencies between annotations; we also evaluate their impact on prediction performance.</abstract>
       <url hash="98210ead">N19-1019</url>
       <doi>10.18653/v1/N19-1019</doi>
-      <video href="https://vimeo.com/360505435"/>
       <bibkey>wisniewski-yvon-2019-bad</bibkey>
     </paper>
     <paper id="20">
@@ -283,7 +279,6 @@
       <abstract>The main obstacle to incremental sentence processing arises from right-branching constituent structures, which are present in the majority of English sentences, as well as optional constituents that adjoin on the right, such as right adjuncts and right conjuncts. In CCG, many right-branching derivations can be replaced by semantically equivalent left-branching incremental derivations. The problem of right-adjunction is more resistant to solution, and has been tackled in the past using revealing-based approaches that often rely either on the higher-order unification over lambda terms (Pareschi and Steedman,1987) or heuristics over dependency representations that do not cover the whole CCGbank (Ambati et al., 2015). We propose a new incremental parsing algorithm for CCG following the same revealing tradition of work but having a purely syntactic approach that does not depend on access to a distinct level of semantic representation. This algorithm can cover the whole CCGbank, with greater incrementality and accuracy than previous proposals.</abstract>
       <url hash="6cec6c5f">N19-1020</url>
       <doi>10.18653/v1/N19-1020</doi>
-      <video href="https://vimeo.com/360516550"/>
       <bibkey>stanojevic-steedman-2019-ccg</bibkey>
       <pwccode url="https://github.com/stanojevic/Rotating-CCG" additional="false">stanojevic/Rotating-CCG</pwccode>
     </paper>
@@ -794,7 +789,6 @@
       <abstract>Visual Dialog is a multimodal task of answering a sequence of questions grounded in an image (using the conversation history as context). It entails challenges in vision, language, reasoning, and grounding. However, studying these subtasks in isolation on large, real datasets is infeasible as it requires prohibitively-expensive complete annotation of the ‘state’ of all images and dialogs. We develop CLEVR-Dialog, a large diagnostic dataset for studying multi-round reasoning in visual dialog. Specifically, we construct a dialog grammar that is grounded in the scene graphs of the images from the CLEVR dataset. This combination results in a dataset where all aspects of the visual dialog are fully annotated. In total, CLEVR-Dialog contains 5 instances of 10-round dialogs for about 85k CLEVR images, totaling to 4.25M question-answer pairs. We use CLEVR-Dialog to benchmark performance of standard visual dialog models; in particular, on visual coreference resolution (as a function of the coreference distance). This is the first analysis of its kind for visual dialog models that was not possible without this dataset. We hope the findings from CLEVR-Dialog will help inform the development of future models for visual dialog. Our code and dataset are publicly available.</abstract>
       <url hash="ca8dd598">N19-1058</url>
       <doi>10.18653/v1/N19-1058</doi>
-      <video href="https://vimeo.com/360533677"/>
       <bibkey>kottur-etal-2019-clevr</bibkey>
       <pwccode url="https://github.com/satwikkottur/clevr-dialog" additional="false">satwikkottur/clevr-dialog</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/clevr-dialog">CLEVR-Dialog</pwcdataset>
@@ -812,7 +806,6 @@
       <abstract>Most current approaches to metaphor identification use restricted linguistic contexts, e.g. by considering only a verb’s arguments or the sentence containing a phrase. Inspired by pragmatic accounts of metaphor, we argue that broader discourse features are crucial for better metaphor identification. We train simple gradient boosting classifiers on representations of an utterance and its surrounding discourse learned with a variety of document embedding methods, obtaining near state-of-the-art results on the 2018 VU Amsterdam metaphor identification task without the complex metaphor-specific features or deep neural architectures employed by other systems. A qualitative analysis further confirms the need for broader context in metaphor processing.</abstract>
       <url hash="22d8d8e5">N19-1059</url>
       <doi>10.18653/v1/N19-1059</doi>
-      <video href="https://vimeo.com/360541337"/>
       <bibkey>mu-etal-2019-learning</bibkey>
       <pwccode url="https://github.com/jayelm/broader-metaphor" additional="false">jayelm/broader-metaphor</pwccode>
     </paper>
@@ -900,7 +893,6 @@
       <abstract>When assigning quantitative labels to a dataset, different methodologies may rely on different scales. In particular, when assigning polarities to words in a sentiment lexicon, annotators may use binary, categorical, or continuous labels. Naturally, it is of interest to unify these labels from disparate scales to both achieve maximal coverage over words and to create a single, more robust sentiment lexicon while retaining scale coherence. We introduce a generative model of sentiment lexica to combine disparate scales into a common latent representation. We realize this model with a novel multi-view variational autoencoder (VAE), called SentiVAE. We evaluate our approach via a downstream text classification task involving nine English-Language sentiment analysis datasets; our representation outperforms six individual sentiment lexica, as well as a straightforward combination thereof.</abstract>
       <url hash="7972698f">N19-1065</url>
       <doi>10.18653/v1/N19-1065</doi>
-      <video href="https://vimeo.com/356020948"/>
       <bibkey>hoyle-etal-2019-combining</bibkey>
       <pwccode url="https://github.com/ahoho/SentiVAE" additional="false">ahoho/SentiVAE</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-movie-reviews">IMDb Movie Reviews</pwcdataset>
@@ -1077,7 +1069,6 @@
       <abstract>Contextual string embeddings are a recent type of contextualized word embedding that were shown to yield state-of-the-art results when utilized in a range of sequence labeling tasks. They are based on character-level language models which treat text as distributions over characters and are capable of generating embeddings for any string of characters within any textual context. However, such purely character-based approaches struggle to produce meaningful embeddings if a rare string is used in a underspecified context. To address this drawback, we propose a method in which we dynamically aggregate contextualized embeddings of each unique string that we encounter. We then use a pooling operation to distill a ”global” word representation from all contextualized instances. We evaluate these ”pooled contextualized embeddings” on common named entity recognition (NER) tasks such as CoNLL-03 and WNUT and show that our approach significantly improves the state-of-the-art for NER. We make all code and pre-trained models available to the research community for use and reproduction.</abstract>
       <url hash="7fff02ec">N19-1078</url>
       <doi>10.18653/v1/N19-1078</doi>
-      <video href="https://vimeo.com/360549287"/>
       <bibkey>akbik-etal-2019-pooled</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/wnut-2017-emerging-and-rare-entity">WNUT 2017</pwcdataset>
     </paper>
@@ -1094,7 +1085,6 @@
       <attachment type="supplementary" hash="5aeb476f">N19-1079.Supplementary.zip</attachment>
       <doi>10.18653/v1/N19-1079</doi>
       <attachment type="presentation" hash="08a02346">N19-1079.Presentation.pdf</attachment>
-      <video href="https://vimeo.com/360565437"/>
       <bibkey>jie-etal-2019-better</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2002">CoNLL 2002</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/conll-2003">CoNLL 2003</pwcdataset>
@@ -1473,7 +1463,6 @@
       <url hash="58d12169">N19-1106</url>
       <attachment type="supplementary" hash="908062db">N19-1106.Supplementary.pdf</attachment>
       <doi>10.18653/v1/N19-1106</doi>
-      <video href="https://vimeo.com/360593989"/>
       <bibkey>barezi-etal-2019-submodular</bibkey>
     </paper>
     <paper id="107">
@@ -1487,7 +1476,6 @@
       <abstract>Distant supervision (DS) is an important paradigm for automatically extracting relations. It utilizes existing knowledge base to collect examples for the relation we intend to extract, and then uses these examples to automatically generate the training data. However, the examples collected can be very noisy, and pose significant challenge for obtaining high quality labels. Previous work has made remarkable progress in predicting the relation from distant supervision, but typically ignores the temporal relations among those supervising instances. This paper formulates the problem of relation extraction with temporal reasoning and proposes a solution to predict whether two given entities participate in a relation at a given time spot. For this purpose, we construct a dataset called WIKI-TIME which additionally includes the valid period of a certain relation of two entities in the knowledge base. We propose a novel neural model to incorporate both the temporal information encoding and sequential reasoning. The experimental results show that, compared with the best of existing models, our model achieves better performance in both WIKI-TIME dataset and the well-studied NYT-10 dataset.</abstract>
       <url hash="a69a5507">N19-1107</url>
       <doi>10.18653/v1/N19-1107</doi>
-      <video href="https://vimeo.com/360608466"/>
       <bibkey>yan-etal-2019-relation</bibkey>
       <pwccode url="https://github.com/ElliottYan/DS_Temporal" additional="false">ElliottYan/DS_Temporal</pwccode>
     </paper>
@@ -1537,7 +1525,6 @@
       <url hash="319372a4">N19-1111</url>
       <attachment type="software" hash="fc149a7b">N19-1111.Software.txt</attachment>
       <doi>10.18653/v1/N19-1111</doi>
-      <video href="https://vimeo.com/356031269"/>
       <bibkey>hayes-2019-just</bibkey>
     </paper>
     <paper id="112">
@@ -1711,7 +1698,6 @@
       <abstract>Defining action spaces for conversational agents and optimizing their decision-making process with reinforcement learning is an enduring challenge. Common practice has been to use handcrafted dialog acts, or the output vocabulary, e.g. in neural encoder decoders, as the action spaces. Both have their own limitations. This paper proposes a novel latent action framework that treats the action spaces of an end-to-end dialog agent as latent variables and develops unsupervised methods in order to induce its own action space from the data. Comprehensive experiments are conducted examining both continuous and discrete action types and two different optimization methods based on stochastic variational inference. Results show that the proposed latent actions achieve superior empirical performance improvement over previous word-level policy gradient methods on both DealOrNoDeal and MultiWoz dialogs. Our detailed analysis also provides insights about various latent variable approaches for policy learning and can serve as a foundation for developing better latent actions in future research.</abstract>
       <url hash="48b2322e">N19-1123</url>
       <doi>10.18653/v1/N19-1123</doi>
-      <video href="https://vimeo.com/360620730"/>
       <bibkey>zhao-etal-2019-rethinking</bibkey>
       <pwccode url="https://github.com/snakeztc/NeuralDialog-LaRL" additional="true">snakeztc/NeuralDialog-LaRL</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/multiwoz">MultiWOZ</pwcdataset>
@@ -1729,7 +1715,6 @@
       <abstract>Traditional generative dialogue models generate responses solely from input queries. Such information is insufficient for generating a specific response since a certain query could be answered in multiple ways. Recently, researchers have attempted to fill the information gap by exploiting information retrieval techniques. For a given query, similar dialogues are retrieved from the entire training data and considered as an additional knowledge source. While the use of retrieval may harvest extensive information, the generative models could be overwhelmed, leading to unsatisfactory performance. In this paper, we propose a new framework which exploits retrieval results via a skeleton-to-response paradigm. At first, a skeleton is extracted from the retrieved dialogues. Then, both the generated skeleton and the original query are used for response generation via a novel response generator. Experimental results show that our approach significantly improves the informativeness of the generated responses</abstract>
       <url hash="287f3536">N19-1124</url>
       <doi>10.18653/v1/N19-1124</doi>
-      <video href="https://vimeo.com/360630558"/>
       <bibkey>cai-etal-2019-skeleton</bibkey>
       <pwccode url="https://github.com/jcyk/skeleton-to-response" additional="false">jcyk/skeleton-to-response</pwccode>
     </paper>
@@ -1746,7 +1731,6 @@
       <abstract>Although recent neural conversation models have shown great potential, they often generate bland and generic responses. While various approaches have been explored to diversify the output of the conversation model, the improvement often comes at the cost of decreased relevance. In this paper, we propose a SpaceFusion model to jointly optimize diversity and relevance that essentially fuses the latent space of a sequence-to-sequence model and that of an autoencoder model by leveraging novel regularization terms. As a result, our approach induces a latent space in which the distance and direction from the predicted response vector roughly match the relevance and diversity, respectively. This property also lends itself well to an intuitive visualization of the latent space. Both automatic and human evaluation results demonstrate that the proposed approach brings significant improvement compared to strong baselines in both diversity and relevance.</abstract>
       <url hash="eea2eeda">N19-1125</url>
       <doi>10.18653/v1/N19-1125</doi>
-      <video href="https://vimeo.com/360643280"/>
       <bibkey>gao-etal-2019-jointly</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/reddit">Reddit</pwcdataset>
     </paper>
@@ -1760,7 +1744,6 @@
       <url hash="320b17cc">N19-1126</url>
       <attachment type="software" hash="e93c53d4">N19-1126.Software.zip</attachment>
       <doi>10.18653/v1/N19-1126</doi>
-      <video href="https://vimeo.com/360661118"/>
       <bibkey>raghu-etal-2019-disentangling</bibkey>
       <pwccode url="https://github.com/dair-iitd/BossNet" additional="false">dair-iitd/BossNet</pwccode>
     </paper>
@@ -2118,7 +2101,6 @@
       <abstract>Lemmatization of standard languages is concerned with (i) abstracting over morphological differences and (ii) resolving token-lemma ambiguities of inflected words in order to map them to a dictionary headword. In the present paper we aim to improve lemmatization performance on a set of non-standard historical languages in which the difficulty is increased by an additional aspect (iii): spelling variation due to lacking orthographic standards. We approach lemmatization as a string-transduction task with an Encoder-Decoder architecture which we enrich with sentence information using a hierarchical sentence encoder. We show significant improvements over the state-of-the-art by fine-tuning the sentence encodings to jointly optimize a bidirectional language model loss. Crucially, our architecture does not require POS or morphological annotations, which are not always available for historical corpora. Additionally, we also test the proposed model on a set of typologically diverse standard languages showing results on par or better than a model without fine-tuned sentence representations and previous state-of-the-art systems. Finally, to encourage future work on processing of non-standard varieties, we release the dataset of non-standard languages underlying the present study, which is based on openly accessible sources.</abstract>
       <url hash="8cd829f4">N19-1153</url>
       <doi>10.18653/v1/N19-1153</doi>
-      <video href="https://vimeo.com/360688359"/>
       <bibkey>manjavacas-etal-2019-improving</bibkey>
       <pwccode url="https://github.com/emanjavacas/pie" additional="true">emanjavacas/pie</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/universal-dependencies">Universal Dependencies</pwcdataset>
@@ -2134,7 +2116,6 @@
       <abstract>Recent work has shown that contextualized word representations derived from neural machine translation are a viable alternative to such from simple word predictions tasks. This is because the internal understanding that needs to be built in order to be able to translate from one language to another is much more comprehensive. Unfortunately, computational and memory limitations as of present prevent NMT models from using large word vocabularies, and thus alternatives such as subword units (BPE and morphological segmentations) and characters have been used. Here we study the impact of using different kinds of units on the quality of the resulting representations when used to model morphology, syntax, and semantics. We found that while representations derived from subwords are slightly better for modeling syntax, character-based representations are superior for modeling morphology and are also more robust to noisy input.</abstract>
       <url hash="a141c3a4">N19-1154</url>
       <doi>10.18653/v1/N19-1154</doi>
-      <video href="https://vimeo.com/360694967"/>
       <bibkey>durrani-etal-2019-one</bibkey>
     </paper>
     <paper id="155">
@@ -2146,7 +2127,6 @@
       <abstract>English verbs have multiple forms. For instance, talk may also appear as talks, talked or talking, depending on the context. The NLP task of lemmatization seeks to map these diverse forms back to a canonical one, known as the lemma. We present a simple joint neural model for lemmatization and morphological tagging that achieves state-of-the-art results on 20 languages from the Universal Dependencies corpora. Our paper describes the model in addition to training and decoding procedures. Error analysis indicates that joint morphological tagging and lemmatization is especially helpful in low-resource lemmatization and languages that display a larger degree of morphological complexity.</abstract>
       <url hash="2d5a381f">N19-1155</url>
       <doi>10.18653/v1/N19-1155</doi>
-      <video href="https://vimeo.com/360705702"/>
       <bibkey>malaviya-etal-2019-simple</bibkey>
     </paper>
     <paper id="156">
@@ -2160,7 +2140,6 @@
       <url hash="2ec756cc">N19-1156</url>
       <attachment type="presentation" hash="7c958d27">N19-1156.Presentation.pptx</attachment>
       <doi>10.18653/v1/N19-1156</doi>
-      <video href="https://vimeo.com/360714960"/>
       <bibkey>bjerva-etal-2019-probabilistic</bibkey>
     </paper>
     <paper id="157">
@@ -2173,7 +2152,6 @@
       <url hash="b193d8e6">N19-1157</url>
       <attachment type="supplementary" hash="d28f4b56">N19-1157.Supplementary.pdf</attachment>
       <doi>10.18653/v1/N19-1157</doi>
-      <video href="https://vimeo.com/360726205"/>
       <bibkey>ciosici-etal-2019-quantifying</bibkey>
     </paper>
     <paper id="158">
@@ -2327,7 +2305,6 @@
       <abstract>Titles of short sections within long documents support readers by guiding their focus towards relevant passages and by providing anchor-points that help to understand the progression of the document. The positive effects of section titles are even more pronounced when measured on readers with less developed reading abilities, for example in communities with limited labeled text resources. We, therefore, aim to develop techniques to generate section titles in low-resource environments. In particular, we present an extractive pipeline for section title generation by first selecting the most salient sentence and then applying deletion-based compression. Our compression approach is based on a Semi-Markov Conditional Random Field that leverages unsupervised word-representations such as ELMo or BERT, eliminating the need for a complex encoder-decoder architecture. The results show that this approach leads to competitive performance with sequence-to-sequence models with high resources, while strongly outperforming it with low resources. In a human-subject study across subjects with varying reading abilities, we find that our section titles improve the speed of completing comprehension tasks while retaining similar accuracy.</abstract>
       <url hash="421a8cf8">N19-1168</url>
       <doi>10.18653/v1/N19-1168</doi>
-      <video href="https://vimeo.com/361580764"/>
       <bibkey>gehrmann-etal-2019-improving</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/sentence-compression">Sentence Compression</pwcdataset>
     </paper>
@@ -2340,7 +2317,6 @@
       <abstract>How can we measure whether a natural language generation system produces both high quality and diverse outputs? Human evaluation captures quality but not diversity, as it does not catch models that simply plagiarize from the training set. On the other hand, statistical evaluation (i.e., perplexity) captures diversity but not quality, as models that occasionally emit low quality samples would be insufficiently penalized. In this paper, we propose a unified framework which evaluates both diversity and quality, based on the optimal error rate of predicting whether a sentence is human- or machine-generated. We demonstrate that this error rate can be efficiently estimated by combining human and statistical evaluation, using an evaluation metric which we call HUSE. On summarization and chit-chat dialogue, we show that (i) HUSE detects diversity defects which fool pure human evaluation and that (ii) techniques such as annealing for improving quality actually decrease HUSE due to decreased diversity.</abstract>
       <url hash="13df4158">N19-1169</url>
       <doi>10.18653/v1/N19-1169</doi>
-      <video href="https://vimeo.com/359678934"/>
       <bibkey>hashimoto-etal-2019-unifying</bibkey>
       <pwccode url="https://worksheets.codalab.org/worksheets/0x88644b5ee189402eb19d39d721d1005c" additional="true">worksheets/0x88644b5e</pwccode>
     </paper>
@@ -2356,7 +2332,6 @@
       <attachment type="presentation" hash="9dc481a1">N19-1170.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-1170</doi>
       <attachment type="poster" hash="9dc481a1">N19-1170.Poster.pdf</attachment>
-      <video href="https://vimeo.com/359676375"/>
       <bibkey>see-etal-2019-makes</bibkey>
       <pwccode url="" additional="true"/>
       <pwcdataset url="https://paperswithcode.com/dataset/convai2">ConvAI2</pwcdataset>
@@ -2370,7 +2345,6 @@
       <abstract>Globally normalized neural sequence models are considered superior to their locally normalized equivalents because they may ameliorate the effects of label bias. However, when considering high-capacity neural parametrizations that condition on the whole input sequence, both model classes are theoretically equivalent in terms of the distributions they are capable of representing. Thus, the practical advantage of global normalization in the context of modern neural methods remains unclear. In this paper, we attempt to shed light on this problem through an empirical study. We extend an approach for search-aware training via a continuous relaxation of beam search (Goyal et al., 2017b) in order to enable training of globally normalized recurrent sequence models through simple backpropagation. We then use this technique to conduct an empirical study of the interaction between global normalization, high-capacity encoders, and search-aware optimization. We observe that in the context of inexact search, globally normalized neural models are still more effective than their locally normalized counterparts. Further, since our training approach is sensitive to warm-starting with pre-trained models, we also propose a novel initialization strategy based on self-normalization for pre-training globally normalized models. We perform analysis of our approach on two tasks: CCG supertagging and Machine Translation, and demonstrate the importance of global normalization under different conditions while using search-aware training.</abstract>
       <url hash="163e21ba">N19-1171</url>
       <doi>10.18653/v1/N19-1171</doi>
-      <video href="https://vimeo.com/359674784"/>
       <bibkey>goyal-etal-2019-empirical</bibkey>
     </paper>
     <paper id="172">
@@ -2382,7 +2356,6 @@
       <abstract>We tackle the problem of generating a pun sentence given a pair of homophones (e.g., “died” and “dyed”). Puns are by their very nature statistically anomalous and not amenable to most text generation methods that are supervised by a large corpus. In this paper, we propose an unsupervised approach to pun generation based on lots of raw (unhumorous) text and a surprisal principle. Specifically, we posit that in a pun sentence, there is a strong association between the pun word (e.g., “dyed”) and the distant context, but a strong association between the alternative word (e.g., “died”) and the immediate context. We instantiate the surprisal principle in two ways: (i) as a measure based on the ratio of probabilities given by a language model, and (ii) a retrieve-and-edit approach based on words suggested by a skip-gram model. Based on human evaluation, our retrieve-and-edit approach generates puns successfully 30% of the time, doubling the success rate of a neural generation baseline.</abstract>
       <url hash="cd199482">N19-1172</url>
       <doi>10.18653/v1/N19-1172</doi>
-      <video href="https://vimeo.com/359670150"/>
       <bibkey>he-etal-2019-pun</bibkey>
       <pwccode url="https://github.com/hhexiy/pungen" additional="true">hhexiy/pungen</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/bookcorpus">BookCorpus</pwcdataset>
@@ -2781,7 +2754,6 @@
       <abstract>We present a robust neural abstractive summarization system for cross-lingual summarization. We construct summarization corpora for documents automatically translated from three low-resource languages, Somali, Swahili, and Tagalog, using machine translation and the New York Times summarization corpus. We train three language-specific abstractive summarizers and evaluate on documents originally written in the source languages, as well as on a fourth, unseen language: Arabic. Our systems achieve significantly higher fluency than a standard copy-attention summarizer on automatically translated input documents, as well as comparable content selection.</abstract>
       <url hash="205d9c46">N19-1204</url>
       <doi>10.18653/v1/N19-1204</doi>
-      <video href="https://vimeo.com/356048544"/>
       <bibkey>ouyang-etal-2019-robust</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/new-york-times-annotated-corpus">New York Times Annotated Corpus</pwcdataset>
     </paper>
@@ -2851,7 +2823,6 @@
       <abstract>Continued training is an effective method for domain adaptation in neural machine translation. However, in-domain gains from adaptation come at the expense of general-domain performance. In this work, we interpret the drop in general-domain performance as catastrophic forgetting of general-domain knowledge. To mitigate it, we adapt Elastic Weight Consolidation (EWC)—a machine learning method for learning a new task without forgetting previous tasks. Our method retains the majority of general-domain performance lost in continued training without degrading in-domain performance, outperforming the previous state-of-the-art. We also explore the full range of general-domain performance available when some in-domain degradation is acceptable.</abstract>
       <url hash="46e5819d">N19-1209</url>
       <doi>10.18653/v1/N19-1209</doi>
-      <video href="https://vimeo.com/356056256"/>
       <bibkey>thompson-etal-2019-overcoming</bibkey>
     </paper>
     <paper id="210">
@@ -2925,7 +2896,6 @@
       <abstract>There exist biases in individual’s language use; the same word (e.g., cool) is used for expressing different meanings (e.g., temperature range) or different words (e.g., cloudy, hazy) are used for describing the same meaning. In this study, we propose a method of modeling such personal biases in word meanings (hereafter, semantic variations) with personalized word embeddings obtained by solving a task on subjective text while regarding words used by different individuals as different words. To prevent personalized word embeddings from being contaminated by other irrelevant biases, we solve a task of identifying a review-target (objective output) from a given review. To stabilize the training of this extreme multi-class classification, we perform a multi-task learning with metadata identification. Experimental results with reviews retrieved from RateBeer confirmed that the obtained personalized word embeddings improved the accuracy of sentiment analysis as well as the target task. Analysis of the obtained personalized word embeddings revealed trends in semantic variations related to frequent and adjective words.</abstract>
       <url hash="b4aa99f6">N19-1215</url>
       <doi>10.18653/v1/N19-1215</doi>
-      <video href="https://vimeo.com/359682958"/>
       <bibkey>oba-etal-2019-modeling</bibkey>
     </paper>
     <paper id="216">
@@ -2989,7 +2959,6 @@
       <abstract>We present a new dataset comprised of 210,532 tokens evenly drawn from 100 different English-language literary texts annotated for ACE entity categories (person, location, geo-political entity, facility, organization, and vehicle). These categories include non-named entities (such as “the boy”, “the kitchen”) and nested structure (such as [[the cook]’s sister]). In contrast to existing datasets built primarily on news (focused on geo-political entities and organizations), literary texts offer strikingly different distributions of entity categories, with much stronger emphasis on people and description of settings. We present empirical results demonstrating the performance of nested entity recognition models in this domain; training natively on in-domain literary data yields an improvement of over 20 absolute points in F-score (from 45.7 to 68.3), and mitigates a disparate impact in performance for male and female entities present in models trained on news data.</abstract>
       <url hash="3316d866">N19-1220</url>
       <doi>10.18653/v1/N19-1220</doi>
-      <video href="https://vimeo.com/356050927"/>
       <bibkey>bamman-etal-2019-annotated</bibkey>
       <pwccode url="https://github.com/dbamman/litbank" additional="true">dbamman/litbank</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/litbank">LitBank</pwcdataset>
@@ -3504,7 +3473,6 @@
       <abstract>Aspect-based sentiment analysis involves the recognition of so called opinion target expressions (OTEs). To automatically extract OTEs, supervised learning algorithms are usually employed which are trained on manually annotated corpora. The creation of these corpora is labor-intensive and sufficiently large datasets are therefore usually only available for a very narrow selection of languages and domains. In this work, we address the lack of available annotated data for specific languages by proposing a zero-shot cross-lingual approach for the extraction of opinion target expressions. We leverage multilingual word embeddings that share a common vector space across various languages and incorporate these into a convolutional neural network architecture for OTE extraction. Our experiments with 5 languages give promising results: We can successfully train a model on annotated data of a source language and perform accurate prediction on a target language without ever using any annotated samples in that target language. Depending on the source and target language pairs, we reach performances in a zero-shot regime of up to 77% of a model trained on target language data. Furthermore, we can increase this performance up to 87% of a baseline model trained on target language data by performing cross-lingual learning from multiple source languages.</abstract>
       <url hash="277f240f">N19-1257</url>
       <doi>10.18653/v1/N19-1257</doi>
-      <video href="https://vimeo.com/359684150"/>
       <bibkey>jebbara-cimiano-2019-zero</bibkey>
     </paper>
     <paper id="258">
@@ -3616,7 +3584,6 @@
       <abstract>We propose a grounded dialogue state encoder which addresses a foundational issue on how to integrate visual grounding with dialogue system components. As a test-bed, we focus on the GuessWhat?! game, a two-player game where the goal is to identify an object in a complex visual scene by asking a sequence of yes/no questions. Our visually-grounded encoder leverages synergies between guessing and asking questions, as it is trained jointly using multi-task learning. We further enrich our model via a cooperative learning regime. We show that the introduction of both the joint architecture and cooperative learning lead to accuracy improvements over the baseline system. We compare our approach to an alternative system which extends the baseline with reinforcement learning. Our in-depth analysis shows that the linguistic skills of the two models differ dramatically, despite approaching comparable performance levels. This points at the importance of analyzing the linguistic output of competing systems beyond numeric comparison solely based on task success.</abstract>
       <url hash="6785731d">N19-1265</url>
       <doi>10.18653/v1/N19-1265</doi>
-      <video href="https://vimeo.com/361582708"/>
       <bibkey>shekhar-etal-2019-beyond</bibkey>
       <pwccode url="" additional="true"/>
       <pwcdataset url="https://paperswithcode.com/dataset/guesswhat">GuessWhat?!</pwcdataset>
@@ -3632,7 +3599,6 @@
       <abstract>Visual Dialog is a multi-modal task that requires a model to participate in a multi-turn human dialog grounded on an image, and generate correct, human-like responses. In this paper, we propose a novel Adversarial Multi-modal Feature Encoding (AMFE) framework for effective and robust auxiliary training of visual dialog systems. AMFE can force the language-encoding part of a model to generate hidden states in a distribution closely related to the distribution of real-world images, resulting in language features containing general knowledge from both modalities by nature, which can help generate both more correct and more general responses with reasonably low time cost. Experimental results show that AMFE can steadily bring performance gains to different models on different scales of data. Our method outperforms both the supervised learning baselines and other fine-tuning methods, achieving state-of-the-art results on most metrics of VisDial v0.5/v0.9 generative tasks.</abstract>
       <url hash="611df3d6">N19-1266</url>
       <doi>10.18653/v1/N19-1266</doi>
-      <video href="https://vimeo.com/361585429"/>
       <bibkey>yao-etal-2019-world</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/coco">MS COCO</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/visdial">VisDial</pwcdataset>
@@ -3649,7 +3615,6 @@
       <url hash="a339f819">N19-1267</url>
       <attachment type="supplementary" hash="90422f94">N19-1267.Supplementary.pdf</attachment>
       <doi>10.18653/v1/N19-1267</doi>
-      <video href="https://vimeo.com/364226255"/>
       <bibkey>liang-etal-2019-strong</bibkey>
       <pwccode url="https://github.com/yaochie/multimodal-baselines" additional="false">yaochie/multimodal-baselines</pwccode>
     </paper>
@@ -3662,7 +3627,6 @@
       <abstract>A grand goal in AI is to build a robot that can accurately navigate based on natural language instructions, which requires the agent to perceive the scene, understand and ground language, and act in the real-world environment. One key challenge here is to learn to navigate in new environments that are unseen during training. Most of the existing approaches perform dramatically worse in unseen environments as compared to seen ones. In this paper, we present a generalizable navigational agent. Our agent is trained in two stages. The first stage is training via mixed imitation and reinforcement learning, combining the benefits from both off-policy and on-policy optimization. The second stage is fine-tuning via newly-introduced ‘unseen’ triplets (environment, path, instruction). To generate these unseen triplets, we propose a simple but effective ‘environmental dropout’ method to mimic unseen environments, which overcomes the problem of limited seen environment variability. Next, we apply semi-supervised learning (via back-translation) on these dropout environments to generate new paths and instructions. Empirically, we show that our agent is substantially better at generalizability when fine-tuned with these triplets, outperforming the state-of-art approaches by a large margin on the private unseen test set of the Room-to-Room task, and achieving the top rank on the leaderboard.</abstract>
       <url hash="123d7d30">N19-1268</url>
       <doi>10.18653/v1/N19-1268</doi>
-      <video href="https://vimeo.com/364229428"/>
       <bibkey>tan-etal-2019-learning</bibkey>
       <pwccode url="https://github.com/airsplay/R2R-EnvDrop" additional="false">airsplay/R2R-EnvDrop</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/matterport3d">Matterport3D</pwcdataset>
@@ -3727,7 +3691,6 @@
       <url hash="c96c9cd8">N19-1272</url>
       <attachment type="presentation" hash="2b6d2a82">N19-1272.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-1272</doi>
-      <video href="https://vimeo.com/361688938"/>
       <bibkey>chiang-chen-2019-semantically</bibkey>
       <pwccode url="https://github.com/MiuLab/E2EMathSolver" additional="false">MiuLab/E2EMathSolver</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/math23k">Math23K</pwcdataset>
@@ -3744,7 +3707,6 @@
       <url hash="25daa9ab">N19-1273</url>
       <attachment type="presentation" hash="7a22f55d">N19-1273.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-1273</doi>
-      <video href="https://vimeo.com/361691015"/>
       <bibkey>dasigi-etal-2019-iterative</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/nlvr">NLVR</pwcdataset>
     </paper>
@@ -3757,7 +3719,6 @@
       <abstract>We propose a simple, fast, and mostly-unsupervised approach for non-factoid question answering (QA) called Alignment over Heterogeneous Embeddings (AHE). AHE simply aligns each word in the question and candidate answer with the most similar word in the retrieved supporting paragraph, and weighs each alignment score with the inverse document frequency of the corresponding question/answer term. AHE’s similarity function operates over embeddings that model the underlying text at different levels of abstraction: character (FLAIR), word (BERT and GloVe), and sentence (InferSent), where the latter is the only supervised component in the proposed approach. Despite its simplicity and lack of supervision, AHE obtains a new state-of-the-art performance on the “Easy” partition of the AI2 Reasoning Challenge (ARC) dataset (64.6% accuracy), top-two performance on the “Challenge” partition of ARC (34.1%), and top-three performance on the WikiQA dataset (74.08% MRR), outperforming many other complex, supervised approaches. Our error analysis indicates that alignments over character, word, and sentence embeddings capture substantially different semantic information. We exploit this with a simple meta-classifier that learns how much to trust the predictions over each representation, which further improves the performance of unsupervised AHE.</abstract>
       <url hash="05859f4f">N19-1274</url>
       <doi>10.18653/v1/N19-1274</doi>
-      <video href="https://vimeo.com/361693315"/>
       <bibkey>yadav-etal-2019-alignment</bibkey>
       <pwccode url="https://github.com/vikas95/AHE" additional="false">vikas95/AHE</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/arc">ARC (AI2 Reasoning Challenge)</pwcdataset>
@@ -4079,7 +4040,6 @@
       <abstract>When answering natural language questions over knowledge bases (KBs), different question components and KB aspects play different roles. However, most existing embedding-based methods for knowledge base question answering (KBQA) ignore the subtle inter-relationships between the question and the KB (e.g., entity types, relation paths and context). In this work, we propose to directly model the two-way flow of interactions between the questions and the KB via a novel Bidirectional Attentive Memory Network, called BAMnet. Requiring no external resources and only very few hand-crafted features, on the WebQuestions benchmark, our method significantly outperforms existing information-retrieval based methods, and remains competitive with (hand-crafted) semantic parsing based methods. Also, since we use attention mechanisms, our method offers better interpretability compared to other baselines.</abstract>
       <url hash="d2dbbfd5">N19-1299</url>
       <doi>10.18653/v1/N19-1299</doi>
-      <video href="https://vimeo.com/356071812"/>
       <bibkey>chen-etal-2019-bidirectional</bibkey>
       <pwccode url="https://github.com/hugochan/BAMnet" additional="true">hugochan/BAMnet</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/webquestions">WebQuestions</pwcdataset>
@@ -4096,7 +4056,6 @@
       <abstract>In this paper we study yes/no questions that are naturally occurring — meaning that they are generated in unprompted and unconstrained settings. We build a reading comprehension dataset, BoolQ, of such questions, and show that they are unexpectedly challenging. They often query for complex, non-factoid information, and require difficult entailment-like inference to solve. We also explore the effectiveness of a range of transfer learning baselines. We find that transferring from entailment data is more effective than transferring from paraphrase or extractive QA data, and that it, surprisingly, continues to be very beneficial even when starting from massive pre-trained language models such as BERT. Our best method trains BERT on MultiNLI and then re-trains it on our train set. It achieves 80.4% accuracy compared to 90% accuracy of human annotators (and 62% majority-baseline), leaving a significant gap for future work.</abstract>
       <url hash="6c220d55">N19-1300</url>
       <doi>10.18653/v1/N19-1300</doi>
-      <video href="https://vimeo.com/356079637"/>
       <bibkey>clark-etal-2019-boolq</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/boolq">BoolQ</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/coqa">CoQA</pwcdataset>
@@ -4122,7 +4081,6 @@
       <abstract>Traditional Key-value Memory Neural Networks (KV-MemNNs) are proved to be effective to support shallow reasoning over a collection of documents in domain specific Question Answering or Reading Comprehension tasks. However, extending KV-MemNNs to Knowledge Based Question Answering (KB-QA) is not trivia, which should properly decompose a complex question into a sequence of queries against the memory, and update the query representations to support multi-hop reasoning over the memory. In this paper, we propose a novel mechanism to enable conventional KV-MemNNs models to perform interpretable reasoning for complex questions. To achieve this, we design a new query updating strategy to mask previously-addressed memory information from the query representations, and introduce a novel STOP strategy to avoid invalid or repeated memory reading without strong annotation signals. This also enables KV-MemNNs to produce structured queries and work in a semantic parsing fashion. Experimental results on benchmark datasets show that our solution, trained with question-answer pairs only, can provide conventional KV-MemNNs models with better reasoning abilities on complex questions, and achieve state-of-art performances.</abstract>
       <url hash="689def29">N19-1301</url>
       <doi>10.18653/v1/N19-1301</doi>
-      <video href="https://vimeo.com/356088995"/>
       <bibkey>xu-etal-2019-enhancing</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/dbpedia">DBpedia</pwcdataset>
     </paper>
@@ -4137,7 +4095,6 @@
       <abstract>Question Answering (QA) naturally reduces to an entailment problem, namely, verifying whether some text entails the answer to a question. However, for multi-hop QA tasks, which require reasoning with <i>multiple</i> sentences, it remains unclear how best to utilize entailment models pre-trained on large scale datasets such as SNLI, which are based on sentence pairs. We introduce Multee, a general architecture that can effectively use entailment models for multi-hop QA tasks. Multee uses (i) a local module that helps locate important sentences, thereby avoiding distracting information, and (ii) a global module that aggregates information by effectively incorporating importance weights. Importantly, we show that both modules can use entailment functions pre-trained on a large scale NLI datasets. We evaluate performance on MultiRC and OpenBookQA, two multihop QA datasets. When using an entailment function pre-trained on NLI datasets, Multee outperforms QA models trained only on the target QA datasets and the OpenAI transformer models.</abstract>
       <url hash="f3591ae9">N19-1302</url>
       <doi>10.18653/v1/N19-1302</doi>
-      <video href="https://vimeo.com/356097901"/>
       <bibkey>trivedi-etal-2019-repurposing</bibkey>
       <pwccode url="https://github.com/StonyBrookNLP/multee" additional="true">StonyBrookNLP/multee</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
@@ -4155,7 +4112,6 @@
       <url hash="37969a47">N19-1303</url>
       <doi>10.18653/v1/N19-1303</doi>
       <attachment type="presentation" hash="041e110d">N19-1303.Presentation.pdf</attachment>
-      <video href="https://vimeo.com/361708034"/>
       <bibkey>ananya-etal-2019-genderquant</bibkey>
     </paper>
     <paper id="304">
@@ -4171,7 +4127,6 @@
       <abstract>We provide an NLP framework to uncover four linguistic dimensions of political polarization in social media: topic choice, framing, affect and illocutionary force. We quantify these aspects with existing lexical methods, and propose clustering of tweet embeddings as a means to identify salient topics for analysis across events; human evaluations show that our approach generates more cohesive topics than traditional LDA-based models. We apply our methods to study 4.4M tweets on 21 mass shootings. We provide evidence that the discussion of these events is highly polarized politically and that this polarization is primarily driven by partisan differences in framing rather than topic choice. We identify framing devices, such as grounding and the contrasting use of the terms “terrorist” and “crazy”, that contribute to polarization. Results pertaining to topic choice, affect and illocutionary force suggest that Republicans focus more on the shooter and event-specific facts (news) while Democrats focus more on the victims and call for policy changes. Our work contributes to a deeper understanding of the way group divisions manifest in language and to computational methods for studying them.</abstract>
       <url hash="c32776f5">N19-1304</url>
       <doi>10.18653/v1/N19-1304</doi>
-      <video href="https://vimeo.com/359689303"/>
       <bibkey>demszky-etal-2019-analyzing</bibkey>
       <pwccode url="https://github.com/ddemszky/framing-twitter" additional="false">ddemszky/framing-twitter</pwccode>
     </paper>
@@ -4185,7 +4140,6 @@
       <abstract>Existing computational models to understand hate speech typically frame the problem as a simple classification task, bypassing the understanding of hate symbols (e.g., 14 words, kigy) and their secret connotations. In this paper, we propose a novel task of deciphering hate symbols. To do this, we leveraged the Urban Dictionary and collected a new, symbol-rich Twitter corpus of hate speech. We investigate neural network latent context models for deciphering hate symbols. More specifically, we study Sequence-to-Sequence models and show how they are able to crack the ciphers based on context. Furthermore, we propose a novel Variational Decipher and show how it can generalize better to unseen hate symbols in a more challenging testing setting.</abstract>
       <url hash="315ba6a7">N19-1305</url>
       <doi>10.18653/v1/N19-1305</doi>
-      <video href="https://vimeo.com/359687876"/>
       <bibkey>qian-etal-2019-learning</bibkey>
     </paper>
     <paper id="306">
@@ -4257,7 +4211,6 @@
       <abstract>We present an approach to minimally supervised relation extraction that combines the benefits of learned representations and structured learning, and accurately predicts sentence-level relation mentions given only proposition-level supervision from a KB. By explicitly reasoning about missing data during learning, our approach enables large-scale training of 1D convolutional neural networks while mitigating the issue of label noise inherent in distant supervision. Our approach achieves state-of-the-art results on minimally supervised sentential relation extraction, outperforming a number of baselines, including a competitive approach that uses the attention layer of a purely neural model.</abstract>
       <url hash="b300d210">N19-1310</url>
       <doi>10.18653/v1/N19-1310</doi>
-      <video href="https://vimeo.com/359696937"/>
       <bibkey>bai-ritter-2019-structured</bibkey>
       <pwccode url="https://github.com/bflashcp3f/PCNN-NMAR" additional="false">bflashcp3f/PCNN-NMAR</pwccode>
     </paper>
@@ -4272,7 +4225,6 @@
       <url hash="0a7b83f3">N19-1311</url>
       <attachment type="software" hash="8f0dad5c">N19-1311.Software.zip</attachment>
       <doi>10.18653/v1/N19-1311</doi>
-      <video href="https://vimeo.com/361713720"/>
       <bibkey>anastasopoulos-etal-2019-neural</bibkey>
       <pwccode url="https://bitbucket.org/antonis/nmt-grammar-noise" additional="true">antonis/nmt-grammar-noise</pwccode>
     </paper>
@@ -4285,7 +4237,6 @@
       <abstract>In domain adaptation for neural machine translation, translation performance can benefit from separating features into domain-specific features and common features. In this paper, we propose a method to explicitly model the two kinds of information in the encoder-decoder framework so as to exploit out-of-domain data in in-domain training. In our method, we maintain a private encoder and a private decoder for each domain which are used to model domain-specific information. In the meantime, we introduce a common encoder and a common decoder shared by all the domains which can only have domain-independent information flow through. Besides, we add a discriminator to the shared encoder and employ adversarial training for the whole model to reinforce the performance of information separation and machine translation simultaneously. Experiment results show that our method can outperform competitive baselines greatly on multiple data sets.</abstract>
       <url hash="43921f44">N19-1312</url>
       <doi>10.18653/v1/N19-1312</doi>
-      <video href="https://vimeo.com/361719030"/>
       <bibkey>gu-etal-2019-improving</bibkey>
     </paper>
     <paper id="313">
@@ -4298,7 +4249,6 @@
       <url hash="8ed8f169">N19-1313</url>
       <attachment type="presentation" hash="748838a0">N19-1313.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-1313</doi>
-      <video href="https://vimeo.com/361725345"/>
       <bibkey>maruf-etal-2019-selective</bibkey>
       <pwccode url="https://github.com/sameenmaruf/selective-attn" additional="false">sameenmaruf/selective-attn</pwccode>
     </paper>
@@ -4313,7 +4263,6 @@
       <url hash="ab04efb0">N19-1314</url>
       <attachment type="presentation" hash="6755b987">N19-1314.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-1314</doi>
-      <video href="https://vimeo.com/356119183"/>
       <bibkey>michel-etal-2019-evaluation</bibkey>
       <pwccode url="https://github.com/pmichel31415/teapot-nlp" additional="false">pmichel31415/teapot-nlp</pwccode>
     </paper>
@@ -4326,7 +4275,6 @@
       <url hash="52189658">N19-1315</url>
       <attachment type="supplementary" hash="424339e5">N19-1315.Supplementary.pdf</attachment>
       <doi>10.18653/v1/N19-1315</doi>
-      <video href="https://vimeo.com/356125366"/>
       <bibkey>hashimoto-tsuruoka-2019-accelerated</bibkey>
       <pwccode url="https://github.com/hassyGo/NLG-RL" additional="false">hassyGo/NLG-RL</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/aspec">ASPEC</pwcdataset>
@@ -4843,7 +4791,6 @@
       <abstract>While neural dependency parsers provide state-of-the-art accuracy for several languages, they still rely on large amounts of costly labeled training data. We demonstrate that in the small data regime, where uncertainty around parameter estimation and model prediction matters the most, Bayesian neural modeling is very effective. In order to overcome the computational and statistical costs of the approximate inference step in this framework, we utilize an efficient sampling procedure via stochastic gradient Langevin dynamics to generate samples from the approximated posterior. Moreover, we show that our Bayesian neural parser can be further improved when integrated into a multi-task parsing and POS tagging framework, designed to minimize task interference via an adversarial procedure. When trained and tested on 6 languages with less than 5k training instances, our parser consistently outperforms the strong bilstm baseline (Kiperwasser and Goldberg, 2016). Compared with the biaffine parser (Dozat et al., 2017) our model achieves an improvement of up to 3% for Vietnames and Irish, while our multi-task model achieves an improvement of up to 9% across five languages: Farsi, Russian, Turkish, Vietnamese, and Irish.</abstract>
       <url hash="1ca93fca">N19-1354</url>
       <doi>10.18653/v1/N19-1354</doi>
-      <video href="https://vimeo.com/361752492"/>
       <bibkey>shareghi-etal-2019-bayesian</bibkey>
     </paper>
     <paper id="355">
@@ -4856,7 +4803,6 @@
       <url hash="16e5e55e">N19-1355</url>
       <attachment type="software" hash="19f557ec">N19-1355.Software.pdf</attachment>
       <doi>10.18653/v1/N19-1355</doi>
-      <video href="https://vimeo.com/361755239"/>
       <bibkey>guo-etal-2019-autosem</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/glue">GLUE</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/qnli">QNLI</pwcdataset>
@@ -4883,7 +4829,6 @@
       <abstract>Attention mechanisms have seen wide adoption in neural NLP models. In addition to improving predictive performance, these are often touted as affording transparency: models equipped with attention provide a distribution over attended-to input units, and this is often presented (at least implicitly) as communicating the relative importance of inputs. However, it is unclear what relationship exists between attention weights and model outputs. In this work we perform extensive experiments across a variety of NLP tasks that aim to assess the degree to which attention weights provide meaningful “explanations” for predictions. We find that they largely do not. For example, learned attention weights are frequently uncorrelated with gradient-based measures of feature importance, and one can identify very different attention distributions that nonetheless yield equivalent predictions. Our findings show that standard attention modules do not provide meaningful explanations and should not be treated as though they do.</abstract>
       <url hash="7dd3a9ed">N19-1357</url>
       <doi>10.18653/v1/N19-1357</doi>
-      <video href="https://vimeo.com/359703968"/>
       <bibkey>jain-wallace-2019-attention</bibkey>
       <pwccode url="https://github.com/successar/AttentionExplanation" additional="true">successar/AttentionExplanation</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/ag-news">AG News</pwcdataset>
@@ -4899,7 +4844,6 @@
       <abstract>Text-based adventure games provide a platform on which to explore reinforcement learning in the context of a combinatorial action space, such as natural language. We present a deep reinforcement learning architecture that represents the game state as a knowledge graph which is learned during exploration. This graph is used to prune the action space, enabling more efficient exploration. The question of which action to take can be reduced to a question-answering task, a form of transfer learning that pre-trains certain parts of our architecture. In experiments using the TextWorld framework, we show that our proposed technique can learn a control policy faster than baseline alternatives. We have also open-sourced our code at <url>https://github.com/rajammanabrolu/KG-DQN</url>.</abstract>
       <url hash="18451cc6">N19-1358</url>
       <doi>10.18653/v1/N19-1358</doi>
-      <video href="https://vimeo.com/359702665"/>
       <bibkey>ammanabrolu-riedl-2019-playing</bibkey>
       <pwccode url="https://github.com/rajammanabrolu/KG-DQN" additional="true">rajammanabrolu/KG-DQN</pwccode>
     </paper>
@@ -4915,7 +4859,6 @@
       <abstract>Multi-head attention is appealing for its ability to jointly extract different types of information from multiple representation subspaces. Concerning the information aggregation, a common practice is to use a concatenation followed by a linear transformation, which may not fully exploit the expressiveness of multi-head attention. In this work, we propose to improve the information aggregation for multi-head attention with a more powerful routing-by-agreement algorithm. Specifically, the routing algorithm iteratively updates the proportion of how much a part (i.e. the distinct information learned from a specific subspace) should be assigned to a whole (i.e. the final output representation), based on the agreement between parts and wholes. Experimental results on linguistic probing tasks and machine translation tasks prove the superiority of the advanced information aggregation over the standard linear transformation.</abstract>
       <url hash="1b2e34e0">N19-1359</url>
       <doi>10.18653/v1/N19-1359</doi>
-      <video href="https://vimeo.com/359701494"/>
       <bibkey>li-etal-2019-information</bibkey>
     </paper>
     <paper id="360">
@@ -4927,7 +4870,6 @@
       <url hash="e624e949">N19-1360</url>
       <attachment type="supplementary" hash="eceb76bb">N19-1360.Supplementary.pdf</attachment>
       <doi>10.18653/v1/N19-1360</doi>
-      <video href="https://vimeo.com/359699975"/>
       <bibkey>chen-bunescu-2019-context</bibkey>
     </paper>
     <paper id="361">
@@ -4940,7 +4882,6 @@
       <abstract>Identifying the intent of a citation in scientific papers (e.g., background information, use of methods, comparing results) is critical for machine reading of individual publications and automated analysis of the scientific literature. We propose structural scaffolds, a multitask model to incorporate structural information of scientific papers into citations for effective classification of citation intents. Our model achieves a new state-of-the-art on an existing ACL anthology dataset (ACL-ARC) with a 13.3% absolute increase in F1 score, without relying on external linguistic resources or hand-engineered features as done in existing methods. In addition, we introduce a new dataset of citation intents (SciCite) which is more than five times larger and covers multiple scientific domains compared with existing datasets. Our code and data are available at: <url>https://github.com/allenai/scicite</url>.</abstract>
       <url hash="0bd26c20">N19-1361</url>
       <doi>10.18653/v1/N19-1361</doi>
-      <video href="https://vimeo.com/359698633"/>
       <bibkey>cohan-etal-2019-structural</bibkey>
       <pwccode url="https://github.com/allenai/scicite" additional="false">allenai/scicite</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/scicite">SciCite</pwcdataset>
@@ -4957,7 +4898,6 @@
       <abstract>Reasoning about implied relationships (e.g. paraphrastic, common sense, encyclopedic) between pairs of words is crucial for many cross-sentence inference problems. This paper proposes new methods for learning and using embeddings of word pairs that implicitly represent background knowledge about such relationships. Our pairwise embeddings are computed as a compositional function of each word’s representation, which is learned by maximizing the pointwise mutual information (PMI) with the contexts in which the the two words co-occur. We add these representations to the cross-sentence attention layer of existing inference models (e.g. BiDAF for QA, ESIM for NLI), instead of extending or replacing existing word embeddings. Experiments show a gain of 2.7% on the recently released SQuAD 2.0 and 1.3% on MultiNLI. Our representations also aid in better generalization with gains of around 6-7% on adversarial SQuAD datasets, and 8.8% on the adversarial entailment test set by Glockner et al. (2018).</abstract>
       <url hash="a34e3b80">N19-1362</url>
       <doi>10.18653/v1/N19-1362</doi>
-      <video href="https://vimeo.com/356133444"/>
       <bibkey>joshi-etal-2019-pair2vec</bibkey>
       <pwccode url="https://github.com/mandarjoshi90/pair2vec" additional="true">mandarjoshi90/pair2vec</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
@@ -4976,7 +4916,6 @@
       <attachment type="supplementary" hash="f53a4065">N19-1363.Supplementary.pdf</attachment>
       <attachment type="presentation" hash="2d724c5d">N19-1363.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-1363</doi>
-      <video href="https://vimeo.com/356143764"/>
       <bibkey>kumar-etal-2019-submodular</bibkey>
       <pwccode url="https://github.com/malllabiisc/DiPS" additional="false">malllabiisc/DiPS</pwccode>
     </paper>
@@ -4991,7 +4930,6 @@
       <abstract>Modeling what makes a request persuasive - eliciting the desired response from a reader - is critical to the study of propaganda, behavioral economics, and advertising. Yet current models can’t quantify the persuasiveness of requests or extract successful persuasive strategies. Building on theories of persuasion, we propose a neural network to quantify persuasiveness and identify the persuasive strategies in advocacy requests. Our semi-supervised hierarchical neural network model is supervised by the number of people persuaded to take actions and partially supervised at the sentence level with human-labeled rhetorical strategies. Our method outperforms several baselines, uncovers persuasive strategies - offering increased interpretability of persuasive speech - and has applications for other situations with document-level supervision but only partial sentence supervision.</abstract>
       <url hash="bbd0c86f">N19-1364</url>
       <doi>10.18653/v1/N19-1364</doi>
-      <video href="https://vimeo.com/356153695"/>
       <bibkey>yang-etal-2019-lets</bibkey>
     </paper>
     <paper id="365">
@@ -5012,7 +4950,6 @@
       <abstract>We introduce Recursive Routing Networks (RRNs), which are modular, adaptable models that learn effectively in diverse environments. RRNs consist of a set of functions, typically organized into a grid, and a meta-learner decision-making component called the router. The model jointly optimizes the parameters of the functions and the meta-learner’s policy for routing inputs through those functions. RRNs can be incorporated into existing architectures in a number of ways; we explore adding them to word representation layers, recurrent network hidden layers, and classifier layers. Our evaluation task is natural language inference (NLI). Using the MultiNLI corpus, we show that an RRN’s routing decisions reflect the high-level genre structure of that corpus. To show that RRNs can learn to specialize to more fine-grained semantic distinctions, we introduce a new corpus of NLI examples involving implicative predicates, and show that the model components become fine-tuned to the inferential signatures that are characteristic of these predicates.</abstract>
       <url hash="389a34ed">N19-1365</url>
       <doi>10.18653/v1/N19-1365</doi>
-      <video href="https://vimeo.com/356167288"/>
       <bibkey>cases-etal-2019-recursive</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/multinli">MultiNLI</pwcdataset>
     </paper>
@@ -5025,7 +4962,6 @@
       <url hash="818d9d96">N19-1366</url>
       <attachment type="presentation" hash="d4183ec4">N19-1366.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-1366</doi>
-      <video href="https://vimeo.com/356184145"/>
       <bibkey>damonte-cohen-2019-structural</bibkey>
       <pwccode url="https://github.com/mdtux89/OpenNMT-py-AMR-to-text" additional="true">mdtux89/OpenNMT-py-AMR-to-text</pwccode>
     </paper>
@@ -5044,7 +4980,6 @@
       <abstract>There is growing evidence that changes in speech and language may be early markers of dementia, but much of the previous NLP work in this area has been limited by the size of the available datasets. Here, we compare several methods of domain adaptation to augment a small French dataset of picture descriptions (n = 57) with a much larger English dataset (n = 550), for the task of automatically distinguishing participants with dementia from controls. The first challenge is to identify a set of features that transfer across languages; in addition to previously used features based on information units, we introduce a new set of features to model the order in which information units are produced by dementia patients and controls. These concept-based language model features improve classification performance in both English and French separately, and the best result (AUC = 0.89) is achieved using the multilingual training set with a combination of information and language model features.</abstract>
       <url hash="3ea1723f">N19-1367</url>
       <doi>10.18653/v1/N19-1367</doi>
-      <video href="https://vimeo.com/359709530"/>
       <bibkey>fraser-etal-2019-multilingual</bibkey>
     </paper>
     <paper id="368">
@@ -5057,7 +4992,6 @@
       <attachment type="supplementary" hash="39360e56">N19-1368.Supplementary.pdf</attachment>
       <doi>10.18653/v1/N19-1368</doi>
       <attachment type="presentation" hash="1831fe54">N19-1368.Presentation.pdf</attachment>
-      <video href="https://vimeo.com/361758446"/>
       <bibkey>paul-frank-2019-ranking</bibkey>
     </paper>
     <paper id="369">
@@ -5069,7 +5003,6 @@
       <abstract>Incorporating domain knowledge is vital in building successful natural language processing (NLP) applications. Many times, cross-domain application of a tool results in poor performance as the tool does not account for domain-specific attributes. The clinical domain is challenging in this aspect due to specialized medical terms and nomenclature, shorthand notation, fragmented text, and a variety of writing styles used by different medical units. Temporal resolution is an NLP task that, in general, is domain-agnostic because temporal information is represented using a limited lexicon. However, domain-specific aspects of temporal resolution are present in clinical texts. Here we explore parsing issues that arose when running our system, a tool built on Newswire text, on clinical notes in the THYME corpus. Many parsing issues were straightforward to correct; however, a few code changes resulted in a cascading series of parsing errors that had to be resolved before an improvement in performance was observed, revealing the complexity temporal resolution and rule-based parsing. Our system now outperforms current state-of-the-art systems on the THYME corpus with little change in its performance on Newswire texts.</abstract>
       <url hash="a68eb4f8">N19-1369</url>
       <doi>10.18653/v1/N19-1369</doi>
-      <video href="https://vimeo.com/359707022"/>
       <bibkey>olex-etal-2019-nlp</bibkey>
     </paper>
     <paper id="370">
@@ -5081,7 +5014,6 @@
       <abstract>Most information extraction methods focus on binary relations expressed within single sentences. In high-value domains, however, n-ary relations are of great demand (e.g., drug-gene-mutation interactions in precision oncology). Such relations often involve entity mentions that are far apart in the document, yet existing work on cross-sentence relation extraction is generally confined to small text spans (e.g., three consecutive sentences), which severely limits recall. In this paper, we propose a novel multiscale neural architecture for document-level n-ary relation extraction. Our system combines representations learned over various text spans throughout the document and across the subrelation hierarchy. Widening the system’s purview to the entire document maximizes potential recall. Moreover, by integrating weak signals across the document, multiscale modeling increases precision, even in the presence of noisy labels from distant supervision. Experiments on biomedical machine reading show that our approach substantially outperforms previous n-ary relation extraction methods.</abstract>
       <url hash="2fa30b55">N19-1370</url>
       <doi>10.18653/v1/N19-1370</doi>
-      <video href="https://vimeo.com/359705969"/>
       <bibkey>jia-etal-2019-document</bibkey>
     </paper>
     <paper id="371">
@@ -5095,7 +5027,6 @@
       <url hash="547ffe6d">N19-1371</url>
       <attachment type="software" hash="f8dbb850">N19-1371.Software.tar</attachment>
       <doi>10.18653/v1/N19-1371</doi>
-      <video href="https://vimeo.com/359705097"/>
       <bibkey>lehman-etal-2019-inferring</bibkey>
       <pwccode url="https://github.com/jayded/evidence-inference" additional="true">jayded/evidence-inference</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/evidence-inference">Evidence Inference</pwcdataset>
@@ -5470,7 +5401,6 @@
       <abstract>To improve the training efficiency of hierarchical recurrent models without compromising their performance, we propose a strategy named as “the lower the simpler”, which is to simplify the baseline models by making the lower layers simpler than the upper layers. We carry out this strategy to simplify two typical hierarchical recurrent models, namely Hierarchical Recurrent Encoder-Decoder (HRED) and R-NET, whose basic building block is GRU. Specifically, we propose Scalar Gated Unit (SGU), which is a simplified variant of GRU, and use it to replace the GRUs at the middle layers of HRED and R-NET. Besides, we also use Fixed-size Ordinally-Forgetting Encoding (FOFE), which is an efficient encoding method without any trainable parameter, to replace the GRUs at the bottom layers of HRED and R-NET. The experimental results show that the simplified HRED and the simplified R-NET contain significantly less trainable parameters, consume significantly less training time, and achieve slightly better performance than their baseline models.</abstract>
       <url hash="588cf3f8">N19-1402</url>
       <doi>10.18653/v1/N19-1402</doi>
-      <video href="https://vimeo.com/356204320"/>
       <bibkey>wang-jiang-2019-lower</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
     </paper>
@@ -5483,7 +5413,6 @@
       <url hash="ea7cf887">N19-1403</url>
       <attachment type="presentation" hash="e79efe2c">N19-1403.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-1403</doi>
-      <video href="https://vimeo.com/361763231"/>
       <bibkey>pujari-goldwasser-2019-using</bibkey>
       <pwccode url="https://github.com/pujari-rajkumar/naacl2019" additional="false">pujari-rajkumar/naacl2019</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/multirc">MultiRC</pwcdataset>
@@ -5499,7 +5428,6 @@
       <abstract>Deep learning has emerged as a compelling solution to many NLP tasks with remarkable performances. However, due to their opacity, such models are hard to interpret and trust. Recent work on explaining deep models has introduced approaches to provide insights toward the model’s behaviour and predictions, which are helpful for assessing the reliability of the model’s predictions. However, such methods do not improve the model’s reliability. In this paper, we aim to teach the model to make the right prediction for the right reason by providing explanation training and ensuring the alignment of the model’s explanation with the ground truth explanation. Our experimental results on multiple tasks and datasets demonstrate the effectiveness of the proposed method, which produces more reliable predictions while delivering better results compared to traditionally trained models.</abstract>
       <url hash="1d376ee3">N19-1404</url>
       <doi>10.18653/v1/N19-1404</doi>
-      <video href="https://vimeo.com/361773751"/>
       <bibkey>ghaeini-etal-2019-saliency</bibkey>
     </paper>
     <paper id="405">
@@ -5510,7 +5438,6 @@
       <abstract>Learning multi-hop reasoning has been a key challenge for reading comprehension models, leading to the design of datasets that explicitly focus on it. Ideally, a model should not be able to perform well on a multi-hop question answering task without doing multi-hop reasoning. In this paper, we investigate two recently proposed datasets, WikiHop and HotpotQA. First, we explore sentence-factored models for these tasks; by design, these models cannot do multi-hop reasoning, but they are still able to solve a large number of examples in both datasets. Furthermore, we find spurious correlations in the unmasked version of WikiHop, which make it easy to achieve high performance considering only the questions and answers. Finally, we investigate one key difference between these datasets, namely span-based vs. multiple-choice formulations of the QA task. Multiple-choice versions of both datasets can be easily gamed, and two models we examine only marginally exceed a baseline in this setting. Overall, while these datasets are useful testbeds, high-performing models may not be learning as much multi-hop reasoning as previously thought.</abstract>
       <url hash="f36240ab">N19-1405</url>
       <doi>10.18653/v1/N19-1405</doi>
-      <video href="https://vimeo.com/361800281"/>
       <bibkey>chen-durrett-2019-understanding</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/hotpotqa">HotpotQA</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/squad">SQuAD</pwcdataset>
@@ -5525,7 +5452,6 @@
       <abstract>Grammatical error correction (GEC) is one of the areas in natural language processing in which purely neural models have not yet superseded more traditional symbolic models. Hybrid systems combining phrase-based statistical machine translation (SMT) and neural sequence models are currently among the most effective approaches to GEC. However, both SMT and neural sequence-to-sequence models require large amounts of annotated data. Language model based GEC (LM-GEC) is a promising alternative which does not rely on annotated training data. We show how to improve LM-GEC by applying modelling techniques based on finite state transducers. We report further gains by rescoring with neural language models. We show that our methods developed for LM-GEC can also be used with SMT systems if annotated training data is available. Our best system outperforms the best published result on the CoNLL-2014 test set, and achieves far better relative improvements over the SMT baselines than previous hybrid systems.</abstract>
       <url hash="bdf54b75">N19-1406</url>
       <doi>10.18653/v1/N19-1406</doi>
-      <video href="https://vimeo.com/359719163"/>
       <bibkey>stahlberg-etal-2019-neural</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/billion-word-benchmark">Billion Word Benchmark</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/jfleg">JFLEG</pwcdataset>
@@ -5542,7 +5468,6 @@
       <abstract>Self-attention networks (SANs) have drawn increasing interest due to their high parallelization in computation and flexibility in modeling dependencies. SANs can be further enhanced with multi-head attention by allowing the model to attend to information from different representation subspaces. In this work, we propose novel convolutional self-attention networks, which offer SANs the abilities to 1) strengthen dependencies among neighboring elements, and 2) model the interaction between features extracted by multiple attention heads. Experimental results of machine translation on different language pairs and model settings show that our approach outperforms both the strong Transformer baseline and other existing models on enhancing the locality of SANs. Comparing with prior studies, the proposed model is parameter free in terms of introducing no more parameters.</abstract>
       <url hash="3520ba5f">N19-1407</url>
       <doi>10.18653/v1/N19-1407</doi>
-      <video href="https://vimeo.com/359716954"/>
       <bibkey>yang-etal-2019-convolutional</bibkey>
     </paper>
     <paper id="408">
@@ -5555,7 +5480,6 @@
       <abstract>Neural network models for many NLP tasks have grown increasingly complex in recent years, making training and deployment more difficult. A number of recent papers have questioned the necessity of such architectures and found that well-executed, simpler models are quite effective. We show that this is also the case for document classification: in a large-scale reproducibility study of several recent neural models, we find that a simple BiLSTM architecture with appropriate regularization yields accuracy and F1 that are either competitive or exceed the state of the art on four standard benchmark datasets. Surprisingly, our simple model is able to achieve these results without attention mechanisms. While these regularization techniques, borrowed from language modeling, are not novel, to our knowledge we are the first to apply them in this context. Our work provides an open-source platform and the foundation for future work in document classification.</abstract>
       <url hash="75b2a57c">N19-1408</url>
       <doi>10.18653/v1/N19-1408</doi>
-      <video href="https://vimeo.com/359714536"/>
       <bibkey>adhikari-etal-2019-rethinking</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/imdb-multi">IMDB-MULTI</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/reuters-21578">Reuters-21578</pwcdataset>
@@ -5630,7 +5554,6 @@
       <abstract>A number of psycholinguistic studies have factorially manipulated words’ contextual predictabilities and corpus frequencies and shown separable effects of each on measures of human sentence processing, a pattern which has been used to support distinct mechanisms underlying prediction on the one hand and lexical retrieval on the other. This paper examines the generalizability of this finding to more realistic conditions of sentence processing by studying effects of frequency and predictability in three large-scale naturalistic reading corpora. Results show significant effects of word frequency and predictability in isolation but no effect of frequency over and above predictability, and thus do not provide evidence of distinct mechanisms. The non-replication of separable effects in a naturalistic setting raises doubts about the existence of such a distinction in everyday sentence comprehension. Instead, these results are consistent with previous claims that apparent effects of frequency are underlyingly effects of predictability.</abstract>
       <url hash="81346120">N19-1413</url>
       <doi>10.18653/v1/N19-1413</doi>
-      <video href="https://vimeo.com/359727110"/>
       <bibkey>shain-2019-large</bibkey>
       <pwccode url="https://github.com/coryshain/dtsr" additional="false">coryshain/dtsr</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/natural-stories">Natural Stories</pwcdataset>
@@ -5643,7 +5566,6 @@
       <abstract>This paper presents three hybrid models that directly combine latent Dirichlet allocation and word embedding for distinguishing between speakers with and without Alzheimer’s disease from transcripts of picture descriptions. Two of our models get F-scores over the current state-of-the-art using automatic methods on the DementiaBank dataset.</abstract>
       <url hash="0081c4d7">N19-1414</url>
       <doi>10.18653/v1/N19-1414</doi>
-      <video href="https://vimeo.com/359723663"/>
       <bibkey>budhkar-rudzicz-2019-augmenting</bibkey>
     </paper>
     <paper id="415">
@@ -5656,7 +5578,6 @@
       <abstract>While idiosyncrasies of the Chinese classifier system have been a richly studied topic among linguists (Adams and Conklin, 1973; Erbaugh, 1986; Lakoff, 1986), not much work has been done to quantify them with statistical methods. In this paper, we introduce an information-theoretic approach to measuring idiosyncrasy; we examine how much the uncertainty in Mandarin Chinese classifiers can be reduced by knowing semantic information about the nouns that the classifiers modify. Using the empirical distribution of classifiers from the parsed Chinese Gigaword corpus (Graff et al., 2005), we compute the mutual information (in bits) between the distribution over classifiers and distributions over other linguistic quantities. We investigate whether semantic classes of nouns and adjectives differ in how much they reduce uncertainty in classifier choice, and find that it is not fully idiosyncratic; while there are no obvious trends for the majority of semantic classes, shape nouns reduce uncertainty in classifier choice the most.</abstract>
       <url hash="b65f38aa">N19-1415</url>
       <doi>10.18653/v1/N19-1415</doi>
-      <video href="https://vimeo.com/359721173"/>
       <bibkey>liu-etal-2019-idiosyncrasies</bibkey>
     </paper>
     <paper id="416">
@@ -5670,7 +5591,6 @@
       <abstract>Fine-tuning neural networks is widely used to transfer valuable knowledge from high-resource to low-resource domains. In a standard fine-tuning scheme, source and target problems are trained using the same architecture. Although capable of adapting to new domains, pre-trained units struggle with learning uncommon target-specific patterns. In this paper, we propose to augment the target-network with normalised, weighted and randomly initialised units that beget a better adaptation while maintaining the valuable source knowledge. Our experiments on POS tagging of social media texts (Tweets domain) demonstrate that our method achieves state-of-the-art performances on 3 commonly used datasets.</abstract>
       <url hash="72be7b30">N19-1416</url>
       <doi>10.18653/v1/N19-1416</doi>
-      <video href="https://vimeo.com/361815756"/>
       <bibkey>meftah-etal-2019-joint</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/tweebank">Tweebank</pwcdataset>
     </paper>
@@ -5684,7 +5604,6 @@
       <abstract>In recent years neural language models (LMs) have set the state-of-the-art performance for several benchmarking datasets. While the reasons for their success and their computational demand are well-documented, a comparison between neural models and more recent developments in n-gram models is neglected. In this paper, we examine the recent progress in n-gram literature, running experiments on 50 languages covering all morphological language families. Experimental results illustrate that a simple extension of Modified Kneser-Ney outperforms an lstm language model on 42 languages while a word-level Bayesian n-gram LM (Shareghi et al., 2017) outperforms the character-aware neural model (Kim et al., 2016) on average across all languages, and its extension which explicitly injects linguistic knowledge (Gerz et al., 2018) on 8 languages. Further experiments on larger Europarl datasets for 3 languages indicate that neural architectures are able to outperform computationally much cheaper n-gram models: n-gram training is up to 15,000x quicker. Our experiments illustrate that standalone n-gram models lend themselves as natural choices for resource-lean or morphologically rich languages, while the recent progress has significantly improved their accuracy.</abstract>
       <url hash="a90968b5">N19-1417</url>
       <doi>10.18653/v1/N19-1417</doi>
-      <video href="https://vimeo.com/361819010"/>
       <bibkey>shareghi-etal-2019-show</bibkey>
     </paper>
     <paper id="418">
@@ -5696,7 +5615,6 @@
       <url hash="5b5287c8">N19-1418</url>
       <attachment type="presentation" hash="a0f5d5d9">N19-1418.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-1418</doi>
-      <video href="https://vimeo.com/361822826"/>
       <bibkey>bergmanis-goldwater-2019-data</bibkey>
       <pwccode url="https://bitbucket.org/tomsbergmanis/data_augumentation_um_wiki" additional="false">tomsbergmanis/data_augumentation_um_wiki</pwccode>
     </paper>
@@ -5708,7 +5626,6 @@
       <abstract>Recent work has improved our ability to detect linguistic knowledge in word representations. However, current methods for detecting syntactic knowledge do not test whether syntax trees are represented in their entirety. In this work, we propose a structural probe, which evaluates whether syntax trees are embedded in a linear transformation of a neural network’s word representation space. The probe identifies a linear transformation under which squared L2 distance encodes the distance between words in the parse tree, and one in which squared L2 norm encodes depth in the parse tree. Using our probe, we show that such transformations exist for both ELMo and BERT but not in baselines, providing evidence that entire syntax trees are embedded implicitly in deep models’ vector geometry.</abstract>
       <url hash="33672bf1">N19-1419</url>
       <doi>10.18653/v1/N19-1419</doi>
-      <video href="https://vimeo.com/361827125"/>
       <bibkey>hewitt-manning-2019-structural</bibkey>
       <pwccode url="https://github.com/john-hewitt/structural-probes" additional="false">john-hewitt/structural-probes</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
@@ -5723,7 +5640,6 @@
       <url hash="3095278b">N19-1420</url>
       <doi>10.18653/v1/N19-1420</doi>
       <award>Best Explainable NLP Paper</award>
-      <video href="https://vimeo.com/365160781"/>
       <bibkey>li-etal-2019-cnm</bibkey>
       <pwccode url="https://github.com/wabyking/qnn" additional="false">wabyking/qnn</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/wikiqa">WikiQA</pwcdataset>
@@ -5739,7 +5655,6 @@
       <url hash="6309a90a">N19-1421</url>
       <doi>10.18653/v1/N19-1421</doi>
       <award>Best Resource Paper</award>
-      <video href="https://vimeo.com/365154751"/>
       <bibkey>talmor-etal-2019-commonsenseqa</bibkey>
       <pwccode url="https://github.com/jonathanherzig/commonsenseqa" additional="true">jonathanherzig/commonsenseqa</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/commonsenseqa">CommonsenseQA</pwcdataset>
@@ -5760,7 +5675,6 @@
       <attachment type="presentation" hash="35b79de0">N19-1422.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-1422</doi>
       <award>Best Short Paper</award>
-      <video href="https://vimeo.com/365146894"/>
       <bibkey>caglayan-etal-2019-probing</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/flickr30k">Flickr30k</pwcdataset>
       <pwcdataset url="https://paperswithcode.com/dataset/imagenet">ImageNet</pwcdataset>
@@ -5776,7 +5690,6 @@
       <url hash="1bac852e">N19-1423</url>
       <doi>10.18653/v1/N19-1423</doi>
       <award>Best Long Paper</award>
-      <video href="https://vimeo.com/365139010"/>
       <bibkey>devlin-etal-2019-bert</bibkey>
       <pwccode url="https://github.com/google-research/bert" additional="true">google-research/bert</pwccode>
       <pwcdataset url="https://paperswithcode.com/dataset/astock">Astock</pwcdataset>
@@ -5828,7 +5741,6 @@
       <url hash="9052e980">N19-1424</url>
       <doi>10.18653/v1/N19-1424</doi>
       <award>Best Thematic Paper</award>
-      <video href="https://vimeo.com/365132300"/>
       <bibkey>romanov-etal-2019-whats</bibkey>
     </paper>
   </volume>
@@ -5930,7 +5842,6 @@
       <abstract>We consider the problem of diversifying automated reply suggestions for a commercial instant-messaging (IM) system (Skype). Our conversation model is a standard matching based information retrieval architecture, which consists of two parallel encoders to project messages and replies into a common feature representation. During inference, we select replies from a fixed response set using nearest neighbors in the feature space. To diversify responses, we formulate the model as a generative latent variable model with Conditional Variational Auto-Encoder (M-CVAE). We propose a constrained-sampling approach to make the variational inference in M-CVAE efficient for our production system. In offline experiments, M-CVAE consistently increased diversity by ∼30−40% without significant impact on relevance. This translated to a ∼5% gain in click-rate in our online production system.</abstract>
       <url hash="c023aa1c">N19-2006</url>
       <doi>10.18653/v1/N19-2006</doi>
-      <video href="https://vimeo.com/361695513"/>
       <bibkey>deb-etal-2019-diversifying</bibkey>
     </paper>
     <paper id="7">
@@ -5946,7 +5857,6 @@
       <abstract>End-to-end neural models for goal-oriented conversational systems have become an increasingly active area of research, though results in real-world settings are few. We present real-world results for two issue types in the customer service domain. We train models on historical chat transcripts and test on live contacts using a human-in-the-loop research platform. Additionally, we incorporate customer profile features to assess their impact on model performance. We experiment with two approaches for response generation: (1) sequence-to-sequence generation and (2) template ranking. To test our models, a customer service agent handles live contacts and at each turn we present the top four model responses and allow the agent to select (and optionally edit) one of the suggestions or to type their own. We present results for turn acceptance rate, response coverage, and edit rate based on approximately 600 contacts, as well as qualitative analysis on patterns of turn rejection and edit behavior. Top-4 turn acceptance rate across all models ranges from 63%-80%. Our results suggest that these models are promising for an agent-support application.</abstract>
       <url hash="9d420251">N19-2007</url>
       <doi>10.18653/v1/N19-2007</doi>
-      <video href="https://vimeo.com/361700294"/>
       <bibkey>lu-etal-2019-goal</bibkey>
     </paper>
     <paper id="8">
@@ -5966,7 +5876,6 @@
       <abstract>Consumers dissatisfied with the normal dispute resolution process provided by an e-commerce company’s customer service agents have the option of escalating their complaints by filing grievances with a government authority. This paper tackles the challenge of monitoring ongoing text chat dialogues to identify cases where the customer expresses such an intent, providing triage and prioritization for a separate pool of specialized agents specially trained to handle more complex situations. We describe a hybrid model that tackles this challenge by integrating recurrent neural networks with manually-engineered features. Experiments show that both components are complementary and contribute to overall recall, outperforming competitive baselines. A trial online deployment of our model demonstrates its business value in improving customer service.</abstract>
       <url hash="578195ee">N19-2008</url>
       <doi>10.18653/v1/N19-2008</doi>
-      <video href="https://vimeo.com/361707312"/>
       <bibkey>yang-etal-2019-detecting</bibkey>
     </paper>
     <paper id="9">
@@ -5982,7 +5891,6 @@
       <abstract>Nowadays, more and more customers browse and purchase products in favor of using mobile E-Commerce Apps such as Taobao and Amazon. Since merchants are usually inclined to describe redundant and over-informative product titles to attract attentions from customers, it is important to concisely display short product titles on limited screen of mobile phones. To address this discrepancy, previous studies mainly consider textual information of long product titles and lacks of human-like view during training and evaluation process. In this paper, we propose a Multi-Modal Generative Adversarial Network (MM-GAN) for short product title generation in E-Commerce, which innovatively incorporates image information and attribute tags from product, as well as textual information from original long titles. MM-GAN poses short title generation as a reinforcement learning process, where the generated titles are evaluated by the discriminator in a human-like view. Extensive experiments on a large-scale E-Commerce dataset demonstrate that our algorithm outperforms other state-of-the-art methods. Moreover, we deploy our model into a real-world online E-Commerce environment and effectively boost the performance of click through rate and click conversion rate by 1.66% and 1.87%, respectively.</abstract>
       <url hash="4d3c9243">N19-2009</url>
       <doi>10.18653/v1/N19-2009</doi>
-      <video href="https://vimeo.com/361702996"/>
       <bibkey>zhang-etal-2019-multi-modal</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/visual-question-answering">Visual Question Answering</pwcdataset>
     </paper>
@@ -6000,7 +5908,6 @@
       <url hash="228dcc10">N19-2010</url>
       <doi>10.18653/v1/N19-2010</doi>
       <attachment type="presentation" hash="90b681b6">N19-2010.Presentation.pdf</attachment>
-      <video href="https://vimeo.com/361705360"/>
       <bibkey>murao-etal-2019-case</bibkey>
     </paper>
     <paper id="11">
@@ -6322,7 +6229,6 @@
       <abstract>In this paper, we address the problem of effectively self-training neural networks in a low-resource setting. Self-training is frequently used to automatically increase the amount of training data. However, in a low-resource scenario, it is less effective due to unreliable annotations created using self-labeling of unlabeled data. We propose to combine self-training with noise handling on the self-labeled data. Directly estimating noise on the combined clean training set and self-labeled data can lead to corruption of the clean data and hence, performs worse. Thus, we propose the Clean and Noisy Label Neural Network which trains on clean and noisy self-labeled data simultaneously by explicitly modelling clean and noisy labels separately. In our experiments on Chunking and NER, this approach performs more robustly than the baselines. Complementary to this explicit approach, noise can also be handled implicitly with the help of an auxiliary learning task. To such a complementary approach, our method is more beneficial than other baseline methods and together provides the best performance overall.</abstract>
       <url hash="059f6cba">N19-3005</url>
       <doi>10.18653/v1/N19-3005</doi>
-      <video href="https://vimeo.com/360579467"/>
       <bibkey>paul-etal-2019-handling</bibkey>
       <pwcdataset url="https://paperswithcode.com/dataset/penn-treebank">Penn Treebank</pwcdataset>
     </paper>
@@ -6479,7 +6385,6 @@
       <abstract>The #MeToo movement is an ongoing prevalent phenomenon on social media aiming to demonstrate the frequency and widespread of sexual harassment by providing a platform to speak narrate personal experiences of such harassment. The aggregation and analysis of such disclosures pave the way to development of technology-based prevention of sexual harassment. We contend that the lack of specificity in generic sentence classification models may not be the best way to tackle text subtleties that intrinsically prevail in a classification task as complex as identifying disclosures of sexual harassment. We propose the Disclosure Language Model, a three part ULMFiT architecture, consisting of a Language model, a Medium-Specific (Twitter) model and a Task-Specific classifier to tackle this problem and create a manually annotated real-world dataset to test our technique on this, to show that using a Discourse Language Model often yields better classification performance over (i) Generic deep learning based sentence classification models (ii) existing models that rely on handcrafted stylistic features. An extensive comparison with state-of-the-art generic and specific models along with a detailed error analysis presents the case for our proposed methodology.</abstract>
       <url hash="85bdda99">N19-3018</url>
       <doi>10.18653/v1/N19-3018</doi>
-      <video href="https://vimeo.com/359711283"/>
       <bibkey>ghosh-chowdhury-etal-2019-speak</bibkey>
     </paper>
     <paper id="19">
@@ -6494,7 +6399,6 @@
       <abstract>Suicide is a leading cause of death among youth and the use of social media to detect suicidal ideation is an active line of research. While it has been established that these users share a common set of properties, the current state-of-the-art approaches utilize only text-based (stylistic and semantic) cues. We contend that the use of information from networks in the form of condensed social graph embeddings and author profiling using features from historical data can be combined with an existing set of features to improve the performance. To that end, we experiment on a manually annotated dataset of tweets created using a three-phase strategy and propose SNAP-BATNET, a deep learning based model to extract text-based features and a novel Feature Stacking approach to combine other community-based information such as historical author profiling and graph embeddings that outperform the current state-of-the-art. We conduct a comprehensive quantitative analysis with baselines, both generic and specific, that presents the case for SNAP-BATNET, along with an error analysis that highlights the limitations and challenges faced paving the way to the future of AI-based suicide ideation detection.</abstract>
       <url hash="b7cd15ab">N19-3019</url>
       <doi>10.18653/v1/N19-3019</doi>
-      <video href="https://vimeo.com/359731391"/>
       <bibkey>mishra-etal-2019-snap</bibkey>
     </paper>
   </volume>
@@ -6886,7 +6790,6 @@
       <url hash="ca3736db">N19-5001</url>
       <attachment type="presentation" hash="e2938f40">N19-5001.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-5001</doi>
-      <video href="https://vimeo.com/359555654"/>
       <bibkey>wang-etal-2019-deep</bibkey>
     </paper>
     <paper id="2">
@@ -6924,7 +6827,6 @@
       <url hash="b4b4a016">N19-5004</url>
       <attachment type="presentation" hash="02aec7f2">N19-5004.Presentation.pdf</attachment>
       <doi>10.18653/v1/N19-5004</doi>
-      <video href="https://vimeo.com/359399507"/>
       <bibkey>ruder-etal-2019-transfer</bibkey>
     </paper>
     <paper id="5">
