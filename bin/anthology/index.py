@@ -228,7 +228,7 @@ class AnthologyIndex:
         if paper.is_volume:
             # Proceedings volumes use venue acronym instead of authors/editors, e.g., lrec-tutorials-2024
             bibnames = slugify(paper.get_venue_acronym())
-            bibkey = f"{bibnames}-{paper.volume_id}-{paper.get('year')}"
+            bibkey = f"{bibnames}-{paper.get('year')}-{paper.volume_id}"
         else:
             # Regular papers use author/editor names
             names = paper.get("author")
