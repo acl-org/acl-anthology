@@ -225,7 +225,7 @@ def main(volumes):
         )
 
         artifacts = v.findall("./frontmatter") + v.findall("./paper")
-        for paper in artifacts: # v.findall("./paper"):
+        for paper in artifacts:  # v.findall("./paper"):
             paper_type = paper.tag
             ## Individual Paper and Frontmatter Data
             if paper_type == "frontmatter":
