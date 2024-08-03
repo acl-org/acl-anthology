@@ -286,8 +286,10 @@
       <author><first>Nancy</first><last>Chen</last></author>
       <pages>370-390</pages>
       <abstract>We present SeaEval, a benchmark for multilingual foundation models. In addition to characterizing how these models understand and reason with natural language, we also investigate how well they comprehend cultural practices, nuances, and values. Alongside standard accuracy metrics, we investigate the brittleness of foundation models in the dimensions of semantics and multilinguality. Our analyses span both open-sourced and closed models, leading to empirical results across classic NLP tasks, reasoning, and cultural comprehension. Key findings indicate (1) Many models exhibit varied behavior when given paraphrased instructions. (2) Many models still suffer from exposure bias (e.g., positional bias, majority label bias). (3) For questions rooted in factual, scientific, and commonsense knowledge, consistent responses are expected across multilingual queries that are semantically equivalent. Yet, most models surprisingly demonstrate inconsistent performance on these queries. (4) Multilingually-trained models have not attained “balanced multilingual” capabilities. Our endeavors underscore the need for more generalizable semantic representations and enhanced multilingual contextualization. SeaEval can serve as a launchpad for more thorough investigations and evaluations for multilingual and multicultural scenarios.</abstract>
-      <url hash="8811be7d">2024.naacl-long.22</url>
+      <url hash="554adec3">2024.naacl-long.22</url>
       <bibkey>wang-etal-2024-seaeval</bibkey>
+      <revision id="1" href="2024.naacl-long.22v1" hash="8811be7d"/>
+      <revision id="2" href="2024.naacl-long.22v2" hash="554adec3" date="2024-07-14">Updated acknowledgement.</revision>
       <doi>10.18653/v1/2024.naacl-long.22</doi>
     </paper>
     <paper id="23">
@@ -440,6 +442,7 @@
       <author><first>Jiawen</first><last>Lyn</last></author>
       <author><first>Wei</first><last>Zhu</last><affiliation>University of Hong Kong</affiliation></author>
       <author><first>Xing</first><last>Tian</last></author>
+      <author><first>Yvette</first><last>Graham</last><affiliation>Trinity College Dublin</affiliation></author>
       <pages>622-641</pages>
       <abstract>Parameter-efficient fine-tuning (PEFT) is widely studied for its effectiveness and efficiency in the era of large language models. Low-rank adaptation (LoRA) has demonstrated commendable performance as a popular and representative method. However, it is implemented with a fixed intrinsic rank that might not be the ideal setting for the downstream tasks. Recognizing the need for more flexible downstream task adaptation, we extend the methodology of LoRA to an innovative approach we call allocating low-rank adaptation (ALoRA) that enables dynamic adjustments to the intrinsic rank during the adaptation process. First, we propose a novel method, AB-LoRA, that can effectively estimate the importance score of each LoRA rank. Second, guided by AB-LoRA, we gradually prune abundant and negatively impacting LoRA ranks and allocate the pruned LoRA budgets to important Transformer modules needing higher ranks. We have conducted experiments on various tasks, and the experimental results demonstrate that our ALoRA method can outperform the recent baselines with comparable tunable parameters.</abstract>
       <url hash="31136714">2024.naacl-long.35</url>
@@ -2130,8 +2133,10 @@
       <author><first>David</first><last>Bamman</last><affiliation>University of California Berkeley</affiliation></author>
       <pages>3005-3024</pages>
       <abstract>Much work in the space of NLP has used computational methods to explore sociolinguistic variation in text. In this paper, we argue that memes, as multimodal forms of language comprised of visual templates and text, also exhibit meaningful social variation. We construct a computational pipeline to cluster individual instances of memes into templates and semantic variables, taking advantage of their multimodal structure in doing so. We apply this method to a large collection of meme images from Reddit and make available the resulting SemanticMemes dataset of 3.8M images clustered by their semantic function. We use these clusters to analyze linguistic variation in memes, discovering not only that socially meaningful variation in meme usage exists between subreddits, but that patterns of meme innovation and acculturation within these communities align with previous findings on written language.</abstract>
-      <url hash="32449c7f">2024.naacl-long.166</url>
+      <url hash="e35fc522">2024.naacl-long.166</url>
       <bibkey>zhou-etal-2024-social</bibkey>
+      <revision id="1" href="2024.naacl-long.166v1" hash="32449c7f"/>
+      <revision id="2" href="2024.naacl-long.166v2" hash="e35fc522" date="2024-07-17">Update paper to camera-ready version.</revision>
       <doi>10.18653/v1/2024.naacl-long.166</doi>
     </paper>
     <paper id="167">
@@ -4705,10 +4710,11 @@
       <author><first>Suhang</first><last>Wang</last><affiliation>Pennsylvania State University</affiliation></author>
       <pages>6340-6354</pages>
       <abstract>Text-to-Image (T2I) models have shown great performance in generating images based on textual prompts. However, these models are vulnerable to unsafe input to generate unsafe content like sexual, harassment and illegal-activity images. Existing studies based on image checker, model fine-tuning and embedding blocking are impractical in real-world applications. Hence, we propose the first universal **p**rompt **o**ptimizer for **s**afe T2**I** (**POSI**) generation in black-box scenario. We first construct a dataset consisting of toxic-clean prompt pairs by GPT-3.5 Turbo. To guide the optimizer to have the ability of converting toxic prompt to clean prompt while preserving semantic information, we design a novel reward function measuring toxicity and text alignment of generated images and train the optimizer through Proximal Policy Optimization. Experiments show that our approach can effectively reduce the likelihood of various T2I models in generating inappropriate images, with no significant impact on text alignment. It is also flexible to be combined with methods to achieve better performance. Our code is available at [https://github.com/wzongyu/POSI](https://github.com/wzongyu/POSI).</abstract>
-      <url hash="77e22f71">2024.naacl-long.351</url>
+      <url hash="6c6693ff">2024.naacl-long.351</url>
       <bibkey>wu-etal-2024-universal</bibkey>
       <revision id="1" href="2024.naacl-long.351v1" hash="15802fcf"/>
       <revision id="2" href="2024.naacl-long.351v2" hash="77e22f71" date="2024-06-28">Minor updates.</revision>
+      <revision id="3" href="2024.naacl-long.351v3" hash="6c6693ff" date="2024-07-14">Minor updates.</revision>
       <doi>10.18653/v1/2024.naacl-long.351</doi>
     </paper>
     <paper id="352">
@@ -8040,7 +8046,7 @@
       <author><first>Guo</first><last>Huai</last></author>
       <author><first>Jinyu</first><last>Liu</last></author>
       <author><first>Eric</first><last>Khiu</last></author>
-      <author><first>A.</first><last>Doğruöz</last><affiliation>Ghent University</affiliation></author>
+      <author><first>A. Seza</first><last>Doğruöz</last><affiliation>Ghent University</affiliation></author>
       <author><first>En-Shiun</first><last>Lee</last></author>
       <pages>233-241</pages>
       <abstract>In the pursuit of supporting more languages around the world, tools that characterize properties of languages play a key role in expanding the existing multilingual NLP research. In this study, we focus on a widely used typological knowledge base, URIEL, which aggregates linguistic information into numeric vectors. Specifically, we delve into the soundness and reproducibility of the approach taken by URIEL in quantifying language similarity. Our analysis reveals URIEL’s ambiguity in calculating language distances and in handling missing values. Moreover, we find that URIEL does not provide any information about typological features for 31% of the languages it represents, undermining the reliabilility of the database, particularly on low-resource languages. Our literature review suggests URIEL and lang2vec are used in papers on diverse NLP tasks, which motivates us to rigorously verify the database as the effectiveness of these works depends on the reliability of the information the tool provides.</abstract>
