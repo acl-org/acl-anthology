@@ -31,6 +31,7 @@
       <abstract>Transformer-based pre-trained language models (PLMs) have achieved remarkable performance in various natural language processing (NLP) tasks. However, pre-training such models can take considerable resources that are almost only available to high-resource languages. On the contrary, static word embeddings are easier to train in terms of computing resources and the amount of data required. In this paper, we introduce MoSECroT (Model Stitching with Static Word Embeddings for Crosslingual Zero-shot Transfer, a novel and challenging task that is especially relevant to low-resource languages for which static word embeddings are available. To tackle the task, we present the first framework that leverages relative representations to construct a common space for the embeddings of a source language PLM and the static word embeddings of a target language. In this way, we can train the PLM on source-language training data and perform zero-shot transfer to the target language by simply swapping the embedding layer. However, through extensive experiments on two classification datasets, we show that although our proposed framework is competitive with weak baselines when addressing MoSECroT, it fails to achieve competitive results compared with some strong baselines. In this paper, we attempt to explain this negative result and provide several thoughts on possible improvement.</abstract>
       <url hash="50df66cc">2024.insights-1.1</url>
       <bibkey>ye-etal-2024-mosecrot</bibkey>
+      <doi>10.18653/v1/2024.insights-1.1</doi>
     </paper>
     <paper id="2">
       <title>What explains the success of cross-modal fine-tuning with <fixed-case>ORCA</fixed-case>?</title>
@@ -43,6 +44,7 @@
       <abstract>ORCA (Shen et al., 2023) is a recent technique for cross-modal fine-tuning, i.e., applying pre-trained transformer models to modalities beyond their training data. The technique consists primarily of training an embedder and fine-tuning the embedder and model. Despite its high performance on a variety of downstream tasks, we do not understand precisely how each of these components contribute to ORCA’s success. Therefore, we run a series of ablations and find that embedder training does not help 2D tasks at all, contrary to what the original paper posits. In 1D tasks, some amount of embedder training is necessary but more is not better. In 4 out of 6 datasets we experiment with, it is model fine-tuning that makes the biggest difference. Through our ablations and baselines, we contribute a better understanding of the individual components of ORCA.</abstract>
       <url hash="660a667b">2024.insights-1.2</url>
       <bibkey>garcia-de-herreros-etal-2024-explains</bibkey>
+      <doi>10.18653/v1/2024.insights-1.2</doi>
     </paper>
     <paper id="3">
       <title>Does Fine-tuning a Classifier Help in Low-budget Scenarios? Not Much</title>
@@ -54,6 +56,7 @@
       <abstract>In recent years, the two-step approach for text classification based on pre-training plus fine-tuning has led to significant improvements in classification performance. In this paper, we study the low-budget scenario, and we ask whether it is justified to allocate the additional resources needed for fine-tuning complex models. To do so, we isolate the gains obtained from pre-training from those obtained from fine-tuning. We find out that, when the gains from pre-training are factored out, the performance attained by using complex transformer models leads to marginal improvements over simpler models. Therefore, in this scenario, utilizing simpler classifiers on top of pre-trained representations proves to be a viable alternative.</abstract>
       <url hash="7bcb12c5">2024.insights-1.3</url>
       <bibkey>gonzalez-gutierrez-etal-2024-fine</bibkey>
+      <doi>10.18653/v1/2024.insights-1.3</doi>
     </paper>
     <paper id="4">
       <title>How Well Can a Genetic Algorithm Fine-tune Transformer Encoders? A First Approach</title>
@@ -64,6 +67,7 @@
       <abstract>Genetic Algorithms (GAs) have been studied across different fields such as engineering or medicine to optimize diverse problems such as network routing, or medical image segmentation. Moreover, they have been used to automatically find optimal architectures for deep neural networks. However, to our knowledge, they have not been applied as a weight optimizer for the Transformer model. While gradient descent has been the main paradigm for this task, we believe that GAs have advantages to bring to the table. In this paper, we will show that even though GAs are capable of fine-tuning Transformer encoders, their generalization ability is considerably poorer than that from Adam; however, on a closer look, GAs ability to exploit knowledge from 2 different pretraining datasets surpasses Adam’s ability to do so.</abstract>
       <url hash="61d52fe0">2024.insights-1.4</url>
       <bibkey>sanchez-carmona-etal-2024-well</bibkey>
+      <doi>10.18653/v1/2024.insights-1.4</doi>
     </paper>
     <paper id="5">
       <title><fixed-case>I</fixed-case> Have an Attention Bridge to Sell You: Generalization Capabilities of Modular Translation Architectures</title>
@@ -74,6 +78,7 @@
       <abstract>Modularity is a paradigm of machine translation with the potential of bringing forth models that are large at training time and small during inference. Within this field of study, modular approaches, and in particular attention bridges, have been argued to improve the generalization capabilities of models by fostering language-independent representations. In the present paper, we study whether modularity affects translation quality; as well as how well modular architectures generalize across different evaluation scenarios. For a given computational budget, we find non-modular architectures to be always comparable or preferable to all modular designs we study.</abstract>
       <url hash="faaba267">2024.insights-1.5</url>
       <bibkey>mickus-etal-2024-attention</bibkey>
+      <doi>10.18653/v1/2024.insights-1.5</doi>
     </paper>
     <paper id="6">
       <title>Knowledge Distillation vs. Pretraining from Scratch under a Fixed (Computation) Budget</title>
@@ -85,6 +90,7 @@
       <abstract>Compared to standard language model (LM) pretraining (i.e., from scratch), Knowledge Distillation (KD) entails an additional forward pass through a teacher model that is typically substantially larger than the target student model. As such, KD in LM pretraining materially slows down throughput of pretraining instances vis-a-vis pretraining from scratch. Scaling laws of LM pretraining suggest that smaller models can close the gap to larger counterparts if trained on more data (i.e., processing more tokens)—and under a fixed computation budget, smaller models are able to process more data than larger models. We thus hypothesize that KD might, in fact, be suboptimal to pretraining from scratch for obtaining smaller LMs, when appropriately accounting for the compute budget. To test this, we compare pretraining from scratch against several KD strategies for masked language modeling (MLM) in a fair experimental setup, with respect to amount of computation as well as pretraining data. Downstream results on GLUE, however, do not confirm our hypothesis: while pretraining from scratch performs comparably to ordinary KD under a fixed computation budget, more sophisticated KD strategies, namely TinyBERT and MiniLM, outperform it by a notable margin. We further find that KD yields larger gains over pretraining from scratch when the data can be repeated under the fixed computation budget.</abstract>
       <url hash="fb002cbf">2024.insights-1.6</url>
       <bibkey>bui-etal-2024-knowledge</bibkey>
+      <doi>10.18653/v1/2024.insights-1.6</doi>
     </paper>
     <paper id="7">
       <title>An Analysis of <fixed-case>BPE</fixed-case> Vocabulary Trimming in Neural Machine Translation</title>
@@ -97,6 +103,7 @@
       <abstract>We explore threshold vocabulary trimming in Byte-Pair Encoding subword tokenization, a tokenization postprocessing step that replaces rare subwords with their component subwords. The technique is available in popular tokenization libraries but has not been subjected to rigorous scientific scrutiny. While the removal of rare subwords is suggested as best practice in model implementations, both as a means to reduce model size and for improving model performance through robustness, our experiments indicate that, across a large space of hyperparameter settings, vocabulary trimming fails to consistently improve model performance, and is even prone to incurring heavy degradation.</abstract>
       <url hash="e8990150">2024.insights-1.7</url>
       <bibkey>cognetta-etal-2024-analysis</bibkey>
+      <doi>10.18653/v1/2024.insights-1.7</doi>
     </paper>
     <paper id="8">
       <title>On the Limits of Multi-modal Meta-Learning with Auxiliary Task Modulation Using Conditional Batch Normalization</title>
@@ -110,6 +117,7 @@
       <abstract>Few-shot learning aims to learn representations that can tackle novel tasks given a small number of examples. Recent studies show that cross-modal learning can improve representations for few-shot classification. More specifically, language is a rich modality that can be used to guide visual learning. In this work, we experiment with a multi-modal architecture for few-shot learning that consists of three components: a classifier, an auxiliary network, and a bridge network. While the classifier performs the main classification task, the auxiliary network learns to predict language representations from the same input, and the bridge network transforms high-level features of the auxiliary network into modulation parameters for layers of the few-shot classifier using conditional batch normalization. The bridge should encourage a form of lightweight semantic alignment between language and vision which could be useful for the classifier. However, after evaluating the proposed approach on two popular few-shot classification benchmarks we find that a) the improvements do not reproduce across benchmarks, and b) when they do, the improvements are due to the additional compute and parameters introduced by the bridge network. We contribute insights and recommendations for future work in multi-modal meta-learning, especially when using language representations.</abstract>
       <url hash="57eaa298">2024.insights-1.8</url>
       <bibkey>armengol-estape-etal-2024-limits</bibkey>
+      <doi>10.18653/v1/2024.insights-1.8</doi>
     </paper>
     <paper id="9">
       <title>Pointer-Generator Networks for Low-Resource Machine Translation: Don’t Copy That!</title>
@@ -120,6 +128,7 @@
       <abstract>While Transformer-based neural machine translation (NMT) is very effective in high-resource settings, many languages lack the necessary large parallel corpora to benefit from it. In the context of low-resource (LR) MT between two closely-related languages, a natural intuition is to seek benefits from structural “shortcuts”, such as copying subwords from the source to the target, given that such language pairs often share a considerable number of identical words, cognates, and borrowings. We test Pointer-Generator Networks for this purpose for six language pairs over a variety of resource ranges, and find weak improvements for most settings. However, analysis shows that the model does not show greater improvements for closely-related vs. more distant language pairs, or for lower resource ranges, and that the models do not exhibit the expected usage of the mechanism for shared subwords. Our discussion of the reasons for this behaviour highlights several general challenges for LR NMT, such as modern tokenization strategies, noisy real-world conditions, and linguistic complexities. We call for better scrutiny of linguistically motivated improvements to NMT given the blackbox nature of Transformer models, as well as for a focus on the above problems in the field.</abstract>
       <url hash="fa974d35">2024.insights-1.9</url>
       <bibkey>bafna-etal-2024-pointer</bibkey>
+      <doi>10.18653/v1/2024.insights-1.9</doi>
     </paper>
     <paper id="10">
       <title>Imaginary Numbers! Evaluating Numerical Referring Expressions by Neural End-to-End Surface Realization Systems</title>
@@ -135,6 +144,7 @@
       <abstract>Neural end-to-end surface realizers output more fluent texts than classical architectures. However, they tend to suffer from adequacy problems, in particular hallucinations in numerical referring expression generation. This poses a problem to language generation in sensitive domains, as is the case of robot journalism covering COVID-19 and Amazon deforestation. We propose an approach whereby numerical referring expressions are converted from digits to plain word form descriptions prior to being fed to state-of-the-art Large Language Models. We conduct automatic and human evaluations to report the best strategy to numerical superficial realization. Code and data are publicly available.</abstract>
       <url hash="ad3c7b73">2024.insights-1.10</url>
       <bibkey>cunha-etal-2024-imaginary</bibkey>
+      <doi>10.18653/v1/2024.insights-1.10</doi>
     </paper>
     <paper id="11">
       <title>Using Locally Learnt Word Representations for better Textual Anomaly Detection</title>
@@ -144,6 +154,7 @@
       <abstract>The literature on general purpose textual Anomaly Detection is quite sparse, as most textual anomaly detection methods are implemented as out of domain detection in the context of pre-established classification tasks. Notably, in a field where pre-trained representations and models are of common use, the impact of the pre-training data on a task that lacks supervision has not been studied. In this paper, we use the simple setting of k-classes out anomaly detection and search for the best pairing of representation and classifier. We show that well-chosen embeddings allow a simple anomaly detection baseline such as OC-SVM to achieve similar results and even outperform deep state-of-the-art models.</abstract>
       <url hash="9b4c66fd">2024.insights-1.11</url>
       <bibkey>breidenstein-labeau-2024-using</bibkey>
+      <doi>10.18653/v1/2024.insights-1.11</doi>
     </paper>
     <paper id="12">
       <title>Can probing classifiers reveal the learning by contact center large language models?: No, it doesn’t!</title>
@@ -154,6 +165,7 @@
       <abstract>Fine-tuning large language models (LLMs) with domain-specific instruction dataset has emerged as an effective method to enhance their domain-specific understanding. Yet, there is limited work that examines the core characteristics acquired during this process. In this study, we benchmark the fundamental characteristics learned by contact-center (CC) domain specific instruction fine-tuned LLMs with out-of-the-box (OOB) LLMs via probing tasks encompassing conversational, channel, and automatic speech recognition (ASR) properties. We explore different LLM architectures (Flan-T5 and Llama) and sizes (3B, 7B, 11B, 13B). Our findings reveal remarkable effectiveness of CC-LLMs on the in-domain downstream tasks, with improvement in response acceptability by over 48% compared to OOB-LLMs. However, we observe that the performance of probing classifiers are relatively similar and does not reflect the performance of in-domain downstream tasks. A similar observation is also noted on SentEval dataset that assess capabilities of models in terms of surface, syntactic, and semantic information through probing tasks. Our study challenges the premise that probing classifiers can reveal the fundamental characteristics learned by large language models and is reflective of the downstream task performance, via a case-study of LLMs tuned for contact center domain.</abstract>
       <url hash="2ba678d3">2024.insights-1.12</url>
       <bibkey>nathan-etal-2024-probing</bibkey>
+      <doi>10.18653/v1/2024.insights-1.12</doi>
     </paper>
     <paper id="13">
       <title>Can <fixed-case>A</fixed-case>bstract <fixed-case>M</fixed-case>eaning <fixed-case>R</fixed-case>epresentation Facilitate Fair Legal Judgement Predictions?</title>
@@ -163,6 +175,7 @@
       <abstract>Legal judgment prediction encompasses the automated prediction of case outcomes by leveraging historical facts and opinions. While this approach holds the potential to enhance the efficiency of the legal system, it also raises critical concerns regarding the perpetuation of biases. Abstract Meaning Representation has shown promise as an intermediate text representation in various downstream NLP tasks due to its ability to capture semantically meaningful information in a graph-like structure. In this paper, we employ this ability of AMR in the legal judgement prediction task and assess to what extent it encodes biases, or conversely, abstracts away from them. Our study reveals that while AMR-based models exhibit worse overall performance than transformer-based models, they are less biased for attributes like age and defendant state compared to gender. By shedding light on these findings, this paper contributes to a more nuanced understanding of AMR’s potential benefits and limitations in legal NLP.</abstract>
       <url hash="213472fc">2024.insights-1.13</url>
       <bibkey>vijay-hershcovich-2024-abstract</bibkey>
+      <doi>10.18653/v1/2024.insights-1.13</doi>
     </paper>
     <paper id="14">
       <title><fixed-case>WINOVIZ</fixed-case>: Probing Visual Properties of Objects Under Different States</title>
@@ -174,6 +187,7 @@
       <abstract>Humans interpret visual aspects of objects based on contexts. For example, a banana appears brown when rotten and green when unripe. Previous studies focused on language models’ grasp of typical object properties. We introduce WINOVIZ, a text-only dataset with 1,380 examples of probing language models’ reasoning about diverse visual properties under different contexts. Our task demands pragmatic and visual knowledge reasoning. We also present multi-hop data, a more challenging version requiring multi-step reasoning chains. Experimental findings include: a) GPT-4 excels overall but struggles with multi-hop data. b) Large models perform well in pragmatic reasoning but struggle with visual knowledge reasoning. c) Vision-language models outperform language-only models.</abstract>
       <url hash="9b021465">2024.insights-1.14</url>
       <bibkey>jin-etal-2024-winoviz</bibkey>
+      <doi>10.18653/v1/2024.insights-1.14</doi>
     </paper>
     <paper id="15">
       <title>Harnessing the Power of Multiple Minds: Lessons Learned from <fixed-case>LLM</fixed-case> Routing</title>
@@ -184,6 +198,7 @@
       <abstract>With the rapid development of LLMs, it is natural to ask how to harness their capabilities efficiently. In this paper, we explore whether it is feasible to direct each input query to a single most suitable LLM. To this end, we propose LLM routing for challenging reasoning tasks. Our extensive experiments suggest that such routing shows promise but is not feasible in all scenarios, so more robust approaches should be investigated to fill this gap.</abstract>
       <url hash="8c872425">2024.insights-1.15</url>
       <bibkey>srivatsa-etal-2024-harnessing</bibkey>
+      <doi>10.18653/v1/2024.insights-1.15</doi>
     </paper>
     <paper id="16">
       <title>The Paradox of Preference: A Study on <fixed-case>LLM</fixed-case> Alignment Algorithms and Data Acquisition Methods</title>
@@ -194,6 +209,7 @@
       <abstract>This research investigates the impact of preference annotation acquisition methods on the performance of LLM alignment algorithms, including Direct Preference Optimization (DPO), Identity Preference Optimization (IPO), and Conservative DPO (cDPO), compared to Supervised Fine-Tuning (SFT) in NLP tasks. We analyze the influence of LLM and human-based preferences on algorithm performance, considering data volume and quality. Additionally, we assess DPO’s vulnerability to overfitting and IPO’s resilience against it, addressing four main research questions. Using the GAIR dataset and Zephyr-7b as the SFT model, we reveal unexpected negative outcomes. Specifically, DPO trained on LLM preferences outperforms human preferences, contrary to expectations. Moreover, there’s no correlation between preference data volume or quality and algorithm performance. Contrary to expectations, DPO shows no overfitting in both human and LLM preference datasets. Surprisingly, cDPO doesn’t fare better than DPO under flip noise. Our findings highlight the complexities of preference annotation methods and underscore the importance of scrutinizing negative results in NLP algorithm research.</abstract>
       <url hash="2fab5011">2024.insights-1.16</url>
       <bibkey>devanathan-etal-2024-paradox</bibkey>
+      <doi>10.18653/v1/2024.insights-1.16</doi>
     </paper>
     <paper id="17">
       <title>The Ups and Downs of Large Language Model Inference with Vocabulary Trimming by Language Heuristics</title>
@@ -205,6 +221,7 @@
       <abstract>Deploying large language models (LLMs) encounters challenges due to intensive computational and memory requirements. Our research examines vocabulary trimming (VT) inspired by restricting embedding entries to the language of interest to bolster time and memory efficiency. While such modifications have been proven effective in tasks like machine translation, tailoring them to LLMs demands specific modifications given the diverse nature of LLM applications. We apply two language heuristics to trim the full vocabulary—Unicode-based script filtering and corpus-based selection—to different LLM families and sizes. The methods are straightforward, interpretable, and easy to implement. It is found that VT reduces the memory usage of small models by nearly 50% and has an upper bound of 25% improvement in generation speed. Yet, we reveal the limitations of these methods in that they do not perform consistently well for each language with diminishing returns in larger models.</abstract>
       <url hash="315d9a6c">2024.insights-1.17</url>
       <bibkey>bogoychev-etal-2024-ups</bibkey>
+      <doi>10.18653/v1/2024.insights-1.17</doi>
     </paper>
     <paper id="18">
       <title>Multi-Task Learning with Adapters for Plausibility Prediction: Bridging the Gap or Falling into the Trenches?</title>
@@ -214,6 +231,7 @@
       <abstract>We present a multi-task learning approach to predicting semantic plausibility by leveraging 50+ adapters categorized into 17 tasks within an efficient training framework. Across four plausibility datasets in English of varying size and linguistic constructions, we compare how models provided with knowledge from a range of NLP tasks perform in contrast to models without external information. Our results show that plausibility prediction benefits from complementary knowledge (e.g., provided by syntactic tasks) are significant but non-substantial, while performance may be hurt when injecting knowledge from an unsuitable task. Similarly important, we find that knowledge transfer may be hindered by class imbalance, and demonstrate the positive yet minor effect of balancing training data, even at the expense of size.</abstract>
       <url hash="ee9a8358">2024.insights-1.18</url>
       <bibkey>eichel-schulte-im-walde-2024-multi</bibkey>
+      <doi>10.18653/v1/2024.insights-1.18</doi>
     </paper>
     <paper id="19">
       <title>Investigating Multi-Pivot Ensembling with Massively Multilingual Machine Translation Models</title>
@@ -224,6 +242,7 @@
       <abstract>Massively multilingual machine translation models allow for the translation of a large number of languages with a single model, but have limited performance on low- and very-low-resource translation directions. Pivoting via high-resource languages remains a strong strategy for low-resource directions, and in this paper we revisit ways of pivoting through multiple languages. Previous work has used a simple averaging of probability distributions from multiple paths, but we find that this performs worse than using a single pivot, and exacerbates the hallucination problem because the same hallucinations can be probable across different paths. We also propose MaxEns, a novel combination strategy that makes the output biased towards the most confident predictions, hypothesising that confident predictions are less prone to be hallucinations. We evaluate different strategies on the FLORES benchmark for 20 low-resource language directions, demonstrating that MaxEns improves translation quality for low-resource languages while reducing hallucination in translations, compared to both direct translation and an averaging approach. On average, multi-pivot strategies still lag behind using English as a single pivot language, raising the question of how to identify the best pivoting strategy for a given translation direction.</abstract>
       <url hash="bee40742">2024.insights-1.19</url>
       <bibkey>mohammadshahi-etal-2024-investigating</bibkey>
+      <doi>10.18653/v1/2024.insights-1.19</doi>
     </paper>
   </volume>
 </collection>
