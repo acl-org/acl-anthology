@@ -1475,8 +1475,8 @@
     <paper id="123">
       <title>Applying Transfer Learning to <fixed-case>G</fixed-case>erman Metaphor Prediction</title>
       <author><first>Maria</first><last>Berger</last></author>
-      <author><first>Sebastian Michael</first><last>Reimann</last></author>
-      <author><first>Nieke Marie</first><last>Kiwitt</last></author>
+      <author><first>Nieke</first><last>Kiwitt</last></author>
+      <author><first>Sebastian</first><last>Reimann</last></author>
       <pages>1383–1392</pages>
       <abstract>This paper presents results in transfer-learning metaphor recognition in German. Starting from an English language corpus annotated for metaphor at the sentence level, and its machine-translation to German, we annotate 1000 sentences of the German part to use it as a Gold standard for two different metaphor prediction setups: i) a sequence labeling set-up (on the token-level), and ii) a classification (based on sentences) setup. We test two transfer leaning approaches: i) a group of transformer models, and ii) a technique that utilizes bilingual embeddings together with an RNN classifier. We find out that the transformer models do moderately in a zero-shot scenario (up to 61% F1 for classification) and the embeddings approaches do not even beat the guessing baseline (36% F1 for classification). We use our Gold data to fine-tune the classification tasks on target-language data achieving up to 90% F1 with both, the multilingual BERT and the bilingual embeddings. We also publish the annotated bilingual corpus.</abstract>
       <url hash="c50dc219">2024.lrec-main.123</url>
@@ -14183,8 +14183,8 @@
     </paper>
     <paper id="1207">
       <title><fixed-case>R</fixed-case>eflect<fixed-case>S</fixed-case>umm: A Benchmark for Course Reflection Summarization</title>
-      <author><first>Mohamed</first><last>Elaraby</last></author>
       <author><first>Yang</first><last>Zhong</last></author>
+      <author><first>Mohamed</first><last>Elaraby</last></author>
       <author><first>Diane</first><last>Litman</last></author>
       <author><first>Ahmed Ashraf</first><last>Butt</last></author>
       <author><first>Muhsin</first><last>Menekse</last></author>
@@ -14384,8 +14384,10 @@
       <author><first>Vera</first><last>Demberg</last></author>
       <pages>14053–14062</pages>
       <abstract>Data-to-text (D2T) generation describes the task of verbalizing data, often given as attribute-value pairs. While this task is relevant for many different data domains beyond the traditionally well-explored tasks of weather forecasting, restaurant recommendations, and sports reporting, a major challenge to the applicability of data-to-text generation methods is typically data sparsity. For many applications, there is extremely little training data in terms of attribute-value inputs and target language outputs available for training a model. Given the sparse data setting, recently developed prompting methods seem most suitable for addressing D2T tasks since they do not require substantial amounts of training data, unlike finetuning approaches. However, prompt-based approaches are also challenging, as a) the design and search of prompts are non-trivial; and b) hallucination problems may occur because of the strong inductive bias of these models. In this paper, we propose a retrieval-augmented modular prompt tuning () method, which constructs prompts that fit the input data closely, thereby bridging the domain gap between the large-scale language model and the structured input data. Experiments show that our method generates texts with few hallucinations and achieves state-of-the-art performance on a dataset for drone handover message generation.</abstract>
-      <url hash="805426af">2024.lrec-main.1224</url>
+      <url hash="d24899c0">2024.lrec-main.1224</url>
       <bibkey>feng-etal-2024-retrieval</bibkey>
+      <revision id="1" href="2024.lrec-main.1224v1" hash="805426af"/>
+      <revision id="2" href="2024.lrec-main.1224v2" hash="d24899c0" date="2024-07-14">Minor updates.</revision>
     </paper>
     <paper id="1225">
       <title>Retrieval-based Question Answering with Passage Expansion Using a Knowledge Graph</title>
@@ -14699,9 +14701,10 @@
       <author><first>Weiming</first><last>Peng</last></author>
       <pages>14347–14357</pages>
       <abstract>Variational autoencoder (VAE) is a widely used generative model that gains great popularity for its capability in density estimation and representation learning. However, when employing a strong autoregressive generation network, VAE tends to converge to a degenerate local optimum known as posterior collapse. In this paper, we propose a model named Scale-VAE to solve this problem. Scale-VAE does not force the KL term to be larger than a positive constant, but aims to make the latent variables easier to be exploited by the generation network. Specifically, each dimension of the mean for the approximate posterior distribution is multiplied by a factor to keep that dimension discriminative across data instances. The same factors are used for all data instances so as not to change the relative relationship between the posterior distributions. Latent variables from the scaled-up posteriors are fed into the generation network, but the original posteriors are still used to calculate the KL term. In this way, Scale-VAE can solve the posterior collapse problem with a training cost similar to or even lower than the basic VAE. Experimental results show that Scale-VAE outperforms state-of-the-art models in density estimation, representation learning, and consistency of the latent space, and is competitive with other models in generation.</abstract>
-      <url hash="6c921536">2024.lrec-main.1250</url>
+      <url hash="de630dd0">2024.lrec-main.1250</url>
       <revision id="1" href="2024.lrec-main.1250v1" hash="b2eb6c7b"/>
       <revision id="2" href="2024.lrec-main.1250v2" hash="6c921536" date="2024-06-19">This revision corrects the number of the first sponsored Fund in the Acknowledgments section (from 4222003 to 4234081). It also corrects a typo in the email address of the third author.</revision>
+      <revision id="3" href="2024.lrec-main.1250v3" hash="de630dd0" date="2024-07-14">Minor updates.</revision>
       <bibkey>song-etal-2024-scale</bibkey>
     </paper>
     <paper id="1251">
@@ -18373,8 +18376,10 @@
       <author><first>Tom</first><last>Hope</last></author>
       <pages>56–67</pages>
       <abstract>Due to the rapid growth of publications varying in quality, there exists a pressing need to help scientists digest and evaluate relevant papers, thereby facilitating scientific discovery. This creates a number of urgent questions; however, computer-human collaboration in the scientific paper lifecycle is still in the exploratory stage and lacks a unified framework for analyzing the relevant tasks. Additionally, with the recent significant success of large language models (LLMs), they have increasingly played an important role in academic writing. In this cutting-edge tutorial, we aim to provide an all-encompassing overview of the paper lifecycle, detailing how machines can augment every stage of the research process for the scientist, including scientific literature understanding, experiment development, manuscript draft writing, and finally draft evaluation. This tutorial is devised for researchers interested in this rapidly-developing field of NLP-augmented paper writing. The tutorial will also feature a session of hands-on exercises during which participants can guide machines in generating ideas and automatically composing key paper elements. Furthermore, we will address current challenges, explore future directions, and discuss potential ethical issues. A toolkit designed for human-computer collaboration throughout the paper lifecycle will also be made publically available.</abstract>
-      <url hash="48c515ae">2024.lrec-tutorials.10</url>
+      <url hash="60d95613">2024.lrec-tutorials.10</url>
       <bibkey>wang-etal-2024-towards-human</bibkey>
+      <revision id="1" href="2024.lrec-tutorials.10v1" hash="48c515ae"/>
+      <revision id="2" href="2024.lrec-tutorials.10v2" hash="60d95613" date="2024-07-28">Remove a cited paper upon request from the paper's authors.</revision>
     </paper>
     <paper id="11">
       <title>Tutorial Proposal: Hallucination in Large Language Models</title>
