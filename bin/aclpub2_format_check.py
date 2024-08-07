@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """
-Last updated 2023-11-23 by Matt Post.
+Last updated 2024-08-07 by Matt Post
 
 TODO:
-- Ensure no LaTeX in titles (e.g., \emph{...})
+- Ensure no LaTeX in titles (e.g., `\emph{...}`)
 - If there is only a single name, it should be the last name, not the first
 - Clean TeX from abstracts, too (e.g., 2023.findings-emnlp.439)
 
@@ -125,6 +126,8 @@ def main(args):
     # sure that exists.
     papers = yaml.safe_load(papers_path.read_text())
     for paper in papers:
+        paper_id = paper["id"]
+
         # For each file, there should be a file {rootdir}/watermarked_pdfs/{id}.pdf
         if "archival" not in paper or paper['archival']:
             if not (
@@ -133,6 +136,10 @@ def main(args):
                 logger.error(f"Paper file '{pdf_path}' not found")
             else:
                 logger.info(f"✓ Found PDF file {pdf_path}")
+
+        for author in paper.get("authors", []):
+            if "@" in author.get("name", ""):
+                logger.error(f"Paper ID {paper_id}: Author name '{author['name']}' contains an email address")
 
         if "attachments" in paper:
             for attachment in paper["attachments"]:
