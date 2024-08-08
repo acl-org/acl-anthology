@@ -139,7 +139,9 @@ def main(args):
 
         for author in paper.get("authors", []):
             if "@" in author.get("name", ""):
-                logger.error(f"Paper ID {paper_id}: Author name '{author['name']}' contains an email address")
+                logger.error(
+                    f"Paper ID {paper_id}: Author name '{author['name']}' contains an email address"
+                )
 
         if "attachments" in paper:
             for attachment in paper["attachments"]:
