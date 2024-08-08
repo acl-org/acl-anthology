@@ -1,0 +1,466 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.smm4h">
+  <volume id="1" ingest-date="2024-07-30" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of The 9th Social Media Mining for Health Research and Applications (SMM4H 2024) Workshop and Shared Tasks</booktitle>
+      <editor><first>Dongfang</first><last>Xu</last></editor>
+      <editor><first>Graciela</first><last>Gonzalez-Hernandez</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Bangkok, Thailand</address>
+      <month>August</month>
+      <year>2024</year>
+      <url hash="8f255bf5">2024.smm4h-1</url>
+      <venue>smm4h</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="14644931">2024.smm4h-1.0</url>
+      <bibkey>smm4h-1-2024</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title><fixed-case>T</fixed-case>hang<fixed-case>DLU</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Encoder-decoder models for classifying text data on social disorders in children and adolescents</title>
+      <author><first>Thang</first><last>Ta</last></author>
+      <author><first>Abu</first><last>Rahman</last></author>
+      <author><first>Lotfollah</first><last>Najjar</last><affiliation>University of Nebraska at Omaha</affiliation></author>
+      <author><first>Alexander</first><last>Gelbukh</last><affiliation>Instituto Politécnico Nacional</affiliation></author>
+      <pages>1-4</pages>
+      <abstract>This paper describes our participation in Task 3 and Task 5 of the #SMM4H (Social Media Mining for Health) 2024 Workshop, explicitly targeting the classification challenges within tweet data. Task 3 is a multi-class classification task centered on tweets discussing the impact of outdoor environments on symptoms of social anxiety. Task 5 involves a binary classification task focusing on tweets reporting medical disorders in children. We applied transfer learning from pre-trained encoder-decoder models such as BART-base and T5-small to identify the labels of a set of given tweets. We also presented some data augmentation methods to see their impact on the model performance. Finally, the systems obtained the best F1 score of 0.627 in Task 3 and the best F1 score of 0.841 in Task 5</abstract>
+      <url hash="1810b397">2024.smm4h-1.1</url>
+      <bibkey>ta-etal-2024-thangdlu</bibkey>
+    </paper>
+    <paper id="2">
+      <title><fixed-case>CTYUN</fixed-case>-<fixed-case>AI</fixed-case>@<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case>-2024: Knowledge Extension Makes Expert Models</title>
+      <author><first>Yuming</first><last>Fan</last><affiliation>China Telecom</affiliation></author>
+      <author><first>Dongming</first><last>Yang</last></author>
+      <author><first>Lina</first><last>Cao</last><affiliation>China Telecom Cloud Technology Co. Ltd</affiliation></author>
+      <pages>5-9</pages>
+      <abstract>This paper explores the potential of social media as a rich source of data for understanding public health trends and behaviors, particularly focusing on emotional well-being and the impact of environmental factors. We employed large language models (LLMs) and developed a suite of knowledge extension techniques to analyze social media content related to mental health issues, specifically examining 1) effects of outdoor spaces on social anxiety symptoms in Reddit,2) tweets reporting children’s medical disorders, and 3) self-reported ages in posts of Twitter and Reddit. Our knowledge extension approach encompasses both supervised data (i.e., sample augmentation and cross-task fine-tuning) and unsupervised data (i.e., knowledge distillation and cross-task pre-training), tackling the inherent challenges of sample imbalance and informality of social media language. The effectiveness of our approach is demonstrated by the superior performance across multiple tasks (i.e., Task 3, 5 and 6) at the SMM4H-2024. Notably, we achieved the best performance in all three tasks, underscoring the utility of our models in real-world applications.</abstract>
+      <url hash="1ee35a4b">2024.smm4h-1.2</url>
+      <bibkey>fan-etal-2024-ctyun-ai</bibkey>
+    </paper>
+    <paper id="3">
+      <title><fixed-case>DILAB</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a Ensemble for Identifying Children’s Medical Disorders in <fixed-case>E</fixed-case>nglish Tweets</title>
+      <author><first>Azmine Toushik</first><last>Wasi</last></author>
+      <author><first>Sheikh</first><last>Rahman</last></author>
+      <pages>10-12</pages>
+      <abstract>This paper details our system developed for the 9th Social Media Mining for Health Research and Applications Workshop (SMM4H 2024), addressing Task 5 focused on binary classification of English tweets reporting children’s medical disorders. Our objective was to enhance the detection of tweets related to children’s medical issues. To do this, we use various pre-trained language models, like RoBERTa and BERT. We fine-tuned these models on the task-specific dataset, adjusting model layers and hyperparameters in an attempt to optimize performance. As we observe unstable fluctuations in performance metrics during training, we implement an ensemble approach that combines predictions from different learning epochs. Our model achieves promising results, with the best-performing configuration achieving F1 score of 93.8% on the validation set and 89.8% on the test set.</abstract>
+      <url hash="2195c66d">2024.smm4h-1.3</url>
+      <bibkey>wasi-rahman-2024-dilab</bibkey>
+    </paper>
+    <paper id="4">
+      <title><fixed-case>DILAB</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Analyzing Social Anxiety Effects through Context-Aware Transfer Learning on <fixed-case>R</fixed-case>eddit Data</title>
+      <author><first>Sheikh</first><last>Rahman</last></author>
+      <author><first>Azmine Toushik</first><last>Wasi</last></author>
+      <pages>13-16</pages>
+      <abstract>This paper illustrates the system we design for Task 3 of the 9th Social Media Mining for Health (SMM4H 2024) shared tasks. The task presents posts made on the Reddit social media platform, specifically the *r/SocialAnxiety* subreddit, along with one or more outdoor activities as pre-determined keywords for each post. The task then requires each post to be categorized as either one of *positive*, *negative*, *no effect*, or *not outdoor activity* based on what effect the keyword(s) have on social anxiety. Our approach focuses on fine-tuning pre-trained language models to classify the posts. Additionally, we use fuzzy string matching to select only the text around the given keywords so that the model only has to focus on the contextual sentiment associated with the keywords. Using this system, our peak score is 0.65 macro-F1 on the validation set and 0.654 on test set.</abstract>
+      <url hash="70d43820">2024.smm4h-1.4</url>
+      <bibkey>rahman-wasi-2024-dilab</bibkey>
+    </paper>
+    <paper id="5">
+      <title>Dolomites@#<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Helping <fixed-case>LLM</fixed-case>s “Know The Drill” in Low-Resource Settings - A Study on Social Media Posts</title>
+      <author><first>Giuliano</first><last>Tortoreto</last></author>
+      <author><first>Seyed Mahed</first><last>Mousavi</last></author>
+      <pages>17-22</pages>
+      <abstract>The amount of data to fine-tune LLMs plays a crucial role in the performance of these models in downstream tasks. Consequently, it is not straightforward to deploy these models in low-resource settings. In this work, we investigate two new multi-task learning data augmentation approaches for fine-tuning LLMs when little data is available: “In-domain Augmentation” of the training data and extracting “Drills” as smaller tasks from the target dataset. We evaluate the proposed approaches in three natural language processing settings in the context of SMM4H 2024 competition tasks: multi-class classification, entity recognition, and information extraction. The results show that both techniques improve the performance of the models in all three settings, suggesting a positive impact from the knowledge learned in multi-task training to perform the target task.</abstract>
+      <url hash="8077d6b5">2024.smm4h-1.5</url>
+      <bibkey>tortoreto-mousavi-2024-dolomites</bibkey>
+    </paper>
+    <paper id="6">
+      <title><fixed-case>RIGA</fixed-case> at <fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case>-2024 Task 1: Enhancing <fixed-case>ADE</fixed-case> discovery with <fixed-case>GPT</fixed-case>-4</title>
+      <author><first>Eduards</first><last>Mukans</last></author>
+      <author><first>Guntis</first><last>Barzdins</last><affiliation>University of Latvia</affiliation></author>
+      <pages>23-27</pages>
+      <abstract>The following is a description of the RIGA team’s submissions for the SMM4H-2024 Task 1: Extraction and normalization of adverse drug events (ADEs) in English tweets. Our approach focuses on utilizing Large Language Models (LLMs) to generate data that enhances the fine-tuning of classification and Named Entity Recognition (NER) models. Our solution significantly outperforms mean and median submissions of other teams. The efficacy of our ADE extraction from tweets is comparable to the current state-of-the-art solution, established as the task baseline. The code for our method is available on GitHub (https://github.com/emukans/smm4h2024-riga)</abstract>
+      <url hash="7394c99a">2024.smm4h-1.6</url>
+      <bibkey>mukans-barzdins-2024-riga</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>G</fixed-case>olden_<fixed-case>D</fixed-case>uck at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: A Transformer-based Approach to Social Media Text Classification</title>
+      <author><first>Md Ayon</first><last>Mia</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Mahshar</first><last>Yahan</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Hasan</first><last>Murad</last><affiliation>Chittagong University of Engineering and Technology</affiliation></author>
+      <author><first>Muhammad</first><last>Khan</last></author>
+      <pages>28-31</pages>
+      <abstract>In this paper, we have addressed Task 3 on social anxiety disorder identification and Task 5 on mental illness recognition organized by the SMM4H 2024 workshop. In Task 3, a multi-classification problem has been presented to classify Reddit posts about outdoor spaces into four categories: Positive, Neutral, Negative, or Unrelated. Using the pre-trained RoBERTa-base model along with techniques like Mean pooling, CLS, and Attention Head, we have scored an F1-Score of 0.596 on the test dataset for Task 3. Task 5 aims to classify tweets into two categories: those describing a child with conditions like ADHD, ASD, delayed speech, or asthma (class 1), and those merely mentioning a disorder (class 0). Using the pre-trained RoBERTa-large model, incorporating a weighted ensemble of the last 4 hidden layers through concatenation and mean pooling, we achieved an F1 Score of 0.928 on the test data for Task 5.</abstract>
+      <url hash="9fce1114">2024.smm4h-1.7</url>
+      <bibkey>mia-etal-2024-golden</bibkey>
+    </paper>
+    <paper id="8">
+      <title><fixed-case>SRCB</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Making Full Use of <fixed-case>LLM</fixed-case>-based Data Augmentation in Adverse Drug Event Extraction and Normalization</title>
+      <author><first>Hongyu</first><last>Li</last></author>
+      <author><first>Yuming</first><last>Zhang</last></author>
+      <author><first>Yongwei</first><last>Zhang</last></author>
+      <author><first>Shanshan</first><last>Jiang</last></author>
+      <author><first>Bin</first><last>Dong</last></author>
+      <pages>32-37</pages>
+      <abstract>This paper reports on the performance of SRCB’s system in the Social Media Mining for Health (#SMM4H) 2024 Shared Task 1: extraction and normalization of adverse drug events (ADEs) in English tweets. We develop a system composed of an ADE extraction module and an ADE normalization module which furtherly includes a retrieval module and a filtering module. To alleviate the data imbalance and other issues introduced by the dataset, we employ 4 data augmentation techniques based on Large Language Models (LLMs) across both modules. Our best submission achieves an F1 score of 53.6 (49.4 on the unseen subset) on the ADE normalization task and an F1 score of 52.1 on ADE extraction task.</abstract>
+      <url hash="b06d958c">2024.smm4h-1.8</url>
+      <bibkey>li-etal-2024-srcb</bibkey>
+    </paper>
+    <paper id="9">
+      <title><fixed-case>LT</fixed-case>4<fixed-case>SG</fixed-case>@<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case>’24: Tweets Classification for Digital Epidemiology of Childhood Health Outcomes Using Pre-Trained Language Models</title>
+      <author><first>Dasun</first><last>Athukoralage</last><affiliation>NirvanaClouds</affiliation></author>
+      <author><first>Thushari</first><last>Atapattu</last><affiliation>University of Adelaide</affiliation></author>
+      <author><first>Menasha</first><last>Thilakaratne</last><affiliation>University of Adelaide</affiliation></author>
+      <author><first>Katrina</first><last>Falkner</last><affiliation>University of Adelaide</affiliation></author>
+      <pages>38-41</pages>
+      <abstract>This paper presents our approaches for the SMM4H’24 Shared Task 5 on the binary classification of English tweets reporting children’s medical disorders. Our first approach involves fine-tuning a single RoBERTa-large model, while the second approach entails ensembling the results of three fine-tuned BERTweet-large models. We demonstrate that although both approaches exhibit identical performance on validation data, the BERTweet-large ensemble excels on test data. Our best-performing system achieves an F1-score of 0.938 on test data, outperforming the benchmark classifier by 1.18%.</abstract>
+      <url hash="0d489830">2024.smm4h-1.9</url>
+      <bibkey>athukoralage-etal-2024-lt4sg</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>UTR</fixed-case>ad-<fixed-case>NLP</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Why <fixed-case>LLM</fixed-case>-Generated Texts Fail to Improve Text Classification Models</title>
+      <author><first>Yosuke</first><last>Yamagishi</last></author>
+      <author><first>Yuta</first><last>Nakamura</last><affiliation>The University of Tokyo</affiliation></author>
+      <pages>42-47</pages>
+      <abstract>In this paper, we present our approach to addressing the binary classification tasks, Tasks 5 and 6, as part of the Social Media Mining for Health (SMM4H) text classification challenge. Both tasks involved working with imbalanced datasets that featured a scarcity of positive examples. To mitigate this imbalance, we employed a Large Language Model to generate synthetic texts with positive labels, aiming to augment the training data for our text classification models. Unfortunately, this method did not significantly improve model performance. Through clustering analysis using text embeddings, we discovered that the generated texts significantly lacked diversity compared to the raw data. This finding highlights the challenges of using synthetic text generation for enhancing model efficacy in real-world applications, specifically in the context of health-related social media data.</abstract>
+      <url hash="9f4ea83c">2024.smm4h-1.10</url>
+      <bibkey>yamagishi-nakamura-2024-utrad</bibkey>
+    </paper>
+    <paper id="11">
+      <title><fixed-case>HBUT</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024 Task1: Extraction and Normalization of Adverse Drug Events with a Large Language Model</title>
+      <author><first>Yuanzhi</first><last>Ke</last><affiliation>Hubei University of Technology</affiliation></author>
+      <author><first>Hanbo</first><last>Jin</last></author>
+      <author><first>Xinyun</first><last>Wu</last><affiliation>Hubei University of Technology</affiliation></author>
+      <author><first>Caiquan</first><last>Xiong</last><affiliation>Hubei University of Technology</affiliation></author>
+      <pages>48-54</pages>
+      <abstract>In this paper, we describe our proposed systems for the Social Media Mining for Health 2024 shared task 1. We built our system on the basis of GLM, a pre-trained large language model with few-shot Learning capabilities, using a two-step prompting strategy to extract adverse drug event (ADE) and an ensemble method for normalization. In first step of extraction phase, we extract all the potential ADEs with in-context few-shot learning. In the second step for extraction, we let GLM to filer out false positive outputs in the first step by a tailored prompt. Then we normalize each ADE to its MedDRA preferred term ID (ptID) by an ensemble method using Reciprocal Rank Fusion (RRF). Our method achieved excellent recall rate. It obtained 41.1%, 42.8%, and 40.6% recall rate for ADE normalization, ADE recognition, and normalization for unseen ADEs, respectively. Compared to the performance of the average and median among all the participants in terms of recall rate, our recall rate scores are generally 10%-20% higher than the other participants’ systems.</abstract>
+      <url hash="2a42c23e">2024.smm4h-1.11</url>
+      <bibkey>ke-etal-2024-hbut</bibkey>
+    </paper>
+    <paper id="12">
+      <title><fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: 5 Fold Cross Validation for Classification of tweets reporting children’s disorders</title>
+      <author><first>Lipika</first><last>Dey</last><affiliation>Ashoka University</affiliation></author>
+      <author><first>B</first><last>Naik</last></author>
+      <author><first>Oppangi</first><last>Poojita</last><affiliation>Indian Institute of Technology Jodhpur</affiliation></author>
+      <author><first>Kovidh</first><last>Pothireddi</last></author>
+      <pages>55-57</pages>
+      <abstract>This paper presents our system developed for the Social Media Mining for Health (SMM4H) 2024 Task 05. The task objective was binary classification of tweets provided in the dataset, distinguishing between those reporting medical disorders and those merely mentioning diseases. We address this challenge through the utilization of a 5-fold cross-validation approach, employing the RoBERTa-Large model. Evaluation results demonstrate an F1-score of 0.886 on the validation dataset and 0.823 on the test dataset.</abstract>
+      <url hash="2701f0e7">2024.smm4h-1.12</url>
+      <bibkey>dey-etal-2024-smm4h</bibkey>
+    </paper>
+    <paper id="13">
+      <title><fixed-case>HBUT</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024 Task2: Cross-lingual Few-shot Medical Entity Extraction using a Large Language Model</title>
+      <author><first>Yuanzhi</first><last>Ke</last><affiliation>Hubei University of Technology</affiliation></author>
+      <author><first>Zhangju</first><last>Yin</last></author>
+      <author><first>Xinyun</first><last>Wu</last><affiliation>Hubei University of Technology</affiliation></author>
+      <author><first>Caiquan</first><last>Xiong</last><affiliation>Hubei University of Technology</affiliation></author>
+      <pages>58-62</pages>
+      <abstract>Named entity recognition (NER) of drug and disorder/body function mentions in web text is challenging in the face of multilingualism, limited data, and poor data quality. Traditional small-scale models struggle to cope with the task. Large language models with conventional prompts also yield poor results. In this paper, we introduce our system, which employs a large language model (LLM) with a novel two-step prompting strategy. Instead of directly extracting the target medical entities, our system firstly extract all entities and then prompt the LLM to extract drug and disorder entities given the all-entity list and original input text as the context. The experimental and test results indicate that this strategy successfully enhanced our system performance, especially for German language.</abstract>
+      <url hash="0a091eb0">2024.smm4h-1.13</url>
+      <bibkey>ke-etal-2024-hbut-smm4h</bibkey>
+    </paper>
+    <paper id="14">
+      <title><fixed-case>PCIC</fixed-case> at <fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Enhancing <fixed-case>R</fixed-case>eddit Post Classification on Social Anxiety Using Transformer Models and Advanced Loss Functions</title>
+      <author><first>Leon</first><last>Hecht</last></author>
+      <author><first>Victor</first><last>Pozos</last></author>
+      <author><first>Helena</first><last>Gomez Adorno</last><affiliation>Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas - UNAM</affiliation></author>
+      <author><first>Gibran</first><last>Fuentes-Pineda</last></author>
+      <author><first>Gerardo</first><last>Sierra</last><affiliation>Universidad Nacional Autónoma de México</affiliation></author>
+      <author><first>Gemma</first><last>Bel-Enguix</last><affiliation>Universidad Nacional Autónoma de México</affiliation></author>
+      <pages>63-66</pages>
+      <abstract>We present our approach to solving the task of identifying the effect of outdoor activities on social anxiety based on reddit posts. We employed state-of-the-art transformer models enhanced with a combination of advanced loss functions. Data augmentation techniques were also used to address class imbalance within the training set. Our method achieved a macro-averaged F1-score of 0.655 on the test data, surpassing the workshop’s mean F1-Score of 0.519. These findings suggest that integrating weighted loss functions improves the performance of transformer models in classifying unbalanced text data, while data augmentation can improve the model’s ability to generalize.</abstract>
+      <url hash="8f96da2e">2024.smm4h-1.14</url>
+      <bibkey>hecht-etal-2024-pcic</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Transformers at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Identification of Tweets Reporting Children’s Medical Disorders And Effects of Outdoor Spaces on Social Anxiety Symptoms on <fixed-case>R</fixed-case>eddit Using <fixed-case>R</fixed-case>o<fixed-case>BERT</fixed-case>a</title>
+      <author><first>Kriti</first><last>Singhal</last></author>
+      <author><first>Jatin</first><last>Bedi</last></author>
+      <pages>67-70</pages>
+      <abstract>With the widespread increase in the use of social media platforms such as Twitter, Instagram, and Reddit, people are sharing their views on various topics. They have become more vocal on these platforms about their views and opinions on the medical challenges they are facing. This data is a valuable asset of medical insights in the study and research of healthcare. This paper describes our adoption of transformer-based approaches for tasks 3 and 5. For both tasks, we fine-tuned large RoBERTa, a BERT-based architecture, and achieved a highest F1 score of 0.413 and 0.900 in tasks 3 and 5, respectively.</abstract>
+      <url hash="d3babf99">2024.smm4h-1.15</url>
+      <bibkey>singhal-bedi-2024-transformers-smm4h</bibkey>
+    </paper>
+    <paper id="16">
+      <title>Enhancing Social Media Health Prediction Certainty by Integrating Large Language Models with Transformer Classifiers</title>
+      <author><first>Sedigh</first><last>Khademi</last></author>
+      <author><first>Christopher</first><last>Palmer</last><affiliation>NA</affiliation></author>
+      <author><first>Muhammad</first><last>Javed</last><affiliation>NA</affiliation></author>
+      <author><first>Jim</first><last>Buttery</last><affiliation>NA</affiliation></author>
+      <author><first>Gerardo</first><last>Dimaguila</last><affiliation>NA</affiliation></author>
+      <pages>71-73</pages>
+      <abstract>This paper presents our approach for SMM4H 2024 Task 5, focusing on identifying tweets where users discuss their child’s health conditions of ADHD, ASD, delayed speech, or asthma. Our approach uses a pipeline that combines transformer-based classifiers and GPT-4 large language models (LLMs). We first address data imbalance in the training set using topic modelling and under-sampling. Next, we train RoBERTa-based classifiers on the adjusted data. Finally, GPT-4 refines the classifier’s predictions for uncertain cases (confidence below 0.9). This strategy achieved significant improvement over the baseline RoBERTa models. Our work demonstrates the effectiveness of combining transformer classifiers and LLMs for extracting health insights from social media conversations.</abstract>
+      <url hash="c87c6a4e">2024.smm4h-1.16</url>
+      <bibkey>khademi-etal-2024-enhancing</bibkey>
+    </paper>
+    <paper id="17">
+      <title><fixed-case>P</fixed-case>olyu<fixed-case>CBS</fixed-case> at <fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: <fixed-case>LLM</fixed-case>-based Medical Disorder and Adverse Drug Event Detection with Low-rank Adaptation</title>
+      <author><first>Zhai</first><last>Yu</last></author>
+      <author><first>Xiaoyi</first><last>Bao</last></author>
+      <author><first>Emmanuele</first><last>Chersoni</last><affiliation>The Hong Kong Polytechnic University</affiliation></author>
+      <author><first>Beatrice</first><last>Portelli</last></author>
+      <author><first>Sophia</first><last>Lee</last><affiliation>Hong Kong Polytechnic University</affiliation></author>
+      <author><first>Jinghang</first><last>Gu</last><affiliation>Hong Kong Polytechnic University</affiliation></author>
+      <author><first>Chu-Ren</first><last>Huang</last></author>
+      <pages>74-78</pages>
+      <abstract>This is the demonstration of systems and results of our team’s participation in the Social Medical Mining for Health (SMM4H) 2024 Shared Task. Our team participated in two tasks: Task 1 and Task 5. Task 5 requires the detection of tweet sentences that claim children’s medical disorders from certain users. Task 1 needs teams to extract and normalize Adverse Drug Event terms in the tweet sentence. The team selected several Pre-trained Language Models and generative Large Language Models to meet the requirements. Strategies to improve the performance include cloze test, prompt engineering, Low Rank Adaptation etc. The test result of our system has an F1 score of 0.935, Precision of 0.954 and Recall of 0.917 in Task 5 and an overall F1 score of 0.08 in Task 1.</abstract>
+      <url hash="954902e1">2024.smm4h-1.17</url>
+      <bibkey>yu-etal-2024-polyucbs</bibkey>
+    </paper>
+    <paper id="18">
+      <title>Deloitte at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Can <fixed-case>GPT</fixed-case>-4 Detect <fixed-case>COVID</fixed-case>-19 Tweets Annotated by Itself?</title>
+      <author><first>Harika</first><last>Abburi</last><affiliation>International Institute of Information Technology Hyderabad</affiliation></author>
+      <author><first>Nirmala</first><last>Pudota</last><affiliation>Deloitte</affiliation></author>
+      <author><first>Balaji</first><last>Veeramani</last><affiliation>Deloitte</affiliation></author>
+      <author><first>Edward</first><last>Bowen</last></author>
+      <author><first>Sanmitra</first><last>Bhattacharya</last></author>
+      <pages>79-82</pages>
+      <abstract>The advent of Large Language Models (LLMs) such as Generative Pre-trained Transformers (GPT-4) mark a transformative era in Natural Language Generation (NLG). These models demonstrate the ability to generate coherent text that closely resembles human-authored content. They are easily accessible and have become invaluable tools in handling various text-based tasks, such as data annotation, report generation, and question answering. In this paper, we investigate GPT-4’s ability to discern between data it has annotated and data annotated by humans, specifically within the context of tweets in the medical domain. Through experimental analysis, we observe GPT-4 outperform other state-of-the-art models. The dataset used in this study was provided by the SMM4H (Social Media Mining for Health Research and Applications) shared task. Our model achieved an accuracy of 0.51, securing a second rank in the shared task.</abstract>
+      <url hash="63507e7c">2024.smm4h-1.18</url>
+      <bibkey>abburi-etal-2024-deloitte</bibkey>
+    </paper>
+    <paper id="19">
+      <title><fixed-case>IMS</fixed-case>_medic<fixed-case>ALY</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Detecting Impacts of Outdoor Spaces on Social Anxiety with Data Augmented Ensembling</title>
+      <author><first>Amelie</first><last>Wuehrl</last><affiliation>University of Stuttgart, Universität Stuttgart</affiliation></author>
+      <author><first>Lynn</first><last>Greschner</last><affiliation>Otto-Friedrich Universität Bamberg</affiliation></author>
+      <author><first>Yarik</first><last>Menchaca Resendiz</last></author>
+      <author><first>Roman</first><last>Klinger</last><affiliation>Otto-Friedrich Universität Bamberg</affiliation></author>
+      <pages>83-87</pages>
+      <abstract>Many individuals affected by Social Anxiety Disorder turn to social media platforms to share their experiences and seek advice. This includes discussing the potential benefits of engaging with outdoor environments. As part of #SMM4H 2024, Shared Task 3 focuses on classifying the effects of outdoor spaces on social anxiety symptoms in Reddit posts. In our contribution to the task, we explore the effectiveness of domain-specific models (trained on social media data – SocBERT) against general domain models (trained on diverse datasets – BERT, RoBERTa, GPT-3.5) in predicting the sentiment related to outdoor spaces. Further, we assess the benefits of augmenting sparse human-labeled data with synthetic training instances and evaluate the complementary strengths of domain-specific and general classifiers using an ensemble model. Our results show that (1) fine-tuning small, domain-specific models generally outperforms large general language models in most cases. Only one large language model (GPT-4) exhibits performance comparable to the fine-tuned models (52% F1). Further, we find that (2) synthetic data does improve the performance of fine-tuned models in some cases, and (3) models do not appear to complement each other in our ensemble setup.</abstract>
+      <url hash="58579039">2024.smm4h-1.19</url>
+      <bibkey>wuehrl-etal-2024-ims</bibkey>
+    </paper>
+    <paper id="20">
+      <title>1024m at <fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Tasks 3, 5 &amp; 6 - Self Reported Health Text Classification through Ensembles</title>
+      <author><first>Ram</first><last>Kadiyala</last></author>
+      <author><first>M.v.p.</first><last>Rao</last></author>
+      <pages>88-94</pages>
+      <abstract>Social media is a great source of data for users reporting information and regarding their health and how various things have had an effect on them. This paper presents various approaches using Transformers and Large Language Models and their ensembles, their performance along with advantages and drawbacks for various tasks of SMM4H’24 - Classifying texts on impact of nature and outdoor spaces on the author’s mental health (Task 3), Binary classification of tweets reporting their children’s health disorders like Asthma, Autism, ADHD and Speech disorder (task 5), Binary classification of users self-reporting their age (task 6).</abstract>
+      <url hash="33ac62cc">2024.smm4h-1.20</url>
+      <bibkey>kadiyala-rao-2024-1024m</bibkey>
+    </paper>
+    <paper id="21">
+      <title>Experimenting with Transformer-based and Large Language Models for Classifying Effects of Outdoor Spaces on Social Anxiety in Social Media Data</title>
+      <author><first>Falwah</first><last>Alhamed</last></author>
+      <author><first>Julia</first><last>Ive</last><affiliation>Queen Mary, University of London</affiliation></author>
+      <author><first>Lucia</first><last>Specia</last><affiliation>Imperial College London</affiliation></author>
+      <pages>95-97</pages>
+      <abstract>Social Anxiety Disorder (SAD) is a common condition, affecting a significant portion of the population. While research suggests spending time in nature can alleviate anxiety, the specific impact on SAD remains unclear. This study explores the relationship between discussions of outdoor spaces and social anxiety on social media. We leverage transformer-based and large language models (LLMs) to analyze a social media dataset focused on SAD. We developed three methods for the task of predicting the effects of outdoor spaces on SAD in social media. A two-stage pipeline classifier achieved the best performance of our submissions with results exceeding baseline performance.</abstract>
+      <url hash="e8364293">2024.smm4h-1.21</url>
+      <bibkey>alhamed-etal-2024-experimenting</bibkey>
+    </paper>
+    <paper id="22">
+      <title>interrupt-driven@<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case>’24: Relevance-weighted Sentiment Analysis of <fixed-case>R</fixed-case>eddit Posts</title>
+      <author><first>Jessica</first><last>Elliott</last><affiliation>Independant</affiliation></author>
+      <author><first>Roland</first><last>Elliott</last></author>
+      <pages>98-100</pages>
+      <abstract>This paper describes our approach to Task 3 of the Social Media Mining for Health 2024 (SMM4H’24) shared tasks. The objective of the task was to classify the sentiment of social media posts, taken from the social anxiety subreddit, with reference to the outdoors, as positive, negative, neutral, or unrelated. We classified posts using a relevance-weighted sentiment analysis, which scored poorly, at 0.45 accuracy on the test set and 0.396 accuracy on the evaluation set. We consider what factors contributed to these low scores, and what alternatives could yield improvements, namely: improved data cleaning, a sentiment analyzer trained on a more suitable data set, improved sentiment heuristics, and a more involved relevance-weighting.</abstract>
+      <url hash="9872fe87">2024.smm4h-1.22</url>
+      <bibkey>elliott-elliott-2024-interrupt</bibkey>
+    </paper>
+    <paper id="23">
+      <title><fixed-case>IITR</fixed-case>oorkee@<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024 Cross-Platform Age Detection in <fixed-case>T</fixed-case>witter and <fixed-case>R</fixed-case>eddit Using Transformer-Based Model</title>
+      <author><first>Thadavarthi</first><last>Sankar</last></author>
+      <author><first>Dudekula</first><last>Suraj</last></author>
+      <author><first>Mallamgari</first><last>Reddy</last></author>
+      <author><first>Durga</first><last>Toshniwal</last></author>
+      <author><first>Amit</first><last>Agarwal</last><affiliation>Wells Fargo</affiliation></author>
+      <pages>101-105</pages>
+      <abstract>This paper outlines the methodology for the automatic extraction of self-reported ages from social media posts as part of the Social Media Mining for Health (SMM4H) 2024 Workshop Shared Tasks. The focus was on Task 6: “Self-reported exact age classification with cross-platform evaluation in English.” The goal was to accurately identify age-related information from user-generated content, which is crucial for applications in public health monitoring, targeted advertising, and demographic research. A number of transformer-based models were employed, including RoBERTa-Base, BERT-Base, BiLSTM, and Flan T5 Base, leveraging their advanced capabilities in natural language understanding. The training strategies included fine-tuning foundational pre-trained language models and evaluating model performance using standard metrics: F1-score, Precision, and Recall. The experimental results demonstrated that the RoBERTa-Base model significantly outperformed the other models in this classification task. The best results achieved with the RoBERTa-Base model were an F1-score of 0.878, a Precision of 0.899, and a Recall of 0.858.</abstract>
+      <url hash="09df3254">2024.smm4h-1.23</url>
+      <bibkey>sankar-etal-2024-iitroorkee</bibkey>
+    </paper>
+    <paper id="24">
+      <title><fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case>’24 Task6 : Extracting Self-Reported Age with <fixed-case>LLM</fixed-case> and <fixed-case>BERT</fixed-case>weet: Fine-Grained Approaches for Social Media Text</title>
+      <author><first>Jaskaran</first><last>Singh</last></author>
+      <author><first>Jatin</first><last>Bedi</last></author>
+      <author><first>Maninder</first><last>Kaur</last><affiliation>Thapar Institute of Engineering &amp; Technology</affiliation></author>
+      <pages>106-109</pages>
+      <abstract>The paper presents two distinct approaches to Task 6 of the SMM4H’24 workshop: extracting self-reported exact age information from social media posts across platforms. This research task focuses on developing methods for automatically extracting self-reported ages from posts on two prominent social media platforms: Twitter (now X) and Reddit. The work leverages two ways, one Mistral-7B-Instruct-v0.2 Large Language Model (LLM) and another pre-trained language model BERTweet, to achieve robust and generalizable age classification, surpassing limitations of existing methods that rely on predefined age groups. The proposed models aim to advance the automatic extraction of self-reported exact ages from social media posts, enabling more nuanced analyses and insights into user demographics across different platforms.</abstract>
+      <url hash="24cbf729">2024.smm4h-1.24</url>
+      <bibkey>singh-etal-2024-smm4h24</bibkey>
+    </paper>
+    <paper id="25">
+      <title><fixed-case>AAST</fixed-case>-<fixed-case>NLP</fixed-case>@#<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case>’24: Finetuning Language Models for Exact Age Classification and Effect of Outdoor Spaces on Social Anxiety</title>
+      <author><first>Ahmed</first><last>El-Sayed</last></author>
+      <author><first>Omar</first><last>Nasr</last></author>
+      <author><first>Noha</first><last>Tawfik</last><affiliation>Arab Academy for Science &amp; Technology</affiliation></author>
+      <pages>110-113</pages>
+      <abstract>This paper evaluates the performance of “AAST-NLP” in the Social Media Mining for Health (SMM4H) Shared Tasks 3 and 6, where more than 20 teams participated in each. We leveraged state-of-the-art transformer-based models, including Mistral, to achieve our results. Our models consistently outperformed both the mean and median scores across the tasks. Specifically, an F1-score of 0.636 was achieved in classifying the impact of outdoor spaces on social anxiety symptoms, while an F1-score of 0.946 was recorded for the classification of self-reported exact ages.</abstract>
+      <url hash="103c79e0">2024.smm4h-1.25</url>
+      <bibkey>el-sayed-etal-2024-aast</bibkey>
+    </paper>
+    <paper id="26">
+      <title><fixed-case>C</fixed-case>og<fixed-case>AI</fixed-case>@<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Leveraging <fixed-case>BERT</fixed-case>-based Ensemble Models for Classifying Tweets on Developmental Disorders</title>
+      <author><first>Liza</first><last>Dahiya</last><affiliation>Honda RnD</affiliation></author>
+      <author><first>Rachit</first><last>Bagga</last></author>
+      <pages>114-116</pages>
+      <abstract>This paper presents our work for the Task 5 of the Social Media Mining for Health Applications 2024 Shared Task - Binary classification of English tweets reporting children’s medical disorders. In this paper, we present and compare multiple approaches for automatically classifying tweets from parents based on whether they mention having a child with attention-deficit/hyperactivity disorder (ADHD), autism spectrum disorders (ASD), delayed speech, or asthma. We use ensemble of various BERT-based models trained on provided dataset that yields an F1 score of <b>0.901</b> on the test data.</abstract>
+      <url hash="97c5ddb3">2024.smm4h-1.26</url>
+      <bibkey>dahiya-bagga-2024-cogai</bibkey>
+    </paper>
+    <paper id="27">
+      <title><fixed-case>ADE</fixed-case> Oracle at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: A Two-Stage <fixed-case>NLP</fixed-case> System for Extracting and Normalizing Adverse Drug Events from Tweets</title>
+      <author><first>Andrew</first><last>Davis</last><affiliation>Indiana University</affiliation></author>
+      <author><first>Billy</first><last>Dickson</last><affiliation>Indiana University</affiliation></author>
+      <author><first>Sandra</first><last>Kübler</last><affiliation>Indiana University at Bloomington</affiliation></author>
+      <pages>117-120</pages>
+      <abstract>This study describes the approach of Team ADE Oracle for Task 1 of the Social Media Mining for Health Applications (#SMM4H) 2024 shared task. Task 1 challenges participants to detect adverse drug events (ADEs) within English tweets and normalize these mentions against the Medical Dictionary for Regulatory Activities standards. Our approach utilized a two-stage NLP pipeline consisting of a named entity recognition model, retrained to recognize ADEs, followed by vector similarity assessment with a RoBERTa-based model. Despite achieving a relatively high recall of 37.4% in the extraction of ADEs, indicative of effective identification of potential ADEs, our model encountered challenges with precision. We found marked discrepancies between recall and precision between the test set and our validation set, which underscores the need for further efforts to prevent overfitting and enhance the model’s generalization capabilities for practical applications.</abstract>
+      <url hash="97a4da5a">2024.smm4h-1.27</url>
+      <bibkey>davis-etal-2024-ade</bibkey>
+    </paper>
+    <paper id="28">
+      <title><fixed-case>B</fixed-case>rain<fixed-case>S</fixed-case>torm @ i<fixed-case>REL</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Leveraging Translation and Topical Embeddings for Annotation Detection in Tweets</title>
+      <author><first>Manav</first><last>Chaudhary</last></author>
+      <author><first>Harshit</first><last>Gupta</last></author>
+      <author><first>Vasudeva</first><last>Varma</last><affiliation>International Institute of Information Technology Hyderabad, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
+      <pages>121-123</pages>
+      <abstract>The proliferation of LLMs in various NLP tasks has sparked debates regarding their reliability, particularly in annotation tasks where biases and hallucinations may arise. In this shared task, we address the challenge of distinguishing annotations made by LLMs from those made by human domain experts in the context of COVID-19 symptom detection from tweets in Latin American Spanish. This paper presents BrainStorm @ iREL’s approach to the #SMM4H 2024 Shared Task, leveraging the inherent topical information in tweets, we propose a novel approach to identify and classify annotations, aiming to enhance the trustworthiness of annotated data.</abstract>
+      <url hash="3a63c77d">2024.smm4h-1.28</url>
+      <bibkey>chaudhary-etal-2024-brainstorm</bibkey>
+    </paper>
+    <paper id="29">
+      <title><fixed-case>UKYNLP</fixed-case>@<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case>2024: Language Model Methods for Health Entity Tagging and Classification on Social Media (Tasks 4 &amp; 5)</title>
+      <author><first>Motasem</first><last>Obeidat</last></author>
+      <author><first>Vinu</first><last>Ekanayake</last><affiliation>University of Kentucky</affiliation></author>
+      <author><first>Md Sultan Al</first><last>Nahian</last><affiliation>University of Kentucky</affiliation></author>
+      <author><first>Ramakanth</first><last>Kavuluru</last><affiliation>University of Kentucky</affiliation></author>
+      <pages>124-129</pages>
+      <abstract>We describe the methods and results of our submission to the 9th Social Media Mining for Health Research and Applications (SMM4H) 2024 shared tasks 4 and 5. Task 4 involved extracting the clinical and social impacts of non-medical substance use and task 5 focused on the binary classification of tweets reporting children’s medical disorders. We employed encoder language models and their ensembles, achieving the top score on task 4 and a high score for task 5.</abstract>
+      <url hash="656d8e86">2024.smm4h-1.29</url>
+      <bibkey>obeidat-etal-2024-ukynlp</bibkey>
+    </paper>
+    <paper id="30">
+      <title><fixed-case>LHS</fixed-case>712_<fixed-case>ADEN</fixed-case>ot<fixed-case>G</fixed-case>ood at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024 Task 1: Deep-<fixed-case>LLMADE</fixed-case>miner: A deep learning and <fixed-case>LLM</fixed-case> pharmacovigilance pipeline for extraction and normalization of adverse drug event mentions on <fixed-case>T</fixed-case>witter</title>
+      <author><first>Yifan</first><last>Zheng</last></author>
+      <author><first>Jun</first><last>Gong</last></author>
+      <author><first>Shushun</first><last>Ren</last><affiliation>University of Michigan</affiliation></author>
+      <author><first>Dalton</first><last>Simancek</last></author>
+      <author><first>V.G.Vinod</first><last>Vydiswaran</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <pages>130-132</pages>
+      <abstract>Adverse drug events (ADEs) pose major public health risks, with traditional reporting systems often failing to capture them. Our proposed pipeline, called Deep-LLMADEminer, used natural language processing approaches to tackle this issue for #SMM4H 2024 shared task 1. Using annotated tweets, we built a three part pipeline: RoBERTa for classification, GPT-4-turbo for span extraction, and BioBERT for normalization. Our models achieved F1-scores of 0.838, 0.306, and 0.354, respectively, offering a novel system for Task 1 and similar pharmacovigilance tasks.</abstract>
+      <url hash="4e79aded">2024.smm4h-1.30</url>
+      <bibkey>zheng-etal-2024-lhs712</bibkey>
+    </paper>
+    <paper id="31">
+      <title><fixed-case>H</fixed-case>ale<fixed-case>L</fixed-case>ab_<fixed-case>NITK</fixed-case>@<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case>’24: Binary classification of <fixed-case>E</fixed-case>nglish tweets reporting children’s medical disorders</title>
+      <author><first>Ritik</first><last>Mahajan</last><affiliation>National Institute of Technology Karnataka</affiliation></author>
+      <author><first>Sowmya</first><last>S.</last><affiliation>National Institute of Technology Karnataka</affiliation></author>
+      <pages>133-135</pages>
+      <abstract>This paper describes the work undertaken as part of the SMM4H-2024 shared task, specifically Task 5, which involves the binary classification of English tweets reporting children’s medical disorders. The primary objective is to develop a system capable of automatically identifying tweets from users who report their pregnancy and mention children with specific medical conditions, such as attention-deficit/hyperactivity disorder (ADHD), autism spectrum disorders (ASD), delayed speech, or asthma, while distinguishing them from tweets that merely reference a disorder without much context. Our approach leverages advanced natural language processing techniques and machine learning algorithms to accurately classify the tweets. The system achieved an overall F1-score of 0.87, highlighting its robustness and effectiveness in addressing the classification challenge posed by this task.</abstract>
+      <url hash="88433d2a">2024.smm4h-1.31</url>
+      <bibkey>mahajan-s-2024-halelab</bibkey>
+    </paper>
+    <paper id="32">
+      <title>Team Yseop at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Multilingual Pharmacovigilance Named Entity Recognition and Relation Extraction</title>
+      <author><first>Anubhav</first><last>Gupta</last></author>
+      <pages>136-141</pages>
+      <abstract>This paper describes three RoBERTa based systems. The first one recognizes adverse drug events (ADEs) in English tweets and links themwith MedDRA concepts. It scored F1-norm of 40 for the Task 1. The next one extracts pharmacovigilance related named entities inFrench and scored a F1 of 0.4132 for the Task 2a. The third system extracts pharmacovigilance related named entities and their relationsin Japanese. It obtained a F1 of 0.5827 for the Task 2a and 0.0301 for the Task 2b. The French and Japanese systems are the best performing system for the Task 2</abstract>
+      <url hash="38cb51f3">2024.smm4h-1.32</url>
+      <bibkey>gupta-2024-team</bibkey>
+    </paper>
+    <paper id="33">
+      <title><fixed-case>KUL</fixed-case>@<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case>2024: Optimizing Text Classification with Quality-Assured Augmentation Strategies</title>
+      <author><first>Sumam</first><last>Francis</last><affiliation>KU Leuven, KU Leuven</affiliation></author>
+      <author><first>Marie-Francine</first><last>Moens</last><affiliation>KU Leuven, KU Leuven</affiliation></author>
+      <pages>142-145</pages>
+      <abstract>This paper presents our models for the Social Media Mining for Health 2024 shared task, specifically Task 5, which involves classifying tweets reporting a child with childhood disorders (annotated as “1”) versus those merely mentioning a disorder (annotated as “0”). We utilized a classification model enhanced with diverse textual and language model-based augmentations. To ensure quality, we used semantic similarity, perplexity, and lexical diversity as evaluation metrics. Combining supervised contrastive learning and cross-entropy-based learning, our best model, incorporating R-drop and various LM generation-based augmentations, achieved an impressive F1 score of 0.9230 on the test set, surpassing the task mean and median scores.</abstract>
+      <url hash="eb0ba970">2024.smm4h-1.33</url>
+      <bibkey>francis-moens-2024-kul</bibkey>
+    </paper>
+    <paper id="34">
+      <title><fixed-case>LHS</fixed-case>712<fixed-case>NV</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024 Task 4: Using <fixed-case>BERT</fixed-case> to classify <fixed-case>R</fixed-case>eddit posts on non-medical substance use</title>
+      <author><first>Valeria</first><last>Fraga</last></author>
+      <author><first>Neha</first><last>Nair</last></author>
+      <author><first>Dalton</first><last>Simancek</last></author>
+      <author><first>V.G.Vinod</first><last>Vydiswaran</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <pages>146-148</pages>
+      <abstract>This paper summarizes our participation in the Shared Task 4 of #SMM4H 2024. Task 4 was a named entity recognition (NER) task identifying clinical and social impacts of non-medical substance use in English Reddit posts. We employed the Bidirectional Encoder Representations from Transformers (BERT) model to complete this task. Our team achieved an F1-score of 0.892 on a validation set and a relaxed F1-score of 0.191 on the test set.</abstract>
+      <url hash="b269bb98">2024.smm4h-1.34</url>
+      <bibkey>fraga-etal-2024-lhs712nv</bibkey>
+    </paper>
+    <paper id="35">
+      <title>712for<fixed-case>T</fixed-case>ask7 at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024 Task 7: Classifying <fixed-case>S</fixed-case>panish Tweets Annotated by Humans versus Machines with <fixed-case>BETO</fixed-case> Models</title>
+      <author><first>Hafizh</first><last>Yusuf</last></author>
+      <author><first>David</first><last>Belmonte</last><affiliation>University of Michigan</affiliation></author>
+      <author><first>Dalton</first><last>Simancek</last></author>
+      <author><first>V.G.Vinod</first><last>Vydiswaran</last><affiliation>University of Michigan - Ann Arbor</affiliation></author>
+      <pages>149-152</pages>
+      <abstract>The goal of Social Media Mining for Health (#SMM4H) 2024 Task 7 was to train a machine learning model that is able to distinguish between annotations made by humans and those made by a Large Language Model (LLM). The dataset consisted of tweets originating from #SMM4H 2023 Task 3, wherein the objective was to extract COVID-19 symptoms in Latin-American Spanish tweets. Due to the lack of additional annotated tweets for classification, we reframed the task using the available tweets and their corresponding human or machine annotator labels to explore differences between the two subsets of tweets. We conducted an exploratory data analysis and trained a BERT-based classifier to identify sampling biases between the two subsets. The exploratory data analysis found no significant differences between the samples and our best classifier achieved a precision of 0.52 and a recall of 0.51, indicating near-random performance. This confirms the lack of sampling biases between the two sets of tweets and is thus a valid dataset for a task designed to assess the authorship of annotations by humans versus machines.</abstract>
+      <url hash="d0875e62">2024.smm4h-1.35</url>
+      <bibkey>yusuf-etal-2024-712fortask7</bibkey>
+    </paper>
+    <paper id="36">
+      <title><fixed-case>TL</fixed-case>ab at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024: Retrieval-Augmented Generation for <fixed-case>ADE</fixed-case> Extraction and Normalization</title>
+      <author><first>Jacob</first><last>Berkowitz</last><affiliation>Cedars-Sinai Medical Center</affiliation></author>
+      <author><first>Apoorva</first><last>Srinivasan</last><affiliation>Cedars-Sinai Medical Center</affiliation></author>
+      <author><first>Jose</first><last>Cortina</last><affiliation>Cedars Sinai</affiliation></author>
+      <author><first>Nicholas</first><last>Tatonetti1</last><affiliation>Cedars-Sinai Medical Center</affiliation></author>
+      <pages>153-157</pages>
+      <abstract>SMM4H 2024 Task 1 is focused on the identification of standardized Adverse Drug Events (ADEs) in tweets. We introduce a novel Retrieval-Augmented Generation (RAG) method, leveraging the capabilities of Llama 3, GPT-4, and the SFR-embedding-mistral model, along with few-shot prompting techniques, to map colloquial tweet language to MedDRA Preferred Terms (PTs) without relying on extensive training datasets. Our method achieved competitive performance, with an F1 score of 0.359 in the normalization task and 0.392 in the named entity recognition (NER) task. Notably, our model demonstrated robustness in identifying previously unseen MedDRA PTs (F1=0.363) greatly surpassing the median task score of 0.141 for such terms.</abstract>
+      <url hash="f0f7a983">2024.smm4h-1.36</url>
+      <bibkey>berkowitz-etal-2024-tlab</bibkey>
+    </paper>
+    <paper id="37">
+      <title><fixed-case>BIT</fixed-case>@<fixed-case>UA</fixed-case> at #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024 Tasks 1 and 5: finding adverse drug events and children’s medical disorders in <fixed-case>E</fixed-case>nglish tweets</title>
+      <author><first>Luis</first><last>Afonso</last><affiliation>Universidade de Aveiro</affiliation></author>
+      <author><first>João</first><last>Almeida</last><affiliation>Universidade de Aveiro</affiliation></author>
+      <author><first>Rui</first><last>Antunes</last><affiliation>Universidade de Aveiro</affiliation></author>
+      <author><first>José</first><last>Oliveira</last><affiliation>Universidade de Aveiro</affiliation></author>
+      <pages>158-162</pages>
+      <abstract>In this paper we present our proposed systems, for Tasks 1 and 5 of the #SMM4H-2024 shared task (Social Media Mining for Health), responsible for identifying health-related aspects in English social media text. Task 1 consisted of identifying text spans mentioning adverse drug events and linking them to unique identifiers from the medical terminology MedDRA, whereas in Task 5 the aim was to distinguish tweets that report a user having a child with a medical disorder from tweets that merely mention a disorder.For Task 1, our system, composed of a pre-trained RoBERTa model and a random forest classifier, achieved 0.397 and 0.295 entity recognition and normalization F1-scores respectively. In Task 5, we obtained a 0.840 F1-score using a pre-trained BERT model.</abstract>
+      <url hash="3f913227">2024.smm4h-1.37</url>
+      <bibkey>afonso-etal-2024-bit</bibkey>
+    </paper>
+    <paper id="38">
+      <title><fixed-case>FORCE</fixed-case>: A Benchmark Dataset for Foodborne Disease Outbreak and Recall Event Extraction from News</title>
+      <author><first>Sudeshna</first><last>Jana</last><affiliation>Tata Consultancy Services Limited, India</affiliation></author>
+      <author><first>Manjira</first><last>Sinha</last><affiliation>Indian Institute of Technology Kharagpur</affiliation></author>
+      <author><first>Tirthankar</first><last>Dasgupta</last></author>
+      <pages>163-169</pages>
+      <abstract>The escalating prevalence of food safety incidents within the food supply chain necessitates immediate action to protect consumers. These incidents encompass a spectrum of issues, including food product contamination and deliberate food and feed adulteration for economic gain leading to outbreaks and recalls. Understanding the origins and pathways of contamination is imperative for prevention and mitigation. In this paper, we introduce FORCE Foodborne disease Outbreak and ReCall Event extraction from openweb). Our proposed model leverages a multi-tasking sequence labeling architecture in conjunction with transformer-based document embeddings. We have compiled a substantial annotated corpus comprising relevant articles published between 2011 and 2023 to train and evaluate the model. The dataset will be publicly released with the paper. The event detection model demonstrates fair accuracy in identifying food-related incidents and outbreaks associated with organizations, as assessed through cross-validation techniques.</abstract>
+      <url hash="1f41f819">2024.smm4h-1.38</url>
+      <bibkey>jana-etal-2024-force</bibkey>
+    </paper>
+    <paper id="39">
+      <title>Overview of #<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case> 2024 – Task 2: Cross-Lingual Few-Shot Relation Extraction for Pharmacovigilance in <fixed-case>F</fixed-case>rench, <fixed-case>G</fixed-case>erman, and <fixed-case>J</fixed-case>apanese</title>
+      <author><first>Lisa</first><last>Raithel</last><affiliation>Technische Universität Berlin</affiliation></author>
+      <author><first>Philippe</first><last>Thomas</last><affiliation>German Research Center for AI</affiliation></author>
+      <author><first>Bhuvanesh</first><last>Verma</last></author>
+      <author><first>Roland</first><last>Roller</last><affiliation>German Research Center for AI</affiliation></author>
+      <author><first>Hui-Syuan</first><last>Yeh</last><affiliation>LIMSI-CNRS / Université Paris-Sud</affiliation></author>
+      <author><first>Shuntaro</first><last>Yada</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <author><first>Cyril</first><last>Grouin</last><affiliation>CNRS</affiliation></author>
+      <author><first>Shoko</first><last>Wakamiya</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Eiji</first><last>Aramaki</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <author><first>Sebastian</first><last>Möller</last></author>
+      <author><first>Pierre</first><last>Zweigenbaum</last><affiliation>LISN, CNRS, Université Paris-Saclay</affiliation></author>
+      <pages>170-182</pages>
+      <abstract>This paper provides an overview of Task 2 from the Social Media Mining for Health 2024 shared task (#SMM4H 2024), which focused on Named Entity Recognition (NER, Subtask 2a) and the joint task of NER and Relation Extraction (RE, Subtask 2b) for detecting adverse drug reactions (ADRs) in German, Japanese, and French texts written by patients. Participants were challenged with a few-shot learning scenario, necessitating models that can effectively generalize from limited annotated examples. Despite the diverse strategies employed by the participants, the overall performance across submissions from three teams highlighted significant challenges. The results underscored the complexity of extracting entities and relations in multi-lingual contexts, especially from the noisy and informal nature of user-generated content. Further research is required to develop robust systems capable of accurately identifying and associating ADR-related information in low-resource and multilingual settings.</abstract>
+      <url hash="31380fa2">2024.smm4h-1.39</url>
+      <bibkey>raithel-etal-2024-overview</bibkey>
+    </paper>
+    <paper id="40">
+      <title>Overview of the 9th Social Media Mining for Health Applications (#<fixed-case>SMM</fixed-case>4<fixed-case>H</fixed-case>) Shared Tasks at <fixed-case>ACL</fixed-case> 2024 – Large Language Models and Generalizability for Social Media <fixed-case>NLP</fixed-case></title>
+      <author><first>Dongfang</first><last>Xu</last><affiliation>Cedars-Sinai Medical Center</affiliation></author>
+      <author><first>Guillermo</first><last>Garcia</last><affiliation>Cedars-Sinai Medical Center</affiliation></author>
+      <author><first>Lisa</first><last>Raithel</last><affiliation>Technische Universität Berlin</affiliation></author>
+      <author><first>Philippe</first><last>Thomas</last><affiliation>German Research Center for AI</affiliation></author>
+      <author><first>Roland</first><last>Roller</last><affiliation>German Research Center for AI</affiliation></author>
+      <author><first>Eiji</first><last>Aramaki</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <author><first>Shoko</first><last>Wakamiya</last><affiliation>Nara Institute of Science and Technology</affiliation></author>
+      <author><first>Shuntaro</first><last>Yada</last><affiliation>Nara Institute of Science and Technology, Japan</affiliation></author>
+      <author><first>Pierre</first><last>Zweigenbaum</last><affiliation>LISN, CNRS, Université Paris-Saclay</affiliation></author>
+      <author><first>Karen</first><last>O’Connor</last><affiliation>University of Pennsylvania, University of Pennsylvania</affiliation></author>
+      <author><first>Sai</first><last>Samineni</last><affiliation>Cedars-Sinai Medical Center</affiliation></author>
+      <author><first>Sophia</first><last>Hernandez</last><affiliation>University of Pittsburgh, Pittsburgh</affiliation></author>
+      <author><first>Yao</first><last>Ge</last></author>
+      <author><first>Swati</first><last>Rajwal</last></author>
+      <author><first>Sudeshna</first><last>Das</last><affiliation>Emory University</affiliation></author>
+      <author><first>Abeed</first><last>Sarker</last><affiliation>Emory University</affiliation></author>
+      <author><first>Ari</first><last>Klein</last><affiliation>University of Pennsylvania</affiliation></author>
+      <author><first>Ana</first><last>Schmidt</last><affiliation>F. Hoffmann-La Roche AG</affiliation></author>
+      <author><first>Vishakha</first><last>Sharma</last><affiliation>Roche Diagnostics</affiliation></author>
+      <author><first>Raul</first><last>Rodriguez-Esteban</last><affiliation>F. Hoffmann-La Roche Ltd</affiliation></author>
+      <author><first>Juan</first><last>Banda</last><affiliation>Stanford University</affiliation></author>
+      <author><first>Ivan</first><last>Amaro</last><affiliation>Cedars-Sinai Medical Center</affiliation></author>
+      <author><first>Davy</first><last>Weissenbacher</last></author>
+      <author><first>Graciela</first><last>Gonzalez-Hernandez</last><affiliation>Cedars-Sinai Medical Center</affiliation></author>
+      <pages>183-195</pages>
+      <abstract>For the past nine years, the Social Media Mining for Health Applications (#SMM4H) shared tasks have promoted community-driven development and evaluation of advanced natural language processing systems to detect, extract, and normalize health-related information in publicly available user-generated content. This year, #SMM4H included seven shared tasks in English, Japanese, German, French, and Spanish from Twitter, Reddit, and health forums. A total of 84 teams from 22 countries registered for #SMM4H, and 45 teams participated in at least one task. This represents a growth of 180% and 160% in registration and participation, respectively, compared to the last iteration. This paper provides an overview of the tasks and participating systems. The data sets remain available upon request, and new systems can be evaluated through the post-evaluation phase on CodaLab.</abstract>
+      <url hash="52ce05c0">2024.smm4h-1.40</url>
+      <bibkey>xu-etal-2024-overview-9th</bibkey>
+    </paper>
+  </volume>
+</collection>

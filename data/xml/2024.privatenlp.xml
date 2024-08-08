@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<collection id="2024.privatenlp">
+  <volume id="1" ingest-date="2024-07-30" type="proceedings">
+    <meta>
+      <booktitle>Proceedings of the Fifth Workshop on Privacy in Natural Language Processing</booktitle>
+      <editor><first>Ivan</first><last>Habernal</last></editor>
+      <editor><first>Sepideh</first><last>Ghanavati</last></editor>
+      <editor><first>Abhilasha</first><last>Ravichander</last></editor>
+      <editor><first>Vijayanta</first><last>Jain</last></editor>
+      <editor><first>Patricia</first><last>Thaine</last></editor>
+      <editor><first>Timour</first><last>Igamberdiev</last></editor>
+      <editor><first>Niloofar</first><last>Mireshghallah</last></editor>
+      <editor><first>Oluwaseyi</first><last>Feyisetan</last></editor>
+      <publisher>Association for Computational Linguistics</publisher>
+      <address>Bangkok, Thailand</address>
+      <month>August</month>
+      <year>2024</year>
+      <url hash="4964d53d">2024.privatenlp-1</url>
+      <venue>privatenlp</venue>
+      <venue>ws</venue>
+    </meta>
+    <frontmatter>
+      <url hash="298e891a">2024.privatenlp-1.0</url>
+      <bibkey>privatenlp-1-2024</bibkey>
+    </frontmatter>
+    <paper id="1">
+      <title>Noisy Neighbors: Efficient membership inference attacks against <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Filippo</first><last>Galli</last><affiliation>Scuola Normale Superiore</affiliation></author>
+      <author><first>Luca</first><last>Melis</last><affiliation>Meta</affiliation></author>
+      <author><first>Tommaso</first><last>Cucinotta</last><affiliation>Scuola Superiore Sant’Anna Pisa</affiliation></author>
+      <pages>1-6</pages>
+      <abstract>The potential of transformer-based LLMs risks being hindered by privacy concerns due to their reliance on extensive datasets, possibly including sensitive information. Regulatory measures like GDPR and CCPA call for using robust auditing tools to address potential privacy issues, with Membership Inference Attacks (MIA) being the primary method for assessing LLMs’ privacy risks. Differently from traditional MIA approaches, often requiring computationally intensive training of additional models, this paper introduces an efficient methodology that generates noisy neighbors for a target sample by adding stochastic noise in the embedding space, requiring operating the target model in inference mode only. Our findings demonstrate that this approach closely matches the effectiveness of employing shadow models, showing its usability in practical privacy auditing scenarios.</abstract>
+      <url hash="59489a2c">2024.privatenlp-1.1</url>
+      <bibkey>galli-etal-2024-noisy</bibkey>
+    </paper>
+    <paper id="2">
+      <title>Don’t forget private retrieval: distributed private similarity search for large language models</title>
+      <author><first>Guy</first><last>Zyskind</last></author>
+      <author><first>Tobin</first><last>South</last></author>
+      <author><first>Alex</first><last>Pentland</last><affiliation>Massachusetts Institute of Technology</affiliation></author>
+      <pages>7-19</pages>
+      <abstract>While the flexible capabilities of large language models (LLMs) allow them to answer a range of queries based on existing learned knowledge, information retrieval to augment generation is an important tool to allow LLMs to answer questions on information not included in pre-training data. Such private information is increasingly being generated in a wide array of distributed contexts by organizations and individuals. Performing such information retrieval using neural embeddings of queries and documents always leaked information about queries and database content unless both were stored locally. We present Private Retrieval Augmented Generation (PRAG), an approach that uses multi-party computation (MPC) to securely transmit queries to a distributed set of servers containing a privately constructed database to return top-k and approximate top-k documents. This is a first-of-its-kind approach to dense information retrieval that ensures no server observes a client’s query or can see the database content. The approach introduces a novel MPC friendly protocol for inverted file approximate search (IVF) that allows for fast document search over distributed and private data in sublinear communication complexity. This work presents new avenues through which data for use in LLMs can be accessed and used without needing to centralize or forgo privacy.</abstract>
+      <url hash="47a91df3">2024.privatenlp-1.2</url>
+      <bibkey>zyskind-etal-2024-dont</bibkey>
+    </paper>
+    <paper id="3">
+      <title>Characterizing Stereotypical Bias from Privacy-preserving Pre-Training</title>
+      <author><first>Stefan</first><last>Arnold</last></author>
+      <author><first>Rene</first><last>Gröbner</last></author>
+      <author><first>Annika</first><last>Schreiner</last><affiliation>NA</affiliation></author>
+      <pages>20-28</pages>
+      <abstract>Differential Privacy (DP) can be applied to raw text by exploiting the spatial arrangement of words in an embedding space. We investigate the implications of such text privatization on Language Models (LMs) and their tendency towards stereotypical associations. Since previous studies documented that linguistic proficiency correlates with stereotypical bias, one could assume that techniques for text privatization, which are known to degrade language modeling capabilities, would cancel out undesirable biases. By testing BERT models trained on texts containing biased statements primed with varying degrees of privacy, our study reveals that while stereotypical bias generally diminishes when privacy is tightened, text privatization does not uniformly equate to diminishing bias across all social domains. This highlights the need for careful diagnosis of bias in LMs that undergo text privatization.</abstract>
+      <url hash="75e04f79">2024.privatenlp-1.3</url>
+      <bibkey>arnold-etal-2024-characterizing</bibkey>
+    </paper>
+    <paper id="4">
+      <title>Protecting Privacy in Classifiers by Token Manipulation</title>
+      <author><first>Re’em</first><last>Harel</last></author>
+      <author><first>Yair</first><last>Elboher</last><affiliation>Ben-Gurion University of the Negev</affiliation></author>
+      <author><first>Yuval</first><last>Pinter</last><affiliation>Ben-Gurion University of the Negev</affiliation></author>
+      <pages>29-38</pages>
+      <abstract>Using language models as a remote service entails sending private information to an untrusted provider. In addition, potential eavesdroppers can intercept the messages, thereby exposing the information. In this work, we explore the prospects of avoiding such data exposure at the level of text manipulation. We focus on text classification models, examining various token mapping and contextualized manipulation functions in order to see whether classifier accuracy may be maintained while keeping the original text unrecoverable. We find that although some token mapping functions are easy and straightforward to implement, they heavily influence performance on the downstream task, and via a sophisticated attacker can be reconstructed. In comparison, the contextualized manipulation provides an improvement in performance.</abstract>
+      <url hash="b5980e4d">2024.privatenlp-1.4</url>
+      <bibkey>harel-etal-2024-protecting</bibkey>
+    </paper>
+    <paper id="5">
+      <title>A Collocation-based Method for Addressing Challenges in Word-level Metric Differential Privacy</title>
+      <author><first>Stephen</first><last>Meisenbacher</last></author>
+      <author><first>Maulik</first><last>Chevli</last><affiliation>Technische Universität München</affiliation></author>
+      <author><first>Florian</first><last>Matthes</last><affiliation>Technische Universität München</affiliation></author>
+      <pages>39-51</pages>
+      <abstract>Applications of Differential Privacy (DP) in NLP must distinguish between the syntactic level on which a proposed mechanism operates, often taking the form of *word-level* or *document-level* privatization. Recently, several word-level *Metric* Differential Privacy approaches have been proposed, which rely on this generalized DP notion for operating in word embedding spaces. These approaches, however, often fail to produce semantically coherent textual outputs, and their application at the sentence- or document-level is only possible by a basic composition of word perturbations. In this work, we strive to address these challenges by operating *between* the word and sentence levels, namely with *collocations*. By perturbing n-grams rather than single words, we devise a method where composed privatized outputs have higher semantic coherence and variable length. This is accomplished by constructing an embedding model based on frequently occurring word groups, in which unigram words co-exist with bi- and trigram collocations. We evaluate our method in utility and privacy tests, which make a clear case for tokenization strategies beyond the word level.</abstract>
+      <url hash="6554d052">2024.privatenlp-1.5</url>
+      <bibkey>meisenbacher-etal-2024-collocation</bibkey>
+    </paper>
+    <paper id="6">
+      <title>Preset-Voice Matching for Privacy Regulated Speech-to-Speech Translation Systems</title>
+      <author><first>Daniel</first><last>Platnick</last></author>
+      <author><first>Bishoy</first><last>Abdelnour</last><affiliation>Vosyn, Etobicoke, Canada</affiliation></author>
+      <author><first>Eamon</first><last>Earl</last></author>
+      <author><first>Rahul</first><last>Kumar</last></author>
+      <author><first>Zahra</first><last>Rezaei</last><affiliation>Vosyn, Etobicoke, Canada</affiliation></author>
+      <author><first>Thomas</first><last>Tsangaris</last><affiliation>University of Toronto</affiliation></author>
+      <author><first>Faraj</first><last>Lagum</last><affiliation>Vosyn, Etobicoke, Canada</affiliation></author>
+      <pages>52-62</pages>
+      <abstract>In recent years, there has been increased demand for speech-to-speech translation (S2ST) systems in industry settings. Although successfully commercialized, cloning-based S2ST systems expose their distributors to liabilities when misused by individuals and can infringe on personality rights when exploited by media organizations. This work proposes a regulated S2ST framework called Preset-Voice Matching (PVM). PVM removes cross-lingual voice cloning in S2ST by first matching the input voice to a similar prior consenting speaker voice in the target-language. With this separation, PVM avoids cloning the input speaker, ensuring PVM systems comply with regulations and reduce risk of misuse. Our results demonstrate PVM can significantly improve S2ST system run-time in multi-speaker settings and the naturalness of S2ST synthesized speech. To our knowledge, PVM is the first explicitly regulated S2ST framework leveraging similarly-matched preset-voices for dynamic S2ST tasks.</abstract>
+      <url hash="de06752b">2024.privatenlp-1.6</url>
+      <bibkey>platnick-etal-2024-preset</bibkey>
+    </paper>
+    <paper id="7">
+      <title><fixed-case>PII</fixed-case>-Compass: Guiding <fixed-case>LLM</fixed-case> training data extraction prompts towards the target <fixed-case>PII</fixed-case> via grounding</title>
+      <author><first>Krishna</first><last>Nakka</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author><first>Ahmed</first><last>Frikha</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author><first>Ricardo</first><last>Mendes</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <author><first>Xue</first><last>Jiang</last></author>
+      <author><first>Xuebing</first><last>Zhou</last><affiliation>Huawei Technologies Ltd.</affiliation></author>
+      <pages>63-73</pages>
+      <abstract>The latest and most impactful advances in large models stem from their increased size. Unfortunately, this translates into an improved memorization capacity, raising data privacy concerns. Specifically, it has been shown that models can output personal identifiable information (PII) contained in their training data. However, reported PII extraction performance varies widely, and there is no consensus on the optimal methodology to evaluate this risk, resulting in underestimating realistic adversaries. In this work, we empirically demonstrate that it is possible to improve the extractability of PII by over ten-fold by grounding the prefix of the manually constructed extraction prompt with in-domain data. This approach achieves phone number extraction rates of 0.92%, 3.9%, and 6.86% with 1, 128, and 2308 queries, respectively, i.e., the phone number of 1 person in 15 is extractable.</abstract>
+      <url hash="af5f2bb7">2024.privatenlp-1.7</url>
+      <bibkey>nakka-etal-2024-pii</bibkey>
+    </paper>
+    <paper id="8">
+      <title>Unlocking the Potential of Large Language Models for Clinical Text Anonymization: A Comparative Study</title>
+      <author><first>David</first><last>Pissarra</last></author>
+      <author><first>Isabel</first><last>Curioso</last><affiliation>Fraunhofer Portugal AICOS</affiliation></author>
+      <author><first>João</first><last>Alveira</last><affiliation>Fraunhofer Portugal</affiliation></author>
+      <author><first>Duarte</first><last>Pereira</last><affiliation>NA</affiliation></author>
+      <author><first>Bruno</first><last>Ribeiro</last><affiliation>Fraunhofer Portugal AICOS</affiliation></author>
+      <author><first>Tomás</first><last>Souper</last><affiliation>University of Notre Dame</affiliation></author>
+      <author><first>Vasco</first><last>Gomes</last><affiliation>Fraunhofer AICOS</affiliation></author>
+      <author><first>André</first><last>Carreiro</last><affiliation>Fraunhofer AICOS</affiliation></author>
+      <author><first>Vitor</first><last>Rolla</last><affiliation>Fraunhofer Portugal</affiliation></author>
+      <pages>74-84</pages>
+      <abstract>Automated clinical text anonymization has the potential to unlock the widespread sharing of textual health data for secondary usage while assuring patient privacy. Despite the proposal of many complex and theoretically successful anonymization solutions in literature, these techniques remain flawed. As such, clinical institutions are still reluctant to apply them for open access to their data. Recent advances in developing Large Language Models (LLMs) pose a promising opportunity to further the field, given their capability to perform various tasks. This paper proposes six new evaluation metrics tailored to the challenges of generative anonymization with LLMs. Moreover, we present a comparative study of LLM-based methods, testing them against two baseline techniques. Our results establish LLM-based models as a reliable alternative to common approaches, paving the way toward trustworthy anonymization of clinical text.</abstract>
+      <url hash="f06cb1bd">2024.privatenlp-1.8</url>
+      <bibkey>pissarra-etal-2024-unlocking</bibkey>
+    </paper>
+    <paper id="9">
+      <title>Anonymization Through Substitution: Words vs Sentences</title>
+      <author><first>Vasco</first><last>Alves</last><affiliation>Associação Fraunhofer Portugal Research (Fraunhofer Portugal),</affiliation></author>
+      <author><first>Vitor</first><last>Rolla</last><affiliation>Fraunhofer Portugal</affiliation></author>
+      <author><first>João</first><last>Alveira</last><affiliation>Fraunhofer Portugal</affiliation></author>
+      <author><first>David</first><last>Pissarra</last></author>
+      <author><first>Duarte</first><last>Pereira</last><affiliation>NA</affiliation></author>
+      <author><first>Isabel</first><last>Curioso</last><affiliation>Fraunhofer Portugal AICOS</affiliation></author>
+      <author><first>André</first><last>Carreiro</last><affiliation>Fraunhofer AICOS</affiliation></author>
+      <author><first>Henrique</first><last>Lopes Cardoso</last><affiliation>Universidade do Porto</affiliation></author>
+      <pages>85-90</pages>
+      <abstract>Anonymization of clinical text is crucial to allow the sharing and disclosure of health records while safeguarding patient privacy. However, automated anonymization processes are still highly limited in healthcare practice, as these systems cannot assure the anonymization of all private information. This paper explores the application of a novel technique that guarantees the removal of all sensitive information through the usage of text embeddings obtained from a de-identified dataset, replacing every word or sentence of a clinical note. We analyze the performance of different embedding techniques and models by evaluating them using recently proposed evaluation metrics. The results demonstrate that sentence replacement is better at keeping relevant medical information untouched, while the word replacement strategy performs better in terms of anonymization sensitivity.</abstract>
+      <url hash="17ffaf08">2024.privatenlp-1.9</url>
+      <bibkey>alves-etal-2024-anonymization</bibkey>
+    </paper>
+    <paper id="10">
+      <title><fixed-case>P</fixed-case>ocket<fixed-case>LLM</fixed-case>: Enabling On-Device Fine-Tuning for Personalized <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Dan</first><last>Peng</last></author>
+      <author><first>Zhihui</first><last>Fu</last></author>
+      <author><first>Jun</first><last>Wang</last><affiliation>OPPO Research Institute</affiliation></author>
+      <pages>91-96</pages>
+      <abstract>Recent advancements in large language models (LLMs) have indeed showcased their impressive capabilities. On mobile devices, the wealth of valuable, non-public data generated daily holds great promise for locally fine-tuning personalized LLMs, while maintaining privacy through on-device processing. However, the constraints of mobile device resources pose challenges to direct on-device LLM fine-tuning, mainly due to the memory-intensive nature of derivative-based optimization required for saving gradients and optimizer states. To tackle this, we propose employing derivative-free optimization techniques to enable on-device fine-tuning of LLM, even on memory-limited mobile devices. Empirical results demonstrate that the RoBERTa-large model and OPT-1.3B can be fine-tuned locally on the OPPO Reno 6 smartphone using around 4GB and 6.5GB of memory respectively, using derivative-free optimization techniques. This highlights the feasibility of on-device LLM fine-tuning on mobile devices, paving the way for personalized LLMs on resource-constrained devices while safeguarding data privacy.</abstract>
+      <url hash="6c33bbe2">2024.privatenlp-1.10</url>
+      <bibkey>peng-etal-2024-pocketllm</bibkey>
+    </paper>
+    <paper id="11">
+      <title>Smart Lexical Search for Label Flipping Adversial Attack</title>
+      <author><first>Alberto</first><last>Gutiérrez-Megías</last></author>
+      <author><first>Salud María</first><last>Jiménez-Zafra</last><affiliation>Universidad de Jaén</affiliation></author>
+      <author><first>L. Alfonso</first><last>Ureña</last><affiliation>Universidad de Jaén</affiliation></author>
+      <author><first>Eugenio</first><last>Martínez-Cámara</last><affiliation>Universidad de Jaén</affiliation></author>
+      <pages>97-106</pages>
+      <abstract>Language models are susceptible to vulnerability through adversarial attacks, using manipulations of the input data to disrupt their performance. Accordingly, it represents a cibersecurity leak. Data manipulations are intended to be unidentifiable by the learning model and by humans, small changes can disturb the final label of a classification task. Hence, we propose a novel attack built upon explainability methods to identify the salient lexical units to alter in order to flip the classification label. We asses our proposal on a disinformation dataset, and we show that our attack reaches high balance among stealthiness and efficiency.</abstract>
+      <url hash="2498905c">2024.privatenlp-1.11</url>
+      <bibkey>gutierrez-megias-etal-2024-smart</bibkey>
+    </paper>
+    <paper id="12">
+      <title>Can <fixed-case>LLM</fixed-case>s get help from other <fixed-case>LLM</fixed-case>s without revealing private information?</title>
+      <author><first>Florian</first><last>Hartmann</last><affiliation>Google Research</affiliation></author>
+      <author><first>Duc-Hieu</first><last>Tran</last></author>
+      <author><first>Peter</first><last>Kairouz</last><affiliation>Google</affiliation></author>
+      <author><first>Victor</first><last>Cărbune</last><affiliation>Google</affiliation></author>
+      <author><first>Blaise</first><last>Aguera Y Arcas</last></author>
+      <pages>107-122</pages>
+      <abstract>Cascades are a common type of machine learning systems in which a large, remote model can be queried if a local model is not able to accurately label a user’s data by itself. Serving stacks for large language models (LLMs) increasingly use cascades due to their ability to preserve task performance while dramatically reducing inference costs. However, applying cascade systems in situations where the local model has access to sensitive data constitutes a significant privacy risk for users since such data could be forwarded to the remote model. In this work, we show the feasibility of applying cascade systems in such setups by equipping the local model with privacy-preserving techniques that reduce the risk of leaking private information when querying the remote model. To quantify information leakage in such setups, we introduce two privacy measures. We then propose a system that leverages the recently introduced social learning paradigm in which LLMs collaboratively learn from each other by exchanging natural language. Using this paradigm, we demonstrate on several datasets that our methods minimize the privacy loss while at the same time improving task performance compared to a non-cascade baseline.</abstract>
+      <url hash="0c237a76">2024.privatenlp-1.12</url>
+      <bibkey>hartmann-etal-2024-llms</bibkey>
+    </paper>
+    <paper id="13">
+      <title>Cloaked Classifiers: Pseudonymization Strategies on Sensitive Classification Tasks</title>
+      <author><first>Arij</first><last>Riabi</last></author>
+      <author><first>Menel</first><last>Mahamdi</last><affiliation>Inria, Paris</affiliation></author>
+      <author><first>Virginie</first><last>Mouilleron</last><affiliation>Inria, Paris</affiliation></author>
+      <author><first>Djamé</first><last>Seddah</last></author>
+      <pages>123-136</pages>
+      <abstract>Protecting privacy is essential when sharing data, particularly in the case of an online radicalization dataset that may contain personal information. In this paper, we explore the balance between preserving data usefulness and ensuring robust privacy safeguards, since regulations like the European GDPR shape how personal information must be handled. We share our method for manually pseudonymizing a multilingual radicalization dataset, ensuring performance comparable to the original data. Furthermore, we highlight the importance of establishing comprehensive guidelines for processing sensitive NLP data by sharing our complete pseudonymization process, our guidelines, the challenges we encountered as well as the resulting dataset.</abstract>
+      <url hash="c0464741">2024.privatenlp-1.13</url>
+      <bibkey>riabi-etal-2024-cloaked</bibkey>
+    </paper>
+    <paper id="14">
+      <title>Improving Authorship Privacy: Adaptive Obfuscation with the Dynamic Selection of Techniques</title>
+      <author><first>Hemanth</first><last>Kandula</last><affiliation>Raytheon BBN</affiliation></author>
+      <author><first>Damianos</first><last>Karakos</last></author>
+      <author><first>Haoling</first><last>Qiu</last><affiliation>Raytheon BBN Technologies Corp.</affiliation></author>
+      <author><first>Brian</first><last>Ulicny</last></author>
+      <pages>137-142</pages>
+      <abstract>Authorship obfuscation, the task of rewriting text to protect the original author’s identity, is becoming increasingly important due to the rise of advanced NLP tools for authorship attribution techniques. Traditional methods for authorship obfuscation face significant challenges in balancing content preservation, fluency, and style concealment. This paper introduces a novel approach, the Obfuscation Strategy Optimizer (OSO), which dynamically selects the optimal obfuscation technique based on a combination of metrics including embedding distance, meaning similarity, and fluency. By leveraging an ensemble of language models OSO achieves superior performance in preserving the original content’s meaning and grammatical fluency while effectively concealing the author’s unique writing style. Experimental results demonstrate that the OSO outperforms existing methods and approaches the performance of larger language models. Our evaluation framework incorporates adversarial testing against state-of-the-art attribution systems to validate the robustness of the obfuscation techniques. We release our code publicly at https://github.com/BBN-E/ObfuscationStrategyOptimizer</abstract>
+      <url hash="21380678">2024.privatenlp-1.14</url>
+      <bibkey>kandula-etal-2024-improving</bibkey>
+    </paper>
+    <paper id="15">
+      <title>Deconstructing Classifiers: Towards A Data Reconstruction Attack Against Text Classification Models</title>
+      <author><first>Adel</first><last>Elmahdy</last><affiliation>University of Minnesota, Minneapolis</affiliation></author>
+      <author><first>Ahmed</first><last>Salem</last><affiliation>Microsoft Research</affiliation></author>
+      <pages>143-158</pages>
+      <abstract>Natural language processing (NLP) models have become increasingly popular in real-world applications, such as text classification. However, they are vulnerable to privacy attacks, including data reconstruction attacks that aim to extract the data used to train the model. Most previous studies on data reconstruction attacks have focused on LLM, while classification models were assumed to be more secure. In this work, we propose a new targeted data reconstruction attack called the Mix And Match attack, which takes advantage of the fact that most classification models are based on LLM. The Mix And Match attack uses the base model of the target model to generate candidate tokens and then prunes them using the classification head. We extensively demonstrate the effectiveness of the attack using both random and organic canaries. This work highlights the importance of considering the privacy risks associated with data reconstruction attacks in classification models and offers insights into possible leakages.</abstract>
+      <url hash="18754084">2024.privatenlp-1.15</url>
+      <bibkey>elmahdy-salem-2024-deconstructing</bibkey>
+    </paper>
+    <paper id="16">
+      <title><fixed-case>P</fixed-case>riva<fixed-case>T</fixed-case>5: A Generative Language Model for Privacy Policies</title>
+      <author><first>Mohammad</first><last>Zoubi</last></author>
+      <author><first>Santosh</first><last>T.y.s.s</last><affiliation>Technische Universität München</affiliation></author>
+      <author><first>Edgar</first><last>Rosas</last></author>
+      <author><first>Matthias</first><last>Grabmair</last><affiliation>Technische Universität München</affiliation></author>
+      <pages>159-169</pages>
+      <abstract>In the era of of digital privacy, users often neglect to read privacy policies due to their complexity. To bridge this gap, NLP models have emerged to assist in understanding privacy policies. While recent generative language models like BART and T5 have shown prowess in text generation and discriminative tasks being framed as generative ones, their application to privacy policy domain tasks remains unexplored. To address that, we introduce PrivaT5, a T5-based model that is further pre-trained on privacy policy text. We evaluate PrivaT5 over a diverse privacy policy related tasks and notice its superior performance over T5, showing the utility of continued domain-specific pre-training. Our results also highlight challenges faced by these generative models in complex structured output label space, especially in sequence tagging tasks, where they fall short compared to lighter encoder-only models.</abstract>
+      <url hash="4dbf3cd5">2024.privatenlp-1.16</url>
+      <bibkey>zoubi-etal-2024-privat5</bibkey>
+    </paper>
+    <paper id="17">
+      <title>Reinforcement Learning-Driven <fixed-case>LLM</fixed-case> Agent for Automated Attacks on <fixed-case>LLM</fixed-case>s</title>
+      <author><first>Xiangwen</first><last>Wang</last></author>
+      <author><first>Jie</first><last>Peng</last><affiliation>University of Science and Technology of China</affiliation></author>
+      <author><first>Kaidi</first><last>Xu</last><affiliation>Drexel University</affiliation></author>
+      <author><first>Huaxiu</first><last>Yao</last><affiliation>Department of Computer Science, University of North Carolina at Chapel Hill</affiliation></author>
+      <author><first>Tianlong</first><last>Chen</last></author>
+      <pages>170-177</pages>
+      <abstract>Recently, there has been a growing focus on conducting attacks on large language models (LLMs) to assess LLMs’ safety. Yet, existing attack methods face challenges, including the need to access model weights or merely ensuring LLMs output harmful information without controlling the specific content of their output. Exactly control of the LLM output can produce more inconspicuous attacks which could reveal a new page for LLM security. To achieve this, we propose RLTA: the Reinforcement Learning Targeted Attack, a framework that is designed for attacking language models (LLMs) and is adaptable to both white box (weight accessible) and black box (weight inaccessible) scenarios. It is capable of automatically generating malicious prompts that trigger target LLMs to produce specific outputs. We demonstrate RLTA in two different scenarios: LLM trojan detection and jailbreaking. The comprehensive experimental results show the potential of RLTA in enhancing the security measures surrounding contemporary LLMs.</abstract>
+      <url hash="fd44e8f0">2024.privatenlp-1.17</url>
+      <bibkey>wang-etal-2024-reinforcement-learning</bibkey>
+    </paper>
+    <paper id="18">
+      <title>A Privacy-preserving Approach to Ingest Knowledge from Proprietary Web-based to Locally Run Models for Medical Progress Note Generation</title>
+      <author><first>Sarvesh</first><last>Soni</last><affiliation>National Institutes of Health</affiliation></author>
+      <author><first>Dina</first><last>Demner-Fushman</last><affiliation>National Library of Medicine</affiliation></author>
+      <pages>178-183</pages>
+      <abstract>Clinical documentation is correlated with increasing clinician burden, leading to the rise of automated methods to generate medical notes. Due to the sensitive nature of patient electronic health records (EHRs), locally run models are preferred for a variety of reasons including privacy, bias, and cost. However, most open-source locally run models (including medical-specific) are much smaller with limited input context size compared to the more powerful closed-source large language models (LLMs) generally available through web APIs (Application Programming Interfaces). In this paper, we propose a framework to harness superior reasoning capabilities and medical knowledge from closed-source online LLMs in a privacy-preserving manner and seamlessly incorporate it into locally run models. Specifically, we leverage a web-based model to distill the vast patient information available in EHRs into a clinically relevant subset without sending sensitive patient health information online and use this distilled knowledge to generate progress notes by a locally run model. Our ablation results indicate that the proposed framework improves the performance of the Mixtral model on progress note generation by 4.6 points on ROUGE (a text-matching based metric) and 7.56 points on MEDCON F1 (a metric that measures the clinical concepts overlap).</abstract>
+      <url hash="1664fae5">2024.privatenlp-1.18</url>
+      <bibkey>soni-demner-fushman-2024-privacy</bibkey>
+    </paper>
+  </volume>
+</collection>
