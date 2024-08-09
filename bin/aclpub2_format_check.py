@@ -164,7 +164,7 @@ def main(args):
         if isinstance(handler, CounterHandler):
             if handler.count > 0:
                 print(
-                    f"Script found {handler.count} warnings or errors. Please fix them before submitting."
+                    f"FAILURE: script found {handler.count} warnings or errors. Please fix them before submitting."
                 )
                 sys.exit(1)
 
@@ -177,6 +177,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--import-dir",
+        "-i",
         type=str,
         default="output",
         help="Root directory for Anthology import",
