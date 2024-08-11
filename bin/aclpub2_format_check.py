@@ -186,7 +186,7 @@ if __name__ == "__main__":
         "-v",
         "--verbose",
         action="store_true",
-        help="Print successes in addition to errors."
+        help="Print successes in addition to errors.",
     )
     args = parser.parse_args()
 
