@@ -5,7 +5,7 @@
 Last updated 2024-08-07 by Matt Post
 
 TODO:
-- Ensure no LaTeX in titles (e.g., `\emph{...}`)
+- Ensure no LaTeX in titles
 - If there is only a single name, it should be the last name, not the first
 - Clean TeX from abstracts, too (e.g., 2023.findings-emnlp.439)
 
@@ -111,13 +111,13 @@ def main(args):
         conference_details_path := rootdir / "inputs" / "conference_details.yml"
     ).exists():
         logger.error(f"x File '{conference_details_path}' does not exist")
-    else:
+    elif args.verbose:
         logger.info(f"✓ Found {conference_details_path}")
 
     # papers.yml
     if not (papers_path := rootdir / "inputs" / "papers.yml").exists():
         logger.fatal(f"File '{papers_path}' not found")
-    else:
+    elif args.verbose:
         logger.info(f"✓ Found {papers_path}")
 
     # Read through papers.yml. At the top level of the file is a list
@@ -134,7 +134,7 @@ def main(args):
                 pdf_path := rootdir / "watermarked_pdfs" / f'{paper["id"]}.pdf'
             ).exists():
                 logger.error(f"Paper file '{pdf_path}' not found")
-            else:
+            elif args.verbose:
                 logger.info(f"✓ Found PDF file {pdf_path}")
 
         for author in paper.get("authors", []):
@@ -149,13 +149,13 @@ def main(args):
                     attachment_path := rootdir / "attachments" / attachment["file"]
                 ).exists():
                     logger.error(f"Attachment file '{attachment_path}' not found")
-                else:
+                elif args.verbose:
                     logger.info(f"✓ Found attachment file {attachment_path}")
 
     # Check for frontmatter
     if not (frontmatter_path := rootdir / "watermarked_pdfs" / "0.pdf").exists():
         logger.error(f"Frontmatter {frontmatter_path} not found")
-    else:
+    elif args.verbose:
         logger.info(f"✓ Found frontmatter at {frontmatter_path}")
 
     # If there were any warnings or errors, exit with a non-zero status
@@ -179,8 +179,14 @@ if __name__ == "__main__":
         "--import-dir",
         "-i",
         type=str,
-        default="output",
+        default=".",
         help="Root directory for Anthology import",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Print successes in addition to errors."
     )
     args = parser.parse_args()
 
