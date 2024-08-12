@@ -775,9 +775,16 @@ def create_xml(
         else:
             print("Not appending", paper_node, file=sys.stderr)
 
-        # Normalize
+        # Normalize fields from LaTeX
         for oldnode in paper_node:
-            normalize(oldnode, informat='latex')
+            try:
+                normalize(oldnode, informat='latex')
+            except UnicodeError:
+                print(
+                    f"Fatal on paper {paper_num} field {oldnode.tag}: {oldnode.text}",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
 
         # Adjust the language tag
         # language_node = paper_node.find('./language')
