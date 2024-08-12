@@ -779,7 +779,7 @@ def create_xml(
         for oldnode in paper_node:
             try:
                 normalize(oldnode, informat='latex')
-            except:
+            except UnicodeError:
                 print(
                     f"Fatal on paper {paper_num} field {oldnode.tag}: {oldnode.text}",
                     file=sys.stderr,
