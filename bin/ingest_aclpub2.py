@@ -780,7 +780,10 @@ def create_xml(
             try:
                 normalize(oldnode, informat='latex')
             except:
-                print(f"Fatal on paper {paper_num} field {oldnode.tag}: {oldnode.text}", file=sys.stderr)
+                print(
+                    f"Fatal on paper {paper_num} field {oldnode.tag}: {oldnode.text}",
+                    file=sys.stderr,
+                )
                 sys.exit(1)
 
         # Adjust the language tag
