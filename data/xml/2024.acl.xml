@@ -9066,13 +9066,13 @@
       <bibkey>wang-etal-2024-sotopia</bibkey>
     </paper>
     <paper id="699">
-      <title><tex-math>{\mathcal X}</tex-math><fixed-case>FT</fixed-case>: Unlocking the Power of Code Instruction Tuning by Simply Merging Upcycled Mixture-of-Experts</title>
+      <title><fixed-case>XFT</fixed-case>: Unlocking the Power of Code Instruction Tuning by Simply Merging Upcycled Mixture-of-Experts</title>
       <author><first>Yifeng</first><last>Ding</last><affiliation>Amazon and Department of Computer Science, University of Illinois at Urbana-Champaign</affiliation></author>
       <author><first>Jiawei</first><last>Liu</last><affiliation>Department of Computer Science</affiliation></author>
       <author><first>Yuxiang</first><last>Wei</last><affiliation>University of Illinois at Urbana-Champaign</affiliation></author>
       <author><first>Lingming</first><last>Zhang</last><affiliation>University of Illinois Urbana-Champaign</affiliation></author>
       <pages>12941-12955</pages>
-      <abstract/>
+      <abstract>We introduce XFT, a simple yet powerful training scheme, by simply merging upcycled Mixture-of-Experts (MoE) to unleash the performance limit of instruction-tuned code Large Language Models (LLMs). While vanilla sparse upcycling fails to improve instruction tuning, XFT introduces a shared expert mechanism with a novel routing weight normalization strategy into sparse upcycling, which significantly boosts instruction tuning. After fine-tuning the upcycled MoE model, XFT introduces a learnable model merging mechanism to compile the upcycled MoE model back to a dense model, achieving upcycled MoE-level performance with only dense-model compute. By applying XFT to a 1.3B model, we create a new state-of-the-art tiny code LLM with 67.1 and 64.6 pass@1 on HumanEval and HumanEval+ respectively. With the same data and model architecture, XFT improves supervised fine-tuning (SFT) by 13% on HumanEval+, along with consistent improvements from 2% to 13% on MBPP+, MultiPL-E, and DS-1000, demonstrating its generalizability. XFT is fully orthogonal to existing techniques such as Evol-Instruct and OSS-Instruct, opening a new dimension for improving code instruction tuning. Codes are available at https://github.com/ise-uiuc/xft.</abstract>
       <url hash="18560bfc">2024.acl-long.699</url>
       <bibkey>ding-etal-2024-mathcal</bibkey>
     </paper>
