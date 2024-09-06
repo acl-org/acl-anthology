@@ -2242,6 +2242,7 @@
     <paper id="173">
       <title><fixed-case>D</fixed-case>r.<fixed-case>A</fixed-case>cademy: A Benchmark for Evaluating Questioning Capability in Education for Large Language Models</title>
       <author><first>Yuyan</first><last>Chen</last></author>
+      <author><first>Chenwei</first><last>Wu</last></author>
       <author><first>Songzhou</first><last>Yan</last></author>
       <author><first>Panjun</first><last>Liu</last></author>
       <author><first>Yanghua</first><last>Xiao</last><affiliation>Fudan University</affiliation></author>
@@ -4709,7 +4710,7 @@
       <author><first>Ali</first><last>Marashian</last><affiliation>University of Colorado at Boulder</affiliation></author>
       <author><first>Luke</first><last>Gessler</last><affiliation>Indiana University</affiliation></author>
       <author><first>Alexis</first><last>Palmer</last><affiliation>University of Colorado at Boulder</affiliation></author>
-      <author><first>Katharina</first><last>Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
+      <author><first>Katharina</first><last>von der Wense</last><affiliation>Johannes-Gutenberg Universität Mainz, University of Colorado, Boulder and New York University</affiliation></author>
       <pages>6752-6765</pages>
       <abstract>Canonical morphological segmentation is the process of analyzing words into the standard (<i>aka</i> underlying) forms of their constituent morphemes.This is a core task in endangered language documentation, and NLP systems have the potential to dramatically speed up this process. In typical language documentation settings, training data for canonical morpheme segmentation is scarce, making it difficult to train high quality models. However, translation data is often much more abundant, and, in this work, we present a method that attempts to leverage translation data in the canonical segmentation task. We propose a character-level sequence-to-sequence model that incorporates representations of translations obtained from pretrained high-resource monolingual language models as an additional signal. Our model outperforms the baseline in a super-low resource setting but yields mixed results on training splits with more data. Additionally, we find that we can achieve strong performance even without needing difficult-to-obtain word level alignments. While further work is needed to make translations useful in higher-resource settings, our model shows promise in severely resource-constrained settings.</abstract>
       <url hash="41d9ed81">2024.acl-long.366</url>
@@ -4961,8 +4962,10 @@
       <author><first>Yongdong</first><last>Zhang</last><affiliation>University of Science and Technology of China</affiliation></author>
       <pages>7156-7173</pages>
       <abstract>Recently, the increasing demand for superior medical services has highlighted the discrepancies in the medical infrastructure. With big data, especially texts, forming the foundation of medical services, there is an exigent need for effective natural language processing (NLP) solutions tailored to the healthcare domain. Conventional approaches leveraging pre-trained models present promising results in this domain and current large language models (LLMs) offer advanced foundation for medical text processing. However, most medical LLMs are trained only with supervised fine-tuning (SFT), even though it efficiently empowers LLMs to understand and respond to medical instructions but is ineffective in learning domain knowledge and aligning with human preference. In this work, we propose ChiMed-GPT, a new benchmark LLM designed explicitly for Chinese medical domain, and undergoes a comprehensive training regime with pre-training, SFT, and RLHF. Evaluations on tasks including information extraction, question answering, and dialogue generation demonstrate ChiMed-GPT’s superior performance over general domain LLMs. Furthermore, we analyze possible biases through prompting ChiMed-GPT to perform attitude scales regarding discrimination of patients, so as to contribute to further responsible development of LLMs in the medical domain.</abstract>
-      <url hash="20cb9d1b">2024.acl-long.386</url>
+      <url hash="80aab468">2024.acl-long.386</url>
       <bibkey>tian-etal-2024-chimed</bibkey>
+      <revision id="1" href="2024.acl-long.386v1" hash="90d101e0"/>
+      <revision id="2" href="2024.acl-long.386v2" hash="80aab468" date="2024-08-17">Fix a typo.</revision>
     </paper>
     <paper id="387">
       <title>An Investigation of Neuron Activation as a Unified Lens to Explain Chain-of-Thought Eliciting Arithmetic Reasoning of <fixed-case>LLM</fixed-case>s</title>
@@ -4970,8 +4973,10 @@
       <author><first>Ziyu</first><last>Yao</last><affiliation>George Mason University</affiliation></author>
       <pages>7174-7193</pages>
       <abstract>Large language models (LLMs) have shown strong arithmetic reasoning capabilities when prompted with Chain-of-Thought (CoT) prompts. However, we have only a limited understanding of how they are processed by LLMs. To demystify it, prior work has primarily focused on ablating different components in the CoT prompt and empirically observing their resulting LLM performance change. Yet, the reason why these components are important to LLM reasoning is not explored. To fill this gap, in this work, we investigate “neuron activation” as a lens to provide a unified explanation to observations made by prior work. Specifically, we look into neurons within the feed-forward layers of LLMs that may have activated their arithmetic reasoning capabilities, using Llama2 as an example. To facilitate this investigation, we also propose an approach based on GPT-4 to automatically identify neurons that imply arithmetic reasoning. Our analyses revealed that the activation of reasoning neurons in the feed-forward layers of an LLM can explain the importance of various components in a CoT prompt, and future research can extend it for a more complete understanding.</abstract>
-      <url hash="96778503">2024.acl-long.387</url>
+      <url hash="ac2dab44">2024.acl-long.387</url>
       <bibkey>rai-yao-2024-investigation</bibkey>
+      <revision id="1" href="2024.acl-long.387v1" hash="96778503"/>
+      <revision id="2" href="2024.acl-long.387v2" hash="ac2dab44" date="2024-08-29">Minor updates.</revision>
     </paper>
     <paper id="388">
       <title>Leveraging Large Language Models for Learning Complex Legal Concepts through Storytelling</title>
@@ -7924,8 +7929,11 @@
       <author><first>Jungwook</first><last>Choi</last><affiliation>Hanyang University</affiliation></author>
       <pages>11346-11364</pages>
       <abstract>The rapid advancement of large language models (LLMs) has facilitated their transformation into conversational chatbots that can grasp contextual nuances and generate pertinent sentences, closely mirroring human values through advanced techniques such as instruction tuning and reinforcement learning from human feedback (RLHF). However, the computational efficiency required for LLMs, achieved through techniques like post-training quantization (PTQ), presents challenges such as token-flipping that can impair chatbot performance. In response, we propose a novel preference alignment approach, quantization-aware direct preference optimization (QDPO), that aligns quantized LLMs with their full-precision counterparts, improving conversational abilities. Evaluated on two instruction-tuned LLMs in various languages, QDPO demonstrated superior performance in improving conversational abilities compared to established PTQ and knowledge-distillation fine-tuning techniques, marking a significant step forward in the development of efficient and effective conversational LLMs.</abstract>
-      <url hash="5c6a33a9">2024.acl-long.612</url>
+      <url hash="810bab41">2024.acl-long.612</url>
       <bibkey>lee-etal-2024-improving-conversational</bibkey>
+      <revision id="1" href="2024.acl-long.612v1" hash="9807f22e"/>
+      <revision id="2" href="2024.acl-long.612v2" hash="2dcad80f" date="2024-08-19">Added Acknowledgments.</revision>
+      <revision id="3" href="2024.acl-long.612v3" hash="810bab41" date="2024-08-29">Adds the proceedings header and footer stamps.</revision>
     </paper>
     <paper id="613">
       <title>Complex Reasoning over Logical Queries on Commonsense Knowledge Graphs</title>
@@ -8073,7 +8081,7 @@
     </paper>
     <paper id="622">
       <title>Split and Rephrase with Large Language Models</title>
-      <author><first>Antonio David</first><last>Ponce Martínez</last><affiliation>Vicomtech</affiliation></author>
+      <author><first>David</first><last>Ponce</last><affiliation>Vicomtech</affiliation></author>
       <author><first>Thierry</first><last>Etchegoyhen</last><affiliation>Vicomtech</affiliation></author>
       <author><first>Jesus Javier</first><last>Calleja Perez</last><affiliation>Universidad del País Vasco and Vicomtech</affiliation></author>
       <author><first>Harritxu</first><last>Gete</last><affiliation>University of the Basque Country and Vicomtech Foundation</affiliation></author>
@@ -9063,14 +9071,14 @@
       <bibkey>wang-etal-2024-sotopia</bibkey>
     </paper>
     <paper id="699">
-      <title><tex-math>{\mathcal X}</tex-math><fixed-case>FT</fixed-case>: Unlocking the Power of Code Instruction Tuning by Simply Merging Upcycled Mixture-of-Experts</title>
+      <title><fixed-case>XFT</fixed-case>: Unlocking the Power of Code Instruction Tuning by Simply Merging Upcycled Mixture-of-Experts</title>
       <author><first>Yifeng</first><last>Ding</last><affiliation>Amazon and Department of Computer Science, University of Illinois at Urbana-Champaign</affiliation></author>
       <author><first>Jiawei</first><last>Liu</last><affiliation>Department of Computer Science</affiliation></author>
       <author><first>Yuxiang</first><last>Wei</last><affiliation>University of Illinois at Urbana-Champaign</affiliation></author>
       <author><first>Lingming</first><last>Zhang</last><affiliation>University of Illinois Urbana-Champaign</affiliation></author>
       <pages>12941-12955</pages>
-      <abstract>We introduce <tex-math>{\mathcal X}</tex-math>FT, a simple yet powerful training scheme, by simply merging upcycled Mixture-of-Experts (MoE) to unleash the performance limit of instruction-tuned code Large Language Models (LLMs). While vanilla sparse upcycling fails to improve instruction tuning, <tex-math>{\mathcal X}</tex-math>FT introduces a shared expert mechanism with a novel routing weight normalization strategy into sparse upcycling, which significantly boosts instruction tuning. After fine-tuning the upcycled MoE model, <tex-math>{\mathcal X}</tex-math>FT introduces a learnable model merging mechanism to compile the upcycled MoE model back to a dense model, achieving upcycled MoE-level performance with only dense-model compute. By applying <tex-math>{\mathcal X}</tex-math>FT to a 1.3B model, we create a new state-of-the-art tiny code LLM (&lt;3B) with 67.1 and 64.6 pass@1 on HumanEval and HumanEval+ respectively. With the same data and model architecture, <tex-math>{\mathcal X}</tex-math>FT improves supervised fine-tuning (SFT) by 13% on HumanEval+, along with consistent improvements from 2% to 13% on MBPP+, MultiPL-E, and DS-1000, demonstrating its generalizability. <tex-math>{\mathcal X}</tex-math>FT is fully orthogonal to existing techniques such as Evol-Instruct and OSS-Instruct, opening a new dimension for improving code instruction tuning. Codes are available at https://github.com/ise-uiuc/xft.</abstract>
-      <url hash="b1c56272">2024.acl-long.699</url>
+      <abstract>We introduce XFT, a simple yet powerful training scheme, by simply merging upcycled Mixture-of-Experts (MoE) to unleash the performance limit of instruction-tuned code Large Language Models (LLMs). While vanilla sparse upcycling fails to improve instruction tuning, XFT introduces a shared expert mechanism with a novel routing weight normalization strategy into sparse upcycling, which significantly boosts instruction tuning. After fine-tuning the upcycled MoE model, XFT introduces a learnable model merging mechanism to compile the upcycled MoE model back to a dense model, achieving upcycled MoE-level performance with only dense-model compute. By applying XFT to a 1.3B model, we create a new state-of-the-art tiny code LLM with 67.1 and 64.6 pass@1 on HumanEval and HumanEval+ respectively. With the same data and model architecture, XFT improves supervised fine-tuning (SFT) by 13% on HumanEval+, along with consistent improvements from 2% to 13% on MBPP+, MultiPL-E, and DS-1000, demonstrating its generalizability. XFT is fully orthogonal to existing techniques such as Evol-Instruct and OSS-Instruct, opening a new dimension for improving code instruction tuning. Codes are available at https://github.com/ise-uiuc/xft.</abstract>
+      <url hash="18560bfc">2024.acl-long.699</url>
       <bibkey>ding-etal-2024-mathcal</bibkey>
     </paper>
     <paper id="700">
@@ -9469,8 +9477,10 @@
       <author><first>Zilong</first><last>Zheng</last><affiliation>Beijing Institute for General Artificial Intelligence</affiliation></author>
       <pages>13553-13569</pages>
       <abstract>Traditional supervised learning heavily relies on human-annotated datasets, especially in data-hungry neural approaches. However, various tasks, especially multi-label tasks like document-level relation extraction, pose challenges in fully manual annotation due to the specific domain knowledge and large class sets. Therefore, we address the multi-label positive-unlabelled learning (MLPUL) problem, where only a subset of positive classes is annotated. We propose Mixture Learner for Partially Annotated Classification (MLPAC), an RL-based framework combining the exploration ability of reinforcement learning and the exploitation ability of supervised learning. Experimental results across various tasks, including document-level relation extraction, multi-label image classification, and binary PU learning, demonstrate the generalization and effectiveness of our framework.</abstract>
-      <url hash="f868fc96">2024.acl-long.731</url>
+      <url hash="5d1ef4df">2024.acl-long.731</url>
       <bibkey>jia-etal-2024-combining</bibkey>
+      <revision id="1" href="2024.acl-long.731v1" hash="db8c6db1"/>
+      <revision id="2" href="2024.acl-long.731v2" hash="5d1ef4df" date="2024-08-19">This reversion corrects typos in author affiliation.</revision>
     </paper>
     <paper id="732">
       <title><fixed-case>MULFE</fixed-case>: A Multi-Level Benchmark for Free Text Model Editing</title>
@@ -9821,8 +9831,10 @@
       <author><first>Songlin</first><last>Hu</last></author>
       <pages>14088-14103</pages>
       <abstract>This paper proposes an information-theoretic representation learning framework, named conditional information flow maximization, to extract noise-invariant sufficient representations for the input data and target task. It promotes the learned representations have good feature uniformity and sufficient predictive ability, which can enhance the generalization of pre-trained language models (PLMs) for the target task. Firstly, an information flow maximization principle is proposed to learn more sufficient representations for the input and target by simultaneously maximizing both input-representation and representation-label mutual information. Unlike the information bottleneck, we handle the input-representation information in an opposite way to avoid the over-compression issue of latent representations. Besides, to mitigate the negative effect of potential redundant features from the input, we design a conditional information minimization principle to eliminate negative redundant features while preserve noise-invariant features. Experiments on 13 language understanding benchmarks demonstrate that our method effectively improves the performance of PLMs for classification and regression. Extensive experiments show that the learned representations are more sufficient, robust and transferable.</abstract>
-      <url hash="5cf8a296">2024.acl-long.759</url>
+      <url hash="adb10dc6">2024.acl-long.759</url>
       <bibkey>hu-etal-2024-representation</bibkey>
+      <revision id="1" href="2024.acl-long.759v1" hash="264833a2"/>
+      <revision id="2" href="2024.acl-long.759v2" hash="adb10dc6" date="2024-08-17">Corrected typos.</revision>
     </paper>
     <paper id="760">
       <title><fixed-case>GPT</fixed-case> is Not an Annotator: The Necessity of Human Annotation in Fairness Benchmark Construction</title>
@@ -10960,18 +10972,18 @@
     </paper>
     <paper id="843">
       <title><fixed-case>I</fixed-case>ndic<fixed-case>LLMS</fixed-case>uite: A Blueprint for Creating Pre-training and Fine-Tuning Datasets for <fixed-case>I</fixed-case>ndian Languages</title>
-      <author><first>Mohammed Safi Ur Rahman</first><last>Khan</last><affiliation>Indian Institute of Technology, Madras</affiliation></author>
+      <author><first>Mohammed</first><last>Khan</last><affiliation>Indian Institute of Technology, Madras, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
       <author><first>Priyam</first><last>Mehta</last><affiliation>Gujarat Technological University Ahmedabad</affiliation></author>
       <author><first>Ananth</first><last>Sankar</last><affiliation>Annamalai University</affiliation></author>
       <author><first>Umashankar</first><last>Kumaravelan</last><affiliation>AI4Bharat</affiliation></author>
       <author><first>Sumanth</first><last>Doddapaneni</last><affiliation>Indian Institute of Technology, Madras</affiliation></author>
       <author><first>Suriyaprasaad</first><last>B</last><affiliation>Indian Institute of Technology, Madras, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
-      <author><first>Varun Balan</first><last>G</last><affiliation>Indian Institute of Information Technology, Design and Manufacturing, Kancheepuram</affiliation></author>
+      <author><first>Varun</first><last>G</last><affiliation>Indian Institute of Information Technology, Design and Manufacturing, Kancheepuram</affiliation></author>
       <author><first>Sparsh</first><last>Jain</last><affiliation>Guru Gobind Singh Indraprastha University, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
       <author><first>Anoop</first><last>Kunchukuttan</last><affiliation>Microsoft</affiliation></author>
       <author><first>Pratyush</first><last>Kumar</last><affiliation>Indian Institute of Technology Madras, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
       <author><first>Raj</first><last>Dabre</last><affiliation>National Institute of Information and Communications Technology (NICT), National Institute of Advanced Industrial Science and Technology</affiliation></author>
-      <author><first>Mitesh M.</first><last>Khapra</last><affiliation>Indian Institute of Technology, Madras, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
+      <author><first>Mitesh</first><last>Khapra</last><affiliation>Indian Institute of Technology, Madras, Dhirubhai Ambani Institute Of Information and Communication Technology</affiliation></author>
       <pages>15831-15879</pages>
       <abstract>Despite the considerable advancements in English LLMs, the progress in building comparable models for other languages has been hindered due to the scarcity of tailored resources. Our work aims to bridge this divide by introducing an expansive suite of resources specifically designed for the development of Indic LLMs, covering 22 languages, containing a total of 251B tokens and 74.8M instruction-response pairs. Recognizing the importance of both data quality and quantity, our approach combines highly curated manually verified data, unverified yet valuable data, and synthetic data. We build a clean, open-source pipeline for curating pre-training data from diverse sources, including websites, PDFs, and videos, incorporating best practices for crawling, cleaning, flagging, and deduplication. For instruction-fine tuning, we amalgamate existing Indic datasets, translate/transliterate English datasets into Indian languages, and utilize LLaMa2 and Mixtral models to create conversations grounded in articles from Indian Wikipedia and Wikihow. Additionally, we address toxicity alignment by generating toxic prompts for multiple scenarios and then generate non-toxic responses by feeding these toxic prompts to an aligned LLaMa2 model. We hope that the datasets, tools, and resources released as a part of this work will not only propel the research and development of Indic LLMs but also establish an open-source blueprint for extending such efforts to other languages.</abstract>
       <url hash="28f6a48c">2024.acl-long.843</url>
@@ -11173,7 +11185,7 @@
     <paper id="857">
       <title><fixed-case>N</fixed-case>oun<fixed-case>A</fixed-case>tlas: Filling the Gap in Nominal Semantic Role Labeling</title>
       <author><first>Roberto</first><last>Navigli</last><affiliation>Sapienza University of Rome</affiliation></author>
-      <author><first>Marco</first><last>Pinto</last><affiliation>University of Roma “La Sapienza”</affiliation></author>
+      <author><first>Marco</first><last>Lo Pinto</last><affiliation>University of Roma “La Sapienza”</affiliation></author>
       <author><first>Pasquale</first><last>Silvestri</last><affiliation>University of Roma “La Sapienza”</affiliation></author>
       <author><first>Dennis</first><last>Rotondi</last><affiliation>Universität Stuttgart</affiliation></author>
       <author><first>Simone</first><last>Ciciliano</last><affiliation>Free University of Bozen</affiliation></author>
@@ -11226,10 +11238,10 @@
     </paper>
     <paper id="861">
       <title><fixed-case>ECBD</fixed-case>: Evidence-Centered Benchmark Design for <fixed-case>NLP</fixed-case></title>
-      <author><first>Yu</first><last>Liu</last><affiliation>McGill University, McGill University</affiliation></author>
-      <author><first>Su</first><last>Blodgett</last><affiliation>Microsoft</affiliation></author>
+      <author><first>Yu Lu</first><last>Liu</last><affiliation>McGill University, McGill University</affiliation></author>
+      <author><first>Su Lin</first><last>Blodgett</last><affiliation>Microsoft</affiliation></author>
       <author><first>Jackie</first><last>Cheung</last><affiliation>McGill University</affiliation></author>
-      <author><first>Vera</first><last>Liao</last><affiliation>International Business Machines</affiliation></author>
+      <author><first>Q. Vera</first><last>Liao</last><affiliation>International Business Machines</affiliation></author>
       <author><first>Alexandra</first><last>Olteanu</last><affiliation>Research, Microsoft</affiliation></author>
       <author><first>Ziang</first><last>Xiao</last><affiliation>Department of Computer Science, Whiting School of Engineering</affiliation></author>
       <pages>16349-16365</pages>
@@ -11497,8 +11509,10 @@
       <author><first>Peiquan</first><last>Jin</last><affiliation>University of Science and Technology of China</affiliation></author>
       <pages>168-174</pages>
       <abstract>Large Language Models (LLMs) have shown that their reasoning ability could be enhanced through approaches like Chain-of-Thought (CoT) prompting. However, these methods use single prompts for different types of questions and do not design appropriate prompts for questions with different characteristics. In this paper, we aim to explore a methodology that generates differentially diverse reasoning paths for different types of questions. To achieve this, we propose a novel prompting strategy called Differential Diversity Prompting (DDPrompt). Firstly, we generate the optimal prompts collection based on question characteristics. Then, we use this optimal prompts collection to generate multiple answers for a question and choose the final answer by voting. We evaluated DDPrompt on twelve reasoning benchmarks and significant improvement in the performance of LLMs on complex reasoning tasks (e.g., GSM8K 75%-&gt;84%, Tracking Shuffled Objects (68.8%-&gt;83.9%))</abstract>
-      <url hash="8e414551">2024.acl-short.17</url>
+      <url hash="58ff129d">2024.acl-short.17</url>
       <bibkey>mu-etal-2024-ddprompt</bibkey>
+      <revision id="1" href="2024.acl-short.17v1" hash="8e414551"/>
+      <revision id="2" href="2024.acl-short.17v2" hash="58ff129d" date="2024-08-20">Minor update.</revision>
     </paper>
     <paper id="18">
       <title>Monotonic Representation of Numeric Attributes in Language Models</title>
@@ -11943,7 +11957,7 @@
     </paper>
     <paper id="57">
       <title>Consistency Training by Synthetic Question Generation for Conversational Question Answering</title>
-      <author><first>Hamed</first><last>Hemati</last><affiliation>Sharif University of Technology</affiliation></author>
+      <author><first>Hamed</first><last>Hematian Hemati</last><affiliation>Sharif University of Technology</affiliation></author>
       <author><first>Hamid</first><last>Beigy</last></author>
       <pages>630-639</pages>
       <abstract>Efficiently modeling historical information is a critical component in addressing user queries within a conversational question-answering (QA) context, as historical context plays a vital role in clarifying the user’s questions. However, irrelevant history induces noise in the reasoning process, especially for those questions with a considerable historical context. In our novel model-agnostic approach, referred to as **CoTaH** (**Co**nsistency-**T**rained **a**ugmented **H**istory), we augment the historical information with synthetic questions and subsequently employ consistency training to train a model that utilizes both real and augmented historical data to implicitly make the reasoning robust to irrelevant history. To the best of our knowledge, this is the first instance of research using synthetic question generation as a form of data augmentation to model conversational QA settings. By citing a common modeling error prevalent in previous research, we introduce a new baseline and compare our model’s performance against it, demonstrating an improvement in results, particularly in later turns of the conversation, when dealing with questions that include a large historical context.</abstract>
