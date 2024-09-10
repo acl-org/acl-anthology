@@ -3028,8 +3028,10 @@
       <author><first>Jianguo</first><last>Li</last><affiliation>Ant Group</affiliation></author>
       <pages>4247-4262</pages>
       <abstract>Self-attention and position embedding are two crucial modules in transformer-based Large Language Models (LLMs). However, the potential relationship between them is far from well studied, especially for long context window extending. In fact, anomalous behaviors that hinder long context extrapolation exist between Rotary Position Embedding (RoPE) and vanilla self-attention.Incorrect initial angles between <tex-math>Q</tex-math> and <tex-math>K</tex-math> can cause misestimation in modeling rotary position embedding of the closest tokens.To address this issue, we propose <tex-math>\textbf{Co}</tex-math>llinear <tex-math>\textbf{C}</tex-math>onstrained <tex-math>\textbf{A}</tex-math>ttention mechanism, namely CoCA. Specifically, we enforce a collinear constraint between <tex-math>Q</tex-math> and <tex-math>K</tex-math> to seamlessly integrate RoPE and self-attention.While only adding minimal computational and spatial complexity, this integration significantly enhances long context window extrapolation ability. We provide an optimized implementation, making it a drop-in replacement for any existing transformer-based models.Extensive experiments demonstrate that CoCA excels in extending context windows. A CoCA-based GPT model, trained with a context length of 512, can extend the context window up to 32K (60<tex-math>\times</tex-math>) without any fine-tuning.Additionally, incorporating CoCA into LLaMA-7B achieves extrapolation up to 32K within a training length of only 2K.Our code is publicly available at: https://github.com/codefuse-ai/Collinear-Constrained-Attention</abstract>
-      <url hash="4eabb3e5">2024.acl-long.233</url>
+      <url hash="1753c452">2024.acl-long.233</url>
       <bibkey>zhu-etal-2024-coca</bibkey>
+      <revision id="1" href="2024.acl-long.233v1" hash="4eabb3e5"/>
+      <revision id="2" href="2024.acl-long.233v2" hash="1753c452" date="2024-09-09">The author's affiliation changed.</revision>
     </paper>
     <paper id="234">
       <title><fixed-case>I</fixed-case>nfo<fixed-case>L</fixed-case>oss<fixed-case>QA</fixed-case>: Characterizing and Recovering Information Loss in Text Simplification</title>
