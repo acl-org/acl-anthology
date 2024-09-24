@@ -3262,12 +3262,9 @@
       <abstract>Self-attention and position embedding are two crucial modules in transformer-based Large Language Models (LLMs). However, the potential relationship between them is far from well studied, especially for long context window extending. In fact, anomalous behaviors that hinder long context extrapolation exist between Rotary Position Embedding (RoPE) and vanilla self-attention.Incorrect initial angles between <tex-math>Q</tex-math> and <tex-math>K</tex-math> can cause misestimation in modeling rotary position embedding of the closest tokens.To address this issue, we propose <tex-math>\textbf{Co}</tex-math>llinear <tex-math>\textbf{C}</tex-math>onstrained <tex-math>\textbf{A}</tex-math>ttention mechanism, namely CoCA. Specifically, we enforce a collinear constraint between <tex-math>Q</tex-math> and <tex-math>K</tex-math> to seamlessly integrate RoPE and self-attention.While only adding minimal computational and spatial complexity, this integration significantly enhances long context window extrapolation ability. We provide an optimized implementation, making it a drop-in replacement for any existing transformer-based models.Extensive experiments demonstrate that CoCA excels in extending context windows. A CoCA-based GPT model, trained with a context length of 512, can extend the context window up to 32K (60<tex-math>\times</tex-math>) without any fine-tuning.Additionally, incorporating CoCA into LLaMA-7B achieves extrapolation up to 32K within a training length of only 2K.Our code is publicly available at: https://github.com/codefuse-ai/Collinear-Constrained-Attention</abstract>
       <url hash="1753c452">2024.acl-long.233</url>
       <bibkey>zhu-etal-2024-coca</bibkey>
-<<<<<<< HEAD
       <revision id="1" href="2024.acl-long.233v1" hash="4eabb3e5"/>
       <revision id="2" href="2024.acl-long.233v2" hash="1753c452" date="2024-09-09">The author's affiliation changed.</revision>
-=======
       <doi>10.18653/v1/2024.acl-long.233</doi>
->>>>>>> origin/master
     </paper>
     <paper id="234">
       <title><fixed-case>I</fixed-case>nfo<fixed-case>L</fixed-case>oss<fixed-case>QA</fixed-case>: Characterizing and Recovering Information Loss in Text Simplification</title>
@@ -4599,12 +4596,9 @@
       <abstract>Large language models (LLMs) can explain their predictions through post-hoc or Chain-of-Thought (CoT) explanations. But an LLM could make up reasonably sounding explanations that are unfaithful to its underlying reasoning. Recent work has designed tests that aim to judge the faithfulness of post-hoc or CoT explanations. In this work we argue that these faithfulness tests do not measure faithfulness to the models’ inner workings – but rather their self-consistency at output level.Our contributions are three-fold: i) We clarify the status of faithfulness tests in view of model explainability, characterising them as self-consistency tests instead. This assessment we underline by ii) constructing a Comparative Consistency Bank for self-consistency tests that for the first time compares existing tests on a common suite of 11 open LLMs and 5 tasks – including iii) our new self-consistency measure CC-SHAP. CC-SHAP is a fine-grained measure (not a test) of LLM self-consistency. It compares how a model’s input contributes to the predicted answer and to generating the explanation. Our fine-grained CC-SHAP metric allows us iii) to compare LLM behaviour when making predictions and to analyse the effect of other consistency tests at a deeper level, which takes us one step further towards measuring faithfulness by bringing us closer to the internals of the model than strictly surface output-oriented tests.</abstract>
       <url hash="8a044b2a">2024.acl-long.329</url>
       <bibkey>parcalabescu-frank-2024-measuring</bibkey>
-<<<<<<< HEAD
       <revision id="1" href="2024.acl-long.329v1" hash="ab7d495d"/>
       <revision id="2" href="2024.acl-long.329v2" hash="8a044b2a" date="2024-09-18">This revision mentions a sponsor in the acknowledgements and fixes the typo in Eq. 4.</revision>
-=======
       <doi>10.18653/v1/2024.acl-long.329</doi>
->>>>>>> origin/master
     </paper>
     <paper id="330">
       <title>Learning or Self-aligning? Rethinking Instruction Fine-tuning</title>
@@ -5375,11 +5369,8 @@
       <bibkey>rai-yao-2024-investigation</bibkey>
       <revision id="1" href="2024.acl-long.387v1" hash="96778503"/>
       <revision id="2" href="2024.acl-long.387v2" hash="ac2dab44" date="2024-08-29">Minor updates.</revision>
-<<<<<<< HEAD
       <revision id="3" href="2024.acl-long.387v3" hash="364a0886" date="2024-09-09">Minor updates.</revision>
-=======
       <doi>10.18653/v1/2024.acl-long.387</doi>
->>>>>>> origin/master
     </paper>
     <paper id="388">
       <title>Leveraging Large Language Models for Learning Complex Legal Concepts through Storytelling</title>
@@ -9698,12 +9689,9 @@
       <abstract>We introduce FinanceMath, a novel benchmark designed to evaluate LLMs' capabilities in solving knowledge-intensive math reasoning problems. Compared to prior works, this study features three core advancements. First, FinanceMath includes 1,200 problems with a hybrid of textual and tabular content. These problems require college-level knowledge in the finance domain for effective resolution. Second, we provide expert-annotated, detailed solution references in Python program format, ensuring a high-quality benchmark for LLM assessment. We also construct a finance-domain knowledge bank and investigate various knowledge integration strategies. Finally, we evaluate a wide spectrum of 44 LLMs with both Chain-of-Thought and Program-of-Thought prompting methods. Our experimental results reveal that the current best-performing system (i.e., GPT-4o) achieves only 60.9% accuracy using CoT prompting, leaving substantial room for improvement. Moreover, while augmenting LLMs with external knowledge can improve model performance (e.g., from 47.5% to 54.5% for Gemini-1.5-Pro), their accuracy remains significantly lower than the estimated human expert performance of 92%. We believe that FinanceMath can advance future research in the area of domain-specific knowledge retrieval and integration, particularly within the context of solving reasoning-intensive tasks.</abstract>
       <url hash="ba7e748c">2024.acl-long.693</url>
       <bibkey>zhao-etal-2024-knowledgefmath</bibkey>
-<<<<<<< HEAD
       <revision id="1" href="2024.acl-long.693v1" hash="e2e21860"/>
       <revision id="2" href="2024.acl-long.693v2" hash="ba7e748c" date="2024-09-17">Revised the dataset name.</revision>
-=======
       <doi>10.18653/v1/2024.acl-long.693</doi>
->>>>>>> origin/master
     </paper>
     <paper id="694">
       <title><fixed-case>API</fixed-case>-<fixed-case>BLEND</fixed-case>: A Comprehensive Corpora for Training and Benchmarking <fixed-case>API</fixed-case> <fixed-case>LLM</fixed-case>s</title>
@@ -12012,12 +12000,9 @@
       <abstract>Recent LLMs have demonstrated remarkable performance in solving exam-like math word problems. However, the degree to which these numerical reasoning skills are effective in real-world scenarios, particularly in expert domains, is still largely unexplored. This paper introduces DocMath-Eval, a comprehensive benchmark specifically designed to evaluate the numerical reasoning capabilities of LLMs in the context of understanding and analyzing specialized documents containing both text and tables. We conduct an extensive evaluation of 48 LLMs with Chain-of-Thought and Program-of-Thought prompting methods, aiming to comprehensively assess the capabilities and limitations of existing LLMs in DocMath-Eval. We found that even the current best-performing system (i.e., GPT-4o) still significantly lags behind human experts in solving complex numerical reasoning problems grounded in long contexts. We believe that DocMath-Eval can serve as a valuable benchmark for evaluating LLMs' capabilities in solving challenging numerical reasoning problems within expert domains.</abstract>
       <url hash="0f0bea3b">2024.acl-long.852</url>
       <bibkey>zhao-etal-2024-docmath</bibkey>
-<<<<<<< HEAD
       <revision id="1" href="2024.acl-long.852v1" hash="de5c6157"/>
       <revision id="2" href="2024.acl-long.852v2" hash="0f0bea3b" date="2024-09-17">Included experimental results.</revision>
-=======
       <doi>10.18653/v1/2024.acl-long.852</doi>
->>>>>>> origin/master
     </paper>
     <paper id="853">
       <title>Unintended Impacts of <fixed-case>LLM</fixed-case> Alignment on Global Representation</title>
