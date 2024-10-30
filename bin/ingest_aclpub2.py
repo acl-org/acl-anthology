@@ -682,9 +682,8 @@ def create_xml(
     meta_node = None
 
     for paper_num, paper in sorted(volume.items()):
-        print("PAPER", paper)
         if not paper["archival"]:
-            print("Skipping", paper, file=sys.stderr)
+            print(f"Skipping non-archival paper #{paper_num}", file=sys.stderr)
             continue
 
         paper_id_full = paper['anthology_id']
