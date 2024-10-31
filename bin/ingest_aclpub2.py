@@ -204,8 +204,9 @@ def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
     else:
         raise Exception("Can't find papers.yml (looked in root dir and under inputs/)")
 
-    # remove non-archival papers
-    papers = [p for p in papers if p.get('archival', True)]
+    for paper in papers:
+        if "archival" not in paper:
+            paper["archival"] = False
 
     return papers
 
@@ -220,39 +221,40 @@ def add_paper_nums_in_paper_yaml(
 
     start, end = 1, 0
     for paper in papers:
-        assert 'file' in paper.keys(), f'{paper["id"]} is missing key file'
+        if paper["archival"]:
+            assert 'file' in paper.keys(), f'{paper["id"]} is missing key file'
 
-        paper_id = str(paper['id'])
-        # if 'file' not in paper.keys():
-        #     print(f'{paper_id} does not have file key but archive is {paper["archival"]}')
-        #     paper_name = paper['title']
-        # else:
+            paper_id = str(paper['id'])
+            # if 'file' not in paper.keys():
+            #     print(f'{paper_id} does not have file key but archive is {paper["archival"]}')
+            #     paper_name = paper['title']
+            # else:
 
-        paper_path = paper['file']
+            paper_path = paper['file']
 
-        # TODO: we should just be able to read paper_path directly, and throw an
-        # error if it doesn't exist
-        paper_need_read_path = None
-        paths_to_check = [
-            ingestion_dir / "watermarked_pdfs" / paper_path,
-            ingestion_dir / "watermarked_pdfs" / f"{paper_id}.pdf",
-        ]
-        paper_need_read_path = None
-        for path in paths_to_check:
-            if path.exists():
-                paper_need_read_path = str(path)
-                break
-        else:
-            raise Exception(
-                f"* Fatal: could not find paper ID {paper_id} ({paths_to_check})"
-            )
+            # TODO: we should just be able to read paper_path directly, and throw an
+            # error if it doesn't exist
+            paper_need_read_path = None
+            paths_to_check = [
+                ingestion_dir / "watermarked_pdfs" / paper_path,
+                ingestion_dir / "watermarked_pdfs" / f"{paper_id}.pdf",
+            ]
+            paper_need_read_path = None
+            for path in paths_to_check:
+                if path.exists():
+                    paper_need_read_path = str(path)
+                    break
+            else:
+                raise Exception(
+                    f"* Fatal: could not find paper ID {paper_id} ({paths_to_check})"
+                )
 
-        pdf = open(paper_need_read_path, 'rb')
-        pdf_reader = PyPDF2.PdfReader(pdf)
-        num_of_pages = len(pdf_reader.pages)
-        start = end + 1
-        end = start + num_of_pages - 1
-        paper['pages'] = f'{start}-{end}'
+            pdf = open(paper_need_read_path, 'rb')
+            pdf_reader = PyPDF2.PdfReader(pdf)
+            num_of_pages = len(pdf_reader.pages)
+            start = end + 1
+            end = start + num_of_pages - 1
+            paper['pages'] = f'{start}-{end}'
 
     return papers
 
@@ -532,6 +534,7 @@ def copy_pdf_and_attachment(
     volume[0] = {
         "anthology_id": f"{collection_id}-{volume_name}.0",
         "attachments": [],
+        "archival": True,
     }
 
     frontmatter_src_path = None
@@ -562,28 +565,23 @@ def copy_pdf_and_attachment(
 
     paper_num = 0
     for i, paper in enumerate(papers):
-        # archival papers only
-        if 'archival' not in paper.keys():
-            paper.update({'archival': '1'})
         assert 'archival' in paper.keys(), f'{paper["id"]} is missing key archival'
         assert 'file' in paper.keys(), f'{paper["id"]} is missing key file'
-        if (
-            paper['archival'] == 1
-            or paper['archival'] is True
-            or paper['archival'] == '1'
-        ):
-            # copy pdf
-            # if 'file' not in paper.keys():
-            #     paper_name = paper['title']
-            #     print(f'{paper_name} does not have file key')
-            # else:
-            paper_name = paper['file']
-            # paper_name = paper['file']
-            if paper_name != '' or paper_name is not None:
-                paper_id = str(paper['id'])
-                paper_num += 1
-                paper_id_full = f'{collection_id}-{volume_name}.{paper_num}'
 
+        paper_name = paper['file']
+        # paper_name = paper['file']
+        if paper_name != '' or paper_name is not None:
+            paper_id = str(paper['id'])
+            paper_num += 1
+            paper_id_full = f'{collection_id}-{volume_name}.{paper_num}'
+
+            volume[paper_num] = {
+                'anthology_id': paper_id_full,
+                'attachments': [],
+                'archival': paper["archival"],
+            }
+
+            if paper["archival"]:
                 pdf_src_path = None
                 if (pdfs_src_dir / paper_name).exists():
                     pdf_src_path = pdfs_src_dir / paper_name
@@ -599,61 +597,53 @@ def copy_pdf_and_attachment(
                 if not dry_run:
                     maybe_copy(pdf_src_path, pdf_dest_path)
 
-                volume[paper_num] = {
-                    'anthology_id': paper_id_full,
-                    'pdf': pdf_dest_path,
-                    'attachments': [],
-                }
+                volume[paper_num]["pdf"] = pdf_dest_path
 
-            # copy attachments
-            if 'attachments' in paper:
-                attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
-                attachs_src_dir = meta['path'] / 'attachments'
-                # assert (
-                #     attachs_src_dir.exists()
-                # ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
+        # copy attachments
+        if 'attachments' in paper:
+            attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
+            attachs_src_dir = meta['path'] / 'attachments'
+            # assert (
+            #     attachs_src_dir.exists()
+            # ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
 
-                for attachment in paper['attachments']:
-                    file_path = Path(attachment.get('file', None))
-                    if file_path is None:
-                        continue
+            for attachment in paper['attachments']:
+                file_path = Path(attachment.get('file', None))
+                if file_path is None:
+                    continue
 
-                    attach_src_path = None
-                    paths_to_check = [
-                        attachs_src_dir / file_path,
-                        attachs_src_dir / file_path.name,
-                    ]
-                    for path in paths_to_check:
-                        if path.exists():
-                            attach_src_path = str(path)
-                            break
-                    else:
-                        print(
-                            f"Warning: paper {paper_id} attachment {file_path} not found, skipping",
-                            file=sys.stderr,
-                        )
-                        continue
-
-                    attach_src_extension = attach_src_path.split(".")[-1]
-                    type_ = attachment['type'].replace(" ", "")
-                    file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}'
-
-                    # the destination path
-                    attach_dest_path = os.path.join(attachs_dest_dir, file_name).replace(
-                        " ", ""
+                attach_src_path = None
+                paths_to_check = [
+                    attachs_src_dir / file_path,
+                    attachs_src_dir / file_path.name,
+                ]
+                for path in paths_to_check:
+                    if path.exists():
+                        attach_src_path = str(path)
+                        break
+                else:
+                    print(
+                        f"Warning: paper {paper_id} attachment {file_path} not found, skipping",
+                        file=sys.stderr,
                     )
+                    continue
 
-                    if Path(attach_src_path).exists():
-                        if dry_run:
-                            print(
-                                f'would\'ve moved {attach_src_path} to {attach_dest_path}'
-                            )
-                        else:
-                            maybe_copy(attach_src_path, attach_dest_path)
-                            print(f"Attaching {attach_dest_path}/{type_} to {paper_num}")
-                            volume[paper_num]['attachments'].append(
-                                (attach_dest_path, type_)
-                            )
+                attach_src_extension = attach_src_path.split(".")[-1]
+                type_ = attachment['type'].replace(" ", "")
+                file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}'
+
+                # the destination path
+                attach_dest_path = os.path.join(attachs_dest_dir, file_name).replace(
+                    " ", ""
+                )
+
+                if Path(attach_src_path).exists():
+                    if dry_run:
+                        print(f'would\'ve moved {attach_src_path} to {attach_dest_path}')
+                    else:
+                        maybe_copy(attach_src_path, attach_dest_path)
+                        print(f"Attaching {attach_dest_path}/{type_} to {paper_num}")
+                        volume[paper_num]['attachments'].append((attach_dest_path, type_))
 
     return volume, collection_id, volume_name, proceedings_pdf_dest_path
 
@@ -692,6 +682,10 @@ def create_xml(
     meta_node = None
 
     for paper_num, paper in sorted(volume.items()):
+        if not paper["archival"]:
+            print(f"Skipping non-archival paper #{paper_num}", file=sys.stderr)
+            continue
+
         paper_id_full = paper['anthology_id']
         # print(f'creating xml for paper name {paper}, in papers {papers[paper_num-1]}')
         if paper_num == 0:
@@ -873,7 +867,12 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
 
     # Load the papers.yaml file, skipping non-archival papers
     papers = parse_paper_yaml(ingestion_dir)
-    # print(f'original paper {papers[0]}')
+    print(
+        "Found",
+        len([p for p in papers if p["archival"]]),
+        "archival papers",
+        file=sys.stderr,
+    )
 
     # add page numbering by parsing the PDFs
     papers = add_paper_nums_in_paper_yaml(papers, ingestion_dir)
