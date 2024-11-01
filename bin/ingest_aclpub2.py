@@ -73,6 +73,9 @@ from anthology.utils import (
     compute_hash_from_file,
 )
 
+# Whether papers are archival by default
+ARCHIVAL_DEFAULT = True
+
 
 def disambiguate_name(node, anth_id, people):
     """
@@ -206,7 +209,7 @@ def parse_paper_yaml(ingestion_dir: str) -> List[Dict[str, str]]:
 
     for paper in papers:
         if "archival" not in paper:
-            paper["archival"] = False
+            paper["archival"] = ARCHIVAL_DEFAULT
 
     return papers
 
