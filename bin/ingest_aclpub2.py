@@ -765,6 +765,10 @@ def create_xml(
             url.attrib['hash'] = compute_hash_from_file(paper['pdf'])
 
         for path, type_ in paper['attachments']:
+            # skip copyrights
+            if type_ == "copyright":
+                continue
+
             make_simple_element(
                 'attachment',
                 text=os.path.basename(path),
