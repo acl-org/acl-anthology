@@ -809,8 +809,10 @@ def create_xml(
         # from their papers. We attempt to parse this but there are failure cases
         # particularly with embedded LaTeX commands. Here we use a simple heuristic
         # to remove likely-failed parsing instances: delete abstracts with stray
-        # latex commands (a backslash).
+        # latex commands (a backslash followed at some distance by a {).
         abstract_node = paper_node.find('./abstract')
+        # TODO: this doesn't work because the XML is hierarchical, need to render
+        # to text first
         if abstract_node is not None:
             if abstract_node.text is not None and '\\' in abstract_node.text:
                 print(
