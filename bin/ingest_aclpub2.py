@@ -804,6 +804,21 @@ def create_xml(
         #         raise Exception(f"Can't find language '{language_node.text}'")
         #     language_node.text = lang.part3
 
+        # Fix abstracts
+        # People love cutting and pasting their LaTeX-infused abstracts directly
+        # from their papers. We attempt to parse this but there are failure cases
+        # particularly with embedded LaTeX commands. Here we use a simple heuristic
+        # to remove likely-failed parsing instances: delete abstracts with stray
+        # latex commands (a backslash).
+        abstract_node = paper_node.find('./abstract')
+        if abstract_node is not None:
+            if abstract_node.text is not None and '\\' in abstract_node.text:
+                print(
+                    f"* WARNING: paper {paper_id_full}: deleting abstract node containing a backslash: {abstract_node.text}",
+                    file=sys.stderr,
+                )
+                paper_node.remove(abstract_node)
+
         # Fix author names
         for name_node in paper_node.findall('./author'):
             disamb_name, name_choice = disambiguate_name(name_node, paper_id_full, people)
