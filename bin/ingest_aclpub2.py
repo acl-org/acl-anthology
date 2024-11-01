@@ -388,8 +388,16 @@ def paper2xml(
             authors = paper_item['authors']
             for author in authors:
                 name_node = make_simple_element(field, parent=paper)
-                make_simple_element('first', join_names(author), parent=name_node)
-                make_simple_element('last', author['last_name'], parent=name_node)
+
+                # swap names (<last> can't be empty)
+                first_name = join_names(author)
+                last_name = author['last_name']
+                if first_name != "" and last_name == "":
+                    first_name, last_name = last_name, first_name
+
+                make_simple_element('first', first_name, parent=name_node)
+                make_simple_element('last', last_name, parent=name_node)
+
                 # add affiliation
                 if 'institution' in author.keys():
                     make_simple_element(
