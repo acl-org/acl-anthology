@@ -33,7 +33,7 @@ from ..files import (
 )
 from ..people import NameSpecification
 from ..text import MarkupText
-from ..utils.citation import citeproc_render_html
+from ..utils.citation import citeproc_render_html, render_acl_citation
 from ..utils.ids import build_id, AnthologyIDTuple
 from ..utils.latex import make_bibtex_entry
 from ..utils.logging import get_logger
@@ -312,6 +312,8 @@ class Paper:
         Returns:
             The generated citation reference as a single string with HTML markup.  See [`citeproc_render_html()`][acl_anthology.utils.citation.citeproc_render_html] for the rationale behind returning a single string here.
         """
+        if style is None:
+            return render_acl_citation(self)
         return citeproc_render_html(self.citeproc_dict, style)
 
     def to_markdown_citation(self) -> str:

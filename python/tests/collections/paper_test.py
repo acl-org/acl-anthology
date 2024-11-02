@@ -237,7 +237,7 @@ test_cases_papercitation = (
     ),
     (
         "2022.acl-short.0",
-        "Smaranda Muresan, Preslav Nakov, and Aline Villavicencio. 2022. <i>Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</i>. Association for Computational Linguistics, Dublin, Ireland.",
+        'Smaranda Muresan, Preslav Nakov, and Aline Villavicencio. 2022. <i><a href="https://aclanthology.org/2022.acl-short.0/">Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 2: Short Papers)</a></i>. Association for Computational Linguistics, Dublin, Ireland.',
     ),
     (
         "2022.acl-long.268",

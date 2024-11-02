@@ -14,6 +14,8 @@
 
 """Functions for generating citation references."""
 
+from __future__ import annotations
+
 import citeproc
 from citeproc import (
     Citation,
@@ -24,7 +26,11 @@ from citeproc import (
 from citeproc.source.json import CiteProcJSON
 from pathlib import Path
 import sys
-from typing import Any, Optional
+from typing import Any, Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from ..collections import Paper
+    from ..people import NameSpecification
 
 
 class CitationStyleDict(dict[str | Path, Any]):
@@ -88,3 +94,60 @@ def citeproc_render_html(
             str(x) if x != citeproc_dict["title"] else link_text for x in rendered_list
         ]
     return "".join(rendered_list)
+
+
+def _format_names(names: list[NameSpecification]) -> str:
+    match len(names):
+        case 0:
+            return "N.N."
+        case 1:
+            return names[0].name.as_first_last()
+        case 2:
+            return " and ".join(ns.name.as_first_last() for ns in names)
+        case _:
+            return f"{', '.join(ns.name.as_first_last() for ns in names[:-1])}, and {names[-1].name.as_first_last()}"
+
+
+def _format_pages(pages: str) -> str:
+    return pages.replace("--", "–").replace("-", "–")
+
+
+def render_acl_citation(paper: Paper) -> str:
+    """Render a bibliography entry in ACL style.
+
+    Arguments:
+        paper: The paper for which to generate the bibliography entry.
+
+    Returns:
+        The bibliography entry as a single string with HTML markup.
+    """
+    authors = _format_names(paper.authors if paper.authors else paper.get_editors())
+    title = f'<a href="{paper.web_url}">{paper.title.as_text()}</a>'
+    if paper.is_frontmatter:
+        title = f"<i>{title}</i>"
+    parent = []
+    if paper.bibtype == "inproceedings":
+        parent = [f"In <i>{paper.parent.title.as_text()}</i>"]
+        if paper.pages:
+            parent.append(f", pages {_format_pages(paper.pages)}")
+        if paper.address:
+            parent.append(f", {paper.address}")
+        if paper.publisher:
+            parent.append(f". {paper.publisher}")
+    elif paper.bibtype == "article":
+        parent = [f"<i>{paper.parent.get_journal_title()}</i>"]
+        if paper.parent.journal_volume:
+            parent.append(f", {paper.parent.journal_volume}")
+            if paper.parent.journal_issue:
+                parent.append(f"({paper.parent.journal_issue})")
+            if paper.pages:
+                parent.append(f":{_format_pages(paper.pages)}")
+        elif paper.pages:
+            parent.append(f", {_format_pages(paper.pages)}")
+    else:
+        if paper.publisher:
+            parent.append(paper.publisher)
+            if paper.address:
+                parent.append(f", {paper.address}")
+
+    return f"{authors}. {paper.year}. {title}. {''.join(parent)}."
