@@ -42,7 +42,7 @@ except ImportError:
     log.info("Can't load yaml C bindings, reverting to slow pure Python version")
     from yaml import Loader
 
-from acl_anthology.utils.logging import SeverityTracker
+from anthology.utils import SeverityTracker
 
 
 def check_directory(cdir, clean=False):
@@ -84,9 +84,14 @@ def create_papers(srcdir, clean=False):
             if not os.path.exists(paper_dir):
                 os.makedirs(paper_dir)
             with open("{}/{}.md".format(paper_dir, anthology_id), "w") as f:
+                date = entry["ingest_date"]
                 print("---", file=f)
                 yaml.dump(
-                    {"anthology_id": anthology_id, "title": entry["title"]},
+                    {
+                        "anthology_id": anthology_id,
+                        "title": entry["title"],
+                        "date": date,
+                    },
                     default_flow_style=False,
                     stream=f,
                 )
