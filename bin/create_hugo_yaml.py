@@ -28,6 +28,9 @@ Options:
   -h, --help               Display this helpful text.
 """
 
+# TODO: Exporting to JSON via msgspec is orders of magnitude faster than
+#       PyYAML, and Hugo supports JSON as a data format as well.
+
 from docopt import docopt
 from collections import Counter, defaultdict
 import logging as log
@@ -35,7 +38,7 @@ from omegaconf import OmegaConf
 import os
 from rich import print
 from rich.logging import RichHandler
-from rich.progress import Progress
+from rich.progress import Progress, TextColumn, BarColumn, TaskProgressColumn, TimeRemainingColumn
 import yaml
 
 try:
@@ -52,6 +55,16 @@ from create_hugo_pages import check_directory
 
 
 SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
+
+
+def make_progress():
+    columns = [
+        TextColumn("[progress.description]{task.description:25s}"),
+        BarColumn(),
+        TaskProgressColumn(show_speed=True),
+        TimeRemainingColumn(elapsed_when_finished=True),
+    ]
+    return Progress(*columns)
 
 
 def person_to_dict(person):
@@ -208,9 +221,9 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                 return
 
     # Export papers
-    with Progress() as progress:
+    with make_progress() as progress:
         paper_count = sum(1 for _ in anthology.papers())
-        task = progress.add_task("Exporting papers to YAML...", total=paper_count)
+        task = progress.add_task("Exporting papers...", total=paper_count)
         all_volumes = {}
         for collection in anthology.collections.values():
             collection_papers = {}
@@ -253,41 +266,52 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             yaml.dump(all_volumes, Dumper=Dumper, stream=f)
 
     # Export people
-    people = defaultdict(dict)
-    for person_id, person in anthology.people.items():
-        cname = person.canonical_name
-        papers = sorted(
-            person.papers(),
-            key=lambda paper: paper.year,
-            reverse=True,
-        )
-        data = {
-            "first": cname.first,
-            "last": cname.last,
-            "full": cname.as_first_last(),
-            "slug": person_id,
-            "papers": [paper.full_id for paper in papers],
-            "coauthors": anthology.people.find_coauthors_counter(person).most_common(),
-            "venues": Counter(
-                venue for paper in papers for venue in paper.venue_ids
-            ).most_common(),
-        }
-        if len(person.names) > 1:
-            data["variant_entries"] = [
-                {"first": n.first, "last": n.last, "full": n.as_first_last()}
-                for n in person.names[1:]
-            ]
-        if person.comment is not None:
-            data["comment"] = person.comment
-        similar = anthology.people.similar.subset(person_id)
-        if len(similar) > 1:
-            data["similar"] = list(similar - {person_id})
-        people[person_id[0]][person_id] = data
+    with make_progress() as progress:
+        # Just to make progress bars nicer
+        ppl_count = sum(1 for _ in anthology.people.items())
+        factor = 2
+        if not dryrun:
+            ppl_count *= (1 + factor)
+        task = progress.add_task("Exporting people...", total=ppl_count)
 
-    if not dryrun:
-        for first_letter, people_list in people.items():
-            with open(f"{outdir}/people/{first_letter}.yaml", "w") as f:
-                yaml.dump(people_list, Dumper=Dumper, stream=f)
+        # Here begins the actual serialization
+        people = defaultdict(dict)
+        for person_id, person in anthology.people.items():
+            cname = person.canonical_name
+            papers = sorted(
+                person.papers(),
+                key=lambda paper: paper.year,
+                reverse=True,
+            )
+            data = {
+                "first": cname.first,
+                "last": cname.last,
+                "full": cname.as_first_last(),
+                "slug": person_id,
+                "papers": [paper.full_id for paper in papers],
+                "coauthors": anthology.people.find_coauthors_counter(person).most_common(),
+                "venues": Counter(
+                    venue for paper in papers for venue in paper.venue_ids
+                ).most_common(),
+            }
+            if len(person.names) > 1:
+                data["variant_entries"] = [
+                    {"first": n.first, "last": n.last, "full": n.as_first_last()}
+                    for n in person.names[1:]
+                ]
+            if person.comment is not None:
+                data["comment"] = person.comment
+            similar = anthology.people.similar.subset(person_id)
+            if len(similar) > 1:
+                data["similar"] = list(similar - {person_id})
+            people[person_id[0]][person_id] = data
+            progress.update(task, advance=1)
+
+        if not dryrun:
+            for first_letter, people_list in people.items():
+                with open(f"{outdir}/people/{first_letter}.yaml", "w") as f:
+                    yaml.dump(people_list, Dumper=Dumper, stream=f)
+                progress.update(task, advance=len(people_list) * factor)
 
     exit(35)
     ##### NOT PORTED YET BEYOND THIS POINT
