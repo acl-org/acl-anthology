@@ -25,8 +25,7 @@ from citeproc import (
 )
 from citeproc.source.json import CiteProcJSON
 from pathlib import Path
-import sys
-from typing import Any, Optional, TYPE_CHECKING
+from typing import Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from ..collections import Paper
@@ -62,14 +61,14 @@ citation_styles = CitationStyleDict()
 
 def citeproc_render_html(
     citeproc_dict: dict[str, Any],
-    style: Optional[str | Path] = None,
+    style: str | Path,
     link_title: bool = True,
 ) -> str:
     """Render a bibliography entry with a given CSL style.
 
     Arguments:
         citeproc_dict: A dictionary with publication metadata as expected by CiteProcJSON.
-        style: A path to a CSL file.  If None (default), uses the built-in ACL citation style.
+        style: A path to a CSL file.
         link_title: If True, wraps the title in a link to the entry's URL.
 
     Returns:
@@ -78,9 +77,6 @@ def citeproc_render_html(
     Note:
         The reason for returning a string is that this is what we get from citeproc-py's `render_bibliography()` function.  If the result was parsed with LXML, we could turn it into a proper [MarkupText][acl_anthology.text.MarkupText] object.  However, since the most common use case of this function requires the HTML-ified string, we do not do this here as it would introduce unnecessary overhead in this case.
     """
-    if style is None:
-        style = Path(sys.modules["acl_anthology"].__path__[0]) / "data" / "acl.csl"
-
     source = CiteProcJSON([citeproc_dict])
     item = CitationItem(citeproc_dict["id"])
     bib = CitationStylesBibliography(
@@ -120,6 +116,9 @@ def render_acl_citation(paper: Paper) -> str:
 
     Returns:
         The bibliography entry as a single string with HTML markup.
+
+    Note:
+        This function re-implements (parts of) the ACL citation style in pure Python, making it a much faster alternative to [citeproc_render_html][acl_anthology.utils.citation.citeproc_render_html].
     """
     authors = _format_names(paper.authors if paper.authors else paper.get_editors())
     title = f'<a href="{paper.web_url}">{paper.title.as_text()}</a>'
