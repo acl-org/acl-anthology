@@ -22,7 +22,6 @@ from citeproc import (
     CitationStylesStyle,
 )
 from citeproc.source.json import CiteProcJSON
-from citeproc_styles import get_style_filepath
 from pathlib import Path
 import sys
 from typing import Any, Optional
@@ -39,7 +38,9 @@ class CitationStyleDict(dict[str | Path, Any]):
                 filename = key
             else:
                 # Assume that key is the name of a style in citeproc-py-styles
-                filename = get_style_filepath(key)
+                raise ValueError(
+                    "Names of citation styles are currently not supported; give the name to a CSL file instead."
+                )
             if not Path(filename).is_file():
                 raise KeyError(
                     f"Could not resolve '{key}' to a filename of a citation style"
@@ -62,7 +63,7 @@ def citeproc_render_html(
 
     Arguments:
         citeproc_dict: A dictionary with publication metadata as expected by CiteProcJSON.
-        style: Any citation style supported by [`citeproc-py-styles`](https://github.com/inveniosoftware/citeproc-py-styles) or a path to a CSL file.  If None (default), uses the built-in ACL citation style.
+        style: A path to a CSL file.  If None (default), uses the built-in ACL citation style.
         link_title: If True, wraps the title in a link to the entry's URL.
 
     Returns:

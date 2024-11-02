@@ -307,7 +307,7 @@ class Paper:
         """Generate a citation (reference) for this paper.
 
         Arguments:
-            style: Any citation style supported by [`citeproc-py-styles`](https://github.com/inveniosoftware/citeproc-py-styles) or a path to a CSL file.  If None (default), uses the built-in ACL citation style.
+            style: A path to a CSL file.  If None (default), uses the built-in ACL citation style.
 
         Returns:
             The generated citation reference as a single string with HTML markup.  See [`citeproc_render_html()`][acl_anthology.utils.citation.citeproc_render_html] for the rationale behind returning a single string here.

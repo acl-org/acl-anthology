@@ -4,7 +4,7 @@
 
 ### Added
 
-- Papers can now generate citation reference strings in any CSL-supported style via `to_citation()`.  Calling `to_citation()` without any arguments will produce ACL-formatted reference entries.
+- Papers can now generate citation reference strings from CSL style files via `to_citation()`.  Calling `to_citation()` without any arguments will produce ACL-formatted reference entries.
 - Papers can now generate brief markdown reference strings via `to_markdown_citation()`.
 - PersonIndex now has function `find_coauthors_counter()` to find not just the identities of co-authors, but also get a count how many items they have co-authored together with someone.
 - SIGIndex now reverse-indexes co-located volumes, so it is now possible to get SIGs associated with volumes, e.g. via `Volume.get_sigs()`.
@@ -15,6 +15,7 @@
 
 - Bugfix: Converting a `<texmath>` expression to Unicode no longer serializes the tail of the XML tag, but only the TeX math expression itself.
 - Bugfix: Heuristic scoring of name variants will no longer overwrite canonical names that are explicitly defined in `name_variants.yaml`.
+
 
 ## [0.4.3] — 2023-11-05
 
