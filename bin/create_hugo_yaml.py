@@ -31,6 +31,7 @@ Options:
 from docopt import docopt
 from collections import Counter, defaultdict
 import logging as log
+from omegaconf import OmegaConf
 import os
 from rich import print
 from rich.logging import RichHandler
@@ -42,7 +43,7 @@ try:
 except ImportError:
     from yaml import SafeDumper as Dumper
 
-from acl_anthology import Anthology
+from acl_anthology import Anthology, config
 from acl_anthology.collections.paper import PaperDeletionType
 from acl_anthology.collections.volume import VolumeType
 from acl_anthology.utils.logging import SeverityTracker
@@ -389,6 +390,9 @@ if __name__ == "__main__":
     log.basicConfig(
         format="%(message)s", level=log_level, handlers=[RichHandler(), tracker]
     )
+
+    # This "freezes" the config, resulting in a massive speed-up
+    OmegaConf.resolve(config)
 
     anthology = Anthology(datadir=args["--importdir"])
     anthology.load_all()
