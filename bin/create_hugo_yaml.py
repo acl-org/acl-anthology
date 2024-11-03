@@ -307,6 +307,7 @@ def export_people(anthology, outdir, dryrun):
 
 def export_venues(anthology, outdir, dryrun):
     all_venues = {}
+    print("Exporting venues...")
     for venue_id, venue in anthology.venues.items():
         data = {
             "acronym": venue.acronym,
@@ -341,6 +342,7 @@ def export_venues(anthology, outdir, dryrun):
 def export_events(anthology, outdir, dryrun):
     # Export events
     all_events = {}
+    print("Exporting events...")
     for event in anthology.events.values():
         # TODO: This should be refactored
         # (but functionally it's how it's done in the old library)
@@ -386,6 +388,7 @@ def export_events(anthology, outdir, dryrun):
 
 def export_sigs(anthology, outdir, dryrun):
     all_sigs = {}
+    print("Exporting SIGs...")
     for sig in anthology.sigs.values():
         data = {
             "name": sig.name,
