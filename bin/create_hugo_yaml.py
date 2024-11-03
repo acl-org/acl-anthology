@@ -208,21 +208,8 @@ def volume_to_dict(volume):
         data["pdf"] = volume.pdf.url
 
 
-def export_anthology(anthology, outdir, clean=False, dryrun=False):
-    """
-    Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
-    page stubs created by create_hugo_pages.py to instantiate Hugo templates.
-    """
-    # Create directories
-    if not dryrun:
-        for subdir in ("", "papers", "people"):
-            target_dir = "{}/{}".format(outdir, subdir)
-            if not check_directory(target_dir, clean=clean):
-                return
-
-    # Export papers
-    if False:
-    #with make_progress() as progress:
+def export_papers_and_volumes(anthology, outdir, dryrun):
+    with make_progress() as progress:
         paper_count = sum(1 for _ in anthology.papers())
         task = progress.add_task("Exporting papers...", total=paper_count)
         all_volumes = {}
@@ -262,13 +249,13 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             progress.update(task, advance=len(collection_papers))
 
     # Export volumes
-    if False and not dryrun:
+    if not dryrun:
         with open(f"{outdir}/volumes.yaml", "w") as f:
             yaml.dump(all_volumes, Dumper=Dumper, stream=f)
 
-    # Export people
-    if False:
-    #with make_progress() as progress:
+
+def export_people(anthology, outdir, dryrun):
+    with make_progress() as progress:
         # Just to make progress bars nicer
         ppl_count = sum(1 for _ in anthology.people.items())
         factor = 2
@@ -315,7 +302,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                     yaml.dump(people_list, Dumper=Dumper, stream=f)
                 progress.update(task, advance=len(people_list) * factor)
 
-    # Prepare venue index
+
+def export_venues(anthology, outdir, dryrun):
     all_venues = {}
     for venue_id, venue in anthology.venues.items():
         data = {
@@ -347,11 +335,21 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         with open("{}/venues.yaml".format(outdir), "w") as f:
             yaml.dump(all_venues, Dumper=Dumper, stream=f)
 
-    exit(35)
-    ##### NOT PORTED YET BEYOND THIS POINT
 
-    # Prepare events index
-    events = {}
+def export_events(anthology, outdir, dryrun):
+    # Export events
+    all_events = {}
+    for event in anthology.events.values():
+        data = {
+            "title": event.title if event.title is not None else ...,
+            "links": [{link_type: ref.url} for link_type, ref in event.links.items()],
+        }
+        if event.location is not None:
+            data["location"] = event.location
+        if event.dates is not None:
+            data["dates"] = event.dates
+
+    ### TODO
     for event_name, event_data in anthology.eventindex.items():
         main_venue = event_data["venue"]
         event_data = event_data.copy()
@@ -380,6 +378,12 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
 
         events[event_name] = event_data
 
+    with open(f"{outdir}/events.yaml", "w") as f:
+        yaml.dump(events, Dumper=Dumper, stream=f)
+
+
+def export_sigs(anthology, outdir, dryrun):
+    ### TODO
     # Prepare SIG index
     sigs = {}
     for main_venue, sig in anthology.sigs.items():
@@ -392,17 +396,27 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         }
         sigs[main_venue] = data
 
-    # Dump all
+    with open("{}/sigs.yaml".format(outdir), "w") as f:
+        yaml.dump(sigs, Dumper=Dumper, stream=f)
 
-        with open(f"{outdir}/events.yaml", "w") as f:
-            yaml.dump(events, Dumper=Dumper, stream=f)
-        progress.update()
 
-        with open("{}/sigs.yaml".format(outdir), "w") as f:
-            yaml.dump(sigs, Dumper=Dumper, stream=f)
-        progress.update()
+def export_anthology(anthology, outdir, clean=False, dryrun=False):
+    """
+    Dumps files in build/yaml/*.yaml. These files are used in conjunction with the hugo
+    page stubs created by create_hugo_pages.py to instantiate Hugo templates.
+    """
+    # Create directories
+    if not dryrun:
+        for subdir in ("", "papers", "people"):
+            target_dir = "{}/{}".format(outdir, subdir)
+            if not check_directory(target_dir, clean=clean):
+                return
 
-        progress.close()
+    #export_papers_and_volumes(anthology, outdir, dryrun)
+    #export_people(anthology, outdir, dryrun)
+    #export_venues(anthology, outdir, dryrun)
+    export_events(anthology, outdir, dryrun)
+    #export_sigs(anthology, outdir, dryrun)
 
 
 if __name__ == "__main__":
