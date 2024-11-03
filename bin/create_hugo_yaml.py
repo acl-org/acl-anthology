@@ -182,6 +182,7 @@ def volume_to_dict(volume):
         "title": volume.title.as_text(),
         "title_html": volume.title.as_html(),
         "year": volume.year,
+        "sigs": [],
         "url": volume.web_url,
         "venues": volume.venue_ids,
     }
