@@ -85,32 +85,6 @@ class Event:
                 )
             yield volume
 
-    def _merge(self, other: Event) -> None:
-        """Merge this event with another one.
-
-        Arguments:
-            other: The event to merge into this one.
-
-        Note:
-            Used whenever an event is created both implicitly _and_ explicitly.
-            See: <https://github.com/acl-org/acl-anthology/issues/2743#issuecomment-2453501562>
-        """
-        if self.id != other.id:
-            raise ValueError("Can only merge two events with the same ID")
-        if other.is_explicit and not self.is_explicit:
-            # Point to the collection where this was explicitly defined
-            self.parent = other.parent
-        self.is_explicit |= other.is_explicit
-        self.colocated_ids.extend(other.colocated_ids)
-        self.links.update(other.links)
-        self.talks.extend(other.talks)
-        if self.title is None:
-            self.title = other.title
-        if self.location is None:
-            self.location = other.location
-        if self.dates is None:
-            self.dates = other.dates
-
     @classmethod
     def from_xml(cls, parent: Collection, event: etree._Element) -> Event:
         """Instantiates a new event from an `<event>` block in the XML."""
