@@ -206,13 +206,14 @@ def volume_to_dict(volume):
         data["meta_volume"] = volume.journal_volume
     if volume.pdf is not None:
         data["pdf"] = volume.pdf.url
+    return data
 
 
 def export_papers_and_volumes(anthology, outdir, dryrun):
+    all_volumes = {}
     with make_progress() as progress:
         paper_count = sum(1 for _ in anthology.papers())
         task = progress.add_task("Exporting papers...", total=paper_count)
-        all_volumes = {}
         for collection in anthology.collections.values():
             collection_papers = {}
             for volume in collection.volumes():
