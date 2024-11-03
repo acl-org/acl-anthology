@@ -110,7 +110,9 @@ class Event:
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":
                 kwargs["colocated_ids"] = [
-                    parse_id(str(volume_id.text)) for volume_id in element
+                    parse_id(str(volume_id.text))
+                    for volume_id in element
+                    if volume_id.tag == "volume-id"
                 ]
             else:
                 raise ValueError(f"Unsupported element for Event: <{element.tag}>")
