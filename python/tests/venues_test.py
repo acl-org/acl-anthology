@@ -30,6 +30,7 @@ def test_venue_defaults():
     assert not venue.is_toplevel
     assert venue.oldstyle_letter is None
     assert venue.url is None
+    assert venue.item_ids == set()
 
 
 def test_venue_save(tmp_path):
@@ -67,6 +68,9 @@ def test_venueindex_cl(anthology):
     assert venue.is_acl
     assert venue.is_toplevel
     assert venue.oldstyle_letter == "J"
+    assert venue.item_ids == set(
+        ("J89", "1", None), ("J89", "2", None), ("J89", "3", None), ("J89", "4", None)
+    )
 
 
 def test_venueindex_iter(anthology):
