@@ -10,6 +10,7 @@
 - Papers can now generate brief markdown reference strings via `to_markdown_citation()`.
 - PersonIndex now has function `find_coauthors_counter()` to find not just the identities of co-authors, but also get a count how many items they have co-authored together with someone.
 - SIGIndex now reverse-indexes co-located volumes, so it is now possible to get SIGs associated with volumes, e.g. via `Volume.get_sigs()`.
+- VenueIndex now reverse-indexes associated volumes, so it is now possible to get volumes associated with venues, e.g. via `Venue.volumes()`.
 - Papers now have attribute `thumbnail`.
 - Volumes now have attributes `has_abstracts`, `venue_acronym`, and `web_url`.
 
