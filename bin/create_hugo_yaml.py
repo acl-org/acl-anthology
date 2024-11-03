@@ -352,9 +352,9 @@ def export_events(anthology, outdir, dryrun):
     all_events = {}
     print("Exporting events...")
     for event in anthology.events.values():
-        # TODO: This should be refactored
+        # TODO: This should probably be refactored
         # (but functionally it's how it's done in the old library)
-        main_venue = event.id.split("-")[0]
+        main_venue, year = event.id.split("-")
         if main_venue not in anthology.venues:
             log.error(
                 f"Event {event.id} has inferred venue {main_venue}, which doesn't exist"
@@ -363,7 +363,8 @@ def export_events(anthology, outdir, dryrun):
 
         data = {
             "venue": main_venue,
-            "links": [{link_type: ref.url} for link_type, ref in event.links.items()],
+            "links": [{link_type.capitalize(): ref.url} for link_type, ref in event.links.items()],
+            "year": year,
         }
         if event.location is not None:
             data["location"] = event.location
@@ -372,17 +373,21 @@ def export_events(anthology, outdir, dryrun):
 
         volume_ids = []
         for volume in event.volumes():
-            sort_order = 99
-            if main_venue == volume.venue_ids[0] or f"-{main_venue}" in volume.parent.id:
-                # volumes in main venue should come first
-                sort_order = 1
+            # Default sort order: alphabetically by venue ID
+            sort_order = min(volume.venue_ids)
+            if main_venue in volume.venue_ids:
+                # Volumes in main venue should come first
+                sort_order = f"{volume.venue_ids.index(main_venue):04d}"
+            elif ".findings" in volume.parent.id:
+                # Findings should come next, but before any remaining venues
+                sort_order = "0100"
             elif main_venue == volume.id:
-                # should match Findings
-                sort_order = 2
+                # This was the previous criterion for being moved "to the top"
+                # of the workshop, and it may have been used intentionally for
+                # that purpose (e.g. 2020.nlpcovid19-acl)?
+                sort_order = "0200"
             volume_ids.append((sort_order, volume.full_id))
-
-        data["volumes"] = [tuples[1] for tuples in sorted(volume_ids)]
-        data["year"] = anthology.get_volume(data["volumes"][0]).year
+        data["volumes"] = [tuples[1] for tuples in sorted(volume_ids, key=lambda x: x[0])]
 
         if event.title is not None:
             data["title"] = event.title.as_text()
