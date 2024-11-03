@@ -38,7 +38,13 @@ from omegaconf import OmegaConf
 import os
 from rich import print
 from rich.logging import RichHandler
-from rich.progress import Progress, TextColumn, BarColumn, TaskProgressColumn, TimeRemainingColumn
+from rich.progress import (
+    Progress,
+    TextColumn,
+    BarColumn,
+    TaskProgressColumn,
+    TimeRemainingColumn,
+)
 import yaml
 
 try:
@@ -262,7 +268,7 @@ def export_people(anthology, outdir, dryrun):
         ppl_count = sum(1 for _ in anthology.people.items())
         factor = 2
         if not dryrun:
-            ppl_count *= (1 + factor)
+            ppl_count *= 1 + factor
         task = progress.add_task("Exporting people...", total=ppl_count)
 
         # Here begins the actual serialization
@@ -280,7 +286,9 @@ def export_people(anthology, outdir, dryrun):
                 "full": cname.as_first_last(),
                 "slug": person_id,
                 "papers": [paper.full_id for paper in papers],
-                "coauthors": anthology.people.find_coauthors_counter(person).most_common(),
+                "coauthors": anthology.people.find_coauthors_counter(
+                    person
+                ).most_common(),
                 "venues": Counter(
                     venue for paper in papers for venue in paper.venue_ids
                 ).most_common(),
@@ -348,7 +356,9 @@ def export_events(anthology, outdir, dryrun):
         # (but functionally it's how it's done in the old library)
         main_venue = event.id.split("-")[0]
         if main_venue not in anthology.venues:
-            log.error(f"Event {event.id} has inferred venue {main_venue}, which doesn't exist")
+            log.error(
+                f"Event {event.id} has inferred venue {main_venue}, which doesn't exist"
+            )
             continue
 
         data = {

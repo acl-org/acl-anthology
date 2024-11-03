@@ -76,7 +76,10 @@ def create_papers(srcdir, clean=False):
         return
 
     # Go through all paper volumes
-    for yamlfile in track(glob("{}/data/papers/*.yaml".format(srcdir)), description="Creating paper pages... "):
+    for yamlfile in track(
+        glob("{}/data/papers/*.yaml".format(srcdir)),
+        description="Creating paper pages... ",
+    ):
         log.debug("Processing {}".format(yamlfile))
         with open(yamlfile, "r") as f:
             data = yaml.load(f, Loader=Loader)
@@ -128,7 +131,10 @@ def create_people(srcdir, clean=False):
     if not check_directory("{}/content/people".format(srcdir), clean=clean):
         return
 
-    for yamlfile in track(glob("{}/data/people/*.yaml".format(srcdir)), description="Creating people pages..."):
+    for yamlfile in track(
+        glob("{}/data/people/*.yaml".format(srcdir)),
+        description="Creating people pages...",
+    ):
         log.debug("Processing {}".format(yamlfile))
         with open(yamlfile, "r") as f:
             data = yaml.load(f, Loader=Loader)
