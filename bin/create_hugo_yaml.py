@@ -383,21 +383,31 @@ def export_events(anthology, outdir, dryrun):
 
 
 def export_sigs(anthology, outdir, dryrun):
-    ### TODO
-    # Prepare SIG index
-    sigs = {}
-    for main_venue, sig in anthology.sigs.items():
+    all_sigs = {}
+    for sig in anthology.sigs.values():
         data = {
             "name": sig.name,
-            "slug": sig.slug,
-            "url": sig.url,
-            "volumes_by_year": sig.volumes_by_year,
-            "years": sorted([str(year) for year in sig.years]),
+            "slug": sig.id,
+            "volumes_by_year": {},
         }
-        sigs[main_venue] = data
+        if sig.url is not None:
+            data["url"] = sig.url
+        for year, meetings in sig.get_meetings_by_year().items():
+            data["volumes_by_year"][year] = []
+            for meeting in meetings:
+                if isinstance(meeting, str):
+                    data["volumes_by_year"][year].append(meeting)
+                else:  # SIGMeeting
+                    sigmeeting = {"name": meeting.name}
+                    if meeting.url is not None:
+                        sigmeeting["url"] = meeting.url
+                    data["volumes_by_year"][year].append(sigmeeting)
+        data["years"] = sorted(list(data["volumes_by_year"].keys()))
+        all_sigs[sig.acronym] = data
 
-    with open("{}/sigs.yaml".format(outdir), "w") as f:
-        yaml.dump(sigs, Dumper=Dumper, stream=f)
+    if not dryrun:
+        with open("{}/sigs.yaml".format(outdir), "w") as f:
+            yaml.dump(all_sigs, Dumper=Dumper, stream=f)
 
 
 def export_anthology(anthology, outdir, clean=False, dryrun=False):
@@ -412,11 +422,11 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             if not check_directory(target_dir, clean=clean):
                 return
 
-    #export_papers_and_volumes(anthology, outdir, dryrun)
-    #export_people(anthology, outdir, dryrun)
-    #export_venues(anthology, outdir, dryrun)
+    export_papers_and_volumes(anthology, outdir, dryrun)
+    export_people(anthology, outdir, dryrun)
+    export_venues(anthology, outdir, dryrun)
     export_events(anthology, outdir, dryrun)
-    #export_sigs(anthology, outdir, dryrun)
+    export_sigs(anthology, outdir, dryrun)
 
 
 if __name__ == "__main__":
