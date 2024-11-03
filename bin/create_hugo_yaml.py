@@ -333,13 +333,19 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             data["oldstyle_letter"] = venue.oldstyle_letter
         if venue.url is not None:
             data["url"] = venue.url
-
-        # TODO: volumes_by_year
         data["volumes_by_year"] = {}
-        # TODO: years
-        data["years"] = sorted(list(data["years"]))
-
+        for volume in venue.volumes():
+            year, volume_id = volume.year, volume.full_id
+            try:
+                data["volumes_by_year"][year].append(volume_id)
+            except KeyError:
+                data["volumes_by_year"][year] = [volume_id]
+        data["years"] = sorted(list(data["volumes_by_year"].keys()))
         all_venues[venue_id] = data
+
+    if not dryrun:
+        with open("{}/venues.yaml".format(outdir), "w") as f:
+            yaml.dump(all_venues, Dumper=Dumper, stream=f)
 
     exit(35)
     ##### NOT PORTED YET BEYOND THIS POINT
@@ -387,10 +393,6 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
         sigs[main_venue] = data
 
     # Dump all
-    if not dryrun:
-        with open("{}/venues.yaml".format(outdir), "w") as f:
-            yaml.dump(venues, Dumper=Dumper, stream=f)
-        progress.update()
 
         with open(f"{outdir}/events.yaml", "w") as f:
             yaml.dump(events, Dumper=Dumper, stream=f)
