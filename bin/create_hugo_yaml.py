@@ -221,7 +221,8 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                 return
 
     # Export papers
-    with make_progress() as progress:
+    if False:
+    #with make_progress() as progress:
         paper_count = sum(1 for _ in anthology.papers())
         task = progress.add_task("Exporting papers...", total=paper_count)
         all_volumes = {}
@@ -261,12 +262,13 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
             progress.update(task, advance=len(collection_papers))
 
     # Export volumes
-    if not dryrun:
+    if False and not dryrun:
         with open(f"{outdir}/volumes.yaml", "w") as f:
             yaml.dump(all_volumes, Dumper=Dumper, stream=f)
 
     # Export people
-    with make_progress() as progress:
+    if False:
+    #with make_progress() as progress:
         # Just to make progress bars nicer
         ppl_count = sum(1 for _ in anthology.people.items())
         factor = 2
@@ -313,30 +315,34 @@ def export_anthology(anthology, outdir, clean=False, dryrun=False):
                     yaml.dump(people_list, Dumper=Dumper, stream=f)
                 progress.update(task, advance=len(people_list) * factor)
 
-    exit(35)
-    ##### NOT PORTED YET BEYOND THIS POINT
-
     # Prepare venue index
-    venues = {}
-    for main_venue, data in anthology.venues.items():
-        data.get("oldstyle_letter", "W")
-        data = data.copy()
-        data["volumes_by_year"] = {}
-        for year in sorted(data["years"]):
-            # Grab just the volumes that match the current year
-            filtered_volumes = list(
-                filter(lambda k: volumes[k]["year"] == year, data["volumes"])
-            )
-            data["volumes_by_year"][year] = filtered_volumes
-        if not data["volumes_by_year"]:
-            log.warning(f"Venue '{main_venue}' has no volumes associated with it")
+    all_venues = {}
+    for venue_id, venue in anthology.venues.items():
+        data = {
+            "acronym": venue.acronym,
+            "is_acl": venue.is_acl,
+            "is_toplevel": venue.is_toplevel,
+            "name": venue.name,
+            # Note: 'slug' was produced with a separate function in the old
+            # library, but in practice it's always just the venue_id — maybe we
+            # can refactor this in the depending code as well to just use the
+            # venue_id, and get rid of this attribute
+            "slug": venue_id,
+        }
+        if venue.oldstyle_letter is not None:
+            data["oldstyle_letter"] = venue.oldstyle_letter
+        if venue.url is not None:
+            data["url"] = venue.url
 
+        # TODO: volumes_by_year
+        data["volumes_by_year"] = {}
+        # TODO: years
         data["years"] = sorted(list(data["years"]))
 
-        # The export uses volumes_by_year, deleting this saves space
-        del data["volumes"]
+        all_venues[venue_id] = data
 
-        venues[main_venue] = data
+    exit(35)
+    ##### NOT PORTED YET BEYOND THIS POINT
 
     # Prepare events index
     events = {}
