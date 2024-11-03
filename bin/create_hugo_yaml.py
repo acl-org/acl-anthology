@@ -340,8 +340,15 @@ def export_events(anthology, outdir, dryrun):
     # Export events
     all_events = {}
     for event in anthology.events.values():
+        # TODO: This should be refactored
+        # (but functionally it's how it's done in the old library)
+        main_venue = event.id.split("-")[0]
+        if main_venue not in anthology.venues:
+            log.error(f"Event {event.id} has inferred venue {main_venue}, which doesn't exist")
+            continue
+
         data = {
-            "title": event.title if event.title is not None else ...,
+            "venue": main_venue,
             "links": [{link_type: ref.url} for link_type, ref in event.links.items()],
         }
         if event.location is not None:
@@ -349,37 +356,30 @@ def export_events(anthology, outdir, dryrun):
         if event.dates is not None:
             data["dates"] = event.dates
 
-    ### TODO
-    for event_name, event_data in anthology.eventindex.items():
-        main_venue = event_data["venue"]
-        event_data = event_data.copy()
+        volume_ids = []
+        for volume in event.volumes():
+            sort_order = 99
+            if main_venue == volume.venue_ids[0] or f"-{main_venue}" in volume.parent.id:
+                # volumes in main venue should come first
+                sort_order = 1
+            elif main_venue == volume.id:
+                # should match Findings
+                sort_order = 2
+            volume_ids.append((sort_order, volume.full_id))
 
-        def volume_sorter(volume):
-            """
-            Puts all main volumes before satellite ones.
-            Main volumes are sorted in a stabile manner as
-            found in the XML. Colocated ones are sorted
-            alphabetically.
+        data["volumes"] = [tuples[1] for tuples in sorted(volume_ids)]
+        data["year"] = anthology.get_volume(data["volumes"][0]).year
 
-            :param volume: The Anthology volume
-            """
-            if main_venue in volumes[volume]["venues"]:
-                # sort volumes in main venue first
-                return "_"
-            elif deconstruct_anthology_id(volume)[1] == main_venue:
-                # this puts Findings at the top (e.g., 2022-findings.emnlp will match emnlp)
-                return "__"
-            else:
-                # sort colocated volumes alphabetically, using
-                # the alphabetically-earliest volume
-                return min(volumes[volume]["venues"])
+        if event.title is not None:
+            data["title"] = event.title.as_text()
+        else:
+            data["title"] = f"{anthology.venues[main_venue].name} ({data['year']})"
 
-        event_data["volumes"] = sorted(event_data["volumes"], key=volume_sorter)
+        all_events[event.id] = data
 
-        events[event_name] = event_data
-
-    with open(f"{outdir}/events.yaml", "w") as f:
-        yaml.dump(events, Dumper=Dumper, stream=f)
+    if not dryrun:
+        with open(f"{outdir}/events.yaml", "w") as f:
+            yaml.dump(all_events, Dumper=Dumper, stream=f)
 
 
 def export_sigs(anthology, outdir, dryrun):
