@@ -294,6 +294,7 @@ def main(args):
                     meta["path"],
                     "cdrom",
                     f"{year}-{venue_name.lower()}-{volume_name}.pdf",
+                    f"{venue_name.lower()}-{year}.{volume_name}.pdf",
                 ),
                 os.path.join(meta["path"], "cdrom", f"{venue_name.upper()}-{year}.pdf"),
             ]
