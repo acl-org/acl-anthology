@@ -16,6 +16,8 @@
 
 ### Changed
 
+- Bugfix: Events now use the correct URL template.
+- Bugfix: Events that are both implicitly _and_ explicitly created now merge their information, instead of overwriting each other.
 - Bugfix: Converting a `<texmath>` expression to Unicode no longer serializes the tail of the XML tag, but only the TeX math expression itself.
 - Bugfix: Heuristic scoring of name variants will no longer overwrite canonical names that are explicitly defined in `name_variants.yaml`.
 

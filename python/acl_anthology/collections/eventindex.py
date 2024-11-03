@@ -74,7 +74,10 @@ class EventIndex(SlottedDict[Event]):
         )
         for collection in iterator:
             if (explicit_event := collection.get_event()) is not None:
-                self.data[explicit_event.id] = explicit_event
+                if explicit_event.id not in self.data:
+                    self.data[explicit_event.id] = explicit_event
+                else:
+                    self.data[explicit_event.id]._merge(explicit_event)
                 for volume_fid in explicit_event.colocated_ids:
                     self.reverse[volume_fid].add(explicit_event.id)
 
@@ -87,13 +90,17 @@ class EventIndex(SlottedDict[Event]):
                     if (event := self.data.get(event_id)) is None:
                         venue_name = self.parent.venues[venue_id].name
                         event_name = f"{venue_name} ({volume.year})"
-                        self.data[event_id] = Event(
+                        event = Event(
                             event_id,
                             collection,
                             is_explicit=False,
                             colocated_ids=[volume_fid],
                             title=MarkupText.from_string(event_name),
                         )
+                        if event_id not in self.data:
+                            self.data[event_id] = event
+                        else:
+                            self.data[event_id]._merge(event)
                     elif volume_fid not in event.colocated_ids:
                         event.colocated_ids.append(volume_fid)
                     self.reverse[volume_fid].add(event_id)
