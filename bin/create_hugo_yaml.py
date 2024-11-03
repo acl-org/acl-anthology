@@ -363,7 +363,10 @@ def export_events(anthology, outdir, dryrun):
 
         data = {
             "venue": main_venue,
-            "links": [{link_type.capitalize(): ref.url} for link_type, ref in event.links.items()],
+            "links": [
+                {link_type.capitalize(): ref.url}
+                for link_type, ref in event.links.items()
+            ],
             "year": year,
         }
         if event.location is not None:

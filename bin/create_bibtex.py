@@ -148,7 +148,6 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                                     file=file_anthology_raw,
                                 )
                             except AttributeError:
-                                import sys
 
                                 log.warning(f"Could not find title for {volume_id}")
                                 abbrev = None
