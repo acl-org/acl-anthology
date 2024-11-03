@@ -34,8 +34,10 @@ import os
 import datetime
 
 from docopt import docopt
-from tqdm import tqdm
 from pathlib import Path
+from rich import print
+from rich.logging import RichHandler
+from rich.progress import track
 
 from anthology import Anthology
 from anthology.utils import SeverityTracker, deconstruct_anthology_id, infer_year
@@ -66,7 +68,7 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
     if not check_directory("{}/volumes".format(trgdir), clean=clean):
         return
 
-    log.info("Creating BibTeX files for all papers...")
+    log.debug("Creating BibTeX files for all papers...")
     with (
         open(
             "{}/anthology.bib".format(trgdir), "wt", encoding="utf-8"
@@ -93,8 +95,9 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
         print("@string{anth = {https://aclanthology.org/}}", file=file_anthology_raw)
         print(file=file_anthology_raw)
 
-        for volume_id, volume in tqdm(
-            sorted(anthology.volumes.items(), key=volume_sorter, reverse=True)
+        for volume_id, volume in track(
+            sorted(anthology.volumes.items(), key=volume_sorter, reverse=True),
+            description="Creating BibTeX files...",
         ):
             # reset this each time
             abbrev = None
@@ -147,10 +150,7 @@ def create_bibtex(anthology, trgdir, limit=0, clean=False) -> None:
                             except AttributeError:
                                 import sys
 
-                                print(
-                                    f"Could not find title for {volume_id}",
-                                    file=sys.stderr,
-                                )
+                                log.warning(f"Could not find title for {volume_id}")
                                 abbrev = None
 
                         if abbrev is not None and "booktitle" in concise_contents:
@@ -180,13 +180,16 @@ if __name__ == "__main__":
         )
 
     log_level = log.DEBUG if args["--debug"] else log.INFO
-    log.basicConfig(format="%(levelname)-8s %(message)s", level=log_level)
     tracker = SeverityTracker()
-    log.getLogger().addHandler(tracker)
+    log.basicConfig(
+        format="%(message)s", level=log_level, handlers=[RichHandler(), tracker]
+    )
 
     # If NOBIB is set, generate only three bibs per volume
-    limit = 0 if os.environ.get("NOBIB", "false") == "false" else 3
-    log.info(f"NOBIB=true, generating only {limit} BibTEX files per volume")
+    limit = 0
+    if os.environ.get("NOBIB") == "true":
+        limit = 3
+        log.info(f"NOBIB=true, generating only {limit} BibTEX files per volume")
 
     anthology = Anthology(importdir=args["--importdir"], fast_load=True)
     create_bibtex(anthology, args["--exportdir"], limit=limit, clean=args["--clean"])
