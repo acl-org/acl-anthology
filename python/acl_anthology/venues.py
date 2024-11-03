@@ -89,9 +89,11 @@ class Venue:
         """
         if path is None:
             path = self.path
-        # Serialize everything except "id", "path" and default values
+        # Serialize everything except "id", "item_ids", "path", "parent" and default values
         values = asdict(
-            self, filter=lambda a, v: a.name not in ("id", "path") and v != a.default
+            self,
+            filter=lambda a, v: a.name not in ("id", "item_ids", "parent", "path")
+            and v != a.default,
         )
         with open(path, "w", encoding="utf-8") as f:
             yaml.dump(values, f, Dumper=Dumper)

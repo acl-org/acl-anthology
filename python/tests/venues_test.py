@@ -21,7 +21,7 @@ all_toy_venue_ids = ("acl", "cl", "humeval", "lrec", "nlma")
 
 
 def test_venue_defaults():
-    venue = Venue("foo", "FOO", "Workshop on Foobar", Path("foo.yaml"))
+    venue = Venue("foo", None, "FOO", "Workshop on Foobar", Path("foo.yaml"))
     assert venue.id == "foo"
     assert venue.acronym == "FOO"
     assert venue.name == "Workshop on Foobar"
@@ -35,7 +35,7 @@ def test_venue_defaults():
 
 def test_venue_save(tmp_path):
     path = tmp_path / "foo.yaml"
-    venue = Venue("foo", "FOO", "Workshop on Foobar", path)
+    venue = Venue("foo", None, "FOO", "Workshop on Foobar", path)
     venue.save()
     assert path.is_file()
     with open(path, "r") as f:
@@ -49,7 +49,7 @@ name: Workshop on Foobar
 @pytest.mark.parametrize("venue_id", all_toy_venue_ids)
 def test_venue_roundtrip_yaml(anthology_stub, tmp_path, venue_id):
     yaml_in = anthology_stub.datadir / "yaml" / "venues" / f"{venue_id}.yaml"
-    venue = Venue.load_from_yaml(yaml_in)
+    venue = Venue.load_from_yaml(yaml_in, anthology_stub)
     yaml_out = tmp_path / f"{venue_id}.yaml"
     venue.save(yaml_out)
     assert yaml_out.is_file()
@@ -69,7 +69,7 @@ def test_venueindex_cl(anthology):
     assert venue.is_toplevel
     assert venue.oldstyle_letter == "J"
     assert venue.item_ids == set(
-        ("J89", "1", None), ("J89", "2", None), ("J89", "3", None), ("J89", "4", None)
+        [("J89", "1", None), ("J89", "2", None), ("J89", "3", None), ("J89", "4", None)]
     )
 
 
