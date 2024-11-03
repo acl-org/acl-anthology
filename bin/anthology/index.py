@@ -217,9 +217,18 @@ class AnthologyIndex:
             raise Exception(
                 "Cannot create bibkeys when AnthologyIndex is instantiated with fast_load=True"
             )
+
+        # Regular papers use the first title word, then add title words until uniqueness is achieved
+        title = [
+            w
+            for w in slugify(paper.get_title("plain")).split("-")
+            if not self._is_stopword(w, paper)
+        ]
+
         if paper.is_volume:
-            # Proceedings volumes use venue acronym instead of authors/editors
+            # Proceedings volumes use venue acronym instead of authors/editors, e.g., lrec-tutorials-2024
             bibnames = slugify(paper.get_venue_acronym())
+            bibkey = f"{bibnames}-{paper.get('year')}-{paper.volume_id}"
         else:
             # Regular papers use author/editor names
             names = paper.get("author")
@@ -232,12 +241,9 @@ class AnthologyIndex:
                     bibnames = "-".join(slugify(n.last) for n, _ in names)
             else:
                 bibnames = "nn"
-        title = [
-            w
-            for w in slugify(paper.get_title("plain")).split("-")
-            if not self._is_stopword(w, paper)
-        ]
-        bibkey = f"{bibnames}-{paper.get('year')}-{title.pop(0)}"
+
+            bibkey = f"{bibnames}-{paper.get('year')}-{title.pop(0)}"
+
         while bibkey in self.bibkeys:  # guarantee uniqueness
             if title:
                 bibkey += f"-{title.pop(0)}"

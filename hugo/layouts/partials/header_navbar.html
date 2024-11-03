@@ -11,6 +11,9 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav flex-grow-1 pr-md-2">
       <li class="nav-item">
+        <a class="nav-link" href={{ relref . "/posts" }}>News<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href={{ relref . "/faq" }}>FAQ<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
@@ -31,6 +34,8 @@
 </div></nav>
 {{ if hasPrefix .Site.BaseURL "https://preview.aclanthology.org" }}
 <div role="alert" class="alert alert-danger text-center">
-  This is an <b>internal preview</b> of the ACL Anthology that may be incomplete and contain mistakes. <b>Do not treat this content as an official publication</b>.
+  This is an <b>internal, incomplete preview</b> of a proposed change to the ACL Anthology.
+  For efficiency reasons, we generate only three BibTeX files per volume, and the preview may be incomplete in other ways, or contain mistakes.
+  <b>Do not treat this content as an official publication</b>.
 </div>
 {{ end }}

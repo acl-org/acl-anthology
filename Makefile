@@ -307,6 +307,9 @@ autofix: check_staged_xml venv/bin/activate
 	 [ "$${PRE_DIFF}" = "$${POST_DIFF}" ] || EXIT_STATUS=1 ;\
 	 [ $${EXIT_STATUS} -eq 0 ]
 
+.PHONY: reformat
+reformat: autofix
+
 .PHONY: serve
 serve:
 	 @echo "INFO     Starting a server at http://localhost:8000/"
