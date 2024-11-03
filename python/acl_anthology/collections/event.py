@@ -20,7 +20,7 @@ from lxml import etree
 from lxml.builder import E
 from typing import Any, Iterator, Optional, TYPE_CHECKING
 
-from ..files import AttachmentReference
+from ..files import EventFileReference
 from ..people import NameSpecification
 from ..text import MarkupText
 from ..utils.ids import AnthologyIDTuple, parse_id, build_id_from_tuple
@@ -57,7 +57,7 @@ class Event:
     colocated_ids: list[AnthologyIDTuple] = field(
         factory=list, repr=lambda x: f"<list of {len(x)} AnthologyIDTuple objects>"
     )
-    links: dict[str, AttachmentReference] = field(factory=dict, repr=False)
+    links: dict[str, EventFileReference] = field(factory=dict, repr=False)
     talks: list[Talk] = field(factory=list, repr=False)
 
     title: Optional[MarkupText] = field(default=None)
@@ -85,6 +85,32 @@ class Event:
                 )
             yield volume
 
+    def _merge(self, other: Event) -> None:
+        """Merge this event with another one.
+
+        Arguments:
+            other: The event to merge into this one.
+
+        Note:
+            Used whenever an event is created both implicitly _and_ explicitly.
+            See: <https://github.com/acl-org/acl-anthology/issues/2743#issuecomment-2453501562>
+        """
+        if self.id != other.id:
+            raise ValueError("Can only merge two events with the same ID")
+        if other.is_explicit and not self.is_explicit:
+            # Point to the collection where this was explicitly defined
+            self.parent = other.parent
+        self.is_explicit |= other.is_explicit
+        self.colocated_ids.extend(other.colocated_ids)
+        self.links.update(other.links)
+        self.talks.extend(other.talks)
+        if self.title is None:
+            self.title = other.title
+        if self.location is None:
+            self.location = other.location
+        if self.dates is None:
+            self.dates = other.dates
+
     @classmethod
     def from_xml(cls, parent: Collection, event: etree._Element) -> Event:
         """Instantiates a new event from an `<event>` block in the XML."""
@@ -105,7 +131,7 @@ class Event:
                 kwargs["links"] = {}
                 for url in element:
                     type_ = str(url.get("type", "attachment"))
-                    kwargs["links"][type_] = AttachmentReference.from_xml(url)
+                    kwargs["links"][type_] = EventFileReference.from_xml(url)
             elif element.tag == "talk":
                 kwargs["talks"].append(Talk.from_xml(element))
             elif element.tag == "colocated":
@@ -171,7 +197,7 @@ class Talk:
     title: MarkupText = field()
     type: Optional[str] = field(default=None)
     speakers: list[NameSpecification] = field(factory=list)
-    attachments: dict[str, AttachmentReference] = field(factory=dict)
+    attachments: dict[str, EventFileReference] = field(factory=dict)
 
     @classmethod
     def from_xml(cls, element: etree._Element) -> Talk:
@@ -188,7 +214,7 @@ class Talk:
                 kwargs["speakers"].append(NameSpecification.from_xml(meta))
             elif meta.tag == "url":
                 type_ = str(meta.get("type", "attachment"))
-                kwargs["attachments"][type_] = AttachmentReference.from_xml(meta)
+                kwargs["attachments"][type_] = EventFileReference.from_xml(meta)
             else:
                 raise ValueError(f"Unsupported element for Talk: <{meta.tag}>")
         return cls(**kwargs)

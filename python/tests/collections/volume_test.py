@@ -187,10 +187,11 @@ def test_volume_venues_j89(anthology):
 
 def test_volume_venues_naloma(anthology):
     volume = anthology.get_volume("2022.naloma-1")
-    assert volume.venue_ids == ["nlma"]
+    assert volume.venue_ids == ["nlma", "ws"]
     venues = volume.venues()
-    assert len(venues) == 1
+    assert len(venues) == 2
     assert venues[0].id == "nlma"
+    assert venues[1].id == "ws"
 
 
 def test_volume_with_nonexistent_venue(anthology):
