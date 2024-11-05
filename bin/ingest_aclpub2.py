@@ -225,7 +225,7 @@ def add_paper_nums_in_paper_yaml(
     start, end = 1, 0
     for paper in papers:
         if paper["archival"]:
-            assert 'file' in paper.keys(), f'{paper["id"]} is missing key file'
+            assert 'file' in paper.keys(), f'{paper["id"]} is missing key "file"'
 
             paper_id = str(paper['id'])
             # if 'file' not in paper.keys():
@@ -576,85 +576,92 @@ def copy_pdf_and_attachment(
 
     paper_num = 0
     for i, paper in enumerate(papers):
-        assert 'archival' in paper.keys(), f'{paper["id"]} is missing key archival'
-        assert 'file' in paper.keys(), f'{paper["id"]} is missing key file'
+        assert 'archival' in paper.keys(), f'{paper["id"]} is missing key "archival"'
 
-        paper_name = paper['file']
-        # paper_name = paper['file']
-        if paper_name != '' or paper_name is not None:
+        paper_num += 1
+        paper_id_full = f'{collection_id}-{volume_name}.{paper_num}'
+
+        is_archival = paper["archival"]
+
+        volume[paper_num] = {
+            'anthology_id': paper_id_full,
+            'attachments': [],
+            'archival': is_archival,
+        }
+
+        if is_archival:
+            assert 'file' in paper.keys(), f'{paper["id"]} is missing key "file"'
+            paper_name = paper['file']
             paper_id = str(paper['id'])
-            paper_num += 1
-            paper_id_full = f'{collection_id}-{volume_name}.{paper_num}'
 
-            volume[paper_num] = {
-                'anthology_id': paper_id_full,
-                'attachments': [],
-                'archival': paper["archival"],
-            }
+            pdf_src_path = None
+            if (pdfs_src_dir / paper_name).exists():
+                pdf_src_path = pdfs_src_dir / paper_name
+            elif pdfs_src_dir / f'{paper_id}.pdf':
+                pdf_src_path = pdfs_src_dir / f'{paper_id}.pdf'
 
-            if paper["archival"]:
-                pdf_src_path = None
-                if (pdfs_src_dir / paper_name).exists():
-                    pdf_src_path = pdfs_src_dir / paper_name
-                elif pdfs_src_dir / f'{paper_id}.pdf':
-                    pdf_src_path = pdfs_src_dir / f'{paper_id}.pdf'
+            assert (
+                pdf_src_path
+            ), f"Couldn't find {paper_name} or {paper_id} in {pdfs_src_dir}"
+            pdf_dest_path = pdfs_dest_dir / f"{paper_id_full}.pdf"
+            if dry_run:
+                print(f"would've moved {pdf_src_path} to {pdf_dest_path}")
+            if not dry_run:
+                maybe_copy(pdf_src_path, pdf_dest_path)
 
-                assert (
-                    pdf_src_path
-                ), f"Couldn't find {paper_name} or {paper_id} in {pdfs_src_dir}"
-                pdf_dest_path = pdfs_dest_dir / f"{paper_id_full}.pdf"
-                if dry_run:
-                    print(f"would've moved {pdf_src_path} to {pdf_dest_path}")
-                if not dry_run:
-                    maybe_copy(pdf_src_path, pdf_dest_path)
+            volume[paper_num]["pdf"] = pdf_dest_path
 
-                volume[paper_num]["pdf"] = pdf_dest_path
+            # copy attachments
+            if 'attachments' in paper:
+                attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
+                attachs_src_dir = meta['path'] / 'attachments'
+                # assert (
+                #     attachs_src_dir.exists()
+                # ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
 
-        # copy attachments
-        if 'attachments' in paper:
-            attachs_dest_dir = create_dest_path(attachments_dir, venue_name)
-            attachs_src_dir = meta['path'] / 'attachments'
-            # assert (
-            #     attachs_src_dir.exists()
-            # ), f'paper {i, paper_name} contains attachments but attachments folder was not found'
+                for attachment in paper['attachments']:
+                    file_path = Path(attachment.get('file', None))
+                    if file_path is None:
+                        continue
 
-            for attachment in paper['attachments']:
-                file_path = Path(attachment.get('file', None))
-                if file_path is None:
-                    continue
-
-                attach_src_path = None
-                paths_to_check = [
-                    attachs_src_dir / file_path,
-                    attachs_src_dir / file_path.name,
-                ]
-                for path in paths_to_check:
-                    if path.exists():
-                        attach_src_path = str(path)
-                        break
-                else:
-                    print(
-                        f"Warning: paper {paper_id} attachment {file_path} not found, skipping",
-                        file=sys.stderr,
-                    )
-                    continue
-
-                attach_src_extension = attach_src_path.split(".")[-1]
-                type_ = attachment['type'].replace(" ", "")
-                file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}'
-
-                # the destination path
-                attach_dest_path = os.path.join(attachs_dest_dir, file_name).replace(
-                    " ", ""
-                )
-
-                if Path(attach_src_path).exists():
-                    if dry_run:
-                        print(f'would\'ve moved {attach_src_path} to {attach_dest_path}')
+                    attach_src_path = None
+                    paths_to_check = [
+                        attachs_src_dir / file_path,
+                        attachs_src_dir / file_path.name,
+                    ]
+                    for path in paths_to_check:
+                        if path.exists():
+                            attach_src_path = str(path)
+                            break
                     else:
-                        maybe_copy(attach_src_path, attach_dest_path)
-                        print(f"Attaching {attach_dest_path}/{type_} to {paper_num}")
-                        volume[paper_num]['attachments'].append((attach_dest_path, type_))
+                        print(
+                            f"Warning: paper {paper_id} attachment {file_path} not found, skipping",
+                            file=sys.stderr,
+                        )
+                        continue
+
+                    attach_src_extension = attach_src_path.split(".")[-1]
+                    type_ = attachment['type'].replace(" ", "")
+                    file_name = f'{collection_id}-{volume_name}.{paper_num}.{type_}.{attach_src_extension}'
+
+                    # the destination path
+                    attach_dest_path = os.path.join(attachs_dest_dir, file_name).replace(
+                        " ", ""
+                    )
+
+                    if Path(attach_src_path).exists():
+                        if dry_run:
+                            print(
+                                f'would\'ve moved {attach_src_path} to {attach_dest_path}'
+                            )
+                        else:
+                            maybe_copy(attach_src_path, attach_dest_path)
+                            print(
+                                f"Attaching {attach_dest_path} ({type_}) to {paper_num}"
+                            )
+                            volume[paper_num]['attachments'].append(
+                                (attach_dest_path, type_)
+                            )
 
     return volume, collection_id, volume_name, proceedings_pdf_dest_path
 
