@@ -125,7 +125,7 @@ def process_volume(anthology_volume):
             added = add_doi(paper, collection_id, volume_id, force=args.force)
             if added:
                 num_added += 1
-                sleep(1)
+                sleep(0.1)
 
         indent(tree.getroot())
 
