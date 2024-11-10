@@ -281,7 +281,18 @@ def find_paper_attachment(paper_name: str, attachments_dir: str) -> Optional[str
     return attachment_path
 
 
-def join_names(author, fields=["first_name"]):
+def correct_names(author):
+    """
+    A set of corrections we apply to upstream name parsing.
+    """
+    if "middle_name" in author and author["middle_name"].lower() == "de":
+        author["last_name"] = author["middle_name"] + " " + author["last_name"]
+        del author["middle_name"]
+
+    return author
+
+
+def join_names(author, fields=["first_name", "middle_name"]):
     """
     Joins name fields. If you want to merge first names with middle names,
     set fields to ["first_name", "middle_name"]. However, many people enter
@@ -289,7 +300,7 @@ def join_names(author, fields=["first_name"]):
     """
     names = []
     for field in fields:
-        if author[field] is not None:
+        if author.get(field) is not None:
             names.append(author[field])
     return " ".join(names)
 
@@ -313,6 +324,7 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
         if field == 'editor':
             authors = meta['editors']
             for author in authors:
+                author = correct_names(author)
                 name_node = make_simple_element(field, parent=frontmatter_node)
                 make_simple_element('first', join_names(author), parent=name_node)
                 make_simple_element('last', author['last_name'], parent=name_node)
@@ -387,6 +399,8 @@ def paper2xml(
         if field == 'author':
             authors = paper_item['authors']
             for author in authors:
+                author = correct_names(author)
+
                 name_node = make_simple_element(field, parent=paper)
 
                 # swap names (<last> can't be empty)
@@ -487,7 +501,6 @@ def copy_pdf_and_attachment(
     pdfs_dir: str,
     attachments_dir: str,
     papers: List[Dict[str, str]],
-    dry_run: bool,
 ) -> Tuple[Dict[str, Dict[str, str]], str, str, str]:
     """
     Copies PDFs and attachments to ready them for upload. Creates
@@ -531,12 +544,7 @@ def copy_pdf_and_attachment(
     proceedings_pdf_dest_path = None
     if proceedings_pdf_src_path is not None:
         proceedings_pdf_dest_path = pdfs_dest_dir / f"{collection_id}-{volume_name}.pdf"
-        if dry_run:
-            print(
-                f'would\'ve moved {proceedings_pdf_src_path} to {proceedings_pdf_dest_path}'
-            )
-        if not dry_run:
-            maybe_copy(proceedings_pdf_src_path, proceedings_pdf_dest_path)
+        maybe_copy(proceedings_pdf_src_path, proceedings_pdf_dest_path)
     else:
         print("Warning: proceedings.pdf was not found, skipping", file=sys.stderr)
 
@@ -566,10 +574,7 @@ def copy_pdf_and_attachment(
 
     if frontmatter_src_path is not None:
         frontmatter_dest_path = pdfs_dest_dir / f"{collection_id}-{volume_name}.0.pdf"
-        if dry_run:
-            print(f'would\'ve moved {frontmatter_src_path} to {frontmatter_dest_path}')
-        if not dry_run:
-            maybe_copy(frontmatter_src_path, frontmatter_dest_path)
+        maybe_copy(frontmatter_src_path, frontmatter_dest_path)
 
         # create the PDF entry so that we'll get <frontmatter>
         volume[0]['pdf'] = frontmatter_dest_path
@@ -604,10 +609,7 @@ def copy_pdf_and_attachment(
                 pdf_src_path
             ), f"Couldn't find {paper_name} or {paper_id} in {pdfs_src_dir}"
             pdf_dest_path = pdfs_dest_dir / f"{paper_id_full}.pdf"
-            if dry_run:
-                print(f"would've moved {pdf_src_path} to {pdf_dest_path}")
-            if not dry_run:
-                maybe_copy(pdf_src_path, pdf_dest_path)
+            maybe_copy(pdf_src_path, pdf_dest_path)
 
             volume[paper_num]["pdf"] = pdf_dest_path
 
@@ -650,18 +652,9 @@ def copy_pdf_and_attachment(
                     )
 
                     if Path(attach_src_path).exists():
-                        if dry_run:
-                            print(
-                                f'would\'ve moved {attach_src_path} to {attach_dest_path}'
-                            )
-                        else:
-                            maybe_copy(attach_src_path, attach_dest_path)
-                            print(
-                                f"Attaching {attach_dest_path} ({type_}) to {paper_num}"
-                            )
-                            volume[paper_num]['attachments'].append(
-                                (attach_dest_path, type_)
-                            )
+                        maybe_copy(attach_src_path, attach_dest_path)
+                        print(f"Attaching {attach_dest_path} ({type_}) to {paper_num}")
+                        volume[paper_num]['attachments'].append((attach_dest_path, type_))
 
     return volume, collection_id, volume_name, proceedings_pdf_dest_path
 
@@ -871,12 +864,6 @@ def create_xml(
     help='Root path for placement of attachment files',
 )
 @click.option(
-    '-n',
-    '--dry_run',
-    default=False,
-    help='Do not actually copy anything',
-)
-@click.option(
     '-r',
     '--anthology_dir',
     default=os.path.join(os.path.dirname(sys.argv[0]), ".."),
@@ -888,7 +875,7 @@ def create_xml(
     default=f'{datetime.now().year}-{datetime.now().month:02d}-{datetime.now().day:02d}',
     help='Ingestion date',
 )
-def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, ingest_date):
+def main(ingestion_dir, pdfs_dir, attachments_dir, anthology_dir, ingest_date):
     anthology_datadir = Path(sys.argv[0]).parent / ".." / "data"
     # anthology = Anthology(
     #     importdir=anthology_datadir, require_bibkeys=False
@@ -921,7 +908,7 @@ def main(ingestion_dir, pdfs_dir, attachments_dir, dry_run, anthology_dir, inges
         collection_id,
         volume_name,
         proceedings_pdf_dest_path,
-    ) = copy_pdf_and_attachment(meta, pdfs_dir, attachments_dir, papers, dry_run)
+    ) = copy_pdf_and_attachment(meta, pdfs_dir, attachments_dir, papers)
 
     create_xml(
         volume=volume,
