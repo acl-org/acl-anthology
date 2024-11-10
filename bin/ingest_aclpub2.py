@@ -281,6 +281,17 @@ def find_paper_attachment(paper_name: str, attachments_dir: str) -> Optional[str
     return attachment_path
 
 
+def correct_names(author):
+    """
+    A set of corrections we apply to upstream name parsing.
+    """
+    if "middle_name" in author and author["middle_name"].lower() == "de":
+        author["last_name"] = author["middle_name"] + " " + author["last_name"]
+        del author["middle_name"]
+
+    return author
+
+
 def join_names(author, fields=["first_name", "middle_name"]):
     """
     Joins name fields. If you want to merge first names with middle names,
@@ -313,6 +324,7 @@ def proceeding2xml(anthology_id: str, meta: Dict[str, Any], frontmatter):
         if field == 'editor':
             authors = meta['editors']
             for author in authors:
+                author = correct_names(author)
                 name_node = make_simple_element(field, parent=frontmatter_node)
                 make_simple_element('first', join_names(author), parent=name_node)
                 make_simple_element('last', author['last_name'], parent=name_node)
@@ -387,6 +399,8 @@ def paper2xml(
         if field == 'author':
             authors = paper_item['authors']
             for author in authors:
+                author = correct_names(author)
+
                 name_node = make_simple_element(field, parent=paper)
 
                 # swap names (<last> can't be empty)
